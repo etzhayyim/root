@@ -10,7 +10,7 @@
   "governance": {
     "raci": "responsible",
     "classification": "medical-decision-support",
-    "complianceFrameworks": ["medical-decision-support-policy", "gftd-ops-policy"]
+    "complianceFrameworks": ["medical-decision-support-policy", "etzhayyim-ops-policy"]
   },
   "profile": {
     "displayName": "Open Otology — UHL-R",

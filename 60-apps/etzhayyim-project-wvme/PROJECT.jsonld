@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://wvme.etzhayyim.com",
   "name": "etzhayyim-project-wvme",
-  "description": "GFTD WVME - Web Vulnerability Management Engine (OWASP/IPA compliant web application security testing)",
+  "description": "Etzhayyim WVME - Web Vulnerability Management Engine (OWASP/IPA compliant web application security testing)",
   "url": "https://wvme.etzhayyim.com",
   "applicationCategory": "Security",
   "operatingSystem": "Kubernetes",

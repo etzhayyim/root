@@ -3,7 +3,7 @@
  * aggregate stats plaintext; transfer ledger + secure messages sealed via
  * kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100). Balances and transfer
  * history are derived from the E2E ledger. The fiat merchant-of-record
- * settlement rail EXECUTION stays gftd via consent-capability.
+ * settlement rail EXECUTION stays etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

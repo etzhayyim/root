@@ -28,12 +28,12 @@
  *   sdk.encryptedWrite (read-cap = owner DID, auto), so the substrate never sees
  *   an actor's affective profile in plaintext.
  *
- *   STAYS gftd (NOT a collection — consumed via consent-capability) — Murakumo
+ *   STAYS etzhayyim (NOT a collection — consumed via consent-capability) — Murakumo
  *   LLM INFERENCE execution (propagation-chain generation / kyumei drill /
  *   profile repair), credit SPEND + RewardFromCompute SETTLEMENT execution
  *   (yoro.etzhayyim.com/credits), and social-post EXECUTION (postAs actorDid).
  *   These are regulated *acts*; their resulting DATA records migrate (public →
- *   plaintext, per-actor scores → E2E), only the EXECUTION stays gftd.
+ *   plaintext, per-actor scores → E2E), only the EXECUTION stays etzhayyim.
  *
  * AT-Lexicon: no float. Joucho scores are integer 0-100; fan-out / counts are
  * non-negative integers; sponsor credit is a decimal STRING.

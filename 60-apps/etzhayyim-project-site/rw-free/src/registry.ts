@@ -11,7 +11,7 @@
  * follower graph in plaintext.
  *
  * The 100B WET/screenshot crawl archive + crawl/embed/GPU inference are NOT
- * here — they stay gftd (cannot fit AT PDS) and are consumed via
+ * here — they stay etzhayyim (cannot fit AT PDS) and are consumed via
  * consent-capability.
  */
 

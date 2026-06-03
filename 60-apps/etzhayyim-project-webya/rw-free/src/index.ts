@@ -3,7 +3,7 @@
  * + DNS proof tokens + ops timeline plaintext; contact PII + 士業 per-person
  * regulated credentials sealed via kotoba E2E. LLM/LangGraph site-generation
  * inference + CF custom-hostname provisioning call + CF_API_TOKEN custody stay
- * gftd (consent-capability).
+ * etzhayyim (consent-capability).
  */
 export * from "./types.js";
 export {

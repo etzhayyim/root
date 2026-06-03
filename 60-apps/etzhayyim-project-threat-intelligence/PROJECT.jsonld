@@ -20,7 +20,7 @@
   },
   "id": "https://etzhayyim.com/ti/project",
   "type": "ti:Project",
-  "name": "GFTD TI - Threat Intelligence",
+  "name": "Etzhayyim TI - Threat Intelligence",
   "description": "Cybercrime IOC collection, deduplication, and public disclosure (email, URL, domain, IP, etc).",
   "version": "0.1.0",
   "createdAt": "2026-02-15T00:00:00Z",
@@ -52,7 +52,7 @@
             }
           ],
           "@type": "CreativeWork",
-          "name": "GFTD TI - Threat Intelligence Scheduler",
+          "name": "Etzhayyim TI - Threat Intelligence Scheduler",
           "identifier": "etzhayyim-project-threat-intelligence/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",

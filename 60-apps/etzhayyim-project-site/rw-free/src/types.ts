@@ -6,7 +6,7 @@
  * Founder directive 2026-06-03: MAXIMAL migration — front the page/domain/topic
  * CATALOG metadata plaintext; front per-person follower-subscription activity
  * E2E; only the irreducible regulated EXECUTION + the physically-too-large
- * archive stay gftd.
+ * archive stay etzhayyim.
  *
  * SPLIT:
  *   PLAINTEXT (public AT records, sdk.write/read) — the catalog: topic
@@ -19,11 +19,11 @@
  *   "Who is tracking what" is message-metadata, never public — sealed via
  *   sdk.encryptedWrite, read-cap = owner DID + explicit recipients.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   100B-page WET/screenshot crawl archive (physically cannot fit AT PDS) + the
  *   crawl / embed / screenshot pipeline + Murakumo GPU embedding INFERENCE. The
  *   catalog metadata above fronts plaintext; the bulk content + compute stay
- *   gftd-resident.
+ *   etzhayyim-resident.
  *
  * AT-Lexicon: no float (counts/depths/codes are integers; quality/priority are
  * integer 0-100). No money fields here.

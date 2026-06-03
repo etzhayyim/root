@@ -6,7 +6,7 @@
  * mock fetch, `handleMatchQuery` end-to-end with mock fetch).
  *
  * We don't spin up a real CF Worker — the `createWorkerExport` wrapper
- * in `app.ts` is exercised by `wrangler dev` / `gftd deploy`. Here we
+ * in `app.ts` is exercised by `wrangler dev` / `etzhayyim deploy`. Here we
  * test the handler logic that lives behind it.
  */
 import {describe, it, expect, vi} from "vitest";

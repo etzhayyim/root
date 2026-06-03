@@ -3,7 +3,7 @@
  *
  * Extracted from app.ts so the unit tests can exercise it without
  * pulling in @etzhayyim/magatama-host-sdk (which the workspace resolves
- * via `gftd deploy` at deploy time, not via vitest).
+ * via `etzhayyim deploy` at deploy time, not via vitest).
  *
  * The default-export Worker in app.ts plugs `handleMatchQuery` into
  * `sdk.app.query(nsid(...), ...)`.

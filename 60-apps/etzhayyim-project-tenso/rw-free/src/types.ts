@@ -20,7 +20,7 @@
  *   recipient genuinely holds a read-cap) + any explicit extra recipients. The
  *   substrate never sees this in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability) — B2 chunk blob store/download
+ *   STAYS etzhayyim (consumed via consent-capability) — B2 chunk blob store/download
  *   EXECUTION; Signal X3DH / prekey-bundle custody (secret custody); download-
  *   limit + revoke ENFORCEMENT (blocking ACTIONS). The regulated *acts*, not the
  *   resulting data records.

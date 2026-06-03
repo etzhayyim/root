@@ -10,7 +10,7 @@
  *   sealed in the kotoba envelope (ADR-2605181100); read-cap = owner DID +
  *   explicit recipients. The substrate never sees the PII in plaintext.
  *
- * STAYS gftd (consent-capability): LLM/LangGraph site-generation INFERENCE +
+ * STAYS etzhayyim (consent-capability): LLM/LangGraph site-generation INFERENCE +
  * CF-for-SaaS custom-hostname provisioning CALL + CF_API_TOKEN credential
  * custody. Only the resulting DATA records migrate here.
  */
