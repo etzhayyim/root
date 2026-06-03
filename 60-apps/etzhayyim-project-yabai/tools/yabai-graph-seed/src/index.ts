@@ -75,8 +75,8 @@ function main(): void {
   const args = parseArgs();
 
   const repoRoot = findRepoRoot();
-  const resourcesRoot = args.resourcesRoot || path.join(repoRoot, "projects", "ai-gftd-project-resources", "content");
-  const outputRoot = args.outputRoot || path.join(repoRoot, "projects", "ai-gftd-project-yabai", "content");
+  const resourcesRoot = args.resourcesRoot || path.join(repoRoot, "projects", "etzhayyim-project-resources", "content");
+  const outputRoot = args.outputRoot || path.join(repoRoot, "projects", "etzhayyim-project-yabai", "content");
 
   const entities = new Map<string, Entity>();
   const evidences: Evidence[] = [];
@@ -440,7 +440,7 @@ function writeOutput(
   for (const ev of sortedEvidences) {
     const doc: Record<string, unknown> = {
       "@context": YABAI_CONTEXT,
-      "@type": "gftd:YabaiEvidence",
+      "@type": "etzhayyim:YabaiEvidence",
       "@id": ev.id,
       evidenceId: ev.evidenceID,
       entityId: ev.entityID,
@@ -462,7 +462,7 @@ function writeOutput(
     const rs = riskByEntity.get(id)!;
     writeJSON(path.join(riskDir, id + ".jsonld"), {
       "@context": YABAI_CONTEXT,
-      "@type": "gftd:YabaiRiskScore",
+      "@type": "etzhayyim:YabaiRiskScore",
       "@id": YABAI_BASE_ID + "/risk/" + id,
       entityId: rs.entityID,
       wellBecomingScore: rs.wellBecomingScore,

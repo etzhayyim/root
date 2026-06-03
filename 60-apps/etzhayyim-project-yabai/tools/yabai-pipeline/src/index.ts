@@ -2,14 +2,14 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 const DEFAULT_ENDPOINT = "https://yabai.etzhayyim.com";
-const SERVICE_PATH = "/xrpc/gftd.yabai.v1.YabaiService";
+const SERVICE_PATH = "/xrpc/etzhayyim.yabai.v1.YabaiService";
 const BATCH_SIZE = 5;
 
 async function main(): Promise<void> {
   const endpoint = process.argv[2] ?? DEFAULT_ENDPOINT;
 
   const repoRoot = findRepoRoot();
-  const contentDir = path.join(repoRoot, "projects", "ai-gftd-project-yabai", "content");
+  const contentDir = path.join(repoRoot, "projects", "etzhayyim-project-yabai", "content");
   const watchlistPath = path.join(contentDir, "source", "watchlist.jsonld");
 
   // ── 1. Load watchlist ──
