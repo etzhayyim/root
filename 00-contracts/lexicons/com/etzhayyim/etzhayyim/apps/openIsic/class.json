@@ -5,7 +5,7 @@
     "main": {
       "type": "record",
       "key": "literal:{code}",
-      "description": "ISIC Rev.4 4-digit class definition. AT Protocol record carrying the canonical taxonomy entry — `code` is the 4-digit class, `section` (1 letter A–U) / `division` (2 digits) / `group` (3 digits) materialize the hierarchy as MST-traversal prefixes. Seeded once per ISIC revision (~10 year cadence) from `60-apps/ai-gftd-project-open-isic/data/classes/{code}.json`. Per ADR-2605172000 substrate posture: replaces the legacy `vertex_open_isic_class` RW table with an MST + IPFS-anchored record set. Substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) provides the trust-less verification path for the taxonomy itself.",
+      "description": "ISIC Rev.4 4-digit class definition. AT Protocol record carrying the canonical taxonomy entry — `code` is the 4-digit class, `section` (1 letter A–U) / `division` (2 digits) / `group` (3 digits) materialize the hierarchy as MST-traversal prefixes. Seeded once per ISIC revision (~10 year cadence) from `60-apps/etzhayyim-project-open-isic/data/classes/{code}.json`. Per ADR-2605172000 substrate posture: replaces the legacy `vertex_open_isic_class` RW table with an MST + IPFS-anchored record set. Substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) provides the trust-less verification path for the taxonomy itself.",
       "record": {
         "type": "object",
         "required": [
