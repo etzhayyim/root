@@ -78,7 +78,7 @@
     "description": "Corporate ERP intelligence — AI-driven accounting (GL/AP/AR), HR/payroll, procurement, inventory, sales order management. Multi-DID per department.",
     "displayName": "Kyber ERP",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "kyber",
   "runtimeType": "worker",

@@ -1,4 +1,4 @@
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,13 +6,13 @@ export default {
     './index.html',
     './src/**/*.{html,js,svelte,ts}',
     '../../../../../40-engine/svelte/design-system/dist/**/*.{svelte,js}',
-    '../../../ai-gftd-project-calendar/appview/calendar-mcp-component/svelte/src/**/*.{svelte,ts}'
+    '../../../etzhayyim-project-calendar/appview/calendar-mcp-component/svelte/src/**/*.{svelte,ts}'
   ],
   darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        gftd: {
+        etzhayyim: {
           bg: 'var(--gv2-bg-primary)',
           sidebar: 'var(--gv2-bg-sidebar)',
           hover: 'var(--gv2-bg-hover)',
@@ -38,5 +38,5 @@ export default {
       }
     }
   },
-  plugins: [gftdUIKit]
+  plugins: [etzhayyimUIKit]
 };

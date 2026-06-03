@@ -1,24 +1,24 @@
-# ai-gftd-project-open-kyber — Open Source ERP (APQC-aligned)
+# etzhayyim-project-open-kyber — Open Source ERP (APQC-aligned)
 
-**Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/etzhayyim/ai-gftd-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.etzhayyim.com`). Legacy gftd tenancy remains a separate proprietary deployment.
+**Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/etzhayyim/etzhayyim-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.etzhayyim.com`). Legacy etzhayyim tenancy remains a separate proprietary deployment.
 
-**Consolidates** the former `ai-gftd-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `com.etzhayyim.apps.kyber.*` / `com.etzhayyim.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).
+**Consolidates** the former `etzhayyim-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `com.etzhayyim.apps.kyber.*` / `com.etzhayyim.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).
 
 ## Folder Layout
 
 ```
-60-apps/ai-gftd-project-open-kyber/
+60-apps/etzhayyim-project-open-kyber/
 ├── CLAUDE.md                                   # this file
 ├── PROJECT.jsonld                              # schema.org (Apache-2.0)
 ├── README.md                                   # OSS public readme
-├── ai-gftd-wasm-kyber-erp-kyb3rerp/            # ERP Worker (kyber.etzhayyim.com, nanoid kyb3rerp)
+├── etzhayyim-wasm-kyber-erp-kyb3rerp/            # ERP Worker (kyber.etzhayyim.com, nanoid kyb3rerp)
 │   ├── magatama.jsonld                         # AI-Agent profile + triggers
 │   ├── wrangler.jsonc                          # CF Worker config
 │   ├── package.json
 │   ├── src/app.ts                              # single-file ERP business logic (24 XRPC commands)
 │   ├── svelte/                                 # Hono + Svelte read/write SPA
 │   └── e2e/                                    # Playwright visual tests
-└── ai-gftd-wasm-kyber-projector-kyb3proj/      # APQC/BPMN/OCEL projector (kyber-projector.etzhayyim.com)
+└── etzhayyim-wasm-kyber-projector-kyb3proj/      # APQC/BPMN/OCEL projector (kyber-projector.etzhayyim.com)
     ├── magatama.jsonld                         # 13 entities[] for path-based L1 DIDs
     ├── wrangler.jsonc
     ├── package.json
@@ -40,7 +40,7 @@
 
 | Artifact | License |
 |---|---|
-| `CLAUDE.md`, `README.md`, `PROJECT.jsonld`, `ai-gftd-wasm-kyber-erp-kyb3rerp/**`, `ai-gftd-wasm-kyber-projector-kyb3proj/**` | Apache-2.0 |
+| `CLAUDE.md`, `README.md`, `PROJECT.jsonld`, `etzhayyim-wasm-kyber-erp-kyb3rerp/**`, `etzhayyim-wasm-kyber-projector-kyb3proj/**` | Apache-2.0 |
 | Deployed `kyber.etzhayyim.com` + `kyber-projector.etzhayyim.com` (and legacy `*.etzhayyim.com`) tenant data, Signal keys, Hyperdrive creds | Proprietary (not in repo) |
 | `00-contracts/lexicons/com/etzhayyim/kyber/**`, `00-contracts/lexicons/com/etzhayyim/app/kyber/**` | Apache-2.0 (contract) |
 | `90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md` | Apache-2.0 (governance record) |
@@ -133,12 +133,12 @@ ERP write (createJournalEntry etc.)
 
 ```bash
 # ERP
-cd 60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp
+cd 60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp
 pnpm install
 e7m actor deploy .
 
 # Projector
-cd 60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-projector-kyb3proj
+cd 60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-projector-kyb3proj
 pnpm install
 e7m actor deploy .
 ```
@@ -146,7 +146,7 @@ e7m actor deploy .
 ## Svelte SPA
 
 ```bash
-cd 60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/svelte
+cd 60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp/svelte
 pnpm install
 pnpm build
 pnpm start
@@ -158,9 +158,9 @@ Hono server serves `dist/` and fallbacks to `index.html`. Svelte SPA calls `/xrp
 
 | Project | Relationship |
 |---|---|
-| `ai-gftd-project-apqc` | Upstream PCF 13 L1 classification SSoT (183 sub-DIDs). |
-| `ai-gftd-project-bpmn` | Upstream BPMN 2.0 registry. |
-| `ai-gftd-project-open-jpn-gov` | Sibling Apache-2.0 mirror pattern. |
+| `etzhayyim-project-apqc` | Upstream PCF 13 L1 classification SSoT (183 sub-DIDs). |
+| `etzhayyim-project-bpmn` | Upstream BPMN 2.0 registry. |
+| `etzhayyim-project-open-jpn-gov` | Sibling Apache-2.0 mirror pattern. |
 | ADR-0025 | Consolidation rationale (13-WASM → 1 Worker, η 0.08 → 0.95). |
 
 ## Not in Scope (integrator responsibility)
@@ -170,11 +170,11 @@ Hono server serves `dist/` and fallbacks to `index.html`. Svelte SPA calls `/xrp
 - Consolidation / inter-company elimination
 - Country-specific tax filing
 - Bank feed ingestion
-- Signal E2E encrypted fields (use `ai-gftd-project-vault`)
+- Signal E2E encrypted fields (use `etzhayyim-project-vault`)
 
 ## Migration Note (2026-04-15)
 
-Former path `60-apps/ai-gftd-project-kyber/appview/*` has been consolidated into `60-apps/ai-gftd-project-open-kyber/*`. Git history preserved via `git mv`. No NSID, DID, or deployed-record rename. Updated:
+Former path `60-apps/etzhayyim-project-kyber/appview/*` has been consolidated into `60-apps/etzhayyim-project-open-kyber/*`. Git history preserved via `git mv`. No NSID, DID, or deployed-record rename. Updated:
 
 - `deps.toml [[conventions]]` source paths (ADR-0025 row)
 - `90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md` Implementation + References

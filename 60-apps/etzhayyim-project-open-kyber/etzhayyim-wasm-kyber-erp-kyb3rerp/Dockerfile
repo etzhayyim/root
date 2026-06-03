@@ -1,4 +1,4 @@
-# GFTD Auto-Generated Dockerfile
+# ETZHAYYIM Auto-Generated Dockerfile
 # Type: worker | Stack: node
 
 FROM node:22-slim AS builder

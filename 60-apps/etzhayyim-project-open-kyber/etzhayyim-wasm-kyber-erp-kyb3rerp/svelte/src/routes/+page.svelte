@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Kyber Erp Kyb3rerp",
-  "project": "ai-gftd-project-open-kyber",
-  "name": "ai-gftd-wasm-kyber-erp-kyb3rerp",
+  "project": "etzhayyim-project-open-kyber",
+  "name": "etzhayyim-wasm-kyber-erp-kyb3rerp",
   "kind": "cloudflare surface",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp/svelte/src/routes/+page.svelte"
 };
 </script>
 

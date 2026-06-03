@@ -5,7 +5,7 @@
   import Overview from './apps/Overview.svelte';
   import Appview from './apps/Appview.svelte';
   import Projector from './apps/Projector.svelte';
-  // Calendar UI imported as a workspace package from 60-apps/ai-gftd-project-calendar
+  // Calendar UI imported as a workspace package from 60-apps/etzhayyim-project-calendar
   import CalendarApp from '@etzhayyim/kyber-calendar-frontend';
   import Drive from './apps/Drive.svelte';
   import Mailer from './apps/Mailer.svelte';
@@ -28,14 +28,14 @@
 <div class="h-full grid grid-rows-[auto_1fr] bg-etzhayyim-bg text-etzhayyim-text">
   <!-- Top bar -->
   <header
-    class="flex items-center justify-between gap-3 px-4 border-b border-etzhayyim-border bg-gftd-sidebar"
+    class="flex items-center justify-between gap-3 px-4 border-b border-etzhayyim-border bg-etzhayyim-sidebar"
     style="height: var(--gv2-header-height);"
   >
     <div class="flex items-center gap-3">
       <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-400 grid place-items-center text-white font-bold">K</div>
       <div class="leading-tight">
         <h1 class="text-sm font-semibold">Kyber Command Center</h1>
-        <p class="text-[11px] text-etzhayyim-muted">kyber.etzhayyim.com · designsystem + gftduikit</p>
+        <p class="text-[11px] text-etzhayyim-muted">kyber.etzhayyim.com · designsystem + etzhayyimuikit</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
@@ -62,15 +62,15 @@
 
   <div class="grid grid-cols-[72px_minmax(0,1fr)] lg:grid-cols-[72px_minmax(0,1fr)_360px] min-h-0">
     <!-- Left rail: apps -->
-    <nav class="flex flex-col items-center gap-1 py-3 border-r border-etzhayyim-border bg-gftd-sidebar overflow-y-auto">
+    <nav class="flex flex-col items-center gap-1 py-3 border-r border-etzhayyim-border bg-etzhayyim-sidebar overflow-y-auto">
       {#each apps as a}
         <button
           type="button"
           class="w-14 h-14 rounded-2xl grid place-items-center text-[11px] font-semibold transition"
-          class:bg-gftd-hover={active === a.id}
+          class:bg-etzhayyim-hover={active === a.id}
           class:text-etzhayyim-text={active === a.id}
           class:text-etzhayyim-secondary={active !== a.id}
-          class:hover:bg-gftd-hover={true}
+          class:hover:bg-etzhayyim-hover={true}
           title={a.label}
           onclick={() => (active = a.id)}
         >
@@ -126,10 +126,10 @@
     </main>
 
     <!-- Right inspector (lg+) -->
-    <aside class="hidden lg:flex flex-col gap-4 border-l border-etzhayyim-border bg-gftd-sidebar p-4 overflow-y-auto">
+    <aside class="hidden lg:flex flex-col gap-4 border-l border-etzhayyim-border bg-etzhayyim-sidebar p-4 overflow-y-auto">
       <div>
         <h3 class="text-xs font-semibold uppercase tracking-wider text-etzhayyim-muted mb-2">Response Inspector</h3>
-        <pre class="text-[11px] leading-snug bg-gftd-input rounded-lg p-3 overflow-auto max-h-[45vh] border border-etzhayyim-border">{resultPretty}</pre>
+        <pre class="text-[11px] leading-snug bg-etzhayyim-input rounded-lg p-3 overflow-auto max-h-[45vh] border border-etzhayyim-border">{resultPretty}</pre>
       </div>
       <div>
         <h3 class="text-xs font-semibold uppercase tracking-wider text-etzhayyim-muted mb-2">Activity</h3>

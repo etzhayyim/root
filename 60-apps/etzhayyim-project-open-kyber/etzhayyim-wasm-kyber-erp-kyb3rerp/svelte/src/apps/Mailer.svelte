@@ -96,7 +96,7 @@
 
 <div class="grid grid-cols-[200px_320px_minmax(0,1fr)] gap-0 -m-5 min-h-[calc(100vh-160px)]">
   <!-- Left rail -->
-  <aside class="border-r border-etzhayyim-border bg-gftd-sidebar p-3 flex flex-col gap-3">
+  <aside class="border-r border-etzhayyim-border bg-etzhayyim-sidebar p-3 flex flex-col gap-3">
     <Button size="md" variant="solid-fill" onclick={() => (composing = true)}>
       ✏️ Compose
     </Button>
@@ -108,7 +108,7 @@
           class:bg-etzhayyim-accent={folder === f.id}
           class:text-white={folder === f.id}
           class:font-semibold={folder === f.id}
-          class:hover:bg-gftd-hover={folder !== f.id}
+          class:hover:bg-etzhayyim-hover={folder !== f.id}
           onclick={() => { folder = f.id; selected = null; }}
         >
           <span class="flex items-center gap-3"><span>{f.icon}</span>{f.label}</span>
@@ -137,8 +137,8 @@
       {#each filtered as t}
         <button
           type="button"
-          class="w-full text-left px-3 py-2 border-b border-etzhayyim-border/40 hover:bg-gftd-hover flex flex-col gap-0.5"
-          class:bg-gftd-hover={selected?.id === t.id}
+          class="w-full text-left px-3 py-2 border-b border-etzhayyim-border/40 hover:bg-etzhayyim-hover flex flex-col gap-0.5"
+          class:bg-etzhayyim-hover={selected?.id === t.id}
           onclick={() => (selected = t)}
         >
           <div class="flex items-center gap-2">
@@ -205,11 +205,11 @@
     <div
       role="dialog"
       tabindex="-1"
-      class="absolute right-6 bottom-6 w-[520px] max-w-[calc(100vw-3rem)] rounded-t-xl rounded-b-xl bg-gftd-card border border-etzhayyim-border shadow-2xl flex flex-col max-h-[80vh]"
+      class="absolute right-6 bottom-6 w-[520px] max-w-[calc(100vw-3rem)] rounded-t-xl rounded-b-xl bg-etzhayyim-card border border-etzhayyim-border shadow-2xl flex flex-col max-h-[80vh]"
       onclick={(e) => e.stopPropagation()}
       onkeydown={(e) => e.stopPropagation()}
     >
-      <header class="px-4 py-2 bg-gftd-sidebar rounded-t-xl flex items-center justify-between">
+      <header class="px-4 py-2 bg-etzhayyim-sidebar rounded-t-xl flex items-center justify-between">
         <span class="text-sm font-semibold">New message</span>
         <button type="button" class="text-etzhayyim-muted" onclick={() => (composing = false)}>✕</button>
       </header>

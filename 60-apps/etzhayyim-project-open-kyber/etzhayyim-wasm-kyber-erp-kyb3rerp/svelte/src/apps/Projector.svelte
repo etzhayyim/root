@@ -115,7 +115,7 @@
 
 <div class="grid grid-cols-[260px_minmax(0,1fr)] gap-0 -m-5 min-h-[calc(100vh-160px)]">
   <!-- Left: project tree -->
-  <aside class="border-r border-etzhayyim-border bg-gftd-sidebar p-3 flex flex-col gap-3 overflow-y-auto">
+  <aside class="border-r border-etzhayyim-border bg-etzhayyim-sidebar p-3 flex flex-col gap-3 overflow-y-auto">
     <Button size="md" variant="solid-fill"
       onclick={() => run(nsid.newProjectConvo, { name: 'New Project ' + new Date().toLocaleDateString() })}>
       ＋ New project
@@ -124,8 +124,8 @@
     <ul class="text-sm">
       {#each flat as n}
         <li
-          class="flex items-center gap-1 py-1.5 rounded-md hover:bg-gftd-hover"
-          class:bg-gftd-hover={activeId === n.convoId}
+          class="flex items-center gap-1 py-1.5 rounded-md hover:bg-etzhayyim-hover"
+          class:bg-etzhayyim-hover={activeId === n.convoId}
           class:font-semibold={activeId === n.convoId}
           style={`padding-left: ${n.depth * 14 + 8}px`}
         >
@@ -175,7 +175,7 @@
         <button
           type="button"
           class="px-3 py-1.5 rounded-md transition"
-          class:bg-gftd-hover={view === v}
+          class:bg-etzhayyim-hover={view === v}
           class:font-semibold={view === v}
           onclick={() => (view = v)}
         >{v}</button>
@@ -185,23 +185,23 @@
     <div class="flex-1 overflow-auto">
       {#if view === 'overview'}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
-          <div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+          <div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
             <p class="text-[11px] uppercase tracking-wider text-etzhayyim-muted">Tasks</p>
             <p class="text-3xl font-semibold mt-1">{tasks.length}</p>
             <p class="text-xs text-etzhayyim-secondary">{tasks.filter(t => t.done).length} done · {tasks.filter(t => !t.done).length} open</p>
           </div>
-          <div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+          <div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
             <p class="text-[11px] uppercase tracking-wider text-etzhayyim-muted">Messages</p>
             <p class="text-3xl font-semibold mt-1">{msgs.length}</p>
             <p class="text-xs text-etzhayyim-secondary">across {new Set(msgs.map(m => m.from)).size} actor(s)</p>
           </div>
-          <div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+          <div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
             <p class="text-[11px] uppercase tracking-wider text-etzhayyim-muted">Reflections</p>
             <p class="text-3xl font-semibold mt-1">3</p>
             <p class="text-xs text-etzhayyim-secondary">last: 09:30 (Acc Bot)</p>
           </div>
 
-          <div class="md:col-span-3 rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+          <div class="md:col-span-3 rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
             <p class="text-sm font-semibold mb-3">Members</p>
             <div class="flex flex-wrap gap-2">
               {#each ['AP Bot', 'Acc Bot', 'HR Bot', 'me'] as m}
@@ -223,7 +223,7 @@
           </div>
           <ul class="flex flex-col gap-1">
             {#each tasks as t}
-              <li class="flex items-center gap-3 rounded-lg border border-etzhayyim-border bg-gftd-card px-3 py-2 hover:bg-gftd-hover">
+              <li class="flex items-center gap-3 rounded-lg border border-etzhayyim-border bg-etzhayyim-card px-3 py-2 hover:bg-etzhayyim-hover">
                 <input
                   type="checkbox"
                   checked={t.done}
@@ -254,7 +254,7 @@
                     class="max-w-[70%] rounded-2xl px-3 py-2"
                     class:bg-etzhayyim-accent={m.type === 'human'}
                     class:text-white={m.type === 'human'}
-                    class:bg-gftd-card={m.type !== 'human'}
+                    class:bg-etzhayyim-card={m.type !== 'human'}
                     class:border={m.type !== 'human'}
                     class:border-etzhayyim-border={m.type !== 'human'}
                   >
@@ -286,13 +286,13 @@
 
       {:else if view === 'reflections'}
         <div class="px-5 py-4 flex flex-col gap-3">
-          <div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+          <div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
             <div class="flex items-center gap-2 text-xs text-etzhayyim-muted mb-2">
               <Badge value="Reflexion" variant="accent" /> Acc Bot · 09:30
             </div>
             <p class="text-sm">Prior close cycle missed 12 invoices in suspense. Recommend pre-close suspense audit step.</p>
           </div>
-          <div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+          <div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
             <div class="flex items-center gap-2 text-xs text-etzhayyim-muted mb-2">
               <Badge value="Self-Consistency" variant="accent" /> AP Bot · 08:50
             </div>
