@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-swift — interbank messaging (ISO 20022 pacs.008-style)
+// etzhayyim-project-open-swift — interbank messaging (ISO 20022 pacs.008-style)
 //
 // 6 XRPC under com.etzhayyim.apps.openSwift.*:
 //   registerInstitution            (proc)   participant directory entry

@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-swift-credit-transfer"
-                  targetNamespace="https://gftd.ai/bpmn/open-swift">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-swift">
   <bpmn:process id="customerCreditTransfer" name="Customer Credit Transfer" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Init" name="Transfer initiated by debtor agent"/>
     <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectForm"/>

@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-swift",
-  "convoSystemPrompt": "You are the GFTD Open Swift agent. You operate a DID-addressed interbank messaging service (ISO 20022 pacs.008-style customer credit transfer + pacs.002/camt.029 ACK). Apply screening DMN, enforce UETR uniqueness and ACK lineage, and emit redacted public audit posts.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Swift agent. You operate a DID-addressed interbank messaging service (ISO 20022 pacs.008-style customer credit transfer + pacs.002/camt.029 ACK). Apply screening DMN, enforce UETR uniqueness and ACK lineage, and emit redacted public audit posts.",
   "governance": {
     "raci": "responsible",
     "classification": "pii-tier3",
-    "complianceFrameworks": ["iso-20022", "iso-9362-bic", "fatf-aml", "gftd-finops-policy"]
+    "complianceFrameworks": ["iso-20022", "iso-9362-bic", "fatf-aml", "etzhayyim-finops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Swift",
+    "displayName": "ETZHAYYIM Open Swift",
     "description": "Open-source interbank messaging reference implementation — pacs.008 customer credit transfer + pacs.002/camt.029 ACK + DMN screening.",
     "avatar": "🏛️",
     "category": "fintech",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "institution-registry",
@@ -39,7 +39,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Swift",
+    "name": "ETZHAYYIM Open Swift",
     "description": "Open-source interbank messaging reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",

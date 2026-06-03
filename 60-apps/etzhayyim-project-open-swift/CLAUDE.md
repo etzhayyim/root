@@ -38,7 +38,7 @@ DID-addressed interbank wire-transfer messaging — companion to
 ## Local Dev / Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-swift/worker
-wrangler d1 create ai-gftd-open-swift
+cd 60-apps/etzhayyim-project-open-swift/worker
+wrangler d1 create etzhayyim-open-swift
 e7m actor deploy .
 ```
