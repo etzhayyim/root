@@ -3,6 +3,21 @@
 Honest status per the gov-coverage maturity model (ADR-2605250680). Coverage gated
 by `:sourcing` (G5): only `:authoritative` rows count.
 
+## 2026-06-03 — independent oversight / accountability bodies (135)
+
+On-mission layer (consumed by danjo/toritate/himotoki): independent accountability
+institutions, `:level :agency` `:branch :independent`, subagent Wikidata pulls:
+- `gov-units.oversight-audit.edn` **19** — supreme audit institutions (courts of audit
+  / national audit offices; `Q10983451`∪`Q43306178`).
+- `gov-units.oversight-ombudsman.edn` **24** — ombudsman / public-defender offices (`Q169180`).
+- `gov-units.oversight-electoral.edn` **65** — electoral management bodies (`Q935741`).
+- `gov-units.oversight-nhri.edn` **27** — national human-rights institutions
+  (`Q4806410`∪`Q3511443`).
+135 bodies; national statistical offices (`Q480242`) deferred (WDQS timeouts).
+HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
+one-per-country dedup may pick a non-national body for a few states. Atlas now
+**6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
+
 ## 2026-06-03 — schema maturity (enum-validated levels/branches + atlas dashboard)
 
 Hardened the substrate now that coverage spans 6,031 units:
