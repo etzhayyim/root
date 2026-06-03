@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-airplane",
-  "convoSystemPrompt": "You are the GFTD Open Airplane agent. You manage aviation operations: airport directory, aircraft registry, flight scheduling with OOOI status, and incident reporting. Apply ICAO Annex 13 occurrence categories, enforce OOOI ordering, and emit authority audit posts on accidents and serious incidents.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Airplane agent. You manage aviation operations: airport directory, aircraft registry, flight scheduling with OOOI status, and incident reporting. Apply ICAO Annex 13 occurrence categories, enforce OOOI ordering, and emit authority audit posts on accidents and serious incidents.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["icao-annex-13", "icao-doc-4444", "iata-codes", "gftd-ops-policy"]
+    "complianceFrameworks": ["icao-annex-13", "icao-doc-4444", "iata-codes", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Airplane",
+    "displayName": "ETZHAYYIM Open Airplane",
     "description": "Open-source aviation operations reference implementation — airport + aircraft + flight + OOOI status + ICAO Annex 13 incident severity.",
     "avatar": "✈️",
     "category": "transport",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "airport-directory",
@@ -42,7 +42,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Airplane",
+    "name": "ETZHAYYIM Open Airplane",
     "description": "Open-source aviation operations reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",

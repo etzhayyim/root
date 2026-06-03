@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-airplane-report-incident"
-                  targetNamespace="https://gftd.ai/bpmn/open-airplane">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-airplane">
   <bpmn:process id="reportAviationIncident" name="Report Aviation Incident" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Init" name="Incident detected"/>
     <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectForm"/>

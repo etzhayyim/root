@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-airplane-incident-severity"
              name="Aviation Incident Severity"
-             namespace="https://gftd.ai/dmn/open-airplane">
+             namespace="https://etzhayyim.com/dmn/open-airplane">
   <decision id="openAirplane.incidentSeverity" name="Aviation Incident Severity">
     <decisionTable id="dt_av_severity" hitPolicy="FIRST">
       <input id="i_fatalities" label="fatalities">

@@ -40,7 +40,7 @@ Apache-2.0.
 ## Local Dev / Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-airplane/worker
-wrangler d1 create ai-gftd-open-airplane
+cd 60-apps/etzhayyim-project-open-airplane/worker
+wrangler d1 create etzhayyim-open-airplane
 e7m actor deploy .
 ```

@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-airplane — aviation operations + airport network
+// etzhayyim-project-open-airplane — aviation operations + airport network
 //
 // 8 XRPC under com.etzhayyim.apps.openAirplane.*:
 //   defineAirport         (proc)  airport (ICAO + IATA + runways)
