@@ -16,24 +16,33 @@ from cell import ReconcileCell, reconcile  # noqa: E402
 def test_bundled_promotes_expected_units():
     rep = reconcile()
     # full JP central + proof-of-model chain + country/ministry breadth rows
-    assert rep["total_units"] == 38, rep["total_units"]
-    # exactly the 36 units present in authority-reference.edn, all agreeing.
+    assert rep["total_units"] == 56, rep["total_units"]
+    # exactly the 54 units present in authority-reference.edn, all agreeing.
     # (2026-06-03: authority-reference expanded 8 → 26 after the QID-integrity fix
     #  — every JP-subnational/agency QID had been fabricated; see MATURITY.md — then
-    #  → 30 adding web-verified France + Canada, → 36 adding Italy + Australia +
-    #  India country+finance-ministry rows, completing the G7 nations.)
-    assert rep["coverage"]["authoritative_after"] == 36
+    #  → 30 (FR+CA), → 36 (IT+AU+IN, G7 complete), → 54 adding the remaining G20
+    #  nations CN/BR/RU/MX/ID/TR/ZA/AR/SA, each country+finance-ministry, all
+    #  web-verified.)
+    assert rep["coverage"]["authoritative_after"] == 54
     assert rep["promoted_to_authoritative"] == [
+        "gov.arg",
+        "gov.arg.economia",
         "gov.aus",
         "gov.aus.treasury",
+        "gov.bra",
+        "gov.bra.fazenda",
         "gov.can",
         "gov.can.fin",
+        "gov.chn",
+        "gov.chn.mof",
         "gov.deu",
         "gov.eu",
         "gov.fra",
         "gov.fra.minefi",
         "gov.gbr",
         "gov.gbr.hmrc",
+        "gov.idn",
+        "gov.idn.kemenkeu",
         "gov.ind",
         "gov.ind.mof",
         "gov.ita",
@@ -57,9 +66,19 @@ def test_bundled_promotes_expected_units():
         "gov.jpn.pref.13",
         "gov.jpn.reconstruction",
         "gov.kor",
+        "gov.mex",
+        "gov.mex.shcp",
+        "gov.rus",
+        "gov.rus.minfin",
+        "gov.sau",
+        "gov.sau.mof",
+        "gov.tur",
+        "gov.tur.hmb",
         "gov.usa",
         "gov.usa.treasury",
         "gov.usa.treasury.irs",
+        "gov.zaf",
+        "gov.zaf.treasury",
     ]
 
 
@@ -76,7 +95,7 @@ def test_no_conflicts_and_honest_remainder():
 def test_cell_bundled_mode_ok():
     out = ReconcileCell().solve({"mode": "bundled"})
     assert out["status"] == "ok"
-    assert out["report"]["coverage"]["authoritative_after"] == 36
+    assert out["report"]["coverage"]["authoritative_after"] == 54
 
 
 def test_cell_live_mode_gated():

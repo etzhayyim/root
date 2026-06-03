@@ -892,7 +892,7 @@
    "ticker": "SQM",
    "sector": ":materials",
    "country": "CL",
-   "out": 1,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -1127,7 +1127,7 @@
    "ticker": "5401.T",
    "sector": ":materials",
    "country": "JP",
-   "out": 1,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -1179,7 +1179,7 @@
    "ticker": "RIO.AX",
    "sector": ":materials",
    "country": "AU",
-   "out": 1,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -1189,7 +1189,7 @@
    "ticker": "VALE",
    "sector": ":materials",
    "country": "BR",
-   "out": 0,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -1199,7 +1199,7 @@
    "ticker": "FCX",
    "sector": ":materials",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -1264,7 +1264,7 @@
    "ticker": "CAT",
    "sector": ":industrials",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -1313,7 +1313,7 @@
    "ticker": "PFE",
    "sector": ":pharma",
    "country": "US",
-   "out": 1,
+   "out": 2,
    "address": {
     "street": "66 Hudson Boulevard East",
     "city": "New York",
@@ -2448,7 +2448,7 @@
    "ticker": "NTR.TO",
    "sector": ":materials",
    "country": "CA",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -2533,7 +2533,7 @@
    "ticker": "FMG.AX",
    "sector": ":materials",
    "country": "AU",
-   "out": 1,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -4401,7 +4401,7 @@
    "ticker": "GLEN.L",
    "sector": ":materials",
    "country": "CH",
-   "out": 2,
+   "out": 3,
    "address": {
     "street": "Baarermattstrasse 3",
     "city": "Baar",
@@ -4417,7 +4417,7 @@
    "ticker": "ADM",
    "sector": ":consumer",
    "country": "US",
-   "out": 2,
+   "out": 3,
    "address": null,
    "contact": null
   },
@@ -4427,7 +4427,7 @@
    "ticker": "BG",
    "sector": ":consumer",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -5489,7 +5489,7 @@
    "ticker": "6301.T",
    "sector": ":industrials",
    "country": "JP",
-   "out": 1,
+   "out": 2,
    "address": {
     "street": "2-3-6 Akasaka, Minato-ku",
     "city": "Tokyo",
@@ -5515,7 +5515,7 @@
    "ticker": "SAND.ST",
    "sector": ":industrials",
    "country": "SE",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -5535,7 +5535,7 @@
    "ticker": "TKA.DE",
    "sector": ":materials",
    "country": "DE",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -8345,7 +8345,7 @@
    "ticker": "MCK",
    "sector": ":healthcare",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": {
     "street": "6555 State Highway 161",
     "city": "Irving",
@@ -10152,7 +10152,7 @@
    "ticker": "CMI",
    "sector": ":industrials",
    "country": "US",
-   "out": 1,
+   "out": 2,
    "address": {
     "street": "500 Jackson Street",
     "city": "Columbus",
@@ -15955,7 +15955,7 @@
    "ticker": "010130.KS",
    "sector": ":materials",
    "country": "KR",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -17455,7 +17455,7 @@
    "ticker": "TECK-B.TO",
    "sector": ":materials",
    "country": "CA",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -17615,6 +17615,886 @@
    "ticker": "GCB.AC",
    "sector": ":financials",
    "country": "GH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.synchrony-financial",
+   "name": "Synchrony Financial",
+   "ticker": "SYF",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.regions-financial",
+   "name": "Regions Financial",
+   "ticker": "RF",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.fifth-third-bancorp",
+   "name": "Fifth Third Bancorp",
+   "ticker": "FITB",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.huntington-bancshares",
+   "name": "Huntington Bancshares",
+   "ticker": "HBAN",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.keycorp",
+   "name": "KeyCorp",
+   "ticker": "KEY",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.citizens-financial",
+   "name": "Citizens Financial Group",
+   "ticker": "CFG",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.m-and-t-bank",
+   "name": "M&T Bank",
+   "ticker": "MTB",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.first-horizon",
+   "name": "First Horizon",
+   "ticker": "FHN",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.western-union",
+   "name": "The Western Union Company",
+   "ticker": "WU",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.ameren",
+   "name": "Ameren",
+   "ticker": "AEE",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.wec-energy",
+   "name": "WEC Energy Group",
+   "ticker": "WEC",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.dte-energy",
+   "name": "DTE Energy",
+   "ticker": "DTE",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.eversource-energy",
+   "name": "Eversource Energy",
+   "ticker": "ES",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.firstenergy",
+   "name": "FirstEnergy",
+   "ticker": "FE",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.cms-energy",
+   "name": "CMS Energy",
+   "ticker": "CMS",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.atmos-energy",
+   "name": "Atmos Energy",
+   "ticker": "ATO",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.vici-properties",
+   "name": "VICI Properties",
+   "ticker": "VICI",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.extra-space-storage",
+   "name": "Extra Space Storage",
+   "ticker": "EXR",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mid-america-apartment",
+   "name": "Mid-America Apartment Communities",
+   "ticker": "MAA",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kimco-realty",
+   "name": "Kimco Realty",
+   "ticker": "KIM",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.regency-centers",
+   "name": "Regency Centers",
+   "ticker": "REG",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.universal-health-services",
+   "name": "Universal Health Services",
+   "ticker": "UHS",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.molina-healthcare",
+   "name": "Molina Healthcare",
+   "ticker": "MOH",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.laboratory-corp",
+   "name": "Laboratory Corporation of America",
+   "ticker": "LH",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.henry-schein",
+   "name": "Henry Schein",
+   "ticker": "HSIC",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.hologic",
+   "name": "Hologic",
+   "ticker": "HOLX",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.j-m-smucker",
+   "name": "The J.M. Smucker Company",
+   "ticker": "SJM",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mccormick",
+   "name": "McCormick & Company",
+   "ticker": "MKC",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.conagra-brands",
+   "name": "Conagra Brands",
+   "ticker": "CAG",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.campbells",
+   "name": "The Campbell's Company",
+   "ticker": "CPB",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.snap-on",
+   "name": "Snap-on",
+   "ticker": "SNA",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.nordson",
+   "name": "Nordson",
+   "ticker": "NDSN",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.jacobs-solutions",
+   "name": "Jacobs Solutions",
+   "ticker": "J",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.nvent-electric",
+   "name": "nVent Electric",
+   "ticker": "NVT",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.steel-dynamics",
+   "name": "Steel Dynamics",
+   "ticker": "STLD",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.reliance-inc",
+   "name": "Reliance, Inc.",
+   "ticker": "RS",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.packaging-corp",
+   "name": "Packaging Corporation of America",
+   "ticker": "PKG",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.eastman-chemical",
+   "name": "Eastman Chemical",
+   "ticker": "EMN",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.resona",
+   "name": "Resona Holdings",
+   "ticker": "8308.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.concordia",
+   "name": "Concordia Financial Group",
+   "ticker": "7186.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.chiba-bank",
+   "name": "Chiba Bank",
+   "ticker": "8331.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.shizuoka-financial",
+   "name": "Shizuoka Financial Group",
+   "ticker": "5831.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nomura",
+   "name": "Nomura Holdings",
+   "ticker": "8604.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.daiwa-securities",
+   "name": "Daiwa Securities Group",
+   "ticker": "8601.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.orix",
+   "name": "ORIX Corporation",
+   "ticker": "8591.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.japan-exchange",
+   "name": "Japan Exchange Group",
+   "ticker": "8697.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.sompo",
+   "name": "Sompo Holdings",
+   "ticker": "8630.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ms-ad",
+   "name": "MS&AD Insurance Group Holdings",
+   "ticker": "8725.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.t-and-d",
+   "name": "T&D Holdings",
+   "ticker": "8795.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.chubu-electric",
+   "name": "Chubu Electric Power",
+   "ticker": "9502.T",
+   "sector": ":utilities",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kyushu-electric",
+   "name": "Kyushu Electric Power",
+   "ticker": "9508.T",
+   "sector": ":utilities",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.tohoku-electric",
+   "name": "Tohoku Electric Power",
+   "ticker": "9506.T",
+   "sector": ":utilities",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.osaka-gas",
+   "name": "Osaka Gas",
+   "ticker": "9532.T",
+   "sector": ":utilities",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kakaku",
+   "name": "Kakaku.com",
+   "ticker": "2371.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ly-corp",
+   "name": "LY Corporation",
+   "ticker": "4689.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nexon",
+   "name": "Nexon",
+   "ticker": "3659.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.capcom",
+   "name": "Capcom",
+   "ticker": "9697.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.konami",
+   "name": "Konami Group",
+   "ticker": "9766.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.obic",
+   "name": "OBIC",
+   "ticker": "4684.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.otsuka-holdings",
+   "name": "Otsuka Holdings",
+   "ticker": "4578.T",
+   "sector": ":pharma",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ono-pharma",
+   "name": "Ono Pharmaceutical",
+   "ticker": "4528.T",
+   "sector": ":pharma",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.shionogi",
+   "name": "Shionogi",
+   "ticker": "4507.T",
+   "sector": ":pharma",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.santen",
+   "name": "Santen Pharmaceutical",
+   "ticker": "4536.T",
+   "sector": ":pharma",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.suntory-bf",
+   "name": "Suntory Beverage & Food",
+   "ticker": "2587.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.meiji-holdings",
+   "name": "Meiji Holdings",
+   "ticker": "2269.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nissin-foods",
+   "name": "Nissin Foods Holdings",
+   "ticker": "2897.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kewpie",
+   "name": "Kewpie",
+   "ticker": "2809.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.lawson",
+   "name": "Lawson",
+   "ticker": "2651.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.mitsubishi-estate",
+   "name": "Mitsubishi Estate",
+   "ticker": "8802.T",
+   "sector": ":real-estate",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.sumitomo-realty",
+   "name": "Sumitomo Realty & Development",
+   "ticker": "8830.T",
+   "sector": ":real-estate",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.tokyu-fudosan",
+   "name": "Tokyu Fudosan Holdings",
+   "ticker": "3289.T",
+   "sector": ":real-estate",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nippon-prologis-reit",
+   "name": "Nippon Prologis REIT",
+   "ticker": "3283.T",
+   "sector": ":real-estate",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nippon-paint",
+   "name": "Nippon Paint Holdings",
+   "ticker": "4612.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.mitsubishi-chemical",
+   "name": "Mitsubishi Chemical Group",
+   "ticker": "4188.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.sumitomo-chemical",
+   "name": "Sumitomo Chemical",
+   "ticker": "4005.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.uy.conaprole",
+   "name": "Conaprole",
+   "ticker": "CONAPROLE.UY",
+   "sector": ":consumer",
+   "country": "UY",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cr.fifco",
+   "name": "Florida Ice & Farm Company (FIFCO)",
+   "ticker": "FIFCO.CR",
+   "sector": ":consumer",
+   "country": "CR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.do.cnd",
+   "name": "Cervecería Nacional Dominicana (CND)",
+   "ticker": "CND.DO",
+   "sector": ":consumer",
+   "country": "DO",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.bo.soboce",
+   "name": "Sociedad Boliviana de Cemento (SOBOCE)",
+   "ticker": "SBC.BO",
+   "sector": ":materials",
+   "country": "BO",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ec.holcim-ecuador",
+   "name": "Holcim Ecuador",
+   "ticker": "HOLCIM.EC",
+   "sector": ":materials",
+   "country": "EC",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.iq.baghdad-soft-drinks",
+   "name": "Baghdad Soft Drinks Co.",
+   "ticker": "IBSD.IQ",
+   "sector": ":consumer",
+   "country": "IQ",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.iq.bank-of-baghdad",
+   "name": "Bank of Baghdad",
+   "ticker": "BBOB.IQ",
+   "sector": ":financials",
+   "country": "IQ",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.am.ardshinbank",
+   "name": "Ardshinbank CJSC",
+   "ticker": "ARDSHIN.AM",
+   "sector": ":financials",
+   "country": "AM",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.uz.kvarts",
+   "name": "Kvarts JSC",
+   "ticker": "KVTS.UZ",
+   "sector": ":materials",
+   "country": "UZ",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sk.tatry-mountain-resorts",
+   "name": "Tatry mountain resorts (TMR)",
+   "ticker": "TMR.SK",
+   "sector": ":consumer",
+   "country": "SK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sk.vub-banka",
+   "name": "Všeobecná úverová banka (VÚB)",
+   "ticker": "VUB.SK",
+   "sector": ":financials",
+   "country": "SK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.lv.grindeks",
+   "name": "Grindeks AS",
+   "ticker": "GRD1R.RG",
+   "sector": ":pharma",
+   "country": "LV",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.lv.olainfarm",
+   "name": "Olainfarm AS",
+   "ticker": "OLF1R.RG",
+   "sector": ":pharma",
+   "country": "LV",
    "out": 0,
    "address": null,
    "contact": null
@@ -19666,16 +20546,136 @@
    "to": "org.corp.jp.honda",
    "commodity": "composite",
    "criticality": 0.4
+  },
+  {
+   "from": "org.corp.au.rio",
+   "to": "org.corp.kr.posco",
+   "commodity": "steel",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.br.vale",
+   "to": "org.corp.kr.posco",
+   "commodity": "steel",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.au.fortescue",
+   "to": "org.corp.cn.baosteel",
+   "commodity": "steel",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.br.vale",
+   "to": "org.corp.jp.nippon-steel",
+   "commodity": "steel",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.jp.nippon-steel",
+   "to": "org.corp.jp.honda",
+   "commodity": "steel",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.de.thyssenkrupp",
+   "to": "org.corp.de.bmw",
+   "commodity": "steel",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.cl.sqm",
+   "to": "org.corp.kr.lg-energy",
+   "commodity": "battery",
+   "criticality": 0.7
+  },
+  {
+   "from": "org.corp.kr.korea-zinc",
+   "to": "org.corp.kr.lg-chem",
+   "commodity": "battery",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.ca.nutrien",
+   "to": "org.corp.us.corteva",
+   "commodity": "api",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.adm",
+   "to": "org.corp.us.general-mills",
+   "commodity": "logistics",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.bunge",
+   "to": "org.corp.us.mondelez",
+   "commodity": "logistics",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.mckesson",
+   "to": "org.corp.us.cvs",
+   "commodity": "api",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.us.pfizer",
+   "to": "org.corp.us.mckesson",
+   "commodity": "api",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.us.cummins",
+   "to": "org.corp.us.deere",
+   "commodity": "sensor",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.se.sandvik",
+   "to": "org.corp.au.bhp",
+   "commodity": "steel",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.jp.komatsu",
+   "to": "org.corp.au.rio",
+   "commodity": "sensor",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.caterpillar",
+   "to": "org.corp.au.fortescue",
+   "commodity": "sensor",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.ch.glencore",
+   "to": "org.corp.kr.korea-zinc",
+   "commodity": "copper",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.freeport",
+   "to": "org.corp.ch.glencore",
+   "commodity": "copper",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.ca.teck",
+   "to": "org.corp.ch.glencore",
+   "commodity": "copper",
+   "criticality": 0.4
   }
  ],
  "jurisdictions": [
   {
    "country": "US",
-   "load": 30.25
+   "load": 33.85
   },
   {
    "country": "JP",
-   "load": 27.1
+   "load": 28.2
   },
   {
    "country": "CN",
@@ -19687,31 +20687,31 @@
   },
   {
    "country": "KR",
-   "load": 10.0
+   "load": 10.5
   },
   {
    "country": "FR",
    "load": 5.15
   },
   {
+   "country": "CH",
+   "load": 5.1
+  },
+  {
+   "country": "SE",
+   "load": 5.1
+  },
+  {
    "country": "NL",
    "load": 4.95
   },
   {
-   "country": "CH",
-   "load": 4.6
-  },
-  {
-   "country": "SE",
-   "load": 4.6
-  },
-  {
    "country": "DE",
-   "load": 4.0
+   "load": 4.6
   },
   {
    "country": "AU",
-   "load": 3.3
+   "load": 4.5
   },
   {
    "country": "IN",
@@ -19722,12 +20722,16 @@
    "load": 3.0
   },
   {
+   "country": "CA",
+   "load": 2.35
+  },
+  {
    "country": "IE",
    "load": 1.8
   },
   {
-   "country": "CA",
-   "load": 1.55
+   "country": "CL",
+   "load": 1.5
   },
   {
    "country": "FI",
@@ -19735,6 +20739,10 @@
   },
   {
    "country": "DK",
+   "load": 1.2
+  },
+  {
+   "country": "BR",
    "load": 1.2
   },
   {
@@ -19748,10 +20756,6 @@
   {
    "country": "LU",
    "load": 0.85
-  },
-  {
-   "country": "CL",
-   "load": 0.8
   },
   {
    "country": "NO",

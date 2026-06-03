@@ -3,7 +3,7 @@
 Honest R0 status per the gov-coverage maturity model (ADR-2605250680). **This is a
 proof-of-model, not coverage.** Coverage is gated by `:sourcing` (G5): only
 `:authoritative` rows count. The seed ships **zero** `:authoritative` rows; the
-offline `reconcile.py` demo can promote **36 of 38** against the bundled authority
+offline `reconcile.py` demo can promote **54 of 56** against the bundled authority
 reference (see below) — still a demo, not live ingest. (Was 8/28 before the
 2026-06-03 QID-integrity fix; see § "2026-06-03 QID integrity fix".) A registry
 integrity guard (`scripts/check_seed_integrity.py`) now fails on the structural
@@ -149,11 +149,36 @@ body's own official URL:
 - **Australia** (country `Q408` + `The Treasury` `Q3277092`);
 - **India** (country `Q668` + `Ministry of Finance` `Q2641068`).
 
-Registry now: **38 units / 36 authority records**; bundled reconcile promotes
-**36/38 (94.7%)**, **0 conflicts** (the 2 remainder = NTA Tokyo regional + 麹町税務署,
-no QID). The integrity guard + 9-test suite stay green. Every national row carries a
-verified finance-ministry/treasury child. Still `:representative` in committed state
-(promotion is operator-gated, G5).
+Registry after this step: **38 units / 36 authority records** (36/38, 94.7%).
+
+### 2026-06-03 (cont.) — G20 completion
+
+Added the remaining 9 **G20** nations, each as country + finance ministry/treasury
+(18 units), all QIDs web-verified against wikidata.org + `:provenance` = body's own
+official URL:
+
+| nation | country | finance body | QID |
+|---|---|---|---|
+| China 🇨🇳 | Q148 | 财政部 Ministry of Finance | Q832407 |
+| Brazil 🇧🇷 | Q155 | Ministério da Fazenda | Q4294782 |
+| Russia 🇷🇺 | Q159 | Минфин Ministry of Finance | Q1958033 |
+| Mexico 🇲🇽 | Q96 | SHCP | Q1506364 |
+| Indonesia 🇮🇩 | Q252 | Kementerian Keuangan | Q12490741 |
+| Türkiye 🇹🇷 | Q43 | Hazine ve Maliye Bakanlığı | Q4294797 |
+| South Africa 🇿🇦 | Q258 | National Treasury | Q15261150 |
+| Argentina 🇦🇷 | Q414 | Ministerio de Economía | Q4294823 |
+| Saudi Arabia 🇸🇦 | Q851 | وزارة المالية Ministry of Finance | Q17379967 |
+
+(Saudi MoF needed a second-pass `WebFetch` confirmation — `Q17379967`, "Saudi
+ministry", country=Saudi Arabia, mof.gov.sa — a search-summary artifact had
+suggested a wrong QID; the integrity guard would have flagged it as a mismatch had
+it slipped through.)
+
+Registry now: **56 units / 54 authority records**; bundled reconcile promotes
+**54/56 (96.4%)**, **0 conflicts** (the 2 remainder = NTA Tokyo regional + 麹町税務署,
+no QID). All **G20 members present** (19 states + EU); each national row carries a
+verified finance-ministry/treasury child. Integrity guard + 9-test suite green. Still
+`:representative` in committed state (promotion is operator-gated, G5).
 
 ## What is NOT done (by design at R0)
 

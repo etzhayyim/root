@@ -107,6 +107,44 @@
   {:unit "gov.ind.mof"           :wikidata "Q2641068"   :official-url "https://finmin.nic.in/"
    :provenance "https://finmin.nic.in/"                         :wikidata-ref "https://www.wikidata.org/wiki/Q2641068" :last-verified "2026-06-03"}
 
+  ;; ── G20 completion (country + finance ministry, QIDs web-verified 2026-06-03) ──
+  {:unit "gov.chn"               :wikidata "Q148"       :official-url "https://www.gov.cn/"
+   :provenance "https://www.gov.cn/"                            :wikidata-ref "https://www.wikidata.org/wiki/Q148"     :last-verified "2026-06-03"}
+  {:unit "gov.chn.mof"           :wikidata "Q832407"    :official-url "https://www.mof.gov.cn/"
+   :provenance "https://www.mof.gov.cn/"                        :wikidata-ref "https://www.wikidata.org/wiki/Q832407"  :last-verified "2026-06-03"}
+  {:unit "gov.bra"               :wikidata "Q155"       :official-url "https://www.gov.br/"
+   :provenance "https://www.gov.br/"                            :wikidata-ref "https://www.wikidata.org/wiki/Q155"     :last-verified "2026-06-03"}
+  {:unit "gov.bra.fazenda"       :wikidata "Q4294782"   :official-url "https://www.gov.br/fazenda/"
+   :provenance "https://www.gov.br/fazenda/"                    :wikidata-ref "https://www.wikidata.org/wiki/Q4294782" :last-verified "2026-06-03"}
+  {:unit "gov.rus"               :wikidata "Q159"       :official-url "http://government.ru/"
+   :provenance "http://government.ru/"                          :wikidata-ref "https://www.wikidata.org/wiki/Q159"     :last-verified "2026-06-03"}
+  {:unit "gov.rus.minfin"        :wikidata "Q1958033"   :official-url "https://minfin.gov.ru/"
+   :provenance "https://minfin.gov.ru/"                         :wikidata-ref "https://www.wikidata.org/wiki/Q1958033" :last-verified "2026-06-03"}
+  {:unit "gov.mex"               :wikidata "Q96"        :official-url "https://www.gob.mx/"
+   :provenance "https://www.gob.mx/"                            :wikidata-ref "https://www.wikidata.org/wiki/Q96"      :last-verified "2026-06-03"}
+  {:unit "gov.mex.shcp"          :wikidata "Q1506364"   :official-url "https://www.gob.mx/hacienda"
+   :provenance "https://www.gob.mx/hacienda"                    :wikidata-ref "https://www.wikidata.org/wiki/Q1506364" :last-verified "2026-06-03"}
+  {:unit "gov.idn"               :wikidata "Q252"       :official-url "https://www.indonesia.go.id/"
+   :provenance "https://www.indonesia.go.id/"                   :wikidata-ref "https://www.wikidata.org/wiki/Q252"     :last-verified "2026-06-03"}
+  {:unit "gov.idn.kemenkeu"      :wikidata "Q12490741"  :official-url "https://www.kemenkeu.go.id/"
+   :provenance "https://www.kemenkeu.go.id/"                    :wikidata-ref "https://www.wikidata.org/wiki/Q12490741" :last-verified "2026-06-03"}
+  {:unit "gov.tur"               :wikidata "Q43"        :official-url "https://www.turkiye.gov.tr/"
+   :provenance "https://www.turkiye.gov.tr/"                    :wikidata-ref "https://www.wikidata.org/wiki/Q43"      :last-verified "2026-06-03"}
+  {:unit "gov.tur.hmb"           :wikidata "Q4294797"   :official-url "https://www.hmb.gov.tr/"
+   :provenance "https://www.hmb.gov.tr/"                        :wikidata-ref "https://www.wikidata.org/wiki/Q4294797" :last-verified "2026-06-03"}
+  {:unit "gov.zaf"               :wikidata "Q258"       :official-url "https://www.gov.za/"
+   :provenance "https://www.gov.za/"                            :wikidata-ref "https://www.wikidata.org/wiki/Q258"     :last-verified "2026-06-03"}
+  {:unit "gov.zaf.treasury"      :wikidata "Q15261150"  :official-url "https://www.treasury.gov.za/"
+   :provenance "https://www.treasury.gov.za/"                   :wikidata-ref "https://www.wikidata.org/wiki/Q15261150" :last-verified "2026-06-03"}
+  {:unit "gov.arg"               :wikidata "Q414"       :official-url "https://www.argentina.gob.ar/"
+   :provenance "https://www.argentina.gob.ar/"                  :wikidata-ref "https://www.wikidata.org/wiki/Q414"     :last-verified "2026-06-03"}
+  {:unit "gov.arg.economia"      :wikidata "Q4294823"   :official-url "https://www.argentina.gob.ar/economia"
+   :provenance "https://www.argentina.gob.ar/economia"          :wikidata-ref "https://www.wikidata.org/wiki/Q4294823" :last-verified "2026-06-03"}
+  {:unit "gov.sau"               :wikidata "Q851"       :official-url "https://my.gov.sa/"
+   :provenance "https://my.gov.sa/"                             :wikidata-ref "https://www.wikidata.org/wiki/Q851"     :last-verified "2026-06-03"}
+  {:unit "gov.sau.mof"           :wikidata "Q17379967"  :official-url "https://www.mof.gov.sa/"
+   :provenance "https://www.mof.gov.sa/"                        :wikidata-ref "https://www.wikidata.org/wiki/Q17379967" :last-verified "2026-06-03"}
+
   ;; ── Germany / South Korea / European Union (country-level) ──
   {:unit "gov.deu"               :wikidata "Q183"       :official-url "https://www.bund.de/"
    :provenance "https://www.bund.de/"                           :wikidata-ref "https://www.wikidata.org/wiki/Q183"     :last-verified "2026-06-03"}
