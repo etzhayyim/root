@@ -21,7 +21,7 @@
               "enum": ["multi-view", "single-view"],
               "description": "Number of input views. multi-view (recommended) produces higher-quality STEP."
             },
-            "actorDid": { "type": "string", "description": "Submitter ERC725 DID (did:erc725:gftd:...)." },
+            "actorDid": { "type": "string", "description": "Submitter ERC725 DID (did:erc725:etzhayyim:...)." },
             "orgDid":   { "type": "string", "description": "Org ERC725 DID for RLS scoping." },
             "atDid":    { "type": "string", "description": "AT federation alias (optional)." },
             "notes":    { "type": "string", "description": "Optional free-text notes for the design job." },
