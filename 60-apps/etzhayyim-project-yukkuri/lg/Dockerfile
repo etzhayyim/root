@@ -1,10 +1,10 @@
 # lg-yukkuri OSS Dockerfile (mirrors lg-animeka pattern).
 #
 # Build:
-#   cd 60-apps/ai-gftd-project-yukkuri/lg
+#   cd 60-apps/etzhayyim-project-yukkuri/lg
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
-#     -t ghcr.io/gftdcojp/lg-yukkuri:0.1.0-amd64 \
+#     -t ghcr.io/etzhayyim/lg-yukkuri:0.1.0-amd64 \
 #     --push .
 
 FROM python:3.11-slim-bookworm

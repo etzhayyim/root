@@ -1,5 +1,6 @@
 import {
   asAgentTool,
+  createKyselyDb,
   createWorkerExport,
   decodeJson,
   genID,
@@ -8,7 +9,6 @@ import {
   withCapabilityTags,
   type HostSDK,
 } from "@etzhayyim/magatama-host-sdk";
-import { Client } from "pg";
 
 /** AT Protocol TID generator (base32 s32 charset, 13 chars). */
 const S32 = "234567abcdefghijklmnopqrstuvwxyz";
@@ -302,6 +302,8 @@ type AssetRow = {
 type GenerationRow = {
   vertex_id: string; target_uri?: string | null; stage?: string | null; status?: string | null; created_at?: string | null;
 };
+type SceneTabRow = { scene_index: number; location: string | null; action: string | null };
+type LineTabRow = { scene_index: number; line_index: number; speaker: string | null; text: string | null; emotion: string | null };
 
 function videoUriToRkey(videoUri: string): string {
   const m = videoUri.match(/\/com\.etzhayyim\.apps\.yukkuri\.video\/([^/]+)$/);
@@ -313,22 +315,58 @@ function normalizeVideoUri(rkeyOrUri: string): string {
   return `at://yukkuri.etzhayyim.com/com.etzhayyim.apps.yukkuri.video/${rkey}`;
 }
 
-async function pgQuery(env: Record<string, unknown>, sql: string, params: unknown[]): Promise<VideoRow[]> {
-  const hyperdrive = env["HYPERDRIVE"] as any;
-  if (!hyperdrive?.connectionString) throw new Error("HYPERDRIVE binding missing");
-  const client = new Client({ connectionString: hyperdrive.connectionString });
-  await client.connect();
-  try {
-    const result = await client.query(sql, params);
-    return result.rows as VideoRow[];
-  } finally {
-    await client.end().catch(() => {});
-  }
+function yukkuriDb(env: Record<string, unknown>): any {
+  return createKyselyDb((env as any).HYPERDRIVE) as any;
 }
 
-async function pgQueryOne(env: Record<string, unknown>, sql: string, params: unknown[]): Promise<VideoRow | undefined> {
-  const rows = await pgQuery(env, sql, params);
-  return rows[0];
+async function listVideoRows(env: Record<string, unknown>, filters: { ownerDid: string; status: string; limit: number; offset: number }): Promise<VideoRow[]> {
+  let query = yukkuriDb(env).selectFrom("vertex_yukkuri_video").selectAll();
+  if (filters.ownerDid) query = query.where("owner_did", "=", filters.ownerDid);
+  if (filters.status) query = query.where("status", "=", filters.status);
+  return await query.orderBy("created_at", "desc").limit(filters.limit).offset(filters.offset).execute() as VideoRow[];
+}
+
+async function findVideoRow(env: Record<string, unknown>, rkey: string): Promise<VideoRow | undefined> {
+  const db = yukkuriDb(env);
+  return (
+    await db.selectFrom("vertex_yukkuri_video").selectAll().where("vertex_id", "=", rkey).limit(1).executeTakeFirst()
+    ?? await db.selectFrom("vertex_yukkuri_video").selectAll().where("vertex_id", "like", `%/${rkey}`).limit(1).executeTakeFirst()
+  ) as VideoRow | undefined;
+}
+
+async function listAssetRows(env: Record<string, unknown>, videoUri: string): Promise<AssetRow[]> {
+  return await yukkuriDb(env).selectFrom("vertex_yukkuri_asset").selectAll().where("video_uri", "=", videoUri).execute() as AssetRow[];
+}
+
+async function latestGenerationRow(env: Record<string, unknown>, videoUri: string): Promise<GenerationRow | undefined> {
+  return await yukkuriDb(env)
+    .selectFrom("vertex_yukkuri_generation")
+    .selectAll()
+    .where("target_uri", "=", videoUri)
+    .orderBy("created_at", "desc")
+    .limit(1)
+    .executeTakeFirst() as GenerationRow | undefined;
+}
+
+async function listSceneTabRows(env: Record<string, unknown>, rkey: string): Promise<SceneTabRow[]> {
+  return await yukkuriDb(env)
+    .selectFrom("vertex_yukkuri_scene")
+    .select(["scene_index", "location", "action"])
+    .where("video_id", "=", rkey)
+    .orderBy("scene_index")
+    .limit(20)
+    .execute() as SceneTabRow[];
+}
+
+async function listLineTabRows(env: Record<string, unknown>, rkey: string): Promise<LineTabRow[]> {
+  return await yukkuriDb(env)
+    .selectFrom("vertex_yukkuri_line")
+    .select(["scene_index", "line_index", "speaker", "text", "emotion"])
+    .where("video_id", "=", rkey)
+    .orderBy("scene_index")
+    .orderBy("line_index")
+    .limit(500)
+    .execute() as LineTabRow[];
 }
 
 async function cmdListVideos(_sdk: HostSDK, env: Record<string, unknown>, body: Uint8Array): Promise<string> {
@@ -337,25 +375,8 @@ async function cmdListVideos(_sdk: HostSDK, env: Record<string, unknown>, body: 
   const limit = Math.min(200, Math.max(1, Number(input.limit) || 50));
   const ownerDid = String(input.ownerDid || "").trim();
   const status = String(input.status || "").trim();
-  // RisingWave does not support parameterized LIMIT/OFFSET; inline as validated integers.
-  const tail = `ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`;
   try {
-    let sql: string;
-    let params: unknown[];
-    if (ownerDid && status) {
-      sql = `SELECT * FROM vertex_yukkuri_video WHERE owner_did = $1 AND status = $2 ${tail}`;
-      params = [ownerDid, status];
-    } else if (ownerDid) {
-      sql = `SELECT * FROM vertex_yukkuri_video WHERE owner_did = $1 ${tail}`;
-      params = [ownerDid];
-    } else if (status) {
-      sql = `SELECT * FROM vertex_yukkuri_video WHERE status = $1 ${tail}`;
-      params = [status];
-    } else {
-      sql = `SELECT * FROM vertex_yukkuri_video ${tail}`;
-      params = [];
-    }
-    const rows = await pgQuery(env, sql, params);
+    const rows = await listVideoRows(env, { ownerDid, status, limit, offset });
     const videos = rows.map((r) => ({
       videoUri: normalizeVideoUri(r.vertex_id),
       projectId: r.project_id ?? "",
@@ -380,9 +401,7 @@ async function cmdGetVideo(_sdk: HostSDK, env: Record<string, unknown>, body: Ui
   if (!videoUri) return JSON.stringify({ error: "videoUri is required" });
   const rkey = videoUriToRkey(videoUri);
   try {
-    const videoRow: VideoRow | undefined =
-      (await pgQueryOne(env, `SELECT * FROM vertex_yukkuri_video WHERE vertex_id = $1`, [rkey]))
-      ?? (await pgQueryOne(env, `SELECT * FROM vertex_yukkuri_video WHERE vertex_id LIKE $1`, [`%/${rkey}`]));
+    const videoRow = await findVideoRow(env, rkey);
     if (!videoRow) return JSON.stringify({ error: "not found", videoUri });
     const canonicalUri = normalizeVideoUri(videoRow.vertex_id);
 
@@ -391,21 +410,10 @@ async function cmdGetVideo(_sdk: HostSDK, env: Record<string, unknown>, body: Ui
       if (videoRow.scenes_json) embeddedScenes = JSON.parse(videoRow.scenes_json);
     } catch { /* fall through */ }
 
-    const hyperdrive = env["HYPERDRIVE"] as any;
-    const client = new Client({ connectionString: hyperdrive.connectionString });
-    await client.connect();
-    let assetRows: AssetRow[] = [];
-    let genRow: GenerationRow | undefined;
-    try {
-      const [ar, gr] = await Promise.all([
-        client.query(`SELECT * FROM vertex_yukkuri_asset WHERE video_uri = $1`, [canonicalUri]),
-        client.query(`SELECT * FROM vertex_yukkuri_generation WHERE target_uri = $1 ORDER BY created_at DESC LIMIT 1`, [canonicalUri]),
-      ]);
-      assetRows = ar.rows as AssetRow[];
-      genRow = gr.rows[0] as GenerationRow | undefined;
-    } finally {
-      await client.end().catch(() => {});
-    }
+    const [assetRows, genRow] = await Promise.all([
+      listAssetRows(env, canonicalUri),
+      latestGenerationRow(env, canonicalUri),
+    ]);
 
     let scenes: Array<{ index: number; location?: string; action?: string; summary: string; durationSec: number }> = [];
     let lines: Array<{ sceneIndex: number; index: number; speaker: string; text: string; emotion: string; voicePreset: string; voicedBy: string }> = [];
@@ -418,22 +426,12 @@ async function cmdGetVideo(_sdk: HostSDK, env: Record<string, unknown>, body: Ui
       }
     } else {
       try {
-        type SceneTabRow = { scene_index: number; location: string | null; action: string | null };
-        type LineTabRow = { scene_index: number; line_index: number; speaker: string | null; text: string | null; emotion: string | null };
-        const scClient = new Client({ connectionString: hyperdrive.connectionString });
-        await scClient.connect();
-        try {
-          const [sr, lr] = await Promise.all([
-            scClient.query(`SELECT scene_index, location, action FROM vertex_yukkuri_scene WHERE video_id = $1 ORDER BY scene_index LIMIT 20`, [rkey]),
-            scClient.query(`SELECT scene_index, line_index, speaker, text, emotion FROM vertex_yukkuri_line WHERE video_id = $1 ORDER BY scene_index, line_index LIMIT 500`, [rkey]),
-          ]);
-          const sceneTabRows = sr.rows as SceneTabRow[];
-          const lineTabRows = lr.rows as LineTabRow[];
-          scenes = sceneTabRows.map((s) => ({ index: s.scene_index, location: s.location ?? undefined, action: s.action ?? undefined, summary: s.location ?? "", durationSec: 0 }));
-          lines = lineTabRows.map((l) => ({ sceneIndex: l.scene_index, index: l.line_index, speaker: l.speaker ?? "left", text: l.text ?? "", emotion: l.emotion ?? "normal", voicePreset: "", voicedBy: "" }));
-        } finally {
-          await scClient.end().catch(() => {});
-        }
+        const [sceneTabRows, lineTabRows] = await Promise.all([
+          listSceneTabRows(env, rkey),
+          listLineTabRows(env, rkey),
+        ]);
+        scenes = sceneTabRows.map((s) => ({ index: s.scene_index, location: s.location ?? undefined, action: s.action ?? undefined, summary: s.location ?? "", durationSec: 0 }));
+        lines = lineTabRows.map((l) => ({ sceneIndex: l.scene_index, index: l.line_index, speaker: l.speaker ?? "left", text: l.text ?? "", emotion: l.emotion ?? "normal", voicePreset: "", voicedBy: "" }));
       } catch { /* ignore: tables may not exist */ }
     }
 
@@ -559,9 +557,7 @@ a{color:#90caf9;text-decoration:none}
 
 async function handleVideoPage(env: Record<string, unknown>, rkey: string): Promise<Response> {
   try {
-    const videoRow: VideoRow | undefined =
-      (await pgQueryOne(env, `SELECT * FROM vertex_yukkuri_video WHERE vertex_id = $1`, [rkey]))
-      ?? (await pgQueryOne(env, `SELECT * FROM vertex_yukkuri_video WHERE vertex_id LIKE $1`, [`%/${rkey}`]));
+    const videoRow = await findVideoRow(env, rkey);
     let embeddedScenes: Array<{ idx: number; summary: string; durationSec: number; lines: Array<{ idx: number; speaker: string; text: string; emotion: string }> }> = [];
     if (videoRow?.scenes_json) {
       try { embeddedScenes = JSON.parse(videoRow.scenes_json); } catch { /* ignore */ }

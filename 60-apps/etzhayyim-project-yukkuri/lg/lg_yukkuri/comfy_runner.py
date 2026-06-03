@@ -1,6 +1,6 @@
 """ComfyUI submit + poll for yukkuri visual generation.
 
-Mirrors the mangaka pattern (`60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/
+Mirrors the mangaka pattern (`60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/
 comfy_runner.py`). Centralised so background / character / scene composite
 workflows share submission, polling, and image fetch.
 

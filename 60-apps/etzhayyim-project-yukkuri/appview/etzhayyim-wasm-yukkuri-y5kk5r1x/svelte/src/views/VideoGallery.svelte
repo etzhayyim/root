@@ -76,7 +76,7 @@
         yukkuri v1 — Animagine XL char sprites + PIL composite + edge-tts JP voices
         (Reimu Nanami +30% / Marisa Keita +25%) + numpy BGM (60bpm C major) +
         IPFS publish (kubo local + ipfs.io DHT). See
-        <a href="https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605262300-yukkuri-v1-2-character-tts-bgm-ipfs-pipeline.md"
+        <a href="https://github.com/etzhayyim/etzhayyim-apps-etzhayyim/blob/main/90-docs/adr/2605262300-yukkuri-v1-2-character-tts-bgm-ipfs-pipeline.md"
            target="_blank" rel="noopener">ADR-2605262300</a>.
       </p>
     </div>

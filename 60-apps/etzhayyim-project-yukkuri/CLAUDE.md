@@ -1,4 +1,4 @@
-# ai-gftd-project-yukkuri — ゆっくり実況 (AI Yukkuri Video Generation)
+# etzhayyim-project-yukkuri — ゆっくり実況 (AI Yukkuri Video Generation)
 
 共通ルールは `60-apps/CLAUDE.md` を参照。
 
@@ -24,7 +24,7 @@ yukkuri.etzhayyim.com — ゆっくり実況動画を 1 トピック / 1 台本�
 | Path DID | 役割 | 主モデル / 実装 |
 |---|---|---|
 | `did:web:yukkuri.etzhayyim.com` | controller / job orchestration | — |
-| `did:web:yukkuri.etzhayyim.com:actor:scriptwriter` | トピック → 台本 (L/R 掛け合い, scene 分割, 感情タグ) | murakumo text (`gemma-4-12b-it` / `gftd-moe-moe-kyun-general`) |
+| `did:web:yukkuri.etzhayyim.com:actor:scriptwriter` | トピック → 台本 (L/R 掛け合い, scene 分割, 感情タグ) | murakumo text (`gemma-4-12b-it` / `etzhayyim-moe-moe-kyun-general`) |
 | `did:web:yukkuri.etzhayyim.com:actor:voiceLeft` | 左キャラ (Reimu-like) TTS | `kokoro-ts` voice preset `af_heart` 相当 |
 | `did:web:yukkuri.etzhayyim.com:actor:voiceRight` | 右キャラ (Marisa-like) TTS | `kokoro-ts` voice preset `am_puck` 相当 |
 | `did:web:yukkuri.etzhayyim.com:actor:character` | 立ち絵 pose / 表情 / 口パク timing 生成 | `kami-character` + `kami-skeleton` / VRM part compose |
@@ -200,7 +200,7 @@ XRPC compose
 | Key | Value |
 |---|---|
 | Nanoid | `y5kk5r1x` |
-| Folder | `60-apps/ai-gftd-project-yukkuri/wasm/ai-gftd-wasm-yukkuri-y5kk5r1x/` |
+| Folder | `60-apps/etzhayyim-project-yukkuri/wasm/etzhayyim-wasm-yukkuri-y5kk5r1x/` |
 | Runtime | TS Native (`src/app.ts`, `"runtimeType": "worker"`) |
 | Wrangler route | `yukkuri.etzhayyim.com/*` |
 | Bindings | `HYPERDRIVE`, `R2_BLOBS`, `MURAKUMO_SERVICE`, `ONGAKUKA_SERVICE`, `AUTH_SERVICE`, `PDS_SERVICE`, `KAKIN_SERVICE`, `CREDITS_SERVICE`, `HEADLESS_BROWSER` (Phase 1) |
@@ -229,7 +229,7 @@ XRPC compose
 | `magatama.jsonld` + `src/app.ts` + `wrangler.jsonc` (T1 worker) | DONE (2026-04-15) |
 | Mac render pool: `yukkuri-renderer` service (`serve_plain.py` + kami-engine CLI) | TODO |
 | `kami-engine` headless render CLI (timeline.json → mp4) | TODO |
-| `70-tools/gftd/yukkuri.go` CLI subcommand (`gftd yukkuri compose/render/list/get`) | TODO |
+| `70-tools/etzhayyim/yukkuri.go` CLI subcommand (`etzhayyim yukkuri compose/render/list/get`) | TODO |
 | `[[projects]]` / `[[mitama_actors]]` / `[[legacy_nanoids]]` 登録 (`deps.toml`) | TODO |
 | Phase 1 独自立ち絵セット (GL-clean) 用意 | TODO |
 | Phase 1 CF Browser Rendering dispatcher | TODO |
