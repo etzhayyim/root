@@ -30,9 +30,13 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 > #   REFUSES if any :access/* is plaintext — G6/G10 enforced at write; live needs KOTOBA_SESSION_POP)
 > ```
 >
-> **Validated live (2026-06-03)**: an operator-gated crt.sh CT-log pull parsed **27 real
-> certificates** as `:authoritative` end-to-end; `transact.py` dry-run passes the G6/G10
-> encryption invariant and frames a 52-attr schema tx + the entity graph for `datomic.transact`.
+> **Saved + verified live (2026-06-03)**: the merged CTI graph was transacted into a running
+> kotoba node's Datom log and read back via AEVT — **schema + 163 data datoms** (domains, IOC
+> `:phishing`/`:tor-exit`/`:benign`, passive-DNS, certs). **G6/G10 held end-to-end**: the
+> `:access/*` record stored `:cti.attr/encrypted true` + only the envelope CID — **no plaintext
+> PII** in the log; `transact.py` refuses to write if any access record is plaintext. Also: an
+> operator-gated crt.sh pull parsed 27 real certs as `:authoritative`. Node recipe = the
+> `kotoba-server` binary built `--features wasm-runtime` + operator-JWT auth (see ipaddress CLAUDE.md).
 >
 > **Separation of duties unchanged**: yabai SCORES risk; the Council authorizes enforcement;
 > tadori holds case-anchored evidence. Defensive CTI only — no adherent de-anon, no mass

@@ -2,21 +2,20 @@
 """yabai — kotoba Datomic transact bridge (ADR-2605301400 §T3 save-path).
 
 Pushes the kotoba-native CTI / passive-DNS graph into a running kotoba node's Datom
-log via:
+log via POST /xrpc/com.etzhayyim.apps.kotoba.datomic.transact, emitting datomic
+list-form datoms `[:db/add E A V]` (E = entity id string; cardinality-many fans out).
 
-    POST /xrpc/com.etzhayyim.apps.kotoba.datomic.transact   {graph, tx_edn}
+G6/G10 (constitutional): every :access/* record MUST carry :cti.attr/encrypted true —
+this bridge REFUSES to transact if any access record is plaintext (the analyze
+self-audit invariant, enforced at write).
 
-Two transactions: (1) the schema from passive-dns-cti-ontology.kotoba.edn :attributes,
-(2) the merged entity graph (data/passive-dns.merged.kotoba.edn). G6/G10: every
-:access/* record MUST carry :cti.attr/encrypted true — this bridge REFUSES to transact
-if any access record is plaintext (the analyze self-audit invariant, enforced at write).
-
-Live writes require an operator credential in KOTOBA_SESSION_POP or KOTOBA_TOKEN
-(no platform-held key, ADR-2605231525). Without a credential it is a DRY RUN.
+AUTH (ADR-2605231525, no platform-held key): a write needs EITHER an operator JWT
+(KOTOBA_TOKEN, sub == operator_did) OR a CACAO authorising `datom:transact` on the
+graph CID (--cacao / KOTOBA_CACAO_B64). Without either it is a DRY RUN.
 
 stdlib only. Usage:
-    python3 methods/transact.py                 # dry-run + encryption invariant check
-    KOTOBA_SESSION_POP=… python3 methods/transact.py            # live
+    python3 methods/transact.py                               # dry-run + encryption check
+    python3 methods/transact.py --graph <CID>                 # live (KOTOBA_TOKEN operator JWT)
 """
 from __future__ import annotations
 import sys
@@ -27,83 +26,106 @@ import urllib.error
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yabai_edn import load_edn, to_edn  # noqa: E402
+from yabai_edn import load_edn, edn_val, edn_str  # noqa: E402
 
 ACTOR = pathlib.Path(__file__).resolve().parent.parent
 SCHEMA = ACTOR.parent.parent / "00-contracts" / "schemas" / "passive-dns-cti-ontology.kotoba.edn"
-NSID_SESSION_VERIFY = "com.etzhayyim.pds.session.verify"
 NSID_TRANSACT = "com.etzhayyim.apps.kotoba.datomic.transact"
+ID_KEYS = (":domain/id", ":pdns/id", ":iphist/id", ":tlscert/id", ":indicator/id", ":access/id")
 
 
-def _post(url, body, token=None):
+def rows_to_datoms(rows):
+    out = []
+    for r in rows:
+        if not isinstance(r, dict):
+            continue
+        e = next((r[k] for k in ID_KEYS if k in r), None)
+        if e is None:
+            continue
+        for k, v in r.items():
+            if k in ID_KEYS:
+                continue
+            for item in (v if isinstance(v, list) else [v]):
+                out.append(f"[:db/add {edn_str(e)} {k} {edn_val(item)}]")
+    return out
+
+
+def schema_datoms():
+    onto = load_edn(SCHEMA)
+    attrs = onto.get(":attributes", []) if isinstance(onto, dict) else []
+    # drop :db/doc — its free-text carries '|' which the kotoba EDN reader rejects.
+    return ["{" + " ".join(f"{k} {edn_val(v)}" for k, v in a.items() if k != ":db/doc") + "}"
+            for a in attrs]
+
+
+def check_encryption_invariant(rows) -> int:
+    return sum(1 for r in rows if isinstance(r, dict) and ":access/id" in r
+               and r.get(":cti.attr/encrypted") is not True)
+
+
+def _post(url, body):
     data = json.dumps(body).encode("utf-8")
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")
-    if token:
-        req.add_header("Authorization", f"Bearer {token}")
+    tok = os.environ.get("KOTOBA_TOKEN")
+    if tok:
+        req.add_header("Authorization", f"Bearer {tok}")
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310 (own kotoba node)
             return resp.status, json.loads(resp.read().decode("utf-8") or "{}")
     except urllib.error.HTTPError as exc:
+        body_txt = exc.read().decode("utf-8") or ""
         try:
-            return exc.code, json.loads(exc.read().decode("utf-8") or "{}")
+            return exc.code, json.loads(body_txt)
         except json.JSONDecodeError:
-            return exc.code, {"error": "non-json"}
-
-
-def check_encryption_invariant(rows) -> int:
-    """G6/G10: every :access/* record must set :cti.attr/encrypted true. Return # violations."""
-    bad = [r.get(":access/id") for r in rows
-           if isinstance(r, dict) and ":access/id" in r and r.get(":cti.attr/encrypted") is not True]
-    return len(bad)
+            return exc.code, {"error": body_txt}
 
 
 def main(argv):
     url = os.environ.get("KOTOBA_URL", "http://127.0.0.1:8077")
-    graph = os.environ.get("YABAI_GRAPH", "etzhayyim/yabai/passive-dns-cti")
+    graph = (argv[argv.index("--graph") + 1] if "--graph" in argv
+             else os.environ.get("YABAI_GRAPH_CID"))
+    cacao = (argv[argv.index("--cacao") + 1] if "--cacao" in argv
+             else os.environ.get("KOTOBA_CACAO_B64"))
     merged = ACTOR / "data" / "passive-dns.merged.kotoba.edn"
     if not merged.exists():
         merged = ACTOR / "data" / "seed-passive-dns.kotoba.edn"
 
-    onto = load_edn(SCHEMA)
-    schema_attrs = onto.get(":attributes", []) if isinstance(onto, dict) else []
-    schema_tx = to_edn(schema_attrs, [";; passive-dns-cti schema install"])
-    data_rows = [r for r in load_edn(merged) if isinstance(r, dict)]
-
-    violations = check_encryption_invariant(data_rows)
+    rows = [r for r in load_edn(merged) if isinstance(r, dict)]
+    violations = check_encryption_invariant(rows)
     if violations:
         print(f"!! REFUSED: {violations} access-audit record(s) lack :cti.attr/encrypted true "
               "(G6/G10). Encrypt accessor PII into a com.etzhayyim.encrypted.* envelope first.",
               file=sys.stderr)
         return 1
-    print(f"  G6/G10 encryption invariant: PASS (all :access/* encrypted)")
+    print("  G6/G10 encryption invariant: PASS (all :access/* encrypted)")
 
-    data_tx = to_edn(data_rows, [";; passive-dns-cti entity graph"])
-    token = os.environ.get("KOTOBA_SESSION_POP") or os.environ.get("KOTOBA_TOKEN")
-    live = bool(token) and "--dry-run" not in argv
+    schema = schema_datoms()
+    data = rows_to_datoms(rows)
+    schema_tx = "[\n " + "\n ".join(schema) + "\n]"
+    data_tx = "[\n " + "\n ".join(data) + "\n]"
+    print(f"yabai.transact: graph={graph or '(unset)'}")
+    print(f"  schema tx: {len(schema)} attrs ({len(schema_tx.encode()):,} bytes)")
+    print(f"  data   tx: {len(data)} datoms ({len(data_tx.encode()):,} bytes)")
 
-    print(f"yabai.transact: graph={graph}")
-    print(f"  schema tx: {len(schema_attrs)} attrs ({len(schema_tx.encode()):,} bytes)")
-    print(f"  data   tx: {len(data_rows)} entities ({len(data_tx.encode()):,} bytes)")
-
+    live = bool(graph) and (bool(cacao) or bool(os.environ.get("KOTOBA_TOKEN"))) and "--dry-run" not in argv
     if not live:
-        print("  DRY RUN — no writes. Set KOTOBA_SESSION_POP or KOTOBA_TOKEN to transact "
-              "into a running kotoba node (datomic.transact).")
+        print("  DRY RUN — provide --graph <CID> + KOTOBA_TOKEN operator JWT (or --cacao) to write.")
         return 0
 
-    if os.environ.get("KOTOBA_SESSION_POP"):
-        st, info = _post(f"{url}/xrpc/{NSID_SESSION_VERIFY}", {"token": os.environ["KOTOBA_SESSION_POP"]})
-        if st != 200 or not info.get("valid"):
-            print(f"!! session PoP rejected: {info}", file=sys.stderr)
-            return 1
-        print(f"  session valid for {info.get('did', '?')}")
-
-    for name, tx_edn in (("schema", schema_tx), ("data", data_tx)):
-        st, body = _post(f"{url}/xrpc/{NSID_TRANSACT}", {"graph": graph, "tx_edn": tx_edn}, token)
+    for name, tx_edn, fatal in (("schema", schema_tx, False), ("data", data_tx, True)):
+        body = {"graph": graph, "tx_edn": tx_edn}
+        if cacao:
+            body["cacao_b64"] = cacao
+        st, resp = _post(f"{url}/xrpc/{NSID_TRANSACT}", body)
         if st != 200:
-            print(f"!! transact {name} failed: {st} {body}", file=sys.stderr)
-            return 1
-        print(f"  ok {name} tx_cid={body.get('tx_cid', '?')} datom_count={body.get('datom_count', '?')}")
+            msg = f"!! transact {name} → {st}: {resp}"
+            if fatal:
+                print(msg, file=sys.stderr)
+                return 1
+            print(msg + "  (schema best-effort; continuing)")
+            continue
+        print(f"  ok {name}: tx_cid={resp.get('tx_cid', '?')} datom_count={resp.get('datom_count', '?')}")
     return 0
 
 

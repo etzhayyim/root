@@ -27,9 +27,15 @@
 > #   live needs a running node on :8077 + KOTOBA_SESSION_POP/KOTOBA_TOKEN, ADR-2605231525)
 > ```
 >
-> **Validated live (2026-06-03)**: an operator-gated AFRINIC `delegated-stats` pull parsed
-> **2,734 real ASNs + 1,266 real CIDR ranges** as `:authoritative` end-to-end; `transact.py`
-> dry-run frames a 60-attr schema tx + the entity graph for `datomic.transact`.
+> **Saved + verified live (2026-06-03)**: the merged graph was transacted into a running kotoba
+> node's Datom log and read back via the AEVT arrangement — **60 `:db/ident` schema attrs + 427
+> data datoms** (5 RIRs · 17 ASNs · 12 ranges · whois), e.g. `:asn/name` → CLOUDFLARENET / GOOGLE /
+> NTT-LTD. Also: an operator-gated AFRINIC `delegated-stats` pull parsed 2,734 real ASNs as
+> `:authoritative`. **Working node recipe**: the `datomic.transact` route + WASM-executor dispatch
+> live in the `kotoba-server` **binary** built `--features wasm-runtime` (the `kotoba serve` CLI
+> subcommand mounts a reduced router) — `cargo build -p kotoba-server --features wasm-runtime`,
+> run with `KOTOBA_PORT`, auth = operator JWT (`sub` == node's keychain `operator_did`), graph =
+> a CIDv1 multibase. Production `did:web` node stays untouched.
 >
 > **Honest R0/T2**: bounded `:representative` seed; live full-universe RIR/RDAP ingest is
 > G7 Council+operator gated; aggregate-first RESILIENCE map, never a target-list; no host is
