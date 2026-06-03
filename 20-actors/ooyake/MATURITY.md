@@ -3,6 +3,18 @@
 Honest status per the gov-coverage maturity model (ADR-2605250680). Coverage gated
 by `:sourcing` (G5): only `:authoritative` rows count.
 
+## 2026-06-03 — statistics + prosecution + revenue (239)
+
+Third oversight wave (national statistical offices finally landed via a light
+instances-only SPARQL + REST entity-resolution approach that dodges the WDQS 504):
+- `gov-units.oversight-statistics.edn` **172** — national statistical offices (`Q480242`).
+- `gov-units.oversight-prosecutor.edn` **32** — public-prosecution / prosecutor-general
+  offices (`Q1092499`∪`Q11775750`), `:branch :judicial`.
+- `gov-units.oversight-revenue.edn` **35** — tax / revenue authorities (`Q573607`);
+  NTA/IRS/HMRC already in the finance layers were deduped out.
+239 bodies. Atlas now **6535 units / 47 files, 6533 QIDs all unique, 6531
+:authoritative**.
+
 ## 2026-06-03 — independent regulators (130)
 
 Second oversight wave — independent regulatory authorities, `:level :agency`
