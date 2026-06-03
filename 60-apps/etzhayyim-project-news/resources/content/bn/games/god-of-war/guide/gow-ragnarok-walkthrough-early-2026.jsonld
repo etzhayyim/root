@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-walkthrough-early-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-walkthrough-early-2026",
   "identifier": "gow-ragnarok-walkthrough-early-2026",
   "headline": "God of War Ragnarok early walkthrough (Missions 1-4): skill priorities, gear roles, and a no-stall route",
   "description": "A stability-first plan for The Path missions 1-4: choose a defense style, lock short runics, and keep upgrades on pace so early fights do not spike in difficulty.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

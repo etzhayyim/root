@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-vottr-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-vottr-guide-2026",
   "identifier": "gow-ragnarok-vottr-guide-2026",
   "headline": "Vottr the Prideful guide (God of War Ragnarok): reduce ranged pressure first, then win with short confirms",
   "description": "Projectile pressure is the real enemy. Chip the safer ranged target first, then take short confirms and reset.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-gunfire-reborn-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-gunfire-reborn-series-primer-2026",
   "identifier": "games-gunfire-reborn-series-primer-2026",
   "headline": "Gunfire Reborn primer: the design ideas behind its world and characters",
   "description": "A starter guide to Gunfire Reborn, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

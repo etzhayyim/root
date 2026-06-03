@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-walkthrough-late-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-walkthrough-late-2026",
   "identifier": "gow-ragnarok-walkthrough-late-2026",
   "headline": "God of War Ragnarok late-mid walkthrough (Missions 9-13): spear confirms, short runics, and upgrade timing",
   "description": "A repeatable 3-weapon loop for missions 9-13: spear throw/detonate confirms, Axe single-target control, Blades crowd suppression",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

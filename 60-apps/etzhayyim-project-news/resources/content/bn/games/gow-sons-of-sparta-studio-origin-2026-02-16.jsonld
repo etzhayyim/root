@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:gow-sons-of-sparta-studio-origin-2026-02-16:ja",
+  "@id": "urn:etzhayyim:news:gow-sons-of-sparta-studio-origin-2026-02-16:ja",
   "identifier": "gow-sons-of-sparta-studio-origin-2026-02-16",
   "headline": "『God of War Sons of Sparta』開発陣インタビュー公開、シリーズ原点の設計意図を説明",
   "description": "PlayStation Blogが2026-02-16付でMega Cat Studiosの開発者インタビューを公開。Kratosの時代背景と2Dアクション化の狙いが語られた。",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

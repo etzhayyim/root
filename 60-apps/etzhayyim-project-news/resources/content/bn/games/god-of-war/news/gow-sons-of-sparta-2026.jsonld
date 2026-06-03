@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-sons-of-sparta-2026",
+  "@id": "urn:etzhayyim:news:gow-sons-of-sparta-2026",
   "identifier": "gow-sons-of-sparta-2026",
   "headline": "God of War Greek trilogy remake in development as 2D prequel Sons of Sparta launches on PS5",
   "description": "State of Play confirmed a God of War Greek trilogy remake is in development, while the surprise 2D action prequel God of War: Sons of Sparta launched on PS5. The new title follows young Kratos and Deimos and features spear-and-shield combat with Gifts of Olympus.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

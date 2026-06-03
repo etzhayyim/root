@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-walkthrough-endgame-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-walkthrough-endgame-2026",
   "identifier": "gow-ragnarok-walkthrough-endgame-2026",
   "headline": "God of War Ragnarok endgame (Missions 14-18 and postgame): gear-set plan and the Berserkers to King Hrolf route",
   "description": "An endgame plan focused on removing failure modes: short punish windows, stability-first gear, and a clear postgame order: materials, Berserkers, then King Hrolf.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

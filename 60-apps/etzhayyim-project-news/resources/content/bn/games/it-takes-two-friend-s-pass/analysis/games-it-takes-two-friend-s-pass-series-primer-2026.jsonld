@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-it-takes-two-friend-s-pass-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-it-takes-two-friend-s-pass-series-primer-2026",
   "identifier": "games-it-takes-two-friend-s-pass-series-primer-2026",
   "headline": "It Takes Two Friend's Pass primer: the design ideas behind its world and characters",
   "description": "A starter guide to It Takes Two Friend's Pass, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

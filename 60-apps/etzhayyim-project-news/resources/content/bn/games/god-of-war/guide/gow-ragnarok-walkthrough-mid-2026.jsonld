@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-walkthrough-mid-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-walkthrough-mid-2026",
   "identifier": "gow-ragnarok-walkthrough-mid-2026",
   "headline": "God of War Ragnarok midgame walkthrough (Missions 5-8): Vanaheim upgrade window and recommended gear roles",
   "description": "A midgame plan around Vanaheim: use the River Delta detour to build a single strong foundation set, then return to story with stable runics and controlled crowd fights.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
