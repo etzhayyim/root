@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_gulf_terminal_record_outage"
-    targetNamespace="https://gftd.ai/bpmn/open-gulf-terminal"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-gulf-terminal"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_gulf_terminal_record_outage" name="Gulf terminal outage" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-gulf-terminal.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-gulf-terminal.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openGulfTerminal.outage.marketNotice&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, outageId: outageId, terminalCode: terminalCode, cause: cause, impactMbd: impactMbd, severity: severity}" target="payload"/>
         </zeebe:ioMapping>
@@ -59,7 +59,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-gulf-terminal.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-gulf-terminal.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openGulfTerminal.outage.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, outageId: outageId, terminalCode: terminalCode, cause: cause, impactMbd: impactMbd, severity: severity}" target="payload"/>
         </zeebe:ioMapping>

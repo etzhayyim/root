@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_hs_classify_shipment"
-    targetNamespace="https://gftd.ai/bpmn/open-hs"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-hs"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_hs_classify_shipment" name="HS 貿易分類" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -18,7 +18,7 @@
           <zeebe:input source="=[]" target="params"/>
           <zeebe:output source="=if confidence &gt;= 0.9 then &quot;authoritative&quot; else if confidence &gt;= 0.5 then &quot;community&quot; else &quot;candidate&quot;" target="verification"/>
           <zeebe:output source="=confidence &lt; 0.5" target="requireReview"/>
-          <zeebe:output source="=&quot;at://did:web:open-hs.gftd.ai/com.etzhayyim.apps.openHs.class/&quot; + string(hsCode)" target="classDst"/>
+          <zeebe:output source="=&quot;at://did:web:open-hs.etzhayyim.com/com.etzhayyim.apps.openHs.class/&quot; + string(hsCode)" target="classDst"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
@@ -80,7 +80,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-hs.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-hs.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openHs.classify.reviewPending&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, hsCode: hsCode, confidence: confidence}" target="payload"/>
         </zeebe:ioMapping>
@@ -93,7 +93,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-hs.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-hs.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openHs.classify.accept&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, hsCode: hsCode, verification: verification}" target="payload"/>
         </zeebe:ioMapping>

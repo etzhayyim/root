@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_gs1_register_gtin"
-    targetNamespace="https://gftd.ai/bpmn/open-gs1"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-gs1"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_gs1_register_gtin" name="GTIN 登録" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -35,7 +35,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-gs1.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-gs1.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openGs1.gtin.register&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, gtin: gtin, gtinFormat: gtinFormat, productCategory: productCategory}" target="payload"/>
         </zeebe:ioMapping>

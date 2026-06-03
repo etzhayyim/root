@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_genocide_convention_flag_atrocity_arms"
-    targetNamespace="https://gftd.ai/bpmn/open-genocide-convention"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-genocide-convention"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_genocide_convention_flag_atrocity_arms" name="ジェノサイド条約 武器関与" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-genocide-convention.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-genocide-convention.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;atrocity.armsLink&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: incidentVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>
