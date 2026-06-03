@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:death-stranding-character-lou-growth-2026",
+  "@id": "urn:etzhayyim:news:death-stranding-character-lou-growth-2026",
   "identifier": "death-stranding-character-lou-growth-2026",
   "headline": "Lou growth curve: decisions, consequences, and transformation",
   "description": "Tracking Lou’s decisions and costs to understand transformation over time.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
