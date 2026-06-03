@@ -2,7 +2,7 @@
 
 ## 背景
 
-2026-04-13 に S3 Object Versioning を有効化した直後、`ai-gftd-iceberg` バケットが 38 GB → 18.74 TB (4日間) に急膨張。本ドキュメントは原因・対処・コスト比較の学びを記録する。
+2026-04-13 に S3 Object Versioning を有効化した直後、`etzhayyim-iceberg` バケットが 38 GB → 18.74 TB (4日間) に急膨張。本ドキュメントは原因・対処・コスト比較の学びを記録する。
 
 ---
 
@@ -131,9 +131,9 @@ Hummock のような高チャーン LSM workload には **同一 DC に egress �
 ```
 RisingWave (Linode SG, sg-sin-2)
   ↕ free egress (同一DC)
-Linode Object Storage ai-gftd-iceberg (PRIMARY, sg-sin-1)
+Linode Object Storage etzhayyim-iceberg (PRIMARY, sg-sin-1)
   ↓ rclone linode-to-b2-replication CronJob */15min (write-only, ingress free)
-B2 us-west-004 ai-gftd-nats/linode/ai-gftd-iceberg (DR replica)
+B2 us-west-004 etzhayyim-nats/linode/etzhayyim-iceberg (DR replica)
   └ hard_delete=false → B2 側も hidden version 保持
 ```
 

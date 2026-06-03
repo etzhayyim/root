@@ -23,9 +23,9 @@ ADR-2604241038 Contract 3 unifies the Worker-to-Worker viewer-DID trust
 plane on an HMAC-signed 3-header envelope:
 
 ```
-x-gftd-viewer-did:        did:web:alice.etzhayyim.com
-x-gftd-viewer-issued-at:  <unix seconds>
-x-gftd-viewer-signature:  HMAC-SHA256(APPVIEW_INTERNAL_SECRET, "did|issued-at")
+x-etzhayyim-viewer-did:        did:web:alice.etzhayyim.com
+x-etzhayyim-viewer-issued-at:  <unix seconds>
+x-etzhayyim-viewer-signature:  HMAC-SHA256(APPVIEW_INTERNAL_SECRET, "did|issued-at")
 ```
 
 The PDS (upstream) emits the trio on every pipethrough; the AppView /
@@ -37,7 +37,7 @@ redeployed yet don't fail closed.
 
 | Worker  | when `on` (default) | when `off` |
 |---|---|---|
-| atproto (PDS) | emits legacy `x-gftd-authenticated-did` + `x-gftd-internal-trust` **alongside** the HMAC trio | emits **only** the HMAC trio |
+| atproto (PDS) | emits legacy `x-etzhayyim-authenticated-did` + `x-etzhayyim-internal-trust` **alongside** the HMAC trio | emits **only** the HMAC trio |
 | bsky (AppView) | accepts legacy shared-secret header pair if HMAC verify fails | rejects legacy pair, drops viewer to anonymous |
 | chat | (same as bsky — currently only logs the viewer DID; flag wired for future per-viewer state) | (same) |
 | signal | (same — scaffold 501s today, flag is pre-wired for the real handlers) | (same) |
@@ -56,11 +56,11 @@ two weeks. Verify via:
 
 ```bash
 # Dates of the atproto redeploy carrying `applyViewerHeaders`:
-wrangler deployments list --name ai-gftd-pds-2603241700 | head -5
+wrangler deployments list --name etzhayyim-pds-2603241700 | head -5
 # Same for appview, chat, signal:
-wrangler deployments list --name ai-gftd-appview | head -5
-wrangler deployments list --name ai-gftd-chat | head -5
-wrangler deployments list --name ai-gftd-signal | head -5
+wrangler deployments list --name etzhayyim-appview | head -5
+wrangler deployments list --name etzhayyim-chat | head -5
+wrangler deployments list --name etzhayyim-signal | head -5
 ```
 
 If any Worker's latest deploy is < 14 days old, **do not flip**. The
@@ -126,7 +126,7 @@ When Logpush is unavailable (e.g. during the cutover rehearsal before
 the job is wired) use tail directly:
 
 ```bash
-wrangler tail --format=json ai-gftd-appview \
+wrangler tail --format=json etzhayyim-appview \
   | jq -r 'select(.logs[]?.message[]? | test("\\[trust\\]\\[legacy\\] hit"))
            | .logs[].message[]' \
   | tee /tmp/legacy-trust-hits.log
@@ -159,9 +159,9 @@ curl -sS https://staging.signal.etzhayyim.com/_worker/health
 # E2E: a logged-in call that hits AppView via PDS pipethrough
 # (getAuthorFeed, getProfile). The viewer DID should round-trip even
 # with no legacy headers on the wire.
-gftd authn signin
+etzhayyim authn signin
 curl -sS "https://staging.atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:web:yoro.etzhayyim.com" \
-  -H "Authorization: Bearer $(gftd authn token)"
+  -H "Authorization: Bearer $(etzhayyim authn token)"
 ```
 
 Run for ≥ 24h in staging before touching production.
@@ -238,7 +238,7 @@ Once `off` has run for 2 weeks without incident:
 1. Remove the `LEGACY_TRUST_HEADERS` env var from all four wranglers.
 2. Delete the legacy header-emission branches in
    `atproto/src/dispatch.ts` (grep for `emitLegacy` /
-   `x-gftd-authenticated-did` / `x-gftd-internal-trust` — all should
+   `x-etzhayyim-authenticated-did` / `x-etzhayyim-internal-trust` — all should
    go).
 3. Delete the legacy-verification branches in
    `appview/src/handlers/appview.ts` (the `allowLegacy` path and the

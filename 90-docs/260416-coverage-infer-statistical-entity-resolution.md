@@ -1,6 +1,6 @@
 ---
 id: coverage-infer-statistical-entity-resolution-260416
-title: "gftd coverage infer — Statistical Entity Resolution via RisingWave Python UDF"
+title: "etzhayyim coverage infer — Statistical Entity Resolution via RisingWave Python UDF"
 status: active
 doc_type: how-to
 topic: cohort-evaluation
@@ -16,7 +16,7 @@ superseded_by: []
 
 # Goal
 
-多様な統計データ (ILOSTAT, 国勢調査, 業界統計等) から潜在的な entity を発見し (Phase B: Latent Discovery)、既存の cohort/actor と照合して同定していく (Phase A: Entity Resolution) CLI コマンド `gftd coverage infer` を設計・実装する。
+多様な統計データ (ILOSTAT, 国勢調査, 業界統計等) から潜在的な entity を発見し (Phase B: Latent Discovery)、既存の cohort/actor と照合して同定していく (Phase A: Entity Resolution) CLI コマンド `etzhayyim coverage infer` を設計・実装する。
 
 統計計算は **RisingWave Python UDF** (Arrow Flight protocol) で実行する。
 
@@ -33,7 +33,7 @@ superseded_by: []
 Input (CSV/JSONL)
   │
   ├─ Phase B: Latent Discovery ──────────────────────────┐
-  │  gftd coverage infer discover --input data.csv       │
+  │  etzhayyim coverage infer discover --input data.csv       │
   │    1. Go CLI: CSV parse → bulk INSERT                │
   │       → vertex_infer_input (features DOUBLE[])       │
   │    2. SQL: SELECT gmm_fit(features, k)               │
@@ -43,7 +43,7 @@ Input (CSV/JSONL)
   └──────────────────────────────────────────────────────┘
   │
   ├─ Phase A: Entity Resolution ─────────────────────────┐
-  │  gftd coverage infer match --threshold 0.7           │
+  │  etzhayyim coverage infer match --threshold 0.7           │
   │    1. SELECT vertex_infer_cluster + vertex_cohort_actor│
   │    2. cosine_similarity() UDF for feature matching    │
   │    3. posterior_update() UDF for Bayesian update      │
@@ -55,7 +55,7 @@ Input (CSV/JSONL)
   └─ Phase C: Fission (auto) ───────────────────────────┐
      posterior > 0.95 && judge_agreement                 │
      → PDS magatama.jsonld derive rule                   │
-     → gftd cohort fission (existing)                    │
+     → etzhayyim cohort fission (existing)                    │
   └──────────────────────────────────────────────────────┘
 ```
 
@@ -63,14 +63,14 @@ Input (CSV/JSONL)
 
 | Subcommand | 動作 | Read/Write |
 |---|---|---|
-| `gftd coverage infer` | サマリー (全 cohort の posterior + evidence + k 一覧) | Read |
-| `gftd coverage infer list` | 詳細テーブル (--grade, --locale, --apqc, --json) | Read |
-| `gftd coverage infer inspect --did X` | 特定 cohort の evidence 分布 + signal_kind 内訳 | Read |
-| `gftd coverage infer posterior` | mv_cohort_identity_posterior の streaming 状態 | Read |
-| `gftd coverage infer kdrift` | mv_cohort_k_drift の k-anonymity ドリフト検出 | Read |
-| `gftd coverage infer discover` | 統計データ → latent cluster 発見 (RisingWave UDF) | Write |
-| `gftd coverage infer match` | 発見 cluster ↔ 既存 entity マッチング | Write |
-| `gftd coverage infer fission --dry-run` | fission 候補一覧 + 実行 | Write |
+| `etzhayyim coverage infer` | サマリー (全 cohort の posterior + evidence + k 一覧) | Read |
+| `etzhayyim coverage infer list` | 詳細テーブル (--grade, --locale, --apqc, --json) | Read |
+| `etzhayyim coverage infer inspect --did X` | 特定 cohort の evidence 分布 + signal_kind 内訳 | Read |
+| `etzhayyim coverage infer posterior` | mv_cohort_identity_posterior の streaming 状態 | Read |
+| `etzhayyim coverage infer kdrift` | mv_cohort_k_drift の k-anonymity ドリフト検出 | Read |
+| `etzhayyim coverage infer discover` | 統計データ → latent cluster 発見 (RisingWave UDF) | Write |
+| `etzhayyim coverage infer match` | 発見 cluster ↔ 既存 entity マッチング | Write |
+| `etzhayyim coverage infer fission --dry-run` | fission 候補一覧 + 実行 | Write |
 
 ## RisingWave Python UDF Server
 
@@ -176,9 +176,9 @@ psql -h <rw-host> -p 4566 -U root -d dev -c \
 # Expected: 0.0
 
 # 3. CLI read-only
-gftd coverage infer
-gftd coverage infer posterior
-gftd coverage infer kdrift
+etzhayyim coverage infer
+etzhayyim coverage infer posterior
+etzhayyim coverage infer kdrift
 ```
 
 # Implementation Plan
@@ -195,4 +195,4 @@ gftd coverage infer kdrift
 - `30-graph/graph-schema/CLAUDE.md` §MV Memory Safety Guardrails
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`
 - `90-docs/260414-cohort-identity-posterior-mv-draft.md`
-- `70-tools/gftd/gftd/coverage_actors.go` (pattern reference)
+- `70-tools/etzhayyim/etzhayyim/coverage_actors.go` (pattern reference)

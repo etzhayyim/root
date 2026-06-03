@@ -19,7 +19,7 @@ Follow-up to `260420-pds-commit-seq-race-analysis.md` residual issue (b): `sdk.p
 1. **Cloudflare Hyperdrive** — CF edge pool → RW origin
 2. **RisingWave frontend** — pg wire handler (parse/plan/route)
 3. **RisingWave compute** — streaming MV execution
-4. **PDS Worker (`ai-gftd-pds-2603241700`)** — XRPC → Kysely → Hyperdrive
+4. **PDS Worker (`etzhayyim-pds-2603241700`)** — XRPC → Kysely → Hyperdrive
 5. **app Worker → PDS Worker binding** — CF service binding, same zone
 
 ## Current config (2026-04-21)

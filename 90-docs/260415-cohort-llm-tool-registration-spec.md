@@ -52,7 +52,7 @@ com.etzhayyim.cohort.* の 4 procedure (seed / emitEvidence / fission / repairEd
 }
 ```
 
-→ host が `gftd cohort gen` 相当の JSON-LD 組立て + POST `/xrpc/com.etzhayyim.cohort.seed`。
+→ host が `etzhayyim cohort gen` 相当の JSON-LD 組立て + POST `/xrpc/com.etzhayyim.cohort.seed`。
 
 ## 2. cohort_emit_evidence
 

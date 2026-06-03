@@ -164,7 +164,7 @@ sources:
 
 Keep the real BPMN under a domain folder, for example:
 
-`etzhayyim-root/60-apps/ai-gftd-project-houbun/bpmn/houbun-source-delta.bpmn`
+`etzhayyim-root/60-apps/etzhayyim-project-houbun/bpmn/houbun-source-delta.bpmn`
 
 The source-neutral skeleton should look like:
 
@@ -394,7 +394,7 @@ spec:
                   name: mitama-udf-pool-rw
                   key: RW_URL
             - name: HOUBUN_ARTIFACT_BUCKET
-              value: ai-gftd-nats
+              value: etzhayyim-nats
             - name: HOUBUN_ARTIFACT_PREFIX
               value: houbun/ingest
           resources:

@@ -239,7 +239,7 @@ AGENT_DAEMON_ENV_FILE=ops/local-agent/agent-daemon.env \
 ```
 
 The command publishes the generated registration JSON to `https://ipfs.etzhayyim.com`
-and then calls `gftd agent-runtime register`, which submits
+and then calls `etzhayyim agent-runtime register`, which submits
 `etzhayyimAgentRegistry.registerAgent(...)` on chain `260425`. It fails closed before
 IPFS/chain writes when the registration still contains unsafe placeholders such
 as a zero `rootIdentity.address`.
@@ -247,8 +247,8 @@ as a zero `rootIdentity.address`.
 Required local secrets and identity values:
 
 ```bash
-security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w
-security find-generic-password -s gftd.private-chain -a SEALER_PRIV -w
+security find-generic-password -s etzhayyim.cloudflare -a IPFS_HMAC -w
+security find-generic-password -s etzhayyim.private-chain -a SEALER_PRIV -w
 ```
 
 `ops/local-agent/agent-daemon.env` must contain a real

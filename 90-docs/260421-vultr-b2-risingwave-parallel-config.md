@@ -15,7 +15,7 @@
 |---|---|---|
 | クラスタ | Linode LKE sg-sin-2 (Kubernetes 1.32) | — |
 | ノード | g6-dedicated-16 (16 vCPU / 32 GB RAM Dedicated) | $192 |
-| Object Storage | Linode sg-sin-1 `ai-gftd-iceberg` 7.63 TB | ~$152 |
+| Object Storage | Linode sg-sin-1 `etzhayyim-iceberg` 7.63 TB | ~$152 |
 | Block Storage (PVC) | 30 GiB (metastore 10 + state 20) | ~$15 |
 | B2 DR レプリカ | rclone sync 15min (backup only) | ~$5 |
 | **合計** | | **~$364/月** |
@@ -23,7 +23,7 @@
 **主要エンドポイント:**
 - RisingWave PG wire: `172.236.132.11:4566`
 - Hyperdrive binding: `e84c0a2babe44fc7b74818e394b4b896`
-- Hummock state: `hummock+s3://ai-gftd-iceberg/risingwave/state`
+- Hummock state: `hummock+s3://etzhayyim-iceberg/risingwave/state`
 - S3 endpoint: `https://sg-sin-1.linodeobjects.com`
 
 **S3 互換ワークアラウンド (Linode 固有):**
@@ -46,7 +46,7 @@ Cloudflare Workers
               └── RisingWave Pod (Vultr VKE)
                     └── Hummock state store
                           └── Backblaze B2 ap-southeast-001
-                                └── bucket: ai-gftd-iceberg-b2
+                                └── bucket: etzhayyim-iceberg-b2
 ```
 
 ### 2-2. Vultr インスタンス選定
@@ -68,11 +68,11 @@ RisingWave の streaming workload では Dedicated が望ましい。
 | 項目 | 値 |
 |---|---|
 | リージョン | `us-west-004` (US West — B2 に AP リージョン未存在) |
-| バケット名 | `ai-gftd-nats` (既存 DR バックアップバケット流用) |
+| バケット名 | `etzhayyim-nats` (既存 DR バックアップバケット流用) |
 | S3 エンドポイント | `https://s3.us-west-004.backblazeb2.com` |
-| Hummock state path | `hummock+s3://ai-gftd-nats/vultr/risingwave/state` |
-| Application Key ID | B2 アプリキーID (Keychain: `gftd.b2`) |
-| Application Key | B2 アプリキー (Keychain: `gftd.b2`) |
+| Hummock state path | `hummock+s3://etzhayyim-nats/vultr/risingwave/state` |
+| Application Key ID | B2 アプリキーID (Keychain: `etzhayyim.b2`) |
+| Application Key | B2 アプリキー (Keychain: `etzhayyim.b2`) |
 
 **B2 S3 互換設定 (Linode のワークアラウンド不要):**
 ```
@@ -91,7 +91,7 @@ is_force_path_style: false  # B2 は virtual-hosted style 対応
 # 変更箇所のみ (その他は現行 values.yaml を継承)
 env:
   - name: RW_STATE_STORE
-    value: "hummock+s3://ai-gftd-iceberg-b2/risingwave/state"
+    value: "hummock+s3://etzhayyim-iceberg-b2/risingwave/state"
   - name: AWS_REGION
     value: "ap-southeast-001"  # B2 region
   - name: AWS_ENDPOINT_URL
@@ -163,8 +163,8 @@ Vultr は B2 の **Bandwidth Ally** 公式パートナー。以下が無料:
 ### Phase 1: Vultr + B2 でテスト稼働 (並行)
 
 1. Vultr VKE クラスタ作成 (Singapore、ワーカー 1 node: High Performance 8vCPU/16GB)
-2. B2 バケット `ai-gftd-iceberg-b2` 作成 (ap-southeast-001)
-3. B2 Application Key 発行 → macOS Keychain `gftd.b2` に登録
+2. B2 バケット `etzhayyim-iceberg-b2` 作成 (ap-southeast-001)
+3. B2 Application Key 発行 → macOS Keychain `etzhayyim.b2` に登録
 4. Kubernetes Secret `b2-credentials` 作成
 5. RisingWave Helm デプロイ (B2 endpoint に向ける)
 6. Hyperdrive 新規 binding 作成 → `HYPERDRIVE_VULTR` として worker に追加

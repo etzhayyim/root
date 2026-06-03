@@ -5,7 +5,7 @@ Status: active audit note
 ## Summary
 
 - RisingWave live connection: `45.32.79.245:4566/dev`.
-- Keychain item `gftd.vultr / RW_LB_IP` was stale and has been updated to `45.32.79.245`.
+- Keychain item `etzhayyim.vultr / RW_LB_IP` was stale and has been updated to `45.32.79.245`.
 - Kysely schema was regenerated from live RisingWave and `pnpm --dir 30-graph/graph-schema run db:drift` now reports zero drift.
 - Lexicon generated artifacts were regenerated from `00-contracts/lexicons`.
 - BPMN coverage gate passes for all 16 covered processes.

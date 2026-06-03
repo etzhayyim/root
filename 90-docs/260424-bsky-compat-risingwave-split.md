@@ -1,4 +1,4 @@
-# Bluesky social-app compatibility on RisingWave: how gftd self-hosted PDS holds the contract
+# Bluesky social-app compatibility on RisingWave: how etzhayyim self-hosted PDS holds the contract
 
 Date: 2026-04-24
 Scope: analysis of `50-infra/cloudflare/workers/atproto/` against Bluesky social-app client contract, in light of RisingWave 2.8.1 OLTP gaps confirmed 2026-04-24 (`ON CONFLICT`, write TX, RYW, UNIQUE all unsupported).
@@ -7,22 +7,22 @@ Relates: ADR-0002 (GraphAr), ADR-0022 (auth 2-token), ADR-0036 (worker-direct Hy
 
 ## TL;DR
 
-- **gftd self-hosted PDS is already compatible with RisingWave's OLTP gaps**. The canonical commit path (`core.ts:2998`) uses **delete-then-insert upsert emulation** explicitly to avoid `ON CONFLICT`. That's why gftd works where tranquil does not.
+- **etzhayyim self-hosted PDS is already compatible with RisingWave's OLTP gaps**. The canonical commit path (`core.ts:2998`) uses **delete-then-insert upsert emulation** explicitly to avoid `ON CONFLICT`. That's why etzhayyim works where tranquil does not.
 - **Bluesky social-app client sees only the XRPC HTTP surface**. It doesn't care about storage. Compatibility is held at the XRPC layer, not at the SQL layer.
 - **The OLTP-heavy surface is offloaded to D1** (auth sessions, passkeys, signing keys) and **CF service bindings** (VAULT, AUTH, PLC_DIRECTORY). D1 is SQLite — full OLTP.
 - **RisingWave holds only append-dominant / delete-then-insert graph state** (`vertex_repo_commit`, `vertex_repo_record`, `vertex_repo_block`, `vertex_profile`, domain `vertex_<actor>_*`). This matches streaming semantics.
 - **1 confirmed latent bug**: `agent/memory.ts:284` uses `.onConflict().doUpdateSet()` with comment "RisingWave supports this" — primary-source probe shows this is a **silent failure** on RW. Wrapped in try/catch → warns but loses writes.
 
-## gftd storage split (2026-04-24 actual state)
+## etzhayyim storage split (2026-04-24 actual state)
 
-From `50-infra/cloudflare/workers/atproto/wrangler.jsonc` + `60-apps/ai-gftd-project-auth/worker*/wrangler.jsonc`:
+From `50-infra/cloudflare/workers/atproto/wrangler.jsonc` + `60-apps/etzhayyim-project-auth/worker*/wrangler.jsonc`:
 
 | Storage | What | OLTP semantics | Bluesky analogue |
 |---|---|---|---|
-| **D1** `ai-gftd-auth-passkey` (auth Worker) | Passkey credentials, session tokens, OAuth state | Full OLTP (SQLite). Atomic TX, UNIQUE, ON CONFLICT all supported | official PDS `AccountDB` (SQLite) |
-| **D1** `ai-gftd-keys` (shared) | Per-DID signing keys (envelope-encrypted w/ KEK) | Full OLTP | official PDS `ActorStore` signing key slot |
+| **D1** `etzhayyim-auth-passkey` (auth Worker) | Passkey credentials, session tokens, OAuth state | Full OLTP (SQLite). Atomic TX, UNIQUE, ON CONFLICT all supported | official PDS `AccountDB` (SQLite) |
+| **D1** `etzhayyim-keys` (shared) | Per-DID signing keys (envelope-encrypted w/ KEK) | Full OLTP | official PDS `ActorStore` signing key slot |
 | **RisingWave** via `HYPERDRIVE` binding (id `e84c0a2b…`, Vultr LAX `45.32.79.245:4566`) | `vertex_repo_commit`, `vertex_repo_record`, `vertex_repo_block`, `vertex_profile`, domain `vertex_<app>_*` (772 tables, 172 MV) | Append-heavy streaming. PK implicit upsert. No `ON CONFLICT`, no write TX, no RYW, no UNIQUE col constraint | official PDS `ActorStore` per-actor SQLite (repo) + AppView Postgres (feed index) merged |
-| **B2** `ai-gftd-graph`, `ai-gftd-cache` | Blobs (CAR blocks for cold archive, media files) | Object store | official PDS blob store (S3-compatible) |
+| **B2** `etzhayyim-graph`, `etzhayyim-cache` | Blobs (CAR blocks for cold archive, media files) | Object store | official PDS blob store (S3-compatible) |
 | **CF service bindings** | VAULT (D1), AUTH (D1), PLC_DIRECTORY (D1), GRAPH_QUERY, MURAKUMO, ROUTING_GATEWAY | Delegated — each has own storage contract | N/A (monolithic in official PDS) |
 
 **Key insight**: every write that needs real OLTP (UNIQUE enforcement, atomic multi-row update, conflict resolution) lives in **D1**, not RW. The arch was already designed around this split before the 2026-04-24 RW probe; the probe confirmed why.
@@ -31,7 +31,7 @@ From `50-infra/cloudflare/workers/atproto/wrangler.jsonc` + `60-apps/ai-gftd-pro
 
 `bluesky-social/social-app` (React Native) talks XRPC HTTP to any endpoint implementing AT Protocol. Actual calls observed in Bluesky's client code:
 
-| XRPC NSID | gftd handler | Storage touched | RW gap impact |
+| XRPC NSID | etzhayyim handler | Storage touched | RW gap impact |
 |---|---|---|---|
 | `com.atproto.server.createAccount` | `handlers/register.ts` | D1 (passkey) + D1 (keys) + RW INSERT `vertex_repo_commit` genesis | None. INSERT-only on RW side |
 | `com.atproto.server.createSession` | `AUTH_SERVICE` binding → authn.etzhayyim.com Worker | D1 (session row) | None. D1 is full OLTP |
@@ -49,7 +49,7 @@ From `50-infra/cloudflare/workers/atproto/wrangler.jsonc` + `60-apps/ai-gftd-pro
 | `app.bsky.actor.getProfile` | `handlers/pds/server.ts:308/319/330` UPDATE `vertex_profile` | RW UPDATE | **Potentially broken** — UPDATE immediately after INSERT fails RYW on RW. Need to verify this isn't the commit path |
 | `chat.bsky.convo.*` | core.ts messaging | RW `vertex_convo` / `vertex_message` + pipethrough | Works (append-only on RW, encryption in wproto layer) |
 
-## How gftd already works around RW OLTP gaps
+## How etzhayyim already works around RW OLTP gaps
 
 Primary-source code references (all in `50-infra/cloudflare/workers/atproto/src/`):
 
@@ -121,7 +121,7 @@ Fix: replace with delete-then-insert pattern matching `core.ts:2998`.
 - `actor-executor-migrate-t1.ts:38, 57, 81` — inline SQL string `ON CONFLICT (vertex_id) DO UPDATE`
 - `actor/index.ts:402` — `.onConflict(oc => oc.column('edge_id').doNothing())`
 - `actor/tools.ts:83, 220` — `.onConflict(oc => oc.column('vertex_id').doUpdateSet({...}))`
-- `handlers/gftd/index.ts:85` — documented helper
+- `handlers/etzhayyim/index.ts:85` — documented helper
 
 Each needs independent audit. Some may be dead code (migration scripts), some may be live and silently broken.
 
@@ -136,25 +136,25 @@ Each needs independent audit. Some may be dead code (migration scripts), some ma
 3. **No read-your-writes within same request**. If a write must be followed by a read of the same row, do the read first (have the value in memory) or defer the read to next request cycle.
 4. **No standalone UNIQUE column constraints**. Business keys → PK only. Composite PK for multi-column uniqueness.
 5. **No FK / CASCADE**. App-layer explicit delete propagation. Accept temporary orphans during partial failures.
-6. **OLTP-heavy state stays in D1**. Auth sessions, passkey credentials, signing keys, OAuth tokens → D1 `ai-gftd-auth-passkey` / `ai-gftd-keys`. Never move these to RW.
+6. **OLTP-heavy state stays in D1**. Auth sessions, passkey credentials, signing keys, OAuth tokens → D1 `etzhayyim-auth-passkey` / `etzhayyim-keys`. Never move these to RW.
 
-## Why tranquil failed but gftd self-hosted PDS succeeds
+## Why tranquil failed but etzhayyim self-hosted PDS succeeds
 
 **Same RW, same gaps, different software**:
 - **Tranquil**: written for Postgres 14+ OLTP. 43 migrations assume FK/UNIQUE/CHECK/ON CONFLICT/TX freely. 100+ sqlx `query!` macros with `ON CONFLICT (col) DO UPDATE` pattern. Adapting means rewriting the entire `tranquil-db` crate + every query site + losing upstream compatibility.
-- **gftd self-hosted**: written against RW from day 1 (ADR-0002 → ADR-0036). Commit path explicitly uses delete-then-insert. Content-addressed PK exploits RW's implicit upsert. OLTP-heavy paths offloaded to D1. ~2000 LoC of pds handler code, zero migration pain because schema already matches runtime.
+- **etzhayyim self-hosted**: written against RW from day 1 (ADR-0002 → ADR-0036). Commit path explicitly uses delete-then-insert. Content-addressed PK exploits RW's implicit upsert. OLTP-heavy paths offloaded to D1. ~2000 LoC of pds handler code, zero migration pain because schema already matches runtime.
 
-The tranquil POC proved that **RW is the constraint, not the choice of PDS implementation**. Any Postgres-expecting OLTP PDS would hit the same wall. gftd's self-hosted PDS succeeds specifically because it was co-designed with RW.
+The tranquil POC proved that **RW is the constraint, not the choice of PDS implementation**. Any Postgres-expecting OLTP PDS would hit the same wall. etzhayyim's self-hosted PDS succeeds specifically because it was co-designed with RW.
 
 ## social-app compatibility stance
 
-- **Held**: all XRPC NSID the client calls → gftd handlers return spec-shaped JSON. Tested via `50-infra/cloudflare/workers/atproto/src/cc-profile-e2e.test.ts`, `e2e-coverage.test.ts`, `business-person-integration.test.ts`.
+- **Held**: all XRPC NSID the client calls → etzhayyim handlers return spec-shaped JSON. Tested via `50-infra/cloudflare/workers/atproto/src/cc-profile-e2e.test.ts`, `e2e-coverage.test.ts`, `business-person-integration.test.ts`.
 - **Firehose**: `subscribeRepos` serves content-addressed commit sequence. Client-side reconstructs repo. ADR-0041 tolerance to RW's last-write-wins is correct for social-app.
 - **Auth**: ADR-0022 2-token model (API key + Service Auth JWT) works under OAuth 2.1 spec. Client uses `createSession` → refresh → Service Auth per call.
 - **Lexicon**: `app.bsky.*` / `com.atproto.*` + custom `com.etzhayyim.*`. Bluesky client ignores unknown NSID (forward-compat). com.etzhayyim clients use `@etzhayyim/wproto` which wraps AtpAgent.
 - **Blob upload**: `com.atproto.repo.uploadBlob` → B2 PUT works. Client reads blob ref from AT record normally.
 
-**Bluesky social-app would connect to gftd PDS transparently if we registered the `atproto.etzhayyim.com` endpoint.** The RW gaps are internal storage concerns that never leak to the client.
+**Bluesky social-app would connect to etzhayyim PDS transparently if we registered the `atproto.etzhayyim.com` endpoint.** The RW gaps are internal storage concerns that never leak to the client.
 
 ## Actions
 

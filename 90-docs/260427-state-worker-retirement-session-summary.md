@@ -116,7 +116,7 @@ Worker:
   - `g0vago01.etzhayyim.com/*`
   - `ago-state.etzhayyim.com/*`
 - local path:
-  `60-apps/ai-gftd-project-states/appview/ai-gftd-wasm-states-ago-g0vago01`
+  `60-apps/etzhayyim-project-states/appview/etzhayyim-wasm-states-ago-g0vago01`
 
 Official-source anchors selected for AGO:
 
@@ -155,7 +155,7 @@ AGO deletion sequence:
 Update after implementation:
 
 - The two AGO migrations were applied from Apple Keychain
-  `gftd.rw/ROOT_URL`:
+  `etzhayyim.rw/ROOT_URL`:
   - `20260427113000_seed_gov_ago_bpmn_mcp_registry`
   - `20260427114000_seed_gov_ago_official_source_coverage`
 - Drift check passed and `30-graph/graph-schema/src/database.ts` was

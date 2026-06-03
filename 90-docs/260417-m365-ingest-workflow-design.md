@@ -1,13 +1,13 @@
 # M365 Ingest Workflow + Actor Pipeline DSL (2026-04-17)
 
-Ad-hoc `~/.gftd/ingest/m365_mail_ingest.py` Python script を T1 actor manifest pipeline + derive-based routing に置き換える設計。Actor = `m365-ingest` (nanoid `m3650xin`, `did:web:m365-ingest.etzhayyim.com`)。
+Ad-hoc `~/.etzhayyim/ingest/m365_mail_ingest.py` Python script を T1 actor manifest pipeline + derive-based routing に置き換える設計。Actor = `m365-ingest` (nanoid `m3650xin`, `did:web:m365-ingest.etzhayyim.com`)。
 
 ## 目的
 
 | before | after |
 |---|---|
 | 手動 `python3 m365_mail_ingest.py upn` を UPN ごとに実行 | `cron */15 *` が `delta-sync-all-users` を自動起動、`com.etzhayyim.apps.m365Ingest.syncUser` XRPC で任意 UPN を on-demand |
-| sync state = ローカル JSON (`~/.gftd/sync_state.json`) | sync state = graph (`vertex_m365_sync_state`) |
+| sync state = ローカル JSON (`~/.etzhayyim/sync_state.json`) | sync state = graph (`vertex_m365_sync_state`) |
 | routing なし (DB 書き込みのみ) | `com.etzhayyim.apps.kyber.inbox.emailSignal` emit → kyber-inbox / yabai が subscribeRepos で後処理 |
 | OAuth 考慮なし | `email-service-adapter` が per-user OAuth UI を担い、`m365-ingest` は tenant app token のみ使用 (RACI 分離) |
 
@@ -159,7 +159,7 @@ Wire-up: `createHostDispatcher(hostImports, { m365: createM365Capability({ tenan
 | `M365_CLIENT_ID` | Azure AD portal | `wrangler.jsonc` vars (non-secret) |
 | `M365_CLIENT_SECRET` | Azure AD portal | Cloudflare Secrets Store (`secrets_store_secrets[].secret_name = m365_client_secret`) |
 
-Local dev: `~/.gftd/m365-credentials.env` に同名で記載 (chmod 600)。
+Local dev: `~/.etzhayyim/m365-credentials.env` に同名で記載 (chmod 600)。
 
 ### Failure modes
 
@@ -208,10 +208,10 @@ Migration `20260417190000_vertex_m365_sync_state.ts`:
 | 2 | Migration apply (`pnpm db:migrate`) + types regen (`pnpm db:gen`) | ⏳ |
 | 3 | Seed `vertex_m365_user` 手動 1 回 (daily cron 前の bootstrap) | ⏳ |
 | 4 | Wrangler secret `m365_client_secret` 登録 + ActorExecutor Worker に bind | ⏳ |
-| 5 | Actor manifest 登録: `gftd xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'` | ⏳ |
+| 5 | Actor manifest 登録: `etzhayyim xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'` | ⏳ |
 | 6 | `syncUser` を各 UPN で 1 回 invoke (initial full sync) | ⏳ |
 | 7 | Delta cron 稼働確認、throttle / error rate モニタリング 1 週間 | ⏳ |
-| 8 | Python script archive (`~/.gftd/ingest/m365_mail_ingest.py` → `_archive/`) | ⏳ |
+| 8 | Python script archive (`~/.etzhayyim/ingest/m365_mail_ingest.py` → `_archive/`) | ⏳ |
 
 ## 非機能要件
 

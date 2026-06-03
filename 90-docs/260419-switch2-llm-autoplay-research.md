@@ -84,4 +84,4 @@ Switch 2 のゲーム画面を VLM に認識させ、LLM が生成した action 
 
 ## 本リポジトリとの関連
 
-現状 `[[projects]]` 配下に該当プロジェクトなし。将来 PoC を本格化する場合は `60-apps/ai-gftd-project-<name>/` を起こすか、単独リポジトリで実験するのが妥当。graph 投影は不要 (外部ゲーム機なので AT Protocol repo に書く意味が薄い)。
+現状 `[[projects]]` 配下に該当プロジェクトなし。将来 PoC を本格化する場合は `60-apps/etzhayyim-project-<name>/` を起こすか、単独リポジトリで実験するのが妥当。graph 投影は不要 (外部ゲーム機なので AT Protocol repo に書く意味が薄い)。

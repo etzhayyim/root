@@ -7,9 +7,9 @@
 
 `domain-ingest` の運用手順を固定する。責務境界は次の 3 つ。
 
-- `gftd common-crawler`: acquisition / graph extraction / intel generation
-- `gftd domain-ingest`: normalization / enrichment / canonical PDS writes
-- `gftd coverage domain`: `mv_domain_coverage_live` を使う read-only reconciliation
+- `etzhayyim common-crawler`: acquisition / graph extraction / intel generation
+- `etzhayyim domain-ingest`: normalization / enrichment / canonical PDS writes
+- `etzhayyim coverage domain`: `mv_domain_coverage_live` を使う read-only reconciliation
 
 この runbook は `domain-ingest` 実行と、その直後の strict health check までを扱う。
 
@@ -37,18 +37,18 @@ export etzhayyim_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disab
 - `npx` が使えること (`domain-ingest local` 用)
 - `70-tools/scripts/ingest-domain-data.ts` が見えること
 - `CC_DATA_DIR` 配下に Common Crawl artifacts があること (`domain-ingest common-crawl` 用)
-- `gftd coverage domain --strict` が到達できる DB DSN を持つこと
+- `etzhayyim coverage domain --strict` が到達できる DB DSN を持つこと
 
 ## Command map
 
 | Task | Command |
 |---|---|
-| local dataset の dry run | `gftd domain-ingest --domain <slug> --limit <N> --dry-run` |
-| local dataset の本投入 | `gftd domain-ingest local --domain <slug> --limit <N>` |
-| local dataset 投入 (LLM skip) | `gftd domain-ingest local --domain <slug> --skip-llm` |
-| CC intel import dry run | `gftd domain-ingest common-crawl --source intel --dry-run` |
-| CC graph import dry run | `gftd domain-ingest common-crawl --source graph --dry-run` |
-| live reconciliation health | `gftd coverage domain --format json --strict` |
+| local dataset の dry run | `etzhayyim domain-ingest --domain <slug> --limit <N> --dry-run` |
+| local dataset の本投入 | `etzhayyim domain-ingest local --domain <slug> --limit <N>` |
+| local dataset 投入 (LLM skip) | `etzhayyim domain-ingest local --domain <slug> --skip-llm` |
+| CC intel import dry run | `etzhayyim domain-ingest common-crawl --source intel --dry-run` |
+| CC graph import dry run | `etzhayyim domain-ingest common-crawl --source graph --dry-run` |
+| live reconciliation health | `etzhayyim coverage domain --format json --strict` |
 | runbook shortcut | `bash 70-tools/scripts/domain-coverage-strict-health.sh` |
 
 ## Standard procedure
@@ -56,8 +56,8 @@ export etzhayyim_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disab
 ### 1. Build CLI
 
 ```bash
-cd /Users/junkawasaki/github/etzhayyim-root/70-tools/gftd/gftd
-go build -o ../../../gftd .
+cd /Users/junkawasaki/github/etzhayyim-root/70-tools/etzhayyim/etzhayyim
+go build -o ../../../etzhayyim .
 cd /Users/junkawasaki/github/etzhayyim-root
 ```
 
@@ -66,14 +66,14 @@ cd /Users/junkawasaki/github/etzhayyim-root
 `local`
 
 ```bash
-./gftd domain-ingest --domain gtin --limit 500 --dry-run
+./etzhayyim domain-ingest --domain gtin --limit 500 --dry-run
 ```
 
 `common crawl`
 
 ```bash
-./gftd domain-ingest common-crawl --source intel --dry-run
-./gftd domain-ingest common-crawl --source graph --dry-run
+./etzhayyim domain-ingest common-crawl --source intel --dry-run
+./etzhayyim domain-ingest common-crawl --source graph --dry-run
 ```
 
 確認ポイント:
@@ -87,20 +87,20 @@ cd /Users/junkawasaki/github/etzhayyim-root
 `local`
 
 ```bash
-./gftd domain-ingest local --domain gtin --limit 500
+./etzhayyim domain-ingest local --domain gtin --limit 500
 ```
 
 `LLM queue を止めたい場合`
 
 ```bash
-./gftd domain-ingest local --domain hanrei --skip-llm
+./etzhayyim domain-ingest local --domain hanrei --skip-llm
 ```
 
 `common crawl`
 
 ```bash
-./gftd domain-ingest common-crawl --source intel --batch-size 200
-./gftd domain-ingest common-crawl --source graph --batch-size 200
+./etzhayyim domain-ingest common-crawl --source intel --batch-size 200
+./etzhayyim domain-ingest common-crawl --source graph --batch-size 200
 ```
 
 ## Post-write verification
@@ -108,14 +108,14 @@ cd /Users/junkawasaki/github/etzhayyim-root
 write の直後に strict health check を流す。
 
 ```bash
-./gftd coverage domain --format json --strict > /tmp/domain-coverage.json
+./etzhayyim coverage domain --format json --strict > /tmp/domain-coverage.json
 jq '.liveReadModel, (.reconciliation | length)' /tmp/domain-coverage.json
 ```
 
 または shortcut:
 
 ```bash
-etzhayyim_BIN=./gftd bash 70-tools/scripts/domain-coverage-strict-health.sh
+etzhayyim_BIN=./etzhayyim bash 70-tools/scripts/domain-coverage-strict-health.sh
 ```
 
 成功条件:
@@ -150,7 +150,7 @@ etzhayyim_BIN=./gftd bash 70-tools/scripts/domain-coverage-strict-health.sh
 
 ```bash
 echo "${etzhayyim_DATABASE_URL:-${DATABASE_URL:-}}"
-./gftd coverage domain --format json --no-reconcile | jq '.authorityModel, .liveReadModel'
+./etzhayyim coverage domain --format json --no-reconcile | jq '.authorityModel, .liveReadModel'
 ```
 
 切り分け:
@@ -168,7 +168,7 @@ GitHub Actions:
 
 この workflow は次を行う。
 
-- `gftd` build
+- `etzhayyim` build
 - `bash 70-tools/scripts/domain-coverage-strict-health.sh`
 - JSON evidence artifact upload
 
@@ -179,6 +179,6 @@ GitHub Actions:
 
 ## Notes
 
-- `gftd common-crawler inject` は互換 alias であり、新規運用では使わない
+- `etzhayyim common-crawler inject` は互換 alias であり、新規運用では使わない
 - `domain-ingest` は mutating command、`coverage domain` は read-only command
 - strict health check は write path 後の最小確認として固定する

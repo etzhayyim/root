@@ -89,7 +89,7 @@ Until the PDS is fixed, apps should:
 
 ## Partial fix applied 2026-04-20
 
-Deployed to `ai-gftd-pds-2603241700` (version `2999ecfb-f2d1-4b29-90d2-e7c50772298a`):
+Deployed to `etzhayyim-pds-2603241700` (version `2999ecfb-f2d1-4b29-90d2-e7c50772298a`):
 
 1. **Intra-isolate mutex on `nextRepoCommitSeq`**. Promise-chain lock serializes MAX(seq)+1 allocation within a CF isolate.
 

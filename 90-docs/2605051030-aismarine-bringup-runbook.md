@@ -65,7 +65,7 @@ kubectl get ns mitama-udf >/dev/null         # bpmn-dispatcher ClusterIP target
 
 ### Required tooling versions
 
-- Node.js ≥ 20 / pnpm 9.x / `gftd` CLI installed
+- Node.js ≥ 20 / pnpm 9.x / `etzhayyim` CLI installed
 - Python 3.11 / `uv` (for primitive tests)
 - Docker Buildx with linux/amd64 emulation
 - `gh` CLI authenticated to `ghcr.io/etzhayyim`
@@ -176,7 +176,7 @@ The new consumer requires `websockets==13.1` + `aiohttp==3.10.10` (added to
 `requirements.txt`). Bump image to `1.3.0`:
 
 ```bash
-cd 60-apps/ai-gftd-project-maps/bulk-ingest
+cd 60-apps/etzhayyim-project-maps/bulk-ingest
 docker buildx build --platform linux/amd64 \
   -t ghcr.io/etzhayyim/maps-bulk-ingest:1.3.0 --push .
 ```
@@ -185,7 +185,7 @@ docker buildx build --platform linux/amd64 \
 
 ```bash
 # Apply manifest (replicas=0 default — gate).
-kubectl apply -f 60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-aismarine.yaml
+kubectl apply -f 60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-aismarine.yaml
 
 # Inject AIS_STREAM_API_KEY from Keychain.
 kubectl -n maps-bulk-ingest create secret generic aismarine-credentials \
@@ -205,9 +205,9 @@ kubectl -n maps-bulk-ingest rollout status deploy/bulk-ingest-aismarine --timeou
 ### 7. Deploy maps Worker + Svelte UI (PR-D + PR-E)
 
 ```bash
-cd 60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6
-gftd build       # bundles src/app.ts (XRPC) + svelte/build (overlay)
-gftd deploy      # account-level CF Worker, maps.etzhayyim.com
+cd 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6
+etzhayyim build       # bundles src/app.ts (XRPC) + svelte/build (overlay)
+etzhayyim deploy      # account-level CF Worker, maps.etzhayyim.com
 ```
 
 ## Smoke verification (first 30 minutes)
@@ -308,7 +308,7 @@ Each step is independently reversible.
 
 | Step | Rollback |
 |---|---|
-| 7 (Worker / UI) | `gftd deploy --rollback` to previous version (CF deploy preserves history) |
+| 7 (Worker / UI) | `etzhayyim deploy --rollback` to previous version (CF deploy preserves history) |
 | 6 (consumer) | `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-aismarine --replicas=0` (idempotent; data already written stays) |
 | 5 (image) | revert `:1.3.0` tag, redeploy `:1.2.0` (pre-aismarine baseline) |
 | 4 (BPMN) | `psql -c "UPDATE vertex_bpmn_process_def SET status='disabled' WHERE bpmn_process_id LIKE 'maps_aismarine%'"` — F5 watcher un-deploys |
@@ -340,7 +340,7 @@ Full kill-switch: `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-aismarin
 - `00-contracts/lexicons/com/etzhayyim/apps/maps/aismarine/`
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/aismarine/`
 - `20-actors/magatama/py/src/pymagatama/primitives/aismarine.py`
-- `60-apps/ai-gftd-project-maps/bulk-ingest/workers/aismarine_consumer.py`
-- `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-aismarine.yaml`
-- `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts` (handlers)
-- `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/svelte/src/lib/aismarine-overlay.ts`
+- `60-apps/etzhayyim-project-maps/bulk-ingest/workers/aismarine_consumer.py`
+- `60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-aismarine.yaml`
+- `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts` (handlers)
+- `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/svelte/src/lib/aismarine-overlay.ts`

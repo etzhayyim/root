@@ -9,7 +9,7 @@ last_verified: 2026-04-19
 authoritative_for: []
 related:
   - 90-docs/adr/0032-gmail-direct-ingest-yabai-classifier.md
-  - 60-apps/ai-gftd-project-gmail/CLAUDE.md
+  - 60-apps/etzhayyim-project-gmail/CLAUDE.md
   - 30-graph/graph-schema/CLAUDE.md
 supersedes: []
 superseded_by: []
@@ -321,7 +321,7 @@ AND (LOWER(subject/from_addr/to_addrs) LIKE '%<name>%')`。
 5. **Signal encryption**: private text (subject/snippet/body) の
    `signal:v1:{ciphertext}` encrypt は bulk path で skip。PDS commit pipeline
    経由の rows と比較し semantic 差あり。
-6. **Double-count**: `repo` (65) や `casino` (9) は `ai-gftd-repo-*`
+6. **Double-count**: `repo` (65) や `casino` (9) は `etzhayyim-repo-*`
    / `casino` そのもの以外にも英語単語 "report" / "casino" 等で過大計上。
 
 # References

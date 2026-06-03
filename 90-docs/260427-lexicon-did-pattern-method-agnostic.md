@@ -15,8 +15,8 @@ related:
 
 ## Goal
 
-ADR-0074 が新規 platform primary identity を `did:erc725:gftd:260425:{contract}` と定義した結果、
-従来の lexicon で広く使われていた strict pattern `^did:gftd:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$`
+ADR-0074 が新規 platform primary identity を `did:erc725:etzhayyim:260425:{contract}` と定義した結果、
+従来の lexicon で広く使われていた strict pattern `^did:etzhayyim:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$`
 は did:erc725 / did:web / did:plc / did:pkh を拒絶してしまう。
 
 ADR-0049 D5 で legal-corpus + 4 logical actors の lexicon を method-agnostic
@@ -29,21 +29,21 @@ ADR-0049 D5 で legal-corpus + 4 logical actors の lexicon を method-agnostic
 
 | method | 例 | 用途 |
 |---|---|---|
-| `did:erc725` | `did:erc725:gftd:260425:0xAbC...` | platform primary identity (ADR-0074) |
+| `did:erc725` | `did:erc725:etzhayyim:260425:0xAbC...` | platform primary identity (ADR-0074) |
 | `did:web` | `did:web:lawfirm.etzhayyim.com`, `did:web:judge.etzhayyim.com:JPN:tanaka-001` | AT Protocol facade / external entity catalogue |
 | `did:plc` | `did:plc:abcd1234...` | legacy AT primary (Bluesky compatibility) |
 | `did:pkh` | `did:pkh:eip155:1:0xAbC...` | wallet alias (CAIP-10) |
-| `did:gftd` | `did:gftd:lf1rm8k0:abc:def` | legacy / migration 期間中のみ受理 |
+| `did:etzhayyim` | `did:etzhayyim:lf1rm8k0:abc:def` | legacy / migration 期間中のみ受理 |
 
 ## Why pattern-free, not union-pattern?
 
-Union pattern (例: `^(did:erc725:gftd:[0-9]+:0x[0-9a-fA-F]+|did:web:...|did:plc:...|did:pkh:...|did:gftd:...)$`) は:
+Union pattern (例: `^(did:erc725:etzhayyim:[0-9]+:0x[0-9a-fA-F]+|did:web:...|did:plc:...|did:pkh:...|did:etzhayyim:...)$`) は:
 
 1. 各 method の正規 syntax を tracking しなければならず、外部仕様 (CAIP-10, ERC-725) の
    drift で false-reject が発生する
 2. 1 lexicon ファイル = 1 大型 regex の重複コードを 100+ ファイルに展開すると、
    仕様変更時の grep/edit コストが線形増加
-3. 真の不変条件 (depth ≤ 6 for did:gftd / contract-address checksum for ERC-725 等) は
+3. 真の不変条件 (depth ≤ 6 for did:etzhayyim / contract-address checksum for ERC-725 等) は
    handler 内の business logic で検証すべき。lexicon は I/O contract layer
 
 `format: "did"` だけ宣言し、syntactic 妥当性は handler の `parseDid()` ヘルパに委ねる。
@@ -81,4 +81,4 @@ find 00-contracts/lexicons -name "*.json" -exec python3 -c "import json,sys; jso
 
 - ADR-0074 — ERC725 Root Identity + Coinbase Smart Wallet
 - ADR-0049 — Global Legal Corpus (D5 で初めて method-agnostic 規約を確立)
-- ADR-0029 — did:gftd method spec (legacy)
+- ADR-0029 — did:etzhayyim method spec (legacy)

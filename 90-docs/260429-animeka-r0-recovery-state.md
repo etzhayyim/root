@@ -105,11 +105,11 @@ checked-in dir or B2 if the session ends without training):
 Pod info (RunPod API, 2026-04-29):
 
 ```
-pod_id     r127r1ab2arjg8  (comfyui-gftd-6000ada, RTX 6000 Ada 48 GiB)
+pod_id     r127r1ab2arjg8  (comfyui-etzhayyim-6000ada, RTX 6000 Ada 48 GiB)
 ssh_host   195.26.233.87
 ssh_port   51592
 ssh_user   root
-ssh_key    ~/.ssh/id_ed25519  (or `gftd.runpod` keychain SSH_PUBKEY)
+ssh_key    ~/.ssh/id_ed25519  (or `etzhayyim.runpod` keychain SSH_PUBKEY)
 workspace  /workspace
 ```
 
@@ -174,7 +174,7 @@ asyncio.run(m())
 "
 
 # 2. If still no audit in 5 min — re-deploy the BPMN
-# (TODO: write a `gftd bpmn redeploy animeka_autopilot` runbook;
+# (TODO: write a `etzhayyim bpmn redeploy animeka_autopilot` runbook;
 #  for now use the bpmn-dispatcher resync handler if available)
 ```
 

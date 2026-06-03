@@ -199,10 +199,10 @@ The CLI performs:
 
 ### 2026-04-29 Deployment Check
 
-`llm.etzhayyim.com` is served by the `ai-gftd-runpod` Cloudflare Worker. The route is:
+`llm.etzhayyim.com` is served by the `etzhayyim-runpod` Cloudflare Worker. The route is:
 
 ```text
-client -> llm.etzhayyim.com -> ai-gftd-runpod -> RunPod Serverless 3fctheq51haikt
+client -> llm.etzhayyim.com -> etzhayyim-runpod -> RunPod Serverless 3fctheq51haikt
        -> Ollama gemma4:26b-a4b-it-q4_K_M
 ```
 
