@@ -8,9 +8,16 @@
 	import { Avatar, Skeleton } from '@etzhayyim/design-system';
 	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { agent, syncFromAtprotoSession } from '$lib/atproto-agent';
-	import type { AppBskyActorDefs } from '@atproto/api';
 
-	let blocked = $state<AppBskyActorDefs.ProfileView[]>([]);
+	type BlockedProfile = {
+		did: string;
+		handle?: string;
+		displayName?: string;
+		avatar?: string;
+		viewer?: { blocking?: string };
+	};
+
+	let blocked = $state<BlockedProfile[]>([]);
 	let loading = $state(true);
 	let cursor = $state<string | undefined>(undefined);
 	let hasMore = $state(false);
@@ -23,7 +30,8 @@
 				limit: 50,
 				cursor: append ? cursor : undefined,
 			});
-			blocked = append ? [...blocked, ...data.blocks] : data.blocks;
+			const blocks = data.blocks as BlockedProfile[];
+			blocked = append ? [...blocked, ...blocks] : blocks;
 			cursor = data.cursor;
 			hasMore = !!data.cursor;
 		} catch (e) { console.warn('blocked accounts load failed', e); } finally {
