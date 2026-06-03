@@ -84,12 +84,30 @@ real Rust host exists:
   as-of-reconstruction (Datomic), bus-state-is-a-pure-projection-of-the-log (N7),
   append-only-immutable-log (N7).
 
+## Reference Rust crate (`reference/kotoba-os-types/`)
+
+The R1 crate scaffold, monorepo-side (standalone — own `[workspace]`; the
+production crate lands in the kotoba subrepo via upstream coordination, N6):
+
+- `kotoba-os-types` — the genesis manifest as typed Rust (serde,
+  `deny_unknown_fields` mirroring the schema's `additionalProperties:false`),
+  `GenesisManifest::validate()` enforcing the carve-outs (C3/N5 serverKey, N3
+  liveActuation, N1 civilianOnly), capability scoping (`grants()`), and the
+  **`LowerEdge` trait** abstracting L1 with an edge-independent `boot()` (validate
+  → CID-verify kernel + each actor + its membrane rule). `HostedEdge` reference impl.
+- **6 `cargo test` green**: valid manifest deserializes + validates, deny-unknown-fields
+  matches the schema, validate() catches all three constitutional violations,
+  capability scoping, HostedEdge boots a valid manifest (3 artifacts verified),
+  boot refuses a server-key manifest.
+
 ## Next maturity steps (tracked toward R1)
 
 - ✅ Host stub over a simulated bus + Datom surface, with replay-from-Datom test
   (`reference/`, 6 tests green).
 - ✅ Genesis-manifest boot contract authored + tested (3 tests green).
+- ✅ `kotoba-os-types` crate scaffold (genesis-manifest type + `LowerEdge` trait,
+  6 cargo tests green).
 - A reference `plc-control` guest (Rust → wasm32, componentize) that runs the
   same soft-RT loop as a real WASM Component Model component.
-- `kotoba-os` crate scaffold (genesis-manifest type + `LowerEdge` trait) per the
-  ADR R1 deliverable (kotoba subrepo — upstream coordination).
+- A `mesh-agent` / source-chain reference (witness-quorum determinism, membrane
+  validation) for ADR §D5.
