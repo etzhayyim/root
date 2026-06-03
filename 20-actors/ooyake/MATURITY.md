@@ -43,6 +43,16 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — CI gate (institutionalised)
+
+`.github/workflows/ooyake-atlas-gates.yml` runs the actor's offline gate suite on any
+PR/push touching `20-actors/ooyake/**` or the gov-atlas ontology (+ nightly +
+manual) — the PR-level half of the two-layer defence (lefthook pre-commit + CI) per
+ADR-2605271200. Enforces, on every change: registry integrity (QID/enum/G5/ref),
+integrity-guard self-tests, G20/world coverage floors, the coverage matrix, the
+quality audit (sub-national mis-typing flags), and a valid GeoJSON export. The
+~7,000-unit atlas's quality is now machine-enforced, not just locally checked.
+
 ## 2026-06-04 — national meteorological services (49)
 
 `gov-units.meteorology.edn` adds **49 national meteorological/weather services** (the
