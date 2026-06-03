@@ -5,7 +5,7 @@
 --
 -- Once seeded, `_resolve_mcp_nsid` resolves
 -- `mcp://com.etzhayyim.apps.mangaka.tools.validateCameraPlan` to
--- `mangaka.gftd.ai`. The `/xrpc/{nsid}` dispatcher (server.py P9)
+-- `mangaka.etzhayyim.com`. The `/xrpc/{nsid}` dispatcher (server.py P9)
 -- forwards to `lg_mangaka.tools.tool_validate_camera_plan`. PK=vertex_id,
 -- so re-INSERT is RW implicit upsert.
 
@@ -16,10 +16,10 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:mangaka.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-mangaka-tools-validateCameraPlan',
+  ('at://did:web:mangaka.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-mangaka-tools-validateCameraPlan',
    0, 0,
    'com.etzhayyim.apps.mangaka.tools.validateCameraPlan',
-   'did:web:mangaka.gftd.ai', 'mangaka.gftd.ai', 'procedure',
+   'did:web:mangaka.etzhayyim.com', 'mangaka.etzhayyim.com', 'procedure',
    'P10.2 validator: clamp shot/fov/roll/dof + canonicalise lights between cinematography LLM and simulate_one.',
    '{"type":"object","required":["cameraPlanRaw"],"properties":{"cameraPlanRaw":{"type":"object"},"fallbackShot":{"type":"string"}}}',
    '{"type":"object","required":["cameraPlan"],"properties":{"cameraPlan":{"type":"object","required":["camera","lights"],"properties":{"camera":{"type":"object"},"lights":{"type":"array"},"llm":{"type":"boolean"}}}}}',

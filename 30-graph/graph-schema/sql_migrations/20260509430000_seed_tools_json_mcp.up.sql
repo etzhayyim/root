@@ -9,8 +9,8 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-json-extract',
-   0, 0, 'com.etzhayyim.tools.json.extract', 'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-tools-json-extract',
+   0, 0, 'com.etzhayyim.tools.json.extract', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'Generic JSON extract — safe dotted path navigator (a.b[2].c, a.*).',
    '{"type":"object","properties":{"json":{},"path":{"type":"string"},"default":{}},"required":["json","path"]}',
    '{"type":"object","properties":{"value":{},"error":{"type":"string"}}}',

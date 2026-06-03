@@ -10,8 +10,8 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-sql-exec',
-   0, 0, 'com.etzhayyim.tools.sql.exec', 'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-tools-sql-exec',
+   0, 0, 'com.etzhayyim.tools.sql.exec', 'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Generic write SQL — INSERT / UPDATE / UPSERT, with strict guards + confirmWrite.',
    '{"type":"object","properties":{"sql":{"type":"string"},"params":{"type":"object"},"rows":{"type":"array"},"confirmWrite":{"type":"boolean"}},"required":["sql","confirmWrite"]}',
    '{"type":"object","properties":{"rowCount":{"type":"integer"},"error":{"type":"string"}}}',

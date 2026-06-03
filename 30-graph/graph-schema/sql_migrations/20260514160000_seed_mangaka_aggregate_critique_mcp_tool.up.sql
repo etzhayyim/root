@@ -16,10 +16,10 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:mangaka.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-mangaka-tools-aggregateCritique',
+  ('at://did:web:mangaka.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-mangaka-tools-aggregateCritique',
    0, 0,
    'com.etzhayyim.apps.mangaka.tools.aggregateCritique',
-   'did:web:mangaka.gftd.ai', 'mangaka.gftd.ai', 'procedure',
+   'did:web:mangaka.etzhayyim.com', 'mangaka.etzhayyim.com', 'procedure',
    'P10.2b critique aggregator: Hume emotionAlignment overlay + mean axes aggregate + best-of-N selection.',
    '{"type":"object","required":["renders"],"properties":{"renders":{"type":"array"},"targetMood":{"type":"string"},"fallbackScore":{"type":"number"}}}',
    '{"type":"object","required":["renders","selected","score"],"properties":{"renders":{"type":"array"},"selected":{"type":"object"},"score":{"type":"number"},"error":{"type":"string"}}}',

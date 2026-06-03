@@ -16,7 +16,7 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-selectManufacturers',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-selectManufacturers',
    0, 0, 'com.etzhayyim.apps.tsukuru.selectManufacturers',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'tsukuru ISIC pulse — select manufacturers by industry code (data-bound SQL).',

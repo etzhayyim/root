@@ -40,7 +40,7 @@ VALUES
   -- 1. fetch Crossref API
   ('copyright_ingest.v3:crossref_fetch', 0, 0, 'copyright_ingest.v3', 'crossref_fetch',
    'mcp_tool', 'mcp://com.etzhayyim.tools.http.fetch',
-   '{"input_keys":[],"result_key":"fetchOut","args":{"name":"com.etzhayyim.tools.http.fetch","url":"https://api.crossref.org/works?rows=100&sort=indexed&order=desc&filter=from-pub-date%3A2020&mailto=jun%40gftd.group","headers":{"User-Agent":"gftd-copyright/2.0 (mailto:jun@gftd.group)","Accept":"application/json"},"timeout":60}}',
+   '{"input_keys":[],"result_key":"fetchOut","args":{"name":"com.etzhayyim.tools.http.fetch","url":"https://api.crossref.org/works?rows=100&sort=indexed&order=desc&filter=from-pub-date%3A2020&mailto=jun%40etzhayyim.group","headers":{"User-Agent":"etzhayyim-copyright/2.0 (mailto:jun@etzhayyim.group)","Accept":"application/json"},"timeout":60}}',
    '2026-05-09T00:00:00Z'),
   -- 2. extract message.items array from fetched body
   ('copyright_ingest.v3:crossref_extract', 0, 0, 'copyright_ingest.v3', 'crossref_extract',

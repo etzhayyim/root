@@ -1,6 +1,6 @@
 -- P13 of ADR-2605141200 — register the attachCharacterVrm ingestion tool.
 -- Operators / artists call this via the MCP adapter at
--- atproto.gftd.ai/xrpc/com.etzhayyim.mcp.message (or directly against the pod's
+-- atproto.etzhayyim.com/xrpc/com.etzhayyim.mcp.message (or directly against the pod's
 -- /xrpc/{nsid}) to attach a VRM 1.0 binary to a vertex_mangaka character.
 -- The blob lands at `blobs/mangaka/vrm/{sha256hex}` and the character
 -- row's `props.vrmBlobKey` gets patched in-place.
@@ -15,10 +15,10 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:mangaka.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-mangaka-tools-attachCharacterVrm',
+  ('at://did:web:mangaka.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-mangaka-tools-attachCharacterVrm',
    0, 0,
    'com.etzhayyim.apps.mangaka.tools.attachCharacterVrm',
-   'did:web:mangaka.gftd.ai', 'mangaka.gftd.ai', 'procedure',
+   'did:web:mangaka.etzhayyim.com', 'mangaka.etzhayyim.com', 'procedure',
    'P13 VRM ingestion: glTF magic check + B2 content-addressed PUT + character vertex props patch.',
    '{"type":"object","required":["characterRkey","vrmContentB64"],"properties":{"characterRkey":{"type":"string"},"vrmContentB64":{"type":"string"},"rwUrl":{"type":"string"}}}',
    '{"type":"object","properties":{"blobKey":{"type":"string"},"vertexId":{"type":"string"},"status":{"type":"string"},"warning":{"type":"string"},"error":{"type":"string"}}}',

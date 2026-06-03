@@ -24,7 +24,7 @@ SELECT
   'lg_mangaka.graphs.compose_scene_3d:build_graph',
   'mangaka compose_scene_3d — 9 super-step Pregel (P0–P5 of ADR-2605141200)',
   'postgres',
-  'did:web:mangaka.gftd.ai',
+  'did:web:mangaka.etzhayyim.com',
   '2026-05-14T13:00:00Z'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_langgraph_assistant

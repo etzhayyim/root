@@ -18,7 +18,7 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-queryOaWorks',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-queryOaWorks',
    0, 0, 'com.etzhayyim.apps.copyright.queryOaWorks',
    'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright — find Berne-automatic Open Access works lacking blobs.',

@@ -1,5 +1,5 @@
 -- Migration: vertex_open_patent_invention_seed + vertex_open_patent_novelty_report
--- Project: ai-gftd-project-open-patent (op3np4t1)
+-- Project: etzhayyim-project-open-patent (op3np4t1)
 -- RisingWave: no VARCHAR(N), no DEFAULT CURRENT_DATE
 
 CREATE TABLE IF NOT EXISTS vertex_open_patent_invention_seed (

@@ -1,7 +1,7 @@
 -- HubSpot CRM ingest schema (ADR-0036 Hyperdrive direct write target).
 --
 -- Source: HubSpot CRM v3 API (`/crm/v3/objects/{object_type}`).
--- Drives 60-apps/ai-gftd-project-hubspot-hb5p0t1n ingest worker
+-- Drives 60-apps/etzhayyim-project-hubspot-hb5p0t1n ingest worker
 -- (poll every 15 min via R/PT15M timer, filter by lastmodifieddate cursor).
 --
 -- 8 T2 domain tables:

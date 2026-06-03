@@ -1,6 +1,6 @@
 -- name: AdrListFiltered :many
 -- ADR frontmatter graph listing with relation counts.
--- Used by gftd.research.listAdrs (mcp-adapter.ts).
+-- Used by etzhayyim.research.listAdrs (mcp-adapter.ts).
 SELECT
   did_path,
   adr_id,
