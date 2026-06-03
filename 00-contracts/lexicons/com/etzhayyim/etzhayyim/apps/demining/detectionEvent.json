@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "com.etzhayyim.apps.demining.hazardArea",
+  "id": "com.etzhayyim.apps.demining.detectionEvent",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md.",
+      "description": "Demining detectionEvent record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md.",
       "record": {
         "type": "object",
         "properties": {

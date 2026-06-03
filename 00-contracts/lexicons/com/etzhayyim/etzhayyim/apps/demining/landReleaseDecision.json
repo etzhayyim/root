@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "com.etzhayyim.apps.demining.surveyRecord",
+  "id": "com.etzhayyim.apps.demining.landReleaseDecision",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Demining surveyRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md.",
+      "description": "Demining landReleaseDecision record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md.",
       "record": {
         "type": "object",
         "properties": {

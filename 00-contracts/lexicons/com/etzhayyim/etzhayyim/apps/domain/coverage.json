@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active gftd-side registrations.",
+      "description": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active etzhayyim-side registrations.",
       "parameters": {
         "type": "params",
         "properties": {
