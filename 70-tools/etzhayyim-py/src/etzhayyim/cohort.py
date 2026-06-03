@@ -24,7 +24,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -611,7 +611,7 @@ def cohort_bootstrap() -> None:
     """Bootstrap all cohort actors from deps.toml (requires Go binary)."""
     click.echo(
         "cohort bootstrap reads deps.toml [[cohort_actors]] and requires the Go binary. "
-        "Run: gftd cohort bootstrap",
+        "Run: etzhayyim cohort bootstrap",
         err=True,
     )
     sys.exit(1)

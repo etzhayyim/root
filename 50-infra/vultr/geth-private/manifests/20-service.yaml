@@ -1,4 +1,4 @@
-# ClusterIP for the gftd private-chain RPC.
+# ClusterIP for the etzhayyim private-chain RPC.
 #
 # Public exposure goes through `caddy-geth-tls` (40-tls-proxy.yaml) on a
 # Vultr LoadBalancer — that's the canonical Worker path via

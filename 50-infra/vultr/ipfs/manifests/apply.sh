@@ -7,11 +7,11 @@
 # Pre-reqs:
 #   - kubectl context = Vultr VKE production cluster
 #   - macOS Keychain entries:
-#       gftd.b2 / ACCESS_KEY_ID
-#       gftd.b2 / SECRET_ACCESS_KEY
-#       gftd.cloudflare / IPFS_ORIGIN_CERT_PEM   (10-year self-signed leaf for ipfs-origin.etzhayyim.com)
-#       gftd.cloudflare / IPFS_ORIGIN_CERT_KEY   (matching private key)
-#   - B2 prefix `s3://ai-gftd-nats/ipfs/blocks/` (the existing `ai-gftd-nats`
+#       etzhayyim.b2 / ACCESS_KEY_ID
+#       etzhayyim.b2 / SECRET_ACCESS_KEY
+#       etzhayyim.cloudflare / IPFS_ORIGIN_CERT_PEM   (10-year self-signed leaf for ipfs-origin.etzhayyim.com)
+#       etzhayyim.cloudflare / IPFS_ORIGIN_CERT_KEY   (matching private key)
+#   - B2 prefix `s3://etzhayyim-nats/ipfs/blocks/` (the existing `etzhayyim-nats`
 #     bucket from ADR-0048; the Keychain key is already scoped to it).
 #
 # Usage:
@@ -30,8 +30,8 @@ kubectl apply --server-side -f "$SCRIPT_DIR/00-namespace.yaml"
 
 # 2. B2 credentials Secret (Keychain → kubectl)
 say "kubo-b2 secret"
-B2_KEY="$(security find-generic-password -s gftd.b2 -a ACCESS_KEY_ID -w)"
-B2_SEC="$(security find-generic-password -s gftd.b2 -a SECRET_ACCESS_KEY -w)"
+B2_KEY="$(security find-generic-password -s etzhayyim.b2 -a ACCESS_KEY_ID -w)"
+B2_SEC="$(security find-generic-password -s etzhayyim.b2 -a SECRET_ACCESS_KEY -w)"
 kubectl -n "$NS" create secret generic kubo-b2 \
   --from-literal=accessKey="$B2_KEY" \
   --from-literal=secretKey="$B2_SEC" \
@@ -41,8 +41,8 @@ kubectl -n "$NS" create secret generic kubo-b2 \
 say "caddy-ipfs-cert secret"
 # `security ... -w` returns hex when the value contains newlines (PEM does).
 # Always decode through `xxd -r -p` to recover the raw bytes.
-ORIGIN_CRT="$(security find-generic-password -s gftd.cloudflare -a IPFS_ORIGIN_CERT_PEM -w | xxd -r -p)"
-ORIGIN_KEY="$(security find-generic-password -s gftd.cloudflare -a IPFS_ORIGIN_CERT_KEY -w | xxd -r -p)"
+ORIGIN_CRT="$(security find-generic-password -s etzhayyim.cloudflare -a IPFS_ORIGIN_CERT_PEM -w | xxd -r -p)"
+ORIGIN_KEY="$(security find-generic-password -s etzhayyim.cloudflare -a IPFS_ORIGIN_CERT_KEY -w | xxd -r -p)"
 kubectl -n "$NS" create secret generic caddy-ipfs-cert \
   --from-literal=tls.crt="$ORIGIN_CRT" \
   --from-literal=tls.key="$ORIGIN_KEY" \
@@ -68,4 +68,4 @@ kubectl -n "$NS" exec statefulset/kubo -- ipfs version || true
 
 say "done"
 echo "Next: provision DNS for ipfs-origin.etzhayyim.com → Vultr LB external IP"
-echo "      then deploy CF Worker ai-gftd-ipfs-proxy with route ipfs.etzhayyim.com/*"
+echo "      then deploy CF Worker etzhayyim-ipfs-proxy with route ipfs.etzhayyim.com/*"

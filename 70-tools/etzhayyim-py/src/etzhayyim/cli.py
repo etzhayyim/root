@@ -63,7 +63,7 @@ from .yoroshiku import yoroshiku
 
 @click.group()
 def main():
-    """gftd — platform CLI (Python port, parallel with Go binary)."""
+    """etzhayyim — platform CLI (Python port, parallel with Go binary)."""
 
 
 # --- all ported commands ------------------------------------------------------
@@ -83,7 +83,7 @@ main.add_command(cohort)
 main.add_command(collect)
 main.add_command(common_crawler, name="common-crawler")
 main.add_command(coverage)
-main.add_command(coverage, name="coverage-test")  # alias: gftd coverage-test = gftd coverage test
+main.add_command(coverage, name="coverage-test")  # alias: etzhayyim coverage-test = etzhayyim coverage test
 main.add_command(database)
 main.add_command(deps)
 main.add_command(deploy)

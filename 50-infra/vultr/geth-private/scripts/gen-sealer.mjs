@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * One-shot generator for the gftd private-chain Clique sealer.
+ * One-shot generator for the etzhayyim private-chain Clique sealer.
  *
  * Outputs (under 50-infra/vultr/geth-private/.local-secrets/, gitignored):
  *   - sealer.priv         raw 32-byte private key (hex, 0x-prefixed)

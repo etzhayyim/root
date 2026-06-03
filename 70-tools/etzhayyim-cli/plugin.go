@@ -22,7 +22,7 @@ type pluginDef struct {
 	// urlTemplate is a Go format string: (version, os, arch) → download URL.
 	// Special: use fetchURL() for complex logic.
 	fetchURL func(version, goos, goarch string) string
-	// installDir is the subdirectory under ~/.cache/gftd/plugins/<name>/
+	// installDir is the subdirectory under ~/.cache/etzhayyim/plugins/<name>/
 	installBin string
 }
 
@@ -73,12 +73,12 @@ func runPlugin(args []string) error {
 }
 
 func printPluginUsage() {
-	fmt.Print(`gftd plugin — manage build tools
+	fmt.Print(`etzhayyim plugin — manage build tools
 
 USAGE:
-  gftd plugin list
-  gftd plugin install <name> [--version <ver>]
-  gftd plugin upgrade <name>
+  etzhayyim plugin list
+  etzhayyim plugin install <name> [--version <ver>]
+  etzhayyim plugin upgrade <name>
 
 AVAILABLE PLUGINS:
 `)
@@ -89,7 +89,7 @@ AVAILABLE PLUGINS:
   tinygo   (managed separately — see https://tinygo.org/getting-started/install/)
   wrangler (managed separately — npm install -g wrangler)
 
-WASI adapters are cached automatically in ~/.cache/gftd/adapters/
+WASI adapters are cached automatically in ~/.cache/etzhayyim/adapters/
 `)
 }
 
@@ -126,12 +126,12 @@ func runPluginInstall(args []string) error {
 		return err
 	}
 	if fs.NArg() == 0 {
-		return fmt.Errorf("usage: gftd plugin install <name> [--version <ver>]")
+		return fmt.Errorf("usage: etzhayyim plugin install <name> [--version <ver>]")
 	}
 	name := fs.Arg(0)
 	p, ok := findPlugin(name)
 	if !ok {
-		return fmt.Errorf("unknown plugin: %s\nRun 'gftd plugin list' to see available plugins", name)
+		return fmt.Errorf("unknown plugin: %s\nRun 'etzhayyim plugin list' to see available plugins", name)
 	}
 
 	ver := *version
@@ -148,7 +148,7 @@ func runPluginInstall(args []string) error {
 
 func runPluginUpgrade(args []string) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: gftd plugin upgrade <name>")
+		return fmt.Errorf("usage: etzhayyim plugin upgrade <name>")
 	}
 	name := args[0]
 	p, ok := findPlugin(name)
@@ -178,7 +178,7 @@ func findPlugin(name string) (pluginDef, bool) {
 
 func pluginCacheDir(p pluginDef) string {
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".cache", "gftd", "plugins", p.Name)
+	return filepath.Join(home, ".cache", "etzhayyim", "plugins", p.Name)
 }
 
 func pluginBinPath(p pluginDef) string {

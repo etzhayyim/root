@@ -70,7 +70,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -154,8 +154,8 @@ def ar_logs(run_id: str, pds: str | None, limit: int, json_out: bool) -> None:
 def ar_restart(pds: str | None) -> None:
     """Restart the agent runtime pod (requires Go binary / kubectl)."""
     click.echo(
-        "gftd agent-runtime restart requires the Go binary or kubectl. "
-        "Run: gftd agent-runtime restart",
+        "etzhayyim agent-runtime restart requires the Go binary or kubectl. "
+        "Run: etzhayyim agent-runtime restart",
         err=True,
     )
     sys.exit(1)
@@ -204,7 +204,7 @@ def ar_publish(cluster: str, out_path: str, ipfs_base: str, dry_run: bool,
     if not dry_run:
         raise click.ClickException(
             "Live IPFS publish requires the Go binary (needs macOS Keychain IPFS_HMAC). "
-            "Run: gftd agent-runtime publish --no-dry-run"
+            "Run: etzhayyim agent-runtime publish --no-dry-run"
         )
     out_bytes = json.dumps(result, ensure_ascii=False, indent=2).encode() + b"\n"
     if out_path:
@@ -254,7 +254,7 @@ def ar_register(agent_uri: str, registration_path: str, root_did: str, agent_own
     if not dry_run:
         raise click.ClickException(
             "Live on-chain registration requires the Go binary (EVM signing). "
-            "Run: gftd agent-runtime register --no-dry-run"
+            "Run: etzhayyim agent-runtime register --no-dry-run"
         )
 
     result = {
@@ -296,7 +296,7 @@ def ar_publish_agent(registration_path: str, cluster: str, root_did: str,
     """Render + publish to IPFS + register on-chain (dry-run: build all without submitting)."""
     if not dry_run:
         raise click.ClickException(
-            "Live publish-agent requires the Go binary. Run: gftd agent-runtime publish-agent --no-dry-run"
+            "Live publish-agent requires the Go binary. Run: etzhayyim agent-runtime publish-agent --no-dry-run"
         )
     reg_bytes = Path(registration_path).read_bytes()
     reg = json.loads(reg_bytes)
@@ -332,7 +332,7 @@ def ar_publish_agent(registration_path: str, cluster: str, root_did: str,
 
 @agent_runtime.command("holochain-plan")
 @click.option("--agent-did", "agent_did", required=True, help="agent DID bound to the Holochain cell")
-@click.option("--happ-name", "happ_name", default="gftd-agent-actor-runtime", show_default=True)
+@click.option("--happ-name", "happ_name", default="etzhayyim-agent-actor-runtime", show_default=True)
 @click.option("--happ-uri", "happ_uri", required=True, help="published .happ URI (ipfs://... or https://...)")
 @click.option("--happ-sha256", "happ_sha256", default="", help="optional .happ sha256 bytes32 hex")
 @click.option("--dna-hash", "dna_hash", required=True, help="Holochain DNA hash for the actor runtime network")

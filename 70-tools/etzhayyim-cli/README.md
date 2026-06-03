@@ -2,7 +2,7 @@
 
 Multi-purpose Go CLI for the etzhayyim monorepo.
 
-Binary is built and installed as `e7m` (legacy alias: `gftd`). Build:
+Binary is built and installed as `e7m` (legacy alias: `etzhayyim`). Build:
 
 ```bash
 cd 70-tools/etzhayyim-cli
@@ -15,7 +15,7 @@ go build -o /opt/homebrew/bin/e7m .
 |---|---|---|
 | `e7m build` | TinyGo WASM component → wasm-tools componentize (magatama WIT) | `build.go` |
 | `e7m build-server` | magatama-server binary + Docker image (zigbuild cross-compile) | `build_server.go` |
-| `e7m deploy` | Cloudflare Container deploy (magatama.toml + gftd.json → wrangler deploy + smoke) | `deploy.go` |
+| `e7m deploy` | Cloudflare Container deploy (magatama.toml + etzhayyim.json → wrangler deploy + smoke) | `deploy.go` |
 | `e7m plugin` | Manage build tools (wasm-tools, tinygo adapters) | `plugin.go` |
 | `e7m bench` | Dispatch baien benches (micro / core4) | `bench.go` |
 | `e7m version` | Print version | `main.go` |

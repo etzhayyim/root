@@ -1,4 +1,4 @@
-// kuni_umi.go — `gftd kuni-umi <subcommand>` human entry point for the
+// kuni_umi.go — `etzhayyim kuni-umi <subcommand>` human entry point for the
 // 6-phase robotic-deployment flow (ADR-2605201400).
 //
 // Each subcommand maps 1:1 to a Lexicon procedure under
@@ -56,15 +56,15 @@ func runKuniUmi(args []string) error {
 		printKuniUmiUsage()
 		return nil
 	default:
-		return fmt.Errorf("unknown kuni-umi subcommand: %s\nRun 'gftd kuni-umi help' for usage.", args[0])
+		return fmt.Errorf("unknown kuni-umi subcommand: %s\nRun 'etzhayyim kuni-umi help' for usage.", args[0])
 	}
 }
 
 func printKuniUmiUsage() {
-	fmt.Print(`gftd kuni-umi — 6-phase robotic-deployment flow (ADR-2605201400)
+	fmt.Print(`etzhayyim kuni-umi — 6-phase robotic-deployment flow (ADR-2605201400)
 
 USAGE:
-  gftd kuni-umi <subcommand> [flags]
+  etzhayyim kuni-umi <subcommand> [flags]
 
 SUBCOMMANDS:
   define-site       Phase 1: declare a planetary-infrastructure deployment site
@@ -86,7 +86,7 @@ COMMON FLAGS (all subcommands):
                     Production: https://etzhayyim.com/xrpc/<lexicon-id>
   --dry-run         Print payload to stdout; do not POST.
 
-Run 'gftd kuni-umi <subcommand> --help' for per-command flags.
+Run 'etzhayyim kuni-umi <subcommand> --help' for per-command flags.
 
 SEE ALSO:
   ADR-2605201400                                       (6-phase flow)

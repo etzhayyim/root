@@ -73,10 +73,10 @@ func runActor(args []string) error {
 }
 
 func printActorUsage() {
-	fmt.Printf(`gftd actor — declarative actor deploy (per ADR-2605232000)
+	fmt.Printf(`etzhayyim actor — declarative actor deploy (per ADR-2605232000)
 
 USAGE:
-  gftd actor <subcommand> [flags]
+  etzhayyim actor <subcommand> [flags]
 
 SUBCOMMANDS:
   deploy   Deploy an actor by reading 20-actors/<name>/actor.toml
@@ -88,22 +88,22 @@ DEPLOY FLAGS:
   --only <stage>           run only the named stage
   --skip <stage>           skip the named stage (repeatable)
   --capability <path>      path to a capability JWS (gates which stages can run)
-  --agent-token <token>    short-lived scoped JWT (mint with 'gftd agent-token')
+  --agent-token <token>    short-lived scoped JWT (mint with 'etzhayyim agent-token')
   --dry-run                print actions without executing
   --non-interactive        fail (not prompt) on missing creds or confirmations
   --commit-sha <sha>       git commit to record in the audit event (default: HEAD)
 
 EXAMPLES:
   # Human-driven full deploy
-  gftd actor deploy --actor karute
+  etzhayyim actor deploy --actor karute
 
   # Agent-driven, capability-gated, single stage
-  TOKEN=$(gftd agent-token --lxm deploy.cfWorker:karute-did-web --ttl 60 \
-                            --capability ~/.gftd/cap-karute-deploy.jws)
-  gftd actor deploy --actor karute --only did-worker --agent-token "$TOKEN" --non-interactive
+  TOKEN=$(etzhayyim agent-token --lxm deploy.cfWorker:karute-did-web --ttl 60 \
+                            --capability ~/.etzhayyim/cap-karute-deploy.jws)
+  etzhayyim actor deploy --actor karute --only did-worker --agent-token "$TOKEN" --non-interactive
 
   # Dry-run (no side effects)
-  gftd actor deploy --actor karute --dry-run
+  etzhayyim actor deploy --actor karute --dry-run
 `)
 }
 
@@ -175,7 +175,7 @@ func runActorDeploy(args []string) error {
 		if err := stageGate(&st, cap, *agentToken); err != nil {
 			emitDeployEvent(manifest, &st, *commitSha, "denied", err.Error(), 0)
 			if st.OnError == "continue" {
-				fmt.Fprintf(os.Stderr, "gftd actor: stage %q gated, continuing: %v\n", st.Name, err)
+				fmt.Fprintf(os.Stderr, "etzhayyim actor: stage %q gated, continuing: %v\n", st.Name, err)
 				continue
 			}
 			return fmt.Errorf("stage %q: %w", st.Name, err)
@@ -195,7 +195,7 @@ func runActorDeploy(args []string) error {
 		if err != nil {
 			emitDeployEvent(manifest, &st, *commitSha, "error", err.Error(), dur)
 			if st.OnError == "continue" {
-				fmt.Fprintf(os.Stderr, "gftd actor: stage %q failed, continuing: %v\n", st.Name, err)
+				fmt.Fprintf(os.Stderr, "etzhayyim actor: stage %q failed, continuing: %v\n", st.Name, err)
 				continue
 			}
 			return fmt.Errorf("stage %q failed: %w", st.Name, err)

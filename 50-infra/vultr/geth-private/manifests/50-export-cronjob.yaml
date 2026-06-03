@@ -15,7 +15,7 @@
 # Restore: `geth import <file.rlp>` against a fresh datadir + sealer
 # key + genesis.json. Idempotent — replaying produces identical chain.
 #
-# B2 path: `s3://ai-gftd-nats/geth-private/backup/{YYYYMMDD-HHMM}.rlp.gz`
+# B2 path: `s3://etzhayyim-nats/geth-private/backup/{YYYYMMDD-HHMM}.rlp.gz`
 #  (us-west-004, free egress via Bandwidth Ally).
 #
 # Schedule: Sunday 03:00 UTC = LAX Saturday 20:00 PT — low-activity
@@ -84,7 +84,7 @@ spec:
               imagePullPolicy: IfNotPresent
               env:
                 - { name: B2_ENDPOINT, value: "https://s3.us-west-004.backblazeb2.com" }
-                - { name: B2_BUCKET,   value: "ai-gftd-nats" }
+                - { name: B2_BUCKET,   value: "etzhayyim-nats" }
                 - { name: B2_PREFIX,   value: "geth-private/backup" }
                 - name: AWS_ACCESS_KEY_ID
                   valueFrom: { secretKeyRef: { name: geth-export-b2, key: access_key_id } }

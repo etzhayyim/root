@@ -564,11 +564,11 @@ def actors_cc_coverage(fmt: str, graph: str, top: int, topic: str, min_pages: in
 
     Queries vertex_domain, vertex_page, edge_hosts_page, edge_links_to_domain
     tables directly via pgxpool. Use the Go binary for full functionality:
-      gftd actors cc-coverage [--format text|json] [--top N] [--topic SLUG]
+      etzhayyim actors cc-coverage [--format text|json] [--top N] [--topic SLUG]
     """
     raise click.ClickException(
         "actors cc-coverage requires direct RisingWave access (pgxpool). "
-        "Use the Go binary: gftd actors cc-coverage"
+        "Use the Go binary: etzhayyim actors cc-coverage"
     )
 
 
@@ -582,5 +582,5 @@ def actors_common_crawler_coverage(fmt: str, graph: str, top: int, topic: str, m
     """Alias for cc-coverage (requires RisingWave — use Go binary)."""
     raise click.ClickException(
         "actors common-crawler-coverage requires direct RisingWave access (pgxpool). "
-        "Use the Go binary: gftd actors common-crawler-coverage"
+        "Use the Go binary: etzhayyim actors common-crawler-coverage"
     )

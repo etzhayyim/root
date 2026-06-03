@@ -17,7 +17,7 @@
 # After applying: a leaked password is useless from any other IP.
 #
 # Prerequisites:
-#   - VULTR_API_KEY in macOS Keychain (security find-generic-password -s gftd.vultr -a VULTR_API_KEY -w)
+#   - VULTR_API_KEY in macOS Keychain (security find-generic-password -s etzhayyim.vultr -a VULTR_API_KEY -w)
 #   - jq, curl
 #
 # Usage:
@@ -31,9 +31,9 @@ set -euo pipefail
 
 # ─── Config ────────────────────────────────────────────────────────────────
 
-VULTR_API_KEY="${VULTR_API_KEY:-$(security find-generic-password -s gftd.vultr -a VULTR_API_KEY -w 2>/dev/null || true)}"
+VULTR_API_KEY="${VULTR_API_KEY:-$(security find-generic-password -s etzhayyim.vultr -a VULTR_API_KEY -w 2>/dev/null || true)}"
 if [[ -z "${VULTR_API_KEY}" ]]; then
-  echo "ERROR: VULTR_API_KEY not in Keychain (gftd.vultr) and not in env" >&2
+  echo "ERROR: VULTR_API_KEY not in Keychain (etzhayyim.vultr) and not in env" >&2
   exit 1
 fi
 

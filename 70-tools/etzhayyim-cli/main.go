@@ -1,4 +1,4 @@
-// gftd — magatama build/deploy CLI (Cloudflare Containers)
+// etzhayyim — magatama build/deploy CLI (Cloudflare Containers)
 package main
 
 import (
@@ -38,7 +38,7 @@ func main() {
 	case "kuni-umi":
 		err = runKuniUmi(os.Args[2:])
 	case "version", "--version", "-v":
-		fmt.Printf("gftd %s\n", version)
+		fmt.Printf("etzhayyim %s\n", version)
 	case "help", "--help", "-h":
 		printUsage()
 	default:
@@ -50,35 +50,35 @@ func main() {
 }
 
 func printUsage() {
-	fmt.Printf(`gftd %s — magatama component build/deploy CLI (Cloudflare Containers)
+	fmt.Printf(`etzhayyim %s — magatama component build/deploy CLI (Cloudflare Containers)
 
 USAGE:
-  gftd <command> [flags]
+  etzhayyim <command> [flags]
 
 COMMANDS:
   build              Build TinyGo WASM component → wasm-tools componentize (magatama WIT)
-                     --extension: build as W Protocol extension (world: gftd:w/w-extension)
+                     --extension: build as W Protocol extension (world: etzhayyim:w/w-extension)
   build-server       Build magatama-server binary + Docker image (zigbuild cross-compile)
-  deploy             Cloudflare Container deploy from source dir (magatama.toml + gftd.json → wrangler deploy + smoke test)
+  deploy             Cloudflare Container deploy from source dir (magatama.toml + etzhayyim.json → wrangler deploy + smoke test)
   plugin        Manage build tools (wasm-tools, tinygo adapters)
-  bench         Dispatch baien benches (micro / core4 / distill / rope-extend / list) — see 'gftd bench help'
-  baien         Ad-hoc baien inference (prompt) — see 'gftd baien help'
-  actor         Declarative actor deploy from actor.toml (--only <stage>, --non-interactive) — see 'gftd actor help'
+  bench         Dispatch baien benches (micro / core4 / distill / rope-extend / list) — see 'etzhayyim bench help'
+  baien         Ad-hoc baien inference (prompt) — see 'etzhayyim baien help'
+  actor         Declarative actor deploy from actor.toml (--only <stage>, --non-interactive) — see 'etzhayyim actor help'
                 Per ADR-2605232000.
   agent-token   Mint a scoped ephemeral JWT (Ed25519, default TTL 60s) for agent-led XRPC/deploy steps.
                 Per ADR-2605232000.
-  capability    Consent capability lifecycle (issue / verify / revoke / list) — see 'gftd capability help'.
+  capability    Consent capability lifecycle (issue / verify / revoke / list) — see 'etzhayyim capability help'.
                 Per ADR-2605231400 + ADR-2605232000.
   kuni-umi      6-phase robotic-deployment flow (define-site / submit-survey / propose-plan /
-                record-progress / commission / audit-event) — see 'gftd kuni-umi help'.
+                record-progress / commission / audit-event) — see 'etzhayyim kuni-umi help'.
                 Per ADR-2605201400.
   version       Print version
 
-Run 'gftd <command> --help' for command-specific flags.
+Run 'etzhayyim <command> --help' for command-specific flags.
 `, version)
 }
 
 func fatalf(format string, args ...any) {
-	fmt.Fprintf(os.Stderr, "gftd: "+format+"\n", args...)
+	fmt.Fprintf(os.Stderr, "etzhayyim: "+format+"\n", args...)
 	os.Exit(1)
 }

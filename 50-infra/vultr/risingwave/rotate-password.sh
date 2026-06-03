@@ -18,7 +18,7 @@
 #
 # Prerequisites:
 #   - `op signin` already run (interactive) — script aborts if not authenticated
-#   - VULTR_API_KEY in Keychain (gftd.vultr / VULTR_API_KEY)
+#   - VULTR_API_KEY in Keychain (etzhayyim.vultr / VULTR_API_KEY)
 #   - kubectl + jq + curl on PATH
 #
 # Usage:
@@ -51,10 +51,10 @@ echo "  ✓ op authenticated"
 
 step "Pre-flight: Vultr API key from Keychain"
 # Try common account names: VULTR_API_KEY (older convention) → API_KEY (current).
-: "${VULTR_API_KEY:=$(security find-generic-password -s gftd.vultr -a VULTR_API_KEY -w 2>/dev/null || \
-                       security find-generic-password -s gftd.vultr -a API_KEY -w 2>/dev/null || true)}"
+: "${VULTR_API_KEY:=$(security find-generic-password -s etzhayyim.vultr -a VULTR_API_KEY -w 2>/dev/null || \
+                       security find-generic-password -s etzhayyim.vultr -a API_KEY -w 2>/dev/null || true)}"
 if [[ -z "${VULTR_API_KEY}" ]]; then
-  echo "ERROR: VULTR_API_KEY not in Keychain (service=gftd.vultr; tried accounts: VULTR_API_KEY, API_KEY)" >&2
+  echo "ERROR: VULTR_API_KEY not in Keychain (service=etzhayyim.vultr; tried accounts: VULTR_API_KEY, API_KEY)" >&2
   exit 2
 fi
 echo "  ✓ VULTR_API_KEY loaded"

@@ -524,7 +524,7 @@ def _is_first_party_source(f: Path) -> bool:
         return False
     # exclude pre-cutover legacy app trees (per CLAUDE.md "legacy organisation-specific
     # prefixes" rule — these are seeded snapshots awaiting rename)
-    if any(p.startswith("ai-gftd-project-") or p.startswith("ai-gftd-apps-") for p in f.parts):
+    if any(p.startswith("etzhayyim-project-") or p.startswith("etzhayyim-apps-") for p in f.parts):
         return False
     return True
 
@@ -536,7 +536,7 @@ def _first_party_source_files(
     `extensions` (lowercase, dotted). Uses `git ls-files` for speed — see
     `_no_server_key_candidates` for the rationale + fallback shape.
 
-    Honours `_is_first_party_source` filtering (legacy `ai-gftd-project-*`
+    Honours `_is_first_party_source` filtering (legacy `etzhayyim-project-*`
     paths + minified artifacts excluded). Files outside the git index
     (build caches, node_modules) are never enumerated.
     """
@@ -602,7 +602,7 @@ def _check_no_advertising(repo: Path) -> tuple[bool, list[str]]:
         matched_files = [
             repo / p for p in out.stdout.decode("utf-8", errors="ignore").split("\n") if p
         ]
-        # Re-apply legacy `ai-gftd-project-*` exclusion via _is_first_party_source.
+        # Re-apply legacy `etzhayyim-project-*` exclusion via _is_first_party_source.
         matched_files = [f for f in matched_files if _is_first_party_source(f)]
         # Identify which specific needles matched, for the hit listing.
         for f in matched_files:
