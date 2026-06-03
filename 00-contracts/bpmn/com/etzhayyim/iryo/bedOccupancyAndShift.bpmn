@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  iryo.gftd.ai — bed occupancy + shift coverage gap.
+  iryo.etzhayyim.com — bed occupancy + shift coverage gap.
 
   Timer-start R/PT1H. Recomputes bed occupancy snapshot (touches
   vertex_iryo_bed.last_changed_at_ms only when occupancy changes) and
@@ -12,7 +12,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_iryo_bed_occupancy_and_shift"
-    targetNamespace="https://gftd.ai/bpmn/iryo"
+    targetNamespace="https://etzhayyim.ai/bpmn/iryo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="iryo_bed_occupancy_and_shift" name="iryo bed occupancy and shift" isExecutable="true">
@@ -59,7 +59,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:iryo.gftd.ai:hospital&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:iryo.etzhayyim.com:hospital&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.iryo.bedOccupancyAndShift&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;wardsScanned&quot;: wardsScanned, &quot;shiftsScanned&quot;: shiftsScanned, &quot;gapsDetected&quot;: gapsDetected, &quot;occupancyMin&quot;: occupancyMin, &quot;occupancyMax&quot;: occupancyMax }" target="attributes"/>
         </zeebe:ioMapping>

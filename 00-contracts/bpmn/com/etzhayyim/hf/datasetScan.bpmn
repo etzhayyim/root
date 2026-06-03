@@ -6,14 +6,14 @@
   hf.dataset.scan per filter, then fetches splits for newly found datasets.
 
   NSID: com.etzhayyim.apps.hf.datasetScan
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_hf_dataset_scan"
-    targetNamespace="https://gftd.ai/bpmn/hf"
+    targetNamespace="https://etzhayyim.ai/bpmn/hf"
     exporter="hand-written"
     exporterVersion="2.0">
 

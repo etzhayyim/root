@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_blockchain_bitcoin_head_delta"
-    targetNamespace="https://gftd.ai/bpmn/ingest/blockchain"
+    targetNamespace="https://etzhayyim.ai/bpmn/ingest/blockchain"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="blockchain_bitcoin_head_delta" name="blockchain bitcoin head delta" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:blockchain.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:blockchain.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;blockchain.bitcoin.head.delta&quot;" target="action"/>
           <zeebe:input source="={runId: runId, sourceId: sourceId, recordsRead: recordsRead, recordsWritten: recordsWritten, transactionsRead: transactionsRead, latestHeight: latestHeight}" target="payload"/>
         </zeebe:ioMapping>
