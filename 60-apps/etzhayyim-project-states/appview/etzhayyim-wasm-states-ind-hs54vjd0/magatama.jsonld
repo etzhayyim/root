@@ -39,7 +39,7 @@
     "ministryCount": 6,
     "contractCount": 1,
     "bpmnCount": 812,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/ind/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/ind/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -80,7 +80,7 @@
         "authority": "Central Bureau Of Investigation",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/ind/bpmn/central-bureau-of-investigation.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/ind/bpmn/central-bureau-of-investigation.bpmn"
       },
       {
         "id": "ind.ministry-of",
@@ -89,7 +89,7 @@
         "authority": "Ministry Of",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/ind/bpmn/ministry-of.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/ind/bpmn/ministry-of.bpmn"
       },
       {
         "id": "ind.ministry-of-external",
@@ -98,7 +98,7 @@
         "authority": "Ministry Of External",
         "basis": "General Public Services Act",
         "portalUri": "https://www.mea.gov.in/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/ind/bpmn/ministry-of-external.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/ind/bpmn/ministry-of-external.bpmn"
       },
       {
         "id": "ind.ministry-of-2",
@@ -107,7 +107,7 @@
         "authority": "Ministry Of",
         "basis": "Economic Affairs Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/ind/bpmn/ministry-of-2.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/ind/bpmn/ministry-of-2.bpmn"
       },
       {
         "id": "ind.ministry-of-home",
@@ -116,7 +116,7 @@
         "authority": "Ministry Of Home",
         "basis": "General Public Services Act",
         "portalUri": "https://www.mha.gov.in/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/ind/bpmn/ministry-of-home.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/ind/bpmn/ministry-of-home.bpmn"
       },
       {
         "id": "ind.prime-ministers",
@@ -125,7 +125,7 @@
         "authority": "Prime Ministers",
         "basis": "General Public Services Act",
         "portalUri": "https://www.pmindia.gov.in/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/ind/bpmn/prime-ministers.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/ind/bpmn/prime-ministers.bpmn"
       },
       {
         "id": "ind.rti",

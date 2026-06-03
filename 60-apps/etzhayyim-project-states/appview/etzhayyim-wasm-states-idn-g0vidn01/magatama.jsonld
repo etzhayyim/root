@@ -37,7 +37,7 @@
     "ministryCount": 0,
     "contractCount": 1,
     "bpmnCount": 32,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/idn/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/idn/",
     "addresses": [
       {
         "kind": "headquarters",

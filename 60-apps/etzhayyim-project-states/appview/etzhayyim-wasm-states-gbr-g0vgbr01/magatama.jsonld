@@ -82,7 +82,7 @@
         "authority": "Cabinet",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/gbr/bpmn/cabinet.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/gbr/bpmn/cabinet.bpmn"
       },
       {
         "id": "gbr.executive",
@@ -91,7 +91,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/gbr/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/gbr/bpmn/executive.bpmn"
       },
       {
         "id": "gbr.ministry-of",
@@ -100,7 +100,7 @@
         "authority": "Ministry Of",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/gbr/bpmn/ministry-of.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/gbr/bpmn/ministry-of.bpmn"
       },
       {
         "id": "gbr.foi.request",
@@ -157,7 +157,7 @@
     "ministryCount": 3,
     "contractCount": 1,
     "bpmnCount": 31,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/gbr/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/gbr/",
     "complianceFrameworks": [
       "Uncodified constitution (Parliamentary sovereignty)",
       "Freedom of Information Act 2000",
