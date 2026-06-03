@@ -1,10 +1,10 @@
 # lg-patent OSS Dockerfile.
 #
 # Build:
-#   cd 60-apps/ai-gftd-project-patent/lg
+#   cd 60-apps/etzhayyim-project-patent/lg
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
-#     -t ghcr.io/gftdcojp/lg-patent:0.1.0-amd64 \
+#     -t ghcr.io/etzhayyim/lg-patent:0.1.0-amd64 \
 #     --push .
 
 FROM python:3.11-slim-bookworm

@@ -1,5 +1,5 @@
 [component]
-id = "ai-gftd-project-patent"
+id = "etzhayyim-project-patent"
 name = "Patent Registry"
 domain = "patent.etzhayyim.com"
 did = "did:web:patent.etzhayyim.com"
@@ -149,5 +149,5 @@ gates = [
   "pnpm lint:bpmn:lexicon-contract",
   "pnpm lint:nsid:exists",
   "pnpm --dir 30-graph/graph-schema exec tsc --noEmit --pretty false",
-  "python3 60-apps/ai-gftd-project-patent/worker/python/patent_expiry_worker.py dry-run",
+  "python3 60-apps/etzhayyim-project-patent/worker/python/patent_expiry_worker.py dry-run",
 ]

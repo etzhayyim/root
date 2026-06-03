@@ -1,4 +1,4 @@
-# ai-gftd-project-patent — Patent Registry
+# etzhayyim-project-patent — Patent Registry
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/patent/actor-manifest.jsonld`). No Worker deploy — PDS Shared Executor runs 7 pipelines (get/list/citations/family/coverage/cron + site.page subscribeRepos) against `vertex_patent` + `edge_patent_cites` + `edge_family_member` + `edge_classified_as` (migration 0037).
 
@@ -43,10 +43,10 @@ patent = **知的財産 (特許・実用新案) perspective**。出願・公開�
 
 | 軸 | Source Project |
 |---|---|
-| LEI / 法人 | `ai-gftd-project-legal-entity` |
-| ISIC / 産業分類 | `ai-gftd-project-open-isic` |
-| natural person | `ai-gftd-project-natural-person` |
-| 金融証券 | `ai-gftd-project-isin` |
+| LEI / 法人 | `etzhayyim-project-legal-entity` |
+| ISIC / 産業分類 | `etzhayyim-project-open-isic` |
+| natural person | `etzhayyim-project-natural-person` |
+| 金融証券 | `etzhayyim-project-isin` |
 
 ## Data Sources (Follow-based)
 
@@ -63,4 +63,4 @@ patent = **知的財産 (特許・実用新案) perspective**。出願・公開�
 
 | Component | nanoid |
 |---|---|
-| `ai-gftd-wasm-patent-p4t3nt01` | `p4t3nt01` |
+| `etzhayyim-wasm-patent-p4t3nt01` | `p4t3nt01` |
