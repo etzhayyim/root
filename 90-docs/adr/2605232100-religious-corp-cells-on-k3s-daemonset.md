@@ -19,7 +19,7 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 related:
 V05182312-local-bring-up-murakumo-gemma4
 V05171300
@@ -39,9 +39,9 @@ ADR-2605191346 §3 established a tiered runtime policy: native daemon (launchd/s
 
 The 2026-05-20 → 2026-05-23 implementation wave proved this classification wrong. Each cell is in fact **stateful in three independent dimensions**:
 
-1. **yatachain-chain state** (ADR-2605231400 §2). Each cell maintains an atproto PDS MST source chain. Crash mid-commit must be recoverable without losing the chain head.
+1. **kotoba-datomic-chain state** (ADR-2605231400 §2). Each cell maintains an atproto PDS MST source chain. Crash mid-commit must be recoverable without losing the chain head.
 2. **MstCheckpointSaver state** (ADR-2605171800, ADR-2605191559). LangGraph Pregel checkpoint frames are streamed over Unix socket to the `@etzhayyim/sdk` MstCheckpointSaver sidecar, then projected to CAR + IPFS pin + L2 anchor. Loss of the sidecar mid-frame produces a half-anchored MST root.
-3. **yatachain-witness quorum state** (ADR-2605231400 §5). Each cell is a validator candidate for 1/N of all records (N=fleet size). Witness selection is deterministic on `record_cid`, so cell death = quorum unavailable for that record's witness shard until restart.
+3. **kotoba-datomic-witness quorum state** (ADR-2605231400 §5). Each cell is a validator candidate for 1/N of all records (N=fleet size). Witness selection is deterministic on `record_cid`, so cell death = quorum unavailable for that record's witness shard until restart.
 
 launchd's process-group model cannot express these requirements cleanly:
 
@@ -72,7 +72,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 
 - Remove env vars `RW_URL`, `DATABASE_URL`, `RW_SYNC_POOL` and the `mitama-udf-pool-rw` secretRef
 - Switch readinessProbe target from `/xrpc/com.etzhayyim.apps.unispsc.health` (which transitively touches RW via `/readyz`) to `/healthz` (graph registry counts only, no DB)
-- Add env vars `ETZ_SUBSTRATE=yatachain`, `ETZ_CHECKPOINTER_SOCKET=/run/etzhayyim/checkpointer.sock` as forward-compatible markers for Stage 2 (Pod sidecar wiring of `@etzhayyim/sdk` MstCheckpointSaver — not in this ADR scope)
+- Add env vars `ETZ_SUBSTRATE=kotoba-datomic`, `ETZ_CHECKPOINTER_SOCKET=/run/etzhayyim/checkpointer.sock` as forward-compatible markers for Stage 2 (Pod sidecar wiring of `@etzhayyim/sdk` MstCheckpointSaver — not in this ADR scope)
 - Comment-link the new ADR ID in the manifest header
 
 **(4) ADR-2605191346 §3 classification is updated by reference.** religious-corp Pregel cells are now classified as "HA stateful service" not "stateless agent loop". Native daemon path remains valid for ameno-daemon (Path A/B per ADR-2605191229/2605191257) and other user-host daemons.
@@ -87,7 +87,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 - Sidecar dependency expressible as Pod initContainer/readinessProbe → MstCheckpointSaver Unix socket guaranteed before first MST commit
 - Rolling cell-key rotation (90-day cadence) becomes `kubectl rollout restart daemonset/<cell>` — no per-node SSH
 - Swarm leader election (ADR-2605191603) collapses into Kubernetes Lease objects → ~200 LoC removable from cell_runner_main.py
-- yatachain-witness availability tracked via DaemonSet `status.numberReady` — quorum can self-detect degraded fleet
+- kotoba-datomic-witness availability tracked via DaemonSet `status.numberReady` — quorum can self-detect degraded fleet
 - `50-infra/k8s/lg-open-unispsc/` becomes immediately applyable for the 18,342 UNSPSC agent XRPC façade
 
 ### Negative
@@ -107,7 +107,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 | Option | Rejected because |
 |---|---|
 | Stay on launchd, add per-cell file-lock leader election + plist generator | Re-implements k8s primitives (Lease, DaemonSet, rolling update) in bash + Python. Maintenance debt without parity. |
-| Use Holochain conductor (`50-infra/holochain/`) as cell runtime | ADR-2605231400 §README explicitly states yatachain is built *independently of* Holochain — adopting the actual conductor would contradict that decision and re-introduce a non-yatachain runtime |
+| Use Holochain conductor (`50-infra/holochain/`) as cell runtime | ADR-2605231400 §README explicitly states kotoba-datomic is built *independently of* Holochain — adopting the actual conductor would contradict that decision and re-introduce a non-kotoba-datomic runtime |
 | Cell as systemd unit on Linux VM (no k3s above it) | Same gap as launchd — no declarative placement, no rolling update primitive, no Lease object |
 | Move cells to murakumo-kubelet GPU bursts | murakumo-kubelet is for bursty GPU compute (ADR-2605110100, vendor monorepo) — religious-corp cells are long-lived CPU daemons; mismatch |
 
@@ -115,17 +115,17 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 
 1. **Stage 1 (this ADR)**: ADR text + fleet.toml `control_plane` update + lg-open-unispsc RW decontamination patch ✅ 2026-05-23
 2. **Stage 2**: `70-tools/fleet-to-kustomize/` generator + first DaemonSet apply for `CharterAttestationRequestCell` on orbstack (single-node validation) ✅ 2026-05-23
-3. **Stage 3 (revised 2026-05-23)**: Fleet-wide k3s bring-up via the **existing Ansible playbook** at `60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml`. `50-infra/k8s/lima-k3s/bring-up.sh` is a local 3-VM smoke-test on the developer host only — NOT the production path. Operator commands (from jacob):
+3. **Stage 3 (revised 2026-05-23)**: Fleet-wide k3s bring-up via the **existing Ansible playbook** at `60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml`. `50-infra/k8s/lima-k3s/bring-up.sh` is a local 3-VM smoke-test on the developer host only — NOT the production path. Operator commands (from jacob):
 
    ```bash
-   cd 60-apps/ai-gftd-project-murakumo/ansible
+   cd 60-apps/etzhayyim-project-murakumo/ansible
    ansible-playbook k8s-gpu-cluster.yml --tags=tools       # host toolchain (Lima, k3s installer)
    ansible-playbook k8s-gpu-cluster.yml --tags=preflight   # prerequisite checks
    MURAKUMO_K3S_TOKEN="$(openssl rand -hex 32)" \
    ansible-playbook k8s-gpu-cluster.yml --tags=bootstrap   # one Lima VM per Mac mini → k3s join over WireGuard wg0
    ```
 
-   `lima_k3s_gpu` role (`roles/lima_k3s_gpu/`) implements `tools / preflight / bootstrap / deploy_llama_vulkan` modes. Cross-VM pod networking goes over WireGuard (`wg0`) with k3s `node-ip` and flannel both bound to `wg0` — set up by the playbook, not the operator. Inventory at `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml` covers `jacob` (control plane, 127.0.0.1) + 10 tribe nodes.
+   `lima_k3s_gpu` role (`roles/lima_k3s_gpu/`) implements `tools / preflight / bootstrap / deploy_llama_vulkan` modes. Cross-VM pod networking goes over WireGuard (`wg0`) with k3s `node-ip` and flannel both bound to `wg0` — set up by the playbook, not the operator. Inventory at `60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml` covers `jacob` (control plane, 127.0.0.1) + 10 tribe nodes.
 4. **Stage 4**: `kubectl apply -k 50-infra/k8s/murakumo/` rolls out all 15 religious-corp cells per fleet.toml placement (target = `production`, no `--target orbstack` override).
 5. **Stage 5**: `lg-open-unispsc` apply + verify 18,342 UNSPSC agents resolvable via `/xrpc/com.etzhayyim.apps.unispsc.invokeAgent` ✅ 2026-05-23 (on orbstack; production fleet pending Stage 3).
 6. **Stage 6**: `cell_runner_main.py` retired to debug-only path, swarm leader election code deleted in favor of Kubernetes Lease.
@@ -134,7 +134,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 
 | Path | Purpose | Production use? |
 |---|---|---|
-| `60-apps/ai-gftd-project-murakumo/ansible/` | **The real fleet bootstrapper.** One Lima VM per Mac mini, joined into one k3s cluster over WireGuard. Inventory-driven, idempotent, includes preflight + tools + bootstrap + GPU workload deploy. | ✅ Stage 3 production path |
+| `60-apps/etzhayyim-project-murakumo/ansible/` | **The real fleet bootstrapper.** One Lima VM per Mac mini, joined into one k3s cluster over WireGuard. Inventory-driven, idempotent, includes preflight + tools + bootstrap + GPU workload deploy. | ✅ Stage 3 production path |
 | `50-infra/k8s/lima-k3s/bring-up.sh` | Local 3-VM smoke test on the developer host (`k3s-server-01..03`, embedded etcd HA on one machine). Validates k3s manifests before they hit the fleet. | ❌ Dev/test only — does NOT touch Mac minis |
 
 The first ADR draft (2026-05-23 morning) cited `bring-up.sh` as the Stage 3 path, which was wrong. The Ansible playbook is the source-of-truth and has been in place since the Murakumo Mac mini fleet was provisioned. fleet.toml `[fleet] ansible_playbook` now records this explicitly.
@@ -145,13 +145,13 @@ The first ADR draft (2026-05-23 morning) cited `bring-up.sh` as the Stage 3 path
 - ADR-2605192415 — religious-corp daemon architecture (cell catalog source)
 - ADR-2605172000 — RW-free substrate (justifies lg-open-unispsc decontamination)
 - ADR-2605171800 — LangGraph → MST → IPFS → L2 pipeline (defines stateful invariant)
-- ADR-2605231400 — yatachain Holochain-iso substrate (defines witness quorum requirement)
+- ADR-2605231400 — kotoba-datomic Holochain-iso substrate (defines witness quorum requirement)
 - `50-infra/murakumo/fleet.toml` — cell placement SoT
 - `50-infra/k8s/lg-open-unispsc/deployment.yaml` — UNSPSC façade manifest (patched in this ADR scope)
 - `50-infra/k8s/etzhayyim-organism/deployment.yaml` — existing Pod-based daemon precedent (CNS, 24h+ Running)
-- `60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml` — **Stage 3 production playbook** (one Lima VM per Mac mini, WireGuard overlay, ansible-driven)
-- `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml` — fleet inventory SoT (jacob + 10 tribe nodes)
-- `60-apps/ai-gftd-project-murakumo/ansible/roles/lima_k3s_gpu/` — k3s role (tools / preflight / bootstrap / deploy_llama_vulkan)
+- `60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml` — **Stage 3 production playbook** (one Lima VM per Mac mini, WireGuard overlay, ansible-driven)
+- `60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml` — fleet inventory SoT (jacob + 10 tribe nodes)
+- `60-apps/etzhayyim-project-murakumo/ansible/roles/lima_k3s_gpu/` — k3s role (tools / preflight / bootstrap / deploy_llama_vulkan)
 - `50-infra/k8s/lima-k3s/bring-up.sh` — **local 3-VM smoke test only**, not the fleet bootstrapper (clarified in Stage 3 above)
 - `20-actors/etzhayyim-sdk/src/checkpointer.ts` — MstCheckpointSaver sidecar (Pod sidecar target)
 - `20-actors/magatama/py/src/pymagatama/cell_runner_main.py` — legacy launchd entrypoint (downgraded to debug-only post-Stage 6)

@@ -189,7 +189,7 @@ shim) is **dry-run-default**. `launchctl load` is gated on:
   scaffolded (`50-infra/nats-jetstream-*`) but not yet live on every
   mini. The forwarder is opt-in and gracefully no-ops if the broker is
   unreachable.
-- **mesh identity legacy path**: `~/.gftd/mesh/identity.json` lives on
+- **mesh identity legacy path**: `~/.etzhayyim/mesh/identity.json` lives on
   current minis pending the cutover to `~/.etzhayyim/mesh/identity.json`.
   `langserver_client` reads either path; this is a temporary compatibility
   shim that disappears when the cutover lands.
@@ -200,7 +200,7 @@ shim) is **dry-run-default**. `launchctl load` is gated on:
   this substrate. Passes ADR-2605172000 RW-free check.
 - **Payment**: none. Passes ADR-2605172100.
 - **License**: Apache 2.0 + Charter Compliance Rider v2.0 (per ADR-2605192200).
-- **Operating entity**: all artifacts use `etzhayyim-` prefix. No `gftd-`
+- **Operating entity**: all artifacts use `etzhayyim-` prefix. No `etzhayyim-`
   prefix in newly authored code. Per CLAUDE.md.
 - **Eros / Gore / Force**: not applicable — developer tooling has no
   generative content surface.

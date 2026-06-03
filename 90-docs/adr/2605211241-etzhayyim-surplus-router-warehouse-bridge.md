@@ -48,7 +48,7 @@ ADR-2605192100 §1.1 (人類の構造的労働解放) と §1.4 (全産業 robot
 | 都市鉱山 Lexicon (`com.etzhayyim.apps.toshiKozan.*`) | ✅ registerEwasteStream / get / list (11 streamType + 12 target material) | 上流 (まだ商品の段階) からの bridge なし |
 | FTZ / Freeport Lexicon (`com.etzhayyim.apps.ftzZones.recordZone` / `freeportRegistry.recordFreeportEntry`) | ✅ 記録のみ | surplus 流入経路として未結線 |
 | Payment / Tithe (`com.etzhayyim.apps.payment.sent` / `payment.tithe`) | ✅ donation/kisha/grant/tithe/escrow-refund + SBT↔SBT 4 purposes | surplus 受贈に対する 10% Tithe (物品の場合の評価方法) 未定義 |
-| Robotics (`60-apps/ai-gftd-project-open-robo/`) | ✅ urban-mining cell (e-waste 受入) | upstream surplus 受入 cell 仕様なし |
+| Robotics (`60-apps/etzhayyim-project-open-robo/`) | ✅ urban-mining cell (e-waste 受入) | upstream surplus 受入 cell 仕様なし |
 
 すなわち、**「商品としての surplus」と「e-waste」の連続体の中間に bridge Lexicon が空白**である。
 
@@ -166,7 +166,7 @@ Lexicon 側の `state` enum で機械可読に強制:
 
 ## 8. Robotics integration
 
-- `60-apps/ai-gftd-project-open-robo/` の urban-mining cell は **下流側**を担当 (e-waste 受入)。
+- `60-apps/etzhayyim-project-open-robo/` の urban-mining cell は **下流側**を担当 (e-waste 受入)。
 - 本 ADR と将来 ADR でカバーすべき **上流側** (surplus 受入 cell):
   - 受入ステーション + バーコード / DPP (ESPR `textileCircularity.registerDppBadge`) スキャン
   - 賞味期限 / 耐用年数判定
@@ -204,7 +204,7 @@ Lexicon 側の `state` enum で機械可読に強制:
 
 - Cross-border bonded transit を verify (`freeportRegistry` v2 enum future ADR が prerequisite)。
 - 食品 surplus (賞味期限管理) の sub-enum + hazard flag を別 Lexicon namespace に切り出す可能性あり。
-- 上流 surplus 受入 robotics cell の CAD / ROS2 を `60-apps/ai-gftd-project-open-robo/` に追加 (future ADR)。
+- 上流 surplus 受入 robotics cell の CAD / ROS2 を `60-apps/etzhayyim-project-open-robo/` に追加 (future ADR)。
 
 ## リスク
 
@@ -237,8 +237,8 @@ Lexicon 側の `state` enum で機械可読に強制:
 - `00-contracts/lexicons/com/etzhayyim/apps/ftzZones/*.json`
 - `00-contracts/lexicons/com/etzhayyim/apps/freeportRegistry/*.json`
 - `00-contracts/lexicons/com/etzhayyim/apps/payment/{sent,tithe}.json`
-- `60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md`
-- `60-apps/ai-gftd-project-open-robo/docs/urban-mining-business-model-v1.md`
+- `60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md`
+- `60-apps/etzhayyim-project-open-robo/docs/urban-mining-business-model-v1.md`
 - UN FAO Food Loss and Waste Database (post-harvest ~14% + consumer ~17%)
 - 経産省 アパレル産業廃棄量試算 (年間 約14億点)
 - Optoro / Returnly 試算 (米国 EC 返品 約40% 非再販)

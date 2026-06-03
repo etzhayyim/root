@@ -77,7 +77,7 @@ The `did:web` document **must** embed the `did:erc725:base:` value as `alsoKnown
 
 Public-facing systems (AT Protocol federation, social handles, signed lexicons, MCP tool registry) MUST use `did:web:`. Internal governance and on-chain enforcement MUST use `did:erc725:`. Either format SHOULD resolve to the same actor through the bidirectional pointers.
 
-Vendor's `did:erc725:gftd:260425:<contract>` literals continue to exist in vendor RisingWave columns as historical references; new etzhayyim roots use `did:erc725:base:<contract>` (chain id `8453` is implied by the `base` method-specific identifier per ADR-0095 amended naming).
+Vendor's `did:erc725:etzhayyim:260425:<contract>` literals continue to exist in vendor RisingWave columns as historical references; new etzhayyim roots use `did:erc725:base:<contract>` (chain id `8453` is implied by the `base` method-specific identifier per ADR-0095 amended naming).
 
 ### D3. Cutover protocol — **5-phase forward-only migration**
 
@@ -116,7 +116,7 @@ The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` patt
 - `50-infra/etzhayyim-did-web/` CF Worker is extended to serve per-handle `did:web:<handle>.etzhayyim.com` documents, each embedding the matching `did:erc725:base:<contract>` and `verificationMethod`.
 - Council operations (attestations, SBT mints) gain a new precondition: the actor must hold a Base L2 ERC725 root. Vendor-only roots are not accepted as identity for new Council operations after P3.
 - The existing 96 mitama actors face an opt-in migration window between P1 and P3 (~ 6 months). Migration is voluntary but is required to participate in new etzhayyim governance.
-- Vendor `actor_did` / `org_did` columns in RisingWave continue to operate; values from Phase P2 onward are `did:erc725:base:<new>` instead of `did:erc725:gftd:260425:<old>`. Both formats coexist in the column (string-typed).
+- Vendor `actor_did` / `org_did` columns in RisingWave continue to operate; values from Phase P2 onward are `did:erc725:base:<new>` instead of `did:erc725:etzhayyim:260425:<old>`. Both formats coexist in the column (string-typed).
 
 ## Alternatives Considered
 
@@ -152,5 +152,5 @@ The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` patt
 - `50-infra/etzhayyim-paymaster/` (ERC-4337 Paymaster, Foundry)
 - `50-infra/l2-anchor-contract/` (Stage 5a Foundry)
 - `50-infra/etzhayyim-authz/README.md` (scaffold)
-- Vendor: `60-apps/ai-gftd-project-auth/worker-authz/src-ts/sign-up.ts` (Ethereum branch — migration source)
+- Vendor: `60-apps/etzhayyim-project-auth/worker-authz/src-ts/sign-up.ts` (Ethereum branch — migration source)
 - Vendor: ADR-0074, ADR-0095 (migration source)

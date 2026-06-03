@@ -56,7 +56,7 @@ The 2026-05-21 post-freeze 3-axis audit (vendor PR #1339 `tranche-f-post-freeze-
 
 **No code-side disposition without Council Lv6+ ruling.**
 
-This ADR is filed as `status: proposed` and remains so until the Bootstrap Council (per ADR-2605192300) issues a ruling on which of three dispositions applies. No scaffold mirror, no lexicon copy, no `60-apps/ai-gftd-project-deai/` creation in etzhayyim/root pending the ruling.
+This ADR is filed as `status: proposed` and remains so until the Bootstrap Council (per ADR-2605192300) issues a ruling on which of three dispositions applies. No scaffold mirror, no lexicon copy, no `60-apps/etzhayyim-project-deai/` creation in etzhayyim/root pending the ruling.
 
 ## Three possible dispositions
 
@@ -153,6 +153,6 @@ Don't file this ADR; let deai sit in vendor with mismatched magatama declaration
 - ADR-2605192400 — Eros 許容 / Gore 禁止 (Wellbecoming boundary)
 - ADR-2605211335 — Tranche F session closure (post-freeze audit)
 - vendor PR #1339 — post-freeze 7-actor audit (verdict source)
-- vendor `60-apps/ai-gftd-project-deai/CLAUDE.md` — project shape
+- vendor `60-apps/etzhayyim-project-deai/CLAUDE.md` — project shape
 - vendor `00-contracts/lexicons/com/etzhayyim/apps/deai/*.json` — 7 lexicons
 - Bootstrap Council Seat 2-5 RFP closes 2026-06-19 (per `etzhayyim/root/COUNCIL-BOOTSTRAP-RFP.md`)

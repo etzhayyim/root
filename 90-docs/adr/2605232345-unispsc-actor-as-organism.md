@@ -20,7 +20,7 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 supersedes: []
 superseded_by: []
 ---

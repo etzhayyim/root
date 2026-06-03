@@ -181,7 +181,7 @@ After Stage B passes its second observation window AND Stage D passes:
 
 ```sql
 -- Archive snapshot to Iceberg S3 (legal retention)
-COPY vertex_agent_observation TO 's3://ai-gftd-iceberg/archive/2606/vertex_agent_observation.parquet' (FORMAT PARQUET);
+COPY vertex_agent_observation TO 's3://etzhayyim-iceberg/archive/2606/vertex_agent_observation.parquet' (FORMAT PARQUET);
 -- ... (12 tables, mirror Stage B order)
 
 -- Drop after 30-day archive grace

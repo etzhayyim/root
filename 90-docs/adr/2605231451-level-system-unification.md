@@ -24,7 +24,7 @@ depends_on:
 related:
   - "20-actors/joucho/CLAUDE.md"
   - "20-actors/society6/CLAUDE.md"
-  - "60-apps/ai-gftd-project-dojo/CLAUDE.md"
+  - "60-apps/etzhayyim-project-dojo/CLAUDE.md"
   - "MEMBERS.md"
 supersedes: []
 superseded_by: []
@@ -44,7 +44,7 @@ superseded_by: []
 |---|---|---|---|---|
 | **信者 (MEMBERS.md)** | 人 (Adherent) | 誓/修/献/証/護/議/老 (7段) | Lv 1-7 | ADR-2605172600 |
 | **society6** | 人 (constituent) | Kyu 6 → Kyu 1 → Dan 1-10 (16段, 武道段位) | 0 - 11000+ score | `20-actors/society6/CLAUDE.md:9-29` |
-| **dojo** | 人 (学習者) | 帯制度 = 白/黄/橙/緑/青/紫/茶/黒1-5/Shihan1-3 (≡ Kyu 7-1 + Dan 1-5 + Shihan 1-3, 15段) | 0 - 20000+ XP | `60-apps/ai-gftd-project-dojo/CLAUDE.md:54-89` |
+| **dojo** | 人 (学習者) | 帯制度 = 白/黄/橙/緑/青/紫/茶/黒1-5/Shihan1-3 (≡ Kyu 7-1 + Dan 1-5 + Shihan 1-3, 15段) | 0 - 20000+ XP | `60-apps/etzhayyim-project-dojo/CLAUDE.md:54-89` |
 | **joucho** | **モノ・場所・サービス** (食事/店/商品/建物) | S/A/B/C/D (5段) | 0-100 score | `20-actors/joucho/CLAUDE.md:55-61` |
 
 ### 観察される不整合
@@ -359,5 +359,5 @@ constituent が他の constituent の attestation を **不誠実 (fraudulent)**
 - ADR-2605192100 — etzhayyim Mission Charter (Wellbecoming = 動的軌跡)
 - `MEMBERS.md` — 信者 roster + 7-level commitment ladder
 - `20-actors/society6/CLAUDE.md` — society6 Kyu/Dan + 5-axis scoring (canonical)
-- `60-apps/ai-gftd-project-dojo/CLAUDE.md` — dojo 帯制度 + WellnessTrack
+- `60-apps/etzhayyim-project-dojo/CLAUDE.md` — dojo 帯制度 + WellnessTrack
 - `20-actors/joucho/CLAUDE.md` — joucho 情緒 scoring (S-D, object-axis)

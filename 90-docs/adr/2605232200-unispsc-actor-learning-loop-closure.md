@@ -16,7 +16,7 @@ authoritative_for:
   - cell-side opt-in shortcut pattern (reference impl c10101500)
 depends_on:
   - adr-2605232100-etzhayyim-organism-vertical-implementation
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   - 2605231630-langgraph-chain-server-canonical-goose-retirement
@@ -82,7 +82,7 @@ The bespoke domain logic is **preserved verbatim** for inputs that don't trigger
 
 - **First substrate-anchored learning loop** in the etzhayyim/* scope. Same input → same result, but **execution path differs based on past outcomes**. Verified on orbstack 2026-05-23 21:30 JST with 4 sequential invocations: invocation 4+ takes the shortcut.
 - **Cell-agnostic wrapper.** All 18,342 actors get the learning signal for free without code changes. Adoption is per-cell, gradual, and reversible.
-- **Substrate-aligned.** The signal is computed from records that flow through PDS → IPFS → L2 anchor (per ADR-2605231400 yatachain composition). Cells that adopt the shortcut therefore learn from substrate-anchored history, not Pod-local ephemeral state.
+- **Substrate-aligned.** The signal is computed from records that flow through PDS → IPFS → L2 anchor (per ADR-2605231400 kotoba-datomic composition). Cells that adopt the shortcut therefore learn from substrate-anchored history, not Pod-local ephemeral state.
 - **No new runtime dependency.** `_compute_prior_consensus` is pure-Python aggregation over the existing `list_observations` SQLite query — no new ports, no new sidecars.
 - **Forward-compatible with Stage E member-signed writes.** When member-signed writes land (ADR-2605231525 Stage E), the publish path swaps service-token for passkey-signature; the consensus computation is unaffected because it reads from the local hot cache (which is hydrated by the substrate).
 
@@ -130,7 +130,7 @@ The 4th invocation's `log_tail` cascade through all prior shortcut events — th
 ## References
 
 - ADR-2605232100 — religious-corp cells on k3s DaemonSet (Stage D Day 0 wrapper)
-- ADR-2605231400 — yatachain Holochain-iso substrate (composition spec)
+- ADR-2605231400 — kotoba-datomic Holochain-iso substrate (composition spec)
 - ADR-2605231525 — no-server-key architecture (Stage E future direction)
 - ADR-2605211200 — RW-free belief store substrate port (AtIpfsLocalBeliefStore)
 - ADR-2605192100 — etzhayyim mission charter ("人類の構造的労働解放" → learning is necessary)

@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-21
 authoritative_for:
   - サイバーセキュリティ特化 監査役紹介事業のビジネスモデル定義 (BMC + Lean Canvas)
-  - gftd ネットワーク連携チャネル戦略 (lawfirm / kaisya / recruit 連携)
+  - etzhayyim ネットワーク連携チャネル戦略 (lawfirm / kaisya / recruit 連携)
   - 成果報酬型フィー体系
   - 顧客セグメント (非上場スタートアップ + 上場企業)
 related:
@@ -62,7 +62,7 @@ superseded_by: []
 ### 1. ビジネス定義
 
 ```
-事業名   : gftd Cyber Board — サイバーセキュリティ監査役紹介
+事業名   : etzhayyim Cyber Board — サイバーセキュリティ監査役紹介
 事業主体 : etzhayyim Japan株式会社 (vendor)
 収益モデル: 成果報酬型 (年収の 30〜35%)
 顧客     : 非上場スタートアップ (IPO 準備・直前期) + 上場企業 (プライム/スタンダード)
@@ -72,7 +72,7 @@ superseded_by: []
 
 ---
 
-### 2. Business Model Canvas — gftd Cyber Board
+### 2. Business Model Canvas — etzhayyim Cyber Board
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -96,7 +96,7 @@ superseded_by: []
 ├───────────────────────────┼────────────────────────────┴───────────────────────┴───────────────┴──────────────────────────┤
 │ KEY RESOURCES             │ CHANNELS                                                                                      │
 │                           │                                                                                               │
-│ • recruit.etzhayyim.com 候補者  │ • lawfirm.etzhayyim.com 経由: 法律事務所が企業クライアントにガバナンス強化を提案 → gftd 紹介       │
+│ • recruit.etzhayyim.com 候補者  │ • lawfirm.etzhayyim.com 経由: 法律事務所が企業クライアントにガバナンス強化を提案 → etzhayyim 紹介       │
 │   コホート (21,373 行)    │ • kaisya.etzhayyim.com 経由: 役員変遷分析で監査役空席を検出 → アウトリーチ自動化                  │
 │ • LangGraph マッチング    │ • 直販: IPO 準備企業に直接アプローチ (Wantedly / LinkedIn / 東証 IPO カレンダー)           │
 │   エンジン (候補者スコア   │ • VC ネットワーク: Series B+ 投資家経由のポートフォリオ企業一括紹介                         │
@@ -128,7 +128,7 @@ superseded_by: []
 
 ---
 
-### 3. Lean Canvas — gftd Cyber Board
+### 3. Lean Canvas — etzhayyim Cyber Board
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
@@ -228,7 +228,7 @@ superseded_by: []
 
 ---
 
-### 5. gftd プラットフォーム連携設計
+### 5. etzhayyim プラットフォーム連携設計
 
 | 連携先 | 連携内容 | 実装形態 |
 |---|---|---|
@@ -302,7 +302,7 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 - `90-docs/adr/0027-recruit-talent-public-feed-first.md` — recruit コホート設計
 - `90-docs/adr/0018-pii-tier3-cohort-first.md` — PII Tier 3 設計
 - `90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md` — 3-axis split rule
-- `60-apps/ai-gftd-project-kaisya/CLAUDE.md` — kaisya 役員変遷データ
-- `60-apps/ai-gftd-project-recruit/CLAUDE.md` — recruit コホート実装
+- `60-apps/etzhayyim-project-kaisya/CLAUDE.md` — kaisya 役員変遷データ
+- `60-apps/etzhayyim-project-recruit/CLAUDE.md` — recruit コホート実装
 - 経産省「サイバーセキュリティ経営ガイドライン v3.0」(2023)
 - 厚労省「有料職業紹介事業の許可申請」(職業安定法 第 30 条)

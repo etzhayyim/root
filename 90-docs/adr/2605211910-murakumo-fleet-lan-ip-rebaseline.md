@@ -63,9 +63,9 @@ WiFi-side IPs (`.49 / .51 / .52 / .54 / .59 / .60 / .61 / .64 / .65 /
 .67`) still recorded in:
 
 - vendor repo project doc
-  `60-apps/ai-gftd-project-murakumo/CLAUDE.md` §Fleet Topology table
+  `60-apps/etzhayyim-project-murakumo/CLAUDE.md` §Fleet Topology table
 - vendor repo ansible inventory
-  `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml`
+  `60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml`
 - vendor-rendered local config `~/litellm.yaml` on jacob
   (LiteLLM proxy backend list)
 
@@ -102,7 +102,7 @@ the runtime impact is concentrated on LiteLLM-routed inference.
    Ethernet IPs above** (127.0.0.1 + 7 reachable tribes; naphtali
    excluded until Ollama is restored; benjamin/asher excluded until
    WoL). The file's header notes that the vendor-side ansible role
-   (`60-apps/ai-gftd-project-murakumo/ansible/roles/litellm/templates/litellm.yaml.j2`)
+   (`60-apps/etzhayyim-project-murakumo/ansible/roles/litellm/templates/litellm.yaml.j2`)
    still emits WiFi-side IPs, so this hand-edit is treated as a
    one-shot drift fix and will be overwritten on the next ansible run
    until the vendor inventory is reconciled.

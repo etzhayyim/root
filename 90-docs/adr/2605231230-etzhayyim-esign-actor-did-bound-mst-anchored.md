@@ -10,11 +10,11 @@ phase_0_landed_at: 2026-05-23T03:30:00Z
 priority: 6.5
 axis: substrate-boundary
 weight: 0.65
-priority_note: "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign — required to keep document signing inside RW-free substrate. gftd lawfirm vendor passthrough remains for fiat / India intake only."
+priority_note: "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign — required to keep document signing inside RW-free substrate. etzhayyim lawfirm vendor passthrough remains for fiat / India intake only."
 authoritative_for:
   - com.etzhayyim.esign.* lexicon namespace
   - religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)
-  - separation between gftd lawfirm DocuSign passthrough and etzhayyim native esign
+  - separation between etzhayyim lawfirm DocuSign passthrough and etzhayyim native esign
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
@@ -41,7 +41,7 @@ superseded_by: []
 
 `etzhayyim` 内で「DocuSign のように文書に署名できる actor / agent が設計公開
 されているか」を確認した結果 (2026-05-23 セッション)、religious-corp substrate
-(RW-free, DID-bound) 上の native 設計は不在であり、現存するのは gftd vendor
+(RW-free, DID-bound) 上の native 設計は不在であり、現存するのは etzhayyim vendor
 側 lawfirm の DocuSign / Adobe Sign / RazorpaySign passthrough のみであることが
 判明した。
 
@@ -49,16 +49,16 @@ superseded_by: []
 
 | 既存資産 | 場所 | 帰属 | 評価 |
 |---|---|---|---|
-| Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | gftd vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (RisingWave) に書込 |
-| KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | gftd vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + RisingWave projection |
-| ADR-2605180600 §"Future Work" の `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | gftd vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
+| Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | etzhayyim vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (RisingWave) に書込 |
+| KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | etzhayyim vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + RisingWave projection |
+| ADR-2605180600 §"Future Work" の `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | etzhayyim vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
 
 religious-corp 側 (`com.etzhayyim.esign.*`) には actor / lexicon / cell / smart
 contract のいずれも存在しない。
 
 ### Substrate boundary 観点の問題
 
-CLAUDE.md "Substrate boundary" 表に照らすと、gftd lawfirm の DocuSign 経路は
+CLAUDE.md "Substrate boundary" 表に照らすと、etzhayyim lawfirm の DocuSign 経路は
 religious-corp の用途では **三重の Charter 違反候補** になる:
 
 1. **Substrate**: DocuSign / Adobe Sign / RazorpaySign は集権 SaaS vendor で、
@@ -78,7 +78,7 @@ religious-corp 信者間 / Council 議事 / 土地寄進 (Land Trust, ADR-260519
 
 ### Scope 切り分け (CRITICAL)
 
-本 ADR は religious-corp 内署名のための native actor を定義する。gftd lawfirm
+本 ADR は religious-corp 内署名のための native actor を定義する。etzhayyim lawfirm
 の DocuSign 連携は **fiat 領収書 / India 外部 counsel intake** に限り存続する
 (ADR-2605192115 §4 + ADR-2605180600 §2 India auto-route と整合)。religious-corp
 の文書には使わない。
@@ -177,12 +177,12 @@ centralized OAuth / email magic-link / SMS OTP は不採用。**DID + passkey �
   `donation` / `kisha` / `grant` / `escrow-refund` purpose 文書のみ標準テンプレ
   提供
 
-### 8. gftd lawfirm DocuSign passthrough との関係
+### 8. etzhayyim lawfirm DocuSign passthrough との関係
 
 | 用途 | 使用するもの |
 |---|---|
 | religious-corp 内 文書 (信者間 / Council / 土地 / Force / Public Fund) | **`etzhayyim-esign` (本 ADR)** |
-| gftd 顧客 engagement letter / 領収書 / India counsel intake | `lawfirm.esign.*` (DocuSign passthrough, ADR-2605180600) |
+| etzhayyim 顧客 engagement letter / 領収書 / India counsel intake | `lawfirm.esign.*` (DocuSign passthrough, ADR-2605180600) |
 | Adherent SBT mint 時の宣誓 | `etzhayyim-esign` + ADR-2605172600 membership ritual と統合 |
 | Council 議決 (Bootstrap Council 5 seats) | **`etzhayyim-esign` 必須** (ADR-2605192300) |
 
@@ -207,7 +207,7 @@ cross-call は禁止。
 | 7 lexicons | `00-contracts/lexicons/com/etzhayyim/esign/{envelope,signature,completedEvent,anchoredEvent,requestEnvelope,signEnvelope,declineEnvelope}.json` | ✅ all valid JSON |
 | Actor scaffold | `20-actors/etzhayyim-esign/` | ✅ `src/worker.ts` returns 501 NotYetImplemented for all 3 procedures; `/health` + `/` return 200; `wrangler.toml` has no route binding (Phase 1 will add) |
 | DID Worker scaffold | `50-infra/etzhayyim-esign-did-web/` | ✅ `did.json` for `did:web:esign.etzhayyim.com` with `AtprotoPersonalDataServer` (`pds.etzhayyim.com`) + `EtzhayyimEsignActor` (`esign.etzhayyim.com`) service entries |
-| DID Worker deploy | CF account `ai-gftd-cloud` (4da88288) | ✅ Worker version `cfb3b6c0-1d13-476f-8cec-0fbc20a8a023`, route `esign.etzhayyim.com/.well-known/did.json` bound on zone `etzhayyim.com`, bundle 1.49 KiB / 0.71 KiB gzipped |
+| DID Worker deploy | CF account `etzhayyim-cloud` (4da88288) | ✅ Worker version `cfb3b6c0-1d13-476f-8cec-0fbc20a8a023`, route `esign.etzhayyim.com/.well-known/did.json` bound on zone `etzhayyim.com`, bundle 1.49 KiB / 0.71 KiB gzipped |
 | Public resolution | `curl https://esign.etzhayyim.com/.well-known/did.json` | ⚠️ blocked — `esign.etzhayyim.com` AAAA record not yet on the `etzhayyim.com` zone. Provision via CF dashboard: type=AAAA, name=esign, value=`100::`, proxy=on. After that, retest with curl + `dev.uniresolver.io/1.0/identifiers/did:web:esign.etzhayyim.com` |
 | deps.toml | `[[modules]]` x2 + `[[adrs]]` x1 | ✅ added (`50-infra/etzhayyim-esign-did-web` status `deployed-no-dns`; `20-actors/etzhayyim-esign` status `scaffold`; ADR id `2605231230` status `proposed`) |
 
@@ -231,7 +231,7 @@ cross-call は禁止。
 ### Negative / Trade-offs
 
 - WebAuthn passkey 未登録 signer は署名できない (email-only signer 不可)。
-  外部 counsel / 第三者署名は引き続き gftd lawfirm DocuSign 経路を使う必要がある
+  外部 counsel / 第三者署名は引き続き etzhayyim lawfirm DocuSign 経路を使う必要がある
 - IPFS pin / Base L2 anchor のコストが envelope 件数比例で発生する。tithe-router
   の 10% 自動再分配で吸収する想定だが、初期は volume 小で問題なし
 - Anchor 確定までのレイテンシ (Base L2 数秒 + cron 1 周期 = 数分) があるため、
@@ -281,7 +281,7 @@ declined / expired) で 1 record に詰めると mutation が増え、MST の im
 
 ### E. 既存 `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
 
-却下。lexicon namespace は **substrate boundary の SSoT** であり、gftd vendor
+却下。lexicon namespace は **substrate boundary の SSoT** であり、etzhayyim vendor
 namespace に religious-corp 文書を流すと、後段の RisingWave projection / RLS /
 KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要不変条件。
 
@@ -291,7 +291,7 @@ KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要�
 - ADR-2605171800 (LangGraph MST IPFS L2 anchor pipeline) — 4-layer substrate の祖
 - ADR-2605172000 (etzhayyim RW-free substrate) — RW 禁止原則
 - ADR-2605172600 (etzhayyim membership ritual) — Adherent SBT mint の宣誓統合先
-- ADR-2605180600 (lawyer attorney portal design) §"Future Work" — gftd vendor 側
+- ADR-2605180600 (lawyer attorney portal design) §"Future Work" — etzhayyim vendor 側
   の DocuSign 連携の出自
 - ADR-2605181100 (MST encrypted records signal keywrap) — field-encrypted
   signature payload の形式
@@ -305,7 +305,7 @@ KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要�
   追加位置
 - ADR-2605222330 (etzhayyim.com substrate violation transition window) —
   本 ADR は新規 violation の発生を未然に止めるための native 設計
-- `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` — gftd
+- `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` — etzhayyim
   vendor passthrough の現状実装
 - `00-contracts/lexicons/com/etzhayyim/esign/` (新規) — 本 ADR で定義する
   lexicon の配置先

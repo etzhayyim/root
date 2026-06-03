@@ -21,8 +21,8 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605181100-mst-encrypted-records-signal-keywrap
-  - adr-2605231400-yatachain-holochain-iso-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2605231500-kotoba-datomic-projection
 related:
   - adr-2605192300-etzhayyim-bootstrap-council-five
   - adr-2605192315-etzhayyim-transparent-force-rd
@@ -73,7 +73,7 @@ posture and is itemised here as the authoritative migration list.
 | 1 | `YATA_DONATE_PRIVATE_KEY` | yatabase Worker | USDC EOA signer for `/api/donate` (added during the Stripe→USDC cutover) | Member wallet signs USDC.transfer + TitheRouter.route in-browser via viem/Coinbase Smart Wallet. Worker only verifies the txHash + `payment.sent` AT record. |
 | 2 | `did:web:authn.etzhayyim.com` Worker DID key | macOS Keychain + 1Password mirror | ES256 P-256 sign of agent Service Auth JWTs and Worker-issued AT session JWTs | did:plc / member did:web with passkey + ERC-725 root (ADR-0074). etzhayyim publishes DID documents but never signs. |
 | 3 | `SS_REPO_SIGNING_KEK` (KEK master) | Worker Secrets Store | KEK envelope encryption of D1 private-key material (ADR-0010 Stage 1) | Each member encrypts with their own Signal identity (ADR-2605181100). KEK becomes per-member, not platform-wide. |
-| 4 | `DATABASE_URL` (RisingWave creds) | bulk-ingest pods + Worker `HYPERDRIVE` | Direct INSERT into `vertex_spatial` and friends | Community operator publishes signed AT records → etzhayyim relay subscribes → yatachain-projection rebuilds the read cache (ADR-2605231500). |
+| 4 | `DATABASE_URL` (RisingWave creds) | bulk-ingest pods + Worker `HYPERDRIVE` | Direct INSERT into `vertex_spatial` and friends | Community operator publishes signed AT records → etzhayyim relay subscribes → kotoba-datomic-projection rebuilds the read cache (ADR-2605231500). |
 | 5 | `B2_ACCESS_KEY_ID` / `B2_SECRET_ACCESS_KEY` | bulk-ingest pods | Parquet shard + gsplat PLY + baked GLB upload | Content-addressed CID. Members or community operators submit `{cid, sha256}`; etzhayyim pins via IPFS (no upload credentials). |
 | 6 | `RESEND_API_KEY` | auth Worker, yatabase Worker | Magic-link + invoice email | Member-side SMTP (ProtonMail / Migadu / self-hosted). etzhayyim emits unsigned event records; member's own client polls them. |
 | 7 | `MAPILLARY_ACCESS_TOKEN` | gsplat-train k8s deploy | Mapillary image fetch | Community operator's token. Their submission lands as a member-signed `com.etzhayyim.maps.gsplatAsset` record. |
@@ -82,7 +82,7 @@ posture and is itemised here as the authoritative migration list.
 | 10 | `DISPATCHER_INTERNAL_SECRET` | Worker ↔ bpmn-dispatcher pod HMAC | Worker-to-pod auth | Disappears once internal pods are removed (see #4). If a residual pod survives, its operator runs it with their own HMAC chain. |
 | 11 | `YATA_AGENT_ADMIN_KEY` | yatabase Worker | Single-operator admin gate for outbox approve / batch trigger | Council Lv6+ 5-of-7 Safe multisig (1 SBT = 1 vote, already deployed for the Public Fund). |
 | 12 | `EMBED_AUTH_TOKEN` | maps-ui Worker → embedder pod | Vector embedding service auth | Community-operated embedder; submission is a member-signed `com.etzhayyim.maps.visionResult` record. |
-| 13 | Auth Worker P-256 keypair per agent (715+ ES256 keys) | KEYS_DB (D1, KEK-wrapped) | Service Auth JWT signing for AI agents | Each agent generates its own keypair on the member's device; KEYS_DB becomes a yatachain-projection cache (ADR-2605231500) that the operator can rebuild. |
+| 13 | Auth Worker P-256 keypair per agent (715+ ES256 keys) | KEYS_DB (D1, KEK-wrapped) | Service Auth JWT signing for AI agents | Each agent generates its own keypair on the member's device; KEYS_DB becomes a kotoba-datomic-projection cache (ADR-2605231500) that the operator can rebuild. |
 
 `STRIPE_SECRET_KEY` (already removed per Charter Rider §2,
 ADR-2605192115) and Clerk SDK keys (already removed in P3) are
@@ -96,7 +96,7 @@ None of them require signing capability:
 
 1. **AT Protocol relay** — `com.atproto.sync.subscribeRepos` over
    public member PDSs.
-2. **Indexer / yatachain-projection** — read-only L0 caches rebuildable
+2. **Indexer / kotoba-datomic-projection** — read-only L0 caches rebuildable
    from MST + IPFS per ADR-2605231500.
 3. **DID Document serving** — `did:web:etzhayyim.com/.well-known/did.json`
    serves a public document. The signing of that document, if any
@@ -168,7 +168,7 @@ None of them require signing capability:
      placeholder zero addresses with the deployed Treasury Safe +
      TitheRouter address; run `wrangler secret delete
      YATA_DONATE_PRIVATE_KEY` to confirm the rollback artefact is
-     truly gone. Runbook: `60-apps/ai-gftd-project-yatabase/RUNBOOK-USDC-DONATE.md`.
+     truly gone. Runbook: `60-apps/etzhayyim-project-yatabase/RUNBOOK-USDC-DONATE.md`.
 
    - **Stage B — Bulk-ingest community-operator handover** · 🟡 scaffold ready.
      Each of the 13 maps bulk-ingest pods becomes a standalone
@@ -178,11 +178,11 @@ None of them require signing capability:
      set `mst` mode, configure their own PDS handle + upstream API
      credential, and run on their own infrastructure. The etzhayyim
      relay subscribes via `com.atproto.sync.subscribeRepos`. The
-     existing yatachain-projection manifest at
-     `60-apps/ai-gftd-project-maps/bulk-ingest/workers/yatachain-projection.toml`
+     existing kotoba-datomic-projection manifest at
+     `60-apps/etzhayyim-project-maps/bulk-ingest/workers/kotoba-datomic-projection.edn`
      already declares the RW projection layer as L0-rebuildable, so
      the read cache survives the operator handover. **Applied this
-     PR**: `60-apps/ai-gftd-project-maps/bulk-ingest/COMMUNITY-OPERATOR-HANDOVER.md`
+     PR**: `60-apps/etzhayyim-project-maps/bulk-ingest/COMMUNITY-OPERATOR-HANDOVER.md`
      (13-pod plan + per-pod checklist + Charter-aligned gating),
      `_working/stage-b/community-repo-template/` (README + NOTICE +
      `.github/workflows/charter-compliance.yml`),
@@ -214,7 +214,7 @@ None of them require signing capability:
      replaces `com.etzhayyim.auth.createAgentSession`'s server-side
      `crypto.subtle.generateKey`. Agent runtime (operator's own
      device) generates the keypair locally, POSTs public key + a
-     WebAuthn-style PoP. `vertex_gftd_key_signing.private_key_b64`
+     WebAuthn-style PoP. `vertex_etzhayyim_key_signing.private_key_b64`
      column dropped — the table holds only public keys.
      **C-3 (passkey-derived session)**: WebAuthn passkey derives
      a per-passkey ES256 keypair (deterministic from COSE public
@@ -224,7 +224,7 @@ None of them require signing capability:
      **C-4 (KEK removal)**: 30-day overlap window logs all reads
      of `SS_REPO_SIGNING_KEK` and expects zero; then
      `wrangler secret delete SS_REPO_SIGNING_KEK`. Runbooks:
-     `60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`,
+     `60-apps/etzhayyim-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`,
      `50-infra/etzhayyim-did-web/STAGE-C1-DID-CUTOVER.md`.
 
    - **Stage D — External-API liability handover** · 🟡 scaffold ready, blocked on Stage B.
@@ -342,8 +342,8 @@ None of them require signing capability:
 - ADR-2605172000 (RW-free State Substrate)
 - ADR-2605172100 (No Fiat Payment Processors)
 - ADR-2605181100 (MST Encrypted Records — Signal KeyWrap)
-- ADR-2605231400 (yatachain Holochain-Iso Substrate)
-- ADR-2605231500 (yatachain-projection — Regenerable Cache Rules)
+- ADR-2605231400 (kotoba-datomic Holochain-Iso Substrate)
+- ADR-2605231500 (kotoba-datomic-projection — Regenerable Cache Rules)
 - ADR-2605192300 (Bootstrap Council)
 - ADR-2605192315 (Transparent Religious Force)
 
@@ -358,18 +358,18 @@ None of them require signing capability:
 
 **Stage A — USDC signer removal (applied)**
 
-- `60-apps/ai-gftd-project-yatabase/src/donate.ts` — verify-only handler
-- `60-apps/ai-gftd-project-yatabase/svelte/src/lib/api.ts` — `donate.verify()`
-- `60-apps/ai-gftd-project-yatabase/svelte/src/routes/studio/billing/+page.svelte` — EIP-1193 wallet flow
-- `60-apps/ai-gftd-project-auth/worker/svelte/src/routes/sign-up/+page.svelte` — wallet flow on Telecom path
-- `60-apps/ai-gftd-project-yatabase/wrangler.jsonc` — public-address env with `no-server-key: read-only` marker
-- `60-apps/ai-gftd-project-yatabase/RUNBOOK-USDC-DONATE.md` — operator deploy runbook
+- `60-apps/etzhayyim-project-yatabase/src/donate.ts` — verify-only handler
+- `60-apps/etzhayyim-project-yatabase/svelte/src/lib/api.ts` — `donate.verify()`
+- `60-apps/etzhayyim-project-yatabase/svelte/src/routes/studio/billing/+page.svelte` — EIP-1193 wallet flow
+- `60-apps/etzhayyim-project-auth/worker/svelte/src/routes/sign-up/+page.svelte` — wallet flow on Telecom path
+- `60-apps/etzhayyim-project-yatabase/wrangler.jsonc` — public-address env with `no-server-key: read-only` marker
+- `60-apps/etzhayyim-project-yatabase/RUNBOOK-USDC-DONATE.md` — operator deploy runbook
 
 **Stage B — Bulk-ingest community-operator handover (scaffold)**
 
-- `60-apps/ai-gftd-project-maps/bulk-ingest/COMMUNITY-OPERATOR-HANDOVER.md`
-- `60-apps/ai-gftd-project-maps/bulk-ingest/workers/_etzhayyim_substrate.py` (Stage 1 — already shipped)
-- `60-apps/ai-gftd-project-maps/bulk-ingest/workers/yatachain-projection.toml` (already shipped)
+- `60-apps/etzhayyim-project-maps/bulk-ingest/COMMUNITY-OPERATOR-HANDOVER.md`
+- `60-apps/etzhayyim-project-maps/bulk-ingest/workers/_etzhayyim_substrate.py` (Stage 1 — already shipped)
+- `60-apps/etzhayyim-project-maps/bulk-ingest/workers/kotoba-datomic-projection.edn` (already shipped)
 - `_working/stage-b/community-repo-template/{README.md, NOTICE, .github/workflows/charter-compliance.yml}`
 - `_working/stage-b/issue-templates/{13-pod-handover.md, 13-rows.csv}`
 
@@ -378,9 +378,9 @@ None of them require signing capability:
 - `50-infra/etzhayyim-did-web/did-multi-controller.json`
 - `50-infra/etzhayyim-did-web/STAGE-C1-DID-CUTOVER.md`
 - `50-infra/etzhayyim-did-web/cutover-stage-c1.sh`
-- `60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`
-- `60-apps/ai-gftd-project-auth/yatachain-projection.toml` (already shipped, decl D1 as L0-rebuildable)
-- `60-apps/ai-gftd-project-auth/worker/src-ts/substrate-mst-credential.ts` (already shipped, encrypted-MST seam)
+- `60-apps/etzhayyim-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`
+- `60-apps/etzhayyim-project-auth/kotoba-datomic-projection.edn` (already shipped, decl D1 as L0-rebuildable)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/substrate-mst-credential.ts` (already shipped, encrypted-MST seam)
 - `00-contracts/lexicons/com/etzhayyim/auth/credential.json` (already shipped, inner-type lexicon)
 
 **Stage D — External-API liability handover (scaffold)**
@@ -393,6 +393,6 @@ None of them require signing capability:
 
 ## Related migration trails (pre-existing)
 
-- Stripe → USDC closure: `60-apps/ai-gftd-project-yatabase/MIGRATION-TODO.md`
-- Auth MST envelope Stage 1: `60-apps/ai-gftd-project-auth/MIGRATION-TODO.md`
-- Maps substrate seam Stage 2 codemod: `60-apps/ai-gftd-project-maps/bulk-ingest/workers/MIGRATION-TODO.md`
+- Stripe → USDC closure: `60-apps/etzhayyim-project-yatabase/MIGRATION-TODO.md`
+- Auth MST envelope Stage 1: `60-apps/etzhayyim-project-auth/MIGRATION-TODO.md`
+- Maps substrate seam Stage 2 codemod: `60-apps/etzhayyim-project-maps/bulk-ingest/workers/MIGRATION-TODO.md`

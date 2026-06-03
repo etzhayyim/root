@@ -18,7 +18,7 @@ authoritative_for:
   - Phase 3 reference impl scope (kiyo starter actor)
 depends_on:
   - adr-2605203000-rw-free-write-target-options
-  - adr-2605210000-search-gftd-ai-internal-only
+  - adr-2605210000-search-etzhayyim-ai-internal-only
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
   - adr-0019-atproto-native-identifier-topology
 related:

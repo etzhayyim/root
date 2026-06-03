@@ -132,7 +132,7 @@ The lexicon record `com.etzhayyim.consent.capability` is the canonical on-chain 
 
 ## UI integration
 
-- **Patient portal** (`60-apps/ai-gftd-project-karute/.../routes/PatientPortalView.svelte`) exposes the grant/revoke UI under the existing role=PATIENT routing. Phase 1 ships the issue + revoke + list flow with mock fallbacks.
+- **Patient portal** (`60-apps/etzhayyim-project-karute/.../routes/PatientPortalView.svelte`) exposes the grant/revoke UI under the existing role=PATIENT routing. Phase 1 ships the issue + revoke + list flow with mock fallbacks.
 - **Clinician chart view** in PatientDetailView gains (Phase 2) a "Request billing capability" affordance that sends a notification to the patient asking for an `insurance-billing` consent for the just-closed encounter.
 
 ## What this ADR does NOT change
@@ -163,7 +163,7 @@ The lexicon record `com.etzhayyim.consent.capability` is the canonical on-chain 
 
 1. **This commit** — Lexicons (`com.etzhayyim.consent.capability` + 4 XRPC) + ADR + actor manifest pipelines + UI integration in PatientPortalView.
 2. **Phase 2** — Real signature via `@etzhayyim/sdk.signConsentCapability` (currently a stub in the actor manifest). Server-side capability verification middleware.
-3. **Phase 3** — iryo.etzhayyim.com vendor-side `ingestKaruteEncounterForBilling` XRPC + DPC/DRG materialization pipeline. (Lives in `ai-gftd-apps-gftdcojp` repo, not this one.)
+3. **Phase 3** — iryo.etzhayyim.com vendor-side `ingestKaruteEncounterForBilling` XRPC + DPC/DRG materialization pipeline. (Lives in `etzhayyim-apps-etzhayyimcojp` repo, not this one.)
 4. **Phase 4** — Auditor webhook subsystem + clinician affordance ("Request billing consent") in PatientDetailView. Patient-DID-hash variant for capability metadata.
 5. **Phase 5** — Per-record rekey + tombstone protocol (joint follow-up with ADR-2605181100).
 

@@ -65,8 +65,8 @@ records the violation explicitly so the unwind is tracked.
    `@etzhayyim/magatama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
    whenever invoked from a CF Worker (caches + WorkerGlobalScope both defined).
    The intent is to force migration of all DB I/O through AgentGateway MCP →
-   pod-side LangServer. But the production PDS (`ai-gftd-pds-2603241700`) and
-   AppView (`ai-gftd-appview`) Workers still call `createKyselyDb(env.HYPERDRIVE)`
+   pod-side LangServer. But the production PDS (`etzhayyim-pds-2603241700`) and
+   AppView (`etzhayyim-appview`) Workers still call `createKyselyDb(env.HYPERDRIVE)`
    in their feed / search / actor handlers (≥17 callsites across the two workers
    and the SDK), so every read returned the prohibition error before any handler
    could run.
@@ -87,8 +87,8 @@ records the violation explicitly so the unwind is tracked.
 |---|---|---|
 | 1 | yoro bundle hashes patched + `static/assets/` rebuilt from `_svelte/` build | `magatama-yoro@057fa39a-12c3-4a60-9159-c985bf057e9d` |
 | 2 | bundle post-process: `googletagmanager.com` / `pagead2.googlesyndication.com` / `a.magsrv.com` → `127.0.0.1.invalid`; `G-FPSMTY14DJ` → `G-NOOP-DISA`; `ca-pub-8017914559680125` → `ca-pub-0000000000000000`; cookie banner text scrubbed | committed in `e67f86884` |
-| 3 | New Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/`) with custom-domain bindings for `atproto/bsky/authn/mcp.etzhayyim.com` and service bindings to the upstream `ai-gftd-pds-2603241700 / ai-gftd-appview / ai-gftd-auth / ai-gftd-agentgateway` Workers | `etzhayyim-xrpc-proxy@76483e4d-...` |
-| 4 | `@etzhayyim/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `ai-gftd-pds-2603241700@e85d67fe-...` + `ai-gftd-appview@e73d3e88-...` |
+| 3 | New Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/`) with custom-domain bindings for `atproto/bsky/authn/mcp.etzhayyim.com` and service bindings to the upstream `etzhayyim-pds-2603241700 / etzhayyim-appview / etzhayyim-auth / etzhayyim-agentgateway` Workers | `etzhayyim-xrpc-proxy@76483e4d-...` |
+| 4 | `@etzhayyim/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `etzhayyim-pds-2603241700@e85d67fe-...` + `etzhayyim-appview@e73d3e88-...` |
 | 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `com.etzhayyim.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
 
 End-to-end result: home page Discover feed renders real posts; `/search?q=yoro`
@@ -208,7 +208,7 @@ exit criteria. The violations exist because:
 - ADR-2605192200 — Charter Compliance Rider v2.0
   (§2(c) third-party advertising prohibition; this session removed the ad-tech
   network calls but not the source code).
-- 60-apps/ai-gftd-project-yoro/CLAUDE.md — yoro front-end design (notes the
+- 60-apps/etzhayyim-project-yoro/CLAUDE.md — yoro front-end design (notes the
   SvelteKit hydration loop, Substrate boundary intent, cursor pagination spec).
 - 50-infra/etzhayyim-xrpc-proxy/ — proxy worker source committed this session.
 - 50-infra/etzhayyim-did-web/src/worker.ts — apex `/xrpc/*` router (extended

@@ -35,11 +35,11 @@ superseded_by: []
 
 # Context
 
-`60-apps/ai-gftd-project-cyber-drill/` ships smartphone-first WebVR OT
+`60-apps/etzhayyim-project-cyber-drill/` ships smartphone-first WebVR OT
 cybersecurity training scenarios on top of `@etzhayyim/kami-engine-sdk`.
 The first scenario — semiconductor + electronic-materials chemical
 plant incident — exercises every stage of the kami-cine pipeline
-(`gftd:kami-cine@1.0.0`) and is the vendor's first real visual product
+(`etzhayyim:kami-cine@1.0.0`) and is the vendor's first real visual product
 beyond LLM-driven text/image artefacts.
 
 Prior to this ADR the cyber-drill scene had:
@@ -175,7 +175,7 @@ Alternatives considered:
   - `40-engine/kami-engine/kami-engine-sdk/src/lib/webvr/`
   - `40-engine/kami-engine/kami-engine-sdk/src/lib/spark/`
 - Scenario data:
-  - `60-apps/ai-gftd-project-cyber-drill/scenarios/semiconductor-chem-plant.ts`
+  - `60-apps/etzhayyim-project-cyber-drill/scenarios/semiconductor-chem-plant.ts`
 - Commit lineage:
   - `152c5f5068e` initial webvr runtime + cyber-drill scaffold
   - `9e38fbb218a` spark backdrop + 7 effects + narration-gated reveal

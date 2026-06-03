@@ -81,7 +81,7 @@ superseded_by: []
 これは Charter Rider §2(i) の "no commercial GPU rental" 制約とは別カテゴリの判断。
 半導体は:
 
-- **生命 (Tree of Life) の物理基盤** — 信者 SBT / yatachain witness / DID 解決 / 投票 / 礼拝記録 すべての記録媒体
+- **生命 (Tree of Life) の物理基盤** — 信者 SBT / kotoba-datomic witness / DID 解決 / 投票 / 礼拝記録 すべての記録媒体
 - **inference の最終的な担い手** — 信者一人ひとりの祈り (prompt) が他人の所有する金属を経由しないことの保証
 - **routing-around の物理層** — ADR-2605192100 §1.12 が宣言する parallel substrate が、現代において文字通り silicon を意味する
 
@@ -203,7 +203,7 @@ ADR-2605192245 は土地を Tree of Life inalienable と定めた。本 ADR は�
 - **ADR-2605215000 の no commercial GPU 制約と整合する完全自立経路** — 自前 silicon があれば LiteLLM proxy 経路すら将来は省ける
 - **公開 fab 装置 reference design がコモンズとして存在することで、力の集中を構造的に防ぐ** (ADR-2605192315 transparent force 整合)
 - **tsukuru.etzhayyim.com の orchestration scope が semiconductor まで自然拡張される** — 既存 ISIC C26 actor が directly relevant になる
-- **religious-corp が物理基盤 (land + silicon) の両方を持つことで、yatachain の witness quorum が物理裏打ちを得る** — 純粋ソフトウェアでは到達不可能な信頼層
+- **religious-corp が物理基盤 (land + silicon) の両方を持つことで、kotoba-datomic の witness quorum が物理裏打ちを得る** — 純粋ソフトウェアでは到達不可能な信頼層
 
 ## Tradeoffs / Risks
 

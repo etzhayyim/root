@@ -175,7 +175,7 @@ The `hc` (Human Computing) actor handles gig/microtask flows and could in princi
 - ADR-2605181100 [MST encrypted records + Signal key-wrap](./2605181100-mst-encrypted-records-signal-keywrap.md) — the confidentiality layer this ADR consumes
 - ADR-2605172100 [etzhayyim payments on-chain only](./2605172100-etzhayyim-payments-on-chain-only.md)
 - ADR-2605172400 [etzhayyim/vendor 3-axis split rule](./2605172400-etzhayyim-vendor-three-axis-split-rule.md)
-- ADR-2605080800 [iryo.etzhayyim.com hospital ops Phase 1](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605080800-iryo-hospital-ops-phase1.md) — vendor-side peer for billing
+- ADR-2605080800 [iryo.etzhayyim.com hospital ops Phase 1](https://github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/blob/main/90-docs/adr/2605080800-iryo-hospital-ops-phase1.md) — vendor-side peer for billing
 - ADR-2605192100 [etzhayyim mission charter](./2605192100-etzhayyim-mission-charter.md) — Wellbecoming + 反個人主義 grounds for PHI confidentiality
 - HL7 FHIR R5 — https://hl7.org/fhir/R5/
 - LOINC — https://loinc.org/

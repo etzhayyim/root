@@ -283,8 +283,8 @@ Daily target: 247 models × 1 clip = 247 clips。LAN GPU 1 枚 24h で
 - ADR-2605010000: RunPod 6000 Ada Unified Pod (現行 LLM/I2V 配置)
 - ADR-2605180000: lawfirm Product Focus BMC Lean (shinshi P2 位置付け)
 - ADR-2605211800: mangaka Native ComfyUI Page Pipeline (LAN ComfyUI 共用先)
-- `60-apps/ai-gftd-project-shinshi/lg/CLAUDE.md`: 既存 lg-shinshi 配線
-- `60-apps/ai-gftd-project-shinshi/CLAUDE.md`: shinshi 全体 (write path / blob / ContentLabel)
+- `60-apps/etzhayyim-project-shinshi/lg/CLAUDE.md`: 既存 lg-shinshi 配線
+- `60-apps/etzhayyim-project-shinshi/CLAUDE.md`: shinshi 全体 (write path / blob / ContentLabel)
 - `20-actors/magatama/py/src/pymagatama/primitives/shinshi_video.py`: 既存 Wan 2.2 I2V primitive
 - Wan 2.2 weights: Alibaba PAI, Apache 2.0
 - Style-Bert-VITS2: <https://github.com/litagin02/Style-Bert-VITS2>

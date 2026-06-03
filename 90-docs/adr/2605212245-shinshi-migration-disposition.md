@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 4.0
 axis: governance
 weight: 0.50
-priority_note: "P5_DEFER resolution for ai-gftd-project-shinshi"
+priority_note: "P5_DEFER resolution for etzhayyim-project-shinshi"
 authoritative_for:
   - migration-disposition-shinshi
 depends_on:
@@ -29,7 +29,7 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-project-shinshi` (137 files) is the etzhayyim NSFW content platform
+`etzhayyim-project-shinshi` (137 files) is the etzhayyim NSFW content platform
 (`shinshi.etzhayyim.com`) implementing wRPC stream-native reactive pipeline with
 path-based DID identity, age-gated (18+), 247 models × 5 scenes = 1,235 images,
 self-labeled `nsfw` / `nudity` / `sexual`.
@@ -54,8 +54,8 @@ Charter Rider v2.0 has two competing pulls on this app:
 - The substrate boundary table prohibits "第三者広告 / AdSense / Meta Pixel /
   アフィリエイト / GA4 広告連携". ExoClick/TrafficStars are precisely the
   prohibited category.
-- ai-gftd-project-pornhub (already in P0_EXCLUDE) and ai-gftd-project-exoclick
-  (also P0_EXCLUDE) are the sibling apps in the gftd ad-tech NSFW funnel.
+- etzhayyim-project-pornhub (already in P0_EXCLUDE) and etzhayyim-project-exoclick
+  (also P0_EXCLUDE) are the sibling apps in the etzhayyim ad-tech NSFW funnel.
   Migrating shinshi without removing its monetization layer would re-introduce
   the prohibited revenue model that P0 already rejected.
 
@@ -65,7 +65,7 @@ de-facto operating mode of `shinshi.etzhayyim.com`.
 
 # Decision
 
-**Reclassify `ai-gftd-project-shinshi` from DEFER to EXCLUDE.** Do not migrate
+**Reclassify `etzhayyim-project-shinshi` from DEFER to EXCLUDE.** Do not migrate
 to `etzhayyim-root/60-apps/`.
 
 Rationale: the constitutional violation is in the **revenue model and
@@ -92,7 +92,7 @@ That future app would be a NEW design under a NEW ADR, not a port of shinshi.
 - EXCLUDE count increments from 30 → 31.
 - The future Eros-permitted platform (if commissioned) gets a clean-slate
   ADR rather than inheriting shinshi's compromised architecture.
-- gftd-side `shinshi.etzhayyim.com` deployment continues to operate under gftd
+- etzhayyim-side `shinshi.etzhayyim.com` deployment continues to operate under etzhayyim
   governance (out of etzhayyim's jurisdiction).
 
 # Alternatives Considered
@@ -111,6 +111,6 @@ That future app would be a NEW design under a NEW ADR, not a port of shinshi.
 - ADR-2605192100 §1.13 (Eros 許容 constitutional invariant)
 - ADR-2605192200 (Charter Rider v2.0 §2(c) + §2(h))
 - ADR-2605192400 (Eros allowed / Gore prohibited)
-- Source: `etzhayyim-root/60-apps/ai-gftd-project-shinshi/260228-ad-strategy-trafficstars-exoclick.md`
-- Source: `etzhayyim-root/60-apps/ai-gftd-project-shinshi/CLAUDE.md`
-- Sibling P0_EXCLUDE: ai-gftd-project-pornhub, ai-gftd-project-exoclick
+- Source: `etzhayyim-root/60-apps/etzhayyim-project-shinshi/260228-ad-strategy-trafficstars-exoclick.md`
+- Source: `etzhayyim-root/60-apps/etzhayyim-project-shinshi/CLAUDE.md`
+- Sibling P0_EXCLUDE: etzhayyim-project-pornhub, etzhayyim-project-exoclick

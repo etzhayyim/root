@@ -30,7 +30,7 @@ depends_on:
   - adr-2605231525-no-server-key-religious-corp-architecture
 related:
   - wellbecoming-karma-lean-proofs
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -93,7 +93,7 @@ Any wadachi-attributable autonomous movement, when capability eventually lands, 
 | G7 | **No mass-surveillance harvest.** Wadachi vehicles SHALL NOT persist passenger / pedestrian biometric, gait, face, voice, license-plate, or device-MAC streams beyond the operational rolling window required for safe navigation. Persistence requires explicit `recordWitnessConsent` with Council Lv6+ co-sign per route deployment. | ADR-2605192200 §2(c) surveillance capitalism | actor scaffold listener (when scaffolded) |
 | G8 | **Witness invariant N ≥ 2.** Every `recordDrive` and `recordIncident` (when lexicons land) carries ≥ 2 independent DID signatures (vehicle + adjacent witness vehicle / fixed wadachi sensor post / Council Lv6+). N=1 auto-escalates to Council. Constitutional invariant. | ADR-2605201400 §5 (inherited from kuni-umi) | MST listener |
 | G9 | **No server-held vehicle private key.** Per ADR-2605231525, vehicle Ed25519 / passkey-derived signing keys live on the vehicle's onboard secure element. Platform-side wadachi Workers / pods / CronJobs MUST NOT hold the vehicle key. Read-only RPC / firehose subscribe / IPFS pin remain allowed. | ADR-2605231525 | `e7m verify` 9th invariant |
-| G10 | **Substrate boundary.** Substrate clients (`@atproto/api`, `viem`, IPFS client, `@noble/ciphers`, libsignal) only via `@etzhayyim/sdk`. No RisingWave / Postgres / Kysely as the primary write store for drive / route / incident records (yatachain-projection per ADR-2605231500 is permitted for hot-path read; never primary write). | ADR-2605172000 + ADR-2605231500 | `e7m verify` |
+| G10 | **Substrate boundary.** Substrate clients (`@atproto/api`, `viem`, IPFS client, `@noble/ciphers`, libsignal) only via `@etzhayyim/sdk`. No RisingWave / Postgres / Kysely as the primary write store for drive / route / incident records (kotoba-datomic-projection per ADR-2605231500 is permitted for hot-path read; never primary write). | ADR-2605172000 + ADR-2605231500 | `e7m verify` |
 | G11 | **No hard-RT motion in cells.** Control loops at > 10 Hz remain on vehicle-side firmware (open-robo / open-ot WAMR field tier). Wadachi cells coordinate at 1–10 Hz checkpointer cadence — route assignment, witness aggregation, incident escalation — never servo control. | ADR-2605201400 §10.7 (inherited) | cell-runner contract |
 | G12 | **Gore-prohibition extends to dashcam / lidar capture.** Footage that depicts gratuitous violence or hostile actor neutralization MUST NOT be retained, indexed, or used as training data. Educational / historical / human-rights-accountability use under ADR-2605192400 §2.b retention rules requires Council Lv6+ co-sign. | ADR-2605192400 | dataset-substrate Charter Rider scanner |
 
@@ -131,7 +131,7 @@ The following are excluded at every phase and not subject to incremental drift:
 Wadachi inherits the same substrate boundary as kuni-umi (ADR-2605172000 + ADR-2605231500):
 
 - **Primary write store** — AT Protocol MST + IPFS + Base L2 anchor via `@etzhayyim/sdk`
-- **Hot-path read** — `yatachain-projection` permitted (e.g., route-spatial index, fleet-state aggregate) — must (a) be deterministically rebuildable from MST+IPFS, (b) never be sole write home, (c) carry `// yatachain-projection` marker or `yatachain-projection.toml`
+- **Hot-path read** — `kotoba-datomic-projection` permitted (e.g., route-spatial index, fleet-state aggregate) — must (a) be deterministically rebuildable from MST+IPFS, (b) never be sole write home, (c) carry `// kotoba-datomic-projection` marker or `kotoba-datomic-projection.edn`
 - **Payments** — USDC on Base L2 + `TitheRouter.route()` (10% Tithe); payment purposes restricted to `donation` / `kisha` / `grant` / `tithe` / (SBT↔SBT) `internal-promo`
 - **Vehicle key custody** — onboard secure element only (G9, ADR-2605231525)
 - **Identity** — path-based DID (§1 vehicle naming above)
@@ -142,8 +142,8 @@ Wadachi inherits the same substrate boundary as kuni-umi (ADR-2605172000 + ADR-2
 |---|---|
 | `kuni-umi` | **Parent producer.** kuni-umi produces / commissions the physical robots wadachi later drives. R1 requires kuni-umi at S1+; R2 requires S4. Wadachi does NOT produce robots. |
 | `magatama` | Pregel framework host (when cells land at R1+). Wadachi cells will follow the `20-actors/magatama/cells/README.md` pattern. |
-| `60-apps/ai-gftd-project-open-robo` | Giemon firmware (Otete arm, crawler). Wadachi calls `pymagatama.open_robo.fleet.dispatch()` for motion; firmware owns hard-RT control. |
-| `60-apps/ai-gftd-project-open-ot` | IEC 61499 WASM PLC. Wadachi hands off safety-critical functions to certified parallel safety PLCs (IEC 61508 / 61511) — never implements SIL functions itself. |
+| `60-apps/etzhayyim-project-open-robo` | Giemon firmware (Otete arm, crawler). Wadachi calls `pymagatama.open_robo.fleet.dispatch()` for motion; firmware owns hard-RT control. |
+| `60-apps/etzhayyim-project-open-ot` | IEC 61499 WASM PLC. Wadachi hands off safety-critical functions to certified parallel safety PLCs (IEC 61508 / 61511) — never implements SIL functions itself. |
 | `bgp-submit` (baien-graft 3D pipeline, ADR-2605202115) | Aerial drone overlap: bgp-submit already drives drone survey for dataset generation; R3.b extends survey autonomy to multi-site fleet, not replaces bgp-submit. |
 | `force-authorization` Solidity (ADR-2605192315) | G2 enforcement contract for any kinetic / surveillance-at-scale capability. |
 | `dataset-substrate` (ADR-2605241500) | G12 enforcement target: dashcam / lidar capture going to HuggingFace / IPFS pinner is scanned by Charter Rider for gore content before commit. |
@@ -216,7 +216,7 @@ Rejected per ADR-2605192115 §3 — non-profit-only / donation-only inflow is co
 - ADR-2605192415 (religious-corp daemon architecture — Tier-B classification)
 - ADR-2605181100 (encrypted confidentiality substrate — G6)
 - ADR-2605172000 (RW-free substrate — G10)
-- ADR-2605231500 (yatachain-projection — hot-path read carve-out)
+- ADR-2605231500 (kotoba-datomic-projection — hot-path read carve-out)
 - ADR-2605231525 (no-server-key invariant — G9)
 - ADR-2605241900 (baien edge-target invariant — N8 inheritance)
 - ADR-2605202115 (baien-graft 3D dataset pipeline — R3.b aerial overlap)

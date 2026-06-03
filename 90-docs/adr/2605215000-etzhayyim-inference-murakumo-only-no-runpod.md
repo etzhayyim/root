@@ -59,7 +59,7 @@ The vendor codebase `20-actors/magatama/py` (pymagatama) was authored for `etzha
 - **Training / eval delegation** (`training_run.py`, `training_http_server.py`) — `runpod_handler()` function, `_delegate_to_runpod()` helper, RunPod Serverless wire format
 - **Satellite analysis** (`primitives/maps_sentinel.py`) — RunPod Serverless as the GPU analysis backend for Sentinel-1/2 imagery
 - **Cost model** (`primitives/billing.py`) — RunPod 6000 Ada / H100 NVL pricing constants
-- **Business logic comments** (`kaisya_ai_org.py`, `kaisya_master.py`, `gftdcojp_company_ops.py`) — "RunPod 6000 Ada is LLM SSoT" embedded in docstrings
+- **Business logic comments** (`kaisya_ai_org.py`, `kaisya_master.py`, `etzhayyimcojp_company_ops.py`) — "RunPod 6000 Ada is LLM SSoT" embedded in docstrings
 - **SDK model registry** (`sdk/magatama-host-sdk/src/llm-model-registry.ts`) — "gemma4-runpod" / "tier0-runpod" model entries
 
 These references are **vendor business logic** appropriate for `etzhayyim.com`'s paid SaaS operation. However, when etzhayyim religious-corp invokes pymagatama modules, it must not route traffic to commercial GPU rental infrastructure.
@@ -163,7 +163,7 @@ The full table is in the companion `PYMAGATAMA-MIGRATION-NOTES.md`. Summary by v
 - `projector.py` — delegates to `llm.call_tier` which is env-overridable
 - `business_person.py:1595` — delegates to `llm.call_tier`; docstring mention only
 - `kaisya_ai_org.py` / `kaisya_master.py` — comment "RunPod 6000 Ada is LLM SSoT"; actual routing via `llm.call_tier` which is env-driven
-- `gftdcojp_company_ops.py` — same pattern as kaisya_*
+- `etzhayyimcojp_company_ops.py` — same pattern as kaisya_*
 - `langgraph_graphs/webya_site_generation.py` — comment only; routes via `llm.call_tier`
 - `billing.py` — cost constants; religious-corp billing uses Murakumo cost constants (this ADR adds the obligation to replace them in any religious-corp billing context)
 
@@ -272,4 +272,4 @@ Proposal: Rent dedicated bare-metal GPU servers (Hetzner GPU, OVH Advance server
 - ADR-2605192415: Religious-Corp Daemon Architecture (Murakumo cell placement)
 - ADR-2605202100: magatama-cell-runner launchd (Murakumo fleet operational pattern)
 - Sister document: `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (itemised audit companion, Step 8 cutover sub-list)
-- Vendor parallel repo: `ai-gftd-apps-gftdcojp/` — RunPod legitimately used for etzhayyim.com paid SaaS; do not modify
+- Vendor parallel repo: `etzhayyim-apps-etzhayyimcojp/` — RunPod legitimately used for etzhayyim.com paid SaaS; do not modify

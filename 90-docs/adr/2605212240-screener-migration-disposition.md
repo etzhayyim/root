@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 3.0
 axis: governance
 weight: 0.30
-priority_note: "P5_DEFER resolution for ai-gftd-project-screener"
+priority_note: "P5_DEFER resolution for etzhayyim-project-screener"
 authoritative_for:
   - migration-disposition-screener
 depends_on:
@@ -28,7 +28,7 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-project-screener` (65 files, Next.js + v0.dev scaffold) was flagged as
+`etzhayyim-project-screener` (65 files, Next.js + v0.dev scaffold) was flagged as
 DEFER during the 2026-05-21 P5_REVIEW pass because the bare name "screener"
 admits two readings under Charter Rider v2.0 §2:
 
@@ -37,20 +37,20 @@ admits two readings under Charter Rider v2.0 §2:
 2. **Sanctions screener** — KYC / AML / OFAC-list screening that supports
    compliance and humanitarian (e.g. crypto-asset-freeze) workflows.
 
-Inspection of the source repository (`etzhayyim-root/60-apps/ai-gftd-project-screener/README.md`
+Inspection of the source repository (`etzhayyim-root/60-apps/etzhayyim-project-screener/README.md`
 and PROJECT.jsonld) confirms reading (2):
 
 > "Sanctions screening service" — deployed as `v0-sanctions-screening-service`
 > on Vercel under the etzhayyim org.
 
-Sibling apps `ai-gftd-project-sanctions` and `ai-gftd-project-crypto-asset-freeze`
+Sibling apps `etzhayyim-project-sanctions` and `etzhayyim-project-crypto-asset-freeze`
 have already been migrated under the P3_SUBSTRATE batch (see migration log
 2026-05-21) as Charter-aligned compliance tooling.
 
 # Decision
 
-**Reclassify `ai-gftd-project-screener` from DEFER to ALIGN.** Migrate to
-`etzhayyim-root/60-apps/ai-gftd-project-screener/` using the standard
+**Reclassify `etzhayyim-project-screener` from DEFER to ALIGN.** Migrate to
+`etzhayyim-root/60-apps/etzhayyim-project-screener/` using the standard
 `rsync + NOTICE` flow established for the P5_ALIGN batch.
 
 Constraints carried forward:
@@ -82,4 +82,4 @@ Constraints carried forward:
 - ADR-2605192100 (Charter §2(b) speculative finance definition)
 - ADR-2605192200 (Charter Rider v2.0)
 - `_working_p5_decisions.md` (P5_REVIEW 255 アプリ 個別移行判断)
-- Source: `etzhayyim-root/60-apps/ai-gftd-project-screener/README.md`
+- Source: `etzhayyim-root/60-apps/etzhayyim-project-screener/README.md`

@@ -39,7 +39,7 @@ superseded_by: []
 
 ## Context
 
-Vendor currently runs a "Stripe Issuing → ERC-4337 + USDC" bridge: a Stripe Issuing card swipe triggers a webhook in vendor; vendor mints a matching ERC-4337 UserOp and settles USDC to the recipient on the vendor private chain. The bridge is documented in vendor `60-apps/ai-gftd-project-murakumo/CLAUDE.md` and ADR-2604262100.
+Vendor currently runs a "Stripe Issuing → ERC-4337 + USDC" bridge: a Stripe Issuing card swipe triggers a webhook in vendor; vendor mints a matching ERC-4337 UserOp and settles USDC to the recipient on the vendor private chain. The bridge is documented in vendor `60-apps/etzhayyim-project-murakumo/CLAUDE.md` and ADR-2604262100.
 
 Under ADR-2605211950 (substrate centralization axis):
 
@@ -72,7 +72,7 @@ The bridge must be re-architected so that:
 │      → vendor approves authorization (subject to internal        │
 │        Stripe rules + per-user limit)                            │
 │      → vendor records fiat receivable in RisingWave              │
-│        (`vertex_gftd_stripe_issuing_authorization`)              │
+│        (`vertex_etzhayyim_stripe_issuing_authorization`)              │
 │      → vendor calls etzhayyim XRPC (D3 below):                   │
 │        `org.etzhayyim.payment.creditFromFiat`                    │
 │                                                                  │
@@ -218,11 +218,11 @@ Vendor MUST honor `fiatBridgeRefundCallback` within 24h or the etzhayyim receipt
   - `fiatBridgeRefundReceipt.json` (record)
 - New vendor-side lexicons (vendor repo, separate PR):
   - `com.etzhayyim.authz.fiatBridgeRefundCallback` (procedure, etzhayyim → vendor)
-- Vendor `60-apps/ai-gftd-project-murakumo/CLAUDE.md` and Stripe Issuing description sections updated to reflect the new flow (vendor approves authorization → calls etzhayyim XRPC → records receipt). Vendor private chain `260425` no longer involved in fiat → chain settlement.
+- Vendor `60-apps/etzhayyim-project-murakumo/CLAUDE.md` and Stripe Issuing description sections updated to reflect the new flow (vendor approves authorization → calls etzhayyim XRPC → records receipt). Vendor private chain `260425` no longer involved in fiat → chain settlement.
 - Tithe receipts per ADR-2605192130 increase — every fiat-originated chain credit contributes to the Public Fund. This is the intended design.
 - Treasury reserve becomes a single point of operational risk: depletion = bridge unavailable. Mitigation: minimum-balance alarm + vendor SOP for monthly top-up.
 - Council gains a daily-cap throttle as a governance lever over the fiat flow.
-- The vendor-side reading of vendor's `vertex_gftd_stripe_issuing_authorization` table joins to the etzhayyim chain receipt via `vendorAuthorizationId`. Cross-repo data join lives in vendor analytics; etzhayyim does not import vendor RisingWave.
+- The vendor-side reading of vendor's `vertex_etzhayyim_stripe_issuing_authorization` table joins to the etzhayyim chain receipt via `vendorAuthorizationId`. Cross-repo data join lives in vendor analytics; etzhayyim does not import vendor RisingWave.
 
 ## Alternatives Considered
 
@@ -247,7 +247,7 @@ Vendor MUST honor `fiatBridgeRefundCallback` within 24h or the etzhayyim receipt
 - Define vendor SOP for monthly treasury top-up (which bank wire path → Coinbase / Circle Mint → Base L2 USDC → reserve).
 - Lexicon NSIDs: confirm `org.etzhayyim.payment.creditFromFiat` (this ADR) vs alternative under existing `com.etzhayyim.apps.payment.*` namespace. Recommended: `org.etzhayyim.payment.*` for new endpoints to mirror ADR-2605212030 namespace decision.
 - Reserve contract implementation choice — bare Solidity vs OpenZeppelin Governor vs Safe-only. Recommended: Safe (5-of-7) with a thin module exposing the cap-check + mint-helper for the XRPC handler.
-- Vendor authorization id ↔ etzhayyim receipt cross-reference SLA — how long does vendor retain `vertex_gftd_stripe_issuing_authorization` rows? Match etzhayyim AT Record retention.
+- Vendor authorization id ↔ etzhayyim receipt cross-reference SLA — how long does vendor retain `vertex_etzhayyim_stripe_issuing_authorization` rows? Match etzhayyim AT Record retention.
 - Failure mode: what if the etzhayyim bundler is down at the moment of vendor → etzhayyim call? Buffer with retry queue vs return error to Stripe (decline). Recommended: short retry (≤ 2s) then decline; never queue across the Stripe authorization window.
 
 ## References
@@ -262,5 +262,5 @@ Vendor MUST honor `fiatBridgeRefundCallback` within 24h or the etzhayyim receipt
 - `50-infra/etzhayyim-paymaster/` — shared ERC-4337 paymaster
 - `50-infra/etzhayyim-tithe-router/` — atomic 10% split
 - `50-infra/etzhayyim-public-fund/` — 5-of-7 Safe destination
-- Vendor: `60-apps/ai-gftd-project-murakumo/CLAUDE.md` (current Stripe Issuing → ERC-4337 description — migration source)
+- Vendor: `60-apps/etzhayyim-project-murakumo/CLAUDE.md` (current Stripe Issuing → ERC-4337 description — migration source)
 - Vendor: ADR-2604262100 (k8s + ERC-4337 + IPFS — migration source)

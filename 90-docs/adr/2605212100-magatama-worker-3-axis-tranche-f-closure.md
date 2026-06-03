@@ -10,7 +10,7 @@ priority: 8.7
 axis: governance
 weight: 0.87
 priority_note: "Operational closure of Tranche F (ADR-2605172400) at the magatama Python worker layer. Resolves all 70 *_worker_main.py files to etzhayyim / vendor / SPLIT and explicitly lists the 4-part gate that blocks any deployment-surface migration. Required reading before touching mitama-udf-pool helm chart or proposing a worker move to etzhayyim/root."
-status_note: "Audit phase complete (29 etzhayyim / 30 vendor / 11 SPLIT, n=70). Phase 3 gate design + runbook complete 2026-05-21T17:57Z; per-worker re-impl execution OPEN — (a) pattern catalogued (6 patterns: BeliefStore / audit log / read-cache / primary store / worker_runtime+stub / ingest module) but per-worker SQLite ports not yet committed to etzhayyim/root; (b) DNS cutover runbook ADR-2605211757 ready; (c) deployment surface documented inline in ADR-2605211757 §0+§3.1 (Mac mini fleet + per-actor SQLite PVC; standalone ADR-2605211653 drafted but not retained); (d) vendor importer survey done + 3 lg relocates + hume local-copy inline. Phase 4-5 vendor refactor + git rm runbook = ADR-2605211913. Cross-repo closure pointer: deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17 closure_confirmed_by → etzhayyim/root/90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md. Source-level secrets removed across gftd repo. helm upgrade of vendor-side default-murakumo-raw + copyright-fulltext-fetch-raw pending VKE API tunnel restore."
+status_note: "Audit phase complete (29 etzhayyim / 30 vendor / 11 SPLIT, n=70). Phase 3 gate design + runbook complete 2026-05-21T17:57Z; per-worker re-impl execution OPEN — (a) pattern catalogued (6 patterns: BeliefStore / audit log / read-cache / primary store / worker_runtime+stub / ingest module) but per-worker SQLite ports not yet committed to etzhayyim/root; (b) DNS cutover runbook ADR-2605211757 ready; (c) deployment surface documented inline in ADR-2605211757 §0+§3.1 (Mac mini fleet + per-actor SQLite PVC; standalone ADR-2605211653 drafted but not retained); (d) vendor importer survey done + 3 lg relocates + hume local-copy inline. Phase 4-5 vendor refactor + git rm runbook = ADR-2605211913. Cross-repo closure pointer: deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17 closure_confirmed_by → etzhayyim/root/90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md. Source-level secrets removed across etzhayyim repo. helm upgrade of vendor-side default-murakumo-raw + copyright-fulltext-fetch-raw pending VKE API tunnel restore."
 authoritative_for:
   - magatama worker classification under the 3-axis OR-test
   - Phase 3 prerequisites for any worker deployment-surface migration to etzhayyim
@@ -24,7 +24,7 @@ depends_on:
 related:
   - adr-2605181400-bpmn-extract-to-etzhayyim-root
   - adr-2605152100-etzhayyim-github-org-boundary
-  - adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com       # gate (b) closure + gate (c) inline
+  - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com       # gate (b) closure + gate (c) inline
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook       # Phase 4-5 operator runbook
   - adr-2605211925-phase-6-archive-markers-runbook                     # Phase 6 archive markers runbook
   - doc-2605211800-vendor-importer-survey-gate-d                       # gate (d) closure
@@ -63,7 +63,7 @@ Three additional gates surfaced during the closure audit:
 2. **GitGuardian incident posture (ADR-2605173100)**: a placeholder
    PostgreSQL URI containing a 32-char string had been seeded across
    the magatama framework. etzhayyim/root scrubbed source on
-   2026-05-17. gftd was 4 days behind on the same scrub at session
+   2026-05-17. etzhayyim was 4 days behind on the same scrub at session
    start.
 
 3. **RW-free re-impl pattern (ADR-2605211200 Phase 2A-2D)**: the
@@ -92,7 +92,7 @@ deployment on etzhayyim substrate:
   myco_yeast, narou, omikuji, saikin
 - Borderline-resolved: ge, hub, oshiete, resources, sixir, web4
 
-**vendor (30 / 43%)** — at least one axis hit, stays on gftd Vultr:
+**vendor (30 / 43%)** — at least one axis hit, stays on etzhayyim Vultr:
 
 - agent_zeebe, analytics, casino, compintel, completer,
   contentengine, fleamarket, graph_sos_intel, harai, lawfirm_admin,
@@ -101,7 +101,7 @@ deployment on etzhayyim substrate:
   cards, lo, webmk, webpage, wire, wvme
 
 **SPLIT (11 / 16%)** — open spec / lexicon at etzhayyim, vendor
-runtime stays on gftd:
+runtime stays on etzhayyim:
 
 - Type 1 (intra-file split): dispatcher_main, zeebe_worker_main
 - Type 2 (inter-repo, no intra-file split): anime, manga, music,
@@ -143,7 +143,7 @@ secret redaction — etzhayyim already holds the canonical version of
 all 14 differing files.
 
 > **STATUS 2026-05-21**: ✅ **CLOSED (runbook)**. ADR-2605211757
-> (`etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md`,
+> (`etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md`,
 > 431 lines). 4-wave cutover (A read-cache+utility / B single-table
 > primary / C multi-table+JOIN / D write-heavy+ingest), 8-step
 > per-actor procedure, 24h dual-write window for Wave D, sub-5-min
@@ -152,7 +152,7 @@ all 14 differing files.
 (c) **etzhayyim deployment surface decision**: Mac mini fleet via
 `50-infra/k8s/murakumo-kubelet` vs AT-MST-only vs a hybrid. This is
 an explicit etzhayyim-side architecture choice; helm template copy
-from gftd Vultr is not a valid option (per ADR-2605172000).
+from etzhayyim Vultr is not a valid option (per ADR-2605172000).
 
 > **STATUS 2026-05-21**: 🟡 **DOCUMENTED INLINE (standalone ADR not retained)**.
 > Mac mini fleet via `50-infra/k8s/murakumo-kubelet` + per-actor SQLite
@@ -164,22 +164,22 @@ from gftd Vultr is not a valid option (per ADR-2605172000).
 > deployment-surface spec without needing a separate doc reference.
 
 (d) **Vendor-side worker importer survey clean**: workers with
-in-repo gftd importers (the 7 organism cluster + the 5 LangServer-
-app importers under `60-apps/ai-gftd-project-ki/lg/lg_organism/`)
+in-repo etzhayyim importers (the 7 organism cluster + the 5 LangServer-
+app importers under `60-apps/etzhayyim-project-ki/lg/lg_organism/`)
 must be re-pointed at the etzhayyim/root npm package or git submodule
-before `git rm` of the gftd copy is safe.
+before `git rm` of the etzhayyim copy is safe.
 
 > **STATUS 2026-05-21**: ✅ **CLOSED (survey + 3 relocates + 1 inline)**.
 > `etzhayyim/root/90-docs/2605211800-vendor-importer-survey-gate-d.md`
 > (99 lines). 68 vendor-side `from pymagatama` importers grepped;
 > only **4 files** touch the ported scope: (1)
-> `60-apps/ai-gftd-project-ki/lg/lg_organism/server.py` (7 organism
+> `60-apps/etzhayyim-project-ki/lg/lg_organism/server.py` (7 organism
 > worker imports → **relocate** to etzhayyim), (2)
-> `60-apps/ai-gftd-project-legal-entity/lg/lg_legal_entity/server.py`
+> `60-apps/etzhayyim-project-legal-entity/lg/lg_legal_entity/server.py`
 > (16 task imports → **relocate**), (3)
-> `60-apps/ai-gftd-project-curpus2skill/lg/lg_curpus2skill/server.py`
+> `60-apps/etzhayyim-project-curpus2skill/lg/lg_curpus2skill/server.py`
 > (ingest import → **relocate**), (4)
-> `60-apps/ai-gftd-project-hume/scripts/persist_hume_artifacts.py`
+> `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py`
 > (ingest.core helper → **inline ~50 LoC or @etzhayyim/* npm**).
 > The remaining 64 importers reference vendor-only modules (outlook
 > agents, lawfirm primitives, defense, animeka, etc.) — out of gate
@@ -202,7 +202,7 @@ all_gates_closed_at = "2026-05-21T17:57:00Z"  # design + runbook closure timesta
 # phase_5_deletion_completed_at = "..."        # operator fills when ADR-2605211913 Step 2.A-D commits land
 closure_confirmed_by = "etzhayyim/root/90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md"
 closure_evidence = [
-  "etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md",      # gate (b) + gate (c) inline
+  "etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md",      # gate (b) + gate (c) inline
   "etzhayyim/root/90-docs/2605211800-vendor-importer-survey-gate-d.md",                          # gate (d)
   "etzhayyim/root/90-docs/adr/2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook.md",      # Phase 4-5 runbook
   "etzhayyim/root/90-docs/adr/2605211925-phase-6-archive-markers-runbook.md",                    # Phase 6 archive markers
@@ -240,13 +240,13 @@ under `50-infra/vultr/copyright-fulltext-fetch-raw/templates/` are
 all vendor-only (Mac mini fleet via virtual-kubelet against vendor RW
 on `45.32.79.245:4566`). No etzhayyim equivalent.
 
-## 4. Secret remediation (gftd catch-up on ADR-2605173100)
+## 4. Secret remediation (etzhayyim catch-up on ADR-2605173100)
 
 etzhayyim/root scrubbed the leaked PostgreSQL URI from source on
-2026-05-17. gftd executed the equivalent scrub on 2026-05-21:
+2026-05-17. etzhayyim executed the equivalent scrub on 2026-05-21:
 
 - 46 Python source files (worker_main + pregel + projector +
-  kenkyusha + langgraph_graphs + 60-apps/ai-gftd-project-kenkyusha +
+  kenkyusha + langgraph_graphs + 60-apps/etzhayyim-project-kenkyusha +
   70-tools/scripts + \_working) — fallback default replaced with
   `REDACTED_USE_DATABASE_URL_ENV`.
 - 7 K8s deployment manifests + 1 cronjob template — `env[].value`
@@ -281,7 +281,7 @@ had no password enforcement at the time of the leak; rotation to
   50-infra" is recorded and superseded; future agents won't
   re-propose it.
 - Source-level credential leak from the 2026-05-17 GitGuardian
-  incident is now fully scrubbed on the gftd side too.
+  incident is now fully scrubbed on the etzhayyim side too.
 
 **Negative / risks**
 
@@ -323,7 +323,7 @@ had no password enforcement at the time of the leak; rotation to
    future ADR if axis values prove unstable.
 
 2. **`@etzhayyim/magatama` npm workspace package wrapping the 29
-   etzhayyim workers, consumed by gftd as a dependency**. This is
+   etzhayyim workers, consumed by etzhayyim as a dependency**. This is
    the SSoT direction long-term (per Tranche F closure summary
    2026-05-18 §6) but requires (a) RW-free re-impl first — i.e. it
    is the *result* of gate (a), not an alternative to it.

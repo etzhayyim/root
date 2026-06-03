@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 7.0
 axis: governance
 weight: 0.70
-priority_note: "Charter Rider §1.3 forbids fiat payment processors on the religious-corp canonical substrate. The Stripe code in 60-apps/ai-gftd-project-open-kyber/ erp/src/app.ts shipped before the rider landed and was flagged as a violation by the Phase 4 yorishiro migration survey (ADR-2605211900). This ADR replaces the Stripe call sites with a no-op stub that keeps types intact and documents the downstream-fork patch contract."
+priority_note: "Charter Rider §1.3 forbids fiat payment processors on the religious-corp canonical substrate. The Stripe code in 60-apps/etzhayyim-project-open-kyber/ erp/src/app.ts shipped before the rider landed and was flagged as a violation by the Phase 4 yorishiro migration survey (ADR-2605211900). This ADR replaces the Stripe call sites with a no-op stub that keeps types intact and documents the downstream-fork patch contract."
 authoritative_for:
   - open-kyber Stripe integration policy in canonical etzhayyim repo
   - downstream commercial fork patch contract for billing
@@ -18,7 +18,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605211900-etzhayyim-yorishiro-external-actor-bridge
 related:
-  - 60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/src/app.ts
+  - 60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts
   - 70-tools/scripts/yorishiro/survey.mjs
 supersedes: []
 superseded_by: []
@@ -44,7 +44,7 @@ The yorishiro migration survey (ADR-2605211900 Phase 4,
 Exactly one finding landed in the `violation` bucket:
 
 ```
-60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/src/app.ts:620
+60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts:620
   URL    : https://api.stripe.com/v1/${path}
   reason : ADR-2605192115 §1.3 — fiat payment processors are forbidden
 ```
@@ -174,4 +174,4 @@ source.
 - ADR-2605192200 (Charter Rider v2.0 — §2 prohibited categories)
 - ADR-2605211900 (yorishiro external-actor bridge — Phase 4 survey identified this finding)
 - `70-tools/scripts/yorishiro/survey.mjs` (the Phase 4 audit tool)
-- `60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/src/app.ts` (Stripe call sites)
+- `60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts` (Stripe call sites)

@@ -182,7 +182,7 @@ karu7t3e  CNAME  <tunnel-id>.cfargotunnel.com  Proxied  (CF Tunnel)
 - **Mac mini PVC vs cloud-managed PVC**: the Retain reclaim policy depends on a cluster default StorageClass that honors it. On local-path provisioner (k3s default), Retain works — but on some cloud SCs the default is Delete; cluster operator must verify.
 - **Image pull secret per cluster**: `ghcr-pull` is namespace-scoped to `mitama-udf` — moving the Pod to a new namespace requires re-creating the secret.
 - **DID rotation downtime**: removing `#key-0` after adding `#key-N` involves a redeploy; sign-in flows that cache the old key see a brief lookup miss.
-- **CF Pages bundle does not auto-rebuild**: every Svelte change requires `wrangler pages deploy`. Future ADR: GitHub Actions CI hook on `60-apps/ai-gftd-project-karute/**`.
+- **CF Pages bundle does not auto-rebuild**: every Svelte change requires `wrangler pages deploy`. Future ADR: GitHub Actions CI hook on `60-apps/etzhayyim-project-karute/**`.
 
 ## Rollout
 
