@@ -33,7 +33,7 @@
     "description": "Rare earth supply chain coverage appview backed by rare-earth-coverage mitama actor",
     "displayName": "Rare Earth Coverage",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "rare-earth",
   "runtimeType": "worker",
