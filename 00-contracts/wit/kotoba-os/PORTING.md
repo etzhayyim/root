@@ -24,6 +24,23 @@ edge. This doc is the map.
 | Genesis manifest | JSON Schema + Rust types + `boot_actor` | same schema (it is the contract); deserialize in `kotoba-os` | keep the schema in `00-contracts/`; production reads it |
 | OCI-CID artifact | schema + decode invariant | **`kotoba-store`** IPFS gateway + Murakumo kubelet pod class | implement the `ipfs://<cid>` pull + CID re-verify at the k8s edge |
 
+## Field mapping: `kotoba:os/datom` → `kotoba:kais/kqe`
+
+`kotoba:os/datom.fact` is **structurally isomorphic** to the canonical
+`kotoba:kais/kqe.quad` already used by other guests — only the EAVT field names
+differ. When porting the Datom surface to `kotoba-kqe`, map field-for-field:
+
+| `kotoba:os/datom.fact` | `kotoba:kais/kqe.quad` |
+|---|---|
+| `entity`     | `subject`     |
+| `attribute`  | `predicate`   |
+| `value-cbor` | `object-cbor` |
+| `graph`      | `graph`       |
+
+`assert-facts(list<fact>)` is the batched form of `kqe.assert-quad(quad)`. No
+incompatible divergence — the production crate should treat `datom.fact` as the
+Datomic-named projection of the kqe quad, not a separate type.
+
 ## Acceptance spec — the 70 reference tests are the contract
 
 The production crate is correct when it reproduces these behaviours (run
