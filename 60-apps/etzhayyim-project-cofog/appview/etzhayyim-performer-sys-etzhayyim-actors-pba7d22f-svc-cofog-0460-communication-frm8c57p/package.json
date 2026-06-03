@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0460-communication-frm8c57p",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0460-communication-frm8c57p",
   "version": "1.0.0",
   "description": "COFOG component (TS-native migration)",
   "main": "src/app.ts",
