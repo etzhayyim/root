@@ -1,4 +1,4 @@
-# ai-gftd-project-xlsx — xlsx.etzhayyim.com
+# etzhayyim-project-xlsx — xlsx.etzhayyim.com
 
 **Excel editor** — XLSX upload, HTML DOM grid editing, 131-function formula engine, kagami graph persistence, XLSX/CSV export.
 
@@ -105,12 +105,12 @@ Upload (.xlsx ZIP / .csv)
 ## File Structure
 
 ```
-60-apps/ai-gftd-project-xlsx/
+60-apps/etzhayyim-project-xlsx/
 ├── CLAUDE.md                            # This file
 ├── COMPATIBILITY.md                     # Excel API / Google Sheets API coverage matrix
 ├── COVERAGE.md                          # Test coverage report
 ├── wit/xlsx/package.wit                  # Domain WIT capability (3 interfaces)
-└── wasm/ai-gftd-wasm-xlsx-il0ndq6a/
+└── wasm/etzhayyim-wasm-xlsx-il0ndq6a/
     ├── src/app.ts                       # TS Native — Design E, 20 XRPC commands
     ├── magatama.jsonld                  # App metadata, DID, triggers
     ├── wrangler.jsonc                   # CF Worker config
@@ -155,4 +155,4 @@ Run: cd svelte && npx tsx src/lib/__tests__/<suite>.test.ts
 
 ## CRITICAL: Map Reactivity
 
-→ `gftd dodaf tv1 query --id xlsx-map-reactivity` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id xlsx-map-reactivity` / MCP `etzhayyim.dodaf.tv1.query`

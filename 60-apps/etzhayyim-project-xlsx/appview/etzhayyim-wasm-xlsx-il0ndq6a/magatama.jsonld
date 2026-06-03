@@ -5,7 +5,7 @@
     "env": {},
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-xlsx agent. Excel editor — upload, edit spreadsheets with formula evaluation, and export XLSX workbooks. Kagami graph persistence with DuckDB-WASM client reads. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-xlsx agent. Excel editor — upload, edit spreadsheets with formula evaluation, and export XLSX workbooks. Kagami graph persistence with DuckDB-WASM client reads. Respond helpfully in the users language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-xlsx",
+  "name": "etzhayyim-wasm-xlsx",
   "nanoid": "il0ndq6a",
   "performerType": "service",
   "profile": {
