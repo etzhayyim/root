@@ -20,7 +20,7 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 | ADR | Pillar | Artifact | Tests |
 |---|---|---|---|
 | D1 | boot manifest | `schemas/…-genesis-manifest.json` + Rust `GenesisManifest`/`validate()` | 3 py + (in 19 rust) |
-| D2 | userland | **real WASM component** `plc-control-guest/` (capability-minimized) | 3 py |
+| D2 | userland | **2 real WASM components** `plc-control-guest/` + `mesh-agent-guest/` (capability-minimized) | 3+3 py |
 | D3 | scan-cycle = Datom txn | `reference/scan_cycle_model.py` + **wasmtime e2e** `plc-host-runner/` | 6 + 3 py |
 | D4 | k8s OCI-CID | `schemas/…-oci-artifact.json` (digest=CID decode invariant) | 8 py |
 | D5 | agent-centric mesh | `kotoba-os-types::mesh` (source chain + witness quorum + membrane) | 7 rust |
@@ -193,6 +193,11 @@ build, validates the component, prints its world + digest.
   exports scan/scan-report, imports capability-minimized). Skips cleanly when the
   wasm32 toolchain / wasm-tools are unavailable. The binary is reproducible from
   source (gitignored; `Cargo.lock` committed).
+
+**Second L5 world** (`mesh-agent-guest/`): the same artifact kind built for the
+non-control `mesh-agent` world (exports `step`). Proves an agent has **zero device
+authority** — its component imports only `kotoba:os/datom` (no `io-*`/`fieldbus-*`);
+3 toolchain-guarded tests.
 
 ## End-to-end host run (`reference/plc-host-runner/`)
 
