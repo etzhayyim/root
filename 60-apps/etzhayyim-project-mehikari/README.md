@@ -6,7 +6,7 @@ JP 警察向け監視カメラ シーン/人物検索 + B2G 営業 LangGraph。
 - **法令ガード**: `_working/mehikari/COMPLIANCE-MEMO.md`
 - **営業 pipeline**: `_working/mehikari/LEAD-PIPELINE-SEED.md`
 - **国内拘束**: `_working/mehikari/MURAKUMO-DOMESTIC-CONSTRAINT.md`
-- **CLAUDE.md**: `60-apps/ai-gftd-project-mehikari/CLAUDE.md`
+- **CLAUDE.md**: `60-apps/etzhayyim-project-mehikari/CLAUDE.md`
 
 ## Status
 

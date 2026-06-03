@@ -1,4 +1,4 @@
-# ai-gftd-project-public-kafun-bokumetsu — 花粉撲滅Fund
+# etzhayyim-project-public-kafun-bokumetsu — 花粉撲滅Fund
 
 AI Agent (Murakumo/Qwen) が花粉症を撲滅するために自律的に調査・提案・行動・自己進化し続けるプロジェクト。
 
@@ -25,7 +25,7 @@ AI Agent (Murakumo/Qwen) が花粉症を撲滅するために自律的に調査�
 
 | Component | Folder | Description |
 |---|---|---|
-| kafun-bokumetsu | `wasm/ai-gftd-wasm-kafun-bokumetsu-n97ik10n` | AI Agent + API + Svelte UI |
+| kafun-bokumetsu | `wasm/etzhayyim-wasm-kafun-bokumetsu-n97ik10n` | AI Agent + API + Svelte UI |
 
 ## XRPC Methods
 
@@ -61,10 +61,10 @@ GCC 取引手数料 10% → Public Fund → ユーザーに均等分配 (Public 
 
 ## 関連プロジェクト
 
-- `ai-gftd-project-cofog` — COFOG 分類 (215 components)
-- `ai-gftd-project-open-isco` — ISCO 職業分類 (718 components)
-- `ai-gftd-project-states` — 政府組織 (2770 components)
-- `ai-gftd-project-open-isic` — ISIC 産業分類 (522 components)
+- `etzhayyim-project-cofog` — COFOG 分類 (215 components)
+- `etzhayyim-project-open-isco` — ISCO 職業分類 (718 components)
+- `etzhayyim-project-states` — 政府組織 (2770 components)
+- `etzhayyim-project-open-isic` — ISIC 産業分類 (522 components)
 
 ## Frontend (Svelte)
 
@@ -80,7 +80,7 @@ GCC 取引手数料 10% → Public Fund → ユーザーに均等分配 (Public 
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-public-kafun-bokumetsu/wasm/ai-gftd-wasm-kafun-bokumetsu-n97ik10n
+cd 60-apps/etzhayyim-project-public-kafun-bokumetsu/wasm/etzhayyim-wasm-kafun-bokumetsu-n97ik10n
 cd svelte && pnpm install && pnpm build && cd ..
 e7m actor build .
 e7m actor deploy .

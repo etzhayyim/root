@@ -4,7 +4,7 @@
   "component": {
     "env": {
       "BPMN_DISPATCHER_URL": "https://dispatcher.etzhayyim.com",
-      "MEHIKARI_R2_BUCKET": "ai-gftd-mehikari-clips",
+      "MEHIKARI_R2_BUCKET": "etzhayyim-mehikari-clips",
       "VAULT_KID_ACTIVE": "mehikari-2026Q2",
       "AUDIT_RETENTION_YEARS": "7",
       "RAW_CLIP_RETENTION_DAYS": "90",

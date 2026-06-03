@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kafun-bokumetsu-n97ik10n",
+  "name": "etzhayyim-wasm-kafun-bokumetsu-n97ik10n",
   "nanoid": "n97ik10n",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kafun Bokumetsu — AI Agent",
     "displayName": "Kafun Bokumetsu",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "public-kafun-bokumetsu",
   "runtimeType": "worker",

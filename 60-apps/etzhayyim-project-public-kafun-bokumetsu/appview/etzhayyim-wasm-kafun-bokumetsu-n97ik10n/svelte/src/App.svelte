@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-kafun-bokumetsu-n97ik10n</h1>
+  <h1>etzhayyim-wasm-kafun-bokumetsu-n97ik10n</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

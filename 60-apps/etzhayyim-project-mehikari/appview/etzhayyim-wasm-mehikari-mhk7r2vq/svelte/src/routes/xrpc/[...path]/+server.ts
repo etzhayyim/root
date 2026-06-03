@@ -36,8 +36,8 @@ export const POST: RequestHandler = async (event) => {
   const headers = new Headers(event.request.headers);
   headers.delete('host');
   headers.set('content-type', 'application/json');
-  headers.set('x-gftd-bff', 'mehikari-sveltekit');
-  headers.set('x-gftd-xrpc-method', nsid);
+  headers.set('x-etzhayyim-bff', 'mehikari-sveltekit');
+  headers.set('x-etzhayyim-xrpc-method', nsid);
 
   const upstream = await fetch(mcpRouterUrl(envOf(event)), {
     method: 'POST',

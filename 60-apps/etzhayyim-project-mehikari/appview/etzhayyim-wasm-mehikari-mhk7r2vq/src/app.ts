@@ -254,7 +254,7 @@ export default createWorkerExport((sdk) => {
 	// ──────────────────────────────────────────────────────────
 	sdk.router.get("/embed", (ctx) => {
 		return new Response(
-			`<!doctype html><html><head><meta charset="utf-8"><title>mehikari embed</title></head><body><script>window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'mhk7r2vq'},'*')</script></body></html>`,
+			`<!doctype html><html><head><meta charset="utf-8"><title>mehikari embed</title></head><body><script>window.parent?.postMessage({type:'etzhayyim:embed:ready',nanoid:'mhk7r2vq'},'*')</script></body></html>`,
 			{ headers: { "content-type": "text/html; charset=utf-8" } },
 		);
 	});
