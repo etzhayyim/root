@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_iaea_safeguards_flag_nuclear_weapon_diversion"
-    targetNamespace="https://gftd.ai/bpmn/open-iaea-safeguards"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-iaea-safeguards"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_iaea_safeguards_flag_nuclear_weapon_diversion" name="核物質 軍事転用 フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-iaea-safeguards.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-iaea-safeguards.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;nuclear.diversion&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: facilityVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>
