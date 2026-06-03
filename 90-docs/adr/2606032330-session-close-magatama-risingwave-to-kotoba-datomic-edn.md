@@ -97,8 +97,8 @@ RW code is two framework surfaces the migration plan had deferred to "P11":
   four reference app migrations (seibutsu / toshi-kozan / briefing / cpc) were authored
   during the session but **wiped by a concurrent history-rewrite (force-push/rebase): the
   loop-start HEAD `1f411a48` is no longer an ancestor of HEAD `346382b9`, +228 commits**.
-  Those commits are the in-progress **`ai-gftd-` → `etzhayyim-` project-rename cutover**
-  (371 `ai-gftd-project-*` still present, 22 `etzhayyim-project-*` created so far). The
+  Those commits are the in-progress **`etzhayyim-` → `etzhayyim-` project-rename cutover**
+  (371 `etzhayyim-project-*` still present, 22 `etzhayyim-project-*` created so far). The
   RW framework files are intentionally pristine and must not be re-reverted.
 - **App sweep PAUSED.** Re-targeting the renamed `etzhayyim-project-*` paths should wait
   until the rename cutover completes, to avoid editing apps that are being moved.
@@ -113,7 +113,7 @@ RW code is two framework surfaces the migration plan had deferred to "P11":
    framework cutover removes them.
 2. The `sqlmesh/kotoba/views.edn` registry is the canonical kotoba-native form of the
    610 RW materialized views; `:manual` entries are tracked R1 kqe-rule work.
-3. The inherited-app sweep resumes **after** the `ai-gftd→etzhayyim` rename cutover, using
+3. The inherited-app sweep resumes **after** the `etzhayyim→etzhayyim` rename cutover, using
    the recipe table above against the final `etzhayyim-project-*` paths.
 
 ## Follow-ups (tracked)

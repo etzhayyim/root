@@ -24,7 +24,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605241900-baien-edge-target-invariant
 related:
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
@@ -68,7 +68,7 @@ Three properties the religious-corp substrate already wants, that a WASM-first u
 
 - **Hermit / RustyHermit (Hermit OS)** — a Rust-written, `no_std`, single-address-space **library operating system / unikernel**. An application is *linked into* the kernel and boots directly on KVM / Firecracker / QEMU / bare metal (and on Hermit's own lightweight `uhyve` hypervisor), targeting x86-64 and aarch64. We take its **packaging model** (app + minimal kernel = one bootable image), its **Rust `no_std` core**, and its **microVM-friendly boot path**. We *invert its userland*: instead of linking one native Rust app, kotoba-os links a **WASM runtime + the kotoba substrate crates**, and the "application" is a content-addressed WASM component loaded at boot. (This is the same direction as `wasmtime`-on-Hermit and the broader "unikernel-as-WASM-host" line of work.)
 
-- **Holochain** — **agent-centric** (not data-centric) distributed computing: every agent keeps a local, append-only, hash-linked **source chain** of its own actions; a validating, sharded, content-addressed **DHT** stores published entries; **membrane / validation rules** (the DNA) decide what is valid; random neighbour validators witness. kotoba *already* carries the Holochain-isomorphic primitives — `kotoba-dht` ships **Source Chain / Warrant / Neighborhood / Availability Proof** (it is the engine that superseded the explicitly-Holochain-iso yatachain spec, ADR-2605231400). This ADR realizes that model **as an OS**: each kotoba-os node *is* a Holochain-style agent, **its source chain IS its local Datom-log segment**, its **DNA is the content-addressed WASM component + validation rules**, and its neighbours are the Murakumo/donated mesh (ADR-2605214000 + ADR-2606012100).
+- **Holochain** — **agent-centric** (not data-centric) distributed computing: every agent keeps a local, append-only, hash-linked **source chain** of its own actions; a validating, sharded, content-addressed **DHT** stores published entries; **membrane / validation rules** (the DNA) decide what is valid; random neighbour validators witness. kotoba *already* carries the Holochain-isomorphic primitives — `kotoba-dht` ships **Source Chain / Warrant / Neighborhood / Availability Proof** (it is the engine that superseded the explicitly-Holochain-iso kotoba-datomic spec, ADR-2605231400). This ADR realizes that model **as an OS**: each kotoba-os node *is* a Holochain-style agent, **its source chain IS its local Datom-log segment**, its **DNA is the content-addressed WASM component + validation rules**, and its neighbours are the Murakumo/donated mesh (ADR-2605214000 + ADR-2606012100).
 
 - **IPFS** — the **block backend** for everything content-addressed (CIDv1 blake3 per `kotoba-core`): the kernel image, the WASM components, the genesis config, and the cold tier of Datom blocks. This is unchanged from ADR-2605312345 (IPFS = block backend / DHT, not canonical state home).
 
@@ -212,7 +212,7 @@ The browser edge (L1c) is bound by the **baien edge-target invariant** (ADR-2605
 
 - ADR-2605262130 (Kotoba as Canonical Storage Substrate) — parent; the 17-crate engine kotoba-os packages as an OS
 - ADR-2605312345 (kotoba Datom as First-Class Canonical State) — Datom canonical; D1/C1/Alt-E reconstruction guarantee
-- ADR-2605231400 (yatachain Holochain-iso substrate) — Holochain-isomorphic source-chain/DHT lineage (superseded by 2605262130; conceptual reference for D5)
+- ADR-2605231400 (kotoba-datomic Holochain-iso substrate) — Holochain-isomorphic source-chain/DHT lineage (superseded by 2605262130; conceptual reference for D5)
 - ADR-2605214000 (Murakumo mesh, no-VKE) — the mesh kotoba-os nodes join; kubelet
 - ADR-2606012100 (Donation-funded operation + compute-node donation) — ameno/e7m/kotoba node classes kotoba-os unifies
 - ADR-2606014500 (One Worker, many WASM actors) — content-addressed WASM actor model (L5)

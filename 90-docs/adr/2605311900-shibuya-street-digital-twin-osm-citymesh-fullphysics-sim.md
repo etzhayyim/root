@@ -125,4 +125,4 @@ Entry `run_shibuya_v1(canvas)`, page `shibuya.htm`.
 - `70-tools/scripts/sim/osm_to_citymesh.py`
 - `70-tools/e7m-sim/scenes/shibuya/{shibuya_scramble.osm.json, .scene.json}`
 - `40-engine/kami-engine/kami-app-shibuya/src/lib.rs`
-- `60-apps/ai-gftd-project-isekai/appview/.../svelte/static/shibuya.htm`
+- `60-apps/etzhayyim-project-isekai/appview/.../svelte/static/shibuya.htm`

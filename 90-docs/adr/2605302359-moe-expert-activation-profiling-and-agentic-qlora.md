@@ -162,7 +162,7 @@ carve-out gate applies.
   `get_peft_model(r=…, target_modules=<§2 set>,
   use_gradient_checkpointing="unsloth")` + `SFTTrainer`. ~2× faster, lower
   memory, native 4-bit MoE. Gated by the carve-out's 7 conditions (per-rental
-  yatachain attestation; >7 days → Council; data Charter-scanned; artifact
+  kotoba-datomic attestation; >7 days → Council; data Charter-scanned; artifact
   named `baien-server-agentic-*`). Unsloth on the AMD node is re-probed via
   `70-tools/gemma-coder-distill/scripts/probe_unsloth_rocm.py` when upstream
   ships a Windows-ROCm dep tree.

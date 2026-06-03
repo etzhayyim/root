@@ -17,7 +17,7 @@ depends_on:
   - adr-2606010600-kami-autodrive-gnc-autonomy-layer
   - adr-2606011040-session-close-kami-autodrive-gnc-and-ci-hygiene
 related:
-  - adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
+  - adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone
   - adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1
 supersedes: []
 superseded_by: []

@@ -47,7 +47,7 @@ PDF は ISO 32000 のオープン規格であり、Adobe の SDK/サービスに
 - **no-server-key**（ADR-2605231525）: サーバー保管鍵・サーバー署名を持たない。
 - **広告排除 / 反 addictive-design**（§1.13 Wellbecoming）。
 
-既存の `ai-gftd-project-editor` はコードエディタであり PDF エディタは未提供だった。
+既存の `etzhayyim-project-editor` はコードエディタであり PDF エディタは未提供だった。
 
 # Decision
 

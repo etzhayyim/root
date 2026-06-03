@@ -135,7 +135,7 @@ The payment-purpose invariant (ADR-2605192115 §3 + repo CLAUDE.md substrate-bou
   in favour of qard ḥasan + mutual aid.
 - **Open-loop from day one** — violates payment-purpose invariant without Lv7+ amendment. Deferred
   to gated Phase 2.
-- **Reuse `yatachain` blob / RisingWave projection for the ledger** — superseded by kotoba
+- **Reuse `kotoba-datomic` blob / RisingWave projection for the ledger** — superseded by kotoba
   (ADR-2605262130). Use kotoba EAVT directly.
 
 ## References

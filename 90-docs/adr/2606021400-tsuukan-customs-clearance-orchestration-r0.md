@@ -54,7 +54,7 @@ operational responsibility for the end-to-end 通関 (customs clearance) workflo
 | `port` actor | `20-actors/port/actor-manifest.jsonld` (`did:web:port.etzhayyim.com`) | 35+ ports, berths, terminals, vessel-call tracking | Does NOT handle customs declaration, duty calculation, inspection routing, or release. |
 | `cargo` actor | (`did:web:cargo.etzhayyim.com`) | B/L lifecycle, manifest, container tracking, IMDG DG code | Does NOT assess tariff or lodge declarations — it is the *source* of the manifest clearance reads. |
 | `okaimono` actor | `20-actors/okaimono/kotoba/schema.edn` (`:product/tariff-bps`) | Ring-2 external-catalog landed-cost roll-up | Consumes a tariff-bps *input*; does not derive it from a clearance workflow. |
-| `open-customs-clearance` BPMN/lexicon | `00-contracts/bpmn/com/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn` + `00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json` | 2 bare procedures: lodge (hsCode, declaredValueUsd, importerLei, sanctionsScreeningVid → riskTier, requireInspection); release (inspection, dutiesPaidUsd → efficiencyTier) | Bare BPMN/lexicon **without an actor wrapper** — no manifest, no DID, no agent autonomy, no lexicon depth beyond 2 ops. |
+| `open-customs-clearance` BPMN/lexicon | `00-contracts/bpmn/com/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn` + `00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json` | 2 bare procedures: lodge (hsCode, declaredValueUsd, importerLei, sanctionsScreeningVid → riskTier, requireInspection); release (inspection, dutiesPaidUsd → efficiencyTier) | Bare BPMN/lexicon **without an actor wrapper** — no manifest, no DID, no agent autonomy, no lexicon depth beyond 2 ops. |
 
 Note: `00-contracts/lexicons/com/etzhayyim/kotoba/economy/tariff.json` is the **mKOTO
 economy pricing** schema and is unrelated to import/export border tariff — it must NOT
@@ -242,5 +242,5 @@ emphasize the *handling-specialist* (orchestrator) role over the *cargo* (に) r
 - ADR-2605192100 (Mission Charter — §1.12 force-separation invariant)
 - ADR-2605192200 (Charter Compliance Rider v2.0 — license invariants)
 - `00-contracts/bpmn/com/etzhayyim/open-customs-clearance/{lodgeDeclaration,releaseShipment}.bpmn`
-- `00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json`
+- `00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/customsClearance/{lodgeDeclaration,releaseShipment}.json`
 - `20-actors/hs/actor-manifest.jsonld` · `20-actors/port/actor-manifest.jsonld` · `20-actors/okaimono/kotoba/schema.edn`

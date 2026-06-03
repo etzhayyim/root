@@ -38,7 +38,7 @@ Three findings made #865 un-mergeable as one unit:
 
 | # | Finding | Severity |
 |---|---------|----------|
-| 1 | **Merge conflicts in 28 files**, incl. SSoT (`CLAUDE.md`, `deps.toml`, `docs.json`, `graph.jsonld`, ADR `README.md`) and actors already landed on `main` separately (kabuto/kataribe/kazaori/ooyake); plus the `ai-gftd-` → `etzhayyim-project-coverage/` dir rename on main | 🔴 blocker |
+| 1 | **Merge conflicts in 28 files**, incl. SSoT (`CLAUDE.md`, `deps.toml`, `docs.json`, `graph.jsonld`, ADR `README.md`) and actors already landed on `main` separately (kabuto/kataribe/kazaori/ooyake); plus the `etzhayyim-` → `etzhayyim-project-coverage/` dir rename on main | 🔴 blocker |
 | 2 | **~148 MB of WASM binaries committed to git** — 8 `ossekai_*/cell.wasm` at ~18.5 MB each, violating the content-addressed-WASM-on-IPFS invariant (ADR-2606014500) and permanently bloating history | 🔴 blocker |
 | 3 | **Scope creep** — the ipaddress/yabai headline is a small slice of a 238-file branch; the rest is what produces the conflicts | 🟡 |
 
@@ -82,7 +82,7 @@ this follow-up registers them on `main`:
   Filename + topic disambiguate; both are registered. A future ADR-id
   reconciliation pass should renumber one.
 - **e7m-verify hook**: the `e7m-verify` pre-commit gate is environmentally
-  broken in this checkout (`gftd: unknown command: verify`); #885 and this
+  broken in this checkout (`etzhayyim: unknown command: verify`); #885 and this
   change add no server-held keys, so commits used `--no-verify` while all
   server-side CI gates passed. Pre-existing tooling/CI debt, not introduced here.
 - **monorepo-health** CI is red on `main` for reasons unrelated to this work

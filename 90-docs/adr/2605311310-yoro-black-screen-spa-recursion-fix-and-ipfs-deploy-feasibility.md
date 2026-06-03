@@ -19,7 +19,7 @@ depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 related:
-  - "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
+  - "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
 supersedes: []
 superseded_by: []
 ---
@@ -55,7 +55,7 @@ overflow **before first paint**. With `ssr:false` and no `<noscript>` / SSR
 fallback, the dark layout background was all that remained = black screen.
 
 This contradicted the project's own documented contract
-(`60-apps/ai-gftd-project-yoro/CLAUDE.md` → "Route-First Architecture": `/` =
+(`60-apps/etzhayyim-project-yoro/CLAUDE.md` → "Route-First Architecture": `/` =
 **Vibes feed**; "禁止: `+page.svelte` に複数タブの UI を同居"). The `<App/>` +
 `src/spa/*` island was an experimental shell that violated that contract and
 introduced the cycle. `VibesPanel` (the actual home-feed component) was exported
@@ -88,7 +88,7 @@ SPA was packaged to IPFS (local Kubo 0.41 + kotoba 0.1.0 both running):
   `ipfs add` + pin (kept by kotoba / ipfs-pinner).
 
 Full runbook + capability matrix:
-`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md`.
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md`.
 
 # Consequences
 
@@ -105,7 +105,7 @@ Full runbook + capability matrix:
     unbuilt). `the legacy IPFS gateway zone (pre-ADR-2605212340 cutover; canonical is ipfs.etzhayyim.com)` is a working **read-only** gateway (`/api/v0/*` →
     405). The Vultr VKE Kubo backend is unreachable: the kubeconfig's admin
     client cert is rejected (401) and the API-server cert SAN omits the VKE
-    FQDN. The HMAC write key exists in Keychain (`gftd.cloudflare/IPFS_HMAC`)
+    FQDN. The HMAC write key exists in Keychain (`etzhayyim.cloudflare/IPFS_HMAC`)
     but has no live front to authenticate against.
 - "Fully Cloudflare-free" requires, beyond the frontend: (a) PDS / AppView /
   XRPC migration off `atproto.etzhayyim.com` (CF Worker + Hyperdrive +
@@ -147,6 +147,6 @@ Full runbook + capability matrix:
 - ADR-2604261936 (ipfs.etzhayyim.com self-hosted Kubo on Vultr + B2)
 - ADR-2605171800 (LangGraph → MST → IPFS → L2-anchor pipeline; Stage 4 pinner)
 - ADR-2605215000 (Murakumo-only inference SSoT)
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md` (runbook + capability matrix)
-- `60-apps/ai-gftd-project-yoro/CLAUDE.md` (Route-First Architecture: `/` = Vibes feed)
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md` (runbook + capability matrix)
+- `60-apps/etzhayyim-project-yoro/CLAUDE.md` (Route-First Architecture: `/` = Vibes feed)
 - Root CID `bafybeidl5t4ztktqmfcqrfqpio6qf64n6t65a7inkz2pa6jq4tyqwfjfhy`

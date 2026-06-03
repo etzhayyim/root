@@ -60,7 +60,7 @@ agent-rewritten.
 - **#745 — migration-gap fixes** (surfaced by `monorepo-health` on the himawari
   re-land, which #742's merge never gate-checked):
   - **Segmented constructions** (20 src files) — `_LEX = … / "app" /
-    "etzhayyim" / …` and `["ai","gftd",…].join(".")`, which the plain
+    "etzhayyim" / …` and `["ai","etzhayyim",…].join(".")`, which the plain
     dot/slash rewrite could not match.
   - **Escaped-dot regex literals** (19 files) — `r"app\.etzhayyim\.karute\.(\w+)"`,
     XRPC route matchers, Rego/yaml path policies.

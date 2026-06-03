@@ -47,7 +47,7 @@ ameno は 4 つの実行モードを持つ:
 ## Layer 0 — laptop dev(in-browser のみ、最速)
 
 ```sh
-cd 60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte
+cd 60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/svelte
 pnpm install                       # workspace-level でも可
 pnpm dev                           # http://localhost:5173
 ```
@@ -68,7 +68,7 @@ Chrome 113+ / Edge / Safari 18+ 限定。
 brew install bun ollama
 ollama serve &
 ollama pull gemma3:4b
-cd 60-apps/ai-gftd-project-ameno/daemon
+cd 60-apps/etzhayyim-project-ameno/daemon
 bun run src/server.ts              # http://127.0.0.1:12480
 ```
 
@@ -88,7 +88,7 @@ header chip の embed-pill が `daemon ✓ gemma3:4b · TS` に。
 
 ```sh
 # plist を編集して YOUR_USERNAME と YOUR_REPO_PATH を置換
-cp 60-apps/ai-gftd-project-ameno/daemon/com.etzhayyim.ameno-daemon.plist \
+cp 60-apps/etzhayyim-project-ameno/daemon/com.etzhayyim.ameno-daemon.plist \
    ~/Library/LaunchAgents/
 launchctl load ~/Library/LaunchAgents/com.etzhayyim.ameno-daemon.plist
 ```

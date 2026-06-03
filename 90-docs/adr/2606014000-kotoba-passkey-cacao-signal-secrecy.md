@@ -41,7 +41,7 @@ yet composed into one coherent secrecy architecture. An honest audit of the
 live code (2026-06-01) found four gaps between what the ADRs *claim* and what
 the code *does*:
 
-1. **Server-held KEK still live.** `60-apps/ai-gftd-project-auth/worker`
+1. **Server-held KEK still live.** `60-apps/etzhayyim-project-auth/worker`
    declares `SS_REPO_SIGNING_KEK` (AES-256 envelope KEK) and uses it to wrap
    every per-agent ES256 key in D1. A single platform key unlocks every
    credential — a direct violation of the no-server-key invariant
@@ -248,7 +248,7 @@ asserting two seals of identical plaintext differ.
 **Gated / not landed (correctly deferred)**
 
 - **Phase 3 (D3)** — the kotoba-side replacement (`k_session`) is implemented;
-  physical deletion of `SS_REPO_SIGNING_KEK` from the legacy `ai-gftd-project-auth`
+  physical deletion of `SS_REPO_SIGNING_KEK` from the legacy `etzhayyim-project-auth`
   worker is **gated** behind ADR-2605231525 Stage C-2/C-3 + a 30-day zero-read
   quarantine (sign-up intentionally fails without the KEK today). Only a
   deprecation marker recording the cutover trigger was added; no behavior change.
