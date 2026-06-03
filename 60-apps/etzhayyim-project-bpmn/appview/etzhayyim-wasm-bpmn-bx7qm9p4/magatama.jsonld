@@ -15,7 +15,7 @@
     "description": "BPMN 2.0 registry (publish / search / generate) + executor. Deploys processes, runs instances, emits OCEL events. JSON subset authoring + XML deployment. Used by shiharai / keiyaku / seikyu for orchestration.",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": [
       "bpmn-registry",
       "bpmn-executor",
@@ -27,9 +27,9 @@
     ]
   },
   "interfaces": {
-    "package": "gftd:bpmn@0.2.0",
+    "package": "etzhayyim:bpmn@0.2.0",
     "requires": [
-      "gftd:collection/collection@1.0.0"
+      "etzhayyim:collection/collection@1.0.0"
     ]
   },
   "governance": { "raci": "responsible", "classification": "internal", "complianceFrameworks": ["bpmn-policy"] },
@@ -73,6 +73,6 @@
       ]
     }
   },
-  "ui": { "accent": "#6a1b9a", "icon": "🧬", "ssrRoutes": { "apps": "gftd.bpmn.v1.BpmnService/bpmn.tools" } },
+  "ui": { "accent": "#6a1b9a", "icon": "🧬", "ssrRoutes": { "apps": "etzhayyim.bpmn.v1.BpmnService/bpmn.tools" } },
   "uiType": "appview"
 }

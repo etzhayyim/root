@@ -86,7 +86,7 @@ async function writeRecord(db: Kysely<Database>, collection: string, rkey: strin
     rkey,
     repo: ACTOR_DID,
     created_at: now.toISOString(),
-    org_id: "gftd",
+    org_id: "etzhayyim",
     user_id: "system",
     actor_id: `sys.${ACTOR_NAME}`,
   };
@@ -204,7 +204,7 @@ function compileJsonToXml(doc: BpmnJson): string {
       case "serviceTask": {
         const nsidVal = esc(step.nsid ?? "");
         const resultAs = esc(step.resultAs ?? "");
-        elements.push(`<bpmn:serviceTask id="${id}" name="${nsidVal}" implementation="\${environment.services.xrpc}">${flowRefs}<bpmn:extensionElements><gftd:xrpc nsid="${nsidVal}" resultAs="${resultAs}"/></bpmn:extensionElements></bpmn:serviceTask>`);
+        elements.push(`<bpmn:serviceTask id="${id}" name="${nsidVal}" implementation="\${environment.services.xrpc}">${flowRefs}<bpmn:extensionElements><etzhayyim:xrpc nsid="${nsidVal}" resultAs="${resultAs}"/></bpmn:extensionElements></bpmn:serviceTask>`);
         break;
       }
       case "userTask":
@@ -247,7 +247,7 @@ function compileJsonToXml(doc: BpmnJson): string {
     .map(m => `<bpmn:message id="${esc(m)}" name="${esc(m)}"/>`).join("\n  ");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gftd="https://etzhayyim.com/bpmn/extension" id="def-${processId}" targetNamespace="https://etzhayyim.com/bpmn">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:etzhayyim="https://etzhayyim.com/bpmn/extension" id="def-${processId}" targetNamespace="https://etzhayyim.com/bpmn">
   ${messageDefs}
   <bpmn:process id="${processId}" name="${processName}" isExecutable="true">
     ${elements.join("\n    ")}
@@ -274,7 +274,7 @@ async function writeRecordFromCron(env: any, collection: string, rkey: string, v
     rkey,
     repo: ACTOR_DID,
     created_at: now.toISOString(),
-    org_id: "gftd",
+    org_id: "etzhayyim",
     user_id: "system",
     actor_id: `sys.${ACTOR_NAME}-cron`,
   };

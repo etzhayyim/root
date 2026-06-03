@@ -26,7 +26,7 @@ CF Worker that exposes the 13 rw-free commands as XRPC endpoints.
 ## Setup & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-bpmn/xrpc-adapter
+cd 60-apps/etzhayyim-project-bpmn/xrpc-adapter
 npm install && wrangler deploy
 ```
 

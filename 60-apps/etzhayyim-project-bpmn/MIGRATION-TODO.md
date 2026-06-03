@@ -9,7 +9,7 @@ that were not previously flagged.
 ## Detected violations (per re-scan 2026-05-21):
 
 ```
-  - 60-apps/ai-gftd-project-bpmn/appview/ai-gftd-wasm-bpmn-bx7qm9p4/src/app.ts
+  - 60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/src/app.ts
 ```
 
 ## Required remediation (per CLAUDE.md substrate boundary):
@@ -25,4 +25,3 @@ that were not previously flagged.
 - ADR-2605192100 / 2605192115 / 2605192200
 - `/CLAUDE.md` § Substrate boundary
 - This file added by Coverage Gap Patch task #15.
-

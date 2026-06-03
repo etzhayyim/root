@@ -76,6 +76,7 @@ const allowedPrefixes = [
   // Tests + archives.
   "_archive/",
   "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/_svelte/", // vite build output
+  "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/", // migrated BPMN substrate component; direct Hyperdrive writer tracked by ADR-2605181400
 ];
 
 /** Path patterns that are always allowed regardless of import content. */
