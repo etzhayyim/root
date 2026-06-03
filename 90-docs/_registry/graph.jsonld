@@ -12826,6 +12826,20 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606036000-session-close-kotoba-os-r0-r2-reference",
+      "type": "TechArticle",
+      "title": "ADR-2606036000: Session close — kotoba-os (ADR-2606031600) R0 charter → tested R1/R2 reference",
+      "status": "active",
+      "topic": "storage-substrate",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606031600-kotoba-os-content-addressed-wasm-unikernel",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
