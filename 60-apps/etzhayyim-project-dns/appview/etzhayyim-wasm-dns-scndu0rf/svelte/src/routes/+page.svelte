@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Dns Scndu0rf",
-  "project": "ai-gftd-project-dns",
-  "name": "ai-gftd-wasm-dns-scndu0rf",
+  "project": "etzhayyim-project-dns",
+  "name": "etzhayyim-wasm-dns-scndu0rf",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-dns/appview/ai-gftd-wasm-dns-scndu0rf/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-dns/appview/etzhayyim-wasm-dns-scndu0rf/svelte/src/routes/+page.svelte"
 };
 </script>
 

@@ -1,4 +1,4 @@
-# ai-gftd-project-dns
+# etzhayyim-project-dns
 
 ## Identity
 
@@ -30,7 +30,7 @@ did:web:dns.etzhayyim.com:zone:{domain_slug}
 
 **例:**
 - `did:web:dns.etzhayyim.com:zone:example_com`
-- `did:web:dns.etzhayyim.com:zone:gftd_co_jp`
+- `did:web:dns.etzhayyim.com:zone:etzhayyim_com`
 
 **Zone DID の役割:**
 - DNS レコード変更を Social Post (T1) で announce
@@ -202,7 +202,7 @@ await sdk.did.create("actor:sqExporter", {
 | nanoid | `sqddf3sp` |
 | DID | `did:web:sqddf3sp.etzhayyim.com` |
 | WIT | `magatama:browser/automation@1.0.0` import |
-| project | `ai-gftd-project-yorishiro` |
+| project | `etzhayyim-project-yorishiro` |
 | deploy | account-level Worker |
 | known limitation | WASM instantiate に `HEADLESS_BROWSER` binding 必要。Container mode で解消 |
 
@@ -306,8 +306,8 @@ await sdk.did.create("actor:sqExporter", {
 
 | interface | 機能 |
 |---|---|
-| `gftd:dns/management@1.0.0` | Zone/Record CRUD, domain registration, WHOIS, health check |
-| `gftd:dns/history@1.0.0` | WHOIS 履歴, 所有権移転リネージ, ライフサイクル, 証明書履歴, DNS レコード変更履歴 |
+| `etzhayyim:dns/management@1.0.0` | Zone/Record CRUD, domain registration, WHOIS, health check |
+| `etzhayyim:dns/history@1.0.0` | WHOIS 履歴, 所有権移転リネージ, ライフサイクル, 証明書履歴, DNS レコード変更履歴 |
 
 ## wRPC Reactive Pipeline
 
