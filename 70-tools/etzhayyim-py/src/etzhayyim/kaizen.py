@@ -236,8 +236,8 @@ def collect_and_score_domain_apps(ws: Path) -> list[DomainAppReport]:
         # Infer project name
         project = ""
         for seg in app_dir.parts:
-            if seg.startswith("ai-gftd-project-"):
-                project = seg.removeprefix("ai-gftd-project-")
+            if seg.startswith("etzhayyim-project-"):
+                project = seg.removeprefix("etzhayyim-project-")
                 break
 
         try:
@@ -309,7 +309,7 @@ def _run_kaizen_agent(ws: Path, gaps: list[KaizenGap], apps: list[DomainAppRepor
         "- Design domain-specific commands based on actual business operations.",
         "- Design domain-specific governance (RACI roles, compliance frameworks).",
         "- Add real business rules with conditional logic.\n",
-        "EVALUATION CRITERIA (gftd kaizen scoring):",
+        "EVALUATION CRITERIA (etzhayyim kaizen scoring):",
         "- Graph labels: +10 pts per unique domain label (max 30)",
         "- Collection kinds: +10 pts per unique domain kind (max 20)",
         "- Custom commands: +5 pts per non-template command (max 15)",
@@ -331,7 +331,7 @@ def _run_kaizen_agent(ws: Path, gaps: list[KaizenGap], apps: list[DomainAppRepor
 
     lines += [
         "\nProcess each app:",
-        "1. Read projects/ai-gftd-project-{project}/CLAUDE.md for domain context",
+        "1. Read projects/etzhayyim-project-{project}/CLAUDE.md for domain context",
         "2. Read the app's magatama.jsonld for identity/collections",
         "3. Read the app's src/app.ts current implementation",
         "4. Design domain-specific graph labels, collection kinds, commands",
@@ -444,7 +444,7 @@ def _resolve_cf_token() -> str:
     return ""
 
 
-def _resolve_gftd_token() -> str:
+def _resolve_etzhayyim_token() -> str:
     tok = os.environ.get("etzhayyim_TOKEN", "")
     if tok:
         return tok
@@ -541,10 +541,10 @@ def _load_ocel(pds_url: str, limit: int) -> tuple[dict, str]:
         except Exception as e:
             click.echo(f"WARN: CF Analytics Engine failed ({e}), falling back to PDS", err=True)
 
-    token = _resolve_gftd_token()
+    token = _resolve_etzhayyim_token()
     if not token:
         raise click.ClickException(
-            "not signed in — run: gftd authn signin\n"
+            "not signed in — run: etzhayyim authn signin\n"
             "  or set CF_API_TOKEN for CF Analytics Engine"
         )
     data = _fetch_ocel_from_pds(token, pds_url, limit)
@@ -676,9 +676,9 @@ def _build_kaizen_logs_prompt(summary: dict, source: str) -> str:
 
 def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     """Call murakumo scoreDataQuality + optimizeCycle."""
-    token = _resolve_gftd_token()
+    token = _resolve_etzhayyim_token()
     if not token:
-        raise click.ClickException("not signed in — run: gftd authn signin")
+        raise click.ClickException("not signed in — run: etzhayyim authn signin")
     base = pds_url.rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
 
@@ -754,7 +754,7 @@ def kaizen_logs(pds: str | None, limit: int, top: int, show_events: int,
     if json_out:
         click.echo(json.dumps(report, ensure_ascii=False, indent=2))
     else:
-        click.echo("gftd kaizen logs — Query速度/エラー分析")
+        click.echo("etzhayyim kaizen logs — Query速度/エラー分析")
         click.echo(f"  source:   {source}")
         click.echo(f"  events:   {len(events)}")
         click.echo(f"  errors:   {findings['total_errors']} "

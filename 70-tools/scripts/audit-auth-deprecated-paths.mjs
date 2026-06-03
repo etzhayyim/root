@@ -7,7 +7,7 @@
 //
 // Tracked channels (emitted by `logDeprecatedAuthPath()` in
 // 50-infra/cloudflare/workers/atproto/src/auth/verify.ts):
-//   - cookie-fallback           (gftd_session Cookie → Bearer 昇格)
+//   - cookie-fallback           (etzhayyim_session Cookie → Bearer 昇格)
 //   - auth-service-delegation   (AUTH_SERVICE.fetch session 昇格)
 //   - parse-jwt-payload-unsafe  (HS256 unsafe payload trust; already removed)
 //
@@ -21,7 +21,7 @@
 // Usage:
 //   node 70-tools/scripts/audit-auth-deprecated-paths.mjs --tail
 //   node 70-tools/scripts/audit-auth-deprecated-paths.mjs --logpush ./logs.ndjson
-//   WRANGLER_WORKER=ai-gftd-pds node ... --tail
+//   WRANGLER_WORKER=etzhayyim-pds node ... --tail
 
 import { spawn } from "node:child_process";
 import { createReadStream } from "node:fs";
@@ -54,7 +54,7 @@ function parseArgs() {
 function printHelp() {
   stdout.write(`audit-auth-deprecated-paths — ADR-0022 Step 7 evidence
 
-  --tail                  Stream wrangler tail (Worker: WRANGLER_WORKER env, default ai-gftd-pds)
+  --tail                  Stream wrangler tail (Worker: WRANGLER_WORKER env, default etzhayyim-pds)
   --logpush <ndjson>      Analyze a Cloudflare Logpush ndjson export
 
 Exit code 0 = zero hits (gate PASS). Non-zero = hits found (gate FAIL).
@@ -86,7 +86,7 @@ function recordLine(rawLine) {
 }
 
 async function runTail() {
-  const worker = process.env.WRANGLER_WORKER || "ai-gftd-pds";
+  const worker = process.env.WRANGLER_WORKER || "etzhayyim-pds";
   stderr.write(`tailing worker=${worker} (Ctrl-C to stop)\n`);
   const child = spawn("wrangler", ["tail", worker, "--format=json"], { stdio: ["ignore", "pipe", "inherit"] });
   const rl = createInterface({ input: child.stdout });

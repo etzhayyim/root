@@ -178,7 +178,7 @@ def _haisen_html(data: dict[str, Any]) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8">
-<title>gftd haisen</title>
+<title>etzhayyim haisen</title>
 <style>
 body{{background:#0b1020;color:#e0e0ff;font-family:'SF Mono',monospace;margin:0}}
 #info{{padding:8px 16px;background:#1a1a3a;font-size:13px}}
@@ -189,7 +189,7 @@ text{{font-size:10px;fill:#c0c0e0;pointer-events:none}}
 </style>
 </head>
 <body>
-<div id="info">gftd kashika html &mdash; {len(apps)} apps, {len(edges)} edges</div>
+<div id="info">etzhayyim kashika html &mdash; {len(apps)} apps, {len(edges)} edges</div>
 <svg id="graph" width="100%" height="calc(100vh - 40px)">
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
   markerWidth="5" markerHeight="5" orient="auto">
@@ -490,7 +490,7 @@ def kashika_hyoka(input_file: str | None, fmt: str, output: str | None, top: int
     if fmt == "html":
         rows_json = json.dumps(rows_sorted, ensure_ascii=False)
         html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<title>gftd kashika hyoka</title>
+<title>etzhayyim kashika hyoka</title>
 <style>body{{background:#0b1020;color:#e0e0ff;font-family:'SF Mono',monospace;padding:16px}}
 table{{border-collapse:collapse;width:100%}}
 th{{background:#1a1a3a;padding:6px 10px;text-align:left}}

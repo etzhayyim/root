@@ -600,7 +600,7 @@ def test_version_cmd():
     runner = CliRunner()
     result = runner.invoke(main, ["version"])
     assert result.exit_code == 0
-    assert "gftd" in result.output
+    assert "etzhayyim" in result.output
 
 
 def test_seed_list():
@@ -729,8 +729,8 @@ def test_docs_gen_schema_help():
     assert "schema.auto.md" in result.output or "magatama" in result.output
 
 
-def test_migrate_manifest_no_gftd_json_exits_nonzero(tmp_path):
-    """migrate-manifest run exits 1 when gftd.json is absent."""
+def test_migrate_manifest_no_etzhayyim_json_exits_nonzero(tmp_path):
+    """migrate-manifest run exits 1 when etzhayyim.json is absent."""
     runner = CliRunner()
     result = runner.invoke(main, ["migrate-manifest", "run", "--dir", str(tmp_path)])
     assert result.exit_code != 0
@@ -738,14 +738,14 @@ def test_migrate_manifest_no_gftd_json_exits_nonzero(tmp_path):
 
 def test_migrate_manifest_dry_run_basic(tmp_path):
     """migrate-manifest run --dry-run prints magatama.jsonld to stdout."""
-    gftd_json = {
+    etzhayyim_json = {
         "name": "test-app",
         "nanoid": "t3st4pp",
         "project": "test",
         "org": "etzhayyim",
         "routes": [{"host": "test.etzhayyim.com"}],
     }
-    (tmp_path / "etzhayyim.json").write_text(json.dumps(gftd_json))
+    (tmp_path / "etzhayyim.json").write_text(json.dumps(etzhayyim_json))
     runner = CliRunner()
     result = runner.invoke(
         main, ["migrate-manifest", "run", "--dir", str(tmp_path), "--dry-run"]
@@ -757,13 +757,13 @@ def test_migrate_manifest_dry_run_basic(tmp_path):
 
 def test_migrate_manifest_writes_jsonld(tmp_path):
     """migrate-manifest run writes magatama.jsonld from etzhayyim.json."""
-    gftd_json = {
+    etzhayyim_json = {
         "name": "my-actor",
         "nanoid": "my4ct0r",
         "project": "testproj",
         "runtime": "worker",
     }
-    (tmp_path / "etzhayyim.json").write_text(json.dumps(gftd_json))
+    (tmp_path / "etzhayyim.json").write_text(json.dumps(etzhayyim_json))
     runner = CliRunner()
     result = runner.invoke(
         main, ["migrate-manifest", "run", "--dir", str(tmp_path)]
@@ -791,7 +791,7 @@ def test_migrate_manifest_skips_existing(tmp_path):
 
 
 def test_migrate_manifest_batch(tmp_path):
-    """migrate-manifest run --batch migrates all subdirs with gftd.json."""
+    """migrate-manifest run --batch migrates all subdirs with etzhayyim.json."""
     for name in ("alpha", "beta"):
         d = tmp_path / name
         d.mkdir()
@@ -1201,7 +1201,7 @@ def test_kosei_suggest_tier():
     from etzhayyim.kosei import _suggest_tier
     assert _suggest_tier({"name": "pds-gateway", "dir": "50-infra/vultr/pds"}) == "T3"
     assert _suggest_tier({"name": "magatama-actor", "dir": "20-actors/magatama"}) == "T1"
-    assert _suggest_tier({"name": "shinshi-app", "dir": "60-apps/ai-gftd-project-shinshi"}) == "T2"
+    assert _suggest_tier({"name": "shinshi-app", "dir": "60-apps/etzhayyim-project-shinshi"}) == "T2"
 
 
 def test_kosei_set_and_list(tmp_path):
@@ -1927,7 +1927,7 @@ def test_kosei_stack_not_found(tmp_path):
 def test_kosei_stack_with_app(tmp_path):
     """kosei stack with a real magatama.jsonld prints stack info."""
     import json as _json
-    app_dir = tmp_path / "60-apps" / "ai-gftd-project-test" / "actors" / "test-actor"
+    app_dir = tmp_path / "60-apps" / "etzhayyim-project-test" / "actors" / "test-actor"
     app_dir.mkdir(parents=True)
     manifest = {
         "nanoid": "test1234567",
@@ -1949,7 +1949,7 @@ def test_kosei_stack_with_app(tmp_path):
 def test_kosei_stack_json(tmp_path):
     """kosei stack --json returns a dict with 'stack' key."""
     import json as _json
-    app_dir = tmp_path / "60-apps" / "ai-gftd-project-test" / "actors" / "test-actor2"
+    app_dir = tmp_path / "60-apps" / "etzhayyim-project-test" / "actors" / "test-actor2"
     app_dir.mkdir(parents=True)
     manifest = {
         "nanoid": "test9876543",
@@ -2359,7 +2359,7 @@ def test_identity_migrate_paths_dry_run_json(tmp_path):
     assert "results" in data
     assert len(data["results"]) == 1
     assert data["results"][0]["name"] == "testactor"
-    assert data["results"][0]["pathDid"].startswith("did:gftd:")
+    assert data["results"][0]["pathDid"].startswith("did:etzhayyim:")
 
 
 # ── docs-gen schema ────────────────────────────────────────────────────────────
@@ -2377,7 +2377,7 @@ def test_docs_gen_schema_json(tmp_path):
         "name": "test-app",
         "nanoid": "abc123",
         "@id": "did:web:test.etzhayyim.com",
-        "project": "ai-gftd-project-test",
+        "project": "etzhayyim-project-test",
         "performerType": "service",
     }
     import json as _json
@@ -2689,7 +2689,7 @@ from etzhayyim.monitor import (
 
 
 def _make_app(tmp_path: Path, nanoid: str = "abc12345", name: str = "TestApp") -> DiscoveredApp:
-    app_dir = tmp_path / "60-apps" / f"ai-gftd-project-{nanoid}" / "src"
+    app_dir = tmp_path / "60-apps" / f"etzhayyim-project-{nanoid}" / "src"
     app_dir.mkdir(parents=True)
     meta_dir = app_dir.parent
     (meta_dir / "magatama.jsonld").write_text(json.dumps({
@@ -2881,7 +2881,7 @@ def test_code_exec_dry_run_no_agent_dir(tmp_path, monkeypatch):
 def test_code_exec_dry_run_with_agent_dir(tmp_path, monkeypatch):
     """dry-run prints command when agent dir exists."""
     monkeypatch.chdir(tmp_path)
-    agent_dir = tmp_path / "60-apps" / "ai-gftd-terminal-agent"
+    agent_dir = tmp_path / "60-apps" / "etzhayyim-terminal-agent"
     agent_dir.mkdir(parents=True)
     # Make tmp_path look like a git root
     (tmp_path / ".git").mkdir()
@@ -2969,7 +2969,7 @@ def test_deps_sql_stub():
     runner = CliRunner()
     result = runner.invoke(main, ["deps", "sql"])
     assert result.exit_code != 0
-    assert "gftd deps sql" in result.output or "pgxpool" in result.output
+    assert "etzhayyim deps sql" in result.output or "pgxpool" in result.output
 
 
 def test_deps_sql_help():
@@ -3067,7 +3067,7 @@ def test_agent_runtime_register_live_blocked():
         "--no-dry-run",
     ])
     assert result.exit_code != 0
-    assert "Go binary" in result.output or "gftd" in result.output
+    assert "Go binary" in result.output or "etzhayyim" in result.output
 
 
 def test_agent_runtime_holochain_plan_help():
@@ -3168,7 +3168,7 @@ def test_bonsai_canopy_is_go_only():
     runner = CliRunner()
     result = runner.invoke(main, ["bonsai", "canopy"])
     assert result.exit_code != 0
-    assert "Go binary" in result.output or "gftddb" in result.output.lower() or \
+    assert "Go binary" in result.output or "etzhayyimdb" in result.output.lower() or \
            "risingwave" in result.output.lower()
 
 
@@ -3176,14 +3176,14 @@ def test_bonsai_growth_is_go_only():
     runner = CliRunner()
     result = runner.invoke(main, ["bonsai", "growth"])
     assert result.exit_code != 0
-    assert "Go binary" in result.output or "gftddb" in result.output.lower()
+    assert "Go binary" in result.output or "etzhayyimdb" in result.output.lower()
 
 
 def test_bonsai_release_is_go_only():
     runner = CliRunner()
     result = runner.invoke(main, ["bonsai", "release", "did:web:test.etzhayyim.com"])
     assert result.exit_code != 0
-    assert "Go binary" in result.output or "gftddb" in result.output.lower()
+    assert "Go binary" in result.output or "etzhayyimdb" in result.output.lower()
 
 
 def test_bonsai_canopy_help():

@@ -41,7 +41,7 @@ class SoSCluster:
 
 
 def _cluster_by_project(report: HaisenReport, ws: Path) -> list[SoSCluster]:
-    """Group actors by their project (ai-gftd-project-X)."""
+    """Group actors by their project (etzhayyim-project-X)."""
     project_of: dict[str, str] = {}
 
     projects_dir = ws / "60-apps"
@@ -55,8 +55,8 @@ def _cluster_by_project(report: HaisenReport, ws: Path) -> list[SoSCluster]:
                 data = _json.loads(jsonld.read_text(errors="replace"))
                 if data.get("nanoid") == app.nanoid:
                     for seg in jsonld.parts:
-                        if seg.startswith("ai-gftd-project-"):
-                            project_of[app.nanoid] = seg.removeprefix("ai-gftd-project-")
+                        if seg.startswith("etzhayyim-project-"):
+                            project_of[app.nanoid] = seg.removeprefix("etzhayyim-project-")
                             break
             except (OSError, Exception):
                 pass

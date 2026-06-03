@@ -1,4 +1,4 @@
-"""gftd xrpc — port of xrpc.go (ADR-2605151500).
+"""etzhayyim xrpc — port of xrpc.go (ADR-2605151500).
 
 Invoke any XRPC endpoint on an App or PDS.
 Auto-routes com.etzhayyim.apps.{slug}.* NSIDs to the correct nanoid worker.

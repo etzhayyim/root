@@ -93,7 +93,7 @@ def kagami_diff(workspace_dir: str | None, pds: str | None, json_out: bool) -> N
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
 
     ws = _resolve_root(workspace_dir)

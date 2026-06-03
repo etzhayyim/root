@@ -32,7 +32,7 @@ def _auth_headers() -> dict[str, str]:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -76,7 +76,7 @@ def _find_git_root() -> Path:
         return Path(result.stdout.strip())
     except subprocess.CalledProcessError:
         raise click.ClickException(
-            "gftd database must be run inside the gftd monorepo (no git root found)"
+            "etzhayyim database must be run inside the etzhayyim monorepo (no git root found)"
         )
 
 
@@ -105,7 +105,7 @@ def _run_kysely_migrate(schema_dir: Path, db_url: str, migrator_args: list[str])
         )
     node_args = ["node", "--loader=ts-node/esm", "scripts/migrate.ts"] + migrator_args
     env = {**os.environ, "DATABASE_URL": db_url}
-    click.echo(f"gftd database: {migrator_args[0] if migrator_args else 'latest'} → {_redact_url(db_url)}", err=True)
+    click.echo(f"etzhayyim database: {migrator_args[0] if migrator_args else 'latest'} → {_redact_url(db_url)}", err=True)
     result = subprocess.run(node_args, cwd=schema_dir, env=env)
     if result.returncode != 0:
         sys.exit(result.returncode)

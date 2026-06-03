@@ -24,7 +24,7 @@
  *
  * Usage:
  *   node 70-tools/scripts/bigquery-public-dataset-catalog.mjs \
- *     --project gftd-bq-ingest \
+ *     --project etzhayyim-bq-ingest \
  *     --providers bigquery-public-data \
  *     --datasets github_repos,gdelt-bq:gdeltv2 \
  *     --max-tables-per-dataset 50 \

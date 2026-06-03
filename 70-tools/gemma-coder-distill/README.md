@@ -63,8 +63,8 @@ ssh evo 'cd C:\llama.cpp && python convert.py ^
    --outfile gemma4-coder-e4b-iter00-Q4_K_M.gguf --outtype Q4_K_M'
 
 # 2) push to each mini (Ansible — see ADR §3 Step 6)
-ansible-playbook -i 60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml \
-   60-apps/ai-gftd-project-murakumo/ansible/push-ollama-model.yml \
+ansible-playbook -i 60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml \
+   60-apps/etzhayyim-project-murakumo/ansible/push-ollama-model.yml \
    -e model_file=gemma4-coder-e4b-iter00-Q4_K_M.gguf \
    -e model_tag=gemma4-coder:e4b-iter00
 
@@ -88,5 +88,5 @@ Scaffold + node logic landed 2026-05-25. Awaits:
 - **Step 2**: `70-tools/scripts/bench/langgraph-coding/prompts.jsonl` + 50 graders (currently 1 seed)
 - **Step 4**: coding-specific Apache/MIT HF corpora added to `DATASET_REGISTRY`
 - **Step 5**: iter-00 quick run end-to-end on EVO-X2 (requires Step 2 done first)
-- **Step 6**: Ansible push runbook (`60-apps/ai-gftd-project-murakumo/ansible/push-ollama-model.yml`)
+- **Step 6**: Ansible push runbook (`60-apps/etzhayyim-project-murakumo/ansible/push-ollama-model.yml`)
 - **Step 7**: LiteLLM route addition (`gemma4-coder:e4b` in `50-infra/cluster/murakumo/litellm/config.yaml`)

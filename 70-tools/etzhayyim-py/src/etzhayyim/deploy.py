@@ -1,6 +1,6 @@
-"""gftd build / deploy — magatama Worker build + Cloudflare deploy (Python port).
+"""etzhayyim build / deploy — magatama Worker build + Cloudflare deploy (Python port).
 
-Core logic ported from 70-tools/gftd/gftd/build.go and deploy.go.
+Core logic ported from 70-tools/etzhayyim/etzhayyim/build.go and deploy.go.
 Shells out to pnpm and wrangler the same way the Go binary does.
 """
 
@@ -23,7 +23,7 @@ import httpx
 
 _CF_ACCOUNT_ID = "4da88288dc30d9ee257f319d3c33ecf0"
 _SECRETS_STORE_ID = os.environ.get("etzhayyim_SECRETS_STORE_ID", "1824561668fe47cc9127d493961885af")
-_DEFAULT_PDS_SERVICE = "ai-gftd-pds-2603241700"
+_DEFAULT_PDS_SERVICE = "etzhayyim-pds-2603241700"
 
 _WRANGLER_SHARED_SECRETS: list[tuple[str, str]] = [
     ("SS_YATA_S3_KEY_ID", "yata_s3_key_id"),
@@ -110,7 +110,7 @@ def _resolve_pds_service() -> str:
     return os.environ.get("etzhayyim_PDS_SERVICE", _DEFAULT_PDS_SERVICE).strip()
 
 
-def _resolve_gftd_token() -> str:
+def _resolve_etzhayyim_token() -> str:
     return os.environ.get("etzhayyim_TOKEN", "")
 
 
@@ -192,8 +192,8 @@ def _actor_handle_from_cfg(cfg: dict, comp_dir: Path) -> str:
     profile = cfg.get("profile") or {}
     if h := profile.get("handle", "").strip():
         return h
-    # derive from dir name ai-gftd-wasm-{slug}-{nanoid}
-    m = re.match(r"ai-gftd-wasm-(.+?)-[a-z0-9]{8,}$", comp_dir.name)
+    # derive from dir name etzhayyim-wasm-{slug}-{nanoid}
+    m = re.match(r"etzhayyim-wasm-(.+?)-[a-z0-9]{8,}$", comp_dir.name)
     if m:
         return m.group(1)
     return ""
@@ -379,8 +379,8 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
         f'  "compatibility_date": "2025-03-17",\n'
         f'  "compatibility_flags": ["nodejs_compat", "nodejs_als"],{alias_block}{assets_block}{vars_block}\n'
         f'  "r2_buckets": [\n'
-        f'    {{ "binding": "YATA_R2", "bucket_name": "ai-gftd-cache" }},\n'
-        f'    {{ "binding": "CACHE_R2", "bucket_name": "ai-gftd-cache" }}\n'
+        f'    {{ "binding": "YATA_R2", "bucket_name": "etzhayyim-cache" }},\n'
+        f'    {{ "binding": "CACHE_R2", "bucket_name": "etzhayyim-cache" }}\n'
         f'  ],\n'
         f'  "hyperdrive": [\n'
         f'    {{ "binding": "HYPERDRIVE", "id": "e84c0a2babe44fc7b74818e394b4b896" }}\n'
@@ -388,8 +388,8 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
         f'  "services": [\n'
         f'    {{ "binding": "PDS_SERVICE", "service": {json.dumps(pds_service)} }},\n'
         f'    {{ "binding": "PDS_RPC", "service": {json.dumps(pds_service)}, "entrypoint": "PdsRPC" }},\n'
-        f'    {{ "binding": "MURAKUMO_SERVICE", "service": "ai-gftd-murakumo-2603241700" }},\n'
-        f'    {{ "binding": "COMFYUI_SERVICE", "service": "ai-gftd-comfyui-2604221600" }}\n'
+        f'    {{ "binding": "MURAKUMO_SERVICE", "service": "etzhayyim-murakumo-2603241700" }},\n'
+        f'    {{ "binding": "COMFYUI_SERVICE", "service": "etzhayyim-comfyui-2604221600" }}\n'
         f'  ],\n'
         f'  "secrets_store_secrets": [\n'
         + ",\n".join(secret_entries) + "\n"

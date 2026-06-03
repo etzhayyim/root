@@ -166,7 +166,7 @@ def dodaf_viewpoints(workspace_dir: str | None, json_out: bool) -> None:
 def dodaf_generate(workspace_dir: str | None) -> None:
     """Generate DoDAF diagram files (requires Go binary)."""
     click.echo(
-        "gftd dodaf generate requires the Go binary. Run: gftd dodaf generate",
+        "etzhayyim dodaf generate requires the Go binary. Run: etzhayyim dodaf generate",
         err=True,
     )
     sys.exit(1)
@@ -281,9 +281,9 @@ def _build_where(tag_col: str, folder_col: str, tag_list: list[str], path_val: s
 
 def _dodaf_seed_tv1(now: str) -> list[dict]:
     return [
-        {"id": "cf-wasm-no-dynamic-compile", "view": "TV-1", "title": "CF Workers: WebAssembly.compile() blocked at runtime", "standard_ref": "Cloudflare Workers V8 embedder policy", "rule": "WebAssembly.compile(bytes) called at request time returns CompileError: 'Wasm code generation disallowed by embedder'. Only static WASM imports via CompiledWasm wrangler rule are supported.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "_archive/30-graph/kagami-live-260414/wasm/"], "scope_tags": ["cloudflare", "wasm", "assemblyscript"], "scope_exts": [".ts", ".wasm", ".jsonc"], "evidence": "h0g3t3st.etzhayyim.com/xrpc/com.etzhayyim.apps.hoge.wasmEval — validated 2026-04-08", "status": "[PRODUCTION]", "source": "60-apps/ai-gftd-project-hoge/appview/src/index.ts", "alternative": "", "created_at": now},
-        {"id": "cf-wasm-static-import-ok", "view": "TV-1", "title": "CF Workers: static WASM import via CompiledWasm rule works", "standard_ref": "Cloudflare Workers CompiledWasm rule", "rule": "Static WASM import with CompiledWasm wrangler rule works correctly. new WebAssembly.Instance(MODULE, imports) per-request instantiation is ~0ms.", "severity": "info", "permitted": True, "scope_folders": ["60-apps/", "_archive/30-graph/kagami-live-260414/wasm/"], "scope_tags": ["cloudflare", "wasm", "assemblyscript"], "scope_exts": [".ts", ".jsonc"], "evidence": "h0g3t3st.etzhayyim.com/xrpc/com.etzhayyim.apps.hoge.wasmTest — validated 2026-04-08", "status": "[PRODUCTION]", "source": "60-apps/ai-gftd-project-hoge/appview/src/index.ts", "alternative": "", "created_at": now},
-        {"id": "cf-worker-no-kv", "view": "TV-1", "title": "CF Workers: KV usage prohibited", "standard_ref": "W Protocol Event Stream architecture", "rule": "magatama.KvGet() / magatama.KvPut() are prohibited. All data must flow through W Protocol Event Stream (ComAtprotoRepoCreateRecord / Preferences). Use PDS_SERVICE service binding for all data access.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/"], "scope_tags": ["cloudflare", "typescript", "magatama"], "scope_exts": [".ts"], "evidence": "70-tools/gftd/gftd/code_quality.go kv-usage rule", "status": "[PRODUCTION]", "source": "60-apps/CLAUDE.md", "alternative": "", "created_at": now},
+        {"id": "cf-wasm-no-dynamic-compile", "view": "TV-1", "title": "CF Workers: WebAssembly.compile() blocked at runtime", "standard_ref": "Cloudflare Workers V8 embedder policy", "rule": "WebAssembly.compile(bytes) called at request time returns CompileError: 'Wasm code generation disallowed by embedder'. Only static WASM imports via CompiledWasm wrangler rule are supported.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "_archive/30-graph/kagami-live-260414/wasm/"], "scope_tags": ["cloudflare", "wasm", "assemblyscript"], "scope_exts": [".ts", ".wasm", ".jsonc"], "evidence": "h0g3t3st.etzhayyim.com/xrpc/com.etzhayyim.apps.hoge.wasmEval — validated 2026-04-08", "status": "[PRODUCTION]", "source": "60-apps/etzhayyim-project-hoge/appview/src/index.ts", "alternative": "", "created_at": now},
+        {"id": "cf-wasm-static-import-ok", "view": "TV-1", "title": "CF Workers: static WASM import via CompiledWasm rule works", "standard_ref": "Cloudflare Workers CompiledWasm rule", "rule": "Static WASM import with CompiledWasm wrangler rule works correctly. new WebAssembly.Instance(MODULE, imports) per-request instantiation is ~0ms.", "severity": "info", "permitted": True, "scope_folders": ["60-apps/", "_archive/30-graph/kagami-live-260414/wasm/"], "scope_tags": ["cloudflare", "wasm", "assemblyscript"], "scope_exts": [".ts", ".jsonc"], "evidence": "h0g3t3st.etzhayyim.com/xrpc/com.etzhayyim.apps.hoge.wasmTest — validated 2026-04-08", "status": "[PRODUCTION]", "source": "60-apps/etzhayyim-project-hoge/appview/src/index.ts", "alternative": "", "created_at": now},
+        {"id": "cf-worker-no-kv", "view": "TV-1", "title": "CF Workers: KV usage prohibited", "standard_ref": "W Protocol Event Stream architecture", "rule": "magatama.KvGet() / magatama.KvPut() are prohibited. All data must flow through W Protocol Event Stream (ComAtprotoRepoCreateRecord / Preferences). Use PDS_SERVICE service binding for all data access.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/"], "scope_tags": ["cloudflare", "typescript", "magatama"], "scope_exts": [".ts"], "evidence": "70-tools/etzhayyim/etzhayyim/code_quality.go kv-usage rule", "status": "[PRODUCTION]", "source": "60-apps/CLAUDE.md", "alternative": "", "created_at": now},
         {"id": "cf-worker-pds-gateway-only", "view": "TV-1", "title": "CF Workers: all data access via PDS_SERVICE binding only", "standard_ref": "PDS Gateway Pattern", "rule": "App Workers must use env.PDS_SERVICE service binding for all data access. Direct graph RPC binding in app Workers is prohibited. globalThis.fetch() to llm.etzhayyim.com or other internal services is prohibited.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/"], "scope_tags": ["cloudflare", "typescript", "magatama", "pds"], "scope_exts": [".ts", ".jsonc"], "evidence": "50-infra/CLAUDE.md §PDS Gateway Pattern", "status": "[PRODUCTION]", "source": "50-infra/CLAUDE.md", "alternative": "", "created_at": now},
         {"id": "xrpc-sole-api", "view": "TV-1", "title": "XRPC (/xrpc/{NSID}) is the sole external API surface", "standard_ref": "AT Protocol XRPC standard", "rule": "All public API endpoints must use /xrpc/{NSID} format (AT Protocol native). REST endpoints for business mutations are prohibited.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "50-infra/"], "scope_tags": ["at-protocol", "xrpc", "typescript"], "scope_exts": [".ts"], "evidence": "CLAUDE.md root §XRPC = sole API", "status": "[PRODUCTION]", "source": "CLAUDE.md", "alternative": "", "created_at": now},
         {"id": "shannon-redundancy-prohibition", "view": "TV-1", "title": "Shannon Redundancy Prohibition: single source of truth", "standard_ref": "Shannon information theory", "rule": "Each rule/fact must appear in exactly one location in the hierarchy. Copying the same rule to multiple CLAUDE.md files is prohibited (entropy=0). Stale comments are prohibited.", "severity": "critical", "permitted": False, "scope_folders": [], "scope_tags": ["claude", "docs", "code-review"], "scope_exts": [".md", ".ts", ".go"], "evidence": "CLAUDE.md root §CRITICAL: Shannon Redundancy Prohibition", "status": "[PRODUCTION]", "source": "CLAUDE.md", "alternative": "", "created_at": now},
@@ -291,28 +291,28 @@ def _dodaf_seed_tv1(now: str) -> list[dict]:
         {"id": "write-only-derived-architecture", "view": "TV-1", "title": "Write-Only Derived Architecture: handlers write only (η=100%)", "standard_ref": "260407-write-only-derived-architecture-design.md", "rule": "Handlers must only call writePublic() or writePrivate(). Calling postFeed(), sdk.hostImports.invoke(), or sdk.hostImports.appBskyFeedPost() inside a handler is prohibited.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/"], "scope_tags": ["at-protocol", "typescript", "magatama", "design-e"], "scope_exts": [".ts", ".jsonld"], "evidence": "90-docs/260407-write-only-derived-architecture-design.md", "status": "[PRODUCTION]", "source": "CLAUDE.md", "alternative": "", "created_at": now},
         {"id": "no-synthetic-data-production", "view": "TV-1", "title": "No synthetic data in production API responses", "standard_ref": "Shannon information theory — entropy=0 for fabricated data", "rule": "200 OK responses must only contain data that actually exists in the graph/DB. Empty graph query → empty array. Unknown author/DID → empty string. Not found → 404 (never return fake record as 200).", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "50-infra/"], "scope_tags": ["typescript", "api", "data-integrity"], "scope_exts": [".ts"], "evidence": "CLAUDE.md root §CRITICAL: No Synthetic Data in Production Responses", "status": "[PRODUCTION]", "source": "CLAUDE.md", "alternative": "", "created_at": now},
         {"id": "cf-wasm-component-model-not-supported", "view": "TV-1", "title": "CF Workers: WASM Component Model is not supported", "standard_ref": "Cloudflare Workers V8 runtime", "rule": "WASM Component Model (WIT-based components, wasmtime component instantiation) does NOT work on Cloudflare Workers (V8-based). Only basic WASM modules are supported.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "_archive/30-graph/kagami-live-260414/wasm/"], "scope_tags": ["cloudflare", "wasm", "assemblyscript"], "scope_exts": [".wasm", ".wit", ".ts"], "evidence": "Codebase search: zero Component Model usage in CF Workers — 2026-04-08", "status": "[PRODUCTION]", "source": "CLAUDE.md", "alternative": "", "created_at": now},
-        {"id": "do-sqlite-prohibited", "view": "TV-1", "title": "CF Workers: Durable Object SQLite is prohibited", "standard_ref": "W Protocol Event Stream architecture", "rule": "DurableObjectState.storage.sql / durable-object-sql WIT / raw DO-sql-exec() direct calls are prohibited. All data goes through W Protocol Event Stream.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "50-infra/"], "scope_tags": ["cloudflare", "typescript", "durable-objects"], "scope_exts": [".ts"], "evidence": "70-tools/gftd/gftd/code_quality.go dosqlexec rule", "status": "[PRODUCTION]", "source": "60-apps/CLAUDE.md", "alternative": "", "created_at": now},
+        {"id": "do-sqlite-prohibited", "view": "TV-1", "title": "CF Workers: Durable Object SQLite is prohibited", "standard_ref": "W Protocol Event Stream architecture", "rule": "DurableObjectState.storage.sql / durable-object-sql WIT / raw DO-sql-exec() direct calls are prohibited. All data goes through W Protocol Event Stream.", "severity": "critical", "permitted": False, "scope_folders": ["60-apps/", "50-infra/"], "scope_tags": ["cloudflare", "typescript", "durable-objects"], "scope_exts": [".ts"], "evidence": "70-tools/etzhayyim/etzhayyim/code_quality.go dosqlexec rule", "status": "[PRODUCTION]", "source": "60-apps/CLAUDE.md", "alternative": "", "created_at": now},
     ]
 
 
 def _dodaf_seed_av2(now: str) -> list[dict]:
     return [
-        {"id": "compiled-wasm", "term": "CompiledWasm", "definition": "Wrangler rule that converts .wasm ESM imports into WebAssembly.Module at bundle time. Declared in wrangler.jsonc as {\"rules\":[{\"type\":\"CompiledWasm\",\"globs\":[\"**/*.wasm\"]}]}. Allows static import of WASM modules that are instantiated per-request.", "aliases": ["CompiledWasm rule", "wasm static import"], "domain": "cloudflare", "scope_tags": ["cloudflare", "wasm"], "source": "60-apps/ai-gftd-project-hoge/appview/wrangler.jsonc", "status": "[PRODUCTION]", "created_at": now},
+        {"id": "compiled-wasm", "term": "CompiledWasm", "definition": "Wrangler rule that converts .wasm ESM imports into WebAssembly.Module at bundle time. Declared in wrangler.jsonc as {\"rules\":[{\"type\":\"CompiledWasm\",\"globs\":[\"**/*.wasm\"]}]}. Allows static import of WASM modules that are instantiated per-request.", "aliases": ["CompiledWasm rule", "wasm static import"], "domain": "cloudflare", "scope_tags": ["cloudflare", "wasm"], "source": "60-apps/etzhayyim-project-hoge/appview/wrangler.jsonc", "status": "[PRODUCTION]", "created_at": now},
         {"id": "magatama-app", "term": "App", "definition": "TS Native Cloudflare Worker app using @etzhayyim/magatama-host-sdk with WIT contracts. Single-file architecture (src/app.ts). Deployed as account-level Worker with {nanoid}.etzhayyim.com/* route. createWorkerExport() is the entry point.", "aliases": ["magatama", "TS native app", "magatama component"], "domain": "platform", "scope_tags": ["typescript", "cloudflare", "magatama"], "source": "20-actors/magatama/CLAUDE.md", "status": "[PRODUCTION]", "created_at": now},
         {"id": "xrpc", "term": "XRPC", "definition": "AT Protocol Remote Procedure Call format. All public APIs use /xrpc/{NSID} path. NSID format: {namespace}.{method} in camelCase (e.g. com.etzhayyim.apps.hoge.wasmTest). XRPC is the sole external API surface — no REST endpoints for business logic.", "aliases": ["XRPC", "AT Protocol RPC", "/xrpc/"], "domain": "at-protocol", "scope_tags": ["at-protocol", "xrpc", "api"], "source": "10-protocol/wproto/xrpc/", "status": "[PRODUCTION]", "created_at": now},
         {"id": "kagami", "term": "kagami", "definition": "Graph database using DuckDB + S3 Parquet on Linode LKE. P10v2 GraphAr-native typed columnar schema (1 AT record = 1 row). Accessed through the graph SQL path from the PDS Worker.", "aliases": ["graph SQL path", "Hyperdrive"], "domain": "infrastructure", "scope_tags": ["graph-db", "duckdb", "parquet"], "source": "_archive/30-graph/kagami-live-260414/CLAUDE.md", "status": "[PRODUCTION]", "created_at": now},
         {"id": "nanoid-did", "term": "nanoid DID", "definition": "Canonical DID format: did:web:{nanoid}.etzhayyim.com. AT Protocol repo always uses nanoid DID. Vanity domain (e.g. hoge.etzhayyim.com) is a handle/alias only — never used as repo DID.", "aliases": ["canonical DID", "did:web:{nanoid}.etzhayyim.com"], "domain": "at-protocol", "scope_tags": ["at-protocol", "did", "identity"], "source": "50-infra/CLAUDE.md §Canonical DID", "status": "[PRODUCTION]", "created_at": now},
         {"id": "w-protocol", "term": "W Protocol", "definition": "AT Protocol superset extending AT Protocol with Signal Protocol E2E encryption, WIT contracts, wRPC streaming, and Multi-DID per actor. All entities have AI Agent DIDs. Federable with AT Protocol network.", "aliases": ["W Protocol", "wproto"], "domain": "protocol", "scope_tags": ["at-protocol", "w-protocol", "protocol"], "source": "10-protocol/wproto/CLAUDE.md", "status": "[PRODUCTION]", "created_at": now},
         {"id": "pds-service", "term": "PDS_SERVICE", "definition": "Cloudflare Workers service binding from App Worker to PDS Worker. The sole data gateway for all read/write operations. Exposes: createRecord(), query(), batchImport(), updateRecord(), deleteRecord(), uploadBlob(). Direct graph RPC binding in app Workers is prohibited.", "aliases": ["PDS_SERVICE binding", "env.PDS_SERVICE"], "domain": "infrastructure", "scope_tags": ["cloudflare", "pds", "service-binding"], "source": "50-infra/CLAUDE.md §PDS Gateway Pattern", "status": "[PRODUCTION]", "created_at": now},
-        {"id": "shannon-score", "term": "Shannon entropy score", "definition": "H = -Σ p(x)·log₂(p(x)). In the platform context: measures information density of code/docs (η=1 means no redundancy). Applied to: CLAUDE.md rules (single source of truth), code coupling (DSM), uncertainty propagation (BayesNet). Tools: gftd shannon, gftd mokuteki.", "aliases": ["Shannon entropy", "η", "information entropy"], "domain": "information-theory", "scope_tags": ["shannon", "metrics", "docs"], "source": "70-tools/gftd/CLAUDE.md §gftd shannon", "status": "[PRODUCTION]", "created_at": now},
-        {"id": "dodaf-v2", "term": "DoDAF v2", "definition": "Department of Defense Architecture Framework version 2. Viewpoints: AV (All View), OV (Operational View), SV (Systems View), TV (Technical Standards View), CV (Capability View). Used for: AV-2 Integrated Dictionary (lexicon), TV-1 Technical Standards (constraints), OV-5 Operational Activities (permitted/prohibited).", "aliases": ["DoDAF", "Department of Defense Architecture Framework"], "domain": "architecture", "scope_tags": ["dodaf", "architecture", "docs"], "source": "70-tools/gftd/gftd/dodaf.go", "status": "[PRODUCTION]", "created_at": now},
+        {"id": "shannon-score", "term": "Shannon entropy score", "definition": "H = -Σ p(x)·log₂(p(x)). In the platform context: measures information density of code/docs (η=1 means no redundancy). Applied to: CLAUDE.md rules (single source of truth), code coupling (DSM), uncertainty propagation (BayesNet). Tools: etzhayyim shannon, etzhayyim mokuteki.", "aliases": ["Shannon entropy", "η", "information entropy"], "domain": "information-theory", "scope_tags": ["shannon", "metrics", "docs"], "source": "70-tools/etzhayyim/CLAUDE.md §etzhayyim shannon", "status": "[PRODUCTION]", "created_at": now},
+        {"id": "dodaf-v2", "term": "DoDAF v2", "definition": "Department of Defense Architecture Framework version 2. Viewpoints: AV (All View), OV (Operational View), SV (Systems View), TV (Technical Standards View), CV (Capability View). Used for: AV-2 Integrated Dictionary (lexicon), TV-1 Technical Standards (constraints), OV-5 Operational Activities (permitted/prohibited).", "aliases": ["DoDAF", "Department of Defense Architecture Framework"], "domain": "architecture", "scope_tags": ["dodaf", "architecture", "docs"], "source": "70-tools/etzhayyim/etzhayyim/dodaf.go", "status": "[PRODUCTION]", "created_at": now},
     ]
 
 
 def _dodaf_seed_ov5(now: str) -> list[dict]:
     return [
-        {"id": "ov5-wasm-static-import", "action": "import MODULE from '*.wasm' (CompiledWasm rule)", "permitted": True, "reason": "Bundled at deploy time by wrangler CompiledWasm rule. Works on CF Workers V8.", "scope_tags": ["cloudflare", "wasm"], "alternative": "", "source": "60-apps/ai-gftd-project-hoge/appview/src/index.ts", "created_at": now},
-        {"id": "ov5-wasm-dynamic-compile", "action": "WebAssembly.compile(userBytes) at request time", "permitted": False, "reason": "Blocked by CF Workers V8 embedder: 'Wasm code generation disallowed by embedder'.", "scope_tags": ["cloudflare", "wasm"], "alternative": "Pre-bundle WASM at deploy time via CompiledWasm rule", "source": "60-apps/ai-gftd-project-hoge/appview/src/index.ts", "created_at": now},
+        {"id": "ov5-wasm-static-import", "action": "import MODULE from '*.wasm' (CompiledWasm rule)", "permitted": True, "reason": "Bundled at deploy time by wrangler CompiledWasm rule. Works on CF Workers V8.", "scope_tags": ["cloudflare", "wasm"], "alternative": "", "source": "60-apps/etzhayyim-project-hoge/appview/src/index.ts", "created_at": now},
+        {"id": "ov5-wasm-dynamic-compile", "action": "WebAssembly.compile(userBytes) at request time", "permitted": False, "reason": "Blocked by CF Workers V8 embedder: 'Wasm code generation disallowed by embedder'.", "scope_tags": ["cloudflare", "wasm"], "alternative": "Pre-bundle WASM at deploy time via CompiledWasm rule", "source": "60-apps/etzhayyim-project-hoge/appview/src/index.ts", "created_at": now},
         {"id": "ov5-kv-usage", "action": "KvGet() / KvPut() in App", "permitted": False, "reason": "KV bypasses W Protocol Event Stream. All data must flow through PDS_SERVICE.", "scope_tags": ["cloudflare", "magatama"], "alternative": "sdk.pds.createRecord() for write, sdk.graph.query() for read", "source": "60-apps/CLAUDE.md", "created_at": now},
         {"id": "ov5-synthetic-200", "action": "Return fabricated data in 200 OK response", "permitted": False, "reason": "No synthetic data principle: 200 OK must only contain data that exists in graph/DB.", "scope_tags": ["api", "data-integrity"], "alternative": "Return empty array [] or 404 when data does not exist", "source": "CLAUDE.md", "created_at": now},
         {"id": "ov5-pds-direct-fetch", "action": "globalThis.fetch('https://atproto.etzhayyim.com/...')", "permitted": False, "reason": "Direct HTTP to PDS from App Worker bypasses service binding RPC. same-zone fetch() is prohibited.", "scope_tags": ["cloudflare", "pds"], "alternative": "env.PDS_SERVICE.query() or env.PDS_SERVICE.createRecord()", "source": "50-infra/CLAUDE.md", "created_at": now},
@@ -345,9 +345,9 @@ def dodaf_init(workspace_dir: str | None, force: bool) -> None:
         click.echo(f"ok: {view_name}", err=True)
 
     click.echo("\nDone. Query with:", err=True)
-    click.echo("  gftd dodaf tv1 query --tags cloudflare,wasm", err=True)
-    click.echo("  gftd dodaf av2 get CompiledWasm", err=True)
-    click.echo("  gftd dodaf rules context --path src/index.ts --tags cloudflare", err=True)
+    click.echo("  etzhayyim dodaf tv1 query --tags cloudflare,wasm", err=True)
+    click.echo("  etzhayyim dodaf av2 get CompiledWasm", err=True)
+    click.echo("  etzhayyim dodaf rules context --path src/index.ts --tags cloudflare", err=True)
 
 
 # ── dodaf tv1 ──────────────────────────────────────────────────────────────────
@@ -378,7 +378,7 @@ def dodaf_tv1_query(
     ws = _resolve_root(workspace_dir)
     pf = _dodaf_parquet(ws, "tv1_standards")
     if not pf.exists():
-        click.echo(f"tv1_standards.parquet not found — run: gftd dodaf init\n(looked in {pf})", err=True)
+        click.echo(f"tv1_standards.parquet not found — run: etzhayyim dodaf init\n(looked in {pf})", err=True)
         sys.exit(1)
 
     conditions: list[str] = []
@@ -427,7 +427,7 @@ def dodaf_av2_get(term: str, json_out: bool, workspace_dir: str | None) -> None:
     ws = _resolve_root(workspace_dir)
     pf = _dodaf_parquet(ws, "av2_dictionary")
     if not pf.exists():
-        click.echo(f"av2_dictionary.parquet not found — run: gftd dodaf init\n(looked in {pf})", err=True)
+        click.echo(f"av2_dictionary.parquet not found — run: etzhayyim dodaf init\n(looked in {pf})", err=True)
         sys.exit(1)
 
     if not term:
@@ -569,7 +569,7 @@ def dodaf_validate(workspace_dir: str | None, json_out: bool) -> None:
     _require_duckdb()
     pf = _dodaf_parquet(ws, "tv1_standards")
     if not pf.exists():
-        click.echo(f"tv1_standards.parquet not found — run: gftd dodaf init\n(looked in {pf})", err=True)
+        click.echo(f"tv1_standards.parquet not found — run: etzhayyim dodaf init\n(looked in {pf})", err=True)
         sys.exit(1)
 
     rows = _duckdb_query_json(f"SELECT id FROM read_parquet('{pf}')")
@@ -685,7 +685,7 @@ def _dodaf_tags_for_file(rel_path: str) -> list[str]:
     if "30-graph/" in rel_path:
         tags += ["graph-db", "duckdb"]
     if "70-tools/" in rel_path:
-        tags += ["gftd-cli", "tooling"]
+        tags += ["etzhayyim-cli", "tooling"]
     if rel_path == "CLAUDE.md":
         tags += ["root-policy"]
     return tags
@@ -703,7 +703,7 @@ def dodaf_migrate(workspace_dir: str | None, dry_run: bool, skip_pointer: bool) 
     ws = _resolve_root(workspace_dir)
     pf = _dodaf_parquet(ws, "tv1_standards")
     if not pf.exists():
-        click.echo("tv1_standards.parquet not found — run: gftd dodaf init", err=True)
+        click.echo("tv1_standards.parquet not found — run: etzhayyim dodaf init", err=True)
         sys.exit(1)
 
     existing_rows = _duckdb_query_json(f"SELECT * FROM read_parquet('{pf}')")
@@ -769,7 +769,7 @@ def dodaf_migrate(workspace_dir: str | None, dry_run: bool, skip_pointer: bool) 
 
             if not skip_pointer:
                 header = f"## CRITICAL: {sec['title']}"
-                pointer = f"→ `gftd dodaf tv1 query --id {id_}` / MCP `etzhayyim.dodaf.tv1.query`"
+                pointer = f"→ `etzhayyim dodaf tv1 query --id {id_}` / MCP `etzhayyim.dodaf.tv1.query`"
                 old_block = header + "\n" + sec["body"]
                 new_block = header + "\n\n" + pointer + "\n\n"
                 if old_block in new_content:
@@ -811,12 +811,12 @@ def dodaf_seed(workspace_dir: str | None, pds_url: str, dry_run: bool) -> None:
     ws = _resolve_root(workspace_dir)
     pf = _dodaf_parquet(ws, "tv1_standards")
     if not pf.exists():
-        click.echo("tv1_standards.parquet not found — run: gftd dodaf init", err=True)
+        click.echo("tv1_standards.parquet not found — run: etzhayyim dodaf init", err=True)
         sys.exit(1)
 
     token = (_os.environ.get("etzhayyim_TOKEN") or "").strip()
     if not token and not dry_run:
-        click.echo("auth required — run: gftd authn signin  (or set etzhayyim_TOKEN)", err=True)
+        click.echo("auth required — run: etzhayyim authn signin  (or set etzhayyim_TOKEN)", err=True)
         sys.exit(1)
 
     rows = _duckdb_query_json(f"SELECT * FROM read_parquet('{pf}') LIMIT 100")

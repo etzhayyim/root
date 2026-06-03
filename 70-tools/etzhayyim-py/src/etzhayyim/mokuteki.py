@@ -239,7 +239,7 @@ def eval_layer_b_stub() -> MokutekiLayer:
     """Layer B: Uncertainty — requires haisen graph (Go binary)."""
     c = MokutekiComponent(
         name="BayesNet/causal/bottleneck (Go binary required)", weight=1.0, score=50.0,
-        details="run `gftd shannon bayesnet` + `gftd shannon bottleneck` for full evaluation",
+        details="run `etzhayyim shannon bayesnet` + `etzhayyim shannon bottleneck` for full evaluation",
     )
     score = 50.0
     points = int(score * 0.25 * 120)
@@ -251,7 +251,7 @@ def eval_layer_c_stub() -> MokutekiLayer:
     """Layer C: Control — requires haisen graph (Go binary)."""
     c = MokutekiComponent(
         name="POMDP/MPC/bandit (Go binary required)", weight=1.0, score=50.0,
-        details="run `gftd mokuteki` (Go binary) for full evaluation",
+        details="run `etzhayyim mokuteki` (Go binary) for full evaluation",
     )
     score = 50.0
     points = int(score * 0.20 * 120)

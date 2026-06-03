@@ -22,7 +22,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -144,7 +144,7 @@ def murakumo_models_declare(json_out: bool) -> None:
         click.echo("fleet-models.json not found")
         return
 
-    fleet_models_path = root / "60-apps" / "ai-gftd-project-murakumo" / "fleet-models.json"
+    fleet_models_path = root / "60-apps" / "etzhayyim-project-murakumo" / "fleet-models.json"
     if not fleet_models_path.exists():
         click.echo("fleet-models.json not found")
         return
@@ -182,7 +182,7 @@ def murakumo_models_declare(json_out: bool) -> None:
 
 
 def _load_fleet_models(root: Path) -> dict:
-    fleet_models_path = root / "60-apps" / "ai-gftd-project-murakumo" / "fleet-models.json"
+    fleet_models_path = root / "60-apps" / "etzhayyim-project-murakumo" / "fleet-models.json"
     if not fleet_models_path.exists():
         raise click.ClickException(f"fleet-models.json not found: {fleet_models_path}")
     with fleet_models_path.open() as f:
@@ -385,10 +385,10 @@ def murakumo_plan(json_out: bool) -> None:
         return
     click.echo("Murakumo Pipeline (com.etzhayyim.murakumo.*)")
     for i, s in enumerate(_MURAKUMO_STEPS, 1):
-        click.echo(f"{i}. gftd murakumo {s['command']}")
+        click.echo(f"{i}. etzhayyim murakumo {s['command']}")
         click.echo(f"   NSID: {s['nsid']}")
         click.echo(f"   {s['purpose']}")
-    click.echo(f"{len(_MURAKUMO_STEPS)+1}. gftd murakumo xrpc --nsid com.etzhayyim.murakumo.runPipeline --payload-file run.json")
+    click.echo(f"{len(_MURAKUMO_STEPS)+1}. etzhayyim murakumo xrpc --nsid com.etzhayyim.murakumo.runPipeline --payload-file run.json")
 
 
 # ── murakumo xrpc ─────────────────────────────────────────────────────────
@@ -431,7 +431,7 @@ def murakumo_xrpc(nsid: str, payload: str, payload_file: str | None, pds: str | 
 
 # ── murakumo eval ──────────────────────────────────────────────────────────
 
-_MURAKUMO_TRAINING_DIR = "60-apps/ai-gftd-project-murakumo/training"
+_MURAKUMO_TRAINING_DIR = "60-apps/etzhayyim-project-murakumo/training"
 
 
 @murakumo.command("eval")
@@ -637,7 +637,7 @@ def murakumo_fleet_deploy(nodes: str, skip_restart: bool, dry_run: bool,
             ["git", "rev-parse", "--show-toplevel"], text=True).strip())
     except subprocess.CalledProcessError:
         raise click.ClickException("not in a git repository")
-    daemon_src = repo_root / "projects/ai-gftd-project-murakumo/cli/daemon.py"
+    daemon_src = repo_root / "projects/etzhayyim-project-murakumo/cli/daemon.py"
     if not daemon_src.exists():
         raise click.ClickException(f"daemon.py not found: {daemon_src}")
     if dry_run:
@@ -650,9 +650,9 @@ def murakumo_fleet_deploy(nodes: str, skip_restart: bool, dry_run: bool,
         raise click.ClickException("sshpass not found — install: brew install hudochenkov/sshpass/sshpass")
     targets = [n.strip() for n in nodes.split(",") if n.strip()] if nodes else []
     click.echo(f"deploy: daemon.py → {len(targets) if targets else 'all'} nodes")
-    click.echo("  (full parallel SSH deploy requires Go binary: gftd murakumo fleet deploy)")
+    click.echo("  (full parallel SSH deploy requires Go binary: etzhayyim murakumo fleet deploy)")
     if not skip_restart:
-        job_file = repo_root / "projects/ai-gftd-project-murakumo/nomad/murakumo-inference.nomad.hcl"
+        job_file = repo_root / "projects/etzhayyim-project-murakumo/nomad/murakumo-inference.nomad.hcl"
         if job_file.exists():
             _run_nomad("job", "run", str(job_file))
         else:
@@ -686,7 +686,7 @@ def murakumo_fleet_restart() -> None:
             ["git", "rev-parse", "--show-toplevel"], text=True).strip())
     except subprocess.CalledProcessError:
         raise click.ClickException("not in a git repository")
-    job_file = repo_root / "projects/ai-gftd-project-murakumo/nomad/murakumo-inference.nomad.hcl"
+    job_file = repo_root / "projects/etzhayyim-project-murakumo/nomad/murakumo-inference.nomad.hcl"
     if not job_file.exists():
         raise click.ClickException(f"job file not found: {job_file}")
     click.echo("triggering rolling restart of murakumo-inference...")
@@ -985,7 +985,7 @@ def murakumo_kubelet_deploy(nodes: str, dry_run: bool, concurrency: int, repo_ro
     if not _os.environ.get("MURAKUMO_FLEET_SSH_PASS"):
         raise click.ClickException(
             "MURAKUMO_FLEET_SSH_PASS env var is required for SSH deployment.\n"
-            "Full SSH orchestration available in Go binary: gftd murakumo kubelet-deploy"
+            "Full SSH orchestration available in Go binary: etzhayyim murakumo kubelet-deploy"
         )
 
     # Print the start command as the Go binary does

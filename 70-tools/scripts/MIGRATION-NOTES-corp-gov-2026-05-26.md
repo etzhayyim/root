@@ -18,7 +18,7 @@
 | Concern | Legacy script pattern | religious-corp substrate pattern |
 |---|---|---|
 | Storage | RisingWave + `vertex_*` PG tables | DataLad subdataset + IPFS-pin (per ADR-2605262130 + ADR-2605241500) |
-| Lexicon | gftd-side legacy NSID, no Charter Rider provenance | `com.etzhayyim.corp.*` + `com.etzhayyim.gov.dataset.*` records with `datasetPinAt` cross-link |
+| Lexicon | etzhayyim-side legacy NSID, no Charter Rider provenance | `com.etzhayyim.corp.*` + `com.etzhayyim.gov.dataset.*` records with `datasetPinAt` cross-link |
 | Network discipline | Live per-record API hits at cron-tick time | Passive-only per ADR-2605262400 §7: pre-published bulk archives only |
 | Vendor scope | Some scripts permitted vendor commercial-terminal imports | Charter Rider §2(e)+§2(c) deny-list: Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro / GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro **CONSTITUTIONALLY PROHIBITED** |
 | Tier discipline | implicit (no tier ladder) | A/B/C/D ladder per ADR-2605262400 §2 + per-source acceptance flag (`70-tools/e7m-dataset/acceptance-templates/`) |

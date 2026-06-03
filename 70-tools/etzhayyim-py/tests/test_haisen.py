@@ -137,7 +137,7 @@ def test_scan_empty_workspace(tmp_path):
 
 
 def test_scan_single_actor(tmp_path):
-    app_dir = tmp_path / "60-apps" / "ai-gftd-project-billing" / "appview" / "app-abc"
+    app_dir = tmp_path / "60-apps" / "etzhayyim-project-billing" / "appview" / "app-abc"
     app_dir.mkdir(parents=True)
     (app_dir / "magatama.jsonld").write_text(json.dumps({
         "nanoid": "abc123",

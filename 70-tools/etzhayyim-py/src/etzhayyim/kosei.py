@@ -21,11 +21,11 @@ from .shannon import _resolve_root
 
 _REQUIRED_FILES = ["magatama.jsonld", "src/app.ts", "wrangler.jsonc"]
 _RE_NANOID = re.compile(r'^[A-Za-z0-9_-]{8,12}$')
-_RE_APP_DIR = re.compile(r'^ai-gftd-wasm-.+-[A-Za-z0-9]{8}$')
-_RE_PROJECT_DIR = re.compile(r'^ai-gftd-project-.+$')
+_RE_APP_DIR = re.compile(r'^etzhayyim-wasm-.+-[A-Za-z0-9]{8}$')
+_RE_PROJECT_DIR = re.compile(r'^etzhayyim-project-.+$')
 _RE_NSID_HARDCODE = re.compile(r'"nsid"')
 _RE_CORS = re.compile(r'Access-Control-Allow-Origin:\s*\*')
-_RE_PDS_HARDCODE = re.compile(r'https://pds\.gftd\.ai')
+_RE_PDS_HARDCODE = re.compile(r'https://pds\.etzhayyim\.ai')
 _RE_MODEL_HARDCODE = re.compile(
     r'"(?:claude-3|gpt-4|gemini-|llama-|qwen)[^"]*"', re.IGNORECASE
 )
@@ -140,7 +140,7 @@ def _check_app(app_dir: Path, ws: Path) -> KoseiAppResult:
     if not _RE_APP_DIR.match(app_dir.name):
         result.violations.append(KoseiViolation(
             rule="app-dir-naming", severity="warning",
-            path=rel, detail=f"dir '{app_dir.name}' should match ai-gftd-wasm-<name>-<nanoid8>",
+            path=rel, detail=f"dir '{app_dir.name}' should match etzhayyim-wasm-<name>-<nanoid8>",
         ))
 
     return result

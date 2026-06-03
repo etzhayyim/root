@@ -173,13 +173,13 @@ class TestBuildDesiredRecords:
     def test_comment_prefix_set(self):
         actors = [self._actor()]
         recs = _build_desired_records(actors, [], True, False, "etzhayyim.com")
-        assert recs[0]["comment"].startswith("gftd:adr-0013:")
+        assert recs[0]["comment"].startswith("etzhayyim:adr-0013:")
 
 
 # ─── _diff_records ────────────────────────────────────────────────────────────
 
 class TestDiffRecords:
-    def _rec(self, name: str, rtype: str, content: str, comment: str = "gftd:adr-0013:atproto-verify", rid: str = "") -> dict:
+    def _rec(self, name: str, rtype: str, content: str, comment: str = "etzhayyim:adr-0013:atproto-verify", rid: str = "") -> dict:
         r: dict = {"name": name, "type": rtype, "content": content, "comment": comment}
         if rid:
             r["id"] = rid

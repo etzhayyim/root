@@ -155,8 +155,8 @@ def test_collect_empty_workspace(tmp_path):
 
 
 def test_collect_single_app(tmp_path):
-    project_dir = tmp_path / "60-apps" / "ai-gftd-project-billing"
-    app_dir = project_dir / "appview" / "ai-gftd-wasm-billing-abc12345"
+    project_dir = tmp_path / "60-apps" / "etzhayyim-project-billing"
+    app_dir = project_dir / "appview" / "etzhayyim-wasm-billing-abc12345"
     (app_dir / "src").mkdir(parents=True)
     (app_dir / "src" / "app.ts").write_text(
         'MATCH (n:Invoice) RETURN n\ncom.etzhayyim.apps.billing.invoice\nfunction cmdProcessPayment() {}\n'
@@ -172,7 +172,7 @@ def test_collect_single_app(tmp_path):
 
 
 def test_collect_infers_project_from_dir(tmp_path):
-    project_dir = tmp_path / "60-apps" / "ai-gftd-project-invoicing" / "src"
+    project_dir = tmp_path / "60-apps" / "etzhayyim-project-invoicing" / "src"
     project_dir.mkdir(parents=True)
     (project_dir / "app.ts").write_text('// empty\n')
     apps = collect_and_score_domain_apps(tmp_path)
@@ -241,7 +241,7 @@ def test_cli_kaizen_fix_exits_nonzero_when_no_tools(tmp_path):
 
 
 def test_cli_kaizen_with_real_app(tmp_path):
-    project_dir = tmp_path / "60-apps" / "ai-gftd-project-billing"
+    project_dir = tmp_path / "60-apps" / "etzhayyim-project-billing"
     app_dir = project_dir / "src"
     app_dir.mkdir(parents=True)
     (app_dir / "app.ts").write_text(
@@ -269,7 +269,7 @@ def test_cli_kaizen_filter_grade(tmp_path):
 def test_cli_kaizen_logs_exits_nonzero_no_auth(tmp_path):
     """kaizen logs without auth token must exit non-zero."""
     with patch("etzhayyim.kaizen._resolve_cf_token", return_value=""), \
-         patch("etzhayyim.kaizen._resolve_gftd_token", return_value=""):
+         patch("etzhayyim.kaizen._resolve_etzhayyim_token", return_value=""):
         runner = CliRunner()
         result = runner.invoke(main, ["kaizen", "logs"])
     assert result.exit_code != 0

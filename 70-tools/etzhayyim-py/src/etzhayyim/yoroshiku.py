@@ -18,7 +18,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -70,7 +70,7 @@ def _run_readiness(ws: Path) -> list[dict]:
     })
 
     # Check auth
-    auth_file = Path.home() / ".gftd" / "auth.json"
+    auth_file = Path.home() / ".etzhayyim" / "auth.json"
     checks.append({
         "name": "authn",
         "ok": auth_file.exists(),

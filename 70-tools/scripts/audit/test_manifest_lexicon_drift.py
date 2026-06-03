@@ -54,7 +54,7 @@ class TestNsidRegex:
         # reject; the audit is permissive for existence-check purposes.
         assert audit.NSID_RE.match("com.etzhayyim.kuniUmi.defineDeploymentSite") is not None
 
-    def test_legacy_ai_gftd_prefix(self, audit):
+    def test_legacy_ai_etzhayyim_prefix(self, audit):
         # Legacy `com.etzhayyim.apps.etzhayyim.<actor>.X` form (pre-cutover).
         # Still matches as a valid NSID syntactically; the audit then
         # maps it to a path that — by convention — doesn't exist.

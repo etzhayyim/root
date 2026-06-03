@@ -3,7 +3,7 @@
 - generatedAt: 2026-04-30T03:34:30Z
 - target surface: `https://yoro.etzhayyim.com/search`
 - live AppView: `https://bsky.etzhayyim.com`
-- AppView meta: `ai-gftd-appview`, version `0.1.0-scaffold`, ADR `2604231828`
+- AppView meta: `etzhayyim-appview`, version `0.1.0-scaffold`, ADR `2604231828`
 - AppView health: ok at `2026-04-30T03:34:27.484Z`
 
 ## Objective

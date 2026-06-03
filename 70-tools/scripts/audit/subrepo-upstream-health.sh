@@ -7,10 +7,10 @@
 #
 # History:
 #   - iter-28 of /loop (2026-05-26): discovered the SDK's `.gitrepo`
-#     pointed at `gftdcojp/kami-engine-sdk` (404); the actual upstream
+#     pointed at `etzhayyimcojp/kami-engine-sdk` (404); the actual upstream
 #     was `etzhayyim/kami-engine-sdk`. Fixed iter-28 commit 957ec4c0a.
 #   - iter-29 of /loop (2026-05-26): broader audit found 7 more stale
-#     entries from the gftd → etzhayyim org cleanup (ADR-2605211845);
+#     entries from the etzhayyim → etzhayyim org cleanup (ADR-2605211845);
 #     documented in ADR with 3 resolution options per file (operator
 #     choice — Update / Detach / Leave-as-is).
 #   - this script codifies the audit pattern.
@@ -47,7 +47,7 @@ cd "$REPO_ROOT"
 # ~20 s (sequential find + serial gh) to ~500 ms.
 gitrepo_files=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/")
 if [ "$INCLUDE_COFOG" -eq 0 ]; then
-  gitrepo_files=$(printf '%s\n' "$gitrepo_files" | grep -v "/ai-gftd-project-cofog/")
+  gitrepo_files=$(printf '%s\n' "$gitrepo_files" | grep -v "/etzhayyim-project-cofog/")
 fi
 
 # Pre-extract (file, orgrepo) pairs serially (grep + awk is microseconds

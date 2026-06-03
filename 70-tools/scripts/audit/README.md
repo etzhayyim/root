@@ -27,7 +27,7 @@ pass); `--strict` only applies to the aggregator's findings count.
 `--test <file>` targets one suite for fast reruns during development
 (no need to wait for all 87 tests to validate one filter change).
 
-Current baseline (as of iter-61 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **0 manifest-lexicon-drift** (iter-52 closed kuni-umi 6/6; full category zeroed; all 21 initial findings resolved across iters 48-52). **Both batched-fix categories now fully closed.** Remaining 25 findings are all documented-deferred awaiting upstream coordination.
+Current baseline (as of iter-61 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as etzhayyim-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **0 manifest-lexicon-drift** (iter-52 closed kuni-umi 6/6; full category zeroed; all 21 initial findings resolved across iters 48-52). **Both batched-fix categories now fully closed.** Remaining 25 findings are all documented-deferred awaiting upstream coordination.
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
 
@@ -81,7 +81,7 @@ bash 70-tools/scripts/audit/subrepo-upstream-health.sh --strict          # exit 
 
 Requires: `gh` CLI authenticated.
 
-Discovery: iter-28 (SDK `.gitrepo` was stale `gftdcojp/...`, fixed to `etzhayyim/...` in commit `957ec4c0a`) + iter-29 (broader audit found 7 more stale entries from the gftd → etzhayyim org cleanup; documented in ADR-2605211845 §"Orphaned `.gitrepo` files post-cleanup" with 3 resolution options per file).
+Discovery: iter-28 (SDK `.gitrepo` was stale `etzhayyimcojp/...`, fixed to `etzhayyim/...` in commit `957ec4c0a`) + iter-29 (broader audit found 7 more stale entries from the etzhayyim → etzhayyim org cleanup; documented in ADR-2605211845 §"Orphaned `.gitrepo` files post-cleanup" with 3 resolution options per file).
 
 ### `subrepo-symlink-health.sh`
 
@@ -228,7 +228,7 @@ python3 70-tools/scripts/validate-lexicons.py \
 
 | Error class | Count | Location concentration |
 |---|---|---|
-| `type='number'` (float type forbidden) | 2,473 | `gftd/` legacy 1,687; newer actor dirs ~786 |
+| `type='number'` (float type forbidden) | 2,473 | `etzhayyim/` legacy 1,687; newer actor dirs ~786 |
 | `inline type='object'` (use `ref` instead) | 547 | spread across actor lexicons |
 | `invalid format` | 168 | various |
 | `other` | 8 | various |
@@ -236,8 +236,8 @@ python3 70-tools/scripts/validate-lexicons.py \
 
 This audit is **deliberately NOT folded into `all.sh`** today because:
 - It would add a 3,198-finding cliff to the 25-finding aggregator baseline.
-- The `gftd/` subdirectory (1,687 errors / 53% of the total) is legacy cutover residue — fixing requires either bulk rename of the namespace or accepting that legacy lexicons keep their pre-spec syntax.
-- Each non-gftd violation requires per-file judgment (some `number` types are deliberate where decimal precision is needed; the religious-corp spec was tightened post-authoring).
+- The `etzhayyim/` subdirectory (1,687 errors / 53% of the total) is legacy cutover residue — fixing requires either bulk rename of the namespace or accepting that legacy lexicons keep their pre-spec syntax.
+- Each non-etzhayyim violation requires per-file judgment (some `number` types are deliberate where decimal precision is needed; the religious-corp spec was tightened post-authoring).
 
 Operators run it on demand. The lefthook hook in staged-files mode continues to enforce the spec on NEW lexicons (verified across iters 48-58 where 30 newly-authored lexicons all pass validation).
 

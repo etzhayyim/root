@@ -19,7 +19,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -225,6 +225,6 @@ def vertex_stats(deps_path: str | None, workspace_dir: str | None, json_out: boo
     else:
         click.echo(f"ADR-0040 Vertex DID Tier registry ({dp})")
         click.echo(f"  Tier A (actor DID):         {len(reg['A']):4}")
-        click.echo(f"  Tier B (sub-path did:gftd): {len(reg['B']):4}")
+        click.echo(f"  Tier B (sub-path did:etzhayyim): {len(reg['B']):4}")
         click.echo(f"  Tier C (no DID):            {len(reg['C']):4}")
         click.echo(f"  Total:                      {total:4}")
