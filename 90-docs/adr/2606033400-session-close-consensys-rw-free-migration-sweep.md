@@ -1,6 +1,6 @@
 ---
 id: adr-2606033400-session-close-consensys-rw-free-migration-sweep
-title: "ADR-2606033400: Session close — Consensys-pattern rw-free migration sweep complete + vendor-resident roster (75) + tracker truth-pass"
+title: "ADR-2606033400: Session close — Consensys rw-free migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22"
 status: active
 doc_type: adr
 topic: session-close-consensys-rw-free-migration-sweep
@@ -11,6 +11,8 @@ related:
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 supersedes: []
 superseded_by: []
 ---
