@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-cad-cd4dview</h1>
+  <h1>etzhayyim-wasm-cad-cd4dview</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

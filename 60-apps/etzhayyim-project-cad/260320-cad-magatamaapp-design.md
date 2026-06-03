@@ -4,7 +4,7 @@ Date: 2026-03-20
 
 ## Goal
 
-`ai-gftd-project-cad` は、ブラウザ上で CAD 資産を
+`etzhayyim-project-cad` は、ブラウザ上で CAD 資産を
 
 - 読む
 - 版管理する
@@ -376,7 +376,7 @@ rebuild 後は `topology_ref` を優先し、fallback で近傍座標へ再投�
 
 追加 proto:
 
-`proto/gftd/cad/v1/cad.proto`
+`proto/etzhayyim/cad/v1/cad.proto`
 
 最低限の service:
 
@@ -509,16 +509,16 @@ agent の出力も人間の review thread に落とし、silent mutation は避�
 
 ## Deployment Shape
 
-- project: `60-apps/ai-gftd-project-cad`
-- app dir: `60-apps/ai-gftd-project-cad/wasm/ai-gftd-wasm-cad-<nanoid>`
+- project: `60-apps/etzhayyim-project-cad`
+- app dir: `60-apps/etzhayyim-project-cad/wasm/etzhayyim-wasm-cad-<nanoid>`
 - runtime: `container`
 - ui mode: `fullapp`
 
 初期 route:
 
 - `/`
-- `/xrpc/gftd.cad.v1.CadCommandService/*`
-- `/xrpc/gftd.cad.v1.CadQueryService/*`
+- `/xrpc/etzhayyim.cad.v1.CadCommandService/*`
+- `/xrpc/etzhayyim.cad.v1.CadQueryService/*`
 - `/_app/meta`
 - `/healthz`
 

@@ -26,7 +26,7 @@ export default defineConfig({
 				manualChunks(id) {
 					if (!id.includes('nodeModules') && !id.includes('/packages/ts/')) return;
 					if (id.includes('/packages/ts/design-system/') || id.includes('/packages/ts/design-system/')) {
-						return 'gftd-ui';
+						return 'etzhayyim-ui';
 					}
 					if (id.includes('/nodeModules/@threlte/') || id.includes('/nodeModules/three/')) {
 						return 'threlte';

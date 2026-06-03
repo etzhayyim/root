@@ -1,6 +1,6 @@
-# ai-gftd-project-cad
+# etzhayyim-project-cad
 
-`ai-gftd-project-cad` の権威ルール。
+`etzhayyim-project-cad` の権威ルール。
 この project は **App** として設計・実装する。
 
 詳細設計は CAD project の 2026-03-20 設計書を正とする。

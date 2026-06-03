@@ -1,7 +1,7 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:web:cad.etzhayyim.com",
-  "convoSystemPrompt": "You are ai-gftd-wasm-cad agent. Cad — AI Agent for browser-based CAD viewing, review, anchored comments, and export. Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-cad agent. Cad — AI Agent for browser-based CAD viewing, review, anchored comments, and export. Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
   ],
@@ -15,7 +15,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-cad",
+  "name": "etzhayyim-wasm-cad",
   "nanoid": "cd4dview",
   "performerType": "service",
   "pool": {},
@@ -30,7 +30,7 @@
     "description": "Cad — AI Agent for browser-based CAD viewing, review, anchored comments, and export",
     "displayName": "Cad",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "cad",
   "routes": [
