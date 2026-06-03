@@ -402,8 +402,17 @@
    "sector": ":electronics",
    "country": "JP",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1-3-14 Higashi-Nakajima, Higashi-Yodogawa-ku",
+    "city": "Osaka",
+    "country": "JP",
+    "lat": 34.73,
+    "lon": 135.55
+   },
+   "contact": {
+    "website": "https://www.keyence.com",
+    "ir": "https://www.keyence.com/company/ir/"
+   }
   },
   {
    "id": "org.corp.gb.arm",
@@ -2165,8 +2174,17 @@
    "sector": ":utilities",
    "country": "IT",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Viale Regina Margherita 137",
+    "city": "Rome",
+    "country": "IT",
+    "lat": 41.91,
+    "lon": 12.51
+   },
+   "contact": {
+    "website": "https://www.enel.com",
+    "ir": "https://www.enel.com/investors"
+   }
   },
   {
    "id": "org.corp.es.iberdrola",
@@ -2175,8 +2193,17 @@
    "sector": ":utilities",
    "country": "ES",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Plaza Euskadi 5",
+    "city": "Bilbao",
+    "country": "ES",
+    "lat": 43.27,
+    "lon": -2.94
+   },
+   "contact": {
+    "website": "https://www.iberdrola.com",
+    "ir": "https://www.iberdrola.com/shareholders-investors"
+   }
   },
   {
    "id": "org.corp.dk.orsted",
@@ -2290,8 +2317,17 @@
    "sector": ":consumer",
    "country": "GB",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "100 Victoria Embankment",
+    "city": "London",
+    "country": "GB",
+    "lat": 51.51,
+    "lon": -0.11
+   },
+   "contact": {
+    "website": "https://www.unilever.com",
+    "ir": "https://www.unilever.com/investors/"
+   }
   },
   {
    "id": "org.corp.gb.astrazeneca-dup",
@@ -2872,8 +2908,17 @@
    "sector": ":software",
    "country": "JP",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1-9-2 Marunouchi, Chiyoda-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.68,
+    "lon": 139.76
+   },
+   "contact": {
+    "website": "https://recruit-holdings.com",
+    "ir": "https://recruit-holdings.com/en/ir/"
+   }
   },
   {
    "id": "org.corp.jp.daikin",
@@ -3397,8 +3442,17 @@
    "sector": ":industrials",
    "country": "JP",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "6-6 Marunouchi 1-chome, Chiyoda-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.68,
+    "lon": 139.76
+   },
+   "contact": {
+    "website": "https://www.hitachi.com",
+    "ir": "https://www.hitachi.com/IR-e/"
+   }
   },
   {
    "id": "org.corp.jp.mitsubishi-heavy",
@@ -3603,8 +3657,17 @@
    "sector": ":financials",
    "country": "ES",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Avenida de Cantabria s/n, Boadilla del Monte",
+    "city": "Madrid",
+    "country": "ES",
+    "lat": 40.4,
+    "lon": -3.86
+   },
+   "contact": {
+    "website": "https://www.santander.com",
+    "ir": "https://www.santander.com/en/shareholders-and-investors"
+   }
   },
   {
    "id": "org.corp.es.bbva",
@@ -5542,8 +5605,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "777 Old Saw Mill River Road",
+    "city": "Tarrytown",
+    "country": "US",
+    "lat": 41.08,
+    "lon": -73.83
+   },
+   "contact": {
+    "website": "https://www.regeneron.com",
+    "ir": "https://investor.regeneron.com"
+   }
   },
   {
    "id": "org.corp.us.vertex",
@@ -5552,8 +5624,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "50 Northern Avenue",
+    "city": "Boston",
+    "country": "US",
+    "lat": 42.35,
+    "lon": -71.04
+   },
+   "contact": {
+    "website": "https://www.vrtx.com",
+    "ir": "https://investors.vrtx.com"
+   }
   },
   {
    "id": "org.corp.us.moderna",
@@ -5935,8 +6016,17 @@
    "sector": ":industrials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "11011 Sunset Hills Road",
+    "city": "Reston",
+    "country": "US",
+    "lat": 38.96,
+    "lon": -77.34
+   },
+   "contact": {
+    "website": "https://www.gd.com",
+    "ir": "https://investorrelations.gd.com"
+   }
   },
   {
    "id": "org.corp.fr.thales",
@@ -6239,8 +6329,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "3000 Tannery Way",
+    "city": "Santa Clara",
+    "country": "US",
+    "lat": 37.4,
+    "lon": -121.97
+   },
+   "contact": {
+    "website": "https://www.paloaltonetworks.com",
+    "ir": "https://investors.paloaltonetworks.com"
+   }
   },
   {
    "id": "org.corp.us.crowdstrike",
@@ -6349,8 +6448,17 @@
    "sector": ":materials",
    "country": "PE",
    "out": 1,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Avenida Caminos del Inca 171, Santiago de Surco",
+    "city": "Lima",
+    "country": "PE",
+    "lat": -12.13,
+    "lon": -76.99
+   },
+   "contact": {
+    "website": "https://www.southerncoppercorp.com",
+    "ir": "https://www.southerncoppercorp.com/investors/"
+   }
   },
   {
    "id": "org.corp.cl.antofagasta",
@@ -6749,8 +6857,17 @@
    "sector": ":industrials",
    "country": "IE",
    "out": 1,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1000 Eaton Boulevard",
+    "city": "Beachwood",
+    "country": "US",
+    "lat": 41.46,
+    "lon": -81.5
+   },
+   "contact": {
+    "website": "https://www.eaton.com",
+    "ir": "https://www.eaton.com/us/en-us/company/investor-relations.html"
+   }
   },
   {
    "id": "org.corp.us.tmobile",
@@ -6840,8 +6957,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "5660 New Northside Drive",
+    "city": "Atlanta",
+    "country": "US",
+    "lat": 33.88,
+    "lon": -84.46
+   },
+   "contact": {
+    "website": "https://www.ice.com",
+    "ir": "https://ir.theice.com"
+   }
   },
   {
    "id": "org.corp.us.cigna",
@@ -6909,8 +7035,17 @@
    "sector": ":industrials",
    "country": "US",
    "out": 1,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "58 Charles Street",
+    "city": "Cambridge",
+    "country": "US",
+    "lat": 42.37,
+    "lon": -71.08
+   },
+   "contact": {
+    "website": "https://www.gevernova.com",
+    "ir": "https://www.gevernova.com/investor-relations"
+   }
   },
   {
    "id": "org.corp.us.delta",
@@ -7236,8 +7371,17 @@
    "sector": ":financials",
    "country": "CH",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Bärengasse 32",
+    "city": "Zurich",
+    "country": "CH",
+    "lat": 47.37,
+    "lon": 8.54
+   },
+   "contact": {
+    "website": "https://www.chubb.com",
+    "ir": "https://investors.chubb.com"
+   }
   },
   {
    "id": "org.corp.us.marsh-mclennan",
@@ -7246,8 +7390,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1166 Avenue of the Americas",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.76,
+    "lon": -73.98
+   },
+   "contact": {
+    "website": "https://www.marshmclennan.com",
+    "ir": "https://www.marshmclennan.com/investor-relations.html"
+   }
   },
   {
    "id": "org.corp.us.progressive",
@@ -7256,8 +7409,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "6300 Wilson Mills Road",
+    "city": "Mayfield Village",
+    "country": "US",
+    "lat": 41.52,
+    "lon": -81.43
+   },
+   "contact": {
+    "website": "https://www.progressive.com",
+    "ir": "https://investors.progressive.com"
+   }
   },
   {
    "id": "org.corp.us.csx",
@@ -7350,8 +7512,17 @@
    "sector": ":consumer",
    "country": "FR",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "147 rue de Paris",
+    "city": "Charenton-le-Pont",
+    "country": "FR",
+    "lat": 48.82,
+    "lon": 2.41
+   },
+   "contact": {
+    "website": "https://www.essilorluxottica.com",
+    "ir": "https://www.essilorluxottica.com/en/investors/"
+   }
   },
   {
    "id": "org.corp.it.prysmian",
@@ -7618,8 +7789,17 @@
    "sector": ":software",
    "country": "SG",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1 Fusionopolis Place, #17-10 Galaxis",
+    "city": "Singapore",
+    "country": "SG",
+    "lat": 1.3,
+    "lon": 103.79
+   },
+   "contact": {
+    "website": "https://www.seagroup.com",
+    "ir": "https://www.seagroup.com/home/investor"
+   }
   },
   {
    "id": "org.corp.vn.masan",
@@ -7746,8 +7926,17 @@
    "sector": ":healthcare",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "10 Sylvan Way",
+    "city": "Parsippany",
+    "country": "US",
+    "lat": 40.86,
+    "lon": -74.42
+   },
+   "contact": {
+    "website": "https://www.zoetis.com",
+    "ir": "https://investor.zoetis.com"
+   }
   },
   {
    "id": "org.corp.us.hca",
@@ -8038,8 +8227,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "7 World Trade Center, 250 Greenwich Street",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.71,
+    "lon": -74.01
+   },
+   "contact": {
+    "website": "https://www.moodys.com",
+    "ir": "https://ir.moodys.com"
+   }
   },
   {
    "id": "org.corp.us.sp-global",
@@ -8107,8 +8305,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "One ADP Boulevard",
+    "city": "Roseland",
+    "country": "US",
+    "lat": 40.82,
+    "lon": -74.3
+   },
+   "contact": {
+    "website": "https://www.adp.com",
+    "ir": "https://investors.adp.com"
+   }
   },
   {
    "id": "org.corp.de.rheinmetall",
@@ -8752,8 +8959,17 @@
    "sector": ":financials",
    "country": "GB",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "122 Leadenhall Street",
+    "city": "London",
+    "country": "GB",
+    "lat": 51.51,
+    "lon": -0.08
+   },
+   "contact": {
+    "website": "https://www.aon.com",
+    "ir": "https://ir.aon.com"
+   }
   },
   {
    "id": "org.corp.us.travelers",
@@ -10486,8 +10702,17 @@
    "sector": ":semiconductors",
    "country": "US",
    "out": 2,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "5453 Great America Parkway",
+    "city": "Santa Clara",
+    "country": "US",
+    "lat": 37.41,
+    "lon": -121.97
+   },
+   "contact": {
+    "website": "https://www.arista.com",
+    "ir": "https://investors.arista.com"
+   }
   },
   {
    "id": "org.corp.us.fortinet",
@@ -10496,8 +10721,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "909 Kifer Road",
+    "city": "Sunnyvale",
+    "country": "US",
+    "lat": 37.4,
+    "lon": -122.0
+   },
+   "contact": {
+    "website": "https://www.fortinet.com",
+    "ir": "https://investor.fortinet.com"
+   }
   },
   {
    "id": "org.corp.us.parker-hannifin",
@@ -10741,8 +10975,17 @@
    "sector": ":industrials",
    "country": "IE",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "800-E Beaty Street",
+    "city": "Davidson",
+    "country": "US",
+    "lat": 35.5,
+    "lon": -80.85
+   },
+   "contact": {
+    "website": "https://www.tranetechnologies.com",
+    "ir": "https://investors.tranetechnologies.com"
+   }
   },
   {
    "id": "org.corp.us.carrier",
@@ -10870,8 +11113,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "9 West 57th Street",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.76,
+    "lon": -73.97
+   },
+   "contact": {
+    "website": "https://www.apollo.com",
+    "ir": "https://www.apollo.com/investors"
+   }
   },
   {
    "id": "org.corp.us.ares",
@@ -11141,8 +11393,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "303 2nd Street, South Tower",
+    "city": "San Francisco",
+    "country": "US",
+    "lat": 37.79,
+    "lon": -122.39
+   },
+   "contact": {
+    "website": "https://www.doordash.com",
+    "ir": "https://ir.doordash.com"
+   }
   },
   {
    "id": "org.corp.us.coinbase",
@@ -12061,8 +12322,17 @@
    "sector": ":industrials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "6800 Cintas Boulevard",
+    "city": "Cincinnati",
+    "country": "US",
+    "lat": 39.29,
+    "lon": -84.4
+   },
+   "contact": {
+    "website": "https://www.cintas.com",
+    "ir": "https://www.cintas.com/investors"
+   }
   },
   {
    "id": "org.corp.us.fair-isaac",
