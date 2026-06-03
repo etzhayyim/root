@@ -2,7 +2,7 @@
  * animeka rw-free — work + episode publication-catalog registries + coverage.
  * AT PDS records (no RW/checkpointer/GPU). An episode references an existing
  * work (FK). Lifecycle: register(draft) → publish(outputCid) → announce(socialUri),
- * mirroring the gftd-infra publish_episode graph which calls into this catalog.
+ * mirroring the etzhayyim-infra publish_episode graph which calls into this catalog.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

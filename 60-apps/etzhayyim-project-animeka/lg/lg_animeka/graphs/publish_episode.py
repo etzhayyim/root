@@ -155,7 +155,7 @@ async def _sp1_post_social(state: PublishEpisodeState) -> dict[str, Any]:
     episode_url = f"https://animeka.etzhayyim.com/episodes/{episode_rkey}"
 
     # Post text ≤ 300 chars
-    text = f"🎬 新エピソード公開！\n『{work_title}』\nBGM・SFX・ナレーション付きで全カット完成。\n{episode_url}\n#animeka #gftdai"
+    text = f"🎬 新エピソード公開！\n『{work_title}』\nBGM・SFX・ナレーション付きで全カット完成。\n{episode_url}\n#animeka #etzhayyimai"
     if len(text) > 300:
         text = f"🎬 New episode — 『{work_title}』\n{episode_url}\n#animeka"
 

@@ -7,7 +7,7 @@
  *     anime works + episodes (title, IPFS output CID, publish/announce status,
  *     social announcement URI). Registry on AT PDS records (replaces
  *     vertex_animeka work/episode).
- *   - INFRA (stays gftd, NOT here): the ComfyUI/USD GPU generation pipeline +
+ *   - INFRA (stays etzhayyim, NOT here): the ComfyUI/USD GPU generation pipeline +
  *     LangGraph checkpointer (RW-backed job state in assemble_episode). It is
  *     invoked via consent-capability and writes published results into this
  *     catalog. No RW/GPU/checkpointer code lives in this package.

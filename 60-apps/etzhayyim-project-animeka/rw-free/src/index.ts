@@ -9,7 +9,7 @@
  *             announceEpisode (socialUri) / getEpisode / listEpisodes
  *   coverage
  *
- * The ComfyUI/USD GPU generation pipeline + LangGraph checkpointer stays gftd
+ * The ComfyUI/USD GPU generation pipeline + LangGraph checkpointer stays etzhayyim
  * infra (consent-capability); it calls publishEpisode/announceEpisode here.
  */
 

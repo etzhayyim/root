@@ -1,6 +1,6 @@
 """Local smoke tests for lg-animeka OSS server.
 
-Run from `60-apps/ai-gftd-project-animeka/lg/`:
+Run from `60-apps/etzhayyim-project-animeka/lg/`:
     uv venv --python 3.11 .venv
     uv pip install --python .venv/bin/python \
         'fastapi>=0.115' 'httpx>=0.27' 'pytest>=8' 'pytest-asyncio>=0.23' \
@@ -10,7 +10,7 @@ Run from `60-apps/ai-gftd-project-animeka/lg/`:
     # or: python3.11 -m pytest tests/ -v
 
 CI gate: wire into existing pytest config so it runs on
-every PR touching `60-apps/ai-gftd-project-animeka/lg/**`.
+every PR touching `60-apps/etzhayyim-project-animeka/lg/**`.
 """
 
 from __future__ import annotations
