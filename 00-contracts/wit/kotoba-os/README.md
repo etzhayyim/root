@@ -69,6 +69,23 @@ neighbourhood"):
   invalid rejected at `identity/serverKey` + `safety/liveActuation`; unknown WIT
   interface rejected by capability scoping). Skips cleanly without `jsonschema`.
 
+## Unikernel-edge sizing budget (ADR §D6)
+
+`sizing-budget.json` replaces the ADR's "sizing budget is honestly TBD" gap with a
+**falsifiable, consistency-checked** budget. Every number is an explicit
+ENGINEERING ESTIMATE (range, MiB) — NOT a measured footprint; real numbers are an
+R2 deliverable (build the Hermit + WASM-runtime + minimal-substrate image and
+measure). Three device tiers (T0 MCU honestly excluded · T1 constrained SoC =
+minimal target · T2 edge gateway), per-component RAM/flash estimate ranges with
+reference-class sources, and a minimal-resident profile whose **low-end sums to
+~14 MiB RAM**, fitting the 64 MiB T1 floor.
+
+- `reference/test_sizing_budget.py` — **7 tests**: valid low≤high ranges with
+  sources, tiers ascending + T0-not-a-target, minimal profile uses wasmi (not the
+  JIT), low-end RAM/flash fit the T1 floor, high-end spread is real (honesty), and
+  the estimate disclaimer is present. The tests check *consistency*, not the truth
+  of the estimates — R2 measurement re-runs them against corrected numbers.
+
 ## Executable reference semantics (`reference/`)
 
 The WIT contract's central claim — **scan cycle = Datom transaction, replayable** —
