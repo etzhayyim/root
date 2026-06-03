@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_omise_register_seller" targetNamespace="https://gftd.ai/bpmn/omise">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_omise_register_seller" targetNamespace="https://etzhayyim.ai/bpmn/omise">
   <bpmn:process id="omise_register_seller" name="omise.registerSeller" isExecutable="true">
     <bpmn:startEvent id="Start">
       <bpmn:outgoing>Flow_Start_Task</bpmn:outgoing>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_record_ad_unit" targetNamespace="https://gftd.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_record_ad_unit" targetNamespace="https://etzhayyim.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_adnetwork_record_ad_unit" name="recordAdUnit" isExecutable="true">
     <bpmn:documentation>
       { "nsid": "com.etzhayyim.apps.openAdnetwork.recordAdUnit", "version": 1, "resultTimeoutMs": 30000 }
@@ -11,7 +11,7 @@
         <zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_open_adnetwork_ad_unit&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:open-adnetwork.gftd.ai/com.etzhayyim.apps.openAdnetwork.adUnit/&quot; + unitId, unit_id: unitId, publisher_did: publisherDid, unit_type: unitType, size: size, placement: placement, floor_cpm_usd: floorCpmUsd, active_campaign_count: 0, status: &quot;active&quot;, created_at: string(now()), sensitivity_ord: 0, org_id: callerDid, actor_id: &quot;sys.bpmn.open-adnetwork&quot;}" target="values"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.adUnit/&quot; + unitId, unit_id: unitId, publisher_did: publisherDid, unit_type: unitType, size: size, placement: placement, floor_cpm_usd: floorCpmUsd, active_campaign_count: 0, status: &quot;active&quot;, created_at: string(now()), sensitivity_ord: 0, org_id: callerDid, actor_id: &quot;sys.bpmn.open-adnetwork&quot;}" target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
@@ -22,7 +22,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-adnetwork.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-adnetwork.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;open.adnetwork.recordAdUnit&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, unitId: unitId, publisherDid: publisherDid, unitType: unitType}" target="payload"/>
         </zeebe:ioMapping>

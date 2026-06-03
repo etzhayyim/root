@@ -17,7 +17,7 @@
   Cadence: R/P1D.
   ADR-2604281900. NSID: com.etzhayyim.apps.openAdnetwork.computePublisherRpm (timer-start, no binding needed).
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_compute_publisher_rpm" targetNamespace="https://gftd.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_compute_publisher_rpm" targetNamespace="https://etzhayyim.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_adnetwork_compute_publisher_rpm" name="computePublisherRpm" isExecutable="true">
     <bpmn:startEvent id="StartManual" name="manual recompute">
       <bpmn:outgoing>Flow_ManualToSelect</bpmn:outgoing>
@@ -51,7 +51,7 @@
         <zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_open_adnetwork_revenue_snapshot&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:open-adnetwork.gftd.ai/com.etzhayyim.apps.openAdnetwork.revenueSnapshot/&quot; + string(today()), snap_id: &quot;rpm-&quot; + string(today()), publisher_did: &quot;__all__&quot;, date: string(today()), impressions: if publisherCount &gt; 0 then sum(publisherStats.impressions) else 0, clicks: 0, conversions: 0, total_revenue_usd: if publisherCount &gt; 0 then sum(publisherStats.total_revenue) else 0.0, rpm_usd: if publisherCount &gt; 0 and sum(publisherStats.impressions) &gt; 0 then sum(publisherStats.total_revenue) / sum(publisherStats.impressions) * 1000.0 else 0.0, ctr_pct: 0.0, cvr_pct: 0.0, created_at: string(now()), sensitivity_ord: 0, actor_id: &quot;sys.bpmn.open-adnetwork&quot;}" target="values"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.revenueSnapshot/&quot; + string(today()), snap_id: &quot;rpm-&quot; + string(today()), publisher_did: &quot;__all__&quot;, date: string(today()), impressions: if publisherCount &gt; 0 then sum(publisherStats.impressions) else 0, clicks: 0, conversions: 0, total_revenue_usd: if publisherCount &gt; 0 then sum(publisherStats.total_revenue) else 0.0, rpm_usd: if publisherCount &gt; 0 and sum(publisherStats.impressions) &gt; 0 then sum(publisherStats.total_revenue) / sum(publisherStats.impressions) * 1000.0 else 0.0, ctr_pct: 0.0, cvr_pct: 0.0, created_at: string(now()), sensitivity_ord: 0, actor_id: &quot;sys.bpmn.open-adnetwork&quot;}" target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
@@ -64,7 +64,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-adnetwork.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-adnetwork.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;open.adnetwork.computePublisherRpm&quot;" target="action"/>
           <zeebe:input source="={date: string(today()), publisherCount: publisherCount}" target="payload"/>
         </zeebe:ioMapping>
