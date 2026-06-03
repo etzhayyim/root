@@ -1,4 +1,4 @@
-# ai-gftd-project-global — Global Resource Flow Intelligence Platform
+# etzhayyim-project-global — Global Resource Flow Intelligence Platform
 
 ## Identity
 
@@ -14,7 +14,7 @@ The canonical identity + scope is in `PROJECT.jsonld`; tool surface is in `MCP_T
 
 ## Architecture (Threlte + d3 stack)
 
-This app uses **Threlte** (not the religious-corp `@etzhayyim/kami-engine-sdk`) for its 3D visualization layer, paired with d3 force-directed layout for graph rendering. Same Threlte pattern as `60-apps/ai-gftd-project-cad/` (per its CLAUDE.md "3D viewer 標準は Threlte") and `60-apps/ai-gftd-project-sos/`. The three.js + `@threlte/*` + d3 deps in `appview/.../svelte/package.json` are documented design intent, NOT dead deps.
+This app uses **Threlte** (not the religious-corp `@etzhayyim/kami-engine-sdk`) for its 3D visualization layer, paired with d3 force-directed layout for graph rendering. Same Threlte pattern as `60-apps/etzhayyim-project-cad/` (per its CLAUDE.md "3D viewer 標準は Threlte") and `60-apps/etzhayyim-project-sos/`. The three.js + `@threlte/*` + d3 deps in `appview/.../svelte/package.json` are documented design intent, NOT dead deps.
 
 The SDK three-free cutover (ADR-2605264300) does NOT apply to this app:
 - this app does NOT depend on `@etzhayyim/kami-engine-sdk` (no SDK in `package.json`)
@@ -48,5 +48,5 @@ Three sub-applications documented:
 - `magatama.jsonld` — magatama actor manifest
 - `OWNERS` — ownership metadata
 - ADR-2605264300 (kami-engine-sdk three.js-free cutover) §2 — confirms this app's Threlte deps are KEEP not dead
-- `60-apps/ai-gftd-project-cad/CLAUDE.md` — sibling Threlte-viewer pattern
-- `60-apps/ai-gftd-project-sos/CLAUDE.md` — sibling Threlte-viewer pattern
+- `60-apps/etzhayyim-project-cad/CLAUDE.md` — sibling Threlte-viewer pattern
+- `60-apps/etzhayyim-project-sos/CLAUDE.md` — sibling Threlte-viewer pattern

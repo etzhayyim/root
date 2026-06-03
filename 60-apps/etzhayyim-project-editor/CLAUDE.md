@@ -1,4 +1,4 @@
-# ai-gftd-project-editor — editor.etzhayyim.com
+# etzhayyim-project-editor — editor.etzhayyim.com
 
 **Web code editor + project manager (v0.dev-like).** CodeMirror 6 + Sandpack in-browser preview。Pattern 1 (Single Worker + B2 content-addressed blob + yata SQL graph), platform-compliant 修正版。P0 = single user, no realtime collab。
 
@@ -6,7 +6,7 @@
 
 | Component | Folder | nanoid | Role |
 |---|---|---|---|
-| editor | `wasm/ai-gftd-wasm-editor-ed1t0r00/` | `ed1t0r00` | XRPC API + Hono router + Svelte CSR (P0b) |
+| editor | `wasm/etzhayyim-wasm-editor-ed1t0r00/` | `ed1t0r00` | XRPC API + Hono router + Svelte CSR (P0b) |
 
 ## Architecture (Pattern 1, platform-compliant)
 
@@ -61,7 +61,7 @@ editor Worker (createWorkerExport + @etzhayyim/magatama-host-sdk)
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-editor/wasm/ai-gftd-wasm-editor-ed1t0r00
+cd 60-apps/etzhayyim-project-editor/wasm/etzhayyim-wasm-editor-ed1t0r00
 mkdir -p build && npx esbuild src/app.ts --bundle --outfile=build/worker.mjs --format=esm --platform=browser --target=es2022 --external:cloudflare:workers
 pnpm wrangler deploy
 curl https://editor.etzhayyim.com/health

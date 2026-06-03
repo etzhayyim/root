@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Editor Ed1t0r00",
-  "project": "ai-gftd-project-editor",
-  "name": "ai-gftd-wasm-editor-ed1t0r00",
+  "project": "etzhayyim-project-editor",
+  "name": "etzhayyim-wasm-editor-ed1t0r00",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-editor/appview/ai-gftd-wasm-editor-ed1t0r00/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-editor/appview/etzhayyim-wasm-editor-ed1t0r00/svelte/src/routes/+page.svelte"
 };
 </script>
 

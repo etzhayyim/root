@@ -173,19 +173,19 @@ Result: `SystemModel`
 
 ## Implementation References
 
-- Backend MCP handler: `60-apps/ai-gftd-project-global/wasm/global-ui-w5n8p3q6/global-mcp-routes.go`
-- Frontend MCP client: `60-apps/ai-gftd-project-global/wasm/global-ui-w5n8p3q6/svelte/src/lib/api/mcp.ts`
+- Backend MCP handler: `60-apps/etzhayyim-project-global/wasm/global-ui-w5n8p3q6/global-mcp-routes.go`
+- Frontend MCP client: `60-apps/etzhayyim-project-global/wasm/global-ui-w5n8p3q6/svelte/src/lib/api/mcp.ts`
 
 ## Local Dev
 
 Start the backend with an in-memory App state store:
 ```bash
-60-apps/ai-gftd-project-global/legacy-runtime/run_local_global_app.sh
+60-apps/etzhayyim-project-global/legacy-runtime/run_local_global_app.sh
 ```
 
 Smoke test:
 ```bash
-60-apps/ai-gftd-project-global/legacy-runtime/smoke_mcp.sh | jq
+60-apps/etzhayyim-project-global/legacy-runtime/smoke_mcp.sh | jq
 ```
 
 For the UI, set `VITE_API_BASE` to point at the backend (example: `http://localhost:18080`).

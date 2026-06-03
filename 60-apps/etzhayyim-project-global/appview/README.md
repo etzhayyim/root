@@ -1,10 +1,10 @@
-# ai-gftd-project-global App migration
+# etzhayyim-project-global App migration
 
 このディレクトリは `legacy-runtime` 実装を残したまま、App 版を段階移行するための配置先です。
 
 ## 対象 App services
 
-- `ai-gftd-performer-sys-gftd-app-resources-py0fvqwk`
+- `etzhayyim-performer-sys-etzhayyim-app-resources-py0fvqwk`
 - `global-app-r4k7m2x9`
 
 ## 実装済み wasm components

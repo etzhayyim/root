@@ -1,7 +1,7 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:web:editor.etzhayyim.com",
-  "name": "ai-gftd-wasm-editor",
+  "name": "etzhayyim-wasm-editor",
   "nanoid": "ed1t0r00",
   "project": "editor",
   "performerType": "service",
@@ -20,7 +20,7 @@
     "description": "Web code editor + project manager — CodeMirror 6 + Sandpack preview, v0-style LLM gen",
     "agentType": "autonomous",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": [
       "code-editor",
       "project-management",
