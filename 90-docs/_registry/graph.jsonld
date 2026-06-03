@@ -12745,6 +12745,30 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling",
+      "type": "TechArticle",
+      "title": "ADR-2606033600: sumitsubo 墨壺 — cleanroom CAD interop (Vectorworks / Autodesk / AutoCAD) for modeling + export, and kotoba Pregel-LangGraph generative / modeling assistance",
+      "status": "proposed",
+      "topic": "sumitsubo-cleanroom-cad-interop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the cleanroom CAD-interop SDK module (geometry kernel + open-format import/export + published-API-shape command adapters) shipped for kami-engine-sdk re-export",
+        "the cleanroom invariant for CAD vendor interop (no vendor SDK headers / no decompilation / no trademarked code / public specs only)",
+        "the kotoba Pregel-LangGraph generative + modeling-assistance cells (NL → modeling-op plan → kotoba Datoms)",
+        "the open-format export fidelity + DWG-proprietary honesty boundary"
+      ],
+      "related": [
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2605231525-etzhayyim-no-server-side-signing-key",
+        "doc:adr-2606011500-spirit-in-physics-kotoba-datafication"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
       "type": "TechArticle",
       "title": "ADR-2606033600: tsuzuri 綴 — Adobe-independent, in-browser (WASM) PDF editor",
@@ -12775,6 +12799,16 @@
         "doc:adr-2606014500-one-worker-many-wasm-actors",
         "doc:adr-2605231525-no-platform-held-signing-key"
       ],
+      "lastVerified": "2026-06-03"
+    },
+    {
+      "id": "doc:adr-2606035500-session-close-sumitsubo-cleanroom-cad-interop",
+      "type": "TechArticle",
+      "title": "ADR-2606035500: Session close — sumitsubo 墨壺 cleanroom CAD interop + kotoba-LangGraph generative modeling (R0)",
+      "status": "active",
+      "topic": "session-close-sumitsubo-cleanroom-cad-interop",
+      "authoritative": false,
+      "related": "doc:adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling",
       "lastVerified": "2026-06-03"
     },
     {
