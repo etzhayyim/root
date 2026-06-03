@@ -34,7 +34,7 @@ The 2026-05-09 チーゴのみ / Rawst Berry ingest used the existing live table
 - `vertex_agent_observation`
 
 The saved session id is `codex-session-20260509-pokopia-chigo-berry`.
-The saved item id is `did:gftd:gameitem:pokemon-pokopia:chigo-berry`.
+The saved item id is `did:etzhayyim:gameitem:pokemon-pokopia:chigo-berry`.
 
 ## Decision
 
@@ -94,7 +94,7 @@ Required fields:
 
 - `vertex_id`: `claim:{claim_hash}`
 - `session_id`
-- `subject_id`: e.g. `did:gftd:gameitem:pokemon-pokopia:chigo-berry`
+- `subject_id`: e.g. `did:etzhayyim:gameitem:pokemon-pokopia:chigo-berry`
 - `predicate`: `acquisition | use | recipe | location | farming | caveat`
 - `object_text`
 - `normalized_json`
@@ -344,7 +344,7 @@ Supersteps:
 
 The 2026-05-09 run saved:
 
-- item vertex: `did:gftd:gameitem:pokemon-pokopia:chigo-berry`
+- item vertex: `did:etzhayyim:gameitem:pokemon-pokopia:chigo-berry`
 - document: `at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
 - chunks:
   - acquisition/location

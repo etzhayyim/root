@@ -22,7 +22,7 @@ priority_note: "CRITICAL — external surface = MCP only; lexicon JSON drives bo
 depends_on:
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
   - adr-0087-magatama-mcp-tool-facade
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
 related:
   - adr-2604282300
@@ -148,7 +148,7 @@ partner org / external service との初回接続:
 ## E. 内部 XRPC は維持 (cytoplasmic wire として first-class)
 
 - bsky federation (`app.bsky.*`) は引き続き XRPC + AT Protocol 経由
-- gftd 内部 service (`com.etzhayyim.apps.*`) も内部 RPC 用 XRPC は維持
+- etzhayyim 内部 service (`com.etzhayyim.apps.*`) も内部 RPC 用 XRPC は維持
 - 内部 caller (CF Worker edge BFF → dispatcher、cohort 内 pod 間、operator CLI) は
   XRPC を直接使ってよい。strict `x-internal-trust` 認証 (`DISPATCHER_AUTH_MODE=strict`) で gate
 - **外部 caller** (Claude desktop, partner AI ecosystem, public API consumer) は MCP のみ。
@@ -344,7 +344,7 @@ Worker 内部の `media_gamers` ルーティングロジックに届く。
 `atproto-canary.etzhayyim.com` (実装側) は `x-internal-trust` ヘッダーなしで
 アクセス不可。この問題は media-gamers とは無関係の既存 infra rot。
 
-修正方法: `50-infra/cloudflare/workers/atproto/` で `gftd deploy` を実行し
+修正方法: `50-infra/cloudflare/workers/atproto/` で `etzhayyim deploy` を実行し
 現在のソース (SvelteKit plain proxy → canary) をデプロイする。
 追跡: `deps.toml [[migrations]] id = "atproto-mcp-router-522-loopback-fix"`
 

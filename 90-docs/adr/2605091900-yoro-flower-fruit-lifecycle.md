@@ -20,7 +20,7 @@ depends_on:
   - adr-2605071200-myco-yeast-artificial-organism-jp-naming
   - adr-2605091800-pruning-protocol
 related:
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2605091500-mycorrhizal-watering-consent-gated-mutation
 supersedes: []
 superseded_by: []
@@ -157,4 +157,4 @@ schema は新規追加なので reversible。AppView UI は rename のみで rol
 - ADR-2605091300 bonsai cultivar (yoro = 花/果実)
 - ADR-2605071200 myco-yeast (kinoko との対比)
 - ADR-2605091800 pruning (cull/pinch)
-- 60-apps/ai-gftd-project-yoro/CLAUDE.md (実装側)
+- 60-apps/etzhayyim-project-yoro/CLAUDE.md (実装側)

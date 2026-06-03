@@ -31,7 +31,7 @@ related:
 
 ## Context
 
-`maps.etzhayyim.com` is the gftd geospatial actor. Its `actor-manifest.jsonld`
+`maps.etzhayyim.com` is the etzhayyim geospatial actor. Its `actor-manifest.jsonld`
 declares `did:web:maps.etzhayyim.com:satellite` as a STAC source covering
 Sentinel-1 / Sentinel-2 / Landsat / HLS / Cop-DEM / NAIP, plus the
 commands `satellite_ingest` / `satellite_import_scene` /
@@ -96,7 +96,7 @@ Start (XRPC POST com.etzhayyim.apps.maps.sentinelAnalyze)
   `RUNPOD_ENDPOINT_ID`). Default model bundle: SAR flood detector
   (`sentinel1_flood_unet`) + optical change detector
   (`sentinel2_change_siamese`). Endpoint lives outside this repo;
-  deployment is captured in `60-apps/ai-gftd-project-maps/runpod-endpoint/`
+  deployment is captured in `60-apps/etzhayyim-project-maps/runpod-endpoint/`
   in a follow-up.
 - LangChain orchestration: prompt → COG URL retrieval → RunPod invoke
   → structured JSON parse → confidence calibration. Pure Python, no
@@ -120,7 +120,7 @@ because its analysis runs are minute-scale (well over CF's 30s budget).
 ### 4. K8s wiring
 
 Extend `50-infra/vultr/mitama-udf-pool/values.yaml` `zeebeWorker.env`
-with three optional secrets (all keyed off Bitwarden gftd Vault, none
+with three optional secrets (all keyed off Bitwarden etzhayyim Vault, none
 hardcoded):
 
 - `RUNPOD_KEY` (shared with yoro's existing `RUNPOD_KEY` secret)
@@ -215,8 +215,8 @@ use `createKyselyDb(env.HYPERDRIVE)` inserts into the typed tables
 | Item | Blocker |
 |---|---|
 | Promote BPMNs to write `vertex_satellite_scene` directly | Requires `maps_sentinel.py` Hyperdrive rewrite + Phase 2 BPMN update |
-| Credentials — `RUNPOD_ENDPOINT_ID_MAPS` / Sentinel Hub auth | Separate secret provisioning in gftd Vault |
-| RunPod model endpoint (SAR flood + optical change) | Separate repo work (`60-apps/ai-gftd-project-maps/runpod-endpoint/`) |
+| Credentials — `RUNPOD_ENDPOINT_ID_MAPS` / Sentinel Hub auth | Separate secret provisioning in etzhayyim Vault |
+| RunPod model endpoint (SAR flood + optical change) | Separate repo work (`60-apps/etzhayyim-project-maps/runpod-endpoint/`) |
 | `mv_satellite_scene_latest_by_aoi` streaming MV | Low priority — query-time JOIN sufficient at current scene volume |
 | Edge tables `edge_scene_covers_aoi` / `edge_analysis_of_scene` | After cluster footprint stabilises |
 | Sentinel-3 / Sentinel-5P coverage | Phase 1 stability gate |

@@ -262,5 +262,5 @@ audited that single-prover risk is acceptable for K0-K7.
 - ADR-0026 — cohort genesis k≥50 floor
 - ADR-0074 — ERC-4337 organism wallet
 - `90-docs/proof/Karma.lean` — axioms (live target of A7)
-- `60-apps/ai-gftd-project-karma/circuits/rebirth-non-linkability/` —
+- `60-apps/etzhayyim-project-karma/circuits/rebirth-non-linkability/` —
   zk circuit (component of A2 mitigation)

@@ -37,7 +37,7 @@ inference, intelligence fusion, and System-of-Systems diagnostics:
 - `intel` fuses cross-domain intelligence feeds.
 - `vertex_agent_*` tables store active-inference observations, beliefs, ticks,
   proposals, effects, and homeostasis.
-- `gftd systemofsystem` scans repo-level systems, interfaces, and health.
+- `etzhayyim systemofsystem` scans repo-level systems, interfaces, and health.
 
 What is missing is a resident actor that continuously treats the graph itself as
 an operational intelligence object: `vertex_*`, `edge_*`, `mv_*`, and `idx_*`

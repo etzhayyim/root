@@ -12,7 +12,7 @@ authoritative_for:
   - business-person-ma-inputs
   - lei-entity-resolution
 related:
-  - 60-apps/ai-gftd-project-ma/magatama.toml
+  - 60-apps/etzhayyim-project-ma/magatama.toml
   - 90-docs/260427-fund-ma-actor-activation-runbook.md
   - adr-2604261200
   - 30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts
@@ -39,7 +39,7 @@ different provenance, privacy, licensing, retry, and graph-write rules.
 # Decision
 
 The MA app owns orchestration and use of these streams, but not every source
-collector. `60-apps/ai-gftd-project-ma/magatama.toml` is the local integration
+collector. `60-apps/etzhayyim-project-ma/magatama.toml` is the local integration
 manifest that records the wiring.
 
 The integration boundary is:
@@ -114,7 +114,7 @@ HTML-to-JSON conversion before these workers can run continuously from
 external registries. Existing seed coverage registers public registry sources,
 role types, and
 corporate HP collection jobs in
-`60-apps/ai-gftd-project-business-person/seed.ts`. It must stay
+`60-apps/etzhayyim-project-business-person/seed.ts`. It must stay
 public-disclosure-only: official filings, public leadership pages, and
 registry data. It feeds MA research, matching, and approved outreach context,
 but it must not fabricate private contact data.

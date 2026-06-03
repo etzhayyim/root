@@ -9,7 +9,7 @@ last_verified: 2026-05-09
 authoritative_for:
   - RisingWave capability storage target design
   - DID-bound authority evaluation over RW writes and reads
-  - Tahoe-like read/write/verify capability mapping for gftd storage
+  - Tahoe-like read/write/verify capability mapping for etzhayyim storage
   - auth.etzhayyim.com / DID / ERC725 alignment for capability checks
 priority: 9.1
 axis: security
@@ -59,7 +59,7 @@ architecture only under these constraints:
   Capability checks consume auth context from OAuth/DPoP-bound sessions; they do
   not mint independent login sessions.
 - The canonical authority key is the ERC725 root DID:
-  `did:erc725:gftd:260425:<identity>`.
+  `did:erc725:etzhayyim:260425:<identity>`.
 - `did:web` / `did:plc` values are facade/profile/federation DIDs. They may be
   accepted as input, but must be resolved to the ERC725 root before capability
   evaluation.
@@ -113,7 +113,7 @@ Use Tahoe-like semantics, but bind them to DID authority and MCP calls.
 The bearer capability URI is never stored raw in RW. The proposed URI shape is:
 
 ```text
-gftd-cap:v1:rw:<cap-type>:<object-id>:<secret-or-proof>
+etzhayyim-cap:v1:rw:<cap-type>:<object-id>:<secret-or-proof>
 ```
 
 RW stores only:
@@ -294,7 +294,7 @@ Authority is DID-bound and explicit:
 
 Signature verification order:
 
-1. Resolve `did:web` / `did:plc` / `did:gftd` input to ERC725 root DID.
+1. Resolve `did:web` / `did:plc` / `did:etzhayyim` input to ERC725 root DID.
 2. Resolve ERC725 root to identity contract via `etzhayyimRootIdentityRegistry`.
 3. If signer is a contract/smart account, verify via ERC-1271.
 4. If signer is an EOA, verify ECDSA and root identity binding.

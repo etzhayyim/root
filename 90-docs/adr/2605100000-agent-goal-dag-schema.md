@@ -110,4 +110,4 @@ vertices link via `edge_agent_topo_concerns`.
 - Schema: `30-graph/graph-schema/sql_migrations/20260510010000_vertex_agent_topo_and_kafun_concrete.up.sql`
 - Alembic: `r_20260510010000_vertex_agent_topo_and_kafun_concrete`
 - First user: kafun-bokumetsu (16+5 nodes, 20+6 deps, applied 2026-05-10).
-- App handler: `60-apps/ai-gftd-project-public-kafun-bokumetsu/appview/.../src/app.ts` `cmdTick()` Tier-A.
+- App handler: `60-apps/etzhayyim-project-public-kafun-bokumetsu/appview/.../src/app.ts` `cmdTick()` Tier-A.

@@ -361,7 +361,7 @@ P1 is complete when:
 - monthly P1 scan remains under 20 TiB by default or has an explicit approval
   note in `vertex_bigquery_profile_run`
 
-# gftd World-Coverage Mapping
+# etzhayyim World-Coverage Mapping
 
 The 352-dataset `bigquery-public-data` catalog crosswalks onto a defined subset
 of `dim_world_domain` app_hosts in `mv_world_coverage_live`. As of 2026-05-10
@@ -372,11 +372,11 @@ adapters do not over-promise.
 
 ## BQ-coverable domains (≈17)
 
-Each row is the gftd `app_host` plus the BigQuery dataset family that can feed
+Each row is the etzhayyim `app_host` plus the BigQuery dataset family that can feed
 it. "Estimated post-BQ coverage" assumes the relevant adapters are written and
 the projection budget in §"Cost Estimate" is honored.
 
-| gftd app_host | feeding BQ dataset family | post-BQ coverage estimate |
+| etzhayyim app_host | feeding BQ dataset family | post-BQ coverage estimate |
 |---|---|---:|
 | `patent` | `patents`, `patents_cpc`, `patents_dsep`, `uspto_oce_*`, `usitc_investigations` | ~100% of US patent universe |
 | `blockchain` | 32 `crypto_*` / `goog_blockchain_*` / `blockchain_*` mainnets | >>100% (transaction-level overflow) |
@@ -404,7 +404,7 @@ target set for P2 projection. Everything else stays catalog-only.
 Domains that BigQuery public data cannot meaningfully fill. Each requires a
 non-BigQuery ingest path:
 
-| gftd app_host | world_total | reason BQ does not have it | required alternate path |
+| etzhayyim app_host | world_total | reason BQ does not have it | required alternate path |
 |---|---:|---|---|
 | `photos` | ~5T | no general image corpus in BQ public | Common Crawl image extraction, IPFS scrape |
 | `kessai` (決済) | ~1T | JP payment infrastructure private | Stripe / Square API + JP 決済代行 partnerships |
@@ -423,7 +423,7 @@ non-BigQuery ingest path:
 ## Topology Decision
 
 BigQuery is the **international-public-record substrate** (≈17 domains).
-gftd-internal, JP-vertical, industrial-IoT, private-transaction, and
+etzhayyim-internal, JP-vertical, industrial-IoT, private-transaction, and
 PII-observation domains stay on dedicated collectors / partnerships. The two
 paths converge at `vertex_*` / `edge_*` in RisingWave; they do not merge at
 the BigQuery layer.
@@ -444,7 +444,7 @@ queries, and make LLM training lineage harder rather than easier. The accepted
 pattern is: BigQuery raw public data -> narrow projections / artifacts ->
 RisingWave graph and training manifests.
 
-Reject "BigQuery is sufficient for gftd world coverage". Per the §gftd
+Reject "BigQuery is sufficient for etzhayyim world coverage". Per the §etzhayyim
 World-Coverage Mapping above, BigQuery covers at most ~17 of the ~50+
 high-mass `dim_world_domain` app_hosts. The 5T-scale `photos`, the 1T-scale
 `kessai` / `serial` / `seizo`, the 500B-scale `invoice` / `receipt`, and the

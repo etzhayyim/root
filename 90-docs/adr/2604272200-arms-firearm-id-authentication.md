@@ -23,10 +23,10 @@ superseded_by: []
 
 # ADR-2604272200: Arms firearm ID authentication system
 
-**Date**: 2026-04-27  
-**Status**: Active  
-**Layer**: L3 CF Worker Dispatcher + L4 RisingWave registry  
-**Actor DID**: `did:web:arms.etzhayyim.com`  
+**Date**: 2026-04-27
+**Status**: Active
+**Layer**: L3 CF Worker Dispatcher + L4 RisingWave registry
+**Actor DID**: `did:web:arms.etzhayyim.com`
 **Complies with**: ADR-0036 (Worker-direct Hyperdrive), ADR-0018 (Tier 3 PII), ADR-0004 (Write-only Derived)
 
 ## Goal
@@ -37,7 +37,7 @@ Enable physical firearm ID authentication and immutable chain-of-custody trackin
 
 - `arms.etzhayyim.com` CF Worker — 12 XRPC methods under `com.etzhayyim.apps.arms.*`
 - RisingWave schema: 5 vertex tables + 2 PII tables + 2 edge tables + 1 MV
-- Rego AuthZ policy: `00-contracts/policies/gftd/xrpc/arms/`
+- Rego AuthZ policy: `00-contracts/policies/etzhayyim/xrpc/arms/`
 - Defence cluster integration: `vertex_open_defence_event`
 
 ## Decision
@@ -77,7 +77,7 @@ KP, IR, SY, RU, BY, MM, SD, CF, LY, SO, YE, SS
 
 `deny_obligations contains "return_451"` — the Worker must return HTTP 451 (Unavailable For Legal Reasons) when this obligation fires. HTTP 451 is semantically correct per RFC 7725 §3.
 
-The restricted list is `data.export_restricted_jurisdictions` in `00-contracts/policies/gftd/xrpc/arms/data.json` — update that file, not the Rego logic, when the list changes.
+The restricted list is `data.export_restricted_jurisdictions` in `00-contracts/policies/etzhayyim/xrpc/arms/data.json` — update that file, not the Rego logic, when the list changes.
 
 ### D4 — Defence cluster incident integration
 
@@ -120,11 +120,11 @@ mv_arms_active_by_holder     (holder_did, firearm_vid, permit_type, issued_at, e
 
 ## Rego AuthZ
 
-Policy: `00-contracts/policies/gftd/xrpc/arms/policy.rego`  
-Data: `00-contracts/policies/gftd/xrpc/arms/data.json`  
-Tests: `00-contracts/policies/gftd/xrpc/arms/test.rego` (10 cases, all passing)
+Policy: `00-contracts/policies/etzhayyim/xrpc/arms/policy.rego`
+Data: `00-contracts/policies/etzhayyim/xrpc/arms/data.json`
+Tests: `00-contracts/policies/etzhayyim/xrpc/arms/test.rego` (10 cases, all passing)
 
-Package: `gftd.xrpc.arms`
+Package: `etzhayyim.xrpc.arms`
 
 Key rules:
 - `internal_service` — `input.auth.method == "service-jwt"` bypasses all holder gates
@@ -137,7 +137,7 @@ Key rules:
 
 - Worker: `arms.etzhayyim.com` (CF Worker, `did:web:arms.etzhayyim.com`)
 - nanoid: `arms`
-- magatama.jsonld: `60-apps/ai-gftd-project-arms/worker/magatama.jsonld`
+- magatama.jsonld: `60-apps/etzhayyim-project-arms/worker/magatama.jsonld`
 - Migration: `30-graph/graph-schema/migrations/20260427*_arms_*.ts` (9 tables applied)
 - database.ts: regenerated 2026-04-27, 2,227 tables, zero drift
 
@@ -163,6 +163,6 @@ Key rules:
 - ADR-0036 Worker-direct Hyperdrive persistence
 - ADR-0018 PII Tier 3 + cohort-first
 - ADR-0035 JPN Seizure cluster topology (pattern reference)
-- `00-contracts/policies/gftd/xrpc/arms/` — Rego policy + data + tests
-- `60-apps/ai-gftd-project-arms/worker/src/app.ts` — Worker implementation
+- `00-contracts/policies/etzhayyim/xrpc/arms/` — Rego policy + data + tests
+- `60-apps/etzhayyim-project-arms/worker/src/app.ts` — Worker implementation
 - `30-graph/graph-schema/migrations/` — RisingWave DDL

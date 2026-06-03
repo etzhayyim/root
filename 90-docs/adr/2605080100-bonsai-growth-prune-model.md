@@ -99,7 +99,7 @@ ADR-0056: INSERT vertex_actor     rw-health-gate.sh → pass
 #### 1. `prune` — 枝を休眠させる
 
 ```
-gftd prune <actor_did> [--preview] [--cascade]
+etzhayyim prune <actor_did> [--preview] [--cascade]
 ```
 
 - `--preview`: カスケード対象を表示するだけ (破壊しない)
@@ -115,7 +115,7 @@ gftd prune <actor_did> [--preview] [--cascade]
 #### 2. `block` — 再成長を防ぐ
 
 ```
-gftd prune <actor_did> --block
+etzhayyim prune <actor_did> --block
 ```
 
 - anastomosis gate を閉じる (`regrowth_blocked=true`)
@@ -125,7 +125,7 @@ gftd prune <actor_did> --block
 #### 3. `release` — ブロック解除
 
 ```
-gftd prune <actor_did> --release
+etzhayyim prune <actor_did> --release
 ```
 
 - `regrowth_blocked=false` に戻す
@@ -162,7 +162,7 @@ GROUP BY ge.actor_did, ge.parent_did, ge.growth_type,
 
 ### 剪定カスケードプレビュー
 
-`gftd prune <did> --preview` の出力例:
+`etzhayyim prune <did> --preview` の出力例:
 
 ```
 will sporulate (cascade):

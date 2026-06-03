@@ -78,11 +78,11 @@ consent-gated の boundary を侵すため不可。
 
 | Lane | NSID | 提供 | issuer DID |
 |---|---|---|---|
-| Vault credential share | `com.etzhayyim.market.publishOffer` (lane=vault) | zero-knowledge secret share | `did:erc725:gftd:260425:vault` |
-| Sashiosae intake | `com.etzhayyim.market.publishOffer` (lane=sashiosae) | 差押 read-only aggregator | `did:erc725:gftd:260425:sashiosae` |
-| Lawfirm India intake | `com.etzhayyim.market.publishOffer` (lane=lawfirm) | 22 言語 intake + auto-route | `did:erc725:gftd:260425:lawfirm` |
-| BPMN dispatch | `com.etzhayyim.market.publishOffer` (lane=bpmn) | BPMN-as-service (ADR-0056) | `did:erc725:gftd:260425:bpmn` |
-| Murakumo inference | `com.etzhayyim.market.publishOffer` (lane=murakumo) | on-prem MLX fleet | `did:erc725:gftd:260425:murakumo` |
+| Vault credential share | `com.etzhayyim.market.publishOffer` (lane=vault) | zero-knowledge secret share | `did:erc725:etzhayyim:260425:vault` |
+| Sashiosae intake | `com.etzhayyim.market.publishOffer` (lane=sashiosae) | 差押 read-only aggregator | `did:erc725:etzhayyim:260425:sashiosae` |
+| Lawfirm India intake | `com.etzhayyim.market.publishOffer` (lane=lawfirm) | 22 言語 intake + auto-route | `did:erc725:etzhayyim:260425:lawfirm` |
+| BPMN dispatch | `com.etzhayyim.market.publishOffer` (lane=bpmn) | BPMN-as-service (ADR-0056) | `did:erc725:etzhayyim:260425:bpmn` |
+| Murakumo inference | `com.etzhayyim.market.publishOffer` (lane=murakumo) | on-prem MLX fleet | `did:erc725:etzhayyim:260425:murakumo` |
 
 5 NSID:
 
@@ -239,7 +239,7 @@ search engine / federated AT Protocol AppView が認証なしで 5 lane と現�
   "@context": "https://etzhayyim.com/ns/market/v1",
   "actor": "did:web:market.etzhayyim.com", "adr": "2605011300", "phase": "1.2",
   "lanes": [{
-    "lane": "vault", "issuer_did": "did:erc725:gftd:260425:vault",
+    "lane": "vault", "issuer_did": "did:erc725:etzhayyim:260425:vault",
     "vacuum": { "demand": 4.61, "supply": 0, "vacuum": 4.61 },
     "listings": [{ "title": "...", "price_unit": 100, "settlement_currency": "USDC" }]
   }],
@@ -270,7 +270,7 @@ attestation を持たない。Phase 1.3 で本物の ERC-4337 UserOp を submit 
 1. Bundler API key 取得 + Keychain 登録:
    - 推奨 (free tier): Pimlico (`https://api.pimlico.io/v2/sepolia/rpc?apikey=...`)
    - 代替: Alchemy / Stackup / Biconomy
-   - `security add-generic-password -s "gftd.erc4337" -a "BUNDLER_RPC_URL" -w "https://..."`
+   - `security add-generic-password -s "etzhayyim.erc4337" -a "BUNDLER_RPC_URL" -w "https://..."`
 2. ERC-4337 wallet 鍵の生成 + Vault / Secrets Store 登録:
    - secp256k1 EOA (Coinbase Smart Wallet execution account, ADR-0074)
    - Sepolia faucet で testnet ETH ~0.05 ETH 入金 (UserOp gas ~0.001 ETH/call)
@@ -285,10 +285,10 @@ attestation を持たない。Phase 1.3 で本物の ERC-4337 UserOp を submit 
      { "binding": "SS_ERC4337_PRIVATE_KEY", "store_id": "...", "secret_name": "erc4337_private_key" }
    ]
    ```
-4. `gftd deploy`。`computeSettlementAnchor` が自動で ERC-4337 path に切替。失敗時は SHA-256 anchor に fallback
+4. `etzhayyim deploy`。`computeSettlementAnchor` が自動で ERC-4337 path に切替。失敗時は SHA-256 anchor に fallback
 
 ## Worker 側 stub の拡張ポイント
-`60-apps/ai-gftd-project-market/.../src/app.ts` `submitErc4337UserOp` に
+`60-apps/etzhayyim-project-market/.../src/app.ts` `submitErc4337UserOp` に
 `eth_sendUserOperation` 呼び出しを実装する。推奨ライブラリ:
 `viem` (CF Workers 互換) の `createBundlerClient` + `sendUserOperation`。
 

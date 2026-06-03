@@ -78,7 +78,7 @@ The initial hApp contract is:
 
 | Binding | Value |
 |---|---|
-| hApp | `gftd-agent-actor-runtime` |
+| hApp | `etzhayyim-agent-actor-runtime` |
 | DNA | `agent_actor_runtime` |
 | role | `agent_actor_runtime` |
 | coordinator zome | `actor_runtime` |
@@ -107,8 +107,8 @@ Implemented contract and scaffolding:
   `runtime.kind=holochain`.
 - `00-contracts/schemas/holochain-agent-runtime-plan.schema.json` defines the
   experiment plan output.
-- `70-tools/gftd/gftd/agent_runtime_holochain.go` adds:
-  `gftd agent-runtime holochain-plan`.
+- `70-tools/etzhayyim/etzhayyim/agent_runtime_holochain.go` adds:
+  `etzhayyim agent-runtime holochain-plan`.
 - `50-infra/holochain/agent-runtime-experiment/holochain-agent-runtime.yaml`
   provides the experimental conductor StatefulSet projection source.
 - `20-actors/magatama/holochain/agent-actor-runtime/` provides hApp/DNA
@@ -118,7 +118,7 @@ The zome artifact image is built on Vultr VKE remote BuildKit, not on local
 macOS Docker:
 
 ```text
-builder: gftd-vke
+builder: etzhayyim-vke
 image: ghcr.io/etzhayyim/holochain-agent-actor-runtime:experimental-amd64
 digest: sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0
 platform: linux/amd64
@@ -129,7 +129,7 @@ platform: linux/amd64
 Local contract smoke:
 
 ```sh
-cd 70-tools/gftd/gftd
+cd 70-tools/etzhayyim/etzhayyim
 go test . -run Holochain
 go run . agent-runtime holochain-plan \
   --agent-did did:web:kami-agent.etzhayyim.com \

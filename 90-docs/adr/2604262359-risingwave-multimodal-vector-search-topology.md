@@ -104,7 +104,7 @@ All sensor adapters must write into the same normalized contract:
 - `vertex_vector_embedding_chunk` stores time windows, frame windows, bounding
   boxes, axis/channel metadata, and normalization metadata;
 - `vertex_vector_embedding_768` stores only projected, L2-normalized
-  `gftd-mm-768` vectors;
+  `etzhayyim-mm-768` vectors;
 - raw samples, point clouds, images, or time series stay in blob/object storage
   or domain tables and are referenced by `blob_ref`, `source_vertex_id`, and
   `metadata_json`.
@@ -201,12 +201,12 @@ Actor profile rows use:
 
 ```text
 source_kind      = actor_profile
-source_uri       = actor:did:erc725:gftd:260425:<identity>
-source_vertex_id = did:erc725:gftd:260425:<identity>
+source_uri       = actor:did:erc725:etzhayyim:260425:<identity>
+source_vertex_id = did:erc725:etzhayyim:260425:<identity>
 repo             = did:web:* or did:plc:* facade when available
-space_id         = gftd-mm-768
+space_id         = etzhayyim-mm-768
 model_id         = bge-m3
-projection_id    = bge-m3-to-gftd-mm-768
+projection_id    = bge-m3-to-etzhayyim-mm-768
 ```
 
 Bluesky post rows keep the AT URI as `source_uri` and `vertex_bluesky_post`
@@ -242,7 +242,7 @@ then reranks.
 The live Yoro actor search path runs lexical actor lookup first and uses 768d
 HNSW as a semantic refinement path when the request supplies a 768-dimensional
 query vector. It filters actor HNSW rows to
-`actor:did:erc725:gftd:260425:%` and joins `view_actor_unified` on `root_did`
+`actor:did:erc725:etzhayyim:260425:%` and joins `view_actor_unified` on `root_did`
 to recover facade handle/display fields.
 
 For image search:

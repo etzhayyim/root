@@ -596,5 +596,5 @@ AgentGateway MCP and pod-side LangServer methods. Existing BPMN processes and
 - `20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py`
 - `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
 - `30-graph/graph-schema/migrations/20260430216400_seed_maps_collection_bpmn_actors.ts`
-- `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
+- `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
 - `70-tools/config/bpmn-coverage-manifest.json`

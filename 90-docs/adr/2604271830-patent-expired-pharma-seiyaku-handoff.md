@@ -11,8 +11,8 @@ authoritative_for:
   - patent-to-open-seiyaku-handoff
   - expired-patent-worker-boundary
 related:
-  - 60-apps/ai-gftd-project-patent/magatama.toml
-  - 60-apps/ai-gftd-project-patent/worker/python/patent_expiry_worker.py
+  - 60-apps/etzhayyim-project-patent/magatama.toml
+  - 60-apps/etzhayyim-project-patent/worker/python/patent_expiry_worker.py
   - 70-tools/config/bpmn-coverage-manifest.json
   - 30-graph/graph-schema/migrations/20260427075000_open_patent_expired_pharma_bpmn_worker.ts
   - adr-2604251024-patent-bulk-ingest-and-blob-cid
@@ -56,7 +56,7 @@ The handoff target is fixed:
 
 # Worker Boundary
 
-The Python worker in `60-apps/ai-gftd-project-patent/worker/python` is a
+The Python worker in `60-apps/etzhayyim-project-patent/worker/python` is a
 deterministic bridge worker for this pharma handoff path. It does not replace
 the broader patent actor's shared-executor model.
 
@@ -76,7 +76,7 @@ The worker must not:
 
 # Consequences
 
-`60-apps/ai-gftd-project-patent/magatama.toml` is the local wiring manifest for
+`60-apps/etzhayyim-project-patent/magatama.toml` is the local wiring manifest for
 this handoff. Coverage is enforced by `70-tools/config/bpmn-coverage-manifest.json`
 under area `patent-expired-pharma`.
 

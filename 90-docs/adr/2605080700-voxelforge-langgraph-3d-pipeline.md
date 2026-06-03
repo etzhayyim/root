@@ -37,7 +37,7 @@ amends:
 
 ## Context
 
-isekai (`60-apps/ai-gftd-project-isekai/`) は Minecraft 風 voxel sandbox を WebGPU (`kami-voxel` + `kami-mesher`) で提供する。現状の voxel content は手書きシード生成器のみで、CAD 図面 / テキスト指示 / リファレンス画像から建築物を自動生成する path は存在しない。
+isekai (`60-apps/etzhayyim-project-isekai/`) は Minecraft 風 voxel sandbox を WebGPU (`kami-voxel` + `kami-mesher`) で提供する。現状の voxel content は手書きシード生成器のみで、CAD 図面 / テキスト指示 / リファレンス画像から建築物を自動生成する path は存在しない。
 
 並行して 2026-05-05 に ADSK Phase 1 (`task_adsk_dataset_ingest`) で `ADSKAILab/Zero-To-CAD-100k/1m` の CadQuery テキストを `vertex_hf_dataset_record` に取り込み済み。3D blob (`ABC-1M` / `Make-A-Shape-*` / `WaLa-*`) は Phase 2 deferred のまま、推論側にも 3D-aware model は載っていない (ADR-2605010000 の RunPod unified pod は `runpod/comfyui:latest` 画像生成のみで、TRELLIS / Hunyuan3D / ComfyUI-3D-Pack は未導入)。
 
@@ -55,7 +55,7 @@ isekai (`60-apps/ai-gftd-project-isekai/`) は Minecraft 風 voxel sandbox を W
 | L3 Routing | `bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` |
 | L3 Execution | **LangGraph Server + Granian** (`mitama-voxelforge-pool` Helm release) |
 | L4 SSoT | `vertex_voxelforge_design` / `vertex_voxelforge_artifact` / `vertex_voxelforge_run` |
-| L5 Storage | B2 `ai-gftd-nats/voxelforge/v1/{designId}/{artifactKind}.{glb|vox|json}` |
+| L5 Storage | B2 `etzhayyim-nats/voxelforge/v1/{designId}/{artifactKind}.{glb|vox|json}` |
 | L6 Compute | RunPod 6000 Ada unified pod (TRELLIS :5000 + ComfyUI :8188 + ComfyUI-3D-Pack via custom_nodes) |
 | L7 Bonsai | growth event = `voxelforge_artifact_published`、prune に対応 |
 
@@ -184,7 +184,7 @@ mv_3d_blob_count_by_source
 | `sdk.pds.dispatch({type:"com.atproto.repo.createRecord"})` で domain 書き込み | `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_voxelforge_*').values(...).execute()` |
 | `did:pkh` 発行 (ADR-0095) | `actor_did` フィールドは ERC725 DID か legacy did:web 受理、wallet alias は `wallet_address` 列 |
 | RunPod pod URL を CF Worker secrets に直接設定 (drift する) | LangGraph Server 環境変数 (`RUNPOD_TRELLIS_URL` / `RUNPOD_COMFYUI_URL`) で集中管理。pod ID 変更時は ADR-2605010000 の `runpod-podid-update-checklist` を実行 |
-| 中間形式に独自バイナリ (`.gftd-voxel`) を新設 | `.glb` + `.vox` (MagicaVoxel) で固定。kami-voxel 用 RLE は `voxel_grid.json` のみ追加 |
+| 中間形式に独自バイナリ (`.etzhayyim-voxel`) を新設 | `.glb` + `.vox` (MagicaVoxel) で固定。kami-voxel 用 RLE は `voxel_grid.json` のみ追加 |
 | LangGraph state を Postgres / Redis に永続化 | RisingWave 直 (`vertex_voxelforge_run.checkpoint_json` + custom `BaseCheckpointSaver`) |
 
 ## Consequences
@@ -224,5 +224,5 @@ Phase A-C を本 PR で author。D / E は後続 session。
 - ADR-0036 (Worker-direct Hyperdrive)
 - ADR-0041 (Content-addressed PK)
 - ADR-0095 (3-Layer Identity + RW canonical columns)
-- 60-apps/ai-gftd-project-isekai/CLAUDE.md (kami-voxel sandbox consumer)
+- 60-apps/etzhayyim-project-isekai/CLAUDE.md (kami-voxel sandbox consumer)
 - 20-actors/magatama/py/src/pymagatama/primitives/adsk.py (Phase 1 ingest, extended in this ADR)

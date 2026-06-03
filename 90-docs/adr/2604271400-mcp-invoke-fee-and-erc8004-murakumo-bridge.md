@@ -41,7 +41,7 @@ superseded_by: []
    ERC-8004 形 agent registry で、ERC725 root DID hash → tokenId +
    agentURI (ipfs://) を持つ。一方 `MurakumoRegistry`
    (`0x4E3d742ece9483f97c3094b40c4b8C7901a6E3B6`) は inference operator
-   stake (1000 GCC ≥) + endpoint + capabilities を `did:gftd` hash
+   stake (1000 GCC ≥) + endpoint + capabilities を `did:etzhayyim` hash
    keyed で持つ。両者を接続する on-chain 紐付けが無いため、
    ERC-8004 経由で agent discovery した caller は Murakumo node の
    stake / SLA reputation を verify できない。
@@ -202,7 +202,7 @@ off-chain reader が `agentByOperator[did]` を引いた上で
 3. **bridge contract 不要、registry SELECT で resolve**: off-chain で
    `MurakumoRegistry` + `etzhayyimAgentRegistry` 両方を読んで JOIN。却下 —
    ERC-8004 caller (外部 agent ecosystem) は on-chain 単一 view を期待
-   する。bridge が無いと caller 側に gftd 内部の registry topology
+   する。bridge が無いと caller 側に etzhayyim 内部の registry topology
    knowledge を強制する。
 4. **新規 ERC-8004 token を Murakumo operator 1:1 で再発行**:
    `etzhayyimAgentRegistry.openRegistration=true` にして operator が直接

@@ -137,7 +137,7 @@ Fix: `_deployed_in_flight: set[str]` local to `watcher_loop()`. After successful
 
 ### Blocking fix: B2 credentials
 
-`maps-bulk-ingest-credentials` Secret had `B2_ACCESS_KEY_ID=CHANGEME` (placeholder from initial deploy). Patched 2026-04-28T13:17Z with real `APPLICATION_KEY_ID` / `APPLICATION_KEY` from macOS Keychain `gftd.b2`. Pod `bulk-ingest-openflights` restarted automatically.
+`maps-bulk-ingest-credentials` Secret had `B2_ACCESS_KEY_ID=CHANGEME` (placeholder from initial deploy). Patched 2026-04-28T13:17Z with real `APPLICATION_KEY_ID` / `APPLICATION_KEY` from macOS Keychain `etzhayyim.b2`. Pod `bulk-ingest-openflights` restarted automatically.
 
 ### Blocking fix: GTFS-JP feed index
 
@@ -161,7 +161,7 @@ Timer-start R/P7D auto-fires next run in 7 days. `bulkRefreshGtfsJp` R/PT24H fir
 | 3 | `./deploy.sh build && ./deploy.sh apply` (image 1.2.0, gtfs-realtime-bindings) | All dumpers |
 | 4 | Scale `bulk-ingest-gtfs-jp --replicas=1` | Phase 2 live |
 | 5 | ODPT registration or no-auth RT index → scale `bulk-ingest-gtfs-rt --replicas=1` | Phase 3 live |
-| 6 | `gftd deploy` for `maps-ui-uqpel6i6` | XRPC handlers reachable |
+| 6 | `etzhayyim deploy` for `maps-ui-uqpel6i6` | XRPC handlers reachable |
 
 After (1)+(2)+(3)+(4)+(6): `nextDeparturesAtStop` is live for the 4 verified bus operators.
 After (5): `realtimeDelaysAtStop` returns RT delays for configured operators.
@@ -172,17 +172,17 @@ After (5): `realtimeDelaysAtStop` returns RT delays for configured operators.
 |---|---|
 | `30-graph/graph-schema/migrations/20260428150000_vertex_maps_trip_stop_time.ts` | Phase 2 schema |
 | `30-graph/graph-schema/migrations/20260428160000_vertex_maps_realtime.ts` | Phase 3 schema + streaming MVs |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dumper.py` | GTFS-JP bulk ingest |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/workers/openflights_dumper.py` | OpenFlights air routes |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/workers/ferry_routes_dumper.py` | OSM ferry routes |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py` | GTFS-RT realtime (gated) |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py` | No-DB dry-run row count tool |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-gtfs-{jp,rt}.yaml` | K8s manifests |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-{openflights,ferry-routes}.yaml` | K8s manifests |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/feed-index/gtfs-jp.json` | 4 verified no-auth seed feeds |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/RUNBOOK-PHASE-3.md` | Phase 3 bring-up runbook |
-| `60-apps/ai-gftd-project-maps/bulk-ingest/deploy.sh` | Image 1.2.0 build + apply |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_jp_dumper.py` | GTFS-JP bulk ingest |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/workers/openflights_dumper.py` | OpenFlights air routes |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/workers/ferry_routes_dumper.py` | OSM ferry routes |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py` | GTFS-RT realtime (gated) |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py` | No-DB dry-run row count tool |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-gtfs-{jp,rt}.yaml` | K8s manifests |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-{openflights,ferry-routes}.yaml` | K8s manifests |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/feed-index/gtfs-jp.json` | 4 verified no-auth seed feeds |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/RUNBOOK-PHASE-3.md` | Phase 3 bring-up runbook |
+| `60-apps/etzhayyim-project-maps/bulk-ingest/deploy.sh` | Image 1.2.0 build + apply |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn` | BPMN timer triggers |
 | `00-contracts/lexicons/com/etzhayyim/apps/maps/{nextDeparturesAtStop,realtimeDelaysAtStop}.json` | XRPC lexicons |
-| `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts` | XRPC handlers |
-| `60-apps/ai-gftd-project-maps/CLAUDE.md` | Transit Architecture section |
+| `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts` | XRPC handlers |
+| `60-apps/etzhayyim-project-maps/CLAUDE.md` | Transit Architecture section |
