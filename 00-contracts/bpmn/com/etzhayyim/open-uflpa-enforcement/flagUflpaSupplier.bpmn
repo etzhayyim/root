@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_uflpa_enforcement_flag_uflpa_supplier"
-    targetNamespace="https://gftd.ai/bpmn/open-uflpa-enforcement"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-uflpa-enforcement"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_uflpa_enforcement_flag_uflpa_supplier" name="UFLPA サプライヤ フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-uflpa-enforcement.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-uflpa-enforcement.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;sanctions.uflpa&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: supplierLei, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_unispsc_supplier"
-    targetNamespace="https://gftd.ai/bpmn/open-unispsc"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-unispsc"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_unispsc_supplier" name="UNSPSC サプライヤー 登録" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -75,7 +75,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-unispsc.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openUnispsc.supplier.blocked&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, supplierDid: supplierDid, country: country, commodityCode: commodityCode}" target="payload"/>
         </zeebe:ioMapping>
@@ -88,7 +88,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-unispsc.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openUnispsc.supplier.manualReview&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, supplierDid: supplierDid, qualityScore: qualityScore, kycCleared: kycCleared}" target="payload"/>
         </zeebe:ioMapping>
@@ -101,7 +101,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-unispsc.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openUnispsc.supplier.approved&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, supplierDid: supplierDid, qualityScore: qualityScore, commodityCode: commodityCode}" target="payload"/>
         </zeebe:ioMapping>
