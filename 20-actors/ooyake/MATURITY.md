@@ -55,6 +55,15 @@ official URL** (本体の url), on 2026-06-03.
   ministries already in earlier layers (culture/environment/education/…) and were
   dropped by the atlas-existing-QID dedup — net-new only. Atlas now **2337 units / 30
   files, 2335 QIDs all unique, 2333 :authoritative**.
+- **SUBNATIONAL — first-level administrative divisions (ADM1), 3,599 units across 5
+  continent files** (`gov-units.adm1-{africa,americas,asia,europe,oceania}.edn`):
+  states / provinces / regions / counties of the atlas's current-UN-member countries,
+  via Wikidata country `P150` (division not dissolved, ISO 3166-2 `P300` as
+  `:external-code`). `:level :subdivision`, `:branch :local`, parent `gov.<iso3>`,
+  exact QIDs from SPARQL JSON. Integrator restricted to atlas countries + dropped
+  atlas-existing QIDs (e.g. Tokyo) + cross-file dups. This takes the atlas from the
+  national tier down into subnational government worldwide — **5936 units / 35 files,
+  5934 QIDs all unique, 5932 :authoritative**.
 - `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
   worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
   `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
