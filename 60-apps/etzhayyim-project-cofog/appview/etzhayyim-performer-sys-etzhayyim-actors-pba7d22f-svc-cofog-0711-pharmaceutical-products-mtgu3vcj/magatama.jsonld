@@ -5,7 +5,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai etzhayyim performer sys etzhayyim actors pba7d22f svc cofog 0711 pharmaceutical products agent. Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products — AI Agent. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are ai etzhayyim performer sys etzhayyim actors pba7d22f svc cofog 0711 pharmaceutical products agent. Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products — AI Agent. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -29,8 +29,8 @@
       "domain-query",
       "data-management"
     ],
-    "description": "Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products — AI Agent",
-    "displayName": "Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products",
+    "description": "Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products — AI Agent",
+    "displayName": "Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products",
     "isBot": true,
     "operator": "etzhayyim.co.jp"
   },
@@ -45,7 +45,7 @@
       }
     ],
     "joinRule": "public",
-    "name": "Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products"
+    "name": "Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0711 Pharmaceutical Products"
   },
   "triggers": {
     "subscribeRepos": {

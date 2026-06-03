@@ -5,7 +5,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai etzhayyim performer sys etzhayyim actors pba7d22f svc cofog 0950 education not definable level agent. Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level — AI Agent. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are ai etzhayyim performer sys etzhayyim actors pba7d22f svc cofog 0950 education not definable level agent. Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level — AI Agent. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -29,8 +29,8 @@
       "domain-query",
       "data-management"
     ],
-    "description": "Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level — AI Agent",
-    "displayName": "Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level",
+    "description": "Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level — AI Agent",
+    "displayName": "Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level",
     "isBot": true,
     "operator": "etzhayyim.co.jp"
   },
@@ -45,7 +45,7 @@
       }
     ],
     "joinRule": "public",
-    "name": "Ai Gftd Performer Sys Gftd Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level"
+    "name": "Ai Etzhayyim Performer Sys Etzhayyim Actors Pba7D22F Svc Cofog 0950 Education Not Definable Level"
   },
   "triggers": {
     "subscribeRepos": {
