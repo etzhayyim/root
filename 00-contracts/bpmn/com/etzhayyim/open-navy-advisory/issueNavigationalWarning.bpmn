@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_navy_advisory_issue_warning"
-    targetNamespace="https://gftd.ai/bpmn/open-navy-advisory"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-navy-advisory"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_navy_advisory_issue_warning" name="navy/UKMTO warning" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-navy-advisory.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-navy-advisory.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openNavyAdvisory.warning.broadcast&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, warningId: warningId, authority: authority, areaCode: areaCode, threatType: threatType, severity: severity}" target="payload"/>
         </zeebe:ioMapping>
@@ -59,7 +59,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-navy-advisory.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-navy-advisory.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openNavyAdvisory.warning.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, warningId: warningId, authority: authority, areaCode: areaCode, threatType: threatType, severity: severity}" target="payload"/>
         </zeebe:ioMapping>
