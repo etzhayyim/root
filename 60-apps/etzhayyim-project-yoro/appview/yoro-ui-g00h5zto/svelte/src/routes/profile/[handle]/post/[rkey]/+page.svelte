@@ -282,7 +282,7 @@
 	// ── More menu actions ──
 	const moreMenuActions = $derived([
 		{ label: '投稿のテキストをコピー', onclick: () => {
-			if (rootPost?.text) navigator.clipboard.writeText(rootPost.text).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.svelte: suppressed async error", error); });
+			if (rootPost?.text) navigator.clipboard.writeText(rootPost.text).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.svelte: suppressed async error", error); });
 		}},
 		{ label: 'スレッドをミュート', onclick: () => {
 			if (rootPost) muteThread(rootPost.uri).catch((e) => console.warn('mute thread failed', e));

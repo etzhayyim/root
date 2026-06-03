@@ -561,7 +561,7 @@
 			let appName = actor.nanoid ?? '';
 			if (did.startsWith('did:web:')) {
 				const host = did.replace('did:web:', '').split(':')[0];
-				const m = host.match(/^([^.]+)\.gftd\.ai$/);
+				const m = host.match(/^([^.]+)\.etzhayyim\.ai$/);
 				if (m) appName = m[1];
 			}
 				if (!appName) { mcpLoaded = true; return; }
@@ -1085,7 +1085,7 @@
 		}
 
 		if (parsed.host.endsWith('.etzhayyim.com') && parsed.host !== 'atproto.etzhayyim.com') {
-			const slug = parsed.host.replace(/\.gftd\.ai$/, '');
+			const slug = parsed.host.replace(/\.etzhayyim\.ai$/, '');
 			out.push(mkDid(parsed.host, parsed.path));
 			pushSiteAliases(slug, parsed.path);
 		}
@@ -1100,7 +1100,7 @@
 			return parsed.path[0] ? parsed.path[0].replace(/-/g, '.') : null;
 		}
 		if (parsed.host.endsWith('.etzhayyim.com')) {
-			return parsed.host.replace(/\.gftd\.ai$/, '').replace(/-/g, '.');
+			return parsed.host.replace(/\.etzhayyim\.ai$/, '').replace(/-/g, '.');
 		}
 		return null;
 	}
@@ -1266,13 +1266,13 @@
 		governanceLoading = true;
 		try {
 			const hostFromDid = did.startsWith('did:web:') ? did.replace(/^did:web:/, '').split(':')[0] : '';
-			const candidateNanoid = actor.nanoid ?? hostFromDid.replace(/\.gftd\.ai$/, '');
+			const candidateNanoid = actor.nanoid ?? hostFromDid.replace(/\.etzhayyim\.ai$/, '');
 			const didCandidates = Array.from(
 				new Set([
 					did,
 					actor.did ?? '',
 					hostFromDid ? `did:web:${hostFromDid}` : '',
-					hostFromDid ? `did:web:${hostFromDid.replace(/\.gftd\.ai$/, '')}.etzhayyim.com` : '',
+					hostFromDid ? `did:web:${hostFromDid.replace(/\.etzhayyim\.ai$/, '')}.etzhayyim.com` : '',
 				].filter(Boolean)),
 			);
 			const governanceRows = await Promise.all([
