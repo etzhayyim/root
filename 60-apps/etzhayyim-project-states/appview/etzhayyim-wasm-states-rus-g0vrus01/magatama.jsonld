@@ -37,7 +37,7 @@
     "ministryCount": 5,
     "contractCount": 1,
     "bpmnCount": 85,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/rus/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/rus/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -75,7 +75,7 @@
         "authority": "Executive Presidential Admin",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/rus/bpmn/executive-presidential-admin.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/rus/bpmn/executive-presidential-admin.bpmn"
       },
       {
         "id": "rus.finance-ministry-of-finance",
@@ -84,7 +84,7 @@
         "authority": "Finance Ministry Of Finance",
         "basis": "Economic Affairs Act",
         "portalUri": "https://minfin.gov.ru/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/rus/bpmn/finance-ministry-of-finance.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/rus/bpmn/finance-ministry-of-finance.bpmn"
       },
       {
         "id": "rus.foreign-ministry-of-foreign-affairs",
@@ -93,7 +93,7 @@
         "authority": "Foreign Ministry Of Foreign Affairs",
         "basis": "General Public Services Act",
         "portalUri": "https://www.mid.ru/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/rus/bpmn/foreign-ministry-of-foreign-affairs.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/rus/bpmn/foreign-ministry-of-foreign-affairs.bpmn"
       },
       {
         "id": "rus.military-ministry-of-defence",
@@ -102,7 +102,7 @@
         "authority": "Military Ministry Of Defence",
         "basis": "Defence Act",
         "portalUri": "https://eng.mil.ru/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/rus/bpmn/military-ministry-of-defence.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/rus/bpmn/military-ministry-of-defence.bpmn"
       },
       {
         "id": "rus.legislative-federation-council",
@@ -111,7 +111,7 @@
         "authority": "Legislative Federation Council",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/rus/bpmn/legislative-federation-council.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/rus/bpmn/legislative-federation-council.bpmn"
       }
     ],
     "documentTemplates": [

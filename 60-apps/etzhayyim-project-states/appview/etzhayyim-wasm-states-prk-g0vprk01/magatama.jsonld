@@ -30,7 +30,7 @@
     "ministryCount": 2,
     "contractCount": 1,
     "bpmnCount": 8,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/prk/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/prk/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -79,7 +79,7 @@
         "authority": "Executive State Affairs Commission",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/prk/bpmn/executive-state-affairs-commission.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/prk/bpmn/executive-state-affairs-commission.bpmn"
       },
       {
         "id": "prk.law-enforcement-ministry-of-people-s",
@@ -88,7 +88,7 @@
         "authority": "Law Enforcement Ministry Of People S",
         "basis": "Public Order and Safety Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/prk/bpmn/law-enforcement-ministry-of-people-s.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/prk/bpmn/law-enforcement-ministry-of-people-s.bpmn"
       }
     ],
     "documentTemplates": [
