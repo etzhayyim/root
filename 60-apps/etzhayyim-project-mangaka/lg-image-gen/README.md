@@ -14,7 +14,7 @@ manga panel 1 枚を LangGraph state graph として:
 ## 依存
 
 - Node 22+ / npm (sharp, @langchain/langgraph, @langchain/core)
-- `OPENAI_API_KEY` 必須 (Apple Keychain 推奨: `gftd.openai` / `OPENAI_API_KEY`)
+- `OPENAI_API_KEY` 必須 (Apple Keychain 推奨: `etzhayyim.openai` / `OPENAI_API_KEY`)
 - `gpt-image-1` は禁止 (環境変数で `gpt-image-2` 強制チェック)
 
 ## ディレクトリ
@@ -42,12 +42,12 @@ scripts/lg-image-gen/
 
 ```bash
 # Apple Keychain に key 保存 (一度だけ)
-security add-generic-password -s "gftd.openai" -a "OPENAI_API_KEY" -w "sk-..."
-security add-generic-password -s "gftd.openrouter" -a "OPENROUTER_API_KEY" -w "sk-or-v1-..."
+security add-generic-password -s "etzhayyim.openai" -a "OPENAI_API_KEY" -w "sk-..."
+security add-generic-password -s "etzhayyim.openrouter" -a "OPENROUTER_API_KEY" -w "sk-or-v1-..."
 
 # 環境変数 export
-export OPENAI_API_KEY=$(security find-generic-password -s "gftd.openai" -a "OPENAI_API_KEY" -w)
-export OPENROUTER_API_KEY=$(security find-generic-password -s "gftd.openrouter" -a "OPENROUTER_API_KEY" -w)
+export OPENAI_API_KEY=$(security find-generic-password -s "etzhayyim.openai" -a "OPENAI_API_KEY" -w)
+export OPENROUTER_API_KEY=$(security find-generic-password -s "etzhayyim.openrouter" -a "OPENROUTER_API_KEY" -w)
 
 cd scripts/lg-image-gen
 
@@ -246,7 +246,7 @@ Visual style と tone で gpt-image-2 / Gemini 3 Pro Image を auto switch:
 
 | 症状 | 原因 | 対処 |
 |---|---|---|
-| `OPENAI_API_KEY not set` | 環境変数未 export | `export OPENAI_API_KEY=$(security find-generic-password -s "gftd.openai" -a "OPENAI_API_KEY" -w)` |
+| `OPENAI_API_KEY not set` | 環境変数未 export | `export OPENAI_API_KEY=$(security find-generic-password -s "etzhayyim.openai" -a "OPENAI_API_KEY" -w)` |
 | `gpt-image-1 is forbidden` | 旧モデル参照 | `LG_IMAGE_MODEL=gpt-image-2` |
 | `billing_hard_limit_reached` | OpenAI org の hard limit | Platform Settings → Billing → Limits を引き上げ |
 | `image is overwritten` (履歴消失) | 旧 run.ts (versioning なし) | 最新版は `_v{N}.png` で auto-versioning |
