@@ -12,7 +12,7 @@
   "paths": {
     "/xrpc/com.etzhayyim.authz.activateActorAccount": {
       "post": {
-        "summary": "Deploy the caller's ERC-4337 smart account on the gftd private chain (chainId 260425) by resolving the caller to an ERC725 root DID, then calling `etzhayyimActorRegistry.activate(rootDidHash, [packedPasskeyPubkey])`. Legacy did:gftd/did:web sessions must already be linked through `etzhayyimRootIdentityRegistry`; this procedure no longer hashes legacy DIDs directly. Caller must hold a session (passkey-first policy). The Worker reads the caller's primary passkey credential from D1 (`passkey_credentials` table), strips the 0x04 prefix from the 65-byte uncompressed P-256 pubkey to get a 64-byte X||Y owner, signs a sealer-sponsored EIP-155 legacy tx with the SEALER_PRIV secret, and submits via `https://geth.etzhayyim.com/eth_sendRawTransaction`. Idempotent on the contract side (re-activating returns the existing address). On success returns the same shape as `getActorAccount`.",
+        "summary": "Deploy the caller's ERC-4337 smart account on the etzhayyim private chain (chainId 260425) by resolving the caller to an ERC725 root DID, then calling `etzhayyimActorRegistry.activate(rootDidHash, [packedPasskeyPubkey])`. Legacy did:etzhayyim/did:web sessions must already be linked through `etzhayyimRootIdentityRegistry`; this procedure no longer hashes legacy DIDs directly. Caller must hold a session (passkey-first policy). The Worker reads the caller's primary passkey credential from D1 (`passkey_credentials` table), strips the 0x04 prefix from the 65-byte uncompressed P-256 pubkey to get a 64-byte X||Y owner, signs a sealer-sponsored EIP-155 legacy tx with the SEALER_PRIV secret, and submits via `https://geth.etzhayyim.com/eth_sendRawTransaction`. Idempotent on the contract side (re-activating returns the existing address). On success returns the same shape as `getActorAccount`.",
         "operationId": "com.etzhayyim.authz.activateActorAccount",
         "requestBody": {
           "required": true,
@@ -43,7 +43,7 @@
                     },
                     "didHash": {
                       "type": "string",
-                      "description": "ERC725 root DID hash, never a direct did:gftd/did:web hash."
+                      "description": "ERC725 root DID hash, never a direct did:etzhayyim/did:web hash."
                     },
                     "activated": {
                       "type": "boolean"
@@ -80,7 +80,7 @@
     },
     "/xrpc/com.etzhayyim.authz.getActorAccount": {
       "get": {
-        "summary": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the gftd private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID via `etzhayyimRootIdentityRegistry` when available, then reads `etzhayyimActorRegistry.actorByDid(rootDidHash)` via `https://geth.etzhayyim.com`. Returns `{activated:true, smartAccount}` if the actor has activated their account, or `{activated:false, didHash}` otherwise. Caller must hold a session (passkey-first policy, ADR-0074).",
+        "summary": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the etzhayyim private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID via `etzhayyimRootIdentityRegistry` when available, then reads `etzhayyimActorRegistry.actorByDid(rootDidHash)` via `https://geth.etzhayyim.com`. Returns `{activated:true, smartAccount}` if the actor has activated their account, or `{activated:false, didHash}` otherwise. Caller must hold a session (passkey-first policy, ADR-0074).",
         "operationId": "com.etzhayyim.authz.getActorAccount",
         "parameters": [],
         "responses": {
@@ -104,7 +104,7 @@
                     },
                     "didHash": {
                       "type": "string",
-                      "description": "0x-prefixed 32-byte keccak256 of the canonical ERC725 root DID string. Legacy did:gftd/did:web values are only accepted as facade lookup inputs and are not hashed directly."
+                      "description": "0x-prefixed 32-byte keccak256 of the canonical ERC725 root DID string. Legacy did:etzhayyim/did:web values are only accepted as facade lookup inputs and are not hashed directly."
                     },
                     "activated": {
                       "type": "boolean"
@@ -147,7 +147,7 @@
     },
     "/xrpc/com.etzhayyim.authz.linkEthereumBegin": {
       "post": {
-        "summary": "Issue an EIP-4361 (SIWE) message for the caller to sign with an Ethereum EOA or Coinbase Smart Wallet-compatible account. Caller must already hold a valid session (passkey-first policy, ADR-0074) that resolves to an ERC725 root identity. The returned message embeds the wallet address, the configured private chain ID, a server-issued nonce, and an expiration. The nonce is single-use and tied to the caller's ERC725 root DID; legacy did:gftd/did:web values are accepted only as facade lookup inputs.",
+        "summary": "Issue an EIP-4361 (SIWE) message for the caller to sign with an Ethereum EOA or Coinbase Smart Wallet-compatible account. Caller must already hold a valid session (passkey-first policy, ADR-0074) that resolves to an ERC725 root identity. The returned message embeds the wallet address, the configured private chain ID, a server-issued nonce, and an expiration. The nonce is single-use and tied to the caller's ERC725 root DID; legacy did:etzhayyim/did:web values are accepted only as facade lookup inputs.",
         "operationId": "com.etzhayyim.authz.linkEthereumBegin",
         "requestBody": {
           "required": true,
@@ -457,7 +457,7 @@
                 "properties": {
                   "canonicalId": {
                     "type": "string",
-                    "description": "Stable identifier that becomes keccak256(canonicalId) = sourceHash. E.g. 'github.com/etzhayyim/ai-gftd-apps' or 'ipfs://bafyXXX'."
+                    "description": "Stable identifier that becomes keccak256(canonicalId) = sourceHash. E.g. 'github.com/etzhayyim/etzhayyim-apps' or 'ipfs://bafyXXX'."
                   },
                   "contributorAddr": {
                     "type": "string",

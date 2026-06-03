@@ -197,7 +197,7 @@
                     "files": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_apps_editor_editorFile"
+                        "$ref": "#/components/schemas/ai_etzhayyim_apps_editor_editorFile"
                       }
                     },
                     "total": {
@@ -262,7 +262,7 @@
                     "projects": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_apps_editor_editorProject"
+                        "$ref": "#/components/schemas/ai_etzhayyim_apps_editor_editorProject"
                       }
                     },
                     "total": {
@@ -437,7 +437,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_apps_editor_editorFile": {
+      "ai_etzhayyim_apps_editor_editorFile": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -489,7 +489,7 @@
           "actorId"
         ]
       },
-      "ai_gftd_apps_editor_editorProject": {
+      "ai_etzhayyim_apps_editor_editorProject": {
         "type": "object",
         "properties": {
           "projectId": {

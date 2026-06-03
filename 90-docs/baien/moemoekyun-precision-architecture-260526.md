@@ -111,7 +111,7 @@ R1.4 train host:
 
 ADR-2605263000 §1.1 (Permitted) は **bench-eval inference のみ** で train を明示的に除外している。 user の現在の directive (training FP4 setup on Blackwell) は **train 用途で 5090 を使うこと** を意味するので、 ADR-2605263000 §1.1 を amend する必要:
 
-> §1.1.A (proposed addition): Founder Lv7+ Emergency Authorization も **R1.4 train on RunPod 5090 with TransformerEngine FP4** を permitted scope に追加。 ただし single session ≤24h + $50 cap + per-rental yatachain attestation 継続。
+> §1.1.A (proposed addition): Founder Lv7+ Emergency Authorization も **R1.4 train on RunPod 5090 with TransformerEngine FP4** を permitted scope に追加。 ただし single session ≤24h + $50 cap + per-rental kotoba-datomic attestation 継続。
 
 これは ADR-2605262200 (charter §2(i)(2) train carve-out) と同じ実質効果だが、 Council ratification 待ちを待たず Founder authority で実行する記録になる。
 

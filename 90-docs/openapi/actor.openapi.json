@@ -12,7 +12,7 @@
   "paths": {},
   "components": {
     "schemas": {
-      "ai_gftd_actor_app": {
+      "ai_etzhayyim_actor_app": {
         "type": "object",
         "properties": {
           "did": {

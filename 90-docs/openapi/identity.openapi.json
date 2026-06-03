@@ -261,7 +261,7 @@
                 "properties": {
                   "did": {
                     "type": "string",
-                    "description": "Target did:gftd. For create the did MUST equal parent_did + ':' + CID(op). For update/deactivate the did MUST already exist."
+                    "description": "Target did:etzhayyim. For create the did MUST equal parent_did + ':' + CID(op). For update/deactivate the did MUST already exist."
                   },
                   "opType": {
                     "type": "string",

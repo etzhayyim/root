@@ -369,7 +369,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_gameka_buildArtifact": {
+      "ai_etzhayyim_gameka_buildArtifact": {
         "type": "object",
         "properties": {
           "artifactId": {
@@ -412,7 +412,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_gameka_gameQa": {
+      "ai_etzhayyim_gameka_gameQa": {
         "type": "object",
         "properties": {
           "qaId": {
@@ -480,7 +480,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_gameka_gameSpec": {
+      "ai_etzhayyim_gameka_gameSpec": {
         "type": "object",
         "properties": {
           "specId": {
@@ -540,7 +540,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_gameka_gameTitle": {
+      "ai_etzhayyim_gameka_gameTitle": {
         "type": "object",
         "properties": {
           "titleId": {

@@ -2174,7 +2174,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_animeka_asset": {
+      "ai_etzhayyim_animeka_asset": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -2230,7 +2230,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_background": {
+      "ai_etzhayyim_animeka_background": {
         "type": "object",
         "properties": {
           "layoutRef": {
@@ -2287,7 +2287,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_character": {
+      "ai_etzhayyim_animeka_character": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -2361,7 +2361,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_chatMessage": {
+      "ai_etzhayyim_animeka_chatMessage": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -2410,7 +2410,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_colorModel": {
+      "ai_etzhayyim_animeka_colorModel": {
         "type": "object",
         "properties": {
           "characterRef": {
@@ -2469,7 +2469,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_colorTrace": {
+      "ai_etzhayyim_animeka_colorTrace": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -2527,7 +2527,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_composite": {
+      "ai_etzhayyim_animeka_composite": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -2592,7 +2592,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_cut": {
+      "ai_etzhayyim_animeka_cut": {
         "type": "object",
         "properties": {
           "sceneRef": {
@@ -2655,7 +2655,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_episode": {
+      "ai_etzhayyim_animeka_episode": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -2734,7 +2734,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_inbetween": {
+      "ai_etzhayyim_animeka_inbetween": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -2805,7 +2805,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_keyframe": {
+      "ai_etzhayyim_animeka_keyframe": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -2866,7 +2866,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_layout": {
+      "ai_etzhayyim_animeka_layout": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -2919,7 +2919,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_project": {
+      "ai_etzhayyim_animeka_project": {
         "type": "object",
         "properties": {
           "episodeRef": {
@@ -2964,7 +2964,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_retake": {
+      "ai_etzhayyim_animeka_retake": {
         "type": "object",
         "properties": {
           "targetUri": {
@@ -3049,7 +3049,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_scene": {
+      "ai_etzhayyim_animeka_scene": {
         "type": "object",
         "properties": {
           "episodeRef": {
@@ -3118,7 +3118,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_script": {
+      "ai_etzhayyim_animeka_script": {
         "type": "object",
         "properties": {
           "episodeRef": {
@@ -3172,7 +3172,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_soundCue": {
+      "ai_etzhayyim_animeka_soundCue": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -3243,7 +3243,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_storyboard": {
+      "ai_etzhayyim_animeka_storyboard": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -3303,7 +3303,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_animeka_work": {
+      "ai_etzhayyim_animeka_work": {
         "type": "object",
         "properties": {
           "title": {

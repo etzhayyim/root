@@ -326,7 +326,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_dns_transferOutcome": {
+      "ai_etzhayyim_dns_transferOutcome": {
         "type": "object",
         "properties": {
           "transferRequestUri": {
@@ -373,7 +373,7 @@
           "completedAt"
         ]
       },
-      "ai_gftd_dns_transferRequest": {
+      "ai_etzhayyim_dns_transferRequest": {
         "type": "object",
         "properties": {
           "domain": {
@@ -441,7 +441,7 @@
           "requestedAt"
         ]
       },
-      "ai_gftd_dns_transferStep": {
+      "ai_etzhayyim_dns_transferStep": {
         "type": "object",
         "properties": {
           "transferRequestUri": {

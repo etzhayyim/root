@@ -7,8 +7,8 @@ topic: lexicon-deep-dive
 authoritative: false
 last_verified: 2026-05-28
 authoritative_for:
-  - cycle 73 lexicon violation breakdown by gftd-legacy vs etzhayyim-native scope
-  - 181 non-gftd violation inventory with auto-fix safety analysis
+  - cycle 73 lexicon violation breakdown by etzhayyim-legacy vs etzhayyim-native scope
+  - 181 non-etzhayyim violation inventory with auto-fix safety analysis
   - escalation path for owner sign-off on schema migrations
 related:
   - doc-axis-9-saturation-survey-260527
@@ -24,9 +24,9 @@ candidates. Cycle 73 tested whether the 3198 known lexicon violations
 (documented-deferred per audit-health) contain auto-fixable subsets
 that would re-engage Pattern F.
 
-**Result**: Yes-and-no. **3017 violations** are in `com/etzhayyim/gftd/`
+**Result**: Yes-and-no. **3017 violations** are in `com/etzhayyim/etzhayyim/`
 subtree (pre-cutover, constitutional skip per CLAUDE.md root §"Do Not"
-gftd-rename invariant). **181 violations are in non-gftd post-cutover
+etzhayyim-rename invariant). **181 violations are in non-etzhayyim post-cutover
 religious-corp-native lexicons** — a tractable scope. Of those 181,
 173 (95.6%) are `type='number'` violations whose mechanical fix would
 be a **breaking schema change** requiring owner + Council attestation
@@ -36,11 +36,11 @@ per ADR-2605181100. **Not safe to auto-fix without governance.**
 
 | Scope | Files | Violations | Disposition |
 |---|---|---|---|
-| `com/etzhayyim/gftd/` (legacy) | many | **3017** | Constitutional skip — pre-cutover invariant |
-| `com/etzhayyim/` non-gftd (post-cutover) | 51 | **181** | Tractable but breaking |
+| `com/etzhayyim/etzhayyim/` (legacy) | many | **3017** | Constitutional skip — pre-cutover invariant |
+| `com/etzhayyim/` non-etzhayyim (post-cutover) | 51 | **181** | Tractable but breaking |
 | **Total** | | **3198** | Matches cycle 56 audit-health baseline |
 
-## Non-gftd 181-violation breakdown
+## Non-etzhayyim 181-violation breakdown
 
 | Class | Count | % |
 |---|---|---|
@@ -94,7 +94,7 @@ naming chosen carefully. Tractable but per-file judgment work.
 
 ## Owners needing escalation
 
-Counted from non-gftd violations:
+Counted from non-etzhayyim violations:
 
 | Actor | Files | Violations |
 |---|---|---|

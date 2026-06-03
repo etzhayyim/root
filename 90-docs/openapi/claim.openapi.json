@@ -349,7 +349,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_claim_challenge": {
+      "ai_etzhayyim_claim_challenge": {
         "type": "object",
         "properties": {
           "targetClaimId": {
@@ -382,7 +382,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_claim_resolution": {
+      "ai_etzhayyim_claim_resolution": {
         "type": "object",
         "properties": {
           "claimId": {
@@ -426,7 +426,7 @@
           "settledAt"
         ]
       },
-      "ai_gftd_claim_stakedAttestation": {
+      "ai_etzhayyim_claim_stakedAttestation": {
         "type": "object",
         "properties": {
           "claim": {
@@ -452,7 +452,7 @@
           },
           "chainId": {
             "type": "integer",
-            "description": "EVM chainId where the bond is locked (260425 for gftd private chain)"
+            "description": "EVM chainId where the bond is locked (260425 for etzhayyim private chain)"
           },
           "escrowAddr": {
             "type": "string",

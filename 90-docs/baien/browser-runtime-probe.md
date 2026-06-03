@@ -8,7 +8,7 @@ authoritative: false
 last_verified: 2026-05-10
 related:
   - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
-  - 60-apps/ai-gftd-project-ameno/CLAUDE.md
+  - 60-apps/etzhayyim-project-ameno/CLAUDE.md
 ---
 
 # Goal
@@ -21,7 +21,7 @@ upstream work that does not yet exist.
 
 The repo already ships browser-side WebGPU LLM inference for Gemma 4
 E2B in the Ameno project
-(`60-apps/ai-gftd-project-ameno/`), backed by:
+(`60-apps/etzhayyim-project-ameno/`), backed by:
 
 - `@huggingface/transformers` ^3.8.1 (transformers.js v3 — supports ONNX
   models with WebGPU EP)
@@ -92,4 +92,4 @@ In the meantime, the Baien runtime matrix has:
 - transformers.js BitNet support tracker (none yet, file feature
   requests via Optimum / transformers.js issues if needed).
 - Existing browser ML wiring in this repo:
-  `60-apps/ai-gftd-project-ameno/` (Gemma 4 E2B WebGPU).
+  `60-apps/etzhayyim-project-ameno/` (Gemma 4 E2B WebGPU).

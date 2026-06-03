@@ -659,7 +659,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_cohort_evidence": {
+      "ai_etzhayyim_cohort_evidence": {
         "type": "object",
         "properties": {
           "cohortDid": {
@@ -697,7 +697,7 @@
           "observedAt"
         ]
       },
-      "ai_gftd_cohort_fissionLineage": {
+      "ai_etzhayyim_cohort_fissionLineage": {
         "type": "object",
         "properties": {
           "individualDid": {
@@ -736,7 +736,7 @@
           "fissionAt"
         ]
       },
-      "ai_gftd_cohort_signature": {
+      "ai_etzhayyim_cohort_signature": {
         "type": "object",
         "properties": {
           "segmentHash": {

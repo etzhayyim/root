@@ -94,9 +94,9 @@ BTO の補償トランザクション:
 
 ### WIT Changes
 
-**New**: `gftd:tsukuru-production-order@1.0.0` (3 interfaces: production-order, production-progress, quality-inspection)
+**New**: `etzhayyim:tsukuru-production-order@1.0.0` (3 interfaces: production-order, production-progress, quality-inspection)
 
-**Modified**: `gftd:okaimono@1.0.0` に `manufacturing` interface 追加
+**Modified**: `etzhayyim:okaimono@1.0.0` に `manufacturing` interface 追加
 
 **world.wit imports**:
 - `okaimono-shopping` → tsukuru manufacturer-registry + factory-registry + production-order + production-progress + quality-inspection

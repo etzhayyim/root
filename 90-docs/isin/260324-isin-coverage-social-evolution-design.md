@@ -112,10 +112,10 @@ world component {
     import magatama:div/information@1.0.0;
     import magatama:div/documents@1.0.0;
     import magatama:coverage/metrics@1.0.0;       // coverage query
-    export gftd:isin/security-registry@1.0.0;
-    export gftd:isin/financial-data@1.0.0;
-    export gftd:isin/corporate-structure@1.0.0;
-    export gftd:isin/cross-classification@1.0.0;
+    export etzhayyim:isin/security-registry@1.0.0;
+    export etzhayyim:isin/financial-data@1.0.0;
+    export etzhayyim:isin/corporate-structure@1.0.0;
+    export etzhayyim:isin/cross-classification@1.0.0;
 }
 ```
 
@@ -124,9 +124,9 @@ world component {
 ### 1. Build + Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-isin/appview/ai-gftd-wasm-isin-is1n8k2x
-gftd build
-gftd deploy
+cd 60-apps/etzhayyim-project-isin/appview/etzhayyim-wasm-isin-is1n8k2x
+etzhayyim build
+etzhayyim deploy
 ```
 
 ### 2. Health Check
@@ -141,7 +141,7 @@ curl https://is1n8k2x.etzhayyim.com/_app/meta
 
 ```bash
 curl -X POST https://is1n8k2x.etzhayyim.com/_heartbeat \
-  -H "x-magatama-internal-token: $(gftd authn token --internal)"
+  -H "x-magatama-internal-token: $(etzhayyim authn token --internal)"
 ```
 
 ### 4. Verify DID Creation
@@ -170,7 +170,7 @@ curl "https://atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:w
 # Via cross-actor invoke
 curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.projector.sendProjectMessage \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $(gftd authn token)" \
+  -H "Authorization: Bearer $(etzhayyim authn token)" \
   -d '{"app_id":"is1n8k2x","method":"get-coverage","params":"{}"}'
 ```
 

@@ -1675,7 +1675,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_projector_branch": {
+      "ai_etzhayyim_projector_branch": {
         "type": "object",
         "properties": {
           "sourceConvoId": {
@@ -1693,7 +1693,7 @@
           "branchConvoId"
         ]
       },
-      "ai_gftd_projector_reflection": {
+      "ai_etzhayyim_projector_reflection": {
         "type": "object",
         "properties": {
           "convoId": {

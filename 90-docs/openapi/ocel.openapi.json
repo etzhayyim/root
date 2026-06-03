@@ -12,7 +12,7 @@
   "paths": {},
   "components": {
     "schemas": {
-      "ai_gftd_ocel_event": {
+      "ai_etzhayyim_ocel_event": {
         "type": "object",
         "properties": {
           "specVersion": {

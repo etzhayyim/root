@@ -51,7 +51,7 @@ substituted with `lighteval/MATH-Hard` (Apache 2.0 mirror of similar content).
 
 ### B. RunPod 5090 SSH key authorization runbook
 
-mac-260317 SSH keys (id_ed25519, id_ed25519_github_gftd, id_ed25519_performer)
+mac-260317 SSH keys (id_ed25519, id_ed25519_github_etzhayyim, id_ed25519_performer)
 not authorized on pod 157.157.221.30:51691. User one-liner to fix
 (in user's existing pod SSH terminal):
 

@@ -270,7 +270,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_plc_operation": {
+      "ai_etzhayyim_plc_operation": {
         "type": "object",
         "properties": {
           "did": {

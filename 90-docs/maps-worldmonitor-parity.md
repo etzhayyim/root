@@ -115,7 +115,7 @@ The public supporting XRPCs also returned HTTP 200 from the pod LangServer:
 Use the repo-local CLI for the legacy `magatama.jsonld` deploy path:
 
 ```bash
-/Users/junkawasaki/github/etzhayyim-root/gftd deploy
+/Users/junkawasaki/github/etzhayyim-root/etzhayyim deploy
 ```
 
-The `/usr/local/bin/gftd` binary is a newer `gftd.json`-based control-plane CLI and does not deploy this component.
+The `/usr/local/bin/etzhayyim` binary is a newer `etzhayyim.json`-based control-plane CLI and does not deploy this component.

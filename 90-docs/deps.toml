@@ -39,7 +39,7 @@ status = "accepted"
 description = "JP tax/fiscal money-flow reverse topology; canonical implementation uses Kysely/RisingWave vertex_, edge_, mv_ schema, not SQLite."
 related = [
   "30-graph/graph-schema/migrations/20260427070000_jp_fiscal_graph.ts",
-  "60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json",
+  "60-apps/etzhayyim-project-states/data/jp_fiscal/sources.json",
 ]
 
 [files."adr/2604291630-yoro-guest-projector-browser-gemma-e2b.md"]
@@ -50,9 +50,9 @@ flags = ["editable"]
 status = "active"
 description = "YORO actor profile guest chat uses browser-local Gemma E2B while authenticated users keep persisted projector conversations."
 related = [
-  "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/LiveStage.svelte",
-  "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/ProjectorGuestChat.svelte",
-  "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/tests/guest-projector-chat.spec.ts",
+  "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/LiveStage.svelte",
+  "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/ProjectorGuestChat.svelte",
+  "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/tests/guest-projector-chat.spec.ts",
 ]
 
 [files."adr/2605140740-yoro-gemma-e4b-social-translation-mcp.md"]
@@ -71,7 +71,7 @@ related = [
   "20-actors/magatama/py/src/pymagatama/primitives/yoro_social.py",
 ]
 
-[files."adr/2604292130-llm-gftd-ai-runpod-pass.md"]
+[files."adr/2604292130-llm-etzhayyim-ai-runpod-pass.md"]
 role = "architecture-decision"
 kind = "adr"
 tier = "production"
@@ -79,9 +79,9 @@ flags = ["editable"]
 status = "active"
 description = "llm.etzhayyim.com is an independent RunPod pass-through gateway, not a Murakumo or magatama-llm8cf4ai route."
 related = [
-  "60-apps/ai-gftd-project-runpod/serve/worker-gateway.ts",
-  "60-apps/ai-gftd-project-runpod/serve/wrangler.jsonc",
-  "60-apps/ai-gftd-project-runpod/deps.toml",
+  "60-apps/etzhayyim-project-runpod/serve/worker-gateway.ts",
+  "60-apps/etzhayyim-project-runpod/serve/wrangler.jsonc",
+  "60-apps/etzhayyim-project-runpod/deps.toml",
 ]
 
 [files."adr/2605071700-graph-sos-intel-actor.md"]
@@ -105,7 +105,7 @@ kind = "adr"
 tier = "production"
 flags = ["editable"]
 status = "proposed"
-description = "BigQuery public dataset P0 catalog/sample and P1 profiling topology and cost model; P2 graph projection requires a later allowlist and schema plan. Includes 2026-05-10 gftd world-coverage mapping: BigQuery covers ~17 dim_world_domain app_hosts (patent/blockchain/weather/iryo/iryo-genomics/maps/US-gov/talent/etc.); JP-vertical, industrial-IoT, private-transaction, and PII-observation domains require dedicated collectors."
+description = "BigQuery public dataset P0 catalog/sample and P1 profiling topology and cost model; P2 graph projection requires a later allowlist and schema plan. Includes 2026-05-10 etzhayyim world-coverage mapping: BigQuery covers ~17 dim_world_domain app_hosts (patent/blockchain/weather/iryo/iryo-genomics/maps/US-gov/talent/etc.); JP-vertical, industrial-IoT, private-transaction, and PII-observation domains require dedicated collectors."
 related = [
   "90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
   "90-docs/adr/2605070700-rw-native-model-training-weight-lineage.md",
@@ -155,7 +155,7 @@ flags = ["editable"]
 status = "active"
 description = "Authoritative CF Worker thin-edge boundary: T1/T2 business logic runs in BPMN/Zeebe/Python worker or RisingWave UDF; Python worker pods use FastAPI + Granian for K8s-internal HTTP surfaces only; maps.etzhayyim.com cutover verified 2026-04-30 with 162 BPMN-backed business commands and 35 retained edge exceptions."
 related = [
-  "60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
+  "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
   "20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py",
   "20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py",
   "20-actors/magatama/py/pyproject.toml",
@@ -201,7 +201,7 @@ related = [
   "90-docs/maps-worldmonitor-parity.md",
   "20-actors/magatama/py/src/pymagatama/worker_api.py",
   "20-actors/magatama/py/src/pymagatama/dispatcher_main.py",
-  "60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
+  "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts",
   "50-infra/vultr/mitama-udf-pool/values.yaml",
 ]
 

@@ -1648,7 +1648,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_convo_convo": {
+      "ai_etzhayyim_convo_convo": {
         "type": "object",
         "properties": {
           "name": {
@@ -1703,7 +1703,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_convo_convoUpdate": {
+      "ai_etzhayyim_convo_convoUpdate": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1718,7 +1718,7 @@
           "updatedAt"
         ]
       },
-      "ai_gftd_convo_forward": {
+      "ai_etzhayyim_convo_forward": {
         "type": "object",
         "properties": {
           "sourceConvoId": {
@@ -1742,7 +1742,7 @@
           "forwardedAt"
         ]
       },
-      "ai_gftd_convo_invite": {
+      "ai_etzhayyim_convo_invite": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1763,7 +1763,7 @@
           "invitedAt"
         ]
       },
-      "ai_gftd_convo_member": {
+      "ai_etzhayyim_convo_member": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1792,7 +1792,7 @@
           "memberDid"
         ]
       },
-      "ai_gftd_convo_membership": {
+      "ai_etzhayyim_convo_membership": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1811,7 +1811,7 @@
           "memberDid"
         ]
       },
-      "ai_gftd_convo_message": {
+      "ai_etzhayyim_convo_message": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1860,7 +1860,7 @@
           "sentAt"
         ]
       },
-      "ai_gftd_convo_pin": {
+      "ai_etzhayyim_convo_pin": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1880,7 +1880,7 @@
           "pinnedAt"
         ]
       },
-      "ai_gftd_convo_presence": {
+      "ai_etzhayyim_convo_presence": {
         "type": "object",
         "properties": {
           "status": {
@@ -1902,7 +1902,7 @@
           "updatedAt"
         ]
       },
-      "ai_gftd_convo_profile": {
+      "ai_etzhayyim_convo_profile": {
         "type": "object",
         "properties": {
           "displayName": {
@@ -1919,7 +1919,7 @@
           }
         }
       },
-      "ai_gftd_convo_reaction": {
+      "ai_etzhayyim_convo_reaction": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1948,7 +1948,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_convo_readReceipt": {
+      "ai_etzhayyim_convo_readReceipt": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -1964,7 +1964,7 @@
           "readAt"
         ]
       },
-      "ai_gftd_convo_roleUpdate": {
+      "ai_etzhayyim_convo_roleUpdate": {
         "type": "object",
         "properties": {
           "convoId": {

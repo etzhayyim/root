@@ -108,7 +108,7 @@ SIP **サーバー** (PBX / Proxy) は OSS で自前構築可能。SIP **Trunk**
 |---|---|---|---|
 | BLE Beacon | ~30m indoor, ~100m outdoor | Android + iOS | discovery only (DID hash 8 bytes) |
 | WiFi Aware (NAN) | ~70m | Android 8+ | service discovery without association |
-| mDNS/DNS-SD | LAN | all | `_gftd-celler._tcp.local.` |
+| mDNS/DNS-SD | LAN | all | `_etzhayyim-celler._tcp.local.` |
 
 BLE scanning: 2s active, 8s passive (battery optimization)。
 
@@ -282,7 +282,7 @@ API management: SIM status, data usage, plan changes, suspend/resume all via Tel
 
 ## 6. WIT Capabilities
 
-Package: `gftd:celler@1.0.0`
+Package: `etzhayyim:celler@1.0.0`
 
 ### 6.1 Interfaces
 
@@ -414,9 +414,9 @@ Signal Protocol E2E のためサーバー側でのコンテンツ復号は不可
 
 | project | relationship |
 |---|---|
-| ai-gftd-project-phone | PSTN bridge legacy path (AWS Connect) |
-| ai-gftd-project-network-mobile | Mesh infrastructure sibling |
-| ai-gftd-project-murakumo | AI inference (STT/TTS/translation) |
-| ai-gftd-project-maps | Mesh topology spatial visualization |
-| ai-gftd-project-trust | DID trust score for spam detection |
-| ai-gftd-project-device | Device registry |
+| etzhayyim-project-phone | PSTN bridge legacy path (AWS Connect) |
+| etzhayyim-project-network-mobile | Mesh infrastructure sibling |
+| etzhayyim-project-murakumo | AI inference (STT/TTS/translation) |
+| etzhayyim-project-maps | Mesh topology spatial visualization |
+| etzhayyim-project-trust | DID trust score for spam detection |
+| etzhayyim-project-device | Device registry |

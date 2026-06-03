@@ -8,7 +8,7 @@
 ## Baseline And Guard
 - Baseline file: `80-data/80-data/80-data/reports/nsid-rule-violations-2026-04-01.csv`
 - CI guard: `70-tools/70-tools/70-tools/70-tools/70-tools/70-tools/scripts/lint/nsid-regression-guard.mjs`
-- Entry point: `gftd lint nsid-regression` (Go CLI launches Node lint script)
+- Entry point: `etzhayyim lint nsid-regression` (Go CLI launches Node lint script)
 - Hook: `lefthook` pre-push command `lint-nsid-regression`
 
 ## Hook Rule

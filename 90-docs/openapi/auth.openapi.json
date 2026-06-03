@@ -95,7 +95,7 @@
     },
     "/xrpc/com.etzhayyim.auth.createAgentSession": {
       "post": {
-        "summary": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by gftd deploy for automatic agent credential provisioning.",
+        "summary": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by etzhayyim deploy for automatic agent credential provisioning.",
         "operationId": "com.etzhayyim.auth.createAgentSession",
         "requestBody": {
           "required": true,
@@ -488,7 +488,7 @@
     },
     "/xrpc/com.etzhayyim.auth.mintChildDid": {
       "post": {
-        "summary": "Mint a child did:gftd under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{parentDid, materialKind, material}`. New callers should use form (A). `pubkey` kind generates an independent P-256 keypair; other kinds are keyless and sign via the nearest ancestor key. Caller must control parent (session accountDid equal to parent or a prefix ancestor).",
+        "summary": "Mint a child did:etzhayyim under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{parentDid, materialKind, material}`. New callers should use form (A). `pubkey` kind generates an independent P-256 keypair; other kinds are keyless and sign via the nearest ancestor key. Caller must control parent (session accountDid equal to parent or a prefix ancestor).",
         "operationId": "com.etzhayyim.auth.mintChildDid",
         "requestBody": {
           "required": true,
@@ -499,7 +499,7 @@
                 "properties": {
                   "parentDid": {
                     "type": "string",
-                    "description": "Parent did:gftd. Either legacy flat hex form (did:gftd:{24-hex}) or semantic path form (did:gftd:{sub}:{id}:{lexicon}). Recursive form accepted up to depth 6."
+                    "description": "Parent did:etzhayyim. Either legacy flat hex form (did:etzhayyim:{24-hex}) or semantic path form (did:etzhayyim:{sub}:{id}:{lexicon}). Recursive form accepted up to depth 6."
                   },
                   "segmentKind": {
                     "type": "string",
@@ -599,7 +599,7 @@
                   "properties": {
                     "did": {
                       "type": "string",
-                      "description": "Newly minted child did:gftd (full recursive form)."
+                      "description": "Newly minted child did:etzhayyim (full recursive form)."
                     },
                     "parentDid": {
                       "type": "string"
@@ -1240,7 +1240,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_auth_AgentKey": {
+      "ai_etzhayyim_auth_AgentKey": {
         "type": "object",
         "properties": {
           "keyId": {

@@ -2363,7 +2363,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_legalEntity_companyFact": {
+      "ai_etzhayyim_legalEntity_companyFact": {
         "type": "object",
         "properties": {
           "companyDid": {
@@ -2431,7 +2431,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_legalEntity_companyFiling": {
+      "ai_etzhayyim_legalEntity_companyFiling": {
         "type": "object",
         "properties": {
           "companyDid": {
@@ -2507,7 +2507,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_legalEntity_entityMention": {
+      "ai_etzhayyim_legalEntity_entityMention": {
         "type": "object",
         "properties": {
           "edgeId": {
@@ -2569,7 +2569,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_legalEntity_entityOwnership": {
+      "ai_etzhayyim_legalEntity_entityOwnership": {
         "type": "object",
         "properties": {
           "edgeId": {
@@ -2659,7 +2659,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_legalEntity_entityRelation": {
+      "ai_etzhayyim_legalEntity_entityRelation": {
         "type": "object",
         "properties": {
           "edgeId": {
@@ -2752,7 +2752,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_legalEntity_entityTradeRelationship": {
+      "ai_etzhayyim_legalEntity_entityTradeRelationship": {
         "type": "object",
         "properties": {
           "edgeId": {
@@ -2839,7 +2839,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_legalEntity_publicStatement": {
+      "ai_etzhayyim_legalEntity_publicStatement": {
         "type": "object",
         "properties": {
           "statementId": {

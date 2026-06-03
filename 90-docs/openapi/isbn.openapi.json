@@ -202,7 +202,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_isbn_book": {
+      "ai_etzhayyim_isbn_book": {
         "type": "object",
         "properties": {
           "isbn13": {
