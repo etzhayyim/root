@@ -1,4 +1,4 @@
-# ai-gftd-project-x — X (Twitter) Intelligence Platform
+# etzhayyim-project-x — X (Twitter) Intelligence Platform
 
 ## App Identity
 
@@ -111,7 +111,7 @@ Step 4: Timeline analysis
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-x/wasm/ai-gftd-wasm-x-xw1tt3r1
-GOROOT=$(/opt/homebrew/opt/go@1.25/bin/go env GOROOT) PATH="/opt/homebrew/opt/go@1.25/bin:$PATH" gftd build
-gftd deploy
+cd 60-apps/etzhayyim-project-x/wasm/etzhayyim-wasm-x-xw1tt3r1
+GOROOT=$(/opt/homebrew/opt/go@1.25/bin/go env GOROOT) PATH="/opt/homebrew/opt/go@1.25/bin:$PATH" etzhayyim build
+etzhayyim deploy
 ```

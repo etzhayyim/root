@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Gameya Play Canvas",
-  "project": "ai-gftd-project-gameya",
+  "project": "etzhayyim-project-gameya",
   "name": "gameya-play-canvas",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-gameya/appview/gameya-play-canvas/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-gameya/appview/gameya-play-canvas/svelte/src/routes/+page.svelte"
 };
 </script>
 
