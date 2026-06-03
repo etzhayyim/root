@@ -4,7 +4,7 @@
   <name>armcrawler_ros2</name>
   <version>0.1.0</version>
   <description>ArmCrawler JP — ROS2 nodes for 6-DOF arm + crawler robot (RPi 5)</description>
-  <maintainer email="firmware@gftd.co.jp">Gftd Japan</maintainer>
+  <maintainer email="firmware@etzhayyim.com">Etzhayyim Japan</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_python</buildtool_depend>

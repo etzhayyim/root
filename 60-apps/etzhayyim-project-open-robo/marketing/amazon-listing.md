@@ -1,6 +1,6 @@
 # Amazon JP 商品ページ仕様書 v1
 
-作成日: 2026-05-14  
+作成日: 2026-05-14
 ASIN申請タイミング: Makuake 終了後、量産出荷90日前
 
 ---
@@ -12,7 +12,7 @@ Giemon Otete — 6軸アーム付きクローラーロボットキット 日本�
 KONDOバスサーボ×6 / タミヤ互換クローラー / ICS3.5+ROS2対応 / 組立式 オープンソース
 ```
 
-**文字数**: 97文字（Amazon JP 上限 250字以内）  
+**文字数**: 97文字（Amazon JP 上限 250字以内）
 **検索最適化キーワード**: 6軸アーム, クローラーロボット, 日本製ロボット, Raspberry Pi 5, KONDO, ROS2, 組立キット
 
 ---
@@ -26,7 +26,7 @@ KONDOバスサーボ×6 / タミヤ互換クローラー / ICS3.5+ROS2対応 / �
 
 ● 【6軸アーム + クローラー一体設計】KONDO ICS3.5 バスサーボ×6 搭載、
   最大リーチ 420mm、可搬重量 300g。ダンプド最小二乗逆運動学 (DLS-IK) で
-  デカルト座標指定可能。クローラーはマブチ 370 モーター + タミヤ互換 
+  デカルト座標指定可能。クローラーはマブチ 370 モーター + タミヤ互換
   70mm ゴムトラック、全地形走破性。
 
 ● 【ROS2 Humble 対応 / Python API】arm_controller / crawler / camera / imu
@@ -91,7 +91,7 @@ KONDOバスサーボ×6 / タミヤ互換クローラー / ICS3.5+ROS2対応 / �
 KONDOサーボ Python ロボット プログラミング ロボット工学
 オープンソースロボット IK 逆運動学 組立キット ハッカソン
 ロボット部品 高校生 大学 研究室 STEM ロボット IMU ToF
-Otete armcrawler gftd raspberry pi robot arm crawler
+Otete armcrawler etzhayyim raspberry pi robot arm crawler
 ```
 
 ---
@@ -112,7 +112,7 @@ Otete armcrawler gftd raspberry pi robot arm crawler
 | 項目 | 値 |
 |---|---|
 | カテゴリ | おもちゃ > ロボット > 組立・工作キット |
-| ブランド | Giemon Otete (gftd) |
+| ブランド | Giemon Otete (etzhayyim) |
 | メーカー | etzhayyim Japan株式会社 |
 | 原産国 | 日本 |
 | 電池 | 別売 (18650 × 2 推奨: パナソニック NCR18650B) |
@@ -139,24 +139,24 @@ Otete armcrawler gftd raspberry pi robot arm crawler
 | 9 | 寸法図 (3面図) | スペック確認 |
 | 10 | 組立途中 (ステップ2) | 組立難易度訴求 |
 
-最小解像度: 1000 × 1000 px (推奨 2000 × 2000 px)  
+最小解像度: 1000 × 1000 px (推奨 2000 × 2000 px)
 背景: 白 (#FFFFFF) または透過 PNG
 
 ---
 
 ## 8. Q&A テンプレート (出品者事前登録)
 
-**Q: Raspberry Pi 5 は付属しますか?**  
+**Q: Raspberry Pi 5 は付属しますか?**
 A: 別売です。Raspberry Pi 5 (4GB 推奨) を別途ご用意ください。
 
-**Q: 半田付けは必要ですか?**  
+**Q: 半田付けは必要ですか?**
 A: Otete HAT は実装済み基板のため半田付け不要です。コネクタ接続のみで完成します。
 
-**Q: ROS2 はどのバージョンに対応していますか?**  
+**Q: ROS2 はどのバージョンに対応していますか?**
 A: ROS2 Humble Hawksbill (Ubuntu 22.04) に対応しています。Python 単体でも動作可能です。
 
-**Q: スペアパーツは入手できますか?**  
+**Q: スペアパーツは入手できますか?**
 A: KRS-3204 サーボ・ミスミアルミ部品・Otete HAT は Amazon JP および tsukuru.etzhayyim.com で個別購入可能です。
 
-**Q: 法人・学校向けの見積もりは可能ですか?**  
+**Q: 法人・学校向けの見積もりは可能ですか?**
 A: 可能です。5セット以上は別途お見積もりいたします。sales@etzhayyim.com までお問い合わせください。

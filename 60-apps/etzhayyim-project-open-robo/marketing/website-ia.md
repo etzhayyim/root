@@ -1,8 +1,8 @@
 # Giemon Otete 公式サイト IA (情報アーキテクチャ) v1
 
-URL: giemon.etzhayyim.com  
-フレームワーク: SvelteKit (既存 open-robo-hp performer)  
-ホスティング: Cloudflare Pages (CDN)  
+URL: giemon.etzhayyim.com
+フレームワーク: SvelteKit (既存 open-robo-hp performer)
+ホスティング: Cloudflare Pages (CDN)
 作成日: 2026-05-14
 
 ---
@@ -61,7 +61,7 @@ giemon.etzhayyim.com/
 **目的**: 購入検討者へ技術的信頼性の訴求
 
 **セクション**:
-1. **3Dビュー** (Three.js GLTF viewer, RPi 5 HAT装着状態)  
+1. **3Dビュー** (Three.js GLTF viewer, RPi 5 HAT装着状態)
    ← STEP → GLTF 変換: `npm run convert-step` (Open CASCADE WASM)
 2. **アーム仕様**: DH パラメータ表 + 動作範囲図
 3. **クローラー仕様**: 走行速度・登坂角度・最小旋回半径
@@ -69,7 +69,7 @@ giemon.etzhayyim.com/
 5. **ソフトウェアスタック**: 層構成図 (ics_driver → kinematics → ROS2 → ユーザーアプリ)
 6. **梱包内容**: 部品画像一覧
 
-`/product/specs` — 詳細スペック表 (BOM-v1.md の公開 subset)  
+`/product/specs` — 詳細スペック表 (BOM-v1.md の公開 subset)
 `/product/bom` — GitHub raw STEP/回路図へのリンク集
 
 ---
@@ -146,7 +146,7 @@ python test/home_pose.py   # 全軸ホームポジション確認
 |---|---|---|
 | Amazon JP (FBA) | amazon.co.jp/dp/{ASIN} | プライム翌日配送 |
 | Makuake | makuake.com/project/otete | 早期割引 ¥79,800 |
-| Kickstarter | kickstarter.com/projects/gftd/otete | $499 early bird |
+| Kickstarter | kickstarter.com/projects/etzhayyim/otete | $499 early bird |
 | tsukuru.etzhayyim.com | 直販 (B2B 法人向け) | 見積もり対応 |
 
 **在庫状況**: Cloudflare KV から動的取得 (Amazon API / Makuake API)
@@ -231,5 +231,5 @@ open-robo-hp (SvelteKit)
 └── wrangler.jsonc
 ```
 
-**ドメイン**: `giemon.etzhayyim.com` → Cloudflare Pages  
-**CD**: GitHub Actions → `pnpm build` → `gftd deploy` (mainブランチマージ時)
+**ドメイン**: `giemon.etzhayyim.com` → Cloudflare Pages
+**CD**: GitHub Actions → `pnpm build` → `etzhayyim deploy` (mainブランチマージ時)
