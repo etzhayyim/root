@@ -32,6 +32,20 @@ if command -v cargo >/dev/null 2>&1; then
   else printf '%s\n' "$out" | tail -5; bad "Rust: kotoba-os-types tests"; fi
 else skip "Rust crate tests (no cargo)"; fi
 
+# 2b. Browser edge (L1c): the substrate crate must compile to wasm32
+#     (the baien edge target, ADR-2605241900 / §D6). rustup wasm32 std required;
+#     Homebrew rust shadows it, so pin the toolchain bin.
+if command -v rustup >/dev/null 2>&1; then
+  TC="$(rustup show active-toolchain 2>/dev/null | awk '{print $1}')"
+  WBIN="$HOME/.rustup/toolchains/$TC/bin"
+  if [ -n "$TC" ] && ls "$HOME/.rustup/toolchains/$TC/lib/rustlib/wasm32-unknown-unknown/lib/libcore-"*.rlib >/dev/null 2>&1; then
+    if ( cd kotoba-os-types && env -u RUSTC -u RUSTFLAGS PATH="$WBIN:/usr/bin:/bin" \
+         "$WBIN/cargo" build --quiet --target wasm32-unknown-unknown --release >/dev/null 2>&1 ); then
+      ok "Wasm32: kotoba-os-types compiles to wasm32 (browser edge / baien target)"
+    else bad "Wasm32: kotoba-os-types failed wasm32 build"; fi
+  else skip "Wasm32 build (no rustup wasm32-unknown-unknown std)"; fi
+else skip "Wasm32 build (no rustup)"; fi
+
 # 3. Python suite (incl. toolchain-guarded component build + wasmtime e2e).
 if command -v python3 >/dev/null 2>&1; then
   if out=$(python3 -m unittest 2>&1); then

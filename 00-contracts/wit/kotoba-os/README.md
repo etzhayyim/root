@@ -8,7 +8,7 @@
 ## Verify everything
 
 ```bash
-bash reference/run-all.sh        # WIT validate + Rust crate suite + Python suite
+bash reference/run-all.sh   # WIT + Rust suite + wasm32 browser-edge build + Python suite
 ```
 
 One command runs every check; stages whose tooling is absent are SKIPPED (not
@@ -28,6 +28,7 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 | D6 | sizing budget | `sizing-budget.json` (estimates, honestly labeled) | 7 py |
 | —  | content addressing | `kotoba-os-types::cid` (real CIDv1 blake3 verify) | 6 rust |
 | —  | drift guard | `test_artifact_consistency.py` (WIT==schema==Rust) | 5 py |
+| —  | browser edge (L1c) | `kotoba-os-types` compiles to wasm32 (baien target) | run-all gate |
 
 ## What this is
 
