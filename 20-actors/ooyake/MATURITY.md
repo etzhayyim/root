@@ -24,6 +24,11 @@ official URL** (本体の url), on 2026-06-03.
   (Czechoslovakia, USSR, East Germany, Byelorussian SSR, …) are filtered out. 162/192
   carry an official-portal URL; the rest cite Wikidata as provenance. Gate
   `scripts/world_coverage.py` (**192 ≥ 190 floor**).
+- `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
+  worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
+  `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
+  (already `gov.jpn.mofa`) is skipped to avoid a duplicate QID; 152/158 carry an
+  official-site URL.
 - `registry/gov-units.world-courts.edn` — **144 supreme/highest courts** (the
   worldwide **judicial-branch** layer; Wikidata `P31` *supreme court* `Q190752`,
   current, matched to atlas countries). `:level :court`, `:branch :judicial`. Honest
