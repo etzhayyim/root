@@ -12612,6 +12612,40 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606031030-session-close-kotoba-canonical-substrate-and-browser-node",
+      "type": "TechArticle",
+      "title": "ADR-2606031030: Session close — kotoba unified IPLD/DAG-CBOR/Prolly/Datomic + canonical key codec + browser Prolly node (P1–P3)",
+      "status": "active",
+      "topic": "session-close-kotoba-canonical-substrate",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic",
+        "doc:adr-2606013600-kotoba-wasm-browser-node",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
+      "id": "doc:adr-2606032000-kanjo-corporate-financial-disclosure-ingest-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606032000: kanjō 勘定 — Public-Company Financial-Disclosure (決算) Ingest Tier-B Actor (R0)",
+      "status": "proposed",
+      "topic": "kanjo-corporate-financial-disclosure-ingest",
+      "authoritative": true,
+      "authoritativeFor": [
+        "corporate-financial-disclosure-ingest-actor",
+        "fin-fact-eavt-vocabulary",
+        "gaap-concept-normalization-map"
+      ],
+      "related": [
+        "doc:2605301600",
+        "doc:2606011800",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606033400-session-close-consensys-rw-free-migration-sweep",
       "type": "TechArticle",
       "title": "ADR-2606033400: Session close — Consensys-pattern rw-free migration sweep complete + vendor-resident roster (75) + tracker truth-pass",

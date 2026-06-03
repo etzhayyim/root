@@ -269,6 +269,27 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606022000"],
   },
+  kanjo: {
+    description:
+      "勘定 — world public-company financial-disclosure (決算) knowledge graph. Registers LISTED companies' DISCLOSED balance-sheet / income-statement / cash-flow line items from PRIMARY disclosure ONLY (JP EDINET 有価証券報告書 + US SEC EDGAR 10-K/20-F + Companies House + EU OAM, all Tier-A per ADR-2605263800) into the kotoba Datom log as :fin.fact/*, normalized across JP-GAAP / US-GAAP / IFRS onto canonical concepts (honest where non-comparable — 経常利益 = JGAAP-only). The external public-company sibling of toritate 執帳 (internal accounting) and the financials face of kabuto 兜 (shares the org.corp.* id space). NON-ADJUDICATING + NO investment advice (NOT 投資助言業) + NO forecasting (no 業績予想) — records what the company disclosed + transparent ratios, never a rating / valuation / recommendation. 会社四季報 + all paid commercial terminals (Bloomberg / S&P CapIQ / Refinitiv / FactSet / Moody's / D&B / Pitchbook / Crunchbase) PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c): read the filing, never the terminal. Per ADR-2606032000.",
+    glyph: "勘定",
+    displayName: "Kanjō — World Public-Company Financial-Disclosure (決算) Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.kanjo",
+    primarySchema: "00-contracts/schemas/corporate-financials-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kanjo#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kanjo#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606032000"],
+  },
   ooyake: {
     description:
       "公 — World Government Atlas. kotoba-Datomic structural atlas of every government unit on Earth (supranational → country → 都道府県 → 市区町村 → 省 → 庁 → 局 → 課 → 窓口) with 住所 / 窓口 / 書式 / 手続き / BPMN. The read-side SSoT danjo / kanae / tsumugi / toritsugi / himotoki consume for the who/where/how of public administration. An OBSERVATIONAL MIRROR + civic wayfinding map — the per-unit atlas DID (did:web:etzhayyim.com:gov:<iso3>:...) mirrors a real public body, NEVER claims to BE the government, is NEVER an official channel, and is NEVER a target-list (G3/G10). Read-only: catalogs, never files (→ toritsugi) and never audits (→ danjo). Per ADR-2606021600.",
