@@ -16,7 +16,7 @@
   let {
     pageUrl,
     title = 'SRE Toolbar',
-    componentId = 'ai-gftd-project-sre-toolbar',
+    componentId = 'etzhayyim-project-sre-toolbar',
     components = [
       { id: 'pubsub', name: 'NATS JetStream', status: 'healthy' },
       { id: 'statestore', name: 'PostgreSQL', status: 'healthy' },

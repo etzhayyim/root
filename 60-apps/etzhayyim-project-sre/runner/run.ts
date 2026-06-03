@@ -38,7 +38,7 @@ interface PWRunResult {
 
 async function listSpinApps(): Promise<SpinApp[]> {
   const res = await fetch(
-    `${SRE_BASE_URL}/xrpc/gftd.sre.v1.SREService/listSpinapps`,
+    `${SRE_BASE_URL}/xrpc/etzhayyim.sre.v1.SREService/listSpinapps`,
     {
       method: "POST",
       headers: {
@@ -61,7 +61,7 @@ async function reportResult(
   targetURL: string
 ): Promise<void> {
   const res = await fetch(
-    `${SRE_BASE_URL}/xrpc/gftd.sre.v1.SREService/reportPlaywrightResult`,
+    `${SRE_BASE_URL}/xrpc/etzhayyim.sre.v1.SREService/reportPlaywrightResult`,
     {
       method: "POST",
       headers: {

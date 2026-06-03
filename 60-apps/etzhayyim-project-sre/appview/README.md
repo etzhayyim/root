@@ -1,12 +1,12 @@
-# ai-gftd-project-sre App migration
+# etzhayyim-project-sre App migration
 
 このディレクトリは `legacy-runtime` 実装を残したまま、App 版を段階移行するための配置先です。
 
 ## 対象 App services
 
-- `ai-gftd-performer-org-gftd-sys-toolbar-7w8z9k2l`
-- `ai-gftd-performer-sys-activity--monitor`
-- `ai-gftd-performer-sys-sre-patrol-ol-agent`
+- `etzhayyim-performer-org-etzhayyim-sys-toolbar-7w8z9k2l`
+- `etzhayyim-performer-sys-activity--monitor`
+- `etzhayyim-performer-sys-sre-patrol-ol-agent`
 - `sre-5q1z8oag`
 
 ## App 実装方針

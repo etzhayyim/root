@@ -10,7 +10,7 @@ RUN npx playwright install chromium --with-deps
 
 COPY . .
 
-ENV SRE_BASE_URL=https://sre.gftd.ai
+ENV SRE_BASE_URL=https://sre.etzhayyim.com
 ENV SRE_ACCESS_TOKEN=""
 
 CMD ["npx", "ts-node", "run.ts"]

@@ -1,6 +1,6 @@
 import '../lib/components/SreToolbar.svelte';
 
-const TOOLBAR_TAG = 'ai-gftd-project-sre-toolbar';
+const TOOLBAR_TAG = 'etzhayyim-project-sre-toolbar';
 
 function init() {
   if (document.querySelector(TOOLBAR_TAG)) return;

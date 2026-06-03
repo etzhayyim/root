@@ -1,4 +1,4 @@
-# ai-gftd-project-sre — Project Runbook
+# etzhayyim-project-sre — Project Runbook
 
 ## Overview
 
@@ -23,7 +23,7 @@ Daily Evolution (JST 02:00)
 
 | Component | Path | Role |
 |---|---|---|
-| SRE App | `wasm/ai-gftd-wasm-sre-job-srej0b1x/` | TS Native — health checks, issue management, Matrix posting |
+| SRE App | `wasm/etzhayyim-wasm-sre-job-srej0b1x/` | TS Native — health checks, issue management, Matrix posting |
 | Playwright Runner | `runner/` | Native Go Docker — generic Playwright smoke tests |
 
 ## SRE App (nanoid: `srej0b1x`)
@@ -68,12 +68,12 @@ App 登録時に以下の room を作成する:
 
 ```bash
 # App
-cd 60-apps/ai-gftd-project-sre/wasm/ai-gftd-wasm-sre-job-srej0b1x
-gftd build
-gftd deploy --smoke-url https://srej0b1x.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-sre/wasm/etzhayyim-wasm-sre-job-srej0b1x
+etzhayyim build
+etzhayyim deploy --smoke-url https://srej0b1x.etzhayyim.com/health
 
 # Playwright Runner
-cd 60-apps/ai-gftd-project-sre/runner
+cd 60-apps/etzhayyim-project-sre/runner
 docker build -t ghcr.io/etzhayyim/sre-playwright-runner:<tag> .
 docker push ghcr.io/etzhayyim/sre-playwright-runner:<tag>
 kubectl apply -f ../../infra/k8s/sre-cronjobs.yaml
@@ -82,7 +82,7 @@ kubectl apply -f ../../infra/k8s/sre-cronjobs.yaml
 ## Registering a App for Monitoring
 
 ```bash
-curl -X POST https://sre.etzhayyim.com/xrpc/gftd.sre.v1.SREService/register_app \
+curl -X POST https://sre.etzhayyim.com/xrpc/etzhayyim.sre.v1.SREService/register_app \
   -H "Content-Type: application/json" \
   -d '{"id":"7m8oocsn","name":"etzhayyim Gamers","hostname":"gamers.etzhayyim.com","playwright_enabled":true}'
 ```

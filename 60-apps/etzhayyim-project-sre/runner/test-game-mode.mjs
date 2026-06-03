@@ -138,7 +138,7 @@ console.log('\n══ 3. Color-by-Number — Visual (Playwright) ══');
   test('CBN header shows icon', headerText.includes('🎨'));
 
   // Bridge functions
-  test('CBN gftdBridgeSend', await page.evaluate(() => typeof window.gftdBridgeSend === 'function'));
+  test('CBN etzhayyimBridgeSend', await page.evaluate(() => typeof window.etzhayyimBridgeSend === 'function'));
   test('CBN onGameScore', await page.evaluate(() => typeof window.onGameScore === 'function'));
 
   // Viewport sizing
@@ -198,7 +198,7 @@ console.log('\n══ 5. Snake — Visual (Playwright) ══');
   test('Snake #game-canvas', !!(await page.$('#game-canvas')));
   test('Snake #game-loading', !!(await page.$('#game-loading')));
   test('Snake no iframe (godot uses canvas)', !(await page.$('iframe#game-frame')));
-  test('Snake gftdBridgeSend', await page.evaluate(() => typeof window.gftdBridgeSend === 'function'));
+  test('Snake etzhayyimBridgeSend', await page.evaluate(() => typeof window.etzhayyimBridgeSend === 'function'));
   test('Snake onGameScore', await page.evaluate(() => typeof window.onGameScore === 'function'));
 
   const headerText = await page.$eval('.game-header', el => el.textContent);

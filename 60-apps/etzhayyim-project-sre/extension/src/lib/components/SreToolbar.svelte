@@ -1,4 +1,4 @@
-<svelte:options customElement="ai-gftd-project-sre-toolbar" />
+<svelte:options customElement="etzhayyim-project-sre-toolbar" />
 
 <script lang="ts">
   import { AietzhayyimProjectSreToolbar, submitFeedbackViaMcp } from '@sre-shared';

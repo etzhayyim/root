@@ -2,24 +2,24 @@
 
 ## Goal
 
-Prepare `60-apps/ai-gftd-project-sre` deployment flow with:
+Prepare `60-apps/etzhayyim-project-sre` deployment flow with:
 
 1. Shared Svelte components extracted from `extension`.
-2. `ai-gftd-project-sre-toolbar` integrated into common `components` so other Svelte apps can reuse it.
+2. `etzhayyim-project-sre-toolbar` integrated into common `components` so other Svelte apps can reuse it.
 3. All API access migrated to MCP only (no REST-style or direct service `fetch`).
 
 ## Current State (inventory)
 
 - Toolbar UI exists only in extension component:
-  - `60-apps/ai-gftd-project-sre/extension/src/lib/components/SreToolbar.svelte`
+  - `60-apps/etzhayyim-project-sre/extension/src/lib/components/SreToolbar.svelte`
 - Extension content script injects custom element:
-  - `60-apps/ai-gftd-project-sre/extension/src/content/toolbar.ts`
+  - `60-apps/etzhayyim-project-sre/extension/src/content/toolbar.ts`
 - Toolbar feedback currently uses direct HTTP `fetch` to service URL:
-  - `60-apps/ai-gftd-project-sre/extension/src/lib/components/SreToolbar.svelte`
+  - `60-apps/etzhayyim-project-sre/extension/src/lib/components/SreToolbar.svelte`
 - Toolbar backend proto defines RPCs (`SubmitFeedback`, `GetSystemStatus`, `UpdateTheme`):
-  - `60-apps/ai-gftd-project-sre/legacy-runtime/sre-5q1z8oag/proto/toolbar.proto`
+  - `60-apps/etzhayyim-project-sre/legacy-runtime/sre-5q1z8oag/proto/toolbar.proto`
 - Existing MCP pattern exists in another performer (`serveMCP` with tools):
-  - `60-apps/ai-gftd-project-sre/legacy-runtime/ai-gftd-performer-sys-activity--monitor/cmd/actor/main.go`
+  - `60-apps/etzhayyim-project-sre/legacy-runtime/etzhayyim-performer-sys-activity--monitor/cmd/actor/main.go`
 
 ## Target Architecture
 
@@ -29,12 +29,12 @@ Create reusable Svelte toolbar module under SRE project and consume it from exte
 
 Proposed structure:
 
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/`
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/components/SreToolbarShell.svelte`
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/components/SystemStatusTab.svelte`
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/components/FeedbackTab.svelte`
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/components/PerfTab.svelte`
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/index.ts`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/components/SreToolbarShell.svelte`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/components/SystemStatusTab.svelte`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/components/FeedbackTab.svelte`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/components/PerfTab.svelte`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/index.ts`
 
 Rules:
 
@@ -45,7 +45,7 @@ Rules:
 ### 2) Adapter per runtime
 
 - Extension adapter:
-  - keeps `<svelte:options customElement="ai-gftd-project-sre-toolbar" />`
+  - keeps `<svelte:options customElement="etzhayyim-project-sre-toolbar" />`
   - owns Clerk token bridge and page injection
   - imports shared `SreToolbarShell`
 
@@ -59,8 +59,8 @@ Introduce frontend MCP client and remove direct service URL calls.
 
 Proposed frontend module:
 
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/mcp/client.ts`
-- `60-apps/ai-gftd-project-sre/shared/sre-toolbar-ui/src/mcp/toolbar.ts`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/mcp/client.ts`
+- `60-apps/etzhayyim-project-sre/shared/sre-toolbar-ui/src/mcp/toolbar.ts`
 
 Client responsibilities:
 
@@ -93,7 +93,7 @@ Design notes:
 
 Target actor:
 
-- `60-apps/ai-gftd-project-sre/legacy-runtime/sre-5q1z8oag/cmd/actor/main.go`
+- `60-apps/etzhayyim-project-sre/legacy-runtime/sre-5q1z8oag/cmd/actor/main.go`
 
 Changes:
 
@@ -114,15 +114,15 @@ Optional stronger end-state:
 4. Add status/theme MCP reads so all tabs are MCP-backed.
 5. In SvelteKit UI (`cdn/sre-ui-7bjdh9p3`), import shared component under `src/lib/components` and mount as reusable toolbar block.
 
-## gftd Deploy Design
+## etzhayyim Deploy Design
 
 Deploy units:
 
 1. Static UI
-- `60-apps/ai-gftd-project-sre/wasm/sre-ui-7bjdh9p3/svelte/gftd.json`
+- `60-apps/etzhayyim-project-sre/wasm/sre-ui-7bjdh9p3/svelte/etzhayyim.json`
 
 2. Toolbar MCP backend
-- evolve `60-apps/ai-gftd-project-sre/legacy-runtime/sre-5q1z8oag/gftd.json`
+- evolve `60-apps/etzhayyim-project-sre/legacy-runtime/sre-5q1z8oag/etzhayyim.json`
 - recommended final type: MCP-oriented App manifest (similar to existing MCP projects in repo)
 - include route host for MCP endpoint and health checks
 
@@ -140,7 +140,7 @@ Rollout order:
 
 ### Static checks
 
-- `rg -n "fetch\(" 60-apps/ai-gftd-project-sre/extension/src`
+- `rg -n "fetch\(" 60-apps/etzhayyim-project-sre/extension/src`
 - confirm no direct service URL calls remain
 - allow only MCP client transport calls
 
