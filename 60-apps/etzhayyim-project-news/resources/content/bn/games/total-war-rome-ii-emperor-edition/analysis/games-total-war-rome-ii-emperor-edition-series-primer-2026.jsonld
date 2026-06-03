@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-total-war-rome-ii-emperor-edition-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-total-war-rome-ii-emperor-edition-series-primer-2026",
   "identifier": "games-total-war-rome-ii-emperor-edition-series-primer-2026",
   "headline": "Total War: ROME II - Emperor Edition primer: the design ideas behind its world and characters",
   "description": "A starter guide to Total War: ROME II - Emperor Edition, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

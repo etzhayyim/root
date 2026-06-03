@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-total-war-warhammer-iii-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-total-war-warhammer-iii-series-primer-2026",
   "identifier": "games-total-war-warhammer-iii-series-primer-2026",
   "headline": "Total War: WARHAMMER III primer: the design ideas behind its world and characters",
   "description": "A starter guide to Total War: WARHAMMER III, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
