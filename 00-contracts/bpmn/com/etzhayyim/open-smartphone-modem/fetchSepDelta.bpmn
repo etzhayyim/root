@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_smartphone_modem_fetch_sep_delta" targetNamespace="https://gftd.ai/bpmn/open-smartphone-modem" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_smartphone_modem_fetch_sep_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-smartphone-modem" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_smartphone_modem_fetch_sep_delta" name="fetchSepDelta" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 1d"><bpmn:outgoing>Flow_F</bpmn:outgoing>
       <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P1D</bpmn:timeCycle></bpmn:timerEventDefinition>
@@ -32,7 +32,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-smartphone-modem.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-smartphone-modem.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;open.smartphoneModem.fetchSepDelta&quot;" target="action"/>
           <zeebe:input source="={count: count(parsed.seps)}" target="payload"/>
         </zeebe:ioMapping>
