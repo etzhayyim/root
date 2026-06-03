@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_resource_flow_register_emitter" targetNamespace="https://gftd.ai/bpmn/resource-flow" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_resource_flow_register_emitter" targetNamespace="https://etzhayyim.ai/bpmn/resource-flow" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="resource_flow_register_emitter" name="registerEmitter" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Follow"/>
@@ -21,7 +21,7 @@
           is the canonical actor table — we only insert here if the emitter
           isn't already projected.</bpmn:documentation>
           <zeebe:input source="=&quot;vertex_profile&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://&quot; + emitterDid + &quot;/app.bsky.actor.profile/self&quot;, sensitivity_ord: 1, owner_did: &quot;did:web:resource-flow.gftd.ai&quot;, did: emitterDid, repo: emitterDid, handle: emitterHandle, display_name: emitterDisplayName, description: emitterDescription, collection: &quot;app.bsky.actor.profile&quot;, rkey: &quot;self&quot;, created_at: createdAt}" target="row"/>
+          <zeebe:input source="={vertex_id: &quot;at://&quot; + emitterDid + &quot;/app.bsky.actor.profile/self&quot;, sensitivity_ord: 1, owner_did: &quot;did:web:resource-flow.etzhayyim.com&quot;, did: emitterDid, repo: emitterDid, handle: emitterHandle, display_name: emitterDisplayName, description: emitterDescription, collection: &quot;app.bsky.actor.profile&quot;, rkey: &quot;self&quot;, created_at: createdAt}" target="row"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_R</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
@@ -30,7 +30,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:resource-flow.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:resource-flow.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;resource-flow.emitter.register&quot;" target="action"/>
           <zeebe:input source="={emitterDid: emitterDid, industryCode: industryCode}" target="payload"/>
         </zeebe:ioMapping>

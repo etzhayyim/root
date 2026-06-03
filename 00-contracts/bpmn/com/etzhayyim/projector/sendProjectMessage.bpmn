@@ -3,7 +3,7 @@
   projector.sendProjectMessage — root router for /projects chat.
 
   Single entry point for the yoro `/projects/{convoId}` UI. CF Worker
-  (atproto.gftd.ai) receives the XRPC `com.etzhayyim.projector.sendProjectMessage`,
+  (atproto.etzhayyim.com) receives the XRPC `com.etzhayyim.projector.sendProjectMessage`,
   publishes the message + variables to Zeebe, and returns 202 Accepted.
   Reply is delivered async via SSE / poll.
 
@@ -16,14 +16,14 @@
     default    → projector.agentLoop       (Phase 1, LangGraph ReAct + CoT + Reflexion)
 
   NSID:      com.etzhayyim.apps.projector.sendProjectMessage
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_projector_send_project_message"
-    targetNamespace="https://gftd.ai/bpmn/projector"
+    targetNamespace="https://etzhayyim.ai/bpmn/projector"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="projector_send_project_message" name="projector sendProjectMessage" isExecutable="true">

@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_pds_run_heartbeat_cron"
-    targetNamespace="https://gftd.ai/bpmn/pds"
+    targetNamespace="https://etzhayyim.ai/bpmn/pds"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="pds_run_heartbeat_cron" name="pds runHeartbeatCron" isExecutable="true">

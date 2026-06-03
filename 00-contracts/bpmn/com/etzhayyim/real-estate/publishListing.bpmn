@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_real_estate_publish_listing" targetNamespace="https://gftd.ai/bpmn/real-estate" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_real_estate_publish_listing" targetNamespace="https://etzhayyim.ai/bpmn/real-estate" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="real_estate_publish_listing" name="publishListing" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Save</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_Save" sourceRef="Start" targetRef="Task_Save"/>
@@ -10,7 +10,7 @@
       <bpmn:incoming>Flow_Save</bpmn:incoming><bpmn:outgoing>Flow_Audit</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_Audit" sourceRef="Task_Save" targetRef="Task_Audit"/>
-    <bpmn:serviceTask id="Task_Audit" name="audit"><bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input source="=&quot;did:web:real-estate.gftd.ai&quot;" target="actor"/><zeebe:input source="=&quot;realEstate.publishListing&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, listingId: listingId, listingKind: listingKind}" target="payload"/></zeebe:ioMapping></bpmn:extensionElements><bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_Audit" name="audit"><bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/><zeebe:ioMapping><zeebe:input source="=&quot;did:web:real-estate.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;realEstate.publishListing&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, listingId: listingId, listingKind: listingKind}" target="payload"/></zeebe:ioMapping></bpmn:extensionElements><bpmn:incoming>Flow_Audit</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing></bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_End" sourceRef="Task_Audit" targetRef="End"/>
     <bpmn:endEvent id="End"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent>
   </bpmn:process>

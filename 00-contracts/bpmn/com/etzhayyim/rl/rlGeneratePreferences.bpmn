@@ -6,14 +6,14 @@
   cross-actor (chosen, rejected) pairs for DPO fine-tuning.
 
   NSID: com.etzhayyim.apps.rl.generatePreferences
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_rl_generate_preferences"
-    targetNamespace="https://gftd.ai/bpmn/rl"
+    targetNamespace="https://etzhayyim.ai/bpmn/rl"
     exporter="hand-written"
     exporterVersion="2.0">
 

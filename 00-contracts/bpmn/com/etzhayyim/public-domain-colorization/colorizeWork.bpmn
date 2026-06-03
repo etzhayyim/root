@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_public_domain_colorization_pipeline"
-    targetNamespace="https://gftd.ai/bpmn/public-domain-colorization"
+    targetNamespace="https://etzhayyim.ai/bpmn/public-domain-colorization"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="public_domain_colorization_pipeline" name="Public-domain colorization pipeline" isExecutable="true">
@@ -498,7 +498,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;pdColor.publish&quot;" target="action"/>
           <zeebe:input source="={runVertexId: runVertexId, workId: workId, publicationCid: publicationCid, masterVideoCid: masterVideoCid, localizedPackageManifestCid: localizedPackageManifestCid, targetLanguages: targetLanguages, rightsEvidenceCid: rightsEvidenceCid}" target="payload"/>
         </zeebe:ioMapping>
@@ -511,7 +511,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;pdColor.dryRunReady&quot;" target="action"/>
           <zeebe:input source="={runVertexId: runVertexId, workId: workId, masterVideoCid: masterVideoCid, localizedPackageManifestCid: localizedPackageManifestCid, targetLanguages: targetLanguages, rightsEvidenceCid: rightsEvidenceCid}" target="payload"/>
         </zeebe:ioMapping>
@@ -524,7 +524,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;pdColor.reworkRequested&quot;" target="action"/>
           <zeebe:input source="={runVertexId: runVertexId, workId: workId, qcNotes: qcNotes}" target="payload"/>
         </zeebe:ioMapping>
@@ -537,7 +537,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:pd-color.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:pd-color.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;pdColor.blocked&quot;" target="action"/>
           <zeebe:input source="={runVertexId: runVertexId, workId: workId, rightsClassification: rightsClassification, blockedReasons: blockedReasons, rightsEvidenceCid: rightsEvidenceCid}" target="payload"/>
         </zeebe:ioMapping>

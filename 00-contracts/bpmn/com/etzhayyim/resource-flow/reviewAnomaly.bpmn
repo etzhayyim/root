@@ -9,7 +9,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_resource_flow_review_anomaly"
-    targetNamespace="https://gftd.ai/bpmn/resource-flow"
+    targetNamespace="https://etzhayyim.ai/bpmn/resource-flow"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="resource_flow_review_anomaly" name="resource-flow reviewAnomaly" isExecutable="true">
@@ -50,7 +50,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:resource-flow.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:resource-flow.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;resource-flow.review.anomaly&quot;" target="action"/>
           <zeebe:input source="={anomalyId: anomalyId, reviewId: reviewId, action: action, vertexId: vertexId, error: error}" target="payload"/>
         </zeebe:ioMapping>

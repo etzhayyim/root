@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_public_malak_crawl_ads"
-    targetNamespace="https://gftd.ai/bpmn/public-malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/public-malak"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="public_malak_crawl_ads" name="public malak crawl ads" isExecutable="true">
@@ -90,7 +90,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:public-malak.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:public-malak.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;publicMalak.ads.crawl&quot;" target="action"/>
           <zeebe:input source="={queuedRuns: queuedRuns, skippedSeeds: skippedSeeds, processedRuns: processedRuns, completedRuns: completedRuns, failedRuns: failedRuns, analyzedAds: analyzedAds, analysisFailed: analysisFailed, clusteredAds: clusteredAds, clusterFailed: clusterFailed}" target="payload"/>
         </zeebe:ioMapping>
