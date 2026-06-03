@@ -1,9 +1,9 @@
 ---
-id: adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
-title: "ADR-2605211845: gftd org cleanup completion + kami-engine-sdk standalone publication"
+id: adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone
+title: "ADR-2605211845: etzhayyim org cleanup completion + kami-engine-sdk standalone publication"
 status: accepted
 doc_type: adr
-topic: gftd-org-cleanup-completion
+topic: etzhayyim-org-cleanup-completion
 authoritative: true
 last_verified: 2026-05-21
 priority: 4.0
@@ -26,7 +26,7 @@ superseded_by:
   - adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement
 ---
 
-# ADR-2605211845: gftd org cleanup completion + kami-engine-sdk standalone publication
+# ADR-2605211845: etzhayyim org cleanup completion + kami-engine-sdk standalone publication
 
 **Status**: **partially superseded** by ADR-2605265200 (the "monorepo subdir `20-actors/kami-engine-sdk/` is SoT" portion of this ADR was reversed on 2026-05-26 — canonical is now `40-engine/kami-engine/kami-engine-sdk/`, the 20-actors duplicate was deleted in Phase 3 commit `2d199cca9`)
 **Date**: 2026-05-21
@@ -38,13 +38,13 @@ superseded_by:
 > in §"kami-engine-sdk standalone publication" below is **superseded by
 > ADR-2605265200**. The canonical SDK location is now
 > `40-engine/kami-engine/kami-engine-sdk/` (git subrepo of
-> `github.com/gftdcojp/kami-engine-sdk`). The `20-actors/kami-engine-sdk/`
+> `github.com/etzhayyimcojp/kami-engine-sdk`). The `20-actors/kami-engine-sdk/`
 > directory was retired in a 3-phase deprecation completed 2026-05-26:
 > Phase 1 `491ff8ee6` (deprecation marker + workspace registration),
 > Phase 2 `243470dc8` (verification log), Phase 3 `2d199cca9` (atomic
 > 80-file `git rm -r`).
 >
-> The rest of this ADR (gftd org cleanup completion, MOVED-tag deletions,
+> The rest of this ADR (etzhayyim org cleanup completion, MOVED-tag deletions,
 > public-global reconciliation, the standalone-mirror policy concept)
 > remains historically accurate and is NOT superseded.
 
@@ -69,17 +69,17 @@ Verified outcome (2026-05-21 18:00 JST): `etzhayyim` has **0** MOVED-tagged repo
 
 ## (b) Reconcile public-global before deleting
 
-`etzhayyim/ai-gftd-project-public-global` was MOVED-tagged but never imported. Before deletion, it was cloned into `60-apps/ai-gftd-project-public-global/` (16 files, 2 WasmCloud components) to make the MOVED claim accurate retroactively. Committed as `690135d3`.
+`etzhayyim/etzhayyim-project-public-global` was MOVED-tagged but never imported. Before deletion, it was cloned into `60-apps/etzhayyim-project-public-global/` (16 files, 2 WasmCloud components) to make the MOVED claim accurate retroactively. Committed as `690135d3`.
 
 ## (c) Publish kami-engine-sdk standalone
 
 `etzhayyim/kami-engine-sdk` is created as a public repo at `github.com/etzhayyim/kami-engine-sdk`, seeded from `20-actors/kami-engine-sdk/`. The monorepo subdir remains the **source of truth**; the standalone repo is a read-only mirror.
 
-Package name renamed from `@etzhayyim/kami-engine-sdk` to `@etzhayyim/kami-engine-sdk`. Six in-tree referrers updated (`20-actors/kami-engine-sdk/{package.json,README.md,src/lib/{index,document/index,document/scene-bridge}.ts}`, `20-actors/magatama/sdk/magatama-host-sdk/package.json`, `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/genko-stub.ts`).
+Package name renamed from `@etzhayyim/kami-engine-sdk` to `@etzhayyim/kami-engine-sdk`. Six in-tree referrers updated (`20-actors/kami-engine-sdk/{package.json,README.md,src/lib/{index,document/index,document/scene-bridge}.ts}`, `20-actors/magatama/sdk/magatama-host-sdk/package.json`, `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/genko-stub.ts`).
 
 ## (d) Scope of standalone mirror policy
 
-`kami-engine-sdk` is **the only** intentional carve-out at the time of this ADR. Other public SDKs left at etzhayyim (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet, effect-actor, ontology, shigarami, sparql-ts) and the gftd README repo remain at etzhayyim by user direction — they are vendor-tier SDKs without etzhayyim Charter Rider applied, and replicating them under etzhayyim would imply etzhayyim sponsorship that does not exist. No automatic mirror rule.
+`kami-engine-sdk` is **the only** intentional carve-out at the time of this ADR. Other public SDKs left at etzhayyim (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet, effect-actor, ontology, shigarami, sparql-ts) and the etzhayyim README repo remain at etzhayyim by user direction — they are vendor-tier SDKs without etzhayyim Charter Rider applied, and replicating them under etzhayyim would imply etzhayyim sponsorship that does not exist. No automatic mirror rule.
 
 Future SDK standalone publications follow the same one-by-one explicit decision pattern. No bulk republication.
 
@@ -109,11 +109,11 @@ No durable loss to etzhayyim/root because the user's parallel reconstruction wil
 
 An audit during iter-29 enumerated all `.gitrepo` files in the
 monorepo and tested each `remote` URL via `gh repo view`. Excluding
-the ai-gftd-project-cofog tree (hundreds of per-COFOG-code subrepos
+the etzhayyim-project-cofog tree (hundreds of per-COFOG-code subrepos
 that are a separate concern):
 
   - `40-engine/kami-engine/kami-engine-sdk/.gitrepo` — was stale
-    (pointed at `gftdcojp/kami-engine-sdk`, 404); fixed in iter-28
+    (pointed at `etzhayyimcojp/kami-engine-sdk`, 404); fixed in iter-28
     commit `957ec4c0a` to point at `etzhayyim/kami-engine-sdk`
     (which exists, was created per the §"kami-engine-sdk standalone
     publication" Decision above)
@@ -124,17 +124,17 @@ The following 7 `.gitrepo` files remained stale post-cleanup, with
 NO surviving `etzhayyim/<name>` equivalent (all `gh repo view
 etzhayyim/<name>` calls returned NOT FOUND):
 
-  60-apps/ai-gftd-project-intel/.gitrepo               → gftdcojp/ai-gftd-intel (404)
-  60-apps/ai-gftd-project-news/.gitrepo                → gftdcojp/ai-gftd-apps-media (404)
-  60-apps/ai-gftd-project-watashi/.gitrepo             → gftdcojp/watashi (404)
-  60-apps/ai-gftd-project-os/.gitrepo                  → gftdcojp/ai-gftd-project-os (404)
-  60-apps/ai-gftd-project-activity-monitor/ai-gftd-performer-sys-gftd-app-activity-monitor-ui-xgng091s/.gitrepo
-                                                        → gftdcojp/ai-gftd-performer-sys-gftd-app-activity-monitor-ui-xgng091s (404)
-  50-infra/yata/yata-wasm/lance-fork/.gitrepo          → gftdcojp/lancedb-wasm (404)
-  60-apps/ai-gftd-project-har/appview/har-app-5ugfx2n1/svelte/.gitrepo
-                                                        → gftdcojp/ai-gftd-har (404)
+  60-apps/etzhayyim-project-intel/.gitrepo               → etzhayyimcojp/etzhayyim-intel (404)
+  60-apps/etzhayyim-project-news/.gitrepo                → etzhayyimcojp/etzhayyim-apps-media (404)
+  60-apps/etzhayyim-project-watashi/.gitrepo             → etzhayyimcojp/watashi (404)
+  60-apps/etzhayyim-project-os/.gitrepo                  → etzhayyimcojp/etzhayyim-project-os (404)
+  60-apps/etzhayyim-project-activity-monitor/etzhayyim-performer-sys-etzhayyim-app-activity-monitor-ui-xgng091s/.gitrepo
+                                                        → etzhayyimcojp/etzhayyim-performer-sys-etzhayyim-app-activity-monitor-ui-xgng091s (404)
+  50-infra/yata/yata-wasm/lance-fork/.gitrepo          → etzhayyimcojp/lancedb-wasm (404)
+  60-apps/etzhayyim-project-har/appview/har-app-5ugfx2n1/svelte/.gitrepo
+                                                        → etzhayyimcojp/etzhayyim-har (404)
 
-These are consistent with the §"6 deletion batches" table — the gftd
+These are consistent with the §"6 deletion batches" table — the etzhayyim
 cleanup deleted upstream repos that were imported into the monorepo
 prior to deletion. The in-monorepo content remains canonical; the
 `.gitrepo` metadata is now historical bookkeeping that cannot be
@@ -157,7 +157,7 @@ operator decision. Audit recorded here so the choice is informed.
 Audit script (reproducible):
 
   for f in $(find . -name '.gitrepo' -not -path '*/node_modules/*' \\
-              -not -path '*/.claude/*' -not -path '*/ai-gftd-project-cofog/*'); do
+              -not -path '*/.claude/*' -not -path '*/etzhayyim-project-cofog/*'); do
     remote=$(grep 'remote =' "$f" | awk '{print $3}')
     orgrepo=$(echo "$remote" | grep -oE 'github\\.com[:/]([^/]+/[^/.]+)' \\
               | head -1 | sed 's|github.com[:/]||')
@@ -189,6 +189,6 @@ Rejected during the session. Saved to `260521-cell-waves` first, then closed the
 - ADR-2605172000 (etzhayyim/root open apps MUST be RW-free)
 - ADR-2605192200 (Apache 2.0 + etzhayyim Charter Compliance Rider v2.0)
 - Commit `393da1ce` (Remove vendor business actors leaked into public seed — Tier 1)
-- Commit `690135d3` (60-apps: import ai-gftd-project-public-global from gftd)
+- Commit `690135d3` (60-apps: import etzhayyim-project-public-global from etzhayyim)
 - Commit `d302f274` (20-actors/kami-engine-sdk: rename @etzhayyim/* → @etzhayyim/* + publish mirror)
 - PR #254 (closed — Religious-corp Pregel cell waves; see Operational note)

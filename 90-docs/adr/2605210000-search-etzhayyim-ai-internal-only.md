@@ -1,5 +1,5 @@
 ---
-id: adr-2605210000-search-gftd-ai-internal-only
+id: adr-2605210000-search-etzhayyim-ai-internal-only
 title: "search.etzhayyim.com = internal-only; 外部 DNS ルート削除"
 status: active
 doc_type: adr
@@ -13,7 +13,7 @@ weight: 0.70
 priority_note: "search.etzhayyim.com は CF Service Binding / MCP facade 経由の internal アクセスのみ許可。外部 HTTP 公開禁止。"
 authoritative_for:
   - search-worker-public-access-prohibition
-  - search-gftd-ai-internal-only
+  - search-etzhayyim-ai-internal-only
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2604282300
@@ -61,17 +61,17 @@ amended_by: []
 # Files Changed
 
 ```
-60-apps/ai-gftd-project-search/appview/search-mcp-component/wrangler.toml
+60-apps/etzhayyim-project-search/appview/search-mcp-component/wrangler.toml
   workers_dev: true → false
   routes: [{ pattern = "search.etzhayyim.com/*", zone_name = "etzhayyim.com" }] → 削除
 
-60-apps/ai-gftd-project-search/appview/search-mcp-component/magatama.jsonld
+60-apps/etzhayyim-project-search/appview/search-mcp-component/magatama.jsonld
   space.joinRule: "public" → "invite"
 ```
 
 # Consequences
 
-- `gftd deploy` 後に CF DNS の `search.etzhayyim.com` A/CNAME レコードは自動削除される。
+- `etzhayyim deploy` 後に CF DNS の `search.etzhayyim.com` A/CNAME レコードは自動削除される。
 - 既存の `atproto.etzhayyim.com` gateway に `WORKER_SEARCH` binding が未登録のため、
   `atproto` 経由での search XRPC ルートも存在せず、機能影響はない。
 - search 機能は `chat-agent` pod の `tool_web_search` が RisingWave 経由で提供しており、

@@ -33,7 +33,7 @@ depending on which Worker or tunnel answered.
 # Decision
 
 `llm.etzhayyim.com` is now an independent RunPod pass-through gateway served by
-`60-apps/ai-gftd-project-runpod/serve` (`ai-gftd-runpod`).
+`60-apps/etzhayyim-project-runpod/serve` (`etzhayyim-runpod`).
 
 It must not depend on or proxy to:
 
@@ -47,7 +47,7 @@ The only active public inference path for `llm.etzhayyim.com/v1/*` is:
 ```text
 client
   -> https://llm.etzhayyim.com/v1/chat/completions
-  -> ai-gftd-runpod Cloudflare Worker
+  -> etzhayyim-runpod Cloudflare Worker
   -> RunPod Serverless endpoint 3fctheq51haikt
   -> Ollama gemma4:26b-a4b-it-q4_K_M
 ```
@@ -104,7 +104,7 @@ The RAG run returned HTTP 200 from `llm.etzhayyim.com`, model
 
 # References
 
-- `60-apps/ai-gftd-project-runpod/serve/worker-gateway.ts`
-- `60-apps/ai-gftd-project-runpod/serve/wrangler.jsonc`
-- `60-apps/ai-gftd-project-runpod/deps.toml`
+- `60-apps/etzhayyim-project-runpod/serve/worker-gateway.ts`
+- `60-apps/etzhayyim-project-runpod/serve/wrangler.jsonc`
+- `60-apps/etzhayyim-project-runpod/deps.toml`
 - `90-docs/260429-rw-schema-aware-rag-eval.md`

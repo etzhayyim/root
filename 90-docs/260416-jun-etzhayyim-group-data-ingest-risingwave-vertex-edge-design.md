@@ -1,5 +1,5 @@
 ---
-id: jun-gftd-group-data-ingest-risingwave-vertex-edge-design-260416
+id: jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design-260416
 title: "jun@etzhayyim.com 全量取り込み設計 — RisingWave / Vertex / Edge"
 status: active
 doc_type: explanation
@@ -196,6 +196,6 @@ Google APIs (Gmail/Calendar/Drive/People)
 
 # References
 
-- `60-apps/ai-gftd-project-external-service-adapter/PROJECT.jsonld`
+- `60-apps/etzhayyim-project-external-service-adapter/PROJECT.jsonld`
 - `90-docs/adr/0018-pii-tier3-cohort-first.md`
 - `90-docs/260407-kagami-p10v2-graphar-native-design.md`

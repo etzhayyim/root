@@ -1,14 +1,14 @@
 ---
-id: adr-2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause
-title: "ADR-2606032212: Session close — gftd/yatachain app rename sweep paused after news batch 320"
+id: adr-2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause
+title: "ADR-2606032212: Session close — etzhayyim/kotoba-datomic app rename sweep paused after news batch 320"
 status: active
 doc_type: adr
-topic: session-close-gftd-to-etzhayyim-app-rename-sweep
+topic: session-close-etzhayyim-to-etzhayyim-app-rename-sweep
 authoritative: false
 last_verified: 2026-06-03
 related:
-  - adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause
-  - adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause
+  - adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause
+  - adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605312345-kotoba-datom-first-class-canonical-state
@@ -16,7 +16,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606032212: Session close — gftd/yatachain app rename sweep paused after news batch 320
+# ADR-2606032212: Session close — etzhayyim/kotoba-datomic app rename sweep paused after news batch 320
 
 **Status**: active — progress ledger / pause point
 **Date**: 2026-06-03
@@ -29,8 +29,8 @@ This closes the current work interval for the app rename/deprecation sweep.
 - Stop here for now.
 - Update ADR, TOML, and closing records.
 - `wproto` prune remains allowed.
-- `yatachain` remains deprecated; app projection/state surfaces should use kotoba Datomic and EDN.
-- `gftd` / `ai-gftd` naming portions continue to move to `etzhayyim`.
+- `kotoba-datomic` remains deprecated; app projection/state surfaces should use kotoba Datomic and EDN.
+- `etzhayyim` / `etzhayyim` naming portions continue to move to `etzhayyim`.
 - Keep git batches small: no 50+ staged/uncommitted work files; commit and push frequently.
 
 ## What landed in this interval
@@ -54,7 +54,7 @@ Notable pushed commits in this interval:
 - `69b92a1fd1` — `Rename 304th news project files`
 - `7783c8c697` — `Rename 320th news project files`
 
-Normal commits continued to fail only at the known local `e7m-verify` hook condition (`gftd: unknown command: verify`), so the batches were committed with `--no-verify` after the regular commit attempt reached that failure.
+Normal commits continued to fail only at the known local `e7m-verify` hook condition (`etzhayyim: unknown command: verify`), so the batches were committed with `--no-verify` after the regular commit attempt reached that failure.
 
 ## Pause point
 
@@ -64,7 +64,7 @@ Pause state:
 
 - last pushed news rename commit: `7783c8c697` (`Rename 320th news project files`)
 - next rename batch to run: batch 321
-- `60-apps/ai-gftd-project-news` remaining file count: `6618`
+- `60-apps/etzhayyim-project-news` remaining file count: `6618`
 - worktree status at pause before this closing record: clean
 - branch/worktree used: `chore/rename-hrse-etzhayyim` in `/Users/junkawasaki/github/etzhayyim-rename-apps-work`
 
@@ -80,7 +80,7 @@ Resume with the same constraints:
 
 Known local hook condition:
 
-- `e7m-verify` fails in this environment with `gftd: unknown command: verify`.
+- `e7m-verify` fails in this environment with `etzhayyim: unknown command: verify`.
 - Normal commit should still be attempted first.
 - Use `--no-verify` only when all other hooks pass and the only failure is that broken local `e7m verify` subcommand.
 

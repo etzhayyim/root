@@ -1,6 +1,6 @@
 ---
-id: adr-2606014500-ai-gftd-auth-zero-access-proton-alignment
-title: "ADR-2606014500: ai-gftd-project-auth → zero-access (Proton-aligned) custody"
+id: adr-2606014500-etzhayyim-auth-zero-access-proton-alignment
+title: "ADR-2606014500: etzhayyim-project-auth → zero-access (Proton-aligned) custody"
 status: proposed
 doc_type: adr
 topic: auth-zero-access-proton-alignment
@@ -22,7 +22,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606014500: ai-gftd-project-auth → zero-access (Proton-aligned) custody
+# ADR-2606014500: etzhayyim-project-auth → zero-access (Proton-aligned) custody
 
 **Status**: proposed
 **Date**: 2026-06-01
@@ -30,7 +30,7 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-project-auth` (the live auth Worker, `60-apps/ai-gftd-project-auth/`)
+`etzhayyim-project-auth` (the live auth Worker, `60-apps/etzhayyim-project-auth/`)
 today uses **T1 server-assisted custody**: it generates each identity's ES256
 signing keypair server-side and stores the private key in D1 wrapped under a
 single server-held KEK (`SS_REPO_SIGNING_KEK`, ADR-0010 envelope encryption).
@@ -58,7 +58,7 @@ client-self-custodied while the legacy KEK path keeps running until C-4.
 
 # Decision
 
-**Shift `ai-gftd-project-auth` to client-self-custody (zero-access) as the
+**Shift `etzhayyim-project-auth` to client-self-custody (zero-access) as the
 forward default, KEK custody as legacy fallback until C-4.**
 
 ## D1 — public-key-only registration (Stage C-2, landed)
@@ -69,7 +69,7 @@ New XRPC `POST /xrpc/com.etzhayyim.auth.registerSigningKey`
 
 - validates the multibase public key and **enforces ownership** (a caller may
   register a key only for their own account DID or a sub-actor DID beneath it);
-- stores a row in `vertex_gftd_key_signing` with the private columns **empty**
+- stores a row in `vertex_etzhayyim_key_signing` with the private columns **empty**
   and `key_custody_tier = 'human_self_custody'` — **no KEK call, no envelope**;
 - thereafter only *verifies* signatures from that key.
 
@@ -77,7 +77,7 @@ The private key is generated and held on the member's device — ideally derived
 from the ADR-2606014000 hierarchy (WebAuthn PRF → ARK → `k_session`) — and
 **never transmitted to the server**.
 
-Schema: `vertex_gftd_key_signing` gains `key_custody_tier TEXT NOT NULL DEFAULT
+Schema: `vertex_etzhayyim_key_signing` gains `key_custody_tier TEXT NOT NULL DEFAULT
 'server_assisted'` (additive; the table is `DROP`+`CREATE` on cold start and
 every existing INSERT keeps the default, so this is non-breaking).
 
@@ -163,6 +163,6 @@ ADR-2606014000 D4).
 
 - ADR-2606014000 (kotoba passkey-rooted secrecy) — the hierarchy the client key derives from
 - ADR-2605231525 (No-Server-Key Religious-Corp Architecture) — Stage C-4
-- `60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md` — C-2/C-3/C-4
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts` — `handleRegisterSigningKey`, `SS_KEY_CUSTODY_MODE`
+- `60-apps/etzhayyim-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md` — C-2/C-3/C-4
+- `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts` — `handleRegisterSigningKey`, `SS_KEY_CUSTODY_MODE`
 - ADR-0074 (Ethereum Identity Bridge) — ERC725 root + on-chain key anchoring

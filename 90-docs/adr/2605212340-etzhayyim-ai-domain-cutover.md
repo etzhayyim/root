@@ -1,5 +1,5 @@
 ---
-id: adr-2605212340-gftd-ai-domain-cutover
+id: adr-2605212340-etzhayyim-ai-domain-cutover
 title: "ADR-2605212340: legacy domain → etzhayyim.com cutover"
 status: accepted
 doc_type: adr
@@ -28,15 +28,15 @@ superseded_by: []
 
 # Context
 
-The legacy domain (the gftd top-level zone, referred to throughout this
+The legacy domain (the etzhayyim top-level zone, referred to throughout this
 ADR as `<LEGACY-DOMAIN>` to avoid self-cutover during sed pass) was the
-canonical hostname under etzhayyim ownership. After migrating ai-gftd-project
+canonical hostname under etzhayyim ownership. After migrating etzhayyim-project
 apps + 20-actors + 90-docs to etzhayyim, the inherited code still referenced
 `<LEGACY-DOMAIN>` in:
 
 - **24,559 .jsonld files** (JSON-LD `@context` namespace URIs, e.g.
   `https://<LEGACY-DOMAIN>/ns/magatama/v1`, `https://yabai.<LEGACY-DOMAIN>/ontology/context`)
-- **677 .md files** (design docs, READMEs, ADRs migrated from gftd)
+- **677 .md files** (design docs, READMEs, ADRs migrated from etzhayyim)
 - **596 .ts / 679 .py / 240 .json / 38 .toml / 23 .js / 10 .mjs files**
   (source code referencing `*.<LEGACY-DOMAIN>` subdomains for app deployment)
 - Solidity contracts in 50-infra referenced `<LEGACY-DOMAIN>`
@@ -59,7 +59,7 @@ The constitutional `Identity` rule in `/CLAUDE.md` declares
 2. **Subdomain DNS records.** `news.<LEGACY-DOMAIN>`, `bpmn.<LEGACY-DOMAIN>`,
    `yabai.<LEGACY-DOMAIN>`, etc. are real DNS records currently serving
    production traffic. Code change alone does not migrate traffic.
-3. **Package prefix `ai-gftd-project-*` is intentional** (per CLAUDE.md
+3. **Package prefix `etzhayyim-project-*` is intentional** (per CLAUDE.md
    "Existing seeded files with legacy prefixes will be renamed in a follow-up
    cutover"). OUT OF SCOPE for this ADR.
 4. **`etzhayyim`** (the for-profit company name) is a separate identity from
@@ -82,7 +82,7 @@ Replaced `<LEGACY-DOMAIN>` → `etzhayyim.com` in canonical etzhayyim source cod
   - `node_modules/`, `.venv/`, `vendor/`, `lib/*-fork/` — vendored deps
 - **Preserved**:
   - `/CLAUDE.md`, `/README.md`, `/CHARTER-RIDER.md` (alias documentation)
-  - `ai-gftd-project-*` package prefix
+  - `etzhayyim-project-*` package prefix
   - `etzhayyim` company-name references
 
 **Execution result**: 3,087 files modified, 0 failed, 0 source files with

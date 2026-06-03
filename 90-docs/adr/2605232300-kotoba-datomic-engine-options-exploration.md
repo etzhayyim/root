@@ -1,9 +1,9 @@
 ---
-id: adr-2605232300-yatachain-engine-options-exploration
-title: "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"
+id: adr-2605232300-kotoba-datomic-engine-options-exploration
+title: "ADR-2605232300: kotoba-datomic — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"
 status: superseded
 doc_type: adr
-topic: yatachain-engine
+topic: kotoba-datomic-engine
 authoritative: false
 last_verified: 2026-05-23
 priority: 7.5
@@ -13,8 +13,8 @@ priority_note: "Exploratory only. No option adopted. Sets up a future authoritat
 authoritative_for: []
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605231400-yatachain-holochain-iso-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2605231500-kotoba-datomic-projection
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
@@ -27,7 +27,7 @@ superseded_by:
   - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
-# ADR-2605232300: yatachain — engine architecture options exploration
+# ADR-2605232300: kotoba-datomic — engine architecture options exploration
 
 **Status**: proposed — **EXPLORATORY ONLY, NOT ADOPTED**
 **Date**: 2026-05-23
@@ -39,9 +39,9 @@ superseded_by:
 
 ## Context
 
-[ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) は
-`yatachain` を Holochain-isomorphic な substrate composition の名称として定義し、
-[ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) は hot-path projection
+[ADR-2605231400](/90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md) は
+`kotoba-datomic` を Holochain-isomorphic な substrate composition の名称として定義し、
+[ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md) は hot-path projection
 layer (RW / Lance / Iroh / index) の使用条件を規定した。
 
 しかし **projection layer の具体的な engine 実装** は両 ADR ともオープン。一方で
@@ -61,7 +61,7 @@ religious-corp は:
 
 ## Problem statement
 
-yatachain projection layer に求められる機能を 9 つに分解:
+kotoba-datomic projection layer に求められる機能を 9 つに分解:
 
 1. Object storage / IPFS native (write home は MST、projection は S3/R2/IPFS)
 2. Streaming MV / projector (MST CDC → materialized view)
@@ -246,7 +246,7 @@ religious-corp parallel-substrate 原則 (ADR-2605192100 §1.12) が要求する
 
 → **Option D は strategic independence を毀損せずに fork コストを回避する設計**。
 
-### Finding 4: GraphAr は yatachain の MST 不変性と format 設計が整合
+### Finding 4: GraphAr は kotoba-datomic の MST 不変性と format 設計が整合
 
 GraphAr の chunk は **append-only Parquet ファイル** で immutable。これは MST の
 content-addressed commit と semantics 一致。Hummock epoch flush → GraphAr chunk
@@ -327,7 +327,7 @@ constitutional principles に基づく最終判断は別途行う。
 
 7. **Solidity contracts との接続**: religious-corp Constitution.sol / TitheRouter
    / LandRegistry / PublicFund / ForceAuthorization が emit する Base L2 event
-   をどう yatachain MV に取り込むか? RW Postgres CDC source の Base L2 版が
+   をどう kotoba-datomic MV に取り込むか? RW Postgres CDC source の Base L2 版が
    必要。
 
 ## Decision
@@ -335,7 +335,7 @@ constitutional principles に基づく最終判断は別途行う。
 **No decision adopted in this ADR.**
 
 This ADR captures the analytical record. A future ADR (provisionally
-`ADR-26MMDDHHHHMM-yatachain-engine-selection`) will reference this document
+`ADR-26MMDDHHHHMM-kotoba-datomic-engine-selection`) will reference this document
 and adopt one of Option A / B / D (or a Phase 1 D → Phase 4 A evolutionary
 path) once:
 
@@ -387,11 +387,11 @@ No implementation in this ADR. The following follow-up tasks are decision-pendin
 | # | Step | Trigger | Owner |
 |---|---|---|---|
 | 1 | This exploratory ADR | this session 2026-05-23 | shipped |
-| 2 | Update `10-protocol/yatachain/SPEC.md` to reference this ADR as engine-options input | follow-up | doc maintainer |
+| 2 | Update `10-protocol/kotoba-datomic/SPEC.md` to reference this ADR as engine-options input | follow-up | doc maintainer |
 | 3 | GraphAr graduation watch entry in `90-docs/_registry/external-dependencies.json` | tooling exists | follow-up |
 | 4 | MLX production benchmark on `mac-mini-01` (`50-infra/murakumo/fleet.toml`) | hardware available | infra |
 | 5 | Council 5-of-7 deliberation packet referencing this ADR | post 2026-06-19 | Jun Kawasaki |
-| 6 | Decision ADR (`ADR-26MMDDHHHHMM-yatachain-engine-selection`) | Council vote complete | TBD |
+| 6 | Decision ADR (`ADR-26MMDDHHHHMM-kotoba-datomic-engine-selection`) | Council vote complete | TBD |
 
 ## Future Work
 
@@ -414,8 +414,8 @@ No implementation in this ADR. The following follow-up tasks are decision-pendin
 - ADR-2605192115 (Council 5-of-7 multisig + Public Fund)
 - ADR-2605192200 (Apache 2.0 + Charter Compliance Rider v2.0)
 - ADR-2605192415 (religious-corp daemon architecture — Murakumo cells)
-- ADR-2605231400 (yatachain Holochain-iso substrate)
-- ADR-2605231500 (yatachain-projection — derived read paths)
+- ADR-2605231400 (kotoba-datomic Holochain-iso substrate)
+- ADR-2605231500 (kotoba-datomic-projection — derived read paths)
 - ADR-2605171300 (magatama unispsc LangGraph agents — 18,345 cells)
 - ADR-2604241342 (RisingWave out-of-band migration pattern — historical RW usage record)
 

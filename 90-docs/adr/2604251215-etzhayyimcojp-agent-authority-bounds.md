@@ -85,6 +85,6 @@ Agent から送信するには `microsoft.etzhayyim.com` (Layer 9 Client App) �
 # References
 
 - `deps.toml [etzhayyim_agent]`
-- `60-apps/ai-gftd-project-kaisya/CLAUDE.md`
-- `60-apps/ai-gftd-project-microsoft/CLAUDE.md`
-- ADR-2604251205 (Local Secret Storage — `gftd.m365` keychain entry)
+- `60-apps/etzhayyim-project-kaisya/CLAUDE.md`
+- `60-apps/etzhayyim-project-microsoft/CLAUDE.md`
+- ADR-2604251205 (Local Secret Storage — `etzhayyim.m365` keychain entry)

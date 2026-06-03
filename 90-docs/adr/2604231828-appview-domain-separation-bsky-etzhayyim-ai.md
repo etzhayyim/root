@@ -1,5 +1,5 @@
 ---
-id: adr-2604231828-appview-domain-separation-bsky-gftd-ai
+id: adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
 title: "ADR: AppView を bsky.etzhayyim.com に分離 — PDS/AppView domain separation (self-hosting guide 準拠)"
 status: active
 doc_type: adr
@@ -71,7 +71,7 @@ PDS → APPVIEW_SERVICE → yoro Worker → PDS_SERVICE → PDS → ...
 
 ### yoro Worker の AppView 実装
 
-`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-950` に
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-950` に
 `handleAppViewRpc` が存在し、以下を serve する実装は既にある:
 
 - `app.bsky.actor.getProfile`
@@ -120,7 +120,7 @@ PDS = 1 つ)。AppView を別 domain に出すのは did:web とは直交した�
 
 | client | 現状 flow |
 |---|---|
-| gftd CLI + 内部 Worker | ✅ 動く |
+| etzhayyim CLI + 内部 Worker | ✅ 動く |
 | `@atproto/api` / Bluesky App | ⚠️ `atproto-proxy` header で明示する場合のみ動作。federation 経由で 3rd-party AppView に向ける flow は構造的に不可能 |
 | 3rd-party AppView (bsky.app 等) | ❌ user が選択不可 (PDS と AppView が同一 host のため) |
 | 内部 scaling | ❌ AppView の read load が PDS CPU を食う。独立 scale 不能 |
@@ -133,7 +133,7 @@ Client App (Layer 9) の純粋な責務に閉じる。
 
 ## 方針 5 axis
 
-1. **`bsky.etzhayyim.com` = Layer 2 AppView host** — 新規 public domain。`ai-gftd-appview`
+1. **`bsky.etzhayyim.com` = Layer 2 AppView host** — 新規 public domain。`etzhayyim-appview`
    Worker を立てる。`app.bsky.*` NSID の read-path を全て担う
 2. **PDS は AppView に public HTTP で forward** — service binding の代わりに
    `https://bsky.etzhayyim.com/xrpc/*` に直接 fetch。circular dep 解消
@@ -148,9 +148,9 @@ Client App (Layer 9) の純粋な責務に閉じる。
 
 | Worker | host | Layer | 責務 |
 |---|---|---|---|
-| `ai-gftd-pds` | `atproto.etzhayyim.com` | 1 PDS + 4 Entryway | commit log / blob / identity / OAuth AS |
-| **`ai-gftd-appview` (新)** | **`bsky.etzhayyim.com`** | 2 AppView | `app.bsky.*` read (timeline/profile/feed/search/graph) |
-| `ai-gftd-yoro` | `yoro.etzhayyim.com` | 9 Client App | Svelte SPA + SEO snapshot + cache purge only |
+| `etzhayyim-pds` | `atproto.etzhayyim.com` | 1 PDS + 4 Entryway | commit log / blob / identity / OAuth AS |
+| **`etzhayyim-appview` (新)** | **`bsky.etzhayyim.com`** | 2 AppView | `app.bsky.*` read (timeline/profile/feed/search/graph) |
+| `etzhayyim-yoro` | `yoro.etzhayyim.com` | 9 Client App | Svelte SPA + SEO snapshot + cache purge only |
 
 ## Topology 図
 
@@ -228,14 +228,14 @@ Phase 3 (yoro AppView 剥離) の順。Phase 間は互換性を保つ。
 
 | # | Gap | 対象 | 優先度 |
 |---|---|---|---|
-| A1 | `ai-gftd-appview` Worker 新規作成 + `bsky.etzhayyim.com` route 設定 | 新規 `50-infra/cloudflare/workers/appview/` | **CRITICAL** |
-| A2 | yoro Worker から `handleAppViewRpc` / `handleYoroAppView` / `/xrpc/*` route を剥離 | `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-1090` | HIGH |
+| A1 | `etzhayyim-appview` Worker 新規作成 + `bsky.etzhayyim.com` route 設定 | 新規 `50-infra/cloudflare/workers/appview/` | **CRITICAL** |
+| A2 | yoro Worker から `handleAppViewRpc` / `handleYoroAppView` / `/xrpc/*` route を剥離 | `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-1090` | HIGH |
 | A3 | PDS `pipethroughAppView` を service binding → public HTTP fetch に変更 | `50-infra/cloudflare/workers/atproto/src/dispatch.ts:331-363` | **CRITICAL** |
 | A4 | `wrangler.jsonc` の `APPVIEW_SERVICE` binding 削除、secret / env に `APPVIEW_URL=https://bsky.etzhayyim.com` を追加 | `50-infra/cloudflare/workers/atproto/wrangler.jsonc` | CRITICAL |
-| A5 | DID Document serve に `#bsky_appview` service 追加 | `60-apps/ai-gftd-project-auth/worker/src-ts/did.ts` + `50-infra/cloudflare/workers/atproto/src/handlers/pds/` | MEDIUM |
+| A5 | DID Document serve に `#bsky_appview` service 追加 | `60-apps/etzhayyim-project-auth/worker/src-ts/did.ts` + `50-infra/cloudflare/workers/atproto/src/handlers/pds/` | MEDIUM |
 | A6 | `@etzhayyim/wproto` AtpAgent config に default AppView resolution を追加 (optional, DID doc 経由) | `10-protocol/wproto/src/client.ts` | LOW |
 
-## A1. `ai-gftd-appview` Worker 新規作成 (CRITICAL)
+## A1. `etzhayyim-appview` Worker 新規作成 (CRITICAL)
 
 ```
 50-infra/cloudflare/workers/appview/
@@ -261,11 +261,11 @@ Auth:
 - viewer-specific response (feed personalization 等) は:
   - `Authorization: Bearer <access_token>` が付いていれば DPoP verify + PDS JWKS で検証
   - 失敗 or 欠落 → anonymous viewer
-  - 現状の `x-gftd-authenticated-did` header 依存 (`dispatch.ts:345`) は PDS
+  - 現状の `x-etzhayyim-authenticated-did` header 依存 (`dispatch.ts:345`) は PDS
     trusted binding 専用なので public Worker では使えない。必ず JWT verify 経由
 
 Route:
-- `bsky.etzhayyim.com/*` → `ai-gftd-appview` Worker (CF route)
+- `bsky.etzhayyim.com/*` → `etzhayyim-appview` Worker (CF route)
 - `bsky.etzhayyim.com/_worker/health` / `/health` smoke test
 
 ## A2. yoro Worker から AppView 剥離 (HIGH)
@@ -300,10 +300,10 @@ async function pipethroughAppView(nsid: string, ctx: PdsDispatchCtx): Promise<Re
     const headers = new Headers(ctx.request.headers);
     headers.delete("host");
     // viewer DID は trusted PDS → AppView header で forward
-    headers.set("x-gftd-authenticated-did", ctx.auth.userDid || "");
+    headers.set("x-etzhayyim-authenticated-did", ctx.auth.userDid || "");
     // AppView 間の trust 確立: HMAC-signed shared secret or mTLS
     const internalSecret = ctx.env.APPVIEW_INTERNAL_SECRET;
-    if (internalSecret) headers.set("x-gftd-internal-trust", await resolveSecret(internalSecret));
+    if (internalSecret) headers.set("x-etzhayyim-internal-trust", await resolveSecret(internalSecret));
     const init: RequestInit = {
       method: ctx.request.method,
       headers,
@@ -357,7 +357,7 @@ service: [
 ```
 
 影響範囲:
-- `60-apps/ai-gftd-project-auth/worker/src-ts/did.ts` の `buildDidDocument`
+- `60-apps/etzhayyim-project-auth/worker/src-ts/did.ts` の `buildDidDocument`
 - 既存 user DID doc は regenerate (lazy、次回 create/update 時)
 - `atproto.etzhayyim.com/.well-known/did.json` も service 追加
 
@@ -384,7 +384,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 
 ## Phase 1 (A1 + A4, 2026-04-25)
 
-1. `ai-gftd-appview` Worker を新規 deploy
+1. `etzhayyim-appview` Worker を新規 deploy
 2. `bsky.etzhayyim.com` DNS + CF route 設定 (Terraform)
 3. `handleAppViewRpc` / `handleYoroAppView` のロジックを新 Worker に移植
    (yoro 側はまだ残したまま、dual-serve 期間)
@@ -404,12 +404,12 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 1. yoro Worker から AppView 実装削除 deploy
 2. yoro `app.all("/xrpc/*", ...)` route を削除 (既存 caller は PDS に直接
    または bsky.etzhayyim.com に向ける)
-3. `60-apps/ai-gftd-project-yoro/CLAUDE.md` 更新 (Layer 9 Client App 明示)
+3. `60-apps/etzhayyim-project-yoro/CLAUDE.md` 更新 (Layer 9 Client App 明示)
 
 ## Phase 4 (A5, 2026-05-12)
 
 1. authn Worker + PDS の DID doc serve handler に `#bsky_appview` 追加
-2. `gftd identity rotate-keys` 相当で既存 user DID doc を lazy regenerate
+2. `etzhayyim identity rotate-keys` 相当で既存 user DID doc を lazy regenerate
 3. `@atproto/api` 経由で DID doc resolution 時に `#bsky_appview` が取得
    できることを確認
 
@@ -528,8 +528,8 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 - `50-infra/cloudflare/workers/atproto/wrangler.jsonc:29` — disabled `APPVIEW_SERVICE` binding
 - `50-infra/cloudflare/workers/atproto/src/dispatch.ts:331-363` — `pipethroughAppView` (A3 書き換え対象)
 - `50-infra/cloudflare/workers/atproto/src/dispatch.ts:497-501` — `meta.layer === "appview"` forward
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-950` — `handleAppViewRpc` (A2 削除対象)
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:996-1044` — `handleYoroAppView`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:1076-1090` — yoro `/xrpc/*` route
-- `60-apps/ai-gftd-project-auth/worker/src-ts/did.ts` — DID doc `service[]` build (A5)
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:909-950` — `handleAppViewRpc` (A2 削除対象)
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:996-1044` — `handleYoroAppView`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:1076-1090` — yoro `/xrpc/*` route
+- `60-apps/etzhayyim-project-auth/worker/src-ts/did.ts` — DID doc `service[]` build (A5)
 - `90-docs/platform/260413-pds-appview-topology-shannon-analysis.md` — Candidate C topology (η=0.95) — 本 ADR で Candidate C を domain 分離版にアップグレード

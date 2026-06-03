@@ -1,15 +1,15 @@
-# Post-Deployment Report: PR #1032 (codex/gftd-mv-live-reads)
+# Post-Deployment Report: PR #1032 (codex/etzhayyim-mv-live-reads)
 
-**Date**: 2026-04-20  
-**Status**: ✅ **PRODUCTION DEPLOYMENT COMPLETE**  
-**Severity**: Low  
+**Date**: 2026-04-20
+**Status**: ✅ **PRODUCTION DEPLOYMENT COMPLETE**
+**Severity**: Low
 **Impact**: None (all systems nominal)
 
 ---
 
 ## Executive Summary
 
-PR #1032 (codex/gftd-mv-live-reads) successfully deployed to both **staging (2026-04-18)** and **production (2026-04-19)** with zero critical incidents. All 40 graph migrations applied, 46 new lexicon definitions active, and 8 application features live.
+PR #1032 (codex/etzhayyim-mv-live-reads) successfully deployed to both **staging (2026-04-18)** and **production (2026-04-19)** with zero critical incidents. All 40 graph migrations applied, 46 new lexicon definitions active, and 8 application features live.
 
 **Key Metrics**:
 - ✅ Staging: 40 migrations in 6 hours (zero errors)
@@ -38,8 +38,8 @@ PR #1032 (codex/gftd-mv-live-reads) successfully deployed to both **staging (202
 | 13:00 | Testing complete (3/3 endpoints responding) | ✅ PASS |
 | 13:30 | Staging sign-off | ✅ APPROVED |
 
-**Duration**: 6 hours (2h buffer absorbed)  
-**Operators**: 2 (apply + monitor)  
+**Duration**: 6 hours (2h buffer absorbed)
+**Operators**: 2 (apply + monitor)
 **Incidents**: 0
 
 ---
@@ -48,7 +48,7 @@ PR #1032 (codex/gftd-mv-live-reads) successfully deployed to both **staging (202
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Schema backup | ✅ | s3://gftd-backups/risingwave/2026/04/19/ |
+| Schema backup | ✅ | s3://etzhayyim-backups/risingwave/2026/04/19/ |
 | Migration state snapshot | ✅ | /tmp/prod_migrations_backup.csv |
 | Row count baseline | ✅ | /tmp/prod_row_counts_before.txt |
 | Prod cluster health check | ✅ | Responsive, 200+ tables |
@@ -77,9 +77,9 @@ PR #1032 (codex/gftd-mv-live-reads) successfully deployed to both **staging (202
 | 13:30 | Endpoint testing | ✅ | 3/3 endpoints live |
 | 14:00 | Production sign-off | ✅ | Ready for monitoring |
 
-**Duration**: 5 hours  
-**Operators**: 2 (apply + monitor)  
-**Incidents**: 0  
+**Duration**: 5 hours
+**Operators**: 2 (apply + monitor)
+**Incidents**: 0
 **Rollback Used**: No
 
 ---
@@ -117,7 +117,7 @@ SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';
 SELECT COUNT(*) FROM dim_world_domain;
 -- Production result: 461 domains ✅
 
-SELECT domain, collected, world_total, 
+SELECT domain, collected, world_total,
   ROUND(100.0 * collected / NULLIF(world_total, 0), 1) as pct
 FROM mv_world_coverage_live
 WHERE domain IN ('orbital_system', 'flight_offer', 'maps_job', 'ongakuka')
@@ -265,7 +265,7 @@ SELECT COUNT(DISTINCT body_id) FROM vertex_orbital_body;
 -- Result: 5 ✅ (Earth, Moon, Sun, ISS, GEO belt)
 
 -- 2. Maps job table structure
-SELECT column_name, data_type FROM information_schema.columns 
+SELECT column_name, data_type FROM information_schema.columns
 WHERE table_name = 'vertex_maps_job' LIMIT 5;
 -- Result: 20+ columns (job_id, status, progress_pct, etc.) ✅
 
@@ -290,7 +290,7 @@ SELECT COUNT(*) FROM mv_world_coverage_live WHERE collected > 0;
 
 **Action Required**: Create scheduled job to ingest live NORAD TLE data weekly.
 
-**Ticket**: Create GitHub issue in `60-apps/ai-gftd-project-maps`
+**Ticket**: Create GitHub issue in `60-apps/etzhayyim-project-maps`
 
 **Timeline**: Next sprint
 
@@ -302,7 +302,7 @@ SELECT COUNT(*) FROM mv_world_coverage_live WHERE collected > 0;
 
 **Action Required**: Activate music streaming ingestion service.
 
-**Ticket**: Create GitHub issue in `60-apps/ai-gftd-project-ongakuka`
+**Ticket**: Create GitHub issue in `60-apps/etzhayyim-project-ongakuka`
 
 **Timeline**: Before ongakuka appview goes live
 
@@ -362,17 +362,17 @@ SELECT COUNT(*) FROM mv_world_coverage_live WHERE collected > 0;
 ## Archive & References
 
 **Backup Locations**:
-- Schema backup: `s3://gftd-backups/risingwave/2026/04/19/schema_backup_*.sql`
-- Migration state: `s3://gftd-backups/risingwave/2026/04/19/prod_migrations_backup.csv`
-- Deployment logs: `s3://gftd-staging-logs/migrations/2026/04/18/`
+- Schema backup: `s3://etzhayyim-backups/risingwave/2026/04/19/schema_backup_*.sql`
+- Migration state: `s3://etzhayyim-backups/risingwave/2026/04/19/prod_migrations_backup.csv`
+- Deployment logs: `s3://etzhayyim-staging-logs/migrations/2026/04/18/`
 
 **Documentation**:
-- Deployment Runbook: `90-docs/260417-codex-gftd-mv-live-reads-deployment-runbook.md`
+- Deployment Runbook: `90-docs/260417-codex-etzhayyim-mv-live-reads-deployment-runbook.md`
 - Monitoring Setup: `90-docs/260417-codex-staging-monitoring-setup.md`
 - Code Review: Session notes from 2026-04-17
 
 **GitHub**:
-- PR: #1032 (codex/gftd-mv-live-reads)
+- PR: #1032 (codex/etzhayyim-mv-live-reads)
 - Status: Merged to main
 - Commit: b1510b696a6 (latest in branch)
 
@@ -387,7 +387,7 @@ SELECT COUNT(*) FROM mv_world_coverage_live WHERE collected > 0;
 
 ---
 
-**Prepared by**: Claude Code  
-**Date**: 2026-04-20  
+**Prepared by**: Claude Code
+**Date**: 2026-04-20
 **Status**: ✅ **PRODUCTION LIVE**
 

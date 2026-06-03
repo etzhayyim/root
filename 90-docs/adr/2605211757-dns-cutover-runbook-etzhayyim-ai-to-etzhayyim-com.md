@@ -1,9 +1,9 @@
 ---
-id: adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com
+id: adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
 title: "ADR-2605211757: DNS cutover runbook for the 27 ported workers — *.etzhayyim.com → *.etzhayyim.com (Phase 3 gate (b))"
 status: proposed
 doc_type: adr
-topic: dns-cutover-runbook-gftd-ai-to-etzhayyim-com
+topic: dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
 authoritative: true
 last_verified: 2026-05-21
 priority: 8.0
@@ -195,7 +195,7 @@ snapshot for the actor's tables into the PVC:
 
 ```bash
 # operator-side script (separate, not in repo)
-gftd-tools/export-actor-state.py --actor ${a} \
+etzhayyim-tools/export-actor-state.py --actor ${a} \
   --tables vertex_${module}_* \
   --out /tmp/${a}-init.sql
 
@@ -279,7 +279,7 @@ confirm the SQLite path is wired correctly.
 
 After 24h soak (Wave D) / 1h soak (Wave A-C) of green smoke + no error
 in worker logs, edit ``50-infra/cloudflare/workers/routing-gateway/src/worker.ts``
-on the gftd side (separate repo) to return 410 or 301 for ``${a}.etzhayyim.com``:
+on the etzhayyim side (separate repo) to return 410 or 301 for ``${a}.etzhayyim.com``:
 
 - **410 Gone** (preferred): clients update their address.
 - **301 Moved Permanently** to ``https://${a}.etzhayyim.com$path$query``:
@@ -318,7 +318,7 @@ becomes a forward-only fix.
    helm -n etzhayyim-organism upgrade --install ${a} ... --set replicas=0
    ```
 3. Scale vendor ``${a}`` worker back to its previous replica count (operator
-   maintains the vendor manifest in the gftd repo).
+   maintains the vendor manifest in the etzhayyim repo).
 4. Document in ``deps.toml [[migrations]]`` why the rollback was triggered.
 
 ### After 3.7 — forward fix

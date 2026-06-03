@@ -1,5 +1,5 @@
 ---
-id: adr-2605111000-gftd-japan-family-office-conversion
+id: adr-2605111000-etzhayyim-japan-family-office-conversion
 title: etzhayyim Japan株式会社 シングルファミリープライベートオフィス化
 status: proposed
 doc_type: adr
@@ -12,9 +12,9 @@ authoritative_for:
 ---
 # ADR-2605111000: etzhayyim Japan株式会社 シングルファミリープライベートオフィス化
 
-**Date**: 2026-05-11  
-**Status**: draft → (approved pending 株主総会決議) → filed → registered  
-**Decider**: 河崎純真 (CEO / 代表取締役)  
+**Date**: 2026-05-11
+**Status**: draft → (approved pending 株主総会決議) → filed → registered
+**Decider**: 河崎純真 (CEO / 代表取締役)
 **Stakeholders**: 中村明子 (COO), k.bakshi (CLO)
 
 ---

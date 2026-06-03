@@ -1,13 +1,13 @@
 ---
-id: 2604292100-1password-gftd-japan-vault-mirror
-title: 1Password "etzhayyim Japan株式会社" vault as the org-share mirror of gftd.* Keychain credentials
+id: 2604292100-1password-etzhayyim-japan-vault-mirror
+title: 1Password "etzhayyim Japan株式会社" vault as the org-share mirror of etzhayyim.* Keychain credentials
 status: active
 doc_type: adr
 topic: credential-distribution
 authoritative: true
 last_verified: 2026-04-29
 authoritative_for:
-  - 1Password vault layout for gftd.* operator credentials
+  - 1Password vault layout for etzhayyim.* operator credentials
   - keychain → 1Password mirror policy
 related:
   - adr-2604231811-atproto-extension-service-layers
@@ -20,33 +20,33 @@ superseded_by: []
 Two existing root rules already define how secrets are handled:
 
 - **Local Secret Storage = macOS Keychain (CRITICAL)** — runtime SSoT for an
-  individual operator's gftd.* credentials. Naming: `service=gftd.{provider}`,
+  individual operator's etzhayyim.* credentials. Naming: `service=etzhayyim.{provider}`,
   `account={KEY_NAME}`. Synced across the operator's Apple devices via iCloud
   Keychain.
-- **Credential Sharing = gftd Vault + Bitwarden (CRITICAL)** — `vault.etzhayyim.com`
+- **Credential Sharing = etzhayyim Vault + Bitwarden (CRITICAL)** — `vault.etzhayyim.com`
   (zero-knowledge, ECIES-shared) is the *runtime* org-share path. Bitwarden
   is the supplementary external-service vault. Slack/Teams/email/code 内の
   raw key 記載は禁止。
 
 The 1Password "Private" account has been used ad-hoc as a long-term backup
-for one-off secrets (e.g. `ai-gftd-pds-repo-signing-kek-adr0010` per
+for one-off secrets (e.g. `etzhayyim-pds-repo-signing-kek-adr0010` per
 `50-infra/.../adr0010`). It has *not* had an authoritative role for the
-day-to-day `gftd.{provider}/{KEY_NAME}` set the operator already keeps in
+day-to-day `etzhayyim.{provider}/{KEY_NAME}` set the operator already keeps in
 Keychain.
 
 The "etzhayyim Japan株式会社" 1Password vault (id `dk3qlcuqumtoml2oaxrs5mwiji`)
-already contained ~50 `gftd.*/...`-titled items — a partial mirror that grew
+already contained ~50 `etzhayyim.*/...`-titled items — a partial mirror that grew
 organically. As of 2026-04-28 the live Keychain held 9 services × 14 accounts
-under `gftd.*`, and the partial mirror diverged: 4 vault items existed as
+under `etzhayyim.*`, and the partial mirror diverged: 4 vault items existed as
 empty title-only stubs, 10 keychain entries had no vault counterpart at all.
 
 # Decision
 
 Adopt 1Password "etzhayyim Japan株式会社" (`dk3qlcuqumtoml2oaxrs5mwiji`) as the
-**human/operator-facing share view** of every `gftd.*` Generic Password the
+**human/operator-facing share view** of every `etzhayyim.*` Generic Password the
 operator stores in macOS Keychain.
 
-- **Title convention**: `gftd.<service>/<account>` (matches the existing 50+
+- **Title convention**: `etzhayyim.<service>/<account>` (matches the existing 50+
   items). One 1Password item per (service, account) pair. Category =
   `PASSWORD`. Single `password` field, exact verbatim copy of the Keychain
   value with the trailing newline (if any) stripped — same policy
@@ -74,7 +74,7 @@ operator stores in macOS Keychain.
   `op item get --fields password`. The latter CSV-escapes any value that
   contains `"`, `,`, or newlines (every internal `"` becomes `""`, the
   whole value is wrapped in `"..."`). This produces false-negatives for
-  JSON-blob credentials like `gftd.identity/junkawasaki.com`. See
+  JSON-blob credentials like `etzhayyim.identity/junkawasaki.com`. See
   convention `op-item-get-csv-escape-quirk`.
 
 # Consequences
@@ -99,8 +99,8 @@ operator stores in macOS Keychain.
   Keychain as the local SSoT, and would force a session token (`op
   signin`) into BPMN worker pods that currently authenticate via Service
   Auth JWT only.
-- **Mirror Keychain into `vault.etzhayyim.com` (gftd Vault) instead**. Rejected:
-  gftd Vault is zero-knowledge with ECIES shares; it is the *workload*
+- **Mirror Keychain into `vault.etzhayyim.com` (etzhayyim Vault) instead**. Rejected:
+  etzhayyim Vault is zero-knowledge with ECIES shares; it is the *workload*
   share path (Workers / pyzeebe / browser via WebAuthn PRF). Adding a
   second purpose ("operator UI mirror") would dilute the zero-knowledge
   invariant and force every operator to maintain a member-device key
@@ -116,24 +116,24 @@ operator stores in macOS Keychain.
 
 | Service | Account |
 |---|---|
-| gftd.b2 | BUCKET_NAME, APPLICATION_KEY_ID, APPLICATION_KEY, ENDPOINT, REGION |
-| gftd.civitai | API_KEY |
-| gftd.hf | HF_TOKEN |
-| gftd.identity | junkawasaki.com |
-| gftd.r2 | ACCOUNT_ID |
-| gftd.runpod | RUNPOD_API_KEY |
-| gftd.rw | ROOT_URL |
-| gftd.shiharai.tokyo-waterworks | primary |
-| gftd.vultr | VULTR_API_KEY, API_KEY |
+| etzhayyim.b2 | BUCKET_NAME, APPLICATION_KEY_ID, APPLICATION_KEY, ENDPOINT, REGION |
+| etzhayyim.civitai | API_KEY |
+| etzhayyim.hf | HF_TOKEN |
+| etzhayyim.identity | junkawasaki.com |
+| etzhayyim.r2 | ACCOUNT_ID |
+| etzhayyim.runpod | RUNPOD_API_KEY |
+| etzhayyim.rw | ROOT_URL |
+| etzhayyim.shiharai.tokyo-waterworks | primary |
+| etzhayyim.vultr | VULTR_API_KEY, API_KEY |
 
 10 created, 4 stubs filled (b2/REGION, r2/ACCOUNT_ID, rw/ROOT_URL,
 vultr/API_KEY). 14/14 round-trip verified via `--format=json` read,
 sha256[:12] + length match.
 
-Other `gftd.*/*` items already in the vault (gftd.cloudflare/*,
-gftd.private-chain/*, gftd.safe-owners/*, gftd.m365/*, gftd.bitwarden/*,
-gftd.webyubin/*, gftd.ipfs/*, gftd.murakumo.k3s/*, gftd.rego-arbiter/*,
-etzhayyim.com/pulumi/*, gftd.linode/*) are **not** in the operator's Keychain
+Other `etzhayyim.*/*` items already in the vault (etzhayyim.cloudflare/*,
+etzhayyim.private-chain/*, etzhayyim.safe-owners/*, etzhayyim.m365/*, etzhayyim.bitwarden/*,
+etzhayyim.webyubin/*, etzhayyim.ipfs/*, etzhayyim.murakumo.k3s/*, etzhayyim.rego-arbiter/*,
+etzhayyim.com/pulumi/*, etzhayyim.linode/*) are **not** in the operator's Keychain
 and remain 1Password-only. They are out of scope for the keychain-mirror
 policy until added to Keychain.
 
@@ -143,7 +143,7 @@ policy until added to Keychain.
   registry of currently-stored services.
 - `deps.toml [[conventions]] op-item-get-csv-escape-quirk` —
   verification gotcha codified.
-- `deps.toml [[migrations]] gftd-keychain-1password-mirror-20260429` —
+- `deps.toml [[migrations]] etzhayyim-keychain-1password-mirror-20260429` —
   mirror operation log entry.
 - ADR-2604231811 — AT Protocol 15-Layer Service Taxonomy (places
   `vault.etzhayyim.com` as Layer "Secret Vault").

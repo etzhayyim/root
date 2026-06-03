@@ -1,21 +1,21 @@
 ---
-id: adr-2605231500-yatachain-projection
-title: "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)"
+id: adr-2605231500-kotoba-datomic-projection
+title: "ADR-2605231500: kotoba-datomic-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)"
 status: superseded
 doc_type: adr
-topic: yatachain-projection
+topic: kotoba-datomic-projection
 authoritative: true
 last_verified: 2026-05-23
 priority: 8.5
 axis: substrate-boundary
 weight: 0.9
 authoritative_for:
-  - "yatachain-projection definition and conformance levels"
+  - "kotoba-datomic-projection definition and conformance levels"
   - "ADR-2605172000 hot-path escape hatch (when RW / Lance / Iroh / index serving range queries is permitted)"
   - "Bluesky AppView analog — PDS = state, projection = derivable cache"
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 related:
   - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
@@ -24,7 +24,7 @@ superseded_by:
   - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
-# ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries
+# ADR-2605231500: kotoba-datomic-projection — regenerable cache layer for hot-path queries
 
 **Status**: proposed
 **Date**: 2026-05-23
@@ -33,18 +33,18 @@ superseded_by:
 ## Context
 
 [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) mandates RW-free substrate
-(`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md)
-names the composed architecture `yatachain` and defines three conformance levels
+(`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](/90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)
+names the composed architecture `kotoba-datomic` and defines three conformance levels
 (L0 nominal / L1 witnessed / L2 anchored). Neither ADR addresses **derived read
 paths** — i.e., the question:
 
-> If `yatachain-chain` is the source of truth and `yatachain-dht` is the content
+> If `kotoba-datomic-chain` is the source of truth and `kotoba-datomic-dht` is the content
 > store, **how does the maps app serve a sub-100ms bbox spatial query that
 > requires scanning millions of `vertex_spatial` rows with a label filter and
 > a PostGIS-style geometry intersection?**
 
 MST prefix scan cannot do this. IPFS DAG traversal cannot do this. Per the
-[`MIGRATION-TODO.md`](../../60-apps/ai-gftd-project-maps/MIGRATION-TODO.md) Tier C
+[`MIGRATION-TODO.md`](../../60-apps/etzhayyim-project-maps/MIGRATION-TODO.md) Tier C
 inventory, ~60 of 172 maps commands fall into this category (`tileGeoJson`,
 `getChunk`, `nextDeparturesAtStop`, `realtimeDelaysAtStop`, `graph_traverse`,
 `graph_neighbors`, `search_resources`, `infra_query`, `spatial_event_query`,
@@ -61,20 +61,20 @@ PostgreSQL-backed derived index that consumes the PDS firehose and produces
 optimized read paths. The AppView is **not** the source of truth — drop it,
 replay the firehose, get an identical AppView back.
 
-This ADR generalizes that pattern as `yatachain-projection` and defines when it
+This ADR generalizes that pattern as `kotoba-datomic-projection` and defines when it
 is Charter-compliant to use RW / Lance / Iroh-synced docs / in-memory indices
 for hot-path reads.
 
 ## Decision
 
-A `yatachain-projection` is a derived read-path artifact that:
+A `kotoba-datomic-projection` is a derived read-path artifact that:
 
-1. is **deterministically rebuildable** from `yatachain-chain` (PDS MST) and
-   `yatachain-dht` (IPFS) without any operator-held state, AND
-2. is **never the only place a write lives** — every write hits `yatachain-chain`
+1. is **deterministically rebuildable** from `kotoba-datomic-chain` (PDS MST) and
+   `kotoba-datomic-dht` (IPFS) without any operator-held state, AND
+2. is **never the only place a write lives** — every write hits `kotoba-datomic-chain`
    first and only then propagates into the projection, AND
-3. is **explicitly marked** in code (`// yatachain-projection` line comment OR a
-   `yatachain-projection.toml` manifest in the projection's directory) so the
+3. is **explicitly marked** in code (`// kotoba-datomic-projection` line comment OR a
+   `kotoba-datomic-projection.edn` manifest in the projection's directory) so the
    substrate-boundary lint allow-lists it.
 
 If all three properties hold, the projection MAY use any storage technology —
@@ -83,7 +83,7 @@ the substrate boundary, because the projection is **derived**, not **canonical**
 
 ### Three conformance levels
 
-Mirroring yatachain's L0/L1/L2:
+Mirroring kotoba-datomic's L0/L1/L2:
 
 | Level | Requirements |
 |---|---|
@@ -91,7 +91,7 @@ Mirroring yatachain's L0/L1/L2:
 | **L1-projection automated** | L0 + (2) verified by lint OR by structural guarantee (e.g., the projection consumer subscribes to the PDS firehose and refuses out-of-order writes). Rebuild tool exists and is exercised in CI. |
 | **L2-projection verified** | L1 + cross-validation tool that replays a randomly-chosen 1% slice and asserts the projection is byte-identical (modulo intentional non-determinism, which must be enumerated in the projection manifest). |
 
-The current `60-apps/ai-gftd-project-maps/` RW-backed reads are **pre-L0**
+The current `60-apps/etzhayyim-project-maps/` RW-backed reads are **pre-L0**
 (no manifest, no rebuild runbook, no firehose subscription). Phase 4-5 of the
 maps migration brings the Tier C commands to **L0-projection** first, then to
 L1.
@@ -118,7 +118,7 @@ L1.
 
 ### The "rebuild" requirement (the load-bearing clause)
 
-A projection is yatachain-compliant only if there exists a documented procedure
+A projection is kotoba-datomic-compliant only if there exists a documented procedure
 that, given:
 
 - access to a PDS instance hosting the relevant collection(s)
@@ -146,15 +146,15 @@ Every projection-bound file MUST have either:
 **Option A — line comment** (for individual call sites in mixed-purpose files):
 
 ```typescript
-// yatachain-projection: tileGeoJson reads from vertex_spatial RW; rebuild via
-//   60-apps/ai-gftd-project-maps/tools/rebuild-spatial-projection.ts
+// kotoba-datomic-projection: tileGeoJson reads from vertex_spatial RW; rebuild via
+//   60-apps/etzhayyim-project-maps/tools/rebuild-spatial-projection.ts
 const rows = await db.selectFrom("vertex_spatial").where(...).execute();
 ```
 
 **Option B — directory manifest** (for projection-only directories):
 
 ```toml
-# yatachain-projection.toml
+# kotoba-datomic-projection.edn
 [projection]
 name = "maps-spatial-rw"
 level = "L0-projection"   # bumped to L1 when rebuild tool exists in CI
@@ -170,14 +170,14 @@ adr = "2605231500"
 
 The substrate-boundary lint (`70-tools/scripts/lint/substrate-boundary.mjs`)
 gets a new allow-rule: a Kysely / asyncpg call site is allowed iff it has a
-`yatachain-projection` line comment within 3 lines OR its containing directory
-has a `yatachain-projection.toml`.
+`kotoba-datomic-projection` line comment within 3 lines OR its containing directory
+has a `kotoba-datomic-projection.edn`.
 
 ### Anti-pattern: "projection of the projection"
 
-A projection MUST be rebuildable from `yatachain-chain + yatachain-dht`, not
+A projection MUST be rebuildable from `kotoba-datomic-chain + kotoba-datomic-dht`, not
 from another projection. If projection B reads from projection A and forgets
-about MST, projection B is not yatachain-compliant — even if projection A is.
+about MST, projection B is not kotoba-datomic-compliant — even if projection A is.
 
 Concretely: if a Murakumo cell consumes RisingWave (projection A) to populate
 an in-memory cache (projection B), that cache must also have a documented path
@@ -192,7 +192,7 @@ overall chain back to MST is documented.
   home immediately (mark with line comments, document rebuild, ship). Full L1
   upgrade can land later without changing the read API surface.
 - **yatabase BaaS surface is salvageable** — the commercial product can be
-  reframed as "we sell access to a yatachain-projection-as-a-service" rather
+  reframed as "we sell access to a kotoba-datomic-projection-as-a-service" rather
   than "we sell access to a centralized DB" (Charter §4 carve-out for
   non-profit領収書用途 still applies; the projection framing makes the legal
   story consistent with the technical story).
@@ -227,11 +227,11 @@ overall chain back to MST is documented.
 | # | Step | Owner | Target |
 |---|---|---|---|
 | 1 | This ADR | session 2026-05-23 | shipped with this commit |
-| 2 | Update [`10-protocol/yatachain/SPEC.md`](../../10-protocol/yatachain/SPEC.md) §"Conformance levels" — add L0/L1/L2-projection column | follow-up | 0.5-day |
-| 3 | Update root `CLAUDE.md` Substrate boundary table — add `yatachain-projection` row | follow-up | 0.5-day |
-| 4 | Extend `70-tools/scripts/lint/substrate-boundary.mjs` — parse `// yatachain-projection` line comment and `yatachain-projection.toml` manifest | follow-up | 1-day |
-| 5 | Author **first L0-projection manifest**: `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/yatachain-projection.toml` covering the existing RW reads, with markdown rebuild runbook | follow-up | 1-day |
-| 6 | Author **first L1-projection** (RW MV replay tool + CI smoke): `60-apps/ai-gftd-project-maps/tools/rebuild-spatial-projection.ts` + CI step | follow-up | 1-week |
+| 2 | Update [`10-protocol/kotoba-datomic/SPEC.md`](../../10-protocol/kotoba-datomic/SPEC.md) §"Conformance levels" — add L0/L1/L2-projection column | follow-up | 0.5-day |
+| 3 | Update root `CLAUDE.md` Substrate boundary table — add `kotoba-datomic-projection` row | follow-up | 0.5-day |
+| 4 | Extend `70-tools/scripts/lint/substrate-boundary.mjs` — parse `// kotoba-datomic-projection` line comment and `kotoba-datomic-projection.edn` manifest | follow-up | 1-day |
+| 5 | Author **first L0-projection manifest**: `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/kotoba-datomic-projection.edn` covering the existing RW reads, with markdown rebuild runbook | follow-up | 1-day |
+| 6 | Author **first L1-projection** (RW MV replay tool + CI smoke): `60-apps/etzhayyim-project-maps/tools/rebuild-spatial-projection.ts` + CI step | follow-up | 1-week |
 | 7 | Apply marking sweep across yatabase / yoro / yorishiro / joucho / murakumo / etzhayyim-k2 / baien (every app with RW reads gets either a projection manifest or a removal task) | follow-up | 2-week |
 
 ## Future Work

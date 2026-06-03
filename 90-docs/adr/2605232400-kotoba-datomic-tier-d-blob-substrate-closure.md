@@ -1,22 +1,22 @@
 ---
-id: adr-2605232400-yatachain-tier-d-blob-substrate-closure
-title: "ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"
+id: adr-2605232400-kotoba-datomic-tier-d-blob-substrate-closure
+title: "ADR-2605232400: kotoba-datomic Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"
 status: superseded
 doc_type: adr
-topic: yatachain-tier-d-blob
+topic: kotoba-datomic-tier-d-blob
 authoritative: true
 last_verified: 2026-05-23
 priority: 7.5
 axis: substrate-boundary
 weight: 0.7
 authoritative_for:
-  - "yatachain Tier D blob path (content-addressed IPFS pin primitive)"
+  - "kotoba-datomic Tier D blob path (content-addressed IPFS pin primitive)"
   - "gsplat trainer B2 → IPFS swap protocol"
   - "yoro substrate-facade migration (@atproto/api → @etzhayyim/sdk/atproto)"
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605231400-yatachain-holochain-iso-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2605231500-kotoba-datomic-projection
   - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
@@ -26,7 +26,7 @@ superseded_by:
   - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
-# ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure
+# ADR-2605232400: kotoba-datomic Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure
 
 **Status**: active
 **Date**: 2026-05-23
@@ -34,9 +34,9 @@ superseded_by:
 
 ## Context
 
-ADR-2605231400 enumerates the yatachain 7-layer mapping; ADR-2605231500 names the
+ADR-2605231400 enumerates the kotoba-datomic 7-layer mapping; ADR-2605231500 names the
 four conformance levels (L0/L1/L2-projection plus the implicit blob tier). The maps
-migration plan in [`60-apps/ai-gftd-project-maps/MIGRATION-TODO.md`](../../60-apps/ai-gftd-project-maps/MIGRATION-TODO.md)
+migration plan in [`60-apps/etzhayyim-project-maps/MIGRATION-TODO.md`](../../60-apps/etzhayyim-project-maps/MIGRATION-TODO.md)
 classifies each surface into one of four tiers; Tier A (pure MST) and Tier B
 (L1 witnessed) shipped in earlier 2026-05-23 waves alongside the Phase 1 golden-file
 integration test. Two remaining gaps blocked an end-to-end substrate stack:
@@ -103,7 +103,7 @@ multipart envelope sanity check.
 
 ### 2. gsplat trainer B2 → IPFS swap (feature-flagged, transitional)
 
-`60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` gains:
+`60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` gains:
 
 - `_ipfs_pin_via_substrate(blob, content_type) -> str` — sync wrapper around
   `pymagatama.substrate.Etzhayyim.upload_blob()` (the dumper owns its event
@@ -128,7 +128,7 @@ requirement.
 ### 3. yoro substrate-facade closure (six callsites)
 
 All six remaining `@atproto/api` direct imports in
-`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/` rewritten
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/` rewritten
 to import from `@etzhayyim/sdk/atproto`:
 
 | File | Import |
@@ -213,11 +213,11 @@ package outright. `pnpm check:ts` passes clean post-migration.
 ## References
 
 - ADR-2605172000 — RW-free substrate hard rules
-- ADR-2605231400 — yatachain Holochain-iso composition
-- ADR-2605231500 — yatachain-projection conformance levels
+- ADR-2605231400 — kotoba-datomic Holochain-iso composition
+- ADR-2605231500 — kotoba-datomic-projection conformance levels
 - ADR-2605241500 — DataLad + IPFS dataset CID substrate (Kubo HTTP API contract source)
 - ADR-2605231525 — no-server-key architecture (9th invariant enforcement target)
-- [`60-apps/ai-gftd-project-maps/MIGRATION-TODO.md`](../../60-apps/ai-gftd-project-maps/MIGRATION-TODO.md) — Phase 2 Tier D rows ticked by this ADR
+- [`60-apps/etzhayyim-project-maps/MIGRATION-TODO.md`](../../60-apps/etzhayyim-project-maps/MIGRATION-TODO.md) — Phase 2 Tier D rows ticked by this ADR
 - [`20-actors/etzhayyim-sdk/src/index.ts`](../../20-actors/etzhayyim-sdk/src/index.ts) — TS `uploadBlob` implementation
 - [`20-actors/magatama/py/src/pymagatama/substrate/__init__.py`](../../20-actors/magatama/py/src/pymagatama/substrate/__init__.py) — Python `upload_blob` implementation
-- [`60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`](../../60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py) — `_blob_upload` / `_blob_download` dispatch
+- [`60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`](../../60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py) — `_blob_upload` / `_blob_download` dispatch

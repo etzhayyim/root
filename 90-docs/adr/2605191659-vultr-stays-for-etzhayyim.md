@@ -1,9 +1,9 @@
 ---
-id: adr-2605191659-vultr-stays-for-gftd
+id: adr-2605191659-vultr-stays-for-etzhayyim
 title: "ADR-2605191659: Vultr stays for etzhayyim.com — supersede step 6 of ADR-2605191358"
 status: active
 doc_type: adr
-topic: vultr-stays-for-gftd
+topic: vultr-stays-for-etzhayyim
 authoritative: true
 last_verified: 2026-05-19
 priority: 7.0
@@ -51,7 +51,7 @@ This ADR records the correction.
 3. **Step 6 of ADR-2605191358 is superseded** by this ADR. The follow-ups it implied (move multicluster, move yoro-actors-raw Postgres) are dropped. The underlying substrate fixes for those workloads are addressed by:
    - The rewrite map (ADR-2605191358 steps 1-5) for any etzhayyim-branded surface
    - etzhayyim.com operator's discretion for anything Vultr-hosted that is NOT etzhayyim-branded
-4. **Physical separation to a different repo** (e.g. `gftd-co-jp/legacy-vultr-manifests`) remains a follow-up task tracked alongside repo-root `CLAUDE.md` Step 8 cutover, at the operator's pace. This ADR does not schedule it.
+4. **Physical separation to a different repo** (e.g. `etzhayyim-co-jp/legacy-vultr-manifests`) remains a follow-up task tracked alongside repo-root `CLAUDE.md` Step 8 cutover, at the operator's pace. This ADR does not schedule it.
 
 ## Hard rule recap (no change)
 
@@ -60,7 +60,7 @@ This ADR records the correction.
 | `50-infra/vultr/*` | **etzhayyim.com legacy** | ✅ stays (no archive sweep) |
 | `50-infra/k8s/*` | etzhayyim | ❌ Murakumo Mac-mini only |
 | `50-infra/etzhayyim-*` | etzhayyim | ❌ Murakumo / Cloudflare only |
-| `60-apps/ai-gftd-project-*` | etzhayyim (during rename grace) | ❌ |
+| `60-apps/etzhayyim-project-*` | etzhayyim (during rename grace) | ❌ |
 | `20-actors/*` | etzhayyim | ❌ |
 
 (Identical to ADR-2605191346 §2; reproduced here for cross-reference.)
@@ -80,7 +80,7 @@ This ADR records the correction.
 **Required follow-ups**:
 
 - ADR-2605191358 progress table (in past PRs and READMEs) updates: step 6 is marked **superseded** rather than ⏳ pending.
-- Substrate-boundary lefthook allowlist: confirm `50-infra/vultr/` is treated as gftd-legacy and not gated against the etzhayyim allowlist.
+- Substrate-boundary lefthook allowlist: confirm `50-infra/vultr/` is treated as etzhayyim-legacy and not gated against the etzhayyim allowlist.
 
 # Alternatives Considered
 

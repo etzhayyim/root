@@ -1,9 +1,9 @@
-# Deployment Runbook: PR #1032 (codex/gftd-mv-live-reads)
+# Deployment Runbook: PR #1032 (codex/etzhayyim-mv-live-reads)
 
-**Date**: 2026-04-17  
-**Branch**: `codex/gftd-mv-live-reads`  
-**PR**: #1032  
-**Scope**: 41 graph migrations, 8+ app features, 15+ lexicon definitions, 649 concordance systems  
+**Date**: 2026-04-17
+**Branch**: `codex/etzhayyim-mv-live-reads`
+**PR**: #1032
+**Scope**: 41 graph migrations, 8+ app features, 15+ lexicon definitions, 649 concordance systems
 **Risk Level**: **MEDIUM** (MV backfill concurrency, out-of-band migration records)
 
 ---
@@ -104,14 +104,14 @@ cat /tmp/manual_migrations.txt | wc -l
 # Take snapshot of current schema
 RW_HOST=risingwave-staging.etzhayyim.com
 RW_PORT=4566
-DATABASE_URL="postgresql://gftd_user:${RW_PASSWORD}@${RW_HOST}:${RW_PORT}/gftd"
+DATABASE_URL="postgresql://etzhayyim_user:${RW_PASSWORD}@${RW_HOST}:${RW_PORT}/etzhayyim"
 
 # Dump current migration state
 psql "$DATABASE_URL" -c "\copy kysely_migration TO /tmp/kysely_migration_backup_$(date +%Y%m%d_%H%M%S).csv CSV"
 
 # Snapshot key table row counts (pre-migration baseline)
 psql "$DATABASE_URL" << 'EOF' > /tmp/row_counts_before.txt
-SELECT schemaname, tablename, n_live_tup FROM pg_stat_user_tables 
+SELECT schemaname, tablename, n_live_tup FROM pg_stat_user_tables
 WHERE tablename LIKE 'vertex_%' OR tablename LIKE 'edge_%' OR tablename LIKE 'mv_%'
 ORDER BY tablename;
 EOF
@@ -141,8 +141,8 @@ echo "✓ System parameters configured for large MV backfills"
 
 ```bash
 cd /repo
-git fetch origin codex/gftd-mv-live-reads
-git checkout codex/gftd-mv-live-reads
+git fetch origin codex/etzhayyim-mv-live-reads
+git checkout codex/etzhayyim-mv-live-reads
 
 # Verify 41 new migrations are present
 new_migration_count=$(git diff main --name-only -- 30-graph/graph-schema/migrations/202604*.ts | wc -l)
@@ -158,7 +158,7 @@ pnpm build  # or tsc
 
 ### Phase 2: Staged Migration Apply (Staging) — 4h
 
-**Operator Role**: 1 person watching terminal; Slack channel on alert  
+**Operator Role**: 1 person watching terminal; Slack channel on alert
 **Rollback**: If any migration fails, revert to Phase 1 backup and investigate
 
 #### 2.1 Pre-Migration Cluster Health Check
@@ -180,7 +180,7 @@ psql "$DATABASE_URL" -c "SELECT version();"
 ```bash
 cd 30-graph/graph-schema
 
-export DATABASE_URL="postgresql://gftd_user:${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
+export DATABASE_URL="postgresql://etzhayyim_user:${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim"
 export MIGRATION_DIR="./migrations"
 
 # Create a wrapper script to apply one migration at a time
@@ -203,16 +203,16 @@ for mig in $migrations; do
   echo "Applying migration: $mig"
   echo "Time: $(date)"
   echo "=========================================="
-  
+
   # Run migration
   if pnpm kysely migrate --up --limit 1 2>&1 | tee /tmp/migration_${mig}.log; then
     applied_count=$((applied_count + 1))
     echo "✓ Success: $mig"
-    
+
     # Wait 10s for RW to stabilize between migrations
     echo "Waiting 10s for cluster stabilization..."
     sleep 10
-    
+
     # Check cluster health
     if ! psql "$DB_URL" -c "SELECT 1;" > /dev/null 2>&1; then
       echo "⚠ WARNING: Cluster unresponsive after $mig. Checking..."
@@ -257,7 +257,7 @@ chmod +x /tmp/apply_migrations.sh
 watch -n 5 'kubectl top pod -n risingwave | grep -E "compute|NAME" | head -5'
 
 # Watch checkpoint progress (every 2 min)
-watch -n 120 "psql postgresql://gftd_user:\${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd -c 'SHOW jobs;' | head -30"
+watch -n 120 "psql postgresql://etzhayyim_user:\${RW_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim -c 'SHOW jobs;' | head -30"
 
 # Monitor S3 write timeouts (in RW logs)
 kubectl logs -n risingwave -l role=compute -f 2>&1 | grep -i "timeout\|error\|write"
@@ -306,11 +306,11 @@ endpoints=(
 
 for nsid in "${endpoints[@]}"; do
   echo "Testing: $nsid"
-  
+
   # Call via XRPC (example; adjust for your test harness)
   curl -s "https://atproto.etzhayyim.com/xrpc/$nsid?limit=1" \
     -H "Authorization: Bearer $etzhayyim_TEST_TOKEN" | jq . | head -10
-  
+
   echo "---"
 done
 ```
@@ -333,8 +333,8 @@ WHERE domain IN ('maps', 'legal-entity', 'flight_offer', 'ongakuka', 'orbital_sy
 ORDER BY collected DESC;
 
 -- Check for newly populated vertex tables
-SELECT tablename, n_live_tup 
-FROM pg_stat_user_tables 
+SELECT tablename, n_live_tup
+FROM pg_stat_user_tables
 WHERE tablename IN ('vertex_orbital_body', 'vertex_maps_job', 'vertex_flight_offer')
 ORDER BY n_live_tup DESC;
 EOF
@@ -348,7 +348,7 @@ psql "$DATABASE_URL" -c "SHOW JOBS;" | grep -E "BACKGROUND|mv_" | head -20
 
 # Check materialized view dependencies (should show no orphans)
 psql "$DATABASE_URL" << 'EOF'
-SELECT mview_name, source_table 
+SELECT mview_name, source_table
 FROM (
   SELECT matviewname as mview_name, NULL as source_table FROM pg_matviews
 ) mv
@@ -389,7 +389,7 @@ psql "$DATABASE_URL" \
 #### 4.1 Prod Backup & Baseline
 
 ```bash
-export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
+export DATABASE_URL="postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim"
 
 # Full schema backup
 pg_dump -s "$DATABASE_URL" > /tmp/schema_backup_$(date +%Y%m%d_%H%M%S).sql
@@ -399,14 +399,14 @@ psql "$DATABASE_URL" -c "\copy kysely_migration TO /tmp/prod_migrations_backup.c
 
 # Row count baseline
 psql "$DATABASE_URL" << 'EOF' > /tmp/prod_row_counts_before.txt
-SELECT tablename, n_live_tup FROM pg_stat_user_tables 
+SELECT tablename, n_live_tup FROM pg_stat_user_tables
 WHERE tablename LIKE 'vertex_%' OR tablename LIKE 'mv_%'
 ORDER BY tablename;
 EOF
 
 # Store backups securely
-aws s3 cp /tmp/schema_backup_*.sql s3://gftd-backups/risingwave/$(date +%Y/%m/%d)/
-aws s3 cp /tmp/prod_migrations_backup.csv s3://gftd-backups/risingwave/$(date +%Y/%m/%d)/
+aws s3 cp /tmp/schema_backup_*.sql s3://etzhayyim-backups/risingwave/$(date +%Y/%m/%d)/
+aws s3 cp /tmp/prod_migrations_backup.csv s3://etzhayyim-backups/risingwave/$(date +%Y/%m/%d)/
 
 echo "✓ Backups uploaded to S3"
 ```
@@ -437,7 +437,7 @@ fi
 
 ### Phase 5: Production Migration Apply (Prod) — 5h
 
-**Operator Role**: 2 people (one applies, one monitors)  
+**Operator Role**: 2 people (one applies, one monitors)
 **Runbook**: Same as Staging (Phase 2), but slower pacing
 
 #### 5.1 Pre-Migration Health Broadcast
@@ -445,7 +445,7 @@ fi
 ```bash
 # Announce to team
 cat > /tmp/deploy_announcement.txt << 'EOF'
-🚀 DEPLOYING: PR #1032 (codex/gftd-mv-live-reads)
+🚀 DEPLOYING: PR #1032 (codex/etzhayyim-mv-live-reads)
 
 Timeline:
 - Start: $(date)
@@ -472,11 +472,11 @@ slack --channel platform-deploys < /tmp/deploy_announcement.txt
 #### 5.2 Apply Migrations (Using Same Serial Script)
 
 ```bash
-export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
+export DATABASE_URL="postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim"
 
 cd /repo
-git fetch origin codex/gftd-mv-live-reads
-git checkout codex/gftd-mv-live-reads
+git fetch origin codex/etzhayyim-mv-live-reads
+git checkout codex/etzhayyim-mv-live-reads
 cd 30-graph/graph-schema
 
 # Apply (verbose logging)
@@ -499,12 +499,12 @@ kubectl logs -n risingwave -l role=compute -f 2>&1 | tee /tmp/rw_logs_$(date +%Y
 # Terminal 2: Query health checks every 30 sec
 for i in {1..600}; do
   echo "=== Check $i ($(date)) ==="
-  psql postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd \
+  psql postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim \
     -c "SELECT COUNT(*) as migrations_applied FROM kysely_migration WHERE migration LIKE '202604%';"
-  
+
   # Check PDS responding
   curl -s https://atproto.etzhayyim.com/xrpc/com.atproto.server.describeServer > /dev/null 2>&1 && echo "PDS: OK" || echo "PDS: UNREACHABLE ⚠"
-  
+
   sleep 30
 done
 ```
@@ -589,18 +589,18 @@ done
 ```bash
 psql "$DATABASE_URL" << 'EOF'
 -- Sample world coverage (5 domains)
-SELECT domain, collected, world_total, 
+SELECT domain, collected, world_total,
   ROUND(100.0 * collected / NULLIF(world_total, 0), 1) as pct
 FROM mv_world_coverage_live
 WHERE domain IN ('maps', 'legal-entity', 'orbital_system', 'flight_offer', 'ongakuka')
 ORDER BY pct DESC;
 
 -- Check new lexicon usage
-SELECT collection, COUNT(*) as record_count 
+SELECT collection, COUNT(*) as record_count
 FROM vertex_repo_record
-WHERE collection LIKE 'com.etzhayyim.apps.%' 
-  AND (collection LIKE '%.orbital%' 
-    OR collection LIKE '%.flight%' 
+WHERE collection LIKE 'com.etzhayyim.apps.%'
+  AND (collection LIKE '%.orbital%'
+    OR collection LIKE '%.flight%'
     OR collection LIKE '%.company%')
 GROUP BY collection
 ORDER BY record_count DESC;
@@ -656,7 +656,7 @@ psql "$DATABASE_URL" -c "SELECT COUNT(*) FROM kysely_migration;"
 # File incident + post-mortem
 echo "Incident: Deploy PR #1032 rolled back at migration #15" > /tmp/incident.txt
 cat /tmp/migration_*.log >> /tmp/incident.txt
-aws s3 cp /tmp/incident.txt s3://gftd-incidents/$(date +%Y/%m/%d)/
+aws s3 cp /tmp/incident.txt s3://etzhayyim-incidents/$(date +%Y/%m/%d)/
 ```
 
 ---
@@ -692,12 +692,12 @@ aws s3 cp /tmp/incident.txt s3://gftd-incidents/$(date +%Y/%m/%d)/
 
 ```bash
 # Staging
-export DATABASE_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
+export DATABASE_URL="postgresql://etzhayyim_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim"
 export RW_HOST=risingwave-staging.etzhayyim.com
 export etzhayyim_TEST_TOKEN="<staging-bearer-token>"
 
 # Production
-export DATABASE_URL="postgresql://gftd_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/gftd"
+export DATABASE_URL="postgresql://etzhayyim_user:${RW_PROD_PASSWORD}@risingwave.etzhayyim.com:4566/etzhayyim"
 export RW_HOST=risingwave.etzhayyim.com
 export etzhayyim_PROD_TOKEN="<prod-bearer-token>"
 ```
@@ -733,6 +733,6 @@ force_two_phase_agg = true        -- Already set system-wide (safe default)
 
 ---
 
-**Document Owner**: Platform Team  
-**Last Updated**: 2026-04-17  
+**Document Owner**: Platform Team
+**Last Updated**: 2026-04-17
 **Version**: 1.0

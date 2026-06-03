@@ -1,9 +1,9 @@
 ---
-id: adr-2605141800-gftd-email-wire-protocol
+id: adr-2605141800-etzhayyim-email-wire-protocol
 title: "ADR-2605141800: etzhayyim Email Wire Protocol (GEWP) v1.0 — Open Standard"
 status: accepted
 doc_type: adr
-topic: gftd-email-wire-protocol
+topic: etzhayyim-email-wire-protocol
 authoritative: true
 last_verified: 2026-05-14
 priority: 7.5
@@ -35,7 +35,7 @@ LLM agent どうし・グループメール・人間が **SMTP/MIME を transpor
 Pregel スタイルのメッセージパッシングを行うための wire protocol を規格化する。
 
 本仕様は **etzhayyim Japan が策定・維持するオープン規格** であり、
-gftd 固有の実装への依存を Core から排除することで第三者実装を可能にする。
+etzhayyim 固有の実装への依存を Core から排除することで第三者実装を可能にする。
 
 ---
 
@@ -140,7 +140,7 @@ Content-Disposition: inline; filename="gewp.json"
 
 ## Core JSON Payload Schema
 
-Core は実装者が gftd に依存せず実装できる最小集合。
+Core は実装者が etzhayyim に依存せず実装できる最小集合。
 
 ```jsonc
 {
@@ -228,7 +228,7 @@ Pregel BSP バリアセマンティクスを追加する。
 
 ---
 
-## Extension: ext:atproto  *(gftd 固有)*
+## Extension: ext:atproto  *(etzhayyim 固有)*
 
 AT Protocol DID によるアクターアドレッシング。
 
@@ -249,7 +249,7 @@ AT Protocol DID によるアクターアドレッシング。
 
 ---
 
-## Extension: ext:langgraph  *(gftd 固有)*
+## Extension: ext:langgraph  *(etzhayyim 固有)*
 
 LangGraph Server との紐付け。
 
@@ -328,7 +328,7 @@ Layer 1 は送信するが payload を空オブジェクトにする。
 
 ---
 
-## BEC 暗号化との共存 *(gftd 固有)*
+## BEC 暗号化との共存 *(etzhayyim 固有)*
 
 BEC Tier-2 環境では subject / body が暗号化される:
 - `payload` に平文を書かない
@@ -347,7 +347,7 @@ BEC Tier-2 環境では subject / body が暗号化される:
 | `thread.step` を単調増加以外の値で設定する | Pregel superstep 整合性破壊 |
 | `gewp` フィールドを省略する | バージョン互換性の検出不能 |
 | LLM model 名をハードコードする (ext:langgraph) | `resolveModelId()` / `MURAKUMO_DEFAULT_MODEL` を使う |
-| Core Schema に gftd 固有フィールドを混入する | extension に分離する |
+| Core Schema に etzhayyim 固有フィールドを混入する | extension に分離する |
 
 ---
 
@@ -365,6 +365,6 @@ BEC Tier-2 環境では subject / body が暗号化される:
 - ADR-2605131800 (pregel triage LangGraph)
 - ADR-2605080000 (Distributed Cognitive Actor System)
 - ADR-2605091400 (MCP as Cell Membrane)
-- `00-contracts/schemas/gftd-email-wire-protocol.schema.json`
+- `00-contracts/schemas/etzhayyim-email-wire-protocol.schema.json`
 - `20-actors/magatama/py/src/pymagatama/pregel/`
-- `60-apps/ai-gftd-project-pregel/`
+- `60-apps/etzhayyim-project-pregel/`
