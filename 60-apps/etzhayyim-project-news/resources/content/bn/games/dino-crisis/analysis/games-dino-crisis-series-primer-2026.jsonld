@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-dino-crisis-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-dino-crisis-series-primer-2026",
   "identifier": "games-dino-crisis-series-primer-2026",
   "headline": "Dino Crisis primer: the design ideas behind its world and characters",
   "description": "A starter guide to Dino Crisis, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

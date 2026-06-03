@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:ds2-pc-release-2026",
+  "@id": "urn:etzhayyim:news:ds2-pc-release-2026",
   "identifier": "ds2-pc-release-2026",
   "headline": "Death Stranding 2: On the Beach hits PC March 19 with ultrawide and new launch features",
   "description": "PlayStation and Kojima Productions confirmed the PC release date for Death Stranding 2: On the Beach, with pre-purchase live on Steam and Epic Games Store. The PC edition supports ultrawide formats, 4K, mouse and keyboard controls, and DualSense features, alongside new modes and rewards also coming to PS5 at launch.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

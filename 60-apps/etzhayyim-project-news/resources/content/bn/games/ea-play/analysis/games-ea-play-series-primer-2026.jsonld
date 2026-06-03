@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-ea-play-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-ea-play-series-primer-2026",
   "identifier": "games-ea-play-series-primer-2026",
   "headline": "EA Play primer: the design ideas behind its world and characters",
   "description": "A starter guide to EA Play, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

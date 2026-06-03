@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-ammo-crafting-sustain-2026",
+  "@id": "urn:etzhayyim:news:fo76-ammo-crafting-sustain-2026",
   "identifier": "fo76-ammo-crafting-sustain-2026",
   "headline": "『Fallout 76』弾薬が足りないを解決：クラフト/回収/武器選びで枯渇しない運用",
   "description": "初心者が最初に当たる壁「弾が尽きる」を、武器の絞り方、回収のクセ、クラフトの使い分けで解消する。効率より“枯渇しない仕組み”を作る。",
@@ -23,7 +23,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

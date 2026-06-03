@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-dying-light-2-stay-human-reloaded-edition-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-dying-light-2-stay-human-reloaded-edition-series-primer-2026",
   "identifier": "games-dying-light-2-stay-human-reloaded-edition-series-primer-2026",
   "headline": "Dying Light 2 Stay Human: Reloaded Edition primer: the design ideas behind its world and characters",
   "description": "A starter guide to Dying Light 2 Stay Human: Reloaded Edition, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

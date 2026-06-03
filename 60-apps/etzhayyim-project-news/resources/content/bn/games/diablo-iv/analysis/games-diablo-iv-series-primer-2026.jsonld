@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-diablo-iv-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-diablo-iv-series-primer-2026",
   "identifier": "games-diablo-iv-series-primer-2026",
   "headline": "Diablo® IV primer: the design ideas behind its world and characters",
   "description": "A starter guide to Diablo® IV, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

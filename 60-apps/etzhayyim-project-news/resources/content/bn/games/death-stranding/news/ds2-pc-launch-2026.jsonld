@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:ds2-pc-launch-2026",
+  "@id": "urn:etzhayyim:news:ds2-pc-launch-2026",
   "identifier": "ds2-pc-launch-2026",
   "headline": "Death Stranding 2: On the Beach lands on PC March 19 with ultrawide support",
   "description": "Kojima Productions confirmed Death Stranding 2: On the Beach launches on PC March 19, 2026. The port highlights ultrawide resolutions, 4K output, keyboard and mouse support, and DualSense features.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
