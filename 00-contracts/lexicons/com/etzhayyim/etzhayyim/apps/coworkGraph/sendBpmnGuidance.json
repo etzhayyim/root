@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
+      "description": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-etzhayyim-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
       "input": {
         "encoding": "application/json",
         "schema": {
