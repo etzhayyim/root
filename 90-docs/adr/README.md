@@ -32,6 +32,7 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 
 | ID | Title | Status | Date |
 |---|---|---|---|
+| [2606039500](./2606039500-session-close-kotoba-os-unikernel-boot-poc.md) | Session close — kotoba-os unikernel boot PoC: no_std aarch64 boots on QEMU virt + real PL011 MMIO I/O + in-kernel scan/N3 model + wasmi-in-kernel (real core-wasm) + wasm guest-memory string reads; live-verified (PRs #995/#1000/#1003/#1005) | active | 2026-06-03 |
 | [2606038000](./2606038000-session-close-kotoba-os-loop-end.md) | Session close (loop end) — kotoba-os reference complete (~75 tests, 4 WASM components, all pillars + PORTING reference→production handoff incl. datom↔kqe mapping); /loop fb5ed014 stopped; remaining work upstream in 40-engine/kotoba | active | 2026-06-03 |
 | [2606037000](./2606037000-session-close-kotoba-os-r2-broadening.md) | Session close — kotoba-os reference R2 broadening: device-surface coverage (all 8 interfaces bind), wasm32 browser-edge build gate, boot_actor capability authorization, mesh source-chain monotone-growth; 70 tests | active | 2026-06-03 |
 | [2606036000](./2606036000-session-close-kotoba-os-r0-r2-reference.md) | Session close — kotoba-os (ADR-2606031600) R0 charter → tested R1/R2 reference (3 real WASM components, wasmtime e2e, fuel metering, multi-actor one-log, fieldbus, manifest↔component authorization; 66 tests); PRs #884/#891 merged; deps.toml + ADR README registration | active | 2026-06-03 |
