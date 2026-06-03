@@ -218,6 +218,9 @@ E2E OK
 - `reference/test_plc_host_e2e.py` — **3 tests** (e2e OK, control history through
   real WASM, N3 fault-atomicity through real WASM). Toolchain-guarded. `Cargo.lock`
   gitignored (1744-line wasmtime tree; the runner is a harness, not an artifact).
+- **Fuel metering** (N2 soft-RT): the runner enables wasmtime `consume_fuel`,
+  reports per-scan fuel (~1.4-1.8k units = a WCET-estimation input), and a
+  starved budget **traps** the guest (bounded execution). 4 e2e tests.
 
 ## Next maturity steps (tracked toward R1)
 

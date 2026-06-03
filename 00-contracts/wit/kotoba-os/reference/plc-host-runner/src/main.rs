@@ -11,7 +11,7 @@
 
 use anyhow::{anyhow, Result};
 use wasmtime::component::{Component, Linker};
-use wasmtime::{Engine, Store};
+use wasmtime::{Config, Engine, Store};
 
 mod bindings {
     wasmtime::component::bindgen!({
@@ -138,5 +138,50 @@ fn main() -> Result<()> {
 
     println!("DATOMS={}", st.log.len());
     println!("E2E OK");
+
+    fuel_demo(comp_path)?;
+    Ok(())
+}
+
+/// Soft-RT (N2) demonstration: wasmtime fuel metering makes per-scan execution
+/// MEASURABLE (a WCET-estimation input) and BOUNDED (a misbehaving control
+/// program is trapped at its fuel budget, not allowed to run unbounded). This is
+/// the honest soft-RT primitive — not hard-RT/SIL (R5), but enforceable bounds.
+fn fuel_demo(comp_path: &str) -> Result<()> {
+    let mut cfg = Config::new();
+    cfg.consume_fuel(true);
+    let engine = Engine::new(&cfg)?;
+    let component = Component::from_file(&engine, comp_path)?;
+    let mut linker: Linker<HostState> = Linker::new(&engine);
+    PlcHost::add_to_linker(&mut linker, |s: &mut HostState| s)?;
+
+    let mut store = Store::new(&engine, HostState::default());
+    store.set_fuel(10_000_000)?; // ample for instantiation + scans
+    let bindings = PlcHost::instantiate(&mut store, &component, &linker)?;
+
+    // measure fuel per scan across cycles -> an observed WCET bound
+    let mut max_used = 0u64;
+    for (c, pv) in [(0u64, 3.0f32), (1, 20.0), (2, 8.0)] {
+        store.set_fuel(10_000_000)?;
+        store.data_mut().input_pv = pv;
+        let before = store.get_fuel()?;
+        bindings.call_scan(&mut store, c)?.map_err(|e| anyhow!("scan: {e}"))?;
+        let used = before - store.get_fuel()?;
+        max_used = max_used.max(used);
+        println!("FUEL scan{c} consumed={used}");
+    }
+    println!("FUEL wcet_observed={max_used}");
+    assert!(max_used > 0, "a real scan must consume fuel");
+
+    // bounded execution (N2): a budget below the per-scan cost TRAPS the guest.
+    let mut starved = Store::new(&engine, HostState::default());
+    starved.set_fuel(10_000_000)?;
+    let b2 = PlcHost::instantiate(&mut starved, &component, &linker)?;
+    starved.set_fuel(max_used / 2)?; // deliberately below the observed cost
+    starved.data_mut().input_pv = 3.0;
+    let trapped = b2.call_scan(&mut starved, 0);
+    assert!(trapped.is_err(), "a starved fuel budget must trap (bounded execution)");
+    println!("FUEL starved trapped=yes");
+    println!("FUEL OK");
     Ok(())
 }

@@ -9,6 +9,7 @@ Run: `python3 -m unittest test_plc_host_e2e -v`
 """
 
 import pathlib
+import re
 import shutil
 import subprocess
 import unittest
@@ -63,6 +64,16 @@ class PlcHostEndToEnd(unittest.TestCase):
         self.assertIn("no commit", self.out)
         # exactly 6 datoms (3 committed cycles x 2), faulted cycle added none
         self.assertIn("DATOMS=6", self.out)
+
+    def test_fuel_metering_soft_rt_bound(self):
+        # N2 soft-RT primitive: per-scan execution is MEASURABLE and BOUNDED.
+        self.assertIn("FUEL OK", self.out)
+        self.assertIn("FUEL wcet_observed=", self.out)
+        # a real scan consumes >0 fuel (exact value is toolchain-dependent)
+        consumed = [int(m) for m in re.findall(r"FUEL scan\d+ consumed=(\d+)", self.out)]
+        self.assertTrue(consumed and all(c > 0 for c in consumed))
+        # a starved budget traps the guest -> enforceable bound (not unbounded)
+        self.assertIn("FUEL starved trapped=yes", self.out)
 
 
 if __name__ == "__main__":
