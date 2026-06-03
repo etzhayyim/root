@@ -1,11 +1,11 @@
-/** FetchMode mirrors gftd:crawl-engine/types.fetch-mode enum. */
+/** FetchMode mirrors etzhayyim:crawl-engine/types.fetch-mode enum. */
 export enum FetchMode {
   Standard = 0,
   Render = 1,
   Auto = 2,
 }
 
-/** CrawlPageRequest mirrors gftd:crawl-engine/types.crawl-page-request. */
+/** CrawlPageRequest mirrors etzhayyim:crawl-engine/types.crawl-page-request. */
 export interface CrawlPageRequest {
   url: string;
   userAgent?: string;
@@ -20,7 +20,7 @@ export interface CrawlPageRequest {
   laserTopK?: number;
 }
 
-/** CrawlPageResult mirrors gftd:crawl-engine/types.crawl-page-result. */
+/** CrawlPageResult mirrors etzhayyim:crawl-engine/types.crawl-page-result. */
 export interface CrawlPageResult {
   url: string;
   'finalUrl': string;
@@ -43,7 +43,7 @@ export interface CrawlPageResult {
   'elapsedMs': number;
 }
 
-/** ImageBinary mirrors gftd:crawl-engine/types.image-binary. */
+/** ImageBinary mirrors etzhayyim:crawl-engine/types.image-binary. */
 export interface ImageBinary {
   url: string;
   'mimeType': string;
@@ -52,13 +52,13 @@ export interface ImageBinary {
   'sizeBytes': number;
 }
 
-/** RobotsRequest mirrors gftd:crawl-engine/types.robots-request. */
+/** RobotsRequest mirrors etzhayyim:crawl-engine/types.robots-request. */
 export interface RobotsRequest {
   host: string;
   'userAgent': string;
 }
 
-/** RobotsResult mirrors gftd:crawl-engine/types.robots-result. */
+/** RobotsResult mirrors etzhayyim:crawl-engine/types.robots-result. */
 export interface RobotsResult {
   loaded: boolean;
   'allowAll': boolean;
@@ -67,7 +67,7 @@ export interface RobotsResult {
   'crawlDelaySec': number;
 }
 
-/** CrawlEngineError mirrors gftd:crawl-engine/types.crawl-engine-error. */
+/** CrawlEngineError mirrors etzhayyim:crawl-engine/types.crawl-engine-error. */
 export interface CrawlEngineError {
   url: string;
   code: string;

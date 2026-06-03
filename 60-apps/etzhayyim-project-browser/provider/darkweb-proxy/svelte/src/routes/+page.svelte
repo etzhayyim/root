@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Darkweb Proxy",
-  "project": "ai-gftd-project-browser",
+  "project": "etzhayyim-project-browser",
   "name": "darkweb-proxy",
   "kind": "cloudflare surface",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-browser/provider/darkweb-proxy/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-browser/provider/darkweb-proxy/svelte/src/routes/+page.svelte"
 };
 </script>
 

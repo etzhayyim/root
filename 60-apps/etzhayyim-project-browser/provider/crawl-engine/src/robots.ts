@@ -17,7 +17,7 @@ interface RobotsBlock {
   score: number;
 }
 
-const DEFAULT_USER_AGENT = "gftd-crawler/1.0";
+const DEFAULT_USER_AGENT = "etzhayyim-crawler/1.0";
 const MAX_ROBOTS_BODY = 1024 * 1024;
 
 /** Fetches and parses robots.txt from a host. */

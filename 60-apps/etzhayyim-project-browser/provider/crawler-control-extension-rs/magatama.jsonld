@@ -47,7 +47,7 @@
     "description": "Crawler extension governance component for crawl-control actions and escalation hooks",
     "displayName": "Crawler Control Extension",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "native",

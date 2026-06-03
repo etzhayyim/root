@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::time::Duration;
 use thiserror::Error;
 
-const DEFAULT_USER_AGENT: &str = "gftd-crawler-fetch-rs/0.1.0";
+const DEFAULT_USER_AGENT: &str = "etzhayyim-crawler-fetch-rs/0.1.0";
 const DEFAULT_TIMEOUT_MS: u64 = 30_000;
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]

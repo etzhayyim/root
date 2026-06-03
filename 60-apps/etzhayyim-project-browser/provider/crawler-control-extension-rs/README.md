@@ -1,6 +1,6 @@
 # crawler-control-extension-rs
 
-Thin Rust WIT component that exports `gftd:w/w-extension` for crawler control.
+Thin Rust WIT component that exports `etzhayyim:w/w-extension` for crawler control.
 
 Responsibilities:
 

@@ -47,7 +47,7 @@ impl FetchGateway for FetchProviderAdapter {
                 let mut headers = HeaderMap::new();
                 headers.insert(
                     USER_AGENT,
-                    HeaderValue::from_static("gftd-crawler-control-http-rs/0.1.0"),
+                    HeaderValue::from_static("etzhayyim-crawler-control-http-rs/0.1.0"),
                 );
                 let client = reqwest::Client::builder()
                     .timeout(std::time::Duration::from_secs(10))
@@ -261,13 +261,13 @@ async fn main() {
         env::var("STATE_PATH").unwrap_or_else(|_| "/data/crawler-v2-state.json".to_string()),
     ));
     let graph_exec_url = env::var("YATA_SQL_EXEC_URL").unwrap_or_else(|_| {
-        "https://yata.etzhayyim.com/gftd.sql.v1.SqlQueryService/Execute".to_string()
+        "https://yata.etzhayyim.com/etzhayyim.sql.v1.SqlQueryService/Execute".to_string()
     });
     let graph_internal_token = String::new(); // legacy MAGATAMA_INTERNAL_TOKEN removed
     let graph_app_id = env::var("YATA_GRAPH_APP_ID").unwrap_or_else(|_| "search".to_string());
     let graph_org_id = env::var("YATA_GRAPH_ORG_ID").unwrap_or_else(|_| "search".to_string());
     let search_index_url = env::var("SEARCH_INDEX_URL").unwrap_or_else(|_| {
-        "https://search.etzhayyim.com/xrpc/gftd.search.v1.SearchService/IndexDocument".to_string()
+        "https://search.etzhayyim.com/xrpc/etzhayyim.search.v1.SearchService/IndexDocument".to_string()
     });
     let app = app(AppState {
         data: Arc::new(Mutex::new(load_state(&state_path))),
@@ -296,27 +296,27 @@ fn app(state: AppState) -> Router {
     Router::new()
         .route("/health", get(health))
         .route(
-            "/xrpc/gftd.crawler.v2.CrawlerCommandService/StartJob",
+            "/xrpc/etzhayyim.crawler.v2.CrawlerCommandService/StartJob",
             post(start_job),
         )
         .route(
-            "/xrpc/gftd.crawler.v2.CrawlerCommandService/CancelJob",
+            "/xrpc/etzhayyim.crawler.v2.CrawlerCommandService/CancelJob",
             post(cancel_job),
         )
         .route(
-            "/xrpc/gftd.crawler.v2.CrawlerQueryService/GetJob",
+            "/xrpc/etzhayyim.crawler.v2.CrawlerQueryService/GetJob",
             post(get_job),
         )
         .route(
-            "/xrpc/gftd.crawler.v2.CrawlerQueryService/ListResults",
+            "/xrpc/etzhayyim.crawler.v2.CrawlerQueryService/ListResults",
             post(list_results),
         )
         .route(
-            "/xrpc/gftd.crawler.v2.CrawlerQueryService/SearchResults",
+            "/xrpc/etzhayyim.crawler.v2.CrawlerQueryService/SearchResults",
             post(search_results),
         )
         .route(
-            "/xrpc/gftd.crawler.v2.CrawlerQueryService/GetStats",
+            "/xrpc/etzhayyim.crawler.v2.CrawlerQueryService/GetStats",
             post(get_stats),
         )
         .with_state(state)
@@ -477,7 +477,7 @@ mod tests {
                 "/tmp/crawler-control-http-rs-test-state.json",
             )),
             graph_sync: Arc::new(GraphSync::new(
-                "http://127.0.0.1:0/gftd.sql.v1.SqlQueryService/Execute".to_string(),
+                "http://127.0.0.1:0/etzhayyim.sql.v1.SqlQueryService/Execute".to_string(),
                 "".to_string(),
                 "search".to_string(),
                 "search".to_string(),
@@ -489,7 +489,7 @@ mod tests {
             .oneshot(
                 Request::builder()
                     .method("POST")
-                    .uri("/xrpc/gftd.crawler.v2.CrawlerQueryService/GetStats")
+                    .uri("/xrpc/etzhayyim.crawler.v2.CrawlerQueryService/GetStats")
                     .header("content-type", "application/json")
                     .body(Body::from("{}"))
                     .expect("request"),
@@ -512,13 +512,13 @@ mod tests {
             let mut buf = [0_u8; 8192];
             let read = stream.read(&mut buf).expect("read");
             let request = String::from_utf8_lossy(&buf[..read]);
-            assert!(request.contains("POST /gftd.sql.v1.SqlQueryService/Execute"));
+            assert!(request.contains("POST /etzhayyim.sql.v1.SqlQueryService/Execute"));
             let response = "HTTP/1.1 200 OK\r\ncontent-type: application/json\r\ncontent-length: 11\r\n\r\n{\"ok\":true}";
             stream.write_all(response.as_bytes()).expect("write");
         });
 
         let graph_sync = GraphSync::new(
-            format!("http://{addr}/gftd.sql.v1.SqlQueryService/Execute"),
+            format!("http://{addr}/etzhayyim.sql.v1.SqlQueryService/Execute"),
             "token".to_string(),
             "search".to_string(),
             "search".to_string(),

@@ -62,9 +62,9 @@ impl IndexGateway for ProjectionIndexAdapter<'_> {
     }
 }
 
-impl exports::gftd::w::extension_meta::Guest for CrawlerControlExtension {
+impl exports::etzhayyim::w::extension_meta::Guest for CrawlerControlExtension {
     fn name() -> String {
-        "gftd:crawler-control@0.1.0".to_string()
+        "etzhayyim:crawler-control@0.1.0".to_string()
     }
 
     fn kinds() -> Vec<String> {
@@ -76,7 +76,7 @@ impl exports::gftd::w::extension_meta::Guest for CrawlerControlExtension {
     }
 }
 
-impl exports::gftd::w::extension_handler::Guest for CrawlerControlExtension {
+impl exports::etzhayyim::w::extension_handler::Guest for CrawlerControlExtension {
     fn handle(envelope_json: Vec<u8>) -> Result<Option<Vec<u8>>, String> {
         let mut service = CONTROL_SERVICE
             .lock()
@@ -160,7 +160,7 @@ export!(CrawlerControlExtension);
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::exports::gftd::w::extension_handler::Guest;
+    use crate::exports::etzhayyim::w::extension_handler::Guest;
     use serde_json::json;
     use std::sync::atomic::{AtomicU64, Ordering};
 

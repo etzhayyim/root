@@ -18,5 +18,5 @@ serde_json = "1"
 wit-bindgen = "0.36"
 
 [package.metadata.component]
-package = "gftd:w"
+package = "etzhayyim:w"
 target = { world = "w-extension" }
