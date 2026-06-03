@@ -1,4 +1,4 @@
-# ai-gftd-project-karute — 電子カルテ EMR
+# etzhayyim-project-karute — 電子カルテ EMR
 
 actor: `did:web:karute.etzhayyim.com` (nanoid `karu7t3e`).
 
@@ -8,7 +8,7 @@ This file documents the Svelte SuperApp UI only.
 ## Build
 
 ```bash
-cd appview/ai-gftd-wasm-karute-karu7t3e/svelte
+cd appview/etzhayyim-wasm-karute-karu7t3e/svelte
 pnpm install
 pnpm dev      # local dev server
 pnpm build    # production bundle → dist/
