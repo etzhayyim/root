@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Saiban Sb4n0j1c",
-  "project": "ai-gftd-project-saiban",
-  "name": "ai-gftd-wasm-saiban-sb4n0j1c",
+  "project": "etzhayyim-project-saiban",
+  "name": "etzhayyim-wasm-saiban-sb4n0j1c",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-saiban/appview/ai-gftd-wasm-saiban-sb4n0j1c/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-saiban/appview/etzhayyim-wasm-saiban-sb4n0j1c/svelte/src/routes/+page.svelte"
 };
 </script>
 

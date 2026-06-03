@@ -9,7 +9,7 @@
  *
  * SPLIT NOTE (Custody axis, ADR-2605172400): the `jiken` (case) and `trialEvent`
  * collections carry party PII / confidential litigation (lawfirm-bridged client
- * matters) and STAY gftd / E2E, never public AT records. Only the public judicial
+ * matters) and STAY etzhayyim / E2E, never public AT records. Only the public judicial
  * reference — courts + judges (public officials) + jurisdiction maps — goes
  * on-substrate.
  *

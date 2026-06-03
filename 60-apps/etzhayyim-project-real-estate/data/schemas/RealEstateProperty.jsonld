@@ -1,7 +1,7 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "gftd": "https://etzhayyim.com/schema/",
+    "etzhayyim": "https://etzhayyim.com/schema/",
     "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#"
   },
   "@type": "DefinedTerm",

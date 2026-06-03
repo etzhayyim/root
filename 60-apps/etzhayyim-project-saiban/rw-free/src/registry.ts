@@ -2,7 +2,7 @@
  * saiban rw-free — court + judge + jurisdiction-map public-reference registries
  * + coverage. AT PDS records (no RW). Judges / jurisdiction-maps FK→court; court
  * parent (optional) FK→court. Public judicial reference only — jiken/trialEvent
- * (party PII) stay gftd.
+ * (party PII) stay etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

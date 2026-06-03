@@ -1,4 +1,4 @@
-# ai-gftd-project-saiban
+# etzhayyim-project-saiban
 
 裁判 intelligence platform (`saiban.etzhayyim.com`).
 
@@ -69,6 +69,6 @@ did:web:saiban.etzhayyim.com:court:{iso3}:{court-id}  # Global (US/UK/DE/FR)
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-saiban/wasm/ai-gftd-wasm-saiban-sb4n0j1c
-gftd deploy
+cd 60-apps/etzhayyim-project-saiban/wasm/etzhayyim-wasm-saiban-sb4n0j1c
+etzhayyim deploy
 ```

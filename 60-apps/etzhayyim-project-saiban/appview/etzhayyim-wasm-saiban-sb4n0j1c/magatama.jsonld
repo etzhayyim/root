@@ -10,7 +10,7 @@
     "category": "government",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": [
       "court-registry",
       "judge-registry",

@@ -9,7 +9,7 @@
  *   jurisdictionMap : mapJurisdiction (FK→court) / listJurisdictionMaps
  *   coverage
  *
- * jiken (case) + trialEvent (party PII / confidential litigation) stay gftd / E2E.
+ * jiken (case) + trialEvent (party PII / confidential litigation) stay etzhayyim / E2E.
  */
 
 export * from "./types.js";

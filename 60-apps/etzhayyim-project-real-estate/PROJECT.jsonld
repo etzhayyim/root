@@ -1,9 +1,9 @@
 {
   "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
-  "name": "ai-gftd-project-real-estate",
+  "name": "etzhayyim-project-real-estate",
   "description": "Global Real Estate Property and Land Rights Data Management System",
-  "category": "ai-gftd-project-data",
+  "category": "etzhayyim-project-data",
   "components": {
     "mcp": {
       "appId": "real-estate-r3alestate",
