@@ -40,6 +40,50 @@ export interface MockWriteParams<T = unknown> {
   rkey: string;
 }
 
+/** Mirrors @etzhayyim/sdk EncryptedWriteOpts (subset used by rw-free registries). */
+export interface MockEncryptedWriteOpts<T = unknown> {
+  /** Wrapper collection. Default: com.etzhayyim.encrypted.record. */
+  collection?: string;
+  /** Inner-lexicon NSID (routing/filtering metadata). */
+  innerType?: string;
+  /** Plaintext body. */
+  record: T;
+  /** DIDs granted read-cap. Sender auto-added unless wrapToSelf:false. */
+  recipients: string[];
+  wrapToSelf?: boolean;
+  rkey?: string;
+}
+
+export interface MockEncryptedWriteReceipt {
+  uri: string;
+  cid: string;
+  keyId: string;
+  keyWraps: Array<{ recipient: string; uri: string; cid: string }>;
+  skipped: Array<{ recipient: string; reason: string }>;
+}
+
+export interface MockEncryptedReadOpts {
+  collection?: string;
+  innerType?: string;
+  cursor?: string;
+  limit?: number;
+  fromSenders?: string[];
+}
+
+export interface MockEncryptedReadResponse<T> {
+  records: Array<{
+    uri: string;
+    cid: string;
+    value: T;
+    sender: string;
+    createdAt: string;
+  }>;
+  cursor?: string;
+  failed: Array<{ uri: string; reason: string }>;
+}
+
+const ENC_DEFAULT_COLLECTION = "com.etzhayyim.encrypted.record";
+
 /**
  * In-memory Etzhayyim SDK mock.
  *
@@ -55,9 +99,111 @@ export class MockEtzhayyim {
     Map<string, { uri: string; value: unknown; writtenAt: number; seq: bigint }>
   >();
   private nextSeq = 1n;
+  /** E2E envelope store: collection → rkey → { plaintext value, sender, recipients, innerType, … } */
+  private encStore = new Map<
+    string,
+    Map<
+      string,
+      {
+        uri: string;
+        cid: string;
+        value: unknown;
+        sender: string;
+        recipients: string[];
+        innerType?: string;
+        createdAt: string;
+        seq: bigint;
+      }
+    >
+  >();
 
   constructor(opts: { did: string }) {
     this.did = opts.did;
+  }
+
+  /**
+   * Write an E2E-encrypted record (Tahoe envelope, ADR-2605181100). The mock
+   * stores the plaintext keyed by the wrapper collection and enforces read-cap
+   * by recipient DID. Sender (this.did) is auto-added unless wrapToSelf:false.
+   */
+  async encryptedWrite<T extends Record<string, unknown>>(
+    opts: MockEncryptedWriteOpts<T>
+  ): Promise<MockEncryptedWriteReceipt> {
+    const collection = opts.collection ?? ENC_DEFAULT_COLLECTION;
+    let col = this.encStore.get(collection);
+    if (!col) {
+      col = new Map();
+      this.encStore.set(collection, col);
+    }
+    const seq = this.nextSeq++;
+    const rkey = opts.rkey ?? `enc-${seq}`;
+    const recipients = [
+      ...new Set([
+        ...(opts.recipients ?? []),
+        ...(opts.wrapToSelf === false ? [] : [this.did]),
+      ]),
+    ];
+    const uri = `at://${this.did}/${collection}/${rkey}`;
+    const cid = `bafyenc${seq}`;
+    const keyId = `key${seq}`.padEnd(8, "0").slice(0, 16);
+    col.set(rkey, {
+      uri,
+      cid,
+      value: opts.record,
+      sender: this.did,
+      recipients,
+      innerType: opts.innerType,
+      createdAt: new Date().toISOString(),
+      seq,
+    });
+    return {
+      uri,
+      cid,
+      keyId,
+      keyWraps: recipients.map((r) => ({
+        recipient: r,
+        uri: `at://${this.did}/com.etzhayyim.encrypted.keyWrap/${rkey}-${r}`,
+        cid: `bafykw${seq}`,
+      })),
+      skipped: [],
+    };
+  }
+
+  /**
+   * Read + decrypt E2E records the caller (this.did) holds a read-cap for.
+   * Filters by recipient access-control and optional innerType, ordered by
+   * insertion sequence with offset-cursor pagination.
+   */
+  async encryptedRead<T>(
+    opts: MockEncryptedReadOpts = {}
+  ): Promise<MockEncryptedReadResponse<T>> {
+    const collection = opts.collection ?? ENC_DEFAULT_COLLECTION;
+    const col = this.encStore.get(collection);
+    if (!col) return { records: [], failed: [] };
+    let all = [...col.values()].filter((r) => r.recipients.includes(this.did));
+    if (opts.innerType) all = all.filter((r) => r.innerType === opts.innerType);
+    all.sort((a, b) => (a.seq < b.seq ? -1 : a.seq > b.seq ? 1 : 0));
+    const startIdx = opts.cursor ? Number(opts.cursor) || 0 : 0;
+    const limit = opts.limit ?? 50;
+    const page = all.slice(startIdx, startIdx + limit);
+    const cursor =
+      startIdx + limit < all.length ? String(startIdx + limit) : undefined;
+    return {
+      records: page.map((r) => ({
+        uri: r.uri,
+        cid: r.cid,
+        value: r.value as T,
+        sender: r.sender,
+        createdAt: r.createdAt,
+      })),
+      cursor,
+      failed: [],
+    };
+  }
+
+  /** Test helper: count E2E records in a wrapper collection (sender's own view). */
+  encCount(collection = ENC_DEFAULT_COLLECTION): number {
+    return this.encStore.get(collection)?.size ?? 0;
   }
 
   /**
@@ -157,6 +303,7 @@ export class MockEtzhayyim {
    */
   clear(): void {
     this.store.clear();
+    this.encStore.clear();
     this.nextSeq = 1n;
   }
 }
