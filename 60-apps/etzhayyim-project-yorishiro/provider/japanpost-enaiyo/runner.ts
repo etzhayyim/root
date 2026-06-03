@@ -134,8 +134,8 @@ async function resolveDraft(_draftId: string): Promise<{ sender: any; recipient:
   throw new Error("resolveDraft not implemented — query com.etzhayyim.apps.yorishiroEnaiyo.draftNaiyo by draftId");
 }
 async function uploadPdfToR2(_path: string): Promise<string> {
-  throw new Error("uploadPdfToR2 not implemented — use cdn package SigV4 to ai-gftd-cdn bucket");
+  throw new Error("uploadPdfToR2 not implemented — use cdn package SigV4 to etzhayyim-cdn bucket");
 }
 async function downloadFromR2(_blobKey: string): Promise<string> {
-  throw new Error("downloadFromR2 not implemented — fetch from ai-gftd-cdn bucket to /tmp");
+  throw new Error("downloadFromR2 not implemented — fetch from etzhayyim-cdn bucket to /tmp");
 }

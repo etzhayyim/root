@@ -21,7 +21,7 @@
  *   recipients, e.g. the lawfirm actor). The substrate never sees them in
  *   plaintext.
  *
- *   STAYS gftd (NOT a collection — consumed via consent-capability) — the
+ *   STAYS etzhayyim (NOT a collection — consumed via consent-capability) — the
  *   Playwright/Chromium browser-automation EXECUTION (yorishiro-provider),
  *   credential/secret custody (HashiCorp Vault), and the enforcement ACTION of
  *   actually submitting a freeze / withdrawal-block to the exchange. Those are

@@ -9,7 +9,7 @@
  * substrate never sees the subject account ref in plaintext.
  *
  * Browser-automation EXECUTION + Vault credential custody + the actual freeze /
- * withdrawal-block ACTION stay gftd (consent-capability); only the data records
+ * withdrawal-block ACTION stay etzhayyim (consent-capability); only the data records
  * live here.
  */
 

@@ -194,5 +194,5 @@ function assertSupportedBank(bank: BankAccount): void {
 // ---- stubs (provider framework-dependent) ----
 
 async function uploadScreenshotToR2(_path: string): Promise<string> {
-  throw new Error("uploadScreenshotToR2 not implemented — use cdn package SigV4 to ai-gftd-cdn bucket");
+  throw new Error("uploadScreenshotToR2 not implemented — use cdn package SigV4 to etzhayyim-cdn bucket");
 }

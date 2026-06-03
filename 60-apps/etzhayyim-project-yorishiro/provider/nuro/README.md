@@ -52,11 +52,11 @@ secret/data/orgs/{orgId}/users/{userId}/services/nuro/bankAccount/primary
 Register via HashiCorp Vault CLI:
 
 ```bash
-vault kv put secret/orgs/gftd/users/junkawasaki/services/nuro/login \
+vault kv put secret/orgs/etzhayyim/users/junkawasaki/services/nuro/login \
   userId=jun@etzhayyim.com \
   password=********
 
-vault kv put secret/orgs/gftd/users/junkawasaki/services/nuro/bankAccount/primary \
+vault kv put secret/orgs/etzhayyim/users/junkawasaki/services/nuro/bankAccount/primary \
   bankCode=0001 \
   branchCode=001 \
   accountType=ordinary \
@@ -67,7 +67,7 @@ vault kv put secret/orgs/gftd/users/junkawasaki/services/nuro/bankAccount/primar
 Or via the `provider-vault` XRPC adapter (preferred — scoped by DID session):
 
 ```bash
-curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
+curl -X POST https://yorishiro.etzhayyim.com/xrpc/etzhayyim.providerVault.credentials.put \
   -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -d '{
     "service": "nuro",
@@ -76,7 +76,7 @@ curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials
     "value": {"userId":"...","password":"..."}
   }'
 
-curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
+curl -X POST https://yorishiro.etzhayyim.com/xrpc/etzhayyim.providerVault.credentials.put \
   -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -d '{
     "service": "nuro",
