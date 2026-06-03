@@ -67,6 +67,6 @@ The first three steps are paper; the last three are CI-enforced.
 ## References
 
 - `risk1/gate-c-estimate/gate-c-report.md` §2.2 — the parent estimate (0.25 PM)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §9 — build / sign / pin pipeline
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §14.3 — Risk-1 Gate C criteria
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §9 — build / sign / pin pipeline
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §14.3 — Risk-1 Gate C criteria
 - Upstream: https://github.com/bytecodealliance/wasm-micro-runtime — WAMR release notes (cross-reference LLVM version per tag)

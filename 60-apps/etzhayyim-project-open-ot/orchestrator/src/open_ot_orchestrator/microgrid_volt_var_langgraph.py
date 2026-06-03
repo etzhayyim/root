@@ -41,7 +41,7 @@ from .cell_loader import CellLoader
 REPO_ROOT = Path(__file__).resolve().parents[5]
 CELLS_TARGET = (
     REPO_ROOT
-    / "60-apps/ai-gftd-project-open-ot/cells/target/wasm32-unknown-unknown/release"
+    / "60-apps/etzhayyim-project-open-ot/cells/target/wasm32-unknown-unknown/release"
 )
 VV_WASM_PATH = CELLS_TARGET / "vv_curve.wasm"
 LTC_WASM_PATH = CELLS_TARGET / "ltc_tap_fsm.wasm"

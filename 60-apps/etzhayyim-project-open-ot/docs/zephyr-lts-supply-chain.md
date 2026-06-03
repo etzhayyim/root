@@ -72,7 +72,7 @@ LTS major bumps (4.x → 5.x) trigger a full Risk-1 re-run.
 ## References
 
 - `risk1/gate-c-estimate/gate-c-report.md` §2.4 — the parent estimate (0.25 PM)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §11 — explicit out-of-scope (SIL)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §12 — hardware spec (Mimi / Te / Atama)
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §11 — explicit out-of-scope (SIL)
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §12 — hardware spec (Mimi / Te / Atama)
 - `docs/llvm-version-policy.md` — LLVM 18 pin policy (parallel pin)
 - `docs/iec-62443-3-3-sl2-mapping.md` — FR mapping that depends on these packages

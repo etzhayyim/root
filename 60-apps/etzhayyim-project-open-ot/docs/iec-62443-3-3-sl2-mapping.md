@@ -130,8 +130,8 @@ The 12 🟡 items are the bulk of the 1.5 PM §2.6 estimate; the 2 ⏳ items ove
 ## References
 
 - `risk1/gate-c-estimate/gate-c-report.md` §2.6 — parent estimate (1.5 PM)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §8 — IEC 62443-aligned controls overview
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §9 — build / sign / pin pipeline
-- `60-apps/ai-gftd-project-open-ot/docs/openot-bfb-rs-memory-safety.md` — FR 3 / FR 7.2 evidence
-- `60-apps/ai-gftd-project-open-ot/builder-sign-rs/` — FR 3.4 / SR 2.4 implementation
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §8 — IEC 62443-aligned controls overview
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §9 — build / sign / pin pipeline
+- `60-apps/etzhayyim-project-open-ot/docs/openot-bfb-rs-memory-safety.md` — FR 3 / FR 7.2 evidence
+- `60-apps/etzhayyim-project-open-ot/builder-sign-rs/` — FR 3.4 / SR 2.4 implementation
 - IEC 62443-3-3:2013 — *Industrial communication networks – Network and system security – Part 3-3: System security requirements and security levels*

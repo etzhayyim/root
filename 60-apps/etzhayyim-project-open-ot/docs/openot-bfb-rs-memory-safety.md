@@ -91,7 +91,7 @@ CI runs `cargo kani --harness proofs::init_never_panics` and `cargo kani --harne
 ## References
 
 - `risk1/gate-c-estimate/gate-c-report.md` §2.3 — the parent estimate (1.0 PM)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §3 — Pregel super-step contract
-- `60-apps/ai-gftd-project-open-ot/cells/CLAUDE.md` — `#[no_mangle] extern "C"` ABI rules
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §3 — Pregel super-step contract
+- `60-apps/etzhayyim-project-open-ot/cells/CLAUDE.md` — `#[no_mangle] extern "C"` ABI rules
 - `risk1/gate-a-*-report.md` — heap-delta = 0 evidence per cell
 - `repro-build-rs/repro-build-report.md` — reproducibility evidence

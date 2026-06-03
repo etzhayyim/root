@@ -1,4 +1,4 @@
-"""Pregel orchestrator demos for ai-gftd-project-open-ot.
+"""Pregel orchestrator demos for etzhayyim-project-open-ot.
 
 See `CLAUDE.md` and `README.md` in this directory.
 """

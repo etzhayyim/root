@@ -1,6 +1,6 @@
 # orchestrator — Pregel demos
 
-Python orchestrator demos for `ai-gftd-project-open-ot`. Demonstrates the central architectural claim of ADR-2605151200: **IEC 61499 event tick ≡ Pregel super-step**, with cells running as WASM modules and the orchestrator coordinating multi-cell loops.
+Python orchestrator demos for `etzhayyim-project-open-ot`. Demonstrates the central architectural claim of ADR-2605151200: **IEC 61499 event tick ≡ Pregel super-step**, with cells running as WASM modules and the orchestrator coordinating multi-cell loops.
 
 ## Layout
 
@@ -38,7 +38,7 @@ uv run python -m open_ot_orchestrator.microgrid_langgraph
 
 ## Scope discipline
 
-- **demo-only**: this is a reference orchestrator that demonstrates the binding. It is **not** production. Production-side LangGraph orchestrator runs inside the gftd LangServer pod (per ADR-2605080600) on a Giemon Atama edge controller (per cad-spec).
+- **demo-only**: this is a reference orchestrator that demonstrates the binding. It is **not** production. Production-side LangGraph orchestrator runs inside the etzhayyim LangServer pod (per ADR-2605080600) on a Giemon Atama edge controller (per cad-spec).
 - **No checkpointer persistence**: in-memory dict for #3a, LangGraph `MemorySaver` for #3b. Real RisingWave checkpointer integration belongs in the LangServer pod.
 - **No wamrc**: this orchestrator runs cells via Wasmtime (Python). Real embedded path is WAMR AOT on Zephyr (Mimi/Te) — that's a different deployment, not this demo.
 

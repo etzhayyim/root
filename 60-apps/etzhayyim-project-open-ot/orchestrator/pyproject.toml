@@ -1,7 +1,7 @@
 [project]
 name = "open-ot-orchestrator"
 version = "0.1.0"
-description = "Pregel orchestrator demos for ai-gftd-project-open-ot — minimal Python BSP runner + LangGraph integration"
+description = "Pregel orchestrator demos for etzhayyim-project-open-ot — minimal Python BSP runner + LangGraph integration"
 requires-python = ">=3.11,<3.14"
 license = { text = "Apache-2.0" }
 dependencies = [

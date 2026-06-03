@@ -24,7 +24,7 @@ nixos/atama/
 
 ```bash
 # On a development workstation with nix flakes enabled:
-cd 60-apps/ai-gftd-project-open-ot/nixos/atama
+cd 60-apps/etzhayyim-project-open-ot/nixos/atama
 nix flake check                                    # syntax + module evaluation
 nix build .#nixosConfigurations.atama.config.system.build.toplevel
 
@@ -52,6 +52,6 @@ configuration.nix
 
 ## Decision log
 
-- **Why not Talos**: Atama is a single-tenant edge controller, not a K8s node. Talos shines when you already run K8s; here NixOS is preferred for declarative IaC + snapshot/rollback + the gftd team's existing Nix culture (per ADR §R1). Talos remains the alternative for sites where the edge runs as a K8s node.
+- **Why not Talos**: Atama is a single-tenant edge controller, not a K8s node. Talos shines when you already run K8s; here NixOS is preferred for declarative IaC + snapshot/rollback + the etzhayyim team's existing Nix culture (per ADR §R1). Talos remains the alternative for sites where the edge runs as a K8s node.
 - **Why systemd over a custom supervisor**: systemd's unit dependency graph + restart policy + journal integration are sufficient for our 4 services. The orchestrator process model is already supervisor-shaped (LangGraph agent loop), no nested supervision needed.
 - **Why no container per service**: the orchestrator + sidecars share state via local sockets / shared memory; Wasmtime is in-process; Zenoh router uses shm transport. Containerising would defeat shm. NixOS isolation via `DynamicUser` + systemd `ProtectSystem=strict` covers the security need without the IPC cost.

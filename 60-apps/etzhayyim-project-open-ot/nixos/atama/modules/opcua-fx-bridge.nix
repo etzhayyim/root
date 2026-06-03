@@ -12,7 +12,7 @@ in {
       description = ''
         Path to the bridge daemon binary. Built from a separate Rust crate
         (out of scope for this NixOS module — see roadmap entry "OPC UA FX
-        bridge daemon" in `60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md`).
+        bridge daemon" in `60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md`).
 
         The daemon links against open62541 (Mozilla Public License v2,
         compatible with Apache-2.0 distribution). A reference build will
