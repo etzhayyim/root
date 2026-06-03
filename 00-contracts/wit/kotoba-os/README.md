@@ -50,6 +50,15 @@ Worlds: `plc-control` (control program, exports `scan(cycle) -> scan-report`) an
 - **Capability-scoped** — a guest reaches only the channels/nodes its genesis
   manifest granted; no ambient authority.
 
+## Cross-artifact drift guard
+
+The `kotoba:os` contract is expressed three times — the WIT package, the genesis
+JSON Schema (`witInterface`/`world` enums), and the Rust `kotoba-os-types` enums.
+`reference/test_artifact_consistency.py` (**5 tests**) parses all three and asserts
+they list the same 8 interfaces + 2 worlds, so a future edit can't silently desync
+them (e.g. add a WIT interface but forget the schema's capability enum). A baseline
+test also pins the known R0 set against a wholesale rename in all three at once.
+
 ## Genesis manifest — the boot contract (ADR §D1)
 
 The "DNA" a node boots from ("boot a CID, reconstruct its Datom state, join the
