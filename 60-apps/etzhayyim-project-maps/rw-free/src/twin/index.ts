@@ -10,7 +10,7 @@
  * All three lexicons support L0 (plain write) + L1 (witnessed via
  * `opts.witness = {fleet, transport, rule}`). Witness path is identical
  * to the Geography / Transport feature helpers; see
- * `60-apps/ai-gftd-project-maps/rw-free/src/feature/witnessed.test.ts`
+ * `60-apps/etzhayyim-project-maps/rw-free/src/feature/witnessed.test.ts`
  * for the canonical end-to-end demo.
  *
  * Per maps CLAUDE.md §Digital Twin + ADR-2605231400.
