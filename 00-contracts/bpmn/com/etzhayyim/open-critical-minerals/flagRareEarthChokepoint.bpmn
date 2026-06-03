@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_critical_minerals_flag_rare_earth_chokepoint"
-    targetNamespace="https://gftd.ai/bpmn/open-critical-minerals"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-critical-minerals"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_critical_minerals_flag_rare_earth_chokepoint" name="希土類 ボトルネック" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-critical-minerals.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-critical-minerals.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;supply.rareEarthChoke&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: element, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>
