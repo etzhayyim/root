@@ -24,11 +24,11 @@
  *     - matchScore: per-pair resonance + spirit compatibility between two DIDs.
  *       Confidential per-person scoring → E2E.
  *
- *   STAYS gftd (NOT a collection; consumed via consent-capability) — Hume AI
+ *   STAYS etzhayyim (NOT a collection; consumed via consent-capability) — Hume AI
  *   biometric INFERENCE (face/voice → emotion vector, GPU/LLM execution),
  *   LangGraph deaiMatchEngine score-computation EXECUTION, Vault biometric
  *   custody + Signal DM transport. These are regulated *acts*; the resulting
- *   DATA records migrate (E2E above), only the EXECUTION stays gftd.
+ *   DATA records migrate (E2E above), only the EXECUTION stays etzhayyim.
  *
  * AT-Lexicon: no float. Reaction time = integer ms. Emotion-vector components +
  * all scores (resonance / compatibility / confidence) = integer 0-100.
