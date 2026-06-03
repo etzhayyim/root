@@ -1,7 +1,7 @@
 /**
  * @fileoverview Supabase client configuration
  * @see https://supabase.com/docs/reference/javascript/introduction
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

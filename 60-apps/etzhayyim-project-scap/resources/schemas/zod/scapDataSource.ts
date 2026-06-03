@@ -1,7 +1,7 @@
 /**
  * @fileoverview SCAP Data Source Zod schema
  * Zod schema as the single source of truth for SCAP Data Source validation
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

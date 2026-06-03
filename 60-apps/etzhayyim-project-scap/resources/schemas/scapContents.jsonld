@@ -228,7 +228,7 @@
     }
   ],
   "wasDerivedFrom": [
-    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/performers/services/graphql/src/schema.rs",
-    "https://github.com/etzhayyim/ai-gftd-scap/blob/main/src/internal/zod/scapContent.ts"
+    "https://github.com/etzhayyim/etzhayyim-scap/blob/main/performers/services/graphql/src/schema.rs",
+    "https://github.com/etzhayyim/etzhayyim-scap/blob/main/src/internal/zod/scapContent.ts"
   ]
 }

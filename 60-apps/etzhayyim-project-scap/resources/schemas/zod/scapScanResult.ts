@@ -1,7 +1,7 @@
 /**
  * @fileoverview SCAP Scan Result Zod schema
  * Zod schema as the single source of truth for SCAP Scan Result validation
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

@@ -1,7 +1,7 @@
 /**
  * @fileoverview OVAL Definition Zod schema
  * Zod schema as the single source of truth for OVAL Definition validation
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

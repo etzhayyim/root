@@ -1,7 +1,7 @@
 /**
  * @fileoverview CVE Data Zod schema
  * Zod schema as the single source of truth for CVE Data validation
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

@@ -1,7 +1,7 @@
 /**
  * @fileoverview Supabase Realtime implementation for SCAP messaging
  * Replaces Kafka producer functionality with Supabase Realtime
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",
@@ -133,7 +133,7 @@ export async function sendBatch(
 ): Promise<void> {
   try {
     const channelInstance = supabaseAdmin.channel(channel)
-    
+
     for (const message of messages) {
       const status = await channelInstance.send({
         type: "broadcast",

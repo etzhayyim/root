@@ -1,7 +1,7 @@
 /**
  * @fileoverview Integration Zod schema
  * Zod schema as the single source of truth for Integration validation
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

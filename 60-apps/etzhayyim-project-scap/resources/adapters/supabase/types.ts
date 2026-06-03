@@ -1,6 +1,6 @@
 /**
  * @fileoverview Supabase types and Realtime message types
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

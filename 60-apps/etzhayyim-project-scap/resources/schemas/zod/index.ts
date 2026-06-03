@@ -1,7 +1,7 @@
 /**
  * @fileoverview Zod schema index
  * Exports all Zod schemas and types
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",

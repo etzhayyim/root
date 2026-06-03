@@ -1,7 +1,7 @@
 /**
  * @fileoverview SCAP Content Zod schema
  * Zod schema as the single source of truth for SCAP Content validation
- * 
+ *
  * @context
  * {
  *   "@context": "https://schema.org",
