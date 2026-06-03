@@ -30,6 +30,17 @@ official URL** (本体の url), on 2026-06-03.
   **civilian defence MINISTRY** as a public body only — never armed-forces
   order-of-battle/bases/capabilities (G10 no attack-surface map). Japan 防衛省 skipped
   (already `gov.jpn.mod`).
+- **6 more worldwide ministry layers (subagent-parallelised Wikidata pull, 690 units)** —
+  each `:level :ministry` `:branch :executive`, Wikidata `P31` of the relevant ministry
+  class (current, P576-excluded), country a current UN member; integrator dropped
+  non-current-country ISO3, bare-QID labels, QIDs already in the atlas, and cross-file
+  dup QIDs:
+  `gov-units.world-interior.edn` **111** (`Q6589202`, cofog 03.1) ·
+  `gov-units.world-health.edn` **136** (`Q1519799`, cofog 07) ·
+  `gov-units.world-justice.edn` **127** (`Q1413677`, cofog 03.3) ·
+  `gov-units.world-education.edn` **127** (`Q2269756`, cofog 09) ·
+  `gov-units.world-environment.edn` **85** (`Q917441`, cofog 05) ·
+  `gov-units.world-agriculture.edn` **104** (`Q1364302`, cofog 04.2).
 - `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
   worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
   `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
