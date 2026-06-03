@@ -1,7 +1,0 @@
-packages:
-  - 'apps/*'
-  - 'performers/actors/*'
-  - 'performers/systems/*'
-  - 'performers/systems/database/adapters/*'
-  - 'performers/systems/database/utilities/*'
-

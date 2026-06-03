@@ -74,8 +74,8 @@ in kotoba Datomic state.
 |---|---|---|
 | **T0** (here) | scaffold + lexicons; no data moved | schema lexicons validate; boundary linter green |
 | **T1** | malak Pregel output → kotoba QuadStore; RW `vertex_blockchain_tx` retired | Takahashi-case replay bit-identical kotoba vs RW |
-| **T2** | ipaddress SQL graph → `kotoba-kqe` | `lookup_ip`/`analyze_ip` identical from kotoba |
-| **T3** | yabai CTI/DNS/IP-history/access-audit → `kotoba-kqe`; PII encrypted | `correlate-ip-activity` set-equal; PII verified encrypted |
+| **T2** 🟢 substrate landed (ADR-2606031600) | ipaddress SQL graph → kotoba EAVT (`ip-network-ontology` + seed + active RIR/RDAP/rDNS ingest + analyze) | `lookup_ip`/`analyze_ip` identical from kotoba (dual-read verify pending) |
+| **T3** 🟢 substrate landed (ADR-2606031600) | yabai CTI/DNS/IP-history/access-audit → kotoba EAVT (`passive-dns-cti-ontology` + seed + active crt.sh/pdns ingest + analyze; `:access/*` encrypted) | `correlate-ip-activity` set-equal; PII verified encrypted (analyze G6/G10 self-audit PASS; dual-read verify pending) |
 | **T4** | retire yata Workers-RPC SQL + RW `vertex_blockchain_*` | boundary linter rejects residual `yata`/`RisingWave` import |
 
 Each cutover is dual-write/dual-read → verify set-equality → drop legacy (one R-cycle shadow).
