@@ -3,6 +3,19 @@
 Honest status per the gov-coverage maturity model (ADR-2605250680). Coverage gated
 by `:sourcing` (G5): only `:authoritative` rows count.
 
+## 2026-06-03 — independent regulators (130)
+
+Second oversight wave — independent regulatory authorities, `:level :agency`
+`:branch :independent`, subagent Wikidata pulls:
+- `gov-units.oversight-anticorruption.edn` **41** — anti-corruption agencies (`Q4774348`).
+- `gov-units.oversight-dataprotection.edn` **41** — data-protection authorities (`Q3242920`).
+- `gov-units.oversight-competition.edn` **16** — competition/antitrust authorities (`Q1465684`).
+- `gov-units.oversight-financial-regulator.edn` **32** — financial regulators ex-central-bank (`Q105062392`).
+130 bodies. National statistical offices (`Q480242`) still deferred (persistent WDQS
+504 on that join). HONEST: a few rows are sub-national/association mis-typings from
+the one-per-country dedup. Atlas now **6296 units / 44 files, 6294 QIDs all unique,
+6292 :authoritative**.
+
 ## 2026-06-03 — independent oversight / accountability bodies (135)
 
 On-mission layer (consumed by danjo/toritate/himotoki): independent accountability
