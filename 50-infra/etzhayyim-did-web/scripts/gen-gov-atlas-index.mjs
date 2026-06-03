@@ -63,14 +63,20 @@ const byId = new Map();
 const put = (u) => { if (u && u.id && !byId.has(u.id)) byId.set(u.id, u); };
 
 // 1) ooyake EDN seeds (:units)
-for (const f of ["gov-units.seed.edn", "gov-units.jp-central.seed.edn"]) {
+// FULL committed atlas — every registry/gov-units*.edn (seeds + g20 / world-* /
+// oversight-* / adm1-* / intergov / capitals / hq-locations / …). The PUBLISHED index
+// conservatively marks ALL units :representative; only the Council bootstrap-attested
+// JP pref/city backbone is promoted :authoritative below (validate_atlas check #5).
+// (The committed EDN's :maintainer-verified/:authoritative tier is the registry record,
+// a distinct thing from what is published as authoritative.)
+for (const f of readdirSync(OOYAKE).filter((n) => /^gov-units.*\.edn$/.test(n)).sort()) {
   const doc = parseEdn(readFileSync(join(OOYAKE, f), "utf8"));
   for (const u of doc[":units"] || []) {
     put({
-      id: u[":gov.unit/id"], name: u[":gov.unit/name-local"], nameEn: u[":gov.unit/name-en"],
+      id: u[":gov.unit/id"], name: u[":gov.unit/name-local"] || u[":gov.unit/name-en"], nameEn: u[":gov.unit/name-en"],
       level: kw(u[":gov.unit/level"]), jurisdiction: u[":gov.unit/jurisdiction"],
       parent: u[":gov.unit/parent"] || null, url: u[":gov.unit/official-url"] || "",
-      sourcing: kw(u[":gov.unit/sourcing"]) || "representative",
+      sourcing: "representative",
     });
   }
 }
