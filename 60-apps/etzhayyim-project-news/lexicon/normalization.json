@@ -1,6 +1,6 @@
 {
   "version": "2026-02-15-2",
-  "owner": "ai-gftd-project-news",
+  "owner": "etzhayyim-project-news",
   "purpose": "Cross-category vocabulary normalization for news.etzhayyim.com ingestion, tagging, and editorial output.",
   "usage": {
     "normalizeCase": true,

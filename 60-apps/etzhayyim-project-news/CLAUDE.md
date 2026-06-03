@@ -1,4 +1,4 @@
-# ai-gftd-project-news
+# etzhayyim-project-news
 
 News media platform (`news.etzhayyim.com`)。**wRPC stream-native reactive pipeline (Design E)**。Follow-based upstream RSS worker から AT commit を受信 → 品質評価 → 翻訳 → ATPost。Batch command 0、Transport 1 種 (AT commit stream on wRPC)。
 
@@ -11,7 +11,7 @@ News media platform (`news.etzhayyim.com`)。**wRPC stream-native reactive pipel
 | 項目            | 値                                                                                    |
 | --------------- | ------------------------------------------------------------------------------------- |
 | Language        | TypeScript (`@etzhayyim/magatama-host-sdk` host, TS Native migration)                      |
-| Build           | `gftd deploy` (app.ts が直接 wrangler entrypoint)。`src/app.ts` は legacy 経路        |
+| Build           | `etzhayyim deploy` (app.ts が直接 wrangler entrypoint)。`src/app.ts` は legacy 経路        |
 | UI mode         | `appview` (Protocol Canvas card)                                                      |
 | Architecture    | **wRPC stream-native reactive** (Design E)                                            |
 | Host            | `@etzhayyim/magatama-host-sdk` (WIT host + write buffer)                                   |
@@ -34,7 +34,7 @@ upstream RSS workers → Follow → AT commit → handleComAtprotoSyncSubscribeR
 | Layer            | WIT                                      | Role                                                |
 | ---------------- | ---------------------------------------- | --------------------------------------------------- |
 | **1. Input**     | `com-atproto:sync/subscribe-repos@1.0.0` | AT commit event (Follow-filtered by :FOLLOWS edges) |
-| **2. Output**    | `ai-gftd:serve/serve@1.0.0`              | `handle-stream("stream-articles")` wRPC push        |
+| **2. Output**    | `etzhayyim:serve/serve@1.0.0`              | `handle-stream("stream-articles")` wRPC push        |
 | **3. Evolution** | `com-atproto:sync/subscribe-repos@1.0.0` | `on-heartbeat` engagement + self-evolution          |
 
 ### handleComAtprotoSyncSubscribeReposCommit (Layer 1 — pipeline entry)

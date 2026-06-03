@@ -276,6 +276,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-  fs.writeFileSync("/sessions/upbeat-relaxed-bardeen/mnt/ai-gftd-project-news/marketing-monetization-strategy.docx", buffer);
+  fs.writeFileSync("/sessions/upbeat-relaxed-bardeen/mnt/etzhayyim-project-news/marketing-monetization-strategy.docx", buffer);
   console.log("Strategy document created successfully.");
 });

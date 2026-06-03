@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "News Core Component",
-  "project": "ai-gftd-project-news",
+  "project": "etzhayyim-project-news",
   "name": "news-core-component",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-news/appview/news-core-component/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-news/appview/news-core-component/svelte/src/routes/+page.svelte"
 };
 </script>
 

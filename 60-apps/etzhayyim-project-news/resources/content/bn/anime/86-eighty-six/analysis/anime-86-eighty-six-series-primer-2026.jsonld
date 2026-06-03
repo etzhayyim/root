@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:anime-86-eighty-six-series-primer-2026",
+  "@id": "urn:etzhayyim:news:anime-86-eighty-six-series-primer-2026",
   "identifier": "anime-86-eighty-six-series-primer-2026",
   "headline": "86 EIGHTY-SIX primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to 86 EIGHTY-SIX, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

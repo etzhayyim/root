@@ -1,7 +1,7 @@
 # News Metrics
 
 This folder documents the source-of-truth and the manual update flow for
-`ai-gftd-project-news` survival indicators.
+`etzhayyim-project-news` survival indicators.
 
 ## Metrics Keys
 
@@ -20,7 +20,7 @@ python3 70-tools/70-tools/70-tools/scripts/project_metadata.py apply-metrics --m
 ## Source-of-Truth (Proposed)
 
 - `requests`
-  - Primary: CDN access logs for `news.etzhayyim.com` (bucket `gftd-static-sites`, prefix `news.etzhayyim.com`).
+  - Primary: CDN access logs for `news.etzhayyim.com` (bucket `etzhayyim-static-sites`, prefix `news.etzhayyim.com`).
   - Fallback: GA4 page_view counts.
 - `gccCredit`
   - Primary: GCC credit dashboard / credits service export.
@@ -34,7 +34,7 @@ python3 70-tools/70-tools/70-tools/scripts/project_metadata.py apply-metrics --m
 
 ```bash
 python3 70-tools/70-tools/70-tools/scripts/update_project_metrics.py \
-  --project ai-gftd-project-news \
+  --project etzhayyim-project-news \
   --requests 12345 \
   --gcc-credit 678.9 \
   --ads-revenue-daily 1234 \

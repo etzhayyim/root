@@ -1,10 +1,10 @@
-# ai-gftd-project-news App migration
+# etzhayyim-project-news App migration
 
 このディレクトリは `legacy-runtime` 実装を残したまま、App 版を段階移行するための配置先です。
 
 ## 対象 App services
 
-- `gftd-news-r5wvpkot`
+- `etzhayyim-news-r5wvpkot`
 - `news-mcp-gy9z0qb7`
 - `news-ui-f8n3k2q1`
 

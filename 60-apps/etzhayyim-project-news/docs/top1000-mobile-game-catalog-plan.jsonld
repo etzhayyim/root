@@ -2,22 +2,22 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "platformScope": "gftd:platformScope",
-      "snapshotVersion": "gftd:snapshotVersion",
-      "sourceQuality": "gftd:sourceQuality",
-      "updateCadence": "gftd:updateCadence",
-      "targetFile": "gftd:targetFile",
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "platformScope": "etzhayyim:platformScope",
+      "snapshotVersion": "etzhayyim:snapshotVersion",
+      "sourceQuality": "etzhayyim:sourceQuality",
+      "updateCadence": "etzhayyim:updateCadence",
+      "targetFile": "etzhayyim:targetFile",
       "dependsOn": {
-        "@id": "gftd:dependsOn",
+        "@id": "etzhayyim:dependsOn",
         "@type": "@id"
       }
     }
   ],
   "@type": "Project",
   "name": "news.etzhayyim.com Mobile Top1000 Game Catalog",
-  "identifier": "ai-gftd-project-news/top1000-catalog",
-  "projectRef": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/PROJECT.jsonld",
+  "identifier": "etzhayyim-project-news/top1000-catalog",
+  "projectRef": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/PROJECT.jsonld",
   "scope": {
     "@type": "ItemList",
     "name": "Top1000カバレッジスコープ",
@@ -68,7 +68,7 @@
       "name": "Official game manufacturer pages",
       "platformScope": "ios+android",
       "sourceQuality": "High",
-      "description": "重複排除・誤同定抑制のための補完ソース。既存の projects/ai-gftd-project-news/resources/source.jsonld と整合。"
+      "description": "重複排除・誤同定抑制のための補完ソース。既存の projects/etzhayyim-project-news/resources/source.jsonld と整合。"
     }
   ],
   "executionPlan": {
@@ -86,7 +86,7 @@
         "position": 2,
         "name": "正規化・重複統合",
         "text": "ゲーム名・開発元・パッケージ/App IDで同一性キーを作成。platform別順位は `rank_ios` / `rank_android` として保持し、片側のみ存在する件は null 非埋めで明示。",
-        "dependsOn": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/docs/top1000-mobile-game-catalog-plan.jsonld"
+        "dependsOn": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/docs/top1000-mobile-game-catalog-plan.jsonld"
       },
       {
         "@type": "HowToStep",
@@ -104,21 +104,21 @@
         "@type": "HowToStep",
         "position": 5,
         "name": "公開・可視化",
-        "text": "`/users/`/`/projects/ai-gftd-project-news` 内のデータパイプラインに反映し、公開差分は日次レポートで確認。"
+        "text": "`/users/`/`/projects/etzhayyim-project-news` 内のデータパイプラインに反映し、公開差分は日次レポートで確認。"
       }
     ]
   },
   "integrationTargets": {
-    "currentProject": "projects/ai-gftd-project-news",
-    "projectConfig": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/PROJECT.jsonld",
-    "schedulerSeed": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/scheduler.jsonld",
-    "gameSources": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/resources/source.jsonld",
-    "currentGameRegistry": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/resources/games.jsonld"
+    "currentProject": "projects/etzhayyim-project-news",
+    "projectConfig": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/PROJECT.jsonld",
+    "schedulerSeed": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/scheduler.jsonld",
+    "gameSources": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/resources/source.jsonld",
+    "currentGameRegistry": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/resources/games.jsonld"
   },
   "datasetTemplate": {
     "@type": "ItemList",
     "name": "Top1000 Mobile Game Catalog",
-    "targetFile": "/Users/junkawasaki/github/etzhayyim-root/projects/ai-gftd-project-news/resources/top1000-games.jsonld",
+    "targetFile": "/Users/junkawasaki/github/etzhayyim-root/projects/etzhayyim-project-news/resources/top1000-games.jsonld",
     "itemTemplate": {
       "@type": "VideoGame",
       "identifier": "<platform>:<bundleId or packageName>",

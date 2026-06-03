@@ -8,7 +8,7 @@
 
 1. Extract
 - 既存 guest 実装 (`main.go`) から移植対象関数を抽出する。
-- 先に壊れている構文を直し、`gftd build` が再現可能な状態を作る。
+- 先に壊れている構文を直し、`etzhayyim build` が再現可能な状態を作る。
 
 2. Scaffold
 - TS Native の最小起動点を追加する。
@@ -26,8 +26,8 @@
 4. Switch
 - build/deploy/debug を順に実行し、段階切替する。
 - `pnpm run build:ts-native`
-- `gftd build --dir .`
-- `gftd deploy --dir .`
+- `etzhayyim build --dir .`
+- `etzhayyim deploy --dir .`
 - endpoint debug (`/_heartbeat`, `/_commit`, `/xrpc/...`)
 - event stream は `src/worker.ts` の `/_commit` / `/_w/commit` を TS 正系として運用する。
 
@@ -46,14 +46,14 @@
 pnpm run build:ts-native
 ```
 
-2. Build (gftd)
+2. Build (etzhayyim)
 ```bash
-gftd build --dir .
+etzhayyim build --dir .
 ```
 
 3. Deploy
 ```bash
-gftd deploy --dir .
+etzhayyim deploy --dir .
 ```
 
 4. Debug
@@ -65,7 +65,7 @@ curl -sS -X POST https://news.etzhayyim.com/xrpc/com.etzhayyim.apps.news.news.li
 
 ## 2026-03-27 実測 (news.etzhayyim.com)
 
-- Deploy: `gftd deploy --dir 60-apps/ai-gftd-project-news/wasm/news-core-component` 成功
+- Deploy: `etzhayyim deploy --dir 60-apps/etzhayyim-project-news/wasm/news-core-component` 成功
 - `GET /health`: `ok`
 - quality check 警告: `2` 件 (`/_app/meta` version / deploy_sha)
 

@@ -14,10 +14,10 @@
 
 現状の混在点:
 
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/gftd.json`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/gftd.json) で `news.etzhayyim.com` と `news-core.etzhayyim.com` を同一 worker に割り当て
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/magatama.toml`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/magatama.toml) で `/api/...` と static 配信を同居
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts) と [`60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/svelte/src/lib/connect.ts) がどちらも相対パス `/xrpc/...` を前提
-- [`60-apps/ai-gftd-project-news/wasm/news-core-component/main.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-news/wasm/news-core-component/main.go) が query/command に加えて生成・翻訳・品質評価・進化まで同一 app に保持
+- [`60-apps/etzhayyim-project-news/wasm/news-core-component/etzhayyim.json`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/etzhayyim.json) で `news.etzhayyim.com` と `news-core.etzhayyim.com` を同一 worker に割り当て
+- [`60-apps/etzhayyim-project-news/wasm/news-core-component/magatama.toml`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/magatama.toml) で `/api/...` と static 配信を同居
+- [`60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/server/connect.ts) と [`60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/connect.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/svelte/src/lib/connect.ts) がどちらも相対パス `/xrpc/...` を前提
+- [`60-apps/etzhayyim-project-news/wasm/news-core-component/main.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-news/wasm/news-core-component/main.go) が query/command に加えて生成・翻訳・品質評価・進化まで同一 app に保持
 
 この構成だと、SSR の変更が backend deploy を巻き込み、逆に jobs や graph 起因の不安定化が public page latency に波及する。
 
@@ -104,9 +104,9 @@ Browser / Crawler
 
 ```text
 Browser
-  -> news.etzhayyim.com/xrpc/gftd.news.v1.NewsQueryService/ListArticles
+  -> news.etzhayyim.com/xrpc/etzhayyim.news.v1.NewsQueryService/ListArticles
       UI worker validates + caches + proxies
-        -> news-api.etzhayyim.com/xrpc/gftd.news.v1.NewsQueryService/ListArticles
+        -> news-api.etzhayyim.com/xrpc/etzhayyim.news.v1.NewsQueryService/ListArticles
 ```
 
 ### Query split
@@ -150,7 +150,7 @@ command は backend worker だけが受ける。
 ### External routing
 
 - `news.etzhayyim.com/*` -> UI worker
-- `news.etzhayyim.com/xrpc/gftd.news.v1.NewsQueryService/*` -> UI worker が受ける
+- `news.etzhayyim.com/xrpc/etzhayyim.news.v1.NewsQueryService/*` -> UI worker が受ける
 - `api.news.etzhayyim.com/xrpc/*` -> backend worker
 - `api.news.etzhayyim.com/jobs/*` -> backend worker
 - `api.news.etzhayyim.com/scheduler/*` -> backend worker
@@ -202,7 +202,7 @@ UI worker から backend worker への呼び出しは以下のいずれか。
 ### UI worker -> backend worker
 
 - Service Binding を基本
-- backend では `x-gftd-internal-worker` のような internal caller assertion を要求
+- backend では `x-etzhayyim-internal-worker` のような internal caller assertion を要求
 - public endpoint と internal endpoint を path か host で分離
 
 ### Admin / job / scheduler
@@ -296,7 +296,7 @@ UI worker はデータ owner ではなく projection consumer。
   - backend worker 側へ残す
 - 現 `wasm/news-core-component/svelte/`:
   - `news-ui-worker` として独立
-- 現 `wasm/news-core-component/gftd.json`:
+- 現 `wasm/news-core-component/etzhayyim.json`:
   - UI worker 用と backend worker 用に分離
 - 現 `wasm/news-core-component/magatama.toml`:
   - backend worker 専用の route に縮小

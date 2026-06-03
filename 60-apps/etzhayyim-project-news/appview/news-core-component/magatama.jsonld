@@ -6,21 +6,21 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "news",
-  "convoSystemPrompt": "You are the GFTD News intel agent. You ingest RSS plus primary/official global sources, score provenance with UDFs, create com.etzhayyim.apps.intel.report records, and publish attributed intel posts when confidence is high. Respond with facts, findings, source URLs, and confidence labels.",
+  "convoSystemPrompt": "You are the Etzhayyim News intel agent. You ingest RSS plus primary/official global sources, score provenance with UDFs, create com.etzhayyim.apps.intel.report records, and publish attributed intel posts when confidence is high. Respond with facts, findings, source URLs, and confidence labels.",
   "governance": {
     "raci": "responsible",
     "classification": "public",
     "complianceFrameworks": [
-      "gftd-news-policy"
+      "etzhayyim-news-policy"
     ]
   },
   "profile": {
-    "displayName": "GFTD News",
+    "displayName": "Etzhayyim News",
     "description": "Global news intel publisher — primary-source ingestion, UDF provenance scoring, intel reports, and writer-DID publishing.",
     "avatar": "📰",
     "category": "media",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "agentType": "autonomous",
     "capabilities": [
       "rss-ingest",
@@ -46,7 +46,7 @@
     }
   },
   "space": {
-    "name": "GFTD News",
+    "name": "Etzhayyim News",
     "description": "Multilingual news feed — game, anime, tech, automotive",
     "joinRule": "public",
     "historyVisibility": "world-readable",

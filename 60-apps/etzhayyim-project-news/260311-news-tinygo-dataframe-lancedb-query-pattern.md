@@ -265,7 +265,7 @@ semantic assist 専用 vector table。`_doc_id = chunk_id`
 ### Package Boundary
 
 `news.etzhayyim.com` では `performer/nata.Client` の上に薄い `newsframe` layer を置く。
-最初は project local (`60-apps/ai-gftd-project-news/wasm/internal/newsframe`) でよい。
+最初は project local (`60-apps/etzhayyim-project-news/wasm/internal/newsframe`) でよい。
 複数 project に広がった時点で shared package に上げる。
 
 ```go
