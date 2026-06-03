@@ -4,13 +4,13 @@
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat", "nodejs_als"],
   "alias": {
-    "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts",
-    "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js",
-    "@etzhayyim/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts",
-    "@etzhayyim/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts",
-    "@etzhayyim/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts",
-    "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts",
-    "@etzhayyim/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts"
+    "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts",
+    "pg": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js",
+    "@etzhayyim/xrpc/transport": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/transport.ts",
+    "@etzhayyim/xrpc/auth": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/auth.ts",
+    "@etzhayyim/xrpc/error": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/error.ts",
+    "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/nsid.ts",
+    "@etzhayyim/xrpc/encode": "/Users/junkawasaki/etzhayyim/etzhayyim-apps-etzhayyim/10-protocol/xrpc/src/encode.ts"
   },
   "assets": {
     "directory": "../../svelte/build",
@@ -30,13 +30,13 @@
     "APP_UI_TYPE": "appview"
   },
   "r2_buckets": [
-    { "binding": "YATA_R2", "bucket_name": "ai-gftd-cache" },
-    { "binding": "CACHE_R2", "bucket_name": "ai-gftd-cache" }
+    { "binding": "YATA_R2", "bucket_name": "etzhayyim-cache" },
+    { "binding": "CACHE_R2", "bucket_name": "etzhayyim-cache" }
   ],
   "services": [
-    { "binding": "PDS_SERVICE", "service": "ai-gftd-pds-2603241700" },
-    { "binding": "PDS_RPC", "service": "ai-gftd-pds-2603241700", "entrypoint": "PdsRPC" },
-    { "binding": "MURAKUMO_SERVICE", "service": "ai-gftd-murakumo-2603241700" }
+    { "binding": "PDS_SERVICE", "service": "etzhayyim-pds-2603241700" },
+    { "binding": "PDS_RPC", "service": "etzhayyim-pds-2603241700", "entrypoint": "PdsRPC" },
+    { "binding": "MURAKUMO_SERVICE", "service": "etzhayyim-murakumo-2603241700" }
   ],
   "secrets_store_secrets": [
     { "binding": "SS_YATA_S3_KEY_ID", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "yata_s3_key_id" },

@@ -24,7 +24,7 @@
       "digital-twin"
     ],
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "routes": [
     { "host": "itonami.etzhayyim.com", "paths": ["/"], "tls": true }

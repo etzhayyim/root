@@ -1,4 +1,4 @@
-# ai-gftd-project-itonami — Aircraft Engine Lifecycle Simulation
+# etzhayyim-project-itonami — Aircraft Engine Lifecycle Simulation
 
 航空機エンジンのライフサイクル全体（設計 → 調達 → 組立 → 試験 → デジタルツイン運用）を
 シミュレーションおよび記録する Magatama actor。UNSPSC（部品調達分類）と ISIC（サプライヤー産業分類）を統合する。
@@ -113,15 +113,15 @@ EngineDesign
 
 ## appview
 
-- **Worker**: `60-apps/ai-gftd-project-itonami/appview/itonami-it0n4m1x/src/app.ts`
-- **Magatama descriptor**: `60-apps/ai-gftd-project-itonami/appview/itonami-it0n4m1x/magatama.jsonld`
-- **Svelte SPA**: `60-apps/ai-gftd-project-itonami/svelte/`
+- **Worker**: `60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/src/app.ts`
+- **Magatama descriptor**: `60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x/magatama.jsonld`
+- **Svelte SPA**: `60-apps/etzhayyim-project-itonami/svelte/`
 
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-itonami/appview/itonami-it0n4m1x
-gftd deploy
+cd 60-apps/etzhayyim-project-itonami/appview/itonami-it0n4m1x
+etzhayyim deploy
 curl https://it0n4m1x.etzhayyim.com/health
 ```
 

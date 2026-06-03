@@ -23,19 +23,19 @@ export interface SimulationState {
     phase: SimulationPhase;
     project_id?: string;
     aircraft_model: string;
-    
+
     engine_design?: EngineDesign;
-    
+
     unspsc_bom?: string[];
     isic_suppliers?: {name: string, isic: string}[];
-    
+
     engine_test_metrics?: EngineTestMetrics;
     assembly_robot_ids?: string[];
-    
+
     icao24_address?: string;
     flight_state?: string;
     telemetry?: {alt: number, spd: number, thrust: string}[];
-    
+
     log: string[];
     isProcessing: boolean;
 }
@@ -61,9 +61,9 @@ function createSimulationStore() {
             update(s => ({ ...s, isProcessing: true }));
             log('[???] Initializing new aircraft project for model: etzhayyim-Aero-777');
             await delay(800);
-            
-            update(s => ({ 
-                ...s, 
+
+            update(s => ({
+                ...s,
                 project_id: 'd3cc6ba6',
                 phase: 'design',
                 isProcessing: false
@@ -75,7 +75,7 @@ function createSimulationStore() {
             log(`[${pid}] PHASE 1: ENGINE DESIGN (Kami CAD/CAE)`);
             await delay(1000);
             log(`[${pid}]  -> Designed Engine: etzhayyim-NextGen-TF9000`);
-            
+
             const design: EngineDesign = {
                 model_name: "etzhayyim-NextGen-TF9000",
                 thrust_kn: 343.3,
@@ -86,13 +86,13 @@ function createSimulationStore() {
             };
 
             update(s => ({ ...s, engine_design: design }));
-            
+
             await delay(1000);
             log(`[${pid}] PHASE 2: ENGINE EVALUATION (Kami RTL Simulation)`);
             log(`[${pid}]  -> Running RTL physical simulation for FADEC...`);
             await delay(1000);
             log(`[${pid}]  -> RTL Verification PASSED.`);
-            
+
             update(s => ({ ...s, phase: 'procure', isProcessing: false }));
         },
         runProcure: async () => {
@@ -100,27 +100,27 @@ function createSimulationStore() {
             const pid = get({subscribe}).project_id;
             log(`[${pid}] PHASE 3: PROCUREMENT (UNSPSC & ISIC)`);
             await delay(1000);
-            
+
             const bom = [
-                'UNSPSC 11171901 (TA6V Titanium)', 
-                'UNSPSC 11151514 (Aramid fibers)', 
-                'UNSPSC 25131506 (Commercial passenger jet aircraft)', 
+                'UNSPSC 11171901 (TA6V Titanium)',
+                'UNSPSC 11151514 (Aramid fibers)',
+                'UNSPSC 25131506 (Commercial passenger jet aircraft)',
                 'UNSPSC 23152203 (Engine test stands)'
             ];
             log(`[${pid}]  -> Generating BOM...`);
-            
-            update(s => ({ 
-                ...s, 
+
+            update(s => ({
+                ...s,
                 unspsc_bom: bom,
                 isic_suppliers: [
                     {name: "AeroTitanium Inc.", isic: "3030 (Manufacture of air and spacecraft)"},
                     {name: "Global Test Systems", isic: "2651 (Manufacture of measuring instruments)"}
                 ]
             }));
-            
+
             await delay(1000);
             log(`[${pid}]  -> Component Procurement Approved via CAB-Review.`);
-            
+
             update(s => ({ ...s, phase: 'manufacture_test', isProcessing: false }));
         },
         runTest: async () => {
@@ -129,10 +129,10 @@ function createSimulationStore() {
             log(`[${pid}] PHASE 4: PHYSICAL TESTING (UNSPSC 23152203 Test Stands)`);
             await delay(500);
             log(`[${pid}]  -> Executing 150-hour continuous endurance test...`);
-            
+
             const totalSteps = 40;
             const stepDelay = 100; // 4 seconds total
-            
+
             // Initial metrics
             let currentMetrics: EngineTestMetrics = {
                 max_temp_celsius: 20.0,
@@ -141,7 +141,7 @@ function createSimulationStore() {
                 emission_nox_ppm: 0.0,
                 passed_certification: false
             };
-            
+
             update(s => ({ ...s, engine_test_metrics: {...currentMetrics} }));
 
             // Streaming physics data
@@ -150,7 +150,7 @@ function createSimulationStore() {
                 const progress = i / totalSteps;
                 // Add some noise to make it look real
                 const noise = () => (Math.random() - 0.5) * 2;
-                
+
                 currentMetrics = {
                     max_temp_celsius: 20 + (1540 - 20) * progress + (progress > 0.1 ? noise() * 15 : 0),
                     vibration_hz: (12.31 * progress) + (progress > 0.2 ? noise() * 2 : 0),
@@ -158,7 +158,7 @@ function createSimulationStore() {
                     emission_nox_ppm: (48.8 * progress) + (progress > 0.5 ? noise() * 3 : 0),
                     passed_certification: i === totalSteps
                 };
-                
+
                 // Snap to final values on last step
                 if (i === totalSteps) {
                     currentMetrics.max_temp_celsius = 1540.0;
@@ -166,16 +166,16 @@ function createSimulationStore() {
                     currentMetrics.fuel_flow_kg_s = 1.364;
                     currentMetrics.emission_nox_ppm = 48.8;
                 }
-                
+
                 update(s => ({ ...s, engine_test_metrics: {...currentMetrics} }));
             }
-            
+
             log(`[${pid}]  -> Engine physical test PASSED. Certified for flight.`);
-            
+
             await delay(800);
             log(`[${pid}]  -> Integrating engine to wing pylon via Robotics (UNSPSC 23153200).`);
             update(s => ({ ...s, assembly_robot_ids: ["RoboArm-Welding-01", "PickPlace-03"] }));
-            
+
             await delay(800);
             update(s => ({ ...s, phase: 'operate', isProcessing: false }));
         },
@@ -184,28 +184,28 @@ function createSimulationStore() {
             const pid = get({subscribe}).project_id;
             log(`[${pid}] PHASE 5: ASSEMBLY & DIGITAL TWIN OPERATION`);
             await delay(1000);
-            
+
             const icao24 = "A3414D";
             log(`[${pid}]  -> Aircraft commissioned. ICAO24 Address: ${icao24}`);
             update(s => ({ ...s, icao24_address: icao24 }));
-            
+
             await delay(1000);
             log(`[${pid}]  -> Digital Twin Simulation (maps_twin_sensor_sim): Simulating maiden flight...`);
-            
+
             const telemetry = [
                 {alt: 0, spd: 0, thrust: 'IDLE'},
                 {alt: 10000, spd: 400, thrust: 'MCT (Max Continuous)'},
                 {alt: 35000, spd: 850, thrust: 'CRUISE'}
             ];
-            
+
             update(s => ({ ...s, telemetry: [] }));
-            
+
             for (const t of telemetry) {
                 await delay(1000);
                 log(`[${pid}]     - Flight Stream: ${JSON.stringify(t)}`);
                 update(s => ({ ...s, flight_state: t.thrust, telemetry: [...(s.telemetry || []), t] }));
             }
-            
+
             log(`[${pid}] SUCCESS: Aircraft (ICAO24: ${icao24}) is in CRUISE.`);
             update(s => ({ ...s, isProcessing: false }));
         }
