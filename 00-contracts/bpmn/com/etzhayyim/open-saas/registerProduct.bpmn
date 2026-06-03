@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_saas_register_product"
-    targetNamespace="https://gftd.ai/bpmn/open-saas"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-saas"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_saas_register_product" name="SaaS product 登録" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -71,7 +71,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-saas.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-saas.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSaas.product.securityReview&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, productName: productName, vendorDid: vendorDid, riskScore: riskScore}" target="payload"/>
         </zeebe:ioMapping>
@@ -84,7 +84,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-saas.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-saas.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSaas.product.register&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, productName: productName, category: category, riskScore: riskScore}" target="payload"/>
         </zeebe:ioMapping>

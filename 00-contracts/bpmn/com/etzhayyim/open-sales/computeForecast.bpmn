@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_sales_compute_forecast" targetNamespace="https://gftd.ai/bpmn/open-sales" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_sales_compute_forecast" targetNamespace="https://etzhayyim.ai/bpmn/open-sales" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_sales_compute_forecast" name="computeForecast" isExecutable="true">
     <bpmn:startEvent id="Start">
       <bpmn:outgoing>Flow_S</bpmn:outgoing>
@@ -40,7 +40,7 @@
         <zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_open_sales_forecast&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:open-sales.gftd.ai/com.etzhayyim.apps.openSales.forecast/&quot; + string(now()), forecast_id: string(now()), period: string(now()), pipeline_usd: 0.0, weighted_usd: 0.0, closed_usd: 0.0, ai_forecast_usd: aiForecastUsd, confidence_pct: confidencePct, notes: forecastNotes, created_at: string(now()), sensitivity_ord: 0, actor_id: &quot;sys.bpmn.open-sales&quot;}" target="values"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:open-sales.etzhayyim.com/com.etzhayyim.apps.openSales.forecast/&quot; + string(now()), forecast_id: string(now()), period: string(now()), pipeline_usd: 0.0, weighted_usd: 0.0, closed_usd: 0.0, ai_forecast_usd: aiForecastUsd, confidence_pct: confidencePct, notes: forecastNotes, created_at: string(now()), sensitivity_ord: 0, actor_id: &quot;sys.bpmn.open-sales&quot;}" target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

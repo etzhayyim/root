@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_sanctions_screen_entity"
-    targetNamespace="https://gftd.ai/bpmn/open-sanctions"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-sanctions"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_sanctions_screen_entity" name="制裁スクリーニング" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -71,7 +71,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-sanctions.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSanctions.screen.block&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, candidateName: candidateName, matchScore: matchScore, bestMatchProgram: bestMatchProgram}" target="payload"/>
         </zeebe:ioMapping>
@@ -84,7 +84,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-sanctions.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSanctions.screen.manualReview&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, candidateName: candidateName, matchScore: matchScore}" target="payload"/>
         </zeebe:ioMapping>
@@ -97,7 +97,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-sanctions.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-sanctions.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSanctions.screen.pass&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, candidateName: candidateName, matchScore: matchScore}" target="payload"/>
         </zeebe:ioMapping>
