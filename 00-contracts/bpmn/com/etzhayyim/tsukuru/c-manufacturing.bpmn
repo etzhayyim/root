@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_isic_c_manufacturing"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="generated"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_isic_c_manufacturing" name="tsukuru C Manufacturing" isExecutable="true">
@@ -55,7 +55,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:c&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:c&quot;" target="actor"/>
           <zeebe:input source="=&quot;industryPulse&quot;" target="action"/>
           <zeebe:input source="={ sectionCode: &quot;C&quot;, label: &quot;Manufacturing&quot;, industryCodes: [&quot;electronics-semiconductor&quot;,&quot;automobile-mobility&quot;,&quot;aerospace-defense&quot;,&quot;pharma-medical&quot;,&quot;textile-apparel&quot;,&quot;food-beverage&quot;,&quot;furniture-home-goods&quot;,&quot;industrial-materials&quot;], bpmnProcessId: &quot;tsukuru_isic_c_manufacturing&quot;, manufacturerRowCount: manufacturerRowCount, manufacturerRows: manufacturerRows }" target="payload"/>
         </zeebe:ioMapping>
@@ -80,7 +80,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:c&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:c&quot;" target="actor"/>
           <zeebe:input source="=&quot;controlledManufacturingPulse&quot;" target="action"/>
           <zeebe:input source="={ sectionCode: &quot;C&quot;, label: &quot;Manufacturing&quot;, controlledManufacturerRowCount: controlledManufacturerRowCount, controlledManufacturerRows: controlledManufacturerRows, bpmnProcessId: &quot;tsukuru_isic_c_manufacturing&quot; }" target="payload"/>
         </zeebe:ioMapping>
