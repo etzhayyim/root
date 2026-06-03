@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.co.jp/ns/kami/scene",
+  "@context": "https://etzhayyim.co.jp/ns/kami/scene",
   "@type": "IslandScene",
   "@id": "urn:kami:island:yoro-mascot",
   "name": "YORO Mascot Stage",
