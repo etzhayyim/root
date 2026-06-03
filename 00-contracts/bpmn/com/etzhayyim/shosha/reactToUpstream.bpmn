@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — react to upstream actors (autonomous, R/PT5M).
+  shosha.etzhayyim.com — react to upstream actors (autonomous, R/PT5M).
 
   Polls vertex_repo_record for commits from configured upstream actors
   (oil-trading, cargo, port — Phase 2a hard-coded set; table-driven
@@ -18,7 +18,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_react_to_upstream"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_react_to_upstream" name="shosha react to upstream actors (5 min)" isExecutable="true">
@@ -49,7 +49,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.reactToUpstream&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;upstreamsScanned&quot;: upstreamsScanned, &quot;recordsSeen&quot;: recordsSeen, &quot;reactionsEmitted&quot;: reactionsEmitted }" target="attributes"/>
         </zeebe:ioMapping>

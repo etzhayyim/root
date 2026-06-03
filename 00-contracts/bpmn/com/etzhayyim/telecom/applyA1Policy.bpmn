@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_telecom_apply_a1_policy" targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_telecom_apply_a1_policy" targetNamespace="https://etzhayyim.ai/bpmn/telecom" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="telecom_apply_a1_policy" name="applyA1Policy" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Apply"/>
@@ -15,7 +15,7 @@
     <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Apply" targetRef="Task_Audit"/>
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
-        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input source="=&quot;telecom.oran.a1.policy&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, policyInstanceId: policyInstanceId, status: status}" target="payload"/></zeebe:ioMapping>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;telecom.oran.a1.policy&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, policyInstanceId: policyInstanceId, status: status}" target="payload"/></zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
     </bpmn:serviceTask>

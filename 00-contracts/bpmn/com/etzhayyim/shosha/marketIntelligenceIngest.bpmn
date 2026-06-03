@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — market intelligence ingest (autonomous, R/PT1H).
+  shosha.etzhayyim.com — market intelligence ingest (autonomous, R/PT1H).
 
   Pipeline:
     1. shosha.intel.ingestPrices    Yahoo v8 chart (CL=F, BZ=F, NG=F, GC=F, HG=F)
@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_market_intelligence_ingest"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_market_intelligence_ingest" name="shosha market intelligence ingest (hourly)" isExecutable="true">
@@ -68,7 +68,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.marketIntelligenceIngest&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;priceRows&quot;: priceRows, &quot;freightRows&quot;: freightRows, &quot;viewsWritten&quot;: viewsWritten }" target="attributes"/>
         </zeebe:ioMapping>

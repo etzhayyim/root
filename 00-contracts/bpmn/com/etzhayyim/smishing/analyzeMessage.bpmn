@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_smishing_analyze_message"
-    targetNamespace="https://gftd.ai/bpmn/smishing"
+    targetNamespace="https://etzhayyim.ai/bpmn/smishing"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="smishing_analyze_message" name="smishing analyze message" isExecutable="true">
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:smishing.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:smishing.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;smishing.analyzeMessage&quot;" target="action"/>
           <zeebe:input source="={ smsId: string(smsId), result: result }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

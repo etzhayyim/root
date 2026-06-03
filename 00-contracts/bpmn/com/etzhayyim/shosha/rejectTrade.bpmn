@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — rejectTrade workflow (XRPC com.etzhayyim.apps.shosha.rejectTrade).
+  shosha.etzhayyim.com — rejectTrade workflow (XRPC com.etzhayyim.apps.shosha.rejectTrade).
 
   Pipeline:
     1. shosha.trade.reject    validate pending + INSERT vertex_shosha_approval
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_reject_trade"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_reject_trade" name="shosha reject trade" isExecutable="true">
@@ -53,7 +53,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.rejectTrade&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;approvalId&quot;: approvalId, &quot;tradeId&quot;: tradeId, &quot;approvalState&quot;: approvalState, &quot;tradeStatus&quot;: tradeStatus, &quot;approverDid&quot;: approverDid }" target="attributes"/>
         </zeebe:ioMapping>
