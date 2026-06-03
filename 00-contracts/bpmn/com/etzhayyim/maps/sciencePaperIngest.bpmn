@@ -21,14 +21,14 @@
 
   Cadence: R/PT6H. Rotates domains: physics → chemistry → biology → materials.
   ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.sciencePaperIngest.
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_science_paper_ingest"
-    targetNamespace="https://gftd.ai/bpmn/maps"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="science_paper_ingest" name="science paper ingest" isExecutable="true">
