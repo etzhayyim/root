@@ -1498,7 +1498,7 @@ async function selfGenerateTasks(): Promise<void> {
 
 		// ── Tier 2: searchActors XRPC fallback ──
 		if (candidates.length === 0) {
-			const searchRes = await fetch(`${PDS}/xrpc/app.bsky.actor.searchActors?q=gftd&limit=30`, {
+			const searchRes = await fetch(`${PDS}/xrpc/app.bsky.actor.searchActors?q=etzhayyim&limit=30`, {
 				signal: ac.signal, credentials: 'include',
 			}).catch((error) => {
 				console.warn('[silent-fail] evolution-tasks.svelte.ts: searchActors fetch failed', error);

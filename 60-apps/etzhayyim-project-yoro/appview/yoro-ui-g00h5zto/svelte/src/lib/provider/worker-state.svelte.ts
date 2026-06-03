@@ -4,9 +4,9 @@ import { recommendExpert } from './market-client.js';
 const PROVIDER_MODE_EXPERT: ProviderMode = 'expertFfn';
 const PROVIDER_MODE_FULL_MLC: ProviderMode = 'fullMlc';
 const PROVIDER_MODE_LIMA: ProviderMode = 'lima';
-const WAN_MODEL_ID = 'gftd/gftd-distributed-ti2v-moe-260222';
-const QWEN_MODEL_ID = 'gftd/gftd-distributed-moe-260222';
-const DISTRIBUTED_2260224_MODEL_ID = 'gftd/gftd-distributed-2260224';
+const WAN_MODEL_ID = 'etzhayyim/etzhayyim-distributed-ti2v-moe-260222';
+const QWEN_MODEL_ID = 'etzhayyim/etzhayyim-distributed-moe-260222';
+const DISTRIBUTED_2260224_MODEL_ID = 'etzhayyim/etzhayyim-distributed-2260224';
 const EXPERT_PROVIDER_MODEL_IDS = [WAN_MODEL_ID, QWEN_MODEL_ID] as const;
 const FULL_MLC_PROVIDER_MODEL_IDS = [DISTRIBUTED_2260224_MODEL_ID] as const;
 

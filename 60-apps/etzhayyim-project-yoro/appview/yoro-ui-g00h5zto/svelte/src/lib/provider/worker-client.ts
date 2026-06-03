@@ -110,7 +110,7 @@ export class WorkerClient {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ 'workerId': this.stats.workerId }),
-			}).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/provider/worker-client.ts: suppressed async error", error); });
+			}).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/provider/worker-client.ts: suppressed async error", error); });
 		}
 		this.updateState('disconnected');
 	}
@@ -166,7 +166,7 @@ export class WorkerClient {
 			this.updateState('registered');
 		} catch (e) {
 			this.markFailure();
-			this.submitResult(req.jobId, 'expert.forward', [], -1, e instanceof Error ? e.message : String(e)).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/provider/worker-client.ts: suppressed async error", error); });
+			this.submitResult(req.jobId, 'expert.forward', [], -1, e instanceof Error ? e.message : String(e)).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/provider/worker-client.ts: suppressed async error", error); });
 			this.updateState('registered');
 		}
 	}

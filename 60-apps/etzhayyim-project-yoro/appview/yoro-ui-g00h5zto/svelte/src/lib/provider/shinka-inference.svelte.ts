@@ -379,7 +379,7 @@ async function selfGenerateTask(): Promise<void> {
 	_abortController = ac;
 
 	try {
-		const res = await fetch(`${PDS}/xrpc/app.bsky.actor.searchActors?q=gftd&limit=50`, {
+		const res = await fetch(`${PDS}/xrpc/app.bsky.actor.searchActors?q=etzhayyim&limit=50`, {
 			signal: ac.signal, credentials: 'include',
 		});
 		if (!res.ok) { scheduleNext(); return; }
