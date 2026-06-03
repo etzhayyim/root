@@ -1,5 +1,4 @@
-// TODO(substrate-boundary): wrap AtpAgent XRPC method calls behind @etzhayyim/sdk facade — see ADR-2605172000
-import { AtpAgent } from '@atproto/api';
+import { AtpAgent } from '@etzhayyim/sdk/atproto';
 import type { McpResponse, McpClientConfig } from './types.js';
 
 function toText(value: unknown): string {

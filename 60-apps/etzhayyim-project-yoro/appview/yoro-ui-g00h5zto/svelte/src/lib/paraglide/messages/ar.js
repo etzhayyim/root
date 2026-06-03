@@ -67,27 +67,27 @@ export const app_name = /** @type {(inputs: App_NameInputs) => LocalizedString} 
 };
 
 export const nav_home = /** @type {(inputs: Nav_HomeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`হোম`)
+	return /** @type {LocalizedString} */ (`الرئيسية`)
 };
 
 export const nav_search = /** @type {(inputs: Nav_SearchInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সন্ধান`)
+	return /** @type {LocalizedString} */ (`بحث`)
 };
 
 export const nav_messages = /** @type {(inputs: Nav_MessagesInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বাৰ্তা`)
+	return /** @type {LocalizedString} */ (`الرسائل`)
 };
 
 export const nav_apps = /** @type {(inputs: Nav_AppsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`এপ`)
+	return /** @type {LocalizedString} */ (`التطبيقات`)
 };
 
 export const nav_profile = /** @type {(inputs: Nav_ProfileInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্ৰ'ফাইল`)
+	return /** @type {LocalizedString} */ (`الملف الشخصي`)
 };
 
 export const drawer_credits = /** @type {(inputs: Drawer_CreditsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ক্ৰেডিট`)
+	return /** @type {LocalizedString} */ (`الرصيد`)
 };
 
 export const drawer_murakumo = /** @type {(inputs: Drawer_MurakumoInputs) => LocalizedString} */ () => {
@@ -95,209 +95,209 @@ export const drawer_murakumo = /** @type {(inputs: Drawer_MurakumoInputs) => Loc
 };
 
 export const drawer_hc_tasks = /** @type {(inputs: Drawer_Hc_TasksInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`HC কাম`)
+	return /** @type {LocalizedString} */ (`مهام HC`)
 };
 
 export const drawer_terms = /** @type {(inputs: Drawer_TermsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ব্যৱহাৰৰ চৰ্ত`)
+	return /** @type {LocalizedString} */ (`شروط الاستخدام`)
 };
 
 export const drawer_privacy = /** @type {(inputs: Drawer_PrivacyInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`গোপনীয়তা নীতি`)
+	return /** @type {LocalizedString} */ (`سياسة الخصوصية`)
 };
 
 export const drawer_feedback = /** @type {(inputs: Drawer_FeedbackInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`মতামত`)
+	return /** @type {LocalizedString} */ (`ملاحظات`)
 };
 
 export const drawer_help = /** @type {(inputs: Drawer_HelpInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সহায়`)
+	return /** @type {LocalizedString} */ (`مساعدة`)
 };
 
 export const drawer_history = /** @type {(inputs: Drawer_HistoryInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ব্ৰাউজিং ইতিহাস`)
+	return /** @type {LocalizedString} */ (`سجل التصفح`)
 };
 
 export const drawer_settings = /** @type {(inputs: Drawer_SettingsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ছেটিংছ`)
+	return /** @type {LocalizedString} */ (`الإعدادات`)
 };
 
 export const drawer_sign_out = /** @type {(inputs: Drawer_Sign_OutInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`চাইন আউট`)
+	return /** @type {LocalizedString} */ (`تسجيل الخروج`)
 };
 
 export const cookie_title = /** @type {(inputs: Cookie_TitleInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`কুকিজ`)
+	return /** @type {LocalizedString} */ (`ملفات تعريف الارتباط`)
 };
 
 export const cookie_description = /** @type {(inputs: Cookie_DescriptionInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`YORO-এ প্ৰাসংগিক বিজ্ঞাপন দেখুৱাবলৈ কুকিজ ব্যৱহাৰ কৰে।`)
+	return /** @type {LocalizedString} */ (`يستخدم YORO ملفات تعريف الارتباط لعرض إعلانات ذات صلة عبر Google AdSense وشبكات الشركاء. راجع سياسة الخصوصية لمزيد من التفاصيل.`)
 };
 
 export const cookie_decline = /** @type {(inputs: Cookie_DeclineInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্ৰত্যাখ্যান`)
+	return /** @type {LocalizedString} */ (`رفض`)
 };
 
 export const cookie_accept = /** @type {(inputs: Cookie_AcceptInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`গ্ৰহণ`)
+	return /** @type {LocalizedString} */ (`قبول`)
 };
 
 export const inference_important_notice = /** @type {(inputs: Inference_Important_NoticeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ইনফাৰেন্সত অংশগ্ৰহণ সম্পৰ্কে গুৰুত্বপূৰ্ণ জাননী`)
+	return /** @type {LocalizedString} */ (`إشعار مهم بشأن المشاركة في الاستدلال`)
 };
 
 export const inference_scroll_prompt = /** @type {(inputs: Inference_Scroll_PromptInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুগ্ৰহ কৰি তললৈ স্ক্ৰল কৰক`)
+	return /** @type {LocalizedString} */ (`يرجى التمرير إلى الأسفل`)
 };
 
 export const inference_agree_checkbox = /** @type {(inputs: Inference_Agree_CheckboxInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ওপৰৰ সকলো চৰ্ত মই পঢ়িছোঁ, বুজিছোঁ আৰু সন্মত।`)
+	return /** @type {LocalizedString} */ (`لقد قرأت وفهمت ووافقت على جميع أحكام شروط المشاركة في استدلال المتصفح أعلاه، بما في ذلك استخدام موارد الجهاز وإخلاء المسؤولية وبنود التعويض.`)
 };
 
 export const inference_decline = /** @type {(inputs: Inference_DeclineInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্ৰত্যাখ্যান`)
+	return /** @type {LocalizedString} */ (`رفض`)
 };
 
 export const inference_agree = /** @type {(inputs: Inference_AgreeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সন্মত আৰু যোগদান`)
+	return /** @type {LocalizedString} */ (`الموافقة والمشاركة في الاستدلال`)
 };
 
 export const content_label_back = /** @type {(inputs: Content_Label_BackInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পিছলৈ`)
+	return /** @type {LocalizedString} */ (`رجوع`)
 };
 
 export const content_label_agree = /** @type {(inputs: Content_Label_AgreeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ওপৰৰ কথাত মই সন্মত`)
+	return /** @type {LocalizedString} */ (`أوافق على ما سبق`)
 };
 
 export const profile_spam_block = /** @type {(inputs: Profile_Spam_BlockInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`স্পেম ব্লক`)
+	return /** @type {LocalizedString} */ (`حظر البريد المزعج`)
 };
 
 export const profile_spam_block_desc = /** @type {(inputs: Profile_Spam_Block_DescInputs) => LocalizedString} */ (i) => {
-	return /** @type {LocalizedString} */ (`${i?.threshold} তকৈ কম স্বয়ংক্ৰিয় প্ৰত্যাখ্যান`)
+	return /** @type {LocalizedString} */ (`رفض تلقائي لدرجة الثقة أقل من ${i?.threshold}`)
 };
 
 export const profile_posts = /** @type {(inputs: Profile_PostsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প'ষ্ট`)
+	return /** @type {LocalizedString} */ (`المنشورات`)
 };
 
 export const profile_followers = /** @type {(inputs: Profile_FollowersInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসৰণকাৰী`)
+	return /** @type {LocalizedString} */ (`المتابعون`)
 };
 
 export const profile_following = /** @type {(inputs: Profile_FollowingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসৰণ`)
+	return /** @type {LocalizedString} */ (`المتابَعون`)
 };
 
 export const profile_follow = /** @type {(inputs: Profile_FollowInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসৰণ`)
+	return /** @type {LocalizedString} */ (`متابعة`)
 };
 
 export const profile_unfollow = /** @type {(inputs: Profile_UnfollowInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`আনফল'`)
+	return /** @type {LocalizedString} */ (`إلغاء المتابعة`)
 };
 
 export const profile_message = /** @type {(inputs: Profile_MessageInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বাৰ্তা`)
+	return /** @type {LocalizedString} */ (`رسالة`)
 };
 
 export const profile_edit = /** @type {(inputs: Profile_EditInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্ৰ'ফাইল সম্পাদনা`)
+	return /** @type {LocalizedString} */ (`تعديل الملف الشخصي`)
 };
 
 export const search_actors = /** @type {(inputs: Search_ActorsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`এক্টৰ`)
+	return /** @type {LocalizedString} */ (`الممثلون`)
 };
 
 export const search_posts = /** @type {(inputs: Search_PostsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প'ষ্ট`)
+	return /** @type {LocalizedString} */ (`المنشورات`)
 };
 
 export const search_people = /** @type {(inputs: Search_PeopleInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`মানুহ`)
+	return /** @type {LocalizedString} */ (`الأشخاص`)
 };
 
 export const search_placeholder = /** @type {(inputs: Search_PlaceholderInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`YORO-ত সন্ধান কৰক`)
+	return /** @type {LocalizedString} */ (`البحث في YORO`)
 };
 
 export const feed_discover = /** @type {(inputs: Feed_DiscoverInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`আৱিষ্কাৰ`)
+	return /** @type {LocalizedString} */ (`اكتشف`)
 };
 
 export const feed_following = /** @type {(inputs: Feed_FollowingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসৰণ`)
+	return /** @type {LocalizedString} */ (`المتابَعون`)
 };
 
 export const feed_empty = /** @type {(inputs: Feed_EmptyInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`এতিয়ালৈকে প'ষ্ট নাই`)
+	return /** @type {LocalizedString} */ (`لا توجد منشورات بعد`)
 };
 
 export const feed_loading = /** @type {(inputs: Feed_LoadingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ল'ড হৈ আছে...`)
+	return /** @type {LocalizedString} */ (`جارٍ التحميل...`)
 };
 
 export const feed_error_retry = /** @type {(inputs: Feed_Error_RetryInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পুনৰ চেষ্টা`)
+	return /** @type {LocalizedString} */ (`إعادة المحاولة`)
 };
 
 export const compose_placeholder = /** @type {(inputs: Compose_PlaceholderInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`কি হৈ আছে?`)
+	return /** @type {LocalizedString} */ (`ماذا يحدث؟`)
 };
 
 export const compose_post = /** @type {(inputs: Compose_PostInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প'ষ্ট`)
+	return /** @type {LocalizedString} */ (`نشر`)
 };
 
 export const compose_cancel = /** @type {(inputs: Compose_CancelInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বাতিল`)
+	return /** @type {LocalizedString} */ (`إلغاء`)
 };
 
 export const convo_new_message = /** @type {(inputs: Convo_New_MessageInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`নতুন বাৰ্তা`)
+	return /** @type {LocalizedString} */ (`رسالة جديدة`)
 };
 
 export const convo_empty = /** @type {(inputs: Convo_EmptyInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`এতিয়ালৈকে কথোপকথন নাই`)
+	return /** @type {LocalizedString} */ (`لا توجد محادثات بعد`)
 };
 
 export const common_loading = /** @type {(inputs: Common_LoadingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ল'ড হৈ আছে...`)
+	return /** @type {LocalizedString} */ (`جارٍ التحميل...`)
 };
 
 export const common_error = /** @type {(inputs: Common_ErrorInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`কিবা ভুল হ'ল`)
+	return /** @type {LocalizedString} */ (`حدث خطأ ما`)
 };
 
 export const common_retry = /** @type {(inputs: Common_RetryInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পুনৰ চেষ্টা`)
+	return /** @type {LocalizedString} */ (`إعادة المحاولة`)
 };
 
 export const common_save = /** @type {(inputs: Common_SaveInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সংৰক্ষণ`)
+	return /** @type {LocalizedString} */ (`حفظ`)
 };
 
 export const common_cancel = /** @type {(inputs: Common_CancelInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বাতিল`)
+	return /** @type {LocalizedString} */ (`إلغاء`)
 };
 
 export const common_delete = /** @type {(inputs: Common_DeleteInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`মচক`)
+	return /** @type {LocalizedString} */ (`حذف`)
 };
 
 export const common_confirm = /** @type {(inputs: Common_ConfirmInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`নিশ্চিত`)
+	return /** @type {LocalizedString} */ (`تأكيد`)
 };
 
 export const common_back = /** @type {(inputs: Common_BackInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পিছলৈ`)
+	return /** @type {LocalizedString} */ (`رجوع`)
 };
 
 export const common_close = /** @type {(inputs: Common_CloseInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বন্ধ`)
+	return /** @type {LocalizedString} */ (`إغلاق`)
 };
 
 export const common_views = /** @type {(inputs: Common_ViewsInputs) => LocalizedString} */ (i) => {
-	return /** @type {LocalizedString} */ (`${i?.count} দৰ্শন`)
+	return /** @type {LocalizedString} */ (`${i?.count} مشاهدة`)
 };

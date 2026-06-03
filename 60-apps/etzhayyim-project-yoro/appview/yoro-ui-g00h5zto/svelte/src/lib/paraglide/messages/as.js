@@ -71,23 +71,23 @@ export const nav_home = /** @type {(inputs: Nav_HomeInputs) => LocalizedString} 
 };
 
 export const nav_search = /** @type {(inputs: Nav_SearchInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসন্ধান`)
+	return /** @type {LocalizedString} */ (`সন্ধান`)
 };
 
 export const nav_messages = /** @type {(inputs: Nav_MessagesInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বার্তা`)
+	return /** @type {LocalizedString} */ (`বাৰ্তা`)
 };
 
 export const nav_apps = /** @type {(inputs: Nav_AppsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অ্যাপ`)
+	return /** @type {LocalizedString} */ (`এপ`)
 };
 
 export const nav_profile = /** @type {(inputs: Nav_ProfileInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্রোফাইল`)
+	return /** @type {LocalizedString} */ (`প্ৰ'ফাইল`)
 };
 
 export const drawer_credits = /** @type {(inputs: Drawer_CreditsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ক্রেডিট`)
+	return /** @type {LocalizedString} */ (`ক্ৰেডিট`)
 };
 
 export const drawer_murakumo = /** @type {(inputs: Drawer_MurakumoInputs) => LocalizedString} */ () => {
@@ -95,11 +95,11 @@ export const drawer_murakumo = /** @type {(inputs: Drawer_MurakumoInputs) => Loc
 };
 
 export const drawer_hc_tasks = /** @type {(inputs: Drawer_Hc_TasksInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`HC কাজ`)
+	return /** @type {LocalizedString} */ (`HC কাম`)
 };
 
 export const drawer_terms = /** @type {(inputs: Drawer_TermsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ব্যবহারের শর্তাবলী`)
+	return /** @type {LocalizedString} */ (`ব্যৱহাৰৰ চৰ্ত`)
 };
 
 export const drawer_privacy = /** @type {(inputs: Drawer_PrivacyInputs) => LocalizedString} */ () => {
@@ -107,23 +107,23 @@ export const drawer_privacy = /** @type {(inputs: Drawer_PrivacyInputs) => Local
 };
 
 export const drawer_feedback = /** @type {(inputs: Drawer_FeedbackInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্রতিক্রিয়া`)
+	return /** @type {LocalizedString} */ (`মতামত`)
 };
 
 export const drawer_help = /** @type {(inputs: Drawer_HelpInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সাহায্য`)
+	return /** @type {LocalizedString} */ (`সহায়`)
 };
 
 export const drawer_history = /** @type {(inputs: Drawer_HistoryInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ব্রাউজিং ইতিহাস`)
+	return /** @type {LocalizedString} */ (`ব্ৰাউজিং ইতিহাস`)
 };
 
 export const drawer_settings = /** @type {(inputs: Drawer_SettingsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সেটিংস`)
+	return /** @type {LocalizedString} */ (`ছেটিংছ`)
 };
 
 export const drawer_sign_out = /** @type {(inputs: Drawer_Sign_OutInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সাইন আউট`)
+	return /** @type {LocalizedString} */ (`চাইন আউট`)
 };
 
 export const cookie_title = /** @type {(inputs: Cookie_TitleInputs) => LocalizedString} */ () => {
@@ -131,123 +131,123 @@ export const cookie_title = /** @type {(inputs: Cookie_TitleInputs) => Localized
 };
 
 export const cookie_description = /** @type {(inputs: Cookie_DescriptionInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`YORO Google AdSense এবং পার্টনার নেটওয়ার্কের মাধ্যমে প্রাসঙ্গিক বিজ্ঞাপন দেখাতে কুকিজ ব্যবহার করে।`)
+	return /** @type {LocalizedString} */ (`YORO-এ প্ৰাসংগিক বিজ্ঞাপন দেখুৱাবলৈ কুকিজ ব্যৱহাৰ কৰে।`)
 };
 
 export const cookie_decline = /** @type {(inputs: Cookie_DeclineInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্রত্যাখ্যান`)
+	return /** @type {LocalizedString} */ (`প্ৰত্যাখ্যান`)
 };
 
 export const cookie_accept = /** @type {(inputs: Cookie_AcceptInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`গ্রহণ`)
+	return /** @type {LocalizedString} */ (`গ্ৰহণ`)
 };
 
 export const inference_important_notice = /** @type {(inputs: Inference_Important_NoticeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`ইনফারেন্সে অংশগ্রহণ সংক্রান্ত গুরুত্বপূর্ণ বিজ্ঞপ্তি`)
+	return /** @type {LocalizedString} */ (`ইনফাৰেন্সত অংশগ্ৰহণ সম্পৰ্কে গুৰুত্বপূৰ্ণ জাননী`)
 };
 
 export const inference_scroll_prompt = /** @type {(inputs: Inference_Scroll_PromptInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`দয়া করে নিচে স্ক্রোল করুন`)
+	return /** @type {LocalizedString} */ (`অনুগ্ৰহ কৰি তললৈ স্ক্ৰল কৰক`)
 };
 
 export const inference_agree_checkbox = /** @type {(inputs: Inference_Agree_CheckboxInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`আমি উপরের সমস্ত শর্তাবলী পড়েছি, বুঝেছি এবং সম্মত।`)
+	return /** @type {LocalizedString} */ (`ওপৰৰ সকলো চৰ্ত মই পঢ়িছোঁ, বুজিছোঁ আৰু সন্মত।`)
 };
 
 export const inference_decline = /** @type {(inputs: Inference_DeclineInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্রত্যাখ্যান`)
+	return /** @type {LocalizedString} */ (`প্ৰত্যাখ্যান`)
 };
 
 export const inference_agree = /** @type {(inputs: Inference_AgreeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সম্মত এবং অংশগ্রহণ`)
+	return /** @type {LocalizedString} */ (`সন্মত আৰু যোগদান`)
 };
 
 export const content_label_back = /** @type {(inputs: Content_Label_BackInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পিছনে`)
+	return /** @type {LocalizedString} */ (`পিছলৈ`)
 };
 
 export const content_label_agree = /** @type {(inputs: Content_Label_AgreeInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`আমি উপরোক্ত বিষয়ে সম্মত`)
+	return /** @type {LocalizedString} */ (`ওপৰৰ কথাত মই সন্মত`)
 };
 
 export const profile_spam_block = /** @type {(inputs: Profile_Spam_BlockInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`স্প্যাম ব্লক`)
+	return /** @type {LocalizedString} */ (`স্পেম ব্লক`)
 };
 
 export const profile_spam_block_desc = /** @type {(inputs: Profile_Spam_Block_DescInputs) => LocalizedString} */ (i) => {
-	return /** @type {LocalizedString} */ (`${i?.threshold}-এর নিচে স্বয়ংক্রিয় প্রত্যাখ্যান`)
+	return /** @type {LocalizedString} */ (`${i?.threshold} তকৈ কম স্বয়ংক্ৰিয় প্ৰত্যাখ্যান`)
 };
 
 export const profile_posts = /** @type {(inputs: Profile_PostsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পোস্ট`)
+	return /** @type {LocalizedString} */ (`প'ষ্ট`)
 };
 
 export const profile_followers = /** @type {(inputs: Profile_FollowersInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসরণকারী`)
+	return /** @type {LocalizedString} */ (`অনুসৰণকাৰী`)
 };
 
 export const profile_following = /** @type {(inputs: Profile_FollowingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসরণ`)
+	return /** @type {LocalizedString} */ (`অনুসৰণ`)
 };
 
 export const profile_follow = /** @type {(inputs: Profile_FollowInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসরণ`)
+	return /** @type {LocalizedString} */ (`অনুসৰণ`)
 };
 
 export const profile_unfollow = /** @type {(inputs: Profile_UnfollowInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`আনফলো`)
+	return /** @type {LocalizedString} */ (`আনফল'`)
 };
 
 export const profile_message = /** @type {(inputs: Profile_MessageInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`বার্তা`)
+	return /** @type {LocalizedString} */ (`বাৰ্তা`)
 };
 
 export const profile_edit = /** @type {(inputs: Profile_EditInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`প্রোফাইল সম্পাদনা`)
+	return /** @type {LocalizedString} */ (`প্ৰ'ফাইল সম্পাদনা`)
 };
 
 export const search_actors = /** @type {(inputs: Search_ActorsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অ্যাক্টর`)
+	return /** @type {LocalizedString} */ (`এক্টৰ`)
 };
 
 export const search_posts = /** @type {(inputs: Search_PostsInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পোস্ট`)
+	return /** @type {LocalizedString} */ (`প'ষ্ট`)
 };
 
 export const search_people = /** @type {(inputs: Search_PeopleInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`মানুষ`)
+	return /** @type {LocalizedString} */ (`মানুহ`)
 };
 
 export const search_placeholder = /** @type {(inputs: Search_PlaceholderInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`YORO-তে খুঁজুন`)
+	return /** @type {LocalizedString} */ (`YORO-ত সন্ধান কৰক`)
 };
 
 export const feed_discover = /** @type {(inputs: Feed_DiscoverInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`আবিষ্কার`)
+	return /** @type {LocalizedString} */ (`আৱিষ্কাৰ`)
 };
 
 export const feed_following = /** @type {(inputs: Feed_FollowingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`অনুসরণ`)
+	return /** @type {LocalizedString} */ (`অনুসৰণ`)
 };
 
 export const feed_empty = /** @type {(inputs: Feed_EmptyInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`এখনো কোনো পোস্ট নেই`)
+	return /** @type {LocalizedString} */ (`এতিয়ালৈকে প'ষ্ট নাই`)
 };
 
 export const feed_loading = /** @type {(inputs: Feed_LoadingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`লোড হচ্ছে...`)
+	return /** @type {LocalizedString} */ (`ল'ড হৈ আছে...`)
 };
 
 export const feed_error_retry = /** @type {(inputs: Feed_Error_RetryInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পুনরায় চেষ্টা`)
+	return /** @type {LocalizedString} */ (`পুনৰ চেষ্টা`)
 };
 
 export const compose_placeholder = /** @type {(inputs: Compose_PlaceholderInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`কী হচ্ছে?`)
+	return /** @type {LocalizedString} */ (`কি হৈ আছে?`)
 };
 
 export const compose_post = /** @type {(inputs: Compose_PostInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পোস্ট`)
+	return /** @type {LocalizedString} */ (`প'ষ্ট`)
 };
 
 export const compose_cancel = /** @type {(inputs: Compose_CancelInputs) => LocalizedString} */ () => {
@@ -255,27 +255,27 @@ export const compose_cancel = /** @type {(inputs: Compose_CancelInputs) => Local
 };
 
 export const convo_new_message = /** @type {(inputs: Convo_New_MessageInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`নতুন বার্তা`)
+	return /** @type {LocalizedString} */ (`নতুন বাৰ্তা`)
 };
 
 export const convo_empty = /** @type {(inputs: Convo_EmptyInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`এখনো কোনো কথোপকথন নেই`)
+	return /** @type {LocalizedString} */ (`এতিয়ালৈকে কথোপকথন নাই`)
 };
 
 export const common_loading = /** @type {(inputs: Common_LoadingInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`লোড হচ্ছে...`)
+	return /** @type {LocalizedString} */ (`ল'ড হৈ আছে...`)
 };
 
 export const common_error = /** @type {(inputs: Common_ErrorInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`কিছু ভুল হয়েছে`)
+	return /** @type {LocalizedString} */ (`কিবা ভুল হ'ল`)
 };
 
 export const common_retry = /** @type {(inputs: Common_RetryInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পুনরায় চেষ্টা`)
+	return /** @type {LocalizedString} */ (`পুনৰ চেষ্টা`)
 };
 
 export const common_save = /** @type {(inputs: Common_SaveInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`সংরক্ষণ`)
+	return /** @type {LocalizedString} */ (`সংৰক্ষণ`)
 };
 
 export const common_cancel = /** @type {(inputs: Common_CancelInputs) => LocalizedString} */ () => {
@@ -283,7 +283,7 @@ export const common_cancel = /** @type {(inputs: Common_CancelInputs) => Localiz
 };
 
 export const common_delete = /** @type {(inputs: Common_DeleteInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`মুছুন`)
+	return /** @type {LocalizedString} */ (`মচক`)
 };
 
 export const common_confirm = /** @type {(inputs: Common_ConfirmInputs) => LocalizedString} */ () => {
@@ -291,7 +291,7 @@ export const common_confirm = /** @type {(inputs: Common_ConfirmInputs) => Local
 };
 
 export const common_back = /** @type {(inputs: Common_BackInputs) => LocalizedString} */ () => {
-	return /** @type {LocalizedString} */ (`পিছনে`)
+	return /** @type {LocalizedString} */ (`পিছলৈ`)
 };
 
 export const common_close = /** @type {(inputs: Common_CloseInputs) => LocalizedString} */ () => {
@@ -299,5 +299,5 @@ export const common_close = /** @type {(inputs: Common_CloseInputs) => Localized
 };
 
 export const common_views = /** @type {(inputs: Common_ViewsInputs) => LocalizedString} */ (i) => {
-	return /** @type {LocalizedString} */ (`${i?.count} বার দেখা হয়েছে`)
+	return /** @type {LocalizedString} */ (`${i?.count} দৰ্শন`)
 };
