@@ -5,7 +5,7 @@
 - `magatama/org-gov-jpn-dst-37401071-ine.magatama.toml` (Magatama app manifest referencing `ghcr.io/etzhayyim/org-gov-jpn-dst-37401071-ine:<tag>` and `https://{nanoid}.etzhayyim.com/api/grpc`)
 - `deploy/.../org-gov-jpn-dst-37401071-ine-app.yaml` (App CRD, namespace `magatama-runtime`)
 - `deploy/edge-route/org-gov-jpn-dst-37401071-ine-http-route.yaml` (HTTPRoute, namespace `edge-router-performers`)
-- `proto/gftd/states/v1/org-gov-jpn-dst-37401071-ine.proto` (placeholder proto for ADM2 API surface if new methods required)
+- `proto/etzhayyim/states/v1/org-gov-jpn-dst-37401071-ine.proto` (placeholder proto for ADM2 API surface if new methods required)
 - `26203-ine-adm2-notes.md` (dated scratchpad for ingest notes; optional but required if keeping local context)
 
 **3) k8s manifest skeleton names**

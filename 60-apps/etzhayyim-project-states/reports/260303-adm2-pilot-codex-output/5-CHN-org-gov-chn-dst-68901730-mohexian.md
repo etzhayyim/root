@@ -10,7 +10,7 @@
 
 **K8s Manifest Skeleton Names**
 - `App/org-gov-chn-dst-68901730-mohexian` in `magatama-runtime`, `spec.image` pointing to `ghcr.io/etzhayyim/org-gov-chn-dst-68901730-mohexian:ADM2-pilot`, env contains `ADM2_TARGET_SHAPE_ID=17275852B82946568901730`, `ADM2_TARGET_NAME=Mohexian`.
-- `HTTPRoute/org-gov-chn-dst-68901730-mohexian` (gateway: edge gateway) in `edge-router-performers`, host `mohexian.etzhayyim.com` (placeholder), backend ref = App service, `backendRefs[].filters[].requestHeaderModifier.set["x-gftd-endpoint"]=https://<nanoid>.etzhayyim.com/api/grpc`.
+- `HTTPRoute/org-gov-chn-dst-68901730-mohexian` (gateway: edge gateway) in `edge-router-performers`, host `mohexian.etzhayyim.com` (placeholder), backend ref = App service, `backendRefs[].filters[].requestHeaderModifier.set["x-etzhayyim-endpoint"]=https://<nanoid>.etzhayyim.com/api/grpc`.
 - If service object needed: `Service/org-gov-chn-dst-68901730-mohexian` exposing App pod on gRPC/Web port.
 
 **Quality Gates Checklist**

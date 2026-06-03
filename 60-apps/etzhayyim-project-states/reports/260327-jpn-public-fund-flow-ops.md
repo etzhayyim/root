@@ -1,4 +1,4 @@
-# JPN 公開資金フロー可視化オペレーション (`ai-gftd-project-states`)
+# JPN 公開資金フロー可視化オペレーション (`etzhayyim-project-states`)
 
 ## 目的
 - 日本の「予算・調達・公開済み支出」を `budget_flow` に統一記録する。

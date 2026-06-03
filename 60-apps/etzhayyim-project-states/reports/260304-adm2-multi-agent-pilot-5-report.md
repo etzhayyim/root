@@ -1,7 +1,7 @@
 # ADM2 Multi-Agent Pilot (5) Report
 
 - Date: 2026-03-04 (JST)
-- Project: `60-apps/ai-gftd-project-states`
+- Project: `60-apps/etzhayyim-project-states`
 - Generator: `tools/260304-adm2-multi-agent-generate.py`
 - Targets: `tmp/260304-adm2-multi-agent-pilot-5-targets.jsonl`
 

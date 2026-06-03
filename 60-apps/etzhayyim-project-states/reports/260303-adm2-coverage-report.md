@@ -1,7 +1,7 @@
 # ADM2 Coverage Report
 
 - Date: 2026-03-03 (JST)
-- Scope: `60-apps/ai-gftd-project-states/wasm`
+- Scope: `60-apps/etzhayyim-project-states/wasm`
 - Population source: geoBoundaries API (`gbOpen/ALL/ADM2`)
 
 ## Current Coverage

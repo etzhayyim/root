@@ -1,14 +1,14 @@
 # Implementation Coverage Audit
 
-- Generated: 2026-03-11 19:29:12 
-- Scope: `60-apps/ai-gftd-project-states/wasm`
+- Generated: 2026-03-11 19:29:12
+- Scope: `60-apps/etzhayyim-project-states/wasm`
 - Total top-level components: `2759`
 
 ## Findings
 
 1. Structural scaffold coverage is effectively complete: `wit/world.wit`, `main.go`, and `deploy config` exist for `2759/2759`, `2759/2759`, and `2759/2759` components respectively.
 2. Business interface depth is limited: only `170/2759` (6.2%) components ship a proto contract, `203/2759` (7.4%) register explicit adapter methods, and `150/2759` (5.4%) use `performer.NewRuntime` + `PerformerConfig`.
-3. Durable workflow/state coverage is partial: `gftd:workflow` and `gftd:activity` appear in `761/2759` components each, `wasi:keyvalue` appears in `1083/2759`, `database/` exists in `85/2759`, and `db_state.go` exists in only `2/2759`.
+3. Durable workflow/state coverage is partial: `etzhayyim:workflow` and `etzhayyim:activity` appear in `761/2759` components each, `wasi:keyvalue` appears in `1083/2759`, `database/` exists in `85/2759`, and `db_state.go` exists in only `2/2759`.
 4. Verification and documentation coverage are weak: `_test.go` files exist in `0/2759` components, README files in `92/2759`, while JSON-LD metadata exists in `1969/2759`.
 5. ADM2 expansion is ahead of the last repo report but still sparse in global terms: current loose `-dst-` count is `1563`, strict canonical ADM2 count is `752`, versus the 2026-03-03 report baseline of `762` loose / `752` strict.
 
@@ -34,8 +34,8 @@
 | Adapter method registration (`a.Register`) | 203 | 7.4% |
 | Non-empty `registerMethods` body | 203 | 7.4% |
 | `nata.NewStore` / performer nata store | 1420 | 51.5% |
-| `gftd:workflow` in `world.wit` | 761 | 27.6% |
-| `gftd:activity` in `world.wit` | 761 | 27.6% |
+| `etzhayyim:workflow` in `world.wit` | 761 | 27.6% |
+| `etzhayyim:activity` in `world.wit` | 761 | 27.6% |
 | `wasi:keyvalue` in `world.wit` | 1083 | 39.3% |
 
 ## Topology
@@ -69,5 +69,5 @@
 ## Interpretation
 
 - The repo has very high scaffold coverage, but only a small minority of components have rich service contracts, explicit performer runtime registration, or persistent schema-backed state.
-- `ai-gftd-project-states` should be treated as a mixed estate: a broad generated shell with a narrower band of deeper implementations.
+- `etzhayyim-project-states` should be treated as a mixed estate: a broad generated shell with a narrower band of deeper implementations.
 - The highest-risk gap is verification: there are no `_test.go` files under the component directories scanned here.

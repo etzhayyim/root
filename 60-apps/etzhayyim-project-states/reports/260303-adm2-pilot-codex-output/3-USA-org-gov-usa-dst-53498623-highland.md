@@ -2,9 +2,9 @@ slug validation
 - `org-gov-usa-dst-53498623-highland` already kebab-case, ≤63 chars, unique stem ties to image/metadata naming → ok.
 
 required files list
-- `60-apps/ai-gftd-project-states/manifests/org-gov-usa-dst-53498623-highland-app.yaml`
-- `60-apps/ai-gftd-project-states/manifests/org-gov-usa-dst-53498623-highland-route.yaml`
-- `60-apps/ai-gftd-project-states/docs/org-gov-usa-dst-53498623-highland.md`
+- `60-apps/etzhayyim-project-states/manifests/org-gov-usa-dst-53498623-highland-app.yaml`
+- `60-apps/etzhayyim-project-states/manifests/org-gov-usa-dst-53498623-highland-route.yaml`
+- `60-apps/etzhayyim-project-states/docs/org-gov-usa-dst-53498623-highland.md`
 
 k8s manifest skeleton names
 - App (namespace `magatama-runtime`), metadata.name `org-gov-usa-dst-53498623-highland`, image `ghcr.io/etzhayyim/org-gov-usa-dst-53498623-highland:<tag>`, env/config refs for ADM2 pilot toggle, endpoint `https://<nanoid>.etzhayyim.com/api/grpc`.
