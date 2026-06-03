@@ -1,4 +1,4 @@
-# ai-gftd-project-yadoya
+# etzhayyim-project-yadoya
 
 Autonomous hotel search and reservation platform delivered as App components.
 
@@ -6,7 +6,7 @@ Autonomous hotel search and reservation platform delivered as App components.
 
 - URL: `https://yadoya.etzhayyim.com`
 - API: `https://{nanoid}.etzhayyim.com/xrpc`
-- Component: `60-apps/ai-gftd-project-yadoya/wasm/yadoya-ui-b7r4n2xq`
+- Component: `60-apps/etzhayyim-project-yadoya/wasm/yadoya-ui-b7r4n2xq`
 
 ## Business Plan (v1.0)
 
@@ -56,8 +56,8 @@ Autonomous hotel search and reservation platform delivered as App components.
 
 - performer/rdbms (cypher graph RDBMS) persistence
 - Performer framework migration (70-tools/performer)
-- SvelteKit frontend → B2 per-site bucket (yadoya-gftd-ai)
-- XRPC API (proto/gftd/yadoya/v1/yadoya.proto)
+- SvelteKit frontend → B2 per-site bucket (yadoya-etzhayyim-ai)
+- XRPC API (proto/etzhayyim/yadoya/v1/yadoya.proto)
 - Real-time price collection via wasi:http/outgoing-handler
 - Hotel catalog expansion: 100+ properties
 - Affiliate link integration

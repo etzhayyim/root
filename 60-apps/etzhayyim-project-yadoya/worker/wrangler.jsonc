@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ai-gftd-yadoya",
+  "name": "etzhayyim-yadoya",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2026-04-15",
   "compatibility_flags": [

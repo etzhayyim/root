@@ -2,7 +2,7 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/ns/",
+      "etzhayyim": "https://etzhayyim.com/ns/",
       "apqc": "https://www.apqc.org/pcf/",
       "isic": "https://unstats.un.org/unsd/classifications/Econ/ISIC/",
       "isco": "https://www.ilo.org/public/english/bureau/stat/isco/"
@@ -10,78 +10,78 @@
   ],
   "@type": "Project",
   "name": "Yadoya — Autonomous Hotel Search & Reservation Platform",
-  "identifier": "ai-gftd-project-yadoya",
+  "identifier": "etzhayyim-project-yadoya",
   "description": "Hotel search and reservation platform. AI Agent (MCP) + human (Web) dual-channel. Global catalog with 16-language coverage, APQC/ISIC/ISCO process taxonomy.",
   "url": "https://yadoya.etzhayyim.com",
   "status": "In Progress",
   "dateCreated": "2026-02-22",
   "dateModified": "2026-02-28",
-  "gftd:businessPlan": {
-    "@type": "gftd:BusinessPlan",
+  "etzhayyim:businessPlan": {
+    "@type": "etzhayyim:BusinessPlan",
     "version": "1.0.0",
     "datePublished": "2026-02-28",
-    "gftd:vision": "世界中の宿泊施設を AI Agent と人間の両方が検索・予約できる自律型プラットフォーム。MCP ツール経由で AI Agent が直接予約操作を行い、Web UI で人間ユーザーがビジュアルに検索・予約を行う。プロセス標準 (APQC/ISIC/ISCO) によりホテル業務を構造化し、wRPC mesh で他の GFTD サービスと連携する。",
-    "gftd:missionStatement": "Provide a unified, AI-agent-ready hotel discovery and booking experience across 7 global regions and 16 languages, with structured process taxonomy and zero-vendor-lock-in architecture.",
-    "gftd:targetMarket": [
+    "etzhayyim:vision": "世界中の宿泊施設を AI Agent と人間の両方が検索・予約できる自律型プラットフォーム。MCP ツール経由で AI Agent が直接予約操作を行い、Web UI で人間ユーザーがビジュアルに検索・予約を行う。プロセス標準 (APQC/ISIC/ISCO) によりホテル業務を構造化し、wRPC mesh で他の ETZHAYYIM サービスと連携する。",
+    "etzhayyim:missionStatement": "Provide a unified, AI-agent-ready hotel discovery and booking experience across 7 global regions and 16 languages, with structured process taxonomy and zero-vendor-lock-in architecture.",
+    "etzhayyim:targetMarket": [
       {
-        "@type": "gftd:MarketSegment",
+        "@type": "etzhayyim:MarketSegment",
         "name": "AI Agent 経由の自律予約",
         "description": "MCP protocol 対応 AI Agent が宿泊施設の検索・比較・予約を自律的に実行。ChatGPT/Claude/Gemini などの LLM Agent からのツール呼び出し。",
         "priority": "primary"
       },
       {
-        "@type": "gftd:MarketSegment",
+        "@type": "etzhayyim:MarketSegment",
         "name": "法人出張管理 (Corporate Travel)",
         "description": "APQC プロセスフレームワークに基づく出張宿泊の一元管理。組織承認フロー・予算管理・コンプライアンス。",
         "priority": "primary"
       },
       {
-        "@type": "gftd:MarketSegment",
+        "@type": "etzhayyim:MarketSegment",
         "name": "個人旅行者 (B2C Direct)",
         "description": "多言語対応 Web UI による直接検索・予約。yadoya.etzhayyim.com から 16 言語で世界のホテルを検索。",
         "priority": "secondary"
       },
       {
-        "@type": "gftd:MarketSegment",
+        "@type": "etzhayyim:MarketSegment",
         "name": "旅行代理店 API 連携 (B2B API)",
         "description": "Connect gRPC API 経由での在庫照会・一括予約。ホワイトラベル対応。",
         "priority": "tertiary"
       }
     ],
-    "gftd:revenueModel": [
+    "etzhayyim:revenueModel": [
       {
-        "@type": "gftd:RevenueStream",
+        "@type": "etzhayyim:RevenueStream",
         "name": "アフィリエイト手数料",
         "description": "予約成立時にホテル公式サイトからのアフィリエイトコミッション (3-12%)",
         "phase": "Phase 2"
       },
       {
-        "@type": "gftd:RevenueStream",
+        "@type": "etzhayyim:RevenueStream",
         "name": "MCP API 利用料",
         "description": "AI Agent からの MCP ツール呼び出し課金 (検索: 無料, 予約: 従量)",
         "phase": "Phase 3"
       },
       {
-        "@type": "gftd:RevenueStream",
+        "@type": "etzhayyim:RevenueStream",
         "name": "法人サブスクリプション",
         "description": "組織単位の出張管理ダッシュボード + 承認フロー + レポート",
         "phase": "Phase 4"
       },
       {
-        "@type": "gftd:RevenueStream",
+        "@type": "etzhayyim:RevenueStream",
         "name": "プレミアムデータ API",
         "description": "ホテル在庫・価格データのリアルタイムフィード (B2B 向け)",
         "phase": "Phase 4"
       }
     ],
-    "gftd:competitiveAdvantage": [
+    "etzhayyim:competitiveAdvantage": [
       "MCP/cross-actor 対応で AI Agent から直接予約可能 (業界初のネイティブ対応)",
       "APQC/ISIC/ISCO プロセス標準によるホテル業務の構造化 (監査・コンプライアンス対応)",
       "SpinApp + wRPC による vendor-lock-in 回避とエッジ分散",
       "16 言語ネイティブ対応 (翻訳 API 依存なし)",
       "R2 Custom Domain による低レイテンシ静的配信 + API 分離アーキテクチャ"
     ],
-    "gftd:kpi": [
+    "etzhayyim:kpi": [
       {
         "metric": "Monthly Active Hotels (MAH)",
         "target": "500+",
@@ -114,9 +114,9 @@
       }
     ]
   },
-  "gftd:implementationPlan": {
-    "@type": "gftd:ImplementationPlan",
-    "gftd:phases": [
+  "etzhayyim:implementationPlan": {
+    "@type": "etzhayyim:ImplementationPlan",
+    "etzhayyim:phases": [
       {
         "phase": "Phase 1 — Foundation (MVP)",
         "status": "completed",
@@ -141,12 +141,12 @@
           "NATS KV persistence for reservations (replace in-memory reservationStore)",
           "Performer framework migration (packages/go/performer adapter)",
           "SvelteKit frontend (replace static/index.html with proper Svelte app)",
-          "Per-site R2 bucket (yadoya-gftd-ai) for SSG/API separation",
-          "Connect gRPC API (proto/gftd/yadoya/v1/yadoya.proto)",
+          "Per-site R2 bucket (yadoya-etzhayyim-ai) for SSG/API separation",
+          "Connect gRPC API (proto/etzhayyim/yadoya/v1/yadoya.proto)",
           "Real-time price collection via wasi:http/outgoing-handler",
           "Hotel catalog expansion: 100+ properties",
           "Affiliate link integration (official hotel sites)",
-          "gftd.json deploy config",
+          "etzhayyim.json deploy config",
           "Clerk JWT authentication for user/org scoping"
         ]
       },
@@ -155,8 +155,8 @@
         "status": "planned",
         "targetDate": "2026-Q3",
         "deliverables": [
-          "WIT interface: gftd:yadoya/booking@0.1.0 (search, reserve, cancel, list-reservations)",
-          "WIT interface: gftd:yadoya/catalog@0.1.0 (list-hotels, get-hotel, update-catalog)",
+          "WIT interface: etzhayyim:yadoya/booking@0.1.0 (search, reserve, cancel, list-reservations)",
+          "WIT interface: etzhayyim:yadoya/catalog@0.1.0 (list-hotels, get-hotel, update-catalog)",
           "wRPC provider export (other components can import yadoya booking)",
           "MCP Gateway integration (performers-gateway-provider wRPC dispatch)",
           "cross-actor protocol support (Agent-to-Agent for multi-step booking workflows)",
@@ -180,7 +180,7 @@
         ]
       }
     ],
-    "gftd:architecture": {
+    "etzhayyim:architecture": {
       "runtime": "SpinApp (TinyGo WASM component)",
       "namespace": "spinkube",
       "component": "yadoya-ui-b7r4n2xq",
@@ -188,7 +188,7 @@
       "port": 8164,
       "domain": "yadoya.etzhayyim.com",
       "apiEndpoint": "https://{nanoid}.etzhayyim.com/api/grpc",
-      "cdnBucket": "yadoya-gftd-ai",
+      "cdnBucket": "yadoya-etzhayyim-ai",
       "kvBucket": "yadoya-store",
       "componentTopology": {
         "description": "Phase 2+ component decomposition",
@@ -196,7 +196,7 @@
           {
             "name": "yadoya-ui-b7r4n2xq",
             "role": "API + Frontend entry point",
-            "world": "gftd-mcp (Phase 1) → gftd-component (Phase 2)",
+            "world": "etzhayyim-mcp (Phase 1) → etzhayyim-component (Phase 2)",
             "port": 8164,
             "capabilities": [
               "http-server",
@@ -209,21 +209,21 @@
           {
             "from": "yadoya-ui-b7r4n2xq",
             "to": "calendar-component",
-            "interface": "gftd:calendar/calendar@0.1.0",
+            "interface": "etzhayyim:calendar/calendar@0.1.0",
             "purpose": "Check-in reminder scheduling",
             "phase": "Phase 3"
           },
           {
             "from": "yadoya-ui-b7r4n2xq",
             "to": "mailer-component",
-            "interface": "gftd:notify/notifier@0.1.0",
+            "interface": "etzhayyim:notify/notifier@0.1.0",
             "purpose": "Booking confirmation email",
             "phase": "Phase 3"
           },
           {
             "from": "any-consumer",
             "to": "yadoya-ui-b7r4n2xq",
-            "interface": "gftd:yadoya/booking@0.1.0",
+            "interface": "etzhayyim:yadoya/booking@0.1.0",
             "purpose": "External components search/book hotels via wRPC",
             "phase": "Phase 3"
           }
@@ -238,7 +238,7 @@
       ]
     }
   },
-  "gftd:processTaxonomy": {
+  "etzhayyim:processTaxonomy": {
     "apqc": {
       "standard": "APQC Process Classification Framework",
       "mappings": [
@@ -335,10 +335,10 @@
       "@type": "SoftwareApplication",
       "name": "yadoya-ui-b7r4n2xq",
       "description": "SpinApp component: hotel search/reservation API + MCP tools + static frontend",
-      "url": "projects/ai-gftd-project-yadoya/wasm/yadoya-ui-b7r4n2xq"
+      "url": "projects/etzhayyim-project-yadoya/wasm/yadoya-ui-b7r4n2xq"
     }
   ],
-  "gftd:mcpTools": [
+  "etzhayyim:mcpTools": [
     {
       "name": "yadoya.search_hotels",
       "description": "Search global hotels by city/country/dates with APQC context"
@@ -368,7 +368,7 @@
       "description": "Describe booking process model and taxonomy connectivity"
     }
   ],
-  "gftd:hotelCoverage": {
+  "etzhayyim:hotelCoverage": {
     "totalProperties": 20,
     "regions": [
       {
@@ -441,7 +441,7 @@
     },
     "collectedAt": "2026-02-22"
   },
-  "gftd:languageCoverage": {
+  "etzhayyim:languageCoverage": {
     "count": 16,
     "codes": [
       "en",
@@ -513,7 +513,7 @@
     },
     {
       "status": "planned",
-      "task": "Phase 3: WIT interface (gftd:yadoya/booking, gftd:yadoya/catalog)"
+      "task": "Phase 3: WIT interface (etzhayyim:yadoya/booking, etzhayyim:yadoya/catalog)"
     },
     {
       "status": "planned",

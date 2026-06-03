@@ -31,7 +31,7 @@
     "isBot": true,
     "agentType": "autonomous",
     "category": "service",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": ["hotel-search", "reservation-create", "reservation-cancel", "mcp-tool"]
   },
   "space": {

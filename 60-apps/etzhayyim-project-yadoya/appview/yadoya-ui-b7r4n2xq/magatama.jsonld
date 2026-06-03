@@ -31,7 +31,7 @@
     "description": "Yadoya — AI Agent for accommodation intelligence",
     "displayName": "Yadoya",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "yadoya",
   "runtimeType": "worker",
