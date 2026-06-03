@@ -113,10 +113,22 @@ button:disabled {
 	display: inline-block;
 	max-width: 100%;
 }
-.canvas-wrap img {
+.canvas-wrap img,
+.canvas-wrap video {
 	max-width: 100%;
+	width: 100%;
 	display: block;
 	border-radius: 10px;
+	background: #000;
+}
+
+.tabs button.active {
+	background: #1d3a6b;
+	border-color: #4f8cff;
+}
+.hint {
+	font-size: 0.78rem;
+	color: #7b8298;
 }
 .canvas-wrap canvas {
 	position: absolute;
