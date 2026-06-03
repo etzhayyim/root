@@ -4,7 +4,7 @@
  * Tests: WebGPU init, scene parse, voxel rendering, per-vertex color,
  * sky cycle, physics, LOD, NPC placement, debug panel, audio.
  *
- * Run: npx playwright test projects/ai-gftd-project-isekai/e2e/visual-test.ts
+ * Run: npx playwright test projects/etzhayyim-project-isekai/e2e/visual-test.ts
  */
 import { test, expect, type Page } from '@playwright/test';
 
@@ -225,7 +225,7 @@ test.describe('ISEKAI World E2E', () => {
     await page.waitForTimeout(2000);
 
     await page.screenshot({
-      path: `projects/ai-gftd-project-isekai/e2e/screenshots/isekai-seed${SEED}.png`,
+      path: `projects/etzhayyim-project-isekai/e2e/screenshots/isekai-seed${SEED}.png`,
       fullPage: false,
     });
 
@@ -233,7 +233,7 @@ test.describe('ISEKAI World E2E', () => {
       // Take a second screenshot after time passes (sky should have changed slightly)
       await page.waitForTimeout(5000);
       await page.screenshot({
-        path: `projects/ai-gftd-project-isekai/e2e/screenshots/isekai-seed${SEED}-after5s.png`,
+        path: `projects/etzhayyim-project-isekai/e2e/screenshots/isekai-seed${SEED}-after5s.png`,
         fullPage: false,
       });
     }

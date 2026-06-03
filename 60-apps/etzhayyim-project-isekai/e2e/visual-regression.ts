@@ -12,7 +12,7 @@
  * 5. Block mining creates visible hole
  * 6. Day/night sky color transition
  *
- * Run: cd projects/ai-gftd-project-isekai/e2e && npx playwright test visual-regression.ts --config=playwright.config.ts
+ * Run: cd projects/etzhayyim-project-isekai/e2e && npx playwright test visual-regression.ts --config=playwright.config.ts
  */
 import { test, expect, type Page } from '@playwright/test';
 
@@ -177,13 +177,13 @@ test.describe('ISEKAI Visual Regression', () => {
 
     // Take screenshot for baseline comparison
     await page.screenshot({
-      path: `projects/ai-gftd-project-isekai/e2e/screenshots/regression-seed${SEED}.png`,
+      path: `projects/etzhayyim-project-isekai/e2e/screenshots/regression-seed${SEED}.png`,
       fullPage: false,
     });
 
     // Verify screenshot was saved
     const fs = await import('fs');
-    const exists = fs.existsSync(`projects/ai-gftd-project-isekai/e2e/screenshots/regression-seed${SEED}.png`);
+    const exists = fs.existsSync(`projects/etzhayyim-project-isekai/e2e/screenshots/regression-seed${SEED}.png`);
     expect(exists).toBe(true);
   });
 
