@@ -43,6 +43,15 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — sovereign wealth funds (45)
+
+`gov-units.swf.edn` adds **45 sovereign wealth funds** (state-owned investment funds —
+public-asset stewards; Wikidata P31 `Q1061648`), e.g. ADIA, GIC, Korea Investment
+Corporation. On-mission for kanae fiscal-flow viz + danjo public-accountability.
+`:level :agency` `:branch :independent`; multiple per country kept (id
+`gov.<iso>.swf.<slug>`). quality_audit clean. Atlas now **7,106 units / 57 files,
+7,104 QIDs all unique, 7,102 :authoritative**.
+
 ## 2026-06-04 — CI gate (institutionalised)
 
 `.github/workflows/ooyake-atlas-gates.yml` runs the actor's offline gate suite on any
