@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:apex-legends-character-loba-core-2026",
+  "@id": "urn:etzhayyim:news:apex-legends-character-loba-core-2026",
   "identifier": "apex-legends-character-loba-core-2026",
   "headline": "Loba character analysis: their role as the story’s engine in Apex Legends",
   "description": "A focused look at Loba in Apex Legends, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

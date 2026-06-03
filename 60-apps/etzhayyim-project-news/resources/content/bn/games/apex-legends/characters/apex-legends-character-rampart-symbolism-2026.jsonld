@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:apex-legends-character-rampart-symbolism-2026",
+  "@id": "urn:etzhayyim:news:apex-legends-character-rampart-symbolism-2026",
   "identifier": "apex-legends-character-rampart-symbolism-2026",
   "headline": "Rampart symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Rampart and how they map onto Apex Legends’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
