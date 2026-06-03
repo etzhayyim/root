@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-doflamingo-core-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-doflamingo-core-2026",
   "identifier": "onepiece-character-doflamingo-core-2026",
   "headline": "Donquixote Doflamingo character analysis: their role as the story’s engine in ONE PIECE",
   "description": "A focused look at Donquixote Doflamingo in ONE PIECE, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

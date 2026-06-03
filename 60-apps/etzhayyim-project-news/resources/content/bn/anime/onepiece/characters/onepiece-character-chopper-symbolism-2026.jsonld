@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-chopper-symbolism-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-chopper-symbolism-2026",
   "identifier": "onepiece-character-chopper-symbolism-2026",
   "headline": "Tony Tony Chopper symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Tony Tony Chopper and how they map onto ONE PIECE’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
