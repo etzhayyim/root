@@ -20016,6 +20016,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606036000-wasm-actor-sbom-attestation-on-kotoba-deploy.md",
+      "id": "adr-2606036000-wasm-actor-sbom-attestation-on-kotoba-deploy",
+      "title": "ADR-2606036000: WASM-actor SBOM attestation on kotoba deploy",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "wasm-actor-sbom-attestation-on-kotoba-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "wasm-actor-sbom",
+        "deployed-wasm-supply-chain"
+      ],
+      "related": [
+        "adr-2606015600-self-certifying-did-attestation",
+        "adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

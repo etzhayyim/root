@@ -12858,6 +12858,24 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606036000-wasm-actor-sbom-attestation-on-kotoba-deploy",
+      "type": "TechArticle",
+      "title": "ADR-2606036000: WASM-actor SBOM attestation on kotoba deploy",
+      "status": "proposed",
+      "topic": "wasm-actor-sbom-attestation-on-kotoba-deploy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "wasm-actor-sbom",
+        "deployed-wasm-supply-chain"
+      ],
+      "related": [
+        "doc:adr-2606015600-self-certifying-did-attestation",
+        "doc:adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling",
+        "doc:adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

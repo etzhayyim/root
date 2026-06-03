@@ -20,7 +20,7 @@ depends_on:
 related:
   - adr-2606015600-self-certifying-did-attestation
   - adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling
-  - adr-2605231525-no-server-key-invariant
+  - adr-2605231525-no-server-key-religious-corp-architecture
 supersedes: []
 superseded_by: []
 ---
@@ -30,6 +30,8 @@ superseded_by: []
 **Status**: proposed
 **Date**: 2026-06-03
 **Deciders**: Jun Kawasaki
+
+> **NOTE**: ADR id `2606036000` is shared with a concurrent-session session-close ADR (`2606036000-session-close-kotoba-os-r0-r2-reference.md`) per the repo's documented parallel-agent id-race convention; filename + topic disambiguate. Tracked for the future ADR-id reconciliation.
 
 # Context
 
