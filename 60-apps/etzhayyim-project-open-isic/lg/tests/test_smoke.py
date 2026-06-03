@@ -1,6 +1,6 @@
 """Local smoke tests for lg-open-isic OSS server.
 
-Run from `60-apps/ai-gftd-project-open-isic/lg/`:
+Run from `60-apps/etzhayyim-project-open-isic/lg/`:
     uv venv --python 3.11 .venv
     uv pip install --python .venv/bin/python \
         'fastapi>=0.115' 'httpx>=0.27' 'pytest>=8' \
@@ -8,7 +8,7 @@ Run from `60-apps/ai-gftd-project-open-isic/lg/`:
     .venv/bin/pytest tests/ -v
 
 CI gate: wire into existing pytest config so it runs on every PR
-touching `60-apps/ai-gftd-project-open-isic/lg/**`.
+touching `60-apps/etzhayyim-project-open-isic/lg/**`.
 """
 
 from __future__ import annotations

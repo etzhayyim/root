@@ -40,36 +40,36 @@ Methodology: seeded market-cap fields in repo component files; coverage is measu
 
 | Rank | Kind | Entity | MIC | ISIC | Market Cap | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | company | NVIDIA Corporation | XNAS | 2610 | $3.20T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-nvda-n7vd9a5g/main.go |
-| 2 | company | Microsoft Corporation | XNAS | 6201 | $3.10T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-msft-m2sf4t8w/main.go |
-| 3 | exchange | NASDAQ | XNAS | - | $3.10T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xnas-n2as4d7r/main.go |
-| 4 | company | Apple Inc. | XNYS | 2620 | $3.00T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-aapl-a1pl3y7z/main.go |
-| 5 | exchange | New York Stock Exchange | XNYS | - | $3.00T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xnys-x1ny5e8q/main.go |
-| 6 | company | Alphabet Inc. | XNAS | 6312 | $2.10T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-googl-g5gl8o3h/main.go |
-| 7 | company | Amazon.com Inc. | XNAS | 4791 | $2.00T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-amzn-a4mz7n2f/main.go |
-| 8 | company | Meta Platforms Inc. | XNAS | 6312 | $1.50T | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-meta-m6ta9e4j/main.go |
-| 9 | company | JPMorgan Chase & Co. | XNYS | 6419 | $680.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-jpm-j6pm8c4f/main.go |
-| 10 | company | Walmart Inc. | XNYS | 4711 | $580.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-wmt-w3mt6a9e/main.go |
-| 11 | company | Exxon Mobil Corporation | XNYS | 0610 | $460.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-xom-x2om5e7d/main.go |
-| 12 | company | Tencent Holdings Limited | XHKG | 6201 | $450.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0700-q5tc7n3k/main.go |
-| 13 | exchange | Hong Kong Stock Exchange | XHKG | - | $450.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xhkg-h5kg3x9v/main.go |
-| 14 | company | Johnson & Johnson | XNYS | 2100 | $380.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-jnj-j1nj3h8c/main.go |
-| 15 | company | Toyota Motor Corporation | XJPX | 2910 | $300.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-7203-t3yo5a6u/main.go |
-| 16 | exchange | Japan Exchange Group (TSE) | XJPX | - | $300.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xjpx-j3px6t5s/main.go |
-| 17 | company | Alibaba Group Holding Limited | XHKG | 4791 | $250.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-9988-b0ba4l7m/main.go |
-| 18 | company | AstraZeneca PLC | XLON | 2100 | $220.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-azn-a9zn1e3j/main.go |
-| 19 | company | Shell plc | XLON | 0610 | $210.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-shel-s4he7l2p/main.go |
-| 20 | exchange | London Stock Exchange | XLON | - | $200.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xlon-l4se8n2w/main.go |
-| 21 | company | HSBC Holdings plc | XHKG | 6419 | $170.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0005-h5bc8k3q/main.go |
-| 22 | company | HSBC Holdings plc | XLON | 6419 | $165.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-hsba-h1sb4a8q/main.go |
-| 23 | company | China Mobile Limited | XHKG | 6120 | $160.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0941-c9m14e2p/main.go |
-| 24 | company | Unilever plc | XLON | 1040 | $125.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-ulvr-u2lv5r9s/main.go |
-| 25 | company | Sony Group Corporation | XJPX | 2640 | $120.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-6758-s8ny2o6h/main.go |
-| 26 | company | Mitsubishi UFJ Financial Group | XJPX | 6419 | $120.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-8306-u8fg2m6n/main.go |
-| 27 | company | Keyence Corporation | XJPX | 2651 | $100.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-6861-k7yc1e5l/main.go |
-| 28 | company | Nippon Telegraph and Telephone | XJPX | 6110 | $100.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-9432-n9tt3o7p/main.go |
-| 29 | company | BP plc | XLON | 0610 | $100.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-bp-b3pp6l1t/main.go |
-| 30 | company | AIA Group Limited | XHKG | 6511 | $85.00B | legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-1299-a2ia6g4k/main.go |
+| 1 | company | NVIDIA Corporation | XNAS | 2610 | $3.20T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-nvda-n7vd9a5g/main.go |
+| 2 | company | Microsoft Corporation | XNAS | 6201 | $3.10T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-msft-m2sf4t8w/main.go |
+| 3 | exchange | NASDAQ | XNAS | - | $3.10T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xnas-n2as4d7r/main.go |
+| 4 | company | Apple Inc. | XNYS | 2620 | $3.00T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-aapl-a1pl3y7z/main.go |
+| 5 | exchange | New York Stock Exchange | XNYS | - | $3.00T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xnys-x1ny5e8q/main.go |
+| 6 | company | Alphabet Inc. | XNAS | 6312 | $2.10T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-googl-g5gl8o3h/main.go |
+| 7 | company | Amazon.com Inc. | XNAS | 4791 | $2.00T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-amzn-a4mz7n2f/main.go |
+| 8 | company | Meta Platforms Inc. | XNAS | 6312 | $1.50T | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-meta-m6ta9e4j/main.go |
+| 9 | company | JPMorgan Chase & Co. | XNYS | 6419 | $680.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-jpm-j6pm8c4f/main.go |
+| 10 | company | Walmart Inc. | XNYS | 4711 | $580.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-wmt-w3mt6a9e/main.go |
+| 11 | company | Exxon Mobil Corporation | XNYS | 0610 | $460.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-xom-x2om5e7d/main.go |
+| 12 | company | Tencent Holdings Limited | XHKG | 6201 | $450.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0700-q5tc7n3k/main.go |
+| 13 | exchange | Hong Kong Stock Exchange | XHKG | - | $450.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xhkg-h5kg3x9v/main.go |
+| 14 | company | Johnson & Johnson | XNYS | 2100 | $380.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-jnj-j1nj3h8c/main.go |
+| 15 | company | Toyota Motor Corporation | XJPX | 2910 | $300.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-7203-t3yo5a6u/main.go |
+| 16 | exchange | Japan Exchange Group (TSE) | XJPX | - | $300.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xjpx-j3px6t5s/main.go |
+| 17 | company | Alibaba Group Holding Limited | XHKG | 4791 | $250.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-9988-b0ba4l7m/main.go |
+| 18 | company | AstraZeneca PLC | XLON | 2100 | $220.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-azn-a9zn1e3j/main.go |
+| 19 | company | Shell plc | XLON | 0610 | $210.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-shel-s4he7l2p/main.go |
+| 20 | exchange | London Stock Exchange | XLON | - | $200.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xlon-l4se8n2w/main.go |
+| 21 | company | HSBC Holdings plc | XHKG | 6419 | $170.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0005-h5bc8k3q/main.go |
+| 22 | company | HSBC Holdings plc | XLON | 6419 | $165.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-hsba-h1sb4a8q/main.go |
+| 23 | company | China Mobile Limited | XHKG | 6120 | $160.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0941-c9m14e2p/main.go |
+| 24 | company | Unilever plc | XLON | 1040 | $125.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-ulvr-u2lv5r9s/main.go |
+| 25 | company | Sony Group Corporation | XJPX | 2640 | $120.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-6758-s8ny2o6h/main.go |
+| 26 | company | Mitsubishi UFJ Financial Group | XJPX | 6419 | $120.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-8306-u8fg2m6n/main.go |
+| 27 | company | Keyence Corporation | XJPX | 2651 | $100.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-6861-k7yc1e5l/main.go |
+| 28 | company | Nippon Telegraph and Telephone | XJPX | 6110 | $100.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-9432-n9tt3o7p/main.go |
+| 29 | company | BP plc | XLON | 0610 | $100.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-bp-b3pp6l1t/main.go |
+| 30 | company | AIA Group Limited | XHKG | 6511 | $85.00B | legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-1299-a2ia6g4k/main.go |
 
 ## ISIC Top 10 By Section
 

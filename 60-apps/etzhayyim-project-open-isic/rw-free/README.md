@@ -8,7 +8,7 @@ taxonomy state lives on AT Protocol MST + IPFS; the substrate pipeline
 Base L2 so any third party can verify the taxonomy without trusting
 this operator.
 
-Mirrors the [`open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/)
+Mirrors the [`open-isco/rw-free/`](../../etzhayyim-project-open-isco/rw-free/)
 reference. The sibling [`../appview/`](../appview/) directory is the
 legacy classification runtime (entity → ISIC code), kept while this
 RW-free taxonomy publisher rolls out; the two are complementary, not
@@ -145,7 +145,7 @@ pnpm test
 
 ## See also
 
-- [`60-apps/ai-gftd-project-open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) — pattern reference (ISCO-08 occupations)
+- [`60-apps/etzhayyim-project-open-isco/rw-free/`](../../etzhayyim-project-open-isco/rw-free/) — pattern reference (ISCO-08 occupations)
 - [`20-actors/etzhayyim-sdk/`](../../../20-actors/etzhayyim-sdk/) — the substrate-purity SDK
 - [`50-infra/mst-projector/`](../../../50-infra/mst-projector/) — Stage 3 of the trust-less verification chain
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate rules

@@ -257,7 +257,7 @@ async function main() {
 
   const report = {
     generatedAt: new Date().toISOString(),
-    scope: 'projects/ai-gftd-project-public-companies',
+    scope: 'projects/etzhayyim-project-public-companies',
     methodology: {
       marketCapSource: 'Seeded market-cap fields in legacy actor component main.go files',
       coverageDefinition: 'Implemented slots in the repo for each ISIC section top-10 ranking',
