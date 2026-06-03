@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (rw-free or V); remainder = legacy codemod-cleanup chores |
-| **V — VENDOR-RESIDENT** | 85 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 75 | judged correctly gftd-resident (regulated-infra axis) — no migration (git-authoritative: unique `^- **<app>**` entries; was 85 before deduping accounts + 9 air-* dupes) |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (85)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (75)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -202,67 +202,6 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   it also touches — did:web / did:plc issuance + `vertex_gftd_identity` public
   governance — are etzhayyim-exclusive per ADR-2605211950 and tracked as separate
   relocate targets in `/CLAUDE.md` migrations, not as an rw-free registry here.
-- **accounts** — axis: **Custody** (+ identity-assurance liability). The
-  account-lifecycle worker (`accounts.etzhayyim.com`, ADR-0024 split of auth):
-  linked auth methods, email/OAuth provider linking, session, `/manage` UI,
-  actor.score. Same regulated-infra family as `auth` — handles linked
-  credentials + email PII + sessions. Currently scaffold-only (route still
-  served by the auth Worker). Stays gftd. The DID-linkage primitives are
-  etzhayyim-exclusive (ADR-2605211950), tracked separately.
-- **air-book** — axes: **Custody + Settlement + Liability** (all three). Airline
-  reservations / ticketing: PNR (passenger name records = passport / itinerary /
-  contact PII), ticket issuance, IATA **BSP settlement** (fiat money settlement
-  between airlines and agents), passenger reprotection (duty-of-care liability).
-  No clean public-catalog layer to split out (flight schedules belong to
-  air-sched). Stays gftd.
-- **air-cargo** — axes: **Settlement + Liability + Custody**. Airline cargo ops:
-  cargo booking, air-waybill issuance, ULD assignment, claims processing, IATA
-  **CASS cargo-account settlement** (fiat), cargo-security reporting. Same family
-  as air-book. Shipment-tracking is only a thin read-view over the regulated
-  AWB/settlement data (could later be surfaced etzhayyim-front via consent-
-  capability, but the data is custodied gftd-side). Stays gftd.
-- **air-crew** — axes: **Custody + Liability**. Airline crew management: roster
-  publication, pairing construction, qualification tracking, fatigue assessment,
-  duty-time recording, crew assignment/travel. Crew = employee PII (names, quals,
-  duty hours, fatigue); duty-time/fatigue/qualification = FTL flight-safety
-  regulatory compliance. No clean public layer (qualification records bind to
-  named crew). Stays gftd.
-- **air-dcs** — axes: **Custody + Liability**. Departure control system: passenger
-  check-in, boarding-pass issuance, baggage acceptance/reconciliation, load-sheet
-  computation, APIS transmission, turnaround. Custody (passenger PII + APIS
-  government border data) + Liability (load-sheet weight-&-balance flight safety,
-  baggage-reconciliation security). Stays gftd.
-- **air-ffp** — axes: **Settlement + Custody + Liability**. Frequent-flyer program:
-  enrollment, points accrual, redemption, tier, miles transfer, purchase
-  processing, partner reconciliation. Custody (member loyalty PII) + Settlement
-  (miles = redeemable financial instrument: purchase/transfer/partner
-  reconciliation) + Liability (points = balance-sheet deferred-revenue). Stays
-  gftd.
-- **air-mro** — axes: **Liability + Settlement**. Maintenance / repair / overhaul:
-  work orders, component tracking, airworthiness checks, technical occurrence
-  reporting, reliability reports, spare-part ordering. The airline's own
-  maintenance-execution + per-tail airworthiness evidence (safety-regulatory
-  duty of care) + parts procurement settlement. No clean public layer — regulator-
-  published ADs/SBs would be a separate open-data app, not this internal execution
-  system. Stays gftd.
-- **air-ops** — axes: **Liability** (+ minor Settlement). Flight operations /
-  dispatch: flight-plan filing, dispatch briefs, NOTAM/weather, technical logs,
-  fuel ordering, PIREP, flight monitoring. Flight-dispatch operational control is
-  safety-regulatory (dispatch authority shares legal responsibility for the
-  flight) + tech-log airworthiness; fuel procurement settlement. NOTAM/weather are
-  consumed public feeds, not this app's product. Stays gftd.
-- **air-sms** — axes: **Liability + Custody**. Safety Management System: safety
-  report submission, risk assessment, IOSA findings, regulatory report filing,
-  occurrence reporting, dangerous-goods screening, security alerts. Safety-
-  regulatory compliance (IOSA/occurrence/dangerous-goods) + custody of
-  confidential safety-reporter identity (just-culture protection) and security-
-  sensitive data. Stays gftd.
-- **air-yield** — axes: **Settlement + Liability**. Revenue management / pricing:
-  fare-class publication, inventory adjustment, fare filing, overbooking, group
-  bookings, dynamic pricing, revenue reporting, demand forecasting. Proprietary
-  revenue optimization (pricing / fare filing / revenue accounting) + overbooking
-  denied-boarding consumer-protection liability. The public fare-OFFER display
-  belongs to flight-offer (consumer search), not this backend engine. Stays gftd.
 - **business-edge** — axes: **Custody + Settlement + Liability** (all three). The
   developer-facing edge-compute PaaS control plane (multi-tenant KV/Graph/CDN/
   PubSub/Lock/Secrets/VirtualActor): tenant API-key + Secrets-primitive custody,
