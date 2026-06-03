@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:chainsaw-man-ep18-notes-2026",
+  "@id": "urn:etzhayyim:news:chainsaw-man-ep18-notes-2026",
   "identifier": "chainsaw-man-ep18-notes-2026",
   "headline": "Chainsaw Man episode 18 notes: direction, structure, and highlights",
   "description": "A structure-first set of notes on Chainsaw Man episode 18, focused on direction and pacing.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

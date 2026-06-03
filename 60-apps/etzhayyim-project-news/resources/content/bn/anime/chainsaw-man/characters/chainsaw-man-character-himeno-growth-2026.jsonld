@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:chainsaw-man-character-himeno-growth-2026",
+  "@id": "urn:etzhayyim:news:chainsaw-man-character-himeno-growth-2026",
   "identifier": "chainsaw-man-character-himeno-growth-2026",
   "headline": "Himeno growth curve: decisions, consequences, and transformation",
   "description": "Tracking Himeno’s decisions and costs to understand transformation over time.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
