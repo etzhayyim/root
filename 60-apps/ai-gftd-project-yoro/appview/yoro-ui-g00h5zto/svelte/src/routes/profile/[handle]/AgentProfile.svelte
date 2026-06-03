@@ -15,6 +15,7 @@
 	import type { Convo, FeedItem } from '$lib/atproto-agent';
 	import LiveStage from './LiveStage.svelte';
 	import ProjectorGuestChat from './ProjectorGuestChat.svelte';
+	import BpmnDiagram from './BpmnDiagram.svelte';
 	import { BeliefKarmaTab } from '$lib/gamification';
 	import { ResourceFlowTab } from '$lib/fiscal';
 
@@ -217,12 +218,27 @@
 	);
 	const govTab = $derived(hasGovInfo ? [{ id: 'gov', label: actor.category === 'government' ? '行政' : '案内' }] : []);
 
+	// BPMN process tab — generic: any actor that publishes a BPMN manifest
+	// (<app-base>/_app/bpmn.json, or actor.bpmnUrl, or a same-origin static
+	// fallback) gets a read-only "プロセス" tab rendering its BPMN with bpmn-js.
+	type BpmnProcess = { id: string; name: string; company?: string; kind?: string; xml: string };
+	let bpmnManifest = $state<{ total: number; processes: BpmnProcess[] } | null>(null);
+	let bpmnLoading = $state(false);
+	let selectedBpmnId = $state('');
+	const bpmnTab = $derived(
+		bpmnManifest && bpmnManifest.processes.length > 0 ? [{ id: 'bpmn', label: 'プロセス' }] : []
+	);
+	const selectedBpmnProcess = $derived(
+		bpmnManifest?.processes.find((p) => p.id === selectedBpmnId) ?? null
+	);
+
 	const agentTabs = $derived((() => {
 		switch (performer.performerType) {
 			case 'person':
 				return [
 					{ id: 'posts', label: '投稿' },
 					{ id: 'app', label: 'チャット' },
+					...bpmnTab,
 					{ id: 'tools', label: 'ツール' },
 					{ id: 'graph', label: 'ナリッジグラフ' },
 					{ id: 'follows', label: 'フォロー' },
@@ -233,6 +249,7 @@
 				return [
 					{ id: 'posts', label: '投稿' },
 					{ id: 'overview', label: '概要' },
+					...bpmnTab,
 					...govTab,
 					{ id: 'tools', label: 'ツール' },
 					{ id: 'governance', label: 'ガバナンス' },
@@ -245,6 +262,7 @@
 				return [
 					{ id: 'posts', label: 'ログ' },
 					{ id: 'overview', label: 'ステータス' },
+					...bpmnTab,
 					{ id: 'tools', label: 'ツール' },
 					{ id: 'graph', label: 'ナリッジグラフ' },
 					{ id: 'follows', label: 'フォロー' },
@@ -255,6 +273,7 @@
 				return [
 					{ id: 'posts', label: '投稿' },
 					...govTab,
+					...bpmnTab,
 					...(isContractableUtility ? [{ id: 'contract', label: '契約' }] : []),
 					{ id: 'tools', label: 'ツール' },
 					{ id: 'graph', label: 'ナリッジグラフ' },
@@ -378,6 +397,49 @@
 		if (nanoidHost !== appHost && await tryHost(nanoidHost)) return;
 
 		appPreview = { uiType: 'appview', nanoid: nn };
+	}
+
+	/**
+	 * Discover an actor's BPMN manifest (generic contract). Tries, in order:
+	 *   1. actor.bpmnUrl (explicit field on the PDS profile record)
+	 *   2. <app-base>/_app/bpmn.json  (app origin from embedUrl, else did:web host)
+	 *   3. /actor-bpmn/<handle>.json  (same-origin static fallback, appview-bundled)
+	 * The manifest is `{ total, processes: [{ id, name, company?, kind?, xml }] }`.
+	 * If found, the "プロセス" tab appears and renders each process with bpmn-js.
+	 */
+	async function loadBpmnManifest() {
+		if (bpmnManifest || bpmnLoading) return;
+		bpmnLoading = true;
+		try {
+			const urls: string[] = [];
+			const explicit = (actor as { bpmnUrl?: string }).bpmnUrl;
+			if (explicit) urls.push(explicit);
+			let base = '';
+			if (appPreview?.embedUrl) {
+				try { base = new URL(appPreview.embedUrl).origin; } catch { /* ignore */ }
+			}
+			if (!base && did.startsWith('did:web:')) {
+				base = `https://${did.replace('did:web:', '').split(':')[0]}`;
+			}
+			if (base) urls.push(`${base}/_app/bpmn.json`);
+			const handle = did.startsWith('did:web:') ? (did.split(':').pop() ?? '') : (actor.nanoid ?? '');
+			if (handle) urls.push(`/actor-bpmn/${handle}.json`);
+
+			for (const u of urls) {
+				try {
+					const r = await fetch(u);
+					if (!r.ok) continue;
+					const m = await r.json();
+					if (m && Array.isArray(m.processes) && m.processes.length > 0) {
+						bpmnManifest = { total: m.total ?? m.processes.length, processes: m.processes };
+						selectedBpmnId = m.processes[0].id;
+						return;
+					}
+				} catch { /* try next candidate */ }
+			}
+		} finally {
+			bpmnLoading = false;
+		}
 	}
 
 	async function loadAppPreview() {
@@ -564,6 +626,9 @@
 		}
 		if (!appPreview && !appLoading) {
 			void loadAppPreview();
+		}
+		if (!bpmnManifest && !bpmnLoading) {
+			void loadBpmnManifest();
 		}
 		if (!mcpLoaded && !mcpLoading) {
 			void loadMcpTools();
@@ -1675,6 +1740,37 @@
 						{/if}
 					</div>
 				</div>
+			{/if}
+		</div>
+
+	{:else if activeTab === 'bpmn'}
+		<div class="p-4 space-y-3">
+			<div class="flex flex-col gap-1">
+				<h3 class="text-sm font-semibold">プロセス (BPMN)</h3>
+				{#if bpmnManifest}
+					<p class="text-xs text-gray-500">
+						{bpmnManifest.processes.length} 件表示{#if bpmnManifest.total > bpmnManifest.processes.length}
+							/ 全 {bpmnManifest.total} 件{/if} ·
+						<span class="text-amber-600">:synthesized 汎用テンプレート（実プロセスではありません）</span>
+					</p>
+					<select
+						bind:value={selectedBpmnId}
+						class="mt-1 w-full max-w-md rounded border border-gray-300 bg-white px-2 py-1 text-sm"
+					>
+						{#each bpmnManifest.processes as p (p.id)}
+							<option value={p.id}>{p.name}{p.company ? ` — ${p.company.replace('org.corp.', '')}` : ''}</option>
+						{/each}
+					</select>
+				{/if}
+			</div>
+			{#if selectedBpmnProcess}
+				{#key selectedBpmnProcess.id}
+					<BpmnDiagram xml={selectedBpmnProcess.xml} />
+				{/key}
+			{:else if bpmnLoading}
+				<p class="text-sm text-gray-500">読み込み中…</p>
+			{:else}
+				<p class="text-sm text-gray-500">表示できる BPMN がありません。</p>
 			{/if}
 		</div>
 
