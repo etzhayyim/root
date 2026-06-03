@@ -1,7 +1,7 @@
-# ai-gftd-project-news JSON-LD カバー率評価（2026-02-18）
+# etzhayyim-project-news JSON-LD カバー率評価（2026-02-18）
 
 ## 評価対象
-- `60-apps/ai-gftd-project-news` 配下の JSON-LD 資産
+- `60-apps/etzhayyim-project-news` 配下の JSON-LD 資産
 - 主要レジストリ: `resources/anime.jsonld`, `resources/manga.jsonld`, `resources/games.jsonld`, `resources/source.jsonld`, `resources/top1000-games.jsonld`
 - コンテンツ JSON-LD: `resources/content/**/*.jsonld`
 - プロジェクト運用メタ: `PROJECT.jsonld`, `scheduler.jsonld`
@@ -45,7 +45,7 @@
 1. `scheduler.jsonld` の末尾カンマ修正（JSON パース可能化）
 2. `PROJECT.jsonld` の `survivalIndicators[*].value/valueUpdatedAt` の定期投入
 3. `resources/source.jsonld` の `feedUrl` 未設定 8件を優先補完（鮮度改善）
-# ai-gftd-project-news JSON-LD カバー率評価（再定義版 / 2026-02-18）
+# etzhayyim-project-news JSON-LD カバー率評価（再定義版 / 2026-02-18）
 
 ## 重要: カバー率の定義を修正
 本レポートでは、カバー率を **「各 category において、世の中に存在する情報母集団に対してどれだけ網羅できているか」** で評価する。

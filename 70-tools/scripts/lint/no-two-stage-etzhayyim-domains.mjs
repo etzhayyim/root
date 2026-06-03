@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 //
-// no-two-stage-gftd-domains.mjs — block introduction of the legacy
-// `.gftd.ai` zone literal in canonical etzhayyim source.
+// no-two-stage-etzhayyim-domains.mjs — block introduction of the legacy
+// `.etzhayyim.com` zone literal in canonical etzhayyim source.
 //
 // Constitutional anchor: ADR-2605212340 (legacy domain → etzhayyim.com
 // cutover, accepted 2026-05-21).
 //
 // **Historical note (2026-05-26 audit, iter-8 of /loop):** the script
-// was originally written to catch BOTH (1) legacy `*.gftd.ai` references
+// was originally written to catch BOTH (1) legacy `*.etzhayyim.com` references
 // AND (2) two-stage etzhayyim hosts (`foo.bar.etzhayyim.com`) under the
 // theory that the rename would mechanically create two-stage etzhayyim
-// hosts from `foo.bar.gftd.ai`. The latter rule was a soft no-op since
-// the rename (the regex matched `.gftd.ai`-only while the host filter
+// hosts from `foo.bar.etzhayyim.com`. The latter rule was a soft no-op since
+// the rename (the regex matched `.etzhayyim.com`-only while the host filter
 // passed `.etzhayyim.com`-only; the two filters never overlapped, so
 // the lint was silently a no-op).
 //
@@ -33,7 +33,7 @@
 // None of these are ADR-2605212340 violations. The "two-stage etzhayyim
 // is forbidden" rule had no constitutional basis once the rename was
 // complete, so this commit drops it. The script retains its filename
-// for lefthook config stability but now enforces only the gftd-legacy
+// for lefthook config stability but now enforces only the etzhayyim-legacy
 // half of its original purpose.
 //
 import { spawnSync } from "node:child_process";
@@ -84,26 +84,26 @@ const EXCLUDE_GLOBS = [
   // Pre-cutover legacy app trees (per CLAUDE.md "Do not introduce
   // legacy organisation-specific prefixes in newly authored code" +
   // ADR-2605152100 Phase A bulk rename). These directories are
-  // seeded snapshots awaiting their own cutover; their `.gftd.ai`
+  // seeded snapshots awaiting their own cutover; their `.etzhayyim.com`
   // references will be retired by the same sed pass that renames the
   // directories. Mirrors `_is_first_party_source` in the Python
   // e7m-verify checks.
-  "!**/ai-gftd-project-*/**",
-  "!**/ai-gftd-apps-*/**",
-  "!**/ai-gftd-wasm-*/**",
-  "!70-tools/scripts/lint/no-two-stage-gftd-domains.mjs",
+  "!**/etzhayyim-project-*/**",
+  "!**/etzhayyim-apps-*/**",
+  "!**/etzhayyim-wasm-*/**",
+  "!70-tools/scripts/lint/no-two-stage-etzhayyim-domains.mjs",
 ];
 
-// Match any depth of subdomain before `.gftd.ai`. ADR-2605212340 bans
-// the legacy zone entirely (not just 3+ label hosts), so `iryo.gftd.ai`
-// is a violation just like `news.iryo.gftd.ai`. The original
-// `(?:\.label)+\.gftd\.ai` (1+ intermediate label) was the historic
+// Match any depth of subdomain before `.etzhayyim.com`. ADR-2605212340 bans
+// the legacy zone entirely (not just 3+ label hosts), so `iryo.etzhayyim.com`
+// is a violation just like `news.iryo.etzhayyim.com`. The original
+// `(?:\.label)+\.etzhayyim\.ai` (1+ intermediate label) was the historic
 // "two-stage" framing from the lint name; ADR-2605212340 is broader.
-const HOST_RE = /(?:did:web:|https?:\/\/|["'`\s(])([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*\.gftd\.ai)(?=[/:*"'`\s),}]|$)/gi;
+const HOST_RE = /(?:did:web:|https?:\/\/|["'`\s(])([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)*\.etzhayyim\.ai)(?=[/:*"'`\s),}]|$)/gi;
 
 // ── file list resolution ─────────────────────────────────────────────────
 //
-// When invoked by lefthook (`run: node …no-two-stage-gftd-domains.mjs
+// When invoked by lefthook (`run: node …no-two-stage-etzhayyim-domains.mjs
 // {staged_files}`), process.argv[2..] holds the list of staged files
 // matching lefthook's `glob:` filter — exactly the right scope for a
 // pre-commit lint that "blocks new introduction" of the forbidden host
@@ -150,13 +150,13 @@ const ARGV_EXCLUDE_PATH_PATTERNS = [
   /^80-docs\//,
   /^80-data\//,
   /^40-engine\/kotoba\//,
-  /(^|\/)ai-gftd-project-[^/]+\//,
-  /(^|\/)ai-gftd-apps-[^/]+\//,
-  /(^|\/)ai-gftd-wasm-[^/]+\//,
+  /(^|\/)etzhayyim-project-[^/]+\//,
+  /(^|\/)etzhayyim-apps-[^/]+\//,
+  /(^|\/)etzhayyim-wasm-[^/]+\//,
   // The lint script itself: it documents legacy host examples in its
   // own comments (jurisdictional / staging / 3-label patterns).
   // Mirrors the EXCLUDE_GLOBS self-exclusion entry.
-  /^70-tools\/scripts\/lint\/no-two-stage-gftd-domains\.mjs$/,
+  /^70-tools\/scripts\/lint\/no-two-stage-etzhayyim-domains\.mjs$/,
 ];
 
 function listFilesFromArgs(args) {
@@ -201,12 +201,12 @@ function lineNumberAt(text, index) {
   return line;
 }
 
-// Suggest the etzhayyim.com replacement for a captured `.gftd.ai` host.
+// Suggest the etzhayyim.com replacement for a captured `.etzhayyim.com` host.
 // Mechanical rewrite: same label prefix, swap zone tail. The cutover
 // runbook (ADR-2605212340) and the operator decide whether to flatten
 // any intermediate dots into hyphens at the same time.
 function suggestedHost(host) {
-  return `${host.slice(0, -".gftd.ai".length)}.etzhayyim.com`;
+  return `${host.slice(0, -".etzhayyim.com".length)}.etzhayyim.com`;
 }
 
 const violations = [];
@@ -217,7 +217,7 @@ for (const file of listFiles()) {
   let match;
   while ((match = HOST_RE.exec(text)) !== null) {
     const host = match[1];
-    // HOST_RE already restricts to `*.gftd.ai`; the captured value is
+    // HOST_RE already restricts to `*.etzhayyim.com`; the captured value is
     // always a legacy-domain violation per ADR-2605212340. No further
     // filtering needed (the old `isForbidden…` filter looked for
     // `.etzhayyim.com` and so was a no-op against this regex).
@@ -245,8 +245,8 @@ if (process.argv.includes("--json")) {
 if (unique.length > 0) {
   const hosts = [...new Map(unique.map((v) => [v.host, v.suggestion])).entries()]
     .sort(([a], [b]) => a.localeCompare(b));
-  console.error("lint:no-two-stage-gftd-domains failed");
-  console.error("Legacy `.gftd.ai` host references found in canonical etzhayyim source.");
+  console.error("lint:no-two-stage-etzhayyim-domains failed");
+  console.error("Legacy `.etzhayyim.com` host references found in canonical etzhayyim source.");
   console.error("Per ADR-2605212340 (2026-05-21 domain cutover), the legacy zone must");
   console.error("not appear in new commits to first-party code. Replace each occurrence");
   console.error("with the corresponding `.etzhayyim.com` host (and update DNS / IPFS");
@@ -264,4 +264,4 @@ if (unique.length > 0) {
   process.exit(1);
 }
 
-console.log("lint:no-two-stage-gftd-domains ok");
+console.log("lint:no-two-stage-etzhayyim-domains ok");

@@ -1,4 +1,4 @@
-# yatachain-projection manifest — feed-discover
+# kotoba-datomic-projection manifest — feed-discover
 #
 # Per ADR-2605231500. This manifest grants the substrate-boundary lint
 # allow-rule for `50-infra/mst-projector/src/feed-discover.ts` (and any
@@ -16,7 +16,7 @@ lexicon = "com.etzhayyim.projection.feedDiscover"
 # Daemon emitter — line-comment marker also present in source.
 emitter = "src/feed-discover.ts"
 
-# Source collections consumed from yatachain-chain (PDS firehose).
+# Source collections consumed from kotoba-datomic-chain (PDS firehose).
 source_collections = ["app.bsky.feed.post"]
 
 # Optional supplementary inputs (membrane verdict sidecar). When the

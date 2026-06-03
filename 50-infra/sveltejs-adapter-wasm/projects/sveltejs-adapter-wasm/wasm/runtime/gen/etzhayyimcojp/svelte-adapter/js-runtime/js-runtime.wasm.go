@@ -2,8 +2,8 @@
 
 package jsruntime
 
-// This file contains wasmimport and wasmexport declarations for "gftdcojp:svelte-adapter/js-runtime".
+// This file contains wasmimport and wasmexport declarations for "etzhayyimcojp:svelte-adapter/js-runtime".
 
-//go:wasmimport gftdcojp:svelte-adapter/js-runtime evaluate
+//go:wasmimport etzhayyimcojp:svelte-adapter/js-runtime evaluate
 //go:noescape
 func wasmimport_Evaluate(code0 *uint8, code1 uint32, requestJSON0 *uint8, requestJSON1 uint32, result *string)

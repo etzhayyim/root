@@ -2,7 +2,7 @@
 
 ## Summary
 
-**Autonomous data collection loop** completed: `did:plc:gftd-collector` repo collected **41,983 rows** across 5 low-coverage domains, with cluster recovery & bulk replay integrated.
+**Autonomous data collection loop** completed: `did:plc:etzhayyim-collector` repo collected **41,983 rows** across 5 low-coverage domains, with cluster recovery & bulk replay integrated.
 
 ### Metrics
 
@@ -55,7 +55,7 @@
 - **batch13**: Patent offsets 2800+ + geographic peaks + DNS 8429–10000 (1,571)
 
 #### Persistence
-- **Local JSONL**: `/Volumes/251220/gftd-collected/` (41,983 rows across 40+ files)
+- **Local JSONL**: `/Volumes/251220/etzhayyim-collected/` (41,983 rows across 40+ files)
 - **Replay mechanism**: `replay.py` with FLUSH/DML health check, pre-deduplication, 100-row chunked INSERT, 5-retry exponential backoff
 - **Direct DB insert**: batch11+ use psycopg2 to stream rows directly (faster, no file I/O)
 
@@ -67,7 +67,7 @@
 
 ### Key Files
 
-- `/Volumes/251220/gftd-collected/replay.py` — Updated with DML probe fallback (FLUSH timeout → SELECT 1)
+- `/Volumes/251220/etzhayyim-collected/replay.py` — Updated with DML probe fallback (FLUSH timeout → SELECT 1)
 - `/tmp/batch{1..13}.py` — Collection scripts (deleted after execution)
 - Git untracked: `30-graph/graph-schema/migrations/202604170{1,2,3}000_*.ts` (space_orbital, celestial, vertex_maps_job)
 
@@ -75,7 +75,7 @@
 
 1. **Continue collection** (if needed): batch14+ can target remaining low-coverage domains (more patents, GTINs, DNS beyond rank 10000)
 2. **Verify coverage**: Run analytics on `vertex_repo_record` to confirm growth
-3. **Archive JSONL**: Move `/Volumes/251220/gftd-collected/` to S3 or archive post-verification
+3. **Archive JSONL**: Move `/Volumes/251220/etzhayyim-collected/` to S3 or archive post-verification
 4. **Update docs**: Add migration entry to `deps.toml [[migrations]]` if planning Phase 2 expansion
 
 ## Maps Street-Chunk Follow-Up
@@ -83,7 +83,7 @@
 April 17, 2026 の後続作業として、`maps-collection-control-plane` と `vertex_maps_job` の配線も進めた。
 
 - Lexicon drift を解消し、`createCollectionJob` / `advanceJob` / `getJobStatus` / `listJobs` は string `jobId` / street-chunk fields を受ける generated schema に再生成済み
-- PDS Worker `ai-gftd-pds-2603241700` は再 deploy 済み
+- PDS Worker `etzhayyim-pds-2603241700` は再 deploy 済み
 - `vertex_maps_job` table は migration file を追加し、RisingWave 側には manual apply で反映済み
 - `maps-collection-control-plane` の read path は `vertex_maps_job` 直読みに変更済み
 
@@ -104,7 +104,7 @@ Check final DB state (once COUNT(*) responsive):
 ```bash
 psql -h 172.236.132.11 -p 4566 -U root -d dev \
   -c "SELECT collection, COUNT(*) FROM vertex_repo_record 
-      WHERE repo='did:plc:gftd-collector' GROUP BY collection ORDER BY COUNT(*) DESC"
+      WHERE repo='did:plc:etzhayyim-collector' GROUP BY collection ORDER BY COUNT(*) DESC"
 ```
 
 ### Status: COMPLETE
