@@ -311,6 +311,21 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606021600"],
   },
+  tsuzuri: {
+    description:
+      "綴 Tsuzuri — Adobe-independent, in-browser (WASM) PDF editor. Merge/split/rotate/delete/reorder + text annotation (JP-font subset embed) + OCR (tesseract.js) + metadata, all client-side; files never leave the device. Browser-local under the ameno execution model (ADR-2606014500). Static app, not a WASM component — no wasmCid.",
+    primarySchema: "60-apps/tsuzuri/",
+    glyph: "綴",
+    displayName: "Tsuzuri — in-browser PDF editor",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tsuzuri#browser-local-app",
+        type: "EtzhayyimBrowserLocalApp",
+        serviceEndpoint: "https://etzhayyim.com/apps/tsuzuri/",
+      },
+    ],
+    adrs: ["2606014500"],
+  },
 } as const;
 
 
