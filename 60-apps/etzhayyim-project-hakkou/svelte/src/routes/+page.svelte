@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Ai etzhayyim Project Hakkou",
-  "project": "ai-gftd-project-hakkou",
-  "name": "ai-gftd-project-hakkou",
+  "project": "etzhayyim-project-hakkou",
+  "name": "etzhayyim-project-hakkou",
   "kind": "cloudflare surface",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-hakkou/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-hakkou/svelte/src/routes/+page.svelte"
 };
 </script>
 

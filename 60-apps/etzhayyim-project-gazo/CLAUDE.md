@@ -1,4 +1,4 @@
-# ai-gftd-project-gazo — Browser SD Image Generation
+# etzhayyim-project-gazo — Browser SD Image Generation
 
 **URL**: `https://gazo.etzhayyim.com`
 
@@ -58,9 +58,9 @@ Conversion script: `/tmp/convert-waireal.py` (individual component export with `
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-gazo/wasm/ai-gftd-wasm-gazo-g4z0img1/svelte
+cd 60-apps/etzhayyim-project-gazo/wasm/etzhayyim-wasm-gazo-g4z0img1/svelte
 pnpm install && pnpm build
-cd .. && gftd deploy
+cd .. && etzhayyim deploy
 
 # Dev
 pnpm dev --port 5180

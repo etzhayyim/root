@@ -2298,7 +2298,7 @@ fn calculateOutputIndex(index: u32) -> u32 {
     let dim_value = uniforms.output_shape;`:`
     let element_count_dim = uniforms.output_strides[${r?"i - indices_start":"i"}];
     let dim_value = uniforms.output_shape[${r?"i - indices_start":"i"} + uniforms.last_index_dimension];`}
-    
+
     if (index >= 0) {
       if (index >= i32(dim_value)) {
         index = i32(dim_value - 1);
