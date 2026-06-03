@@ -1,4 +1,4 @@
-# ai-gftd-project-recap — Multi-Platform Media Download Agent
+# etzhayyim-project-recap — Multi-Platform Media Download Agent
 
 ## App Identity
 
@@ -83,11 +83,11 @@ created_at VARCHAR
 
 ```bash
 # CF Worker
-cd 60-apps/ai-gftd-project-recap
-gftd deploy
+cd 60-apps/etzhayyim-project-recap
+etzhayyim deploy
 
 # LangGraph server image
-cd 60-apps/ai-gftd-project-recap/lg
+cd 60-apps/etzhayyim-project-recap/lg
 docker buildx build --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
   -t ghcr.io/etzhayyim/lg-recap:0.1.0-amd64 --push .
