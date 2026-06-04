@@ -27,6 +27,12 @@ mkdir -p blocks meta
 touch meta/backed.txt
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 
+# self-heal: anything git-annex already tracks as present on the remote counts as
+# backed (recovers partial prior runs without re-uploading). Location tracking is
+# local metadata — no B2 round-trip, no creds needed.
+git annex find --in "$REMOTE" 2>/dev/null | while IFS= read -r f; do basename "$f"; done >> meta/backed.txt
+sort -u meta/backed.txt -o meta/backed.txt
+
 # 1) snapshot the durable roots (small, kept in git): signed IPNS head records.
 if [[ -f "$KOTOBA_IPNS_HEADS" ]]; then
   cp "$KOTOBA_IPNS_HEADS" "meta/ipns-heads.$STAMP.json"
@@ -65,15 +71,23 @@ while [[ $i -lt ${#ALL[@]} ]]; do
     fi
   done
   [[ ${#added[@]} -eq 0 ]] && continue
-  git annex add "${added[@]}" >/dev/null
+  # Resilient batch: a transient B2 error on one block must NOT abort the whole
+  # 26k run. Tolerate per-command failure, then record/drop ONLY the blocks that
+  # git-annex confirms are actually present on the remote (idempotent + resumable).
+  git annex add "${added[@]}" >/dev/null 2>&1 || log "WARN annex add issues (continuing)"
   git -c user.name=kotoba-b2-pin -c user.email=b2-pin@etzhayyim.local \
-      commit -q -m "pin-snapshot $STAMP batch ($(( done_total+1 ))..)" >/dev/null || true
-  git annex copy "${added[@]}" --to "$REMOTE" >/dev/null
-  # record CID as backed, then optionally drop the local annex object.
-  for f in "${added[@]}"; do basename "$f"; done >> meta/backed.txt
-  if [[ "$DROP_LOCAL" == "1" ]]; then git annex drop --force "${added[@]}" >/dev/null 2>&1 || true; fi
-  done_total=$(( done_total + ${#added[@]} ))
-  log "progress: $done_total/$NEW copied to '$REMOTE'"
+      commit -q -m "pin-snapshot $STAMP batch ($(( done_total+1 ))..)" >/dev/null 2>&1 || true
+  git annex copy "${added[@]}" --to "$REMOTE" -J"${KOTOBA_B2_JOBS:-4}" >/dev/null 2>&1 \
+      || log "WARN some copies failed this batch (will retry next run)"
+  ok_files=()
+  while IFS= read -r kf; do [[ -n "$kf" ]] && ok_files+=("$kf"); done \
+      < <(git annex find "${added[@]}" --in "$REMOTE" 2>/dev/null)
+  if [[ ${#ok_files[@]} -gt 0 ]]; then
+    for f in "${ok_files[@]}"; do basename "$f"; done >> meta/backed.txt
+    [[ "$DROP_LOCAL" == "1" ]] && git annex drop --force "${ok_files[@]}" >/dev/null 2>&1 || true
+    done_total=$(( done_total + ${#ok_files[@]} ))
+  fi
+  log "progress: $done_total/$NEW confirmed on '$REMOTE' (batch added ${#added[@]}, ok ${#ok_files[@]})"
 done
 
 sort -u meta/backed.txt -o meta/backed.txt
