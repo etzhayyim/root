@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: legislature HQ addresses COMPLETE (143 → 186/186)
+
+Pivoted from official-url (saturated at national level) to the **L3 address / location axis**
+(per maintainer direction). Measured address coverage by level — `cabinet 0/129` and
+`supranational 0/99` fully empty; `legislature 143/186`, `court 99/206`, `agency 509/1049`,
+`ministry 1149/1642` partial. Started with the **legislature tier (43 missing)**: 4 web-research
+subagents found each parliament's **HQ building + city + coordinates** (official site / Wikipedia
+building article / OpenStreetMap). 43 `:gov.address :headquarters` records added →
+**legislatures now 186/186 with an address.**
+
+- 36 carry building-level lat/lon; **7 honestly have line-en (building + city) but NULL coords**
+  (G5 — coordinates not fabricated): Comoros, Qatar (sources conflict), Sudan, South Sudan,
+  Tuvalu, St Vincent, Samoa.
+- honest building notes: Libya HoR meets at the Dar al-Salam Hotel, Tobruk; Zimbabwe at the New
+  Parliament Building, Mt Hampden; Burundi at Palais de Kigobe, Bujumbura (new Gitega complex not
+  yet seat); Côte d'Ivoire Assembly sits in Abidjan-Plateau (not the Yamoussoukro capital);
+  Turkmenistan Mejlis sessions at the Ruhyýet Palace. Each record cites its geo provenance
+  (Wikipedia/OSM/Wikidata) + `:last-verified 2026-06-04`, `:sourcing :authoritative`.
+
+run_tests.sh ALL GREEN (registry integrity incl. address checks). Sourcing/verification tiers
+unchanged; published-index authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — subdivision tier: Indonesia/Bolivia/Sri Lanka complete + Spain 19/20; 6 Kenya provinces found defunct
 
 Second subdivision pass over high-devolution candidates (most major federations — Colombia/Brazil/
