@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — subdivision tier: Indonesia/Bolivia/Sri Lanka complete + Spain 19/20; 6 Kenya provinces found defunct
+
+Second subdivision pass over high-devolution candidates (most major federations — Colombia/Brazil/
+Mexico/Argentina/India/Italy/South Africa/Thailand/Ecuador — were already 0-missing). 3 web-research
+subagents; 9 confirmed + **17 honest nulls that are themselves valuable data-quality findings**.
+
+- subdivisions: 2367 → **2376/3599**. **Indonesia 37/37, Bolivia 9/9, Sri Lanka 9/9 now complete;
+  Spain 19/20** (Galicia xunta.gal + Valencia gva.es added). New: Indonesia's 2022 provinces South
+  Papua (papuaselatan.go.id) + Central Papua (papuatengahprov.go.id).
+- **DATA-QUALITY findings (honest null with status note)**: Kenya's 6 ADM1 "provinces" (Coast/
+  Eastern/North-Eastern/Nyanza/Rift-Valley/Western) were **ABOLISHED in 2013** when Kenya devolved
+  to 47 county governments — they are not current govts (no site, by definition). 10 of 13
+  Philippine "regions" are **administrative groupings, not autonomous governments** — only an RDC
+  exists, usually as a subpage under a NEDA/DEPDev national-agency regional office (not a regional
+  government); only Regions 2/5/11 have a dedicated RDC site. Spain's "plazas de soberanía" are
+  uninhabited military-administered minor territories with no civilian government.
+- These confirm the subdivision long-tail nulls are largely GENUINE (defunct units, administrative
+  groupings, or unsited small entities), not gaps to fill — coverage advances only where real
+  elected subnational governments exist.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — subdivision tier opened: Peru + Uruguay subnational govts COMPLETE (2324 → 2367)
 
 With the national + agency tiers saturated, opened the subdivision tier (1,275 first-order

@@ -2491,10 +2491,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "idn"
    :gov.unit/name-en "Central Papua"
+   :gov.unit/official-url "https://papuatengahprov.go.id/"
    :gov.unit/wikidata "Q12486766"
    :gov.unit/external-code ["iso3166-2:ID-PT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12486766" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://papuatengahprov.go.id/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.idn.adm1.id-bb"
@@ -2932,10 +2933,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "idn"
    :gov.unit/name-en "South Papua"
+   :gov.unit/official-url "https://papuaselatan.go.id/"
    :gov.unit/wikidata "Q61439296"
    :gov.unit/external-code ["iso3166-2:ID-PS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q61439296" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://papuaselatan.go.id/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ind.adm1.in-gj"
@@ -6040,10 +6042,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "North Western Province"
+   :gov.unit/official-url "https://www.nw.gov.lk/"
    :gov.unit/wikidata "Q876339"
    :gov.unit/external-code ["iso3166-2:LK-6"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q876339" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nw.gov.lk/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mdv.adm1.mv-27"
@@ -7404,10 +7407,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "phl"
    :gov.unit/name-en "Cagayan Valley"
+   :gov.unit/official-url "https://rdc.rdc2.gov.ph/"
    :gov.unit/wikidata "Q13615"
    :gov.unit/external-code ["iso3166-2:PH-02"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q13615" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rdc.rdc2.gov.ph/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.phl.adm1.ph-03"
@@ -7428,10 +7432,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "phl"
    :gov.unit/name-en "Bicol Region"
+   :gov.unit/official-url "https://rdc5.gov.ph/"
    :gov.unit/wikidata "Q13662"
    :gov.unit/external-code ["iso3166-2:PH-05"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q13662" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rdc5.gov.ph/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.phl.adm1.ph-06"
@@ -7500,10 +7505,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "phl"
    :gov.unit/name-en "Davao Region"
+   :gov.unit/official-url "https://rdc11.neda.gov.ph/"
    :gov.unit/wikidata "Q13694"
    :gov.unit/external-code ["iso3166-2:PH-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q13694" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rdc11.neda.gov.ph/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.phl.adm1.ph-12"
