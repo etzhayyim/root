@@ -17457,4 +17457,118 @@
    :gov.address/lat -25.97144 :gov.address/lon 28.12997
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.aus.hq"
+   :gov.address/unit "gov.aus"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "Parliament House, Capital Hill, Canberra ACT (seat of the Commonwealth of Australia)"
+   :gov.address/lat -35.30806 :gov.address/lon 149.12444
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.jpn.pref.13.hq"
+   :gov.address/unit "gov.jpn.pref.13"
+   :gov.address/kind :headquarters
+   :gov.address/country "jpn"
+   :gov.address/line-en "Tokyo Metropolitan Government Building, 2-8-1 Nishi-Shinjuku, Shinjuku, Tokyo"
+   :gov.address/lat 35.68951 :gov.address/lon 139.69171
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.jpn.mof.nta.tokyo.hq"
+   :gov.address/unit "gov.jpn.mof.nta.tokyo"
+   :gov.address/kind :headquarters
+   :gov.address/country "jpn"
+   :gov.address/line-en "Tokyo Regional Taxation Bureau (東京国税局), Otemachi Joint Government Building No.3, 1-3-3 Otemachi, Chiyoda-ku, Tokyo"
+   :gov.address/lat 35.6895 :gov.address/lon 139.76283
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mkd.adm1.mk-85.hq"
+   :gov.address/unit "gov.mkd.adm1.mk-85"
+   :gov.address/kind :headquarters
+   :gov.address/country "mkd"
+   :gov.address/line-en "City of Skopje administration (Град Скопје), Bul. Ilinden 82, Centar, Skopje"
+   :gov.address/lat 42.00395 :gov.address/lon 21.42045
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sle.adm1.sl-nw.hq"
+   :gov.address/unit "gov.sle.adm1.sl-nw"
+   :gov.address/kind :headquarters
+   :gov.address/country "sle"
+   :gov.address/line-en "North West Province provincial HQ, Port Loko, Sierra Leone"
+   :gov.address/lat 8.76609 :gov.address/lon -12.78696
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.isl.adm1.q2001582.hq"
+   :gov.address/unit "gov.isl.adm1.q2001582"
+   :gov.address/kind :headquarters
+   :gov.address/country "isl"
+   :gov.address/line-en "Northwest (Norðvesturkjördæmi) — electoral constituency of Iceland, no government seat"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.syc.adm1.sc-26.hq"
+   :gov.address/unit "gov.syc.adm1.sc-26"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "Île Perseverance I district, reclaimed Perseverance Island off Victoria, Mahé, Seychelles (island coord, no published office building)"
+   :gov.address/lat -4.605 :gov.address/lon 55.465
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.syc.adm1.sc-27.hq"
+   :gov.address/unit "gov.syc.adm1.sc-27"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "Île Perseverance II district, reclaimed Perseverance Island off Victoria, Mahé, Seychelles (island coord, no published office building)"
+   :gov.address/lat -4.605 :gov.address/lon 55.465
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.uga.adm1.ug-237.hq"
+   :gov.address/unit "gov.uga.adm1.ug-237"
+   :gov.address/kind :headquarters
+   :gov.address/country "uga"
+   :gov.address/line-en "Kalaki District HQ, Kalaki town, Eastern Region, Uganda"
+   :gov.address/lat 1.7925 :gov.address/lon 33.3417
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.uga.adm1.ug-336.hq"
+   :gov.address/unit "gov.uga.adm1.ug-336"
+   :gov.address/kind :headquarters
+   :gov.address/country "uga"
+   :gov.address/line-en "Madi-Okollo District HQ, Okollo town, Northern Region, Uganda"
+   :gov.address/lat 2.65417 :gov.address/lon 31.14556
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.uga.adm1.ug-433.hq"
+   :gov.address/unit "gov.uga.adm1.ug-433"
+   :gov.address/kind :headquarters
+   :gov.address/country "uga"
+   :gov.address/line-en "Kazo District HQ, Kazo town, Western Region, Uganda"
+   :gov.address/lat -0.05278 :gov.address/lon 30.75694
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.esp.adm1.q191011.hq"
+   :gov.address/unit "gov.esp.adm1.q191011"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Plazas de soberanía — Spain's minor sovereign territories off the North African coast; dispersed islets with no single administrative seat"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sau.adm1.q74063.hq"
+   :gov.address/unit "gov.sau.adm1.q74063"
+   :gov.address/kind :headquarters
+   :gov.address/country "sau"
+   :gov.address/line-en "Wikidata 'list of provinces of Saudi Arabia' — list/index artifact, not a single subdivision; placeholder, no seat"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
 ]}
