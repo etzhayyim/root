@@ -797,10 +797,11 @@
    :gov.unit/parent "gov.mdg"
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdg"
-   :gov.unit/name-en "Q131630055"
+   :gov.unit/name-en "Ministry of Economy and Finance of Madagascar"
+   :gov.unit/official-url "https://www.mef.gov.mg/"
    :gov.unit/wikidata "Q131630055"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q131630055" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mef.gov.mg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mdv.finance"
@@ -1127,7 +1128,7 @@
    :gov.unit/parent "gov.sen"
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sen"
-   :gov.unit/name-en "Q139379921"
+   :gov.unit/name-en "Ministry of Finance and Budget of Senegal"
    :gov.unit/official-url "https://www.finances.gouv.sn/"
    :gov.unit/wikidata "Q139379921"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

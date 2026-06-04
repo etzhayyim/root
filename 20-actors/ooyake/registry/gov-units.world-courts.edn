@@ -1533,7 +1533,7 @@
    :gov.unit/parent "gov.tgo"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tgo"
-   :gov.unit/name-en "Q125959623"
+   :gov.unit/name-en "Supreme Court of Togo"
    :gov.unit/official-url "https://www.coursupremetogo.tg/"
    :gov.unit/wikidata "Q125959623"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
