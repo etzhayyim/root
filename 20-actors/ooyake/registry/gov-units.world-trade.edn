@@ -15,7 +15,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
-   :gov.unit/name-en "Ministry of Commerce of Argentina"
+   :gov.unit/name-en "Secretariat of Commerce (Ministry of Economy)"
    :gov.unit/official-url "https://www.argentina.gob.ar/economia/industria-y-comercio/secretaria-de-industria-y-comercio"
    :gov.unit/wikidata "Q62476800"
    :gov.unit/cofog ["04.1"]
@@ -383,7 +383,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of International Trade and Industry"
+   :gov.unit/name-en "Ministry of Investment, Trade and Industry (MITI)"
    :gov.unit/official-url "https://www.miti.gov.my/"
    :gov.unit/wikidata "Q14933204"
    :gov.unit/cofog ["04.1"]

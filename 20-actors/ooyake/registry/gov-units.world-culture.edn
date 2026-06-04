@@ -703,7 +703,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ken"
-   :gov.unit/name-en "Ministry of Sports, Culture and the Arts"
+   :gov.unit/name-en "Ministry of Youth Affairs, The Arts and Sports"
    :gov.unit/official-url "https://sportsheritage.go.ke"
    :gov.unit/wikidata "Q18204659"
    :gov.unit/cofog ["08.2"]

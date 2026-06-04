@@ -31,7 +31,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Department of Jobs, Precincts and Regions"
+   :gov.unit/name-en "Department of Employment and Workplace Relations"
    :gov.unit/official-url "https://djpr.vic.gov.au/"
    :gov.unit/wikidata "Q60762519"
    :gov.unit/cofog ["04.1"]
@@ -655,7 +655,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of Human Resources"
+   :gov.unit/name-en "Ministry of Human Resources (KESUMA)"
    :gov.unit/official-url "https://mohr.gov.my/index.php/ms/"
    :gov.unit/wikidata "Q6867162"
    :gov.unit/cofog ["04.1"]
@@ -958,7 +958,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Ministry of Labour and Employment"
+   :gov.unit/name-en "Prime Minister's Office (Labour, Youth, Employment and Persons with Disability)"
    :gov.unit/official-url "https://www.kazi.go.tz/"
    :gov.unit/wikidata "Q14866849"
    :gov.unit/cofog ["04.1"]

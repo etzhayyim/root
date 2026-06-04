@@ -271,7 +271,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-en "Natural Resources Canada"
    :gov.unit/official-url "http://www.energy.gov.on.ca/fr/"
    :gov.unit/wikidata "Q6866884"
    :gov.unit/cofog ["04.3"]
@@ -799,7 +799,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of Energy and Natural Resources"
+   :gov.unit/name-en "Ministry of Energy Transition and Water Transformation (PETRA)"
    :gov.unit/official-url "https://www.ketsa.gov.my/ms-my/Pages/default.aspx"
    :gov.unit/wikidata "Q6867411"
    :gov.unit/cofog ["04.3"]

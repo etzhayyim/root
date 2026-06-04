@@ -286,7 +286,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "Ministry of Housing and Communal Services of Ukraine"
+   :gov.unit/name-en "Ministry for Development of Communities and Territories of Ukraine"
    :gov.unit/official-url "http://www.minregionbud.gov.ua"
    :gov.unit/wikidata "Q6619162"
    :gov.unit/cofog ["06.1"]

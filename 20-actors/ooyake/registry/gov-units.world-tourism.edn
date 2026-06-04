@@ -814,7 +814,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "Ministry of Culture and Tourism of Ukraine"
+   :gov.unit/name-en "Ministry of Culture of Ukraine"
    :gov.unit/official-url "https://www.tourism.gov.ua/"
    :gov.unit/wikidata "Q4294447"
    :gov.unit/cofog ["04.7"]

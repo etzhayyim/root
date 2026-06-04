@@ -1535,7 +1535,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "Ministry of Agrarian Policy of Ukraine"
+   :gov.unit/name-en "Ministry of Agrarian Policy and Food of Ukraine"
    :gov.unit/official-url "http://minagro.gov.ua/"
    :gov.unit/wikidata "Q16708318"
    :gov.unit/cofog ["04.2"]

@@ -47,7 +47,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
-   :gov.unit/name-en "Secretariat of Transport of Argentina"
+   :gov.unit/name-en "Secretariat of Transport (Ministry of Economy)"
    :gov.unit/official-url "https://www.argentina.gob.ar/transporte"
    :gov.unit/wikidata "Q21611507"
    :gov.unit/cofog ["04.5"]
