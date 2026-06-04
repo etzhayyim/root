@@ -411,9 +411,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "nic"
    :gov.unit/name-en "General National Archive"
+   :gov.unit/official-url "https://www.inc.gob.ni/bibliotecas-y-archivos/"
    :gov.unit/wikidata "Q2860555"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2860555" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.inc.gob.ni/bibliotecas-y-archivos/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ecu.archives"
@@ -434,9 +435,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sen"
    :gov.unit/name-en "National Archives of Senegal"
+   :gov.unit/official-url "https://archivesdusenegal.gouv.sn/"
    :gov.unit/wikidata "Q2860558"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2860558" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://archivesdusenegal.gouv.sn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svn.archives"
@@ -540,9 +542,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "brb"
    :gov.unit/name-en "Barbados National Archives"
+   :gov.unit/official-url "https://www.gov.bb/Departments/archives"
    :gov.unit/wikidata "Q4858609"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4858609" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.bb/Departments/archives" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bgr.archives"
@@ -622,9 +625,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ken"
    :gov.unit/name-en "Kenya National Archives"
+   :gov.unit/official-url "https://www.archives.go.ke/"
    :gov.unit/wikidata "Q6392606"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6392606" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.archives.go.ke/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.are.archives"
@@ -669,9 +673,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "National Archives of Belize"
+   :gov.unit/official-url "https://archives.gov.bz/"
    :gov.unit/wikidata "Q6970423"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6970423" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://archives.gov.bz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ben.archives"
@@ -704,9 +709,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bwa"
    :gov.unit/name-en "National Archives of Botswana"
+   :gov.unit/official-url "https://www.gov.bw/culture/national-archives-research-enquiry"
    :gov.unit/wikidata "Q6970427"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6970427" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.bw/culture/national-archives-research-enquiry" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cri.archives"
@@ -775,9 +781,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gab"
    :gov.unit/name-en "National Archives of Gabon"
+   :gov.unit/official-url "http://www.dgabd.ga/"
    :gov.unit/wikidata "Q6970433"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6970433" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "http://www.dgabd.ga/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.guy.archives"
@@ -786,9 +793,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "guy"
    :gov.unit/name-en "National Archives of Guyana"
+   :gov.unit/official-url "https://nationalarchives.gov.gy/"
    :gov.unit/wikidata "Q6970434"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6970434" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://nationalarchives.gov.gy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hti.archives"
@@ -914,9 +922,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "National Archives of Nigeria"
+   :gov.unit/official-url "https://www.nationalarchivesofnigeria.org.ng/"
    :gov.unit/wikidata "Q6970450"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6970450" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.nationalarchivesofnigeria.org.ng/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pak.archives"
@@ -973,9 +982,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
    :gov.unit/name-en "National Archives of South Africa"
+   :gov.unit/official-url "https://www.nationalarchives.gov.za/"
    :gov.unit/wikidata "Q6970457"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6970457" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.nationalarchives.gov.za/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tha.archives"
@@ -1032,9 +1042,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "swz"
    :gov.unit/name-en "Swaziland National Archives"
+   :gov.unit/official-url "https://ena.gov.sz/"
    :gov.unit/wikidata "Q7654127"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7654127" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://ena.gov.sz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tza.archives"
@@ -1043,9 +1054,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Tanzania National Archives"
+   :gov.unit/official-url "https://www.nyaraka.go.tz/"
    :gov.unit/wikidata "Q7684127"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7684127" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.nyaraka.go.tz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.vnm.archives"
@@ -1186,9 +1198,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mli"
    :gov.unit/name-en "Direction Nationale des Archives du Mali"
+   :gov.unit/official-url "https://archivesmali.gouv.ml/"
    :gov.unit/wikidata "Q16528393"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16528393" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://archivesmali.gouv.ml/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cub.archives"
@@ -1268,9 +1281,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sdn"
    :gov.unit/name-en "National Records Office of Sudan"
+   :gov.unit/official-url "http://nro.gov.sd/"
    :gov.unit/wikidata "Q16889803"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16889803" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "http://nro.gov.sd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zmb.archives"
@@ -1279,9 +1293,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "zmb"
    :gov.unit/name-en "National Archives of Zambia"
+   :gov.unit/official-url "https://www.mohais.gov.zm/?page_id=1590"
    :gov.unit/wikidata "Q16918871"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16918871" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.mohais.gov.zm/?page_id=1590" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.syc.archives"
@@ -1290,9 +1305,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "syc"
    :gov.unit/name-en "Seychelles National Archives"
+   :gov.unit/official-url "http://www.sna.gov.sc/"
    :gov.unit/wikidata "Q16951557"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16951557" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "http://www.sna.gov.sc/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tto.archives"
@@ -1373,9 +1389,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "png"
    :gov.unit/name-en "National Archives and Public Records Services of Papua New Guinea"
+   :gov.unit/official-url "https://www.ola.gov.pg/"
    :gov.unit/wikidata "Q23009868"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q23009868" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.ola.gov.pg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tls.archives"
@@ -1384,9 +1401,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tls"
    :gov.unit/name-en "National Library of East Timor"
+   :gov.unit/official-url "https://antl.gov.tl/en/pajina-inisiu-english/"
    :gov.unit/wikidata "Q23693634"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q23693634" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://antl.gov.tl/en/pajina-inisiu-english/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slb.archives"
@@ -1395,9 +1413,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "slb"
    :gov.unit/name-en "National Archives of Solomon Islands"
+   :gov.unit/official-url "https://solomons.gov.sb/ministry-of-culture-and-tourism/national-archives/"
    :gov.unit/wikidata "Q25083458"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25083458" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://solomons.gov.sb/ministry-of-culture-and-tourism/national-archives/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ssd.archives"
@@ -1406,9 +1425,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "National Archives of South Sudan"
+   :gov.unit/official-url "https://mcmnh.gov.ss/"
    :gov.unit/wikidata "Q28223406"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q28223406" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://mcmnh.gov.ss/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sle.archives"
@@ -1417,9 +1437,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sle"
    :gov.unit/name-en "National Archives of Sierra Leone"
+   :gov.unit/official-url "https://www.sierraleonearchives.org/"
    :gov.unit/wikidata "Q28836299"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q28836299" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.sierraleonearchives.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fji.archives"
@@ -1498,9 +1519,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mda"
    :gov.unit/name-en "Moldova National Archives"
+   :gov.unit/official-url "https://arhiva.gov.md/"
    :gov.unit/wikidata "Q54807285"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q54807285" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://arhiva.gov.md/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.khm.archives"
@@ -1521,9 +1543,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "uzb"
    :gov.unit/name-en "Central State Archive of the Republic of Uzbekistan"
+   :gov.unit/official-url "https://gov.uz/en/archive"
    :gov.unit/wikidata "Q54857259"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q54857259" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://gov.uz/en/archive" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tkm.archives"
@@ -1622,9 +1645,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "National Archives of Myanmar"
+   :gov.unit/official-url "https://www.nam.gov.mm/"
    :gov.unit/wikidata "Q60745748"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q60745748" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.nam.gov.mm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jam.archives"
@@ -1633,9 +1657,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jam"
    :gov.unit/name-en "Jamaica Archives and Records Department"
+   :gov.unit/official-url "https://www.jard.gov.jm/"
    :gov.unit/wikidata "Q65052147"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65052147" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.jard.gov.jm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fsm.archives"
@@ -1668,9 +1693,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "brn"
    :gov.unit/name-en "Brunei National Archives"
+   :gov.unit/official-url "https://www.museums.gov.bn/"
    :gov.unit/wikidata "Q112128921"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q112128921" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.museums.gov.bn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tur.archives"
