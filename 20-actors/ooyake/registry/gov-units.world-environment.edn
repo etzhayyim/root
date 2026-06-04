@@ -147,6 +147,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Environment, Forest and Climate Change"
+   :gov.unit/name-local "পরিবেশ, বন ও জলবায়ু পরিবর্তন মন্ত্রণালয়"
+   :gov.unit/name-romanized "Paribesh, Bon O Jalbayu Paribartan Mantranalaya"
    :gov.unit/official-url "http://www.moef.gov.bd/"
    :gov.unit/wikidata "Q13058854"
    :gov.unit/cofog ["05"]
@@ -535,6 +537,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of the Environment and Energy (Greece)"
+   :gov.unit/name-local "Υπουργείο Περιβάλλοντος και Ενέργειας"
+   :gov.unit/name-romanized "Ypourgeio Perivallontos kai Energeias"
    :gov.unit/official-url "https://ypen.gov.gr"
    :gov.unit/wikidata "Q3557152"
    :gov.unit/cofog ["05"]
@@ -1232,6 +1236,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Natural Resources and Environment"
+   :gov.unit/name-local "กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม"
+   :gov.unit/name-romanized "Krasuang Sapphayakon Thammachat lae Singwaetlom"
    :gov.unit/official-url "http://www.most.go.th/"
    :gov.unit/wikidata "Q4921224"
    :gov.unit/cofog ["05"]

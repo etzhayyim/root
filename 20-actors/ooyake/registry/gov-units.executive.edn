@@ -15,6 +15,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Government of Greece"
+   :gov.unit/name-local "Κυβέρνηση της Ελληνικής Δημοκρατίας"
+   :gov.unit/name-romanized "Kyvernisi tis Ellinikis Dimokratias"
    :gov.unit/official-url "https://www.government.gov.gr"
    :gov.unit/wikidata "Q15260617"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -381,6 +383,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Cabinet of Ministers of Ukraine"
+   :gov.unit/name-local "Кабінет Міністрів України"
+   :gov.unit/name-romanized "Kabinet Ministriv Ukrainy"
    :gov.unit/official-url "https://www.kmu.gov.ua/"
    :gov.unit/wikidata "Q613729"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1441,6 +1445,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Government of Thailand"
+   :gov.unit/name-local "คณะรัฐมนตรี"
+   :gov.unit/name-romanized "Khana Ratthamontri"
    :gov.unit/official-url "http://www.thaigov.go.th"
    :gov.unit/wikidata "Q873675"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1467,6 +1473,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Government of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ সরকার"
+   :gov.unit/name-romanized "Bangladesh Sarkar"
    :gov.unit/official-url "https://bangladesh.gov.bd"
    :gov.unit/wikidata "Q16056319"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

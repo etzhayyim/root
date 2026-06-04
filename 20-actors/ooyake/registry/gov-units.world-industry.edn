@@ -31,6 +31,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Industries"
+   :gov.unit/name-local "শিল্প মন্ত্রণালয়"
+   :gov.unit/name-romanized "Shilpa Mantranalaya"
    :gov.unit/official-url "http://www.moind.gov.bd/"
    :gov.unit/wikidata "Q25302675"
    :gov.unit/cofog ["04.4"]
@@ -197,6 +199,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Industry"
+   :gov.unit/name-local "กระทรวงอุตสาหกรรม"
+   :gov.unit/name-romanized "Krasuang Utsahakam"
    :gov.unit/official-url "http://www.industry.go.th/"
    :gov.unit/wikidata "Q4922297"
    :gov.unit/cofog ["04.4"]

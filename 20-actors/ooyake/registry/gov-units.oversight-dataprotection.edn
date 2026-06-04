@@ -196,6 +196,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Hellenic Data Protection Authority"
+   :gov.unit/name-local "Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα"
+   :gov.unit/name-romanized "Archi Prostasias Dedomenon Prosopikou Charaktira"
    :gov.unit/official-url "https://www.dpa.gr/"
    :gov.unit/wikidata "Q12874056"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

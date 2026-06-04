@@ -195,6 +195,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "পররাষ্ট্র মন্ত্রণালয়"
+   :gov.unit/name-romanized "Pararashtra Mantranalaya"
    :gov.unit/official-url "https://mofa.gov.bd/"
    :gov.unit/wikidata "Q3347142"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -704,6 +706,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Foreign Affairs (Greece)"
+   :gov.unit/name-local "Υπουργείο Εξωτερικών"
+   :gov.unit/name-romanized "Ypourgeio Exoterikon"
    :gov.unit/official-url "https://www.mfa.gr"
    :gov.unit/wikidata "Q3125291"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1758,6 +1762,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Foreign Affairs of Thailand"
+   :gov.unit/name-local "กระทรวงการต่างประเทศ"
+   :gov.unit/name-romanized "Krasuang Kan Tang Prathet"
    :gov.unit/official-url "https://www.mfa.go.th/main/"
    :gov.unit/wikidata "Q789856"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1856,6 +1862,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Ukraine"
+   :gov.unit/name-local "Міністерство закордонних справ України"
+   :gov.unit/name-romanized "Ministerstvo zakordonnykh sprav Ukrainy"
    :gov.unit/official-url "https://mfa.gov.ua/"
    :gov.unit/wikidata "Q4294403"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

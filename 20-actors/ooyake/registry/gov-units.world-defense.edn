@@ -152,6 +152,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "প্রতিরক্ষা মন্ত্রণালয়"
+   :gov.unit/name-romanized "Pratiraksha Mantranalaya"
    :gov.unit/official-url "https://mod.gov.bd/"
    :gov.unit/wikidata "Q17015270"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -513,6 +515,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of National Defence (Greece)"
+   :gov.unit/name-local "Υπουργείο Εθνικής Άμυνας"
+   :gov.unit/name-romanized "Ypourgeio Ethnikis Amynas"
    :gov.unit/official-url "https://www.mod.mil.gr"
    :gov.unit/wikidata "Q2606039"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1235,6 +1239,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Defence of Thailand"
+   :gov.unit/name-local "กระทรวงกลาโหม"
+   :gov.unit/name-romanized "Krasuang Kalahom"
    :gov.unit/official-url "http://www.mod.go.th/Home.aspx?lang=en-GB/"
    :gov.unit/wikidata "Q851907"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1309,6 +1315,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Defence of Ukraine"
+   :gov.unit/name-local "Міністерство оборони України"
+   :gov.unit/name-romanized "Ministerstvo oborony Ukrainy"
    :gov.unit/official-url "https://mod.gov.ua/"
    :gov.unit/wikidata "Q2066149"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

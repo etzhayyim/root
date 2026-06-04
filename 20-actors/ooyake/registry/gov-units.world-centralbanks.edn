@@ -173,6 +173,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Bangladesh Bank"
+   :gov.unit/name-local "বাংলাদেশ ব্যাংক"
+   :gov.unit/name-romanized "Bangladesh Bank"
    :gov.unit/official-url "http://www.bangladesh-bank.org"
    :gov.unit/wikidata "Q806532"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -610,6 +612,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Bank of Greece"
+   :gov.unit/name-local "Τράπεζα της Ελλάδος"
+   :gov.unit/name-romanized "Trapeza tis Ellados"
    :gov.unit/official-url "https://www.bankofgreece.gr"
    :gov.unit/wikidata "Q806700"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1488,6 +1492,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Bank of Thailand"
+   :gov.unit/name-local "ธนาคารแห่งประเทศไทย"
+   :gov.unit/name-romanized "Thanakhan haeng Prathet Thai"
    :gov.unit/official-url "http://www.bot.or.th"
    :gov.unit/wikidata "Q806706"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1586,6 +1592,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "National Bank of Ukraine"
+   :gov.unit/name-local "Національний банк України"
+   :gov.unit/name-romanized "Natsionalnyi bank Ukrainy"
    :gov.unit/official-url "https://bank.gov.ua/"
    :gov.unit/wikidata "Q1070388"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

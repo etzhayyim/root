@@ -296,6 +296,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Constitutional Court of Ukraine"
+   :gov.unit/name-local "Конституційний Суд України"
+   :gov.unit/name-romanized "Konstytutsiinyi Sud Ukrainy"
    :gov.unit/official-url "http://ccu.gov.ua"
    :gov.unit/wikidata "Q2714836"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -634,6 +636,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Constitutional Court of Thailand"
+   :gov.unit/name-local "ศาลรัฐธรรมนูญ"
+   :gov.unit/name-romanized "San Ratthathammanun"
    :gov.unit/official-url "http://www.constitutionalcourt.or.th"
    :gov.unit/wikidata "Q593273"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: Bengali/Thai/Greek/Cyrillic BD/TH/GR/UA (543 → 642)
+
+Continued the endonym axis into a 4-script cluster. 8 web-research subagents. **99 ministry/agency/
+court/legislature endonyms added with romanization** (Bangladesh 26 Bengali, Thailand 25 Thai,
+Greece 22 Greek, Ukraine 26 Cyrillic).
+
+- all-units name-local: 543 → **642**.
+- new scripts on the atlas: Bengali (জাতীয় সংসদ/Jatiya Sangsad, বাংলাদেশ ব্যাংক), Thai
+  (กระทรวงการต่างประเทศ, ศาลฎีกา/San Dika), Greek (Βουλή των Ελλήνων, Άρειος Πάγος/Areios Pagos),
+  Ukrainian Cyrillic (Верховна Рада, Кабінет Міністрів України) — all with romanization.
+- **3 data-quality en-name fixes**: gov.grc.trade "Ministry for Trade" → Ministry of Development
+  (Greece has no standalone trade ministry); gov.ukr.revenue "State Fiscal Service" (split 2019) →
+  State Tax Service of Ukraine; gov.ukr.tourism (was duplicating "Ministry of Culture") → State
+  Agency for Tourism Development of Ukraine (DART, a separate central executive body).
+- honest notes captured (names match registry labels): Greece EETT is the telecom regulator not a
+  competition authority; Ukraine culture ministry renamed back to plain Міністерство культури in Oct
+  2025 (kept the labelled "…and Strategic Communications" form); Thai NACC = the commission proper.
+
+Remaining non-Latin high-tier endonym gaps ~400 (Central Asia Cyrillic [Kazakhstan/Kyrgyzstan/Tajik],
+Balkan Cyrillic [Serbia/Bulgaria/N.Macedonia/Mongolia], Caucasus [Georgia/Armenia], Myanmar/Cambodia/
+Laos/Nepal/Sri Lanka, Eritrea/Ethiopia) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: Maghreb + Pakistan (453 → 543)
 
 Continued the endonym axis into the Maghreb (Arabic) + Pakistan (Urdu). 8 web-research subagents.

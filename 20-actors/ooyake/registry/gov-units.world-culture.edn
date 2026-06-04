@@ -112,6 +112,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Cultural Affairs"
+   :gov.unit/name-local "সংস্কৃতি বিষয়ক মন্ত্রণালয়"
+   :gov.unit/name-romanized "Sanskriti Bishayak Mantranalaya"
    :gov.unit/official-url "http://www.moca.gov.bd/"
    :gov.unit/wikidata "Q19745020"
    :gov.unit/cofog ["08.2"]
@@ -518,6 +520,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Culture (Greece)"
+   :gov.unit/name-local "Υπουργείο Πολιτισμού"
+   :gov.unit/name-romanized "Ypourgeio Politismou"
    :gov.unit/official-url "https://culture.gov.gr/el/SitePages/default.aspx"
    :gov.unit/wikidata "Q16331895"
    :gov.unit/cofog ["08.2"]
@@ -1335,6 +1339,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "กระทรวงวัฒนธรรม"
+   :gov.unit/name-romanized "Krasuang Watthanatham"
    :gov.unit/official-url "http://www.m-culture.go.th/"
    :gov.unit/wikidata "Q4922984"
    :gov.unit/cofog ["08.2"]
@@ -1417,6 +1423,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Culture of Ukraine"
+   :gov.unit/name-local "Міністерство культури та стратегічних комунікацій України"
+   :gov.unit/name-romanized "Ministerstvo kultury ta stratehichnykh komunikatsii Ukrainy"
    :gov.unit/official-url "https://mcip.gov.ua/en/"
    :gov.unit/wikidata "Q67121433"
    :gov.unit/cofog ["08.2"]

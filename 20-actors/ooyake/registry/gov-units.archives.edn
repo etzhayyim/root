@@ -680,6 +680,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "National Archives of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ জাতীয় আর্কাইভস"
+   :gov.unit/name-romanized "Bangladesh Jatiyo Archives"
    :gov.unit/official-url "http://www.nab.gov.bd/"
    :gov.unit/wikidata "Q6970422"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1015,6 +1017,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Archives of Thailand"
+   :gov.unit/name-local "สำนักหอจดหมายเหตุแห่งชาติ"
+   :gov.unit/name-romanized "Samnak Ho Chotmaihet haeng Chat"
    :gov.unit/official-url "http://www.nat.go.th/"
    :gov.unit/wikidata "Q6970459"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

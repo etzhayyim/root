@@ -179,6 +179,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Health and Family Welfare"
+   :gov.unit/name-local "স্বাস্থ্য ও পরিবার কল্যাণ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Sasthya O Paribar Kalyan Mantranalaya"
    :gov.unit/official-url "http://www.mohfw.gov.bd/"
    :gov.unit/wikidata "Q16952233"
    :gov.unit/cofog ["07"]
@@ -725,6 +727,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Health (Greece)"
+   :gov.unit/name-local "Υπουργείο Υγείας"
+   :gov.unit/name-romanized "Ypourgeio Ygeias"
    :gov.unit/official-url "https://www.moh.gov.gr"
    :gov.unit/wikidata "Q2605975"
    :gov.unit/cofog ["07"]
@@ -1929,6 +1933,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Public Health"
+   :gov.unit/name-local "กระทรวงสาธารณสุข"
+   :gov.unit/name-romanized "Krasuang Satharanasuk"
    :gov.unit/official-url "http://www.moph.go.th/"
    :gov.unit/wikidata "Q5970641"
    :gov.unit/cofog ["07"]
@@ -2059,6 +2065,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Healthcare of Ukraine"
+   :gov.unit/name-local "Міністерство охорони здоров'я України"
+   :gov.unit/name-romanized "Ministerstvo okhorony zdorovia Ukrainy"
    :gov.unit/official-url "http://www.moz.gov.ua"
    :gov.unit/wikidata "Q4294367"
    :gov.unit/cofog ["07"]

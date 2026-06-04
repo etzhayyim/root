@@ -63,6 +63,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Civil Aviation and Tourism"
+   :gov.unit/name-local "বেসামরিক বিমান পরিবহন ও পর্যটন মন্ত্রণালয়"
+   :gov.unit/name-romanized "Besamarik Biman Paribahan O Parjatan Mantranalaya"
    :gov.unit/official-url "https://mocat.gov.bd/"
    :gov.unit/wikidata "Q25209250"
    :gov.unit/cofog ["04.7"]
@@ -289,6 +291,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Tourism (Greece)"
+   :gov.unit/name-local "Υπουργείο Τουρισμού"
+   :gov.unit/name-romanized "Ypourgeio Tourismou"
    :gov.unit/official-url "https://mintour.gov.gr"
    :gov.unit/wikidata "Q6867588"
    :gov.unit/cofog ["04.7"]
@@ -763,6 +767,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Tourism and Sports (Thailand)"
+   :gov.unit/name-local "กระทรวงการท่องเที่ยวและกีฬา"
+   :gov.unit/name-romanized "Krasuang Kan Thongthiao lae Kila"
    :gov.unit/official-url "https://www.mots.go.th/"
    :gov.unit/wikidata "Q4919401"
    :gov.unit/cofog ["04.7"]
@@ -828,7 +834,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "Ministry of Culture of Ukraine"
+   :gov.unit/name-en "State Agency for Tourism Development of Ukraine"
+   :gov.unit/name-local "Державне агентство розвитку туризму України"
+   :gov.unit/name-romanized "Derzhavne ahentstvo rozvytku turyzmu Ukrainy"
    :gov.unit/official-url "https://www.tourism.gov.ua/"
    :gov.unit/wikidata "Q4294447"
    :gov.unit/cofog ["04.7"]

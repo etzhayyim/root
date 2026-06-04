@@ -187,6 +187,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "State Statistics Service of Ukraine"
+   :gov.unit/name-local "Державна служба статистики України"
+   :gov.unit/name-romanized "Derzhavna sluzhba statystyky Ukrainy"
    :gov.unit/official-url "https://stat.gov.ua"
    :gov.unit/wikidata "Q7603543"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -635,6 +637,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Bangladesh Bureau of Statistics"
+   :gov.unit/name-local "বাংলাদেশ পরিসংখ্যান ব্যুরো"
+   :gov.unit/name-romanized "Bangladesh Parisankhyan Bureau"
    :gov.unit/official-url "http://www.bbs.gov.bd"
    :gov.unit/wikidata "Q2882475"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1126,6 +1130,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Hellenic Statistical Authority"
+   :gov.unit/name-local "Ελληνική Στατιστική Αρχή"
+   :gov.unit/name-romanized "Elliniki Statistiki Archi"
    :gov.unit/official-url "http://www.statistics.gr"
    :gov.unit/wikidata "Q1275124"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

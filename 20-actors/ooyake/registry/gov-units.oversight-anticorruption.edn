@@ -64,6 +64,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Anti-Corruption Commission"
+   :gov.unit/name-local "দুর্নীতি দমন কমিশন"
+   :gov.unit/name-romanized "Durniti Daman Commission"
    :gov.unit/official-url "http://www.acc.org.bd/"
    :gov.unit/wikidata "Q4774512"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -484,6 +486,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Anti-Corruption Commission (Thailand)"
+   :gov.unit/name-local "คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ"
+   :gov.unit/name-romanized "Khana Kammakan Pongkan lae Prappram kan Thutcharit haeng Chat"
    :gov.unit/official-url "https://www.nacc.go.th/"
    :gov.unit/wikidata "Q13013388"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -496,6 +500,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "State Bureau of Investigation"
+   :gov.unit/name-local "Державне бюро розслідувань"
+   :gov.unit/name-romanized "Derzhavne biuro rozsliduvan"
    :gov.unit/official-url "http://www.dbr.gov.ua"
    :gov.unit/wikidata "Q16697654"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
