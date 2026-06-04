@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 12 countries (1389 → 1449, 88%)
+
+Fifth ministry-address batch (Slovenia, Portugal, UAE, Jordan, Bolivia, Honduras, Haiti,
+Kyrgyzstan, Israel, Malta, Sri Lanka, New Zealand). 6 web-research subagents. 60 added; **49
+building-level lat/lon, 11 honest line-en-only (G5)** — Haiti (post-quake source conflicts, 4
+nulled), Bolivia justice, Honduras transport, Jordan tourism (3rd Circle roundabout), Malta
+interior/labour (201 Strait St, no building node), Sri Lanka energy/tourism.
+
+- ministries: 1389 → **1449/1642** with an address record (88%).
+- honest co-location/data findings: Slovenia Finance+Justice share Župančičeva 3, Education+Science
+  share Masarykova 16; Portugal Agriculture/Environment/Housing share Campus XXI (Avenida João XXI);
+  Honduras Defence+Interior+Justice (SGJD — no separate justice ministry) share Centro Cívico
+  Gubernamental Torre 2; Israel Energy/Tourism/Transport share the Generi complex, Bank of Israel St;
+  Malta Home Affairs holds the labour (DIER) portfolio. Name fix: Portugal agriculture →
+  Ministry of Agriculture and the Sea (current XXV Govt name). Bolivia justice ministry reportedly
+  closed Nov 2025 (noted). UAE/Israel ministries split across Dubai/Abu Dhabi and Jerusalem campuses.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 10 countries (1329 → 1389, 85%)
 
 Fourth ministry-address batch (Bahamas, El Salvador, Syria, Costa Rica, Ecuador, Cambodia,

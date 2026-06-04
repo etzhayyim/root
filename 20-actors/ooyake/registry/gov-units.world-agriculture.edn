@@ -1199,7 +1199,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "prt"
-   :gov.unit/name-en "Ministry of Agriculture, Rural Development and Fisheries"
+   :gov.unit/name-en "Ministry of Agriculture and the Sea"
    :gov.unit/official-url "http://www.min-agricultura.pt/"
    :gov.unit/wikidata "Q4294674"
    :gov.unit/cofog ["04.2"]
