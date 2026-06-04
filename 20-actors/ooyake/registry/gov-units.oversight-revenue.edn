@@ -122,7 +122,7 @@
    :gov.unit/parent "gov.cze"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "cze"
-   :gov.unit/name-en "Finanční úřad - Územní pracoviště pro Prahu - Jižní Město"
+   :gov.unit/name-en "Generální finanční ředitelství (General Financial Directorate)"
    :gov.unit/official-url "https://www.financnisprava.cz/cs/financni-sprava/organy-financni-spravy/financni-urady/app/urad-kontakt/2011"
    :gov.unit/wikidata "Q64352579"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -362,7 +362,7 @@
    :gov.unit/parent "gov.tur"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tur"
-   :gov.unit/name-en "General Directorate of Customs Protection"
+   :gov.unit/name-en "Gelir İdaresi Başkanlığı (Revenue Administration)"
    :gov.unit/official-url "http://muhafaza.gtb.gov.tr"
    :gov.unit/wikidata "Q20473795"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

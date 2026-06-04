@@ -13135,4 +13135,511 @@
    :gov.address/lat 21.04007 :gov.address/lon 105.83778
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bih.statistics.hq"
+   :gov.address/unit "gov.bih.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "bih"
+   :gov.address/line-en "Agency for Statistics of Bosnia and Herzegovina (BHAS), Zelenih beretki 26, Sarajevo"
+   :gov.address/lat 43.85798 :gov.address/lon 18.425
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.caf.statistics.hq"
+   :gov.address/unit "gov.caf.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "caf"
+   :gov.address/line-en "ICASEES, Rue Gamal Abdel Nasser, Bangui"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.chn.statistics.hq"
+   :gov.address/unit "gov.chn.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "chn"
+   :gov.address/line-en "National Bureau of Statistics of China, 57 Yuetan Nanjie, Xicheng District, Beijing"
+   :gov.address/lat 39.91426 :gov.address/lon 116.34317
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.com.statistics.hq"
+   :gov.address/unit "gov.com.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "com"
+   :gov.address/line-en "INSEED, Rue de la Corniche, Moroni"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.dji.statistics.hq"
+   :gov.address/unit "gov.dji.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "dji"
+   :gov.address/line-en "Institut National de la Statistique de Djibouti (INSTAD, ex-DISED), Djibouti City"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.statistics.hq"
+   :gov.address/unit "gov.ecu.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Instituto Nacional de Estadística y Censos (INEC), Juan Larrea N15-36 y José Riofrío, Quito"
+   :gov.address/lat -0.2105 :gov.address/lon -78.5037
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.esp.statistics.hq"
+   :gov.address/unit "gov.esp.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Instituto Nacional de Estadística (INE), Paseo de la Castellana 183, Madrid"
+   :gov.address/lat 40.46385 :gov.address/lon -3.69073
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fsm.statistics.hq"
+   :gov.address/unit "gov.fsm.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "fsm"
+   :gov.address/line-en "FSM Statistics Division, Dept. of Resources & Development, Palikir, Pohnpei"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gha.statistics.hq"
+   :gov.address/unit "gov.gha.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "gha"
+   :gov.address/line-en "Ghana Statistical Service, Ministry of Finance building, Finance Drive, Ridge, Accra"
+   :gov.address/lat 5.54951 :gov.address/lon -0.1961
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gnq.statistics.hq"
+   :gov.address/unit "gov.gnq.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "gnq"
+   :gov.address/line-en "INEGE, Edificio ABAYAK, Malabo II, Malabo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.statistics.hq"
+   :gov.address/unit "gov.ind.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Central Statistics Office / MoSPI, Sardar Patel Bhavan, Sansad Marg, New Delhi"
+   :gov.address/lat 28.62255 :gov.address/lon 77.21528
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kir.statistics.hq"
+   :gov.address/unit "gov.kir.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "kir"
+   :gov.address/line-en "Kiribati National Statistics Office, Bairiki, South Tarawa"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lso.statistics.hq"
+   :gov.address/unit "gov.lso.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "lso"
+   :gov.address/line-en "Lesotho Bureau of Statistics, Orpen Road, Maseru"
+   :gov.address/lat -29.31641 :gov.address/lon 27.47249
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mhl.statistics.hq"
+   :gov.address/unit "gov.mhl.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "mhl"
+   :gov.address/line-en "Economic Policy, Planning and Statistics Office (EPPSO), Majuro"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mkd.statistics.hq"
+   :gov.address/unit "gov.mkd.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "mkd"
+   :gov.address/line-en "State Statistical Office, ul. Dame Gruev 4, Skopje"
+   :gov.address/lat 41.99311 :gov.address/lon 21.42828
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mli.statistics.hq"
+   :gov.address/unit "gov.mli.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "mli"
+   :gov.address/line-en "INSTAT, Hamdallaye ACI 2000, Bamako"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mlt.statistics.hq"
+   :gov.address/unit "gov.mlt.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "mlt"
+   :gov.address/line-en "National Statistics Office, Lascaris, Valletta VLT 2000"
+   :gov.address/lat 35.89485 :gov.address/lon 14.51262
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.statistics.hq"
+   :gov.address/unit "gov.mng.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "National Statistical Office of Mongolia, Government Building III, Baga Toiruu 44, Ulaanbaatar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nru.statistics.hq"
+   :gov.address/unit "gov.nru.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "nru"
+   :gov.address/line-en "Nauru Bureau of Statistics, Civic Centre, Aiwo District"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pan.statistics.hq"
+   :gov.address/unit "gov.pan.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "pan"
+   :gov.address/line-en "INEC, Contraloría General de la República, Avenida Balboa, Panama City"
+   :gov.address/lat 8.97575 :gov.address/lon -79.52612
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.prk.statistics.hq"
+   :gov.address/unit "gov.prk.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "prk"
+   :gov.address/line-en "Central Bureau of Statistics, Inhung-dong, Moranbong District, Pyongyang"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slb.statistics.hq"
+   :gov.address/unit "gov.slb.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "slb"
+   :gov.address/line-en "Solomon Islands National Statistics Office (Ministry of Finance & Treasury), central Honiara"
+   :gov.address/lat -9.43222 :gov.address/lon 159.95678
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ssd.statistics.hq"
+   :gov.address/unit "gov.ssd.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "ssd"
+   :gov.address/line-en "National Bureau of Statistics, Ministries Road, Hai Gonya, Juba"
+   :gov.address/lat 4.85288 :gov.address/lon 31.60719
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syc.statistics.hq"
+   :gov.address/unit "gov.syc.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "National Bureau of Statistics, Constitution Avenue, Saint Louis, Victoria"
+   :gov.address/lat -4.62122 :gov.address/lon 55.45464
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ven.statistics.hq"
+   :gov.address/unit "gov.ven.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "ven"
+   :gov.address/line-en "Instituto Nacional de Estadística (INE), Torre Británica, Av. José Félix Sosa, Altamira, Caracas"
+   :gov.address/lat 10.49306 :gov.address/lon -66.84872
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vut.statistics.hq"
+   :gov.address/unit "gov.vut.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "vut"
+   :gov.address/line-en "Vanuatu National Statistics Office, Edmond Colordeau Avenue, Seaside, Port Vila"
+   :gov.address/lat -17.73835 :gov.address/lon 168.31924
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zmb.statistics.hq"
+   :gov.address/unit "gov.zmb.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "zmb"
+   :gov.address/line-en "Zambia Statistics Agency (ZamStats), John Mbita Road, Ridgeway, Lusaka"
+   :gov.address/lat -15.42945 :gov.address/lon 28.3114
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zwe.statistics.hq"
+   :gov.address/unit "gov.zwe.statistics"
+   :gov.address/kind :headquarters
+   :gov.address/country "zwe"
+   :gov.address/line-en "ZimStat, Kaguvi Building, Cnr Central Ave & Fourth St, Harare"
+   :gov.address/lat -17.82364 :gov.address/lon 31.05409
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.afg.nhri.hq"
+   :gov.address/unit "gov.afg.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "afg"
+   :gov.address/line-en "Afghan Independent Human Rights Commission, Pul-e-Surkh, Karte-3, Kabul (offices confiscated 2022)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bel.nhri.hq"
+   :gov.address/unit "gov.bel.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "bel"
+   :gov.address/line-en "Unia (Interfederal Centre for Equal Opportunities), Place Victor Horta 40, Saint-Gilles, Brussels"
+   :gov.address/lat 50.83617 :gov.address/lon 4.33344
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.nhri.hq"
+   :gov.address/unit "gov.bgd.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "National Human Rights Commission, BTMC Bhaban, 7-9 Kazi Nazrul Islam Avenue, Kawran Bazar, Dhaka"
+   :gov.address/lat 23.751 :gov.address/lon 90.3925
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.can.nhri.hq"
+   :gov.address/unit "gov.can.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Canadian Human Rights Commission, 344 Slater Street (Minto Place), Ottawa, ON"
+   :gov.address/lat 45.4168 :gov.address/lon -75.702
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fji.nhri.hq"
+   :gov.address/unit "gov.fji.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "fji"
+   :gov.address/line-en "Fiji Human Rights and Anti-Discrimination Commission, Level 2 Naibati House, 9 Goodenough Street, Suva"
+   :gov.address/lat -18.1421 :gov.address/lon 178.4249
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.nhri.hq"
+   :gov.address/unit "gov.gtm.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Procurador de los Derechos Humanos (PDH), 12 Avenida 12-54, Zona 1, Guatemala City"
+   :gov.address/lat 14.6447 :gov.address/lon -90.5101
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irl.nhri.hq"
+   :gov.address/unit "gov.irl.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "irl"
+   :gov.address/line-en "Irish Human Rights and Equality Commission (IHREC), 16-22 Green Street, Dublin 7"
+   :gov.address/lat 53.34922 :gov.address/lon -6.27246
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.nhri.hq"
+   :gov.address/unit "gov.ken.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Kenya National Commission on Human Rights (KNCHR), CVS Plaza, Lenana Road, Nairobi"
+   :gov.address/lat -1.2961 :gov.address/lon 36.7927
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mmr.nhri.hq"
+   :gov.address/unit "gov.mmr.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "mmr"
+   :gov.address/line-en "Myanmar National Human Rights Commission, No. 27 Pyay Road, Hlaing Township, Yangon"
+   :gov.address/lat 16.846 :gov.address/lon 96.134
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.nhri.hq"
+   :gov.address/unit "gov.mng.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "National Human Rights Commission of Mongolia, Government Building 12, Builder's Square, Chingeltei District, Ulaanbaatar"
+   :gov.address/lat 47.9196 :gov.address/lon 106.913
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.nhri.hq"
+   :gov.address/unit "gov.mys.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "SUHAKAM (Human Rights Commission of Malaysia), Menara Aras Raya, 11 Jalan Raja Laut, Kuala Lumpur"
+   :gov.address/lat 3.15502 :gov.address/lon 101.69506
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.npl.nhri.hq"
+   :gov.address/unit "gov.npl.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "npl"
+   :gov.address/line-en "National Human Rights Commission, Harihar Bhawan, Pulchowk, Lalitpur"
+   :gov.address/lat 27.6831 :gov.address/lon 85.3172
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nzl.nhri.hq"
+   :gov.address/unit "gov.nzl.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "nzl"
+   :gov.address/line-en "Human Rights Commission (Te Kāhui Tika Tangata), Auckland office (PO Box; head office Level 8, 44-52 The Terrace, Wellington)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.nhri.hq"
+   :gov.address/unit "gov.pak.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "National Commission for Human Rights (NCHR), Evacuee Trust Complex, Aga Khan Road, F-5/1, Islamabad"
+   :gov.address/lat 33.73277 :gov.address/lon 73.08809
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sdn.nhri.hq"
+   :gov.address/unit "gov.sdn.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "National Human Rights Commission, Khartoum"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.nhri.hq"
+   :gov.address/unit "gov.slv.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Procuraduría para la Defensa de los Derechos Humanos (PDDH), 5a Av. Norte y 19 Calle Pte. No. 12, San Salvador"
+   :gov.address/lat 13.70788 :gov.address/lon -89.19367
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tha.nhri.hq"
+   :gov.address/unit "gov.tha.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "tha"
+   :gov.address/line-en "NHRCT, Government Complex Bldg B, 120 Moo 3 Chaengwattana Rd, Lak Si, Bangkok"
+   :gov.address/lat 13.88304 :gov.address/lon 100.56526
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uga.nhri.hq"
+   :gov.address/unit "gov.uga.nhri"
+   :gov.address/kind :headquarters
+   :gov.address/country "uga"
+   :gov.address/line-en "Uganda Human Rights Commission, Plot 20/22/24 Buganda Road, Nakasero Hill, Kampala"
+   :gov.address/lat 0.31806 :gov.address/lon 32.57556
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arg.revenue.hq"
+   :gov.address/unit "gov.arg.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "arg"
+   :gov.address/line-en "ARCA (ex-AFIP), Hipólito Yrigoyen 370, Buenos Aires"
+   :gov.address/lat -34.60917 :gov.address/lon -58.37158
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.col.revenue.hq"
+   :gov.address/unit "gov.col.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "col"
+   :gov.address/line-en "DIAN, Edificio San Agustín, Carrera 8 No. 6C-38, Bogotá"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cze.revenue.hq"
+   :gov.address/unit "gov.cze.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "cze"
+   :gov.address/line-en "Generální finanční ředitelství (General Financial Directorate), Lazarská 15/7, Prague"
+   :gov.address/lat 50.07924 :gov.address/lon 14.42153
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fra.revenue.hq"
+   :gov.address/unit "gov.fra.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "fra"
+   :gov.address/line-en "DGFiP, 139 rue de Bercy, Paris"
+   :gov.address/lat 48.84102 :gov.address/lon 2.37799
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irl.revenue.hq"
+   :gov.address/unit "gov.irl.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "irl"
+   :gov.address/line-en "Office of the Revenue Commissioners, Dublin Castle, Dublin"
+   :gov.address/lat 53.34201 :gov.address/lon -6.26795
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kgz.revenue.hq"
+   :gov.address/unit "gov.kgz.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "kgz"
+   :gov.address/line-en "State Tax Service, Chuy Avenue 219, Bishkek"
+   :gov.address/lat 42.8767 :gov.address/lon 74.59453
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nzl.revenue.hq"
+   :gov.address/unit "gov.nzl.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "nzl"
+   :gov.address/line-en "Inland Revenue (Te Tari Taake), Asteron Centre, 55 Featherston Street, Wellington"
+   :gov.address/lat -41.28001 :gov.address/lon 174.77928
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pol.revenue.hq"
+   :gov.address/unit "gov.pol.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "pol"
+   :gov.address/line-en "Krajowa Administracja Skarbowa (Ministry of Finance), ul. Świętokrzyska 12, Warsaw"
+   :gov.address/lat 52.23771 :gov.address/lon 21.01639
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.prt.revenue.hq"
+   :gov.address/unit "gov.prt.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "prt"
+   :gov.address/line-en "Autoridade Tributária e Aduaneira, Rua da Prata 10, Lisbon"
+   :gov.address/lat 38.70881 :gov.address/lon -9.13599
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pry.revenue.hq"
+   :gov.address/unit "gov.pry.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "pry"
+   :gov.address/line-en "DNIT, Hermann Gmeiner y Fernando Leri, Zeballos Cué, Asunción"
+   :gov.address/lat -25.23455 :gov.address/lon -57.56712
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.revenue.hq"
+   :gov.address/unit "gov.slv.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "DGII (Ministerio de Hacienda), Condominio Tres Torres, Diagonal Centroamérica, San Salvador"
+   :gov.address/lat 13.7125 :gov.address/lon -89.20722
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tur.revenue.hq"
+   :gov.address/unit "gov.tur.revenue"
+   :gov.address/kind :headquarters
+   :gov.address/country "tur"
+   :gov.address/line-en "Gelir İdaresi Başkanlığı (Revenue Administration), Devlet Mah. Merasim Cad. No: 9/1, Çankaya, Ankara"
+   :gov.address/lat 39.91218 :gov.address/lon 32.84326
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
 ]}

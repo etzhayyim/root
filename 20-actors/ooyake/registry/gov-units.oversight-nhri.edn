@@ -64,7 +64,7 @@
    :gov.unit/parent "gov.can"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Commission des droits de la personne et des droits de la jeunesse"
+   :gov.unit/name-en "Canadian Human Rights Commission"
    :gov.unit/official-url "http://www.cdpdj.qc.ca/en/"
    :gov.unit/wikidata "Q748612"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -100,7 +100,7 @@
    :gov.unit/parent "gov.gtm"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "gtm"
-   :gov.unit/name-en "Guatemala Human Rights Commission"
+   :gov.unit/name-en "Procurador de los Derechos Humanos (PDH)"
    :gov.unit/official-url "https://www.ghrc-usa.org/"
    :gov.unit/wikidata "Q5614216"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -148,7 +148,7 @@
    :gov.unit/parent "gov.ken"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ken"
-   :gov.unit/name-en "Kenya Human Rights Commission"
+   :gov.unit/name-en "Kenya National Commission on Human Rights (KNCHR)"
    :gov.unit/official-url "https://www.khrc.or.ke/"
    :gov.unit/wikidata "Q6392583"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -291,7 +291,7 @@
    :gov.unit/parent "gov.tha"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tha"
-   :gov.unit/name-en "Asian Human Rights Commission"
+   :gov.unit/name-en "National Human Rights Commission of Thailand"
    :gov.unit/official-url "http://www.humanrights.asia/"
    :gov.unit/wikidata "Q451867"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
