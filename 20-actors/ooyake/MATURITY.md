@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — sovereign wealth funds: 17 web-verified (989 → 1006 agencies); agency tier effectively complete
+
+Closed the agency tier with sovereign-wealth / public-trust funds (19). Most have no standalone
+site and are managed by a central bank / finance ministry / treasury / state board — for those
+the managing institution's official fund page was used. 2 web-research subagents found +
+**confirmed each by fetching it**. 17 confirmed + 3 name updates (Norway "Statens petroleumsfond"
+→ **Government Pension Fund Global**/NBIM; Oman SGRF → **Oman Investment Authority** after the
+2020 merger; Minnesota → **Permanent School Fund**).
+
+- agencies: 989 → **1006/1049** with an official site (**96%**). The remaining ~43 are ALL
+  documented honest nulls (G5): the 15 archives + 18 libraries with no website (small/
+  post-conflict states), plus Brazil SWF (extinguished by Law 13.874/2019), Nauru Phosphate
+  Royalties Trust (winding down, no site), Sudan NHRI, Indonesia/India data-protection (not yet
+  operational), Kiribati/North Korea central banks, North Korea statistics, Mozambique electoral.
+- managing-institution pages recorded where the fund has no own site: Chile (hacienda.cl), Ghana
+  (Bank of Ghana), Kuwait (KIA), Peru (MEF), Timor-Leste (Banco Central), Trinidad (Min. Finance),
+  US states (state treasurer/DNR). **Every government body in the atlas that has a confirmable
+  official site now carries it, across every level.**
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — oversight agencies (NHRI/prosecutor/data-protection/etc): 22 web-verified (967 → 989 agencies)
 
 Continued the agency tier with the remaining accountability/regulatory categories: human-rights
