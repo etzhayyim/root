@@ -395,6 +395,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "National People's Congress"
+   :gov.unit/name-local "全国人民代表大会"
+   :gov.unit/name-romanized "Quánguó Rénmín Dàibiǎo Dàhuì"
    :gov.unit/official-url "http://www.npc.gov.cn/"
    :gov.unit/wikidata "Q19211"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1017,6 +1019,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "National Diet"
+   :gov.unit/name-local "国会"
+   :gov.unit/name-romanized "Kokkai"
    :gov.unit/official-url "http://www.sangiin.go.jp/eng/index.htm"
    :gov.unit/wikidata "Q202384"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1089,6 +1093,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Assembly"
+   :gov.unit/name-local "국회"
+   :gov.unit/name-romanized "Gukhoe"
    :gov.unit/official-url "https://assembly.go.kr/"
    :gov.unit/wikidata "Q494162"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1688,6 +1694,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Federal Assembly of the Russian Federation"
+   :gov.unit/name-local "Федеральное Собрание Российской Федерации"
+   :gov.unit/name-romanized "Federalnoye Sobraniye RF"
    :gov.unit/official-url "http://www.gov.ru/main/page7.html"
    :gov.unit/wikidata "Q457869"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

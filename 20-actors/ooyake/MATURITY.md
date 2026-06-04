@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: great-power ministries JP/CN/KR/RU (182 → 272)
+
+Extended the endonym axis to high-tier institutions in non-Latin-script jurisdictions, starting with
+the 4 most-referenced great-power administrations. 7 web-research subagents (Wikidata native labels).
+**90 ministry/agency/court/legislature endonyms added with romanization** (Japan 11, China 24,
+Korea 28, Russia 27).
+
+- all-units name-local: 182 → **272**; JP 16→32, CN 2→27, KR 2→31, RU 2→30.
+- scripts: Japanese Kanji (会計検査院/Kaikei Kensain, 国立国会図書館/…), Simplified Chinese
+  (中华人民共和国外交部/…), Hangul (외교부/Oegyobu, 대법원/Daebeobwon), Cyrillic (Министерство
+  обороны…/…, Росстат) — all with romanization.
+- **4 data-quality en-name fixes** surfaced during research: gov.chn.anticorruption "ICAC" (a Hong
+  Kong body) → National Supervisory Commission; gov.chn.finreg "China Banking Regulatory Commission"
+  (dissolved 2023) → National Financial Regulatory Administration; gov.chn.meteorology "National
+  Meteorological Centre" (a sub-unit) → China Meteorological Administration; gov.chn.prosecutor
+  "Fourth Division of the People's Procuratorate of Beijing" (a wrong sub-division) → Supreme
+  People's Procuratorate.
+- honest note: gov.chn.electoral has no name-local — the PRC has no national electoral commission
+  (local elections run by ad-hoc 选举委员会), so no endonym was invented.
+
+770 high-tier endonym gaps remain across other non-Latin jurisdictions (Pakistan, Arab states, Thai,
+Greek, Cyrillic neighbours, etc.) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: country endonyms (19 → 123)
 
 New maturity axis: native-script / native-language official names (endonyms). name-local was only

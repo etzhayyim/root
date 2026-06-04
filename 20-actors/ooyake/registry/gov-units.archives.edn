@@ -100,6 +100,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Archives of Korea"
+   :gov.unit/name-local "국가기록원"
+   :gov.unit/name-romanized "Gukga Girogwon"
    :gov.unit/official-url "http://www.archives.go.kr/"
    :gov.unit/wikidata "Q625999"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -136,6 +138,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "National Archives of Japan"
+   :gov.unit/name-local "国立公文書館"
+   :gov.unit/name-romanized "Kokuritsu Kōbunshokan"
    :gov.unit/official-url "https://www.archives.go.jp/"
    :gov.unit/wikidata "Q1072875"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -268,6 +272,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "State Archive of the Russian Federation"
+   :gov.unit/name-local "Государственный архив Российской Федерации"
+   :gov.unit/name-romanized "Gosudarstvennyy arkhiv RF"
    :gov.unit/official-url "http://statearchive.ru/"
    :gov.unit/wikidata "Q2860426"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

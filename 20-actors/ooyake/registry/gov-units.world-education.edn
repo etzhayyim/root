@@ -432,6 +432,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Education of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国教育部"
+   :gov.unit/name-romanized "Jiàoyù Bù"
    :gov.unit/official-url "http://de.moe.gov.cn/"
    :gov.unit/wikidata "Q1042167"
    :gov.unit/cofog ["09"]
@@ -1024,6 +1026,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Education of the Republic of Korea"
+   :gov.unit/name-local "교육부"
+   :gov.unit/name-romanized "Gyoyukbu"
    :gov.unit/official-url "http://www.moe.go.kr/"
    :gov.unit/wikidata "Q9404048"
    :gov.unit/cofog ["09"]
@@ -1632,6 +1636,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "Министерство просвещения Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo prosveshcheniya RF"
    :gov.unit/official-url "http://www.morb.ru/"
    :gov.unit/wikidata "Q16676561"
    :gov.unit/cofog ["09"]

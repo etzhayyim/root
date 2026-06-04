@@ -31,6 +31,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Water Resources of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国水利部"
+   :gov.unit/name-romanized "Shuǐlì Bù"
    :gov.unit/official-url "http://www.mwr.gov.cn/"
    :gov.unit/wikidata "Q907029"
    :gov.unit/cofog ["06.3"]

@@ -401,6 +401,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Election Commission of South Korea"
+   :gov.unit/name-local "중앙선거관리위원회"
+   :gov.unit/name-romanized "Jungang Seongeo Gwalli Wiwonhoe"
    :gov.unit/official-url "https://www.nec.go.kr/"
    :gov.unit/wikidata "Q626334"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -581,6 +583,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Central Election Commission of Russia"
+   :gov.unit/name-local "Центральная избирательная комиссия Российской Федерации"
+   :gov.unit/name-romanized "Tsentralnaya izbiratelnaya komissiya RF"
    :gov.unit/official-url "http://cikrf.ru/"
    :gov.unit/wikidata "Q190362"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

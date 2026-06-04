@@ -353,6 +353,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Civil Affairs of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国民政部"
+   :gov.unit/name-romanized "Mínzhèng Bù"
    :gov.unit/official-url "http://www.mca.gov.cn/"
    :gov.unit/wikidata "Q907098"
    :gov.unit/cofog ["03.1"]
@@ -897,6 +899,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of the Interior and Safety"
+   :gov.unit/name-local "행정안전부"
+   :gov.unit/name-romanized "Haengjeong Anjeonbu"
    :gov.unit/official-url "http://www.mois.go.kr/"
    :gov.unit/wikidata "Q488954"
    :gov.unit/cofog ["03.1"]
@@ -1361,6 +1365,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Internal Affairs of the Russian Federation"
+   :gov.unit/name-local "Министерство внутренних дел Российской Федерации"
+   :gov.unit/name-romanized "MVD"
    :gov.unit/official-url "https://мвд.рф"
    :gov.unit/wikidata "Q1192838"
    :gov.unit/cofog ["03.1"]

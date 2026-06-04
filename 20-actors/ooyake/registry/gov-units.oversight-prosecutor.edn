@@ -98,7 +98,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Fourth Division of the People's Procuratorate of Beijing Municipality"
+   :gov.unit/name-en "Supreme People's Procuratorate of the People's Republic of China"
+   :gov.unit/name-local "最高人民检察院"
+   :gov.unit/name-romanized "Zuìgāo Rénmín Jiǎnchá Yuàn"
    :gov.unit/official-url "https://www.bjjc.gov.cn/c/sify/"
    :gov.unit/wikidata "Q19851961"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -207,6 +209,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Supreme Prosecutors' Office of the Republic of Korea"
+   :gov.unit/name-local "대검찰청"
+   :gov.unit/name-romanized "Daegeomchalcheong"
    :gov.unit/official-url "https://www.spo.go.kr/"
    :gov.unit/wikidata "Q624031"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -315,6 +319,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Public Prosecution Service of the Russian Federation"
+   :gov.unit/name-local "Генеральная прокуратура Российской Федерации"
+   :gov.unit/name-romanized "Generalnaya prokuratura RF"
    :gov.unit/official-url "https://epp.genproc.gov.ru/"
    :gov.unit/wikidata "Q2387440"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

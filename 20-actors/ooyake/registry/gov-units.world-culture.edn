@@ -240,6 +240,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Culture and Tourism of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国文化和旅游部"
+   :gov.unit/name-romanized "Wénhuà hé Lǚyóu Bù"
    :gov.unit/official-url "https://www.mct.gov.cn/"
    :gov.unit/wikidata "Q50484620"
    :gov.unit/cofog ["08.2"]
@@ -672,6 +674,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Agency for Cultural Affairs"
+   :gov.unit/name-local "文化庁"
+   :gov.unit/name-romanized "Bunkachō"
    :gov.unit/official-url "https://www.bunka.go.jp"
    :gov.unit/wikidata "Q1009519"
    :gov.unit/cofog ["08.2"]
@@ -736,6 +740,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Culture, Sports and Tourism"
+   :gov.unit/name-local "문화체육관광부"
+   :gov.unit/name-romanized "Munhwa Cheyuk Gwangwangbu"
    :gov.unit/official-url "http://www.mcst.go.kr/"
    :gov.unit/wikidata "Q488744"
    :gov.unit/cofog ["08.2"]
@@ -1152,6 +1158,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Culture of Russia"
+   :gov.unit/name-local "Министерство культуры Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo kultury RF"
    :gov.unit/official-url "https://culture.gov.ru/"
    :gov.unit/wikidata "Q2465416"
    :gov.unit/cofog ["08.2"]

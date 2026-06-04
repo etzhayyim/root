@@ -291,6 +291,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Cabinet of Japan"
+   :gov.unit/name-local "内閣"
+   :gov.unit/name-romanized "Naikaku"
    :gov.unit/official-url "https://www.kantei.go.jp/jp/naikaku/"
    :gov.unit/wikidata "Q529012"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1119,6 +1121,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "State Council of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国国务院"
+   :gov.unit/name-romanized "Guówùyuàn"
    :gov.unit/official-url "https://www.gov.cn"
    :gov.unit/wikidata "Q59261"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1143,6 +1147,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Government of Russia"
+   :gov.unit/name-local "Правительство Российской Федерации"
+   :gov.unit/name-romanized "Pravitelstvo RF"
    :gov.unit/official-url "http://www.government.ru/"
    :gov.unit/wikidata "Q1140115"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1431,6 +1437,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Government of South Korea"
+   :gov.unit/name-local "대한민국 정부"
+   :gov.unit/name-romanized "Daehanminguk Jeongbu"
    :gov.unit/official-url "https://www.gov.kr"
    :gov.unit/wikidata "Q626814"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

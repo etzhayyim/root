@@ -75,7 +75,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "China Banking Regulatory Commission"
+   :gov.unit/name-en "National Financial Regulatory Administration"
+   :gov.unit/name-local "国家金融监督管理总局"
+   :gov.unit/name-romanized "Guójiā Jīnróng Jiāndū Guǎnlǐ Zǒngjú"
    :gov.unit/official-url "http://www.cbrc.gov.cn/english/home/jsp/index.jsp"
    :gov.unit/wikidata "Q1073219"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -184,6 +186,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Financial Services Agency"
+   :gov.unit/name-local "金融庁"
+   :gov.unit/name-romanized "Kin'yūchō"
    :gov.unit/official-url "http://www.fsa.go.jp"
    :gov.unit/wikidata "Q615316"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -196,6 +200,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Financial Services Commission"
+   :gov.unit/name-local "금융위원회"
+   :gov.unit/name-romanized "Geumyung Wiwonhoe"
    :gov.unit/official-url "http://www.fsc.go.kr/"
    :gov.unit/wikidata "Q624674"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

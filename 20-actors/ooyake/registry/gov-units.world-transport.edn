@@ -256,6 +256,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Transport of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国交通运输部"
+   :gov.unit/name-romanized "Jiāotōng Yùnshū Bù"
    :gov.unit/official-url "https://www.mot.gov.cn"
    :gov.unit/wikidata "Q832416"
    :gov.unit/cofog ["04.5"]
@@ -784,6 +786,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Land, Infrastructure and Transport"
+   :gov.unit/name-local "국토교통부"
+   :gov.unit/name-romanized "Gukto Gyotongbu"
    :gov.unit/official-url "http://www.molit.go.kr/"
    :gov.unit/wikidata "Q9398575"
    :gov.unit/cofog ["04.5"]
@@ -1135,6 +1139,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Transport of the Russian Federation"
+   :gov.unit/name-local "Министерство транспорта Российской Федерации"
+   :gov.unit/name-romanized "Mintrans"
    :gov.unit/official-url "https://www.mintrans.gov.ru"
    :gov.unit/wikidata "Q1958537"
    :gov.unit/cofog ["04.5"]

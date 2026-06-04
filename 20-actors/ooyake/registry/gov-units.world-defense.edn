@@ -270,6 +270,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of National Defense of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国国防部"
+   :gov.unit/name-romanized "Guófáng Bù"
    :gov.unit/official-url "http://www.mod.gov.cn"
    :gov.unit/wikidata "Q1332463"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -699,6 +701,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of National Defense of South Korea"
+   :gov.unit/name-local "국방부"
+   :gov.unit/name-romanized "Gukbangbu"
    :gov.unit/official-url "http://www.mnd.go.kr/"
    :gov.unit/wikidata "Q488542"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1046,6 +1050,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Defense of the Russian Federation"
+   :gov.unit/name-local "Министерство обороны Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo oborony RF"
    :gov.unit/official-url "https://mil.ru/"
    :gov.unit/wikidata "Q1146492"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

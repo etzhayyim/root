@@ -255,6 +255,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Data and Statistics"
+   :gov.unit/name-local "국가데이터처"
+   :gov.unit/name-romanized "Gukga Deiteocheo"
    :gov.unit/official-url "http://www.kostat.go.kr/"
    :gov.unit/wikidata "Q11233101"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -267,6 +269,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Statistics Japan"
+   :gov.unit/name-local "総務省統計局"
+   :gov.unit/name-romanized "Sōmushō Tōkeikyoku"
    :gov.unit/official-url "https://www.stat.go.jp/"
    :gov.unit/wikidata "Q11606829"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -411,6 +415,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "National Bureau of Statistics of China"
+   :gov.unit/name-local "中华人民共和国国家统计局"
+   :gov.unit/name-romanized "Guójiā Tǒngjì Jú"
    :gov.unit/official-url "http://www.censtatd.gov.hk/"
    :gov.unit/wikidata "Q839897"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1238,6 +1244,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Federal State Statistics Service"
+   :gov.unit/name-local "Федеральная служба государственной статистики"
+   :gov.unit/name-romanized "Rosstat"
    :gov.unit/official-url "https://rosstat.gov.ru/"
    :gov.unit/wikidata "Q2624680"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

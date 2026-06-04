@@ -28,6 +28,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Constitutional Court of Russia"
+   :gov.unit/name-local "Конституционный Суд Российской Федерации"
+   :gov.unit/name-romanized "Konstitutsionnyy Sud RF"
    :gov.unit/official-url "https://ksrf.ru/"
    :gov.unit/wikidata "Q584759"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -640,6 +642,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Constitutional Court of Korea"
+   :gov.unit/name-local "헌법재판소"
+   :gov.unit/name-romanized "Heonbeop Jaepanso"
    :gov.unit/official-url "https://www.ccourt.go.kr/site/kor/main.do"
    :gov.unit/wikidata "Q488491"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

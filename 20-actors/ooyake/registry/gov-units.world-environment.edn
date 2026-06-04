@@ -305,6 +305,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Ecology and Environment of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国生态环境部"
+   :gov.unit/name-romanized "Shēngtài Huánjìng Bù"
    :gov.unit/official-url "http://www.mee.gov.cn/"
    :gov.unit/wikidata "Q50484273"
    :gov.unit/cofog ["05"]
@@ -705,6 +707,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-local "환경부"
+   :gov.unit/name-romanized "Hwangyeongbu"
    :gov.unit/official-url "http://www.me.go.kr/"
    :gov.unit/wikidata "Q488961"
    :gov.unit/cofog ["05"]

@@ -640,6 +640,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Trade, Industry and Resource"
+   :gov.unit/name-local "산업통상자원부"
+   :gov.unit/name-romanized "Saneop Tongsang Jawonbu"
    :gov.unit/official-url "http://www.motie.go.kr/"
    :gov.unit/wikidata "Q491047"
    :gov.unit/cofog ["04.3"]

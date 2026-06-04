@@ -148,6 +148,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Fair Trade Commission"
+   :gov.unit/name-local "公正取引委員会"
+   :gov.unit/name-romanized "Kōsei Torihiki Iinkai"
    :gov.unit/official-url "http://www.jftc.go.jp/"
    :gov.unit/wikidata "Q842043"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -172,6 +174,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Korea Fair Trade Commission"
+   :gov.unit/name-local "공정거래위원회"
+   :gov.unit/name-romanized "Gongjeong Georae Wiwonhoe"
    :gov.unit/official-url "https://ftc.go.kr"
    :gov.unit/wikidata "Q624479"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

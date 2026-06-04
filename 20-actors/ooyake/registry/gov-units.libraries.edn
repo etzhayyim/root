@@ -145,6 +145,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "National Diet Library"
+   :gov.unit/name-local "国立国会図書館"
+   :gov.unit/name-romanized "Kokuritsu Kokkai Toshokan"
    :gov.unit/official-url "https://www.ndl.go.jp/"
    :gov.unit/wikidata "Q477675"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -229,6 +231,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "National Library of Russia"
+   :gov.unit/name-local "Российская национальная библиотека"
+   :gov.unit/name-romanized "Rossiyskaya natsionalnaya biblioteka"
    :gov.unit/official-url "http://www.nlr.ru"
    :gov.unit/wikidata "Q267566"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -381,6 +385,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Library of Korea"
+   :gov.unit/name-local "국립중앙도서관"
+   :gov.unit/name-romanized "Gungnip Jungang Doseogwan"
    :gov.unit/official-url "http://www.nl.go.kr/"
    :gov.unit/wikidata "Q495005"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
