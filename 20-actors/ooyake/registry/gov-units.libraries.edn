@@ -1364,7 +1364,7 @@
    :gov.unit/parent "gov.esp"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Royal Library of Madrid"
+   :gov.unit/name-en "Biblioteca Nacional de España (BNE)"
    :gov.unit/official-url "http://www.realbiblioteca.es/"
    :gov.unit/wikidata "Q283349"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1699,7 +1699,7 @@
    :gov.unit/parent "gov.bgr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
-   :gov.unit/name-en "Ivan Vazov National Library"
+   :gov.unit/name-en "SS Cyril and Methodius National Library"
    :gov.unit/official-url "http://www.libplovdiv.com"
    :gov.unit/wikidata "Q630839"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
