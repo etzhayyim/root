@@ -19,6 +19,14 @@ import {
   COMPILED_ACTOR_HANDLES,
   type ActorRecord,
 } from "./registry/actor-profiles";
+import {
+  isEntityHandle,
+  isEntityHandleShape,
+  entityActorRecord,
+  searchEntityActors,
+  entityNamespaceSummary,
+  ENTITY_TOTAL_COUNT,
+} from "./registry/entity-actors";
 import { fetchKotobaActorRecord } from "./kotoba";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
@@ -232,13 +240,27 @@ function buildActorsJson() {
     primarySchema: e.primarySchema ?? null,
     adr: e.adrs,
   }));
+  // Entity-as-actor mirror namespaces (ADR-2606042330). Society-scale public/
+  // power entities each resolve a keyless mirror-actor; enumerated by namespace
+  // + count (not row-by-row — there are thousands) and searchable via
+  // app.bsky.actor.searchActors.
+  const entityNamespaces = entityNamespaceSummary().map((n) => ({
+    ...n,
+    handleShape: `${n.ns}-<...>`,
+    didExample: `did:web:etzhayyim.com:actor:${n.ns}-<...>`,
+    note: "keyless observational mirror — NOT the entity itself (no impersonation, G1); public/power entities only (G2); person-excluded (G3)",
+  }));
   return {
     entity: "etzhayyim",
     entityDid: "did:web:etzhayyim.com",
     count: actors.length,
-    note: "Actors whose DID resolves at /actor/<handle>/did.json. INFRA_ACTORS (registry/infra-actors.ts) is the single source of truth. Free-form member/council handles also resolve but are not enumerated here.",
+    entityActorCount: ENTITY_TOTAL_COUNT,
+    totalResolvableActors: actors.length + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT,
+    note: "Actors whose DID resolves at /actor/<handle>/did.json. INFRA_ACTORS is the named/service SoT; entityNamespaces (ADR-2606042330) are society-scale keyless mirror-actors counted by namespace; UNSPSC commodity agents add unispscActorCount. Free-form member/council handles also resolve but are not enumerated here.",
+    unispscActorCount: UNISPSC_TOTAL_COUNT,
+    entityNamespaces,
     page: "https://etzhayyim.com/actors",
-    adr: ["2605241800", "2605212030"],
+    adr: ["2605241800", "2605212030", "2606042330", "2605171300"],
     actors,
   };
 }
@@ -301,6 +323,19 @@ function buildActorsHtml(): string {
   const infra = handles.filter((h) => !INFRA_ACTORS[h].glyph);
   const namedCards = named.map(renderActorCard).join("\n");
   const infraCards = infra.map(renderActorCard).join("\n");
+  const nsRows = entityNamespaceSummary()
+    .map(
+      (n) =>
+        `<div class="card"><h3><span class="glyph">${escapeHtml(n.glyph)}</span> <code>${escapeHtml(n.ns)}-&lt;…&gt;</code> · ${n.count.toLocaleString("en-US")}</h3>
+<p>${escapeHtml(n.kindLabel)} — keyless observational <strong>mirror</strong> of each public entity (NOT the entity itself; no impersonation). Maintained by ${n.owners.map((o) => `<code>${escapeHtml(o)}</code>`).join(", ")}.</p>
+<p class="meta"><span class="tag">searchActors</span><span class="tag">did:web:…:actor:${escapeHtml(n.ns)}-&lt;…&gt;</span></p></div>`,
+    )
+    .join("\n");
+  const entityTotal = ENTITY_TOTAL_COUNT.toLocaleString("en-US");
+  const unispscTotal = UNISPSC_TOTAL_COUNT.toLocaleString("en-US");
+  const grandTotal = (
+    named.length + infra.length + ENTITY_TOTAL_COUNT + UNISPSC_TOTAL_COUNT
+  ).toLocaleString("en-US");
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -331,15 +366,21 @@ a{color:inherit}
 <h1>Actors on etzhayyim</h1>
 <p class="sub">Each actor resolves a <code>did:web:etzhayyim.com:actor:&lt;handle&gt;</code> DID and is kotoba-native (state lives in the kotoba Datom log; inference is Murakumo-only). Below is the registry — the same data is machine-readable at <a href="/.well-known/actors.json">/.well-known/actors.json</a>.</p>
 
+<p class="sub"><strong>${grandTotal}</strong> resolvable actors: ${named.length} named + ${infra.length} substrate services + <strong>${entityTotal}</strong> entity mirrors (below) + ${unispscTotal} UNSPSC agents. The named actors are the operators; the entity mirrors are the world they datafy, each given its own DID + profile + searchable presence.</p>
+
 <h2>Knowledge-graph &amp; Tier-B actors</h2>
 ${namedCards}
+
+<h2>Society-scale entity mirrors · ${entityTotal} <span style="font-weight:400;font-size:.8em;opacity:.7">(ADR-2606042330)</span></h2>
+<p class="sub">Every public/power entity a knowledge-graph actor datafies — governments, public companies, submarine cables, landing stations, ships &amp; aircraft — resolves its own <code>did:web:etzhayyim.com:actor:&lt;ns&gt;-&lt;…&gt;</code> <strong>keyless mirror-actor</strong> and is searchable via <code>app.bsky.actor.searchActors</code>. A mirror is etzhayyim's public-fact record of the entity, <strong>never the entity itself, never an official channel, never a target-list</strong>. Natural persons are excluded by construction. Counted by namespace (there are thousands), not listed row-by-row:</p>
+${nsRows}
 
 <h2>Substrate service DIDs</h2>
 ${infraCards}
 
 <footer>
-Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
-Per ADR-2605241800 (single did-web Worker) + ADR-2605212030. Free-form member/council handles also resolve but are not listed here.
+Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
+Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.
 </footer>
 </body>
 </html>
@@ -552,11 +593,14 @@ const HANDLE_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 const UNISPSC_HANDLE_SHAPE = /^c\d{6,12}$/;
 
 function isNamespacedHandle(handle: string): boolean {
-  return UNISPSC_HANDLE_SHAPE.test(handle);
+  return UNISPSC_HANDLE_SHAPE.test(handle) || isEntityHandleShape(handle);
 }
 
 function isKnownHandle(handle: string): boolean {
   if (UNISPSC_HANDLE_SHAPE.test(handle)) return UNISPSC_HANDLES.has(handle);
+  // Entity-as-actor mirror registries (ADR-2606042330): a namespaced entity
+  // handle (gov-/corp-/cable-/station-/craft-) resolves iff registered.
+  if (isEntityHandleShape(handle)) return isEntityHandle(handle);
   // Infra-actor registry — collapses the 8 per-actor Workers (pinner /
   // esign / audit / dataset-pinner / pds / anchorer / projector /
   // karute) to a single path-based DID Doc surface. Per ADR-2605241800
@@ -647,6 +691,11 @@ async function resolveActorRecord(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<ActorRecord | null> {
+  // Entity-as-actor mirror tier (ADR-2606042330): a registered entity handle
+  // resolves a keyless mirror record directly from the generated registries.
+  // No KV/kotoba round-trip needed at R0 (live kotoba enrichment is G8-gated);
+  // returned before the on-chain vm enrichment since mirrors are key-less (G5).
+  if (isEntityHandle(handle)) return entityActorRecord(handle);
   const rec = await resolveActorRecordTiered(handle, env, ctx);
   if (!rec) return null;
   // verificationMethod is a MIRROR of the on-chain ERC725 active key, never
@@ -1281,6 +1330,59 @@ a{color:inherit}
       if (m) {
         const nsid = m[1];
 
+        // ── searchActors short-circuit (ADR-2606042330) ───────────────────
+        // Make society-scale entity mirror-actors visible on `/search`. The
+        // legacy path proxies searchActors to the PDS appview (only human +
+        // a handful of infra actors), so the ~8,888 gov/corp/cable/station/
+        // craft mirrors were invisible. We answer from the Worker's generated
+        // registries (self-contained, no firehose — G8), then best-effort
+        // MERGE upstream PDS actors so member/human results are not regressed.
+        if (
+          (nsid === "app.bsky.actor.searchActors" ||
+            nsid === "com.etzhayyim.yoro.actor.searchActors") &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          const q =
+            url.searchParams.get("q") ?? url.searchParams.get("term") ?? "";
+          const limitParam = parseInt(url.searchParams.get("limit") ?? "25", 10);
+          const limit = Number.isFinite(limitParam)
+            ? Math.min(Math.max(limitParam, 1), 100)
+            : 25;
+          const entityActors = searchEntityActors(q, limit).map((r) =>
+            toGetProfileView(r),
+          );
+          // best-effort upstream merge (PDS members); tolerate absence (G8 R0).
+          let upstreamActors: unknown[] = [];
+          if (env.YORO_XRPC && entityActors.length < limit) {
+            try {
+              const su = new URL(request.url);
+              su.pathname = `/xrpc/com.etzhayyim.yoro.actor.searchActors`;
+              const fwd = new Headers(request.headers);
+              stripIncomingCookies(fwd);
+              fwd.set("x-forwarded-host", "etzhayyim.com");
+              const ur = await env.YORO_XRPC.fetch(
+                new Request(su.toString(), { method: "GET", headers: fwd }),
+              );
+              if (ur.ok) {
+                const j = (await ur.json()) as { actors?: unknown[] };
+                if (Array.isArray(j.actors)) upstreamActors = j.actors;
+              }
+            } catch {
+              // upstream unavailable — entity matches still answer the query.
+            }
+          }
+          const actors = [...entityActors, ...upstreamActors].slice(0, limit);
+          return new Response(JSON.stringify({ actors }) + "\n", {
+            status: 200,
+            headers: {
+              ...ACTOR_JSON_HEADERS,
+              "x-etzhayyim-actor-source": "entity-mirror+pds",
+              "x-etzhayyim-entity-total": String(ENTITY_TOTAL_COUNT),
+              "permissions-policy": PERMISSIONS_POLICY,
+            },
+          });
+        }
+
         // ── Actor-profile short-circuit (ADR-2606013800) ──────────────────
         // getProfile for a REGISTERED actor resolves from the actor registry
         // (KV → kotoba → compiled), NOT the PDS/substrate. Gated on the actor
@@ -1298,7 +1400,12 @@ a{color:inherit}
             "did:web:etzhayyim.com:actor:",
           );
           const handle = actorHandleFromParam(actorParam);
-          if (handle && (isActorDid || COMPILED_ACTOR_HANDLES.has(handle))) {
+          if (
+            handle &&
+            (isActorDid ||
+              COMPILED_ACTOR_HANDLES.has(handle) ||
+              isEntityHandle(handle))
+          ) {
             const rec = await resolveActorRecord(handle, env, ctx);
             if (rec) {
               return new Response(

@@ -13266,6 +13266,49 @@
       "lastVerified": "2026-06-04"
     },
     {
+      "id": "doc:adr-2606041827-watari-live-ship-aircraft-position-kotoba-native",
+      "type": "TechArticle",
+      "title": "ADR-2606041827: watari 渡り — kotoba-native live ship + aircraft position knowledge graph",
+      "status": "proposed",
+      "topic": "watari-live-moving-craft",
+      "authoritative": true,
+      "authoritativeFor": [
+        "live real-time ship (AIS) + aircraft (ADS-B) position ingestion onto the kotoba Datom log",
+        "watari actor design, ontology, lexicons, gates"
+      ],
+      "related": "doc:2605011500",
+      "lastVerified": "2026-06-04"
+    },
+    {
+      "id": "doc:adr-2606042100",
+      "type": "TechArticle",
+      "title": "tazuna 手綱 — clean-room remote-robotics fleet operation + teleoperation + learning-from-demonstration (the Orbit-shaped gap)",
+      "status": "proposed",
+      "topic": "remote-robotics-teleop-and-imitation-learning",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tazuna (手綱) remote-robotics fleet-operation + teleoperation actor charter (R0)",
+        "clean-room remote-robotics-ops / fleet-management interop surface (Orbit / Open-RMF / ROS 2 / MCAP / LeRobot published-API-shapes-only)",
+        "learning-from-demonstration (imitation / behavior-cloning) loop on the baien edge substrate",
+        "Transparent-Force binding for remote actuation (every teleop command = an on-chain-anchored Datom)"
+      ],
+      "related": [
+        "doc:adr-2606032100",
+        "doc:adr-2606032130",
+        "doc:adr-2606010600",
+        "doc:adr-2605242600",
+        "doc:adr-2605242630",
+        "doc:adr-2605261800",
+        "doc:adr-2606033600",
+        "doc:adr-2605242000",
+        "doc:adr-2605231525",
+        "doc:adr-2605215000",
+        "doc:adr-2605241900",
+        "doc:adr-2606031600"
+      ],
+      "lastVerified": "2026-06-04"
+    },
+    {
       "id": "doc:adr-2606042300",
       "type": "TechArticle",
       "title": "todoke 届け — last-mile (one-mile) autonomous delivery Tier-B actor (R0)",
@@ -13284,6 +13327,29 @@
         "doc:adr-2606032100",
         "doc:adr-2606042100",
         "doc:adr-2606033600"
+      ],
+      "lastVerified": "2026-06-04"
+    },
+    {
+      "id": "doc:adr-2606042330-entity-as-actor-society-wide-social-mirror-graph",
+      "type": "TechArticle",
+      "title": "ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors",
+      "status": "proposed",
+      "topic": "entity-as-actor-social-mirror-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "1 entity = 1 actor: every public/power entity datafied by a knowledge-graph actor resolves its own did:web actor",
+        "keyless mirror-actor model (no-server-key) + namespaced generated handle registries",
+        "entity social timeline = kotoba Datom as-of history projected as app.bsky.feed.post",
+        "searchActors / getProfile at society scale across all entity namespaces + unispsc unification"
+      ],
+      "related": [
+        "doc:2606021600",
+        "doc:2606022000",
+        "doc:2606032000",
+        "doc:2606011800",
+        "doc:2606012600",
+        "doc:2606041827"
       ],
       "lastVerified": "2026-06-04"
     },
