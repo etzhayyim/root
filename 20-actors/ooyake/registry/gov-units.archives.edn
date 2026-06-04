@@ -88,6 +88,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Iraq National Library and Archive"
+   :gov.unit/name-local "دار الكتب والوثائق العراقية"
+   :gov.unit/name-romanized "Dār al-Kutub wa-al-Wathāʾiq al-ʿIrāqiyya"
    :gov.unit/official-url "https://www.iraqnla.gov.iq/"
    :gov.unit/wikidata "Q620902"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -152,6 +154,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "National Library and Archives of Iran"
+   :gov.unit/name-local "سازمان اسناد و کتابخانه ملی جمهوری اسلامی ایران"
+   :gov.unit/name-romanized "Sāzmān-e Asnād va Ketābkhāne-ye Melli-ye Irān"
    :gov.unit/official-url "https://nlai.ir"
    :gov.unit/wikidata "Q1672405"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

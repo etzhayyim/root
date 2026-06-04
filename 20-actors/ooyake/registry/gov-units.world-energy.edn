@@ -564,6 +564,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Petroleum"
+   :gov.unit/name-local "وزارت نفت"
+   :gov.unit/name-romanized "Vezārat-e Naft"
    :gov.unit/official-url "http://www.mop.ir"
    :gov.unit/wikidata "Q4294485"
    :gov.unit/cofog ["04.3"]
@@ -984,6 +986,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "وزارة الطاقة"
+   :gov.unit/name-romanized "Wizārat al-Ṭāqa"
    :gov.unit/official-url "https://moenergy.gov.sy/"
    :gov.unit/wikidata "Q133699397"
    :gov.unit/cofog ["04.3"]

@@ -612,6 +612,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Culture and Islamic Guidance"
+   :gov.unit/name-local "وزارت فرهنگ و ارشاد اسلامی"
+   :gov.unit/name-romanized "Vezārat-e Farhang va Ershād-e Eslāmi"
    :gov.unit/official-url "http://www.ershad.gov.ir/"
    :gov.unit/wikidata "Q1445474"
    :gov.unit/cofog ["08.2"]
@@ -1309,6 +1311,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Culture (Syria)"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizārat al-Thaqāfa"
    :gov.unit/official-url "http://www.moc.gov.sy"
    :gov.unit/wikidata "Q4118076"
    :gov.unit/cofog ["08.2"]

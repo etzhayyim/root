@@ -939,6 +939,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Islamic Consultative Assembly"
+   :gov.unit/name-local "مجلس شورای اسلامی"
+   :gov.unit/name-romanized "Majles-e Shorā-ye Eslāmi"
    :gov.unit/official-url "https://rc.majlis.ir/"
    :gov.unit/wikidata "Q378605"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -951,6 +953,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Council of Representatives of Iraq"
+   :gov.unit/name-local "مجلس النواب العراقي"
+   :gov.unit/name-romanized "Majlis al-Nuwwāb al-ʿIrāqī"
    :gov.unit/official-url "https://www.parliament.iq/"
    :gov.unit/wikidata "Q1973075"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1011,6 +1015,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Parliament of Jordan"
+   :gov.unit/name-local "مجلس الأمة"
+   :gov.unit/name-romanized "Majlis al-Umma"
    :gov.unit/official-url "http://www.parliament.jo"
    :gov.unit/wikidata "Q820697"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1945,6 +1951,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "People's Assembly of Syria"
+   :gov.unit/name-local "مجلس الشعب"
+   :gov.unit/name-romanized "Majlis al-Shaʿb"
    :gov.unit/official-url "http://www.parliament.gov.sy"
    :gov.unit/wikidata "Q1372196"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2221,6 +2229,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Parliament of Yemen"
+   :gov.unit/name-local "مجلس النواب"
+   :gov.unit/name-romanized "Majlis al-Nuwwāb"
    :gov.unit/official-url "http://yemenparliament.gov.ye/"
    :gov.unit/wikidata "Q34665845"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

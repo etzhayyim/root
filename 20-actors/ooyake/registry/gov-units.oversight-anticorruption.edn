@@ -198,6 +198,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "General Inspection Office"
+   :gov.unit/name-local "سازمان بازرسی کل کشور"
+   :gov.unit/name-romanized "Sāzmān-e Bāzrasi-ye Koll-e Keshvar"
    :gov.unit/official-url "https://www.bazresi.ir/"
    :gov.unit/wikidata "Q5531956"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -222,6 +224,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Integrity and Anti-Corruption Commission - Jordan"
+   :gov.unit/name-local "هيئة النزاهة ومكافحة الفساد"
+   :gov.unit/name-romanized "Hayʾat al-Nazāha wa-Mukāfaḥat al-Fasād"
    :gov.unit/official-url "https://www.jiacc.gov.jo/"
    :gov.unit/wikidata "Q28716105"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

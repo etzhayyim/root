@@ -773,6 +773,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Interior (Iran)"
+   :gov.unit/name-local "وزارت کشور"
+   :gov.unit/name-romanized "Vezārat-e Keshvar"
    :gov.unit/official-url "http://www.moi.ir/"
    :gov.unit/wikidata "Q1091482"
    :gov.unit/cofog ["03.1"]
@@ -789,6 +791,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizārat al-Dākhiliyya"
    :gov.unit/official-url "http://www.moi.gov.iq"
    :gov.unit/wikidata "Q6867232"
    :gov.unit/cofog ["03.1"]
@@ -1535,6 +1539,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizārat al-Dākhiliyya"
    :gov.unit/official-url "https://moia.gov.sy/"
    :gov.unit/wikidata "Q17064124"
    :gov.unit/cofog ["03.1"]

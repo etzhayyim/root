@@ -851,6 +851,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Health and Medical Education"
+   :gov.unit/name-local "وزارت بهداشت، درمان و آموزش پزشکی"
+   :gov.unit/name-romanized "Vezārat-e Behdāsht, Darmān va Āmuzesh-e Pezeshki"
    :gov.unit/official-url "http://www.behdasht.gov.ir/"
    :gov.unit/wikidata "Q1091528"
    :gov.unit/cofog ["07"]
@@ -867,6 +869,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa"
    :gov.unit/official-url "http://www.moh.gov.iq"
    :gov.unit/wikidata "Q16842456"
    :gov.unit/cofog ["07"]
@@ -931,6 +935,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa"
    :gov.unit/official-url "http://www.moh.gov.jo"
    :gov.unit/wikidata "Q12250973"
    :gov.unit/cofog ["07"]
@@ -1899,6 +1905,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa"
    :gov.unit/official-url "https://www.moh.gov.sy/"
    :gov.unit/wikidata "Q56376962"
    :gov.unit/cofog ["07"]
@@ -2139,6 +2147,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Public Health and Population"
+   :gov.unit/name-local "وزارة الصحة العامة والسكان"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa al-ʿĀmma wa-l-Sukkān"
    :gov.unit/official-url "https://moh.gov.ye/"
    :gov.unit/wikidata "Q22932827"
    :gov.unit/cofog ["07"]

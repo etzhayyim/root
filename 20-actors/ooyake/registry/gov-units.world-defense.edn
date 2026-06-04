@@ -609,6 +609,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Defense and Armed Forces Logistics"
+   :gov.unit/name-local "وزارت دفاع و پشتیبانی نیروهای مسلح"
+   :gov.unit/name-romanized "Vezārat-e Defāʿ va Poshtibāni-ye Niruhā-ye Mosallah"
    :gov.unit/official-url "http://www.mod.ir/"
    :gov.unit/wikidata "Q1089480"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -621,6 +623,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Defence of Iraq"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizārat al-Difāʿ"
    :gov.unit/official-url "http://www.mod.mil.iq/"
    :gov.unit/wikidata "Q4118986"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1215,6 +1219,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizārat al-Difāʿ"
    :gov.unit/official-url "http://www.mod.gov.sy"
    :gov.unit/wikidata "Q4116488"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -297,6 +297,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Central Statistical Organization"
+   :gov.unit/name-local "الجهاز المركزي للإحصاء"
+   :gov.unit/name-romanized "al-Jihāz al-Markazī li-l-Iḥṣāʾ"
    :gov.unit/official-url "http://www.cso-yemen.org/"
    :gov.unit/wikidata "Q12185787"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -309,6 +311,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Department of Statistics"
+   :gov.unit/name-local "دائرة الإحصاءات العامة"
+   :gov.unit/name-romanized "Dāʾirat al-Iḥṣāʾāt al-ʿĀmma"
    :gov.unit/official-url "http://dosweb.dos.gov.jo/"
    :gov.unit/wikidata "Q12211086"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -369,6 +373,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Central Statistical Organization"
+   :gov.unit/name-local "الجهاز المركزي للإحصاء"
+   :gov.unit/name-romanized "al-Jihāz al-Markazī lil-Iḥṣāʾ"
    :gov.unit/official-url "http://cosit.gov.iq/"
    :gov.unit/wikidata "Q14065310"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -601,6 +607,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Statistical Centre of Iran"
+   :gov.unit/name-local "مرکز آمار ایران"
+   :gov.unit/name-romanized "Markaz-e Āmār-e Irān"
    :gov.unit/official-url "https://www.amar.org.ir/"
    :gov.unit/wikidata "Q25016236"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1612,6 +1620,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Central Bureau of Statistics"
+   :gov.unit/name-local "المكتب المركزي للإحصاء"
+   :gov.unit/name-romanized "al-Maktab al-Markazī li-l-Iḥṣāʾ"
    :gov.unit/official-url "http://cbssyr.sy"
    :gov.unit/wikidata "Q5060484"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

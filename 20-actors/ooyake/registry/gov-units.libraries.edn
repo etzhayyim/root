@@ -87,6 +87,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Tabriz National Library"
+   :gov.unit/name-local "کتابخانه مرکزی تبریز"
+   :gov.unit/name-romanized "Ketābkhāne-ye Markazi-ye Tabriz"
    :gov.unit/official-url "http://www.tabrizcentlib.ir/"
    :gov.unit/wikidata "Q171290"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -261,6 +263,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "National Library of Syria"
+   :gov.unit/name-local "مكتبة الأسد الوطنية"
+   :gov.unit/name-romanized "Maktabat al-Asad al-Waṭaniyya"
    :gov.unit/wikidata "Q618436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q618436" :gov.unit/last-verified "2026-06-04"
@@ -1154,6 +1158,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "National Library of Jordan"
+   :gov.unit/name-local "دائرة المكتبة الوطنية"
+   :gov.unit/name-romanized "Dāʾirat al-Maktaba al-Waṭaniyya"
    :gov.unit/official-url "https://hazine.info/1051-2/"
    :gov.unit/wikidata "Q6974152"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1501,6 +1507,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "National Library of Yemen"
+   :gov.unit/name-local "دار الكتب الوطنية"
+   :gov.unit/name-romanized "Dār al-Kutub al-Waṭaniyya"
    :gov.unit/official-url "http://www.nlye.org"
    :gov.unit/wikidata "Q618450"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

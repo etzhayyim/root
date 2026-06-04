@@ -679,6 +679,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Government of Iran"
+   :gov.unit/name-local "هیئت دولت"
+   :gov.unit/name-romanized "Heyʾat-e Dolat"
    :gov.unit/official-url "http://www.dolat.ir/"
    :gov.unit/wikidata "Q16052369"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -691,6 +693,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Government of Yemen"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzarāʾ"
    :gov.unit/official-url "https://www.yemen.gov.ye/"
    :gov.unit/wikidata "Q28492198"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1419,6 +1423,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Government of Syria"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzarāʾ"
    :gov.unit/official-url "https://www.gov.sy"
    :gov.unit/wikidata "Q113519305"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

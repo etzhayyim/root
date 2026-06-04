@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: Levant/Persia IR/IQ/JO/SY/YE (368 → 453)
+
+Continued the endonym axis into the Levant + Persia cluster. 7 web-research subagents.
+**85 ministry/agency/court/legislature endonyms added with romanization** (Iran 22 [Persian],
+Iraq 15, Jordan 14, Syria 22, Yemen 12).
+
+- all-units name-local: 368 → **453**.
+- Persian (Perso-Arabic): مجلس شورای اسلامی/Majles-e Shorā-ye Eslāmi, وزارت امور خارجه, دیوان عالی کشور;
+  Arabic: مجلس النواب العراقي, هيئة النزاهة ومكافحة الفساد (Jordan), مصرف سورية المركزي, etc.
+- **1 data-quality en-name fix**: gov.irq.supreme-court "Supreme Court of Iraq" → Federal Supreme Court
+  of Iraq (المحكمة الاتحادية العليا, the constitutional apex).
+- honest transition notes captured in romanization/source (not invented): Syria's 2024-25 transitional
+  govt merged Economy+Foreign-Trade into Economy+Industry and Petroleum+Electricity into Energy — the
+  stored name matches the registry English label; Iraq COSIT rebranded to Authority for Statistics &
+  Geospatial Information Systems (canonical الجهاز المركزي للإحصاء kept to match en); Iran energy unit =
+  Ministry of Petroleum (وزارت نفت).
+
+Remaining non-Latin high-tier endonym gaps ~589 (Maghreb [Morocco/Algeria/Tunisia], Pakistan/Bangladesh,
+Thai, Greek, Cyrillic neighbours, Central Asia, SE Asia) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: Arab core SA/AE/EG/QA/KW (272 → 368)
 
 Continued the endonym axis into the Arabic-script cluster: the Gulf core + Egypt. 7 web-research

@@ -337,6 +337,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Cultural Heritage, Tourism and Handicrafts"
+   :gov.unit/name-local "وزارت میراث فرهنگی، گردشگری و صنایع دستی"
+   :gov.unit/name-romanized "Vezārat-e Mirās-e Farhangi, Gardeshgari va Sanāyeʿ-e Dasti"
    :gov.unit/official-url "https://www.mcth.ir/"
    :gov.unit/wikidata "Q85976400"
    :gov.unit/cofog ["04.7"]
@@ -401,6 +403,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Tourism and Antiquities of Jordan"
+   :gov.unit/name-local "وزارة السياحة والآثار"
+   :gov.unit/name-romanized "Wizārat al-Siyāḥa wa-al-Āthār"
    :gov.unit/official-url "https://mota.gov.jo/"
    :gov.unit/wikidata "Q22686374"
    :gov.unit/cofog ["04.7"]
@@ -739,6 +743,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Tourism (Syria)"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizārat al-Siyāḥa"
    :gov.unit/official-url "https://mots.gov.sy/"
    :gov.unit/wikidata "Q60575868"
    :gov.unit/cofog ["04.7"]
@@ -883,6 +889,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizārat al-Siyāḥa"
    :gov.unit/wikidata "Q22932730"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
