@@ -9780,6 +9780,14 @@ status_note = "Documentation-only closure of the 2026-06-03→04 session (「kot
 path = "90-docs/adr/2606041657-session-close-kotoba-durability-and-canonical-tier.md"
 adr = ["2606041657", "2606041130", "2606041151"]
 
+[[adrs]]
+id = "2606041822"
+title = "Session close — apex etzhayyim.com kotoba query proxy + public-read posture finding"
+status = "active"
+status_note = "Answers 「https://etzhayyim.com/ からの query にも対応できているか」. Finding: apex etzhayyim.com/xrpc/com.etzhayyim.apps.kotoba.* was 404 (kotoba NSIDs fell through the com.etzhayyim. catch-all to XRPC_etzhayyim_UPSTREAM = atproto PDS, no kotoba endpoints); kotoba.etzhayyim.com tunnel is reachable but auth-gated per graph (graph.sparql = CACAO/Private; kg.query = Authenticated/any-bearer). SHIPPED: feat(did-web) apex xrpc proxy — kotoba/kotobase NSID routes BEFORE the catch-all → XRPC_KOTOBA_UPSTREAM = https://kotoba.etzhayyim.com; read-only, CACAO passes through, no server key (ADR-2605231525); tsc clean. REJECTED: global KOTOBA_DEFAULT_VISIBILITY=public — kickstart doesn't reload the plist env AND the kg/datomic graphs carry registered per-graph visibility the default wouldn't override AND global public exposes every unregistered graph (too broad); plist change reverted. Truly-anonymous public read = per-graph Public marking of public actor graphs only, never a global flag. Deploy is operator-run (wrangler deploy; no CF creds this session). ZERO Charter amendments."
+path = "90-docs/adr/2606041822-session-close-apex-etzhayyim-com-kotoba-query-proxy.md"
+adr = ["2606041822", "2606041657", "2605231525", "2606036400"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
