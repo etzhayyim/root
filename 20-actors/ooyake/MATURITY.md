@@ -43,6 +43,25 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 7 whole-country clusters (1269 → 1329)
+
+Third ministry-address batch, organized as **whole-country clusters** for efficiency: Eswatini (11),
+Angola (10), Belize (10), Grenada (9), Guatemala (9), Mongolia (9) + UAE (2). 6 web-research
+subagents. 60 added; **30 building-level lat/lon; 30 honest line-en-only (NULL coords, G5)** — small
+states with sparse OSM coverage where only the building/street/city is confirmable, not a building
+pin (every record still carries a verified line-en + city, which is the core L3 'where is it' value).
+
+- ministries: 1269 → **1329/1642** with an address record.
+- co-located clusters captured honestly: Grenada — 8 ministries share the Ministerial Complex,
+  Botanical Gardens, Tanteen (one coord); Belize — Finance/Education/Health in the Independence
+  Plaza complex; Eswatini — most on Mhlambanyatsi Road, Mbabane (Inter-Ministerial / Income Tax
+  buildings). Honest relocation notes: Grenada Finance moved to Galleria Mall, Grand Anse (Apr
+  2025); Guatemala MARN moved to Zona 13 (OSM still has the stale Zona-10 node → coord nulled);
+  Angola Finance temporarily relocated from Largo da Mutamba. UAE MoD is in Dubai (not Abu Dhabi).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: 60 more ministry HQs (1209 → 1269) + 21 subnational/stale name fixes
 
 Second ministry-tier address batch (next 19 priority countries: Malaysia, Kenya, Peru, Uzbekistan,

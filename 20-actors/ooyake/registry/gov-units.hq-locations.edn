@@ -9440,4 +9440,514 @@
    :gov.address/lat 36.7555 :gov.address/lon 3.01922
    :gov.address/sourcing :authoritative
    :gov.address/provenance "mf.gov.dz/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.agriculture.hq"
+   :gov.address/unit "gov.swz.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Agriculture, Hospital Hill, Mbabane"
+   :gov.address/lat -26.32973 :gov.address/lon 31.14233
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.culture.hq"
+   :gov.address/unit "gov.swz.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Sports, Culture & Youth Affairs, Swazi Bank Building, Gwamile St, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.education.hq"
+   :gov.address/unit "gov.swz.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Education & Training, Hospital Hill Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.energy.hq"
+   :gov.address/unit "gov.swz.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Natural Resources & Energy, Old Income Tax Building, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.finance.hq"
+   :gov.address/unit "gov.swz.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Finance, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.foreign.hq"
+   :gov.address/unit "gov.swz.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Foreign Affairs & International Cooperation, Inter-Ministerial Building, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.housing.hq"
+   :gov.address/unit "gov.swz.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Housing & Urban Development, Income Tax Building, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.interior.hq"
+   :gov.address/unit "gov.swz.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Home Affairs, Mhlambanyatsi Road, Mbabane"
+   :gov.address/lat -26.33156 :gov.address/lon 31.13964
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.justice.hq"
+   :gov.address/unit "gov.swz.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Justice & Constitutional Affairs, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.labour.hq"
+   :gov.address/unit "gov.swz.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Labour & Social Security, Inter-Ministerial Building, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.swz.transport.hq"
+   :gov.address/unit "gov.swz.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Ministry of Public Works & Transport, Mhlambanyatsi Road, Mbabane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.communications.hq"
+   :gov.address/unit "gov.ago.communications"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "MINTTICS, Av. 4 de Fevereiro / Rua da Alfândega, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.defense.hq"
+   :gov.address/unit "gov.ago.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério da Defesa Nacional, Rua 17 de Setembro, Cidade Alta, Luanda"
+   :gov.address/lat -8.82111 :gov.address/lon 13.22648
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.education.hq"
+   :gov.address/unit "gov.ago.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério da Educação, Av. Comandante Gika, Luanda"
+   :gov.address/lat -8.8284 :gov.address/lon 13.24034
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.energy.hq"
+   :gov.address/unit "gov.ago.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "MINEA, Rua Cónego Manuel das Neves, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.environment.hq"
+   :gov.address/unit "gov.ago.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério da Cultura, Turismo e Ambiente, Talatona, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.finance.hq"
+   :gov.address/unit "gov.ago.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério das Finanças, Largo da Mutamba, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.foreign.hq"
+   :gov.address/unit "gov.ago.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "MIREX, Palácio do Comércio, Rua Major Kanhangulo, Luanda"
+   :gov.address/lat -8.81272 :gov.address/lon 13.23389
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.health.hq"
+   :gov.address/unit "gov.ago.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério da Saúde, Rua 17 de Setembro, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.justice.hq"
+   :gov.address/unit "gov.ago.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério da Justiça e dos Direitos Humanos, Rua 17 de Setembro, Cidade Alta, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.transport.hq"
+   :gov.address/unit "gov.ago.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Ministério dos Transportes, Av. 4 de Fevereiro nº42, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.agriculture.hq"
+   :gov.address/unit "gov.blz.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Ministry of Agriculture, NATS Showground, Belmopan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.education.hq"
+   :gov.address/unit "gov.blz.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "West Block Building, Independence Hill, Belmopan"
+   :gov.address/lat 17.25164 :gov.address/lon -88.77192
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.environment.hq"
+   :gov.address/unit "gov.blz.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Ministry of Sustainable Development & Climate Change, Belmopan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.finance.hq"
+   :gov.address/unit "gov.blz.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Sir Edney Cain Building, Independence Plaza, Belmopan"
+   :gov.address/lat 17.25164 :gov.address/lon -88.77192
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.foreign.hq"
+   :gov.address/unit "gov.blz.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Leigh Richardson Building, Unity Boulevard, Belmopan"
+   :gov.address/lat 17.25201 :gov.address/lon -88.77027
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.health.hq"
+   :gov.address/unit "gov.blz.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "East Block Building, Independence Plaza, Belmopan"
+   :gov.address/lat 17.25164 :gov.address/lon -88.77192
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.housing.hq"
+   :gov.address/unit "gov.blz.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Ministry of Infrastructure Development & Housing, No.2 Power Lane, Belmopan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.interior.hq"
+   :gov.address/unit "gov.blz.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Ministry of Home Affairs, 1902 Constitution Drive, Belmopan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.labour.hq"
+   :gov.address/unit "gov.blz.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Ministry of Rural Transformation, Community Development, Labour & Local Government, 5163 Universal Blvd, Belmopan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.transport.hq"
+   :gov.address/unit "gov.blz.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "NEMO Building, Melhado Parade, Belmopan"
+   :gov.address/lat 17.25078 :gov.address/lon -88.77199
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.agriculture.hq"
+   :gov.address/unit "gov.grd.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, Botanical Gardens, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.education.hq"
+   :gov.address/unit "gov.grd.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Botanical Gardens, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.environment.hq"
+   :gov.address/unit "gov.grd.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.finance.hq"
+   :gov.address/unit "gov.grd.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Galleria Mall, Grand Anse, St George's"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.foreign.hq"
+   :gov.address/unit "gov.grd.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, 4th Floor, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.health.hq"
+   :gov.address/unit "gov.grd.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, Southern Wing, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.labour.hq"
+   :gov.address/unit "gov.grd.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, 3rd Floor, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.social.hq"
+   :gov.address/unit "gov.grd.social"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, West Wing, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.transport.hq"
+   :gov.address/unit "gov.grd.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, 4th Floor, Tanteen, St George's"
+   :gov.address/lat 12.04702 :gov.address/lon -61.74327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.agriculture.hq"
+   :gov.address/unit "gov.gtm.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "MAGA, 7a Avenida 12-90, Zona 13, Guatemala City"
+   :gov.address/lat 14.5891 :gov.address/lon -90.53291
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.communications.hq"
+   :gov.address/unit "gov.gtm.communications"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "CIV, 8a Avenida y 15 Calle, Zona 13, Guatemala City"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.culture.hq"
+   :gov.address/unit "gov.gtm.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Palacio Nacional de la Cultura, Zona 1, Guatemala City"
+   :gov.address/lat 14.64292 :gov.address/lon -90.51307
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.defense.hq"
+   :gov.address/unit "gov.gtm.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Ministerio de la Defensa Nacional, Av. de la Reforma 1-45, Zona 10, Guatemala City"
+   :gov.address/lat 14.61318 :gov.address/lon -90.51313
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.education.hq"
+   :gov.address/unit "gov.gtm.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "MINEDUC, 6a Calle 1-87, Zona 10, Guatemala City"
+   :gov.address/lat 14.60863 :gov.address/lon -90.51421
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.energy.hq"
+   :gov.address/unit "gov.gtm.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "MEM, Diagonal 17 29-78, Zona 11, Guatemala City"
+   :gov.address/lat 14.60025 :gov.address/lon -90.56208
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.environment.hq"
+   :gov.address/unit "gov.gtm.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "MARN, 7a Avenida 03-67, Zona 13, Guatemala City"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.interior.hq"
+   :gov.address/unit "gov.gtm.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Ministerio de Gobernación, 6a Avenida 13-71, Zona 1, Guatemala City"
+   :gov.address/lat 14.63515 :gov.address/lon -90.51423
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.labour.hq"
+   :gov.address/unit "gov.gtm.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Ministerio de Trabajo y Previsión Social, 7a Avenida 3-33, Zona 9, Guatemala City"
+   :gov.address/lat 14.61113 :gov.address/lon -90.51672
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.agriculture.hq"
+   :gov.address/unit "gov.mng.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Food, Agriculture and Light Industry, Ulaanbaatar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.culture.hq"
+   :gov.address/unit "gov.mng.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Culture, Denveriin gudamj, Sükhbaatar district, Ulaanbaatar"
+   :gov.address/lat 47.92911 :gov.address/lon 106.93001
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.education.hq"
+   :gov.address/unit "gov.mng.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Education and Science, Sükhbaatar district, Ulaanbaatar"
+   :gov.address/lat 47.91948 :gov.address/lon 106.92225
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.energy.hq"
+   :gov.address/unit "gov.mng.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Energy, Government Building XIV, Ulaanbaatar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.environment.hq"
+   :gov.address/unit "gov.mng.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Environment and Climate Change, Government Building XII, Ulaanbaatar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.finance.hq"
+   :gov.address/unit "gov.mng.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Finance, Government Building 2, Ulaanbaatar"
+   :gov.address/lat 47.92334 :gov.address/lon 106.91378
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.foreign.hq"
+   :gov.address/unit "gov.mng.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Foreign Affairs, Peace Avenue 7A, Ulaanbaatar"
+   :gov.address/lat 47.9168 :gov.address/lon 106.92071
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.interior.hq"
+   :gov.address/unit "gov.mng.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Justice and Home Affairs, Government Building V, Ulaanbaatar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.transport.hq"
+   :gov.address/unit "gov.mng.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Ministry of Road and Transport Development, Government Building XIII, Ulaanbaatar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.are.defense.hq"
+   :gov.address/unit "gov.are.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "UAE Ministry of Defence, 26 Al Seef Street, Bur Dubai, Dubai"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.are.education.hq"
+   :gov.address/unit "gov.are.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "UAE Ministry of Education, Al Qusais, Dubai"
+   :gov.address/lat 25.2633 :gov.address/lon 55.38766
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
 ]}
