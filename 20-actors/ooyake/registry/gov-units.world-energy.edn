@@ -32,12 +32,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Energy and Water of Angola"
+   :gov.unit/official-url "https://www.minea.gov.ao/"
    :gov.unit/wikidata "Q122802334"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q122802334"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.minea.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.energy"
@@ -63,12 +64,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Energy of UAE"
+   :gov.unit/official-url "https://www.moei.gov.ae/"
    :gov.unit/wikidata "Q12250976"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12250976"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moei.gov.ae/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.arm.energy"
@@ -78,12 +80,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Energy Infrastructures and Natural Resources"
+   :gov.unit/official-url "https://www.mtad.am/en"
    :gov.unit/wikidata "Q13053372"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q13053372"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mtad.am/en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.aus.energy"
@@ -141,12 +144,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bfa"
    :gov.unit/name-en "Ministry of Energy and Mines of Bukina Faso"
+   :gov.unit/official-url "https://www.energie-mines.gov.bf/"
    :gov.unit/wikidata "Q108464667"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q108464667"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.energie-mines.gov.bf/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bgd.energy"
@@ -204,12 +208,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Energy, Science & Technology and Public Utilities"
+   :gov.unit/official-url "https://www.mpuele.gov.bz/"
    :gov.unit/wikidata "Q18345333"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18345333"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mpuele.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.energy"
@@ -475,12 +480,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "gin"
    :gov.unit/name-en "Ministry of Energy of Guinea"
+   :gov.unit/official-url "https://mehh.gov.gn/"
    :gov.unit/wikidata "Q90407552"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q90407552"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mehh.gov.gn/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gmb.energy"
@@ -490,12 +496,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "gmb"
    :gov.unit/name-en "Ministry of Petroleum, Energy and Natural Resources of The Gambia"
+   :gov.unit/official-url "https://mopem.gov.gm/"
    :gov.unit/wikidata "Q1492922"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1492922"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mopem.gov.gm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gtm.energy"
@@ -617,12 +624,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Mines and Energy"
+   :gov.unit/official-url "https://mme.gov.kh/"
    :gov.unit/wikidata "Q6867189"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867189"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mme.gov.kh/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kor.energy"
@@ -696,12 +704,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lux"
    :gov.unit/name-en "Ministry of Energy of Luxembourg"
+   :gov.unit/official-url "https://meco.gouvernement.lu/"
    :gov.unit/wikidata "Q104771082"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104771082"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://meco.gouvernement.lu/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lva.energy"
@@ -871,12 +880,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/official-url "https://power.gov.pk/"
    :gov.unit/wikidata "Q36347675"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q36347675"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://power.gov.pk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.energy"
@@ -982,12 +992,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tgo"
    :gov.unit/name-en "Ministry of Mines and Energy"
+   :gov.unit/official-url "https://energie.gouv.tg/"
    :gov.unit/wikidata "Q4902553"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4902553"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://energie.gouv.tg/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tha.energy"
@@ -1125,10 +1136,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
    :gov.unit/name-en "Department of Mineral Resources and Energy"
+   :gov.unit/official-url "https://www.dmre.gov.za/"
    :gov.unit/wikidata "Q98152568"
    :gov.unit/cofog ["04.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q98152568"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.dmre.gov.za/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}
