@@ -64,6 +64,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Labour and Employment"
+   :gov.unit/name-local "শ্রম ও কর্মসংস্থান মন্ত্রণালয়"
+   :gov.unit/name-romanized "Shrom O Kormosongsthan Mantranalaya"
    :gov.unit/official-url "http://www.mole.gov.bd/"
    :gov.unit/wikidata "Q25209333"
    :gov.unit/cofog ["04.1"]
@@ -372,6 +374,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Labour and Social Security"
+   :gov.unit/name-local "Υπουργείο Εργασίας και Κοινωνικής Ασφάλισης"
+   :gov.unit/name-romanized "Ypourgeio Ergasias kai Koinonikis Asfalisis"
    :gov.unit/official-url "http://www.ypakp.gr/"
    :gov.unit/wikidata "Q3555626"
    :gov.unit/cofog ["04.1"]
@@ -953,6 +957,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Labour"
+   :gov.unit/name-local "กระทรวงแรงงาน"
+   :gov.unit/name-romanized "Krasuang Raeng-ngan"
    :gov.unit/official-url "http://www.mol.go.th/"
    :gov.unit/wikidata "Q4923085"
    :gov.unit/cofog ["04.1"]

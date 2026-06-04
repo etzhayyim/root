@@ -195,6 +195,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Law, Justice and Parliamentary Affairs"
+   :gov.unit/name-local "আইন, বিচার ও সংসদ বিষয়ক মন্ত্রণালয়"
+   :gov.unit/name-romanized "Ain, Bichar O Sangsad Bishayak Mantranalaya"
    :gov.unit/official-url "http://www.minlaw.gov.bd/"
    :gov.unit/wikidata "Q20612468"
    :gov.unit/cofog ["03.3"]
@@ -760,6 +762,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Justice (Greece)"
+   :gov.unit/name-local "Υπουργείο Δικαιοσύνης"
+   :gov.unit/name-romanized "Ypourgeio Dikaiosynis"
    :gov.unit/official-url "https://ministryofjustice.gr"
    :gov.unit/wikidata "Q60154812"
    :gov.unit/cofog ["03.3"]
@@ -1849,6 +1853,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Justice of Thailand"
+   :gov.unit/name-local "กระทรวงยุติธรรม"
+   :gov.unit/name-romanized "Krasuang Yutitham"
    :gov.unit/official-url "http://www.moj.go.th/"
    :gov.unit/wikidata "Q4919162"
    :gov.unit/cofog ["03.3"]
@@ -1947,6 +1953,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Justice of Ukraine"
+   :gov.unit/name-local "Міністерство юстиції України"
+   :gov.unit/name-romanized "Ministerstvo yustytsii Ukrainy"
    :gov.unit/official-url "http://www.minjust.gov.ua"
    :gov.unit/wikidata "Q4294878"
    :gov.unit/cofog ["03.3"]

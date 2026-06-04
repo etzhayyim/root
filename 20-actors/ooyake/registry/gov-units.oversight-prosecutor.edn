@@ -369,6 +369,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Office of the Prosecutor General of Ukraine"
+   :gov.unit/name-local "Офіс Генерального прокурора"
+   :gov.unit/name-romanized "Ofis Heneralnoho prokurora"
    :gov.unit/official-url "https://www.gp.gov.ua/"
    :gov.unit/wikidata "Q72282729"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

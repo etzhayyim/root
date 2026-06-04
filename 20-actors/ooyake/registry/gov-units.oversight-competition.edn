@@ -112,6 +112,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Hellenic Telecommunications and Post Commission"
+   :gov.unit/name-local "Εθνική Επιτροπή Τηλεπικοινωνιών και Ταχυδρομείων"
+   :gov.unit/name-romanized "Ethniki Epitropi Tilepikoinonion kai Tachydromeion"
    :gov.unit/official-url "https://www.eett.gr"
    :gov.unit/wikidata "Q5707312"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

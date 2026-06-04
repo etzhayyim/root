@@ -15,6 +15,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "পানি সম্পদ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Pani Sampad Mantranalaya"
    :gov.unit/official-url "https://mowr.gov.bd/"
    :gov.unit/wikidata "Q25209275"
    :gov.unit/cofog ["06.3"]

@@ -26,6 +26,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Library of Thailand"
+   :gov.unit/name-local "หอสมุดแห่งชาติ"
+   :gov.unit/name-romanized "Ho Samut Haeng Chat"
    :gov.unit/official-url "https://www.nlt.go.th/"
    :gov.unit/wikidata "Q618628"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -113,6 +115,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "National Library of Greece"
+   :gov.unit/name-local "Εθνική Βιβλιοθήκη της Ελλάδος"
+   :gov.unit/name-romanized "Ethniki Vivliothiki tis Ellados"
    :gov.unit/official-url "https://nlg.gr"
    :gov.unit/wikidata "Q1467610"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1081,6 +1085,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "National Library of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ জাতীয় গ্রন্থাগার"
+   :gov.unit/name-romanized "Bangladesh Jatiya Granthagar"
    :gov.unit/official-url "http://nlb.gov.bd/"
    :gov.unit/wikidata "Q6974137"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1298,6 +1304,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Vernadsky National Library of Ukraine"
+   :gov.unit/name-local "Національна бібліотека України імені В. І. Вернадського"
+   :gov.unit/name-romanized "Natsionalna biblioteka Ukrainy imeni V. I. Vernadskoho"
    :gov.unit/official-url "http://www.nbuv.gov.ua/"
    :gov.unit/wikidata "Q592734"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

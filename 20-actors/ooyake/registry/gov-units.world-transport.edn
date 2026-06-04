@@ -96,6 +96,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Road Transport and Bridges"
+   :gov.unit/name-local "সড়ক পরিবহন ও সেতু মন্ত্রণালয়"
+   :gov.unit/name-romanized "Sarak Paribahan O Setu Mantranalaya"
    :gov.unit/official-url "https://rthd.gov.bd/"
    :gov.unit/wikidata "Q24892364"
    :gov.unit/cofog ["04.5"]
@@ -550,6 +552,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Infrastructure and Transport (Greece)"
+   :gov.unit/name-local "Υπουργείο Υποδομών και Μεταφορών"
+   :gov.unit/name-romanized "Ypourgeio Ypodomon kai Metaforon"
    :gov.unit/official-url "https://www.yme.gr"
    :gov.unit/wikidata "Q2336314"
    :gov.unit/cofog ["04.5"]
@@ -1305,6 +1309,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "กระทรวงคมนาคม"
+   :gov.unit/name-romanized "Krasuang Khamanakhom"
    :gov.unit/official-url "http://www.mot.go.th/index.html"
    :gov.unit/wikidata "Q4170221"
    :gov.unit/cofog ["04.5"]

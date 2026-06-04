@@ -373,6 +373,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Social Policy"
+   :gov.unit/name-local "Міністерство соціальної політики України"
+   :gov.unit/name-romanized "Ministerstvo sotsialnoi polityky Ukrainy"
    :gov.unit/official-url "http://msp.gov.ua/"
    :gov.unit/wikidata "Q4294702"
    :gov.unit/cofog ["10"]

@@ -177,6 +177,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/name-local "স্বরাষ্ট্র মন্ত্রণালয়"
+   :gov.unit/name-romanized "Swarashtra Mantranalaya"
    :gov.unit/official-url "http://www.mha.gov.bd"
    :gov.unit/wikidata "Q17073581"
    :gov.unit/cofog ["03.1"]
@@ -647,6 +649,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of the Interior (Greece)"
+   :gov.unit/name-local "Υπουργείο Εσωτερικών"
+   :gov.unit/name-romanized "Ypourgeio Esoterikon"
    :gov.unit/official-url "https://www.ypes.gr"
    :gov.unit/wikidata "Q3555550"
    :gov.unit/cofog ["03.1"]
@@ -1563,6 +1567,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Interior of Thailand"
+   :gov.unit/name-local "กระทรวงมหาดไทย"
+   :gov.unit/name-romanized "Krasuang Mahatthai"
    :gov.unit/official-url "http://www.moi.go.th"
    :gov.unit/wikidata "Q640365"
    :gov.unit/cofog ["03.1"]
@@ -1677,6 +1683,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Internal Affairs of Ukraine"
+   :gov.unit/name-local "Міністерство внутрішніх справ України"
+   :gov.unit/name-romanized "Ministerstvo vnutrishnikh sprav Ukrainy"
    :gov.unit/official-url "http://www.mvs.gov.ua/"
    :gov.unit/wikidata "Q2445140"
    :gov.unit/cofog ["03.1"]

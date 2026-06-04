@@ -241,7 +241,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
-   :gov.unit/name-en "Ministry for Trade (Greece)"
+   :gov.unit/name-en "Ministry of Development (Greece)"
+   :gov.unit/name-local "Υπουργείο Ανάπτυξης"
+   :gov.unit/name-romanized "Ypourgeio Anaptyxis"
    :gov.unit/official-url "https://www.mindev.gov.gr/?lang=en"
    :gov.unit/wikidata "Q6866586"
    :gov.unit/cofog ["04.1"]
@@ -640,6 +642,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "กระทรวงพาณิชย์"
+   :gov.unit/name-romanized "Krasuang Phanit"
    :gov.unit/official-url "http://www.moc.go.th/"
    :gov.unit/wikidata "Q4921977"
    :gov.unit/cofog ["04.1"]

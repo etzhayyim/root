@@ -210,6 +210,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "শিক্ষা মন্ত্রণালয়"
+   :gov.unit/name-romanized "Shiksha Mantranalaya"
    :gov.unit/official-url "https://moedu.portal.gov.bd/"
    :gov.unit/wikidata "Q6866840"
    :gov.unit/cofog ["09"]
@@ -744,6 +746,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Education, Religious Affairs and Sports"
+   :gov.unit/name-local "Υπουργείο Παιδείας, Θρησκευμάτων και Αθλητισμού"
+   :gov.unit/name-romanized "Ypourgeio Paideias, Thriskevmaton kai Athlitismou"
    :gov.unit/official-url "https://www.minedu.gov.gr"
    :gov.unit/wikidata "Q16331885"
    :gov.unit/cofog ["09"]
@@ -1914,6 +1918,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Education of Thailand"
+   :gov.unit/name-local "กระทรวงศึกษาธิการ"
+   :gov.unit/name-romanized "Krasuang Sueksathikan"
    :gov.unit/official-url "http://www.moe.go.th/"
    :gov.unit/wikidata "Q4919714"
    :gov.unit/cofog ["09"]
@@ -1996,6 +2002,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Education and Science of Ukraine"
+   :gov.unit/name-local "Міністерство освіти і науки України"
+   :gov.unit/name-romanized "Ministerstvo osvity i nauky Ukrainy"
    :gov.unit/official-url "https://mon.gov.ua/"
    :gov.unit/wikidata "Q4294532"
    :gov.unit/cofog ["09"]

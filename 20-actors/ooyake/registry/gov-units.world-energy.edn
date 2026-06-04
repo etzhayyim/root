@@ -162,6 +162,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Power, Energy and Mineral Resources"
+   :gov.unit/name-local "বিদ্যুৎ, জ্বালানি ও খনিজ সম্পদ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Bidyut, Jalani O Khanij Sampad Mantranalaya"
    :gov.unit/official-url "http://www.mpemr.gov.bd/"
    :gov.unit/wikidata "Q24301315"
    :gov.unit/cofog ["04.3"]
@@ -1022,6 +1024,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "กระทรวงพลังงาน"
+   :gov.unit/name-romanized "Krasuang Phalang-ngan"
    :gov.unit/official-url "https://www.energy.go.th/"
    :gov.unit/wikidata "Q6866887"
    :gov.unit/cofog ["04.3"]
@@ -1104,6 +1108,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Energy of Ukraine"
+   :gov.unit/name-local "Міністерство енергетики України"
+   :gov.unit/name-romanized "Ministerstvo enerhetyky Ukrainy"
    :gov.unit/official-url "http://www.menr.gov.ua/"
    :gov.unit/wikidata "Q67117103"
    :gov.unit/cofog ["04.3"]

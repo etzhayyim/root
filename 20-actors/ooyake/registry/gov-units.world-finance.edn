@@ -163,6 +163,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "অর্থ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Artha Mantranalaya"
    :gov.unit/official-url "http://www.mof.gov.bd/"
    :gov.unit/wikidata "Q17068712"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -514,6 +516,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of National Economy and Finance (Greece)"
+   :gov.unit/name-local "Υπουργείο Εθνικής Οικονομίας και Οικονομικών"
+   :gov.unit/name-romanized "Ypourgeio Ethnikis Oikonomias kai Oikonomikon"
    :gov.unit/official-url "https://minfin.gov.gr"
    :gov.unit/wikidata "Q2605674"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1284,6 +1288,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "กระทรวงการคลัง"
+   :gov.unit/name-romanized "Krasuang Kan Khlang"
    :gov.unit/official-url "http://www.mof.go.th/"
    :gov.unit/wikidata "Q1416522"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1370,6 +1376,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Finance of Ukraine"
+   :gov.unit/name-local "Міністерство фінансів України"
+   :gov.unit/name-romanized "Ministerstvo finansiv Ukrainy"
    :gov.unit/official-url "http://www.mof.gov.ua"
    :gov.unit/wikidata "Q4294799"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

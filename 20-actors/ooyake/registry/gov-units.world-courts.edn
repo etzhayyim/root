@@ -133,6 +133,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Supreme Court of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ সুপ্রিম কোর্ট"
+   :gov.unit/name-romanized "Bangladesh Supreme Court"
    :gov.unit/official-url "http://www.supremecourt.gov.bd"
    :gov.unit/wikidata "Q3346963"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -630,6 +632,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Court of Cassation"
+   :gov.unit/name-local "Άρειος Πάγος"
+   :gov.unit/name-romanized "Areios Pagos"
    :gov.unit/official-url "http://www.areiospagos.gr/"
    :gov.unit/wikidata "Q174932"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1572,6 +1576,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Supreme Court of Thailand"
+   :gov.unit/name-local "ศาลฎีกา"
+   :gov.unit/name-romanized "San Dika"
    :gov.unit/official-url "http://www.supremecourt.or.th/"
    :gov.unit/wikidata "Q6152383"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1644,6 +1650,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Supreme Court of Ukraine"
+   :gov.unit/name-local "Верховний Суд"
+   :gov.unit/name-romanized "Verkhovnyi Sud"
    :gov.unit/official-url "http://supreme.court.gov.ua"
    :gov.unit/wikidata "Q2274281"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

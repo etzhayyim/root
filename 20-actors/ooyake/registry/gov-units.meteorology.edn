@@ -296,6 +296,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ukrainian Hydrometeorological Center"
+   :gov.unit/name-local "Український гідрометеорологічний центр"
+   :gov.unit/name-romanized "Ukrainskyi hidrometeorolohichnyi tsentr"
    :gov.unit/official-url "https://meteo.gov.ua/en/"
    :gov.unit/wikidata "Q12164119"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

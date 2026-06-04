@@ -113,6 +113,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Agriculture"
+   :gov.unit/name-local "কৃষি মন্ত্রণালয়"
+   :gov.unit/name-romanized "Krishi Mantranalaya"
    :gov.unit/official-url "https://moa.gov.bd/"
    :gov.unit/wikidata "Q20612519"
    :gov.unit/cofog ["04.2"]
@@ -566,6 +568,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Rural Development and Food (Greece)"
+   :gov.unit/name-local "Υπουργείο Αγροτικής Ανάπτυξης και Τροφίμων"
+   :gov.unit/name-romanized "Ypourgeio Agrotikis Anaptyxis kai Trofimon"
    :gov.unit/official-url "https://minagric.gr"
    :gov.unit/wikidata "Q3555563"
    :gov.unit/cofog ["04.2"]
@@ -1440,6 +1444,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Agriculture and Cooperatives"
+   :gov.unit/name-local "กระทรวงเกษตรและสหกรณ์"
+   :gov.unit/name-romanized "Krasuang Kaset lae Sahakon"
    :gov.unit/official-url "http://www.moac.go.th/"
    :gov.unit/wikidata "Q4383643"
    :gov.unit/cofog ["04.2"]
@@ -1554,6 +1560,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Agrarian Policy and Food of Ukraine"
+   :gov.unit/name-local "Міністерство аграрної політики та продовольства України"
+   :gov.unit/name-romanized "Ministerstvo ahrarnoi polityky ta prodovolstva Ukrainy"
    :gov.unit/official-url "http://minagro.gov.ua/"
    :gov.unit/wikidata "Q16708318"
    :gov.unit/cofog ["04.2"]

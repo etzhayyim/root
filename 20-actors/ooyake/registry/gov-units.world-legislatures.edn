@@ -193,6 +193,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Jatiya Sangsad"
+   :gov.unit/name-local "জাতীয় সংসদ"
+   :gov.unit/name-romanized "Jatiya Sangsad"
    :gov.unit/official-url "https://www.parliament.gov.bd/"
    :gov.unit/wikidata "Q1684080"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -809,6 +811,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Hellenic Parliament"
+   :gov.unit/name-local "Βουλή των Ελλήνων"
+   :gov.unit/name-romanized "Vouli ton Ellinon"
    :gov.unit/official-url "https://www.hellenicparliament.gr"
    :gov.unit/wikidata "Q477089"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1995,6 +1999,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Assembly of Thailand"
+   :gov.unit/name-local "รัฐสภา"
+   :gov.unit/name-romanized "Ratthasapha"
    :gov.unit/official-url "http://www.parliament.go.th/"
    :gov.unit/wikidata "Q1368318"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2129,6 +2135,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Verkhovna Rada"
+   :gov.unit/name-local "Верховна Рада України"
+   :gov.unit/name-romanized "Verkhovna Rada Ukrainy"
    :gov.unit/official-url "https://rada.gov.ua"
    :gov.unit/wikidata "Q176296"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
