@@ -698,7 +698,7 @@
    :gov.unit/parent "gov.cmr"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "cmr"
-   :gov.unit/name-en "Member of the Constitutional Council of Cameroon"
+   :gov.unit/name-en "Constitutional Council of Cameroon"
    :gov.unit/wikidata "Q30745641"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q30745641" :gov.unit/last-verified "2026-06-04"
