@@ -109,15 +109,48 @@ test("toDidDoc over a mirror record stays keyless", () => {
 
 test("searchActors short-circuit matches by name and by handle", () => {
   const byName = searchEntityActors("tsmc", 10);
-  assert.ok(byName.some((r) => r.handle === "corp-tw-tsmc"));
+  assert.ok(byName.records.some((r) => r.handle === "corp-tw-tsmc"));
   const byHandleHere = searchEntityActors("ever given", 10);
-  assert.ok(byHandleHere.some((r) => r.handle === "craft-vessel-imo9811000"));
+  assert.ok(byHandleHere.records.some((r) => r.handle === "craft-vessel-imo9811000"));
   // respects limit
-  assert.ok(searchEntityActors("", 5).length <= 5);
+  assert.ok(searchEntityActors("", 5).records.length <= 5);
   // getProfile view of a result is well-formed + mirror-labelled
-  const view = toGetProfileView(byName[0]);
+  const view = toGetProfileView(byName.records[0]);
   assert.match(view.description, /^Observational mirror/);
   assert.equal(view._etzhayyim.kind, "entity-mirror");
+});
+
+test("offset cursor pages through the full corpus without overlap or loss", () => {
+  // browse (no query): total === ENTITY_TOTAL_COUNT
+  const p0 = searchEntityActors("", 50, 0);
+  assert.equal(p0.total, ENTITY_TOTAL_COUNT);
+  assert.equal(p0.records.length, 50);
+  assert.equal(p0.nextOffset, 50);
+  const p1 = searchEntityActors("", 50, p0.nextOffset);
+  assert.equal(p1.records.length, 50);
+  // no overlap between consecutive pages
+  const h0 = new Set(p0.records.map((r) => r.handle));
+  assert.ok(p1.records.every((r) => !h0.has(r.handle)), "pages disjoint");
+  // last page: nextOffset null, records < limit
+  const last = searchEntityActors("", 50, ENTITY_TOTAL_COUNT - 10);
+  assert.equal(last.records.length, 10);
+  assert.equal(last.nextOffset, null);
+});
+
+test("query total is the full match count (not the page size)", () => {
+  const p = searchEntityActors("tokyo", 3, 0);
+  assert.ok(p.total >= p.records.length, "total counts all matches");
+  assert.ok(p.records.length <= 3, "page respects limit");
+  // walking the cursor collects exactly `total` records
+  let seen = 0;
+  let off = 0;
+  for (let guard = 0; guard < 1000; guard++) {
+    const pg = searchEntityActors("tokyo", 3, off);
+    seen += pg.records.length;
+    if (pg.nextOffset === null) break;
+    off = pg.nextOffset;
+  }
+  assert.equal(seen, p.total, "cursor walk yields every match once");
 });
 
 test("namespace summary counts equal the sum of registries", () => {

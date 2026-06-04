@@ -196,31 +196,51 @@ export function entityActorRecord(handle: string): ActorRecord | null {
   };
 }
 
-/** searchActors over the entity registries. Case-insensitive substring match on
- *  handle OR displayName, optionally restricted to namespaces. Capped at `limit`.
- *  Self-contained (no firehose / no PDS); the charter-clean way to make society
- *  scale visible on `/search` without outward publication (G8). */
+export interface EntitySearchPage {
+  /** the records for this page (≤ limit) */
+  readonly records: ActorRecord[];
+  /** offset to resume from for the next page, or null at end of results.
+   *  Stringify for the searchActors `cursor` field. */
+  readonly nextOffset: number | null;
+  /** total number of matches across all namespaces (for `totalActors`) */
+  readonly total: number;
+}
+
+/** searchActors over the entity registries with OFFSET pagination. Case-
+ *  insensitive substring match on handle OR displayName, optionally restricted
+ *  to namespaces. A single forward scan yields both the page window
+ *  [offset, offset+limit) AND the full match `total` (so the UI can render the
+ *  real count + page through all ~8,888 via the cursor). Self-contained (no
+ *  firehose / no PDS) — the charter-clean way to make society scale visible on
+ *  `/search` without outward publication (G8). The global ordering is stable
+ *  (namespace order × each Map's sorted insertion order), so the offset cursor
+ *  is consistent across requests. */
 export function searchEntityActors(
   query: string,
   limit = 25,
+  offset = 0,
   nsFilter?: readonly string[],
-): ActorRecord[] {
+): EntitySearchPage {
   const q = query.trim().toLowerCase();
-  const out: ActorRecord[] = [];
+  const records: ActorRecord[] = [];
   const spaces = nsFilter?.length
     ? ENTITY_NAMESPACES.filter((n) => nsFilter.includes(n.ns))
     : ENTITY_NAMESPACES;
+  let total = 0; // count of ALL matches (for totalActors)
   for (const ns of spaces) {
     for (const [handle, name] of ns.entities) {
-      if (out.length >= limit) return out;
       if (!q || handle.includes(q) || name.toLowerCase().includes(q)) {
-        const rec = entityActorRecord(handle);
-        if (rec) out.push(rec);
+        // window: collect only matches whose match-index ∈ [offset, offset+limit)
+        if (total >= offset && records.length < limit) {
+          const rec = entityActorRecord(handle);
+          if (rec) records.push(rec);
+        }
+        total++;
       }
     }
-    if (out.length >= limit) break;
   }
-  return out;
+  const consumed = offset + records.length;
+  return { records, nextOffset: consumed < total ? consumed : null, total };
 }
 
 /** Per-namespace summary for the `/actors` index + `/.well-known/actors.json`

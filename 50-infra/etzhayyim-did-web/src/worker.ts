@@ -1348,12 +1348,20 @@ a{color:inherit}
           const limit = Number.isFinite(limitParam)
             ? Math.min(Math.max(limitParam, 1), 100)
             : 25;
-          const entityActors = searchEntityActors(q, limit).map((r) =>
-            toGetProfileView(r),
-          );
-          // best-effort upstream merge (PDS members); tolerate absence (G8 R0).
+          // cursor = numeric offset into the (stable-ordered) entity match set.
+          const offParam = parseInt(url.searchParams.get("cursor") ?? "0", 10);
+          const offset = Number.isFinite(offParam) && offParam > 0 ? offParam : 0;
+          const page = searchEntityActors(q, limit, offset);
+          const entityActors = page.records.map((r) => toGetProfileView(r));
+          // best-effort upstream merge (PDS members) — only on the FIRST page and
+          // only when there is room, so the entity offset-cursor stays consistent
+          // across pages. Tolerate absence (G8 R0).
           let upstreamActors: unknown[] = [];
-          if (env.YORO_XRPC && entityActors.length < limit) {
+          if (
+            env.YORO_XRPC &&
+            offset === 0 &&
+            entityActors.length < limit
+          ) {
             try {
               const su = new URL(request.url);
               su.pathname = `/xrpc/com.etzhayyim.yoro.actor.searchActors`;
@@ -1365,14 +1373,22 @@ a{color:inherit}
               );
               if (ur.ok) {
                 const j = (await ur.json()) as { actors?: unknown[] };
-                if (Array.isArray(j.actors)) upstreamActors = j.actors;
+                if (Array.isArray(j.actors)) {
+                  upstreamActors = j.actors.slice(0, limit - entityActors.length);
+                }
               }
             } catch {
               // upstream unavailable — entity matches still answer the query.
             }
           }
-          const actors = [...entityActors, ...upstreamActors].slice(0, limit);
-          return new Response(JSON.stringify({ actors }) + "\n", {
+          const actors = [...entityActors, ...upstreamActors];
+          // totalActors: full match count when a query is set, else the whole
+          // entity universe — so the UI shows "8,888 actors" not "62+".
+          const totalActors = q.trim() ? page.total : ENTITY_TOTAL_COUNT;
+          const body: Record<string, unknown> = { actors, totalActors };
+          // cursor drives the UI's infinite-scroll loadMoreActors(); omit at end.
+          if (page.nextOffset !== null) body.cursor = String(page.nextOffset);
+          return new Response(JSON.stringify(body) + "\n", {
             status: 200,
             headers: {
               ...ACTOR_JSON_HEADERS,
