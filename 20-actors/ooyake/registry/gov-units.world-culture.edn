@@ -1471,6 +1471,7 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Education, Sport and Culture"
+   :gov.unit/official-url "https://mopse.ac.zw/"
    :gov.unit/wikidata "Q6866829"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active

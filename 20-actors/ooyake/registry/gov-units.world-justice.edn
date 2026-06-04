@@ -992,6 +992,7 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kir"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.moj.gov.ki/"
    :gov.unit/wikidata "Q56289996"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active

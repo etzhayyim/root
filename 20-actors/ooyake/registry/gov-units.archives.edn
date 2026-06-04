@@ -578,6 +578,7 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gin"
    :gov.unit/name-en "Guinea National Library and Archives"
+   :gov.unit/official-url "https://archivesnationales.gov.gn/"
    :gov.unit/wikidata "Q5616474"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q5616474" :gov.unit/last-verified "2026-06-04"
@@ -1611,6 +1612,7 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Archives Nationales de la République démocratique du Congo"
+   :gov.unit/official-url "https://inaco.cd/"
    :gov.unit/wikidata "Q56541711"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q56541711" :gov.unit/last-verified "2026-06-04"

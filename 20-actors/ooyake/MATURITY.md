@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — CONTACT axis: official-url — high-tier gap closure (5802 → 5817)
+
+New maturity axis (continuation of the user-chosen 連絡先 enrichment): closing official-website gaps.
+Surveyed all tiers — official-url was 5802/7106, and phone/email/window-hours are 0 everywhere.
+Started with the 81 HIGH-TIER gaps (ministry/agency/court/country/legislature/cabinet/supranational).
+7 web-research subagents. **15 real official sites found and added; 66 confirmed to have NO official
+website (honest — left blank, G5 no-fabrication)**.
+
+- official-url: 5802 → **5817/7106**; high-tier gaps 81 → **66 (all genuinely site-less)**.
+- found: DRC archives (inaco.cd), Guinea archives (archivesnationales.gov.gn), Mali library
+  (bn.gouv.ml), Mozambique CNE (cne.org.mz), Nicaragua presidency (presidencia.gob.ni), Yemen portal
+  (yemen.gov.ye), Syria e-gov (egov.sy), Cameroon Constitutional Council, Turkmenistan Supreme Court
+  (court.gov.tm), Belize transport (transport.gov.bz), Ethiopia MoD (mod.gov.et), Kiribati justice
+  (moj.gov.ki), Mauritania defense (armee.mr), Zimbabwe education (mopse.ac.zw), Brazil FSB (Treasury).
+- the 66 site-less are honest: restricted-internet states (North Korea ministries/courts/legislature
+  have only the state portal; Eritrea publishes nothing), dissolved/unconstituted bodies (Sudan
+  legislature & constitutional court, Tunisia constitutional court, Syria SCC), Facebook-only national
+  archives/libraries, and no-permanent-secretariat IGOs (BRICS, G7 — only rotating-chair sites).
+  None substituted with Wikipedia/social-media per the official-domain rule.
+- data note: Kuwait has no standalone Ministry of Transportation (transport sits under Communications);
+  Belgium education is a regional/Community competence (no federal ministry site).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — L3 ADDRESS: ★ 100% COMPLETE — all 7106 units now carry an address (7093 → 7106)
 
 Closed the final 13 stragglers across mixed tiers: the country Australia, Tokyo Metropolis (都),

@@ -1813,6 +1813,7 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Syria"
+   :gov.unit/official-url "https://www.egov.sy/"
    :gov.unit/wikidata "Q858"
    :gov.unit/external-code ["iso3166-1-alpha3:SYR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
