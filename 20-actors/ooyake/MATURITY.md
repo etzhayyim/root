@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — transport + defense ministry sites: 27 web-verified (1467 → 1494 ministries)
+
+Continued the ministry tier with transport (19) + defense (17) categories. 4 web-research
+subagents found + **confirmed each ministry's own official public site by fetching it**. 27
+confirmed and added (provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+(Defense entries are the ministries' PUBLIC homepages — civic-directory data, G10 wayfinding,
+never an attack-surface map.)
+
+- ministries: 1467 → **1494/1642** with an official site.
+- 9 HONESTLY left null (G5) — no confirmable dedicated ministry site: Belize transport
+  (portfolio under a Youth/Sports/Transport ministry, FB-only), Kuwait transport (split
+  across Communications + Public Works), Djibouti / Ethiopia / Guinea-Bissau / Equatorial
+  Guinea / Mauritania / North Korea / São Tomé defense.
+- honest reorganization notes recorded: Estonia transport now under the Ministry of Climate
+  (Kliimaministeerium); Jamaica under Energy/Transport/Telecoms; Slovenia under the Ministry
+  of Infrastructure; Tanzania dedicated Uchukuzi (not the old Works ministry). **Sudan
+  defense** (mod.gov.sd) is the documented official domain but currently OFFLINE due to the
+  civil war — recorded honestly (offline ≠ fabricated). Anti-bot/TLS/geo-block caveats noted,
+  all genuine official government domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — finance + foreign ministry sites: 24 web-verified (1443 → 1467 ministries)
 
 Continued the ministry tier with two coherent fiscal/diplomatic categories: 19 Finance
