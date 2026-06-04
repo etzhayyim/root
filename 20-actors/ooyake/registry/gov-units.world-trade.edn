@@ -608,6 +608,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Trade, Tourism and Telecommunications of the Republic of Serbia"
+   :gov.unit/name-local "Министарство унутрашње и спољне трговине"
+   :gov.unit/name-romanized "Ministarstvo unutrašnje i spoljne trgovine"
    :gov.unit/official-url "http://mtt.gov.rs"
    :gov.unit/wikidata "Q16664654"
    :gov.unit/cofog ["04.1"]

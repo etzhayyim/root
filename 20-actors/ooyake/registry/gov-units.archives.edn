@@ -292,6 +292,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Archives of Serbia (Arhiv Srbije)"
+   :gov.unit/name-local "Архив Србије"
+   :gov.unit/name-romanized "Arhiv Srbije"
    :gov.unit/official-url "http://www.arhivyu.gov.rs/active/en/home.html"
    :gov.unit/wikidata "Q2860440"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -473,6 +475,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Archives of Armenia"
+   :gov.unit/name-local "Հայաստանի ազգային արխիվ"
+   :gov.unit/name-romanized "Hayastani azgayin arkhiv"
    :gov.unit/official-url "http://armarchives.am/"
    :gov.unit/wikidata "Q3644681"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -570,6 +574,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Archives State Agency"
+   :gov.unit/name-local "Държавна агенция „Архиви“"
+   :gov.unit/name-romanized "Darzhavna agentsiya Arhivi"
    :gov.unit/official-url "http://www.archives.government.bg/"
    :gov.unit/wikidata "Q12279299"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -837,6 +843,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "National Archives of Georgia"
+   :gov.unit/name-local "საქართველოს ეროვნული არქივი"
+   :gov.unit/name-romanized "Sakartvelos erovnuli arkivi"
    :gov.unit/official-url "https://archive.gov.ge/"
    :gov.unit/wikidata "Q6970436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

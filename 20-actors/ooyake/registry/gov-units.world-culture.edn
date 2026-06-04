@@ -130,6 +130,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Culture of Bulgaria"
+   :gov.unit/name-local "Министерство на културата"
+   :gov.unit/name-romanized "Ministerstvo na kulturata"
    :gov.unit/official-url "http://mc.government.bg/"
    :gov.unit/wikidata "Q6866712"
    :gov.unit/cofog ["08.2"]
@@ -487,7 +489,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
-   :gov.unit/name-en "Ministry of Culture and Monument Protection"
+   :gov.unit/name-en "Ministry of Culture of Georgia"
+   :gov.unit/name-local "საქართველოს კულტურის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos kulturis saministro"
    :gov.unit/official-url "http://culture.gov.ge/"
    :gov.unit/wikidata "Q4294445"
    :gov.unit/cofog ["08.2"]
@@ -1226,6 +1230,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Culture of the Republic of Serbia"
+   :gov.unit/name-local "Министарство културе"
+   :gov.unit/name-romanized "Ministarstvo kulture"
    :gov.unit/official-url "http://www.kultura.gov.rs"
    :gov.unit/wikidata "Q16664624"
    :gov.unit/cofog ["08.2"]

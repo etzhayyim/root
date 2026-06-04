@@ -99,6 +99,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Foreign Affairs of Armenia"
+   :gov.unit/name-local "Արտաքին գործերի նախարարություն"
+   :gov.unit/name-romanized "Artakin gortseri nakhararutyun"
    :gov.unit/official-url "https://mfa.am"
    :gov.unit/wikidata "Q191559"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -209,6 +211,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Bulgaria"
+   :gov.unit/name-local "Министерство на външните работи"
+   :gov.unit/name-romanized "Ministerstvo na vanshnite raboti"
    :gov.unit/official-url "https://www.mfa.bg/"
    :gov.unit/wikidata "Q1813345"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -658,6 +662,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Foreign Affairs of Georgia"
+   :gov.unit/name-local "საქართველოს საგარეო საქმეთა სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos sagareo sakmetha saministro"
    :gov.unit/official-url "http://www.mfa.gov.ge/index.php?lang_id=ENG&sec_id=1"
    :gov.unit/wikidata "Q2568695"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1188,6 +1194,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "Министерство за надворешни работи"
+   :gov.unit/name-romanized "Ministerstvo za nadvoreshni raboti"
    :gov.unit/official-url "http://www.mfa.gov.mk"
    :gov.unit/wikidata "Q2502787"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1628,6 +1636,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Serbia"
+   :gov.unit/name-local "Министарство спољних послова"
+   :gov.unit/name-romanized "Ministarstvo spoljnih poslova"
    :gov.unit/official-url "https://www.mfa.gov.rs/"
    :gov.unit/wikidata "Q2198916"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -15,6 +15,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Prosecutor General of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության դատախազություն"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan datakhazutyun"
    :gov.unit/official-url "https://www.prosecutor.am"
    :gov.unit/wikidata "Q4135344"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -39,6 +41,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Prosecutor's Office of Bulgaria"
+   :gov.unit/name-local "Прокуратура на Република България"
+   :gov.unit/name-romanized "Prokuratura na Republika Balgaria"
    :gov.unit/official-url "https://prb.bg/en"
    :gov.unit/wikidata "Q53124687"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -333,6 +337,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Public Prosecution Office for Organized Crime"
+   :gov.unit/name-local "Тужилаштво за организовани криминал"
+   :gov.unit/name-romanized "Tužilaštvo za organizovani kriminal"
    :gov.unit/official-url "https://tok.jt.rs"
    :gov.unit/wikidata "Q137396709"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

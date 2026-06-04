@@ -370,6 +370,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Constitutional Court of Bulgaria"
+   :gov.unit/name-local "Конституционен съд на Република България"
+   :gov.unit/name-romanized "Konstitutsionen sad na Republika Balgariya"
    :gov.unit/official-url "http://www.constcourt.bg/"
    :gov.unit/wikidata "Q1861343"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -382,6 +384,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Constitutional Court of North Macedonia"
+   :gov.unit/name-local "Уставен суд на Република Северна Македонија"
+   :gov.unit/name-romanized "Ustaven sud na Republika Severna Makedonija"
    :gov.unit/official-url "http://www.ustavensud.mk"
    :gov.unit/wikidata "Q2348239"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -454,6 +458,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Constitutional Court of Georgia"
+   :gov.unit/name-local "საქართველოს საკონსტიტუციო სასამართლო"
+   :gov.unit/name-romanized "Sakartvelos sakonstitutsio sasamartlo"
    :gov.unit/official-url "https://www.constcourt.ge/en"
    :gov.unit/wikidata "Q5164290"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -514,6 +520,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Constitutional Court of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության սահմանադրական դատարան"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan sahmanadrakan dataran"
    :gov.unit/official-url "http://concourt.am/english/index.htm"
    :gov.unit/wikidata "Q3129220"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -526,6 +534,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Constitutional Court of Serbia"
+   :gov.unit/name-local "Уставни суд"
+   :gov.unit/name-romanized "Ustavni sud"
    :gov.unit/official-url "http://www.ustavni.sud.rs"
    :gov.unit/wikidata "Q3560961"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

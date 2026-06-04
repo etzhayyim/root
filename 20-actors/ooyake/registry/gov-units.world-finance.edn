@@ -91,6 +91,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Ֆինանսների նախարարություն"
+   :gov.unit/name-romanized "Finansneri nakhararutyun"
    :gov.unit/official-url "https://minfin.am"
    :gov.unit/wikidata "Q13053381"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -177,6 +179,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Министерство на финансите"
+   :gov.unit/name-romanized "Ministerstvo na finansite"
    :gov.unit/official-url "https://www.minfin.bg/"
    :gov.unit/wikidata "Q104972247"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -492,6 +496,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Finance of Georgia"
+   :gov.unit/name-local "საქართველოს ფინანსთა სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos pinanstha saministro"
    :gov.unit/official-url "https://mof.ge/"
    :gov.unit/wikidata "Q2783197"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1216,6 +1222,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Министарство финансија"
+   :gov.unit/name-romanized "Ministarstvo finansija"
    :gov.unit/official-url "http://www.mfin.gov.rs/"
    :gov.unit/wikidata "Q2198895"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

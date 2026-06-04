@@ -81,6 +81,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Internal Affairs"
+   :gov.unit/name-local "Ներքին գործերի նախարարություն"
+   :gov.unit/name-romanized "Nerkin gortseri nakhararutyun"
    :gov.unit/official-url "https://mia.gov.am"
    :gov.unit/wikidata "Q116846360"
    :gov.unit/cofog ["03.1"]
@@ -195,6 +197,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Interior of Bulgaria"
+   :gov.unit/name-local "Министерство на вътрешните работи"
+   :gov.unit/name-romanized "Ministerstvo na vatreshnite raboti"
    :gov.unit/official-url "https://www.mvr.bg/"
    :gov.unit/wikidata "Q2594388"
    :gov.unit/cofog ["03.1"]
@@ -617,6 +621,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Internal Affairs"
+   :gov.unit/name-local "საქართველოს შინაგან საქმეთა სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos shinagan sakmetha saministro"
    :gov.unit/official-url "http://www.police.ge"
    :gov.unit/wikidata "Q3649223"
    :gov.unit/cofog ["03.1"]
@@ -1469,6 +1475,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Internal Affairs of the Republic of Serbia"
+   :gov.unit/name-local "Министарство унутрашњих послова"
+   :gov.unit/name-romanized "Ministarstvo unutrašnjih poslova"
    :gov.unit/official-url "http://www.mup.gov.rs"
    :gov.unit/wikidata "Q2198998"
    :gov.unit/cofog ["03.1"]

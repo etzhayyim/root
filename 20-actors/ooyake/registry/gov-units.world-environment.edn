@@ -99,6 +99,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Environment of Armenia"
+   :gov.unit/name-local "Շրջակա միջավայրի նախարարություն"
+   :gov.unit/name-romanized "Shrjaka mijavayri nakhararutyun"
    :gov.unit/official-url "https://environment.gov.am"
    :gov.unit/wikidata "Q6867413"
    :gov.unit/cofog ["05"]
@@ -165,6 +167,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Environment and Water"
+   :gov.unit/name-local "Министерство на околната среда и водите"
+   :gov.unit/name-romanized "Ministerstvo na okolnata sreda i vodite"
    :gov.unit/official-url "https://www.moew.government.bg/?show=226&lang=en"
    :gov.unit/wikidata "Q12286834"
    :gov.unit/cofog ["05"]
@@ -489,6 +493,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Environmental Protection and Agriculture of Georgia"
+   :gov.unit/name-local "საქართველოს გარემოს დაცვისა და სოფლის მეურნეობის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos garemos datsvisa da soflis meurneobis saministro"
    :gov.unit/official-url "https://mepa.gov.ge/En/"
    :gov.unit/wikidata "Q4294677"
    :gov.unit/cofog ["05"]
@@ -1141,6 +1147,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Mining and Energy of the Republic of Serbia"
+   :gov.unit/name-local "Министарство рударства и енергетике"
+   :gov.unit/name-romanized "Ministarstvo rudarstva i energetike"
    :gov.unit/official-url "http://www.merz.gov.rs"
    :gov.unit/wikidata "Q22662468"
    :gov.unit/cofog ["05"]

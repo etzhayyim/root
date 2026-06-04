@@ -131,6 +131,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Agriculture, Food and Forestry"
+   :gov.unit/name-local "Министерство на земеделието и храните"
+   :gov.unit/name-romanized "Ministerstvo na zemedelieto i hranite"
    :gov.unit/official-url "http://www.mzh.government.bg"
    :gov.unit/wikidata "Q4294694"
    :gov.unit/cofog ["04.2"]
@@ -1330,6 +1332,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Agriculture, Forestry and Water Economy of the Republic of Serbia"
+   :gov.unit/name-local "Министарство пољопривреде, шумарства и водопривреде"
+   :gov.unit/name-romanized "Ministarstvo poljoprivrede, šumarstva i vodoprivrede"
    :gov.unit/official-url "http://www.mpt.gov.rs"
    :gov.unit/wikidata "Q16010182"
    :gov.unit/cofog ["04.2"]

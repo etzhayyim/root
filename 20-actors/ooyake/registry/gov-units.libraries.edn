@@ -280,6 +280,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Library of Armenia"
+   :gov.unit/name-local "Հայաստանի ազգային գրադարան"
+   :gov.unit/name-romanized "Hayastani azgayin gradaran"
    :gov.unit/official-url "https://nla.am"
    :gov.unit/wikidata "Q8213985"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -422,6 +424,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "National Library of Georgia"
+   :gov.unit/name-local "საქართველოს პარლამენტის ეროვნული ბიბლიოთეკა"
+   :gov.unit/name-romanized "Sakartvelos parlamentis erovnuli biblioteka"
    :gov.unit/official-url "http://www.nplg.gov.ge/"
    :gov.unit/wikidata "Q631526"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -434,6 +438,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "National Library of Serbia"
+   :gov.unit/name-local "Народна библиотека Србије"
+   :gov.unit/name-romanized "Narodna biblioteka Srbije"
    :gov.unit/official-url "https://nb.rs/"
    :gov.unit/wikidata "Q945496"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -767,6 +773,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "National and University Library \"St. Kliment of Ohrid\""
+   :gov.unit/name-local "Национална и универзитетска библиотека „Св. Климент Охридски“ – Скопје"
+   :gov.unit/name-romanized "Nacionalna i univerzitetska biblioteka Sv. Kliment Ohridski Skopje"
    :gov.unit/official-url "http://www.nubsk.edu.mk/"
    :gov.unit/wikidata "Q2424573"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1741,6 +1749,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "SS Cyril and Methodius National Library"
+   :gov.unit/name-local "Национална библиотека „Св. св. Кирил и Методий“"
+   :gov.unit/name-romanized "Natsionalna biblioteka Sv. sv. Kiril i Metodiy"
    :gov.unit/official-url "http://www.libplovdiv.com"
    :gov.unit/wikidata "Q630839"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
