@@ -227,6 +227,43 @@
    :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
                    {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
 
+  {:actor/handle "yadori"
+   :actor/did "did:web:etzhayyim.com:actor:yadori"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "宿"
+   :actor/display-name-ja "宿り — DNS空き確認 + ドメイン取得"
+   :actor/display-name-en "Yadori — DNS-Availability + Domain Acquisition"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "DNS/ドメインの空きを RDAP で確認し、必要な名前の取得を member-principal で伴走する。リテール registrar (GoDaddy等) の反転: fiat流入なし・markup/affiliate/parking なし・投機なし。取得は okaimono assisted-checkout (ADR-2606012100) 経由で Cloudflare Registrar at-cost path、yadori は買主にならず §1.3 を維持。actor DID 発行と実ドメイン存在の間の欠落を埋める。"
+   :actor/primary-lexicon "com.etzhayyim.yadori"
+   :actor/primary-schema "00-contracts/schemas/dns-domain-ontology.kotoba.edn"
+   :actor/adr ["2606038400"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yadori#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yadori#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "nusa"
+   :actor/did "did:web:etzhayyim.com:actor:nusa"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "幣"
+   :actor/display-name-ja "幣 — 神事用・産業用ヘンプ文化史 + 低THC栽培復権"
+   :actor/display-name-en "Nusa — Ritual/Industrial Hemp Heritage + Low-THC Cultivation"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "麻(あさ)の文化史 actor。幣=大幣(ōnusa, 麻の祓具)。神道の祓い・清め(注連縄/祓串/大幣)、皇室の麁服(大嘗祭の麻布神御衣)+阿波忌部の系譜、2023改正(大麻草の栽培の規制に関する法律)で再び開かれた低THC繊維/神事用の栽培者免許 pathway を kotoba Datom log に as-of で datafy。構造的に charter-clean: 繊維+神事+文化史のみ。嗜好THC は :thc-class invariant で除外(G1)、大麻由来医薬品は所掌外(G10→yakushi)、解禁論に推進/反対の立場なし(G3→danjo/moushibumi)。"
+   :actor/primary-schema "00-contracts/schemas/ritual-hemp-ontology.kotoba.edn"
+   :actor/adr ["2606039800"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:nusa#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:nusa#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
   ;; ── first-party browser-local app (no ADR; tool, not a Tier-B actor) ────
   {:actor/handle "tsuzuri"
    :actor/did "did:web:etzhayyim.com:actor:tsuzuri"

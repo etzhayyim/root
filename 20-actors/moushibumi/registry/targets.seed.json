@@ -1043,6 +1043,43 @@
       "verificationStatus": "unverified-seed",
       "notes": "Verified June 2026: u.ae is the official UAE Government portal; the 'Participate' / Consultations section publishes open and closed government consultations where the public can comment on services and policies (also Sharik.ae e-participation). This is an executive/administrative consultation channel, NOT a legislative petition right — the UAE has no citizen-initiative or parliamentary petition statute (the FNC is consultative). Confidence medium for that reason. BOUNDARY: route members to official consultation listings only; strictly info + procedure, no political advocacy. No verified comparable open democratic-participation channel exists for Saudi Arabia or Egypt at federal level — left out rather than fabricated (gate G8). Political-neutrality (公選法-equivalent): INFO + procedure ONLY. NO campaigning / endorsement / candidate ranking / GOTV. Election entries are neutral reference to OFFICIAL sources only.",
       "portalUrl": "https://u.ae/en/participate/consultations"
+    },
+    {
+      "targetId": "jp-cannabis-cultivation-law-pubcom",
+      "title": "大麻草の栽培の規制に関する法律 関連 命令等 パブリックコメント (e-Gov 意見募集)",
+      "jurisdiction": "jpn",
+      "channelKind": "public-comment",
+      "organ": "所管省庁 (厚生労働省ほか; e-Gov パブリック・コメント窓口)",
+      "channelType": "web-portal",
+      "introducingMemberRequired": false,
+      "submissionForm": "意見提出フォーム (案件ごと; 氏名/連絡先 任意の案件あり)",
+      "deadline": "案件ごとの意見募集期間 (原則 30 日以上 — 案件で確認)",
+      "legalBasis": "行政手続法 §39-§45 (意見公募手続); 対象=大麻草の栽培の規制に関する法律 (令和5年法律第84号) の施行令/施行規則 等の命令等",
+      "language": "ja",
+      "provenance": "https://public-comment.e-gov.go.jp/",
+      "portalUrl": "https://public-comment.e-gov.go.jp/",
+      "lastVerified": "2026-06-03T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "notes": "TOPIC-SCOPED pointer over the generic jp-egov-public-comment entry: when a 命令等 under 大麻草の栽培の規制に関する法律 (栽培者免許制度, THC含有量基準, 大麻由来医薬品, 使用罪 関連) is open for 意見公募, moushibumi assists a CONSENTING member draft + self-submit an opinion. STRICTLY NEUTRAL (G3): no 推進/反対 stance, no campaigning/GOTV; open equally to citizens favoring OR opposing 規制緩和/解禁 — 賛否いずれの意見も等しく支援. moushibumi renders drafting-assistance only (G5 UPL — no legal advice; legal questions → chigiri). Companion to nusa (幣) heritage actor (ADR-2606039800) + danjo's non-adjudicating legislative trace. Specific 案件 window/所管 resolve per-案件; G14 no live submission against unverified-seed.",
+      "notesPoliticalNeutrality": "公選法-equivalent: INFO + procedure ONLY; no campaigning / endorsement / candidate ranking / GOTV."
+    },
+    {
+      "targetId": "jp-cannabis-policy-seigan",
+      "title": "大麻政策に関する 国会請願 / 地方議会陳情 (template)",
+      "jurisdiction": "jpn",
+      "channelKind": "petition",
+      "organ": "衆議院 / 参議院 (請願は紹介議員経由) ・ 地方議会 (陳情)",
+      "channelType": "via-introducing-member",
+      "introducingMemberRequired": true,
+      "submissionForm": "請願書 / 陳情書 (件名・要旨・請願者の住所氏名・紹介議員署名)",
+      "deadline": "会期中 (会期末の一定期日前まで; 院により異なる — 要確認)",
+      "legalBasis": "日本国憲法 §16; 請願法; 国会法 §79-§82; 地方自治法 §124",
+      "language": "ja",
+      "provenance": "https://www.shugiin.go.jp/internet/itdb_annai.nsf/html/statics/annai/seigan.htm",
+      "lastVerified": "2026-06-03T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "notes": "TOPIC-SCOPED petition template for a member who wishes to petition on 大麻政策 (in EITHER direction — 規制維持/強化 OR 規制緩和). NEUTRAL (G3): moushibumi assists drafting + 様式確認 only; it does NOT arrange/lobby 紹介議員 (G9 non-partisan), takes no position, and the member self-submits (G15). Legal advice → chigiri (G5 UPL). Subordinate to the generic jp-kokkai-seigan / jp-chihogikai-chinjo mechanics. G14 no live submission against unverified-seed.",
+      "notesPoliticalNeutrality": "公選法-equivalent: INFO + procedure ONLY; no campaigning / endorsement / candidate ranking / GOTV."
     }
   ]
 }

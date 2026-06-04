@@ -9,4 +9,8 @@ the Apache License 2.0 and the Charter Compliance Rider.
 
 Mission Charter: ADR-2605192100
 Rider ADR: ADR-2605192200 (v2.0)
+<<<<<<<< HEAD:60-apps/etzhayyim-project-mangaka/NOTICE
+Migrated from: etzhayyimcojp 2026-05-21 (TRANSFORM batch, codemod pending)
+========
 Migrated from: gftd vendor 2026-06-03
+>>>>>>>> origin/main:60-apps/etzhayyim-project-supply-chain/NOTICE

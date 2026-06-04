@@ -7,16 +7,16 @@
 # path, not the model.
 #
 # Apply:
-#   kubectl apply -f 70-tools/scripts/training/baien-bitnet-cpp-vke-smoke.yaml
+#   kubectl apply -n baien -f 70-tools/scripts/training/baien-bitnet-cpp-vke-smoke.yaml
 # Watch:
-#   kubectl logs -f job/baien-bitnetcpp-amd64-smoke
+#   kubectl logs -n baien -f job/baien-bitnetcpp-amd64-smoke
 # Cleanup:
-#   kubectl delete job baien-bitnetcpp-amd64-smoke
+#   kubectl delete -n baien job baien-bitnetcpp-amd64-smoke
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: baien-bitnetcpp-amd64-smoke
-  namespace: default
+  namespace: baien
   labels:
     app.kubernetes.io/name: baien-bitnetcpp-amd64-smoke
     app.kubernetes.io/part-of: baien

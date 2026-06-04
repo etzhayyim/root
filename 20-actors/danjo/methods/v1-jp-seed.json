@@ -102,6 +102,22 @@
         "Modifications mis-linked to the wrong base award (resolution error).",
         "Inflation / FX adjustment recorded as a modification."
       ]
+    },
+    {
+      "methodId": "cannabis-policy-legislative-trace",
+      "version": "1.0.0-draft",
+      "title": "Factual legislative trace of cannabis-policy reform (大麻取締法 → 大麻草の栽培の規制に関する法律)",
+      "appliesToCategory": "legislative-trace",
+      "definition": "A read-only INDEX (not a discrepancyObservation): cross-reference 国会会議録 (parliamentRecord) statements that mention 大麻 / 大麻取締法 / 大麻草の栽培の規制に関する法律 / 大麻由来医薬品 / 使用罪 into a FACTUAL, source-cited timeline of who said what and which provision changed (大麻取締法 renamed/restructured to 大麻草の栽培の規制に関する法律 by 令和5年法律第84号; cannabis-derived medicine made prescribable; THC-content-basis regulation; new 使用罪). This is the 大麻政策 scope of the danjo_diet_statement_index cell — it produces datoms only, NO observation, NO finding, NO position, NO endorsement. nonAdjudicatingNotice=true; ≥2 sourceRecordCids; severity is routing weight only, never a wrongdoing or policy-correctness score. Takes NO 推進/反対 stance on 解禁論 (G4; companion to nusa 幣 heritage actor's G3 and moushibumi neutral public-comment support, ADR-2606039800).",
+      "inputs": ["com.etzhayyim.gov.dataset.parliamentRecord"],
+      "thresholdParams": "{\"keywords\":[\"大麻\",\"大麻取締法\",\"大麻草の栽培の規制に関する法律\",\"大麻由来医薬品\",\"使用罪\"],\"emitsObservation\":false,\"primarySourceCiteRequired\":true}",
+      "knownFalsePositiveModes": [
+        "A statement mentions 大麻 in an unrelated context (place names 大麻町, historical/ritual hemp 麻) — keyword match is not topical relevance.",
+        "OCR / transcription drift in older 会議録 produces spurious or missing matches.",
+        "A statute reference cites a superseded provision number after the 令和5年 restructure (link resolves to the wrong article).",
+        "A speaker's quoted position is theirs alone; the index records that it was SAID, not that it is correct, prevailing, or endorsed — danjo asserts no policy verdict (G4).",
+        "Legal characterization of any change is out of danjo's scope and routes to chigiri + counsel; legislative figures here are :representative until primary-source-verified against e-Gov 法令 / 官報."
+      ]
     }
   ]
 }

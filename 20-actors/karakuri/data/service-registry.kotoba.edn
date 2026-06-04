@@ -1,0 +1,107 @@
+;; karakuri (絡繰) service capability + ToS registry — :representative (R0, G8).
+;; Each record drives adapter-tier selection (T1 official-API preferred) and the G2 ToS gate:
+;; a :tos-stance of :automation-prohibited refuses the T2 headless-browser adapter by construction.
+;; This is policy/capability data, NOT an endorsement. karakuri drives only the MEMBER's OWN account
+;; (G1) and holds no credential (G3). ToS stances are :representative and MUST be operator-verified
+;; before any live use (G6); a vendor can change its ToS at any time.
+[{:service/id "squarespace"
+  :service/name "Squarespace"
+  :service/category :site-builder
+  :service/official-api true
+  :service/auth-model :oauth2
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "documented per-endpoint; backoff on 429"
+  :service/representative true}
+
+ {:service/id "wix"
+  :service/name "Wix"
+  :service/category :site-builder
+  :service/official-api true
+  :service/auth-model :oauth2
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "REST API quota per app"
+  :service/representative true}
+
+ {:service/id "notion"
+  :service/name "Notion"
+  :service/category :productivity
+  :service/official-api true
+  :service/auth-model :oauth2
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "~3 req/s average"
+  :service/representative true}
+
+ {:service/id "shopify"
+  :service/name "Shopify"
+  :service/category :commerce
+  :service/official-api true
+  :service/auth-model :oauth2
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "leaky-bucket (Admin API)"
+  :service/representative true}
+
+ {:service/id "stripe"
+  :service/name "Stripe"
+  :service/category :payments
+  :service/official-api true
+  :service/auth-model :api-key
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "100 req/s default"
+  :service/representative true}
+
+ {:service/id "github"
+  :service/name "GitHub"
+  :service/category :dev
+  :service/official-api true
+  :service/auth-model :pat
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "5000 req/h (authenticated)"
+  :service/representative true}
+
+ {:service/id "airtable"
+  :service/name "Airtable"
+  :service/category :productivity
+  :service/official-api true
+  :service/auth-model :pat
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "5 req/s per base"
+  :service/representative true}
+
+ {:service/id "wordpress"
+  :service/name "WordPress (self-hosted / .com)"
+  :service/category :cms
+  :service/official-api true
+  :service/auth-model :oauth2
+  :service/tos-stance :api-ok
+  :service/tier :t1-official-api
+  :service/rate-limit "host-dependent"
+  :service/representative true}
+
+ ;; ── No usable official API for the member's task → T2, but ONLY if ToS permits ──
+ {:service/id "legacy-portal"
+  :service/name "Generic GUI-only portal (no API)"
+  :service/category :productivity
+  :service/official-api false
+  :service/auth-model :session-cookie
+  :service/tos-stance :automation-allowed
+  :service/tier :t2-headless-browser
+  :service/rate-limit "self-throttle; human-paced"
+  :service/representative true}
+
+ ;; ── ToS forbids automation → T2 refused by construction (G2 gate counter-example) ──
+ {:service/id "noauto-saas"
+  :service/name "SaaS whose ToS prohibits automation"
+  :service/category :productivity
+  :service/official-api false
+  :service/auth-model :session-cookie
+  :service/tos-stance :automation-prohibited
+  :service/tier :t3-structured-export
+  :service/rate-limit "n/a — automation prohibited; export-only"
+  :service/representative true}]

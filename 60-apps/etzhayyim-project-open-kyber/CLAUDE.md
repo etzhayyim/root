@@ -1,5 +1,16 @@
 # etzhayyim-project-open-kyber — Open Source ERP (APQC-aligned)
 
+> **Direction (ADR-2606037200, 2026-06-03)** — open-kyber is being promoted to a
+> **kotoba-Datomic ERP**: canonical state = the kotoba Datom log (no RisingWave/Kysely/
+> Hyperdrive), accounting as Datomic-accounting (`as-of` history, 非終末論), **ISIC industry
+> packs** (one base + 21 section packs A–U + division packs → an ERP tailored to every
+> industry), and a **kotoba-native productivity suite** (mailer over openmail Postage / drive
+> on IPFS / docs+sheets as content-addressed blocks / calendar Datoms). Artifacts:
+> `00-contracts/schemas/erp-ontology.kotoba.edn` (EAVT vocab) +
+> `industry-packs/isic-packs.kotoba.edn` (packs). R0 = design landed; rw-free TS loader +
+> XRPC wiring + tests are R1+. The APQC/BPMN sections below describe the current (ADR-0025)
+> deployment; the read path migrates to kqe-over-Datom-log per ADR-2606037200 D1.
+
 **Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/etzhayyim/etzhayyim-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.etzhayyim.com`). Legacy etzhayyim tenancy remains a separate proprietary deployment.
 
 **Consolidates** the former `etzhayyim-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `com.etzhayyim.apps.kyber.*` / `com.etzhayyim.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).

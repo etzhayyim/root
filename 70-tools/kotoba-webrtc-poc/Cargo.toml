@@ -1,0 +1,26 @@
+# Phase 0 PoC for ADR-2606036400 — browser-reachable kotoba P2P.
+# Standalone crate (empty [workspace] so cargo does NOT walk up into any parent
+# workspace, and it never touches the kotoba submodule's pinned deps).
+#
+# Goal: prove a rust↔rust libp2p WebRTC-direct dial works on the SAME libp2p
+# line kotoba pins (libp2p 0.53.2 / libp2p-core 0.41.3). If this connects, a
+# js-libp2p browser can dial the same listener (Phase 1/2).
+[package]
+name = "kotoba-webrtc-poc"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+# Same major line as kotoba (40-engine/kotoba/Cargo.toml).
+libp2p = { version = "0.53", features = ["tokio", "ping", "macros"] }
+# WebRTC-direct transport — not in the libp2p umbrella; standalone crate.
+# 0.7.x-alpha pairs with libp2p-core 0.41 (kotoba's line).
+libp2p-webrtc = { version = "0.7.1-alpha", features = ["tokio"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
+futures = "0.3"
+rand = "0.8"
+anyhow = "1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
