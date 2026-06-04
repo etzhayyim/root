@@ -80,6 +80,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Constitutional Council (Cambodia)"
+   :gov.unit/name-local "ក្រុមប្រឹក្សាធម្មនុញ្ញ"
+   :gov.unit/name-romanized "Krom Preuksa Thommanunh"
    :gov.unit/official-url "http://www.ccc.gov.kh"
    :gov.unit/wikidata "Q47530677"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

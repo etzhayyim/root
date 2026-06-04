@@ -474,6 +474,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Finance and Economic Development"
+   :gov.unit/name-local "የገንዘብ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Genzeb Minister"
    :gov.unit/official-url "http://www.mofed.gov.et"
    :gov.unit/wikidata "Q4294809"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -754,6 +756,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Finance and Planning"
+   :gov.unit/name-local "මුදල් අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Mudal Amathyanshaya"
    :gov.unit/official-url "http://www.treasury.gov.lk/"
    :gov.unit/wikidata "Q4294807"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -888,6 +892,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Planning and Finance"
+   :gov.unit/name-local "စီမံကိန်းနှင့်ဘဏ္ဍာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Simankein-hnint Bandayay Wankyihtana"
    :gov.unit/official-url "https://myanmar.gov.mm/ministry-of-finance-and-revenue"
    :gov.unit/wikidata "Q13070423"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1034,6 +1040,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "अर्थ मन्त्रालय"
+   :gov.unit/name-romanized "Artha Mantralaya"
    :gov.unit/official-url "http://www.mof.gov.np/"
    :gov.unit/wikidata "Q17010343"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -604,6 +604,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Federal Democratic Republic of Ethiopia"
+   :gov.unit/name-local "የውጭ ጉዳይ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Wuch Guday Minister"
    :gov.unit/official-url "http://www.mfa.gov.et/"
    :gov.unit/wikidata "Q3315366"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -978,6 +980,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Foreign Affairs and International Cooperation"
+   :gov.unit/name-local "ក្រសួងការបរទេស និងសហប្រតិបត្តិការអន្តរជាតិ"
+   :gov.unit/name-romanized "Krasuong Karobante ning Sahapratibatkar Antoracheat"
    :gov.unit/official-url "http://www.mfaic.gov.kh"
    :gov.unit/wikidata "Q4294408"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1030,6 +1034,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "ກະຊວງການຕ່າງປະເທດ"
+   :gov.unit/name-romanized "Kasuang Kantangpathet"
    :gov.unit/official-url "http://www.mofa.gov.la/"
    :gov.unit/wikidata "Q6867008"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1078,6 +1084,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Foreign Affairs (Sri Lanka)"
+   :gov.unit/name-local "විදේශ කටයුතු අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Videsha Katayuthu Amathyanshaya"
    :gov.unit/official-url "http://www.mfa.gov.lk/"
    :gov.unit/wikidata "Q4294404"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1226,6 +1234,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Myanmar"
+   :gov.unit/name-local "နိုင်ငံခြားရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Naing-ngan-cha-ye Wankyihtana"
    :gov.unit/official-url "http://www.mofa.gov.mm/"
    :gov.unit/wikidata "Q4294392"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1360,6 +1370,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "परराष्ट्र मन्त्रालय"
+   :gov.unit/name-romanized "Pararashtra Mantralaya"
    :gov.unit/official-url "http://www.mofa.gov.np"
    :gov.unit/wikidata "Q6867016"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

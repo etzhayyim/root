@@ -522,6 +522,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eri"
    :gov.unit/name-en "Bank of Eritrea"
+   :gov.unit/name-local "ባንክ ኤርትራ"
+   :gov.unit/name-romanized "Bank Ertra"
    :gov.unit/official-url "http://www.boe.gov.er/"
    :gov.unit/wikidata "Q806163"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -546,6 +548,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Bank of Ethiopia"
+   :gov.unit/name-local "የኢትዮጵያ ብሔራዊ ባንክ"
+   :gov.unit/name-romanized "Ye-Ityopiya Biherawi Bank"
    :gov.unit/official-url "https://nbe.gov.et/"
    :gov.unit/wikidata "Q1967889"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -834,6 +838,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "National Bank of Cambodia"
+   :gov.unit/name-local "ធនាគារជាតិនៃកម្ពុជា"
+   :gov.unit/name-romanized "Thoneakea Cheat ney Kampuchea"
    :gov.unit/official-url "http://nbc.org.kh"
    :gov.unit/wikidata "Q284843"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -871,6 +877,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Bank of the Lao P.D.R."
+   :gov.unit/name-local "ທະນາຄານ ແຫ່ງ ສປປ ລາວ"
+   :gov.unit/name-romanized "Thanakhan Haeng So Po Po Lao"
    :gov.unit/official-url "http://www.bol.gov.la/"
    :gov.unit/wikidata "Q4077339"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -919,6 +927,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Central Bank of Sri Lanka"
+   :gov.unit/name-local "ශ්‍රී ලංකා මහ බැංකුව"
+   :gov.unit/name-romanized "Sri Lanka Maha Bænkuwa"
    :gov.unit/official-url "https://www.cbsl.gov.lk/"
    :gov.unit/wikidata "Q2640939"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1017,6 +1027,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Central Bank of Myanmar"
+   :gov.unit/name-local "မြန်မာနိုင်ငံတော်ဗဟိုဘဏ်"
+   :gov.unit/name-romanized "Myanmar Nainngantaw Baho Ban"
    :gov.unit/official-url "https://www.cbm.gov.mm/"
    :gov.unit/wikidata "Q1944374"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1163,6 +1175,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Nepal Rastra Bank"
+   :gov.unit/name-local "नेपाल राष्ट्र बैंक"
+   :gov.unit/name-romanized "Nepal Rastra Bank"
    :gov.unit/official-url "http://www.nrb.org.np/"
    :gov.unit/wikidata "Q1318435"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

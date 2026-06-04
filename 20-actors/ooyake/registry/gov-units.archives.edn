@@ -230,6 +230,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Archives and Library of Ethiopia"
+   :gov.unit/name-local "የኢትዮጵያ ቤተ መዛግብትና ቤተ መጻሕፍት አገልግሎት"
+   :gov.unit/name-romanized "Ye-Ityopiya Bete-Mezagibtina Bete-Metsahift Agelglot"
    :gov.unit/official-url "http://www.nale.gov.et/national_library.html"
    :gov.unit/wikidata "Q2567785"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -590,6 +592,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Department of National Archives"
+   :gov.unit/name-local "ජාතික ලේඛනාරක්ෂණ දෙපාර්තමේන්තුව"
+   :gov.unit/name-romanized "Jathika Lekhanarakshana Departamentuwa"
    :gov.unit/official-url "http://www.archives.gov.lk/"
    :gov.unit/wikidata "Q5260411"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1574,6 +1578,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "National Archives of Cambodia"
+   :gov.unit/name-local "បណ្ណសារដ្ឋានជាតិនៃកម្ពុជា"
+   :gov.unit/name-romanized "Bannasarodthan Cheat ney Kampuchea"
    :gov.unit/official-url "http://nac.gov.kh/"
    :gov.unit/wikidata "Q54820096"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1689,6 +1695,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "National Archives of Myanmar"
+   :gov.unit/name-local "အမျိုးသားမော်ကွန်းတိုက်ဦးစီးဌာန"
+   :gov.unit/name-romanized "Amyothar Mawkundaik Usidana"
    :gov.unit/official-url "https://www.nam.gov.mm/"
    :gov.unit/wikidata "Q60745748"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

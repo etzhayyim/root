@@ -444,6 +444,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Tourism (Ethiopia)"
+   :gov.unit/name-local "የቱሪዝም ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Turizm Minister"
    :gov.unit/official-url "http://www.tourismethiopia.org"
    :gov.unit/wikidata "Q279884"
    :gov.unit/cofog ["08.2"]
@@ -742,6 +744,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Culture and Fine Arts"
+   :gov.unit/name-local "ក្រសួងវប្បធម៌ និងវិចិត្រសិល្បៈ"
+   :gov.unit/name-romanized "Krasuong Voppthoamea ning Vichetselapak"
    :gov.unit/official-url "http://www.mcfa.gov.kh/"
    :gov.unit/wikidata "Q6866728"
    :gov.unit/cofog ["08.2"]
@@ -792,6 +796,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Internal Affairs, Wayamba Development and Cultural Affairs"
+   :gov.unit/name-local "බුද්ධශාසන, ආගමික හා සංස්කෘතික කටයුතු අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Buddhasasana, Agamika ha Sanskruthika Katayuthu Amathyanshaya"
    :gov.unit/official-url "https://mbrc.gov.lk/index.php/en/"
    :gov.unit/wikidata "Q18204427"
    :gov.unit/cofog ["08.2"]
@@ -906,6 +912,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "သာသနာရေးနှင့်ယဉ်ကျေးမှုဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Thathanayay-hnint Yinkyaymhu Wankyihtana"
    :gov.unit/official-url "https://www.moculture.gov.mm/"
    :gov.unit/wikidata "Q13073460"
    :gov.unit/cofog ["08.2"]
@@ -1020,6 +1028,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Culture, Tourism and Civil Aviation"
+   :gov.unit/name-local "संस्कृति, पर्यटन तथा नागरिक उड्डयन मन्त्रालय"
+   :gov.unit/name-romanized "Sanskriti, Paryatan tatha Nagarik Uddayan Mantralaya"
    :gov.unit/official-url "http://tourism.gov.np"
    :gov.unit/wikidata "Q13186531"
    :gov.unit/cofog ["08.2"]

@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: SE/South Asia + Horn MM/KH/LA/NP/LK/ET/ER (832 → 934)
+
+Continued the endonym axis into 7 distinct indigenous scripts. 10 web-research subagents.
+**102 endonyms added with romanization** (Myanmar 18 Burmese, Cambodia 16 Khmer, Laos 8 Lao,
+Nepal 22 Devanagari, Sri Lanka 19 Sinhala, Ethiopia 18 Amharic, Eritrea 1 + 4 honest nulls).
+
+- all-units name-local: 832 → **934**.
+- scripts newly on the atlas: Burmese (ပြည်ထောင်စုလွှတ်တော်/Pyidaungsu Hluttaw), Khmer
+  (ក្រសួងមហាផ្ទៃ), Lao (ສະພາແຫ່ງຊາດ/Sapha Haengxat), Devanagari (नेपाल सरकार/Nepal Sarkar),
+  Sinhala (ශ්‍රී ලංකා මහ බැංකුව), Amharic (የሕዝብ ተወካዮች ምክር ቤት/Ye-Hizb Tewekayoch) — all romanized.
+- **4 honest nulls (G5)**: Eritrea agriculture/archives/finance/foreign — Eritrea has no
+  constitutionally-designated official language and these bodies publish no established Tigrinya
+  orthographic name (only the Bank of Eritrea ባንክ ኤርትራ is attested); not fabricated.
+- honest currency notes (names match registry labels): Ethiopia statistics rebranded to Ethiopian
+  Statistical Service (2021); Nepal CBS → National Statistics Office (2022 Act); Nepal Industry+Trade
+  are the same merged ministry; Myanmar finance = Ministry of Planning and Finance; Cambodia
+  constitutional body is the Constitutional Council (not a court).
+
+**Approaching name-local completion** for all sizeable non-Latin jurisdictions. Remaining gaps are
+scattered small/Pacific/sub-Saharan units (Bhutan Dzongkha, Maldives Thaana, Cyprus Greek, Israel
+Hebrew agencies, etc.) — a final sweep next.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: Central Asia + Belarus KZ/KG/TJ/MN/BY (734 → 832)
 
 Continued the endonym axis into Central-Asian + Mongolian + Belarusian Cyrillic. 8 web-research

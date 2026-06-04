@@ -199,6 +199,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Government of Nepal"
+   :gov.unit/name-local "नेपाल सरकार"
+   :gov.unit/name-romanized "Nepal Sarkar"
    :gov.unit/official-url "http://www.nepalgov.gov.np/"
    :gov.unit/wikidata "Q5589267"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -335,6 +337,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Government of Ethiopia"
+   :gov.unit/name-local "የሚኒስትሮች ምክር ቤት"
+   :gov.unit/name-romanized "Ye-Ministroch Mikir Bet"
    :gov.unit/official-url "https://www.pmo.gov.et/"
    :gov.unit/wikidata "Q5589204"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

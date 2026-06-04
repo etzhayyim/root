@@ -662,6 +662,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Parliamentary Assembly"
+   :gov.unit/name-local "የሕዝብ ተወካዮች ምክር ቤት"
+   :gov.unit/name-romanized "Ye-Hizb Tewekayoch Mikir Bet"
    :gov.unit/official-url "https://www.hopr.gov.et/"
    :gov.unit/wikidata "Q257899"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1083,6 +1085,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Parliament of Cambodia"
+   :gov.unit/name-local "សភាតំណាងរាស្ត្រ"
+   :gov.unit/name-romanized "Saphea Tamnang Reastr"
    :gov.unit/official-url "https://www.nac.org.kh/"
    :gov.unit/wikidata "Q1320418"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1147,6 +1151,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "National Assembly"
+   :gov.unit/name-local "ສະພາແຫ່ງຊາດ"
+   :gov.unit/name-romanized "Sapha Haengxat"
    :gov.unit/official-url "http://www.na.gov.la/"
    :gov.unit/wikidata "Q1188525"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1219,6 +1225,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Parliament of Sri Lanka"
+   :gov.unit/name-local "ශ්‍රී ලංකා පාර්ලිමේන්තුව"
+   :gov.unit/name-romanized "Sri Lanka Parlimentuwa"
    :gov.unit/official-url "http://www.parliament.lk/"
    :gov.unit/wikidata "Q1450753"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1391,6 +1399,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Assembly of the Union"
+   :gov.unit/name-local "ပြည်ထောင်စုလွှတ်တော်"
+   :gov.unit/name-romanized "Pyidaungsu Hluttaw"
    :gov.unit/official-url "http://www.pyithuhluttaw.gov.mm/"
    :gov.unit/wikidata "Q3363019"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1537,6 +1547,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Parliament of Nepal"
+   :gov.unit/name-local "सङ्घीय संसद"
+   :gov.unit/name-romanized "Sanghiya Sansad"
    :gov.unit/official-url "https://www.parliament.gov.np/"
    :gov.unit/wikidata "Q3896143"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

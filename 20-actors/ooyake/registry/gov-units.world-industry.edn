@@ -137,6 +137,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Industry (Burma)"
+   :gov.unit/name-local "စက်မှုဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Sekhmu Wankyihtana"
    :gov.unit/official-url "https://www.industry.gov.mm/"
    :gov.unit/wikidata "Q18325731"
    :gov.unit/cofog ["04.4"]
@@ -153,6 +155,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Industry, Agriculture and Cooperatives"
+   :gov.unit/name-local "उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय"
+   :gov.unit/name-romanized "Udyog, Vanijya tatha Apurti Mantralaya"
    :gov.unit/official-url "https://moiac.koshi.gov.np/"
    :gov.unit/wikidata "Q124694659"
    :gov.unit/cofog ["04.4"]

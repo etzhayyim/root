@@ -642,6 +642,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Mines and Energy"
+   :gov.unit/name-local "ក្រសួងរ៉ែ និងថាមពល"
+   :gov.unit/name-romanized "Krasuong Re ning Thamopol"
    :gov.unit/official-url "https://mme.gov.kh/"
    :gov.unit/wikidata "Q6867189"
    :gov.unit/cofog ["04.3"]
@@ -692,6 +694,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Power and Energy"
+   :gov.unit/name-local "විදුලිබල හා බලශක්ති අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Vidulibala ha Balashakthi Amathyanshaya"
    :gov.unit/official-url "http://www.mope.gov.lk/"
    :gov.unit/wikidata "Q4294848"
    :gov.unit/cofog ["04.3"]
@@ -886,6 +890,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Energy, Water Resources and Irrigation"
+   :gov.unit/name-local "ऊर्जा, जलस्रोत तथा सिँचाइ मन्त्रालय"
+   :gov.unit/name-romanized "Urja, Jalsrot tatha Sinchai Mantralaya"
    :gov.unit/official-url "https://www.moewri.gov.np/"
    :gov.unit/wikidata "Q17010322"
    :gov.unit/cofog ["04.3"]

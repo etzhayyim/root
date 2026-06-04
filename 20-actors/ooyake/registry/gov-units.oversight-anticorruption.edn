@@ -164,6 +164,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Ethics and Anti-Corruption Commission"
+   :gov.unit/name-local "የፌዴራል የሥነ-ምግባርና የፀረ-ሙስና ኮሚሽን"
+   :gov.unit/name-romanized "Ye-Federal Ye-Sine-Migbarina Ye-Tsere-Musina Komishin"
    :gov.unit/official-url "http://www.feac.gov.et/"
    :gov.unit/wikidata "Q110834203"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -316,6 +318,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Anti-Corruption Commission of Myanmar"
+   :gov.unit/name-local "အဂတိလိုက်စားမှုတိုက်ဖျက်ရေးကော်မရှင်"
+   :gov.unit/name-romanized "Agati Laiksamhu Taikphyetyay Kawmashin"
    :gov.unit/official-url "https://www.accm.gov.mm/"
    :gov.unit/wikidata "Q20990862"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

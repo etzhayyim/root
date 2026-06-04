@@ -143,6 +143,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Innovation and Technology (Ethiopia)"
+   :gov.unit/name-local "የኢኖቬሽን እና ቴክኖሎጂ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Inoveshin ena Teknoloji Minister"
    :gov.unit/official-url "https://mint.gov.et/"
    :gov.unit/wikidata "Q20982439"
    :gov.unit/cofog ["01.4"]

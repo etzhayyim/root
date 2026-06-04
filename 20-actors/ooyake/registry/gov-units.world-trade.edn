@@ -296,6 +296,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "ក្រសួងពាណិជ្ជកម្ម"
+   :gov.unit/name-romanized "Krasuong Peanichakam"
    :gov.unit/official-url "https://www.moc.gov.kh/"
    :gov.unit/wikidata "Q6866671"
    :gov.unit/cofog ["04.1"]
@@ -330,6 +332,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/name-local "ກະຊວງອຸດສາຫະກຳ ແລະ ການຄ້າ"
+   :gov.unit/name-romanized "Kasuang Udsahakam lae Kankha"
    :gov.unit/official-url "https://www.moic.gov.la/"
    :gov.unit/wikidata "Q19695530"
    :gov.unit/cofog ["04.1"]
@@ -362,6 +366,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/name-local "වෙළෙඳ, වාණිජ හා ආහාර සුරක්ෂිතතා අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Velenda, Vanija ha Ahara Surakshitata Amathyanshaya"
    :gov.unit/official-url "https://www.trade.gov.lk/"
    :gov.unit/wikidata "Q20987435"
    :gov.unit/cofog ["04.1"]
@@ -426,6 +432,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Industry, Commerce and Supplies"
+   :gov.unit/name-local "उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय"
+   :gov.unit/name-romanized "Udyog, Vanijya tatha Apurti Mantralaya"
    :gov.unit/official-url "https://moics.gov.np/"
    :gov.unit/wikidata "Q19694901"
    :gov.unit/cofog ["04.1"]

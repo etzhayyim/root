@@ -1004,6 +1004,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "ក្រសួងយុត្តិធម៌"
+   :gov.unit/name-romanized "Krasuong Yutethor"
    :gov.unit/official-url "https://www.moj.gov.kh/"
    :gov.unit/wikidata "Q56290001"
    :gov.unit/cofog ["03.3"]
@@ -1120,6 +1122,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Justice and Law Reforms"
+   :gov.unit/name-local "අධිකරණ අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Adhikarana Amathyanshaya"
    :gov.unit/official-url "http://www.justiceministry.gov.lk"
    :gov.unit/wikidata "Q4294884"
    :gov.unit/cofog ["03.3"]
@@ -1396,6 +1400,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Law, Justice, and Parliamentary Affairs"
+   :gov.unit/name-local "कानून, न्याय तथा संसदीय मामिला मन्त्रालय"
+   :gov.unit/name-romanized "Kanun, Nyaya tatha Sansadiya Mamila Mantralaya"
    :gov.unit/official-url "http://www.moljpa.gov.np/"
    :gov.unit/wikidata "Q19671248"
    :gov.unit/cofog ["03.3"]
