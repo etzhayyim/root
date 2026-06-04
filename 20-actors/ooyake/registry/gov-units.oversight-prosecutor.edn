@@ -39,9 +39,10 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Prosecutor's Office of Bulgaria"
+   :gov.unit/official-url "https://prb.bg/en"
    :gov.unit/wikidata "Q53124687"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q53124687" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://prb.bg/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bih.prosecutor"
@@ -74,9 +75,10 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bra"
    :gov.unit/name-en "Public Ministry"
+   :gov.unit/official-url "https://www.mpf.mp.br/"
    :gov.unit/wikidata "Q3656222"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3656222" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mpf.mp.br/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.che.prosecutor"
@@ -133,9 +135,10 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "esp"
    :gov.unit/name-en "Anti-Corruption Prosecutor's Office"
+   :gov.unit/official-url "https://www.fiscal.es/fiscalia-especial-contra-la-corrupcion"
    :gov.unit/wikidata "Q20015067"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q20015067" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.fiscal.es/fiscalia-especial-contra-la-corrupcion" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.est.prosecutor"
@@ -144,9 +147,10 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "est"
    :gov.unit/name-en "Prosecutor's Office"
+   :gov.unit/official-url "https://www.prokuratuur.ee/en"
    :gov.unit/wikidata "Q12372818"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12372818" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.prokuratuur.ee/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fin.prosecutor"
@@ -299,9 +303,10 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "prt"
    :gov.unit/name-en "Public Prosecution Service"
+   :gov.unit/official-url "https://www.ministeriopublico.pt/"
    :gov.unit/wikidata "Q7257468"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7257468" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.ministeriopublico.pt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rus.prosecutor"
@@ -346,9 +351,10 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tkm"
    :gov.unit/name-en "Prosecutor General's Office of Turkmenistan"
+   :gov.unit/official-url "https://bp.gov.tm/"
    :gov.unit/wikidata "Q4135345"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4135345" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://bp.gov.tm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ukr.prosecutor"

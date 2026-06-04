@@ -160,9 +160,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ken"
    :gov.unit/name-en "Competition Authority of Kenya"
+   :gov.unit/official-url "https://www.cak.go.ke/"
    :gov.unit/wikidata "Q136085376"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q136085376" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.cak.go.ke/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kor.competition"

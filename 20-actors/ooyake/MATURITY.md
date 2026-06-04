@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — oversight agencies (NHRI/prosecutor/data-protection/etc): 22 web-verified (967 → 989 agencies)
+
+Continued the agency tier with the remaining accountability/regulatory categories: human-rights
+institutions (8) + prosecution services (6) + data-protection (3) + ombudsman (2) + supreme
+audit (2) + meteorology (2) + central bank (2) + competition + financial regulator. 3 web-research
+subagents found + **confirmed each body's own official site by fetching it**. 22 confirmed +
+1 label fix (El Salvador NHRI "Ad Hoc Commission" → **PDDH**, the Procuraduría para la Defensa
+de los Derechos Humanos).
+
+- agencies: 967 → **989/1049** with an official site (94%).
+- 5 HONESTLY left null (G5): Sudan NHRI (no working site, conflict-disrupted), Indonesia +
+  India data-protection (authorities only just constituted 2025-26, not yet operational with a
+  site), Kiribati central bank (no central monetary authority exists — the "Bank of Kiribati"
+  is a commercial ANZ bank), North Korea central bank (no public web).
+- honest notes: Iceland DPA personuvernd.is now redirects to the consolidated island.is portal;
+  Australia's Private Health Insurance Ombudsman function sits within the Commonwealth Ombudsman.
+  Anti-bot/HTTP-only caveats noted (Qatar/Zambia met, Australia ombudsman) — genuine official
+  government domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — national libraries: 15 web-verified + 2 label fixes (952 → 967 agencies)
 
 Continued the agency tier with national LIBRARIES (33 missing). 4 web-research subagents found
