@@ -183,6 +183,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Government of Kuwait"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzaraʾ"
    :gov.unit/official-url "https://www.cmgs.gov.kw/"
    :gov.unit/wikidata "Q12217491"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -749,6 +751,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Council of Ministers of Saudi Arabia"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzaraʾ"
    :gov.unit/official-url "https://my.gov.sa/en/agencies/17489"
    :gov.unit/wikidata "Q14654732"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1085,6 +1089,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Cabinet of Egypt"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzaraʾ"
    :gov.unit/official-url "https://www.cabinet.gov.eg/"
    :gov.unit/wikidata "Q4206677"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

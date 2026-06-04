@@ -58,7 +58,9 @@
    :gov.unit/parent "gov.are"
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "are"
-   :gov.unit/name-en "Federal Supreme Council"
+   :gov.unit/name-en "Federal National Council"
+   :gov.unit/name-local "المجلس الوطني الاتحادي"
+   :gov.unit/name-romanized "al-Majlis al-Watani al-Ittihadi"
    :gov.unit/official-url "https://uaecabinet.ae/en/federal-supreme-council"
    :gov.unit/wikidata "Q5440456"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -612,6 +614,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Parliament of Egypt"
+   :gov.unit/name-local "مجلس النواب"
+   :gov.unit/name-romanized "Majlis al-Nuwwab"
    :gov.unit/official-url "https://www.parliament.gov.eg/"
    :gov.unit/wikidata "Q2584535"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1107,6 +1111,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "National Assembly of Kuwait"
+   :gov.unit/name-local "مجلس الأمة"
+   :gov.unit/name-romanized "Majlis al-Umma"
    :gov.unit/official-url "http://kna.kw/"
    :gov.unit/wikidata "Q1139228"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1670,6 +1676,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Consultative Assembly of Qatar"
+   :gov.unit/name-local "مجلس الشورى"
+   :gov.unit/name-romanized "Majlis ash-Shura"
    :gov.unit/official-url "https://www.shura.qa/"
    :gov.unit/wikidata "Q818691"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1719,7 +1727,9 @@
    :gov.unit/parent "gov.sau"
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "sau"
-   :gov.unit/name-en "Government of Saudi Arabia"
+   :gov.unit/name-en "Shura Council (Saudi Arabia)"
+   :gov.unit/name-local "مجلس الشورى"
+   :gov.unit/name-romanized "Majlis ash-Shura"
    :gov.unit/official-url "https://www.shura.gov.sa/"
    :gov.unit/wikidata "Q62399316"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -255,6 +255,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Tourism and Antiquities"
+   :gov.unit/name-local "وزارة السياحة والآثار"
+   :gov.unit/name-romanized "Wizarat al-Siyaha wa-l-Athar"
    :gov.unit/official-url "http://www.antiquities.gov.eg"
    :gov.unit/wikidata "Q4116921"
    :gov.unit/cofog ["04.7"]
@@ -655,6 +657,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizarat as-Siyaha"
    :gov.unit/official-url "https://mt.gov.sa/Pages/default.aspx"
    :gov.unit/wikidata "Q7427133"
    :gov.unit/cofog ["04.7"]

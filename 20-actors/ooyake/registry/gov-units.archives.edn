@@ -248,6 +248,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Egyptian National Library and Archives"
+   :gov.unit/name-local "دار الكتب والوثائق القومية"
+   :gov.unit/name-romanized "Dar al-Kutub wa-l-Wathaʾiq al-Qawmiyya"
    :gov.unit/official-url "http://www.darelkotob.gov.eg/ar-eg/Pages/Home.aspx"
    :gov.unit/wikidata "Q2778411"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -644,6 +646,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "National Library and Archives (UAE)"
+   :gov.unit/name-local "الأرشيف والمكتبة الوطنية"
+   :gov.unit/name-romanized "Al-Arshif wa al-Maktaba al-Wataniyya"
    :gov.unit/official-url "http://www.nla.ae"
    :gov.unit/wikidata "Q6735845"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1097,6 +1101,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Darah"
+   :gov.unit/name-local "دارة الملك عبدالعزيز"
+   :gov.unit/name-romanized "Darat al-Malik Abdulaziz"
    :gov.unit/official-url "https://www.darah.org.sa/"
    :gov.unit/wikidata "Q12211319"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

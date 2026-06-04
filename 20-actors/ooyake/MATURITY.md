@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: Arab core SA/AE/EG/QA/KW (272 → 368)
+
+Continued the endonym axis into the Arabic-script cluster: the Gulf core + Egypt. 7 web-research
+subagents. **96 ministry/agency/court/legislature Arabic names added with romanization** (Saudi 23,
+UAE 16, Egypt 25, Qatar 16, Kuwait 16).
+
+- all-units name-local: 272 → **368**.
+- Arabic script with transliteration: وزارة الخارجية/Wizarat al-Kharijiyya, الهيئة العامة للإحصاء,
+  صندوق الاستثمارات العامة (PIF), جهاز قطر للاستثمار (QIA), بنك الكويت المركزي, etc.
+- **5 data-quality en-name fixes**: gov.sau.legislature "Government of Saudi Arabia" → Shura Council
+  (مجلس الشورى); gov.are.legislature "Federal Supreme Council" (the rulers' council) → **Federal
+  National Council** (المجلس الوطني الاتحادي, the actual legislature); gov.egy.finreg EFSA → Financial
+  Regulatory Authority; gov.egy.statistics "Egypt Statistics" → CAPMAS; gov.qat.statistics "Ministry
+  of Development Planning and Statistics" → Planning and Statistics Authority.
+- honest data notes surfaced: Saudi ZATCA = merged zakat+tax+customs (2021); UAE archives Arabic word
+  order reverses the English ("الأرشيف والمكتبة الوطنية"); Kuwait transport ministry = وزارة المواصلات.
+
+Remaining non-Latin high-tier endonym gaps now ~674 (Iran, Iraq, Jordan, Syria, Tunisia, Morocco,
+Algeria, Yemen [Arabic]; Thai, Bengali, Greek, Cyrillic neighbours, etc.) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: great-power ministries JP/CN/KR/RU (182 → 272)
 
 Extended the endonym axis to high-tier institutions in non-Latin-script jurisdictions, starting with

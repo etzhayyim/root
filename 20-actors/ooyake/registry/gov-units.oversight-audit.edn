@@ -225,6 +225,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "General Court of Audit"
+   :gov.unit/name-local "الديوان العام للمحاسبة"
+   :gov.unit/name-romanized "al-Diwan al-ʿAmm lil-Muhasabah"
    :gov.unit/official-url "https://www.gca.gov.sa/"
    :gov.unit/wikidata "Q6771189"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

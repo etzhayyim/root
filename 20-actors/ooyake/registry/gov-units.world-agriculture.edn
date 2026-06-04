@@ -371,6 +371,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Agriculture and Land Reclamation of Egypt"
+   :gov.unit/name-local "وزارة الزراعة واستصلاح الأراضي"
+   :gov.unit/name-romanized "Wizarat al-Ziraʿa wa-Istislah al-Aradi"
    :gov.unit/official-url "https://moa.gov.eg"
    :gov.unit/wikidata "Q4118519"
    :gov.unit/cofog ["04.2"]

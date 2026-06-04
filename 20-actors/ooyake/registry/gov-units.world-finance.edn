@@ -77,6 +77,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyya"
    :gov.unit/official-url "https://www.mof.gov.ae/en"
    :gov.unit/wikidata "Q113576164"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -413,6 +415,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyya"
    :gov.unit/official-url "https://mof.gov.eg/ar"
    :gov.unit/wikidata "Q4294784"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -700,6 +704,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyya"
    :gov.unit/official-url "http://en.mof.gov.kw/"
    :gov.unit/wikidata "Q15640179"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1096,6 +1102,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Finance of Qatar"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyyah"
    :gov.unit/official-url "https://www.mof.gov.qa/"
    :gov.unit/wikidata "Q96997813"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

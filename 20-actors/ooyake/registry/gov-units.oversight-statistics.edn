@@ -74,7 +74,9 @@
    :gov.unit/parent "gov.qat"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "qat"
-   :gov.unit/name-en "Ministry of Development Planning and Statistics"
+   :gov.unit/name-en "Planning and Statistics Authority"
+   :gov.unit/name-local "جهاز التخطيط والإحصاء"
+   :gov.unit/name-romanized "Jihaz at-Takhtit wa-l-Ihsaʾ"
    :gov.unit/official-url "http://www.mdps.gov.qa/"
    :gov.unit/wikidata "Q6759025"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -561,6 +563,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "General Authority for Statistics"
+   :gov.unit/name-local "الهيئة العامة للإحصاء"
+   :gov.unit/name-romanized "al-Hayʾa al-ʿAmma li-l-Ihsaʾ"
    :gov.unit/official-url "https://www.stats.gov.sa/"
    :gov.unit/wikidata "Q20423308"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1593,7 +1597,9 @@
    :gov.unit/parent "gov.egy"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "egy"
-   :gov.unit/name-en "Egypt Statistics"
+   :gov.unit/name-en "Central Agency for Public Mobilization and Statistics (CAPMAS)"
+   :gov.unit/name-local "الجهاز المركزي للتعبئة العامة والإحصاء"
+   :gov.unit/name-romanized "al-Jihaz al-Markazi li-l-Taʿbiʾa al-ʿAmma wa-l-Ihsaʾ"
    :gov.unit/official-url "https://www.capmas.gov.eg/"
    :gov.unit/wikidata "Q5014351"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1822,6 +1828,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Federal Competitiveness and Statistics Authority"
+   :gov.unit/name-local "المركز الاتحادي للتنافسية والإحصاء"
+   :gov.unit/name-romanized "Al-Markaz al-Ittihadi lil-Tanafusiyya wa al-Ihsaʾ"
    :gov.unit/official-url "http://fcsa.gov.ae/"
    :gov.unit/wikidata "Q55685792"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1846,6 +1854,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Central Statistical Bureau"
+   :gov.unit/name-local "الإدارة المركزية للإحصاء"
+   :gov.unit/name-romanized "al-Idara al-Markaziyya lil-Ihsaʾ"
    :gov.unit/official-url "https://csb.gov.kw/"
    :gov.unit/wikidata "Q55687169"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -73,6 +73,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Foreign Affairs of the UAE"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyya"
    :gov.unit/official-url "https://www.mofaic.gov.ae/"
    :gov.unit/wikidata "Q30684101"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -543,6 +545,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Foreign Affairs of Egypt"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyya"
    :gov.unit/official-url "https://www.egyptconsulates.org"
    :gov.unit/wikidata "Q947229"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -988,6 +992,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyya"
    :gov.unit/official-url "http://www.mofa.gov.kw/Ar/Pages/Default.aspx/"
    :gov.unit/wikidata "Q16257922"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1456,6 +1462,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Foreign Affairs of Qatar"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyyah"
    :gov.unit/official-url "https://www.mofa.gov.qa/en/home"
    :gov.unit/wikidata "Q6867021"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1506,6 +1514,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Foreign Affairs of Saudi Arabia"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyyah"
    :gov.unit/official-url "http://www.mofa.gov.sa"
    :gov.unit/wikidata "Q6867032"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -33,6 +33,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Health and Prevention"
+   :gov.unit/name-local "وزارة الصحة ووقاية المجتمع"
+   :gov.unit/name-romanized "Wizarat al-Sihha wa Wiqayat al-Mujtamaʿ"
    :gov.unit/official-url "http://www.moh.gov.ae/en/Pages/default.aspx"
    :gov.unit/wikidata "Q22948578"
    :gov.unit/cofog ["07"]
@@ -1027,6 +1029,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizarat al-Sihha"
    :gov.unit/official-url "https://www.moh.gov.kw/"
    :gov.unit/wikidata "Q96679148"
    :gov.unit/cofog ["07"]
@@ -1669,6 +1673,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizarat al-Sihhah"
    :gov.unit/official-url "http://www.moh.gov.sa/"
    :gov.unit/wikidata "Q1720084"
    :gov.unit/cofog ["07"]

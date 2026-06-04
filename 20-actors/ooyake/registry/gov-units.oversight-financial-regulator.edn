@@ -113,7 +113,9 @@
    :gov.unit/parent "gov.egy"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "egy"
-   :gov.unit/name-en "Egyptian Financial Supervisory Authority"
+   :gov.unit/name-en "Financial Regulatory Authority (Egypt)"
+   :gov.unit/name-local "الهيئة العامة للرقابة المالية"
+   :gov.unit/name-romanized "al-Hayʾa al-ʿAmma li-l-Riqaba al-Maliyya"
    :gov.unit/official-url "https://fra.gov.eg/"
    :gov.unit/wikidata "Q5348408"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -322,6 +324,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Financial Centre Regulatory Authority"
+   :gov.unit/name-local "هيئة تنظيم مركز قطر للمال"
+   :gov.unit/name-romanized "Hayʾat Tanzim Markaz Qatar lil-Mal"
    :gov.unit/official-url "https://www.qfcra.com/"
    :gov.unit/wikidata "Q120186972"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -66,6 +66,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "https://mod.gov.ae/"
    :gov.unit/wikidata "Q134514894"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -367,6 +369,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Defence of Egypt"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "https://www.mod.gov.eg/ModWebSite/"
    :gov.unit/wikidata "Q15846495"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -715,6 +719,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "https://www.mod.gov.kw"
    :gov.unit/wikidata "Q16257919"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1076,6 +1082,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Defense Saudi Arabia"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "http://www.moda.gov.sa"
    :gov.unit/wikidata "Q6866094"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

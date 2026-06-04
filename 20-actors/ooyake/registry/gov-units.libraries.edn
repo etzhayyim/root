@@ -50,6 +50,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "UAE Public Library and Cultural Center"
+   :gov.unit/name-local "دار الكتب الوطنية لدولة الإمارات"
+   :gov.unit/name-romanized "Dar al-Kutub al-Wataniyya"
    :gov.unit/official-url "http://www.adach.ae/en"
    :gov.unit/wikidata "Q618281"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -183,6 +185,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "King Fahd National Library"
+   :gov.unit/name-local "مكتبة الملك فهد الوطنية"
+   :gov.unit/name-romanized "Maktabat al-Malik Fahd al-Wataniyya"
    :gov.unit/official-url "http://www.kfnl.gov.sa/"
    :gov.unit/wikidata "Q620803"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -631,6 +635,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar National Library"
+   :gov.unit/name-local "مكتبة قطر الوطنية"
+   :gov.unit/name-romanized "Maktabat Qatar al-Wataniyyah"
    :gov.unit/official-url "http://www.qnl.qa"
    :gov.unit/wikidata "Q1361436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -799,6 +805,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Bibliotheca Alexandrina"
+   :gov.unit/name-local "مكتبة الإسكندرية"
+   :gov.unit/name-romanized "Maktabat al-Iskandariyya"
    :gov.unit/official-url "https://www.bibalex.org/"
    :gov.unit/wikidata "Q501851"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1158,6 +1166,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "National Library of Kuwait"
+   :gov.unit/name-local "مكتبة الكويت الوطنية"
+   :gov.unit/name-romanized "Maktabat al-Kuwait al-Wataniyya"
    :gov.unit/official-url "https://www.nlk.gov.kw/"
    :gov.unit/wikidata "Q6974153"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
