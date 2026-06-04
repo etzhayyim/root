@@ -33,12 +33,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Education of Angola"
+   :gov.unit/official-url "https://www.med.gov.ao/"
    :gov.unit/wikidata "Q116041585"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q116041585"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.med.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.education"
@@ -239,12 +240,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/official-url "https://moe.gov.bh/"
    :gov.unit/wikidata "Q96393342"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q96393342"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moe.gov.bh/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bhs.education"
@@ -270,12 +272,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bih"
    :gov.unit/name-en "Ministry of Education and Culture of Republika Srpska"
+   :gov.unit/official-url "https://www.mcp.gov.ba/?lang=en"
    :gov.unit/wikidata "Q12755501"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12755501"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mcp.gov.ba/?lang=en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.blr.education"
@@ -301,12 +304,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Education and Youth"
+   :gov.unit/official-url "https://www.moecst.gov.bz/"
    :gov.unit/wikidata "Q6866863"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866863"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moecst.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.education"
@@ -364,12 +368,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Education and Skills Development"
+   :gov.unit/official-url "https://education.gov.bt/"
    :gov.unit/wikidata "Q18345328"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18345328"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://education.gov.bt/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.education"
@@ -779,12 +784,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "guy"
    :gov.unit/name-en "Ministry of Education of Guyana"
+   :gov.unit/official-url "https://education.gov.gy/"
    :gov.unit/wikidata "Q55623267"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55623267"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://education.gov.gy/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.education"
@@ -826,12 +832,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "idn"
    :gov.unit/name-en "Ministry of Primary and Secondary Education"
+   :gov.unit/official-url "https://www.kemendikdasmen.go.id/"
    :gov.unit/wikidata "Q12490749"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12490749"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.kemendikdasmen.go.id/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ind.education"
@@ -1065,12 +1072,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lie"
    :gov.unit/name-en "Ministry of Foreign Affairs, Education and Sport"
+   :gov.unit/official-url "https://www.regierung.li/ministerium/16647/ministerium-fuer-infrastruktur-und-bildung/inhalte"
    :gov.unit/wikidata "Q65241270"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65241270"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regierung.li/ministerium/16647/ministerium-fuer-infrastruktur-und-bildung/inhalte"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lka.education"
@@ -1208,12 +1216,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mhl"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/official-url "https://pss.edu.mh/"
    :gov.unit/wikidata "Q25214325"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25214325"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://pss.edu.mh/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mlt.education"
@@ -1303,12 +1312,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mwi"
    :gov.unit/name-en "Ministry of Education Science and Technology"
+   :gov.unit/official-url "https://www.education.gov.mw/"
    :gov.unit/wikidata "Q30290557"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q30290557"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.education.gov.mw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mys.education"
@@ -1526,12 +1536,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "plw"
    :gov.unit/name-en "Ministry of Education of Palau"
+   :gov.unit/official-url "https://www.palaugov.pw/executive-branch/ministries/education/"
    :gov.unit/wikidata "Q55623272"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55623272"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.palaugov.pw/executive-branch/ministries/education/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pol.education"
@@ -1589,12 +1600,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Education and Higher Education of Qatar"
+   :gov.unit/official-url "https://www.edu.gov.qa/"
    :gov.unit/wikidata "Q96091670"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q96091670"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.edu.gov.qa/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rou.education"
@@ -1716,12 +1728,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sle"
    :gov.unit/name-en "Ministry of Education of Sierra Leone"
+   :gov.unit/official-url "https://mbsse.gov.sl/"
    :gov.unit/wikidata "Q39054913"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q39054913"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mbsse.gov.sl/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.education"
@@ -1779,12 +1792,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Education, Science and Culture"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-onderwijs-wetenschapen-cultuur/"
    :gov.unit/wikidata "Q65589694"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65589694"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-onderwijs-wetenschapen-cultuur/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.education"
@@ -1810,12 +1824,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "svn"
    :gov.unit/name-en "Ministry of Education and Sport of the Republic of Slovenia"
+   :gov.unit/official-url "https://www.gov.si/en/state-authorities/ministries/ministry-of-education/"
    :gov.unit/wikidata "Q48688338"
    :gov.unit/cofog ["09"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q48688338"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.si/en/state-authorities/ministries/ministry-of-education/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.swe.education"
