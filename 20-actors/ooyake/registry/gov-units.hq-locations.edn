@@ -12701,4 +12701,438 @@
    :gov.address/lat -17.82364 :gov.address/lon 31.05409
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bfa.electoral.hq"
+   :gov.address/unit "gov.bfa.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "bfa"
+   :gov.address/line-en "CENI, Ouagadougou"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blr.electoral.hq"
+   :gov.address/unit "gov.blr.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "blr"
+   :gov.address/line-en "Central Election Commission, House of Government, Independence Square, Minsk"
+   :gov.address/lat 53.89589 :gov.address/lon 27.5443
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.electoral.hq"
+   :gov.address/unit "gov.blz.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Elections and Boundaries Department, Old Land's Building, Market Square, Belmopan"
+   :gov.address/lat 17.25028 :gov.address/lon -88.77473
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.chl.electoral.hq"
+   :gov.address/unit "gov.chl.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "chl"
+   :gov.address/line-en "Servicio Electoral de Chile (Servel), Esmeralda 611, Santiago"
+   :gov.address/lat -33.43459 :gov.address/lon -70.64675
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.col.electoral.hq"
+   :gov.address/unit "gov.col.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "col"
+   :gov.address/line-en "Consejo Nacional Electoral, Edificio Organización Electoral, Av. Calle 26 #51-50, Bogotá"
+   :gov.address/lat 4.64271 :gov.address/lon -74.09439
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.electoral.hq"
+   :gov.address/unit "gov.cub.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Consejo Electoral Nacional, Calle C #670, Vedado, Havana"
+   :gov.address/lat 23.13 :gov.address/lon -82.3905
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.est.electoral.hq"
+   :gov.address/unit "gov.est.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "est"
+   :gov.address/line-en "National Electoral Committee, Riigikogu (Toompea Castle), Tallinn"
+   :gov.address/lat 59.43578 :gov.address/lon 24.7372
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fin.electoral.hq"
+   :gov.address/unit "gov.fin.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "fin"
+   :gov.address/line-en "Elections (Ministry of Justice), Meritullinkatu 10, Helsinki"
+   :gov.address/lat 60.17139 :gov.address/lon 24.95825
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gin.electoral.hq"
+   :gov.address/unit "gov.gin.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "gin"
+   :gov.address/line-en "CENI, Quartier Cameroun, Dixinn, Conakry"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hnd.electoral.hq"
+   :gov.address/unit "gov.hnd.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "hnd"
+   :gov.address/line-en "Consejo Nacional Electoral, Barrio San Felipe, Tegucigalpa"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irl.electoral.hq"
+   :gov.address/unit "gov.irl.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "irl"
+   :gov.address/line-en "An Coimisiún Toghcháin (Electoral Commission), Dublin Castle, Dublin"
+   :gov.address/lat 53.34266 :gov.address/lon -6.267
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ita.electoral.hq"
+   :gov.address/unit "gov.ita.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "ita"
+   :gov.address/line-en "Direzione Centrale per i Servizi Elettorali, Palazzo del Viminale, Rome"
+   :gov.address/lat 41.89881 :gov.address/lon 12.49306
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kaz.electoral.hq"
+   :gov.address/unit "gov.kaz.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "kaz"
+   :gov.address/line-en "Central Election Commission, Beybitshilik Street 4, Astana"
+   :gov.address/lat 51.16599 :gov.address/lon 71.42229
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kgz.electoral.hq"
+   :gov.address/unit "gov.kgz.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "kgz"
+   :gov.address/line-en "Central Commission for Elections and Referenda (Shailoo), ul. Pushkina 50, Bishkek"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdg.electoral.hq"
+   :gov.address/unit "gov.mdg.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "CENI, Alarobia, Antananarivo"
+   :gov.address/lat -18.87229 :gov.address/lon 47.52415
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mex.electoral.hq"
+   :gov.address/unit "gov.mex.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "mex"
+   :gov.address/line-en "Tribunal Electoral del Poder Judicial de la Federación, Av. Carlota Armero 5000, Coyoacán, Mexico City"
+   :gov.address/lat 19.32469 :gov.address/lon -99.11555
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.electoral.hq"
+   :gov.address/unit "gov.moz.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Comissão Nacional de Eleições, Maputo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.prt.electoral.hq"
+   :gov.address/unit "gov.prt.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "prt"
+   :gov.address/line-en "Comissão Nacional de Eleições, Av. D. Carlos I 134, Lisbon"
+   :gov.address/lat 38.71073 :gov.address/lon -9.15326
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rwa.electoral.hq"
+   :gov.address/unit "gov.rwa.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "rwa"
+   :gov.address/line-en "National Electoral Commission, Kiyovu, Kigali"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sdn.electoral.hq"
+   :gov.address/unit "gov.sdn.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "National Elections Commission, Khartoum"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sen.electoral.hq"
+   :gov.address/unit "gov.sen.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "sen"
+   :gov.address/line-en "CENA, Immeuble Fonds de Garantie Automobile, Avenue Malick Sy, Dakar"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svn.electoral.hq"
+   :gov.address/unit "gov.svn.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "svn"
+   :gov.address/line-en "State Election Commission (DVK), Slovenska cesta 54, Ljubljana"
+   :gov.address/lat 46.05613 :gov.address/lon 14.50576
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tls.electoral.hq"
+   :gov.address/unit "gov.tls.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "tls"
+   :gov.address/line-en "Comissão Nacional de Eleições, Av. Jacinto Cândido, Colmera, Dili"
+   :gov.address/lat -8.55671 :gov.address/lon 125.57453
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ven.electoral.hq"
+   :gov.address/unit "gov.ven.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "ven"
+   :gov.address/line-en "Consejo Nacional Electoral, Edificio CNE, El Recreo, Caracas"
+   :gov.address/lat 10.49849 :gov.address/lon -66.88793
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.electoral.hq"
+   :gov.address/unit "gov.zaf.electoral"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Electoral Commission of South Africa, Election House, 1303 Heuwel Ave, Centurion"
+   :gov.address/lat -25.85989 :gov.address/lon 28.19048
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arg.anticorruption.hq"
+   :gov.address/unit "gov.arg.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "arg"
+   :gov.address/line-en "Oficina Anticorrupción, 25 de Mayo 544, Buenos Aires"
+   :gov.address/lat -34.60142 :gov.address/lon -58.37129
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aus.anticorruption.hq"
+   :gov.address/unit "gov.aus.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "National Anti-Corruption Commission (NACC), Canberra"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aze.anticorruption.hq"
+   :gov.address/unit "gov.aze.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "aze"
+   :gov.address/line-en "Commission on Combating Corruption, Baku"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.btn.anticorruption.hq"
+   :gov.address/unit "gov.btn.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "btn"
+   :gov.address/line-en "Anti-Corruption Commission, Kawajangsa, Thimphu"
+   :gov.address/lat 27.48056 :gov.address/lon 89.63091
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cmr.anticorruption.hq"
+   :gov.address/unit "gov.cmr.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "cmr"
+   :gov.address/line-en "CONAC (National Anti-Corruption Commission), Palais des Congrès, Yaoundé"
+   :gov.address/lat 3.89106 :gov.address/lon 11.50057
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cod.anticorruption.hq"
+   :gov.address/unit "gov.cod.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "APLC (Agency for Prevention and Fight against Corruption), Kinshasa"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cyp.anticorruption.hq"
+   :gov.address/unit "gov.cyp.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "cyp"
+   :gov.address/line-en "Independent Authority Against Corruption, Markou Drakou 10, Nicosia"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.anticorruption.hq"
+   :gov.address/unit "gov.eth.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Federal Ethics and Anti-Corruption Commission, Ras Mekonnen Ave, Addis Ababa"
+   :gov.address/lat 9.01196 :gov.address/lon 38.7515
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fji.anticorruption.hq"
+   :gov.address/unit "gov.fji.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "fji"
+   :gov.address/line-en "FICAC, Reverend John Hunt House, Fort Street, Suva"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.idn.anticorruption.hq"
+   :gov.address/unit "gov.idn.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "KPK (Gedung Merah Putih), Jl. Kuningan Persada, Jakarta"
+   :gov.address/lat -6.20782 :gov.address/lon 106.83088
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irn.anticorruption.hq"
+   :gov.address/unit "gov.irn.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "irn"
+   :gov.address/line-en "General Inspection Organization, Ayatollah Taleghani St, Tehran"
+   :gov.address/lat 35.70637 :gov.address/lon 51.41918
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.jor.anticorruption.hq"
+   :gov.address/unit "gov.jor.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "jor"
+   :gov.address/line-en "Integrity and Anti-Corruption Commission (JIACC), Arjan, Amman"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kaz.anticorruption.hq"
+   :gov.address/unit "gov.kaz.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "kaz"
+   :gov.address/line-en "Anti-Corruption Agency, Kabanbay Batyr Avenue 19, Astana"
+   :gov.address/lat 51.13092 :gov.address/lon 71.41224
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.anticorruption.hq"
+   :gov.address/unit "gov.ken.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Ethics and Anti-Corruption Commission (EACC), Integrity Centre, Nairobi"
+   :gov.address/lat -1.28975 :gov.address/lon 36.80963
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kor.anticorruption.hq"
+   :gov.address/unit "gov.kor.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "kor"
+   :gov.address/line-en "Anti-Corruption and Civil Rights Commission (ACRC), Government Complex-Sejong Bldg 7-2, Sejong"
+   :gov.address/lat 36.5058 :gov.address/lon 127.25941
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lva.anticorruption.hq"
+   :gov.address/unit "gov.lva.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "lva"
+   :gov.address/line-en "KNAB, Citadeles iela 1, Riga"
+   :gov.address/lat 56.95268 :gov.address/lon 24.10148
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mda.anticorruption.hq"
+   :gov.address/unit "gov.mda.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "mda"
+   :gov.address/line-en "National Anticorruption Center (CNA), bd. Ștefan cel Mare 198, Chișinău"
+   :gov.address/lat 47.03534 :gov.address/lon 28.8168
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdg.anticorruption.hq"
+   :gov.address/unit "gov.mdg.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "BIANCO, Villa la Piscine, Ambohibao, Antananarivo"
+   :gov.address/lat -18.83946 :gov.address/lon 47.47405
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mwi.anticorruption.hq"
+   :gov.address/unit "gov.mwi.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "mwi"
+   :gov.address/line-en "Anti-Corruption Bureau, Mulanje House, City Centre, Lilongwe"
+   :gov.address/lat -13.96074 :gov.address/lon 33.79738
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nam.anticorruption.hq"
+   :gov.address/unit "gov.nam.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "nam"
+   :gov.address/line-en "Anti-Corruption Commission, Groot Tiras St, Eros, Windhoek"
+   :gov.address/lat -22.55079 :gov.address/lon 17.08591
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nga.anticorruption.hq"
+   :gov.address/unit "gov.nga.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "nga"
+   :gov.address/line-en "ICPC, Plot 802 Constitution Avenue, Central Area, Abuja"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.per.anticorruption.hq"
+   :gov.address/unit "gov.per.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "DIRCOCOR (PNP), Jr. Los Mogaburos 216, Jesús María, Lima"
+   :gov.address/lat -12.06666 :gov.address/lon -77.04428
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sgp.anticorruption.hq"
+   :gov.address/unit "gov.sgp.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "Corrupt Practices Investigation Bureau (CPIB), 2 Lengkok Bahru, Singapore"
+   :gov.address/lat 1.2865 :gov.address/lon 103.81062
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sle.anticorruption.hq"
+   :gov.address/unit "gov.sle.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "sle"
+   :gov.address/line-en "Anti-Corruption Commission, Integrity House, Tower Hill, Freetown"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vnm.anticorruption.hq"
+   :gov.address/unit "gov.vnm.anticorruption"
+   :gov.address/kind :headquarters
+   :gov.address/country "vnm"
+   :gov.address/line-en "Central Steering Committee on Anti-corruption (Ban Nội Chính TW), 4 Nguyễn Cảnh Chân, Hanoi"
+   :gov.address/lat 21.04007 :gov.address/lon 105.83778
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
 ]}

@@ -39,7 +39,7 @@
    :gov.unit/parent "gov.aus"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Independent Commission Against Corruption"
+   :gov.unit/name-en "National Anti-Corruption Commission (NACC)"
    :gov.unit/official-url "http://www.icac.nsw.gov.au"
    :gov.unit/wikidata "Q17007670"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

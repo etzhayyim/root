@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: accountability agencies — electoral + anti-corruption (509 → 559)
+
+Opened the agency-tier address fill with the highest-civic-value accountability bodies: 25 national
+ELECTORAL commissions + 25 ANTI-CORRUPTION agencies (the bodies danjo/toritate consume). 5
+web-research subagents. 50 added; **34 building-level lat/lon, 16 honest line-en-only (G5)** — bodies
+with PO-box-only / district-only / conflict-disrupted / state-namespace addresses (Burkina/Guinea/
+Honduras/Kyrgyzstan/Mozambique/Rwanda/Sudan/Senegal electoral; Australia NACC, Azerbaijan, DR Congo,
+Cyprus, Fiji, Jordan, Nigeria ICPC, Sierra Leone anti-corruption).
+
+- agencies: 509 → **559/1049** with an address record.
+- 1 data-quality name fix: gov.aus.anticorruption was "ICAC NSW" (a STATE body) → **National
+  Anti-Corruption Commission (NACC)** (the federal body, est. 2023).
+- honest data notes: Kazakhstan's standalone Anti-Corruption Agency was dissolved/merged into the
+  National Security Committee (July 2025; HQ building stands); Venezuela CNE is at the Edificio CNE,
+  El Recreo (not Centro Simón Bolívar); Italy's electoral directorate is a unit of the Ministry of
+  Interior (Palazzo del Viminale); KNAB is at Citadeles iela 1 (not the old Brīvības address); ACRC
+  in Sejong Government Complex Building 7-2.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: ministry tier COMPLETE (1642/1642 address records)
 
 Closed the ministry tier — the final 73 (a scattered long tail across ~52 countries). 6 web-research
