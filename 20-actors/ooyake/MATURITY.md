@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — national archives: 26 web-verified (926 → 952 agencies)
+
+Continued the agency tier with national ARCHIVES (42 missing). 4 web-research subagents found
++ **confirmed each institution's own official site by fetching it** (no social-media pages
+accepted as official_url). 26 confirmed (provenance → the body's own official URL;
+`:last-verified` → 2026-06-04).
+
+- agencies: 926 → **952/1049** with an official site.
+- **16 HONESTLY left null (G5)** — these national archives genuinely have NO website (a real,
+  expected pattern for small/post-conflict states; many have only a Facebook page, which was
+  NOT accepted): Afghanistan, Angola, Central African Republic, DR Congo (inaco.cd is a bare
+  placeholder), Congo-Brazzaville, Djibouti, Guinea, Lesotho, Mauritania, Saint Lucia (its
+  own gov registry lists the site as "N/A"), Haiti (only an expired-cert portal section),
+  Malawi, Niger, El Salvador, Togo, Turkmenistan.
+- honest entry-point choices recorded where the archive has no standalone site: hosted under
+  the culture/home-affairs ministry portal (South Sudan mcmnh, Zambia mohais, Solomon Islands
+  solomons.gov.sb, Nicaragua inc.gob.ni, Uzbekistan gov.uz/archive). HTTP-only/TLS-strictness
+  caveats noted (Gabon dgabd.ga, Brunei, Eswatini, Seychelles, South Africa) — genuine
+  official domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — accountability agencies: 38 web-verified + 6 data-quality fixes (888 → 926 agencies)
 
 Opened the agency tier with the highest-civic-value accountability bodies — electoral
