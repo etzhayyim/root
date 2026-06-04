@@ -983,13 +983,13 @@ select{padding:.4rem;border:1px solid #8888;border-radius:.4rem}
 #stats{opacity:.7;font-size:.85rem;margin:.6rem 0}
 ul{list-style:none;padding:0;margin:0}
 li{padding:.5rem .2rem;border-bottom:1px solid #8882;display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap}
-.nm{font-weight:600}.en{opacity:.6}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
+.nm{font-weight:600}.en{opacity:.6}.ro{opacity:.55;font-style:italic;font-size:.9em}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
 .au{color:#1a7f37;border-color:#1a7f3766}.re{opacity:.55}
 a{color:inherit}
 </style></head><body>
 <h1>公 — World Government Atlas</h1>
 <p class="sub">An observational <strong>mirror</strong> + civic wayfinding map of the world's government units — never the government, never an official channel, never a target-list (ADR-2606021600). Data: <a href="/.well-known/gov-units.json">/.well-known/gov-units.json</a>. <a href="/actors">/actors</a></p>
-<input id="q" placeholder="search government units… (try: 財務省, 札幌市, Stuttgart, London, prefecture)" autocomplete="off">
+<input id="q" placeholder="search by name, endonym, romanization or id… (try: 国会, Kokkai, Verkhovna, Knesset, 札幌市)" autocomplete="off">
 <div class="row">
 <select id="lvl"><option value="">all levels</option></select>
 <select id="src"><option value="">all sourcing</option><option value="authoritative">authoritative</option><option value="representative">representative</option></select>
@@ -1005,9 +1005,10 @@ a{color:inherit}
  const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
  function render(){
   const t=q.value.trim().toLowerCase(),fl=lvl.value,fs=src.value;
-  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
-  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · authoritative '+(d.bySourcing&&d.bySourcing.authoritative||0)+' / representative '+(d.bySourcing&&d.bySourcing.representative||0);
-  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+'</li>').join('');
+  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.nameRomanized||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
+  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · '+(d.withNameLocal||0)+' endonyms · '+(d.withCoords||0)+' located';
+  const geo=u=>(typeof u.lat==='number'&&typeof u.lon==='number')?' · <a href="geo:'+u.lat+','+u.lon+'" rel="noopener">map</a>':'';
+  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameRomanized&&u.nameRomanized!==u.name?' <span class="ro">'+esc(u.nameRomanized)+'</span>':'')+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+geo(u)+'</li>').join('');
  }
  q.oninput=lvl.onchange=src.onchange=render;render();
 })();

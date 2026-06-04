@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — /gov FRONT-END: render endonyms + romanization + seat map links
+
+Completed the publish-surface chain: the previous iteration put coords/endonyms/romanizations INTO
+the index; this one makes the `/gov` atlas page actually USE them. Edited the apex Worker's `/gov`
+HTML (`50-infra/etzhayyim-did-web/src/worker.ts`):
+
+- **search now matches `nameRomanized`** — a Latin reader can find an endonym-named unit by typing
+  "Kokkai" / "Verkhovna" / "Knesset" (previously only native-script name / English / id matched).
+- **renders the romanization** (italic, after the endonym) when present.
+- **adds a `geo:lat,lon` "map" link** for the 5,670 located seats — opens the user's OWN map app via
+  the standard geo URI; NO third-party map/tile/script embedded (Charter ad-free / no-tracker / CSP
+  default-src 'none' preserved — it's a plain top-level navigation link, not a fetch).
+- stats line now reports "<N> endonyms · <N> located"; placeholder advertises endonym/romanization search.
+
+Verified: worker `tsc --noEmit` clean; a node smoke-harness ran the inline render logic against
+sample units → stats shows "2 endonyms · 1 located", output contains the Kokkai romanization hit and
+the geo:24.7628,46.6403 map link. Additive, CSP-safe, no new dependencies.
+
+The world atlas is now end-to-end: 7,106 units with addresses → 5,670 plottable seats + 1,013
+endonyms (25 scripts) flow registry → index generator → /.well-known/gov-units.json → /gov UI,
+each unit findable by its Latin reading and openable on the user's map.
+
+run_tests.sh (ooyake) ALL GREEN; validate_atlas ✓ (unchanged from prior PR).
+
 ## 2026-06-05 — PUBLISH-SURFACE enrich: hq coords + endonyms into /gov atlas index
 
 Pivoted from data-entry to data-exposure: the 5,670 building-level seat coordinates and 1,013
