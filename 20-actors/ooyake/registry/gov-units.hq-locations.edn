@@ -7682,4 +7682,692 @@
    :gov.address/lat 46.22417 :gov.address/lon 6.14944
    :gov.address/sourcing :authoritative
    :gov.address/provenance "Wikipedia (Centre William Rappard)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.afg.executive.hq"
+   :gov.address/unit "gov.afg.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "afg"
+   :gov.address/line-en "Arg (Presidential Palace), Kabul"
+   :gov.address/lat 34.52361 :gov.address/lon 69.17889
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Arg, Kabul)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.and.executive.hq"
+   :gov.address/unit "gov.and.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "and"
+   :gov.address/line-en "Edifici administratiu del Govern d'Andorra, Andorra la Vella"
+   :gov.address/lat 42.50669 :gov.address/lon 1.52237
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ca.wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arm.executive.hq"
+   :gov.address/unit "gov.arm.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "arm"
+   :gov.address/line-en "Government House, Republic Square, Yerevan"
+   :gov.address/lat 40.1771 :gov.address/lon 44.5139
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Government House, Yerevan)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bdi.executive.hq"
+   :gov.address/unit "gov.bdi.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "bdi"
+   :gov.address/line-en "Ntare Rushatsi House (Presidency), Gasenyi/Bujumbura"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "presidence.gov.bi (coordinate in transition, Gitega/Bujumbura)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ben.executive.hq"
+   :gov.address/unit "gov.ben.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "ben"
+   :gov.address/line-en "Palais de la Marina (Presidential Palace), Cotonou"
+   :gov.address/lat 6.3517 :gov.address/lon 2.409
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Presidential Palace, Cotonou)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bfa.executive.hq"
+   :gov.address/unit "gov.bfa.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "bfa"
+   :gov.address/line-en "Palais de Kosyam (Présidence du Faso), Ouagadougou"
+   :gov.address/lat 12.28843 :gov.address/lon -1.50273
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "fr.wikipedia (Palais de Kosyam)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgr.executive.hq"
+   :gov.address/unit "gov.bgr.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgr"
+   :gov.address/line-en "Council of Ministers building, 1 Dondukov Blvd, Sofia"
+   :gov.address/lat 42.69833 :gov.address/lon 23.32361
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sofia-guide" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.executive.hq"
+   :gov.address/unit "gov.bhs.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Sir Cecil Wallace-Whitfield Centre (Office of the PM), Nassau"
+   :gov.address/lat 25.06965 :gov.address/lon -77.38189
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mapcarta" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bih.executive.hq"
+   :gov.address/unit "gov.bih.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "bih"
+   :gov.address/line-en "Council of Ministers (Greece–BiH Friendship Building), Sarajevo"
+   :gov.address/lat 43.85504 :gov.address/lon 18.40518
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blr.executive.hq"
+   :gov.address/unit "gov.blr.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "blr"
+   :gov.address/line-en "Government House, Independence Square, Minsk"
+   :gov.address/lat 53.89612 :gov.address/lon 27.54478
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Government House, Minsk)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.executive.hq"
+   :gov.address/unit "gov.blz.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Sir Edney Cain Building (Office of the PM), Belmopan"
+   :gov.address/lat 17.25188 :gov.address/lon -88.77185
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mapcarta" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.brb.executive.hq"
+   :gov.address/unit "gov.brb.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "brb"
+   :gov.address/line-en "Government Headquarters, Bay Street, Bridgetown"
+   :gov.address/lat 13.08666 :gov.address/lon -59.60864
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / pmo.gov.bb" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.btn.executive.hq"
+   :gov.address/unit "gov.btn.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "btn"
+   :gov.address/line-en "Gyalyong Tshokhang (PMO/Cabinet complex), Thimphu"
+   :gov.address/lat 27.48996 :gov.address/lon 89.63831
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / pmo.gov.bt" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cmr.executive.hq"
+   :gov.address/unit "gov.cmr.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "cmr"
+   :gov.address/line-en "Immeuble de l'Étoile (PM's Office), Bd du 20 Mai, Yaoundé"
+   :gov.address/lat 3.866 :gov.address/lon 11.516
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "spm.gov.cm (administrative-quarter approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cod.executive.hq"
+   :gov.address/unit "gov.cod.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "Primature, Avenue du Roi Baudoin, Gombe, Kinshasa"
+   :gov.address/lat -4.30327 :gov.address/lon 15.28416
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cog.executive.hq"
+   :gov.address/unit "gov.cog.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "cog"
+   :gov.address/line-en "Primature, Avenue Paul Doumer, Poto-Poto, Brazzaville"
+   :gov.address/lat -4.27038 :gov.address/lon 15.28934
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.executive.hq"
+   :gov.address/unit "gov.cub.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Palacio de la Revolución, Havana"
+   :gov.address/lat 23.121 :gov.address/lon -82.3876
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cyp.executive.hq"
+   :gov.address/unit "gov.cyp.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "cyp"
+   :gov.address/line-en "Presidential Palace, Nicosia"
+   :gov.address/lat 35.15551 :gov.address/lon 33.34768
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.executive.hq"
+   :gov.address/unit "gov.ecu.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Palacio de Carondelet, Quito"
+   :gov.address/lat -0.21972 :gov.address/lon -78.51254
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.est.executive.hq"
+   :gov.address/unit "gov.est.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "est"
+   :gov.address/line-en "Stenbock House, Toompea, Tallinn"
+   :gov.address/lat 59.43832 :gov.address/lon 24.74027
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fsm.executive.hq"
+   :gov.address/unit "gov.fsm.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "fsm"
+   :gov.address/line-en "FSM Capitol Complex, Palikir, Pohnpei"
+   :gov.address/lat 6.91722 :gov.address/lon 158.15889
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palikir)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.geo.executive.hq"
+   :gov.address/unit "gov.geo.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "geo"
+   :gov.address/line-en "State Chancellery (Government Administration), 7 Pavle Ingorokva St, Tbilisi"
+   :gov.address/lat 41.694 :gov.address/lon 44.79781
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gha.executive.hq"
+   :gov.address/unit "gov.gha.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "gha"
+   :gov.address/line-en "Jubilee House, Accra"
+   :gov.address/lat 5.57975 :gov.address/lon -0.18847
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Jubilee House)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gnq.executive.hq"
+   :gov.address/unit "gov.gnq.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "gnq"
+   :gov.address/line-en "Malabo Government Building (Presidential Palace), Malabo"
+   :gov.address/lat 3.7576 :gov.address/lon 8.78375
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / Mapcarta" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.grd.executive.hq"
+   :gov.address/unit "gov.grd.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "grd"
+   :gov.address/line-en "Ministerial Complex, Botanical Gardens, Tanteen, St George's"
+   :gov.address/lat 12.0469 :gov.address/lon -61.7445
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / gov.gd" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.executive.hq"
+   :gov.address/unit "gov.gtm.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Casa Presidencial, Guatemala City"
+   :gov.address/lat 14.64341 :gov.address/lon -90.51281
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "es.wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hnd.executive.hq"
+   :gov.address/unit "gov.hnd.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "hnd"
+   :gov.address/line-en "Casa Presidencial (Palacio José Cecilio del Valle), Tegucigalpa"
+   :gov.address/lat 14.08871 :gov.address/lon -87.1878
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "es.wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hrv.executive.hq"
+   :gov.address/unit "gov.hrv.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "hrv"
+   :gov.address/line-en "Banski dvori, St Mark's Square, Zagreb"
+   :gov.address/lat 45.81639 :gov.address/lon 15.97306
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Banski dvori)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hti.executive.hq"
+   :gov.address/unit "gov.hti.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "hti"
+   :gov.address/line-en "Primature (Villa d'Accueil), Musseau, Port-au-Prince"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "primature.gouv.ht (coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irn.executive.hq"
+   :gov.address/unit "gov.irn.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "irn"
+   :gov.address/line-en "Presidential Administration (Pasteur Street), Tehran"
+   :gov.address/lat 35.68972 :gov.address/lon 51.40028
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.isl.executive.hq"
+   :gov.address/unit "gov.isl.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "isl"
+   :gov.address/line-en "Stjórnarráðshúsið (PM's Office), Reykjavik"
+   :gov.address/lat 64.1473 :gov.address/lon -21.9353
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.jam.executive.hq"
+   :gov.address/unit "gov.jam.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "jam"
+   :gov.address/line-en "Office of the Cabinet, Jamaica House, Kingston"
+   :gov.address/lat 18.0139 :gov.address/lon -76.7864
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "opm.gov.jm (approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kaz.executive.hq"
+   :gov.address/unit "gov.kaz.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "kaz"
+   :gov.address/line-en "Government House (House of Ministries), Astana"
+   :gov.address/lat 51.12389 :gov.address/lon 71.43917
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / wikimapia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kgz.executive.hq"
+   :gov.address/unit "gov.kgz.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "kgz"
+   :gov.address/line-en "White House (Ak Üy), Bishkek"
+   :gov.address/lat 42.87729 :gov.address/lon 74.60015
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (White House, Bishkek)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kwt.executive.hq"
+   :gov.address/unit "gov.kwt.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "kwt"
+   :gov.address/line-en "Seif Palace, Kuwait City"
+   :gov.address/lat 29.38083 :gov.address/lon 47.97111
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Seif Palace)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lie.executive.hq"
+   :gov.address/unit "gov.lie.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "lie"
+   :gov.address/line-en "Regierungsgebäude, Peter-Kaiser-Platz 1, Vaduz"
+   :gov.address/lat 47.13722 :gov.address/lon 9.52278
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Government Building, Vaduz)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ltu.executive.hq"
+   :gov.address/unit "gov.ltu.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "ltu"
+   :gov.address/line-en "Government of Lithuania building, Gedimino pr. 11, Vilnius"
+   :gov.address/lat 54.68855 :gov.address/lon 25.28105
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lux.executive.hq"
+   :gov.address/unit "gov.lux.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "lux"
+   :gov.address/line-en "Hôtel de Bourgogne, Luxembourg City"
+   :gov.address/lat 49.60953 :gov.address/lon 6.13211
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "fr.wikipedia / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lva.executive.hq"
+   :gov.address/unit "gov.lva.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "lva"
+   :gov.address/line-en "Cabinet of Ministers (Palace of Justice), Brīvības 36, Riga"
+   :gov.address/lat 56.95361 :gov.address/lon 24.1178
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mco.executive.hq"
+   :gov.address/unit "gov.mco.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mco"
+   :gov.address/line-en "Hôtel du Gouvernement (Ministry of State), Place de la Visitation, Monaco"
+   :gov.address/lat 43.73179 :gov.address/lon 7.42516
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "fr.wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mhl.executive.hq"
+   :gov.address/unit "gov.mhl.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mhl"
+   :gov.address/line-en "Capitol Building (Office of the President), Delap, Majuro"
+   :gov.address/lat 7.08953 :gov.address/lon 171.38034
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mkd.executive.hq"
+   :gov.address/unit "gov.mkd.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mkd"
+   :gov.address/line-en "Government of North Macedonia building, Skopje"
+   :gov.address/lat 42.00028 :gov.address/lon 21.42861
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikimedia Commons" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.executive.hq"
+   :gov.address/unit "gov.mne.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Government of Montenegro building, Karađorđeva bb, Podgorica"
+   :gov.address/lat 42.4405 :gov.address/lon 19.2601
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.executive.hq"
+   :gov.address/unit "gov.mng.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Government Palace, Sükhbaatar Square, Ulaanbaatar"
+   :gov.address/lat 47.92075 :gov.address/lon 106.91731
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Government Palace, Mongolia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.executive.hq"
+   :gov.address/unit "gov.moz.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Prime Minister's Office, Av. Belmiro Obadias Muianga, Maputo"
+   :gov.address/lat -25.97754 :gov.address/lon 32.57622
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Portal do Governo" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mrt.executive.hq"
+   :gov.address/unit "gov.mrt.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mrt"
+   :gov.address/line-en "Primature (PM's Office), Nouakchott"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "primature.gov.mr (coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mus.executive.hq"
+   :gov.address/unit "gov.mus.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mus"
+   :gov.address/line-en "Prime Minister's Office, New Treasury Building, Intendance St, Port Louis"
+   :gov.address/lat -20.16307 :gov.address/lon 57.50278
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "pmo.govmu.org" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mwi.executive.hq"
+   :gov.address/unit "gov.mwi.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mwi"
+   :gov.address/line-en "Office of the President and Cabinet, Capital Hill, Lilongwe"
+   :gov.address/lat -13.94762 :gov.address/lon 33.79027
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "opc.gov.mw / Mapcarta" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nam.executive.hq"
+   :gov.address/unit "gov.nam.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "nam"
+   :gov.address/line-en "Office of the Prime Minister, Tintenpalast, 55 Love Street, Windhoek"
+   :gov.address/lat -22.5666 :gov.address/lon 17.0893
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "opm.gov.na / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ner.executive.hq"
+   :gov.address/unit "gov.ner.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "ner"
+   :gov.address/line-en "Presidential Palace (Présidence), Niamey"
+   :gov.address/lat 13.5156 :gov.address/lon 2.0943
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Presidential Palace, Niamey)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nic.executive.hq"
+   :gov.address/unit "gov.nic.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "nic"
+   :gov.address/line-en "Casa de los Pueblos (Presidency), Centro Histórico, Managua"
+   :gov.address/lat 12.15726 :gov.address/lon -86.27195
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mapcarta (approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.npl.executive.hq"
+   :gov.address/unit "gov.npl.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "npl"
+   :gov.address/line-en "Singha Durbar (Office of PM and Council of Ministers), Kathmandu"
+   :gov.address/lat 27.69827 :gov.address/lon 85.32525
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Singha Durbar)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nru.executive.hq"
+   :gov.address/unit "gov.nru.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "nru"
+   :gov.address/line-en "Government Offices, Yaren District"
+   :gov.address/lat -0.5477 :gov.address/lon 166.9208
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Britannica (district-level)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.executive.hq"
+   :gov.address/unit "gov.omn.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Al Alam Palace / Diwan of the Royal Court, Old Muscat"
+   :gov.address/lat 23.616 :gov.address/lon 58.59469
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mapcarta" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.plw.executive.hq"
+   :gov.address/unit "gov.plw.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "plw"
+   :gov.address/line-en "Capitol of Palau (National Capitol Building), Ngerulmud"
+   :gov.address/lat 7.50015 :gov.address/lon 134.62429
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Ngerulmud)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.png.executive.hq"
+   :gov.address/unit "gov.png.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "Sir Manasupe Haus (National Executive Council), Waigani, Port Moresby"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "pmnec.gov.pg (coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.prk.executive.hq"
+   :gov.address/unit "gov.prk.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "prk"
+   :gov.address/line-en "Cabinet of North Korea, Jongro-dong, Chung-guyok, Pyongyang"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rwa.executive.hq"
+   :gov.address/unit "gov.rwa.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "rwa"
+   :gov.address/line-en "Village Urugwiro (Office of the President / cabinet), Kacyiru, Kigali"
+   :gov.address/lat -1.93964 :gov.address/lon 30.08208
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Village Urugwiro)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.executive.hq"
+   :gov.address/unit "gov.slv.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Casa Presidencial, San Benito, San Salvador"
+   :gov.address/lat 13.68514 :gov.address/lon -89.24004
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Casa Presidencial)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.smr.executive.hq"
+   :gov.address/unit "gov.smr.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "smr"
+   :gov.address/line-en "Palazzo Begni (Government), Contrada Omerelli 31, City of San Marino"
+   :gov.address/lat 43.93681 :gov.address/lon 12.44641
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "esteri.sm / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.som.executive.hq"
+   :gov.address/unit "gov.som.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "som"
+   :gov.address/line-en "Villa Somalia, Mogadishu"
+   :gov.address/lat 2.04083 :gov.address/lon 45.335
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Villa Somalia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.srb.executive.hq"
+   :gov.address/unit "gov.srb.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "srb"
+   :gov.address/line-en "Government of Serbia, Nemanjina 11, Belgrade"
+   :gov.address/lat 44.80639 :gov.address/lon 20.46028
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Government Building, Belgrade)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.stp.executive.hq"
+   :gov.address/unit "gov.stp.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "stp"
+   :gov.address/line-en "Government Palace (Presidential Palace), São Tomé"
+   :gov.address/lat 0.33906 :gov.address/lon 6.73322
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svk.executive.hq"
+   :gov.address/unit "gov.svk.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "svk"
+   :gov.address/line-en "Government Office of the Slovak Republic, Námestie slobody 1, Bratislava"
+   :gov.address/lat 48.1517 :gov.address/lon 17.10931
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "government.gov.sk / Mapcarta" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svn.executive.hq"
+   :gov.address/unit "gov.svn.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "svn"
+   :gov.address/line-en "Government of Slovenia, Gregorčičeva 20, Ljubljana"
+   :gov.address/lat 46.04907 :gov.address/lon 14.49781
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gov.si" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.executive.hq"
+   :gov.address/unit "gov.syr.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "People's Palace (Council of Ministers / Presidency), Mount Mezzeh, Damascus"
+   :gov.address/lat 33.51778 :gov.address/lon 36.25167
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (People's Palace, Syria)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tcd.executive.hq"
+   :gov.address/unit "gov.tcd.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "tcd"
+   :gov.address/line-en "Presidential Palace (Palais Rose), N'Djamena"
+   :gov.address/lat 12.10841 :gov.address/lon 15.03696
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "aroundus / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tgo.executive.hq"
+   :gov.address/unit "gov.tgo.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "tgo"
+   :gov.address/line-en "Presidential Palace (Lomé II), Lomé"
+   :gov.address/lat 6.19252 :gov.address/lon 1.22226
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tls.executive.hq"
+   :gov.address/unit "gov.tls.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "tls"
+   :gov.address/line-en "Government Palace (Palácio do Governo), Dili"
+   :gov.address/lat -8.55431 :gov.address/lon 125.5786
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Government Palace, Dili)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tun.executive.hq"
+   :gov.address/unit "gov.tun.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "tun"
+   :gov.address/line-en "Government Palace (Dar El Bey), Kasbah, Tunis"
+   :gov.address/lat 36.79775 :gov.address/lon 10.16907
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Dar El Bey)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tza.executive.hq"
+   :gov.address/unit "gov.tza.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "tza"
+   :gov.address/line-en "State House (Ikulu), Chamwino, Dodoma"
+   :gov.address/lat -6.08005 :gov.address/lon 36.00604
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / news" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uga.executive.hq"
+   :gov.address/unit "gov.uga.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "uga"
+   :gov.address/line-en "Office of the President, Apollo Kaggwa Road, Kampala"
+   :gov.address/lat 0.31601 :gov.address/lon 32.58696
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "op.go.ug / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ury.executive.hq"
+   :gov.address/unit "gov.ury.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "ury"
+   :gov.address/line-en "Torre Ejecutiva, Plaza Independencia, Montevideo"
+   :gov.address/lat -34.90727 :gov.address/lon -56.20015
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Executive Tower, Montevideo)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uzb.executive.hq"
+   :gov.address/unit "gov.uzb.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "uzb"
+   :gov.address/line-en "Cabinet of Ministers (Government House), Mustaqillik Square, Tashkent"
+   :gov.address/lat 41.31641 :gov.address/lon 69.2668
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Mustaqillik Maydoni)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.yem.executive.hq"
+   :gov.address/unit "gov.yem.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "yem"
+   :gov.address/line-en "Al-Maashiq Palace, Crater District, Aden"
+   :gov.address/lat 12.7644 :gov.address/lon 45.0542
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Al-Maashiq Palace)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zmb.executive.hq"
+   :gov.address/unit "gov.zmb.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "zmb"
+   :gov.address/line-en "State House, Independence Avenue, Lusaka"
+   :gov.address/lat -15.42889 :gov.address/lon 28.32722
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (State House, Lusaka)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mlt.executive.hq"
+   :gov.address/unit "gov.mlt.executive"
+   :gov.address/kind :headquarters
+   :gov.address/country "mlt"
+   :gov.address/line-en "Auberge de Castille (Office of the Prime Minister), Valletta"
+   :gov.address/lat 35.89556 :gov.address/lon 14.50889
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Auberge de Castille)" :gov.address/last-verified "2026-06-04"}
 ]}

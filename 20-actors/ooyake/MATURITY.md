@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: cabinet tier COMPLETE (52 → 129/129)
+
+Finished the cabinet/executive tier — the remaining 77 executives (small/mid states). 7 web-research
+subagents located each **seat-of-government building + city + coordinates** (presidential palaces,
+PM offices, government houses, councils of ministers) from official sites + Wikipedia/OSM; Malta
+(Auberge de Castille) added to close the last gap. 77 records added → **cabinet now 129/129**
+(5th tier fully address-complete: country 191/192, legislature 186/186, court 206/206, supranational
+99/99, cabinet 129/129).
+
+- 71 carry building-level lat/lon; **6 honestly NULL coords** (G5 — seat confirmed but no reliable
+  building coordinate): Burundi (Ntare Rushatsi House, capital relocating to Gitega), Haiti
+  (Primature/Villa d'Accueil), Mauritania (Primature), PNG (Sir Manasupe Haus), North Korea (Cabinet,
+  Pyongyang).
+- honest head-of-government disambiguations recorded: Kazakhstan = House of Ministries (PM), not Ak
+  Orda; Oman = Diwan/Al Alam Palace; Tanzania = new Dodoma/Chamwino State House (executive seat since
+  2023); Togo = Lomé II palace (current seat); Yemen = Al-Maashiq Palace, Aden (recognised govt);
+  Andorra = the executive Govern building (not Casa de la Vall parliament). District/approx-level
+  flagged (Nauru, Cameroon, Jamaica, Nicaragua, San Marino).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: supranational tier COMPLETE (0 → 99/99 IGOs)
 
 Filled the fully-empty supranational tier — all 99 inter-governmental organizations. 7 web-research
