@@ -518,6 +518,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Meteorological Agency"
+   :gov.unit/name-local "የኢትዮጵያ ሚቲዎሮሎጂ ኢንስቲትዩት"
+   :gov.unit/name-romanized "Ye-Ityopya Mitiworoloji Institiyut"
    :gov.unit/official-url "http://www.ethiomet.gov.et/"
    :gov.unit/wikidata "Q110157289"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

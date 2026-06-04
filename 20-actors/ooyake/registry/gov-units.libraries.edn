@@ -330,6 +330,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "National Library of Laos"
+   :gov.unit/name-local "ຫໍສະໝຸດແຫ່ງຊາດ"
+   :gov.unit/name-romanized "Ho Samut Haengxat"
    :gov.unit/official-url "http://www.nationallibraryoflaos.org"
    :gov.unit/wikidata "Q15116324"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -604,6 +606,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "National Library and Documentation Services Board"
+   :gov.unit/name-local "ජාතික පුස්තකාල හා ප්‍රලේඛන සේවා මණ්ඩලය"
+   :gov.unit/name-romanized "Jathika Pustakala ha Pralekhana Seva Mandalaya"
    :gov.unit/official-url "http://www.natlib.lk/"
    :gov.unit/wikidata "Q6974130"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -801,6 +805,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "National Library of Cambodia"
+   :gov.unit/name-local "បណ្ណាល័យជាតិនៃកម្ពុជា"
+   :gov.unit/name-romanized "Bannalai Cheat ney Kampuchea"
    :gov.unit/official-url "http://nlc.gov.kh//en/home/"
    :gov.unit/wikidata "Q2556297"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1587,6 +1593,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Nepal National Library"
+   :gov.unit/name-local "नेपाल राष्ट्रिय पुस्तकालय"
+   :gov.unit/name-romanized "Nepal Rashtriya Pustakalaya"
    :gov.unit/official-url "https://nnl.gov.np/"
    :gov.unit/wikidata "Q619789"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1771,6 +1779,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "National Library of Myanmar"
+   :gov.unit/name-local "အမျိုးသားစာကြည့်တိုက်"
+   :gov.unit/name-romanized "Amyotha Sakyitaik"
    :gov.unit/official-url "http://www.nlm-npt.gov.mm"
    :gov.unit/wikidata "Q631130"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

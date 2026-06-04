@@ -227,6 +227,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Election Board of Ethiopia"
+   :gov.unit/name-local "የኢትዮጵያ ብሔራዊ ምርጫ ቦርድ"
+   :gov.unit/name-romanized "Ye-Ityopiya Biherawi Mircha Bord"
    :gov.unit/official-url "http://www.electionethiopia.org"
    :gov.unit/wikidata "Q1968187"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

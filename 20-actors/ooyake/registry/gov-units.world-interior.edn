@@ -907,6 +907,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "ក្រសួងមហាផ្ទៃ"
+   :gov.unit/name-romanized "Krasuong Mohaphtey"
    :gov.unit/official-url "https://www.interior.gov.kh/"
    :gov.unit/wikidata "Q6867226"
    :gov.unit/cofog ["03.1"]
@@ -975,6 +977,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Public Administration and Home Affairs"
+   :gov.unit/name-local "රාජ්‍ය පරිපාලන, ස්වදේශ කටයුතු, පළාත් සභා හා පළාත් පාලන අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Rajya Paripalana, Svadesha Katayuthu, Palat Sabha ha Palat Palana Amathyanshaya"
    :gov.unit/official-url "https://pubad.gov.lk/web/index.php?lang=en"
    :gov.unit/wikidata "Q16152199"
    :gov.unit/cofog ["03.1"]
@@ -1235,6 +1239,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Internal Affairs and Law"
+   :gov.unit/name-local "गृह मन्त्रालय"
+   :gov.unit/name-romanized "Griha Mantralaya"
    :gov.unit/official-url "https://moial.koshi.gov.np/"
    :gov.unit/wikidata "Q130420686"
    :gov.unit/cofog ["03.1"]

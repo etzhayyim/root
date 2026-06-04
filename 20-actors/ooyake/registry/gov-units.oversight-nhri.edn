@@ -177,6 +177,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Myanmar National Human Rights Commission"
+   :gov.unit/name-local "မြန်မာနိုင်ငံအမျိုးသားလူ့အခွင့်အရေးကော်မရှင်"
+   :gov.unit/name-romanized "Myanma Naingngan Amyotha Lu-akwint-aye Kawmashin"
    :gov.unit/official-url "https://mnhrc.org.mm/"
    :gov.unit/wikidata "Q6946757"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -239,6 +241,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "National Human Rights Commission"
+   :gov.unit/name-local "राष्ट्रिय मानव अधिकार आयोग"
+   :gov.unit/name-romanized "Rashtriya Manav Adhikar Aayog"
    :gov.unit/official-url "https://www.nhrcnepal.org/"
    :gov.unit/wikidata "Q6973441"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

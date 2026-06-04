@@ -955,6 +955,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Forests and Environment"
+   :gov.unit/name-local "वन तथा वातावरण मन्त्रालय"
+   :gov.unit/name-romanized "Van tatha Vatavaran Mantralaya"
    :gov.unit/official-url "https://moest.gov.np/"
    :gov.unit/wikidata "Q13186005"
    :gov.unit/cofog ["05"]

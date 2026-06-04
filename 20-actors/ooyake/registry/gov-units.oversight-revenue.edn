@@ -247,6 +247,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Inland Revenue Department"
+   :gov.unit/name-local "आन्तरिक राजस्व विभाग"
+   :gov.unit/name-romanized "Antarik Rajaswa Vibhag"
    :gov.unit/official-url "https://www.ird.gov.np/"
    :gov.unit/wikidata "Q19659583"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

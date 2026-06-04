@@ -589,6 +589,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Health of Ethopia"
+   :gov.unit/name-local "ጤና ሚኒስቴር"
+   :gov.unit/name-romanized "Tena Minister"
    :gov.unit/official-url "http://www.moh.gov.et/"
    :gov.unit/wikidata "Q30280206"
    :gov.unit/cofog ["07"]
@@ -1019,6 +1021,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "ក្រសួងសុខាភិបាល"
+   :gov.unit/name-romanized "Krasuong Sokhaphibal"
    :gov.unit/official-url "http://www.hiscambodia.org/public/homepage_kh.php"
    :gov.unit/wikidata "Q6867092"
    :gov.unit/cofog ["07"]
@@ -1071,6 +1075,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "ກະຊວງສາທາລະນະສຸກ"
+   :gov.unit/name-romanized "Kasuang Sathalanasuk"
    :gov.unit/official-url "http://www.moh.gov.la/"
    :gov.unit/wikidata "Q30280632"
    :gov.unit/cofog ["07"]
@@ -1119,6 +1125,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "සෞඛ්‍ය අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Saukya Amathyanshaya"
    :gov.unit/official-url "http://www.health.gov.lk/en/"
    :gov.unit/wikidata "Q16147207"
    :gov.unit/cofog ["07"]
@@ -1315,6 +1323,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "ကျန်းမာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Kyanmaye Wankyihtana"
    :gov.unit/official-url "http://www.moh.gov.mm/"
    :gov.unit/wikidata "Q4294347"
    :gov.unit/cofog ["07"]
@@ -1493,6 +1503,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "स्वास्थ्य तथा जनसंख्या मन्त्रालय"
+   :gov.unit/name-romanized "Svasthya tatha Janasankhya Mantralaya"
    :gov.unit/official-url "https://moh.koshi.gov.np/"
    :gov.unit/wikidata "Q130199279"
    :gov.unit/cofog ["07"]

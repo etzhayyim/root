@@ -529,6 +529,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Supreme Court of Ethiopia"
+   :gov.unit/name-local "የፌዴራል ጠቅላይ ፍርድ ቤት"
+   :gov.unit/name-romanized "Ye-Federal Teklay Frd Bet"
    :gov.unit/official-url "https://www.fsc.gov.et/"
    :gov.unit/wikidata "Q16117669"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -916,6 +918,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Supreme Court of Sri Lanka"
+   :gov.unit/name-local "ශ්‍රේෂ්ඨාධිකරණය"
+   :gov.unit/name-romanized "Sreshthadhikaranaya"
    :gov.unit/official-url "http://www.supremecourt.lk/"
    :gov.unit/wikidata "Q1702908"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1064,6 +1068,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Supreme Court of Myanmar"
+   :gov.unit/name-local "ပြည်ထောင်စုတရားလွှတ်တော်ချုပ်"
+   :gov.unit/name-romanized "Pyidaungsu Taya Hluttaw-gyok"
    :gov.unit/official-url "https://www.unionsupremecourt.gov.mm/"
    :gov.unit/wikidata "Q4120189"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1186,6 +1192,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Supreme Court of Nepal"
+   :gov.unit/name-local "सर्वोच्च अदालत"
+   :gov.unit/name-romanized "Sarvochcha Adalat"
    :gov.unit/official-url "http://www.supremecourt.gov.np"
    :gov.unit/wikidata "Q7644951"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

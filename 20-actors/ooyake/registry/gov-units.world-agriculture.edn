@@ -444,6 +444,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Agriculture and Rural Development policy of Ethiopia"
+   :gov.unit/name-local "የግብርና ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Gibirina Minister"
    :gov.unit/official-url "http://www.moa.gov.et"
    :gov.unit/wikidata "Q4294691"
    :gov.unit/cofog ["04.2"]
@@ -788,6 +790,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Agriculture, Forestry and Fisheries"
+   :gov.unit/name-local "ក្រសួងកសិកម្ម រុក្ខាប្រមាញ់ និងនេសាទ"
+   :gov.unit/name-romanized "Krasuong Kasekam Rukkhaprama'nh ning Nesat"
    :gov.unit/official-url "http://maff.gov.kh/"
    :gov.unit/wikidata "Q6866612"
    :gov.unit/cofog ["04.2"]
@@ -822,6 +826,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Agriculture and Forestry of Laos"
+   :gov.unit/name-local "ກະຊວງກະສິກຳ ແລະ ປ່າໄມ້"
+   :gov.unit/name-romanized "Kasuang Kasikam lae Pamai"
    :gov.unit/official-url "https://www.maf.gov.la/"
    :gov.unit/wikidata "Q6866634"
    :gov.unit/cofog ["04.2"]
@@ -870,6 +876,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Department of Agriculture"
+   :gov.unit/name-local "කෘෂිකර්ම දෙපාර්තමේන්තුව"
+   :gov.unit/name-romanized "Krushikarma Departamentuwa"
    :gov.unit/official-url "https://agrimin.gov.lk/"
    :gov.unit/wikidata "Q16056297"
    :gov.unit/cofog ["04.2"]
@@ -966,6 +974,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Agriculture and Irrigation"
+   :gov.unit/name-local "စိုက်ပျိုးရေး၊ မွေးမြူရေးနှင့်ဆည်မြောင်းဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Saikpyoyay Mwaymyuyay-hnint Hsaymyaung Wankyihtana"
    :gov.unit/official-url "https://www.moali.gov.mm/"
    :gov.unit/wikidata "Q6866637"
    :gov.unit/cofog ["04.2"]
@@ -1096,6 +1106,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Agriculture and Livestock Development"
+   :gov.unit/name-local "कृषि तथा पशुपन्छी विकास मन्त्रालय"
+   :gov.unit/name-romanized "Krishi tatha Pashupanchhi Vikas Mantralaya"
    :gov.unit/official-url "https://moald.gov.np/"
    :gov.unit/wikidata "Q19671488"
    :gov.unit/cofog ["04.2"]

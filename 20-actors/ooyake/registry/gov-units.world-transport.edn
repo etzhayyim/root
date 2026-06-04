@@ -460,6 +460,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Transport and Communications"
+   :gov.unit/name-local "የትራንስፖርት እና ሎጂስቲክስ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Transport ena Lojistiks Minister"
    :gov.unit/official-url "http://www.motac.gov.et"
    :gov.unit/wikidata "Q4294746"
    :gov.unit/cofog ["04.5"]
@@ -841,6 +843,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "ප්‍රවාහන, මහාමාර්ග, වරාය සහ සිවිල් ගුවන් සේවා අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Pravahana, Mahamarga, Varaya saha Sivil Guvan Seva Amathyanshaya"
    :gov.unit/official-url "https://www.transport.gov.lk/"
    :gov.unit/wikidata "Q16056501"
    :gov.unit/cofog ["04.5"]

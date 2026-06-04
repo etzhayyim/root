@@ -461,6 +461,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "සංචාරක හා ඉඩම් අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Sancharaka ha Idam Amathyanshaya"
    :gov.unit/official-url "http://www.tourismmin.gov.lk/"
    :gov.unit/wikidata "Q19901560"
    :gov.unit/cofog ["04.7"]
@@ -543,6 +545,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Hotels and Tourism"
+   :gov.unit/name-local "ဟိုတယ်နှင့်ခရီးသွားလာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Hotel hnint Khayithwala-ye Wankyihtana"
    :gov.unit/official-url "https://tourism.gov.mm/"
    :gov.unit/wikidata "Q6867149"
    :gov.unit/cofog ["04.7"]

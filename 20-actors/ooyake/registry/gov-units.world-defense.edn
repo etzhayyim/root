@@ -415,6 +415,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/name-local "የመከላከያ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Mekelakeya Minister"
    :gov.unit/official-url "http://www.mod.gov.et/"
    :gov.unit/wikidata "Q1627146"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -713,6 +715,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of National Defence of Cambodia"
+   :gov.unit/name-local "ក្រសួងការពារជាតិ"
+   :gov.unit/name-romanized "Krasuong Karpie Cheat"
    :gov.unit/official-url "http://mod.gov.kh/"
    :gov.unit/wikidata "Q6867382"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -777,6 +781,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Defence and Urban Development"
+   :gov.unit/name-local "ආරක්‍ෂක අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Arakshaka Amathyanshaya"
    :gov.unit/official-url "https://www.defence.lk/"
    :gov.unit/wikidata "Q276724"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -851,6 +857,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "ကာကွယ်ရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Kakwalyay Wankyihtana"
    :gov.unit/official-url "http://www.mod.gov.mm"
    :gov.unit/wikidata "Q13072868"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -949,6 +957,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "रक्षा मन्त्रालय"
+   :gov.unit/name-romanized "Raksha Mantralaya"
    :gov.unit/official-url "https://mod.gov.np/"
    :gov.unit/wikidata "Q13185205"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

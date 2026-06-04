@@ -736,6 +736,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Labour, Employment and Social Security"
+   :gov.unit/name-local "श्रम, रोजगार तथा सामाजिक सुरक्षा मन्त्रालय"
+   :gov.unit/name-romanized "Shram, Rojgar tatha Samajik Suraksha Mantralaya"
    :gov.unit/official-url "https://moless.gov.np"
    :gov.unit/wikidata "Q19711629"
    :gov.unit/cofog ["04.1"]
