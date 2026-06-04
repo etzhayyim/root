@@ -989,6 +989,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Climate Change"
+   :gov.unit/name-local "وزارت موسمیاتی تبدیلی"
+   :gov.unit/name-romanized "Wizārat-e-Mausamiyātī Tabdīlī"
    :gov.unit/official-url "http://www.pakistan.gov.pk/ministries/index.jsp?MinID=5&cPath=0"
    :gov.unit/wikidata "Q4294552"
    :gov.unit/cofog ["05"]
@@ -1246,6 +1248,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizārat al-Bīʾa"
    :gov.unit/official-url "https://www.environnement.gov.tn/"
    :gov.unit/wikidata "Q3315206"
    :gov.unit/cofog ["05"]

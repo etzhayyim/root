@@ -188,6 +188,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Competition Commission of Pakistan"
+   :gov.unit/name-local "کمپیٹیشن کمیشن آف پاکستان"
+   :gov.unit/name-romanized "Kampeṭīshan Kamīshan āf Pākistān"
    :gov.unit/official-url "http://www.cc.gov.pk/index.php?lang=en"
    :gov.unit/wikidata "Q25231156"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -49,6 +49,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "وزارة الموارد المائية"
+   :gov.unit/name-romanized "Wizārat al-Mawārid al-Māʾiyya"
    :gov.unit/official-url "http://www.mree.gov.dz/"
    :gov.unit/wikidata "Q3315398"
    :gov.unit/cofog ["06.3"]
@@ -99,6 +101,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "وزارتِ آبی وسائل"
+   :gov.unit/name-romanized "Wizārat-e Ābī Wasāʾil"
    :gov.unit/official-url "http://mowr.gov.pk"
    :gov.unit/wikidata "Q39073351"
    :gov.unit/cofog ["06.3"]

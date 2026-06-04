@@ -471,6 +471,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Supreme Court of Algeria"
+   :gov.unit/name-local "المحكمة العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-ʿUlyā"
    :gov.unit/official-url "http://www.coursupreme.dz/"
    :gov.unit/wikidata "Q25462150"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -947,7 +949,9 @@
    :gov.unit/parent "gov.mar"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mar"
-   :gov.unit/name-en "Supreme Court of Morocco"
+   :gov.unit/name-en "Court of Cassation (Morocco)"
+   :gov.unit/name-local "محكمة النقض"
+   :gov.unit/name-romanized "Maḥkamat an-Naqḍ"
    :gov.unit/official-url "https://www.courdecassation.ma/"
    :gov.unit/wikidata "Q3001004"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1200,6 +1204,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Supreme Court of Pakistan"
+   :gov.unit/name-local "عدالتِ عظمیٰ پاکستان"
+   :gov.unit/name-romanized "ʿAdālat-e ʿUzmā Pākistān"
    :gov.unit/official-url "https://www.pakistanpressfoundation.org/"
    :gov.unit/wikidata "Q2989473"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

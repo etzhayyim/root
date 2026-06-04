@@ -149,6 +149,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Pakistan Bureau of Statistics"
+   :gov.unit/name-local "ادارہ شماریات پاکستان"
+   :gov.unit/name-romanized "Idāra-e Shumāriyāt Pākistān"
    :gov.unit/official-url "http://www.pbs.gov.pk/"
    :gov.unit/wikidata "Q7125537"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1414,6 +1416,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "National Institute of Statistics"
+   :gov.unit/name-local "المعهد الوطني للإحصاء"
+   :gov.unit/name-romanized "al-Maʿhad al-Waṭanī li-l-Iḥṣāʾ"
    :gov.unit/official-url "http://www.ins.tn/"
    :gov.unit/wikidata "Q3152411"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1926,6 +1930,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "High Commission for Planning (Haut-Commissariat au Plan)"
+   :gov.unit/name-local "المندوبية السامية للتخطيط"
+   :gov.unit/name-romanized "al-Mandūbiyya as-Sāmiya li-t-Takhṭīṭ"
    :gov.unit/official-url "https://www.hcp.ma/"
    :gov.unit/wikidata "Q55714244"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: Maghreb + Pakistan (453 → 543)
+
+Continued the endonym axis into the Maghreb (Arabic) + Pakistan (Urdu). 8 web-research subagents.
+**90 ministry/agency/court/legislature endonyms added with romanization** (Morocco 20, Algeria 19,
+Tunisia 24, Pakistan 27 — 2 Pakistani bodies honestly null).
+
+- all-units name-local: 453 → **543**.
+- Arabic (Maghreb): بنك المغرب, المندوبية السامية للتخطيط (HCP), البرلمان الجزائري, مجلس نواب الشعب
+  (Tunisia); Urdu (Nastaliq): حکومت پاکستان, وزارت خارجہ, عدالتِ عظمیٰ پاکستان, محکمہ موسمیات پاکستان.
+- **3 data-quality en-name fixes**: gov.mar.supreme-court "Supreme Court of Morocco" → Court of
+  Cassation (محكمة النقض, renamed by Law 58-11/2011); gov.dza.constitutional-court "Constitutional
+  Council" → Constitutional Court (2020 revision); gov.pak.nhri "Human Rights Commission of Pakistan"
+  (an NGO/HRCP) → National Commission for Human Rights (NCHR, the official Paris-Principles body).
+- **2 honest nulls (G5)**: gov.pak.ombudsman (FOSPAH) and gov.pak.tourism (PTDC) operate under their
+  English names with no established single official Urdu form — not fabricated.
+- notes: Morocco merged Communications into the Youth/Culture/Communication ministry; Algeria interior
+  label "Territorial Planning" reflects the prior cabinet (current site lists "…and Transport").
+
+Remaining non-Latin high-tier endonym gaps ~499 (Bangladesh, Thai, Greek, Cyrillic neighbours,
+Central Asia, SE Asia, sub-Saharan non-Latin) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: Levant/Persia IR/IQ/JO/SY/YE (368 → 453)
 
 Continued the endonym axis into the Levant + Persia cluster. 7 web-research subagents.

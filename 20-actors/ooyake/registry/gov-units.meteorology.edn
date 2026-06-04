@@ -234,6 +234,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Pakistan Meteorological Department"
+   :gov.unit/name-local "محکمہ موسمیات پاکستان"
+   :gov.unit/name-romanized "Mehkma-e Mausmiyāt Pākistān"
    :gov.unit/official-url "http://www.pmd.gov.pk/"
    :gov.unit/wikidata "Q7125632"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

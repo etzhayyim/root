@@ -590,6 +590,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Parliament of Algeria"
+   :gov.unit/name-local "البرلمان الجزائري"
+   :gov.unit/name-romanized "al-Barlamān al-Jazāʾirī"
    :gov.unit/official-url "http://www.apn-dz.org"
    :gov.unit/wikidata "Q3142337"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1263,6 +1265,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Parliament of Morocco"
+   :gov.unit/name-local "برلمان المملكة المغربية"
+   :gov.unit/name-romanized "Barlamān al-Mamlaka al-Maghribiyya"
    :gov.unit/official-url "https://www.parlement.ma/"
    :gov.unit/wikidata "Q3004884"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1563,6 +1567,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Parliament of Pakistan"
+   :gov.unit/name-local "مجلسِ شوریٰ (پارلیمان)"
+   :gov.unit/name-romanized "Majlis-e Shūrā (Pārlīmān)"
    :gov.unit/official-url "https://www.na.gov.pk/"
    :gov.unit/wikidata "Q2665089"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2061,6 +2067,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Assembly of the Representatives of the People"
+   :gov.unit/name-local "مجلس نواب الشعب"
+   :gov.unit/name-romanized "Majlis Nuwwāb ash-Shaʿb"
    :gov.unit/official-url "https://arp.tn/"
    :gov.unit/wikidata "Q18342090"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -339,6 +339,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Agriculture and Rural Development"
+   :gov.unit/name-local "وزارة الفلاحة والتنمية الريفية"
+   :gov.unit/name-romanized "Wizārat al-Filāḥa wa-t-Tanmiya ar-Rīfiyya"
    :gov.unit/official-url "http://www.wikidata.org/.well-known/genid/f6e3579faebf18d765e49f911d0c3cfa"
    :gov.unit/wikidata "Q131398330"
    :gov.unit/cofog ["04.2"]
@@ -1128,6 +1130,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of National Food Security and Research (Pakistan)"
+   :gov.unit/name-local "وزارت قومی غذائی تحفظ و تحقیق"
+   :gov.unit/name-romanized "Wizārat-e-Qaumī Ghizāʾī Tahaffuz o Tahqīq"
    :gov.unit/official-url "http://www.mnfsr.gov.pk"
    :gov.unit/wikidata "Q17010242"
    :gov.unit/cofog ["04.2"]
@@ -1484,6 +1488,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Agriculture"
+   :gov.unit/name-local "وزارة الفلاحة والموارد المائية والصيد البحري"
+   :gov.unit/name-romanized "Wizārat al-Filāḥa wa-l-Mawārid al-Māʾiyya wa-ṣ-Ṣayd al-Baḥrī"
    :gov.unit/official-url "http://www.agriculture.tn/"
    :gov.unit/wikidata "Q3315184"
    :gov.unit/cofog ["04.2"]

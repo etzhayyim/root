@@ -258,7 +258,9 @@
    :gov.unit/parent "gov.pak"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Human Rights Commission of Pakistan"
+   :gov.unit/name-en "National Commission for Human Rights (Pakistan)"
+   :gov.unit/name-local "قومی کمیشن برائے انسانی حقوق"
+   :gov.unit/name-romanized "Qaumī Commission barāʾe Insānī Huqūq"
    :gov.unit/official-url "https://nchr.gov.pk/"
    :gov.unit/wikidata "Q5937433"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

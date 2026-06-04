@@ -499,6 +499,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of the Interior of Algeria"
+   :gov.unit/name-local "وزارة الداخلية والجماعات المحلية والتهيئة العمرانية"
+   :gov.unit/name-romanized "Wizārat ad-Dākhiliyya wa-l-Jamāʿāt al-Maḥalliyya"
    :gov.unit/official-url "https://www.interieur.gov.dz"
    :gov.unit/wikidata "Q3315224"
    :gov.unit/cofog ["03.1"]
@@ -1021,6 +1023,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizārat ad-Dākhiliyya"
    :gov.unit/official-url "https://www.interieur.gov.ma/"
    :gov.unit/wikidata "Q22934919"
    :gov.unit/cofog ["03.1"]
@@ -1245,6 +1249,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارتِ داخلہ"
+   :gov.unit/name-romanized "Wizārat-e Dākhila"
    :gov.unit/official-url "https://www.interior.gov.pk"
    :gov.unit/wikidata "Q6867233"
    :gov.unit/cofog ["03.1"]
@@ -1605,6 +1611,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizārat ad-Dākhiliyya"
    :gov.unit/official-url "https://www.interieur.gov.tn/"
    :gov.unit/wikidata "Q3315236"
    :gov.unit/cofog ["03.1"]

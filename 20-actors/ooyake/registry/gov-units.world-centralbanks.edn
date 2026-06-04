@@ -474,6 +474,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bank of Algeria"
+   :gov.unit/name-local "بنك الجزائر"
+   :gov.unit/name-romanized "Bank al-Jazāʾir"
    :gov.unit/official-url "http://www.bank-of-algeria.dz/"
    :gov.unit/wikidata "Q1774622"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -951,6 +953,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Bank Al-Maghrib"
+   :gov.unit/name-local "بنك المغرب"
+   :gov.unit/name-romanized "Bank al-Maghrib"
    :gov.unit/official-url "https://www.bkam.ma/"
    :gov.unit/wikidata "Q328198"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1179,6 +1183,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "State Bank of Pakistan"
+   :gov.unit/name-local "اسٹیٹ بینک آف پاکستان"
+   :gov.unit/name-romanized "Isteṭ Baink āf Pākistān"
    :gov.unit/official-url "http://www.sbp.org.pk/"
    :gov.unit/wikidata "Q1323248"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1542,6 +1548,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Central Bank of Tunisia"
+   :gov.unit/name-local "البنك المركزي التونسي"
+   :gov.unit/name-romanized "al-Bank al-Markazī at-Tūnisī"
    :gov.unit/official-url "http://www.bct.gov.tn/"
    :gov.unit/wikidata "Q600137"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

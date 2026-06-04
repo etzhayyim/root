@@ -965,6 +965,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "وزارت دفاع"
+   :gov.unit/name-romanized "Wizārat-e-Difāʿ"
    :gov.unit/official-url "https://www.mod.gov.pk"
    :gov.unit/wikidata "Q169217"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1269,6 +1271,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "وزارة الدفاع الوطني"
+   :gov.unit/name-romanized "Wizārat ad-Difāʿ al-Waṭanī"
    :gov.unit/official-url "https://defense.tn/"
    :gov.unit/wikidata "Q3315280"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -209,6 +209,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Government of Pakistan"
+   :gov.unit/name-local "حکومت پاکستان"
+   :gov.unit/name-romanized "Hukūmat-e-Pākistān"
    :gov.unit/official-url "http://www.pakistan.gov.pk/"
    :gov.unit/wikidata "Q3250182"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1279,6 +1281,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Government of Algeria"
+   :gov.unit/name-local "الحكومة"
+   :gov.unit/name-romanized "al-Ḥukūma"
    :gov.unit/official-url "http://www.premier-ministre.gov.dz/fr"
    :gov.unit/wikidata "Q12208528"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1487,6 +1491,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Government of Tunisia"
+   :gov.unit/name-local "رئاسة الحكومة"
+   :gov.unit/name-romanized "Riʾāsat al-Ḥukūma"
    :gov.unit/official-url "http://www.tunisie.gov.tn/"
    :gov.unit/wikidata "Q526548"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1535,6 +1541,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Cabinet of Morocco"
+   :gov.unit/name-local "الحكومة"
+   :gov.unit/name-romanized "al-Ḥukūma"
    :gov.unit/official-url "https://www.cg.gov.ma/"
    :gov.unit/wikidata "Q12208534"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

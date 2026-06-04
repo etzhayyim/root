@@ -207,6 +207,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Solidarity, Women, Family and Social Development"
+   :gov.unit/name-local "وزارة التضامن والإدماج الاجتماعي والأسرة"
+   :gov.unit/name-romanized "Wizārat at-Taḍāmun wa-l-Idmāj al-Ijtimāʿī wa-l-Usra"
    :gov.unit/official-url "https://social.gov.ma"
    :gov.unit/wikidata "Q26459781"
    :gov.unit/cofog ["10"]
@@ -353,6 +355,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Social Affairs"
+   :gov.unit/name-local "وزارة الشؤون الاجتماعية"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Ijtimāʿiyya"
    :gov.unit/official-url "https://www.social.gov.tn/"
    :gov.unit/wikidata "Q3315343"
    :gov.unit/cofog ["10"]

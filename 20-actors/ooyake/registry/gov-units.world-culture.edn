@@ -354,6 +354,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة والفنون"
+   :gov.unit/name-romanized "Wizārat ath-Thaqāfa wa-l-Funūn"
    :gov.unit/official-url "http://www.m-culture.gov.dz/mc2/fr/"
    :gov.unit/wikidata "Q16127016"
    :gov.unit/cofog ["08.2"]
@@ -842,6 +844,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Youth, Culture and Communication"
+   :gov.unit/name-local "وزارة الشباب والثقافة والتواصل"
+   :gov.unit/name-romanized "Wizārat ash-Shabāb wa-th-Thaqāfa wa-t-Tawāṣul"
    :gov.unit/official-url "https://mjcc.gov.ma"
    :gov.unit/wikidata "Q26459282"
    :gov.unit/cofog ["08.2"]
@@ -1050,6 +1054,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "National Heritage and Culture Division"
+   :gov.unit/name-local "قومی ورثہ و ثقافت ڈویژن"
+   :gov.unit/name-romanized "Qaumī Wirsa o Saqāfat Ḍiwīzhan"
    :gov.unit/official-url "https://heritage.pakistan.gov.pk/"
    :gov.unit/wikidata "Q6866719"
    :gov.unit/cofog ["08.2"]
@@ -1377,6 +1383,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الشؤون الثقافية"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn ath-Thaqāfiyya"
    :gov.unit/official-url "https://www.culture.gov.tn/"
    :gov.unit/wikidata "Q3315270"
    :gov.unit/cofog ["08.2"]

@@ -888,6 +888,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "وزارت توانائی"
+   :gov.unit/name-romanized "Wizārat-e-Tawānāʾī"
    :gov.unit/official-url "https://power.gov.pk/"
    :gov.unit/wikidata "Q36347675"
    :gov.unit/cofog ["04.3"]
@@ -1052,6 +1054,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Energy and Mines of Tunisia"
+   :gov.unit/name-local "وزارة الصناعة والمناجم والطاقة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣināʿa wa-l-Manājim wa-ṭ-Ṭāqa"
    :gov.unit/official-url "https://www.energiemines.gov.tn/"
    :gov.unit/wikidata "Q22934956"
    :gov.unit/cofog ["04.3"]
