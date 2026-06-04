@@ -143,9 +143,7 @@ def write_offers(state: YoroProductIngestState) -> dict:
 
 def write_research(state: YoroProductIngestState) -> dict:
     """Write 1 vertex_yoro_productResearch row summarizing the run."""
-    from sqlalchemy import Column, Integer, String, Table
-
-    from pymagatama.db_alchemy import sa_executemany, sa_metadata
+    from pymagatama.kotoba_datomic import get_kotoba_client
     from pymagatama.primitives.yoro_product import OfferCard, summarize
 
     offers = [OfferCard.model_validate(o) for o in state.get("offers", [])]
@@ -157,25 +155,6 @@ def write_research(state: YoroProductIngestState) -> dict:
     vertex_id = f"at://{actor_did}/com.etzhayyim.apps.yoro.productResearch/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
 
-    table = Table(
-        "vertex_yoro_product_research",
-        sa_metadata(),
-        Column("vertex_id", String),
-        Column("actor_did", String),
-        Column("org_did", String),
-        Column("at_did", String),
-        Column("created_at", String),
-        Column("query", String),
-        Column("category", String),
-        Column("retailers", String),
-        Column("total_offers", Integer),
-        Column("offers_by_retailer", String),
-        Column("min_price_jpy", Integer),
-        Column("max_price_jpy", Integer),
-        Column("median_price_jpy", Integer),
-        Column("job_id", String),
-        extend_existing=True,
-    )
     row = {
         "vertex_id": vertex_id,
         "actor_did": actor_did,
@@ -193,7 +172,7 @@ def write_research(state: YoroProductIngestState) -> dict:
         "job_id": job_id,
     }
     try:
-        sa_executemany(table.insert(), [row])
+        get_kotoba_client().insert_row("vertex_yoro_product_research", row)
     except Exception as e:
         return {"researchVertexId": vertex_id, "ok": False, "error": f"write_research failed: {e}"}
     return {"researchVertexId": vertex_id, "ok": True}

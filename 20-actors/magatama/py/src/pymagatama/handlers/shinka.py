@@ -10,11 +10,11 @@ Per-DID 4-axis autonomy loop (see
         → kyumei_gather (knowledge write)
         → koji_validate (freshness check)
         → shinka_analyze (follower delta)
-        → write_heartbeat (vertex_actor_shinka_state UPSERT)
-        → emit_evolution (vertex_shinka_evolution row)
+        → write_heartbeat (kotoba Datom log UPSERT)
+        → emit_evolution (kotoba Datom log evolution row)
         → JSON summary
 
-Scheduled by K8s CronJob in `mitama-udf` namespace (every 15 min per
+Scheduled by Murakumo fleet CronJob placement (every 15 min per
 registered actor); see `50-infra/vultr/mitama-udf-pool/templates/cronjob-shinka.yaml`.
 
 Phase C.2 state (2026-04-22):

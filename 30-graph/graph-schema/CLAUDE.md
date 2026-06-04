@@ -1,3 +1,5 @@
+> **DEPRECATION NOTICE (ADR-2605262130):** The Kysely `migrations/` table and streaming-MV DDL are **superseded by the kotoba Datom-attribute model**. There is no projection layer; schema is installed via `:db.unique/identity` attributes using `pymagatama.kotoba_datomic.ensure_schema` / `schema_install_edn`. The 1379 historical migrations are retained for reference only and are NOT ported.
+
 # @etzhayyim/graph-schema — SQLAlchemy / Alembic / SQLMesh
 
 ## DATABASE_URL Credential Lookup (CRITICAL — always start here)
@@ -330,10 +332,10 @@ a time and wait for each to complete before starting the next.
 
 ## PR #1032 Deployment Summary (2026-04-18/19)
 
-**Status**: ✅ **PRODUCTION LIVE**  
-**Date**: 2026-04-18 (staging) → 2026-04-19 (production)  
-**Migrations**: 40 new migrations (20260415–20260417 timestamp-based)  
-**Coverage**: 461 world domains, 649 classification concordance systems, 8,199,790 edges  
+**Status**: ✅ **PRODUCTION LIVE**
+**Date**: 2026-04-18 (staging) → 2026-04-19 (production)
+**Migrations**: 40 new migrations (20260415–20260417 timestamp-based)
+**Coverage**: 461 world domains, 649 classification concordance systems, 8,199,790 edges
 
 **Key Additions**:
 - `vertex_orbital_system` / `vertex_orbital_body` — Space mapping (ISS, planets, celestial bodies)
@@ -502,7 +504,7 @@ recovery mode, blocked all DML until replay finished (~20 min).
 | Anti-pattern | Why | Alternative |
 |---|---|---|
 | `GROUP BY <N>` where N>500k distinct keys, with MAX(varchar) over 5+ columns | Agg state = cardinality × column-count × avg-value-bytes, easily 5-20 GiB | Plain `CREATE VIEW` (query-time compute) OR narrow MV (2-3 columns only) |
-| **`GROUP BY vertex_page.rkey`, `edge_links_to.src_vid`, or `edge_links_to.dst_vid`** (URL-hash columns, 985M–4.5B unique values) | Hash agg state overflows even with `force_two_phase_agg=true` (system default since 2026-04-16). 985M groups × any payload > 48 GiB RSS | Pre-aggregate to domain level (`edge_hosts_page.src_vid`, ~hundreds of thousands) OR use plain `CREATE VIEW` | 
+| **`GROUP BY vertex_page.rkey`, `edge_links_to.src_vid`, or `edge_links_to.dst_vid`** (URL-hash columns, 985M–4.5B unique values) | Hash agg state overflows even with `force_two_phase_agg=true` (system default since 2026-04-16). 985M groups × any payload > 48 GiB RSS | Pre-aggregate to domain level (`edge_hosts_page.src_vid`, ~hundreds of thousands) OR use plain `CREATE VIEW` |
 | MV that scans >10M rows on initial backfill | CREATE MV blocks until backfill completes + OOM risk | Use `BACKGROUND DDL` pattern below OR filter to zero/small initial set |
 | MV fanning MAX over every payload column | Memory-linear in column count | Emit only keys + computed columns; JOIN back to source table at query time for payload |
 | Multiple concurrent BACKGROUND DDL jobs over large tables | Compete for Hummock S3 write quota → `write part timeout` SSTable stalls (observed 2026-04-16, 95M row scan + MV backfill concurrent) | Serialize: wait for each `rw_ddl_progress` entry to clear before starting the next |

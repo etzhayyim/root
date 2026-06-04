@@ -18,20 +18,20 @@ one LangGraph invocation:
     write_heartbeat → emit_evolution → end
 
 Triggered by `com.etzhayyim.apps.shinka.tickActor` UDF (see handlers/shinka.py),
-which is scheduled every 15 min by a K8s CronJob in the mitama-udf
-namespace.
+which is scheduled every 15 min by a Murakumo fleet CronJob placement.
 """
 
 from __future__ import annotations
 
 import json
 import time
+from datetime import datetime, timezone
 from typing import Any, Literal, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
 from pymagatama import llm
-from pymagatama.db_sync import execute, fetch_all, fetch_one
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ─── Shared types ───────────────────────────────────────────────────────
 
@@ -51,7 +51,7 @@ class ShinkaState(TypedDict, total=False):
     actor_did: str
     now_ms: int
 
-    # Loaded from RW
+    # Loaded from kotoba
     mood: Mood
     axes: JouchoAxes
     cadence_rows: list[dict[str, Any]]
@@ -157,18 +157,24 @@ def _cadence_flags(mood: Mood, elapsed_ms: int) -> dict[str, bool]:
 # ─── Graph nodes ────────────────────────────────────────────────────────
 
 def _load_state(state: ShinkaState) -> ShinkaState:
-    """Pull joucho mood + last heartbeat + cadence rows from RW."""
+    """Pull joucho mood + last heartbeat + cadence rows from kotoba Datom log."""
     did = state["actor_did"]
+    client = get_kotoba_client()
 
     # Joucho mood (may be NULL for actors that never emitted one)
-    row = fetch_one(
-        "SELECT mood, joy, calm, stress, gratitude, focus "
-        "FROM vertex_joucho WHERE owner_did = %s "
-        "ORDER BY created_at DESC LIMIT 1",
-        (did,),
+    # R0 Caveat: kotoba select shim does not currently order. For actors with multiple joucho
+    # records, it returns an arbitrary one. Acceptable at R0; full as-of ordering is a follow-up.
+    row = client.select_first_where(
+        "vertex_joucho", "owner_did", did,
+        columns=["mood", "joy", "calm", "stress", "gratitude", "focus"]
     )
     if row:
-        mood_raw, joy, calm, stress, gratitude, focus = row
+        mood_raw = row.get("mood")
+        joy = row.get("joy")
+        calm = row.get("calm")
+        stress = row.get("stress")
+        gratitude = row.get("gratitude")
+        focus = row.get("focus")
         axes: JouchoAxes = {
             "joy": joy or 0,
             "calm": calm or 0,
@@ -181,13 +187,14 @@ def _load_state(state: ShinkaState) -> ShinkaState:
         axes = {"joy": 40, "calm": 40, "stress": 20, "gratitude": 30, "focus": 40}
         mood = "neutral"
 
-    cadence = fetch_all(
-        "SELECT collection, cadence_ms, last_run_ts_ms "
-        "FROM vertex_actor_shinka_state WHERE repo_did = %s",
-        (did,),
+    cadence = client.select_where(
+        "vertex_actor_shinka_state", "repo_did", did,
+        columns=["collection", "cadence_ms", "last_run_ts_ms"]
     )
     last_hb = None
-    for col, _cadence_ms, last_ms in cadence:
+    for r in cadence:
+        col = r.get("collection")
+        last_ms = r.get("last_run_ts_ms")
         if col and col.endswith(".heartbeat"):
             last_hb = int(last_ms or 0) or None
             break
@@ -197,8 +204,12 @@ def _load_state(state: ShinkaState) -> ShinkaState:
         "mood": mood,
         "axes": axes,
         "cadence_rows": [
-            {"collection": c, "cadence_ms": int(cad or 0), "last_run_ts_ms": int(last or 0)}
-            for (c, cad, last) in cadence
+            {
+                "collection": r.get("collection"),
+                "cadence_ms": int(r.get("cadence_ms") or 0),
+                "last_run_ts_ms": int(r.get("last_run_ts_ms") or 0)
+            }
+            for r in cadence
         ],
         "last_heartbeat_ms": last_hb,
     }
@@ -227,30 +238,24 @@ def _kyumei_gather(state: ShinkaState) -> ShinkaState:
         return state
     did = state["actor_did"]
     rkey = f"kyumei-{state['now_ms']}"
-    execute(
-        """
-        INSERT INTO vertex_shinka_knowledge
-            (vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo,
-             did, collection, "actorDid", "actorName", nanoid, status,
-             created_at, props)
-        VALUES (%s, NULL, to_char(now(),'YYYY-MM-DD')::date, 100, %s, %s, %s,
-                %s, %s, %s, %s, %s, 'active',
-                to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-                %s)
-        """,
-        (
-            f"at://{did}/com.etzhayyim.apps.standard.shinkaKnowledge/{rkey}",
-            did,
-            rkey,
-            did,
-            did,
-            "com.etzhayyim.apps.standard.shinkaKnowledge",
-            did,
-            did.split(":")[-1].split(".")[0] if ":" in did else did,
-            did.split(":")[-1],
-            json.dumps({"trigger": "kyumei-tick", "mood": state["mood"]}),
-        ),
-    )
+    now_utc = datetime.now(timezone.utc)
+    get_kotoba_client().insert_row("vertex_shinka_knowledge", {
+        "vertex_id": f"at://{did}/com.etzhayyim.apps.standard.shinkaKnowledge/{rkey}",
+        "_seq": None,
+        "created_date": now_utc.strftime("%Y-%m-%d"),
+        "sensitivity_ord": 100,
+        "owner_did": did,
+        "rkey": rkey,
+        "repo": did,
+        "did": did,
+        "collection": "com.etzhayyim.apps.standard.shinkaKnowledge",
+        "actorDid": did,
+        "actorName": did.split(":")[-1].split(".")[0] if ":" in did else did,
+        "nanoid": did.split(":")[-1],
+        "status": "active",
+        "created_at": now_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "props": json.dumps({"trigger": "kyumei-tick", "mood": state["mood"]}),
+    })
     return {**state, "knowledge_written": True, "actions": [*state.get("actions", []), "kyumei"]}
 
 
@@ -259,13 +264,12 @@ def _koji_validate(state: ShinkaState) -> ShinkaState:
     if not state.get("should_validate"):
         return state
     did = state["actor_did"]
-    row = fetch_one(
-        "SELECT count(*) FROM vertex_shinka_knowledge WHERE owner_did = %s",
-        (did,),
+    row_count = get_kotoba_client().aggregate_where(
+        "vertex_shinka_knowledge", "count", "*", "owner_did", did
     )
     # Light validation — full freshness check belongs in a streaming MV
     # (see `mv_actor_shinka_stale` planned in deps.toml [[migrations]]).
-    _ = row
+    _ = row_count
     return {**state, "actions": [*state.get("actions", []), "koji"]}
 
 
@@ -278,12 +282,13 @@ def _shinka_analyze(state: ShinkaState) -> ShinkaState:
     if not state.get("should_analyze"):
         return state
     did = state["actor_did"]
-    row = fetch_one(
-        "SELECT count(*) FROM vertex_repo_commit "
-        "WHERE repo = %s AND ts_ms > %s",
-        (did, (state["now_ms"] - 3600 * 1000)),
+    cutoff = state["now_ms"] - 3600 * 1000
+    # R0 Caveat: kotoba aggregate shim supports only one equality predicate.
+    # We fetch up to 1000 rows and count those matching the range condition in Python.
+    rows = get_kotoba_client().select_where(
+        "vertex_repo_commit", "repo", did, columns=["ts_ms"], limit=1000
     )
-    delta = int(row[0]) if row else 0
+    delta = sum(1 for r in rows if r.get("ts_ms") is not None and int(r["ts_ms"]) > cutoff)
     return {
         **state,
         "follower_delta_count": delta,
@@ -373,25 +378,18 @@ def _write_heartbeat(state: ShinkaState) -> ShinkaState:
     did = state["actor_did"]
     now = state["now_ms"]
     collection = f"com.etzhayyim.apps.standard.heartbeat"
-    # RW does not support ON CONFLICT on composite uniqueness beyond PK,
-    # but vertex_actor_shinka_state is a live aggregation target — a bare
-    # INSERT is fine (duplicates compact at MV level).
-    execute(
-        """
-        INSERT INTO vertex_actor_shinka_state
-            (repo_did, collection, cadence_ms, priority, runs_24h,
-             last_run_ts_ms, organizer_note, updated_ts_ms)
-        VALUES (%s, %s, %s, 'normal', 1, %s, %s, %s)
-        """,
-        (
-            did,
-            collection,
-            3600_000,  # 1h default; joucho override later
-            now,
-            f"mood={state['mood']} actions={','.join(state.get('actions', []))}",
-            now,
-        ),
-    )
+    # Kotoba supports stable upserts via vertex_id.
+    get_kotoba_client().insert_row("vertex_actor_shinka_state", {
+        "vertex_id": f"{did}:{collection}",
+        "repo_did": did,
+        "collection": collection,
+        "cadence_ms": 3600_000,  # 1h default; joucho override later
+        "priority": "normal",
+        "runs_24h": 1,
+        "last_run_ts_ms": now,
+        "organizer_note": f"mood={state['mood']} actions={','.join(state.get('actions', []))}",
+        "updated_ts_ms": now,
+    })
     return {**state, "heartbeat_written": True}
 
 
@@ -399,39 +397,33 @@ def _emit_evolution(state: ShinkaState) -> ShinkaState:
     """Append vertex_shinka_evolution row summarizing the tick."""
     did = state["actor_did"]
     rkey = f"shinka-{state['now_ms']}"
-    execute(
-        """
-        INSERT INTO vertex_shinka_evolution
-            (vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo,
-             did, collection, "actorDid", "actorName", nanoid, status,
-             created_at, props)
-        VALUES (%s, NULL, to_char(now(),'YYYY-MM-DD')::date, 100, %s, %s, %s,
-                %s, %s, %s, %s, %s, 'active',
-                to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-                %s)
-        """,
-        (
-            f"at://{did}/com.etzhayyim.apps.standard.shinkaEvolution/{rkey}",
-            did,
-            rkey,
-            did,
-            did,
-            "com.etzhayyim.apps.standard.shinkaEvolution",
-            did,
-            did.split(":")[-1].split(".")[0] if ":" in did else did,
-            did.split(":")[-1],
-            json.dumps(
-                {
-                    "mood": state["mood"],
-                    "axes": state.get("axes"),
-                    "actions": state.get("actions", []),
-                    "follower_delta": state.get("follower_delta_count", 0),
-                    "tick_ms": state["now_ms"],
-                    "draft": state.get("compose_draft"),
-                }
-            ),
+    now_utc = datetime.now(timezone.utc)
+    get_kotoba_client().insert_row("vertex_shinka_evolution", {
+        "vertex_id": f"at://{did}/com.etzhayyim.apps.standard.shinkaEvolution/{rkey}",
+        "_seq": None,
+        "created_date": now_utc.strftime("%Y-%m-%d"),
+        "sensitivity_ord": 100,
+        "owner_did": did,
+        "rkey": rkey,
+        "repo": did,
+        "did": did,
+        "collection": "com.etzhayyim.apps.standard.shinkaEvolution",
+        "actorDid": did,
+        "actorName": did.split(":")[-1].split(".")[0] if ":" in did else did,
+        "nanoid": did.split(":")[-1],
+        "status": "active",
+        "created_at": now_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "props": json.dumps(
+            {
+                "mood": state["mood"],
+                "axes": state.get("axes"),
+                "actions": state.get("actions", []),
+                "follower_delta": state.get("follower_delta_count", 0),
+                "tick_ms": state["now_ms"],
+                "draft": state.get("compose_draft"),
+            }
         ),
-    )
+    })
     return {**state, "evolution_written": True}
 
 

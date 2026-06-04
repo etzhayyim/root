@@ -17,7 +17,7 @@ import re
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 DEFAULT_REPO = "did:web:yoro.etzhayyim.com"
@@ -90,6 +90,7 @@ def build_social_post_record(
     rkey = rkey or _rkey(actor_path)
     uri = f"at://{repo}/{collection}/{rkey}"
     text = text or (
+        # ETZHAYYIM: vendor-only
         f"{prefix}: Karmada hub and murakumo-k3s actor worker path alive at {created_at}."
     )
     record = {"$type": collection, "text": text, "createdAt": created_at}
@@ -145,10 +146,7 @@ def build_repo_record(
 def insert_social_post_record(row: dict[str, Any], *, flush: bool = True) -> dict[str, Any]:
     if row.get("collection") != DEFAULT_COLLECTION:
         raise ValueError("insert_social_post_record only accepts app.bsky.feed.post")
-    with sync_cursor() as cur:
-        _insert_feed_post_row(cur, row)
-        if flush:
-            cur.execute("FLUSH")
+    _insert_feed_post_row(row)
     return {
         "ok": True,
         "uri": row["uri"],
@@ -160,61 +158,57 @@ def insert_social_post_record(row: dict[str, Any], *, flush: bool = True) -> dic
 
 
 def insert_repo_records(rows: list[dict[str, Any]], *, flush: bool = True) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        for row in rows:
-            collection = str(row.get("collection") or "")
-            if collection == DEFAULT_COLLECTION:
-                _insert_feed_post_row(cur, row)
-            elif collection == "app.bsky.graph.follow":
-                record = json.loads(str(row.get("value_json") or "{}"))
-                cur.execute(
-                    """
-                    INSERT INTO edge_follows
-                      (edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord, owner_did, rkey, repo, created_at)
-                    VALUES (%s, %s, %s, 0, %s, 1, %s, %s, %s, %s)
-                    ON CONFLICT (edge_id) DO UPDATE SET created_at = EXCLUDED.created_at
-                    """,
-                    (
-                        row["uri"],
-                        row["repo"],
-                        str(record.get("subject") or ""),
-                        str(row["created_at"])[:10],
-                        row["repo"],
-                        row["rkey"],
-                        row["repo"],
-                        row["created_at"],
-                    ),
-                )
-            elif collection == PROFILE_COLLECTION:
-                record = json.loads(str(row.get("value_json") or "{}"))
-                cur.execute(
-                    """
-                    INSERT INTO vertex_profile
-                      (vertex_id, _seq, created_date, sensitivity_ord, owner_did, did, repo,
-                       display_name, description, collection, rkey, created_at)
-                    VALUES (%s, 0, %s, 1, %s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (vertex_id) DO UPDATE SET
-                      display_name = EXCLUDED.display_name,
-                      description = EXCLUDED.description,
-                      created_at = EXCLUDED.created_at
-                    """,
-                    (
-                        row["uri"],
-                        str(row["created_at"])[:10],
-                        row["repo"],
-                        row["repo"],
-                        row["repo"],
-                        str(record.get("displayName") or ""),
-                        str(record.get("description") or ""),
-                        collection,
-                        row["rkey"],
-                        row["created_at"],
-                    ),
-                )
-            else:
-                raise ValueError(f"unsupported non-post repo record collection: {collection}")
-        if flush:
-            cur.execute("FLUSH")
+    client = get_kotoba_client()
+    for row in rows:
+        collection = str(row.get("collection") or "")
+        if collection == DEFAULT_COLLECTION:
+            _insert_feed_post_row(row)
+        elif collection == "app.bsky.graph.follow":
+            record = json.loads(str(row.get("value_json") or "{}"))
+            client.insert_row(
+                "edge_follows",
+                {
+                    "edge_id": row["uri"],
+                    "src_vid": row["repo"],
+                    "dst_vid": str(record.get("subject") or ""),
+                    "_seq": 0,
+                    "created_date": str(row["created_at"])[:10],
+                    "sensitivity_ord": 1,
+                    "owner_did": row["repo"],
+                    "rkey": row["rkey"],
+                    "repo": row["repo"],
+                    "created_at": row["created_at"],
+                },
+            )
+        elif collection == PROFILE_COLLECTION:
+            record = json.loads(str(row.get("value_json") or "{}"))
+
+            # R0: read-modify-write collapsed to single insert_row upsert
+            existing = client.select_first_where("vertex_profile", "vertex_id", row["uri"])
+
+            merged = {
+                "vertex_id": row["uri"],
+                "_seq": 0,
+                "created_date": str(row["created_at"])[:10],
+                "sensitivity_ord": 1,
+                "owner_did": row["repo"],
+                "did": row["repo"],
+                "repo": row["repo"],
+                "display_name": str(record.get("displayName") or ""),
+                "description": str(record.get("description") or ""),
+                "collection": collection,
+                "rkey": row["rkey"],
+                "created_at": row["created_at"],
+            }
+            if existing:
+                for k, v in existing.items():
+                    if k not in merged:
+                        merged[k] = v
+                # EXCLUDED logic in SQL: display_name and description are updated, created_at is updated.
+                # So we keep the new values for these.
+            client.insert_row("vertex_profile", merged)
+        else:
+            raise ValueError(f"unsupported non-post repo record collection: {collection}")
     return rows
 
 
@@ -240,37 +234,11 @@ def _post_projection_params(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _insert_feed_post_row(cur: Any, row: dict[str, Any]) -> None:
+def _insert_feed_post_row(row: dict[str, Any]) -> None:
     projection = _post_projection_params(row)
-    cur.execute("DELETE FROM vertex_repo_record WHERE uri = %(uri)s", row)
-    cur.execute(
-        """
-        INSERT INTO vertex_repo_record (
-          uri, cid, collection, rkey, repo, repo_rev, value_json,
-          indexed_at, takedown_ref, ts_ms, created_at
-        )
-        VALUES (
-          %(uri)s, %(cid)s, %(collection)s, %(rkey)s, %(repo)s, %(repo_rev)s,
-          %(value_json)s, %(indexed_at)s, %(takedown_ref)s, %(ts_ms)s, %(created_at)s
-        )
-        """,
-        row,
-    )
-    cur.execute("DELETE FROM vertex_post WHERE vertex_id = %(vertex_id)s", projection)
-    cur.execute(
-        """
-        INSERT INTO vertex_post (
-          vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo,
-          text, embed, facets, langs, reply_root, reply_parent, tags, created_at
-        )
-        VALUES (
-          %(vertex_id)s, 0, %(created_date)s, 1, %(owner_did)s, %(rkey)s, %(repo)s,
-          %(text)s, %(embed)s, %(facets)s, %(langs)s, %(reply_root)s, %(reply_parent)s,
-          %(tags)s, %(created_at)s
-        )
-        """,
-        projection,
-    )
+    client = get_kotoba_client()
+    client.insert_row("vertex_repo_record", row)
+    client.insert_row("vertex_post", projection)
 
 
 def _display_actor(did: str, handle: str = "") -> str:
@@ -395,28 +363,20 @@ def _lang_list(value: Any = None) -> list[str]:
 
 
 def _fetch_source_post(post_uri: str) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT repo, rkey, value_json, created_at
-            FROM vertex_repo_record
-            WHERE uri = %(uri)s AND collection = 'app.bsky.feed.post'
-            LIMIT 1
-            """,
-            {"uri": post_uri},
-        )
-        row = cur.fetchone()
-    if not row:
+    client = get_kotoba_client()
+    row = client.select_first_where("vertex_repo_record", "uri", post_uri)
+    # R0: in-Python filter for collection='app.bsky.feed.post'
+    if not row or row.get("collection") != 'app.bsky.feed.post':
         return {}
     try:
-        record = json.loads(str(row[2] or "{}"))
+        record = json.loads(str(row.get("value_json") or "{}"))
     except json.JSONDecodeError:
         record = {}
     return {
-        "repo": row[0],
-        "rkey": row[1],
+        "repo": row.get("repo"),
+        "rkey": row.get("rkey"),
         "record": record,
-        "createdAt": row[3],
+        "createdAt": row.get("created_at"),
         "text": str(record.get("text") or ""),
         "langs": record.get("langs") if isinstance(record.get("langs"), list) else [],
     }
@@ -536,24 +496,8 @@ def build_translation_link_record(
 
 
 def insert_translation_link_record(row: dict[str, Any]) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("DELETE FROM vertex_translation_link WHERE vertex_id = %(vertex_id)s", row)
-        cur.execute(
-            """
-            INSERT INTO vertex_translation_link (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo,
-              source_uri, source_lang, translated_uri, lang, source, quality_score,
-              created_at, org_id, user_id, actor_id
-            )
-            VALUES (
-              %(vertex_id)s, %(_seq)s, %(created_date)s, %(sensitivity_ord)s,
-              %(owner_did)s, %(rkey)s, %(repo)s, %(source_uri)s, %(source_lang)s,
-              %(translated_uri)s, %(lang)s, %(source)s, %(quality_score)s,
-              %(created_at)s, %(org_id)s, %(user_id)s, %(actor_id)s
-            )
-            """,
-            row,
-        )
+    client = get_kotoba_client()
+    client.insert_row("vertex_translation_link", row)
     return {
         "ok": True,
         "uri": row["vertex_id"],
@@ -639,53 +583,58 @@ def _fetch_actor_generation_context(actor_did: str, handle: str = "") -> dict[st
         "repoRecordCollections": [],
     }
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT did, handle, display_name, description, avatar_cid, banner_cid, props, created_at
-                FROM vertex_profile
-                WHERE did = %(actor_did)s OR repo = %(actor_did)s OR actor_did = %(actor_did)s OR handle = %(handle)s
-                ORDER BY
-                  CASE WHEN did = %(actor_did)s THEN 0 ELSE 1 END,
-                  CASE WHEN NULLIF(description, '') IS NOT NULL THEN 0 ELSE 1 END
-                LIMIT 1
-                """,
-                {"actor_did": actor_did, "handle": handle or actor_did},
-            )
-            row = cur.fetchone()
-            if row:
-                context["existingProfile"] = {
-                    "did": row[0],
-                    "handle": row[1],
-                    "displayName": row[2],
-                    "description": row[3],
-                    "avatar": row[4],
-                    "banner": row[5],
-                    "props": row[6],
-                    "createdAt": row[7],
-                }
-            cur.execute(
-                """
-                SELECT collection, rkey, value_json, indexed_at
-                FROM vertex_repo_record
-                WHERE repo = %(actor_did)s
-                  AND collection <> 'app.bsky.actor.profile'
-                ORDER BY indexed_at DESC
-                LIMIT 5
-                """,
-                {"actor_did": actor_did},
-            )
-            records = cur.fetchall() or []
-            context["recentPosts"] = [
-                {
-                    "collection": rec[0],
-                    "rkey": rec[1],
-                    "value": str(rec[2] or "")[:500],
-                    "indexedAt": rec[3],
-                }
-                for rec in records
-            ]
-            context["repoRecordCollections"] = sorted({str(rec[0]) for rec in records if rec[0]})
+        client = get_kotoba_client()
+        # R0: fetch broader single-equality set and sort in python
+        profiles = []
+        profiles.extend(client.select_where("vertex_profile", "did", actor_did))
+        if handle and handle != actor_did:
+            profiles.extend(client.select_where("vertex_profile", "handle", handle))
+
+        seen = set()
+        unique_profiles = []
+        for p in profiles:
+            vid = p.get("vertex_id")
+            if vid not in seen:
+                seen.add(vid)
+                unique_profiles.append(p)
+
+        def profile_sort_key(p):
+            is_did = 0 if p.get("did") == actor_did else 1
+            has_desc = 0 if p.get("description") else 1
+            return (is_did, has_desc)
+
+        unique_profiles.sort(key=profile_sort_key)
+        if unique_profiles:
+            row = unique_profiles[0]
+            context["existingProfile"] = {
+                "did": row.get("did"),
+                "handle": row.get("handle"),
+                "displayName": row.get("display_name"),
+                "description": row.get("description"),
+                "avatar": row.get("avatar_cid"),
+                "banner": row.get("banner_cid"),
+                "props": row.get("props"),
+                "createdAt": row.get("created_at"),
+            }
+
+        # R0: in-Python filter for collection, sorting by indexed_at DESC, limit 5
+        records = client.select_where("vertex_repo_record", "repo", actor_did, limit=2000)
+        filtered_records = [
+            r for r in records
+            if r.get("collection") != 'app.bsky.actor.profile'
+        ]
+        filtered_records.sort(key=lambda r: str(r.get("indexed_at") or ""), reverse=True)
+        top_records = filtered_records[:5]
+        context["recentPosts"] = [
+            {
+                "collection": rec.get("collection"),
+                "rkey": rec.get("rkey"),
+                "value": str(rec.get("value_json") or "")[:500],
+                "indexedAt": rec.get("indexed_at"),
+            }
+            for rec in top_records
+        ]
+        context["repoRecordCollections"] = sorted({str(rec.get("collection")) for rec in filtered_records if rec.get("collection")})
     except Exception as exc:
         context["contextFetchError"] = str(exc)[:300]
     return context
@@ -880,22 +829,8 @@ def _emit_actor_quality_activity_event(
         "org_did": "did:web:yoro.etzhayyim.com",
     }
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_bpmn_activity_event (
-                  vertex_id, owner_did, rkey, repo, event_id, instance_id,
-                  activity_id, event_type, payload_json, occurred_at, created_at,
-                  actor_did, org_did
-                )
-                VALUES (
-                  %(vertex_id)s, %(owner_did)s, %(rkey)s, %(repo)s, %(event_id)s,
-                  %(instance_id)s, %(activity_id)s, %(event_type)s, %(payload_json)s,
-                  %(occurred_at)s, %(created_at)s, %(actor_did)s, %(org_did)s
-                )
-                """,
-                row,
-            )
+        client = get_kotoba_client()
+        client.insert_row("vertex_bpmn_activity_event", row)
     except Exception:
         # Telemetry must never fail the enrichment path.
         return
@@ -953,39 +888,34 @@ async def _run_actor_quality_task(
 def _fetch_profile_quality(actor_did: str, handle: str = "") -> dict[str, Any]:
     profile: dict[str, Any] = {}
     posts_count = 0
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT did, handle, display_name, description, avatar_cid, banner_cid, props, created_at
-            FROM vertex_profile
-            WHERE did = %(actor_did)s OR handle = %(handle)s
-            ORDER BY CASE WHEN did = %(actor_did)s THEN 0 ELSE 1 END
-            LIMIT 1
-            """,
-            {"actor_did": actor_did, "handle": handle or actor_did},
-        )
-        row = cur.fetchone()
-        if row:
-            profile = {
-                "did": row[0],
-                "handle": row[1],
-                "displayName": row[2],
-                "description": row[3],
-                "avatar": row[4],
-                "banner": row[5],
-                "props": row[6],
-                "createdAt": row[7],
-            }
-        cur.execute(
-            """
-            SELECT count(*)
-            FROM vertex_repo_record
-            WHERE repo = %(actor_did)s AND collection = 'app.bsky.feed.post'
-            """,
-            {"actor_did": actor_did},
-        )
-        count_row = cur.fetchone()
-        posts_count = int(count_row[0] or 0) if count_row else 0
+    client = get_kotoba_client()
+
+    # R0: in-Python merge/sort for profile lookup by did/handle
+    profiles = client.select_where("vertex_profile", "did", actor_did)
+    if handle and handle != actor_did:
+        profiles.extend(client.select_where("vertex_profile", "handle", handle))
+
+    unique_profiles = {p["vertex_id"]: p for p in profiles if p.get("vertex_id")}.values()
+    sorted_profiles = sorted(
+        unique_profiles,
+        key=lambda p: 0 if p.get("did") == actor_did else 1
+    )
+    if sorted_profiles:
+        row = sorted_profiles[0]
+        profile = {
+            "did": row.get("did"),
+            "handle": row.get("handle"),
+            "displayName": row.get("display_name"),
+            "description": row.get("description"),
+            "avatar": row.get("avatar_cid"),
+            "banner": row.get("banner_cid"),
+            "props": row.get("props"),
+            "createdAt": row.get("created_at"),
+        }
+
+    # R0: in-Python filter for collection='app.bsky.feed.post' to count
+    repo_records = client.select_where("vertex_repo_record", "repo", actor_did, limit=2000)
+    posts_count = sum(1 for r in repo_records if r.get("collection") == 'app.bsky.feed.post')
 
     missing: list[str] = []
     if not profile:
@@ -1023,15 +953,8 @@ def _fetch_profile_quality(actor_did: str, handle: str = "") -> dict[str, Any]:
 
 
 def _count_scalar(sql_text: str, fallback: str = "?") -> str:
-    try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text)
-            row = cur.fetchone()
-        if not row:
-            return fallback
-        return str(row[0])
-    except Exception:
-        return fallback
+    # R0: legacy, unused after kotoba migration
+    return fallback
 
 
 async def task_yoro_social_post_graph_fallback(
@@ -1059,12 +982,36 @@ async def task_yoro_social_platform_pulse_graph_fallback(
     postRepo: str = DEFAULT_REPO,
     flush: bool = False,
 ) -> dict[str, Any]:
-    posts_last_24h = _count_scalar(
-        "SELECT count(*) FROM vertex_repo_record "
-        "WHERE collection = 'app.bsky.feed.post' "
-        "AND ts_ms > (EXTRACT(epoch FROM now()) * 1000 - 86400000)::bigint"
-    )
-    active_actors = _count_scalar("SELECT count(*) FROM vertex_actor WHERE status = 'active'")
+    client = get_kotoba_client()
+
+    # R0: q() escape hatch for global count with epoch-time math
+    now_ms = int(time.time() * 1000)
+    cutoff = now_ms - 86400000
+    query_posts = f"""
+    [:find (count ?e)
+     :where
+     [?e :vertex.repo-record/collection "app.bsky.feed.post"]
+     [?e :vertex.repo-record/ts-ms ?ts]
+     [(> ?ts {cutoff})]]
+    """
+    try:
+        raw_posts = client.q(query_posts)
+        posts_last_24h = str(raw_posts[0][0]) if raw_posts and raw_posts[0] else "0"
+    except Exception:
+        posts_last_24h = "?"
+
+    # R0: q() escape hatch for global count of active actors
+    query_actors = """
+    [:find (count ?e)
+     :where
+     [?e :vertex.actor/status "active"]]
+    """
+    try:
+        raw_actors = client.q(query_actors)
+        active_actors = str(raw_actors[0][0]) if raw_actors and raw_actors[0] else "0"
+    except Exception:
+        active_actors = "?"
+
     text = (
         f"Yoro platform pulse: {posts_last_24h} posts in the last 24h "
         f"across {active_actors} active actors."
@@ -1155,48 +1102,58 @@ async def task_yoro_social_respond_to_follow_graph_fallback(
 
 def _fetch_diet_speech_rows(*, speech_id: str = "", limit: int = 5) -> list[dict[str, Any]]:
     limit = max(1, min(int(limit or 5), 50))
-    where = "speech_id = %(speech_id)s" if speech_id else "speech_text IS NOT NULL"
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT
-              speech_id, meeting_url, issue_id, session, chamber, committee_name,
-              meeting_date, speech_order, speaker_name, speaker_yomi, speaker_group,
-              speaker_position, speaker_role, speech_text, topic_tag, sentiment,
-              llm_topic, llm_position, llm_commitment, llm_summary
-            FROM vertex_fukkou_diet_speech
-            WHERE {where}
-              AND COALESCE(speaker_name, '') <> ''
-              AND speaker_name <> '会議録情報'
-            ORDER BY meeting_date DESC NULLS LAST, speech_order ASC NULLS LAST
-            LIMIT {limit}
-            """,
-            {"speech_id": speech_id},
-        )
-        rows = cur.fetchall() or []
+    client = get_kotoba_client()
+
+    if speech_id:
+        # R0: single-equality fetch, then in-Python filter for speaker_name
+        rows = client.select_where("vertex_fukkou_diet_speech", "speech_id", speech_id, limit=2000)
+        filtered = [
+            r for r in rows
+            if r.get("speaker_name") and r.get("speaker_name") != '会議録情報'
+        ]
+    else:
+        # R0: q() escape hatch for IS NOT NULL and multiple filters without equality key
+        query = """
+        [:find (pull ?e [*])
+         :where
+         [?e :vertex.fukkou-diet-speech/speech-text ?t]
+         [(not= ?t "")]
+         [?e :vertex.fukkou-diet-speech/speaker-name ?s]
+         [(not= ?s "")]
+         [(not= ?s "会議録情報")]]
+        """
+        raw = client.q(query)
+        filtered = []
+        for item in raw:
+            ent = item[0] if isinstance(item, (list, tuple)) and item else item
+            if not isinstance(ent, dict): continue
+            r = {}
+            prefix = ":vertex.fukkou-diet-speech/"
+            for k, v in ent.items():
+                key = str(k)
+                col = key[len(prefix):] if key.startswith(prefix) else key.lstrip(":")
+                r[col.replace("-", "_")] = v
+            filtered.append(r)
+
+    def sort_key(r):
+        date = str(r.get("meeting_date") or "")
+        order = r.get("speech_order") or 0
+        try:
+            order = int(order)
+        except (ValueError, TypeError):
+            order = 0
+        return (date, -order)
+
+    filtered.sort(key=sort_key, reverse=True)
+    top_rows = filtered[:limit]
+
     keys = [
-        "speech_id",
-        "meeting_url",
-        "issue_id",
-        "session",
-        "chamber",
-        "committee_name",
-        "meeting_date",
-        "speech_order",
-        "speaker_name",
-        "speaker_yomi",
-        "speaker_group",
-        "speaker_position",
-        "speaker_role",
-        "speech_text",
-        "topic_tag",
-        "sentiment",
-        "llm_topic",
-        "llm_position",
-        "llm_commitment",
-        "llm_summary",
+        "speech_id", "meeting_url", "issue_id", "session", "chamber", "committee_name",
+        "meeting_date", "speech_order", "speaker_name", "speaker_yomi", "speaker_group",
+        "speaker_position", "speaker_role", "speech_text", "topic_tag", "sentiment",
+        "llm_topic", "llm_position", "llm_commitment", "llm_summary",
     ]
-    return [dict(zip(keys, row, strict=False)) for row in rows]
+    return [{k: r.get(k) for k in keys} for r in top_rows]
 
 
 async def task_yoro_social_project_diet_speeches_graph_fallback(
@@ -1229,7 +1186,7 @@ async def task_yoro_social_project_diet_speeches_graph_fallback(
                     "record": json.loads(str(row["value_json"] or "{}")),
                 }
                 for row in post_rows
-            ],
+            ]
         }
     inserted = insert_repo_records(post_rows, flush=flush)
     return {
@@ -1474,59 +1431,49 @@ def _enrich_actor_quality_profile(
 
     vertex_id = _profile_vertex_id(actorDid)
     created_at = utc_now_iso()
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT 1 FROM vertex_profile WHERE vertex_id = %(vertex_id)s OR did = %(actor_did)s LIMIT 1",
-            {"vertex_id": vertex_id, "actor_did": actorDid},
-        )
-        exists = cur.fetchone() is not None
-        if exists:
-            cur.execute(
-                """
-                UPDATE vertex_profile
-                SET
-                  handle = COALESCE(NULLIF(handle, ''), %(handle)s),
-                  display_name = COALESCE(NULLIF(display_name, ''), %(display_name)s),
-                  description = COALESCE(NULLIF(description, ''), %(description)s),
-                  props = %(props)s,
-                  actor_did = COALESCE(actor_did, %(actor_did)s),
-                  org_did = COALESCE(org_did, 'did:web:yoro.etzhayyim.com')
-                WHERE vertex_id = %(vertex_id)s OR did = %(actor_did)s
-                """,
-                {
-                    "vertex_id": vertex_id,
-                    "handle": resolved_handle,
-                    "display_name": display_name,
-                    "description": description,
-                    "props": json.dumps(props, separators=(",", ":"), ensure_ascii=False),
-                    "actor_did": actorDid,
-                },
-            )
-        else:
-            cur.execute(
-                """
-                INSERT INTO vertex_profile (
-                  vertex_id, did, repo, handle, display_name, description, props,
-                  collection, rkey, created_at, sensitivity_ord, owner_did, actor_did, org_did
-                )
-                VALUES (
-                  %(vertex_id)s, %(actor_did)s, %(actor_did)s, %(handle)s,
-                  %(display_name)s, %(description)s, %(props)s,
-                  %(collection)s, 'self', %(created_at)s, 1,
-                  'did:web:yoro.etzhayyim.com', %(actor_did)s, 'did:web:yoro.etzhayyim.com'
-                )
-                """,
-                {
-                    "vertex_id": vertex_id,
-                    "actor_did": actorDid,
-                    "handle": resolved_handle,
-                    "display_name": display_name,
-                    "description": description,
-                    "props": json.dumps(props, separators=(",", ":"), ensure_ascii=False),
-                    "collection": PROFILE_COLLECTION,
-                    "created_at": created_at,
-                },
-            )
+    client = get_kotoba_client()
+
+    # R0: collapsed read-modify-write into single upsert
+    existing = client.select_first_where("vertex_profile", "vertex_id", vertex_id)
+    if not existing:
+        existing = client.select_first_where("vertex_profile", "did", actorDid)
+
+    new_row = {
+        "vertex_id": vertex_id,
+        "did": actorDid,
+        "repo": actorDid,
+        "handle": resolved_handle,
+        "display_name": display_name,
+        "description": description,
+        "props": json.dumps(props, separators=(",", ":"), ensure_ascii=False),
+        "collection": PROFILE_COLLECTION,
+        "rkey": "self",
+        "created_at": created_at,
+        "sensitivity_ord": 1,
+        "owner_did": "did:web:yoro.etzhayyim.com",
+        "actor_did": actorDid,
+        "org_did": "did:web:yoro.etzhayyim.com",
+    }
+
+    if existing:
+        merged = dict(existing)
+        # Keep DB display_name and description if already present, like COALESCE(NULLIF(..., ''), ...)
+        if existing.get("handle"):
+            new_row["handle"] = existing["handle"]
+        if existing.get("display_name"):
+            new_row["display_name"] = existing["display_name"]
+        if existing.get("description"):
+            new_row["description"] = existing["description"]
+        if existing.get("actor_did"):
+            new_row["actor_did"] = existing["actor_did"]
+        if existing.get("org_did"):
+            new_row["org_did"] = existing["org_did"]
+
+        merged.update(new_row)
+        client.insert_row("vertex_profile", merged)
+    else:
+        client.insert_row("vertex_profile", new_row)
+
     profile_record = {
         "$type": PROFILE_COLLECTION,
         "displayName": display_name,

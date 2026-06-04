@@ -15,7 +15,7 @@ Architecture:
 
 Execution model:
   - POST /runs → in-memory _RUNS dict (status=pending) + RisingWave row
-  - FastAPI BackgroundTask executes graph with RisingWaveCheckpointSaver
+  - FastAPI BackgroundTask executes graph with kotoba checkpoint saver (RisingWave fallback via MAGATAMA_LG_BACKEND=rw)
   - Output written back to _RUNS + RisingWave (status=success|error)
   - Redis BLPOP queue added in Phase 3 for multi-pod dispatch
 
@@ -179,7 +179,10 @@ async def _execute_graph(run_id: str, assistant_id: str, thread_id: str, input_d
         config: dict = {"configurable": {"thread_id": thread_id}}
 
         try:
-            from pymagatama.langgraph_checkpoint_rw import get_checkpoint_saver
+            if os.environ.get("MAGATAMA_LG_BACKEND", "kotoba") != "rw":
+                from pymagatama.langgraph_checkpoint_kotoba import get_checkpoint_saver
+            else:
+                from pymagatama.langgraph_checkpoint_rw import get_checkpoint_saver
 
             saver = await get_checkpoint_saver()
             config["checkpointer"] = saver
@@ -486,7 +489,10 @@ async def create_run_stream(body: RunRequest, request: Request):
         try:
             saver = None
             try:
-                from pymagatama.langgraph_checkpoint_rw import get_checkpoint_saver
+                if os.environ.get("MAGATAMA_LG_BACKEND", "kotoba") != "rw":
+                    from pymagatama.langgraph_checkpoint_kotoba import get_checkpoint_saver
+                else:
+                    from pymagatama.langgraph_checkpoint_rw import get_checkpoint_saver
 
                 saver = await get_checkpoint_saver()
             except Exception as e:  # pragma: no cover — checkpointer is optional
@@ -605,7 +611,10 @@ async def create_thread(body: ThreadRequest):
 async def get_thread_state(thread_id: str):
     """Return the latest checkpoint state for a thread."""
     try:
-        from pymagatama.langgraph_checkpoint_rw import get_checkpoint_saver
+        if os.environ.get("MAGATAMA_LG_BACKEND", "kotoba") != "rw":
+            from pymagatama.langgraph_checkpoint_kotoba import get_checkpoint_saver
+        else:
+            from pymagatama.langgraph_checkpoint_rw import get_checkpoint_saver
 
         saver = await get_checkpoint_saver()
         config = {"configurable": {"thread_id": thread_id, "checkpoint_ns": ""}}

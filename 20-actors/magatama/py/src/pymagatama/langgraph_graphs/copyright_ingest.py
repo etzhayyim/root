@@ -20,8 +20,8 @@ State:
 
 RisingWave persistence:
   - vertex_work — PK overwrite dedup (same DOI safe to re-ingest)
-  - Checkpoint via RisingWaveCheckpointSaver (thread_id = actor DID)
-  - Long-term state via RisingWaveStore namespace ("did:web:copyright.etzhayyim.com","ingest_state")
+  - Checkpoint via kotoba checkpoint saver (RisingWave fallback via MAGATAMA_LG_BACKEND=rw) (thread_id = actor DID)
+  - Long-term state via kotoba store namespace ("did:web:copyright.etzhayyim.com","ingest_state")
 """
 
 from __future__ import annotations
@@ -293,15 +293,20 @@ def _update_ingest_state(
     ok: bool,
 ) -> None:
     """
-    Write last-run summary into RisingWaveStore for cross-thread memory.
+    Write last-run summary into kotoba store for cross-thread memory.
     Namespace: ("did:web:copyright.etzhayyim.com", "ingest_state")
     Key: "last_run"
     """
     try:
         import asyncio
-        from pymagatama.langgraph_store_rw import RisingWaveStore
+        import os
 
-        store = RisingWaveStore()
+        if os.environ.get("MAGATAMA_LG_BACKEND", "kotoba") != "rw":
+            from pymagatama.langgraph_store_kotoba import KotobaStore
+            store = KotobaStore()
+        else:
+            from pymagatama.langgraph_store_rw import RisingWaveStore
+            store = RisingWaveStore()
         ns = (_COPYRIGHT_DID, "ingest_state")
 
         async def _put():

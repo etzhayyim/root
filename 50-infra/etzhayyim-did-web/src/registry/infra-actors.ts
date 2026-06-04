@@ -200,6 +200,27 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606012600"],
   },
+  watari: {
+    description:
+      "渡り — world live moving-craft (ship + aircraft) knowledge graph. Ingests the LIVE positions of public, transponder-broadcasting craft (ships via AIS, aircraft via ADS-B) into the kotoba Datom log as an append-only as-of trajectory (latest fix = current position, fix stream = trail, 非終末論); surfaces aggregate sea-lane / air-corridor / chokepoint / approach concentration routed to safety + collision-avoidance + congestion-easing + resilience. The kotoba-native successor to the legacy maps aismarine/aircraft_live + vessel tracking RisingWave pipelines. A situational-awareness map, NEVER a person-surveillance feed and NEVER a target-list (a craft is a craft, not a person — G4). DYNAMIC moving-craft sibling of watatsuna 綿津綱 (static cables): both key on the SAME chokepoint keywords, so live vessel transit composes with static cable load into one maritime resilience picture. Per ADR-2606041827.",
+    glyph: "渡り",
+    displayName: "Watari — World Live Moving-Craft (Ship + Aircraft) Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.watari",
+    primarySchema: "00-contracts/schemas/moving-craft-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:watari#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:watari#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606041827"],
+  },
   tsumugi: {
     description:
       "紡ぎ — Engi Knowledge Graph (産霊の網) intel weaver. Runs Spirit-in-Physics (RBF emotion-kernel → spectral 3D embed → tensegrity) over real PUBLIC power-entities (法人 / institution / public-role) and their 縁 to surface 取-concentration (power held OVER others) routed to release. An aggregate-first accountability map, NEVER a target-list (powerless absent by construction; edge-primary karma N1 — no per-soul score). World-coverage; upper layer over danjo / kanae / tadori / himotoki. Per ADR-2606011800.",

@@ -40,17 +40,29 @@ need DB must use `pymagatama.db_sync`. Event-driven (non-UDF) consumers —
 which would use asyncpg — do not exist yet; their SDK lands with Phase C.2.
 """
 
+import os
 from pymagatama.registry import udf
 from pymagatama.server import serve
+
+def get_lg_backend() -> str:
+    """Return the selected LangGraph backend ('kotoba' or 'rw')."""
+    return os.environ.get("MAGATAMA_LG_BACKEND", "kotoba")
 
 try:
     from pymagatama.langgraph_checkpoint_rw import RisingWaveCheckpointSaver
     from pymagatama.langgraph_store_rw import RisingWaveStore
+    from pymagatama.langgraph_checkpoint_kotoba import KotobaCheckpointSaver
+    from pymagatama.langgraph_store_kotoba import KotobaStore
     _LG_RW_AVAILABLE = True
 except ImportError:  # pragma: no cover — langgraph is a [lg] optional dep
     _LG_RW_AVAILABLE = False
     RisingWaveCheckpointSaver = None  # type: ignore[assignment]
     RisingWaveStore = None  # type: ignore[assignment]
+    KotobaCheckpointSaver = None  # type: ignore[assignment]
+    KotobaStore = None  # type: ignore[assignment]
 
-__all__ = ["udf", "serve", "RisingWaveCheckpointSaver", "RisingWaveStore"]
+__all__ = [
+    "udf", "serve", "RisingWaveCheckpointSaver", "RisingWaveStore",
+    "KotobaCheckpointSaver", "KotobaStore", "get_lg_backend"
+]
 __version__ = "0.3.35"

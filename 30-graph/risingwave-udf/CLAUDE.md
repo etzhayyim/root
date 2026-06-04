@@ -1,3 +1,5 @@
+> **DEPRECATION NOTICE (ADR-2605215000):** The Arrow-Flight UDF server and `@udf` decorators are **superseded**. All functions have been ported to pure, in-process kotoba-native modules at `kotoba/udf_kotoba.py` and `kotoba/kiyo_kotoba.py` (which default to Murakumo loopback inference). The original files and this server deployment remain only for the vendor RisingWave cluster until it is decommissioned.
+
 # risingwave-udf — External Python UDF server
 
 ADR-0044 compliant External Python UDF server for RisingWave. Arrow Flight
