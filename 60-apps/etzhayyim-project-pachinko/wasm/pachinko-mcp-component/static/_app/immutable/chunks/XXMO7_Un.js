@@ -1,1 +1,0 @@
-import{f as i,b as t,m as s,e as o}from"./BITFxHzJ.js";async function r(){return{machines:await i()}}async function f(a){const n=await t(a);if(n)return{machine:n};const c=s.find(e=>e.id===a);return c||o(404,"Machine not found"),{machine:c}}export{f as a,r as l};
