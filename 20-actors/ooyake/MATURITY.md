@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — PUBLISH-SURFACE enrich: hq coords + endonyms into /gov atlas index
+
+Pivoted from data-entry to data-exposure: the 5,670 building-level seat coordinates and 1,013
+endonyms (+romanizations) we'd accumulated were NOT reaching the published `/gov` atlas index —
+the generator emitted only id/name/nameEn/level/url/sourcing. Enriched the index so the rich data
+actually surfaces.
+
+- `50-infra/etzhayyim-did-web/scripts/gen-gov-atlas-index.mjs`:
+  - now reads `:addresses` across every registry EDN and joins building-level `lat`/`lon` onto each
+    unit record (5,670 units gain plottable coords — omitted entirely where no real seat, G5).
+  - emits distinct `nameLocal` + `nameRomanized` fields (previously name-local was only folded into
+    the display `name`; the romanization was dropped on the floor).
+  - adds `withCoords` (5670) + `withNameLocal` (1013) summary counters to the index header.
+- additive only — `validate_atlas.py` (id/level/sourcing/summary/JP-authoritative-scope) still
+  PASSES; the published index stays all-`:representative` except the JP pref/city backbone (check #5).
+- the `/gov` map can now plot real ministry/agency/court/library/archive seats worldwide and render
+  each in its own script with a Latin reading.
+
+Verified: generator → 7,684 units, 5,670 with hq coords, 1,013 with name-local; validate_atlas
+--file ✓ all integrity checks passed; run_tests.sh ALL GREEN. (out/gov-units.json is a gitignored
+build artifact; only the generator is committed.)
+
 ## 2026-06-05 — name-local axis: final non-Latin sweep IL/CY/BT/MV/AF (934 → 1013)
 
 Closed the remaining sizeable non-Latin jurisdictions. 8 web-research subagents. **79 endonyms added
