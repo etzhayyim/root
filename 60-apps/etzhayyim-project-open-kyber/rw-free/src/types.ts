@@ -44,7 +44,7 @@ export const OPEN_KYBER_DID_PREFIX = "did:web:kyber.etzhayyim.com:" as const;
 
 // ─── Account (PLAINTEXT, chart-of-accounts reference) ───────────────
 
-export type AccountType = "asset" | "liability" | "equity" | "revenue" | "expense";
+export type AccountType = "asset" | "contra-asset" | "liability" | "equity" | "revenue" | "expense";
 
 export interface AccountRecord {
   did: string;
@@ -198,6 +198,7 @@ export interface CoverageOutput {
 
 const ACCOUNT_TYPES: ReadonlySet<string> = new Set([
   "asset",
+  "contra-asset",
   "liability",
   "equity",
   "revenue",
