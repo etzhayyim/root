@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: court tier COMPLETE (149 → 206/206)
+
+Finished the court tier — the remaining 57 high courts (mostly European + small/mid states). 6
+web-research subagents located each court's **seat building + city + coordinates** from official
+court sites + Wikipedia/OSM/geocode. 57 added → **courts now 206/206 with an address** (3rd tier
+fully address-complete after country 191/192 + legislature 186/186).
+
+- 43 carry building-level lat/lon; **14 honestly NULL coords** (G5 — seat confirmed from official
+  sites but no reliable building-level coordinate): Fiji, Guinea-Bissau, Haiti (Palais destroyed
+  2010), Iraq (Green Zone), Jordan, Cambodia, Lebanon, Nauru, Qatar (new complex under
+  construction), Sudan ×2, South Sudan, Syria, **Tunisia (Constitutional Court never
+  established — flagged in line-en)**.
+- honest seat notes: El Salvador CC = Sala de lo Constitucional of the Supreme Court; Cambodia
+  Constitutional Council in the Chamkar Mon State Palace (not the Royal Palace); Mali SC at the
+  2019 Banankabougou seat; Serbia CC in the Main Post Office Palace; street/road-level approximations
+  flagged (Marshall Islands, Suriname, Tajikistan). Each cites provenance + `:last-verified 2026-06-04`.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: high-court HQ for 50 courts (court 99 → 149/206)
 
 Continued the address axis into the court tier (was 99/206). Did 50 high courts (24 major-country

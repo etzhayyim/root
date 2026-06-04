@@ -6306,4 +6306,503 @@
    :gov.address/lat -0.20727 :gov.address/lon -78.48954
    :gov.address/sourcing :authoritative
    :gov.address/provenance "Wikipedia / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fji.supreme-court.hq"
+   :gov.address/unit "gov.fji.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "fji"
+   :gov.address/line-en "Supreme Court of Fiji, Old Parliament Complex, Veiuto, Suva"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "judiciary.gov.fj" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gab.constitutional-court.hq"
+   :gov.address/unit "gov.gab.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "gab"
+   :gov.address/line-en "Cour Constitutionnelle, Boulevard de l'Independance, Libreville"
+   :gov.address/lat 0.39686 :gov.address/lon 9.43971
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.geo.constitutional-court.hq"
+   :gov.address/unit "gov.geo.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "geo"
+   :gov.address/line-en "Constitutional Court of Georgia, 8/10 K. Gamsakhurdia St, Batumi"
+   :gov.address/lat 41.65169 :gov.address/lon 41.63687
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap / Wikimapia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gnb.supreme-court.hq"
+   :gov.address/unit "gov.gnb.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "gnb"
+   :gov.address/line-en "Supremo Tribunal de Justiça (Palácio da Justiça), Bissau"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Atlas CPLP / UN" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gtm.constitutional-court.hq"
+   :gov.address/unit "gov.gtm.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Corte de Constitucionalidad, Zona 1, Guatemala City"
+   :gov.address/lat 14.63896 :gov.address/lon -90.50823
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "cc.gob.gt / OpenStreetMap" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hrv.constitutional-court.hq"
+   :gov.address/unit "gov.hrv.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "hrv"
+   :gov.address/line-en "Constitutional Court of Croatia, Trg sv. Marka 4, Zagreb"
+   :gov.address/lat 45.81679 :gov.address/lon 15.97362
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Ustavni sud RH)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hti.supreme-court.hq"
+   :gov.address/unit "gov.hti.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "hti"
+   :gov.address/line-en "Cour de Cassation d'Haïti, Port-au-Prince"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palais de Justice destroyed 2010, seat relocated)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irq.supreme-court.hq"
+   :gov.address/unit "gov.irq.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "irq"
+   :gov.address/line-en "Federal Supreme Court of Iraq, Green Zone, Baghdad"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Federal Supreme Court of Iraq)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.jor.constitutional-court.hq"
+   :gov.address/unit "gov.jor.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "jor"
+   :gov.address/line-en "Constitutional Court of Jordan, 12 Al Hatimiah St, Tla' al-Ali, Amman"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "cco.gov.jo" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kaz.constitutional-court.hq"
+   :gov.address/unit "gov.kaz.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "kaz"
+   :gov.address/line-en "Constitutional Court of Kazakhstan, 13 Mangilik El Ave, Astana"
+   :gov.address/lat 51.11926 :gov.address/lon 71.43404
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kgz.constitutional-court.hq"
+   :gov.address/unit "gov.kgz.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "kgz"
+   :gov.address/line-en "Constitutional Court, Erkindik Boulevard 39, Bishkek"
+   :gov.address/lat 42.87333 :gov.address/lon 74.60733
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constsot.kg / OSM (address-block)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kgz.supreme-court.hq"
+   :gov.address/unit "gov.kgz.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "kgz"
+   :gov.address/line-en "Supreme Court of the Kyrgyz Republic, Abdumomunova St 205, Bishkek"
+   :gov.address/lat 42.87978 :gov.address/lon 74.60526
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "2GIS / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.constitutional-court.hq"
+   :gov.address/unit "gov.khm.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "Constitutional Council, State Palace, Chamkar Mon, Phnom Penh"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ccc.gov.kh" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lbn.constitutional-court.hq"
+   :gov.address/unit "gov.lbn.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "lbn"
+   :gov.address/line-en "Constitutional Council, Beirut"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "cc.gov.lb" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lby.supreme-court.hq"
+   :gov.address/unit "gov.lby.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "lby"
+   :gov.address/line-en "Supreme Court of Libya, Zawiyat al-Dahmani, Tripoli"
+   :gov.address/lat 32.89492 :gov.address/lon 13.19769
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (courthouse polygon)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lie.constitutional-court.hq"
+   :gov.address/unit "gov.lie.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "lie"
+   :gov.address/line-en "Constitutional Court (Staatsgerichtshof), Städtle 36, Vaduz"
+   :gov.address/lat 47.13904 :gov.address/lon 9.52228
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "stgh.li / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lie.supreme-court.hq"
+   :gov.address/unit "gov.lie.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "lie"
+   :gov.address/line-en "Supreme Court (Oberster Gerichtshof), Spaniagasse 1, Vaduz"
+   :gov.address/lat 47.13275 :gov.address/lon 9.52261
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ogh.li / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ltu.constitutional-court.hq"
+   :gov.address/unit "gov.ltu.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ltu"
+   :gov.address/line-en "Constitutional Court, Gedimino pr. 36, Vilnius"
+   :gov.address/lat 54.68791 :gov.address/lon 25.27327
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "lrkt.lt / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lva.constitutional-court.hq"
+   :gov.address/unit "gov.lva.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "lva"
+   :gov.address/line-en "Constitutional Court (Satversmes tiesa), Jura Alunāna iela 1, Riga"
+   :gov.address/lat 56.95628 :gov.address/lon 24.10922
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "satv.tiesa.gov.lv / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mco.supreme-court.hq"
+   :gov.address/unit "gov.mco.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mco"
+   :gov.address/line-en "Supreme Court (Tribunal Suprême), Palais de Justice, 5 rue Colonel Bellando de Castro, Monaco-Ville"
+   :gov.address/lat 43.73029 :gov.address/lon 7.42217
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tribunal-supreme.mc / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mda.constitutional-court.hq"
+   :gov.address/unit "gov.mda.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mda"
+   :gov.address/line-en "Curtea Constituțională, str. Alexandru Lăpușneanu 28, Chișinău"
+   :gov.address/lat 47.0325 :gov.address/lon 28.81942
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constcourt.md / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mda.supreme-court.hq"
+   :gov.address/unit "gov.mda.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mda"
+   :gov.address/line-en "Supreme Court of Justice, str. M. Kogălniceanu 70, Chișinău"
+   :gov.address/lat 47.02099 :gov.address/lon 28.82388
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "justice.gov.md / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdg.constitutional-court.hq"
+   :gov.address/unit "gov.mdg.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "Haute Cour Constitutionnelle (Palais d'État Ambohidahy), Antananarivo"
+   :gov.address/lat -18.91156 :gov.address/lon 47.52595
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "hcc.gov.mg / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mhl.supreme-court.hq"
+   :gov.address/unit "gov.mhl.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mhl"
+   :gov.address/line-en "Majuro Courthouse, Uliga, Majuro"
+   :gov.address/lat 7.10712 :gov.address/lon 171.3743
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "rmicourts.org / OSM (road-level approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mkd.constitutional-court.hq"
+   :gov.address/unit "gov.mkd.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mkd"
+   :gov.address/line-en "Constitutional Court, Kej Dimitar Vlahov 19, Skopje"
+   :gov.address/lat 41.99669 :gov.address/lon 21.43471
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ustavensud.mk / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mli.supreme-court.hq"
+   :gov.address/unit "gov.mli.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mli"
+   :gov.address/line-en "Cour Suprême du Mali, Route de Ségou, Banankabougou, Bamako"
+   :gov.address/lat 12.58873 :gov.address/lon -7.93771
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sc-coursupreme.ml / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mlt.constitutional-court.hq"
+   :gov.address/unit "gov.mlt.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mlt"
+   :gov.address/line-en "Courts of Justice building, Republic Street, Valletta"
+   :gov.address/lat 35.89833 :gov.address/lon 14.51222
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "courts.gov.mt / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mng.supreme-court.hq"
+   :gov.address/unit "gov.mng.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Supreme Court of Mongolia, Ts. Jigjidjav St, Chingeltei, Ulaanbaatar"
+   :gov.address/lat 47.91885 :gov.address/lon 106.9155
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "supremecourt.mn / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.constitutional-court.hq"
+   :gov.address/unit "gov.moz.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Conselho Constitucional, Rua Mateus Sansão Muthemba 493, Maputo"
+   :gov.address/lat -25.97816 :gov.address/lon 32.58737
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "cconstitucional.org.mz / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.supreme-court.hq"
+   :gov.address/unit "gov.moz.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Tribunal Supremo, Avenida Vladimir Lenine 103, Maputo"
+   :gov.address/lat -25.97175 :gov.address/lon 32.57453
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ts.gov.mz / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nam.constitutional-court.hq"
+   :gov.address/unit "gov.nam.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "nam"
+   :gov.address/line-en "Supreme Court of Namibia, Eliakim Namundjebo Plaza, Windhoek"
+   :gov.address/lat -22.56889 :gov.address/lon 17.08611
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Supreme Court of Namibia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nru.supreme-court.hq"
+   :gov.address/unit "gov.nru.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "nru"
+   :gov.address/line-en "Supreme Court of Nauru, Yaren government precinct"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "naurujudiciary.gov.nr (Yaren; building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pan.supreme-court.hq"
+   :gov.address/unit "gov.pan.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "pan"
+   :gov.address/line-en "Corte Suprema de Justicia (Palacio de Justicia Gil Ponce), Ancón, Panama City"
+   :gov.address/lat 8.96096 :gov.address/lon -79.54619
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "organojudicial.gob.pa / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.plw.supreme-court.hq"
+   :gov.address/unit "gov.plw.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "plw"
+   :gov.address/line-en "Supreme Court of Palau, Main Street, Koror"
+   :gov.address/lat 7.34138 :gov.address/lon 134.47001
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "palaucourts.gov.pw / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.png.supreme-court.hq"
+   :gov.address/unit "gov.png.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "Supreme Court of Papua New Guinea, Waigani, Port Moresby"
+   :gov.address/lat -9.43016 :gov.address/lon 147.19152
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "pngjudiciary.gov.pg / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pry.supreme-court.hq"
+   :gov.address/unit "gov.pry.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "pry"
+   :gov.address/line-en "Corte Suprema de Justicia (Palacio de Justicia), Alonso y Testanova, Asunción"
+   :gov.address/lat -25.28731 :gov.address/lon -57.65488
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "csj.gov.py / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.qat.supreme-court.hq"
+   :gov.address/unit "gov.qat.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "qat"
+   :gov.address/line-en "Supreme Constitutional Court (division of Court of Cassation), Doha"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sjc.gov.qa (new complex under construction; coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sdn.constitutional-court.hq"
+   :gov.address/unit "gov.sdn.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "Constitutional Court of Sudan, Khartoum"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (no building-level coordinate)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sdn.supreme-court.hq"
+   :gov.address/unit "gov.sdn.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "Supreme Court of Sudan, Khartoum"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (no building-level coordinate)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sen.supreme-court.hq"
+   :gov.address/unit "gov.sen.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "sen"
+   :gov.address/line-en "Cour Suprême du Sénégal, Route de la Corniche Ouest, Dakar"
+   :gov.address/lat 14.67715 :gov.address/lon -17.46351
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "coursupreme.gouv.sn / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sle.supreme-court.hq"
+   :gov.address/unit "gov.sle.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "sle"
+   :gov.address/line-en "Law Court Building (Supreme Court), Siaka Stevens Street, Freetown"
+   :gov.address/lat 8.4874 :gov.address/lon -13.23498
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap / Judiciary of Sierra Leone" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.constitutional-court.hq"
+   :gov.address/unit "gov.slv.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Sala de lo Constitucional (Corte Suprema de Justicia), Centro de Gobierno, San Salvador"
+   :gov.address/lat 13.70633 :gov.address/lon -89.19825
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "csj.gob.sv / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.srb.constitutional-court.hq"
+   :gov.address/unit "gov.srb.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "srb"
+   :gov.address/line-en "Constitutional Court (Main Post Office Palace), Bulevar kralja Aleksandra 15, Belgrade"
+   :gov.address/lat 44.81025 :gov.address/lon 20.46688
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.srb.supreme-court.hq"
+   :gov.address/unit "gov.srb.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "srb"
+   :gov.address/line-en "Supreme Court of Serbia, Nemanjina 9, Belgrade"
+   :gov.address/lat 44.80679 :gov.address/lon 20.4593
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "vrh.sud.rs / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ssd.supreme-court.hq"
+   :gov.address/unit "gov.ssd.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ssd"
+   :gov.address/line-en "Supreme Court of South Sudan, Juba"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mojca.gov.ss (city-level only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sur.constitutional-court.hq"
+   :gov.address/unit "gov.sur.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "sur"
+   :gov.address/line-en "Constitutioneel Hof, Limapostraat 22, Paramaribo"
+   :gov.address/lat 5.82634 :gov.address/lon -55.1526
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constitutioneelhof.sr / OSM (street-level approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svk.constitutional-court.hq"
+   :gov.address/unit "gov.svk.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "svk"
+   :gov.address/line-en "Constitutional Court of the Slovak Republic, Hlavná 110, Košice"
+   :gov.address/lat 48.7255 :gov.address/lon 21.25433
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ustavnysud.sk / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svn.constitutional-court.hq"
+   :gov.address/unit "gov.svn.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "svn"
+   :gov.address/line-en "Constitutional Court of Slovenia, Beethovnova ulica 10, Ljubljana"
+   :gov.address/lat 46.05216 :gov.address/lon 14.50224
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "us-rs.si / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.supreme-court.hq"
+   :gov.address/unit "gov.syr.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Supreme Constitutional Court of Syria, Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (no building-level coordinate)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tjk.constitutional-court.hq"
+   :gov.address/unit "gov.tjk.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "tjk"
+   :gov.address/line-en "Constitutional Court of Tajikistan, Bokhtar Street 48, Dushanbe"
+   :gov.address/lat 38.57945 :gov.address/lon 68.78936
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constcourt.tj / OSM (street-level approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tjk.supreme-court.hq"
+   :gov.address/unit "gov.tjk.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "tjk"
+   :gov.address/line-en "Supreme Court of Tajikistan, Dushanbe"
+   :gov.address/lat 38.63417 :gov.address/lon 68.79674
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Yandex Maps org node (street name to verify)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tkm.supreme-court.hq"
+   :gov.address/unit "gov.tkm.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "tkm"
+   :gov.address/line-en "Supreme Court of Turkmenistan, 86 Alişer Nowaýy köçesi, Ashgabat"
+   :gov.address/lat 37.93395 :gov.address/lon 58.37635
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Yandex / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ton.supreme-court.hq"
+   :gov.address/unit "gov.ton.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ton"
+   :gov.address/line-en "Supreme Court of Tonga (cnr Hala Lavinia & Hala Kausela), Nukuʻalofa"
+   :gov.address/lat -21.13804 :gov.address/lon -175.19741
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "justice.gov.to / OSM (court precinct)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tun.constitutional-court.hq"
+   :gov.address/unit "gov.tun.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "tun"
+   :gov.address/line-en "Constitutional Court of Tunisia — not yet established (proposed seat: Bardo, Tunis)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "fr.wikipedia / ConstitutionNet (never operationalized)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ury.supreme-court.hq"
+   :gov.address/unit "gov.ury.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ury"
+   :gov.address/line-en "Suprema Corte de Justicia (Palacio Piria), Plaza Cagancha, Montevideo"
+   :gov.address/lat -34.90661 :gov.address/lon -56.19106
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "poderjudicial.gub.uy / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vut.supreme-court.hq"
+   :gov.address/unit "gov.vut.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "vut"
+   :gov.address/line-en "Supreme Court of Vanuatu, Ring Road, Port Vila"
+   :gov.address/lat -17.73514 :gov.address/lon 168.31919
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "courts.gov.vu / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.wsm.supreme-court.hq"
+   :gov.address/unit "gov.wsm.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "wsm"
+   :gov.address/line-en "Supreme Court of Samoa, 17 Mulinuʻu Road, Apia"
+   :gov.address/lat -13.81799 :gov.address/lon -171.7786
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mjca.gov.ws / OSM" :gov.address/last-verified "2026-06-04"}
 ]}
