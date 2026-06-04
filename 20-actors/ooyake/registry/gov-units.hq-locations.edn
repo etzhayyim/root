@@ -5873,4 +5873,437 @@
    :gov.address/lat -25.74047 :gov.address/lon 28.21202
    :gov.address/sourcing :authoritative
    :gov.address/provenance "Wikipedia (Union Buildings)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aut.constitutional-court.hq"
+   :gov.address/unit "gov.aut.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "aut"
+   :gov.address/line-en "Constitutional Court (Verfassungsgerichtshof), Freyung 8, Vienna"
+   :gov.address/lat 48.21148 :gov.address/lon 16.36668
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "vfgh.gv.at / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bel.constitutional-court.hq"
+   :gov.address/unit "gov.bel.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bel"
+   :gov.address/line-en "Constitutional Court, Place Royale 7, Brussels"
+   :gov.address/lat 50.84165 :gov.address/lon 4.35744
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "const-court.be / geocode" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.chl.constitutional-court.hq"
+   :gov.address/unit "gov.chl.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "chl"
+   :gov.address/line-en "Constitutional Court (ex Caja de Crédito Hipotecario), Huérfanos 1234, Santiago"
+   :gov.address/lat -33.44018 :gov.address/lon -70.65424
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.col.constitutional-court.hq"
+   :gov.address/unit "gov.col.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "col"
+   :gov.address/line-en "Constitutional Court, Palacio de Justicia, Plaza de Bolívar, Bogotá"
+   :gov.address/lat 4.5989 :gov.address/lon -74.0756
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palace of Justice of Colombia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cze.constitutional-court.hq"
+   :gov.address/unit "gov.cze.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "cze"
+   :gov.address/line-en "Constitutional Court (Moravian Diet Building), Joštova 625/8, Brno"
+   :gov.address/lat 49.1976 :gov.address/lon 16.60444
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "usoud.cz / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.dza.constitutional-court.hq"
+   :gov.address/unit "gov.dza.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "dza"
+   :gov.address/line-en "Constitutional Court, Bd du 11 décembre 1960, El Biar, Algiers"
+   :gov.address/lat 36.76111 :gov.address/lon 3.02306
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "fr.wikipedia (Conseil constitutionnel Algérie)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.esp.constitutional-court.hq"
+   :gov.address/unit "gov.esp.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Constitutional Court, Calle Domenico Scarlatti 6, Madrid"
+   :gov.address/lat 40.44137 :gov.address/lon -3.71705
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tribunalconstitucional.es" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.supreme-court.hq"
+   :gov.address/unit "gov.eth.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Federal Supreme Court, King George VI Street, Lideta, Addis Ababa"
+   :gov.address/lat 9.04227 :gov.address/lon 38.76104
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Federal Supreme Court of Ethiopia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fra.constitutional-court.hq"
+   :gov.address/unit "gov.fra.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "fra"
+   :gov.address/line-en "Constitutional Council (Palais-Royal, Montpensier wing), 2 rue de Montpensier, Paris"
+   :gov.address/lat 48.86386 :gov.address/lon 2.33706
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "conseil-constitutionnel.fr" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hun.constitutional-court.hq"
+   :gov.address/unit "gov.hun.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "hun"
+   :gov.address/line-en "Constitutional Court (Alkotmánybíróság), Donáti utca 35-45, Budapest"
+   :gov.address/lat 47.5037 :gov.address/lon 19.0365
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "hunconcourt.hu / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.idn.constitutional-court.hq"
+   :gov.address/unit "gov.idn.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "Mahkamah Konstitusi, Jl. Medan Merdeka Barat 6, Jakarta"
+   :gov.address/lat -6.17354 :gov.address/lon 106.82208
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ita.constitutional-court.hq"
+   :gov.address/unit "gov.ita.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ita"
+   :gov.address/line-en "Palazzo della Consulta, Rome"
+   :gov.address/lat 41.899 :gov.address/lon 12.4873
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palazzo della Consulta)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kor.constitutional-court.hq"
+   :gov.address/unit "gov.kor.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "kor"
+   :gov.address/line-en "Constitutional Court of Korea, Jae-dong, Jongno-gu, Seoul"
+   :gov.address/lat 37.57806 :gov.address/lon 126.98472
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Constitutional Court of Korea)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mar.constitutional-court.hq"
+   :gov.address/unit "gov.mar.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "mar"
+   :gov.address/line-en "Cour constitutionnelle, Rabat"
+   :gov.address/lat 34.02624 :gov.address/lon -6.84326
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "fr.wikipedia (Cour constitutionnelle Maroc)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.per.constitutional-court.hq"
+   :gov.address/unit "gov.per.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "Casa de Pilatos (operative seat), Jr. Áncash 390, Lima"
+   :gov.address/lat -12.0461 :gov.address/lon -77.0273
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Casa de Pilatos, Lima)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pol.constitutional-court.hq"
+   :gov.address/unit "gov.pol.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "pol"
+   :gov.address/line-en "Trybunał Konstytucyjny, al. Szucha 12a, Warsaw"
+   :gov.address/lat 52.21557 :gov.address/lon 21.02393
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "trybunal.gov.pl / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.prt.constitutional-court.hq"
+   :gov.address/unit "gov.prt.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "prt"
+   :gov.address/line-en "Palácio Ratton, Rua do Século 111, Lisbon"
+   :gov.address/lat 38.714 :gov.address/lon -9.14781
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Constitutional Court, Portugal)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.constitutional-court.hq"
+   :gov.address/unit "gov.rou.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Palace of the Parliament, Bucharest"
+   :gov.address/lat 44.4275 :gov.address/lon 26.0875
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palace of the Parliament)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rus.constitutional-court.hq"
+   :gov.address/unit "gov.rus.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "rus"
+   :gov.address/line-en "Senate building, 1 Senate Square, Saint Petersburg"
+   :gov.address/lat 59.93583 :gov.address/lon 30.30056
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Constitutional Court of Russia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sau.supreme-court.hq"
+   :gov.address/unit "gov.sau.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "sau"
+   :gov.address/line-en "Supreme Court (High Court building), Qasr Al-Hukm District, Riyadh"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "rcrc.gov.sa (Qasr Al-Hukm District; building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tha.constitutional-court.hq"
+   :gov.address/unit "gov.tha.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "tha"
+   :gov.address/line-en "Constitutional Court, Government Complex Chaeng Watthana, Lak Si, Bangkok"
+   :gov.address/lat 13.88304 :gov.address/lon 100.56526
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constitutionalcourt.or.th / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tur.constitutional-court.hq"
+   :gov.address/unit "gov.tur.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "tur"
+   :gov.address/line-en "Constitutional Court, İncek/Ahlatlıbel, Çankaya, Ankara"
+   :gov.address/lat 39.845 :gov.address/lon 32.79
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Constitutional Court of Turkey)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ukr.constitutional-court.hq"
+   :gov.address/unit "gov.ukr.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ukr"
+   :gov.address/line-en "Constitutional Court of Ukraine, 14 Zhylianska Street, Kyiv"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ccu.gov.ua (address only; coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ven.supreme-court.hq"
+   :gov.address/unit "gov.ven.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ven"
+   :gov.address/line-en "Supreme Tribunal of Justice, Foro Libertador, Av. Baralt, Caracas"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tsj.gob.ve (Foro Libertador; coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.constitutional-court.hq"
+   :gov.address/unit "gov.ago.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Constitutional Court, Palácio da Justiça, Cidade Alta, Luanda"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tribunalconstitucional.ao (address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.alb.constitutional-court.hq"
+   :gov.address/unit "gov.alb.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "alb"
+   :gov.address/line-en "Constitutional Court, Bulevardi Dëshmorët e Kombit 26, Tirana"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gjk.gov.al (boulevard address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.and.constitutional-court.hq"
+   :gov.address/unit "gov.and.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "and"
+   :gov.address/line-en "Constitutional Court, Carrer de la Vall 28 (Antiga Sindicatura), Andorra la Vella"
+   :gov.address/lat 42.50673 :gov.address/lon 1.52063
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tribunalconstitucional.ad / geocode" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arm.constitutional-court.hq"
+   :gov.address/unit "gov.arm.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "arm"
+   :gov.address/line-en "Constitutional Court, 10 Baghramyan Avenue, Yerevan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "concourt.am (address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aze.constitutional-court.hq"
+   :gov.address/unit "gov.aze.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "aze"
+   :gov.address/line-en "Constitutional Court, 9 Ayna Sultanova Street, Yasamal, Baku"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constcourt.gov.az (address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bdi.constitutional-court.hq"
+   :gov.address/unit "gov.bdi.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bdi"
+   :gov.address/line-en "Constitutional Court, Bujumbura (capital relocation to Gitega in progress)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Constitutional Court of Burundi)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bdi.supreme-court.hq"
+   :gov.address/unit "gov.bdi.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bdi"
+   :gov.address/line-en "Supreme Court (Cour Suprême), near Building des Finances, Bujumbura"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "AHJUCAF / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ben.constitutional-court.hq"
+   :gov.address/unit "gov.ben.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ben"
+   :gov.address/line-en "Constitutional Court (Cour Constitutionnelle), Rue 637 Ganhi, Cotonou"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "courconstitutionnelle.bj" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgr.constitutional-court.hq"
+   :gov.address/unit "gov.bgr.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgr"
+   :gov.address/line-en "Constitutional Court, Council of Ministers building (Largo), 1 Dondukov Blvd, Sofia"
+   :gov.address/lat 42.69745 :gov.address/lon 23.32067
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "constcourt.bg / geocode (Largo)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgr.supreme-court.hq"
+   :gov.address/unit "gov.bgr.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgr"
+   :gov.address/line-en "Supreme Court of Cassation, Sofia Court House, 2 Vitosha Blvd, Sofia"
+   :gov.address/lat 42.69556 :gov.address/lon 23.32
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Sofia Court House)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhr.constitutional-court.hq"
+   :gov.address/unit "gov.bhr.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhr"
+   :gov.address/line-en "Constitutional Court, Government Avenue, Block 304, Manama"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "bahrain.bh (address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhr.supreme-court.hq"
+   :gov.address/unit "gov.bhr.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhr"
+   :gov.address/line-en "Court of Cassation, Diplomatic Area, Manama"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Judiciary of Bahrain)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.supreme-court.hq"
+   :gov.address/unit "gov.bhs.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Supreme Court, Bank Lane (Parliament Square), Nassau"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "courts.bs (Parliament Square; coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bih.constitutional-court.hq"
+   :gov.address/unit "gov.bih.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bih"
+   :gov.address/line-en "Constitutional Court, Presidency Building, Marshal Tito St 16, Sarajevo"
+   :gov.address/lat 43.8578 :gov.address/lon 18.41412
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Presidency Building of BiH)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blr.constitutional-court.hq"
+   :gov.address/unit "gov.blr.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "blr"
+   :gov.address/line-en "Constitutional Court, 4 Krasnoarmeyskaya Street, Minsk"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "kc.gov.by (address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bol.constitutional-court.hq"
+   :gov.address/unit "gov.bol.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bol"
+   :gov.address/line-en "Plurinational Constitutional Tribunal, Av. del Maestro 300, Sucre"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tcpbolivia.bo (address only)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bol.supreme-court.hq"
+   :gov.address/unit "gov.bol.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "bol"
+   :gov.address/line-en "Tribunal Supremo de Justicia (Palacio de Justicia), Calle Luis Paz, Sucre"
+   :gov.address/lat -19.04335 :gov.address/lon -65.26295
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.brb.supreme-court.hq"
+   :gov.address/unit "gov.brb.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "brb"
+   :gov.address/line-en "Barbados Supreme Court Complex, Whitepark Road, Bridgetown"
+   :gov.address/lat 13.10205 :gov.address/lon -59.61382
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "barbadoslawcourts.gov.bb / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.btn.supreme-court.hq"
+   :gov.address/unit "gov.btn.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "btn"
+   :gov.address/line-en "Supreme Court of Bhutan, N Doebum Lam, Thimphu"
+   :gov.address/lat 27.49827 :gov.address/lon 89.63479
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "judiciary.gov.bt / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.civ.constitutional-court.hq"
+   :gov.address/unit "gov.civ.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "civ"
+   :gov.address/line-en "Constitutional Council (Conseil constitutionnel), Plateau, Abidjan"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Constitutional Council, Ivory Coast; coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cmr.constitutional-court.hq"
+   :gov.address/unit "gov.cmr.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "cmr"
+   :gov.address/line-en "Constitutional Council, Palais des Congrès, Yaoundé"
+   :gov.address/lat 3.89106 :gov.address/lon 11.50057
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "prc.cm / OSM (Palais des Congrès)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cpv.supreme-court.hq"
+   :gov.address/unit "gov.cpv.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "cpv"
+   :gov.address/line-en "Supremo Tribunal de Justiça, Rua Cesário de Lacerda, Platô, Praia"
+   :gov.address/lat 14.9169 :gov.address/lon -23.50745
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "stj.cv / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.supreme-court.hq"
+   :gov.address/unit "gov.cub.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Tribunal Supremo Popular, Calle Aguiar 367, La Habana Vieja, Havana"
+   :gov.address/lat 23.13828 :gov.address/lon -82.35242
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "tsp.gob.cu / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cyp.supreme-court.hq"
+   :gov.address/unit "gov.cyp.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "cyp"
+   :gov.address/line-en "Supreme Court of Cyprus, Charalambou Mouskou Street, Nicosia"
+   :gov.address/lat 35.1744 :gov.address/lon 33.35179
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "supremecourt.gov.cy / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.dji.supreme-court.hq"
+   :gov.address/unit "gov.dji.supreme-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "dji"
+   :gov.address/line-en "Cour suprême, Djibouti City"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "justice.gouv.dj (seat in Djibouti City; building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.constitutional-court.hq"
+   :gov.address/unit "gov.ecu.constitutional-court"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Corte Constitucional del Ecuador, Av. 12 de Octubre, Quito"
+   :gov.address/lat -0.20727 :gov.address/lon -78.48954
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / OSM" :gov.address/last-verified "2026-06-04"}
 ]}

@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: high-court HQ for 50 courts (court 99 → 149/206)
+
+Continued the address axis into the court tier (was 99/206). Did 50 high courts (24 major-country
+constitutional/supreme courts + 26 mid-tier). 5 web-research subagents located each court's
+**seat building + city + coordinates** (Palazzo della Consulta, Palais-Royal Conseil
+constitutionnel, Verfassungsgerichtshof, etc.) from official court sites + Wikipedia/OSM. 50 added
++ 1 label fix (Cameroon unit "Member of the Constitutional Council…" → **Constitutional Council of
+Cameroon**).
+
+- court tier: 99 → **149/206** with an address.
+- 33 carry building-level lat/lon; **17 honestly NULL coords** (G5 — building/street seat confirmed
+  from official sites but no reliable building-level coordinate): Saudi, Ukraine, Venezuela, Angola,
+  Albania, Armenia, Azerbaijan, Burundi (×2), Benin, Bahrain (×2), Bahamas, Belarus, Bolivia CC,
+  Côte d'Ivoire, Djibouti.
+- honest seat notes: Peru CC's operative seat is the Casa de Pilatos (Lima) though its de jure seat
+  is Arequipa; Romania CC + Thailand CC sit inside the Palace of Parliament / Chaeng Watthana
+  complex; Cameroon Constitutional Council is housed in the Palais des Congrès, Yaoundé; Cuba's
+  Supreme Court is in Old Havana (Calle Aguiar 367). Each cites provenance + `:last-verified
+  2026-06-04` `:sourcing :authoritative`.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: executive HQ for 52 major economies (cabinet 0 → 52/129)
 
 Continued the address axis into the fully-empty cabinet tier (was 0/129). Did the 52 highest-value
