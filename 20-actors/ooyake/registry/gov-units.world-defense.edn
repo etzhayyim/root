@@ -194,6 +194,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Defence of the Republic of Belarus"
+   :gov.unit/name-local "Министерство обороны Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo oborony Respubliki Belarus"
    :gov.unit/official-url "https://www.mil.by/by/"
    :gov.unit/wikidata "Q2576529"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -671,6 +673,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Defense of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Қорғаныс министрлігі"
+   :gov.unit/name-romanized "Qorğanys ministrlıgı"
    :gov.unit/official-url "http://www.mod.gov.kz/"
    :gov.unit/wikidata "Q2518594"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -695,6 +699,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Defense of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Коргоо министрлиги"
+   :gov.unit/name-romanized "Korgoo ministrligi"
    :gov.unit/official-url "https://mil.gov.kg"
    :gov.unit/wikidata "Q11297769"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -869,6 +875,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "Батлан хамгаалах яам"
+   :gov.unit/name-romanized "Batlan khamgaalakh yaam"
    :gov.unit/official-url "http://www.mod.gov.mn"
    :gov.unit/wikidata "Q39053699"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1263,6 +1271,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "Вазорати мудофиаи Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati mudofiai Jumhurii Tojikiston"
    :gov.unit/official-url "http://www.mort.tj"
    :gov.unit/wikidata "Q25593450"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

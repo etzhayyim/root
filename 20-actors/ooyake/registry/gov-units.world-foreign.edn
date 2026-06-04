@@ -261,6 +261,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Belarus"
+   :gov.unit/name-local "Министерство иностранных дел Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo inostrannykh del Respubliki Belarus"
    :gov.unit/official-url "https://mfa.gov.by/"
    :gov.unit/wikidata "Q2047848"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -936,6 +938,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Сыртқы істер министрлігі"
+   :gov.unit/name-romanized "Syrtqy ister ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/mfa"
    :gov.unit/wikidata "Q1166098"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -960,6 +964,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "Кыргыз Республикасынын Тышкы иштер министрлиги"
+   :gov.unit/name-romanized "Tyshky ishter ministrligi"
    :gov.unit/official-url "https://mfa.gov.kg/"
    :gov.unit/wikidata "Q6867013"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1244,6 +1250,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Foreign Affairs of Mongolia"
+   :gov.unit/name-local "Гадаад харилцааны яам"
+   :gov.unit/name-romanized "Gadaad khariltsaany yaam"
    :gov.unit/official-url "https://mfa.gov.mn/"
    :gov.unit/wikidata "Q16071066"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1786,6 +1794,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Tajikistan"
+   :gov.unit/name-local "Вазорати корҳои хориҷии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati korhoi khorijii Jumhurii Tojikiston"
    :gov.unit/official-url "https://mfa.tj/"
    :gov.unit/wikidata "Q25592941"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

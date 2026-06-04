@@ -116,6 +116,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Labour and Social Protection of the Republic of Belarus"
+   :gov.unit/name-local "Министерство труда и социальной защиты Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo truda i sotsialnoy zashchity Respubliki Belarus"
    :gov.unit/official-url "https://mintrud.gov.by/by"
    :gov.unit/wikidata "Q6517877"
    :gov.unit/cofog ["04.1"]
@@ -636,6 +638,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Labour and Social Protection"
+   :gov.unit/name-local "Гэр бүл, хөдөлмөр, нийгмийн хамгааллын яам"
+   :gov.unit/name-romanized "Ger bül, khödölmör, niigmiin khamgaallyn yaam"
    :gov.unit/official-url "https://mlsp.gov.mn/"
    :gov.unit/wikidata "Q117474704"
    :gov.unit/cofog ["04.1"]

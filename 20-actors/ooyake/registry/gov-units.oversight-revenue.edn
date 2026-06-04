@@ -197,6 +197,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "State Tax Service under the Government of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Финансы министрлигине караштуу Мамлекеттик салык кызматы"
+   :gov.unit/name-romanized "Mamlekettik salyk kyzmaty"
    :gov.unit/official-url "https://sti.gov.kg/"
    :gov.unit/wikidata "Q25608481"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

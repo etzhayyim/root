@@ -240,6 +240,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Anti Corruption agency of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасы Сыбайлас жемқорлыққа қарсы іс-қимыл агенттігі"
+   :gov.unit/name-romanized "Sybaiylas jemqorlyqqa qarsy ıs-qimyl agenttıgı"
    :gov.unit/official-url "http://www.anticorruption.gov.kz"
    :gov.unit/wikidata "Q19844106"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

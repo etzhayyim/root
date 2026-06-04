@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: Central Asia + Belarus KZ/KG/TJ/MN/BY (734 → 832)
+
+Continued the endonym axis into Central-Asian + Mongolian + Belarusian Cyrillic. 8 web-research
+subagents. **98 ministry/agency/court/legislature endonyms added with romanization** (Kazakhstan 22,
+Kyrgyzstan 17, Tajikistan 12, Mongolia 21, Belarus 26).
+
+- all-units name-local: 734 → **832**.
+- scripts: Kazakh (Қазақстан Республикасының Үкіметі), Kyrgyz (Жогорку Кеңеши), Tajik (Маҷлиси Олӣ),
+  Mongolian (Улсын Их Хурал/Ulsyn Ikh Khural), Belarusian-Russian (Совет Министров, Нацыянальны…) — all
+  with romanization. (used an escaped-quote-safe insertion regex this round — no parse bug.)
+- **1 data-quality en-name fix**: gov.kaz.culture "Culture and Sports" → Ministry of Culture and
+  Information (current Kazakh body).
+- honest currency notes captured (names match registry labels): Kazakhstan's standalone Anti-Corruption
+  Agency dissolved 2025-06-30 into the National Security Committee; Mongolia education ministry now
+  "Боловсролын яам" (science split out 2024); Mongolia labour officially "Family, Labour and Social
+  Protection"; Kyrgyzstan agriculture reorganised to "Water Resources, Agriculture and Processing
+  Industry"; Mongolia SWF = Chinggis Khaan National Wealth Fund (umbrella; Future Heritage = sub-fund).
+
+Remaining non-Latin high-tier endonym gaps ~210 (Myanmar/Cambodia/Laos/Nepal/Sri Lanka, Eritrea/
+Ethiopia, plus scattered sub-Saharan/Pacific non-Latin) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: Balkan Cyrillic + Caucasus BG/RS/MK/GE/AM (642 → 734)
 
 Continued the endonym axis into Balkan Cyrillic + Caucasus scripts. 7 web-research subagents.

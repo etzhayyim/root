@@ -65,6 +65,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Statistical Committee of the Republic of Belarus"
+   :gov.unit/name-local "Национальный статистический комитет Республики Беларусь"
+   :gov.unit/name-romanized "Natsionalnyy statisticheskiy komitet"
    :gov.unit/official-url "http://www.belstat.gov.by"
    :gov.unit/wikidata "Q6520738"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1784,6 +1786,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "National Statistical Committee"
+   :gov.unit/name-local "Кыргыз Республикасынын Улуттук статистика комитети"
+   :gov.unit/name-romanized "Uluttuk statistika komiteti"
    :gov.unit/official-url "http://stat.kg/"
    :gov.unit/wikidata "Q55638452"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1796,6 +1800,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "TAJSTAT"
+   :gov.unit/name-local "Агентии омори назди Президенти Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Agentii omori nazdi Prezidenti Jumhurii Tojikiston"
    :gov.unit/official-url "http://stat.tj"
    :gov.unit/wikidata "Q55640579"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2114,6 +2120,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Mongolia National Statistical Committee"
+   :gov.unit/name-local "Үндэсний статистикийн хороо"
+   :gov.unit/name-romanized "Ündesnii statistikiin khoroo"
    :gov.unit/official-url "https://www.nso.mn/"
    :gov.unit/wikidata "Q108382349"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

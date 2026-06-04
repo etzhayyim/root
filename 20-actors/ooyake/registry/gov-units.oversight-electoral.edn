@@ -67,6 +67,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Central Election Commission of Belarus"
+   :gov.unit/name-local "Центральная комиссия Республики Беларусь по выборам и проведению республиканских референдумов"
+   :gov.unit/name-romanized "Tsentralnaya komissiya po vyboram i provedeniyu respublikanskikh referendumov"
    :gov.unit/official-url "http://rec.gov.by"
    :gov.unit/wikidata "Q2576708"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -385,6 +387,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Central election commission of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Орталық сайлау комиссиясы"
+   :gov.unit/name-romanized "Ortalyq saiylau komissiyasy"
    :gov.unit/official-url "https://www.election.gov.kz/eng/"
    :gov.unit/wikidata "Q25451582"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -397,6 +401,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Central Electoral Commission of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Шайлоо жана референдум өткөрүү боюнча борбордук комиссиясы"
+   :gov.unit/name-romanized "Shayloo jana referendum ötkörüü boyuncha borborduk komissiyasy"
    :gov.unit/official-url "https://shailoo.gov.kg/"
    :gov.unit/wikidata "Q5061020"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

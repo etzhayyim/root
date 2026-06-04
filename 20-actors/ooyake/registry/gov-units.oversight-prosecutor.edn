@@ -67,6 +67,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Prosecutor General's Office of the Republic of Belarus"
+   :gov.unit/name-local "Генеральная прокуратура Республики Беларусь"
+   :gov.unit/name-romanized "Generalnaya prokuratura Respubliki Belarus"
    :gov.unit/official-url "http://prokuratura.gov.by/"
    :gov.unit/wikidata "Q6482716"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

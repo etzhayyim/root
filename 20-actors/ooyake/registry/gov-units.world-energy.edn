@@ -200,6 +200,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Energy of the Republic of Belarus"
+   :gov.unit/name-local "Министерство энергетики Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo energetiki Respubliki Belarus"
    :gov.unit/official-url "http://minenergo.gov.by/"
    :gov.unit/wikidata "Q13031631"
    :gov.unit/cofog ["04.3"]
@@ -622,6 +624,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "Қазақстан Республикасының Энергетика министрлігі"
+   :gov.unit/name-romanized "Energetika ministrlıgı"
    :gov.unit/official-url "http://energo.gov.kz/"
    :gov.unit/wikidata "Q18404762"
    :gov.unit/cofog ["04.3"]
@@ -784,6 +788,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "Эрчим хүчний яам"
+   :gov.unit/name-romanized "Erchim khüchnii yaam"
    :gov.unit/official-url "https://www.energy.gov.mn/"
    :gov.unit/wikidata "Q135710656"
    :gov.unit/cofog ["04.3"]

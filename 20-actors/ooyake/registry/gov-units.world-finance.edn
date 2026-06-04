@@ -229,6 +229,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Finance of the Republic of Belarus"
+   :gov.unit/name-local "Министерство финансов Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo finansov Respubliki Belarus"
    :gov.unit/official-url "http://www.minfin.gov.by/be/"
    :gov.unit/wikidata "Q13031630"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -686,6 +688,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Finance Ministry of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Қаржы министрлігі"
+   :gov.unit/name-romanized "Qarjy ministrlıgı"
    :gov.unit/official-url "http://www.minfin.gov.kz"
    :gov.unit/wikidata "Q4294785"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -710,6 +714,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Economy and Finance"
+   :gov.unit/name-local "Кыргыз Республикасынын Финансы министрлиги"
+   :gov.unit/name-romanized "Finansy ministrligi"
    :gov.unit/official-url "https://minfin.gov.kg/"
    :gov.unit/wikidata "Q97357670"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -906,6 +912,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Finance (Mongolia)"
+   :gov.unit/name-local "Сангийн яам"
+   :gov.unit/name-romanized "Sangiin yaam"
    :gov.unit/official-url "https://mof.gov.mn/en/"
    :gov.unit/wikidata "Q86753915"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

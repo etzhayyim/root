@@ -201,6 +201,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Natural Resources and Environmental Protection of the Republic of Belarus"
+   :gov.unit/name-local "Министерство природных ресурсов и охраны окружающей среды Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo prirodnykh resursov i okhrany okruzhayushchey sredy"
    :gov.unit/official-url "http://www.minpriroda.gov.by"
    :gov.unit/wikidata "Q6517881"
    :gov.unit/cofog ["05"]
@@ -855,6 +857,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Environment and Climate Change"
+   :gov.unit/name-local "Байгаль орчин, уур амьсгалын өөрчлөлтийн яам"
+   :gov.unit/name-romanized "Baigal orchin, uur amisgalyn öörchlöltiin yaam"
    :gov.unit/official-url "https://mecc.gov.mn/"
    :gov.unit/wikidata "Q127260163"
    :gov.unit/cofog ["05"]

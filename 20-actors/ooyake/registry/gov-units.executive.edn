@@ -633,6 +633,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Government of Mongolia"
+   :gov.unit/name-local "Монгол Улсын Засгийн газар"
+   :gov.unit/name-romanized "Mongol Ulsyn Zasgiin gazar"
    :gov.unit/official-url "https://zasag.mn"
    :gov.unit/wikidata "Q16639003"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -733,6 +735,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Cabinet of Ministers of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Министрлер Кабинети"
+   :gov.unit/name-romanized "Ministrler Kabineti"
    :gov.unit/official-url "https://www.gov.kg"
    :gov.unit/wikidata "Q24031608"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1197,6 +1201,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Council of Ministers of the Republic of Belarus"
+   :gov.unit/name-local "Совет Министров Республики Беларусь"
+   :gov.unit/name-romanized "Sovet Ministrov Respubliki Belarus"
    :gov.unit/official-url "http://government.gov.by/by/"
    :gov.unit/wikidata "Q997640"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1257,6 +1263,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Government of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Үкіметі"
+   :gov.unit/name-romanized "Ükımetı"
    :gov.unit/official-url "http://www.government.kz/ru/"
    :gov.unit/wikidata "Q3814905"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

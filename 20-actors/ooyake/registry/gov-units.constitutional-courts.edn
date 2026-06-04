@@ -272,6 +272,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Constitutional Court of Belarus"
+   :gov.unit/name-local "Конституционный Суд Республики Беларусь"
+   :gov.unit/name-romanized "Konstitutsionnyy Sud Respubliki Belarus"
    :gov.unit/official-url "http://kc.gov.by/en/main.aspx"
    :gov.unit/wikidata "Q252742"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -472,6 +474,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Constitutional Court of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Конституциялық Соты"
+   :gov.unit/name-romanized "Konstitutsiyalyq Soty"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/ksrk"
    :gov.unit/wikidata "Q4231510"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -610,6 +614,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Constitutional Court of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Конституциялык соту"
+   :gov.unit/name-romanized "Konstitutsiyalyk sotu"
    :gov.unit/official-url "https://constsot.kg/"
    :gov.unit/wikidata "Q5164291"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -634,6 +640,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Constitutional Court of Tajikistan"
+   :gov.unit/name-local "Суди конститутсионии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Sudi konstitutsionii Jumhurii Tojikiston"
    :gov.unit/official-url "https://constcourt.tj/"
    :gov.unit/wikidata "Q31456451"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

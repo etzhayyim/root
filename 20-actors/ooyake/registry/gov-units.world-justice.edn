@@ -265,6 +265,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Justice of the Republic of Belarus"
+   :gov.unit/name-local "Министерство юстиции Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo yustitsii Respubliki Belarus"
    :gov.unit/official-url "http://minjust.gov.by"
    :gov.unit/wikidata "Q3918962"
    :gov.unit/cofog ["03.3"]
@@ -966,6 +968,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Justice of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Әділет министрлігі"
+   :gov.unit/name-romanized "Ädilet ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/adilet"
    :gov.unit/wikidata "Q973886"
    :gov.unit/cofog ["03.3"]
@@ -982,6 +986,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Justice (Kyrgyzstan)"
+   :gov.unit/name-local "Кыргыз Республикасынын Юстиция министрлиги"
+   :gov.unit/name-romanized "Yustitsiya ministrligi"
    :gov.unit/official-url "http://minjust.gov.kg/en/"
    :gov.unit/wikidata "Q55648355"
    :gov.unit/cofog ["03.3"]
@@ -1881,6 +1887,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "Вазорати адлияи Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati adliyai Jumhurii Tojikiston"
    :gov.unit/official-url "https://www.adliya.tj/"
    :gov.unit/wikidata "Q25581691"
    :gov.unit/cofog ["03.3"]

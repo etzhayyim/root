@@ -49,6 +49,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Industry of the Republic of Belarus"
+   :gov.unit/name-local "Министерство промышленности Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo promyshlennosti Respubliki Belarus"
    :gov.unit/official-url "https://minprom.gov.by"
    :gov.unit/wikidata "Q6517870"
    :gov.unit/cofog ["04.4"]
@@ -117,6 +119,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Industry and Construction"
+   :gov.unit/name-local "Қазақстан Республикасының Өнеркәсіп және құрылыс министрлігі"
+   :gov.unit/name-romanized "Önerkäsip jäne qūrylys ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/mps?lang=en"
    :gov.unit/wikidata "Q124731313"
    :gov.unit/cofog ["04.4"]

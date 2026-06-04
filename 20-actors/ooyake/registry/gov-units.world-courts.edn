@@ -197,6 +197,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Supreme Court of Belarus"
+   :gov.unit/name-local "Верховный Суд Республики Беларусь"
+   :gov.unit/name-romanized "Verkhovnyy Sud Respubliki Belarus"
    :gov.unit/official-url "http://www.supcourt.by/"
    :gov.unit/wikidata "Q3001108"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -824,6 +826,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Supreme Court of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Жоғарғы Соты"
+   :gov.unit/name-romanized "Joğarğy Soty"
    :gov.unit/official-url "https://sud.gov.kz"
    :gov.unit/wikidata "Q4109099"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -848,6 +852,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Supreme Court of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Жогорку соту"
+   :gov.unit/name-romanized "Jogorku sotu"
    :gov.unit/official-url "https://www.sot.kg/"
    :gov.unit/wikidata "Q106498794"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1082,6 +1088,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Supreme Court of Mongolia"
+   :gov.unit/name-local "Монгол Улсын Дээд шүүх"
+   :gov.unit/name-romanized "Mongol Ulsyn Deed shüükh"
    :gov.unit/official-url "https://www.supremecourt.mn/en"
    :gov.unit/wikidata "Q7644946"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1598,6 +1606,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Supreme Court of Tajikistan"
+   :gov.unit/name-local "Суди Олии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Sudi Olii Jumhurii Tojikiston"
    :gov.unit/official-url "https://egov.tj/site/sud-tjk?lang=en"
    :gov.unit/wikidata "Q21662238"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

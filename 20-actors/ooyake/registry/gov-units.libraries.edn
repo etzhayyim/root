@@ -255,6 +255,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "National Library of Tajikistan"
+   :gov.unit/name-local "Китобхонаи миллии Тоҷикистон"
+   :gov.unit/name-romanized "Kitobkhonai millii Tojikiston"
    :gov.unit/official-url "http://kmt.tj/"
    :gov.unit/wikidata "Q13201421"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -937,6 +939,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "National Library of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ұлттық академиялық кітапханасы"
+   :gov.unit/name-romanized "Ūlttyq akademııalyq kitaphanasy"
    :gov.unit/official-url "http://www.nlrk.kz/"
    :gov.unit/wikidata "Q627207"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1288,6 +1292,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "National Library of the Kyrgyz Republic"
+   :gov.unit/name-local "Алыкул Осмонов атындагы Кыргыз Республикасынын Улуттук китепканасы"
+   :gov.unit/name-romanized "Alykul Osmonov atyndagy Uluttuk kitepkanasy"
    :gov.unit/official-url "http://nlkr.gov.kg"
    :gov.unit/wikidata "Q6974182"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1665,6 +1671,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "National Library of Mongolia"
+   :gov.unit/name-local "Монгол Улсын Үндэсний номын сан"
+   :gov.unit/name-romanized "Mongol Ulsyn Ündesnii nomyn san"
    :gov.unit/official-url "http://www.nationallibrary.mn"
    :gov.unit/wikidata "Q625912"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1859,6 +1867,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Library of Belarus"
+   :gov.unit/name-local "Национальная библиотека Беларуси"
+   :gov.unit/name-romanized "Natsionalnaya biblioteka Belarusi"
    :gov.unit/official-url "https://www.nlb.by/"
    :gov.unit/wikidata "Q971450"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
