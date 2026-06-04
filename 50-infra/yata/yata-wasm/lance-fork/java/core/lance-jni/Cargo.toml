@@ -26,7 +26,7 @@ arrow-schema.workspace = true
 datafusion.workspace = true
 object_store.workspace = true
 tokio.workspace = true
-jni = "0.21.1"
+jni = "0.22.4"
 snafu.workspace = true
 lazy_static.workspace = true
 serde = { version = "^1" }
