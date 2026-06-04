@@ -1,7 +1,7 @@
 ---
 id: adr-2606042330-entity-as-actor-society-wide-social-mirror-graph
 title: "ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors"
-status: proposed
+status: accepted
 doc_type: adr
 topic: entity-as-actor-social-mirror-graph
 authoritative: true
@@ -38,7 +38,7 @@ superseded_by: []
 
 # ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors
 
-**Status**: proposed
+**Status**: accepted (landed + live on etzhayyim.com)
 **Date**: 2026-06-04
 **Deciders**: Jun Kawasaki
 
@@ -276,6 +276,36 @@ isMirror=true`, `const serverHeldKey=false`, `personSubject` **unrepresentable**
    adopted as a *honesty knob*: `<NS>_TOTAL_COUNT` reports exactly what is registered, and thin
    entities still resolve a minimal mirror profile (no fabricated coverage, G7); we do not silently
    truncate.
+
+# Update — landed + live (2026-06-04)
+
+Shipped to the apex `etzhayyim.com` Worker and verified in production:
+
+- **8,888 entity mirror-actors** registered (gov 7,106 · corp 1,733 · cable 14 ·
+  station 22 · craft 13) via 5 generated `entity-handles.<ns>.gen.ts`; each resolves
+  a keyless `did:web:etzhayyim.com:actor:<ns>-<…>` and carries the mirror disclaimer.
+  `/.well-known/actors.json` `totalResolvableActors` = 27,247 (entities + UNSPSC +
+  named/service).
+- **searchActors short-circuit** (offset-cursor + `totalActors`) made the corpus
+  searchable; **`/search` showed only ~62 until two further fixes**:
+  1. the default browse view calls **`getSuggestions`**, not searchActors — so the
+     short-circuit was extended to answer getSuggestions too (browse the whole
+     entity universe, q="");
+  2. the **yoro service worker `kotoba-sw.js`** intercepts searchActors and
+     *backfills* any seed actor missing from the live response, resetting
+     `totalActors = merged.actors.length` (~62). Fix on the Worker side (also more
+     correct): the first page now prepends the compiled **named + infra actors**
+     (the SW's seed DIDs), so the SW finds nothing missing and passes the response
+     through untouched. Live: `searchActors?limit=50` → 67 actors, **totalActors =
+     8,905**, cursor=50; `/search` renders "8,905 actors" and paginates. The proper
+     long-term fix is in yoro (`merged.totalActors = live.totalActors ?? …`).
+- **Named Tier-B actors registered**: `gen-tier-b-actors.mjs` reads every
+  `20-actors/<h>/manifest.jsonld` with `tier == "Tier-B"` and emits
+  `tier-b-actors.gen.ts` (**43 actors** — sanae/hataori-class robotics, danjo/tadori,
+  himotoki/toritsugi/moushibumi/kurashimori, sarutahiko/funadaiku/watatsumi, …),
+  merged into `INFRA_ACTORS` (hand-authored wins on clash). Each now resolves its DID
+  and appears in search. State stays kotoba-native; `verificationMethod` empty
+  (no-server-key).
 
 # References
 

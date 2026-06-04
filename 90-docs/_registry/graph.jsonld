@@ -13320,7 +13320,7 @@
       "id": "doc:adr-2606042330-entity-as-actor-society-wide-social-mirror-graph",
       "type": "TechArticle",
       "title": "ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "entity-as-actor-social-mirror-graph",
       "authoritative": true,
       "authoritativeFor": [
