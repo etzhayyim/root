@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — culture + energy + environment ministry sites: 34 web-verified (1525 → 1559 ministries, 95%)
+
+Continued the ministry tier with culture (13) + energy (12) + environment (12). 3 web-research
+subagents found + **confirmed each ministry's own official site by fetching it**. 34 confirmed
+(provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+
+- ministries: 1525 → **1559/1642** with an official site (**95%**).
+- 3 HONESTLY left null (G5): South Sudan culture + environment, Zimbabwe culture — no
+  confirmable dedicated ministry site (only third-party/social profiles or an unreachable
+  national-portal section).
+- honest reorganization notes recorded (current holder used, not a stale named body):
+  Armenia energy merged into MTAI 2019 → mtad.am (minenergy.am is archived); Luxembourg
+  energy now under the Ministry of the Economy (meco.gouvernement.lu); South Africa DMRE
+  split 2024 (DEE still on dmre.gov.za per gov.za); Myanmar culture moved to the Hotels/
+  Tourism/Culture ministry; Belize energy → MPUELE. Temporary-down/cert caveats noted
+  (Guinea mehh.gov.gn 503; several WAF/geo-blocked) — all genuine official government domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — education + interior ministry sites: 31 web-verified (1494 → 1525 ministries)
 
 Continued the ministry tier with education (16) + interior/home-affairs (16). 4 web-research
