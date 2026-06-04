@@ -80,7 +80,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-en "Department of Health, Disability and Ageing"
    :gov.unit/official-url "https://www.health.nsw.gov.au/"
    :gov.unit/wikidata "Q6867095"
    :gov.unit/cofog ["07"]
@@ -336,7 +336,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-en "Health Canada"
    :gov.unit/official-url "http://www.saskatchewan.ca/government/government-structure/ministries/health"
    :gov.unit/wikidata "Q17013968"
    :gov.unit/cofog ["07"]
@@ -384,7 +384,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "civ"
-   :gov.unit/name-en "Ministry of Health and the Fight against AIDS"
+   :gov.unit/name-en "Ministry of Health, Public Hygiene and Universal Health Coverage"
    :gov.unit/official-url "http://www.sante.gouv.ci/"
    :gov.unit/wikidata "Q25203092"
    :gov.unit/cofog ["07"]

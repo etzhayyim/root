@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: 60 more ministry HQs (1209 → 1269) + 21 subnational/stale name fixes
+
+Second ministry-tier address batch (next 19 priority countries: Malaysia, Kenya, Peru, Uzbekistan,
+Ukraine, Argentina, Canada, Iraq, Spain, Mozambique, Tanzania, Algeria, etc.). 6 web-research
+subagents (gemini still quota-blocked for bulk; subagents the reliable path). 60 added; 52
+building-level lat/lon; 8 honest NULL coords (G5): Iraq env/interior/transport, Uzbekistan justice,
+Malaysia housing, Mozambique culture, Tanzania education, Kenya defence (military compound).
+
+- ministries: 1209 → **1269/1642** with an address.
+- **21 data-quality name fixes** (Wikidata stale/subnational → current NATIONAL body): Spain
+  comms→Digital Transformation + env→MITECO; Ukraine housing→Communities & Territories, tourism→
+  Culture; Argentina comms→ENACOM, trade/transport→Secretariats (Min. Economy); **Canada energy→
+  Natural Resources Canada, health→Health Canada**; Malaysia energy→PETRA, env→NRES, interior→KDN,
+  labour→KESUMA, trade→MITI; Côte d'Ivoire health full name; Nepal env→Forests & Environment;
+  **Australia health→Dept of Health, Disability & Ageing, labour (was Victoria 'Jobs, Precincts &
+  Regions')→Dept of Employment & Workplace Relations**; Kenya culture→Youth Affairs, Arts & Sports;
+  Tanzania labour→PMO.
+- honest seat notes: Malaysia federal ministries in Putrajaya (defence/MITI in KL); Argentina
+  trade+transport share the Palacio de Hacienda; Kenya finance/foreign at Treasury / Old Treasury
+  on Harambee Ave; Peru MIDAGRI now Jr. Cahuide 805 (registry hint stale). Approx flagged (Colombia
+  science block-level, Uzbekistan agriculture official-vs-directory address conflict).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: 60 priority ministry HQs (1149 → 1209) + 20 subnational-mislabel fixes
 
 Opened the ministry-tier address fill (493 missing) with 60 HQs across the 17 most-populous /

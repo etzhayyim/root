@@ -1136,7 +1136,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/name-en "Ministry of Home Affairs (KDN)"
    :gov.unit/official-url "http://www.moha.gov.my/"
    :gov.unit/wikidata "Q4294304"
    :gov.unit/cofog ["03.1"]

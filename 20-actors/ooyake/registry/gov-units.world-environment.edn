@@ -432,7 +432,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Ministry of Agriculture and Fisheries, Food and Environment"
+   :gov.unit/name-en "Ministry for the Ecological Transition and the Demographic Challenge (MITECO)"
    :gov.unit/official-url "http://www.mapama.gob.es/"
    :gov.unit/wikidata "Q27748945"
    :gov.unit/cofog ["05"]
@@ -848,7 +848,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Department of Environment"
+   :gov.unit/name-en "Ministry of Natural Resources and Environmental Sustainability (NRES)"
    :gov.unit/official-url "https://www.doe.gov.my/portalv1/"
    :gov.unit/wikidata "Q12688329"
    :gov.unit/cofog ["05"]
@@ -928,7 +928,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
-   :gov.unit/name-en "Ministry of Science, Technology and Environment"
+   :gov.unit/name-en "Ministry of Forests and Environment"
    :gov.unit/official-url "https://moest.gov.np/"
    :gov.unit/wikidata "Q13186005"
    :gov.unit/cofog ["05"]

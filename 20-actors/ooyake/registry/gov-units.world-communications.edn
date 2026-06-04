@@ -47,7 +47,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
-   :gov.unit/name-en "Ministry of Communication of Argentina"
+   :gov.unit/name-en "Ente Nacional de Comunicaciones (ENACOM)"
    :gov.unit/official-url "https://www.argentina.gob.ar/jefatura/innovacion-ciencia-y-tecnologia/comunicaciones-y-conectividad"
    :gov.unit/wikidata "Q21694869"
    :gov.unit/cofog ["04.6"]
@@ -175,7 +175,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Ministry of Transport, Tourism and Communications of Spain"
+   :gov.unit/name-en "Ministry for Digital Transformation and Civil Service"
    :gov.unit/official-url "https://digital.gob.es/"
    :gov.unit/wikidata "Q11936839"
    :gov.unit/cofog ["04.6"]

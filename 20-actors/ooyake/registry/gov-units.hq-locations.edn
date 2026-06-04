@@ -8908,4 +8908,536 @@
    :gov.address/lat -25.74975 :gov.address/lon 28.20331
    :gov.address/sourcing :authoritative
    :gov.address/provenance "OSM/tourism.gov.za" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irq.environment.hq"
+   :gov.address/unit "gov.irq.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "irq"
+   :gov.address/line-en "Ministry of Health and Environment, Bab Al-Muadham, Rusafa, Baghdad"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (coord unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irq.interior.hq"
+   :gov.address/unit "gov.irq.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "irq"
+   :gov.address/line-en "Ministry of Interior, Al-Kailani area, Baghdad"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (coord unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irq.transport.hq"
+   :gov.address/unit "gov.irq.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "irq"
+   :gov.address/line-en "Ministry of Transport, Al-Qanat Street, Baghdad"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (coord unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.col.justice.hq"
+   :gov.address/unit "gov.col.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "col"
+   :gov.address/line-en "Ministerio de Justicia y del Derecho, Calle 53 No.13-27, Bogotá"
+   :gov.address/lat 4.64 :gov.address/lon -74.06538
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "minjusticia.gov.co/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.col.science.hq"
+   :gov.address/unit "gov.col.science"
+   :gov.address/kind :headquarters
+   :gov.address/country "col"
+   :gov.address/line-en "Minciencias, Av Calle 26 No.57-83, Bogotá"
+   :gov.address/lat 4.6455 :gov.address/lon -74.0945
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "minciencias.gov.co (block-level)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.esp.communications.hq"
+   :gov.address/unit "gov.esp.communications"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Complejo Cuzco, Paseo de la Castellana 162, Madrid"
+   :gov.address/lat 40.45777 :gov.address/lon -3.68868
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "digital.gob.es/Photon" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.esp.environment.hq"
+   :gov.address/unit "gov.esp.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Plaza de San Juan de la Cruz, Madrid"
+   :gov.address/lat 40.44154 :gov.address/lon -3.69451
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "miteco.gob.es" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ukr.agriculture.hq"
+   :gov.address/unit "gov.ukr.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "ukr"
+   :gov.address/line-en "Ministry of Agrarian Policy and Food, Khreshchatyk 24, Kyiv"
+   :gov.address/lat 50.44876 :gov.address/lon 30.52214
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "minagro.gov.ua/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ukr.housing.hq"
+   :gov.address/unit "gov.ukr.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "ukr"
+   :gov.address/line-en "Velyka Zhytomyrska St 9, Kyiv"
+   :gov.address/lat 50.45517 :gov.address/lon 30.51615
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mindev.gov.ua/Photon" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ukr.tourism.hq"
+   :gov.address/unit "gov.ukr.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "ukr"
+   :gov.address/line-en "Ministry of Culture, Ivana Franka St 19, Kyiv"
+   :gov.address/lat 50.44801 :gov.address/lon 30.50963
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mincult.gov.ua/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arg.communications.hq"
+   :gov.address/unit "gov.arg.communications"
+   :gov.address/kind :headquarters
+   :gov.address/country "arg"
+   :gov.address/line-en "ENACOM, Perú 103, Buenos Aires"
+   :gov.address/lat -34.60928 :gov.address/lon -58.37496
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "enacom.gob.ar/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arg.trade.hq"
+   :gov.address/unit "gov.arg.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "arg"
+   :gov.address/line-en "Palacio de Hacienda, Av. H. Yrigoyen 250, Buenos Aires"
+   :gov.address/lat -34.60934 :gov.address/lon -58.36984
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "argentina.gob.ar/economia/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.arg.transport.hq"
+   :gov.address/unit "gov.arg.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "arg"
+   :gov.address/line-en "Palacio de Hacienda, Av. H. Yrigoyen 250, Buenos Aires"
+   :gov.address/lat -34.60934 :gov.address/lon -58.36984
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "argentina.gob.ar/economia/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.can.energy.hq"
+   :gov.address/unit "gov.can.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Sir William Logan Building (NRCan), 580 Booth St, Ottawa"
+   :gov.address/lat 45.3999 :gov.address/lon -75.70589
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "natural-resources.canada.ca" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.can.health.hq"
+   :gov.address/unit "gov.can.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Brooke Claxton Building, Tunney's Pasture, Ottawa"
+   :gov.address/lat 45.40877 :gov.address/lon -75.73737
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/Parks Canada DFHD" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.can.science.hq"
+   :gov.address/unit "gov.can.science"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "C.D. Howe Building, 235 Queen St, Ottawa"
+   :gov.address/lat 45.42 :gov.address/lon -75.70222
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mar.social.hq"
+   :gov.address/unit "gov.mar.social"
+   :gov.address/kind :headquarters
+   :gov.address/country "mar"
+   :gov.address/line-en "Avenue Ibn Sina, Agdal, Rabat"
+   :gov.address/lat 33.99379 :gov.address/lon -6.8511
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/Photon" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uzb.agriculture.hq"
+   :gov.address/unit "gov.uzb.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "uzb"
+   :gov.address/line-en "Tashkent State Agrarian University campus, Qibray, Tashkent region"
+   :gov.address/lat 41.36251 :gov.address/lon 69.34284
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gov.uz/agro/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uzb.culture.hq"
+   :gov.address/unit "gov.uzb.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "uzb"
+   :gov.address/line-en "International Business Center, Amir Temur Ave 107B, Tashkent"
+   :gov.address/lat 41.33642 :gov.address/lon 69.28234
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gov.uz/madaniyat/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uzb.interior.hq"
+   :gov.address/unit "gov.uzb.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "uzb"
+   :gov.address/line-en "Yunus Rajabiy St 1, Yakkasaray, Tashkent"
+   :gov.address/lat 41.30461 :gov.address/lon 69.26446
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "iiv.uz/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uzb.justice.hq"
+   :gov.address/unit "gov.uzb.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "uzb"
+   :gov.address/line-en "Ministry of Justice, 5 Sayilgokh St, Tashkent"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gov.uz/adliya (coord unverified)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.per.agriculture.hq"
+   :gov.address/unit "gov.per.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "MIDAGRI, Jr. Cahuide 805, Jesús María, Lima"
+   :gov.address/lat -12.07913 :gov.address/lon -77.04347
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gob.pe/midagri/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.per.housing.hq"
+   :gov.address/unit "gov.per.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "VIVIENDA, Av. República de Panamá 3650, San Isidro, Lima"
+   :gov.address/lat -12.10099 :gov.address/lon -77.01946
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gob.pe/vivienda/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.per.labour.hq"
+   :gov.address/unit "gov.per.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "MTPE, Av. Gral. Salaverry 655, Jesús María, Lima"
+   :gov.address/lat -12.07162 :gov.address/lon -77.04053
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gob.pe/mtpe/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.per.trade.hq"
+   :gov.address/unit "gov.per.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "MINCETUR, Calle Uno Oeste 050, San Isidro, Lima"
+   :gov.address/lat -12.09806 :gov.address/lon -77.01485
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mincetur.gob.pe/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.agriculture.hq"
+   :gov.address/unit "gov.mys.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Wisma Tani, Presint 4, Putrajaya"
+   :gov.address/lat 2.91525 :gov.address/lon 101.68333
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "kpkm.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.culture.hq"
+   :gov.address/unit "gov.mys.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "MOTAC, Menara 1, Presint 5, Putrajaya"
+   :gov.address/lat 2.89808 :gov.address/lon 101.66835
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "motac.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.defense.hq"
+   :gov.address/unit "gov.mys.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Wisma Pertahanan, Jalan Padang Tembak, Kuala Lumpur"
+   :gov.address/lat 3.1758 :gov.address/lon 101.72212
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mod.gov.my" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.energy.hq"
+   :gov.address/unit "gov.mys.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "PETRA, No.25 Persiaran Perdana, Presint 4, Putrajaya"
+   :gov.address/lat 2.91455 :gov.address/lon 101.68478
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "petra.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.environment.hq"
+   :gov.address/unit "gov.mys.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "NRES, Wisma Sumber Asli, No.25 Persiaran Perdana, Presint 4, Putrajaya"
+   :gov.address/lat 2.91455 :gov.address/lon 101.68478
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "nres.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.foreign.hq"
+   :gov.address/unit "gov.mys.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Wisma Putra, Presint 2, Putrajaya"
+   :gov.address/lat 2.92566 :gov.address/lon 101.69223
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "kln.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.housing.hq"
+   :gov.address/unit "gov.mys.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "No.51 Persiaran Perdana, Presint 4, Putrajaya"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "kpkt.gov.my (coord unverified)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.interior.hq"
+   :gov.address/unit "gov.mys.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Block D1, Kompleks Parcel D, Presint 1, Putrajaya"
+   :gov.address/lat 2.93929 :gov.address/lon 101.70532
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "moha.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.labour.hq"
+   :gov.address/unit "gov.mys.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Blok D3, Kompleks Parcel D, Presint 1, Putrajaya"
+   :gov.address/lat 2.93799 :gov.address/lon 101.70522
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ksm.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.trade.hq"
+   :gov.address/unit "gov.mys.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Menara MITI, KL Metropolis, Kuala Lumpur"
+   :gov.address/lat 3.17659 :gov.address/lon 101.66818
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "miti.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.transport.hq"
+   :gov.address/unit "gov.mys.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "No.26 Jalan Tun Hussein, Presint 4, Putrajaya"
+   :gov.address/lat 2.91226 :gov.address/lon 101.68534
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mot.gov.my/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gha.foreign.hq"
+   :gov.address/unit "gov.gha.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "gha"
+   :gov.address/line-en "No.5 Agostinho Neto Road, Airport Residential, Accra"
+   :gov.address/lat 5.60407 :gov.address/lon -0.17897
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mfa.gov.gh/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.culture.hq"
+   :gov.address/unit "gov.moz.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Avenida 10 de Novembro Nº40, Maputo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official (no distinct building node)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.foreign.hq"
+   :gov.address/unit "gov.moz.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Avenida 10 de Novembro 620-40, Maputo"
+   :gov.address/lat -25.97872 :gov.address/lon 32.57642
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM (MINEC)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.science.hq"
+   :gov.address/unit "gov.moz.science"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Avenida Patrice Lumumba 770, Maputo"
+   :gov.address/lat -25.97258 :gov.address/lon 32.57992
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM (MCTES)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdg.finance.hq"
+   :gov.address/unit "gov.mdg.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "Ministère de l'Économie et des Finances, Antaninarenina, Antananarivo"
+   :gov.address/lat -18.90908 :gov.address/lon 47.52857
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/Photon" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdg.justice.hq"
+   :gov.address/unit "gov.mdg.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "Ministère de la Justice, Faravohitra, Antananarivo"
+   :gov.address/lat -18.91201 :gov.address/lon 47.53169
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.civ.health.hq"
+   :gov.address/unit "gov.civ.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "civ"
+   :gov.address/line-en "Tour C, Cité Administrative, Abidjan-Plateau"
+   :gov.address/lat 5.33317 :gov.address/lon -4.02336
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sante.gouv.ci/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.npl.environment.hq"
+   :gov.address/unit "gov.npl.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "npl"
+   :gov.address/line-en "Ministry of Forests and Environment, Singha Durbar, Kathmandu"
+   :gov.address/lat 27.6945 :gov.address/lon 85.32486
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "forest.gov.np/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.npl.health.hq"
+   :gov.address/unit "gov.npl.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "npl"
+   :gov.address/line-en "Ministry of Health and Population, Ramshah Path, Kathmandu"
+   :gov.address/lat 27.69576 :gov.address/lon 85.32036
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mohp.gov.np/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aus.health.hq"
+   :gov.address/unit "gov.aus.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "Sirius Building, 23 Furzer St, Phillip, Canberra"
+   :gov.address/lat -35.34262 :gov.address/lon 149.08436
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "health.gov.au/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aus.labour.hq"
+   :gov.address/unit "gov.aus.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "50 Marcus Clarke St, Canberra"
+   :gov.address/lat -35.27747 :gov.address/lon 149.12685
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "dewr.gov.au/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tza.agriculture.hq"
+   :gov.address/unit "gov.tza.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "tza"
+   :gov.address/line-en "Wizara ya Kilimo, Mtumba Government City, Dodoma"
+   :gov.address/lat -6.17684 :gov.address/lon 35.74687
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "kilimo.go.tz/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tza.education.hq"
+   :gov.address/unit "gov.tza.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "tza"
+   :gov.address/line-en "Ministry of Education, Mtumba Government City, Dodoma"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "moe.go.tz (coord unverified)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tza.labour.hq"
+   :gov.address/unit "gov.tza.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "tza"
+   :gov.address/line-en "Prime Minister's Office (Labour), Mtumba Government City, Dodoma"
+   :gov.address/lat -6.18456 :gov.address/lon 35.74669
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.agriculture.hq"
+   :gov.address/unit "gov.ken.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Kilimo House, Cathedral Road, Nairobi"
+   :gov.address/lat -1.29213 :gov.address/lon 36.81512
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "kilimo.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.culture.hq"
+   :gov.address/unit "gov.ken.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Talanta Plaza, Upper Hill, Nairobi"
+   :gov.address/lat -1.30128 :gov.address/lon 36.81461
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sports.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.defense.hq"
+   :gov.address/unit "gov.ken.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Ulinzi House, Lenana Road, Nairobi"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mod.go.ke (military compound; coord unverified)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.education.hq"
+   :gov.address/unit "gov.ken.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Jogoo House B, Harambee Avenue, Nairobi"
+   :gov.address/lat -1.28873 :gov.address/lon 36.82437
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "education.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.finance.hq"
+   :gov.address/unit "gov.ken.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Treasury Building, Harambee Avenue, Nairobi"
+   :gov.address/lat -1.2893 :gov.address/lon 36.8247
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "treasury.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.foreign.hq"
+   :gov.address/unit "gov.ken.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Old Treasury Building, Harambee Avenue, Nairobi"
+   :gov.address/lat -1.28967 :gov.address/lon 36.82273
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mfa.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.health.hq"
+   :gov.address/unit "gov.ken.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Afya House, Cathedral Road, Nairobi"
+   :gov.address/lat -1.29167 :gov.address/lon 36.81517
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "health.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.transport.hq"
+   :gov.address/unit "gov.ken.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Transcom House, Ngong Road, Nairobi"
+   :gov.address/lat -1.29178 :gov.address/lon 36.81309
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "transport.go.ke/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.dza.agriculture.hq"
+   :gov.address/unit "gov.dza.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "dza"
+   :gov.address/line-en "Ministère de l'Agriculture, 12 bd Colonel Amirouche, Alger"
+   :gov.address/lat 36.7706 :gov.address/lon 3.05867
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "madrp.gov.dz/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.dza.finance.hq"
+   :gov.address/unit "gov.dza.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "dza"
+   :gov.address/line-en "Immeuble Ahmed Francis, Ben Aknoun, Alger"
+   :gov.address/lat 36.7555 :gov.address/lon 3.01922
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mf.gov.dz/OSM" :gov.address/last-verified "2026-06-04"}
 ]}
