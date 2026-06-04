@@ -121,9 +121,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "slb"
    :gov.unit/name-en "National Library of Solomon Islands"
+   :gov.unit/official-url "https://mehrd.gov.sb/national-education-services/national-library-division"
    :gov.unit/wikidata "Q130718410"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q130718410" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://mehrd.gov.sb/national-education-services/national-library-division" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.som.library"
@@ -156,9 +157,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tkm"
    :gov.unit/name-en "National Library of Turkmenistan"
+   :gov.unit/official-url "https://dovletkitaphana.gov.tm/en/"
    :gov.unit/wikidata "Q12016613"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12016613" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://dovletkitaphana.gov.tm/en/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.com.library"
@@ -167,9 +169,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "com"
    :gov.unit/name-en "National Library of the Comoros"
+   :gov.unit/official-url "https://cndrs.km/"
    :gov.unit/wikidata "Q12193681"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12193681" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://cndrs.km/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sau.library"
@@ -249,7 +252,7 @@
    :gov.unit/parent "gov.syr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
-   :gov.unit/name-en "Al-Zahiriyah Library"
+   :gov.unit/name-en "National Library of Syria"
    :gov.unit/wikidata "Q618436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q618436" :gov.unit/last-verified "2026-06-04"
@@ -437,9 +440,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "National Central Library (Tanzania)"
+   :gov.unit/official-url "https://www.tlsb.go.tz/"
    :gov.unit/wikidata "Q47011220"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q47011220" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.tlsb.go.tz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gab.library"
@@ -549,10 +553,11 @@
    :gov.unit/parent "gov.gha"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gha"
-   :gov.unit/name-en "Keta Library, GhLA"
+   :gov.unit/name-en "Ghana Library Authority"
+   :gov.unit/official-url "https://www.library.gov.gh/"
    :gov.unit/wikidata "Q68651598"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q68651598" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.library.gov.gh/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ken.library"
@@ -656,9 +661,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mlt"
    :gov.unit/name-en "National Library of Malta"
+   :gov.unit/official-url "https://maltalibraries.gov.mt/"
    :gov.unit/wikidata "Q1535341"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1535341" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://maltalibraries.gov.mt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.library"
@@ -942,9 +948,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kna"
    :gov.unit/name-en "Charles A. Halbert Public Library"
+   :gov.unit/official-url "http://www.nationallibraryofsaintkittsandnevis.org/"
    :gov.unit/wikidata "Q5074840"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5074840" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "http://www.nationallibraryofsaintkittsandnevis.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mex.library"
@@ -1073,9 +1080,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ben"
    :gov.unit/name-en "National Library of Benin"
+   :gov.unit/official-url "https://www.bnb.bj/"
    :gov.unit/wikidata "Q6974139"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6974139" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.bnb.bj/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bdi.library"
@@ -1119,9 +1127,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Juan Ramón Molina National Library"
+   :gov.unit/official-url "https://secapph.gob.hn/direccion-general-del-libro-y-documento/biblioteca-nacional"
    :gov.unit/wikidata "Q6974150"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6974150" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://secapph.gob.hn/direccion-general-del-libro-y-documento/biblioteca-nacional" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jor.library"
@@ -1188,9 +1197,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rwa"
    :gov.unit/name-en "National Library of Rwanda"
+   :gov.unit/official-url "https://www.rwandaheritage.gov.rw/en/national-library-services"
    :gov.unit/wikidata "Q6974170"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6974170" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.rwandaheritage.gov.rw/en/national-library-services" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gmb.library"
@@ -1199,9 +1209,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gmb"
    :gov.unit/name-en "National Library of The Gambia"
+   :gov.unit/official-url "https://gnlsa.gov.gm/"
    :gov.unit/wikidata "Q6974175"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6974175" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://gnlsa.gov.gm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.uzb.library"
@@ -1222,9 +1233,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "National Library of Zimbabwe"
+   :gov.unit/official-url "https://www.archives.gov.zw/"
    :gov.unit/wikidata "Q6974180"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6974180" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.archives.gov.zw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kgz.library"
@@ -1544,9 +1556,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "png"
    :gov.unit/name-en "National Library of Papua New Guinea"
+   :gov.unit/official-url "https://www.ola.gov.pg/"
    :gov.unit/wikidata "Q621943"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q621943" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.ola.gov.pg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rou.library"
@@ -1615,9 +1628,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "civ"
    :gov.unit/name-en "National Library of Ivory Coast"
+   :gov.unit/official-url "https://www.bnci.ci/"
    :gov.unit/wikidata "Q626855"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q626855" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.bnci.ci/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jam.library"
@@ -1650,9 +1664,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "brb"
    :gov.unit/name-en "National Library Service of Barbados"
+   :gov.unit/official-url "https://library.gov.bb/"
    :gov.unit/wikidata "Q629924"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q629924" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://library.gov.bb/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.atg.library"

@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — national libraries: 15 web-verified + 2 label fixes (952 → 967 agencies)
+
+Continued the agency tier with national LIBRARIES (33 missing). 4 web-research subagents found
++ **confirmed each institution's own official site by fetching it** (social-media pages NOT
+accepted). 15 confirmed + 2 data-quality label fixes (Ghana "Keta Library" branch → **Ghana
+Library Authority**; Syria "Al-Zahiriyah Library" historical manuscript library → **National
+Library of Syria**, renamed 2024-12-10 — name corrected even though it has no live site).
+
+- agencies: 952 → **967/1049** with an official site.
+- **18 HONESTLY left null (G5)** — these national libraries genuinely have NO website
+  (even sparser than archives for small/post-conflict states; Facebook-only NOT accepted):
+  Afghanistan, Burkina Faso, Cameroon, DR Congo, Congo-Brazzaville, Equatorial Guinea (only a
+  private trademarked publishing site), Haiti (dead domain + expired-cert portal), Liberia
+  (cndra is the Archives, not the library), Lesotho, Madagascar, Mali, Mauritania, Sudan,
+  Sierra Leone, Syria, Chad, Togo, Zambia.
+- honest entry-point choices where no standalone site: culture/education-ministry portal
+  section (Honduras SECAPPH, Solomon Islands MEHRD, Rwanda heritage academy, Comoros CNDRS).
+  Zimbabwe has no separate national library — the National Archives reference library serves
+  that role. TLS/self-signed caveats noted (Gambia, St Kitts) — genuine official domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — national archives: 26 web-verified (926 → 952 agencies)
 
 Continued the agency tier with national ARCHIVES (42 missing). 4 web-research subagents found
