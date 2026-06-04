@@ -1,0 +1,14 @@
+;; todoke (届け) last-mile-delivery fleet — :representative (R0, no hardware)
+[{:fleet/robot "hakobi" :fleet/glyph "運び" :fleet/class :rover
+  :fleet/role "sidewalk last-mile delivery rover (curb-to-door, <=25 kg, <=1.8 m/s)" :fleet/maturity :design
+  :fleet/autonomy "kami-autodrive GNC (ADR-2606010600), SAE L4 ceiling"
+  :fleet/open-source true :fleet/sourcing :representative}
+ {:fleet/robot "tobira" :fleet/glyph "扉"   :fleet/class :locker
+  :fleet/role "smart parcel-locker dock (curb hand-off / pickup)" :fleet/maturity :design
+  :fleet/open-source true :fleet/sourcing :representative}
+ {:fleet/robot "meyasu" :fleet/glyph "目安" :fleet/class :sensor
+  :fleet/role "perception + telemetry pod (LiDAR/cam/IMU sensor head; on-device only, G8)" :fleet/maturity :design
+  :fleet/open-source true :fleet/sourcing :representative}
+ {:fleet/robot "tedori" :fleet/glyph "手取" :fleet/class :manipulator
+  :fleet/role "load/unload manipulator (curb <-> rover bay; reuses sarutahiko LoaderRobot pattern, ADR-2606013100)" :fleet/maturity :design
+  :fleet/open-source true :fleet/sourcing :representative}]
