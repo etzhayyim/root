@@ -13295,6 +13295,28 @@
       "lastVerified": "2026-06-04"
     },
     {
+      "id": "doc:adr-2606042300",
+      "type": "TechArticle",
+      "title": "todoke 届け — last-mile (one-mile) autonomous delivery Tier-B actor (R0)",
+      "status": "proposed",
+      "topic": "last-mile-one-mile-autonomous-delivery",
+      "authoritative": true,
+      "authoritativeFor": [
+        "todoke (届け) last-mile (\"one-mile\") autonomous-delivery actor charter (R0)",
+        "curb-to-door small-payload delivery ODD + SAE-L4 sidewalk safety envelope",
+        "the todoke-route Rust core (stop sequencing + safety envelope) + its Python parity mirror"
+      ],
+      "related": [
+        "doc:adr-2606012100",
+        "doc:adr-2606010200",
+        "doc:adr-2606013100",
+        "doc:adr-2606032100",
+        "doc:adr-2606042100",
+        "doc:adr-2606033600"
+      ],
+      "lastVerified": "2026-06-04"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

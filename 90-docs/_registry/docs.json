@@ -20680,6 +20680,41 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606042300-todoke-last-mile-one-mile-autonomous-delivery-tier-b-actor-r0.md",
+      "id": "adr-2606042300",
+      "title": "todoke 届け — last-mile (one-mile) autonomous delivery Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "last-mile-one-mile-autonomous-delivery",
+      "authoritative": true,
+      "authoritative_for": [
+        "todoke (届け) last-mile (\"one-mile\") autonomous-delivery actor charter (R0)",
+        "curb-to-door small-payload delivery ODD + SAE-L4 sidewalk safety envelope",
+        "the todoke-route Rust core (stop sequencing + safety envelope) + its Python parity mirror"
+      ],
+      "related": [
+        "adr-2606012100",
+        "adr-2606010200",
+        "adr-2606013100",
+        "adr-2606032100",
+        "adr-2606042100",
+        "adr-2606033600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — §1.12 Transparent Force three-condition invariant)",
+        "ADR-2606010600 (kami-autodrive GNC — the perception/planning/control engine todoke consumes)",
+        "ADR-2605242000 (wadachi — inter-site ground autonomy; todoke is its last-metre sibling)",
+        "ADR-2605231525 (no-server-key — recipient signs the hand-off, server never does)",
+        "ADR-2606032130 (Displacement Dividend — the G2 coupling gate for freed couriers)",
+        "ADR-2605215000 (Murakumo-only inference)"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

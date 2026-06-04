@@ -326,6 +326,26 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606014500"],
   },
+  todoke: {
+    description:
+      "届け — last-mile ('one-mile') autonomous delivery. Curb-to-door small-payload transport (≤25 kg, SAE-L4 sidewalk ODD) that closes the gap between wadachi inter-site ground autonomy and the recipient's door. The no-gig inversion of the gig courier (no piece-rate, cash≡0), the delivery limb of okaimono's provisioning commons, and a consumer of the kami-autodrive GNC. Carries a pure Rust core (todoke-route): last-mile stop sequencing (NN+2-opt) + an SAE-L4 sidewalk safety envelope that REFUSES (never clamps) any plan over the per-zone speed cap, on a vehicular road, or above SAE L4. Privacy-by-construction proof-of-delivery (on-device only; no cloud imagery / facial recognition / biometric). Per ADR-2606042300.",
+    glyph: "届け",
+    displayName: "Todoke — Last-Mile (one-mile) Autonomous Delivery",
+    primaryLexicon: "com.etzhayyim.todoke",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:todoke#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:todoke#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606042300"],
+  },
 } as const;
 
 
