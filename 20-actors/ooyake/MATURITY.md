@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 20 countries (1509 → 1569, 96%)
+
+Seventh ministry-address batch (Andorra, Armenia, Antigua, Bosnia, Belarus, Chile, Algeria, Georgia,
+Guinea-Bissau, Croatia, Jamaica, Kazakhstan, Libya, North Korea, Qatar, Singapore, Solomon Islands,
+Sierra Leone, Somalia, Tunisia). 6 web-research subagents. 60 added; **41 building-level lat/lon, 19
+honest line-en-only (G5)** — Libya ×3, North Korea ×3, Somalia ×3, Solomon Islands ×3 (no OSM
+building nodes), plus Andorra ×2, Armenia defence, Guinea-Bissau defence, Qatar education/trade
+(plus-code/relocation), Sierra Leone education.
+
+- ministries: 1509 → **1569/1642** with an address record (96%); 73 remaining.
+- co-location/data findings + prompt corrections: Bosnia's 3 state ministries share the Parliamentary
+  Assembly complex (Trg BiH 1); Antigua's 3 share the Government Complex (Queen Elizabeth Hwy); Armenia
+  Health+Environment share Government Building No.3; Sierra Leone Health+Agriculture share the Youyi
+  Building. Corrected: Armenia Defence is on Bagrevand St (not Bagramyan Ave); Andorra Interior is in
+  Escaldes-Engordany (not Andorra la Vella); Chile SERNATUR at Condell 679 (not the old Providencia
+  1550); Qatar Commerce relocated to Lusail City (Apr 2026); Kazakhstan Tourism in the House of
+  Ministries (not the Kazakh Tourism JSC building).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 15 countries (1449 → 1509, 92%)
 
 Sixth ministry-address batch (Zambia, Gambia, Bahrain, Kuwait, Bhutan, Maldives, Dominican
