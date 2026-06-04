@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — accountability agencies: 38 web-verified + 6 data-quality fixes (888 → 926 agencies)
+
+Opened the agency tier with the highest-civic-value accountability bodies — electoral
+commissions (13) + anti-corruption agencies (13) + national tax/revenue authorities (8) +
+statistics offices (6) = the exact bodies danjo/toritate/himotoki consume. 3 web-research
+subagents found + **confirmed each body's own official site by fetching it**. 38 confirmed
+(provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+
+- agencies: 888 → **926/1049** with an official site.
+- **6 data-quality label fixes** (bulk-Wikidata-pull errors corrected to the real NATIONAL
+  body): **gov.nld.revenue name was literally a street address** ("Dr. C. Hofstede de
+  Grootkade 11") → Belastingdienst; gov.aut.revenue was a regional Carinthia office → Tax
+  Authority Austria; gov.fra.revenue was a local business-tax office → DGFiP; gov.slv.revenue
+  was a nonsense "Branch of Liquor" → DGII; gov.nga.anticorruption was the subnational Kano
+  State body → the national ICPC; gov.mar.statistics → High Commission for Planning (HCP).
+- 2 HONESTLY left null (G5): Mozambique electoral (the only domain is STAE's, not the CNE,
+  and serves a router page), North Korea statistics (no public web presence). Sudan electoral
+  (nec.org.sd) recorded as the documented official domain though offline due to the conflict.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — ministry tier COMPLETE: final 25 small-category sites web-verified (1596 → 1621/1642, 98.7%)
 
 Closed out the ministry tier with the remaining small categories (labour, science, industry,

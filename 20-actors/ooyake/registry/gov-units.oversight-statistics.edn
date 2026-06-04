@@ -219,9 +219,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "vut"
    :gov.unit/name-en "Vanuatu National Statistics Office"
+   :gov.unit/official-url "https://vnso.gov.vu/"
    :gov.unit/wikidata "Q7915235"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7915235" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://vnso.gov.vu/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.vnm.statistics"
@@ -470,9 +471,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "National Bureau of Statistics"
+   :gov.unit/official-url "https://www.nbs.go.tz/"
    :gov.unit/wikidata "Q17089460"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q17089460" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nbs.go.tz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cpv.statistics"
@@ -541,9 +543,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "nru"
    :gov.unit/name-en "Nauru Bureau of Statistics"
+   :gov.unit/official-url "https://stats.gov.nr/"
    :gov.unit/wikidata "Q18379698"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18379698" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://stats.gov.nr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sau.statistics"
@@ -1894,10 +1897,11 @@
    :gov.unit/parent "gov.mar"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mar"
-   :gov.unit/name-en "Department of Statistics"
+   :gov.unit/name-en "High Commission for Planning (Haut-Commissariat au Plan)"
+   :gov.unit/official-url "https://www.hcp.ma/"
    :gov.unit/wikidata "Q55714244"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55714244" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.hcp.ma/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.som.statistics"
@@ -1930,9 +1934,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "atg"
    :gov.unit/name-en "Statistics Division"
+   :gov.unit/official-url "https://statistics.gov.ag/"
    :gov.unit/wikidata "Q55739605"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55739605" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://statistics.gov.ag/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dma.statistics"
