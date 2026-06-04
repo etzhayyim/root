@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — subdivision tier opened: Peru + Uruguay subnational govts COMPLETE (2324 → 2367)
+
+With the national + agency tiers saturated, opened the subdivision tier (1,275 first-order
+subdivisions lacked a URL — a long tail dominated by small/post-conflict states whose ADM1
+units have no individual sites). Strategy: target whole countries whose first-order govts are
+ELECTED with real official sites + high hit-rate, and COMPLETE them. This pass: **Peru's 24
+regional governments (gobiernos regionales) + Uruguay's 19 departmental governments
+(intendencias)** — 4 web-research subagents, **43/43 confirmed by fetching** (zero nulls).
+
+- subdivisions: 2324 → **2367/3599**. **Peru 25/25 and Uruguay 19/19 — both countries now
+  100% subnational-complete.**
+- Peru regional govts on .gob.pe (own domain or canonical gob.pe institutional page where the
+  own domain redirects: Apurímac/Lambayeque/Piura/Tacna); Uruguay intendencias on .gub.uy (own
+  domain or the gub.uy organism page for Cerro Largo/Florida; Durazno on .uy). Bot-block/TLS
+  caveats noted (Arequipa/Lima/Tacna/Ucayali/Artigas/Lavalleja/Paysandú) — all genuine official
+  state-namespace domains, multi-source corroborated.
+
+HONEST framing: the subdivision long tail (≈1,230 still null) is mostly genuine absence —
+provinces/atolls/wilayas of small states without individual websites — so coverage here will
+advance country-by-country where real elected subnational govts exist, not as a single sweep.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — sovereign wealth funds: 17 web-verified (989 → 1006 agencies); agency tier effectively complete
 
 Closed the agency tier with sovereign-wealth / public-trust funds (19). Most have no standalone

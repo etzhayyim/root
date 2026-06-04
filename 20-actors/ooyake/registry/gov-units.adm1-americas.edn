@@ -5285,10 +5285,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Loreto Department"
+   :gov.unit/official-url "https://regionloreto.gob.pe/"
    :gov.unit/wikidata "Q200938"
    :gov.unit/external-code ["iso3166-2:PE-LOR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q200938" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://regionloreto.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-ama"
@@ -5310,10 +5311,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Cusco Department"
+   :gov.unit/official-url "https://www.regioncusco.gob.pe/"
    :gov.unit/wikidata "Q205057"
    :gov.unit/external-code ["iso3166-2:PE-CUS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205057" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regioncusco.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-are"
@@ -5322,10 +5324,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Arequipa Department"
+   :gov.unit/official-url "https://www.regionarequipa.gob.pe/"
    :gov.unit/wikidata "Q205068"
    :gov.unit/external-code ["iso3166-2:PE-ARE"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205068" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionarequipa.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-caj"
@@ -5334,10 +5337,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Cajamarca Department"
+   :gov.unit/official-url "https://www.regioncajamarca.gob.pe/"
    :gov.unit/wikidata "Q205078"
    :gov.unit/external-code ["iso3166-2:PE-CAJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205078" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regioncajamarca.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-anc"
@@ -5346,10 +5350,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Áncash Department"
+   :gov.unit/official-url "https://regionancash.gob.pe/"
    :gov.unit/wikidata "Q205089"
    :gov.unit/external-code ["iso3166-2:PE-ANC"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205089" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://regionancash.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-pun"
@@ -5358,10 +5363,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Puno Department"
+   :gov.unit/official-url "https://regionpuno.gob.pe/"
    :gov.unit/wikidata "Q205104"
    :gov.unit/external-code ["iso3166-2:PE-PUN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205104" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://regionpuno.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-aya"
@@ -5370,10 +5376,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Ayacucho Department"
+   :gov.unit/official-url "https://web.regionayacucho.gob.pe/"
    :gov.unit/wikidata "Q205112"
    :gov.unit/external-code ["iso3166-2:PE-AYA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205112" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://web.regionayacucho.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-lal"
@@ -5382,10 +5389,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "La Libertad Department"
+   :gov.unit/official-url "https://www.regionlalibertad.gob.pe/"
    :gov.unit/wikidata "Q205126"
    :gov.unit/external-code ["iso3166-2:PE-LAL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q205126" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionlalibertad.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-tac"
@@ -5394,10 +5402,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Tacna Department"
+   :gov.unit/official-url "https://www.gob.pe/regiontacna"
    :gov.unit/wikidata "Q207413"
    :gov.unit/external-code ["iso3166-2:PE-TAC"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q207413" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gob.pe/regiontacna" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-uca"
@@ -5406,10 +5415,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Ucayali Department"
+   :gov.unit/official-url "https://www.regionucayali.gob.pe/"
    :gov.unit/wikidata "Q207424"
    :gov.unit/external-code ["iso3166-2:PE-UCA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q207424" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionucayali.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-jun"
@@ -5418,10 +5428,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Junín Department"
+   :gov.unit/official-url "https://www.regionjunin.gob.pe/"
    :gov.unit/wikidata "Q207973"
    :gov.unit/external-code ["iso3166-2:PE-JUN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q207973" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionjunin.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-moq"
@@ -5430,10 +5441,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Moquegua Department"
+   :gov.unit/official-url "https://www.regionmoquegua.gob.pe/web/"
    :gov.unit/wikidata "Q208182"
    :gov.unit/external-code ["iso3166-2:PE-MOQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q208182" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionmoquegua.gob.pe/web/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-piu"
@@ -5442,10 +5454,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Piura Department"
+   :gov.unit/official-url "https://www.gob.pe/regionpiura"
    :gov.unit/wikidata "Q208183"
    :gov.unit/external-code ["iso3166-2:PE-PIU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q208183" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gob.pe/regionpiura" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-apu"
@@ -5454,10 +5467,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Apurímac Department"
+   :gov.unit/official-url "https://www.gob.pe/regionapurimac"
    :gov.unit/wikidata "Q208185"
    :gov.unit/external-code ["iso3166-2:PE-APU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q208185" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gob.pe/regionapurimac" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-ica"
@@ -5466,10 +5480,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Ica Department"
+   :gov.unit/official-url "https://www.regionica.gob.pe/web/"
    :gov.unit/wikidata "Q208186"
    :gov.unit/external-code ["iso3166-2:PE-ICA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q208186" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionica.gob.pe/web/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-tum"
@@ -5478,10 +5493,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Tumbes Department"
+   :gov.unit/official-url "https://regiontumbes.gob.pe/"
    :gov.unit/wikidata "Q209597"
    :gov.unit/external-code ["iso3166-2:PE-TUM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q209597" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://regiontumbes.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-lam"
@@ -5490,10 +5506,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Lambayeque Department"
+   :gov.unit/official-url "https://www.gob.pe/regionlambayeque"
    :gov.unit/wikidata "Q210061"
    :gov.unit/external-code ["iso3166-2:PE-LAM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q210061" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gob.pe/regionlambayeque" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-mdd"
@@ -5502,10 +5519,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Madre de Dios Department"
+   :gov.unit/official-url "https://www.regionmadrededios.gob.pe/"
    :gov.unit/wikidata "Q210896"
    :gov.unit/external-code ["iso3166-2:PE-MDD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q210896" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionmadrededios.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-pas"
@@ -5514,10 +5532,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Pasco Department"
+   :gov.unit/official-url "https://regionpasco.gob.pe/"
    :gov.unit/wikidata "Q211208"
    :gov.unit/external-code ["iso3166-2:PE-PAS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q211208" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://regionpasco.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-sam"
@@ -5526,10 +5545,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "San Martin Department"
+   :gov.unit/official-url "https://www.regionsanmartin.gob.pe/"
    :gov.unit/wikidata "Q211793"
    :gov.unit/external-code ["iso3166-2:PE-SAM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q211793" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionsanmartin.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-lim"
@@ -5538,10 +5558,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Lima Department"
+   :gov.unit/official-url "https://www.regionlima.gob.pe/"
    :gov.unit/wikidata "Q211795"
    :gov.unit/external-code ["iso3166-2:PE-LIM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q211795" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionlima.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-huc"
@@ -5550,10 +5571,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Huanuco Department"
+   :gov.unit/official-url "https://www.regionhuanuco.gob.pe/"
    :gov.unit/wikidata "Q215221"
    :gov.unit/external-code ["iso3166-2:PE-HUC"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q215221" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regionhuanuco.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-cal"
@@ -5562,10 +5584,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Constitutional Province of Callao"
+   :gov.unit/official-url "https://web.regioncallao.gob.pe/"
    :gov.unit/wikidata "Q2634400"
    :gov.unit/external-code ["iso3166-2:PE-CAL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2634400" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://web.regioncallao.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.adm1.pe-huv"
@@ -5574,10 +5597,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Huancavelica Department"
+   :gov.unit/official-url "https://regionhuancavelica.gob.pe/"
    :gov.unit/wikidata "Q505220"
    :gov.unit/external-code ["iso3166-2:PE-HUV"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q505220" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://regionhuancavelica.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pry.adm1.py-7"
@@ -6271,10 +6295,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Cerro Largo Department"
+   :gov.unit/official-url "https://www.gub.uy/intendencia-cerro-largo/"
    :gov.unit/wikidata "Q16575"
    :gov.unit/external-code ["iso3166-2:UY-CL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16575" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gub.uy/intendencia-cerro-largo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-pa"
@@ -6283,10 +6308,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Paysandú Department"
+   :gov.unit/official-url "https://www.paysandu.gub.uy/"
    :gov.unit/wikidata "Q16576"
    :gov.unit/external-code ["iso3166-2:UY-PA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16576" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.paysandu.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-ca"
@@ -6295,10 +6321,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Canelones Department"
+   :gov.unit/official-url "https://www.imcanelones.gub.uy/"
    :gov.unit/wikidata "Q16577"
    :gov.unit/external-code ["iso3166-2:UY-CA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16577" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.imcanelones.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-fs"
@@ -6307,10 +6334,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Flores Department"
+   :gov.unit/official-url "https://flores.gub.uy/"
    :gov.unit/wikidata "Q16578"
    :gov.unit/external-code ["iso3166-2:UY-FS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16578" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://flores.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-sj"
@@ -6319,10 +6347,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "San José Department"
+   :gov.unit/official-url "https://sanjose.gub.uy/"
    :gov.unit/wikidata "Q16579"
    :gov.unit/external-code ["iso3166-2:UY-SJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16579" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://sanjose.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-co"
@@ -6331,10 +6360,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Colonia Department"
+   :gov.unit/official-url "https://www.colonia.gub.uy/"
    :gov.unit/wikidata "Q16580"
    :gov.unit/external-code ["iso3166-2:UY-CO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16580" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.colonia.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-ro"
@@ -6343,10 +6373,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Rocha Department"
+   :gov.unit/official-url "https://www.rocha.gub.uy/"
    :gov.unit/wikidata "Q16582"
    :gov.unit/external-code ["iso3166-2:UY-RO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16582" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.rocha.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-so"
@@ -6355,10 +6386,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Soriano Department"
+   :gov.unit/official-url "https://www.soriano.gub.uy/"
    :gov.unit/wikidata "Q16584"
    :gov.unit/external-code ["iso3166-2:UY-SO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16584" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.soriano.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-ta"
@@ -6367,10 +6399,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Tacuarembó Department"
+   :gov.unit/official-url "https://tacuarembo.gub.uy/"
    :gov.unit/wikidata "Q16587"
    :gov.unit/external-code ["iso3166-2:UY-TA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16587" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://tacuarembo.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-du"
@@ -6379,10 +6412,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Durazno Department"
+   :gov.unit/official-url "https://durazno.uy/"
    :gov.unit/wikidata "Q16591"
    :gov.unit/external-code ["iso3166-2:UY-DU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16591" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://durazno.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-fd"
@@ -6391,10 +6425,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Florida Department"
+   :gov.unit/official-url "https://www.gub.uy/intendencia-florida/"
    :gov.unit/wikidata "Q16593"
    :gov.unit/external-code ["iso3166-2:UY-FD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16593" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gub.uy/intendencia-florida/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-mo"
@@ -6403,10 +6438,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Montevideo Department"
+   :gov.unit/official-url "https://montevideo.gub.uy/"
    :gov.unit/wikidata "Q16594"
    :gov.unit/external-code ["iso3166-2:UY-MO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16594" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://montevideo.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-sa"
@@ -6415,10 +6451,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Salto Department"
+   :gov.unit/official-url "https://www.salto.gub.uy/"
    :gov.unit/wikidata "Q16595"
    :gov.unit/external-code ["iso3166-2:UY-SA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16595" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.salto.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-rn"
@@ -6427,10 +6464,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Río Negro Department"
+   :gov.unit/official-url "https://www.rionegro.gub.uy/"
    :gov.unit/wikidata "Q16596"
    :gov.unit/external-code ["iso3166-2:UY-RN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16596" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.rionegro.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-ar"
@@ -6439,10 +6477,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Artigas Department"
+   :gov.unit/official-url "https://www.artigas.gub.uy/"
    :gov.unit/wikidata "Q16603"
    :gov.unit/external-code ["iso3166-2:UY-AR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16603" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.artigas.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-rv"
@@ -6451,10 +6490,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Rivera Department"
+   :gov.unit/official-url "https://www.rivera.gub.uy/portal/"
    :gov.unit/wikidata "Q16609"
    :gov.unit/external-code ["iso3166-2:UY-RV"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16609" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.rivera.gub.uy/portal/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-tt"
@@ -6463,10 +6503,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Treinta y Tres Department"
+   :gov.unit/official-url "https://treintaytres.gub.uy/"
    :gov.unit/wikidata "Q16610"
    :gov.unit/external-code ["iso3166-2:UY-TT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16610" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://treintaytres.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-ma"
@@ -6475,10 +6516,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Maldonado Department"
+   :gov.unit/official-url "https://www.maldonado.gub.uy/"
    :gov.unit/wikidata "Q331196"
    :gov.unit/external-code ["iso3166-2:UY-MA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q331196" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.maldonado.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.adm1.uy-la"
@@ -6487,10 +6529,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Lavalleja Department"
+   :gov.unit/official-url "https://www.lavalleja.gub.uy/"
    :gov.unit/wikidata "Q460435"
    :gov.unit/external-code ["iso3166-2:UY-LA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q460435" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.lavalleja.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.usa.adm1.us-mi"
