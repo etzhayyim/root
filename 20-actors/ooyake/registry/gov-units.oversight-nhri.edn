@@ -77,9 +77,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "fji"
    :gov.unit/name-en "Fiji Human Rights Commission"
+   :gov.unit/official-url "https://www.fhradc.org.fj/"
    :gov.unit/wikidata "Q5448124"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5448124" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.fhradc.org.fj/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gbr.nhri"
@@ -172,9 +173,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Myanmar National Human Rights Commission"
+   :gov.unit/official-url "https://mnhrc.org.mm/"
    :gov.unit/wikidata "Q6946757"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6946757" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mnhrc.org.mm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mng.nhri"
@@ -207,9 +209,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "National Human Rights Commission"
+   :gov.unit/official-url "https://www.nigeriarights.gov.ng/"
    :gov.unit/wikidata "Q21015847"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q21015847" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nigeriarights.gov.ng/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nor.nhri"
@@ -230,9 +233,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "National Human Rights Commission"
+   :gov.unit/official-url "https://www.nhrcnepal.org/"
    :gov.unit/wikidata "Q6973441"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6973441" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nhrcnepal.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nzl.nhri"
@@ -253,9 +257,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Human Rights Commission of Pakistan"
+   :gov.unit/official-url "https://nchr.gov.pk/"
    :gov.unit/wikidata "Q5937433"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5937433" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://nchr.gov.pk/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sdn.nhri"
@@ -274,10 +279,11 @@
    :gov.unit/parent "gov.slv"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "slv"
-   :gov.unit/name-en "Ad Hoc Commission"
+   :gov.unit/name-en "Procuraduría para la Defensa de los Derechos Humanos (PDDH)"
+   :gov.unit/official-url "https://www.pddh.gob.sv/"
    :gov.unit/wikidata "Q4678156"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4678156" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.pddh.gob.sv/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tha.nhri"
@@ -322,7 +328,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "zaf"
    :gov.unit/name-en "South African Human Rights Commission"
+   :gov.unit/official-url "https://www.sahrc.org.za/"
    :gov.unit/wikidata "Q7565704"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7565704" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sahrc.org.za/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

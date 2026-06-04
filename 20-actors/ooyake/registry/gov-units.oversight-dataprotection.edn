@@ -266,9 +266,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isl"
    :gov.unit/name-en "Icelandic Data Protection Authority"
+   :gov.unit/official-url "https://island.is/en/o/the-data-protection-authority"
    :gov.unit/wikidata "Q56085440"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56085440" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://island.is/en/o/the-data-protection-authority" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ita.dataprotection"

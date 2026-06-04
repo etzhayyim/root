@@ -566,9 +566,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "zmb"
    :gov.unit/name-en "Zambia Meteorological Department"
+   :gov.unit/official-url "http://zmd.gov.zm/"
    :gov.unit/wikidata "Q119741103"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q119741103" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "http://zmd.gov.zm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.qat.meteorology"
@@ -577,9 +578,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Meteorology Department"
+   :gov.unit/official-url "https://qweather.gov.qa/"
    :gov.unit/wikidata "Q119772809"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q119772809" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://qweather.gov.qa/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.png.meteorology"

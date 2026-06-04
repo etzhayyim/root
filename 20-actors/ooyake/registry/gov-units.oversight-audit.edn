@@ -161,9 +161,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Court of Audit"
+   :gov.unit/official-url "https://www.courdescomptes.ne/"
    :gov.unit/wikidata "Q1686527"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1686527" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.courdescomptes.ne/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pan.audit"
@@ -232,7 +233,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Courts of Accounts of Suriname"
+   :gov.unit/official-url "https://rekenkamer.sr/"
    :gov.unit/wikidata "Q2111139"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2111139" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rekenkamer.sr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

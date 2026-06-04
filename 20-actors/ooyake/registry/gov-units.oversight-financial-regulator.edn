@@ -388,7 +388,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "zaf"
    :gov.unit/name-en "National Credit Regulator"
+   :gov.unit/official-url "https://www.ncr.org.za/"
    :gov.unit/wikidata "Q6971986"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6971986" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.ncr.org.za/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}
