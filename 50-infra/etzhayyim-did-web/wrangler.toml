@@ -91,6 +91,9 @@ IPFS_GATEWAYS = ""
 XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
+# kotoba graph query/SPARQL/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*)
+# → the kotoba node via its cloudflared tunnel. Read-only; CACAO passes through.
+XRPC_KOTOBA_UPSTREAM = "https://kotoba.etzhayyim.com"
 
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]

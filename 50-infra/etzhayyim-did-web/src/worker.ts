@@ -380,6 +380,10 @@ interface Env {
   XRPC_ATPROTO_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
   XRPC_etzhayyim_UPSTREAM?: string;
+  // kotoba graph query/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*) →
+  // the kotoba node behind the cloudflared tunnel. Read-only proxy; the client's
+  // CACAO / Authorization passes through unchanged (no server key injected).
+  XRPC_KOTOBA_UPSTREAM?: string;
 }
 
 // ─── Substrate NSID alias map ──────────────────────────────────────────
@@ -433,6 +437,11 @@ const XRPC_ROUTES: NsidRoute[] = [
   { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
+  // kotoba graph query / SPARQL / MaterializedView surface → the kotoba node
+  // (more specific than the com.etzhayyim. catch-all below, so it must come
+  // first — findXrpcRoute returns the first matching prefix).
+  { prefix: "com.etzhayyim.apps.kotoba.",   upstream: "XRPC_KOTOBA_UPSTREAM" },
+  { prefix: "com.etzhayyim.apps.kotobase.", upstream: "XRPC_KOTOBA_UPSTREAM" },
   // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
   { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
