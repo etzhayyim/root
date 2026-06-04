@@ -16,6 +16,15 @@ It ingests the **already-IPFS-pinned** open-government corpus — for Japan:
 emits **factual, source-cited, NON-adjudicating discrepancy observations**
 plus periodic aggregate transparency reports.
 
+**Observation scope includes 大麻政策立法過程** (cannabis-policy legislative
+process) as a **non-adjudicating, both-views-neutral** index — the
+`cannabis-policy-legislative-trace` method (`methods/v1-jp-seed.json`) traces
+国会会議録 mentions + the 大麻取締法 → 大麻草の栽培の規制に関する法律 (令和5年法律第84号)
+statutory change into a source-cited timeline that produces datoms only, takes
+**no 推進/反対 stance** (G4), and routes legal characterization to chigiri. It is the
+state-watching companion to the nusa (幣) heritage actor (ADR-2606039800) and
+moushibumi's neutral public-comment support (ADR-2605312400).
+
 > **The censor's eye, never the censor's sword.** The name 弾正 evokes the
 > Nara/Heian 律令制 Censorate (弾正台 Danjōdai) that monitored official
 > misconduct — but §1.12 / G11 strip the historical coercive power

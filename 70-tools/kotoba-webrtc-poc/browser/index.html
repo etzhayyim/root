@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>kotoba webrtc-direct browser dial</title></head>
+<body>
+<h1>js-libp2p → rust kotoba WebRTC-direct dial</h1>
+<pre id="log"></pre>
+<script type="module">
+const logEl = document.getElementById('log');
+window.__R = { status: 'loading-esm' };
+function log(...a){ const s = a.join(' '); console.log('[poc]', s); logEl.textContent += s + "\n"; }
+
+try {
+  // js-libp2p from esm.sh (CORS ESM). Latest — interop test vs rust libp2p-webrtc 0.7-alpha.
+  const [{ createLibp2p }, { webRTCDirect }, { noise }, { multiaddr }] = await Promise.all([
+    import('https://esm.sh/libp2p@2'),
+    import('https://esm.sh/@libp2p/webrtc@5'),
+    import('https://esm.sh/@chainsafe/libp2p-noise@16'),
+    import('https://esm.sh/@multiformats/multiaddr@12'),
+  ]);
+  window.__R.status = 'esm-loaded';
+  log('esm loaded');
+
+  const addr = new URLSearchParams(location.search).get('addr');
+  log('target', addr);
+
+  const node = await createLibp2p({
+    transports: [webRTCDirect()],
+    connectionEncrypters: [noise()],
+    connectionGater: { denyDialMultiaddr: () => false },
+  });
+  await node.start();
+  window.__R.status = 'node-started';
+  log('libp2p node started, peerId=' + node.peerId.toString());
+
+  const ma = multiaddr(addr);
+  log('dialing...');
+  const conn = await node.dial(ma);
+  window.__R = { status: 'CONNECTED', remotePeer: conn.remotePeer.toString() };
+  log('✅ CONNECTED to ' + conn.remotePeer.toString());
+} catch (e) {
+  window.__R = { status: 'ERROR', error: String(e && e.stack || e) };
+  log('❌ ERROR: ' + (e && e.message || e));
+  console.error(e);
+}
+</script>
+</body></html>
