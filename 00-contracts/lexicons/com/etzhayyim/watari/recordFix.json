@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watari.recordFix",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Append a single POSITION FIX to a craft's append-only trail in the kotoba Datom log (:craft.fix/*). The latest fix per craft (max observedAt) IS its current position; the fix stream IS the trajectory (非終末論 — appended, never overwritten). Fixes derive ONLY from public transponder broadcasts: AIS (source=ais) or ADS-B (source=adsb). kotoba-native successor to maps vertex_vessel_position / vertex_aircraft_state (RisingWave) — see MIGRATION-NOTES.md. watari G2 (situational, not surveillance) + G4 (no person-tracking / no pattern-of-life).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["fixId", "craftId", "latE7", "lonE7", "observedAt", "source", "sourcing"],
+          "properties": {
+            "fixId": { "type": "string", "description": ":craft.fix/id, e.g. \"fix.craft.vessel.imo9811000.260604T0900Z\"" },
+            "craftId": { "type": "string", "description": ":craft.fix/craft → :craft/id" },
+            "latE7": { "type": "integer", "description": "latitude in E7 fixed-point (degrees × 1e7; AIS/ADS-B standard). Substrate no-float rule — integer wire, double :craft.fix/lat datom (= latE7 / 1e7)" },
+            "lonE7": { "type": "integer", "description": "longitude in E7 fixed-point (degrees × 1e7)" },
+            "altCm": { "type": "integer", "description": "geometric altitude in centimetres (aircraft; metres × 100); omit/0 for surface craft" },
+            "speedCkn": { "type": "integer", "description": "speed over ground in centi-knots (knots × 100)" },
+            "courseCdeg": { "type": "integer", "description": "course/track over ground in centi-degrees true (degrees × 100)" },
+            "headingCdeg": { "type": "integer", "description": "true heading in centi-degrees (degrees × 100)" },
+            "navStatus": { "type": "string", "enum": ["under_way", "at_anchor", "moored", "aground", "restricted", "unknown"], "description": "AIS nav status (vessels)" },
+            "onGround": { "type": "boolean", "description": "ADS-B on-ground flag (aircraft)" },
+            "lane": { "type": "string", "description": ":lane/id currently transited (resilience signal; NOT a route-to-intercept)" },
+            "observedAt": { "type": "string", "format": "datetime", "description": "broadcast/observation time, ISO-8601 UTC" },
+            "source": { "type": "string", "enum": ["ais", "adsb"], "description": "which public broadcast carried this fix" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "fixId": { "type": "string" },
+            "txCid": { "type": "string", "description": "kotoba transaction CID (ADR-2605312345)" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

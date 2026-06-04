@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watari.recordLeg",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assert an observed/declared VOYAGE (ship) or FLIGHT (aircraft) leg into the kotoba Datom log (:craft.leg/*). Origin → destination mirror the public AIS-declared destination or scheduled flight plan only; watari does NOT adjudicate intent or predict (no ETA forecasting beyond the public declaration). kotoba-native successor to vessel voyage/portCall pipelines. watari G2 + G5.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["legId", "craftId", "status", "sourcing"],
+          "properties": {
+            "legId": { "type": "string", "description": ":craft.leg/id" },
+            "craftId": { "type": "string", "description": ":craft.leg/craft → :craft/id" },
+            "from": { "type": "string", "description": "origin port LOCODE / airport ICAO (public)" },
+            "to": { "type": "string", "description": "destination port LOCODE / airport ICAO (declared/scheduled)" },
+            "status": { "type": "string", "enum": ["planned", "under_way", "arrived"], "description": "mirrors public declaration only" },
+            "sourcing": { "type": "string", "enum": ["authoritative", "representative", "synthesized"] }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "legId": { "type": "string" },
+            "txCid": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
