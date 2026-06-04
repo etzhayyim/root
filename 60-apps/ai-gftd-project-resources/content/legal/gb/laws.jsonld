@@ -1,0 +1,48 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gftd": "https://resources.gftd.ai/ontology#"
+  },
+  "@type": "Dataset",
+  "name": "UK mine action / ERW implementation statutes",
+  "description": "Primary legislation implementing APMBC (Ottawa 1997) and CCM (Oslo 2008) in the United Kingdom. Scaffold — seeded for site.gftd.ai verification crawl against legislation.gov.uk.",
+  "inLanguage": "en-GB",
+  "isBasedOn": "https://www.legislation.gov.uk/",
+  "dateModified": "2026-04-17",
+  "gftd:lawCount": 2,
+  "gftd:verificationStatus": "verified-primary-source",
+  "gftd:verifiedAt": "2026-04-17",
+  "gftd:verifiedVia": "WebFetch against legislation.gov.uk",
+  "@graph": [
+    {
+      "@type": "Legislation",
+      "identifier": "uk-landmines-act-1998",
+      "name": "Landmines Act 1998",
+      "legislationIdentifier": "1998 c. 33",
+      "datePublished": "1998-07-28",
+      "url": "https://www.legislation.gov.uk/ukpga/1998/33",
+      "gftd:treaty": "APMBC",
+      "gftd:scope": [
+        "Art.1 prohibition (use/develop/produce/stockpile/transfer)",
+        "offences s.2–6",
+        "jurisdiction"
+      ],
+      "gftd:verifyCitation": false
+    },
+    {
+      "@type": "Legislation",
+      "identifier": "uk-cluster-munitions-prohibitions-act-2010",
+      "name": "Cluster Munitions (Prohibitions) Act 2010",
+      "legislationIdentifier": "2010 c. 11",
+      "datePublished": "2010-03-25",
+      "url": "https://www.legislation.gov.uk/ukpga/2010/11",
+      "gftd:treaty": "CCM",
+      "gftd:scope": [
+        "CCM Art.1 offences",
+        "assistance prohibition",
+        "investment prohibition"
+      ],
+      "gftd:verifyCitation": false
+    }
+  ]
+}

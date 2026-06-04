@@ -1,0 +1,13 @@
+{
+  "@context": "https://resources.gftd.ai/ontology/crawler/context.jsonld",
+  "@type": "gftd:CrawlPage",
+  "@id": "https://resources.gftd.ai/content/crawl/page/res-1772522551-000001",
+  "identifier": "res-1772522551-000001",
+  "url": "https://www.youtube.com",
+  "jobId": "crawl-1772522548-000001",
+  "name": "YouTube",
+  "httpStatus": 200,
+  "contentSize": 691366,
+  "linkCount": 26,
+  "generatedAtTime": "2026-03-03T07:22:31Z"
+}

@@ -1,0 +1,41 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gftd": "https://resources.gftd.ai/ontology#"
+  },
+  "@type": "Dataset",
+  "name": "Australia mine action / ERW implementation statutes",
+  "description": "Commonwealth statutes implementing APMBC and CCM. Scaffold — seeded for site.gftd.ai verification crawl against legislation.gov.au.",
+  "inLanguage": "en-AU",
+  "isBasedOn": "https://www.legislation.gov.au/",
+  "dateModified": "2026-04-17",
+  "gftd:lawCount": 2,
+  "gftd:verificationStatus": "partial — CM Act verified, APM Act URL requires correction",
+  "gftd:verifiedAt": "2026-04-17",
+  "gftd:verifiedVia": "WebFetch against legislation.gov.au",
+  "@graph": [
+    {
+      "@type": "Legislation",
+      "identifier": "au-anti-personnel-mines-convention-act-1998",
+      "name": "Anti-Personnel Mines Convention Act 1998 (Cth)",
+      "legislationIdentifier": "No. 126, 1998",
+      "datePublished": "1998-10-10",
+      "url": "https://www.legislation.gov.au/C2004A00425/latest",
+      "gftd:urlStatus": "INCORRECT — C2004A00425 resolves to Migration (Temporary Safe Haven Visas) Act 1999 per WebFetch 2026-04-17. Federal Register ID for APM Convention Act 1998 requires relookup.",
+      "gftd:treaty": "APMBC",
+      "gftd:scope": ["Part 2 prohibitions", "Part 3 inspection"],
+      "gftd:verifyCitation": true
+    },
+    {
+      "@type": "Legislation",
+      "identifier": "au-criminal-code-amendment-cluster-munitions-act-2012",
+      "name": "Criminal Code Amendment (Cluster Munitions Prohibition) Act 2012 (Cth)",
+      "legislationIdentifier": "No. 114, 2012",
+      "datePublished": "2012-09-08",
+      "url": "https://www.legislation.gov.au/C2012A00114/latest",
+      "gftd:treaty": "CCM",
+      "gftd:scope": ["Div.72 Criminal Code prohibitions (produce/possess/stockpile/transfer/use/develop)"],
+      "gftd:verifyCitation": false
+    }
+  ]
+}
