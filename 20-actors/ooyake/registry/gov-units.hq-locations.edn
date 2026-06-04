@@ -17019,4 +17019,442 @@
    :gov.address/line-en "National Free Library of Zimbabwe, Bulawayo"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.are.swf.abu-dhabi-investment-authority.hq"
+   :gov.address/unit "gov.are.swf.abu-dhabi-investment-authority"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "Abu Dhabi Investment Authority — ADIA Tower, 211 Corniche Street, Abu Dhabi"
+   :gov.address/lat 24.4862 :gov.address/lon 54.35127
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.are.swf.adq.hq"
+   :gov.address/unit "gov.are.swf.adq"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "ADQ (Abu Dhabi Developmental Holding) — Capital Gate, Al Khaleej Al Arabi Street, Abu Dhabi"
+   :gov.address/lat 24.41861 :gov.address/lon 54.43472
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.are.swf.mubadala-investment-company.hq"
+   :gov.address/unit "gov.are.swf.mubadala-investment-company"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "Mubadala Investment Company — Al Mamoura Building, Muroor Road, Al Nahyan, Abu Dhabi"
+   :gov.address/lat 24.46007 :gov.address/lon 54.39142
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.aus.swf.australian-government-future-fun.hq"
+   :gov.address/unit "gov.aus.swf.australian-government-future-fun"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "Future Fund Management Agency — Level 14, 447 Collins Street (Collins Arch), Melbourne"
+   :gov.address/lat -37.8197 :gov.address/lon 144.9556
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.aze.swf.state-oil-fund-of-azerbaijan.hq"
+   :gov.address/unit "gov.aze.swf.state-oil-fund-of-azerbaijan"
+   :gov.address/kind :headquarters
+   :gov.address/country "aze"
+   :gov.address/line-en "State Oil Fund of Azerbaijan (SOFAZ) — SOFAZ Tower, 165 Heydar Aliyev Avenue, Baku"
+   :gov.address/lat 40.4142 :gov.address/lon 49.9019
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bra.swf.sovereign-fund-of-brazil.hq"
+   :gov.address/unit "gov.bra.swf.sovereign-fund-of-brazil"
+   :gov.address/kind :headquarters
+   :gov.address/country "bra"
+   :gov.address/line-en "Fundo Soberano do Brasil — accounting fund (dissolved 2019), Secretaria do Tesouro Nacional, Esplanada dos Ministérios Bloco P, Brasília"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.can.swf.cree-regional-economic-enterpris.hq"
+   :gov.address/unit "gov.can.swf.cree-regional-economic-enterpris"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Cree Regional Economic Enterprises Company (CREECO) — 203 Opemiska Meskino, Oujé-Bougoumou, Quebec"
+   :gov.address/lat 49.92556 :gov.address/lon -74.81778
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.can.swf.investissement-qu-bec.hq"
+   :gov.address/unit "gov.can.swf.investissement-qu-bec"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Investissement Québec — 1001 boulevard Robert-Bourassa, Suite 1000, Montréal"
+   :gov.address/lat 45.50249 :gov.address/lon -73.5688
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.chl.swf.economic-and-social-stabilizatio.hq"
+   :gov.address/unit "gov.chl.swf.economic-and-social-stabilizatio"
+   :gov.address/kind :headquarters
+   :gov.address/country "chl"
+   :gov.address/line-en "Economic & Social Stabilization Fund — accounting fund, Ministerio de Hacienda, Teatinos 120, Santiago"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.chn.swf.hainan-development-holdings-comp.hq"
+   :gov.address/unit "gov.chn.swf.hainan-development-holdings-comp"
+   :gov.address/kind :headquarters
+   :gov.address/country "chn"
+   :gov.address/line-en "Hainan Development Holdings Co Ltd — Provincial Government Office Area, No. 9 Guoxing Avenue, Meilan, Haikou"
+   :gov.address/lat 20.025 :gov.address/lon 110.35
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.chn.swf.shanghai-municipal-investment-gr.hq"
+   :gov.address/unit "gov.chn.swf.shanghai-municipal-investment-gr"
+   :gov.address/kind :headquarters
+   :gov.address/country "chn"
+   :gov.address/line-en "Shanghai Municipal Investment (Group) Corporation HQ, Shanghai"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cpv.swf.cape-verde-sovereign-fund.hq"
+   :gov.address/unit "gov.cpv.swf.cape-verde-sovereign-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "cpv"
+   :gov.address/line-en "Fundo Soberano de Garantia do Investimento Privado, Edifício BAI Center, Av. Cidade de Lisboa, Chã d'Areia, Praia"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.egy.swf.the-sovereign-fund-of-egypt.hq"
+   :gov.address/unit "gov.egy.swf.the-sovereign-fund-of-egypt"
+   :gov.address/kind :headquarters
+   :gov.address/country "egy"
+   :gov.address/line-en "The Sovereign Fund of Egypt (TSFE), 3 Abu al-Fida Street, Zamalek, Cairo"
+   :gov.address/lat 30.06741 :gov.address/lon 31.2177
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.eu.ecb.hq"
+   :gov.address/unit "gov.eu.ecb"
+   :gov.address/kind :headquarters
+   :gov.address/country "eu"
+   :gov.address/line-en "European Central Bank, Sonnemannstrasse 20, Frankfurt am Main"
+   :gov.address/lat 50.10963 :gov.address/lon 8.70292
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.gab.swf.gabonese-strategic-investment-fu.hq"
+   :gov.address/unit "gov.gab.swf.gabonese-strategic-investment-fu"
+   :gov.address/kind :headquarters
+   :gov.address/country "gab"
+   :gov.address/line-en "Fonds Gabonais d'Investissements Stratégiques (FGIS), Baie des Rois, Libreville"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.gha.swf.ghana-petroleum-funds.hq"
+   :gov.address/unit "gov.gha.swf.ghana-petroleum-funds"
+   :gov.address/kind :headquarters
+   :gov.address/country "gha"
+   :gov.address/line-en "Ghana Petroleum Funds (managed by Bank of Ghana), The Bank Square, Castle Road, West Ridge, Accra"
+   :gov.address/lat 5.56074 :gov.address/lon -0.19976
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.idn.swf.daya-anagata-nusantara-investmen.hq"
+   :gov.address/unit "gov.idn.swf.daya-anagata-nusantara-investmen"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "Danantara Indonesia, Plaza Mandiri, Jl. Jenderal Gatot Subroto Kav. 36-38, Jakarta Selatan"
+   :gov.address/lat -6.22469 :gov.address/lon 106.8149
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.idn.swf.indonesia-investment-authority.hq"
+   :gov.address/unit "gov.idn.swf.indonesia-investment-authority"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "Indonesia Investment Authority (INA), Prosperity Tower 38F, District 8 SCBD, Jakarta Selatan"
+   :gov.address/lat -6.22828 :gov.address/lon 106.80704
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.irl.swf.ireland-strategic-investment-fun.hq"
+   :gov.address/unit "gov.irl.swf.ireland-strategic-investment-fun"
+   :gov.address/kind :headquarters
+   :gov.address/country "irl"
+   :gov.address/line-en "Ireland Strategic Investment Fund (managed by NTMA), Treasury Dock, North Wall Quay, Dublin 1"
+   :gov.address/lat 53.3474 :gov.address/lon -6.23398
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.isr.swf.israeli-citizens-fund.hq"
+   :gov.address/unit "gov.isr.swf.israeli-citizens-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "isr"
+   :gov.address/line-en "Israeli Citizens' Fund (managed by Bank of Israel), 2 Bank of Israel St, Kiryat Ben-Gurion, Jerusalem"
+   :gov.address/lat 31.78139 :gov.address/lon 35.20111
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.jpn.mof.nta.hq"
+   :gov.address/unit "gov.jpn.mof.nta"
+   :gov.address/kind :headquarters
+   :gov.address/country "jpn"
+   :gov.address/line-en "National Tax Agency of Japan (国税庁), Central Common Government Building No. 4, 3-1-1 Kasumigaseki, Chiyoda, Tokyo"
+   :gov.address/lat 35.67314 :gov.address/lon 139.748
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.kaz.swf.samruk-kazyna.hq"
+   :gov.address/unit "gov.kaz.swf.samruk-kazyna"
+   :gov.address/kind :headquarters
+   :gov.address/country "kaz"
+   :gov.address/line-en "Samruk-Kazyna JSC, 17/10 Syganak St, Yesil district, Astana"
+   :gov.address/lat 51.1312 :gov.address/lon 71.39261
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.kor.swf.korea-investment-corporation.hq"
+   :gov.address/unit "gov.kor.swf.korea-investment-corporation"
+   :gov.address/kind :headquarters
+   :gov.address/country "kor"
+   :gov.address/line-en "Korea Investment Corporation (KIC), State Tower Namsan, 100 Toegye-ro, Jung-gu, Seoul"
+   :gov.address/lat 37.56014 :gov.address/lon 126.98294
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.kwt.swf.kuwait-investment-authority.hq"
+   :gov.address/unit "gov.kwt.swf.kuwait-investment-authority"
+   :gov.address/kind :headquarters
+   :gov.address/country "kwt"
+   :gov.address/line-en "Kuwait Investment Authority HQ, Block 1, Sharq, Kuwait City"
+   :gov.address/lat 29.38199 :gov.address/lon 47.97943
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.kwt.swf.reserve-fund-for-future-generati.hq"
+   :gov.address/unit "gov.kwt.swf.reserve-fund-for-future-generati"
+   :gov.address/kind :headquarters
+   :gov.address/country "kwt"
+   :gov.address/line-en "Reserve Fund for Future Generations (managed by KIA), KIA HQ, Block 1, Sharq, Kuwait City"
+   :gov.address/lat 29.38199 :gov.address/lon 47.97943
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lby.swf.libyan-investment-authority.hq"
+   :gov.address/unit "gov.lby.swf.libyan-investment-authority"
+   :gov.address/kind :headquarters
+   :gov.address/country "lby"
+   :gov.address/line-en "Libyan Investment Authority, That El Emad Towers, Tripoli"
+   :gov.address/lat 32.89465 :gov.address/lon 13.16722
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mlt.finreg.hq"
+   :gov.address/unit "gov.mlt.finreg"
+   :gov.address/kind :headquarters
+   :gov.address/country "mlt"
+   :gov.address/line-en "Malta Financial Services Authority (MFSA), Triq l-Imdina, Zone 1, CBD, Birkirkara"
+   :gov.address/lat 35.89285 :gov.address/lon 14.45728
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mng.swf.chinggis-khaan-sovereign-wealth.hq"
+   :gov.address/unit "gov.mng.swf.chinggis-khaan-sovereign-wealth"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "Chinggis Khaan Sovereign Wealth Fund / Future Heritage Fund, Eco International Tower, Sukhbaatar district, Ulaanbaatar"
+   :gov.address/lat 47.91641 :gov.address/lon 106.91445
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nor.swf.government-pension-fund-global.hq"
+   :gov.address/unit "gov.nor.swf.government-pension-fund-global"
+   :gov.address/kind :headquarters
+   :gov.address/country "nor"
+   :gov.address/line-en "Government Pension Fund Global (managed by Norges Bank Investment Management), Bankplassen 2, Oslo"
+   :gov.address/lat 59.90861 :gov.address/lon 10.74361
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nor.swf.statens-petroleumsfond.hq"
+   :gov.address/unit "gov.nor.swf.statens-petroleumsfond"
+   :gov.address/kind :headquarters
+   :gov.address/country "nor"
+   :gov.address/line-en "Government Pension Fund Global (NBIM; formerly Statens petroleumsfond), Bankplassen 2, Oslo"
+   :gov.address/lat 59.90861 :gov.address/lon 10.74361
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nru.swf.intergenerational-trust-fund-for.hq"
+   :gov.address/unit "gov.nru.swf.intergenerational-trust-fund-for"
+   :gov.address/kind :headquarters
+   :gov.address/country "nru"
+   :gov.address/line-en "Intergenerational Trust Fund for the People of Nauru (statutory trust fund, no distinct office)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nru.swf.nauru-phosphate-royalties-trust.hq"
+   :gov.address/unit "gov.nru.swf.nauru-phosphate-royalties-trust"
+   :gov.address/kind :headquarters
+   :gov.address/country "nru"
+   :gov.address/line-en "Nauru Phosphate Royalties Trust, Nauru"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.omn.swf.state-general-reserve-fund.hq"
+   :gov.address/unit "gov.omn.swf.state-general-reserve-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Oman Investment Authority (formerly State General Reserve Fund), Way 3430, Al Khuwair, Muscat"
+   :gov.address/lat 23.588 :gov.address/lon 58.408
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.per.swf.peru-fiscal-stabilization-fund.hq"
+   :gov.address/unit "gov.per.swf.peru-fiscal-stabilization-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "per"
+   :gov.address/line-en "Peru Fiscal Stabilization Fund (managed by MEF), Jirón Junín 319, Cercado de Lima"
+   :gov.address/lat -12.04649 :gov.address/lon -77.02848
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.qat.swf.qatar-investment-authority.hq"
+   :gov.address/unit "gov.qat.swf.qatar-investment-authority"
+   :gov.address/kind :headquarters
+   :gov.address/country "qat"
+   :gov.address/line-en "Qatar Investment Authority, Ooredoo Tower, Al Dafna (West Bay), Doha"
+   :gov.address/lat 25.32327 :gov.address/lon 51.5376
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.rus.swf.russian-direct-investment-fund.hq"
+   :gov.address/unit "gov.rus.swf.russian-direct-investment-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "rus"
+   :gov.address/line-en "Russian Direct Investment Fund, City of Capitals, Presnenskaya nab. 8, Moscow-City"
+   :gov.address/lat 55.74722 :gov.address/lon 37.53889
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.rus.swf.russian-national-wealth-fund.hq"
+   :gov.address/unit "gov.rus.swf.russian-national-wealth-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "rus"
+   :gov.address/line-en "Russian National Wealth Fund (managed by Ministry of Finance), Ilyinka St 9, Moscow"
+   :gov.address/lat 55.75566 :gov.address/lon 37.62665
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.rwa.swf.agaciro-development-fund.hq"
+   :gov.address/unit "gov.rwa.swf.agaciro-development-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "rwa"
+   :gov.address/line-en "Agaciro Development Fund, RSSB Twin Towers, African Union Boulevard, Kiyovu, Kigali"
+   :gov.address/lat -1.9537 :gov.address/lon 30.0587
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sau.swf.public-investment-fund.hq"
+   :gov.address/unit "gov.sau.swf.public-investment-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "sau"
+   :gov.address/line-en "Public Investment Fund, PIF Tower, King Abdullah Financial District (KAFD), Riyadh"
+   :gov.address/lat 24.7628 :gov.address/lon 46.6403
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sgp.swf.gic-private-limited.hq"
+   :gov.address/unit "gov.sgp.swf.gic-private-limited"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "GIC Private Limited, Capital Tower, 168 Robinson Road, Singapore"
+   :gov.address/lat 1.2778 :gov.address/lon 103.84771
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sgp.swf.temasek-holdings.hq"
+   :gov.address/unit "gov.sgp.swf.temasek-holdings"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "Temasek Holdings, 60B Orchard Road, Tower 2, The Atrium @ Orchard, Singapore"
+   :gov.address/lat 1.29998 :gov.address/lon 103.84559
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tls.swf.timor-leste-petroleum-fund.hq"
+   :gov.address/unit "gov.tls.swf.timor-leste-petroleum-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "tls"
+   :gov.address/line-en "Timor-Leste Petroleum Fund (managed by Banco Central de Timor-Leste), Av. Xavier do Amaral 9, Dili"
+   :gov.address/lat -8.55443 :gov.address/lon 125.58006
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tto.swf.heritage-and-stabilization-fund.hq"
+   :gov.address/unit "gov.tto.swf.heritage-and-stabilization-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "tto"
+   :gov.address/line-en "Heritage and Stabilization Fund (managed by Central Bank of T&T), Eric Williams Plaza, Independence Square, Port of Spain"
+   :gov.address/lat 10.64889 :gov.address/lon -61.5125
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tuv.swf.tuvalu-trust-fund.hq"
+   :gov.address/unit "gov.tuv.swf.tuvalu-trust-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "tuv"
+   :gov.address/line-en "Tuvalu Trust Fund (statutory trust fund, no distinct office), Funafuti"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.usa.swf.alabama-trust-fund.hq"
+   :gov.address/unit "gov.usa.swf.alabama-trust-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Alabama Trust Fund (managed by Alabama State Treasury), Montgomery, Alabama"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.usa.swf.louisiana-education-quality-trus.hq"
+   :gov.address/unit "gov.usa.swf.louisiana-education-quality-trus"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Louisiana Education Quality Trust Fund (managed by Louisiana State Treasury), Baton Rouge"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.usa.swf.minnesota-public-school-fund.hq"
+   :gov.address/unit "gov.usa.swf.minnesota-public-school-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Minnesota Permanent School Fund (managed by MN State Board of Investment / DNR), St Paul, Minnesota"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.usa.swf.permanent-wyoming-mineral-trust.hq"
+   :gov.address/unit "gov.usa.swf.permanent-wyoming-mineral-trust"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Permanent Wyoming Mineral Trust Fund (managed by Wyoming State Treasurer), Cheyenne, Wyoming"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.usa.treasury.irs.hq"
+   :gov.address/unit "gov.usa.treasury.irs"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Internal Revenue Service Building, 1111 Constitution Ave NW, Washington DC"
+   :gov.address/lat 38.89333 :gov.address/lon -77.02694
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.zaf.finreg.hq"
+   :gov.address/unit "gov.zaf.finreg"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "National Credit Regulator (NCR), 127 - 15th Road, Randjespark, Midrand"
+   :gov.address/lat -25.97144 :gov.address/lon 28.12997
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
 ]}
