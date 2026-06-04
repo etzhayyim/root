@@ -12,7 +12,7 @@ arrow-array = { workspace = true }
 arrow-schema = { workspace = true }
 
 # LanceDB — high-level API (embeds lance 4.0, object_store, S3 support)
-lancedb = { version = "0.27", default-features = false, features = ["aws"] }
+lancedb = { version = "0.30", default-features = false, features = ["aws"] }
 
 # Async
 tokio = { workspace = true }
