@@ -1362,6 +1362,30 @@ a{color:inherit}
           const offset = Number.isFinite(offParam) && offParam > 0 ? offParam : 0;
           const page = searchEntityActors(q, limit, offset);
           const entityActors = page.records.map((r) => toGetProfileView(r));
+          // First page also carries the compiled named/infra actors (tsumugi /
+          // ooyake / kabuto / watari / … + substrate services). They are real
+          // actors that belong in search, AND their presence is what stops the
+          // yoro service worker (kotoba-sw.js) from "backfilling" them and
+          // resetting `totalActors` to the page length — the bug that capped
+          // `/search` at ~62 even though this Worker returns 8,888. The SW only
+          // rewrites the response when it finds a seed actor MISSING from it;
+          // include them and it passes our response (totalActors intact) through.
+          let namedActors: unknown[] = [];
+          if (offset === 0) {
+            const ql = q.trim().toLowerCase();
+            for (const h of COMPILED_ACTOR_HANDLES) {
+              const rec = compiledActorRecord(h);
+              if (!rec) continue;
+              const name = (
+                rec.displayNameEn ||
+                rec.displayNameJa ||
+                rec.handle
+              ).toLowerCase();
+              if (!ql || h.includes(ql) || name.includes(ql)) {
+                namedActors.push(toGetProfileView(rec));
+              }
+            }
+          }
           // best-effort upstream merge (PDS members) — only on the FIRST page and
           // only when there is room, so the entity offset-cursor stays consistent
           // across pages. Tolerate absence (G8 R0).
@@ -1391,10 +1415,13 @@ a{color:inherit}
               // upstream unavailable — entity matches still answer the query.
             }
           }
-          const actors = [...entityActors, ...upstreamActors];
+          const actors = [...namedActors, ...entityActors, ...upstreamActors];
           // totalActors: full match count when a query is set, else the whole
-          // entity universe — so the UI shows "8,888 actors" not "62+".
-          const totalActors = q.trim() ? page.total : ENTITY_TOTAL_COUNT;
+          // entity universe — so the UI shows "8,888 actors" not "62+". The
+          // page-1 named actors are counted in too.
+          const totalActors =
+            (q.trim() ? page.total : ENTITY_TOTAL_COUNT) +
+            (offset === 0 ? namedActors.length : 0);
           const body: Record<string, unknown> = { actors, totalActors };
           // cursor drives the UI's infinite-scroll loadMoreActors(); omit at end.
           if (page.nextOffset !== null) body.cursor = String(page.nextOffset);
