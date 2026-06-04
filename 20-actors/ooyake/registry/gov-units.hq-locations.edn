@@ -12065,4 +12065,640 @@
    :gov.address/lat 36.81632 :gov.address/lon 10.18561
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.afg.energy.hq"
+   :gov.address/unit "gov.afg.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "afg"
+   :gov.address/line-en "Ministry of Energy and Water, Darulaman Boulevard, Kabul"
+   :gov.address/lat 34.47612 :gov.address/lon 69.13001
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aze.energy.hq"
+   :gov.address/unit "gov.aze.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "aze"
+   :gov.address/line-en "Ministry of Energy, Chinar Plaza, 152 Heydar Aliyev Avenue, Baku"
+   :gov.address/lat 40.41438 :gov.address/lon 49.90373
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bel.education.hq"
+   :gov.address/unit "gov.bel.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "bel"
+   :gov.address/line-en "No federal education ministry (Community competence: Flemish/French/German-speaking), Belgium"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ben.finance.hq"
+   :gov.address/unit "gov.ben.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "ben"
+   :gov.address/line-en "Ministry of Economy and Finance, Avenue Pape Jean-Paul II, Cotonou"
+   :gov.address/lat 6.35302 :gov.address/lon 2.39725
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgr.transport.hq"
+   :gov.address/unit "gov.bgr.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgr"
+   :gov.address/line-en "Ministry of Transport and Communications, 9 Dyakon Ignatiy St, Sofia"
+   :gov.address/lat 42.69384 :gov.address/lon 23.32538
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.brb.finance.hq"
+   :gov.address/unit "gov.brb.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "brb"
+   :gov.address/line-en "Ministry of Finance, Economic Affairs and Investment, Government Headquarters, Bay Street, Bridgetown"
+   :gov.address/lat 13.08666 :gov.address/lon -59.60864
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.brb.foreign.hq"
+   :gov.address/unit "gov.brb.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "brb"
+   :gov.address/line-en "Ministry of Foreign Affairs and Foreign Trade, 1 Culloden Road, Bridgetown"
+   :gov.address/lat 13.09197 :gov.address/lon -59.60171
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.brn.finance.hq"
+   :gov.address/unit "gov.brn.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "brn"
+   :gov.address/line-en "Ministry of Finance and Economy, Commonwealth Drive, Bandar Seri Begawan"
+   :gov.address/lat 4.9224 :gov.address/lon 114.95114
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.caf.foreign.hq"
+   :gov.address/unit "gov.caf.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "caf"
+   :gov.address/line-en "Ministry of Foreign Affairs, Avenue des Martyrs, Bangui"
+   :gov.address/lat 4.38023 :gov.address/lon 18.56112
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.caf.justice.hq"
+   :gov.address/unit "gov.caf.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "caf"
+   :gov.address/line-en "Ministry of Justice, Avenue de Normandie, Bangui"
+   :gov.address/lat 4.36471 :gov.address/lon 18.5821
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cog.foreign.hq"
+   :gov.address/unit "gov.cog.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "cog"
+   :gov.address/line-en "Ministry of Foreign Affairs, Boulevard Alfred Raoul, Brazzaville"
+   :gov.address/lat -4.26684 :gov.address/lon 15.25604
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cog.justice.hq"
+   :gov.address/unit "gov.cog.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "cog"
+   :gov.address/line-en "Ministry of Justice, Boulevard Denis Sassou-Nguesso, Brazzaville"
+   :gov.address/lat -4.28218 :gov.address/lon 15.26176
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.com.justice.hq"
+   :gov.address/unit "gov.com.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "com"
+   :gov.address/line-en "Ministry of Justice, Moroni"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cpv.culture.hq"
+   :gov.address/unit "gov.cpv.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "cpv"
+   :gov.address/line-en "Ministry of Culture and Creative Industries, Av. Cidade de Lisboa, Praia"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.culture.hq"
+   :gov.address/unit "gov.cub.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Ministerio de Cultura, Calle 2, Vedado, Havana"
+   :gov.address/lat 23.13482 :gov.address/lon -82.3997
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.justice.hq"
+   :gov.address/unit "gov.cub.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Ministerio de Justicia, Calle O #216, Havana"
+   :gov.address/lat 23.14092 :gov.address/lon -82.38044
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cyp.labour.hq"
+   :gov.address/unit "gov.cyp.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "cyp"
+   :gov.address/line-en "Ministry of Labour and Social Insurance, 26 Spyrou Kyprianou Ave, Nicosia"
+   :gov.address/lat 35.16395 :gov.address/lon 33.36234
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eri.agriculture.hq"
+   :gov.address/unit "gov.eri.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "eri"
+   :gov.address/line-en "Ministry of Agriculture, Asmara"
+   :gov.address/lat 15.31778 :gov.address/lon 38.93203
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eri.finance.hq"
+   :gov.address/unit "gov.eri.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "eri"
+   :gov.address/line-en "Ministry of Finance, 175-9 Street, Asmara"
+   :gov.address/lat 15.33748 :gov.address/lon 38.93389
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fin.finance.hq"
+   :gov.address/unit "gov.fin.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "fin"
+   :gov.address/line-en "Ministry of Finance, Government Palace, Snellmaninkatu 1A, Helsinki"
+   :gov.address/lat 60.16944 :gov.address/lon 24.95444
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fin.labour.hq"
+   :gov.address/unit "gov.fin.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "fin"
+   :gov.address/line-en "Ministry of Economic Affairs and Employment, Aleksanterinkatu 4, Helsinki"
+   :gov.address/lat 60.1685 :gov.address/lon 24.9515
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fji.education.hq"
+   :gov.address/unit "gov.fji.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "fji"
+   :gov.address/line-en "Ministry of Education, Marela House, 19 Thurston Street, Suva"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fsm.transport.hq"
+   :gov.address/unit "gov.fsm.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "fsm"
+   :gov.address/line-en "Department of Transportation, Communications and Infrastructure, Palikir, Pohnpei"
+   :gov.address/lat 6.91722 :gov.address/lon 158.15889
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gab.defense.hq"
+   :gov.address/unit "gov.gab.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "gab"
+   :gov.address/line-en "Ministry of National Defence, Rue du Gouverneur Balley, Libreville"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gab.justice.hq"
+   :gov.address/unit "gov.gab.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "gab"
+   :gov.address/line-en "Ministry of Justice, Avenue Augustin Boumah, Libreville"
+   :gov.address/lat 0.38593 :gov.address/lon 9.44618
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gin.agriculture.hq"
+   :gov.address/unit "gov.gin.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "gin"
+   :gov.address/line-en "Ministry of Agriculture and Livestock, Kaloum, Conakry"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gin.energy.hq"
+   :gov.address/unit "gov.gin.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "gin"
+   :gov.address/line-en "Ministry of Energy, Hydraulics and Hydrocarbons, Almamya, Kaloum, Conakry"
+   :gov.address/lat 9.51383 :gov.address/lon -13.71506
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gnq.agriculture.hq"
+   :gov.address/unit "gov.gnq.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "gnq"
+   :gov.address/line-en "Ministry of Agriculture, Malabo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gnq.defense.hq"
+   :gov.address/unit "gov.gnq.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "gnq"
+   :gov.address/line-en "Ministry of National Defence, Malabo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.guy.education.hq"
+   :gov.address/unit "gov.guy.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "guy"
+   :gov.address/line-en "Ministry of Education, 26 Brickdam, Georgetown"
+   :gov.address/lat 6.80835 :gov.address/lon -58.16252
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hun.foreign.hq"
+   :gov.address/unit "gov.hun.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "hun"
+   :gov.address/line-en "Ministry of Foreign Affairs and Trade, Bem rakpart 47, Budapest"
+   :gov.address/lat 47.51117 :gov.address/lon 19.03906
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ita.tourism.hq"
+   :gov.address/unit "gov.ita.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "ita"
+   :gov.address/line-en "Ministry of Tourism, Via di Villa Ada 55, Rome"
+   :gov.address/lat 41.92426 :gov.address/lon 12.50542
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kir.justice.hq"
+   :gov.address/unit "gov.kir.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "kir"
+   :gov.address/line-en "Ministry of Justice, Bairiki, South Tarawa"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lao.foreign.hq"
+   :gov.address/unit "gov.lao.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "lao"
+   :gov.address/line-en "Ministry of Foreign Affairs, Sibounheuang Road, Vientiane"
+   :gov.address/lat 17.97454 :gov.address/lon 102.62073
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lao.trade.hq"
+   :gov.address/unit "gov.lao.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "lao"
+   :gov.address/line-en "Ministry of Industry and Commerce, Phonxay Road, Ban Phonxay, Vientiane"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lie.education.hq"
+   :gov.address/unit "gov.lie.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "lie"
+   :gov.address/line-en "Ministry of Foreign Affairs, Education and Sport, Regierungsgebäude, Vaduz"
+   :gov.address/lat 47.13735 :gov.address/lon 9.52264
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lie.justice.hq"
+   :gov.address/unit "gov.lie.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "lie"
+   :gov.address/line-en "Office of Justice, Regierungsgebäude, Peter-Kaiser-Platz 1, Vaduz"
+   :gov.address/lat 47.13712 :gov.address/lon 9.52276
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lso.health.hq"
+   :gov.address/unit "gov.lso.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "lso"
+   :gov.address/line-en "Ministry of Health, Linare Road, Maseru"
+   :gov.address/lat -29.31366 :gov.address/lon 27.48599
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lux.energy.hq"
+   :gov.address/unit "gov.lux.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "lux"
+   :gov.address/line-en "Ministère de l'Économie, 19-21 Boulevard Royal, Luxembourg City"
+   :gov.address/lat 49.6135 :gov.address/lon 6.1276
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lva.justice.hq"
+   :gov.address/unit "gov.lva.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "lva"
+   :gov.address/line-en "Ministry of Justice, Brīvības bulvāris 36, Riga"
+   :gov.address/lat 56.95313 :gov.address/lon 24.11824
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mco.finance.hq"
+   :gov.address/unit "gov.mco.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "mco"
+   :gov.address/line-en "Department of Finance and Economy, Ministère d'État, Place de la Visitation, Monaco"
+   :gov.address/lat 43.7317 :gov.address/lon 7.42495
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mco.foreign.hq"
+   :gov.address/unit "gov.mco.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "mco"
+   :gov.address/line-en "Department of External Relations, Ministère d'État, Place de la Visitation, Monaco"
+   :gov.address/lat 43.7317 :gov.address/lon 7.42495
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mhl.education.hq"
+   :gov.address/unit "gov.mhl.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "mhl"
+   :gov.address/line-en "Ministry of Education, Sports and Training, Delap, Majuro"
+   :gov.address/lat 7.08632 :gov.address/lon 171.37159
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mkd.health.hq"
+   :gov.address/unit "gov.mkd.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "mkd"
+   :gov.address/line-en "Ministry of Health, 50 Divizija St, Skopje"
+   :gov.address/lat 41.9907 :gov.address/lon 21.42429
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mkd.justice.hq"
+   :gov.address/unit "gov.mkd.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "mkd"
+   :gov.address/line-en "Ministry of Justice, Dimitrie Čupovski 9, Skopje"
+   :gov.address/lat 41.99463 :gov.address/lon 21.42978
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mli.health.hq"
+   :gov.address/unit "gov.mli.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "mli"
+   :gov.address/line-en "Ministère de la Santé, ACI 2000, Bamako"
+   :gov.address/lat 12.6282 :gov.address/lon -8.02241
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mli.justice.hq"
+   :gov.address/unit "gov.mli.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "mli"
+   :gov.address/line-en "Ministère de la Justice, Cité Administrative, Bamako"
+   :gov.address/lat 12.63722 :gov.address/lon -7.99672
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mmr.culture.hq"
+   :gov.address/unit "gov.mmr.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "mmr"
+   :gov.address/line-en "Ministry of Religious Affairs and Culture, Office No. 35, Naypyidaw"
+   :gov.address/lat 19.78885 :gov.address/lon 96.14107
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mmr.industry.hq"
+   :gov.address/unit "gov.mmr.industry"
+   :gov.address/kind :headquarters
+   :gov.address/country "mmr"
+   :gov.address/line-en "Ministry of Industry, Office No. 30, Naypyidaw"
+   :gov.address/lat 19.81824 :gov.address/lon 96.13984
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mus.finance.hq"
+   :gov.address/unit "gov.mus.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "mus"
+   :gov.address/line-en "Ministry of Finance and Economic Development, Government House, Port Louis"
+   :gov.address/lat -20.16271 :gov.address/lon 57.50302
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mus.tourism.hq"
+   :gov.address/unit "gov.mus.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "mus"
+   :gov.address/line-en "Ministry of Tourism, Air Mauritius Centre, Port Louis"
+   :gov.address/lat -20.16307 :gov.address/lon 57.50054
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nor.culture.hq"
+   :gov.address/unit "gov.nor.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "nor"
+   :gov.address/line-en "Ministry of Culture and Equality, Einar Gerhardsens plass, Oslo"
+   :gov.address/lat 59.91525 :gov.address/lon 10.7467
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nor.environment.hq"
+   :gov.address/unit "gov.nor.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "nor"
+   :gov.address/line-en "Ministry of Climate and Environment, Kongens gate 20, Oslo"
+   :gov.address/lat 59.91172 :gov.address/lon 10.74357
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.plw.justice.hq"
+   :gov.address/unit "gov.plw.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "plw"
+   :gov.address/line-en "Ministry of Justice, Capitol of Palau, Ngerulmud"
+   :gov.address/lat 7.50015 :gov.address/lon 134.62429
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.png.finance.hq"
+   :gov.address/unit "gov.png.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "Department of Finance / Treasury, Vulupindi Haus, Waigani, Port Moresby"
+   :gov.address/lat -9.44169 :gov.address/lon 147.18029
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.png.justice.hq"
+   :gov.address/unit "gov.png.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "Department of Justice and Attorney-General, Sir Buri Kidu Haus, Waigani, Port Moresby"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.prt.tourism.hq"
+   :gov.address/unit "gov.prt.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "prt"
+   :gov.address/line-en "Turismo de Portugal, Rua Ivone Silva 6, Lisbon"
+   :gov.address/lat 38.7422 :gov.address/lon -9.15026
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sen.foreign.hq"
+   :gov.address/unit "gov.sen.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "sen"
+   :gov.address/line-en "Ministry of Foreign Affairs, Place de l'Indépendance, Dakar"
+   :gov.address/lat 14.66991 :gov.address/lon -17.43147
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sen.tourism.hq"
+   :gov.address/unit "gov.sen.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "sen"
+   :gov.address/line-en "Ministry of Tourism (Culture, Crafts and Tourism), Sphère Ministérielle, Diamniadio"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.smr.foreign.hq"
+   :gov.address/unit "gov.smr.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "smr"
+   :gov.address/line-en "Department of Foreign Affairs, Palazzo Begni, Contrada Omerelli 31, City of San Marino"
+   :gov.address/lat 43.93705 :gov.address/lon 12.44544
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.stp.defense.hq"
+   :gov.address/unit "gov.stp.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "stp"
+   :gov.address/line-en "Ministry of National Defence and Internal Order, São Tomé"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.stp.foreign.hq"
+   :gov.address/unit "gov.stp.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "stp"
+   :gov.address/line-en "Ministry of Foreign Affairs, Cooperation and Communities, Avenida Amílcar Cabral, São Tomé"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syc.foreign.hq"
+   :gov.address/unit "gov.syc.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "Ministry of Foreign Affairs, Maison Quéau de Quinssy, Mont Fleuri, Victoria"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tgo.transport.hq"
+   :gov.address/unit "gov.tgo.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "tgo"
+   :gov.address/line-en "Ministry of Transport, Lomé"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tjk.justice.hq"
+   :gov.address/unit "gov.tjk.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "tjk"
+   :gov.address/line-en "Ministry of Justice, Dushanbe"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tkm.agriculture.hq"
+   :gov.address/unit "gov.tkm.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "tkm"
+   :gov.address/line-en "Ministry of Agriculture and Environmental Protection, 92 Archabil Avenue, Ashgabat"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.uga.agriculture.hq"
+   :gov.address/unit "gov.uga.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "uga"
+   :gov.address/line-en "Ministry of Agriculture, Animal Industry and Fisheries, Plot 16-18 Lugard Avenue, Entebbe"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ury.foreign.hq"
+   :gov.address/unit "gov.ury.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "ury"
+   :gov.address/line-en "Ministry of Foreign Affairs, Palacio Santos, Av. 18 de Julio 1205, Montevideo"
+   :gov.address/lat -34.90549 :gov.address/lon -56.19006
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ven.transport.hq"
+   :gov.address/unit "gov.ven.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "ven"
+   :gov.address/line-en "Ministry of Popular Power for Transport, Torre MPPT, Av. Francisco de Miranda, Chacao, Caracas"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vut.finance.hq"
+   :gov.address/unit "gov.vut.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "vut"
+   :gov.address/line-en "Ministry of Finance and Economic Management, Port Vila"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.water.hq"
+   :gov.address/unit "gov.zaf.water"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Department of Water and Sanitation, Sedibeng Building, 185 Francis Baard St, Pretoria"
+   :gov.address/lat -25.74996 :gov.address/lon 28.18748
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zwe.defense.hq"
+   :gov.address/unit "gov.zwe.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "zwe"
+   :gov.address/line-en "Ministry of Defence, Defence House, cnr Kwame Nkrumah Ave & 3rd St, Harare"
+   :gov.address/lat -17.8269 :gov.address/lon 31.05132
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zwe.environment.hq"
+   :gov.address/unit "gov.zwe.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "zwe"
+   :gov.address/line-en "Ministry of Environment, Climate and Wildlife, Kaguvi Building, Harare"
+   :gov.address/lat -17.82364 :gov.address/lon 31.05409
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
 ]}

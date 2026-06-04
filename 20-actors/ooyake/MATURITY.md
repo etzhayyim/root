@@ -43,6 +43,24 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: ministry tier COMPLETE (1642/1642 address records)
+
+Closed the ministry tier — the final 73 (a scattered long tail across ~52 countries). 6 web-research
+subagents. 73 added; **52 building-level lat/lon, 21 honest line-en-only (G5)** — Libya/North Korea/
+Somalia patterns plus small/sparse-OSM states (Comoros, Cape Verde, Fiji, Gabon defence, Eq. Guinea,
+Kiribati, São Tomé, Seychelles, Togo, Tajikistan justice, Turkmenistan, Uganda, Venezuela, Vanuatu,
+Senegal/PNG one each). Belgium education honest-null (Community competence — no federal ministry).
+
+- **ministry tier: 1642/1642 — every ministry now carries an address record** (8th iteration of the
+  axis). Building-level coords now on ~1,300+ of them; the rest carry a verified line-en (building +
+  street + city) where no reliable coordinate exists. This is the 6th tier fully address-recorded
+  after country, legislature, court, supranational, cabinet.
+- honest data note: Senegal tourism ministry merged into Culture/Crafts/Tourism and relocated to the
+  Sphère Ministérielle, Diamniadio (line-en updated).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 20 countries (1509 → 1569, 96%)
 
 Seventh ministry-address batch (Andorra, Armenia, Antigua, Bosnia, Belarus, Chile, Algeria, Georgia,
