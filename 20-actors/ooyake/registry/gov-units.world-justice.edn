@@ -65,6 +65,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Justice (United Arab Emirates)"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://www.moj.gov.ae/"
    :gov.unit/wikidata "Q55648379"
    :gov.unit/cofog ["03.3"]
@@ -595,6 +597,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://moj.gov.eg/ar/Pages/Home.aspx"
    :gov.unit/wikidata "Q4294857"
    :gov.unit/cofog ["03.3"]
@@ -1028,6 +1032,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://www.moj.gov.kw"
    :gov.unit/wikidata "Q55648354"
    :gov.unit/cofog ["03.3"]
@@ -1605,6 +1611,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://www.moj.gov.sa"
    :gov.unit/wikidata "Q12250979"
    :gov.unit/cofog ["03.3"]

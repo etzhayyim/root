@@ -306,6 +306,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Egyptian Meteorological Authority"
+   :gov.unit/name-local "الهيئة العامة للأرصاد الجوية المصرية"
+   :gov.unit/name-romanized "al-Hayʾa al-ʿAmma li-l-Arsad al-Jawwiyya al-Misriyya"
    :gov.unit/official-url "http://ema.gov.eg/wp/"
    :gov.unit/wikidata "Q12194724"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -582,6 +584,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Meteorology Department"
+   :gov.unit/name-local "إدارة الأرصاد الجوية"
+   :gov.unit/name-romanized "Idarat al-Arsad al-Jawwiyyah"
    :gov.unit/official-url "https://qweather.gov.qa/"
    :gov.unit/wikidata "Q119772809"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

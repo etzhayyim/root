@@ -386,6 +386,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizarat al-Thaqafa"
    :gov.unit/official-url "http://www.moc.gov.eg"
    :gov.unit/wikidata "Q3064288"
    :gov.unit/cofog ["08.2"]
@@ -1126,6 +1128,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizarat ath-Thaqafah"
    :gov.unit/official-url "http://www.moc.gov.qa"
    :gov.unit/wikidata "Q23043299"
    :gov.unit/cofog ["08.2"]
@@ -1176,6 +1180,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizarat al-Thaqafah"
    :gov.unit/official-url "https://www.moc.gov.sa/"
    :gov.unit/wikidata "Q62102917"
    :gov.unit/cofog ["08.2"]

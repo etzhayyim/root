@@ -65,6 +65,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Environment and Water of UAE"
+   :gov.unit/name-local "وزارة التغير المناخي والبيئة"
+   :gov.unit/name-romanized "Wizarat al-Taghayyur al-Munakhi wa al-Biʾa"
    :gov.unit/official-url "https://www.moccae.gov.ae/"
    :gov.unit/wikidata "Q12250940"
    :gov.unit/cofog ["05"]
@@ -419,6 +421,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizarat al-Biʾa"
    :gov.unit/official-url "https://www.eeaa.gov.eg/"
    :gov.unit/wikidata "Q16065034"
    :gov.unit/cofog ["05"]
@@ -1045,6 +1049,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Environment and Climate Change"
+   :gov.unit/name-local "وزارة البيئة والتغير المناخي"
+   :gov.unit/name-romanized "Wizarat al-Biʾah wa-t-Taghayyur al-Munakhi"
    :gov.unit/official-url "http://www.mme.gov.qa/cui/view.dox?id=316&siteID=1"
    :gov.unit/wikidata "Q30263866"
    :gov.unit/cofog ["05"]

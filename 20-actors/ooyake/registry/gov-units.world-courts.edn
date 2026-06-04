@@ -483,6 +483,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Supreme Constitutional Court of Egypt"
+   :gov.unit/name-local "المحكمة الدستورية العليا"
+   :gov.unit/name-romanized "al-Mahkama al-Dusturiyya al-ʿUlya"
    :gov.unit/official-url "https://www.sccourt.gov.eg/"
    :gov.unit/wikidata "Q2156821"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1313,6 +1315,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Supreme Constitutional Court of Qatar"
+   :gov.unit/name-local "المحكمة الدستورية العليا"
+   :gov.unit/name-romanized "al-Mahkamah ad-Dusturiyyah al-ʿUlya"
    :gov.unit/official-url "https://www.sjc.gov.qa/en"
    :gov.unit/wikidata "Q12192494"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1363,6 +1367,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Supreme Court of Saudi Arabia"
+   :gov.unit/name-local "المحكمة العليا"
+   :gov.unit/name-romanized "al-Mahkama al-ʿUlya"
    :gov.unit/official-url "https://www.moj.gov.sa/English/Ministry/Courts/Pages/HighCourt.aspx"
    :gov.unit/wikidata "Q20393621"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

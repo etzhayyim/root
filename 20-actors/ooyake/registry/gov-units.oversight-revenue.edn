@@ -315,6 +315,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Zakat, Tax, and Customs Authority"
+   :gov.unit/name-local "هيئة الزكاة والضريبة والجمارك"
+   :gov.unit/name-romanized "Hayʾat az-Zakah wa-d-Dariba wa-l-Jamarik"
    :gov.unit/official-url "https://zatca.gov.sa/"
    :gov.unit/wikidata "Q106704595"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

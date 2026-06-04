@@ -64,6 +64,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Energy of UAE"
+   :gov.unit/name-local "وزارة الطاقة والبنية التحتية"
+   :gov.unit/name-romanized "Wizarat al-Taqa wa al-Binya al-Tahtiyya"
    :gov.unit/official-url "https://www.moei.gov.ae/"
    :gov.unit/wikidata "Q12250976"
    :gov.unit/cofog ["04.3"]
@@ -416,6 +418,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Petroleum and Mineral Resources"
+   :gov.unit/name-local "وزارة البترول والثروة المعدنية"
+   :gov.unit/name-romanized "Wizarat al-Bitrul wa-l-Tharwa al-Maʿdaniyya"
    :gov.unit/official-url "https://www.petroleum.gov.eg/ar-eg/Pages/HomePage.aspx"
    :gov.unit/wikidata "Q4294486"
    :gov.unit/cofog ["04.3"]
@@ -930,6 +934,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "وزارة الطاقة"
+   :gov.unit/name-romanized "Wizarat al-Taqah"
    :gov.unit/official-url "http://www.meim.gov.sa"
    :gov.unit/wikidata "Q12250935"
    :gov.unit/cofog ["04.3"]

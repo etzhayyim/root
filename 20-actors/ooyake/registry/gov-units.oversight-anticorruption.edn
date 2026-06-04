@@ -428,6 +428,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "the Oversight and Anti-Corruption Commission"
+   :gov.unit/name-local "هيئة الرقابة ومكافحة الفساد (نزاهة)"
+   :gov.unit/name-romanized "Hayʾat al-Riqabah wa Mukafahat al-Fasad (Nazaha)"
    :gov.unit/official-url "http://www.nazaha.gov.sa/"
    :gov.unit/wikidata "Q7184025"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

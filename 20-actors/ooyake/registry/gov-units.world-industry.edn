@@ -81,6 +81,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Trade and Industry"
+   :gov.unit/name-local "وزارة التجارة والصناعة"
+   :gov.unit/name-romanized "Wizarat al-Tijara wa-l-Sinaʿa"
    :gov.unit/official-url "https://mind.gov.eg/#/home"
    :gov.unit/wikidata "Q2118756"
    :gov.unit/cofog ["04.4"]

@@ -515,6 +515,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Interior (Egypt)"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizarat al-Dakhiliyya"
    :gov.unit/official-url "https://moi.gov.eg"
    :gov.unit/wikidata "Q2607694"
    :gov.unit/cofog ["03.1"]
@@ -917,6 +919,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizarat al-Dakhiliyya"
    :gov.unit/official-url "http://www.moi.gov.kw/portal/venglish/"
    :gov.unit/wikidata "Q17064142"
    :gov.unit/cofog ["03.1"]
@@ -1333,6 +1337,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Interior (Qatar)"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizarat ad-Dakhiliyyah"
    :gov.unit/official-url "https://www.moi.gov.qa/"
    :gov.unit/wikidata "Q22934911"
    :gov.unit/cofog ["03.1"]
@@ -1399,6 +1405,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "وزارة الداخلية"
+   :gov.unit/name-romanized "Wizarat al-Dakhiliyyah"
    :gov.unit/official-url "http://www.moi.gov.sa/"
    :gov.unit/wikidata "Q6867237"
    :gov.unit/cofog ["03.1"]

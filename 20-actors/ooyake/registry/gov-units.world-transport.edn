@@ -402,6 +402,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Transportation"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizarat al-Naql"
    :gov.unit/official-url "https://mot.gov.eg/"
    :gov.unit/wikidata "Q1864879"
    :gov.unit/cofog ["04.5"]
@@ -804,6 +806,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Transportation"
+   :gov.unit/name-local "وزارة المواصلات"
+   :gov.unit/name-romanized "Wizarat al-Muwasalat"
    :gov.unit/wikidata "Q22934979"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
@@ -1107,6 +1111,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Transport and Communications"
+   :gov.unit/name-local "وزارة المواصلات"
+   :gov.unit/name-romanized "Wizarat al-Muwasalat"
    :gov.unit/official-url "http://www.motc.gov.qa/en"
    :gov.unit/wikidata "Q59535303"
    :gov.unit/cofog ["04.5"]
@@ -1157,6 +1163,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Transport and Logistic Services of Saudi Arabia"
+   :gov.unit/name-local "وزارة النقل والخدمات اللوجستية"
+   :gov.unit/name-romanized "Wizarat an-Naql wa-l-Khadamat al-Lujistiyya"
    :gov.unit/official-url "https://www.mot.gov.sa/"
    :gov.unit/wikidata "Q12250992"
    :gov.unit/cofog ["04.5"]

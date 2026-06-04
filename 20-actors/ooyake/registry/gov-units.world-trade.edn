@@ -306,6 +306,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Commerce and Industry"
+   :gov.unit/name-local "وزارة التجارة والصناعة"
+   :gov.unit/name-romanized "Wizarat al-Tijara wa-al-Sinaʿa"
    :gov.unit/official-url "http://www.moci.gov.kw"
    :gov.unit/wikidata "Q17068462"
    :gov.unit/cofog ["04.1"]
@@ -514,6 +516,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Business and Trade of Qatar"
+   :gov.unit/name-local "وزارة التجارة والصناعة"
+   :gov.unit/name-romanized "Wizarat at-Tijarah wa-s-Sinaʿah"
    :gov.unit/official-url "https://www.moci.gov.qa/"
    :gov.unit/wikidata "Q96393333"
    :gov.unit/cofog ["04.1"]
@@ -548,6 +552,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "وزارة التجارة"
+   :gov.unit/name-romanized "Wizarat at-Tijara"
    :gov.unit/official-url "https://mc.gov.sa"
    :gov.unit/wikidata "Q12250941"
    :gov.unit/cofog ["04.1"]

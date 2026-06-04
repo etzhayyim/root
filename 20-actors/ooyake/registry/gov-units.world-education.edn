@@ -81,6 +81,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التربية والتعليم"
+   :gov.unit/name-romanized "Wizarat al-Tarbiya wa al-Taʿlim"
    :gov.unit/official-url "https://www.moe.gov.ae/en/"
    :gov.unit/wikidata "Q22906959"
    :gov.unit/cofog ["09"]
@@ -594,6 +596,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التربية والتعليم"
+   :gov.unit/name-romanized "Wizarat al-Tarbiya wa-l-Taʿlim"
    :gov.unit/official-url "https://moe.gov.eg/"
    :gov.unit/wikidata "Q4119091"
    :gov.unit/cofog ["09"]
@@ -1044,6 +1048,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Higher Education"
+   :gov.unit/name-local "وزارة التعليم العالي"
+   :gov.unit/name-romanized "Wizarat al-Taʿlim al-ʿAli"
    :gov.unit/official-url "https://www.mohe.edu.kw/site/Default.aspx"
    :gov.unit/wikidata "Q104176091"
    :gov.unit/cofog ["09"]
@@ -1604,6 +1610,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Education and Higher Education of Qatar"
+   :gov.unit/name-local "وزارة التربية والتعليم والتعليم العالي"
+   :gov.unit/name-romanized "Wizarat at-Tarbiyah wa-t-Taʿlim wa-t-Taʿlim al-ʿAli"
    :gov.unit/official-url "https://www.edu.gov.qa/"
    :gov.unit/wikidata "Q96091670"
    :gov.unit/cofog ["09"]
@@ -1670,6 +1678,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التعليم"
+   :gov.unit/name-romanized "Wizarat al-Taʿlim"
    :gov.unit/official-url "http://he.moe.gov.sa/en/default.aspx"
    :gov.unit/wikidata "Q21403136"
    :gov.unit/cofog ["09"]

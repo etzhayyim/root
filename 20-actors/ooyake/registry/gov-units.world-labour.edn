@@ -819,6 +819,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Human Resources and Social Development"
+   :gov.unit/name-local "وزارة الموارد البشرية والتنمية الاجتماعية"
+   :gov.unit/name-romanized "Wizarat al-Mawarid al-Bashariyya wa-t-Tanmiya al-Ijtimaʿiyya"
    :gov.unit/official-url "https://mlsd.gov.sa/"
    :gov.unit/wikidata "Q12250983"
    :gov.unit/cofog ["04.1"]
