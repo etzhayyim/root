@@ -1,0 +1,357 @@
+;; erp-ontology — kotoba EAVT vocabulary for the open-kyber ENTERPRISE RESOURCE PLANNING substrate
+;; ADR-2606037200 · app: open-kyber (60-apps/etzhayyim-project-open-kyber) · brand: Kyber
+;;
+;; PURPOSE
+;;   A content-addressed Datom (EAVT) vocabulary that turns open-kyber — the Apache-2.0,
+;;   APQC-PCF-aligned ERP — into a kotoba-Datomic system: the CANONICAL STATE of every
+;;   ERP record (ledger, invoice, employee, purchase order, inventory item, sales order,
+;;   fixed asset, depreciation run, policy control, risk issue) is a Datom in the kotoba
+;;   log, not a row in RisingWave / Postgres / Kysely / Hyperdrive. This SUPERSEDES the
+;;   "PDS createRecord → onCommit → RisingWave streaming MV" read path of ADR-0025: the
+;;   ERP Worker still accepts the same XRPC surface, but writes assert Datoms and reads
+;;   are kqe arrangements (EAVT / AEVT / AVET / VAET) directly over the canonical log
+;;   (ADR-2605262130 D7 + 2605312345). MST = ingress/interop wire, IPFS = block backend,
+;;   Base L2 = trust anchor over the commit-DAG root.
+;;
+;;   It also carries TWO extensions the founder directive added on 2026-06-03:
+;;     (1) ISIC INDUSTRY PACKS — the base ERP is generic; each of the 21 ISIC Rev.4
+;;         sections (A..U) and, where needed, divisions, gets a tailored OVERLAY (extra
+;;         modules, document types, units of measure, compliance controls, CoA extensions).
+;;         A tenant declares its ISIC activity and the matching pack(s) activate. The pack
+;;         DEFINITIONS live in `industry-packs/isic-packs.kotoba.edn`; this file gives the
+;;         vocabulary that binds a tenant to its packs and records pack-scoped config.
+;;     (2) PRODUCTIVITY SUITE — mailer / drive / docs / sheets / calendar, modeled
+;;         kotoba-native (drive blobs = IPFS CIDs referenced by Datoms; docs/sheets =
+;;         content-addressed document Datoms with `as-of` revision history; mailer routes
+;;         over openmail Postage, ADR Postage.sol; calendar events are Datoms). These are
+;;         FIRST-CLASS ERP objects, linkable to any business record (an invoice can cite a
+;;         drive file; a sales order can attach a docs quote; an HR review can schedule a
+;;         calendar event).
+;;
+;; APQC ALIGNMENT (unchanged): every business entity keeps its APQC PCF 13 L1 category so
+;;   the kyb3proj projector + getApqcCoverage keep working. The L1 binding moves from a
+;;   SQL label to the Datom attribute `:apqc/l1` (see :apqc map below).
+;;
+;; SUBSTRATE BOUNDARY (CRITICAL — repo CLAUDE.md "Substrate boundary"):
+;;   State      = kotoba Datom log (THIS vocabulary). NO RisingWave / Postgres / Kysely.
+;;   Money      = decimal STRINGS (AT-Lexicon has no float). Counts = integers.
+;;   Payment    = USDC on Base L2 + ERC-4337 + TitheRouter for any value flow; this ERP
+;;                RECORDS amounts but never invokes Stripe/PayPal/fiat processors.
+;;   Identity   = did:web:kyber.etzhayyim.com:dept:* department writers (multi-DID).
+;;   PII        = Tier-3 fields (employee salary / personal contact) are NEVER plaintext
+;;                Datoms — they live in the `com.etzhayyim.encrypted.record` envelope
+;;                (ADR-2605181100); here only the envelope POINTER + non-PII facets are
+;;                asserted. See :hr.employee/* `:pii` markers.
+;;   Inference  = Murakumo-only (LiteLLM 127.0.0.1:4000) for any LLM assist (NL→journal,
+;;                doc drafting, anomaly notes). No commercial GPU / vendor-direct.
+;;
+;; HISTORY / 非終末論 (ADR-2605192100 §1.15): an ERP is an accumulation of facts, never a
+;;   mutable "current state" that overwrites the past. A correction is a NEW Datom at a
+;;   later transaction time, not an in-place edit. A reversed journal entry asserts a
+;;   contra entry; it does not delete the original. Read the books "as-of" a date. This is
+;;   exactly Datomic accounting semantics and is why kotoba is the right substrate.
+;;
+;; SOURCING / TENANCY: each Datom is tenant-scoped by `:erp/tenant` (the deploying org's
+;;   root DID). The etzhayyim tenancy = did:web:kyber.etzhayyim.com. Forks set their own.
+;;   `:*/sourcing` ∈ { :authoritative (a real posted business record) :representative
+;;   (demo/seed) :synthesized (derived: a rollup, a trial balance, a depreciation amount) }.
+
+{:schema/id      "erp-ontology"
+ :schema/version "0.2.0"
+ :schema/adr     "2606037200"
+ :schema/note    "kotoba-native ERP vocabulary for open-kyber (Kyber). Supersedes the RisingWave projection read path of ADR-0025 with kqe-over-Datom-log (ADR-2605262130 + 2605312345). ISIC industry packs defined in industry-packs/isic-packs.kotoba.edn; suite (mailer/drive/docs/sheets/calendar) modeled kotoba-native. APQC L1 retained as :apqc/l1. v0.2.0 adds the rw-free maturity-wave vocabulary: :pay.payment/* (payment application) · :tax.code/* (VAT/消費税) · :party/* (customer/supplier + credit limit) · :budget.line/* (budget-vs-actual) · :fx.rate/* (multi-currency) · :inv.move/* (moving-average stock ledger) + invoice settlement fields (:ar.invoice/paid-amount, tax-code)."
+
+ ;; ── graph addressing (shared by ERP Worker + projector + kotoba boot) ─────
+ :graph {:name       "kyber-erp-v1"
+         :cid        :derived ;; KotobaCid::from_bytes(b"kyber-erp-v1") at kotoba-server boot
+         :visibility :tenant  ;; reads require the tenant's read-cap; not a public graph
+         :doc        "one logical graph per deployment; multi-tenant rows fenced by :erp/tenant"}
+
+ ;; ── schema install tx (run once before first upsert; identity + ref attrs) ─
+ :schema-tx
+ [{:db/id ":erp/id"               :db/ident :erp/id               :db/unique :db.unique/identity}
+  {:db/id ":acct.account/code"    :db/ident :acct.account/code    :db/unique :db.unique/identity}
+  {:db/id ":hr.employee/emp-id"   :db/ident :hr.employee/emp-id   :db/unique :db.unique/identity}
+  {:db/id ":erp.integration/id"   :db/ident :erp.integration/id   :db/unique :db.unique/identity}
+  {:db/id ":erp.tenant/did"       :db/ident :erp.tenant/did       :db/unique :db.unique/identity}
+  {:db/id ":isic.pack/id"         :db/ident :isic.pack/id         :db/unique :db.unique/identity}]
+
+ :attributes
+ [;; ════════════════════════════════════════════════════════════════════════
+  ;; COMMON — every ERP entity carries these
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :erp/id        :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "globally unique entity id, e.g. \"je.2026.000123\", \"inv.AR.000045\""}
+  {:db/ident :erp/kind      :db/valueType :db.type/keyword :db/doc "entity kind #{:account :journal-entry :journal-line :invoice :employee :purchase-order :inventory-item :sales-order :fixed-asset :depreciation-run :policy-control :risk-issue :department :integration :tenant :isic-pack :mail :drive-node :doc :sheet :calendar-event :payment :tax-code :party :budget-line :fx-rate :stock-move}"}
+  {:db/ident :erp/tenant    :db/valueType :db.type/string  :db/doc "tenant root DID (did:web:kyber.etzhayyim.com for etzhayyim); fences multi-tenant data"}
+  {:db/ident :erp/dept      :db/valueType :db.type/string  :db/optional true :db/doc "writing department DID, did:web:kyber.etzhayyim.com:dept:*"}
+  {:db/ident :erp/sourcing  :db/valueType :db.type/keyword :db/doc "#{:authoritative :representative :synthesized}"}
+  {:db/ident :erp/created-at :db/valueType :db.type/instant :db/doc "wall-clock assertion time (the txInstant is the canonical kotoba time)"}
+  {:db/ident :apqc/l1       :db/valueType :db.type/string  :db/optional true :db/doc "APQC PCF 13 L1 category, e.g. \"9.0\" Financial · \"7.0\" Human Capital — feeds kyb3proj getApqcCoverage"}
+  {:db/ident :erp/isic-pack :db/valueType :db.type/keyword :db/cardinality :db.cardinality/many :db/optional true :db/doc "industry pack(s) under which this record was created, e.g. :pack/C :pack/A01"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; ACCOUNTING — Chart of Accounts + double-entry General Ledger (APQC 9.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; Account (chart-of-accounts node). PLAINTEXT — reference data, no PII.
+  {:db/ident :acct.account/code     :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "account code, e.g. \"1000\" Cash"}
+  {:db/ident :acct.account/name     :db/valueType :db.type/string}
+  {:db/ident :acct.account/type     :db/valueType :db.type/keyword :db/doc "#{:asset :contra-asset :liability :equity :revenue :expense}"}
+  {:db/ident :acct.account/opening  :db/valueType :db.type/string  :db/doc "opening balance, decimal STRING"}
+  {:db/ident :acct.account/currency :db/valueType :db.type/string  :db/doc "ISO-4217, default JPY"}
+  {:db/ident :acct.account/parent   :db/valueType :db.type/ref     :db/optional true :db/doc "ref to parent account (sub-ledger rollup)"}
+  {:db/ident :acct.account/pack-ext :db/valueType :db.type/keyword :db/optional true :db/doc "if added by an ISIC pack CoA extension, the pack id"}
+
+  ;; Journal entry (header) — a balanced double-entry transaction.
+  {:db/ident :acct.je/number     :db/valueType :db.type/string  :db/doc "human journal number"}
+  {:db/ident :acct.je/date       :db/valueType :db.type/instant :db/doc "accounting (posting) date — may differ from txInstant"}
+  {:db/ident :acct.je/memo       :db/valueType :db.type/string  :db/optional true}
+  {:db/ident :acct.je/status     :db/valueType :db.type/keyword :db/doc "#{:draft :posted :reversed} — a reversal is a NEW entry, never an edit (非終末論)"}
+  {:db/ident :acct.je/reverses   :db/valueType :db.type/ref     :db/optional true :db/doc "if a reversal, ref to the original je"}
+  {:db/ident :acct.je/lines      :db/valueType :db.type/ref     :db/cardinality :db.cardinality/many :db/doc "refs to :journal-line entities"}
+  {:db/ident :acct.je/currency   :db/valueType :db.type/string}
+  ;; Journal line — one debit OR credit against one account. SUM(debit)=SUM(credit).
+  {:db/ident :acct.line/account  :db/valueType :db.type/ref     :db/doc "ref to the account"}
+  {:db/ident :acct.line/debit    :db/valueType :db.type/string  :db/doc "debit amount, decimal STRING (\"0\" if a credit line)"}
+  {:db/ident :acct.line/credit   :db/valueType :db.type/string  :db/doc "credit amount, decimal STRING (\"0\" if a debit line)"}
+  {:db/ident :acct.line/memo     :db/valueType :db.type/string  :db/optional true}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; AP / AR — Invoices (APQC 9.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :ar.invoice/number    :db/valueType :db.type/string}
+  {:db/ident :ar.invoice/direction :db/valueType :db.type/keyword :db/doc "#{:receivable :payable} (AR sale vs AP purchase)"}
+  {:db/ident :ar.invoice/party     :db/valueType :db.type/string  :db/doc "counterparty name or did/org.corp id"}
+  {:db/ident :ar.invoice/issued    :db/valueType :db.type/instant}
+  {:db/ident :ar.invoice/due       :db/valueType :db.type/instant}
+  {:db/ident :ar.invoice/amount    :db/valueType :db.type/string  :db/doc "gross amount, decimal STRING"}
+  {:db/ident :ar.invoice/tax       :db/valueType :db.type/string  :db/optional true :db/doc "tax amount, decimal STRING"}
+  {:db/ident :ar.invoice/currency  :db/valueType :db.type/string}
+  {:db/ident :ar.invoice/status    :db/valueType :db.type/keyword :db/doc "#{:open :partial :paid :void}"}
+  {:db/ident :ar.invoice/je        :db/valueType :db.type/ref     :db/optional true :db/doc "ref to the recognizing journal entry"}
+  {:db/ident :ar.invoice/doc       :db/valueType :db.type/ref     :db/optional true :db/doc "ref to a drive-node / doc — the PDF invoice artifact"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; HR — Employee (APQC 7.0). Tier-3 PII is E2E, NOT a plaintext Datom.
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :hr.employee/emp-id    :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :hr.employee/department :db/valueType :db.type/string  :db/doc "non-PII org placement (plaintext ok)"}
+  {:db/ident :hr.employee/position   :db/valueType :db.type/string  :db/optional true :db/doc "non-PII title (plaintext ok)"}
+  {:db/ident :hr.employee/employment :db/valueType :db.type/keyword :db/doc "#{:full-time :part-time :contract :intern}"}
+  {:db/ident :hr.employee/hire-date  :db/valueType :db.type/instant :db/optional true}
+  ;; PII pointer — name / email / salary live ONLY in the encrypted envelope.
+  {:db/ident :hr.employee/pii-cid    :db/valueType :db.type/string  :db/doc "CID of the com.etzhayyim.encrypted.record envelope holding name/email/salary (ADR-2605181100). The Datom NEVER carries the cleartext."}
+  {:db/ident :hr.employee/pii-recipients :db/valueType :db.type/string :db/cardinality :db.cardinality/many :db/optional true :db/doc "DIDs granted read-cap on the envelope (owner + HR dept)"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; PROCUREMENT — Purchase Order (APQC 4.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :scm.po/number    :db/valueType :db.type/string}
+  {:db/ident :scm.po/supplier  :db/valueType :db.type/string  :db/doc "supplier name or org.corp id"}
+  {:db/ident :scm.po/ordered   :db/valueType :db.type/instant}
+  {:db/ident :scm.po/status    :db/valueType :db.type/keyword :db/doc "#{:draft :sent :received :closed :cancelled}"}
+  {:db/ident :scm.po/total     :db/valueType :db.type/string  :db/doc "decimal STRING"}
+  {:db/ident :scm.po/currency  :db/valueType :db.type/string}
+  {:db/ident :scm.po/lines     :db/valueType :db.type/ref     :db/cardinality :db.cardinality/many :db/optional true :db/doc "refs to inventory items / line entities"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; INVENTORY — Item / stock (APQC 5.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :inv.item/sku      :db/valueType :db.type/string  :db/doc "stock-keeping unit"}
+  {:db/ident :inv.item/name     :db/valueType :db.type/string}
+  {:db/ident :inv.item/uom      :db/valueType :db.type/string  :db/doc "unit of measure; ISIC packs extend the allowed set (e.g. kWh for D, head for A01, m3 for E)"}
+  {:db/ident :inv.item/qty      :db/valueType :db.type/string  :db/doc "on-hand quantity, decimal STRING"}
+  {:db/ident :inv.item/unit-cost :db/valueType :db.type/string :db/doc "decimal STRING"}
+  {:db/ident :inv.item/currency :db/valueType :db.type/string}
+  {:db/ident :inv.item/unspsc   :db/valueType :db.type/string  :db/optional true :db/doc "UNSPSC code (ties to the 18,342-actor organism + okaimono catalog)"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; SALES — Sales Order (APQC 3.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :sales.so/number   :db/valueType :db.type/string}
+  {:db/ident :sales.so/customer :db/valueType :db.type/string}
+  {:db/ident :sales.so/ordered  :db/valueType :db.type/instant}
+  {:db/ident :sales.so/status   :db/valueType :db.type/keyword :db/doc "#{:quote :confirmed :fulfilled :invoiced :cancelled}"}
+  {:db/ident :sales.so/total    :db/valueType :db.type/string  :db/doc "decimal STRING"}
+  {:db/ident :sales.so/currency :db/valueType :db.type/string}
+  {:db/ident :sales.so/invoice  :db/valueType :db.type/ref     :db/optional true :db/doc "ref to the AR invoice it became"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; ASSET — Fixed asset + depreciation run (APQC 10.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :asset.fa/tag       :db/valueType :db.type/string  :db/doc "asset tag"}
+  {:db/ident :asset.fa/name      :db/valueType :db.type/string}
+  {:db/ident :asset.fa/acquired  :db/valueType :db.type/instant}
+  {:db/ident :asset.fa/cost      :db/valueType :db.type/string  :db/doc "acquisition cost, decimal STRING"}
+  {:db/ident :asset.fa/salvage   :db/valueType :db.type/string  :db/doc "salvage value, decimal STRING"}
+  {:db/ident :asset.fa/life-months :db/valueType :db.type/long  :db/doc "useful life in months"}
+  {:db/ident :asset.fa/method    :db/valueType :db.type/keyword :db/doc "#{:straight-line :declining-balance :units-of-production}"}
+  {:db/ident :asset.fa/currency  :db/valueType :db.type/string}
+  ;; Depreciation run — a SYNTHESIZED periodic charge; each run is a new fact (非終末論).
+  {:db/ident :asset.depr/asset   :db/valueType :db.type/ref     :db/doc "ref to the fixed asset"}
+  {:db/ident :asset.depr/period  :db/valueType :db.type/string  :db/doc "YYYY-MM"}
+  {:db/ident :asset.depr/amount  :db/valueType :db.type/string  :db/doc "depreciation charge for the period, decimal STRING"}
+  {:db/ident :asset.depr/accumulated :db/valueType :db.type/string :db/doc "accumulated depreciation after this run, decimal STRING"}
+  {:db/ident :asset.depr/je      :db/valueType :db.type/ref     :db/optional true :db/doc "ref to the posting journal entry"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; GOVERNANCE / RISK — Policy control + risk issue (APQC 11.0)
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :gov.control/code   :db/valueType :db.type/string  :db/doc "control code, e.g. \"SOX-302-1\""}
+  {:db/ident :gov.control/title  :db/valueType :db.type/string}
+  {:db/ident :gov.control/framework :db/valueType :db.type/string :db/optional true :db/doc "e.g. J-SOX, ISO-27001, ISO-14001 — ISIC packs add sector frameworks (HACCP, GMP, IATF-16949…)"}
+  {:db/ident :gov.control/status :db/valueType :db.type/keyword :db/doc "#{:active :draft :retired}"}
+  {:db/ident :gov.risk/title     :db/valueType :db.type/string}
+  {:db/ident :gov.risk/severity  :db/valueType :db.type/keyword :db/doc "#{:low :medium :high :critical}"}
+  {:db/ident :gov.risk/status    :db/valueType :db.type/keyword :db/doc "#{:open :mitigating :closed}"}
+  {:db/ident :gov.risk/control   :db/valueType :db.type/ref     :db/optional true :db/doc "ref to the mitigating control"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; MANAGEMENT — Department + Integration catalog
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :org.dept/did       :db/valueType :db.type/string  :db/doc "department writer DID"}
+  {:db/ident :org.dept/name      :db/valueType :db.type/string}
+  {:db/ident :erp.integration/id   :db/valueType :db.type/string :db/unique :db.unique/identity :db/doc "integration id, e.g. \"mailer\", \"drive\", \"docs\", \"sheets\", \"calendar\", \"apqc\""}
+  {:db/ident :erp.integration/name :db/valueType :db.type/string}
+  {:db/ident :erp.integration/category :db/valueType :db.type/keyword :db/doc "#{:productivity :finance :compliance :substrate :ai}"}
+  {:db/ident :erp.integration/status   :db/valueType :db.type/keyword :db/doc "#{:available :enabled :gated :deprecated}"}
+  {:db/ident :erp.integration/transport :db/valueType :db.type/keyword :db/optional true :db/doc "how it moves data #{:openmail :ipfs :datom :xrpc} — NEVER a fiat/3rd-party-ad transport"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; TENANT + ISIC PACK BINDING
+  ;; ════════════════════════════════════════════════════════════════════════
+  {:db/ident :erp.tenant/did       :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "tenant root DID"}
+  {:db/ident :erp.tenant/name      :db/valueType :db.type/string}
+  {:db/ident :erp.tenant/isic-codes :db/valueType :db.type/string :db/cardinality :db.cardinality/many :db/doc "the tenant's declared ISIC Rev.4 activity codes (4-digit class, or 2-digit division)"}
+  {:db/ident :erp.tenant/active-packs :db/valueType :db.type/keyword :db/cardinality :db.cardinality/many :db/doc "resolved ISIC packs active for this tenant (derived from :isic-codes via the pack registry's section/division match)"}
+  {:db/ident :erp.tenant/base-currency :db/valueType :db.type/string :db/doc "reporting currency"}
+  ;; ISIC pack INSTANCE binding (per-tenant config of a pack — the pack DEFINITION is in
+  ;; industry-packs/isic-packs.kotoba.edn; this records that a tenant turned it on + overrides).
+  {:db/ident :isic.pack/id        :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "pack id, e.g. \"pack/A\" (section) or \"pack/A01\" (division) or \"pack/C2410\" (class refinement)"}
+  {:db/ident :isic.pack/section   :db/valueType :db.type/string  :db/doc "ISIC section letter A..U this pack belongs to"}
+  {:db/ident :isic.pack/scope     :db/valueType :db.type/keyword :db/doc "#{:section :division :class}"}
+  {:db/ident :isic.pack/enabled   :db/valueType :db.type/boolean :db/doc "tenant toggle"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; PRODUCTIVITY SUITE — kotoba-native mailer / drive / docs / sheets / calendar
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; MAILER — a message routed over openmail Postage (NOT an external mail provider).
+  {:db/ident :suite.mail/thread   :db/valueType :db.type/string  :db/doc "thread id (groups a conversation)"}
+  {:db/ident :suite.mail/from     :db/valueType :db.type/string  :db/doc "sender DID"}
+  {:db/ident :suite.mail/to       :db/valueType :db.type/string  :db/cardinality :db.cardinality/many :db/doc "recipient DIDs"}
+  {:db/ident :suite.mail/subject  :db/valueType :db.type/string}
+  {:db/ident :suite.mail/body-cid :db/valueType :db.type/string  :db/doc "CID of the message body block (E2E-sealed if private — body is NOT a plaintext Datom for confidential mail)"}
+  {:db/ident :suite.mail/sent-at  :db/valueType :db.type/instant}
+  {:db/ident :suite.mail/postage  :db/valueType :db.type/string  :db/optional true :db/doc "openmail Postage receipt ref (ADR Postage.sol)"}
+  {:db/ident :suite.mail/links    :db/valueType :db.type/ref     :db/cardinality :db.cardinality/many :db/optional true :db/doc "ERP records this mail references (an invoice, an SO…)"}
+
+  ;; DRIVE — a content-addressed file/folder tree. Bytes live on IPFS; the Datom is metadata.
+  {:db/ident :suite.drive/path    :db/valueType :db.type/string  :db/doc "logical path within the tenant drive"}
+  {:db/ident :suite.drive/name    :db/valueType :db.type/string}
+  {:db/ident :suite.drive/node-type :db/valueType :db.type/keyword :db/doc "#{:folder :file}"}
+  {:db/ident :suite.drive/parent  :db/valueType :db.type/ref     :db/optional true :db/doc "ref to parent folder node"}
+  {:db/ident :suite.drive/cid     :db/valueType :db.type/string  :db/optional true :db/doc "IPFS CID of file bytes (files only). Sealed-CID if the file is confidential."}
+  {:db/ident :suite.drive/mime    :db/valueType :db.type/string  :db/optional true}
+  {:db/ident :suite.drive/size    :db/valueType :db.type/long    :db/optional true :db/doc "byte size"}
+  {:db/ident :suite.drive/rev     :db/valueType :db.type/long    :db/optional true :db/doc "revision counter; each save is a new Datom (as-of history is version history)"}
+
+  ;; DOCS — a structured document (prose). Content-addressed; revisions are as-of history.
+  {:db/ident :suite.doc/title     :db/valueType :db.type/string}
+  {:db/ident :suite.doc/format    :db/valueType :db.type/keyword :db/doc "#{:markdown :prosemirror :html}"}
+  {:db/ident :suite.doc/body-cid  :db/valueType :db.type/string  :db/doc "CID of the document body block"}
+  {:db/ident :suite.doc/rev       :db/valueType :db.type/long    :db/doc "revision number; prior revs remain readable as-of their txInstant"}
+  {:db/ident :suite.doc/drive-node :db/valueType :db.type/ref    :db/optional true :db/doc "ref to the drive node that surfaces this doc"}
+
+  ;; SHEETS — a spreadsheet. Cells are content-addressed; a formula is text, values derived.
+  {:db/ident :suite.sheet/title   :db/valueType :db.type/string}
+  {:db/ident :suite.sheet/grid-cid :db/valueType :db.type/string :db/doc "CID of the cell-grid block (cells: A1 → {:formula \"=SUM(...)\" :value \"...\"})"}
+  {:db/ident :suite.sheet/rev     :db/valueType :db.type/long}
+  {:db/ident :suite.sheet/bound   :db/valueType :db.type/ref     :db/cardinality :db.cardinality/many :db/optional true :db/doc "ERP entities a sheet pulls live data from (e.g. a trial-balance sheet bound to accounts)"}
+  {:db/ident :suite.sheet/drive-node :db/valueType :db.type/ref  :db/optional true}
+
+  ;; CALENDAR — an event. Pure Datom (no external CalDAV).
+  {:db/ident :suite.cal/title     :db/valueType :db.type/string}
+  {:db/ident :suite.cal/start     :db/valueType :db.type/instant}
+  {:db/ident :suite.cal/end       :db/valueType :db.type/instant}
+  {:db/ident :suite.cal/attendees :db/valueType :db.type/string  :db/cardinality :db.cardinality/many :db/optional true :db/doc "attendee DIDs"}
+  {:db/ident :suite.cal/links     :db/valueType :db.type/ref     :db/cardinality :db.cardinality/many :db/optional true :db/doc "ERP records the event is about (a depreciation close, an HR review…)"}
+  {:db/ident :suite.cal/recurrence :db/valueType :db.type/string :db/optional true :db/doc "RFC-5545 RRULE string"}
+
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; POST-R0 vocabulary (rw-free maturity wave; ADR-2606037200 §D6) — keeps this
+  ;; SSoT in sync with the reference modules: payment / tax / party / budget /
+  ;; fx / inventory stock-move + the extra invoice settlement fields.
+  ;; ════════════════════════════════════════════════════════════════════════
+  ;; AP/AR invoice — settlement extension (posting + payment link this back).
+  {:db/ident :ar.invoice/paid-amount :db/valueType :db.type/string  :db/optional true :db/doc "cumulative amount applied (decimal STRING); outstanding = amount − paid"}
+  {:db/ident :ar.invoice/tax-code    :db/valueType :db.type/string  :db/optional true :db/doc "ref to :tax.code/code for VAT/消費税 reporting"}
+
+  ;; PAYMENT — settles an invoice against cash, links its posting JE.
+  {:db/ident :pay.payment/id        :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :pay.payment/invoice   :db/valueType :db.type/ref     :db/doc "ref to the settled invoice"}
+  {:db/ident :pay.payment/direction :db/valueType :db.type/keyword :db/doc "#{:receivable :payable}"}
+  {:db/ident :pay.payment/amount    :db/valueType :db.type/string  :db/doc "applied amount, decimal STRING"}
+  {:db/ident :pay.payment/cash-account :db/valueType :db.type/ref  :db/doc "ref to the cash account moved"}
+  {:db/ident :pay.payment/je        :db/valueType :db.type/ref     :db/doc "ref to the settlement journal entry"}
+  {:db/ident :pay.payment/paid-at   :db/valueType :db.type/instant}
+
+  ;; TAX — consumption-tax / VAT code registry (rate + label per jurisdiction).
+  {:db/ident :tax.code/code         :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "e.g. \"JP-STD\""}
+  {:db/ident :tax.code/name         :db/valueType :db.type/string}
+  {:db/ident :tax.code/rate-pct     :db/valueType :db.type/string  :db/doc "percentage as decimal STRING, e.g. \"10\""}
+  {:db/ident :tax.code/jurisdiction :db/valueType :db.type/string  :db/optional true}
+
+  ;; PARTY — customer / supplier master with a credit limit (aging + credit check).
+  {:db/ident :party/id          :db/valueType :db.type/string  :db/unique :db.unique/identity}
+  {:db/ident :party/name        :db/valueType :db.type/string}
+  {:db/ident :party/kind        :db/valueType :db.type/keyword :db/doc "#{:customer :supplier :both}"}
+  {:db/ident :party/credit-limit :db/valueType :db.type/string :db/optional true :db/doc "AR exposure ceiling, decimal STRING; omitted = unlimited"}
+  {:db/ident :party/currency    :db/valueType :db.type/string}
+
+  ;; BUDGET — per-account, per-period budget figure (budget-vs-actual variance).
+  {:db/ident :budget.line/account :db/valueType :db.type/ref     :db/doc "ref to the account"}
+  {:db/ident :budget.line/period  :db/valueType :db.type/string  :db/doc "e.g. \"2026-FY\" / \"2026-Q1\""}
+  {:db/ident :budget.line/amount  :db/valueType :db.type/string  :db/doc "budgeted natural amount, decimal STRING"}
+
+  ;; FX — multi-currency rate table (1 base = rate quote).
+  {:db/ident :fx.rate/base   :db/valueType :db.type/string  :db/doc "ISO-4217 base currency"}
+  {:db/ident :fx.rate/quote  :db/valueType :db.type/string  :db/doc "ISO-4217 quote currency"}
+  {:db/ident :fx.rate/rate   :db/valueType :db.type/string  :db/doc "1 base = rate quote, decimal STRING"}
+  {:db/ident :fx.rate/as-of  :db/valueType :db.type/instant}
+
+  ;; INVENTORY STOCK-MOVE — perpetual moving-average ledger (receipt/issue/adjust).
+  {:db/ident :inv.move/seq          :db/valueType :db.type/long    :db/doc "1-based per-SKU sequence"}
+  {:db/ident :inv.move/sku          :db/valueType :db.type/string}
+  {:db/ident :inv.move/kind         :db/valueType :db.type/keyword :db/doc "#{:receipt :issue :adjust}"}
+  {:db/ident :inv.move/qty          :db/valueType :db.type/string  :db/doc "movement magnitude, decimal STRING"}
+  {:db/ident :inv.move/unit-cost    :db/valueType :db.type/string  :db/doc "receipt: input cost; issue: current average"}
+  {:db/ident :inv.move/balance-qty  :db/valueType :db.type/string  :db/doc "on-hand AFTER this move"}
+  {:db/ident :inv.move/balance-avg-cost :db/valueType :db.type/string :db/doc "moving-average AFTER this move"}
+  {:db/ident :inv.move/ref          :db/valueType :db.type/string  :db/optional true :db/doc "linking ref (PO/SO/JE)"}]
+
+ ;; ── APQC L1 reference (kept for kyb3proj projector + getApqcCoverage) ──────
+ :apqc
+ {"3.0"  "Market and Sell Products and Services"
+  "4.0"  "Manage Supply Chain / Deliver Physical Products"
+  "5.0"  "Manage Production / Service Delivery"
+  "7.0"  "Develop and Manage Human Capital"
+  "9.0"  "Manage Financial Resources"
+  "10.0" "Manage Enterprise Assets"
+  "11.0" "Manage Enterprise Risk, Compliance, Remediation and Resiliency"}
+
+ ;; ── module → APQC L1 → kind map (the coverage matrix the projector reads) ──
+ :modules
+ [{:module :accounting  :apqc "9.0"  :kinds [:account :journal-entry :journal-line]}
+  {:module :ap-ar       :apqc "9.0"  :kinds [:invoice]}
+  {:module :hr          :apqc "7.0"  :kinds [:employee]}
+  {:module :procurement :apqc "4.0"  :kinds [:purchase-order]}
+  {:module :inventory   :apqc "5.0"  :kinds [:inventory-item]}
+  {:module :sales       :apqc "3.0"  :kinds [:sales-order]}
+  {:module :asset       :apqc "10.0" :kinds [:fixed-asset :depreciation-run]}
+  {:module :governance  :apqc "11.0" :kinds [:policy-control :risk-issue]}
+  {:module :payment     :apqc "9.0"  :kinds [:payment]}
+  {:module :tax         :apqc "9.0"  :kinds [:tax-code]}
+  {:module :budget      :apqc "9.0"  :kinds [:budget-line]}
+  {:module :fx          :apqc "9.0"  :kinds [:fx-rate]}
+  {:module :party       :apqc nil    :kinds [:party]}
+  {:module :inventory-ledger :apqc "5.0" :kinds [:stock-move]}
+  {:module :suite       :apqc nil    :kinds [:mail :drive-node :doc :sheet :calendar-event]}]}

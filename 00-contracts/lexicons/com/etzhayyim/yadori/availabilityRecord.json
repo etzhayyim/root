@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yadori.availabilityRecord",
+  "description": "RDAP-based domain-availability verdict (read-only, G1). Live RDAP fetch is operator-gated (G7); offline/fixture results are :representative (G8).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fqdn", "availability", "source", "createdAt"],
+        "properties": {
+          "fqdn": {"type": "string"},
+          "asciiFqdn": {"type": "string"},
+          "tld": {"type": "string"},
+          "availability": {"type": "string", "knownValues": ["available", "registered", "unsupported-tld", "invalid", "rate-limited", "unknown"]},
+          "rdapUrl": {"type": "string"},
+          "source": {"type": "string", "knownValues": ["fixture", "live", "none"]},
+          "representative": {"type": "boolean"},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}
