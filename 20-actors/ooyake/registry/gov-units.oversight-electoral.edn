@@ -41,9 +41,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bfa"
    :gov.unit/name-en "Commission Électorale Nationale Indépendante"
+   :gov.unit/official-url "https://www.ceni.bf/"
    :gov.unit/wikidata "Q113551178"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q113551178" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.ceni.bf/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bgr.electoral"
@@ -76,9 +77,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Belize Elections and Boundaries Commission"
+   :gov.unit/official-url "https://elections.gov.bz/"
    :gov.unit/wikidata "Q4882967"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4882967" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://elections.gov.bz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.electoral"
@@ -207,9 +209,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "est"
    :gov.unit/name-en "Estonian National Electoral Committee"
+   :gov.unit/official-url "https://www.valimised.ee/en"
    :gov.unit/wikidata "Q20529377"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q20529377" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.valimised.ee/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.eth.electoral"
@@ -230,9 +233,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "fin"
    :gov.unit/name-en "Electoral Committee"
+   :gov.unit/official-url "https://vaalit.fi/en/frontpage"
    :gov.unit/wikidata "Q125419501"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q125419501" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://vaalit.fi/en/frontpage" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gbr.electoral"
@@ -361,9 +365,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ita"
    :gov.unit/name-en "Central Directorate for Electoral Services"
+   :gov.unit/official-url "https://dait.interno.gov.it/dait/direzione-centrale-per-i-servizi-elettorali"
    :gov.unit/wikidata "Q3708991"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3708991" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://dait.interno.gov.it/dait/direzione-centrale-per-i-servizi-elettorali" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.electoral"
@@ -372,9 +377,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Central election commission of Kazakhstan"
+   :gov.unit/official-url "https://www.election.gov.kz/eng/"
    :gov.unit/wikidata "Q25451582"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25451582" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.election.gov.kz/eng/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kgz.electoral"
@@ -383,9 +389,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Central Electoral Commission of Kyrgyzstan"
+   :gov.unit/official-url "https://shailoo.gov.kg/"
    :gov.unit/wikidata "Q5061020"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5061020" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://shailoo.gov.kg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kor.electoral"
@@ -561,9 +568,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "prt"
    :gov.unit/name-en "Comissão Nacional de Eleições"
+   :gov.unit/official-url "https://www.cne.pt/"
    :gov.unit/wikidata "Q9827524"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q9827524" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.cne.pt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rus.electoral"
@@ -596,9 +604,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sdn"
    :gov.unit/name-en "Sudan National Elections Commission"
+   :gov.unit/official-url "http://nec.org.sd/en/"
    :gov.unit/wikidata "Q130420940"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q130420940" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://nec.org.sd/en/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sen.electoral"
@@ -679,9 +688,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tls"
    :gov.unit/name-en "Comissão Nacional de Eleições"
+   :gov.unit/official-url "https://cne.tl/en/"
    :gov.unit/wikidata "Q1114757"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1114757" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://cne.tl/en/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tur.electoral"
@@ -738,9 +748,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "zaf"
    :gov.unit/name-en "Electoral Commission of South Africa"
+   :gov.unit/official-url "https://www.elections.org.za/"
    :gov.unit/wikidata "Q1468100"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1468100" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.elections.org.za/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zwe.electoral"
@@ -749,7 +760,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Zimbabwe Electoral Commission"
+   :gov.unit/official-url "https://www.zec.org.zw/"
    :gov.unit/wikidata "Q8071981"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q8071981" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.zec.org.zw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

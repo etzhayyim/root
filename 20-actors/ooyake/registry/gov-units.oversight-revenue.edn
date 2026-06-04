@@ -15,9 +15,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "alb"
    :gov.unit/name-en "Albanian Taxation Office"
+   :gov.unit/official-url "https://www.tatime.gov.al/"
    :gov.unit/wikidata "Q4709173"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4709173" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.tatime.gov.al/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.arg.revenue"
@@ -49,10 +50,11 @@
    :gov.unit/parent "gov.aut"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "aut"
-   :gov.unit/name-en "Finanzlandesdirektion für Kärnten in Klagenfurt"
+   :gov.unit/name-en "Tax Authority Austria (Finanzamt Österreich)"
+   :gov.unit/official-url "https://www.bmf.gv.at/"
    :gov.unit/wikidata "Q38059663"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q38059663" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.bmf.gv.at/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bgr.revenue"
@@ -156,10 +158,11 @@
    :gov.unit/parent "gov.fra"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "fra"
-   :gov.unit/name-en "Service des impôts des entreprises"
+   :gov.unit/name-en "Direction générale des Finances publiques (DGFiP)"
+   :gov.unit/official-url "https://www.impots.gouv.fr/"
    :gov.unit/wikidata "Q3480412"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3480412" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.impots.gouv.fr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.irl.revenue"
@@ -192,9 +195,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "State Tax Service under the Government of the Kyrgyz Republic"
+   :gov.unit/official-url "https://sti.gov.kg/"
    :gov.unit/wikidata "Q25608481"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25608481" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://sti.gov.kg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.revenue"
@@ -214,10 +218,11 @@
    :gov.unit/parent "gov.nld"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "nld"
-   :gov.unit/name-en "Dr. C. Hofstede de Grootkade 11 (Groningen)"
+   :gov.unit/name-en "Belastingdienst (Dutch Tax Administration)"
+   :gov.unit/official-url "https://www.belastingdienst.nl/"
    :gov.unit/wikidata "Q133464786"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q133464786" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.belastingdienst.nl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nor.revenue"
@@ -274,9 +279,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pol"
    :gov.unit/name-en "Tax and Customs Service of Poland"
+   :gov.unit/official-url "https://www.gov.pl/web/national-revenue-administration"
    :gov.unit/wikidata "Q50577343"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q50577343" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.pl/web/national-revenue-administration" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.prt.revenue"
@@ -309,9 +315,10 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Zakat, Tax, and Customs Authority"
+   :gov.unit/official-url "https://zatca.gov.sa/"
    :gov.unit/wikidata "Q106704595"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q106704595" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://zatca.gov.sa/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sgp.revenue"
@@ -331,10 +338,11 @@
    :gov.unit/parent "gov.slv"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "slv"
-   :gov.unit/name-en "Directorate-General of the Branch of Liquor"
+   :gov.unit/name-en "Dirección General de Impuestos Internos (DGII)"
+   :gov.unit/official-url "https://www.mh.gob.sv/la-direccion-general-de-impuestos-internos-del-ministerio-de-hacienda/"
    :gov.unit/wikidata "Q104501235"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104501235" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mh.gob.sv/la-direccion-general-de-impuestos-internos-del-ministerio-de-hacienda/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.swe.revenue"

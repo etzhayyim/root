@@ -88,9 +88,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bwa"
    :gov.unit/name-en "Directorate on Corruption and Economic Crime"
+   :gov.unit/official-url "https://www.gov.bw/ministries/directorate-corruption-and-economic-crime"
    :gov.unit/wikidata "Q123162020"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q123162020" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.bw/ministries/directorate-corruption-and-economic-crime" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.chn.anticorruption"
@@ -111,9 +112,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "National Anti-Corruption Observatory"
+   :gov.unit/official-url "https://conac.cm/"
    :gov.unit/wikidata "Q12500188"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12500188" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://conac.cm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cod.anticorruption"
@@ -134,9 +136,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Independent Authority Against Corruption"
+   :gov.unit/official-url "https://www.iaac.org.cy/"
    :gov.unit/wikidata "Q135490371"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q135490371" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.iaac.org.cy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.esp.anticorruption"
@@ -181,9 +184,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "idn"
    :gov.unit/name-en "Corruption Eradication Commission"
+   :gov.unit/official-url "https://www.kpk.go.id/en/"
    :gov.unit/wikidata "Q3273955"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3273955" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.kpk.go.id/en/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.irn.anticorruption"
@@ -192,9 +196,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "General Inspection Office"
+   :gov.unit/official-url "https://www.bazresi.ir/"
    :gov.unit/wikidata "Q5531956"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5531956" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.bazresi.ir/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ita.anticorruption"
@@ -215,9 +220,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Integrity and Anti-Corruption Commission - Jordan"
+   :gov.unit/official-url "https://www.jiacc.gov.jo/"
    :gov.unit/wikidata "Q28716105"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q28716105" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.jiacc.gov.jo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.anticorruption"
@@ -274,9 +280,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mda"
    :gov.unit/name-en "National Anticorruption Center"
+   :gov.unit/official-url "https://cna.md/en"
    :gov.unit/wikidata "Q12723803"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12723803" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://cna.md/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mdg.anticorruption"
@@ -285,9 +292,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mdg"
    :gov.unit/name-en "BIANCO"
+   :gov.unit/official-url "https://www.bianco-mg.org/"
    :gov.unit/wikidata "Q4835625"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4835625" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.bianco-mg.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mmr.anticorruption"
@@ -320,9 +328,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mwi"
    :gov.unit/name-en "Anti-Corruption Bureau"
+   :gov.unit/official-url "https://acbmw.org/"
    :gov.unit/wikidata "Q126916005"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q126916005" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://acbmw.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mys.anticorruption"
@@ -354,10 +363,11 @@
    :gov.unit/parent "gov.nga"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "nga"
-   :gov.unit/name-en "Kano State Public Complaints and Anti-Corruption Commission"
+   :gov.unit/name-en "Independent Corrupt Practices and Other Related Offences Commission (ICPC)"
+   :gov.unit/official-url "https://icpc.gov.ng/"
    :gov.unit/wikidata "Q124465876"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q124465876" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://icpc.gov.ng/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pak.anticorruption"
@@ -438,9 +448,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sle"
    :gov.unit/name-en "Sierra Leone Anti-corruption Commission"
+   :gov.unit/official-url "https://www.anticorruption.gov.sl/"
    :gov.unit/wikidata "Q7511399"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7511399" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.anticorruption.gov.sl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.syc.anticorruption"
@@ -449,9 +460,10 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "syc"
    :gov.unit/name-en "Anti-Corruption Commission Seychelles"
+   :gov.unit/official-url "https://www.accsey.com/"
    :gov.unit/wikidata "Q33093248"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q33093248" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.accsey.com/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tha.anticorruption"
@@ -484,7 +496,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Central Steering Committee on Anti-corruption"
+   :gov.unit/official-url "https://noichinh.vn/gioi-thieu/ban-chi-dao-tw-ve-phong-chong-tham-nhung/"
    :gov.unit/wikidata "Q10737753"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q10737753" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://noichinh.vn/gioi-thieu/ban-chi-dao-tw-ve-phong-chong-tham-nhung/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}
