@@ -42,9 +42,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of National Defence"
+   :gov.unit/official-url "https://mindenacvp.gov.ao/"
    :gov.unit/wikidata "Q65081951"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65081951" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mindenacvp.gov.ao/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.defense"
@@ -65,9 +66,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/official-url "https://mod.gov.ae/"
    :gov.unit/wikidata "Q134514894"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q134514894" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mod.gov.ae/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.arg.defense"
@@ -434,9 +436,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "gab"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/official-url "https://www.defense-nationale.gouv.ga/"
    :gov.unit/wikidata "Q18611993"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18611993" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.defense-nationale.gouv.ga/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gbr.defense"
@@ -527,9 +530,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Secretariat of National Defence of Honduras"
+   :gov.unit/official-url "https://sedena.gob.hn/"
    :gov.unit/wikidata "Q6123195"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6123195" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://sedena.gob.hn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.defense"
@@ -730,9 +734,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbr"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/official-url "https://mod.gov.lr/"
    :gov.unit/wikidata "Q17110057"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q17110057" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mod.gov.lr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lka.defense"
@@ -1003,9 +1008,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "prt"
    :gov.unit/name-en "Ministry of National Defense of Portugal"
+   :gov.unit/official-url "https://www.defesa.gov.pt/"
    :gov.unit/wikidata "Q4294480"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4294480" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.defesa.gov.pt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pry.defense"
@@ -1074,9 +1080,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sdn"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/official-url "https://www.mod.gov.sd/"
    :gov.unit/wikidata "Q68169611"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q68169611" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mod.gov.sd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sgp.defense"
@@ -1109,9 +1116,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "slv"
    :gov.unit/name-en "Ministry of National Defense of El Salvador"
+   :gov.unit/official-url "https://fuerzaarmada.mil.sv/"
    :gov.unit/wikidata "Q104855123"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104855123" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://fuerzaarmada.mil.sv/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.srb.defense"
@@ -1143,9 +1151,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Defence of Suriname"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-defensie/"
    :gov.unit/wikidata "Q56260671"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56260671" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-defensie/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.defense"
@@ -1370,7 +1379,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/official-url "https://www.defence.gov.zw/"
    :gov.unit/wikidata "Q760723"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q760723" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.defence.gov.zw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}
