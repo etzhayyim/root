@@ -5027,4 +5027,385 @@
    :gov.address/country "aus"
    :gov.address/line-en "Canberra"
    :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q3277092" :gov.address/last-verified "2026-06-03"}]}
+   :gov.address/provenance "https://www.wikidata.org/wiki/Q3277092" :gov.address/last-verified "2026-06-03"}
+
+  {:gov.address/id "addr.gov.are.legislature.hq"
+   :gov.address/unit "gov.are.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "Federal National Council building, Abu Dhabi"
+   :gov.address/lat 24.46363 :gov.address/lon 54.33212
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap/Wikipedia (Federal National Council)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bdi.legislature.hq"
+   :gov.address/unit "gov.bdi.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "bdi"
+   :gov.address/line-en "Palais des Congrès de Kigobe (National Assembly), Bujumbura"
+   :gov.address/lat -3.35983 :gov.address/lon 29.373
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap/Wikipedia (National Assembly of Burundi)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ben.legislature.hq"
+   :gov.address/unit "gov.ben.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "ben"
+   :gov.address/line-en "National Assembly of Benin, Porto-Novo"
+   :gov.address/lat 6.47413 :gov.address/lon 2.61666
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Assemblée Nationale du Bénin)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhr.legislature.hq"
+   :gov.address/unit "gov.bhr.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhr"
+   :gov.address/line-en "National Assembly building, Al Qudaybiyah, Manama"
+   :gov.address/lat 26.22685 :gov.address/lon 50.60345
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Bahrain National Assembly)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.civ.legislature.hq"
+   :gov.address/unit "gov.civ.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "civ"
+   :gov.address/line-en "National Assembly, Le Plateau, Abidjan"
+   :gov.address/lat 5.32883 :gov.address/lon -4.02015
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Assemblée Nationale, Le Plateau)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cmr.legislature.hq"
+   :gov.address/unit "gov.cmr.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "cmr"
+   :gov.address/line-en "National Assembly (Glass Palace, Ngoa-Ekellé), Yaoundé"
+   :gov.address/lat 3.857 :gov.address/lon 11.50971
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Assemblée Nationale, Yaoundé)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cog.legislature.hq"
+   :gov.address/unit "gov.cog.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "cog"
+   :gov.address/line-en "Palais du Parlement (National Assembly), Brazzaville"
+   :gov.address/lat -4.28117 :gov.address/lon 15.26255
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Palais du Parlement, Brazzaville)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.com.legislature.hq"
+   :gov.address/unit "gov.com.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "com"
+   :gov.address/line-en "Assembly of the Union of the Comoros, Moroni"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia/IPU (building in Moroni; coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.legislature.hq"
+   :gov.address/unit "gov.cri.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "Legislative Assembly Building, El Carmen, San José"
+   :gov.address/lat 9.93375 :gov.address/lon -84.07115
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Legislative Assembly of Costa Rica)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.legislature.hq"
+   :gov.address/unit "gov.cub.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "El Capitolio (National Assembly of People's Power), Havana"
+   :gov.address/lat 23.13528 :gov.address/lon -82.35944
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (National Capitol of Cuba)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.dom.legislature.hq"
+   :gov.address/unit "gov.dom.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "dom"
+   :gov.address/line-en "Palacio del Congreso Nacional, Centro de los Héroes, Santo Domingo"
+   :gov.address/lat 18.44897 :gov.address/lon -69.92504
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Congreso Nacional, Santo Domingo)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fra.legislature.hq"
+   :gov.address/unit "gov.fra.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "fra"
+   :gov.address/line-en "Palais Bourbon (National Assembly), Paris"
+   :gov.address/lat 48.86204 :gov.address/lon 2.31859
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palais Bourbon)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gnq.legislature.hq"
+   :gov.address/unit "gov.gnq.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "gnq"
+   :gov.address/line-en "Chamber of Deputies, Avenida de la Independencia, Malabo"
+   :gov.address/lat 3.7559 :gov.address/lon 8.77929
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Cámara de los Diputados, Malabo)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hti.legislature.hq"
+   :gov.address/unit "gov.hti.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "hti"
+   :gov.address/line-en "Palais Législatif (Legislative Palace), Port-au-Prince"
+   :gov.address/lat 18.54993 :gov.address/lon -72.34819
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Palais du Parlement, Port-au-Prince; approximate)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.legislature.hq"
+   :gov.address/unit "gov.ken.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Parliament Buildings, Nairobi"
+   :gov.address/lat -1.28999 :gov.address/lon 36.82007
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Parliament of Kenya)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.kgz.legislature.hq"
+   :gov.address/unit "gov.kgz.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "kgz"
+   :gov.address/line-en "Jogorku Kenesh Building, Chuy Avenue 205, Bishkek"
+   :gov.address/lat 42.8773 :gov.address/lon 74.60016
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Jogorku Kenesh, Bishkek)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lao.legislature.hq"
+   :gov.address/unit "gov.lao.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "lao"
+   :gov.address/line-en "National Assembly, Vientiane"
+   :gov.address/lat 17.97853 :gov.address/lon 102.63408
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (National Assembly of Laos)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lbr.legislature.hq"
+   :gov.address/unit "gov.lbr.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "lbr"
+   :gov.address/line-en "Capitol Building, Monrovia"
+   :gov.address/lat 6.30183 :gov.address/lon -10.79571
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Legislature of Liberia)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lby.legislature.hq"
+   :gov.address/unit "gov.lby.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "lby"
+   :gov.address/line-en "House of Representatives (Dar al-Salam Hotel), Tobruk"
+   :gov.address/lat 32.07285 :gov.address/lon 23.9681
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (House of Representatives, Libya)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lca.legislature.hq"
+   :gov.address/unit "gov.lca.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "lca"
+   :gov.address/line-en "House of Parliament, Laborie Street, Castries"
+   :gov.address/lat 14.01031 :gov.address/lon -60.98997
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (House of Parliament, Castries)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mar.legislature.hq"
+   :gov.address/unit "gov.mar.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "mar"
+   :gov.address/line-en "Parliament of Morocco, Avenue Mohammed V, Rabat"
+   :gov.address/lat 34.01772 :gov.address/lon -6.83684
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Parliament of Morocco, Rabat)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mco.legislature.hq"
+   :gov.address/unit "gov.mco.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "mco"
+   :gov.address/line-en "National Council (Conseil National), Monaco"
+   :gov.address/lat 43.73153 :gov.address/lon 7.42569
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikidata Q1127198 (Conseil National)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdg.legislature.hq"
+   :gov.address/unit "gov.mdg.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "National Assembly (Palais de Tsimbazaza), Antananarivo"
+   :gov.address/lat -18.9344 :gov.address/lon 47.5273
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (National Assembly of Madagascar)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdv.legislature.hq"
+   :gov.address/unit "gov.mdv.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdv"
+   :gov.address/line-en "People's Majlis (Rayyithunge Majlis), Malé"
+   :gov.address/lat 4.17733 :gov.address/lon 73.51353
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Rayyithunge Majlis, Malé)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mex.legislature.hq"
+   :gov.address/unit "gov.mex.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "mex"
+   :gov.address/line-en "Palacio Legislativo de San Lázaro, Mexico City"
+   :gov.address/lat 19.43028 :gov.address/lon -99.1175
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Legislative Palace of San Lázaro)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.legislature.hq"
+   :gov.address/unit "gov.mne.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Parliament of Montenegro (Skupština), Podgorica"
+   :gov.address/lat 42.43989 :gov.address/lon 19.26054
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Skupština Crne Gore)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.moz.legislature.hq"
+   :gov.address/unit "gov.moz.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Assembly of the Republic (Assembleia da República), Maputo"
+   :gov.address/lat -25.95927 :gov.address/lon 32.56072
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Assembleia da República, Maputo)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.npl.legislature.hq"
+   :gov.address/unit "gov.npl.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "npl"
+   :gov.address/line-en "Federal Parliament (Singha Durbar), Kathmandu"
+   :gov.address/lat 27.69827 :gov.address/lon 85.32525
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Singha Durbar)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.legislature.hq"
+   :gov.address/unit "gov.omn.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Council of Oman (Majlis Oman), Al Bustan, Muscat"
+   :gov.address/lat 23.56858 :gov.address/lon 58.60496
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Majlis Oman, Muscat)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.legislature.hq"
+   :gov.address/unit "gov.pak.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "Parliament House, Islamabad"
+   :gov.address/lat 33.7301 :gov.address/lon 73.0969
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Parliament House, Islamabad)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.png.legislature.hq"
+   :gov.address/unit "gov.png.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "National Parliament House, Waigani, Port Moresby"
+   :gov.address/lat -9.42806 :gov.address/lon 147.19167
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (National Parliament House, Port Moresby)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.qat.legislature.hq"
+   :gov.address/unit "gov.qat.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "qat"
+   :gov.address/line-en "Consultative Assembly (Shura Council), Doha"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Consultative Assembly of Qatar; building coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sau.legislature.hq"
+   :gov.address/unit "gov.sau.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "sau"
+   :gov.address/line-en "Shura Council (Majlis Ash-Shura), Al Hada District, Riyadh"
+   :gov.address/lat 24.66262 :gov.address/lon 46.63583
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OpenStreetMap (Saudi Shura Council, Riyadh)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sdn.legislature.hq"
+   :gov.address/unit "gov.sdn.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "National Legislature (National Assembly building), Omdurman"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (National Legislature of Sudan; building-level coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slb.legislature.hq"
+   :gov.address/unit "gov.slb.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "slb"
+   :gov.address/line-en "Solomon Islands Parliament Building, Honiara"
+   :gov.address/lat -9.43361 :gov.address/lon 159.95583
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Solomon Islands Parliament Building)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ssd.legislature.hq"
+   :gov.address/unit "gov.ssd.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "ssd"
+   :gov.address/line-en "National Legislature (Ministries Complex), Wizar Area, Juba"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (National Legislative Assembly of South Sudan; coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syc.legislature.hq"
+   :gov.address/unit "gov.syc.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "National Assembly, Île du Port, Victoria"
+   :gov.address/lat -4.60814 :gov.address/lon 55.46039
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (National Assembly of Seychelles)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tkm.legislature.hq"
+   :gov.address/unit "gov.tkm.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "tkm"
+   :gov.address/line-en "Mejlis / Ruhyýet Palace, Independence Square, Ashgabat"
+   :gov.address/lat 37.9325 :gov.address/lon 58.3778
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Rukhiyet Palace, Ashgabat)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tuv.legislature.hq"
+   :gov.address/unit "gov.tuv.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "tuv"
+   :gov.address/line-en "Parliament of Tuvalu (Vaiaku Maneapa), Vaiaku, Funafuti"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Parliament of Tuvalu; coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vct.legislature.hq"
+   :gov.address/unit "gov.vct.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "vct"
+   :gov.address/line-en "House of Assembly (Courthouse Building), Halifax St, Kingstown"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (House of Assembly of Saint Vincent and the Grenadines; coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.wsm.legislature.hq"
+   :gov.address/unit "gov.wsm.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "wsm"
+   :gov.address/line-en "Legislative Assembly (Maota Fono), Mulinu'u, Apia"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Legislative Assembly of Samoa; coordinates unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.yem.legislature.hq"
+   :gov.address/unit "gov.yem.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "yem"
+   :gov.address/line-en "House of Representatives (Parliament House), Sana'a"
+   :gov.address/lat 15.34611 :gov.address/lon 44.17278
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (House of Representatives, Yemen)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zwe.legislature.hq"
+   :gov.address/unit "gov.zwe.legislature"
+   :gov.address/kind :headquarters
+   :gov.address/country "zwe"
+   :gov.address/line-en "New Parliament Building, Mt Hampden"
+   :gov.address/lat -17.7333 :gov.address/lon 30.9333
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (New Zimbabwe Parliament Building; locality-level)" :gov.address/last-verified "2026-06-04"}
+]}
