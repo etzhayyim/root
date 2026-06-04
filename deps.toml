@@ -9749,6 +9749,37 @@ status_note = "Framework-layer counterpart to the app-layer sweep ADR-2606033400
 path = "90-docs/adr/2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn.md"
 adr = ["2606032330", "2605262130", "2605312345", "2605231525", "2606022150", "2606031030", "2606033400"]
 
+[[modules]]
+path = "50-infra/kotoba-b2-pin"
+adr = ["2606041130"]
+kind = "ops-tooling"
+status = "verified-r0"
+description = "Backblaze B2 off-host cold pin for the kotoba IPFS block store (ADR-2606041130; DataLad + git-annex + IPFS-pinner pattern). Mirrors every local kubo block (ipfs refs local, multihash-keyed → complete; head-DAG export is only ~5KB so the block store itself is the durable unit) to a git-annex S3 special remote on B2, then drops the local annex object (no 3rd copy). bin/: init-store.sh / pin-snapshot.sh (incremental, self-healing, resilient) / restore.sh (annex get → ipfs block put) / cidtool.py. Secrets from 1Password at runtime (op://gftdcojp/gftd.b2/datasets → AWS_* ; embedcreds=no; no-server-key). VERIFIED: full backfill 26,634/26,634 blocks on B2 + loss-recovery (block rm → restore → 957B). HONEST: periodic/point-in-time not synchronous — continuous durability needs a scheduled pin-snapshot or KOTOBA_IPFS_PIN_ENDPOINT fanout."
+
+[[adrs]]
+id = "2606041130"
+title = "kotoba IPFS block-store off-host cold pin to Backblaze B2 (DataLad + git-annex)"
+status = "accepted"
+status_note = "Answers 「kotoba はこれで永続化できている? b2/ipfs.gftd.ai/kotobase.gftd.ai にも?」 (at the time: no — blocks were on ONE local Kubo repo, 26,634 blocks/~3.3GB, peer_count=0). Head-DAG export captures ~5KB (delta commits) → the durable unit is the block store; kubo is multihash-keyed so raw-CID blocks restore under their dag-cbor CID. 50-infra/kotoba-b2-pin = DataLad dataset + git-annex S3 → B2, incremental + drop-after-copy, creds from 1Password (embedcreds=no, no-server-key). VERIFIED: full 26,634-block backfill + loss-recovery. Colder tier under IPFS, NOT parallel canonical state. ZERO Charter amendments."
+path = "90-docs/adr/2606041130-kotoba-b2-blockstore-cold-pin.md"
+adr = ["2606041130", "2605262130", "2605312345", "2605241500", "2605231525"]
+
+[[adrs]]
+id = "2606041151"
+title = "kotoba canonical-tier hardening — CommitDag-as-WAL (Journal demotion) + incremental MaterializedView query tier"
+status = "proposed"
+status_note = "Source-grounded analysis + implementation. Q1: in-memory Arrangement + Journal WAL are NOT structurally necessary (authors: 'Arrangement is only an optimisation'; Journal = per-assert 4-topic double-write); CommitDag already IS a WAL. Q2: Datomic data model is tier-1 but Datalog engine re-evaluated from scratch (kg.query 2.1× slower than auxiliary SPARQL); MaterializedView IVM existed but unwired. 「local IPFS ⇒ no sync commit?」: WAL-necessity ⟂ IPFS-locality (comes from deferring commits). Shipped (etzhayyim/kotoba main, PRs #26-32): FsBlockStore embedded durable store + server tier wiring (A); KOTOBA_JOURNAL_WAL opt-out (A); crash-recovery from CommitDag without journal (A); MvRegistry + kg.mv.register/result + kg.query mv_name routing (B). FINDINGS: micro-batch sync commit + restart-from-CommitDag ALREADY present. Decision A functionally complete + recovery-validated; A.6 default-flip needs boot-time legacy-arrangement rehydration (cold reads don't promote to hot) → WAL-off stays opt-in. ZERO Charter amendments."
+path = "90-docs/adr/2606041151-kotoba-commitdag-as-wal-and-incremental-query-tier.md"
+adr = ["2606041151", "2605262130", "2605312345", "2605241500", "2605231525"]
+
+[[adrs]]
+id = "2606041657"
+title = "Session close — kotoba durability (B2 cold pin) + canonical-tier hardening (CommitDag-as-WAL + incremental MV)"
+status = "active"
+status_note = "Documentation-only closure of the 2026-06-03→04 session (「kotoba server は安定して write/read/永続化できているか」). Authoritative = ADR-2606041130 (B2 pin) + 2606041151 (A/B). Triaged the live server (version-skew commit-500 fixed via rebuild+resign+restart; IPFS migrated off the full internal disk to the 926GB external volume, launchd-managed). Shipped etzhayyim/kotoba PRs #26-32. NOTE: this monorepo branch is being force-push-rebased by the rename-cutover (cf. ADR-2606032330) which drops hand-added deps.toml/adr-README rows; durable artifacts = the ADR .md files + the GitHub PRs/kotoba-b2-pin tooling."
+path = "90-docs/adr/2606041657-session-close-kotoba-durability-and-canonical-tier.md"
+adr = ["2606041657", "2606041130", "2606041151"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
