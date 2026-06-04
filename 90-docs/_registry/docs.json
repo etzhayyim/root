@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-03",
+  "updated_at": "2026-06-04",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -19637,6 +19637,27 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606031030-session-close-kotoba-canonical-substrate-and-browser-node.md",
+      "id": "adr-2606031030-session-close-kotoba-canonical-substrate-and-browser-node",
+      "title": "ADR-2606031030: Session close — kotoba unified IPLD/DAG-CBOR/Prolly/Datomic + canonical key codec + browser Prolly node (P1–P3)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kotoba-canonical-substrate",
+      "authoritative": false,
+      "related": [
+        "adr-2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic",
+        "adr-2606013600-kotoba-wasm-browser-node",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-03",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection.md",
       "id": "adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
       "title": "ADR-2606031600: ipaddress + yabai → kotoba EAVT refactor (ADR-2605301400 §T2/§T3 execution) — active SecurityTrails-class IP/DNS collection on the Datom log",
@@ -20153,6 +20174,60 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606036400-kotoba-browser-p2p-webrtc-direct-and-mcp-over-libp2p.md",
+      "id": "adr-2606036400-kotoba-browser-p2p-webrtc-direct-and-mcp-over-libp2p",
+      "title": "ADR-2606036400: kotoba Browser-Reachable P2P (WebRTC-direct) + MCP-over-libp2p",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-browser-p2p-webrtc-direct-and-mcp-over-libp2p",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-browser-transport",
+        "kotoba-mcp-over-libp2p",
+        "kotoba-worker-independent-reachability"
+      ],
+      "related": [
+        "adr-2606015400-mesh-runner-serving-and-ipfs-did-retrieval",
+        "adr-2606015600-self-certifying-did-attestation",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606036600-session-close-kotoba-browser-p2p-webrtc-direct.md",
+      "id": "adr-2606036600-session-close-kotoba-browser-p2p-webrtc-direct",
+      "title": "ADR-2606036600: Session close — kotoba browser-P2P WebRTC-direct feasibility (ADR-2606036400 Phase 0+2)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kotoba-browser-p2p-webrtc-direct",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close-2606036600"
+      ],
+      "related": [
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606036400-kotoba-browser-p2p-webrtc-direct-and-mcp-over-libp2p"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606037000-session-close-kotoba-coverage-security-hardening-sweep.md",
       "id": "adr-2606037000",
       "title": "ADR-2606037000: Session close — kotoba coverage + security-hardening sweep (passkey/CACAO/Signal secrecy verified)",
@@ -20199,6 +20274,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite.md",
+      "id": "adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite",
+      "title": "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "open-kyber-kotoba-datomic-erp",
+      "authoritative": true,
+      "authoritative_for": [
+        "open-kyber-kotoba-datomic-state",
+        "isic-industry-pack-model",
+        "kyber-productivity-suite-integration"
+      ],
+      "related": [
+        "2606032000",
+        "2606012100",
+        "2606032100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605181100",
+        "0025"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606038000-session-close-kotoba-os-loop-end.md",
       "id": "adr-2606038000-session-close-kotoba-os-loop-end",
       "title": "ADR-2606038000: Session close (loop end) — kotoba-os reference complete; PORTING handoff; /loop stopped",
@@ -20215,6 +20320,37 @@
       "superseded_by": [],
       "last_verified": "2026-06-03",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606038400-yadori-dns-availability-and-domain-acquisition-tier-b-actor-r0.md",
+      "id": "adr-2606038400-yadori-dns-availability-and-domain-acquisition",
+      "title": "ADR-2606038400: yadori (宿り) — DNS-availability + domain-acquisition Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "yadori-domain-acquisition",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/yadori",
+        "com.etzhayyim.yadori.*"
+      ],
+      "related": [
+        "2605211757",
+        "2606031600",
+        "2606013800",
+        "2605181100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605231525",
+        "2605215000",
+        "2605192115",
+        "2605222330"
+      ],
+      "last_verified": "2026-06-03",
       "amends": [],
       "amended_by": []
     },
@@ -20247,6 +20383,64 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606039200-karakuri-webservice-to-cli-tier-b-actor-r0.md",
+      "id": "adr-2606039200-karakuri-webservice-to-cli",
+      "title": "ADR-2606039200: karakuri (絡繰) — web-service-to-CLI Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "karakuri-webservice-to-cli",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/karakuri",
+        "com.etzhayyim.karakuri.*"
+      ],
+      "related": [
+        "2606038400",
+        "2606033600",
+        "2605302130",
+        "2605312030",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605231525",
+        "2605215000",
+        "2605181100",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606039400-session-close-yadori-dns-domain-acquisition.md",
+      "id": "adr-2606039400-session-close-yadori-dns-domain-acquisition",
+      "title": "ADR-2606039400: Session close — yadori (宿り) DNS-availability + domain-acquisition actor (R0)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-yadori-dns-domain-acquisition",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close-2606039400"
+      ],
+      "related": [
+        "adr-2606012100-okaimono-provisioning-commons",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605222330-etzhayyim-com-substrate-violation-transition-window",
+        "adr-2606013800-actor-profile-and-dynamic-did-json"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606038400-yadori-dns-availability-and-domain-acquisition"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606039500-session-close-kotoba-os-unikernel-boot-poc.md",
       "id": "adr-2606039500-session-close-kotoba-os-unikernel-boot-poc",
       "title": "ADR-2606039500: Session close — kotoba-os unikernel boot PoC (boots on QEMU + real MMIO + in-kernel scan model + wasmi-in-kernel + guest-memory reads)",
@@ -20263,6 +20457,225 @@
       "superseded_by": [],
       "last_verified": "2026-06-03",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606039800-nusa-ritual-industrial-hemp-heritage-and-low-thc-cultivation-tier-b-actor-r0.md",
+      "id": "adr-2606039800-nusa-ritual-industrial-hemp-heritage-and-low-thc-cultivation",
+      "title": "ADR-2606039800: nusa (幣) — ritual/industrial hemp heritage + low-THC cultivation Tier-B actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "nusa-ritual-industrial-hemp-heritage",
+      "authoritative": true,
+      "authoritative_for": [
+        "nusa-actor",
+        "ritual-hemp-ontology"
+      ],
+      "related": [
+        "2605301600",
+        "2605312400",
+        "2605250500",
+        "2605262700",
+        "2606012100",
+        "2606011500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605192200",
+        "2605262130",
+        "2605215000",
+        "2606013800"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606040000-session-close-nusa-ritual-hemp-actor-and-cannabis-policy-neutral-extensions.md",
+      "id": "adr-2606040000-session-close-nusa-ritual-hemp-actor",
+      "title": "ADR-2606040000: Session close — nusa (幣) ritual/industrial hemp heritage actor + cannabis-policy neutral extensions",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-nusa-ritual-hemp",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2605301600",
+        "2605312400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606039800"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606040200-session-close-open-kyber-kotoba-datomic-erp.md",
+      "id": "adr-2606040200-session-close-open-kyber-kotoba-datomic-erp",
+      "title": "ADR-2606040200: Session close (loop) — open-kyber kotoba-Datomic ERP reference complete",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "open-kyber-kotoba-datomic-erp",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2605262130",
+        "2605312345"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606037200"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606041130-kotoba-b2-blockstore-cold-pin.md",
+      "id": "adr-2606041130-kotoba-b2-blockstore-cold-pin",
+      "title": "ADR-2606041130: kotoba IPFS block-store off-host cold pin to Backblaze B2 (DataLad + git-annex)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-b2-blockstore-cold-pin",
+      "authoritative": true,
+      "authoritative_for": [
+        "50-infra/kotoba-b2-pin"
+      ],
+      "related": [
+        "2605215000",
+        "2606012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605241500",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606041151-kotoba-commitdag-as-wal-and-incremental-query-tier.md",
+      "id": "adr-2606041151-kotoba-commitdag-as-wal-and-incremental-query-tier",
+      "title": "ADR-2606041151: kotoba canonical-tier hardening — CommitDag-as-WAL (Journal demotion) + incremental MaterializedView query tier",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-commitdag-as-wal-and-incremental-query-tier",
+      "authoritative": true,
+      "authoritative_for": [
+        "40-engine/kotoba (design intent)"
+      ],
+      "related": [
+        "2606041130",
+        "2605240001"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606041657-session-close-kotoba-durability-and-canonical-tier.md",
+      "id": "adr-2606041657-session-close-kotoba-durability-and-canonical-tier",
+      "title": "ADR-2606041657: Session close — kotoba durability (B2 cold pin) + canonical-tier hardening (CommitDag-as-WAL + incremental MV)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kotoba-durability-and-canonical-tier",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2605262130",
+        "2605312345",
+        "2606012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606041130",
+        "2606041151"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606041822-session-close-apex-etzhayyim-com-kotoba-query-proxy.md",
+      "id": "adr-2606041822-session-close-apex-etzhayyim-com-kotoba-query-proxy",
+      "title": "ADR-2606041822: Session close — apex etzhayyim.com kotoba query proxy + public-read posture finding",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-apex-etzhayyim-com-kotoba-query-proxy",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2605231525",
+        "2606036400",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606041657"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606042100-tazuna-cleanroom-remote-robotics-teleop-and-imitation-learning.md",
+      "id": "adr-2606042100",
+      "title": "tazuna 手綱 — clean-room remote-robotics fleet operation + teleoperation + learning-from-demonstration (the Orbit-shaped gap)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "remote-robotics-teleop-and-imitation-learning",
+      "authoritative": true,
+      "authoritative_for": [
+        "tazuna (手綱) remote-robotics fleet-operation + teleoperation actor charter (R0)",
+        "clean-room remote-robotics-ops / fleet-management interop surface (Orbit / Open-RMF / ROS 2 / MCAP / LeRobot published-API-shapes-only)",
+        "learning-from-demonstration (imitation / behavior-cloning) loop on the baien edge substrate",
+        "Transparent-Force binding for remote actuation (every teleop command = an on-chain-anchored Datom)"
+      ],
+      "related": [
+        "adr-2606032100",
+        "adr-2606032130",
+        "adr-2606010600",
+        "adr-2605242600",
+        "adr-2605242630",
+        "adr-2605261800",
+        "adr-2606033600",
+        "adr-2605242000",
+        "adr-2605231525",
+        "adr-2605215000",
+        "adr-2605241900",
+        "adr-2606031600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — §1.12 Transparent Force three-condition invariant)",
+        "ADR-2605231525 (no-server-key — member signs the actuation command, server never does)",
+        "ADR-2606032100 (Labor-Liberation Robotics Wave — the robot bodies tazuna operates: sanae/hataori/kiyome)",
+        "ADR-2606032130 (Displacement Dividend — the G2 coupling gate)",
+        "ADR-2605242600 (Baien federated R0 — the learning substrate the demonstration loop trains on)",
+        "ADR-2605215000 (Murakumo-only inference)",
+        "ADR-2605241900 (Baien edge-target invariant — the policy envelope)"
+      ],
+      "last_verified": "2026-06-04",
       "amends": [],
       "amended_by": []
     },
