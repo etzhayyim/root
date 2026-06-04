@@ -13266,6 +13266,35 @@
       "lastVerified": "2026-06-04"
     },
     {
+      "id": "doc:adr-2606042100",
+      "type": "TechArticle",
+      "title": "tazuna 手綱 — clean-room remote-robotics fleet operation + teleoperation + learning-from-demonstration (the Orbit-shaped gap)",
+      "status": "proposed",
+      "topic": "remote-robotics-teleop-and-imitation-learning",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tazuna (手綱) remote-robotics fleet-operation + teleoperation actor charter (R0)",
+        "clean-room remote-robotics-ops / fleet-management interop surface (Orbit / Open-RMF / ROS 2 / MCAP / LeRobot published-API-shapes-only)",
+        "learning-from-demonstration (imitation / behavior-cloning) loop on the baien edge substrate",
+        "Transparent-Force binding for remote actuation (every teleop command = an on-chain-anchored Datom)"
+      ],
+      "related": [
+        "doc:adr-2606032100",
+        "doc:adr-2606032130",
+        "doc:adr-2606010600",
+        "doc:adr-2605242600",
+        "doc:adr-2605242630",
+        "doc:adr-2605261800",
+        "doc:adr-2606033600",
+        "doc:adr-2605242000",
+        "doc:adr-2605231525",
+        "doc:adr-2605215000",
+        "doc:adr-2605241900",
+        "doc:adr-2606031600"
+      ],
+      "lastVerified": "2026-06-04"
+    },
+    {
       "id": "doc:adr-2606042300",
       "type": "TechArticle",
       "title": "todoke 届け — last-mile (one-mile) autonomous delivery Tier-B actor (R0)",
