@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: country endonyms (19 → 123)
+
+New maturity axis: native-script / native-language official names (endonyms). name-local was only
+78/7106 across the whole atlas. Filled the COUNTRY tier first (foundational): 12 web-research
+subagents pulled Wikidata native labels for the 173 missing countries. **104 endonyms added**
+(non-Latin scripts + diacritic/spelling variants); 69 skipped as identical to the English name
+(English-official or coincident spelling — no value, not stored).
+
+- countries with name-local: 19 → **123/192**; all units: 78 → 182; +68 romanizations.
+- non-Latin scripts now carried with romanization: Arabic (مصر/Miṣr, السودان/as-Sūdān, …), Cyrillic
+  (Україна/Ukraïna, Србија/Srbija, Монгол Улс/Mongol Uls, …), CJK/Hangul (조선/Chosŏn), Devanagari
+  (नेपाल/Nepāl), Bengali, Thai, Khmer, Burmese, Amharic, Tigrinya, Georgian, Armenian, Greek,
+  Hebrew, Sinhala, Dhivehi (Thaana), Dzongkha.
+- honest scope notes: endonym = primary-official-language short form (e.g. Switzerland→Schweiz [de],
+  Belgium→"België / Belgique", NZ→Aotearoa [Māori], DPRK→조선 not 한국); the 69 skips are English-
+  official states (Jamaica, Ghana, Nigeria, …) and Latin endonyms identical to English (Angola, Chile,
+  Mali, …) where a name-local field would only duplicate name-en.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — CONTACT axis: official-url — high-tier gap closure (5802 → 5817)
 
 New maturity axis (continuation of the user-chosen 連絡先 enrichment): closing official-website gaps.
