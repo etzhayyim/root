@@ -175,12 +175,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "Ministry of Tourism and Leisure"
+   :gov.unit/official-url "https://mintoul.gov.cm/"
    :gov.unit/wikidata "Q116081014"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q116081014"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mintoul.gov.cm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cri.tourism"
@@ -398,12 +399,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Tourism and Antiquities of Jordan"
+   :gov.unit/official-url "https://mota.gov.jo/"
    :gov.unit/wikidata "Q22686374"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22686374"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mota.gov.jo/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.tourism"
@@ -573,12 +575,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/official-url "https://tourism.gov.pk/"
    :gov.unit/wikidata "Q6867580"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867580"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://tourism.gov.pk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.phl.tourism"
@@ -619,13 +622,14 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "prt"
-   :gov.unit/name-en "Madeira Tourism Board"
+   :gov.unit/name-en "Turismo de Portugal (National Tourism Authority)"
+   :gov.unit/official-url "https://www.turismodeportugal.pt/"
    :gov.unit/wikidata "Q138408008"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q138408008"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.turismodeportugal.pt/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rou.tourism"
@@ -635,12 +639,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Ministry of Tourism of Romania"
+   :gov.unit/official-url "https://economie.gov.ro/"
    :gov.unit/wikidata "Q18541899"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18541899"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://economie.gov.ro/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sau.tourism"
@@ -698,12 +703,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "Ministry of Wildlife Conservation and Tourism"
+   :gov.unit/official-url "https://mwct.gov.ss/"
    :gov.unit/wikidata "Q6867651"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867651"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mwct.gov.ss/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.tourism"
@@ -729,12 +735,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Tourism (Syria)"
+   :gov.unit/official-url "https://mots.gov.sy/"
    :gov.unit/wikidata "Q60575868"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q60575868"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mots.gov.sy/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tha.tourism"
@@ -808,12 +815,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Culture and Tourism of Ukraine"
+   :gov.unit/official-url "https://www.tourism.gov.ua/"
    :gov.unit/wikidata "Q4294447"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4294447"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.tourism.gov.ua/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.tourism"
@@ -902,10 +910,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/official-url "https://www.tourismzim.gov.zw/"
    :gov.unit/wikidata "Q6867581"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867581"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.tourismzim.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

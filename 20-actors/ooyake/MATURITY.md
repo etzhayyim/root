@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — agriculture + health + tourism + trade ministry sites: 37 web-verified (1559 → 1596 ministries, 97%)
+
+Continued the ministry tier with agriculture (10) + health (10) + tourism (10) + trade (9).
+4 web-research subagents found + **confirmed each ministry's own official site by fetching
+it**. 37 confirmed (provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+Also fixed a mislabeled unit: Portugal tourism was "Madeira Tourism Board" (a regional body)
+→ corrected to **Turismo de Portugal (National Tourism Authority)**.
+
+- ministries: 1559 → **1596/1642** with an official site (**97%**).
+- 2 HONESTLY left null (G5): Eritrea agriculture (only the Ministry of Information portal
+  exists), Yemen tourism (only a .com promotion board, no official .gov.ye ministry site).
+- honest notes recorded: Argentina/Suriname have no standalone ministry domain (national-
+  portal section used); Pakistan tourism = PTDC federal portal; Romania tourism under the
+  Ministry of Economy; Ukraine via the State Agency for Tourism Development. Cameroon
+  mintoul.gov.cm cert expired; several WAF/geo-blocked (Kuwait/Yemen/Iran/Lebanon/Zimbabwe)
+  — all genuine official government domains, multi-source corroborated.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — culture + energy + environment ministry sites: 34 web-verified (1525 → 1559 ministries, 95%)
 
 Continued the ministry tier with culture (13) + energy (12) + environment (12). 3 web-research

@@ -16,12 +16,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
    :gov.unit/name-en "Ministry of Commerce of Argentina"
+   :gov.unit/official-url "https://www.argentina.gob.ar/economia/industria-y-comercio/secretaria-de-industria-y-comercio"
    :gov.unit/wikidata "Q62476800"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q62476800"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.argentina.gob.ar/economia/industria-y-comercio/secretaria-de-industria-y-comercio"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.aus.trade"
@@ -239,12 +240,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry for Trade (Greece)"
+   :gov.unit/official-url "https://www.mindev.gov.gr/?lang=en"
    :gov.unit/wikidata "Q6866586"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866586"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mindev.gov.gr/?lang=en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ind.trade"
@@ -270,12 +272,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Commerce of Iran"
+   :gov.unit/official-url "https://en.mimt.gov.ir/"
    :gov.unit/wikidata "Q1574903"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1574903"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://en.mimt.gov.ir/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.khm.trade"
@@ -317,12 +320,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/official-url "https://www.moic.gov.la/"
    :gov.unit/wikidata "Q19695530"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q19695530"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moic.gov.la/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lbn.trade"
@@ -332,12 +336,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Ministry of Economy and Trade"
+   :gov.unit/official-url "https://www.economy.gov.lb/"
    :gov.unit/wikidata "Q62745211"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q62745211"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.economy.gov.lb/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lka.trade"
@@ -347,12 +352,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/official-url "https://www.trade.gov.lk/"
    :gov.unit/wikidata "Q20987435"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q20987435"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.trade.gov.lk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mlt.trade"
@@ -410,12 +416,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Industry, Commerce and Supplies"
+   :gov.unit/official-url "https://moics.gov.np/"
    :gov.unit/wikidata "Q19694901"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q19694901"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moics.gov.np/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pak.trade"
@@ -505,12 +512,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Business and Trade of Qatar"
+   :gov.unit/official-url "https://www.moci.gov.qa/"
    :gov.unit/wikidata "Q96393333"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q96393333"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moci.gov.qa/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rus.trade"
@@ -728,10 +736,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/official-url "https://www.mic.gov.zw/"
    :gov.unit/wikidata "Q6867188"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867188"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mic.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

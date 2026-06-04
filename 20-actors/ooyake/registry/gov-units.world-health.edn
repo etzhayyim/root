@@ -17,12 +17,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/official-url "https://minsa.gov.ao/"
    :gov.unit/wikidata "Q30290560"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q30290560"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://minsa.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.are.health"
@@ -256,12 +257,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Health (Belize)"
+   :gov.unit/official-url "https://www.health.gov.bz/"
    :gov.unit/wikidata "Q90744768"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q90744768"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.health.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.health"
@@ -319,12 +321,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/official-url "https://moh.gov.bt/"
    :gov.unit/wikidata "Q25203026"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25203026"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moh.gov.bt/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.health"
@@ -702,12 +705,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "gnb"
    :gov.unit/name-en "Ministry of Public Health"
+   :gov.unit/official-url "https://minsap.gw/"
    :gov.unit/wikidata "Q105846519"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q105846519"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://minsap.gw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.grc.health"
@@ -1021,12 +1025,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/official-url "https://www.moh.gov.kw/"
    :gov.unit/wikidata "Q96679148"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q96679148"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moh.gov.kw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lao.health"
@@ -1100,12 +1105,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lso"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/official-url "https://health.gov.ls/"
    :gov.unit/wikidata "Q30290562"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q30290562"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://health.gov.ls/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.health"
@@ -1227,12 +1233,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/official-url "https://zdravstvo.gov.mk/"
    :gov.unit/wikidata "Q12286821"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12286821"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://zdravstvo.gov.mk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mli.health"
@@ -1786,12 +1793,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Health of Suriname"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-volksgezondheid-welzijn-arbeid/"
    :gov.unit/wikidata "Q52842741"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q52842741"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-volksgezondheid-welzijn-arbeid/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.health"
@@ -1913,12 +1921,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/official-url "https://moh.tj/"
    :gov.unit/wikidata "Q6867102"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867102"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moh.tj/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tkm.health"
@@ -2120,12 +2129,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Public Health and Population"
+   :gov.unit/official-url "https://moh.gov.ye/"
    :gov.unit/wikidata "Q22932827"
    :gov.unit/cofog ["07"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22932827"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moh.gov.ye/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zaf.health"
