@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 10 countries (1329 → 1389, 85%)
+
+Fourth ministry-address batch (Bahamas, El Salvador, Syria, Costa Rica, Ecuador, Cambodia,
+Montenegro, Oman, Romania, Singapore). 7 web-research subagents. 60 added; **51 building-level
+lat/lon, 9 honest line-en-only (G5)** — Syria (war-disrupted, 6 city-level only), Bahamas tourism/
+culture (source conflict on the building), Costa Rica environment (no building pin).
+
+- ministries: 1329 → **1389/1642** with an address record (85%).
+- honest seat/data findings: **Montenegro Culture is in Cetinje (the historic capital), NOT
+  Podgorica**; El Salvador Agriculture is in Santa Tecla (not San Salvador); Costa Rica COMEX in
+  Escazú, MEP relocated to Torre Mercedes; Syria Economy & Foreign Trade merged into Economy &
+  Industry (Mar 2025); Oman ministries cluster in the Al-Wazarat/Al Khuwair district (MoD compound
+  Mu'askar al Murtafa'a coarse ~2dp). Montenegro Finance+Foreign share Bulevar Stanka Dragojevića 2.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 7 whole-country clusters (1269 → 1329)
 
 Third ministry-address batch, organized as **whole-country clusters** for efficiency: Eswatini (11),

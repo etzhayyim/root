@@ -9950,4 +9950,535 @@
    :gov.address/lat 25.2633 :gov.address/lon 55.38766
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.agriculture.hq"
+   :gov.address/unit "gov.bhs.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Out Island Traders Building, East Bay Street, Nassau"
+   :gov.address/lat 25.07489 :gov.address/lon -77.32142
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.culture.hq"
+   :gov.address/unit "gov.bhs.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Ministry of Tourism, Investments & Aviation (culture), Bolam House, George Street, Nassau"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.education.hq"
+   :gov.address/unit "gov.bhs.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Ministry of Education HQ, Mychal Thompson Blvd, Nassau"
+   :gov.address/lat 25.05575 :gov.address/lon -77.36518
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.environment.hq"
+   :gov.address/unit "gov.bhs.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Charlotte House, Shirley & Charlotte Streets, Nassau"
+   :gov.address/lat 25.07601 :gov.address/lon -77.34222
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.foreign.hq"
+   :gov.address/unit "gov.bhs.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Goodman's Bay Corporate Centre, West Bay Street, Nassau"
+   :gov.address/lat 25.07262 :gov.address/lon -77.38175
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.tourism.hq"
+   :gov.address/unit "gov.bhs.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Bolam House, George Street, Nassau"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bhs.transport.hq"
+   :gov.address/unit "gov.bhs.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Manx Corporate Centre, West Bay Street, Nassau"
+   :gov.address/lat 25.07778 :gov.address/lon -77.35234
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.agriculture.hq"
+   :gov.address/unit "gov.slv.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "MAG, Av. Manuel Gallardo, Santa Tecla, La Libertad"
+   :gov.address/lat 13.68368 :gov.address/lon -89.28689
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.culture.hq"
+   :gov.address/unit "gov.slv.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Ministerio de Cultura, Centro de Gobierno (B3), San Salvador"
+   :gov.address/lat 13.70396 :gov.address/lon -89.20035
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.education.hq"
+   :gov.address/unit "gov.slv.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "MINEDUCYT, Centro de Gobierno, Alameda Juan Pablo II, San Salvador"
+   :gov.address/lat 13.70521 :gov.address/lon -89.20087
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.environment.hq"
+   :gov.address/unit "gov.slv.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "MARN, Km 5½ Carretera a Santa Tecla, Col. Las Mercedes, San Salvador"
+   :gov.address/lat 13.68803 :gov.address/lon -89.231
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.interior.hq"
+   :gov.address/unit "gov.slv.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Ministerio de Gobernación, 9ª Calle Poniente, Centro de Gobierno, San Salvador"
+   :gov.address/lat 13.70476 :gov.address/lon -89.19807
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.justice.hq"
+   :gov.address/unit "gov.slv.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Ministerio de Justicia y Seguridad Pública, Centro de Gobierno, San Salvador"
+   :gov.address/lat 13.70391 :gov.address/lon -89.19992
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.labour.hq"
+   :gov.address/unit "gov.slv.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Ministerio de Trabajo y Previsión Social, Centro de Gobierno, San Salvador"
+   :gov.address/lat 13.7059 :gov.address/lon -89.20048
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.culture.hq"
+   :gov.address/unit "gov.syr.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Culture, al-Rawda area, Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.foreign.hq"
+   :gov.address/unit "gov.syr.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Foreign Affairs and Expatriates, 17 April Street, al-Muhajirin, Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.housing.hq"
+   :gov.address/unit "gov.syr.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Public Works and Housing, Yusuf al-Azma Square, Salhiyeh, Damascus"
+   :gov.address/lat 33.50979 :gov.address/lon 36.29042
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.justice.hq"
+   :gov.address/unit "gov.syr.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Justice, Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.labour.hq"
+   :gov.address/unit "gov.syr.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Social Affairs and Labour, Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.tourism.hq"
+   :gov.address/unit "gov.syr.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Tourism, Quwatli Street, Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syr.trade.hq"
+   :gov.address/unit "gov.syr.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "syr"
+   :gov.address/line-en "Ministry of Economy and Foreign Trade (merged into Economy & Industry 2025), Damascus"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.agriculture.hq"
+   :gov.address/unit "gov.cri.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "MAG, Sabana Sur, Mata Redonda, San José"
+   :gov.address/lat 9.9325 :gov.address/lon -84.11049
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.education.hq"
+   :gov.address/unit "gov.cri.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "MEP, Torre Mercedes, Paseo Colón, San José"
+   :gov.address/lat 9.93554 :gov.address/lon -84.08924
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.environment.hq"
+   :gov.address/unit "gov.cri.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "MINAE, Edificio Vista Palace, barrio González Lahmann, San José"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.justice.hq"
+   :gov.address/unit "gov.cri.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "Ministerio de Justicia y Paz, Avenida 12, San José"
+   :gov.address/lat 9.92853 :gov.address/lon -84.07891
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.tourism.hq"
+   :gov.address/unit "gov.cri.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "Instituto Costarricense de Turismo (ICT), La Uruca, San José"
+   :gov.address/lat 9.94996 :gov.address/lon -84.11089
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cri.trade.hq"
+   :gov.address/unit "gov.cri.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "COMEX, San Rafael de Escazú, San José metro"
+   :gov.address/lat 9.94021 :gov.address/lon -84.14563
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.agriculture.hq"
+   :gov.address/unit "gov.ecu.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Edificio MAG, Av. Eloy Alfaro y Amazonas, Quito"
+   :gov.address/lat -0.19259 :gov.address/lon -78.48774
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.education.hq"
+   :gov.address/unit "gov.ecu.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Ministerio de Educación, Av. Amazonas y Atahualpa, Quito"
+   :gov.address/lat -0.18083 :gov.address/lon -78.48697
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.finance.hq"
+   :gov.address/unit "gov.ecu.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Plataforma Gubernamental de Gestión Financiera, Quito"
+   :gov.address/lat -0.17332 :gov.address/lon -78.48413
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.labour.hq"
+   :gov.address/unit "gov.ecu.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Ministerio del Trabajo, Av. República de El Salvador y Suiza, Quito"
+   :gov.address/lat -0.18583 :gov.address/lon -78.4821
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.tourism.hq"
+   :gov.address/unit "gov.ecu.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Ministerio de Turismo, Edificio La Licuadora, Av. Gran Colombia, Quito"
+   :gov.address/lat -0.21693 :gov.address/lon -78.50467
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.transport.hq"
+   :gov.address/unit "gov.ecu.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Ministerio de Transporte y Obras Públicas, Juan León Mera y Orellana, Quito"
+   :gov.address/lat -0.19748 :gov.address/lon -78.48893
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sgp.education.hq"
+   :gov.address/unit "gov.sgp.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "Ministry of Education, 1 North Buona Vista Drive, Singapore"
+   :gov.address/lat 1.30518 :gov.address/lon 103.79096
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sgp.environment.hq"
+   :gov.address/unit "gov.sgp.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "Environment Building, 40 Scotts Road, Singapore"
+   :gov.address/lat 1.31044 :gov.address/lon 103.83613
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sgp.finance.hq"
+   :gov.address/unit "gov.sgp.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "The Treasury, 100 High Street, Singapore"
+   :gov.address/lat 1.29085 :gov.address/lon 103.84969
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.agriculture.hq"
+   :gov.address/unit "gov.khm.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "MAFF, #200 Preah Norodom Blvd, Phnom Penh"
+   :gov.address/lat 11.54351 :gov.address/lon 104.92672
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.education.hq"
+   :gov.address/unit "gov.khm.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "MoEYS, #80 Preah Norodom Blvd, Phnom Penh"
+   :gov.address/lat 11.56108 :gov.address/lon 104.92723
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.energy.hq"
+   :gov.address/unit "gov.khm.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "Ministry of Mines and Energy, Wat Phnom, Phnom Penh"
+   :gov.address/lat 11.57402 :gov.address/lon 104.9228
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.health.hq"
+   :gov.address/unit "gov.khm.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "Ministry of Health, Samdach Penn Nouth Blvd, Phnom Penh"
+   :gov.address/lat 11.5756 :gov.address/lon 104.89909
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.interior.hq"
+   :gov.address/unit "gov.khm.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "Ministry of Interior, #275 Preah Norodom Blvd, Phnom Penh"
+   :gov.address/lat 11.53754 :gov.address/lon 104.9272
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.khm.justice.hq"
+   :gov.address/unit "gov.khm.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "Ministry of Justice, #14 Sothearos Blvd, Phnom Penh"
+   :gov.address/lat 11.56311 :gov.address/lon 104.93348
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.culture.hq"
+   :gov.address/unit "gov.mne.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Ministry of Culture and Media, Njegoševa 83, Cetinje"
+   :gov.address/lat 42.391 :gov.address/lon 18.92219
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.defense.hq"
+   :gov.address/unit "gov.mne.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Ministry of Defence, Bulevar Jovana Tomaševića 29, Podgorica"
+   :gov.address/lat 42.44443 :gov.address/lon 19.25588
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.education.hq"
+   :gov.address/unit "gov.mne.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Ministry of Education, Vaka Đurovića bb, Podgorica"
+   :gov.address/lat 42.44612 :gov.address/lon 19.26374
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.finance.hq"
+   :gov.address/unit "gov.mne.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Ministry of Finance, Bulevar Stanka Dragojevića 2, Podgorica"
+   :gov.address/lat 42.4439 :gov.address/lon 19.2611
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.foreign.hq"
+   :gov.address/unit "gov.mne.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Ministry of Foreign Affairs, Bulevar Stanka Dragojevića 2, Podgorica"
+   :gov.address/lat 42.4439 :gov.address/lon 19.2611
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mne.justice.hq"
+   :gov.address/unit "gov.mne.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "mne"
+   :gov.address/line-en "Ministry of Justice, Vuka Karadžića 3, Podgorica"
+   :gov.address/lat 42.43994 :gov.address/lon 19.2633
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.defense.hq"
+   :gov.address/unit "gov.omn.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Mu'askar al Murtafa'a (Ministry of Defence compound), Muscat"
+   :gov.address/lat 23.567 :gov.address/lon 58.25
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.environment.hq"
+   :gov.address/unit "gov.omn.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Environment Authority (Ministry of Environment), Al Khuwair, Muscat"
+   :gov.address/lat 23.60057 :gov.address/lon 58.42948
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.housing.hq"
+   :gov.address/unit "gov.omn.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Ministry of Housing and Urban Planning, Al-Wazarat, Muscat"
+   :gov.address/lat 23.59923 :gov.address/lon 58.43764
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.justice.hq"
+   :gov.address/unit "gov.omn.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Ministry of Justice and Legal Affairs, Al Khuwair, Muscat"
+   :gov.address/lat 23.59886 :gov.address/lon 58.4349
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.tourism.hq"
+   :gov.address/unit "gov.omn.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Ministry of Heritage and Tourism, Al Khuwair, Muscat"
+   :gov.address/lat 23.60073 :gov.address/lon 58.43179
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.omn.transport.hq"
+   :gov.address/unit "gov.omn.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "omn"
+   :gov.address/line-en "Ministry of Transport, Communications and IT, Al-Wazarat, Muscat"
+   :gov.address/lat 23.60186 :gov.address/lon 58.42395
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.agriculture.hq"
+   :gov.address/unit "gov.rou.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Ministry of Agriculture and Rural Development, Bd. Carol I 2-4, Bucharest"
+   :gov.address/lat 44.43548 :gov.address/lon 26.10451
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.culture.hq"
+   :gov.address/unit "gov.rou.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Ministry of Culture, Bd. Unirii 22, Bucharest"
+   :gov.address/lat 44.42492 :gov.address/lon 26.11012
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.education.hq"
+   :gov.address/unit "gov.rou.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Ministry of Education, Str. General Berthelot 28-30, Bucharest"
+   :gov.address/lat 44.44195 :gov.address/lon 26.08882
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.foreign.hq"
+   :gov.address/unit "gov.rou.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Ministry of Foreign Affairs, Aleea Alexandru 31, Bucharest"
+   :gov.address/lat 44.45745 :gov.address/lon 26.08921
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.justice.hq"
+   :gov.address/unit "gov.rou.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Ministry of Justice, Str. Apolodor 17, Bucharest"
+   :gov.address/lat 44.4289 :gov.address/lon 26.09159
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.tourism.hq"
+   :gov.address/unit "gov.rou.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Ministry of Economy, Entrepreneurship and Tourism, Calea Victoriei 152, Bucharest"
+   :gov.address/lat 44.44482 :gov.address/lon 26.09183
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
 ]}
