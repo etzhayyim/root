@@ -247,6 +247,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Internal Affairs of the Republic of Belarus"
+   :gov.unit/name-local "Министерство внутренних дел Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo vnutrennikh del Respubliki Belarus"
    :gov.unit/official-url "http://mvd.gov.by"
    :gov.unit/wikidata "Q2427674"
    :gov.unit/cofog ["03.1"]
@@ -853,6 +855,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Internal Affairs of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ішкі істер министрлігі"
+   :gov.unit/name-romanized "İşki ister ministrligi"
    :gov.unit/official-url "http://mvd.gov.kz/"
    :gov.unit/wikidata "Q1620994"
    :gov.unit/cofog ["03.1"]
@@ -885,6 +889,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of the Interior"
+   :gov.unit/name-local "Кыргыз Республикасынын Ички иштер министрлиги"
+   :gov.unit/name-romanized "Ichki ishter ministrligi"
    :gov.unit/official-url "http://www.mvd.kg/"
    :gov.unit/wikidata "Q4294298"
    :gov.unit/cofog ["03.1"]
@@ -1131,6 +1137,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Justice and Home Affairs"
+   :gov.unit/name-local "Хууль зүй, дотоод хэргийн яам"
+   :gov.unit/name-romanized "Khuul züin dotood khergiin yaam"
    :gov.unit/official-url "https://mojha.gov.mn/"
    :gov.unit/wikidata "Q56290026"
    :gov.unit/cofog ["03.1"]
@@ -1593,6 +1601,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Internal Affairs"
+   :gov.unit/name-local "Вазорати корҳои дохилии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati korhoi dokhilii Jumhurii Tojikiston"
    :gov.unit/official-url "https://mvd.tj/"
    :gov.unit/wikidata "Q25593307"
    :gov.unit/cofog ["03.1"]

@@ -164,6 +164,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Culture of the Republic of Belarus"
+   :gov.unit/name-local "Министерство культуры Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo kultury Respubliki Belarus"
    :gov.unit/official-url "http://www.kultura.by"
    :gov.unit/wikidata "Q11775449"
    :gov.unit/cofog ["08.2"]
@@ -705,7 +707,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
-   :gov.unit/name-en "Ministry of Culture and Sports of Kazakhstan"
+   :gov.unit/name-en "Ministry of Culture and Information of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Мәдениет және ақпарат министрлігі"
+   :gov.unit/name-romanized "Mädeniet jäne aqparat ministrlıgı"
    :gov.unit/official-url "http://mk.gov.kz/"
    :gov.unit/wikidata "Q16432909"
    :gov.unit/cofog ["08.2"]
@@ -934,6 +938,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Culture, Sports, Tourism and Youth of Mongolia"
+   :gov.unit/name-local "Соёл, спорт, аялал жуулчлал, залуучуудын яам"
+   :gov.unit/name-romanized "Soyol, sport, ayalal juulchlal, zaluuchuudyn yaam"
    :gov.unit/official-url "https://mocsty.gov.mn/"
    :gov.unit/wikidata "Q135706498"
    :gov.unit/cofog ["08.2"]
@@ -1363,6 +1369,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Culture of Tajikistan"
+   :gov.unit/name-local "Вазорати фарҳанги Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati farhangi Jumhurii Tojikiston"
    :gov.unit/official-url "https://www.vfarhang.tj"
    :gov.unit/wikidata "Q31456163"
    :gov.unit/cofog ["08.2"]

@@ -64,6 +64,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Antimonopoly Regulation and Trade of the Republic of Belarus"
+   :gov.unit/name-local "Министерство антимонопольного регулирования и торговли Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo antimonopolnogo regulirovaniya i torgovli"
    :gov.unit/official-url "http://mart.gov.by/"
    :gov.unit/wikidata "Q6517849"
    :gov.unit/cofog ["04.1"]

@@ -239,6 +239,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Bank of the Republic of Belarus"
+   :gov.unit/name-local "Национальный банк Республики Беларусь"
+   :gov.unit/name-romanized "Natsionalnyy bank Respubliki Belarus"
    :gov.unit/official-url "http://www.nbrb.by/"
    :gov.unit/wikidata "Q431491"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -792,6 +794,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "National Bank of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ұлттық Банкі"
+   :gov.unit/name-romanized "Ūlttyq Bankı"
    :gov.unit/official-url "http://www.nationalbank.kz"
    :gov.unit/wikidata "Q2472280"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -816,6 +820,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "National Bank of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Улуттук банкы"
+   :gov.unit/name-romanized "Uluttuk banky"
    :gov.unit/official-url "http://www.nbkr.kg"
    :gov.unit/wikidata "Q3430475"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1035,6 +1041,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Bank of Mongolia"
+   :gov.unit/name-local "Монголбанк (Монгол Улсын Төв банк)"
+   :gov.unit/name-romanized "Mongolbank (Mongol Ulsyn Töv bank)"
    :gov.unit/official-url "https://www.mongolbank.mn/"
    :gov.unit/wikidata "Q1320131"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1510,6 +1518,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "National Bank of Tajikistan"
+   :gov.unit/name-local "Бонки миллии Тоҷикистон"
+   :gov.unit/name-romanized "Bonki millii Tojikiston"
    :gov.unit/official-url "http://www.nbt.tj"
    :gov.unit/wikidata "Q4314981"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -427,6 +427,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Tourism and Sports of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Туризм және спорт министрлігі"
+   :gov.unit/name-romanized "Turızm jäne sport ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/tsm?lang=kk"
    :gov.unit/wikidata "Q32804211"
    :gov.unit/cofog ["04.7"]

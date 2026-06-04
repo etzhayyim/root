@@ -96,6 +96,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Communications and Informatization of the Republic of Belarus"
+   :gov.unit/name-local "Министерство связи и информатизации Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo svyazi i informatizatsii Respubliki Belarus"
    :gov.unit/official-url "http://www.mpt.gov.by/"
    :gov.unit/wikidata "Q3919052"
    :gov.unit/cofog ["04.6"]

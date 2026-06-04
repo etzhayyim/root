@@ -164,6 +164,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Transport and Communications of the Republic of Belarus"
+   :gov.unit/name-local "Министерство транспорта и коммуникаций Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo transporta i kommunikatsiy Respubliki Belarus"
    :gov.unit/official-url "http://www.mintrans.gov.by/"
    :gov.unit/wikidata "Q6517899"
    :gov.unit/cofog ["04.5"]
@@ -770,6 +772,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Transport of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Көлік министрлігі"
+   :gov.unit/name-romanized "Kölik ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/transport?lang=en"
    :gov.unit/wikidata "Q126810644"
    :gov.unit/cofog ["04.5"]
@@ -935,6 +939,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Road and Transport"
+   :gov.unit/name-local "Зам, тээврийн хөгжлийн яам"
+   :gov.unit/name-romanized "Zam, teevriin khögjliin yaam"
    :gov.unit/official-url "https://mrt.gov.mn/"
    :gov.unit/wikidata "Q135706395"
    :gov.unit/cofog ["04.5"]

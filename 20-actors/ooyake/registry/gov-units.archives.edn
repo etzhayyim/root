@@ -216,6 +216,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "National Archives of Mongolia"
+   :gov.unit/name-local "Архивын ерөнхий газар"
+   :gov.unit/name-romanized "Arkhivyn yerönkhii gazar"
    :gov.unit/official-url "http://www.archives.gov.mn/"
    :gov.unit/wikidata "Q2257638"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1137,6 +1139,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "National Archives of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ұлттық мұрағаты"
+   :gov.unit/name-romanized "Ūlttyq mūrağaty"
    :gov.unit/official-url "http://ulttykarhiv.kz/ru/"
    :gov.unit/wikidata "Q12573359"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1185,6 +1189,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Archives of Belarus"
+   :gov.unit/name-local "Национальный архив Республики Беларусь"
+   :gov.unit/name-romanized "Natsionalnyy arkhiv Respubliki Belarus"
    :gov.unit/official-url "http://www.narb.by"
    :gov.unit/wikidata "Q15607766"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

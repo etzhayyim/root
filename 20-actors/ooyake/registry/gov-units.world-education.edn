@@ -296,6 +296,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Education of the Republic of Belarus"
+   :gov.unit/name-local "Министерство образования Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo obrazovaniya Respubliki Belarus"
    :gov.unit/official-url "http://edu.gov.by/"
    :gov.unit/wikidata "Q6517829"
    :gov.unit/cofog ["09"]
@@ -964,6 +966,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Science and Higher Education of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ғылым және жоғары білім министрлігі"
+   :gov.unit/name-romanized "Ğylym jäne joğary bılım ministrlıgı"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/sci?lang=kk"
    :gov.unit/wikidata "Q124731304"
    :gov.unit/cofog ["09"]
@@ -996,6 +1000,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Education and Science of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Билим берүү жана илим министрлиги"
+   :gov.unit/name-romanized "Bilim berüü jana ilim ministrligi"
    :gov.unit/official-url "http://edu.gov.kg/ru/"
    :gov.unit/wikidata "Q25598765"
    :gov.unit/cofog ["09"]
@@ -1306,6 +1312,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Education and Science (Mongolia)"
+   :gov.unit/name-local "Боловсролын яам"
+   :gov.unit/name-romanized "Bolovsrolyn yaam"
    :gov.unit/official-url "https://en.moe.gov.mn/"
    :gov.unit/wikidata "Q6866819"
    :gov.unit/cofog ["09"]
