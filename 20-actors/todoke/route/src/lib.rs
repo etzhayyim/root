@@ -19,6 +19,8 @@
 
 #![forbid(unsafe_code)]
 
+pub mod sim;
+
 /// SAE J3016 autonomy ceiling for todoke/wadachi ground autonomy. Level 5 is a non-goal (N2).
 pub const SAE_LEVEL_CEILING: u8 = 4;
 
@@ -158,7 +160,7 @@ fn nearest_neighbour(stops: &[Stop]) -> Vec<usize> {
             if !visited[j] {
                 let d = stops[cur].dist(s);
                 // tie-break on index for determinism
-                if d < best_d - 1e-12 || (d <= best_d + 1e-12 && best.map_or(true, |b| j < b)) {
+                if d < best_d - 1e-12 || (d <= best_d + 1e-12 && best.is_none_or(|b| j < b)) {
                     best_d = d;
                     best = Some(j);
                 }

@@ -5,7 +5,7 @@
   "name": "todoke",
   "displayName": "届け — Last-Mile (one-mile) Autonomous Delivery",
   "tier": "Tier-B",
-  "status": "R0",
+  "status": "R0+R1",
   "adr": { "master": "etzhayyim:adr:2606042300", "autonomy": "etzhayyim:adr:2606010600", "dividend": "etzhayyim:adr:2606032130" },
   "labor": {
     "isic": "H53",
@@ -29,7 +29,7 @@
   "rustCore": {
     "crate": "route/",
     "name": "todoke-route",
-    "purpose": "last-mile stop sequencing (NN + 2-opt) + SAE-L4 sidewalk ODD safety envelope (G7); 7 tests green; mirrored by methods/last_mile.py (parity-tested)"
+    "purpose": "last-mile stop sequencing (NN + 2-opt) + SAE-L4 sidewalk ODD safety envelope (G7) + R1 curb-to-door rover sim (kinematic stand-in for kami-autodrive); 13 tests green (7 route + 6 sim) + curb_to_door example; sequencer mirrored by methods/last_mile.py (parity-tested)"
   },
   "lexiconNamespaces": [
     "com.etzhayyim.todoke.deliveryJob",
@@ -65,7 +65,7 @@
   },
   "roadmap": [
     { "phase": "R0", "date": "2026-06-04", "scope": "charter + manifests + 5 cells (RuntimeError; route_sequencing + handoff_proof fully coded) + 5 lexicons + :representative seed + todoke-route Rust crate (7 tests) + Python parity method (7 tests) + cell tests (12)", "gate": "ADR-2606042300 (proposed)" },
-    { "phase": "R1", "scope": "single-rover curb-to-door sim on kami-autodrive (Car/sidewalk variant) + first cell solver wired to the Rust route core", "gate": "future ADR + Council" },
+    { "phase": "R1", "date": "2026-06-04", "scope": "LANDED — curb-to-door rover sim (route/src/sim.rs) wired to the todoke-route core: per-zone speed cap, accel/cruise/brake, obstacle emergency-stop + resume, rolling-resistance energy; 6 sim tests + curb_to_door example (32 tests total). Real kami-autodrive GNC wiring deferred to 40-engine/kami-engine submodule population.", "gate": "ADR-2606042300" },
     { "phase": "R2", "scope": "pilot route (private campus) + courier displacement cohort sized & Public-Fund-voted", "gate": "future ADR + 30-day comment" },
     { "phase": "R3", "scope": "community-scale last-mile + live displacement WITH dividend active (G2), Transparent-Force authorized", "gate": "future ADR + 60-day review + Council Lv6+" }
   ]

@@ -23,7 +23,8 @@ for perception → planning → control.
 
 ## The Rust "one-mile" core — `route/` (`todoke-route`)
 
-A pure, zero-dependency, deterministic Rust crate (`cargo test` in `route/`, **7 tests green**):
+A pure, zero-dependency, deterministic Rust crate (`cargo test` in `route/`, **13 tests green** —
+7 route + 6 R1 sim):
 
 - **stop sequencing** — nearest-neighbour seed + 2-opt local search over curb/door stops.
 - **safety envelope (G7)** — `plan_last_mile` *refuses* (returns `Err`) rather than yields a
@@ -69,8 +70,8 @@ pools — the natural target of the labour-liberation mission.
 ## Testing (R0)
 
 ```bash
-# Rust core (7 tests)
-cd 20-actors/todoke/route && cargo test
+# Rust core + R1 sim (13 tests) + the curb-to-door demo
+cd 20-actors/todoke/route && cargo test && cargo run --example curb_to_door
 
 # Python — run each suite from inside its own dir (the cells subpackage resolves its
 # sibling imports that way); plugin autoload off dodges an unrelated langsmith/pydantic clash.
@@ -78,9 +79,22 @@ cd 20-actors/todoke/methods && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytes
 cd 20-actors/todoke/cells   && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest -q   # 12
 ```
 
+## R1 — curb-to-door simulation (`route/src/sim.rs`)
+
+`simulate()` drives a single rover along the safety-validated route, leg by leg, from the drop
+curb to the recipient's door. It is a **longitudinal kinematic stand-in for kami-autodrive**
+(ADR-2606010600, `VehicleClass::Car` / sidewalk variant — that crate lives in the
+`40-engine/kami-engine` submodule; when populated, `drive_leg` is replaced by an `Autopilot`
+step and the `simulate` surface is unchanged). It faithfully models: per-leg speed capped at
+the destination zone (G7), accelerate/cruise/brake-to-stop per waypoint, obstacle →
+emergency-stop + hold + resume (a never-clearing blockage means the mission does **not** report
+arrival — safety-first), and a rolling-resistance energy budget. `cargo run --example
+curb_to_door` plans `[0,4,2,3,1]`, drives ~30.7 m, arrives, 1 emergency stop, ~0.067 Wh.
+
 ## Roadmap
 
-- **R0** (this wave): charter + scaffold + Rust route core + 26 tests green.
-- **R1**: single-rover curb-to-door sim on kami-autodrive; first cell solver wired to `todoke-route`.
+- **R0** (2026-06-04): charter + scaffold + Rust route core + 26 tests green.
+- **R1** (2026-06-04, **landed**): curb-to-door rover sim wired to `todoke-route` (6 sim tests;
+  32 total). Real kami-autodrive GNC wiring deferred to submodule population.
 - **R2**: pilot route (private campus) + displacement cohort sized & Public-Fund-voted.
 - **R3**: community-scale + live displacement WITH dividend active (G2), Transparent-Force authorized.

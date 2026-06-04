@@ -147,11 +147,26 @@ ISIC **H53** (postal & courier) · ISCO **9621** (messengers/parcel deliverers),
 - The fleet (hakobi/tobira/meyasu/tedori) and seed are `:representative` (G10).
 - Live operation, displacement, and settlement remain Council Lv6+ + operator gated (G9/G2/G15).
 
-**Verification (this wave)**
+**Verification (R0)**
 - `route/`: `cargo test` → **7 green** (sequencing, 2-opt, + 4 G7 refusals).
 - `methods/`: **7 green** incl. the Rust-parity test.
 - `cells/`: **12 green** (route_sequencing envelope refusals + handoff_proof G8/G12/G13 guards +
-  both `.solve()` RuntimeError checks). **Total 26 tests green.**
+  both `.solve()` RuntimeError checks). **R0 total 26 tests green.**
+
+**R1 (2026-06-04, landed) — curb-to-door simulation**
+
+`route/src/sim.rs::simulate` drives a single delivery rover along the safety-validated route,
+leg by leg, curb → door. It is a **longitudinal kinematic stand-in for kami-autodrive**
+(`VehicleClass::Car` / sidewalk variant); that crate is a member of the `40-engine/kami-engine`
+submodule, so R1 is self-contained and honest — when the submodule is populated, `drive_leg` is
+replaced by an `Autopilot` step and the `simulate` surface (route in → `MissionOutcome` out) is
+unchanged. R1 models, with tests: per-leg speed capped at the destination zone (G7),
+accelerate/cruise/brake-to-stop per waypoint, obstacle → emergency-stop + hold + resume (a
+never-clearing blockage means the mission does **not** report arrival — safety-first), and a
+rolling-resistance energy budget. `cargo run --example curb_to_door` plans `[0,4,2,3,1]`, drives
+~30.7 m, arrives, 1 emergency stop, ~0.067 Wh. **R1: +6 sim tests (route/ now 13); 32 tests total.**
+Real kami-autodrive GNC wiring and a `kami-engine` sim scene are deferred to submodule
+population; live actuation remains G9-gated + Transparent-Force bound.
 
 # Alternatives Considered
 

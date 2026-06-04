@@ -65,4 +65,6 @@
  :actor/rust
  {:crate "route/"
   :name "todoke-route"
-  :doc "Pure, zero-dep Rust core: last-mile stop sequencing (NN + 2-opt) + SAE-L4 sidewalk ODD safety envelope (G7). 7 tests green. Mirrored in Python methods/last_mile.py (parity-tested)."}}
+  :doc "Pure, zero-dep Rust core: last-mile stop sequencing (NN + 2-opt) + SAE-L4 sidewalk ODD safety envelope (G7) + R1 curb-to-door rover sim (kinematic stand-in for kami-autodrive). 13 tests green (7 route + 6 sim) + example curb_to_door. Sequencer mirrored in Python methods/last_mile.py (parity-tested)."
+  :modules ["lib.rs (sequencing + G7 envelope)" "sim.rs (R1 curb-to-door drive)"]
+  :examples ["curb_to_door"]}}
