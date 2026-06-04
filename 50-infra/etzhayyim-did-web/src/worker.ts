@@ -1330,20 +1330,29 @@ a{color:inherit}
       if (m) {
         const nsid = m[1];
 
-        // ── searchActors short-circuit (ADR-2606042330) ───────────────────
+        // ── searchActors + getSuggestions short-circuit (ADR-2606042330) ──
         // Make society-scale entity mirror-actors visible on `/search`. The
-        // legacy path proxies searchActors to the PDS appview (only human +
-        // a handful of infra actors), so the ~8,888 gov/corp/cable/station/
-        // craft mirrors were invisible. We answer from the Worker's generated
-        // registries (self-contained, no firehose — G8), then best-effort
-        // MERGE upstream PDS actors so member/human results are not regressed.
+        // legacy path proxies BOTH searchActors AND getSuggestions to the PDS
+        // appview (only human + a handful of infra actors), so the ~8,888 gov/
+        // corp/cable/station/craft mirrors were invisible — `/search`'s default
+        // browse view calls getSuggestions, which is why it was stuck at ~62.
+        // We answer from the Worker's generated registries (self-contained, no
+        // firehose — G8): searchActors uses the `q` filter + best-effort PDS
+        // merge; getSuggestions browses the whole entity universe (q="", no
+        // merge — pure entity stream, paginated by the offset cursor).
+        const isSuggest =
+          nsid === "app.bsky.actor.getSuggestions" ||
+          nsid === "com.etzhayyim.yoro.actor.getSuggestions";
         if (
           (nsid === "app.bsky.actor.searchActors" ||
-            nsid === "com.etzhayyim.yoro.actor.searchActors") &&
+            nsid === "com.etzhayyim.yoro.actor.searchActors" ||
+            isSuggest) &&
           (request.method === "GET" || request.method === "HEAD")
         ) {
-          const q =
-            url.searchParams.get("q") ?? url.searchParams.get("term") ?? "";
+          // getSuggestions has no query — browse every entity mirror.
+          const q = isSuggest
+            ? ""
+            : url.searchParams.get("q") ?? url.searchParams.get("term") ?? "";
           const limitParam = parseInt(url.searchParams.get("limit") ?? "25", 10);
           const limit = Number.isFinite(limitParam)
             ? Math.min(Math.max(limitParam, 1), 100)
@@ -1359,6 +1368,7 @@ a{color:inherit}
           let upstreamActors: unknown[] = [];
           if (
             env.YORO_XRPC &&
+            !isSuggest &&
             offset === 0 &&
             entityActors.length < limit
           ) {
