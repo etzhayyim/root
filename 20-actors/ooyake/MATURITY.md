@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — justice-ministry sites + last bare-QID labels (1415 → 1443 ministries; 0 placeholders left)
+
+Started the ministry tier (227 of 1,642 ministries lacked `:gov.unit/official-url`) with
+its largest coherent functional category — **30 Ministries of Justice**. Fanned out 3
+web-research subagents (10 each) to find + **confirm each ministry's own official site by
+fetching it**. 27 confirmed and added (provenance → the body's own official URL;
+`:last-verified` → 2026-06-04). A 4th subagent resolved the **last 4 bare-QID name-en
+placeholders** in the whole atlas (Madagascar finance/foreign, Senegal finance, Togo
+supreme court) to their real English names — **bare-QID labels are now 0 across the atlas.**
+
+- ministries: 1415 → **1443/1642** with an official site.
+- 3 justice ministries HONESTLY left null (G5): Guinea-Bissau (only a Facebook page +
+  unreachable gov.gw), Kiribati (moj.gov.ki NXDOMAIN; justice.gov.ki hijacked to a foreign
+  WordPress; only the distinct Attorney-General office is live), North Korea (DPRK runs no
+  public MoJ site).
+- honest restructuring notes recorded: Honduras justice now lives under the Secretaría de
+  Gobernación, Justicia y Descentralización (sgjd.gob.hn); Liechtenstein/Palau have no
+  standalone MoJ domain (used the official government portal's justice page); Madagascar's
+  finance ministry is currently "Economy and Finance" (not "Finance and Budget"). Anti-bot
+  /TLS caveats noted, all genuine official government TLDs.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — court official sites: 47 high courts web-verified (151 → 198/206)
 
 Coverage-depth pass on the judicial tier (supreme / constitutional / cassation courts),
