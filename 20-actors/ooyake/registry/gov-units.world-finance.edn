@@ -41,9 +41,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Finance of Angola"
+   :gov.unit/official-url "https://www.minfin.gov.ao/"
    :gov.unit/wikidata "Q116147603"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q116147603" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.minfin.gov.ao/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.finance"
@@ -232,9 +233,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://mof.gov.bz/"
    :gov.unit/wikidata "Q97670604"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97670604" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mof.gov.bz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.finance"
@@ -255,9 +257,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "brb"
    :gov.unit/name-en "Ministry of Finance, Economic Affairs and Investment"
+   :gov.unit/official-url "https://www.gov.bb/ministries/finance-economic-affairs"
    :gov.unit/wikidata "Q106238316"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q106238316" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.bb/ministries/finance-economic-affairs" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.brn.finance"
@@ -278,9 +281,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://mof.gov.bt/"
    :gov.unit/wikidata "Q18345339"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18345339" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mof.gov.bt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.che.finance"
@@ -313,9 +317,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://minfi.gov.cm/"
    :gov.unit/wikidata "Q104857659"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104857659" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://minfi.gov.cm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cod.finance"
@@ -324,9 +329,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Ministry of Finance of the Democratic Republic of the Congo"
+   :gov.unit/official-url "https://finances.gouv.cd/"
    :gov.unit/wikidata "Q97366094"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97366094" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://finances.gouv.cd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.finance"
@@ -538,9 +544,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Ministry of Finance (Honduras)"
+   :gov.unit/official-url "https://www.sefin.gob.hn/"
    :gov.unit/wikidata "Q6123133"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6123133" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sefin.gob.hn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.finance"
@@ -645,9 +652,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Finance (Jordan)"
+   :gov.unit/official-url "https://mof.gov.jo/"
    :gov.unit/wikidata "Q22686379"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22686379" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mof.gov.jo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.finance"
@@ -680,9 +688,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Economy and Finance"
+   :gov.unit/official-url "https://minfin.gov.kg/"
    :gov.unit/wikidata "Q97357670"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97357670" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://minfin.gov.kg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kwt.finance"
@@ -775,9 +784,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mco"
    :gov.unit/name-en "Department of Finance and Economy"
+   :gov.unit/official-url "https://www.gouv.mc/Gouvernement-et-Institutions/Le-Gouvernement/Departement-des-Finances-et-de-l-Economie"
    :gov.unit/wikidata "Q111944729"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q111944729" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gouv.mc/Gouvernement-et-Institutions/Le-Gouvernement/Departement-des-Finances-et-de-l-Economie" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mda.finance"
@@ -846,9 +856,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Planning and Finance"
+   :gov.unit/official-url "https://myanmar.gov.mm/ministry-of-finance-and-revenue"
    :gov.unit/wikidata "Q13070423"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q13070423" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://myanmar.gov.mm/ministry-of-finance-and-revenue" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mne.finance"
@@ -905,9 +916,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mwi"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://www.finance.gov.mw/"
    :gov.unit/wikidata "Q125536143"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q125536143" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.finance.gov.mw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mys.finance"
@@ -940,9 +952,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://finances.gouv.ne/"
    :gov.unit/wikidata "Q104866542"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104866542" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://finances.gouv.ne/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.finance"
@@ -951,9 +964,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://finance.gov.ng/"
    :gov.unit/wikidata "Q6866944"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866944" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://finance.gov.ng/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nic.finance"
@@ -1046,9 +1060,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "png"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://www.treasury.gov.pg/"
    :gov.unit/wikidata "Q6866951"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866951" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.treasury.gov.pg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pol.finance"
@@ -1153,9 +1168,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "slb"
    :gov.unit/name-en "Ministry of Finance and Treasury"
+   :gov.unit/official-url "https://solomons.gov.sb/ministry-of-finance-and-treasury/"
    :gov.unit/wikidata "Q104859607"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104859607" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://solomons.gov.sb/ministry-of-finance-and-treasury/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.finance"
@@ -1296,9 +1312,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://www.finances.gov.tn/"
    :gov.unit/wikidata "Q3315377"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3315377" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.finances.gov.tn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tza.finance"
@@ -1391,9 +1408,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://mof-yemen.com/"
    :gov.unit/wikidata "Q12250990"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12250990" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mof-yemen.com/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zmb.finance"

@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — finance + foreign ministry sites: 24 web-verified (1443 → 1467 ministries)
+
+Continued the ministry tier with two coherent fiscal/diplomatic categories: 19 Finance
+ministries + 7 Foreign-Affairs ministries lacked `:gov.unit/official-url`. 3 web-research
+subagents found + **confirmed each ministry's own official site by fetching it**. 24
+confirmed and added (provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+
+- ministries: 1443 → **1467/1642** with an official site.
+- 2 HONESTLY left null (G5) — both **Eritrea** (finance + foreign): the only Eritrean
+  government web presence is the Ministry of Information portal (shabait.com); neither
+  ministry has a dedicated site.
+- honest nuances recorded: Kyrgyzstan finance is standalone again (minfin.gov.kg, not the
+  merged Economy ministry); Myanmar's dedicated MoF domains no longer resolve after the
+  2025 restructuring (national portal section used); Yemen MoF runs mof-yemen.com (the
+  .gov.ye host is unreachable); Monaco/Solomon Islands have no standalone domain
+  (gov-portal section used); Niger www-subdomain TLS-mismatch → apex host used. Anti-bot
+  /TLS-quirk caveats noted, all genuine official government domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — justice-ministry sites + last bare-QID labels (1415 → 1443 ministries; 0 placeholders left)
 
 Started the ministry tier (227 of 1,642 ministries lacked `:gov.unit/official-url`) with
