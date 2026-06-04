@@ -8,7 +8,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_kogu_daily_pulse"
-  targetNamespace="https://gftd.ai/bpmn/kogu"
+  targetNamespace="https://etzhayyim.ai/bpmn/kogu"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="kogu_daily_pulse" name="kogu Daily Pulse" isExecutable="true">
@@ -61,7 +61,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;dailyPulse&quot;" target="action"/>
           <zeebe:input source="={ statusRows: statusRows, overdueCalibCount: overdueCalibCount, bpmnProcessId: &quot;kogu_daily_pulse&quot; }" target="payload"/>
         </zeebe:ioMapping>
@@ -85,7 +85,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;calibrationOverdueAlert&quot;" target="action"/>
           <zeebe:input source="={ overdueCalibCount: overdueCalibCount, overdueCalibRows: overdueCalibRows }" target="payload"/>
         </zeebe:ioMapping>

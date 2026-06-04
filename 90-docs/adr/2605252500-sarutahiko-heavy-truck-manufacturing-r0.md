@@ -116,14 +116,14 @@ Adopted from large-scale heavy-truck plant practice (Turkey OEM class).
 | **L2** | Powertrain assembly (sub-line) | Engine (R0/R1: B100 biodiesel + diesel hybrid; R2+: LFP / H₂ / NH₃ / methanol fuel-cell) + transmission + drive axles + brake integration |
 | **L3** | Cab body forming + welding | Steel sheet (sourced from kanayama Wave 2 steel coil when available; Wave 1 R0–R2 external commodity-steel acceptable) → hot stamping → robotic spot welding → leak test |
 | **L4** | Final marriage | Chassis lowering + cab drop + powertrain mount + electrical harness connection; ≥2 robot witness on critical fastener torque |
-| **L5** | Paint + interior + electrical + QA + road test + VIN attestation | KTL primer + base coat + clear coat (water-based, VOC < 100 g/L); interior trim; ECU flash (open-source firmware per G1); roller dynamometer + 50 km public-road test; VIN yatachain anchor |
+| **L5** | Paint + interior + electrical + QA + road test + VIN attestation | KTL primer + base coat + clear coat (water-based, VOC < 100 g/L); interior trim; ECU flash (open-source firmware per G1); roller dynamometer + 50 km public-road test; VIN kotoba-datomic anchor |
 
 ### 5. Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 | Gate | Requirement | Rationale |
 |---|---|---|
 | **G1** | ECU + all electrical firmware **open-source** (Apache 2.0 + Charter Rider) | §2(b) anti-secrecy; Transparent Force |
-| **G2** | Per-VIN manufacturing log **yatachain anchor** + open VIN registry | §1.12.B Transparent + open accountability |
+| **G2** | Per-VIN manufacturing log **kotoba-datomic anchor** + open VIN registry | §1.12.B Transparent + open accountability |
 | **G3** | Per-VIN **IPFS-pinned photo + video** (frame welding, paint, road test) | Audit trail |
 | **G4** | Every critical weld + final marriage signed by witness quorum ≥2 robots (Ed25519, DID-bound) | ADR-2605191524 swarm broadcast |
 | **G5** | Operator manual + service manual **JP + EN bilingual minimum** + open-source | §2(e) anti-gatekeeping |
@@ -168,7 +168,7 @@ Adopted from large-scale heavy-truck plant practice (Turkey OEM class).
 | `electrical_integration` | L5b | levi | `paintAttestation` + harness + ECU | `electricalAttestation` |
 | `quality_road_test` | L5c | levi | `electricalAttestation` + dyno + 50 km road | `roadTestRecord` |
 | `emissions_audit` | cross-cutting | levi | continuous telemetry | `emissionsAuditRecord` |
-| `vin_attestation_binder` | terminal | judah | all prior + VIN | `vehicleManufactureRecord` (yatachain anchor) |
+| `vin_attestation_binder` | terminal | judah | all prior + VIN | `vehicleManufactureRecord` (kotoba-datomic anchor) |
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("sarutahiko R0 scaffold: activate via Council ADR-2605252515 post-ratification")`.
 
@@ -186,7 +186,7 @@ emissionsAuditRecord          # cross-cutting Euro 7 / 大気汚染防止法 / B
 silenVehicleReview            # Council 5-of-7 Safe attestation for new Wave / new type / G7 fuel transition
 ```
 
-Plus terminal `vehicleManufactureRecord` aggregates all the above and anchors to yatachain via `vin_attestation_binder`. R0 ships stub JSON; schema details deferred to R1 ADR.
+Plus terminal `vehicleManufactureRecord` aggregates all the above and anchors to kotoba-datomic via `vin_attestation_binder`. R0 ships stub JSON; schema details deferred to R1 ADR.
 
 ### 9. Robotics Classes (R0 design-only reservation)
 

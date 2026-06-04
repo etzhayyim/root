@@ -52,7 +52,7 @@ async def _load_all_profiles(conn: asyncpg.Connection) -> list[str]:
     rows = await conn.fetch(
         "SELECT DISTINCT profile FROM edge_owl_subclass LIMIT 50"
     )
-    return [r["profile"] for r in rows] or ["gftd_core_v1"]
+    return [r["profile"] for r in rows] or ["etzhayyim_core_v1"]
 
 async def _load_axioms(conn: asyncpg.Connection, profiles: list[str]) -> list[dict]:
     ph = ",".join(f"${i+1}" for i in range(len(profiles)))

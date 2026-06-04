@@ -4,7 +4,7 @@
  *
  * shiharai drives biller payment pages and (with human-in-the-loop confirm)
  * submits the final payment. Founder directive 2026-06-03: front everything
- * that can move; only the irreducible regulated EXECUTION stays gftd.
+ * that can move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PLAINTEXT (public catalog) — biller: the payee directory (display name,
@@ -19,14 +19,14 @@
  *   page-snapshot CID/result tx id/error). CIDs, tx-ids and approval hashes are
  *   references/hashes, not secrets — safe inside an E2E body.
  *
- *   STAYS gftd (consumed via consent-capability) — the irreducible regulated
+ *   STAYS etzhayyim (consumed via consent-capability) — the irreducible regulated
  *   EXECUTION ONLY: the fiat merchant-of-record settlement rail (the final
  *   payment CALL through biller pay pages + bank/credit clearing; etzhayyim is
  *   never the fiat MoR/counterparty per ADR-2605172100), credential/secret raw
  *   custody (Keychain → vault ephemeral-wrap), the Playwright dequeue/submit
  *   enforcement ACTION, and the LLM bill-extraction INFERENCE. The DATA of every
  *   one of those (ledger, run state, extracted bill) migrates here; only the
- *   regulated act stays gftd.
+ *   regulated act stays etzhayyim.
  *
  * AT-Lexicon: no float — money is a decimal STRING (amount + currency code),
  * counts are integers, no percentages in this app.
@@ -179,7 +179,7 @@ export interface PaymentBody {
   amount: string;
   currency: string;
   method: string;
-  /** Reference from the (gftd-side) settlement rail — not a secret. */
+  /** Reference from the (etzhayyim-side) settlement rail — not a secret. */
   resultTxId: string;
   pageSnapshotCid: string;
   approvedByDid: string;

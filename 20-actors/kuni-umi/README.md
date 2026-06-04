@@ -6,9 +6,9 @@ Per [ADR-2605201400](../../90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-i
 Tier-B per-domain leader actor for the 4-phase deployment workflow
 (Survey → Plan → Construct → Commission) that ties together:
 
-- `60-apps/ai-gftd-project-open-{denki,gas,water,network,power,rail,airplane,ports}` — utility CIM lexicons (target topology)
-- `60-apps/ai-gftd-project-open-robo` — Giemon hardware (Otete arm + crawler, future Hitogata humanoid)
-- `60-apps/ai-gftd-project-open-ot` — IEC 61499 WASM PLC (commissioning hand-off)
+- `60-apps/etzhayyim-project-open-{denki,gas,water,network,power,rail,airplane,ports}` — utility CIM lexicons (target topology)
+- `60-apps/etzhayyim-project-open-robo` — Giemon hardware (Otete arm + crawler, future Hitogata humanoid)
+- `60-apps/etzhayyim-project-open-ot` — IEC 61499 WASM PLC (commissioning hand-off)
 - UNSPSC 18,345 LangGraph agent fleet (procurement specialists, [ADR-2605171300](../../90-docs/adr/2605171300-open-unispsc-generative-agent-fleet.md))
 
 Name origin: Izanagi / Izanami の国生み神話. Re-read in religious-corp context as

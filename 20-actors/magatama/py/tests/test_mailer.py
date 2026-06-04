@@ -14,7 +14,7 @@ def test_secret_falls_back_to_keychain(monkeypatch) -> None:
     monkeypatch.setattr(mailer, "load_keychain_secret", fake_load_keychain_secret)
 
     assert mailer._secret("RESEND_API_KEY", "SS_RESEND_API_KEY") == "re_keychain"
-    assert calls == [("gftd.resend", "API_KEY")]
+    assert calls == [("etzhayyim.resend", "API_KEY")]
 
 
 def test_secret_prefers_environment(monkeypatch) -> None:

@@ -1,7 +1,7 @@
 """Pure helper tests for ingest/site_common_crawl and ingest/flight_offer primitives.
 
 Covers pure functions with no DB/HTTP/subprocess dependencies:
-- site_common_crawl: now_iso / _truthy / _data_dir / _gftd_binary
+- site_common_crawl: now_iso / _truthy / _data_dir / _etzhayyim_binary
 - flight_offer: _now_iso / _clean / _hash8 / _vertex_id / _stub_search /
                 _adapter_stub constants
 """
@@ -61,15 +61,15 @@ def test_scc_data_dir_returns_path():
     assert isinstance(result, Path)
 
 
-# ─── site_common_crawl — _gftd_binary ────────────────────────────────────────
+# ─── site_common_crawl — _etzhayyim_binary ────────────────────────────────────────
 
-def test_scc_gftd_binary_returns_string():
-    result = SCC._gftd_binary()
+def test_scc_etzhayyim_binary_returns_string():
+    result = SCC._etzhayyim_binary()
     assert isinstance(result, str)
 
 
-def test_scc_gftd_binary_not_empty():
-    result = SCC._gftd_binary()
+def test_scc_etzhayyim_binary_not_empty():
+    result = SCC._etzhayyim_binary()
     assert len(result) > 0
 
 

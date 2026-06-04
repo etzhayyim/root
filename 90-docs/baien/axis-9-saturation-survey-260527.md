@@ -43,7 +43,7 @@ findings rather than systematic bug classes.
 ### Candidate B — `pyproject.toml` internal consistency
 
 **Question**: Are there parse errors, missing project.name, or stale
-gftd-* dep refs (pre-cutover invariant)?
+etzhayyim-* dep refs (pre-cutover invariant)?
 
 **Result**: 0 issues across 49 `pyproject.toml` files.
 
@@ -55,10 +55,10 @@ gftd-* dep refs (pre-cutover invariant)?
 directories with their own `Cargo.toml`?
 
 **Result**: 1 orphan across 16 Cargo workspaces:
-- `60-apps/ai-gftd-project-hrse/Cargo.toml` declares member `api/`
+- `60-apps/etzhayyim-project-hrse/Cargo.toml` declares member `api/`
   but the directory contains `appview/` + `main/` + no `api/` subdir.
   Sibling `MIGRATION-TODO.md` suggests this is documented-deferred
-  pre-cutover state (matches the gftdcojp/amanomibashira rename
+  pre-cutover state (matches the etzhayyimcojp/amanomibashira rename
   invariant pattern).
 
 **Verdict**: Isolated drift, not systematic. Auto-fix not safe without
@@ -121,7 +121,7 @@ Option 4 is the only one that might re-engage Pattern F.
 
 ## Known-deferred items captured
 
-- **hrse Cargo workspace orphan** (`60-apps/ai-gftd-project-hrse/`):
+- **hrse Cargo workspace orphan** (`60-apps/etzhayyim-project-hrse/`):
   member `api/` declared but no `api/Cargo.toml` exists. Files
   `appview/` + `main/` + sibling `MIGRATION-TODO.md` suggest
   pre-cutover rename state. Owner action needed.

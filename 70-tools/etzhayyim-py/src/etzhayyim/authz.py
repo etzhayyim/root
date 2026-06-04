@@ -1,7 +1,7 @@
 """authz — Authorization commands: API keys, DIDs, role management.
 
 API key operations call the PDS XRPC endpoint.
-Local DID list and switch work via ~/.gftd/auth.json.
+Local DID list and switch work via ~/.etzhayyim/auth.json.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ from .authn import _load_auth
 from .projector import resolve_pds
 
 
-_AUTH_FILE = Path.home() / ".gftd" / "auth.json"
+_AUTH_FILE = Path.home() / ".etzhayyim" / "auth.json"
 
 
 def _token() -> str:
@@ -27,7 +27,7 @@ def _token() -> str:
 def _headers() -> dict:
     tok = _token()
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -115,7 +115,7 @@ def authz_dids(json_out: bool) -> None:
     """List DIDs controlled by the current auth identity."""
     auth = _load_auth()
     if not auth:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     dids: list[str] = auth.get("controlledDids") or []
     primary = auth.get("did", "")
@@ -134,7 +134,7 @@ def authz_dids(json_out: bool) -> None:
 def authz_switch(did: str) -> None:
     """Switch the active DID in local auth state."""
     if not _AUTH_FILE.exists():
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     try:
         auth = json.loads(_AUTH_FILE.read_text())

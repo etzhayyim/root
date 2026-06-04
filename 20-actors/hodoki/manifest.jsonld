@@ -77,7 +77,7 @@
     {"name": "elv_seat_textile_recovery", "module": "magatama.cells.elv_seat_textile_recovery", "murakumoNode": "dan", "phase": "L3c — seat foam + textile recovery; cross-actor feed to makura (G13 invariant closure)"},
     {"name": "elv_body_shred", "module": "magatama.cells.elv_body_shred", "murakumoNode": "zebulun", "phase": "L4 — hulk shredder + magnetic + eddy-current + density sort; ferrous + Al + Cu + ASR streams"},
     {"name": "elv_emissions_audit", "module": "magatama.cells.elv_emissions_audit", "murakumoNode": "levi", "phase": "cross-cutting — F-gas leakage continuous + ASR mass + composition + PGM yield audit"},
-    {"name": "elv_provenance_binder", "module": "magatama.cells.elv_provenance_binder", "murakumoNode": "judah", "phase": "terminal — full chain DID anchoring on yatachain (input VIN → parts catalog + material lots + emissions + ASR mass)"}
+    {"name": "elv_provenance_binder", "module": "magatama.cells.elv_provenance_binder", "murakumoNode": "judah", "phase": "terminal — full chain DID anchoring on kotoba-datomic (input VIN → parts catalog + material lots + emissions + ASR mass)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.hodoki.elvIntakeRecord",
@@ -93,7 +93,7 @@
     "description": "14 immutable gates per ADR-2605261215. Changes require Council Lv6+ supermajority + new ADR.",
     "gates": {
       "G1": "All depollution + dismantling + shredder firmware + fixture CAD open-source (Apache 2.0 + Charter Rider)",
-      "G2": "Mass-balance audit ≥98% closure on yatachain (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); inherits kanayama G2 pattern",
+      "G2": "Mass-balance audit ≥98% closure on kotoba-datomic (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); inherits kanayama G2 pattern",
       "G3": "Every critical step (refrigerant capture, battery disconnect, airbag neutralization, PGM brick removal) signed by witness quorum ≥2 distinct robots (ADR-2605191524)",
       "G4": "All parts catalog entries + recovery reports + take-back records JP + EN bilingual minimum",
       "G5": "All vehicle intakes pass Charter Rider §2(a-h) scan (no military / weapon-carrying / covertly-modified)",

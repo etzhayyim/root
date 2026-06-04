@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_cable_repair_fleet_flag_subsea_cable_tamper"
-    targetNamespace="https://gftd.ai/bpmn/open-cable-repair-fleet"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-cable-repair-fleet"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_cable_repair_fleet_flag_subsea_cable_tamper" name="海底ケーブル妨害 フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-cable-repair-fleet.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-cable-repair-fleet.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;subsea.cableTamper&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: cableVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>

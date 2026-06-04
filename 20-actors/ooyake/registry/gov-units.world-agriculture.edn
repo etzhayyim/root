@@ -177,12 +177,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Agriculture"
+   :gov.unit/official-url "https://www.agriculture.gov.bz/"
    :gov.unit/wikidata "Q97260511"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97260511"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.agriculture.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bra.agriculture"
@@ -485,22 +486,6 @@
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://agriculture.gouv.fr"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.gbr.agriculture"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:gbr:ministry:agriculture"
-   :gov.unit/parent "gov.gbr"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "Department of Agriculture and Rural Development of Northern Ireland"
-   :gov.unit/official-url "https://www.daera-ni.gov.uk/"
-   :gov.unit/wikidata "Q1703625"
-   :gov.unit/cofog ["04.2"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.daera-ni.gov.uk/"
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
@@ -815,12 +800,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Agriculture and Forestry of Laos"
+   :gov.unit/official-url "https://www.maf.gov.la/"
    :gov.unit/wikidata "Q6866634"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866634"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.maf.gov.la/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lbn.agriculture"
@@ -862,12 +848,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Department of Agriculture"
+   :gov.unit/official-url "https://agrimin.gov.lk/"
    :gov.unit/wikidata "Q16056297"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16056297"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://agrimin.gov.lk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.agriculture"
@@ -957,12 +944,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Agriculture and Irrigation"
+   :gov.unit/official-url "https://www.moali.gov.mm/"
    :gov.unit/wikidata "Q6866637"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866637"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moali.gov.mm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mng.agriculture"
@@ -1036,12 +1024,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Ministry of Agriculture"
+   :gov.unit/official-url "https://agriculture.gouv.ne/"
    :gov.unit/wikidata "Q113033789"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q113033789"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://agriculture.gouv.ne/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.agriculture"
@@ -1339,12 +1328,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "Ministry of Agriculture and Forestry of South Sudan"
+   :gov.unit/official-url "https://mafs.gov.ss/"
    :gov.unit/wikidata "Q6866635"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866635"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mafs.gov.ss/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sur.agriculture"
@@ -1594,12 +1584,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "uzb"
    :gov.unit/name-en "Ministry of Agriculture and Water Resources"
+   :gov.unit/official-url "https://gov.uz/en/agro"
    :gov.unit/wikidata "Q17049137"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q17049137"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.uz/en/agro"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.wsm.agriculture"
@@ -1641,12 +1632,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zmb"
    :gov.unit/name-en "Ministry of Agriculture (Zambia)"
+   :gov.unit/official-url "https://www.agriculture.gov.zm/"
    :gov.unit/wikidata "Q55623255"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55623255"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.agriculture.gov.zm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zwe.agriculture"
@@ -1656,10 +1648,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Agriculture"
+   :gov.unit/official-url "https://www.agric.gov.zw/"
    :gov.unit/wikidata "Q6866626"
    :gov.unit/cofog ["04.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866626"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.agric.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

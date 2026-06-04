@@ -104,7 +104,7 @@ Adopted from European integrated recycling-rolling mill practice (Wave 1, alumin
 | Gate | Requirement | Rationale |
 |---|---|---|
 | **G1** | Furnace + casting + rolling firmware **open-source** (Apache 2.0 + Charter Rider) | §2(b) anti-secrecy; Transparent Force |
-| **G2** | **Mass-balance audit** on yatachain: `input_mass = output_metal_mass + dross_mass + emission_mass` within ≥98% closure | §1.12.B Transparent + §2(h) circular |
+| **G2** | **Mass-balance audit** on kotoba-datomic: `input_mass = output_metal_mass + dross_mass + emission_mass` within ≥98% closure | §1.12.B Transparent + §2(h) circular |
 | **G3** | Per-batch + per-coil **IPFS-pinned photo + video** evidence | Audit trail |
 | **G4** | Every **pour** has witness quorum ≥2 robots (Ed25519, DID-bound) | ADR-2605191524 swarm broadcast |
 | **G5** | All permits + emissions reports **JP + EN bilingual minimum** + public disclosure | §2(e) anti-gatekeeping |
@@ -145,7 +145,7 @@ Adopted from European integrated recycling-rolling mill practice (Wave 1, alumin
 | `hot_rolling` | L5a | dan | `dcCastingAttestation` | `rollingAttestation` |
 | `cold_rolling_finishing` | L5b | dan | `rollingAttestation` | `coilQualificationRecord` |
 | `air_emissions_audit` | cross-cutting | levi | continuous telemetry | `airEmissionsAuditRecord` (G8) |
-| `mass_balance_binder` | terminal | judah | all prior records | mass-balance yatachain anchor (G2 + G14) |
+| `mass_balance_binder` | terminal | judah | all prior records | mass-balance kotoba-datomic anchor (G2 + G14) |
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("kanayama R0 scaffold: activate via Council ADR-2605252415 post-ratification")`.
 
@@ -197,7 +197,7 @@ Each subsequent R-phase requires its own ADR + Council Lv6+ vote. Wave 2 (steel)
 - Recycling alignment is positive: §2(g) habitat + §2(h) circular + §2(e) anti-gatekeeping all support, rather than constrain, the actor.
 - Wave 1 closes the aluminum supply loop for yakushi (sterile blister packaging), wadachi (vehicle frames), kuni-umi (electrical conductor extrusion), and tatekata (curtain-wall / ductwork).
 - Energy footprint is structurally low: aluminum recycling at ~5% of primary Hall-Héroult energy is the largest constitutional energy win the religious-corp can achieve in the materials layer.
-- Mass-balance yatachain anchor (G2) is novel cross-cell substrate: it forces every cell to declare its mass input/output rigorously, enabling §2(h) circular reporting without after-the-fact reconciliation.
+- Mass-balance kotoba-datomic anchor (G2) is novel cross-cell substrate: it forces every cell to declare its mass input/output rigorously, enabling §2(h) circular reporting without after-the-fact reconciliation.
 
 **Negative / risks:**
 - Wave 1 Al recycling depends on adequate UBC collection feedstock; rural / low-density jurisdictions may not have sufficient supply for R3 community-scale 10 t/day throughput. R3 site-selection ADR must address feedstock catchment radius (≥50 km typical for European mills).

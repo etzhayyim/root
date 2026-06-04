@@ -113,7 +113,7 @@ User should re-attach `/Volumes/260317` to restore substrate write ability.
 
 | Item | Status |
 |---|---|
-| HF_TOKEN leak in /workspace/bringup.log (set -x trace) | ⚠️ **rotation pending** — value still active per token name `260225-ai-gftd-shinshi` |
+| HF_TOKEN leak in /workspace/bringup.log (set -x trace) | ⚠️ **rotation pending** — value still active per token name `260225-etzhayyim-shinshi` |
 | RunPod API key earlier exposure (rpa_WU1RIXAS...) | ⚠️ **rotation pending** — user should revoke via RunPod console |
 | bringup.log committed to repo? | ❌ NOT committed (per ADR-2605263000 §1.3.3) |
 | Result tarball committed to repo? | ❌ NOT committed (large; extracted JSONs only) |

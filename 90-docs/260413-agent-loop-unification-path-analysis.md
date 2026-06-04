@@ -155,4 +155,4 @@ B) agentInfer delegation (推奨)
 | `agent/consent.ts` | 4-tier risk gate (②③④ で適用) |
 | `agent/audit.ts` | OCEL + RisingWave audit (全パス共通) |
 | `agent/scheduler.ts` | Proactive cron + event trigger |
-| `handlers/gftd/index.ts` | ⑤ projector に memory/audit inject |
+| `handlers/etzhayyim/index.ts` | ⑤ projector に memory/audit inject |

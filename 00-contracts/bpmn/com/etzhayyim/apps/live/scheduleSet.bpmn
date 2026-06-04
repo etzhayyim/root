@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_live_schedule_set"
-    targetNamespace="https://gftd.ai/bpmn/apps/live"
+    targetNamespace="https://etzhayyim.ai/bpmn/apps/live"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="live_schedule_set" name="live scheduleSet" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -54,7 +54,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:live.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:live.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;live.scheduleSet&quot;" target="action"/>
           <zeebe:input source="={ roomSlug: roomSlug, bpm: bpm, stagePreset: stagePreset }" target="payload"/>
         </zeebe:ioMapping>

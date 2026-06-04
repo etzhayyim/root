@@ -54,7 +54,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-WORKERS_DIR = REPO_ROOT / "60-apps/ai-gftd-project-maps/bulk-ingest/workers"
+WORKERS_DIR = REPO_ROOT / "60-apps/etzhayyim-project-maps/bulk-ingest/workers"
 
 DRY = "--dry-run" in sys.argv
 

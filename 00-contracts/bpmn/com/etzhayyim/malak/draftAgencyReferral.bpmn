@@ -11,7 +11,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_malak_draft_agency_referral"
-    targetNamespace="https://gftd.ai/bpmn/malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="malak_draft_agency_referral" name="malak draftAgencyReferral" isExecutable="true">
     <bpmn:documentation>
@@ -64,9 +64,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_malak_agency_referral_draft&quot;" target="table"/>
           <zeebe:input source='={
-            vertex_id: string join(["at://did:web:malak.gftd.ai/com.etzhayyim.apps.malak.agencyReferralDraft/", derived.referralId], ""),
+            vertex_id: string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.agencyReferralDraft/", derived.referralId], ""),
             rkey: derived.referralId,
-            repo: "did:web:malak.gftd.ai",
+            repo: "did:web:malak.etzhayyim.com",
             referral_id: derived.referralId,
             case_id: string(caseId),
             actor_id: string(actorId),
@@ -84,9 +84,9 @@
             updated_at: string(now()),
             created_date: substring(string(now()), 1, 10),
             sensitivity_ord: if derived.normalizedTlp = "red" then 120 else 100,
-            owner_did: "did:web:malak.gftd.ai",
-            org_id: "did:web:malak.gftd.ai",
-            user_id: if callerDid = null then "did:web:malak.gftd.ai" else string(callerDid)
+            owner_did: "did:web:malak.etzhayyim.com",
+            org_id: "did:web:malak.etzhayyim.com",
+            user_id: if callerDid = null then "did:web:malak.etzhayyim.com" else string(callerDid)
           }' target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
           <zeebe:output source="=inserted" target="draftInserted"/>

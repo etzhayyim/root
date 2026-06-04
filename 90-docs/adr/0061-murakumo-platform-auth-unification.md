@@ -21,14 +21,14 @@ related:
 
 `murakumo.etzhayyim.com` を platform の単一 API key (`sk_live_*`) トポロジーに統合し、
 独立した `murk_*` shared secret / hardcoded fallback / CLI 側の
-`~/.config/gftd/murakumo_api_key` path を廃止する。将来の credits 課金統合
+`~/.config/etzhayyim/murakumo_api_key` path を廃止する。将来の credits 課金統合
 (CheckSpendAllowed / SpendCredits / inferenceUsage metering) の土台を置く。
 
 ## Scope
 
 - `50-infra/cloudflare/workers/murakumo/src/index-ray.ts` (Gateway)
-- `70-tools/gftd/gftd/murakumo.go` (CLI key resolution chain)
-- `60-apps/ai-gftd-project-common-crawl/appview/.../src/app.ts`
+- `70-tools/etzhayyim/etzhayyim/murakumo.go` (CLI key resolution chain)
+- `60-apps/etzhayyim-project-common-crawl/appview/.../src/app.ts`
   (および将来の CC-worker 派生、browser クライアント)
 
 ## Decision
@@ -63,7 +63,7 @@ Fleet (proxy unchanged)
 | Path | 現在の用途 | 廃止理由 |
 |---|---|---|
 | `HARDCODED_MURAKUMO_API_KEY = "murk_NQhD..."` (Worker src に埋込) | Cloudflare Secret 未設定時の fallback | git に key が出る / revoke 不能 / 監査不可 |
-| CLI `~/.config/gftd/murakumo_api_key` file | `gftd murakumo ingest --extract-raw` の key 解決順 #3 | 別 token store、rotate 不整合、誰でも読める 0600 前提弱い |
+| CLI `~/.config/etzhayyim/murakumo_api_key` file | `etzhayyim murakumo ingest --extract-raw` の key 解決順 #3 | 別 token store、rotate 不整合、誰でも読める 0600 前提弱い |
 | `murk_*` prefix 独自 token 発行 | gateway 認可 | `sk_live_*` で代替可 |
 | `env.MURAKUMO_API_KEY` を hardcoded fallback の隠れ蓑に使う実装 | 上記 | 明示 env 時のみ許可、未設定時は fail closed |
 
@@ -98,14 +98,14 @@ CC Worker は既に `Authorization: Bearer ${env.MURAKUMO_API_KEY}` を
    `HARDCODED_MURAKUMO_API_KEY` の git leak risk を 0 に。
 2. **監査可能性**: 各 inference call が `ownerDid` 付きで記録可能になり、
    ADR 0022 の "2-token model" + ADR 0023 の metering hook で per-user 使用量把握。
-3. **rotate**: `gftd authz create-api-key` / `revoke-api-key` で `murakumo.etzhayyim.com` の
+3. **rotate**: `etzhayyim authz create-api-key` / `revoke-api-key` で `murakumo.etzhayyim.com` の
    認可も自動的に切替わる。専用 rotate 手順消失。
 4. **credits 開発の前提** を作っておく (blocker 除去)。
 
 ## Trade-offs
 
 - 旧 clients (`murk_*` 決め打ち CLI, 既存 Mac 端末の config) は **1 回の
-  `gftd authz create-api-key` + env 差替** が必要。CLAUDE.md にマイグレーション手順。
+  `etzhayyim authz create-api-key` + env 差替** が必要。CLAUDE.md にマイグレーション手順。
 - fail-closed 化で Cloudflare Secret 未設定時に gateway が 401 を返す → Worker の
   initial deploy で `MURAKUMO_API_KEY` secret 必須になる。
 
@@ -135,5 +135,5 @@ scope 大、credits ledger 本番稼働の状態確認に依存。hook 点のみ
 
 - `50-infra/cloudflare/workers/murakumo/src/index-ray.ts` — Worker gateway
 - `50-infra/cloudflare/workers/atproto/src/auth/verify.ts:106` — verifyApiKey impl
-- `70-tools/gftd/gftd/murakumo.go` — CLI key resolution chain
-- `60-apps/ai-gftd-project-credits/CLAUDE.md` — credits ledger commands
+- `70-tools/etzhayyim/etzhayyim/murakumo.go` — CLI key resolution chain
+- `60-apps/etzhayyim-project-credits/CLAUDE.md` — credits ledger commands

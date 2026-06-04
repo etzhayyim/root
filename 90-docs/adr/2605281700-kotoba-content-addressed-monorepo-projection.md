@@ -217,7 +217,7 @@ ADR-2605262130 の最終形に近いが:
 
 # References
 
-- ADR-2605262130 (kotoba storage substrate unification — supersedes yatachain composition + projection)
+- ADR-2605262130 (kotoba storage substrate unification — supersedes kotoba-datomic composition + projection)
 - ADR-2605262400 (public-data ingestion organism ecosystem — IPFS-pinned DataLad subdataset 機構)
 - ADR-2605241500 (e7m-dataset substrate)
 - ADR-2605262500 (robotics-sim world-data ingestion — sibling on geospatial axis)

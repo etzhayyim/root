@@ -634,21 +634,21 @@ ALTER TABLE vertex_game_title ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT
 
 ALTER TABLE vertex_game_title ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_beneficial_owner ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_beneficial_owner ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_beneficial_owner ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_beneficial_owner ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_op_log ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_op_log ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_op_log ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_op_log ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_org ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_org ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_org ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_org ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_team ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_team ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_team ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_team ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
 ALTER TABLE vertex_goal ADD COLUMN IF NOT EXISTS actor_did VARCHAR DEFAULT 'anon';
 

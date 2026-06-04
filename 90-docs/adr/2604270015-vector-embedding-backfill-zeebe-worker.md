@@ -22,7 +22,7 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-project-vector-embedding` now has the RisingWave schema for Phase 1
+`etzhayyim-project-vector-embedding` now has the RisingWave schema for Phase 1
 768-dimensional search embeddings:
 
 - `vertex_vector_embedding_source`
@@ -51,7 +51,7 @@ The initial task contract is:
 The task performs one bounded batch:
 
 1. Select candidates that do not already have `vertex_vector_embedding_768`
-   rows for `(source_uri, model_id='bge-m3', space_id='gftd-mm-768')`.
+   rows for `(source_uri, model_id='bge-m3', space_id='etzhayyim-mm-768')`.
 2. Build source text:
    - actor profile: display name, handle, description, ERC725 root DID,
      facade DID, kind;
@@ -93,11 +93,11 @@ canonical vector identity key. This follows ADR-0074 and ADR-2604262100.
 The current production predicate is:
 
 ```sql
-root_did LIKE 'did:erc725:gftd:260425:%'
+root_did LIKE 'did:erc725:etzhayyim:260425:%'
 ```
 
 The AppView actor HNSW path likewise filters `source_uri` to
-`actor:did:erc725:gftd:260425:%` and joins `view_actor_unified` by
+`actor:did:erc725:etzhayyim:260425:%` and joins `view_actor_unified` by
 `v.root_did = e.source_vertex_id` for facade/profile display fields.
 
 # Runtime
@@ -116,8 +116,8 @@ Default model settings:
 
 - `VECTOR_EMBEDDING_TEXT_MODEL=BAAI/bge-m3`
 - `model_id=bge-m3`
-- `projection_id=bge-m3-to-gftd-mm-768`
-- `space_id=gftd-mm-768`
+- `projection_id=bge-m3-to-etzhayyim-mm-768`
+- `space_id=etzhayyim-mm-768`
 
 # Consequences
 
@@ -141,7 +141,7 @@ Verified on 2026-04-27:
 - AppView version:
   `3f5dd746-87e0-4da1-9a88-e5f91ec2a009`
 - yoro actor root:
-  `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`
+  `did:erc725:etzhayyim:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`
 - yoro facade:
   `did:web:yoro.etzhayyim.com`
 - live counters after the first ERC725 actor backfill:
@@ -159,6 +159,6 @@ Verified on 2026-04-27:
 
 # References
 
-- `60-apps/ai-gftd-project-vector-embedding/README.md`
+- `60-apps/etzhayyim-project-vector-embedding/README.md`
 - `20-actors/magatama/py/src/pymagatama/primitives/vector_embedding.py`
 - RisingWave vector indexes: https://docs.risingwave.com/processing/vector-indexes

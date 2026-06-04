@@ -49,13 +49,13 @@ ADR-0022 / 0023 / 0024 で認証設計を段階的に整理してきたが、3 �
 **`auth.etzhayyim.com` を canonical とする。`authn.etzhayyim.com` は 301 redirect。**
 
 ```
-auth.etzhayyim.com   → ai-gftd-auth Worker     (AuthN: passkey UI, API Key, session)
-authz.etzhayyim.com  → ai-gftd-authz Worker    (AuthZ: linked methods, org, actor score)
+auth.etzhayyim.com   → etzhayyim-auth Worker     (AuthN: passkey UI, API Key, session)
+authz.etzhayyim.com  → etzhayyim-authz Worker    (AuthZ: linked methods, org, actor score)
 accounts.etzhayyim.com → authz Worker alias    (hostname alias のまま, redirect 不要)
 authn.etzhayyim.com  → 301 → auth.etzhayyim.com/*   (deprecated, 2026-10-01 DNS 廃止)
 ```
 
-Worker 名・リポジトリパスは変えない (`ai-gftd-auth` / `ai-gftd-authz` を維持)。
+Worker 名・リポジトリパスは変えない (`etzhayyim-auth` / `etzhayyim-authz` を維持)。
 wrangler.jsonc の routes を更新するだけ。
 
 ## 2. 4-Layer Auth Stack (確定)
@@ -64,18 +64,18 @@ wrangler.jsonc の routes を更新するだけ。
 L0  Human Auth Root
       Browser:  WebAuthn / Passkey (Touch ID / Face ID)
                 → auth.etzhayyim.com PKCE → mintBootstrapApiKey → sk_live_*
-      Agent/CI: ~/.gftd/auth.json { apiKey: sk_live_* }
+      Agent/CI: ~/.etzhayyim/auth.json { apiKey: sk_live_* }
       Worker:   CF Secrets { SS_SERVICE_AUTH_PRIVATE_KEY }
 
 L1  Per-request Proof  (60s, 1 form only)
       Authorization: Bearer <ES256 JWT>
       Claims: { iss, aud, lxm, exp, jti }
-      iss PRIMARY:  did:erc725:gftd:260425:{identityContract}
+      iss PRIMARY:  did:erc725:etzhayyim:260425:{identityContract}
       iss COMPAT:   did:web:auth.etzhayyim.com:user:{id}  (→ 2026-10-01)
       iss WORKER:   did:web:{worker}.etzhayyim.com
 
 L2  Authority Resolution  (server-side, 60s cache)
-      Primary key:  actor_did = did:erc725:gftd:260425:{contract}
+      Primary key:  actor_did = did:erc725:etzhayyim:260425:{contract}
       Enforces:     lxm ∈ scope ∧ (rbac when populated)
       Single live enforcement: tokenScopes via vertex_api_key
 
@@ -102,24 +102,24 @@ L3  E2E Confidentiality  (orthogonal, Signal X25519)
 - `GET  /sign-in` / `/sign-up` — passkey UI (HTML)
 - `POST /xrpc/com.etzhayyim.auth.passkeyRegister` / `passkeyAuthenticate`
 
-CLI の `gftd authn signin` は現状 2 つの問題がある (ADR-2605141700):
+CLI の `etzhayyim authn signin` は現状 2 つの問題がある (ADR-2605141700):
 1. URL が stale: `authn.etzhayyim.com/oauth/authorize` → `atproto.etzhayyim.com/oauth/authorize` に修正必要
 2. DPoP 未対応: AT Protocol OAuth AS は `dpop_bound_access_tokens=true` を要求するが CLI は PKCE のみ
 
-**このため `gftd authn signin` は別 ADR で DPoP 実装が完了するまで broken のまま。**
+**このため `etzhayyim authn signin` は別 ADR で DPoP 実装が完了するまで broken のまま。**
 canonical な CLI 認証フローは以下:
 1. ブラウザで `https://auth.etzhayyim.com/sign-in` を開き passkey 認証
-2. 発行された `sk_live_*` を `~/.gftd/auth.json` に手動コピー、または `gftd authn set-key <key>`
+2. 発行された `sk_live_*` を `~/.etzhayyim/auth.json` に手動コピー、または `etzhayyim authn set-key <key>`
 3. 以降の全 XRPC 呼び出しは API Key → scoped ES256 JWT で自動認証
 
-`gftd authn signin` の DPoP 対応は `deps.toml [[migrations]] cli-dpop-gftd-authn-signin` に
+`etzhayyim authn signin` の DPoP 対応は `deps.toml [[migrations]] cli-dpop-etzhayyim-authn-signin` に
 pending として記録する (本 ADR の scope 外)。
 
 ## 4. DID 発行 (新規)
 
 | 対象 | 発行 DID | 担当 |
 |---|---|---|
-| 新規ユーザ signup | `did:erc725:gftd:260425:{contract}` | ERC725 provisioning (authz Worker) |
+| 新規ユーザ signup | `did:erc725:etzhayyim:260425:{contract}` | ERC725 provisioning (authz Worker) |
 | Worker サービス | `did:web:{worker}.etzhayyim.com` | per-Worker `.well-known/did.json` |
 | AT federation actor | `did:plc:{...}` | `plc.etzhayyim.com` (ADR-0014, unchanged) |
 | **廃止 (新規発行禁止)** | `did:web:auth.etzhayyim.com:user:*` | — (既存は 2026-10-01 まで read-only) |
@@ -151,9 +151,9 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 | Worker | DNS | NSID prefix |
 |---|---|---|
-| ai-gftd-auth | `auth.etzhayyim.com` | `com.etzhayyim.auth.*` |
-| ai-gftd-authz | `authz.etzhayyim.com` (+ accounts alias) | `com.etzhayyim.authz.*` |
-| ai-gftd-pds (atproto) | `atproto.etzhayyim.com` | `com.atproto.*` |
+| etzhayyim-auth | `auth.etzhayyim.com` | `com.etzhayyim.auth.*` |
+| etzhayyim-authz | `authz.etzhayyim.com` (+ accounts alias) | `com.etzhayyim.authz.*` |
+| etzhayyim-pds (atproto) | `atproto.etzhayyim.com` | `com.atproto.*` |
 
 **廃止 legacy alias (authz Worker から削除)**:
 - `GET  /xrpc/com.etzhayyim.auth.getSession` on authz → `com.etzhayyim.authz.getSession` に rename
@@ -165,7 +165,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 ```
 # Domain (即時)
-[x] wrangler.jsonc (ai-gftd-auth): routes に "auth.etzhayyim.com/*" 追加、"authn.etzhayyim.com/*" は 301 handler に変更
+[x] wrangler.jsonc (etzhayyim-auth): routes に "auth.etzhayyim.com/*" 追加、"authn.etzhayyim.com/*" は 301 handler に変更
 [x] auth Worker fetch handler: Host=authn.etzhayyim.com への受信を 301 → auth.etzhayyim.com にする
 [x] auth Worker: /users/:id/did.json ハンドラ追加 (両ホスト名で同一レスポンス)
 [x] PDS resolveDIDSigningKey: did:web:authn.etzhayyim.com 検出時に env.AUTH_SERVICE.fetch() 経路を維持 (変更不要を確認)
@@ -177,9 +177,9 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 # Phase 3 callsite migration (2026-05-15 完了)
 [x] auth Worker getServiceAuth: _SVC_AUTH_ISS_ALLOWLIST (6 entries) + Option B HMAC gate (magatama のみ)
 [x] auth Worker: /svc/browser-host/did.json — did:web:authn.etzhayyim.com:svc:browser-host DID document
-[x] ai-gftd-email-relay: AUTH_RPC binding + getServiceAuthJwt + dual-header (pdsXrpc/pdsXrpcAs/pdsSqlQuery)
-[x] ai-gftd-plc-directory: AUTH_RPC binding + getServiceAuthJwt + dual-header in emitFirehose
-[x] ai-gftd-browser-host: AUTH_RPC binding + getServiceAuthJwt + dual-header + wrangler main → worker.ts
+[x] etzhayyim-email-relay: AUTH_RPC binding + getServiceAuthJwt + dual-header (pdsXrpc/pdsXrpcAs/pdsSqlQuery)
+[x] etzhayyim-plc-directory: AUTH_RPC binding + getServiceAuthJwt + dual-header in emitFirehose
+[x] etzhayyim-browser-host: AUTH_RPC binding + getServiceAuthJwt + dual-header + wrangler main → worker.ts
 
 # x-magatama-verified 退役 (2026-06-15 / 2026-07-01)
 [ ] 残 ~5 Worker (shinshi/news/mangaka/public-malak/llm): x-magatama-verified → ES256 JWT (期限 2026-06-15)
@@ -187,7 +187,7 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 [ ] PDS verify.ts + murakumo + comfyui: x-magatama-verified branch 削除 (2026-07-01)
 
 # CLI (別 ADR 待ち — DPoP 実装完了後)
-[x] deps.toml [[migrations]] に "cli-dpop-gftd-authn-signin" を pending で記録 (本 ADR の scope 外)
+[x] deps.toml [[migrations]] に "cli-dpop-etzhayyim-authn-signin" を pending で記録 (本 ADR の scope 外)
 
 # DNS 廃止
 [ ] DNS: authn.etzhayyim.com CF zone record 削除 (2026-10-01)
@@ -211,10 +211,10 @@ HMAC gate (ADR-0022 Amendment A2) は 2026-07-01 まで security 担保として
 
 # References
 
-- `60-apps/ai-gftd-project-auth/worker/wrangler.jsonc` — auth Worker routes
-- `60-apps/ai-gftd-project-auth/worker-authz/src-ts/index.ts:2671-2674` — legacy NSID alias
+- `60-apps/etzhayyim-project-auth/worker/wrangler.jsonc` — auth Worker routes
+- `60-apps/etzhayyim-project-auth/worker-authz/src-ts/index.ts:2671-2674` — legacy NSID alias
 - `50-infra/cloudflare/workers/atproto/src/auth/verify.ts` — x-magatama-verified branch
-- `70-tools/gftd/gftd/auth.go` — CLI OAuth URL (stale)
+- `70-tools/etzhayyim/etzhayyim/auth.go` — CLI OAuth URL (stale)
 - ADR-0010 — DID rotation key custody (L0 Worker trust root)
 - ADR-0074 / ADR-0095 — ERC725 root identity (L1 canonical DID)
 - ADR-2604240914 — OAuth revocation + introspection (OAuth AS lifecycle)

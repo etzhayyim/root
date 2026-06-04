@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
  * Bulk-migrate existing `did:web:authn.etzhayyim.com:user:*` accounts to
- * `did:erc725:gftd:260425:<addr>` on the gftd private chain (ADR-0074
+ * `did:erc725:etzhayyim:260425:<addr>` on the etzhayyim private chain (ADR-0074
  * Step 4 of the sign-up migration).
  *
  * For each legacy account this script:
  *
- *   1. Computes seedHash = keccak256("gftd-account:migrate:" || did:web)
+ *   1. Computes seedHash = keccak256("etzhayyim-account:migrate:" || did:web)
  *   2. POSTs to authz `/internal/provision-root-identity` with
  *      `{ stableId: "migrate:" + did, label: did, facadeDids: [did] }`.
  *      authz deploys a fresh `etzhayyimRootIdentity` contract on chain 260425
@@ -18,7 +18,7 @@
  *   * Idempotent — re-running is safe. authz fast-returns when
  *     `identityByRootDid[seedHash]` is already populated, and skips
  *     `linkFacade` when the row already maps to the same root.
- *   * No D1 rewrite — the legacy `did:web` row in `vertex_gftd_auth_account`
+ *   * No D1 rewrite — the legacy `did:web` row in `vertex_etzhayyim_auth_account`
  *     stays unchanged. In-flight sessions (JWT.iss = legacy did:web)
  *     resolve to the new identity via the registry's facade path; new
  *     sessions issued by the migrated sign-up flow already get the
@@ -37,10 +37,10 @@
  *   node 70-tools/scripts/migrate-did-web-to-erc725.mjs --apply
  *   node 70-tools/scripts/migrate-did-web-to-erc725.mjs --apply --limit 5
  *
- * Required env (or macOS Keychain `gftd.cloudflare/CLAIM_SETTLER_HMAC`):
+ * Required env (or macOS Keychain `etzhayyim.cloudflare/CLAIM_SETTLER_HMAC`):
  *   CLAIM_SETTLER_HMAC   shared HMAC for authz `/internal/*` routes
  *   AUTHZ_BASE_URL       defaults to https://authz.etzhayyim.com
- *   D1_DATABASE_NAME     defaults to ai-gftd-auth-passkey
+ *   D1_DATABASE_NAME     defaults to etzhayyim-auth-passkey
  */
 import { execSync } from "node:child_process";
 import { createHmac } from "node:crypto";
@@ -49,11 +49,11 @@ const args = parseArgs(process.argv.slice(2));
 const apply = !!args.apply;
 const limit = Number(args.limit ?? 0) || 0;
 const authzBase = (process.env.AUTHZ_BASE_URL ?? "https://authz.etzhayyim.com").replace(/\/+$/, "");
-const dbName = process.env.D1_DATABASE_NAME ?? "ai-gftd-auth-passkey";
+const dbName = process.env.D1_DATABASE_NAME ?? "etzhayyim-auth-passkey";
 
-const hmac = (process.env.CLAIM_SETTLER_HMAC ?? readKeychain("gftd.cloudflare", "CLAIM_SETTLER_HMAC")).trim();
+const hmac = (process.env.CLAIM_SETTLER_HMAC ?? readKeychain("etzhayyim.cloudflare", "CLAIM_SETTLER_HMAC")).trim();
 if (!hmac) {
-  console.error("ERROR: CLAIM_SETTLER_HMAC missing. Set env or `security add-generic-password -s gftd.cloudflare -a CLAIM_SETTLER_HMAC -w <hex>`.");
+  console.error("ERROR: CLAIM_SETTLER_HMAC missing. Set env or `security add-generic-password -s etzhayyim.cloudflare -a CLAIM_SETTLER_HMAC -w <hex>`.");
   process.exit(2);
 }
 
@@ -139,7 +139,7 @@ function listLegacyAccounts(name) {
     "--remote",
     "--json",
     "--command",
-    shellQuote("SELECT did, legacy_did, handle FROM vertex_gftd_auth_account WHERE did LIKE 'did:web:%'"),
+    shellQuote("SELECT did, legacy_did, handle FROM vertex_etzhayyim_auth_account WHERE did LIKE 'did:web:%'"),
   ].join(" ");
   let raw;
   try {

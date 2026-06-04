@@ -27,7 +27,7 @@ This documentation is served via GitHub Pages with the following configuration:
 
 When enabled, the documentation will be available at:
 ```
-https://etzhayyim.github.io/gftd-bpmn-sdk/
+https://etzhayyim.github.io/etzhayyim-bpmn-sdk/
 ```
 
 ## 📝 Development
@@ -104,5 +104,5 @@ When contributing to documentation:
 
 For questions about the documentation or GitHub Pages setup:
 
-- [GitHub Issues](https://github.com/etzhayyim/gftd-bpmn-sdk/issues)
-- [GitHub Discussions](https://github.com/etzhayyim/gftd-bpmn-sdk/discussions)
+- [GitHub Issues](https://github.com/etzhayyim/etzhayyim-bpmn-sdk/issues)
+- [GitHub Discussions](https://github.com/etzhayyim/etzhayyim-bpmn-sdk/discussions)

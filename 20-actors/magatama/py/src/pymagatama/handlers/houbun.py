@@ -81,7 +81,7 @@ _INSERT_STATUTE = """
         $5, $6, $7, $8, $9,
         $10, $11, $12,
         $13, $14, $15, $16, $17, $18,
-        $19, 'gftd', 'system', $20
+        $19, 'etzhayyim', 'system', $20
     )
     ON CONFLICT (vertex_id) DO UPDATE SET
         title           = EXCLUDED.title,
@@ -103,7 +103,7 @@ _INSERT_ARTICLE = """
         $1, NULL, $2, 1, $3, $4, $3,
         $5, $6, $7, $8, $9, $10,
         $11, $12, $13, $14,
-        $15, 'gftd', 'system', $16
+        $15, 'etzhayyim', 'system', $16
     )
     ON CONFLICT (vertex_id) DO NOTHING
     RETURNING vertex_id
@@ -117,7 +117,7 @@ _INSERT_EDGE_STATUTE_ARTICLE = """
     ) VALUES (
         $1, $2, $3, NULL, $4, 1, $5,
         $6, $7,
-        $8, 'gftd', 'system', $9
+        $8, 'etzhayyim', 'system', $9
     )
     ON CONFLICT (edge_id) DO NOTHING
 """
@@ -846,7 +846,7 @@ _INSERT_TREATY = """
         $1, NULL, $2, 1, $3, $4, $3,
         $5, $6, $7, $8, $9,
         $10, $11, $12, $13, $14, $15,
-        $16, 'gftd', 'system', $17
+        $16, 'etzhayyim', 'system', $17
     )
     ON CONFLICT (vertex_id) DO NOTHING
     RETURNING vertex_id

@@ -128,7 +128,7 @@ Operational test: every energy carrier with carbon content must carry a `carbonS
 
 ### D4 — Proliferation hygiene
 
-> "Religious-corp must not produce, handle, store, or transport weapons-grade fissile material (HEU >20% U-235; separated Pu of any isotopic vector with Pu-239 + Pu-241 >7%; U-233 in any quantity above tracer). Dual-use materials (low-enriched uranium, depleted uranium, natural uranium, lithium-6, tritium) are permitted only under religious-corp-internal inventory tracked on yatachain + Council Lv6+ ≥3 attestation per acquisition and per disposition + total religious-corp aggregate caps (LEU ≤1 t U / Li-6 ≤100 kg / tritium ≤10 kg)."
+> "Religious-corp must not produce, handle, store, or transport weapons-grade fissile material (HEU >20% U-235; separated Pu of any isotopic vector with Pu-239 + Pu-241 >7%; U-233 in any quantity above tracer). Dual-use materials (low-enriched uranium, depleted uranium, natural uranium, lithium-6, tritium) are permitted only under religious-corp-internal inventory tracked on kotoba-datomic + Council Lv6+ ≥3 attestation per acquisition and per disposition + total religious-corp aggregate caps (LEU ≤1 t U / Li-6 ≤100 kg / tritium ≤10 kg)."
 
 Operational test: ADR-2605192100 §1.12 Transparent Religious Force already requires open-source + on-chain monitoring + 1 SBT = 1 vote authorization for any force capability. Proliferation-sensitive material is incompatible with the open-source posture (publishable enrichment + weaponization knowledge crosses into NPT-regime territory). Tritium handling at fusion-research scale is dual-use but bounded; weapons-grade material is structurally excluded.
 
@@ -273,7 +273,7 @@ com.etzhayyim.hikari.{
 }
 ```
 
-All Lexicons follow same yatachain attestation + IPFS pin patterns as existing hikari R0 + ADR-2605262400 dataset substrate.
+All Lexicons follow same kotoba-datomic attestation + IPFS pin patterns as existing hikari R0 + ADR-2605262400 dataset substrate.
 
 ## §5 Cross-actor implications
 

@@ -4,7 +4,7 @@
 
 `anima.etzhayyim.com` — 動物 intelligence platform。種の分類学、品種カタログ、シェルター/保護施設、獣医記録、野生動物保全プログラム。1 Worker + N path-based DID。
 
-**Component**: `wasm/ai-gftd-wasm-anima-czj1f6yv/`
+**Component**: `wasm/etzhayyim-wasm-anima-czj1f6yv/`
 **nanoid**: `czj1f6yv`
 **Runtime**: Single Worker (account-level)
 
@@ -168,7 +168,7 @@ consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]
 
 ## W Protocol Lexicon (CRITICAL)
 
-**全 AT Record は `com.etzhayyim.apps.anima.*` namespace。** WIT = `gftd:anima@1.0.0` (`wit/anima/package.wit`)。
+**全 AT Record は `com.etzhayyim.apps.anima.*` namespace。** WIT = `etzhayyim:anima@1.0.0` (`wit/anima/package.wit`)。
 
 | Kind (W Protocol) | AT Collection NSID | WIT Source | 説明 |
 |---|---|---|---|
@@ -277,7 +277,7 @@ consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]
 
 | Package | Version | Interfaces | 説明 |
 |---|---|---|---|
-| `gftd:anima` | `1.0.0` | taxonomy | 生物分類 (9 conservation-status, 13 habitat, 9 diet, 4 activity, 3 reproduction) |
+| `etzhayyim:anima` | `1.0.0` | taxonomy | 生物分類 (9 conservation-status, 13 habitat, 9 diet, 4 activity, 3 reproduction) |
 | | | breed | 品種カタログ (16 domestic-species, 9 breed-group, 5 size, 8 coat-type) |
 | | | cohort | **コホート動物** (17 次元統計モデル、11 registration-type、Phase 2 個体リンク) |
 | | | shelter | シェルター/保護施設 (8 facility-type, 7 accreditation, geo-location) |
@@ -287,14 +287,14 @@ consDID, _ := magatama.DIDCreate("conservation:ibis-reintroduction", map[string]
 ## Contract
 
 - **contract-category**: `treaty` (CITES) + `statute` (動物愛護管理法)
-- **依存**: `magatama:contract/agreement@1.0.0`、`gftd:legal-entity/entity@1.0.0` (org linkage)、`gftd:isic-section-a/agriculture@1.0.0` (agriculture sector)
+- **依存**: `magatama:contract/agreement@1.0.0`、`etzhayyim:legal-entity/entity@1.0.0` (org linkage)、`etzhayyim:isic-section-a/agriculture@1.0.0` (agriculture sector)
 
 ## Build & Deploy
 
 ```bash
-cd 60-apps/etzhayyim-project-anima/wasm/ai-gftd-wasm-anima-czj1f6yv
-gftd build
-gftd deploy --smoke-url https://anima.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-anima/wasm/etzhayyim-wasm-anima-czj1f6yv
+etzhayyim build
+etzhayyim deploy --smoke-url https://anima.etzhayyim.com/health
 ```
 
 ## API Endpoints
@@ -307,8 +307,8 @@ gftd deploy --smoke-url https://anima.etzhayyim.com/health
 
 ```bash
 curl https://czj1f6yv.etzhayyim.com/health
-curl -X POST https://czj1f6yv.etzhayyim.com/xrpc/gftd.anima.v1.AnimaQueryService/ListSpecies \
+curl -X POST https://czj1f6yv.etzhayyim.com/xrpc/etzhayyim.anima.v1.AnimaQueryService/ListSpecies \
   -H "Content-Type: application/json" -d '{"limit":10,"offset":0}'
-curl -X POST https://czj1f6yv.etzhayyim.com/xrpc/gftd.anima.v1.AnimaQueryService/ListEndangered \
+curl -X POST https://czj1f6yv.etzhayyim.com/xrpc/etzhayyim.anima.v1.AnimaQueryService/ListEndangered \
   -H "Content-Type: application/json" -d '{"status":"endangered","limit":10}'
 ```

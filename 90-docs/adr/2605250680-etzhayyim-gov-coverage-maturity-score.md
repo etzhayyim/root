@@ -97,7 +97,7 @@ Output:
 - Current baseline: 0 files → 0%
 - **Highest-impact improvement path**
 
-**L3 Substrate-Ports**: Count `app.isDirectory()` for patterns `ai-gftd-project-{gov,lawfirm-admin,legal-entity}` under `60-apps/`.
+**L3 Substrate-Ports**: Count `app.isDirectory()` for patterns `etzhayyim-project-{gov,lawfirm-admin,legal-entity}` under `60-apps/`.
 - Target: 3
 - Current: 3 (100%)
 
@@ -178,7 +178,7 @@ e7m gov coverage-plan --target 85
 ## References
 
 - ADR-2605242330: Gov coverage 5-layer taxonomy + COFOG×country model
-- ADR-2605212100: Back-authored gftd→etzhayyim migration batch (36 files)
+- ADR-2605212100: Back-authored etzhayyim→etzhayyim migration batch (36 files)
 - ADR-2605214000: Murakumo no-VKE mesh + lexicon-port verdict taxonomy
 - ADR-2605250100/200/300: L5 cell scaffolds (member_registry, religious_marriage, religious_corp_taxation)
 - CLAUDE.md §Status row 35: Baseline gov coverage state (2026-05-25)

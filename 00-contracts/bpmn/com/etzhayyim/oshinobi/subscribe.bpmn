@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_oshinobi_subscribe"
-    targetNamespace="https://gftd.ai/bpmn/oshinobi"
+    targetNamespace="https://etzhayyim.ai/bpmn/oshinobi"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="oshinobi_subscribe" name="oshinobi subscribe" isExecutable="true">
@@ -136,7 +136,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;oshinobi.subscription.created&quot;" target="action"/>
           <zeebe:input source="={
               subscriptionId: subscriptionId,
@@ -191,7 +191,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:oshinobi.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:oshinobi.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;oshinobi.subscription.payment_declined&quot;" target="action"/>
           <zeebe:input source="={
               subscriptionId: subscriptionId,

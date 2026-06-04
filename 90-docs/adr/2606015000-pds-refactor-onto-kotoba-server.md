@@ -17,7 +17,7 @@ depends_on:
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605312345-kotoba-datom-first-class-canonical-state
   - adr-2606014000-kotoba-passkey-cacao-signal-secrecy
-  - adr-2606014500-ai-gftd-auth-zero-access-proton-alignment
+  - adr-2606014500-etzhayyim-auth-zero-access-proton-alignment
 related:
   - adr-2605231902-feed-post-membrane-and-feed-discover-projection
 supersedes: []

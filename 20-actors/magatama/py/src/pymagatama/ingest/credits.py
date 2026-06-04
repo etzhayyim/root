@@ -40,7 +40,7 @@ PUBLIC_FUND_DESTINATIONS = [
     {
         "destinationId": "public-fund:common",
         "title": "Common Fund",
-        "projectId": "ai-gftd-project-public-fund",
+        "projectId": "etzhayyim-project-public-fund",
         "kind": "commonFund",
         "cofogCode": "00",
         "isDefault": True,
@@ -48,7 +48,7 @@ PUBLIC_FUND_DESTINATIONS = [
     {
         "destinationId": "public-fund:education-family",
         "title": "Education & Family Fund",
-        "projectId": "ai-gftd-project-public-fund",
+        "projectId": "etzhayyim-project-public-fund",
         "kind": "campaign",
         "cofogCode": "09",
         "isDefault": False,
@@ -56,7 +56,7 @@ PUBLIC_FUND_DESTINATIONS = [
     {
         "destinationId": "public-fund:health-access",
         "title": "Health Access Fund",
-        "projectId": "ai-gftd-project-public-fund",
+        "projectId": "etzhayyim-project-public-fund",
         "kind": "campaign",
         "cofogCode": "07",
         "isDefault": False,
@@ -64,7 +64,7 @@ PUBLIC_FUND_DESTINATIONS = [
     {
         "destinationId": "public-fund:climate-resilience",
         "title": "Climate Resilience Fund",
-        "projectId": "ai-gftd-project-public-fund",
+        "projectId": "etzhayyim-project-public-fund",
         "kind": "campaign",
         "cofogCode": "05",
         "isDefault": False,

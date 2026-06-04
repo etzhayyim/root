@@ -46,9 +46,9 @@ repo-wide (87 files), and relocate the tsukuru lexicons accordingly.
 
 1. **Lexicon ids + dirs.** 46 lexicons: `id` field `com.etzhayyim.apps.tsukuru.*` →
    `com.etzhayyim.apps.tsukuru.*`; directory `git mv`
-   `00-contracts/lexicons/com/etzhayyim/gftd/apps/tsukuru/` →
+   `00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/tsukuru/` →
    `00-contracts/lexicons/com/etzhayyim/apps/tsukuru/` (clean path, matching hakken; the old path
-   carried a spurious `gftd` segment the id never had). Catalog `git mv`
+   carried a spurious `etzhayyim` segment the id never had). Catalog `git mv`
    `00-contracts/catalogs/com/etzhayyim/tsukuru/` → `00-contracts/catalogs/com/etzhayyim/tsukuru/`.
 
 2. **Source + cross-app refs.** rw-free, orchestration scripts, `magatama.toml`, `20-actors/tsukuru`,

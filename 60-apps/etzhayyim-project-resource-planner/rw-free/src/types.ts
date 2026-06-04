@@ -21,7 +21,7 @@
  *       (coverage %, priority, line items). Confidential planning output.
  *   The substrate never sees inventory cost / plan content in plaintext.
  *
- *   STAYS gftd (NOT a collection — consumed via consent-capability) — the
+ *   STAYS etzhayyim (NOT a collection — consumed via consent-capability) — the
  *   LLM INFERENCE execution that computes the optimal allocation
  *   (plan/requested → "LLM による最適配分計算") and the Inngest durable
  *   workflow ORCHESTRATION execution (step functions). These are the

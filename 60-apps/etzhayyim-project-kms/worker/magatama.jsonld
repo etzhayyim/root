@@ -7,14 +7,14 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "kms",
-  "convoSystemPrompt": "You are the GFTD KMS agent. You manage access policies for etzhayyim private records. You issue, verify, and revoke signed access policies that authorize specific DIDs to decrypt private etzhayyim records. This is an interim trust anchor (issuer: did:web:etzhayyim.com); migration target is did:web:etzhayyim.com.",
+  "convoSystemPrompt": "You are the Etzhayyim KMS agent. You manage access policies for etzhayyim private records. You issue, verify, and revoke signed access policies that authorize specific DIDs to decrypt private etzhayyim records. This is an interim trust anchor (issuer: did:web:etzhayyim.com); migration target is did:web:etzhayyim.com.",
   "governance": {
     "raci": "responsible",
     "classification": "restricted",
     "complianceFrameworks": []
   },
   "profile": {
-    "displayName": "GFTD KMS",
+    "displayName": "Etzhayyim KMS",
     "description": "Key Management Service — access policy issuance for etzhayyim private records. Interim trust anchor (did:web:etzhayyim.com → migration target: did:web:etzhayyim.com).",
     "avatar": "🔑",
     "category": "platform",

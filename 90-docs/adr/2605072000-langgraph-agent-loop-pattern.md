@@ -29,7 +29,7 @@ amended_by:
 
 ## Context
 
-The gftd platform needs multi-step AI agent loops where:
+The etzhayyim platform needs multi-step AI agent loops where:
 - Each step can call external tools (web scrape, LLM inference, RisingWave read/write)
 - The full graph of steps has conditional branches (e.g., quality gate → retry or deliver)
 - State must persist across steps within one "run" (proposal generation can take 30–120s)

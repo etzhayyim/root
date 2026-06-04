@@ -13,7 +13,7 @@ priority_note: "session-close record; verifies + hardens the secrecy design of A
 authoritative_for: []
 related:
   - adr-2606014000-kotoba-passkey-cacao-signal-secrecy
-  - adr-2606014500-ai-gftd-auth-zero-access-proton-alignment
+  - adr-2606014500-etzhayyim-auth-zero-access-proton-alignment
   - adr-2606015000-pds-refactor-onto-kotoba-server
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605231525-no-server-key-invariant

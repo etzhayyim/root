@@ -7,11 +7,11 @@ lookup.
 
 ## History
 
-Extracted from `ai-gftd-apps-gftdcojp` 2026-05-22 per ADR-2605181400 §D2
-amendment. D2's original "leave dispatcher in gftd" decision was based on
-pymagatama package living in gftd; pymagatama was subsequently migrated
+Extracted from `etzhayyim-apps-etzhayyimcojp` 2026-05-22 per ADR-2605181400 §D2
+amendment. D2's original "leave dispatcher in etzhayyim" decision was based on
+pymagatama package living in etzhayyim; pymagatama was subsequently migrated
 to `etzhayyim/20-actors/magatama/py/`, making the dispatcher infrastructure
-the last remaining bpmn artifact in gftd. This directory closes that loop.
+the last remaining bpmn artifact in etzhayyim. This directory closes that loop.
 
 ## Layout
 
@@ -19,7 +19,7 @@ the last remaining bpmn artifact in gftd. This directory closes that loop.
 |---|---|
 | `deployment-dispatcher.yaml` | Python aiohttp Deployment + ClusterIP Service for the bpmn-dispatcher pod (image runs `python -m pymagatama.dispatcher_main`) |
 | `tunnel.yaml` | Cloudflare Tunnel — Secret + ConfigMap + Deployment (2 replicas). Hostnames: `dispatcher.etzhayyim.com`, `mcp.etzhayyim.com`, `ses-api.etzhayyim.com` |
-| `ingress-dispatcher.yaml` | nginx Ingress fallback for `dispatcher.etzhayyim.com` (used when the tunnel is unhealthy; see gftd ADR-2605111400 nginx-ingress-yatabase backstory) |
+| `ingress-dispatcher.yaml` | nginx Ingress fallback for `dispatcher.etzhayyim.com` (used when the tunnel is unhealthy; see etzhayyim ADR-2605111400 nginx-ingress-yatabase backstory) |
 | `configmap-pymagatama-cache-fix.yaml` | Hot-patch ConfigMap mounting an alternative `dispatcher_main.py` (cache fix variant) over the image's baked source |
 | `configmap-pymagatama-sse-fix.yaml` | Hot-patch ConfigMap mounting an alternative `dispatcher_main.py` (SSE fix variant) |
 | `configmap-mailer-direct-patch.yaml` | Hot-patch ConfigMap for the mailer-direct flow (~80KB embedded Python) |
@@ -45,11 +45,11 @@ reconciled with the canonical `pymagatama.dispatcher_main` source in
    `lawfirm-stripe` + `public-malak-r2-creds` + `lg-pregel-secrets`
    (optional refs).
 5. **Apply**: `kubectl apply -f .` from this directory.
-6. **gftd-side teardown** (after etzhayyim tunnel verified HEALTHY):
-   - `cloudflared tunnel delete bpmn-dispatcher` on gftd CF account
+6. **etzhayyim-side teardown** (after etzhayyim tunnel verified HEALTHY):
+   - `cloudflared tunnel delete bpmn-dispatcher` on etzhayyim CF account
      (current tunnel ID `be2cc0b0-ddee-4ca7-baf1-2bffbef18f31`)
-   - `kubectl delete deployment cloudflared-bpmn-dispatcher bpmn-dispatcher -n mitama-udf` on gftd VKE
-   - Update gftd `00-contracts` references (`dispatcher.etzhayyim.com` → `dispatcher.etzhayyim.com`) — separate iter (ADR-2605181400 §D3 follow-up).
+   - `kubectl delete deployment cloudflared-bpmn-dispatcher bpmn-dispatcher -n mitama-udf` on etzhayyim VKE
+   - Update etzhayyim `00-contracts` references (`dispatcher.etzhayyim.com` → `dispatcher.etzhayyim.com`) — separate iter (ADR-2605181400 §D3 follow-up).
 
 ## Substrate boundary
 
@@ -91,7 +91,7 @@ LangServer pods (lg-shinshi, lg-animeka, lg-recap, lg-media-gamers,
 - `90-docs/adr/2605181400-bpmn-extract-to-etzhayyim-root.md` §D2 amendment 2026-05-22
 - `90-docs/adr/2605172100-etzhayyim-onchain-payment-substrate.md` (substrate boundary)
 - `90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md` (RW access topology)
-- gftd source predecessor:
-  - `ai-gftd-apps-gftdcojp/50-infra/vultr/mitama-udf-pool/templates/dispatcher.yaml` (Helm)
-  - `ai-gftd-apps-gftdcojp/50-infra/vultr/mitama-udf-app-raw/templates/` (Helm wrappers + rendered manifests)
-  - `ai-gftd-apps-gftdcojp/50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml`
+- etzhayyim source predecessor:
+  - `etzhayyim-apps-etzhayyimcojp/50-infra/vultr/mitama-udf-pool/templates/dispatcher.yaml` (Helm)
+  - `etzhayyim-apps-etzhayyimcojp/50-infra/vultr/mitama-udf-app-raw/templates/` (Helm wrappers + rendered manifests)
+  - `etzhayyim-apps-etzhayyimcojp/50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml`

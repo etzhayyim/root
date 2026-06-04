@@ -200,7 +200,7 @@ baseline attestations + cross-doctrinal advisory on Council
 | Gate | Description |
 |---|---|
 | **G1** | Every publication MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.kataribe.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.kataribe.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NO ad-supported revenue** — Charter §1.13 anti-addictive UX + §1.15 non-eschatological; ad-supported creates engagement-optimization incentive incompatible with both. |
 | **G4** | **NO clickbait / apocalyptic framing** — Charter §1.15 non-eschatological invariant; `communityChronicleAttestation.toneAttestation` enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; `nonEschatologicalAttested` const true structural. |
 | **G5** | **NO commercial publishing platform** — Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e) + §2(c). |

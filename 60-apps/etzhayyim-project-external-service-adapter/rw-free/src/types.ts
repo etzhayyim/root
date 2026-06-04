@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys product-front/infra-back) + ADR-2605172400
  * (3-axis Liability/Custody/Settlement) + ADR-2605181100 (kotoba E2E
  * encrypted-record envelope). Founder directive 2026-06-03: front everything
- * that can move; only the irreducible regulated EXECUTION stays gftd.
+ * that can move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * This app integrates external mailboxes / calendars / drives (Microsoft 365 +
  * Google Workspace) over OAuth2 and records per-user sync state.
@@ -20,16 +20,16 @@
  *     mailboxSync: userDid + provider + folder + watermark + counts +
  *       oauthStatus (which inbox a person linked, and how far it synced).
  *     oauthGrant: userDid + provider + granted scopes + status + expiry —
- *       BINDING METADATA ONLY (see staysGftd: the raw access/refresh tokens
+ *       BINDING METADATA ONLY (see staysEtzhayyim: the raw access/refresh tokens
  *       and client secrets are NEVER part of this body).
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION:
  *     * OAuth access-token / refresh-token / client-secret raw custody
  *       (credential/secret/raw-key custody).
  *     * The external Microsoft Graph / Gmail / Drive API CALL execution
  *       (the regulated outbound act against the third-party rail).
- *   The sync/grant DATA fronts E2E; the token custody + the API call stay gftd.
+ *   The sync/grant DATA fronts E2E; the token custody + the API call stay etzhayyim.
  *
  * AT-Lexicon: no float — counts (messagesIngested) are integers; expiry/grant
  * timestamps are ISO strings.
@@ -147,7 +147,7 @@ export interface GetSyncOutput {
 
 // ─── OAuth grant (E2E-ENCRYPTED, binding metadata ONLY) ─────────────
 // NOTE: raw access/refresh tokens + client secrets are NEVER in this body —
-// that custody stays gftd (see module header staysGftd).
+// that custody stays etzhayyim (see module header staysEtzhayyim).
 
 export interface OauthGrantBody {
   grantId: string;

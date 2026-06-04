@@ -93,7 +93,7 @@ spec:
                       name: s3-credentials
                       key: AWS_SECRET_ACCESS_KEY
                 - name: B2_BUCKET
-                  value: "ai-gftd-nats"
+                  value: "etzhayyim-nats"
                 - name: B2_ENDPOINT
                   value: "https://s3.us-west-004.backblazeb2.com"
                 - name: B2_REGION

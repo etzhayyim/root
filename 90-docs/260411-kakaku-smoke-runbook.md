@@ -19,7 +19,7 @@ APP_ID=k4k4kux1 bash 70-tools/scripts/kakaku-smoke.sh
 ### 1. Merchant 登録
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.registerMerchant \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.registerMerchant \
   -d '{"merchantName":"Yodobashi","domain":"www.yodobashi.com","baseCurrency":"JPY","shippingPolicy":"standard","reputationScore":0.95}' \
   --app k4k4kux1
 ```
@@ -32,7 +32,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.registerMerchant \
 ### 2. Product 登録
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.registerProduct \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.registerProduct \
   -d '{"name":"Nintendo Switch 2","brand":"Nintendo","model":"Switch 2","jan":"4902370553023","category":"game_console"}' \
   --app k4k4kux1
 ```
@@ -44,7 +44,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.registerProduct \
 ### 3. Offer upsert
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.upsertOffer \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.upsertOffer \
   -d '{"productId":"jan_4902370553023","name":"Nintendo Switch 2","brand":"Nintendo","model":"Switch 2","jan":"4902370553023","merchantName":"Yodobashi","domain":"www.yodobashi.com","merchantSku":"4902370553023","price":49980,"shippingFee":0,"currency":"JPY","availability":"in_stock","deliveryEta":"P2D","productUrl":"https://www.yodobashi.com/product/4902370553023/","observedAt":"2026-04-11T00:00:00Z"}' \
   --app k4k4kux1
 ```
@@ -57,7 +57,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.upsertOffer \
 同じ商品で別 merchant を追加:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.upsertOffer \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.upsertOffer \
   -d '{"productId":"jan_4902370553023","name":"Nintendo Switch 2","brand":"Nintendo","model":"Switch 2","jan":"4902370553023","merchantName":"BicCamera","domain":"www.biccamera.com","merchantSku":"4902370553023","price":49780,"shippingFee":550,"currency":"JPY","availability":"in_stock","deliveryEta":"P1D","productUrl":"https://www.biccamera.com/product/4902370553023/","observedAt":"2026-04-11T00:05:00Z"}' \
   --app k4k4kux1
 ```
@@ -65,7 +65,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.upsertOffer \
 ### 4. 比較
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.compareOffers \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.compareOffers \
   -d '{"productId":"jan_4902370553023","limit":10}' \
   --app k4k4kux1
 ```
@@ -81,7 +81,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.compareOffers \
 merchant page から直接拾う場合:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.ingestOfferFromUrl \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.ingestOfferFromUrl \
   -d '{"productUrl":"https://www.yodobashi.com/product/4902370553023/","merchantName":"Yodobashi","domain":"www.yodobashi.com","name":"Nintendo Switch 2","jan":"4902370553023","llmModel":"qwen3.5-4b"}' \
   --app k4k4kux1
 ```
@@ -91,7 +91,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.ingestOfferFromUrl \
 merchant selector を明示登録したい場合:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.registerMerchant \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.registerMerchant \
   -d '{"merchantName":"Yodobashi","domain":"www.yodobashi.com","selectorProfile":"yodobashi-v1","selectorConfig":{"price":["id=[\"\\'']js_scl_unitPrice[\"\\''][^>]*>\\\\s*([0-9,]+)\\\\s*<"],"availability":{"inStock":["在庫あり"],"outOfStock":["売り切れ"]}}}' \
   --app k4k4kux1
 ```
@@ -106,13 +106,13 @@ gftd xrpc com.etzhayyim.apps.kakaku.registerMerchant \
 既存 merchant 設定を読む場合:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.listMerchants \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.listMerchants \
   -d '{"q":"yodobashi","limit":20}' \
   --app k4k4kux1
 ```
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.getMerchant \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.getMerchant \
   -d '{"domain":"www.yodobashi.com"}' \
   --app k4k4kux1
 ```
@@ -125,7 +125,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.getMerchant \
 selector revision を見る場合:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.listSelectorRevisions \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.listSelectorRevisions \
   -d '{"merchantId":"yodobashi_com","limit":10}' \
   --app k4k4kux1
 ```
@@ -133,7 +133,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.listSelectorRevisions \
 active revision を切り替える場合:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.activateSelectorRevision \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.activateSelectorRevision \
   -d '{"merchantId":"yodobashi_com","revisionId":"yodobashi_com_v2","rollout":1}' \
   --app k4k4kux1
 ```
@@ -141,7 +141,7 @@ gftd xrpc com.etzhayyim.apps.kakaku.activateSelectorRevision \
 ### 5. 価格履歴
 
 ```bash
-gftd xrpc com.etzhayyim.apps.kakaku.getPriceHistory \
+etzhayyim xrpc com.etzhayyim.apps.kakaku.getPriceHistory \
   -d '{"productId":"jan_4902370553023","limit":20}' \
   --app k4k4kux1
 ```
@@ -154,4 +154,4 @@ gftd xrpc com.etzhayyim.apps.kakaku.getPriceHistory \
 - `productId` は path resolve に合わせて `jan_4902370553023` のような canonical key を使う。
 - landed price は `price + shippingFee`。
 - 同一 offer 再投入時は差分が無ければ `historyWritten=false` になる。
-- UI editor は [60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte:1)。`pnpm --dir 60-apps/ai-gftd-project-apps/appview/apps-cdn-a9p5l1st/svelte dev` で merchant selector editor を起動できる。
+- UI editor は [60-apps/etzhayyim-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-apps/appview/apps-cdn-a9p5l1st/svelte/src/App.svelte:1)。`pnpm --dir 60-apps/etzhayyim-project-apps/appview/apps-cdn-a9p5l1st/svelte dev` で merchant selector editor を起動できる。

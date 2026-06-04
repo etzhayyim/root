@@ -65,7 +65,7 @@
             "description": "Council review attestation chain (decryption + discernment by Council Lv6+ ≥3)"
           },
           "resolvedAt": {"type": "string", "format": "datetime"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

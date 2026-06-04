@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_intel_infer_dependencies" targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_intel_infer_dependencies" targetNamespace="https://etzhayyim.ai/bpmn/intel" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="intel_infer_dependencies" name="inferDependencies" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Run</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_Start_Run" sourceRef="Start" targetRef="Task_CreateRun"/>
@@ -70,7 +70,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:intel.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;intel.inferDependencies&quot;" target="action"/>
           <zeebe:input source="={runId: runId, candidateCount: candidateCount, activeCount: activeCount, reviewCount: reviewCount}" target="payload"/>
         </zeebe:ioMapping>
@@ -81,7 +81,7 @@
     <bpmn:serviceTask id="Task_AuditNoCandidates" name="audit no candidates">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:intel.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;intel.inferDependencies.abort&quot;" target="action"/>
           <zeebe:input source="={runId: runId, reason: &quot;no_candidates&quot;, candidateCount: candidateCount}" target="payload"/>
         </zeebe:ioMapping>

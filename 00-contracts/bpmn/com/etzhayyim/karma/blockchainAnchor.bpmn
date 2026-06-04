@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — daily Merkle root anchor (cron 00:00 UTC).
+  karma.etzhayyim.com — daily Merkle root anchor (cron 00:00 UTC).
 
   Computes Merkle root of all karma edge IPFS CIDs from the previous
   24h window, submits a single tx to ERC725 contract on ETH L2 (Base
@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_blockchain_anchor"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_blockchain_anchor" name="karma blockchain anchor" isExecutable="true">
@@ -95,7 +95,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.blockchainAnchor&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;anchorId&quot;: anchorId, &quot;txHash&quot;: txHash, &quot;edgeCount&quot;: edgeCount, &quot;updated&quot;: updated }" target="attributes"/>
         </zeebe:ioMapping>

@@ -1,14 +1,14 @@
-# Open-data ingest — vendor (gftdcojp) cutover & removal runbook
+# Open-data ingest — vendor (etzhayyimcojp) cutover & removal runbook
 
 **Date**: 2026-05-31 · **Owner**: Jun Kawasaki · **Status**: migration landed; vendor removal GATED (not executed)
 
 Tracks the staged sequence for removing the migrated open-data / public-internet
-ingest from the vendor repo `gftdcojp/ai-gftd-apps-gftdcojp`, once it is safe. No
+ingest from the vendor repo `etzhayyimcojp/etzhayyim-apps-etzhayyimcojp`, once it is safe. No
 `git rm` has been performed — this document is the plan, and the gates below are
 not yet cleared.
 
 Related: ADR-2605312000 (NDL) · ADR-2605312100 (open-data KG) · vendor
-`60-apps/ai-gftd-project-yatabase/docs/MIGRATION-rw-to-kotoba-datomic.md` · vendor
+`60-apps/etzhayyim-project-yatabase/docs/MIGRATION-rw-to-kotoba-datomic.md` · vendor
 ADR-2605302130 (RW→kotoba datomic).
 
 ## 1. Migration status (what now lives on etzhayyim)
@@ -65,7 +65,7 @@ Its real gates are only:
 
 - **G1** — kotoba datomic write activated for an etzhayyim-owned public graph
   (kotoba-side; gated on the transact scaling fix, vendor ADR-2605302130). Note
-  `kotoba-server` is **not yet deployed publicly** (`kotoba.gftd.ai/health → 404`
+  `kotoba-server` is **not yet deployed publicly** (`kotoba.etzhayyim.com/health → 404`
   per the sovereign doc's "Status today"), so this is upstream of everything.
 - **G2** — vendor read path (`kg_handlers`) redirected RW → kotoba/etzhayyim.
   (`handle_entity` already does kotoba-first read with RW fallback; `catalog` /
@@ -89,7 +89,7 @@ in-cluster + kotoba-team work, not executable from a dev session.
    core + SQLite reader are unit-tested; the RW/kotoba readers are guarded.
 4. **Remove code** — `git rm` the migrated `_SOURCES` entries (or `kg_ingest.py` /
    `ndl_ingest.py` once fully drained); archive to
-   `gftdcojp:_archive/migrated-to-etzhayyim-2026-XX/`.
+   `etzhayyimcojp:_archive/migrated-to-etzhayyim-2026-XX/`.
 5. **Update vendor deps.toml** — drop the `ndl_*` keys / migrated `kg_adapters`
    entries; mark moved → etzhayyim. Leave `gBiz` (out of scope) and `egov_laws`
    (excluded) untouched in vendor.

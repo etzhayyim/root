@@ -23,7 +23,7 @@ related:
 | Status     | DRAFT (proposed) |
 | Date       | 2026-04-27 |
 | Supersedes | — (extends ADR-0074, ADR-2604261717, ADR-2604262100) |
-| Owner      | gftd-platform |
+| Owner      | etzhayyim-platform |
 
 ## Context
 
@@ -45,7 +45,7 @@ currently resolves to a single EOA — the platform sealer
 | `RegoArbiter`                | owner, signer (set via `setSigner`) |
 
 Sealer-key custody is 3-tier (`.local-secrets/` + macOS Keychain L2 +
-gftd Vault L3 once `vault-investiture.sh` runs). That protects the
+etzhayyim Vault L3 once `vault-investiture.sh` runs). That protects the
 **signer** of those roles. It does **not** protect against:
 
 - A compromised operator workstation pushing arbitrary contract
@@ -69,7 +69,7 @@ Safe (formerly Gnosis Safe) on `geth-private`.
    sealer.
 2. Create one Safe with three owners and threshold 2. Owner set is
    tracked in `50-infra/vultr/geth-private/.local-secrets/safe-owners.json`
-   (gitignored) and mirrored into gftd Vault `gftd-private-chain-safe`.
+   (gitignored) and mirrored into etzhayyim Vault `etzhayyim-private-chain-safe`.
    See "Owner set" below.
 3. For each contract listed in Context, transfer every privileged
    role from sealer → Safe via the role-rotation function the contract
@@ -93,7 +93,7 @@ operator picks the three principals after this ADR is accepted.
 Recommended composition:
 
 - **K1**: platform operator (`jun@etzhayyim.com`). macOS Keychain
-  + iCloud sync + gftd Vault L3.
+  + iCloud sync + etzhayyim Vault L3.
 - **K2**: a co-owner (etzhayyim Japan board member or co-founder). Same
   custody pattern, separate physical device.
 - **K3**: cold-storage hardware wallet (Ledger / Trezor) held in a
@@ -150,7 +150,7 @@ contracts (passing `address(0)` as `safe`, reusing the sealer EOA as
   `50-infra/vultr/geth-private/CLAUDE.md`).
 - Safe Module integration (e.g. spending limits on `MurakumoEscrow.oracle`).
   Phase 3 ships plain transfers; Modules are Phase 4.
-- Migrating off-chain bots (`rego-arbiter-settler`, `gftd deploy`'s
+- Migrating off-chain bots (`rego-arbiter-settler`, `etzhayyim deploy`'s
   `eth_deploy_receipt`) — they continue to use the sealer EOA, which
   retains its block-sealing role and pre-funded balance. Only
   privileged contract roles move.
@@ -181,5 +181,5 @@ in `deps.toml` flips from `"phase-2-sealer"` to `"phase-3-multisig"`.
   *and* updates the settler's `SEALER_PRIV` to a Safe-controlled
   signer. Doing both at once minimises one-step rollback complexity.
 - The longer the sealer is the only owner, the more downstream
-  systems (yoro UI, gftd CLI, authz Worker) bake in assumptions about
+  systems (yoro UI, etzhayyim CLI, authz Worker) bake in assumptions about
   it. Phase 3 should land before more callers compound the lock-in.

@@ -52,7 +52,7 @@ elv_parts_harvest <─ elv_catalyst_recovery <─ elv_seat_textile_recovery
 
 See `ADR-2605261215` §4 for definitions. Key enforcement + constitutional firsts:
 
-- **G2**: Mass-balance ≥98% on yatachain (inherits kanayama pattern, novel ELV application)
+- **G2**: Mass-balance ≥98% on kotoba-datomic (inherits kanayama pattern, novel ELV application)
 - **G6**: F-gas (HFC/HFO) capture ≥95%; no atmospheric venting
 - **G7**: Li-ion thermal-safety SOP — no puncture / short-circuit / thermal-runaway containment
 - **G8** (**CONSTITUTIONAL FIRST**): MANDATORY ECU + infotainment + telematics data wipe BEFORE disassembly. Cryptographic destruction + physical chip-shred fallback. §2(c) anti-surveillance operationalized for vehicles (parallel to makura G14 + N9 for pillows).
@@ -145,7 +145,7 @@ See `ADR-2605261215` §4 for definitions. Key enforcement + constitutional first
 ### elv_provenance_binder (terminal)
 - **Murakumo node**: judah
 - **Input**: all prior records
-- **Output**: yatachain-anchored audit binder (input VIN → parts catalog + material lots + emissions + ASR mass)
+- **Output**: kotoba-datomic-anchored audit binder (input VIN → parts catalog + material lots + emissions + ASR mass)
 - **Key constraints**: G2 mass-balance ≥98% closure attestation
 
 ## Build & Deploy (R0 → R1)

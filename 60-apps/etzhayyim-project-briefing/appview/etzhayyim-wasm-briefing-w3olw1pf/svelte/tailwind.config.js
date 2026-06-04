@@ -1,4 +1,4 @@
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,5 +8,5 @@ export default {
 		'../../../../../../packages/ts/design-system/dist/**/*.{svelte,js}'
 	],
 	theme: { extend: {} },
-	plugins: [gftdUIKit]
+	plugins: [etzhayyimUIKit]
 };

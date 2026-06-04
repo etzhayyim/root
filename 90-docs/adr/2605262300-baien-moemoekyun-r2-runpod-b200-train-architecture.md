@@ -15,7 +15,7 @@ authoritative_for:
   - "Precision ladder R2 BF16 → R3 FP8 (TransformerEngine) → R4 sparse FP4 (engineering work itemized per phase)"
   - "Checkpoint pipeline: rented GPU → HuggingFace Hub draft OR direct upload → IPFS pin via mac-260317 → Murakumo fleet pull"
   - "Inference architecture (Mac mini + EVO-X2 fleet) — UNCHANGED, references ADR-2605215000"
-  - "Per-rental yatachain attestation Lexicons com.etzhayyim.train.rentalAttestation + rentalCostLog spec"
+  - "Per-rental kotoba-datomic attestation Lexicons com.etzhayyim.train.rentalAttestation + rentalCostLog spec"
   - "Cost / wall budget caps + runbook for rental orchestration"
 depends_on:
   - adr-2605262200-charter-rider-2i-baien-train-rental-carveout
@@ -237,7 +237,7 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
 └─────────────────────────────┘
 ```
 
-## §5 Per-rental yatachain attestation Lexicon (deliverable)
+## §5 Per-rental kotoba-datomic attestation Lexicon (deliverable)
 
 ### §5.1 `com.etzhayyim.train.rentalAttestation` (pre-flight)
 
@@ -334,8 +334,8 @@ ADR-2605262200 §2(i)(2)(5) "burst-only" 条件を operational に固定:
 |---|---|---|
 | Single rental session continuous wall | ≤ **24 h** | rental orchestrator hard-kill |
 | Single rental session USD cost | ≤ **$200** | rental orchestrator hard-kill |
-| Monthly aggregate rental wall (across all sessions) | ≤ **100 h** | yatachain attestation 累計 monitor + cell warn |
-| Monthly aggregate rental USD cost | ≤ **$1,000** | yatachain attestation 累計 monitor + cell warn |
+| Monthly aggregate rental wall (across all sessions) | ≤ **100 h** | kotoba-datomic attestation 累計 monitor + cell warn |
+| Monthly aggregate rental USD cost | ≤ **$1,000** | kotoba-datomic attestation 累計 monitor + cell warn |
 | Continuous rental >7 days | ❌ prohibited per §2(i)(2)(5) | Council Lv6+ ≥4/7 seats per-incident approval 必要 |
 
 R4 grade 10-iter sweep (BF16) は累計 $250 / ~36 h → 月予算内。Sparse FP4 で $60 / ~8h → 月数回 grade 可能。
@@ -407,7 +407,7 @@ Resulting `baien-server-moemoekyun-rN.K-iterMM` checkpoints serve via Murakumo f
 
 - baien-moemoekyun R2/R3/R4 grade train が constitutional 経路で unblock、religious-corp daemon agentic coding capability が 1.5 ヶ月で立ち上がる
 - BF16 baseline で即実行可能、precision optimization (FP8/sparse FP4) は ROI 駆動で段階的進行
-- Per-rental yatachain attestation で全 commercial GPU 使用が on-chain 透明、religious-corp の "Transparent" 哲学保持
+- Per-rental kotoba-datomic attestation で全 commercial GPU 使用が on-chain 透明、religious-corp の "Transparent" 哲学保持
 - Inference 路線完全不変、Mac mini + EVO-X2 fleet が baien-server-moemoekyun を SBT-gated に serve
 - Lexicon spec が固定されるので、P4 効力発生直後にコード scaffolding が plug-and-play
 

@@ -44,7 +44,7 @@ The fund and M&A contracts now have:
   - `ma.integration.closeAndHandoff`
   - `ma.writeGraph`
 - integration manifest:
-  - `60-apps/ai-gftd-project-ma/magatama.toml`
+  - `60-apps/etzhayyim-project-ma/magatama.toml`
 
 Important limitation: the current M&A handlers are deterministic workflow
 primitives. They create IDs, scores, ranges, buyer ranking, and graph rows.
@@ -54,7 +54,7 @@ counterparties, run due diligence over documents, or solicit LPs.
 ## Ingest Integration Design
 
 The M&A app is the operator, but it does not own every collector. The standard
-integration point is `60-apps/ai-gftd-project-ma/magatama.toml`, with ADR
+integration point is `60-apps/etzhayyim-project-ma/magatama.toml`, with ADR
 coverage in `90-docs/adr/2604271200-ma-fund-person-lei-ingest-integration.md`.
 
 ```text
@@ -71,7 +71,7 @@ SEC ADV / fund sources
 
 public filings / corporate leadership pages
   -> business_person_collect_public_roles BPMN
-  -> ai-gftd-project-business-person seed and collection jobs
+  -> etzhayyim-project-business-person seed and collection jobs
   -> businessPerson PDS records + vertex_business_person
   -> MA company profile, officer context, approved outreach context
 
@@ -120,7 +120,7 @@ officer rows keyed by CIK.
 The sixth extractor is `businessPerson.extractHandelsregisterOfficers`, which
 parses supplied Handelsregister officer or company entry JSON into public
 officer rows keyed by register number.
-`60-apps/ai-gftd-project-business-person/seed.ts` still owns the seeded source
+`60-apps/etzhayyim-project-business-person/seed.ts` still owns the seeded source
 registry and role taxonomy.
 
 It is explicitly public-disclosure-only: EDINET, gBizINFO, SEC EDGAR,

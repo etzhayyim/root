@@ -4085,7 +4085,7 @@
       "id": "com.etzhayyim.apps.coworkGraph.sendBpmnGuidance",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/coworkGraph/sendBpmnGuidance.json",
       "type": "procedure",
-      "description": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。"
+      "description": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-etzhayyim-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。"
     },
     {
       "id": "com.etzhayyim.apps.coworkGraph.sendTeamsMessage",
@@ -4631,31 +4631,31 @@
       "id": "com.etzhayyim.apps.demining.clearanceTask",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/clearanceTask.json",
       "type": "record",
-      "description": "Demining clearanceTask record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining clearanceTask record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.detectionEvent",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/detectionEvent.json",
       "type": "record",
-      "description": "Demining detectionEvent record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining detectionEvent record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.eoreSession",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/eoreSession.json",
       "type": "record",
-      "description": "Demining eoreSession record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining eoreSession record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.hazardArea",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/hazardArea.json",
       "type": "record",
-      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining hazardArea record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.landReleaseDecision",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/landReleaseDecision.json",
       "type": "record",
-      "description": "Demining landReleaseDecision record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining landReleaseDecision record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.listHazardAreas",
@@ -4703,13 +4703,13 @@
       "id": "com.etzhayyim.apps.demining.surveyRecord",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/surveyRecord.json",
       "type": "record",
-      "description": "Demining surveyRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining surveyRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.demining.victimRecord",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/demining/victimRecord.json",
       "type": "record",
-      "description": "Demining victimRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/ai-gftd-project-demining/CLAUDE.md."
+      "description": "Demining victimRecord record. Tier 1 public fields only — Tier 3 data is persisted server-side via DEMINING_TIER3_DB. See 60-apps/etzhayyim-project-demining/CLAUDE.md."
     },
     {
       "id": "com.etzhayyim.apps.depositInsurance.flagCoverageRisk",
@@ -4883,7 +4883,7 @@
       "id": "com.etzhayyim.apps.domain.coverage",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/domain/coverage.json",
       "type": "query",
-      "description": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active gftd-side registrations."
+      "description": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active etzhayyim-side registrations."
     },
     {
       "id": "com.etzhayyim.apps.domain.eligibilityCheck",
@@ -6719,7 +6719,7 @@
       "id": "com.etzhayyim.apps.hatsubai.submitToCert",
       "path": "00-contracts/lexicons/com/etzhayyim/apps/hatsubai/submitToCert.json",
       "type": "procedure",
-      "description": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.gftd"
+      "description": "Open a new cert submission round for a built master candidate. Writes a certSubmission record (result='pending'), increments the round counter, and triggers the BPMN cert-tracking process on bpmn.etzhayyim"
     },
     {
       "id": "com.etzhayyim.apps.hatsubai.title",
@@ -24665,7 +24665,7 @@
       "id": "com.etzhayyim.auth.createAgentSession",
       "path": "00-contracts/lexicons/com/etzhayyim/auth/createAgentSession.json",
       "type": "procedure",
-      "description": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by gftd deploy for automatic agent credential provisioning."
+      "description": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by etzhayyim deploy for automatic agent credential provisioning."
     },
     {
       "id": "com.etzhayyim.auth.createGuestAccount",
@@ -24701,7 +24701,7 @@
       "id": "com.etzhayyim.auth.mintChildDid",
       "path": "00-contracts/lexicons/com/etzhayyim/auth/mintChildDid.json",
       "type": "procedure",
-      "description": "Mint a child did:gftd under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{pare"
+      "description": "Mint a child did:etzhayyim under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{pare"
     },
     {
       "id": "com.etzhayyim.auth.passkeyBeginAuth",
@@ -24761,13 +24761,13 @@
       "id": "com.etzhayyim.authz.activateActorAccount",
       "path": "00-contracts/lexicons/com/etzhayyim/authz/activateActorAccount.json",
       "type": "procedure",
-      "description": "Deploy the caller's ERC-4337 smart account on the gftd private chain (chainId 260425) by resolving the caller to an ERC725 root DID, then calling `etzhayyimActorRegistry.activate(rootDidHash, [packedPasske"
+      "description": "Deploy the caller's ERC-4337 smart account on the etzhayyim private chain (chainId 260425) by resolving the caller to an ERC725 root DID, then calling `etzhayyimActorRegistry.activate(rootDidHash, [packedPasske"
     },
     {
       "id": "com.etzhayyim.authz.getActorAccount",
       "path": "00-contracts/lexicons/com/etzhayyim/authz/getActorAccount.json",
       "type": "query",
-      "description": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the gftd private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID "
+      "description": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the etzhayyim private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID "
     },
     {
       "id": "com.etzhayyim.authz.linkEthereumBegin",
@@ -24917,7 +24917,7 @@
       "id": "com.etzhayyim.claim.stakedAttestation",
       "path": "00-contracts/lexicons/com/etzhayyim/claim/stakedAttestation.json",
       "type": "record",
-      "description": "ADR-2604261717 staked claim attestation. Posted via com.etzhayyim.claim.postStakedAttestation. Bond is locked in ClaimStakeEscrow on the gftd private chain (chainId 260425). Game theory: EV(lie) = -P(challe"
+      "description": "ADR-2604261717 staked claim attestation. Posted via com.etzhayyim.claim.postStakedAttestation. Bond is locked in ClaimStakeEscrow on the etzhayyim private chain (chainId 260425). Game theory: EV(lie) = -P(challe"
     },
     {
       "id": "com.etzhayyim.cohort.emitEvidence",

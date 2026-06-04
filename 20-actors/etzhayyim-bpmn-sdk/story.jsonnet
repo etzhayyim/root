@@ -1,4 +1,4 @@
-// Merkle DAG: gftd-bpmn-sdk process network story
+// Merkle DAG: etzhayyim-bpmn-sdk process network story
 // SOLID原則に基づく依存DAG最小化、エントロピー最小化
 // 実行はトポロジカルソート、問題解決は逆トポロジカルソート
 

@@ -11,7 +11,7 @@
  * catalog (enforced via exists() against the plaintext collection before the
  * E2E write).
  *
- * STAYS gftd: print production, yuubin postal dispatch, quote/scoring engine,
+ * STAYS etzhayyim: print production, yuubin postal dispatch, quote/scoring engine,
  * fiat settlement — consumed via consent-capability, never collections here.
  */
 

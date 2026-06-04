@@ -20,15 +20,15 @@ Create the B2 secret in `mitama-udf`:
 ```bash
 kubectl create ns mitama-udf 2>/dev/null || true
 kubectl -n mitama-udf create secret generic gyosei-source-archiver-b2 \
-  --from-literal=etzhayyim_B2_KEY_ID="$(security find-generic-password -s gftd.b2 -a APPLICATION_KEY_ID -w)" \
-  --from-literal=etzhayyim_B2_APP_KEY="$(security find-generic-password -s gftd.b2 -a APPLICATION_KEY -w)"
+  --from-literal=etzhayyim_B2_KEY_ID="$(security find-generic-password -s etzhayyim.b2 -a APPLICATION_KEY_ID -w)" \
+  --from-literal=etzhayyim_B2_APP_KEY="$(security find-generic-password -s etzhayyim.b2 -a APPLICATION_KEY -w)"
 ```
 
 Optional overrides:
 
 ```bash
 kubectl -n mitama-udf create secret generic gyosei-source-archiver-env \
-  --from-literal=etzhayyim_B2_BUCKET=ai-gftd-nats \
+  --from-literal=etzhayyim_B2_BUCKET=etzhayyim-nats \
   --from-literal=etzhayyim_B2_ENDPOINT=https://s3.us-west-004.backblazeb2.com \
   --from-literal=etzhayyim_B2_PREFIX=legal-sources/gyosei
 ```

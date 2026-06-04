@@ -1694,41 +1694,41 @@ CREATE VIEW view_actor_universal AS
     display_name::VARCHAR    AS display_name,
     description::VARCHAR    AS description,
     NULL::VARCHAR  AS avatar_cid,
-    'gftd_identity'::VARCHAR AS kind,
-    'did:web:actor.etzhayyim.com:gftd_identity'::VARCHAR   AS parent_did,
+    'etzhayyim_identity'::VARCHAR AS kind,
+    'did:web:actor.etzhayyim.com:etzhayyim_identity'::VARCHAR   AS parent_did,
     vertex_id::VARCHAR AS vertex_id,
     performer_type::VARCHAR       AS performer_type,
     created_at::VARCHAR AS created_at,
     updated_at::VARCHAR AS updated_at
-  FROM vertex_gftd_identity
+  FROM vertex_etzhayyim_identity
   UNION ALL
   SELECT
     did::VARCHAR     AS did,
-    derive_handle(vertex_id, 'gftd_org')  AS handle,
+    derive_handle(vertex_id, 'etzhayyim_org')  AS handle,
     COALESCE(display_name, name)::VARCHAR    AS display_name,
     NULL::VARCHAR    AS description,
     NULL::VARCHAR  AS avatar_cid,
-    'gftd_org'::VARCHAR AS kind,
-    'did:web:actor.etzhayyim.com:gftd_org'::VARCHAR   AS parent_did,
+    'etzhayyim_org'::VARCHAR AS kind,
+    'did:web:actor.etzhayyim.com:etzhayyim_org'::VARCHAR   AS parent_did,
     vertex_id::VARCHAR AS vertex_id,
     'service'::VARCHAR       AS performer_type,
     created_at::VARCHAR AS created_at,
     updated_at::VARCHAR AS updated_at
-  FROM vertex_gftd_org
+  FROM vertex_etzhayyim_org
   UNION ALL
   SELECT
-    derive_did(vertex_id, 'gftd_team')     AS did,
-    derive_handle(vertex_id, 'gftd_team')  AS handle,
+    derive_did(vertex_id, 'etzhayyim_team')     AS did,
+    derive_handle(vertex_id, 'etzhayyim_team')  AS handle,
     COALESCE(display_name, name)::VARCHAR    AS display_name,
     NULL::VARCHAR    AS description,
     NULL::VARCHAR  AS avatar_cid,
-    'gftd_team'::VARCHAR AS kind,
-    'did:web:actor.etzhayyim.com:gftd_team'::VARCHAR   AS parent_did,
+    'etzhayyim_team'::VARCHAR AS kind,
+    'did:web:actor.etzhayyim.com:etzhayyim_team'::VARCHAR   AS parent_did,
     vertex_id::VARCHAR AS vertex_id,
     'service'::VARCHAR       AS performer_type,
     created_at::VARCHAR AS created_at,
     updated_at::VARCHAR AS updated_at
-  FROM vertex_gftd_team
+  FROM vertex_etzhayyim_team
   UNION ALL
   SELECT
     derive_did(vertex_id, 'gitrepo')     AS did,

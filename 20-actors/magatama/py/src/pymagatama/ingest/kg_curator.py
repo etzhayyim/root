@@ -149,7 +149,7 @@ def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[
         if not SLUG_RE.match(slug_text):
             skipped.append(f"bad-slug:{slug_text}")
             continue
-        slug = f"did:gftd:gamechar:{slug_text}"
+        slug = f"did:etzhayyim:gamechar:{slug_text}"
         if _fetch_all("SELECT 1 FROM vertex_game_character WHERE vertex_id=%s LIMIT 1", (slug,)):
             skipped.append(f"dup:{slug_text}")
             continue

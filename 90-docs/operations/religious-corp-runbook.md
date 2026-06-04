@@ -187,10 +187,10 @@ curl -s http://judahnomac-mini.local:4000/v1/models \
 
 ```bash
 # Binary name depends on Step 8 cutover state:
-# Pre-Step-8:  gftd-murakumo
+# Pre-Step-8:  etzhayyim-murakumo
 # Post-Step-8: etzhayyim-murakumo
 ssh <node>@<node>nomac-mini.local '/usr/local/bin/etzhayyim-murakumo murakumo-mesh status'   # post-Step 8
-ssh <node>@<node>nomac-mini.local '/usr/local/bin/gftd-murakumo murakumo-mesh status'        # pre-Step 8
+ssh <node>@<node>nomac-mini.local '/usr/local/bin/etzhayyim-murakumo murakumo-mesh status'        # pre-Step 8
 ```
 
 ### EVO-X2 inference test
@@ -236,7 +236,7 @@ git checkout <previous-tag>
 
 ### Scenario: cluster runtime rename (Step 8 cutover) breaks a node
 
-The Step 8 atomic rename replaces `gftd-*` binaries and paths with `etzhayyim-*`.
+The Step 8 atomic rename replaces `etzhayyim-*` binaries and paths with `etzhayyim-*`.
 If a post-cutover deploy fails on a node:
 
 ```bash
@@ -359,7 +359,7 @@ security import ~/Documents/etzhayyim-keychain-backup.p12 -P "<passphrase>"
 | mst-projector ingest lag | `mst_projector_last_indexed_seq_at` >10 min ago in healthz | Restart: `ssh simeon@simeonnomac-mini.local 'sudo launchctl kickstart -k system/com.etzhayyim.mst-projector'` |
 | EVO-X2 unreachable | LLM cells emit warn logs; EthicsContentClassifierCell falls back to own-node Ollama gemma3:4b | Ping 192.168.1.70; restart Windows Scheduled Tasks (OllamaServer, LiteLLMProxy); physical access if persistent |
 | LanceDB write failures | mst-projector logs "write failed: out of disk"; query 503 | Free disk on simeon; prune old LanceDB tables via `Indexer.drop_collection()` |
-| Tailmesh peer disconnects | One node cannot reach others via `.mesh.etzhayyim.com` (pre-Step 8) or `.mesh.etzhayyim.com` (post-Step 8) | Restart mesh daemon: `pkill -f murakumo-mesh; ~/.gftd/mesh/run-mesh.sh &` (or `~/.etzhayyim/mesh/run-mesh.sh` post-Step 8) |
+| Tailmesh peer disconnects | One node cannot reach others via `.mesh.etzhayyim.com` (pre-Step 8) or `.mesh.etzhayyim.com` (post-Step 8) | Restart mesh daemon: `pkill -f murakumo-mesh; ~/.etzhayyim/mesh/run-mesh.sh &` (or `~/.etzhayyim/mesh/run-mesh.sh` post-Step 8) |
 | IPFS pin failures (simeon) | EvolutionEmissionCell logs "ipfs.pin_many failed" | Check `ipfs daemon` running; verify Kubo HTTP API at :5001 |
 | L2 anchor failures | EvolutionEmissionCell logs "anchor RPC error" | Check Base L2 RPC reachable; verify ETZHAYYIM_L2_ANCHOR_KEY balance (gas) |
 | Council attestation 0 | Lv6+ advancements blocked | Verify COUNCIL_LV6_DIDS populated (post-RFP-close 2026-06-19); `mst.get_council_lv6_dids()` returns non-empty list |
@@ -441,9 +441,9 @@ Short version:
 5. `cargo check` + `pytest` each commit
 6. Deploy to `dan` canary, 24h soak
 7. Roll out to remaining 9 nodes via `deploy-fleet.sh --tribes <remaining>`
-8. Post-cutover cleanup: decommission `gftd-*` binary + `~/.gftd/` dirs
+8. Post-cutover cleanup: decommission `etzhayyim-*` binary + `~/.etzhayyim/` dirs
 
-**Binary name change at cutover**: `gftd-murakumo` → `etzhayyim-murakumo`, `~/.gftd/` → `~/.etzhayyim/`, `.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`.
+**Binary name change at cutover**: `etzhayyim-murakumo` → `etzhayyim-murakumo`, `~/.etzhayyim/` → `~/.etzhayyim/`, `.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`.
 
 ## §9 References
 

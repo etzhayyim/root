@@ -12,12 +12,12 @@ weight: 0.80
 priority_note: "Operator runbook for the final two phases of ADR-2605152100 cutover (Phase 4 vendor business-app dep switch + Phase 5 vendor open-scope deletion). Pairs with ADR-2605211757 (DNS cutover) as the second operator-facing runbook of the Tranche F closure. Both runbooks are gated on the per-worker RW-free re-impl (Phase 3 gate (a)) actually landing in etzhayyim/root."
 authoritative_for:
   - vendor-side refactor + deletion procedure for the 27 worker + 4 ingest + 4 primitive files
-  - gftd lg subtree deletion order (3 already-relocated subtrees + their pymagatama imports)
+  - etzhayyim lg subtree deletion order (3 already-relocated subtrees + their pymagatama imports)
   - rollback procedure for partial vendor refactor failures
   - verification protocol post-deletion (vendor build + downstream importer survey)
 depends_on:
   - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
-  - adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com
+  - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
 related:
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
@@ -37,7 +37,7 @@ superseded_by: []
 # Context
 
 ADR-2605152100 (etzhayyim GitHub org boundary) defined a 6-phase cutover for
-splitting the gftd vendor monorepo from the etzhayyim open religious-corp
+splitting the etzhayyim vendor monorepo from the etzhayyim open religious-corp
 monorepo:
 
 1. Catalog freeze ✅ (Tranche F + earlier Tranches)
@@ -46,7 +46,7 @@ monorepo:
 4. **Vendor business-app dependency switch** — point vendor business apps at
    etzhayyim packages / submodules instead of local pymagatama paths
 5. **Vendor open-scope deletion** — `git rm` the etzhayyim-classified worker
-   / ingest / primitive files from the gftd repo
+   / ingest / primitive files from the etzhayyim repo
 6. Archive markers — `[MOVED → github.com/etzhayyim/root]` description prefix
    on archived etzhayyim repos
 
@@ -101,9 +101,9 @@ preference:
 
 | Option | Mechanism | When |
 |--------|-----------|------|
-| **A. Git submodule** | `git submodule add https://github.com/etzhayyim/root etzhayyim` in gftd repo, then `from etzhayyim.20-actors.magatama.py.src.pymagatama.X` (or symlink for shorter paths) | Single-source-of-truth preserved; gftd repo build sees etzhayyim source as a transitive checkout. Best for ongoing development |
+| **A. Git submodule** | `git submodule add https://github.com/etzhayyim/root etzhayyim` in etzhayyim repo, then `from etzhayyim.20-actors.magatama.py.src.pymagatama.X` (or symlink for shorter paths) | Single-source-of-truth preserved; etzhayyim repo build sees etzhayyim source as a transitive checkout. Best for ongoing development |
 | **B. Python package** | Publish `pymagatama-substrate` (or split into `@etzhayyim/magatama-{substrate,workers,ingest}`) to a private index; vendor `pip install` it | Best for production stability. Requires CI for package builds. Defer to a separate ADR if/when this is chosen |
-| **C. Local copy** | Operator copies the etzhayyim files into a gftd-side `_vendored/pymagatama/` directory and updates imports | Fastest. Highest drift risk. Use ONLY for files vendor needs to keep running through a transition window |
+| **C. Local copy** | Operator copies the etzhayyim files into a etzhayyim-side `_vendored/pymagatama/` directory and updates imports | Fastest. Highest drift risk. Use ONLY for files vendor needs to keep running through a transition window |
 
 **Default for Phase 4**: Option A (git submodule). Operator commands:
 
@@ -126,10 +126,10 @@ The only **mandatory** Phase 4 import switches are the 4 gate-(d) target files
 
 | # | Vendor file | Current import | Phase 4 treatment | Status |
 |---|-------------|----------------|-------------------|--------|
-| 1 | `60-apps/ai-gftd-project-ki/lg/lg_organism/server.py` | `from pymagatama.{hakkou,kabi,ki,kinoko,kobo,koke,saikin}_worker_main` | Delete (relocated to etzhayyim) | Step 2.A below |
-| 2 | `60-apps/ai-gftd-project-legal-entity/lg/lg_legal_entity/server.py` | `from pymagatama.primitives.legal_entity` | Delete (relocated to etzhayyim) | Step 2.A below |
-| 3 | `60-apps/ai-gftd-project-curpus2skill/lg/lg_curpus2skill/server.py` | `from pymagatama.ingest.curpus2skill` | Delete (relocated to etzhayyim) | Step 2.A below |
-| 4 | `60-apps/ai-gftd-project-hume/scripts/persist_hume_artifacts.py` | `from pymagatama.ingest.core` | Already switched to local copy (`_local_ingest_core.py`) | ✅ done 2026-05-21 |
+| 1 | `60-apps/etzhayyim-project-ki/lg/lg_organism/server.py` | `from pymagatama.{hakkou,kabi,ki,kinoko,kobo,koke,saikin}_worker_main` | Delete (relocated to etzhayyim) | Step 2.A below |
+| 2 | `60-apps/etzhayyim-project-legal-entity/lg/lg_legal_entity/server.py` | `from pymagatama.primitives.legal_entity` | Delete (relocated to etzhayyim) | Step 2.A below |
+| 3 | `60-apps/etzhayyim-project-curpus2skill/lg/lg_curpus2skill/server.py` | `from pymagatama.ingest.curpus2skill` | Delete (relocated to etzhayyim) | Step 2.A below |
+| 4 | `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py` | `from pymagatama.ingest.core` | Already switched to local copy (`_local_ingest_core.py`) | ✅ done 2026-05-21 |
 
 Audit for additional importers (run before Step 2):
 
@@ -156,9 +156,9 @@ them (relocate or local-copy per the same playbook).
 
 ```bash
 cd /Users/junkawasaki/github/etzhayyim-root
-git rm -r 60-apps/ai-gftd-project-ki/lg
-git rm -r 60-apps/ai-gftd-project-legal-entity/lg
-git rm -r 60-apps/ai-gftd-project-curpus2skill/lg
+git rm -r 60-apps/etzhayyim-project-ki/lg
+git rm -r 60-apps/etzhayyim-project-legal-entity/lg
+git rm -r 60-apps/etzhayyim-project-curpus2skill/lg
 git commit -m "phase5(tranche-f): remove relocated lg subtrees (ki/legal-entity/curpus2skill)
 
 These lg directories now live in etzhayyim/root/60-apps/<project>/lg/
@@ -170,7 +170,7 @@ Authorized-By: <operator>
 "
 ```
 
-The corresponding `60-apps/ai-gftd-project-<project>/wasm/` Worker apps are
+The corresponding `60-apps/etzhayyim-project-<project>/wasm/` Worker apps are
 NOT deleted by this step. They are separate decisions under the 3-axis split
 rule (see ADR-2605172400 §1; legal-entity wasm has a custody axis hit if it
 holds JP corporate-registry PII → vendor; otherwise etzhayyim).
@@ -214,9 +214,9 @@ git rm ingest/blockchain.py ingest/houbun.py ingest/curpus2skill.py \
        ingest/site_common_crawl.py ingest/core.py
 git commit -m "phase5(tranche-f): remove 4 etzhayyim ingest modules + ingest.core
 
-ingest.core was retained at gftd repo through gate (d) so hume could
+ingest.core was retained at etzhayyim repo through gate (d) so hume could
 continue to import it. After Phase 4 hume switch (2026-05-21 done) +
-ingest.core port to etzhayyim/root, the gftd copy is now removable.
+ingest.core port to etzhayyim/root, the etzhayyim copy is now removable.
 
 Closes: gate (a) execution for ingest modules
 
@@ -310,7 +310,7 @@ Rollback differs by step:
   However, after revert the operator MUST also revert any subsequent step's
   commit, otherwise the deletion-state drift between commits causes diff noise.
 - **Post-2.E discovers broken downstream importer**: forward-fix only. Either
-  (i) restore the deleted file as a `_vendored/` local copy in gftd, OR
+  (i) restore the deleted file as a `_vendored/` local copy in etzhayyim, OR
   (ii) fix the downstream importer to use the etzhayyim submodule path.
   Choose (ii) for sustainability.
 
@@ -372,7 +372,7 @@ Rollback differs by step:
    submodule is the lower-friction default; package-publish is a follow-up
    ADR if/when the vendor CI matures to need it.
 
-4. **Keep the gftd copies as a permanent fallback** (no Phase 5 at all).
+4. **Keep the etzhayyim copies as a permanent fallback** (no Phase 5 at all).
    Rejected: violates ADR-2605152100 §"Step 8 vendor open-scope cleanup".
    The whole point of the org-split is to NOT have two copies of the same
    open-scope code drifting independently.

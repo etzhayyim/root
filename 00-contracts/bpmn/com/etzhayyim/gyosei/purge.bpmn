@@ -4,7 +4,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_gyosei_purge"
-  targetNamespace="https://gftd.ai/bpmn/gyosei"
+  targetNamespace="https://etzhayyim.ai/bpmn/gyosei"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="gyosei_purge" name="行政手続 purge" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.state.gftd.ai:gyosei&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.state.etzhayyim.com:gyosei&quot;" target="actor"/>
           <zeebe:input source="=&quot;gyosei.purge&quot;" target="action"/>
           <zeebe:input source="={
               deleted: deleted

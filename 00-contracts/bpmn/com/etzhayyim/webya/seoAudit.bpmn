@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  webya.gftd.ai — seoAudit (autonomous cron 0 0 0 ? * MON — 毎週月曜 00:00 UTC).
+  webya.etzhayyim.com — seoAudit (autonomous cron 0 0 0 ? * MON — 毎週月曜 00:00 UTC).
 
   Audits all published sites for SEO health (meta description length,
   JSON-LD completeness, title uniqueness). LLM generates improvement
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_webya_seo_audit"
-    targetNamespace="https://gftd.ai/bpmn/webya"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="webya_seo_audit" name="webya seo audit" isExecutable="true">

@@ -11,7 +11,7 @@ no ON CONFLICT. PK re-INSERT = implicit upsert. Append-only.
 Spec / runtime separation: this migration creates *only* metadata
 tables. The bake pipeline that populates them runs as a Vultr k8s pod
 (ADR 2604251830 L8) and is gated by ops bring-up — see
-`60-apps/ai-gftd-project-maps/CLAUDE.md` §Gsplat Preview / Bake.
+`60-apps/etzhayyim-project-maps/CLAUDE.md` §Gsplat Preview / Bake.
 """
 
 from __future__ import annotations

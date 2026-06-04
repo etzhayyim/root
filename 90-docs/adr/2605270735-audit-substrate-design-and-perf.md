@@ -15,7 +15,7 @@ authoritative_for:
   - audit-script-perf-pattern
   - audit-test-coverage-conventions
 depends_on:
-  - adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
+  - adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
@@ -74,7 +74,7 @@ aggregator:
 | Script | Findings | Why standalone |
 |---|---|---|
 | `adr-cross-ref-health.py` | 118 orphan ADR refs across 3 categories | Each orphan needs per-case operator judgment between typo-fix / write-ADR / drop-cite |
-| `validate-lexicons.py --root` (pre-existing) | 3,198 lexicon-spec violations | Mostly legacy `gftd/` namespace; per-case judgment |
+| `validate-lexicons.py --root` (pre-existing) | 3,198 lexicon-spec violations | Mostly legacy `etzhayyim/` namespace; per-case judgment |
 | `repo-record-allowlist.mjs` (pre-existing) | (operator-invoked) | XRPC repo-record allowlist guard |
 
 ## Performance design pattern
@@ -203,7 +203,7 @@ gate-compliance from the Lexicon alone without invoking the actor.
   standalone-distribution issue).
 - 118 ADR cross-ref orphans across 3 open categories — per-case
   triage.
-- 3,198 lexicon-spec violations (mostly legacy `gftd/` namespace
+- 3,198 lexicon-spec violations (mostly legacy `etzhayyim/` namespace
   carrying pre-ADR-2605190900 `type: "number"` floats).
 
 ## Alternatives Considered
@@ -227,7 +227,7 @@ gate-compliance from the Lexicon alone without invoking the actor.
 - `70-tools/scripts/audit/README.md` — current operator entry point
 - `70-tools/scripts/audit/all.sh` — aggregator
 - `.github/workflows/audit-health.yml` — CI integration
-- ADR-2605211845 — gftd-org-cleanup leftovers (7 stale subrepo URLs)
+- ADR-2605211845 — etzhayyim-org-cleanup leftovers (7 stale subrepo URLs)
 - ADR-2605262130 — kotoba storage substrate (18 escape-symlinks)
 - ADR-2605262400 — public-data ingestion (manifest format precedent)
 - ADR-2605262700 — chigiri (Tier-B actor charter pattern)

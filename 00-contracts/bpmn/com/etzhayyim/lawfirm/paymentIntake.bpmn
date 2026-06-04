@@ -3,7 +3,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_lawfirm_payment_intake"
-                  targetNamespace="https://gftd.ai/bpmn/lawfirm"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
                   exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="lawfirm_payment_intake"
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lawfirm.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;lawfirm.payment.received&quot;" target="event_type"/>
           <zeebe:input source="={ok: ok, matter_uri: matter_uri, amount_minor: amount_minor, currency: currency, stripe_event_id: event_id}" target="attributes"/>
         </zeebe:ioMapping>

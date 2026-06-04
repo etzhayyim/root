@@ -29,10 +29,10 @@
  *   (read-cap = owner DID + explicit recipients). The substrate never sees
  *   passenger identity, document numbers, or APIS manifests in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — IATA-BSP
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — IATA-BSP
  *   fiat-clearing settlement EXECUTION for ticket fares. Per Operating Entity
  *   Boundary (ADR-2605172100) etzhayyim never becomes the fiat MoR/counterparty
- *   (on-chain USDC only), so the BSP fiat-rail settlement CALL stays gftd; the
+ *   (on-chain USDC only), so the BSP fiat-rail settlement CALL stays etzhayyim; the
  *   passenger/baggage/manifest DATA is fronted E2E here.
  *
  * AT-Lexicon: no float — weights are decimal STRINGS; counts/minutes are

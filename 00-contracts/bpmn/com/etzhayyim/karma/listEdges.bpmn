@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — list karma edges for an organism (XRPC entry).
+  karma.etzhayyim.com — list karma edges for an organism (XRPC entry).
 
   Returns edges where the given DID is source OR target. Edges persist
   regardless of organism dissolution status (Karma.lean N2). Privacy:
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_list_edges"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_list_edges" name="karma list edges" isExecutable="true">
@@ -50,7 +50,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.listEdges&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;did&quot;: did, &quot;total&quot;: total }" target="attributes"/>
         </zeebe:ioMapping>

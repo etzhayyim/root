@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_aid_register_office" targetNamespace="https://gftd.ai/bpmn/legal-aid" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_aid_register_office" targetNamespace="https://etzhayyim.ai/bpmn/legal-aid" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="legal_aid_register_office" name="registerOffice" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Insert"/>
@@ -7,7 +7,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_legal_aid_office&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:legal-aid.gftd.ai:&quot; + jurisdiction + &quot;:&quot; + officeSlug + &quot;/com.etzhayyim.apps.legal-aid.profile/self&quot;, office_did: &quot;did:web:legal-aid.gftd.ai:&quot; + jurisdiction + &quot;:&quot; + officeSlug, display_name: displayName, jurisdiction: jurisdiction, office_type: officeType, address_locality: addressLocality, languages_csv: languages, specialties_csv: specialties, intake_url: intakeUrl, owner_did: &quot;did:web:legal-aid.gftd.ai&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:legal-aid.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + officeSlug + &quot;/com.etzhayyim.apps.legal-aid.profile/self&quot;, office_did: &quot;did:web:legal-aid.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + officeSlug, display_name: displayName, jurisdiction: jurisdiction, office_type: officeType, address_locality: addressLocality, languages_csv: languages, specialties_csv: specialties, intake_url: intakeUrl, owner_did: &quot;did:web:legal-aid.etzhayyim.com&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
           <zeebe:input source="=&quot;upsert&quot;" target="onConflict"/>
           <zeebe:output source="=vertex_id" target="vertexId"/>
         </zeebe:ioMapping>

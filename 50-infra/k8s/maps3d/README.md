@@ -36,8 +36,8 @@ Phases (each has `--skip-{phase}`):
 5. **smoke** — runs `70-tools/scripts/test/maps3d-bpmn-integration.py` end-to-end
 
 Credentials are resolved from env vars (preferred) or macOS Keychain
-(`gftd.rw / ROOT_URL`, `gftd.mapillary / ACCESS_TOKEN`,
-`gftd.murakumo / API_KEY`, `gftd.b2 / KEY_ID`, `gftd.b2 / APPLICATION_KEY`,
+(`etzhayyim.rw / ROOT_URL`, `etzhayyim.mapillary / ACCESS_TOKEN`,
+`etzhayyim.murakumo / API_KEY`, `etzhayyim.b2 / KEY_ID`, `etzhayyim.b2 / APPLICATION_KEY`,
 `gh auth token` for GHCR).
 
 Manual phase reference (if you'd rather drive each step yourself):

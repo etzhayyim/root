@@ -113,7 +113,7 @@ describe("air-ops rw-free (kotoba-E2E split)", () => {
     });
   });
 
-  describe("fuelOrder (E2E-ENCRYPTED commercial terms; BSP fiat-clearing stays gftd)", () => {
+  describe("fuelOrder (E2E-ENCRYPTED commercial terms; BSP fiat-clearing stays etzhayyim)", () => {
     it("seals the ledger entry, validates requestedKg + unitPrice as decimal strings", async () => {
       const ok = await orderFuel(e, { fuelOrderId: "F1", flightNo: "NH001", depDate: "2026-06-03", fuelType: "JET-A1", requestedKg: "12000.0", supplier: "AcmeFuel", unitPrice: "0.98", currency: "USD", upliftRef: "UP-001" });
       expect(ok.status).toBe("ordered");

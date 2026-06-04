@@ -19,7 +19,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -307,7 +307,7 @@ def training_list_checkpoints(run: str, only_final: bool, limit: int,
 
 
 @training.command("list-snapshots")
-@click.option("--dataset", default="", help="Filter to one datasetName (e.g. gftd-corpus)")
+@click.option("--dataset", default="", help="Filter to one datasetName (e.g. etzhayyim-corpus)")
 @click.option("--status", "filter_status", default="",
               type=click.Choice(["", "frozen", "deprecated"]),
               help="Filter by status")

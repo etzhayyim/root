@@ -1027,7 +1027,7 @@
     },
     "_health": {
       "method": "AietzhayyimPdsHealth",
-      "category": "gftd"
+      "category": "etzhayyim"
     },
     "com.etzhayyim.governance.getPolicy": {
       "method": "AietzhayyimGovernanceGetPolicy",

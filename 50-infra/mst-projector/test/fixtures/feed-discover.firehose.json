@@ -1,5 +1,5 @@
 {
-  "comment": "Deterministic firehose fixture for the feed-discover L1 projection conformance smoke. Events represent: 3 posts created across 3 DIDs in interleaved indexedAt order, 1 update, 1 delete, 3 membrane verdicts (approve / escalate / reject). The replayer translates each event into applyFeedPostEvent or applyVerdictEvent and the final snapshot is compared byte-for-byte against golden.json (modulo snapshotAt per yatachain-projection.toml intentional_non_determinism).",
+  "comment": "Deterministic firehose fixture for the feed-discover L1 projection conformance smoke. Events represent: 3 posts created across 3 DIDs in interleaved indexedAt order, 1 update, 1 delete, 3 membrane verdicts (approve / escalate / reject). The replayer translates each event into applyFeedPostEvent or applyVerdictEvent and the final snapshot is compared byte-for-byte against golden.json (modulo snapshotAt per kotoba-datomic-projection.edn intentional_non_determinism).",
   "events": [
     {
       "kind": "post",

@@ -21,7 +21,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_robotics_integrate_ems_company_data"
-    targetNamespace="https://gftd.ai/bpmn/robotics"
+    targetNamespace="https://etzhayyim.ai/bpmn/robotics"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="robotics_integrate_ems_company_data" name="Robotics EMS company data integration" isExecutable="true">
@@ -78,7 +78,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:robotics.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;robotics.ems.supplier.shortlisted&quot;" target="action"/>
           <zeebe:input source="={ requestId: requestId, search: roboticsEmsCompanySearch, profiles: roboticsEmsCompanyProfiles, shortlist: roboticsEmsSupplierShortlist }" target="payload"/>
           <zeebe:output source="=&quot;shortlisted&quot;" target="finalStatus"/>

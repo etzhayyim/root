@@ -1,5 +1,5 @@
 MODEL (
-  name gftd_graph_schema.mv_biblio_quality,
+  name etzhayyim_graph_schema.mv_biblio_quality,
   kind FULL
 );
 

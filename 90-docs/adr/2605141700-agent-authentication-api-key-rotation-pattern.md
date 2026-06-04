@@ -11,7 +11,7 @@ authoritative_for:
   - api-key-rotation-cadence
   - webauthn-passkey-automation-limits
   - chrome-mcp-cookie-guardrail-scope
-  - gftd-cli-authn-endpoint-bug
+  - etzhayyim-cli-authn-endpoint-bug
 related:
   - 0022-auth-topology-consolidation
   - 0023-auth-shannon-optimal-4-layer
@@ -26,14 +26,14 @@ superseded_by: []
 A 2026-05-14 session by an AI coding agent (Claude Code, Opus 4.7) needed to
 call the `projector.add_blocker` MCP tool at `atproto.etzhayyim.com/mcp` to record
 4 open blockers in the projector graph. Authentication failed because the
-local `sk_live_*` API key in `~/.gftd/auth.json` (issued 2026-04-23) had
+local `sk_live_*` API key in `~/.etzhayyim/auth.json` (issued 2026-04-23) had
 been revoked or expired. The agent then tried four fallback paths and all
 failed:
 
 1. **Clerk `access_token` (`oat_...`)** — accepted by `tools/list` (public
    endpoint), rejected by `tools/call` (`AuthRequired`).
 2. **Clerk `id_token` (Clerk RS256 JWT)** — same: list works, call rejected.
-3. **`gftd authn signin`** — opens
+3. **`etzhayyim authn signin`** — opens
    `https://authn.etzhayyim.com/oauth/authorize?...` in the browser. That endpoint
    returns **HTTP 404** because the actual OAuth authorization server lives
    at `atproto.etzhayyim.com/oauth/authorize` (verified via
@@ -41,14 +41,14 @@ failed:
    a stale pre-ADR-0024 path. Even after fixing the URL, the AT Protocol
    OAuth server requires DPoP-bound clients (`dpop_bound_access_tokens=true`
    in `oauth/client-metadata.json`) and rejects the CLI's PKCE-only
-   `client_id=gftd-cli` registration.
+   `client_id=etzhayyim-cli` registration.
 4. **Chrome MCP `javascript_tool` peeking the sign-in page DOM** — blocked
    by Chrome MCP's cookie/query-string guardrail (`[BLOCKED: Cookie/query
    string data]`). This guardrail is designed to prevent agent-in-browser
    credential exfiltration; it correctly fires on any
    `authn.etzhayyim.com/sign-in?...` URL.
 
-The 4-layer matrix in `70-tools/gftd/CLAUDE.md` already lists API key as the
+The 4-layer matrix in `70-tools/etzhayyim/CLAUDE.md` already lists API key as the
 correct programmatic path, but the practical implications of rotation —
 that **passkey ceremony is the only way to re-mint a sk_live_***, and that
 passkey is inherently un-automatable — were not documented anywhere. This
@@ -60,7 +60,7 @@ ADR fixes that gap and pins a CLI bug for follow-up.
 
 | Agent class | Auth | Lifetime | Renewal trigger |
 |---|---|---|---|
-| Claude Code session | `sk_live_*` from `~/.gftd/auth.json` or `gftd.auth/api_key` Keychain | ~1 y (server-configured) | Human passkey ceremony |
+| Claude Code session | `sk_live_*` from `~/.etzhayyim/auth.json` or `etzhayyim.auth/api_key` Keychain | ~1 y (server-configured) | Human passkey ceremony |
 | CI job | `etzhayyim_TOKEN` env (sk_live_*) | matched to scoped need | Manual rotation |
 | Heartbeat / cron pod | ES256 Service Auth JWT minted from app DID | 60 s scoped | per-invocation via `getServiceAuth` |
 | Internal binding | `x-magatama-verified: true` HMAC | per-request | n/a (service binding) |
@@ -87,24 +87,24 @@ attempted. Three hard barriers, each sufficient on its own:
   agent-vs-credential isolation that makes Chrome MCP safe to grant in
   the first place.
 - AT Protocol OAuth (`atproto.etzhayyim.com/oauth/*`) requires DPoP-bound
-  clients with explicit `redirect_uris` allowlisting — `client_id=gftd-cli`
+  clients with explicit `redirect_uris` allowlisting — `client_id=etzhayyim-cli`
   + `redirect_uri=http://127.0.0.1:9876/callback` is not registered, so
   even hypothetically routing the CLI to the correct authorize endpoint
   would 401 the request.
 
-**3. Storage: macOS Keychain primary, `~/.gftd/auth.json` mirror.**
+**3. Storage: macOS Keychain primary, `~/.etzhayyim/auth.json` mirror.**
 
 Per the root CLAUDE.md "Local Secret Storage = macOS Keychain primary"
 rule, the canonical place for an agent's `sk_live_*` is
 
 ```
-service = gftd.auth
+service = etzhayyim.auth
 account = api_key
 ```
 
-`gftd authn` already reads from this slot as a fallback when
-`~/.gftd/auth.json` is missing (`70-tools/gftd/gftd/auth.go` line 65-67).
-The agent runtime treats `~/.gftd/auth.json` as a convenience cache that
+`etzhayyim authn` already reads from this slot as a fallback when
+`~/.etzhayyim/auth.json` is missing (`70-tools/etzhayyim/etzhayyim/auth.go` line 65-67).
+The agent runtime treats `~/.etzhayyim/auth.json` as a convenience cache that
 gets re-populated from Keychain on first miss.
 
 **4. Rotation cadence: ~1 year, scheduled.**
@@ -115,14 +115,14 @@ unscheduled rotation = passkey re-ceremony at any iCloud-Keychain-equipped
 device. **No agent can self-rotate** — that's the security property the
 flow is designed to preserve.
 
-**5. Fix the gftd CLI's authorize URL** (follow-up, tracked).
+**5. Fix the etzhayyim CLI's authorize URL** (follow-up, tracked).
 
-`70-tools/gftd/gftd/auth.go:27` hardcodes
+`70-tools/etzhayyim/etzhayyim/auth.go:27` hardcodes
 `https://authn.etzhayyim.com/oauth/authorize`. The actual OAuth Authorization
 Server is at `https://atproto.etzhayyim.com/oauth/authorize` per
 `/.well-known/oauth-authorization-server`. Fix: either
 - (a) point the CLI at `atproto.etzhayyim.com` directly, register
-      `client_id=gftd-cli` in the AT Protocol client registry, add DPoP
+      `client_id=etzhayyim-cli` in the AT Protocol client registry, add DPoP
       signing to the CLI, OR
 - (b) deploy a thin `/oauth/authorize` + `/oauth/token` shim on
       `authn.etzhayyim.com` that wraps the AT Protocol OAuth flow without
@@ -137,7 +137,7 @@ CLI shape stable. Decision deferred to a separate ADR.
 
 - API key rotation is a clean, scheduled event with a known human owner.
 - Compromised agent runtime → revoke that one `sk_live_*` via
-  `gftd authz revoke-api-key`; passkey + account remain intact.
+  `etzhayyim authz revoke-api-key`; passkey + account remain intact.
 - WebAuthn's security model is preserved end-to-end. Agents can't
   bootstrap themselves into the user's identity; they can only act
   within the bounded API key the human just granted.
@@ -172,10 +172,10 @@ open 'https://authn.etzhayyim.com/sign-in?redirect_url=https%3A%2F%2Fyoro.etzhay
 
 # 3. Save to Keychain (primary) + auth.json (cache) in one shot.
 NEW_KEY="sk_live_XXXXXXXXXXXXXXXX"
-security add-generic-password -s gftd.auth -a api_key -w "$NEW_KEY" -U
+security add-generic-password -s etzhayyim.auth -a api_key -w "$NEW_KEY" -U
 python3 - <<EOF
 import json, os
-p = os.path.expanduser('~/.gftd/auth.json')
+p = os.path.expanduser('~/.etzhayyim/auth.json')
 d = json.load(open(p)) if os.path.exists(p) else {}
 d['api_key'] = "$NEW_KEY"
 open(p, 'w').write(json.dumps(d, indent=2))
@@ -183,34 +183,34 @@ EOF
 unset NEW_KEY
 
 # 4. Sanity check.
-gftd authn whoami
-gftd projector list   # should not return AuthRequired
+etzhayyim authn whoami
+etzhayyim projector list   # should not return AuthRequired
 ```
 
 # Alternatives Considered
 
 | Alternative | Why rejected |
 |---|---|
-| **Long-lived OAuth refresh token in `~/.gftd/auth.json`** | DPoP-bound clients in AT Protocol OAuth don't support stateless refresh from non-browser clients. Refresh token storage outside DPoP key custody re-introduces bearer-token theft risk. |
+| **Long-lived OAuth refresh token in `~/.etzhayyim/auth.json`** | DPoP-bound clients in AT Protocol OAuth don't support stateless refresh from non-browser clients. Refresh token storage outside DPoP key custody re-introduces bearer-token theft risk. |
 | **App Password (Bluesky-style)** | Deprecated in AT Protocol per ADR-2604240914. No scope, not revocable per-action. |
 | **Dedicated agent DID (`did:web:claude-jun.etzhayyim.com`) with local signing key** | Adds a second identity to govern with no benefit beyond what `getServiceAuth` already provides (60 s, NSID-scoped JWT). Increases attack surface. |
 | **CDP Virtual Authenticator for passkey** | Possible but defeats purpose: the virtual passkey has no relation to the user's iCloud-Keychain credentials, so it's just a different API key under a different shape. The privileged-mint ceremony still happens once with the real passkey. |
 | **Magic-link email at authn.etzhayyim.com** | Not currently offered. Adding it would re-introduce email-account-takeover risk that passkey was deployed to remove. |
-| **Re-use the YORO Clerk session JWT (`__session` cookie)** | The Clerk-issued JWT's `aud` is `api-gftd` for a dev tenant; production atproto.etzhayyim.com rejects it because issuer doesn't match the configured Clerk frontend. Bridge would require an iss-aware token-exchange endpoint that doesn't exist. |
+| **Re-use the YORO Clerk session JWT (`__session` cookie)** | The Clerk-issued JWT's `aud` is `api-etzhayyim` for a dev tenant; production atproto.etzhayyim.com rejects it because issuer doesn't match the configured Clerk frontend. Bridge would require an iss-aware token-exchange endpoint that doesn't exist. |
 
 # References
 
-- `70-tools/gftd/gftd/auth.go` lines 27, 65-77 (current CLI auth source)
+- `70-tools/etzhayyim/etzhayyim/auth.go` lines 27, 65-77 (current CLI auth source)
 - `50-infra/cloudflare/workers/atproto/src/auth/verify.ts` lines 587-740
   (server-side authenticate flow — sk_live_*, ES256 Service Auth, public
   fallback)
 - `50-infra/cloudflare/workers/atproto/src/app.ts` lines 609-613 (the
   `auth.level === "public" → AuthRequired` gate that fires on every
   Clerk-token call)
-- `~/.gftd/auth.json` (`api_key`, `sub`, `active_did`) — CLI state
-- `~/.config/gftd/credentials.json` (`access_token`, `id_token`,
+- `~/.etzhayyim/auth.json` (`api_key`, `sub`, `active_did`) — CLI state
+- `~/.config/etzhayyim/credentials.json` (`access_token`, `id_token`,
   `refresh_token`) — Clerk-side state, NOT accepted by atproto auth
-- macOS Keychain `gftd.auth/api_key` — canonical storage per root
+- macOS Keychain `etzhayyim.auth/api_key` — canonical storage per root
   CLAUDE.md "Local Secret Storage"
 - `https://atproto.etzhayyim.com/.well-known/oauth-authorization-server` — the
   authoritative authorize/token endpoints
@@ -225,7 +225,7 @@ gftd projector list   # should not return AuthRequired
 
 | Action | Owner | ETA |
 |---|---|---|
-| Fix `gftd authn` hardcoded URL → `atproto.etzhayyim.com/oauth/authorize`, add DPoP | CLI maintainer | Phase 1 (separate PR) |
-| Add `gftd auth fix-api-key <sk_live_*>` one-liner that does the security/json save above | CLI maintainer | optional UX polish |
-| Add this ADR's runbook to the README of `70-tools/gftd/` | docs | next sweep |
+| Fix `etzhayyim authn` hardcoded URL → `atproto.etzhayyim.com/oauth/authorize`, add DPoP | CLI maintainer | Phase 1 (separate PR) |
+| Add `etzhayyim auth fix-api-key <sk_live_*>` one-liner that does the security/json save above | CLI maintainer | optional UX polish |
+| Add this ADR's runbook to the README of `70-tools/etzhayyim/` | docs | next sweep |
 | Investigate CDP Virtual Authenticator for headless CI (separate from human agents) | future | not blocking |

@@ -5,7 +5,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_robotics_manufacture_vehicle_product_package"
-    targetNamespace="https://gftd.ai/bpmn/robotics"
+    targetNamespace="https://etzhayyim.ai/bpmn/robotics"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="robotics_manufacture_vehicle_product_package" name="Vehicle manufacturing package" isExecutable="true">
@@ -140,7 +140,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:robotics.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;automotive.manufacturing.package.ready&quot;" target="action"/>
           <zeebe:input source="={ requestId: requestId, packageId: packageId, profile: automotiveManufacturingProfile, supplyProcess: automotiveSupplyProcessGraph, quality: automotiveQualityGateResult, eol: automotiveEolPlan }" target="payload"/>
           <zeebe:output source="=&quot;ready&quot;" target="finalStatus"/>
@@ -155,7 +155,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:robotics.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;automotive.manufacturing.package.blocked&quot;" target="action"/>
           <zeebe:input source="={ requestId: requestId, packageId: packageId, profile: automotiveManufacturingProfile, supplyProcess: automotiveSupplyProcessGraph, quality: automotiveQualityGateResult }" target="payload"/>
           <zeebe:output source="=&quot;blocked&quot;" target="finalStatus"/>

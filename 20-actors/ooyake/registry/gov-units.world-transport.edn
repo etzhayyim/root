@@ -16,12 +16,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Transport of Angola"
+   :gov.unit/official-url "https://www.mintrans.gov.ao/"
    :gov.unit/wikidata "Q122973741"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q122973741"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mintrans.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.transport"
@@ -127,12 +128,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Ministry of Transportation"
+   :gov.unit/official-url "https://www.mtt.gov.bh/"
    :gov.unit/wikidata "Q16966394"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16966394"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mtt.gov.bh/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bhs.transport"
@@ -189,12 +191,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bra"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/official-url "https://www.gov.br/transportes/pt-br"
    :gov.unit/wikidata "Q105766510"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q105766510"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.br/transportes/pt-br"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.btn.transport"
@@ -428,12 +431,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "est"
    :gov.unit/name-en "Ministry of Transport and Communications"
+   :gov.unit/official-url "https://kliimaministeerium.ee/en"
    :gov.unit/wikidata "Q31277231"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q31277231"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://kliimaministeerium.ee/en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.eth.transport"
@@ -475,12 +479,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "fsm"
    :gov.unit/name-en "Department of Transportation, Communications and Infrastructure"
+   :gov.unit/official-url "https://tci.gov.fm/"
    :gov.unit/wikidata "Q60768077"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q60768077"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://tci.gov.fm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gab.transport"
@@ -570,12 +575,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Secretariat of public works, transport and housing"
+   :gov.unit/official-url "https://www.sit.gob.hn/"
    :gov.unit/wikidata "Q6123238"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6123238"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sit.gob.hn/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.transport"
@@ -713,12 +719,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jam"
    :gov.unit/name-en "Ministry of Transport and Works"
+   :gov.unit/official-url "https://mtm.gov.jm/"
    :gov.unit/wikidata "Q16885130"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16885130"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mtm.gov.jm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jor.transport"
@@ -728,12 +735,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Transport of Jordan"
+   :gov.unit/official-url "https://www.mot.gov.jo/"
    :gov.unit/wikidata "Q22690699"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22690699"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mot.gov.jo/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.transport"
@@ -743,12 +751,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Transport of the Republic of Kazakhstan"
+   :gov.unit/official-url "https://www.gov.kz/memleket/entities/transport?lang=en"
    :gov.unit/wikidata "Q126810644"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q126810644"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.kz/memleket/entities/transport?lang=en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ken.transport"
@@ -805,12 +814,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/official-url "https://www.transport.gov.lk/"
    :gov.unit/wikidata "Q16056501"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16056501"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.transport.gov.lk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.transport"
@@ -916,12 +926,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mwi"
    :gov.unit/name-en "Ministry of Transport and Public Works"
+   :gov.unit/official-url "https://www.transport.gov.mw/"
    :gov.unit/wikidata "Q46624726"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q46624726"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.transport.gov.mw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mys.transport"
@@ -963,12 +974,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/official-url "https://www.transports.gouv.ne/"
    :gov.unit/wikidata "Q112713720"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q112713720"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.transports.gouv.ne/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.transport"
@@ -1048,21 +1060,6 @@
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.motc.gov.om/"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.pak.transport"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:pak:ministry:transport"
-   :gov.unit/parent "gov.pak"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Regional Transport Authority Faisalabad"
-   :gov.unit/wikidata "Q111809659"
-   :gov.unit/cofog ["04.5"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q111809659"
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
@@ -1217,12 +1214,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "svn"
    :gov.unit/name-en "Ministry of Transport of the Republic of Slovenia"
+   :gov.unit/official-url "https://www.gov.si/en/state-authorities/ministries/ministry-of-infrastructure/"
    :gov.unit/wikidata "Q50137938"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q50137938"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.si/en/state-authorities/ministries/ministry-of-infrastructure/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.swz.transport"
@@ -1344,12 +1342,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Ministry of Transport (Tanzania)"
+   :gov.unit/official-url "https://www.uchukuzi.go.tz/"
    :gov.unit/wikidata "Q14866869"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q14866869"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.uchukuzi.go.tz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.transport"
@@ -1391,12 +1390,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ven"
    :gov.unit/name-en "Ministry of Transport and Communications"
+   :gov.unit/official-url "https://www.mppt.gob.ve/"
    :gov.unit/wikidata "Q6867627"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867627"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mppt.gob.ve/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.yem.transport"
@@ -1406,12 +1406,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/official-url "https://www.mot.gov.ye/"
    :gov.unit/wikidata "Q12250994"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12250994"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mot.gov.ye/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zaf.transport"
@@ -1437,10 +1438,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Transport and Infrastructural Development"
+   :gov.unit/official-url "https://www.motid.gov.zw/"
    :gov.unit/wikidata "Q6867601"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867601"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.motid.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

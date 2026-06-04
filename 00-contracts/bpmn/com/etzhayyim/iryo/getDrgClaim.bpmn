@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  iryo.gftd.ai — getDrgClaim (XRPC com.etzhayyim.apps.iryo.getDrgClaim).
+  iryo.etzhayyim.com — getDrgClaim (XRPC com.etzhayyim.apps.iryo.getDrgClaim).
   Read-only single-claim lookup via iryo.claim.get.
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_iryo_get_drg_claim"
-    targetNamespace="https://gftd.ai/bpmn/iryo"
+    targetNamespace="https://etzhayyim.ai/bpmn/iryo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="iryo_get_drg_claim" name="iryo get drg claim" isExecutable="true">

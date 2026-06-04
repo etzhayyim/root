@@ -19,9 +19,9 @@
 INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, sensitivity_ord, assistant_id, version, kind, factory_path, spec, description, created_at)
 VALUES
-  ('gftdcojp-company-ops', 1, 0, 'gftdcojp-company-ops', 2, 'topology', NULL,
+  ('etzhayyimcojp-company-ops', 1, 0, 'etzhayyimcojp-company-ops', 2, 'topology', NULL,
    '{"state_keys":["task_type","payload","thread_id","requester_did","domain","routing_reason","result","action_items","omega_score","floor_violated","ok","error"],"entry":"supervisor","edges":[{"from":"emit_audit","to":"END"}],"conditional_edges":[{"from":"supervisor","field":"domain","paths":{"hr":"hr","finance":"finance","legal":"legal","sales":"sales","governance":"governance","personnel":"personnel","unknown":"governance"},"default":"governance"}]}',
-   'gftdcojp-company-ops (Phase D2 field-based routing)', '2026-05-09T05:30:00Z');
+   'etzhayyimcojp-company-ops (Phase D2 field-based routing)', '2026-05-09T05:30:00Z');
 
 INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, sensitivity_ord, assistant_id, version, kind, factory_path, spec, description, created_at)

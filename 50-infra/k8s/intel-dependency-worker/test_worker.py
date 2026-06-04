@@ -360,7 +360,7 @@ class IntelWorkerIntegrationTest(unittest.TestCase):
         self.assertEqual(by_vertex_id["vertex:schema"].dependent_count, 1)
         self.assertEqual(by_vertex_id["vertex:deploy"].reverse_topo_rank, 0)
 
-    def test_live_llm_gftd_ai_json_completion(self) -> None:
+    def test_live_llm_etzhayyim_ai_json_completion(self) -> None:
         if importlib.util.find_spec("litellm") is None:
             self.skipTest("litellm is not installed")
         if not worker.bool_env("INTEL_RUN_LIVE_LLM_INTEGRATION", False):

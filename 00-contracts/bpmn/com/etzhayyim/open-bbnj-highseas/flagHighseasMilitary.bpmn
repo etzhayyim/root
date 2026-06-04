@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_bbnj_highseas_flag_highseas_military"
-    targetNamespace="https://gftd.ai/bpmn/open-bbnj-highseas"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-bbnj-highseas"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_bbnj_highseas_flag_highseas_military" name="公海 軍事活動 (BBNJ)" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-bbnj-highseas.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-bbnj-highseas.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;maritime.highseasMilitary&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: incidentVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

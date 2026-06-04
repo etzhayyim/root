@@ -1,4 +1,4 @@
-# ai-gftd-project-kenkyusha
+# etzhayyim-project-kenkyusha
 
 **kenkyusha.etzhayyim.com** — AI 研究者 Actor。既存学術分野の DID knowledge graph から未解明 research frontier を特定し、仮説生成・検証・論文走査を自律実行する。
 
@@ -52,10 +52,10 @@ Frontier = 以下のいずれかで検出:
 
 Custom code 不要 → T1。`$-variable interpolation` で step 間データ受け渡し。
 
-### gftd mitama による命の吹き込み
+### etzhayyim mitama による命の吹き込み
 
 ```bash
-gftd mitama -dir 60-apps/ai-gftd-project-kenkyusha
+etzhayyim mitama -dir 60-apps/etzhayyim-project-kenkyusha
 # = POST /xrpc/com.etzhayyim.actor.registerManifest (actor-manifest.jsonld → graph MERGE)
 # → PDS Shared Executor が cron / subscribeRepos で自動実行開始
 # → Worker deploy 不要、wrangler 不要、build 不要
@@ -236,10 +236,10 @@ Dimensions (5):
 ## Files
 
 ```
-60-apps/ai-gftd-project-kenkyusha/
+60-apps/etzhayyim-project-kenkyusha/
 ├── CLAUDE.md                    ← this file
 ├── actor-manifest.jsonld        ← T1 MCP-Compose manifest (SSoT, graph MERGE で deploy)
-└── wasm/ai-gftd-wasm-kenkyusha-kk8r3n5v/
+└── wasm/etzhayyim-wasm-kenkyusha-kk8r3n5v/
     ├── src/app.ts               ← T3 fallback (T1 で不足する場合のみ)
     ├── wit/world.wit            ← WIT contract (design-time)
     ├── magatama.jsonld          ← legacy config (T3 用)
@@ -251,11 +251,11 @@ Dimensions (5):
 
 ```bash
 # T1 (推奨): manifest を graph に MERGE するだけ
-gftd mitama -dir 60-apps/ai-gftd-project-kenkyusha
+etzhayyim mitama -dir 60-apps/etzhayyim-project-kenkyusha
 # → POST /xrpc/com.etzhayyim.actor.registerManifest
 # → ActorManifest vertex MERGE in RisingWave
 # → PDS Shared Executor が自動実行開始
 
 # T3 fallback (Worker deploy が必要な場合のみ)
-cd wasm/ai-gftd-wasm-kenkyusha-kk8r3n5v && gftd deploy
+cd wasm/etzhayyim-wasm-kenkyusha-kk8r3n5v && etzhayyim deploy
 ```

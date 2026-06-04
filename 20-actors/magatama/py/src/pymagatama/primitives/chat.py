@@ -123,7 +123,7 @@ RECENT_MSG_WINDOW = 24            # messages loaded per turn for context
 RAG_HITS = 5                      # # of RAG snippets to inject
 DOMAIN_KNOWLEDGE_HITS = 5         # public KG snippets injected per turn
 ARTIFACT_TTL_SEC = 30 * 86400     # default artifact retention
-B2_BUCKET_DEFAULT = os.environ.get("CHAT_B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET_DEFAULT = os.environ.get("CHAT_B2_BUCKET", "etzhayyim-nats")
 B2_PREFIX_DEFAULT = "chat/v1"
 COMFYUI_URL = os.environ.get(
     "COMFYUI_URL", "https://vyp99t9px7h4dl-8188.proxy.runpod.net",
@@ -1239,7 +1239,7 @@ def _comfy_workflow(*, prompt: str, negative: str, width: int, height: int,
         },
         "save": {
             "class_type": "SaveImage",
-            "inputs": {"filename_prefix": "gftd_chat", "images": ["vae", 0]},
+            "inputs": {"filename_prefix": "etzhayyim_chat", "images": ["vae", 0]},
         },
     }
     if use_lightning:
@@ -1534,7 +1534,7 @@ def _search_internal_vector_index(query: str, *, top_k: int = 6) -> list[dict[st
               vertex_id AS source_vertex_id,
               substring(COALESCE(text, ''), 1, 900) AS text_preview,
               model_id,
-              'gftd-mm-384' AS space_id,
+              'etzhayyim-mm-384' AS space_id,
               created_at,
               1 - (emb <=> {qvec_sql}) AS score
             FROM vertex_bluesky_post_embedding
@@ -1551,7 +1551,7 @@ def _search_internal_vector_index(query: str, *, top_k: int = 6) -> list[dict[st
           vertex_id AS source_vertex_id,
           '' AS text_preview,
           model_id,
-          'gftd-mm-384' AS space_id,
+          'etzhayyim-mm-384' AS space_id,
           embedded_at AS created_at,
           1 - (emb <=> {qvec_sql}) AS score
         FROM vertex_actor_embedding

@@ -14,7 +14,7 @@ SCOPE (G5 — only official-code-register provenance, no live fetch):
 Everything else (global name-only municipalities, country stubs, the 1,718 long tail)
 stays :representative — NOT promoted here.
 
-Source of truth: 60-apps/ai-gftd-project-states/data/gov/jpn/{prefecture,municipality}.ndjson.
+Source of truth: 60-apps/etzhayyim-project-states/data/gov/jpn/{prefecture,municipality}.ndjson.
 Write path: kg.ingest_batch + Bearer token (operator-local). DRY RUN without a token.
 """
 from __future__ import annotations
@@ -28,7 +28,7 @@ import urllib.request
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.normpath(os.path.join(_HERE, "..", "..", ".."))
-JP = os.path.join(_REPO, "60-apps", "ai-gftd-project-states", "data", "gov", "jpn")
+JP = os.path.join(_REPO, "60-apps", "etzhayyim-project-states", "data", "gov", "jpn")
 GOV_GRAPH = "gov-atlas-v1"
 NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 LAST_VERIFIED = "2026-06-02"

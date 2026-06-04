@@ -109,7 +109,7 @@ Every public actor/agent MUST have one registration envelope:
     "kind": "erc725-root",
     "chainId": 260425,
     "address": "0x...",
-    "rootDid": "did:erc725:gftd:260425:0x...",
+    "rootDid": "did:erc725:etzhayyim:260425:0x...",
     "facadeDids": ["did:web:yoro.etzhayyim.com"],
     "policyCid": "ipfs://bafy..."
   },
@@ -132,7 +132,7 @@ AT Protocol is represented as a profile inside `protocols`:
   "service": "https://atproto.etzhayyim.com",
   "pdsDid": "did:web:atproto.etzhayyim.com",
   "actorDid": "did:web:yoro.etzhayyim.com",
-  "facadeFor": "did:erc725:gftd:260425:0x...",
+  "facadeFor": "did:erc725:etzhayyim:260425:0x...",
   "xrpc": {
     "repoMethods": [
       "com.atproto.repo.createRecord",
@@ -154,7 +154,7 @@ AT Protocol is represented as a profile inside `protocols`:
     "commitLog": "vertex_repo_commit",
     "recordLog": "vertex_repo_record",
     "mstCar": "not-authoritative",
-    "federation": "gftd-internal"
+    "federation": "etzhayyim-internal"
   },
   "collections": [
     "app.bsky.feed.post",
@@ -317,7 +317,7 @@ the ERC725/ERC-8004 protocol root vocabulary.
    through `ipfs.etzhayyim.com`.
 4. Pending chain submit: store the registration CID in ERC-8004 `agentURI`.
 5. Store facade DID hashes, policy CID, and ERC-8004 agent token id in ERC725Y.
-6. Add `gftd agent verify` to resolve:
+6. Add `etzhayyim agent verify` to resolve:
    ERC725 root -> ERC-8004 agentURI -> IPFS JSON -> profile endpoints ->
    latest EVM receipt/checkpoint.
 7. Update docs and manifests when touched to replace umbrella "atproto" wording

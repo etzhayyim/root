@@ -35,7 +35,7 @@ Path B(Python pymagatama port)は別 ADR(後続)で扱う。本 ADR は **Path A
 
 ## Decision
 
-**`@etzhayyim/ameno-daemon` を `60-apps/ai-gftd-project-ameno/daemon/` に新設する。**
+**`@etzhayyim/ameno-daemon` を `60-apps/etzhayyim-project-ameno/daemon/` に新設する。**
 
 ### v0.1 スコープ
 

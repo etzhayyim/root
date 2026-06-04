@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — Filecoin storage deal propose (R/PT24H autonomous).
+  karma.etzhayyim.com — Filecoin storage deal propose (R/PT24H autonomous).
 
   Daily sweep over IPFS-pinned CIDs without active Filecoin deals.
   Proposes deals at N=5 SPs each (configurable). Records each
@@ -16,7 +16,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_filecoin_propose"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_filecoin_propose" name="karma filecoin propose" isExecutable="true">
@@ -53,7 +53,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.filecoinPropose&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;proposed&quot;: proposed, &quot;skipped&quot;: skipped, &quot;failed&quot;: failed }" target="attributes"/>
         </zeebe:ioMapping>

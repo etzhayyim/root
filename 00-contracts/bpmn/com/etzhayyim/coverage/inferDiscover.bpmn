@@ -2,7 +2,7 @@
 <!--
   coverage.inferDiscover — GMM cluster discovery (ADR-0056 BPMN actor).
 
-  Mirrors `gftd coverage infer discover` for the in-DB path. Caller uploads
+  Mirrors `etzhayyim coverage infer discover` for the in-DB path. Caller uploads
   rows to `vertex_infer_input` first (see `com.etzhayyim.apps.coverage.inferIngest`),
   then triggers this with `{ batchId, k }`. The Python UDF `gmm_fit` runs
   inside RisingWave (Arrow Flight, ADR-0049) — no client-side compute.
@@ -16,14 +16,14 @@
     3. multi-instance     — generic.db.insert one vertex_infer_cluster row per cluster
     4. generic.audit.emit — OCEL summary
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-discover-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-discover-v1
   NSID:      com.etzhayyim.apps.coverage.inferDiscover
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_coverage_infer_discover"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="coverage_infer_discover" name="coverage infer discover" isExecutable="true">
 
@@ -120,7 +120,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferDiscover.batch&quot;" target="action"/>
           <zeebe:input source="={ &quot;batchId&quot;: batchRows[1].batch_id, &quot;clusters&quot;: count(clusters) }" target="payload"/>
         </zeebe:ioMapping>

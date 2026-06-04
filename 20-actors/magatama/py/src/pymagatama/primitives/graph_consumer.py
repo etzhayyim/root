@@ -61,7 +61,7 @@ def _maps_entity_label(entity: str) -> str:
 
 
 def _convention_candidates(collection: str) -> list[str]:
-    m = re.match(r"^ai\.gftd\.apps\.([^.]+)\.([^.]+)$", collection)
+    m = re.match(r"^ai\.etzhayyim\.apps\.([^.]+)\.([^.]+)$", collection)
     if not m:
         return []
     app, entity = m.group(1), m.group(2)
@@ -390,7 +390,7 @@ def _consume_commits_local(batch_size: int = 50) -> dict[str, Any]:
                 row = _build_convention_row(rec, ctx, conv_cols)
 
                 if conv_table == "vertex_spatial" and "label" in conv_cols:
-                    mm = re.match(r"^ai\.gftd\.apps\.maps\.([^.]+)$", collection)
+                    mm = re.match(r"^ai\.etzhayyim\.apps\.maps\.([^.]+)$", collection)
                     if mm:
                         row["label"] = _maps_entity_label(mm.group(1))
                 elif re.match(r"^vertex_[^_]+$", conv_table):

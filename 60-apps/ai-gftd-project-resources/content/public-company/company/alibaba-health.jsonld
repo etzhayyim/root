@@ -1,0 +1,20 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://resources.gftd.ai/ontology#",
+      "prov": "http://www.w3.org/ns/prov#"
+    }
+  ],
+  "@type": "gftd:PublicCompanyProfile",
+  "identifier": "alibaba-health",
+  "name": "Alibaba Health Information Technology Limited",
+  "legalName": "Alibaba Health Information Technology Limited",
+  "tickerSymbol": "0241",
+  "gftd:exchangeMic": "XHKG",
+  "gftd:countryCode": "HK",
+  "gftd:parentCompanyId": "alibaba-group",
+  "url": "https://www.irasia.com/listco/hk/alibabahealth/",
+  "description": "Public company profile for automated IR/News ingestion and entity generation.",
+  "prov:generatedAtTime": "2026-03-03T00:00:00Z"
+}

@@ -14,13 +14,13 @@
   Output variables: { blockchainRows, riskRows, chainNodeId, address, chain }
 
   NSID: com.etzhayyim.apps.malak.queryRiskChain
-  vid:  at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/malak-query-risk-chain-v1
+  vid:  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-query-risk-chain-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_malak_query_risk_chain"
-    targetNamespace="https://gftd.ai/bpmn/malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="malak_query_risk_chain" name="malak queryRiskChain" isExecutable="true">
 

@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_animeka_publish_episode"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_publish_episode" name="animeka publish episode" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -72,9 +72,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:  &quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.master/&quot; + string(episodeId),
-              owner_did:  &quot;did:web:animeka.gftd.ai&quot;,
-              repo:       &quot;did:web:animeka.gftd.ai&quot;,
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.master/&quot; + string(episodeId),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
               collection: &quot;com.etzhayyim.apps.animeka.master&quot;,
               rkey:       string(episodeId),
               kind:       &quot;master&quot;,
@@ -102,7 +102,7 @@
               collection: &quot;app.bsky.feed.post&quot;,
               record: {
                 &quot;$type&quot;: &quot;app.bsky.feed.post&quot;,
-                text: &quot;🎬 #&quot; + string(episodeNum) + &quot; &quot; + string(episodeTitle) + &quot; 公開\nwatch → https://animeka.gftd.ai/at/an1m3k4x.gftd.ai/com.etzhayyim.apps.animeka.episode/&quot; + string(episodeId),
+                text: &quot;🎬 #&quot; + string(episodeNum) + &quot; &quot; + string(episodeTitle) + &quot; 公開\nwatch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/com.etzhayyim.apps.animeka.episode/&quot; + string(episodeId),
                 createdAt: today() + &quot;T00:00:00Z&quot;
               }
           }" target="payload"/>
@@ -117,7 +117,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;publishEpisode&quot;" target="action"/>
           <zeebe:input source="={episodeId: string(episodeId), masterCid: string(masterCid), compositeCount: compositeCount}" target="payload"/>
         </zeebe:ioMapping>
@@ -129,7 +129,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;publishEpisode.abort&quot;" target="action"/>
           <zeebe:input source="={episodeId: string(episodeId), reason: &quot;no_approved_cuts&quot;, compositeCount: compositeCount}" target="payload"/>
         </zeebe:ioMapping>

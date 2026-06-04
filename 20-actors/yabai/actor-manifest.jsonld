@@ -286,7 +286,7 @@
     "description": "AML/sanctions/anti-social risk scoring + 6-layer CTI (WHOIS/DNS/ASN/GeoIP, CVE/MITRE, TLS/Malware/IOC/Phishing, STIX/BGP/Abuse, Hosting/IP History, Access Audit). CF WAF integration.",
     "displayName": "Yabai — Risk Intelligence (AML/CTI)",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

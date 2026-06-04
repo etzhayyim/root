@@ -15,13 +15,13 @@ import {
 } from "../src/did";
 
 // Sample DIDs aligned with ADR-0074 + ADR-0049 D5 + ADR-0029.
-const ERC725 = "did:erc725:gftd:260425:0xabcdef0123456789abcdef0123456789abcdef01";
+const ERC725 = "did:erc725:etzhayyim:260425:0xabcdef0123456789abcdef0123456789abcdef01";
 const WEB_FLAT = "did:web:lawfirm.etzhayyim.com";
 const WEB_PATH = "did:web:judge.etzhayyim.com:JPN:tanaka-001";
 const PLC = "did:plc:abcdefghijklmnopqrstuvwx";
 const PKH = "did:pkh:eip155:1:0xab5801a7d398351b8be11c439e05c5b3259aec9b";
-const etzhayyim_ROOT = "did:gftd:lf1rm8k0";
-const etzhayyim_DEPTH2 = "did:gftd:lf1rm8k0:abcdef0123456789abcdef01";
+const etzhayyim_ROOT = "did:etzhayyim:lf1rm8k0";
+const etzhayyim_DEPTH2 = "did:etzhayyim:lf1rm8k0:abcdef0123456789abcdef01";
 
 describe("extractDidMethod", () => {
   it("extracts known methods", () => {
@@ -29,7 +29,7 @@ describe("extractDidMethod", () => {
     expect(extractDidMethod(WEB_FLAT)).toBe("web");
     expect(extractDidMethod(PLC)).toBe("plc");
     expect(extractDidMethod(PKH)).toBe("pkh");
-    expect(extractDidMethod(etzhayyim_ROOT)).toBe("gftd");
+    expect(extractDidMethod(etzhayyim_ROOT)).toBe("etzhayyim");
   });
   it("returns null for unknown", () => {
     expect(extractDidMethod("did:unknown:foo")).toBeNull();
@@ -43,7 +43,7 @@ describe("parseDid happy paths", () => {
   it("parses did:erc725", () => {
     const p = parseDid(ERC725);
     expect(p.method).toBe("erc725");
-    expect(p.identifier).toMatch(/^gftd:260425:0x[0-9a-f]{40}$/);
+    expect(p.identifier).toMatch(/^etzhayyim:260425:0x[0-9a-f]{40}$/);
   });
   it("parses did:web flat and path", () => {
     expect(parseDid(WEB_FLAT).method).toBe("web");
@@ -55,9 +55,9 @@ describe("parseDid happy paths", () => {
   it("parses did:pkh CAIP-10", () => {
     expect(parseDid(PKH).method).toBe("pkh");
   });
-  it("parses did:gftd root and depth 2", () => {
-    expect(parseDid(etzhayyim_ROOT).method).toBe("gftd");
-    expect(parseDid(etzhayyim_DEPTH2).method).toBe("gftd");
+  it("parses did:etzhayyim root and depth 2", () => {
+    expect(parseDid(etzhayyim_ROOT).method).toBe("etzhayyim");
+    expect(parseDid(etzhayyim_DEPTH2).method).toBe("etzhayyim");
   });
 });
 
@@ -73,8 +73,8 @@ describe("parseDid validation", () => {
     expect(() => parseDid("did:key:z6Mk...")).toThrow(/unsupported method 'key'/);
   });
   it("rejects malformed did:erc725", () => {
-    expect(() => parseDid("did:erc725:gftd:260425")).toThrow(DidParseError);
-    expect(() => parseDid("did:erc725:gftd:260425:0xshort")).toThrow(DidParseError);
+    expect(() => parseDid("did:erc725:etzhayyim:260425")).toThrow(DidParseError);
+    expect(() => parseDid("did:erc725:etzhayyim:260425:0xshort")).toThrow(DidParseError);
   });
   it("rejects malformed did:plc", () => {
     expect(() => parseDid("did:plc:tooSHORT")).toThrow(DidParseError);
@@ -120,8 +120,8 @@ describe("assertDidetzhayyimDepth", () => {
   it("throws on depth mismatch", () => {
     expect(() => assertDidetzhayyimDepth(etzhayyim_ROOT, 1)).toThrow(/expected depth 1/);
   });
-  it("throws on non-gftd input", () => {
-    expect(() => assertDidetzhayyimDepth(WEB_FLAT, 0)).toThrow(/expected did:gftd/);
+  it("throws on non-etzhayyim input", () => {
+    expect(() => assertDidetzhayyimDepth(WEB_FLAT, 0)).toThrow(/expected did:etzhayyim/);
   });
 });
 
@@ -132,7 +132,7 @@ describe("assertDidPrincipalOretzhayyimDepth (handler-side gate)", () => {
     expect(() => assertDidPrincipalOretzhayyimDepth(PLC, 99)).not.toThrow();
     expect(() => assertDidPrincipalOretzhayyimDepth(PKH, 99)).not.toThrow();
   });
-  it("enforces depth on did:gftd", () => {
+  it("enforces depth on did:etzhayyim", () => {
     expect(() => assertDidPrincipalOretzhayyimDepth(etzhayyim_ROOT, 0)).not.toThrow();
     expect(() => assertDidPrincipalOretzhayyimDepth(etzhayyim_DEPTH2, 1)).not.toThrow();
     expect(() => assertDidPrincipalOretzhayyimDepth(etzhayyim_ROOT, 1)).toThrow(/expected depth 1/);

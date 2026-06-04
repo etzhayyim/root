@@ -1,5 +1,5 @@
 manifest_version: '1'
-name: gftd-agent-actor-runtime
+name: etzhayyim-agent-actor-runtime
 description: Experimental Holochain runtime for etzhayyim agent/actor event cells.
 roles:
   - name: agent_actor_runtime
@@ -9,4 +9,4 @@ roles:
     dna:
       bundled: ../dnas/agent_actor_runtime/workdir/agent_actor_runtime.dna
       modifiers:
-        network_seed: gftd-agent-actor-runtime-experimental
+        network_seed: etzhayyim-agent-actor-runtime-experimental

@@ -22,7 +22,7 @@ related:
 Tailwind ユーティリティクラス (`flex`, `fixed`, `z-10` 等) が一切 CSS 出力されず、
 パーティクルアニメーションのみが描画される状態だった。
 
-調査の結果、`60-apps/ai-gftd-project-auth/worker/svelte/` の Tailwind セットアップが
+調査の結果、`60-apps/etzhayyim-project-auth/worker/svelte/` の Tailwind セットアップが
 **3 箇所すべて欠落**していることが原因と特定された。
 
 | ファイル | 欠落内容 |
@@ -53,7 +53,7 @@ Tailwind ユーティリティクラス (`flex`, `fixed`, `z-10` 等) が一切 
 }
 ```
 
-`@etzhayyim/design-system` は `tailwind.config.js` の `gftdUIKit` plugin を提供する。
+`@etzhayyim/design-system` は `tailwind.config.js` の `etzhayyimUIKit` plugin を提供する。
 workspace 内のパッケージなので `workspace:*` を使用する。
 
 ## 2. `postcss.config.js` — tailwindcss plugin 必須
@@ -86,7 +86,7 @@ export default {
 
 - `pnpm build` 後の CSS bundle に Tailwind utilities が含まれる (68KB+ が正常)
 - `tailwind.config.js` の `content` 配列で指定したファイルからクラスが tree-shake される
-- `@etzhayyim/design-system` の `gftdUIKit` plugin が CSS カスタムプロパティ (CSS変数) を注入する
+- `@etzhayyim/design-system` の `etzhayyimUIKit` plugin が CSS カスタムプロパティ (CSS変数) を注入する
 
 # Detection
 
@@ -95,5 +95,5 @@ export default {
 
 # Reference Implementation
 
-- 修正: `60-apps/ai-gftd-project-auth/worker/svelte/` (2026-05-15)
-- 参照実装: `60-apps/ai-gftd-project-yatabase/svelte/` (同一構成、正常動作)
+- 修正: `60-apps/etzhayyim-project-auth/worker/svelte/` (2026-05-15)
+- 参照実装: `60-apps/etzhayyim-project-yatabase/svelte/` (同一構成、正常動作)

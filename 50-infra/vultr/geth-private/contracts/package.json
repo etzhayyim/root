@@ -1,8 +1,8 @@
 {
-  "name": "gftd-private-chain-contracts",
+  "name": "etzhayyim-private-chain-contracts",
   "version": "0.0.0",
   "private": true,
-  "description": "Foundry project for chain 260425 contracts. The npm side exists only to pull prebuilt Safe v1.4.1 artifacts (JSON bytecode + ABI) — Safe's hardhat-compiled output works in our 0.8.23 toolchain via `vm.parseJsonBytes(...)` whereas re-compiling Safe sources hits stack-too-deep on the gftd profile (Safe is pinned to solc 0.7.6, our gftd contracts to 0.8.23). See script/DeploySafe.s.sol for the deploy path.",
+  "description": "Foundry project for chain 260425 contracts. The npm side exists only to pull prebuilt Safe v1.4.1 artifacts (JSON bytecode + ABI) — Safe's hardhat-compiled output works in our 0.8.23 toolchain via `vm.parseJsonBytes(...)` whereas re-compiling Safe sources hits stack-too-deep on the etzhayyim profile (Safe is pinned to solc 0.7.6, our etzhayyim contracts to 0.8.23). See script/DeploySafe.s.sol for the deploy path.",
   "dependencies": {
     "@safe-global/safe-contracts": "1.4.1"
   }

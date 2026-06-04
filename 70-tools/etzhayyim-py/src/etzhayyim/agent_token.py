@@ -1,4 +1,4 @@
-"""gftd agent-token — port of agent_token.go (ADR-2605151500).
+"""etzhayyim agent-token — port of agent_token.go (ADR-2605151500).
 
 Fetches a scoped service-auth JWT from the PDS for a given LXM.
 """

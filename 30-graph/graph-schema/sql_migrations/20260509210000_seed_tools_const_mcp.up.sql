@@ -18,8 +18,8 @@
 -- kwargs to ``task_echo``.
 --
 -- actor_host hosting strategy: for now any Worker that proxies the MCP
--- envelope can serve generic primitives. We default to ``ki.gftd.ai``
--- (first consumer). Once a dedicated ``tools.gftd.ai`` Worker exists,
+-- envelope can serve generic primitives. We default to ``ki.etzhayyim.com``
+-- (first consumer). Once a dedicated ``tools.etzhayyim.com`` Worker exists,
 -- a follow-up UPDATE flips actor_host without touching topology rows.
 
 INSERT INTO vertex_mcp_tool_def
@@ -29,9 +29,9 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-const-echo',
+  ('at://did:web:ki.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-tools-const-echo',
    0, 0,
-   'com.etzhayyim.tools.const.echo', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.tools.const.echo', 'did:web:ki.etzhayyim.com', 'ki.etzhayyim.com', 'procedure',
    'Identity / constant-return primitive for LangGraph topology no-op nodes.',
    '{"type":"object","properties":{"constant":{"type":"object"}},"required":["constant"]}',
    '{"type":"object","description":"Echoes the input constant verbatim."}',

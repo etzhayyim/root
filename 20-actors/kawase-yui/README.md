@@ -57,7 +57,7 @@ ADR-2605282100 economy. **No new token is minted.**
 | Gate | Constitutional invariant | Enforcement |
 |---|---|---|
 | G1 | Charter Rider §2(a)-(h) scan on every memo + jurisdictionAttestation legalAnalysis + rebalanceAttestation justification | Charter Rider applicator (existing tooling) |
-| G2 | kotoba attestation lineage MANDATORY | yatachain → kotoba per ADR-2605262130 |
+| G2 | kotoba attestation lineage MANDATORY | kotoba-datomic → kotoba per ADR-2605262130 |
 | G3 | Adherent-SBT-gated deposit + claim | **Solidity-level** `onlyAdherent` modifier in `KawaseYuiPool.sol` |
 | G4 | Mid-market Chainlink ±0.5% band | **Solidity-level** + **Constitution-level** const `KAWASE_MAX_BAND_BPS = 50` |
 | G5 | NO spread profit | **Lexicon-level** const-0 `silenKawaseReview.spreadProfitMkoto` |

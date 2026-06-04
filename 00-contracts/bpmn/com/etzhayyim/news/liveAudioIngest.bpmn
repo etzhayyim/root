@@ -18,7 +18,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_news_live_audio_ingest"
-    targetNamespace="https://gftd.ai/bpmn/news"
+    targetNamespace="https://etzhayyim.ai/bpmn/news"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="news_live_audio_ingest" name="news live audio ingest" isExecutable="true">
@@ -87,7 +87,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.news.analyzeIntel"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="={ title: string(extracted.title), url: string(if sourceUrl != null and sourceUrl != &quot;&quot; then sourceUrl else streamUrl), sourceId: string(sourceId), sourceType: string(if sourceType != null and sourceType != &quot;&quot; then sourceType else &quot;broadcast&quot;), region: string(region), country: string(country), topic: string(if topic != null and topic != &quot;&quot; then topic else &quot;world&quot;), rightsPolicy: string(rightsPolicy), text: string(transcriptText), summary: string(extracted.summary), facts: extracted.facts, findings: extracted.findings, entities: extracted.entities, publishedAt: now(), publish: false }" target="input"/>
           <zeebe:output source="=result" target="intelReport"/>
           <zeebe:output source="=result.policyGate" target="policyGate"/>
@@ -126,7 +126,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;news.liveAudioIngest&quot;" target="action"/>
           <zeebe:input source="={ sourceId: string(sourceId), sourceName: string(sourceName), streamUrl: string(streamUrl), streamKind: streamKind, resolvedStreamUrls: resolvedStreamUrls, capturedBytes: capturedBytes, audioSha256: audioSha256, audioMimeType: audioMimeType, audioUri: audioUri, effectiveRetainAudio: effectiveRetainAudio, effectiveRetentionDays: effectiveRetentionDays, transcribePolicyGate: transcribePolicyGate, policyGate: policyGate, sttBytes: sttBytes, sttMimeType: sttMimeType, sttExtension: sttExtension, remuxStatus: remuxStatus, remuxError: remuxError, language: language, llmModel: llmModel, report: intelReport, publishResult: publishResult }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

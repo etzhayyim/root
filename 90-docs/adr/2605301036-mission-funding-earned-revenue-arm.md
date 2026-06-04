@@ -124,7 +124,7 @@ toritate (ADR-2605262900) accounts for the vendor→religious-corp donation flow
 
 ### 8. Implementation surface
 
-- **No new payment enum.** Vendor→religious-corp uses existing `donation`/`grant` (ADR-2605192130). Confirms `com.etzhayyim.gftd.apps.payment.sent` purpose enum is sufficient.
+- **No new payment enum.** Vendor→religious-corp uses existing `donation`/`grant` (ADR-2605192130). Confirms `com.etzhayyim.etzhayyim.apps.payment.sent` purpose enum is sufficient.
 - **New lexicon** (`00-contracts/lexicons/com/etzhayyim/give/`): `vendorMissionDonationAttestation` — records a vendor surplus-donation event (period, gross surplus disclosed voluntarily, donated amount, recipient program, TitheRouter tx CID) for transparency; aggregate-only, no customer PII.
 - **toritate**: extend `toritate_tithe_accounting` / `toritate_public_fund_accounting` to tag vendor-origin donations as a distinct inflow source in `financialAttestation` (R1+).
 - **Council policy artifact**: vendor mission-surplus donation policy (payout ratio + reserve) recorded as a Council-attested record (deferred to R1 ratification; not in this scaffold).
@@ -163,5 +163,5 @@ toritate (ADR-2605262900) accounts for the vendor→religious-corp donation flow
 - ADR-2605301020 (Basic High Income — what this revenue ultimately funds; cash≡0 unchanged)
 - ADR-2605262900 (toritate — on-chain accounting of the donation inflow)
 - ADR-2605264000 (ossekai — "arbitrage" is non-commercial info-symmetry elimination, contrast for §4)
-- `00-contracts/lexicons/com/etzhayyim/gftd/apps/payment/sent.json` (purpose enum — unchanged)
+- `00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/payment/sent.json` (purpose enum — unchanged)
 - `/CLAUDE.md` (vendor/religious-corp boundary; Payoff帰属=etzhayyim only)

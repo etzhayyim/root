@@ -187,7 +187,7 @@ def _train(args: argparse.Namespace, plan: dict) -> dict:
         # downstream pipelines can detect "expected blob, got none".
         metrics["i2sBlobPlanned"] = True
         metrics["i2sBlobUri"] = (
-            "b2://gftd-models/baien/SMOKE-LOCAL/baien-trunk-smoke-i2s.bnp"
+            "b2://etzhayyim-models/baien/SMOKE-LOCAL/baien-trunk-smoke-i2s.bnp"
         )
 
     return metrics

@@ -244,7 +244,7 @@ hagukumi R1 + iyashi R1 dependency).
 | Gate | Description |
 |---|---|
 | **G1** | Every kokoro document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.kokoro.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.kokoro.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NOT clinical psychiatric entity** — NOT state-licensed; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern shared); `counselorAttestation.counselorClass` const "community-witnessed-competent" + DELIBERATELY excludes "state-licensed-psych" / "clinical-psychiatrist" / "ordained-pastoral-counselor". |
 | **G4** | **Encrypted envelope MANDATORY + NO video recording** — `peerSupportCircleAttestation` + `griefSupportAttestation` MUST carry `encryptedPayloadCid`; video frame-write-to-disk PROHIBITED (firmware-level mirrors hagukumi G2 + iyashi G3). |
 | **G5** | **NO conversion therapy / behavior modification** — sexual orientation / gender identity / religious belief NEVER targets for modification (extends hagukumi G7 to mental health domain). |

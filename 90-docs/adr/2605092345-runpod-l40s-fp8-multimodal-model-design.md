@@ -344,7 +344,7 @@ No checkpoint is promoted by editing serving config directly. Alias activation i
 
 This ADR is a design contract. Implementation should follow in small patches:
 
-1. Seed `vertex_vector_embedding_model` rows for `gftd-mm-l40s-*` encoder/projection IDs.
+1. Seed `vertex_vector_embedding_model` rows for `etzhayyim-mm-l40s-*` encoder/projection IDs.
 2. Add a narrow FP8 latent table or formalize `vertex_organism_embedding` as a migration
    instead of ADR-only pseudo-schema.
 3. Add modality-specific dataset snapshot tasks for 3D, video/audio chunk windows, IMU,
@@ -355,21 +355,21 @@ This ADR is a design contract. Implementation should follow in small patches:
 
 ## 10. Execution Status 2026-05-09
 
-Codex attempted to start training from the existing `gftd training` surface:
+Codex attempted to start training from the existing `etzhayyim training` surface:
 
-- `gftd training list-snapshots` succeeded and found frozen `gftd-corpus` snapshots,
+- `etzhayyim training list-snapshots` succeeded and found frozen `etzhayyim-corpus` snapshots,
   including two 10-row ADSK eval snapshots suitable for smoke runs.
-- `gftd training run --kind lora ...` against a 10-row ADSK snapshot returned
+- `etzhayyim training run --kind lora ...` against a 10-row ADSK snapshot returned
   Cloudflare `522` before any `vertex_training_run` row was persisted.
-- `gftd training list-runs` / `list-checkpoints` confirmed no queued, running,
+- `etzhayyim training list-runs` / `list-checkpoints` confirmed no queued, running,
   failed, or completed run was created.
 - `https://58pvflvw9w6nt3-8003.proxy.runpod.net/healthz` returned `404`, so
   `training_http_server` is not currently exposed/running on the documented
   unified training port.
 - `op` / 1Password was checked against vault `etzhayyim Japan株式会社`.
-  `gftd.runpod/RUNPOD_API_KEY` and `gftd.hf/HF_TOKEN` were present and were
-  restored into macOS Keychain as `gftd.runpod/RUNPOD_API_KEY` and
-  `gftd.hf/HF_TOKEN` without printing secret values.
+  `etzhayyim.runpod/RUNPOD_API_KEY` and `etzhayyim.hf/HF_TOKEN` were present and were
+  restored into macOS Keychain as `etzhayyim.runpod/RUNPOD_API_KEY` and
+  `etzhayyim.hf/HF_TOKEN` without printing secret values.
 - After Keychain restore, `50-infra/runpod/comfyui-l40s/scripts/status.sh`
   could query RunPod successfully; no existing L40S pod or model cache volume
   was running.
@@ -396,11 +396,11 @@ Codex attempted to start training from the existing `gftd training` surface:
 - Manual `/train/run` probe `manual-probe-6` completed a 5-step GPU torch
   smoke on the A40 and inserted a `vertex_training_run` row:
   `runId=manual-probe-6`, `kind=lora`, `baseModel=sshleifer/tiny-gpt2`,
-  `datasetSnapshotId=gftd-corpus-1040064dc271`, `status=running`.
+  `datasetSnapshotId=etzhayyim-corpus-1040064dc271`, `status=running`.
 - The A40 fallback was then advanced with extended BF16 CUDA smoke runs:
   `yamato-a40-bf16-1000step-20260509` completed 1,000 steps and
   `yamato-a40-bf16-5000step-20260509` completed 5,000 steps. Both runs used
-  `datasetSnapshotId=gftd-corpus-1040064dc271`, `baseModel=sshleifer/tiny-gpt2`,
+  `datasetSnapshotId=etzhayyim-corpus-1040064dc271`, `baseModel=sshleifer/tiny-gpt2`,
   and recorded `status=done` / `completed_steps` in `vertex_training_run`.
 - After the A40 pod was no longer needed it was terminated. RTX 6000 Ada Secure
   capacity was attempted next, but REST-created runtime ports did not become
@@ -496,7 +496,7 @@ Codex attempted to start training from the existing `gftd training` surface:
   `8ef48c441d0342ec3d6f04c2f955be95b0866dbb`. The repository contains the LoRA
   adapter, tokenizer files, `summary.json`, `inference_eval_20260509.json`, and
   a model card; it does not redistribute merged Gemma base weights.
-- The canonical `gftd training run` path still needs one client-side fix:
+- The canonical `etzhayyim training run` path still needs one client-side fix:
   Python `urllib` calls from `training-zeebe-worker` receive HTTP `403` from
   the RunPod proxy before reaching the pod, while `curl` with the same bearer
   token succeeds. The durable evidence for this checkpoint is therefore the
@@ -511,7 +511,7 @@ label=GSM8K
 dim=16
 seqLen=8
 samplesPer=1
-summary=/tmp/gftd-lancedb/train_experts_GSM8K_summary.json
+summary=/tmp/etzhayyim-lancedb/train_experts_GSM8K_summary.json
 status=completed
 ```
 

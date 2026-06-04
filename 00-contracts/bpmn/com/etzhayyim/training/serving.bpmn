@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  training.gftd.ai - serving query (XRPC com.etzhayyim.apps.training.serving).
+  training.etzhayyim.com - serving query (XRPC com.etzhayyim.apps.training.serving).
   ADR-2605070700.
 
   Read-only SELECT over mv_training_active_serving. Audit omitted.
@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_training_serving"
-    targetNamespace="https://gftd.ai/bpmn/training"
+    targetNamespace="https://etzhayyim.ai/bpmn/training"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="training_serving" name="training serving snapshot" isExecutable="true">

@@ -7,7 +7,7 @@
   <key>CFBundleExecutable</key>
   <string>Disk_Cleaner</string>
   <key>CFBundleIdentifier</key>
-  <string>jp.co.gftd.disk-cleaner</string>
+  <string>jp.co.etzhayyim.disk-cleaner</string>
   <key>CFBundleName</key>
   <string>Disk Cleaner</string>
   <key>CFBundlePackageType</key>

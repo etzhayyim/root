@@ -169,7 +169,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     edge_id, src_vid, dst_vid, created_date, sensitivity_ord, owner_did,
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
-    'edge:belief:gftd:secular',
+    'edge:belief:etzhayyim:secular',
     'did:web:etzhayyim.com',
     'belief:secular',
     CURRENT_DATE, 0, 'did:web:etzhayyim.com',
@@ -183,7 +183,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     edge_id, src_vid, dst_vid, created_date, sensitivity_ord, owner_did,
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
-    'edge:belief:gftd:shinto',
+    'edge:belief:etzhayyim:shinto',
     'did:web:etzhayyim.com',
     'belief:shinto',
     CURRENT_DATE, 0, 'did:web:etzhayyim.com',

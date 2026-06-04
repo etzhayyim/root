@@ -7,13 +7,13 @@
   vertex_repo_record, and FLUSHes.
 
   NSID: com.etzhayyim.apps.yoro.respondToMention
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/yoro-respond-to-mention-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yoro-respond-to-mention-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yoro_respond_to_mention"
-    targetNamespace="https://gftd.ai/bpmn/yoro"
+    targetNamespace="https://etzhayyim.ai/bpmn/yoro"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yoro_respond_to_mention" name="yoro respondToMention" isExecutable="true">

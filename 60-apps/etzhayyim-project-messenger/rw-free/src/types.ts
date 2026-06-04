@@ -1,11 +1,11 @@
 /**
  * messenger rw-free — real-time messaging platform (channels, DMs, thread
- * replies) under the Consensys product-front / gftd-infra-back split.
+ * replies) under the Consensys product-front / etzhayyim-infra-back split.
  *
  * Per ADR-2606011400 (Consensys product-front) + ADR-2605172400 (3-axis) +
  * ADR-2605181100 (kotoba E2E encrypted-record envelope). Founder directive
  * 2026-06-03: front everything that can move; only the irreducible regulated
- * EXECUTION stays gftd.
+ * EXECUTION stays etzhayyim.
  *
  * SPLIT (maximal migration):
  *   PLAINTEXT (public AT records) — channel directory: non-sensitive channel
@@ -19,12 +19,12 @@
  *   thread replies are ALL E2E — the substrate never sees plaintext message
  *   content. FK message → channel via channelExists() (read + check).
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection):
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection):
  *     - real-time fan-out / live-delivery EXECUTION (the push/socket gateway —
  *       high-volume live delivery transport that cannot be a PDS record append),
  *     - abuse/spam enforcement + blocking ACTIONS (moderation acts).
  *   The message DATA (content, metadata, history, threads, DMs) all fronts E2E;
- *   only the live-delivery execution + enforcement actions stay gftd.
+ *   only the live-delivery execution + enforcement actions stay etzhayyim.
  *
  * AT-Lexicon: no float (memberCount is a non-negative integer).
  */

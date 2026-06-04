@@ -45,7 +45,7 @@ T2 BPMN-as-actor (ADR-0056) のため CF Worker deploy は不要。
 - BAILII Atom: 認証不要、ただし rate limit 不明 → 24h cadence は安全側
 - WorldLII OAI-PMH: 認証不要、7d cadence
 
-> **既に申請済みの場合**: API key を gftd Vault に登録 (T-1d セクション参照)
+> **既に申請済みの場合**: API key を etzhayyim Vault に登録 (T-1d セクション参照)
 
 ## T-1d: Vault / Workers AI / DNS
 
@@ -53,13 +53,13 @@ T2 BPMN-as-actor (ADR-0056) のため CF Worker deploy は不要。
 
 ```bash
 # CourtListener token (free tier)
-gftd vault add --folder legal-corpus --name COURTLISTENER_TOKEN --value "<token>"
+etzhayyim vault add --folder legal-corpus --name COURTLISTENER_TOKEN --value "<token>"
 
 # CanLII API key
-gftd vault add --folder legal-corpus --name CANLII_API_KEY --value "<key>"
+etzhayyim vault add --folder legal-corpus --name CANLII_API_KEY --value "<key>"
 
 # 確認
-gftd vault list --folder legal-corpus
+etzhayyim vault list --folder legal-corpus
 ```
 
 ### Workers AI binding (CF dispatcher Worker)
@@ -86,15 +86,15 @@ npx wrangler tail | grep "AI binding"
 
 ```bash
 kubectl -n zeebe set env deployment/zeebe-worker \
-  CF_ACCOUNT_ID="$(security find-generic-password -s gftd.cloudflare -a CF_ACCOUNT_ID -w)" \
-  CF_AI_API_TOKEN="$(security find-generic-password -s gftd.cloudflare -a CF_AI_API_TOKEN -w)"
+  CF_ACCOUNT_ID="$(security find-generic-password -s etzhayyim.cloudflare -a CF_ACCOUNT_ID -w)" \
+  CF_AI_API_TOKEN="$(security find-generic-password -s etzhayyim.cloudflare -a CF_AI_API_TOKEN -w)"
 ```
 
 ### DNS
 
 ```bash
 # legal-corpus.etzhayyim.com CNAME → CF routing-gateway
-gftd dns-sync --actor legal-corpus
+etzhayyim dns-sync --actor legal-corpus
 # verify
 dig +short legal-corpus.etzhayyim.com
 ```
@@ -132,7 +132,7 @@ psql $DATABASE_URL -c "
 # 期待: 8 rows, status='active', deployed_at NOT NULL
 
 # coverage gate
-gftd bpmn-coverage --project legal-corpus
+etzhayyim bpmn-coverage --project legal-corpus
 # 期待: 8/8 PASS
 ```
 
@@ -145,18 +145,18 @@ bash 70-tools/scripts/legal-corpus-bootstrap.sh
 このスクリプトは下記 5 行を順次実行:
 
 ```bash
-gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "courtlistener",
   "displayName": "CourtListener (US)",
   "baseUrl": "https://www.courtlistener.com/api/rest/v3",
   "jurisdictions": ["USA"],
   "cadenceIso8601": "R/PT24H",
   "authStrategy": "token",
-  "secretRef": "vault://gftd/legal-corpus/COURTLISTENER_TOKEN",
+  "secretRef": "vault://etzhayyim/legal-corpus/COURTLISTENER_TOKEN",
   "license": "CC0"
 }'
 
-gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "eur-lex",
   "displayName": "EUR-Lex (EU)",
   "baseUrl": "https://publications.europa.eu/webapi/rdf/sparql",
@@ -166,7 +166,7 @@ gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "CC-BY-4.0"
 }'
 
-gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "bailii",
   "displayName": "BAILII (UK + IE)",
   "baseUrl": "https://www.bailii.org",
@@ -176,7 +176,7 @@ gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "BAILII-Terms"
 }'
 
-gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "worldlii",
   "displayName": "WorldLII (Commonwealth)",
   "baseUrl": "https://www.worldlii.org/cgi-bin/oai.pl",
@@ -186,14 +186,14 @@ gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "license": "WorldLII-Terms"
 }'
 
-gftd xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.registerSource -d '{
   "sourceId": "canlii",
   "displayName": "CanLII / SCC (CA)",
   "baseUrl": "https://api.canlii.org/v1",
   "jurisdictions": ["CAN"],
   "cadenceIso8601": "R/PT24H",
   "authStrategy": "apiKey",
-  "secretRef": "vault://gftd/legal-corpus/CANLII_API_KEY",
+  "secretRef": "vault://etzhayyim/legal-corpus/CANLII_API_KEY",
   "license": "CanLII-API-Terms"
 }'
 ```
@@ -211,11 +211,11 @@ psql $DATABASE_URL -c "
 
 ### 4. 初回 fetch を手動 invoke (timer 待たず)
 
-timer-start BPMN (`fetchCourtListenerDelta` etc.) は次回 cadence まで起動しないため、初回は `gftd xrpc` で直接呼ぶ:
+timer-start BPMN (`fetchCourtListenerDelta` etc.) は次回 cadence まで起動しないため、初回は `etzhayyim xrpc` で直接呼ぶ:
 
 ```bash
 # CourtListener (一番安全、free tier rate limit 余裕)
-gftd xrpc com.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta -d '{}'
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta -d '{}'
 
 # 30 秒後 — ingestDocument が item ごとに発火、vertex_legal_corpus_document に行が増える
 psql $DATABASE_URL -c "
@@ -231,7 +231,7 @@ psql $DATABASE_URL -c "
 ```bash
 # 任意の 1 doc を取って embed を kick
 DOC_VID=$(psql $DATABASE_URL -tAc "SELECT vertex_id FROM vertex_legal_corpus_document WHERE source_id='courtlistener' LIMIT 1")
-gftd xrpc com.etzhayyim.apps.legal-corpus.embedDocument -d "{\"vertexId\":\"$DOC_VID\"}"
+etzhayyim xrpc com.etzhayyim.apps.legal-corpus.embedDocument -d "{\"vertexId\":\"$DOC_VID\"}"
 
 # 確認
 psql $DATABASE_URL -c "
@@ -314,7 +314,7 @@ DATABASE_URL=... pnpm db:migrate down
 | # | 項目 | コマンド | 期待値 |
 |---|---|---|---|
 | 1 | 5 migrations applied | `pnpm db:migrate list` | `up` × 5 |
-| 2 | 8 BPMN active | `gftd bpmn-coverage --project legal-corpus` | 8/8 PASS |
+| 2 | 8 BPMN active | `etzhayyim bpmn-coverage --project legal-corpus` | 8/8 PASS |
 | 3 | 5 source registered | `SELECT count(*) FROM vertex_legal_corpus_source WHERE status='active'` | 5 |
 | 4 | 1st fetch ≥ 1 doc | `SELECT count(*) FROM vertex_legal_corpus_document WHERE source_id='courtlistener'` | ≥ 1 |
 | 5 | 1 doc embedded | `SELECT count(*) FROM vertex_legal_corpus_document WHERE embedding IS NOT NULL` | ≥ 1 |
@@ -328,4 +328,4 @@ DATABASE_URL=... pnpm db:migrate down
 - ADR-0049 (本 actor の設計 ADR)
 - ADR-0056 (BPMN-as-actor 規約)
 - ADR-0048 (RisingWave Vultr / B2 primary — 物理 storage)
-- `60-apps/ai-gftd-project-legal-corpus/CLAUDE.md` (actor の運用 rule)
+- `60-apps/etzhayyim-project-legal-corpus/CLAUDE.md` (actor の運用 rule)

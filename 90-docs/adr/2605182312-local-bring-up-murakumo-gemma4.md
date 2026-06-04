@@ -14,7 +14,7 @@ last_verified: 2026-05-18
 The etzhayyim system operates as an "Artificial Organism Ecosystem" utilizing a Mac mini fleet (Murakumo) to run LangServer workers. The ecosystem orchestrates active inference loops via `pymagatama.agent_daemon_main` using local LLMs on the fleet. We needed to bring up the system locally on the Mac mini infrastructure and ensure it pointed to the appropriate local LLM (`gemma4:e4b`) while successfully connecting to the upstream database via keychain credentials.
 
 ## Decision
-1. We deploy the `murakumo-agent` across the Mac mini nodes (10 nodes) using `gftd murakumo kubelet-deploy`.
+1. We deploy the `murakumo-agent` across the Mac mini nodes (10 nodes) using `etzhayyim murakumo kubelet-deploy`.
 2. We utilize the virtual kubelets by running `run-local-kubelet.sh`.
 3. We update `20-actors/magatama/py/src/pymagatama/local_llm.py` to use `gemma4:e4b` as the default model instead of `qwen3:14b` to properly target the Mac mini's available models.
 4. We run `pymagatama.agent_daemon_main` after acquiring the appropriate database read credentials via `load-database-url.sh` (falling back to macOS keychain).

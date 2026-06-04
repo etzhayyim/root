@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_presign_url"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_presign_url" name="yata presign url" isExecutable="true">

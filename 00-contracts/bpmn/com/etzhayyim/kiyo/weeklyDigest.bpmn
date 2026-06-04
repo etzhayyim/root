@@ -7,7 +7,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_kiyo_weekly_digest"
-    targetNamespace="https://gftd.ai/bpmn/kiyo"
+    targetNamespace="https://etzhayyim.ai/bpmn/kiyo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="kiyo_weekly_digest" name="kiyo weekly digest" isExecutable="true">
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.llm.json"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;You are the editorial bot for kiyo.gftd.ai (紀要), a self-hosted research archive. Summarize the top papers of the week in 280 characters or less (Japanese or English). Include paper IDs.&quot;" target="systemPrompt"/>
+          <zeebe:input source="=&quot;You are the editorial bot for kiyo.etzhayyim.com (紀要), a self-hosted research archive. Summarize the top papers of the week in 280 characters or less (Japanese or English). Include paper IDs.&quot;" target="systemPrompt"/>
           <zeebe:input source="=&quot;Top papers this week:\n&quot; + string(topPapers)" target="userPrompt"/>
           <zeebe:input source="={digestText: {type: &quot;string&quot;}}"                target="schema"/>
           <zeebe:output source="=result.digestText" target="digestText"/>
@@ -63,7 +63,7 @@
         <zeebe:taskDefinition type="generic.pds.dispatch"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;app.bsky.feed.post&quot;"     target="type"/>
-          <zeebe:input source="=&quot;did:web:kiyo.gftd.ai&quot;"  target="did"/>
+          <zeebe:input source="=&quot;did:web:kiyo.etzhayyim.com&quot;"  target="did"/>
           <zeebe:input source="=&quot;📚 kiyo weekly digest\n&quot; + digestText" target="text"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

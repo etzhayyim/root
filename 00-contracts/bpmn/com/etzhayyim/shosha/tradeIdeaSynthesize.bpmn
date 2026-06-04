@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — trade idea synthesize (autonomous, R/PT4H).
+  shosha.etzhayyim.com — trade idea synthesize (autonomous, R/PT4H).
 
   Pipeline:
     1. shosha.trade.synth          LLM synthesis of trade ideas from market view
@@ -8,7 +8,7 @@
                                    Returns ideaCount + summary text.
     2. ExclusiveGateway            ideaCount > 0 ?
        Yes → generic.pds.dispatch  Post idea summary as `app.bsky.feed.post`
-                                   from did:web:shosha.gftd.ai (social derive).
+                                   from did:web:shosha.etzhayyim.com (social derive).
        No  → skip social
     3. generic.audit.emit          OCEL trail.
 
@@ -19,7 +19,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_trade_idea_synthesize"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_trade_idea_synthesize" name="shosha trade idea synthesize (4h)" isExecutable="true">
@@ -64,7 +64,7 @@
         <zeebe:taskDefinition type="generic.pds.dispatch"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
-          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="repo"/>
+          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="repo"/>
           <zeebe:input source="={ &quot;text&quot;: summary, &quot;createdAt&quot;: string(now()) }" target="record"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
@@ -77,7 +77,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.tradeIdeaSynthesize&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;ideaCount&quot;: ideaCount }" target="attributes"/>
         </zeebe:ioMapping>

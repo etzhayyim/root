@@ -130,7 +130,7 @@ def test_cross_border_wires_existing_customs_bpmn():
     customs = rec["customs"]
     # MUST reuse the REAL existing engine namespace, not the non-existent
     # com.etzhayyim.apps.customsClearance.* path nor a parallel fork.
-    assert customs["engine"] == "com.etzhayyim.gftd.apps.customsClearance"
+    assert customs["engine"] == "com.etzhayyim.etzhayyim.apps.customsClearance"
     assert "open-customs-clearance" in customs["bpmn"]
     decl = customs["lodgeDeclaration"]
     # conforms to the real lodgeDeclaration lexicon required fields.

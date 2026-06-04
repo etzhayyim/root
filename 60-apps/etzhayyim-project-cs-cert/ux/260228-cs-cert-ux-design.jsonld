@@ -8,7 +8,7 @@
   ],
   "@type": "CreativeWork",
   "identifier": "cs-cert-ux-design",
-  "name": "GFTD CS Certified — UX Design Specification",
+  "name": "Etzhayyim CS Certified — UX Design Specification",
   "description": "certs.etzhayyim.com の UX 設計。セキュリティ認証バッジの表示、検証ページ、診断申請フローを定義。",
   "dateCreated": "2026-02-28T00:00:00Z",
   "ux:pages": [
@@ -16,12 +16,12 @@
       "@type": "WebPage",
       "name": "Landing Page",
       "url": "https://certs.etzhayyim.com/",
-      "description": "GFTD CS Certified サービスのランディングページ。認証レベル説明、検証フォーム、認証済みサイト一覧。",
+      "description": "Etzhayyim CS Certified サービスのランディングページ。認証レベル説明、検証フォーム、認証済みサイト一覧。",
       "ux:layout": "single-column",
       "ux:sections": [
         {
           "name": "Hero",
-          "description": "GFTD CS Certified ロゴ + キャッチコピー「信頼されるサイトの証」",
+          "description": "Etzhayyim CS Certified ロゴ + キャッチコピー「信頼されるサイトの証」",
           "ux:components": [
             "hero-banner",
             "cert-level-cards"
@@ -108,7 +108,7 @@
   ],
   "ux:badgeDesign": {
     "@type": "CreativeWork",
-    "name": "GFTD CS Certified Badge Design",
+    "name": "Etzhayyim CS Certified Badge Design",
     "description": "SVG ベースの認証バッジ。3レベルに対応するカラーバリエーション。",
     "ux:variants": [
       {
@@ -117,7 +117,7 @@
         "ux:color": "#4CAF50",
         "ux:shape": "shield",
         "ux:icon": "checkmark",
-        "ux:text": "GFTD CS\nCERTIFIED",
+        "ux:text": "Etzhayyim CS\nCERTIFIED",
         "ux:subtext": "BASIC",
         "ux:dimensions": {
           "width": 120,
@@ -130,7 +130,7 @@
         "ux:color": "#2196F3",
         "ux:shape": "shield",
         "ux:icon": "star",
-        "ux:text": "GFTD CS\nCERTIFIED",
+        "ux:text": "Etzhayyim CS\nCERTIFIED",
         "ux:subtext": "STANDARD",
         "ux:dimensions": {
           "width": 120,
@@ -143,7 +143,7 @@
         "ux:color": "#9C27B0",
         "ux:shape": "shield",
         "ux:icon": "double-check",
-        "ux:text": "GFTD CS\nCERTIFIED",
+        "ux:text": "Etzhayyim CS\nCERTIFIED",
         "ux:subtext": "ADVANCED",
         "ux:dimensions": {
           "width": 120,
@@ -160,12 +160,12 @@
       {
         "name": "Static SVG",
         "description": "静的 SVG 画像 + 検証ページへのリンク。",
-        "ux:code": "<a href=\"https://certs.etzhayyim.com/verify/{certId}\"><img src=\"https://certs.etzhayyim.com/badge/{certId}.svg\" alt=\"GFTD CS Certified\" /></a>"
+        "ux:code": "<a href=\"https://certs.etzhayyim.com/verify/{certId}\"><img src=\"https://certs.etzhayyim.com/badge/{certId}.svg\" alt=\"Etzhayyim CS Certified\" /></a>"
       },
       {
         "name": "JSON-LD Structured Data",
         "description": "検索エンジン向け JSON-LD マークアップ。",
-        "ux:code": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org/\",\"@type\":\"Organization\",\"hasCredential\":{\"@type\":\"EducationalOccupationalCredential\",\"credentialCategory\":\"SecurityCertification\",\"recognizedBy\":{\"@type\":\"Organization\",\"name\":\"GFTD CS Certified\",\"url\":\"https://certs.etzhayyim.com\"}}}</script>"
+        "ux:code": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org/\",\"@type\":\"Organization\",\"hasCredential\":{\"@type\":\"EducationalOccupationalCredential\",\"credentialCategory\":\"SecurityCertification\",\"recognizedBy\":{\"@type\":\"Organization\",\"name\":\"Etzhayyim CS Certified\",\"url\":\"https://certs.etzhayyim.com\"}}}</script>"
       }
     ]
   }

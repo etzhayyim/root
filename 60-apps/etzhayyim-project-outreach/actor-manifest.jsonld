@@ -4,7 +4,7 @@
   "did": "did:web:outreach.etzhayyim.com",
   "nanoid": "otch0001",
   "name": "outreach",
-  "displayName": "GFTD Sales Outreach",
+  "displayName": "Etzhayyim Sales Outreach",
   "description": "Sales Outreach Automation — LangGraph research→draft loop + DNC gate + Resend multi-step sequence.",
   "performerType": "service",
   "domain": "outreach.etzhayyim.com",

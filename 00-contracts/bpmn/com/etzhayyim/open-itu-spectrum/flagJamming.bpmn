@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_itu_spectrum_flag_jamming"
-    targetNamespace="https://gftd.ai/bpmn/open-itu-spectrum"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-itu-spectrum"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_itu_spectrum_flag_jamming" name="電波妨害 (jamming) フラグ" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-itu-spectrum.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-itu-spectrum.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;ew.jamming&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: incidentVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

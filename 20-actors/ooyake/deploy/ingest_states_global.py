@@ -2,7 +2,7 @@
 """ooyake 公 — global breadth ingest of REAL municipalities (177 countries).
 
 ADR-2606021600. Ingests the verifiably-REAL subset of the bundled multi-country
-government dataset (60-apps/ai-gftd-project-states/data/gov/<cc>/municipality.ndjson)
+government dataset (60-apps/etzhayyim-project-states/data/gov/<cc>/municipality.ndjson)
 into the gov-atlas-v1 kotoba graph.
 
 G5 NON-FABRICATION DISCIPLINE — this script ingests ONLY the real-named municipality
@@ -37,7 +37,7 @@ import urllib.request
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.normpath(os.path.join(_HERE, "..", "..", ".."))
-GOV_DIR = os.path.join(_REPO, "60-apps", "ai-gftd-project-states", "data", "gov")
+GOV_DIR = os.path.join(_REPO, "60-apps", "etzhayyim-project-states", "data", "gov")
 GOV_GRAPH = "gov-atlas-v1"
 NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 LAST_VERIFIED = "2026-06-02"
@@ -91,7 +91,7 @@ def project_municipality(cc, row):
         {"pred": "gov.unit/official-url", "value": row.get("website", "")},
         {"pred": "gov.unit/status", "value": "active"},
         {"pred": "gov.unit/sourcing", "value": "representative"},
-        {"pred": "gov.unit/provenance", "value": row.get("website") or f"ai-gftd-project-states/data/gov/{cc}"},
+        {"pred": "gov.unit/provenance", "value": row.get("website") or f"etzhayyim-project-states/data/gov/{cc}"},
         {"pred": "gov.unit/last-verified", "value": LAST_VERIFIED},
         {"pred": "gov.unit/verification-status", "value": "unverified-seed"},
     ]

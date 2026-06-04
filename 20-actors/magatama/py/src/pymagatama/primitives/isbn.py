@@ -19,7 +19,7 @@ Env vars (optional — only required for fulltext B2 persistence):
   B2_ACCESS_KEY_ID         Backblaze B2 application key ID
   B2_SECRET_ACCESS_KEY     Backblaze B2 application key
   B2_ENDPOINT              e.g. https://s3.us-west-004.backblazeb2.com
-  B2_ISBN_BUCKET           default: ai-gftd-isbn
+  B2_ISBN_BUCKET           default: etzhayyim-isbn
 
 The ingest path follows the patent pattern: stream the upstream catalog,
 parse → batch → INSERT into RisingWave with `_rw_executemany`. Rows
@@ -56,7 +56,7 @@ _ISBN_ACTOR = "did:web:isbn.etzhayyim.com"
 _B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "").strip()
 _B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
 _B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")
-_B2_BUCKET = os.environ.get("B2_ISBN_BUCKET", "ai-gftd-isbn").strip() or "ai-gftd-isbn"
+_B2_BUCKET = os.environ.get("B2_ISBN_BUCKET", "etzhayyim-isbn").strip() or "etzhayyim-isbn"
 
 # Aozora author death year cutoff for guaranteed-PD on the Japanese
 # 70-year post-mortem rule (2018 amendment).  death_year ≤ 1953 is safe

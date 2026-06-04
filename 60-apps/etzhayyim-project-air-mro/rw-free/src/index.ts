@@ -4,7 +4,7 @@
  * confidential bodies (componentTrace / sparePartOrder ledger /
  * reliabilityReport) sealed via kotoba E2E (sdk.encryptedWrite/Read,
  * ADR-2605181100). Fiat settlement EXECUTION + airworthiness grounding
- * enforcement stay gftd via consent-capability.
+ * enforcement stay etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

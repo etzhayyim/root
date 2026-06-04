@@ -1,6 +1,6 @@
 """ClassCertificationBinderCell — watatsumi R0 Pregel cell (terminal).
 
-Aggregate L1–L5c + marine_emissions_audit into yatachain-anchored
+Aggregate L1–L5c + marine_emissions_audit into kotoba-datomic-anchored
 classCertificationRecord. R0 scaffold.
 """
 
@@ -13,7 +13,7 @@ from .state_machine import (
     CertificationState,
     transition_to_records_collected,
     transition_to_surveyor_review,
-    transition_to_yatachain_anchored,
+    transition_to_kotoba-datomic_anchored,
     transition_to_record_emitted,
 )
 
@@ -48,7 +48,7 @@ class ClassCertificationBinderCell:
 
     def _collect(self, s): return transition_to_records_collected(s)
     def _surveyor(self, s): return transition_to_surveyor_review(s)
-    def _anchor(self, s): return transition_to_yatachain_anchored(s)
+    def _anchor(self, s): return transition_to_kotoba-datomic_anchored(s)
     def _record(self, s): return transition_to_record_emitted(s)
 
     def solve(self, input_state: dict[str, Any]) -> dict[str, Any]:

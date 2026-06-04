@@ -1,4 +1,4 @@
-# ai-gftd-project-handotai — Semiconductor Intelligence Platform
+# etzhayyim-project-handotai — Semiconductor Intelligence Platform
 
 ## App Identity
 
@@ -7,7 +7,7 @@
 | Key | Value |
 |---|---|
 | **AT bot DID** | `did:web:handotai-dtyy44cr.etzhayyim.com` |
-| **World** | `gftd-actor-agent` (LLM agent for semiconductor intelligence) |
+| **World** | `etzhayyim-actor-agent` (LLM agent for semiconductor intelligence) |
 | **Runtime** | **Single Worker** (TS Native + SvelteKit SSR) |
 | **Data store** | **W Protocol Event Stream** — Write: `WRecord()` (PDS → yata SQL direct (SHA-256 content CID))、Read: `G()` (yata SQL) |
 | **UI mode** | `appview` |
@@ -81,7 +81,7 @@ Request → CF Single Worker
 | `magatama.route.status` | Custom | `api` / `static` / `ssr` |
 | `magatama.app_id` | Custom | app name |
 
-**Storage**: `{app}/otel-logs/{hour}/{ts}.ndjson` in B2 (`ai-gftd-graph` bucket)
+**Storage**: `{app}/otel-logs/{hour}/{ts}.ndjson` in B2 (`etzhayyim-graph` bucket)
 **Worker metrics**: `/_worker/metrics` (OTEL-compatible JSON with histograms)
 **Backend telemetry**: `magatama:observability/telemetry@1.0.0` WIT (counter/gauge/histogram)
 **Backend access-log**: `magatama:observability/access-log@1.0.0` WIT (auto-captured)
@@ -163,14 +163,14 @@ Request → CF Single Worker
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-handotai/wasm/ai-gftd-wasm-handotai-dtyy44cr
+cd 60-apps/etzhayyim-project-handotai/wasm/etzhayyim-wasm-handotai-dtyy44cr
 
 # Build
 GOROOT=$(/opt/homebrew/opt/go@1.25/bin/go env GOROOT) \
-PATH="/opt/homebrew/opt/go@1.25/bin:$PATH" gftd build
+PATH="/opt/homebrew/opt/go@1.25/bin:$PATH" etzhayyim build
 
 # Deploy (Single Worker via Cloudflare REST API)
-gftd deploy
+etzhayyim deploy
 
 # Seed articles
 for i in $(seq 0 79); do

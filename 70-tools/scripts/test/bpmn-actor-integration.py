@@ -20,7 +20,7 @@ Env:
                        pass a direct IP (http://<vendor-bpmn-dispatcher>:8080) to
                        bypass a stale local DNS cache.
   RW_URL               default: fetched from macOS Keychain
-                       (service=gftd.rw, account=ROOT_URL)
+                       (service=etzhayyim.rw, account=ROOT_URL)
 
 Usage:
     70-tools/scripts/test/bpmn-actor-integration.py
@@ -60,14 +60,14 @@ def rw_url() -> str:
         return url
     try:
         out = subprocess.check_output(
-            ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+            ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
             text=True,
         ).strip()
         if out:
             return out
     except subprocess.CalledProcessError:
         pass
-    raise SystemExit("RW_URL not in env and not in Keychain (gftd.rw/ROOT_URL)")
+    raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
 
 
 # ─── HTTP helper ───────────────────────────────────────────────────────
@@ -84,7 +84,7 @@ def _request(
     # Cloudflare bot score blocks the default `Python-urllib/3.x` UA at
     # dispatcher.etzhayyim.com (error 1010). Use a named agent so CF lets the
     # request through.
-    hdrs = {"User-Agent": "gftd-bpmn-integration-test/1.0"}
+    hdrs = {"User-Agent": "etzhayyim-bpmn-integration-test/1.0"}
     if DISPATCHER_INTERNAL_SECRET:
         hdrs["x-internal-trust"] = DISPATCHER_INTERNAL_SECRET
     if data:

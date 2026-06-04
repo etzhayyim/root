@@ -79,7 +79,7 @@
     {"name": "moto_body_paint", "module": "magatama.cells.moto_body_paint", "murakumoNode": "simeon", "phase": "L4 — body panel + 2K acrylic urethane paint + G5 artwork Charter scan"},
     {"name": "moto_final_assembly", "module": "magatama.cells.moto_final_assembly", "murakumoNode": "dan", "phase": "L5a — bolt-up + bilingual VIN + G12 IPFS parts catalog publication + G13 hodoki VIN pre-registration"},
     {"name": "moto_test_dyno_road", "module": "magatama.cells.moto_test_dyno_road", "murakumoNode": "levi", "phase": "L5b — dynamometer + emissions + G6 sound ≤80 dB + ABS function test + road test"},
-    {"name": "moto_provenance_binder", "module": "magatama.cells.moto_provenance_binder", "murakumoNode": "judah", "phase": "terminal — yatachain anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg)"}
+    {"name": "moto_provenance_binder", "module": "magatama.cells.moto_provenance_binder", "murakumoNode": "judah", "phase": "terminal — kotoba-datomic anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.futawa.frameAttestation",
@@ -95,7 +95,7 @@
     "description": "14 immutable gates per ADR-2605261330. 4 constitutional firsts (G7, G8, G12, G14). Changes require Council Lv6+ supermajority + new ADR.",
     "gates": {
       "G1": "All CAD (frame, body, fixture) + firmware (ECU, ABS, BMS) + tool fixtures open-source (Apache 2.0 + Charter Rider)",
-      "G2": "Mass-balance ≥98% closure on yatachain; inherits kanayama + hodoki G2 cross-cell invariant pattern",
+      "G2": "Mass-balance ≥98% closure on kotoba-datomic; inherits kanayama + hodoki G2 cross-cell invariant pattern",
       "G3": "Every critical step (frame weld, engine torque, brake torque) signed by witness quorum ≥2 distinct robots (ADR-2605191524)",
       "G4": "All owner + service manuals + safety labels + parts catalog JP + EN bilingual minimum",
       "G5": "Paint artwork + decals pass Charter Rider §2(a-h) scan (no military / licensed-IP / addictive-thrill / racing-glorification)",

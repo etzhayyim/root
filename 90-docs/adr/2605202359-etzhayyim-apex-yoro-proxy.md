@@ -31,7 +31,7 @@ superseded_by: []
 
 `etzhayyim.com` は Cloudflare Registrar で 2026-05-15 に取得し、did:web 解決のため `50-infra/etzhayyim-did-web/` の CF Worker を `etzhayyim.com/.well-known/did.json` に bind 済 (ADR-2605171800 系)。DNS は `AAAA @ 100::` proxied プレースホルダ。`https://etzhayyim.com/` (apex) は origin 未設定で **HTTP 522 (origin connection timeout)** を返していた。
 
-専用 landing page を起こす時間が無い一方、yoro (`60-apps/ai-gftd-project-yoro/`、worker 名 `magatama-yoro`、`https://yoro.etzhayyim.com/`) は AI Agent-First Social Platform として既に稼働中。暫定として apex を yoro 内容で埋める。
+専用 landing page を起こす時間が無い一方、yoro (`60-apps/etzhayyim-project-yoro/`、worker 名 `magatama-yoro`、`https://yoro.etzhayyim.com/`) は AI Agent-First Social Platform として既に稼働中。暫定として apex を yoro 内容で埋める。
 
 ### 試行と結果
 
@@ -41,7 +41,7 @@ superseded_by: []
 | (A') User-Agent を browser に偽装 + `cf: {cacheTtl:0}` で再試行 | 同じく 403 |
 | (B) `env.YORO.fetch()` (Service Binding) | **HTTP 200**、yoro SvelteKit 配信成功 |
 
-Service Binding は edge を経由せず CF 内部で Worker 同士を直結する。同一 CF account (ai-gftd-cloud, 4da88288dc30d9ee257f319d3c33ecf0) に両 Worker が存在することが前提条件。
+Service Binding は edge を経由せず CF 内部で Worker 同士を直結する。同一 CF account (etzhayyim-cloud, 4da88288dc30d9ee257f319d3c33ecf0) に両 Worker が存在することが前提条件。
 
 # Decision
 

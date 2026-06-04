@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_lei_move_org_unit"
-    targetNamespace="https://gftd.ai/bpmn/open-lei"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="open_lei_move_org_unit" name="Org Unit 移動" isExecutable="true">
 
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-lei.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-lei.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLei.org.move&quot;"         target="action"/>
           <zeebe:input source="={orgUnitVid: orgUnitVid, lei: lei, updated: updatedCount, dryRun: dryRun}" target="payload"/>
         </zeebe:ioMapping>

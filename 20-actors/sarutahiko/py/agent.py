@@ -7,7 +7,7 @@ vehicle manufacturing lifecycle:
   handle_vehicle_order       Create and manage vehicle orders
   handle_production_progress Update production stages and record attestations
   handle_quality             Record quality inspection results
-  handle_vin_attestation     Bind VIN to yatachain with attestations
+  handle_vin_attestation     Bind VIN to kotoba-datomic with attestations
 
 LLM access is Murakumo-only via KotobaLLM (127.0.0.1:4000, gemma3:4b; G16). State is
 written back to the kotoba Datom log (G17). Settlement is USDC on Base L2 +
@@ -201,7 +201,7 @@ def handle_quality(state: QualityState) -> dict:
 
 
 # --------------------------------------------------------------------------- #
-# handle_vin_attestation — Bind VIN to yatachain with attestations
+# handle_vin_attestation — Bind VIN to kotoba-datomic with attestations
 # --------------------------------------------------------------------------- #
 class VINAttestationState(TypedDict, total=False):
     order_id: str

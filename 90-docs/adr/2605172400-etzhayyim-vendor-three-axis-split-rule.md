@@ -138,10 +138,10 @@ Applying the 3-axis rule to the post-Wave-2 borderline list:
 
 | project | etzhayyim part | vendor part |
 |---------|----------------|-------------|
-| auth / iam | DID method spec + OAuth flow lexicon | ai-gftd-auth Worker + D1 KEYS_DB (session, revocation) |
+| auth / iam | DID method spec + OAuth flow lexicon | etzhayyim-auth Worker + D1 KEYS_DB (session, revocation) |
 | agentgateway | MCP facade spec + reference impl | mcp.etzhayyim.com running gateway (SLA, abuse, audit) |
 | bpmn | engine + open process_def (APQC etc.) | customer-specific process_def referencing PII |
-| magatama | `@etzhayyim/sdk` + `magatama-go` + `kami-engine-sdk` (done in Wave 2) | gftd-cli wrapping vendor CF account |
+| magatama | `@etzhayyim/sdk` + `magatama-go` + `kami-engine-sdk` (done in Wave 2) | etzhayyim-cli wrapping vendor CF account |
 | shinka | abstract evolution operator | business-app shinka application |
 | C-group production tools | lexicon JSON | team-based production workflow with customer custody |
 
@@ -272,7 +272,7 @@ TypeScript paths) keeps existing references valid through the transition.
 
 | deferred work | trigger |
 |---------------|---------|
-| yoro vendor `60-apps/ai-gftd-project-yoro/appview/` deletion (172M) | operator runbook: DNS cutover + redirect + 1-week obs (PR #1305) |
+| yoro vendor `60-apps/etzhayyim-project-yoro/appview/` deletion (172M) | operator runbook: DNS cutover + redirect + 1-week obs (PR #1305) |
 | public-malak vendor deletion | live Worker → needs deploy plan |
 | watashi vendor deletion | sibling to etzhayyim/root/60-apps/watashi → unification plan |
 | vendor `00-contracts/lexicons/com/etzhayyim/<X>/` deletion | vendor business-app consumer switch to `@etzhayyim/lexicons-bundle` npm (use-case driven) |

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_us_state_dept_coordinate_kr_relations" targetNamespace="https://gftd.ai/bpmn/open-us-state-dept" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_us_state_dept_coordinate_kr_relations" targetNamespace="https://etzhayyim.ai/bpmn/open-us-state-dept" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_us_state_dept_coordinate_kr_relations" name="coordinateKrRelations" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
@@ -12,7 +12,7 @@
     <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Save" targetRef="Task_Audit"/>
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
-        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-us-state-dept.gftd.ai&quot;" target="actor"/><zeebe:input source="=&quot;open.usStateDept.coordinateKrRelations&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-us-state-dept.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;open.usStateDept.coordinateKrRelations&quot;" target="action"/><zeebe:input source="={vertexId: vertexId}" target="payload"/></zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
     </bpmn:serviceTask>

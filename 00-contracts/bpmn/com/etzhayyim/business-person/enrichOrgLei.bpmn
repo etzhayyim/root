@@ -3,7 +3,7 @@
   LEI + public-company enrichment pipeline.
 
   NSID:       com.etzhayyim.apps.businessPerson.enrichOrgLei
-  Owner DID:  did:web:business-person.gftd.ai
+  Owner DID:  did:web:business-person.etzhayyim.com
   Process ID: business_person_enrich_org_lei
 
   Fires every 24 hours (R/PT24H).
@@ -17,7 +17,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_business_person_enrich_org_lei"
-    targetNamespace="https://gftd.ai/bpmn/business-person"
+    targetNamespace="https://etzhayyim.ai/bpmn/business-person"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="business_person_enrich_org_lei" name="business person enrich org LEI" isExecutable="true">

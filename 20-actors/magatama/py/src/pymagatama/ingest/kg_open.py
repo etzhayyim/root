@@ -1,7 +1,7 @@
 """Zeebe task handlers for open-data Knowledge-Graph ingest (public internet sources).
 
 Migrates the public/open-data adapters of the vendor yatabase KG ingest
-(`gftdcojp:60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/graphs/kg_ingest.py`
+(`etzhayyimcojp:60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/graphs/kg_ingest.py`
 `_SOURCES`) onto the etzhayyim RW-free substrate (ADR-2605172000). Same canonical
 flat entity shape `{id, qid, type, label_ja, label_en, source_id, license,
 extractor, confidence}` the kotoba datomic writer consumes
@@ -17,7 +17,7 @@ vendor sources are deliberately excluded here:
   * japan_company_registry (gBiz) — out of scope per user direction (2026-05-31);
     not migrated.
 
-The vendor kg_ingest module STAYS in gftdcojp: it is load-bearing for the live
+The vendor kg_ingest module STAYS in etzhayyimcojp: it is load-bearing for the live
 commercial yatabase/kotobase product (server.py scheduler + kg_handlers reads),
 and its RW retirement is gated by the 7-step cutover
 (`MIGRATION-rw-to-kotoba-datomic.md`). Vendor removal is the post-cutover step,

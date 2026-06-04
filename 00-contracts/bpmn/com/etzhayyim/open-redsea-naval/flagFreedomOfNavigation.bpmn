@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_redsea_naval_flag_freedom_of_navigation"
-    targetNamespace="https://gftd.ai/bpmn/open-redsea-naval"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-redsea-naval"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_redsea_naval_flag_freedom_of_navigation" name="紅海 航行自由" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-redsea-naval.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-redsea-naval.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;maritime.fonops&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: operationId, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

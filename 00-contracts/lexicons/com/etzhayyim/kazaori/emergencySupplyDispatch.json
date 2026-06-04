@@ -71,7 +71,7 @@
             "type": "string",
             "description": "Destination site confirmation (encrypted if PII present)"
           },
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_unispsc_procurement"
-    targetNamespace="https://gftd.ai/bpmn/open-unispsc"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-unispsc"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_unispsc_procurement" name="UNSPSC 調達" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -29,7 +29,7 @@
                                 else if quantity * unitPrice &gt;= 50000 then &quot;department&quot;
                                 else &quot;routine&quot;" target="approvalTier"/>
           <zeebe:output source="=quantity * unitPrice &gt;= 1000000 or dangerousGoods = true" target="requireCab"/>
-          <zeebe:output source="=&quot;did:web:unispsc.gftd.ai:seg&quot; + substring(string(commodityCode),1,2) + &quot;:commodity:c&quot; + string(commodityCode)" target="commodityDst"/>
+          <zeebe:output source="=&quot;did:web:unispsc.etzhayyim.com:seg&quot; + substring(string(commodityCode),1,2) + &quot;:commodity:c&quot; + string(commodityCode)" target="commodityDst"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_Save</bpmn:outgoing>
@@ -91,7 +91,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-unispsc.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openUnispsc.procurement.cabRequest&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, totalAmount: totalAmount, currency: currency, commodityCode: commodityCode, approvalTier: approvalTier}" target="payload"/>
         </zeebe:ioMapping>
@@ -104,7 +104,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-unispsc.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-unispsc.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openUnispsc.procurement.autoApprove&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, totalAmount: totalAmount, commodityCode: commodityCode, approvalTier: approvalTier}" target="payload"/>
         </zeebe:ioMapping>

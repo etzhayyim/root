@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 NAMESPACE="${BUILDKIT_NAMESPACE:-buildkit}"
-BUILDER="${BUILDKIT_BUILDER:-gftd-vke}"
+BUILDER="${BUILDKIT_BUILDER:-etzhayyim-vke}"
 REPLICAS="${BUILDKIT_REPLICAS:-2}"
 PLATFORM="${BUILDKIT_PLATFORM:-linux/amd64}"
 

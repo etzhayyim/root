@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_opec_record_quota_decision"
-    targetNamespace="https://gftd.ai/bpmn/open-opec"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-opec"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_opec_record_quota_decision" name="OPEC+ quota decision" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-opec.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-opec.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOpec.quota.majorChange&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, meetingId: meetingId, memberCountry: memberCountry, quotaMbd: quotaMbd, quotaMbdDelta: quotaMbdDelta, decisionType: decisionType}" target="payload"/>
         </zeebe:ioMapping>
@@ -59,7 +59,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-opec.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-opec.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOpec.quota.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, meetingId: meetingId, memberCountry: memberCountry, quotaMbd: quotaMbd, quotaMbdDelta: quotaMbdDelta, decisionType: decisionType}" target="payload"/>
         </zeebe:ioMapping>

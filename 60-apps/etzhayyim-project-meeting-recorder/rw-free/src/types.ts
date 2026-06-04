@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
  * (3-axis OR-test) + ADR-2605181100 (kotoba E2E encrypted-record envelope).
  * Founder directive 2026-06-03: front everything that can move; only the
- * irreducible regulated EXECUTION stays gftd.
+ * irreducible regulated EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — provider capability catalog: which meeting
@@ -17,13 +17,13 @@
  *     • session       — onBehalfOfDid + externalMeetingId + status/timeline
  *                        (per-person, consent-gated in the lexicon).
  *     • recordingChunk — B2 blob POINTER metadata + participantHashes (PII Tier
- *                        1). The media blob itself stays gftd (large archive).
+ *                        1). The media blob itself stays etzhayyim (large archive).
  *     • transcriptSegment — speaker + transcript text. The envelope IS the
  *                        encryption; text travels as a plain field.
  *   All three land in the default wrapper collection, so every scan filters by
  *   its own innerType (= the collection NSID) to avoid cross-contamination.
  *
- *   STAYS gftd (consumed via consent-capability) — NOT a collection:
+ *   STAYS etzhayyim (consumed via consent-capability) — NOT a collection:
  *     • recorder-bot JOIN / CAPTURE execution (dispatching the bot into a
  *       teams/meet/zoom call, capturing A/V) — enforcement/action.
  *     • GPU/MLX whisper-large-v3 transcription INFERENCE.

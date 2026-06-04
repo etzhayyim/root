@@ -16,7 +16,7 @@
 
  :actor/gates
  [{:gate/id "G1"  :gate/name "firmware-open-source"         :gate/rule "All depollution + dismantling + shredder firmware + fixture CAD open-source (Apache 2.0 + Charter Rider)"}
-  {:gate/id "G2"  :gate/name "mass-balance-98pct"           :gate/rule "Mass-balance audit ≥98% closure on yatachain (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); inherits kanayama G2 pattern"}
+  {:gate/id "G2"  :gate/name "mass-balance-98pct"           :gate/rule "Mass-balance audit ≥98% closure on kotoba-datomic (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); inherits kanayama G2 pattern"}
   {:gate/id "G3"  :gate/name "witness-quorum-2robot"        :gate/rule "Every critical step (refrigerant capture, battery disconnect, airbag neutralization, PGM brick removal) signed by witness quorum ≥2 distinct robots (ADR-2605191524)"}
   {:gate/id "G4"  :gate/name "bilingual-reports"            :gate/rule "All parts catalog entries + recovery reports + take-back records JP + EN bilingual minimum"}
   {:gate/id "G5"  :gate/name "charter-rider-scan"           :gate/rule "All vehicle intakes pass Charter Rider §2(a-h) scan (no military / weapon-carrying / covertly-modified)"}

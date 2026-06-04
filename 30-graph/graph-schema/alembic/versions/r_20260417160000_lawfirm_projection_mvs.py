@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260417160000_lawfirm_projection_mvs"
-down_revision = 'r_20260417150000_gftd_did_recursive_tree'
+down_revision = 'r_20260417150000_etzhayyim_did_recursive_tree'
 branch_labels = None
 depends_on = None
 

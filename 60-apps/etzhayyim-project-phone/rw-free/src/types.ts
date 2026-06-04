@@ -6,7 +6,7 @@
  * (3-axis Liability/Custody/Settlement) + ADR-2605181100 (kotoba E2E
  * encrypted-record envelope). Founder directive 2026-06-03: MAXIMAL migration —
  * front everything that can move; only the irreducible regulated telephony
- * EXECUTION stays gftd.
+ * EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — no-PII org metadata + aggregate read-views:
@@ -22,18 +22,18 @@
  *     • callRecord  — call-detail record / message-metadata (caller, callee,
  *       duration, disposition, channel incl. webrtc-widget). E2E per the
  *       message-metadata rule. The CDR DATA migrates encrypted; the carrier call
- *       EXECUTION stays gftd.
+ *       EXECUTION stays etzhayyim.
  *
- *   STAYS gftd (note, NOT a collection — consumed via consent-capability) — the
+ *   STAYS etzhayyim (note, NOT a collection — consumed via consent-capability) — the
  *   irreducible regulated telephony EXECUTION + credential custody: AWS Connect
  *   StartOutboundVoiceContact / PSTN origination + termination / StartWebRTCContact
  *   media, Amazon Chime SDK voice, CCP + SAML token custody, and S3
  *   call-recording custody. We migrate the CDR/contact DATA E2E; the regulated
- *   carrier call ACT and recording custody remain gftd-resident.
+ *   carrier call ACT and recording custody remain etzhayyim-resident.
  *
  * AT-Lexicon: no float — durations are integer seconds; any percent is integer
  * 0-100. No money field exists on this app (the fiat telephony charge is part of
- * the gftd carrier-rail execution, never a record here).
+ * the etzhayyim carrier-rail execution, never a record here).
  */
 
 // ─── Plaintext collections (public, no PII) ─────────────────────────

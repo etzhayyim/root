@@ -14,13 +14,13 @@ function kcSave(svc, acct, val) {
   catch { execSync(`security add-generic-password -s "${svc}" -a "${acct}" -w "${val}"`); }
 }
 
-const TENANT    = kc('gftd.m365', 'TENANT_ID');
-const CLIENT_ID = kc('gftd.m365', 'CLIENT_ID');
+const TENANT    = kc('etzhayyim.m365', 'TENANT_ID');
+const CLIENT_ID = kc('etzhayyim.m365', 'CLIENT_ID');
 const SCOPE     = process.argv[2] || 'https://graph.microsoft.com/ChannelMessage.Send offline_access';
 
 // 1. refresh_token があれば使う
 let refreshToken = '';
-try { refreshToken = kc('gftd.m365', 'DELEGATED_REFRESH_TOKEN'); } catch {}
+try { refreshToken = kc('etzhayyim.m365', 'DELEGATED_REFRESH_TOKEN'); } catch {}
 
 if (refreshToken) {
   const res = await fetch(`https://login.microsoftonline.com/${TENANT}/oauth2/v2.0/token`, {
@@ -29,7 +29,7 @@ if (refreshToken) {
   });
   const token = await res.json();
   if (token.access_token) {
-    if (token.refresh_token) kcSave('gftd.m365', 'DELEGATED_REFRESH_TOKEN', token.refresh_token);
+    if (token.refresh_token) kcSave('etzhayyim.m365', 'DELEGATED_REFRESH_TOKEN', token.refresh_token);
     process.stdout.write(token.access_token);
     process.exit(0);
   }
@@ -54,7 +54,7 @@ while (Date.now() - start < 300000) {
   const token = await res.json();
   if (token.access_token) {
     if (token.refresh_token) {
-      kcSave('gftd.m365', 'DELEGATED_REFRESH_TOKEN', token.refresh_token);
+      kcSave('etzhayyim.m365', 'DELEGATED_REFRESH_TOKEN', token.refresh_token);
       console.error('✅ refresh_token saved to Keychain');
     }
     process.stdout.write(token.access_token);

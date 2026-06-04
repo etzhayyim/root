@@ -2,7 +2,7 @@
 
 Bridges CycloneDX SBOMs into the **kotoba** EAVT store (Datomic-class), per
 ADR-2605262130 (kotoba supersedes RisingWave). The legacy SBOM app
-(`60-apps/ai-gftd-project-sbom`, ADR-2604282300) persists to RisingWave
+(`60-apps/etzhayyim-project-sbom`, ADR-2604282300) persists to RisingWave
 (`vertex_sbom_artifact` / `vertex_sbom_component`); since
 `vertex_sbom_component` is **one row per CycloneDX `components[]` entry** and the
 artifact row stores the original `cdxJson`, the migration is just
@@ -90,7 +90,7 @@ kotoba --token <jwt> sparql 'SELECT * WHERE { ?m <kg/claim/match/severity> "crit
 
 ### Software-stack SBOM (the OSV-matchable surface)
 
-`60-apps/ai-gftd-project-open-robo/firmware/software-sbom.edn` is the Otete
+`60-apps/etzhayyim-project-open-robo/firmware/software-sbom.edn` is the Otete
 firmware's software SBOM (`:bom/of giemon-otete-sw`) — PyPI deps
 (`pkg:pypi/*`, from pyproject.toml) + ROS2 Humble debs (`pkg:deb/ros-humble-*`).
 Run it through the same pipeline and match against **real** OSV:

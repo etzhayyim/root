@@ -1,6 +1,6 @@
 ---
 id: adr-2605080000-yatabase-yata-retail-cloud
-title: gftd Retail Cloud — yatabase + obj + yata + billing v2 (codename io-yatabase D12+)
+title: etzhayyim Retail Cloud — yatabase + obj + yata + billing v2 (codename io-yatabase D12+)
 status: proposed
 doc_type: adr
 topic: retail-cloud-provider
@@ -30,7 +30,7 @@ superseded_by: []
 
 # Goal
 
-gftd platform の余剰能力 (B2 Bandwidth Alliance の実質ゼロ egress、RisingWave
+etzhayyim platform の余剰能力 (B2 Bandwidth Alliance の実質ゼロ egress、RisingWave
 shared cluster の compute、self-host RunPod LLM) を **retail cloud product** と
 して外部顧客に再販する。3 つの製品 (yatabase / obj / yata) と 1 つの基盤
 (billing v2) を 1 本の ADR で確定する。原価優位 (B2 storage = $0.006/GB-month、
@@ -52,7 +52,7 @@ In:
 
 Out:
 - 既存 96 mitama actor / 内部利用 (`*.etzhayyim.com` で公開済の domain) の課金化 — internal-only として継続無料
-- gftd OLTP (Neon-style separated compute/storage Postgres) — 当面開発しない (RW を graph として売る方針に集約)
+- etzhayyim OLTP (Neon-style separated compute/storage Postgres) — 当面開発しない (RW を graph として売る方針に集約)
 - LLM Gateway product (`llm.etzhayyim.com` の retail 化) — 別 ADR とする (RunPod cost / inference SLA は独立決定軸)
 - 暗号資産 / token-gated 決済 — 当面 fiat (JPY / USD) のみ
 - 多 region 展開 — LAX 1 拠点で start、加入数 trigger (P9) に従う
@@ -199,7 +199,7 @@ Side rails:
 **API surface**:
 - S3-compat REST: `https://<bucket>.obj.etzhayyim.com/<key>` (subdomain) + `https://obj.etzhayyim.com/<bucket>/<key>` (path)
 - Native XRPC: `com.etzhayyim.apps.obj.{createBucket, putObject, getObject, listObjects, presignUrl, searchByEmbedding, listByTag, shareBucket, ...}`
-- AWS SigV4 mapping: access key id = `gftd_<key_id>`, secret = `sk_obj_<...>`
+- AWS SigV4 mapping: access key id = `etzhayyim_<key_id>`, secret = `sk_obj_<...>`
 
 ## D5. 製品 3: yata Rust crate (canonical SDK)
 
@@ -321,10 +321,10 @@ floor 抵触 org 数」を監視する。
 | yatabase | RW database | `yata_<sha256(did)[:16]>` | per-org PG ROLE、`REVOKE ALL ON DATABASE` 他 DB |
 | obj | B2 bucket | `obj-<did_hash>-<bucket_name>` | sk_live_obj_* + IAM-style ACL |
 | LLM (内部使用) | RunPod pod | shared | rate limit by org |
-| Billing | RW shared | `billing` schema (gftd internal) | gftd 管理者のみ |
+| Billing | RW shared | `billing` schema (etzhayyim internal) | etzhayyim 管理者のみ |
 
 **禁則**:
-- 顧客 DB から gftd 内部 DB (`postgres` / `dev` / 96 mitama actor data) への参照不可
+- 顧客 DB から etzhayyim 内部 DB (`postgres` / `dev` / 96 mitama actor data) への参照不可
 - 顧客 bucket から他テナント bucket への list / get 不可
 - 顧客 sk_live_yata_* で billing / authz / authn API 呼出し不可
 
@@ -333,12 +333,12 @@ floor 抵触 org 数」を監視する。
 - **yatabase.etzhayyim.com** = product host (graph DB **+** integrated S3-compatible object storage, per D10)
 - **yata** = top-level Rust crate name (crates.io)
 - **pay.etzhayyim.com** = billing / invoice / sales console
-- **gftd Cloud** = umbrella retail product line name
+- **etzhayyim Cloud** = umbrella retail product line name
 
 Marketing tagline 候補:
 - "Yatabase — see every relation. Live."
 - "八咫の眼で、すべての関係を、いま見る"
-- "gftd Cloud — graph + storage + LLM, one bill, ten times cheaper egress"
+- "etzhayyim Cloud — graph + storage + LLM, one bill, ten times cheaper egress"
 
 ## D10. Storage は yatabase に統合 (Supabase 型) — supersedes D4 (2026-05-08)
 
@@ -414,7 +414,7 @@ P2 で実装した `enforceApiKeyProductScope` の `'obj'` 分岐は dead code �
 
 ### S3 互換 wire 仕様
 
-- `PUT /s3/{bucket}/{key}` — AWS SigV4 (`X-Amz-*` headers)、`access_key=gftd_<keyId>`,
+- `PUT /s3/{bucket}/{key}` — AWS SigV4 (`X-Amz-*` headers)、`access_key=etzhayyim_<keyId>`,
   `secret=sk_yata_<...>` を内部で `sk_live_yata_*` API key にマップ
 - `GET / HEAD / DELETE / LIST` も同様
 - multipart upload (`POST ?uploads`, `PUT ?partNumber=N&uploadId=...`,
@@ -498,7 +498,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
   に固定 (ADR-2605091400 cell-membrane)。Cypher / SPARQL / Bolt / Realtime /
   PostgREST / GraphQL は **既存ツール救済の compatibility envelope** で、内部は
   XRPC + Hyperdrive に正規化される
-- "io-yatabase" は work-stream codename。folder = `60-apps/ai-gftd-project-yatabase/`、
+- "io-yatabase" は work-stream codename。folder = `60-apps/etzhayyim-project-yatabase/`、
   host = `yatabase.etzhayyim.com`、crate = `yata` を rebrand しない (CAC / brand
   分散コスト回避)
 
@@ -507,7 +507,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 | # | Surface | 用途 | Auth | Origin | Phase |
 |---|---|---|---|---|---|
 | S1 | `/storage/v1/object/{b}/{k}` (Supabase REST) | blob put/get/list/sign | `sk_live_yata_*` / atproto JWT | pyzeebe → B2/Vultr OS/R2 | P3 ✅ |
-| S2 | `/s3/{b}/{k}` (AWS SigV4) | boto3 / mc 互換 | SigV4 (`access_key=gftd_<keyId>`) | 同上 | P3.2 |
+| S2 | `/s3/{b}/{k}` (AWS SigV4) | boto3 / mc 互換 | SigV4 (`access_key=etzhayyim_<keyId>`) | 同上 | P3.2 |
 | S3 | `/sparql` (SPARQL 1.1) | RDF SELECT/CONSTRUCT/ASK | 同 S1 | RW :4566 + `v_rdf_triple` VIEW | P4 ✅ |
 | S4 | `/xrpc/com.etzhayyim.apps.yata.*` | native XRPC (cytoplasmic) | 同 S1 | dispatcher → pyzeebe / Hyperdrive | P4 ✅ |
 | S5 | `/pg` (PG protocol :5432) | psql / ORM read-only | role-mapped session | Vultr LB → PgBouncer → RW :4566 | P4 |
@@ -528,7 +528,7 @@ backend / billing / tenant 境界 / brand は分離しない**。
 |---|---|
 | **MCP `/mcp` のみが外部 AI / 外部 principal 向け sole surface** | ADR-2605091400 |
 | Cypher / Bolt / Realtime / REST / GraphQL は internal cytoplasmic XRPC を ecosystem ツール向けに wire 互換包装したもの。新 lexicon は導入しない | ADR-2605091400 + 本 ADR §D4 |
-| Domain write は Hyperdrive direct (ADR-0036)。`com.atproto.repo.createRecord` を `com.etzhayyim.apps.yata.*` で使わない | ADR-0036 + 60-apps/ai-gftd-project-yatabase/CLAUDE.md |
+| Domain write は Hyperdrive direct (ADR-0036)。`com.atproto.repo.createRecord` を `com.etzhayyim.apps.yata.*` で使わない | ADR-0036 + 60-apps/etzhayyim-project-yatabase/CLAUDE.md |
 | Tenant 境界は `yata_<sha256(did)[:16]>` per-org RW DB + per-org PG ROLE | 本 ADR §D8 |
 | RW OLTP 制約 (`ON CONFLICT` 不可、tx 不可、`UNIQUE` 不可、strict serializability 不可) は **全 surface で同様に開示**。PostgREST / GraphQL の wire response にも `Sql-Constraint-Mode: rw-eventual` ヘッダで明示 | 90-docs/260424-bsky-compat-risingwave-split.md |
 | Auth は **atproto OAuth が canonical**。GoTrue 互換 shim (S11) は token mint だけ担当、内部 JWT は ES256 atproto session | ADR-2604231821 + 本 ADR §D8 |
@@ -849,7 +849,7 @@ Content-Type: application/json
 
 GoTrue は `{ access_token, token_type, expires_in, refresh_token, user }`
 shape を返すが、`access_token` は **ES256 atproto session JWT** (canonical)。
-`sub` claim は `did:erc725:gftd:260425:{contract}` (ADR-0095)、`aud` は
+`sub` claim は `did:erc725:etzhayyim:260425:{contract}` (ADR-0095)、`aud` は
 `yatabase.etzhayyim.com`。
 
 ### `sk_live_yata_*` mint flow
@@ -1160,7 +1160,7 @@ total                                 ¥16,206,000      ¥2,217,000     ¥13,989
   で抑制、Business plan 以降は dedicated namespace に分離
 - **B2 SlowDown / rate limit**: ADR-0048 の 2026-04-25 incident で経験済 → 顧客 PUT が
   burst したとき自分の internal traffic を阻害する可能性 → per-org rate limit を obj
-  Worker で先に絞る、`ai-gftd-iceberg` 系 internal bucket とは account 分離も検討
+  Worker で先に絞る、`etzhayyim-iceberg` 系 internal bucket とは account 分離も検討
 - **Free tier の経済性**: 10K free user × ¥30/月原価 = ¥300K/月 → Developer 0.5%
   conversion (50 人 × ¥4,980) で ¥250K → 当面赤字。Conversion を 1% 以上に押し上げる
   product-led growth が前提
@@ -1175,14 +1175,14 @@ total                                 ¥16,206,000      ¥2,217,000     ¥13,989
   が pod 化される箇所) + `obj-edge`
 - 既存 `mitama-udf-pool` には billing 専用 zeebe-worker profile を 1 つ追加 (ADR-0056
   pattern、shosha / shinshi 同形)
-- 1Password vault に `gftd cloud retail` フォルダ新設 → Stripe key / 適格請求書発行
+- 1Password vault に `etzhayyim cloud retail` フォルダ新設 → Stripe key / 適格請求書発行
   証 / DPA template / channel partner agreement
 - CLAUDE.md `[platform.products]` に yatabase / obj / yata 3 entry を追加 (この ADR
   approve 後)
 
 # Alternatives Considered
 
-## Alt-1: gftd OLTP (Neon-style separated compute/storage Postgres) も同時に出す
+## Alt-1: etzhayyim OLTP (Neon-style separated compute/storage Postgres) も同時に出す
 
 **Rejected**: pageserver fork (Neon OSS は Apache 2.0 だが Rust ~50K LoC の運用負担)
 + branching / auto-suspend 実装が当面 ROI 低い。yatabase で graph + analytics に集中、
@@ -1201,7 +1201,7 @@ OLTP は需要が現場から上がってきたら別 ADR で起票。
 schema + MCP server + CLI binary 1 本)** で他言語派生を作る方が長期的に整合する。yata-ts
 は Phase 2 で native 実装、yata-py は PyO3 で Rust core を再利用。
 
-## Alt-4: 全部 1 つの umbrella product `gftd Cloud` にして製品分離しない
+## Alt-4: 全部 1 つの umbrella product `etzhayyim Cloud` にして製品分離しない
 
 **Rejected**: yatabase (graph) と obj (storage) は **顧客像が異なる** (graph = AI agent
 developer / data scientist、obj = web app developer / video creator)。別ブランドで sales
@@ -1213,7 +1213,7 @@ narrative を分離する方が CAC 効率が良い。billing は共通基盤、
 Phase 2 規模。MVP は **SPARQL + SQL/PGQ + XRPC + MCP** で出し、Cypher は Neo4j 移行
 需要が顕在化してから build。
 
-## Alt-6: gftd Vector / gftd Search を別製品として分離
+## Alt-6: etzhayyim Vector / etzhayyim Search を別製品として分離
 
 **Rejected**: pgvector は yatabase に内包、search (BM25 / hybrid retrieval) は
 yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する。
@@ -1251,7 +1251,7 @@ yatabase の MV / SQL query で十分カバー。分離は粗利を稀釈する�
 | 10 | yata crate license | Apache-2.0 OR MIT (Rust 慣例 dual-license) | P5 |
 | 11 | yata crate MSRV | Rust 1.78 (stable, 2024 edition) | P5 |
 | 12 | yata 公開 repo | monorepo subtree push to `github.com/etzhayyim/yata` | P5 |
-| 13 | 商標 | "yatabase" / "yata" / "gftd Cloud" の TM 出願 (J/US/EU) | P9 (enterprise 直前) |
+| 13 | 商標 | "yatabase" / "yata" / "etzhayyim Cloud" の TM 出願 (J/US/EU) | P9 (enterprise 直前) |
 | 14 | DPA template | ISO 27001 + GDPR + 改正個人情報保護法準拠 | P10 |
 
 # References

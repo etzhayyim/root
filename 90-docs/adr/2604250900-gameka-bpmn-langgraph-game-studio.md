@@ -19,7 +19,7 @@ related:
   - adr-0046
   - adr-0019-atproto-native-identifier-topology
   - adr-0023-auth-shannon-optimal-4-layer
-  - adr-0029-did-gftd-method-specification
+  - adr-0029-did-etzhayyim-method-specification
   - adr-2604241038-yoro-pds-ideal-topology
   - adr-2604241500-cad-bim-per-game-wasm-topology
   - adr-0031-kami-vrm-three-free-topology
@@ -124,7 +124,7 @@ Start (chained from spec)
                          (kami-app-{slug} crate template, scene + adapters from spec)
   → Task_BuildWasm       generic.http.fetch  POST kami-build runner (Vultr)
                          returns { cid, size, log_url }
-  → Task_StoreArtifact   generic.http.fetch  PUT B2 ai-gftd-gameka/builds/{cid}.wasm
+  → Task_StoreArtifact   generic.http.fetch  PUT B2 etzhayyim-gameka/builds/{cid}.wasm
   → Task_PersistArtifact generic.db.insert   vertex_gameka_artifact
   → Task_Audit           generic.audit.emit  gameka.artifact.built
   → Task_DerivePlaytest  generic.pds.dispatch com.etzhayyim.gameka.playtestGame
@@ -230,7 +230,7 @@ Path F middleware (memory / consent / audit) は LangGraph 内には置かず、
 ADR-0048 RW 制約: `ON CONFLICT` 禁止 → spec_id は ULID で衝突無し。
 bulk INSERT 経路ではないので `dml_rate_limit` 不要。
 
-B2 layout: `ai-gftd-gameka/{builds,assets,playtest-recordings}/`、
+B2 layout: `etzhayyim-gameka/{builds,assets,playtest-recordings}/`、
 ADR-0029 CIDv1 (`b` base32 + `raw` codec + sha2-256) で content-addressed。
 
 # Comparison (Pipeline shape η)
@@ -298,7 +298,7 @@ oneshot で十分、本 ADR 時点で escape は **不要**。
 | Step | 内容 | 完了条件 |
 |---|---|---|
 | 1 | 本 ADR ratify、`deps.toml` `[[bpmn_actors]] gameka` 行追加 | review pass |
-| 2 | 9 lexicon JSON + RW migration apply | `gftd graph migrate` clean |
+| 2 | 9 lexicon JSON + RW migration apply | `etzhayyim graph migrate` clean |
 | 3 | `gameka.studio.v1` LangGraph graph + unit test (offline LLM) | py test green |
 | 4 | `proposeGame.bpmn` のみ live。手動 XRPC で 1 spec 生成 | `vertex_gameka_spec` 1 row |
 | 5 | `kami-codegen` + `kami-build` runner Helm rollout | wasm cid B2 に着く |
@@ -317,11 +317,11 @@ oneshot で十分、本 ADR 時点で escape は **不要**。
 - ADR-0046 — yoro triple-witness autonomy monitoring
 - ADR-0019 — atproto-native identifier topology (did:web sub-actor path)
 - ADR-0023 — Auth Shannon-optimal 4-Layer (multi-key rotation)
-- ADR-0029 — did:gftd method spec (CIDv1 content addressing)
+- ADR-0029 — did:etzhayyim method spec (CIDv1 content addressing)
 - ADR-2604241038 — yoro/PDS/AppView ideal topology
 - ADR-2604241500 — CAD/BIM per-game WASM topology
 - ADR-0031 — kami VRM three-free topology
 - `40-engine/kami-engine/CLAUDE.md` — kami-app-{game} crate pattern
-- `60-apps/ai-gftd-project-media-gamers/CLAUDE.md` — Multi-DID per game pattern
-- `60-apps/ai-gftd-project-game-play-uploader/` — play page hosting Worker
+- `60-apps/etzhayyim-project-media-gamers/CLAUDE.md` — Multi-DID per game pattern
+- `60-apps/etzhayyim-project-game-play-uploader/` — play page hosting Worker
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/yoro/platformPulse.bpmn` — autonomous timer-start reference

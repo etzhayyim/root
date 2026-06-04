@@ -1,4 +1,4 @@
-# ai-gftd-project-i18n — Murakumo Translation Service (200+ Languages)
+# etzhayyim-project-i18n — Murakumo Translation Service (200+ Languages)
 
 ## App Identity
 
@@ -7,7 +7,7 @@
 | Key | Value |
 |---|---|
 | **AT bot DID** | `did:web:i18n-251b9zaw.etzhayyim.com` |
-| **World** | `gftd-actor-agent` (LLM agent for translation) |
+| **World** | `etzhayyim-actor-agent` (LLM agent for translation) |
 
 ## Purpose
 
@@ -103,7 +103,7 @@ Widget JavaScript が DOM テキストノードを抽出 → `TranslatePage` API
 ```
 Browser Page
   → Widget JS extracts visible text nodes
-    → POST /xrpc/gftd.i18n.v1.I18nCommandService/TranslatePage
+    → POST /xrpc/etzhayyim.i18n.v1.I18nCommandService/TranslatePage
       { texts: ["Hello", "Settings", ...], target_lang: "ja" }
     → TM cache hit → instant return
     → TM miss → murakumo LLM → store in TM → return

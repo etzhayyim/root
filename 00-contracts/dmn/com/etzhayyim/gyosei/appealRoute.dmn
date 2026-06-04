@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
   id="Definitions_gyosei_appeal_route"
   name="gyosei_appeal_route"
-  namespace="https://gftd.ai/dmn/gyosei">
+  namespace="https://etzhayyim.ai/dmn/gyosei">
   <decision id="gyosei_appeal_route" name="gyosei_appeal_route">
     <decisionTable id="DecisionTable_gyosei_appeal_route" hitPolicy="FIRST">
       <input id="Input_statutoryAppealAvailability">

@@ -24,7 +24,7 @@ related:
   - adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet
   - adr-2605215200-shinka-pregel-mst
   - adr-2605215300-yoro-python-primitives
-  - adr-2605212100-gftd-to-etzhayyim-migration-batch
+  - adr-2605212100-etzhayyim-to-etzhayyim-migration-batch
   - adr-2605242330-gov-procedure-pregel-mcp-coverage
 supersedes: []
 superseded_by: []
@@ -41,8 +41,8 @@ superseded_by: []
 Three pieces of work landed on 2026-05-21 that share a single authoritative ADR slot:
 
 1. **Murakumo no-VKE mesh placement contract** — a YAML manifest at `50-infra/multicluster/murakumo-mesh/placement-contract.yaml` that maps the 10-node Mac-mini fleet (12-tribes-named per [ADR-2605182312](/90-docs/adr/2605182312-local-bring-up-murakumo-gemma4.md)) to Pregel cell groups per [ADR-2605192415](/90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) §4, deliberately *without* a Virtual Kubernetes Environment (VKE / managed control plane). The mesh runs k3s with local nodeSelector pinning.
-2. **Vendor → religious-corp lexicon port verdict taxonomy** — a 3-verdict classifier (REDIRECT / VENDOR-ONLY / REIMPLEMENT) used by the per-package MIGRATION-NOTES.md sidecars to classify each gftd-side file's port path.
-3. **Atomic identifier cutover** — the §3 cited 14 times across the repo (6 SUBSTRATE-PORT-PENDING markers, 2 MIGRATION-NOTES.md sidecars, ADR-2605215000 §3, ADR-2605212100, CLAUDE.md §Do-Not / §Status). This specifies the rules for the 220-file `gftd-*` → `etzhayyim-*` identifier rename and the master gating condition.
+2. **Vendor → religious-corp lexicon port verdict taxonomy** — a 3-verdict classifier (REDIRECT / VENDOR-ONLY / REIMPLEMENT) used by the per-package MIGRATION-NOTES.md sidecars to classify each etzhayyim-side file's port path.
+3. **Atomic identifier cutover** — the §3 cited 14 times across the repo (6 SUBSTRATE-PORT-PENDING markers, 2 MIGRATION-NOTES.md sidecars, ADR-2605215000 §3, ADR-2605212100, CLAUDE.md §Do-Not / §Status). This specifies the rules for the 220-file `etzhayyim-*` → `etzhayyim-*` identifier rename and the master gating condition.
 
 The ADR file was never committed to `90-docs/adr/`. The sidecar artifacts (placement-contract.yaml + 2 MIGRATION-NOTES.md + CLAUDE.md row 21 entry) carry the actual decisions; this file is the canonical decision-record document that closes the dangling reference and gives downstream readers (subagents, future operators, CI hooks) a single place to navigate.
 
@@ -72,12 +72,12 @@ The placement contract's `metadata.adr` field already references the underlying 
 
 ## §2 Vendor → religious-corp lexicon port verdict taxonomy
 
-Three-verdict classifier used by all gftd → etzhayyim port work:
+Three-verdict classifier used by all etzhayyim → etzhayyim port work:
 
 | Verdict | Meaning | Action |
 |---|---|---|
 | **REDIRECT** | The line/file shape stays; only environment URL / variable name / package name changes. LiteLLM gateway / dispatcher / XRPC router abstracts the backend. | Identifier swap in the §3 atomic cutover wave. No behaviour change. |
-| **VENDOR-ONLY** | The code path serves a commercial-SaaS workload (vendor `etzhayyim.com` paid pipeline). Religious-corp does not use it. | Code stays on the gftd side; religious-corp callers must not invoke. Lefthook enforces caller-side rejection (see ADR-2605215000 §2). |
+| **VENDOR-ONLY** | The code path serves a commercial-SaaS workload (vendor `etzhayyim.com` paid pipeline). Religious-corp does not use it. | Code stays on the etzhayyim side; religious-corp callers must not invoke. Lefthook enforces caller-side rejection (see ADR-2605215000 §2). |
 | **REIMPLEMENT** | Behaviour incompatible with religious-corp substrate boundary (e.g. RunPod cold-start protocol → EVO-X2 native protocol). | Rewrite required; cannot redirect. Tracked as a separate ADR per surface (e.g. ADR-2605215100 for maps-sentinel). |
 
 This taxonomy is used by the two existing MIGRATION-NOTES.md sidecars:
@@ -91,9 +91,9 @@ New MIGRATION-NOTES.md sidecars MUST use the same 3-verdict taxonomy. Lefthook (
 
 ### §3.1 The 220-file cutover wave
 
-The two MIGRATION-NOTES.md sidecars itemise ≈220 `gftd-*` → `etzhayyim-*` identifier sites across two scopes:
+The two MIGRATION-NOTES.md sidecars itemise ≈220 `etzhayyim-*` → `etzhayyim-*` identifier sites across two scopes:
 
-- **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`etzhayyim_*` → `ETZHAYYIM_*`), config dir (`~/.gftd/` → `~/.etzhayyim/`), DNS suffix (`.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`com.etzhayyim.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`gftd-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
+- **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`etzhayyim_*` → `ETZHAYYIM_*`), config dir (`~/.etzhayyim/` → `~/.etzhayyim/`), DNS suffix (`.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`com.etzhayyim.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`etzhayyim-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
 - **pymagatama runtime** (`20-actors/magatama/py/`): RunPod-coupled call sites (REDIRECT / VENDOR-ONLY / REIMPLEMENT classified).
 
 Plus the package-rename half referenced by 3 SUBSTRATE-PORT-PENDING markers in this session:
@@ -112,11 +112,11 @@ Interdependent target categories:
 | Category | Why interdependent |
 |---|---|
 | env var prefix (`etzhayyim_*` / `ETZHAYYIM_*`) | If `src/config.rs` reads `ETZHAYYIM_*` but the launchd plist still exports `etzhayyim_*`, the daemon starts with unset env vars. |
-| config dir (`~/.gftd` / `~/.etzhayyim`) | If `src/main.rs` writes to `~/.etzhayyim/daemon.log` but the launchd plist's StandardErrorPath still points at `~/.gftd/daemon.log`, logs go to two paths. |
+| config dir (`~/.etzhayyim` / `~/.etzhayyim`) | If `src/main.rs` writes to `~/.etzhayyim/daemon.log` but the launchd plist's StandardErrorPath still points at `~/.etzhayyim/daemon.log`, logs go to two paths. |
 | DNS suffix (`.mesh.etzhayyim.com` / `.mesh.etzhayyim.com`) | If half the nodes register under one suffix and half under the other, mesh discovery breaks. |
 | control plane URL (`murakumo.etzhayyim.com` / `murakumo.etzhayyim.com`) | If the binary defaults to one but the install script `curl`s the other, install instructions silently fail. |
 | launchd label (`com.etzhayyim.murakumo` / `com.etzhayyim.murakumo`) | If the plist filename and the Label key disagree, `launchctl load` refuses. |
-| cargo crate name (`gftd-murakumo` / `etzhayyim-murakumo`) | If the crate name changes but downstream `Cargo.toml` references the old name, build breaks. |
+| cargo crate name (`etzhayyim-murakumo` / `etzhayyim-murakumo`) | If the crate name changes but downstream `Cargo.toml` references the old name, build breaks. |
 | package name (`@etzhayyim/*` / `@etzhayyim/*`) | If `src/app.ts` imports `@etzhayyim/sdk` but `package.json` declares `@etzhayyim/magatama-host-sdk` as a dep, npm resolution fails. |
 
 The single-PR rule is the only safe execution path. Splitting it produces *guaranteed runtime breakage* during the migration window.
@@ -125,7 +125,7 @@ The single-PR rule is the only safe execution path. Splitting it produces *guara
 
 §3 cutover does NOT execute until:
 
-- The etzhayyim entity completes legal registration (CLAUDE.md §Status row 8: "amanomibashira → etzhayyim cutover (code identifiers)" is marked ✅, but the *atomic* cutover is row 21's `gftd-*` → `etzhayyim-*` rename which is separately gated).
+- The etzhayyim entity completes legal registration (CLAUDE.md §Status row 8: "amanomibashira → etzhayyim cutover (code identifiers)" is marked ✅, but the *atomic* cutover is row 21's `etzhayyim-*` → `etzhayyim-*` rename which is separately gated).
 - Council 5-of-7 Safe attests the cutover wave readiness (ADR-2605192300).
 
 Until both conditions hold, partial renames in `50-infra/cluster/murakumo/` and `20-actors/magatama/py/` are explicitly prohibited (CLAUDE.md §Do-Not item #15).
@@ -155,7 +155,7 @@ When the atomic cutover PR opens, reviewers MUST verify all of:
 
 - The 14 dangling references to ADR-2605214000 across the repo are now canonical-anchored. Future readers (including subagents in fresh sessions) can navigate to this ADR for the master decision.
 - The §3 atomic cutover gating is formal. Partial renames are caught by CLAUDE.md §Do-Not and (future) lefthook hooks rather than by tribal memory.
-- The 3-verdict lexicon-port taxonomy (REDIRECT / VENDOR-ONLY / REIMPLEMENT) is now the canonical classifier for all gftd→etzhayyim port work. New MIGRATION-NOTES.md sidecars (future packages) MUST adopt this taxonomy.
+- The 3-verdict lexicon-port taxonomy (REDIRECT / VENDOR-ONLY / REIMPLEMENT) is now the canonical classifier for all etzhayyim→etzhayyim port work. New MIGRATION-NOTES.md sidecars (future packages) MUST adopt this taxonomy.
 - The no-VKE mesh stance is documented as a deliberate decision, not a gap. Operators considering "should we adopt managed Kubernetes?" have a written answer.
 
 # Alternatives Considered
@@ -180,6 +180,6 @@ When the atomic cutover PR opens, reviewers MUST verify all of:
 - ADR-2605201400 (Tier-B planetary-infra producer)
 - ADR-2605215000 §3 (companion identifier audit pattern)
 - ADR-2605215100 (REIMPLEMENT example — maps-sentinel)
-- ADR-2605212100 (gftd→etzhayyim migration batch; this session's session-output)
+- ADR-2605212100 (etzhayyim→etzhayyim migration batch; this session's session-output)
 - ADR-2605242330 (gov coverage 5-layer taxonomy; references this ADR's §3 gating)
-- 6 `SUBSTRATE-PORT-PENDING.md` markers across `60-apps/ai-gftd-project-{gov,lawfirm-admin,legal-entity}/` (this session's outputs)
+- 6 `SUBSTRATE-PORT-PENDING.md` markers across `60-apps/etzhayyim-project-{gov,lawfirm-admin,legal-entity}/` (this session's outputs)

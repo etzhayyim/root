@@ -1,6 +1,6 @@
 """Provenance binder state machine — ADR-2605261330 terminal (futawa).
 
-Yatachain anchoring (input material lots → output VIN + parts catalog
+KotobaDatomic anchoring (input material lots → output VIN + parts catalog
 + tests + hodoki pre-registration). G2 mass-balance ≥98% closure.
 """
 
@@ -15,7 +15,7 @@ class ProvenanceBinderPhase(Enum):
     INIT = "init"
     RECORDS_GATHERED = "records_gathered"
     MASS_BALANCE_COMPUTED = "mass_balance_computed"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     BINDER_COMPLETE = "binder_complete"
 
 
@@ -27,7 +27,7 @@ class ProvenanceBinderState:
     completionPct: int
     recordsGathered: dict[str, Any] | None = None
     massBalance: dict[str, Any] | None = None
-    yatachainAnchor: dict[str, Any] | None = None
+    kotoba-datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_gathered(state: dict[str, Any]) -> dict[str, Any]:
@@ -72,16 +72,16 @@ def transition_to_mass_balance_computed(state: dict[str, Any]) -> dict[str, Any]
     return {"provenance_binder_state": pb.__dict__, "next_node": "anchor"}
 
 
-def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     pb = ProvenanceBinderState(**state.get("provenance_binder_state", {}))
     mock = {
-        "yatachainBindCid": "bafkreiyatachainbind-futawa-001...",
+        "kotoba-datomicBindCid": "bafkreikotoba-datomicbind-futawa-001...",
         "anchorTxHash": "0xFUTAWA-PROVENANCE-BIND-001",
         "anchoredAt": "2026-05-27T18:00:00Z",
-        "auditLogLink": f"ipfs://bafkreiyatachainbind-futawa-001/{pb.vin}",
+        "auditLogLink": f"ipfs://bafkreikotoba-datomicbind-futawa-001/{pb.vin}",
     }
-    pb.phase = ProvenanceBinderPhase.YATACHAIN_ANCHORED
-    pb.yatachainAnchor = mock
+    pb.phase = ProvenanceBinderPhase.KOTOBA_DATOMIC_ANCHORED
+    pb.kotoba-datomicAnchor = mock
     pb.completionPct = 90
     return {"provenance_binder_state": pb.__dict__, "next_node": "complete"}
 
@@ -96,7 +96,7 @@ def transition_to_binder_complete(state: dict[str, Any]) -> dict[str, Any]:
         "vehicleDid": f"did:web:etzhayyim.com:futawa:vehicle:{pb.vin}",
         "records": pb.recordsGathered,
         "massBalance": pb.massBalance,
-        "yatachainAnchor": pb.yatachainAnchor,
+        "kotoba-datomicAnchor": pb.kotoba-datomicAnchor,
         "g2Compliant": (pb.massBalance or {}).get("g2Compliant", False),
         "recordedAt": "2026-05-27T18:00:10Z",
     }

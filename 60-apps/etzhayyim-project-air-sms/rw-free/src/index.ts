@@ -3,7 +3,7 @@
  * operational safety facts + reference catalogs plaintext; just-culture
  * narratives, confidential audit findings, AVSEC/security-LE alerts and
  * mandatory-filing content sealed E2E. Only the regulatory-filing TRANSMISSION
- * and AVSEC enforcement/blocking ACTION stay gftd (consent-capability).
+ * and AVSEC enforcement/blocking ACTION stay etzhayyim (consent-capability).
  */
 export * from "./types.js";
 export {

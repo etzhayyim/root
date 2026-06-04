@@ -246,7 +246,7 @@ attestation on file + ≥1 community-pilot tabletop drill.
 | Gate | Description |
 |---|---|
 | **G1** | Every emergency document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.kazaori.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.kazaori.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **Community-scale only** — disaster response coordinated for religious-corp community sites + adjacent partner sites; NOT large municipal / regional / national disaster response replacement. |
 | **G4** | **NO commercial disaster management software** — Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP Disaster Recovery / Microsoft Disaster Response Hub / IBM Crisis Response PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |
 | **G5** | **NO armed enforcement** — kazaori is civilian disaster response only; force authorization is separate per ADR-2605192315 Transparent Force; kazaori MUST NOT invoke or coordinate with armed force actions. |

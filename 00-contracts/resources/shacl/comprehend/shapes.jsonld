@@ -6,13 +6,13 @@
     "sh": "http://www.w3.org/ns/shacl#",
     "prov": "http://www.w3.org/ns/prov#",
     "schema": "https://schema.org/",
-    "gftd": "https://resources.etzhayyim.com/ontology#"
+    "etzhayyim": "https://resources.etzhayyim.com/ontology#"
   },
   "@graph": [
     {
-      "@id": "gftd:ComprehendObservationShape",
+      "@id": "etzhayyim:ComprehendObservationShape",
       "@type": "sh:NodeShape",
-      "sh:targetClass": "gftd:Observation",
+      "sh:targetClass": "etzhayyim:Observation",
       "sh:property": [
         {
           "sh:path": "prov:generatedAtTime",
@@ -22,30 +22,30 @@
       ]
     },
     {
-      "@id": "gftd:DomainObservationShape",
+      "@id": "etzhayyim:DomainObservationShape",
       "@type": "sh:NodeShape",
-      "sh:targetClass": "gftd:DomainObservation",
+      "sh:targetClass": "etzhayyim:DomainObservation",
       "sh:property": [
-        { "sh:path": "gftd:domain", "sh:datatype": "xsd:string", "sh:minCount": 1 },
-        { "sh:path": "gftd:source", "sh:datatype": "xsd:string", "sh:minCount": 1 }
+        { "sh:path": "etzhayyim:domain", "sh:datatype": "xsd:string", "sh:minCount": 1 },
+        { "sh:path": "etzhayyim:source", "sh:datatype": "xsd:string", "sh:minCount": 1 }
       ]
     },
     {
-      "@id": "gftd:IPObservationShape",
+      "@id": "etzhayyim:IPObservationShape",
       "@type": "sh:NodeShape",
-      "sh:targetClass": "gftd:IPObservation",
+      "sh:targetClass": "etzhayyim:IPObservation",
       "sh:property": [
-        { "sh:path": "gftd:ip", "sh:datatype": "xsd:string", "sh:minCount": 1 },
-        { "sh:path": "gftd:source", "sh:datatype": "xsd:string", "sh:minCount": 1 }
+        { "sh:path": "etzhayyim:ip", "sh:datatype": "xsd:string", "sh:minCount": 1 },
+        { "sh:path": "etzhayyim:source", "sh:datatype": "xsd:string", "sh:minCount": 1 }
       ]
     },
     {
-      "@id": "gftd:CrawlRequestShape",
+      "@id": "etzhayyim:CrawlRequestShape",
       "@type": "sh:NodeShape",
-      "sh:targetClass": "gftd:CrawlRequest",
+      "sh:targetClass": "etzhayyim:CrawlRequest",
       "sh:property": [
         { "sh:path": "schema:url", "sh:datatype": "xsd:string", "sh:minCount": 1 },
-        { "sh:path": "gftd:maxDepth", "sh:datatype": "xsd:integer", "sh:minCount": 0 }
+        { "sh:path": "etzhayyim:maxDepth", "sh:datatype": "xsd:integer", "sh:minCount": 0 }
       ]
     }
   ]

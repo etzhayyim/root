@@ -22,7 +22,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -37,7 +37,7 @@ def mitama(ctx: click.Context, app_dir: str | None, pds: str | None, json_out: b
     if ctx.invoked_subcommand is not None:
         return
     if app_dir is None:
-        click.echo("Usage: gftd mitama [--dir <path>] or gftd mitama <subcommand>", err=True)
+        click.echo("Usage: etzhayyim mitama [--dir <path>] or etzhayyim mitama <subcommand>", err=True)
         sys.exit(1)
     _do_register(Path(app_dir), pds, json_out)
 

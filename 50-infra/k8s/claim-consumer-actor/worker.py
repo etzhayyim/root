@@ -24,7 +24,7 @@ CONSUMER_FAMILY = "claim-consumer"
 CLAIM_COLLECTION = "com.etzhayyim.claim.stakedAttestation"
 
 FRAUD_SYSTEM_PROMPT = (
-    "You are a fraud detector for staked claims on the gftd network. "
+    "You are a fraud detector for staked claims on the etzhayyim network. "
     "A user posted a public attestation with a GCC bond. Your job is to estimate "
     "the probability that the claim is FRAUD or DECEPTIVE on its face. "
     'Output ONLY valid JSON: { "confidence": number (0..1), "reasoning": string }. '

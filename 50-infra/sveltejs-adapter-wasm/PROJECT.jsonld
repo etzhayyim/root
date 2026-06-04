@@ -1,5 +1,5 @@
 {
-  "@context": "https://resources.etzhayyim.com/ai-gftd-performers-org-etzhayyim/id/Context/PROJECT",
+  "@context": "https://resources.etzhayyim.com/etzhayyim-performers-org-etzhayyim/id/Context/PROJECT",
   "@type": "Project",
   "id": "sveltejs-adapter-wasm",
   "name": "SvelteKit Adapter for wasmCloud",

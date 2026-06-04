@@ -9,7 +9,7 @@ const write = process.argv.includes("--write");
 const root = path.join(cwd, "projects");
 
 const TARGET_ID_SET = new Set(["festival", "carnival"]);
-const TARGET_PATH_RE = /ai-gftd-performer-sys-gftd-actors-pba7d22f-org-community-/;
+const TARGET_PATH_RE = /etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-community-/;
 
 function walk(dir, out) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {

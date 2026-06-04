@@ -21,7 +21,7 @@ depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605192100-etzhayyim-mission-charter
 related:
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - adr-2605231525-no-server-key-posture
 supersedes: []
 superseded_by: []
@@ -212,9 +212,9 @@ Honest — remaining for R5→R6 (deployment / governance only, no unbuilt logic
 **D4 — Holochain architecture AFFIRMED, realized inside kotoba.** The Holochain-iso
 topology (source chain + validating DHT) is the canonical durability architecture.
 It is realized by the **`kotoba-dht` crate inside the kotoba workspace**, NOT by
-the deprecated `yatachain` protocol family. ADR-2605231400 (yatachain) and its
+the deprecated `kotoba-datomic` protocol family. ADR-2605231400 (kotoba-datomic) and its
 projection ADR-2605231500 **remain superseded** by ADR-2605262130; this ADR does
-not revive the yatachain *name* or `10-protocol/yatachain/`, only the *architecture
+not revive the kotoba-datomic *name* or `10-protocol/kotoba-datomic/`, only the *architecture
 pattern* as implemented in `kotoba-dht`.
 
 **D5 — Incentive settlement in USDC on Base L2 only.** `availability_proof` reward
@@ -288,7 +288,7 @@ Scores are ordinal judgements from the 2026-06-01 session analysis, not benchmar
 
 - ADR-2605262130 (kotoba storage substrate unification — canonical engine)
 - ADR-2605312345 (kotoba Datom log = first-class canonical state; IPFS = block backend)
-- ADR-2605231400 (yatachain Holochain-iso substrate — SUPERSEDED; architecture pattern only)
+- ADR-2605231400 (kotoba-datomic Holochain-iso substrate — SUPERSEDED; architecture pattern only)
 - ADR-2605172100 (payments on-chain only — USDC on Base L2)
 - ADR-2605215000 (inference Murakumo-only)
 - ADR-2605231525 (no-server-key posture)

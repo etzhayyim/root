@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_intel_resolve_entity" targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_intel_resolve_entity" targetNamespace="https://etzhayyim.ai/bpmn/intel" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="intel_resolve_entity" name="resolveEntity" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Run</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_Start_Run" sourceRef="Start" targetRef="Task_CreateRun"/>
@@ -30,7 +30,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:intel.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;intel.resolveEntity&quot;" target="action"/>
           <zeebe:input source="={runId: runId, query: query, candidateCount: count(candidates)}" target="payload"/>
         </zeebe:ioMapping>

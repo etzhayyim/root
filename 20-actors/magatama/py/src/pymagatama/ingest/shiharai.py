@@ -16,7 +16,7 @@ from pymagatama.db_sync import sync_cursor
 ACTOR = "did:web:shiharai.etzhayyim.com"
 APP = "shiharai"
 APP_ACTOR_ID = "sys.shiharai"
-APP_ORG = "gftd"
+APP_ORG = "etzhayyim"
 APP_USER = "system"
 APP_SENSITIVITY = 100
 APPROVAL_MIN_LEN = 16
@@ -110,7 +110,7 @@ def _bpmn_call(method: str, params: dict[str, Any]) -> dict[str, Any]:
         f"{base}/xrpc/com.etzhayyim.apps.bpmn.{method}",
         method="POST",
         data=json.dumps(params).encode(),
-        headers={"content-type": "application/json", "user-agent": "gftd-shiharai-zeebe/1"},
+        headers={"content-type": "application/json", "user-agent": "etzhayyim-shiharai-zeebe/1"},
     )
     try:
         with urllib.request.urlopen(req, timeout=45) as resp:

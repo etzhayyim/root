@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_fetch_canlii_delta" targetNamespace="https://gftd.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_fetch_canlii_delta" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="legal_corpus_fetch_canlii_delta" name="fetchCanLiiDelta" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 24h"><bpmn:outgoing>Flow_F</bpmn:outgoing>
       <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT24H</bpmn:timeCycle></bpmn:timerEventDefinition>

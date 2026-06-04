@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_gas_report_leak"
-    targetNamespace="https://gftd.ai/bpmn/open-gas"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-gas"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_gas_report_leak" name="ガス漏れ 報告" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -68,7 +68,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-gas.gftd.ai:network&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-gas.etzhayyim.com:network&quot;" target="actor"/>
           <zeebe:input source="=&quot;openGas.leak.class1&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, leakClass: leakClass, segmentVertexId: segmentVertexId}" target="payload"/>
         </zeebe:ioMapping>
@@ -81,7 +81,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-gas.gftd.ai:network&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-gas.etzhayyim.com:network&quot;" target="actor"/>
           <zeebe:input source="=&quot;openGas.leak.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, leakClass: leakClass, segmentVertexId: segmentVertexId}" target="payload"/>
         </zeebe:ioMapping>

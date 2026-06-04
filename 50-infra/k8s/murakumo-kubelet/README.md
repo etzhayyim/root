@@ -50,7 +50,7 @@ annotation.
 
 ```bash
 # Murakumo API key (you have this already if you're using murakumoctl)
-MURAKUMO_API_KEY=$(security find-generic-password -s gftd.murakumo -a MURAKUMO_API_KEY -w)
+MURAKUMO_API_KEY=$(security find-generic-password -s etzhayyim.murakumo -a MURAKUMO_API_KEY -w)
 
 # Build + push image (uses remote BuildKit; see 50-infra/k8s/buildkit/)
 make image IMAGE=ghcr.io/etzhayyim/murakumo-kubelet TAG=v0.1.0

@@ -10,8 +10,8 @@ PMTiles archive and uploads it to Backblaze B2, where the
 PBF (geofabrik / planet.osm.org / maps-osm-ingest)
   → tilemaker (OpenMapTiles config + Lua)
   → planet-{VERSION}.pmtiles
-  → rclone → r2://gftd-maps-tiles/v1/planet-{VERSION}.pmtiles
-  → rclone → r2://gftd-maps-tiles/v1/manifest.json  (atomic swap, last)
+  → rclone → r2://etzhayyim-maps-tiles/v1/planet-{VERSION}.pmtiles
+  → rclone → r2://etzhayyim-maps-tiles/v1/manifest.json  (atomic swap, last)
 ```
 
 VERSION defaults to `YYYYMMDDHH` (UTC). Historical PMTiles are retained in B2
@@ -39,10 +39,10 @@ docker push  ghcr.io/etzhayyim/maps-tilemaker-build:$(date -u +%Y%m%d)
 ## B2 setup (one-time)
 
 ```bash
-wrangler r2 bucket create gftd-maps-tiles
-# Create an R2 API token (Admin Read & Write) scoped to gftd-maps-tiles
+wrangler r2 bucket create etzhayyim-maps-tiles
+# Create an R2 API token (Admin Read & Write) scoped to etzhayyim-maps-tiles
 # and store it as a K8s secret in the maps namespace:
-kubectl -n maps create secret generic gftd-r2-credentials \
+kubectl -n maps create secret generic etzhayyim-r2-credentials \
   --from-literal=account_id=${CF_ACCOUNT_ID} \
   --from-literal=access_key_id=${R2_ACCESS_KEY_ID} \
   --from-literal=secret_access_key=${R2_SECRET_ACCESS_KEY}
@@ -75,7 +75,7 @@ Expect ≈ 12 h wall clock and ≈ 100 GB output PMTiles.
 ## Post-run
 
 1. Check logs for `DONE version=... key=...`.
-2. `wrangler r2 object get gftd-maps-tiles/v1/manifest.json --pipe` to confirm.
+2. `wrangler r2 object get etzhayyim-maps-tiles/v1/manifest.json --pipe` to confirm.
 3. Purge the Worker's KV manifest cache (TTL 60 s) or wait for natural expiry:
    ```bash
    wrangler kv:key delete --binding=TILE_MANIFEST "manifest:v1"

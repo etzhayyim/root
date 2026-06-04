@@ -13,14 +13,14 @@
   Cadence: R/PT6H. One BPMN instance every 6 hours.
 
   NSID: com.etzhayyim.apps.isin.isinCollect
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/isin-collect-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isin-collect-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_isin_collect"
-    targetNamespace="https://gftd.ai/bpmn/isin"
+    targetNamespace="https://etzhayyim.ai/bpmn/isin"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="isin_collect" name="isin collect" isExecutable="true">
@@ -76,7 +76,7 @@
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.isin.isinCollect&quot;" target="event_type"/>
-          <zeebe:input source="=&quot;did:web:isin.gftd.ai&quot;"          target="actor_did"/>
+          <zeebe:input source="=&quot;did:web:isin.etzhayyim.com&quot;"          target="actor_did"/>
           <zeebe:input source="={ usWritten: usWritten, jpWritten: jpWritten }" target="attributes"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

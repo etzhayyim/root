@@ -22,7 +22,7 @@
   week-to-week. Only the 'contemporary' cohort (2000-2025) is refreshed
   here via UN WPP API.
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-person-cohorts-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-person-cohorts-v1
   NSID:      com.etzhayyim.apps.coverage.inferPersonCohorts
 -->
 <bpmn:definitions
@@ -30,7 +30,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_coverage_infer_person_cohorts"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="coverage_infer_person_cohorts" name="coverage infer person cohorts" isExecutable="true">
 
@@ -80,7 +80,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;https://population.un.org/dataportalapi/api/v1/data/indicators/49/locations/900/start/2024/end/2025?format=json&amp;pageSize=1&amp;pageNumber=1&quot;" target="url"/>
           <zeebe:input source="=&quot;GET&quot;" target="method"/>
-          <zeebe:input source="={ &quot;Accept&quot;: &quot;application/json&quot;, &quot;User-Agent&quot;: &quot;gftd-coverage-bot/1.0 (coverage.gftd.ai)&quot; }" target="headers"/>
+          <zeebe:input source="={ &quot;Accept&quot;: &quot;application/json&quot;, &quot;User-Agent&quot;: &quot;etzhayyim-coverage-bot/1.0 (coverage.etzhayyim.com)&quot; }" target="headers"/>
           <zeebe:output source="=body"   target="wppResponse"/>
           <zeebe:output source="=status" target="wppStatus"/>
         </zeebe:ioMapping>
@@ -103,7 +103,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferPersonCohorts.fetchDegraded&quot;" target="action"/>
           <zeebe:input source="={&quot;reason&quot;: &quot;wpp_fetch_degraded_using_fallback&quot;, &quot;wpp_status&quot;: wppStatus, &quot;existing_count&quot;: existingCount}" target="payload"/>
         </zeebe:ioMapping>
@@ -120,12 +120,12 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_person_population_cohort&quot;" target="table"/>
           <zeebe:input source="={
-            &quot;vertex_id&quot;:            &quot;at://did:web:natural-person.gftd.ai/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
+            &quot;vertex_id&quot;:            &quot;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
             &quot;_seq&quot;:                  1,
             &quot;sensitivity_ord&quot;:       0,
-            &quot;owner_did&quot;:             &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;owner_did&quot;:             &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;rkey&quot;:                  &quot;contemporary-001-2000&quot;,
-            &quot;repo&quot;:                  &quot;at://did:web:natural-person.gftd.ai&quot;,
+            &quot;repo&quot;:                  &quot;at://did:web:natural-person.etzhayyim.com&quot;,
             &quot;era_label&quot;:             &quot;contemporary&quot;,
             &quot;era_start_year&quot;:        2000,
             &quot;era_end_year&quot;:          2025,
@@ -140,9 +140,9 @@
             &quot;infant_mortality_rate&quot;:  28,
             &quot;data_source&quot;:            &quot;un_wpp_2024&quot;,
             &quot;confidence_level&quot;:       &quot;high&quot;,
-            &quot;cohort_did&quot;:             &quot;did:web:natural-person.gftd.ai:pop:contemporary-001-2000&quot;,
-            &quot;actor_did&quot;:              &quot;did:web:natural-person.gftd.ai&quot;,
-            &quot;org_did&quot;:               &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;cohort_did&quot;:             &quot;did:web:natural-person.etzhayyim.com:pop:contemporary-001-2000&quot;,
+            &quot;actor_did&quot;:              &quot;did:web:natural-person.etzhayyim.com&quot;,
+            &quot;org_did&quot;:               &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;created_at&quot;:             now()
           }" target="row"/>
           <zeebe:output source="=inserted" target="upsertResult"/>
@@ -177,7 +177,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferPersonCohorts.refresh&quot;" target="action"/>
           <zeebe:input source="={
             &quot;eras_tracked&quot;:       eraCount,

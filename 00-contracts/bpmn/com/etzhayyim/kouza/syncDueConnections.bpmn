@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_kouza_sync_due_connections"
-    targetNamespace="https://gftd.ai/bpmn/kouza"
+    targetNamespace="https://etzhayyim.ai/bpmn/kouza"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="kouza_sync_due_connections" name="kouza sync due connections" isExecutable="true">
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kouza.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kouza.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;kouza.syncDueConnections&quot;" target="action"/>
           <zeebe:input source="={connectionsScanned: kouzaConnectionsScanned, syncRunsCreated: kouzaSyncRunsCreated}" target="payload"/>
         </zeebe:ioMapping>

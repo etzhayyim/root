@@ -26,7 +26,7 @@
 #   dispatcher.etzhayyim.com CNAME REPLACE_ME_TUNNEL_ID.cfargotunnel.com (proxied=True)
 #   mcp.etzhayyim.com        CNAME REPLACE_ME_TUNNEL_ID.cfargotunnel.com (proxied=True)
 #
-# Predecessor on gftd CF account (tunnel ID be2cc0b0-ddee-4ca7-baf1-2bffbef18f31,
+# Predecessor on etzhayyim CF account (tunnel ID be2cc0b0-ddee-4ca7-baf1-2bffbef18f31,
 # DNS dispatcher.etzhayyim.com / mcp.etzhayyim.com) must be `cloudflared tunnel delete`d
 # after this tunnel is HEALTHY and end-to-end verified.
 

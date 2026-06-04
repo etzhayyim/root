@@ -1,7 +1,7 @@
 # mitama ActorManifest: Schema & Query Design (2026-04-09)
 
 ## Goal
-`gftd mitama register/list/inspect` を、PDS/graph の部分的なスキーマ差分があっても壊れない read/write 契約にする。
+`etzhayyim mitama register/list/inspect` を、PDS/graph の部分的なスキーマ差分があっても壊れない read/write 契約にする。
 
 ## Canonical Storage Contract
 

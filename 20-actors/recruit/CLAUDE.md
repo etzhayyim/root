@@ -55,7 +55,7 @@ K8s worker:
 Live smoke (2026-05-07):
 
 ```bash
-RW_CONN="$(security find-generic-password -s gftd.rw -a ROOT_URL -w)" \
+RW_CONN="$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w)" \
 DATABASE_URL="$RW_CONN" \
 pnpm run recruit:jobs:ingest -- \
   --platform lever --limit 1 --batch-size 1 \

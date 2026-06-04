@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free reference implementation of the analytics PUBLIC catalog (dashboards + aggregate metric datapoints + reports) using @etzhayyim/sdk. Registry on AT PDS. Mixed split: raw per-user behavioral ingestion + warehouse aggregation stays gftd infra (consent-capability); only aggregate/public metrics are etzhayyim-front. No PII on-substrate. Substrate posture per ADR-2605172000 + ADR-2606011400.",
+  "description": "RW-free reference implementation of the analytics PUBLIC catalog (dashboards + aggregate metric datapoints + reports) using @etzhayyim/sdk. Registry on AT PDS. Mixed split: raw per-user behavioral ingestion + warehouse aggregation stays etzhayyim infra (consent-capability); only aggregate/public metrics are etzhayyim-front. No PII on-substrate. Substrate posture per ADR-2605172000 + ADR-2606011400.",
   "license": "Apache-2.0",
   "main": "src/index.ts",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },

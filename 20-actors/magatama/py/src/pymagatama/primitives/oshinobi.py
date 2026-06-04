@@ -63,7 +63,7 @@ def _stripe(method: str, path: str, body: dict[str, Any] | None = None) -> dict[
         headers={
             "Authorization": f"Bearer {key}",
             "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "gftd-oshinobi-zeebe/1",
+            "User-Agent": "etzhayyim-oshinobi-zeebe/1",
         },
     )
     try:

@@ -9,7 +9,7 @@ last_verified: 2026-05-07
 authoritative_for:
   - open-* actors licensing and distribution model
   - kyber ERP commercialization strategy
-  - gftd Cloud pricing and metering architecture
+  - etzhayyim Cloud pricing and metering architecture
   - OSS go-to-market strategy
 related:
   - adr-2605071200-myco-yeast-artificial-organism-jp-naming
@@ -29,11 +29,11 @@ superseded_by: []
 
 ## Context
 
-`ai-gftd-project-open-*` (20+ actors) と `ai-gftd-project-open-kyber` (ERP) は Apache-2.0
+`etzhayyim-project-open-*` (20+ actors) と `etzhayyim-project-open-kyber` (ERP) は Apache-2.0
 ライセンスで公開済みだが、正式な課金モデル・営業戦略・メーターアーキテクチャが未定義。
 
 RisingWave / Grafana / HashiCorp が実証した **OSS Core + Managed Cloud** パターンを
-gftd のアーキテクチャ (Cloudflare Workers + RisingWave + Zeebe + AT Protocol) に適用し、
+etzhayyim のアーキテクチャ (Cloudflare Workers + RisingWave + Zeebe + AT Protocol) に適用し、
 Developer Adoption → Cloud Conversion → Enterprise の3段階で収益化する。
 
 既存 README (`open-kyber`) には「Fork this repo to run your own instance; the deployed SaaS
@@ -62,7 +62,7 @@ BSL (Business Source License) は採用しない。AT Protocol エコシステ�
 │  オンプレ / プライベートクラウド + SLA 99.9% + 専任CSM   │
 │  ¥5,000,000+/year カスタム契約                          │
 ├─────────────────────────────────────────────────────────┤
-│  gftd Cloud (T2) — 従量課金                             │
+│  etzhayyim Cloud (T2) — 従量課金                             │
 │  managed kyber + open-* hosted + Murakumo LLM           │
 │  Developer(無料) → Starter → Growth → Scale             │
 ├─────────────────────────────────────────────────────────┤
@@ -126,7 +126,7 @@ OSS ──────────────────┼──────�
 
 **唯一の差別化軸 — AT Protocol ネイティブ**:
 データポータビリティが設計上保証されている「脱出できる ERP」。
-`gftd export --format atproto-car` で全データを可搬形式に即時エクスポート可能。
+`etzhayyim export --format atproto-car` で全データを可搬形式に即時エクスポート可能。
 
 ### 6. Go-to-Market 3フェーズ
 
@@ -134,17 +134,17 @@ OSS ──────────────────┼──────�
 
 ターゲット: 日本のスタートアップ開発者、AT Protocol エコシステム参加者
 
-- GitHub `etzhayyim/ai-gftd-project-open-kyber` でのアクティブ発信
+- GitHub `etzhayyim/etzhayyim-project-open-kyber` でのアクティブ発信
   (Zenn, dev.to, Bluesky Technical)
-- `gftd deploy` 1コマンドセルフホスト手順の整備
-- Bluesky 上で gftd actor がリアルタイム動作するデモ (分散 ERP as AT agent)
+- `etzhayyim deploy` 1コマンドセルフホスト手順の整備
+- Bluesky 上で etzhayyim actor がリアルタイム動作するデモ (分散 ERP as AT agent)
 - KPI: GitHub Stars 500、self-host installs 50
 
 #### Phase 2: Cloud Conversion (2026 Q4〜2027 Q2)
 
 ターゲット: インフラ管理コストを削減したい self-host ユーザー
 
-- `gftd migrate --to cloud` による 1コマンド移行ツール
+- `etzhayyim migrate --to cloud` による 1コマンド移行ツール
 - 30日間フル機能トライアル (クレジットカード不要)
 - XRPC 上限到達時のインアプリ通知 + アップグレード CTA
 - KPI: 有償テナント 20社、MRR ¥250,000
@@ -180,7 +180,7 @@ OSS ──────────────────┼──────�
    → migration `20260508_kyber_billing.ts`
 2. **Stripe Meter API** 統合 — CF Worker が月次 usage を Stripe に送信する webhook
 3. **セルフサービスサインアップ** — `yoro.etzhayyim.com` signup → kyber テナント自動プロビジョニング
-4. **`gftd migrate --to cloud`** コマンド実装 (`70-tools/gftd/`)
+4. **`etzhayyim migrate --to cloud`** コマンド実装 (`70-tools/etzhayyim/`)
 5. **OSS ライセンスヘッダー整備** — 全 `open-*` プロジェクトに Apache-2.0 ヘッダー追加
 
 ### トレードオフ
@@ -208,7 +208,7 @@ OSS ──────────────────┼──────�
 
 ## References
 
-- `60-apps/ai-gftd-project-open-kyber/README.md` — 既存 OSS宣言
+- `60-apps/etzhayyim-project-open-kyber/README.md` — 既存 OSS宣言
 - `deps.toml [[projects]] name="open-banking"` — Apache-2.0 公開済み参考実装
 - RisingWave Cloud pricing model (参考: risingwave.com/pricing)
 - Grafana OSS → Grafana Cloud 移行パターン (参考)

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_flight_offer_fetch_from_source"
-    targetNamespace="https://gftd.ai/bpmn/flight-offer"
+    targetNamespace="https://etzhayyim.ai/bpmn/flight-offer"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="flight_offer_fetch_from_source" name="fetchFromSource" isExecutable="true">
@@ -42,7 +42,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;flight.offer.fetchFromSource&quot;" target="action"/>
           <zeebe:input source="={sourceId: sourceId, resolvedSource: resolvedSource, originIata: originIata, destinationIata: destinationIata, outboundDate: outboundDate, offersFetched: offersFetched, offersWritten: offersWritten}" target="payload"/>
         </zeebe:ioMapping>

@@ -5,13 +5,13 @@ import { Kysely, sql } from 'kysely';
 // tier: C
 
 /**
- * vertex_gmail_* + edge_gmail_* tables for ai-gftd-project-gmail (gm4il0x1).
+ * vertex_gmail_* + edge_gmail_* tables for etzhayyim-project-gmail (gm4il0x1).
  *
  * P10v2 GraphAr-native: 1 AT record = 1 row, typed columns, no val_json.
  * RLS 3-col (org_id/user_id/actor_id) + created_at required on every table.
  *
  * Columns align with records emitted by
- *   60-apps/ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1/src/app.ts
+ *   60-apps/etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1/src/app.ts
  * via collection NSIDs com.etzhayyim.apps.gmail.{account,thread,email,contact,syncJob,
  * outboundEmail,accountBinding,phishingAlert,labelAction,triageResult}.
  *

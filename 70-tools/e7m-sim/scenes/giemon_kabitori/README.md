@@ -100,7 +100,7 @@ kotoba --token "$TOK" sparql 'SELECT * WHERE { ?s <kg/claim/part/group> "C-extra
 
 Verified result: 20 parts (15 cots / 5 custom-fab); manufacturers include
 Raspberry Pi Ltd, Sony Semiconductor, TDK InvenSense, Texas Instruments, Maxon,
-Makita, Camfil, … Note: the legacy SBOM app (`60-apps/ai-gftd-project-sbom`)
+Makita, Camfil, … Note: the legacy SBOM app (`60-apps/etzhayyim-project-sbom`)
 persists to RisingWave; this pilot uses **kotoba** per ADR-2605262130 (no-RisingWave).
 
 ## Source

@@ -15,7 +15,7 @@ API = f"https://{LANG}.wikipedia.org/w/api.php"
 
 def q(params):
     url = API + "?" + urllib.parse.urlencode({**params, "format":"json"})
-    req = urllib.request.Request(url, headers={"User-Agent":"gftd-collect/1.0 (contact: ops@etzhayyim.com)"})
+    req = urllib.request.Request(url, headers={"User-Agent":"etzhayyim-collect/1.0 (contact: ops@etzhayyim.com)"})
     for attempt in range(4):
         try:
             with urllib.request.urlopen(req, timeout=30) as r:

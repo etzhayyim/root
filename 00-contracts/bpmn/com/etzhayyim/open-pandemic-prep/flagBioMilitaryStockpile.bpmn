@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_pandemic_prep_flag_bio_military_stockpile"
-    targetNamespace="https://gftd.ai/bpmn/open-pandemic-prep"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-pandemic-prep"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_pandemic_prep_flag_bio_military_stockpile" name="軍事系 生物備蓄 フラグ" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-pandemic-prep.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-pandemic-prep.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;bio.militaryStockpile&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: stockpileVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

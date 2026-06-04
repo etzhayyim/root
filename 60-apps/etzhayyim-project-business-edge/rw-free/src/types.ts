@@ -9,23 +9,23 @@
  * SPLIT (real data surface from proto/v1/business_edge.proto + CLAUDE.md):
  *   PUBLIC (plaintext AT records) — control-plane catalog with NO secret values:
  *     - component: deployed edge component metadata (name/version/wasmCid/routes/
- *       status). `env` (config/secret map) is EXCLUDED — secret custody stays gftd.
+ *       status). `env` (config/secret map) is EXCLUDED — secret custody stays etzhayyim.
  *     - customDomain: DNS-public custom-domain binding (FK → component via exists()).
- *       `verificationToken` is EXCLUDED — domain-ownership secret stays gftd.
+ *       `verificationToken` is EXCLUDED — domain-ownership secret stays etzhayyim.
  *   SENSITIVE / confidential (kotoba E2E, com.etzhayyim.encrypted.record) —
  *     - apiKey: key_hash + permissions + expiry (credential metadata). Sealed via
  *       sdk.encryptedWrite, read-cap = owner DID. Substrate never sees key_hash plain.
  *     - usageDaily: per-tenant metering (requests/kvReads/kvWrites/storageBytes/
  *       computeMs) — confidential per-tenant business billing data, E2E.
  *
- *   STAYS gftd (NOT a collection — consumed via consent-capability):
+ *   STAYS etzhayyim (NOT a collection — consumed via consent-capability):
  *     - WASM component EXECUTION on edge-runtime (compute inference act).
  *     - env / secret injection + API-key custody (the raw_key + signing/validation).
  *     - customDomain verificationToken issuance + DNS-challenge verification.
  *     - CDN/B2 wasm upload execution.
  *     - Pro/Enterprise fiat plan settlement (merchant-of-record).
  *     - quota enforcement / throttling (blocking action).
- *   Only the regulated EXECUTION stays gftd; the resulting DATA records migrate.
+ *   Only the regulated EXECUTION stays etzhayyim; the resulting DATA records migrate.
  *
  * AT-Lexicon: no float. Counts/byte-sizes/ms are integers (int64 → number, JS-safe
  * domain). No decimals in any migrated field.
@@ -142,7 +142,7 @@ export interface ApiKeyBody {
   keyId: string;
   tenantId: string;
   name: string;
-  /** Salted hash — never the raw key (raw_key custody stays gftd). */
+  /** Salted hash — never the raw key (raw_key custody stays etzhayyim). */
   keyHash: string;
   keyPrefix: string;
   permissions: string[];

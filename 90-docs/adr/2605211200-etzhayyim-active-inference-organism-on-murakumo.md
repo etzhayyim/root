@@ -161,7 +161,7 @@ asset register. This avoids blocking the organism migration on registration
 calendars while preserving the eventual ownership target.
 
 Consequence: the fleet's existing LAN / dnsmasq / k8s namespace naming
-(`murakumo-system`, `murakumo-fleet.conf`, hostnames `etzhayyim-gftd-*`)
+(`murakumo-system`, `murakumo-fleet.conf`, hostnames `etzhayyim-etzhayyim-*`)
 is **already aligned** with the etzhayyim alias chain. No DNS rename is required.
 
 ## D3. Compute placement

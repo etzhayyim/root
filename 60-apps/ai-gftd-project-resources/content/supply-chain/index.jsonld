@@ -1,0 +1,30 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://resources.gftd.ai/ontology#",
+      "prov": "http://www.w3.org/ns/prov#"
+    }
+  ],
+  "@type": "Dataset",
+  "@id": "https://resources.gftd.ai/content/supply-chain/index",
+  "identifier": "supply-chain-index",
+  "name": "Supply Chain Resource Catalog",
+  "description": "Catalog of curated supply chain JSON-LD documents under ai-gftd-project-resources. Current focus is cleaning robot manufacturing, upstream material sources, and representative supply-chain companies.",
+  "keywords": [
+    "supply chain",
+    "manufacturing",
+    "bom",
+    "robotics",
+    "logistics"
+  ],
+  "hasPart": [
+    "https://resources.gftd.ai/content/supply-chain/cleaning-robot/index",
+    "https://resources.gftd.ai/content/supply-chain/cleaning-robot/robot-vacuum-supply-chain-v1",
+    "https://resources.gftd.ai/content/supply-chain/cleaning-robot/consumer-robot-vacuum-bom-v1",
+    "https://resources.gftd.ai/content/supply-chain/cleaning-robot/commercial-floor-cleaning-robot-bom-v1",
+    "https://resources.gftd.ai/content/supply-chain/company/seed.jsonld",
+    "https://resources.gftd.ai/content/supply-chain/material-source/seed.jsonld"
+  ],
+  "prov:generatedAtTime": "2026-03-13T00:00:00Z"
+}

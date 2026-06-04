@@ -55,7 +55,7 @@ _BROWSER_UA = (
 )
 _INTERNAL_HEADERS = {
     "x-magatama-verified": "true",
-    "x-gftd-org-id": "anon",
+    "x-etzhayyim-org-id": "anon",
 }
 
 # ── PDS Service Auth (lxm-scoped JWT) — mirror gov_che / zeebe_worker_main ──
@@ -120,7 +120,7 @@ def _pds_auth_headers(lxm: str, *, repo: str = "") -> dict[str, str]:
         headers["Authorization"] = f"Bearer {token}"
     elif _PDS_LEGACY_INTERNAL_TRUST:
         headers["x-magatama-verified"] = "true"
-        headers["x-gftd-org-id"] = "anon"
+        headers["x-etzhayyim-org-id"] = "anon"
     if repo:
         headers["x-magatama-repo"] = repo
     return headers

@@ -17,14 +17,14 @@
   seedScenesWithImages.bpmn directly.
 
   NSID: com.etzhayyim.apps.shinshi.seedGapFill (informational, no XRPC)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shinshi_seed_gap_fill"
-    targetNamespace="https://gftd.ai/bpmn/shinshi"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shinshi_seed_gap_fill" name="shinshi seedGapFill" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="shinshi.coverage.findIncomplete"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:sh1n5h1x.gftd.ai&quot;" target="appDid"/>
+          <zeebe:input source="=&quot;did:web:sh1n5h1x.etzhayyim.com&quot;" target="appDid"/>
           <zeebe:input source="=5" target="minScenes"/>
           <zeebe:input source="=5" target="maxModels"/>
           <zeebe:output source="=slugs" target="slugs"/>
@@ -72,7 +72,7 @@
         <zeebe:taskDefinition type="shinshi.scene.bulkSeed"/>
         <zeebe:ioMapping>
           <zeebe:input source="=slugs" target="slugs"/>
-          <zeebe:input source="=&quot;did:web:sh1n5h1x.gftd.ai&quot;" target="appDid"/>
+          <zeebe:input source="=&quot;did:web:sh1n5h1x.etzhayyim.com&quot;" target="appDid"/>
           <zeebe:input source="=&quot;thumb&quot;" target="sceneType"/>
           <zeebe:input source="=[0,1,2,3,4]" target="sceneIndices"/>
           <zeebe:input source="=true" target="skipIfExisting"/>
@@ -92,7 +92,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shinshi.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shinshi.seedGapFill&quot;" target="nsid"/>
           <zeebe:input source="={ totalIncomplete: totalIncomplete, checked: checked, picked: count(slugs), posted: bulkTotalPosted, skipped: bulkTotalSkipped }" target="payload"/>
         </zeebe:ioMapping>
@@ -106,7 +106,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shinshi.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shinshi.seedGapFill&quot;" target="nsid"/>
           <zeebe:input source="={ totalIncomplete: totalIncomplete, checked: checked, picked: 0, skipReason: &quot;all-complete-or-error&quot; }" target="payload"/>
         </zeebe:ioMapping>

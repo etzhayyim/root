@@ -13,7 +13,7 @@ import { Kysely, sql } from "kysely";
  * in each specialised layer, enabling graph traversal for traceability.
  *
  * Used by:
- *  - gftd process-mining scan (static BPMN analysis)
+ *  - etzhayyim process-mining scan (static BPMN analysis)
  *  - OCEL export (PM4PY / Celonis) via vertex_ocel_event seeding
  *  - open-smartphone actor MCP tools (supply chain bottleneck queries)
  */

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jpn_jma_issue_weather_warning"
-    targetNamespace="https://gftd.ai/bpmn/jpn-jma"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-jma"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jpn_jma_issue_weather_warning" name="JMA 気象警報" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -57,7 +57,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-jma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-jma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnJma.warning.broadcast&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, warningCode: warningCode, warningType: warningType, areaCode: areaCode, priority: priority}" target="payload"/>
         </zeebe:ioMapping>
@@ -69,7 +69,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-jma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-jma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnJma.warning.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, warningCode: warningCode, warningType: warningType, areaCode: areaCode, priority: priority}" target="payload"/>
         </zeebe:ioMapping>

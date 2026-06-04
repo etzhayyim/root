@@ -57,7 +57,7 @@ const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/3
 
 const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
-const USER_AGENT = process.env.SEC_USER_AGENT ?? "gftd-legal-entity/1.0 legal-entity@etzhayyim.com";
+const USER_AGENT = process.env.SEC_USER_AGENT ?? "etzhayyim-legal-entity/1.0 legal-entity@etzhayyim.com";
 
 const args = process.argv.slice(2);
 const getArg = (k, d = "") => {

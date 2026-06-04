@@ -704,7 +704,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_pds_profileIncomplete": {
+      "ai_etzhayyim_pds_profileIncomplete": {
         "type": "object",
         "properties": {
           "did": {

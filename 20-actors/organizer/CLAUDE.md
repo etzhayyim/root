@@ -1,4 +1,4 @@
-# ai-gftd-project-organizer — organizer.etzhayyim.com
+# etzhayyim-project-organizer — organizer.etzhayyim.com
 
 **Upload → AI Auto-Organize** — アップロードすれば AI が自動で整理。フォルダ手動整理不要。
 
@@ -11,7 +11,7 @@
 | Runtime | **Single Worker** (TS Native) |
 | performerType | `service` (default sensitivity: `confidential`) |
 | uiType | `appview` (Protocol Canvas card) |
-| Replaces | `ai-gftd-project-drive` (Connect RPC + base64, 旧設計) |
+| Replaces | `etzhayyim-project-drive` (Connect RPC + base64, 旧設計) |
 
 ## Multi-DID Architecture `[DESIGN]`
 
@@ -161,10 +161,10 @@ interface subscription-discovery {
 ## File Structure
 
 ```
-60-apps/ai-gftd-project-organizer/
+60-apps/etzhayyim-project-organizer/
 ├── CLAUDE.md
 ├── wit/organizer/package.wit        # Domain WIT capability
-└── wasm/ai-gftd-wasm-organizer-org4n1z3/
+└── wasm/etzhayyim-wasm-organizer-org4n1z3/
     ├── src/app.ts                      # TS Native — Design E reactive pipeline
     ├── go.mod
     ├── magatama.jsonld

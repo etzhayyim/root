@@ -9,7 +9,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_datacenter_purge_access_pii"
-    targetNamespace="https://gftd.ai/bpmn/datacenter"
+    targetNamespace="https://etzhayyim.ai/bpmn/datacenter"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="datacenter_purge_access_pii" name="データセンターアクセスPII purge" isExecutable="true">
@@ -73,7 +73,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:infra.gftd.ai:datacenter&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:infra.etzhayyim.com:datacenter&quot;" target="actor"/>
           <zeebe:input source="=&quot;datacenter.access.purge&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  purgedCount,
@@ -91,7 +91,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:infra.gftd.ai:datacenter&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:infra.etzhayyim.com:datacenter&quot;" target="actor"/>
           <zeebe:input source="=&quot;datacenter.access.purge.noop&quot;" target="action"/>
           <zeebe:input source="={ purgedCount: 0 }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

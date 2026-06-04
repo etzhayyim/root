@@ -36,9 +36,9 @@ def test_categorize_uppercase_prefix(mod):
     ) == "uppercase-ADR-prefix"
 
 
-def test_categorize_pre_cutover_gftdcojp(mod):
+def test_categorize_pre_cutover_etzhayyimcojp(mod):
     assert mod.categorize_mismatch(
-        "90-docs/adr/2604251215-gftdcojp-agent-authority-bounds.md",
+        "90-docs/adr/2604251215-etzhayyimcojp-agent-authority-bounds.md",
         "adr-2604251215-etzhayyim-agent-authority-bounds",
     ) == "pre-cutover-rename"
 

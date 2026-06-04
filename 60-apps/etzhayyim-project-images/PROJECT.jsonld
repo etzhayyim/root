@@ -4,7 +4,7 @@
   "name": "Autonomous Image Art Platform (etzhayyim-project-images)",
   "status": "In Progress",
   "identifier": "etzhayyim-project-images",
-  "description": "An autonomous platform for high-quality digital art and illustration generation and distribution, utilizing Production AGI for creative direction and the GFTD Kyber platform for scalable delivery.",
+  "description": "An autonomous platform for high-quality digital art and illustration generation and distribution, utilizing Production AGI for creative direction and the Etzhayyim Kyber platform for scalable delivery.",
   "hasPart": [
     {
       "@type": "CreativeWork",
@@ -43,7 +43,7 @@
     },
     {
       "status": "completed",
-      "task": "Integrate with GFTD OS for seamless asset distribution."
+      "task": "Integrate with Etzhayyim OS for seamless asset distribution."
     },
     {
       "status": "completed",
@@ -85,7 +85,7 @@
             {
               "name": "Kyber Settlement Bridge",
               "technology": "Go / ConnectRPC",
-              "description": "Integration layer with GFTD Kyber for automated billing."
+              "description": "Integration layer with Etzhayyim Kyber for automated billing."
             }
           ]
         }

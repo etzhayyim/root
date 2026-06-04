@@ -3,7 +3,7 @@
   shinshi.backfillGovernanceEdges — idempotent governance edge backfill
   for shinshi model DIDs (nsfw-18plus + age-verification-18plus policies).
 
-  Replaces: 60-apps/ai-gftd-project-shinshi/scripts/backfill-governance-edges.py
+  Replaces: 60-apps/etzhayyim-project-shinshi/scripts/backfill-governance-edges.py
   The legacy script iterated 247 models from 260304-models-manifest.json
   and INSERTed 2 edges each. Ran on demand when new models joined.
 
@@ -26,7 +26,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shinshi_backfill_governance_edges"
-    targetNamespace="https://gftd.ai/bpmn/shinshi"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="shinshi_backfill_governance_edges"
@@ -78,14 +78,14 @@
         <zeebe:script
             expression='=flatten(for m in models return [
                 {
-                    edge_id: string join(["GovernedBy-did:web:sh1n5h1x.gftd.ai:", m.folder, "-nsfw-18plus"], ""),
-                    src_vid: string join(["did:web:sh1n5h1x.gftd.ai:", m.folder], ""),
+                    edge_id: string join(["GovernedBy-did:web:sh1n5h1x.etzhayyim.com:", m.folder, "-nsfw-18plus"], ""),
+                    src_vid: string join(["did:web:sh1n5h1x.etzhayyim.com:", m.folder], ""),
                     dst_vid: "nsfw-18plus",
                     label:   "GovernedBy"
                 },
                 {
-                    edge_id: string join(["CompliesWith-did:web:sh1n5h1x.gftd.ai:", m.folder, "-age-verification-18plus"], ""),
-                    src_vid: string join(["did:web:sh1n5h1x.gftd.ai:", m.folder], ""),
+                    edge_id: string join(["CompliesWith-did:web:sh1n5h1x.etzhayyim.com:", m.folder, "-age-verification-18plus"], ""),
+                    src_vid: string join(["did:web:sh1n5h1x.etzhayyim.com:", m.folder], ""),
                     dst_vid: "age-verification-18plus",
                     label:   "CompliesWith"
                 }
@@ -151,7 +151,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shinshi.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;shinshi.governance.backfill&quot;" target="action"/>
           <zeebe:input source="={
               models:      count(models),

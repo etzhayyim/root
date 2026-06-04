@@ -55,9 +55,9 @@
 </main>
 
 <footer class="site">
-  <div lang="ja">運営: amanomibashira / 技術受託: Gftd Japan株式会社</div>
-  <div lang="en">Operating entity: amanomibashira / Technical contractor: Gftd Japan株式会社</div>
-  <div class="postal">amanomibashira c/o Gftd Japan株式会社 — 〒XXX-XXXX 東京都千代田区 ...</div>
+  <div lang="ja">運営: amanomibashira / 技術受託: Etzhayyim Japan株式会社</div>
+  <div lang="en">Operating entity: amanomibashira / Technical contractor: Etzhayyim Japan株式会社</div>
+  <div class="postal">amanomibashira c/o Etzhayyim Japan株式会社 — 〒XXX-XXXX 東京都千代田区 ...</div>
   <div>privacy@etzhayyim.ai · malak-surveillance@etzhayyim.ai</div>
 </footer>
 
@@ -98,8 +98,8 @@
       const j = await res.json().catch(function () { return {}; });
       if (j.status === "unsubscribed" || j.status === "alreadyUnsubscribed" || j.status === "phase0_stub") {
         result.textContent = msg(
-          "配信停止を承りました。今後 amanomibashira / Gftd Japan からの malak.surveillance に関するメールはお送りしません。",
-          "Unsubscribed. We will not send further malak.surveillance outreach from amanomibashira / Gftd Japan."
+          "配信停止を承りました。今後 amanomibashira / Etzhayyim Japan からの malak.surveillance に関するメールはお送りしません。",
+          "Unsubscribed. We will not send further malak.surveillance outreach from amanomibashira / Etzhayyim Japan."
         );
         result.className = "result ok"; form.style.display = "none";
       } else if (j.status === "tokenExpired") {

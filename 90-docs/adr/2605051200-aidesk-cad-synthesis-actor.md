@@ -57,7 +57,7 @@ superseded_by: []
 |---|---|
 | Domain | `aidesk.etzhayyim.com` |
 | Nanoid | `a1d3sk00` |
-| Primary DID | `did:erc725:gftd:260505:{identityContract}` |
+| Primary DID | `did:erc725:etzhayyim:260505:{identityContract}` |
 | AT facade DID | `did:web:aidesk.etzhayyim.com` |
 | NSID prefix (商用) | `com.etzhayyim.apps.aidesk.*` |
 | NSID prefix (研究) | `com.etzhayyim.apps.aidesk.research.*` (Phase 2) |
@@ -362,7 +362,7 @@ async def task_aidesk_tsukuru_handoff(variables: dict) -> dict:
 ## T3 CF Worker (aidesk-tsukr8u0 — thin XRPC facade)
 
 ```typescript
-// 60-apps/ai-gftd-project-aidesk/appview/aidesk-a1d3sk00/src/app.ts
+// 60-apps/etzhayyim-project-aidesk/appview/aidesk-a1d3sk00/src/app.ts
 import { createWorkerExport, createKyselyDb } from "@etzhayyim/magatama-host-sdk";
 import type { Database } from "@etzhayyim/graph-schema";
 
@@ -454,11 +454,11 @@ export default createWorkerExport((sdk) => {
 
 | Project | Integration | 方向 |
 |---|---|---|
-| `ai-gftd-project-tsukuru` | K8s-internal BPMN `supplierExchange.normalizePackage` | aidesk → tsukuru (handoff) |
-| `ai-gftd-project-murakumo` | Murakumo fleet (将来 GPU 化 Phase 2) | aidesk → murakumo |
-| `ai-gftd-project-maps` | Factory 位置 `:LOCATED_IN` 関連 | 参照のみ |
-| `ai-gftd-project-trust` | 設計者 DID trust score 検証 | aidesk → trust |
-| `ai-gftd-project-yabai` | Sanctions screening (商用 export 前) | aidesk → yabai |
+| `etzhayyim-project-tsukuru` | K8s-internal BPMN `supplierExchange.normalizePackage` | aidesk → tsukuru (handoff) |
+| `etzhayyim-project-murakumo` | Murakumo fleet (将来 GPU 化 Phase 2) | aidesk → murakumo |
+| `etzhayyim-project-maps` | Factory 位置 `:LOCATED_IN` 関連 | 参照のみ |
+| `etzhayyim-project-trust` | 設計者 DID trust score 検証 | aidesk → trust |
+| `etzhayyim-project-yabai` | Sanctions screening (商用 export 前) | aidesk → yabai |
 
 ---
 
@@ -487,7 +487,7 @@ export default createWorkerExport((sdk) => {
 ## Files to Create
 
 ```
-60-apps/ai-gftd-project-aidesk/
+60-apps/etzhayyim-project-aidesk/
 ├── CLAUDE.md
 ├── magatama.jsonld
 ├── magatama.toml
@@ -537,6 +537,6 @@ export default createWorkerExport((sdk) => {
 - ADR-0095 (3-Layer Identity — actor_did/org_did/at_did columns)
 - ADR-0074 (ERC725 Root Identity)
 - ADR-0044 (RisingWave UDF Language Strategy)
-- `60-apps/ai-gftd-project-tsukuru/CLAUDE.md`
+- `60-apps/etzhayyim-project-tsukuru/CLAUDE.md`
 - https://huggingface.co/ADSKAILab/Zero-To-CAD-Qwen3-VL-2B (arXiv:2604.24479)
 - https://huggingface.co/ADSKAILab (Make-A-Shape / WaLa — Non-Commercial)

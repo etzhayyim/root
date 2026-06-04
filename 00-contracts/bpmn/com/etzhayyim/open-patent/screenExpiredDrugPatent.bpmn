@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_patent_screen_expired_drug_patent" targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_patent_screen_expired_drug_patent" targetNamespace="https://etzhayyim.ai/bpmn/open-patent" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_patent_screen_expired_drug_patent" name="screenExpiredDrugPatent" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Screen"/>
@@ -15,7 +15,7 @@
     <bpmn:sequenceFlow id="Flow_A" sourceRef="Task_Screen" targetRef="Task_Audit"/>
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
-        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input source="=&quot;openPatent.expiredDrugPatent.screen&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, eligible: eligible, status: status, asOf: asOf}" target="payload"/></zeebe:ioMapping>
+        <zeebe:ioMapping><zeebe:input source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input source="=&quot;openPatent.expiredDrugPatent.screen&quot;" target="action"/><zeebe:input source="={vertexId: vertexId, eligible: eligible, status: status, asOf: asOf}" target="payload"/></zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_A</bpmn:incoming><bpmn:outgoing>Flow_End</bpmn:outgoing>
     </bpmn:serviceTask>

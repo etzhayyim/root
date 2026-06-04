@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_pse_register_dids"
-    targetNamespace="https://gftd.ai/bpmn/govPse"
+    targetNamespace="https://etzhayyim.ai/bpmn/govPse"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_pse_register_dids" name="govPse register DIDs" isExecutable="true">

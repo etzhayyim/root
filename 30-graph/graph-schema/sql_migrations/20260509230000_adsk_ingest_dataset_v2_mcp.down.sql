@@ -8,6 +8,6 @@ DELETE FROM vertex_langgraph_assistant
  WHERE assistant_id = 'adsk_ingest_dataset.v2';
 
 DELETE FROM vertex_mcp_tool_def WHERE vertex_id =
-  'at://did:web:adsk.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-adsk-datasetIngestAll';
+  'at://did:web:adsk.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-adsk-datasetIngestAll';
 
 FLUSH;

@@ -6,7 +6,7 @@
   },
   "convoSystemPrompt": "You are disk-cleaner agent. Respond helpfully in the user's language.",
   "desktop": {
-    "bundleId": "jp.co.gftd.disk-cleaner",
+    "bundleId": "jp.co.etzhayyim.disk-cleaner",
     "category": "public.app-category.utilities",
     "dmg": {
       "background": "assets/dmg-background.png"
@@ -43,7 +43,7 @@
     "description": "Local disk scan utility for identifying large files, duplicate content, and cleanup candidates.",
     "displayName": "Disk Cleaner",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "disk-cleaner",
   "runtimeType": "desktop-wasm",

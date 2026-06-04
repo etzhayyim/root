@@ -12,7 +12,7 @@
  *
  *   B2_ENDPOINT             https://s3.us-east-005.backblazeb2.com
  *   B2_REGION               us-east-005
- *   B2_BUCKET               ai-gftd-{actor}
+ *   B2_BUCKET               etzhayyim-{actor}
  *   B2_KEY_ID               (wrangler secret put B2_KEY_ID)
  *   B2_APPLICATION_KEY      (wrangler secret put B2_APPLICATION_KEY)
  *

@@ -5,7 +5,7 @@ Per ADR-2605201400 §1 (Actor topology — Tier B end-of-life leader on
 ``dan``). The cell terminates the lifecycle of a deployment site: it
 detects lifespan expiry (cron), accepts governance-vote / force-majeure
 / community-recall triggers, schedules an urban-mining handoff to the
-Giemon fleet (per ``60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md``),
+Giemon fleet (per ``60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md``),
 orchestrates dismantling, then verifies that the land was returned to
 its natural state under the constitutional inalienability rule per
 ADR-2605192245 (donated land is waqf-equivalent — it cannot be
@@ -71,7 +71,7 @@ VALID_TRIGGER_REASONS = (
 # recovery. The doc path is informational — runtime handoff goes via
 # the swarm broadcast channel.
 URBAN_MINING_DOC = (
-    "60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md"
+    "60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md"
 )
 
 

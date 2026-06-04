@@ -29,7 +29,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_animeka_cut_runner"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_cut_runner" name="animeka cut runner" isExecutable="true">
 
@@ -88,7 +88,7 @@
         <zeebe:calledElement processId="animeka_generate_layout" propagateAllChildVariables="false"/>
         <zeebe:ioMapping>
           <zeebe:input source="=string(cutId)"                                                                                            target="cutId"/>
-          <zeebe:input source="=&quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.storyboard/&quot; + string(cutId) + &quot;-c1&quot;" target="storyboardUri"/>
+          <zeebe:input source="=&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.storyboard/&quot; + string(cutId) + &quot;-c1&quot;" target="storyboardUri"/>
           <zeebe:input source="=string(cutSummary)"                                                                                       target="cutSummary"/>
           <zeebe:output source="=blobCid"                                                                                                 target="lyCid"/>
         </zeebe:ioMapping>
@@ -105,7 +105,7 @@
         <zeebe:calledElement processId="animeka_generate_keyframe" propagateAllChildVariables="false"/>
         <zeebe:ioMapping>
           <zeebe:input source="=string(cutId)"                                                                                       target="cutId"/>
-          <zeebe:input source="=&quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.layout/&quot; + string(cutId) + &quot;-v1&quot;" target="layoutUri"/>
+          <zeebe:input source="=&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.layout/&quot; + string(cutId) + &quot;-v1&quot;" target="layoutUri"/>
           <zeebe:input source="=1"                                                                                                   target="frameNum"/>
           <zeebe:input source="=string(cutSummary)"                                                                                  target="poseDescription"/>
           <zeebe:input source="=&quot;&quot;"                                                                                        target="characterRefCid"/>
@@ -122,7 +122,7 @@
         <zeebe:calledElement processId="animeka_generate_background" propagateAllChildVariables="false"/>
         <zeebe:ioMapping>
           <zeebe:input source="=string(cutId)"                                                                                       target="cutId"/>
-          <zeebe:input source="=&quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.layout/&quot; + string(cutId) + &quot;-v1&quot;" target="layoutUri"/>
+          <zeebe:input source="=&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.layout/&quot; + string(cutId) + &quot;-v1&quot;" target="layoutUri"/>
           <zeebe:input source="=string(cutSummary)"                                                                                  target="location"/>
           <zeebe:input source="=&quot;early spring dawn&quot;"                                                                        target="timeOfDay"/>
           <zeebe:input source="=&quot;soft warm morning light&quot;"                                                                  target="lightingMood"/>
@@ -147,7 +147,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.atproto.repo.createRecord&quot;" target="type"/>
           <zeebe:input source="={
-              repo:       &quot;did:web:an1m3k4x.gftd.ai&quot;,
+              repo:       &quot;did:web:an1m3k4x.etzhayyim.com&quot;,
               collection: &quot;app.bsky.feed.post&quot;,
               record: {
                 &quot;$type&quot;: &quot;app.bsky.feed.post&quot;,
@@ -184,7 +184,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;cutRunner&quot;" target="action"/>
           <zeebe:input source="={
               cutId: string(cutId),

@@ -1,0 +1,13 @@
+{
+  "@context": "https://resources.gftd.ai/ontology/crawler/context.jsonld",
+  "@type": "gftd:CrawlPage",
+  "@id": "https://resources.gftd.ai/content/crawl/page/res-001",
+  "identifier": "res-001",
+  "url": "https://gftd.ai",
+  "jobId": "crawl-seed",
+  "name": "GFTD - Artificial Organism",
+  "httpStatus": 200,
+  "contentSize": 24576,
+  "linkCount": 18,
+  "generatedAtTime": "2026-02-17T00:41:12Z"
+}

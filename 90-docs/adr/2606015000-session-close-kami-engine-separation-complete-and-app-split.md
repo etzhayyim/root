@@ -16,7 +16,7 @@ authoritative_for:
 depends_on:
   - adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan
 related:
-  - adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
+  - adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone
   - adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1
 supersedes: []
 superseded_by: []
@@ -55,7 +55,7 @@ Clones now require `git submodule update --init --recursive 40-engine/kami-engin
   the subtree split hadn't carried.
 - **CI baseline reds** (PR #680): `deps-toml-paths` non-strict tracker no longer
   aborts under `bash -e` on pre-existing kotoba metadata drift; `monorepo-health`
-  rollup re-baselined 25 → 7 (legitimate resolution; the 7 are the gftd→etzhayyim
+  rollup re-baselined 25 → 7 (legitimate resolution; the 7 are the etzhayyim→etzhayyim
   404 `.gitrepo` stale-subrepo URLs).
 - **Status doc sync** (PR #686).
 - **App-crate-home split** (PR #692, gitlink → `8e60f9a`): resolved as a **split**

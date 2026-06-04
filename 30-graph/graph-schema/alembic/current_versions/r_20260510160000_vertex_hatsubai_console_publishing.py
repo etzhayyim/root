@@ -3,7 +3,7 @@
 11 vertex + 7 edge + 5 streaming MV + 8 indexes covering Nintendo
 Switch 2 / PS5 / Xbox Series X|S / Steam partner→devkit→build→TRC
 →cert→rating→listing→asset flow under one ``hatsubai.etzhayyim.com`` actor
-(BPMN-as-actor; no CF Worker — see ``60-apps/ai-gftd-project-hatsubai``).
+(BPMN-as-actor; no CF Worker — see ``60-apps/etzhayyim-project-hatsubai``).
 
 Per-platform variation is one ``platform_code`` column; cross-platform
 queries (release calendar, blocker rollup, devkit utilization) stay

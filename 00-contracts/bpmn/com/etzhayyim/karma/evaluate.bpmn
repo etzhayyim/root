@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — karma evaluation agent (XRPC entry).
+  karma.etzhayyim.com — karma evaluation agent (XRPC entry).
 
   LangGraph state machine + Pregel-style graph propagation + actor
   mailbox semantics consolidated into a single `karma.agent.evaluate`
@@ -27,7 +27,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_evaluate"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_evaluate" name="karma evaluation agent" isExecutable="true">
@@ -68,7 +68,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.evaluate&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;edgeId&quot;: edgeId, &quot;recommendation&quot;: recommendation, &quot;tier&quot;: resolvedTier, &quot;supersteps&quot;: supersteps, &quot;llmTokens&quot;: llmTokensUsed }" target="attributes"/>
         </zeebe:ioMapping>

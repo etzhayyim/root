@@ -57,9 +57,9 @@
       "import": "./dist/atproto.js",
       "types": "./dist/atproto.d.ts"
     },
-    "./yatachain": {
-      "import": "./dist/yatachain/index.js",
-      "types": "./dist/yatachain/index.d.ts"
+    "./kotoba-datomic": {
+      "import": "./dist/kotoba-datomic/index.js",
+      "types": "./dist/kotoba-datomic/index.d.ts"
     }
   },
   "bin": {

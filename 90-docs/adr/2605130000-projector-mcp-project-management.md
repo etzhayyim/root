@@ -178,7 +178,7 @@ planning → active → blocked → active (ループ可) → done
 
 - Claude Agent は `projector.get_status` を呼ぶだけで前回セッションの状態を復元できる
 - blocker が追加されると依存プロジェクトも自動的に `blocked` に遷移する (Pregel 伝播)
-- `gftd projector` CLI により人手での操作も可能
+- `etzhayyim projector` CLI により人手での操作も可能
 - pregel pod のメモリ使用量が増加する可能性がある (projector_lifecycle graph の追加登録分)
 
 ---
@@ -348,8 +348,8 @@ blocker が解消されたら**即時**呼ぶ。
 - ADR-2605080600 (LangGraph Server + Granian L3 Runtime)
 - `20-actors/magatama/py/src/pymagatama/projector/graph.py`
 - `20-actors/magatama/py/src/pymagatama/projector/blocker_pregel.py`
-- `60-apps/ai-gftd-project-pregel/lg/lg_pregel/server.py` (`GRAPHS["projector_lifecycle"]`)
+- `60-apps/etzhayyim-project-pregel/lg/lg_pregel/server.py` (`GRAPHS["projector_lifecycle"]`)
 - `50-infra/cloudflare/workers/atproto/src/mcp-adapter.ts` (BUILTIN_TOOLS `projector.*`)
 - `00-contracts/lexicons/com/etzhayyim/projector/`
 - `50-infra/vultr/geth-private/contracts/` (migration `20260513000000_vertex_projector_blocker_project_progress`)
-- `70-tools/gftd/projector.go` (`gftd projector` CLI)
+- `70-tools/etzhayyim/projector.go` (`etzhayyim projector` CLI)

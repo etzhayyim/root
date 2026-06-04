@@ -1,6 +1,6 @@
 import plugin from 'tailwindcss/plugin.js';
 
-export const gftdUIKit = plugin(
+export const etzhayyimUIKit = plugin(
 	({ addUtilities }) => {
 		addUtilities({
 			'.safe-area-top': { 'padding-top': 'env(safe-area-inset-top, 0px)' },

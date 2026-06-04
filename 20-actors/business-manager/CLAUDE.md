@@ -4,7 +4,7 @@
 
 → nanoid / domain: `deps.toml [[mitama_actors]]`
 → Pipeline 定義: `20-actors/business-manager/actor-manifest.jsonld`
-→ T3 fallback runbook: `60-apps/ai-gftd-project-business-manager/CLAUDE.md`
+→ T3 fallback runbook: `60-apps/etzhayyim-project-business-manager/CLAUDE.md`
 
 ## Identity
 

@@ -122,5 +122,5 @@ Also verified the four supporting XRPCs returned HTTP 200 from
 - `90-docs/maps-worldmonitor-parity.md`
 - `20-actors/magatama/py/src/pymagatama/worker_api.py`
 - `20-actors/magatama/py/src/pymagatama/dispatcher_main.py`
-- `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
+- `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
 - `50-infra/vultr/mitama-udf-pool/values.yaml`

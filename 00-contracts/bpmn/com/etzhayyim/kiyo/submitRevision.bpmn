@@ -8,7 +8,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_kiyo_submit_revision"
-    targetNamespace="https://gftd.ai/bpmn/kiyo"
+    targetNamespace="https://etzhayyim.ai/bpmn/kiyo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="kiyo_submit_revision" name="kiyo submit revision" isExecutable="true">
@@ -36,11 +36,11 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_AfterValidate" sourceRef="Task_ValidateOwner" targetRef="Task_PinRevision"/>
 
-    <bpmn:serviceTask id="Task_PinRevision" name="pin new version to ipfs.gftd.ai">
+    <bpmn:serviceTask id="Task_PinRevision" name="pin new version to ipfs.etzhayyim.com">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://ip5s7b2x.gftd.ai/xrpc/gftd.ipfs.v1.IpfsCommandService/Publish&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://ip5s7b2x.etzhayyim.com/xrpc/etzhayyim.ipfs.v1.IpfsCommandService/Publish&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;"             target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={content_base64: fileBase64, content_type: fileContentType}" target="body"/>

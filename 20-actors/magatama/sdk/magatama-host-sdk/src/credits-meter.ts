@@ -86,7 +86,7 @@ async function xrpcPost(
  * export default createWorkerExport((sdk) => { ... }, {
  *   mcpRegistry: {
  *     meter: createCreditsMeter(sdk.env as CreditsMeterEnv),
- *     callerUserIdFromRequest: (req) => req.headers.get("x-gftd-user-id") ?? undefined,
+ *     callerUserIdFromRequest: (req) => req.headers.get("x-etzhayyim-user-id") ?? undefined,
  *   },
  * });
  * ```

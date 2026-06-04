@@ -103,7 +103,7 @@ function sumLiveRecords(obj) {
 }
 
 function projectDirForDomain(repoRoot, domain) {
-  const candidate = path.join(repoRoot, 'projects', `ai-gftd-project-${domain}`);
+  const candidate = path.join(repoRoot, 'projects', `etzhayyim-project-${domain}`);
   return fs.existsSync(candidate) ? candidate : path.join(repoRoot, 'projects');
 }
 
@@ -143,7 +143,7 @@ function normalizeSince(opts) {
 }
 
 function generateWorldDataSnapshot(repoRoot, outPath) {
-  const src = path.join(repoRoot, 'packages', 'cmd', 'gftd', 'world_coverage.go');
+  const src = path.join(repoRoot, 'packages', 'cmd', 'etzhayyim', 'world_coverage.go');
   const raw = fs.readFileSync(src, 'utf8');
   const start = raw.indexOf('var worldDomains = []worldDomain{');
   if (start < 0) {
@@ -187,7 +187,7 @@ function generateWorldDataSnapshot(repoRoot, outPath) {
 async function main() {
   const opts = parseArgs(process.argv);
   const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-  const gftdDir = path.join(repoRoot, 'packages', 'cmd', 'gftd');
+  const etzhayyimDir = path.join(repoRoot, 'packages', 'cmd', 'etzhayyim');
   const reportsDir = path.join(repoRoot, 'reports');
   fs.mkdirSync(reportsDir, { recursive: true });
 
@@ -215,7 +215,7 @@ async function main() {
     console.error('2) Seed batch');
     const seedArgs = ['run', '.', 'seed', '-app', opts.domains.join(',')];
     if (opts.pds) seedArgs.push('--pds', opts.pds);
-    run('go', seedArgs, { cwd: gftdDir, timeout: seedTimeoutMs(opts) });
+    run('go', seedArgs, { cwd: etzhayyimDir, timeout: seedTimeoutMs(opts) });
   }
 
   console.error('3) Coverage after median');
@@ -258,7 +258,7 @@ async function main() {
     ];
     if (opts.pds) args.push('--pds', opts.pds);
     try {
-      const res = run('go', args, { cwd: gftdDir, capture: true, timeout: opts.kyumeiTimeoutMs });
+      const res = run('go', args, { cwd: etzhayyimDir, capture: true, timeout: opts.kyumeiTimeoutMs });
       fs.writeFileSync(out, res.stdout || '{}');
       const j = JSON.parse(res.stdout || '{}');
       kyumei.push({

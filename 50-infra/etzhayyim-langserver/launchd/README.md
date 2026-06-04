@@ -94,5 +94,5 @@ positions L2 right after L1 (the host inventory it parameterizes).
 
 - Do **not** `launchctl load` any generated plist until L1 hardware probe is
   committed and user has explicitly confirmed.
-- Do **not** introduce a `gftd-` / `com.etzhayyim.` Label. `com.etzhayyim.*` only.
+- Do **not** introduce a `etzhayyim-` / `com.etzhayyim.` Label. `com.etzhayyim.*` only.
 - Do **not** add proprietary log shipping; L7 stays on Apache 2.0 OSS (NATS).

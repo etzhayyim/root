@@ -2,7 +2,7 @@
 <!--
   llm.answerWithKnowledge
 
-  Proper RAG path for llm.gftd.ai:
+  Proper RAG path for llm.etzhayyim.com:
     1. Retrieve domain knowledge from RisingWave vertex/edge/MV tables.
     2. Run a Python LangGraph answer graph over retrieved evidence.
     3. Emit audit.
@@ -14,7 +14,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_llm_answer_with_knowledge"
-    targetNamespace="https://gftd.ai/bpmn/llm"
+    targetNamespace="https://etzhayyim.ai/bpmn/llm"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="llm_answer_with_knowledge" name="llm answer with knowledge" isExecutable="true">

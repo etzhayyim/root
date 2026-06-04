@@ -9,7 +9,7 @@
     3. generic.audit.emit → live.postChat (audit trail)
 
   RLS shape per ADR-0095. The federation step is best-effort: a 4xx
-  from atproto.gftd.ai (e.g. unmintable Service Auth for the actor)
+  from atproto.etzhayyim.com (e.g. unmintable Service Auth for the actor)
   doesn't roll back the local chat row — viewers still see the bubble
   via the WebSocket fan-out from the DO.
 -->
@@ -18,7 +18,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_live_post_chat"
-    targetNamespace="https://gftd.ai/bpmn/apps/live"
+    targetNamespace="https://etzhayyim.ai/bpmn/apps/live"
     exporter="hand-written" exporterVersion="1.1">
   <bpmn:process id="live_post_chat" name="live postChat" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -92,7 +92,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:live.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:live.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;live.postChat&quot;" target="action"/>
           <zeebe:input source="={
               roomSlug: roomSlug,

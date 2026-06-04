@@ -167,7 +167,7 @@ export function validateCloudflarePipelines(input, options = {}) {
 
 export function tryCueVet(configPath, options = {}) {
   const locale = options.locale === "ja" ? "ja" : "en";
-  const cuePath = options.cuePath ?? "projects/ai-gftd-project-seigen-cue/policy/cue/cloudflare-pipelines-limits.cue";
+  const cuePath = options.cuePath ?? "projects/etzhayyim-project-seigen-cue/policy/cue/cloudflare-pipelines-limits.cue";
   const whichCue = spawnSync("command -v cue", { encoding: "utf8", shell: true });
 
   if (whichCue.status !== 0) {
@@ -195,7 +195,7 @@ export function buildSqlUpsertPayload(options = {}) {
   const actorDid = options.actorDid || "did:web:seigen.etzhayyim.com";
   const locale = options.locale === "ja" ? "ja" : "en";
 
-  const cuePath = path.resolve("projects/ai-gftd-project-seigen-cue/policy/cue/cloudflare-pipelines-limits.cue");
+  const cuePath = path.resolve("projects/etzhayyim-project-seigen-cue/policy/cue/cloudflare-pipelines-limits.cue");
   const cueSource = fs.readFileSync(cuePath, "utf8");
 
   const sql = [

@@ -324,7 +324,7 @@
     "description": "ERP management actor. Accounting GL/AP/AR, HR employee records, procurement purchase orders, budget allocation. Japanese fiscal year (April-March). Configurable approval thresholds.",
     "displayName": "Business Manager -- Corporate ERP Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

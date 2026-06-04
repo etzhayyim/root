@@ -5,7 +5,7 @@
  * (3-axis OR-test) + ADR-2605181100 (kotoba E2E encrypted-record envelope) +
  * ADR-2606021730 (latent-entity kotoba-Datomic refactor; LDA θ/φ off the legacy
  * derived store). Founder directive 2026-06-03: front everything that can move;
- * only the irreducible regulated EXECUTION stays gftd.
+ * only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * The legacy coverage monitor read a derived world-coverage view + a statistical
  * latent-entity / entity-resolution stack (per-person, "tens of billions"). The
@@ -21,13 +21,13 @@
  *   entities (subjectDid + existence probability + resolution evidence). This is
  *   per-natural-person inference, written via sdk.encryptedWrite (read-cap =
  *   owner DID + explicit recipients), so confidential entity resolution lives
- *   on-substrate encrypted, not gftd-resident.
+ *   on-substrate encrypted, not etzhayyim-resident.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   regulated EXECUTION acts: GPU/LLM embedding + LDA inference compute
  *   (Murakumo-only per ADR-2606021730), the crawl/ingest collection pipeline,
  *   and the cohort-fission ENFORCEMENT action (minting a new actor DID). Those
- *   acts stay gftd; their resulting DATA records front (plaintext or E2E).
+ *   acts stay etzhayyim; their resulting DATA records front (plaintext or E2E).
  *
  * AT-Lexicon: no float. Counts are non-negative integers; coverage rate and
  * existence probability are integer percent 0-100; any decimal is a string.
@@ -149,7 +149,7 @@ export interface LatentEntityBody {
   domain: string;
   /** integer percent 0-100 (noisy-OR existence, computed off-substrate). */
   existenceProbabilityPercent: number;
-  /** Observer-only fission proposal flag (no DID minted here; that EXECUTION stays gftd). */
+  /** Observer-only fission proposal flag (no DID minted here; that EXECUTION stays etzhayyim). */
   fissionProposed: boolean;
   evidence: LatentEntityEvidence[];
   assessedAt: string;

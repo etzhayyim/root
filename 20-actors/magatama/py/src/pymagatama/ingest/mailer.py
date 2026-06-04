@@ -64,7 +64,7 @@ def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> tuple[int, dict[str, Any], str]:
-    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "gftd-mailer-zeebe/1", **(headers or {})})
+    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "etzhayyim-mailer-zeebe/1", **(headers or {})})
     try:
         with urllib.request.urlopen(req, timeout=45) as resp:
             raw = resp.read().decode("utf-8")
@@ -79,10 +79,10 @@ def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, head
 
 
 KEYCHAIN_SECRET_REFS: dict[str, tuple[str, str]] = {
-    "RESEND_API_KEY": ("gftd.resend", "API_KEY"),
-    "SS_RESEND_API_KEY": ("gftd.resend", "API_KEY"),
-    "EMAIL_RELAY_ADMIN_TOKEN": ("gftd.email-relay", "ADMIN_TOKEN"),
-    "SS_EMAIL_RELAY_ADMIN_TOKEN": ("gftd.email-relay", "ADMIN_TOKEN"),
+    "RESEND_API_KEY": ("etzhayyim.resend", "API_KEY"),
+    "SS_RESEND_API_KEY": ("etzhayyim.resend", "API_KEY"),
+    "EMAIL_RELAY_ADMIN_TOKEN": ("etzhayyim.email-relay", "ADMIN_TOKEN"),
+    "SS_EMAIL_RELAY_ADMIN_TOKEN": ("etzhayyim.email-relay", "ADMIN_TOKEN"),
 }
 
 

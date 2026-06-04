@@ -214,7 +214,7 @@ def render_daemonset(
                     p.cell_name,
                 ],
                 "env": [
-                    {"name": "ETZ_SUBSTRATE", "value": "yatachain"},
+                    {"name": "ETZ_SUBSTRATE", "value": "kotoba-datomic"},
                     {
                         "name": "ETZ_CHECKPOINTER_SOCKET",
                         "value": "/run/etzhayyim/checkpointer.sock",

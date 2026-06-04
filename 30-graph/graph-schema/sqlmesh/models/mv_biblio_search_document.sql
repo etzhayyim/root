@@ -1,5 +1,5 @@
 MODEL (
-  name gftd_graph_schema.mv_biblio_search_document,
+  name etzhayyim_graph_schema.mv_biblio_search_document,
   kind FULL
 );
 

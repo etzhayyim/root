@@ -105,7 +105,7 @@ path = "90-docs/adr/2605250730-tatekata-construction-r1.md (reserved)"
 [[modules]]
 path = "00-contracts/lexicons/com/etzhayyim/apps/unispsc (deferred-rename)"
 adr = ["2605180900"]
-# → intentionally pre-cutover per CLAUDE.md root §"Do Not" gftd-rename invariant
+# → intentionally pre-cutover per CLAUDE.md root §"Do Not" etzhayyim-rename invariant
 ```
 
 **Semantics**:
@@ -128,7 +128,7 @@ added before the path actually existed.
 deps.toml path audit: 572/587 entries resolve / 15 accepted-reserved / 0 drift
 ACCEPTED-RESERVED (15):
   [adrs]    3 × tatekata R1/R2/R3              (reserved)        — 2605250730 / 745 / 760
-  [modules] 4 × gftd→etzhayyim rename paths    (deferred-rename) — 2605180900
+  [modules] 4 × etzhayyim→etzhayyim rename paths    (deferred-rename) — 2605180900
   [modules] 1 × etzhayyim-cell-fleet-dashboard (reserved)        — 2605192415
   [modules] 2 × mmsheaf future-impl paths      (reserved)        — 2605250700 + 8 others
   [modules] 1 × isaac-lab-task-port            (reserved)        — 2605261600

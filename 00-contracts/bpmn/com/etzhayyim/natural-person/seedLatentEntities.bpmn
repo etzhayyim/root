@@ -36,7 +36,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.db.select" retries="3"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;SELECT COUNT(*)::bigint AS planned_entities FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_latent_entity e WHERE e.vertex_id = 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=&quot;SELECT COUNT(*)::bigint AS planned_entities FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_latent_entity e WHERE e.vertex_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
           <zeebe:input source="=[]" target="params"/>
           <zeebe:input source="=60000" target="resultTimeoutMs"/>
           <zeebe:output source="=rows[1]" target="seedPlan"/>
@@ -51,7 +51,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;INSERT INTO vertex_latent_entity (vertex_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, entity_kind, canonical_label, existence_probability, k_evidence_count, viewpoint_consensus, fission_eligible, status, primary_topic_vid, individual_did) SELECT 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', NOW(), 'natural_person_cohort', 'natural person cohort: ' || c.cohort_hash, 0.99, CASE WHEN c.intel_estimated_count &gt; 0 THEN 1 ELSE 0 END, 1, c.vital_status = 'alive', 'active', c.vertex_id, 'did:web:natural-person.gftd.ai:latent:' || c.cohort_hash FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_latent_entity e WHERE e.vertex_id = 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=&quot;INSERT INTO vertex_latent_entity (vertex_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, entity_kind, canonical_label, existence_probability, k_evidence_count, viewpoint_consensus, fission_eligible, status, primary_topic_vid, individual_did) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), 'natural_person_cohort', 'natural person cohort: ' || c.cohort_hash, 0.99, CASE WHEN c.intel_estimated_count &gt; 0 THEN 1 ELSE 0 END, 1, c.vital_status = 'alive', 'active', c.vertex_id, 'did:web:natural-person.etzhayyim.com:latent:' || c.cohort_hash FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM vertex_latent_entity e WHERE e.vertex_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
           <zeebe:input source="=[]" target="params"/>
           <zeebe:input source="=300000" target="resultTimeoutMs"/>
           <zeebe:output source="=updated" target="insertedEntities"/>
@@ -65,7 +65,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;INSERT INTO edge_entity_cohort_link (edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, dst_vid, link_confidence) SELECT 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.entityCohortLink/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', NOW(), 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, c.vertex_id, 0.99 FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM edge_entity_cohort_link l WHERE l.edge_id = 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.entityCohortLink/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=&quot;INSERT INTO edge_entity_cohort_link (edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, dst_vid, link_confidence) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityCohortLink/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, c.vertex_id, 0.99 FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM edge_entity_cohort_link l WHERE l.edge_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityCohortLink/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
           <zeebe:input source="=[]" target="params"/>
           <zeebe:input source="=300000" target="resultTimeoutMs"/>
           <zeebe:output source="=updated" target="insertedCohortLinks"/>
@@ -79,7 +79,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;INSERT INTO edge_entity_evidence (edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, dst_vid, evidence_weight) SELECT 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.entityEvidence/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', NOW(), c.vertex_id, 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, 1.0 FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM edge_entity_evidence ev WHERE ev.edge_id = 'at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.entityEvidence/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
+          <zeebe:input source="=&quot;INSERT INTO edge_entity_evidence (edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, dst_vid, evidence_weight) SELECT 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityEvidence/natural-person-cohort-' || c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), c.vertex_id, 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-' || c.cohort_hash, 1.0 FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM edge_entity_evidence ev WHERE ev.edge_id = 'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.entityEvidence/natural-person-cohort-' || c.cohort_hash)&quot;" target="sql"/>
           <zeebe:input source="=[]" target="params"/>
           <zeebe:input source="=300000" target="resultTimeoutMs"/>
           <zeebe:output source="=updated" target="insertedEvidenceLinks"/>
@@ -107,7 +107,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:natural-person.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:natural-person.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;naturalPerson.seedLatentEntities.complete&quot;" target="action"/>
           <zeebe:input source="={
               &quot;plannedEntities&quot;: seedPlan.planned_entities,

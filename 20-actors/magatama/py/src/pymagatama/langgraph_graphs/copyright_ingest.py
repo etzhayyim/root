@@ -38,7 +38,7 @@ _CROSSREF_URL = (
     "&mailto=jun%40etzhayyim.com"
 )
 _CROSSREF_HEADERS = {
-    "User-Agent": "gftd-copyright/2.0 (mailto:jun@etzhayyim.com)",
+    "User-Agent": "etzhayyim-copyright/2.0 (mailto:jun@etzhayyim.com)",
     "Accept": "application/json",
 }
 _DATACITE_URL = (

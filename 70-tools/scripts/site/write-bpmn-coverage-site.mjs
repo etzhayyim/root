@@ -7,7 +7,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const OUT = path.join(
   ROOT,
-  "60-apps/ai-gftd-project-coverage/appview/coverage-ui-c0v3r4g3/svelte/static/bpmn-coverage/latest.json",
+  "60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/svelte/static/bpmn-coverage/latest.json",
 );
 
 function readCoverage() {

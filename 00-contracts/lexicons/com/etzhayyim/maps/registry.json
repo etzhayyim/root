@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.maps.registry",
-  "description": "Registry record — land / property / business / construction-permit / operating-license / environmental-permit / zoning. Discriminated by `registryType`. Per maps CLAUDE.md §Graph Schema (`vertex_registry`) + ADR-2605231400 yatachain L1 target.",
+  "description": "Registry record — land / property / business / construction-permit / operating-license / environmental-permit / zoning. Discriminated by `registryType`. Per maps CLAUDE.md §Graph Schema (`vertex_registry`) + ADR-2605231400 kotoba-datomic L1 target.",
   "defs": {
     "main": {
       "type": "record",

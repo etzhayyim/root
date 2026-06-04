@@ -272,7 +272,7 @@
     "description": "NIST Cybersecurity Framework 2.0 — 6 Function actors, 106 subcategories, Tier 3→4 gap analysis, CMMC L2 mapping, cross-framework compliance.",
     "displayName": "NIST CSF 2.0 Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

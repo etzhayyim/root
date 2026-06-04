@@ -144,6 +144,6 @@ Human Login (mode=human)
 ## References
 
 - Murakumo V2 design: `260320-murakumo-v2-cf-worker-design.md`
-- yoro CLAUDE.md: `60-apps/ai-gftd-project-yoro/CLAUDE.md`
-- HC CLAUDE.md: `60-apps/ai-gftd-project-hc/CLAUDE.md`
-- Murakumo CLAUDE.md: `60-apps/ai-gftd-project-murakumo/CLAUDE.md`
+- yoro CLAUDE.md: `60-apps/etzhayyim-project-yoro/CLAUDE.md`
+- HC CLAUDE.md: `60-apps/etzhayyim-project-hc/CLAUDE.md`
+- Murakumo CLAUDE.md: `60-apps/etzhayyim-project-murakumo/CLAUDE.md`

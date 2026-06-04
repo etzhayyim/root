@@ -8,7 +8,7 @@
  * DID + explicit recipients (e.g. CEO 河崎 for 24h auto-disclose). The substrate
  * never sees the confidential decision subject/rationale in plaintext.
  *
- * STAYS gftd (NOT a collection): financial-action execution, external-mail send
+ * STAYS etzhayyim (NOT a collection): financial-action execution, external-mail send
  * execution, LLM deliberation inference — consumed via consent-capability.
  */
 

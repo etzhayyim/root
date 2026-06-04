@@ -34,7 +34,7 @@ actorCmd
     const coreWasm = path.join(buildDir, `${outputName}_core.wasm`);
     const embeddedWasm = path.join(buildDir, `${outputName}_embedded.wasm`);
     const witDir = await resolveWitDir(!!options.extension);
-    const witWorld = options.extension ? 'gftd:w/w-extension' : 'magatama:runtime/magatama-component';
+    const witWorld = options.extension ? 'etzhayyim:w/w-extension' : 'magatama:runtime/magatama-component';
 
     console.log(`>> Building actor ${outputName} (wit=${witDir}, world=${witWorld})`);
 

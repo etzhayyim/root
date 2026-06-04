@@ -177,7 +177,7 @@
     "description": "Zero-knowledge secure file transfer. Signal Protocol X3DH + Double Ratchet for key exchange, AES-256-GCM per-transfer file key, chunked encrypted blob upload to B2, content-addressed dedup on ciphertext.",
     "displayName": "Tenso - Signal E2E Secure File Transfer",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

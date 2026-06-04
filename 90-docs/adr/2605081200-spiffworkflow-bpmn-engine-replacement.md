@@ -74,7 +74,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 - **Engine host** = 新規 `etzhayyim-root/50-infra/k8s/bpmn-engine-host/` Deployment (Python 3.12 + SpiffWorkflow)。replica 1 active + 1 standby (active-standby、shard 分割は Phase 3 で評価)。
 - **Persistence**: `vertex_spiff_instance` への state write は **delete-then-insert** (1 row 単位、PK = `instance_id`)。`db.transaction()` は RW で no-op として扱う (root CLAUDE.md "Record-log semantics" 規約)。
 - **Job dispatch**: engine が `READY` task を `vertex_spiff_job` に append、worker は `mv_spiff_ready_jobs` を 5s polling もしくは RW subscribe で pull。`claim_until` lease column で at-least-once。
-- **Worker shim**: `gftd_bpmn` decorator package を `20-actors/magatama/sdk/` 配下に新設し、`@worker.task(task_type="...")` 互換 API を提供。既存 handler 関数本体は無改修。
+- **Worker shim**: `etzhayyim_bpmn` decorator package を `20-actors/magatama/sdk/` 配下に新設し、`@worker.task(task_type="...")` 互換 API を提供。既存 handler 関数本体は無改修。
 - **Deploy = AT record**: BPMN XML を `com.etzhayyim.bpmn.process` collection に commit (Worker-direct Hyperdrive、ADR-0036)。engine host は firehose (or RW notification) で hot-reload。
 - **Timer**: `vertex_spiff_timer` を 1s tick reconciler で照会し、`fire_at <= now()` を engine に inject。
 - **Archive**: 完了 instance の `vertex_spiff_history` を Iceberg sink (既存 RW B2 path) で長期保存。
@@ -126,7 +126,7 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 - 新規 dir: `etzhayyim-root/50-infra/k8s/bpmn-engine-host/`
 - 新規 schema: `30-graph/graph-schema/sql_migrations/20260509110000_vertex_spiff_runtime.{up,down}.sql`
 - 新規 lexicon: `00-contracts/lexicons/com/etzhayyim/apps/bpmn/{process,instance,job}.json`
-- 新規 SDK: `20-actors/magatama/sdk/gftd-bpmn/` (Python decorator shim)
+- 新規 SDK: `20-actors/magatama/sdk/etzhayyim-bpmn/` (Python decorator shim)
 - 影響 worker: `50-infra/k8s/{open-lei-mcp,intel-dependency-worker,claim-consumer-actor,livecam-vision-actor,comfyui-generation-actor,shigotoba-jobs-actor,smishing-actor}` × 7 (decorator 差し替え)
 - 撤去対象: `etzhayyim-root/50-infra/vultr/zeebe/zeebe.yaml`, `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` の Zeebe broker 部分 (Phase 2 完了後)
 
@@ -152,9 +152,9 @@ graphar.vertex_spiff_timer (instance_id, fire_at, 1s tick reconciler)
 
 1. `30-graph/graph-schema/sql_migrations/20260509110000_vertex_spiff_runtime.{up,down}.sql` — `vertex_spiff_{instance,job,timer,history}` + `mv_spiff_ready_jobs` (`rw-health-gate.sh` 通過後に Alembic 直適用。table cardinality 数千・MV は status filter のみのため heavy DDL queue は不要)
 2. `00-contracts/lexicons/com/etzhayyim/apps/bpmn/{process,instance,job}.json` (PDS bundle 再生成 3-step 必須、root CLAUDE.md 規約)
-3. `20-actors/magatama/sdk/gftd-bpmn/` — Python decorator shim (`@gftd_bpmn.task("...")`)
+3. `20-actors/magatama/sdk/etzhayyim-bpmn/` — Python decorator shim (`@etzhayyim_bpmn.task("...")`)
 4. `etzhayyim-root/50-infra/k8s/bpmn-engine-host/` — Deployment + ConfigMap (replica 1, sleepAfter ∞)
-5. `50-infra/k8s/open-lei-mcp/` の `gleif_ingester.py` を `pyzeebe` → `gftd_bpmn` decorator に差し替え
+5. `50-infra/k8s/open-lei-mcp/` の `gleif_ingester.py` を `pyzeebe` → `etzhayyim_bpmn` decorator に差し替え
 6. Smoke test: 100 instance 並行起動 → 全 complete (timeout 60s 以内)、RW state row 数 / history 整合性確認
 
 ## Phase 2 follow-ups (engine-side, completed 2026-05-08)

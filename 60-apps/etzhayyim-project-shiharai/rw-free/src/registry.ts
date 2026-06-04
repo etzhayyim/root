@@ -9,7 +9,7 @@
  *
  * Money is carried as a decimal STRING (no float). The fiat settlement CALL,
  * credential custody, Playwright submit ACTION and LLM extraction INFERENCE stay
- * gftd, consumed via consent-capability — only their resulting DATA lives here.
+ * etzhayyim, consumed via consent-capability — only their resulting DATA lives here.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

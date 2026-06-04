@@ -34,7 +34,7 @@ impl Default for NodeConfig {
 pub fn config_dir() -> PathBuf {
     dirs::home_dir()
         .unwrap_or_else(|| PathBuf::from("."))
-        .join(".gftd")
+        .join(".etzhayyim")
 }
 
 pub fn config_path() -> PathBuf {
@@ -116,7 +116,7 @@ pub fn hf_cache_dir() -> PathBuf {
 }
 
 pub fn bin_install_path() -> &'static str {
-    "/usr/local/bin/gftd-murakumo"
+    "/usr/local/bin/etzhayyim-murakumo"
 }
 
 pub fn model_id_to_cache_dir(id: &str) -> String {
@@ -140,8 +140,8 @@ pub fn resolve_model_alias(model_id: &str) -> String {
         ("qwen3.5-4b-int8", "Qwen/Qwen3.5-4B"),
         ("qwen3.5-4b-4bit", "Qwen/Qwen3.5-4B"),
         ("mlx-community/qwen3.5-4b-4bit", "Qwen/Qwen3.5-4B"),
-        ("swe-260316", "gftd/swe-260316"),
-        ("gftd-swe", "gftd/swe-260316"),
+        ("swe-260316", "etzhayyim/swe-260316"),
+        ("etzhayyim-swe", "etzhayyim/swe-260316"),
         ("wai-real", "John6666/wai-real-mix-v11-sdxl"),
         ("wan2-t2v", "Wan-AI/Wan2.1-T2V-1.3B-Diffusers"),
         ("wan2-t2v-5b", "Wan-AI/Wan2.1-T2V-1.3B-Diffusers"),

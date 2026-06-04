@@ -2,7 +2,7 @@
 // items.mjs — Serebii items DB → com.etzhayyim.apps.media_gamers.knowledge.publishGameItem
 //
 // Usage:
-//   etzhayyim_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.media_gamers.knowledge.publishGameItem) \
+//   etzhayyim_TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.apps.media_gamers.knowledge.publishGameItem) \
 //     node 70-tools/scripts/media-gamers-ingest/items.mjs \
 //     --game pokemon-pokopia \
 //     --index https://www.serebii.net/pokemonpokopia/items.shtml \

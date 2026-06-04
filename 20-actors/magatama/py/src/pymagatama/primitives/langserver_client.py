@@ -25,7 +25,7 @@ Out of scope (post-L9):
 
 Constraints (per CLAUDE.md):
   - This file lives in 20-actors/magatama/py (Apache 2.0 + Charter Rider via
-    repo-root /CHARTER-RIDER.md). No legacy ``gftd-`` prefix.
+    repo-root /CHARTER-RIDER.md). No legacy ``etzhayyim-`` prefix.
   - Substrate hard rules apply: LSP traffic is COMPUTATION ONLY (no MST /
     IPFS / L2 writes from this module). State writes happen in the calling
     cell, not here.

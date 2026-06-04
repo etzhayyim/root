@@ -43,9 +43,9 @@ on-chain attestation + routing substrate for:
 ## Replaces
 
 The legacy `lawfirm.etzhayyim.com` reference visible in
-`20-actors/hanrei/CLAUDE.md` (gftd-era cross-actor link) is replaced by
+`20-actors/hanrei/CLAUDE.md` (etzhayyim-era cross-actor link) is replaced by
 chigiri. chigiri is religious-corp native, Murakumo-only, SBT-gated,
-Charter Rider §2-compliant; no gftd lineage.
+Charter Rider §2-compliant; no etzhayyim lineage.
 
 ## 12 Pregel Cells (R0 path-reserved)
 

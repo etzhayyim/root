@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.projection.feedDiscover",
-  "description": "yatachain-projection snapshot — top-N most recent `app.bsky.feed.post` records across all DIDs observed by the projection daemon, sorted by indexedAt desc. Per ADR-2605231500. This is a *derived* read path: the canonical record is each DID's own MST entry; this projection only exists to make Discover-feed reads O(1) instead of O(DIDs × listRecords). The projector daemon (see `50-infra/mst-projector/`) consumes `com.atproto.sync.subscribeRepos`, maintains the index in memory, and emits one snapshot per flush boundary. Rebuild: replay the firehose from cursor 0 — see `50-infra/mst-projector/projection/REBUILD.md`. Conformance: L0-projection (line-comment + manifest, manual rebuild). L1 upgrade pending CI replay smoke.",
+  "description": "kotoba-datomic-projection snapshot — top-N most recent `app.bsky.feed.post` records across all DIDs observed by the projection daemon, sorted by indexedAt desc. Per ADR-2605231500. This is a *derived* read path: the canonical record is each DID's own MST entry; this projection only exists to make Discover-feed reads O(1) instead of O(DIDs × listRecords). The projector daemon (see `50-infra/mst-projector/`) consumes `com.atproto.sync.subscribeRepos`, maintains the index in memory, and emits one snapshot per flush boundary. Rebuild: replay the firehose from cursor 0 — see `50-infra/mst-projector/projection/REBUILD.md`. Conformance: L0-projection (line-comment + manifest, manual rebuild). L1 upgrade pending CI replay smoke.",
   "defs": {
     "main": {
       "type": "record",

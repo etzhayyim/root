@@ -5,8 +5,8 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-openisic-gettaxonomy',
-   0, 0, 'com.etzhayyim.apps.openIsic.getTaxonomy', 'did:web:open-isic.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-openisic-gettaxonomy',
+   0, 0, 'com.etzhayyim.apps.openIsic.getTaxonomy', 'did:web:open-isic.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Retrieve ISIC taxonomy hierarchy (section, division, group, class) dynamically.',
    '{"type":"object","properties":{"level":{"type":"string","enum":["section","division","group","class"]},"parentCode":{"type":"string"}},"required":["level"]}',
    '{"type":"object"}',

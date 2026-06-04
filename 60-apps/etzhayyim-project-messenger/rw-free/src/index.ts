@@ -1,7 +1,7 @@
 /**
  * messenger rw-free — barrel. Consensys product-front split: public channel
  * directory plaintext + message bodies E2E (kotoba envelope, ADR-2605181100).
- * Real-time fan-out delivery + abuse-enforcement actions stay gftd via
+ * Real-time fan-out delivery + abuse-enforcement actions stay etzhayyim via
  * consent-capability.
  */
 export * from "./types.js";

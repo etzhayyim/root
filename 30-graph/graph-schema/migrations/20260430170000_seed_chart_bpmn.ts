@@ -32,7 +32,7 @@ const FETCH_VERTEX_ID =
 const ANALYZE_VERTEX_ID =
   "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
 const ANALYZE_BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-media-gamers-analyzeChart-v1";
 const ANALYZE_NSID = "com.etzhayyim.apps.media_gamers.analyzeChart";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

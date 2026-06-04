@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  gftd.ai chat — memory reindex (timer-start, autonomous, R/PT24H).
+  etzhayyim.ai chat — memory reindex (timer-start, autonomous, R/PT24H).
 
   Walks vertex_chat_message.embedding IS NULL rows (last 24h),
   embeds via Murakumo-served sentence-transformers actor, writes
@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_chat_memory_reindex"
-    targetNamespace="https://gftd.ai/bpmn/chat"
+    targetNamespace="https://etzhayyim.ai/bpmn/chat"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="chat_memory_reindex" name="chat memory reindex" isExecutable="true">
@@ -46,7 +46,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:etzhayyim.ai&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.chat.memoryReindex&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;embedded&quot;: embedded, &quot;promotedToLongTerm&quot;: promotedToLongTerm }" target="attributes"/>
         </zeebe:ioMapping>

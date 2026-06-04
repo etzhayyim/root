@@ -75,17 +75,17 @@ def test_scc_data_dir_fallback(monkeypatch) -> None:
     assert isinstance(result, Path)
 
 
-# ─── _gftd_binary ────────────────────────────────────────────────────────────
+# ─── _etzhayyim_binary ────────────────────────────────────────────────────────────
 
-def test_scc_gftd_binary_from_env(monkeypatch) -> None:
-    monkeypatch.setenv("etzhayyim_BIN", "/usr/local/bin/gftd")
-    result = SCC._gftd_binary()
-    assert result == "/usr/local/bin/gftd"
+def test_scc_etzhayyim_binary_from_env(monkeypatch) -> None:
+    monkeypatch.setenv("etzhayyim_BIN", "/usr/local/bin/etzhayyim")
+    result = SCC._etzhayyim_binary()
+    assert result == "/usr/local/bin/etzhayyim"
 
 
-def test_scc_gftd_binary_default_fallback(monkeypatch) -> None:
+def test_scc_etzhayyim_binary_default_fallback(monkeypatch) -> None:
     monkeypatch.delenv("etzhayyim_BIN", raising=False)
-    result = SCC._gftd_binary()
+    result = SCC._etzhayyim_binary()
     assert isinstance(result, str)
     assert len(result) > 0
 

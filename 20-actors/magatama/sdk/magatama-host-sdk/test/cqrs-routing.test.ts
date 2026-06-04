@@ -145,7 +145,7 @@ describe("XRPC routing", () => {
     });
     await app.handleXRPC("/xrpc/com.etzhayyim.apps.test.testCmd", [
       ["authorization", "Bearer test-jwt"],
-      ["x-gftd-org-id", "org-abc"],
+      ["x-etzhayyim-org-id", "org-abc"],
     ], new Uint8Array());
 
     expect(capturedCtx?.orgId).toBe("org-abc");

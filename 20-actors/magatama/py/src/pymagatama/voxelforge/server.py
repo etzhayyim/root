@@ -76,8 +76,8 @@ def build_app() -> Any:
         return bool(req.headers.get("x-internal-trust"))
 
     def _resolve_caller(req: Request) -> tuple[str, str]:
-        actor = req.headers.get("x-gftd-actor-did") or os.environ.get("etzhayyim_DEV_ACTOR_DID", "did:web:voxelforge.etzhayyim.com")
-        org = req.headers.get("x-gftd-org-did") or os.environ.get("etzhayyim_DEV_ORG_DID", "did:erc725:gftd:260425:dev")
+        actor = req.headers.get("x-etzhayyim-actor-did") or os.environ.get("etzhayyim_DEV_ACTOR_DID", "did:web:voxelforge.etzhayyim.com")
+        org = req.headers.get("x-etzhayyim-org-did") or os.environ.get("etzhayyim_DEV_ORG_DID", "did:erc725:etzhayyim:260425:dev")
         return actor, org
 
     @api.get("/health")

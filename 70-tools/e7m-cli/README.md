@@ -6,7 +6,7 @@
 
 Sibling CLI: [`70-tools/etzhayyim-cli/`](../etzhayyim-cli/) — Go-based, smaller
 domain tool for Cloudflare Containers (build/deploy). Coexistence is intended;
-eventual merge ADR may consolidate. The earlier `70-tools/gftd/` Go CLI was
+eventual merge ADR may consolidate. The earlier `70-tools/etzhayyim/` Go CLI was
 removed 2026-05-20 — its monorepo-internal surface is now covered by `e7m`.
 
 ## Install (in-monorepo dev)
@@ -48,7 +48,7 @@ Thin wrappers over
 ### `e7m agent <dev|build|up> [project]`
 
 LangGraph CLI wrappers for apps under `60-apps/`. Accepts either the bare app
-name (`yoro`) or the legacy `ai-gftd-project-*` form.
+name (`yoro`) or the legacy `etzhayyim-project-*` form.
 
 ### `e7m actor build <dir> [--extension]`
 

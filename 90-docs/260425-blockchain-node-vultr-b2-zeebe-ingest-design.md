@@ -323,7 +323,7 @@ Reorg policy:
 # B2 Layout
 
 ```text
-b2://ai-gftd-nats/blockchain/
+b2://etzhayyim-nats/blockchain/
   bitcoin/mainnet/raw-block/yyyy/mm/dd/{height}-{hash}.json.zst
   bitcoin/mainnet/snapshots/bitcoin-core/{date}/manifest.json
   ethereum/mainnet/raw-block/yyyy/mm/dd/{height}-{hash}.json.zst
@@ -347,7 +347,7 @@ must have a manifest with:
 Allowed:
 
 ```text
-rclone mount b2:ai-gftd-nats/blockchain /mnt/b2-blockchain \
+rclone mount b2:etzhayyim-nats/blockchain /mnt/b2-blockchain \
   --read-only \
   --vfs-cache-mode full \
   --vfs-cache-max-size 100G \
@@ -357,7 +357,7 @@ rclone mount b2:ai-gftd-nats/blockchain /mnt/b2-blockchain \
 Conditionally allowed for export jobs only:
 
 ```text
-rclone mount b2:ai-gftd-nats/blockchain /mnt/b2-blockchain \
+rclone mount b2:etzhayyim-nats/blockchain /mnt/b2-blockchain \
   --vfs-cache-mode writes \
   --vfs-write-back 30s \
   --vfs-cache-max-size 200G

@@ -68,7 +68,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // ── vertex_meetingrecorder_participant ─────────────────────────────────────
   // PII Tier 3: full identity lives in Preferences only. Graph holds only
   // (a) hashed provider id + (b) resolved DID if the participant is a known
-  // gftd actor. display_name is optional and field-encrypted when set.
+  // etzhayyim actor. display_name is optional and field-encrypted when set.
   await sql`
     CREATE TABLE IF NOT EXISTS "vertex_meetingrecorder_participant" (
       "vertex_id"           VARCHAR PRIMARY KEY,
@@ -111,7 +111,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── edge_meetingrecorder_attended ──────────────────────────────────────────
   // participant → session. Only populated when the provider participant id
-  // resolves to a known gftd DID (did:web / did:plc / did:gftd).
+  // resolves to a known etzhayyim DID (did:web / did:plc / did:etzhayyim).
   await sql`
     CREATE TABLE IF NOT EXISTS "edge_meetingrecorder_attended" (
       "edge_id"       VARCHAR PRIMARY KEY,

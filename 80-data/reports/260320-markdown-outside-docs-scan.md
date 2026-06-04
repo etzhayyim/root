@@ -83,7 +83,7 @@ Date: 2026-03-20
 - `packages/CLAUDE.md`
 - `reports/wit-issue-tracker.md`
 - `rules/ui/appshellv2-layout-standard.md`
-- `60-apps/ai-gftd-project-news/260311-news-tinygo-dataframe-lancedb-query-pattern.md`
+- `60-apps/etzhayyim-project-news/260311-news-tinygo-dataframe-lancedb-query-pattern.md`
 - `packages/wasm/docs/authn-authz-access-control-design.md`
 
 ## Decision

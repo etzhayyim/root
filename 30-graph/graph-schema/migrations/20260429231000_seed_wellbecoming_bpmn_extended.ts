@@ -84,7 +84,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   // agentLoop lexicon binding
-  const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1";
+  const bindingVertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-wellbecoming-agentLoop-v1";
   await sql`
     INSERT INTO vertex_bpmn_lexicon_binding
       (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,

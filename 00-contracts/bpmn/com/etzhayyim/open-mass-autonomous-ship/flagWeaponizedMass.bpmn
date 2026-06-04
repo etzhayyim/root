@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_mass_autonomous_ship_flag_weaponized_mass"
-    targetNamespace="https://gftd.ai/bpmn/open-mass-autonomous-ship"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-mass-autonomous-ship"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_mass_autonomous_ship_flag_weaponized_mass" name="武装 MASS 検出" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-mass-autonomous-ship.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-mass-autonomous-ship.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;mass.weaponized&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: vesselVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>

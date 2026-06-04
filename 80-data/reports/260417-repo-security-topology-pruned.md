@@ -48,7 +48,7 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py:20-23`
+- `60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py:20-23`
   - embedded Linode object storage access key and secret
 
 Why it survives pruning:
@@ -61,13 +61,13 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34-39`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34-39`
   - session shape contains both `accessJwt` and `refreshJwt`
 - `.../passkey.ts:75-78`
   - session is serialized into `sessionStorage`
 - `.../passkey.ts:99-106`
   - both JWTs are copied into `@etzhayyim/wproto`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8-18`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8-18`
   - `#auth=` fragment is copied into `sessionStorage` before URL cleanup
 
 Why it survives pruning:
@@ -93,7 +93,7 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-murakumo/CLAUDE.md:503`
+- `60-apps/etzhayyim-project-murakumo/CLAUDE.md:503`
   - committed doc includes `password=\`260308\`` and fleet addressing context
 
 Why it survives pruning:
@@ -107,7 +107,7 @@ Why it survives pruning:
 
 Evidence reviewed:
 
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:753-782`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts:753-782`
 - `.../src/app.ts:1069-1073`
 
 Reason:

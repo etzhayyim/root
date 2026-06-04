@@ -109,10 +109,10 @@ def _classify_kind(state: SbomRegisterState) -> SbomRegisterState:
                 "reason": "vehicleId present"}
     cdx = state.get("cdxJson") or ""
     # Cheap heuristic: vehicle BOMs from kami-cad-import always tag the
-    # CDX top-level component with `cdx:gftd:vehicle:*` properties.
-    if "cdx:gftd:vehicle:" in cdx:
+    # CDX top-level component with `cdx:etzhayyim:vehicle:*` properties.
+    if "cdx:etzhayyim:vehicle:" in cdx:
         return {**state, "kind": "vehicle", "confidence": 0.85,
-                "reason": "cdx-property hint cdx:gftd:vehicle:*"}
+                "reason": "cdx-property hint cdx:etzhayyim:vehicle:*"}
     return {**state, "kind": "software", "confidence": 0.95,
             "reason": "no vehicle markers"}
 

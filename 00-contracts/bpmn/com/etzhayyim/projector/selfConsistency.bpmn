@@ -7,14 +7,14 @@
   `sc.path.sampled` × N + one `sc.vote.tallied`).
 
   NSID:      com.etzhayyim.apps.projector.selfConsistency
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_projector_self_consistency"
-    targetNamespace="https://gftd.ai/bpmn/projector"
+    targetNamespace="https://etzhayyim.ai/bpmn/projector"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="projector_self_consistency" name="projector selfConsistency" isExecutable="true">

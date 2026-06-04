@@ -48,7 +48,7 @@
  ;; legacy (gen-1) artifacts pending decommission per migration plan Phase 3/5
  :actor/legacy
  {:manifest    "actor-manifest.jsonld"
-  :wit-packages ["gftd:tsukuru@0.1.0" "gftd:tsukuru-process-registry@1.0.0"
-                 "gftd:tsukuru-manufacturer-registry@1.0.0" "gftd:tsukuru-trade-compliance@1.0.0"
-                 "gftd:tsukuru-production-order@1.0.0"]
-  :note "gftd: WIT 改名は magatama atomic rename wave (ADR-2605214000 §3) に同期; 法人登記ゲート"}}
+  :wit-packages ["etzhayyim:tsukuru@0.1.0" "etzhayyim:tsukuru-process-registry@1.0.0"
+                 "etzhayyim:tsukuru-manufacturer-registry@1.0.0" "etzhayyim:tsukuru-trade-compliance@1.0.0"
+                 "etzhayyim:tsukuru-production-order@1.0.0"]
+  :note "etzhayyim: WIT 改名は magatama atomic rename wave (ADR-2605214000 §3) に同期; 法人登記ゲート"}}

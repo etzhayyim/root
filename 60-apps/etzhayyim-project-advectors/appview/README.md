@@ -18,7 +18,7 @@
 
 ## Release flow
 
-1. `gftd build`
+1. `etzhayyim build`
 2. `oras push ghcr.io/etzhayyim/<component>:<tag> build/<component>.wasm`
 3. `mage Deploy WADM_MANIFEST=wadm/<name>.wadm.yaml LATTICE=default`
 4. `kubectl apply -f k8s/http-routes.yaml`

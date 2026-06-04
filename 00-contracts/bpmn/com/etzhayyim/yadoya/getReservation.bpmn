@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_get_reservation" targetNamespace="https://gftd.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_get_reservation" targetNamespace="https://etzhayyim.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="yadoya_get_reservation" name="getReservation" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Lookup"/>
@@ -24,7 +24,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit read">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yadoya.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;yadoya.reservation.read&quot;" target="action"/>
           <zeebe:input source="={reservationId: reservationId, found: reservationRows[1] != null}" target="payload"/>
         </zeebe:ioMapping>

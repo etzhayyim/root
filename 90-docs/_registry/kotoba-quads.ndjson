@@ -47,7 +47,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231811", "predicate": "supersededBy", "object": "adr:2604262145"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231811", "predicate": "relatedTo", "object": "adr:2604231800"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231828", "predicate": "hasCid", "object": "bafybeiab7g4uafxumotib55heiuhfj2ks2kyn5yu445dva44qmtgg6otc4"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231828", "predicate": "filePath", "object": "90-docs/adr/2604231828-appview-domain-separation-bsky-gftd-ai.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231828", "predicate": "filePath", "object": "90-docs/adr/2604231828-appview-domain-separation-bsky-etzhayyim-ai.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231828", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231828", "predicate": "status", "object": "active"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604231828", "predicate": "title", "object": "ADR: AppView を bsky.etzhayyim.com に分離 — PDS/AppView domain separation (self-hosting guide 準拠)"}
@@ -204,7 +204,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "filePath", "object": "90-docs/adr/2604251210-credential-sharing-vault-bitwarden.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "title", "object": "ADR: Credential sharing via gftd Vault (primary) + Bitwarden (auxiliary)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "title", "object": "ADR: Credential sharing via etzhayyim Vault (primary) + Bitwarden (auxiliary)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "topic", "object": "credential-sharing"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "authoritative", "object": "true"}
@@ -212,7 +212,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "relatedTo", "object": "adr:2604251200"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251210", "predicate": "relatedTo", "object": "adr:2604251205"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251215", "predicate": "hasCid", "object": "bafybeibdchzvolqfmv6veh3ljfbtrqezgtfh24hansjld43sddmeypluq4"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251215", "predicate": "filePath", "object": "90-docs/adr/2604251215-gftdcojp-agent-authority-bounds.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251215", "predicate": "filePath", "object": "90-docs/adr/2604251215-etzhayyimcojp-agent-authority-bounds.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251215", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251215", "predicate": "status", "object": "active"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251215", "predicate": "title", "object": "ADR: etzhayyim Agent authority bounds — internal direct, external draft-approve, payment forbidden"}
@@ -226,7 +226,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "filePath", "object": "90-docs/adr/2604251220-record-log-not-mst.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "title", "object": "ADR: gftd PDS uses append-only record log, not AT Protocol MST CAR commit"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "title", "object": "ADR: etzhayyim PDS uses append-only record log, not AT Protocol MST CAR commit"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "topic", "object": "pds-record-log"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604251220", "predicate": "authoritative", "object": "true"}
@@ -712,17 +712,17 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604291800", "predicate": "relatedTo", "object": "adr:2604240946"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604291800", "predicate": "relatedTo", "object": "adr:2604291800"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "hasCid", "object": "bafybeibig336hs54dl3qzq5zpkk6wjx52dymndtjnbxqxq5cnbetuc25pm"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "filePath", "object": "90-docs/adr/2604292100-1password-gftd-japan-vault-mirror.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "filePath", "object": "90-docs/adr/2604292100-1password-etzhayyim-japan-vault-mirror.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "title", "object": "1Password \"etzhayyim Japan株式会社\" vault as the org-share mirror of gftd.* Keychain credentials"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "title", "object": "1Password \"etzhayyim Japan株式会社\" vault as the org-share mirror of etzhayyim.* Keychain credentials"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "topic", "object": "credential-distribution"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "lastVerified", "object": "2026-04-29"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292100", "predicate": "relatedTo", "object": "adr:2604231811"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292130", "predicate": "hasCid", "object": "bafybeifw6wbkqwnul5lbubrdgzje7oxl6vy2j62sl4xplcypsk3hciflqu"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292130", "predicate": "filePath", "object": "90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292130", "predicate": "filePath", "object": "90-docs/adr/2604292130-llm-etzhayyim-ai-runpod-pass.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292130", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292130", "predicate": "status", "object": "active"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2604292130", "predicate": "title", "object": "llm.etzhayyim.com を Murakumo から分離し RunPod pass-through gateway に固定"}
@@ -1013,7 +1013,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "filePath", "object": "90-docs/adr/2605080000-yatabase-yata-retail-cloud.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "title", "object": "gftd Retail Cloud — yatabase + obj + yata + billing v2 (codename io-yatabase D12+)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "title", "object": "etzhayyim Retail Cloud — yatabase + obj + yata + billing v2 (codename io-yatabase D12+)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "topic", "object": "retail-cloud-provider"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605080000", "predicate": "authoritative", "object": "true"}
@@ -1794,7 +1794,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605110227", "predicate": "relatedTo", "object": "adr:2605092200"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605110227", "predicate": "relatedTo", "object": "adr:2605092300"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605111000", "predicate": "hasCid", "object": "bafybeibpkwfl7smk2pop6zldmmnaseevbxoej74og75deghmzmdl4o23li"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605111000", "predicate": "filePath", "object": "90-docs/adr/2605111000-gftd-japan-family-office-conversion.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605111000", "predicate": "filePath", "object": "90-docs/adr/2605111000-etzhayyim-japan-family-office-conversion.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605111000", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605111000", "predicate": "status", "object": "proposed"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605111000", "predicate": "title", "object": "etzhayyim Japan株式会社 シングルファミリープライベートオフィス化"}
@@ -2083,12 +2083,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141700", "predicate": "relatedTo", "object": "adr:2604231821"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141700", "predicate": "relatedTo", "object": "adr:2604240914"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "hasCid", "object": "bafybeiaxmu3bmva3xwcc5rw5jq2i2kbna2fn5n72ttycd3ocsouytwmwya"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "filePath", "object": "90-docs/adr/2605141800-gftd-email-wire-protocol.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "filePath", "object": "90-docs/adr/2605141800-etzhayyim-email-wire-protocol.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "status", "object": "accepted"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "title", "object": "ADR-2605141800: etzhayyim Email Wire Protocol (GEWP) v1.0 — Open Standard"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "topic", "object": "gftd-email-wire-protocol"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "topic", "object": "etzhayyim-email-wire-protocol"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "lastVerified", "object": "2026-05-14"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605141800", "predicate": "dependsOn", "object": "adr:2605131800"}
@@ -2256,10 +2256,10 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "relatedTo", "object": "adr:2605072000"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "relatedTo", "object": "adr:2605091400"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "hasCid", "object": "bafybeiewseqkyhj7wrckhbmmrr3w6qhsbisv5ynrmf572752ooeco4ha5u"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "filePath", "object": "90-docs/adr/2605151500-gftd-cli-go-to-python-migration.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "filePath", "object": "90-docs/adr/2605151500-etzhayyim-cli-go-to-python-migration.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "title", "object": "gftd CLI Go → Python Migration"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "title", "object": "etzhayyim CLI Go → Python Migration"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "topic", "object": "toolchain"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605151500", "predicate": "authoritative", "object": "true"}
@@ -2897,12 +2897,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191655", "predicate": "dependsOn", "object": "adr:2605191358"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191655", "predicate": "dependsOn", "object": "adr:2605191648"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "hasCid", "object": "bafybeia7kroyg5tjvhsguykkwjz2tm4vqwe4j4w7sw2hxyqosbl62ys5sm"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "filePath", "object": "90-docs/adr/2605191659-vultr-stays-for-gftd.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "filePath", "object": "90-docs/adr/2605191659-vultr-stays-for-etzhayyim.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "status", "object": "active"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "title", "object": "ADR-2605191659: Vultr stays for etzhayyim.com — supersede step 6 of ADR-2605191358"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "topic", "object": "vultr-stays-for-gftd"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "topic", "object": "vultr-stays-for-etzhayyim"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "lastVerified", "object": "2026-05-19"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191659", "predicate": "supersedes", "object": "adr:2605191358"}
@@ -3483,7 +3483,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605203000", "predicate": "relatedTo", "object": "adr:2605202800"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605203000", "predicate": "relatedTo", "object": "adr:2605202900"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605210000", "predicate": "hasCid", "object": "bafybeigtgoqmtfrmngp4lrgcihjpvyda7hyo7popxhwlpujy4f7nata3fu"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605210000", "predicate": "filePath", "object": "90-docs/adr/2605210000-search-gftd-ai-internal-only.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605210000", "predicate": "filePath", "object": "90-docs/adr/2605210000-search-etzhayyim-ai-internal-only.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605210000", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605210000", "predicate": "status", "object": "active"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605210000", "predicate": "title", "object": "search.etzhayyim.com = internal-only; 外部 DNS ルート削除"}
@@ -3660,12 +3660,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211400", "predicate": "relatedTo", "object": "adr:2605192100"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211400", "predicate": "relatedTo", "object": "adr:2605211335"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "hasCid", "object": "bafybeigpobhkdnfw6c3de2a2w6znkic7zpxeftismrxeyzxllrn6atcb3u"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "filePath", "object": "90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "filePath", "object": "90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "status", "object": "proposed"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "title", "object": "ADR-2605211757: DNS cutover runbook for the 27 ported workers — *.etzhayyim.com → *.etzhayyim.com (Phase 3 gate (b))"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "topic", "object": "dns-cutover-runbook-gftd-ai-to-etzhayyim-com"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "topic", "object": "dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "lastVerified", "object": "2026-05-21"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605211757", "predicate": "dependsOn", "object": "adr:2605172000"}
@@ -3843,12 +3843,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212050", "predicate": "relatedTo", "object": "adr:2605212030"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212050", "predicate": "relatedTo", "object": "adr:2605212040"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "hasCid", "object": "bafybeigtum4s5lltyaxwasvztiljknlwwsdqfrlr7tnjsqgnfupirzvrpu"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "filePath", "object": "90-docs/adr/2605212100-gftd-to-etzhayyim-migration-batch.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "filePath", "object": "90-docs/adr/2605212100-etzhayyim-to-etzhayyim-migration-batch.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "status", "object": "active"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "title", "object": "ADR-2605212100: gftd→etzhayyim 60-apps migration batch (gov / law / legal scope)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "title", "object": "ADR-2605212100: etzhayyim→etzhayyim 60-apps migration batch (gov / law / legal scope)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "topic", "object": "gftd-to-etzhayyim-migration"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "topic", "object": "etzhayyim-to-etzhayyim-migration"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "lastVerified", "object": "2026-05-24"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212100", "predicate": "dependsOn", "object": "adr:2605172000"}
@@ -3985,7 +3985,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212300", "predicate": "dependsOn", "object": "adr:2605172100"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212300", "predicate": "relatedTo", "object": "adr:2605091400"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212340", "predicate": "hasCid", "object": "bafybeibzmhu4gjbnjqcaecye7afwvmrsndg2sizf2cvtwuyxq2xyct5vly"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212340", "predicate": "filePath", "object": "90-docs/adr/2605212340-gftd-ai-domain-cutover.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212340", "predicate": "filePath", "object": "90-docs/adr/2605212340-etzhayyim-ai-domain-cutover.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212340", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212340", "predicate": "status", "object": "accepted"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605212340", "predicate": "title", "object": "ADR-2605212340: legacy domain → etzhayyim.com cutover"}
@@ -4216,12 +4216,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "dependsOn", "object": "adr:2605172000"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "relatedTo", "object": "adr:2605192115"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "hasCid", "object": "bafybeiawnwamezow22selhrkcuaudpd4cuofjirj4wtelxuufoh7qkomfm"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "filePath", "object": "90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "filePath", "object": "90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "status", "object": "superseded"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "title", "object": "ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262130)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "title", "object": "ADR-2605231400: kotoba-datomic — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262130)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "topic", "object": "yatachain-substrate"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "topic", "object": "kotoba-datomic-substrate"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "lastVerified", "object": "2026-05-23"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231400", "predicate": "supersededBy", "object": "adr:2605262130"}
@@ -4270,12 +4270,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "dependsOn", "object": "adr:2605231230"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "relatedTo", "object": "adr:2605222330"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "hasCid", "object": "bafybeif4laxc6hloax6xwi2p4dzhimffldk6w2bkv45burv5redz7xef4q"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "filePath", "object": "90-docs/adr/2605231500-yatachain-projection.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "filePath", "object": "90-docs/adr/2605231500-kotoba-datomic-projection.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "status", "object": "superseded"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "title", "object": "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "title", "object": "ADR-2605231500: kotoba-datomic-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "topic", "object": "yatachain-projection"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "topic", "object": "kotoba-datomic-projection"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "lastVerified", "object": "2026-05-23"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231500", "predicate": "supersededBy", "object": "adr:2605262130"}
@@ -4389,7 +4389,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "filePath", "object": "90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "title", "object": "ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end yatachain §4 + projection slice"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "title", "object": "ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end kotoba-datomic §4 + projection slice"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "topic", "object": "feed-post-membrane-and-feed-discover-projection"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605231902", "predicate": "authoritative", "object": "true"}
@@ -4440,12 +4440,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232100", "predicate": "relatedTo", "object": "adr:2605201500"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232100", "predicate": "relatedTo", "object": "adr:2605201600"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "hasCid", "object": "bafybeihzxqjfkcqze3rugcdkzplt26hd5duu43t6uuasq7f34mtsktuocu"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "filePath", "object": "90-docs/adr/2605232300-yatachain-engine-options-exploration.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "filePath", "object": "90-docs/adr/2605232300-kotoba-datomic-engine-options-exploration.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "status", "object": "superseded"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "title", "object": "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "title", "object": "ADR-2605232300: kotoba-datomic — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "topic", "object": "yatachain-engine"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "topic", "object": "kotoba-datomic-engine"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "authoritative", "object": "false"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "lastVerified", "object": "2026-05-23"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232300", "predicate": "supersededBy", "object": "adr:2605262130"}
@@ -4485,12 +4485,12 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "dependsOn", "object": "adr:2605231300"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "dependsOn", "object": "adr:2605231600"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "hasCid", "object": "bafybeifvrcuykk4zdp6x7a3hnwoykj4yqjv34zpsfgan5ylc7t4qq57xzm"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "filePath", "object": "90-docs/adr/2605232400-yatachain-tier-d-blob-substrate-closure.md"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "filePath", "object": "90-docs/adr/2605232400-kotoba-datomic-tier-d-blob-substrate-closure.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "status", "object": "superseded"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "title", "object": "ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "title", "object": "ADR-2605232400: kotoba-datomic Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "topic", "object": "yatachain-tier-d-blob"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "topic", "object": "kotoba-datomic-tier-d-blob"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "authoritative", "object": "true"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "lastVerified", "object": "2026-05-23"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605232400", "predicate": "supersededBy", "object": "adr:2605262130"}
@@ -5649,7 +5649,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "filePath", "object": "90-docs/adr/2605262130-kotoba-storage-substrate-unification.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "title", "object": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes yatachain composition + projection layers; no RisingWave"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "title", "object": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no RisingWave"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "topic", "object": "storage-substrate"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605262130", "predicate": "authoritative", "object": "true"}

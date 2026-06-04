@@ -15,7 +15,7 @@ authoritative_for:
   - GTFS-RT (TripUpdate / VehiclePosition / ServiceAlert) data path
   - vendor-side maps real-time read API surface
 related:
-  - 60-apps/ai-gftd-project-maps/CLAUDE.md
+  - 60-apps/etzhayyim-project-maps/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -93,6 +93,6 @@ The vendor placement is **not permanent**. Reconsider in any of:
 - etzhayyim-root ADR-2605202300 — maps consumer migration (where the static path goes)
 - etzhayyim-root ADR-2605171800 — LangGraph → MST → IPFS → L2 pipeline (the substrate that does not fit RT)
 - etzhayyim-root ADR-2605191655 — mst-projector Phase 2 design
-- `60-apps/ai-gftd-project-maps/CLAUDE.md` — GTFS-RT Phase 3 design + bring-up runbook
-- `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py`
+- `60-apps/etzhayyim-project-maps/CLAUDE.md` — GTFS-RT Phase 3 design + bring-up runbook
+- `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py`
 - `00-contracts/lexicons/com/etzhayyim/apps/maps/realtimeDelaysAtStop.json`

@@ -146,7 +146,7 @@
     "description": "15 immutable gates per ADR-2605264000. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan on every input AND output",
-      "G2": "yatachain attestation lineage on every record",
+      "G2": "kotoba-datomic attestation lineage on every record",
       "G3": "PASSIVE-ONLY collection (no live DNS / probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration; pre-published public archives + voluntary AT Proto activity only)",
       "G4": "Aggregate-first publication (anonymized AT Proto feed-post DEFAULT; targeted dispatch SECONDARY; ratio audited quarterly ≥50%)",
       "G5": "NO commercial intel / CRM / marketing software (Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED)",

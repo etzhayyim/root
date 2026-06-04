@@ -54,12 +54,12 @@ def test_queue_seed_runs_inserts_telegram_run(monkeypatch):
     monkeypatch.setattr(M, "sync_cursor", factory)
     monkeypatch.setattr(M, "_utc_now", lambda: "2026-04-26T12:00:00Z")
 
-    out = M.queue_seed_runs(seeds=[{"platform": "telegram", "channelId": "gftd"}])
+    out = M.queue_seed_runs(seeds=[{"platform": "telegram", "channelId": "etzhayyim"}])
 
     assert out["queued"] == 1
     row = factory.opened[0].params[0]
     assert row["platform"] == "telegram"
-    assert row["channel_url"] == "https://t.me/s/gftd"
+    assert row["channel_url"] == "https://t.me/s/etzhayyim"
     assert row["status"] == "queued"
 
 
@@ -67,8 +67,8 @@ def test_process_queue_writes_channel_and_messages(monkeypatch):
     run = (
         "at://did:web:os-messaging.etzhayyim.com/com.etzhayyim.apps.osMessaging.openScraperRun/run-1",
         "telegram",
-        "gftd",
-        "https://t.me/s/gftd",
+        "etzhayyim",
+        "https://t.me/s/etzhayyim",
         "JP",
         "ja",
     )
@@ -82,7 +82,7 @@ def test_process_queue_writes_channel_and_messages(monkeypatch):
         "httpStatus": 200,
         "text": (
             '<html><meta property="og:title" content="etzhayyim">'
-            '<div class="tgme_widget_message" data-post="gftd/1">'
+            '<div class="tgme_widget_message" data-post="etzhayyim/1">'
             '<div class="tgme_widget_message_text">hello</div></div></div></html>'
         ),
         "error": "",

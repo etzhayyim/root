@@ -1,0 +1,1130 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gftd": "https://resources.gftd.ai/ontology#",
+    "dct": "http://purl.org/dc/terms/"
+  },
+  "@type": "Dataset",
+  "@id": "https://resources.gftd.ai/content/legal/global-legal-data-sources",
+  "identifier": "global-legal-data-sources",
+  "name": "Global Legal Data Sources Registry",
+  "description": "Registry of public legal data APIs worldwide. Managed by gftd:legal-collector provider for automated collection of legislation, court cases, judges, and bar associations across jurisdictions.",
+  "dateModified": "2026-02-28T00:00:00Z",
+  "gftd:collectorProvider": "gftd:legal-collector@0.1.0",
+  "gftd:jurisdictions": [
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "jpn",
+      "name": "Japan (日本)",
+      "inLanguage": "ja",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "jpn-egov-legislation",
+          "name": "e-Gov法令API",
+          "description": "日本の公開法令一覧。e-Gov法令APIの/api/1/lawlists/1エンドポイントから取得。",
+          "url": "https://laws.e-gov.go.jp/api/1/lawlists/1",
+          "gftd:apiType": "REST (XML)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/jp/laws.jsonld"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "jpn-courts-cases",
+          "name": "裁判所判例検索 (courts.go.jp)",
+          "description": "最高裁判所が運営する判例検索システム。",
+          "url": "https://www.courts.go.jp/app/hanrei_jp/search1",
+          "gftd:apiType": "HTML scraping",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 4 * * 1",
+          "gftd:outputPath": "content/legal/jp/case/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "jpn-jfba-lawyers",
+          "name": "日弁連 弁護士検索",
+          "description": "日本弁護士連合会の公開登録情報。",
+          "url": "https://www.nichibenren.or.jp/member_search/",
+          "gftd:apiType": "HTML scraping",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "bar-association"
+          ],
+          "gftd:cronSchedule": "0 5 1 * *",
+          "gftd:outputPath": "content/legal/jp/bar-association/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "usa",
+      "name": "United States",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "usa-congress-legislation",
+          "name": "Congress.gov API",
+          "description": "US federal legislation via Library of Congress API (v3). Bills, amendments, laws, members.",
+          "url": "https://api.congress.gov/v3/bill",
+          "gftd:apiType": "REST (JSON)",
+          "gftd:authRequired": true,
+          "gftd:authMethod": "API key (free registration)",
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 6 * * 0",
+          "gftd:outputPath": "content/legal/us/legislation/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "usa-courtlistener-cases",
+          "name": "CourtListener API (Free Law Project)",
+          "description": "US federal and state court opinions, PACER/RECAP archive. REST API v4.",
+          "url": "https://www.courtlistener.com/api/rest/v4/opinions/",
+          "gftd:apiType": "REST (JSON)",
+          "gftd:authRequired": true,
+          "gftd:authMethod": "Free account token",
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 7 * * 1",
+          "gftd:outputPath": "content/legal/us/case/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "usa-uscode",
+          "name": "US Code (OLRC)",
+          "description": "Office of the Law Revision Counsel — full US Code in USLM XML.",
+          "url": "https://uscode.house.gov/download/download.shtml",
+          "gftd:apiType": "Bulk XML download",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 8 1 * *",
+          "gftd:outputPath": "content/legal/us/uscode/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "eu",
+      "name": "European Union",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "eu-eurlex-legislation",
+          "name": "EUR-Lex / CELLAR SPARQL",
+          "description": "EU legislation and CJEU case law via CELLAR SPARQL endpoint. RDF/XML, Akoma Ntoso.",
+          "url": "https://publications.europa.eu/webapi/rdf/sparql",
+          "gftd:apiType": "SPARQL",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/eu/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "gbr",
+      "name": "United Kingdom",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "gbr-legislation-api",
+          "name": "legislation.gov.uk API",
+          "description": "UK legislation in CLML XML, RDF/XML, Atom. RESTful + SPARQL. No auth.",
+          "url": "https://www.legislation.gov.uk/",
+          "gftd:apiType": "REST (XML/RDF) + SPARQL",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/gb/legislation/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "gbr-caselaw-api",
+          "name": "Find Case Law API (National Archives)",
+          "description": "UK court judgments in LegalDocML XML. Public API, no auth.",
+          "url": "https://caselaw.nationalarchives.gov.uk/",
+          "gftd:apiType": "REST (XML/Atom)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 4 * * 1",
+          "gftd:outputPath": "content/legal/gb/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "deu",
+      "name": "Germany (Deutschland)",
+      "inLanguage": "de",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "deu-gesetze-im-internet",
+          "name": "Gesetze im Internet",
+          "description": "German federal laws in XML via gesetze-im-internet.de. TOC at gii-toc.xml.",
+          "url": "https://www.gesetze-im-internet.de/gii-toc.xml",
+          "gftd:apiType": "Bulk XML download",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/de/legislation/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "fra",
+      "name": "France",
+      "inLanguage": "fr",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "fra-legifrance-api",
+          "name": "Légifrance API (DILA/PISTE)",
+          "description": "French legislation and case law via PISTE portal. OAuth 2.0 (free registration).",
+          "url": "https://api.piste.gouv.fr/dila/legifrance/lf-engine-app/",
+          "gftd:apiType": "REST (JSON)",
+          "gftd:authRequired": true,
+          "gftd:authMethod": "OAuth 2.0 Client Credentials",
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/fr/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "kor",
+      "name": "South Korea (대한민국)",
+      "inLanguage": "ko",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "kor-law-go-kr",
+          "name": "국가법령정보센터 (law.go.kr)",
+          "description": "Korean Law Information Center. REST API (XML). API key required (free).",
+          "url": "https://www.law.go.kr/DRF/lawSearch.do",
+          "gftd:apiType": "REST (XML)",
+          "gftd:authRequired": true,
+          "gftd:authMethod": "API key (free registration)",
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 4 * * 0",
+          "gftd:outputPath": "content/legal/kr/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "ind",
+      "name": "India",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "ind-indiankanoon",
+          "name": "Indian Kanoon API",
+          "description": "Case law search (Supreme Court, High Courts, Tribunals). REST API.",
+          "url": "https://api.indiankanoon.org/",
+          "gftd:apiType": "REST (JSON/XML)",
+          "gftd:authRequired": true,
+          "gftd:authMethod": "API token",
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 5 * * 0",
+          "gftd:outputPath": "content/legal/in/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "aus",
+      "name": "Australia",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "aus-federal-register",
+          "name": "Federal Register of Legislation",
+          "description": "Australian federal legislation.",
+          "url": "https://www.legislation.gov.au/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 6 * * 0",
+          "gftd:outputPath": "content/legal/au/legislation/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "can",
+      "name": "Canada",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "can-justice-laws",
+          "name": "Justice Laws Website",
+          "description": "Canadian federal Acts and Regulations in XML.",
+          "url": "https://laws-lois.justice.gc.ca/",
+          "gftd:apiType": "Web portal (XML)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 7 * * 0",
+          "gftd:outputPath": "content/legal/ca/legislation/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "bra",
+      "name": "Brazil (Brasil)",
+      "inLanguage": "pt",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "bra-planalto",
+          "name": "Planalto Legislação",
+          "description": "Brazilian federal legislation portal.",
+          "url": "https://www.planalto.gov.br/ccivil_03/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 8 * * 0",
+          "gftd:outputPath": "content/legal/br/legislation/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:JurisdictionGroupHeader",
+      "name": "Eastern Bloc / 東側諸国"
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "chn",
+      "name": "China (中国)",
+      "inLanguage": "zh",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "chn-npc-legislation",
+          "name": "国家法律法规数据库 (flk.npc.gov.cn)",
+          "description": "National Laws and Regulations Database maintained by the NPC Standing Committee. Covers constitutional law, laws, administrative regulations, local regulations.",
+          "url": "https://flk.npc.gov.cn/api/",
+          "gftd:apiType": "REST (JSON)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/cn/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "chn-wenshu-cases",
+          "name": "中国裁判文书网 (wenshu.court.gov.cn)",
+          "description": "China Judgements Online — operated by the Supreme People's Court. Over 130 million court decisions published.",
+          "url": "https://wenshu.court.gov.cn/",
+          "gftd:apiType": "Web portal (requires CAPTCHA)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 3 * * 1",
+          "gftd:outputPath": "content/legal/cn/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "rus",
+      "name": "Russia (Россия)",
+      "inLanguage": "ru",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "rus-pravo-legislation",
+          "name": "pravo.gov.ru",
+          "description": "Official Internet Portal of Legal Information (Официальный интернет-портал правовой информации). Federal legislation, presidential decrees.",
+          "url": "http://pravo.gov.ru/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/ru/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "rus-sudrf-cases",
+          "name": "ГАС Правосудие (sudrf.ru)",
+          "description": "State Automated System 'Justice' — Russian court decisions database.",
+          "url": "https://sudrf.ru/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 2 * * 1",
+          "gftd:outputPath": "content/legal/ru/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "prk",
+      "name": "North Korea (조선민주주의인민공화국)",
+      "inLanguage": "ko",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "prk-unilaw-legislation",
+          "name": "통일법제 데이터베이스 (unilaw.go.kr)",
+          "description": "South Korean Unification Legislation Database. Best publicly accessible source for DPRK legislation. Maintained by Ministry of Reunification, Ministry of Justice, and Ministry of Government Legislation. Updated weekly.",
+          "url": "https://unilaw.go.kr/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 0 * * 0",
+          "gftd:outputPath": "content/legal/kp/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "irn",
+      "name": "Iran (ایران)",
+      "inLanguage": "fa",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "irn-rc-legislation",
+          "name": "Islamic Parliament Research Center (rc.majlis.ir)",
+          "description": "مرکز پژوهش‌های مجلس شورای اسلامی — Iranian legislation database.",
+          "url": "https://rc.majlis.ir/fa/law",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/ir/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "irn-dotic-cases",
+          "name": "Judiciary Portal (eadl.ir)",
+          "description": "Iran Judiciary electronic case portal.",
+          "url": "https://eadl.ir/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 2 * * 1",
+          "gftd:outputPath": "content/legal/ir/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "cub",
+      "name": "Cuba",
+      "inLanguage": "es",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "cub-gaceta-legislation",
+          "name": "Gaceta Oficial de Cuba",
+          "description": "Cuban official gazette — legislation.",
+          "url": "https://www.gacetaoficial.gob.cu/",
+          "gftd:apiType": "Web portal (PDF)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/cu/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "ven",
+      "name": "Venezuela",
+      "inLanguage": "es",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "ven-tsj-legislation",
+          "name": "Tribunal Supremo de Justicia",
+          "description": "Venezuelan Supreme Court — legislation and court decisions.",
+          "url": "https://www.tsj.gob.ve/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 4 * * 0",
+          "gftd:outputPath": "content/legal/ve/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "blr",
+      "name": "Belarus (Беларусь)",
+      "inLanguage": "ru",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "blr-pravo-legislation",
+          "name": "pravo.by",
+          "description": "National Legal Internet Portal of the Republic of Belarus.",
+          "url": "https://pravo.by/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/by/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "syr",
+      "name": "Syria (سوريا)",
+      "inLanguage": "ar",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "syr-parliament-legislation",
+          "name": "Syrian People's Assembly",
+          "description": "Syrian parliament legislation portal. Limited availability.",
+          "url": "http://www.parliament.gov.sy/",
+          "gftd:apiType": "Web portal (limited)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/sy/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "vnm",
+      "name": "Vietnam (Việt Nam)",
+      "inLanguage": "vi",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "vnm-vbpl-legislation",
+          "name": "VBPL (vbpl.vn)",
+          "description": "Vietnam Legal Document Database (Cơ sở dữ liệu quốc gia về văn bản pháp luật).",
+          "url": "https://vbpl.vn/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/vn/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "mmr",
+      "name": "Myanmar",
+      "inLanguage": "my",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "mmr-mlis-legislation",
+          "name": "Myanmar Law Information System",
+          "description": "Myanmar legislation portal. Limited availability.",
+          "url": "https://www.mlis.gov.mm/",
+          "gftd:apiType": "Web portal (limited)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 4 * * 0",
+          "gftd:outputPath": "content/legal/mm/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "lao",
+      "name": "Laos",
+      "inLanguage": "lo",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "lao-na-legislation",
+          "name": "National Assembly of Laos",
+          "description": "Lao PDR legislation portal. Limited availability.",
+          "url": "https://na.gov.la/",
+          "gftd:apiType": "Web portal (limited)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 5 * * 0",
+          "gftd:outputPath": "content/legal/la/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "irq",
+      "name": "Iraq (العراق)",
+      "inLanguage": "ar",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "irq-iraqld-legislation",
+          "name": "Iraqi Legal Database",
+          "description": "قاعدة التشريعات العراقية — Iraqi legislation database.",
+          "url": "https://www.iraqld.iq/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/iq/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:JurisdictionGroupHeader",
+      "name": "Western Bloc / 西側諸国 (additional)"
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "ita",
+      "name": "Italy (Italia)",
+      "inLanguage": "it",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "ita-normattiva-legislation",
+          "name": "Normattiva",
+          "description": "Italian legislation database (Presidenza del Consiglio dei Ministri).",
+          "url": "https://www.normattiva.it/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/it/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "ita-corte-costituzionale",
+          "name": "Corte Costituzionale",
+          "description": "Italian Constitutional Court decisions.",
+          "url": "https://www.cortecostituzionale.it/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 3 * * 1",
+          "gftd:outputPath": "content/legal/it/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "esp",
+      "name": "Spain (España)",
+      "inLanguage": "es",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "esp-boe-legislation",
+          "name": "BOE (Boletín Oficial del Estado)",
+          "description": "Spanish official gazette — legislation available as open data XML/JSON.",
+          "url": "https://www.boe.es/datosabiertos/",
+          "gftd:apiType": "REST (XML/JSON)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/es/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "nld",
+      "name": "Netherlands",
+      "inLanguage": "nl",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "nld-overheid-legislation",
+          "name": "wetten.overheid.nl",
+          "description": "Dutch legislation portal (Overheid.nl) — Linked Data / XML available.",
+          "url": "https://wetten.overheid.nl/",
+          "gftd:apiType": "Linked Data / XML",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/nl/"
+        },
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "nld-rechtspraak-cases",
+          "name": "Rechtspraak.nl Open Data",
+          "description": "Dutch court decisions in open XML format.",
+          "url": "https://data.rechtspraak.nl/uitspraken/zoeken",
+          "gftd:apiType": "REST (XML)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 3 * * 1",
+          "gftd:outputPath": "content/legal/nl/case/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "che",
+      "name": "Switzerland (Schweiz)",
+      "inLanguage": [
+        "de",
+        "fr",
+        "it"
+      ],
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "che-fedlex-legislation",
+          "name": "Fedlex (fedlex.admin.ch)",
+          "description": "Swiss federal legislation — Linked Data / ELI / SPARQL.",
+          "url": "https://www.fedlex.admin.ch/eli/cc/de",
+          "gftd:apiType": "Linked Data / SPARQL",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/ch/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "swe",
+      "name": "Sweden (Sverige)",
+      "inLanguage": "sv",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "swe-riksdagen-legislation",
+          "name": "Riksdagen Open Data",
+          "description": "Swedish parliament legislation open data API.",
+          "url": "https://data.riksdagen.se/",
+          "gftd:apiType": "REST (XML/JSON)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/se/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "nor",
+      "name": "Norway (Norge)",
+      "inLanguage": "no",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "nor-lovdata-legislation",
+          "name": "Lovdata",
+          "description": "Norwegian legislation database. Free access to current acts.",
+          "url": "https://lovdata.no/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/no/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "dnk",
+      "name": "Denmark (Danmark)",
+      "inLanguage": "da",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "dnk-retsinformation-legislation",
+          "name": "Retsinformation.dk",
+          "description": "Danish official legal information system.",
+          "url": "https://www.retsinformation.dk/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/dk/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "fin",
+      "name": "Finland (Suomi)",
+      "inLanguage": "fi",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "fin-finlex-legislation",
+          "name": "Finlex",
+          "description": "Finnish legislation and case law database.",
+          "url": "https://www.finlex.fi/fi/laki/",
+          "gftd:apiType": "Web portal / REST",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/fi/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "bel",
+      "name": "Belgium (België)",
+      "inLanguage": [
+        "nl",
+        "fr",
+        "de"
+      ],
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "bel-ejustice-legislation",
+          "name": "Belgisch Staatsblad / Moniteur Belge",
+          "description": "Belgian official gazette — legislation.",
+          "url": "https://www.ejustice.just.fgov.be/cgi/welcome.pl",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/be/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "aut",
+      "name": "Austria (Österreich)",
+      "inLanguage": "de",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "aut-ris-legislation",
+          "name": "RIS (Rechtsinformationssystem)",
+          "description": "Austrian legal information system — legislation and case law.",
+          "url": "https://www.ris.bka.gv.at/",
+          "gftd:apiType": "Web portal / REST",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/at/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "nzl",
+      "name": "New Zealand",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "nzl-legislation-govt",
+          "name": "New Zealand Legislation",
+          "description": "NZ Parliamentary Counsel Office legislation portal.",
+          "url": "https://www.legislation.govt.nz/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 6 * * 0",
+          "gftd:outputPath": "content/legal/nz/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "isr",
+      "name": "Israel (ישראל)",
+      "inLanguage": "he",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "isr-nevo-legislation",
+          "name": "Nevo Legal Database",
+          "description": "Israeli legislation and court decisions.",
+          "url": "https://www.nevo.co.il/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation",
+            "court-case"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/il/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "sgp",
+      "name": "Singapore",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "sgp-sso-legislation",
+          "name": "Singapore Statutes Online (SSO)",
+          "description": "Attorney-General's Chambers legislation database.",
+          "url": "https://sso.agc.gov.sg/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 4 * * 0",
+          "gftd:outputPath": "content/legal/sg/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "twn",
+      "name": "Taiwan (中華民國)",
+      "inLanguage": "zh",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "twn-law-moj-legislation",
+          "name": "全國法規資料庫 (law.moj.gov.tw)",
+          "description": "Laws & Regulations Database of the Republic of China (Taiwan).",
+          "url": "https://law.moj.gov.tw/",
+          "gftd:apiType": "Web portal / REST (XML)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/tw/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "mex",
+      "name": "Mexico (México)",
+      "inLanguage": "es",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "mex-dof-legislation",
+          "name": "Diario Oficial de la Federación (DOF)",
+          "description": "Mexican official gazette — federal legislation.",
+          "url": "https://www.dof.gob.mx/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 7 * * 0",
+          "gftd:outputPath": "content/legal/mx/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "zaf",
+      "name": "South Africa",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "zaf-gov-legislation",
+          "name": "South African Government Legislation",
+          "description": "Acts and regulations portal.",
+          "url": "https://www.gov.za/documents/acts",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/za/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "pol",
+      "name": "Poland (Polska)",
+      "inLanguage": "pl",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "pol-isap-legislation",
+          "name": "ISAP (isap.sejm.gov.pl)",
+          "description": "Polish Internet System of Legal Acts (Sejm).",
+          "url": "https://isap.sejm.gov.pl/isap.nsf/",
+          "gftd:apiType": "REST (XML)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/pl/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "irl",
+      "name": "Ireland",
+      "inLanguage": "en",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "irl-irishstatutebook",
+          "name": "Irish Statute Book (irishstatutebook.ie)",
+          "description": "Irish legislation database.",
+          "url": "https://www.irishstatutebook.ie/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 3 * * 0",
+          "gftd:outputPath": "content/legal/ie/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "prt",
+      "name": "Portugal",
+      "inLanguage": "pt",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "prt-dre-legislation",
+          "name": "DRE (Diário da República Eletrónico)",
+          "description": "Portuguese official gazette — legislation.",
+          "url": "https://dre.pt/",
+          "gftd:apiType": "REST (JSON/XML)",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 2 * * 0",
+          "gftd:outputPath": "content/legal/pt/"
+        }
+      ]
+    },
+    {
+      "@type": "gftd:Jurisdiction",
+      "identifier": "sau",
+      "name": "Saudi Arabia (المملكة العربية السعودية)",
+      "inLanguage": "ar",
+      "gftd:dataSources": [
+        {
+          "@type": "gftd:LegalDataSource",
+          "identifier": "sau-boe-legislation",
+          "name": "Bureau of Experts (laws.boe.gov.sa)",
+          "description": "Saudi Arabian legislation database (هيئة الخبراء بمجلس الوزراء).",
+          "url": "https://laws.boe.gov.sa/",
+          "gftd:apiType": "Web portal",
+          "gftd:authRequired": false,
+          "gftd:sourceTypes": [
+            "legislation"
+          ],
+          "gftd:cronSchedule": "0 1 * * 0",
+          "gftd:outputPath": "content/legal/sa/"
+        }
+      ]
+    }
+  ]
+}

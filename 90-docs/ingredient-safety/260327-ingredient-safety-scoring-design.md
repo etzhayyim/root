@@ -298,7 +298,7 @@ nutrition_awareness_bonus = min(50, weekly_avg_product_safety_score / 2)
 ### 9. WIT Interface 追加 (omatsuri)
 
 ```wit
-// gftd:omatsuri/mibyou@1.0.0 に追加
+// etzhayyim:omatsuri/mibyou@1.0.0 に追加
 
 /// Scan product barcode or ingredient text → IngredientSafetyScore + ProductSafetyScore.
 scan-product: func(params: string) -> result<string, string>;
@@ -340,8 +340,8 @@ ingredient-search: func(params: string) -> result<string, string>;
 
 ## References
 
-- `60-apps/ai-gftd-project-omatsuri/CLAUDE.md` — 未病クレジット設計
-- `60-apps/ai-gftd-project-dojo/CLAUDE.md` — readiness kata 設計
-- `60-apps/ai-gftd-project-society6/CLAUDE.md` — Well-Becoming Kyu/Dan 設計
-- `60-apps/ai-gftd-project-yabai/260303-yabai-wellbecoming-risk-design.md` — リスクスコア参考
-- `60-apps/ai-gftd-project-government-body/FOOD_SAFETY_MOLD_PREVENTION.md` — 食品安全法規
+- `60-apps/etzhayyim-project-omatsuri/CLAUDE.md` — 未病クレジット設計
+- `60-apps/etzhayyim-project-dojo/CLAUDE.md` — readiness kata 設計
+- `60-apps/etzhayyim-project-society6/CLAUDE.md` — Well-Becoming Kyu/Dan 設計
+- `60-apps/etzhayyim-project-yabai/260303-yabai-wellbecoming-risk-design.md` — リスクスコア参考
+- `60-apps/etzhayyim-project-government-body/FOOD_SAFETY_MOLD_PREVENTION.md` — 食品安全法規

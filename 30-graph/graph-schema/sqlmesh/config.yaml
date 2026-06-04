@@ -1,4 +1,4 @@
-project: gftd_graph_schema
+project: etzhayyim_graph_schema
 default_gateway: risingwave
 disable_anonymized_analytics: true
 

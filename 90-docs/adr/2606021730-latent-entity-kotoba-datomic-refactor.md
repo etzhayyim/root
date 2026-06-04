@@ -21,7 +21,7 @@ related:
   - /90-docs/260430-natural-person-latent-entity-backend-design.md (superseded design)
   - /00-contracts/schemas/latent-entity-ontology.kotoba.edn (new schema)
   - /30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)
-  - /60-apps/ai-gftd-project-coverage/MIGRATION-TODO.md (charter-violation evidence)
+  - /60-apps/etzhayyim-project-coverage/MIGRATION-TODO.md (charter-violation evidence)
 supersedes:
   - /90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)
 superseded_by: []
@@ -43,7 +43,7 @@ The latent-entity / LDA statistical entity-resolution stack exists **only in Ris
   - 5 vertex tables: `vertex_latent_entity`, `vertex_lda_topic`, `vertex_cohort_actor`, `vertex_natural_person_latent_materialization_cursor`, `vertex_ocel_event`
   - 9 edge tables: `edge_entity_evidence`, `edge_topic_entity_binding`, `edge_entity_cohort_link`, etc.
   - 4 materialized views (LDA φ/θ projections)
-- **Consumer app**: `60-apps/ai-gftd-project-coverage` (JavaScript/TypeScript, MIGRATION-TODO: flagged `// CHARTER-VIOLATION §substrate` on RW/Kysely imports)
+- **Consumer app**: `60-apps/etzhayyim-project-coverage` (JavaScript/TypeScript, MIGRATION-TODO: flagged `// CHARTER-VIOLATION §substrate` on RW/Kysely imports)
 
 ### Why This Violates the Substrate Boundary
 
@@ -95,7 +95,7 @@ Ratify the new vocabulary extending engi-organism-ontology (ADR-2606011000):
 | **P1** | Resolver `20-actors/tsumugi/methods/resolve.py` (existence via noisy-OR on `:en/evidence`) | 🟡 designed, fixture-mode | 2026-06-02 | — |
 | **P2** | LDA topic model as **Pregel cell** over kotoba-kqe EAVT arrangements (replaces RW MVs) | ⏳ deferred | TBD | Council Lv7+ |
 | **P3** | Fission↔covenant wiring (`:organism/claimed?` → `:latent/frontier` → public actor DID) | ⏳ deferred | TBD | Council Lv7+ + §D5 gates |
-| **P9** | Rewrite or archive `60-apps/ai-gftd-project-coverage`; close MIGRATION-TODO | ⏳ deferred | TBD | Operator |
+| **P9** | Rewrite or archive `60-apps/etzhayyim-project-coverage`; close MIGRATION-TODO | ⏳ deferred | TBD | Operator |
 
 ### 3. RW→Kotoba Data Mapping
 
@@ -168,7 +168,7 @@ viewpoint-consensus = |{distinct :en/evidence-kind values}|
 - **P0/P1 fixture-mode only**: No live ingest until Council Lv7+ permits (G7 outbound gate)
 - **P2 incomplete**: LDA topic model not yet ported to Pregel cell (P2-deferred); RW MVs remain until Phase 2.5
 - **P3 deferred**: Fission↔covenant wiring unbuilt; fissioned DIDs not minted until Council§D5 ratifies
-- **RW stack not removed**: `30-graph/` migrations and `60-apps/ai-gftd-project-coverage` remain until P9 (closure pending operator rewrite)
+- **RW stack not removed**: `30-graph/` migrations and `60-apps/etzhayyim-project-coverage` remain until P9 (closure pending operator rewrite)
 - **Limited cohort scope**: Only explicit `:cohort/*` aggregates onboarded (not auto-materialize billions of natural persons); roster is `:representative` (bounded seed data)
 
 ## Alternatives Considered
@@ -202,4 +202,4 @@ viewpoint-consensus = |{distinct :en/evidence-kind values}|
 - `/00-contracts/schemas/latent-entity-ontology.kotoba.edn` (new schema, ratified P0)
 - `/90-docs/260430-natural-person-latent-entity-backend-design.md` (superseded RW design)
 - `/30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts` (legacy RW stack)
-- `/60-apps/ai-gftd-project-coverage/MIGRATION-TODO.md` (charter-violation evidence, P9 closure item)
+- `/60-apps/etzhayyim-project-coverage/MIGRATION-TODO.md` (charter-violation evidence, P9 closure item)

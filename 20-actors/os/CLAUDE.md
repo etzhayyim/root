@@ -1,4 +1,4 @@
-# ai-gftd-project-os — KAMI + Magatama OS
+# etzhayyim-project-os — KAMI + Magatama OS
 
 etzhayyim OS はユーザーのデスクトップ上で動作する **Web4 ローカルインターフェース**。
 KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成。
@@ -49,7 +49,7 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 ## File Structure
 
 ```
-60-apps/ai-gftd-project-os/
+60-apps/etzhayyim-project-os/
 ├── CLAUDE.md                  # This file
 ├── magatama.jsonld            # Magatama app definition (did:web:os.etzhayyim.com)
 ├── PROJECT.jsonld             # Metadata
@@ -95,7 +95,7 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 | `sync` | `com.etzhayyim.apps.os.sync*` | Local-cloud state synchronization |
 | `window-manager` | `com.etzhayyim.apps.os.window*` | KAMI compositor window bridge |
 
-Imports `gftd:automaton@0.1.0` (survival, policy, memory, soul, replication) from `provider/automaton/`.
+Imports `etzhayyim:automaton@0.1.0` (survival, policy, memory, soul, replication) from `provider/automaton/`.
 
 ## SDK Dependencies (promoted from OS to SDK)
 
@@ -148,7 +148,7 @@ cd 40-engine/kami-engine
 wasm-pack build --target web kami-os
 
 # Magatama OS service (TS Native)
-cd 60-apps/ai-gftd-project-os
-gftd build
-gftd deploy --smoke-url https://os-gftd-01.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-os
+etzhayyim build
+etzhayyim deploy --smoke-url https://os-etzhayyim-01.etzhayyim.com/health
 ```

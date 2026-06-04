@@ -23,7 +23,7 @@ ADRs:
 ## Boundaries
 
 - **Namespace**: `etzhayyim-langserver`. Distinct from `mitama-udf`
-  (the etzhayyim.com legacy namespace) so the etzhayyim / gftd split per
+  (the etzhayyim.com legacy namespace) so the etzhayyim / etzhayyim split per
   ADR-2605191346 §2 is reflected at the cluster boundary.
 - **nodeSelector**: `etzhayyim.com/role=murakumo-host`. Bind to Mac-mini
   fleet nodes (physical or via murakumo-kubelet virtual nodes).
@@ -83,7 +83,7 @@ If `ollamaReachable=false` either:
 | checkpointer | MstCheckpointSaver (`@etzhayyim/sdk/checkpointer`) | FileCheckpointer (`pymagatama.projects.ameno.file_checkpointer`) |
 | state volume | sidecar PVC `lg-uhl-right-neural-checkpointer-state` | server PVC `lg-ameno-state` |
 | LLM driver | Anthropic (`langgraph dev`-managed) | Ollama (local fleet, `pymagatama.local_llm`) |
-| namespace | `mitama-udf` (gftd legacy) | `etzhayyim-langserver` (etzhayyim Murakumo) |
+| namespace | `mitama-udf` (etzhayyim legacy) | `etzhayyim-langserver` (etzhayyim Murakumo) |
 
 These differences are intentional. v0.1 of lg-ameno mirrors the
 single-container Path A / Path B daemons so the FileCheckpointer code

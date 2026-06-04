@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	jsruntime "github.com/etzhayyim/root/50-infra/sveltejs-adapter-wasm/wasm/runtime/gen/gftdcojp/svelte-adapter/js-runtime"
+	jsruntime "github.com/etzhayyim/root/50-infra/sveltejs-adapter-wasm/wasm/runtime/gen/etzhayyimcojp/svelte-adapter/js-runtime"
 	"go.wasmcloud.dev/component/log/wasilog"
 	"go.wasmcloud.dev/component/net/wasihttp"
 )

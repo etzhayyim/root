@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.maps.legalEntity",
-  "description": "Legal entity record — corporations / operators / property owners / government bodies / public utilities. Discriminated by `entityType`. Per maps CLAUDE.md §Graph Schema (`vertex_legal_entity`) + ADR-2605231400 yatachain L1 target. Per MIGRATION-TODO Phase 1 (Tier A).",
+  "description": "Legal entity record — corporations / operators / property owners / government bodies / public utilities. Discriminated by `entityType`. Per maps CLAUDE.md §Graph Schema (`vertex_legal_entity`) + ADR-2605231400 kotoba-datomic L1 target. Per MIGRATION-TODO Phase 1 (Tier A).",
   "defs": {
     "main": {
       "type": "record",

@@ -3030,7 +3030,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_mangaka_chapter": {
+      "ai_etzhayyim_mangaka_chapter": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -3104,7 +3104,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_mangaka_page": {
+      "ai_etzhayyim_mangaka_page": {
         "type": "object",
         "properties": {
           "chapterRef": {
@@ -3140,7 +3140,7 @@
           "charactersAppearing": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ai_gftd_mangaka_chapter_characterAppearance"
+              "$ref": "#/components/schemas/ai_etzhayyim_mangaka_chapter_characterAppearance"
             }
           },
           "layersCid": {
@@ -3161,7 +3161,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_mangaka_work": {
+      "ai_etzhayyim_mangaka_work": {
         "type": "object",
         "properties": {
           "title": {

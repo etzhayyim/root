@@ -99,12 +99,12 @@ Register **Kusawake (草分け)** as a religious-corp robot class:
 - **G2 Right-to-Repair (dual-layer)**: hardware modular (tsutae G3 inheritance — iFixit ≥9/10 target) + firmware re-flash on parts swap NOT vendor-gated (suki G10 inheritance). Replacement parts catalogued openly on IPFS-pinned BoM per VIN-equivalent serial.
 - **G3 SAE J3016 Level 3 ceiling**: full autonomy (Level 4/5) is N6 NEVER — preserves farmer-land-relationship (suki G12 + N6 inheritance + ADR-2605192100 §1.13 wellbecoming).
 - **G4 Witness quorum** (ADR-2605191524): every field-intervention record (weed cut / herd nudge / scouting capture) requires Ed25519 sigs from ≥2 distinct sources — onboard robot DID + (a) operator human DID OR (b) ≥1 peer robot DID within mesh.
-- **G5 No surveillance telemetry**: zero outbound traffic to third parties; data flow = onboard storage → Murakumo fleet (ADR-2605215000) → yatachain attestation. Crop-yield / livestock-count / GPS-track sale to commercial parties NEVER §2(c).
+- **G5 No surveillance telemetry**: zero outbound traffic to third parties; data flow = onboard storage → Murakumo fleet (ADR-2605215000) → kotoba-datomic attestation. Crop-yield / livestock-count / GPS-track sale to commercial parties NEVER §2(c).
 - **G6 No synthetic pesticide application**: tool-deck whitelist excludes spray nozzle for synthetic pesticides (mitsuho G6 inheritance — neonicotinoid / glyphosate / paraquat / organochlorine rejected at schema level). Mechanical flail + electric trimmer + biocontrol-organism release OK.
 - **G7 No herding force escalation beyond §2(a)**: livestock-herding modes limited to sound + visual + slow follow. Electric shock / projectile / tranquilizer NEVER §2(a). Religious force (ADR-2605192315) gate does not apply at this layer (livestock are not religious-corp subjects).
 - **G8 Murakumo-fleet inference only**: any onboard ML model (perception / behavior) runs on local NPU OR is invoked via Murakumo fleet (LiteLLM 127.0.0.1:4000 / EVO-X2 LAN per ADR-2605215000). NEVER RunPod / Vertex / OpenAI direct / Anthropic-direct from vendor key / Linode GPU / AWS Bedrock direct.
 - **G9 Open CAN bus + open ISOBUS-compatible implement detection**: tool-deck attachment protocol open (suki G9 inheritance). No DRM ECU / dealer-locked diagnostics.
-- **G10 yatachain per-unit lineage**: every Kusawake unit has open VIN-equivalent serial + per-vehicle DID + IPFS-pinned BoM + repair-history blockchain + EOL recyclability ≥85% (kanayama loop closure target).
+- **G10 kotoba-datomic per-unit lineage**: every Kusawake unit has open VIN-equivalent serial + per-vehicle DID + IPFS-pinned BoM + repair-history blockchain + EOL recyclability ≥85% (kanayama loop closure target).
 
 ### Non-Goals N1..N8 (IMMUTABLE R0–R3)
 

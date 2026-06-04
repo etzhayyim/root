@@ -48,12 +48,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
    :gov.unit/name-en "Ministry of Communication of Argentina"
+   :gov.unit/official-url "https://www.argentina.gob.ar/jefatura/innovacion-ciencia-y-tecnologia/comunicaciones-y-conectividad"
    :gov.unit/wikidata "Q21694869"
    :gov.unit/cofog ["04.6"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q21694869"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.argentina.gob.ar/jefatura/innovacion-ciencia-y-tecnologia/comunicaciones-y-conectividad"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.aze.communications"
@@ -175,12 +176,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "esp"
    :gov.unit/name-en "Ministry of Transport, Tourism and Communications of Spain"
+   :gov.unit/official-url "https://digital.gob.es/"
    :gov.unit/wikidata "Q11936839"
    :gov.unit/cofog ["04.6"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q11936839"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://digital.gob.es/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.est.communications"
@@ -494,12 +496,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Communication"
+   :gov.unit/official-url "https://mtit.gov.ye/"
    :gov.unit/wikidata "Q22932683"
    :gov.unit/cofog ["04.6"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22932683"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mtit.gov.ye/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zaf.communications"

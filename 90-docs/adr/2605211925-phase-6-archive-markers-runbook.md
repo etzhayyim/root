@@ -16,7 +16,7 @@ authoritative_for:
   - rollback (un-archive) procedure
 depends_on:
   - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
-  - adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com
+  - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
 related:
   - adr-2605152100-etzhayyim-github-org-boundary
@@ -119,9 +119,9 @@ Concretely:
 
 | Subtree | etzhayyim/root mirror | Archive stub treatment |
 |---------|------------------------|------------------------|
-| `60-apps/ai-gftd-project-ki/lg/` | `etzhayyim/root/60-apps/ai-gftd-project-ki/lg/lg_organism/` | Top-level `60-apps/ai-gftd-project-ki/README.md` MOVED stub if the entire project relocates; otherwise just keep the wasm/ side and add a `lg/MOVED.md` pointer |
-| `60-apps/ai-gftd-project-legal-entity/lg/` | `etzhayyim/root/60-apps/ai-gftd-project-legal-entity/lg/` | Same pattern |
-| `60-apps/ai-gftd-project-curpus2skill/lg/` | `etzhayyim/root/60-apps/ai-gftd-project-curpus2skill/lg/` | Same pattern (curpus2skill currently has only lg/, so the entire project moves) |
+| `60-apps/etzhayyim-project-ki/lg/` | `etzhayyim/root/60-apps/etzhayyim-project-ki/lg/lg_organism/` | Top-level `60-apps/etzhayyim-project-ki/README.md` MOVED stub if the entire project relocates; otherwise just keep the wasm/ side and add a `lg/MOVED.md` pointer |
+| `60-apps/etzhayyim-project-legal-entity/lg/` | `etzhayyim/root/60-apps/etzhayyim-project-legal-entity/lg/` | Same pattern |
+| `60-apps/etzhayyim-project-curpus2skill/lg/` | `etzhayyim/root/60-apps/etzhayyim-project-curpus2skill/lg/` | Same pattern (curpus2skill currently has only lg/, so the entire project moves) |
 | `20-actors/magatama/py/src/pymagatama/{27 worker_main + 4 ingest + 4 primitive}` | `etzhayyim/root/20-actors/magatama/py/src/pymagatama/` | Per-file `MOVED → etzhayyim/...` pointer is excessive (~37 files); instead add ONE top-level `20-actors/magatama/py/MOVED-FILES.md` listing the relocated files |
 
 ## 2. Execute
@@ -152,16 +152,16 @@ For the 3 lg subtrees:
 
 ```bash
 # Example for ki — repeat with legal-entity and curpus2skill substituted:
-cat > /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-ki/lg/MOVED.md <<EOF
+cat > /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-ki/lg/MOVED.md <<EOF
 # Moved to etzhayyim/root
 
 This subtree was relocated as part of Tranche F (ADR-2605212100) gate (d)
 closure on 2026-05-21.
 
 **New location**:
-https://github.com/etzhayyim/root/tree/main/60-apps/ai-gftd-project-ki/lg/
+https://github.com/etzhayyim/root/tree/main/60-apps/etzhayyim-project-ki/lg/
 
-The previous gftd-side copy lives in git history; current development happens
+The previous etzhayyim-side copy lives in git history; current development happens
 in etzhayyim/root.
 
 See also:
@@ -254,9 +254,9 @@ ADR-2605211913 Phase 5 で git rm 済 + `20-actors/magatama/py/MOVED-FILES.md`
 ```bash
 # 1. All Phase 6 stubs exist:
 for stub in \
-  60-apps/ai-gftd-project-ki/lg/MOVED.md \
-  60-apps/ai-gftd-project-legal-entity/lg/MOVED.md \
-  60-apps/ai-gftd-project-curpus2skill/lg/MOVED.md \
+  60-apps/etzhayyim-project-ki/lg/MOVED.md \
+  60-apps/etzhayyim-project-legal-entity/lg/MOVED.md \
+  60-apps/etzhayyim-project-curpus2skill/lg/MOVED.md \
   20-actors/magatama/py/MOVED-FILES.md; do
   test -f "/Users/junkawasaki/github/etzhayyim-root/$stub" \
     && echo "  ✓ $stub" \
@@ -300,7 +300,7 @@ Phase 6 is the **least destructive** phase — rollback is straightforward:
 - ADR-2605152100 6-phase cutover is now operator-runbook-complete end-to-end
   (Phase 1-2-3 done historically; Phase 4-5 = ADR-2605211913; Phase 6 = this
   ADR).
-- Future operators / agents reading the gftd repo see explicit MOVED markers
+- Future operators / agents reading the etzhayyim repo see explicit MOVED markers
   rather than mysterious deletions. Discoverability of the relocated content
   is preserved.
 - The pymagatama MOVED-FILES.md catalog gives operators a single grep target
@@ -345,7 +345,7 @@ Phase 6 is the **least destructive** phase — rollback is straightforward:
    the closest substitute.
 
 4. **Delete the subtree entirely with no marker** (Phase 5 is enough).
-   Rejected: future operators grep'ing the gftd repo for legacy code would
+   Rejected: future operators grep'ing the etzhayyim repo for legacy code would
    see a deletion in git log with no destination pointer. The marker is
    navigational metadata that costs ~50 LoC across 4 files.
 

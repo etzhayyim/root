@@ -255,7 +255,7 @@ def deps_kv_sync(apply: bool, show_diff: bool, no_cf: bool, json_out: bool,
                 "desired": entries,
             }, ensure_ascii=False, indent=2))
         else:
-            click.echo("gftd deps kv-sync — offline (no Cloudflare API)")
+            click.echo("etzhayyim deps kv-sync — offline (no Cloudflare API)")
             click.echo("=" * 48)
             click.echo(f"actors:          {len(actors)}")
             click.echo(f"desired KV keys: {len(entries)}  ({len(actors)} actors + 1 actors:index)\n")
@@ -303,7 +303,7 @@ def deps_kv_sync(apply: bool, show_diff: bool, no_cf: bool, json_out: bool,
                 "by_action": action_counts, "plan": plan,
             }, ensure_ascii=False, indent=2))
         else:
-            click.echo("gftd deps kv-sync --diff")
+            click.echo("etzhayyim deps kv-sync --diff")
             click.echo("=" * 25)
             click.echo(f"account:  {acct}")
             click.echo(f"KV ns:    {ns}")
@@ -316,7 +316,7 @@ def deps_kv_sync(apply: bool, show_diff: bool, no_cf: bool, json_out: bool,
         return
 
     if not apply:
-        click.echo("gftd deps kv-sync — dry-run")
+        click.echo("etzhayyim deps kv-sync — dry-run")
         click.echo("=" * 27)
         click.echo(f"account: {acct}")
         click.echo(f"KV ns:   {ns}")
@@ -549,20 +549,20 @@ def _deps_mv_name(stmt: str) -> str:
 
 @deps.command("mv")
 @click.option("--apply", "apply_", is_flag=True, default=False,
-              help="apply DDL to RisingWave (requires gftd Go CLI)")
+              help="apply DDL to RisingWave (requires etzhayyim Go CLI)")
 @click.option("--format", "fmt", default="sql", type=click.Choice(["sql", "text"]),
               show_default=True)
 def deps_mv(apply_: bool, fmt: str) -> None:
     """Generate RisingWave MVs for deps live read models from vertex_/edge_ tables.
 
-    Use --apply with the Go CLI: gftd deps mv --apply
+    Use --apply with the Go CLI: etzhayyim deps mv --apply
     """
     if apply_:
         raise click.ClickException(
-            "--apply requires a live RisingWave connection. Use: gftd deps mv --apply"
+            "--apply requires a live RisingWave connection. Use: etzhayyim deps mv --apply"
         )
     if fmt == "sql":
-        click.echo("-- gftd deps mv")
+        click.echo("-- etzhayyim deps mv")
         click.echo("-- Generated from RisingWave vertex_/edge_ tables. No JSON snapshot dependency.")
         for stmt in _DEPS_MV_STATEMENTS:
             click.echo()
@@ -871,7 +871,7 @@ def deps_audit(base_url: str, fmt: str, timeout_sec: int, full_audit: bool,
         try:
             resp = httpx.post(
                 hook_url,
-                json={"schema": "gftd:wproto/hook-envelope@v1", "event": event, "app": {"app_id": app_id}},
+                json={"schema": "etzhayyim:wproto/hook-envelope@v1", "event": event, "app": {"app_id": app_id}},
                 timeout=timeout_sec,
             )
             msg = resp.text[:200] if resp.text else ""
@@ -982,5 +982,5 @@ def deps_export(base_url: str, out_dir: str, score_name: str, audit_name: str,
 def deps_sql(filter_did: str, fmt: str, timeout_sec: int) -> None:
     """DID-based SQL deps scoring from mv_deps_component_live (requires Go binary + RisingWave)."""
     raise click.ClickException(
-        "deps sql requires direct RisingWave access (pgxpool). Use the Go binary: gftd deps sql"
+        "deps sql requires direct RisingWave access (pgxpool). Use the Go binary: etzhayyim deps sql"
     )

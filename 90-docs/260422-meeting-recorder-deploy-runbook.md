@@ -3,7 +3,7 @@
 - Actor: `did:web:meeting-recorder.etzhayyim.com` (nanoid `m33tr3c0`)
 - Control-plane: CF Worker `meeting-recorder.etzhayyim.com` (XRPC + MCP facade, ADR-0042)
 - Media-plane: Vultr VKE LAX, node pool `meeting-recorder` (vhf-4c-16gb × 2)
-- Storage: Backblaze B2 `ai-gftd-recordings/meeting-recorder/...` (ADR-0048 egress-free)
+- Storage: Backblaze B2 `etzhayyim-recordings/meeting-recorder/...` (ADR-0048 egress-free)
 - Transcription: Murakumo MLX `whisper-large-v3`
 - Providers: Microsoft Teams, Google Meet, Zoom
 
@@ -11,19 +11,19 @@
 
 ### Microsoft Teams
 
-1. etzhayyim Japan tenant で Azure AD app `gftd-meeting-recorder` を作成。
+1. etzhayyim Japan tenant で Azure AD app `etzhayyim-meeting-recorder` を作成。
 2. Application permissions 付与 + tenant admin consent:
    - `Calls.JoinGroupCall.All`
    - `Calls.AccessMedia.All`
    - `OnlineMeetings.Read.All`
-3. Client secret を生成し `gftd vault add --folder meeting-recorder --name AZURE_AD_CLIENT_SECRET`。
+3. Client secret を生成し `etzhayyim vault add --folder meeting-recorder --name AZURE_AD_CLIENT_SECRET`。
 4. Notification URL を CF Worker `meeting-recorder.etzhayyim.com/_graph/callbacks` に設定。
 
 ### Google Meet
 
 1. GCP project で Meet Media API を有効化 (2025 GA, requires Workspace admin consent)。
 2. Service Account を作成し scope `https://www.googleapis.com/auth/meetings.media.audio.readonly` + `...video.readonly` を付与。
-3. Service Account JSON を `gftd vault add --folder meeting-recorder --name GOOGLE_SERVICE_ACCOUNT_JSON`。
+3. Service Account JSON を `etzhayyim vault add --folder meeting-recorder --name GOOGLE_SERVICE_ACCOUNT_JSON`。
 
 ### Zoom
 
@@ -43,8 +43,8 @@ vultr-cli kubernetes node-pool create \
   --tag vke.vultr.com/node-pool=meeting-recorder
 
 # 2. B2 bucket + app key (prefix-scoped)
-b2 bucket create ai-gftd-recordings allPrivate
-b2 key create --bucket ai-gftd-recordings \
+b2 bucket create etzhayyim-recordings allPrivate
+b2 key create --bucket etzhayyim-recordings \
   --namePrefix meeting-recorder/ \
   meeting-recorder-rw readFiles,writeFiles,deleteFiles
 
@@ -82,21 +82,21 @@ WHERE relname LIKE 'vertex_meetingrecorder_%' OR relname LIKE 'edge_meetingrecor
 
 ```bash
 cd 50-infra/vultr/meeting-recorder
-gftd vault run --folder meeting-recorder -- ./deploy.sh
+etzhayyim vault run --folder meeting-recorder -- ./deploy.sh
 ```
 
 ### Step 3. CF Worker control-plane deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-meeting-recorder
-gftd deploy   # writes did.json, configures XRPC routes, MCP facade
+cd 60-apps/etzhayyim-project-meeting-recorder
+etzhayyim deploy   # writes did.json, configures XRPC routes, MCP facade
 ```
 
 ### Step 4. Smoke tests (per provider)
 
 ```bash
 # Teams
-gftd agent-token --lxm com.etzhayyim.apps.meetingRecorder.joinMeeting \
+etzhayyim agent-token --lxm com.etzhayyim.apps.meetingRecorder.joinMeeting \
   | xargs -I{} curl -H "Authorization: Bearer {}" \
     https://meeting-recorder.etzhayyim.com/xrpc/com.etzhayyim.apps.meetingRecorder.joinMeeting \
     -d '{"provider":"teams","joinTarget":{"joinUrl":"<test-meeting>"},"onBehalfOfDid":"did:web:jun.etzhayyim.com","consentToken":"<signed-jwt>"}'
@@ -126,7 +126,7 @@ gftd agent-token --lxm com.etzhayyim.apps.meetingRecorder.joinMeeting \
 
 ```bash
 helm -n meeting-recorder rollback meeting-recorder 0
-# CF Worker: gftd deploy --version <prev>
+# CF Worker: etzhayyim deploy --version <prev>
 # Graph migration: pnpm migrate down  (safe — no data lost, tables retain content)
 ```
 

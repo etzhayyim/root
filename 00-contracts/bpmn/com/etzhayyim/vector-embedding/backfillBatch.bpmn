@@ -5,7 +5,7 @@
   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="defs_vector_embedding_backfill_batch"
-  targetNamespace="https://gftd.ai/bpmn/vector-embedding">
+  targetNamespace="https://etzhayyim.ai/bpmn/vector-embedding">
 
   <bpmn:process id="vector_embedding_backfill_batch" name="Vector Embedding Backfill Batch" isExecutable="true">
     <bpmn:startEvent id="start" name="Start">

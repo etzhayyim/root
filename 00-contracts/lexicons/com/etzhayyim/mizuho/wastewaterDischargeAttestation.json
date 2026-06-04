@@ -51,7 +51,7 @@
             "description": "Sludge cycling cross-link to mitsuho when sludge quality permits"
           },
           "sludgeQualityAttestationCid": {"type": "string"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

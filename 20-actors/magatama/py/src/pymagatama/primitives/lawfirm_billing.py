@@ -262,7 +262,7 @@ async def task_billing_mode_b_start_subscription(
     advisor_account = advisor[0]["stripe_connect_account_id"]
     advisor_slug = advisor[0].get("slug", "")
 
-    # Y1 = 85% gftd / 15% firm; Y2 = 90/10; Y3 = 95/5
+    # Y1 = 85% etzhayyim / 15% firm; Y2 = 90/10; Y3 = 95/5
     fee_pct_map = {1: 85, 2: 90, 3: 95}
     application_fee_pct = fee_pct_map.get(revshare_year, 85)
 

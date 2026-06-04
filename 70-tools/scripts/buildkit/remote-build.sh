@@ -13,7 +13,7 @@ Examples:
     --dockerfile 20-actors/magatama/py/Dockerfile
 
 Environment:
-  BUILDKIT_BUILDER       buildx builder name, default gftd-vke
+  BUILDKIT_BUILDER       buildx builder name, default etzhayyim-vke
   BUILDKIT_PLATFORM      target platform, default linux/amd64
   BUILDKIT_CACHE_REF     registry cache ref, default ghcr.io/etzhayyim/build-cache:main
   IMAGE_TAG              explicit tag if --tag is not passed
@@ -21,7 +21,7 @@ USAGE
 }
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-BUILDER="${BUILDKIT_BUILDER:-gftd-vke}"
+BUILDER="${BUILDKIT_BUILDER:-etzhayyim-vke}"
 PLATFORM="${BUILDKIT_PLATFORM:-linux/amd64}"
 CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:main}"
 PUSH_MODE="--push"

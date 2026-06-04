@@ -301,11 +301,11 @@ AI agents alive across rebirth. Rejected:
 - `20-actors/magatama/py/src/pymagatama/primitives/karma_*.py` —
   pyzeebe primitive implementations
 - `50-infra/vultr/mitama-karma-pool/` — Helm release
-- `60-apps/ai-gftd-project-karma/contracts/karma-anchor/src/` —
+- `60-apps/etzhayyim-project-karma/contracts/karma-anchor/src/` —
   Solidity (KarmaAnchor + RebirthVerifier)
-- `60-apps/ai-gftd-project-karma/circuits/rebirth-non-linkability/` —
+- `60-apps/etzhayyim-project-karma/circuits/rebirth-non-linkability/` —
   Circom circuit
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/components/IndraNet.svelte` —
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/components/IndraNet.svelte` —
   Indra's-net visualization
 - `deps.toml [[migrations]] karma-edge-primary-bringup-phase-k0`
 - `CLAUDE.md` Recent Completion: karma.etzhayyim.com (Phase K0 / K1 / K2 / K3)

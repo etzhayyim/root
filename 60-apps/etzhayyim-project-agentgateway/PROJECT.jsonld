@@ -4,8 +4,8 @@
   "name": "AI Agent Gateway (etzhayyim-project-agentgateway)",
   "status": "In Progress",
   "identifier": "etzhayyim-project-agentgateway",
-  "description": "Application-level MCP (Model Context Protocol) Router built on AT Protocol. Serves as the central entry point for AI Agents to discover and call tools across the GFTD ecosystem.",
-  "gftd:vision": "Provide a unified, highly-available MCP routing layer that connects AI Agents to downstream tools and services without exposing internal network topologies.",
+  "description": "Application-level MCP (Model Context Protocol) Router built on AT Protocol. Serves as the central entry point for AI Agents to discover and call tools across the Etzhayyim ecosystem.",
+  "etzhayyim:vision": "Provide a unified, highly-available MCP routing layer that connects AI Agents to downstream tools and services without exposing internal network topologies.",
   "hasPart": [],
   "tasks": [
     {
@@ -24,7 +24,7 @@
       "content": "Implement tool discovery and routing logic."
     }
   ],
-  "gftd:architecture": {
+  "etzhayyim:architecture": {
     "runtime": "Cloudflare Worker",
     "protocol": "AT Protocol (XRPC), JSON-RPC 2.0 (MCP)",
     "entrypoint": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message (or dedicated subdomain)"

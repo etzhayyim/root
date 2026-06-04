@@ -31,9 +31,9 @@ Time: 2026-04-19 JST
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py:20)
+- [`60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py:20)
   - embedded `s3.credentials.access` and `s3.credentials.secret`
-- [`60-apps/ai-gftd-project-common-crawl/scripts/s3_upload_and_ingest.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-common-crawl/scripts/s3_upload_and_ingest.py:34)
+- [`60-apps/etzhayyim-project-common-crawl/scripts/s3_upload_and_ingest.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-common-crawl/scripts/s3_upload_and_ingest.py:34)
   - same keypair is also used as the default runtime fallback
 
 Why it survives pruning:
@@ -46,9 +46,9 @@ Why it survives pruning:
 
 Evidence:
 
-- [`70-tools/gftd/gftd/murakumo_fleet.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/gftd/gftd/murakumo_fleet.go:37)
+- [`70-tools/etzhayyim/etzhayyim/murakumo_fleet.go`](/Users/junkawasaki/etzhayyim/etzhayyim-root/70-tools/etzhayyim/etzhayyim/murakumo_fleet.go:37)
   - CLI deployment code hardcodes fleet SSH password
-- [`60-apps/ai-gftd-project-murakumo/CLAUDE.md`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-murakumo/CLAUDE.md:507)
+- [`60-apps/etzhayyim-project-murakumo/CLAUDE.md`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-murakumo/CLAUDE.md:507)
   - same password is published with node naming and private IP inventory
 
 Why it survives pruning:
@@ -61,13 +61,13 @@ Why it survives pruning:
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34)
   - `StoredSession` contains both `accessJwt` and `refreshJwt`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:75)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:75)
   - session is serialized into `sessionStorage`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:100)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:100)
   - both JWTs are copied into `@etzhayyim/wproto`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8)
   - `#auth=` transfer is copied into `sessionStorage` before URL cleanup
 
 Why it survives pruning:

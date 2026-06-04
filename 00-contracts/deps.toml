@@ -29,12 +29,12 @@ tier = "production"
 description = "AT Protocol Lexicon JSON (wire format + NSID 定義)"
 
 [subdirs."lexicons/ai"]
-role = "lexicon-ai-gftd"
+role = "lexicon-etzhayyim"
 tier = "production"
 description = "com.etzhayyim.* Lexicon JSON (2344 NSID files, permission scopes, 9 permission-set Lexicons)"
 
 [subdirs."lexicons/com/etzhayyim"]
-role = "lexicon-ai-gftd-scope"
+role = "lexicon-etzhayyim-scope"
 tier = "production"
 description = "com.etzhayyim.* leaf namespace"
 
@@ -400,7 +400,7 @@ raises `RuntimeError("kanayama R0 scaffold...")`); 8 lexicon JSON stubs under
 
 Constitutional posture: STRONGLY FAVORABLE — §2(g) habitat + §2(h) circular
 economy + §2(e) anti-gatekeeping over bauxite-mining oligopoly all positively
-align. 14 gates G1..G14 (novel G2 mass-balance audit on yatachain ≥98%
+align. 14 gates G1..G14 (novel G2 mass-balance audit on kotoba-datomic ≥98%
 closure: `input_mass = output_metal + dross + emission`; G12 recovery ≥95%
 + energy ≤6 kWh/kg vs primary Hall-Héroult 14-16 kWh/kg; G13 renewable + grid
 balanced only, captive coal/petcoke prohibited). 8 non-goals N1..N8 (smaller
@@ -427,7 +427,7 @@ large European facility".
 
 Elemental complement: watatsumi (綿津見 — 海神 水) ↔ kanayama (金山 — 金属神 金).
 """
-impact = "Circular metallurgy design surface; constitutionally pro-cleared (§2(g) + §2(h) + §2(e)); Wave 1 aluminum supply loop for downstream actors; novel G2 mass-balance yatachain invariant; sibling-pattern parity with watatsumi / tatekata / wadachi / yakushi / silicon Tier-B actors"
+impact = "Circular metallurgy design surface; constitutionally pro-cleared (§2(g) + §2(h) + §2(e)); Wave 1 aluminum supply loop for downstream actors; novel G2 mass-balance kotoba-datomic invariant; sibling-pattern parity with watatsumi / tatekata / wadachi / yakushi / silicon Tier-B actors"
 references = [
   "90-docs/adr/2605252400-kanayama-circular-metallurgy-r0.md",
   "20-actors/kanayama/README.md",
@@ -609,7 +609,7 @@ R0 deliverables landed (this commit):
 Build status: `forge build src/LandRegistry.sol src/PublicLandRegistry.sol
 src/StewardTenureRegistry.sol src/LandClassRegistry.sol src/interfaces/*.sol
 --skip test` → Compiler run successful (Solc 0.8.27, 6 files). Pre-existing
-unrelated GftdAgentRegistry.t.sol import remains broken (out of scope).
+unrelated EtzhayyimAgentRegistry.t.sol import remains broken (out of scope).
 
 Non-goals R0: no testnet deploy / no mainnet deploy / no first donation /
 no on-chain bidirectional sync / no full RMRK / no fractional ownership /

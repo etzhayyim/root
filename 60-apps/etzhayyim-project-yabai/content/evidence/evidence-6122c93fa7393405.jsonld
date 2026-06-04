@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-6122c93fa7393405",
+  "evidenceId": "evidence-6122c93fa7393405",
+  "entityId": "ent-ec2a475a1b3a",
+  "category": "CriminalEvidence",
+  "source": "justice/fbi/apt41",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.96,
+  "severity": 5,
+  "probability": 0.003,
+  "jurisdiction": "US",
+  "summary": "Watchlist signal"
+}

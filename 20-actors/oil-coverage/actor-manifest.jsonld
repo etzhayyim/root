@@ -208,7 +208,7 @@
     "description": "Maintains the global oil supply chain target matrix and publishes coverage health snapshots and unresolved graph gaps.",
     "displayName": "Oil Coverage Orchestrator",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

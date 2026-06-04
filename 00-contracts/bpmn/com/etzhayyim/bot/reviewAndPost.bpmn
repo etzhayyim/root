@@ -28,7 +28,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_bot_review_and_post"
-    targetNamespace="https://gftd.ai/bpmn/bot"
+    targetNamespace="https://etzhayyim.ai/bpmn/bot"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="bot_review_and_post" name="bot review and post" isExecutable="true">
@@ -72,7 +72,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:bot.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:bot.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;reviewAndPost.accept&quot;" target="action"/>
           <zeebe:input source="={
               text: string(text),
@@ -95,7 +95,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:bot.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:bot.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;reviewAndPost.reject&quot;" target="action"/>
           <zeebe:input source="={
               text: string(text),

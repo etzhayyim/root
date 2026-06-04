@@ -1,7 +1,7 @@
 import { Kysely, sql } from 'kysely';
 
 /**
- * Migration: infer tables for gftd coverage infer.
+ * Migration: infer tables for etzhayyim coverage infer.
  *
  * Tables:
  *   vertex_infer_input   — raw input feature vectors from statistical data

@@ -6,7 +6,7 @@ worker side: pick stale seeds → fetch via `darkweb-proxy.etzhayyim.com/fetch`
 directly via RW so the onion appview keeps its current Kysely read path.
 
 Replaces the legacy onion CF Worker XRPC-on-demand crawl path
-(`60-apps/ai-gftd-project-onion/wasm/.../src/app.ts`) with a scheduled,
+(`60-apps/etzhayyim-project-onion/wasm/.../src/app.ts`) with a scheduled,
 durable Zeebe worker per ADR-0056.
 """
 

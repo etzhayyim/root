@@ -37,12 +37,12 @@
  *     - `revenueReport` (generateRevenueReport): per-route revenue / RASK /
  *       ledger-entry financials = confidential commercial ledger. (Per Operating
  *       Entity Boundary ADR-2605172100 the LEDGER DATA migrates as E2E records;
- *       only the fiat-clearing settlement CALL stays gftd — see below.)
+ *       only the fiat-clearing settlement CALL stays etzhayyim — see below.)
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) —
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) —
  *     - IATA BSP fiat-clearing settlement EXECUTION: the actual fare/ticket money
  *       movement / merchant-of-record rail. etzhayyim never becomes the fiat MoR
- *       (on-chain USDC only), so the settlement CALL stays gftd while the ledger
+ *       (on-chain USDC only), so the settlement CALL stays etzhayyim while the ledger
  *       DATA fronts E2E.
  *     - GPU/LLM demand-forecast & willingness-to-pay model INFERENCE execution
  *       (the compute that produces forecasts/pricing); only the resulting

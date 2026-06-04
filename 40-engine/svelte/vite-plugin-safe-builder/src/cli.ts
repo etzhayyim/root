@@ -45,7 +45,7 @@ Options:
   --strict            Treat warnings as errors
   --no-locales        Skip locale route checking
   --no-links          Skip internal link checking
-  --no-gftd           Skip gftd.json route checking
+  --no-etzhayyim           Skip etzhayyim.json route checking
   --required <paths>  Comma-separated paths that must exist
   --help              Show this help
 `);
@@ -83,7 +83,7 @@ Options:
     projectDir,
     checkLocales: args["locales"] !== false,
     checkLinks: args["links"] !== false,
-    checketzhayyimRoutes: args["gftd"] !== false,
+    checketzhayyimRoutes: args["etzhayyim"] !== false,
     requiredPaths,
     strict: args["strict"] === true,
   });

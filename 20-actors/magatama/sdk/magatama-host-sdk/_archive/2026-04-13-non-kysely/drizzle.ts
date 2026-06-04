@@ -7,7 +7,7 @@
  */
 
 // Re-export from graph-schema for LABEL_TABLE_MAP (migration support)
-export { schema } from "@gftd/graph-schema/schema";
+export { schema } from "@etzhayyim/graph-schema/schema";
 
 // For backward compatibility, proxy to Kysely
 import { createKyselyDb } from "./kysely.js";

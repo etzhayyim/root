@@ -75,7 +75,7 @@
     "description": "Apps — AI Agent for apps intelligence and analytics",
     "displayName": "Apps",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "apps",
   "routes": [

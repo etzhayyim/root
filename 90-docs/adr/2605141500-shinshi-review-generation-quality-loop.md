@@ -242,8 +242,8 @@ agents can use the same review contract.
 
 - Commit `8e595f6da6a`: `feat(shinshi+legal-corpus): reviewGenerationBatch quality loop + LangGraph wiring`
 - Commit `f4d5e741653`: `feat(shinshi): add optional aesthetic review gate`
-- `60-apps/ai-gftd-project-shinshi/lg/lg_shinshi/graphs/review_generation_batch.py`
-- `60-apps/ai-gftd-project-shinshi/lg/lg_shinshi/quality.py`
+- `60-apps/etzhayyim-project-shinshi/lg/lg_shinshi/graphs/review_generation_batch.py`
+- `60-apps/etzhayyim-project-shinshi/lg/lg_shinshi/quality.py`
 - `00-contracts/lexicons/com/etzhayyim/apps/shinshi/reviewGenerationBatch.json`
 - `30-graph/graph-schema/sql_migrations/20260514193000_vertex_shinshi_aesthetic_review_cache.up.sql`
 - `50-infra/vultr/keiei-llm-pool/values.yaml`

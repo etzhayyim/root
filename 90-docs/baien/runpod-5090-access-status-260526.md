@@ -17,7 +17,7 @@ related:
 
 | Field | Value |
 |---|---|
-| 1Password item | `runpod/oka-lm-train RTX5090` (gftdcojp vault, ID `scclefhmwawwpf6pljf4gf3ibq`) |
+| 1Password item | `runpod/oka-lm-train RTX5090` (etzhayyimcojp vault, ID `scclefhmwawwpf6pljf4gf3ibq`) |
 | pod_id | `eoc5cmxtr6n3c4` |
 | Connect | `ssh -p 51691 root@157.157.221.30` |
 | key_path (per 1Password) | `~/.ssh/id_rsa` |
@@ -29,7 +29,7 @@ related:
 |---|---|
 | ssh -i ~/.ssh/id_ed25519 | publickey denied |
 | ssh -i ~/.ssh/id_ed25519_performer | publickey denied |
-| ssh -i ~/.ssh/id_ed25519_github_gftd | publickey denied |
+| ssh -i ~/.ssh/id_ed25519_github_etzhayyim | publickey denied |
 | ssh -i ~/.ssh/id_rsa | file does NOT exist on mac-260317 |
 | sshpass -p $(op ... password) | password denied (1Password 17-char password not SSH password) |
 
@@ -61,7 +61,7 @@ scp -P 51691 -i ~/.ssh/id_rsa <local-path>/runpod-5090-bench-bringup.sh \
   root@157.157.221.30:/workspace/bringup.sh
 
 ssh -p 51691 -i ~/.ssh/id_rsa root@157.157.221.30 \
-  'HF_TOKEN=$(op item get gftd.hf/HF_TOKEN --reveal) bash /workspace/bringup.sh' \
+  'HF_TOKEN=$(op item get etzhayyim.hf/HF_TOKEN --reveal) bash /workspace/bringup.sh' \
   2>&1 | tee /tmp/runpod-bench.log
 ```
 

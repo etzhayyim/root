@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_water_define_main"
-    targetNamespace="https://gftd.ai/bpmn/open-water"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-water"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_water_define_main" name="配水本管 登録" isExecutable="true">
@@ -98,7 +98,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-water.gftd.ai:network&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:network&quot;" target="actor"/>
           <zeebe:input source="=&quot;openWater.main.define&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:       vertexId,

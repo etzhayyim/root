@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — submitTrade workflow (XRPC com.etzhayyim.apps.shosha.submitTrade).
+  shosha.etzhayyim.com — submitTrade workflow (XRPC com.etzhayyim.apps.shosha.submitTrade).
 
   Pipeline:
     1. shosha.comply.sanctionsCheck    counterparty + commodity sanctions match
@@ -17,7 +17,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_submit_trade"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_submit_trade" name="shosha submit trade" isExecutable="true">
@@ -94,7 +94,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.submitTrade&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;tradeId&quot;: tradeId, &quot;approvalState&quot;: approvalState, &quot;amountUsd&quot;: amountUsd }" target="attributes"/>
         </zeebe:ioMapping>
@@ -108,7 +108,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.submitTrade.complyFail&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;counterparty&quot;: counterparty, &quot;commodity&quot;: commodity, &quot;flags&quot;: complyFlags }" target="attributes"/>
         </zeebe:ioMapping>

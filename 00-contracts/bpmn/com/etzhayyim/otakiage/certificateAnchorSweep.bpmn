@@ -14,14 +14,14 @@
   gas cost when Phase 2b2 wires real on-chain calls.
 
   NSID (informational): com.etzhayyim.apps.otakiage.certificateAnchorSweep
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/otakiage-certificate-anchor-sweep-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-certificate-anchor-sweep-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_otakiage_certificate_anchor_sweep"
-    targetNamespace="https://gftd.ai/bpmn/otakiage"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="otakiage_certificate_anchor_sweep" name="otakiage certificateAnchorSweep" isExecutable="true">
@@ -57,7 +57,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:otakiage.gftd.ai:ritual&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:ritual&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.certificateAnchorSweep&quot;" target="nsid"/>
           <zeebe:input source="={ processed: processed, submitted: submitted, anchored: anchored, failed: failed }" target="payload"/>
         </zeebe:ioMapping>

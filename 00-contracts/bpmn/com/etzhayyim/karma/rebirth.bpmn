@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — RebirthGate (悔い改め / 輪廻).
+  karma.etzhayyim.com — RebirthGate (悔い改め / 輪廻).
 
   Salvation mechanism. The old organism is sealed; the new organism
   starts with clean karma slate but PAYS the four irreversible costs:
@@ -30,7 +30,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_rebirth"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_rebirth" name="karma rebirth (samsara)" isExecutable="true">
@@ -145,7 +145,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.rebirth&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;oldDid&quot;: did, &quot;newDid&quot;: newDid, &quot;wbtForfeited&quot;: wbtForfeited, &quot;edgesPersisting&quot;: edgesPersisting, &quot;followsSeveredOut&quot;: followsSeveredOut, &quot;followsSeveredIn&quot;: followsSeveredIn, &quot;agentsRetrained&quot;: agentsRetrained }" target="attributes"/>
         </zeebe:ioMapping>
@@ -159,7 +159,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.rebirth.reject&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;did&quot;: did, &quot;newDid&quot;: newDid, &quot;reason&quot;: rejectedReason }" target="attributes"/>
         </zeebe:ioMapping>

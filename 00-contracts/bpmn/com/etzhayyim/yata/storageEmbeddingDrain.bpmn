@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  yatabase.gftd.ai — embedding queue drain (autonomous, R/PT5M).
+  yatabase.etzhayyim.com — embedding queue drain (autonomous, R/PT5M).
 
   Reads `mv_yata_blob_embedding_queue` (blobs with embedding_status='pending'),
   picks up to 32 blobs per tick, downloads bytes from B2, posts to RunPod
@@ -16,7 +16,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_storage_embedding_drain"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_storage_embedding_drain" name="yata embedding queue drain (5min)" isExecutable="true">
@@ -46,7 +46,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yatabase.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.yata.storageEmbeddingDrain&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;processed&quot;: processed, &quot;failed&quot;: failed }" target="attributes"/>
         </zeebe:ioMapping>

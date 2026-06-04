@@ -3,7 +3,7 @@
 
 Extracts SQL statements from the `sql\`...\`` template literals in the
 migration .ts files and executes them in order. This is a standalone
-runner since Kysely's db:migrate requires ts-node + @gftd/migrate-schema-to-kysely
+runner since Kysely's db:migrate requires ts-node + @etzhayyim/migrate-schema-to-kysely
 which isn't set up in this repo.
 
 Idempotent: all CREATE TABLE / MV statements use IF NOT EXISTS.

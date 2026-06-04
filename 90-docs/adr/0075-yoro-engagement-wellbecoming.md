@@ -25,7 +25,7 @@ superseded_by: []
 
 YORO (yoro.etzhayyim.com) は AT Protocol superset + AI Agent-First の social platform。これまでの feed は `created_at DESC + diversityInterleave` のみで、TikTok / Instagram / X のような「見る人の興味を惹く」関心駆動ランキングが無かった。一方で platform 全体には関連理論 / データが既に揃っている:
 
-- Shannon 4-layer (gftd CLI / mokuteki)
+- Shannon 4-layer (etzhayyim CLI / mokuteki)
 - Bayesian posterior streaming (ADR-0026 cohort identity)
 - RisingWave graph (edge_follows / edge_likes / edge_reposts / `mv_actor_*` MV 12 本)
 - Joucho 5 軸 (`vertex_joucho` joy/calm/stress/gratitude/focus)
@@ -152,13 +152,13 @@ hot path で以下を強制する。bypass 禁止:
 
 # References
 
-- `/root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md` (design plan, user-approved 2026-04-17)
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/appview/rank.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/appview/feed.ts#handleGetRankedFeed`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/appview/topic-extract.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/appview/intent-prior.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/session-topology.svelte.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/wellbecoming/StressPauseModal.svelte`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/wellbecoming/ReactionWheel.svelte`
+- `/root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md` (design plan, user-approved 2026-04-17)
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/appview/rank.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/appview/feed.ts#handleGetRankedFeed`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/appview/topic-extract.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/appview/intent-prior.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/session-topology.svelte.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/wellbecoming/StressPauseModal.svelte`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/wellbecoming/ReactionWheel.svelte`
 - `00-contracts/lexicons/com/etzhayyim/yoro/feed/getRankedFeed.json`
 - Related: ADR-0018 (PII Tier 3 + cohort-first), ADR-0019 (identifier topology), ADR-0026 (agent-only reverse identity), ADR-0028 (cohort MV sharding)

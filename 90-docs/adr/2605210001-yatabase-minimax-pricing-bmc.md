@@ -264,7 +264,7 @@ Cost breakdown:
                       |   (yatabase, lawfirm,                        |   pages             |
                       |   shinshi, animeka) |                       | - Twitter / Reddit  |
                       | - AT Protocol mesh  |                       |   (r/MachineLearning|
-                      | - did:gftd identity |                       |   r/dataengineering)|
+                      | - did:etzhayyim identity |                       |   r/dataengineering)|
                       +---------------------+-----------------------+---------------------+
 | Cost Structure                                  | Revenue Streams                                          |
 +-------------------------------------------------+----------------------------------------------------------+

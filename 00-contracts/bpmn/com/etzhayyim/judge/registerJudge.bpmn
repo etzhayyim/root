@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_judge_register_judge" targetNamespace="https://gftd.ai/bpmn/judge" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_judge_register_judge" targetNamespace="https://etzhayyim.ai/bpmn/judge" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="judge_register_judge" name="registerJudge" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Insert"/>
@@ -7,7 +7,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_judge&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:judge.gftd.ai:&quot; + jurisdiction + &quot;:&quot; + judgeSlug + &quot;/com.etzhayyim.apps.judge.profile/self&quot;, judge_did: &quot;did:web:judge.gftd.ai:&quot; + jurisdiction + &quot;:&quot; + judgeSlug, full_name: fullName, full_name_local: fullNameLocal, court_did: courtDid, court_level: courtLevel, jurisdiction: jurisdiction, appointed_at: appointedAt, retired_at: retiredAt, specializations_csv: specializations, biography_uri: biographyUri, owner_did: &quot;did:web:judge.gftd.ai&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:judge.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + judgeSlug + &quot;/com.etzhayyim.apps.judge.profile/self&quot;, judge_did: &quot;did:web:judge.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + judgeSlug, full_name: fullName, full_name_local: fullNameLocal, court_did: courtDid, court_level: courtLevel, jurisdiction: jurisdiction, appointed_at: appointedAt, retired_at: retiredAt, specializations_csv: specializations, biography_uri: biographyUri, owner_did: &quot;did:web:judge.etzhayyim.com&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
           <zeebe:input source="=&quot;upsert&quot;" target="onConflict"/>
           <zeebe:output source="=vertex_id" target="vertexId"/>
           <zeebe:output source="=row.judge_did" target="did"/>

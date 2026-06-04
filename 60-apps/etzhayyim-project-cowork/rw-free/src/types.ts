@@ -1,7 +1,7 @@
 /**
- * cowork rw-free — RW-free product-front for the GFTD Cowork M365 collaboration
+ * cowork rw-free — RW-free product-front for the Etzhayyim Cowork M365 collaboration
  * graph. Maximal migration of the Microsoft 365 collaboration data layer
- * (directory / mail / Teams / calendar / files / BPMN tasks) off gftd onto the
+ * (directory / mail / Teams / calendar / files / BPMN tasks) off etzhayyim onto the
  * etzhayyim substrate.
  *
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
@@ -26,7 +26,7 @@
  *                      catalog is sealed E2E (downloadUrl is NEVER fronted).
  *     formTask         BPMN human-task assignment (assigneeDid / projectRef).
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION:
  *     * M365 Graph API ingest + OAuth / credential / secret custody (raw token
  *       custody is regulated; never fronted).

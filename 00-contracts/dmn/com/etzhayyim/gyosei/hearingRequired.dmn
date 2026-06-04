@@ -4,7 +4,7 @@
   xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
   id="Definitions_gyosei_hearing_required"
   name="gyosei_hearing_required"
-  namespace="https://gftd.ai/dmn/gyosei">
+  namespace="https://etzhayyim.ai/dmn/gyosei">
   <decision id="gyosei_hearing_required" name="gyosei_hearing_required">
     <decisionTable id="DecisionTable_gyosei_hearing_required" hitPolicy="FIRST">
       <input id="Input_dispositionType">

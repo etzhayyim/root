@@ -238,7 +238,7 @@
     "description": "Cross-site product matching and offer comparison. Tracks merchant offers, total landed price, availability, and price history deltas.",
     "displayName": "Kakaku Price Comparison",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

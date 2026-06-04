@@ -142,7 +142,7 @@ def fetch_edgar(cik):
     cik = cik.zfill(10)
     url = f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
     org = EDGAR_CIK_TO_ORG.get(cik, f"org.corp.us.cik{cik}")
-    req = urllib.request.Request(url, headers={"User-Agent": "etzhayyim-kanjo research jun@gftd.group"})
+    req = urllib.request.Request(url, headers={"User-Agent": "etzhayyim-kanjo research jun@etzhayyim.group"})
     with urllib.request.urlopen(req, timeout=30) as r:  # noqa: S310 (gated, trusted gov host)
         return parse_edgar_companyfacts(json.load(r), org)
 

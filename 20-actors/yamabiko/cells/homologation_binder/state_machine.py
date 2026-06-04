@@ -17,7 +17,7 @@ class HomologationPhase(Enum):
     SERIAL_ASSIGNED = "serial_assigned"
     TRAINSET_DID_ISSUED = "trainset_did_issued"
     HOMOLOGATION_AUTHORITY_REVIEW = "homologation_authority_review"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -30,7 +30,7 @@ class HomologationState:
     serial: str | None = None
     trainsetDid: str | None = None
     authorityReview: dict[str, Any] | None = None
-    yatachainAnchor: dict[str, Any] | None = None
+    kotoba-datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -80,9 +80,9 @@ def transition_to_homologation_authority_review(state: dict[str, Any]) -> dict[s
     return {"homologation_state": s.__dict__, "next_node": "anchor"}
 
 
-def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = HomologationState(**state.get("homologation_state", {}))
-    s.yatachainAnchor = {
+    s.kotoba-datomicAnchor = {
         "membraneNamespace": "com.etzhayyim.yamabiko",
         "anchorTxHash": "0xYAMABIKOHOMOLOGATION...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
@@ -90,7 +90,7 @@ def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
         "g2Compliant": True,
         "openTrainsetRegistry": True,
     }
-    s.phase = HomologationPhase.YATACHAIN_ANCHORED
+    s.phase = HomologationPhase.KOTOBA_DATOMIC_ANCHORED
     s.completionPct = 90
     return {"homologation_state": s.__dict__, "next_node": "record"}
 
@@ -106,7 +106,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "trainsetDid": s.trainsetDid,
         "upstreamRecords": s.upstreamRecords,
         "authorityReview": s.authorityReview,
-        "yatachainAnchor": s.yatachainAnchor,
+        "kotoba-datomicAnchor": s.kotoba-datomicAnchor,
         "recordedAt": "2026-05-27T13:30:00Z",
     }
     return {"homologation_state": s.__dict__, "homologation_record": record, "next_node": "end"}

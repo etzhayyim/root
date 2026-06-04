@@ -322,7 +322,7 @@ contract KawaseYuiPool {
 ### 14 immutable gates G1..G14
 
 - **G1**: Charter Rider §2(a)-(h) scan on every send memo + every jurisdictionAttestation legal analysis + every rebalanceAttestation justification.
-- **G2**: yatachain → kotoba attestation lineage MANDATORY (matchExecution + rebalanceAttestation + silenKawaseReview).
+- **G2**: kotoba-datomic → kotoba attestation lineage MANDATORY (matchExecution + rebalanceAttestation + silenKawaseReview).
 - **G3**: Adherent SBT↔SBT only — structural in Solidity `onlyAdherent` modifier on both deposit and claim. Non-SBT participation categorically rejected.
 - **G4**: Mid-market Chainlink oracle ±0.5% band — `Constitution.sol` const `kawase.max_band_bps = 50`. Out-of-band halts all matches; Council Lv6+ ≥3 attestation required to resume.
 - **G5**: NO spread profit — `silenKawaseReview.spreadProfitMkoto` const 0; structural enforcement. Operator compensation comes from mKOTO economy royalty pool, NOT from FX spread.

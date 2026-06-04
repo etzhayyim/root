@@ -301,7 +301,7 @@ mv_ses_anken_active
 ### CF Worker scaffold
 
 ```
-60-apps/ai-gftd-project-ses/
+60-apps/etzhayyim-project-ses/
 ├─ magatama.jsonld          T3 dispatcher actor
 ├─ wrangler.jsonc           ses.etzhayyim.com/* + PDS_SERVICE / AUTHN_SERVICE binding (HYPERDRIVE なし)
 ├─ package.json
@@ -338,7 +338,7 @@ mv_ses_anken_active
 ### AppView (Phase 4)
 
 ```
-60-apps/ai-gftd-project-ses/
+60-apps/etzhayyim-project-ses/
 ├─ wrangler.jsonc          SES_MCP_URL = "" (set to ses-api.etzhayyim.com after tunnel infra)
 └─ svelte/src/
    ├─ lib/
@@ -394,7 +394,7 @@ intra-job で LLM call が ≥2 (classifier + extractor)、かつ `update_jokyo`
 
 - **[Phase 3 完了 2026-05-14]** `source_kind='email_cron'` を `state.py` の Literal に追加済み。`outlook_pull.py` で Graph API client_credentials + differential fetch (cursor = `vertex_m365_sync_state`, `vertex_id=sha256(upn|data_kind)[:16]`)。CronJob `ses-outlook-cron` (*/15 Asia/Tokyo, concurrencyPolicy: Forbid) が `mitama-udf` namespace に稼働。
 - **[Phase 4 コード完了 2026-05-14]** `server.py` に `POST /mcp` 追加 (version 0.3.0)。3 MCP tools (listAnken / getAnken / listJokyo)、`sync_cursor()` + `asyncio.to_thread()`、LIMIT/OFFSET インライン展開、`jokyo_current` は correlated subquery (`mv_ses_anken_latest_jokyo` MV 依存なし)。`jokyo_prev` 列は `vertex_ses_jokyo` に存在しないため `None` を返す（schema gap、Phase B-2 以降の対処対象）。Svelte AppView `/anken` + `/anken/[id]` route 実装済み。**live 化には Cloudflare Tunnel ingress rule `ses-api.etzhayyim.com → ses-langgraph.mitama-udf.svc:8000` + DNS CNAME + `SES_MCP_URL` 設定 + image rebuild + helm upgrade が必要**。
-- **[Phase 5 完了 2026-05-19]** `outlook_pull.py` に `_delete_message()` 追加 — 成功パスのみ `DELETE /users/{upn}/messages/{id}` (Graph API)。失敗は warning ログで非 fatal (cursor は前進)。戻り値に `deleted` カウンタ追加。**Mail.ReadWrite** application permission が Azure AD 側で必要 (Mail.Read のみだと 403、warn で無視される)。`Dockerfile.ses` 新規作成。`deployment.yaml`: image tag `0.3.0` → `0.4.0-amd64`、env var 名を `M365_*` → `AZURE_*` に修正 (server.py は `AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET` を読む)。`cronjob.yaml`: `suspend: true` → `suspend: false` で 15 分 cron 常駐開始。`ghcr.io/etzhayyim/lg-ses:0.4.0-amd64` build 済み (remote BuildKit gftd-vke-local)。health: `{m365_creds_configured:true, phase:'3'}`。
+- **[Phase 5 完了 2026-05-19]** `outlook_pull.py` に `_delete_message()` 追加 — 成功パスのみ `DELETE /users/{upn}/messages/{id}` (Graph API)。失敗は warning ログで非 fatal (cursor は前進)。戻り値に `deleted` カウンタ追加。**Mail.ReadWrite** application permission が Azure AD 側で必要 (Mail.Read のみだと 403、warn で無視される)。`Dockerfile.ses` 新規作成。`deployment.yaml`: image tag `0.3.0` → `0.4.0-amd64`、env var 名を `M365_*` → `AZURE_*` に修正 (server.py は `AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET` を読む)。`cronjob.yaml`: `suspend: true` → `suspend: false` で 15 分 cron 常駐開始。`ghcr.io/etzhayyim/lg-ses:0.4.0-amd64` build 済み (remote BuildKit etzhayyim-vke-local)。health: `{m365_creds_configured:true, phase:'3'}`。
 - エンジニアマッチング推薦を Phase B で追加する場合は `edge_ses_anken_engineer` の `confidence` 列を追記し、別 ADR を参照させる
 
 ## Migration plan

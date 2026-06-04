@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  training.gftd.ai - listRuns query (XRPC com.etzhayyim.apps.training.listRuns).
+  training.etzhayyim.com - listRuns query (XRPC com.etzhayyim.apps.training.listRuns).
   ADR-2605070700 + Addendum-of-Addendum.
 
   Read-only SELECT over vertex_training_run. Audit step omitted to keep
@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_training_list_runs"
-    targetNamespace="https://gftd.ai/bpmn/training"
+    targetNamespace="https://etzhayyim.ai/bpmn/training"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="training_list_runs" name="training list runs" isExecutable="true">

@@ -48,7 +48,7 @@ related:
 
 ```bash
 # 1) Keychain から API key
-RUNPOD_API_KEY=$(security find-generic-password -s gftd.runpod -a API_KEY -w)
+RUNPOD_API_KEY=$(security find-generic-password -s etzhayyim.runpod -a API_KEY -w)
 
 # 2) volume 状態確認 (mount されていないことの最終確認)
 curl -sS https://api.runpod.io/graphql \
@@ -155,7 +155,7 @@ kubectl -n geth-private patch svc caddy-blockscout-tls -p '{"spec":{"type":"Clus
 # 2) caddy Deployment を削除 (CF Origin Cert も不要)
 kubectl -n geth-private delete deploy caddy-tls-proxy
 # 3) Vultr LB 削除 (Vultr API 経由)
-VULTR_API_KEY=$(security find-generic-password -s gftd.vultr -a API_KEY -w)
+VULTR_API_KEY=$(security find-generic-password -s etzhayyim.vultr -a API_KEY -w)
 LB_ID=$(curl -sS https://api.vultr.com/v2/load-balancers \
   -H "Authorization: Bearer $VULTR_API_KEY" \
   | jq -r '.load_balancers[] | select(.ipv4=="149.248.2.241") | .id')
@@ -209,9 +209,9 @@ Unified 復元は worst-case (RunPod outage) が現状と等価、それ以外�
 
 ### Stage A: Docker build (✅ done 2026-05-07)
 
-**Canonical build path** = `50-infra/runpod/vllm-gemma-image/` (NOT `60-apps/ai-gftd-project-runpod/unified-pod` — runbook 初版の誤記。ADR-2605010000 L147 が正)。
+**Canonical build path** = `50-infra/runpod/vllm-gemma-image/` (NOT `60-apps/etzhayyim-project-runpod/unified-pod` — runbook 初版の誤記。ADR-2605010000 L147 が正)。
 
-**経路選択**: 本 repo は GH Actions 不使用方針 (lefthook ローカル hook のみ)。`.github/workflows/runpod-vllm-gemma-image.yml` は legacy。2026-05-07 以降は **BuildKit remote build (`gftd-vke`) で push** が canonical。
+**経路選択**: 本 repo は GH Actions 不使用方針 (lefthook ローカル hook のみ)。`.github/workflows/runpod-vllm-gemma-image.yml` は legacy。2026-05-07 以降は **BuildKit remote build (`etzhayyim-vke`) で push** が canonical。
 
 ```bash
 echo "$(gh auth token)" | docker login ghcr.io -u "$(gh api user -q .login)" --password-stdin
@@ -219,7 +219,7 @@ echo "$(gh auth token)" | docker login ghcr.io -u "$(gh api user -q .login)" --p
 TS=$(date +%Y%m%d-%H%M)
 docker buildx build \
   --platform linux/amd64 \
-  --builder gftd-vke \
+  --builder etzhayyim-vke \
   --tag ghcr.io/etzhayyim/runpod-vllm-gemma:${TS}-amd64 \
   --tag ghcr.io/etzhayyim/runpod-vllm-gemma:v1 \
   --tag ghcr.io/etzhayyim/runpod-vllm-gemma:latest \
@@ -243,7 +243,7 @@ docker manifest inspect ghcr.io/etzhayyim/runpod-vllm-gemma:latest \
 Pod を terminate せず in-place で template image を変更 → RunPod が pod restart で新 image pull。
 
 ```bash
-RUNPOD_API_KEY=$(security find-generic-password -s gftd.runpod -a API_KEY -w)
+RUNPOD_API_KEY=$(security find-generic-password -s etzhayyim.runpod -a API_KEY -w)
 
 # 現 pod template を取得
 curl -sS https://api.runpod.io/graphql \
@@ -288,7 +288,7 @@ ADR §163 に列挙された箇所が pod ID 維持のため **変更不要**:
 
 - `50-infra/cloudflare/workers/comfyui/wrangler.jsonc` `UPSTREAM_URL` (pod ID 同じ)
 - `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` `LLM_CHAT_COMPLETIONS_URL` + `etzhayyim_LLM_URL`
-- `60-apps/ai-gftd-project-shinshi/.../wrangler.jsonc` `COMFY_POD_URL`
+- `60-apps/etzhayyim-project-shinshi/.../wrangler.jsonc` `COMFY_POD_URL`
 
 ただし wait, image 変更で port が変わるなら URL 確認。LiteLLM :4000 と vLLM :8000 が起動することを Stage C で確認後、`LLM_CHAT_COMPLETIONS_URL` が `:4000` を指していることを再確認。
 

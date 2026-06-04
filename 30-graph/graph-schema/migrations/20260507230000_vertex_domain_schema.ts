@@ -15,7 +15,7 @@ import { sql } from "kysely";
  *   vertex_domain_tld                 TLD catalog (.law / .lawyer / ...)
  *   vertex_domain_registrar           registrar catalog (cloudflare / namecheap / ...)
  *   vertex_domain_eligibility_advice  TLD × jurisdiction × regulator advisory
- *   vertex_domain_registration        gftd-side registration ledger (draft → active)
+ *   vertex_domain_registration        etzhayyim-side registration ledger (draft → active)
  *   vertex_domain_legal_regulator     legal regulator catalog (JFBA / ABA / SRA / ...)
  *   edge_domain_registrar_supports_tld   registrar ⇄ TLD support matrix
  *   edge_domain_tld_accepts_regulator    TLD ⇄ accepted Legal Regulator

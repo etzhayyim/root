@@ -1,6 +1,6 @@
 ---
 id: adr-2605231902-feed-post-membrane-and-feed-discover-projection
-title: "ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end yatachain §4 + projection slice"
+title: "ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end kotoba-datomic §4 + projection slice"
 status: proposed
 doc_type: adr
 topic: feed-post-membrane-and-feed-discover-projection
@@ -10,8 +10,8 @@ priority: 7.5
 axis: substrate-execution
 weight: 0.8
 authoritative_for:
-  - "First yatachain §4 (L1+L2+L3) membrane implementation contract — app.bsky.feed.post"
-  - "First yatachain-projection L1 conformance instance — feed-discover"
+  - "First kotoba-datomic §4 (L1+L2+L3) membrane implementation contract — app.bsky.feed.post"
+  - "First kotoba-datomic-projection L1 conformance instance — feed-discover"
   - "Membrane → projection wire (verdict sidecar drives projection)"
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
@@ -21,8 +21,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192400-etzhayyim-eros-gore-council-judging
-  - adr-2605231400-yatachain-holochain-iso-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2605231500-kotoba-datomic-projection
 related:
   - 70-tools/seed-post/
   - 00-contracts/policies/app/bsky/feed/
@@ -34,7 +34,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end yatachain §4 + projection slice
+# ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end kotoba-datomic §4 + projection slice
 
 **Status**: proposed
 **Date**: 2026-05-23
@@ -51,17 +51,17 @@ operating correctly. Two underlying gaps:
    (`Etzhayyim.read` → PDS `listRecords`) was working, but no
    `app.bsky.feed.post` record existed in the operator's MST. There was
    no operator-facing CLI to seed one, and `Etzhayyim.write` had no
-   yatachain §4 membrane in front of it.
+   kotoba-datomic §4 membrane in front of it.
 
-2. **Discover was bounded to a single DID.** [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md)
-   names the substrate composition and [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md)
+2. **Discover was bounded to a single DID.** [ADR-2605231400](/90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)
+   names the substrate composition and [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md)
    defines the derived-read-path contract. Neither named a concrete first
    instance for `app.bsky.feed.post`. `yoro-rw-free/src/feed.ts:8-10`
    carried the TODO comment: *"Cross-DID discovery is a Relay /
    mst-projector index concern, tracked in ADR-2605191358 — until that
    lands, 'Discover' = posts published into the operator's own MST."*
 
-The user request — "yatachain ベースで投稿を表示するには" — surfaced
+The user request — "kotoba-datomic ベースで投稿を表示するには" — surfaced
 both gaps and required them to be addressed together: seeding without a
 membrane skips the L3 verdict; a membrane without a projection still
 only shows the operator's own posts.
@@ -87,7 +87,7 @@ membrane runs in **trail-and-attest mode**: every write that lands in
 the MST gets a sidecar verdict record, and the projection enforces
 rejection downstream.
 
-### 2. yatachain §4 membrane for `app.bsky.feed.post`
+### 2. kotoba-datomic §4 membrane for `app.bsky.feed.post`
 
 The first concrete `(L1, L2, L3)` triple:
 
@@ -115,9 +115,9 @@ run without OPA when no sidecar is configured. CI hook
 `charter-rider-rego-mirror` diffs the two pattern sets at build time;
 drift fails the build (placeholder — hook itself is future work).
 
-### 3. `feed-discover` yatachain-projection (L1 conformance)
+### 3. `feed-discover` kotoba-datomic-projection (L1 conformance)
 
-The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md):
+The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md):
 
 - **Emitter**: `50-infra/mst-projector/src/feed-discover.ts` — extends
   the existing mst-projector daemon with a cross-DID in-memory sorted
@@ -130,7 +130,7 @@ The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-yatachai
   `com.etzhayyim.projection.feedDiscover` record with `items[]` sorted
   by `indexedAt` desc, `cursor` + `firstSeq` for replay resume, and
   per-item `verdict` annotation.
-- **Manifest**: `50-infra/mst-projector/projection/yatachain-projection.toml` —
+- **Manifest**: `50-infra/mst-projector/projection/kotoba-datomic-projection.edn` —
   declares lexicon / source collections / supplementary collections
   (membrane sidecar) / rebuild runbook / ADR provenance / intentional
   non-determinism (snapshotAt excluded from L2 comparator).
@@ -141,10 +141,10 @@ The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-yatachai
   fixed firehose fixture (3 DIDs × 3 posts + update + delete + 3
   verdicts) replayed and byte-compared against golden. Regenerate with
   `ETZ_REGEN_GOLDEN=1 pnpm test`. Per
-  [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) §"Three
+  [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md) §"Three
   conformance levels" L1: "Rebuild tool exists and is exercised in CI" —
   this test IS the CI exercise.
-- **Read consumer**: `60-apps/ai-gftd-project-yoro/rw-free/src/feed.ts`
+- **Read consumer**: `60-apps/etzhayyim-project-yoro/rw-free/src/feed.ts`
   `getTimeline` + `getDiscoverFeed` consult
   `EtzhayyimConfig.projectionDiscoverDid` when set (wired via
   `@etzhayyim/sdk-auth` `SessionEnv.PROJECTION_DISCOVER_DID` and the
@@ -185,7 +185,7 @@ scope here.
 
 ### Positive
 
-- **First end-to-end yatachain §4 instance** — concrete `(L1, L2, L3)`
+- **First end-to-end kotoba-datomic §4 instance** — concrete `(L1, L2, L3)`
   triple shipped for one NSID. Future NSIDs follow the same template:
   add Rego, add Pregel cell, register in fleet.toml.
 - **First L1-projection in CI** — the L0→L1 conformance step is no
@@ -232,7 +232,7 @@ scope here.
 
 - **Does not change [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) prohibitions** —
   the projection is explicitly carved out as a derived-read path per
-  [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md), not a state store.
+  [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md), not a state store.
 - **Council vote not required** — additive lexicons, additive policy,
   additive projection. The Charter Rider categories enforced are the
   same ones already in `pymagatama.organism.sensors.charter_rider`;
@@ -266,13 +266,13 @@ architectural gap.
 
 ### D. Use Workers KV or a Durable Object for the projection
 
-Status: rejected per [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md)
+Status: rejected per [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md)
 §"Prohibited even for projections" — *"Workers KV writes are fire-and-
 forget without commit ack, which violates (2). KV is acceptable for
 read-only projection caches but not as the write surface a Worker
 confirms back to the client."* The current in-memory + AT-record-emit
 shape keeps the projection's canonical state in the projector DID's MST
-(which is itself yatachain-chain), so the projection sits one layer of
+(which is itself kotoba-datomic-chain), so the projection sits one layer of
 indirection from the firehose and is replayable.
 
 ### E. Use RisingWave for the projection (Bluesky-AppView pattern)
@@ -297,8 +297,8 @@ both become reasonable.
 - [ADR-2605192100](/90-docs/adr/2605192100-etzhayyim-mission-charter.md) — mission charter (§1.13 Eros/Gore, §1.15 non-eschatological)
 - [ADR-2605192200](/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md) — Charter Compliance Rider §2(a)..(h)
 - [ADR-2605192400](/90-docs/adr/2605192400-etzhayyim-eros-gore-council-judging.md) — gore educational-context override
-- [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) — yatachain SPEC §4 membrane
-- [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) — projection conformance levels
+- [ADR-2605231400](/90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md) — kotoba-datomic SPEC §4 membrane
+- [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md) — projection conformance levels
 - [ADR-2605231525](/90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md) — no platform-held keys
 - `70-tools/seed-post/` — operator CLI
 - `00-contracts/policies/app/bsky/feed/{policy.rego, test.rego}` — L2
@@ -306,9 +306,9 @@ both become reasonable.
 - `00-contracts/lexicons/com/etzhayyim/membrane/verdict.json` — sidecar lexicon
 - `00-contracts/lexicons/com/etzhayyim/projection/feedDiscover.json` — projection lexicon
 - `50-infra/mst-projector/src/feed-discover.ts` — projection emitter
-- `50-infra/mst-projector/projection/{yatachain-projection.toml, REBUILD.md}` — manifest + runbook
+- `50-infra/mst-projector/projection/{kotoba-datomic-projection.edn, REBUILD.md}` — manifest + runbook
 - `50-infra/mst-projector/test/feed-discover.replay.test.ts` — L1 conformance smoke
-- `60-apps/ai-gftd-project-yoro/rw-free/src/feed.ts` — projection read path
+- `60-apps/etzhayyim-project-yoro/rw-free/src/feed.ts` — projection read path
 
 ## Implementation status (this ADR)
 

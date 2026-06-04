@@ -36,7 +36,7 @@ Session opened on "https://etzhayyim.com/ への登録アクターは world cove
 
 ## Search 502 root cause + fix
 `/search` called the decommissioned legacy AppView host `bsky.etzhayyim.com`
-(`ai-gftd-appview` binding force-deleted → 502 `検索に失敗しました`). Repointed the
+(`etzhayyim-appview` binding force-deleted → 502 `検索に失敗しました`). Repointed the
 reader to the same-origin apex substrate path (`/xrpc` → etzhayyim-did-web →
 yoro-xrpc-adapter), the ADR-2605172000 RW-free read path (yoro commit `b94484a5d`).
 

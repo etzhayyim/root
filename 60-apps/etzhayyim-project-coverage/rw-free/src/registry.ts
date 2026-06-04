@@ -12,7 +12,7 @@
  * filter; get = scan + find by id).
  *
  * Regulated EXECUTION (GPU/LLM embed + LDA inference compute, crawl/ingest
- * pipeline, cohort-fission actor-DID minting) stays gftd, consumed via
+ * pipeline, cohort-fission actor-DID minting) stays etzhayyim, consumed via
  * consent-capability — not represented as a collection here.
  */
 

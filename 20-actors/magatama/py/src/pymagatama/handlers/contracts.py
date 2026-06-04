@@ -4,7 +4,7 @@ ADR-0049 contracts pilot — contracts.etzhayyim.com on shared Python UDF pool.
 Projects the existing `vertex_legal_entity` (123.5M rows, ingested by
 `legal-entity.etzhayyim.com`) into a DID-addressed view under
 `social-contract.etzhayyim.com:entity:*` per the 3-layer DID pattern in
-`60-apps/ai-gftd-project-social-contract/CLAUDE.md`.
+`60-apps/etzhayyim-project-social-contract/CLAUDE.md`.
 
 Phase 1 surface:
 - `com.etzhayyim.apps.contracts.mintOrganizationDid`      (procedure, DB-only)
@@ -107,7 +107,7 @@ _INSERT_ORGANIZATION = """
         $7, $8, $9, $10, $11, $12, $13,
         $14, $15, $16, $17,
         $18, $19, $20, $21,
-        $22, 'gftd', 'system', $23
+        $22, 'etzhayyim', 'system', $23
     )
     ON CONFLICT (vertex_id) DO NOTHING
     RETURNING vertex_id
@@ -383,7 +383,7 @@ _INSERT_SOCIAL_CONTRACT = """
         $5, $6, $7,
         $8, $9, $10, $11, $12,
         $13, $14, $15, $16,
-        $17, 'gftd', 'system', $18
+        $17, 'etzhayyim', 'system', $18
     )
     ON CONFLICT (vertex_id) DO NOTHING
     RETURNING vertex_id

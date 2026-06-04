@@ -1,4 +1,4 @@
-# ai-gftd-project-media-gamers — Project Runbook
+# etzhayyim-project-media-gamers — Project Runbook
 
 ## Project Overview
 
@@ -79,7 +79,7 @@ media_gamers.translation {
 
 ## W Protocol Lexicon (CRITICAL)
 
-**全 AT Record は `com.etzhayyim.apps.media_gamers.*` namespace。** WIT = `gftd:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
+**全 AT Record は `com.etzhayyim.apps.media_gamers.*` namespace。** WIT = `etzhayyim:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
 
 | Kind | AT Collection NSID | 説明 |
 |---|---|---|
@@ -401,8 +401,8 @@ Write は PDS XRPC (`https://atproto.etzhayyim.com/xrpc/*`) が標準パス。wo
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-media-gamers/wasm/media-gamers-7m8oocsn
-gftd deploy       # account-level Worker
+cd 60-apps/etzhayyim-project-media-gamers/wasm/media-gamers-7m8oocsn
+etzhayyim deploy       # account-level Worker
 ```
 
 ## API Endpoints

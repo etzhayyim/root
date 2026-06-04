@@ -62,7 +62,7 @@ spec:
             - name: B2_APPLICATION_KEY
               valueFrom: { secretKeyRef: { name: atproto-pds-secrets, key: B2_APPLICATION_KEY } }
             - name: B2_BUCKET
-              value: "ai-gftd-cache"
+              value: "etzhayyim-cache"
             - name: SS_REPO_SIGNING_KEK
               valueFrom: { secretKeyRef: { name: atproto-pds-secrets, key: SS_REPO_SIGNING_KEK } }
             - name: SS_SIGNING_KEY

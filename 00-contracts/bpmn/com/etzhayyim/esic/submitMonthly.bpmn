@@ -11,7 +11,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_esic_submit_monthly"
-    targetNamespace="https://gftd.ai/bpmn/esic"
+    targetNamespace="https://etzhayyim.ai/bpmn/esic"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="esic_submit_monthly" name="ESIC monthly contribution" isExecutable="true">
@@ -171,7 +171,7 @@
               triggerSource:                         &quot;com.etzhayyim.apps.esic.finalize&quot;,
               challanReference:                      string(verdict.challanReference)
           }" target="payload"/>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:esic&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:esic&quot;" target="callerDid"/>
           <zeebe:output source="=ok" target="kaikeiPropagated"/>
           <zeebe:output source="=status" target="kaikeiHttpStatus"/>
         </zeebe:ioMapping>
@@ -185,7 +185,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:esic&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:esic&quot;" target="actor"/>
           <zeebe:input source="=&quot;esic.submitMonthly.approve&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:                vertexId,
@@ -241,7 +241,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:esic&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:esic&quot;" target="actor"/>
           <zeebe:input source="=&quot;esic.submitMonthly.reject&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:             vertexId,

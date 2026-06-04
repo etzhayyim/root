@@ -45,12 +45,12 @@ class TestResolveBase:
         base = _resolve_base("com.etzhayyim.apps.unknown_slug.foo", app=None, url=None)
         assert base == "https://atproto.etzhayyim.com"
 
-    def test_non_ai_gftd_apps_nsid_falls_back_to_pds(self, monkeypatch):
+    def test_non_ai_etzhayyim_apps_nsid_falls_back_to_pds(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_PDS_URL", raising=False)
         base = _resolve_base("com.atproto.server.describeServer", app=None, url=None)
         assert base == "https://atproto.etzhayyim.com"
 
-    def test_fallback_uses_gftd_pds_url_env(self, monkeypatch):
+    def test_fallback_uses_etzhayyim_pds_url_env(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_PDS_URL", "https://custom-pds.example.com")
         base = _resolve_base("com.atproto.server.describeServer", app=None, url=None)
         assert base == "https://custom-pds.example.com"

@@ -14,10 +14,10 @@
     "updatedAt": { "@id": "dct:modified", "@type": "xsd:dateTime" },
     "version": "dct:hasVersion"
   },
-  "id": "https://resources.etzhayyim.com/project/ai-gftd-project-resources",
+  "id": "https://resources.etzhayyim.com/project/etzhayyim-project-resources",
   "type": "schema:Dataset",
-  "name": "GFTD Resources",
-  "description": "Public JSON-LD entity resources for GFTD projects.",
+  "name": "Etzhayyim Resources",
+  "description": "Public JSON-LD entity resources for Etzhayyim projects.",
   "version": "0.1.0",
   "createdAt": "2026-02-15T00:00:00Z",
   "updatedAt": "2026-02-17T00:00:00Z"

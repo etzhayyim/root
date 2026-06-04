@@ -3,7 +3,7 @@
   Influence scoring pipeline — pure SQL, no LLM.
 
   NSID:       com.etzhayyim.apps.businessPerson.scoreInfluence
-  Owner DID:  did:web:business-person.gftd.ai
+  Owner DID:  did:web:business-person.etzhayyim.com
   Process ID: business_person_score_influence
 
   Fires every 24h (R/PT24H).
@@ -17,7 +17,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_business_person_score_influence"
-    targetNamespace="https://gftd.ai/bpmn/business-person"
+    targetNamespace="https://etzhayyim.ai/bpmn/business-person"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="business_person_score_influence" name="business person score influence" isExecutable="true">
@@ -76,7 +76,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:business-person.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:business-person.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;businessPerson.scoreInfluence.completed&quot;" target="action"/>
           <zeebe:input source="={scoresCount: scoresCount, recordsWritten: recordsWritten}" target="payload"/>
         </zeebe:ioMapping>

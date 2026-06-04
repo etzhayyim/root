@@ -399,7 +399,7 @@
     "description": "Timee-style ギグワーク + MTurk-style マイクロタスク。労働基準法準拠、OEM サービスプロバイダー登録パイプライン、Murakumo クレジット連携。",
     "displayName": "HC — Human Computing Platform",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

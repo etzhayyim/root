@@ -30,7 +30,7 @@ superseded_by: []
 # Context
 
 The National Diet Library (国立国会図書館 / NDL) ingest existed only in the
-**vendor** repo (`gftdcojp:60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/ndl_ingest.py`)
+**vendor** repo (`etzhayyimcojp:60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/ndl_ingest.py`)
 as a `kg_adapter` inside the commercial yatabase/kotobase Universal Knowledge
 Graph. It was RisingWave-backed (`vertex_ndl_*`, ~620k rows). The vendor RW
 adapter **stays in place** — this ADR does not move or delete it.
@@ -128,7 +128,7 @@ ported here** per the user's split of responsibilities.
 
 # References
 
-- vendor `60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/ndl_ingest.py` (source-fetch origin)
+- vendor `60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/ndl_ingest.py` (source-fetch origin)
 - `90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md`
 - `90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md`
 - vendor `90-docs/adr/2605302130-yatabase-rw-to-kotoba-datomic-...md` (kotoba-side refactor target)

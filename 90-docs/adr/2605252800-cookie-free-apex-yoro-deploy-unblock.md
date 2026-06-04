@@ -65,7 +65,7 @@ Pinned production version: `66f30a50-60c4-44a7-aa8c-64b03e2f2af4`. Live smoke ve
 
 ## 2. NoCookieBanner revival
 
-`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/components/NoCookieBanner.svelte`:
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/components/NoCookieBanner.svelte`:
 
 - Removed `const SHELVED = true; if (SHELVED) return;` early-exit.
 - Added `isReligiousCorpHost()` gate that confines the banner to `etzhayyim.com` / `*.etzhayyim.com` only (no leak to other domains where this codebase might be re-deployed).
@@ -88,7 +88,7 @@ Pinned to the smaller (21 MiB) dev tag that `@huggingface/transformers@3.8.1` re
 
 ## 4. sync-static.mjs rewrite
 
-`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/scripts/sync-static.mjs` was a `build/*` copier that no longer triggers (adapter-cloudflare writes to `static/` directly under `fallback: 'spa'`). Replaced with a pure mirror of `svelte/public/* → static/` so the previously-tracked static assets survive each build:
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/scripts/sync-static.mjs` was a `build/*` copier that no longer triggers (adapter-cloudflare writes to `static/` directly under `fallback: 'spa'`). Replaced with a pure mirror of `svelte/public/* → static/` so the previously-tracked static assets survive each build:
 
 ```js
 for (const name of readdirSync(publicDir)) {
@@ -99,7 +99,7 @@ for (const name of readdirSync(publicDir)) {
 
 ## 5. SvelteKit-aware Worker (adapter-cloudflare auto-gen)
 
-`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/worker.ts` is now the adapter-cloudflare generated entry (imports `Server` from `.svelte-kit/output/server/index.js`, delegates to `server.respond()`, falls through to `env.ASSETS.fetch()` for static files). This **replaces** the 60-LoC hand-written stub, which silently dropped every SvelteKit `+server.ts` route. Side effect of `main: "src/worker.ts"` in `wrangler.jsonc` + `fallback: 'spa'` — the adapter treats `src/worker.ts` as the canonical Worker emit location.
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/worker.ts` is now the adapter-cloudflare generated entry (imports `Server` from `.svelte-kit/output/server/index.js`, delegates to `server.respond()`, falls through to `env.ASSETS.fetch()` for static files). This **replaces** the 60-LoC hand-written stub, which silently dropped every SvelteKit `+server.ts` route. Side effect of `main: "src/worker.ts"` in `wrangler.jsonc` + `fallback: 'spa'` — the adapter treats `src/worker.ts` as the canonical Worker emit location.
 
 The overwrite is an upgrade in functional terms (sitemap, llms.txt, did.json, mcp, health, xrpc, sign-in, api/internal/cache/purge are now served), but **future builds will regenerate it**. To keep the file under version control without rewrite churn, either (a) accept that the Worker is build-output and gitignore + regenerate on deploy, or (b) commit the generated file and re-commit on each substantive build. This ADR chooses (b) for now — the file is tracked and updated alongside the deploy.
 

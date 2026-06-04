@@ -1,5 +1,5 @@
 //! Container runtime configuration — single-tenant (1 Container = 1 component).
-//! Source of truth is `magatama.jsonld`. The Go CLI (`gftd deploy`) generates
+//! Source of truth is `magatama.jsonld`. The Go CLI (`etzhayyim deploy`) generates
 //! this TOML from JSON-LD for Container deploys. This crate parses the generated TOML.
 
 use serde::{Deserialize, Serialize};
@@ -178,7 +178,7 @@ impl Default for PoolConfig {
 ///
 /// ```toml
 /// [interfaces]
-/// package = "gftd:handotai@0.1.0"
+/// package = "etzhayyim:handotai@0.1.0"
 ///
 /// [[interfaces.provides]]
 /// name = "news-feed"
@@ -188,7 +188,7 @@ impl Default for PoolConfig {
 /// phase = "operational"
 ///
 /// [[interfaces.requires]]
-/// package = "gftd:i18n@0.1.0"
+/// package = "etzhayyim:i18n@0.1.0"
 /// interface = "translate"
 /// functions = ["translate-text"]
 /// ```
@@ -258,7 +258,7 @@ pub struct InterfaceFunction {
 /// A WIT interface this app requires from another app.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RequiredInterface {
-    /// Target package (e.g. "gftd:i18n@0.1.0").
+    /// Target package (e.g. "etzhayyim:i18n@0.1.0").
     pub package: String,
     /// Target interface name (e.g. "translate").
     pub interface: String,
@@ -285,7 +285,7 @@ fn default_true() -> bool {
 /// ```toml
 /// [[extensions]]
 /// name = "trade"
-/// package = "gftd:trade@0.1.0"
+/// package = "etzhayyim:trade@0.1.0"
 /// component = "extensions/trade-ext.wasm"
 /// kinds = ["trade.order", "trade.cancel", "trade.*"]
 /// ```
@@ -431,13 +431,13 @@ path = "component.wasm"
 
 [[extensions]]
 name = "trade"
-package = "gftd:trade@0.1.0"
+package = "etzhayyim:trade@0.1.0"
 component = "extensions/trade-ext.wasm"
 kinds = ["trade.order", "trade.cancel"]
 
 [[extensions]]
 name = "notify"
-package = "gftd:notify@0.1.0"
+package = "etzhayyim:notify@0.1.0"
 component = "extensions/notify-ext.wasm"
 "#;
         let cfg = MagatamaConfig::from_str(toml).unwrap();
@@ -496,7 +496,7 @@ path = "component.wasm"
 [triggers]
 
 [interfaces]
-package = "gftd:handotai@0.1.0"
+package = "etzhayyim:handotai@0.1.0"
 
 [[interfaces.provides]]
 name = "news-feed"
@@ -521,13 +521,13 @@ functions = [
 tags = ["nlp", "translation"]
 
 [[interfaces.requires]]
-package = "gftd:i18n@0.1.0"
+package = "etzhayyim:i18n@0.1.0"
 interface = "translate"
 functions = ["translate-text", "detect-language"]
 preferred_tiers = [1]
 
 [[interfaces.requires]]
-package = "gftd:murakumo@0.1.0"
+package = "etzhayyim:murakumo@0.1.0"
 interface = "llm"
 functions = ["chat"]
 provider = "murakumo1"
@@ -535,7 +535,7 @@ allow_tier_fallback = false
 "#;
         let cfg = MagatamaConfig::from_str(toml).unwrap();
         let ifaces = cfg.interfaces.unwrap();
-        assert_eq!(ifaces.package, "gftd:handotai@0.1.0");
+        assert_eq!(ifaces.package, "etzhayyim:handotai@0.1.0");
 
         // Provided interfaces
         assert_eq!(ifaces.provides.len(), 2);
@@ -562,7 +562,7 @@ allow_tier_fallback = false
 
         // Required interfaces
         assert_eq!(ifaces.requires.len(), 2);
-        assert_eq!(ifaces.requires[0].package, "gftd:i18n@0.1.0");
+        assert_eq!(ifaces.requires[0].package, "etzhayyim:i18n@0.1.0");
         assert_eq!(ifaces.requires[0].interface, "translate");
         assert_eq!(
             ifaces.requires[0].functions,
@@ -584,7 +584,7 @@ path = "component.wasm"
 [triggers]
 
 [interfaces]
-package = "gftd:echo@0.1.0"
+package = "etzhayyim:echo@0.1.0"
 
 [[interfaces.provides]]
 name = "echo"
@@ -609,10 +609,10 @@ path = "component.wasm"
 [triggers]
 
 [interfaces]
-package = "gftd:consumer@0.1.0"
+package = "etzhayyim:consumer@0.1.0"
 
 [[interfaces.requires]]
-package = "gftd:i18n@0.1.0"
+package = "etzhayyim:i18n@0.1.0"
 interface = "translate"
 "#;
         let cfg = MagatamaConfig::from_str(toml).unwrap();

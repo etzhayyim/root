@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_tgo_seed_orgs"
-    targetNamespace="https://gftd.ai/bpmn/govTgo"
+    targetNamespace="https://etzhayyim.ai/bpmn/govTgo"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_tgo_seed_orgs" name="govTgo seed orgs" isExecutable="true">

@@ -20,7 +20,7 @@
  *     participant      : per-person presence + display name (PII Tier 1).
  *     transcriptSegment: spoken-content text (private content).
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION: GPU/LLM (MLX whisper) transcription
  *   inference; recorder-bot join/leave enforcement ACTIONS; OAuth-token / consent
  *   credential custody; and the very-large media-byte archive (recording bytes

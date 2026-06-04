@@ -131,7 +131,7 @@
     "description": "Canonical worldwide trade item registry keyed by GTIN-family identifiers.",
     "displayName": "GTIN Global Product Registry",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — submitTip workflow (XRPC com.etzhayyim.apps.lifehack.submitTip).
+  lifehack.etzhayyim.com — submitTip workflow (XRPC com.etzhayyim.apps.lifehack.submitTip).
 
   Pipeline:
     1. lifehack.tip.validateAuthority   sourceUrl + sourceAuthority sanity
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_submit_tip"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_submit_tip" name="lifehack submit tip" isExecutable="true">
@@ -88,7 +88,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.submitTip&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;tipId&quot;: tipId, &quot;effectivenessScore&quot;: effectivenessScore }" target="attributes"/>
         </zeebe:ioMapping>

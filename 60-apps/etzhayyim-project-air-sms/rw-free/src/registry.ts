@@ -11,9 +11,9 @@
  * the kotoba envelope (ADR-2605181100), read-cap = owner DID + recipients. The
  * substrate never sees these in plaintext.
  *
- * STAYS gftd (consent-capability, NOT a collection) — the authenticated
+ * STAYS etzhayyim (consent-capability, NOT a collection) — the authenticated
  * regulatory-filing TRANSMISSION to the civil-aviation authority and the AVSEC
- * enforcement/blocking ACTION. Only those execution acts stay gftd; the report
+ * enforcement/blocking ACTION. Only those execution acts stay etzhayyim; the report
  * and alert DATA migrate E2E here.
  */
 

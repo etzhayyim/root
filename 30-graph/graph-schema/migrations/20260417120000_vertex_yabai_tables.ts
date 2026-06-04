@@ -13,7 +13,7 @@ import { Kysely, sql } from 'kysely';
  * now has landing tables.
  *
  * Columns match fields emitted by
- *   60-apps/ai-gftd-project-yabai/appview/ai-gftd-wasm-yabai-y8b41k0x/src/app.ts
+ *   60-apps/etzhayyim-project-yabai/appview/etzhayyim-wasm-yabai-y8b41k0x/src/app.ts
  * plus extended fields from 1400+ baseline JSON-LD records in `content/`.
  */
 export async function up(db: Kysely<any>): Promise<void> {

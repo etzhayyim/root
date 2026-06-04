@@ -76,7 +76,7 @@ export function getPdsGatewayFetch(): ((input: string | Request, init?: RequestI
 
 // ── Hayate model detection ──
 
-const HAYATE_MODELS = ["hayate-v4", "hayate-v5", "gftd/hayate-v4", "gftd/hayate-v5"];
+const HAYATE_MODELS = ["hayate-v4", "hayate-v5", "etzhayyim/hayate-v4", "etzhayyim/hayate-v5"];
 
 function isHayateModel(model?: string): boolean {
   return !!model && HAYATE_MODELS.includes(model);

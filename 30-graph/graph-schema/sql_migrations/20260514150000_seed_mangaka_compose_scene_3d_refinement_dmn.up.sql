@@ -25,11 +25,11 @@ INSERT INTO vertex_dmn_model (
   dmn_xml, status
 )
 SELECT
-  'at://did:web:mangaka.gftd.ai/com.etzhayyim.dmn.model/composeScene3dRefinement-v1',
-  0, '2026-05-14'::date, 0, 'did:web:mangaka.gftd.ai',
+  'at://did:web:mangaka.etzhayyim.com/com.etzhayyim.dmn.model/composeScene3dRefinement-v1',
+  0, '2026-05-14'::date, 0, 'did:web:mangaka.etzhayyim.com',
   'composeScene3dRefinement-v1',
-  'did:web:mangaka.gftd.ai',
-  'did:web:mangaka.gftd.ai',
+  'did:web:mangaka.etzhayyim.com',
+  'did:web:mangaka.etzhayyim.com',
   'com.etzhayyim.policies.mangaka.composeScene3dRefinement',
   'composeScene3dRefinement',
   'compose_scene_3d refinement loop routing — emits "cinematography" when score < 0.75 and iteration budget remains, else "persist".',
@@ -65,7 +65,7 @@ SELECT
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              id="Definitions_compose_scene_3d_refinement"
              name="composeScene3dRefinement"
-             namespace="https://gftd.ai/dmn/mangaka">
+             namespace="https://etzhayyim.ai/dmn/mangaka">
   <decision id="com.etzhayyim.policies.mangaka.composeScene3dRefinement"
             name="composeScene3dRefinement">
     <decisionTable id="DecisionTable_composeScene3dRefinement" hitPolicy="FIRST">

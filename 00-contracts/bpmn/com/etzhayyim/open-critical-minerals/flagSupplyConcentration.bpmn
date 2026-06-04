@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_critical_minerals_flag_supply_concentration"
-    targetNamespace="https://gftd.ai/bpmn/open-critical-minerals"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-critical-minerals"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_critical_minerals_flag_supply_concentration" name="重要鉱物 集中度 フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-critical-minerals.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-critical-minerals.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;supply.criticalMineral&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: mineralCode, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

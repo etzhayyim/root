@@ -31,9 +31,9 @@ depends_on:
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192300-etzhayyim-bootstrap-council-five
 related:
-  - 60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md
-  - 60-apps/ai-gftd-project-open-denki/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md
+  - 60-apps/etzhayyim-project-open-denki/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -46,7 +46,7 @@ superseded_by: []
 
 # Context
 
-S1 (ADR-2605201500) は survey-only の minimum viable validation。S2 は **kuni-umi が初めて real capital を deploy** する step。Target topology は既に open-ot side で確定: `60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md` §1 (asset inventory) + §2 (7-loop catalog) + §3 (8 FBType library — 3 implemented, 5 future)。
+S1 (ADR-2605201500) は survey-only の minimum viable validation。S2 は **kuni-umi が初めて real capital を deploy** する step。Target topology は既に open-ot side で確定: `60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md` §1 (asset inventory) + §2 (7-loop catalog) + §3 (8 FBType library — 3 implemented, 5 future)。
 
 kuni-umi が S2 で担うのは:
 
@@ -313,7 +313,7 @@ Funding source: **Public Fund grant** (ADR-2605192145) + religious-corp Treasury
 
 - ADR-2605201400 (kuni-umi master spec)
 - ADR-2605201500 (S1 — solo survey)
-- ADR-2605151200 (open-ot WASM PLC) + `60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md` (target asset / loop catalog)
+- ADR-2605151200 (open-ot WASM PLC) + `60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md` (target asset / loop catalog)
 - ADR-2605171300 (UNSPSC agent fleet — Phase 2 BoM generation)
 - ADR-2605172100 (Payments on-chain only — milestone escrow + USDC)
 - ADR-2605172300 (Treasury bi-asset substrate)
@@ -322,5 +322,5 @@ Funding source: **Public Fund grant** (ADR-2605192145) + religious-corp Treasury
 - ADR-2605192200 (Charter Rider v2.0 — counterparty gate)
 - ADR-2605192230 (Three-tier enforcement — governance vote path)
 - ADR-2605192300 (Bootstrap Council 5 名 — Phase 2 sign-off)
-- `60-apps/ai-gftd-project-open-denki/CLAUDE.md` (CIM record SSoT for asset DIDs)
-- `60-apps/ai-gftd-project-open-robo/CLAUDE.md` (Giemon hardware roadmap, Hitogata 発注)
+- `60-apps/etzhayyim-project-open-denki/CLAUDE.md` (CIM record SSoT for asset DIDs)
+- `60-apps/etzhayyim-project-open-robo/CLAUDE.md` (Giemon hardware roadmap, Hitogata 発注)

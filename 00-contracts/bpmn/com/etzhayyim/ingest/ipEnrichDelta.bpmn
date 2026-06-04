@@ -11,7 +11,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_netintel_ip_enrich_delta"
-    targetNamespace="https://gftd.ai/bpmn/ingest/netintel"
+    targetNamespace="https://etzhayyim.ai/bpmn/ingest/netintel"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="netintel_ip_enrich_delta" name="netintel ip enrich delta" isExecutable="true">
@@ -63,7 +63,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ingest.gftd.ai&quot;"    target="actor"/>
+          <zeebe:input source="=&quot;did:web:ingest.etzhayyim.com&quot;"    target="actor"/>
           <zeebe:input source="=&quot;netintel.ip.enrich&quot;"         target="action"/>
           <zeebe:input source="={runId: runId, recordsRead: recordsRead, recordsWritten: recordsWritten}" target="payload"/>
         </zeebe:ioMapping>

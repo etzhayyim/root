@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  billing.gftd.ai — monthly rollup (autonomous, cron 0 0 2 1 * ? = month 1st 02:00 UTC).
+  billing.etzhayyim.com — monthly rollup (autonomous, cron 0 0 2 1 * ? = month 1st 02:00 UTC).
 
   Pipeline:
     1. billing.rollup.monthly     freeze last-month invoice draft per org from
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_billing_rollup_monthly"
-    targetNamespace="https://gftd.ai/bpmn/billing"
+    targetNamespace="https://etzhayyim.ai/bpmn/billing"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="billing_rollup_monthly" name="billing monthly rollup (1st 02:00 UTC)" isExecutable="true">
@@ -42,7 +42,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:billing.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:billing.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.billing.rollupMonthly&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;invoicesDrafted&quot;: invoicesDrafted, &quot;totalJpyMicro&quot;: totalJpyMicro }" target="attributes"/>
         </zeebe:ioMapping>

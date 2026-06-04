@@ -29,7 +29,7 @@
       "3d-rendering"
     ],
     "description": "KAMI — AI Agent for game engine",
-    "displayName": "AI Gftd Wasm Kami Runtime",
+    "displayName": "AI Etzhayyim Wasm Kami Runtime",
     "isBot": true,
     "operator": "etzhayyim.co.jp"
   },

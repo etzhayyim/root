@@ -31,7 +31,7 @@ related:
   - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605261500-suki-farm-tractor-tier-b-actor-r0
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 supersedes: []
 superseded_by: []
 ---
@@ -74,7 +74,7 @@ NVIDIA stack 9 components 全てに対し canonical KAMI 実装 + nv-compat faca
 | # | NVIDIA component | KAMI canonical | crate / package | nv-compat facade |
 |---|---|---|---|---|
 | 1 | Omniverse Kit | **amenominaka** (天之御中) | `40-engine/kami-engine/kami-app-amenominaka/` | `nv-compat/omni-kit-app` |
-| 2 | Nucleus | **yatachain-nucleus** | 既存 yatachain (MST + IPFS + Base L2) + 新 `com.etzhayyim.sim.usd.layer` Lexicon | `nv-compat/omni-nucleus` |
+| 2 | Nucleus | **kotoba-datomic-nucleus** | 既存 kotoba-datomic (MST + IPFS + Base L2) + 新 `com.etzhayyim.sim.usd.layer` Lexicon | `nv-compat/omni-nucleus` |
 | 3 | Isaac Sim | **e7m-sim** (R1 articulated phase) | 既存 `70-tools/e7m-sim/` + 新 `kami-articulated` + `kami-genesis` | `nv-compat/isaacsim` |
 | 4 | Isaac Lab | **e7m-shugyo** (修行) | 既存 `70-tools/isaac-lab-task-port/` + 新 `kami-shugyo` | `nv-compat/isaaclab` |
 | 5 | OptiX | **hikari-rt** (光) | 新 `40-engine/kami-engine/kami-rt/` (WebGPU ray-query + WGSL BVH) | `nv-compat/optix` |
@@ -222,11 +222,11 @@ nv-compat package の頭で明記する (N7)。
 | **R1.6** | `wadachi-sim` DriveSim parity (sensor + scenario DSL) | wadachi R2 input scenario coverage 80% |
 | **R1.7** | `murakumo-render` cloud streaming | iPhone 12 で Cornell box realtime (30 fps) via WebRTC |
 | **R1.8** | `kami-genesis` MPM/SPH/FEM/PBD coverage | igata megacasting flow sim PoC (granular) + hagukumi cloth sim PoC |
-| **R1.9** | yatachain-nucleus USD layer diff Lexicon + 5-member collab demo | 5-member concurrent edit on 1 stage, conflict resolve <2s |
+| **R1.9** | kotoba-datomic-nucleus USD layer diff Lexicon + 5-member collab demo | 5-member concurrent edit on 1 stage, conflict resolve <2s |
 
 G5 quality gate (≥ 0.75 vs Isaac Sim) は **PSNR / SSIM / Chamfer / IoU / sim-to-real**
 の 5 軸を sub-phase 毎に測定し `70-tools/e7m-sim/benches/sub-phase-{N}.jsonl` に
-yatachain attestation 付きで commit。
+kotoba-datomic attestation 付きで commit。
 
 ## D8. License & 商標 boundary (Charter Rider 整合)
 
@@ -553,7 +553,7 @@ adr  = "ADR-2605261800"
 - ADR-2605242000 (wadachi autonomous mobility R&D R0)
 - ADR-2605252500 (sarutahiko heavy truck mfg R0)
 - ADR-2605261500 (suki farm tractor R0)
-- ADR-2605231400 (yatachain Holochain-iso substrate — nucleus 等価層)
+- ADR-2605231400 (kotoba-datomic Holochain-iso substrate — nucleus 等価層)
 - 40-engine/kami-engine/CLAUDE.md (KAMI engine architecture)
 - 70-tools/e7m-sim/ (R0 scaffold, ADR-2605261600)
 - Genesis-Embodied-AI/Genesis (Apache-2.0, https://github.com/Genesis-Embodied-AI/Genesis)

@@ -4,7 +4,7 @@
  * Checks:
  * 1. Locale routes — all configured locales have index.html in build output
  * 2. Internal links — href/src in HTML resolve to existing files
- * 3. gftd.json routes — declared routes have corresponding content
+ * 3. etzhayyim.json routes — declared routes have corresponding content
  */
 
 import fs from "node:fs";
@@ -17,13 +17,13 @@ import path from "node:path";
 export interface SSGValidateOptions {
   /** Absolute path to SSG build output (e.g. "build/", "out/") */
   buildDir: string;
-  /** Absolute path to the project root (where gftd.json, project.inlang live) */
+  /** Absolute path to the project root (where etzhayyim.json, project.inlang live) */
   projectDir: string;
   /** Check that all Paraglide locales have routes in build output (default: true) */
   checkLocales?: boolean;
   /** Check internal links in HTML files (default: true) */
   checkLinks?: boolean;
-  /** Check routes declared in gftd.json (default: true) */
+  /** Check routes declared in etzhayyim.json (default: true) */
   checketzhayyimRoutes?: boolean;
   /** Additional route paths to validate exist (e.g. ["/dashboard", "/settings"]) */
   requiredPaths?: string[];
@@ -254,7 +254,7 @@ function checkInternalLinks(
 }
 
 // ---------------------------------------------------------------------------
-// Check: gftd.json routes
+// Check: etzhayyim.json routes
 // ---------------------------------------------------------------------------
 
 interface etzhayyimJson {
@@ -267,15 +267,15 @@ function checketzhayyimRoutes(
   projectDir: string,
   issues: ValidationIssue[]
 ): void {
-  const gftdPath = path.join(projectDir, "gftd.json");
-  const gftd = readJson(gftdPath) as etzhayyimJson | null;
-  if (!gftd?.routes) return;
+  const etzhayyimPath = path.join(projectDir, "etzhayyim.json");
+  const etzhayyim = readJson(etzhayyimPath) as etzhayyimJson | null;
+  if (!etzhayyim?.routes) return;
 
   // SPA apps use adapter-static with fallback — index.html is generated after
   // the SSR bundle closeBundle hook, so it won't exist at validation time.
-  if (gftd.spa) return;
+  if (etzhayyim.spa) return;
 
-  for (const route of gftd.routes) {
+  for (const route of etzhayyim.routes) {
     const paths = route.paths ?? (route.path ? [route.path] : ["/"]);
     for (const p of paths) {
       if (p === "/") {
@@ -283,8 +283,8 @@ function checketzhayyimRoutes(
         if (!fileExists(path.join(buildDir, "index.html"))) {
           issues.push({
             level: "error",
-            check: "gftd-routes",
-            message: `gftd.json declares route "${p}" but build output has no index.html`,
+            check: "etzhayyim-routes",
+            message: `etzhayyim.json declares route "${p}" but build output has no index.html`,
           });
         }
       }

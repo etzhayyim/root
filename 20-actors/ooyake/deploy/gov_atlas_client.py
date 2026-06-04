@@ -5,12 +5,12 @@ The one read API every consumer of the read-side SSoT uses — danjo (audit),
 kanae (fiscal viz), tsumugi (power-graph), toritsugi (citizen concierge), himotoki
 (disclosure). Implements the query surface the lexicons declare
 (getUnit / resolvePath / findService / searchUnits) over the committed registry
-seeds (auto-globbed: registry/gov-units*.seed.edn). READ-ONLY (G9): pure functions,
+(auto-globbed: registry/gov-units*.edn — the FULL ~7,100-unit atlas). READ-ONLY (G9): pure functions,
 no government interaction, no mutation, offline, no fabrication.
 
 In production these same calls run against the kotoba gov-atlas-v1 graph (and the
-public /.well-known/gov-units.json index for the full 772-unit breadth); this module
-is the canonical, testable reference implementation over the curated core.
+public /.well-known/gov-units.json index); this module is the canonical, testable
+reference implementation that loads the committed EDN registry directly.
 
 API:
     a = GovAtlas()
@@ -19,6 +19,7 @@ API:
     a.children("gov.jpn")                      -> [unit, …]
     a.by_level("prefecture") / a.by_jurisdiction("jpn")
     a.search("財務")                           -> [unit, …]
+    a.by_branch("judicial") / a.addresses_for(uid) / a.country_profile("fra")
     a.resolve_procedure("jp-juminhyo-utsushi") -> {owner, windows, addresses, forms, …}
     a.find_service("住民票")                   -> [resolution, …]   (findService)
 """
@@ -26,6 +27,7 @@ from __future__ import annotations
 
 import glob
 import os
+import re
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REG = os.path.normpath(os.path.join(_HERE, "..", "registry"))
@@ -111,7 +113,11 @@ def _kw(v):
 class GovAtlas:
     def __init__(self, registry_dir: str = _REG):
         self.units, self.addrs, self.windows, self.forms, self.procs = {}, {}, {}, {}, {}
-        for f in sorted(glob.glob(os.path.join(registry_dir, "gov-units*.seed.edn"))):
+        # Load the FULL committed atlas — every gov-units*.edn (countries, ministries,
+        # legislatures, courts, central banks, oversight/regulatory bodies, ADM1
+        # subdivisions, IGOs, …), not just the *.seed.edn core. (Pre-2026-06-04 this
+        # globbed only `*.seed.edn`, so consumers saw ~28 of the ~7,100 units.)
+        for f in sorted(glob.glob(os.path.join(registry_dir, "gov-units*.edn"))):
             doc = parse_edn(open(f, encoding="utf-8").read())
             for u in doc.get(":units", []):
                 self.units[u[":gov.unit/id"]] = u
@@ -152,6 +158,40 @@ class GovAtlas:
                 if q in (u.get(":gov.unit/name-local") or "").lower()
                 or q in (u.get(":gov.unit/name-en") or "").lower()
                 or q in u[":gov.unit/id"].lower()]
+
+    def by_branch(self, branch):
+        """All units of a branch of state (:executive/:legislative/:judicial/
+        :independent/:local/:intergovernmental)."""
+        return [u for u in self.units.values() if _kw(u.get(":gov.unit/branch")) == branch]
+
+    def addresses_for(self, uid):
+        """All :gov.address records keyed to a unit (HQ / seat / capital / 窓口)."""
+        return [a for a in self.addrs.values() if a.get(":gov.address/unit") == uid]
+
+    def country_profile(self, cc):
+        """A country's full structural profile: the country unit, its national bodies
+        grouped by branch, a subdivision count, and how many bodies carry a coordinate.
+        The one-call view consumers (danjo/kanae/tsumugi/toritsugi) want."""
+        cc = cc.lower()
+        country = self.units.get(f"gov.{cc}")
+        nat = re.compile(r"^gov\." + re.escape(cc) + r"\.[a-z0-9.-]+$")
+        bodies, subdivisions = {}, 0
+        coord_units = {a.get(":gov.address/unit") for a in self.addrs.values()
+                       if a.get(":gov.address/lat") is not None}
+        geocoded = 0
+        for uid, u in self.units.items():
+            if not nat.match(uid) or u is country:
+                continue
+            lvl = _kw(u.get(":gov.unit/level"))
+            if lvl == "subdivision":
+                subdivisions += 1
+                continue
+            bodies.setdefault(_kw(u.get(":gov.unit/branch")) or "—", []).append(u)
+            if uid in coord_units:
+                geocoded += 1
+        return {"country": country, "bodies_by_branch": bodies,
+                "national_body_count": sum(len(v) for v in bodies.values()),
+                "subdivision_count": subdivisions, "geocoded_bodies": geocoded}
 
     # ── findService / resolveProcedure ───────────────────────────────────────
     def _addr(self, aid):

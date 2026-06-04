@@ -123,11 +123,11 @@ def _read_mcp_nsid_overrides() -> list[tuple[str, str]]:
     `<key>` is an NSID prefix with dots replaced by underscores (the
     only env-var-safe representation). The base URL is used verbatim,
     `_MCP_ENVELOPE_PATH` is appended at lookup time. Longest prefix wins
-    on conflict — `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools` beats
-    `MCP_NSID_OVERRIDE_ai_gftd_apps` for an mangaka tool NSID.
+    on conflict — `MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools` beats
+    `MCP_NSID_OVERRIDE_ai_etzhayyim_apps` for an mangaka tool NSID.
 
     Use case: ADR-2605111200 + Phase C activation — the lg-mangaka pod
-    sets `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000`
+    sets `MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools=http://localhost:8000`
     so the topology Pregel's `mcp://com.etzhayyim.apps.mangaka.tools.*` calls
     short-circuit to the same pod's /xrpc/{nsid} server (
     `lg_mangaka.server._TOOL_NSID_TO_HANDLER`) without an external

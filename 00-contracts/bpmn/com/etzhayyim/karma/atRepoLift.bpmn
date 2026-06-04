@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — AT Protocol PDS lift (R/PT1M timer-start).
+  karma.etzhayyim.com — AT Protocol PDS lift (R/PT1M timer-start).
 
   Reads edges with non-null ipfs_cid but null atrepo_uri, then mints
   com.etzhayyim.apps.karma.dependency records via generic.pds.dispatch
@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_atrepo_lift"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_atrepo_lift" name="karma atrepo lift" isExecutable="true">
@@ -73,7 +73,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.atRepoLift&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;lifted&quot;: lifted, &quot;failed&quot;: failed }" target="attributes"/>
         </zeebe:ioMapping>

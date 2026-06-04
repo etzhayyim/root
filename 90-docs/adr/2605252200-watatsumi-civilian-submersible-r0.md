@@ -56,7 +56,7 @@ Modern European shipyard practice for large submerged pressure vessels (TKMS / N
 Until this ADR, religious-corp has no Tier-B actor covering submerged pressure-vessel manufacturing. `kuni-umi.Funamori` (ADR-2605242745) is **surface-only** with explicit `§2(a) no naval weapons` and IMO MASS Degree 3 cap; it does not address pressure-hull metallurgy, deep-water NDT, or submersible-class certification. Without a dedicated actor:
 
 1. Civilian deep-sea research capability (e.g., Shinkai 6500-equivalent, hydrothermal-vent observation) has no design surface inside religious-corp.
-2. Subsea cable inspection / fiber laying / offshore wind anchor verification (yatachain physical substrate concerns) has no first-party manufacturing path — every project would depend on opaque defence-adjacent vendors.
+2. Subsea cable inspection / fiber laying / offshore wind anchor verification (kotoba-datomic physical substrate concerns) has no first-party manufacturing path — every project would depend on opaque defence-adjacent vendors.
 3. Constitutional gates against military/weapons submersibles must be **declared before** capability lands, mirroring the wadachi (autonomous mobility) and yakushi (pharmaceutical) R0 patterns — gate-after-the-fact loses meaning.
 
 This ADR fulfills that gap by reserving `watatsumi` as a Tier-B actor, declaring 14 constitutional gates and 12 non-goals (the +2 over the wadachi/tatekata pattern reflect submersible-specific risks: nuclear propulsion and acoustic-stealth coatings), and landing a 9-cell Pregel scaffold whose `solve()` methods raise `RuntimeError` until R1 activation.
@@ -102,7 +102,7 @@ Adopted from modern European shipyard practice; civilianised by metallurgical, p
 |---|---|---|---|
 | **L1** | 耐圧殻リング製造 (pressure hull ring fabrication) | HSLA-80 steel plate rolling OR Ti-6Al-4V ELI titanium (Shinkai 6500 grade) ring-frame welding (TIG / SAW); roundness < 0.5% Ø | No HY-100 or higher (military-grade steel) without per-project Council attestation; no proprietary alloy formulations |
 | **L2** | セクション組立 (section assembly) | 10–15 m section stacking; internal frame + bulkhead installation; hull penetrators (hatches, sensor heads, snorkel) | No torpedo tubes, missile silos, mine-laying bays, or weapon mounts (N1) |
-| **L3** | 溶接全 NDT (full weld inspection) | 100% RT/UT/PT to ASME BPVC §VIII Div 3 or equivalent; in-process witness via Sango/Tako AUV swarm | All inspection records IPFS-pinned + DNV/ABS/NK/BV audit log on yatachain (G2) |
+| **L3** | 溶接全 NDT (full weld inspection) | 100% RT/UT/PT to ASME BPVC §VIII Div 3 or equivalent; in-process witness via Sango/Tako AUV swarm | All inspection records IPFS-pinned + DNV/ABS/NK/BV audit log on kotoba-datomic (G2) |
 | **L4** | システム統合 (system integration) | Propulsion (LFP battery / H2 / NH3 / methanol fuel-cell only); pressure-compensated electrical penetrations; ballast/trim; CO₂ scrubber + O₂ generator; passive sonar; acoustic modem | **No nuclear propulsion** (N2); active sonar ≤180 dB re 1µPa @1m (G8 cetacean protection); no proprietary acoustic stealth coatings (N12) |
 | **L5** | セクション結合 + 圧力試験 + 公試 (section joining + pressure test + sea trial) | Final ring-to-ring multi-pass TIG + 100% RT; PWHT; **1.25× design-depth water-pressure test**; dock trial → harbor → deep-water class certification | Class certification under civilian regimes (DNV-RU-UWT / ABS Underwater Vehicles / NK 同等), not naval secret class |
 
@@ -111,7 +111,7 @@ Adopted from modern European shipyard practice; civilianised by metallurgical, p
 | Gate | Requirement | Rationale |
 |---|---|---|
 | **G1** | Pressure hull CAD + FEA + firmware **open-source** (Apache 2.0 + Charter Rider) | §2(b) anti-secrecy; constitutional Transparent Force |
-| **G2** | Class certification audit log on **yatachain** (DNV/ABS/NK/BV equivalent), all stages | §1.12.B Transparent Force visibility |
+| **G2** | Class certification audit log on **kotoba-datomic** (DNV/ABS/NK/BV equivalent), all stages | §1.12.B Transparent Force visibility |
 | **G3** | Every weld pass and every test step has **IPFS-pinned photo + video** evidence | ADR-2605241500 dataset substrate echo |
 | **G4** | Every critical weld signed by **witness quorum ≥2 distinct robots** (Ed25519, DID-bound) | ADR-2605191524 swarm broadcast |
 | **G5** | All permits, class reports, owner's manuals **JP + EN bilingual minimum** | §2(e) anti-gatekeeping |
@@ -154,7 +154,7 @@ Adopted from modern European shipyard practice; civilianised by metallurgical, p
 | `pressure_test` | L5b | dan | `sectionJoiningAttestation` | `pressureTestRecord` |
 | `sea_trial` | L5c | levi | `pressureTestRecord` | `seaTrialRecord` |
 | `marine_emissions_audit` | cross-cutting | levi | telemetry stream | continuous MARPOL/BWMC compliance record |
-| `class_certification_binder` | terminal | judah | all prior records | `classCertificationRecord` (yatachain-anchored audit binder) |
+| `class_certification_binder` | terminal | judah | all prior records | `classCertificationRecord` (kotoba-datomic-anchored audit binder) |
 
 R0 contract: each cell module imports cleanly; instantiating its class succeeds; calling `.solve()` raises `RuntimeError("watatsumi R0 scaffold: activate via Council ADR post-ratification")`.
 
@@ -205,7 +205,7 @@ Each subsequent R-phase requires its own ADR, Council Lv6+ vote, and (R3) 60-day
 **Positive:**
 - Civilian submersible manufacturing has a constitutionally-bounded design surface inside religious-corp before capability lands.
 - Charter Rider §2(a) weapons exclusion is declared structurally (12 non-goals, not just guidelines), preventing scope creep into combat applications.
-- Subsea cable inspection + offshore wind anchor verification path opens for yatachain physical-substrate concerns (paired with Funamori for surface).
+- Subsea cable inspection + offshore wind anchor verification path opens for kotoba-datomic physical-substrate concerns (paired with Funamori for surface).
 - Manufacturing methodology adopted from mature European shipyard practice is **civilianised** rather than reinvented — engineering risk minimized, constitutional risk explicitly enumerated.
 
 **Negative / risks:**
@@ -216,7 +216,7 @@ Each subsequent R-phase requires its own ADR, Council Lv6+ vote, and (R3) 60-day
 **Open questions (deferred to R1):**
 - Specific HSLA grade vs Ti-6Al-4V ELI choice per craft class
 - Acoustic-emission monitoring system (passive AE during pressure test) sensor placement
-- AUV swarm tether vs untethered comms protocol on yatachain
+- AUV swarm tether vs untethered comms protocol on kotoba-datomic
 - Member-vs-employee status for crewed dives (overlap with §1.12 + MEMBERS.md)
 
 ## Alternatives Considered

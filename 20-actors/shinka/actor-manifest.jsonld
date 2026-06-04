@@ -248,7 +248,7 @@
     "description": "Central evolution scheduler for all logical actors. Joucho cadence (joy/calm/stress/gratitude/focus) drives post/drill/repair decisions. Historical propagation (seedPropagation, graph job queue, era x region partitions). Murakumo on-prem fleet (qwen3.5-4b). 10 actors per cron tick.",
     "displayName": "Shinka — Actor Evolution Scheduler",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

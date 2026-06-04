@@ -22,7 +22,7 @@ build:
 		-o bin/murakumo-kubelet ./cmd/murakumo-kubelet
 
 image:
-	docker buildx build --builder gftd-vke --platform linux/amd64 \
+	docker buildx build --builder etzhayyim-vke --platform linux/amd64 \
 		-t $(IMAGE):$(TAG) -t $(IMAGE):latest \
 		--push .
 

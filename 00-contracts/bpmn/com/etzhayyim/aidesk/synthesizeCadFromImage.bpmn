@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_aidesk_synthesize_cad_from_image"
-  targetNamespace="https://gftd.ai/bpmn/aidesk"
+  targetNamespace="https://etzhayyim.ai/bpmn/aidesk"
   exporter="hand-written"
   exporterVersion="2.0">
 

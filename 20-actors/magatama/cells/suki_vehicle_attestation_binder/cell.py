@@ -2,7 +2,7 @@
 SukiVehicleAttestationBinderCell — per-VIN DID + open VIN + IPFS pin + repair-history-ready (terminal binder on judah).
 
 Per ADR-2605261500 §Design Pregel cells #9 (judah node, terminal). G14 enforcement
-cell — sarutahiko binder pattern parity (per-VIN yatachain anchor + repair-history-
+cell — sarutahiko binder pattern parity (per-VIN kotoba-datomic anchor + repair-history-
 ready blockchain record).
 
 Pregel graph (5 nodes):
@@ -16,7 +16,7 @@ Pregel graph (5 nodes):
                                         did:web:etzhayyim.com:suki:vehicle:<vin>
                                         (parallel to tsutae G14 device DID +
                                         sarutahiko per-VIN DID pattern); open
-                                        VIN registry yatachain anchor
+                                        VIN registry kotoba-datomic anchor
         |
         v
     full_bom_ipfs_pin              ->  Pin full BoM lineage CID array to IPFS
@@ -77,7 +77,7 @@ if (
     raise RuntimeError(
         "suki_vehicle_attestation_binder cell scaffold-only — Council has not "
         "attested the suki R0 → R1 gate chain (ADR-2605261500). Terminal binder "
-        "cell awaits Council ratification for per-VIN yatachain anchor "
+        "cell awaits Council ratification for per-VIN kotoba-datomic anchor "
         "(G14 invariant). Do not deploy."
     )
 
@@ -85,11 +85,11 @@ if (
 # class SukiVehicleAttestationBinderCell(PregelCell):
 #     process_step = "vehicle-attestation-binder"
 #     pregel_tier = "B"
-#     murakumo_node = "judah"  # terminal node, yatachain anchor
+#     murakumo_node = "judah"  # terminal node, kotoba-datomic anchor
 #
 #     def super_step(self, emissions_audit_record):
 #         # 1. lineage_chain_assembly (chain back through 8 upstream cells)
-#         # 2. vin_did_mint (per-tractor DID + open VIN registry yatachain anchor)
+#         # 2. vin_did_mint (per-tractor DID + open VIN registry kotoba-datomic anchor)
 #         # 3. full_bom_ipfs_pin (Tier D blob primitive)
 #         # 4. repair_history_log_seed (G10 + G14 R2R; ready for future repairEvent)
 #         # 5. emit vehicleManufactureRecord (terminal, sarutahiko binder parity)

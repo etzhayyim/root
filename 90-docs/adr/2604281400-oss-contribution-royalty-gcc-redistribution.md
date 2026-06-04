@@ -251,12 +251,12 @@ async def emit_contribution_usage(
     """, [vertex_id, source_hash, consumer_did, usage_type, gcc_value_wei, consumer_did])
 ```
 
-#### 4-B. `gftd deploy` での依存解析 (自動)
+#### 4-B. `etzhayyim deploy` での依存解析 (自動)
 
-`gftd deploy` 実行時に `package.json` / `requirements.txt` / `go.mod` を解析し、既知の OSS パッケージを `vertex_contribution_usage` に記録する。
+`etzhayyim deploy` 実行時に `package.json` / `requirements.txt` / `go.mod` を解析し、既知の OSS パッケージを `vertex_contribution_usage` に記録する。
 
 ```go
-// 70-tools/gftd/gftd/contribution_attr.go
+// 70-tools/etzhayyim/etzhayyim/contribution_attr.go
 func EmitDeployDependencies(deps []string, consumerDid string) error {
     for _, dep := range deps {
         sourceHash := keccak256("oss:" + dep)
@@ -321,7 +321,7 @@ Safe (multisig) が `royalty_bps` を個別ソースごとに変更できる (au
 |---|---|---|
 | **P1 (今日〜1 週)** | ContributionRoyaltyRegistry デプロイ + 初期 10K GCC 入金 + RisingWave 2 テーブル作成 | 既存 GCC + Safe |
 | **P2 (1〜2 週)** | Murakumo 推論 usage emit (modelId → source_hash lookup) + BPMN distributionWorker | ADR-0056 BPMN |
-| **P3 (2〜3 週)** | `gftd deploy` 依存解析 + `com.etzhayyim.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
+| **P3 (2〜3 週)** | `etzhayyim deploy` 依存解析 + `com.etzhayyim.authz.registerContributionSource` XRPC + pending claim 機能 | authz Worker |
 | **P4 (3〜4 週)** | yoro UI: `/credits` にコントリビューター残高 + claim ボタン | authz getActorTokenBalance |
 
 ---

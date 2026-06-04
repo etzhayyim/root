@@ -33,7 +33,7 @@ from PIL import Image
 from pymagatama.db_alchemy import sa_execute_one, sa_rowcount
 
 _ACTOR = "did:web:ndl.etzhayyim.com"
-_B2_BUCKET = os.environ.get("B2_NDL_BUCKET", "ai-gftd-ndl").strip() or "ai-gftd-ndl"
+_B2_BUCKET = os.environ.get("B2_NDL_BUCKET", "etzhayyim-ndl").strip() or "etzhayyim-ndl"
 _B2_PREFIX = os.environ.get("B2_NDL_PREFIX", "ndl/").strip().strip("/") + "/"
 
 _SRU_NS = {

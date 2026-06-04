@@ -7,7 +7,7 @@ topic: session-close-consensys-rw-free-migration-sweep
 authoritative: true
 last_verified: 2026-06-03
 related:
-  - adr-2606011400-consensys-pattern-etzhayyim-product-gftd-infra-vendor
+  - adr-2606011400-consensys-pattern-etzhayyim-product-etzhayyim-infra-vendor
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605172000-etzhayyim-rw-free-substrate
@@ -29,7 +29,7 @@ A self-paced `/loop` drove a per-app migration sweep over a 24-app priority batc
 plus Bucket C/D in `90-docs/MIGRATION-STATUS.md`. Each fire classified ONE app's
 PRIMARY function under the **Consensys pattern** (ADR-2606011400, product-front /
 infra-vendor) + the **3-axis OR-test** (ADR-2605172400 — Liability / Custody /
-Settlement: any axis hit ⇒ stays gftd vendor) and either built an on-chain
+Settlement: any axis hit ⇒ stays etzhayyim vendor) and either built an on-chain
 `rw-free` reference impl (`@etzhayyim/sdk`, AT PDS, no RW/Stripe/HYPERDRIVE/D1)
 for product-front (a)/(c) apps, or marked the app **Bucket V — confirmed
 vendor-resident** for regulated-infra (b) apps.
@@ -44,7 +44,7 @@ vendor-resident** for regulated-infra (b) apps.
 | B — CLEAN | 209 | no rw-free, no TODO, no prohibited imports |
 | C — NEEDS-CODEMOD | 0 | CLEARED |
 | D — TODO-PENDING | 7 | all build-targets resolved; remainder = legacy codemod chores |
-| **V — VENDOR-RESIDENT** | **75** | regulated-infra primary function — stays gftd |
+| **V — VENDOR-RESIDENT** | **75** | regulated-infra primary function — stays etzhayyim |
 
 The **priority batch (24/24)**, **Bucket C (0)**, and **all Bucket C/D
 asserted-resolved names (50/50)** are resolved git-authoritatively (each app has
@@ -57,7 +57,7 @@ deleted at STOP.
 `repository` (ADR-0039 Repository-in-Graph) was the single **(c) mixed** build:
 the git object model (blob → tree → commit → ref over Actor DID) is the user's
 own first-party source code → migrated to AT PDS records (`repository/rw-free`,
-5/5 tests). FaaS build dispatch + execution stay gftd via consent-capability.
+5/5 tests). FaaS build dispatch + execution stay etzhayyim via consent-capability.
 
 ## Tracker truth-passes (the consequential meta-finding)
 
@@ -88,7 +88,7 @@ check Bucket V membership in PICK**, not just `rw-free/src`. (This is honest
 record, not "completed cleanly" — every app is genuinely resolved, but the
 accounting needed this correction pass.)
 
-## Vendor-resident roster (75) — what stays gftd
+## Vendor-resident roster (75) — what stays etzhayyim
 
 Grouped by primary function (full per-app axis rationale in
 `90-docs/MIGRATION-STATUS.md` Bucket V):
@@ -123,11 +123,11 @@ Grouped by primary function (full per-app axis rationale in
 
 The founder ruled that **PII / CUI / LE / yabai-risk are safe to migrate
 on-substrate via kotoba E2E** (ADR-2605181100 encrypted-record envelope) — so
-they front (E2E-sealed), they do NOT stay gftd for confidentiality reasons. This
+they front (E2E-sealed), they do NOT stay etzhayyim for confidentiality reasons. This
 reframes the Consensys split: the regulated **DATA** migrates (plaintext if
 public, E2E if sensitive); only regulated **EXECUTION** (fiat-MoR settlement,
 GPU/LLM inference, enforcement/blocking actions, credential/secret custody) stays
-gftd, consumed via consent-capability.
+etzhayyim, consumed via consent-capability.
 
 Pattern established + de-risked:
 - `@etzhayyim/sdk-mock` gained `encryptedWrite`/`encryptedRead` (faithful
@@ -144,7 +144,7 @@ Counts after wave: **A 105→129, V 75→51.**
 
 **Aviation-8 resolved (founder, option A):** air-book/crew/dcs/ffp/mro/ops/sms/
 yield accepted as already-fronted — the aviation consumer product layer is on
-etzhayyim via `flight-offer` + `air-sched`; the 8 stay gftd as settlement/safety
+etzhayyim via `flight-offer` + `air-sched`; the 8 stay etzhayyim as settlement/safety
 EXECUTION backends consumed via consent-capability. The full 32-app founder
 directive is complete: 24 migrated V→A (incl. air-cargo), 8 accepted as
 already-fronted.
@@ -156,7 +156,7 @@ Wave 2 (29 apps V→A, all green ~260 tests): aviation-8 FULL migration
 resource-provider + communicator/meet/meeting-recorder/messenger/phone/
 os-messaging/fax/briefing/external-service-adapter + webmk/webya/site/hub/coverage/
 cowork. DATA migrated (plaintext public + E2E sensitive); only irreducible
-EXECUTION stays gftd (fiat-MoR rail per ADR-2605172100, GPU/LLM inference,
+EXECUTION stays etzhayyim (fiat-MoR rail per ADR-2605172100, GPU/LLM inference,
 credential custody, 100B site archive). Counts: **A 129→158, V 51→22.**
 
 **MIGRATION PROGRAM COMPLETE (founder option 1).** The 22 remaining vendor apps
@@ -165,14 +165,14 @@ PII (facebook/x/gmail/outreach), external-IdP token exec (microsoft/microsoft-gr
 mailer), fiat-MoR settlement (kaikei/game-play-uploader), GPU/LLM generation
 (mangaka/dougaka/yukkuri/ongakuka/recap), infra/gateway/storage (cloudflare-browser-
 render/playwright/llm/yatabase/cyber-drill), regulated PII intake (ses). Each stays
-gftd for a reason E2E cannot resolve; further migration would require redesigning the
+etzhayyim for a reason E2E cannot resolve; further migration would require redesigning the
 underlying execution (e.g. on-chain USDC rails). Across both E2E waves, 53 apps
 migrated V→A. Final: **A=158, V=22.**
 
 # Consequences
 
 - The Consensys boundary is now per-function reconciled across the full app
-  surface: product-front (105 rw-free) vs gftd infra-vendor (75 Bucket V), with
+  surface: product-front (105 rw-free) vs etzhayyim infra-vendor (75 Bucket V), with
   the regulated functions consumed by etzhayyim fronts via consent-capability.
 - `MIGRATION-STATUS.md` counts are git-authoritative and deduped.
 - **HONEST PENDING**: Bucket D = 7 legacy codemod-cleanup chores (import-removal

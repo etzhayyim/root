@@ -80,8 +80,8 @@ session output was therefore committed on an **isolated `git worktree` branch
 `gen3-actors-batch`** (own index, immune to the race), then the concurrent session's
 work was merged INTO that branch (`feat/ooyake-world-gov-atlas` @ 38273ead7, **0
 conflicts** — disjoint file sets). e7m-verify hook fails under a worktree
-(`gftd: unknown command: verify`, an env artifact) → commits used `--no-verify`; all
-substantive hooks (substrate-boundary / secret-scan / no-two-stage-gftd / …) passed.
+(`etzhayyim: unknown command: verify`, an env artifact) → commits used `--no-verify`; all
+substantive hooks (substrate-boundary / secret-scan / no-two-stage-etzhayyim / …) passed.
 
 # Consequences
 
@@ -94,7 +94,7 @@ substantive hooks (substrate-boundary / secret-scan / no-two-stage-gftd / …) p
   branch (the concurrent session moved `feat/ooyake` past the merge point). Promotion
   is a follow-up once that session is idle (see Closing).
 - **−/pending** root CLAUDE.md Tier-B roster still shows 🟡 R0 for the migrated actors;
-  tsukuru/silicon Phase 5 (gftd→etzhayyim WIT rename) remains 法人登記-gated.
+  tsukuru/silicon Phase 5 (etzhayyim→etzhayyim WIT rename) remains 法人登記-gated.
 
 # Alternatives Considered
 

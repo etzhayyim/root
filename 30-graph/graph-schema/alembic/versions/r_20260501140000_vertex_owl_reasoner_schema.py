@@ -104,21 +104,21 @@ UP = [{'sql': '\n'
  {'sql': 'DROP VIEW IF EXISTS v_rdf_triple', 'parameters': []},
  {'sql': '\n'
          '    CREATE VIEW v_rdf_triple AS\n'
-         '    -- actors typed as gftd:Actor\n'
+         '    -- actors typed as etzhayyim:Actor\n'
          '    SELECT actor_did           AS subject,\n'
          "           'rdf:type'          AS predicate,\n"
-         "           'gftd:Actor'        AS object\n"
+         "           'etzhayyim:Actor'        AS object\n"
          '    FROM   vertex_bpmn_process_def\n'
          '    UNION ALL\n'
-         '    -- follows graph to gftd:follows\n'
+         '    -- follows graph to etzhayyim:follows\n'
          '    SELECT src_vid             AS subject,\n'
-         "           'gftd:follows'      AS predicate,\n"
+         "           'etzhayyim:follows'      AS predicate,\n"
          '           dst_vid             AS object\n'
          '    FROM   edge_follows\n'
          '    UNION ALL\n'
          '    -- DID to handle (via vertex_profile which has both did and handle)\n'
          '    SELECT did                 AS subject,\n'
-         "           'gftd:handle'       AS predicate,\n"
+         "           'etzhayyim:handle'       AS predicate,\n"
          '           handle              AS object\n'
          '    FROM   vertex_profile\n'
          '    WHERE  handle IS NOT NULL\n'

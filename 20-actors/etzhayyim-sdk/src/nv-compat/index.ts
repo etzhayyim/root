@@ -17,7 +17,7 @@ export const PHASE = "R1.7-wgpu-backend";
 
 export const NV_COMPAT_MAP: Readonly<Record<string, string>> = Object.freeze({
   "Omniverse Kit":     "amenominaka",
-  "Nucleus":           "yatachain-nucleus",
+  "Nucleus":           "kotoba-datomic-nucleus",
   "Isaac Sim":         "e7m-sim",
   "Isaac Lab":         "e7m-shugyo",
   "OptiX":             "hikari-rt",

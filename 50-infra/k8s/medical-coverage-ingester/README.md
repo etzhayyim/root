@@ -65,7 +65,7 @@ to B2 as gzipped JSONL, then writes canonical facility records into
 
 Default B2 location:
 
-- bucket: `ai-gftd-nats`
+- bucket: `etzhayyim-nats`
 - prefix: `medical-sources/iryo-shisetsu/{source}/{YYYY}/{MM}/{DD}/...jsonl.gz`
 - raw-only cursor: `medical-sources/iryo-shisetsu/_cursors/facilities_csv.json`
 

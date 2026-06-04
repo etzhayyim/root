@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_ingest_houbun_govinfo_usa_delta"
-    targetNamespace="https://gftd.ai/bpmn/ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/ingest"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="ingest_houbun_govinfo_usa_delta" name="ingest houbun GovInfo USA delta" isExecutable="true">

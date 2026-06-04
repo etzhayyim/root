@@ -15,7 +15,7 @@ authoritative_for:
   - vertex_email_message / vertex_email_sender / edge_email_sent_by schema の pregel 拡張列
   - mv_email_pending_action / mv_email_sales_queue MV 定義
   - outlook_triage → pregel_triage bridge (_node_invoke_pregel)
-  - 60-apps/ai-gftd-project-pregel/ actor 定義
+  - 60-apps/etzhayyim-project-pregel/ actor 定義
   - K8s Helm release lg-pregel (50-infra/k8s/pregel/)
 depends_on:
   - adr-2605080600-langgraph-server-granian-l3-runtime
@@ -77,7 +77,7 @@ outlook_triage (5 min cron)
 | memory limit | 2Gi (1Gi が OOMKill — LangGraph + asyncpg の同時ロードで倍増) |
 | secret | `lg-pregel-secrets` (K8s Secret、旧: `lg-pegel-secrets` → 手動再作成要) |
 | Python package | `pymagatama.pregel` (`20-actors/magatama/py/src/pymagatama/pregel/`) |
-| langgraph.json | `60-apps/ai-gftd-project-pregel/lg/langgraph.json` |
+| langgraph.json | `60-apps/etzhayyim-project-pregel/lg/langgraph.json` |
 
 ### LangGraph StateGraph (5 node)
 
@@ -182,5 +182,5 @@ MV:
 - `20-actors/magatama/py/src/pymagatama/pregel/graph.py`
 - `20-actors/magatama/py/src/pymagatama/agents/outlook_triage.py`
 - `20-actors/magatama/py/src/pymagatama/primitives/email_route.py`
-- `60-apps/ai-gftd-project-pregel/lg/`
+- `60-apps/etzhayyim-project-pregel/lg/`
 - `50-infra/k8s/pregel/deployment.yaml`

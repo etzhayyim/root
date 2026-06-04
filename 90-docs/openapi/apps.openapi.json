@@ -31734,7 +31734,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_apps_tsukuru_productionOrder_getProductionOrder_productionOrderView"
+                        "$ref": "#/components/schemas/ai_etzhayyim_apps_tsukuru_productionOrder_getProductionOrder_productionOrderView"
                       }
                     },
                     "cursor": {
@@ -32234,7 +32234,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_apps_tsukuru_manufacturerRegistry_getManufacturer_manufacturerView"
+                        "$ref": "#/components/schemas/ai_etzhayyim_apps_tsukuru_manufacturerRegistry_getManufacturer_manufacturerView"
                       }
                     },
                     "cursor": {
@@ -32454,7 +32454,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_apps_tsukuru_manufacturerRegistry_getManufacturer_manufacturerView"
+                        "$ref": "#/components/schemas/ai_etzhayyim_apps_tsukuru_manufacturerRegistry_getManufacturer_manufacturerView"
                       }
                     },
                     "cursor": {
@@ -36182,10 +36182,10 @@
             "name": "datasetName",
             "in": "query",
             "required": false,
-            "description": "Optional: filter to one dataset (e.g. gftd-corpus).",
+            "description": "Optional: filter to one dataset (e.g. etzhayyim-corpus).",
             "schema": {
               "type": "string",
-              "description": "Optional: filter to one dataset (e.g. gftd-corpus)."
+              "description": "Optional: filter to one dataset (e.g. etzhayyim-corpus)."
             }
           },
           {
@@ -37229,7 +37229,7 @@
                   },
                   "datasetName": {
                     "type": "string",
-                    "description": "Logical corpus name (e.g. gftd-corpus). Resolved against v_training_text labels and HF dataset records."
+                    "description": "Logical corpus name (e.g. etzhayyim-corpus). Resolved against v_training_text labels and HF dataset records."
                   },
                   "datasetLabel": {
                     "type": "string",
@@ -67745,7 +67745,7 @@
     },
     "/xrpc/com.etzhayyim.apps.sbom.registerArtifact": {
       "post": {
-        "summary": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/ai-gftd-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
+        "summary": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/etzhayyim-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
         "operationId": "com.etzhayyim.apps.sbom.registerArtifact",
         "requestBody": {
           "required": true,
@@ -67784,7 +67784,7 @@
                   },
                   "sourceUri": {
                     "type": "string",
-                    "description": "URI of the source artifact that produced this SBOM (e.g. scad://gftd/roadster-na/v0.1.0, b2://drive/cad/...)."
+                    "description": "URI of the source artifact that produced this SBOM (e.g. scad://etzhayyim/roadster-na/v0.1.0, b2://drive/cad/...)."
                   },
                   "sourceSha256": {
                     "type": "string",
@@ -128476,7 +128476,7 @@
                     }
                   },
                   "base_stats": {
-                    "$ref": "#/components/schemas/ai_gftd_apps_media_gamers_record_pokemon_stats"
+                    "$ref": "#/components/schemas/ai_etzhayyim_apps_media_gamers_record_pokemon_stats"
                   },
                   "habitat": {
                     "type": "string"
@@ -133711,7 +133711,7 @@
     },
     "/xrpc/com.etzhayyim.apps.maps3d.visionAnnotate": {
       "post": {
-        "summary": "Run Murakumo Vision (qwen3-vl-8b) over the curated Mapillary images for a tile, extracting visible entities (Building, Storefront, Sign, Vehicle, Person...) plus OCR text. Emits one VisionResult per detected entity with bbox, label, confidence, and OCR. Re-uses the maps `analyze_image` / `vision_import_entities` pipeline (`60-apps/ai-gftd-project-maps/CLAUDE.md` §Vision Intelligence). Output is consumed by `linkActor` to bind detected entities to legal-entity DIDs.",
+        "summary": "Run Murakumo Vision (qwen3-vl-8b) over the curated Mapillary images for a tile, extracting visible entities (Building, Storefront, Sign, Vehicle, Person...) plus OCR text. Emits one VisionResult per detected entity with bbox, label, confidence, and OCR. Re-uses the maps `analyze_image` / `vision_import_entities` pipeline (`60-apps/etzhayyim-project-maps/CLAUDE.md` §Vision Intelligence). Output is consumed by `linkActor` to bind detected entities to legal-entity DIDs.",
         "operationId": "com.etzhayyim.apps.maps3d.visionAnnotate",
         "requestBody": {
           "required": true,
@@ -152377,7 +152377,7 @@
                   "renders": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/ai_gftd_apps_mangaka_tools_renderKeyframes_renderEntry"
+                      "$ref": "#/components/schemas/ai_etzhayyim_apps_mangaka_tools_renderKeyframes_renderEntry"
                     }
                   },
                   "targetMood": {
@@ -152504,7 +152504,7 @@
     },
     "/xrpc/com.etzhayyim.apps.mangaka.tools.autoRigHumanoid": {
       "post": {
-        "summary": "P16 step 6 of com.etzhayyim.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/etzhayyim/blender-rigify-rignet:0.1`: (a) Blender Rigify template-fit (anime-tuned meta-rig auto-scaled to the mesh AABB + head landmark) — production primary; (b) in-house RigNet distill checkpoint (MIT base architecture, our weights at `b2://gftd-models/rignet-anime-v0.<n>/`) — production fallback when Rigify produces a broken bind. Self-hosted invariant: no external rigging service (Mixamo / AccuRIG etc.) is called from this path. External APIs are train-only teacher signals — see `data/ghosthacker/TRAINING_PIPELINE.md`. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_auto_rig_humanoid.",
+        "summary": "P16 step 6 of com.etzhayyim.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/etzhayyim/blender-rigify-rignet:0.1`: (a) Blender Rigify template-fit (anime-tuned meta-rig auto-scaled to the mesh AABB + head landmark) — production primary; (b) in-house RigNet distill checkpoint (MIT base architecture, our weights at `b2://etzhayyim-models/rignet-anime-v0.<n>/`) — production fallback when Rigify produces a broken bind. Self-hosted invariant: no external rigging service (Mixamo / AccuRIG etc.) is called from this path. External APIs are train-only teacher signals — see `data/ghosthacker/TRAINING_PIPELINE.md`. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_auto_rig_humanoid.",
         "operationId": "com.etzhayyim.apps.mangaka.tools.autoRigHumanoid",
         "requestBody": {
           "required": true,
@@ -152855,7 +152855,7 @@
                     "minimum": 0
                   },
                   "selected": {
-                    "$ref": "#/components/schemas/ai_gftd_apps_mangaka_tools_renderKeyframes_renderEntry"
+                    "$ref": "#/components/schemas/ai_etzhayyim_apps_mangaka_tools_renderKeyframes_renderEntry"
                   },
                   "sceneDag": {},
                   "cameraPlan": {},
@@ -152931,10 +152931,10 @@
                 "type": "object",
                 "properties": {
                   "panelPlan": {
-                    "$ref": "#/components/schemas/ai_gftd_apps_mangaka_tools_loadPanelPlan_panelPlan"
+                    "$ref": "#/components/schemas/ai_etzhayyim_apps_mangaka_tools_loadPanelPlan_panelPlan"
                   },
                   "assetRefs": {
-                    "$ref": "#/components/schemas/ai_gftd_apps_mangaka_tools_resolveAssets_assetRefs"
+                    "$ref": "#/components/schemas/ai_etzhayyim_apps_mangaka_tools_resolveAssets_assetRefs"
                   },
                   "posePlan": {}
                 },
@@ -153114,7 +153114,7 @@
                 "type": "object",
                 "properties": {
                   "panelPlan": {
-                    "$ref": "#/components/schemas/ai_gftd_apps_mangaka_tools_loadPanelPlan_panelPlan"
+                    "$ref": "#/components/schemas/ai_etzhayyim_apps_mangaka_tools_loadPanelPlan_panelPlan"
                   },
                   "rwUrl": {
                     "type": "string"
@@ -224408,7 +224408,7 @@
     },
     "/xrpc/com.etzhayyim.apps.domain.coverage": {
       "get": {
-        "summary": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active gftd-side registrations.",
+        "summary": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active etzhayyim-side registrations.",
         "operationId": "com.etzhayyim.apps.domain.coverage",
         "parameters": [
           {
@@ -224874,7 +224874,7 @@
                 "properties": {
                   "domainName": {
                     "type": "string",
-                    "description": "Fully-qualified domain name including TLD, e.g. 'gftd.law'."
+                    "description": "Fully-qualified domain name including TLD, e.g. 'etzhayyim.law'."
                   },
                   "tld": {
                     "type": "string",
@@ -235888,7 +235888,7 @@
     },
     "/xrpc/com.etzhayyim.apps.coworkGraph.sendBpmnGuidance": {
       "post": {
-        "summary": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
+        "summary": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-etzhayyim-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。",
         "operationId": "com.etzhayyim.apps.coworkGraph.sendBpmnGuidance",
         "requestBody": {
           "required": true,
@@ -274753,7 +274753,7 @@
                   },
                   "actorDid": {
                     "type": "string",
-                    "description": "Submitter ERC725 DID (did:erc725:gftd:...)."
+                    "description": "Submitter ERC725 DID (did:erc725:etzhayyim:...)."
                   },
                   "orgDid": {
                     "type": "string",
@@ -278397,7 +278397,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_apps_yoro_activitySeen": {
+      "ai_etzhayyim_apps_yoro_activitySeen": {
         "type": "object",
         "properties": {
           "seenAt": {
@@ -278408,7 +278408,7 @@
           "seenAt"
         ]
       },
-      "ai_gftd_apps_yoro_productResearch": {
+      "ai_etzhayyim_apps_yoro_productResearch": {
         "type": "object",
         "properties": {
           "query": {
@@ -278457,7 +278457,7 @@
           "jobId"
         ]
       },
-      "ai_gftd_apps_yoro_projectEntity": {
+      "ai_etzhayyim_apps_yoro_projectEntity": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -278476,7 +278476,7 @@
           "entityId"
         ]
       },
-      "ai_gftd_apps_yoro_shinkaEvolution": {
+      "ai_etzhayyim_apps_yoro_shinkaEvolution": {
         "type": "object",
         "properties": {
           "nanoid": {
@@ -278489,7 +278489,7 @@
           "evolutionData"
         ]
       },
-      "ai_gftd_apps_yoro_shinkaKnowledge": {
+      "ai_etzhayyim_apps_yoro_shinkaKnowledge": {
         "type": "object",
         "properties": {
           "nanoid": {
@@ -278502,7 +278502,7 @@
           "knowledgeData"
         ]
       },
-      "ai_gftd_apps_trademark_trademark": {
+      "ai_etzhayyim_apps_trademark_trademark": {
         "type": "object",
         "properties": {
           "jurisdiction": {
@@ -278586,7 +278586,7 @@
           "collectedAt"
         ]
       },
-      "ai_gftd_apps_states_actorManifest": {
+      "ai_etzhayyim_apps_states_actorManifest": {
         "type": "object",
         "properties": {
           "displayName": {
@@ -278631,7 +278631,7 @@
           "displayName"
         ]
       },
-      "ai_gftd_apps_states_bpmnElement": {
+      "ai_etzhayyim_apps_states_bpmnElement": {
         "type": "object",
         "properties": {
           "element_id": {
@@ -278742,7 +278742,7 @@
           "element_type"
         ]
       },
-      "ai_gftd_apps_states_bpmnFlow": {
+      "ai_etzhayyim_apps_states_bpmnFlow": {
         "type": "object",
         "properties": {
           "flow_id": {
@@ -278774,7 +278774,7 @@
           "target_element_id"
         ]
       },
-      "ai_gftd_apps_states_bpmnProcess": {
+      "ai_etzhayyim_apps_states_bpmnProcess": {
         "type": "object",
         "properties": {
           "process_key": {
@@ -278826,7 +278826,7 @@
           "process_key"
         ]
       },
-      "ai_gftd_apps_states_govCoverageGap": {
+      "ai_etzhayyim_apps_states_govCoverageGap": {
         "type": "object",
         "properties": {
           "actorDid": {
@@ -278878,7 +278878,7 @@
           }
         }
       },
-      "ai_gftd_apps_states_govCoverageSnapshot": {
+      "ai_etzhayyim_apps_states_govCoverageSnapshot": {
         "type": "object",
         "properties": {
           "actorDid": {
@@ -278962,7 +278962,7 @@
           "snapshotTs"
         ]
       },
-      "ai_gftd_apps_states_govDocument": {
+      "ai_etzhayyim_apps_states_govDocument": {
         "type": "object",
         "properties": {
           "actorDid": {
@@ -279012,7 +279012,7 @@
           }
         }
       },
-      "ai_gftd_apps_states_govMunicipalityCoverage": {
+      "ai_etzhayyim_apps_states_govMunicipalityCoverage": {
         "type": "object",
         "properties": {
           "actorDid": {
@@ -279046,7 +279046,7 @@
           "municipality_code"
         ]
       },
-      "ai_gftd_apps_states_govOrg": {
+      "ai_etzhayyim_apps_states_govOrg": {
         "type": "object",
         "properties": {
           "path": {
@@ -279177,7 +279177,7 @@
           "path"
         ]
       },
-      "ai_gftd_apps_states_govOrgSiteDep": {
+      "ai_etzhayyim_apps_states_govOrgSiteDep": {
         "type": "object",
         "properties": {
           "path": {
@@ -279202,7 +279202,7 @@
           "siteNanoid"
         ]
       },
-      "ai_gftd_apps_states_govSource": {
+      "ai_etzhayyim_apps_states_govSource": {
         "type": "object",
         "properties": {
           "actorDid": {
@@ -279240,7 +279240,7 @@
           }
         }
       },
-      "ai_gftd_apps_states_governanceContract": {
+      "ai_etzhayyim_apps_states_governanceContract": {
         "type": "object",
         "properties": {
           "contract_did": {
@@ -279290,7 +279290,7 @@
           "contract_slug"
         ]
       },
-      "ai_gftd_apps_sekkei_approval": {
+      "ai_etzhayyim_apps_sekkei_approval": {
         "type": "object",
         "properties": {
           "drawingId": {
@@ -279348,7 +279348,7 @@
           "decidedAt"
         ]
       },
-      "ai_gftd_apps_sekkei_bomLine": {
+      "ai_etzhayyim_apps_sekkei_bomLine": {
         "type": "object",
         "properties": {
           "bomLineId": {
@@ -279409,7 +279409,7 @@
           "quantity"
         ]
       },
-      "ai_gftd_apps_sekkei_drawing": {
+      "ai_etzhayyim_apps_sekkei_drawing": {
         "type": "object",
         "properties": {
           "drawingId": {
@@ -279485,7 +279485,7 @@
           "ownerDid"
         ]
       },
-      "ai_gftd_apps_sekkei_release": {
+      "ai_etzhayyim_apps_sekkei_release": {
         "type": "object",
         "properties": {
           "drawingId": {
@@ -279542,7 +279542,7 @@
           "releasedAt"
         ]
       },
-      "ai_gftd_apps_sekkei_revision": {
+      "ai_etzhayyim_apps_sekkei_revision": {
         "type": "object",
         "properties": {
           "drawingId": {
@@ -279610,7 +279610,7 @@
           "revisedAt"
         ]
       },
-      "ai_gftd_apps_seibutsu_observation": {
+      "ai_etzhayyim_apps_seibutsu_observation": {
         "type": "object",
         "properties": {
           "taxonDid": {
@@ -279650,7 +279650,7 @@
           "observedAt"
         ]
       },
-      "ai_gftd_apps_seibutsu_taxon": {
+      "ai_etzhayyim_apps_seibutsu_taxon": {
         "type": "object",
         "properties": {
           "did": {
@@ -279706,7 +279706,7 @@
           "scientificName"
         ]
       },
-      "ai_gftd_apps_seibutsu_traits": {
+      "ai_etzhayyim_apps_seibutsu_traits": {
         "type": "object",
         "properties": {
           "taxonDid": {
@@ -279817,7 +279817,7 @@
           "canopy"
         ]
       },
-      "ai_gftd_apps_resourceFlow_legalEntityCurrencyFlow": {
+      "ai_etzhayyim_apps_resourceFlow_legalEntityCurrencyFlow": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -279826,7 +279826,7 @@
           },
           "sourceRootDid": {
             "type": "string",
-            "description": "ADR-0074 canonical ERC725 root for sourceDid (did:erc725:gftd:260425:<contract>). Optional during migration; required once etzhayyimRootIdentity is registered."
+            "description": "ADR-0074 canonical ERC725 root for sourceDid (did:erc725:etzhayyim:260425:<contract>). Optional during migration; required once etzhayyimRootIdentity is registered."
           },
           "counterpartyDid": {
             "type": "string",
@@ -279899,7 +279899,7 @@
           "sourceLicense"
         ]
       },
-      "ai_gftd_apps_resourceFlow_legalEntityPersonnelFlow": {
+      "ai_etzhayyim_apps_resourceFlow_legalEntityPersonnelFlow": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -279977,7 +279977,7 @@
           "sourceLicense"
         ]
       },
-      "ai_gftd_apps_resourceFlow_legalEntityServiceFlow": {
+      "ai_etzhayyim_apps_resourceFlow_legalEntityServiceFlow": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -280056,7 +280056,7 @@
           "sourceLicense"
         ]
       },
-      "ai_gftd_apps_public_fund_cancellation": {
+      "ai_etzhayyim_apps_public_fund_cancellation": {
         "type": "object",
         "properties": {
           "proposalUri": {
@@ -280107,7 +280107,7 @@
           "cancelledAt"
         ]
       },
-      "ai_gftd_apps_public_fund_evaluation": {
+      "ai_etzhayyim_apps_public_fund_evaluation": {
         "type": "object",
         "properties": {
           "proposalUri": {
@@ -280190,7 +280190,7 @@
           "cellSignature"
         ]
       },
-      "ai_gftd_apps_public_fund_execution": {
+      "ai_etzhayyim_apps_public_fund_execution": {
         "type": "object",
         "properties": {
           "proposalUri": {
@@ -280248,7 +280248,7 @@
           "txHash"
         ]
       },
-      "ai_gftd_apps_public_fund_milestone_attestation": {
+      "ai_etzhayyim_apps_public_fund_milestone_attestation": {
         "type": "object",
         "properties": {
           "milestoneEvidenceUri": {
@@ -280299,7 +280299,7 @@
           "attestedAt"
         ]
       },
-      "ai_gftd_apps_public_fund_milestone_evidence": {
+      "ai_etzhayyim_apps_public_fund_milestone_evidence": {
         "type": "object",
         "properties": {
           "proposalUri": {
@@ -280346,7 +280346,7 @@
           "submittedAt"
         ]
       },
-      "ai_gftd_apps_public_fund_proposal": {
+      "ai_etzhayyim_apps_public_fund_proposal": {
         "type": "object",
         "properties": {
           "title": {
@@ -280426,7 +280426,7 @@
           "proposedAt"
         ]
       },
-      "ai_gftd_apps_public_fund_vote": {
+      "ai_etzhayyim_apps_public_fund_vote": {
         "type": "object",
         "properties": {
           "proposalUri": {
@@ -280477,7 +280477,7 @@
           "voterSignature"
         ]
       },
-      "ai_gftd_apps_payment_escrowOpened": {
+      "ai_etzhayyim_apps_payment_escrowOpened": {
         "type": "object",
         "properties": {
           "to": {
@@ -280538,7 +280538,7 @@
           "openedAt"
         ]
       },
-      "ai_gftd_apps_payment_escrowRefunded": {
+      "ai_etzhayyim_apps_payment_escrowRefunded": {
         "type": "object",
         "properties": {
           "forEscrowUri": {
@@ -280578,7 +280578,7 @@
           "refundedByDid"
         ]
       },
-      "ai_gftd_apps_payment_sent": {
+      "ai_etzhayyim_apps_payment_sent": {
         "type": "object",
         "properties": {
           "to": {
@@ -280651,7 +280651,7 @@
           "sentAt"
         ]
       },
-      "ai_gftd_apps_payment_split": {
+      "ai_etzhayyim_apps_payment_split": {
         "type": "object",
         "properties": {
           "splitAddress": {
@@ -280711,7 +280711,7 @@
           "distributedAt"
         ]
       },
-      "ai_gftd_apps_payment_streamStarted": {
+      "ai_etzhayyim_apps_payment_streamStarted": {
         "type": "object",
         "properties": {
           "to": {
@@ -280764,7 +280764,7 @@
           "startedAt"
         ]
       },
-      "ai_gftd_apps_payment_tithe": {
+      "ai_etzhayyim_apps_payment_tithe": {
         "type": "object",
         "properties": {
           "originalSentUri": {
@@ -280823,7 +280823,7 @@
           "routedAt"
         ]
       },
-      "ai_gftd_apps_patent_patent": {
+      "ai_etzhayyim_apps_patent_patent": {
         "type": "object",
         "properties": {
           "jurisdiction": {
@@ -280914,7 +280914,7 @@
           "collectedAt"
         ]
       },
-      "ai_gftd_apps_opensaas_salesforce_account": {
+      "ai_etzhayyim_apps_opensaas_salesforce_account": {
         "type": "object",
         "properties": {
           "tenantDid": {
@@ -281000,7 +281000,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_opensaas_salesforce_activity": {
+      "ai_etzhayyim_apps_opensaas_salesforce_activity": {
         "type": "object",
         "properties": {
           "tenantDid": {
@@ -281087,7 +281087,7 @@
           "source"
         ]
       },
-      "ai_gftd_apps_opensaas_salesforce_case": {
+      "ai_etzhayyim_apps_opensaas_salesforce_case": {
         "type": "object",
         "properties": {
           "tenantDid": {
@@ -281184,7 +281184,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_opensaas_salesforce_contact": {
+      "ai_etzhayyim_apps_opensaas_salesforce_contact": {
         "type": "object",
         "properties": {
           "tenantDid": {
@@ -281268,7 +281268,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_opensaas_salesforce_lead": {
+      "ai_etzhayyim_apps_opensaas_salesforce_lead": {
         "type": "object",
         "properties": {
           "tenantDid": {
@@ -281371,7 +281371,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_opensaas_salesforce_opportunity": {
+      "ai_etzhayyim_apps_opensaas_salesforce_opportunity": {
         "type": "object",
         "properties": {
           "tenantDid": {
@@ -281476,7 +281476,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_openPatent_inventionSeed": {
+      "ai_etzhayyim_apps_openPatent_inventionSeed": {
         "type": "object",
         "properties": {
           "techDomain": {
@@ -281535,7 +281535,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_openPatent_noveltyReport": {
+      "ai_etzhayyim_apps_openPatent_noveltyReport": {
         "type": "object",
         "properties": {
           "seedVid": {
@@ -281578,7 +281578,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_onion_crawl": {
+      "ai_etzhayyim_apps_onion_crawl": {
         "type": "object",
         "properties": {
           "onionHost": {
@@ -281613,7 +281613,7 @@
           "startedAt"
         ]
       },
-      "ai_gftd_apps_onion_page": {
+      "ai_etzhayyim_apps_onion_page": {
         "type": "object",
         "properties": {
           "onionUrl": {
@@ -281677,7 +281677,7 @@
           "crawledAt"
         ]
       },
-      "ai_gftd_apps_onion_site": {
+      "ai_etzhayyim_apps_onion_site": {
         "type": "object",
         "properties": {
           "onionHost": {
@@ -281732,7 +281732,7 @@
           "firstSeen"
         ]
       },
-      "ai_gftd_apps_ongakuka_generation": {
+      "ai_etzhayyim_apps_ongakuka_generation": {
         "type": "object",
         "properties": {
           "targetUri": {
@@ -281807,7 +281807,7 @@
           "status"
         ]
       },
-      "ai_gftd_apps_ongakuka_stem": {
+      "ai_etzhayyim_apps_ongakuka_stem": {
         "type": "object",
         "properties": {
           "trackUri": {
@@ -281860,7 +281860,7 @@
           "mimeType"
         ]
       },
-      "ai_gftd_apps_ongakuka_style": {
+      "ai_etzhayyim_apps_ongakuka_style": {
         "type": "object",
         "properties": {
           "name": {
@@ -281903,7 +281903,7 @@
           "kind"
         ]
       },
-      "ai_gftd_apps_ongakuka_track": {
+      "ai_etzhayyim_apps_ongakuka_track": {
         "type": "object",
         "properties": {
           "title": {
@@ -281981,7 +281981,7 @@
           "status"
         ]
       },
-      "ai_gftd_apps_nokyo_advisoryNote": {
+      "ai_etzhayyim_apps_nokyo_advisoryNote": {
         "type": "object",
         "properties": {
           "cropPlanId": {
@@ -282020,7 +282020,7 @@
           "advisoryText"
         ]
       },
-      "ai_gftd_apps_nokyo_coverageSnapshot": {
+      "ai_etzhayyim_apps_nokyo_coverageSnapshot": {
         "type": "object",
         "properties": {
           "nodeCount": {
@@ -282043,7 +282043,7 @@
           "latestTs"
         ]
       },
-      "ai_gftd_apps_nokyo_cropPlan": {
+      "ai_etzhayyim_apps_nokyo_cropPlan": {
         "type": "object",
         "properties": {
           "cropPlanId": {
@@ -282113,7 +282113,7 @@
           "season"
         ]
       },
-      "ai_gftd_apps_nokyo_directSalesItem": {
+      "ai_etzhayyim_apps_nokyo_directSalesItem": {
         "type": "object",
         "properties": {
           "itemId": {
@@ -282178,7 +282178,7 @@
           "priceJpy"
         ]
       },
-      "ai_gftd_apps_nokyo_farm": {
+      "ai_etzhayyim_apps_nokyo_farm": {
         "type": "object",
         "properties": {
           "farmId": {
@@ -282231,7 +282231,7 @@
           "areaM2"
         ]
       },
-      "ai_gftd_apps_nokyo_kyosaiPolicy": {
+      "ai_etzhayyim_apps_nokyo_kyosaiPolicy": {
         "type": "object",
         "properties": {
           "policyId": {
@@ -282292,7 +282292,7 @@
           "productType"
         ]
       },
-      "ai_gftd_apps_nokyo_loanApplication": {
+      "ai_etzhayyim_apps_nokyo_loanApplication": {
         "type": "object",
         "properties": {
           "applicationId": {
@@ -282356,7 +282356,7 @@
           "principalJpy"
         ]
       },
-      "ai_gftd_apps_nokyo_member": {
+      "ai_etzhayyim_apps_nokyo_member": {
         "type": "object",
         "properties": {
           "memberId": {
@@ -282398,7 +282398,7 @@
           "memberType"
         ]
       },
-      "ai_gftd_apps_nokyo_purchaseOrder": {
+      "ai_etzhayyim_apps_nokyo_purchaseOrder": {
         "type": "object",
         "properties": {
           "orderId": {
@@ -282463,7 +282463,7 @@
           "unit"
         ]
       },
-      "ai_gftd_apps_nokyo_saleLot": {
+      "ai_etzhayyim_apps_nokyo_saleLot": {
         "type": "object",
         "properties": {
           "lotId": {
@@ -282520,7 +282520,7 @@
           "quantityKg"
         ]
       },
-      "ai_gftd_apps_nogu_disposal": {
+      "ai_etzhayyim_apps_nogu_disposal": {
         "type": "object",
         "properties": {
           "itemId": {
@@ -282572,7 +282572,7 @@
           "authorizedByDid"
         ]
       },
-      "ai_gftd_apps_nogu_inspection": {
+      "ai_etzhayyim_apps_nogu_inspection": {
         "type": "object",
         "properties": {
           "itemId": {
@@ -282651,7 +282651,7 @@
           "result"
         ]
       },
-      "ai_gftd_apps_nogu_item": {
+      "ai_etzhayyim_apps_nogu_item": {
         "type": "object",
         "properties": {
           "itemId": {
@@ -282730,7 +282730,7 @@
           "ownerDid"
         ]
       },
-      "ai_gftd_apps_nogu_lease": {
+      "ai_etzhayyim_apps_nogu_lease": {
         "type": "object",
         "properties": {
           "itemId": {
@@ -282804,7 +282804,7 @@
           "leaseStartDate"
         ]
       },
-      "ai_gftd_apps_nogu_maintenance": {
+      "ai_etzhayyim_apps_nogu_maintenance": {
         "type": "object",
         "properties": {
           "itemId": {
@@ -282888,7 +282888,7 @@
           "performerDid"
         ]
       },
-      "ai_gftd_apps_news_liveAudioScheduleState": {
+      "ai_etzhayyim_apps_news_liveAudioScheduleState": {
         "type": "object",
         "properties": {
           "sourceId": {
@@ -282925,7 +282925,7 @@
           "updatedAt"
         ]
       },
-      "ai_gftd_apps_news_liveAudioSource": {
+      "ai_etzhayyim_apps_news_liveAudioSource": {
         "type": "object",
         "properties": {
           "sourceId": {
@@ -283016,7 +283016,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_naturalPerson_cohortPerson": {
+      "ai_etzhayyim_apps_naturalPerson_cohortPerson": {
         "type": "object",
         "properties": {
           "cohortHash": {
@@ -283124,7 +283124,7 @@
           "era"
         ]
       },
-      "ai_gftd_apps_naturalPerson_identifiedPerson": {
+      "ai_etzhayyim_apps_naturalPerson_identifiedPerson": {
         "type": "object",
         "properties": {
           "personHash": {
@@ -283174,7 +283174,7 @@
           "sourceApp"
         ]
       },
-      "ai_gftd_apps_naturalPerson_personEnrichment": {
+      "ai_etzhayyim_apps_naturalPerson_personEnrichment": {
         "type": "object",
         "properties": {
           "personHash": {
@@ -283213,7 +283213,7 @@
           "confidence"
         ]
       },
-      "ai_gftd_apps_moldAllergy_airSampling": {
+      "ai_etzhayyim_apps_moldAllergy_airSampling": {
         "type": "object",
         "properties": {
           "sessionId": {
@@ -283259,7 +283259,7 @@
           "sampledAt"
         ]
       },
-      "ai_gftd_apps_moldAllergy_moldAllergen": {
+      "ai_etzhayyim_apps_moldAllergy_moldAllergen": {
         "type": "object",
         "properties": {
           "species": {
@@ -283301,7 +283301,7 @@
           "allergen"
         ]
       },
-      "ai_gftd_apps_moldAllergy_slitCandidate": {
+      "ai_etzhayyim_apps_moldAllergy_slitCandidate": {
         "type": "object",
         "properties": {
           "candidateId": {
@@ -283359,7 +283359,7 @@
           "species"
         ]
       },
-      "ai_gftd_apps_meetingRecorder_recordingChunk": {
+      "ai_etzhayyim_apps_meetingRecorder_recordingChunk": {
         "type": "object",
         "properties": {
           "sessionDid": {
@@ -283425,7 +283425,7 @@
           "durationMs"
         ]
       },
-      "ai_gftd_apps_meetingRecorder_transcriptSegment": {
+      "ai_etzhayyim_apps_meetingRecorder_transcriptSegment": {
         "type": "object",
         "properties": {
           "sessionDid": {
@@ -283474,7 +283474,7 @@
           "textCipher"
         ]
       },
-      "ai_gftd_apps_media_gamers_record_gameItem": {
+      "ai_etzhayyim_apps_media_gamers_record_gameItem": {
         "type": "object",
         "properties": {
           "id": {
@@ -283584,7 +283584,7 @@
           "lang"
         ]
       },
-      "ai_gftd_apps_media_gamers_record_itemRecipe": {
+      "ai_etzhayyim_apps_media_gamers_record_itemRecipe": {
         "type": "object",
         "properties": {
           "id": {
@@ -283660,7 +283660,7 @@
           "lang"
         ]
       },
-      "ai_gftd_apps_media_gamers_record_pokemon": {
+      "ai_etzhayyim_apps_media_gamers_record_pokemon": {
         "type": "object",
         "properties": {
           "id": {
@@ -283769,7 +283769,7 @@
           "lang"
         ]
       },
-      "ai_gftd_apps_media_gamers_record_translationLink": {
+      "ai_etzhayyim_apps_media_gamers_record_translationLink": {
         "type": "object",
         "properties": {
           "sourceUri": {
@@ -283833,7 +283833,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_mangaka_chapter": {
+      "ai_etzhayyim_apps_mangaka_chapter": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -283907,7 +283907,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_mangaka_page": {
+      "ai_etzhayyim_apps_mangaka_page": {
         "type": "object",
         "properties": {
           "chapterRef": {
@@ -283943,7 +283943,7 @@
           "charactersAppearing": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ai_gftd_apps_mangaka_chapter_characterAppearance"
+              "$ref": "#/components/schemas/ai_etzhayyim_apps_mangaka_chapter_characterAppearance"
             }
           },
           "layersCid": {
@@ -283964,7 +283964,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_mangaka_work": {
+      "ai_etzhayyim_apps_mangaka_work": {
         "type": "object",
         "properties": {
           "title": {
@@ -284028,7 +284028,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kyber_inbox_calendarSignal": {
+      "ai_etzhayyim_apps_kyber_inbox_calendarSignal": {
         "type": "object",
         "properties": {
           "eventIdHash": {
@@ -284127,7 +284127,7 @@
           "signalClass"
         ]
       },
-      "ai_gftd_apps_kyber_inbox_documentSignal": {
+      "ai_etzhayyim_apps_kyber_inbox_documentSignal": {
         "type": "object",
         "properties": {
           "driveItemIdHash": {
@@ -284241,7 +284241,7 @@
           "signalClass"
         ]
       },
-      "ai_gftd_apps_kyber_inbox_emailSignal": {
+      "ai_etzhayyim_apps_kyber_inbox_emailSignal": {
         "type": "object",
         "properties": {
           "messageIdHash": {
@@ -284353,7 +284353,7 @@
           "accountDid"
         ]
       },
-      "ai_gftd_apps_kouza_accountDocument": {
+      "ai_etzhayyim_apps_kouza_accountDocument": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284417,7 +284417,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kouza_externalTransaction": {
+      "ai_etzhayyim_apps_kouza_externalTransaction": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284489,7 +284489,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kouza_financialAccount": {
+      "ai_etzhayyim_apps_kouza_financialAccount": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284570,7 +284570,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kouza_institutionConnection": {
+      "ai_etzhayyim_apps_kouza_institutionConnection": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284647,7 +284647,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kouza_syncRun": {
+      "ai_etzhayyim_apps_kouza_syncRun": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284712,7 +284712,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kousuu_costRate": {
+      "ai_etzhayyim_apps_kousuu_costRate": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284744,7 +284744,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kousuu_project": {
+      "ai_etzhayyim_apps_kousuu_project": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284797,7 +284797,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kousuu_projectCost": {
+      "ai_etzhayyim_apps_kousuu_projectCost": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284842,7 +284842,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kousuu_task": {
+      "ai_etzhayyim_apps_kousuu_task": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284893,7 +284893,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kousuu_timeEntry": {
+      "ai_etzhayyim_apps_kousuu_timeEntry": {
         "type": "object",
         "properties": {
           "ownerDid": {
@@ -284965,7 +284965,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_kogu_calibration": {
+      "ai_etzhayyim_apps_kogu_calibration": {
         "type": "object",
         "properties": {
           "toolId": {
@@ -285030,7 +285030,7 @@
           "result"
         ]
       },
-      "ai_gftd_apps_kogu_checkout": {
+      "ai_etzhayyim_apps_kogu_checkout": {
         "type": "object",
         "properties": {
           "toolId": {
@@ -285082,7 +285082,7 @@
           "checkedOutAt"
         ]
       },
-      "ai_gftd_apps_kogu_inspection": {
+      "ai_etzhayyim_apps_kogu_inspection": {
         "type": "object",
         "properties": {
           "toolId": {
@@ -285153,7 +285153,7 @@
           "result"
         ]
       },
-      "ai_gftd_apps_kogu_item": {
+      "ai_etzhayyim_apps_kogu_item": {
         "type": "object",
         "properties": {
           "toolId": {
@@ -285237,7 +285237,7 @@
           "custodianDid"
         ]
       },
-      "ai_gftd_apps_kakaku_matchCandidate": {
+      "ai_etzhayyim_apps_kakaku_matchCandidate": {
         "type": "object",
         "properties": {
           "candidateId": {
@@ -285289,7 +285289,7 @@
           "status"
         ]
       },
-      "ai_gftd_apps_kakaku_merchant": {
+      "ai_etzhayyim_apps_kakaku_merchant": {
         "type": "object",
         "properties": {
           "merchantId": {
@@ -285344,7 +285344,7 @@
           "domain"
         ]
       },
-      "ai_gftd_apps_kakaku_offer": {
+      "ai_etzhayyim_apps_kakaku_offer": {
         "type": "object",
         "properties": {
           "offerId": {
@@ -285412,7 +285412,7 @@
           "observedAt"
         ]
       },
-      "ai_gftd_apps_kakaku_priceHistory": {
+      "ai_etzhayyim_apps_kakaku_priceHistory": {
         "type": "object",
         "properties": {
           "historyId": {
@@ -285464,7 +285464,7 @@
           "observedAt"
         ]
       },
-      "ai_gftd_apps_kakaku_product": {
+      "ai_etzhayyim_apps_kakaku_product": {
         "type": "object",
         "properties": {
           "productId": {
@@ -285515,7 +285515,7 @@
           "name"
         ]
       },
-      "ai_gftd_apps_kakaku_selectorRevision": {
+      "ai_etzhayyim_apps_kakaku_selectorRevision": {
         "type": "object",
         "properties": {
           "revisionId": {
@@ -285555,7 +285555,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_isekai_worldMap": {
+      "ai_etzhayyim_apps_isekai_worldMap": {
         "type": "object",
         "properties": {
           "name": {
@@ -285591,7 +285591,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_isekai_worldPortal": {
+      "ai_etzhayyim_apps_isekai_worldPortal": {
         "type": "object",
         "properties": {
           "worldMapUri": {
@@ -285632,7 +285632,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_isekai_worldScene": {
+      "ai_etzhayyim_apps_isekai_worldScene": {
         "type": "object",
         "properties": {
           "worldMapUri": {
@@ -285694,7 +285694,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_isbn_book": {
+      "ai_etzhayyim_apps_isbn_book": {
         "type": "object",
         "properties": {
           "isbn13": {
@@ -285760,7 +285760,7 @@
           "collectedAt"
         ]
       },
-      "ai_gftd_apps_houbun_amendmentEvent": {
+      "ai_etzhayyim_apps_houbun_amendmentEvent": {
         "type": "object",
         "properties": {
           "statuteRef": {
@@ -285816,7 +285816,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_houbun_article": {
+      "ai_etzhayyim_apps_houbun_article": {
         "type": "object",
         "properties": {
           "statuteRef": {
@@ -285877,7 +285877,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_houbun_statute": {
+      "ai_etzhayyim_apps_houbun_statute": {
         "type": "object",
         "properties": {
           "jurisdiction": {
@@ -285961,7 +285961,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_houbun_treaty": {
+      "ai_etzhayyim_apps_houbun_treaty": {
         "type": "object",
         "properties": {
           "title": {
@@ -286025,7 +286025,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_ageRating": {
+      "ai_etzhayyim_apps_hatsubai_ageRating": {
         "type": "object",
         "properties": {
           "titleDid": {
@@ -286090,7 +286090,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_certSubmission": {
+      "ai_etzhayyim_apps_hatsubai_certSubmission": {
         "type": "object",
         "properties": {
           "buildDid": {
@@ -286144,7 +286144,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_devkit": {
+      "ai_etzhayyim_apps_hatsubai_devkit": {
         "type": "object",
         "properties": {
           "serial": {
@@ -286205,7 +286205,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_partnerAccount": {
+      "ai_etzhayyim_apps_hatsubai_partnerAccount": {
         "type": "object",
         "properties": {
           "partnerId": {
@@ -286263,7 +286263,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_platform": {
+      "ai_etzhayyim_apps_hatsubai_platform": {
         "type": "object",
         "properties": {
           "platformCode": {
@@ -286305,7 +286305,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_sdkVersion": {
+      "ai_etzhayyim_apps_hatsubai_sdkVersion": {
         "type": "object",
         "properties": {
           "platformCode": {
@@ -286341,7 +286341,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_storeAsset": {
+      "ai_etzhayyim_apps_hatsubai_storeAsset": {
         "type": "object",
         "properties": {
           "listingDid": {
@@ -286392,7 +286392,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_storeListing": {
+      "ai_etzhayyim_apps_hatsubai_storeListing": {
         "type": "object",
         "properties": {
           "titleDid": {
@@ -286454,7 +286454,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_title": {
+      "ai_etzhayyim_apps_hatsubai_title": {
         "type": "object",
         "properties": {
           "gamesTitleDid": {
@@ -286510,7 +286510,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_titleBuild": {
+      "ai_etzhayyim_apps_hatsubai_titleBuild": {
         "type": "object",
         "properties": {
           "titleDid": {
@@ -286570,7 +286570,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_hatsubai_trcCheck": {
+      "ai_etzhayyim_apps_hatsubai_trcCheck": {
         "type": "object",
         "properties": {
           "buildDid": {
@@ -286629,7 +286629,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_gtin_product": {
+      "ai_etzhayyim_apps_gtin_product": {
         "type": "object",
         "properties": {
           "productId": {
@@ -286683,7 +286683,7 @@
           "name"
         ]
       },
-      "ai_gftd_apps_gameka_buildArtifact": {
+      "ai_etzhayyim_apps_gameka_buildArtifact": {
         "type": "object",
         "properties": {
           "artifactId": {
@@ -286726,7 +286726,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_gameka_gameQa": {
+      "ai_etzhayyim_apps_gameka_gameQa": {
         "type": "object",
         "properties": {
           "qaId": {
@@ -286794,7 +286794,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_gameka_gameSpec": {
+      "ai_etzhayyim_apps_gameka_gameSpec": {
         "type": "object",
         "properties": {
           "specId": {
@@ -286854,7 +286854,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_gameka_gameTitle": {
+      "ai_etzhayyim_apps_gameka_gameTitle": {
         "type": "object",
         "properties": {
           "titleId": {
@@ -286920,7 +286920,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_charter_appeal": {
+      "ai_etzhayyim_apps_etzhayyim_charter_appeal": {
         "type": "object",
         "properties": {
           "attestationUri": {
@@ -286978,7 +286978,7 @@
           "submittedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_charter_attestation_request": {
+      "ai_etzhayyim_apps_etzhayyim_charter_attestation_request": {
         "type": "object",
         "properties": {
           "subjectKind": {
@@ -287058,7 +287058,7 @@
           "requestedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_charter_attestation": {
+      "ai_etzhayyim_apps_etzhayyim_charter_attestation": {
         "type": "object",
         "properties": {
           "requestUri": {
@@ -287160,7 +287160,7 @@
           "attestedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_charter_counsel_vote": {
+      "ai_etzhayyim_apps_etzhayyim_charter_counsel_vote": {
         "type": "object",
         "properties": {
           "requestUri": {
@@ -287209,7 +287209,7 @@
           "votedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_charter_rehabilitation": {
+      "ai_etzhayyim_apps_etzhayyim_charter_rehabilitation": {
         "type": "object",
         "properties": {
           "originalAttestationUri": {
@@ -287272,7 +287272,7 @@
           "rehabilitatedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_commitment": {
+      "ai_etzhayyim_apps_etzhayyim_commitment": {
         "type": "object",
         "properties": {
           "level": {
@@ -287362,7 +287362,7 @@
           "advancedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_council_candidate_application": {
+      "ai_etzhayyim_apps_etzhayyim_council_candidate_application": {
         "type": "object",
         "properties": {
           "candidateDid": {
@@ -287476,7 +287476,7 @@
           "submittedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_council_objection": {
+      "ai_etzhayyim_apps_etzhayyim_council_objection": {
         "type": "object",
         "properties": {
           "applicationUri": {
@@ -287542,7 +287542,7 @@
           "submittedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_eros_gore_appeal": {
+      "ai_etzhayyim_apps_etzhayyim_eros_gore_appeal": {
         "type": "object",
         "properties": {
           "precedentUri": {
@@ -287602,7 +287602,7 @@
           "submittedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_eros_gore_judging": {
+      "ai_etzhayyim_apps_etzhayyim_eros_gore_judging": {
         "type": "object",
         "properties": {
           "contentUri": {
@@ -287707,7 +287707,7 @@
           "llmTier"
         ]
       },
-      "ai_gftd_apps_etzhayyim_eros_gore_precedent": {
+      "ai_etzhayyim_apps_etzhayyim_eros_gore_precedent": {
         "type": "object",
         "properties": {
           "subjectDescription": {
@@ -287784,7 +287784,7 @@
           "establishedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_force_after_action": {
+      "ai_etzhayyim_apps_etzhayyim_force_after_action": {
         "type": "object",
         "properties": {
           "forceLogUri": {
@@ -287846,7 +287846,7 @@
           "reviewedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_force_authorization_proposal": {
+      "ai_etzhayyim_apps_etzhayyim_force_authorization_proposal": {
         "type": "object",
         "properties": {
           "scenarioDescription": {
@@ -287925,7 +287925,7 @@
           "proposedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_force_log": {
+      "ai_etzhayyim_apps_etzhayyim_force_log": {
         "type": "object",
         "properties": {
           "authorizationUri": {
@@ -288008,7 +288008,7 @@
           "loggedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_force_rd_proposal": {
+      "ai_etzhayyim_apps_etzhayyim_force_rd_proposal": {
         "type": "object",
         "properties": {
           "category": {
@@ -288082,7 +288082,7 @@
           "proposedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_force_rd_publication": {
+      "ai_etzhayyim_apps_etzhayyim_force_rd_publication": {
         "type": "object",
         "properties": {
           "proposalUri": {
@@ -288124,7 +288124,7 @@
           "publishedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_land_attestation": {
+      "ai_etzhayyim_apps_etzhayyim_land_attestation": {
         "type": "object",
         "properties": {
           "landId": {
@@ -288186,7 +288186,7 @@
           "attestedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_land_biodiversity": {
+      "ai_etzhayyim_apps_etzhayyim_land_biodiversity": {
         "type": "object",
         "properties": {
           "landId": {
@@ -288287,7 +288287,7 @@
           "recordedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_land_dispute": {
+      "ai_etzhayyim_apps_etzhayyim_land_dispute": {
         "type": "object",
         "properties": {
           "landId": {
@@ -288357,7 +288357,7 @@
           "submittedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_land_donation": {
+      "ai_etzhayyim_apps_etzhayyim_land_donation": {
         "type": "object",
         "properties": {
           "oathText": {
@@ -288464,7 +288464,7 @@
           "donatedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_oath": {
+      "ai_etzhayyim_apps_etzhayyim_oath": {
         "type": "object",
         "properties": {
           "oathTextVersion": {
@@ -288537,7 +288537,7 @@
           "joinedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_steward_succession_declaration": {
+      "ai_etzhayyim_apps_etzhayyim_steward_succession_declaration": {
         "type": "object",
         "properties": {
           "landId": {
@@ -288597,7 +288597,7 @@
           "donorSignature"
         ]
       },
-      "ai_gftd_apps_etzhayyim_steward_succession_event": {
+      "ai_etzhayyim_apps_etzhayyim_steward_succession_event": {
         "type": "object",
         "properties": {
           "landId": {
@@ -288678,7 +288678,7 @@
           "activatedAt"
         ]
       },
-      "ai_gftd_apps_etzhayyim_steward_succession_pre_acceptance": {
+      "ai_etzhayyim_apps_etzhayyim_steward_succession_pre_acceptance": {
         "type": "object",
         "properties": {
           "landId": {
@@ -288732,7 +288732,7 @@
           "successorSignature"
         ]
       },
-      "ai_gftd_apps_dns_transferOutcome": {
+      "ai_etzhayyim_apps_dns_transferOutcome": {
         "type": "object",
         "properties": {
           "transferRequestUri": {
@@ -288779,7 +288779,7 @@
           "completedAt"
         ]
       },
-      "ai_gftd_apps_dns_transferRequest": {
+      "ai_etzhayyim_apps_dns_transferRequest": {
         "type": "object",
         "properties": {
           "domain": {
@@ -288847,7 +288847,7 @@
           "requestedAt"
         ]
       },
-      "ai_gftd_apps_dns_transferStep": {
+      "ai_etzhayyim_apps_dns_transferStep": {
         "type": "object",
         "properties": {
           "transferRequestUri": {
@@ -288905,7 +288905,7 @@
           "occurredAt"
         ]
       },
-      "ai_gftd_apps_demining_clearanceTask": {
+      "ai_etzhayyim_apps_demining_clearanceTask": {
         "type": "object",
         "properties": {
           "tier": {
@@ -288931,7 +288931,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_demining_detectionEvent": {
+      "ai_etzhayyim_apps_demining_detectionEvent": {
         "type": "object",
         "properties": {
           "tier": {
@@ -288957,7 +288957,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_demining_eoreSession": {
+      "ai_etzhayyim_apps_demining_eoreSession": {
         "type": "object",
         "properties": {
           "tier": {
@@ -288983,7 +288983,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_demining_hazardArea": {
+      "ai_etzhayyim_apps_demining_hazardArea": {
         "type": "object",
         "properties": {
           "tier": {
@@ -289009,7 +289009,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_demining_landReleaseDecision": {
+      "ai_etzhayyim_apps_demining_landReleaseDecision": {
         "type": "object",
         "properties": {
           "tier": {
@@ -289035,7 +289035,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_demining_surveyRecord": {
+      "ai_etzhayyim_apps_demining_surveyRecord": {
         "type": "object",
         "properties": {
           "tier": {
@@ -289061,7 +289061,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_demining_victimRecord": {
+      "ai_etzhayyim_apps_demining_victimRecord": {
         "type": "object",
         "properties": {
           "tier": {
@@ -289087,7 +289087,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_copyright_work": {
+      "ai_etzhayyim_apps_copyright_work": {
         "type": "object",
         "properties": {
           "kind": {
@@ -289188,7 +289188,7 @@
           "collectedAt"
         ]
       },
-      "ai_gftd_apps_bluesky_coverageSnapshot": {
+      "ai_etzhayyim_apps_bluesky_coverageSnapshot": {
         "type": "object",
         "properties": {
           "nodeCount": {
@@ -289213,7 +289213,7 @@
           "latestTs"
         ]
       },
-      "ai_gftd_apps_bluesky_follow": {
+      "ai_etzhayyim_apps_bluesky_follow": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -289243,7 +289243,7 @@
           "indexedAt"
         ]
       },
-      "ai_gftd_apps_bluesky_optOut": {
+      "ai_etzhayyim_apps_bluesky_optOut": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -289286,7 +289286,7 @@
           "detectedAt"
         ]
       },
-      "ai_gftd_apps_bluesky_post": {
+      "ai_etzhayyim_apps_bluesky_post": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -289377,7 +289377,7 @@
           "indexedAt"
         ]
       },
-      "ai_gftd_apps_bluesky_profile": {
+      "ai_etzhayyim_apps_bluesky_profile": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -289430,7 +289430,7 @@
           "indexedAt"
         ]
       },
-      "ai_gftd_apps_bluesky_tombstone": {
+      "ai_etzhayyim_apps_bluesky_tombstone": {
         "type": "object",
         "properties": {
           "sourceDid": {
@@ -289467,7 +289467,7 @@
           "detectedAt"
         ]
       },
-      "ai_gftd_apps_animeka_asset": {
+      "ai_etzhayyim_apps_animeka_asset": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -289523,7 +289523,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_background": {
+      "ai_etzhayyim_apps_animeka_background": {
         "type": "object",
         "properties": {
           "layoutRef": {
@@ -289580,7 +289580,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_character": {
+      "ai_etzhayyim_apps_animeka_character": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -289654,7 +289654,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_chatMessage": {
+      "ai_etzhayyim_apps_animeka_chatMessage": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -289703,7 +289703,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_colorModel": {
+      "ai_etzhayyim_apps_animeka_colorModel": {
         "type": "object",
         "properties": {
           "characterRef": {
@@ -289762,7 +289762,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_colorTrace": {
+      "ai_etzhayyim_apps_animeka_colorTrace": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -289820,7 +289820,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_composite": {
+      "ai_etzhayyim_apps_animeka_composite": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -289885,7 +289885,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_cut": {
+      "ai_etzhayyim_apps_animeka_cut": {
         "type": "object",
         "properties": {
           "sceneRef": {
@@ -289948,7 +289948,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_episode": {
+      "ai_etzhayyim_apps_animeka_episode": {
         "type": "object",
         "properties": {
           "workRef": {
@@ -290027,7 +290027,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_inbetween": {
+      "ai_etzhayyim_apps_animeka_inbetween": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -290098,7 +290098,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_keyframe": {
+      "ai_etzhayyim_apps_animeka_keyframe": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -290159,7 +290159,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_layout": {
+      "ai_etzhayyim_apps_animeka_layout": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -290212,7 +290212,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_project": {
+      "ai_etzhayyim_apps_animeka_project": {
         "type": "object",
         "properties": {
           "episodeRef": {
@@ -290257,7 +290257,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_retake": {
+      "ai_etzhayyim_apps_animeka_retake": {
         "type": "object",
         "properties": {
           "targetUri": {
@@ -290342,7 +290342,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_scene": {
+      "ai_etzhayyim_apps_animeka_scene": {
         "type": "object",
         "properties": {
           "episodeRef": {
@@ -290411,7 +290411,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_script": {
+      "ai_etzhayyim_apps_animeka_script": {
         "type": "object",
         "properties": {
           "episodeRef": {
@@ -290465,7 +290465,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_soundCue": {
+      "ai_etzhayyim_apps_animeka_soundCue": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -290536,7 +290536,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_storyboard": {
+      "ai_etzhayyim_apps_animeka_storyboard": {
         "type": "object",
         "properties": {
           "cutRef": {
@@ -290596,7 +290596,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_animeka_work": {
+      "ai_etzhayyim_apps_animeka_work": {
         "type": "object",
         "properties": {
           "title": {
@@ -290669,7 +290669,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_ameno_inferenceResult": {
+      "ai_etzhayyim_apps_ameno_inferenceResult": {
         "type": "object",
         "properties": {
           "modelId": {
@@ -290725,7 +290725,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_ameno_swarmLease": {
+      "ai_etzhayyim_apps_ameno_swarmLease": {
         "type": "object",
         "properties": {
           "scope": {
@@ -290782,7 +290782,7 @@
           "expiresAt"
         ]
       },
-      "ai_gftd_apps_aidesk_artifact": {
+      "ai_etzhayyim_apps_aidesk_artifact": {
         "type": "object",
         "properties": {
           "jobId": {
@@ -290837,7 +290837,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_apps_aidesk_designJob": {
+      "ai_etzhayyim_apps_aidesk_designJob": {
         "type": "object",
         "properties": {
           "jobId": {

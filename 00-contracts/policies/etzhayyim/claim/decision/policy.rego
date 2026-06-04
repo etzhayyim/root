@@ -1,11 +1,11 @@
-package gftd.claim.decision
+package etzhayyim.claim.decision
 
 # Claim dispute arbiter — V1 policy (ADR-2604261717 Phase 2-B)
 #
 # Called by rego-arbiter-settler after reading on-chain claim state and
 # fetching evidence from IPFS. The settler posts:
 #
-#   POST /v1/data/gftd/claim/decision
+#   POST /v1/data/etzhayyim/claim/decision
 #   { "input": {
 #       "claimId":    "0x…",        // bytes32
 #       "claimant":   "0x…",        // address

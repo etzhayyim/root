@@ -1,6 +1,6 @@
 # Migration TODO — etzhayyim-project-analytics
 
-**Status**: 🔄 TRANSFORM — thin-edge appview migrated from gftdcojp archive 2026-06-01.
+**Status**: 🔄 TRANSFORM — thin-edge appview migrated from etzhayyimcojp archive 2026-06-01.
 
 This is a thin-edge dispatcher (edge-proxy → AgentGateway MCP → pod-side LangServer).
 No worker-side RisingWave/fiat dependency; business logic runs in the dispatcher/pod.

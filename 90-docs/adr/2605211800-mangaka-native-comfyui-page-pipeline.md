@@ -31,7 +31,7 @@ priority_note: |
   ghost-hacker arc 0-1 manifest and emits the workflow for any of
   46 pages. A LangGraph node exposes the renderer to Studio.
 implementation_notes: |
-  Custom node pack (60-apps/ai-gftd-project-mangaka/lg/comfy_custom_nodes/
+  Custom node pack (60-apps/etzhayyim-project-mangaka/lg/comfy_custom_nodes/
   MangakaTextOverlay/) installed by
   lg/scripts/install-mangaka-text-overlay-node.ps1 +
   lg/scripts/install-mangaka-ec-mockup.ps1 +

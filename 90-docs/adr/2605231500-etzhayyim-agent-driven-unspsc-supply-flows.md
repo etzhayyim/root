@@ -101,7 +101,7 @@ Every UNSPSC commodity flow that crosses the religious-corp economic boundary MU
 | **F3** — surplus redistribution | `surplus-routing` | Source Steward + Router agent + Destination Steward | no additional tithe (already routed from earlier tithe split) |
 | **F4** — operational ingress | `operational-supply` | Vendor (donation form, NOT purchase) + Steward | 10% inventory tithe (same as F1) |
 
-`purchase` / `sale` / `subscription` / `lease` / `tip` are **not** valid purposes for commodity flows under this ADR. Apps that need fiat-paid commodity acquisition route through the gftd vendor backend per ADR-2605192115 §4 and never touch `com.etzhayyim.esign.*`.
+`purchase` / `sale` / `subscription` / `lease` / `tip` are **not** valid purposes for commodity flows under this ADR. Apps that need fiat-paid commodity acquisition route through the etzhayyim vendor backend per ADR-2605192115 §4 and never touch `com.etzhayyim.esign.*`.
 
 ### 2. Agent execution loop (canonical 12-step process)
 
@@ -279,7 +279,7 @@ Rejected. The Adherent SBT is constitutionally 1 SBT = 1 vote per ADR-2605192100
 
 ### B. Use existing `com.etzhayyim.apps.lawfirm.eSign*` for commodity flows
 
-Rejected. ADR-2605231230 §8 already excluded religious-corp documents from the gftd lawfirm DocuSign passthrough. Commodity flows are religious-corp documents. Reverting that boundary would re-introduce centralized SaaS dependency for the largest agent-driven flow class.
+Rejected. ADR-2605231230 §8 already excluded religious-corp documents from the etzhayyim lawfirm DocuSign passthrough. Commodity flows are religious-corp documents. Reverting that boundary would re-introduce centralized SaaS dependency for the largest agent-driven flow class.
 
 ### C. Make UNSPSC actors signers directly (no AAT, agent = signer)
 

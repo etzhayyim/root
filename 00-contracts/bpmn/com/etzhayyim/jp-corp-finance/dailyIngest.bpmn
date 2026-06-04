@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jp_corp_finance_daily"
-    targetNamespace="https://gftd.ai/bpmn/jp-corp-finance"
+    targetNamespace="https://etzhayyim.ai/bpmn/jp-corp-finance"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="jp_corp_finance_daily" name="JP Corporate Finance Daily Ingest" isExecutable="true">
@@ -173,7 +173,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jp-corp-finance.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jp-corp-finance.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpCorpFinance.dailyIngest.completed&quot;" target="action"/>
           <zeebe:input source="={ case_id: runId, runId: runId, sourceId: sourceId, targetDate: targetDate, recordsPrepared: recordsPrepared, recordsWritten: recordsWritten, recordsVisible: recordsVisible, invalidCount: invalidCount, status: &quot;ok&quot; }" target="payload"/>
         </zeebe:ioMapping>
@@ -184,7 +184,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jp-corp-finance.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jp-corp-finance.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpCorpFinance.dailyIngest.rwDegraded&quot;" target="action"/>
           <zeebe:input source="={ case_id: runId, runId: runId, targetDate: targetDate, rwHealthy: rwHealthy, rwHealthReason: rwHealthReason, status: &quot;rw-degraded&quot; }" target="payload"/>
         </zeebe:ioMapping>

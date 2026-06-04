@@ -101,19 +101,19 @@ Audit trail: every ingest run writes `com.etzhayyim.apps.m365Ingest.run` event �
 T1 actor = no Worker. Register via PDS:
 
 ```bash
-gftd xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'
+etzhayyim xrpc com.etzhayyim.actor.migrate -d '{"manifestPath":"20-actors/m365-ingest/actor-manifest.jsonld"}'
 ```
 
 Requires prior:
 1. Migration `20260417190000_vertex_m365_sync_state.ts` applied
-2. Host WIT `ai-gftd-host:m365/m365@1.0.0` implemented in `50-infra/.../magatama-host/src/capabilities/m365.ts`
+2. Host WIT `etzhayyim-host:m365/m365@1.0.0` implemented in `50-infra/.../magatama-host/src/capabilities/m365.ts`
 3. Secret `M365_CLIENT_SECRET` in CF Secrets Store (binding on executor worker)
 
 ## Operational History (2026-04-17)
 
 - Host TS impl `m365.ts` + 4 host lexicons + dispatcher wiring: **DONE**
 - Migrations `20260417190000` (sync_state) + `20260417200000` (BEC columns) applied via psql: **DONE**
-- Initial ingest per UPN via `~/.gftd/ingest/m365_mail_ingest.py`:
+- Initial ingest per UPN via `~/.etzhayyim/ingest/m365_mail_ingest.py`:
   - `legal@etzhayyim.com`: skipped (email not reachable via Graph)
   - `jinji@etzhayyim.com`: ingested, Amazon Business email classified IntelExtraction score=28/clean
   - `keiri@etzhayyim.com`: ingested, **BEC campaign detected** — 4 outlook.com actors sent CEO name (河崎純真) + company name spoofing, all registered to yabai (risk 75–80/monitor)
@@ -123,12 +123,12 @@ Requires prior:
 
 ## Migration Path (from standalone Python script)
 
-Current: `~/.gftd/ingest/m365_mail_ingest.py` (one-off, local)
+Current: `~/.etzhayyim/ingest/m365_mail_ingest.py` (one-off, local)
 
 → Step 1: Implement host TS `m365.ts` (port of Python capability): **DONE**
 → Step 2: Apply migration `20260417190000_vertex_m365_sync_state`: **DONE**
 → Step 3: Seed `vertex_m365_user` once (daily cron will keep it fresh): PENDING
-→ Step 4: Register manifest → `gftd xrpc com.etzhayyim.actor.migrate`: PENDING
+→ Step 4: Register manifest → `etzhayyim xrpc com.etzhayyim.actor.migrate`: PENDING
 → Step 5: Run `syncUser` for each UPN (initial full sync): PENDING
 → Step 6: Delta cron takes over → Python script archived / deleted: PENDING
 

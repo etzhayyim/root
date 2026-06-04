@@ -183,7 +183,7 @@ fn classify_native_memory_class(vram_mb: i32) -> String {
 
 pub fn native_worker_user_agent() -> String {
     format!(
-        "gftd-murakumo-native/{} {}/{}",
+        "etzhayyim-murakumo-native/{} {}/{}",
         crate::VERSION,
         std::env::consts::OS,
         std::env::consts::ARCH,

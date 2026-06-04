@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_itr1_purge"
-    targetNamespace="https://gftd.ai/bpmn/itr1"
+    targetNamespace="https://etzhayyim.ai/bpmn/itr1"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="itr1_purge" name="ITR-1 7y retention purge" isExecutable="true">
@@ -76,7 +76,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.union.gftd.ai:cbdt:itr1&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbdt:itr1&quot;" target="actor"/>
           <zeebe:input source="=&quot;itr1.purge&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  purgedCount,
@@ -95,7 +95,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.union.gftd.ai:cbdt:itr1&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbdt:itr1&quot;" target="actor"/>
           <zeebe:input source="=&quot;itr1.purge.noop&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  0,

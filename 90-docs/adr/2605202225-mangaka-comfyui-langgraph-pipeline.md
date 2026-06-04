@@ -255,20 +255,20 @@ anime-illustration in 47 seconds at 1536×1024.
 
 # References
 
-- `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/comfy_workflows.py` —
+- `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/comfy_workflows.py` —
   workflow JSON builders (SSoT).
-- `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/comfy_runner.py` —
+- `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/comfy_runner.py` —
   shared submit / poll / upload helpers.
-- `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/graphs/` — 11 typed
+- `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/graphs/` — 11 typed
   graph files.
-- `60-apps/ai-gftd-project-mangaka/lg/scripts/install-mangaka-comfy-workflow.py`
+- `60-apps/etzhayyim-project-mangaka/lg/scripts/install-mangaka-comfy-workflow.py`
   — workflow library installer (POSTs GUI JSON to ComfyUI).
-- `60-apps/ai-gftd-project-mangaka/lg/scripts/install-comfy-quality-pack.ps1`
+- `60-apps/etzhayyim-project-mangaka/lg/scripts/install-comfy-quality-pack.ps1`
   — Windows host model + custom-node installer.
-- `60-apps/ai-gftd-project-mangaka/appview-studio/ai-gftd-wasm-studio-stdk2024/svelte/src/routes/+page.svelte`
+- `60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/svelte/src/routes/+page.svelte`
   — Studio SPA.
-- `60-apps/ai-gftd-project-mangaka/appview-studio/ai-gftd-wasm-studio-stdk2024/svelte/src/lib/{NodeGraph,PregelNode}.svelte`
+- `60-apps/etzhayyim-project-mangaka/appview-studio/etzhayyim-wasm-studio-stdk2024/svelte/src/lib/{NodeGraph,PregelNode}.svelte`
   — @xyflow/svelte Pregel DAG renderer.
-- `60-apps/ai-gftd-project-mangaka/CLAUDE.md` — mangaka project guide.
+- `60-apps/etzhayyim-project-mangaka/CLAUDE.md` — mangaka project guide.
 - Session commits 8cd1d02 → e4ef249 (8 commits) — incremental landing
   of the pipeline.

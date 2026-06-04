@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.municipality",
-  "description": "Read-side catalog record describing a municipality (市区町村 / city / borough / commune / county). Originally `vertex_gov_municipality` table. Per ADR-2605212100 the gftd-side Kysely table is replaced by MST records under this collection. Cross-references `com.etzhayyim.gov.agency` (municipalities are agencies too — `branch=executive level=municipal`); this collection exists for the common case of name/code lookup without the full agency surface.",
+  "description": "Read-side catalog record describing a municipality (市区町村 / city / borough / commune / county). Originally `vertex_gov_municipality` table. Per ADR-2605212100 the etzhayyim-side Kysely table is replaced by MST records under this collection. Cross-references `com.etzhayyim.gov.agency` (municipalities are agencies too — `branch=executive level=municipal`); this collection exists for the common case of name/code lookup without the full agency surface.",
   "defs": {
     "main": {
       "type": "record",

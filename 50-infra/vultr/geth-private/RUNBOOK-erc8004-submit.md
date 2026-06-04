@@ -1,7 +1,7 @@
 # RUNBOOK — ERC-8004 chain submit (close `chain_submit_status: pending`)
 
-> **HISTORICAL** — drove the legacy `gftd agent-runtime publish-agent`
-> command, which was removed along with `70-tools/gftd/` on 2026-05-20.
+> **HISTORICAL** — drove the legacy `etzhayyim agent-runtime publish-agent`
+> command, which was removed along with `70-tools/etzhayyim/` on 2026-05-20.
 > The IPFS pin + on-chain `registerAgent` flow needs to be re-implemented
 > (e.g. as `e7m agent publish` or a Foundry script) before this runbook
 > can be exercised again. Retained as design reference.
@@ -21,7 +21,7 @@ moves to `"completed"`.
 1. PR #1145 merged (✅ done — `acdf88caf01`).
 2. Sealer key custody confirmed:
    - `ls 50-infra/vultr/geth-private/.local-secrets/sealer.priv` — exists
-   - `security find-generic-password -s "gftd.private-chain" -a "SEALER_PRIV" -w | head -c 4` — prints `0x` (Keychain L2)
+   - `security find-generic-password -s "etzhayyim.private-chain" -a "SEALER_PRIV" -w | head -c 4` — prints `0x` (Keychain L2)
    - **L3 Vault**: run `bash 50-infra/vultr/geth-private/scripts/vault-investiture.sh` first if not already done. This runbook continues with L1 + L2 only as fallback, but L3 is required for prod.
 3. `geth.etzhayyim.com` healthy:
    ```bash
@@ -39,7 +39,7 @@ moves to `"completed"`.
 
 ```bash
 cd /path/to/etzhayyim-root
-# gftd agent-runtime publish-agent \  (removed 2026-05-20)
+# etzhayyim agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run \
   --cluster murakumo-vke \
   --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json \
@@ -54,7 +54,7 @@ Verify:
 ## Step 2 — publish to IPFS (no chain yet)
 
 ```bash
-# gftd agent-runtime publish-agent \  (removed 2026-05-20)
+# etzhayyim agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run=false \
   --ipfs http://144.202.126.131 \
   --cluster murakumo-vke \
@@ -69,11 +69,11 @@ next step.
 ## Step 3 — submit on-chain `registerAgent` (the actual cutover)
 
 ```bash
-ROOT_DID="$(security find-generic-password -s "gftd.private-chain" -a "YORO_ROOT_DID" -w 2>/dev/null \
+ROOT_DID="$(security find-generic-password -s "etzhayyim.private-chain" -a "YORO_ROOT_DID" -w 2>/dev/null \
   || jq -r '.rootIdentity.rootDid' /tmp/yoro-agent-registration.json)"
 OWNER="$(jq -r '.rootIdentity.address' /tmp/yoro-agent-registration.json)"
 
-# gftd agent-runtime publish-agent \  (removed 2026-05-20)
+# etzhayyim agent-runtime publish-agent \  (removed 2026-05-20)
   --dry-run=false \
   --submit-chain \
   --ipfs http://144.202.126.131 \
@@ -99,7 +99,7 @@ Expected stdout includes:
 ```
 
 Sealer key access went through `cast send` under the hood (the legacy
-reference pattern was `70-tools/gftd/gftd/eth_deploy_receipt.go`, removed
+reference pattern was `70-tools/etzhayyim/etzhayyim/eth_deploy_receipt.go`, removed
 2026-05-20). The sealer pre-funded balance (~$10^41 NETH-equiv, see
 `50-infra/vultr/geth-private/CLAUDE.md`) covers the gas trivially.
 
@@ -138,8 +138,8 @@ Commit with `refs ADR-2604262100`.
 | `--submit-chain requires --dry-run=false` | flag combo | drop `--dry-run` in Step 3 |
 | `--root-did is required` | rootIdentity.rootDid empty in template | check `public-agent-registration.template.json` |
 | `eth_sendRawTransaction` 401 | privileged path on geth-rpc-proxy | NOT this case — `eth_sendRawTransaction` is **public** per `geth-rpc-proxy/DEPLOY.md` Auth model |
-| `nonce too low` | concurrent sealer use (gftd deploy + this) | wait 10s, retry |
-| chain tx mined but registry returns 0 | wrong `--registry` | confirm address matches `[geth_private.contracts] gftd_agent_registry = 0xbfe74a0D3BBB3D77bCd16fDe2C64741eF4472F8E` (V2) |
+| `nonce too low` | concurrent sealer use (etzhayyim deploy + this) | wait 10s, retry |
+| chain tx mined but registry returns 0 | wrong `--registry` | confirm address matches `[geth_private.contracts] etzhayyim_agent_registry = 0xbfe74a0D3BBB3D77bCd16fDe2C64741eF4472F8E` (V2) |
 
 ## Why this is the next phase
 

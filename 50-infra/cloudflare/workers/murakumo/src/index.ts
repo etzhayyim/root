@@ -392,7 +392,7 @@ async function getRoster(env: Env): Promise<FleetRoster | null> {
 // ─── Fleet node mapping (Mac-mini fleet, ADR-2605191346) ────────────
 
 const NODE_IP_MAP: Record<string, string> = {
-  // RunPod (gftd legacy — kept while transition; etzhayyim moves to Mac-mini fleet only)
+  // RunPod (etzhayyim legacy — kept while transition; etzhayyim moves to Mac-mini fleet only)
   vyp99t9px7h4dl: "runpod-ada-primary",
   // Mac-mini fleet (Tier-1 per ADR-2605191346)
   "192.168.1.61": "judah",

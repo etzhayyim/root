@@ -17,7 +17,7 @@
   Trigger:
     timer-start R/P1D (daily) AND XRPC (`com.etzhayyim.apps.coverage.inferLdaSignals`).
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-signals-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-signals-v1
   NSID:      com.etzhayyim.apps.coverage.inferLdaSignals
 -->
 <bpmn:definitions
@@ -25,7 +25,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_coverage_infer_lda_signals"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="coverage_infer_lda_signals" name="coverage infer LDA signals" isExecutable="true">
 
@@ -137,7 +137,7 @@
     &quot;vertex_id&quot;:         s.vertex_id,
     &quot;_seq&quot;:              1,
     &quot;sensitivity_ord&quot;:   0,
-    &quot;owner_did&quot;:         &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;owner_did&quot;:         &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;viewpoint_vid&quot;:     s.viewpoint_vid,
     &quot;signal_token&quot;:      s.signal_token,
     &quot;signal_kind&quot;:       s.signal_kind,
@@ -145,8 +145,8 @@
     &quot;extraction_expr&quot;:   s.extraction_expr,
     &quot;doc_frequency&quot;:     if (count(collectionCounts[source_collection = s.source_collection]) > 0) then collectionCounts[source_collection = s.source_collection][1].cnt else s.doc_frequency,
     &quot;idf_score&quot;:         if (corpusSize > 0 and (if (count(collectionCounts[source_collection = s.source_collection]) > 0) then collectionCounts[source_collection = s.source_collection][1].cnt else s.doc_frequency) > 0) then corpusSize / (if (count(collectionCounts[source_collection = s.source_collection]) > 0) then collectionCounts[source_collection = s.source_collection][1].cnt else s.doc_frequency) else 1.0,
-    &quot;actor_did&quot;:         &quot;did:web:coverage.gftd.ai&quot;,
-    &quot;org_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;actor_did&quot;:         &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;created_at&quot;:        now()
   }" target="rows"/>
           <zeebe:output source="=inserted" target="upsertedCount"/>
@@ -162,7 +162,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferLdaSignals.refresh&quot;" target="action"/>
           <zeebe:input source="={
             &quot;viewpoint_count&quot;:    viewpointCount,
@@ -182,7 +182,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferLdaSignals.abort&quot;" target="action"/>
           <zeebe:input source="={&quot;reason&quot;: &quot;no_signals_to_refresh&quot;, &quot;viewpoint_count&quot;: viewpointCount, &quot;signal_count&quot;: signalCount, &quot;corpus_size&quot;: corpusSize}" target="payload"/>
         </zeebe:ioMapping>

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_laws_autonomous_weapons_flag_laws_deployment"
-    targetNamespace="https://gftd.ai/bpmn/open-laws-autonomous-weapons"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-laws-autonomous-weapons"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_laws_autonomous_weapons_flag_laws_deployment" name="LAWS 配備 フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-laws-autonomous-weapons.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-laws-autonomous-weapons.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;laws.deployment&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: systemVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>

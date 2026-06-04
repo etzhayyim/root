@@ -7,7 +7,7 @@
  * can flag rows with classification/score/reasons.
  *
  * vertex_email_message is **shared** across:
- *   - kyber inbox appview (60-apps/ai-gftd-project-kyber-qzzg06nh)
+ *   - kyber inbox appview (60-apps/etzhayyim-project-kyber-qzzg06nh)
  *   - m365-ingest pipeline (20-actors/m365-ingest)
  *
  * Both writers stay unchanged; only the triage agent populates the new

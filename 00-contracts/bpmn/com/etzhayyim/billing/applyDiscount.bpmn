@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  billing.gftd.ai — applyDiscount workflow (XRPC com.etzhayyim.apps.billing.setDiscount).
+  billing.etzhayyim.com — applyDiscount workflow (XRPC com.etzhayyim.apps.billing.setDiscount).
 
   Pipeline:
     1. billing.discount.validateRole    check approverRole vs discountPct band:
@@ -18,7 +18,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_billing_apply_discount"
-    targetNamespace="https://gftd.ai/bpmn/billing"
+    targetNamespace="https://etzhayyim.ai/bpmn/billing"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="billing_apply_discount" name="billing apply discount" isExecutable="true">
@@ -89,7 +89,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:billing.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:billing.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.billing.setDiscount&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;orgDid&quot;: orgDid, &quot;discountPct&quot;: discountPct, &quot;approver&quot;: approver, &quot;approvalState&quot;: approvalState, &quot;discountId&quot;: discountId }" target="attributes"/>
         </zeebe:ioMapping>
@@ -103,7 +103,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:billing.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:billing.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.billing.setDiscount.rejected&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;orgDid&quot;: orgDid, &quot;discountPct&quot;: discountPct, &quot;approver&quot;: approver, &quot;approverRole&quot;: approverRole, &quot;rejectReason&quot;: rejectReason }" target="attributes"/>
         </zeebe:ioMapping>

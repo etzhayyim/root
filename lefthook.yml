@@ -235,7 +235,7 @@ pre-commit:
       # rules (no float types, integer with implied units). Per ADR-2605190900.
       #
       # Staged-only mode (fix 2026-05-26): pass {staged_files} to --files so
-      # pre-existing unrelated Lexicon issues in com/etzhayyim/gftd/ don't block
+      # pre-existing unrelated Lexicon issues in com/etzhayyim/etzhayyim/ don't block
       # commits that touch only other Lexicon paths. Manual full-tree audit:
       #   python3 70-tools/scripts/validate-lexicons.py \
       #       --root 00-contracts/lexicons/com/etzhayyim/ --exit-on-error
@@ -257,13 +257,13 @@ pre-commit:
       run: node 70-tools/scripts/lint/no-external-purchase-purpose.mjs {staged_files}
       tags: lexicon yorishiro
 
-    no-two-stage-gftd-domains:
+    no-two-stage-etzhayyim-domains:
       # Enforce ADR-2605212340 (legacy domain → etzhayyim.com cutover).
-      # Blocks new introduction of the legacy gftd top-level zone literal
+      # Blocks new introduction of the legacy etzhayyim top-level zone literal
       # in canonical etzhayyim code, including in .jsonld @context URIs.
       # Alias docs (/CLAUDE.md, /README.md, /CHARTER-RIDER.md) are exempt.
       glob: "*.{md,toml,yaml,yml,json,jsonc,jsonld,ts,tsx,js,jsx,mjs,cjs,py,rs,go,sh,sol,svelte}"
-      run: node 70-tools/scripts/lint/no-two-stage-gftd-domains.mjs {staged_files}
+      run: node 70-tools/scripts/lint/no-two-stage-etzhayyim-domains.mjs {staged_files}
       stage_fixed: false
 
     dataset-substrate-guard:
@@ -332,7 +332,7 @@ pre-commit:
       #   cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e .
       run: |
         # Prefer the project-local venv binary because PATH `e7m` may
-        # collide with an unrelated `gftd` shim that has no `verify`
+        # collide with an unrelated `etzhayyim` shim that has no `verify`
         # subcommand on some workstations.
         if [ -x 70-tools/e7m/.venv/bin/e7m ]; then
           E7M_BIN=70-tools/e7m/.venv/bin/e7m
@@ -633,7 +633,7 @@ pre-push:
       # langchain externalize config from b638c27e0 — Rollup must NOT
       # try to resolve @langchain/langgraph from the SDK's filesystem
       # path during the SSR build. ~2.3s on M1.
-      glob: "60-apps/ai-gftd-project-cyber-drill/**"
+      glob: "60-apps/etzhayyim-project-cyber-drill/**"
       run: |
         # Make sure SDK dist/ is current; if the user only changed
         # cyber-drill files, the SDK build above didn't fire.
@@ -641,7 +641,7 @@ pre-push:
           echo "  pre-building SDK dist/ (was stale)…"
           (cd 40-engine/kami-engine/kami-engine-sdk && npm run build > /dev/null 2>&1)
         fi
-        cd 60-apps/ai-gftd-project-cyber-drill/svelte
+        cd 60-apps/etzhayyim-project-cyber-drill/svelte
         if ! pnpm run build > /tmp/cyber-build.$$.log 2>&1; then
           echo "✘ cyber-drill prod build failed"
           tail -20 /tmp/cyber-build.$$.log

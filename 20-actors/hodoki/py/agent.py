@@ -6,7 +6,7 @@ processing schema (intake audit, depollution, battery handling, parts harvest,
 catalyst recovery, shredding, data wipe, emissions audit, provenance binding), with
 hodoki's constitutional gates enforced:
 
-  G2   mass-balance ≥98%       (yatachain-anchored audit)
+  G2   mass-balance ≥98%       (kotoba-datomic-anchored audit)
   G5   charter-rider scan      (no military/weapon-carrying vehicles)
   G6   f-gas ≥95% capture      (UNEP Kigali Amendment alignment)
   G8   ecu-data-wipe mandatory (cryptographic destruction + witness ≥2 robots)

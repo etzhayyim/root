@@ -204,7 +204,7 @@ silently with no rollback path other than redeploying the prior image.
   via SQL `INSERT` instead of image rebuild + rolling deploy.
 - Actor topology (nodes/edges/conditionals/state_keys) is queryable via
   RW SQL, which makes it observable by the same tools as the rest of the
-  graph (`gftd dodaf tv1 query`, ad-hoc joins with `vertex_langgraph_run`).
+  graph (`etzhayyim dodaf tv1 query`, ad-hoc joins with `vertex_langgraph_run`).
 - New actors require: 1 `vertex_langgraph_assistant` INSERT + N
   `vertex_langgraph_assistant_node` INSERTs + 1 `vertex_langgraph_deployment`
   INSERT. No code change.

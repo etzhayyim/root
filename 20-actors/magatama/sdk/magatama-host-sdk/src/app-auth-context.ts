@@ -13,7 +13,7 @@ export function resolveAppContext(
   for (const [k, v] of headers) {
     const kl = k.toLowerCase();
     if (kl === "authorization") authHeader = v;
-    else if (kl === "x-gftd-org-id") orgHeader = v;
+    else if (kl === "x-etzhayyim-org-id") orgHeader = v;
     else if (kl === "x-request-id") reqIdHeader = v;
   }
 

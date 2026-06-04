@@ -85,7 +85,7 @@ vendor app  → createKyselyDb → vendor RW
 etzhayyim app  ← read-only e.read() ← MST views
 ```
 
-Reference impl: `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/etzhayyim-mirror.ts` (vendor shim, fire-and-forget shadow writes).
+Reference impl: `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/etzhayyim-mirror.ts` (vendor shim, fire-and-forget shadow writes).
 
 ### When to choose Option A
 
@@ -119,10 +119,10 @@ etzhayyim app  ← e.read() ← MST traversal
 ```
 
 Reference impl:
-- `60-apps/ai-gftd-project-open-isco/rw-free/` (seeder + query CLI)
-- `60-apps/ai-gftd-project-tsukuru/rw-free/` (full app — production
+- `60-apps/etzhayyim-project-open-isco/rw-free/` (seeder + query CLI)
+- `60-apps/etzhayyim-project-tsukuru/rw-free/` (full app — production
   order + escrow + manufacturer registry, 13 commands)
-- This PR: `60-apps/ai-gftd-project-ipaddress/rw-free/` (initial slice)
+- This PR: `60-apps/etzhayyim-project-ipaddress/rw-free/` (initial slice)
 
 ### When to choose Option B
 
@@ -263,9 +263,9 @@ need them.
 - ADR-2605202900 — tsukuru Phase 2 escrow_intent (Option B pattern)
 - `@etzhayyim/sdk` v0.1 — `e.write() / e.read() / e.pay()` working;
   `e.escrowOpen()` v0.2+ stub
-- `60-apps/ai-gftd-project-open-isco/rw-free/` — Option B reference
+- `60-apps/etzhayyim-project-open-isco/rw-free/` — Option B reference
   (seeder + query CLI)
-- `60-apps/ai-gftd-project-tsukuru/rw-free/` — Option B reference
+- `60-apps/etzhayyim-project-tsukuru/rw-free/` — Option B reference
   (full app, 13/46 commands)
-- `60-apps/ai-gftd-project-ipaddress/rw-free/` — Option B reference
+- `60-apps/etzhayyim-project-ipaddress/rw-free/` — Option B reference
   (this PR, initial slice)

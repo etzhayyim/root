@@ -51,7 +51,7 @@ const EXCLUDE_GLOBS = [
   // KAMI engine: Rust WASM FFI bindings use snake_case
   '!packages/engine/kami-engine/**',
   // Deploy cache (generated, not source)
-  '!**/.gftd-deploy/**',
+  '!**/.etzhayyim-deploy/**',
 ];
 
 /**

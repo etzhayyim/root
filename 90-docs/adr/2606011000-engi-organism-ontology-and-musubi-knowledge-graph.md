@@ -10,7 +10,7 @@ implementation_status: r0-scaffold-tests-green
 priority: 9.4
 axis: constitutional
 weight: 0.94
-priority_note: "Constitutional ontology refinement that resolves the 2026-05-31/06-01 founder discussion on building a planet-scale knowledge graph (全世界の不動産オーナー・人物・企業の特定 → 人類・地球全体の knowledge graph 化). The founder rejected the Western life/liberty/property (Locke) frame the agent had scaffolded on as a 西洋の幻想 incompatible with the anti-individualist ontology, and rejected the person/non-person split as anthropocentric. This ADR records the native replacement: the unit is ORGANISM-IN-RELATION (縁起 / holobiont, human AND non-human), OWNERSHIP is 取(upādāna, grasping) = a DEBT to be released not a right to be protected (land waqf-inalienability ADR-2605192245 generalized to all custody), LIBERTY is Wellbecoming-as-trajectory within embodiment (non-eschatology §1.15 — no escape-from-body promised), LIFE is the Tree of Life web with 八百万 non-human standing. RECONCILES with ADR-2605310100 (Covenant Transparency): does NOT reintroduce the founder-rejected 'privacy for persons' — what is surfaced is 取-concentration (grasping-load), and the only floor is the already-constitutional §4 (secrets/keys) + §4(2) outbound-third-party gate. Answers the founder's minimax venue question: PUBLIC/etzhayyim (on-chain + open-source + 1 SBT=1 vote, §1.12) strictly dominates PRIVATE/vendor (gftdcojp) — a covert ownership-registry is the very proprietary surveillance force §1.12 forbids. Refines Charter §1.13 anti-individualist ontology → Council Lv7+ unanimity (Charter §0.4) before the constitutional-ontology clauses bind; schema vocabulary + graph design land as proposed scaffold, NOT executed."
+priority_note: "Constitutional ontology refinement that resolves the 2026-05-31/06-01 founder discussion on building a planet-scale knowledge graph (全世界の不動産オーナー・人物・企業の特定 → 人類・地球全体の knowledge graph 化). The founder rejected the Western life/liberty/property (Locke) frame the agent had scaffolded on as a 西洋の幻想 incompatible with the anti-individualist ontology, and rejected the person/non-person split as anthropocentric. This ADR records the native replacement: the unit is ORGANISM-IN-RELATION (縁起 / holobiont, human AND non-human), OWNERSHIP is 取(upādāna, grasping) = a DEBT to be released not a right to be protected (land waqf-inalienability ADR-2605192245 generalized to all custody), LIBERTY is Wellbecoming-as-trajectory within embodiment (non-eschatology §1.15 — no escape-from-body promised), LIFE is the Tree of Life web with 八百万 non-human standing. RECONCILES with ADR-2605310100 (Covenant Transparency): does NOT reintroduce the founder-rejected 'privacy for persons' — what is surfaced is 取-concentration (grasping-load), and the only floor is the already-constitutional §4 (secrets/keys) + §4(2) outbound-third-party gate. Answers the founder's minimax venue question: PUBLIC/etzhayyim (on-chain + open-source + 1 SBT=1 vote, §1.12) strictly dominates PRIVATE/vendor (etzhayyimcojp) — a covert ownership-registry is the very proprietary surveillance force §1.12 forbids. Refines Charter §1.13 anti-individualist ontology → Council Lv7+ unanimity (Charter §0.4) before the constitutional-ontology clauses bind; schema vocabulary + graph design land as proposed scaffold, NOT executed."
 authoritative_for:
   - the etzhayyim native ontology for any knowledge graph over persons/things/land (replaces the implicit life/liberty/property frame)
   - the dissolution of 所有(ownership) into 取(grasping-load) = debt + custody-under-Tree-of-Life (generalizes ADR-2605192245 + ADR-2605301020 access-not-ownership)
@@ -36,7 +36,7 @@ superseded_by: []
 notes: |
   Session 2026-05-31/06-01: founder asked whether building a planet-scale knowledge
   graph that identifies all real-estate owners / persons / companies fits etzhayyim,
-  and whether to do it private (gftdcojp vendor) or public (etzhayyim). The agent's
+  and whether to do it private (etzhayyimcojp vendor) or public (etzhayyim). The agent's
   first answer used a Lockean social-contract frame with "transparency for power /
   privacy for persons". The founder pushed back on three grounds, each recorded as a
   Decision clause: (1) the public/private split is anthropocentrically inconsistent —
@@ -68,7 +68,7 @@ The founder asked (2026-05-31): does building a planet-scale knowledge graph —
 that identifies **全世界の不動産オーナー・人物・企業** and ultimately renders
 **人類・地球全体を knowledge graph 化** — fit etzhayyim's mission (構造的労働解放 +
 Wellbecoming + 多世代 priority for future children)? And should it be done **private**
-(via a vendor such as `gftdcojp`) or **public** (etzhayyim, open + on-chain)?
+(via a vendor such as `etzhayyimcojp`) or **public** (etzhayyim, open + on-chain)?
 
 The agent's first pass reached for a liberal social-contract frame (Hobbes/Locke/
 Rousseau) and proposed **"transparency for power / privacy for persons."** The founder
@@ -250,11 +250,11 @@ to authorized DIDs, consent-gated). Members' own follow-graph is covenant-visibl
 (members + their declared 縁) and **aggregate-first** for the latent remainder, never as a
 per-person exposure dump.
 
-## §D8 — Venue: minimax verdict (PUBLIC/etzhayyim ≫ PRIVATE/gftdcojp)
+## §D8 — Venue: minimax verdict (PUBLIC/etzhayyim ≫ PRIVATE/etzhayyimcojp)
 
 Minimizing worst-case loss over `{venue} × {scope}`:
 
-- **PRIVATE / gftdcojp**: a covert, closed ownership/identity registry is **exactly the
+- **PRIVATE / etzhayyimcojp**: a covert, closed ownership/identity registry is **exactly the
   proprietary, unmonitored force §1.12 forbids** (Transparent Religious Force requires
   open-source + on-chain 監視 + 1 SBT=1 vote). It also routes payoff to a vendor,
   violating the Ownership rule (payoff帰属 = etzhayyim only). Worst case ≈ **−9**:
@@ -330,7 +330,7 @@ executed** (no actor is retrofitted, no graph is populated).
    pre-existing power gradient amplifies harm to the powerless (and violates the 多世代/
    children priority). The §D2 move (surface 取, not persons) + the §4 floor is the
    coherent symmetric form.
-4. **Private build at a vendor (gftdcojp).** **Rejected by §D8 minimax** and by §1.12
+4. **Private build at a vendor (etzhayyimcojp).** **Rejected by §D8 minimax** and by §1.12
    (proprietary covert force) + the Ownership rule (payoff帰属 = etzhayyim only).
 5. **Entity-centric registry (`:owns`/`:owner`).** **Rejected by §D2/§D6**: reifies the
    debt-world; the first-class citizen is 縁, and ownership is recorded only as custody +
@@ -369,7 +369,7 @@ gates being honored): retrofitting danjo/tadori/kanae onto `:en/*`; populating a
 follow/PII data for non-member, non-ingressed organisms; the `com.etzhayyim.engi.dep`
 lexicon (referenced by the adapter, not yet authored); and a repo-level CI guard
 (`validate-engi-floor`) mirroring `transparency-floor-and-gate.mjs`. The venue verdict
-(§D8: public/etzhayyim ≫ private/gftdcojp) is the standing answer to the founder's
+(§D8: public/etzhayyim ≫ private/etzhayyimcojp) is the standing answer to the founder's
 build-where question.
 
 # References

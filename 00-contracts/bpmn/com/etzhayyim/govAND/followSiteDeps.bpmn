@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_and_follow_site_deps"
-    targetNamespace="https://gftd.ai/bpmn/govAnd"
+    targetNamespace="https://etzhayyim.ai/bpmn/govAnd"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_and_follow_site_deps" name="govAnd follow site deps" isExecutable="true">

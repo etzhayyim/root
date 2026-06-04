@@ -3,7 +3,7 @@
   "@type": "MagatamaApp",
   "nanoid": "cpti0001",
   "name": "compintel",
-  "displayName": "GFTD Competitive Intel",
+  "displayName": "Etzhayyim Competitive Intel",
   "description": "Competitive Intelligence Dashboard — LangGraph multi-dimension research loop. Weekly refresh Monday 08:00 JST. Threat scoring + alert digest via Resend.",
   "did": "did:web:compintel.etzhayyim.com",
   "domain": "compintel.etzhayyim.com",

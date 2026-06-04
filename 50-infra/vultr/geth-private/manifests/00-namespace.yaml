@@ -4,5 +4,5 @@ metadata:
   name: geth-private
   labels:
     app.kubernetes.io/name: geth-private
-    app.kubernetes.io/part-of: gftd
+    app.kubernetes.io/part-of: etzhayyim
     etzhayyim.com/chain: "260425"

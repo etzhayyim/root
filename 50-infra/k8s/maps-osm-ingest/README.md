@@ -15,7 +15,7 @@ checkpoints. Rationale in `deps.toml [[migrations]] maps-forward-topology-raw-to
 
 ## Bootstrap sequence (first-run)
 
-The existing LKE cluster (`ai-gftd-risingwave`, id=589404, sg-sin-2) runs
+The existing LKE cluster (`etzhayyim-risingwave`, id=589404, sg-sin-2) runs
 a single GPU node (`g2-gpu-rtx4000a1-l`) hosting RisingWave + TEI + Ollama.
 The planet ingest Job needs 40-56 GiB RAM and would starve those workloads,
 so we **add a temporary node pool, run the Job there, then delete the pool**.

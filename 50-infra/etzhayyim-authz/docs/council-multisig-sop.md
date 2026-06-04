@@ -48,7 +48,7 @@ EtzhayyimAuthz is owner-controlled. The owner is the Council 5-of-7 Safe. Three 
 
 ## Vendor mirror flow (`mirrorVendorRoot`, Phase P2)
 
-Existing vendor-issued root (`did:erc725:gftd:260425:0x...`) → new etzhayyim root.
+Existing vendor-issued root (`did:erc725:etzhayyim:260425:0x...`) → new etzhayyim root.
 
 Additional pre-flight on top of greenfield:
 
@@ -59,12 +59,12 @@ Additional pre-flight on top of greenfield:
    - Tool: `cast wallet verify --address $VENDOR_ADDR <message> <signature>`.
 
 2. **Verify the vendor root is real**.
-   - Query vendor authz: `gftd authz get-root --did $VENDOR_ROOT_DID` (or equivalent).
+   - Query vendor authz: `etzhayyim authz get-root --did $VENDOR_ROOT_DID` (or equivalent).
    - Confirm the vendor root is *active* and that `vendorAddr` is the current signer per vendor records.
 
 3. **Compute inputs**:
    ```bash
-   VENDOR_ROOT_HASH=$(cast keccak "did:erc725:gftd:260425:0xVENDORROOTID")
+   VENDOR_ROOT_HASH=$(cast keccak "did:erc725:etzhayyim:260425:0xVENDORROOTID")
    ```
 
 4. **Proceed with Safe-proposed `mirrorVendorRoot(dwebHandleHash, newActiveKey, $VENDOR_ROOT_HASH, $VENDOR_ADDR)`** as in greenfield steps 3–8.

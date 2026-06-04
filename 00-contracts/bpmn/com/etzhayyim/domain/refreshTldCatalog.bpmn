@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  domain.gftd.ai refreshTldCatalog (timer-start, autonomous).
+  domain.etzhayyim.com refreshTldCatalog (timer-start, autonomous).
 
   Phase 1: stub primitive (no-op). Phase 2 will fetch each TLD's
   eligibility policy URL, diff against the stored excerpt, and bump
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_domain_refresh_tld_catalog"
-    targetNamespace="https://gftd.ai/bpmn/domain"
+    targetNamespace="https://etzhayyim.ai/bpmn/domain"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="domain_refresh_tld_catalog" name="domain refresh TLD catalog" isExecutable="true">
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:domain.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.domain.refreshTldCatalog&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;tldsChecked&quot;: tldsChecked, &quot;tldsUpdated&quot;: tldsUpdated }" target="attributes"/>
         </zeebe:ioMapping>

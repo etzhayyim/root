@@ -33,7 +33,7 @@ Behavior:
 Never deletes. Honors `enabled=false` on the row (won't flip back).
 
 Env:
-  RW_URL   postgresql://…  ;  default from Keychain gftd.rw/ROOT_URL
+  RW_URL   postgresql://…  ;  default from Keychain etzhayyim.rw/ROOT_URL
 """
 
 from __future__ import annotations
@@ -62,11 +62,11 @@ def rw_url() -> str:
     if url := os.environ.get("RW_URL"):
         return url
     out = subprocess.check_output(
-        ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+        ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
         text=True,
     ).strip()
     if not out:
-        raise SystemExit("RW_URL not in env and not in Keychain (gftd.rw/ROOT_URL)")
+        raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
     return out
 
 

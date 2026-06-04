@@ -56,7 +56,7 @@ Required fields on closure entries:
 
 ## 2. Cross-repo overlap taxonomy (7 categories)
 
-The 45 actors with identical `60-apps/ai-gftd-project-<name>` directories in both repos resolve to 7 distinct patterns:
+The 45 actors with identical `60-apps/etzhayyim-project-<name>` directories in both repos resolve to 7 distinct patterns:
 
 | Cat | Pattern | Count | Steady state? |
 |---|---|---|---|
@@ -112,8 +112,8 @@ For projects added after 2026-05-17 catalog freeze, the 3-axis test was applied 
 
 ## 5. Final session totals
 
-- etz `60-apps/ai-gftd-project-*`: 122 (open religious-corp scope)
-- vendor `60-apps/ai-gftd-project-*`: 408 (vendor proprietary scope)
+- etz `60-apps/etzhayyim-project-*`: 122 (open religious-corp scope)
+- vendor `60-apps/etzhayyim-project-*`: 408 (vendor proprietary scope)
 - intersection: 45
 - unique total: 485 (122 + 408 − 45)
 

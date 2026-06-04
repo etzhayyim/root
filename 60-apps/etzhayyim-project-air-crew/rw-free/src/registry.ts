@@ -9,7 +9,7 @@
  * never sees crew PII in plaintext.
  *
  * The crew-travel fiat / IATA-BSP settlement EXECUTION (hotel + transport
- * payment clearing) is NOT modelled here — it stays gftd and is consumed via
+ * payment clearing) is NOT modelled here — it stays etzhayyim and is consumed via
  * consent-capability; only the travel DATA is fronted (E2E).
  */
 
@@ -300,7 +300,7 @@ export async function getAssignment(e: Etzhayyim, input: GetAssignmentInput): Pr
   return found ? { assignment: found } : { error: "notFound" };
 }
 
-// ─── crewTravel (E2E; fiat/BSP settlement CALL stays gftd) ──────────
+// ─── crewTravel (E2E; fiat/BSP settlement CALL stays etzhayyim) ──────────
 
 export async function recordTravel(e: Etzhayyim, input: RecordTravelInput): Promise<RecordTravelOutput> {
   if (!input.travelId || !input.crewDid || !input.travelType || !input.origin || !input.dest) return { status: "rejected", error: "missingRequiredFields" };

@@ -31,7 +31,7 @@ register** already verifiable without a live fetch:
 
 - 47 都道府県 — ISO 3166-2:JP + 全国地方公共団体コード (2-digit) → `:authoritative`
 - JP 市区町村 in the bundled dataset — 全国地方公共団体コード (from
-  `ai-gftd-project-states`, citing 地方自治法 / e-Gov) → `:authoritative`
+  `etzhayyim-project-states`, citing 地方自治法 / e-Gov) → `:authoritative`
 
 These flip `:sourcing :representative` → `:sourcing :authoritative` and
 `:verification-status :unverified-seed` → `:maintainer-verified`, each carrying

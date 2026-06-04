@@ -153,7 +153,7 @@ The loop stores state in three places:
 - Pod routing: flannel `host-gw`; node pod CIDRs are routed through WireGuard
   `AllowedIPs`.
 - Token storage: k3s token generated and stored in macOS Keychain service
-  `gftd.murakumo.k3s`, account `MURAKUMO_K3S_TOKEN`.
+  `etzhayyim.murakumo.k3s`, account `MURAKUMO_K3S_TOKEN`.
 - Inference DaemonSet: `murakumo-system/llama-vulkan-fleet` reports
   `11 desired / 11 updated / 11 ready / 11 available`.
 - Inference image: `ghcr.io/etzhayyim/murakumo-llama-vulkan:20260427-fleet-arm64`

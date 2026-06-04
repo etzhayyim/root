@@ -9,7 +9,7 @@ etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / 
 | Actor 登録 (did:web:meeting-recorder.etzhayyim.com, nanoid m33tr3c0) | ✅ `deps.toml` |
 | Lexicon (7 本) | ✅ `00-contracts/lexicons/com/etzhayyim/apps/meetingRecorder/*.json` |
 | Graph migration (5 tables) | ✅ `30-graph/graph-schema/migrations/20260422090000_vertex_meeting_recorder_tables.ts` |
-| Control-plane CF Worker | ✅ `60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/` |
+| Control-plane CF Worker | ✅ `60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/` |
 | Media-plane Vultr VKE container (skeleton) | ✅ `50-infra/vultr/meeting-recorder/container/` |
 | Provisioning script | ✅ `50-infra/vultr/meeting-recorder/provision.sh` |
 | Deploy runbook | ✅ `90-docs/260422-meeting-recorder-deploy-runbook.md` |
@@ -24,7 +24,7 @@ etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / 
 - **単一 actor + provider adapter 構成**: 3 provider で共通の lexicon / graph table / MCP facade。`provider: "teams" | "meet" | "zoom"` enum で adapter dispatch。ADR-0005 redundancy prohibition 遵守
 - **Control-plane** = CF Worker (XRPC + MCP facade + consent gate)
 - **Media-plane** = Vultr VKE LAX node pool `meeting-recorder` (vhf-4c-16gb × 2, $192/mo)
-- **Storage** = Backblaze B2 `ai-gftd-recordings/meeting-recorder/{sessionDid}/{seq}.{opus|webm}` (ADR-0048 Bandwidth Ally egress-free)
+- **Storage** = Backblaze B2 `etzhayyim-recordings/meeting-recorder/{sessionDid}/{seq}.{opus|webm}` (ADR-0048 Bandwidth Ally egress-free)
 - **Transcription** = Murakumo MLX `whisper-large-v3` (sovereignty 完全、provider 内蔵 caption 非使用)
 - **Graph** = Worker-direct Hyperdrive → RisingWave (ADR-0036)
 
@@ -45,7 +45,7 @@ etzhayyim Japan の AI agent が user 代理で Microsoft Teams / Google Meet / 
 |---|---|---|---|
 | did:web | ✅ | ✅ (Phase 4) | `/.well-known/did.json` or `/<path>/did.json` |
 | did:plc | ✅ | — | `https://plc.directory/{did}` (override: `DID_PLC_RESOLVER`) |
-| did:gftd (ADR-0029) | ✅ | ✅ | `https://did.etzhayyim.com/1.0/identifiers/{did}` (override: `DID_etzhayyim_RESOLVER`) |
+| did:etzhayyim (ADR-0029) | ✅ | ✅ | `https://did.etzhayyim.com/1.0/identifiers/{did}` (override: `DID_etzhayyim_RESOLVER`) |
 
 ### Worker ↔ Container auth (ADR-0022 準拠)
 
@@ -94,7 +94,7 @@ a2d58dd364b feat: add contracts actor wiring and meeting recorder updates
 | No HMAC | 401 `unauthorized` |
 | Wrong HMAC | 401 `unauthorized` |
 | Valid HMAC + invalid lxm (非 com.atproto.*) | 400 `lxm must be com.atproto.*` |
-| Valid HMAC + valid lxm + AUTH_SERVICE unreachable | 500 `getServiceAuth failed: 503 ... "ai-gftd-auth"` |
+| Valid HMAC + valid lxm + AUTH_SERVICE unreachable | 500 `getServiceAuth failed: 503 ... "etzhayyim-auth"` |
 
 ### Mock-path E2E (fake-services + container)
 
@@ -137,7 +137,7 @@ Container (`tsx src/server.ts` on :50052) + fake services (fake mint + fake PDS 
       zoom/stub/index.ts         Zoom SDK sidecar bridge (stub)
       mock/index.ts              synthetic emitter (RECORDER_ENABLE_MOCK=1)
 
-60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/
+60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/
   magatama.jsonld                actor profile + MCP facade flag
   wrangler.jsonc                 CF bindings + PDS_DID + DID_*_RESOLVER vars
   package.json                   @atproto/crypto@0.4.5
@@ -158,9 +158,9 @@ deps.toml
 
 ### Blocking for live production
 
-1. **`./provision.sh` 実行** (user 側、credentials 要): Vultr VKE node pool + B2 bucket + Cloudflare Tunnel + gftd Vault folder + wrangler secret + graph migration apply
-2. **`gftd deploy` 初回実行**: meeting-recorder Worker を CF account に展開 → `com.atproto.admin.registerApp` で ES256 signing key を auth Worker `KEYS_DB` に envelope encrypt 保存
-3. **Provider credentials 投入** (gftd Vault `meeting-recorder` folder):
+1. **`./provision.sh` 実行** (user 側、credentials 要): Vultr VKE node pool + B2 bucket + Cloudflare Tunnel + etzhayyim Vault folder + wrangler secret + graph migration apply
+2. **`etzhayyim deploy` 初回実行**: meeting-recorder Worker を CF account に展開 → `com.atproto.admin.registerApp` で ES256 signing key を auth Worker `KEYS_DB` に envelope encrypt 保存
+3. **Provider credentials 投入** (etzhayyim Vault `meeting-recorder` folder):
    - Microsoft: Azure AD app + tenant admin consent (`Calls.JoinGroupCall.All` + `Calls.AccessMedia.All`)
    - Google: Workspace admin consent で Meet Media API 有効化 + Service Account
    - Zoom: marketplace Server-to-Server OAuth app + Meeting SDK for Linux license
@@ -174,7 +174,7 @@ deps.toml
 ### Phase 4+ (security hardening)
 
 7. **Signal X25519 shared-secret bootstrap** (`transcript-pipeline.ts`): 現在は dev key fallback (sessionDid hash)。`com.etzhayyim.signal.getPrekeyBundle` + HKDF に置換、container が onBehalfOfDid の prekey を pull して session 限りの秘密を導出
-8. **did:gftd + did:plc multibase JWK 両対応** は完了 (Phase 4)。`did:key` method 対応は別 ADR で検討
+8. **did:etzhayyim + did:plc multibase JWK 両対応** は完了 (Phase 4)。`did:key` method 対応は別 ADR で検討
 
 ## Smoke をもう一度流す手順 (mock-path, 次 session 用)
 
@@ -220,7 +220,7 @@ Expected: 6 chunks on disk + 9 AT records via fake PDS + sha256 integrity.
 - ADR-0048 — RisingWave Vultr + B2 primary (egress-free storage)
 - ADR-0042 — magatama MCP Tool Facade (per-actor MCP endpoint)
 - ADR-0036 — Worker-direct Hyperdrive Persistence
-- ADR-0029 — did:gftd Method Specification
+- ADR-0029 — did:etzhayyim Method Specification
 - ADR-0022 — Auth 2-token model (ServiceAuth `lxm` scoping SSoT)
 - ADR-0018 — PII Tier 3 + Cohort-First Pattern
 - ADR-0005 — Shannon Redundancy Prohibition

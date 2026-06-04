@@ -513,7 +513,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
         "repo": ACTOR_YABAI,
         "source": "gmail-classifier",
         "created_at": now,
-        "org_id": "gftd",
+        "org_id": "etzhayyim",
         "user_id": "jun784",
         "actor_id": "sys.gmail-triage",
     }
@@ -545,7 +545,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
                         entity_id, "email_address",
                         from_addr.lower(), from_addr.lower(), from_addr.lower(),
                         "", "gmail-classifier",
-                        now, "gftd", "jun784", "sys.gmail-triage",
+                        now, "etzhayyim", "jun784", "sys.gmail-triage",
                     ),
                 )
                 seen_entities.add(entity_vid)
@@ -583,7 +583,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
                         or (str(row.get("subject") or "")[:240] + " | reasons: " + reasons_csv)
                     )[:480],
                     "", now, now,
-                    "gftd", "jun784", "sys.gmail-triage",
+                    "etzhayyim", "jun784", "sys.gmail-triage",
                 ),
             )
             evidence_count += 1

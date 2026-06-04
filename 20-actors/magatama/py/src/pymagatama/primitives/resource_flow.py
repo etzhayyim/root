@@ -6,7 +6,7 @@ Task types:
   resource-flow.review.anomaly
 BPMN:      00-contracts/bpmn/com/etzhayyim/resource-flow/detectAnomaly.bpmn (R/PT24H)
 
-Ported from 60-apps/ai-gftd-project-resource-flow/worker/src/app.ts detectAnomaly().
+Ported from 60-apps/etzhayyim-project-resource-flow/worker/src/app.ts detectAnomaly().
 Covers all 3 flow classes: currency, service, personnel.
 """
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  training.gftd.ai - runSft workflow (XRPC com.etzhayyim.apps.training.runSft).
+  training.etzhayyim.com - runSft workflow (XRPC com.etzhayyim.apps.training.runSft).
   ADR-2605070700.
 
   Pipeline:
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_training_run_sft"
-    targetNamespace="https://gftd.ai/bpmn/training"
+    targetNamespace="https://etzhayyim.ai/bpmn/training"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="training_run_sft" name="training run sft" isExecutable="true">
@@ -86,7 +86,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:training.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.training.runSft&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;runId&quot;: runId, &quot;datasetSnapshotId&quot;: datasetSnapshotId, &quot;finalCheckpointId&quot;: finalCheckpointId }" target="attributes"/>
         </zeebe:ioMapping>

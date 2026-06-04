@@ -6,7 +6,7 @@
 # running kotoba node and (optionally) builds the langgraph WASM actor (9-cell
 # graph). Writes to the canonical Datom journal require an authorized operator
 # session token (no-server-key posture, G21). Without KOTOBA_TOKEN the ingest is a
-# dry-run. Replaces the legacy `gftd build` / `gftd deploy` path (G16).
+# dry-run. Replaces the legacy `etzhayyim build` / `etzhayyim deploy` path (G16).
 #
 # Usage:
 #   KOTOBA_URL=http://127.0.0.1:8077 KOTOBA_TOKEN=<at-session-jwt> ./deploy.sh

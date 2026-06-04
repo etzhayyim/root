@@ -200,7 +200,7 @@ witness candidates on file.
 | Gate | Description |
 |---|---|
 | **G1** | Every wakai document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.wakai.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.wakai.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NOT insurance** — no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial; no underwriting. |
 | **G4** | **NO commercial insurance software** — Guidewire / Duck Creek / Insurity / Sapiens / Majesco / SAP Insurance / Oracle Insurance / Lemonade-as-vendor / Hippo-as-vendor PROHIBITED per Charter Rider §2(e) + §2(c). |
 | **G5** | **NO commercial re-insurance** — Munich Re / Swiss Re / SCOR / Hannover Re / Berkshire Hathaway Re PROHIBITED; risk stays in community; Public Fund backstop is the only escalation. |

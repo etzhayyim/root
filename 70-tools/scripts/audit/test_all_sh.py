@@ -28,7 +28,7 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 # on 2026-06-01 after a week of cleanup legitimately resolved the other
 # findings (every non-subrepo audit now reports 0 — dependabot / sdk-exports /
 # convention-drift / manifests / lexicons all clean). The remaining 7 are
-# entirely "stale subrepo upstream URLs" (the gftd→etzhayyim 404 .gitrepo
+# entirely "stale subrepo upstream URLs" (the etzhayyim→etzhayyim 404 .gitrepo
 # remotes), matching test_subrepo_scripts.EXPECTED_STALE_URLS = 7. Fixing
 # those will drop this to 0 and intentionally fail this test for a conscious
 # re-baseline.

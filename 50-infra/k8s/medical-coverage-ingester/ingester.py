@@ -70,7 +70,7 @@ RW_COMPUTE_SELECTOR = os.environ.get("RW_COMPUTE_SELECTOR", "risingwave.risingwa
 RW_META_SELECTOR = os.environ.get("RW_META_SELECTOR", "risingwave.risingwavelabs.com/component=meta")
 RW_NAMESPACE = os.environ.get("RW_NAMESPACE", "risingwave")
 RW_IMPLICIT_FLUSH = os.environ.get("RW_IMPLICIT_FLUSH", "false").lower() in ("1", "true", "yes")
-B2_BUCKET = os.environ.get("B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 B2_REGION = os.environ.get("B2_REGION", "us-west-004")
 B2_PREFIX = os.environ.get("B2_PREFIX", "medical-sources/iryo-shisetsu").strip("/")

@@ -1,0 +1,42 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gftd": "https://resources.gftd.ai/ontology#"
+  },
+  "@type": "Dataset",
+  "name": "Canada mine action / ERW implementation statutes",
+  "description": "Canadian federal statutes implementing APMBC and CCM. Scaffold — seeded for site.gftd.ai verification crawl against laws-lois.justice.gc.ca.",
+  "inLanguage": "en-CA",
+  "isBasedOn": "https://laws-lois.justice.gc.ca/",
+  "dateModified": "2026-04-17",
+  "gftd:lawCount": 2,
+  "gftd:verificationStatus": "partial — APMC verified, CCM pending URL fix",
+  "gftd:verifiedAt": "2026-04-17",
+  "gftd:verifiedVia": "WebFetch against laws-lois.justice.gc.ca",
+  "@graph": [
+    {
+      "@type": "Legislation",
+      "identifier": "ca-apmc-impl-act-1997",
+      "name": "Anti-Personnel Mines Convention Implementation Act",
+      "legislationIdentifier": "S.C. 1997, c. 33",
+      "datePublished": "1997-11-27",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/A-11.5/",
+      "gftd:treaty": "APMBC",
+      "gftd:longTitle": "An Act to implement the Convention on the Prohibition of the Use, Stockpiling, Production and Transfer of Anti-Personnel Mines and on their Destruction",
+      "gftd:scope": ["ss.6–8 prohibitions", "s.21 reporting", "inspection powers"],
+      "gftd:verifyCitation": false
+    },
+    {
+      "@type": "Legislation",
+      "identifier": "ca-prohibiting-cluster-munitions-act-2014",
+      "name": "Prohibiting Cluster Munitions Act",
+      "legislationIdentifier": "S.C. 2014, c. 27",
+      "datePublished": "2014-11-06",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/P-25.4/",
+      "gftd:urlStatus": "404 via WebFetch 2026-04-17 — justice.gc.ca slug requires verification",
+      "gftd:treaty": "CCM",
+      "gftd:scope": ["ss.6–11 prohibitions", "s.11 interoperability exception (controversial)"],
+      "gftd:verifyCitation": true
+    }
+  ]
+}

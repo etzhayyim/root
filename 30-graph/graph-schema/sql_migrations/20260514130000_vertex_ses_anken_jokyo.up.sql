@@ -1,5 +1,5 @@
 -- Migration: SES 案件・状況 graph tables (ADR-2605120000)
--- Project: ai-gftd-project-ses (ses.etzhayyim.com)
+-- Project: etzhayyim-project-ses (ses.etzhayyim.com)
 -- Apply: phased psycopg2 — tables → settle → indexes → MVs
 -- RisingWave: no VARCHAR(N), no DEFAULT CURRENT_DATE, no ON CONFLICT,
 --   no ILIKE, no DISTINCT ON (use ROW_NUMBER window for MV)

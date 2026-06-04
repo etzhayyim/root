@@ -7,7 +7,7 @@ This directory contains GitHub Actions CI workflows for the etzhayyim monorepo.
 Runs on every PR and push to main. Invokes the local lefthook pre-commit hook stack against the PR diff so contributors who skipped local hooks (`--no-verify`, lefthook not installed) still get caught.
 
 **Jobs:**
-- `lint-and-test` — `lefthook run pre-commit` (lint + e7m verify + secret scan + no-two-stage-gftd-domains + paywall-warn + …)
+- `lint-and-test` — `lefthook run pre-commit` (lint + e7m verify + secret scan + no-two-stage-etzhayyim-domains + paywall-warn + …)
 - `Substrate-boundary backstop` — PR-diff scan against `origin/{base_ref}` for substrate-boundary violations (ADR-2605191648)
 
 ## test.yml
@@ -15,7 +15,7 @@ Runs on every PR and push to main. Invokes the local lefthook pre-commit hook st
 Runs on every PR and push to main.
 
 **Jobs:**
-- `vitest` — runs test suite for each of 25 canonical actors (`60-apps/ai-gftd-project-{actor}/rw-free`)
+- `vitest` — runs test suite for each of 25 canonical actors (`60-apps/etzhayyim-project-{actor}/rw-free`)
 - `tsc --noEmit` — type-check core SDKs and tools (mock, auth, mst-projector, lexicon-to-openapi, integration-tests)
 - `integration-tests` — Phase H cross-actor scenario tests
 
@@ -33,7 +33,7 @@ Triggered by `deploy-preview` label on PRs.
 Triggered on **push to main + PR to main + manual `workflow_dispatch`** when any of these paths change:
 
 - `40-engine/kami-engine/kami-engine-sdk/**` (SDK source / dist / subrepo)
-- `60-apps/ai-gftd-project-cyber-drill/**` (vendor app that links the SDK)
+- `60-apps/etzhayyim-project-cyber-drill/**` (vendor app that links the SDK)
 - `pnpm-workspace.yaml` (SDK is workspace-registered since iter-9 / ADR-2605265200)
 - `pnpm-lock.yaml`
 - `.github/workflows/kami-engine-sdk.yml` (this workflow file)
@@ -63,7 +63,7 @@ Watches PRs for Bootstrap Council Seat 2-5 nomination updates per ADR-2605192300
 
 ## openot-gate-c.yml
 
-Open-OT (`60-apps/ai-gftd-project-open-ot/`) Gate C deployment validation per the open-ot ADR series.
+Open-OT (`60-apps/etzhayyim-project-open-ot/`) Gate C deployment validation per the open-ot ADR series.
 
 ## pymagatama-image.yml
 
@@ -76,8 +76,8 @@ Auditing for the yorishiro generator (`70-tools/etzhayyim-cli/yorishiro/`) emitt
 ## Adding a new actor
 
 1. Update the 25-actor matrix in both `test.yml` and `wrangler-validate.yml` (alphabetical order)
-2. Verify actor has `60-apps/ai-gftd-project-{actor}/rw-free/package.json` with vitest config
-3. Verify actor has `60-apps/ai-gftd-project-{actor}/xrpc-adapter/wrangler.jsonc`
+2. Verify actor has `60-apps/etzhayyim-project-{actor}/rw-free/package.json` with vitest config
+3. Verify actor has `60-apps/etzhayyim-project-{actor}/xrpc-adapter/wrangler.jsonc`
 4. Open a PR with the matrix update
 
 ## Adding a new path-triggered workflow

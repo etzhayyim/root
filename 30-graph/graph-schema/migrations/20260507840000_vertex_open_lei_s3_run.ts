@@ -2,7 +2,7 @@
  * GLEIF LEI S3 bulk ingest tracking table.
  *
  * vertex_open_lei_s3_run tracks each weekly bulk-ingest run against the
- * GLEIF Golden Copy ZIP cached in B2 (b2://ai-gftd-nats/gleif/lei2.0/{date}/).
+ * GLEIF Golden Copy ZIP cached in B2 (b2://etzhayyim-nats/gleif/lei2.0/{date}/).
  * One row per publish_date; WHERE NOT EXISTS guards prevent duplicate rows.
  *
  * Companion pod: 50-infra/k8s/gleif-lei-s3-ingester/

@@ -1,6 +1,6 @@
 ---
 id: did-schema-dodaf-org-agent-shannon
-title: "DID Schema Design: did:gftd — Unified Platform Identity (AuthN + AuthZ + Governance)"
+title: "DID Schema Design: did:etzhayyim — Unified Platform Identity (AuthN + AuthZ + Governance)"
 status: proposed
 doc_type: adr
 topic: identity-topology
@@ -9,8 +9,8 @@ last_verified: 2026-04-16
 authoritative_for:
   - did-schema-org-agent-comparison
   - did-method-separation-analysis
-  - did-gftd-method-spec
-  - did-gftd-authn-authz-unification
+  - did-etzhayyim-method-spec
+  - did-etzhayyim-authn-authz-unification
 related:
   - adr-0019-atproto-native-identifier-topology
   - adr-0022-auth-topology-consolidation
@@ -18,41 +18,41 @@ related:
   - adr-0026-agent-only-reverse-identity-topology
   - adr-0010-per-did-signing-key-custody
   - adr-0018-pii-tier3-cohort-first
-  - adr-0073-did-gftd-recursive-hash-merkle
-  - adr-0033-did-gftd-federation-via-did-web-shim
+  - adr-0073-did-etzhayyim-recursive-hash-merkle
+  - adr-0033-did-etzhayyim-federation-via-did-web-shim
 supersedes: []
 superseded_by: []
 ---
 
-> **Amendment (2026-04-19, ADR-0029 revision)**: ADR-0029 は `did:gftd` method を
-> **recursive semantic path 形式** (`did:gftd:{sub}:{id}:{lexicon}`) で定義し直した。
-> 草案段階の hex Merkle 形式 (`did:gftd:{h0}:{h1}:…:{hN}`, `hN =
+> **Amendment (2026-04-19, ADR-0029 revision)**: ADR-0029 は `did:etzhayyim` method を
+> **recursive semantic path 形式** (`did:etzhayyim:{sub}:{id}:{lexicon}`) で定義し直した。
+> 草案段階の hex Merkle 形式 (`did:etzhayyim:{h0}:{h1}:…:{hN}`, `hN =
 > SHA-256(utf8(parent_did) ‖ 0x1F ‖ materialBytes)[:24]`) は情報理論的に segment
 > entropy を捨てていたため採用見送り。本ドキュメントが記述する Phase 1 平坦 hex 形式
-> (`did:gftd:{24-hex}`) は `segment_kind='root'` の grandfather 特殊ケースとして
+> (`did:etzhayyim:{24-hex}`) は `segment_kind='root'` の grandfather 特殊ケースとして
 > 継続利用可能、新規 mint は semantic form のみ。
 >
-> AT URI との bijection (`did:gftd:{sub}:{id}:{lexicon} ≅ at://{sub}/{lexicon}/{id}`)
+> AT URI との bijection (`did:etzhayyim:{sub}:{id}:{lexicon} ≅ at://{sub}/{lexicon}/{id}`)
 > により ADR-0019 identifier topology の 5 層を 3 層 (handle / DID≡AT URI / TID)
 > に圧縮。Shannon η は ~0.71 → ~0.955 に向上。
 >
-> **Amendment (2026-04-19, ADR-0033)**: `did:gftd` identity の federation (外部
+> **Amendment (2026-04-19, ADR-0033)**: `did:etzhayyim` identity の federation (外部
 > atproto / Bluesky 連携) は **did:web shim via `did.etzhayyim.com`** に集約する。
 > plc.directory / 自前 plc.etzhayyim.com への依存は排除 (ADR-0014 は supersede)。
-> federation-visible subset は `vertex_gftd_identity.federated` flag で管理し、
-> 数千億 actor の大部分は internal pure `did:gftd` のまま。
+> federation-visible subset は `vertex_etzhayyim_identity.federated` flag で管理し、
+> 数千億 actor の大部分は internal pure `did:etzhayyim` のまま。
 >
-> 詳細・移行計画・schema 差分は `90-docs/adr/0029-did-gftd-recursive-hash-merkle.md`
-> および `90-docs/adr/0033-did-gftd-federation-via-did-web-shim.md` を参照。
+> 詳細・移行計画・schema 差分は `90-docs/adr/0029-did-etzhayyim-recursive-hash-merkle.md`
+> および `90-docs/adr/0033-did-etzhayyim-federation-via-did-web-shim.md` を参照。
 
 # Goal
 
-DoDAF v2, 組織構造, AI Agent, RBAC, RACI, consent, VP (Verifiable Presentation) を統合的に扱う secure な DID schema を設計し、認証 (AuthN) と認可 (AuthZ) を `did:gftd` で一本化する。Shannon 情報効率 (η) で定量比較。
+DoDAF v2, 組織構造, AI Agent, RBAC, RACI, consent, VP (Verifiable Presentation) を統合的に扱う secure な DID schema を設計し、認証 (AuthN) と認可 (AuthZ) を `did:etzhayyim` で一本化する。Shannon 情報効率 (η) で定量比較。
 
 # Scope
 
 - 現行 did:plc + did:web アーキテクチャ (ADR-0019) を基盤とする
-- `did:gftd` を etzhayyim platform の primary identity として設計 (認証 + 認可 + governance 統合)
+- `did:etzhayyim` を etzhayyim platform の primary identity として設計 (認証 + 認可 + governance 統合)
 - `did:plc` は AT Protocol federation adapter に限定 (etzhayyim 内部では使わない)
 - AI agent を別 DID method で分離するパターンの情報理論的妥当性を検証
 - 最終 schema と実装ロードマップを提示
@@ -61,24 +61,24 @@ DoDAF v2, 組織構造, AI Agent, RBAC, RACI, consent, VP (Verifiable Presentati
 
 ## Decision
 
-**`did:gftd` = etzhayyim platform の primary identity (AuthN + AuthZ + Governance 一本化)**
+**`did:etzhayyim` = etzhayyim platform の primary identity (AuthN + AuthZ + Governance 一本化)**
 
 ```
-did:gftd:{hash}    <- platform primary identity
+did:etzhayyim:{hash}    <- platform primary identity
                       認証: verificationMethod (ES256 signing key)
                       認可: capabilityInvocation / rbac / raci / consent
                       governance: DoDAF / VP / type
-                      JWT.iss = did:gftd:{hash}
+                      JWT.iss = did:etzhayyim:{hash}
                       1 fetch で認証 + 認可 + governance 全て解決
 
 did:plc:{hash}     <- AT Protocol federation adapter (外部連携のみ)
                       etzhayyim 内部の認証・認可には使わない
-                      did:gftd DID Doc の federationDID で参照
+                      did:etzhayyim DID Doc の federationDID で参照
 ```
 
-- Resolver: `did.etzhayyim.com` (unified, did:gftd + did:plc both)
-- L2 dead stub (ADR-0023) を did:gftd DID Doc で解消
-- OAuth (Google/Microsoft) + Email + Passkey → did:gftd `authentication[]` field に統合
+- Resolver: `did.etzhayyim.com` (unified, did:etzhayyim + did:plc both)
+- L2 dead stub (ADR-0023) を did:etzhayyim DID Doc で解消
+- OAuth (Google/Microsoft) + Email + Passkey → did:etzhayyim `authentication[]` field に統合
 - Organization management: org DID Doc, members, teams, invite, RBAC role hierarchy
 - Enterprise SSO (OIDC/SAML) → org DID Doc `orgSettings.sso`
 - AI agent as org member (role = `agent-runtime`, 自動承認)
@@ -90,10 +90,10 @@ did:plc:{hash}     <- AT Protocol federation adapter (外部連携のみ)
 |---|---|---|---|
 | 1 | A: Unified did:plc (governance も did:plc に混載) | 0.85 | — |
 | 2 | D: Capability-Centric (did:plc + capability fields) | 0.78 | AT Proto が capability fields を無視 → 偽の互換性 |
-| 3 | F: did:plc (auth) + did:gftd (authz) 分離 | 0.88 | 認証と認可で 2 DID / 2 fetch → 無駄 |
-| **4** | **G: did:gftd 一本化 (auth + authz + OAuth + org)** | **0.92 → 0.94** | **adopted** |
+| 3 | F: did:plc (auth) + did:etzhayyim (authz) 分離 | 0.88 | 認証と認可で 2 DID / 2 fetch → 無駄 |
+| **4** | **G: did:etzhayyim 一本化 (auth + authz + OAuth + org)** | **0.92 → 0.94** | **adopted** |
 
-Schema F (did:plc で認証 + did:gftd で認可) は 2 fetch / 2 DID の管理コストがあり、platform 内で did:plc を認証に使う必然性がない (did:plc は Bluesky federation protocol であり etzhayyim の認証基盤ではない)。did:gftd に verificationMethod を持たせることで 1 fetch / 1 DID に統合。
+Schema F (did:plc で認証 + did:etzhayyim で認可) は 2 fetch / 2 DID の管理コストがあり、platform 内で did:plc を認証に使う必然性がない (did:plc は Bluesky federation protocol であり etzhayyim の認証基盤ではない)。did:etzhayyim に verificationMethod を持たせることで 1 fetch / 1 DID に統合。
 
 # Context — 現状の課題
 
@@ -115,20 +115,20 @@ Schema F (did:plc で認証 + did:gftd で認可) は 2 fetch / 2 DID の管理�
 | L2 | Authority Resolution (RBAC/RACI/consent graph) | **dead stub** |
 | L3 | E2E Confidentiality (Signal X25519) | live |
 
-**L2 が dead stub である根本原因**: 認証 (did:plc) と認可 (graph authority) が別系統のため、認証完了後に別途 L2 lookup する実装が放置されている。did:gftd に一本化すれば、認証時に DID Doc を取得する 1 fetch で L2 も同時に解決される。
+**L2 が dead stub である根本原因**: 認証 (did:plc) と認可 (graph authority) が別系統のため、認証完了後に別途 L2 lookup する実装が放置されている。did:etzhayyim に一本化すれば、認証時に DID Doc を取得する 1 fetch で L2 も同時に解決される。
 
 # Decision
 
-## 1. did:gftd — Unified Platform Identity
+## 1. did:etzhayyim — Unified Platform Identity
 
 ### Structure
 
 ```
-did:gftd:{hash}    <- etzhayyim platform primary identity (authn + authz + governance)
+did:etzhayyim:{hash}    <- etzhayyim platform primary identity (authn + authz + governance)
 did:plc:{hash}     <- AT Protocol federation adapter (external only)
 ```
 
-### did:gftd DID Document (認証 + 認可 + governance 統合)
+### did:etzhayyim DID Document (認証 + 認可 + governance 統合)
 
 ```json
 {
@@ -136,15 +136,15 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
     "https://www.w3.org/ns/did/v1",
     "https://did.etzhayyim.com/context/v1"
   ],
-  "id": "did:gftd:abc123",
+  "id": "did:etzhayyim:abc123",
   "type": ["Agent", "DoDAFSystem"],
-  "controller": "did:gftd:org-root",
+  "controller": "did:etzhayyim:org-root",
 
   "verificationMethod": [
     {
-      "id": "did:gftd:abc123#signingKey",
+      "id": "did:etzhayyim:abc123#signingKey",
       "type": "EcdsaSecp256r1VerificationKey2019",
-      "controller": "did:gftd:abc123",
+      "controller": "did:etzhayyim:abc123",
       "publicKeyMultibase": "zDna..."
     }
   ],
@@ -162,7 +162,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   "capabilityDelegation": [
     {
       "id": "#delegate-to-sub-agent",
-      "delegator": "did:gftd:org-root",
+      "delegator": "did:etzhayyim:org-root",
       "raci": "responsible",
       "vpProof": "urn:uuid:vp-proof-1"
     }
@@ -179,11 +179,11 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   "dodaf": {
     "viewpoint": "SV-1",
     "capabilityView": "CV-2",
-    "performerBinding": "did:gftd:org-root"
+    "performerBinding": "did:etzhayyim:org-root"
   },
   "service": [
     {
-      "id": "#gftd_pds",
+      "id": "#etzhayyim_pds",
       "type": "etzhayyimPDS",
       "serviceEndpoint": "https://atproto.etzhayyim.com"
     },
@@ -248,24 +248,24 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
 
 ```
 did.etzhayyim.com    <- unified DID resolver
-                  GET /did:gftd:{hash}   -> did:gftd DID Document (authn + authz + governance)
+                  GET /did:etzhayyim:{hash}   -> did:etzhayyim DID Document (authn + authz + governance)
                   GET /did:plc:{hash}    -> did:plc DID Document (federation adapter)
 ```
 
-- 単一 Worker (`ai-gftd-did-directory`) + D1
+- 単一 Worker (`etzhayyim-did-directory`) + D1
 - `plc.etzhayyim.com` を `did.etzhayyim.com` に統合 (redirect → 廃止)
 - Federation export (`/_export`) は現時点で対応不要
 
 D1 schema:
 ```sql
--- did:gftd
-CREATE TABLE gftd_did_docs (
-  did       TEXT PRIMARY KEY,   -- "did:gftd:{hash}"
+-- did:etzhayyim
+CREATE TABLE etzhayyim_did_docs (
+  did       TEXT PRIMARY KEY,   -- "did:etzhayyim:{hash}"
   document  TEXT NOT NULL,      -- JSON DID Document
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 );
-CREATE TABLE gftd_did_log (
+CREATE TABLE etzhayyim_did_log (
   did       TEXT NOT NULL,
   seq       INTEGER NOT NULL,
   op        TEXT NOT NULL,      -- JSON operation
@@ -279,7 +279,7 @@ CREATE TABLE gftd_did_log (
 
 ---
 
-## 2. Authentication Flow (did:gftd 一本化)
+## 2. Authentication Flow (did:etzhayyim 一本化)
 
 ### JWT Structure
 
@@ -287,8 +287,8 @@ CREATE TABLE gftd_did_log (
 {
   "header": { "alg": "ES256", "typ": "JWT" },
   "payload": {
-    "iss": "did:gftd:abc123",
-    "aud": "did:gftd:atproto-pds",
+    "iss": "did:etzhayyim:abc123",
+    "aud": "did:etzhayyim:atproto-pds",
     "lxm": "com.etzhayyim.yoro.sendMessage",
     "exp": 1745000060,
     "iat": 1745000000,
@@ -297,21 +297,21 @@ CREATE TABLE gftd_did_log (
 }
 ```
 
-`iss` が `did:gftd` — etzhayyim platform 内の全 XRPC call はこの形式。
+`iss` が `did:etzhayyim` — etzhayyim platform 内の全 XRPC call はこの形式。
 
 ### Complete Auth Chain
 
 ```
 Client (browser / CLI / agent)
   POST /xrpc/com.etzhayyim.yoro.sendMessage
-  Authorization: Bearer <ES256 JWT, iss=did:gftd:abc123>
+  Authorization: Bearer <ES256 JWT, iss=did:etzhayyim:abc123>
 
 PDS authenticate()                                    verify.ts
   │
-  ├─ JWT.iss starts with "did:gftd:"
+  ├─ JWT.iss starts with "did:etzhayyim:"
   │   │
-  │   ├─ [1] Resolve did:gftd DID Document              ← 1 fetch
-  │   │   DID_SERVICE.fetch("https://did.etzhayyim.com/did:gftd:abc123")
+  │   ├─ [1] Resolve did:etzhayyim DID Document              ← 1 fetch
+  │   │   DID_SERVICE.fetch("https://did.etzhayyim.com/did:etzhayyim:abc123")
   │   │   → DID Doc (2KB, cached 300s)
   │   │
   │   ├─ [2] AuthN: verify JWT signature                 ← L1
@@ -319,7 +319,7 @@ PDS authenticate()                                    verify.ts
   │   │   → decompressP256Point (if compressed)
   │   │   → crypto.subtle.importKey('raw', P-256)
   │   │   → crypto.subtle.verify(ECDSA/SHA-256, pubKey, sig)
-  │   │   → OK: JWT は did:gftd:abc123 の秘密鍵で署名されている
+  │   │   → OK: JWT は did:etzhayyim:abc123 の秘密鍵で署名されている
   │   │
   │   └─ [3] AuthZ: extract governance from same Doc     ← L2 (dead stub 解消)
   │       auth.capabilities  = doc.capabilityInvocation
@@ -360,12 +360,12 @@ export async function authenticate(request: Request, env: Env): Promise<PdsAuth>
     const token = authHeader.slice(7);
     const payload = decodeJwtPayload(token);
 
-    if (payload.iss.startsWith('did:gftd:')) {
-      // ★ did:gftd unified path — authn + authz in 1 fetch
+    if (payload.iss.startsWith('did:etzhayyim:')) {
+      // ★ did:etzhayyim unified path — authn + authz in 1 fetch
       const doc = await resolveetzhayyimDID(payload.iss, env);
       if (!doc) return { level: 'public' };
 
-      // AuthN: verify signature against did:gftd verificationMethod
+      // AuthN: verify signature against did:etzhayyim verificationMethod
       const keys = parseVerificationMethods(doc);
       await verifyJwtSignatureMultiKey(token, keys);
       validateJwtClaims(payload, env);
@@ -402,11 +402,11 @@ export async function authenticate(request: Request, env: Env): Promise<PdsAuth>
   return { level: 'public' };
 }
 
-// did:gftd DID Document resolution with cache
-const _gftdDocCache = new Map<string, { doc: etzhayyimDidDoc; exp: number }>();
+// did:etzhayyim DID Document resolution with cache
+const _etzhayyimDocCache = new Map<string, { doc: etzhayyimDidDoc; exp: number }>();
 
 async function resolveetzhayyimDID(did: string, env: Env): Promise<etzhayyimDidDoc | null> {
-  const cached = _gftdDocCache.get(did);
+  const cached = _etzhayyimDocCache.get(did);
   if (cached && cached.exp > Date.now()) return cached.doc;
 
   // Layer 1: DID_SERVICE binding (did.etzhayyim.com)
@@ -414,7 +414,7 @@ async function resolveetzhayyimDID(did: string, env: Env): Promise<etzhayyimDidD
   if (!res.ok) return null;
 
   const doc = await res.json() as etzhayyimDidDoc;
-  _gftdDocCache.set(did, { doc, exp: Date.now() + 300_000 }); // 300s TTL
+  _etzhayyimDocCache.set(did, { doc, exp: Date.now() + 300_000 }); // 300s TTL
   return doc;
 }
 ```
@@ -423,10 +423,10 @@ async function resolveetzhayyimDID(did: string, env: Env): Promise<etzhayyimDidD
 
 ```typescript
 export function canAccess(auth: PdsAuth, nsid: string, mode: 'read' | 'write'): AccessResult {
-  // Internal (ES256 JWT) with did:gftd governance
+  // Internal (ES256 JWT) with did:etzhayyim governance
   if (auth.level === 'internal') {
 
-    // 1. Capability scope check (from did:gftd DID Doc)
+    // 1. Capability scope check (from did:etzhayyim DID Doc)
     if (auth.capabilities?.length) {
       const cap = auth.capabilities.find(c => matchScope(c.scope, nsid));
       if (!cap) return { allowed: false, reason: 'capability-scope-denied' };
@@ -435,14 +435,14 @@ export function canAccess(auth: PdsAuth, nsid: string, mode: 'read' | 'write'): 
       }
     }
 
-    // 2. RBAC role check (from did:gftd DID Doc)
+    // 2. RBAC role check (from did:etzhayyim DID Doc)
     if (auth.rbacRoles?.length) {
       const adminLike = auth.rbacRoles.some(r =>
         ['admin', 'moderator', 'owner', 'operator'].includes(r));
       if (adminLike) return { allowed: true, tier: 't3' };
     }
 
-    // 3. RACI tier (from did:gftd capabilityDelegation, per-org highest wins)
+    // 3. RACI tier (from did:etzhayyim capabilityDelegation, per-org highest wins)
     if (auth.raciMap?.size) {
       const raciRank = { accountable: 4, responsible: 3, consulted: 2, informed: 1 };
       const raciTier = { accountable: 't3', responsible: 't3', consulted: 't2', informed: 't1' };
@@ -468,9 +468,9 @@ export function canAccess(auth: PdsAuth, nsid: string, mode: 'read' | 'write'): 
 // authn.etzhayyim.com handleGetServiceAuth
 async function handleGetServiceAuth(body: { iss: string; aud: string; lxm?: string }, env: Env) {
   const { iss, aud, lxm } = body;
-  // iss = "did:gftd:abc123" — caller's platform DID
+  // iss = "did:etzhayyim:abc123" — caller's platform DID
 
-  // Load signing key from KEYS_DB (keyed by did:gftd)
+  // Load signing key from KEYS_DB (keyed by did:etzhayyim)
   const row = await env.KEYS_DB.prepare(
     'SELECT private_key_b64 FROM did_keys WHERE did = ?'
   ).bind(iss).first<{ private_key_b64: string }>();
@@ -483,15 +483,15 @@ async function handleGetServiceAuth(body: { iss: string; aud: string; lxm?: stri
 }
 ```
 
-### CLI `gftd agent-token` — Change
+### CLI `etzhayyim agent-token` — Change
 
 ```go
 // scoped_auth.go
 func mintScopedJWT(baseToken, nsid string) (string, error) {
-    // userDid = "did:gftd:abc123" (from ~/.gftd/auth.json)
+    // userDid = "did:etzhayyim:abc123" (from ~/.etzhayyim/auth.json)
     resp := post("/xrpc/com.atproto.server.getServiceAuth", map[string]any{
-        "iss": userDid,     // did:gftd (not did:plc)
-        "aud": pdsDid,      // did:gftd:atproto-pds
+        "iss": userDid,     // did:etzhayyim (not did:plc)
+        "aud": pdsDid,      // did:etzhayyim:atproto-pds
         "lxm": nsid,
     })
     return resp.Token, nil
@@ -502,8 +502,8 @@ func mintScopedJWT(baseToken, nsid string) (string, error) {
 
 ```
 KEYS_DB (D1, authn.etzhayyim.com):
-  vertex_gftd_key_signing:
-    vertex_id = "did:gftd:abc123"
+  vertex_etzhayyim_key_signing:
+    vertex_id = "did:etzhayyim:abc123"
     encrypted_private_key = "AES-256-GCM ciphertext"    <- D1 never sees plaintext
     wrapped_data_key = "per-DID data key, wrapped by KEK"
     iv = "12-byte AES-GCM IV"
@@ -513,7 +513,7 @@ KEYS_DB (D1, authn.etzhayyim.com):
     private_key ← data_key (AES-256-GCM, per-DID) ← KEK (CF Secrets Store)
 ```
 
-同一鍵の public 部分が did:gftd DID Doc の `verificationMethod` に publish される。private 部分は 3-layer envelope で保護: D1 には ciphertext のみ、KEK は CF Secrets Store にのみ存在。D1 単体が漏洩しても private key は復号不能。
+同一鍵の public 部分が did:etzhayyim DID Doc の `verificationMethod` に publish される。private 部分は 3-layer envelope で保護: D1 には ciphertext のみ、KEK は CF Secrets Store にのみ存在。D1 単体が漏洩しても private key は復号不能。
 
 #### Security Staging Roadmap
 
@@ -521,7 +521,7 @@ KEYS_DB (D1, authn.etzhayyim.com):
 Stage 0: pruned (plaintext fallback 削除済み。legacy did_keys テーブル DDL 削除済み)
 Stage 1: LIVE (2026-04-16) — 全 DID が 1 つの KEK で envelope encrypt
   SS_REPO_SIGNING_KEK provisioned (CF Worker Secret, AES-256, 32 bytes)
-  D1 vertex_gftd_key_signing: encrypted_private_key + wrapped_data_key + iv (NOT NULL)
+  D1 vertex_etzhayyim_key_signing: encrypted_private_key + wrapped_data_key + iv (NOT NULL)
   D1 leak → 無害 (KEK なしでは復号不能)
   ↓ org DID 導入後
 Stage 2: org ごとに KEK 分離
@@ -541,7 +541,7 @@ Stage 2→3 の移行: org KEK を Vault `AES-KW` で wrap。auth Worker は `va
 ```
 PDS (atproto.etzhayyim.com)
   └─ AUTH_SERVICE → authn.etzhayyim.com        (JWT mint, key custody)
-  └─ DID_SERVICE  → did.etzhayyim.com         (did:gftd + did:plc resolution)
+  └─ DID_SERVICE  → did.etzhayyim.com         (did:etzhayyim + did:plc resolution)
 
 authn.etzhayyim.com
   └─ PDS_SERVICE → atproto.etzhayyim.com      (createApiKey bootstrap)
@@ -556,17 +556,17 @@ did.etzhayyim.com
 
 ## 3. Entity Types
 
-型判別は did:gftd DID Doc の `type` field。DID 文字列は flat hash。
+型判別は did:etzhayyim DID Doc の `type` field。DID 文字列は flat hash。
 
 | Entity | type | 例 |
 |---|---|---|
-| AI cohort agent | `["CohortAgent", "DoDAFSystem"]` | `did:gftd:cohort-xyz` |
-| AI individual agent | `["IndividualAgent", "DoDAFSystem"]` | `did:gftd:agent-abc` |
-| Organization | `["Organization", "DoDAFPerformer"]` | `did:gftd:org-root` |
-| Human | `["Person", "DoDAFPerformer"]` | `did:gftd:jun` |
-| RBAC Role | `["RBACRole", "DoDAFCapability"]` | `did:gftd:eng-lead` |
-| Governance Role | `["RACIAssignment"]` | `did:gftd:raci-audit` |
-| PDS Gateway | `["Service", "DoDAFSystem"]` | `did:gftd:atproto-pds` |
+| AI cohort agent | `["CohortAgent", "DoDAFSystem"]` | `did:etzhayyim:cohort-xyz` |
+| AI individual agent | `["IndividualAgent", "DoDAFSystem"]` | `did:etzhayyim:agent-abc` |
+| Organization | `["Organization", "DoDAFPerformer"]` | `did:etzhayyim:org-root` |
+| Human | `["Person", "DoDAFPerformer"]` | `did:etzhayyim:jun` |
+| RBAC Role | `["RBACRole", "DoDAFCapability"]` | `did:etzhayyim:eng-lead` |
+| Governance Role | `["RACIAssignment"]` | `did:etzhayyim:raci-audit` |
+| PDS Gateway | `["Service", "DoDAFSystem"]` | `did:etzhayyim:atproto-pds` |
 
 ---
 
@@ -581,9 +581,9 @@ capabilityDelegation.raci = "responsible" | "accountable" | "consulted" | "infor
 Delegation chain が RACI graph そのものになる:
 
 ```
-did:gftd:org-root   --[accountable]--> did:gftd:dept-lead
-did:gftd:dept-lead  --[responsible]--> did:gftd:agent-1
-did:gftd:org-root   --[informed]-----> did:gftd:audit-agent
+did:etzhayyim:org-root   --[accountable]--> did:etzhayyim:dept-lead
+did:etzhayyim:dept-lead  --[responsible]--> did:etzhayyim:agent-1
+did:etzhayyim:org-root   --[informed]-----> did:etzhayyim:audit-agent
 ```
 
 ### RBAC as Capability Scope
@@ -609,15 +609,15 @@ did:gftd:org-root   --[informed]-----> did:gftd:audit-agent
 ## 5. VP/VC Authorization Flow
 
 ```
-Agent (did:gftd:agent-1)
-  → capabilityInvocation scope check (did:gftd DID Doc, same fetch as authn)
+Agent (did:etzhayyim:agent-1)
+  → capabilityInvocation scope check (did:etzhayyim DID Doc, same fetch as authn)
   → VP proof chain:
-       did:gftd:org-root [accountable] delegated to
-       did:gftd:dept-lead [responsible] approved for
-       did:gftd:agent-1 [granted]
+       did:etzhayyim:org-root [accountable] delegated to
+       did:etzhayyim:dept-lead [responsible] approved for
+       did:etzhayyim:agent-1 [granted]
   → GNAP consent token (60s, lxm-scoped)
   → XRPC call with:
-       Authorization: Bearer <ES256 JWT, iss=did:gftd:agent-1>
+       Authorization: Bearer <ES256 JWT, iss=did:etzhayyim:agent-1>
        X-VP-Proof: <VP reference>
 ```
 
@@ -629,7 +629,7 @@ Agent (did:gftd:agent-1)
 
 ## 6. DoDAF v2 Mapping
 
-| DoDAF Viewpoint | did:gftd Field | Coverage |
+| DoDAF Viewpoint | did:etzhayyim Field | Coverage |
 |---|---|---|
 | OV-4 Performer | `controller` + `capabilityDelegation` chain | 100% |
 | SV-1 System | `type: ["DoDAFSystem"]` + `dodaf.viewpoint` | 100% |
@@ -657,11 +657,11 @@ Agent (did:gftd:agent-1)
 
 ```json
 {
-  "id": "did:gftd:cohort-xyz",
+  "id": "did:etzhayyim:cohort-xyz",
   "type": ["CohortAgent", "DoDAFSystem"],
-  "controller": "did:gftd:org-root",
+  "controller": "did:etzhayyim:org-root",
   "verificationMethod": [{
-    "id": "did:gftd:cohort-xyz#signingKey",
+    "id": "did:etzhayyim:cohort-xyz#signingKey",
     "type": "EcdsaSecp256r1VerificationKey2019",
     "publicKeyMultibase": "zDna..."
   }],
@@ -682,18 +682,18 @@ Agent (did:gftd:agent-1)
 
 ```json
 {
-  "id": "did:gftd:agent-abc",
+  "id": "did:etzhayyim:agent-abc",
   "type": ["IndividualAgent", "DoDAFSystem"],
-  "controller": "did:gftd:org-root",
+  "controller": "did:etzhayyim:org-root",
   "verificationMethod": [{
-    "id": "did:gftd:agent-abc#signingKey",
+    "id": "did:etzhayyim:agent-abc#signingKey",
     "type": "EcdsaSecp256r1VerificationKey2019",
     "publicKeyMultibase": "zDna..."
   }],
-  "derivedFrom": "did:gftd:cohort-xyz",
+  "derivedFrom": "did:etzhayyim:cohort-xyz",
   "consent": { "model": "gnap-vp", "piiTier": 1 },
   "capabilityDelegation": [{
-    "delegator": "did:gftd:cohort-xyz",
+    "delegator": "did:etzhayyim:cohort-xyz",
     "raci": "responsible"
   }],
   "capabilityInvocation": [{
@@ -709,11 +709,11 @@ Fission 後: capability を cohort から継承、consent model は `synthetic` 
 
 ## 9. AT Protocol Federation (did:plc adapter)
 
-etzhayyim platform 内では did:gftd を使う。外部 AT Protocol federation (Bluesky 等) が必要な場合のみ did:plc を参照。
+etzhayyim platform 内では did:etzhayyim を使う。外部 AT Protocol federation (Bluesky 等) が必要な場合のみ did:plc を参照。
 
 ```
 etzhayyim internal call:
-  JWT.iss = did:gftd:abc123
+  JWT.iss = did:etzhayyim:abc123
   PDS → did.etzhayyim.com resolve → authn + authz
 
 AT Protocol federation call (from/to Bluesky):
@@ -722,11 +722,11 @@ AT Protocol federation call (from/to Bluesky):
   → authz は N/A (federation は public read)
 ```
 
-did:gftd DID Doc の `federationDID` field で did:plc を参照:
+did:etzhayyim DID Doc の `federationDID` field で did:plc を参照:
 
 ```json
 {
-  "id": "did:gftd:abc123",
+  "id": "did:etzhayyim:abc123",
   "federationDID": "did:plc:abc123",
   "alsoKnownAs": ["at://kami.etzhayyim.com", "did:plc:abc123"]
 }
@@ -742,14 +742,14 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
 
 | 項目 | 現状 | 問題 |
 |---|---|---|
-| Account DID | `did:web:authn.etzhayyim.com:user:{nanoid}` | did:gftd と無関係。domain-coupled |
-| Passkey | 新規登録の唯一の方法。AUTH_DB に保管 | did:gftd DID Doc に未反映 |
-| Google OAuth | 後付けリンクのみ。linked_auth_methods D1 | did:gftd DID Doc に未反映 |
-| Microsoft/Outlook OAuth | 後付けリンクのみ。linked_auth_methods D1 | did:gftd DID Doc に未反映 |
-| Email link (magic link) | 後付けリンクのみ。email_link_codes D1 | did:gftd DID Doc に未反映 |
+| Account DID | `did:web:authn.etzhayyim.com:user:{nanoid}` | did:etzhayyim と無関係。domain-coupled |
+| Passkey | 新規登録の唯一の方法。AUTH_DB に保管 | did:etzhayyim DID Doc に未反映 |
+| Google OAuth | 後付けリンクのみ。linked_auth_methods D1 | did:etzhayyim DID Doc に未反映 |
+| Microsoft/Outlook OAuth | 後付けリンクのみ。linked_auth_methods D1 | did:etzhayyim DID Doc に未反映 |
+| Email link (magic link) | 後付けリンクのみ。email_link_codes D1 | did:etzhayyim DID Doc に未反映 |
 | Actor Score | 25pt × verified methods (max 100) | DID Doc に未反映 |
 
-### did:gftd DID Doc への統合
+### did:etzhayyim DID Doc への統合
 
 `authentication` field (W3C DID Core standard) で認証方法を列挙。OAuth/Email は identity proof であり signing key ではないため `verificationMethod` ではなく `authentication` に配置。
 
@@ -757,15 +757,15 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
 
 ```json
 {
-  "id": "did:gftd:jun123",
+  "id": "did:etzhayyim:jun123",
   "type": ["Person", "DoDAFPerformer"],
-  "controller": "did:gftd:org-gftd",
+  "controller": "did:etzhayyim:org-etzhayyim",
 
   "verificationMethod": [
     {
-      "id": "did:gftd:jun123#signingKey",
+      "id": "did:etzhayyim:jun123#signingKey",
       "type": "EcdsaSecp256r1VerificationKey2019",
-      "controller": "did:gftd:jun123",
+      "controller": "did:etzhayyim:jun123",
       "publicKeyMultibase": "zDna..."
     }
   ],
@@ -811,7 +811,7 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
   "capabilityInvocation": [{ "scope": ["com.etzhayyim.apps.*"] }],
   "rbac": { "roles": ["owner"] },
   "consent": { "model": "gnap-vp", "piiTier": 3 },
-  "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:gftd:org-gftd" }
+  "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:etzhayyim:org-etzhayyim" }
 }
 ```
 
@@ -828,7 +828,7 @@ actorScore = 25 × (verified authentication methods count)
 
 `actorScore` は DID Doc 内に保持。linked method の追加/削除時に `did.etzhayyim.com` の DID Doc を更新。
 
-### 認証フロー (OAuth / Email / Passkey → did:gftd)
+### 認証フロー (OAuth / Email / Passkey → did:etzhayyim)
 
 #### 新規登録 (Passkey)
 
@@ -837,14 +837,14 @@ User → authn.etzhayyim.com /sign-up
   → Passkey (WebAuthn) registration
   → auth Worker:
       1. passkey credential → AUTH_DB.passkey_credentials
-      2. P-256 signing key 生成 → KEYS_DB.did_keys (did = "did:gftd:{hash}")
-      3. did:gftd DID Doc 作成 → DID_SERVICE.fetch(POST /did:gftd:{hash})
+      2. P-256 signing key 生成 → KEYS_DB.did_keys (did = "did:etzhayyim:{hash}")
+      3. did:etzhayyim DID Doc 作成 → DID_SERVICE.fetch(POST /did:etzhayyim:{hash})
          {
            verificationMethod: [{ publicKeyMultibase: "zDna..." }],
            authentication: [{ id: "#passkey-1", type: "WebAuthnAuthenticator", primary: true }],
            actorScore: 25
          }
-      4. JWT mint (iss = did:gftd:{hash}) → client に返却
+      4. JWT mint (iss = did:etzhayyim:{hash}) → client に返却
 ```
 
 #### OAuth リンク追加
@@ -855,10 +855,10 @@ User → authn.etzhayyim.com /xrpc/com.etzhayyim.auth.linkOAuthStart { provider:
   → auth Worker:
       1. Google profile 取得 (openid email)
       2. linked_auth_methods に保存 (既存)
-      3. did:gftd DID Doc の authentication[] に追加:
+      3. did:etzhayyim DID Doc の authentication[] に追加:
          { id: "#google", type: "OIDCProvider", provider: "google", email: "...", verified: true }
       4. actorScore 再計算 (25 → 50)
-      5. DID_SERVICE.fetch(POST /did:gftd:{hash}) で DID Doc 更新
+      5. DID_SERVICE.fetch(POST /did:etzhayyim:{hash}) で DID Doc 更新
 ```
 
 #### ログイン (OAuth / Email / Passkey)
@@ -867,26 +867,26 @@ User → authn.etzhayyim.com /xrpc/com.etzhayyim.auth.linkOAuthStart { provider:
 [Passkey ログイン]
   User → authn.etzhayyim.com /sign-in (WebAuthn)
     → passkey assertion verify (AUTH_DB)
-    → passkey credential → account DID = did:gftd:{hash}
-    → JWT mint (iss = did:gftd:{hash})
+    → passkey credential → account DID = did:etzhayyim:{hash}
+    → JWT mint (iss = did:etzhayyim:{hash})
 
 [Google OAuth ログイン]
   User → authn.etzhayyim.com /sign-in → Google OAuth flow
     → Google profile → provider_subject
     → linked_auth_methods WHERE provider='google' AND provider_subject=?
-    → account DID = did:gftd:{hash}
-    → JWT mint (iss = did:gftd:{hash})
+    → account DID = did:etzhayyim:{hash}
+    → JWT mint (iss = did:etzhayyim:{hash})
 
 [Email magic link ログイン]
   User → authn.etzhayyim.com /xrpc/com.etzhayyim.auth.linkEmailBegin { email: "jun@etzhayyim.com" }
     → OTP code 生成 → email 送信
   User → /xrpc/com.etzhayyim.auth.linkEmailVerify { email, code }
     → linked_auth_methods WHERE provider='email' AND email=?
-    → account DID = did:gftd:{hash}
-    → JWT mint (iss = did:gftd:{hash})
+    → account DID = did:etzhayyim:{hash}
+    → JWT mint (iss = did:etzhayyim:{hash})
 ```
 
-全ログイン経路で最終的に `iss = did:gftd:{hash}` の JWT を発行。PDS 側は did:gftd DID Doc の `verificationMethod` で署名検証。ログイン方法は PDS からは不可視 (auth Worker が抽象化)。
+全ログイン経路で最終的に `iss = did:etzhayyim:{hash}` の JWT を発行。PDS 側は did:etzhayyim DID Doc の `verificationMethod` で署名検証。ログイン方法は PDS からは不可視 (auth Worker が抽象化)。
 
 ### D1 テーブル関係
 
@@ -897,17 +897,17 @@ AUTH_DB (authn.etzhayyim.com):
 
 ACCOUNTS_DB (authn.etzhayyim.com → 将来 accounts.etzhayyim.com 分離):
   linked_auth_methods    ← provider, provider_subject, email, verified
-    account_did TEXT      ← "did:gftd:{hash}" (移行後)
+    account_did TEXT      ← "did:etzhayyim:{hash}" (移行後)
 
 KEYS_DB (authn.etzhayyim.com):
   did_keys               ← signing key custody
-    did TEXT PK           ← "did:gftd:{hash}" (移行後)
+    did TEXT PK           ← "did:etzhayyim:{hash}" (移行後)
     private_key_b64 TEXT
     public_key_multibase TEXT
 
 DID_DB (did.etzhayyim.com):
-  gftd_did_docs          ← DID Document (authentication[] 含む)
-    did TEXT PK           ← "did:gftd:{hash}"
+  etzhayyim_did_docs          ← DID Document (authentication[] 含む)
+    did TEXT PK           ← "did:etzhayyim:{hash}"
     document TEXT         ← JSON DID Doc
 ```
 
@@ -925,33 +925,33 @@ DID_DB (did.etzhayyim.com):
 
 ```json
 {
-  "id": "did:gftd:org-gftd",
+  "id": "did:etzhayyim:org-etzhayyim",
   "type": ["Organization", "DoDAFPerformer"],
-  "controller": "did:gftd:jun123",
+  "controller": "did:etzhayyim:jun123",
 
   "verificationMethod": [{
-    "id": "did:gftd:org-gftd#orgKey",
+    "id": "did:etzhayyim:org-etzhayyim#orgKey",
     "type": "EcdsaSecp256r1VerificationKey2019",
     "publicKeyMultibase": "zDna..."
   }],
 
   "members": [
     {
-      "did": "did:gftd:jun123",
+      "did": "did:etzhayyim:jun123",
       "role": "owner",
       "raci": "accountable",
       "invitedAt": "2026-04-16T00:00:00Z",
       "acceptedAt": "2026-04-16T00:00:00Z"
     },
     {
-      "did": "did:gftd:alice456",
+      "did": "did:etzhayyim:alice456",
       "role": "admin",
       "raci": "responsible",
       "invitedAt": "2026-04-16T00:00:00Z",
       "acceptedAt": "2026-04-16T01:00:00Z"
     },
     {
-      "did": "did:gftd:agent-bot1",
+      "did": "did:etzhayyim:agent-bot1",
       "role": "agent-runtime",
       "raci": "responsible",
       "invitedAt": "2026-04-16T00:00:00Z",
@@ -963,13 +963,13 @@ DID_DB (did.etzhayyim.com):
     {
       "id": "#engineering",
       "name": "Engineering",
-      "members": ["did:gftd:alice456", "did:gftd:agent-bot1"],
+      "members": ["did:etzhayyim:alice456", "did:etzhayyim:agent-bot1"],
       "rbac": { "grants": ["com.etzhayyim.apps.*.create", "com.etzhayyim.apps.*.query"] }
     },
     {
       "id": "#legal",
       "name": "Legal",
-      "members": ["did:gftd:jun123"],
+      "members": ["did:etzhayyim:jun123"],
       "rbac": { "grants": ["com.etzhayyim.apps.legal.*"] }
     }
   ],
@@ -986,14 +986,14 @@ DID_DB (did.etzhayyim.com):
   },
 
   "capabilityDelegation": [
-    { "delegator": "did:gftd:jun123", "raci": "accountable" }
+    { "delegator": "did:etzhayyim:jun123", "raci": "accountable" }
   ],
   "rbac": {
     "roles": ["owner", "admin", "member", "viewer", "agent-runtime"],
     "grants": ["com.etzhayyim.apps.*"]
   },
   "consent": { "model": "gnap-vp", "piiTier": 3 },
-  "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:gftd:jun123" }
+  "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:etzhayyim:jun123" }
 }
 ```
 
@@ -1007,15 +1007,15 @@ owner           ← org 全権限 + メンバー管理 + billing + org 削除
       agent-runtime  ← AI agent 専用 (query + invoke のみ, consent は synthetic)
 ```
 
-Role は org DID Doc の `members[].role` で割り当て。各 member の did:gftd DID Doc に `capabilityDelegation` が逆方向でリンク:
+Role は org DID Doc の `members[].role` で割り当て。各 member の did:etzhayyim DID Doc に `capabilityDelegation` が逆方向でリンク:
 
 ```json
-// alice456 の did:gftd DID Doc (member 側)
+// alice456 の did:etzhayyim DID Doc (member 側)
 {
-  "id": "did:gftd:alice456",
+  "id": "did:etzhayyim:alice456",
   "capabilityDelegation": [
     {
-      "delegator": "did:gftd:org-gftd",
+      "delegator": "did:etzhayyim:org-etzhayyim",
       "raci": "responsible",
       "role": "admin"
     }
@@ -1026,8 +1026,8 @@ Role は org DID Doc の `members[].role` で割り当て。各 member の did:g
 PDS canAccess() で org scope を解決:
 
 ```
-did:gftd:alice456 の DID Doc fetch (1 fetch)
-  → capabilityDelegation.delegator = did:gftd:org-gftd
+did:etzhayyim:alice456 の DID Doc fetch (1 fetch)
+  → capabilityDelegation.delegator = did:etzhayyim:org-etzhayyim
   → org DID Doc fetch (2nd fetch, cached 300s)
   → alice の role = admin
   → org.rbac.grants ∩ alice.capabilityInvocation.scope = effective scope
@@ -1037,10 +1037,10 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
 
 ```
 [招待]
-  Owner (did:gftd:jun123)
+  Owner (did:etzhayyim:jun123)
     POST /xrpc/com.etzhayyim.org.inviteMember
     {
-      org: "did:gftd:org-gftd",
+      org: "did:etzhayyim:org-etzhayyim",
       invitee: "alice@etzhayyim.com",
       role: "admin"
     }
@@ -1053,13 +1053,13 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
 [承認]
   Invitee
     → invite link click → authn.etzhayyim.com
-    → 未登録: Passkey sign-up → did:gftd:{hash} mint
+    → 未登録: Passkey sign-up → did:etzhayyim:{hash} mint
     → 登録済み: ログイン (Passkey / OAuth / Email)
     → invite token verify
     → org DID Doc の members[] を更新:
-        { did: "did:gftd:alice456", role: "admin", acceptedAt: "..." }
-    → alice の did:gftd DID Doc に capabilityDelegation 追加:
-        { delegator: "did:gftd:org-gftd", raci: "responsible", role: "admin" }
+        { did: "did:etzhayyim:alice456", role: "admin", acceptedAt: "..." }
+    → alice の did:etzhayyim DID Doc に capabilityDelegation 追加:
+        { delegator: "did:etzhayyim:org-etzhayyim", raci: "responsible", role: "admin" }
 
 [拒否/取消]
   → invite token を revoke
@@ -1095,7 +1095,7 @@ com.etzhayyim.org.getOrganization       ← org 情報取得
 com.etzhayyim.org.updateOrganization    ← org 設定更新 (name, sso, allowedDomains)
 com.etzhayyim.org.deleteOrganization    ← org 削除 (owner only, GDPR cascade purge)
 
-com.etzhayyim.org.inviteMember          ← メンバー招待 (email or did:gftd)
+com.etzhayyim.org.inviteMember          ← メンバー招待 (email or did:etzhayyim)
 com.etzhayyim.org.acceptInvite          ← 招待承認
 com.etzhayyim.org.removeMember          ← メンバー削除
 com.etzhayyim.org.updateMemberRole      ← role 変更
@@ -1118,7 +1118,7 @@ AI agent を org メンバーとして追加可能:
 
 ```json
 {
-  "did": "did:gftd:agent-bot1",
+  "did": "did:etzhayyim:agent-bot1",
   "role": "agent-runtime",
   "raci": "responsible",
   "invitedAt": "2026-04-16T00:00:00Z",
@@ -1141,13 +1141,13 @@ AI agent を org メンバーとして追加可能:
 |---|---|---|---|---|---|
 | A: did:plc (mixed) | 1 | +1 (L2 graph) | 2 | 1 | 0.85 |
 | D: did:plc + cap fields | 1 | 0 (embedded) | 1 | 1 | 0.78 (fake interop) |
-| F: did:plc (auth) + did:gftd (authz) | 1 | +1 (did:gftd) | 2 | 2 | 0.88 |
-| **G: did:gftd unified** | **1** | **0 (same fetch)** | **1** | **1** | **0.92** |
+| F: did:plc (auth) + did:etzhayyim (authz) | 1 | +1 (did:etzhayyim) | 2 | 2 | 0.88 |
+| **G: did:etzhayyim unified** | **1** | **0 (same fetch)** | **1** | **1** | **0.92** |
 
 ## η Calculation (Schema G)
 
 ```
-did:gftd DID Doc = verificationMethod + capabilityInvocation + rbac + raci + consent + dodaf + type
+did:etzhayyim DID Doc = verificationMethod + capabilityInvocation + rbac + raci + consent + dodaf + type
   H_authn = ~60 bit (signing key, same as did:plc)
   H_authz = ~90 bit (capability + RBAC + RACI + consent)
   H_gov   = ~20 bit (type + DoDAF)
@@ -1155,7 +1155,7 @@ did:gftd DID Doc = verificationMethod + capabilityInvocation + rbac + raci + con
   H_wasted = 0 (all fields used by etzhayyim platform)
 
 Resolution:
-  1 fetch (did:gftd DID Doc, ~2KB) → authn + authz + governance 全て
+  1 fetch (did:etzhayyim DID Doc, ~2KB) → authn + authz + governance 全て
 
 No cross-reference overhead:
   identityDID pointer 廃止 → -130 bit redundancy
@@ -1177,52 +1177,52 @@ Comparison to Schema F (split):
 
 ## AI Agent DID Method Separation (unchanged)
 
-**did:agent method separation is not justified.** 1.074 bit の型判別ゲインは resolver 冗長性 + 名前空間衝突リスクを上回らない。`did:gftd` DID Doc の `type` field で十分。
+**did:agent method separation is not justified.** 1.074 bit の型判別ゲインは resolver 冗長性 + 名前空間衝突リスクを上回らない。`did:etzhayyim` DID Doc の `type` field で十分。
 
 ---
 
 # Comprehensive Comparison Matrix (Final)
 
-| | A: did:plc mixed | D: did:plc + cap | F: split | **G: did:gftd unified** |
+| | A: did:plc mixed | D: did:plc + cap | F: split | **G: did:etzhayyim unified** |
 |---|---|---|---|---|
-| **Platform identity** | did:plc | did:plc | did:plc + did:gftd | **did:gftd** |
-| **JWT.iss** | did:plc | did:plc | did:plc | **did:gftd** |
+| **Platform identity** | did:plc | did:plc | did:plc + did:etzhayyim | **did:etzhayyim** |
+| **JWT.iss** | did:plc | did:plc | did:plc | **did:etzhayyim** |
 | **η** | 0.85 | 0.78 | 0.88 | **0.92** |
 | **Auth RTT** | 1 | 1 | 1 | **1** |
-| **AuthZ RTT** | +1 (L2 graph) | 0 (fake) | +1 (did:gftd) | **0 (same fetch)** |
+| **AuthZ RTT** | +1 (L2 graph) | 0 (fake) | +1 (did:etzhayyim) | **0 (same fetch)** |
 | **Total RTT** | 2 | 1 | 2 | **1** |
 | **L2 dead stub** | dead | fake fix | separate fix | **eliminated** |
 | **DID count** | 1 | 1 | 2 | **1 (+ did:plc for federation)** |
 | **AT Proto interop** | 100% (noise) | 85% (fake) | 100% (pure plc) | **100% (via federationDID)** |
 | **Governance freedom** | constrained | constrained | unconstrained | **unconstrained** |
-| **RBAC/RACI** | L2 graph dead | cap chain | did:gftd doc | **did:gftd doc (same fetch)** |
-| **Consent/VP** | service EP | VP in plc doc | VP in did:gftd | **VP in did:gftd (same fetch)** |
-| **Signing key** | did:plc key | did:plc key | did:plc key | **did:gftd key** |
+| **RBAC/RACI** | L2 graph dead | cap chain | did:etzhayyim doc | **did:etzhayyim doc (same fetch)** |
+| **Consent/VP** | service EP | VP in plc doc | VP in did:etzhayyim | **VP in did:etzhayyim (same fetch)** |
+| **Signing key** | did:plc key | did:plc key | did:plc key | **did:etzhayyim key** |
 
 ---
 
 # Implementation Roadmap
 
-## Phase 1: `did.etzhayyim.com` Worker + did:gftd Resolution
+## Phase 1: `did.etzhayyim.com` Worker + did:etzhayyim Resolution
 
-- `plc.etzhayyim.com` Worker (`ai-gftd-plc-directory`) を `did.etzhayyim.com` にリネーム/拡張
-- D1 に `gftd_did_docs` / `gftd_did_log` テーブル追加
-- `GET /did:gftd:{hash}` endpoint 追加
-- `POST /did:gftd:{hash}` endpoint 追加 (DID Doc create/update)
+- `plc.etzhayyim.com` Worker (`etzhayyim-plc-directory`) を `did.etzhayyim.com` にリネーム/拡張
+- D1 に `etzhayyim_did_docs` / `etzhayyim_did_log` テーブル追加
+- `GET /did:etzhayyim:{hash}` endpoint 追加
+- `POST /did:etzhayyim:{hash}` endpoint 追加 (DID Doc create/update)
 - did:plc resolution は既存のまま維持
 - `plc.etzhayyim.com` → `did.etzhayyim.com` redirect
-- CLI: `gftd did resolve did:gftd:{hash}`
+- CLI: `etzhayyim did resolve did:etzhayyim:{hash}`
 
-## Phase 2: Signing Key Custody Migration (KEYS_DB → did:gftd)
+## Phase 2: Signing Key Custody Migration (KEYS_DB → did:etzhayyim)
 
-- `KEYS_DB.did_keys` の key を `did:web:*.etzhayyim.com` → `did:gftd:{hash}` に migration
-- 新規 actor は `did:gftd` で signing key 発行
-- `did:gftd` DID Doc の `verificationMethod` に public key publish
+- `KEYS_DB.did_keys` の key を `did:web:*.etzhayyim.com` → `did:etzhayyim:{hash}` に migration
+- 新規 actor は `did:etzhayyim` で signing key 発行
+- `did:etzhayyim` DID Doc の `verificationMethod` に public key publish
 - 既存 actor は grace period で `did:web` / `did:plc` key も並行維持
 
-## Phase 3: PDS `authenticate()` did:gftd Path
+## Phase 3: PDS `authenticate()` did:etzhayyim Path
 
-- `verify.ts` に `did:gftd` 認証パス追加 (上記コード)
+- `verify.ts` に `did:etzhayyim` 認証パス追加 (上記コード)
 - `DID_SERVICE` binding を PDS `wrangler.jsonc` に追加
 - `resolveetzhayyimDID()` + cache (300s TTL) 実装
 - `canAccess()` に capability/RBAC/RACI check 追加 (DID Doc から)
@@ -1230,25 +1230,25 @@ Comparison to Schema F (split):
 
 ## Phase 4: Auth Worker + CLI Migration
 
-- `handleGetServiceAuth` の `iss` を `did:gftd` で受付
-- `KEYS_DB` lookup key を `did:gftd` に変更
-- CLI `gftd authn signin` が `did:gftd` を `~/.gftd/auth.json` に保存
-- CLI `gftd agent-token` が `iss=did:gftd` で JWT mint
+- `handleGetServiceAuth` の `iss` を `did:etzhayyim` で受付
+- `KEYS_DB` lookup key を `did:etzhayyim` に変更
+- CLI `etzhayyim authn signin` が `did:etzhayyim` を `~/.etzhayyim/auth.json` に保存
+- CLI `etzhayyim agent-token` が `iss=did:etzhayyim` で JWT mint
 - `x-magatama-verified` header 完全廃止
 
 ## Phase 5: OAuth / Email Authentication Integration
 
-- 新規 Passkey sign-up → did:gftd DID Doc に `authentication: [{ type: "WebAuthnAuthenticator" }]` 追加
-- Google/Microsoft OAuth リンク → did:gftd DID Doc の `authentication[]` に `OIDCProvider` entry 追加
-- Email link リンク → did:gftd DID Doc の `authentication[]` に `EmailVerification` entry 追加
-- OAuth/Email ログイン → `linked_auth_methods` で account DID (`did:gftd`) lookup → JWT mint
+- 新規 Passkey sign-up → did:etzhayyim DID Doc に `authentication: [{ type: "WebAuthnAuthenticator" }]` 追加
+- Google/Microsoft OAuth リンク → did:etzhayyim DID Doc の `authentication[]` に `OIDCProvider` entry 追加
+- Email link リンク → did:etzhayyim DID Doc の `authentication[]` に `EmailVerification` entry 追加
+- OAuth/Email ログイン → `linked_auth_methods` で account DID (`did:etzhayyim`) lookup → JWT mint
 - `actorScore` を DID Doc 内で管理 (25pt × verified methods)
-- `linked_auth_methods.account_did` を `did:web:authn.etzhayyim.com:user:{nanoid}` → `did:gftd:{hash}` に migration
+- `linked_auth_methods.account_did` を `did:web:authn.etzhayyim.com:user:{nanoid}` → `did:etzhayyim:{hash}` に migration
 
 ## Phase 6: Organization Management
 
 - `com.etzhayyim.org.*` Lexicon 新規作成 (15 NSID)
-- Org DID Doc 作成 (`createOrganization` → did:gftd mint)
+- Org DID Doc 作成 (`createOrganization` → did:etzhayyim mint)
 - メンバー招待フロー (invite token + email + sign-up/login + accept)
 - チーム管理 (create/update/delete team + add/remove members)
 - RBAC role 階層 (owner > admin > member > viewer > agent-runtime)
@@ -1260,19 +1260,19 @@ Comparison to Schema F (split):
 - Enterprise SSO (OIDC/SAML) → org DID Doc の `orgSettings.sso` で設定
 - `enforced: true` で org メンバーに SSO ログインを強制
 - Cohort actor → org member として追加 (role = `agent-runtime`, 自動承認)
-- `gftd cohort seed` → did:gftd DID Doc を `did.etzhayyim.com` に mint
-- fission 時に新 did:gftd + signing key を pair で発行
+- `etzhayyim cohort seed` → did:etzhayyim DID Doc を `did.etzhayyim.com` に mint
+- fission 時に新 did:etzhayyim + signing key を pair で発行
 - federation 不要な cohort は `federationDID` を省略
 
 ## η Projection
 
 ```
 Current:     η ≈ 0.36 (L2 dead stub, did:plc only)
-Phase 1:     η ≈ 0.50 (did:gftd resolver live, DID Doc 格納可能)
-Phase 2:     η ≈ 0.65 (signing key を did:gftd で管理)
-Phase 3:     η ≈ 0.80 (PDS が did:gftd で authn + authz)
+Phase 1:     η ≈ 0.50 (did:etzhayyim resolver live, DID Doc 格納可能)
+Phase 2:     η ≈ 0.65 (signing key を did:etzhayyim で管理)
+Phase 3:     η ≈ 0.80 (PDS が did:etzhayyim で authn + authz)
 Phase 4:     η ≈ 0.88 (auth Worker + CLI 移行完了)
-Phase 5:     η ≈ 0.90 (OAuth/Email → did:gftd 統合, actorScore)
+Phase 5:     η ≈ 0.90 (OAuth/Email → did:etzhayyim 統合, actorScore)
 Phase 6:     η ≈ 0.92 (org management, member RBAC/RACI live)
 Phase 7:     η ≈ 0.94 (Enterprise SSO + cohort org integration)
 ```
@@ -1284,27 +1284,27 @@ Phase 7:     η ≈ 0.94 (Enterprise SSO + cohort org integration)
 ## Positive
 
 - **1 fetch で authn + authz**: L2 dead stub が構造的に解消される
-- **1 DID per actor**: did:plc ↔ did:gftd の pair 管理が不要 (platform 内)
+- **1 DID per actor**: did:plc ↔ did:etzhayyim の pair 管理が不要 (platform 内)
 - **RTT 50% 削減**: 認証と認可が同一 DID Doc fetch で完了
 - **did:plc 汚さない**: AT Protocol federation adapter として pure なまま
-- **Governance 自由度**: did:gftd DID Doc は独自 schema で RBAC/RACI/consent/VP/DoDAF をフル表現
-- **OAuth/Email 統合**: 全認証方法が did:gftd DID Doc `authentication[]` に集約。login 経路を問わず `iss=did:gftd` JWT を発行
+- **Governance 自由度**: did:etzhayyim DID Doc は独自 schema で RBAC/RACI/consent/VP/DoDAF をフル表現
+- **OAuth/Email 統合**: 全認証方法が did:etzhayyim DID Doc `authentication[]` に集約。login 経路を問わず `iss=did:etzhayyim` JWT を発行
 - **Org management**: org DID Doc + member DID Doc の delegation chain で RBAC/RACI が構造的に表現される
 - **AI agent = org member**: agent を org の member として追加可能 (role/RACI/consent を org 単位で管理)
 
 ## Negative
 
-- **did:gftd DID Doc が 2-3KB**: 認証だけで良いケースでも governance + authentication 情報が付いてくる (cache で amortize)
-- **既存 signing key migration**: `did:web` / `did:plc` keyed の key を `did:gftd` keyed に移行が必要
+- **did:etzhayyim DID Doc が 2-3KB**: 認証だけで良いケースでも governance + authentication 情報が付いてくる (cache で amortize)
+- **既存 signing key migration**: `did:web` / `did:plc` keyed の key を `did:etzhayyim` keyed に移行が必要
 - **PDS 認証パス追加**: `verify.ts` に新 path が増える (legacy path と並行運用期間)
 - **Org scope resolution に 2nd fetch**: member DID Doc → org DID Doc の chain fetch が必要 (cached)
-- **linked_auth_methods migration**: account_did を `did:web` → `did:gftd` に移行が必要
+- **linked_auth_methods migration**: account_did を `did:web` → `did:etzhayyim` に移行が必要
 
 ## Risks
 
-- did:gftd は独自 method → W3C DID Method Registry に登録するか private method として運用するかの判断が必要
-- did:gftd DID Doc 更新時に cache inconsistency (300s TTL window) → key rotation に grace window 必要
-- 外部 AT Protocol implementation が `iss=did:gftd` JWT を拒否する可能性 → federation path は `iss=did:plc` を維持
+- did:etzhayyim は独自 method → W3C DID Method Registry に登録するか private method として運用するかの判断が必要
+- did:etzhayyim DID Doc 更新時に cache inconsistency (300s TTL window) → key rotation に grace window 必要
+- 外部 AT Protocol implementation が `iss=did:etzhayyim` JWT を拒否する可能性 → federation path は `iss=did:plc` を維持
 - OAuth provider の subject claim が変わった場合に linked_auth_methods の lookup が壊れる → provider_subject を immutable key として扱う
 - Org DID Doc の members[] が大規模 (1000+ members) になると DID Doc サイズが肥大化 → member list を別テーブルに分離するか、DID Doc には member count のみ保持して full list は XRPC query で取得する設計も検討
 
@@ -1321,14 +1321,14 @@ Phase 7:     η ≈ 0.94 (Enterprise SSO + cohort org integration)
 | C: did:web (hierarchical path) | 0.58 | org 改編で DID 壊れる |
 | D: did:plc + capability fields | 0.78 | 偽の互換性 (AT Proto ignores cap fields) |
 | E: did:plc + did:dodaf | 0.65 | viewpoint DID は identity の冗長 projection |
-| F: did:plc (auth) + did:gftd (authz) | 0.88 | 2 fetch / 2 DID, 不要な分離 |
+| F: did:plc (auth) + did:etzhayyim (authz) | 0.88 | 2 fetch / 2 DID, 不要な分離 |
 
 ## Rejected Method Names
 
 | Pattern | η | Rejection |
 |---|---|---|
 | did:ai | 0.75 | global claim, 名前空間衝突, W3C 登録困難 |
-| did:gftd:ai/org/auth/gov (typed sub-path) | 0.91 | η 高いがシンプルさ優先で flat hash 採用 |
+| did:etzhayyim:ai/org/auth/gov (typed sub-path) | 0.91 | η 高いがシンプルさ優先で flat hash 採用 |
 | did:w | 0.83 | 1 文字 method は W3C 登録困難, did:web と混同 |
 
 ## AI Agent Method Separation
@@ -1352,8 +1352,8 @@ did:agent method 新設は棄却。1.074 bit の型判別ゲインに対し reso
 - [DoDAF v2.02] DM2 Data Model
 - [PDS verify.ts] `50-infra/cloudflare/workers/atproto/src/auth/verify.ts`
 - [PDS permissions.ts] `50-infra/cloudflare/workers/atproto/src/auth/permissions.ts`
-- [Auth Worker] `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts`
-- [CLI scoped_auth] `70-tools/gftd/gftd/scoped_auth.go`
-- [Auth CLAUDE.md] `60-apps/ai-gftd-project-auth/CLAUDE.md`
-- [Accounts scaffold] `60-apps/ai-gftd-project-accounts/CLAUDE.md`
+- [Auth Worker] `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts`
+- [CLI scoped_auth] `70-tools/etzhayyim/etzhayyim/scoped_auth.go`
+- [Auth CLAUDE.md] `60-apps/etzhayyim-project-auth/CLAUDE.md`
+- [Accounts scaffold] `60-apps/etzhayyim-project-accounts/CLAUDE.md`
 - [ADR-0024] Auth accounts worker topology: `90-docs/adr/0024-auth-accounts-worker-topology.md`

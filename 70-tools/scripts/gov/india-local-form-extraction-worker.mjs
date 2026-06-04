@@ -227,7 +227,7 @@ function extractHtmlSignals(html, finalUrl) {
 }
 
 async function extractPdfText(buffer) {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "gftd-pdf-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "etzhayyim-pdf-"));
   const input = path.join(dir, "source.pdf");
   try {
     await fs.writeFile(input, buffer);
@@ -244,7 +244,7 @@ async function extractPdfText(buffer) {
 }
 
 async function extractPdfOcrText(buffer, locale) {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "gftd-pdf-ocr-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "etzhayyim-pdf-ocr-"));
   const input = path.join(dir, "source.pdf");
   const outputPrefix = path.join(dir, "page");
   try {
@@ -284,7 +284,7 @@ async function extractPdfOcrText(buffer, locale) {
 }
 
 async function extractOfficeText(buffer, ext = ".doc") {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "gftd-office-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "etzhayyim-office-"));
   const input = path.join(dir, `source${ext}`);
   try {
     await fs.writeFile(input, buffer);

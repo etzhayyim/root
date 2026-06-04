@@ -100,7 +100,7 @@ Every step is idempotent except secret creation; re-running is safe.
 
 ```bash
 REPO=/path/to/etzhayyim-root
-DATABASE_URL=$(security find-generic-password -s gftd.rw -a ROOT_URL -w)
+DATABASE_URL=$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w)
 
 # ── 0. lint baseline ───────────────────────────────────────────
 node $REPO/70-tools/scripts/lint/lint-gameka-rollout.mjs
@@ -119,14 +119,14 @@ python3 $REPO/70-tools/scripts/contract/sync-bpmn-actors.py --apply --only gamek
 
 # ── 3. provision Secrets for the wasm-pack runner pod ──────────
 kubectl create secret generic gameka-runner-b2 -n mitama-udf \
-  --from-literal=B2_KEY_ID="$(security find-generic-password -s gftd.r2 -a ACCESS_KEY_ID -w)" \
-  --from-literal=B2_APPLICATION_KEY="$(security find-generic-password -s gftd.r2 -a SECRET_ACCESS_KEY -w)" \
-  --from-literal=B2_BUCKET=ai-gftd-gameka \
+  --from-literal=B2_KEY_ID="$(security find-generic-password -s etzhayyim.r2 -a ACCESS_KEY_ID -w)" \
+  --from-literal=B2_APPLICATION_KEY="$(security find-generic-password -s etzhayyim.r2 -a SECRET_ACCESS_KEY -w)" \
+  --from-literal=B2_BUCKET=etzhayyim-gameka \
   --from-literal=B2_ENDPOINT=https://s3.us-west-004.backblazeb2.com \
   --from-literal=B2_REGION=us-west-004
 kubectl create secret generic gameka-runner-runtime -n mitama-udf \
   --from-literal=ZEEBE_ADDRESS=zeebe-gateway.mitama-udf.svc:26500
-b2 bucket create ai-gftd-gameka allPrivate
+b2 bucket create etzhayyim-gameka allPrivate
 
 # ── 4. build + push the wasm-pack runner image ─────────────────
 cd $REPO
@@ -314,6 +314,6 @@ If gameka needs to be archived:
 - ADR-2604250836 — LangGraph as Zeebe ServiceTask (the agentic spine)
 - ADR-0036 — Worker-direct Hyperdrive persistence (write path)
 - ADR-0023 — Auth Shannon-optimal 4-Layer (sub-DID custody)
-- `60-apps/ai-gftd-project-gameka/CLAUDE.md` — per-phase deep-dive
+- `60-apps/etzhayyim-project-gameka/CLAUDE.md` — per-phase deep-dive
 - `50-infra/vultr/gameka-build-runner/README.md` — wasm-pack pod runbook
 - `50-infra/cloudflare/workers/gameka-playtest-shell/README.md` — shell Worker runbook

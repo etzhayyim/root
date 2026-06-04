@@ -8,7 +8,7 @@
  * (ADR-2605181100), read-cap = owner DID + explicit recipients. The substrate
  * never sees party identities, claim amounts, or screening results in plaintext.
  *
- * CASS fiat settlement EXECUTION stays gftd (consent-capability) — not modeled
+ * CASS fiat settlement EXECUTION stays etzhayyim (consent-capability) — not modeled
  * here as a collection.
  */
 

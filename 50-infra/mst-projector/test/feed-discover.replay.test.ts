@@ -11,7 +11,7 @@
 // snapshot's `items` are byte-identical to test/golden/feed-discover.snapshot.json.
 //
 // `snapshotAt` is excluded per
-//   50-infra/mst-projector/projection/yatachain-projection.toml
+//   50-infra/mst-projector/projection/kotoba-datomic-projection.edn
 //   intentional_non_determinism = [{field = "snapshotAt", ...}].
 //
 // To regenerate the golden after an intentional behaviour change:

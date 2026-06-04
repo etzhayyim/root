@@ -46,7 +46,7 @@ upgrades (Zeebe 8.7 ships a breaking exporter change).
 
 ## 1. Dispatcher auth: shared-secret header, two modes
 
-`ai-gftd-dispatcher` (pymagatama ≥ 0.2.28) gates `/xrpc/*` on a new
+`etzhayyim-dispatcher` (pymagatama ≥ 0.2.28) gates `/xrpc/*` on a new
 `DISPATCHER_AUTH_MODE` env var:
 
 | Mode | Behaviour |

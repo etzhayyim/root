@@ -4,7 +4,7 @@ test_ok_simple_post if {
   decision.allow with input as {
     "record": {
       "$type": "app.bsky.feed.post",
-      "text": "hello yatachain",
+      "text": "hello kotoba-datomic",
       "createdAt": "2026-05-23T00:00:00Z",
     },
   }

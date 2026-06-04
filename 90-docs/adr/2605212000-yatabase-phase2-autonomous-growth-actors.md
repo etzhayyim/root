@@ -86,7 +86,7 @@ This ADR defines:
 ## 2. LangGraph Actor Architecture
 
 All actors run as LangGraph `StateGraph` graphs registered on the `lg-yatabase` pod
-(`60-apps/ai-gftd-project-yatabase/lg/`). Each is imported in `server.py`, exposed via
+(`60-apps/etzhayyim-project-yatabase/lg/`). Each is imported in `server.py`, exposed via
 `/runs` and `/xrpc/com.etzhayyim.apps.yata.lg.*`, and scheduled via APScheduler.
 
 ```

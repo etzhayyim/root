@@ -22,7 +22,7 @@ superseded_by: []
 `vault.etzhayyim.com` は Layer 12 Secret Vault (ADR-2604231811) として、メンバー間で
 共有する API key / credential を保持する。AT Protocol federable repo に PII /
 credential を書く規約違反 (ADR-0018 / Root-Only "AT Protocol Faithful") を
-避けつつ、CF Worker / Browser / `gftd` CLI から透過的に key 取得を可能にする
+避けつつ、CF Worker / Browser / `etzhayyim` CLI から透過的に key 取得を可能にする
 ため、**zero-knowledge** が前提条件となる。Server (Worker + D1) は plaintext
 を一度も観測してはならない。本 ADR は CLAUDE.md の Root-Only "Vault Zero-
 Knowledge Invariant" を ADR 化し、不変条件と禁止事項を確定する。
@@ -50,7 +50,7 @@ CF Workers Secret 注入のために 1 回だけ caller が unwrap 済み vaultK
 
 memberDeviceKey は **WebAuthn PRF** (browser) または **macOS Keychain** (CLI)
 のみに存在する (ADR-2604251205)。Plaintext 取得は必ず caller の local device
-key を使う `gftd` CLI または browser を経由する。Server / MCP / API endpoint
+key を使う `etzhayyim` CLI または browser を経由する。Server / MCP / API endpoint
 からは取り出せない。
 
 ## D4. MCP response redaction contract
@@ -64,7 +64,7 @@ field を強制除去する:
 - `mac`
 - `ephemeralVaultKey`
 
-許可されている MCP tool: `gftd.vault.list` / `listItems` / `audit` (metadata)。
+許可されている MCP tool: `etzhayyim.vault.list` / `listItems` / `audit` (metadata)。
 `get` / `decrypt` 系は MCP 非公開、CLI/browser 専用。
 
 ## D5. Public AT Record gate
@@ -79,7 +79,7 @@ gate (ADR-0085) で firehose から除外する。
   各 member の WebAuthn authenticator / macOS Keychain を要する。
 - Server-side search / index 不可 — metadata (tag, name) は plaintext 保存だが
   value/secret 列の検索は不可能。
-- MCP tool で plaintext 取得はできない。Agent 経由で secret を読むには `gftd
+- MCP tool で plaintext 取得はできない。Agent 経由で secret を読むには `etzhayyim
   vault run` を CLI で実行する必要がある。
 
 # Alternatives Considered
@@ -91,7 +91,7 @@ gate (ADR-0085) で firehose から除外する。
 
 # References
 
-- `60-apps/ai-gftd-project-vault/CLAUDE.md`
-- `redactVaultResponse` 実装: `60-apps/ai-gftd-project-vault/worker/src/mcp.ts`
+- `60-apps/etzhayyim-project-vault/CLAUDE.md`
+- `redactVaultResponse` 実装: `60-apps/etzhayyim-project-vault/worker/src/mcp.ts`
 - ADR-2604251205 (Local Secret Storage = macOS Keychain)
-- ADR-2604251210 (Credential Sharing via gftd Vault + Bitwarden)
+- ADR-2604251210 (Credential Sharing via etzhayyim Vault + Bitwarden)

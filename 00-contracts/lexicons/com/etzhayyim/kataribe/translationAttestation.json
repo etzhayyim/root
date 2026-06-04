@@ -74,7 +74,7 @@
             "knownValues": ["high-fidelity", "medium-fidelity-bounded-by-fleet-capacity", "draft-needs-human-review"],
             "description": "Honest scoring per Murakumo fleet capacity bounding"
           },
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

@@ -2788,7 +2788,7 @@ mod tests {
                     .uri("/v1/namespace/research/create")
                     .header("content-type", "application/json")
                     .body(Body::from(
-                        json!({ "mode": "create", "properties": { "owner": "gftd" } }).to_string(),
+                        json!({ "mode": "create", "properties": { "owner": "etzhayyim" } }).to_string(),
                     ))?,
             )
             .await?;

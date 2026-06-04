@@ -11,7 +11,7 @@ BPMN process contracts for the etzhayyim distributed murakumo cluster. Verdicts 
 
 ## Migration source
 
-The vendor directory (`etzhayyim.com/ai-gftd-apps-gftdcojp/00-contracts/bpmn/com/etzhayyim/murakumo/`) **does not exist** in the current vendor repo state — these two BPMN files are religious-corp-originated, written for etzhayyim under ADR-2605202100 (magatama-cell-runner launchd) and ADR-2605191645 (heartbeat). They are listed under `com.etzhayyim.*` NSID per the shared-namespace pattern (ADR-2605214000 §2 namespace placement rule).
+The vendor directory (`etzhayyim.com/etzhayyim-apps-etzhayyimcojp/00-contracts/bpmn/com/etzhayyim/murakumo/`) **does not exist** in the current vendor repo state — these two BPMN files are religious-corp-originated, written for etzhayyim under ADR-2605202100 (magatama-cell-runner launchd) and ADR-2605191645 (heartbeat). They are listed under `com.etzhayyim.*` NSID per the shared-namespace pattern (ADR-2605214000 §2 namespace placement rule).
 
 ## Substrate-fit conditions (recap)
 

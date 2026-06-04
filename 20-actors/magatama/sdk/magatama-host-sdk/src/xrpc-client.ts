@@ -93,7 +93,7 @@ export class XrpcClient {
   }
 
   private repoNanoid(): string | null {
-    const m = this.repo.match(/^did:web:([^.]+)\.gftd\.ai/);
+    const m = this.repo.match(/^did:web:([^.]+)\.etzhayyim\.ai/);
     return m ? m[1] : null;
   }
 

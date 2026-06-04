@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.official",
-  "description": "Read-side catalog record describing the appointment of a person to a public office. One record per appointment event (re-appointments emit a new record). Cross-references `com.etzhayyim.gov.agency` via `agencyDid`. Constitutional framing per ADR-2605192100 §1.12 + ADR-2605242330: read-side observation, no dependency on the state. The religious-corp may issue separate `com.etzhayyim.member.adherent` SBT records for officials who join as adherents; those are independent and do not derive from this record. Replaces the gftd-side `com.etzhayyim.apps.gov.official` + `vertex_gov_official` table (Kysely → MST, per ADR-2605212100).",
+  "description": "Read-side catalog record describing the appointment of a person to a public office. One record per appointment event (re-appointments emit a new record). Cross-references `com.etzhayyim.gov.agency` via `agencyDid`. Constitutional framing per ADR-2605192100 §1.12 + ADR-2605242330: read-side observation, no dependency on the state. The religious-corp may issue separate `com.etzhayyim.member.adherent` SBT records for officials who join as adherents; those are independent and do not derive from this record. Replaces the etzhayyim-side `com.etzhayyim.apps.gov.official` + `vertex_gov_official` table (Kysely → MST, per ADR-2605212100).",
   "defs": {
     "main": {
       "type": "record",

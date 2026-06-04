@@ -132,7 +132,7 @@ yakushi `pharma_post_market_surveillance` に aggregated cohort outcome feed (G7
 
 - 最高頻度 + 最高 diagnostic accuracy condition で Wave 1 advisory tier の clinical value を最大化
 - yakushi Wave 1 chlorpheniramine + Wave 1b cetirizine / loratadine / diphenhydramine の自然な指名;mitate↔yakushi feedback loop の最初の正規 case
-- SLIT cohort tracker が religious-corp 内 longitudinal adherence data の初の 3-5 yr scale construct ― ADR-2605231500 yatachain-projection の hot-path read carve-out の正面 case
+- SLIT cohort tracker が religious-corp 内 longitudinal adherence data の初の 3-5 yr scale construct ― ADR-2605231500 kotoba-datomic-projection の hot-path read carve-out の正面 case
 
 **Negative / costs**:
 

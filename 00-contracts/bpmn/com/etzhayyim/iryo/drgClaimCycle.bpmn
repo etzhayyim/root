@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  iryo.gftd.ai — DRG claim cycle.
+  iryo.etzhayyim.com — DRG claim cycle.
 
   Two entry shapes:
     1. timer-start (cron 0 0 2 1 * ?) — monthly batch finalize all draft claims
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_iryo_drg_claim_cycle"
-    targetNamespace="https://gftd.ai/bpmn/iryo"
+    targetNamespace="https://etzhayyim.ai/bpmn/iryo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="iryo_drg_claim_cycle" name="iryo drg claim cycle" isExecutable="true">
@@ -51,7 +51,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:iryo.gftd.ai:hospital&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:iryo.etzhayyim.com:hospital&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.iryo.submitDrgClaim&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;claimId&quot;: claimId, &quot;status&quot;: status, &quot;packagePoints&quot;: packagePoints, &quot;tariffSystem&quot;: tariffSystem }" target="attributes"/>
         </zeebe:ioMapping>

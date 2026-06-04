@@ -2,7 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                  id="magatama-cron-tick" targetNamespace="https://gftd.ai/bpmn">
+                  id="magatama-cron-tick" targetNamespace="https://etzhayyim.ai/bpmn">
   <bpmn:process id="com.etzhayyim.magatama.cronTick" name="Magatama Organizer Cron Tick" isExecutable="true">
     <bpmn:startEvent id="start" name="R/PT5M">
       <bpmn:outgoing>to-tick</bpmn:outgoing>
@@ -16,7 +16,7 @@
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&#34;POST&#34;" target="method"/>
-          <zeebe:input source="=&#34;https://magatama.gftd.ai/xrpc/com.etzhayyim.apps.magatama.cronTick&#34;" target="url"/>
+          <zeebe:input source="=&#34;https://magatama.etzhayyim.com/xrpc/com.etzhayyim.apps.magatama.cronTick&#34;" target="url"/>
           <zeebe:input source="={}" target="body"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

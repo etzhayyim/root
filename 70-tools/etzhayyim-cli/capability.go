@@ -86,10 +86,10 @@ func runCapability(args []string) error {
 }
 
 func printCapabilityUsage() {
-	fmt.Printf(`gftd capability — consent capability lifecycle
+	fmt.Printf(`etzhayyim capability — consent capability lifecycle
 
 USAGE:
-  gftd capability <subcommand> [flags]
+  etzhayyim capability <subcommand> [flags]
 
 SUBCOMMANDS:
   issue    Sign a new capability JWS (no PDS write; caller forwards to PDS)
@@ -123,21 +123,21 @@ VERIFY FLAGS:
 
 EXAMPLES:
   # Issue a 24h deploy capability
-  gftd capability issue \
+  etzhayyim capability issue \
     --granter did:web:steward.etzhayyim.com \
     --grantee did:web:claude-agent.etzhayyim.com \
     --purpose deploy-execution \
     --scope deploy.cfWorker:karute-did-web,deploy.k8s:lg-karute,deploy.pages:karute \
     --ttl 86400 \
     --audit-webhook did:web:audit.etzhayyim.com \
-    --out ~/.gftd/cap-karute.jws
+    --out ~/.etzhayyim/cap-karute.jws
 
   # Verify locally (no network)
-  gftd capability verify --capability ~/.gftd/cap-karute.jws \
+  etzhayyim capability verify --capability ~/.etzhayyim/cap-karute.jws \
     --did-document /path/to/steward-did.json
 
   # Verify against live DID Web
-  gftd capability verify --capability ~/.gftd/cap-karute.jws
+  etzhayyim capability verify --capability ~/.etzhayyim/cap-karute.jws
 `)
 }
 

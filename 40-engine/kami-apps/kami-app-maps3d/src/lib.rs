@@ -112,7 +112,7 @@ thread_local! {
 /// ]));
 /// ```
 /// Upsert a photogrammetry tile from GLB bytes. Called by the JS host
-/// after fetching `b2://ai-gftd-nats/maps3d/tile/{tile_h3}.glb` (output
+/// after fetching `b2://etzhayyim-nats/maps3d/tile/{tile_h3}.glb` (output
 /// of the `maps3d.simplifyAndExport` BPMN task). Replaces any prior
 /// mesh for the same tile.
 ///

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  iryo.gftd.ai — admission/discharge cycle.
+  iryo.etzhayyim.com — admission/discharge cycle.
 
   Two XRPC entries share a single BPMN through the action input:
     submitEncounter    → action=admit    → encounter.upsert + bed.assign
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_iryo_admission_discharge_cycle"
-    targetNamespace="https://gftd.ai/bpmn/iryo"
+    targetNamespace="https://etzhayyim.ai/bpmn/iryo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="iryo_admission_discharge_cycle" name="iryo admission discharge cycle" isExecutable="true">
@@ -109,7 +109,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:iryo.gftd.ai:hospital&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:iryo.etzhayyim.com:hospital&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.iryo.encounterEvent&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;encounterId&quot;: encounterId, &quot;action&quot;: resolvedAction, &quot;bedSlug&quot;: bedSlug, &quot;claimId&quot;: claimId, &quot;lengthOfStayDays&quot;: lengthOfStayDays }" target="attributes"/>
         </zeebe:ioMapping>

@@ -51,7 +51,7 @@ AT Protocol Lexicon の **noun 層 (record schema)** を WIT record 型として
 
 - `magatama:wproto` package 内に AT Protocol Lexicon の core 型を WIT record として追加
 - `magatama:bsky` package を新設し、`app.bsky.*` Lexicon 型を WIT で定義
-- `gftd wit-gen` の Lexicon JSON 生成を WIT record 定義から自動導出に切り替え
+- `etzhayyim wit-gen` の Lexicon JSON 生成を WIT record 定義から自動導出に切り替え
 - Guest SDK (magatama-go, magatama-guest-rust, magatama-ts, magatama-py) の型安全 API 提供
 
 ## Executive Summary
@@ -63,7 +63,7 @@ AT Protocol Lexicon の **noun 層 (record schema)** を WIT record 型として
 WIT に Lexicon 型を直接写像することで:
 1. **Compile-time type safety** — guest SDK が型安全な record 構築を提供
 2. **Federation validation** — PDS facade 層で record body を WIT 型に基づき検証
-3. **Code generation 精度向上** — `gftd wit-gen` が WIT record → Lexicon JSON Schema を正確に導出
+3. **Code generation 精度向上** — `etzhayyim wit-gen` が WIT record → Lexicon JSON Schema を正確に導出
 4. **AT Protocol spec 追従** — Lexicon 変更時に WIT record を更新、全 component が rebuild で型不整合を検出
 
 ## Decision
@@ -186,10 +186,10 @@ magatama.ATPost(did, magatama.Post{
 
 ### Phase 4: PDS Validation Middleware (Doc Comment Annotation 自動導出)
 
-PDS XRPC facade 層で WIT doc comment annotation に基づく record body 検証を追加。検証ルールは手動定義ではなく `gftd wit-gen` が WIT から自動生成する。
+PDS XRPC facade 層で WIT doc comment annotation に基づく record body 検証を追加。検証ルールは手動定義ではなく `etzhayyim wit-gen` が WIT から自動生成する。
 
 ```
-gftd wit-gen --constraints
+etzhayyim wit-gen --constraints
   → WIT doc comment (@max-length, @format, ...) をパース
   → validation-rules.generated.ts を出力
 
@@ -233,7 +233,7 @@ WIT doc comment から自動導出される検証ルール例:
 | Style Guide ルール | WIT 実装 | 理由 |
 |---|---|---|
 | **String constants は `kebab-case`** | `snake_case` 標準 (`cohort_person`) | Cypher backtick 不要、Go identifier 互換、DID path escape 不要 |
-| **Lexicon JSON schema 定義** | WIT が Single Source (手動 Lexicon JSON 禁止) | Shannon 冗長排除。`gftd wit-gen` で WIT → NSID map 自動導出 |
+| **Lexicon JSON schema 定義** | WIT が Single Source (手動 Lexicon JSON 禁止) | Shannon 冗長排除。`etzhayyim wit-gen` で WIT → NSID map 自動導出 |
 | **closed enum 回避 → `knownValues`** | WIT `enum` (closed) | WASM Component Model 型安全優先。拡張は WIT version bump |
 
 ### WIT で表現できない Lexicon 制約 → Doc Comment Annotation で解決
@@ -263,13 +263,13 @@ WIT 型システムには Lexicon JSON の制約アノテーション相当が�
 | **実効性** | Lexicon 制約は本質的に runtime (3000 bytes 超過は実行時 reject) | 同じ |
 | **toolchain 互換** | fork 必須 | 影響なし |
 
-**不採用理由**: `maxLength`/`maxGraphemes`/`format` は本質的に **runtime constraint** — コンパイル時に「この string は 3000 bytes 以下」を証明する型システムは WIT にも Lexicon にもない。Lexicon JSON 自体が「schema は宣言、enforcement は実装側」の設計。WIT grammar 拡張で得られるのは parse-time syntax check のみで、`gftd wit-gen` の validation で同等に実現可能。fork 保守コスト対ゼロで doc comment annotation が圧倒的に優位。
+**不採用理由**: `maxLength`/`maxGraphemes`/`format` は本質的に **runtime constraint** — コンパイル時に「この string は 3000 bytes 以下」を証明する型システムは WIT にも Lexicon にもない。Lexicon JSON 自体が「schema は宣言、enforcement は実装側」の設計。WIT grammar 拡張で得られるのは parse-time syntax check のみで、`etzhayyim wit-gen` の validation で同等に実現可能。fork 保守コスト対ゼロで doc comment annotation が圧倒的に優位。
 
 WIT spec 公式アノテーションは `@unstable`, `@since`, `@deprecated` の 3 つのみ (Component Model spec)。Custom annotation の proposal は存在しない。
 
 #### Constraint Annotation 仕様
 
-`@nsid` と同じく `///` doc comment 内に記述。`gftd wit-gen` がパースし 3 層に自動導出。
+`@nsid` と同じく `///` doc comment 内に記述。`etzhayyim wit-gen` がパースし 3 層に自動導出。
 
 **記法:**
 
@@ -317,14 +317,14 @@ record post {
 
 **導出先 4 層:**
 
-1. **Lexicon JSON 生成** (`gftd wit-gen`) — `maxLength`, `maxGraphemes`, `format` 等を自動付与
+1. **Lexicon JSON 生成** (`etzhayyim wit-gen`) — `maxLength`, `maxGraphemes`, `format` 等を自動付与
 2. **PDS validation middleware** (Phase 4) — 同じ annotation から検証ルールを導出。手動 rule 定義不要
 3. **Guest SDK** — Go struct tag / TS JSDoc / Rust `#[validate]` に constraint metadata 付与 (将来)
 4. **Schema evolution codec** (Phase 6) — `@field` number で wire-stable encoding、unknown field preservation、`@reserved` で番号保護
 
 **Single Source of Truth**: WIT doc comment が制約の唯一の定義。Lexicon JSON・PDS validation・SDK は全て自動導出。手動で制約を別ファイルに書くことを禁止。
 
-**結論**: WIT は Lexicon JSON の**構造層 (type shape)** を WIT grammar で同等に表現。**制約層 (validation rules)** は doc comment annotation で WIT ファイル内に共存させ、`gftd wit-gen` で Lexicon JSON + PDS validation + SDK に自動導出する。
+**結論**: WIT は Lexicon JSON の**構造層 (type shape)** を WIT grammar で同等に表現。**制約層 (validation rules)** は doc comment annotation で WIT ファイル内に共存させ、`etzhayyim wit-gen` で Lexicon JSON + PDS validation + SDK に自動導出する。
 
 ## Rationale
 
@@ -341,7 +341,7 @@ record post {
 
 **AT Protocol spec 追従コストの緩和策:**
 - AT Protocol の core 型 (post/like/follow/profile) は安定しており変更頻度が低い
-- `gftd wit-gen` が公式 Lexicon JSON → WIT record の逆変換も提供 (spec 変更時の自動更新)
+- `etzhayyim wit-gen` が公式 Lexicon JSON → WIT record の逆変換も提供 (spec 変更時の自動更新)
 - WIT record の optional field は Lexicon の optional property と 1:1 対応
 
 ### AT Protocol Lexicon spec との型対応
@@ -380,9 +380,9 @@ record post {
 1. **Phase 1** ✅ done: `magatama:atproto` package — core types + constraint annotations
 2. **Phase 2** ✅ done: `magatama:bsky` package — social types + constraint annotations (upstream Lexicon 100% カバレッジ)
 3. **Phase 3** (in progress): com-atproto-repo typed extension — `post()`, `like()`, `repost()`, `follow()`, `profile()`
-4. **Phase 4** ✅ done (annotation 追記): Doc comment annotation (`@max-length`, `@format`, `@accept`, `@max-size` 等) を全 record field に追記完了。`gftd wit-gen --constraints` の実装は next
-5. **Phase 5** (ongoing): `gftd wit-gen` reverse — Lexicon JSON → WIT record + annotation 自動生成
-6. **Phase 6** ✅ done (annotation + evolution interface): `@field` number を全 record field に付与 + `@reserved` + `magatama:atproto/evolution` interface。`gftd wit-gen --evolution` の codec 生成は next
+4. **Phase 4** ✅ done (annotation 追記): Doc comment annotation (`@max-length`, `@format`, `@accept`, `@max-size` 等) を全 record field に追記完了。`etzhayyim wit-gen --constraints` の実装は next
+5. **Phase 5** (ongoing): `etzhayyim wit-gen` reverse — Lexicon JSON → WIT record + annotation 自動生成
+6. **Phase 6** ✅ done (annotation + evolution interface): `@field` number を全 record field に付与 + `@reserved` + `magatama:atproto/evolution` interface。`etzhayyim wit-gen --evolution` の codec 生成は next
 
 ### Phase 6: Schema Evolution — Field Numbers + Version Envelope
 
@@ -426,7 +426,7 @@ record post {
 | ルール | 説明 |
 |---|---|
 | **番号は 1 始まり** | 0 は無効 (proto 互換) |
-| **record 内で一意** | 重複は `gftd wit-gen` が reject |
+| **record 内で一意** | 重複は `etzhayyim wit-gen` が reject |
 | **一度割り当てた番号は変更不可** | wire compat 保証。field 削除時は `@reserved` + `@reserved-name` に移動 |
 | **19000-19999 は予約** | proto 互換 (internal use) |
 | **variant case にも付与** | discriminant の stable encoding |
@@ -459,7 +459,7 @@ record updated-post {
 }
 ```
 
-`gftd wit-gen` が `@reserved` 番号および `@reserved-name` 名前への再割り当てを reject。
+`etzhayyim wit-gen` が `@reserved` 番号および `@reserved-name` 名前への再割り当てを reject。
 
 #### 6c. Version Envelope (`magatama:atproto/evolution`)
 
@@ -537,10 +537,10 @@ Wire 上では `@field` 番号を CBOR map key として使用。JSON wire (AT P
 **Forward compat**: 新 schema で追加された field は旧 node で `unknown-fields` に入り、relay 時に復元。
 **Backward compat**: 新 node が旧 schema record を受信 → 新 field は `option<T>` (None) + `unknown-fields` 空。
 
-#### 6e. `gftd wit-gen` 拡張
+#### 6e. `etzhayyim wit-gen` 拡張
 
 ```
-gftd wit-gen --evolution
+etzhayyim wit-gen --evolution
   → @field annotation をパース
   → field-number-map.generated.json を出力 (record → {field_name: field_num})
   → @reserved 検証 (番号衝突 reject)

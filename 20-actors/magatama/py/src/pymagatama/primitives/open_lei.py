@@ -90,7 +90,7 @@ def _fetch_rr_cdf_page(*, page_number: int, page_size: int) -> tuple[list[dict[s
         url,
         headers={
             "Accept": "application/vnd.api+json, application/json",
-            "User-Agent": os.environ.get("GLEIF_USER_AGENT", "gftd-open-lei-zeebe/0.1"),
+            "User-Agent": os.environ.get("GLEIF_USER_AGENT", "etzhayyim-open-lei-zeebe/0.1"),
         },
     )
     with urlopen(req, timeout=int(os.environ.get("GLEIF_FETCH_TIMEOUT_SEC", "90"))) as res:
@@ -112,7 +112,7 @@ def _fetch_lei_cdf_page(*, page_number: int, page_size: int) -> tuple[list[dict[
         url,
         headers={
             "Accept": "application/vnd.api+json, application/json",
-            "User-Agent": os.environ.get("GLEIF_USER_AGENT", "gftd-open-lei-zeebe/0.1"),
+            "User-Agent": os.environ.get("GLEIF_USER_AGENT", "etzhayyim-open-lei-zeebe/0.1"),
         },
     )
     with urlopen(req, timeout=int(os.environ.get("GLEIF_FETCH_TIMEOUT_SEC", "90"))) as res:

@@ -18,7 +18,7 @@ class BinderPhase(Enum):
     RECORDS_COLLECTED = "records_collected"
     VIN_ASSIGNED = "vin_assigned"
     VEHICLE_DID_ISSUED = "vehicle_did_issued"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -30,8 +30,8 @@ def transition_to_vin_assigned(state: dict[str, Any]) -> dict[str, Any]:
 def transition_to_vehicle_did_issued(state: dict[str, Any]) -> dict[str, Any]:
     return {"binder_state": {**state.get("binder_state", {}), "phase": BinderPhase.VEHICLE_DID_ISSUED.value, "completionPct": 60}}
 
-def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
-    return {"binder_state": {**state.get("binder_state", {}), "phase": BinderPhase.YATACHAIN_ANCHORED.value, "completionPct": 80}}
+def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
+    return {"binder_state": {**state.get("binder_state", {}), "phase": BinderPhase.KOTOBA_DATOMIC_ANCHORED.value, "completionPct": 80}}
 
 def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     binder_state = state.get("binder_state", {})
@@ -40,7 +40,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "emitted_record": {
             "chassisId": binder_state.get("chassisId"),
             "vin": "VIN-MOCK-123456789",
-            "vehicle_did": "did:yatachain:vehicle:mock",
+            "vehicle_did": "did:kotoba-datomic:vehicle:mock",
             "anchored": True
         }
     }
@@ -63,7 +63,7 @@ def _did(s: dict[str, Any]) -> dict[str, Any]:
     return transition_to_vehicle_did_issued(s)
 
 def _anchor(s: dict[str, Any]) -> dict[str, Any]:
-    return transition_to_yatachain_anchored(s)
+    return transition_to_kotoba-datomic_anchored(s)
 
 def _record(s: dict[str, Any]) -> dict[str, Any]:
     return transition_to_record_emitted(s)

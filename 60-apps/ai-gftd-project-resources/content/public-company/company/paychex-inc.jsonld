@@ -1,0 +1,19 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://resources.gftd.ai/ontology#",
+      "prov": "http://www.w3.org/ns/prov#"
+    }
+  ],
+  "@type": "gftd:PublicCompanyProfile",
+  "identifier": "paychex-inc",
+  "name": "Paychex, Inc.",
+  "legalName": "Paychex, Inc.",
+  "tickerSymbol": "PAYX",
+  "gftd:exchangeMic": "XNAS",
+  "gftd:countryCode": "US",
+  "url": "https://investor.paychex.com/",
+  "description": "Public company profile for automated IR/News ingestion and entity generation.",
+  "prov:generatedAtTime": "2026-03-03T00:00:00Z"
+}

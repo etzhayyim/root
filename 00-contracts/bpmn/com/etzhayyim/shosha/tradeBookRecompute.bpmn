@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — trade book recompute (autonomous, R/PT4H).
+  shosha.etzhayyim.com — trade book recompute (autonomous, R/PT4H).
 
   Pipeline:
     1. shosha.exposure.recompute  Aggregate open trades minus hedges → vertex_shosha_exposure_snapshot
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_trade_book_recompute"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_trade_book_recompute" name="shosha trade book recompute (4h)" isExecutable="true">
@@ -54,7 +54,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-                    <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" target="actor"/>
+                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.tradeBookRecompute&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;exposureRows&quot;: exposureRows, &quot;tradesUpdated&quot;: tradesUpdated, &quot;totalUnrealized&quot;: totalUnrealized }" target="attributes"/>
         </zeebe:ioMapping>

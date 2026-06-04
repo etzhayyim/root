@@ -4,7 +4,7 @@ metadata:
   name: maps-read-langserver
   labels:
     app.kubernetes.io/name: maps-read-langserver
-    app.kubernetes.io/part-of: maps-gftd-ai
+    app.kubernetes.io/part-of: maps-etzhayyim-ai
 spec:
   replicas: 1
   selector:
@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: maps-read-langserver
-        app.kubernetes.io/part-of: maps-gftd-ai
+        app.kubernetes.io/part-of: maps-etzhayyim-ai
     spec:
       imagePullSecrets:
         - name: ghcr-creds
@@ -98,7 +98,7 @@ metadata:
   name: maps-read-langserver
   labels:
     app.kubernetes.io/name: maps-read-langserver
-    app.kubernetes.io/part-of: maps-gftd-ai
+    app.kubernetes.io/part-of: maps-etzhayyim-ai
 spec:
   selector:
     app.kubernetes.io/name: maps-read-langserver

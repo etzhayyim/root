@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_gyosei_hearing_proceed"
-  targetNamespace="https://gftd.ai/bpmn/gyosei"
+  targetNamespace="https://etzhayyim.ai/bpmn/gyosei"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="gyosei_hearing_proceed" name="聴聞実施" isExecutable="true">

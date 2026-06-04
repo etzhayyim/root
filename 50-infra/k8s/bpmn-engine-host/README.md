@@ -40,7 +40,7 @@ Replaces: Camunda 8 / Zeebe broker pod (license-encumbered).
 # Apply
 kubectl apply -f 50-infra/k8s/bpmn-engine-host/deployment.yaml
 # Provision RW_DSN from macOS Keychain (root CLAUDE.md, "Local Secret Storage")
-security find-generic-password -s "gftd.risingwave" -a "RW_DSN" -w \
+security find-generic-password -s "etzhayyim.risingwave" -a "RW_DSN" -w \
   | kubectl create secret generic bpmn-engine-host-secrets \
       -n mitama-udf --from-file=RW_DSN=/dev/stdin
 ```

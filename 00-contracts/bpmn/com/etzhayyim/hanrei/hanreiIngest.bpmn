@@ -19,14 +19,14 @@
   Cadence: R/PT24H. One BPMN instance per day.
 
   NSID: com.etzhayyim.apps.hanrei.hanreiIngest
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/hanrei-ingest-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/hanrei-ingest-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_hanrei_ingest"
-    targetNamespace="https://gftd.ai/bpmn/hanrei"
+    targetNamespace="https://etzhayyim.ai/bpmn/hanrei"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="hanrei_ingest" name="hanrei ingest" isExecutable="true">
@@ -124,7 +124,7 @@
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.hanrei.hanreiIngest&quot;" target="event_type"/>
-          <zeebe:input source="=&quot;did:web:hanrei.gftd.ai&quot;"            target="actor_did"/>
+          <zeebe:input source="=&quot;did:web:hanrei.etzhayyim.com&quot;"            target="actor_did"/>
           <zeebe:input source="={ caseJobsCreated: caseJobsCreated, egovJobsCreated: egovJobsCreated, wikidataJobsCreated: wikidataJobsCreated, courtsRegistered: courtsRegistered, jurisdictionsRegistered: jurisdictionsRegistered }" target="attributes"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
@@ -135,7 +135,7 @@
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.hanrei.hanreiIngest.abort&quot;" target="event_type"/>
-          <zeebe:input source="=&quot;did:web:hanrei.gftd.ai&quot;" target="actor_did"/>
+          <zeebe:input source="=&quot;did:web:hanrei.etzhayyim.com&quot;" target="actor_did"/>
           <zeebe:input source="={ reason: &quot;no_collection_jobs_created&quot;, caseJobsCreated: caseJobsCreated, egovJobsCreated: egovJobsCreated, wikidataJobsCreated: wikidataJobsCreated }" target="attributes"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

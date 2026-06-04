@@ -26,11 +26,11 @@ superseded_by: []
 
 # Context
 
-ADR-0074 changed the platform root from `did:gftd` to an ERC725 contract
+ADR-0074 changed the platform root from `did:etzhayyim` to an ERC725 contract
 identity:
 
 ```text
-did:erc725:gftd:260425:<erc725IdentityContract>
+did:erc725:etzhayyim:260425:<erc725IdentityContract>
 ```
 
 ADR-2604261830 already anchors WASM/BPMN/browser/LangGraph artifacts and
@@ -95,7 +95,7 @@ Persistence:
 | `AgentValidationRegistry`  | ERC-8004 validation registry shape | Records validator, validation request hash, result hash, and validation CID.                      |
 | `AgentReputationRegistry`  | ERC-8004 reputation registry shape | Records reputation claims and aggregate roots. Detailed scoring lives offchain.                   |
 | `ActorRuntimeRegistry`     | existing ADR-2604261830            | Runtime artifact versions, execution receipts, and actor checkpoints.                             |
-| `DeployRegistry`           | existing ADR-0074 Phase 2-A        | `gftd deploy` content hash, commit hash, and optional CID.                                        |
+| `DeployRegistry`           | existing ADR-0074 Phase 2-A        | `etzhayyim deploy` content hash, commit hash, and optional CID.                                        |
 
 `ActorRuntimeRegistry` remains the runtime provenance anchor. ERC-8004 registry
 adds discovery and trust semantics; it does not replace the runtime registry.
@@ -107,15 +107,15 @@ addresses.
 
 | Key namespace                       | Value                                                 |
 | ----------------------------------- | ----------------------------------------------------- |
-| `gftd.root.version`                 | semantic root identity schema version                 |
-| `gftd.root.facade.atproto`          | `did:plc` or `did:web` facade DID hash + optional CID |
-| `gftd.root.smartAccount.260425`     | ERC-4337 smart account address                        |
-| `gftd.root.didPkh.260425`           | linked wallet/smart-account `did:pkh` hash            |
-| `gftd.root.policy.cid`              | Rego/RBAC policy bundle CID                           |
-| `gftd.root.cacao.revocationRoot`    | revocation Merkle root or CID                         |
-| `gftd.root.oauth.subjectHash`       | salted OAuth subject hash pointer                     |
-| `gftd.root.webauthn.credentialRoot` | Merkle root of credential claim hashes                |
-| `gftd.agent.erc8004.tokenId`        | linked ERC-8004 agent token id                        |
+| `etzhayyim.root.version`                 | semantic root identity schema version                 |
+| `etzhayyim.root.facade.atproto`          | `did:plc` or `did:web` facade DID hash + optional CID |
+| `etzhayyim.root.smartAccount.260425`     | ERC-4337 smart account address                        |
+| `etzhayyim.root.didPkh.260425`           | linked wallet/smart-account `did:pkh` hash            |
+| `etzhayyim.root.policy.cid`              | Rego/RBAC policy bundle CID                           |
+| `etzhayyim.root.cacao.revocationRoot`    | revocation Merkle root or CID                         |
+| `etzhayyim.root.oauth.subjectHash`       | salted OAuth subject hash pointer                     |
+| `etzhayyim.root.webauthn.credentialRoot` | Merkle root of credential claim hashes                |
+| `etzhayyim.agent.erc8004.tokenId`        | linked ERC-8004 agent token id                        |
 
 Raw OAuth tokens, passkey public-key material, PII, secrets, and policy bodies
 must not be written to chain.
@@ -142,7 +142,7 @@ schema and must not be used for new public actor registrations.
     "kind": "erc725-root",
     "chainId": 260425,
     "address": "0x...",
-    "rootDid": "did:erc725:gftd:260425:0x...",
+    "rootDid": "did:erc725:etzhayyim:260425:0x...",
     "facadeDids": ["did:web:yoro.etzhayyim.com"],
     "policyCid": "ipfs://bafy..."
   },
@@ -152,7 +152,7 @@ schema and must not be used for new public actor registrations.
       "service": "https://atproto.etzhayyim.com",
       "pdsDid": "did:web:atproto.etzhayyim.com",
       "actorDid": "did:web:yoro.etzhayyim.com",
-      "facadeFor": "did:erc725:gftd:260425:0x..."
+      "facadeFor": "did:erc725:etzhayyim:260425:0x..."
     },
     {
       "kind": "mcp",
@@ -199,7 +199,7 @@ bindings). Do not model it as two separate profiles.
   "service": "https://atproto.etzhayyim.com",
   "pdsDid": "did:web:atproto.etzhayyim.com",
   "actorDid": "did:web:yoro.etzhayyim.com",
-  "facadeFor": "did:erc725:gftd:260425:0x...",
+  "facadeFor": "did:erc725:etzhayyim:260425:0x...",
   "xrpc": {
     "repoMethods": [
       "com.atproto.repo.createRecord",
@@ -316,14 +316,14 @@ Rules:
     -> record EVM execution receipt/checkpoint when policy requires
 ```
 
-`DeployRegistry` continues to record `gftd deploy` app-level provenance.
+`DeployRegistry` continues to record `etzhayyim deploy` app-level provenance.
 `ActorRuntimeRegistry` records runtime artifact and execution provenance.
 `AgentIdentityRegistry` records public discovery identity.
 
 ## Implementation Status
 
 As of 2026-04-27, the foundation is implemented in the private-chain contracts,
-schemas, k8s annotations, Cloudflare discovery documents, and `gftd` CLI.
+schemas, k8s annotations, Cloudflare discovery documents, and `etzhayyim` CLI.
 
 Implemented:
 
@@ -338,15 +338,15 @@ Implemented:
   ADR-2604262145 and the live `public-agent-registration*.json` templates.
 - Public runtime renderer:
   `70-tools/scripts/contract/render-agent-runtime-public.py`.
-- `gftd agent-runtime render`: renders redacted k8s public runtime JSON.
-- `gftd agent-runtime publish`: dry-run hash summary by default; with
+- `etzhayyim agent-runtime render`: renders redacted k8s public runtime JSON.
+- `etzhayyim agent-runtime publish`: dry-run hash summary by default; with
   `--dry-run=false`, pins rendered public runtime JSON to `ipfs.etzhayyim.com`
   through the HMAC-protected Kubo API.
-- `gftd agent-runtime register`: derives `rootDidHash`, owner, and
+- `etzhayyim agent-runtime register`: derives `rootDidHash`, owner, and
   `metadataHash`, then dry-runs or submits
   `etzhayyimAgentRegistry.registerAgent(bytes32,address,string,bytes32)` through
   `cast send`.
-- `gftd agent-runtime publish-agent`: one-shot pipeline that renders the public
+- `etzhayyim agent-runtime publish-agent`: one-shot pipeline that renders the public
   k8s runtime manifest, publishes it to IPFS, renders the ERC-8004 agent
   registration JSON with the runtime CID, publishes that registration JSON to
   IPFS, and optionally registers its `agentURI` on `etzhayyimAgentRegistry`. It
@@ -359,7 +359,7 @@ Updated 2026-04-27:
 
 - `did:web:yoro.etzhayyim.com` is linked as an AT facade for the canonical ERC725
   root DID
-  `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`.
+  `did:erc725:etzhayyim:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`.
 - `etzhayyimRootIdentityRegistry` has the canonical `keccak256(utf8(rootDid))`
   registered for that root identity address, and the facade link points to
   that canonical root hash.
@@ -384,28 +384,28 @@ Verified locally on 2026-04-27:
 ```bash
 go test . -run TestAgentRuntime -count=1
 
-gftd agent-runtime render \
+etzhayyim agent-runtime render \
   --cluster murakumo-vke \
   50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml
 
-gftd agent-runtime publish --dry-run \
+etzhayyim agent-runtime publish --dry-run \
   --cluster murakumo-vke \
   50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml
 
-gftd agent-runtime register --dry-run \
+etzhayyim agent-runtime register --dry-run \
   --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json \
   --agent-uri ipfs://<agent-registration-cid> \
-  --root-did did:erc725:gftd:260425:<erc725IdentityContract> \
+  --root-did did:erc725:etzhayyim:260425:<erc725IdentityContract> \
   --owner <evmOwnerAddress>
 
-gftd agent-runtime publish-agent --dry-run \
+etzhayyim agent-runtime publish-agent --dry-run \
   --cluster murakumo-vke \
   --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json \
-  --root-did did:erc725:gftd:260425:<erc725IdentityContract> \
+  --root-did did:erc725:etzhayyim:260425:<erc725IdentityContract> \
   --owner <evmOwnerAddress> \
   50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml
 
-gftd agent-runtime publish-agent --dry-run=false \
+etzhayyim agent-runtime publish-agent --dry-run=false \
   --ipfs http://144.202.126.131 \
   --cluster murakumo-vke \
   --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json \
@@ -590,9 +590,9 @@ pointers only.
    through `etzhayyimAgentRegistry`.
 3. Done: add an `agent-runtime-registration` JSON schema and redacted k8s public
    manifest schema.
-4. Done for explicit CLI: add `gftd agent-runtime render|publish|publish-agent`
+4. Done for explicit CLI: add `etzhayyim agent-runtime render|publish|publish-agent`
    to render and pin public runtime manifests to `ipfs.etzhayyim.com`. Still pending
-   integration into the default `gftd deploy` flow. As part of this, `atproto`
+   integration into the default `etzhayyim deploy` flow. As part of this, `atproto`
    and `xrpc` are now normalized into the single `atproto-xrpc` profile in
    public protocol registration design.
 5. In progress: extend deploy pipeline to register/update `ActorRuntimeRegistry`,
@@ -604,7 +604,7 @@ pointers only.
    `yoro.etzhayyim.com` Zeebe worker + MCP adapter in namespace `yoro-actors`.
 9. Publish the shared Python worker runtime in namespace `mitama-udf`.
 10. Add verification script:
-    `gftd agent verify --did <rootDid>` that resolves ERC725, ERC-8004,
+    `etzhayyim agent verify --did <rootDid>` that resolves ERC725, ERC-8004,
     IPFS, k8s public manifest, and latest runtime receipt.
 
 # References

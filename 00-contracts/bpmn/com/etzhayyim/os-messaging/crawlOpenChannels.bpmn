@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_os_messaging_crawl_open_channels"
-    targetNamespace="https://gftd.ai/bpmn/os-messaging"
+    targetNamespace="https://etzhayyim.ai/bpmn/os-messaging"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="os_messaging_crawl_open_channels" name="os messaging crawl open channels" isExecutable="true">
@@ -50,7 +50,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:os-messaging.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:os-messaging.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;osMessaging.openChannels.crawl&quot;" target="action"/>
           <zeebe:input source="={queuedRuns: queuedRuns, skippedSeeds: skippedSeeds, processedRuns: processedRuns, completedRuns: completedRuns, failedRuns: failedRuns}" target="payload"/>
         </zeebe:ioMapping>

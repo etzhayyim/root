@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_smartphone_bom_record_bom_line" targetNamespace="https://gftd.ai/bpmn/open-smartphone-bom" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_smartphone_bom_record_bom_line" targetNamespace="https://etzhayyim.ai/bpmn/open-smartphone-bom" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_smartphone_bom_record_bom_line" name="recordBomLine" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Save"/>
@@ -19,7 +19,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-smartphone-bom.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-smartphone-bom.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;open.smartphoneBom.recordBomLine&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, componentType: componentType, openSource: openSource}" target="payload"/>
         </zeebe:ioMapping>

@@ -532,7 +532,7 @@ export type {
 } from "./generated/lexicon-nsid-types.js";
 
 /** Default SDK factory — resolves AppDef from deploy-injected env vars (APP_NANOID, APP_DISPLAY_NAME, APP_DESCRIPTION).
- *  Single Source of Truth: magatama.jsonld → gftd deploy → env vars → SDK. No hardcoded appDef needed.
+ *  Single Source of Truth: magatama.jsonld → etzhayyim deploy → env vars → SDK. No hardcoded appDef needed.
  *
  *  `options.mcpFacade` (ADR-0042) is threaded into HostSDKConfig when present.
  *  Apps that want per-actor MCP + OpenAPI exposure pass their generated manifest here
@@ -540,7 +540,7 @@ export type {
  *
  *  `options.mcpRegistry` (ADR-2604261000) opts the actor into Kysely-backed MCP.
  *  When neither is supplied, env var `APP_MCP_REGISTRY=1` auto-enables registry mode
- *  (zero-config rollout — `gftd deploy` injects this once an actor is migrated). */
+ *  (zero-config rollout — `etzhayyim deploy` injects this once an actor is migrated). */
 export function createDefaultHostSDK(
   env: Record<string, unknown>,
   options?: { mcpFacade?: McpFacadeConfig; mcpRegistry?: McpRegistryConfig },

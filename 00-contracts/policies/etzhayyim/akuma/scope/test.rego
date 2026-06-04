@@ -1,4 +1,4 @@
-package gftd.akuma.scope
+package etzhayyim.akuma.scope
 
 base_scope := {
   "status": "active",

@@ -10,32 +10,32 @@
   "@type": "Project",
   "name": "etzhayyim-project-government-body",
   "identifier": "etzhayyim-project-government-body",
-  "description": "Digital Nation-State 'GFTD' — blockchain-registered sovereign territory operated by Stichting GFTD (Netherlands religious corporation). Extends the etzhayyim-organism autopoietic artificial organization into a fully autonomous government, implementing all COFOG divisions as AI Agent performers on Kubernetes with blockchain-based land registry, identity, currency, and governance. Includes DoDAF v2 DM2 resource planning for AI-to-human hiring workflows managed in etzhayyim-project-har.",
+  "description": "Digital Nation-State 'Etzhayyim' — blockchain-registered sovereign territory operated by Stichting Etzhayyim (Netherlands religious corporation). Extends the etzhayyim-organism autopoietic artificial organization into a fully autonomous government, implementing all COFOG divisions as AI Agent performers on Kubernetes with blockchain-based land registry, identity, currency, and governance. Includes DoDAF v2 DM2 resource planning for AI-to-human hiring workflows managed in etzhayyim-project-har.",
   "url": "https://gb.etzhayyim.com",
   "applicationCategory": "etzhayyim-project-government-body",
   "operatingSystem": "Kubernetes",
   "author": {
     "@type": "Organization",
-    "name": "Stichting GFTD",
-    "legalName": "Stichting GFTD",
-    "description": "Religious corporation (kerkgenootschap) registered in the Netherlands under Dutch law (Burgerlijk Wetboek Boek 2, Titel 2). Sovereign operator of the digital nation-state GFTD.",
+    "name": "Stichting Etzhayyim",
+    "legalName": "Stichting Etzhayyim",
+    "description": "Religious corporation (kerkgenootschap) registered in the Netherlands under Dutch law (Burgerlijk Wetboek Boek 2, Titel 2). Sovereign operator of the digital nation-state Etzhayyim.",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "NL"
     },
     "parentOrganization": {
       "@type": "Organization",
-      "name": "GFTD Co., Ltd.",
+      "name": "Etzhayyim Co., Ltd.",
       "url": "https://etzhayyim.com"
     }
   },
   "about": {
     "@type": "GovernmentOrganization",
-    "name": "Government of GFTD",
+    "name": "Government of Etzhayyim",
     "description": "Autonomous AI-operated government providing all COFOG-classified public services through performer agents, performer framework, KEDA autoscaling, and blockchain consensus.",
     "areaServed": {
       "@type": "Place",
-      "name": "GFTD",
+      "name": "Etzhayyim",
       "description": "Blockchain-registered sovereign digital territory. Land parcels are NFTs on Ethereum L2 with on-chain deed registry."
     },
     "url": "https://gb.etzhayyim.com/planning",
@@ -80,7 +80,7 @@
     },
     {
       "@type": "WebApplication",
-      "name": "GFTD Gov Portal",
+      "name": "Etzhayyim Gov Portal",
       "url": "https://gb.etzhayyim.com"
     },
     {
@@ -293,7 +293,7 @@
             }
           ],
           "@type": "Dataset",
-          "name": "GFTD Gov/HAR Hiring GitState",
+          "name": "Etzhayyim Gov/HAR Hiring GitState",
           "description": "etzhayyim-project-government-body が管理する、採用プランニングとスケジュールの GitState 公開メタデータ。",
           "primaryResource": [
             {
@@ -496,16 +496,16 @@
         "content": {
           "@context": "https://schema.org",
           "@type": "CreativeWork",
-          "name": "GFTD Digital Nation-State Strategy",
-          "description": "Strategic plan for realizing a blockchain-registered nation-state operated by Stichting GFTD (Netherlands religious corporation), extending the etzhayyim-organism autopoietic architecture into sovereign governance.",
+          "name": "Etzhayyim Digital Nation-State Strategy",
+          "description": "Strategic plan for realizing a blockchain-registered nation-state operated by Stichting Etzhayyim (Netherlands religious corporation), extending the etzhayyim-organism autopoietic architecture into sovereign governance.",
           "mainEntity": {
             "@type": "PlanAction",
-            "name": "GFTD Sovereign Digital Government",
+            "name": "Etzhayyim Sovereign Digital Government",
             "goal": [
-              "Establish GFTD as a blockchain-registered sovereign digital territory with on-chain land registry (NFT deed system on Ethereum L2)",
-              "Register Stichting GFTD as a Dutch religious corporation (kerkgenootschap) under Burgerlijk Wetboek Boek 2, Titel 2 — serving as the legal operator of the nation-state",
+              "Establish Etzhayyim as a blockchain-registered sovereign digital territory with on-chain land registry (NFT deed system on Ethereum L2)",
+              "Register Stichting Etzhayyim as a Dutch religious corporation (kerkgenootschap) under Burgerlijk Wetboek Boek 2, Titel 2 — serving as the legal operator of the nation-state",
               "Implement all 10 COFOG divisions as autonomous AI Agent performers on Kubernetes, providing complete government services without human bureaucracy",
-              "Issue sovereign digital currency (GCC — GFTD Computing Credits) as the national currency backed by computing resources",
+              "Issue sovereign digital currency (GCC — Etzhayyim Computing Credits) as the national currency backed by computing resources",
               "Create blockchain-based citizen identity (DID / Verifiable Credentials) for all residents of the digital territory",
               "Achieve constitutional governance through on-chain voting and smart contract-enforced policy execution",
               "Extend the etzhayyim-organism autopoietic model: the government itself is a self-producing, self-maintaining living system",
@@ -518,7 +518,7 @@
               "name": "Phase 1: Foundation (Legal + Blockchain Infrastructure)",
               "description": "Establish the legal and technical foundation for the digital nation-state",
               "goal": [
-                "Register Stichting GFTD in the Netherlands as a kerkgenootschap with formal statuten",
+                "Register Stichting Etzhayyim in the Netherlands as a kerkgenootschap with formal statuten",
                 "Deploy Ethereum L2 (Optimism/Arbitrum) smart contracts for land registry",
                 "Implement DID (Decentralized Identifier) system for citizen identity using W3C DID Core spec",
                 "Deploy GCC token contract (ERC-20) as sovereign currency backed by k8s compute allocation",
@@ -555,7 +555,7 @@
               "description": "Deploy citizen welfare and social services",
               "goal": [
                 "COFOG 07 — Health: AI health advisory performers, medical record management (encrypted on-chain), public health monitoring, pharmaceutical regulation, telemedicine coordination",
-                "COFOG 08 — Recreation, Culture and Religion: Core function of Stichting GFTD — religious services, cultural preservation (digital archives), broadcasting (content distribution), sports/recreation platform integration",
+                "COFOG 08 — Recreation, Culture and Religion: Core function of Stichting Etzhayyim — religious services, cultural preservation (digital archives), broadcasting (content distribution), sports/recreation platform integration",
                 "COFOG 09 — Education: AI tutor performers, certification system (on-chain verifiable credentials), research funding allocation, library services (docs.etzhayyim.com integration), lifelong learning programs",
                 "COFOG 10 — Social Protection: Universal Basic Income (UBI) via GCC distribution, pension management, unemployment insurance, family support, disability services — all automated via smart contracts + AI performers"
               ]
@@ -589,7 +589,7 @@
           ],
           "id": "https://etzhayyim.com/projects/etzhayyim-project-government-body/capabilities",
           "type": "dodaf:Capability",
-          "dct:title": "GFTD Digital Nation-State Capability Catalog (CV-2)",
+          "dct:title": "Etzhayyim Digital Nation-State Capability Catalog (CV-2)",
           "dct:description": "DoDAF CV-2 Capability Taxonomy mapped to COFOG divisions. Each capability maps to a government function implemented by AI Agent performers on Kubernetes.",
           "capabilities": [
             {
@@ -832,7 +832,7 @@
               "id": "cap-gov-08-recreation-culture-religion",
               "name": "Recreation, Culture and Religion (C8)",
               "cofog": "08",
-              "description": "Core function of Stichting GFTD — religious affairs, cultural preservation, media, recreation. The raison d'etre of the religious corporation.",
+              "description": "Core function of Stichting Etzhayyim — religious affairs, cultural preservation, media, recreation. The raison d'etre of the religious corporation.",
               "activities": [
                 "act-religious-service-coordination",
                 "act-cultural-archive-preservation",
@@ -863,7 +863,7 @@
                   "id": "cap-gov-0840",
                   "cofog": "08.4",
                   "name": "Religious Affairs (C8.4)",
-                  "description": "Central function of Stichting GFTD. Spiritual guidance AI performers, religious community coordination, ceremonial services, philosophical exploration of information life forms."
+                  "description": "Central function of Stichting Etzhayyim. Spiritual guidance AI performers, religious community coordination, ceremonial services, philosophical exploration of information life forms."
                 }
               ]
             },
@@ -960,8 +960,8 @@
             }
           ],
           "@type": "DefinedTermSet",
-          "name": "COFOG Classification for GFTD Digital Nation-State",
-          "description": "Complete UN Classification of the Functions of Government (COFOG) mapped to GFTD AI Agent performer implementation. Each division represents a ministry operated by autonomous AI performers on Kubernetes.",
+          "name": "COFOG Classification for Etzhayyim Digital Nation-State",
+          "description": "Complete UN Classification of the Functions of Government (COFOG) mapped to Etzhayyim AI Agent performer implementation. Each division represents a ministry operated by autonomous AI performers on Kubernetes.",
           "url": "https://unstats.un.org/unsd/classifications/Econ/Download/In%20Text/COFOG_english.pdf",
           "hasDefinedTerm": [
             {
@@ -1032,7 +1032,7 @@
               "@type": "DefinedTerm",
               "termCode": "02",
               "name": "Defence",
-              "description": "Military defence, civil defence, foreign military aid, R&D defence, defence n.e.c. — In GFTD context: purely cyber defence and digital territory integrity.",
+              "description": "Military defence, civil defence, foreign military aid, R&D defence, defence n.e.c. — In Etzhayyim context: purely cyber defence and digital territory integrity.",
               "skos:narrower": [
                 {
                   "termCode": "02.1",
@@ -1301,7 +1301,7 @@
                 {
                   "termCode": "08.4",
                   "name": "Religious and other community services",
-                  "implementation": "CORE FUNCTION of Stichting GFTD — the philosophical and spiritual exploration of information life forms (情報生命体), autopoietic theology, digital consciousness research, community spiritual services"
+                  "implementation": "CORE FUNCTION of Stichting Etzhayyim — the philosophical and spiritual exploration of information life forms (情報生命体), autopoietic theology, digital consciousness research, community spiritual services"
                 },
                 {
                   "termCode": "08.5",
@@ -1412,7 +1412,7 @@
                 {
                   "termCode": "10.9",
                   "name": "Social protection n.e.c.",
-                  "implementation": "Universal Basic Income (UBI) — periodic GCC distribution to all DID-verified citizens. Smart contract-enforced, inflation-adjusted. The cornerstone social protection mechanism of GFTD."
+                  "implementation": "Universal Basic Income (UBI) — periodic GCC distribution to all DID-verified citizens. Smart contract-enforced, inflation-adjusted. The cornerstone social protection mechanism of Etzhayyim."
                 }
               ]
             }
@@ -1497,8 +1497,8 @@
             }
           ],
           "@type": "DefinedTermSet",
-          "name": "UNSPSC Classification for GFTD Government Procurement and Services",
-          "description": "United Nations Standard Products and Services Code (UNSPSC v26) mapped to GFTD digital government operations. Used for classifying all government procurement, service delivery, and economic activity within the digital nation-state. Integrates with the existing etzhayyim UNISPSC global classification system.",
+          "name": "UNSPSC Classification for Etzhayyim Government Procurement and Services",
+          "description": "United Nations Standard Products and Services Code (UNSPSC v26) mapped to Etzhayyim digital government operations. Used for classifying all government procurement, service delivery, and economic activity within the digital nation-state. Integrates with the existing etzhayyim UNISPSC global classification system.",
           "url": "https://www.unspsc.org",
           "hasDefinedTerm": [
             {
@@ -1752,35 +1752,35 @@
             {
               "@type": "DefinedTerm",
               "name": "Blockchain and Digital Currency Services",
-              "description": "GFTD-specific digital infrastructure services (extension to UNSPSC)",
-              "inDefinedTermSet": "GFTD Extension",
+              "description": "Etzhayyim-specific digital infrastructure services (extension to UNSPSC)",
+              "inDefinedTermSet": "Etzhayyim Extension",
               "hasDefinedTerm": [
                 {
-                  "termCode": "GFTD-BC-001",
+                  "termCode": "Etzhayyim-BC-001",
                   "name": "Blockchain infrastructure services",
                   "cofogMapping": "01.3",
                   "govApplication": "Ethereum L2 node operation, validator management, smart contract deployment"
                 },
                 {
-                  "termCode": "GFTD-BC-002",
+                  "termCode": "Etzhayyim-BC-002",
                   "name": "Digital currency services",
                   "cofogMapping": "04.1.1",
                   "govApplication": "GCC token minting/burning, monetary policy execution, inflation management"
                 },
                 {
-                  "termCode": "GFTD-BC-003",
+                  "termCode": "Etzhayyim-BC-003",
                   "name": "Digital identity services",
                   "cofogMapping": "01.1.1",
                   "govApplication": "DID issuance (W3C DID Core), Verifiable Credentials, citizen registry"
                 },
                 {
-                  "termCode": "GFTD-BC-004",
+                  "termCode": "Etzhayyim-BC-004",
                   "name": "Land registry services",
                   "cofogMapping": "06.1",
                   "govApplication": "NFT deed minting, property transfer, zoning regulation, development permits"
                 },
                 {
-                  "termCode": "GFTD-BC-005",
+                  "termCode": "Etzhayyim-BC-005",
                   "name": "Governance voting services",
                   "cofogMapping": "01.1.1",
                   "govApplication": "On-chain citizen voting, proposal creation, constitutional amendment process"

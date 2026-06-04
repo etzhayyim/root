@@ -3,7 +3,7 @@
  * public marketplace catalog + aggregate stats plaintext; provider PII,
  * contribution content, reward ledger + balances sealed E2E. The regulated
  * EXECUTION (GPU/LLM inference, quality-validation compute, raw-credential
- * custody, fiat MoR / payout settlement rail) stays gftd via consent-capability.
+ * custody, fiat MoR / payout settlement rail) stays etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

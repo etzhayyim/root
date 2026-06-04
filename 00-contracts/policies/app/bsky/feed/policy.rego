@@ -1,11 +1,11 @@
 package app.bsky.feed.post
 
-# yatachain §4 L2 — policy layer for `app.bsky.feed.post`.
+# kotoba-datomic §4 L2 — policy layer for `app.bsky.feed.post`.
 #
 # Refs:
 #   - ADR-2605192100 §1.13 Eros / Gore, §1.15 non-eschatological
 #   - ADR-2605192200 Charter Compliance Rider v2.0 §2(a)..(h)
-#   - ADR-2605231400 yatachain SPEC §4 — (L1, L2, L3) must all accept
+#   - ADR-2605231400 kotoba-datomic SPEC §4 — (L1, L2, L3) must all accept
 #   - 20-actors/magatama/py/src/pymagatama/organism/sensors/charter_rider.py
 #
 # Decision shape:

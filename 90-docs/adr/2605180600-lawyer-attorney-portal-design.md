@@ -24,7 +24,7 @@ superseded_by: []
 
 # Context
 
-`lawfirm.etzhayyim.com` serves clients with intake, matter management, and billing. The platform lacked an attorney-facing workspace. Attorneys (bengoshi) — starting with k.bakshi (`did:gftd:{h_lawyer}:{h_bakshi}`) as Lead CLO — need a dedicated portal to:
+`lawfirm.etzhayyim.com` serves clients with intake, matter management, and billing. The platform lacked an attorney-facing workspace. Attorneys (bengoshi) — starting with k.bakshi (`did:etzhayyim:{h_lawyer}:{h_bakshi}`) as Lead CLO — need a dedicated portal to:
 
 - Accept or decline external counsel grant invitations from lawfirm.etzhayyim.com
 - View and work on assigned matters (as lead advocate or co-counsel)
@@ -151,8 +151,8 @@ All tables follow ADR-0095 canonical columns: `actor_did`, `org_did`, `at_did`, 
 | FIRM_DID | `did:web:lawyer.etzhayyim.com` |
 | nanoid | `334bbd5f` |
 | Runtime tier | T2 TS Native (CF Worker + Hono) |
-| Worker path | `60-apps/ai-gftd-project-lawyer/appview/ai-gftd-wasm-lawyer-334bbd5f/` |
-| Lead bengoshi | k.bakshi — `did:gftd:{h_lawyer}:{h_bakshi}` |
+| Worker path | `60-apps/etzhayyim-project-lawyer/appview/etzhayyim-wasm-lawyer-334bbd5f/` |
+| Lead bengoshi | k.bakshi — `did:etzhayyim:{h_lawyer}:{h_bakshi}` |
 
 ## 8. GitHub Repository & Engineer Workflow (2026-05-18)
 
@@ -232,5 +232,5 @@ Attorney notes and generated document content are Tier 3 PII (attorney-client pr
 - ADR-2605010000: RunPod 6000 Ada Unified Pod (LLM SSoT) → `90-docs/adr/2605010000-runpod-6000ada-unified-pod.md`
 - ADR-2605080600: LangGraph Server + Granian L3 Runtime → `90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md`
 - ADR-2605111200: CF Worker Edge-Only (no RW connection) → `90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md`
-- Worker path: `60-apps/ai-gftd-project-lawyer/appview/ai-gftd-wasm-lawyer-334bbd5f/`
-- Project CLAUDE.md: `60-apps/ai-gftd-project-lawyer/CLAUDE.md`
+- Worker path: `60-apps/etzhayyim-project-lawyer/appview/etzhayyim-wasm-lawyer-334bbd5f/`
+- Project CLAUDE.md: `60-apps/etzhayyim-project-lawyer/CLAUDE.md`

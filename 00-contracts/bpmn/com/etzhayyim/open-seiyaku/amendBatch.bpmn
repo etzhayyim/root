@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_seiyaku_amend_batch"
-    targetNamespace="https://gftd.ai/bpmn/open-seiyaku"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-seiyaku"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="seiyaku_amend_batch" name="製薬バッチ変更" isExecutable="true">
@@ -86,7 +86,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSeiyaku.batch.amend.reject&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:          vertexId,
@@ -174,7 +174,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-seiyaku.gftd.ai:manufacturing&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-seiyaku.etzhayyim.com:manufacturing&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSeiyaku.batch.amend&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:       vertexId,

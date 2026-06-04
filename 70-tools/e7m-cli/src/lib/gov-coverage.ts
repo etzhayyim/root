@@ -78,7 +78,7 @@ async function countIngestRecords(root: string): Promise<number> {
 
 async function countSubstratePorts(root: string): Promise<number> {
   const appsDir = path.join(root, '60-apps');
-  const portPatterns = ['ai-gftd-project-gov', 'ai-gftd-project-lawfirm-admin', 'ai-gftd-project-legal-entity'];
+  const portPatterns = ['etzhayyim-project-gov', 'etzhayyim-project-lawfirm-admin', 'etzhayyim-project-legal-entity'];
 
   try {
     const entries = await fs.readdir(appsDir, { withFileTypes: true });

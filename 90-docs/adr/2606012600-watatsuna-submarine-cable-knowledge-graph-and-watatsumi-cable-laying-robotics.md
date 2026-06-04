@@ -13,7 +13,7 @@ priority_note: "World submarine-cable network as a kotoba knowledge graph; resil
 authoritative_for:
   - watatsuna actor (world submarine-cable network knowledge graph)
   - submarine-cable-ontology kotoba schema
-  - com.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)
+  - com.etzhayyim.cable.* kotoba-native lexicons (supersede legacy etzhayyim telecom/telecomInfra/cableRepairFleet)
   - watatsumi cable-laying robotics fleet
 depends_on:
   - adr-2606011800-tsumugi-spirit-intel-power-graph
@@ -46,7 +46,7 @@ The founder asked whether a **submarine-cable database** could be (a) designed a
 kotoba server/actor and (b) displayed as an actor on `etzhayyim.com`, and — if etzhayyim
 needs it — to also design the **敷設 (cable-laying) robotics**.
 
-Audit of the repo found only **legacy `gftd`-namespaced lexicons** scattered across
+Audit of the repo found only **legacy `etzhayyim`-namespaced lexicons** scattered across
 `telecom`, `telecomInfra`, and `cableRepairFleet` (record schemas authored against the
 deprecated RisingWave vertex model), **no** dedicated actor, **no** kotoba EAVT dataset,
 and **no** ADR. The closest actor, **watatsumi 綿津見** (民生 submersible, ADR-2605252200),
@@ -106,7 +106,7 @@ concentration, **routed to redundancy + faster repair**.
 8. **G8 no git-lfs** — large geo assets DataLad → IPFS (`80-data/submarine-cable`), per ADR-2605241500.
 9. **G9 no PII** — infrastructure graph only; incidental personal data → encrypted envelope, excluded by default.
 
-## 2. kotoba-native lexicons — migrate the legacy `gftd` cable lexicons (founder ask "c")
+## 2. kotoba-native lexicons — migrate the legacy `etzhayyim` cable lexicons (founder ask "c")
 
 New `com.etzhayyim.cable.*` namespace asserting into the kotoba Datom log
 (`txCid` + `datomCount`, ADR-2605312345), with `:sourcing` on every record:
@@ -117,7 +117,7 @@ Full inventory + legacy→kotoba mapping is the SoT in
 `cableRepairFleet.flagSubseaCableTamper` is **RETIRED, not ported** — a "tamper flag"
 presumes intent adjudication (violates G4) and reads as interdiction-adjacent. Repair-fleet
 lexicons (`registerRepairVessel`, `logRepairMission`) move to **watatsumi** (operational).
-Per repo-root CLAUDE.md §Do-Not, the legacy `gftd-` removal executes as one atomic cutover
+Per repo-root CLAUDE.md §Do-Not, the legacy `etzhayyim-` removal executes as one atomic cutover
 wave; R0 leaves them in place behind this inventory.
 
 ## 3. watatsumi 綿津見 — cable-laying robotics extension (敷設)
@@ -145,7 +145,7 @@ where `redundancy-gap`, pre-stage repair where `chokepoint-load` is high. watats
 **Positive**
 - A kotoba-native, content-addressed, on-chain-anchorable submarine-cable knowledge graph that
   is queryable (kotoba-kqe arrangements) and resolvable as a first-class etzhayyim actor.
-- The legacy `gftd` cable lexicons get a clean kotoba-native successor + an explicit retirement
+- The legacy `etzhayyim` cable lexicons get a clean kotoba-native successor + an explicit retirement
   decision for the interdiction-adjacent `flagSubseaCableTamper`.
 - A clear division of labor: watatsuna (KG, observation) ↔ watatsumi (robotics, operation),
   same `綿津` root, both N8-bound.
@@ -166,7 +166,7 @@ where `redundancy-gap`, pre-stage repair where `chokepoint-load` is high. watats
 
 1. **Fold into tsumugi** — rejected; tsumugi is power-entity 縁 (organisms), cable network is
    physical infrastructure with distinct vocab and a distinct dual-use risk profile.
-2. **Reuse the legacy `gftd` lexicons as-is** — rejected; they assume RisingWave vertices
+2. **Reuse the legacy `etzhayyim` lexicons as-is** — rejected; they assume RisingWave vertices
    (substrate-boundary violation) and include the intent-adjudicating tamper flag.
 3. **Put the KG inside watatsumi** — rejected; watatsumi is a manufacturing/operational actor.
    Observation vs operation is the same split as danjo(watch)↔toritsugi(act); pairing two

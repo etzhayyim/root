@@ -133,15 +133,15 @@
   :emissions-audit/biofouling-status "clean"
   :emissions-audit/compliant true}
 
- ;; ════════════ Class Certification (terminal, yatachain-anchored) ════════════
+ ;; ════════════ Class Certification (terminal, kotoba-datomic-anchored) ════════════
  {:class-cert/id "cert.research.001"
   :class-cert/craft-did "did:web:watatsumi.etzhayyim.com/research-6500m"
-  :class-cert/yatachain-cid "QmCertResearch001XYZ"
+  :class-cert/kotoba-datomic-cid "QmCertResearch001XYZ"
   :class-cert/all-stages-complete true}
 
  {:class-cert/id "cert.aquaculture.001"
   :class-cert/craft-did "did:web:watatsumi.etzhayyim.com/aquaculture-200m"
-  :class-cert/yatachain-cid "QmCertAquaculture001XYZ"
+  :class-cert/kotoba-datomic-cid "QmCertAquaculture001XYZ"
   :class-cert/all-stages-complete true}
 
  ;; ════════════ Settlement Intent (USDC Base L2, 10% tithe, R0 compute-only) ════════════

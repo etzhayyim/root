@@ -9,7 +9,7 @@ import { sql } from "kysely";
 // Changes applied:
 // 1. BPMN rewritten to Zeebe 8.5: businessRuleTask now uses
 //    zeebe:calledDecision decisionId="llm_classifier_gate" resultVariable="gateResult".
-//    Non-standard gftd:*/camunda:* attributes removed. retries="0" on service tasks.
+//    Non-standard etzhayyim:*/camunda:* attributes removed. retries="0" on service tasks.
 //    BPMN status → 'active' + deployed_at cleared so F5 watcher redeploys.
 //
 // 2. DMN llm_classifier_gate inserted into vertex_bpmn_process_def (same table as BPMN —

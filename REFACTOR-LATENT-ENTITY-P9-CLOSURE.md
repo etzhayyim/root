@@ -84,7 +84,7 @@ All refactored code respects:
 - **Latent-entity**: coverage (P9 ✅) + others (TBD)
 - **Org/supply-chain**: supply-chain viz, analysis apps (TBD)
 - **Framework**: 50+ inherited apps (batch refactor, P11+)
-- **Archive**: legacy ai-gftd projects (P12, post-mainnet)
+- **Archive**: legacy etzhayyim projects (P12, post-mainnet)
 
 **P10 effort**: 2–3 apps × 60 min = ~2–3 hours (consumer refactors only)  
 **Target**: Phase 2 end (~2026-07-15)
@@ -131,7 +131,7 @@ All refactored code respects:
 - `20-actors/tsumugi/` (methods, tests, outputs)
 
 **Apps** (1):
-- `60-apps/ai-gftd-project-coverage/` (kotoba-client-wrapper.ts, app.ts refactored, tests added)
+- `60-apps/etzhayyim-project-coverage/` (kotoba-client-wrapper.ts, app.ts refactored, tests added)
 
 **Documentation** (3):
 - `60-apps/MIGRATION-ROADMAP.md`

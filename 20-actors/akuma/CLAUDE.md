@@ -42,7 +42,7 @@ DoS. Such work goes to a separate human-driven engagement, not akuma.
 
 ## Authorization gate
 
-Rego package `gftd.akuma.scope` (`00-contracts/policies/gftd/akuma/scope/policy.rego`).
+Rego package `etzhayyim.akuma.scope` (`00-contracts/policies/etzhayyim/akuma/scope/policy.rego`).
 Deny conditions:
 
 1. `scope-not-active`
@@ -58,7 +58,7 @@ Unauthorized probe attempts (`target-not-in-scope` / `scope-not-active`)
 emit `prune_actor_seed_tier` obligation → Bonsai seed-tier prune
 (ADR-2605091800: full actor freeze + human review).
 
-Run: `opa test 00-contracts/policies/gftd/akuma/scope/ -v` (11/11 PASS).
+Run: `opa test 00-contracts/policies/etzhayyim/akuma/scope/ -v` (11/11 PASS).
 
 ## Closed loop with yabai / malak / threat ledger
 
@@ -74,8 +74,8 @@ Run: `opa test 00-contracts/policies/gftd/akuma/scope/ -v` (11/11 PASS).
 |---|---|
 | `actor-manifest.jsonld` | Actor identity + governance + pipelines |
 | `00-contracts/lexicons/com/etzhayyim/apps/akuma/*.json` | XRPC schemas |
-| `00-contracts/policies/gftd/akuma/scope/policy.rego` | Authorization Rego |
-| `00-contracts/policies/gftd/akuma/scope/test.rego` | 11 policy unit tests |
+| `00-contracts/policies/etzhayyim/akuma/scope/policy.rego` | Authorization Rego |
+| `00-contracts/policies/etzhayyim/akuma/scope/test.rego` | 11 policy unit tests |
 | `90-docs/adr/2605151400-akuma-authorized-redteam-actor.md` | ADR (SSoT) |
 
 ## Status
@@ -84,7 +84,7 @@ Run: `opa test 00-contracts/policies/gftd/akuma/scope/ -v` (11/11 PASS).
 until the human-driven steps below are executed:
 
 1. **Authority key**: `70-tools/scripts/akuma/provision-authority-key.sh` (writes
-   Ed25519 keypair to macOS Keychain `gftd.akuma`; mirror to 1Password
+   Ed25519 keypair to macOS Keychain `etzhayyim.akuma`; mirror to 1Password
    `etzhayyim Japan株式会社`); publish `AUTHORITY_SIGNING_KEY_PUBLIC` at
    `https://akuma.etzhayyim.com/.well-known/did.json` `verificationMethod`.
 2. **K8s apply**: `rw-health-gate.sh` then `kubectl apply -k 50-infra/k8s/akuma-langserver/`.

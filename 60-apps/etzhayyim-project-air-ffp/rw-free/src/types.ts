@@ -5,7 +5,7 @@
  * (3-axis OR-test) + ADR-2605181100 (kotoba E2E encrypted-record envelope) +
  * ADR-2605172100 (etzhayyim never the fiat MoR). Founder directive 2026-06-03:
  * MAXIMAL migration — front everything that can move; only the irreducible
- * regulated EXECUTION stays gftd.
+ * regulated EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records, no subject PII):
@@ -23,11 +23,11 @@
  *       money carried as decimal STRINGS. FK ledger → memberProfile via
  *       memberNumber (exists() within the owner's E2E view).
  *
- *   STAYS gftd (NOT a collection — consumed via consent-capability):
+ *   STAYS etzhayyim (NOT a collection — consumed via consent-capability):
  *     - the fiat merchant-of-record SETTLEMENT rail: the card/bank charge for a
  *       mile PURCHASE, the transfer-FEE collection, and the IATA-BSP partner
  *       fiat-clearing CALL. etzhayyim never becomes the fiat counterparty
- *       (on-chain USDC only), so the settlement EXECUTION stays gftd while every
+ *       (on-chain USDC only), so the settlement EXECUTION stays etzhayyim while every
  *       ledger ENTRY is fronted here as an E2E record.
  *
  * AT-Lexicon: no float. Counts/miles/thresholds are integers; money (fees,
@@ -211,7 +211,7 @@ export interface MilesLedgerBody {
   /** optional reference (flight no / reward code / transfer ref / period). */
   reference?: string;
   partnerCode?: string;
-  /** money as decimal STRING — fee / settlement / total (fiat rail stays gftd). */
+  /** money as decimal STRING — fee / settlement / total (fiat rail stays etzhayyim). */
   amount?: string;
   currency?: string;
   /** money as decimal STRING — price per mile for purchases. */

@@ -32,7 +32,7 @@ from sqlalchemy import BigInteger, Column, Date, Float, Integer, String, Table, 
 from pymagatama.db_alchemy import sa_execute_one, sa_executemany, sa_metadata, sa_rowcount
 
 _ACTOR = "did:web:biblio.etzhayyim.com"
-_B2_BUCKET = os.environ.get("B2_BIBLIO_BUCKET", "ai-gftd-biblio").strip() or "ai-gftd-biblio"
+_B2_BUCKET = os.environ.get("B2_BIBLIO_BUCKET", "etzhayyim-biblio").strip() or "etzhayyim-biblio"
 _B2_PREFIX = os.environ.get("B2_BIBLIO_PREFIX", "biblio/").strip().strip("/") + "/"
 
 _OCR_PROMPT = """\

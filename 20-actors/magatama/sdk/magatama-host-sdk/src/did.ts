@@ -9,14 +9,14 @@
 //   did:web    — AT Protocol facade / external entity catalogue
 //   did:plc    — legacy AT primary
 //   did:pkh    — wallet alias (CAIP-10 chain:network:address)
-//   did:gftd   — legacy / migration window
+//   did:etzhayyim   — legacy / migration window
 //
-// did:gftd-specific helpers (depth, parent, root) re-export from
+// did:etzhayyim-specific helpers (depth, parent, root) re-export from
 // @etzhayyim/did-etzhayyim to keep the canonical impl single-sourced (ADR-0029).
 
 import { isValidDidetzhayyim, didDepth as didDepthetzhayyim, didParent as didParentetzhayyim, didRoot as didRootetzhayyim } from "@etzhayyim/did-etzhayyim";
 
-export type DidMethod = "erc725" | "web" | "plc" | "pkh" | "gftd";
+export type DidMethod = "erc725" | "web" | "plc" | "pkh" | "etzhayyim";
 
 export interface ParsedDid {
   did: string;
@@ -31,7 +31,7 @@ export class DidParseError extends Error {
   }
 }
 
-const KNOWN_METHODS: ReadonlySet<DidMethod> = new Set(["erc725", "web", "plc", "pkh", "gftd"]);
+const KNOWN_METHODS: ReadonlySet<DidMethod> = new Set(["erc725", "web", "plc", "pkh", "etzhayyim"]);
 
 /**
  * Parse a DID into method + identifier. Throws DidParseError on malformed
@@ -42,7 +42,7 @@ const KNOWN_METHODS: ReadonlySet<DidMethod> = new Set(["erc725", "web", "plc", "
  *   - web:    did:web:{host}[:{path}...] — at least 1 part after method
  *   - plc:    did:plc:{base32-cid} — exactly 1 part
  *   - pkh:    did:pkh:{namespace}:{reference}:{address} — CAIP-10 shape
- *   - gftd:   delegates to @etzhayyim/did-etzhayyim isValidDidetzhayyim (depth ≤ 6)
+ *   - etzhayyim:   delegates to @etzhayyim/did-etzhayyim isValidDidetzhayyim (depth ≤ 6)
  */
 export function parseDid(did: string): ParsedDid {
   if (typeof did !== "string" || did.length === 0) {
@@ -67,7 +67,7 @@ export function parseDid(did: string): ParsedDid {
 
   switch (method) {
     case "erc725": {
-      // did:erc725:gftd:260425:0xAbC...
+      // did:erc725:etzhayyim:260425:0xAbC...
       const parts = identifier.split(":");
       if (parts.length !== 3) throw new DidParseError(did, "expected 'did:erc725:{ns}:{epoch}:0x{hex}'");
       const [, , addr] = parts;
@@ -91,7 +91,7 @@ export function parseDid(did: string): ParsedDid {
       if (parts.length !== 3) throw new DidParseError(did, "expected CAIP-10 'namespace:reference:address'");
       break;
     }
-    case "gftd": {
+    case "etzhayyim": {
       if (!isValidDidetzhayyim(did)) throw new DidParseError(did, "fails @etzhayyim/did-etzhayyim isValidDidetzhayyim");
       break;
     }
@@ -139,20 +139,20 @@ export function isDidetzhayyim(did: string): boolean {
   return isValidDidetzhayyim(did);
 }
 
-// did:gftd depth helpers — re-export so handlers don't need to import from
-// two packages. Throws if input is not did:gftd.
+// did:etzhayyim depth helpers — re-export so handlers don't need to import from
+// two packages. Throws if input is not did:etzhayyim.
 export const didetzhayyimDepth = didDepthetzhayyim;
 export const didetzhayyimParent = didParentetzhayyim;
 export const didetzhayyimRoot = didRootetzhayyim;
 
 /**
- * Assert a did:gftd has exactly the expected depth. Used in handlers like
+ * Assert a did:etzhayyim has exactly the expected depth. Used in handlers like
  * lawfirm.createMatter where firmDid must be depth 1, matterDid depth 2.
  *
- * @throws DidParseError if not did:gftd or depth mismatch.
+ * @throws DidParseError if not did:etzhayyim or depth mismatch.
  */
 export function assertDidetzhayyimDepth(did: string, expected: number): void {
-  if (!isValidDidetzhayyim(did)) throw new DidParseError(did, "expected did:gftd");
+  if (!isValidDidetzhayyim(did)) throw new DidParseError(did, "expected did:etzhayyim");
   const actual = didDepthetzhayyim(did);
   if (actual !== expected) {
     throw new DidParseError(did, `expected depth ${expected}, got ${actual}`);
@@ -161,13 +161,13 @@ export function assertDidetzhayyimDepth(did: string, expected: number): void {
 
 /**
  * Assert one of: did:erc725, did:web, did:plc, did:pkh, or
- * did:gftd-with-expected-depth. Used in lexicon-validated handlers where
- * depth invariants only apply when caller chose the legacy did:gftd method.
+ * did:etzhayyim-with-expected-depth. Used in lexicon-validated handlers where
+ * depth invariants only apply when caller chose the legacy did:etzhayyim method.
  */
-export function assertDidPrincipalOretzhayyimDepth(did: string, gftdDepth: number): ParsedDid {
+export function assertDidPrincipalOretzhayyimDepth(did: string, etzhayyimDepth: number): ParsedDid {
   const parsed = parseDid(did);
-  if (parsed.method === "gftd") {
-    assertDidetzhayyimDepth(did, gftdDepth);
+  if (parsed.method === "etzhayyim") {
+    assertDidetzhayyimDepth(did, etzhayyimDepth);
   }
   return parsed;
 }

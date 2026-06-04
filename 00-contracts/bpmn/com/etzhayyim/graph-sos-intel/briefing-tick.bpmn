@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="graph-sos-intel-briefing-tick"
-                  targetNamespace="https://gftd.ai/bpmn/graph-sos-intel">
+                  targetNamespace="https://etzhayyim.ai/bpmn/graph-sos-intel">
   <bpmn:process id="graphSosIntelBriefingTick" name="Graph SoS Intel — Topology Briefing (R/PT6H)" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Timer" name="R/PT6H timer">
       <bpmn:timerEventDefinition>

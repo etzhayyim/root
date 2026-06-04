@@ -1,0 +1,214 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Project",
+  "name": "Cybersecurity Division Recruitment Section (サイバーセキュリティ事業部人材紹介課)",
+  "status": "Integrated",
+  "identifier": "ai-gftd-project-cybersec-recruitment",
+  "description": "Talent acquisition and matching for cybersecurity roles, leveraging AI for skill verification and placement.",
+  "hasPart": [
+    {
+      "@type": "CreativeWork",
+      "name": "Capabilities",
+      "url": "capabilities.jsonld"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Activities",
+      "url": "activities.jsonld"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "UI/UX Design",
+      "url": "uiux.jsonld"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Strategy",
+      "url": "STRATEGY.jsonld"
+    }
+  ],
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "STRATEGY.jsonld",
+        "content": {
+          "@context": {
+            "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
+            "dct": "http://purl.org/dc/terms/",
+            "gftd": "https://gftd.ai/schemas/"
+          },
+          "id": "https://gftd.ai/projects/ai-gftd-project-cybersec-recruitment/strategy/talent-acquisition-strategy",
+          "type": "dodaf:StrategicPlan",
+          "dct:title": "Cybersecurity Talent Acquisition Strategy",
+          "dct:description": "Strategy to leverage AI and Wasm-based verification to acquire top-tier cybersecurity talent.",
+          "gftd:objectives": [
+            {
+              "name": "Accelerated Skill Verification",
+              "description": "Reduce verification time by 50% using automated Wasm assessment modules.",
+              "priority": "High"
+            },
+            {
+              "name": "Global Talent Ingestion",
+              "description": "Expand sourcing capabilities to global cybersecurity forums and repositories.",
+              "priority": "Medium"
+            }
+          ],
+          "gftd:triggers": [
+            {
+              "condition": "High-priority vacancy unfilled > 30 days",
+              "action": "Trigger 'Global Sourcing Expansion' activity."
+            }
+          ]
+        }
+      },
+      {
+        "fileName": "activities.jsonld",
+        "content": {
+          "@context": {
+            "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
+            "dct": "http://purl.org/dc/terms/",
+            "gftd": "https://gftd.ai/schemas/"
+          },
+          "id": "https://gftd.ai/projects/ai-gftd-project-cybersec-recruitment/activities/recruitment-process",
+          "type": "dodaf:OperationalActivity",
+          "dct:title": "Cybersecurity Talent Acquisition Process (OV-5b)",
+          "dct:description": "Process for sourcing, verifying, and placing cybersecurity talent.",
+          "gftd:steps": [
+            {
+              "activity": "Candidate Sourcing",
+              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2423-recruiter",
+              "action": "Identify potential candidates from various sources.",
+              "input": "Job Description",
+              "output": "Candidate List"
+            },
+            {
+              "activity": "Skill Verification",
+              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-1-talent-mgmt",
+              "action": "Evaluate candidate skills through automated Wasm-based assessments.",
+              "input": "Candidate Profile",
+              "output": "Skill Assessment Result"
+            },
+            {
+              "activity": "Interview Coordination",
+              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2423-recruiter",
+              "action": "Schedule and manage interview sessions between candidates and hiring managers.",
+              "input": "Skill Assessment Result",
+              "output": "Interview Schedule"
+            }
+          ]
+        }
+      },
+      {
+        "fileName": "capabilities.jsonld",
+        "content": {
+          "@context": {
+            "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
+            "gftd": "https://gftd.ai/schemas/"
+          },
+          "@type": "dodaf:Capability",
+          "name": "Cybersecurity Talent Acquisition",
+          "description": "Ability to source, verify, and place highly skilled cybersecurity professionals.",
+          "gftd:actors": [
+            {
+              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2423-recruiter",
+              "name": "Recruiter",
+              "type": "Person",
+              "isco": "2423",
+              "description": "Specialized recruiter for cybersecurity roles."
+            },
+            {
+              "@id": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-1-talent-mgmt",
+              "name": "Talent Management Service",
+              "type": "Service",
+              "apqc": "7.1",
+              "description": "Automated talent verification and matching service."
+            }
+          ],
+          "gftd:features": [
+            "AI-Driven Candidate Sourcing",
+            "Wasm-Based Skill Verification",
+            "Automated Interview Scheduling"
+          ]
+        }
+      },
+      {
+        "fileName": "scheduler.jsonld",
+        "content": {
+          "@context": [
+            "https://schema.org/",
+            {
+              "gftd": "https://gftd.ai/schemas/",
+              "capabilities": "gftd:capabilities",
+              "survivalIndicators": "gftd:survivalIndicators",
+              "scheduler": "gftd:scheduler",
+              "milestones": "gftd:milestones",
+              "blockers": "gftd:blockers",
+              "dependsOn": {
+                "@id": "gftd:dependsOn",
+                "@type": "@id"
+              },
+              "ingestKey": "gftd:ingestKey",
+              "window": "gftd:window",
+              "valueUpdatedAt": "gftd:valueUpdatedAt"
+            }
+          ],
+          "@type": "CreativeWork",
+          "name": "Cybersecurity Division Recruitment Section (サイバーセキュリティ事業部人材紹介課) Scheduler",
+          "identifier": "ai-gftd-project-cybersec-recruitment/scheduler",
+          "description": "Project schedule (milestones) and blockers.",
+          "dateCreated": "2026-02-15T04:25:26+00:00",
+          "milestones": [],
+          "blockers": []
+        }
+      },
+      {
+        "fileName": "uiux.jsonld",
+        "content": {
+          "@context": "https://schema.org/",
+          "@type": "CreativeWork",
+          "name": "Cybersec Recruitment UI/UX Design",
+          "description": "Talent acquisition board and verification portal for cybersecurity roles.",
+          "gftd:designPrinciples": [
+            "Kanban-style talent pipeline management",
+            "Skill verification visualization (Radar charts)",
+            "iPad-friendly drag-and-drop interactions"
+          ],
+          "gftd:uiComponents": [
+            {
+              "name": "Talent Pipeline Board",
+              "type": "Kanban",
+              "features": [
+                "Candidate cards",
+                "Stage tracking",
+                "Quick actions"
+              ]
+            },
+            {
+              "name": "Skill Verification Portal",
+              "type": "Portal",
+              "features": [
+                "Wasm test runner",
+                "Result visualization",
+                "Verification badge generation"
+              ]
+            }
+          ],
+          "gftd:uxFlows": [
+            {
+              "name": "Candidate Onboarding Flow",
+              "steps": [
+                "Source candidate",
+                "Assign skill test",
+                "Verify results",
+                "Schedule interview"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

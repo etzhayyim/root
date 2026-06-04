@@ -127,7 +127,7 @@
     "description": "13 immutable gates per ADR-2605263800. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan",
-      "G2": "yatachain attestation lineage",
+      "G2": "kotoba-datomic attestation lineage",
       "G3": "Charter §1.15 non-eschatological (afterlifeDoctrineImposed const false)",
       "G4": "Cross-doctrinal Wellbecoming priority (Christian + Buddhist 49日 + Shinto 鎮魂 + nondenominational + secular)",
       "G5": "NOT state-licensed mortuary services (community-witnessed-competent guardians; external licensed via Public Fund per chigiri G14 + iyashi N9 + kokoro G3 + shidemori G5 UPL-equivalent pattern)",

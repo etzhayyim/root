@@ -75,7 +75,7 @@
               "yakushi-cross-actor-signal-aggregation-baseline",
               "ae-dedupe-rule-baseline",
               "yakushi-cross-actor-dispense-routing-baseline",
-              "yatachain-projection-baseline",
+              "kotoba-datomic-projection-baseline",
               "slit-cohort-protocol-baseline",
               "qol-followup-questionnaire-baseline",
               "lund-mackay-scoring-protocol",

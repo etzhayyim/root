@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   gameka.publishGame — closes the ideate loop. Mints a per-game sub-DID
-  under did:web:gameka.gftd.ai:game:{slug}, writes a gameTitle record
+  under did:web:gameka.etzhayyim.com:game:{slug}, writes a gameTitle record
   + edge_gameka_title_published_by, and posts the launch announcement
   on the new sub-DID's timeline.
 
@@ -9,8 +9,8 @@
     Start (XRPC com.etzhayyim.apps.gameka.publishGame { specId, artifactId, qaId })
       → Task_LoadSpec       generic.db.select  vertex_gameka_spec (slug, title, brief, genre)
       → Task_LoadArtifact   generic.db.select  vertex_gameka_artifact -built (wasm_cid)
-      → Task_BuildSubDid    scriptTask FEEL    "did:web:gameka.gftd.ai:game:" + slug
-      → Task_BuildPlayUrl   scriptTask FEEL    "https://game-play.gftd.ai/" + slug
+      → Task_BuildSubDid    scriptTask FEEL    "did:web:gameka.etzhayyim.com:game:" + slug
+      → Task_BuildPlayUrl   scriptTask FEEL    "https://game-play.etzhayyim.com/" + slug
       → Task_ProvisionSubDid generic.pds.dispatch com.etzhayyim.authz.provisionSubDid
                             { parentDid, path }     ← OPERATOR-WIRED, see notes
       → Task_BuildTitleRkey scriptTask FEEL    "ttl" + epoch ms
@@ -27,7 +27,7 @@
   Sub-DID provisioning notes:
     `com.etzhayyim.authz.provisionSubDid` is the convention NSID for minting
     a path-based sub-DID's signing key into PDS SIGNING_KEYS_D1 custody
-    (ADR-0023). If your authn.gftd.ai surface uses a different NSID
+    (ADR-0023). If your authn.etzhayyim.com surface uses a different NSID
     (e.g. `com.atproto.admin.createSubActor`), swap it in Task_ProvisionSubDid;
     the rest of the chain only consumes the deterministic subDid string.
     On provisioning failure the BPMN fails — title row is NOT written,
@@ -35,19 +35,19 @@
 
   Social post owner:
     `repo: subDid` makes the launch post show up on the per-title
-    timeline (did:web:gameka.gftd.ai:game:{slug}). The primary gameka
+    timeline (did:web:gameka.etzhayyim.com:game:{slug}). The primary gameka
     actor neither owns nor reposts it — fans follow the sub-DID
     directly, mirroring the media-gamers pattern.
 
   NSID: com.etzhayyim.apps.gameka.publishGame (XRPC procedure)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/gameka-publish-game-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gameka-publish-game-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_gameka_publish_game"
-    targetNamespace="https://gftd.ai/bpmn/gameka"
+    targetNamespace="https://etzhayyim.ai/bpmn/gameka"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gameka_publish_game" name="gameka publishGame" isExecutable="true">
@@ -98,7 +98,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;gameka.title.publishAborted&quot;" target="action"/>
           <zeebe:input source="={ specId: specId, artifactId: artifactId, reason: &quot;spec-missing&quot; }" target="payload"/>
         </zeebe:ioMapping>
@@ -129,12 +129,12 @@
     <bpmn:sequenceFlow id="Flow_ToSubDid" sourceRef="Task_LoadArtifact" targetRef="Task_BuildSubDid"/>
 
     <!-- Step 3a: deterministic sub-DID from slug. media-gamers pattern:
-         did:web:gameka.gftd.ai:game:{slug}. host-sdk did.json auto-serves
+         did:web:gameka.etzhayyim.com:game:{slug}. host-sdk did.json auto-serves
          this path once the signing key is provisioned. -->
     <bpmn:scriptTask id="Task_BuildSubDid" name="compute sub-DID">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["did:web:gameka.gftd.ai:game:", specSlug], "")'
+            expression='=string join(["did:web:gameka.etzhayyim.com:game:", specSlug], "")'
             resultVariable="subDid"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToSubDid</bpmn:incoming>
@@ -142,7 +142,7 @@
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow_ToPlayUrl" sourceRef="Task_BuildSubDid" targetRef="Task_BuildPlayUrl"/>
 
-    <!-- Step 3b: deterministic play URL. game-play.gftd.ai/play/{slug}
+    <!-- Step 3b: deterministic play URL. game-play.etzhayyim.com/play/{slug}
          is owned by `gameka-playtest-shell`
          (50-infra/cloudflare/workers/gameka-playtest-shell), which
          resolves the slug to the latest -built artifact via Hyperdrive
@@ -151,7 +151,7 @@
     <bpmn:scriptTask id="Task_BuildPlayUrl" name="compute play URL">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["https://game-play.gftd.ai/play/", specSlug], "")'
+            expression='=string join(["https://game-play.etzhayyim.com/play/", specSlug], "")'
             resultVariable="playUrl"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToPlayUrl</bpmn:incoming>
@@ -169,10 +169,10 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.authz.provisionSubDid&quot;" target="nsid"/>
           <zeebe:input source="={
-              parentDid: &quot;did:web:gameka.gftd.ai&quot;,
+              parentDid: &quot;did:web:gameka.etzhayyim.com&quot;,
               path: string join([&quot;game:&quot;, specSlug], &quot;&quot;),
               displayName: specTitle,
-              description: string join([specTitle, &quot; — generated by gameka.gftd.ai&quot;], &quot;&quot;)
+              description: string join([specTitle, &quot; — generated by gameka.etzhayyim.com&quot;], &quot;&quot;)
           }" target="input"/>
           <zeebe:output source="=output.did" target="provisionedSubDid"/>
         </zeebe:ioMapping>
@@ -245,7 +245,7 @@
     <bpmn:scriptTask id="Task_BuildTitleVid" name="at:// vertex_id">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["at://did:web:gameka.gftd.ai/com.etzhayyim.apps.gameka.gameTitle/", titleRkey], "")'
+            expression='=string join(["at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.gameTitle/", titleRkey], "")'
             resultVariable="titleVertexId"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToTitleVid</bpmn:incoming>
@@ -262,9 +262,9 @@
           <zeebe:input source="=&quot;vertex_gameka_title&quot;" target="table"/>
           <zeebe:input source="={
               vertex_id: titleVertexId,
-              owner_did: &quot;did:web:gameka.gftd.ai&quot;,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
               rkey: titleRkey,
-              repo: &quot;did:web:gameka.gftd.ai&quot;,
+              repo: &quot;did:web:gameka.etzhayyim.com&quot;,
               title_id: titleRkey,
               slug: specSlug,
               sub_did: subDid,
@@ -291,7 +291,7 @@
     <bpmn:scriptTask id="Task_BuildEdgeId" name="edge_id">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["edge:", titleVertexId, ":published_by:did:web:gameka.gftd.ai"], "")'
+            expression='=string join(["edge:", titleVertexId, ":published_by:did:web:gameka.etzhayyim.com"], "")'
             resultVariable="publishedByEdgeId"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToEdgeId</bpmn:incoming>
@@ -307,8 +307,8 @@
           <zeebe:input source="={
               edge_id: publishedByEdgeId,
               src_vid: titleVertexId,
-              dst_vid: &quot;did:web:gameka.gftd.ai&quot;,
-              owner_did: &quot;did:web:gameka.gftd.ai&quot;,
+              dst_vid: &quot;did:web:gameka.etzhayyim.com&quot;,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
               published_at: titleCreatedAt,
               created_at: titleCreatedAt
           }" target="values"/>
@@ -422,7 +422,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;gameka.title.published&quot;" target="action"/>
           <zeebe:input source="={
               specId: specId,

@@ -22,9 +22,9 @@
  *   the automation definition carries business-sensitive config — revenue /
  *   credits targets (decimal strings), internal dispatch targets, schedule
  *   parameters. Sealed via sdk.encryptedWrite (read-cap = owner DID + explicit
- *   recipients) so it lives on-substrate encrypted, never gftd-resident.
+ *   recipients) so it lives on-substrate encrypted, never etzhayyim-resident.
  *
- *   STAYS gftd (consumed via consent-capability) — scheduler EXECUTION (cron
+ *   STAYS etzhayyim (consumed via consent-capability) — scheduler EXECUTION (cron
  *   firing / dispatch), LLM inference for agent replies, fiat/credits settlement
  *   EXECUTION, secret/credential custody. The regulated *acts*, not the data
  *   records (which migrate: plaintext if public, E2E if confidential).

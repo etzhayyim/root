@@ -1,4 +1,4 @@
 DELETE FROM vertex_mcp_tool_def WHERE vertex_id =
-  'at://did:web:copyright.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-http-fetch';
+  'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-tools-http-fetch';
 
 FLUSH;

@@ -42,7 +42,7 @@ DB_CONFIG = {
     "connect_timeout": 30,
 }
 
-REPO              = "did:plc:gftd-collector"
+REPO              = "did:plc:etzhayyim-collector"
 PATENT_COLLECTION = "com.etzhayyim.apps.patent.patent"
 DNS_COLLECTION    = "com.etzhayyim.apps.dns.observation"
 

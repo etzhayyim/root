@@ -21,13 +21,13 @@
   enforced by the Worker handler's internal retry-on-429 logic.
 
   NSID: com.etzhayyim.apps.maps.runPendingCoverageJobs
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-run-pending-coverage-jobs-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_maps_run_pending_coverage_jobs"
-    targetNamespace="https://gftd.ai/bpmn/maps"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="maps_run_pending_coverage_jobs" name="maps run pending coverage jobs" isExecutable="true">
@@ -89,7 +89,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://maps.gftd.ai/xrpc/com.etzhayyim.apps.maps.runCoverageJob&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.runCoverageJob&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;"             target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={ &quot;jobId&quot;: job.job_id, &quot;maxRecords&quot;: 100 }" target="body"/>

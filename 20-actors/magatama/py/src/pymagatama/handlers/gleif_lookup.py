@@ -73,7 +73,7 @@ log = logging.getLogger(__name__)
 
 _GLEIF_URL = "https://api.gleif.org/api/v1/lei-records"
 _TIMEOUT_SEC = 12
-_UA = "gftd-gleif-udf/1.0 (ops@etzhayyim.com)"
+_UA = "etzhayyim-gleif-udf/1.0 (ops@etzhayyim.com)"
 _PAGE_SIZE = 5  # match the legacy script; 5 is enough for country disambiguation
 
 

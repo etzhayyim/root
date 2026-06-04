@@ -2,7 +2,7 @@
 <!--
   coverage.inferIngest — push talent-cohort rows into RisingWave (ADR-0056).
 
-  Mirrors the DB-write half of `gftd coverage infer ingest`. CSV/SDMX
+  Mirrors the DB-write half of `etzhayyim coverage infer ingest`. CSV/SDMX
   parsing stays CLI-side (filesystem); this BPMN actor exposes a
   uniform XRPC sink `{ source, rows[] }` so the CLI (or any other
   agent) hands off pre-parsed rows.
@@ -25,14 +25,14 @@
   this file until the helm chart is rolled forward, otherwise the
   dispatcher will activate jobs the running worker can't claim.
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-ingest-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-ingest-v1
   NSID:      com.etzhayyim.apps.coverage.inferIngest
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_coverage_infer_ingest"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="coverage_infer_ingest" name="coverage infer ingest" isExecutable="true">
 
@@ -70,7 +70,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferIngest.batch&quot;" target="action"/>
           <zeebe:input source="={ &quot;source&quot;: if (source = null) then &quot;ilostat&quot; else source, &quot;rows&quot;: count(rows) }" target="payload"/>
         </zeebe:ioMapping>

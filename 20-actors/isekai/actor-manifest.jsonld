@@ -251,7 +251,7 @@
     "description": "ISEKAI voxel world + Pokoa creatures + Brainrot NPC events. World state management, chunk streaming, craft recipes, creature evolution, autonomous NPC storytelling.",
     "displayName": "Isekai — World Domain Agent",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

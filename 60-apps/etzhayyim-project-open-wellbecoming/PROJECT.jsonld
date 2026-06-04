@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://{nanoid}.etzhayyim.com/api/grpc",
   "name": "etzhayyim-project-well-becoming",
-  "description": "GFTD Well-Becoming - becoming aspirations and wellness monitoring via MCP",
+  "description": "Etzhayyim Well-Becoming - becoming aspirations and wellness monitoring via MCP",
   "applicationCategory": "Health",
   "operatingSystem": "Kubernetes",
   "author": {

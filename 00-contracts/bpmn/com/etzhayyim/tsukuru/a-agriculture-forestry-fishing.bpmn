@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_isic_a_agriculture_forestry_fishing"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="generated"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_isic_a_agriculture_forestry_fishing" name="tsukuru A Agriculture, Forestry and Fishing" isExecutable="true">
@@ -37,7 +37,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:a&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:a&quot;" target="actor"/>
           <zeebe:input source="=&quot;industryPulse&quot;" target="action"/>
           <zeebe:input source="={ sectionCode: &quot;A&quot;, label: &quot;Agriculture, Forestry and Fishing&quot;, industryCodes: [&quot;food-beverage&quot;], bpmnProcessId: &quot;tsukuru_isic_a_agriculture_forestry_fishing&quot;, manufacturerRowCount: manufacturerRowCount, manufacturerRows: manufacturerRows }" target="payload"/>
         </zeebe:ioMapping>

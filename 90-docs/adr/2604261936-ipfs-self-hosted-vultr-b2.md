@@ -14,7 +14,7 @@ related:
   - adr-0048-risingwave-vultr-b2-primary
   - adr-2604251400-pds-uploadblob-r2-to-b2-migration
   - adr-2604251935-blockchain-vke-head-ingest
-  - adr-0029-did-gftd-method-specification
+  - adr-0029-did-etzhayyim-method-specification
   - adr-2604261717-staked-claim-truth-incentive
 supersedes: []
 superseded_by: []
@@ -22,7 +22,7 @@ superseded_by: []
 
 # Context
 
-etzhayyim は CID 中心 (DAG-CBOR + multihash) の design で、ADR-0029 (`did:gftd`),
+etzhayyim は CID 中心 (DAG-CBOR + multihash) の design で、ADR-0029 (`did:etzhayyim`),
 ADR-2604251400 (PDS `uploadBlob` SHA-256 content-addressed → B2),
 ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
 "content-addressed object" を前提とする。これらの blob は現在 **B2 直書き
@@ -37,7 +37,7 @@ ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
    block は B2、IPFS metadata + DAG index のみ pod-local PVC。
 3. **Vultr VKE 上の pod** (RisingWave / geth-private と同じ cluster)。
    独立 namespace `ipfs`、専用 node pool 不要 (既存 `risingwave-pool-32gb` に同居可)。
-4. **PDS / claim-stake / did:gftd genesis-op** の blob を **自動 pin**。
+4. **PDS / claim-stake / did:etzhayyim genesis-op** の blob を **自動 pin**。
    federation 時に CAR export 経由で外部 PDS にも届くため必須。
 5. **書き込み API は HMAC で gate** (`/api/v0/add`, `/api/v0/pin/add` 等)。
    read paths (`/ipfs/`, `/ipns/`, `/api/v0/cat|get|dag/get|block/get`) は public。
@@ -60,7 +60,7 @@ ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
 ```
 external:
   client ─────► ipfs.etzhayyim.com (CF DNS, proxied)
-              ─► ai-gftd-ipfs-proxy (CF Worker)
+              ─► etzhayyim-ipfs-proxy (CF Worker)
                   • /ipfs/*, /ipns/*           = public, no auth
                   • /api/v0/{cat,get,dag/get,
                             block/get,resolve} = public, no auth
@@ -72,12 +72,12 @@ external:
                     → kubo Service :8080 (gateway) / :5001 (api)
                       → kubo pod
                           ├─ blocks    → s3ds plugin → B2
-                          │                          ai-gftd-nats/ipfs/blocks/
+                          │                          etzhayyim-nats/ipfs/blocks/
                           ├─ metadata  → levelds → 5 Gi PVC
                           └─ swarm     → :4001 (NodePort, libp2p TCP+UDP)
 
 internal services (PDS, claim-consumer, …):
-  service binding `IPFS_API` → ai-gftd-ipfs-proxy
+  service binding `IPFS_API` → etzhayyim-ipfs-proxy
   → /api/v0/add for new blob ingest, /api/v0/pin/add for retention guarantees
 ```
 
@@ -89,8 +89,8 @@ internal services (PDS, claim-consumer, …):
 | **PVC** `kubo-repo-0` | Vultr Block Storage HDD | `vultr-block-storage-hdd-retain` | 40 Gi (Vultr minimum; metadata fits in ~1 GiB) | levelds metadata + go-ds-s3 measure dir |
 | **caddy TLS proxy** Deployment | ns `ipfs`, replicas=2 | `caddy:2.8.4-alpine` | req 25m / 32 Mi | mirror `geth-private/40-tls-proxy.yaml` |
 | **Vultr LB** | LB :443 | `service.beta.kubernetes.io/vultr-loadbalancer-protocol=tcp` | — | terminates TLS via caddy self-signed cert |
-| **CF Worker** `ai-gftd-ipfs-proxy` | CF account | TS, single file | — | route `ipfs.etzhayyim.com/*`; HMAC SS binding for write paths |
-| **B2 prefix** `s3://ai-gftd-nats/ipfs/blocks/` | Bandwidth Alliance, region `us-west-004` | shares the bucket already used by RisingWave Hummock state (ADR-0048); application key in `gftd.b2` Keychain is scoped to this `bucketId` so no new key provisioning needed | — | block storage only; lifecycle = none (pinned) |
+| **CF Worker** `etzhayyim-ipfs-proxy` | CF account | TS, single file | — | route `ipfs.etzhayyim.com/*`; HMAC SS binding for write paths |
+| **B2 prefix** `s3://etzhayyim-nats/ipfs/blocks/` | Bandwidth Alliance, region `us-west-004` | shares the bucket already used by RisingWave Hummock state (ADR-0048); application key in `etzhayyim.b2` Keychain is scoped to this `bucketId` so no new key provisioning needed | — | block storage only; lifecycle = none (pinned) |
 
 ## Datastore configuration
 
@@ -104,7 +104,7 @@ Kubo `~/.ipfs/config.Datastore.Spec` (`go-ds-s3` v1.0.0+):
       "child": {
         "type": "s3ds",
         "region": "us-west-004",
-        "bucket": "ai-gftd-nats",
+        "bucket": "etzhayyim-nats",
         "rootDirectory": "ipfs/blocks",
         "regionEndpoint": "https://s3.us-west-004.backblazeb2.com",
         "accessKey": "$S3_ACCESS_KEY",
@@ -130,7 +130,7 @@ identity (peer-id) via PVC; block data is untouched on B2.
 
 ## CF Worker auth split
 
-`ai-gftd-ipfs-proxy/src/index.ts` (~120 LoC):
+`etzhayyim-ipfs-proxy/src/index.ts` (~120 LoC):
 
 | Path family | Method | Auth | Rationale |
 |---|---|---|---|
@@ -145,7 +145,7 @@ identity (peer-id) via PVC; block data is untouched on B2.
 | `/_metrics`, `/debug/*` | any | blocked | Prevent leakage |
 
 HMAC = `hex(hmac_sha256(SS_IPFS_HMAC, body))` over the canonical request body.
-Mirror of `ai-gftd-geth-rpc-proxy` (ADR-0074 Phase 2-A).
+Mirror of `etzhayyim-geth-rpc-proxy` (ADR-0074 Phase 2-A).
 
 ## Pin policy
 
@@ -153,7 +153,7 @@ Mirror of `ai-gftd-geth-rpc-proxy` (ADR-0074 Phase 2-A).
 |---|---|---|
 | `com.atproto.repo.uploadBlob` (PDS) | **yes** | until repo deletion |
 | `com.etzhayyim.claim.stakedAttestation.atRecordCid` | **yes** | forever |
-| `did:gftd` genesis-op DAG-CBOR | **yes** | forever (sovereignty) |
+| `did:etzhayyim` genesis-op DAG-CBOR | **yes** | forever (sovereignty) |
 | User-pin via `/api/v0/pin/add` (HMAC-gated) | yes | until unpin |
 | Anonymous `/ipfs/{cid}` fetch (cache miss → DHT pull) | **no** | until next GC |
 | Auto-discovered via swarm | **no** | until next GC |
@@ -222,13 +222,13 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 | init-config script | `50-infra/vultr/ipfs/scripts/init-config.sh` | first-boot: `ipfs init`, swap datastore, set Gateway/HTTPHeaders |
 | CF Worker | `50-infra/cloudflare/workers/ipfs-proxy/{src/index.ts,wrangler.jsonc,package.json,tsconfig.json}` | path-based auth split |
 | CLAUDE.md | `50-infra/vultr/ipfs/CLAUDE.md` | runbook, B2 keychain refs, restore drill |
-| DNS | `ipfs.etzhayyim.com` CNAME → CF, route Worker | via `gftd dns-sync` |
+| DNS | `ipfs.etzhayyim.com` CNAME → CF, route Worker | via `etzhayyim dns-sync` |
 
 **Phase 1.5 — pin integration [PROPOSED]**
 
 - PDS `uploadBlob` 後に `IPFS_API.fetch("/api/v0/pin/add?arg=<cid>")` を fire-and-forget
 - claim-consumer が `ClaimPosted` event の `atRecordCid` を pin
-- `did:gftd` genesis op の CID も pin (resolver Worker に統合)
+- `did:etzhayyim` genesis op の CID も pin (resolver Worker に統合)
 
 **Phase 2 — operational hardening [PROPOSED]**
 
@@ -286,4 +286,4 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 - ADR-2604251400 — PDS uploadBlob R2→B2 migration
 - ADR-2604251935 — blockchain VKE head ingest (same Vultr cluster pattern)
 - ADR-2604261717 — staked claim truth-incentive (`atRecordCid` → IPFS pin target)
-- ADR-0029 — did:gftd CIDv1 path schema
+- ADR-0029 — did:etzhayyim CIDv1 path schema

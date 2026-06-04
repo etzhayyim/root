@@ -27,7 +27,7 @@ Exit code 0 if any of F1/F4/F5 is non-empty (drift that the operator
 should act on); warnings only for F2/F3.
 
 Env:
-  RW_URL    postgresql://… ;  default from Keychain gftd.rw/ROOT_URL
+  RW_URL    postgresql://… ;  default from Keychain etzhayyim.rw/ROOT_URL
 
 Usage:
     70-tools/scripts/contract/audit-bpmn-actors.py
@@ -65,10 +65,10 @@ NS_BPMN = "http://www.omg.org/spec/BPMN/20100524/MODEL"
 #
 # Any other vertex_id shape in these two tables is `--strict` drift.
 CANONICAL_DEF_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.etzhayyim\.ai/com\.etzhayyim\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 CANONICAL_BIND_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.etzhayyim\.ai/com\.etzhayyim\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 
 
@@ -80,14 +80,14 @@ def rw_url() -> str:
         return url
     try:
         out = subprocess.check_output(
-            ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+            ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
             text=True,
         ).strip()
         if out:
             return out
     except subprocess.CalledProcessError:
         pass
-    raise SystemExit("RW_URL not in env and not in Keychain (gftd.rw/ROOT_URL)")
+    raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
 
 
 def query(sql: str) -> list[list[str]]:

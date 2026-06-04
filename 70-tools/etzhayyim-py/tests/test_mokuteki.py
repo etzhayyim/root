@@ -128,7 +128,7 @@ def test_scan_app_meta_single_app(tmp_path):
         "displayName": "My App",
         "collections": ["com.etzhayyim.apps.myapp.item"],
         "witImports": [],
-        "witExports": ["ai:gftd/myapp-types"],
+        "witExports": ["ai:etzhayyim/myapp-types"],
     }))
     result = _scan_app_meta(tmp_path)
     assert "app123" in result
@@ -136,7 +136,7 @@ def test_scan_app_meta_single_app(tmp_path):
     assert m["did"] == "did:plc:abc"
     assert m["display_name"] == "My App"
     assert m["collections"] == ["com.etzhayyim.apps.myapp.item"]
-    assert m["wit_exports"] == ["ai:gftd/myapp-types"]
+    assert m["wit_exports"] == ["ai:etzhayyim/myapp-types"]
 
 
 def test_scan_app_meta_no_nanoid_skipped(tmp_path):
@@ -190,7 +190,7 @@ def test_eval_layer_a_with_app(tmp_path):
         "did": "did:plc:x",
         "displayName": "App 1",
         "collections": ["com.etzhayyim.apps.app1.item"],
-        "witExports": ["ai:gftd/app1-types"],
+        "witExports": ["ai:etzhayyim/app1-types"],
     }))
     layer = eval_layer_a(tmp_path)
     assert layer.score > 0.0
@@ -213,7 +213,7 @@ def test_eval_layer_d_with_attested_app(tmp_path):
         "did": "did:plc:x",
         "displayName": "App 1",
         "collections": ["com.etzhayyim.apps.app1.item"],
-        "witExports": ["ai:gftd/app1-types"],
+        "witExports": ["ai:etzhayyim/app1-types"],
     }))
     (tmp_path / "CLAUDE.md").write_text("# Policy")
     layer = eval_layer_d(tmp_path)

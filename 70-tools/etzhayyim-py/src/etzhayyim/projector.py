@@ -1,4 +1,4 @@
-"""projector subcommands — Python port of Go gftd/projector.go (ADR-2605151500).
+"""projector subcommands — Python port of Go etzhayyim/projector.go (ADR-2605151500).
 
 Calls the projector MCP tool via JSON-RPC 2.0 over HTTPS.
 Auth: etzhayyim_AGENT_TOKEN env var → Authorization: Bearer {token}.

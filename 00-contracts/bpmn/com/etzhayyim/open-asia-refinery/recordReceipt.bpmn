@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_asia_refinery_record_receipt"
-    targetNamespace="https://gftd.ai/bpmn/open-asia-refinery"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-asia-refinery"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_asia_refinery_record_receipt" name="asia refinery 受入" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -25,7 +25,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-asia-refinery.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-asia-refinery.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openAsiaRefinery.receipt.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, receiptId: receiptId, refineryCode: refineryCode, country: country, crudeGrade: crudeGrade, volumeTonnes: volumeTonnes}" target="payload"/>
         </zeebe:ioMapping>

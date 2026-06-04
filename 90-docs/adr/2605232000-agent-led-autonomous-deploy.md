@@ -43,7 +43,7 @@ Two needs surfaced concurrently during the karute deployment work (ADR-260523190
 
     > Don't put long-lived secrets into the transcript. Prefer short-lived + scoped tokens over long-lived roots. Make rotation a 1-liner.
 
-But the existing primitives only cover **runtime** XRPC calls (`gftd agent-token --lxm com.etzhayyim.apps.gmail.syncInbox --ttl 60`). Deploy-time authority — "this agent may run `wrangler deploy` against the `karute-did-web` Worker and `kubectl apply` against `lg-karute`" — has no formalized capability.
+But the existing primitives only cover **runtime** XRPC calls (`etzhayyim agent-token --lxm com.etzhayyim.apps.gmail.syncInbox --ttl 60`). Deploy-time authority — "this agent may run `wrangler deploy` against the `karute-did-web` Worker and `kubectl apply` against `lg-karute`" — has no formalized capability.
 
 Both problems share a solution shape: a declarative manifest + a capability-gated executor + audit emission per step.
 
@@ -83,7 +83,7 @@ require_cap = ["deploy.k8s:lg-karute"]
 
 Stages have a typed `type` (`cf-worker` / `cf-pages` / `k8s` / `docker-build` / `cf-tunnel` / `cmd` / `smoke`), a working directory, a command vector, and a `require_cap` list of scope NSIDs needed to execute it.
 
-`gftd actor deploy` reads the manifest, runs preflight (`wrangler` / `kubectl` / `docker` / `cloudflared` on PATH), gates each stage against the supplied capability + token, and emits a `DEPLOY_EVENT` audit row per stage.
+`etzhayyim actor deploy` reads the manifest, runs preflight (`wrangler` / `kubectl` / `docker` / `cloudflared` on PATH), gates each stage against the supplied capability + token, and emits a `DEPLOY_EVENT` audit row per stage.
 
 Flags:
 - `--actor <name>` (default: inferred from cwd if under `20-actors/<name>/`)
@@ -183,7 +183,7 @@ e7m capability issue \
   --scope deploy.cfWorker:karute-did-web,deploy.cfWorker:audit-did-web,deploy.docker:lg-karute,deploy.k8s:lg-karute,deploy.pages:karute \
   --ttl 86400 \
   --audit did:web:audit.etzhayyim.com \
-  --out ~/.gftd/cap-karute-deploy.jws
+  --out ~/.etzhayyim/cap-karute-deploy.jws
 
 # (Agent now has the capability JWS — everything below runs without human input)
 
@@ -194,10 +194,10 @@ for STAGE in did-worker audit-worker image-build k8s-pod-apply k8s-pod-rollout c
   TOKEN=$(e7m agent-token \
     --lxm "deploy.${STAGE}" \
     --ttl 300 \
-    --capability "$(jq -r .capabilityUri ~/.gftd/cap-karute-deploy.json)")
+    --capability "$(jq -r .capabilityUri ~/.etzhayyim/cap-karute-deploy.json)")
   e7m actor deploy \
     --actor karute --only "$STAGE" \
-    --capability ~/.gftd/cap-karute-deploy.jws \
+    --capability ~/.etzhayyim/cap-karute-deploy.jws \
     --agent-token "$TOKEN" \
     --non-interactive
 done
@@ -233,7 +233,7 @@ The agent's local invocations of `wrangler` / `kubectl` / `docker` / `cloudflare
 
 ## Rollout
 
-1. **This commit** — ADR + 2 new lexicons (`com.etzhayyim.deploy.agentToken`, `com.etzhayyim.deploy.deployEvent`) + `purpose=deploy-execution` enum value on consent capability + 2 e7m subcommands (`actor`, `agent-token`) + karute `actor.toml`. End-to-end dry-run smoke (`gftd actor deploy --actor karute --dry-run --only pages-build` → DEPLOY_EVENT emitted) verified.
+1. **This commit** — ADR + 2 new lexicons (`com.etzhayyim.deploy.agentToken`, `com.etzhayyim.deploy.deployEvent`) + `purpose=deploy-execution` enum value on consent capability + 2 e7m subcommands (`actor`, `agent-token`) + karute `actor.toml`. End-to-end dry-run smoke (`etzhayyim actor deploy --actor karute --dry-run --only pages-build` → DEPLOY_EVENT emitted) verified.
 2. **Phase 2** — Capability JWS Ed25519 verification + audit emission HTTP POST to `https://audit.etzhayyim.com/xrpc/com.etzhayyim.audit.emitAuditEvent`. Phase 2 also adds `e7m capability issue / revoke / list` subcommands so capability management is in-CLI.
 3. **Phase 3** — Per-stage T1 cloud-provider creds (CF Workers API tokens scoped to a single Worker; GitHub PATs scoped to a single repo). Cosign + image-SHA scoping for `deploy.docker:` scopes.
 4. **Phase 4** — Failure-mode test rig (revoked capability mid-deploy / expired token mid-stage / forged JWS detection).

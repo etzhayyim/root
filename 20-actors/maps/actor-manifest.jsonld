@@ -332,7 +332,7 @@
     "description": "Graph-first spatial intelligence. 51 graph node types, 14 WIT domains (spatial/infra/transport/geography/twin/sensor/simulation/spatiotemporal/post-geo/mapraly/vision/satellite/geo-did/web-crawl). 980 Multi-DIDs across layers/regions/countries/ports/airports/zones/sources. 32 geographic code schemes (ISO 3166, H3, S2, geohash, etc.). RisingWave via Hyperdrive for graph SQL storage. Real-time seismic (USGS), ADS-B aircraft (OpenSky), GTFS-JP transit feeds.",
     "displayName": "Maps — Spatial Intelligence + Digital Twin",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

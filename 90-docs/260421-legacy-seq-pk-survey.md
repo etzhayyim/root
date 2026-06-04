@@ -21,7 +21,7 @@ After applying ADR-0041 (`vertex_repo_commit` content-PK), surveyed the codebase
 
 | # | Path | Pattern | Status |
 |---|---|---|---|
-| 1 | `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts:2227` | `vertex_gftd_op_log.vertex_id = ${did}:${opSeq}` | **Low risk.** `opSeq` is per-DID monotonic, passed in by caller (CLI / app). Concurrent ops for the same DID are rare (DID identity ops). If two concurrent submissions race on `opSeq` computation client-side, PK collision would surface as `duplicate key` error → caller retries. Not a silent drop. |
+| 1 | `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts:2227` | `vertex_etzhayyim_op_log.vertex_id = ${did}:${opSeq}` | **Low risk.** `opSeq` is per-DID monotonic, passed in by caller (CLI / app). Concurrent ops for the same DID are rare (DID identity ops). If two concurrent submissions race on `opSeq` computation client-side, PK collision would surface as `duplicate key` error → caller retries. Not a silent drop. |
 
 ### B — Inactive (feature-flagged off)
 
@@ -54,7 +54,7 @@ Same pattern, different file. Trivial change. Block on PDS_MST_ENABLED rollout �
 
 ### Tier 2 — preventive
 
-Audit `vertex_gftd_op_log` write throughput. If concurrent DID op submissions become a real workload (e.g., bulk DID provisioning), the `${did}:${opSeq}` PK has the same theoretical race. Migrate to `${did}:${opCid}` (CID is already in the row, content-addressed).
+Audit `vertex_etzhayyim_op_log` write throughput. If concurrent DID op submissions become a real workload (e.g., bulk DID provisioning), the `${did}:${opSeq}` PK has the same theoretical race. Migrate to `${did}:${opCid}` (CID is already in the row, content-addressed).
 
 ### Tier 3 — convention
 
@@ -63,8 +63,8 @@ Add a code-quality lint rule that flags any `vertex_id` value containing `:seq:`
 ## Decision log
 
 - **Tier 1**: applied 2026-04-21 (sql-storage.ts edit + redeploy when MST flag activates)
-- **Tier 2**: deferred — current `vertex_gftd_op_log` write rate is < 1/min, race window not realistic
-- **Tier 3**: deferred — would add to `gftd code-quality` rules; coordinate with platform team
+- **Tier 2**: deferred — current `vertex_etzhayyim_op_log` write rate is < 1/min, race window not realistic
+- **Tier 3**: deferred — would add to `etzhayyim code-quality` rules; coordinate with platform team
 
 ## References
 

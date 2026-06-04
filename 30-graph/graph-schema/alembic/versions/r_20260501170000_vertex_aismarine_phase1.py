@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260501170000_vertex_aismarine_phase1"
-down_revision = 'r_20260501160000_seed_owl_tbox_gftd_ontology'
+down_revision = 'r_20260501160000_seed_owl_tbox_etzhayyim_ontology'
 branch_labels = None
 depends_on = None
 

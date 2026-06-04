@@ -1,0 +1,64 @@
+{
+  "checks": {
+    "claude:exists": true,
+    "doc:claude:patterns": true,
+    "doc:readme:patterns": true,
+    "doc:spec:patterns": true,
+    "manifest:capabilities": true,
+    "manifest:collections": true,
+    "manifest:exists": true,
+    "proto:okaimono:exists": true,
+    "proto:okaimono:patterns": true,
+    "proto:shopping:exists": true,
+    "proto:shopping:patterns": true,
+    "readme:exists": true,
+    "spec:exists": true,
+    "tool:protoc:okaimono": true,
+    "tool:protoc:shopping": true
+  },
+  "docs": {
+    "missing": {
+      "claude": [],
+      "readme": [],
+      "spec": []
+    }
+  },
+  "manifest": {
+    "missingCapabilities": [],
+    "missingCollections": []
+  },
+  "missing": [],
+  "ok": true,
+  "proto": {
+    "missing": {
+      "okaimono": [],
+      "shopping": []
+    }
+  },
+  "toolChecks": {
+    "protoc:okaimono": {
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "--proto_path=proto/v1",
+        "--descriptor_set_out=/tmp/okaimono-unispsc-contract.pb",
+        "proto/v1/shopping.proto"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "protoc:shopping": {
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "--proto_path=proto/v1",
+        "--descriptor_set_out=/tmp/shopping-unispsc-contract.pb",
+        "proto/v1/shopping.proto"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  }
+}

@@ -50,7 +50,7 @@ Confirm the chain to the new migration is intact:
 
 ```bash
 cd 30-graph/graph-schema
-DATABASE_URL=$(security find-generic-password -s gftd.rw -a ROOT_URL -w) \
+DATABASE_URL=$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w) \
   pnpm db:migrate:list | tail -10
 # Expect the last applied to be 20260427200000_vertex_arms_firearm.
 # If not: investigate before applying — out-of-band apply is the
@@ -64,26 +64,26 @@ DATABASE_URL=$(security find-generic-password -s gftd.rw -a ROOT_URL -w) \
 ```bash
 # RunPod (analyze path). MAPS endpoint is distinct from yoro chat.
 kubectl -n mitama-udf create secret generic maps-sentinel-runpod \
-  --from-literal=RUNPOD_KEY="$(security find-generic-password -s gftd.runpod -a API_KEY -w)" \
-  --from-literal=RUNPOD_ENDPOINT_ID_MAPS="$(security find-generic-password -s gftd.runpod -a ENDPOINT_ID_MAPS -w)" \
+  --from-literal=RUNPOD_KEY="$(security find-generic-password -s etzhayyim.runpod -a API_KEY -w)" \
+  --from-literal=RUNPOD_ENDPOINT_ID_MAPS="$(security find-generic-password -s etzhayyim.runpod -a ENDPOINT_ID_MAPS -w)" \
   --dry-run=client -o yaml | kubectl apply -f -
 
 # Copernicus Dataspace (S-1 GRD path; optional, S-2 works without)
 kubectl -n mitama-udf create secret generic maps-sentinel-copernicus \
-  --from-literal=SENTINEL_HUB_CLIENT_ID="$(security find-generic-password -s gftd.copernicus -a CLIENT_ID -w)" \
-  --from-literal=SENTINEL_HUB_CLIENT_SECRET="$(security find-generic-password -s gftd.copernicus -a CLIENT_SECRET -w)" \
+  --from-literal=SENTINEL_HUB_CLIENT_ID="$(security find-generic-password -s etzhayyim.copernicus -a CLIENT_ID -w)" \
+  --from-literal=SENTINEL_HUB_CLIENT_SECRET="$(security find-generic-password -s etzhayyim.copernicus -a CLIENT_SECRET -w)" \
   --dry-run=client -o yaml | kubectl apply -f -
 ```
 
 If the Keychain entries don't exist yet, create them via
-`security add-generic-password -s gftd.runpod -a API_KEY -w '<value>' -U`
-following CLAUDE.md `gftd.{provider}` convention.
+`security add-generic-password -s etzhayyim.runpod -a API_KEY -w '<value>' -U`
+following CLAUDE.md `etzhayyim.{provider}` convention.
 
 ### Step 2 — apply the BPMN registry migration
 
 ```bash
 cd 30-graph/graph-schema
-DATABASE_URL=$(security find-generic-password -s gftd.rw -a ROOT_URL -w) \
+DATABASE_URL=$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w) \
   pnpm db:migrate latest
 # Expect: "Migration up was executed successfully" for
 # 20260427210000_seed_maps_sentinel_bpmn_actors.
@@ -164,7 +164,7 @@ kubectl -n mitama-udf logs -l app.kubernetes.io/name=zeebe-worker --tail=50 \
 
 ```bash
 # Manual one-shot kick of the timer process (don't wait 24 h).
-TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.maps.sentinelIngest)
+TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.apps.maps.sentinelIngest)
 curl -sS -X POST "https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.sentinelIngest" \
   -H "authorization: Bearer $TOKEN" \
   -H "content-type: application/json" \
@@ -193,7 +193,7 @@ SCENE_URI=$(psql "$DATABASE_URL" -tAc "
   SELECT uri FROM vertex_repo_record
   WHERE collection='com.etzhayyim.apps.maps.satelliteScene'
   ORDER BY ts_ms DESC LIMIT 1")
-TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.maps.sentinelAnalyze)
+TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.apps.maps.sentinelAnalyze)
 curl -sS -X POST "https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.sentinelAnalyze" \
   -H "authorization: Bearer $TOKEN" \
   -H "content-type: application/json" \
@@ -248,12 +248,12 @@ are gated by an explicit `register()` call that the rollback removes.
 | `ingest` returns 200 with `scenesIngested:0` | AOI list rejected by STAC (CRS / bbox order) | inspect primitive logs `kubectl -n mitama-udf logs -l app.kubernetes.io/name=zeebe-worker | grep stac` |
 | `analyze` returns 504 timeout | RunPod cold-start over 5 min | bump `RUNPOD_TIMEOUT_SEC` in values.yaml; re-deploy |
 | Sentinel-1 always 0 hits | Copernicus secret missing or `productType` filter wrong | confirm `SENTINEL_HUB_CLIENT_*` env present in pod; check `_copernicus_token()` cache |
-| `ingest` 401 from CF Worker XRPC layer | missing Service Auth, or NSID not registered in PDS routing | confirm `vertex_bpmn_lexicon_binding` row + `gftd agent-token --lxm com.etzhayyim.apps.maps.sentinelIngest` returns a token |
+| `ingest` 401 from CF Worker XRPC layer | missing Service Auth, or NSID not registered in PDS routing | confirm `vertex_bpmn_lexicon_binding` row + `etzhayyim agent-token --lxm com.etzhayyim.apps.maps.sentinelIngest` returns a token |
 
 ## Out of scope
 
 - RunPod endpoint provisioning (separate work, see
-  `60-apps/ai-gftd-project-maps/runpod-endpoint/`)
+  `60-apps/etzhayyim-project-maps/runpod-endpoint/`)
 - Phase 2 typed graph projection (`vertex_satellite_scene` /
   `vertex_satellite_analysis`) — held until RW is back inside license caps
 - Sentinel-3 / Sentinel-5P sources — added once Phase 1 is steady

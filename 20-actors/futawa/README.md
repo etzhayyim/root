@@ -32,12 +32,12 @@ Small-displacement motorcycle manufacturing Tier-B actor for adherent personal m
 | `moto_body_paint` | L4 | simeon | Body panel + 2K acrylic urethane paint + G5 artwork Charter scan |
 | `moto_final_assembly` | L5a | dan | Bolt-up + bilingual VIN + **G12 IPFS parts catalog published at manufacture** + G13 hodoki VIN pre-registration |
 | `moto_test_dyno_road` | L5b | levi | Dyno + emissions + G6 sound ≤80 dB + ABS function test + road test |
-| `moto_provenance_binder` | terminal | judah | Yatachain anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg) |
+| `moto_provenance_binder` | terminal | judah | KotobaDatomic anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg) |
 
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: CAD + firmware + tool fixtures open-source (foundation for G12)
-- **G2**: Mass-balance ≥98% closure on yatachain (inherits kanayama + hodoki pattern)
+- **G2**: Mass-balance ≥98% closure on kotoba-datomic (inherits kanayama + hodoki pattern)
 - **G3**: ≥2-robot witness quorum per critical step (frame weld + engine + brake torque)
 - **G4**: JP + EN bilingual owner + service manual + safety labels + parts catalog
 - **G5**: Charter §2(a-h) scan on paint artwork + decals (no military / licensed-IP / addictive-thrill / racing-glorification)

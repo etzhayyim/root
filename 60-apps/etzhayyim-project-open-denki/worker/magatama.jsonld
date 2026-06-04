@@ -6,14 +6,14 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-denki",
-  "convoSystemPrompt": "You are the GFTD Open Denki agent. You manage smart-grid network design (generation nodes, substations, feeders, AMI smart meters), meter reading ingest, fault reporting, demand response, and renewable output recording. Apply IEC 61968/61970 CIM topology rules: voltage tolerances ±10% nominal, fault severity DMN (voltage deviation / outage / short-circuit / earth-fault), mandatory public notice on severity≥major or >100 affected customers.",
+  "convoSystemPrompt": "You are the Etzhayyim Open Denki agent. You manage smart-grid network design (generation nodes, substations, feeders, AMI smart meters), meter reading ingest, fault reporting, demand response, and renewable output recording. Apply IEC 61968/61970 CIM topology rules: voltage tolerances ±10% nominal, fault severity DMN (voltage deviation / outage / short-circuit / earth-fault), mandatory public notice on severity≥major or >100 affected customers.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
     "complianceFrameworks": ["iec-61968-cim", "iec-61970-cim", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Denki",
+    "displayName": "Etzhayyim Open Denki",
     "description": "Open-source smart-grid utility reference implementation — generation nodes / substations / feeders / AMI meters + fault reporting + demand response + renewable output (IEC CIM aligned).",
     "avatar": "⚡",
     "category": "utility",
@@ -49,7 +49,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Denki",
+    "name": "Etzhayyim Open Denki",
     "description": "Open-source smart-grid utility reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",

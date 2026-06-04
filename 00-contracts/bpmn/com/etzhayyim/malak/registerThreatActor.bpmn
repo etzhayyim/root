@@ -16,13 +16,13 @@
   NSID derivation (sync-bpmn-actors.py convention):
     path = 00-contracts/bpmn/com/etzhayyim/malak/registerThreatActor.bpmn
     NSID = com.etzhayyim.apps.malak.registerThreatActor
-    vid  = at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/malak-register-threat-actor-v1
+    vid  = at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-register-threat-actor-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_malak_register_threat_actor"
-    targetNamespace="https://gftd.ai/bpmn/malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="malak_register_threat_actor" name="malak registerThreatActor" isExecutable="true">
 
@@ -55,10 +55,10 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_threat&quot;" target="table"/>
           <zeebe:input source='={
-              vertex_id:       string join(["at://did:web:malak.gftd.ai/com.etzhayyim.apps.malak.threatActor/", derived.rkey], ""),
+              vertex_id:       string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.threatActor/", derived.rkey], ""),
               rkey:            derived.rkey,
-              repo:            "did:web:malak.gftd.ai",
-              did:             "did:web:malak.gftd.ai",
+              repo:            "did:web:malak.etzhayyim.com",
+              did:             "did:web:malak.etzhayyim.com",
               code:            derived.actorCode,
               label:           "ThreatActor",
               name:            string(name),
@@ -68,7 +68,7 @@
               severity:        if confidence = null then "medium" else (if confidence >= 0.8 then "high" else if confidence >= 0.5 then "medium" else "low"),
               source:          "malak.bpmn.register",
               sensitivity_ord: 100,
-              owner_did:       "did:web:malak.gftd.ai",
+              owner_did:       "did:web:malak.etzhayyim.com",
               created_date:    substring(string(now()), 1, 10)
           }' target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
@@ -85,7 +85,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:malak.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:malak.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;malak.actor.created&quot;"   target="action"/>
           <zeebe:input source="={ actorId: derived.actorCode, name: string(name), threatInserted: threatInserted }" target="payload"/>
           <zeebe:output source="=emitted" target="auditEmitted"/>

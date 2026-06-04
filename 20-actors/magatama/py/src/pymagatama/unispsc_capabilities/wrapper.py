@@ -63,7 +63,7 @@ def _open_store(agent_did: str) -> Any | None:
             # Publish callback (best-effort) sends each observation to the AT
             # PDS so downstream mst-projector + ipfs-pinner + anchor-cron pick
             # it up — making the record public + IPFS-content-addressed +
-            # L2-anchored per ADR-2605231400 yatachain composition. If the
+            # L2-anchored per ADR-2605231400 kotoba-datomic composition. If the
             # PDS endpoint env is unset (or auth fails / network error) the
             # callback returns None and the store stays local-SQLite-only.
             from pymagatama.unispsc_capabilities.pds_publish import (

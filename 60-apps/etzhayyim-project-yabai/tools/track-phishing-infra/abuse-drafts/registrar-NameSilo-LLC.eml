@@ -1,0 +1,51 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@namesilo.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][Registrar] 23 phishing domains registered via NameSilo, LLC
+Date: Sun, 19 Apr 2026 11:22:51 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello NameSilo, LLC abuse team,
+
+We are reporting 23 domains registered through NameSilo, LLC
+that resolve to active phishing / typosquat infrastructure.
+
+Domains:
+account-whatsapp.com
+bq-line.me
+jw-line.me
+kc-line.me
+l1-line.me
+l2-line.me
+l3-line.me
+l6-line.me
+l7-line.me
+l9-line.me
+w1-line.me
+w5-line.me
+w6-line.me
+w8-line.me
+whaitsupp.com
+whateepp.com
+whatssapp.club
+whatstxopp.com
+whattsscpp.com
+whatttpp.com
+whaxxsupp.com
+whiatsapp.com
+whssitspp.com
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

@@ -7,8 +7,8 @@
  * Sources (no fabrication, G5; synthetic tiers excluded — see ingest_states_global.py):
  *   - 20-actors/ooyake/registry/gov-units.seed.edn          (proof-of-model chain + world tops)
  *   - 20-actors/ooyake/registry/gov-units.jp-central.seed.edn (JP 府省庁)
- *   - 60-apps/ai-gftd-project-states/data/gov/jpn/{prefecture,municipality}.ndjson
- *   - 60-apps/ai-gftd-project-states/data/gov/<cc>/municipality.ndjson  (real-named only)
+ *   - 60-apps/etzhayyim-project-states/data/gov/jpn/{prefecture,municipality}.ndjson
+ *   - 60-apps/etzhayyim-project-states/data/gov/<cc>/municipality.ndjson  (real-named only)
  *
  * Emits a compact array of {id,name,nameEn,level,jurisdiction,parent,url,sourcing}
  * to ./out/gov-units.json. Put into ACTOR_KV (key `gov-atlas:index`) with
@@ -24,7 +24,7 @@ import { dirname, resolve, join } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, "../../..");
 const OOYAKE = join(REPO, "20-actors/ooyake/registry");
-const STATES = join(REPO, "60-apps/ai-gftd-project-states/data/gov");
+const STATES = join(REPO, "60-apps/etzhayyim-project-states/data/gov");
 
 // ── tiny EDN reader (maps/vectors/strings/keywords/numbers/comments) ──────────
 function parseEdn(src) {
@@ -63,14 +63,20 @@ const byId = new Map();
 const put = (u) => { if (u && u.id && !byId.has(u.id)) byId.set(u.id, u); };
 
 // 1) ooyake EDN seeds (:units)
-for (const f of ["gov-units.seed.edn", "gov-units.jp-central.seed.edn"]) {
+// FULL committed atlas — every registry/gov-units*.edn (seeds + g20 / world-* /
+// oversight-* / adm1-* / intergov / capitals / hq-locations / …). The PUBLISHED index
+// conservatively marks ALL units :representative; only the Council bootstrap-attested
+// JP pref/city backbone is promoted :authoritative below (validate_atlas check #5).
+// (The committed EDN's :maintainer-verified/:authoritative tier is the registry record,
+// a distinct thing from what is published as authoritative.)
+for (const f of readdirSync(OOYAKE).filter((n) => /^gov-units.*\.edn$/.test(n)).sort()) {
   const doc = parseEdn(readFileSync(join(OOYAKE, f), "utf8"));
   for (const u of doc[":units"] || []) {
     put({
-      id: u[":gov.unit/id"], name: u[":gov.unit/name-local"], nameEn: u[":gov.unit/name-en"],
+      id: u[":gov.unit/id"], name: u[":gov.unit/name-local"] || u[":gov.unit/name-en"], nameEn: u[":gov.unit/name-en"],
       level: kw(u[":gov.unit/level"]), jurisdiction: u[":gov.unit/jurisdiction"],
       parent: u[":gov.unit/parent"] || null, url: u[":gov.unit/official-url"] || "",
-      sourcing: kw(u[":gov.unit/sourcing"]) || "representative",
+      sourcing: "representative",
     });
   }
 }
@@ -117,7 +123,7 @@ for (const u of units) bySourcing[u.sourcing] = (bySourcing[u.sourcing] || 0) + 
 const countries = new Set(units.map((u) => u.jurisdiction.split("-")[0])).size;
 const index = {
   graph: "gov-atlas-v1",
-  generatedFrom: "ooyake seeds + ai-gftd-project-states (real-named municipalities only; synthetic district/ministry/office/lea tiers excluded per G5)",
+  generatedFrom: "ooyake seeds + etzhayyim-project-states (real-named municipalities only; synthetic district/ministry/office/lea tiers excluded per G5)",
   adr: "2606021600",
   note: "All units :sourcing :representative / :unverified-seed (G5). Observational mirror + civic wayfinding — never the government, never a target-list (G3/G10).",
   count: units.length,

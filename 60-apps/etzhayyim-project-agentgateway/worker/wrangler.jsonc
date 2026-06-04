@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ai-gftd-agentgateway",
+  "name": "etzhayyim-agentgateway",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2024-12-20",
   "observability": {

@@ -13,7 +13,7 @@
     2. generic.audit.emit — record OCEL event (PII redacted, only intent +
        turn count emitted)
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/otakiage-agent-chat-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-agent-chat-v1
   NSID: com.etzhayyim.apps.otakiage.agentChat
 -->
 <bpmn:definitions
@@ -21,7 +21,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_otakiage_agent_chat"
-    targetNamespace="https://gftd.ai/bpmn/otakiage"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="otakiage_agent_chat" name="otakiage agentChat" isExecutable="true">
@@ -63,7 +63,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:otakiage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.agentChat&quot;" target="nsid"/>
           <zeebe:input source="={ threadId: threadId, intent: intent, llmCalls: llmCalls, actionCount: count(actions) }" target="payload"/>
         </zeebe:ioMapping>

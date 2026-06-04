@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — recommend (XRPC com.etzhayyim.apps.lifehack.recommend).
+  lifehack.etzhayyim.com — recommend (XRPC com.etzhayyim.apps.lifehack.recommend).
 
   Read-only synthesis: top tips for a topic, with attached product
   recommendations.  No DB write, no social post.
@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_recommend"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_recommend" name="lifehack recommend" isExecutable="true">
@@ -48,7 +48,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.recommend&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;topicId&quot;: topicId, &quot;tipsReturned&quot;: count(tips) }" target="attributes"/>
         </zeebe:ioMapping>

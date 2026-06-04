@@ -67,7 +67,7 @@
             "type": "string",
             "description": "G7 attestation: needs prediction generated via Murakumo only"
           },
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

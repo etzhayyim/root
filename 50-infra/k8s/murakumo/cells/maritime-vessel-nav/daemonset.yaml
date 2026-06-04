@@ -29,7 +29,7 @@ spec:
         - MaritimeVesselNavCell
         env:
         - name: ETZ_SUBSTRATE
-          value: yatachain
+          value: kotoba-datomic
         - name: ETZ_CELL_NAME
           value: MaritimeVesselNavCell
         - name: FLEET_TOML

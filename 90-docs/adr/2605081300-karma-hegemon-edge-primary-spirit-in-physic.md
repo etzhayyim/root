@@ -275,8 +275,8 @@ anatman (one cannot deny what was recorded).
 - `90-docs/adr/2604291800-well-becoming-spirit-objective-function.md` —
   Spirit-in-Physic separation healing rationale
 - `30-graph/graph-schema/migrations/20260508130000_vertex_karma_edge_primary.ts`
-- `60-apps/ai-gftd-project-karma/contracts/karma-anchor/src/KarmaAnchor.sol`
-- `60-apps/ai-gftd-project-karma/contracts/karma-anchor/src/RebirthVerifier.sol`
-- `60-apps/ai-gftd-project-karma/circuits/rebirth-non-linkability/circuit.circom`
+- `60-apps/etzhayyim-project-karma/contracts/karma-anchor/src/KarmaAnchor.sol`
+- `60-apps/etzhayyim-project-karma/contracts/karma-anchor/src/RebirthVerifier.sol`
+- `60-apps/etzhayyim-project-karma/circuits/rebirth-non-linkability/circuit.circom`
 - `deps.toml [[migrations]] karma-edge-primary-bringup-phase-k0`
 - `CLAUDE.md` Recent Completion: karma.etzhayyim.com (Phase K0 / K2 / K3)

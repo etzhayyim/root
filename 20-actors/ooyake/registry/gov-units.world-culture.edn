@@ -16,12 +16,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Information and Culture Afghanistan"
+   :gov.unit/official-url "https://moic.gov.af/"
    :gov.unit/wikidata "Q6867213"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867213"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moic.gov.af/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ago.culture"
@@ -31,12 +32,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Culture of Angola"
+   :gov.unit/official-url "https://mincult.gov.ao/"
    :gov.unit/wikidata "Q56350311"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56350311"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mincult.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.culture"
@@ -254,12 +256,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "Ministry of Arts and Culture of Cameroon"
+   :gov.unit/official-url "http://www.minac.gov.cm/index.php/en/"
    :gov.unit/wikidata "Q113468040"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q113468040"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.minac.gov.cm/index.php/en/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.culture"
@@ -285,12 +288,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Ministry of Culture and Creative Industries"
+   :gov.unit/official-url "https://www.governo.cv/governo/ministerios/ministro-da-cultura-e-industrias-criativas/"
    :gov.unit/wikidata "Q25445154"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25445154"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.governo.cv/governo/ministerios/ministro-da-cultura-e-industrias-criativas/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cub.culture"
@@ -492,12 +496,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "gmb"
    :gov.unit/name-en "Department of State for Tourism & Culture"
+   :gov.unit/official-url "https://motc.gov.gm/"
    :gov.unit/wikidata "Q1492921"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1492921"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://motc.gov.gm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.grc.culture"
@@ -539,12 +544,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Ministry of Culture of Honduras"
+   :gov.unit/official-url "https://secapph.gob.hn/"
    :gov.unit/wikidata "Q139373"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q139373"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://secapph.gob.hn/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.culture"
@@ -762,12 +768,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Internal Affairs, Wayamba Development and Cultural Affairs"
+   :gov.unit/official-url "https://mbrc.gov.lk/index.php/en/"
    :gov.unit/wikidata "Q18204427"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18204427"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mbrc.gov.lk/index.php/en/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.culture"
@@ -873,12 +880,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/official-url "https://www.moculture.gov.mm/"
    :gov.unit/wikidata "Q13073460"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q13073460"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moculture.gov.mm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mne.culture"
@@ -1032,12 +1040,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/official-url "https://heritage.pakistan.gov.pk/"
    :gov.unit/wikidata "Q6866719"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866719"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://heritage.pakistan.gov.pk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pan.culture"
@@ -1159,12 +1168,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/official-url "https://www.moc.gov.sa/"
    :gov.unit/wikidata "Q62102917"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q62102917"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moc.gov.sa/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.culture"
@@ -1413,12 +1423,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "uzb"
    :gov.unit/name-en "Ministry of Culture and Sports of the Republic of Uzbekistan"
+   :gov.unit/official-url "https://gov.uz/en/madaniyat"
    :gov.unit/wikidata "Q110121160"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q110121160"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.uz/en/madaniyat"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.vnm.culture"

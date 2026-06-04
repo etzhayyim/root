@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.maps.sensorAlert",
-  "description": "Sensor alert rule definition. One record per alert condition (e.g., 'fire-detector room-203 must report within 60s' / 'CO2 in room 408 > 1000 ppm'). The rule itself is witnessable Tier B; firing events emitted against the rule are high-frequency time-series and live in a yatachain-projection (Tier C, per OQ-M-5). Per maps CLAUDE.md §Sensor Intelligence + ADR-2605231400.",
+  "description": "Sensor alert rule definition. One record per alert condition (e.g., 'fire-detector room-203 must report within 60s' / 'CO2 in room 408 > 1000 ppm'). The rule itself is witnessable Tier B; firing events emitted against the rule are high-frequency time-series and live in a kotoba-datomic-projection (Tier C, per OQ-M-5). Per maps CLAUDE.md §Sensor Intelligence + ADR-2605231400.",
   "defs": {
     "main": {
       "type": "record",

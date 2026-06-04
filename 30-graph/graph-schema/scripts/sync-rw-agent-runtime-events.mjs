@@ -109,8 +109,8 @@ function buildRow({ proof, registration, rpcUrl }) {
 }
 
 async function upsertRow(row) {
-  const rwUrl = process.env.RW_URL || keychain("gftd.rw", "ROOT_URL");
-  if (!rwUrl) throw new Error("RW_URL missing and Keychain gftd.rw/ROOT_URL unavailable");
+  const rwUrl = process.env.RW_URL || keychain("etzhayyim.rw", "ROOT_URL");
+  if (!rwUrl) throw new Error("RW_URL missing and Keychain etzhayyim.rw/ROOT_URL unavailable");
   const client = new pg.Client({ connectionString: rwUrl });
   await client.connect();
   try {
@@ -127,8 +127,8 @@ async function upsertRow(row) {
 }
 
 async function status() {
-  const rwUrl = process.env.RW_URL || keychain("gftd.rw", "ROOT_URL");
-  if (!rwUrl) throw new Error("RW_URL missing and Keychain gftd.rw/ROOT_URL unavailable");
+  const rwUrl = process.env.RW_URL || keychain("etzhayyim.rw", "ROOT_URL");
+  if (!rwUrl) throw new Error("RW_URL missing and Keychain etzhayyim.rw/ROOT_URL unavailable");
   const client = new pg.Client({ connectionString: rwUrl });
   await client.connect();
   try {

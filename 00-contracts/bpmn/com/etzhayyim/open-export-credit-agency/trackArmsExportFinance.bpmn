@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_export_credit_agency_track_arms_export_finance"
-    targetNamespace="https://gftd.ai/bpmn/open-export-credit-agency"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-export-credit-agency"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_export_credit_agency_track_arms_export_finance" name="武器輸出 ECA 与信" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-export-credit-agency.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-export-credit-agency.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;finance.armsExport&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: ecaLei, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

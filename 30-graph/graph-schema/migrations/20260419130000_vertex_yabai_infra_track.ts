@@ -11,7 +11,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Source domains come from `vertex_yabai_entity WHERE entity_type='phishing_url'`
  * (entity_id like `url-*`). Local enrichment script
- * `60-apps/ai-gftd-project-yabai/tools/track-phishing-infra.mjs` populates it.
+ * `60-apps/etzhayyim-project-yabai/tools/track-phishing-infra.mjs` populates it.
  *
  * Probe layers:
  *   passive — DNS (A/AAAA/NS/MX/CNAME), WHOIS (registrar/created), Team Cymru

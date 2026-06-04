@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_legal_entity_ingest_sec_disclosure"
-    targetNamespace="https://gftd.ai/bpmn/legal-entity"
+    targetNamespace="https://etzhayyim.ai/bpmn/legal-entity"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="legal_entity_ingest_sec_disclosure" name="legal entity ingest SEC disclosure" isExecutable="true">
@@ -30,7 +30,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:legal-entity.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:legal-entity.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;legal-entity.ingestSecDisclosure&quot;" target="action"/>
           <zeebe:input source="={ ticker: ticker, cik: cik, result: result }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

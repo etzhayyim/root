@@ -10,7 +10,7 @@
  * scanning the E2E ledger (integer minor-unit math, no float). The substrate
  * never sees party identities or amounts in plaintext.
  *
- * The fiat merchant-of-record settlement rail EXECUTION stays gftd
+ * The fiat merchant-of-record settlement rail EXECUTION stays etzhayyim
  * (consent-capability) — not modeled here as a collection.
  */
 
@@ -211,7 +211,7 @@ export async function getTransfer(e: Etzhayyim, input: GetTransferInput): Promis
 /**
  * Confirmation workflow transition. Re-seals the E2E ledger entry at the same
  * rkey with an advanced status (precedent: air-cargo trackShipment). The fiat
- * settlement rail CALL stays gftd; this only advances the migrated ledger DATA.
+ * settlement rail CALL stays etzhayyim; this only advances the migrated ledger DATA.
  */
 export async function confirmTransfer(e: Etzhayyim, input: ConfirmTransferInput): Promise<ConfirmTransferOutput> {
   if (!input.transferRef) return { status: "rejected", error: "invalidTransferRef" };

@@ -47,7 +47,7 @@
             "items": {"type": "string"},
             "description": "Per-witness DID-bound signatures attesting presence"
           },
-          "yataChainAttestationCid": {"type": "string"}
+          "kotobaDatomicAttestationCid": {"type": "string"}
         }
       }
     }

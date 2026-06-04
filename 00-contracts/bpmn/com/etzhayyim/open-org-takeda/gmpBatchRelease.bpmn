@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_org_takeda_gmp_batch_release"
-    targetNamespace="https://gftd.ai/bpmn/open-org-takeda"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-org-takeda"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_org_takeda_gmp_batch_release" name="Takeda GMP batch release" isExecutable="true">
@@ -152,7 +152,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-org-takeda.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-org-takeda.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOrg.takeda.gmpBatch.release&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, siteId: siteId, productCode: productCode, batchNumber: batchNumber, riskTier: releaseRiskTier}" target="payload"/>
         </zeebe:ioMapping>
@@ -166,7 +166,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-org-takeda.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-org-takeda.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOrg.takeda.gmpBatch.hold&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, siteId: siteId, productCode: productCode, batchNumber: batchNumber, findings: readinessFindings}" target="payload"/>
         </zeebe:ioMapping>

@@ -22,7 +22,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -101,7 +101,7 @@ def agent_stop(agent_id: str, pds: str | None) -> None:
 def agent_run(prompt: str, pds: str | None, model: str, json_out: bool) -> None:
     """Start an agent run (full Pregel loop requires Go binary)."""
     click.echo(
-        "gftd agent run (full Pregel loop) requires the Go binary. Run: gftd agent run",
+        "etzhayyim agent run (full Pregel loop) requires the Go binary. Run: etzhayyim agent run",
         err=True,
     )
     sys.exit(1)
@@ -228,10 +228,10 @@ def agent_organism_publish(agent_did: str, dry_run: bool) -> None:
     did = agent_did or os.environ.get("AGENT_DID", "")
     if dry_run:
         click.echo(f"dry-run: would publish organism registration for DID={did or '—'}")
-        click.echo("Full ERC-8004 publish requires the Go binary: gftd agent organism publish")
+        click.echo("Full ERC-8004 publish requires the Go binary: etzhayyim agent organism publish")
         return
     click.echo(
-        "gftd agent organism publish (full Ethereum/IPFS flow) requires the Go binary.",
+        "etzhayyim agent organism publish (full Ethereum/IPFS flow) requires the Go binary.",
         err=True,
     )
     sys.exit(1)

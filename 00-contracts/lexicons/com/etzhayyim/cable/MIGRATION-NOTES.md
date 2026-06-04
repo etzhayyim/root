@@ -3,7 +3,7 @@
 **ADR-2606012600 · actor: watatsuna 綿津綱**
 
 The `com.etzhayyim.cable.*` namespace is the **kotoba-native** home for the world
-submarine-cable knowledge graph. It supersedes seven legacy `gftd`-namespaced lexicons
+submarine-cable knowledge graph. It supersedes seven legacy `etzhayyim`-namespaced lexicons
 that were authored against the (now-deprecated) RisingWave vertex/instanceKey model. The
 new lexicons assert into the **kotoba Datom log** (`txCid` + `datomCount`; ADR-2605312345),
 not a SQL vertex store, and carry **sourcing-honesty** (`:sourcing`) on every record.
@@ -45,5 +45,5 @@ never asserted here.
 
 - **R0 (this ADR)**: new lexicons authored; legacy lexicons **left in place** (no deletion)
   with this inventory as the SoT for the cutover. Per repo-root `CLAUDE.md` §Do-Not, the
-  legacy `gftd-` rename/removal executes as one atomic wave, not piecemeal.
+  legacy `etzhayyim-` rename/removal executes as one atomic wave, not piecemeal.
 - **R1+**: any live caller migrates to `com.etzhayyim.cable.*`; legacy lexicons then archived.

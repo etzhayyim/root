@@ -8,7 +8,7 @@ import { Kysely, sql } from 'kysely';
  * DDL now lives in this Kysely migration per graph-schema CLAUDE.md rule
  * "All database schema definitions live in this directory".
  *
- * Drives `gftd coverage world` — replaces the CLI's manual
+ * Drives `etzhayyim coverage world` — replaces the CLI's manual
  * `CountProfilesByRepoGrouped()` aggregation (world_coverage.go:2605) with
  * a single MV read.
  *

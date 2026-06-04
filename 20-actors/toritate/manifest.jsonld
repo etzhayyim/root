@@ -133,7 +133,7 @@
     "description": "12 immutable gates per ADR-2605262900. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan on every report",
-      "G2": "yatachain attestation lineage on every record",
+      "G2": "kotoba-datomic attestation lineage on every record",
       "G3": "100% on-chain transparency — no off-chain primary ledger",
       "G4": "USDC + Base L2 canonical SoT; fiat reporting derived projection only",
       "G5": "UPL-equivalent — no tax advice / accounting opinion (external counsel via Public Fund Council Lv6+)",

@@ -9,7 +9,7 @@ last_verified: 2026-06-01
 priority: 4.5
 axis: architecture
 weight: 0.45
-priority_note: "Makes etzhayyim.com show posts/follows by reading the kotoba Datom log (canonical state) instead of the superseded yatachain-projection."
+priority_note: "Makes etzhayyim.com show posts/follows by reading the kotoba Datom log (canonical state) instead of the superseded kotoba-datomic-projection."
 authoritative_for:
   - yoro-appview-feed-read-backend
   - yoro-social-kotoba-graph-schema
@@ -20,7 +20,7 @@ depends_on:
   - adr-2605311310-yoro-black-screen-spa-recursion-fix-and-ipfs-deploy-feasibility
 related:
   - "00-contracts/schemas/yoro-feed-ontology.kotoba.edn"
-  - "60-apps/ai-gftd-project-yoro/rw-free/src/kotoba.ts"
+  - "60-apps/etzhayyim-project-yoro/rw-free/src/kotoba.ts"
 supersedes: []
 superseded_by: []
 ---
@@ -40,12 +40,12 @@ shows **no posts and no following**. Empirical trace:
   and routes to the `yoro-xrpc-adapter` (service binding `YORO_XRPC`).
 - The adapter delegates to `@etzhayyim/yoro-rw-free`, whose feed reads
   (`getDiscoverFeed` / `getTimeline` / `getAuthorFeed`) hit the **single-actor
-  PDS MST + optional yatachain-projection** (`PROJECTION_DISCOVER_DID`, empty),
+  PDS MST + optional kotoba-datomic-projection** (`PROJECTION_DISCOVER_DID`, empty),
   and whose `getFollows` / `getFollowers` / `getProfile` / `getPostThread` /
   `searchActors` are **empty stubs**.
 - The canonical design (ADR-2605262130 + 2605312345) makes the **kotoba Datom
   log the first-class canonical state**, read via `kotoba-kqe`; the
-  yatachain-projection (ADR-2605231500) is **superseded**. The adapter never
+  kotoba-datomic-projection (ADR-2605231500) is **superseded**. The adapter never
   references kotoba, and no public kotoba endpoint exists.
 
 So the feed is empty because (a) the read path was never migrated to kotoba

@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-resolve',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-resolve',
                  'com.etzhayyim.apps.copyright.resolve',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-resolve']},
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-resolve']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -61,7 +61,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-list',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-list',
                  'com.etzhayyim.apps.copyright.list',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-list']},
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-list']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-coverage',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-coverage',
                  'com.etzhayyim.apps.copyright.coverage',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -110,7 +110,7 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-coverage']},
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-coverage']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -127,7 +127,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-ingestCrossref',
                  'com.etzhayyim.apps.copyright.ingestCrossref',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref']},
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-ingestCrossref']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-ingestDatacite',
                  'com.etzhayyim.apps.copyright.ingestDatacite',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -178,7 +178,7 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite']},
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-ingestDatacite']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -195,7 +195,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-socialCoverageReport',
                  'com.etzhayyim.apps.copyright.socialCoverageReport',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -215,7 +215,7 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport']},
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-socialCoverageReport']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -232,7 +232,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-chat',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-chat',
                  'com.etzhayyim.apps.copyright.chat',
                  'did:web:copyright.etzhayyim.com',
                  'copyright.etzhayyim.com',
@@ -253,22 +253,22 @@ UP = [{'sql': '\n'
                  'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-chat']}]
+                 'at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-chat']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-resolve']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-resolve']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-list']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-list']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-coverage']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-coverage']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-ingestCrossref']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-ingestDatacite']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-socialCoverageReport']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-chat']}]
+  'parameters': ['at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-copyright-chat']}]
 
 
 def upgrade() -> None:

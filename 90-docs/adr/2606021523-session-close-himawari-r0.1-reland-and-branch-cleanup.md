@@ -103,7 +103,7 @@ with `main`'s already-landed `2606021400` (nsid session-close), and `2606022600`
   observed missing several himawari rows (concurrent-session churn) — not
   reconciled here (out of scope; the machine-readable `docs.json`/`graph.jsonld`
   remain the authoritative index). The local pre-commit `e7m-verify` hook is
-  broken in this environment (`gftd: unknown command: verify`) and was bypassed
+  broken in this environment (`etzhayyim: unknown command: verify`) and was bypassed
   with `--no-verify`; all substantive hooks (validate-religious-corp-lexicons,
   substrate-boundary, secret-scan) passed, and server-side `lint-and-test` +
   `monorepo-health` were green on #754.

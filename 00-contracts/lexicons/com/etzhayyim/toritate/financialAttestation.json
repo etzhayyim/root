@@ -54,7 +54,7 @@
           },
           "charterRiderScanPass": {"type": "boolean"},
           "charterRiderScanRunCid": {"type": "string"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {
             "type": "string",
             "description": "DID of the toritate cell emitting this attestation"

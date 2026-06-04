@@ -2,7 +2,7 @@
  * site rw-free — barrel. Internet Clone Gateway product front: page/domain/topic
  * CATALOG metadata plaintext (sdk.write/read) + per-person followerEvent E2E
  * (sdk.encryptedWrite/Read, ADR-2605181100). The 100B WET/screenshot crawl
- * archive + crawl/embed/GPU inference stay gftd (cannot fit AT PDS) and are
+ * archive + crawl/embed/GPU inference stay etzhayyim (cannot fit AT PDS) and are
  * consumed via consent-capability.
  */
 export * from "./types.js";

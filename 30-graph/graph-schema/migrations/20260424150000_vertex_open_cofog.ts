@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * open-cofog Phase 1 — write NSID vertex tables (ADR-0056).
  *
  * Taxonomy itself (10 divisions / 65 groups / 96 classes) is static JSON
- * under `60-apps/ai-gftd-project-open-cofog/data/`. Write flow covers
+ * under `60-apps/etzhayyim-project-open-cofog/data/`. Write flow covers
  * relations to the taxonomy:
  *   vertex_open_cofog_expenditure  — gov spend tagged by COFOG class
  *   vertex_open_cofog_concordance  — crosswalk to other taxonomies (GFS/ESA2010)

@@ -44,12 +44,12 @@ In:
   `train.distill.run` / `train.eval.run` / `train.promote.checkpoint` の
   5 pyzeebe primitive
 - Vultr GPU pod (ADR-0068) を Zeebe worker target とした実行
-- Weight artifact の B2 永続化 (`gftd-training-data/v1/checkpoints/...`)
+- Weight artifact の B2 永続化 (`etzhayyim-training-data/v1/checkpoints/...`)
   と RisingWave 側 reference の分離
 
 Out:
 - 既に live な corpus export 経路 (`v_training_text` / `v_training_triple`
-  → B2 shard → HF Hub `etzhayyim/gftd-corpus`) — このまま train run の
+  → B2 shard → HF Hub `etzhayyim/etzhayyim-corpus`) — このまま train run の
   入力として使う。再設計しない
 - Hume distillation artifact (ADR-2604300135) — `vertex_ingest_artifact`
   に既に永続化されている。本 ADR はそれを **train run の入力と teacher
@@ -132,7 +132,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 
 ## 4. Weight artifact 永続化 (Hume と同型の 2-store)
 
-- **B2**: `gftd-training-data/v1/checkpoints/{run_id}/step-{NNNNNN}.safetensors`
+- **B2**: `etzhayyim-training-data/v1/checkpoints/{run_id}/step-{NNNNNN}.safetensors`
   + `tokenizer.json` + `training_args.json`。LoRA は adapter のみで数十 MB
   〜数百 MB、SFT 全 weight は数 GB。Hummock に置かない (ADR-2604261900 の
   hot-path DDL 回避と同じ理由で巨大 blob を OLAP に持たせない)
@@ -149,10 +149,10 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 
 ## 6. CLI / XRPC entry
 
-- `gftd training run --kind sft --base gemma-4-e4b-it --dataset gftd-corpus@latest`
+- `etzhayyim training run --kind sft --base gemma-4-e4b-it --dataset etzhayyim-corpus@latest`
   → bpmn-dispatcher ClusterIP `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.training.runSft`
-- `gftd training promote <checkpoint_id> --alias murakumo:gemma4-e4b-it`
-- `gftd training list-runs` / `list-checkpoints` / `eval <checkpoint_id>`
+- `etzhayyim training promote <checkpoint_id> --alias murakumo:gemma4-e4b-it`
+- `etzhayyim training list-runs` / `list-checkpoints` / `eval <checkpoint_id>`
 - 全 XRPC は ADR-2604282300 に従い T2 (BPMN-as-actor) で CF Worker を持たない
 
 # Rationale
@@ -177,7 +177,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 |---|---|---|---|
 | **本 ADR** (B2 + RW reference + BPMN actor) | B2 | RW vertex + edge | ✅ |
 | weight も RW (Hummock) に bytea で保存 | RW | RW | ❌ — Hummock 肥大、ADR-0048 教訓に反する |
-| 全部 HF Hub に投げて lineage も HF model card に書く | HF | HF | ❌ — repo の SSoT が外部依存になり、`gftd training list-runs` が SQL で答えられない |
+| 全部 HF Hub に投げて lineage も HF model card に書く | HF | HF | ❌ — repo の SSoT が外部依存になり、`etzhayyim training list-runs` が SQL で答えられない |
 | MLflow / W&B を立てる | 外部サーバー | 外部 | ❌ — 既存 RW + BPMN + Vultr GPU stack に追加運用コスト。Shannon η 低下 |
 | Hume ADR-2604300135 を train run にも流用 (`vertex_ingest_artifact` に全部) | B2 + RW (汎用) | RW (kind 列で識別) | △ — 短期は可、ただし `run` / `checkpoint` / `eval` の関係 (run → step → eval) を edge で表現できないので長期は専用 vertex が要る |
 
@@ -220,7 +220,7 @@ poll する形に変更する。
 - §3 GPU pod 用 helm 値 (`gpuEnabled` / `nvidia.com/gpu`) — **削除**。
   CPU pod は worker profile=training の薄い orchestrator として固定。GPU
   capacity 計画不要、idle 時 cost 0
-- §6 CLI — **無変更**。`gftd training run` の payload は同じで、PDS →
+- §6 CLI — **無変更**。`etzhayyim training run` の payload は同じで、PDS →
   bpmn-dispatcher → CPU worker → RunPod の経路に流れるだけ
 
 ## RunPod Serverless 構成
@@ -240,7 +240,7 @@ poll する形に変更する。
 ## CPU pod 側の責務 (refactor 後)
 
 ```
-gftd training run --kind sft ...
+etzhayyim training run --kind sft ...
   ↓ atproto.etzhayyim.com PDS
   ↓ bpmn-dispatcher (K8s ClusterIP)
   ↓ Zeebe service task → mitama-training-pool worker
@@ -275,7 +275,7 @@ gftd training run --kind sft ...
    torch CUDA wheel)。CPU pool image (`pymagatama:0.3.78+`) からは peft /
    accelerate を削除して image を軽くする
 2. Secret `training-runpod-creds` (`RUNPOD_API_KEY` + `RUNPOD_TRAINING_ENDPOINT_ID`)
-   を `mitama-udf` namespace に provision (Keychain `gftd.runpod` から)
+   を `mitama-udf` namespace に provision (Keychain `etzhayyim.runpod` から)
 3. `mitama-training-pool/values.yaml` の `gpuEnabled` flag と nvidia.com/gpu
    block を削除し、`runpod` env block を追加
 4. `task_train_sft_run` / `task_train_lora_run` / `task_train_distill_run` /
@@ -369,5 +369,5 @@ gftd training run --kind sft ...
 - `90-docs/adr/0036-worker-direct-hyperdrive-persistence.md`
 - `90-docs/adr/0044-risingwave-udf-language-strategy.md`
 - `90-docs/adr/2604282100-llm-bench-gemma4-default-self-hosted.md`
-- `90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md`
+- `90-docs/adr/2604292130-llm-etzhayyim-ai-runpod-pass.md`
 - `90-docs/adr/2605010000-runpod-6000ada-unified-pod.md`

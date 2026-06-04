@@ -49,7 +49,7 @@
             → End_Committed
 
   NSID:       com.etzhayyim.apps.jalcard.payoffRevolving
-  vertex_id:  at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/jalcard-payoff-revolving-v1
+  vertex_id:  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jalcard-payoff-revolving-v1
 
   CRITICAL safety invariants (root CLAUDE.md compliance):
    1. Credentials NEVER appear in BPMN variables — only valueRef strings ("vault://...").
@@ -68,7 +68,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jalcard_payoff_revolving"
-    targetNamespace="https://gftd.ai/bpmn/jalcard"
+    targetNamespace="https://etzhayyim.ai/bpmn/jalcard"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="jalcard_payoff_revolving" name="JAL カード 楽Pay 一括返済" isExecutable="true">
@@ -315,7 +315,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_jalcard_revolving_snapshot&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:    string join([&quot;at://did:web:jalcard.gftd.ai/com.etzhayyim.apps.jalcard.snapshot/snap-&quot;, string(processInstanceKey)], &quot;&quot;),
+              vertex_id:    string join([&quot;at://did:web:jalcard.etzhayyim.com/com.etzhayyim.apps.jalcard.snapshot/snap-&quot;, string(processInstanceKey)], &quot;&quot;),
               process_key:  string(processInstanceKey),
               actor_did:    callerDid,
               org_did:      orgDid,
@@ -326,7 +326,7 @@
               sensitivity_ord: 3
           }" target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
-          <zeebe:output source="=string join([&quot;at://did:web:jalcard.gftd.ai/com.etzhayyim.apps.jalcard.snapshot/snap-&quot;, string(processInstanceKey)], &quot;&quot;)" target="snapshotVertexId"/>
+          <zeebe:output source="=string join([&quot;at://did:web:jalcard.etzhayyim.com/com.etzhayyim.apps.jalcard.snapshot/snap-&quot;, string(processInstanceKey)], &quot;&quot;)" target="snapshotVertexId"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToPersistSnapshot</bpmn:incoming>
@@ -518,7 +518,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jalcard.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jalcard.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jalcard.payoff.canceled&quot;" target="action"/>
           <zeebe:input source="={
               processInstanceKey: string(processInstanceKey),
@@ -595,7 +595,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_jalcard_payoff_event&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:    string join([&quot;at://did:web:jalcard.gftd.ai/com.etzhayyim.apps.jalcard.payoffEvent/po-&quot;, string(processInstanceKey)], &quot;&quot;),
+              vertex_id:    string join([&quot;at://did:web:jalcard.etzhayyim.com/com.etzhayyim.apps.jalcard.payoffEvent/po-&quot;, string(processInstanceKey)], &quot;&quot;),
               process_key:  string(processInstanceKey),
               snapshot_vid: snapshotVertexId,
               actor_did:    callerDid,
@@ -609,7 +609,7 @@
               sensitivity_ord: 3
           }" target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
-          <zeebe:output source="=string join([&quot;at://did:web:jalcard.gftd.ai/com.etzhayyim.apps.jalcard.payoffEvent/po-&quot;, string(processInstanceKey)], &quot;&quot;)" target="payoffVertexId"/>
+          <zeebe:output source="=string join([&quot;at://did:web:jalcard.etzhayyim.com/com.etzhayyim.apps.jalcard.payoffEvent/po-&quot;, string(processInstanceKey)], &quot;&quot;)" target="payoffVertexId"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToPersistPayoff</bpmn:incoming>
@@ -621,7 +621,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jalcard.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jalcard.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jalcard.payoff.committed&quot;" target="action"/>
           <zeebe:input source="={
               processInstanceKey: string(processInstanceKey),

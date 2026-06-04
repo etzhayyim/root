@@ -12,7 +12,7 @@
           {
             "child": {
               "accessKey": "004d9f6c0ba12580000000003",
-              "bucket": "ai-gftd-nats",
+              "bucket": "etzhayyim-nats",
               "region": "us-west-004",
               "regionEndpoint": "https://s3.us-west-004.backblazeb2.com",
               "rootDirectory": "ipfs/blocks",

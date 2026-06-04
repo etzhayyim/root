@@ -58,7 +58,7 @@ A plain LangGraph checkpoint saver (memory or Postgres) only satisfies (1)–(2)
 | Cell can migrate between hosts without coordination | ❌ | ⚠️ | ✅ (IPFS-addressed state, anchor as ground truth) |
 | Compliant with ADR-2605172000 substrate boundary | ✅ (no state) | ❌ | ✅ |
 
-The MST + IPFS + L2 trio is also exactly the shape atproto uses for its repo (MST → CAR → optional anchor). Adopting an **atproto-compatible MST projection** means each organism cell is automatically compatible with atproto tooling (`@atproto/repo`, CAR readers, MST verifiers, ipld libraries), which the religious-corp open ecosystem already uses (`10-protocol/at-client`, `50-infra/k8s/atproto-pds`, `60-apps/ai-gftd-project-atproto`).
+The MST + IPFS + L2 trio is also exactly the shape atproto uses for its repo (MST → CAR → optional anchor). Adopting an **atproto-compatible MST projection** means each organism cell is automatically compatible with atproto tooling (`@atproto/repo`, CAR readers, MST verifiers, ipld libraries), which the religious-corp open ecosystem already uses (`10-protocol/at-client`, `50-infra/k8s/atproto-pds`, `60-apps/etzhayyim-project-atproto`).
 
 An earlier draft of this ADR routed all checkpoints through `PostgresSaver` first and projected to MST asynchronously. That draft was superseded by the present design before any reference impl landed, because ADR-2605172000 prohibits Postgres in this monorepo. The new design folds projection *into* the saver itself: `MstCheckpointSaver.put()` writes directly to the MST/IPFS layer via a TS sidecar (`@etzhayyim/sdk`) over a local Unix socket. The LangGraph hot path now has exactly one substrate hop instead of two.
 
@@ -401,7 +401,7 @@ This ADR is the **contract**, accompanied by Phase-1 scaffolds. Rollout is stage
 - [ ] **Phase 2 — wire end-to-end on Base sepolia.** Local kubo + sepolia anchor-cron + a single cell from `60-apps/organism-demo/`.
 - [ ] **Phase 3 — magatama host integration.** Host SDK passes `cell_did` into the saver constructor on every cell session start.
 - [ ] **Phase 4 — Base mainnet deploy.** Deploy `CheckpointAnchor.sol` on Base mainnet. Address recorded in `deps.toml` under `[platform.l2_anchor]`. Wallet funded.
-- [ ] **Phase 5 — first production cell.** A real cell from an `60-apps/ai-gftd-project-open-*` project opts into the pipeline. Monitor cost + latency for one week.
+- [ ] **Phase 5 — first production cell.** A real cell from an `60-apps/etzhayyim-project-open-*` project opts into the pipeline. Monitor cost + latency for one week.
 - [ ] **Phase 6 — IPFS infra scaffolded.** `50-infra/ipfs/` Kubo deployment (currently missing from layout in `CLAUDE.md`).
 - [ ] **Phase 7 — `lefthook.yml` `adr-validate` hook** ensures any ADR claiming `authoritative_for` overlapping this one is properly chained via `supersedes`, plus IPC schema parity check (Python msgpack codec ↔ TS msgpack codec).
 

@@ -15,7 +15,7 @@ related:
   - adr-2604231811-atproto-extension-service-layers
   - adr-0022-auth-topology-consolidation
   - adr-0023-auth-shannon-optimal-4-layer
-  - adr-0029-did-gftd-method-specification
+  - adr-0029-did-etzhayyim-method-specification
 supersedes: []
 superseded_by: []
 ---
@@ -38,7 +38,7 @@ superseded_by: []
 NSID 向け XRPC (`/xrpc/com.etzhayyim.apps.<app>.*`) を serve しているにも関わらず、
 DID Doc を読んだ client はその事実を知る方法がない。現状 discovery は:
 
-- DNS 経由 (`<handle>.etzhayyim.com` に直接リクエスト) — 内部ツール / `gftd xrpc` のみ
+- DNS 経由 (`<handle>.etzhayyim.com` に直接リクエスト) — 内部ツール / `etzhayyim xrpc` のみ
 - PDS pipethrough 経由 (`atproto.etzhayyim.com/xrpc/<nsid>` → routing-gateway → 各 actor) — 暗黙
 
 のどちらかに頼っていて、**AT Protocol spec のネイティブな discovery チャネル
@@ -84,7 +84,7 @@ DID Doc に明示される** べきである (既に前会話でユーザーと�
 
 ```json
 {
-  "id": "#gftd_actor",
+  "id": "#etzhayyim_actor",
   "type": "etzhayyimActor",
   "serviceEndpoint": "https://<self-hostname>"
 }
@@ -95,7 +95,7 @@ DID Doc に明示される** べきである (既に前会話でユーザーと�
 | 要素 | 値 | 根拠 |
 |---|---|---|
 | **service type** | `etzhayyimActor` | PascalCase (spec convention: `BskyChatService`, `AtprotoPersonalDataServer`, `BskyAppView`)。簡潔で namespace と一致 |
-| **fragment id** | `#gftd_actor` | snake_case underscore (spec convention: `#bsky_chat`, `#atproto_pds`)。`Atproto-Proxy` header の参照 key |
+| **fragment id** | `#etzhayyim_actor` | snake_case underscore (spec convention: `#bsky_chat`, `#atproto_pds`)。`Atproto-Proxy` header の参照 key |
 | **serviceEndpoint** | `https://<own-host>` (scheme + host only, no path) | spec convention。`/xrpc/*` / `/mcp` は type から暗黙 |
 
 Root actor 例:
@@ -110,7 +110,7 @@ Root actor 例:
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://atproto.etzhayyim.com" },
-    { "id": "#gftd_actor", "type": "etzhayyimActor",
+    { "id": "#etzhayyim_actor", "type": "etzhayyimActor",
       "serviceEndpoint": "https://mangaka.etzhayyim.com" }
   ]
 }
@@ -126,7 +126,7 @@ Path-form sub-actor (ADR-0019 / ADR-0029 準拠):
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://atproto.etzhayyim.com" },
-    { "id": "#gftd_actor", "type": "etzhayyimActor",
+    { "id": "#etzhayyim_actor", "type": "etzhayyimActor",
       "serviceEndpoint": "https://mangaka.etzhayyim.com" }
   ]
 }
@@ -138,8 +138,8 @@ sub-actor は独立 Worker を持たないため parent の NSID dispatcher が�
 ## Client routing semantics
 
 1. **DNS direct (既存路、継続)**: client が `https://mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.foo` を直接叩く
-2. **PDS pipethrough (既存路、継続)**: client が PDS に `Atproto-Proxy: did:web:mangaka.etzhayyim.com#gftd_actor` header 付きで送信 → PDS が DID Doc resolve → service endpoint 発見 → routing-gateway 経由で forward
-3. **DID Doc discovery (新規)**: client が `did:web:mangaka.etzhayyim.com` を直接 resolve → `service[].type=etzhayyimActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に gftd actor へ到達できる最小経路
+2. **PDS pipethrough (既存路、継続)**: client が PDS に `Atproto-Proxy: did:web:mangaka.etzhayyim.com#etzhayyim_actor` header 付きで送信 → PDS が DID Doc resolve → service endpoint 発見 → routing-gateway 経由で forward
+3. **DID Doc discovery (新規)**: client が `did:web:mangaka.etzhayyim.com` を直接 resolve → `service[].type=etzhayyimActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に etzhayyim actor へ到達できる最小経路
 
 # Implementation Plan
 
@@ -159,7 +159,7 @@ service: [
     ...(appVersion ? { version: appVersion } : {}),
   },
   {
-    id: `${appDID}#gftd_actor`, type: "etzhayyimActor",
+    id: `${appDID}#etzhayyim_actor`, type: "etzhayyimActor",
     serviceEndpoint: `https://${hostname}`,
   },
 ],
@@ -170,7 +170,7 @@ service: [
 ## I2. `50-infra/cloudflare/workers/atproto/src/app.ts` (canonical fallback)
 
 `app.get("/.well-known/did.json", ...)` (line 667-719) を拡張。`isPds` の場合は
-`etzhayyimActor` entry は不要 (PDS 自身は gftd actor ではない)。per-actor 用 DID Doc を
+`etzhayyimActor` entry は不要 (PDS 自身は etzhayyim actor ではない)。per-actor 用 DID Doc を
 atproto Worker が serve するケース (DNS 直打ち failback) では entry を足す:
 
 ```ts
@@ -180,7 +180,7 @@ service: [
   ...(isPds
     ? [{ id: "#atprotoLabeler", type: "AtprotoLabeler",
          serviceEndpoint: "https://atproto.etzhayyim.com" }]
-    : [{ id: "#gftd_actor", type: "etzhayyimActor",
+    : [{ id: "#etzhayyim_actor", type: "etzhayyimActor",
          serviceEndpoint: `https://${hostname}` }]),
 ],
 ```
@@ -213,7 +213,7 @@ curl -s https://mangaka.etzhayyim.com/.well-known/did.json | jq '.service'
 # [
 #   { "id": "did:web:mangaka.etzhayyim.com#atproto-pds", "type": "AtprotoPersonalDataServer",
 #     "serviceEndpoint": "https://atproto.etzhayyim.com" },
-#   { "id": "did:web:mangaka.etzhayyim.com#gftd_actor", "type": "etzhayyimActor",
+#   { "id": "did:web:mangaka.etzhayyim.com#etzhayyim_actor", "type": "etzhayyimActor",
 #     "serviceEndpoint": "https://mangaka.etzhayyim.com" }
 # ]
 
@@ -232,7 +232,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
   service endpoint の位置が明確に分かる。将来の federation 拡張 (ADR-2604231811
   の extension layer taxonomy と組み合わせ) の foundation
 - **`Atproto-Proxy` header flow の正統化**: 既存の PDS pipethrough 実装が spec 規約
-  に完全準拠する。`Atproto-Proxy: did:web:mangaka.etzhayyim.com#gftd_actor` が意味を持つ
+  に完全準拠する。`Atproto-Proxy: did:web:mangaka.etzhayyim.com#etzhayyim_actor` が意味を持つ
 - **ADR-2604231800 との相補性**: permission-set で "which NSID can be called" を
   discovery できたのに対し、本 ADR は "where to call them" を discovery できる。
   2 つ合わせて **認可 (what) + routing (where)** の discovery が spec-native に閉じる
@@ -242,7 +242,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 
 - **DID Doc サイズ微増**: `service[]` に 1 entry 追加 (~100 bytes)。90+ actor 分
   キャッシュで考えても誤差レベル
-- **service type 命名の先取り**: 将来 atproto spec が公式に gftd 的 custom service
+- **service type 命名の先取り**: 将来 atproto spec が公式に etzhayyim 的 custom service
   type を標準化した場合、`etzhayyimActor` は独自名のまま。ただし DID Doc の `service[]`
   は multiple entry 可なので、将来標準 type が出たら追加すれば済む
 - **Path-form DID の `serviceEndpoint` 解釈**: sub-actor が parent host を指すという
@@ -281,7 +281,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
   すべて同 host から serve されるので、type を分けても `serviceEndpoint` は全部
   同じ値。分離の実利なし。将来 endpoint が物理分離した時に追加すれば済む。**却下**
 
-## A4. DID Doc ではなく独自 `.well-known/gftd-actor.json` を serve
+## A4. DID Doc ではなく独自 `.well-known/etzhayyim-actor.json` を serve
 
 - pros: 自由な schema 設計
 - cons: AT Protocol spec は service discovery を DID Doc 経由に統一しているので、
@@ -324,7 +324,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 - `adr-0022-auth-topology-consolidation` — 2-token model。`Atproto-Proxy` header に
   乗せる Service Auth JWT の source
 - `adr-0023-auth-shannon-optimal-4-layer` — did:web multi-key rotation, routing-gateway
-- `adr-0029-did-gftd-method-specification` — did:gftd method spec。DID Doc の上位構造
+- `adr-0029-did-etzhayyim-method-specification` — did:etzhayyim method spec。DID Doc の上位構造
   convention の source
 
 ## 実装 citations (本 ADR 実装時に touch する)

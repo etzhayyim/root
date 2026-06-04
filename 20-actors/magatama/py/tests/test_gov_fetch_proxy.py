@@ -55,7 +55,7 @@ def test_proxy_fetch_hash_signs_get_payload(monkeypatch: Any) -> None:
     assert content_hash == hashlib.md5(b"<title>Gov</title>").hexdigest()
     assert text == "Gov"
     assert "url=https%3A%2F%2Fwww.example.gov%2F" in seen["url"]
-    assert seen["headers"]["X-gftd-gov-fetch-auth"] == expected
+    assert seen["headers"]["X-etzhayyim-gov-fetch-auth"] == expected
     assert seen["timeout"] == 7
 
 

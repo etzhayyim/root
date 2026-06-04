@@ -11,7 +11,7 @@ kubectl apply -k 50-infra/k8s/buildkit
 70-tools/scripts/buildkit/setup-buildx-k8s.sh
 ```
 
-The setup script creates a local buildx builder named `gftd-vke` that runs
+The setup script creates a local buildx builder named `etzhayyim-vke` that runs
 BuildKit pods in the `buildkit` namespace.
 
 ## Build
@@ -23,7 +23,7 @@ BuildKit pods in the `buildkit` namespace.
   --dockerfile 20-actors/magatama/py/Dockerfile
 ```
 
-The wrapper uses the remote `gftd-vke` builder, targets `linux/amd64`, and
+The wrapper uses the remote `etzhayyim-vke` builder, targets `linux/amd64`, and
 imports/exports registry cache by default:
 
 ```sh
@@ -55,7 +55,7 @@ IMAGE_TAG="$(git rev-parse --short HEAD)-amd64" \
 
 Useful environment overrides:
 
-- `BUILDKIT_BUILDER`: buildx builder name, default `gftd-vke`
+- `BUILDKIT_BUILDER`: buildx builder name, default `etzhayyim-vke`
 - `BUILDKIT_NAMESPACE`: Kubernetes namespace, default `buildkit`
 - `BUILDKIT_PLATFORM`: target platform, default `linux/amd64`
 - `BUILDKIT_CACHE_REF`: registry cache ref, default
@@ -66,7 +66,7 @@ Useful environment overrides:
 
 Do not create BuildKit resources in the Kubernetes `default` namespace.
 Do not use local `docker build` for VKE-targeted images from Mac hosts.
-Do not use OrbStack/Rosetta as a fallback for deploy builds. If `gftd-vke` is
+Do not use OrbStack/Rosetta as a fallback for deploy builds. If `etzhayyim-vke` is
 unavailable, repair the remote builder or stop the deploy instead of switching
 to a local builder.
 
@@ -77,5 +77,5 @@ docker buildx ls
 kubectl get pods -n buildkit -o wide
 ```
 
-Expected: `gftd-vke` uses the `kubernetes` driver and BuildKit pods are
+Expected: `etzhayyim-vke` uses the `kubernetes` driver and BuildKit pods are
 `Running` in the `buildkit` namespace.

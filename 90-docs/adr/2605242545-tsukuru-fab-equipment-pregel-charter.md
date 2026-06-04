@@ -133,7 +133,7 @@ class SiliconProcessCell:
         ...
 ```
 
-cell 間 message-passing は **MST PUT** (per ADR-2605231902 yatachain §4 membrane の "feed-post" pattern を fab 工程に応用) + **libp2p direct stream** (high-throughput telemetry 用) の二重経路:
+cell 間 message-passing は **MST PUT** (per ADR-2605231902 kotoba-datomic §4 membrane の "feed-post" pattern を fab 工程に応用) + **libp2p direct stream** (high-throughput telemetry 用) の二重経路:
 
 - MST PUT = 工程完了の append-only record (audit trail)
 - libp2p stream = real-time telemetry (秒間 100 fps の sensor stream を MST に書くと storage 破綻)
@@ -160,7 +160,7 @@ iwakura/fuigo と同一の方針 (ADR-2605242515 §Phase 1):
 
 - GitHub `etzhayyim/root` 配下 (本 monorepo) に commit
 - IPFS pin (`com.etzhayyim.substrate.datasetPin` Lexicon per ADR-2605241500)
-- yatachain witness attestation (Charter Rider scanner pass)
+- kotoba-datomic witness attestation (Charter Rider scanner pass)
 
 これにより:
 
@@ -236,7 +236,7 @@ Lexicons:
 └── waferLotAttestation.json            # wafer lot の per-step attestation
 ```
 
-ADR-2605231902 yatachain §4 membrane を踏襲するなら、fab 工程の **silen-membrane** + **wafer-lot projection** が将来必要 — それは Phase 2 (装置 RTL が固まった後) の別 ADR で。
+ADR-2605231902 kotoba-datomic §4 membrane を踏襲するなら、fab 工程の **silen-membrane** + **wafer-lot projection** が将来必要 — それは Phase 2 (装置 RTL が固まった後) の別 ADR で。
 
 ## Decision 7 — 装置設計 wave の前提順序
 
@@ -255,7 +255,7 @@ ADR-2605231902 yatachain §4 membrane を踏襲するなら、fab 工程の **si
 ## Positive
 
 - ADR-2605192315 transparent force の精神が silicon supply chain に物理的に拡張される
-- 8 cell ×Pregel super-step model は fab 全体を yatachain で attestation 可能にする
+- 8 cell ×Pregel super-step model は fab 全体を kotoba-datomic で attestation 可能にする
 - `silicon_test` (ternary-aware ATE) は iwakura/fuigo bring-up を独立化 (Advantest 依存ゼロ)
 - 公開 reference design は宗教法人 / 大学 / 地域共同体への教育素材としても valuable
 - tsukuru ISIC C26 lane が semiconductor で具体化 (ADR-0061 EUV update の自然延長)
@@ -316,6 +316,6 @@ ADR-2605231902 yatachain §4 membrane を踏襲するなら、fab 工程の **si
 - ADR-2605192200 etzhayyim IP-free + Charter Rider v2.0
 - ADR-2605192415 etzhayyim religious-corp daemon (Pregel cell catalog)
 - ADR-0061 Tsukuru ISIC BPMN Actors (EUV lane の自然延長)
-- ADR-2605231902 feed-post membrane + projection (yatachain §4 membrane の fab 工程応用元)
+- ADR-2605231902 feed-post membrane + projection (kotoba-datomic §4 membrane の fab 工程応用元)
 - 半導体製造工程 reference (ユーザ提示 2026-05-24)
 - OpenLane, KiCad, FreeCAD, OpenSCAD, ROS 2, yosys, SymbiYosys, Verilator, cocotb (open-source toolchain refs)

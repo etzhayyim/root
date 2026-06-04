@@ -79,7 +79,7 @@ distinct from `drift`. Stale-marker check catches markers that should
 be dropped.
 
 **Why two markers**: `(reserved)` is generic future-impl;
-`(deferred-rename)` is specific to the gftd→etzhayyim rename invariant.
+`(deferred-rename)` is specific to the etzhayyim→etzhayyim rename invariant.
 Two markers > arbitrary token because operators can't bypass the audit
 by writing `(skip)` or `(later)` — only specific intent-encoded tokens
 are accepted.

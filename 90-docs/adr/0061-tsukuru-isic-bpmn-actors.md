@@ -38,14 +38,14 @@ root and pair each actor with one BPMN process in
 `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/tsukuru/`.
 
 The authoritative catalog is the shared module
-`60-apps/ai-gftd-project-tsukuru/appview/tsukuru-tsukr8u0/src/isic-industry-actors.mjs`.
+`60-apps/etzhayyim-project-tsukuru/appview/tsukuru-tsukr8u0/src/isic-industry-actors.mjs`.
 From that catalog we derive:
 
 - `20-actors/tsukuru/actor-manifest.jsonld` `actors[]` publication entries
 - tsukuru public XRPC queries:
   - `com.etzhayyim.apps.tsukuru.industryActor.getIndustryActor`
   - `com.etzhayyim.apps.tsukuru.industryActor.listIndustryActors`
-- `60-apps/ai-gftd-project-tsukuru/scripts/register-isic-industry-actors.mjs`
+- `60-apps/etzhayyim-project-tsukuru/scripts/register-isic-industry-actors.mjs`
 - one BPMN process per ISIC section
 
 # Design
@@ -141,4 +141,4 @@ This complements the static gates:
 - `pnpm --silent lint:bpmn:coverage:json`
 - `pnpm --silent lint:bpmn:worker-tasks:json`
 - `pnpm lint:nsid:exists`
-- `pnpm exec vitest run 60-apps/ai-gftd-project-tsukuru/appview/tsukuru-tsukr8u0/src/app.test.ts`
+- `pnpm exec vitest run 60-apps/etzhayyim-project-tsukuru/appview/tsukuru-tsukr8u0/src/app.test.ts`

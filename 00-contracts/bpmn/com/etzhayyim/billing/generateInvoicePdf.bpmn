@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_billing_generate_invoice_pdf"
-    targetNamespace="https://gftd.ai/bpmn/billing"
+    targetNamespace="https://etzhayyim.ai/bpmn/billing"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="billing_generate_invoice_pdf" name="billing generate invoice PDF" isExecutable="true">

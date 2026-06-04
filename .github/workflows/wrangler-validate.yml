@@ -48,5 +48,5 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile || pnpm install
       - name: wrangler deploy --dry-run
-        working-directory: 60-apps/ai-gftd-project-${{ matrix.actor }}/xrpc-adapter
+        working-directory: 60-apps/etzhayyim-project-${{ matrix.actor }}/xrpc-adapter
         run: wrangler deploy --dry-run --outdir=/tmp/wrangler-out

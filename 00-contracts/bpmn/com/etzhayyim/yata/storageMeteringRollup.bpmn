@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  yatabase.gftd.ai — storage metering rollup (autonomous, R/PT1H).
+  yatabase.etzhayyim.com — storage metering rollup (autonomous, R/PT1H).
 
   Pipeline:
     1. yata.storage.metering.rollup    SELECT mv_yata_storage_by_org +
@@ -20,7 +20,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_storage_metering_rollup"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_storage_metering_rollup" name="yata storage metering rollup (hourly)" isExecutable="true">
@@ -49,7 +49,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yatabase.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.yata.storageMeteringRollup&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;eventsEmitted&quot;: eventsEmitted, &quot;totalBytesHour&quot;: totalBytesHour }" target="attributes"/>
         </zeebe:ioMapping>

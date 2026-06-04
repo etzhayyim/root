@@ -425,12 +425,12 @@
                   "type": "object",
                   "properties": {
                     "subject": {
-                      "$ref": "#/components/schemas/ai_gftd_yoro_actor_getProfile_defs_profileViewDetailed"
+                      "$ref": "#/components/schemas/ai_etzhayyim_yoro_actor_getProfile_defs_profileViewDetailed"
                     },
                     "followers": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_yoro_actor_getProfile_defs_profileViewDetailed"
+                        "$ref": "#/components/schemas/ai_etzhayyim_yoro_actor_getProfile_defs_profileViewDetailed"
                       }
                     },
                     "cursor": {
@@ -493,12 +493,12 @@
                   "type": "object",
                   "properties": {
                     "subject": {
-                      "$ref": "#/components/schemas/ai_gftd_yoro_actor_getProfile_defs_profileViewDetailed"
+                      "$ref": "#/components/schemas/ai_etzhayyim_yoro_actor_getProfile_defs_profileViewDetailed"
                     },
                     "follows": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_yoro_actor_getProfile_defs_profileViewDetailed"
+                        "$ref": "#/components/schemas/ai_etzhayyim_yoro_actor_getProfile_defs_profileViewDetailed"
                       }
                     },
                     "cursor": {
@@ -567,7 +567,7 @@
                     "feed": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_yoro_getTimeline_defs_feedViewPost"
+                        "$ref": "#/components/schemas/ai_etzhayyim_yoro_getTimeline_defs_feedViewPost"
                       }
                     },
                     "cursor": {
@@ -625,7 +625,7 @@
                     "feed": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_yoro_getTimeline_defs_feedViewPost"
+                        "$ref": "#/components/schemas/ai_etzhayyim_yoro_getTimeline_defs_feedViewPost"
                       }
                     },
                     "cursor": {
@@ -707,7 +707,7 @@
     },
     "/xrpc/com.etzhayyim.yoro.feed.getRankedFeed": {
       "get": {
-        "summary": "5-theory ranked feed (Shannon + Bayes + Graph PPR + TDA + Joucho emotion). Well-becoming guardrails (PII Tier 3, cohort k>=50, stress/doom-scroll) are enforced on the hot path. Falls back to com.etzhayyim.yoro.feed.getDiscoverFeed on MV unavailability. See /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md.",
+        "summary": "5-theory ranked feed (Shannon + Bayes + Graph PPR + TDA + Joucho emotion). Well-becoming guardrails (PII Tier 3, cohort k>=50, stress/doom-scroll) are enforced on the hot path. Falls back to com.etzhayyim.yoro.feed.getDiscoverFeed on MV unavailability. See /root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md.",
         "operationId": "com.etzhayyim.yoro.feed.getRankedFeed",
         "parameters": [
           {
@@ -790,7 +790,7 @@
                     "feed": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_yoro_getTimeline_defs_feedViewPost"
+                        "$ref": "#/components/schemas/ai_etzhayyim_yoro_getTimeline_defs_feedViewPost"
                       }
                     },
                     "cursor": {
@@ -973,7 +973,7 @@
                     "actors": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_yoro_getProfile_defs_profileViewDetailed"
+                        "$ref": "#/components/schemas/ai_etzhayyim_yoro_getProfile_defs_profileViewDetailed"
                       }
                     },
                     "cursor": {
@@ -1162,7 +1162,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_yoro_activitySeen": {
+      "ai_etzhayyim_yoro_activitySeen": {
         "type": "object",
         "properties": {
           "seenAt": {
@@ -1173,7 +1173,7 @@
           "seenAt"
         ]
       },
-      "ai_gftd_yoro_productResearch": {
+      "ai_etzhayyim_yoro_productResearch": {
         "type": "object",
         "properties": {
           "query": {
@@ -1222,7 +1222,7 @@
           "jobId"
         ]
       },
-      "ai_gftd_yoro_projectEntity": {
+      "ai_etzhayyim_yoro_projectEntity": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -1241,7 +1241,7 @@
           "entityId"
         ]
       },
-      "ai_gftd_yoro_shinkaEvolution": {
+      "ai_etzhayyim_yoro_shinkaEvolution": {
         "type": "object",
         "properties": {
           "nanoid": {
@@ -1254,7 +1254,7 @@
           "evolutionData"
         ]
       },
-      "ai_gftd_yoro_shinkaKnowledge": {
+      "ai_etzhayyim_yoro_shinkaKnowledge": {
         "type": "object",
         "properties": {
           "nanoid": {

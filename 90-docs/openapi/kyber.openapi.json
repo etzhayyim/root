@@ -1324,7 +1324,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_kyber_inbox_calendarSignal": {
+      "ai_etzhayyim_kyber_inbox_calendarSignal": {
         "type": "object",
         "properties": {
           "eventIdHash": {
@@ -1423,7 +1423,7 @@
           "signalClass"
         ]
       },
-      "ai_gftd_kyber_inbox_documentSignal": {
+      "ai_etzhayyim_kyber_inbox_documentSignal": {
         "type": "object",
         "properties": {
           "driveItemIdHash": {
@@ -1537,7 +1537,7 @@
           "signalClass"
         ]
       },
-      "ai_gftd_kyber_inbox_emailSignal": {
+      "ai_etzhayyim_kyber_inbox_emailSignal": {
         "type": "object",
         "properties": {
           "messageIdHash": {

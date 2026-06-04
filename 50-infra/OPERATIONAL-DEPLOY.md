@@ -412,13 +412,13 @@ Once the pipeline is live, exercise it by seeding the first rw-free actor's taxo
 
 ```bash
 # open-isco (525 occupations) — already on main, requires ETZ_SEEDER_DID + PDS auth
-cd /path/to/etzhayyim-root/60-apps/ai-gftd-project-open-isco/rw-free
+cd /path/to/etzhayyim-root/60-apps/etzhayyim-project-open-isco/rw-free
 pnpm install
 ETZ_SEEDER_DID="did:web:etzhayyim.com" \
   pnpm seed data/isco08.sample.json   # 5-record smoke
 
 # open-isic (428 classes) — second rw-free actor
-cd ../../ai-gftd-project-open-isic/rw-free
+cd ../../etzhayyim-project-open-isic/rw-free
 pnpm install
 ETZ_SEEDER_DID="did:web:etzhayyim.com" \
   pnpm seed --only=2520               # weapons manufacturing (single-record smoke)

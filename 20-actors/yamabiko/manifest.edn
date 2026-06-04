@@ -16,7 +16,7 @@
 
  :actor/gates
  [{:gate/id "G1"  :gate/name "open-source-firmware-atp-ato"     :gate/rule "ATP/ATO/traction firmware Apache 2.0 + Charter Rider; no proprietary signalling NDA (N5)"}
-  {:gate/id "G2"  :gate/name "per-trainset-registry"             :gate/rule "Per-trainset DID + yatachain anchor + open trainset registry"}
+  {:gate/id "G2"  :gate/name "per-trainset-registry"             :gate/rule "Per-trainset DID + kotoba-datomic anchor + open trainset registry"}
   {:gate/id "G4"  :gate/name "robot-witness-quorum"              :gate/rule "≥2 robot witness per FSW + bogie marriage (Tsugite + Wadasa minimum quorum)"}
   {:gate/id "G7"  :gate/name "propulsion-phase-in"               :gate/rule "R0/R1 BEMU + H₂ acceptable; R2+ full electrification + H₂/NH₃ only (diesel phased out)"}
   {:gate/id "G8"  :gate/name "noise-emc-compliance"              :gate/rule "ISO 3095 wayside noise + 騒音規制法 + IEC 62236 EMC before homologation"}

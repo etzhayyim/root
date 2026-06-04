@@ -247,7 +247,7 @@ def fetch_gleif_lei_record(lei: str) -> dict[str, Any] | None:
     url = f"{base}/{urllib.parse.quote(lei)}"
     headers = {
         "Accept": "application/vnd.api+json, application/json",
-        "User-Agent": os.environ.get("INTEL_GLEIF_USER_AGENT", "gftd-intel-resolver/1.0"),
+        "User-Agent": os.environ.get("INTEL_GLEIF_USER_AGENT", "etzhayyim-intel-resolver/1.0"),
     }
     req = urllib.request.Request(url, headers=headers, method="GET")
     timeout = float(os.environ.get("INTEL_GLEIF_TIMEOUT_SEC", "8"))

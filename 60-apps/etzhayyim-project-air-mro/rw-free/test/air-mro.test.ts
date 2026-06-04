@@ -107,7 +107,7 @@ describe("air-mro rw-free (maximal migration: plaintext ops + E2E confidential)"
     });
   });
 
-  describe("sparePartOrder (E2E procurement ledger; fiat settlement stays gftd)", () => {
+  describe("sparePartOrder (E2E procurement ledger; fiat settlement stays etzhayyim)", () => {
     it("seals ledger entry, validates quantity + decimal money, round-trips, filters by supplier", async () => {
       const ok = await orderSparePart(e, { orderId: "ORD-1", partNumber: "PN-100", supplierDid: "did:web:sup.example", quantity: 2, unitPriceUsd: "4250.00", lineValueUsd: "8500.00" });
       expect(ok.status).toBe("recorded");

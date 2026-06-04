@@ -1,4 +1,4 @@
--- ai-gftd-project-hatsubai (発売) — console publishing pipeline schema.
+-- etzhayyim-project-hatsubai (発売) — console publishing pipeline schema.
 --
 -- One actor (`hatsubai.etzhayyim.com`) covers the partner / cert / submission
 -- pipeline shared by Nintendo Switch 2, PlayStation 5, Xbox Series X|S

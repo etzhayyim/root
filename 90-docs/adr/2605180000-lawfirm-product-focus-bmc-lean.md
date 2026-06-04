@@ -284,9 +284,9 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 - `90-docs/adr/0079-lawfirm-india-intake-auto-route.md` — India routing 実装
 - `90-docs/adr/0016-legal-cluster-topology.md` — 法務クラスター設計
 - `90-docs/adr/2605072300-open-source-cloud-business-model.md` — OSS収益モデル (参考)
-- `60-apps/ai-gftd-project-lawfirm/CLAUDE.md` — lawfirm 実装詳細
-- `60-apps/ai-gftd-project-shinshi/CLAUDE.md` — shinshi 実装詳細
-- `60-apps/ai-gftd-project-animeka/CLAUDE.md` — animeka 実装詳細
+- `60-apps/etzhayyim-project-lawfirm/CLAUDE.md` — lawfirm 実装詳細
+- `60-apps/etzhayyim-project-shinshi/CLAUDE.md` — shinshi 実装詳細
+- `60-apps/etzhayyim-project-animeka/CLAUDE.md` — animeka 実装詳細
 - D-DAY-checklist.md (lawfirm pilot pipeline, iter111〜119)
 - CEO-REPLY-DECISION-TREE.md (D1-D9 承認記録)
 - `90-docs/adr/2605212100-kansayaku-cyber-bmc-lean.md` — サイバー監査役紹介事業 BMC (lawfirm チャネル連携 P5)

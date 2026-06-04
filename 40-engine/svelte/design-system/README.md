@@ -67,7 +67,7 @@ npm run check
 
 ```svelte
 <script>
-  import { Button } from '@etzhayyim/ai-gftd-performer-sys-design-system-nfv0g01u';
+  import { Button } from '@etzhayyim/etzhayyim-performer-sys-design-system-nfv0g01u';
 </script>
 
 <Button variant="solid-fill" size="md">

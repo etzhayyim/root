@@ -64,7 +64,7 @@ def decommission_plan(state: DecommissionState, deps: CellDeps) -> DecommissionS
     """Generate teardown BoM (reverse construction) + identify recyclable materials.
 
     Routes recyclable to open-robo urban-mining cell per
-    60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md.
+    60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md.
     """
     raise NotImplementedError(
         "Requires reverse-BoM derivation from original planDid + open-robo urban-mining cell binding."
@@ -157,5 +157,5 @@ def healthz_extra(deps: CellDeps) -> dict:
         "phase": "end-of-life",
         "trigger": "cron-monthly + governance-vote + lifespan-expiry",
         "religious_invariant": "land_as_religious_trust — return is ritual (ADR-2605192100 §mission)",
-        "feeds_urban_mining": "60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md",
+        "feeds_urban_mining": "60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md",
     }

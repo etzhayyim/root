@@ -889,7 +889,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-seedOrgs-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.seedOrgs',
                  'gov_lby_seed_orgs',
@@ -899,7 +899,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,7 +914,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-registerDIDs-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.registerDIDs',
                  'gov_lby_register_dids',
@@ -924,7 +924,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,7 +939,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-followSiteDeps-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.followSiteDeps',
                  'gov_lby_follow_site_deps',
@@ -949,7 +949,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,7 +964,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-resolveOrgPath-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.resolveOrgPath',
                  'gov_lby_resolve_org_path',
@@ -974,7 +974,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,7 +989,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-listOrgs-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.listOrgs',
                  'gov_lby_list_orgs',
@@ -999,7 +999,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,7 +1014,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-syncWetUpdates-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.syncWetUpdates',
                  'gov_lby_sync_wet_updates',
@@ -1024,7 +1024,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,7 +1039,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-shinka-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.shinka',
                  'gov_lby_shinka',
@@ -1049,7 +1049,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,7 +1064,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-heartbeatTick-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.heartbeatTick',
                  'gov_lby_heartbeat_tick',
@@ -1074,7 +1074,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,7 +1089,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-seedOrgs-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.seedOrgs',
                  'gov_lby_seed_orgs',
@@ -1099,7 +1099,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,7 +1114,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-registerDIDs-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.registerDIDs',
                  'gov_lby_register_dids',
@@ -1124,7 +1124,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,7 +1139,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-followSiteDeps-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.followSiteDeps',
                  'gov_lby_follow_site_deps',
@@ -1149,7 +1149,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,7 +1164,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-resolveOrgPath-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.resolveOrgPath',
                  'gov_lby_resolve_org_path',
@@ -1174,7 +1174,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,7 +1189,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-listOrgs-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.listOrgs',
                  'gov_lby_list_orgs',
@@ -1199,7 +1199,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,7 +1214,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-syncWetUpdates-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.syncWetUpdates',
                  'gov_lby_sync_wet_updates',
@@ -1224,7 +1224,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,7 +1239,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-heartbeatTick-v1',
                  'did:web:lby-state.etzhayyim.com',
                  'com.etzhayyim.govLby.heartbeatTick',
                  'gov_lby_heartbeat_tick',
@@ -1249,7 +1249,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,7 +1266,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-seedOrgs',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-seedOrgs',
                  'com.etzhayyim.govLby.seedOrgs',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1282,7 +1282,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-seedOrgs']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,7 +1299,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-registerDIDs',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-registerDIDs',
                  'com.etzhayyim.govLby.registerDIDs',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1315,7 +1315,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-registerDIDs']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,7 +1332,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-followSiteDeps',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-followSiteDeps',
                  'com.etzhayyim.govLby.followSiteDeps',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1348,7 +1348,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-followSiteDeps']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,7 +1365,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-resolveOrgPath',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-resolveOrgPath',
                  'com.etzhayyim.govLby.resolveOrgPath',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1381,7 +1381,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-resolveOrgPath']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,7 +1398,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-listOrgs',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-listOrgs',
                  'com.etzhayyim.govLby.listOrgs',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1414,7 +1414,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-listOrgs']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,7 +1431,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-syncWetUpdates',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-syncWetUpdates',
                  'com.etzhayyim.govLby.syncWetUpdates',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1447,7 +1447,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-syncWetUpdates']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,7 +1464,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-shinka',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-shinka',
                  'com.etzhayyim.govLby.shinka',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1480,7 +1480,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-shinka']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,7 +1497,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-heartbeatTick',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-heartbeatTick',
                  'com.etzhayyim.govLby.heartbeatTick',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1513,7 +1513,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-heartbeatTick']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,7 +1530,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-seedOrgs',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-seedOrgs',
                  'com.etzhayyim.govLby.seedOrgs',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1546,7 +1546,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-seedOrgs']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,7 +1563,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-registerDIDs',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-registerDIDs',
                  'com.etzhayyim.govLby.registerDIDs',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1579,7 +1579,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-registerDIDs']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,7 +1596,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-followSiteDeps',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-followSiteDeps',
                  'com.etzhayyim.govLby.followSiteDeps',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1612,7 +1612,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-followSiteDeps']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,7 +1629,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-resolveOrgPath',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-resolveOrgPath',
                  'com.etzhayyim.govLby.resolveOrgPath',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1645,7 +1645,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-resolveOrgPath']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,7 +1662,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-listOrgs',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-listOrgs',
                  'com.etzhayyim.govLby.listOrgs',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1678,7 +1678,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-listOrgs']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,7 +1695,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-syncWetUpdates',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-syncWetUpdates',
                  'com.etzhayyim.govLby.syncWetUpdates',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1711,7 +1711,7 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-syncWetUpdates']},
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,7 +1728,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-heartbeatTick',
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-heartbeatTick',
                  'com.etzhayyim.govLby.heartbeatTick',
                  'did:web:lby-state.etzhayyim.com',
                  'lby-state.etzhayyim.com',
@@ -1744,68 +1744,68 @@ UP = [{'sql': '\n'
                  'did:web:lby-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-lby',
                  '2026-05-07T15:11:00Z',
-                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-heartbeatTick']}]
+                 'at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-seedOrgs']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-registerDIDs']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-followSiteDeps']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-resolveOrgPath']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-listOrgs']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-syncWetUpdates']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-shinka']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-heartbeatTick']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-seedOrgs']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-registerDIDs']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-followSiteDeps']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-resolveOrgPath']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-listOrgs']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-syncWetUpdates']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govLby-heartbeatTick']},
+  'parameters': ['at://did:web:lby-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-govLby-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govLby-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-govLby-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-lby-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',

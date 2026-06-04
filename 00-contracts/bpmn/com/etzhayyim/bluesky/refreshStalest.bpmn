@@ -3,14 +3,14 @@
   Bluesky refreshStalest — BPMN timer replacement for CF Worker cron.
 
   NSID: com.etzhayyim.apps.bluesky.refreshStalest
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/bluesky-refresh-stalest-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bluesky-refresh-stalest-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_bluesky_refresh_stalest"
-    targetNamespace="https://gftd.ai/bpmn/bluesky"
+    targetNamespace="https://etzhayyim.ai/bpmn/bluesky"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="bluesky_refresh_stalest" name="bluesky refresh stalest actors (R/PT30M)" isExecutable="true">
@@ -50,7 +50,7 @@
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.bluesky.refreshStalest&quot;" target="activity"/>
-          <zeebe:input source="=&quot;bluesky.gftd.ai&quot;" target="actorDid"/>
+          <zeebe:input source="=&quot;bluesky.etzhayyim.com&quot;" target="actorDid"/>
           <zeebe:input source="=actorsRead" target="actorsRead"/>
           <zeebe:input source="=ingested" target="ingested"/>
           <zeebe:input source="=tombstoned" target="tombstoned"/>

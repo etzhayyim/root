@@ -31,12 +31,12 @@ depends_on:
   - adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit
   - adr-2605192345-etzhayyim-steward-succession
 related:
-  - 60-apps/ai-gftd-project-open-water/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-network/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-power/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-airplane/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-ports/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-water/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-network/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-power/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-airplane/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-ports/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -400,8 +400,8 @@ S5 = S5a/b/c のみ; S5d は kuni-umi 完了後の独立 roadmap として treat
 - 漁業法 / 漁業権 (日本)
 - 航空法 / 国土交通省 NOTAM (日本)
 - 宇宙活動法 (日本 2016)
-- `60-apps/ai-gftd-project-open-water/CLAUDE.md` (river + ocean asset records)
-- `60-apps/ai-gftd-project-open-network/CLAUDE.md` (HAPS + orbit mesh records)
-- `60-apps/ai-gftd-project-open-power/CLAUDE.md` (micro-hydro + offshore + orbital solar)
-- `60-apps/ai-gftd-project-open-airplane/CLAUDE.md` (HAPS airspace coordination)
-- `60-apps/ai-gftd-project-open-ports/CLAUDE.md` (coastal landing station)
+- `60-apps/etzhayyim-project-open-water/CLAUDE.md` (river + ocean asset records)
+- `60-apps/etzhayyim-project-open-network/CLAUDE.md` (HAPS + orbit mesh records)
+- `60-apps/etzhayyim-project-open-power/CLAUDE.md` (micro-hydro + offshore + orbital solar)
+- `60-apps/etzhayyim-project-open-airplane/CLAUDE.md` (HAPS airspace coordination)
+- `60-apps/etzhayyim-project-open-ports/CLAUDE.md` (coastal landing station)

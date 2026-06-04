@@ -1,7 +1,7 @@
 /**
  * webya rw-free — kotoba-E2E split for the AI homepage-generation app
  * (企業・士業 HP 自動生成). Founder directive 2026-06-03: front everything that
- * can move; only the irreducible regulated EXECUTION stays gftd.
+ * can move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
  * (3-axis OR-test) + ADR-2605181100 (kotoba E2E encrypted-record envelope).
@@ -27,7 +27,7 @@
  *                         plaintext page.htmlContent; encrypting the structured
  *                         source-of-truth does not break public display.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION:
  *     • LLM/LangGraph site-generation INFERENCE (assistant site/content/HTML)
  *     • CF-for-SaaS custom-hostname provisioning CALL + CF_API_TOKEN credential

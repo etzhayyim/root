@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — Filecoin deal renewal (R/P30D autonomous).
+  karma.etzhayyim.com — Filecoin deal renewal (R/P30D autonomous).
 
   Monthly sweep over deals expiring in <30d. Re-proposes a fresh
   deal at the same SP (or a different SP if the original is offline).
@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_filecoin_renew"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_filecoin_renew" name="karma filecoin renew" isExecutable="true">
@@ -48,7 +48,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.filecoinRenew&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;renewed&quot;: renewed, &quot;skipped&quot;: skipped, &quot;failed&quot;: failed }" target="attributes"/>
         </zeebe:ioMapping>

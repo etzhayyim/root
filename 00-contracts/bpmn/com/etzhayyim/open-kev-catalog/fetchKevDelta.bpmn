@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_kev_catalog_fetch_kev_delta" targetNamespace="https://gftd.ai/bpmn/open-kev-catalog" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_kev_catalog_fetch_kev_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-kev-catalog" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_kev_catalog_fetch_kev_delta" name="fetchKevDelta" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 12h"><bpmn:outgoing>Flow_F</bpmn:outgoing>
       <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT12H</bpmn:timeCycle></bpmn:timerEventDefinition>
@@ -23,7 +23,7 @@
     <bpmn:callActivity id="Task_Loop" name="record each KEV entry" calledElement="open_kev_catalog_record_entry">
       <bpmn:extensionElements><zeebe:calledElement processId="open_kev_catalog_record_entry"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;at://did:web:open-kev-catalog.gftd.ai/com.etzhayyim.apps.kevCatalog.recordEntry/&quot; + item.cveID" target="vertexId"/>
+          <zeebe:input source="=&quot;at://did:web:open-kev-catalog.etzhayyim.com/com.etzhayyim.apps.kevCatalog.recordEntry/&quot; + item.cveID" target="vertexId"/>
           <zeebe:input source="=item.cveID" target="entryId"/>
           <zeebe:input source="=item.cveID" target="cveId"/>
           <zeebe:input source="=item.product" target="productCategory"/>
@@ -31,7 +31,7 @@
           <zeebe:input source="=null" target="disclosureGapVid"/>
           <zeebe:input source="=item.dueDate" target="dueDate"/>
           <zeebe:input source="=item.dateAdded" target="addedAt"/>
-          <zeebe:input source="=&quot;did:web:open-kev-catalog.gftd.ai&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:open-kev-catalog.etzhayyim.com&quot;" target="callerDid"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>

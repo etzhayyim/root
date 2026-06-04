@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kinoko_ponf_fruiting" targetNamespace="https://gftd.ai/bpmn/kinoko" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kinoko_ponf_fruiting" targetNamespace="https://etzhayyim.ai/bpmn/kinoko" exporter="hand-written" exporterVersion="1.0">
   <!-- Triggered by R/PT15M timer when flow threshold may be reached -->
   <bpmn:process id="kinoko_ponf_fruiting" name="ponf-fruiting" isExecutable="true">
     <bpmn:startEvent id="Start" name="every-15min">
@@ -36,7 +36,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kinoko.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kinoko.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;kinoko.formBlock&quot;" target="action"/>
           <zeebe:input source="={blockVertexId: blockVertexId, totalFlow: totalFlow, participantCount: participantCount, minEta: minEta}" target="payload"/>
         </zeebe:ioMapping>

@@ -1,18 +1,18 @@
 ;; watatsumi 綿津見 — class_certification_binder cell (terminal)
-;; Bind all prior records into yatachain-anchored audit certification
+;; Bind all prior records into kotoba-datomic-anchored audit certification
 {:cell/id "class_certification_binder"
  :cell/glyph "📋"
  :cell/kind :langgraph
  :cell/runtime :wasm
  :cell/entry "py/agent.py"
  :cell/handler "handle_class_certification_binder"
- :cell/doc "Terminal: Aggregate all prior stage records (hull → assembly → weld → system → join → pressure → trial + emissions) into one yatachain-anchored audit binder. Council 5-of-7 Safe attestation required for all new craft classes (silenSubmersibleReview). Output = classCertificationRecord (DNV-RU-UWT / ABS Underwater Vehicles / NK equivalent)."
+ :cell/doc "Terminal: Aggregate all prior stage records (hull → assembly → weld → system → join → pressure → trial + emissions) into one kotoba-datomic-anchored audit binder. Council 5-of-7 Safe attestation required for all new craft classes (silenSubmersibleReview). Output = classCertificationRecord (DNV-RU-UWT / ABS Underwater Vehicles / NK equivalent)."
  :cell/state-graph
- {:nodes [:collect-records :validate-completeness :anchor-yatachain :record-certification]
+ {:nodes [:collect-records :validate-completeness :anchor-kotoba-datomic :record-certification]
   :entry :collect-records
   :edges [[:collect-records :validate-completeness]
-          [:validate-completeness :anchor-yatachain]
-          [:anchor-yatachain :record-certification]
+          [:validate-completeness :anchor-kotoba-datomic]
+          [:anchor-kotoba-datomic :record-certification]
           [:record-certification :end]]}
  :cell/llm
  {:provider :murakumo
@@ -22,4 +22,4 @@
  :cell/gates ["G2" "G15" "G16"]
  :cell/kotoba
  {:reads [:hull-ring/attestation :section/attestation :weld-inspection/pass :system/attestation :section-join/attestation :pressure-test/pass :sea-trial/attestation :emissions-audit/compliant]
-  :writes [:class-cert/id :class-cert/craft-did :class-cert/yatachain-cid :class-cert/all-stages-complete]}}
+  :writes [:class-cert/id :class-cert/craft-did :class-cert/kotoba-datomic-cid :class-cert/all-stages-complete]}}

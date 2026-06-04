@@ -57,7 +57,7 @@ kubectl -n risingwave logs deploy/cloudflared-risingwave-private --tail=20
 
 The K8s side of the tunnel is automated above; the Hyperdrive side
 requires CF Dashboard or API access (the existing CF API token in
-Keychain `gftd.cloudflare:API_TOKEN` lacks Hyperdrive scope, so the
+Keychain `etzhayyim.cloudflare:API_TOKEN` lacks Hyperdrive scope, so the
 dashboard is the path).
 
 ### Steps in CF Dashboard

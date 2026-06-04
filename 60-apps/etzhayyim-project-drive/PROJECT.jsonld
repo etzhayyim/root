@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://drive.etzhayyim.com",
   "name": "etzhayyim-project-drive",
-  "description": "GFTD Drive - Cloud file storage with E2EE, sharing, and folder management",
+  "description": "Etzhayyim Drive - Cloud file storage with E2EE, sharing, and folder management",
   "url": "https://drive.etzhayyim.com",
   "applicationCategory": "Storage",
   "operatingSystem": "Kubernetes",

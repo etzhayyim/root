@@ -17,12 +17,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Culture, Tourism and Environment of Angola"
+   :gov.unit/official-url "https://www.minamb.gov.ao/"
    :gov.unit/wikidata "Q104420105"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q104420105"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.minamb.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.environment"
@@ -48,12 +49,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "and"
    :gov.unit/name-en "Ministry of Environment, Agriculture, and Sustainability of Andorra"
+   :gov.unit/official-url "https://www.govern.ad/ministeri-de-medi-ambient-agricultura-i-sostenibilitat"
    :gov.unit/wikidata "Q65211284"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65211284"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.govern.ad/ministeri-de-medi-ambient-agricultura-i-sostenibilitat"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.are.environment"
@@ -63,12 +65,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Environment and Water of UAE"
+   :gov.unit/official-url "https://www.moccae.gov.ae/"
    :gov.unit/wikidata "Q12250940"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12250940"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moccae.gov.ae/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.arg.environment"
@@ -206,12 +209,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of the Environment"
+   :gov.unit/official-url "https://sustainabledevelopment.gov.bz/"
    :gov.unit/wikidata "Q97670605"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97670605"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://sustainabledevelopment.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.environment"
@@ -637,12 +641,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Environment of Iraq"
+   :gov.unit/official-url "https://moen.gov.iq/"
    :gov.unit/wikidata "Q16126958"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16126958"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moen.gov.iq/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.isr.environment"
@@ -668,12 +673,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Environment of Jordan"
+   :gov.unit/official-url "https://moenv.gov.jo/"
    :gov.unit/wikidata "Q22690682"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22690682"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moenv.gov.jo/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ken.environment"
@@ -683,12 +689,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ken"
    :gov.unit/name-en "Ministry Of Environment, Climate Change And Forestry"
+   :gov.unit/official-url "https://environment.go.ke/"
    :gov.unit/wikidata "Q30261977"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q30261977"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://environment.go.ke/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kor.environment"
@@ -714,12 +721,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/official-url "https://www.moe.gov.lb/"
    :gov.unit/wikidata "Q16947440"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16947440"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moe.gov.lb/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.environment"
@@ -1017,12 +1025,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "prt"
    :gov.unit/name-en "Ministry of the Environment and Climate Action"
+   :gov.unit/official-url "https://www.portugal.gov.pt/pt/gc25/area-de-governo/ambiente-e-energia"
    :gov.unit/wikidata "Q86734105"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q86734105"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.portugal.gov.pt/pt/gc25/area-de-governo/ambiente-e-energia"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.qat.environment"
@@ -1143,12 +1152,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Spatial Planning and the Environment"
+   :gov.unit/official-url "https://minrom.sr/"
    :gov.unit/wikidata "Q97484620"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97484620"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://minrom.sr/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.environment"
@@ -1279,22 +1289,6 @@
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.usa.environment"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:ministry:environment"
-   :gov.unit/parent "gov.usa"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "usa"
-   :gov.unit/name-en "Puerto Rico Department of Natural and Environmental Resources"
-   :gov.unit/official-url "http://www.drna.gobierno.pr/"
-   :gov.unit/wikidata "Q3708665"
-   :gov.unit/cofog ["05"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.drna.gobierno.pr/"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.ven.environment"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ven:ministry:environment"
    :gov.unit/parent "gov.ven"
@@ -1350,10 +1344,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/official-url "https://www.mecw.gov.zw/"
    :gov.unit/wikidata "Q16946892"
    :gov.unit/cofog ["05"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16946892"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mecw.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

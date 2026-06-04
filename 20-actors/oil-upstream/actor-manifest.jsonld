@@ -251,7 +251,7 @@
     "description": "Tracks producing basins, fields, operators, reserves and production pressure. Connects upstream assets into export and refining systems.",
     "displayName": "Oil Upstream Basin & Field Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

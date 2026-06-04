@@ -13,7 +13,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_animeka_generate_inbetween"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_generate_inbetween" name="animeka generate inbetween" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -62,9 +62,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:      &quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.inbetween/&quot; + string(cutId) + &quot;-ib-&quot; + string(numFrames),
-              owner_did:      &quot;did:web:animeka.gftd.ai&quot;,
-              repo:           &quot;did:web:animeka.gftd.ai&quot;,
+              vertex_id:      &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.inbetween/&quot; + string(cutId) + &quot;-ib-&quot; + string(numFrames),
+              owner_did:      &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:           &quot;did:web:animeka.etzhayyim.com&quot;,
               collection:     &quot;com.etzhayyim.apps.animeka.inbetween&quot;,
               rkey:           string(cutId) + &quot;-ib-&quot; + string(numFrames),
               kind:           &quot;inbetween&quot;,
@@ -87,7 +87,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;generateInbetween&quot;" target="action"/>
           <zeebe:input source="={cutId: string(cutId), frames: numFrames, blobCid: string(blobCid), renderMs: renderMs}" target="payload"/>
         </zeebe:ioMapping>

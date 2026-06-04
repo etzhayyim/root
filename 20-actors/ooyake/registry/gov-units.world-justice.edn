@@ -33,12 +33,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ago"
    :gov.unit/name-en "Ministry of Justice and Human Rights of Angola"
+   :gov.unit/official-url "https://minjusdh.gov.ao/"
    :gov.unit/wikidata "Q56290000"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56290000"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://minjusdh.gov.ao/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.alb.justice"
@@ -64,12 +65,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Justice (United Arab Emirates)"
+   :gov.unit/official-url "https://www.moj.gov.ae/"
    :gov.unit/wikidata "Q55648379"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648379"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moj.gov.ae/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.arg.justice"
@@ -111,28 +113,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "atg"
    :gov.unit/name-en "Ministry of Justice and Legal Affairs"
+   :gov.unit/official-url "https://legalaffairs.gov.ag/"
    :gov.unit/wikidata "Q55643187"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55643187"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.aus.justice"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aus:ministry:justice"
-   :gov.unit/parent "gov.aus"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "New South Wales Department of Communities & Justice"
-   :gov.unit/official-url "https://dcj.nsw.gov.au/"
-   :gov.unit/wikidata "Q116777048"
-   :gov.unit/cofog ["03.3"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://dcj.nsw.gov.au/"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://legalaffairs.gov.ag/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.aut.justice"
@@ -318,12 +305,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "caf"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.justice.gouv.cf/"
    :gov.unit/wikidata "Q56289990"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56289990"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.justice.gouv.cf/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.justice"
@@ -413,12 +401,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://justice.gouv.cd/"
    :gov.unit/wikidata "Q97185601"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97185601"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://justice.gouv.cd/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cog.justice"
@@ -428,12 +417,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cog"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.justice.gouv.cg/"
    :gov.unit/wikidata "Q55648367"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648367"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.justice.gouv.cg/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.justice"
@@ -459,12 +449,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "com"
    :gov.unit/name-en "Ministry of Justice (Comoros)"
+   :gov.unit/official-url "https://justice.gouv.km/"
    :gov.unit/wikidata "Q55648325"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648325"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://justice.gouv.km/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cri.justice"
@@ -554,12 +545,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dji"
    :gov.unit/name-en "Ministry of Justice & Penal Affairs (Djibouti)"
+   :gov.unit/official-url "https://justice.gouv.dj/"
    :gov.unit/wikidata "Q55623301"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55623301"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://justice.gouv.dj/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dza.justice"
@@ -776,12 +768,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Ministry of Human Rights, Justice, Governance and Decentralization (Honduras)"
+   :gov.unit/official-url "https://www.sgjd.gob.hn/"
    :gov.unit/wikidata "Q55648315"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648315"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sgjd.gob.hn/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.justice"
@@ -935,12 +928,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://moj.gov.jo/"
    :gov.unit/wikidata "Q22686378"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22686378"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://moj.gov.jo/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.justice"
@@ -982,12 +976,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.moj.gov.kh/"
    :gov.unit/wikidata "Q56290001"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56290001"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moj.gov.kh/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kir.justice"
@@ -1044,12 +1039,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.justice.gov.lb/"
    :gov.unit/wikidata "Q6867305"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867305"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.justice.gov.lb/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lby.justice"
@@ -1075,12 +1071,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lie"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.regierung.li/ministerium/16649/ministerium-fuer-gesellschaft-und-justiz/inhalte"
    :gov.unit/wikidata "Q56290024"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56290024"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.regierung.li/ministerium/16649/ministerium-fuer-gesellschaft-und-justiz/inhalte"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lka.justice"
@@ -1186,12 +1183,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdg"
    :gov.unit/name-en "Ministry of Justice of Madagascar"
+   :gov.unit/official-url "http://www.justice.mg/"
    :gov.unit/wikidata "Q98666144"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q98666144"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.justice.mg/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mkd.justice"
@@ -1201,12 +1199,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.pravda.gov.mk/"
    :gov.unit/wikidata "Q12286836"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12286836"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.pravda.gov.mk/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mli.justice"
@@ -1216,12 +1215,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mli"
    :gov.unit/name-en "Ministry of Justice (Mali)"
+   :gov.unit/official-url "https://www.justice.gouv.ml/"
    :gov.unit/wikidata "Q55648360"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648360"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.justice.gouv.ml/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mlt.justice"
@@ -1279,12 +1279,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mwi"
    :gov.unit/name-en "Ministry of Justice and Constitutional Affairs (Malawi)"
+   :gov.unit/official-url "https://justice.gov.mw/"
    :gov.unit/wikidata "Q55648385"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648385"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://justice.gov.mw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nam.justice"
@@ -1454,12 +1455,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "plw"
    :gov.unit/name-en "Ministry of Justice of Palau"
+   :gov.unit/official-url "https://www.palaugov.pw/executive-branch/ministries/justice/"
    :gov.unit/wikidata "Q55648368"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55648368"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.palaugov.pw/executive-branch/ministries/justice/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.png.justice"
@@ -1469,12 +1471,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "png"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://justice.gov.pg/"
    :gov.unit/wikidata "Q56274245"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56274245"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://justice.gov.pg/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pol.justice"
@@ -1531,12 +1534,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://ministeriodejusticia.gov.py/"
    :gov.unit/wikidata "Q56274279"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56274279"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://ministeriodejusticia.gov.py/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rou.justice"
@@ -1610,12 +1614,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "slb"
    :gov.unit/name-en "Ministry of Justice and Legal Affairs"
+   :gov.unit/official-url "https://solomons.gov.sb/ministry-of-justice-and-legal-affairs/"
    :gov.unit/wikidata "Q56289993"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56289993"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://solomons.gov.sb/ministry-of-justice-and-legal-affairs/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.justice"
@@ -1673,12 +1678,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "Ministry of Justice (South Sudan)"
+   :gov.unit/official-url "https://mojca.gov.ss/"
    :gov.unit/wikidata "Q16889322"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16889322"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mojca.gov.ss/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sur.justice"
@@ -1688,12 +1694,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Justice and Police"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-justitie-en-politie/"
    :gov.unit/wikidata "Q65563008"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65563008"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-justitie-en-politie/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.justice"
@@ -1719,12 +1726,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "svn"
    :gov.unit/name-en "Justice Minister of Slovenia"
+   :gov.unit/official-url "https://www.gov.si/en/state-authorities/ministries/ministry-of-justice/"
    :gov.unit/wikidata "Q20522353"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q20522353"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.si/en/state-authorities/ministries/ministry-of-justice/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.swe.justice"
@@ -1830,12 +1838,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.adliya.tj/"
    :gov.unit/wikidata "Q25581691"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25581691"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.adliya.tj/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tls.justice"
@@ -1973,12 +1982,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.moj.gov.ye/"
    :gov.unit/wikidata "Q12250981"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12250981"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moj.gov.ye/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zaf.justice"
@@ -2004,10 +2014,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Justice and Legal Affairs"
+   :gov.unit/official-url "https://www.justice.gov.zw/"
    :gov.unit/wikidata "Q6867319"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867319"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.justice.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

@@ -17,7 +17,7 @@ const (
 	defaultWITWorld         = "magatama:runtime/magatama-component"
 	defaultWASIAdapterVer   = "28.0.0"
 	wASIAdapterURLTemplate  = "https://github.com/bytecodealliance/wasmtime/releases/download/v%s/wasi_snapshot_preview1.reactor.wasm"
-	adapterCacheDir         = ".cache/gftd/adapters"
+	adapterCacheDir         = ".cache/etzhayyim/adapters"
 )
 
 func runBuild(args []string) error {
@@ -30,7 +30,7 @@ func runBuild(args []string) error {
 	output := fs.String("output", "", "output component .wasm (default: derived from magatama.toml component.path)")
 	noSvelte := fs.Bool("no-svelte", false, "skip svelte/pnpm build even if svelte/ dir exists")
 	noCheck := fs.Bool("no-check", false, "skip svelte-check type validation")
-	extension := fs.Bool("extension", false, "build as W Protocol extension component (world: gftd:w/w-extension)")
+	extension := fs.Bool("extension", false, "build as W Protocol extension component (world: etzhayyim:w/w-extension)")
 	tinygoRoot := fs.String("tinygo-root", "", "TinyGo SDK root (overrides system tinygo from PATH)")
 	goRoot := fs.String("go-root", os.Getenv("GOROOT"), "Go SDK root (default: $GOROOT)")
 	if err := fs.Parse(args); err != nil {
@@ -45,14 +45,14 @@ func runBuild(args []string) error {
 		return err
 	}
 
-	// Extension mode: override WIT world to gftd:w/w-extension
+	// Extension mode: override WIT world to etzhayyim:w/w-extension
 	if *extension {
-		*witWorld = "gftd:w/w-extension"
+		*witWorld = "etzhayyim:w/w-extension"
 		*noSvelte = true // Extensions don't have svelte frontends
 		fmt.Fprintf(os.Stderr, "==> building W Protocol extension (world: %s)\n", *witWorld)
 	}
 
-	// Read gftd.json for build defaults (optional — flags override)
+	// Read etzhayyim.json for build defaults (optional — flags override)
 	if cfg, err := readetzhayyimJSON(compDir); err == nil {
 		if *witWorld == defaultWITWorld && cfg.WITWorld != "" {
 			*witWorld = cfg.WITWorld
@@ -94,7 +94,7 @@ func runBuild(args []string) error {
 	if *extension && *witDir == "" {
 		if gitRoot, err := findGitRoot(compDir); err == nil {
 			wprotoWITDir := filepath.Join(gitRoot, "packages", "rust", "wproto", "wit")
-			if _, err := os.Stat(filepath.Join(wprotoWITDir, "gftd-w", "w-extension.wit")); err == nil {
+			if _, err := os.Stat(filepath.Join(wprotoWITDir, "etzhayyim-w", "w-extension.wit")); err == nil {
 				resolvedWITDir = wprotoWITDir
 				fmt.Fprintf(os.Stderr, "==> using wproto WIT dir: %s\n", resolvedWITDir)
 			}
@@ -102,7 +102,7 @@ func runBuild(args []string) error {
 	}
 
 	// Validate WIT version matches the deployed magatama-server.
-	// Skip for extension builds — extensions use gftd:w WIT, not magatama:runtime.
+	// Skip for extension builds — extensions use etzhayyim:w WIT, not magatama:runtime.
 	if !*extension {
 		if err := validateWITVersion(resolvedWITDir); err != nil {
 			return err
@@ -127,7 +127,7 @@ func runBuild(args []string) error {
 	// Check required tools
 	for _, tool := range []string{"tinygo", "wasm-tools"} {
 		if _, err := exec.LookPath(tool); err != nil {
-			return fmt.Errorf("required tool not found: %s (run 'gftd plugin install %s')", tool, tool)
+			return fmt.Errorf("required tool not found: %s (run 'etzhayyim plugin install %s')", tool, tool)
 		}
 	}
 
@@ -460,7 +460,7 @@ func validateComponentImports(componentWasm, witDir string) error {
 		return fmt.Errorf(
 			"WIT import mismatch: component imports %d interface(s) not in current WIT:\n  %s\n"+
 				"This component was likely built with an older/newer WIT version.\n"+
-				"Fix: rebuild with `gftd build` using current WIT.",
+				"Fix: rebuild with `etzhayyim build` using current WIT.",
 			len(missing), strings.Join(missing, "\n  "))
 	}
 	return nil

@@ -1,6 +1,6 @@
 -- name: GpuPriceCompareList :many
 -- Cross-provider GPU $/hr comparison from the SQLMesh MV.
--- Used by gftd.research.gpuPriceCompare (mcp-adapter.ts).
+-- Used by etzhayyim.research.gpuPriceCompare (mcp-adapter.ts).
 SELECT
   gpu_did,
   vendor,

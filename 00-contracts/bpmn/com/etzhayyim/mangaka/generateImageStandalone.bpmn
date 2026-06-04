@@ -10,7 +10,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_generate_image_standalone"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_generate_image_standalone" name="mangaka standalone image generation" isExecutable="true">
     <bpmn:startEvent id="Start" name="image requested">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;generateImage&quot;" target="action"/>
           <zeebe:input source="={prompt: string(prompt), style: (if style = null then &quot;manga&quot; else string(style)), blobCid: string(blobCid), latencyMs: latencyMs}" target="payload"/>
         </zeebe:ioMapping>

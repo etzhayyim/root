@@ -8,7 +8,7 @@ import { Kysely, sql } from 'kysely';
  * `90-docs/260424-nsid-traffic-audit.md`).
  *
  * Write path: `pds-tail-archiver` Worker consumes tail events from
- * `ai-gftd-pds-2603241700` via `tail_consumers` binding; each event → 1 row
+ * `etzhayyim-pds-2603241700` via `tail_consumers` binding; each event → 1 row
  * via Kysely + Hyperdrive.
  *
  * Volume envelope (2026-04-24 60-min sample): ~20 events/min = 0.34/s,

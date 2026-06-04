@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_ingest_site_common_crawl_delta"
-    targetNamespace="https://gftd.ai/bpmn/ingest"
+    targetNamespace="https://etzhayyim.ai/bpmn/ingest"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="ingest_site_common_crawl_delta" name="ingest site Common Crawl delta" isExecutable="true">

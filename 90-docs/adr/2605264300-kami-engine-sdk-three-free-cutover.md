@@ -33,7 +33,7 @@ superseded_by: []
 **Status**: active
 **Date**: 2026-05-26
 **Deciders**: Jun Kawasaki
-**Scope**: `40-engine/kami-engine/kami-engine-sdk/`, `20-actors/kami-engine-sdk/` (legacy duplicate), `60-apps/ai-gftd-project-cyber-drill/svelte/src/lib/three-renderer/` (vendor carve-out), `60-apps/ai-gftd-project-baminiku/appview/.../ykb48d7a/svelte-{viewer,liver}/` (dead-deps cleanup), `90-docs/_registry/docs.json`
+**Scope**: `40-engine/kami-engine/kami-engine-sdk/`, `20-actors/kami-engine-sdk/` (legacy duplicate), `60-apps/etzhayyim-project-cyber-drill/svelte/src/lib/three-renderer/` (vendor carve-out), `60-apps/etzhayyim-project-baminiku/appview/.../ykb48d7a/svelte-{viewer,liver}/` (dead-deps cleanup), `90-docs/_registry/docs.json`
 
 ## Context
 
@@ -101,16 +101,16 @@ SDK runtime + types (b04c54eb5 + ea0fd3ab8):
   M 20-actors/kami-engine-sdk/package.json   (legacy duplicate — same package.json deltas)
 
 cyber-drill vendor carve-out (b04c54eb5):
-  A 60-apps/ai-gftd-project-cyber-drill/svelte/src/lib/three-renderer/index.ts        (barrel)
-  A 60-apps/ai-gftd-project-cyber-drill/svelte/src/lib/three-renderer/ambient.d.ts    (WebXR shim moved from SDK)
+  A 60-apps/etzhayyim-project-cyber-drill/svelte/src/lib/three-renderer/index.ts        (barrel)
+  A 60-apps/etzhayyim-project-cyber-drill/svelte/src/lib/three-renderer/ambient.d.ts    (WebXR shim moved from SDK)
   R 60-apps/.../three-renderer/spark/{data,dyno-graph,gaussian-ellipsoid,index,internal/boot,internal/orbit,splat-cloud,temporal-4d,types}.ts  (rename from SDK; rename detected as 8 × R100)
   R 60-apps/.../three-renderer/webvr/{webvr-scene,node-effects}.ts  (rename from SDK; rename detected as 2 × R099 with import-path rewire to consume @etzhayyim/kami-engine-sdk/webvr headless engine + 2 implicit-any fixes)
-  M 60-apps/ai-gftd-project-cyber-drill/svelte/src/routes/+page.svelte       (engine.onScene callback + local mountIncidentScene)
-  M 60-apps/ai-gftd-project-cyber-drill/svelte/src/routes/spark/+page.svelte (import from $lib/three-renderer; copy update)
+  M 60-apps/etzhayyim-project-cyber-drill/svelte/src/routes/+page.svelte       (engine.onScene callback + local mountIncidentScene)
+  M 60-apps/etzhayyim-project-cyber-drill/svelte/src/routes/spark/+page.svelte (import from $lib/three-renderer; copy update)
 
 Downstream dead-deps (5d2ba4b2d):
-  M 60-apps/ai-gftd-project-baminiku/appview/.../ykb48d7a/svelte-viewer/package.json   (three + @pixiv/three-vrm + @types/three → removed)
-  M 60-apps/ai-gftd-project-baminiku/appview/.../ykb48d7a/svelte-liver/package.json    (three + @pixiv/three-vrm + @types/three → removed; kalidokit + @mediapipe + nats.ws preserved)
+  M 60-apps/etzhayyim-project-baminiku/appview/.../ykb48d7a/svelte-viewer/package.json   (three + @pixiv/three-vrm + @types/three → removed)
+  M 60-apps/etzhayyim-project-baminiku/appview/.../ykb48d7a/svelte-liver/package.json    (three + @pixiv/three-vrm + @types/three → removed; kalidokit + @mediapipe + nats.ws preserved)
 
 Docs:
   M 90-docs/_registry/docs.json    (ADR-2605202400 cyber-drill webvr description: removes `@etzhayyim/kami-engine-sdk/spark` claim, annotates three.js vendorization)
@@ -150,11 +150,11 @@ The renderer (cyber-drill's vendorized three.js surface, or a future `kami-app-c
 
 ### Vendor carve-out boundary (CRITICAL)
 
-Per ADR-2605172400 three-axis (liability / custody / settlement) split, **vendor-private apps (`60-apps/ai-gftd-project-cyber-drill/`)** are NOT bound by the religious-corp `独自レンダラ禁止` invariant. They MAY:
+Per ADR-2605172400 three-axis (liability / custody / settlement) split, **vendor-private apps (`60-apps/etzhayyim-project-cyber-drill/`)** are NOT bound by the religious-corp `独自レンダラ禁止` invariant. They MAY:
 
 - carry `three` / `@pixiv/three-vrm` / `@threlte/*` as runtime deps
 - ship custom three.js renderers in `svelte/src/lib/three-renderer/` (cyber-drill pattern, this ADR)
-- pin `Threlte` as their documented standard viewer (cad pattern, see `60-apps/ai-gftd-project-cad/CLAUDE.md`)
+- pin `Threlte` as their documented standard viewer (cad pattern, see `60-apps/etzhayyim-project-cad/CLAUDE.md`)
 
 But they MUST NOT:
 
@@ -186,7 +186,7 @@ The boundary is documented in each vendor app's own `CLAUDE.md` (per ADR-2605172
 
 3. **Smooth-transition reads moved to local cache.** Because KAMI WASM exports are setter-only, `createConversationController` keeps per-emotion + per-bone state mirrors (`exprCache` / `poseCache`) for tween "current value" reads. If multiple controllers ever drive the same VRM concurrently, they will drift. Single-controller-per-VRM is the documented invariant; multi-controller scenarios will need a `getVrmMorph` / `getVrmBoneRotation` WASM addition or a centralized state store.
 
-4. **Vendor split increases code duplication.** cyber-drill's `svelte/src/lib/three-renderer/` is ~3,800 LoC of vendor-private code that used to be one SDK directory shared by N apps. As of 2026-05-26, cyber-drill is the only consumer, so duplication is N=1; if a second vendor-private app needs the same renderer, a `@gftdcojp/three-renderer-shim` or similar vendor-namespace npm package becomes the right answer. Tracked as future work, not blocking.
+4. **Vendor split increases code duplication.** cyber-drill's `svelte/src/lib/three-renderer/` is ~3,800 LoC of vendor-private code that used to be one SDK directory shared by N apps. As of 2026-05-26, cyber-drill is the only consumer, so duplication is N=1; if a second vendor-private app needs the same renderer, a `@etzhayyimcojp/three-renderer-shim` or similar vendor-namespace npm package becomes the right answer. Tracked as future work, not blocking.
 
 5. **Image2vrm / image2metahuman CLAUDE.md mismatch.** These two apps still document a "Dual Engine Rendering" pane with `Three.js + @pixiv/three-vrm`. Their `package.json` files still list the dead three deps. Removing the deps requires a doc-rewrite first (the design decision: drop dual-engine plan, or keep it as vendor-private surface). **Deferred** — see Notes §2.
 
@@ -197,7 +197,7 @@ The boundary is documented in each vendor app's own `CLAUDE.md` (per ADR-2605172
 ### Neutral
 
 - **`20-actors/kami-engine-sdk/` legacy duplicate** received only the `package.json` cleanup (no `spark/` or `gsplat/` directories existed there). Its existence is a separate concern (see ADR-2605170900 ADR-canonical-home policy + a future "SDK duplication retirement" ADR).
-- **Subrepo push deferred.** `40-engine/kami-engine/kami-engine-sdk/` is a git subrepo of `github.com/gftdcojp/kami-engine-sdk.git`. Upstream push intentionally not performed in any of the three commits; user-timed `git subrepo push 40-engine/kami-engine/kami-engine-sdk` is the gating action.
+- **Subrepo push deferred.** `40-engine/kami-engine/kami-engine-sdk/` is a git subrepo of `github.com/etzhayyimcojp/kami-engine-sdk.git`. Upstream push intentionally not performed in any of the three commits; user-timed `git subrepo push 40-engine/kami-engine/kami-engine-sdk` is the gating action.
 
 ## Alternatives Considered
 
@@ -211,7 +211,7 @@ Re-implement the four spark samples on WGSL inside `40-engine/kami-engine/kami-e
 
 Carve a sibling npm package that keeps the three.js samples alive for downstream demos.
 
-**Rejected**: still inside the religious-corp `@etzhayyim/*` namespace, still violates `独自レンダラ禁止`. The carve-out boundary (ADR-2605172400) puts vendor-private renderers in `60-apps/ai-gftd-project-*/`, not in a parallel SDK package.
+**Rejected**: still inside the religious-corp `@etzhayyim/*` namespace, still violates `独自レンダラ禁止`. The carve-out boundary (ADR-2605172400) puts vendor-private renderers in `60-apps/etzhayyim-project-*/`, not in a parallel SDK package.
 
 ### C. Keep `ThreeVrmHandle` interface as a deprecated type stub
 
@@ -221,9 +221,9 @@ Add `@deprecated since 2026-05-26 SDK three-free; field is always null and will 
 
 ### D. Vendorize the renderer into cyber-drill (chosen)
 
-Move `src/lib/spark/` + `src/lib/webvr/{webvr-scene,node-effects}.ts` into `60-apps/ai-gftd-project-cyber-drill/svelte/src/lib/three-renderer/`. Rewire imports to consume the SDK's headless engine via `@etzhayyim/kami-engine-sdk/webvr`. Update `+page.svelte` to drive the local `mountIncidentScene` from the engine's new `onScene` callback. Update `/spark/+page.svelte` to import from `$lib/three-renderer`.
+Move `src/lib/spark/` + `src/lib/webvr/{webvr-scene,node-effects}.ts` into `60-apps/etzhayyim-project-cyber-drill/svelte/src/lib/three-renderer/`. Rewire imports to consume the SDK's headless engine via `@etzhayyim/kami-engine-sdk/webvr`. Update `+page.svelte` to drive the local `mountIncidentScene` from the engine's new `onScene` callback. Update `/spark/+page.svelte` to import from `$lib/three-renderer`.
 
-**Chosen.** cyber-drill is vendor-private per ADR-2605172400 (liability + custody + settlement all vendor); it is NOT bound by the religious-corp renderer invariant. Three.js inside cyber-drill is acceptable and aligns with the existing direct `three: ^0.183.0` dep in `60-apps/ai-gftd-project-cyber-drill/svelte/package.json`.
+**Chosen.** cyber-drill is vendor-private per ADR-2605172400 (liability + custody + settlement all vendor); it is NOT bound by the religious-corp renderer invariant. Three.js inside cyber-drill is acceptable and aligns with the existing direct `three: ^0.183.0` dep in `60-apps/etzhayyim-project-cyber-drill/svelte/package.json`.
 
 ## Notes
 
@@ -239,18 +239,18 @@ Six 60-apps still declare `three` deps in `package.json` despite no actual `src/
 
 | App | three dep | src usage | Design doc | Decision |
 |---|---|---|---|---|
-| ai-gftd-project-cyber-drill/svelte | direct + vendorized | three-renderer/ | this ADR | KEEP — vendor carve-out |
-| ai-gftd-project-itonami/svelte | declared | TestPhase.svelte + DesignPhase.svelte | not yet | KEEP — actual consumer |
-| ai-gftd-project-deai/appview/.../svelte | declared | SpiritOrbScene + SpiritRadar3DScene | not yet | KEEP — actual consumer |
-| ai-gftd-project-cad/appview/.../svelte | declared | (scaffold stub) | CLAUDE.md pins `Threlte` | KEEP — vendor design intent |
-| ai-gftd-project-baminiku/.../ykb48d7a/svelte-viewer | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
-| ai-gftd-project-baminiku/.../ykb48d7a/svelte-liver | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
-| ai-gftd-project-image2vrm/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | CLAUDE.md rewritten KAMI-only same commit | DONE |
-| ai-gftd-project-image2metahuman/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | no CLAUDE.md (deps cleanup only; consistent with SDK three-free) | DONE |
-| ai-gftd-project-sos/appview/.../svelte | declared (`@threlte/core` + `@threlte/extras` + `three`) | (scaffold stub) | `PROJECT.jsonld` documents "Threlte-driven" systems-thinking viewer; CLAUDE.md added iter-17 `afe4e32f4`+ | KEEP — Threlte vendor design intent (sibling of cad) |
-| ai-gftd-project-global/appview/.../svelte | declared (`@threlte/core` + `@threlte/extras` + `@threlte/flex` + `three` + `d3-force-3d`) | (scaffold stub) | `PROJECT.jsonld` documents "Svelte Threlte (Three.js)" 3D viz; CLAUDE.md added iter-17 | KEEP — Threlte + d3 force-directed vendor design intent |
+| etzhayyim-project-cyber-drill/svelte | direct + vendorized | three-renderer/ | this ADR | KEEP — vendor carve-out |
+| etzhayyim-project-itonami/svelte | declared | TestPhase.svelte + DesignPhase.svelte | not yet | KEEP — actual consumer |
+| etzhayyim-project-deai/appview/.../svelte | declared | SpiritOrbScene + SpiritRadar3DScene | not yet | KEEP — actual consumer |
+| etzhayyim-project-cad/appview/.../svelte | declared | (scaffold stub) | CLAUDE.md pins `Threlte` | KEEP — vendor design intent |
+| etzhayyim-project-baminiku/.../ykb48d7a/svelte-viewer | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
+| etzhayyim-project-baminiku/.../ykb48d7a/svelte-liver | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
+| etzhayyim-project-image2vrm/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | CLAUDE.md rewritten KAMI-only same commit | DONE |
+| etzhayyim-project-image2metahuman/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | no CLAUDE.md (deps cleanup only; consistent with SDK three-free) | DONE |
+| etzhayyim-project-sos/appview/.../svelte | declared (`@threlte/core` + `@threlte/extras` + `three`) | (scaffold stub) | `PROJECT.jsonld` documents "Threlte-driven" systems-thinking viewer; CLAUDE.md added iter-17 `afe4e32f4`+ | KEEP — Threlte vendor design intent (sibling of cad) |
+| etzhayyim-project-global/appview/.../svelte | declared (`@threlte/core` + `@threlte/extras` + `@threlte/flex` + `three` + `d3-force-3d`) | (scaffold stub) | `PROJECT.jsonld` documents "Svelte Threlte (Three.js)" 3D viz; CLAUDE.md added iter-17 | KEEP — Threlte + d3 force-directed vendor design intent |
 
-Iter-17 finding: the original "no design intent" assessment for sos and global was wrong — both have explicit Threlte design intent documented in `PROJECT.jsonld` (just not in CLAUDE.md until iter-17 added the breadcrumbs). The `@threlte/core` + `@threlte/extras` deps are intentional configuration for the documented R1+ implementation work, NOT dead deps. Same pattern as `60-apps/ai-gftd-project-cad/` (per its CLAUDE.md "3D viewer 標準は Threlte"). Three.js inside Threlte-using apps is acceptable because Threlte is a separate Svelte 3D library; these apps do NOT depend on `@etzhayyim/kami-engine-sdk` (no SDK in `package.json`), so the SDK's three-free invariant doesn't reach them.
+Iter-17 finding: the original "no design intent" assessment for sos and global was wrong — both have explicit Threlte design intent documented in `PROJECT.jsonld` (just not in CLAUDE.md until iter-17 added the breadcrumbs). The `@threlte/core` + `@threlte/extras` deps are intentional configuration for the documented R1+ implementation work, NOT dead deps. Same pattern as `60-apps/etzhayyim-project-cad/` (per its CLAUDE.md "3D viewer 標準は Threlte"). Three.js inside Threlte-using apps is acceptable because Threlte is a separate Svelte 3D library; these apps do NOT depend on `@etzhayyim/kami-engine-sdk` (no SDK in `package.json`), so the SDK's three-free invariant doesn't reach them.
 
 All §2 entries are now resolved: 4 DONE (baminiku ykb48d7a viewer + liver, image2vrm, image2metahuman) + 5 KEEP (cyber-drill vendor carve-out, itonami, deai, cad Threlte, sos Threlte iter-17, global Threlte iter-17). No DEFERRED entries remain.
 
@@ -276,6 +276,6 @@ the duplicate-retirement outcome.
 - ADR-2605215000 (etzhayyim inference Murakumo-only) — sibling invariant ("commercial GPU rental prohibited" mirror of "独自レンダラ禁止")
 - `40-engine/kami-engine/CLAUDE.md` `独自レンダラ禁止 — kami-render wgpu PBR pipeline が唯一`
 - `40-engine/kami-engine/ARCHITECTURE.md` ownership matrix (kami-render / kami-app / kami-pipelines / kami-app-{game} / kami-web / kami-engine-sdk / kami-ui-sdk)
-- `60-apps/ai-gftd-project-baminiku/CLAUDE.md` (cites ADR-0031, validates 5d2ba4b2d cleanup)
-- `60-apps/ai-gftd-project-cad/CLAUDE.md` (pins `Threlte` viewer; defines vendor design intent boundary)
+- `60-apps/etzhayyim-project-baminiku/CLAUDE.md` (cites ADR-0031, validates 5d2ba4b2d cleanup)
+- `60-apps/etzhayyim-project-cad/CLAUDE.md` (pins `Threlte` viewer; defines vendor design intent boundary)
 - Sparkjs.dev (https://sparkjs.dev/) — original presentation-layer 3DGS demos that `src/lib/spark/` mirrored

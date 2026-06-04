@@ -1,4 +1,4 @@
-package gftd.xrpc.dispatch
+package etzhayyim.xrpc.dispatch
 
 default allow := false
 

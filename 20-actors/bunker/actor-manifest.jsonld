@@ -303,7 +303,7 @@
     "description": "Marine fuel management — bunker delivery documentation (BDN), fuel quality testing (sulphur/vanadium/cat fines), MARPOL Annex VI sulphur cap compliance (0.50% global, 0.10% ECA), vessel consumption tracking, CO₂ emission calculation per voyage.",
     "displayName": "Bunker Supply & MARPOL Compliance",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

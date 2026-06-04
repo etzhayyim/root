@@ -33,7 +33,7 @@ just the log of what happened and where to find the pieces.
   - Runbook `90-docs/260424-legacy-trust-headers-cutover-runbook.md` with
     real-log `[trust][legacy] hit did=... matched=...` pre-flip query.
   - Daily observation probe `70-tools/scripts/legacy-trust-tally-probe.sh`
-    (60 s `wrangler tail` sample of `ai-gftd-appview`, appends to
+    (60 s `wrangler tail` sample of `etzhayyim-appview`, appends to
     `90-docs/260424-legacy-trust-tally.log`).
   - macOS LaunchAgent `50-infra/launchd/com.etzhayyim.legacy-trust-tally.plist`
     firing daily at 09:17 local for the full 14-day window (Claude's
@@ -53,7 +53,7 @@ just the log of what happened and where to find the pieces.
     rebuilt 3 MVs (`mv_actor_social_stats` + `mv_actor_canonical_did`
     + `mv_profile_core_stats`) with `GROUP BY normalize_actor_did(repo)`
     so path-DID posts aggregate under the root DID.
-  - First-ever deploy of `ai-gftd-appview` Worker — claimed
+  - First-ever deploy of `etzhayyim-appview` Worker — claimed
     `bsky.etzhayyim.com/*` route (was falling through to routing-gateway's
     BPMN-as-actor catch-all, which returned "no active binding").
   - `profile.ts` MV LIMIT fix — Kysely's `.limit(1)` generates
@@ -113,7 +113,7 @@ Refresh of `90-docs/rules/waituntil-requires-catch-baseline.txt`
 
 | Surface | State |
 |---|---|
-| `bsky.etzhayyim.com` | Live — `ai-gftd-appview` version `d085c7bf` with pg.Pool refactor + MV LIMIT fix |
+| `bsky.etzhayyim.com` | Live — `etzhayyim-appview` version `d085c7bf` with pg.Pool refactor + MV LIMIT fix |
 | `atproto.etzhayyim.com` | Routing unchanged; BPMN yabai batch-3 NSIDs now land at dispatcher |
 | `dispatcher.etzhayyim.com` | 12 yabai BPMN actors live in `vertex_bpmn_lexicon_binding` |
 | `sh1n5h1x.etzhayyim.com` | `postsCount = 1476` (was 0), did-web root row in `mv_actor_social_stats` |

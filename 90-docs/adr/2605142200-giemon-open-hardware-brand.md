@@ -20,7 +20,7 @@ last_verified: 2026-05-14
 
 ## Context
 
-`60-apps/ai-gftd-project-open-robo` は当初「ArmCrawler JP」という製品名で設計・文書化された。
+`60-apps/etzhayyim-project-open-robo` は当初「ArmCrawler JP」という製品名で設計・文書化された。
 ブランドを **Giemon（ギエモン）** として統一し、製品ラインナップを体系化するため本 ADR を策定する。
 
 ブランド名は田中久重（「からくり儀右衛門」）に由来。日本のものづくり精神とオープンソース哲学の統合を象徴する。
@@ -104,8 +104,8 @@ WASM バンドル 226KB、WebGPU/WebGL2 対応。
 ## Consequences
 
 - SEO: `armcrawler.etzhayyim.com` から `giemon.etzhayyim.com` へ CF DNS 301 リダイレクト設定が必要（未対応）
-- Makuake / Kickstarter URL: `makuake.com/project/otete`、`kickstarter.com/projects/gftd/otete`
-- 将来の Hitogata 製品は同一 `ai-gftd-project-open-robo` リポジトリ配下に `appview/hitogata-hp/` として追加
+- Makuake / Kickstarter URL: `makuake.com/project/otete`、`kickstarter.com/projects/etzhayyim/otete`
+- 将来の Hitogata 製品は同一 `etzhayyim-project-open-robo` リポジトリ配下に `appview/hitogata-hp/` として追加
 - Caterpillar 製品は同 `appview/caterpillar-hp/` として追加
 - kaigo.etzhayyim.com が介護向け 3D ビューアとして giemon.etzhayyim.com WASM を iframe で共有
 
@@ -113,8 +113,8 @@ WASM バンドル 226KB、WebGPU/WebGL2 対応。
 
 ## References
 
-- `60-apps/ai-gftd-project-open-robo/CLAUDE.md`
-- `60-apps/ai-gftd-project-open-robo/appview/open-robo-hp/`
+- `60-apps/etzhayyim-project-open-robo/CLAUDE.md`
+- `60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/`
 - `40-engine/kami-engine/kami-app-giemon/src/lib.rs`
 - ADR-2605142300 — Giemon Kaigo 介護応用プラットフォーム
 - `30-graph/graph-schema/sql_migrations/20260514150000_*`（tsukuru CAD/PCB スキーマ）

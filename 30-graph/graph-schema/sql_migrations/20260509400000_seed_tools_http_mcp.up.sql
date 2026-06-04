@@ -9,8 +9,8 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-http-fetch',
-   0, 0, 'com.etzhayyim.tools.http.fetch', 'did:web:copyright.gftd.ai', 'copyright.gftd.ai', 'procedure',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-tools-http-fetch',
+   0, 0, 'com.etzhayyim.tools.http.fetch', 'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'Generic HTTP fetch — replaces per-actor httpx py_primitive nodes.',
    '{"type":"object","properties":{"url":{"type":"string"},"method":{"type":"string"},"headers":{"type":"object"},"body":{"type":"string"},"timeout":{"type":"number"},"allowWrite":{"type":"boolean"}},"required":["url"]}',
    '{"type":"object","properties":{"status":{"type":"integer"},"headers":{"type":"object"},"body":{"type":"string"},"isText":{"type":"boolean"},"error":{"type":"string"}}}',

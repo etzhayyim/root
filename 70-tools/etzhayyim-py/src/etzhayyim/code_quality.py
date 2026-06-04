@@ -242,7 +242,7 @@ def check_magatama_lint(ws_root: Path) -> CQCheck:
     c = CQCheck(name="magatama_lint", tool="etzhayyim-py lint")
     # Run our own Python lint command
     py_bin = sys.executable
-    out, rc = _run([py_bin, "-m", "gftd", "lint"], ws_root, timeout=60)
+    out, rc = _run([py_bin, "-m", "etzhayyim", "lint"], ws_root, timeout=60)
     c.score = 100.0 if rc == 0 else 0.0
     if rc != 0:
         lines = [ln for ln in out.splitlines() if "error" in ln.lower() or "violation" in ln.lower()]
@@ -274,7 +274,7 @@ def check_frontend_lint(ws_root: Path) -> CQCheck:
 def check_perf_test(ws_root: Path) -> CQCheck:
     c = CQCheck(name="perf_test", tool="perf-test-coverage (built-in)")
     targets = [
-        ("yoro", ws_root / "60-apps" / "ai-gftd-project-yoro", "profile-performance"),
+        ("yoro", ws_root / "60-apps" / "etzhayyim-project-yoro", "profile-performance"),
     ]
     found, missing = 0, 0
     parts = []
@@ -458,7 +458,7 @@ def cq_run(workspace_dir: str | None, rust_dir: str | None, go_dir: str | None,
         raise click.ClickException("could not find workspace root; use --workspace-dir")
 
     r_dir = Path(rust_dir) if rust_dir else ws / "20-actors" / "magatama"
-    g_dir = Path(go_dir) if go_dir else ws / "70-tools" / "gftd"
+    g_dir = Path(go_dir) if go_dir else ws / "70-tools" / "etzhayyim"
     t_dir = Path(ts_dir) if ts_dir else ws / "20-actors"
     skip_set = {s.strip() for s in skip.split(",") if s.strip()}
 

@@ -242,7 +242,7 @@ python3 70-tools/scripts/docs/validate-id-filename-consistency.py --json
 
 Categorizes mismatches into 5 classes:
 - `uppercase-ADR-prefix` (cycle 61 cleaned 6; baseline 0)
-- `pre-cutover-rename` (gftdcojp/amanomibashira; CLAUDE.md invariant)
+- `pre-cutover-rename` (etzhayyimcojp/amanomibashira; CLAUDE.md invariant)
 - `short-id-missing-slug` (legacy 4-digit ADR scheme)
 - `engineering-policy-old-style` (cycle 62 cleaned 3; baseline 0)
 - `other-rename-related` (mostly amanomibashira/shinka pre-cutover)

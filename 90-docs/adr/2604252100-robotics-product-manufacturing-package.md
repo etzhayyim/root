@@ -311,7 +311,7 @@ Required worker task types:
 The vehicle-specific BPMN SSoT is
 `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/robotics/manufactureVehicleProductPackage.bpmn`.
 The worker contract is mirrored in
-`60-apps/ai-gftd-project-vehicle/WORKERS.md`.
+`60-apps/etzhayyim-project-vehicle/WORKERS.md`.
 
 The graph extension links vehicle packages to material procurement,
 intermediate manufacturing outputs, legal entities / LEI records,

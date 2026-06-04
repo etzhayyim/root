@@ -19,7 +19,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_kogu_checkout_tool"
-  targetNamespace="https://gftd.ai/bpmn/kogu"
+  targetNamespace="https://etzhayyim.ai/bpmn/kogu"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="kogu_checkout_tool" name="kogu Checkout Tool" isExecutable="true">
@@ -87,7 +87,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=if(action = &quot;checkout&quot;, &quot;toolCheckedOut&quot;, &quot;toolReturned&quot;)" target="action"/>
           <zeebe:input source="={ toolId: toolId, borrowerDid: borrowerDid, conditionOnReturn: conditionOnReturn }" target="payload"/>
         </zeebe:ioMapping>
@@ -112,7 +112,7 @@
         <zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_kogu_inspection&quot;" target="table"/>
-          <zeebe:input source="={ tool_id: toolId, inspected_at: returnedAt, inspector_did: &quot;did:web:kogu.gftd.ai&quot;, inspection_type: &quot;post-use&quot;, result: &quot;fail&quot;, repair_required: true, notes: &quot;Auto-created: damaged on return&quot; }" target="row"/>
+          <zeebe:input source="={ tool_id: toolId, inspected_at: returnedAt, inspector_did: &quot;did:web:kogu.etzhayyim.com&quot;, inspection_type: &quot;post-use&quot;, result: &quot;fail&quot;, repair_required: true, notes: &quot;Auto-created: damaged on return&quot; }" target="row"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_Damaged</bpmn:incoming>
@@ -124,7 +124,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;checkoutBlocked&quot;" target="action"/>
           <zeebe:input source="={ toolId: toolId, borrowerDid: borrowerDid, reason: &quot;tool not available&quot; }" target="payload"/>
         </zeebe:ioMapping>

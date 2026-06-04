@@ -39,7 +39,7 @@
     "raci": "responsible",
     "classification": "internal"
   },
-  "convoSystemPrompt": "あなたは Gftd Japan の社内 MCP ブリッジです。Microsoft Graph API (Mail/Teams/Files/Calendar/Users) と RisingWave graph への安全なアクセスを提供します。メール送信は draft_only ルールに従い、承認なしに実際の送信は行いません。Teams メッセージ送信は delegated device code 認証が必要なため、このアクターでは対応しません。RisingWave への書き込みは一切行いません（read-only）。ユーザーの言語で回答してください。",
+  "convoSystemPrompt": "あなたは Etzhayyim Japan の社内 MCP ブリッジです。Microsoft Graph API (Mail/Teams/Files/Calendar/Users) と RisingWave graph への安全なアクセスを提供します。メール送信は draft_only ルールに従い、承認なしに実際の送信は行いません。Teams メッセージ送信は delegated device code 認証が必要なため、このアクターでは対応しません。RisingWave への書き込みは一切行いません（read-only）。ユーザーの言語で回答してください。",
   "duties": [
     "勤労の義務"
   ],

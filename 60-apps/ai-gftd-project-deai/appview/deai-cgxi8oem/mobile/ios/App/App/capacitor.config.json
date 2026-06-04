@@ -1,0 +1,39 @@
+{
+	"appId": "ai.gftd.deai",
+	"appName": "deai — Spirit Match",
+	"webDir": "../svelte/build",
+	"server": {
+		"androidScheme": "https",
+		"iosScheme": "https",
+		"hostname": "deai.gftd.ai",
+		"allowNavigation": [
+			"deai.gftd.ai",
+			"*.gftd.ai",
+			"spirit-in-physics.com",
+			"*.spirit-in-physics.com",
+			"sip.junkawasaki.com",
+			"api.hume.ai",
+			"*.hume.ai",
+			"localhost",
+			"127.0.0.1"
+		]
+	},
+	"ios": {
+		"contentInset": "always",
+		"allowsLinkPreview": false
+	},
+	"android": {},
+	"plugins": {
+		"CapacitorHttp": {
+			"enabled": true
+		},
+		"Camera": {}
+	},
+	"packageClassList": [
+		"AppPlugin",
+		"CAPCameraPlugin",
+		"PreferencesPlugin",
+		"StatusBarPlugin",
+		"VoiceRecorder"
+	]
+}

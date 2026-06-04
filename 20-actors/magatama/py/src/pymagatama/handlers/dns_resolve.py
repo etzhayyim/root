@@ -66,7 +66,7 @@ log = logging.getLogger(__name__)
 
 _DOH_URL = "https://cloudflare-dns.com/dns-query"
 _TIMEOUT_SEC = 8
-_UA = "gftd-dns-udf/1.0 (ops@etzhayyim.com)"
+_UA = "etzhayyim-dns-udf/1.0 (ops@etzhayyim.com)"
 _ALLOWED_RTYPES = frozenset({
     "A", "AAAA", "MX", "NS", "TXT", "CNAME", "SOA", "PTR", "SRV", "CAA",
 })

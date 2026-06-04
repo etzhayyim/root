@@ -17,7 +17,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_nogu_record_lease"
-  targetNamespace="https://gftd.ai/bpmn/nogu"
+  targetNamespace="https://etzhayyim.ai/bpmn/nogu"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="nogu_record_lease" name="nogu Record Lease" isExecutable="true">
@@ -58,7 +58,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=if(action = &quot;start&quot;, &quot;leaseStarted&quot;, &quot;leaseReturned&quot;)" target="action"/>
           <zeebe:input source="={ itemId: itemId, lesseeDidOrMemberId: lesseeDidOrMemberId, conditionOnReturn: conditionOnReturn }" target="payload"/>
         </zeebe:ioMapping>
@@ -83,7 +83,7 @@
         <zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_nogu_maintenance&quot;" target="table"/>
-          <zeebe:input source="={ item_id: itemId, maintenance_type: &quot;repair&quot;, performed_at: returnedAt, performer_did: &quot;did:web:nogu.gftd.ai&quot;, status: &quot;pending-parts&quot;, notes: &quot;Auto-created from lease return: conditionOnReturn=&quot; + conditionOnReturn }" target="row"/>
+          <zeebe:input source="={ item_id: itemId, maintenance_type: &quot;repair&quot;, performed_at: returnedAt, performer_did: &quot;did:web:nogu.etzhayyim.com&quot;, status: &quot;pending-parts&quot;, notes: &quot;Auto-created from lease return: conditionOnReturn=&quot; + conditionOnReturn }" target="row"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_Damaged</bpmn:incoming>
@@ -95,7 +95,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;maintenanceRequired&quot;" target="action"/>
           <zeebe:input source="={ itemId: itemId, conditionOnReturn: conditionOnReturn }" target="payload"/>
         </zeebe:ioMapping>

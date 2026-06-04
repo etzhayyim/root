@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_biosecurity_flag_dual_use_gof"
-    targetNamespace="https://gftd.ai/bpmn/open-biosecurity"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-biosecurity"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_biosecurity_flag_dual_use_gof" name="機能獲得 (GoF) 軍民両用" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-biosecurity.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-biosecurity.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;bio.gofDualUse&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: researchVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>

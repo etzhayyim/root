@@ -73,7 +73,7 @@ def main():
     parser.add_argument(
         '--roster',
         type=Path,
-        default=Path('/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-gov/scaffold/actor-manifest.jsonld'),
+        default=Path('/Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-gov/scaffold/actor-manifest.jsonld'),
         help='Path to actor-manifest.jsonld',
     )
     parser.add_argument(

@@ -277,10 +277,10 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "Reference to :elv-intake/vin"}
- {:db/ident :provenance-binder/yatachain-anchor-cid
+ {:db/ident :provenance-binder/kotoba-datomic-anchor-cid
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "IPFS CID of the yatachain-anchored audit binder"}
+  :db/doc "IPFS CID of the kotoba-datomic-anchored audit binder"}
  {:db/ident :provenance-binder/mass-balance-closure-pct
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one

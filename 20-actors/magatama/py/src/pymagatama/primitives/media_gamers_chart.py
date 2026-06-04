@@ -71,7 +71,7 @@ def _rkey(prefix: str) -> str:
 
 
 def _http_get_json(url: str, headers: dict | None = None, timeout: float = _HTTP_TIMEOUT) -> Any:
-    req = _u_req.Request(url, headers=headers or {"User-Agent": "gftd-media-gamers/1.0"})
+    req = _u_req.Request(url, headers=headers or {"User-Agent": "etzhayyim-media-gamers/1.0"})
     try:
         with _u_req.urlopen(req, timeout=timeout) as resp:
             return json.loads(resp.read().decode("utf-8", errors="replace"))

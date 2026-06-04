@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # atproto PDS — Bun container build (ADR-2605111300, Phase P1).
-# Uses remote BuildKit on VKE (gftd-vke builder).
+# Uses remote BuildKit on VKE (etzhayyim-vke builder).
 #
 # Usage:
 #   50-infra/k8s/atproto-pds/build.sh                   # build + push :bun-canary

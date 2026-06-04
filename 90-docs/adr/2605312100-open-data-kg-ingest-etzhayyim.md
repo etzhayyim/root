@@ -31,7 +31,7 @@ superseded_by: []
 # Context
 
 Continues ADR-2605312000 (NDL). The vendor yatabase KG ingest
-(`gftdcojp:…/lg_yatabase/graphs/kg_ingest.py` `_SOURCES`) harvests 7 sources from
+(`etzhayyimcojp:…/lg_yatabase/graphs/kg_ingest.py` `_SOURCES`) harvests 7 sources from
 the public internet: wikidata, crossref, japan_company_registry (gBiz),
 openstreetmap, egov_laws, hf_rebel, hf_conceptnet. User direction (2026-05-31):
 migrate the open-data / public / net-ingest family to kotoba; vendor removal is
@@ -80,7 +80,7 @@ inside `kg_ingest.py`, consumed by the live commercial yatabase/kotobase product
 (`server.py` scheduler + `kg_handlers` reads). Removing them darks a running
 product, and `MIGRATION-rw-to-kotoba-datomic.md` is explicit: "NOT a cutover …
 RW is not retired until the 7-step sovereign cutover gate passes." So `git rm` in
-gftdcojp waits on that cutover (disable scheduler / redirect reads first), not
+etzhayyimcojp waits on that cutover (disable scheduler / redirect reads first), not
 this port.
 
 # Consequences

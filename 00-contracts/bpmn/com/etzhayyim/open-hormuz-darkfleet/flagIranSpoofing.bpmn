@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_hormuz_darkfleet_flag_iran_spoofing"
-    targetNamespace="https://gftd.ai/bpmn/open-hormuz-darkfleet"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-hormuz-darkfleet"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_hormuz_darkfleet_flag_iran_spoofing" name="ホルムズ IRGC AIS spoof" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-hormuz-darkfleet.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-hormuz-darkfleet.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;maritime.iranSpoof&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: vesselVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

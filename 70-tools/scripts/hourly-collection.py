@@ -23,7 +23,7 @@ RW_PORT = 4566
 RW_USER = "root"
 RW_DB   = "dev"
 
-REPO               = "did:plc:gftd-collector"
+REPO               = "did:plc:etzhayyim-collector"
 PATENT_COLLECTION  = "com.etzhayyim.apps.patent.patent"
 DNS_COLLECTION     = "com.etzhayyim.apps.dns.observation"
 
@@ -42,7 +42,7 @@ DNS_START          = 10_000
 
 TIMEOUT_S          = 50 * 60   # 50-min hard budget
 
-_UA = "gftd-collect/1.0 (https://etzhayyim.com; ops@etzhayyim.com) python-urllib/3"
+_UA = "etzhayyim-collect/1.0 (https://etzhayyim.com; ops@etzhayyim.com) python-urllib/3"
 
 
 # ── State ──────────────────────────────────────────────────────────────────────

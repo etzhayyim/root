@@ -66,7 +66,7 @@ included here for narrative completeness.)
 ## What's in `main` after this session
 
 ```
-60-apps/ai-gftd-project-ameno/
+60-apps/etzhayyim-project-ameno/
 ├── appview/.../svelte/src/
 │   ├── App.svelte
 │   └── lib/

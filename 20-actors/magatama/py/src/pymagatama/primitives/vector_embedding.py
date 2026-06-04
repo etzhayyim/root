@@ -1,6 +1,6 @@
 """Vector embedding backfill primitives for actor profiles and posts.
 
-Phase 1 writes only `gftd-mm-768` rows into:
+Phase 1 writes only `etzhayyim-mm-768` rows into:
 
 - vertex_vector_embedding_source
 - vertex_vector_embedding_768
@@ -25,11 +25,11 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-SPACE_ID = "gftd-mm-768"
+SPACE_ID = "etzhayyim-mm-768"
 DIM = 768
 DEFAULT_TEXT_MODEL_ID = "bge-m3"
 DEFAULT_TEXT_MODEL_NAME = "BAAI/bge-m3"
-DEFAULT_TEXT_PROJECTION_ID = "bge-m3-to-gftd-mm-768"
+DEFAULT_TEXT_PROJECTION_ID = "bge-m3-to-etzhayyim-mm-768"
 HUME_EMOTION_MODEL_ID = "hume-emotional-language"
 HUME_API_BASE = "https://api.hume.ai/v0"
 
@@ -160,7 +160,7 @@ def plan_actor_candidates(limit: int = 100, shard_id: int | None = None) -> list
         SELECT
           root_did, did AS facade_did, handle, display_name, description, performer_type
         FROM view_actor_unified v
-        WHERE root_did LIKE 'did:erc725:gftd:260425:%%'
+        WHERE root_did LIKE 'did:erc725:etzhayyim:260425:%%'
           AND NOT EXISTS (
             SELECT 1 FROM vertex_vector_embedding_768 e
             WHERE e.source_uri = ('actor:' || v.root_did)

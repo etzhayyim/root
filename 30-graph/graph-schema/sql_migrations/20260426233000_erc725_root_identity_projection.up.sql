@@ -48,19 +48,19 @@ CREATE TABLE IF NOT EXISTS edge_erc725_facade_did (
 
 FLUSH;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN root_did VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN root_did VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN root_did_hash VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN root_did_hash VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN root_identity_addr VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN root_identity_addr VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN facade_did VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN facade_did VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN facade_did_hash VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN facade_did_hash VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN identity_method VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN identity_method VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN migration_status VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN migration_status VARCHAR;
 
 FLUSH;
 
@@ -96,8 +96,8 @@ CREATE INDEX IF NOT EXISTS idx_edge_erc725_facade_hash
 CREATE INDEX IF NOT EXISTS idx_edge_erc725_facade_root_hash
     ON edge_erc725_facade_did (root_did_hash);
 
-CREATE INDEX IF NOT EXISTS idx_vertex_gftd_identity_root_hash
-    ON vertex_gftd_identity (root_did_hash);
+CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_identity_root_hash
+    ON vertex_etzhayyim_identity (root_did_hash);
 
 CREATE INDEX IF NOT EXISTS idx_vertex_claim_stake_root_hash
     ON vertex_claim_stake (root_did_hash);

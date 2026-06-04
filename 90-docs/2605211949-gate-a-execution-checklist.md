@@ -15,7 +15,7 @@ authoritative_for:
   - acceptance criteria per pattern (BeliefStore / audit log / read-cache / primary store / worker_runtime+stub / ingest module)
 depends_on:
   - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
-  - adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com
+  - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
 related:
   - doc-2605211800-vendor-importer-survey-gate-d
@@ -88,10 +88,10 @@ tests use `tempfile.TemporaryDirectory()`.
 
 | # | Target file | Pattern | Source ref | Smoke | Done |
 |---|---|---|---|---|---|
-| P1 | `primitives/active_inference_substrate.py` | (Protocol + dataclasses + factory) | gftd vendor has 590 lines; etzhayyim port removes `_DualWriteBeliefStore` class + RW import branches, defaults backend to `at-ipfs-local` | `from pymagatama.primitives.active_inference_substrate import BeliefStore, ObservationRecord, select_belief_store` (import-only) | [x] 2026-05-21 |
-| P2 | `primitives/at_ipfs_belief_store.py` | (concrete BeliefStore impl) | gftd vendor has 430 lines; etzhayyim port = byte-identical copy (no RW imports in the file already) | seeded BeliefStore + put_observation/list_observations round-trip | [x] 2026-05-21 |
+| P1 | `primitives/active_inference_substrate.py` | (Protocol + dataclasses + factory) | etzhayyim vendor has 590 lines; etzhayyim port removes `_DualWriteBeliefStore` class + RW import branches, defaults backend to `at-ipfs-local` | `from pymagatama.primitives.active_inference_substrate import BeliefStore, ObservationRecord, select_belief_store` (import-only) | [x] 2026-05-21 |
+| P2 | `primitives/at_ipfs_belief_store.py` | (concrete BeliefStore impl) | etzhayyim vendor has 430 lines; etzhayyim port = byte-identical copy (no RW imports in the file already) | seeded BeliefStore + put_observation/list_observations round-trip | [x] 2026-05-21 |
 | P3 | `worker_runtime.py` | (new file at pymagatama root) | ~200 lines: `watchdog`, `activation_monitor`, `task_sqlite_health_probe`, `make_degraded_ingest_stub` | health probe healthy + degraded + watchdog clean exit + activation_monitor clean exit with bogus URL | [x] 2026-05-21 |
-| P4 | `ingest/core.py` | (orchestration spine, 3 tables) | ~320 lines port from gftd 569 lines (drops psql/_psql_exec fallback) | upsert_run + mark_run_finished + upsert_cursor + upsert_artifact round-trip | [x] 2026-05-21 (RW path disabled via `_psql_enabled() -> False`; vendor 4 helpers retained with non-psql fallback active) |
+| P4 | `ingest/core.py` | (orchestration spine, 3 tables) | ~320 lines port from etzhayyim 569 lines (drops psql/_psql_exec fallback) | upsert_run + mark_run_finished + upsert_cursor + upsert_artifact round-trip | [x] 2026-05-21 (RW path disabled via `_psql_enabled() -> False`; vendor 4 helpers retained with non-psql fallback active) |
 
 ## §2 BeliefStore organism workers (8 — Wave D group)
 

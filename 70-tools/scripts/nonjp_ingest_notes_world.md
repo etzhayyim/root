@@ -12,7 +12,7 @@ Date tested: 2026-04-25 JST. Scope: bootstrap only; no live DB writes.
 
 - `vertex_id`, `title`, `title_native`, `parties_json`, `signed_date`, `entered_into_force_date`, `un_reg_no`, `depositary`, `source`, `source_record_id`, `source_url`, `language`
 
-The previous repo seed baseline was 10 high-value treaty authority seeds in `70-tools/gftd/gftd/seed_domains.go` (`un_charter`, `udhr`, `geneva_1949`, `iccpr`, `icescr`, `vienna_treaties`, `unclos`, `paris_climate`, `rome_statute`, `wto_marrakesh`); that file was removed 2026-05-20 with the gftd CLI. Treat this list as authority seed, not corpus coverage.
+The previous repo seed baseline was 10 high-value treaty authority seeds in `70-tools/etzhayyim/etzhayyim/seed_domains.go` (`un_charter`, `udhr`, `geneva_1949`, `iccpr`, `icescr`, `vienna_treaties`, `unclos`, `paris_climate`, `rome_statute`, `wto_marrakesh`); that file was removed 2026-05-20 with the etzhayyim CLI. Treat this list as authority seed, not corpus coverage.
 
 ## Tested public sources
 

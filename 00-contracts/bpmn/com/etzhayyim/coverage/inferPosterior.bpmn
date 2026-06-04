@@ -2,21 +2,21 @@
 <!--
   coverage.inferPosterior — read mv_cohort_identity_posterior (ADR-0056).
 
-  Mirrors `gftd coverage infer posterior`. Pure read against the streaming
+  Mirrors `etzhayyim coverage infer posterior`. Pure read against the streaming
   MV `mv_cohort_identity_posterior`. XRPC trigger only (no timer — cheap
   enough to call on demand from agents / dashboards).
 
   Pipeline:
     1. generic.db.select — top-N by max_posterior DESC
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-posterior-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-posterior-v1
   NSID:      com.etzhayyim.apps.coverage.inferPosterior
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_coverage_infer_posterior"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="coverage_infer_posterior" name="coverage infer posterior" isExecutable="true">
 

@@ -21,8 +21,8 @@ depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
-  - adr-2605231400-yatachain-holochain-iso-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
+  - adr-2605231500-kotoba-datomic-projection
   - adr-2605231902-feed-post-membrane-and-feed-discover-projection
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605231525-no-server-key-religious-corp-architecture
@@ -42,7 +42,7 @@ superseded_by: []
 ADR-2605262130 named **kotoba** the canonical storage substrate engine and removed
 the projection layer (kotoba-kqe arrangements serve hot-path reads directly over
 content-addressed blocks). But it left the *layering authority* ambiguous, and the
-downstream doctrine inherited the older yatachain framing:
+downstream doctrine inherited the older kotoba-datomic framing:
 
 - **`CLAUDE.md` substrate-boundary table** lists the canonical **State** as
   `AT Protocol MST + IPFS + Base L2 anchor` — the kotoba Datom log does **not** appear

@@ -17,7 +17,7 @@
 
  :actor/gates
  [{:gate/id "G1"  :gate/name "firmware-open-source" :gate/rule "All firmware (furnace, casting, rolling, robotics) open-source (Apache 2.0 + Charter Rider)"}
-  {:gate/id "G2"  :gate/name "mass-balance-audit"   :gate/rule "Mass-balance audit on yatachain: input_mass = output_metal + dross + emission ≥98% closure"}
+  {:gate/id "G2"  :gate/name "mass-balance-audit"   :gate/rule "Mass-balance audit on kotoba-datomic: input_mass = output_metal + dross + emission ≥98% closure"}
   {:gate/id "G3"  :gate/name "ipfs-pinned-proofs"   :gate/rule "Per-batch + per-coil IPFS-pinned photo + video"}
   {:gate/id "G4"  :gate/name "witness-quorum"       :gate/rule "Every pour signed by witness quorum ≥2 distinct robots (Ed25519, DID-bound)"}
   {:gate/id "G5"  :gate/name "murakumo-only"        :gate/rule "Inference paths via Murakumo no-VKE mesh only (ADR-2605214000 / ADR-2605215000)"}

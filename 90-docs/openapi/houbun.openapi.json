@@ -290,7 +290,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_houbun_amendmentEvent": {
+      "ai_etzhayyim_houbun_amendmentEvent": {
         "type": "object",
         "properties": {
           "statuteRef": {
@@ -346,7 +346,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_houbun_article": {
+      "ai_etzhayyim_houbun_article": {
         "type": "object",
         "properties": {
           "statuteRef": {
@@ -407,7 +407,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_houbun_statute": {
+      "ai_etzhayyim_houbun_statute": {
         "type": "object",
         "properties": {
           "jurisdiction": {
@@ -491,7 +491,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_houbun_treaty": {
+      "ai_etzhayyim_houbun_treaty": {
         "type": "object",
         "properties": {
           "title": {

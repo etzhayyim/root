@@ -47,7 +47,7 @@ apply_or_diff() {
 # ── 1. atproto wrangler.jsonc — remove LEGACY_TRUST_HEADERS env var ─────
 ATPROTO_WRANGLER="${REPO_ROOT}/50-infra/cloudflare/workers/atproto/wrangler.jsonc"
 awk '
-  /ADR-2604241038 Phase γ2: emit the legacy x-gftd-authenticated-did/ { skip = 3; next }
+  /ADR-2604241038 Phase γ2: emit the legacy x-etzhayyim-authenticated-did/ { skip = 3; next }
   skip > 0 { skip--; next }
   /"LEGACY_TRUST_HEADERS": "on"/ {
     # Drop the trailing comma on the preceding "DPOP_CNF_JKT_ENFORCEMENT"
@@ -79,7 +79,7 @@ apply_or_diff "atproto dispatch.ts" "$ATPROTO_DISPATCH" "$TMPDIR/atproto-dispatc
 # ── 3. appview wrangler.jsonc ──────────────────────────────────────────
 APPVIEW_WRANGLER="${REPO_ROOT}/50-infra/cloudflare/workers/appview/wrangler.jsonc"
 awk '
-  /ADR-2604241038 Phase γ2: accept legacy x-gftd-internal-trust/ { skip = 3; next }
+  /ADR-2604241038 Phase γ2: accept legacy x-etzhayyim-internal-trust/ { skip = 3; next }
   skip > 0 { skip--; next }
   /"LEGACY_TRUST_HEADERS": "on"/ { next }
   { print }
@@ -101,8 +101,8 @@ with open(src) as f:
 
 # Drop the legacy header constants (lines 25-26 originally).
 txt = re.sub(
-    r'\nconst TRUSTED_VIEWER_DID_HEADER = "x-gftd-authenticated-did";\n'
-    r'const INTERNAL_TRUST_HEADER = "x-gftd-internal-trust";\n',
+    r'\nconst TRUSTED_VIEWER_DID_HEADER = "x-etzhayyim-authenticated-did";\n'
+    r'const INTERNAL_TRUST_HEADER = "x-etzhayyim-internal-trust";\n',
     '\n',
     txt,
 )
@@ -110,12 +110,12 @@ txt = re.sub(
 # Collapse the doc comment that talks about legacy shared secret.
 txt = re.sub(
     r' \* Viewer identity: forwarded by the PDS `pipethroughAppView` helper on\n'
-    r' \* `x-gftd-authenticated-did`\. Trust is gated by the\n'
-    r' \* `x-gftd-internal-trust` shared secret — requests that reach this\n'
+    r' \* `x-etzhayyim-authenticated-did`\. Trust is gated by the\n'
+    r' \* `x-etzhayyim-internal-trust` shared secret — requests that reach this\n'
     r' \* Worker without that header stay anonymous so a public request to\n'
-    r' \* bsky\.gftd\.ai can\'t forge a viewer DID\.\n',
+    r' \* bsky\.etzhayyim\.ai can\'t forge a viewer DID\.\n',
     ' * Viewer identity: forwarded by the PDS `pipethroughAppView` helper as\n'
-    ' * the HMAC-signed `x-gftd-viewer-{did,issued-at,signature}` trio\n'
+    ' * the HMAC-signed `x-etzhayyim-viewer-{did,issued-at,signature}` trio\n'
     ' * (ADR-2604241038 Contract 3). Requests without a valid trio stay\n'
     ' * anonymous so a public request to bsky.etzhayyim.com can\'t forge a viewer DID.\n',
     txt,
@@ -124,8 +124,8 @@ txt = re.sub(
 # Drop the dual-accept comment block.
 txt = re.sub(
     r'// ADR-2604241038 Contract 3: dual-accept during Phase γ grace\.\n'
-    r'//   Primary — HMAC-signed trio \(x-gftd-viewer-\{did,issued-at,signature\}\)\.\n'
-    r'//   Legacy — plain x-gftd-authenticated-did \+ x-gftd-internal-trust shared\n'
+    r'//   Primary — HMAC-signed trio \(x-etzhayyim-viewer-\{did,issued-at,signature\}\)\.\n'
+    r'//   Legacy — plain x-etzhayyim-authenticated-did \+ x-etzhayyim-internal-trust shared\n'
     r'//            secret \(will be dropped once PDS has emitted HMAC for 1 release\)\.\n',
     '// ADR-2604241038 Contract 3: HMAC-signed 3-header viewer-DID envelope.\n',
     txt,

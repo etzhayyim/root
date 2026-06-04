@@ -53,7 +53,7 @@ for `kaisya`, `kyber`, and `apqc` assuming LangGraph Server and SpiffWorkflow.
 
 ## Live Gates Not Executed Here
 
-The local Keychain does not contain `gftd.risingwave/RW_DSN` (security exit
+The local Keychain does not contain `etzhayyim.risingwave/RW_DSN` (security exit
 code 44), so live DB migration, Spiff instance smoke, and MoneyForward export
 parity execution could not be run from this workspace. The required commands
 and pass/fail criteria are captured in

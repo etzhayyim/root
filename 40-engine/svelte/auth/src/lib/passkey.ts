@@ -19,10 +19,10 @@ import {
 const AUTH_BASE = 'https://atproto.etzhayyim.com';
 // ADR-0024 T4 split: auth.etzhayyim.com retired 2026-04-16 → authn.etzhayyim.com (AuthN Worker).
 const AUTH_RPC_BASE = 'https://authn.etzhayyim.com';
-const SESSION_STORAGE_KEY = 'gftd-auth-session';
-const REFRESH_STORAGE_KEY = 'gftd-auth-refresh';
-const CREDENTIAL_STORAGE_KEY = 'gftd-auth-credential';
-const DID_STORAGE_KEY = 'gftd-auth-did';
+const SESSION_STORAGE_KEY = 'etzhayyim-auth-session';
+const REFRESH_STORAGE_KEY = 'etzhayyim-auth-refresh';
+const CREDENTIAL_STORAGE_KEY = 'etzhayyim-auth-credential';
+const DID_STORAGE_KEY = 'etzhayyim-auth-did';
 
 // Keep the same export name for backward compat
 export const DEFAULT_CLERK_PUBLISHABLE_KEY = '';
@@ -379,7 +379,7 @@ async function refreshSessionFromStored(stored: StoredSession): Promise<void> {
 function updateUserFromDid(did: string): void {
 	// ADR-0024 T4 split: accept both legacy (auth.etzhayyim.com) and current (authn.etzhayyim.com) DID prefixes.
 	const handle = did
-		.replace(/^did:web:(?:auth|authn)\.gftd\.ai:/, '')
+		.replace(/^did:web:(?:auth|authn)\.etzhayyim\.ai:/, '')
 		.replace(/:/g, '.');
 	clerkUser.set({
 		id: did,

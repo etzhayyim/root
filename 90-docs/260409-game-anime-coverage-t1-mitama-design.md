@@ -1,6 +1,6 @@
 # Game/Anime Coverage 向上設計 (T1 + mitama)
 
-**Date**: 2026-04-09  
+**Date**: 2026-04-09
 **Status**: `[DESIGN]`
 
 ## 1. 目的
@@ -28,9 +28,9 @@
 
 ## 3. 問題点
 
-1. game と anime で coverage 契約が揃っていない。  
-2. anime 側は mitama (`register/list/inspect/dormant/revive`) の管理対象外が多い。  
-3. coverage 名称の揺れ（例: `media_gamers` / `mediagamers`, `mediaanime` / `media_anime`）で集計・自動化が不安定。  
+1. game と anime で coverage 契約が揃っていない。
+2. anime 側は mitama (`register/list/inspect/dormant/revive`) の管理対象外が多い。
+3. coverage 名称の揺れ（例: `media_gamers` / `mediagamers`, `mediaanime` / `media_anime`）で集計・自動化が不安定。
 4. `apps coverage` は `coverageStats` を見に行くが、T1標準は `coverage.get` であり、評価系CLIとmanifest設計にズレがある。
 
 ## 4. 設計方針
@@ -100,9 +100,9 @@
 ## 7. ロールアウト手順
 
 1. anime T1 manifest 追加 (`20-actors/media-anime/actor-manifest.jsonld`)
-2. `gftd mitama -dir 20-actors/media-anime --dry-run`
-3. `gftd mitama -dir 20-actors/media-anime` で登録
-4. `gftd mitama inspect did:web:media-anime.etzhayyim.com` で登録内容確認
+2. `etzhayyim mitama -dir 20-actors/media-anime --dry-run`
+3. `etzhayyim mitama -dir 20-actors/media-anime` で登録
+4. `etzhayyim mitama inspect did:web:media-anime.etzhayyim.com` で登録内容確認
 5. `com.etzhayyim.apps.mediaanime.coverage.get` を smoke 実行
 6. `media-gamers` 側も同契約に合わせて key/collection の揺れを是正
 7. 必要に応じて `news` を T1 actor 化し category coverage を統合
@@ -115,8 +115,8 @@
 
 ## 9. 実装優先順位
 
-1. `media-anime` T1 化 + `coverage.get` 実装  
-2. `media-gamers` との collection/nsid 命名統一  
-3. `apps coverage` の `coverage.get` 対応  
+1. `media-anime` T1 化 + `coverage.get` 実装
+2. `media-gamers` との collection/nsid 命名統一
+3. `apps coverage` の `coverage.get` 対応
 4. `news` category coverage の T1 露出（必要時）
 

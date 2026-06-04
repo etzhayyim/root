@@ -35,7 +35,7 @@ collected=3,799 / vertex_count=81 (`coverage_rate ≈ 0.000019`)。trademark は
   + `mv_open_patent_by_jurisdiction`
 - Manifest: `20-actors/patent/actor-manifest.jsonld` (489 行)、4 source entity
   (JPO/USPTO/EPO/WIPO) を `did:web:patent.etzhayyim.com:source:*` で記述済
-- Magatama: `60-apps/ai-gftd-project-patent/appview/ai-gftd-wasm-patent-p4t3nt01/magatama.jsonld`
+- Magatama: `60-apps/etzhayyim-project-patent/appview/etzhayyim-wasm-patent-p4t3nt01/magatama.jsonld`
   に `subscribeRepos` で 6 NSID 受信設定済
 - Blob CID 前例: PDS `blobs/{repo}/{sha256hex}` content-addressed R2 dedup
   (`pds-blob-content-addressing`)、`vertex_gyosei_source_blob` /
@@ -206,8 +206,8 @@ patent-blob-converter (k8s Deployment, Vultr LAX, replicas=1)
 - multihash: `sha2-256` (`0x12`)
 - 例: `bafkreigh2akiscaildc...` (webp), `bafkreid7e6vsfh...` (OCR text)
 
-ADR-0029 の did:gftd CID 仕様と同じ codec/hash 群を使うので、将来 patent blob を
-did:gftd path-form sub-DID で参照する拡張が容易 (e.g. `did:web:patent.etzhayyim.com/blob/{cid}`)。
+ADR-0029 の did:etzhayyim CID 仕様と同じ codec/hash 群を使うので、将来 patent blob を
+did:etzhayyim path-form sub-DID で参照する拡張が容易 (e.g. `did:web:patent.etzhayyim.com/blob/{cid}`)。
 
 ## Federation policy
 
@@ -378,7 +378,7 @@ root `deps.toml`.
 - ADR-0048 RisingWave Vultr+B2 primary (`90-docs/adr/0048-risingwave-vultr-b2-primary.md`)
 - ADR-0081 Worker-direct Hyperdrive persistence
 - ADR-0085 Non-federable NSID firehose gate
-- ADR-0029 did:gftd method specification (CID 仕様)
+- ADR-0029 did:etzhayyim method specification (CID 仕様)
 - USPTO PatentsView bulk: https://patentsview.org/download/data-download-tables
 - EPO OPS REST: https://developers.epo.org/ops-v3-2
 - WIPO ST.96 XML: https://www.wipo.int/standards/en/st96/

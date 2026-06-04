@@ -39,14 +39,14 @@
       gameka.tick.briefError so operators can debug).
 
   NSID: com.etzhayyim.apps.gameka.tickStudio (timer-started, no XRPC caller)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/gameka-tick-studio-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gameka-tick-studio-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_gameka_tick_studio"
-    targetNamespace="https://gftd.ai/bpmn/gameka"
+    targetNamespace="https://etzhayyim.ai/bpmn/gameka"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gameka_tick_studio" name="gameka tickStudio" isExecutable="true">
@@ -115,7 +115,7 @@
           <zeebe:input source="=&quot;vertex_repo_record&quot;" target="table"/>
           <zeebe:input source="=&quot;value_json&quot;" target="columns"/>
           <zeebe:input source="=&quot;collection = %s AND repo LIKE %s AND ts_ms > (EXTRACT(epoch FROM now()) * 1000 - 86400000)::bigint&quot;" target="whereExpr"/>
-          <zeebe:input source='=["app.bsky.feed.post", "did:web:media-gamers.gftd.ai%"]' target="whereParams"/>
+          <zeebe:input source='=["app.bsky.feed.post", "did:web:media-gamers.etzhayyim.com%"]' target="whereParams"/>
           <zeebe:input source="=&quot;ts_ms DESC&quot;" target="orderBy"/>
           <zeebe:input source="=20" target="limit"/>
           <zeebe:output source="=if rows = null then [] else rows" target="trendRows"/>
@@ -151,7 +151,7 @@
         <zeebe:taskDefinition type="generic.llm.json" retries="2"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
-          <zeebe:input source="=&quot;You are gameka.gftd.ai's autonomous studio brief composer. Read recent gaming-media posts (raw JSON corpus). Output ONE minified JSON object: {&apos;brief&apos;: a one-line creative seed for a new browser game (≤200 chars, English, mechanic+vibe only, no real IP names), &apos;themes&apos;: array of ≤5 short keyword strings}. No preamble. If the corpus is thin or empty, propose an original mechanic anyway.&quot;" target="system"/>
+          <zeebe:input source="=&quot;You are gameka.etzhayyim.com's autonomous studio brief composer. Read recent gaming-media posts (raw JSON corpus). Output ONE minified JSON object: {&apos;brief&apos;: a one-line creative seed for a new browser game (≤200 chars, English, mechanic+vibe only, no real IP names), &apos;themes&apos;: array of ≤5 short keyword strings}. No preamble. If the corpus is thin or empty, propose an original mechanic anyway.&quot;" target="system"/>
           <zeebe:input source="=string join([&quot;Corpus (last 24h, &quot;, string(trendCount), &quot; posts):\n&quot;, trendCorpus], &quot;&quot;)" target="user"/>
           <zeebe:input source="=350" target="maxTokens"/>
           <zeebe:input source="=0.6" target="temperature"/>
@@ -203,7 +203,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;gameka.tick.live&quot;" target="action"/>
           <zeebe:input source="={
               trendCount: trendCount,
@@ -225,7 +225,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;gameka.tick.dryRun&quot;" target="action"/>
           <zeebe:input source="={
               trendCount: trendCount,

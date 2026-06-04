@@ -21,7 +21,7 @@
     5. generic.db.insert  — bulk-link up to 1000 living persons to contemporary cohort
     6. generic.audit.emit — OCEL summary
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-deceased-cohorts-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-deceased-cohorts-v1
   NSID:      com.etzhayyim.apps.coverage.inferDeceasedCohorts
 -->
 <bpmn:definitions
@@ -29,7 +29,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_coverage_infer_deceased_cohorts"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="coverage_infer_deceased_cohorts" name="coverage infer deceased cohorts" isExecutable="true">
 
@@ -125,18 +125,18 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;edge_cohort_ancestor_of&quot;" target="table"/>
           <zeebe:input source="=for p in unlinkedPersons return {
-            &quot;edge_id&quot;:         &quot;at://did:web:natural-person.gftd.ai/com.etzhayyim.apps.naturalPerson.cohortAncestorOf/living-&quot; + substring(p.vertex_id, 80),
-            &quot;src_vid&quot;:         &quot;at://did:web:natural-person.gftd.ai/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
+            &quot;edge_id&quot;:         &quot;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.cohortAncestorOf/living-&quot; + substring(p.vertex_id, 80),
+            &quot;src_vid&quot;:         &quot;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
             &quot;dst_vid&quot;:         p.vertex_id,
             &quot;_seq&quot;:            1,
             &quot;sensitivity_ord&quot;:  0,
-            &quot;owner_did&quot;:        &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;owner_did&quot;:        &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;generation_offset&quot;: 0,
             &quot;temporal_gap_years&quot;: 0,
             &quot;confidence&quot;:       0.7,
             &quot;lineage_type&quot;:     &quot;statistical_membership&quot;,
-            &quot;actor_did&quot;:        &quot;did:web:natural-person.gftd.ai&quot;,
-            &quot;org_did&quot;:          &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;actor_did&quot;:        &quot;did:web:natural-person.etzhayyim.com&quot;,
+            &quot;org_did&quot;:          &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;created_at&quot;:       now()
           }" target="rows"/>
           <zeebe:output source="=inserted" target="linkedCount"/>
@@ -152,7 +152,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferDeceasedCohorts.refresh&quot;" target="action"/>
           <zeebe:input source="={
             &quot;eras_tracked&quot;:           eraCount,
@@ -172,7 +172,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferDeceasedCohorts.noop&quot;" target="action"/>
           <zeebe:input source="={&quot;reason&quot;: &quot;no_unlinked_living_persons&quot;, &quot;eras_tracked&quot;: eraCount, &quot;unlinked_sampled&quot;: unlinkedCount}" target="payload"/>
         </zeebe:ioMapping>

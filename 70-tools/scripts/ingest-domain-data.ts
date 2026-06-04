@@ -16,12 +16,12 @@ const PDS_URL = "https://atproto.etzhayyim.com";
 // x-magatama-verified header. Required for write operations.
 const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
 if (!etzhayyim_TOKEN) {
-  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first");
+  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(etzhayyim auth token)` first");
 }
 const AUTH_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
   "Authorization": `Bearer ${etzhayyim_TOKEN}`,
-  "x-gftd-org-id": "anon",
+  "x-etzhayyim-org-id": "anon",
 };
 const MURAKUMO_URL = "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions";
 const DATA_BASE = "/Volumes/251220/domain-data";

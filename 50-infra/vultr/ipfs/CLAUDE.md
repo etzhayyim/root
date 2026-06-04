@@ -2,19 +2,19 @@
 
 ADR-2604261936 reference deployment. Kubo (go-ipfs) v0.31.0 single-replica
 StatefulSet, blocks on Backblaze B2 via `go-ds-s3`, gateway exposed through
-caddy → Vultr LB → CF Worker (`ai-gftd-ipfs-proxy`) at `ipfs.etzhayyim.com`.
+caddy → Vultr LB → CF Worker (`etzhayyim-ipfs-proxy`) at `ipfs.etzhayyim.com`.
 
 | Field | Value |
 |---|---|
 | Cluster | Vultr VKE (lax), namespace `ipfs` |
 | Pod | StatefulSet `kubo`, replicas=1, image `ipfs/kubo:v0.31.0` |
 | PVC | `kubo-repo-0`, 40 Gi, `vultr-block-storage-hdd-retain` (metadata only; Vultr block storage min size is 40 GiB) |
-| Block store | B2 `s3://ai-gftd-nats/ipfs/blocks/` (us-west-004; shared bucket with RW Hummock per ADR-0048, isolated by prefix) |
+| Block store | B2 `s3://etzhayyim-nats/ipfs/blocks/` (us-west-004; shared bucket with RW Hummock per ADR-0048, isolated by prefix) |
 | Gateway (in-cluster) | `http://kubo.ipfs.svc.cluster.local:8080` |
 | API (in-cluster) | `http://kubo.ipfs.svc.cluster.local:5001` (NEVER public) |
 | Swarm | NodePort 30401 (TCP+UDP) |
 | TLS proxy | `caddy-ipfs-tls` Deployment, replicas=2, Vultr LB :443 |
-| Public DNS | `ipfs.etzhayyim.com` (CF proxied) → Worker `ai-gftd-ipfs-proxy` |
+| Public DNS | `ipfs.etzhayyim.com` (CF proxied) → Worker `etzhayyim-ipfs-proxy` |
 | Origin DNS | `ipfs-origin.etzhayyim.com` (CF proxied) — port-rewrite rule to :8443 |
 
 ## Layout
@@ -41,13 +41,13 @@ CF Worker proxy lives separately at
 
 Pre-reqs:
 
-1. **B2 prefix** `s3://ai-gftd-nats/ipfs/blocks/` (no new bucket needed —
-   the existing `ai-gftd-nats` bucket is shared with RisingWave Hummock per
-   ADR-0048 and isolated by prefix). The Keychain entry `gftd.b2`
+1. **B2 prefix** `s3://etzhayyim-nats/ipfs/blocks/` (no new bucket needed —
+   the existing `etzhayyim-nats` bucket is shared with RisingWave Hummock per
+   ADR-0048 and isolated by prefix). The Keychain entry `etzhayyim.b2`
    (ACCESS_KEY_ID + SECRET_ACCESS_KEY) is already scoped to this `bucketId`
    with `writeFiles` / `deleteFiles` / `readFiles` capabilities — verify with:
    ```
-   security find-generic-password -s gftd.b2 -a ACCESS_KEY_ID -w >/dev/null && echo OK
+   security find-generic-password -s etzhayyim.b2 -a ACCESS_KEY_ID -w >/dev/null && echo OK
    ```
    No new application key required.
 2. **CF Origin Cert** (self-signed leaf valid 10 y for `ipfs-origin.etzhayyim.com`)
@@ -57,21 +57,21 @@ Pre-reqs:
      -subj '/CN=ipfs-origin.etzhayyim.com' \
      -addext 'subjectAltName=DNS:ipfs-origin.etzhayyim.com' \
      -keyout ipfs-origin.key -out ipfs-origin.crt
-   security add-generic-password -U -s gftd.cloudflare -a IPFS_ORIGIN_CERT_PEM -w "$(cat ipfs-origin.crt)"
-   security add-generic-password -U -s gftd.cloudflare -a IPFS_ORIGIN_CERT_KEY -w "$(cat ipfs-origin.key)"
+   security add-generic-password -U -s etzhayyim.cloudflare -a IPFS_ORIGIN_CERT_PEM -w "$(cat ipfs-origin.crt)"
+   security add-generic-password -U -s etzhayyim.cloudflare -a IPFS_ORIGIN_CERT_KEY -w "$(cat ipfs-origin.key)"
    rm ipfs-origin.{crt,key}
    ```
 3. **CF zone settings**: SSL mode = "Full" (the default for `etzhayyim.com`).
 4. **CF Origin Rule**: when `http.host == "ipfs-origin.etzhayyim.com"` rewrite the
    origin port to `443` (Vultr LB), and let zone SSL handle TLS to caddy:8443.
 5. **CF DNS**: add `ipfs.etzhayyim.com` (CNAME → CF proxied) and `ipfs-origin.etzhayyim.com`
-   (A record → Vultr LB external IP, CF proxied). Both via `gftd dns-sync`.
+   (A record → Vultr LB external IP, CF proxied). Both via `etzhayyim dns-sync`.
 6. **CF Workers Secrets Store**: provision the HMAC key for the Worker:
    ```
    wrangler secrets-store secret create 1824561668fe47cc9127d493961885af \
      --name ipfs_hmac --scopes workers \
      --value "$(openssl rand -hex 32)"
-   security add-generic-password -s gftd.cloudflare -a IPFS_HMAC -w "<the-same-value>" -U
+   security add-generic-password -s etzhayyim.cloudflare -a IPFS_HMAC -w "<the-same-value>" -U
    ```
    The local Keychain copy lets internal callers (PDS, claim-consumer)
    compute matching signatures.
@@ -91,7 +91,7 @@ updates land safely. PVC + identity key persist across rollouts.
 cd 50-infra/cloudflare/workers/ipfs-proxy
 pnpm install
 CLOUDFLARE_ACCOUNT_ID=4da88288dc30d9ee257f319d3c33ecf0 \
-CLOUDFLARE_API_TOKEN="$(security find-generic-password -s gftd.cloudflare -a API_TOKEN -w)" \
+CLOUDFLARE_API_TOKEN="$(security find-generic-password -s etzhayyim.cloudflare -a API_TOKEN -w)" \
   wrangler deploy
 ```
 
@@ -109,7 +109,7 @@ curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add?arg=bafy...' -w "\n%
 
 # Write API with HMAC
 BODY="$(printf 'arg=bafy...&recursive=true' )"
-SIG=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)" -binary | xxd -p -c 999)
+SIG=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$(security find-generic-password -s etzhayyim.cloudflare -a IPFS_HMAC -w)" -binary | xxd -p -c 999)
 curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add' \
   -H "X-etzhayyim-Ipfs-Auth: $SIG" \
   -H "content-type: application/x-www-form-urlencoded" \
@@ -130,7 +130,7 @@ curl -sS -X POST 'https://ipfs.etzhayyim.com/api/v0/pin/add' \
   `$IPFS_PATH/config.Identity.PrivKey` on the PVC. Loss = the gateway gets
   a new peer-id and needs to re-bootstrap DHT presence (1-2 hours).
   Backup: `kubectl -n ipfs exec sts/kubo -- cat /data/ipfs/config | jq .Identity` →
-  store in macOS Keychain `gftd.ipfs/IDENTITY_PRIV_KEY`.
+  store in macOS Keychain `etzhayyim.ipfs/IDENTITY_PRIV_KEY`.
 - **Memory**: the 4 Gi limit assumes `Swarm.ConnMgr.HighWater=400`. Bumping
   HighWater past ~600 has tipped over similar 4 Gi pods in the past;
   raise the pod limit before raising HighWater.
@@ -154,7 +154,7 @@ kubectl -n ipfs delete pod kubo-0
 # StatefulSet recreates pod + new PVC; init runs `ipfs init` fresh.
 # Identity changes (new peer-id) — backed-up identity must be re-injected.
 # Restore the saved private key:
-NEW_PEER_KEY="$(security find-generic-password -s gftd.ipfs -a IDENTITY_PRIV_KEY -w)"
+NEW_PEER_KEY="$(security find-generic-password -s etzhayyim.ipfs -a IDENTITY_PRIV_KEY -w)"
 kubectl -n ipfs exec sts/kubo -- ipfs config Identity.PrivKey "$NEW_PEER_KEY"
 kubectl -n ipfs rollout restart sts/kubo
 # Block data on B2 is unchanged — once the pod re-syncs the pinset (mfs root
@@ -176,9 +176,9 @@ For now this is documented but not exercised — Phase 2 will land a
   Phase 1.5 pins `atRecordCid` from each `ClaimPosted` event so the
   staked claim's evidence stays content-addressed even if the original
   AT Record is later compacted. Service binding `IPFS_API` →
-  `ai-gftd-ipfs-proxy`.
-- **did:gftd resolver** (`10-protocol/did-etzhayyim/resolver/`): Phase 3 — pin
-  every genesis-op DAG-CBOR CID under a dedicated namespace (`/keys/did-gftd-genesis`)
+  `etzhayyim-ipfs-proxy`.
+- **did:etzhayyim resolver** (`10-protocol/did-etzhayyim/resolver/`): Phase 3 — pin
+  every genesis-op DAG-CBOR CID under a dedicated namespace (`/keys/did-etzhayyim-genesis`)
   and serve via `/ipfs/{cid}` for federation peers.
 
 ## Cost (target)
@@ -201,16 +201,16 @@ ADR-0048 / ADR-2604251400 cost methodology (B2 + Bandwidth Alliance) carries.
 
 ### 1. Share IPFS_HMAC with PDS Worker
 
-The IPFS_HMAC key is already set on `ai-gftd-ipfs-proxy`. Copy it to the PDS Worker:
+The IPFS_HMAC key is already set on `etzhayyim-ipfs-proxy`. Copy it to the PDS Worker:
 
 ```bash
 # Read the existing key from Keychain (set during Phase 1 bring-up)
-HMAC_VALUE="$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)"
+HMAC_VALUE="$(security find-generic-password -s etzhayyim.cloudflare -a IPFS_HMAC -w)"
 
 # Provision on PDS Worker (wrangler 4.x)
-CLOUDFLARE_API_TOKEN="$(security find-generic-password -s gftd.cloudflare -a API_TOKEN -w)" \
+CLOUDFLARE_API_TOKEN="$(security find-generic-password -s etzhayyim.cloudflare -a API_TOKEN -w)" \
   wrangler secret put IPFS_HMAC \
-  --name ai-gftd-pds-2603241700 <<< "$HMAC_VALUE"
+  --name etzhayyim-pds-2603241700 <<< "$HMAC_VALUE"
 ```
 
 Then redeploy PDS (triggers the `IPFS_API` service binding + `IPFS_HMAC` secret to take effect):
@@ -218,7 +218,7 @@ Then redeploy PDS (triggers the `IPFS_API` service binding + `IPFS_HMAC` secret 
 ```bash
 cd 50-infra/cloudflare/workers/atproto
 CLOUDFLARE_ACCOUNT_ID=4da88288dc30d9ee257f319d3c33ecf0 \
-CLOUDFLARE_API_TOKEN="$(security find-generic-password -s gftd.cloudflare -a API_TOKEN -w)" \
+CLOUDFLARE_API_TOKEN="$(security find-generic-password -s etzhayyim.cloudflare -a API_TOKEN -w)" \
   wrangler deploy
 ```
 
@@ -226,8 +226,8 @@ CLOUDFLARE_API_TOKEN="$(security find-generic-password -s gftd.cloudflare -a API
 
 ```bash
 security add-generic-password -U \
-  -s gftd.ipfs -a HMAC_KEY \
-  -w "$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)"
+  -s etzhayyim.ipfs -a HMAC_KEY \
+  -w "$(security find-generic-password -s etzhayyim.cloudflare -a IPFS_HMAC -w)"
 ```
 
 This is used by both `capture_gyosei_sources_to_b2.py` and `ipfs_ingest.py` (LangServer worker).

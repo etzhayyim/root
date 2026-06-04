@@ -29,8 +29,8 @@ Lexicon files are under `00-contracts/lexicons/com/etzhayyim/apps/dataCenterOps/
 
 ## BPMN
 
-- `etzhayyim-root/60-apps/ai-gftd-project-auto-sales-erp/bpmn/data-center-ops-operations.bpmn`
-- `etzhayyim-root/60-apps/ai-gftd-project-auto-sales-erp/bpmn/data-center-ops-dependency-reverse-topo.bpmn`
+- `etzhayyim-root/60-apps/etzhayyim-project-auto-sales-erp/bpmn/data-center-ops-operations.bpmn`
+- `etzhayyim-root/60-apps/etzhayyim-project-auto-sales-erp/bpmn/data-center-ops-dependency-reverse-topo.bpmn`
 
 Process outline:
 - operations: telemetry collection -> reverse dependency topology -> capacity evaluation -> SLA check -> (risk? incident escalation : dashboard update)

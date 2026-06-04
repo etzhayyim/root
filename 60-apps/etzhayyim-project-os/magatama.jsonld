@@ -3,14 +3,14 @@
   "@id": "did:web:os.etzhayyim.com",
   "nanoid": "os-etzhayyim-01",
   "name": "etzhayyim-os",
-  "displayName": "GFTD OS",
+  "displayName": "Etzhayyim OS",
   "accent": "#3b82f6",
   "project": "os",
   "performerType": "service",
   "runtimeType": "worker",
 
   "profile": {
-    "displayName": "GFTD OS",
+    "displayName": "Etzhayyim OS",
     "description": "Web4 Local Interface — AI Agent-First desktop OS. Agent lifecycle, human-in-the-loop consent, GCC budget governance, device mesh.",
     "isBot": true,
     "agentType": "autonomous",
@@ -54,7 +54,7 @@
   },
 
   "space": {
-    "name": "GFTD OS",
+    "name": "Etzhayyim OS",
     "joinRule": "public",
     "channels": [
       { "name": "os-feed", "kind": "public", "default": true },

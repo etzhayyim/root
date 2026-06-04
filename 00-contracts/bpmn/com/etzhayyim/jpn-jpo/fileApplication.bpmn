@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jpn_jpo_file_application"
-    targetNamespace="https://gftd.ai/bpmn/jpn-jpo"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-jpo"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jpn_jpo_file_application" name="JPO 出願受理" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -34,7 +34,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-jpo.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-jpo.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnJpo.application.file&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, applicationNumber: applicationNumber, filingDate: filingDate}" target="payload"/>
         </zeebe:ioMapping>

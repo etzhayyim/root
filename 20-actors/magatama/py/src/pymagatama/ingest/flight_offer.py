@@ -10,7 +10,7 @@ Provider strategy:
   - `provider="amadeus"` calls Amadeus Self-Service Flight Offers Search
     (https://test.api.amadeus.com/v2/shopping/flight-offers). Requires
     AMADEUS_CLIENT_ID + AMADEUS_CLIENT_SECRET in env (per CLAUDE.md
-    Keychain rule, populate via `gftd.flightoffer` service).
+    Keychain rule, populate via `etzhayyim.flightoffer` service).
   - `provider="duffel"` placeholder; not yet implemented.
 
 Real provider integration is gated on credential provisioning; the task

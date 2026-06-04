@@ -212,7 +212,7 @@ describe("XrpcClient", () => {
     expect(headers["authorization"]).toBeUndefined();
     expect(headers["x-magatama-verified"]).toBe("true");
     expect(headers["x-magatama-internal-token"]).toBe("legacy-token");
-    expect(headers["x-gftd-org-id"]).toBe("service");
+    expect(headers["x-etzhayyim-org-id"]).toBe("service");
   });
 
   it("xrpc throws TimeoutError on request timeout", async () => {

@@ -80,8 +80,8 @@ function loadConfig(): ResolvedConfig {
     flushSeconds: Number(process.env.ETZ_PROJECTOR_FLUSH_SECONDS ?? 60),
     collections: (
       process.env.ETZ_PROJECTOR_COLLECTIONS ??
-      // `app.bsky.feed.` is included so the feed-discover yatachain-projection
-      // (see src/feed-discover.ts + projection/yatachain-projection.toml) can
+      // `app.bsky.feed.` is included so the feed-discover kotoba-datomic-projection
+      // (see src/feed-discover.ts + projection/kotoba-datomic-projection.edn) can
       // index posts. `com.etzhayyim.membrane.` is the FeedPostCell verdict
       // sidecar that drives applyVerdict on the projection. Per ADR-2605231500
       // + ADR-2605231400 SPEC §4.
@@ -144,8 +144,8 @@ async function main() {
   const cursorFile = join(config.dataDir, "firehose.cursor");
 
   let skippedSinceLastLog = 0;
-  // yatachain-projection: feed-discover hydration callbacks. See
-  // projection/yatachain-projection.toml.
+  // kotoba-datomic-projection: feed-discover hydration callbacks. See
+  // projection/kotoba-datomic-projection.edn.
   const feedDiscoverFetcher = makeAtpRecordFetcher({
     did: config.did,
     pdsUrl: config.pdsUrl,
@@ -162,7 +162,7 @@ async function main() {
   for await (const ev of startFirehose(config.firehoseUrl, { cursorFile })) {
     if (!config.collections.some((p) => ev.collection.startsWith(p))) continue;
 
-    // yatachain-projection: feed-discover side-effects. Both updates the
+    // kotoba-datomic-projection: feed-discover side-effects. Both updates the
     // in-memory cross-DID index; emission piggy-backs on the shard flush
     // cadence so there is no extra wall-clock timer.
     if (isFeedPost(ev)) {

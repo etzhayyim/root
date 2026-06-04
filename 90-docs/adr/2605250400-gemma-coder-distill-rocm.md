@@ -110,7 +110,7 @@ ADR-2605231300 §5 表を継承:
 EVO-X2:  merged HF dir
          ↓ llama.cpp convert
          gemma3-coder-4b-Q4_K_M.gguf
-         ↓ Ansible (60-apps/ai-gftd-project-murakumo/ansible/)
+         ↓ Ansible (60-apps/etzhayyim-project-murakumo/ansible/)
 各 mini: ollama create gemma3-coder:4b -f Modelfile
          ↓
 judah LiteLLM (192.168.1.17:4000): route `gemma3-coder:4b` 追加
@@ -139,7 +139,7 @@ judah LiteLLM (192.168.1.17:4000): route `gemma3-coder:4b` 追加
 | 3 | `70-tools/gemma-coder-distill/` scaffold (pyproject.toml + langgraph node 群、`baien-distill` adapters を path import) | tool 整備 |
 | 4 | iter-00 quick run (1 epoch, n≤500) で E2E smoke、bench delta ≥ 0 を確認 | pipeline 検証 |
 | 5 | iter-01 full (2 epoch, n=フル) で実改善を狙う、delta ≥ +3 pp 出れば commit | 価値検証 |
-| 6 | GGUF convert + Ollama push runbook を `60-apps/ai-gftd-project-murakumo/ansible/` に追加 | 配布 |
+| 6 | GGUF convert + Ollama push runbook を `60-apps/etzhayyim-project-murakumo/ansible/` に追加 | 配布 |
 | 7 | judah LiteLLM `config.yaml` に `gemma3-coder:4b` route 追加 | 公開 |
 
 # Consequences

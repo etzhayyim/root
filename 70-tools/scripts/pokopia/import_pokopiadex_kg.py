@@ -23,13 +23,13 @@ import psycopg
 
 
 OWNER_DID = "did:web:llm.etzhayyim.com"
-AGENT_DID = "did:gftd:agent:codex"
+AGENT_DID = "did:etzhayyim:agent:codex"
 ACTOR_DID = "did:web:media-gamers.etzhayyim.com"
 DOMAIN = "media_gamers"
 WORK_ID = "game:work:pokemon-pokopia"
 GAME_SLUG = "pokemon-pokopia"
 SOURCE_BASE = "https://pokopiadex.com"
-UA = "Mozilla/5.0 (compatible; gftd-pokopia-kg-import/1.0)"
+UA = "Mozilla/5.0 (compatible; etzhayyim-pokopia-kg-import/1.0)"
 
 
 @dataclass(frozen=True)
@@ -246,7 +246,7 @@ def building_entities(page: str) -> list[Entity]:
 
 def get_rw_url() -> str:
     return subprocess.check_output(
-        ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+        ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
         text=True,
     ).strip()
 
@@ -266,8 +266,8 @@ def rows_for_entity(entity: Entity, run_id: str, source_vid: str) -> dict[str, t
     suffix = f"{entity.kind}-{entity.slug}"
     doc_vid = f"at://{OWNER_DID}/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-{suffix}"
     chunk_vid = f"{doc_vid}/chunk/000"
-    game_item_vid = f"did:gftd:gameitem:pokemon-pokopia:{suffix}"
-    edge_id = f"edge:gftd:domain-knowledge-cites:{suffix}:pokopiadex"
+    game_item_vid = f"did:etzhayyim:gameitem:pokemon-pokopia:{suffix}"
+    edge_id = f"edge:etzhayyim:domain-knowledge-cites:{suffix}:pokopiadex"
     created = now_iso()
     created_date = today_iso()
     props = dict(entity.props)
@@ -372,7 +372,7 @@ def source_row(kind: str, url: str, run_id: str) -> tuple[Any, ...]:
     created = now_iso()
     created_date = today_iso()
     return (
-        f"did:gftd:source:pokemon-pokopia:pokopiadex:{kind}",
+        f"did:etzhayyim:source:pokemon-pokopia:pokopiadex:{kind}",
         created_date,
         1,
         OWNER_DID,
@@ -395,9 +395,9 @@ def delete_existing(cur: psycopg.Cursor[Any], entities: list[Entity]) -> None:
         for e in entities
     ]
     chunk_ids = [f"{doc}/chunk/000" for doc in doc_ids]
-    item_ids = [f"did:gftd:gameitem:pokemon-pokopia:{e.kind}-{e.slug}" for e in entities]
+    item_ids = [f"did:etzhayyim:gameitem:pokemon-pokopia:{e.kind}-{e.slug}" for e in entities]
     edge_ids = [
-        f"edge:gftd:domain-knowledge-cites:{e.kind}-{e.slug}:pokopiadex"
+        f"edge:etzhayyim:domain-knowledge-cites:{e.kind}-{e.slug}:pokopiadex"
         for e in entities
     ]
     for table, column, ids in [
@@ -456,11 +456,11 @@ def insert_all(
             )
             cur.execute(
                 "delete from vertex_agent_action_log where vertex_id = %s",
-                (f"did:gftd:agent-action:{run_id}",),
+                (f"did:etzhayyim:agent-action:{run_id}",),
             )
             cur.execute(
                 "delete from vertex_domain_knowledge_source where vertex_id like %s",
-                ("did:gftd:source:pokemon-pokopia:pokopiadex:%",),
+                ("did:etzhayyim:source:pokemon-pokopia:pokopiadex:%",),
             )
             delete_existing(cur, all_entities)
 
@@ -559,7 +559,7 @@ def insert_all(
         created = now_iso()
         created_date = today_iso()
         counts = {kind: len(entities) for kind, entities in entities_by_kind.items()}
-        action_id = f"did:gftd:agent-action:{run_id}"
+        action_id = f"did:etzhayyim:agent-action:{run_id}"
         action_rows = filter_missing(
             cur,
             "vertex_agent_action_log",
@@ -619,7 +619,7 @@ def insert_all(
         for kind, entities in entities_by_kind.items():
             observations.append(
                 (
-                    f"did:gftd:agent-observation:{run_id}:{kind}",
+                    f"did:etzhayyim:agent-observation:{run_id}:{kind}",
                     AGENT_DID,
                     "web_page",
                     f"pokopiadex:{run_id}:{kind}",

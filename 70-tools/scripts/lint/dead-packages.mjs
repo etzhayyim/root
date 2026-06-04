@@ -95,7 +95,7 @@ function getDeps(pkgPath) {
 
 /**
  * Escape a package name for use in a regex.
- * e.g. "@etzhayyim/wproto" → `@gftd\/wproto`
+ * e.g. "@etzhayyim/wproto" → `@etzhayyim\/wproto`
  */
 function escapeForRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

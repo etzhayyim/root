@@ -28,7 +28,7 @@ contract EtzhayyimAuthz {
         bytes32 dwebHandleHash;             // keccak256(bytes("<handle>.etzhayyim.com"))
         address activeKey;                  // current signing key (EOA / smart-wallet-recovered)
         address predecessorVendorAddr;      // vendor-side wallet for migrated roots; 0 for greenfield
-        bytes32 predecessorVendorRootHash;  // hash of vendor did:erc725:gftd:260425:* DID; 0 for greenfield
+        bytes32 predecessorVendorRootHash;  // hash of vendor did:erc725:etzhayyim:260425:* DID; 0 for greenfield
         uint96 createdBlock;
         uint96 lastRotatedBlock;
         bool active;

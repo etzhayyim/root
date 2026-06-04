@@ -9,7 +9,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_realtime_draw"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_realtime_draw" name="mangaka realtime sketch to image" isExecutable="true">
     <bpmn:startEvent id="Start" name="sketch requested">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;realtimeDraw&quot;" target="action"/>
           <zeebe:input source="={blobCid: string(blobCid), latencyMs: latencyMs, strength: (if strength = null then 0.7 else strength), steps: (if steps = null then 20 else steps)}" target="payload"/>
         </zeebe:ioMapping>

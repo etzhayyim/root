@@ -867,7 +867,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_rtc_breakout": {
+      "ai_etzhayyim_rtc_breakout": {
         "type": "object",
         "properties": {
           "meetingId": {
@@ -882,7 +882,7 @@
           "name"
         ]
       },
-      "ai_gftd_rtc_hand": {
+      "ai_etzhayyim_rtc_hand": {
         "type": "object",
         "properties": {
           "meetingId": {
@@ -897,7 +897,7 @@
           "raised"
         ]
       },
-      "ai_gftd_rtc_huddle": {
+      "ai_etzhayyim_rtc_huddle": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -908,7 +908,7 @@
           "convoId"
         ]
       },
-      "ai_gftd_rtc_meeting": {
+      "ai_etzhayyim_rtc_meeting": {
         "type": "object",
         "properties": {
           "title": {
@@ -926,7 +926,7 @@
           "status"
         ]
       },
-      "ai_gftd_rtc_meetingAdmit": {
+      "ai_etzhayyim_rtc_meetingAdmit": {
         "type": "object",
         "properties": {
           "meetingId": {
@@ -941,7 +941,7 @@
           "participantDid"
         ]
       },
-      "ai_gftd_rtc_meetingJoin": {
+      "ai_etzhayyim_rtc_meetingJoin": {
         "type": "object",
         "properties": {
           "meetingId": {
@@ -956,7 +956,7 @@
           "participantDid"
         ]
       },
-      "ai_gftd_rtc_pushSubscription": {
+      "ai_etzhayyim_rtc_pushSubscription": {
         "type": "object",
         "properties": {
           "endpoint": {
@@ -969,7 +969,7 @@
           "keys"
         ]
       },
-      "ai_gftd_rtc_recording": {
+      "ai_etzhayyim_rtc_recording": {
         "type": "object",
         "properties": {
           "meetingId": {
@@ -984,7 +984,7 @@
           "action"
         ]
       },
-      "ai_gftd_rtc_screenShare": {
+      "ai_etzhayyim_rtc_screenShare": {
         "type": "object",
         "properties": {
           "meetingId": {

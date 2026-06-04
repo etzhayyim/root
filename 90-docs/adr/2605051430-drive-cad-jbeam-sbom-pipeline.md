@@ -32,7 +32,7 @@ The roadmap to BeamNG.drive-grade fidelity needs:
 1. real CAD ingestion (STEP / glTF / OpenSCAD) → part graph with mass + inertia + hardpoints
 2. JBeam topology auto-emission from the part graph (so 6 garage cars → 6 part-graphs, not 6 hand-written beam tables)
 3. per-vehicle SBOM with full part lineage so `sbom.etzhayyim.com` can do CVE-style recall / supplier-quality alerts on physical parts (e.g. Takata airbag-style recalls) the same way it does on Rust crates
-4. Software SBOM for the Rust crates is already covered by `cargo-cyclonedx` (see `60-apps/ai-gftd-project-watashi/native/watashi-host/sbom.cdx.json`); this ADR adds **vehicle BOM** in the same CycloneDX format so both flow through `sbom.etzhayyim.com`'s existing CVE pipeline.
+4. Software SBOM for the Rust crates is already covered by `cargo-cyclonedx` (see `60-apps/etzhayyim-project-watashi/native/watashi-host/sbom.cdx.json`); this ADR adds **vehicle BOM** in the same CycloneDX format so both flow through `sbom.etzhayyim.com`'s existing CVE pipeline.
 
 ## Decision
 
@@ -94,19 +94,19 @@ Add one new crate `kami-cad-import` between `kami-cad` (BREP kernel + assembly) 
 
 ### CycloneDX choice (CDX 1.5)
 
-Match the existing `sbom.etzhayyim.com` default (CLAUDE.md `60-apps/ai-gftd-project-sbom/CLAUDE.md` line 48). CDX 1.5 supports `type: "device"` for physical components — exactly the right primitive for an alternator, a brake disc, or a chassis subframe. No new format. No new pipeline. The vehicle BOM lands in the same `SbomArtifact` graph as software SBOMs and gets the same CVE / recall / supplier-quality treatment that already exists.
+Match the existing `sbom.etzhayyim.com` default (CLAUDE.md `60-apps/etzhayyim-project-sbom/CLAUDE.md` line 48). CDX 1.5 supports `type: "device"` for physical components — exactly the right primitive for an alternator, a brake disc, or a chassis subframe. No new format. No new pipeline. The vehicle BOM lands in the same `SbomArtifact` graph as software SBOMs and gets the same CVE / recall / supplier-quality treatment that already exists.
 
 `type: "device"` carries:
 - `manufacturer.name` (supplier)
 - `cpe` (when manufacturer publishes a CPE — most don't, falls back to `purl`)
-- `purl` (synthesized: `pkg:gftd-vehicle/{vehicleId}/part/{partId}@{revision}?supplier=...`)
+- `purl` (synthesized: `pkg:etzhayyim-vehicle/{vehicleId}/part/{partId}@{revision}?supplier=...`)
 - `swid` (we leave empty — physical parts have no SWID)
 - `evidence.identity` (sha256 of source CAD file, license, fetch URI)
 - `properties[]`:
-  - `cdx:gftd:vehicle:break_group` (1..5, BeamNG-style detach group)
-  - `cdx:gftd:vehicle:mass_kg`
-  - `cdx:gftd:vehicle:material`
-  - `cdx:gftd:vehicle:parent` (`bom-ref` of parent in assembly tree)
+  - `cdx:etzhayyim:vehicle:break_group` (1..5, BeamNG-style detach group)
+  - `cdx:etzhayyim:vehicle:mass_kg`
+  - `cdx:etzhayyim:vehicle:material`
+  - `cdx:etzhayyim:vehicle:parent` (`bom-ref` of parent in assembly tree)
 
 This keeps every SBOM clause in the public CycloneDX schema — `sbom.etzhayyim.com` continues to validate cleanly.
 
@@ -146,7 +146,7 @@ Tracked in `deps.toml` under `[[migrations]] drive-cad-import-pipeline-2026-05`.
 
 ## References
 
-- `60-apps/ai-gftd-project-sbom/CLAUDE.md` — existing SBOM platform (CDX 1.5 default + CVE pipeline)
+- `60-apps/etzhayyim-project-sbom/CLAUDE.md` — existing SBOM platform (CDX 1.5 default + CVE pipeline)
 - `40-engine/kami-engine/kami-cad/src/lib.rs` — BREP + assembly + `get_bom()`
 - `40-engine/kami-engine/kami-vehicle/src/jbeam.rs` — JBeam consumer
 - `40-engine/kami-engine/kami-vehicle/README.md` — current 86 / 220 baseline

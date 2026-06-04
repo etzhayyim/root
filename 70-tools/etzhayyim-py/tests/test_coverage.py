@@ -99,7 +99,7 @@ def test_cli_coverage_domain_text_empty(tmp_path):
 
 
 def test_cli_coverage_domain_with_app(tmp_path):
-    app_dir = tmp_path / "60-apps" / "ai-gftd-project-billing" / "appview" / "app-abc"
+    app_dir = tmp_path / "60-apps" / "etzhayyim-project-billing" / "appview" / "app-abc"
     (app_dir / "src").mkdir(parents=True)
     (app_dir / "src" / "app.ts").write_text(
         'MATCH (n:Invoice) RETURN n\ncom.etzhayyim.apps.billing.invoice\nfunction cmdPay() {}\n'

@@ -1,7 +1,7 @@
 """Unit tests for etzhayyim.auth — token resolution and header helpers.
 
 All external I/O (subprocess, filesystem) is mocked.
-No keychain, no ~/.gftd/auth.json reads.
+No keychain, no ~/.etzhayyim/auth.json reads.
 """
 
 from __future__ import annotations
@@ -164,7 +164,7 @@ class TestAuthHeaders:
             headers = auth_headers()
         assert headers["X-Active-DID"] == "did:plc:abc"
 
-    def test_org_env_sets_x_gftd_org_id_header(self, monkeypatch):
+    def test_org_env_sets_x_etzhayyim_org_id_header(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_ORG_ID", "org-123")
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (

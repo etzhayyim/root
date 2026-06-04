@@ -25,7 +25,7 @@ LSP server を Murakumo Mac mini fleet 上に launchd で常駐させ、fleet �
 
 ## Hard rules (per CLAUDE.md + ADR matrix)
 
-- `etzhayyim-` prefix only (or no prefix). Legacy `gftd-` / `com.etzhayyim.` 禁止。
+- `etzhayyim-` prefix only (or no prefix). Legacy `etzhayyim-` / `com.etzhayyim.` 禁止。
 - Apache 2.0 + Charter Compliance Rider v2.0 (`/CHARTER-RIDER.md`)
 - 50-infra layout 準拠 (sibling of `etzhayyim-charters-compliance`, `etzhayyim-tithe-router` etc.)
 - `deps.toml` SSoT 更新必須 (L3 で binary pin、L1 で fleet 追記)

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// etzhayyim-seed-post — Step 1 of yatachain-based post display.
+// etzhayyim-seed-post — Step 1 of kotoba-datomic-based post display.
 //
 // Writes an `app.bsky.feed.post` record into the operator DID's MST so
 // the substrate read path (yoro-xrpc-adapter → @etzhayyim/sdk read →
@@ -7,7 +7,7 @@
 //
 // Per:
 //   - ADR-2605172000 (rw-free substrate)
-//   - 10-protocol/yatachain/SPEC.md §1 yatachain-agent + §2 yatachain-chain
+//   - 10-protocol/kotoba-datomic/SPEC.md §1 kotoba-datomic-agent + §2 kotoba-datomic-chain
 //   - ADR-2605231525 (member wallet / member passkey-derived ES256 only;
 //     no platform-held private key — this CLI is operator-local, the
 //     PDS app-password lives in the operator's macOS Keychain).
@@ -27,7 +27,7 @@ const ACTOR_DID =
 const TEXT =
   process.argv.slice(2).join(" ") ||
   process.env.SEED_POST_TEXT ||
-  "hello yatachain — first post on the rw-free substrate. " +
+  "hello kotoba-datomic — first post on the rw-free substrate. " +
     "MST → IPFS → L2 anchor. ADR-2605172000.";
 
 const collection = "app.bsky.feed.post";

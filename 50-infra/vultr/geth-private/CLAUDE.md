@@ -1,4 +1,4 @@
-# geth-private — gftd private EVM (chainId 260425)
+# geth-private — etzhayyim private EVM (chainId 260425)
 
 Single-sealer Clique PoA Ethereum chain on Vultr VKE. Root identity and
 settlement layer for ADR-0074 (ERC725 root identity, credits ERC-20, deploy
@@ -87,12 +87,12 @@ holds chaindata across rollouts.
   their owner / masterMinter / oracle. Treat this directory like a TLS
   root CA private key.
   - **Local backup (active)**: replicated to **macOS Keychain** under
-    service `gftd.private-chain` with accounts `SEALER_PRIV`,
+    service `etzhayyim.private-chain` with accounts `SEALER_PRIV`,
     `SEALER_ADDRESS`, `SEALER_PASSWORD`, `SEALER_KEYSTORE`. iCloud
     Keychain syncs across the user's Apple devices.
-    Read back: `security find-generic-password -s "gftd.private-chain" -a "SEALER_PRIV" -w`
-  - **Team backup (manual followup)**: the previous `gftd vault` workflow
-    was removed along with the gftd CLI (2026-05-20). Until a replacement
+    Read back: `security find-generic-password -s "etzhayyim.private-chain" -a "SEALER_PRIV" -w`
+  - **Team backup (manual followup)**: the previous `etzhayyim vault` workflow
+    was removed along with the etzhayyim CLI (2026-05-20). Until a replacement
     lands, mirror the sealer secrets to 1Password manually (per repo-root
     `CLAUDE.md` "Do not commit secrets" rule). macOS Keychain + 1Password
     mirror is the canonical local + team backup pair. Loss of both =
@@ -137,11 +137,11 @@ kubectl -n geth-private exec -it geth-private-0 -- geth attach /data/geth.ipc
 
 ## Caller integration
 
-- **authz Worker** (`60-apps/ai-gftd-project-auth/worker-authz/`) — chainId
+- **authz Worker** (`60-apps/etzhayyim-project-auth/worker-authz/`) — chainId
   `ETH_PRIVATE_CHAIN_ID=260425`, RPC `ETH_PRIVATE_RPC_URL=https://geth.etzhayyim.com`.
   `getActorAccount` XRPC reads `etzhayyimActorRegistry.actorByDid` via eth_call.
-- **gftd CLI** (removed 2026-05-20) — previously emitted
-  `DeployRegistry.recordDeploy` per `gftd deploy` via `cast send` against
+- **etzhayyim CLI** (removed 2026-05-20) — previously emitted
+  `DeployRegistry.recordDeploy` per `etzhayyim deploy` via `cast send` against
   `https://geth.etzhayyim.com`, signed with SEALER_PRIV from macOS Keychain. Until
   a replacement lands (e.g. `e7m chain deploy-receipt`), the recordDeploy
   side-effect must be issued manually with `cast send`.

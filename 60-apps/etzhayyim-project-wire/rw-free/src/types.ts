@@ -5,7 +5,7 @@
  * (3-axis OR-test) + ADR-2605172100 (operating-entity boundary) + ADR-2605181100
  * (kotoba E2E encrypted-record envelope). Founder directive 2026-06-03: maximal
  * migration — front everything that can move; only the irreducible regulated
- * EXECUTION stays gftd.
+ * EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — corridor reference catalog + aggregate
@@ -20,11 +20,11 @@
  *   the E2E ledger, never persisted in plaintext. The substrate never sees party
  *   identities or amounts in the clear.
  *
- *   STAYS gftd (consumed via consent-capability) — the fiat merchant-of-record
+ *   STAYS etzhayyim (consumed via consent-capability) — the fiat merchant-of-record
  *   settlement rail EXECUTION (interbank wire / correspondent clearing call). Per the
  *   operating-entity boundary, etzhayyim never becomes the fiat MoR/counterparty
  *   (on-chain USDC only), so the ledger DATA migrates as E2E records while the
- *   fiat settlement CALL remains a gftd function. Not modeled here as a
+ *   fiat settlement CALL remains a etzhayyim function. Not modeled here as a
  *   collection.
  *
  * AT-Lexicon: no float. Counts/periods are integers; money is decimal STRINGS

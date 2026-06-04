@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_media_gamers_eval_models"
-    targetNamespace="https://gftd.ai/bpmn/media-gamers"
+    targetNamespace="https://etzhayyim.ai/bpmn/media-gamers"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="media_gamers_eval_models" name="media gamers eval models" isExecutable="true">
@@ -26,7 +26,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:media-gamers.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:media-gamers.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;media-gamers.evalModels&quot;" target="action"/>
           <zeebe:input source="={ result: result }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

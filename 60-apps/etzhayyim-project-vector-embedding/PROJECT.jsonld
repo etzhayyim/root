@@ -8,9 +8,9 @@
   ],
   "@type": "Project",
   "identifier": "etzhayyim-project-vector-embedding",
-  "name": "GFTD Vector Embedding",
+  "name": "Etzhayyim Vector Embedding",
   "status": "Proposed",
-  "description": "Text, image, video, audio, and future sensor embeddings for GFTD search. The project owns embedding model registry, source/chunk metadata, the Phase 1 RisingWave vector(768) table, and future projection into a unified sensor-inclusive GFTD embedding space.",
+  "description": "Text, image, video, audio, and future sensor embeddings for Etzhayyim search. The project owns embedding model registry, source/chunk metadata, the Phase 1 RisingWave vector(768) table, and future projection into a unified sensor-inclusive Etzhayyim embedding space.",
   "capabilities": {
     "@type": "DefinedTermSet",
     "name": "Capabilities",
@@ -31,7 +31,7 @@
         "@type": "DefinedTerm",
         "identifier": "cap:vector-embedding:unified-projection",
         "name": "Unified Projection",
-        "description": "Support later projection from raw model spaces into a reusable GFTD 768d sensor-inclusive embedding space."
+        "description": "Support later projection from raw model spaces into a reusable Etzhayyim 768d sensor-inclusive embedding space."
       }
     ]
   },

@@ -1,9 +1,9 @@
 /**
- * cowork rw-free — barrel. RW-free product-front for the GFTD Cowork M365
+ * cowork rw-free — barrel. RW-free product-front for the Etzhayyim Cowork M365
  * collaboration graph: plaintext Teams-channel org catalog + kotoba-E2E PII /
  * private-content domains (directory / mail / Teams messages / calendar /
  * files / BPMN tasks, ADR-2605181100). M365 credential custody + outbound send
- * + LLM inference stay gftd via consent-capability. No fiat rail in cowork.
+ * + LLM inference stay etzhayyim via consent-capability. No fiat rail in cowork.
  */
 export * from "./types.js";
 export {

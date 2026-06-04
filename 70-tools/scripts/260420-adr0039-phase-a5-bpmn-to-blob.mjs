@@ -26,12 +26,12 @@ const ENDPOINT = process.env.REPOSITORY_URL ?? "https://repository.etzhayyim.com
 const DRY_RUN = process.env.DRY_RUN === "1";
 const VERBOSE = process.env.VERBOSE === "1";
 
-// Actor DID is derived from the 60-apps/ai-gftd-project-<slug>/ folder name.
+// Actor DID is derived from the 60-apps/etzhayyim-project-<slug>/ folder name.
 // Slug → did:web:<slug>.etzhayyim.com (root case). Sub-actors keep root DID as owner
 // for the initial migration pass; actor-scoped blob ownership is Phase E.
 function deriveOwnerDid(absPath) {
   const rel = relative(APPS_ROOT, absPath);
-  const m = rel.match(/^ai-gftd-project-([^/]+)\//);
+  const m = rel.match(/^etzhayyim-project-([^/]+)\//);
   if (!m) return null;
   return `did:web:${m[1]}.etzhayyim.com`;
 }
@@ -57,7 +57,7 @@ async function* walk(dir) {
     return;
   }
   for (const ent of entries) {
-    if (ent.name === "node_modules" || ent.name === ".git" || ent.name.startsWith(".gftd-")) continue;
+    if (ent.name === "node_modules" || ent.name === ".git" || ent.name.startsWith(".etzhayyim-")) continue;
     const full = join(dir, ent.name);
     if (ent.isDirectory()) {
       yield* walk(full);

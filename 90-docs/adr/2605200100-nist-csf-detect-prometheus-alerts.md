@@ -90,7 +90,7 @@ P0/P1 severity=critical → PagerDuty (IC へ即時)
 P2 severity=warning → Slack `#alerts-infra` / `#alerts-security`
 
 Alertmanager routing config は `helmfile.yaml` の `alertmanager:` セクションに追記する。
-現時点では Slack webhook URL を macOS Keychain `gftd.slack/ALERT_WEBHOOK_URL` から取得する。
+現時点では Slack webhook URL を macOS Keychain `etzhayyim.slack/ALERT_WEBHOOK_URL` から取得する。
 
 ## Consequences
 

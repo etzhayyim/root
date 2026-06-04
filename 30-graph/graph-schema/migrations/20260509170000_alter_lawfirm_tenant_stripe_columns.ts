@@ -10,7 +10,7 @@ import { sql } from "kysely";
  *   stripe_customer_id          — Mode A flat tier (firm = direct customer)
  *   stripe_connect_account_id   — Mode B rev-share (firm = Express connected account)
  *   billing_mode                — flat | rev_share_y1 | rev_share_y2 | rev_share_y3 | free
- *   platform_fee_pct            — gftd retention % (85 Y1 / 90 Y2 / 95 Y3 / 100 flat)
+ *   platform_fee_pct            — etzhayyim retention % (85 Y1 / 90 Y2 / 95 Y3 / 100 flat)
  *
  * Reconciliation MV runs daily (CEO dashboard); rate-limit check via
  * downstream cron `lawfirm.billing.alertStaleTenant`.

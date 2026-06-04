@@ -3,7 +3,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_lawfirm_sales_cadence_tick"
-                  targetNamespace="https://gftd.ai/bpmn/lawfirm"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
                   exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="lawfirm_sales_cadence_tick"
@@ -91,7 +91,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lawfirm.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;lawfirm.sales.cadence.tick&quot;" target="event_type"/>
           <zeebe:input source="={stale_count: count(stale_leads), reoutreach_drafted: count(reoutreach_asset_uris), compliance: reoutreach_compliance, cadence_dispatched: cadence_dispatched_count, cadence_skipped: cadence_skipped_count, followup_dispatched: followup_dispatched_count, followup_skipped: followup_skipped_count}" target="attributes"/>
         </zeebe:ioMapping>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  webya.gftd.ai — domainSslMonitor (autonomous timer R/PT30M).
+  webya.etzhayyim.com — domainSslMonitor (autonomous timer R/PT30M).
 
   Polls all vertex_webya_domain WHERE ssl_status != 'active'.
   Calls CF API GET /zones/{zone}/custom_hostnames/{id} for each pending domain.
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_webya_domain_ssl_monitor"
-    targetNamespace="https://gftd.ai/bpmn/webya"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="webya_domain_ssl_monitor" name="webya domain ssl monitor" isExecutable="true">

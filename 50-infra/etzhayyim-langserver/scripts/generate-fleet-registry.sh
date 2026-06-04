@@ -69,7 +69,7 @@ def mesh_ip(node_id: str) -> str:
     except ImportError:
         # Fallback: stable-but-not-blake3 hash for pre-deployment preview.
         # Real mesh-IP is resolved at runtime by run-langserver.sh
-        # reading ~/.gftd/mesh/identity.json.
+        # reading ~/.etzhayyim/mesh/identity.json.
         h = hashlib.sha256(node_id.encode()).digest()
     H = max(h[0], 1)
     L = max(min(h[1], 254), 1)
@@ -100,7 +100,7 @@ for lang, host_name in placement.items():
 out = {
     "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
     "mesh_subnet": mesh["manifest"]["mesh_subnet"],
-    "mesh_ip_note": "Computed locally; runtime mesh-IP comes from ~/.etzhayyim/mesh/identity.json (or legacy ~/.gftd/mesh/identity.json).",
+    "mesh_ip_note": "Computed locally; runtime mesh-IP comes from ~/.etzhayyim/mesh/identity.json (or legacy ~/.etzhayyim/mesh/identity.json).",
     "entries": entries,
 }
 print(json.dumps(out, indent=2))

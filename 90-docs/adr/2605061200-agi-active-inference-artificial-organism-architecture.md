@@ -259,13 +259,13 @@ Recommended repo split:
 etzhayyim-root
   substrate: ADRs, graph schema, contracts, shared policies, protocol anchors
 
-ai-gftd-organism-runtime
+etzhayyim-organism-runtime
   soma: resident loop, sensors, effect dispatch, homeostasis, self-repair
 
-ai-gftd-organism-evolution-lab
+etzhayyim-organism-evolution-lab
   reproduction: mutation, simulation, tests, fitness scoring, PR generation
 
-ai-gftd-species-*
+etzhayyim-species-*
   germline: prompts, priors, BPMN variants, tool policy, genome manifests
 
 Git / GitHub code repos

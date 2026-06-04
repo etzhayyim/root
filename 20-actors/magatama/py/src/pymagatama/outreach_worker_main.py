@@ -322,7 +322,7 @@ async def task_send_via_resend(
     """Send personalized email via Resend. DNC already checked by check_dnc ServiceTask."""
     api_key = os.environ.get("RESEND_API_KEY", "")
     if not api_key:
-        api_key = load_keychain_secret(service="gftd.resend", account="API_KEY") or ""
+        api_key = load_keychain_secret(service="etzhayyim.resend", account="API_KEY") or ""
 
     prospect = fetch_one(
         "SELECT email, prospect_name FROM vertex_outreach_prospect WHERE vertex_id = %s",

@@ -46,7 +46,7 @@ High-speed rail trainset manufacturing orchestrator. Adopts modern friction-stir
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: Control firmware (ATP/ATO/traction) + carbody CAD + bogie CAD open-source (Apache 2.0 + Charter Rider)
-- **G2**: Per-trainset manufacturing log yatachain anchor + open trainset registry
+- **G2**: Per-trainset manufacturing log kotoba-datomic anchor + open trainset registry
 - **G3**: Per-trainset IPFS-pinned photo + video (FSW seam / dynamic test / homologation)
 - **G4**: Every critical FSW + bogie marriage signed by witness quorum ≥2 robots
 - **G5**: Operator manual + passenger PIS JP+EN+local trilingual minimum

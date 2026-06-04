@@ -9,7 +9,7 @@
  * explicit recipients. The substrate never sees crew identities, fuel pricing,
  * or defect detail in plaintext.
  *
- * The IATA-BSP fiat-clearing settlement EXECUTION stays gftd
+ * The IATA-BSP fiat-clearing settlement EXECUTION stays etzhayyim
  * (consent-capability) — not modeled here as a collection. The fuel-order ledger
  * + commercial terms front above as E2E records; only the clearing CALL stays.
  */
@@ -321,7 +321,7 @@ export async function getTechLog(e: Etzhayyim, input: GetTechLogInput): Promise<
 
 // ─── Fuel order (E2E, commercial terms; LEDGER entry) ───────────────
 // The fuel-uplift commercial terms front here as an E2E ledger entry; the
-// IATA-BSP fiat-clearing settlement CALL stays gftd via consent-capability.
+// IATA-BSP fiat-clearing settlement CALL stays etzhayyim via consent-capability.
 
 export async function orderFuel(e: Etzhayyim, input: OrderFuelInput): Promise<OrderFuelOutput> {
   if (!input.fuelOrderId || !input.flightNo || !input.depDate) return { status: "rejected", error: "missingRequiredFields" };

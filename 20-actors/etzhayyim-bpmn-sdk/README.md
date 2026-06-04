@@ -4,7 +4,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![BPMN 2.0](https://img.shields.io/badge/BPMN-2.0-orange.svg)](https://www.omg.org/spec/BPMN/2.0/)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/etzhayyim/gftd-bpmn-sdk/deploy-docs.yml)](https://github.com/etzhayyim/gftd-bpmn-sdk/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/etzhayyim/etzhayyim-bpmn-sdk/deploy-docs.yml)](https://github.com/etzhayyim/etzhayyim-bpmn-sdk/actions)
 [![Test Coverage](https://img.shields.io/badge/Coverage-~50%25-orange.svg)]()
 [![License](https://img.shields.io/badge/License-Apache--2.0-green.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
@@ -611,8 +611,8 @@ for (const scenario of scenarios) {
 
 ### Setup
 ```bash
-git clone https://github.com/etzhayyim/gftd-bpmn-sdk.git
-cd gftd-bpmn-sdk
+git clone https://github.com/etzhayyim/etzhayyim-bpmn-sdk.git
+cd etzhayyim-bpmn-sdk
 pnpm install
 pnpm build
 ```
@@ -902,8 +902,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
 
-- Issues: [GitHub Issues](https://github.com/etzhayyim/gftd-bpmn-sdk/issues)
-- Discussions: [GitHub Discussions](https://github.com/etzhayyim/gftd-bpmn-sdk/discussions)
+- Issues: [GitHub Issues](https://github.com/etzhayyim/etzhayyim-bpmn-sdk/issues)
+- Discussions: [GitHub Discussions](https://github.com/etzhayyim/etzhayyim-bpmn-sdk/discussions)
 
 ---
 

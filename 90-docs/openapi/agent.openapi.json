@@ -340,7 +340,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_agent_actorCapability": {
+      "ai_etzhayyim_agent_actorCapability": {
         "type": "object",
         "properties": {
           "id": {
@@ -371,7 +371,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_agent_actorCard": {
+      "ai_etzhayyim_agent_actorCard": {
         "type": "object",
         "properties": {
           "nanoid": {
@@ -399,7 +399,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_agent_agentTools": {
+      "ai_etzhayyim_agent_agentTools": {
         "type": "object",
         "properties": {
           "tools": {
@@ -415,12 +415,12 @@
           "createdAt"
         ]
       },
-      "ai_gftd_agent_economyProfile": {
+      "ai_etzhayyim_agent_economyProfile": {
         "type": "object",
         "properties": {
           "rootDid": {
             "type": "string",
-            "description": "Contract DID, e.g. did:erc725:gftd:260425:0x..."
+            "description": "Contract DID, e.g. did:erc725:etzhayyim:260425:0x..."
           },
           "agentDid": {
             "type": "string",
@@ -474,7 +474,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_agent_governanceRule": {
+      "ai_etzhayyim_agent_governanceRule": {
         "type": "object",
         "properties": {
           "name": {
@@ -487,7 +487,7 @@
           "rules"
         ]
       },
-      "ai_gftd_agent_incomeEvent": {
+      "ai_etzhayyim_agent_incomeEvent": {
         "type": "object",
         "properties": {
           "eventId": {
@@ -538,7 +538,7 @@
           "occurredAt"
         ]
       },
-      "ai_gftd_agent_orgLineage": {
+      "ai_etzhayyim_agent_orgLineage": {
         "type": "object",
         "properties": {
           "parentRootDid": {
@@ -588,7 +588,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_agent_resourceUsage": {
+      "ai_etzhayyim_agent_resourceUsage": {
         "type": "object",
         "properties": {
           "usageId": {
@@ -648,7 +648,7 @@
           "usageWindowEnd"
         ]
       },
-      "ai_gftd_agent_roleBinding": {
+      "ai_etzhayyim_agent_roleBinding": {
         "type": "object",
         "properties": {
           "role": {
@@ -666,7 +666,7 @@
           "did"
         ]
       },
-      "ai_gftd_agent_runtimeLease": {
+      "ai_etzhayyim_agent_runtimeLease": {
         "type": "object",
         "properties": {
           "leaseId": {
@@ -766,7 +766,7 @@
           "createdAt"
         ]
       },
-      "ai_gftd_agent_slashEvent": {
+      "ai_etzhayyim_agent_slashEvent": {
         "type": "object",
         "properties": {
           "slashId": {

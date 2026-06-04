@@ -68,7 +68,7 @@ Every persistent autonomous agent must have:
 
 | Surface | Canonical role |
 |---|---|
-| `did:erc725:gftd:260425:<root>` | Root contract DID and policy owner |
+| `did:erc725:etzhayyim:260425:<root>` | Root contract DID and policy owner |
 | ERC-4337 smart account | GCC wallet, approvals, budgets, runtime payments |
 | ERC-8004 agent token | Public discovery, validation, reputation |
 | atproto facade DID | Social identity, posts, follows, subscriptions, public agent profile |
@@ -87,7 +87,7 @@ agent parent smart account
       -> deploy or register ERC725 child root
       -> mint/register ERC-8004 child agent token
       -> create atproto facade DID / profile record
-      -> insert RisingWave vertex_gftd_org + edge_org_parent
+      -> insert RisingWave vertex_etzhayyim_org + edge_org_parent
       -> register BPMN/LangGraph runtime policy
       -> emit ActorRuntimeRegistry checkpoint
 ```

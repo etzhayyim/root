@@ -44,7 +44,7 @@ Claude Sonnet 4.6（本会話自体）を gold standard として比較。
 vLLM 0.19.1 + torch 2.6.0+cu124 + flashinfer cu124 の組み合わせで RTX A6000 / RTX 6000 Ada 上で安定動作確認済み。
 量子化形式は `compressed-tensors`（config 自動検出）— `--quantization awq_marlin` を渡さないこと。
 
-コンピュート: `comfyui-gftd-6000ada` pod (RTX 6000 Ada, 48GB, $0.77/hr, `r127r1ab2arjg8`) に
+コンピュート: `comfyui-etzhayyim-6000ada` pod (RTX 6000 Ada, 48GB, $0.77/hr, `r127r1ab2arjg8`) に
 vLLM を co-locate する（ComfyUI と VRAM 分離、合計 ~36GB 以内）。
 
 ベンチマークスクリプト: `70-tools/scripts/bench/llm-compare/` (serve.sh / compare.py / quality_compare.py)
@@ -73,7 +73,7 @@ vLLM を co-locate する（ComfyUI と VRAM 分離、合計 ~36GB 以内）。
 **インフラ変更（2026-04-28 確定）**
 - `llm-bench` pod `ptn9xaa58xhhxp` → terminate 済み（$353/月削減）
 - Network Volume `3zgavabooi` (llm-bench-models, EU-SE-1, 200 GB) → **2026-05-07 削除** (ADR-2605010000 が co-locate plan を supersede し US-KS-2 で `p9riuzhrvf` 新規作成、EU-SE-1 volume は region mismatch で mount 不可、−$14/月)
-- `comfyui-gftd-6000ada` (`r127r1ab2arjg8`) → RUNNING 継続、vLLM co-locate 先
+- `comfyui-etzhayyim-6000ada` (`r127r1ab2arjg8`) → RUNNING 継続、vLLM co-locate 先
 
 **CUDA 互換性メモ（運用上重要）**
 
@@ -120,4 +120,4 @@ model_list:
 - ベンチスクリプト: `70-tools/scripts/bench/llm-compare/`
 - vLLM CUDA 互換: `setup_vllm.sh` on Network Volume `3zgavabooi`
 - ComfyUI co-locate: ADR-0050, `50-infra/runpod/comfyui-l40s/`
-- Murakumo fleet: `60-apps/ai-gftd-project-murakumo/`
+- Murakumo fleet: `60-apps/etzhayyim-project-murakumo/`

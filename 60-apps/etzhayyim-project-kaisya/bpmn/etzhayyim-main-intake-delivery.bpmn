@@ -17,7 +17,7 @@
              id="etzhayyim-main-intake-delivery">
 
   <collaboration id="etzhayyim-collab">
-    <participant id="pool-etzhayyim" name="GFTDコジェイパン" processRef="proc-main-intake-delivery"/>
+    <participant id="pool-etzhayyim" name="Etzhayyimコジェイパン" processRef="proc-main-intake-delivery"/>
   </collaboration>
 
   <process id="proc-main-intake-delivery" name="etzhayyim メイン業務フロー" isExecutable="true">

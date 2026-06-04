@@ -77,7 +77,7 @@ For goods etzhayyim does not produce, okaimono lists world products and assists
 comparison — but the constitutional boundary on value-inflow is preserved:
 
 - **Catalog data** is sourced from (member-selected): open product standards
-  (GTIN / UNSPSC / GDSN — UNSPSC reuses the existing organism vocabulary), GFTD-vendor
+  (GTIN / UNSPSC / GDSN — UNSPSC reuses the existing organism vocabulary), Etzhayyim-vendor
   direct feeds (ToS-clean), official / "affiliate" product APIs **used for price &
   availability DATA ONLY with affiliate tags stripped and zero commission** (G3), and —
   gated — public-page scraping under robots.txt + rate-limit + public-only (G10/G11).
@@ -292,7 +292,7 @@ member-signature + operator + warifu-external gates are all still required for a
 
 ## Alternatives Considered
 
-1. **Direct Amazon clone (vendor arm, gftd.ai).** Rejected for *this* ADR: the member's
+1. **Direct Amazon clone (vendor arm, etzhayyim.ai).** Rejected for *this* ADR: the member's
    request was re-scoped to `okaimono.etzhayyim.com` (religious-corp). A pure commercial
    marketplace can still live on the vendor side under ADR-2605301036, and Ring 2 R3
    routes through it — but the religious-corp surface must be the provisioning commons.

@@ -18,7 +18,7 @@ superseded_by: []
 # ADR-2605100100: kafun-bokumetsu Real-World Outreach Pipeline
 
 **Status**: accepted (2026-05-10)
-**Scope**: `60-apps/ai-gftd-project-public-kafun-bokumetsu`
+**Scope**: `60-apps/etzhayyim-project-public-kafun-bokumetsu`
 **Depends on**: ADR-2605100000 (agent goal-DAG), ADR-2605080600 (LangGraph
 server), ADR-0019 (path-based actor DIDs), ADR-0036 (Hyperdrive direct write).
 
@@ -129,5 +129,5 @@ permitted from this app.
 - Schema: `30-graph/graph-schema/sql_migrations/20260510020000_kafun_satellite_landowner_stakeholder.up.sql`
 - Seed:   `30-graph/graph-schema/sql_migrations/20260510020100_kafun_seed_stakeholders_and_subdag.up.sql`
 - Alembic: `r_20260510020000_kafun_satellite_landowner_stakeholder` (applied 2026-05-10 on live RW)
-- App: `60-apps/ai-gftd-project-public-kafun-bokumetsu/appview/.../src/app.ts`
+- App: `60-apps/etzhayyim-project-public-kafun-bokumetsu/appview/.../src/app.ts`
        (5 actor DIDs registered: researcher / proposer / executor / envoy / scout / cadastral)

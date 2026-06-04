@@ -111,7 +111,7 @@ def _repo_rkey(prefix: str, key: str) -> str:
 def _http_post_json(url: str, payload: dict[str, Any], headers: dict[str, str], timeout: float = 30.0) -> dict[str, Any]:
     body = json.dumps(payload, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     merged_headers = {
-        "User-Agent": "gftd-pymagatama-gov-afg/0.1",
+        "User-Agent": "etzhayyim-pymagatama-gov-afg/0.1",
         "Content-Type": "application/json",
         "Accept": "application/json",
     }

@@ -27,7 +27,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_training_export"
-                  targetNamespace="https://gftd.ai/bpmn/training"
+                  targetNamespace="https://etzhayyim.ai/bpmn/training"
                   exporter="hand-written"
                   exporterVersion="1.0">
 
@@ -68,7 +68,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="training.export.text"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=if dataset_name = null then &quot;gftd-corpus&quot; else dataset_name" target="dataset_name"/>
+          <zeebe:input source="=if dataset_name = null then &quot;etzhayyim-corpus&quot; else dataset_name" target="dataset_name"/>
           <zeebe:input source="=if label = null then &quot;wet_chunk&quot; else label"                 target="label"/>
           <zeebe:input source="=text_shard"                                                             target="shard_index"/>
           <zeebe:output source="=has_more"   target="text_has_more"/>
@@ -107,7 +107,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="training.export.triple"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=if dataset_name = null then &quot;gftd-triples&quot; else dataset_name" target="dataset_name"/>
+          <zeebe:input source="=if dataset_name = null then &quot;etzhayyim-triples&quot; else dataset_name" target="dataset_name"/>
           <zeebe:input source="=triple_shard"                                                             target="shard_index"/>
           <zeebe:output source="=has_more"   target="triple_has_more"/>
           <zeebe:output source="=next_shard" target="triple_shard"/>
@@ -145,7 +145,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:training.gftd.ai&quot;"            target="actor"/>
+          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;"            target="actor"/>
           <zeebe:input source="=&quot;training.export.complete&quot;"             target="action"/>
           <zeebe:input source="={ textShards: text_shard, tripleShards: triple_shard }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>
@@ -163,7 +163,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="training.push.huggingface"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=if dataset_name = null then &quot;gftd-corpus&quot; else dataset_name" target="dataset_name"/>
+          <zeebe:input source="=if dataset_name = null then &quot;etzhayyim-corpus&quot; else dataset_name" target="dataset_name"/>
           <zeebe:input source="=if label = null then &quot;wet_chunk&quot; else label"                 target="label"/>
           <zeebe:output source="=pushed_count" target="hf_pushed_count"/>
           <zeebe:output source="=repo_id"      target="hf_repo_id"/>

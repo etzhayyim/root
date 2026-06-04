@@ -19,7 +19,7 @@ superseded_by: []
 Date: 2026-03-19
 Status: Authoritative
 Authority: `00-contracts/wit/` (唯一の authoritative WIT source)
-Note: `magatama:dm2@1.0.0` が performer/person/organization/system/service の canonical topology。`gftd:actor@0.2.0` は deprecated (`magatama:agent@1.0.0` に吸収済み)。`gftd:*@0.1.0` は orphaned。
+Note: `magatama:dm2@1.0.0` が performer/person/organization/system/service の canonical topology。`etzhayyim:actor@0.2.0` は deprecated (`magatama:agent@1.0.0` に吸収済み)。`etzhayyim:*@0.1.0` は orphaned。
 
 ## WIT Package Overview
 
@@ -46,7 +46,7 @@ Scope: `00-contracts/wit/world.wit` `magatama-component`
 |---|---:|---:|---|
 | `magatama-go` | 57/57 | 3/3 | historical guest SDK (removed, TS native is default) |
 | `magatama-guest-rust` | 57/57 | 3/3 | `wit_bindgen::generate!` for full world |
-| `magatama-ts` | 57/57 | 3/3 | TS native bindings (default) + `serve` (ai-gftd:serve/serve) export stub + Deno coverage tests |
+| `magatama-ts` | 57/57 | 3/3 | TS native bindings (default) + `serve` (etzhayyim:serve/serve) export stub + Deno coverage tests |
 
 ### magatama-ts Package Breakdown
 

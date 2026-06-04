@@ -694,7 +694,7 @@
                     "entries": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_repository_createTree_treeEntry"
+                        "$ref": "#/components/schemas/ai_etzhayyim_repository_createTree_treeEntry"
                       }
                     },
                     "truncated": {
@@ -930,7 +930,7 @@
                     "commits": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ai_gftd_repository_getCommit_main"
+                        "$ref": "#/components/schemas/ai_etzhayyim_repository_getCommit_main"
                       }
                     },
                     "cursor": {
@@ -1049,7 +1049,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_repository_refUpdate": {
+      "ai_etzhayyim_repository_refUpdate": {
         "type": "object",
         "properties": {
           "refName": {

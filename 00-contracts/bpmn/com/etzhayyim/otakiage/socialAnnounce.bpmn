@@ -13,18 +13,18 @@
   Inputs (passed via process variables):
     eventKind:    "handover" | "ritual"
     refUri:       handoverUri or ritualUri
-    authorDid:    did:web:otakiage.gftd.ai:reuse | :ritual
+    authorDid:    did:web:otakiage.etzhayyim.com:reuse | :ritual
     summary:      pre-redacted summary (caller responsibility)
 
   NSID (informational): com.etzhayyim.apps.otakiage.socialAnnounce
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/otakiage-social-announce-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-social-announce-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_otakiage_social_announce"
-    targetNamespace="https://gftd.ai/bpmn/otakiage"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="otakiage_social_announce" name="otakiage socialAnnounce" isExecutable="true">

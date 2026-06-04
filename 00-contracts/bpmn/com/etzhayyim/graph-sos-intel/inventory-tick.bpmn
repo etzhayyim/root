@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="graph-sos-intel-inventory-tick"
-                  targetNamespace="https://gftd.ai/bpmn/graph-sos-intel">
+                  targetNamespace="https://etzhayyim.ai/bpmn/graph-sos-intel">
   <bpmn:process id="graphSosIntelInventoryTick" name="Graph SoS Intel — Inventory Tick (R/PT15M)" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Timer" name="R/PT15M timer">
       <bpmn:timerEventDefinition>

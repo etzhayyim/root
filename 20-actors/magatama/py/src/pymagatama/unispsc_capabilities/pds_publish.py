@@ -1,6 +1,6 @@
 """AT PDS publish callback for the UNSPSC capability wrapper's belief store.
 
-Per ADR-2605232100 Stage D + ADR-2605231400 (yatachain) §2 (yatachain-chain).
+Per ADR-2605232100 Stage D + ADR-2605231400 (kotoba-datomic) §2 (kotoba-datomic-chain).
 Wires the AtIpfsLocalBeliefStore's `publish: PublishCallback` injection
 point so observations are committed to the atproto PDS in addition to the
 local SQLite hot cache. Downstream of the PDS, the existing mst-projector +

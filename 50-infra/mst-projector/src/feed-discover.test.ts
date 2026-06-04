@@ -1,4 +1,4 @@
-// yatachain-projection: feed-discover (unit tests).
+// kotoba-datomic-projection: feed-discover (unit tests).
 //
 // Uses node:test (same as mst.test.ts) — no external framework dependency
 // keeps the projector image small. Deterministic-rebuild contract:

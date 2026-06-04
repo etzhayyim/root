@@ -88,14 +88,14 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 
 ## yorishiro squarespace pilot (reference)
 
-`60-apps/ai-gftd-project-yorishiro/appview/ai-gftd-wasm-yorishiro-squarespace-sqddf3sp/src/app.ts`
+`60-apps/etzhayyim-project-yorishiro/appview/etzhayyim-wasm-yorishiro-squarespace-sqddf3sp/src/app.ts`
 
 3 DB callsite を以下の NSID に置換 (server-side handler は別 PR):
 
 | 旧 callsite | 新 NSID | payload shape |
 |---|---|---|
 | `db.insertInto("vertex_dns_transfer_step")...values(stepRow)` (line 50) | `com.etzhayyim.dns.putTransferStep` | `{vertex_id, transferRequestUri, step, status, actorDid, occurredAt, errorMessage?, bindZoneFileUri?, cfTransferId?}` |
-| `db.selectFrom("vertex_ai_gftd_apps_dns_transferRequest")...where("rkey","=",rkey)` (line 73) | `com.etzhayyim.dns.getTransferRequest` | `{rkey}` → `{request?: {domain, status, ...}}` |
+| `db.selectFrom("vertex_ai_etzhayyim_apps_dns_transferRequest")...where("rkey","=",rkey)` (line 73) | `com.etzhayyim.dns.getTransferRequest` | `{rkey}` → `{request?: {domain, status, ...}}` |
 | `db.insertInto("vertex_dns_transfer_outcome")...values(outcomeRow)` (line 137) | `com.etzhayyim.dns.putTransferOutcome` | `{vertex_id, transferRequestUri, domain, result, zoneDid?, cloudflareZoneId?, failureReason?, completedAt}` |
 
 ### Diff (mechanical)
@@ -133,7 +133,7 @@ dispatcher は `vertex_bpmn_lexicon_binding[nsid]` で route 先を決める (AD
 
 ## yatabase audit (21 files, biggest single actor)
 
-`60-apps/ai-gftd-project-yatabase/src/`. このディレクトリだけで Phase 2 の **22%** を占めるため、actor 単独で 1 PR を立てるのが妥当。各ファイルの table 触り表:
+`60-apps/etzhayyim-project-yatabase/src/`. このディレクトリだけで Phase 2 の **22%** を占めるため、actor 単独で 1 PR を立てるのが妥当。各ファイルの table 触り表:
 
 | File | refs | lines | tables touched | 推奨 NSID prefix |
 |---|---:|---:|---|---|

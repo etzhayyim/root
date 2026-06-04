@@ -8,7 +8,7 @@
   "legacyExecutionTier": "T1",
   "performerType": "service",
   "displayName": "M365 Ingest — Tenant Mailbox Collector",
-  "description": "Microsoft Graph API (client credentials flow) → kyber.inbox.emailSignal pipeline. Pulls every @gftd.co.jp mailbox, routes to kyber-inbox (signal/noise) and yabai (threat scoring) via downstream subscribers. No UI, no OAuth — pure tenant-app ingest.",
+  "description": "Microsoft Graph API (client credentials flow) → kyber.inbox.emailSignal pipeline. Pulls every @etzhayyim.co.jp mailbox, routes to kyber-inbox (signal/noise) and yabai (threat scoring) via downstream subscribers. No UI, no OAuth — pure tenant-app ingest.",
   "heartbeatRequired": true,
   "uiType": "none",
   "domainKnowledgeRequired": false,
@@ -30,9 +30,9 @@
   },
   "actors": [
     {
-      "path": "tenant:gftd",
-      "displayName": "GFTD Tenant Ingest",
-      "description": "Single tenant app binding (e9b32269-81a5-4d3a-bf94-048ba6770c99, Gftd Japan)"
+      "path": "tenant:etzhayyim",
+      "displayName": "Etzhayyim Tenant Ingest",
+      "description": "Single tenant app binding (e9b32269-81a5-4d3a-bf94-048ba6770c99, Etzhayyim Japan)"
     }
   ],
   "capabilities": [
@@ -53,7 +53,7 @@
     "description": "Pulls raw Microsoft 365 mailbox data and emits normalized kyber.inbox.emailSignal records. Downstream routing (signal/noise, yabai) is derived via subscribeRepos subscribers.",
     "displayName": "M365 Ingest",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",
@@ -87,7 +87,7 @@
           "fn": "host.m365.enumerateUsers",
           "args": {
             "token": "$token.access_token",
-            "upnDomainSuffix": "@gftd.co.jp",
+            "upnDomainSuffix": "@etzhayyim.co.jp",
             "top": 999
           }
         },
@@ -113,7 +113,7 @@
           "id": "users",
           "fn": "graph.query",
           "args": {
-            "sql": "SELECT upn, last_received_at FROM vertex_m365_user u LEFT JOIN vertex_m365_sync_state s ON s.upn = u.upn AND s.data_kind = 'email' WHERE u.account_enabled AND u.upn_domain = '@gftd.co.jp' AND (s.throttle_until IS NULL OR s.throttle_until < NOW()::VARCHAR) ORDER BY s.last_sync_at ASC NULLS FIRST LIMIT 50"
+            "sql": "SELECT upn, last_received_at FROM vertex_m365_user u LEFT JOIN vertex_m365_sync_state s ON s.upn = u.upn AND s.data_kind = 'email' WHERE u.account_enabled AND u.upn_domain = '@etzhayyim.co.jp' AND (s.throttle_until IS NULL OR s.throttle_until < NOW()::VARCHAR) ORDER BY s.last_sync_at ASC NULLS FIRST LIMIT 50"
           }
         },
         {

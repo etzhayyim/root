@@ -762,7 +762,7 @@ class BeliefStore(Protocol):
 import re as _re
 
 
-_DID_ACTOR_RE = _re.compile(r"did:web:(?:etzhayyim-|etzhayyim-)?([a-z0-9-]+?)(?:\.gftd\.ai)?$")
+_DID_ACTOR_RE = _re.compile(r"did:web:(?:etzhayyim-|etzhayyim-)?([a-z0-9-]+?)(?:\.etzhayyim\.ai)?$")
 
 
 def _extract_actor_name(agent_did: str) -> str | None:

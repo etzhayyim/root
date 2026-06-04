@@ -123,7 +123,7 @@ Council and other actors to read. This is the defining property — "分析す�
 | Gate | Invariant |
 |---|---|
 | **G1** | Charter Rider §2(a)-(h) scan on every input **and** output. |
-| **G2** | kotoba/yatachain attestation lineage per tick. |
+| **G2** | kotoba/kotoba-datomic attestation lineage per tick. |
 | **G3** | **PASSIVE-ONLY collection** — no live DNS / port-probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration; only pre-published public archives via `e7m-dataset` (ADR-2605262400). |
 | **G4** | **ANALYSIS-ONLY / NO ACTUATION (defining gate)** — junkan has **no outward channel**. Output is read-only findings consumed by humans / other actors. `findingRecord.actuationTaken` const `false` (structural). Acquiring *any* outward capability (post / mention / email / tx / actuator) is a **critical** violation → immediate cell halt + chigiri.disputeMediation. This is what structurally distinguishes junkan from ossekai. |
 | **G5** | **NO causal overclaim** — every edge / loop is labelled `hypothesis` with evidence + confidence; junkan asserts correlation / lagged-sign, **never proven causation**. (`causalLoopFinding.hypothesisOnly` const `true`.) |

@@ -53,7 +53,7 @@ class RisingWaveDialect extends PostgresDialect {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '../../..');
-const defaultManifestPath = path.resolve(repoRoot, '60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json');
+const defaultManifestPath = path.resolve(repoRoot, '60-apps/etzhayyim-project-states/data/jp_fiscal/sources.json');
 
 function parseArgs(argv: string[]): { apply: boolean; manifestPath: string; limit: number } {
   let apply = false;
@@ -135,7 +135,7 @@ function methodForAnnouncement(announcementType: string): { method: string; wto:
 async function fetchText(url: string): Promise<{ text: string; finalUrl: string; sha256: string }> {
   const response = await fetch(url, {
     redirect: 'follow',
-    headers: { 'user-agent': 'gftd-jp-fiscal-ingest/0.1 (+https://etzhayyim.com)' },
+    headers: { 'user-agent': 'etzhayyim-jp-fiscal-ingest/0.1 (+https://etzhayyim.com)' },
   });
   if (!response.ok) throw new Error(`fetch failed ${response.status} ${response.statusText}: ${url}`);
   const bytes = new Uint8Array(await response.arrayBuffer());

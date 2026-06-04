@@ -1,4 +1,4 @@
-"""Integration tests for the cell-runner /yatachain/attest endpoint.
+"""Integration tests for the cell-runner /kotoba-datomic/attest endpoint.
 
 Uses aiohttp's AppRunner + TCPSite to spin up the real cell-runner HTTP
 server, then asserts the orchestrator-side request/response contract.
@@ -19,7 +19,7 @@ import pytest
 from aiohttp import web
 
 import pymagatama.cell_runner_main as cell_runner
-from pymagatama.yatachain import quorum_group_for
+from pymagatama.kotoba-datomic import quorum_group_for
 
 
 # ─── fixtures ────────────────────────────────────────────────────────
@@ -47,7 +47,7 @@ def _hosted_cells(monkeypatch):
 async def _server(_hosted_cells):
     app = web.Application()
     app.router.add_get("/healthz", cell_runner._cell_runner_healthz)
-    app.router.add_post("/yatachain/attest", cell_runner._cell_runner_yatachain_attest)
+    app.router.add_post("/kotoba-datomic/attest", cell_runner._cell_runner_kotoba-datomic_attest)
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, "127.0.0.1", 0)
@@ -108,7 +108,7 @@ async def test_healthz_lists_hosted_cells(_server):
 async def test_attest_happy_path_returns_202_with_verdict(_server):
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            f"{_server}/yatachain/attest",
+            f"{_server}/kotoba-datomic/attest",
             json=_valid_request_body(),
         ) as resp:
             assert resp.status == 202
@@ -129,7 +129,7 @@ async def test_attest_happy_path_returns_202_with_verdict(_server):
 async def test_attest_404_when_cell_not_hosted(_server):
     body = _valid_request_body(cell_id="UnknownCell")
     async with aiohttp.ClientSession() as session:
-        async with session.post(f"{_server}/yatachain/attest", json=body) as resp:
+        async with session.post(f"{_server}/kotoba-datomic/attest", json=body) as resp:
             assert resp.status == 404
             err = await resp.json()
             assert err["error"] == "cell-not-hosted"
@@ -142,7 +142,7 @@ async def test_attest_400_on_missing_cellId(_server):
     body = _valid_request_body()
     del body["cellId"]
     async with aiohttp.ClientSession() as session:
-        async with session.post(f"{_server}/yatachain/attest", json=body) as resp:
+        async with session.post(f"{_server}/kotoba-datomic/attest", json=body) as resp:
             assert resp.status == 400
             err = await resp.json()
             assert err["error"] == "missing-cellId"
@@ -153,7 +153,7 @@ async def test_attest_400_on_invalid_request_shape(_server):
     body = _valid_request_body()
     del body["recordUri"]
     async with aiohttp.ClientSession() as session:
-        async with session.post(f"{_server}/yatachain/attest", json=body) as resp:
+        async with session.post(f"{_server}/kotoba-datomic/attest", json=body) as resp:
             assert resp.status == 400
             err = await resp.json()
             assert err["error"] == "invalid-request-shape"
@@ -163,7 +163,7 @@ async def test_attest_400_on_invalid_request_shape(_server):
 async def test_attest_400_on_non_json_body(_server):
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            f"{_server}/yatachain/attest",
+            f"{_server}/kotoba-datomic/attest",
             data="not json at all",
             headers={"Content-Type": "application/json"},
         ) as resp:
@@ -181,6 +181,6 @@ async def test_attest_response_carries_canonical_quorum_group(_server):
     orchestrator will derive client-side. This is the interop contract."""
     body = _valid_request_body()
     async with aiohttp.ClientSession() as session:
-        async with session.post(f"{_server}/yatachain/attest", json=body) as resp:
+        async with session.post(f"{_server}/kotoba-datomic/attest", json=body) as resp:
             resp_body = await resp.json()
     assert resp_body["quorumGroup"] == quorum_group_for(body["recordCid"])

@@ -51,7 +51,7 @@ The existing infrastructure relied on static BPMN task definitions (`xrpc.com.et
    - `20-actors/magatama/py/Dockerfile.lg` created as the canonical lightweight build target for both `ghcr.io/etzhayyim/lg-gov:latest` and `ghcr.io/etzhayyim/lg-gyosei:latest` (python:3.11-slim-bookworm, libpq5, uv install, uv stripped post-install).
    - `langgraph_server_app.py` `/health` alias added (stacked above `/healthz`) to satisfy Helm liveness/readiness probes which target `/health`.
    - `lg-gov-raw` and `lg-gyosei-raw` Helm deployments unparked: `replicas: 0 → 1`, `state: parked` label removed from helmfile.yaml.
-   - **Operator steps pending**: `docker buildx build --builder gftd-vke` for both images → `helmfile sync -l pool=gov` → `helmfile sync -l pool=gyosei` → `alembic upgrade head` against prod RisingWave.
+   - **Operator steps pending**: `docker buildx build --builder etzhayyim-vke` for both images → `helmfile sync -l pool=gov` → `helmfile sync -l pool=gyosei` → `alembic upgrade head` against prod RisingWave.
 
 ## Consequences
 - **Positive:** Massive reduction in BPMN boilerplate (840 files updated). Seamless end-to-end integration from policy discovery to citizen social interaction to procedure execution. Autonomous self-healing schemas reduce maintenance overhead.

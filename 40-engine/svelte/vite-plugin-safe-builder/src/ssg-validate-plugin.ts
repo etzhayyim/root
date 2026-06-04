@@ -20,7 +20,7 @@ export interface SSGValidatePluginOptions {
   checkLocales?: boolean;
   /** Check internal links in HTML (default: true) */
   checkLinks?: boolean;
-  /** Check gftd.json route declarations (default: true) */
+  /** Check etzhayyim.json route declarations (default: true) */
   checketzhayyimRoutes?: boolean;
   /** Additional paths that must exist in build output */
   requiredPaths?: string[];
@@ -40,7 +40,7 @@ function detectBuildDir(projectDir: string): string {
   // Try Next.js export output
   const nextConfig = path.join(projectDir, "next.config.js");
   if (fs.existsSync(nextConfig)) {
-    // Next.js `output: "export"` writes to "out", but gftd apps rename to "build"
+    // Next.js `output: "export"` writes to "out", but etzhayyim apps rename to "build"
     const buildDir = path.join(projectDir, "build");
     if (fs.existsSync(buildDir)) return buildDir;
     return path.join(projectDir, "out");

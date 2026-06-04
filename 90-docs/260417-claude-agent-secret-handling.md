@@ -1,16 +1,16 @@
 # Claude Agent Secret Handling — Practice Notes
 
 **Date**: 2026-04-17
-**Source event**: Google Workspace ingest (`60-apps/ai-gftd-project-gmail/`) OAuth bring-up — `client_secret` landed in a chat turn, which forced a rotation. Codified the principles we wanted in place *before* that happened.
+**Source event**: Google Workspace ingest (`60-apps/etzhayyim-project-gmail/`) OAuth bring-up — `client_secret` landed in a chat turn, which forced a rotation. Codified the principles we wanted in place *before* that happened.
 
 ## Why this doc
 
-`CLAUDE.md` has Vault Zero-Knowledge invariants and `gftd agent-token` scoped JWTs, but no single page says *"here is how to hand a secret to a Claude Code session safely"*. This is that page.
+`CLAUDE.md` has Vault Zero-Knowledge invariants and `etzhayyim agent-token` scoped JWTs, but no single page says *"here is how to hand a secret to a Claude Code session safely"*. This is that page.
 
 ## Principles (in priority order)
 
 1. **Don't put long-lived secrets into the transcript.** AI provider logs, local replay caches, screenshot artifacts — once a value is in conversation it's outside your custody.
-2. **Prefer short-lived + scoped tokens over long-lived roots.** `gftd agent-token --lxm <nsid> --ttl 60` is the canonical per-call JWT. One NSID, one minute, audit trail by `iss`.
+2. **Prefer short-lived + scoped tokens over long-lived roots.** `etzhayyim agent-token --lxm <nsid> --ttl 60` is the canonical per-call JWT. One NSID, one minute, audit trail by `iss`.
 3. **Secrets cross tool boundaries, not conversation boundaries.** `op read` / `wrangler secrets-store secret create <store> --value -` pipe values directly from source to sink. Claude knows the *name*, never the value.
 4. **Make rotation a 1-liner.** If rotate is painful, the secret will leak and never get rotated. Design rotation first.
 
@@ -20,8 +20,8 @@
 |---|---|---|---|
 | **T0 Device-only** | macOS Keychain, WebAuthn PRF, 1Password master password | Hardware / OS enclave | **Never share.** Human uses them directly. |
 | **T1 Long-lived root** | `GOOGLE_OAUTH_CLIENT_SECRET`, `SS_REPO_SIGNING_KEK`, `CLOUDFLARE_API_TOKEN` | 1Password vault + CF Secrets Store | **Not in chat.** Pipe via `op read` or pre-provisioned env vars. Reference by secret *name*. |
-| **T2 Mid-lived session** | `etzhayyim_TOKEN` API key (`sk_live_*`), `~/.gftd/auth.json` JWT (90d refresh) | Encrypted at rest on dev box, `op` item | Export to env once per session. Claude references as `$etzhayyim_TOKEN`. |
-| **T3 Ephemeral scoped** | `gftd agent-token --lxm <nsid> --ttl 60`, OAuth access_token (1h) | In-memory, never persisted | **OK to pass directly.** 60s + single-method scope bounds blast radius. |
+| **T2 Mid-lived session** | `etzhayyim_TOKEN` API key (`sk_live_*`), `~/.etzhayyim/auth.json` JWT (90d refresh) | Encrypted at rest on dev box, `op` item | Export to env once per session. Claude references as `$etzhayyim_TOKEN`. |
+| **T3 Ephemeral scoped** | `etzhayyim agent-token --lxm <nsid> --ttl 60`, OAuth access_token (1h) | In-memory, never persisted | **OK to pass directly.** 60s + single-method scope bounds blast radius. |
 
 ## Canonical flows
 
@@ -32,7 +32,7 @@
 eval "$(op signin)"
 
 # 2. Export T2 session key so Claude can reference it by name
-export etzhayyim_TOKEN="$(op read 'op://Dev/gftd-api-key/credential')"
+export etzhayyim_TOKEN="$(op read 'op://Dev/etzhayyim-api-key/credential')"
 ```
 
 Claude never sees the actual token; it runs `curl -H "Authorization: Bearer $etzhayyim_TOKEN" ...` with the shell variable.
@@ -40,7 +40,7 @@ Claude never sees the actual token; it runs `curl -H "Authorization: Bearer $etz
 ### Per-call scoped token (the common case)
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.gmail.syncInbox --ttl 60)
+AT_TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.apps.gmail.syncInbox --ttl 60)
 curl -H "Authorization: Bearer $AT_TOKEN" https://gmail.etzhayyim.com/xrpc/com.etzhayyim.apps.gmail.syncInbox -d '…'
 ```
 
@@ -76,8 +76,8 @@ Timebox: if a T1 value appears in any chat transcript, rotate within 24h.
 | Anti-pattern | Why bad | Do instead |
 |---|---|---|
 | Pasting client_secret into chat so Claude can `wrangler … put` | Value persists in transcript + local telemetry | `op read` pipe + Claude executes the piped command |
-| Using Secrets Store binding (`SecretBinding`) directly as a string | serializes as `[object Fetcher]` in runtime (silent corruption, authz fails opaquely) | `const val = await resolveSecret(env.SS_FOO);` at point of use — see `60-apps/ai-gftd-project-gmail/.../src/app.ts` |
-| Sharing `sk_live_*` API key to "let Claude test for me" | Unscoped, long-lived | Issue a separate API key per agent via `gftd authz create-api-key --name claude-<purpose>` → revocable independently |
+| Using Secrets Store binding (`SecretBinding`) directly as a string | serializes as `[object Fetcher]` in runtime (silent corruption, authz fails opaquely) | `const val = await resolveSecret(env.SS_FOO);` at point of use — see `60-apps/etzhayyim-project-gmail/.../src/app.ts` |
+| Sharing `sk_live_*` API key to "let Claude test for me" | Unscoped, long-lived | Issue a separate API key per agent via `etzhayyim authz create-api-key --name claude-<purpose>` → revocable independently |
 | Loading refresh_token as `TEXT` column in an AT Record | AT Repo is always federable — all subscribers see it | KEK envelope in a private D1 or `vault.etzhayyim.com` ciphertext |
 
 ## Claude Code Chrome extension setup conflict (2026-04-17)
@@ -112,7 +112,7 @@ Option B preferred when you mostly drive Chrome from Claude Code.
 ## Cross-references
 
 - `CLAUDE.md` (root) — Vault Zero-Knowledge Invariant, ADR-0022 auth topology pointers
-- `70-tools/gftd/CLAUDE.md` — `gftd auth`, `gftd agent-token`, `gftd xrpc` CLI
-- `60-apps/ai-gftd-project-vault/CLAUDE.md` — per-user secret manager (future home for OAuth refresh tokens)
-- `60-apps/ai-gftd-project-gmail/CLAUDE.md` — KEK envelope D1 token store reference impl
+- `70-tools/etzhayyim/CLAUDE.md` — `etzhayyim auth`, `etzhayyim agent-token`, `etzhayyim xrpc` CLI
+- `60-apps/etzhayyim-project-vault/CLAUDE.md` — per-user secret manager (future home for OAuth refresh tokens)
+- `60-apps/etzhayyim-project-gmail/CLAUDE.md` — KEK envelope D1 token store reference impl
 - `90-docs/260417-google-workspace-ingest-runbook.md` — Google Workspace ingest Phase 0 plan (Gmail is Phase 1)

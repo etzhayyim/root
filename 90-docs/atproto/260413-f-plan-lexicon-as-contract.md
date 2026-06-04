@@ -76,7 +76,7 @@ projection 側に写さない時である:
 - `description`, examples, human/agent-facing tool text
 - NSID namespace, actor DID / owner DID, repo / app boundary
 - `procedure` / `query` / `record` の種別
-- `x-gftd-*` 拡張 (`capabilityTags`, `sensitivity`, `auth`, `sideEffects`,
+- `x-etzhayyim-*` 拡張 (`capabilityTags`, `sensitivity`, `auth`, `sideEffects`,
   `idempotency`, `timeoutMs`, `resultSemantics`, `bpmnProcessId`)
 - JSON Schema の nullable / union / additionalProperties / format / encoding
 - governance / consent / audit / Service Auth `lxm` の scope 情報
@@ -96,22 +96,22 @@ DID ownership、federation、durable record graph、BPMN binding、governance me
 標準では保持しない。gRPC も主 SSoT にしない。gRPC は server-to-server の型安全・streaming・
 codegen に強いが、human/agent 向け説明や federation metadata は標準 field ではない。
 
-projection が不可逆になる field は必ず Lexicon 側に `x-gftd-*` として残す。
+projection が不可逆になる field は必ず Lexicon 側に `x-etzhayyim-*` として残す。
 推奨 extension:
 
 | Field | Meaning |
 |---|---|
-| `x-gftd-transport.mcp.toolName` | MCP tool 名。省略時は NSID をそのまま使う |
-| `x-gftd-transport.grpc.service` | gRPC service / method への projection hint |
-| `x-gftd-bpmn.processId` | BPMN process id / Zeebe task binding |
-| `x-gftd-auth` | Service Auth / permission-set / `lxm` scope |
-| `x-gftd-capabilityTags` | MCP discovery / ActorCapability graph tags |
-| `x-gftd-sensitivity` | data classification / federation gate |
-| `x-gftd-idempotency` | retry / dedupe contract |
-| `x-gftd-sideEffects` | write / dispatch / external call semantics |
-| `x-gftd-timeoutMs` | BPMN / MCP / worker timeout budget |
-| `x-gftd-ownerDid` | actor / app ownership boundary |
-| `x-gftd-resultSemantics` | result shape beyond bare JSON Schema |
+| `x-etzhayyim-transport.mcp.toolName` | MCP tool 名。省略時は NSID をそのまま使う |
+| `x-etzhayyim-transport.grpc.service` | gRPC service / method への projection hint |
+| `x-etzhayyim-bpmn.processId` | BPMN process id / Zeebe task binding |
+| `x-etzhayyim-auth` | Service Auth / permission-set / `lxm` scope |
+| `x-etzhayyim-capabilityTags` | MCP discovery / ActorCapability graph tags |
+| `x-etzhayyim-sensitivity` | data classification / federation gate |
+| `x-etzhayyim-idempotency` | retry / dedupe contract |
+| `x-etzhayyim-sideEffects` | write / dispatch / external call semantics |
+| `x-etzhayyim-timeoutMs` | BPMN / MCP / worker timeout budget |
+| `x-etzhayyim-ownerDid` | actor / app ownership boundary |
+| `x-etzhayyim-resultSemantics` | result shape beyond bare JSON Schema |
 
 外部 ecosystem の都合で MCP tool name や gRPC method name が NSID から変形される場合も、
 mapping は Lexicon extension か generated registry (`vertex_mcp_tool_def`) に置き、
@@ -240,9 +240,9 @@ source count は 1 のまま保たれ、Shannon η=1.0 を維持できる。
 - 503 per-component `wit/world.wit` + 435 project-level `package.wit` + transitive deps = **3007 .wit files** archived to `_archive/wit-2026-04-13/`
 - 936 component dirs cleaned of inert WIT scaffolding
 - **2 components retained in-tree** (legacy compat):
-  - `60-apps/ai-gftd-project-cad/appview/ai-gftd-wasm-cad-cd4dview/wit/` (T3 Container, runtimeType: container)
-  - `60-apps/ai-gftd-project-hoge/appview/ai-gftd-wasm-hoge-h0g3t3st/contract-jco/wit/` (Rust contract-jco generator)
-- `gftd build` の `validateMagatamaGovernanceImport` は missing wit/ を silent skip (build.go:558-560)
+  - `60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/wit/` (T3 Container, runtimeType: container)
+  - `60-apps/etzhayyim-project-hoge/appview/etzhayyim-wasm-hoge-h0g3t3st/contract-jco/wit/` (Rust contract-jco generator)
+- `etzhayyim build` の `validateMagatamaGovernanceImport` は missing wit/ を silent skip (build.go:558-560)
 - **141/141 host-sdk tests pass**
 
 ### F2: App command contract (2026-04-13)
@@ -332,9 +332,9 @@ WIT の唯一の優位性は wasm component model の wire format ですが、T3
 
 T3 Container (wasmtime runtime) と Rust contract-jco generator は WIT を継続使用:
 
-- `60-apps/ai-gftd-project-cad/appview/ai-gftd-wasm-cad-cd4dview/`
+- `60-apps/etzhayyim-project-cad/appview/etzhayyim-wasm-cad-cd4dview/`
   - 理由: 128MB Worker memory 制約超過のため Container mode、jco bridge 必須
-- `60-apps/ai-gftd-project-hoge/appview/ai-gftd-wasm-hoge-h0g3t3st/contract-jco/`
+- `60-apps/etzhayyim-project-hoge/appview/etzhayyim-wasm-hoge-h0g3t3st/contract-jco/`
   - 理由: contract-jco generator は WIT を入力として WASM component を出力する Rust ツール
 
 これらは WIT を入力に持つ legitimate use case であり、Lexicon に置き換える必要がない。

@@ -3,7 +3,7 @@
  *
  * Per ADR-2606011400 (Consensys) + ADR-2605172400 (3-axis) + ADR-2605181100
  * (kotoba E2E encrypted-record envelope). Founder directive 2026-06-03: front
- * everything that can move; only the irreducible regulated EXECUTION stays gftd.
+ * everything that can move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * SPLIT (2 plaintext / 2 E2E):
  *   PLAINTEXT (public AT records) — the public crawl catalog:
@@ -18,7 +18,7 @@
  *     openMessage  : per-author scraped channel message (author label + text)
  *                    — private-content / message metadata, sealed E2E.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION: platform bot-token / secret custody, the
  *   actual webhook send/receive relay across the platform networks, and the
  *   crawl/scrape compute. The bridge/message/channel DATA all migrate; only the

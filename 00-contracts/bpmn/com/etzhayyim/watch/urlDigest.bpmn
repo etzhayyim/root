@@ -9,7 +9,7 @@
     Start (input: url)
       → generic.http.fetch   (GET url)
       → generic.llm.json     ({title, summary, lang})
-      → generic.audit.emit   (actor=did:web:watch.gftd.ai)
+      → generic.audit.emit   (actor=did:web:watch.etzhayyim.com)
       → End
 
   Variables on the instance:
@@ -21,7 +21,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_watch_url_digest"
-    targetNamespace="https://gftd.ai/bpmn/watch"
+    targetNamespace="https://etzhayyim.ai/bpmn/watch"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="watch_url_digest" name="watch url digest" isExecutable="true">
@@ -72,7 +72,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:watch.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:watch.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;urlDigest&quot;" target="action"/>
           <zeebe:input source="={
               url:            string(url),

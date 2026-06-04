@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  billing.gftd.ai — Stripe webhook receiver (XRPC com.etzhayyim.apps.billing.stripeWebhook).
+  billing.etzhayyim.com — Stripe webhook receiver (XRPC com.etzhayyim.apps.billing.stripeWebhook).
 
   PDS verifies the stripe-signature header before this BPMN starts. The
   primitive is therefore trust-boundaried at the dispatcher.
@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_billing_stripe_webhook"
-    targetNamespace="https://gftd.ai/bpmn/billing"
+    targetNamespace="https://etzhayyim.ai/bpmn/billing"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="billing_stripe_webhook" name="billing stripe webhook" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:billing.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:billing.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.billing.stripeWebhook&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;stripeEventId&quot;: stripeEventId, &quot;stripeEventType&quot;: stripeEventType, &quot;duplicate&quot;: duplicate }" target="attributes"/>
         </zeebe:ioMapping>

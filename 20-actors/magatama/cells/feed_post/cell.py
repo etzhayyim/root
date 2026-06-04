@@ -1,18 +1,18 @@
 """
-FeedPostCell — yatachain §4 L3 deterministic verdict for app.bsky.feed.post.
+FeedPostCell — kotoba-datomic §4 L3 deterministic verdict for app.bsky.feed.post.
 
 Per:
   - ADR-2605192100 (mission charter — §1.13 Eros / Gore boundary,
                     §1.15 non-eschatological)
   - ADR-2605192200 (Charter Compliance Rider v2.0 §2(a)..(h))
-  - ADR-2605231400 yatachain SPEC §4 — `(L1, L2, L3)` all must accept;
+  - ADR-2605231400 kotoba-datomic SPEC §4 — `(L1, L2, L3)` all must accept;
                     L3 is THIS cell
 
 L1 lexicon: ``00-contracts/lexicons/app/bsky/feed/post.json`` (vendored).
 L2 policy:  ``00-contracts/policies/app/bsky/feed/policy.rego``.
 L3 cell:    this file.
 
-Determinism contract (yatachain SPEC §4 table row L3):
+Determinism contract (kotoba-datomic SPEC §4 table row L3):
   Given identical ``(record, ctx)`` inputs, this cell MUST return identical
   ``Verdict``. Concretely:
     - No clocks: ``createdAt`` is read from input, never ``time.time()``.

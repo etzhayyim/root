@@ -3,7 +3,7 @@
 //
 // Phase 2 of the BPMN→CF Worker migration (90-docs/260425-bpmn-to-cf-worker-migration-design.md).
 // Reads the catalog, groups by project, and writes
-// `60-apps/ai-gftd-project-{project}/worker/src/defence-handlers.ts`
+// `60-apps/etzhayyim-project-{project}/worker/src/defence-handlers.ts`
 // for each project. The file exports one async function per NSID plus a
 // `defenceRoutes` map (`Record<NSID, handler>`). The project's existing
 // `app.ts` can `import { defenceRoutes }` and merge into its existing
@@ -53,7 +53,7 @@ let skipped = 0;
 const summary = [];
 
 for (const [project, procs] of byProject) {
-  const projDir = path.join(repoRoot, "60-apps", `ai-gftd-project-${project}`, "worker");
+  const projDir = path.join(repoRoot, "60-apps", `etzhayyim-project-${project}`, "worker");
   if (!existsSync(projDir)) {
     skipped++;
     summary.push({ project, status: "skipped (no worker dir)", count: procs.length });

@@ -146,7 +146,7 @@ async function verifySyntax(filePath, source) {
 const allFiles = [];
 walk(path.join(cwd, "projects"), allFiles);
 const targets = actorsOnly
-  ? allFiles.filter((f) => f.includes("sys-gftd-actors"))
+  ? allFiles.filter((f) => f.includes("sys-etzhayyim-actors"))
   : allFiles;
 
 let changedCount = 0;

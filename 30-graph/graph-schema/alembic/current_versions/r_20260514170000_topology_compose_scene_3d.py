@@ -44,7 +44,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[4]
 _TOPOLOGY_YAML = (
     _REPO_ROOT
     / "60-apps"
-    / "ai-gftd-project-mangaka"
+    / "etzhayyim-project-mangaka"
     / "lg"
     / "lg_mangaka"
     / "graphs"

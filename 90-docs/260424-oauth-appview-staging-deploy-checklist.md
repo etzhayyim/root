@@ -11,7 +11,7 @@ authoritative_for:
   - ADR-2604231821 / 2604231828 / 2604240914 cutover smoke steps
 related:
   - adr-2604231821-atproto-oauth-wire-format-snake-case
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2604240914-oauth-rs-binding-revocation-introspection
   - doc-260424-oauth-strict-mode-cutover
 ---
@@ -24,13 +24,13 @@ This session landed:
 |---|---|
 | `cf5b0ecfb69` | OAuth wire format snake_case (AS metadata / PAR / token / client metadata) |
 | `3c88a7dff38` | DPoP-Nonce on `/oauth/token` + authn response snake_case |
-| `12e119b3a19` | `ai-gftd-appview` Worker scaffold |
+| `12e119b3a19` | `etzhayyim-appview` Worker scaffold |
 | `988f0614a35` | `APPVIEW_URL` var in atproto wrangler |
 | `70536e55b18` | PDS pipethrough public HTTP + RS DPoP middleware |
 | `0cbfcfd3845` | `cnf.jkt` through session JWT + `/oauth/revoke` + AppView proxy |
 | `5c8667d2cb6` | RS revocation lookup + `/oauth/introspect` |
 | `f31a2925a4e` | Y2 B3 family cascade + `DPOP_CNF_JKT_ENFORCEMENT` switch |
-| `c38e4ada5a3` | smoke script + runbook + `gftd authn revoke` |
+| `c38e4ada5a3` | smoke script + runbook + `etzhayyim authn revoke` |
 | `{next}`     | **AppView A2 full migration + package.json wiring** |
 
 Current prod baseline (against live `atproto.etzhayyim.com`):
@@ -53,7 +53,7 @@ them, and lets rollback be one-Worker granular if a stage fails smoke.
 ## 1. authn.etzhayyim.com (authentication service)
 
 ```bash
-cd 60-apps/ai-gftd-project-auth/worker
+cd 60-apps/etzhayyim-project-auth/worker
 wrangler deploy
 ```
 
@@ -62,7 +62,7 @@ wrangler deploy
 - `cnf.jkt` propagation in `issueSession` / `refreshSession` (Y1 A2)
 - `sid` (session-family id) on both access and refresh JWTs (Y2 B3)
 - New `/rpc/revoke-token` + `/rpc/check-revoked` (Y2 B1, B2)
-- `vertex_gftd_key_revoked_session.sid` column migration (idempotent
+- `vertex_etzhayyim_key_revoked_session.sid` column migration (idempotent
   ALTER TABLE — safe to re-run)
 
 **Smoke**:
@@ -85,7 +85,7 @@ wrangler deploy
 - Worker scaffold on `bsky.etzhayyim.com/*`
 - Real `app.bsky.{actor,feed}.*` handlers migrated from yoro
   (`profile`/`search`/`feed`/`rank`/`intent-prior`/`topic-extract`)
-- `x-gftd-internal-trust` gate on `x-gftd-authenticated-did` forwarding
+- `x-etzhayyim-internal-trust` gate on `x-etzhayyim-authenticated-did` forwarding
 
 **Smoke**:
 
@@ -95,7 +95,7 @@ curl -sS https://bsky.etzhayyim.com/_worker/health
 # expect: {"ok":true,"app":"appview",...}
 
 curl -sS https://bsky.etzhayyim.com/_app/meta
-# expect: {"app":"ai-gftd-appview","layer":"appview","atStandard":true,...}
+# expect: {"app":"etzhayyim-appview","layer":"appview","atStandard":true,...}
 
 # Unknown NSID → 501 (PDS will fall back to local handler)
 curl -sS -o /dev/null -w "%{http_code}\n" https://bsky.etzhayyim.com/xrpc/app.bsky.feed.getCustomFeed
@@ -141,16 +141,16 @@ bash scripts/oauth-smoke.sh
 Extra end-to-end check:
 
 ```bash
-# Revoke → introspect round-trip. sk_live_* from `gftd authz list-api-keys`.
-SK=$(security find-generic-password -s "gftd.dev" -a "sk_live" -w 2>/dev/null || echo "$etzhayyim_API_KEY")
+# Revoke → introspect round-trip. sk_live_* from `etzhayyim authz list-api-keys`.
+SK=$(security find-generic-password -s "etzhayyim.dev" -a "sk_live" -w 2>/dev/null || echo "$etzhayyim_API_KEY")
 # 1. mint a session via passkey login (browser)
-gftd authn signin
+etzhayyim authn signin
 
 # 2. revoke it server-side
-gftd authn revoke -q
+etzhayyim authn revoke -q
 
 # 3. introspect the revoked token with a confidential client
-TOK=$(jq -r .access_token ~/.gftd/auth.json.bak 2>/dev/null)   # or capture before revoke
+TOK=$(jq -r .access_token ~/.etzhayyim/auth.json.bak 2>/dev/null)   # or capture before revoke
 curl -sS -X POST https://atproto.etzhayyim.com/oauth/introspect \
   -H "Authorization: Bearer $SK" \
   -d "token=$TOK" | jq .

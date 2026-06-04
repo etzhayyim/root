@@ -11,7 +11,7 @@ set -euo pipefail
 
 REPO_ROOT="${REPO_ROOT:-/Users/junkawasaki/github/etzhayyim-root}"
 TALLY_LOG="${REPO_ROOT}/90-docs/260424-legacy-trust-tally.log"
-WORKER_NAME="${WORKER_NAME:-ai-gftd-appview}"
+WORKER_NAME="${WORKER_NAME:-etzhayyim-appview}"
 SAMPLE_SECS="${SAMPLE_SECS:-60}"
 
 # Seed the log with a header the first time we write.

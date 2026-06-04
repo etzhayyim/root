@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_delete_object"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_delete_object" name="yata delete object" isExecutable="true">
@@ -39,7 +39,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yatabase.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.yata.deleteObject&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;bucketName&quot;: bucketName, &quot;objectKey&quot;: objectKey, &quot;purged&quot;: purged }" target="attributes"/>
         </zeebe:ioMapping>

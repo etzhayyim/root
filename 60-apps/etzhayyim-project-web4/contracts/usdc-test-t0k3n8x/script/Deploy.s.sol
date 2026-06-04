@@ -6,7 +6,7 @@ import {TestUSDC} from "../src/TestUSDC.sol";
 
 /**
  * @title Deploy
- * @notice Deploy GCC (Gftd Computing Credits) and configure initial minter.
+ * @notice Deploy GCC (Etzhayyim Computing Credits) and configure initial minter.
  *
  * Step 1 — Dry-run (no gas spent):
  *   forge script script/Deploy.s.sol:Deploy \
@@ -37,7 +37,7 @@ contract Deploy is Script {
         vm.startBroadcast();
 
         TestUSDC token = new TestUSDC(
-            "Gftd Computing Credits", // name
+            "Etzhayyim Computing Credits", // name
             "GCC",                    // symbol
             "USD",                    // currency
             deployer,        // masterMinter

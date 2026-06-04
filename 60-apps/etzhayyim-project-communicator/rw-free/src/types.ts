@@ -3,7 +3,7 @@
  * migration via the kotoba-E2E split (ADR-2606011400 Consensys + ADR-2605172400
  * 3-axis + ADR-2605181100 kotoba E2E encrypted-record envelope). Founder
  * directive 2026-06-03: front everything that can move; only the irreducible
- * regulated EXECUTION stays gftd.
+ * regulated EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — non-sensitive reference + read-views:
@@ -16,7 +16,7 @@
  *
  *   SENSITIVE (kotoba E2E, com.etzhayyim.encrypted.record) — read-cap = owner
  *   DID + explicit recipients, so confidential payloads live on-substrate
- *   encrypted, never gftd-resident in plaintext:
+ *   encrypted, never etzhayyim-resident in plaintext:
  *     - conversationParty: per-person PII (email / display name / organization /
  *       role) of a sender or recipient.
  *     - messageRecord: draft + delivery payload (subject / body / tone /
@@ -24,12 +24,12 @@
  *       count) plus per-person emotion analytics (VAD signals). Message body +
  *       message metadata + per-person analytics are all confidential.
  *
- *   STAYS gftd (consumed via consent-capability) — the irreducible regulated
+ *   STAYS etzhayyim (consumed via consent-capability) — the irreducible regulated
  *   EXECUTION, NOT a data collection: (1) LLM/GPU draft-generation inference,
  *   (2) the actual Gmail/Outlook SEND action (provider dispatch enforcement),
  *   (3) provider OAuth token / credential custody. The transaction DATA (drafts,
  *   delivery metadata, parties) migrates E2E; only the send-call + inference +
- *   token custody stay gftd.
+ *   token custody stay etzhayyim.
  *
  * AT-Lexicon: no float. Counts / retry / blocked-term-count are non-negative
  * integers. Emotion analytics: arousal / dominance / urgency / confidence are

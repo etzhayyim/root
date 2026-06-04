@@ -52,7 +52,7 @@ into an artifact (facts / todos / summary / deferred). The name 「まにまに 
 than from a pre-declared taxonomy.
 
 **Current state (2026-05-29): Phase 0 contract only.** The CF Worker edge facade exists and
-is non-trivial (`60-apps/ai-gftd-project-manimani/src/{app,dispatcher,embed}.ts` — Hono +
+is non-trivial (`60-apps/etzhayyim-project-manimani/src/{app,dispatcher,embed}.ts` — Hono +
 auth middleware + 6 NSID XRPC routing + embed UI). But the execution backend
 (`20-actors/magatama/py/src/pymagatama/manimani/`) **was never implemented** — the directory
 does not exist. manimani has a mouth and no stomach.
@@ -307,4 +307,4 @@ Phases 1–5 are separate sessions. This PR authors Phase 0 only.
 - kotoba-internal ADR-2605250002 (kotoba StateGraph / LangGraph-compatible API)
 - kotoba-internal ADR-2605252400 (kotoba-ingest Gmail OAuth2 → QuadStore)
 - 40-engine/kotoba/CLAUDE.md § "4-Index Arrangement (Datomic EAVT/AEVT/AVET/VAET)" + § "StateGraph 設計"
-- 60-apps/ai-gftd-project-manimani/CLAUDE.md (edge facade surface)
+- 60-apps/etzhayyim-project-manimani/CLAUDE.md (edge facade surface)

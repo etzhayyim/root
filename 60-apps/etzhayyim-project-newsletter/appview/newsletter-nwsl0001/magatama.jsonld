@@ -5,7 +5,7 @@
   "nanoid": "nwsl0001",
   "runtimeType": "worker",
   "profile": {
-    "displayName": "GFTD Newsletter",
+    "displayName": "Etzhayyim Newsletter",
     "description": "AI newsletter factory. Curates content from news.etzhayyim.com and narou.etzhayyim.com, personalizes per cohort, and delivers via Resend every Tuesday.",
     "avatar": "NL",
     "category": "marketing",
@@ -29,7 +29,7 @@
     }
   },
   "space": {
-    "name": "GFTD Newsletter",
+    "name": "Etzhayyim Newsletter",
     "description": "Newsletter campaigns and subscriber workspace",
     "joinRule": "invite",
     "historyVisibility": "invited",

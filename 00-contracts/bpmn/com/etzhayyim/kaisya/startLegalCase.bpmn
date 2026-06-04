@@ -3,14 +3,14 @@
   kaisya — 法務案件 start flow.
 
   NSID (path-derived): com.etzhayyim.apps.kaisya.startLegalCase
-  Owner DID:           did:web:kaisya.gftd.ai
+  Owner DID:           did:web:kaisya.etzhayyim.com
   Process ID:          kaisya_start_legal_case
 
   Inputs (from dispatcher):
-    caseTitle        (str)  e.g. "LingLing v. Gftd"
+    caseTitle        (str)  e.g. "LingLing v. Etzhayyim"
     caseKind         (str)  litigation | prelitigation | contract-review
     counterparty     (str)
-    responsibleDid   (str)  e.g. did:web:k.bakshi.gftd.ai
+    responsibleDid   (str)  e.g. did:web:k.bakshi.etzhayyim.com
     openerDid        (str)  caller, injected by dispatcher from Service Auth sub
     vertexId         (str)  at://{openerDid}/com.etzhayyim.apps.kaisya.legalCase/{rkey}
 
@@ -22,14 +22,14 @@
 
   User tasks land in vertex_human_task via the pyzeebe userTask sink
   (50-infra/vultr/bpmn-worker/user_task_sink.py). Forms reference the
-  kaisya form JSONs under 60-apps/ai-gftd-project-kaisya/forms/.
+  kaisya form JSONs under 60-apps/etzhayyim-project-kaisya/forms/.
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_kaisya_start_legal_case"
-    targetNamespace="https://gftd.ai/bpmn/kaisya"
+    targetNamespace="https://etzhayyim.ai/bpmn/kaisya"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="kaisya_start_legal_case" name="法務案件 — 起票 → CLO 分類 → CEO 承認" isExecutable="true">
@@ -65,7 +65,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kaisya.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kaisya.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;kaisya.startLegalCase.completed&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:       vertexId,

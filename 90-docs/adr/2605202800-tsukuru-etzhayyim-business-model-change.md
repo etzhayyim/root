@@ -14,7 +14,7 @@ authoritative_for:
   - tsukuru B2B factory-direct ordering on etzhayyim substrate
   - Stripe Issuing → ERC-4337 + USDC payment migration plan
   - RisingWave Hyperdrive → PDS XRPC + IPFS storage migration plan
-  - 460+ factory DID migration plan (gftd → etzhayyim)
+  - 460+ factory DID migration plan (etzhayyim → etzhayyim)
 depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
@@ -78,7 +78,7 @@ implementation until factory migration completes.
 
 Land:
 - This ADR (proposed status)
-- `etzhayyim-root/60-apps/ai-gftd-project-tsukuru/` scaffold:
+- `etzhayyim-root/60-apps/etzhayyim-project-tsukuru/` scaffold:
   - CLAUDE.md (sed-transformed from vendor)
   - PROJECT.jsonld, OWNERS, magatama.toml
   - scripts/register-isic-industry-actors.mjs
@@ -194,7 +194,7 @@ proven:
 - Add `routing-gateway/src/worker.ts` branch: `label === 'tsukuru'`
   → 301 to `tsukuru.etzhayyim.com` (yoro Stage 4 pattern, PR #1315)
 - Stripe Issuing wind-down — settle outstanding cards, cancel program
-- vendor `60-apps/ai-gftd-project-tsukuru/` → `[MOVED]` stub
+- vendor `60-apps/etzhayyim-project-tsukuru/` → `[MOVED]` stub
 - vendor CF Worker delete: `tsukuru-tsukr8u0`
 
 ## Phase 6 — long-tail cleanup

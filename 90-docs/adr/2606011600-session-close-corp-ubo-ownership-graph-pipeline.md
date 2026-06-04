@@ -124,7 +124,7 @@ separately risks, and that the end-to-end test exists to catch.
 
 **Process note — `e7m verify` pre-commit hook is stale on this host.** The
 installed `e7m` Homebrew binary (`/opt/homebrew/bin/e7m`) lacks the `verify`
-subcommand (`gftd: unknown command: verify`), so the `e7m-verify` whole-repo
+subcommand (`etzhayyim: unknown command: verify`), so the `e7m-verify` whole-repo
 pre-commit gate hard-fails on **every** commit on this machine, forcing
 `--no-verify`. All six PRs were committed with `--no-verify`; **all per-file
 constitutional lints passed** (substrate-boundary, no-advertising,

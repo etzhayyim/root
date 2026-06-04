@@ -18,7 +18,7 @@ bytes4 constant ERC1271_MAGIC_VALUE = 0x1626ba7e;
 ///         (ADR-0074 Phase 2-A). Each request goes through three steps:
 ///
 ///         1. `submitJob` — caller deposits GCC for a specific operator.
-///         2. `settleJob` — gftd routing-gateway oracle signs the actual
+///         2. `settleJob` — etzhayyim routing-gateway oracle signs the actual
 ///            cost; the escrow splits between operator (70%) / treasury
 ///            (25%) / referrer (5%) and refunds the remainder.
 ///         3. `refund` — if no settle within `SETTLEMENT_TIMEOUT`, the

@@ -496,7 +496,7 @@ async def test_mcp_nsid_override_short_circuits_db_lookup(monkeypatch):
 
     _MCP_REGISTRY_CACHE.clear()
     monkeypatch.setenv(
-        "MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools", "http://localhost:8000",
+        "MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools", "http://localhost:8000",
     )
 
     # A pool that would raise if accessed — proves the override bypasses it.
@@ -516,9 +516,9 @@ async def test_mcp_nsid_override_longest_prefix_wins(monkeypatch):
     )
 
     _MCP_REGISTRY_CACHE.clear()
-    monkeypatch.setenv("MCP_NSID_OVERRIDE_ai_gftd_apps", "http://broad:80")
+    monkeypatch.setenv("MCP_NSID_OVERRIDE_ai_etzhayyim_apps", "http://broad:80")
     monkeypatch.setenv(
-        "MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools", "http://specific:9000",
+        "MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools", "http://specific:9000",
     )
 
     async def _unused_pool():
@@ -539,7 +539,7 @@ async def test_mcp_nsid_override_does_not_match_prefix_substring(monkeypatch):
     )
 
     _MCP_REGISTRY_CACHE.clear()
-    monkeypatch.setenv("MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka", "http://nope:80")
+    monkeypatch.setenv("MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka", "http://nope:80")
 
     pool, conn = _pool_returning(("real-host.etzhayyim.com",))
     url = await _resolve_mcp_nsid(
@@ -583,7 +583,7 @@ async def test_mcp_nsid_override_matches_exact_nsid(monkeypatch):
 
     _MCP_REGISTRY_CACHE.clear()
     monkeypatch.setenv(
-        "MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools_loadPanelPlan",
+        "MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools_loadPanelPlan",
         "http://exact:7000",
     )
 

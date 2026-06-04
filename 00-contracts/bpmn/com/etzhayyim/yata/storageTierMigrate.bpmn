@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  yatabase.gftd.ai — storage tier migration (autonomous, cron 0 0 5 * * ? = 05:00 UTC daily).
+  yatabase.etzhayyim.com — storage tier migration (autonomous, cron 0 0 5 * * ? = 05:00 UTC daily).
 
   For every blob in tier_policy='auto' bucket:
     - last_accessed_at > 30 days ago AND tier='warm' → migrate to 'cold'
@@ -17,7 +17,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_storage_tier_migrate"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_storage_tier_migrate" name="yata storage tier migration (daily 05:00 UTC)" isExecutable="true">
@@ -48,7 +48,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yatabase.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.yata.storageTierMigrate&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;hotToWarm&quot;: hotToWarm, &quot;warmToCold&quot;: warmToCold, &quot;bytesMigrated&quot;: bytesMigrated }" target="attributes"/>
         </zeebe:ioMapping>

@@ -45,7 +45,7 @@ Last updated: 2026-04-13
 ## Verification
 
 ```bash
-go run ./70-tools/gftd/gftd apps kyumei-koji -nanoid <nanoid> -dir ./60-apps -json
-go run ./70-tools/gftd/gftd monitor shinka -nanoid <nanoid> -dir ./60-apps --freshness-hours 24 --json
-go run ./70-tools/gftd/gftd code-quality -check magatama_lint
+go run ./70-tools/etzhayyim/etzhayyim apps kyumei-koji -nanoid <nanoid> -dir ./60-apps -json
+go run ./70-tools/etzhayyim/etzhayyim monitor shinka -nanoid <nanoid> -dir ./60-apps --freshness-hours 24 --json
+go run ./70-tools/etzhayyim/etzhayyim code-quality -check magatama_lint
 ```

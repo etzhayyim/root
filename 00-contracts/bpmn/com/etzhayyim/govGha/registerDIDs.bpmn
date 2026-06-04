@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_gha_register_dids"
-    targetNamespace="https://gftd.ai/bpmn/govGha"
+    targetNamespace="https://etzhayyim.ai/bpmn/govGha"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_gha_register_dids" name="govGha register DIDs" isExecutable="true">

@@ -1,12 +1,12 @@
 # T1 Mitama Actors Coverage Rollout Design
 
 ## Goal
-`20-actors/*/actor-manifest.jsonld` (executionTier = `T1`) に共通 coverage pipeline を実装し、`gftd mitama` で deploy 可能な状態に揃える。
+`20-actors/*/actor-manifest.jsonld` (executionTier = `T1`) に共通 coverage pipeline を実装し、`etzhayyim mitama` で deploy 可能な状態に揃える。
 
 ## Scope
 - Target: T1 actors under `20-actors/*/actor-manifest.jsonld`
 - Runtime: PDS Shared Executor (no Worker deploy)
-- Validation: `gftd mitama --dry-run`
+- Validation: `etzhayyim mitama --dry-run`
 
 ## Coverage Template (T1-safe)
 T1 制約 (`custom` handler 禁止) に合わせ、以下 primitive のみを使用:
@@ -49,9 +49,9 @@ Behavior:
 
 ## Operational Verification
 - JSON validity: parse all actor manifests
-- Mitama validation: `gftd mitama -dir <actor-dir> --dry-run`
+- Mitama validation: `etzhayyim mitama -dir <actor-dir> --dry-run`
 - Coverage endpoint availability: check each manifest contains `.coverage.get` trigger
 
 ## Notes
-- Existing domain/world coverage CLI remains unchanged (`gftd coverage domain`, `gftd coverage`)
+- Existing domain/world coverage CLI remains unchanged (`etzhayyim coverage domain`, `etzhayyim coverage`)
 - This rollout focuses on actor-local coverage visibility and snapshot continuity.

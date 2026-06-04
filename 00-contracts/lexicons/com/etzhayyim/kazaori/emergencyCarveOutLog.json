@@ -73,7 +73,7 @@
             "type": "string",
             "description": "Reference to silenKazaoriReview entry that audits this carve-out's use + outcome"
           },
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingDid": {"type": "string"}
         }
       }

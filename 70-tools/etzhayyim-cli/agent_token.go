@@ -127,10 +127,10 @@ func runAgentToken(args []string) error {
 }
 
 func printAgentTokenUsage() {
-	fmt.Printf(`gftd agent-token — mint an Ed25519-signed scoped JWS
+	fmt.Printf(`etzhayyim agent-token — mint an Ed25519-signed scoped JWS
 
 USAGE:
-  gftd agent-token --lxm <nsid> [--ttl <sec>] [--issuer <did>] [--agent <did>] [--capability <at-uri>]
+  etzhayyim agent-token --lxm <nsid> [--ttl <sec>] [--issuer <did>] [--agent <did>] [--capability <at-uri>]
 
 REQUIRED:
   --lxm <nsid>                Single scope NSID (one token = one scope)
@@ -149,15 +149,15 @@ OPTIONAL:
 
 EXAMPLES:
   # Mint a 60s token for one karute write XRPC
-  AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.karute.createSoapNote)
+  AT_TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.apps.karute.createSoapNote)
   curl -H "Authorization: Bearer $AT_TOKEN" https://karute.etzhayyim.com/xrpc/... -d '…'
 
   # Agent-led deploy stage
-  TOKEN=$(gftd agent-token \
+  TOKEN=$(etzhayyim agent-token \
     --lxm deploy.cfWorker:karute-did-web \
     --capability at://did:web:steward.etzhayyim.com/com.etzhayyim.consent.capability/3lzw1 \
     --ttl 300)
-  gftd actor deploy --actor karute --only did-worker --agent-token "$TOKEN"
+  etzhayyim actor deploy --actor karute --only did-worker --agent-token "$TOKEN"
 `)
 }
 

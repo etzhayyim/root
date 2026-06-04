@@ -150,7 +150,7 @@ def upsert_contact(request_json: str) -> str:
             to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
             1,
             to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-            'gftd', 'system', 'sys.gmail-udf'
+            'etzhayyim', 'system', 'sys.gmail-udf'
         WHERE NOT EXISTS (
             SELECT 1 FROM vertex_gmail_contact WHERE vertex_id = %s
         )

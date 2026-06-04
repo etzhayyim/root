@@ -100,6 +100,6 @@ Option C (IPFS-only) N/A — no blob storage needed for metadata.
 ## Related
 
 - [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options
-- [kiyo rw-free](../../ai-gftd-project-kiyo/rw-free/) — sibling Option B reference (12/12 ✓)
-- [sbom rw-free](../../ai-gftd-project-sbom/rw-free/) — Option B reference (17/N)
-- [hanrei rw-free](../../ai-gftd-project-hanrei/rw-free/) — Option B reference (31/31 ✓)
+- [kiyo rw-free](../../etzhayyim-project-kiyo/rw-free/) — sibling Option B reference (12/12 ✓)
+- [sbom rw-free](../../etzhayyim-project-sbom/rw-free/) — Option B reference (17/N)
+- [hanrei rw-free](../../etzhayyim-project-hanrei/rw-free/) — Option B reference (31/31 ✓)

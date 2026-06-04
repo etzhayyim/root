@@ -7,7 +7,7 @@
 // canonical structured source for names/types/stats/abilities/heights/weights.
 //
 // Usage:
-//   etzhayyim_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.media_gamers.knowledge.publishPokemon) \
+//   etzhayyim_TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.apps.media_gamers.knowledge.publishPokemon) \
 //     node 70-tools/scripts/media-gamers-ingest/pokedex.mjs \
 //     --game pokemon-legends-z-a \
 //     --start 1 --end 151 \

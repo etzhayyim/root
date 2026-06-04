@@ -542,7 +542,7 @@ CREATE TABLE IF NOT EXISTS edge_ki_vascular (
 # Phase 3 Stage D (ADR-2605212200) — NSID namespace switch.
 #
 # ORGANISM_NSID_NAMESPACE env selects the canonical write namespace:
-#   - "gftd"      (default, legacy): writes com.etzhayyim.agent.*
+#   - "etzhayyim"      (default, legacy): writes com.etzhayyim.agent.*
 #   - "etzhayyim" (Phase 3 canonical): writes ai.etzhayyim.agent.*
 #
 # The dual-publish bundle from Stage C (PR #1362) means EITHER namespace
@@ -550,14 +550,14 @@ CREATE TABLE IF NOT EXISTS edge_ki_vascular (
 # pods are confirmed reading both forms; legacy com.etzhayyim.* writes stay
 # valid for the 30-day Stage C overlap.
 _NSID_NAMESPACES = {
-    "gftd": "com.etzhayyim.agent",
+    "etzhayyim": "com.etzhayyim.agent",
     "etzhayyim": "ai.etzhayyim.agent",
 }
 
 
 def _organism_nsid_prefix() -> str:
-    chosen = (os.environ.get("ORGANISM_NSID_NAMESPACE") or "gftd").strip().lower()
-    return _NSID_NAMESPACES.get(chosen, _NSID_NAMESPACES["gftd"])
+    chosen = (os.environ.get("ORGANISM_NSID_NAMESPACE") or "etzhayyim").strip().lower()
+    return _NSID_NAMESPACES.get(chosen, _NSID_NAMESPACES["etzhayyim"])
 
 
 def _build_nsid_map() -> dict[str, str]:

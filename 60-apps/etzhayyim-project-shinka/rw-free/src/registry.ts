@@ -13,7 +13,7 @@
  * catalog (exists() membership check).
  *
  * Murakumo inference, credit settlement, and postAs social-post EXECUTION stay
- * gftd (consumed via consent-capability); only the resulting data records live
+ * etzhayyim (consumed via consent-capability); only the resulting data records live
  * here.
  */
 

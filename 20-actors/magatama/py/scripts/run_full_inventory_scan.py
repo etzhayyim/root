@@ -1,7 +1,7 @@
 """End-to-end driver: LAN scan + host inventory + ShareMouse config/screenshots → RW.
 
 Usage:
-    export DATABASE_URL="$(security find-generic-password -s gftd.rw -a ROOT_URL -w)"
+    export DATABASE_URL="$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w)"
     python scripts/run_full_inventory_scan.py [--network-png PATH] [--clients-png PATH]
 """
 

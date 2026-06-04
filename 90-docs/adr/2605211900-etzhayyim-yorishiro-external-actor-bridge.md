@@ -45,7 +45,7 @@ superseded_by: []
 
 ## 1. 観察された需要
 
-`60-apps/` には現在 ~130 個の `ai-gftd-project-*` および religious-corp app があり、その多くは外部 vendor API (HuggingFace / arXiv / NDL / Sentinel / OpenStreetMap / Bluesky / OpenAlex / 各国 government open data など) や、ローカル software (LibreOffice / GIMP / Blender / ComfyUI / FFmpeg など) を駆動して religious-corp の mission (人類の構造的労働解放, ADR-2605192100) に資する成果物を produce する。
+`60-apps/` には現在 ~130 個の `etzhayyim-project-*` および religious-corp app があり、その多くは外部 vendor API (HuggingFace / arXiv / NDL / Sentinel / OpenStreetMap / Bluesky / OpenAlex / 各国 government open data など) や、ローカル software (LibreOffice / GIMP / Blender / ComfyUI / FFmpeg など) を駆動して religious-corp の mission (人類の構造的労働解放, ADR-2605192100) に資する成果物を produce する。
 
 これらは現状すべて **hand-written** で:
 

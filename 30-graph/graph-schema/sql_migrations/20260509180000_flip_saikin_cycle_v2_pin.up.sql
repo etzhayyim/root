@@ -14,7 +14,7 @@
 --   3. dispatcher (pymagatama/dispatcher_main.py) is deployed with the
 --      `/xrpc/com.etzhayyim.mcp.message` route registered (commit that touches
 --      `pymagatama/mcp_dispatch.py` is live).
---   4. saikin.etzhayyim.com Worker (`60-apps/ai-gftd-project-saikin/src/app.ts`) is
+--   4. saikin.etzhayyim.com Worker (`60-apps/etzhayyim-project-saikin/src/app.ts`) is
 --      deployed with the MCP_NSID branch in fetch().
 --   5. End-to-end smoke test passed:
 --        curl -X POST https://saikin.etzhayyim.com/xrpc/com.etzhayyim.mcp.message \

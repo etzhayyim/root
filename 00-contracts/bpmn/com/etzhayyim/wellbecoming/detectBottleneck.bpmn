@@ -7,14 +7,14 @@
   vertex_actor_wellbecoming_profile with bottleneck_axis + at_risk flag.
 
   NSID: com.etzhayyim.apps.wellbecoming.detectBottleneck
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_wellbecoming_detect_bottleneck"
-    targetNamespace="https://gftd.ai/bpmn/wellbecoming"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
     exporter="hand-written"
     exporterVersion="2.0">
 

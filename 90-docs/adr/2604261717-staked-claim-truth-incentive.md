@@ -19,7 +19,7 @@ related:
   - adr-2604251220-record-log-not-mst
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0019-atproto-native-identifier-topology
-  - adr-0029-did-gftd-method-specification
+  - adr-0029-did-etzhayyim-method-specification
 supersedes: []
 superseded_by: []
 amends:
@@ -67,7 +67,7 @@ Phase 2-B (Rego decision registry + auto-settler):
     CLAIM_SETTLER_HMAC + SEALER_PRIV secrets present
   claim-consumer:
     workers_dev=false; cron + service-binding only
-    AUTHZ_RPC=ai-gftd-authz
+    AUTHZ_RPC=etzhayyim-authz
     SS_MURAKUMO_API_KEY=Secrets Store 1824561668fe47cc9127d493961885af/murakumo_api_key
     MURAKUMO_URL=https://murakumo.etzhayyim.com/api/openai/v1/chat/completions
     MURAKUMO_MODEL=qwen3-30b-a3b
@@ -258,7 +258,7 @@ EV(truth) = (1 − P) · (+ε) + P · (+bond)  >  0
 contract ClaimStakeEscrow {
     struct Claim {
         bytes32 claimId;
-        bytes32 didHash;            // keccak256(did:gftd:...)
+        bytes32 didHash;            // keccak256(did:etzhayyim:...)
         bytes32 atRecordCid;        // CIDv1 sha256
         uint256 bond;
         uint64  postedAt;
@@ -480,7 +480,7 @@ CAR で federate する path も自動で開く。
 | Contract | `50-infra/vultr/geth-private/contracts/src/ClaimStakeEscrow.sol` | `MurakumoEscrow.sol` を雛形に展開 |
 | Foundry script | `50-infra/vultr/geth-private/contracts/script/DeployClaimStake.s.sol` | sealer key で deploy |
 | Address record | `50-infra/vultr/geth-private/contracts/ADDRESSES.md` | `ClaimStakeEscrow` 追記 |
-| AuthZ XRPC | `60-apps/ai-gftd-project-auth/worker-authz/src-ts/claim-stake.ts` | `postStakedAttestation` / `challenge` / `settle` 3 endpoint |
+| AuthZ XRPC | `60-apps/etzhayyim-project-auth/worker-authz/src-ts/claim-stake.ts` | `postStakedAttestation` / `challenge` / `settle` 3 endpoint |
 | AuthZ XRPC handlers | `com.etzhayyim.claim.{post,challenge,settle}StakedAttestation` | passkey-required, ADR-0023 |
 | Graph migration | `30-graph/graph-schema/migrations/202604xxxxxx_claim_stake.ts` | `vertex_claim_stake` + `edge_claim_*` |
 | MV | `mv_claim_stake_outcomes` | label, count by outcome, treasury balance |
@@ -524,7 +524,7 @@ CAR で federate する path も自動で開く。
 - ADR-2604251220 — Record-log semantics, not MST (append-only invariant)
 - ADR-0036 — Worker-direct Hyperdrive persistence (claim graph projection)
 - ADR-0019 — atproto-native identifier topology
-- ADR-0029 — did:gftd method specification
+- ADR-0029 — did:etzhayyim method specification
 - `MurakumoEscrow.sol` / `MurakumoRegistry.sol` — escrow + stake/slash 雛形
 - EIP-712 typed data signing — arbiterSig payload format
 - Schelling point coordination games — jury arbiter rationale

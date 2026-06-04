@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kaisya_master_routine" targetNamespace="https://gftd.ai/bpmn/kaisya" exporter="hand-written" exporterVersion="2.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kaisya_master_routine" targetNamespace="https://etzhayyim.ai/bpmn/kaisya" exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="kaisya_master_routine" name="kaisya Master Routine" isExecutable="true">
     <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.kaisya.masterRoutine", "version": 1, "resultTimeoutMs": 120000 }</bpmn:documentation>
 

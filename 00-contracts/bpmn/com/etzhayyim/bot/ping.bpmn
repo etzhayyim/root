@@ -14,7 +14,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_bot_ping"
-    targetNamespace="https://gftd.ai/bpmn/bot"
+    targetNamespace="https://etzhayyim.ai/bpmn/bot"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="bot_ping" name="bot ping" isExecutable="true">
@@ -28,7 +28,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:bot.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:bot.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;ping&quot;" target="action"/>
           <zeebe:input source="={ message: string(message) }" target="payload"/>
           <zeebe:output source="=emitted" target="auditEmitted"/>

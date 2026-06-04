@@ -2,7 +2,7 @@
 ADR-0047 Phase B pilot — playwright actor on shared Python UDF pool.
 
 Ports the session-lifecycle subset of the TS implementation at
-`60-apps/ai-gftd-project-playwright/.../src/app.ts`:
+`60-apps/etzhayyim-project-playwright/.../src/app.ts`:
 
 - `com.etzhayyim.apps.playwright.sessionOpen`
 - `com.etzhayyim.apps.playwright.sessionClose`

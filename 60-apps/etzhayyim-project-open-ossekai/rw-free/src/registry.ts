@@ -10,7 +10,7 @@
  * plaintext.
  *
  * L1 LLM intel-brief generation + jocho-scoring inference + framing-audit +
- * fiat sales-lead propagation stay gftd (consumed via consent-capability) —
+ * fiat sales-lead propagation stay etzhayyim (consumed via consent-capability) —
  * only the resulting jocho DATA migrates here, E2E-sealed.
  */
 

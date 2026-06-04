@@ -92,4 +92,4 @@ fixtures, or collection jobs yet. See:
 
 - `/90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md`
 - `/20-actors/danjo/README.md`
-- `/60-apps/ai-gftd-project-malak/CLAUDE.md`
+- `/60-apps/etzhayyim-project-malak/CLAUDE.md`

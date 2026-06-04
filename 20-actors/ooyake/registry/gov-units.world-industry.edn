@@ -15,12 +15,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
    :gov.unit/name-en "Ministry of Productive Development"
+   :gov.unit/official-url "https://www.argentina.gob.ar/produccion"
    :gov.unit/wikidata "Q6017343"
    :gov.unit/cofog ["04.4"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6017343"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.argentina.gob.ar/produccion"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bgd.industry"
@@ -110,12 +111,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Industry and Construction"
+   :gov.unit/official-url "https://www.gov.kz/memleket/entities/mps?lang=en"
    :gov.unit/wikidata "Q124731313"
    :gov.unit/cofog ["04.4"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q124731313"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.kz/memleket/entities/mps?lang=en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mmr.industry"
@@ -125,12 +127,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Industry (Burma)"
+   :gov.unit/official-url "https://www.industry.gov.mm/"
    :gov.unit/wikidata "Q18325731"
    :gov.unit/cofog ["04.4"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18325731"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.industry.gov.mm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.npl.industry"
@@ -204,12 +207,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Industry"
+   :gov.unit/official-url "https://www.tunisieindustrie.gov.tn/"
    :gov.unit/wikidata "Q3315220"
    :gov.unit/cofog ["04.4"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3315220"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.tunisieindustrie.gov.tn/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.usa.industry"

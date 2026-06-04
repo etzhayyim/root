@@ -38,7 +38,7 @@ KNOWN_SUBJECTS = [
     "cs.AI", "cs.DC", "cs.MA", "cs.LG", "cs.CR", "cs.SE",
     "math.ST", "math.OC", "q-bio.BM", "q-bio.NC",
     "econ.GN", "econ.EM",
-    "gftd.arch", "gftd.agent", "gftd.bio", "gftd.law",
+    "etzhayyim.arch", "etzhayyim.agent", "etzhayyim.bio", "etzhayyim.law",
 ]
 
 

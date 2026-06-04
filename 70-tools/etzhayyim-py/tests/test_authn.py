@@ -13,7 +13,7 @@ from etzhayyim.cli import main
 
 
 def _write_auth(tmp_path: Path, data: dict) -> Path:
-    auth_file = tmp_path / ".gftd" / "auth.json"
+    auth_file = tmp_path / ".etzhayyim" / "auth.json"
     auth_file.parent.mkdir(parents=True, exist_ok=True)
     auth_file.write_text(json.dumps(data))
     return auth_file
@@ -23,7 +23,7 @@ def _write_auth(tmp_path: Path, data: dict) -> Path:
 
 def test_authn_token_not_signed_in(tmp_path):
     runner = CliRunner()
-    auth_file = tmp_path / ".gftd" / "auth.json"
+    auth_file = tmp_path / ".etzhayyim" / "auth.json"
     with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "token"])
     assert result.exit_code != 0
@@ -51,7 +51,7 @@ def test_authn_token_access_token_key(tmp_path):
 
 def test_authn_whoami_not_signed_in(tmp_path):
     runner = CliRunner()
-    auth_file = tmp_path / ".gftd" / "auth.json"
+    auth_file = tmp_path / ".etzhayyim" / "auth.json"
     with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "whoami"])
     assert result.exit_code != 0
@@ -85,7 +85,7 @@ def test_authn_whoami_json(tmp_path):
 
 def test_authn_signout_not_signed_in(tmp_path):
     runner = CliRunner()
-    auth_file = tmp_path / ".gftd" / "auth.json"
+    auth_file = tmp_path / ".etzhayyim" / "auth.json"
     with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "signout"])
     assert result.exit_code == 0

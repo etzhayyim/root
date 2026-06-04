@@ -100,6 +100,6 @@ Post-flip cleanup section.
   alive, and remove that link entry in the same commit that deletes the
   runbook.
 - **Do** track the cutover signal in `deps.toml` as a `[[migrations]]`
-  entry if you want it to surface in `gftd` tooling. The migration
+  entry if you want it to surface in `etzhayyim` tooling. The migration
   entry is permanent; it just flips from `status="staged"` to
   `status="done"` when the runbook is deleted.

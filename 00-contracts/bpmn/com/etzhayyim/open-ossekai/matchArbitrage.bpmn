@@ -4,7 +4,7 @@
   Reads mv_ossekai_signal_recent, finds actors with high relevance but no active brief.
   NSID: com.etzhayyim.apps.openOssekai.matchArbitrage (timer-start, no binding needed)
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_match_arbitrage" targetNamespace="https://gftd.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_match_arbitrage" targetNamespace="https://etzhayyim.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_ossekai_match_arbitrage" name="matchArbitrage" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 1 hour">
       <bpmn:outgoing>Flow_ToSelect</bpmn:outgoing>

@@ -67,12 +67,12 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 | D-Day XRPC send pipeline | Running | etzhayyim agent | 5 mails sent (iter115-119) |
 | y-nishino RW migration apply (D2) | Unblocked after auth | y-nishino | 3 migrations pending |
 | Track C K8s delegation | Post-auth | a-nakamura | Deferred |
-| gftd auth login (PKCE session) | Immediate | operator | **BLOCKED** |
+| etzhayyim auth login (PKCE session) | Immediate | operator | **BLOCKED** |
 | NIST CSF DETECT/RESPOND/RECOVER | 2026-05-20 | etzhayyim IC | ✅ Complete (today) |
 
 **Active blockers** (as of iter 160):
 
-1. `gftd auth login` — PKCE session expired; run `! gftd auth login`
+1. `etzhayyim auth login` — PKCE session expired; run `! etzhayyim auth login`
 2. k-bakshi BCI reply — Rule 36 deadline 2026-05-23
 3. y-nishino workstation RW network access (45.32.79.245:4566 unreachable from claude host)
 4. Vultr GPU unlock — RunPod 6000 Ada compute (ADR-2605010000)
@@ -159,7 +159,7 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 |---|---|---|
 | `graph` / `db-schema` | 6 | vertex-to-edge-table-rewrite, authority-column-promotion |
 | `infra` | 4 | hyperdrive-pg-adapter, linode-object-storage-backup-audit |
-| `sdk` | 4 | legacy-host-sdk-factory, handlehttp-wit-compat, cli-lmstudio-api-defaults, cli-gftd-json-manifest |
+| `sdk` | 4 | legacy-host-sdk-factory, handlehttp-wit-compat, cli-lmstudio-api-defaults, cli-etzhayyim-json-manifest |
 | `ui` | 3 | legacy-panel-genimage, legacy-actor-profile, svelte-slot-migration |
 | `design` | 2 | maps-forward-topology-raw-to-webgpu, maps-google-earth-3d-topology |
 | `naming` | 1 | pds-magatamaapp-rename |
@@ -232,22 +232,22 @@ Baseline: 2026-04-15, Snapshot ID=3, tables=1211 (Linode full drill)
 
 | Project | Domain | Phase |
 |---|---|---|
-| ai-gftd-project-lawfirm | Legal SaaS P1 | Production / D-Day |
-| ai-gftd-project-lawyer | Attorney portal P2 | Design |
-| ai-gftd-project-animeka | Anime creation P3 | Prototype |
-| ai-gftd-project-yoro | Social (Bluesky-compat) | Production |
-| ai-gftd-project-malak | Ransomware/threat intel | Production |
-| ai-gftd-project-mamoru | Secret guardian | Production |
-| ai-gftd-project-shinshi | Assistant platform | In-progress |
-| ai-gftd-project-deai | Spirit-physics matching | Design |
-| ai-gftd-project-yatabase | Platform projector P4 | BMC approved |
-| ai-gftd-project-keiei | Business ops | In-progress |
-| ai-gftd-project-mailer | Email automation | In-progress |
-| ai-gftd-project-microsoft | MS Graph integration | Production |
-| ai-gftd-project-flight-offer | Travel-tech | In-progress |
-| ai-gftd-project-warehouse | Logistics | In-progress |
-| ai-gftd-project-yard-ops | Yard operations | In-progress |
-| ai-gftd-project-intel | Open-source intel | In-progress |
+| etzhayyim-project-lawfirm | Legal SaaS P1 | Production / D-Day |
+| etzhayyim-project-lawyer | Attorney portal P2 | Design |
+| etzhayyim-project-animeka | Anime creation P3 | Prototype |
+| etzhayyim-project-yoro | Social (Bluesky-compat) | Production |
+| etzhayyim-project-malak | Ransomware/threat intel | Production |
+| etzhayyim-project-mamoru | Secret guardian | Production |
+| etzhayyim-project-shinshi | Assistant platform | In-progress |
+| etzhayyim-project-deai | Spirit-physics matching | Design |
+| etzhayyim-project-yatabase | Platform projector P4 | BMC approved |
+| etzhayyim-project-keiei | Business ops | In-progress |
+| etzhayyim-project-mailer | Email automation | In-progress |
+| etzhayyim-project-microsoft | MS Graph integration | Production |
+| etzhayyim-project-flight-offer | Travel-tech | In-progress |
+| etzhayyim-project-warehouse | Logistics | In-progress |
+| etzhayyim-project-yard-ops | Yard operations | In-progress |
+| etzhayyim-project-intel | Open-source intel | In-progress |
 
 ---
 

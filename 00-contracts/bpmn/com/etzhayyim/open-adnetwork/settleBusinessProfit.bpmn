@@ -14,7 +14,7 @@
        - submits an ActorRuntimeRegistry receipt when chain env is present
     3. generic.audit.emit
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_settle_business_profit" targetNamespace="https://gftd.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_settle_business_profit" targetNamespace="https://etzhayyim.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_adnetwork_settle_business_profit" name="settleBusinessProfit" isExecutable="true">
     <bpmn:startEvent id="StartManual" name="manual settle">
       <bpmn:outgoing>Flow_ManualToHealth</bpmn:outgoing>
@@ -68,7 +68,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yoro.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yoro.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;business.profit.settleOpenAdnetwork&quot;" target="action"/>
           <zeebe:input source="={settlementId: profitSettlementId, vertexId: profitVertexId, status: profitStatus, grossRevenueUsd: grossRevenueUsd, publisherProfitUsd: publisherProfitUsd, platformProfitUsd: platformProfitUsd, chainReceiptSubmitted: chainReceiptSubmitted, chainReceiptTx: chainReceiptTx}" target="payload"/>
         </zeebe:ioMapping>

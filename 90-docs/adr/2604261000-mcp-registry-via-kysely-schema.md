@@ -163,7 +163,7 @@ runtime 入力 validation は handler 側の
 ### Opt-in / migration
 
 `createWorkerExport(setup, { mcpRegistry: {} })` で actor 単位で opt-in。
-env var `APP_MCP_REGISTRY=1` でも有効化 (`gftd deploy` が actor
+env var `APP_MCP_REGISTRY=1` でも有効化 (`etzhayyim deploy` が actor
 migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合は
 **registry が勝ち**、OpenAPI 3.0 のみ codegen 経路を残す
 (OpenAPI codegen の registry 化は本 ADR 範囲外、別 ADR)。
@@ -202,7 +202,7 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 
 ## Positive
 
-- 新規 tool 追加が `lexicon JSON 1 file 追加 + gftd contract sync` で
+- 新規 tool 追加が `lexicon JSON 1 file 追加 + etzhayyim contract sync` で
   完結 (Worker redeploy 不要)。ADR-0056 と完全に同じ規約。
 - per-tool runtime toggle (`enabled=false`) / per-org visibility
   (`visibility='org'` + `org_id` filter) / canary (`version` filter) が
@@ -219,9 +219,9 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 - MCP `tools/list` は cold cache 時に Kysely SELECT 1 RTT。
   Hyperdrive pool 圧迫を避けるため 60s cache + in-flight share。
 - `mcpFacade` (codegen) と `mcpRegistry` (DB) の 2 経路が一時的に
-  並存。完全廃止までは新規 actor は registry に寄せる (`gftd deploy`
+  並存。完全廃止までは新規 actor は registry に寄せる (`etzhayyim deploy`
   が auto-inject)、既存 codegen actor は phase-2 で migration。
-- Lexicon → DB の sync が `gftd contract sync` (CI step) に依存。
+- Lexicon → DB の sync が `etzhayyim contract sync` (CI step) に依存。
   CI 不発時は DB 古いまま → `--strict --only-drift` を CI gate で実行。
 
 ## Migration
@@ -232,7 +232,7 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 | 2 | `sync-mcp-registry.py --apply` で全 lexicon を ingest | row count == lexicon count | ✓ done (1,738 rows / 178 actors) |
 | 3 | host-sdk PR (mcp-registry-loader.ts + host-web-router.ts mcpRegistry path) merge | host-sdk tests green | ✓ done (21/21 vitest) |
 | 4 | pilot 1 actor が `mcpRegistry` で deploy、`/mcp tools/list` が DB 由来になる | curl で nsid 列挙確認 | ✓ done (lawfirm.etzhayyim.com, 26 tools) |
-| 5 | `gftd deploy` で `APP_ACTOR_HANDLE` env auto-inject + loader fallback 追加 | actor 単位 explicit override 不要 | ✓ done (commit `448e6a6e685`) |
+| 5 | `etzhayyim deploy` で `APP_ACTOR_HANDLE` env auto-inject + loader fallback 追加 | actor 単位 explicit override 不要 | ✓ done (commit `448e6a6e685`) |
 | **G4** | **MCP `tools/call` を `vertex_bpmn_lexicon_binding` 経由で bpmn-dispatcher にルート** | 1M actor scale で actor=data, compute=shared FaaS | **✓ done (commit `9acfffacb6b`, 33/33 vitest)** |
 | 6 | CI gate: `sync-mcp-registry.py --strict --only-drift` を pre-merge check に追加 | drift 0 件 | pending (scheduled `trig_014EHSaLranGL4oqVjx8g3FW` 2026-05-09) |
 | 7 | `gen-tool-manifest.mjs` を deprecated → 残 codegen actor が 0 になり次第削除 | 全 actor が registry に寄った時 | pending |
@@ -281,7 +281,7 @@ dispatch.ts:466-484`) と同じ defense-in-depth 設計:
 incoming MCP request の以下のみ dispatcher に forward (それ以外は drop):
 - `authorization`
 - `content-type`
-- `x-gftd-*`
+- `x-etzhayyim-*`
 - `atproto-*`
 
 `cookie` / `host` / `user-agent` 等は drop して情報漏洩を防ぐ。
@@ -343,10 +343,10 @@ mcpRegistry.actorDid → APP_DID → PERFORMER_DID → did:web:{APP_NANOID}.etzh
   ヒントを残す。
 - ADR ↑ `mcpRegistry: { actorDid }` を pilot 例として明示。
 
-**Step 5 で恒久化予定**: `gftd deploy` が `APP_ACTOR_HANDLE` env を inject
+**Step 5 で恒久化予定**: `etzhayyim deploy` が `APP_ACTOR_HANDLE` env を inject
 し、loader の default を `did:web:{APP_ACTOR_HANDLE}.etzhayyim.com` に切替。
 APP_ACTOR_HANDLE は `magatama.jsonld` の `profile.handle` か、なければ
-component dir 名 (`ai-gftd-wasm-{slug}-*`) から派生。
+component dir 名 (`etzhayyim-wasm-{slug}-*`) から派生。
 
 ### F2. `mcpFacade` と `mcpRegistry` 並存パターンが正解
 

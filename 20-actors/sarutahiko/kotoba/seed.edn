@@ -56,7 +56,7 @@
   :production-progress/order "vo.demo.0001"
   :production-progress/stage :vin-attestation-binder
   :production-progress/timestamp "2026-06-02T22:00:00Z"
-  :production-progress/note "VIN attested and bound to yatachain."}
+  :production-progress/note "VIN attested and bound to kotoba-datomic."}
 
 
  ;; ════════════ Quality Inspection ════════════

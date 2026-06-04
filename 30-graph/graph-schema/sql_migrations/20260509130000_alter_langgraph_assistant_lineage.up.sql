@@ -4,7 +4,7 @@
 --   checkpointer_mode  — selects checkpoint backend per ADR-2605082100
 --                        ('none' | 'postgres' | 'rw_vertex')
 --   authored_by        — DID of the agent/operator that proposed this assistant version
---                        (did:plc:... | did:gftd:agent:... | did:web:...)
+--                        (did:plc:... | did:etzhayyim:agent:... | did:web:...)
 --   superseded_by      — assistant_id of the next version that replaced this row,
 --                        NULL = current. Immutable history per ADR-0036 hard-delete.
 --

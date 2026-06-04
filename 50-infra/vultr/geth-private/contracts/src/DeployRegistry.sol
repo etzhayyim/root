@@ -2,7 +2,7 @@
 pragma solidity ^0.8.23;
 
 /// @title DeployRegistry
-/// @notice On-chain provenance ledger for `gftd deploy` (ADR-0074 Phase 2-A).
+/// @notice On-chain provenance ledger for `etzhayyim deploy` (ADR-0074 Phase 2-A).
 ///         Each `recordDeploy` call writes an immutable receipt for one app
 ///         deployment: who deployed, what version of which app nanoid, and
 ///         the SHA-256 of the build artifacts + magatama.jsonld manifest.
@@ -10,7 +10,7 @@ pragma solidity ^0.8.23;
 ///         the `Deployed` event (free in calldata, indexed by nanoid for cheap
 ///         filtering). The on-chain mapping just exposes the latest version
 ///         per nanoid for synchronous `getLatest()` reads from Workers and
-///         `gftd deploy` itself when validating an upgrade.
+///         `etzhayyim deploy` itself when validating an upgrade.
 ///
 ///         Authorization model for now: a single `deployer` role (== sealer).
 ///         Org multisig (ADR-0074 §"Authority Multisig") will replace this

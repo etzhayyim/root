@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — submitEnvironmentReading
+  lifehack.etzhayyim.com — submitEnvironmentReading
   (XRPC com.etzhayyim.apps.lifehack.submitEnvironmentReading).
 
   Single-step persist into vertex_lifehack_environment_reading.  Feeds
@@ -11,7 +11,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_submit_environment_reading"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_submit_environment_reading" name="lifehack submit environment reading" isExecutable="true">
@@ -50,7 +50,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.submitEnvironmentReading&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;readingId&quot;: readingId, &quot;staticRisk&quot;: staticRisk }" target="attributes"/>
         </zeebe:ioMapping>

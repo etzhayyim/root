@@ -7,7 +7,7 @@
 #
 # Required env:
 #   PBF_URL                Source OSM PBF (https://... or s3://...)
-#   R2_BUCKET              R2 bucket name, e.g. gftd-maps-tiles
+#   R2_BUCKET              R2 bucket name, e.g. etzhayyim-maps-tiles
 #   R2_ACCOUNT_ID          Cloudflare account id (for rclone S3 endpoint)
 #   R2_ACCESS_KEY_ID       R2 S3 access key id (secret)
 #   R2_SECRET_ACCESS_KEY   R2 S3 secret access key (secret)

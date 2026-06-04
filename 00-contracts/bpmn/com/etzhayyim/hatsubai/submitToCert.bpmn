@@ -27,14 +27,14 @@
       ADR-0036). Kept as a trace point.
 
   NSID: com.etzhayyim.apps.hatsubai.submitToCert (XRPC procedure)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/hatsubai-submit-to-cert-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/hatsubai-submit-to-cert-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_hatsubai_submit_to_cert"
-    targetNamespace="https://gftd.ai/bpmn/hatsubai"
+    targetNamespace="https://etzhayyim.ai/bpmn/hatsubai"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="hatsubai_submit_to_cert" name="hatsubai submitToCert" isExecutable="true">
@@ -103,8 +103,8 @@
             "reviewer_note_uri": if reviewerNoteUri = null then "" else reviewerNoteUri,
             "fail_count": 0,
             "must_fail_count": 0,
-            "actor_did": "did:erc725:gftd:260425:hatsubai",
-            "org_did": "did:erc725:gftd:260425:etzhayim",
+            "actor_did": "did:erc725:etzhayyim:260425:hatsubai",
+            "org_did": "did:erc725:etzhayyim:260425:etzhayim",
             "created_at": createdAt
           }' target="row"/>
         </zeebe:ioMapping>

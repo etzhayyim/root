@@ -11,19 +11,19 @@
                                    epoch always wins via PK overwrite)
 
   vertex_aircraft_track is NOT purged here — flight trajectories are
-  long-term archive (history.gftd.ai may consume these).
+  long-term archive (history.etzhayyim.com may consume these).
 
   Cadence: R/PT24H. Single instance per day.
 
   com.etzhayyim.apps.maps.purgeStaleLiveTracker.
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_maps_purge_stale_live_tracker"
-    targetNamespace="https://gftd.ai/bpmn/maps"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="maps_purge_stale_live_tracker" name="maps purge stale live tracker" isExecutable="true">

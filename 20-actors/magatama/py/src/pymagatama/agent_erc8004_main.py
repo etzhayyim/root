@@ -67,7 +67,7 @@ def build_agent_registration(
     mcp_endpoint: str = "",
     a2a_endpoint: str = "",
 ) -> dict[str, Any]:
-    root = root_did or f"did:erc725:gftd:{chain_id}:{root_address or ZERO_ADDRESS}"
+    root = root_did or f"did:erc725:etzhayyim:{chain_id}:{root_address or ZERO_ADDRESS}"
     agent_registry_ref = f"eip155:{chain_id}:{agent_registry}"
     status_hash = registration_hash(status_report) if status_report else ""
     return {
@@ -239,7 +239,7 @@ def validate_registration_for_chain(registration: dict[str, Any], agent_uri: str
 
 
 def _multipart_form(filename: str, body: bytes) -> tuple[str, bytes]:
-    boundary = "gftd-agent-erc8004-" + stable_hash({"filename": filename, "body": hashlib.sha256(body).hexdigest()})[:24]
+    boundary = "etzhayyim-agent-erc8004-" + stable_hash({"filename": filename, "body": hashlib.sha256(body).hexdigest()})[:24]
     lines = [
         f"--{boundary}\r\n".encode(),
         f'Content-Disposition: form-data; name="file"; filename="{filename}"\r\n'.encode(),
@@ -273,16 +273,16 @@ def publish_registration_ipfs(
         result["uri"] = "ipfs://DRY_RUN_AGENT_REGISTRATION_CID"
         return result
 
-    hmac_key = load_keychain_secret(service="gftd.cloudflare", account="IPFS_HMAC")
+    hmac_key = load_keychain_secret(service="etzhayyim.cloudflare", account="IPFS_HMAC")
     if not hmac_key:
-        raise RuntimeError("IPFS_HMAC missing in macOS Keychain service gftd.cloudflare account IPFS_HMAC")
+        raise RuntimeError("IPFS_HMAC missing in macOS Keychain service etzhayyim.cloudflare account IPFS_HMAC")
     boundary, form = _multipart_form(filename, body)
     signature = hmac.new(hmac_key.encode("utf-8"), form, hashlib.sha256).hexdigest()
     endpoint = ipfs_base.rstrip("/") + "/api/v0/add?pin=true&cid-version=1"
     req = request.Request(endpoint, data=form, method="POST")
     req.add_header("content-type", f"multipart/form-data; boundary={boundary}")
-    req.add_header("x-gftd-ipfs-auth", signature)
-    req.add_header("user-agent", "gftd-agent-erc8004/0.1")
+    req.add_header("x-etzhayyim-ipfs-auth", signature)
+    req.add_header("user-agent", "etzhayyim-agent-erc8004/0.1")
     try:
         with request.urlopen(req, timeout=30) as resp:
             resp_body = resp.read(1024 * 1024)
@@ -310,7 +310,7 @@ def run_chain_register(
     dry_run: bool,
 ) -> dict[str, Any]:
     cmd = [
-        "gftd",
+        "etzhayyim",
         "agent-runtime",
         "register",
         "--registration",
@@ -329,7 +329,7 @@ def run_chain_register(
     proc = subprocess.run(cmd, check=False, capture_output=True, text=True, timeout=90)
     if proc.returncode != 0:
         detail = (proc.stderr or proc.stdout).strip()
-        raise RuntimeError("gftd agent-runtime register failed: " + detail[:1200])
+        raise RuntimeError("etzhayyim agent-runtime register failed: " + detail[:1200])
     return json.loads(proc.stdout)
 
 
@@ -408,7 +408,7 @@ def execute_publish_flow(
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render local agent ERC-8004 registration JSON")
-    parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:gftd:agent:local"))
+    parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:etzhayyim:agent:local"))
     parser.add_argument("--out", default="")
     parser.add_argument("--upsert-profile", action="store_true")
     parser.add_argument("--publish-ipfs", action="store_true")
@@ -423,7 +423,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> None:
     load_env_file()
     if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
+        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
         if rw_url:
             os.environ["RW_URL"] = rw_url
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")

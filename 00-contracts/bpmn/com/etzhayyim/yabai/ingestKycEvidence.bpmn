@@ -21,7 +21,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yabai_ingest_kyc_evidence"
-    targetNamespace="https://gftd.ai/bpmn/yabai"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="yabai_ingest_kyc_evidence" name="yabai ingest kyc evidence" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
@@ -64,7 +64,7 @@
                               then (if score = null then 0.9 else score / 100)
                               else if evidenceType = &quot;KYCRejected&quot; then 0.8
                               else 0.5,
-              source:       &quot;ekyc.gftd.ai&quot;,
+              source:       &quot;ekyc.etzhayyim.com&quot;,
               description:  &quot;KYC &quot; + string(evidenceType),
               created_at:   string(now()),
               org_id:       &quot;anon&quot;, user_id: &quot;anon&quot;, actor_id: &quot;did:web:yabcom.etzhayyim.ai&quot;

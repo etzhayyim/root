@@ -12,7 +12,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_malak_run_investigation_tick"
-    targetNamespace="https://gftd.ai/bpmn/malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="malak_run_investigation_tick" name="malak runInvestigationTick" isExecutable="true">
     <bpmn:documentation>
@@ -47,9 +47,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_malak_investigation_tick&quot;" target="table"/>
           <zeebe:input source='={
-            vertex_id: string join(["at://did:web:malak.gftd.ai/com.etzhayyim.apps.malak.investigationTick/", string(actorId), "-", string(now())], ""),
+            vertex_id: string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.investigationTick/", string(actorId), "-", string(now())], ""),
             rkey: string join(["tick-", string(actorId), "-", string(now())], ""),
-            repo: "did:web:malak.gftd.ai",
+            repo: "did:web:malak.etzhayyim.com",
             actor_id: string(actorId),
             case_id: if caseId = null then "" else string(caseId),
             tick_kind: if tickKind = null then "deliberative" else string(tickKind),
@@ -65,9 +65,9 @@
             created_at: string(now()),
             created_date: substring(string(now()), 1, 10),
             sensitivity_ord: 100,
-            owner_did: "did:web:malak.gftd.ai",
-            org_id: "did:web:malak.gftd.ai",
-            user_id: if callerDid = null then "did:web:malak.gftd.ai" else string(callerDid)
+            owner_did: "did:web:malak.etzhayyim.com",
+            org_id: "did:web:malak.etzhayyim.com",
+            user_id: if callerDid = null then "did:web:malak.etzhayyim.com" else string(callerDid)
           }' target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
           <zeebe:output source="=inserted" target="tickInserted"/>

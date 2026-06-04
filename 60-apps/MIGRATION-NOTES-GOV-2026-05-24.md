@@ -1,4 +1,4 @@
-# gftd → etzhayyim 移行漏れマトリクス (gov / admin / legal scope)
+# etzhayyim → etzhayyim 移行漏れマトリクス (gov / admin / legal scope)
 
 **Date**: 2026-05-24
 **Audit by**: claude session ("この世の全ての政府機関、行政手続きの pregel, mcp の実装カバレッジ?")
@@ -10,38 +10,38 @@
 |---|---|---|
 | Pregel cell (religious-corp `20-actors/magatama/cells/`) | 0 gov | **0 gov** (unchanged — gov-specific cells were never religious-corp scope) |
 | MCP server (`20-actors/magatama/mcp/`) | 0 gov | **0 gov** (unchanged — same reason) |
-| App appview (`60-apps/`) | 4 gov-adjacent scaffolds | **9 apps** including the 1229-file `ai-gftd-project-cofog` covering UN COFOG × country |
+| App appview (`60-apps/`) | 4 gov-adjacent scaffolds | **9 apps** including the 1229-file `etzhayyim-project-cofog` covering UN COFOG × country |
 | BPMN namespace (`00-contracts/bpmn/com/etzhayyim/`) | 1127 .bpmn / 140国 | unchanged |
 | Ingest script (`70-tools/scripts/gov/`) | 6 (5 IN + 1 AGO) | unchanged |
 
-The "real" gov coverage was always in `ai-gftd-project-cofog` (already 99.9% migrated, 1229/1230) and `ai-gftd-project-gov` (gov.etzhayyim.com public-services hub), not in religious-corp Pregel cells. The substrate boundary (ADR-2605172000) was the reason the gftd→etzhayyim migration left some apps as scaffold-only — the gftd code uses Kysely + HyperDrive Postgres which is prohibited on the etzhayyim side.
+The "real" gov coverage was always in `etzhayyim-project-cofog` (already 99.9% migrated, 1229/1230) and `etzhayyim-project-gov` (gov.etzhayyim.com public-services hub), not in religious-corp Pregel cells. The substrate boundary (ADR-2605172000) was the reason the etzhayyim→etzhayyim migration left some apps as scaffold-only — the etzhayyim code uses Kysely + HyperDrive Postgres which is prohibited on the etzhayyim side.
 
 ## Per-app migration gap matrix
 
-| App | gftd-side files (archive) | etzhayyim-side files (pre-audit) | Files restored (audit) | Substrate-port-pending? |
+| App | etzhayyim-side files (archive) | etzhayyim-side files (pre-audit) | Files restored (audit) | Substrate-port-pending? |
 |---|---|---|---|---|
-| `ai-gftd-project-gov` | 13 | 1 | **+12** (gov-mcp-component) | ✅ yes (Kysely + HyperDrive in src/app.ts) |
-| `ai-gftd-project-lawfirm-admin` | 12 | 1 | **+11** (lawfirm-admin-mcp-component) | ✅ yes (likely same pattern) |
-| `ai-gftd-project-legal-entity` | 20 | 7 | **+13** (wasm/ subtree) | ✅ yes (verify Kysely usage) |
-| `ai-gftd-project-cofog` | 1230 | 1229 | (.DS_Store skip only) | NO further action needed |
-| `ai-gftd-project-government-body` | 7 | 7 | (already complete) | n/a |
-| `ai-gftd-project-lawfirm` | 296 | 306 | (dest already ahead) | n/a |
-| `ai-gftd-project-lawyer` | 20 | 20 | (already complete) | n/a |
-| `ai-gftd-project-legal-aid` | 0 (no archive) | 1 | (dest-only) | n/a |
-| `ai-gftd-project-legal-corpus` | 0 (no archive) | 2 | (dest-only) | n/a |
-| `ai-gftd-project-open-jpn-gov` | 0 (no archive) | 25 | (dest-only) | n/a |
+| `etzhayyim-project-gov` | 13 | 1 | **+12** (gov-mcp-component) | ✅ yes (Kysely + HyperDrive in src/app.ts) |
+| `etzhayyim-project-lawfirm-admin` | 12 | 1 | **+11** (lawfirm-admin-mcp-component) | ✅ yes (likely same pattern) |
+| `etzhayyim-project-legal-entity` | 20 | 7 | **+13** (wasm/ subtree) | ✅ yes (verify Kysely usage) |
+| `etzhayyim-project-cofog` | 1230 | 1229 | (.DS_Store skip only) | NO further action needed |
+| `etzhayyim-project-government-body` | 7 | 7 | (already complete) | n/a |
+| `etzhayyim-project-lawfirm` | 296 | 306 | (dest already ahead) | n/a |
+| `etzhayyim-project-lawyer` | 20 | 20 | (already complete) | n/a |
+| `etzhayyim-project-legal-aid` | 0 (no archive) | 1 | (dest-only) | n/a |
+| `etzhayyim-project-legal-corpus` | 0 (no archive) | 2 | (dest-only) | n/a |
+| `etzhayyim-project-open-jpn-gov` | 0 (no archive) | 25 | (dest-only) | n/a |
 
-Plus `60-apps/ai-gftd-project-gov/scaffold/actor-manifest.jsonld` (23 JP ministry path-based-DID entries: MOJ / METI / Cabinet Office / MoE / MoF / MHLW / MEXT / MLIT / MAFF / MOFA / ...) restored from `_archive/actor-scaffolds-2026-05-21/gov/`.
+Plus `60-apps/etzhayyim-project-gov/scaffold/actor-manifest.jsonld` (23 JP ministry path-based-DID entries: MOJ / METI / Cabinet Office / MoE / MoF / MHLW / MEXT / MLIT / MAFF / MOFA / ...) restored from `_archive/actor-scaffolds-2026-05-21/gov/`.
 
 ## Items intentionally NOT migrated
 
-- `_archive/10-protocol/capabilities/wproto-governance-registry/deps.graph.jsonld` — gftd's pre-migration archive (not the migrate-out archive), obsolete.
-- `50-infra/cloudflare/workers/gov-fetch-proxy` — still live in gftd source repo, serves `*.etzhayyim.com` traffic. Per the religious-corp routing-around stance, etzhayyim should not depend on gftd-side proxies.
-- DEPRECATED.md files from each source app — gftd-side markers, irrelevant on etzhayyim side. Replaced with `SUBSTRATE-PORT-PENDING.md` per app.
+- `_archive/10-protocol/capabilities/wproto-governance-registry/deps.graph.jsonld` — etzhayyim's pre-migration archive (not the migrate-out archive), obsolete.
+- `50-infra/cloudflare/workers/gov-fetch-proxy` — still live in etzhayyim source repo, serves `*.etzhayyim.com` traffic. Per the religious-corp routing-around stance, etzhayyim should not depend on etzhayyim-side proxies.
+- DEPRECATED.md files from each source app — etzhayyim-side markers, irrelevant on etzhayyim side. Replaced with `SUBSTRATE-PORT-PENDING.md` per app.
 
 ## Cofog appview — already-migrated world gov coverage
 
-`60-apps/ai-gftd-project-cofog/appview/` has **203 entries** organized as one actor-bundle per (COFOG class × country variant). Sample country-coded actors visible:
+`60-apps/etzhayyim-project-cofog/appview/` has **203 entries** organized as one actor-bundle per (COFOG class × country variant). Sample country-coded actors visible:
 
 | COFOG class | Country variants present | What it covers |
 |---|---|---|
@@ -53,7 +53,7 @@ Plus `60-apps/ai-gftd-project-gov/scaffold/actor-manifest.jsonld` (23 JP ministr
 | 08.40 religious-community-services | (universal) | Directly relevant to etzhayyim |
 | ... | ... | ... |
 
-This is the canonical answer to "world gov coverage" — not Pregel cells, but a 203-actor COFOG×country bundle under `ai-gftd-project-cofog`.
+This is the canonical answer to "world gov coverage" — not Pregel cells, but a 203-actor COFOG×country bundle under `etzhayyim-project-cofog`.
 
 ## Substrate-port follow-up (deferred)
 
@@ -64,6 +64,6 @@ Per user direction "blind copy して、後から修正", the 3 newly-restored a
 - ADR-2605172000 (RW-free substrate, the boundary)
 - ADR-2605172100 (substrate ladder)
 - ADR-2605214000 (Murakumo mesh + lexicon port verdict taxonomy)
-- ADR-2605212100 (gftd→etzhayyim migration batch — **referenced by source DEPRECATED.md, not yet authored**)
-- CLAUDE.md Step 8 (`amanomibashira → etzhayyim` cutover — 118 files, gftd → etzhayyim package-name cutover still pending per ADR-2605214000 §3)
-- Source archive root: `/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/_archive/migrated-to-etzhayyim-2026-05-21/60-apps/`
+- ADR-2605212100 (etzhayyim→etzhayyim migration batch — **referenced by source DEPRECATED.md, not yet authored**)
+- CLAUDE.md Step 8 (`amanomibashira → etzhayyim` cutover — 118 files, etzhayyim → etzhayyim package-name cutover still pending per ADR-2605214000 §3)
+- Source archive root: `/Users/junkawasaki/github/etzhayyim-apps-etzhayyimcojp/_archive/migrated-to-etzhayyim-2026-05-21/60-apps/`

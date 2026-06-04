@@ -502,7 +502,7 @@
     "description": "Maintains the rare earth supply chain actor baseline, flow backbone, and coverage health snapshots across China, US, Australia, EU, Japan, and globally relevant demand clusters.",
     "displayName": "Rare Earth Coverage Orchestrator",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

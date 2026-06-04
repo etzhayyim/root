@@ -65,7 +65,7 @@ sed -i.bak "s|open-lei-mcp:latest|open-lei-mcp:${TS}|" \
 
 ```bash
 # RW_DSN を macOS Keychain から取得して mitama-udf namespace に注入
-RW_DSN_VALUE="$(security find-generic-password -s gftd.risingwave -a RW_DSN -w)"
+RW_DSN_VALUE="$(security find-generic-password -s etzhayyim.risingwave -a RW_DSN -w)"
 printf '%s' "$RW_DSN_VALUE" | kubectl create secret generic bpmn-engine-host-secrets \
   -n mitama-udf --from-file=RW_DSN=/dev/stdin --dry-run=client -o yaml | kubectl apply -f -
 ```

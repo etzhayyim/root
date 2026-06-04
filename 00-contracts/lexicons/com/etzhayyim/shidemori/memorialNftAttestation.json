@@ -83,7 +83,7 @@
             "description": "Encrypted summary CID; community/family-attested life summary; encrypted per ADR-2605181100 to preserve member privacy"
           },
           "charterRiderScanRunCid": {"type": "string"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

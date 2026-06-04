@@ -51,7 +51,7 @@ These set rules for *etzhayyim* (must be decentralized) and for *per-project cla
 
 Today the vendor repo still holds decentralization primitives:
 
-- `did:erc725:gftd:260425:{contract}` root identity issuance (`60-apps/ai-gftd-project-auth/worker-authz/src-ts/sign-up.ts`, `70-tools/scripts/provision-actors-erc725.mjs`).
+- `did:erc725:etzhayyim:260425:{contract}` root identity issuance (`60-apps/etzhayyim-project-auth/worker-authz/src-ts/sign-up.ts`, `70-tools/scripts/provision-actors-erc725.mjs`).
 - Ethereum private chain handle (`ETH_PRIVATE_CHAIN_ID` env, internal RPC).
 - K2 ecosystem (`KarmaAnchor.sol`, ERC-4337 bundler, zk-SNARK `RebirthGate`, Filecoin pin).
 - ERC-8004 agent runtime path (ADR-2604262100).
@@ -165,7 +165,7 @@ These are tracked as future work, not part of this ADR's cutover. Updated 2026-0
    - Design: **ADR-2605212050** — vendor approves Stripe authorization → XRPC `org.etzhayyim.payment.creditFromFiat` → etzhayyim mints USDC from Council-multisig reserve + atomic 90/10 split + Council-multisig daily cap.
    - **Phase δ P0 (Reserve contract)**: ✅ landed. `Reserve.sol` Foundry under `50-infra/etzhayyim-fiat-bridge/contracts/` + Deploy script + 25 tests passing (idempotency replay + daily cap rollover + tithe split + Council config + withdraw + solvency-strict).
    - **Phase δ P1+ pending**: XRPC handler Worker scaffold + 4 payment lexicons under `00-contracts/lexicons/org/etzhayyim/payment/` + cross-repo vendor refund callback lexicon + Reserve solvency monitor cron + Base Sepolia deploy.
-5. **Update `60-apps/ai-gftd-project-murakumo/CLAUDE.md`** (vendor side) project topology to drop references to vendor-side chain anchoring.
+5. **Update `60-apps/etzhayyim-project-murakumo/CLAUDE.md`** (vendor side) project topology to drop references to vendor-side chain anchoring.
    - **N/A (2026-05-21)**: investigation found the murakumo CLAUDE.md does not contain chain-anchoring references; it documents LLM inference only. No edit needed. Will revisit if vendor-side Stripe-bridge or K2 docs surface here.
 6. **Vendor ADR supersession PRs** for ADR-0074, ADR-0095, ADR-2604261830, ADR-2604262100.
    - **Partial (2026-05-21)**: migration-note callouts + cross-reference to ADR-2605211950 landed in vendor branch `260521-substrate-axis-vendor-side`. Formal `superseded_by` will be authored once the etzhayyim code migrations (Items 1 + 2) reach Base Sepolia testnet deploy + 1-month operation.

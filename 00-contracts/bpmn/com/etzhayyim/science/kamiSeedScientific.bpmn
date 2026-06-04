@@ -23,14 +23,14 @@
 
   Cadence: R/PT6H. Seeds are idempotent — re-runs only add missing instances.
   ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.science.kamiSeedScientific.
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/science-kami-seed-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-kami-seed-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_science_kami_seed"
-    targetNamespace="https://gftd.ai/bpmn/science"
+    targetNamespace="https://etzhayyim.ai/bpmn/science"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="science_kami_seed_scientific" name="science kami seed scientific" isExecutable="true">

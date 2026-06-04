@@ -260,7 +260,7 @@ def test_actor_handle_from_cfg_profile_handle(tmp_path):
 
 
 def test_actor_handle_from_cfg_dir_slug(tmp_path):
-    comp = tmp_path / "ai-gftd-wasm-myslug-abc12345"
+    comp = tmp_path / "etzhayyim-wasm-myslug-abc12345"
     comp.mkdir()
     cfg = {}
     assert _actor_handle_from_cfg(cfg, comp) == "myslug"

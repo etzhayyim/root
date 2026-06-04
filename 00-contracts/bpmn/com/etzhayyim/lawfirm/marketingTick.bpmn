@@ -3,7 +3,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_lawfirm_marketing_tick"
-                  targetNamespace="https://gftd.ai/bpmn/lawfirm"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
                   exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="lawfirm_marketing_tick"
@@ -78,7 +78,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lawfirm.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;lawfirm.marketing.dailyTick&quot;" target="event_type"/>
           <zeebe:input source="={kpi: kpi_summary, blog: blog_summary, linkedin: linkedin_summary}" target="attributes"/>
         </zeebe:ioMapping>

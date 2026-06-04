@@ -15,7 +15,7 @@ Asserts:
 
 Env:
   BPMN_DISPATCHER_URL  default https://dispatcher.etzhayyim.com
-  RW_URL               default: macOS Keychain `gftd.rw / ROOT_URL`
+  RW_URL               default: macOS Keychain `etzhayyim.rw / ROOT_URL`
   TILE_H3              default: synthetic test tile `8a2a1072b59ffff`
   WAIT_SECS            default 600 (10 min — covers stub handler runtime)
 
@@ -53,20 +53,20 @@ def rw_url() -> str:
         return url
     try:
         out = subprocess.check_output(
-            ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+            ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
             text=True,
         ).strip()
         if out:
             return out
     except (subprocess.CalledProcessError, FileNotFoundError):
         pass
-    raise SystemExit("RW_URL not in env and not in Keychain (gftd.rw/ROOT_URL)")
+    raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
 
 
 def http(method: str, path: str, body: dict | None = None, timeout: float = 60.0) -> tuple[int, dict | str]:
     url = DISPATCHER_URL + path
     data = json.dumps(body).encode() if body is not None else None
-    hdrs = {"User-Agent": "gftd-maps3d-integration-test/1.0"}
+    hdrs = {"User-Agent": "etzhayyim-maps3d-integration-test/1.0"}
     if data:
         hdrs["Content-Type"] = "application/json"
     req = urllib.request.Request(url, data=data, headers=hdrs, method=method)

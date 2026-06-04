@@ -14,12 +14,12 @@ B2 env vars (same as patent.py):
   B2_SECRET_ACCESS_KEY   Backblaze B2 application key
   B2_ENDPOINT            e.g. https://s3.us-west-004.backblazeb2.com
 
-Output bucket: TRAINING_B2_BUCKET (default: gftd-training-data)
+Output bucket: TRAINING_B2_BUCKET (default: etzhayyim-training-data)
 Key pattern:   {TRAINING_B2_PREFIX}/{dataset_name}/{label}/shard-NNNNN.jsonl.gz
 
 HuggingFace datasets compat (plain JSONL — no extra deps needed):
   from datasets import load_dataset
-  ds = load_dataset("json", data_files="s3://gftd-training-data/v1/gftd-corpus/wet_chunk/shard-*.jsonl.gz",
+  ds = load_dataset("json", data_files="s3://etzhayyim-training-data/v1/etzhayyim-corpus/wet_chunk/shard-*.jsonl.gz",
                     storage_options={...})
 """
 
@@ -38,14 +38,14 @@ from pymagatama.db_sync import sync_cursor
 
 _OWNER_DID = "did:web:training.etzhayyim.com"
 _SHARD_ROWS = int(os.environ.get("TRAINING_SHARD_ROWS", "50000"))
-_B2_BUCKET = os.environ.get("TRAINING_B2_BUCKET", "gftd-training-data")
+_B2_BUCKET = os.environ.get("TRAINING_B2_BUCKET", "etzhayyim-training-data")
 _B2_PREFIX = os.environ.get("TRAINING_B2_PREFIX", "v1")
 _B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "").strip()
 _B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
 _B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")
 _B2_REGION = os.environ.get("B2_REGION", "us-west-004")
 _HF_TOKEN = os.environ.get("HF_TOKEN", "").strip()
-_HF_REPO_ID = os.environ.get("HF_REPO_ID", "etzhayyim/gftd-corpus").strip()
+_HF_REPO_ID = os.environ.get("HF_REPO_ID", "etzhayyim/etzhayyim-corpus").strip()
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -200,7 +200,7 @@ def _record_shard(
 # ──────────────────────────────────────────────────────────────────────
 
 def task_training_export_text(
-    dataset_name: str = "gftd-corpus",
+    dataset_name: str = "etzhayyim-corpus",
     label: str = "wet_chunk",
     shard_index: int = 0,
 ) -> dict[str, Any]:
@@ -208,7 +208,7 @@ def task_training_export_text(
     Export one shard from v_training_text to B2 as gzipped JSONL.
 
     Inputs:
-      dataset_name  destination folder name under B2 prefix (default: gftd-corpus)
+      dataset_name  destination folder name under B2 prefix (default: etzhayyim-corpus)
       label         'wet_chunk' | 'profile' | 'all' (default: wet_chunk)
       shard_index   0-based shard number; multiply by TRAINING_SHARD_ROWS for OFFSET
 
@@ -258,7 +258,7 @@ def task_training_export_text(
 # ──────────────────────────────────────────────────────────────────────
 
 def task_training_export_triple(
-    dataset_name: str = "gftd-triples",
+    dataset_name: str = "etzhayyim-triples",
     shard_index: int = 0,
 ) -> dict[str, Any]:
     """
@@ -303,7 +303,7 @@ def task_training_export_triple(
 # ──────────────────────────────────────────────────────────────────────
 
 def task_training_push_huggingface(
-    dataset_name: str = "gftd-corpus",
+    dataset_name: str = "etzhayyim-corpus",
     label: str = "wet_chunk",
     repo_type: str = "dataset",
 ) -> dict[str, Any]:
@@ -316,7 +316,7 @@ def task_training_push_huggingface(
 
     Env vars:
       HF_TOKEN    HuggingFace API token with write access to HF_REPO_ID
-      HF_REPO_ID  HuggingFace dataset repo (default: etzhayyim/gftd-corpus)
+      HF_REPO_ID  HuggingFace dataset repo (default: etzhayyim/etzhayyim-corpus)
 
     Returns:
       {status, pushed_count, repo_id}

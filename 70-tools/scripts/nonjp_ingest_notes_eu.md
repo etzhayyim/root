@@ -26,7 +26,7 @@ Headers used:
 
 ```text
 Accept: application/sparql-results+json
-User-Agent: gftd-eurlex-research/0.1
+User-Agent: etzhayyim-eurlex-research/0.1
 ```
 
 Observed response shape:

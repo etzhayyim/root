@@ -22,7 +22,7 @@
   "profile": {
     "agentType": "reactive",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "displayName": "Datacenter Operations",
     "description": "Facility-scoped BPMN operations actor for change review, execution, physical access approval, capacity reservation, health check, and incident stabilization.",
     "category": "infrastructure"

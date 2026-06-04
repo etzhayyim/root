@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_flight_offer_check_price_drop"
-    targetNamespace="https://gftd.ai/bpmn/flight-offer"
+    targetNamespace="https://etzhayyim.ai/bpmn/flight-offer"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="flight_offer_check_price_drop" name="checkPriceDrop" isExecutable="true">
@@ -57,7 +57,7 @@
         <zeebe:taskDefinition type="generic.pds.dispatch"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="collection"/>
-          <zeebe:input source="=if notifyDid != null and notifyDid != &quot;&quot; then notifyDid else &quot;did:web:flight-offer.gftd.ai&quot;" target="repo"/>
+          <zeebe:input source="=if notifyDid != null and notifyDid != &quot;&quot; then notifyDid else &quot;did:web:flight-offer.etzhayyim.com&quot;" target="repo"/>
           <zeebe:input source="={
               text: &quot;✈️ &quot; + originIata + &quot; → &quot; + destinationIata + &quot; on &quot; + substring(outboundDate, 1, 10) + &quot;: &quot; + string(round half up(newPrice, 0)) + &quot; &quot; + currency + &quot; (down &quot; + string(round half up(dropPct, 1)) + &quot;% from &quot; + string(round half up(previousPrice, 0)) + &quot;) &quot; + bookingUrl,
               createdAt: string(now()),
@@ -81,7 +81,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;flight.offer.checkPriceDrop&quot;" target="action"/>
           <zeebe:input source="={originIata: originIata, destinationIata: destinationIata, outboundDate: outboundDate, currency: currency, alerted: alerted, newPrice: newPrice, previousPrice: previousPrice, dropPct: dropPct, vertexId: vertexId}" target="payload"/>
         </zeebe:ioMapping>

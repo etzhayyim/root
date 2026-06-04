@@ -308,7 +308,7 @@
     "description": "Maritime crew management — seafarer registry with rank/nationality/experience, STCW certificate lifecycle (issue→expiry alerts), crew manifests with safe manning compliance, crew change scheduling at ports. Links to vessel.etzhayyim.com for vessel assignment and port.etzhayyim.com for crew change logistics.",
     "displayName": "Crew Management & STCW Compliance",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

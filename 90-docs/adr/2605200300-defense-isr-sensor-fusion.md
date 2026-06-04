@@ -69,7 +69,7 @@ Anduril Lattice センサー融合相当のトラックインジェスト・マ�
 
 ### LangGraph グラフ
 
-`60-apps/ai-gftd-terminal-agent/graphs/defense/sensor_fusion.py`:
+`60-apps/etzhayyim-terminal-agent/graphs/defense/sensor_fusion.py`:
 - `ingest_track` ノード: バリデーション + INSERT
 - `correlate_tracks` ノード: RW MV クエリで近接エンティティ取得
 - `emit_fused_entity` ノード: 融合エンティティ生成 + `edge_defense_track_fusion` INSERT

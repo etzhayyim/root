@@ -15,7 +15,7 @@ fiat settlement. The unispsc agent fleet already migrated in commit
 Phase 3 (content copy) will bring in:
 
 - `cell_loader.py` / `pregel_runner.py` patterns (currently in vendor
-  `60-apps/ai-gftd-project-open-ot/orchestrator/`)
+  `60-apps/etzhayyim-project-open-ot/orchestrator/`)
 - LangGraph integration glue
 - atproto MST / IPFS / Base L2 checkpointer adapter (per ADR-2605171800
   anchor pipeline)

@@ -19,7 +19,7 @@ on:
     branches: [main]
     paths:
       - '40-engine/kami-engine/kami-engine-sdk/**'
-      - '60-apps/ai-gftd-project-cyber-drill/**'
+      - '60-apps/etzhayyim-project-cyber-drill/**'
       - 'pnpm-workspace.yaml'
       - 'pnpm-lock.yaml'
       - '.github/workflows/kami-engine-sdk.yml'
@@ -27,7 +27,7 @@ on:
     branches: [main]
     paths:
       - '40-engine/kami-engine/kami-engine-sdk/**'
-      - '60-apps/ai-gftd-project-cyber-drill/**'
+      - '60-apps/etzhayyim-project-cyber-drill/**'
       - 'pnpm-workspace.yaml'
       - 'pnpm-lock.yaml'
       - '.github/workflows/kami-engine-sdk.yml'
@@ -123,7 +123,7 @@ jobs:
           echo "::notice::SDK vitest: ${PASSED}/82 expected passing tests"
 
       - name: cyber-drill prod build
-        working-directory: 60-apps/ai-gftd-project-cyber-drill/svelte
+        working-directory: 60-apps/etzhayyim-project-cyber-drill/svelte
         # cyber-drill is NOT in pnpm-workspace.yaml — it installs in
         # isolation via --ignore-workspace and uses
         # `link:../../../40-engine/kami-engine/kami-engine-sdk` for the

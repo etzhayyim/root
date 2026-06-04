@@ -27,5 +27,5 @@ Murakumo leader: `joseph`.
 
 ## See also
 - Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/recordConstructionProgress.json`
-- Giemon firmware (`60-apps/ai-gftd-project-open-robo/firmware/`)
-- open-ot Pregel orchestrator pattern (`60-apps/ai-gftd-project-open-ot/orchestrator/`)
+- Giemon firmware (`60-apps/etzhayyim-project-open-robo/firmware/`)
+- open-ot Pregel orchestrator pattern (`60-apps/etzhayyim-project-open-ot/orchestrator/`)

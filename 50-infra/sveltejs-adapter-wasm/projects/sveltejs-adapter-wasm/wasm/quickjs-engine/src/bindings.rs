@@ -149,7 +149,7 @@ pub(crate) use __export_engine_impl as export;
 #[allow(clippy::octal_escapes)]
 pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 245] = *b"\
 \0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07y\x01A\x02\x01A\x02\x01\
-B\x02\x01@\x02\x04codes\x0crequest-jsons\0s\x04\0\x08evaluate\x01\0\x04\0\"gftdc\
+B\x02\x01@\x02\x04codes\x0crequest-jsons\0s\x04\0\x08evaluate\x01\0\x04\0\"etzhayyimc\
 ojp:svelte-adapter/js-runtime\x05\0\x04\0\x1eetzhayyim:quickjs-engine/engine\x04\0\
 \x0b\x0c\x01\0\x06engine\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-\
 component\x070.227.1\x10wit-bindgen-rust\x060.41.0";

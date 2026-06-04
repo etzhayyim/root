@@ -4,7 +4,7 @@
  * kotoba-E2E split (ADR-2605181100): provider catalog plaintext +
  * per-person mailbox-sync / oauth-grant metadata sealed via kotoba E2E.
  * OAuth token/secret custody + the external Graph/Gmail/Drive API call stay
- * gftd via consent-capability.
+ * etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

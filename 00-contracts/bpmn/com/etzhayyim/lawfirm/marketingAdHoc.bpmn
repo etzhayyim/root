@@ -3,7 +3,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_lawfirm_marketing_ad_hoc"
-                  targetNamespace="https://gftd.ai/bpmn/lawfirm"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
                   exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="lawfirm_marketing_ad_hoc"
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lawfirm.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;lawfirm.marketing.dispatched&quot;" target="event_type"/>
           <zeebe:input source="={task_type: task_type, brand: brand, compliance_check: compliance_check, asset_uris: asset_uris, summary: summary, ok: ok}" target="attributes"/>
         </zeebe:ioMapping>

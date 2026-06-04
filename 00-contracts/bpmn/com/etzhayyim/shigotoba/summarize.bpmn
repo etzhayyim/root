@@ -10,7 +10,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_shigotoba_summarize"
-    targetNamespace="https://gftd.ai/bpmn/shigotoba"
+    targetNamespace="https://etzhayyim.ai/bpmn/shigotoba"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="shigotoba_summarize" name="shigotoba summarize" isExecutable="true">
     <bpmn:startEvent id="Start" name="summary requested">
@@ -39,7 +39,7 @@
         <zeebe:taskDefinition type="generic.llm.chat"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;classifier&quot;" target="tier"/>
-          <zeebe:input source="=&quot;You summarize public job-market data for shigotoba.gftd.ai. Be concise, factual, and avoid unsupported claims.&quot;" target="system"/>
+          <zeebe:input source="=&quot;You summarize public job-market data for shigotoba.etzhayyim.com. Be concise, factual, and avoid unsupported claims.&quot;" target="system"/>
           <zeebe:input source="=&quot;Topic: &quot; + (if topic = null then &quot;job market&quot; else string(topic)) + &quot;\nRecent jobs JSON: &quot; + string(jobRows)" target="user"/>
           <zeebe:input source="=500" target="maxTokens"/>
           <zeebe:input source="=0.2" target="temperature"/>
@@ -56,7 +56,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shigotoba.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shigotoba.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;summarize&quot;" target="action"/>
           <zeebe:input source="={topic: (if topic = null then &quot;job market&quot; else string(topic)), model: string(model), latencyMs: latencyMs}" target="payload"/>
         </zeebe:ioMapping>

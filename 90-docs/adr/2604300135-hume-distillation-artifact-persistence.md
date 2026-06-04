@@ -50,13 +50,13 @@ Persist Hume distillation artifacts using a two-store layout:
 
 The current persistence implementation is:
 
-- `60-apps/ai-gftd-project-hume/scripts/persist_hume_artifacts.py`
+- `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py`
 - `20-actors/magatama/py/src/pymagatama/primitives/ipfs_ingest.py`
 - `20-actors/magatama/py/src/pymagatama/ingest/core.py`
 
 For the first media run, the persistence manifest is:
 
-- `60-apps/ai-gftd-project-hume/data/distillation/hume-media-audio-small-persistence-20260430.json`
+- `60-apps/etzhayyim-project-hume/data/distillation/hume-media-audio-small-persistence-20260430.json`
 
 The RisingWave `run_id` is the Hume distillation run id:
 
@@ -102,8 +102,8 @@ and Hume teacher job id. Artifact payloads remain in IPFS.
 
 # References
 
-- `60-apps/ai-gftd-project-hume/scripts/persist_hume_artifacts.py`
-- `60-apps/ai-gftd-project-hume/training/student-training-manifest.json`
+- `60-apps/etzhayyim-project-hume/scripts/persist_hume_artifacts.py`
+- `60-apps/etzhayyim-project-hume/training/student-training-manifest.json`
 - `50-infra/vultr/ipfs/CLAUDE.md`
 - `90-docs/adr/2604261936-ipfs-self-hosted-vultr-b2.md`
 - `90-docs/adr/2604261900-risingwave-ddl-backfill-path-topology.md`

@@ -77,7 +77,7 @@ parallel sub-agents (general-purpose Claude) for the work that fits naturally in
 independent batches. The vertical's final shape:
 
 ```
-human (gftd CLI / browser / 3rd party)
+human (etzhayyim CLI / browser / 3rd party)
   ↓ POST /xrpc/{nsid}   (HTTP or HTTP-over-libp2p)
 [Kubo daemon]   ←─── /x/etzhayyim/xrpc/1.0 stream protocol ─→   [Kubo daemon]
   ↓                                                                 ↓
@@ -141,7 +141,7 @@ for decommission), and `healthz()`.
 ## 3. HTTP gateway + human entry (iterations 5-8)
 
 - **KuniUmiApiCell** (`20-actors/magatama/cells/kuni_umi_api/cell.py`, 663 LOC) — aiohttp LAN service on naphtali:13030 exposing all 6 lexicon endpoints as `/xrpc/{nsid}` + `/api/{short}` + `/api/invoke` aliases. Witness quorum pre-check (HTTP 400), GeoJSON validation, GraphRecursionError → HTTP 202 AwaitingWitnessQuorum, `KUNI_UMI_API_DEV_MODE` env knob.
-- **`gftd kuni-umi <subcommand>` CLI** (`70-tools/etzhayyim-cli/kuni_umi.go`, 663 LOC, stdlib-only Go) — 6 subcommands (define-site / submit-survey / propose-plan / record-progress / commission / audit-event), each maps 1:1 to a lexicon procedure. `--dry-run` + `--target` flags. Canonical `/xrpc/{nsid}` routing via `resolveKuniUmiTarget`.
+- **`etzhayyim kuni-umi <subcommand>` CLI** (`70-tools/etzhayyim-cli/kuni_umi.go`, 663 LOC, stdlib-only Go) — 6 subcommands (define-site / submit-survey / propose-plan / record-progress / commission / audit-event), each maps 1:1 to a lexicon procedure. `--dry-run` + `--target` flags. Canonical `/xrpc/{nsid}` routing via `resolveKuniUmiTarget`.
 - **`20-actors/kuni-umi/manifest.jsonld`** (112 lines) — DoDAF DM2 actor manifest: 6 cells / 6 lexicons / BPMN / 3 DMN / 7 ADR refs / mission flags.
 
 ## 4. Open-utility CIM adapter SDK (iteration 8)
@@ -243,7 +243,7 @@ Self-dial loopback on a single Kubo node is rejected by libp2p (architectural); 
 ## Positive
 
 1. **Corpus alive** — 18,342 actors invoke without raising. The 0.78s pytest suite catches regressions before they spread.
-2. **Vertical reachable from a human** — `gftd kuni-umi define-site` → KuniUmiApiCell → SiteSurveyCell.graph → terminal state in ~7ms.
+2. **Vertical reachable from a human** — `etzhayyim kuni-umi define-site` → KuniUmiApiCell → SiteSurveyCell.graph → terminal state in ~7ms.
 3. **Transport substitutable** — switch between LAN HTTP and libp2p by setting env vars; no cell-code change needed.
 4. **No new external dependencies** — Python stdlib + aiohttp + langgraph + Kubo (already on minis per ADR-2605241500 pinning) + Go stdlib. No `requests` / `httpx` / `libp2p-py` / etc.
 5. **Codemods are idempotent** — re-runnable on any future gemini-exec rebuild; the corpus rebuild path is reproducible.

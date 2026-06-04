@@ -20,11 +20,11 @@ struct DaemonCtx {
 
 pub async fn cmd_daemon(cfg: &NodeConfig, args: &[String]) {
     if cfg.node_id.is_empty() {
-        eprintln!("not installed -- run: gftd-murakumo install");
+        eprintln!("not installed -- run: etzhayyim-murakumo install");
         std::process::exit(1);
     }
     if !args.is_empty() {
-        eprintln!("usage: gftd-murakumo daemon [--verbose]");
+        eprintln!("usage: etzhayyim-murakumo daemon [--verbose]");
         std::process::exit(1);
     }
 
@@ -540,7 +540,7 @@ async fn execute_llm_inference(
         "image_generation" => run_image_generation_python(&model, &prompt, params),
         "video_generation" => run_video_generation_python(&model, &prompt, &images, params),
         _ => {
-            if model == "hayate-v4" || model == "gftd/hayate-v4" {
+            if model == "hayate-v4" || model == "etzhayyim/hayate-v4" {
                 run_hayate_v4_inference(&prompt, &temperature, &max_tokens)
             } else if has_magatama_inference() {
                 run_magatama_inference(&model, &prompt, &temperature, &max_tokens)
@@ -1373,7 +1373,7 @@ async fn distill_poll_and_execute(ctx: &Arc<Mutex<DaemonCtx>>) {
 fn cleanup_local_artifacts() -> Result<usize, String> {
     let dir = dirs::home_dir()
         .ok_or("no home dir")?
-        .join(".gftd")
+        .join(".etzhayyim")
         .join("artifacts");
     if !dir.exists() {
         return Ok(0);
@@ -1421,7 +1421,7 @@ fn disk_free_bytes(_path: &std::path::Path) -> u64 {
 
 fn init_log_file() {
     let home = dirs::home_dir().unwrap_or_else(|| std::path::PathBuf::from("."));
-    let log_path = home.join(".gftd/daemon.log");
+    let log_path = home.join(".etzhayyim/daemon.log");
     let _ = std::fs::create_dir_all(log_path.parent().unwrap_or(&home));
     // Log file will be managed by launchd/systemd stderr redirect
 }

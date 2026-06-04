@@ -718,10 +718,10 @@ PropagationEvent を **RisingWave Materialized View** で pre-aggregate し、sh
 
 ## References
 
-- `60-apps/ai-gftd-project-natural-person/CLAUDE.md` — Actor 供給元 (人物)
-- `60-apps/ai-gftd-project-maps/CLAUDE.md` — Actor 供給元 (建造物)
-- `60-apps/ai-gftd-project-bunken/CLAUDE.md` — Actor 供給元 (文献・記録)
-- `60-apps/ai-gftd-project-shinka/CLAUDE.md` — 投稿スケジューラ
+- `60-apps/etzhayyim-project-natural-person/CLAUDE.md` — Actor 供給元 (人物)
+- `60-apps/etzhayyim-project-maps/CLAUDE.md` — Actor 供給元 (建造物)
+- `60-apps/etzhayyim-project-bunken/CLAUDE.md` — Actor 供給元 (文献・記録)
+- `60-apps/etzhayyim-project-shinka/CLAUDE.md` — 投稿スケジューラ
 - `20-actors/magatama/sdk/magatama-host-sdk/src/heartbeat-cadence.ts` — ContentSource, Joucho
 - `20-actors/magatama/sdk/magatama-host-sdk/src/actor-registry.ts` — ActorRegistry API
 - `90-docs/260324-performertype-did-generation-design.md` — performerType

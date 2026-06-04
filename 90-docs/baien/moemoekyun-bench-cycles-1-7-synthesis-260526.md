@@ -155,7 +155,7 @@ sweep entries when EVO-X2 R1.4 train completes.
 
 ## Security followups (rotation pending)
 
-1. **HF_TOKEN** (`260225-ai-gftd-shinshi`) leaked in `/workspace/bringup.log` via `set -x` trace in cycle 6 — **rotate via https://huggingface.co/settings/tokens**
+1. **HF_TOKEN** (`260225-etzhayyim-shinshi`) leaked in `/workspace/bringup.log` via `set -x` trace in cycle 6 — **rotate via https://huggingface.co/settings/tokens**
 2. **RunPod API key** (`rpa_WU1RIXAS...`) exposed in chat paste cycle 4 — **rotate via RunPod console**
 
 ## What's next (cycle 8+)

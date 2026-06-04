@@ -251,7 +251,7 @@
     "description": "Tracks pipelines, storage hubs, crude/product terminals, flows between basins and refineries, and network bottlenecks.",
     "displayName": "Oil Midstream & Terminal Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

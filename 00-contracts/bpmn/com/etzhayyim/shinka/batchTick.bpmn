@@ -19,7 +19,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_shinka_batch_tick"
-    targetNamespace="https://gftd.ai/bpmn/shinka"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinka"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="shinka_batch_tick" name="shinka batch tick" isExecutable="true">

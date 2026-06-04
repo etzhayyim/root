@@ -6,7 +6,7 @@ doc_type: explanation
 topic: hs-code-domain-coverage
 authoritative: true
 authoritative_for:
-  - ai-gftd-project-code-hs
+  - etzhayyim-project-code-hs
   - hs-actor-path-did-model
 last_verified: 2026-04-15
 related:
@@ -19,7 +19,7 @@ related:
 
 ## Goal
 
-`ai-gftd-project-code-hs` を、Harmonized System (HS) code に基づく **国際貿易品目分類の基盤 project** として定義する。
+`etzhayyim-project-code-hs` を、Harmonized System (HS) code に基づく **国際貿易品目分類の基盤 project** として定義する。
 この project は単なるコード辞書ではなく、以下 3 層を一体で扱う。
 
 1. **actor coverage**
@@ -44,7 +44,7 @@ HS はこの repo において次の位置に置く。
 
 ### 1 app x multi-DID
 
-`ai-gftd-project-code-hs` は **1 app × multi-DID** を基本とする。
+`etzhayyim-project-code-hs` は **1 app × multi-DID** を基本とする。
 
 - primary DID: `did:web:hs.etzhayyim.com`
 - NSID prefix: `com.etzhayyim.apps.hs.*`
@@ -148,7 +148,7 @@ write の主境界は以下とする。
 
 ### Coverage dimensions
 
-`ai-gftd-project-code-hs` の coverage は単一メトリクスではなく、最低でも以下の 4 軸で持つ。
+`etzhayyim-project-code-hs` の coverage は単一メトリクスではなく、最低でも以下の 4 軸で持つ。
 
 | Dimension | Meaning |
 |---|---|
@@ -211,7 +211,7 @@ HS は改訂があるため、global core と edition overlay を分離する。
 
 ## Recommended Build Order
 
-1. `ai-gftd-project-code-hs` scaffold
+1. `etzhayyim-project-code-hs` scaffold
 2. `20-actors/hs/actor-manifest.jsonld`
 3. taxonomy-only static dataset for section/chapter/heading/subheading
 4. `getNode` / `getChildren` / `health`
@@ -240,7 +240,7 @@ HS は改訂があるため、global core と edition overlay を分離する。
 
 ## Outcome
 
-`ai-gftd-project-code-hs` は以下を担う。
+`etzhayyim-project-code-hs` は以下を担う。
 
 - 世界共通の物品貿易 taxonomy
 - product / industry / legal-entity / state をつなぐ classification hub

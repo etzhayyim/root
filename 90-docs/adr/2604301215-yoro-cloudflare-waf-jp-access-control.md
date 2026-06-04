@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - adr-2604241038-yoro-pds-ideal-topology
   - adr-2604282300
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
 supersedes: []
 superseded_by: []
 ---
@@ -39,7 +39,7 @@ for this case:
 # Decision
 
 Yoro country/IP access control is enforced in Cloudflare WAF custom rules, not
-in `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts`.
+in `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts`.
 
 Live rule:
 

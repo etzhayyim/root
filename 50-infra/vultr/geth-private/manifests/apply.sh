@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Idempotent applier for the gftd private-chain Geth on Vultr VKE.
+# Idempotent applier for the etzhayyim private-chain Geth on Vultr VKE.
 #
 #   - creates the namespace
 #   - creates ConfigMap geth-private-genesis from manifests/genesis.json

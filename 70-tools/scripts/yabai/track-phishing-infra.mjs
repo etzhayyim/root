@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Thin driver for com.etzhayyim.apps.yabai.trackPhishingInfra BPMN.
 //
-// Replaces: 60-apps/ai-gftd-project-yabai/tools/track-phishing-infra/track-phishing-infra.mjs
+// Replaces: 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/track-phishing-infra.mjs
 // The legacy script iterated phishing_url entities and ran local shell
 // whois / dig / openssl / curl per row. This driver fetches the target
 // list from RisingWave and POSTs each domain to the BPMN, which does
@@ -14,7 +14,7 @@
 //
 // Env:
 //   DISPATCHER_URL  (default https://dispatcher.etzhayyim.com)
-//   RW_URL          (default $(security find-generic-password -s gftd.rw -a ROOT_URL -w))
+//   RW_URL          (default $(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w))
 
 import { spawn, spawnSync } from "node:child_process";
 
@@ -38,7 +38,7 @@ function sh(cmd, cmdArgs, opts = {}) {
 
 function rwUrl() {
   if (process.env.RW_URL) return process.env.RW_URL;
-  const r = spawnSync("security", ["find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"]);
+  const r = spawnSync("security", ["find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"]);
   return r.stdout.toString().trim();
 }
 

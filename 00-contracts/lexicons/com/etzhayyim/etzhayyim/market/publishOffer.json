@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.market.publishOffer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish a new market offer in one of 5 Phase-1 lanes (ADR 2605011300). Increases information surface area S. Mokuteki upper gate (child/future floor + Spirit separation healing, ADR-2604291800) is evaluated server-side; floor violations reject the offer.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["lane", "issuerDid", "title", "priceUnit", "settlementCurrency"],
+          "properties": {
+            "lane": {
+              "type": "string",
+              "enum": ["vault", "sashiosae", "lawfirm", "bpmn", "murakumo"]
+            },
+            "issuerDid": {
+              "type": "string",
+              "description": "did:erc725:etzhayyim:260425:{lane} — must match lane's registered issuer"
+            },
+            "title": { "type": "string", "maxLength": 240 },
+            "description": { "type": "string", "maxLength": 4000 },
+            "priceUnit": { "type": "number", "minimum": 0 },
+            "settlementCurrency": { "type": "string", "description": "ISO 4217 (JPY/USD/EUR) or ERC-20 symbol (USDC/...)" },
+            "minQuantity": { "type": "number", "minimum": 0 },
+            "maxQuantity": { "type": "number" },
+            "termsUri": { "type": "string", "format": "uri", "description": "Optional contract terms (typed Lexicon or web URL)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "listingId": { "type": "string" },
+            "vertexId": { "type": "string" },
+            "mokutekiFloorPass": { "type": "boolean", "description": "Mokuteki upper gate result. false → offer rejected, listing not published" },
+            "spiritSeparationDelta": { "type": "number", "description": "Estimated separation healing impact (negative = healing, positive = increasing isolation)" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@
  * (kotoba E2E encrypted-record envelope). Founder directive 2026-06-03: PII /
  * CUI / LE / just-culture-protected reports may migrate to etzhayyim when made
  * safe via kotoba E2E. MAXIMAL migration — front every data layer; only the
- * irreducible regulated EXECUTION act stays gftd.
+ * irreducible regulated EXECUTION act stays etzhayyim.
  *
  * SPLIT (discriminator: a field is E2E if it carries a reporter/personnel
  * identity, a just-culture-protected narrative, a confidential audit result, or
@@ -27,14 +27,14 @@
  *   Written via sdk.encryptedWrite (read-cap = owner DID + explicit recipients);
  *   the substrate never sees these in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION acts: (1) the authenticated regulatory-filing
  *   TRANSMISSION to the civil-aviation authority (FAA/EASA/CAA mandatory
  *   occurrence submission — fileRegulatoryReport's actual submit CALL), and
  *   (2) the AVSEC enforcement / blocking ACTION (handleSecurityAlert's response
  *   act: lockdown / authority notification / passenger block). The report DATA
  *   and alert DATA both migrate E2E; only the transmission/enforcement ACT stays
- *   gftd.
+ *   etzhayyim.
  *
  * AT-Lexicon: no float — risk/likelihood/severity are integers (risk score
  * 0-100); UN DG hazard class is integer; no money fields.
@@ -383,7 +383,7 @@ export interface RegulatoryReportBody {
   /** confidential filing content. */
   content: string;
   /** prepared | transmitted | acknowledged (DATA status only — the actual
-   *  authenticated transmission CALL stays gftd). */
+   *  authenticated transmission CALL stays etzhayyim). */
   filingStatus: string;
   preparedAt: string;
 }

@@ -7,8 +7,8 @@
   "type": "module",
   "main": "src/app.ts",
   "scripts": {
-    "build": "echo 'use gftd build per 20-actors/magatama/CLAUDE.md'",
-    "deploy": "echo 'use gftd deploy per 20-actors/magatama/CLAUDE.md'",
+    "build": "echo 'use etzhayyim build per 20-actors/magatama/CLAUDE.md'",
+    "deploy": "echo 'use etzhayyim deploy per 20-actors/magatama/CLAUDE.md'",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

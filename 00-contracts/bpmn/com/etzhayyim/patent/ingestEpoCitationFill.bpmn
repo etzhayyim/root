@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_patent_ingest_epo_citation_fill"
-    targetNamespace="https://gftd.ai/bpmn/patent"
+    targetNamespace="https://etzhayyim.ai/bpmn/patent"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="patent_ingest_epo_citation_fill" name="patent EPO OPS citation fill" isExecutable="true">
@@ -64,7 +64,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:patent.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:patent.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;patent.ingest.epo.citationFill&quot;" target="action"/>
           <zeebe:input source="={
               examined:       count(pending),

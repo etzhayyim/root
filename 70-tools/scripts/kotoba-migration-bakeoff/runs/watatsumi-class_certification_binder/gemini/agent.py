@@ -17,7 +17,7 @@ class CertificationPhase(Enum):
     INIT = "init"
     RECORDS_COLLECTED = "records_collected"
     SURVEYOR_REVIEW = "surveyor_review"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 def _init(state: dict[str, Any]) -> dict[str, Any]:
@@ -58,7 +58,7 @@ def _anchor(state: dict[str, Any]) -> dict[str, Any]:
     return {
         "certification_state": {
             **cs,
-            "phase": CertificationPhase.YATACHAIN_ANCHORED.value,
+            "phase": CertificationPhase.KOTOBA_DATOMIC_ANCHORED.value,
             "anchor": mock_anchor,
             "completionPct": 75,
         }

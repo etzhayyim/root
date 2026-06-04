@@ -225,7 +225,7 @@
     "description": "9-scheme Multi-DID bibliographic intelligence (NDL/NCID/LCCN/OCLC/VIAF/ISBN/DOI/ARK). CDX discovery, LLM enrichment, SAME_AS linking, historical propagation integration.",
     "displayName": "Bunken Bibliographic Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

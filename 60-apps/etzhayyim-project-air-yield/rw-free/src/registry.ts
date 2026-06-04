@@ -9,7 +9,7 @@
  *   + per-route ledger financials sealed in the kotoba envelope, read-cap =
  *   owner DID + explicit recipients. The substrate never sees these in plaintext.
  *
- * STAYS gftd (consumed via consent-capability): IATA BSP fiat-clearing
+ * STAYS etzhayyim (consumed via consent-capability): IATA BSP fiat-clearing
  * settlement EXECUTION and GPU/LLM forecast/pricing model INFERENCE.
  */
 

@@ -93,7 +93,7 @@ for (const p of EXPECTED) {
 
 // ─── C: Handler command registration ──────────────────────────────────
 header("collection-commands.ts command registration");
-const handlerPath = resolve(ROOT, "60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts");
+const handlerPath = resolve(ROOT, "60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/collection-commands.ts");
 const handler = readFileSync(handlerPath, "utf8");
 const pyWorkerPath = resolve(ROOT, "20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py");
 const pyWorker = readFileSync(pyWorkerPath, "utf8");

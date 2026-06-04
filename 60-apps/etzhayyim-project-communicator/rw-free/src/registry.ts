@@ -8,7 +8,7 @@
  * in the kotoba envelope (ADR-2605181100), read-cap = owner DID + recipients.
  *
  * The irreducible regulated EXECUTION (LLM/GPU draft inference, the Gmail/Outlook
- * SEND action, provider OAuth token custody) stays gftd, consumed via
+ * SEND action, provider OAuth token custody) stays etzhayyim, consumed via
  * consent-capability — it is NOT represented here. Only the transaction DATA
  * fronts.
  */

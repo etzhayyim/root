@@ -101,7 +101,7 @@
             "description": "Charter §1.13 ceremony content review attested"
           },
           "charterRiderScanRunCid": {"type": "string"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

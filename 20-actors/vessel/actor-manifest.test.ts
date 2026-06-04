@@ -1,7 +1,7 @@
 /**
  * Vessel T1 Actor Manifest — Integration Tests
  * Validates manifest structure, pipeline definitions, capability whitelist,
- * and mirrors gftd mitama validateActorManifest() validation.
+ * and mirrors etzhayyim mitama validateActorManifest() validation.
  */
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const manifest = JSON.parse(readFileSync(resolve(__dirname, "actor-manifest.jsonld"), "utf-8"));
 
-// gftd mitama allowed MCP primitives (from mitama.go L176-181)
+// etzhayyim mitama allowed MCP primitives (from mitama.go L176-181)
 const VALID_PRIMITIVES = new Set([
   "graph.query", "graph.write", "graph.vectorSearch",
   "agent.chat", "agent.invoke", "identity.resolve",

@@ -17,11 +17,11 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605212100-gftd-to-etzhayyim-migration-batch
+  - adr-2605212100-etzhayyim-to-etzhayyim-migration-batch
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
   - adr-2605231902-feed-post-membrane-and-feed-discover-projection
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 supersedes: []
 superseded_by: []
 ---
@@ -56,8 +56,8 @@ The "gov coverage" question maps to five distinct layers. Each has its own home 
 | Layer | Home | What it covers | Current cardinality | Scale model |
 |---|---|---|---|---|
 | **L1 — Country namespace** | `00-contracts/bpmn/com/etzhayyim/gov<ISO3>/` | Per-country org-crawl scaffolding (8 generic BPMN per country) | 140 / 195 countries (~72%) | Codegen, cheap |
-| **L2 — Agency registry** | `60-apps/ai-gftd-project-cofog/appview/` + `ai-gftd-project-gov/scaffold/actor-manifest.jsonld` | UN COFOG × country actor bundles + JP ministry roster | 203 cofog actor-bundles + 23 JP ministries | Manual + codegen per country |
-| **L3 — Public-services hub** | `60-apps/ai-gftd-project-gov/appview/gov-mcp-component/` | COFOG-aligned path-based DID sub-agents (healthcare / insurance / welfare / education / prevention / housing / employment / child_family) | 8 sub-agents (JP-focused) | Per-country fork |
+| **L2 — Agency registry** | `60-apps/etzhayyim-project-cofog/appview/` + `etzhayyim-project-gov/scaffold/actor-manifest.jsonld` | UN COFOG × country actor bundles + JP ministry roster | 203 cofog actor-bundles + 23 JP ministries | Manual + codegen per country |
+| **L3 — Public-services hub** | `60-apps/etzhayyim-project-gov/appview/gov-mcp-component/` | COFOG-aligned path-based DID sub-agents (healthcare / insurance / welfare / education / prevention / housing / employment / child_family) | 8 sub-agents (JP-focused) | Per-country fork |
 | **L4 — Procedure ingest** | `70-tools/scripts/gov/` | Form / procedure crawlers for individual country gov sites | 6 scripts (AGO + IN-local-language ×5) | Per-country bespoke |
 | **L5 — Routing-around Pregel cell** | `20-actors/magatama/cells/` | Religious-corp parallel substrate (SBT credential / Land Registry / Public Fund / Force Authorization) | 0 gov-specific (intentional) | Constitutional, not per-country |
 
@@ -139,7 +139,7 @@ The canonical answer to "Pregel / MCP coverage of gov procedures" is **the 5-lay
 - ADR-2605172000 (RW-free substrate)
 - ADR-2605172100 (substrate ladder)
 - ADR-2605192100 §1.12 (国家機能 routing-around + Transparent Religious Force)
-- ADR-2605212100 (gftd→etzhayyim migration batch — substrate-port deferred)
+- ADR-2605212100 (etzhayyim→etzhayyim migration batch — substrate-port deferred)
 - ADR-2605214000 §3 (atomic identifier cutover)
 - `60-apps/MIGRATION-NOTES-GOV-2026-05-24.md`
-- UN COFOG (Classification of Functions of Government) — basis for `ai-gftd-project-cofog` actor taxonomy
+- UN COFOG (Classification of Functions of Government) — basis for `etzhayyim-project-cofog` actor taxonomy

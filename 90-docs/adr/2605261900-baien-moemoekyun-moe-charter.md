@@ -179,7 +179,7 @@ trainable:
 | **R0** (this ADR) | Charter + paths reserved | this ADR + deps.toml `[[adrs]]` entry + `70-tools/baien-moemoekyun-train/` path reserved (no code) + CLAUDE.md Status row + README index | ADR commit lands; reviewer can navigate from CLAUDE.md → ADR → reserved path |
 | **R1** | Phase 0 freeze-train scaffold + smoke | `70-tools/baien-moemoekyun-train/` minimum code (model class + router + expert + train loop), 100-sample × 10-step smoke on EVO-X2, parameter-group inspection (G8) + α=0 verify (G5) + aux-loss enabled (G6) | smoke runs without OOM; loss step-0 within 1% of base BitNet; expert utilization > 1/E × 0.1 for all i after 10 steps |
 | **R2** | Phase 1 partial unfreeze + first real training run (target: 1B tokens) | training corpus selection (Charter Rider scanned), bf16 deploy on Murakumo, LiteLLM endpoint with SBT gate (G12), microbench eval vs base BitNet | bench Δ ≥ +5% on at least one weak-category of baien-distill (ADR-2605231300 weak-category table); no Charter Rider §2 violation in corpus |
-| **R3** | Phase 2 joint low-LR + first published `baien-server-moemoekyun-v1` | full 3-phase training complete, model card, attestation on yatachain, distilled-models.jsonl entry, Council-Lv6+ ratification of first published variant | benchmark snapshot in `90-docs/baien/moemoekyun-snapshot-<date>.md`; Council attestation recorded |
+| **R3** | Phase 2 joint low-LR + first published `baien-server-moemoekyun-v1` | full 3-phase training complete, model card, attestation on kotoba-datomic, distilled-models.jsonl entry, Council-Lv6+ ratification of first published variant | benchmark snapshot in `90-docs/baien/moemoekyun-snapshot-<date>.md`; Council attestation recorded |
 
 R1+ deliverables それぞれ独立 ADR で起こす (本 ADR は R0 のみ binding)。
 

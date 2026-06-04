@@ -21,7 +21,7 @@
  *   sdk.encryptedWrite (read-cap = owner DID + explicit recipients, e.g. CEO).
  *   The substrate never sees the decision body in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability) — financial-action EXECUTION
+ *   STAYS etzhayyim (consumed via consent-capability) — financial-action EXECUTION
  *   (fiat card-processor / BSP charges / wire transfers / payroll runs),
  *   external-mail SEND execution, and LLM deliberation INFERENCE. These are the
  *   regulated *acts*, not the resulting audit records (which migrate: role meta

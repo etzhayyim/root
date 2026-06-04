@@ -10,7 +10,7 @@
   Cadence: R/P7D.
   ADR-2604281900.
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_fetch_auction_market_delta" targetNamespace="https://gftd.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_adnetwork_fetch_auction_market_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-adnetwork" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_adnetwork_fetch_auction_market_delta" name="fetchAuctionMarketDelta" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 7 days">
       <bpmn:outgoing>Flow_ToFetch</bpmn:outgoing>
@@ -38,7 +38,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-adnetwork.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-adnetwork.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;open.adnetwork.fetchAuctionMarketDelta&quot;" target="action"/>
           <zeebe:input source="={timestamp: string(now()), status: &quot;fetched&quot;, fetchStatus: fetchStatus}" target="payload"/>
         </zeebe:ioMapping>

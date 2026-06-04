@@ -126,7 +126,7 @@ def test_actor_text_combines_fields():
         "display_name": "Shinshi Actor",
         "handle": "shinshi.etzhayyim.com",
         "description": "AI music actor",
-        "root_did": "did:erc725:gftd:260425:abc",
+        "root_did": "did:erc725:etzhayyim:260425:abc",
     }
     text = VE._actor_text(row)
     assert "Shinshi Actor" in text
@@ -179,9 +179,9 @@ def test_enrich_hume_emotions_empty_candidates():
 
 def test_enrich_hume_emotions_without_hume_env_skips():
     candidate = VE.EmbeddingCandidate(
-        source_uri="actor:did:erc725:gftd:260425:abc",
+        source_uri="actor:did:erc725:etzhayyim:260425:abc",
         source_kind="actor_profile",
-        source_vertex_id="did:erc725:gftd:260425:abc",
+        source_vertex_id="did:erc725:etzhayyim:260425:abc",
         modality="text",
         tenant_id="public",
         shard_id=None,
@@ -198,9 +198,9 @@ def test_enrich_hume_emotions_without_hume_env_skips():
 def test_enrich_hume_emotions_dry_run_with_fake_hume(monkeypatch):
     monkeypatch.setenv("VECTOR_EMBEDDING_HUME_FAKE", "1")
     candidate = VE.EmbeddingCandidate(
-        source_uri="actor:did:erc725:gftd:260425:abc",
+        source_uri="actor:did:erc725:etzhayyim:260425:abc",
         source_kind="actor_profile",
-        source_vertex_id="did:erc725:gftd:260425:abc",
+        source_vertex_id="did:erc725:etzhayyim:260425:abc",
         modality="text",
         tenant_id="public",
         shard_id=None,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_adr_register_arbitrator" targetNamespace="https://gftd.ai/bpmn/adr" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_adr_register_arbitrator" targetNamespace="https://etzhayyim.ai/bpmn/adr" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="adr_register_arbitrator" name="registerArbitrator" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Insert"/>
@@ -7,7 +7,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_adr_arbitrator&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:adr.gftd.ai:&quot; + institution + &quot;:&quot; + arbitratorSlug + &quot;/com.etzhayyim.apps.adr.profile/self&quot;, arbitrator_did: &quot;did:web:adr.gftd.ai:&quot; + institution + &quot;:&quot; + arbitratorSlug, full_name: fullName, institution: institution, panel: panel, nationality: nationality, languages_csv: languages, expertise_csv: expertise, owner_did: &quot;did:web:adr.gftd.ai&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:adr.etzhayyim.com:&quot; + institution + &quot;:&quot; + arbitratorSlug + &quot;/com.etzhayyim.apps.adr.profile/self&quot;, arbitrator_did: &quot;did:web:adr.etzhayyim.com:&quot; + institution + &quot;:&quot; + arbitratorSlug, full_name: fullName, institution: institution, panel: panel, nationality: nationality, languages_csv: languages, expertise_csv: expertise, owner_did: &quot;did:web:adr.etzhayyim.com&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
           <zeebe:input source="=&quot;upsert&quot;" target="onConflict"/>
           <zeebe:output source="=vertex_id" target="vertexId"/>
         </zeebe:ioMapping>

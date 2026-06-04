@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_geo_resolve_org_path"
-    targetNamespace="https://gftd.ai/bpmn/govGeo"
+    targetNamespace="https://etzhayyim.ai/bpmn/govGeo"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_geo_resolve_org_path" name="govGeo resolve org path" isExecutable="true">

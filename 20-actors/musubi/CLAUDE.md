@@ -58,7 +58,7 @@ chigiri.covenant_ceremony cell
   ▸ if SBT issuance/burn: ChartersComplianceRegistry attestation
         │
         ▼
-yatachain block CID + Land Registry cross-link (if applicable)
+kotoba-datomic block CID + Land Registry cross-link (if applicable)
 ```
 
 All 6 musubi cell modules at R0 are import-time `RuntimeError`. R1

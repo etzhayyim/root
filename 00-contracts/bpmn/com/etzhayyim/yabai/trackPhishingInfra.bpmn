@@ -2,7 +2,7 @@
 <!--
   yabai.trackPhishingInfra — per-domain phishing intel probe.
 
-  Replaces: 60-apps/ai-gftd-project-yabai/tools/track-phishing-infra/track-phishing-infra.mjs
+  Replaces: 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/track-phishing-infra.mjs
   The legacy script iterated every phishing_url entity and ran shell
   whois + dig + openssl + curl per row. This BPMN does the same per call
   (one domain per process instance) using only generic.* primitives.
@@ -28,7 +28,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yabai_track_phishing_infra"
-    targetNamespace="https://gftd.ai/bpmn/yabai"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yabai_track_phishing_infra" name="yabai trackPhishingInfra" isExecutable="true">

@@ -80,7 +80,7 @@ It is **read-only** and it is **not the government**.
 stubs, legacy `com.etzhayyim.gov*` namespace) + `90-docs/openapi/gov*.openapi.json`
 (141 skeletons) are **subsumed** by ooyake's `:gov.*` graph as their kotoba-native
 owner. The `com.etzhayyim.gov*` → `com.etzhayyim.ooyake.*` rename is deferred to the
-gated Step-8 `gftd-*` cutover (root CLAUDE.md §Do-Not) — **do not rename them
+gated Step-8 `etzhayyim-*` cutover (root CLAUDE.md §Do-Not) — **do not rename them
 here**.
 
 ## Coverage honesty

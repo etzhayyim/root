@@ -115,7 +115,7 @@ def fetch_html(url: str, timeout_sec: int = 20) -> tuple[str, str]:
     req = request.Request(
         url,
         headers={
-            "User-Agent": "gftd-jsonld-builder/1.0",
+            "User-Agent": "etzhayyim-jsonld-builder/1.0",
             "Accept": "text/html,application/xhtml+xml",
         },
     )
@@ -275,7 +275,7 @@ def build_jsonld(
         data["about"] = [{"@type": "Thing", "name": x["label"]} for x in classification]
         data["keywords"] = [x["label"] for x in classification]
         if include_scores:
-            data["gftd:classification"] = classification
+            data["etzhayyim:classification"] = classification
     return data
 
 

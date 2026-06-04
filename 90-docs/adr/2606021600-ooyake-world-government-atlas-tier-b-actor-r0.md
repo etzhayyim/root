@@ -106,7 +106,7 @@ ADR **narrows that non-goal**: per-unit enumeration is admitted **only as a read
 contact + wayfinding). Routing-around (L5) remains out of ooyake's scope and stays governed by the Transparent
 Force discipline. The legacy `gov*` country BPMN/OpenAPI stubs and the L1–L4 COFOG taxonomy are **subsumed** by
 ooyake's `:gov.*` graph as their kotoba-native canonical owner (the `com.etzhayyim.gov*` → `com.etzhayyim.ooyake.*`
-rename is itemized for the gated Step-8 `gftd-*` cutover, NOT executed here — root CLAUDE.md §Do-Not).
+rename is itemized for the gated Step-8 `etzhayyim-*` cutover, NOT executed here — root CLAUDE.md §Do-Not).
 
 ## §3 — Substrate (kotoba EDN / Datomic)
 

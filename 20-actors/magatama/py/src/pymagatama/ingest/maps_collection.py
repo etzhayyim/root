@@ -2050,7 +2050,7 @@ def _maps_xrpc_post(nsid: str, body: dict[str, Any], timeout_sec: float = 90.0) 
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "User-Agent": "gftd-magatama-maps-coverage/1.0",
+        "User-Agent": "etzhayyim-magatama-maps-coverage/1.0",
     }
     secret = os.environ.get("MAPS_INTERNAL_SECRET") or os.environ.get("DISPATCHER_INTERNAL_SECRET")
     if secret:

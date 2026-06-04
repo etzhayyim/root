@@ -6,8 +6,8 @@
 INSERT INTO vertex_langgraph_assistant
   (vertex_id, _seq, sensitivity_ord, assistant_id, version, kind, factory_path, spec, description, created_at)
 VALUES
-  ('gftdcojp-company-ops', 0, 0, 'gftdcojp-company-ops', 1, 'topology', NULL,
-   '{"state_keys":["task_type","payload","thread_id","requester_did","domain","routing_reason","result","action_items","omega_score","floor_violated","ok","error"],"entry":"supervisor","edges":[{"from":"emit_audit","to":"END"}],"conditional_edges":[{"from":"supervisor","router":"pymagatama.langgraph_graphs.gftdcojp_company_ops:_route_domain","paths":{"hr":"hr","finance":"finance","legal":"legal","sales":"sales","governance":"governance","personnel":"personnel","unknown":"governance"}}]}',
+  ('etzhayyimcojp-company-ops', 0, 0, 'etzhayyimcojp-company-ops', 1, 'topology', NULL,
+   '{"state_keys":["task_type","payload","thread_id","requester_did","domain","routing_reason","result","action_items","omega_score","floor_violated","ok","error"],"entry":"supervisor","edges":[{"from":"emit_audit","to":"END"}],"conditional_edges":[{"from":"supervisor","router":"pymagatama.langgraph_graphs.etzhayyimcojp_company_ops:_route_domain","paths":{"hr":"hr","finance":"finance","legal":"legal","sales":"sales","governance":"governance","personnel":"personnel","unknown":"governance"}}]}',
    'auto-migrated topology (P3 batch)', '2026-05-08T19:00:00Z');
 
 INSERT INTO vertex_langgraph_assistant

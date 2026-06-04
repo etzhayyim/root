@@ -4,7 +4,7 @@
 ;; migration, ADR-2606013200). The yoro feed (posts / profiles / follows) is
 ;; stored as Datoms in a dedicated kotoba graph and read back by
 ;; `@etzhayyim/yoro-rw-free` via the kotoba `datomic.datoms` XRPC, replacing the
-;; superseded yatachain-projection + single-actor PDS read path
+;; superseded kotoba-datomic-projection + single-actor PDS read path
 ;; (ADR-2605231500 → ADR-2605262130 / 2605312345).
 ;;
 ;; Graph addressing (CRITICAL — shared by ingest + reader + kotoba boot):

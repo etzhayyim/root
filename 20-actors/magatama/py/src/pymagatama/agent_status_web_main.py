@@ -493,14 +493,14 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run local agent organism status WebUI")
     parser.add_argument("--host", default=os.environ.get("AGENT_STATUS_WEB_HOST", "127.0.0.1"))
     parser.add_argument("--port", type=int, default=int(os.environ.get("AGENT_STATUS_WEB_PORT", "8765")))
-    parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:gftd:agent:local"))
+    parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:etzhayyim:agent:local"))
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> None:
     load_env_file()
     if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
+        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
         if rw_url:
             os.environ["RW_URL"] = rw_url
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")

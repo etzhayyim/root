@@ -7,7 +7,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_epfo_purge"
-    targetNamespace="https://gftd.ai/bpmn/epfo"
+    targetNamespace="https://etzhayyim.ai/bpmn/epfo"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="epfo_purge" name="EPFO ECR - retention purge" isExecutable="true">
@@ -73,7 +73,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
           <zeebe:input source="=&quot;epfo.purge&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  purgedCount,
@@ -92,7 +92,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
           <zeebe:input source="=&quot;epfo.purge.noop&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  0,

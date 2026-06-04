@@ -9,7 +9,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yoro_translate_post_batch"
-    targetNamespace="https://gftd.ai/bpmn/yoro"
+    targetNamespace="https://etzhayyim.ai/bpmn/yoro"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yoro_translate_post_batch" name="yoro translatePostBatch" isExecutable="true">

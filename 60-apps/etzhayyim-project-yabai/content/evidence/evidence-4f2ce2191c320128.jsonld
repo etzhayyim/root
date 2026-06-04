@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-4f2ce2191c320128",
+  "evidenceId": "evidence-4f2ce2191c320128",
+  "entityId": "ent-d8eb667b2481",
+  "category": "AMLPattern",
+  "source": "internal/rokes-incident-report-20220804",
+  "sourceReliability": "A",
+  "occurredAt": "2019-08-17T00:00:00Z",
+  "confidence": 0.98,
+  "severity": 5,
+  "probability": 0.001,
+  "jurisdiction": "EE",
+  "summary": "Primary exfiltration ETH address receiving repeated unauthorized withdrawals from Rokes Exchange. Activity 2019-08 to 2020-12. Multiple ETH and HEC token transfers totaling significant value."
+}

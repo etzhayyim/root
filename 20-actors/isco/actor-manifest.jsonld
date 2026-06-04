@@ -198,7 +198,7 @@
     "description": "ILO ISCO-08 full classification with 619 Multi-DIDs. Occupation search, tree traversal, workforce mobility/compensation/skills analysis.",
     "displayName": "ISCO Workforce Coordinator",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

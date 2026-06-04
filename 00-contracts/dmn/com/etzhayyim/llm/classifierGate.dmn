@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
   id="Definitions_llm_classifier_gate"
   name="llm_classifier_gate"
-  namespace="https://gftd.ai/dmn/llm">
+  namespace="https://etzhayyim.ai/dmn/llm">
   <decision id="llm_classifier_gate" name="llm_classifier_gate">
     <decisionTable id="DecisionTable_llm_classifier_gate" hitPolicy="FIRST">
       <input id="Input_llmOk">

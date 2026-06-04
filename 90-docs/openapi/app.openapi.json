@@ -1114,7 +1114,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_apps_kyber_apqcBootstrap": {
+      "ai_etzhayyim_apps_kyber_apqcBootstrap": {
         "type": "object",
         "properties": {
           "projectorDid": {

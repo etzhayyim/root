@@ -34,7 +34,7 @@ def test_check_app_missing_all(tmp_path):
 
 
 def test_check_app_full_compliance(tmp_path):
-    app = tmp_path / "ai-gftd-wasm-test-abc12345"
+    app = tmp_path / "etzhayyim-wasm-test-abc12345"
     _make_full_app(app)
     r = _check_app(app, tmp_path)
     assert r.missing_files == []
@@ -72,7 +72,7 @@ def test_check_app_naming_warning(tmp_path):
 
 
 def test_check_app_ok_property(tmp_path):
-    app = tmp_path / "ai-gftd-wasm-test-abc12345"
+    app = tmp_path / "etzhayyim-wasm-test-abc12345"
     _make_full_app(app)
     r = _check_app(app, tmp_path)
     assert r.ok is True
@@ -87,8 +87,8 @@ def test_scan_empty(tmp_path):
 
 
 def test_scan_single_app(tmp_path):
-    projects = tmp_path / "60-apps" / "ai-gftd-project-billing" / "appview"
-    app = projects / "ai-gftd-wasm-billing-abc12345"
+    projects = tmp_path / "60-apps" / "etzhayyim-project-billing" / "appview"
+    app = projects / "etzhayyim-wasm-billing-abc12345"
     _make_full_app(app)
     r = scan_kosei(tmp_path)
     assert r.total_apps == 1
@@ -105,7 +105,7 @@ def test_scan_report_to_dict(tmp_path):
 
 def test_scan_compliance_pct(tmp_path):
     projects = tmp_path / "60-apps" / "proj" / "appview"
-    app = projects / "ai-gftd-wasm-test-abc12345"
+    app = projects / "etzhayyim-wasm-test-abc12345"
     _make_full_app(app)
     r = scan_kosei(tmp_path)
     assert r.compliance_pct == 100.0 or r.compliance_pct >= 0.0

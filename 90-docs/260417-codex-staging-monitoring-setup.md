@@ -61,7 +61,7 @@ SELECT current_setting('work_mem') as work_mem,
 cat > /tmp/monitor_health.sh << 'EOF'
 #!/bin/bash
 
-DB_URL="postgresql://gftd_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/gftd"
+DB_URL="postgresql://etzhayyim_user:${RW_STAGING_PASSWORD}@risingwave-staging.etzhayyim.com:4566/etzhayyim"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 echo "=== Health Check: $TIMESTAMP ===" >> /tmp/migration_health.log
@@ -425,7 +425,7 @@ cp /tmp/migration_apply_*.log /tmp/migration_logs_*/
 
 # Upload to S3
 aws s3 sync /tmp/migration_logs_$(date +%Y%m%d) \
-  s3://gftd-staging-logs/migrations/$(date +%Y/%m/%d)/
+  s3://etzhayyim-staging-logs/migrations/$(date +%Y/%m/%d)/
 
 echo "Logs archived to S3"
 ```
@@ -450,13 +450,13 @@ while true; do
   
   # Migration progress
   echo "📊 MIGRATION PROGRESS:"
-  migration_count=$(psql -h risingwave-staging.etzhayyim.com -U gftd_user -d gftd -tc "SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';" 2>/dev/null || echo "?")
+  migration_count=$(psql -h risingwave-staging.etzhayyim.com -U etzhayyim_user -d etzhayyim -tc "SELECT COUNT(*) FROM kysely_migration WHERE migration LIKE '202604%';" 2>/dev/null || echo "?")
   echo "   Migrations applied: $migration_count / 40"
   echo ""
   
   # RW Cluster health
   echo "🖥️  CLUSTER HEALTH:"
-  if psql -h risingwave-staging.etzhayyim.com -U gftd_user -d gftd -c "SELECT 1;" > /dev/null 2>&1; then
+  if psql -h risingwave-staging.etzhayyim.com -U etzhayyim_user -d etzhayyim -c "SELECT 1;" > /dev/null 2>&1; then
     cpu=$(kubectl top pod -n risingwave -l role=compute --no-headers 2>/dev/null | awk '{sum+=$2} END {print sum "m"}' || echo "?")
     mem=$(kubectl top pod -n risingwave -l role=compute --no-headers 2>/dev/null | awk '{sum+=$3} END {print sum "Mi"}' || echo "?")
     echo "   Status: ✓ RESPONSIVE"

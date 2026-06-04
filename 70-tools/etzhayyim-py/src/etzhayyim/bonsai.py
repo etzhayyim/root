@@ -256,8 +256,8 @@ def bonsai_canopy(min_eta: float, max_eta: float, status_filter: str,
                   limit: int, json_out: bool) -> None:
     """Live canopy shape with Shannon η scores (requires DB — use Go binary)."""
     raise click.ClickException(
-        "bonsai canopy requires direct RisingWave access (gftddb). "
-        "Use the Go binary: gftd bonsai canopy"
+        "bonsai canopy requires direct RisingWave access (etzhayyimdb). "
+        "Use the Go binary: etzhayyim bonsai canopy"
     )
 
 
@@ -268,8 +268,8 @@ def bonsai_canopy(min_eta: float, max_eta: float, status_filter: str,
 def bonsai_growth(growth_type: str, limit: int, json_out: bool) -> None:
     """Growth event log from vertex_growth_event (requires DB — use Go binary)."""
     raise click.ClickException(
-        "bonsai growth requires direct RisingWave access (gftddb). "
-        "Use the Go binary: gftd bonsai growth"
+        "bonsai growth requires direct RisingWave access (etzhayyimdb). "
+        "Use the Go binary: etzhayyim bonsai growth"
     )
 
 
@@ -280,6 +280,6 @@ def bonsai_growth(growth_type: str, limit: int, json_out: bool) -> None:
 def bonsai_release(actor_did: str, json_out: bool, yes: bool) -> None:
     """Release anastomosis gate for an actor (requires DB — use Go binary)."""
     raise click.ClickException(
-        "bonsai release requires direct RisingWave access (gftddb). "
-        "Use the Go binary: gftd bonsai release"
+        "bonsai release requires direct RisingWave access (etzhayyimdb). "
+        "Use the Go binary: etzhayyim bonsai release"
     )

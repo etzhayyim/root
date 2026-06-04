@@ -1,8 +1,0 @@
-{
-  "@context": "https://schema.org/",
-  "@type": "Project",
-  "name": "UK Action Fraud Reporting Actor",
-  "description": "Autonomous actor for reporting cryptocurrency crimes to Action Fraud in the United Kingdom.",
-  "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0310-uk-action-fraud",
-  "status": "Development"
-}

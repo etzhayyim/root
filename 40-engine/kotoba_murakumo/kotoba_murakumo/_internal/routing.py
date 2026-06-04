@@ -58,7 +58,7 @@ def resolve(
             backend="litellm-gateway",
             kind="openai-compatible",
             # The judah-hosted LiteLLM gateway requires bearer auth (config:
-            # 60-apps/ai-gftd-project-murakumo/litellm/config.yaml master_key:
+            # 60-apps/etzhayyim-project-murakumo/litellm/config.yaml master_key:
             # os.environ/LITELLM_MASTER_KEY). Empirically verified 2026-05-28:
             # without this bearer, judah :4000 returns 401 Unauthorized
             # (ADR-2605282400 §"Routing fix"). The env var name is the

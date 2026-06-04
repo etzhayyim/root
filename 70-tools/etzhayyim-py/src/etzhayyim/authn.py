@@ -1,7 +1,7 @@
 """authn — Authentication commands (Python port of auth.go).
 
 signin: OAuth2 Auth Code + PKCE flow with localhost callback server.
-Writes ~/.gftd/auth.json; also tries to exchange for sk_live_* API key.
+Writes ~/.etzhayyim/auth.json; also tries to exchange for sk_live_* API key.
 """
 
 from __future__ import annotations
@@ -21,10 +21,10 @@ from urllib.parse import parse_qs, urlencode, urlparse
 import click
 import httpx
 
-_AUTH_FILE = Path.home() / ".gftd" / "auth.json"
+_AUTH_FILE = Path.home() / ".etzhayyim" / "auth.json"
 _AUTHORIZE_URL = "https://authn.etzhayyim.com/oauth/authorize"
 _TOKEN_URL = "https://authn.etzhayyim.com/oauth/token"
-_CLIENT_ID = "gftd-cli"
+_CLIENT_ID = "etzhayyim-cli"
 _CALLBACK_PORT = 9876
 _DEFAULT_PDS = "https://atproto.etzhayyim.com"
 
@@ -51,7 +51,7 @@ def _exchange_for_api_key(session_jwt: str, pds_url: str) -> str:
     try:
         resp = httpx.post(
             f"{pds_url}/xrpc/com.etzhayyim.auth.createApiKey",
-            json={"name": "gftd-cli-login", "scopes": "read,write"},
+            json={"name": "etzhayyim-cli-login", "scopes": "read,write"},
             headers={"Authorization": f"Bearer {session_jwt}"},
             timeout=15,
         )
@@ -117,7 +117,7 @@ def _run_signin(pds_url: str) -> None:
             self.send_header("Content-Type", "text/html")
             self.end_headers()
             self.wfile.write(
-                b"<html><body><h2>\xe2\x9c\x93 gftd authn signin successful</h2>"
+                b"<html><body><h2>\xe2\x9c\x93 etzhayyim authn signin successful</h2>"
                 b"<p>You can close this tab.</p>"
                 b"<script>window.close()</script></body></html>"
             )
@@ -209,7 +209,7 @@ def authn() -> None:
 @authn.command("signin")
 @click.option("--pds", default=None, help="PDS base URL (overrides etzhayyim_PDS_URL)")
 def authn_signin(pds: str | None) -> None:
-    """Sign in via OAuth2 Auth Code + PKCE (opens browser, stores token in ~/.gftd/auth.json)."""
+    """Sign in via OAuth2 Auth Code + PKCE (opens browser, stores token in ~/.etzhayyim/auth.json)."""
     import os
     pds_url = (pds or os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS)).rstrip("/")
     _run_signin(pds_url)
@@ -221,7 +221,7 @@ def authn_token() -> None:
     auth = _load_auth()
     token = auth.get("accessJwt") or auth.get("access_token") or auth.get("token", "")
     if not token:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     click.echo(token)
 
@@ -232,7 +232,7 @@ def authn_whoami(json_out: bool) -> None:
     """Display current auth identity."""
     auth = _load_auth()
     if not auth:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     if json_out:
         click.echo(json.dumps(auth, ensure_ascii=False, indent=2))
@@ -280,7 +280,7 @@ def authn_logout() -> None:
 @click.option("--token", "explicit_token", default="", help="revoke this specific token (JWT or sk_* key)")
 @click.option("--pds", default=None)
 @click.option("--keep-local", "keep_local", is_flag=True, default=False,
-              help="do not delete ~/.gftd/auth.json after server-side revoke")
+              help="do not delete ~/.etzhayyim/auth.json after server-side revoke")
 @click.option("-q", "quiet", is_flag=True, default=False)
 def authn_revoke(explicit_token: str, pds: str | None, keep_local: bool, quiet: bool) -> None:
     """Revoke stored OAuth2 session tokens via /oauth/revoke."""
@@ -309,10 +309,10 @@ def authn_revoke(explicit_token: str, pds: str | None, keep_local: bool, quiet: 
         if not targets:
             if api_key:
                 raise click.ClickException(
-                    "local store has only an API key — use 'gftd authz revoke-api-key'"
+                    "local store has only an API key — use 'etzhayyim authz revoke-api-key'"
                 )
             raise click.ClickException(
-                "no stored credentials — run 'gftd authn signin' or pass --token <jwt>"
+                "no stored credentials — run 'etzhayyim authn signin' or pass --token <jwt>"
             )
 
     errs = 0
@@ -340,11 +340,11 @@ def authn_revoke(explicit_token: str, pds: str | None, keep_local: bool, quiet: 
 
 
 @authn.command("migrate")
-@click.option("--name", default="gftd-cli-migrated", show_default=True, help="API key name")
+@click.option("--name", default="etzhayyim-cli-migrated", show_default=True, help="API key name")
 @click.option("--dry-run", "dry_run", is_flag=True, default=False)
 @click.option("--pds", default=None)
 def authn_migrate(name: str, dry_run: bool, pds: str | None) -> None:
-    """Migrate legacy session JWT → API key (sk_live_*) stored in ~/.gftd/auth.json."""
+    """Migrate legacy session JWT → API key (sk_live_*) stored in ~/.etzhayyim/auth.json."""
     import os
     import json as _json
     pds_url = (pds or os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS)).rstrip("/")
@@ -355,7 +355,7 @@ def authn_migrate(name: str, dry_run: bool, pds: str | None) -> None:
     token = (auth.get("accessJwt") or auth.get("access_token") or
              auth.get("id_token") or os.environ.get("etzhayyim_TOKEN", ""))
     if not token:
-        raise click.ClickException("no legacy session token found — run 'gftd authn signin' first")
+        raise click.ClickException("no legacy session token found — run 'etzhayyim authn signin' first")
 
     if dry_run:
         click.echo(f"Would: POST {pds_url}/xrpc/com.etzhayyim.auth.createApiKey (name={name}) using session JWT.")

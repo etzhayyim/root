@@ -7,14 +7,14 @@
   and emits a process mining report to vertex_repo_record.
 
   NSID: com.etzhayyim.apps.wellbecoming.processMining
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_wellbecoming_process_mining"
-    targetNamespace="https://gftd.ai/bpmn/wellbecoming"
+    targetNamespace="https://etzhayyim.ai/bpmn/wellbecoming"
     exporter="hand-written"
     exporterVersion="2.0">
 

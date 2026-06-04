@@ -123,7 +123,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   // 4. Seed — 12 initial source×label frontier rows.
-  //    world_total estimates sourced from 60-apps/ai-gftd-project-maps/CLAUDE.md
+  //    world_total estimates sourced from 60-apps/etzhayyim-project-maps/CLAUDE.md
   //    §Coverage Targets. priority_weight: P0=1.0 / P1=0.6 / P2=0.3.
   const now = new Date().toISOString();
   const seed: Array<[string, string, number, number]> = [
@@ -141,7 +141,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ["did:web:maps.etzhayyim.com:gtfs",                   "BusRoute",          50_000, 0.6],
   ];
   for (const [sourceDid, label, worldTotal, priority] of seed) {
-    const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
+    const sourceSlug = sourceDid.replace(/^did:web:maps\.etzhayyim\.ai:?/, "") || "primary";
     const vid = `at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/${sourceSlug.replace(/:/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (

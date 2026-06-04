@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_org_yamato_cold_chain_delivery_exception"
-    targetNamespace="https://gftd.ai/bpmn/open-org-yamato"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-org-yamato"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_org_yamato_cold_chain_delivery_exception" name="Yamato cold-chain delivery exception" isExecutable="true">
@@ -114,7 +114,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-org-yamato.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-org-yamato.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOrg.yamato.coldChain.recovery&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, recoveryVertexId: recoveryVertexId, shipmentId: shipmentId, severity: exceptionSeverity}" target="payload"/>
         </zeebe:ioMapping>
@@ -128,7 +128,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-org-yamato.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-org-yamato.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOrg.yamato.coldChain.exception&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, shipmentId: shipmentId, severity: exceptionSeverity}" target="payload"/>
         </zeebe:ioMapping>

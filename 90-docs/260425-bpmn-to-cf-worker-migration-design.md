@@ -2,7 +2,7 @@
 
 **Status**: Draft 2026-04-25
 **Scope**: 105 defence BPMN process definitions (Wave 1–5) currently dispatched by `bpmn-dispatcher` → Zeebe → `pyzeebe` worker pool.
-**Goal**: split per-actor scope cleanly, reduce always-on cost, and align with the gftd app actor pattern that ADR-0036 / ADR-0022 already use elsewhere.
+**Goal**: split per-actor scope cleanly, reduce always-on cost, and align with the etzhayyim app actor pattern that ADR-0036 / ADR-0022 already use elsewhere.
 
 ## 1. Why migrate
 
@@ -23,7 +23,7 @@ Three structural issues:
 2. **Identity collapse** — 105 distinct `did:web:open-{project}.etzhayyim.com:ops` owners share one execution pool. The owner_did column is a label, not an enforcement boundary.
 3. **Idle floor** — `pyzeebe` and `bpmn-dispatcher` are always-on. With 105 stub BPMNs that each do `start → db.insert → audit.emit → end` (linear, ~50 ms work), the orchestration overhead is essentially zero work, but we pay for two persistent pods.
 
-CF Worker pattern (gftd app actor T3) is the inverse: per-DID isolate, Service Auth scoped to that NSID, scale-to-zero between requests.
+CF Worker pattern (etzhayyim app actor T3) is the inverse: per-DID isolate, Service Auth scoped to that NSID, scale-to-zero between requests.
 
 ## 2. Migration target
 
@@ -54,7 +54,7 @@ BPMNs that **stay** in the orchestration layer (out of scope here, kept for orch
 The 105 BPMNs were generated from a 9-column TSV (`project|proc|nsidNs|bpmnId|jpName|actionName|fields|subjectField|severity[|extraColumns]`). The same TSV produces a CF Worker:
 
 ```typescript
-// 60-apps/ai-gftd-project-open-{project}/appview/.../src/app.ts
+// 60-apps/etzhayyim-project-open-{project}/appview/.../src/app.ts
 import { createWorkerExport, nsid, parseLexiconInput, type LexiconOutput }
   from "@etzhayyim/magatama-host-sdk";
 import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
@@ -103,7 +103,7 @@ For projects that don't have a deployed CF Worker yet (e.g. open-cyber-soc, open
 - `magatama.jsonld` (nanoid + name + description)
 - `wrangler.jsonc` (compat date + binding for `HYPERDRIVE`)
 - `src/app.ts`
-- `gftd deploy`
+- `etzhayyim deploy`
 
 Estimate: 3 files per project × 50 projects = 150 files. All template-generated.
 
@@ -131,7 +131,7 @@ Recommend (a) at the end, **after** the CF Worker has been deployed and verified
 4. `DELETE FROM vertex_bpmn_lexicon_binding WHERE nsid = $1` + `DELETE FROM vertex_bpmn_process_def WHERE bpmn_process_id = $2`
 5. F5 watcher / Zeebe broker eventually GC the unused process
 
-Step 2 is the only piece that requires PDS code change. The route-resolution order in `pds-handlers-gftd.ts` already prefers static service binding over dispatcher; we just need the Worker to be reachable on that route.
+Step 2 is the only piece that requires PDS code change. The route-resolution order in `pds-handlers-etzhayyim.ts` already prefers static service binding over dispatcher; we just need the Worker to be reachable on that route.
 
 ## 8. Cost & scale impact
 
@@ -160,7 +160,7 @@ Other actors that genuinely need orchestration (timer-start crons, multi-step ap
 ## 10. Sequence
 
 1. **Phase 1 (today)** — `write_table_allowlist` enforcement on pyzeebe (mig 20260425160000) — done as a separate change. Closes the immediate root-credential exposure on existing 105 stubs.
-2. **Phase 2** — generator script + 105 CF Worker `app.ts` + `gftd deploy` for each project.
+2. **Phase 2** — generator script + 105 CF Worker `app.ts` + `etzhayyim deploy` for each project.
 3. **Phase 3** — PDS routing prefers Worker; binding rows still present (soft cutover).
 4. **Phase 4** — 48h burn-in.
 5. **Phase 5** — delete BPMN process_def + binding rows; pyzeebe pool shrinks (KEDA scale-to-zero candidate, ADR-0049 follow-up).

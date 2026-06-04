@@ -450,7 +450,7 @@
     "description": "Ship registry, AIS position tracking, voyage management, owner-vessel-port-satellite chain intelligence. 16 shipping companies (Maersk, MSC, CMA CGM, COSCO, Hapag-Lloyd, Evergreen, ONE, HMM, Yang Ming, Wan Hai, Frontline, Euronav, Teekay, Star Bulk, Golden Ocean, Qatar Energy), 25 vessels, 15 flag state registries.",
     "displayName": "Vessel Registry & Maritime Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -150,7 +150,7 @@ Plus: replace `nn.Linear` in `BaienMoEResidual` with `te.Linear` for FP4-aware f
 
 Separate ADR-2605263100 (new) for "BitNet trainable variant via MXFP4 continued pretrain on religious-corp corpus":
 
-- Use case: domain adaptation of BitNet 2B-4T to religious-corp tokens (Charter / Mission Charter / yatachain / etc.)
+- Use case: domain adaptation of BitNet 2B-4T to religious-corp tokens (Charter / Mission Charter / kotoba-datomic / etc.)
 - Training format: MXFP4 weight + MXFP8 activation
 - Output: post-train BitNet 2B that is re-quantized to ternary for inference
 - Distinguishes from moemoekyun (which is BitNet + MoE residual graft)

@@ -115,14 +115,14 @@ Adopted from mature OEM-run ELV facility practice (depollution → parts harvest
 | **L2** | 蓄電池処理 (battery handling) | Li-ion battery state-of-health classification: SoH ≥70% → second-life routing (hikari R2+ stationary storage consumer); SoH <70% → cell-recycle routing (Wave 2 ADR feedstock); lead-acid → Pb recovery via kanayama Wave 3 | G7 thermal-safety SOP: no puncture, no short-circuit, thermal-runaway-containment cell enclosure; G11 KPI cap NMC/NCA + LFP only (no NiMH cell recovery in R0); SoH measurement IPFS-pinned (G2) |
 | **L3** | 部品取出 + 触媒回収 + シート回収 (parts harvest + catalyst recovery + seat-textile recovery) | Reusable parts identification + IPFS-pinned parts catalog with VIN provenance (G12 right-to-repair); catalytic converter brick removal + PGM smelter handoff; seat foam + textile recovery + bilingual sorting + makura G13 circular feed | G12 right-to-repair invariant — every harvested part published; no proprietary lock-in; G14 PGM recovery ≥95% (Pt/Pd/Rh); cross-actor circular feed (makura seat foam, G13 invariant closure) |
 | **L4** | 車体破砕 (body shred) | Hulk shredder + magnetic + eddy-current + density (ASR sink/float) sorting; ferrous → kanayama Wave 2 (steel R3), non-ferrous Al → kanayama Wave 1, Cu wire → kanayama Wave 3, ASR (auto shredder residue) | G13 ≥95% material recovery rate; ASR <5% mass to landfill; ASR composition disclosed (PVC / glass-fiber / paint / dust) |
-| **L5** | 排出監査 + 来歴記録 (emissions audit + provenance binder) | F-gas leakage continuous monitoring; ASR composition + ASR landfill mass; PGM yield audit; full chain DID anchoring (input VIN → output parts catalog + material lots + emissions) on yatachain | G2 mass-balance audit ≥98% closure on yatachain (input vehicle mass = parts + material lots + emissions); G14 PGM yield audit; G13 ASR mass cap |
+| **L5** | 排出監査 + 来歴記録 (emissions audit + provenance binder) | F-gas leakage continuous monitoring; ASR composition + ASR landfill mass; PGM yield audit; full chain DID anchoring (input VIN → output parts catalog + material lots + emissions) on kotoba-datomic | G2 mass-balance audit ≥98% closure on kotoba-datomic (input vehicle mass = parts + material lots + emissions); G14 PGM yield audit; G13 ASR mass cap |
 
 ### 4. Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 | Gate | Requirement | Rationale |
 |---|---|---|
 | **G1** | All depollution + dismantling + shredder firmware, all CAD for fixtures + tooling, **open-source** (Apache 2.0 + Charter Rider) | §2(b) anti-secrecy |
-| **G2** | **Mass-balance audit ≥98% closure on yatachain** (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); per-vehicle attestation | Inherits kanayama G2 cross-cell invariant pattern; novel application to ELV |
+| **G2** | **Mass-balance audit ≥98% closure on kotoba-datomic** (input vehicle curb-weight = output parts mass + material-lot mass + emission mass + ASR mass); per-vehicle attestation | Inherits kanayama G2 cross-cell invariant pattern; novel application to ELV |
 | **G3** | Every critical step (refrigerant capture, battery disconnect, airbag neutralization, PGM brick removal) signed by **witness quorum ≥2 distinct robots** (Ed25519, DID-bound) | ADR-2605191524 swarm broadcast |
 | **G4** | All parts catalog entries + material recovery reports + take-back records **JP + EN bilingual minimum** | §2(e) anti-gatekeeping of repair information |
 | **G5** | All vehicle intakes pass **Charter Rider §2(a-h) scan** (no military / no weapon-carrying / no covertly-modified vehicles); rejected intakes route to Council Lv6+ review | §2(a) + N1 |
@@ -165,7 +165,7 @@ Charter Rider §2(a) + §2(c) + §2(g) + §1.13 + §1.15 + commercial / safety b
 | `elv_seat_textile_recovery` | L3c | dan | Seat foam + textile recovery; bilingual sorting; **cross-actor feed to makura** (G13 invariant closure) |
 | `elv_body_shred` | L4 | zebulun | Hulk shredder + magnetic + eddy-current + density sort; ferrous + non-ferrous Al + Cu wire + ASR streams |
 | `elv_emissions_audit` | cross-cutting | levi | F-gas leakage continuous; ASR mass + composition; PGM yield audit; per-vehicle compliance log |
-| `elv_provenance_binder` | terminal | judah | Full chain DID anchoring on yatachain (input VIN → parts catalog + material lots + emissions + ASR mass) |
+| `elv_provenance_binder` | terminal | judah | Full chain DID anchoring on kotoba-datomic (input VIN → parts catalog + material lots + emissions + ASR mass) |
 
 ### 7. Robotics Classes
 

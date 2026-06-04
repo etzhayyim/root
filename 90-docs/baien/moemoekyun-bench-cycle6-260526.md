@@ -20,7 +20,7 @@ related:
 ## State change: 5090 SSH unblocked
 
 User added `private_key` field to 1Password vault item
-`runpod/oka-lm-train RTX5090` (gftdcojp/`scclefhmwawwpf6pljf4gf3ibq`).
+`runpod/oka-lm-train RTX5090` (etzhayyimcojp/`scclefhmwawwpf6pljf4gf3ibq`).
 mac-260317 retrieved via:
 ```sh
 op item get scclefhmwawwpf6pljf4gf3ibq --format=json --reveal | \

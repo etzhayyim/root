@@ -15,7 +15,7 @@
 \title{Artificial Organization: \\ A Unix OS and Ethereum-Grounded Architecture \\ for Autonomous Multi-Agent Coordination}
 
 \author{
-  GFTD Research \\
+  Etzhayyim Research \\
   \texttt{research@etzhayyim.ai}
 }
 
@@ -37,7 +37,7 @@ process isolation, inter-process communication, a hierarchical filesystem
 namespace, and capability-based resource management; and (2) the Ethereum
 model, providing trustless state consensus, programmable governance via smart
 contracts, and tokenized resource accounting. We describe the AO reference
-architecture as implemented in the GFTD platform, demonstrate how Unix
+architecture as implemented in the Etzhayyim platform, demonstrate how Unix
 abstractions map to agent lifecycle management and how Ethereum mechanisms map
 to organizational governance, and discuss implications for scalable, auditable
 AI-native organizations.
@@ -236,7 +236,7 @@ governance contracts define:
 \begin{itemize}[nosep]
   \item \textbf{Admission}: Under what conditions may a new agent join the
     organization? (e.g., capability requirements, resource deposits)
-  \item \textbf{Resource allocation}: How are compute credits (GCC---GFTD
+  \item \textbf{Resource allocation}: How are compute credits (GCC---Etzhayyim
     Computing Credits) distributed among agents?
   \item \textbf{Decision making}: How are collective decisions reached?
     (Weighted voting, delegation, time-locked proposals)
@@ -251,7 +251,7 @@ evaluated by a governance engine.
 \subsection{Tokens $\rightarrow$ Resource Accounting}
 
 Ethereum's ERC-20 token standard provides fungible resource accounting. AO
-uses \emph{GFTD Computing Credits (GCC)} as the internal unit of account:
+uses \emph{Etzhayyim Computing Credits (GCC)} as the internal unit of account:
 
 \begin{itemize}[nosep]
   \item Each agent action consumes GCC proportional to its compute cost.
@@ -279,7 +279,7 @@ consensus operates at two levels:
 \section{Reference Architecture}
 
 The AO reference architecture consists of three tiers, directly
-corresponding to the GFTD platform deployment model:
+corresponding to the Etzhayyim platform deployment model:
 
 \begin{table}[h]
 \centering
@@ -312,9 +312,9 @@ Tier 3: Static UI & /dev/tty (terminal) & dApp frontend & nginx + KEDA HTTP \\
     (Ethereum: gas metering).
 \end{enumerate}
 
-\section{Case Study: GFTD Scheduler as AO Service}
+\section{Case Study: Etzhayyim Scheduler as AO Service}
 
-The GFTD Scheduler (\texttt{scheduler.etzhayyim.com}) exemplifies AO principles:
+The Etzhayyim Scheduler (\texttt{scheduler.etzhayyim.com}) exemplifies AO principles:
 
 \begin{itemize}[nosep]
   \item \textbf{Process identity}: App runtime process-id \texttt{scheduler}, isolated
@@ -377,7 +377,7 @@ autonomous AI agent collectives. By grounding the operational layer in
 Unix OS abstractions and the governance layer in Ethereum mechanisms, AO
 achieves the composability, isolation, and lifecycle management of Unix
 together with the transparent, programmable governance of Ethereum. The
-GFTD platform demonstrates this architecture in production with legacy runtime,
+Etzhayyim platform demonstrates this architecture in production with legacy runtime,
 KEDA, NATS JetStream, and Pulumi GitOps.
 
 The key contribution is recognizing that the ``organization problem'' for

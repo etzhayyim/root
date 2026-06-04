@@ -55,7 +55,7 @@ Shipped this session:
   XUAR/forced-labor exclusion + #custodyHop chain, fail-closed) · ingot_wafer (mass-balance
   + kerf recovery G5) · cell_process (G3 high-GWP abatement DRE ≥0.99) · module_assembly
   (G11 chain + G12 hikari-internal-only) · panel_loading (composes sarutahiko F10) ·
-  outbound_logistics (real kami-autodrive VehicleClass + `com.etzhayyim.gftd.apps.customsClearance`
+  outbound_logistics (real kami-autodrive VehicleClass + `com.etzhayyim.etzhayyim.apps.customsClearance`
   + funadaiku) · supply_procurement (okaimono SBT settlement + TitheRouter gross=tithe+payout
   + giemon CycloneDX→kotoba bridge). **109 tests green** via `pytest cells/ --import-mode=importlib`.
 - **7 lexicons** reconciled to cell emits (recordedAt / #custodyHop / #robotSignature objects /

@@ -16,7 +16,7 @@ import { sql } from "kysely";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // vertex_signal_identity — X25519 prekey store keyed by ERC725 canonical DID.
-  // actor_did = did:erc725:gftd:260425:{contract} (L1 root from ADR-0074 / ADR-0095)
+  // actor_did = did:erc725:etzhayyim:260425:{contract} (L1 root from ADR-0074 / ADR-0095)
   // at_did    = did:plc:{...} or did:web:{...}  (federation alias, nullable)
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_signal_identity (

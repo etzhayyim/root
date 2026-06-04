@@ -136,7 +136,7 @@ the checkpointer-enabled graph.
 
 **Constraints**:
 - Mode strings are not enforced by a CHECK constraint (RW limitation);
-  unknown modes log warning + use `None`. `gftd lint` could add a
+  unknown modes log warning + use `None`. `etzhayyim lint` could add a
   defensive check at row insert time (out of scope).
 - Switching modes between versions is a true graph swap; in-flight runs
   cannot migrate state across modes (e.g. `none` → `rw_vertex`).

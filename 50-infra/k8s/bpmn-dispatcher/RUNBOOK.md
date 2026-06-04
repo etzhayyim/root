@@ -46,35 +46,35 @@ curl -sS https://dispatcher.etzhayyim.com/health
 # → {"status":"ok"}
 ```
 
-## Cutover from gftd
+## Cutover from etzhayyim
 
 After etzhayyim tunnel + dispatcher pods report HEALTHY and `/health`
 end-to-end works:
 
 ```bash
-# 1. Delete gftd tunnel (gftd CF account)
+# 1. Delete etzhayyim tunnel (etzhayyim CF account)
 cloudflared tunnel delete bpmn-dispatcher   # ID: be2cc0b0-ddee-4ca7-baf1-2bffbef18f31
 
-# 2. Drain gftd VKE workload
-kubectl --context gftd-lax -n mitama-udf delete deployment cloudflared-bpmn-dispatcher
-kubectl --context gftd-lax -n mitama-udf delete deployment bpmn-dispatcher
+# 2. Drain etzhayyim VKE workload
+kubectl --context etzhayyim-lax -n mitama-udf delete deployment cloudflared-bpmn-dispatcher
+kubectl --context etzhayyim-lax -n mitama-udf delete deployment bpmn-dispatcher
 
-# 3. Remove gftd DNS records
+# 3. Remove etzhayyim DNS records
 # dispatcher.etzhayyim.com / mcp.etzhayyim.com — manual delete via CF dashboard or
-# terraform plan/apply if gftd-side DNS is in `50-infra/prod/`.
+# terraform plan/apply if etzhayyim-side DNS is in `50-infra/prod/`.
 ```
 
 ## Rollback
 
-If etzhayyim deploy is broken and gftd hasn't been torn down yet:
+If etzhayyim deploy is broken and etzhayyim hasn't been torn down yet:
 
 ```bash
 # Revert DNS — both *.etzhayyim.com and *.etzhayyim.com records can point at
-# the same backend during the cutover window. Operators may keep gftd
+# the same backend during the cutover window. Operators may keep etzhayyim
 # tunnel HEALTHY until etzhayyim is verified.
 ```
 
-If gftd has already been torn down: restore from the gftd commit that
+If etzhayyim has already been torn down: restore from the etzhayyim commit that
 removed the dispatcher manifests, or re-apply this directory and re-run
 bring-up step 1-6 with corrected values.
 
@@ -90,6 +90,6 @@ hot-patches. To retire them:
 4. Remove the ConfigMaps from this dir + corresponding volume mounts
    from `deployment-dispatcher.yaml` (currently the Deployment in this
    directory does NOT mount these ConfigMaps — they were applied via
-   `mitama-udf-app-raw` Helm chart in gftd as separate hot-patch overlay,
+   `mitama-udf-app-raw` Helm chart in etzhayyim as separate hot-patch overlay,
    not via this Deployment template. They're preserved here for archival
    reconciliation only).

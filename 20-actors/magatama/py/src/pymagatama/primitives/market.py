@@ -121,7 +121,7 @@ def task_market_publish_offer(**body: Any) -> dict[str, Any]:
     listing_id = _rkey()
     now = _now()
     vertex_id = f"at://{PRIMARY_DID}/com.etzhayyim.market.listing/{listing_id}"
-    issuer_did = _str(body.get("issuerDid")) or _str(body.get("issuer_did")) or f"did:erc725:gftd:260425:{lane}"
+    issuer_did = _str(body.get("issuerDid")) or _str(body.get("issuer_did")) or f"did:erc725:etzhayyim:260425:{lane}"
     currency = _str(body.get("settlementCurrency")) or _str(body.get("settlement_currency")) or _str(body.get("currency")) or "JPY"
     with sync_cursor() as cur:
         cur.execute(
@@ -218,7 +218,7 @@ def task_market_settle_invoice(**body: Any) -> dict[str, Any]:
     invoice_id = _rkey()
     now = _now()
     vertex_id = f"at://{PRIMARY_DID}/com.etzhayyim.market.settlement/{invoice_id}"
-    issuer_did = _str(listing.get("issuer_did")) or f"did:erc725:gftd:260425:{lane}"
+    issuer_did = _str(listing.get("issuer_did")) or f"did:erc725:etzhayyim:260425:{lane}"
     payer_did = _str(body.get("payerDid")) or _str(body.get("payer_did")) or actor_did
     settlement_currency = _str(listing.get("settlement_currency")) or "USDC"
     anchor = _anchor(issuer_did, "com.etzhayyim.market.settleInvoice", quantity, unit_price, vertex_id, now)
@@ -312,7 +312,7 @@ def task_market_well_known(**_: Any) -> dict[str, Any]:
         "lanes": [
             {
                 "lane": lane,
-                "issuer_did": f"did:erc725:gftd:260425:{lane}",
+                "issuer_did": f"did:erc725:etzhayyim:260425:{lane}",
                 "vacuum": vacuum_by_lane.get(lane, {"demand": 0, "supply": 0, "vacuum": 0}),
                 "listings": [
                     {

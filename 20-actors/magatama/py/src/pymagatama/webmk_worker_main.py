@@ -480,11 +480,11 @@ async def task_create_ad_campaign(
 
 async def main() -> None:
     load_env_file()
-    anthropic_key = load_keychain_secret("ANTHROPIC_API_KEY", "gftd.anthropic", "ANTHROPIC_API_KEY")
+    anthropic_key = load_keychain_secret("ANTHROPIC_API_KEY", "etzhayyim.anthropic", "ANTHROPIC_API_KEY")
     if anthropic_key:
         os.environ["ANTHROPIC_API_KEY"] = anthropic_key
 
-    resend_key = load_keychain_secret("RESEND_API_KEY", "gftd.resend", "RESEND_API_KEY")
+    resend_key = load_keychain_secret("RESEND_API_KEY", "etzhayyim.resend", "RESEND_API_KEY")
     if resend_key:
         os.environ["RESEND_API_KEY"] = resend_key
 

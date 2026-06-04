@@ -240,7 +240,7 @@ def check_claude_md_duplication(ws: Path) -> ShannonCheck:
 def _go_only_stub(name: str) -> ShannonCheck:
     chk = ShannonCheck(name=name)
     chk.score = 100.0
-    chk.details = f"not available in Python port — use Go binary: gftd shannon scan"
+    chk.details = f"not available in Python port — use Go binary: etzhayyim shannon scan"
     return chk
 
 

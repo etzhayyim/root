@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — random IPFS retrieval verification (R/PT1H).
+  karma.etzhayyim.com — random IPFS retrieval verification (R/PT1H).
 
   Sample 100 karma CIDs and verify retrievability across all 5 layers.
   Failures are emitted to yabai for alerting; persistent failures
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_ipfs_verify_random"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_ipfs_verify_random" name="karma ipfs verify random" isExecutable="true">
@@ -49,7 +49,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.ipfsVerifyRandom&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;sampled&quot;: sampled, &quot;failures&quot;: failures, &quot;avgLayers&quot;: avgLayersAvailable }" target="attributes"/>
         </zeebe:ioMapping>

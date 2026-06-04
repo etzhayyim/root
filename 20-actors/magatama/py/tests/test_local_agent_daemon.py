@@ -41,7 +41,7 @@ def test_parse_ollama_chat_response() -> None:
 
 def test_build_tick_variables_keeps_real_world_effects_as_proposals() -> None:
     result = agent_daemon_main.build_tick_variables(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         llm_result={
             "provider": "ollama",
             "model": "local",
@@ -60,7 +60,7 @@ def test_build_tick_variables_keeps_real_world_effects_as_proposals() -> None:
         tick_id="tick-1",
     )
 
-    assert result["agentDid"] == "did:gftd:agent:test"
+    assert result["agentDid"] == "did:etzhayyim:agent:test"
     assert result["tickId"] == "tick-1"
     assert result["mokutekiGatePass"] is True
     assert result["candidateActions"] == [{"actionId": "ask"}]
@@ -70,7 +70,7 @@ def test_build_tick_variables_keeps_real_world_effects_as_proposals() -> None:
 
 def test_build_effect_dispatch_variables_uses_policy_default_and_payload_target() -> None:
     result = agent_daemon_main.build_effect_dispatch_variables(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         default_policy_ref="policy://agent/email-v1",
         proposal={
@@ -81,7 +81,7 @@ def test_build_effect_dispatch_variables_uses_policy_default_and_payload_target(
         },
     )
 
-    assert result["agentDid"] == "did:gftd:agent:test"
+    assert result["agentDid"] == "did:etzhayyim:agent:test"
     assert result["actionProposalId"] == "tick-1"
     assert result["targetRef"] == "ops@example.com"
     assert result["policyRef"] == "policy://agent/email-v1"
@@ -90,7 +90,7 @@ def test_build_effect_dispatch_variables_uses_policy_default_and_payload_target(
 
 def test_build_homeostasis_variables_uses_viability_normalized_values() -> None:
     result = agent_daemon_main.build_homeostasis_variables(
-        "did:gftd:agent:test",
+        "did:etzhayyim:agent:test",
         {
             "viabilityState": "normal",
             "normalized": {
@@ -105,7 +105,7 @@ def test_build_homeostasis_variables_uses_viability_normalized_values() -> None:
     )
 
     assert result == {
-        "agentDid": "did:gftd:agent:test",
+        "agentDid": "did:etzhayyim:agent:test",
         "computeBudgetRemaining": 0.8,
         "storagePressure": 0.2,
         "leaseSecondsRemaining": 120,
@@ -117,13 +117,13 @@ def test_build_homeostasis_variables_uses_viability_normalized_values() -> None:
 
 def test_build_homeostasis_observation_variables_carries_metrics_and_controls() -> None:
     result = agent_daemon_main.build_homeostasis_observation_variables(
-        "did:gftd:agent:test",
+        "did:etzhayyim:agent:test",
         {"viabilityState": "normal"},
         {"source": "measured", "errorRate1h": 0.0},
         {"effectDispatchAllowed": True},
     )
 
-    assert result["agentDid"] == "did:gftd:agent:test"
+    assert result["agentDid"] == "did:etzhayyim:agent:test"
     assert result["viability"] == {"viabilityState": "normal"}
     assert result["homeostasisMetrics"]["source"] == "measured"
     assert result["homeostasisControls"]["effectDispatchAllowed"] is True
@@ -132,7 +132,7 @@ def test_build_homeostasis_observation_variables_carries_metrics_and_controls() 
 
 def test_build_homeostasis_belief_row_derives_runtime_health_posterior() -> None:
     result = agent_daemon_main.build_homeostasis_belief_row(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         viability={
             "viabilityState": "normal",
             "blockers": [],
@@ -233,7 +233,7 @@ def test_select_real_world_action_proposals_accepts_best_policy_compliant_action
                 "priority": 0.9,
             },
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy={"effectiveControls": {"effectDispatchAllowed": True}},
         max_dispatches=1,
@@ -256,7 +256,7 @@ def test_select_real_world_action_proposals_blocks_runtime_policy_suppression() 
                 "policyRef": "policy://agent/email-v1",
             }
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy={
             "policyReasons": ["belief:low_confidence"],
@@ -279,7 +279,7 @@ def test_select_real_world_action_proposals_blocks_missing_db_authority_policy()
                 "policyRef": "policy://agent/email-v1",
             }
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy={"effectiveControls": {"effectDispatchAllowed": True}},
         authority_policy_loader=lambda **_kwargs: {},
@@ -307,7 +307,7 @@ def test_select_real_world_action_proposals_applies_inline_policy() -> None:
                 },
             }
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy={"effectiveControls": {"effectDispatchAllowed": True}},
     )
@@ -345,7 +345,7 @@ def test_select_real_world_action_proposals_applies_learning_prior() -> None:
                 "priority": 0.4,
             },
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy={"effectiveControls": {"effectDispatchAllowed": True}},
         learning_belief={
@@ -367,7 +367,7 @@ def test_select_real_world_action_proposals_applies_learning_prior() -> None:
 
 def test_build_learning_belief_row_updates_policy_and_channel_priors() -> None:
     result = agent_daemon_main.build_learning_belief_row(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         outcome_observation={
             "vertex_id": "obs-1",
             "observed_at": "2026-05-07T00:00:00Z",
@@ -411,7 +411,7 @@ def test_execute_real_world_action_direct_records_blocked_plan_without_send(monk
 
     result = agent_daemon_main.execute_real_world_action_direct(
         {
-            "agentDid": "did:gftd:agent:test",
+            "agentDid": "did:etzhayyim:agent:test",
             "actionProposalId": "proposal-1",
             "channel": "email",
             "effectClass": "private_send",
@@ -452,7 +452,7 @@ def test_execute_real_world_action_direct_records_email_receipt_observation(monk
 
     result = agent_daemon_main.execute_real_world_action_direct(
         {
-            "agentDid": "did:gftd:agent:test",
+            "agentDid": "did:etzhayyim:agent:test",
             "actionProposalId": "proposal-1",
             "channel": "email",
             "effectClass": "private_send",
@@ -506,7 +506,7 @@ def test_execute_real_world_action_direct_blocks_unready_email_live_channel(monk
 
     result = agent_daemon_main.execute_real_world_action_direct(
         {
-            "agentDid": "did:gftd:agent:test",
+            "agentDid": "did:etzhayyim:agent:test",
             "actionProposalId": "proposal-1",
             "channel": "email",
             "effectClass": "private_send",
@@ -749,7 +749,7 @@ def test_load_homeostasis_belief_direct_returns_none_when_store_unavailable(
 
     monkeypatch.setattr("pymagatama.db_sync.sync_cursor", boom)
 
-    assert agent_daemon_main.load_homeostasis_belief_direct("did:gftd:agent:test") is None
+    assert agent_daemon_main.load_homeostasis_belief_direct("did:etzhayyim:agent:test") is None
 
 
 def test_load_learning_belief_direct_returns_none_when_store_unavailable(
@@ -762,7 +762,7 @@ def test_load_learning_belief_direct_returns_none_when_store_unavailable(
 
     monkeypatch.setattr("pymagatama.db_sync.sync_cursor", boom)
 
-    assert agent_daemon_main.load_learning_belief_direct("did:gftd:agent:test") is None
+    assert agent_daemon_main.load_learning_belief_direct("did:etzhayyim:agent:test") is None
 
 
 def test_derive_homeostasis_controls_normal_allows_dispatch() -> None:
@@ -785,7 +785,7 @@ def test_derive_homeostasis_controls_repair_pauses_dispatch_and_slows_cadence() 
 
 def test_build_self_repair_variables_carries_viability_context() -> None:
     result = agent_daemon_main.build_self_repair_variables(
-        "did:gftd:agent:test",
+        "did:etzhayyim:agent:test",
         {
             "viabilityState": "repair",
             "blockers": ["tool_health_degraded"],
@@ -794,7 +794,7 @@ def test_build_self_repair_variables_carries_viability_context() -> None:
         },
     )
 
-    assert result["agentDid"] == "did:gftd:agent:test"
+    assert result["agentDid"] == "did:etzhayyim:agent:test"
     assert result["triggerKind"] == "homeostasis_viability"
     assert result["viabilityState"] == "repair"
     assert result["viabilityBlockers"] == ["tool_health_degraded"]
@@ -835,7 +835,7 @@ def test_execute_local_self_repair_restarts_failed_non_daemon_services(monkeypat
 
 def test_build_self_repair_observation_row_records_local_repair_payload() -> None:
     row = agent_daemon_main.build_self_repair_observation_row(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         variables={"repairReason": "homeostasis:repair"},
         local_repair={
             "ok": True,
@@ -874,7 +874,7 @@ def test_record_self_repair_outcome_direct_updates_outcome_and_learning(monkeypa
     )
 
     result = agent_daemon_main.record_self_repair_outcome_direct(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         variables={"repairReason": "homeostasis:repair"},
         local_repair={"ok": True, "attempted": [{"ok": True, "label": "worker"}]},
         process_instance_key="repair-123",
@@ -895,7 +895,7 @@ def test_run_self_repair_if_needed_skips_normal_state(monkeypatch) -> None:
 
     result = asyncio.run(
         agent_daemon_main.run_self_repair_if_needed(
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             viability={"viabilityState": "normal"},
             mode="zeebe",
             enabled=True,
@@ -927,7 +927,7 @@ def test_run_self_repair_if_needed_starts_zeebe_for_repair(monkeypatch) -> None:
 
     result = asyncio.run(
         agent_daemon_main.run_self_repair_if_needed(
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             viability={"viabilityState": "repair", "blockers": ["tool_health_degraded"]},
             mode="zeebe",
             enabled=True,
@@ -957,7 +957,7 @@ def test_run_autonomous_effect_dispatches_blocks_missing_authority(monkeypatch) 
                     "payload": {"to": "ops@example.com", "subject": "Ping", "text": "hello"},
                 }
             ],
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             tick_id="tick-1",
             mode="zeebe",
             enabled=True,
@@ -989,7 +989,7 @@ def test_run_autonomous_effect_dispatches_starts_zeebe_when_enabled(monkeypatch)
                     "policyRef": "policy://agent/email-v1",
                 }
             ],
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             tick_id="tick-1",
             mode="zeebe",
             enabled=True,
@@ -1020,7 +1020,7 @@ def test_run_autonomous_effect_dispatches_suppresses_duplicates(monkeypatch) -> 
     result = asyncio.run(
         agent_daemon_main.run_autonomous_effect_dispatches(
             proposals=[proposal, proposal],
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             tick_id="tick-1",
             mode="zeebe",
             enabled=True,
@@ -1053,7 +1053,7 @@ def test_run_one_tick_dry_run_does_not_start_zeebe(monkeypatch) -> None:
 
     result = asyncio.run(
         agent_daemon_main.run_one_tick(
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             process_id="agent_active_inference_tick",
             mode="dry-run",
             llm_config=LocalLlmConfig(model="local"),
@@ -1115,7 +1115,7 @@ def test_run_one_tick_dispatches_only_selected_real_world_effects(monkeypatch) -
 
     result = asyncio.run(
         agent_daemon_main.run_one_tick(
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             process_id="agent_active_inference_tick",
             mode="dry-run",
             llm_config=LocalLlmConfig(model="local"),
@@ -1167,7 +1167,7 @@ def test_select_real_world_action_proposals_uses_minimax_information_context() -
                 "flowControlGain": 0.7,
             },
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy=runtime_policy,
         max_dispatches=1,
@@ -1204,7 +1204,7 @@ def test_select_real_world_action_proposals_penalizes_minimax_uncertainty_contex
                 "priority": 1.0,
             }
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-1",
         runtime_policy=runtime_policy,
         max_dispatches=1,
@@ -1254,7 +1254,7 @@ def test_select_real_world_action_proposals_uses_knowledge_graph_fitness_context
                 "priority": 0.1,
             },
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-kg",
         runtime_policy={"effectiveControls": {"effectDispatchAllowed": True}},
         max_dispatches=1,
@@ -1299,7 +1299,7 @@ def test_select_real_world_action_proposals_weights_kg_gain_by_active_prior() ->
                 },
             },
         ],
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         tick_id="tick-kg-prior",
         runtime_policy={"effectiveControls": {"effectDispatchAllowed": True}},
         max_dispatches=1,
@@ -1325,7 +1325,7 @@ def test_adapt_knowledge_graph_policy_direct_writes_bounded_prior(monkeypatch) -
     )
 
     result = agent_daemon_main.adapt_knowledge_graph_policy_direct(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         knowledge_graph_fitness={
             "available": True,
             "kgDevelopmentGain": 1.0,
@@ -1380,7 +1380,7 @@ def test_run_one_tick_repair_suppresses_autonomous_effects(monkeypatch) -> None:
 
     result = asyncio.run(
         agent_daemon_main.run_one_tick(
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             process_id="agent_active_inference_tick",
             mode="dry-run",
             llm_config=LocalLlmConfig(model="local"),
@@ -1416,7 +1416,7 @@ def test_run_one_tick_lease_floor_triggers_self_repair(monkeypatch) -> None:
 
     result = asyncio.run(
         agent_daemon_main.run_one_tick(
-            agent_did="did:gftd:agent:test",
+            agent_did="did:etzhayyim:agent:test",
             process_id="agent_active_inference_tick",
             mode="dry-run",
             llm_config=LocalLlmConfig(model="local"),

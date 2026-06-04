@@ -204,7 +204,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_gtin_product": {
+      "ai_etzhayyim_gtin_product": {
         "type": "object",
         "properties": {
           "productId": {

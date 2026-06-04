@@ -227,7 +227,7 @@ feed generator + `@mention` to AT Proto handles.
   - `did:web:ossekai.etzhayyim.com` signed sender (G9);
   - Charter Rider §2(a)-(h) scan pass (G1);
   - Wellbecoming framing audit pass (G10);
-  - yatachain attestation lineage (G2);
+  - kotoba-datomic attestation lineage (G2);
   - Source citation (`arbitrageGapReport.sourceCids[]`);
 - `feedPostAttestation` Lexicon record per emission (audit trail).
 
@@ -304,7 +304,7 @@ brings the practical total to 9 once written.)
 | Gate | Description |
 |---|---|
 | **G1** | Every advisory MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h) on input AND output. |
-| **G2** | Every record MUST emit `com.etzhayyim.ossekai.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.ossekai.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **PASSIVE-ONLY** collection — no live DNS / port-probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration against third parties; only pre-published public archives + voluntarily-published AT Proto activity (per ADR-2605262400). |
 | **G4** | **Aggregate-first publication** — anonymized AT Proto `app.bsky.feed.post` is the DEFAULT mode; targeted @mention is the secondary mode; the default order MUST NOT be inverted at runtime. |
 | **G5** | **NO commercial intel / CRM / marketing software** — Salesforce / HubSpot / Marketo / Mailchimp / SendGrid commercial / Constant Contact / Pardot / ZoomInfo / Apollo / Clay / Lemlist / Outreach / SalesLoft / Gong / Chorus / 6sense / Cognism / LeadIQ / Drift PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |

@@ -57,7 +57,7 @@ planning → approved → executing → completed
 
 ### LangGraph グラフ
 
-`60-apps/ai-gftd-terminal-agent/graphs/defense/mission_orchestration.py`:
+`60-apps/etzhayyim-terminal-agent/graphs/defense/mission_orchestration.py`:
 - エントリ: `classify_mission_domain` ノード (air | undersea | ground | cyber)
 - Pregel Send fan-out: 各ドメインエージェントへ並列ディスパッチ
 - 合流: `mission_sync` ノードで状態集約

@@ -1,4 +1,4 @@
-# ai-gftd-project-gtin
+# etzhayyim-project-gtin
 
 gtin.etzhayyim.com — 全世界の商品 identity を GTIN family で正規化する canonical product actor。価格や merchant offer は持たず、商品そのものの DID を持つ。
 

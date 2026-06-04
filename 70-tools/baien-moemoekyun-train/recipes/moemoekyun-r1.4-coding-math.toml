@@ -109,4 +109,4 @@ note          = "competition math problems; addresses cycle 7 math gap (higher d
 [seed_block]
 weight = 0.02
 seed_path = "70-tools/baien-moemoekyun-train/recipes/seed-blocks/moemoekyun-r1.4-seed.jsonl"
-description = "Synthetic Q/A authored in-tree (~50-100 ex): religious-corp Charter §1.x doctrine + Apache-2.0 Rider style + yatachain/Murakumo cross-actor context. CC0, Apache-2.0."
+description = "Synthetic Q/A authored in-tree (~50-100 ex): religious-corp Charter §1.x doctrine + Apache-2.0 Rider style + kotoba-datomic/Murakumo cross-actor context. CC0, Apache-2.0."

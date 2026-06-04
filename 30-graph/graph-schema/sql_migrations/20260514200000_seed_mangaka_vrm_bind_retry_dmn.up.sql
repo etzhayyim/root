@@ -22,11 +22,11 @@ INSERT INTO vertex_dmn_model (
   dmn_xml, status
 )
 SELECT
-  'at://did:web:mangaka.gftd.ai/com.etzhayyim.dmn.model/vrmBindRetry-v1',
-  0, '2026-05-14'::date, 0, 'did:web:mangaka.gftd.ai',
+  'at://did:web:mangaka.etzhayyim.com/com.etzhayyim.dmn.model/vrmBindRetry-v1',
+  0, '2026-05-14'::date, 0, 'did:web:mangaka.etzhayyim.com',
   'vrmBindRetry-v1',
-  'did:web:mangaka.gftd.ai',
-  'did:web:mangaka.gftd.ai',
+  'did:web:mangaka.etzhayyim.com',
+  'did:web:mangaka.etzhayyim.com',
   'com.etzhayyim.policies.mangaka.vrmBindRetry',
   'vrmBindRetry',
   'compose_character_vrm validate_vrm routing — accept on valid=true, retry bind_vrm once on valid=false with iteration<2, else reject.',
@@ -66,7 +66,7 @@ SELECT
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              id="Definitions_vrm_bind_retry"
              name="vrmBindRetry"
-             namespace="https://gftd.ai/dmn/mangaka">
+             namespace="https://etzhayyim.ai/dmn/mangaka">
   <decision id="com.etzhayyim.policies.mangaka.vrmBindRetry"
             name="vrmBindRetry">
     <decisionTable id="DecisionTable_vrmBindRetry" hitPolicy="FIRST">

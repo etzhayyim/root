@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  training.gftd.ai - coverage query (XRPC com.etzhayyim.apps.training.coverage).
+  training.etzhayyim.com - coverage query (XRPC com.etzhayyim.apps.training.coverage).
   ADR-2605070700.
 
   Single-shot summary aggregate. Audit omitted (high-frequency probe).
@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_training_coverage"
-    targetNamespace="https://gftd.ai/bpmn/training"
+    targetNamespace="https://etzhayyim.ai/bpmn/training"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="training_coverage" name="training coverage snapshot" isExecutable="true">

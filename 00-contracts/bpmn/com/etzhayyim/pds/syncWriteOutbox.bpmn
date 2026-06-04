@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_pds_sync_write_outbox"
-    targetNamespace="https://gftd.ai/bpmn/pds"
+    targetNamespace="https://etzhayyim.ai/bpmn/pds"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="pds_sync_write_outbox" name="pds syncWriteOutbox" isExecutable="true">

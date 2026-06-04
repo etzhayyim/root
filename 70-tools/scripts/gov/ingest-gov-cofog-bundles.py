@@ -64,8 +64,8 @@ def extract_name(bundle_name: str, magatama_data: dict[str, Any]) -> str:
     if 'name' in magatama_data:
         return magatama_data['name']
     suffix = bundle_name
-    if suffix.startswith('ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-'):
-        suffix = suffix[len('ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-'):]
+    if suffix.startswith('etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-'):
+        suffix = suffix[len('etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-'):]
     suffix = re.sub(r'-[a-z0-9]{8}$', '', suffix)
     return ' '.join(word.capitalize() for word in suffix.replace('-', ' ').split())
 
@@ -134,7 +134,7 @@ def main():
     parser.add_argument(
         '--source',
         type=Path,
-        default=Path('/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-cofog/appview'),
+        default=Path('/Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-cofog/appview'),
         help='Path to COFOG appview bundles directory',
     )
     parser.add_argument(

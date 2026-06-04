@@ -34,7 +34,7 @@ Documentation-only closure for the 2026-06-01 session answering the founder ask
 *next step* → *next step*. Authoritative design = **ADR-2606012600**; this record only
 narrates what shipped.
 
-Audit verdict: only legacy `gftd` cable lexicons existed (RisingWave-era record schemas) —
+Audit verdict: only legacy `etzhayyim` cable lexicons existed (RisingWave-era record schemas) —
 no actor, no kotoba dataset, no ADR. This session built the full stack to R2, design-only.
 
 # Decision (what shipped)
@@ -51,7 +51,7 @@ no actor, no kotoba dataset, no ADR. This session built the full stack to R2, de
   Gibraltar 324 / Suez 250 / S-China-Sea 191 Tbps.
 - kotoba-native lexicons `00-contracts/lexicons/com/etzhayyim/cable/*` (registerCableSystem /
   registerLandingStation / registerSegment / flagCableFault) + `MIGRATION-NOTES.md` mapping
-  all 7 legacy `gftd` lexicons; **`flagSubseaCableTamper` RETIRED, not ported** (intent
+  all 7 legacy `etzhayyim` lexicons; **`flagSubseaCableTamper` RETIRED, not ported** (intent
   adjudication → violates G4).
 - watatsumi cable-laying robotics fleet `20-actors/watatsumi/data/cable-laying-fleet.kotoba.edn`
   (Tsuna-suki 綱鋤 / Horinuki 掘抜 / Tsugite 接手 / Tedori 手繰 REPAIR-ONLY / Kikimimi 聞耳 DAS),

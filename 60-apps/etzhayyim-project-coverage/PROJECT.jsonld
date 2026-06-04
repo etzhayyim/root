@@ -7,9 +7,9 @@
   ],
   "@type": "Project",
   "identifier": "etzhayyim-project-coverage",
-  "name": "GFTD Coverage Monitor",
+  "name": "Etzhayyim Coverage Monitor",
   "status": "In Progress",
-  "description": "World coverage monitor for RisingWave-backed GFTD coverage metrics. Exposes global coverage rate, zero-coverage domains, near-win domains, and large remaining gaps at coverage.etzhayyim.com.",
+  "description": "World coverage monitor for RisingWave-backed Etzhayyim coverage metrics. Exposes global coverage rate, zero-coverage domains, near-win domains, and large remaining gaps at coverage.etzhayyim.com.",
   "url": "https://coverage.etzhayyim.com",
   "hasPart": [
     {

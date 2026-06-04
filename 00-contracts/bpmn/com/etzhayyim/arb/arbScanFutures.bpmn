@@ -7,14 +7,14 @@
   EDUCATIONAL ONLY. No execution path.
 
   NSID: com.etzhayyim.apps.arb.scanFutures
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/arb-scan-fut-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/arb-scan-fut-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_arb_scan_fut"
-    targetNamespace="https://gftd.ai/bpmn/arb"
+    targetNamespace="https://etzhayyim.ai/bpmn/arb"
     exporter="hand-written" exporterVersion="1.1">
   <bpmn:process id="arb_scan_fut" name="arb scanFutures" isExecutable="true">
     <bpmn:documentation>
@@ -33,7 +33,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://arb.gftd.ai/xrpc/com.etzhayyim.apps.arb.scoutQuotes&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.scoutQuotes&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;" target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={ &quot;assetClass&quot;: &quot;fut&quot; }" target="body"/>
@@ -50,7 +50,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://arb.gftd.ai/xrpc/com.etzhayyim.apps.arb.detectSpread&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.detectSpread&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;" target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={ &quot;assetClass&quot;: &quot;fut&quot;, &quot;minSpreadBps&quot;: 5 }" target="body"/>
@@ -79,7 +79,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://arb.gftd.ai/xrpc/com.etzhayyim.apps.arb.proposeTrade&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.proposeTrade&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;" target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={ &quot;assetClass&quot;: &quot;fut&quot;, &quot;legA&quot;: cand.legA, &quot;legB&quot;: cand.legB, &quot;spreadBps&quot;: cand.spreadBps, &quot;edgeBps&quot;: cand.edgeBps, &quot;rationale&quot;: cand.rationale, &quot;executed&quot;: false }" target="body"/>

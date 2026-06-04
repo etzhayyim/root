@@ -85,7 +85,7 @@ def _stripe(method: str, path: str, body: dict[str, Any] | None = None) -> dict[
         f"https://api.stripe.com/v1{path}",
         method=method,
         data=None if method == "GET" else _stripe_form(body or {}),
-        headers={"authorization": f"Bearer {key}", "content-type": "application/x-www-form-urlencoded", "user-agent": "gftd-stripe-zeebe/1"},
+        headers={"authorization": f"Bearer {key}", "content-type": "application/x-www-form-urlencoded", "user-agent": "etzhayyim-stripe-zeebe/1"},
     )
     try:
         with urllib.request.urlopen(req, timeout=45) as resp:
@@ -191,7 +191,7 @@ def issue_card(userId: str = "", cardType: str = "virtual", currency: str = "jpy
     if not holder:
         return {"error": "noCardholder", "message": "Create a cardholder first"}
     amount = _int(spendingLimitAmount)
-    result = _stripe("POST", "/issuing/cards", {"cardholder": holder["stripeCardholderId"], "type": ctype, "currency": currency or "jpy", "status": "active", "spending_controls": {"spending_limits": [{"amount": amount, "interval": spendingLimitInterval or "monthly"}]} if amount > 0 else None, "metadata": {"gftdCreditsAllocated": "0", "gftdCreditsConsumed": "0", "gftdCreditsUserId": userId, "gftdCreditsUpdatedAt": now_iso()}})
+    result = _stripe("POST", "/issuing/cards", {"cardholder": holder["stripeCardholderId"], "type": ctype, "currency": currency or "jpy", "status": "active", "spending_controls": {"spending_limits": [{"amount": amount, "interval": spendingLimitInterval or "monthly"}]} if amount > 0 else None, "metadata": {"etzhayyimCreditsAllocated": "0", "etzhayyimCreditsConsumed": "0", "etzhayyimCreditsUserId": userId, "etzhayyimCreditsUpdatedAt": now_iso()}})
     if result.get("error"):
         return {"error": "stripeApiError", "detail": result}
     rec = {"id": _gid("card"), "cardholderId": holder["id"], "userId": userId, "cardType": ctype, "status": "active", "lastFour": _str(result.get("last4")), "currency": currency or "jpy", "spendingLimitAmount": amount, "spendingLimitInterval": spendingLimitInterval or "monthly", "stripeCardId": _str(result.get("id")), "createdAt": now_iso()}
@@ -215,13 +215,13 @@ def list_cards(userId: str = "", limit: Any = 20, **_: Any) -> dict[str, Any]:
 
 def _stripe_card_credits(stripe_card: dict[str, Any]) -> dict[str, Any]:
     meta = stripe_card.get("metadata") if isinstance(stripe_card.get("metadata"), dict) else {}
-    allocated = _int(meta.get("gftdCreditsAllocated"))
-    consumed = _int(meta.get("gftdCreditsConsumed"))
-    return {"allocated": allocated, "consumed": consumed, "available": max(allocated - consumed, 0), "userId": _str(meta.get("gftdCreditsUserId"))}
+    allocated = _int(meta.get("etzhayyimCreditsAllocated"))
+    consumed = _int(meta.get("etzhayyimCreditsConsumed"))
+    return {"allocated": allocated, "consumed": consumed, "available": max(allocated - consumed, 0), "userId": _str(meta.get("etzhayyimCreditsUserId"))}
 
 
 def _update_card_credits(stripe_card_id: str, allocated: int, consumed: int, user_id: str) -> dict[str, Any]:
-    return _stripe("POST", f"/issuing/cards/{stripe_card_id}", {f"metadata[gftdCreditsAllocated]": str(max(allocated, 0)), f"metadata[gftdCreditsConsumed]": str(max(consumed, 0)), f"metadata[gftdCreditsUserId]": user_id, f"metadata[gftdCreditsUpdatedAt]": now_iso()})
+    return _stripe("POST", f"/issuing/cards/{stripe_card_id}", {f"metadata[etzhayyimCreditsAllocated]": str(max(allocated, 0)), f"metadata[etzhayyimCreditsConsumed]": str(max(consumed, 0)), f"metadata[etzhayyimCreditsUserId]": user_id, f"metadata[etzhayyimCreditsUpdatedAt]": now_iso()})
 
 
 def assign_card_credits(userId: str = "", cardId: str = "", amount: Any = 0, destinationId: str = "", **_: Any) -> dict[str, Any]:

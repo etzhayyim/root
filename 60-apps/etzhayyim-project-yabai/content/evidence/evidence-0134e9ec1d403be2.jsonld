@@ -1,0 +1,16 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "etzhayyim:YabaiEvidence",
+  "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-0134e9ec1d403be2",
+  "evidenceId": "evidence-0134e9ec1d403be2",
+  "entityId": "ent-838ff6d14ad7",
+  "category": "SanctionHit",
+  "source": "ofac/sdn/yamaguchi-gumi",
+  "sourceReliability": "A",
+  "occurredAt": "2026-03-16T12:15:44Z",
+  "confidence": 0.99,
+  "severity": 5,
+  "probability": 0.001,
+  "jurisdiction": "US",
+  "summary": "Watchlist signal"
+}

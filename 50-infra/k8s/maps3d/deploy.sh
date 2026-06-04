@@ -6,7 +6,7 @@
 # Each phase has a corresponding --skip flag for partial re-runs.
 #
 # Required env (or macOS Keychain via `security find-generic-password`):
-#   RW_DSN              postgres URL for RisingWave (gftd.rw / ROOT_URL)
+#   RW_DSN              postgres URL for RisingWave (etzhayyim.rw / ROOT_URL)
 #   MAPILLARY_TOKEN     Mapillary v4 client access token
 #   MURAKUMO_API_KEY    LLM gateway key
 #   B2_KEY_ID           Backblaze B2 application key id
@@ -93,11 +93,11 @@ keychain() {
 }
 
 resolve_creds() {
-  : "${RW_DSN:=$(keychain gftd.rw ROOT_URL)}"
-  : "${MAPILLARY_TOKEN:=$(keychain gftd.mapillary ACCESS_TOKEN)}"
-  : "${MURAKUMO_API_KEY:=$(keychain gftd.murakumo API_KEY)}"
-  : "${B2_KEY_ID:=$(keychain gftd.b2 KEY_ID)}"
-  : "${B2_APPLICATION_KEY:=$(keychain gftd.b2 APPLICATION_KEY)}"
+  : "${RW_DSN:=$(keychain etzhayyim.rw ROOT_URL)}"
+  : "${MAPILLARY_TOKEN:=$(keychain etzhayyim.mapillary ACCESS_TOKEN)}"
+  : "${MURAKUMO_API_KEY:=$(keychain etzhayyim.murakumo API_KEY)}"
+  : "${B2_KEY_ID:=$(keychain etzhayyim.b2 KEY_ID)}"
+  : "${B2_APPLICATION_KEY:=$(keychain etzhayyim.b2 APPLICATION_KEY)}"
   : "${GHCR_USER:=$(gh api user -q .login 2>/dev/null || echo "")}"
   : "${GHCR_TOKEN:=$(gh auth token 2>/dev/null || echo "")}"
   export RW_DSN MAPILLARY_TOKEN MURAKUMO_API_KEY B2_KEY_ID B2_APPLICATION_KEY GHCR_USER GHCR_TOKEN

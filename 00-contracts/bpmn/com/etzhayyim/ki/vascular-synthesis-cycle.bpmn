@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_ki_vascular_synthesis" targetNamespace="https://gftd.ai/bpmn/ki" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_ki_vascular_synthesis" targetNamespace="https://etzhayyim.ai/bpmn/ki" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="ki_vascular_synthesis_cycle" name="vascular-synthesis-cycle" isExecutable="true">
     <bpmn:startEvent id="Start">
       <bpmn:outgoing>Flow_S</bpmn:outgoing>
@@ -103,7 +103,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ki.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ki.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;ki.vascular_synthesis&quot;" target="action"/>
           <zeebe:input source="={absorbId: absorbId, artifactId: artifactId, bloomId: bloomId, ringId: ringId, confidence: confidence, snapshotCount: snapshotCount}" target="payload"/>
         </zeebe:ioMapping>

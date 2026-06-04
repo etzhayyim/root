@@ -37,7 +37,7 @@ The yoro frontend at `https://etzhayyim.com/` failed to load its timeline. The d
 
 1. Browser network capture (etzhayyim.com `/xrpc/app.bsky.feed.getDiscoverFeed` → **HTTP 405**)
 2. Reading the deployed JS bundle to confirm the minified `atQuery` was emitting `POST` for every NSID
-3. Cross-referencing the source (`60-apps/ai-gftd-project-yoro/.../atproto-agent.ts`) — already fixed to `GET`, but the deployed bundle pre-dated that fix
+3. Cross-referencing the source (`60-apps/etzhayyim-project-yoro/.../atproto-agent.ts`) — already fixed to `GET`, but the deployed bundle pre-dated that fix
 4. Probing the rw-free adapter chain (`etzhayyim-did-web` worker → `yoro-xrpc-adapter` service binding → `rw-free.collectFeed`)
 5. Probing both PDS surfaces (`atproto.etzhayyim.com` vs `pds.etzhayyim.com`) for `did:web:yoro.etzhayyim.com` existence
 
@@ -151,5 +151,5 @@ Blocked on the operator obtaining the invite code (not in repo, not knowable to 
 - ADR-2605211000 (worker xrpc-adapter deploy runbook)
 - ADR-2605222330 (etzhayyim.com substrate-violation transition window — the broader runtime substrate context this incident lives inside)
 - `70-tools/e7m/src/e7m/pds.py` — implementation
-- `60-apps/ai-gftd-project-yoro/rw-free/src/feed.ts` — `collectFeed` resilience patch
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/static/assets/index-KYx0b32R.js` — atQuery POST→GET in-place patch
+- `60-apps/etzhayyim-project-yoro/rw-free/src/feed.ts` — `collectFeed` resilience patch
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/static/assets/index-KYx0b32R.js` — atQuery POST→GET in-place patch

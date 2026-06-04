@@ -22,7 +22,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_fuyou_amend"
-    targetNamespace="https://gftd.ai/bpmn/fuyou"
+    targetNamespace="https://etzhayyim.ai/bpmn/fuyou"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="fuyou_amend" name="扶養控除等異動申告" isExecutable="true">
@@ -134,7 +134,7 @@
               amendment_count:  if latestCount &gt; 0 then number(latestRows[1].amendment_count) + 1 else 1,
               submitted_at:     string(now()),
               approved_at:      string(now()),
-              approved_by_did:  &quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;,
+              approved_by_did:  &quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;,
               created_at:       string(now()),
               owner_did:        employeeDid,
               sensitivity_ord:  1,
@@ -222,7 +222,7 @@
               triggerSource:      &quot;com.etzhayyim.apps.fuyou.amendDeclaration&quot;,
               amendmentReason:    string(amendmentMeta.amendmentReason)
           }" target="payload"/>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="callerDid"/>
           <zeebe:output source="=ok"     target="kaikeiPropagated"/>
           <zeebe:output source="=status" target="kaikeiHttpStatus"/>
         </zeebe:ioMapping>
@@ -237,7 +237,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
           <zeebe:input source="=&quot;fuyou.amend&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:           vertexId,
@@ -261,7 +261,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
           <zeebe:input source="=&quot;fuyou.amend.reject&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:        vertexId,

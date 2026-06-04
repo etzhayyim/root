@@ -39,7 +39,7 @@ UP = [{'sql': '\n'
          "      'mcp',\n"
          "      'gov-org-coverage',\n"
          "      'government organization coverage runtime',\n"
-         "      'gftd',\n"
+         "      'etzhayyim',\n"
          "      'governance',\n"
          '      r.tool_nsids,\n'
          '      r.mcp_endpoint,\n'

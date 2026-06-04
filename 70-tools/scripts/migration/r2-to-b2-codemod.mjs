@@ -24,11 +24,11 @@
  *
  * Usage:
  *   node 70-tools/scripts/migration/r2-to-b2-codemod.mjs \
- *     --include '60-apps/ai-gftd-project-foo/**\/*.ts' \
+ *     --include '60-apps/etzhayyim-project-foo/**\/*.ts' \
  *     --dry-run                # preview only (default)
  *
  *   node 70-tools/scripts/migration/r2-to-b2-codemod.mjs \
- *     --include '60-apps/ai-gftd-project-foo/**\/*.ts' \
+ *     --include '60-apps/etzhayyim-project-foo/**\/*.ts' \
  *     --apply                  # write changes
  */
 import fs from "node:fs";
@@ -79,7 +79,7 @@ const METHOD_CALL_REPLACEMENTS = [
 // Match `import { ... } from "@etzhayyim/magatama-host-sdk"` allowing the
 // `{ ... }` to span multiple lines.
 const IMPORT_PATTERN_HOSTSDK =
-  /import\s+\{([\s\S]*?)\}\s+from\s+["']@gftd\/magatama-host-sdk["']\s*;?/;
+  /import\s+\{([\s\S]*?)\}\s+from\s+["']@etzhayyim\/magatama-host-sdk["']\s*;?/;
 
 function addB2Imports(text) {
   if (/\bb2Get\b/.test(text) && /\bB2Env\b/.test(text)) return text;

@@ -254,7 +254,7 @@ async function invokeRemote(_sdk: HostSDK, did: string, method: string, params: 
 6. The `sdk.app.command(name, (ctx, body) => cmdX(sdk, body), ...)` registration accepts `Promise<unknown>` naturally — no change needed
 7. Run `pnpm exec vitest run` in `20-actors/magatama/sdk/magatama-host-sdk` to confirm SDK still passes 141+ tests
 
-**Reference implementation**: `60-apps/ai-gftd-project-oshikatsu/appview/ai-gftd-wasm-oshikatsu-dyd3lr50/src/app.ts` migrated 2026-04-13. Single `invokeRemote` helper + 2 caller commands (`cmdSubscribe`, `cmdTip`) became async. No build break, no behavior change.
+**Reference implementation**: `60-apps/etzhayyim-project-oshikatsu/appview/etzhayyim-wasm-oshikatsu-dyd3lr50/src/app.ts` migrated 2026-04-13. Single `invokeRemote` helper + 2 caller commands (`cmdSubscribe`, `cmdTip`) became async. No build break, no behavior change.
 
 **Notes**:
 - Migration is **strictly opt-in**. Apps that still use `sdk.hostImports.*` continue to work — the legacy path is preserved for backward compatibility.
@@ -448,7 +448,7 @@ SET s.joy=$joy, s.calm=$calm, s.stress=$stress, s.gratitude=$gratitude, s.focus=
 
 ### Kyumei-Koji (究明工事)
 
-DID が自己情報を能動的に収集・検証・統合。`ai-gftd:magatama/kyumei-koji@1.0.0` (import)。focused mood で優先実行。
+DID が自己情報を能動的に収集・検証・統合。`etzhayyim:magatama/kyumei-koji@1.0.0` (import)。focused mood で優先実行。
 
 **CRITICAL: Shinka WIT 禁止** — Shinka は standard WIT (`AppBskyFeedPost`, `AppBskyFeedLike`, `AppBskyFeedRepost`, `Follow`, `G()`, `Invoke`) のみ使用。Shinka-specific WIT interface を guest に追加しない。
 
@@ -561,7 +561,7 @@ export default createWorkerExport();
 **Canonical internal path**:
 - PDS write/query は `https://atproto.etzhayyim.com/xrpc/*` を使用
 - legacy internal HTTP paths と legacy registration NSID (`com.etzhayyim.identity.register`, `com.etzhayyim.capability.declare`, `com.etzhayyim.agent.registerTools`) は使用禁止
-- 旧 NSID・旧呼び出し (legacy PDS NSID) の再導入は manual review で防止 (gftd lint nsid-regression は CLI ごと撤去 2026-05-20)
+- 旧 NSID・旧呼び出し (legacy PDS NSID) の再導入は manual review で防止 (etzhayyim lint nsid-regression は CLI ごと撤去 2026-05-20)
 
 ### CRITICAL: XRPC Handler Hard Timeout (2026-04-17)
 
@@ -595,7 +595,7 @@ export default createWorkerExport();
 - **Default runtime (CRITICAL)**: TS Native + Lexicon Contract (F-Plan 2026-04-13)。`src/app.ts` + `@etzhayyim/magatama-host-sdk` + esbuild。Host capability は `00-contracts/lexicons/com/etzhayyim/host/*.json` (SSoT) → `gen-host-client-from-lexicon.mjs` → `magatama-host-sdk/src/generated/host-client.ts` → `host-dispatcher.ts` (BindingTransport) → in-process 実装。WIT は T3 Container 経路のみ
 - **wRPC Stream-Native Reactive Pipeline (CRITICAL, DEFAULT)**: 詳細 → `60-apps/CLAUDE.md` §wRPC Stream-Native Reactive Pipeline。新規 app は `resolveHeartbeatCadence` を使用。Batch polling 禁止
 - **Single Worker 統合 (CRITICAL)**: TS native + host-sdk (Hono) を 1 Worker に統合。Shannon 冗長度 0%
-- **Appview Embed Route (CRITICAL)**: `uiType: "appview"` apps MUST add `sdk.router.get("/embed", ...)` in `src/app.ts` and set `"embedUrl": "https://{nanoid}.etzhayyim.com/embed"` in `magatama.jsonld`. `?embed=1` is handled by the app's `/embed` Hono route. Embed HTML must send `window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'{nanoid}'},'*')`
+- **Appview Embed Route (CRITICAL)**: `uiType: "appview"` apps MUST add `sdk.router.get("/embed", ...)` in `src/app.ts` and set `"embedUrl": "https://{nanoid}.etzhayyim.com/embed"` in `magatama.jsonld`. `?embed=1` is handled by the app's `/embed` Hono route. Embed HTML must send `window.parent?.postMessage({type:'etzhayyim:embed:ready',nanoid:'{nanoid}'},'*')`
 - **DoDAF DM2 Topology (CRITICAL)**: `magatama:dm2@1.0.0` が canonical topology
 - **Shinka WIT 禁止 (CRITICAL)**: standard WIT のみ使用。Shinka-specific WIT 追加禁止
 - **Component Composition (CRITICAL)**: `Invoke(did, method, params)` / `app.Handle()` で cross-app RPC
@@ -824,8 +824,8 @@ brew install sccache
 # export RUSTC_WRAPPER=sccache
 # export SCCACHE_CACHE_SIZE=10G
 
-# magatama-server image build — previously driven by `gftd build-server`.
-# The gftd CLI was removed 2026-05-20; until a replacement lands, build via
+# magatama-server image build — previously driven by `etzhayyim build-server`.
+# The etzhayyim CLI was removed 2026-05-20; until a replacement lands, build via
 # the underlying cargo + docker invocations directly.
 cargo build --release -p magatama-server
 docker buildx build --push -t ghcr.io/etzhayyim/magatama-server:$(date -u +%Y%m%d-%H%M%S) .
@@ -852,7 +852,7 @@ e7m actor deploy .                  # wraps `wrangler deploy` (TS native default
 
 ```bash
 # WIT 変更後の全 component rebuild (必須)
-# Previously driven by `gftd rebuild-all`; gftd CLI was removed 2026-05-20.
+# Previously driven by `etzhayyim rebuild-all`; etzhayyim CLI was removed 2026-05-20.
 # Drive manually for now:
 # 1. 各 component dir で `e7m actor build .` → docker push (新 tag)
 # 2. kubectl patch mga <nanoid> -n magatama-runtime --type merge -p '{"spec":{"image":"ghcr.io/etzhayyim/<image>:<new-tag>"}}'
@@ -861,7 +861,7 @@ e7m actor deploy .                  # wraps `wrangler deploy` (TS native default
 **診断**: Container logs で `pre-link failed` を grep して WIT 不一致 component を特定。
 
 ```bash
-# e7m-cli install (replaces the removed gftd CLI for monorepo-internal workflows)
+# e7m-cli install (replaces the removed etzhayyim CLI for monorepo-internal workflows)
 cd 70-tools/e7m-cli
 npm install && npm run build
 npm link   # installs binary `e7m` on PATH

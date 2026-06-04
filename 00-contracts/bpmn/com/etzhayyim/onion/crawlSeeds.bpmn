@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_onion_crawl_seeds"
-    targetNamespace="https://gftd.ai/bpmn/onion"
+    targetNamespace="https://etzhayyim.ai/bpmn/onion"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="onion_crawl_seeds" name="onion crawl seeds" isExecutable="true">
@@ -58,7 +58,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:onion.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:onion.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;onion.crawl.seeds&quot;" target="action"/>
           <zeebe:input source="={queuedSeeds: queuedSeeds, skippedSeeds: skippedSeeds, processedRuns: processedRuns, completedRuns: completedRuns, failedRuns: failedRuns, pagesWritten: pagesWritten}" target="payload"/>
         </zeebe:ioMapping>

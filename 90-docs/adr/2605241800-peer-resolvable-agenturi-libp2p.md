@@ -14,12 +14,12 @@ authoritative_for:
   - peer-resolvable agentURI service[] format (libp2p Multiaddr)
   - DNS subdomain collapse policy (per-actor → root + IPFS-anchored agentURI)
   - libp2p protocol id namespacing (/x/etzhayyim/xrpc/<version>)
-  - 4-phase migration (deploy ERC-8004 → dual-publish HTTPS+libp2p → retire HTTPS → yatachain witness)
+  - 4-phase migration (deploy ERC-8004 → dual-publish HTTPS+libp2p → retire HTTPS → kotoba-datomic witness)
   - Transport layer choice (libp2p as primary; iroh as experimental sibling)
 depends_on:
   - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
   - adr-2604262145-erc8004-protocol-root-atproto-profile
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
@@ -55,7 +55,7 @@ This pattern scales O(actors). Three deeper concerns:
   infra to vet.
 - **ADR-2605172000 (RW-free substrate)** is fine with DNS for *bootstrap* but
   prefers peer-routed bytes after that.
-- **ADR-2605231400 (yatachain Holochain-iso)** already names the intended
+- **ADR-2605231400 (kotoba-datomic Holochain-iso)** already names the intended
   end-state: agent-centric DHT with witness quorum. The Worker-per-actor
   pattern is its operational opposite.
 
@@ -248,9 +248,9 @@ XRPC over libp2p inherits AT Protocol's existing capability scheme:
   open.
 - ✅ NAT traversal handled by libp2p Circuit Relay v2 + AutoNAT (no
   separate WireGuard mesh required).
-- ✅ Doctrinal fit with ADR-2605231400 yatachain-iso witness quorum:
+- ✅ Doctrinal fit with ADR-2605231400 kotoba-datomic-iso witness quorum:
   libp2p is the IPFS-substrate of the Holochain-iso target.
-- ✅ Path is open to a fully peerful future (Phase D yatachain DHT)
+- ✅ Path is open to a fully peerful future (Phase D kotoba-datomic DHT)
   without further architectural churn.
 
 ## Negative / costs
@@ -290,7 +290,7 @@ notes (chat log; reproduced inline below). Top non-libp2p candidates:
   iroh streams when iroh's relay quorum semantics stabilize.
 - **Holochain DPKI** (5.0 doctrinal). Excellent fit but 1.0 on AT
   Protocol compatibility (it would require porting PDS/XRPC to
-  Holochain primitives). Slated for ADR-2605231400 yatachain Phase D
+  Holochain primitives). Slated for ADR-2605231400 kotoba-datomic Phase D
   (witness quorum), not the present transport decision.
 - **WireGuard mesh / Tailscale**: 5.0 on Mac fleet, 1.0 on discovery
   (coordinator dependency). Rejected as a primary substrate; may serve
@@ -316,7 +316,7 @@ notes (chat log; reproduced inline below). Top non-libp2p candidates:
 | **A. did:web path collapse** | Now | 8 per-actor DID Workers → 1 root Worker at `etzhayyim.com/actor/<slug>/did.json`. AAAA for new actors stops. | All new actors register under path; existing actors keep their AAAA until Phase C. |
 | **B. libp2p dual-publish** | After this ADR lands | Each actor's `agent.json` adds a libp2p `service[]` entry alongside the existing HTTPS entry. Helper scripts in `10-protocol/etzhayyim-libp2p/`. Smoke-verified by the PoC log. | At least one consumer (e.g. `e7m-dataset publish-ipfs`'s PDS emit) is exercised over the libp2p path in prod. |
 | **C. HTTPS retirement** | 60-90 days after Phase B | Per-actor `*.etzhayyim.com` AAAA records removed. Per-actor Workers archived (`_archive/`). `etzhayyim.com` root + IPFS gateway are the only DNS endpoints. | `e7m verify` adds an invariant: no first-party actor publishes an HTTPS-only `service[]`. |
-| **D. yatachain witness quorum** | Post-Council ratify (per ADR-2605231400) | 3-of-5 Murakumo witness quorum for capability records; libp2p relay quorum replaces single-relay; bootstrap DNS dependency optional. | DPKI test suite + yatachain spec compliance. |
+| **D. kotoba-datomic witness quorum** | Post-Council ratify (per ADR-2605231400) | 3-of-5 Murakumo witness quorum for capability records; libp2p relay quorum replaces single-relay; bootstrap DNS dependency optional. | DPKI test suite + kotoba-datomic spec compliance. |
 
 This ADR authorizes Phase A and Phase B execution. Phase C is gated on
 Phase B observability proving stability. Phase D is a separate
@@ -326,7 +326,7 @@ follow-on ADR.
 
 - ADR-2604262100 (ERC725 + ERC-8004 + k8s + IPFS agent runtime — identity origin)
 - ADR-2604262145 (ERC-8004 protocol root + atproto profile — agentURI shape)
-- ADR-2605231400 (yatachain Holochain-iso substrate — Phase D destination)
+- ADR-2605231400 (kotoba-datomic Holochain-iso substrate — Phase D destination)
 - ADR-2605231525 (No-Server-Key religious-corp architecture — doctrinal constraint)
 - ADR-2605241500 (Dataset CID substrate — first consumer of peer transport)
 - libp2p specs: https://github.com/libp2p/specs

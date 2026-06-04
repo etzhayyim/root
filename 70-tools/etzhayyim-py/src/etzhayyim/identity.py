@@ -17,7 +17,7 @@ def _auth_headers() -> dict:
     auth = _load_auth()
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     if not tok:
-        click.echo("not signed in — run: gftd authn signin", err=True)
+        click.echo("not signed in — run: etzhayyim authn signin", err=True)
         sys.exit(1)
     return {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}
 
@@ -80,7 +80,7 @@ def identity_migrate(from_pds: str, to_pds: str, dry_run: bool) -> None:
     """Migrate identity between PDS instances (full migration requires Go binary)."""
     if not dry_run:
         click.echo(
-            "gftd identity migrate requires the Go binary. Run: gftd identity migrate",
+            "etzhayyim identity migrate requires the Go binary. Run: etzhayyim identity migrate",
             err=True,
         )
         sys.exit(1)
@@ -104,7 +104,7 @@ def identity_migrate_paths(
     source: str, apply: bool, limit: int, name_filter: str,
     pds: str | None, json_out: bool, deps_path: str,
 ) -> None:
-    """Migrate path DIDs (legacy-nanoids) to did:gftd via PDS XRPC com.etzhayyim.identity.submitOp."""
+    """Migrate path DIDs (legacy-nanoids) to did:etzhayyim via PDS XRPC com.etzhayyim.identity.submitOp."""
     import subprocess
     import hashlib
     import base64
@@ -152,7 +152,7 @@ def identity_migrate_paths(
         payload = json.dumps({"type": "path-did-genesis", "nanoid": nanoid}).encode()
         digest = hashlib.sha256(payload).digest()
         b32 = base64.b32encode(digest).decode().lower().rstrip("=")
-        return f"did:gftd:{b32[:24]}"
+        return f"did:etzhayyim:{b32[:24]}"
 
     results = []
     for entry in entries:

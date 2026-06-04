@@ -18,7 +18,7 @@
  *   node 70-tools/scripts/provision-actors-erc725.mjs --apply
  *
  * Required (macOS Keychain):
- *   security find-generic-password -s gftd.cloudflare -a CLAIM_SETTLER_HMAC -w
+ *   security find-generic-password -s etzhayyim.cloudflare -a CLAIM_SETTLER_HMAC -w
  */
 import { createHmac } from "node:crypto";
 
@@ -81,7 +81,7 @@ async function main() {
 
   const hmac = process.env.CLAIM_SETTLER_HMAC?.trim() || (() => {
     try {
-      return execSync('security find-generic-password -s "gftd.cloudflare" -a "CLAIM_SETTLER_HMAC" -w', {
+      return execSync('security find-generic-password -s "etzhayyim.cloudflare" -a "CLAIM_SETTLER_HMAC" -w', {
         stdio: ["pipe", "pipe", "pipe"],
       }).toString().trim();
     } catch { return ""; }
@@ -89,7 +89,7 @@ async function main() {
 
   if (!hmac) {
     console.error("ERROR: CLAIM_SETTLER_HMAC missing.");
-    console.error('  security add-generic-password -s "gftd.cloudflare" -a "CLAIM_SETTLER_HMAC" -w "<hex>" -U');
+    console.error('  security add-generic-password -s "etzhayyim.cloudflare" -a "CLAIM_SETTLER_HMAC" -w "<hex>" -U');
     process.exit(2);
   }
 

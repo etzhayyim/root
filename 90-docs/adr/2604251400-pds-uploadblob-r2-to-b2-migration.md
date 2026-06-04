@@ -21,7 +21,7 @@ superseded_by:
 > to end (Phase 5: "R2 retired, B2 sole source of truth"). The PDS
 > upload/get blob path now flows through `50-infra/cloudflare/workers/
 > atproto/src/cdn-b2.ts` (B2 single-write, single-read, B2 endpoint
-> us-west-004 bucket `ai-gftd-cdn`). The 6-phase progressive plan
+> us-west-004 bucket `etzhayyim-cdn`). The 6-phase progressive plan
 > below describes work that is already done. ADR-0043 is the
 > authoritative record. Kept for history; do not re-execute.
 
@@ -32,7 +32,7 @@ superseded_by:
 / `uploadBlobDedup` は AT Protocol 標準準拠の SHA-256 content-addressed
 blob storage を提供する: object key = `blobs/{repo}/{sha256hex}`、
 binding は `CDN_R2` / `GRAPH_R2` (R2Bucket type)、bucket は CF account
-の `ai-gftd-cdn`。
+の `etzhayyim-cdn`。
 
 `[[conventions]] blob-storage-b2-only` (deps.toml, ADR-0048) で B2
 を新規 actor の唯一の選択肢に定めたが、PDS は **既存の高ボリューム
@@ -63,7 +63,7 @@ Phase ごとに deploy + 観測ウィンドウを設け、各 phase で rollback
 
 ## Phase 1: B2 bucket + dual-read 経路 (deploy 必要、無破壊)
 
-- B2 bucket `ai-gftd-cdn` 作成 (us-east-005, lifecycle policy = 既存
+- B2 bucket `etzhayyim-cdn` 作成 (us-east-005, lifecycle policy = 既存
   R2 と同等: no expiry、versioning = off)
 - PDS `getBlob` を **R2 first / B2 fallback** に変更:
   ```
@@ -77,7 +77,7 @@ Phase ごとに deploy + 観測ウィンドウを設け、各 phase で rollback
 ## Phase 2: 過去 blob の一回限りミラーコピー (R2 → B2)
 
 - B2 Bandwidth Ally (CF R2 → B2 egress 0 円) 経由で
-  `aws s3 sync s3://ai-gftd-cdn/ s3://ai-gftd-cdn/ --endpoint-url=$B2`
+  `aws s3 sync s3://etzhayyim-cdn/ s3://etzhayyim-cdn/ --endpoint-url=$B2`
   相当を実行
 - 推定時間: 数百万 blob × 平均 100 KB = 数百 GB → ~6–24h (B2 ingest)
 - 進捗ログ: per-prefix (`blobs/did:plc:{slice}/`) で並列、各 slice
@@ -122,10 +122,10 @@ Phase ごとに deploy + 観測ウィンドウを設け、各 phase で rollback
 
 ## Phase 6: R2 bucket 廃棄
 
-- R2 bucket `ai-gftd-cdn` を `disabled` に (read-only)
+- R2 bucket `etzhayyim-cdn` を `disabled` に (read-only)
 - 1 ヶ月観測 → 完全削除
 - 削除前に最終 backup snapshot を別 B2 bucket
-  `ai-gftd-cdn-archive-2606` に取得
+  `etzhayyim-cdn-archive-2606` に取得
 
 # Consequences
 
@@ -201,7 +201,7 @@ Phase ごとに deploy + 観測ウィンドウを設け、各 phase で rollback
 - ADR-0048 — RisingWave Vultr B2 primary (B2 を主 object storage に
   採用した最初の判断)
 - ADR 2604241500 — CAD/BIM per-game WASM topology (新規 actor の B2
-  バケット命名規約 `ai-gftd-{actor}`)
+  バケット命名規約 `etzhayyim-{actor}`)
 - `[[conventions]] blob-storage-b2-only` (deps.toml)
 - `[[migrations]] blob-storage-r2-to-b2-code` (deps.toml)
 - `20-actors/magatama/sdk/magatama-host-sdk/src/b2.ts` (S3 SigV4 helper)

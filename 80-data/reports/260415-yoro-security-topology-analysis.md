@@ -6,12 +6,12 @@ Date: 2026-04-15
 
 - Target: `https://yoro.etzhayyim.com`
 - Code paths:
-  - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts`
-  - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`
-  - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.server.ts`
-  - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.svelte`
+  - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts`
+  - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`
+  - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.server.ts`
+  - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/post/[rkey]/+page.svelte`
   - `10-protocol/wproto/src/client.ts`
-  - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers`
+  - `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/_svelte/_headers`
 - Live checks:
   - `curl -I https://yoro.etzhayyim.com/`
   - `curl -I https://yoro.etzhayyim.com/profile/did:web:yoro.etzhayyim.com`

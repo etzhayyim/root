@@ -114,7 +114,7 @@ religious-corp Tier-B actor **suki (鋤)** を以下で立ち上げる:
 | 8 | `suki_emissions_audit` | levi | emissions | fieldTestRecord → emissionsAuditRecord (Stage V / EPA Tier 4 Final / 日本特殊自動車排ガス; R0/R1 tailpipe → R2+ zero) |
 | 9 | `suki_vehicle_attestation_binder` | judah | attest | emissionsAuditRecord → final `vehicleManufactureRecord` (per-tractor DID + open VIN + IPFS-pinned BoM + repair-history-ready blockchain) |
 
-Cell ordering follows physical tractor assembly + terminal `vehicle_attestation_binder` on judah for per-VIN yatachain anchor (sarutahiko 9-cell + judah binder parity).
+Cell ordering follows physical tractor assembly + terminal `vehicle_attestation_binder` on judah for per-VIN kotoba-datomic anchor (sarutahiko 9-cell + judah binder parity).
 
 ### Lexicons (9, all R0 stub deferred to R1+)
 

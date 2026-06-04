@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free impl of air-mro (Consensys c-split, maximal migration). Public maintenance ops facts + part/AD reference plaintext (sdk.write/read, FK workOrder→componentCatalog via exists); confidential per-asset commercial + safety-sensitive bodies (componentTrace / sparePartOrder ledger / reliabilityReport) sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100). Fiat settlement EXECUTION (IATA-BSP/wire/MoR) + airworthiness grounding enforcement stay gftd via consent-capability.",
+  "description": "RW-free impl of air-mro (Consensys c-split, maximal migration). Public maintenance ops facts + part/AD reference plaintext (sdk.write/read, FK workOrder→componentCatalog via exists); confidential per-asset commercial + safety-sensitive bodies (componentTrace / sparePartOrder ledger / reliabilityReport) sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100). Fiat settlement EXECUTION (IATA-BSP/wire/MoR) + airworthiness grounding enforcement stay etzhayyim via consent-capability.",
   "license": "Apache-2.0",
   "main": "src/index.ts",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },

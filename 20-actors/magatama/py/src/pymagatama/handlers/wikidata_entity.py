@@ -54,7 +54,7 @@ log = logging.getLogger(__name__)
 
 _WBG_URL = "https://www.wikidata.org/w/api.php"
 _TIMEOUT_SEC = 20
-_UA = "gftd-wikidata-udf/1.0 (ops@etzhayyim.com)"
+_UA = "etzhayyim-wikidata-udf/1.0 (ops@etzhayyim.com)"
 _QID_RE = _re.compile(r"^Q\d+$")
 # "+2011-08-03T00:00:00Z" — Wikidata's canonical time format
 _TIME_RE = _re.compile(r"^\+?(\d{1,9})-(\d{2})-(\d{2})T")

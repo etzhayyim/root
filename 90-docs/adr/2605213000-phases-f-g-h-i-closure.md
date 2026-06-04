@@ -47,7 +47,7 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
 
 ### Phase F — Worker XRPC + auth (PRs #153-#208)
 
-- 25 worker scaffolds at `60-apps/ai-gftd-project-<actor>/xrpc-adapter/`
+- 25 worker scaffolds at `60-apps/etzhayyim-project-<actor>/xrpc-adapter/`
 - `@etzhayyim/sdk-auth`: `createAuthedEtzhayyim` + `extractBearerToken` + `refreshPdsSession`
 - All 25 workers accept `Authorization: Bearer <jwt>` header or fall back to env `PDS_ACCESS_JWT`
 - 300+ XRPC endpoints exposed

@@ -107,7 +107,7 @@ profile で、独自の snake_case 拡張 (`dpop_bound_access_tokens: true`,
 
 `dpop_bound_access_tokens: true` が欠落。全 field camelCase。
 
-### 内部の入力側 alias (`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:617-631`)
+### 内部の入力側 alias (`60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:617-631`)
 
 authn Worker は form POST を parse する際に snake_case → camelCase の alias map
 を持つ (`grant_type → grantType`, `client_id → clientId`, ...)。この結果:
@@ -120,7 +120,7 @@ authn Worker は form POST を parse する際に snake_case → camelCase の a
 
 | client | 現状 flow |
 |---|---|
-| gftd CLI + 内部 Worker | ✅ 動く (camelCase 互換) |
+| etzhayyim CLI + 内部 Worker | ✅ 動く (camelCase 互換) |
 | `@atproto/api` (Bluesky 公式 SDK) | ❌ AS metadata parse で `authorization_endpoint` が見つからず fail |
 | Bluesky App / Ivory / Graysky | ❌ 同上。PAR の `request_uri` key 不在、token の `access_token` 不在で失敗 |
 | 汎用 OAuth 2.0 library (oauthlib 等) | ❌ metadata discovery 時点で fail |
@@ -179,7 +179,7 @@ camelCase field を出すこと。
 | S2 | PAR / authorize / token endpoint の request/response snake_case 化 + `request_uri` URN 修正 + grant_type 値修正 | `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts` | **CRITICAL** |
 | S3 | Client metadata (`/client-metadata.json`) snake_case 化 + `dpop_bound_access_tokens: true` 追加 | `handlers/oauth.ts:249-262` | HIGH |
 | S4 | Token response に `iss` (RFC 9207) parameter 追加 + DPoP nonce 発行 (RFC 9449 §8) | `handlers/oauth.ts:203, 240` | HIGH |
-| S5 | authn Worker `/oauth/token` の response snake_case 化 (現状 alias は input のみ) | `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts` + `ui.ts` | MEDIUM |
+| S5 | authn Worker `/oauth/token` の response snake_case 化 (現状 alias は input のみ) | `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts` + `ui.ts` | MEDIUM |
 
 ## S1. AS / PR metadata snake_case (CRITICAL)
 
@@ -296,7 +296,7 @@ return c.json({
 - grant_type 値: `"authorization_code"` / `"refresh_token"` (キャメル廃止)
 - error code: `"invalid_request"`, `"invalid_grant"`, `"invalid_dpop_proof"`, `"unsupported_grant_type"`, `"server_error"` (RFC 6749 §5.2 + RFC 9449 §7.1)
 - response key: `access_token`, `token_type`, `expires_in`, `refresh_token`, `iss`
-- `Set-Cookie: gftd_session=...` は **削除** (OAuth 2.0 token endpoint は cookie を返さない。既存の内部 UI session は /sign-in 経由で別に確立)
+- `Set-Cookie: etzhayyim_session=...` は **削除** (OAuth 2.0 token endpoint は cookie を返さない。既存の内部 UI session は /sign-in 経由で別に確立)
 - `access_token` TTL: **900 秒 (15 分)** に短縮 (spec §access-token-lifetime "≤ 15 min if non-revocable")。現状 7200 (2h) は revocation なしでは違反
 
 ## S3. Client metadata snake_case (HIGH)
@@ -381,7 +381,7 @@ registry entry 追加。既存 ADR-2604231800 の `related` に本 ADR を加え
 ## Phase 3 (S5, 2026-04-28)
 
 authn Worker の response も snake_case 化。既存の camelCase response に依存して
-いる可能性のある yoro frontend / gftd CLI / passkey.ts を確認、snake_case 対応
+いる可能性のある yoro frontend / etzhayyim CLI / passkey.ts を確認、snake_case 対応
 を逆側にも追加。
 
 ## Phase 4 (grace close, 2026-05-08 = +2 weeks)
@@ -411,7 +411,7 @@ RFC 7009, introspection endpoint RFC 7662) を別 ADR で扱う。本 ADR の sc
 
 - **内部 Worker の既存 test 書き換え**: `oauth-security.test.ts` 等で
   `requestUri` / `accessToken` 等を assert しているもの全面修正
-- **yoro / gftd CLI の response parse 修正**: 内部から叩いている箇所で
+- **yoro / etzhayyim CLI の response parse 修正**: 内部から叩いている箇所で
   `response.accessToken` を読んでいれば `response.access_token` に変更必要
 - **DPoP nonce 実装コスト**: 全 `/oauth/token` request が 2 RTT (初回 400 →
   nonce 入り再送) になる。keep-warm cache を入れれば 2 回目以降は 1 RTT
@@ -425,7 +425,7 @@ RFC 7009, introspection endpoint RFC 7662) を別 ADR で扱う。本 ADR の sc
 
 # Alternatives Considered
 
-## A1. camelCase のまま維持し、外部 client は gftd-specific SDK に寄せる
+## A1. camelCase のまま維持し、外部 client は etzhayyim-specific SDK に寄せる
 
 - pros: 実装コストゼロ
 - cons: AT Protocol federation 不能。Bluesky 互換性を捨てることになり、本
@@ -494,7 +494,7 @@ RFC 7009, introspection endpoint RFC 7662) を別 ADR で扱う。本 ADR の sc
 - `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts:38-263` — PAR / authorize / token / client-metadata (S2, S3, S4 作業対象)
 - `50-infra/cloudflare/workers/atproto/src/auth/dpop.ts` — DPoP ES256 verify (S4 nonce 追加対象)
 - `50-infra/cloudflare/workers/atproto/src/auth/scope.ts:229-329` — 5-resource scope parser (不変)
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:617-631` — snake_case→camelCase alias (S5 でOAuth endpoint response を snake_case 化)
-- `60-apps/ai-gftd-project-auth/worker/src-ts/ui.ts:163-171` — 既存 snake_case compat (parity 維持)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:617-631` — snake_case→camelCase alias (S5 でOAuth endpoint response を snake_case 化)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/ui.ts:163-171` — 既存 snake_case compat (parity 維持)
 - `50-infra/cloudflare/workers/atproto/src/oauth-security.test.ts` — Phase 1 test 書き換え対象
 - `50-infra/cloudflare/workers/atproto/src/auth/well-known-oauth.test.ts` — Phase 1 test 書き換え対象

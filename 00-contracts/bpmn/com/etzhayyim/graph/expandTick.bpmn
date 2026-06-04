@@ -9,14 +9,14 @@
   Never writes edge_* directly — promotion is a separate downstream step.
 
   NSID:      com.etzhayyim.apps.graph.expandTick
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/graph-expandTick-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-expandTick-v1
   binding allowlist: vertex_graph_expand_proposal
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_graph_expand_tick"
-    targetNamespace="https://gftd.ai/bpmn/graph"
+    targetNamespace="https://etzhayyim.ai/bpmn/graph"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="graph_expand_tick" name="graph expand tick" isExecutable="true">
@@ -94,8 +94,8 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;INSERT INTO vertex_graph_expand_proposal (vertex_id, source_vid, proposed_dst_label, edge_kind, confidence, rationale, llm_model, status, created_at, owner_did, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) VALUES ($1, $2, $3, $4, $5, $6, $7, 'proposed', $8, 'did:web:graph.gftd.ai', 1, 'did:web:graph.gftd.ai', 'did:web:graph.gftd.ai', 'sys.bpmn.graph.expand', 'did:web:graph.gftd.ai', 'anon')&quot;" target="sql"/>
-          <zeebe:input source="=[ &quot;at://did:web:graph.gftd.ai/com.etzhayyim.apps.graph.expandProposal/&quot; + (if seedCount &gt; 0 then seedRows[1].vertex_id else &quot;empty&quot;) + &quot;|&quot; + (if llmOk then llmData.edgeKind else &quot;none&quot;) + &quot;|&quot; + (if llmOk then llmData.dstLabel else &quot;none&quot;), if seedCount &gt; 0 then seedRows[1].vertex_id else &quot;&quot;, if llmOk then llmData.dstLabel else &quot;&quot;, if llmOk then llmData.edgeKind else &quot;none&quot;, if llmOk then llmData.confidence else 0.0, if llmOk then llmData.rationale else &quot;llm_failed&quot;, llmModel, string(now()) ]" target="params"/>
+          <zeebe:input source="=&quot;INSERT INTO vertex_graph_expand_proposal (vertex_id, source_vid, proposed_dst_label, edge_kind, confidence, rationale, llm_model, status, created_at, owner_did, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) VALUES ($1, $2, $3, $4, $5, $6, $7, 'proposed', $8, 'did:web:graph.etzhayyim.com', 1, 'did:web:graph.etzhayyim.com', 'did:web:graph.etzhayyim.com', 'sys.bpmn.graph.expand', 'did:web:graph.etzhayyim.com', 'anon')&quot;" target="sql"/>
+          <zeebe:input source="=[ &quot;at://did:web:graph.etzhayyim.com/com.etzhayyim.apps.graph.expandProposal/&quot; + (if seedCount &gt; 0 then seedRows[1].vertex_id else &quot;empty&quot;) + &quot;|&quot; + (if llmOk then llmData.edgeKind else &quot;none&quot;) + &quot;|&quot; + (if llmOk then llmData.dstLabel else &quot;none&quot;), if seedCount &gt; 0 then seedRows[1].vertex_id else &quot;&quot;, if llmOk then llmData.dstLabel else &quot;&quot;, if llmOk then llmData.edgeKind else &quot;none&quot;, if llmOk then llmData.confidence else 0.0, if llmOk then llmData.rationale else &quot;llm_failed&quot;, llmModel, string(now()) ]" target="params"/>
           <zeebe:output source="=inserted" target="proposalInserted"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

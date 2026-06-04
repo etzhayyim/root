@@ -19,7 +19,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 | Smoke: no HMAC → `401 unauthorized` | live curl | PASS |
 | Smoke: wrong HMAC → `401 unauthorized` | live curl | PASS |
 | Smoke: correct HMAC + invalid lxm → `400 lxm must be com.atproto.*` | live curl | PASS |
-| Smoke: correct HMAC + valid lxm → 500 with `getServiceAuth failed: 503 [wrangler] Couldn't find wrangler dev session for service "ai-gftd-auth"` (AUTH_SERVICE binding 期待通りの propagation) | live curl | PASS |
+| Smoke: correct HMAC + valid lxm → 500 with `getServiceAuth failed: 503 [wrangler] Couldn't find wrangler dev session for service "etzhayyim-auth"` (AUTH_SERVICE binding 期待通りの propagation) | live curl | PASS |
 | Smoke: joinMeeting with consent JWT | expected `consent expired` after body parsing; **observed**: `invalid provider` → indicates lexicon codegen gap (see Phase 2 #codegen) | PARTIAL (超越済、下記) |
 | **Codegen + parseLexiconInput fix** (post-investigation): `node 70-tools/scripts/contract/gen-lexicon-nsid-types.mjs` + handler の `parseLexiconInput("nsid", body)` 組込 | live curl | PASS |
 | Smoke (post-fix) Test 5: expired consent → `{"status":"failed","error":"consent rejected: consent expired"}` | live curl | PASS |
@@ -31,8 +31,8 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 |   S2: session matches + ES256 verify triggered → `consent signature invalid: did.json fetch ... 404` (期待通り、did.json 未配置時は reject) | — | PASS |
 |   S3: session ≠ onBehalfOfDid → `caller session did ≠ onBehalfOfDid` | — | PASS |
 | **ES256 signature verify (Phase 2 — defense layer 2)**: `did:web` resolution (`/.well-known/did.json` or path-form) → P-256 JWK → WebCrypto ECDSA verify。`alg=none` / `RS256` downgrade attacks reject | S2 smoke | PASS |
-| **Provisioning script** `50-infra/vultr/meeting-recorder/provision.sh`: Vultr VKE node pool + B2 bucket + CF Tunnel + DNS CNAME + gftd Vault folder + wrangler secret + graph migration, idempotent (check-or-create) | `bash -n` syntax | PASS |
-| **Multi-method DID resolver** (`resolveDid`): did:web (.well-known/did.json + path-form) / did:plc (plc.directory、override via DID_PLC_RESOLVER) / did:gftd (did.etzhayyim.com /1.0/identifiers/, ADR-0029) / reject unknown (`did:key` 等) | live curl | PASS |
+| **Provisioning script** `50-infra/vultr/meeting-recorder/provision.sh`: Vultr VKE node pool + B2 bucket + CF Tunnel + DNS CNAME + etzhayyim Vault folder + wrangler secret + graph migration, idempotent (check-or-create) | `bash -n` syntax | PASS |
+| **Multi-method DID resolver** (`resolveDid`): did:web (.well-known/did.json + path-form) / did:plc (plc.directory、override via DID_PLC_RESOLVER) / did:etzhayyim (did.etzhayyim.com /1.0/identifiers/, ADR-0029) / reject unknown (`did:key` 等) | live curl | PASS |
 |   M1: real did:plc (`did:plc:ewvi7nxzyoun6zhxrhs64oiz`) → DID doc 200 fetch → `found: multibase` reject (Phase 3 TODO) | — | PASS (limitation surfaced) |
 |   M3: `did:key:xyz` → `unsupported DID method` | — | PASS |
 |   **Phase 3 deferred**: (a) multibase (z-base58btc) → raw key decode, (b) secp256k1 WebCrypto support (atproto default), (c) compressed-point P-256 decompression |
@@ -42,7 +42,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 |   Defense layers total: (1) session binding, (2) structural JWT, (3) exp-bound, (4) alg whitelist (ES256\|ES256K), (5) alg-key match, (6) cryptographic signature verify |
 | **Phase 4 JWK fallback**: DID Document の `publicKeyJwk` (P-256 `{kty,crv,x,y}`) → uncompressed 65-byte EC point (`0x04 \|\| x \|\| y`) → `formatDidKey("ES256", bytes)` → did:key:z... → `parseDidKey` / `verifySignature` で処理 | live diag | PASS |
 |   RFC 7515 A.3.1 test key (`f83OJ3D2...` / `x_FEzRu9...`) → `did:key:zDnaerGBD7Zxzau2fdfEFaaaTDYBu5XEBYdGV2BmERp3MDSov` + `{jwtAlg: "ES256", keyBytesLen: 65}` | — | PASS |
-| **DID support matrix complete**: publicKeyMultibase (native, atproto primary) + publicKeyJwk (P-256 only, fallback for JWK-only did:web) × 3 method (did:web / did:plc / did:gftd) × 2 alg (ES256 / ES256K) |
+| **DID support matrix complete**: publicKeyMultibase (native, atproto primary) + publicKeyJwk (P-256 only, fallback for JWK-only did:web) × 3 method (did:web / did:plc / did:etzhayyim) × 2 alg (ES256 / ES256K) |
 | **Mock-path end-to-end smoke** (in-session, no real Teams/Meet/Zoom, no real B2/PDS/Murakumo) | live curl | PASS |
 |   Pipeline: Container (Node/tsx :50052) ← POST /v1/join ← curl → mock adapter emits 3 × {audio.opus, video.webm} 500ms chunks → chunk-writer → local FS (RECORDER_LOCAL_CHUNK_DIR=/tmp/mrec-chunks) → TokenRotator → fake mint (:9100) → fake PDS createRecord (:9100) | — | PASS |
 |   Transcript: chunk-writer audio → transcript-pipeline → fake Murakumo (:9100) → whisper-ish segments → `signal:v1:` AES-GCM encrypt → fake PDS transcriptSegment record | — | PASS |
@@ -57,11 +57,11 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 | item | status | 取得方法 |
 |---|---|---|
 | workspace `pnpm install` | 済と仮定 (root `node_modules` 有) | `pnpm install` (root) |
-| Worker dir 内 `node_modules` (wrangler binary) | 未 | `cd 60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0 && pnpm install` |
-| `AUTH_SERVICE` binding target `ai-gftd-auth` | CF account 上に存在 (既存) | — |
+| Worker dir 内 `node_modules` (wrangler binary) | 未 | `cd 60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0 && pnpm install` |
+| `AUTH_SERVICE` binding target `etzhayyim-auth` | CF account 上に存在 (既存) | — |
 | `HYPERDRIVE` config `e84c0a2babe44fc7b74818e394b4b896` | 既存 | — |
-| `RECORDER_TUNNEL_SECRET` wrangler secret | 未 provisioned | `openssl rand -hex 32 \| wrangler secret put RECORDER_TUNNEL_SECRET` + gftd Vault 登録 |
-| did:web:meeting-recorder.etzhayyim.com signing key (auth Worker KEYS_DB) | 未 provisioned | `gftd deploy` 初回実行で `com.atproto.admin.registerApp` → KEK envelope 化保存 |
+| `RECORDER_TUNNEL_SECRET` wrangler secret | 未 provisioned | `openssl rand -hex 32 \| wrangler secret put RECORDER_TUNNEL_SECRET` + etzhayyim Vault 登録 |
+| did:web:meeting-recorder.etzhayyim.com signing key (auth Worker KEYS_DB) | 未 provisioned | `etzhayyim deploy` 初回実行で `com.atproto.admin.registerApp` → KEK envelope 化保存 |
 | `vertex_meetingrecorder_*` graph tables | 未 migrated | `pnpm -F @etzhayyim/graph-schema migrate up` |
 
 ### (B) `docker build` には以下が必要
@@ -79,7 +79,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 - GCP project + Meet Media API enable + service account (Meet)
 - Zoom marketplace Server-to-Server OAuth app + SDK license (Zoom)
 - Vultr VKE node pool `meeting-recorder` provisioned
-- B2 bucket `ai-gftd-recordings` + prefix-scoped app key
+- B2 bucket `etzhayyim-recordings` + prefix-scoped app key
 - Cloudflare Tunnel `meeting-recorder-control` + DNS `meeting-recorder-ctrl.etzhayyim.com`
 
 ## (1) Bootstrap flow 検証手順 (prereq 揃ってから実行)
@@ -87,8 +87,8 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 ### 1.1 Consent token の mint (user 側)
 
 ```bash
-gftd authn signin
-gftd agent-token \
+etzhayyim authn signin
+etzhayyim agent-token \
   --lxm com.etzhayyim.apps.meetingRecorder.joinMeeting \
   --aud did:web:meeting-recorder.etzhayyim.com \
   --ttl 300 \
@@ -114,7 +114,7 @@ curl -X POST https://meeting-recorder.etzhayyim.com/xrpc/com.etzhayyim.apps.meet
 **consent 拒否テスト** (exp を過去にして mint):
 
 ```bash
-gftd agent-token --lxm ... --ttl -10 > /tmp/expired.jwt
+etzhayyim agent-token --lxm ... --ttl -10 > /tmp/expired.jwt
 # → response: {"status":"failed","error":"consent rejected: consent expired"}
 ```
 
@@ -161,14 +161,14 @@ echo "$TOKEN" | cut -d. -f2 | base64 -d 2>/dev/null | jq
 pnpm --filter etzhayyim-root esbuild --bundle \
   --platform=neutral \
   --external:@etzhayyim/magatama-host-sdk --external:node:async_hooks \
-  60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/src/app.ts
+  60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts
 # → 355 行の bundle、warning ゼロ
 ```
 
 ### 5.2 `wrangler dev` 手順 (prereq 揃ってから)
 
 ```bash
-cd 60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0
+cd 60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0
 pnpm install
 pnpm dev   # = wrangler dev
 # → http://localhost:8787 で listen
@@ -202,14 +202,14 @@ curl -X POST http://localhost:8787/_internal/mint-pds-bearer \
 3. Meet Media API gRPC subscribe 実装 (auth path は完成)
 4. Zoom C++ sidecar (initContainer pull + SDK wire)
 5. X25519 Signal shared-secret bootstrap via `com.etzhayyim.signal.getPrekeyBundle` (現 dev key fallback を撤去)
-6. Vultr VKE `meeting-recorder` node pool provision + Cloudflare Tunnel + B2 bucket + gftd Vault folder
-7. `gftd deploy` 初回実行で auth Worker KEYS_DB に meeting-recorder signing key 登録
+6. Vultr VKE `meeting-recorder` node pool provision + Cloudflare Tunnel + B2 bucket + etzhayyim Vault folder
+7. `etzhayyim deploy` 初回実行で auth Worker KEYS_DB に meeting-recorder signing key 登録
 8. 実 Teams/Meet/Zoom meeting に対する live capture → B2 PUT → transcript 検証 (参加者同意下)
 
 ## References
 
 - ADR-0050 — meeting-recorder multi-provider actor
 - ADR-0022 — Auth 2-token model (`lxm` scoping SSoT)
-- 60-apps/ai-gftd-project-auth/worker/src-ts/service-auth.ts — `signServiceAuth` (ES256 mint)
-- 60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1630 — `handleGetServiceAuth` (iss-scoped KEK decrypt)
+- 60-apps/etzhayyim-project-auth/worker/src-ts/service-auth.ts — `signServiceAuth` (ES256 mint)
+- 60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1630 — `handleGetServiceAuth` (iss-scoped KEK decrypt)
 - 50-infra/cloudflare/workers/atproto/src/auth/verify.ts:150 — `verifyServiceAuthJWT` (PDS 側 verify SSoT)

@@ -5,7 +5,7 @@
  :cell/kind :langgraph
  :cell/runtime :wasm
  :cell/entry "py/agent.py"
- :cell/doc "Terminal binder: all prior attestations + VIN -> vehicleManufactureRecord, per-VIN DID + yatachain anchor (G2 + G13)."
+ :cell/doc "Terminal binder: all prior attestations + VIN -> vehicleManufactureRecord, per-VIN DID + kotoba-datomic anchor (G2 + G13)."
  :cell/state-graph
  {:nodes [:intake :process :attest]
   :entry :intake

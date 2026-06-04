@@ -5,8 +5,8 @@
 # the minting power without removing isMinter, so block production continues
 # and the allowance can be re-granted later via another Safe tx.
 #
-# Requires K1_PRIV + K2_PRIV (Safe owners, macOS Keychain gftd.safe-owners)
-# and SEALER_PRIV for gas (macOS Keychain gftd.private-chain SEALER_PRIV).
+# Requires K1_PRIV + K2_PRIV (Safe owners, macOS Keychain etzhayyim.safe-owners)
+# and SEALER_PRIV for gas (macOS Keychain etzhayyim.private-chain SEALER_PRIV).
 #
 # Usage:
 #   bash 50-infra/vultr/geth-private/scripts/reduce-gcc-minter-allowance.sh
@@ -22,9 +22,9 @@ GCC=0x8e9A5162b2800E0D19acC1708A531A3954900E21
 RPC=https://geth.etzhayyim.com
 
 echo "==> Fetching keys from macOS Keychain..."
-K1_PRIV=$(security find-generic-password -s "gftd.safe-owners" -a "K1_PRIV" -w)
-K2_PRIV=$(security find-generic-password -s "gftd.safe-owners" -a "K2_PRIV" -w)
-SEALER_PRIV=$(security find-generic-password -s "gftd.private-chain" -a "SEALER_PRIV" -w)
+K1_PRIV=$(security find-generic-password -s "etzhayyim.safe-owners" -a "K1_PRIV" -w)
+K2_PRIV=$(security find-generic-password -s "etzhayyim.safe-owners" -a "K2_PRIV" -w)
+SEALER_PRIV=$(security find-generic-password -s "etzhayyim.private-chain" -a "SEALER_PRIV" -w)
 
 echo "==> Current sealer minterAllowance:"
 CURRENT=$(cast call "$GCC" 'minterAllowance(address)(uint256)' "$SEALER" --rpc-url "$RPC")

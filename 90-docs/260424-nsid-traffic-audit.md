@@ -1,7 +1,7 @@
 # XRPC NSID traffic audit (atproto Worker)
 
 Date: 2026-04-24
-Scope: atproto Worker (`ai-gftd-pds-2603241700`) — which NSIDs routed via handler are actually exercised in prod.
+Scope: atproto Worker (`etzhayyim-pds-2603241700`) — which NSIDs routed via handler are actually exercised in prod.
 Context: post-MST removal (2026-04-24), we wanted to identify additional dead handlers to delete along the same "delete rather than fix" pattern.
 
 ## Method
@@ -16,7 +16,7 @@ Context: post-MST removal (2026-04-24), we wanted to identify additional dead ha
 
 | NSID / event | Count | Outcome | Notes |
 |---|---|---|---|
-| `comAtprotoIdentityCreate` (rpcMethod) | 13 | **all `exception`** (100% failure) | Crashing on every call. Called via Worker RPC (service binding), not HTTP XRPC. Handler lives at `gftd/index.ts:2476`. |
+| `comAtprotoIdentityCreate` (rpcMethod) | 13 | **all `exception`** (100% failure) | Crashing on every call. Called via Worker RPC (service binding), not HTTP XRPC. Handler lives at `etzhayyim/index.ts:2476`. |
 | `app.bsky.feed.getAuthorFeed` | 7 | Ok | Only 2 unique actor DIDs: `sh1n5h1x.etzhayyim.com:{boa-hancock-one-piece, rias-gremory-high-school-dxd}` — looks cron-driven (5-min cadence). |
 | `/health` | 1 | Canceled | Internal healthcheck. |
 | (none) | 0 | — | Zero HTTP `com.atproto.*` / `com.etzhayyim.*` write traffic |
@@ -97,7 +97,7 @@ Analytics permission on the CF token.
 
 `comAtprotoIdentityCreate` is failing every call in the 3-min window. Tail JSON shows `outcome: exception` but `exceptions: []` / `logs: []` — the exception body is being swallowed before reaching the tail stream. Likely caught by Hono error middleware and translated into an HTTP 500 response before reaching CF's exception channel.
 
-Handler code is at `handlers/gftd/index.ts:2476`. Needs standalone investigation — probably an auth / validation / downstream binding call failing. Since the handler returns `{did, rkey}` synchronously and `bootstrapSubDidActor` is fire-and-forget in `.catch()`, the synchronous failure is in the `writeRecordFireAndForget` / `comAtprotoRepoCreateRecord` path or earlier.
+Handler code is at `handlers/etzhayyim/index.ts:2476`. Needs standalone investigation — probably an auth / validation / downstream binding call failing. Since the handler returns `{did, rkey}` synchronously and `bootstrapSubDidActor` is fire-and-forget in `.catch()`, the synchronous failure is in the `writeRecordFireAndForget` / `comAtprotoRepoCreateRecord` path or earlier.
 
 This is NOT an NSID-is-dead finding — it's a **"NSID is exercised AND broken"** finding. Route: follow up as a separate bug, not part of this audit's scope.
 
@@ -143,7 +143,7 @@ Extractor gap noted: literal `case "..."` pattern matched 342 handlers,
 but `case NSID_ID_CREATE:` (constant ref) was missed — so the real
 routed count is higher. `com.atproto.identity.create` in particular
 falls in this gap. Resolving NSID_* constants → strings would raise
-the denominator. See `handlers/gftd/index.ts:590` for the constant,
+the denominator. See `handlers/etzhayyim/index.ts:590` for the constant,
 routed at line 2476.
 
 **Resolved 2026-04-24** via `70-tools/scripts/260424-nsid-extractor.py`:

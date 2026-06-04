@@ -33,7 +33,7 @@ amends: []
 
 ## Context
 
-`60-apps/ai-gftd-terminal-agent` は Claude Code 相当の CLI エージェント。`request_human_decision`
+`60-apps/etzhayyim-terminal-agent` は Claude Code 相当の CLI エージェント。`request_human_decision`
 ツールで業務クリティカルな判断を人間に委ねる HITL (Human-in-the-Loop) フローが必要だった。
 
 問題点:
@@ -68,7 +68,7 @@ port: 2024
 ```
 
 - Kaniko Job (init container: alpine/git clone → Kaniko executor → GHCR push) でイメージビルド
-- CF Origin wildcard cert (`*.etzhayyim.com`) を `dispatcher-gftd-ai-tls` から namespace にコピー
+- CF Origin wildcard cert (`*.etzhayyim.com`) を `dispatcher-etzhayyim-ai-tls` から namespace にコピー
 - nginx-ingress: `terminal-agent.etzhayyim.com` → ClusterIP :2024
   - `proxy-buffering: off` (SSE streaming)
   - `proxy-read-timeout: 600s` (long-running runs)
@@ -86,7 +86,7 @@ Browser
 ```
 
 - `HITL_API_KEY`: オペレーター用 Bearer token。Yoro Worker が検証
-- `TERMINAL_AGENT_URL`: Worker secret (`wrangler secret put`)。`gftd deploy` がwrangler.jsonc を
+- `TERMINAL_AGENT_URL`: Worker secret (`wrangler secret put`)。`etzhayyim deploy` がwrangler.jsonc を
   再生成するため vars には書かない
 - `TERMINAL_AGENT_API_KEY`: LangGraph Server の `x-api-key`。同じく Worker secret
 
@@ -104,7 +104,7 @@ app.all('/api/hitl/*', async (c) => {
 - `$lib/hitl-store.svelte.ts`: バックグラウンドポーラー (10s)
   - `/api/hitl/threads/search` (status=interrupted) を定期呼び出し
   - `pending` count を AppDrawer のバッジに反映
-  - `HITL_TOKEN_KEY` (`gftd:hitl-api-key`) を localStorage に保持
+  - `HITL_TOKEN_KEY` (`etzhayyim:hitl-api-key`) を localStorage に保持
 - `routes/tasks/inbox/+page.svelte`: 意思決定インボックス
   - API キーをキーアイコン UI から localStorage にセット
   - 中断スレッドを一覧表示: question / context / options
@@ -144,14 +144,14 @@ POST /api/hitl/threads/{thread_id}/runs/stream
 
 | secret name | keychain service | 用途 |
 |---|---|---|
-| `HITL_API_KEY` | `gftd.hitl_api_key` | Yoro → Worker bearer token |
+| `HITL_API_KEY` | `etzhayyim.hitl_api_key` | Yoro → Worker bearer token |
 | `LANGCHAIN_API_KEY` | k8s secret `terminal-agent-secrets/langchain-api-key` | LangGraph Server x-api-key |
 | `TERMINAL_AGENT_URL` | Worker secret | Yoro Worker → terminal-agent upstream |
 
 ## Files
 
 ```
-60-apps/ai-gftd-terminal-agent/
+60-apps/etzhayyim-terminal-agent/
   Dockerfile                    # langgraph dev CMD
   pyproject.toml                # langgraph-cli[inmem]>=0.1.71
   langgraph.json                # {"graphs": {"agent": "terminal_agent.graph:graph"}}
@@ -159,7 +159,7 @@ POST /api/hitl/threads/{thread_id}/runs/stream
     deployment.yaml             # terminal-agent-server Deployment + Service
     ingress.yaml                # terminal-agent.etzhayyim.com nginx-ingress
 
-60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/
+60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/
   src/app.ts                    # /api/hitl/* Hono proxy
   svelte/src/
     lib/hitl-store.svelte.ts    # background poller + hitlHeaders()

@@ -9,7 +9,7 @@
   "description": "Schema definition for global real estate property and land rights data",
   "inDefinedTermSet": {
     "@type": "DefinedTermSet",
-    "name": "GFTD Real Estate Data Schema",
+    "name": "Etzhayyim Real Estate Data Schema",
     "hasDefinedTerm": [
       {
         "@type": "PropertyValue",

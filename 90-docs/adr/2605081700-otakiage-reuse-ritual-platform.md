@@ -456,4 +456,4 @@ issueCertificate → (auto-queue, non-fatal)
 - ADR-0018 (PII Tier 3 + Cohort-First) — donor / recipient PII の T3 Preferences 配置
 - ADR-0095 (3-Layer Identity + RisingWave Canonical Columns) — `actor_did / org_did / at_did / created_at` 4 列規約
 - root CLAUDE.md §Operating entity boundary — etzhayyim = sole principal
-- `60-apps/ai-gftd-project-fleamarket/` — 個人間売買 (有償) の責務分離先
+- `60-apps/etzhayyim-project-fleamarket/` — 個人間売買 (有償) の責務分離先

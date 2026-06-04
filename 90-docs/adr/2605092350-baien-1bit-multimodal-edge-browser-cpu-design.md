@@ -169,7 +169,7 @@ edge" and the registry returns Baien rather than a server-bound model.
 - **Use-cases**: `UseCaseName` is extended with `"edge"`, `"browser"`,
   `"cpu"` — all three default to `baien-bitnet-1.58bit-base`.
 - **Asset SSoT**: bf16 + i2_s blobs live under
-  `b2://gftd-models/baien/{ver}/`. Browser assets are mirrored to
+  `b2://etzhayyim-models/baien/{ver}/`. Browser assets are mirrored to
   `baien.etzhayyim.com` static origin via Workers Assets.
 
 ## 6. Cost
@@ -313,7 +313,7 @@ MCP facade.
     `70-tools/scripts/training/baien-bitnet-cpp-bootstrap.sh`.
 
 - 2026-05-10 third bisect leg — **bitnet.cpp i2_s on linux/amd64
-  Skylake** via a one-shot Job on the gftd-vke (Vultr) cluster
+  Skylake** via a one-shot Job on the etzhayyim-vke (Vultr) cluster
   (manifest: `70-tools/scripts/training/baien-bitnet-cpp-vke-smoke.yaml`):
   - Same prompt, same greedy decode: completion =
     `" Paris. Paris is a city that is known for its rich history,

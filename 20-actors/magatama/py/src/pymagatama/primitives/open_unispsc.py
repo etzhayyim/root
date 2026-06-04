@@ -129,7 +129,7 @@ def _repo_root() -> Path:
 
 
 def _segments_csv() -> Path:
-    return _repo_root() / "60-apps/ai-gftd-project-open-unispsc/segments.csv"
+    return _repo_root() / "60-apps/etzhayyim-project-open-unispsc/segments.csv"
 
 
 def _lexicon_dir() -> Path:

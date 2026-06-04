@@ -119,7 +119,7 @@
     "description": "12 immutable gates per ADR-2605263100. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan on every water-quality document",
-      "G2": "yatachain attestation lineage on every record",
+      "G2": "kotoba-datomic attestation lineage on every record",
       "G3": "Community-scale only (per-source service population ≤2,500 R2, ≤25,000 cumulative R3)",
       "G4": "NO commercial water utility software (Veolia / Suez / American Water / Aquarion / Évian / Nestlé Pure Life / Beck Water / Trojan UV PROHIBITED)",
       "G5": "NO bottled water vendor relationship (single-use plastic PROHIBITED per Charter §1.13)",

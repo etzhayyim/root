@@ -8,7 +8,7 @@
  * (ADR-2605181100), read-cap = owner DID + explicit recipients. The substrate
  * never sees which inbox a person linked, nor their grant scopes, in plaintext.
  *
- * STAYS gftd (consent-capability, not a collection): OAuth access/refresh-token
+ * STAYS etzhayyim (consent-capability, not a collection): OAuth access/refresh-token
  * + client-secret custody, and the external Graph/Gmail/Drive API CALL itself.
  */
 

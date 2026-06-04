@@ -24,7 +24,7 @@ authoritative_for:
   - Observability (LocalTraceCallback, AGENT_TRACE_DIR, LangSmith)
   - CodeAct mode (AGENT_CODEACT=true, Python block execution)
   - Context window management (AGENT_MSG_WINDOW, head+tail trim)
-  - gftd CLI integration (code.go delegates to terminal-agent; code exec flags: --dir, --message, --model, --api-key, --uv-bin, --dry-run)
+  - etzhayyim CLI integration (code.go delegates to terminal-agent; code exec flags: --dir, --message, --model, --api-key, --uv-bin, --dry-run)
   - MCP server (uv run agent mcp, stdio + HTTP transport)
   - Git tools (git_status, git_diff, git_log, git_commit)
   - LSP tools (lsp_check, lsp_symbols)
@@ -46,7 +46,7 @@ Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision
 
-Extend `60-apps/ai-gftd-terminal-agent` from a single `llm → tools` loop to a
+Extend `60-apps/etzhayyim-terminal-agent` from a single `llm → tools` loop to a
 **10-node LangGraph graph** that achieves feature parity with Claude Code for
 agentic coding tasks. All enhancements are implemented in-process; the LangGraph
 Server deployment (ADR-2605120600) is preserved unchanged.
@@ -289,16 +289,16 @@ Fetches any HTTP/HTTPS URL and returns readable content:
 `scripts/compare_models.py` — multi-model comparison: runs `bench.py --json` for
 N models via subprocess, prints markdown table, saves to `results/compare_{ts}.json`.
 
-## 4. gftd CLI integration
+## 4. etzhayyim CLI integration
 
-`70-tools/gftd/gftd/code.go` delegates all execution to the terminal-agent (LangGraph).
-aider and codex were removed 2026-05-14 (`gftd-code-remove-aider-codex-2026-05-14`).
+`70-tools/etzhayyim/etzhayyim/code.go` delegates all execution to the terminal-agent (LangGraph).
+aider and codex were removed 2026-05-14 (`etzhayyim-code-remove-aider-codex-2026-05-14`).
 
-### `gftd code` (interactive REPL)
+### `etzhayyim code` (interactive REPL)
 
 Delegates directly to `runCodeAgent(args)` → `uv run agent [--local]`.
 
-### `gftd code exec` (non-interactive one-shot)
+### `etzhayyim code exec` (non-interactive one-shot)
 
 Launches `uv run agent --local --message <msg> --dir <dir>` from the terminal-agent
 app directory. Env vars set: `OPENROUTER_API_KEY`, `AGENT_MODEL`.
@@ -376,4 +376,4 @@ class AgentState(BaseModel):
 | `scripts/build-push.sh` | New: build → push → rollout script (--dry-run, --build-only, --tag) |
 | `Dockerfile` | uv.lock-based reproducible build, OCI labels, layer-cached deps |
 | `k8s/deployment.yaml` | readinessProbe, AGENT_SUPERVISOR/AGENT_CODEACT env vars, specialist model comments |
-| `70-tools/gftd/gftd/code.go` | 2026-05-14: rewrite — remove aider/codex; runCode() → runCodeAgent(); runCodeExec() → uv run agent --local --message --dir |
+| `70-tools/etzhayyim/etzhayyim/code.go` | 2026-05-14: rewrite — remove aider/codex; runCode() → runCodeAgent(); runCodeExec() → uv run agent --local --message --dir |

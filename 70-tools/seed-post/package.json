@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
-  "description": "Seed an app.bsky.feed.post into the operator's MST so https://etzhayyim.com/ has a first post to render. Per ADR-2605172000 §1 (yatachain-chain).",
+  "description": "Seed an app.bsky.feed.post into the operator's MST so https://etzhayyim.com/ has a first post to render. Per ADR-2605172000 §1 (kotoba-datomic-chain).",
   "bin": {
     "etzhayyim-seed-post": "./bin/seed-post.mjs"
   },

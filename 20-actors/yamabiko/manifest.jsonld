@@ -92,7 +92,7 @@
     "description": "14 immutable gates per ADR-2605252600. Changes require Council Lv6+ supermajority + new ADR.",
     "gates": {
       "G1": "Control firmware (ATP/ATO/traction) + carbody CAD + bogie CAD open-source (Apache 2.0 + Charter Rider)",
-      "G2": "Per-trainset manufacturing log yatachain anchor + open trainset registry",
+      "G2": "Per-trainset manufacturing log kotoba-datomic anchor + open trainset registry",
       "G3": "Per-trainset IPFS-pinned photo + video",
       "G4": "Every critical FSW + bogie marriage signed by witness quorum ≥2 robots",
       "G5": "Operator manual + passenger PIS JP+EN+local trilingual minimum",

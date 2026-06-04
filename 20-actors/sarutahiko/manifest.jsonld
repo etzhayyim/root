@@ -70,7 +70,7 @@
     {"name": "electrical_integration", "module": "sarutahiko.cells.electrical_integration", "murakumoNode": "levi", "phase": "L5b — harness + ECU flash (G1 open-source) + diagnostics"},
     {"name": "quality_road_test", "module": "sarutahiko.cells.quality_road_test", "murakumoNode": "levi", "phase": "L5c — roller dyno + 50 km public-road test"},
     {"name": "emissions_audit", "module": "sarutahiko.cells.emissions_audit", "murakumoNode": "levi", "phase": "cross-cutting — Euro 7 + 大気汚染防止法 + Bharat VI compliance"},
-    {"name": "vin_attestation_binder", "module": "sarutahiko.cells.vin_attestation_binder", "murakumoNode": "judah", "phase": "terminal — per-VIN yatachain anchor (G2 + G13)"}
+    {"name": "vin_attestation_binder", "module": "sarutahiko.cells.vin_attestation_binder", "murakumoNode": "judah", "phase": "terminal — per-VIN kotoba-datomic anchor (G2 + G13)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.sarutahiko.frameAttestation",
@@ -87,7 +87,7 @@
     "description": "14 immutable gates per ADR-2605252500. Changes require Council Lv6+ supermajority + new ADR.",
     "gates": {
       "G1": "ECU + all electrical firmware open-source (Apache 2.0 + Charter Rider)",
-      "G2": "Per-VIN manufacturing log yatachain anchor + open VIN registry",
+      "G2": "Per-VIN manufacturing log kotoba-datomic anchor + open VIN registry",
       "G3": "Per-VIN IPFS-pinned photo + video (frame welding / paint / road test)",
       "G4": "Every critical weld + final marriage signed by witness quorum ≥2 distinct robots (Ed25519, DID-bound)",
       "G5": "Operator + service manual JP+EN bilingual minimum + open-source",

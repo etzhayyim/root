@@ -49,7 +49,7 @@ if (existsSync(fullpath)) {
   process.exit(1);
 }
 
-const template = `// tier: C   // ADR-0040: A=actor DID / B=sub-path did:gftd / C=no DID (default).
+const template = `// tier: C   // ADR-0040: A=actor DID / B=sub-path did:etzhayyim / C=no DID (default).
 //             If creating any \`vertex_*\` table, also add it to
 //             \`30-graph/deps.toml [vertex_tier.tier_*.tables]\`.
 import { Kysely, sql } from 'kysely';

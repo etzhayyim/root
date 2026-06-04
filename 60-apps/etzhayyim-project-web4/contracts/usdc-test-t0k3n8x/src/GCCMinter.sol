@@ -5,7 +5,7 @@ import {TestUSDC} from "./TestUSDC.sol";
 
 /**
  * @title GCCMinter
- * @notice Accepts ETH, USDC, or USDT and mints GCC (Gftd Computing Credits) to the buyer.
+ * @notice Accepts ETH, USDC, or USDT and mints GCC (Etzhayyim Computing Credits) to the buyer.
  *
  * This contract must be registered as a minter on the GCC token via
  * `gcc.configureMinter(address(this), cap)` called by the masterMinter (Safe).

@@ -63,7 +63,7 @@ ADR-0081 (worker-direct Hyperdrive), ADR-0087 (magatama MCP facade), ADR-0092
 
 # Decision
 
-AT Protocol 標準 9 層の **superset** として、W Protocol / gftd 独自の
+AT Protocol 標準 9 層の **superset** として、W Protocol / etzhayyim 独自の
 **extension layer 6 種** を正名定義する。以下 15 層 (標準 9 + 拡張 6) を
 repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票 CLAUDE.md
 の冒頭で layer 名を明示する。
@@ -74,7 +74,7 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 
 | # | Layer | 責務 | 本 repo の実体 |
 |---|---|---|---|
-| 1 | **PDS** (Personal Data Server) | repo commit + blob + identity | `atproto.etzhayyim.com` の PDS 部 (pipethrough 先の `ai-gftd-pds`) |
+| 1 | **PDS** (Personal Data Server) | repo commit + blob + identity | `atproto.etzhayyim.com` の PDS 部 (pipethrough 先の `etzhayyim-pds`) |
 | 2 | **AppView** | indexed view for an app lexicon | yoro AppView (`app.bsky.*` indexed view、graph Worker + RisingWave) |
 | 3 | **Relay** (BGS) | firehose 集約 | (未運用、Bluesky 公式依存) |
 | 4 | **Entryway** (Authorization Server) | OAuth / DPoP / PAR / PKCE | `atproto.etzhayyim.com` の OAuth handler 部 (ADR-2604231800) |
@@ -92,7 +92,7 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 | 11 | **Key Directory** (E2E Keystore) | `key-directory` | Signal/X3DH/MLS 系の prekey bundle + identity key publish + fetch | `com.etzhayyim.signal.*` 系 NSID、plaintext 鍵を server に持たない (published pubkey + wrapped のみ) |
 | 12 | **Secret Vault** (Zero-Knowledge Secret Manager) | `secret-vault` | encrypted secret storage。server は ciphertext + wrapped key のみ、plaintext は client/device key 経由でのみ復号 | `com.etzhayyim.vault.*` 系 NSID、Zero-Knowledge Invariant (CLAUDE.md root) 遵守 |
 | 13 | **Inference Fleet** | `inference-fleet` | LLM / vision / embedding inference の gateway + backing compute pool | `com.etzhayyim.apps.murakumo.*` / `com.etzhayyim.apps.ameno.*` 等、model id は `llm-model-registry.ts` SSoT |
-| 14 | **DID Directory** | `did-directory` | did method を自ホストで serve (did:plc / did:gftd / did:web sub-actor 等) | `com.etzhayyim.plc.*` / `com.etzhayyim.identity.*`、W3C DID Resolution v0.3 準拠 |
+| 14 | **DID Directory** | `did-directory` | did method を自ホストで serve (did:plc / did:etzhayyim / did:web sub-actor 等) | `com.etzhayyim.plc.*` / `com.etzhayyim.identity.*`、W3C DID Resolution v0.3 準拠 |
 | 15 | **Process Orchestrator** | `process-orchestrator` | BPMN 2.0 / OCEL / cron / event 駆動の multi-step workflow dispatcher | Zeebe + BPMN definitions (ADR-0056)、`vertex_bpmn_process_def` 経由で宣言 |
 
 ### AuthN / AuthZ の扱い
@@ -192,7 +192,7 @@ Q8: BPMN / workflow dispatch か?
 | `murakumo.etzhayyim.com` | 13 Inference Fleet |
 | `ameno.*` (browser-side) | 13 Inference Fleet (client compute variant) |
 | `plc.etzhayyim.com` | 14 DID Directory |
-| `did.etzhayyim.com` | 14 DID Directory (did:gftd, ADR-0029) |
+| `did.etzhayyim.com` | 14 DID Directory (did:etzhayyim, ADR-0029) |
 | `dispatcher.etzhayyim.com` | 15 Process Orchestrator |
 | `routing-gateway` | (glue, not a layer) |
 

@@ -273,7 +273,7 @@
     "description": "Semiconductor industry intelligence: RSS crawl from 6 sources, LLM enrichment, entity extraction, supply chain correlation, market trend analysis.",
     "displayName": "Handotai — Semiconductor Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

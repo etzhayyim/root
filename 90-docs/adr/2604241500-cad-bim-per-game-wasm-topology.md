@@ -20,7 +20,7 @@ superseded_by: []
 
 # Context
 
-`60-apps/ai-gftd-project-cad/260320-cad-magatamaapp-design.md` (2026-03-20) が
+`60-apps/etzhayyim-project-cad/260320-cad-magatamaapp-design.md` (2026-03-20) が
 CAD app を **Container runtime + Threlte viewer** 前提で設計している。
 
 一方で 2026-04 に `60-apps/CLAUDE.md` が CRITICAL ルールとして
@@ -97,7 +97,7 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 | Runtime | `worker` (TS Native + `@etzhayyim/magatama-host-sdk`) | `worker` |
 | Lexicon root | `com.etzhayyim.apps.cad.*` | `com.etzhayyim.apps.bim.*` |
 | Persistence | Hyperdrive direct (ADR-0036) on `vertex_cad_*` | Hyperdrive direct on `vertex_bim_*` |
-| Blob storage (ADR-0048) | B2 (Backblaze B2) SHA-256 content-addressed (`ai-gftd-cad/cad/{blobs,meshes,exports}/{sha}`) | B2 同上 (`ai-gftd-bim/bim/{blobs,meshes,exports}/{sha}`) |
+| Blob storage (ADR-0048) | B2 (Backblaze B2) SHA-256 content-addressed (`etzhayyim-cad/cad/{blobs,meshes,exports}/{sha}`) | B2 同上 (`etzhayyim-bim/bim/{blobs,meshes,exports}/{sha}`) |
 | Social derive | revision publish / comment resolve → `app.bsky.feed.post` | 同左 (annotation resolve, revision publish) |
 
 ## Phase 1 CAD lexicons (SSoT: `00-contracts/lexicons/com/etzhayyim/cad/`)
@@ -125,7 +125,7 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 - `40-engine/kami-engine/kami-bim/` (新規 crate、IFC-like model)
 - `40-engine/kami-engine/kami-app-cad/` (新規 crate、`run_cad_v2`)
 - `40-engine/kami-engine/kami-app-bim/` (新規 crate、`run_bim_v2`)
-- `60-apps/ai-gftd-project-bim/` (新規 project scaffold)
+- `60-apps/etzhayyim-project-bim/` (新規 project scaffold)
 
 `40-engine/kami-engine/Cargo.toml` workspace members に上記 3 crate を追加。
 
@@ -173,8 +173,8 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 | `kami-bim` crate | **新規作成** (本 ADR で着地) |
 | `kami-app-cad` | **新規作成** (Phase 1 は Sky のみ scaffold、BREP scene adapter は続 PR) |
 | `kami-app-bim` | **新規作成** (Phase 1 は Sky のみ scaffold、BIM scene adapter は続 PR) |
-| `60-apps/ai-gftd-project-bim` | **新規作成** (Worker + lexicons + CLAUDE.md) |
-| `60-apps/ai-gftd-project-cad` CLAUDE.md | runtime 記述を `container` → `worker (viewer) + container (job)` に更新 (本 ADR 反映の follow-up) |
+| `60-apps/etzhayyim-project-bim` | **新規作成** (Worker + lexicons + CLAUDE.md) |
+| `60-apps/etzhayyim-project-cad` CLAUDE.md | runtime 記述を `container` → `worker (viewer) + container (job)` に更新 (本 ADR 反映の follow-up) |
 
 # Alternatives Considered
 
@@ -205,7 +205,7 @@ viewer UX (cold start ゼロ) を優先。
 
 - `60-apps/CLAUDE.md` §Per-Game WASM Pattern (CRITICAL, 2026-04)
 - `40-engine/kami-engine/ARCHITECTURE.md`
-- `60-apps/ai-gftd-project-cad/260320-cad-magatamaapp-design.md`
+- `60-apps/etzhayyim-project-cad/260320-cad-magatamaapp-design.md`
 - ADR-0036 (Worker-direct Hyperdrive)
 - ADR-0002 (Graph storage / AppView)
 - IFC 4.3 schema: https://standards.buildingsmart.org/IFC/RELEASE/IFC4_3/

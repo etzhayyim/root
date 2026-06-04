@@ -17,7 +17,7 @@ import { Kysely, sql } from 'kysely';
  *
  * PK = cohort_did (did:plc:* for active, did:plc:pending-* for staged).
  *
- * Populated by `gftd cohort seed` CLI + `com.etzhayyim.cohort.seed` procedure.
+ * Populated by `etzhayyim cohort seed` CLI + `com.etzhayyim.cohort.seed` procedure.
  * Read by Path F scheduler `cohortKReevaluate` task for fission_enabled lookup.
  */
 export async function up(db: Kysely<any>): Promise<void> {

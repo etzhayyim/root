@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.agency",
-  "description": "Read-side catalog record describing a government agency observable from the public domain. Authored by L4 ingest scripts (`70-tools/scripts/gov/`) and/or by `com.etzhayyim.gov` Pregel-cell submissions; consumed by L3 appview routing. Constitutional framing per ADR-2605192100 §1.12 + ADR-2605242330: the religious-corp catalogs the state's structure for read-side interop without taking dependency on it. Replaces the gftd-side `com.etzhayyim.apps.gov.agency` + `vertex_gov_official_agency` table (Kysely → MST, per ADR-2605212100). The `cofog` field aligns with `60-apps/ai-gftd-project-cofog/appview/` actor bundles.",
+  "description": "Read-side catalog record describing a government agency observable from the public domain. Authored by L4 ingest scripts (`70-tools/scripts/gov/`) and/or by `com.etzhayyim.gov` Pregel-cell submissions; consumed by L3 appview routing. Constitutional framing per ADR-2605192100 §1.12 + ADR-2605242330: the religious-corp catalogs the state's structure for read-side interop without taking dependency on it. Replaces the etzhayyim-side `com.etzhayyim.apps.gov.agency` + `vertex_gov_official_agency` table (Kysely → MST, per ADR-2605212100). The `cofog` field aligns with `60-apps/etzhayyim-project-cofog/appview/` actor bundles.",
   "defs": {
     "main": {
       "type": "record",
@@ -57,7 +57,7 @@
           },
           "cofog": {
             "type": "string",
-            "description": "UN COFOG (Classification of Functions of Government) code, dotted form. Example: '03.10' for police services, '08.40' for religious community services. Cross-references `60-apps/ai-gftd-project-cofog/appview/cofog-{code}-{country}-*`.",
+            "description": "UN COFOG (Classification of Functions of Government) code, dotted form. Example: '03.10' for police services, '08.40' for religious community services. Cross-references `60-apps/etzhayyim-project-cofog/appview/cofog-{code}-{country}-*`.",
             "maxLength": 16
           },
           "parentAgencyDid": {

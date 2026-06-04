@@ -76,7 +76,7 @@ WHERE v.kind = 'fissioned' AND v.derived_from <> e.src_vid
 
 | Drift | Repair |
 |---|---|
-| edge missing | `gftd cohort repair-edge --did <individual>` (TODO) で `vertex_cohort_actor.derived_from` から edge を再生成 |
+| edge missing | `etzhayyim cohort repair-edge --did <individual>` (TODO) で `vertex_cohort_actor.derived_from` から edge を再生成 |
 | orphan edge | `DELETE FROM edge_cohort_derived WHERE dst_vid NOT IN (SELECT cohort_did FROM vertex_cohort_actor WHERE kind='fissioned')` |
 | parent mismatch | manual review (data corruption sign) |
 
@@ -90,5 +90,5 @@ cohort-watchdog cron tick (6h) に上記 3 query を追加し、drift 件数を 
 
 - `30-graph/graph-schema/migrations/0053_vertex_cohort_actor.ts`
 - `30-graph/graph-schema/migrations/0056_cohort_lineage_edges.ts`
-- `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` `handleCohortFission`
+- `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` `handleCohortFission`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

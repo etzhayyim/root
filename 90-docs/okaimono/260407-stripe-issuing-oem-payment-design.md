@@ -134,7 +134,7 @@ Factory → tsukuru production_order (status=delivered)
 
 ### WIT Changes
 
-**Modified**: `gftd:okaimono@1.0.0` — `orders` interface に payment fields 追加:
+**Modified**: `etzhayyim:okaimono@1.0.0` — `orders` interface に payment fields 追加:
 
 ```wit
 /// Order payment info (Stripe Issuing card binding)
@@ -148,7 +148,7 @@ Factory → tsukuru production_order (status=delivered)
 ///   }
 ```
 
-**Modified**: `gftd:tsukuru-production-order@1.0.0` — `create-production-order` params に payment section 追加:
+**Modified**: `etzhayyim:tsukuru-production-order@1.0.0` — `create-production-order` params に payment section 追加:
 
 ```wit
 /// create-production-order params に payment section 追加:
@@ -161,7 +161,7 @@ Factory → tsukuru production_order (status=delivered)
 ///   }
 ```
 
-**No new WIT packages required.** 既存の `gftd:stripe@1.0.0` card-issuing interface を okaimono checkout agent が Invoke で呼ぶ。
+**No new WIT packages required.** 既存の `etzhayyim:stripe@1.0.0` card-issuing interface を okaimono checkout agent が Invoke で呼ぶ。
 
 ### Cross-Project Integration
 

@@ -120,7 +120,7 @@ factory.cdx.json   kotoba_ingest.json   construction.order.json
 | Generator + cross-checks | `…/giemon-factory-r0/kotoba_gen.py` |
 | Generated SBOM / ingest / order | `…/giemon-factory-r0/{factory.cdx.json,kotoba_ingest.json,construction.order.json}` |
 | Engine crate | `40-engine/kami-engine/kami-app-giemon-factory/` (`scene.rs` + `lib.rs`) |
-| WASM viewer | `60-apps/ai-gftd-project-isekai/appview/ai-gftd-wasm-isekai-is3k41w0/svelte/static/giemon-factory.htm` |
+| WASM viewer | `60-apps/etzhayyim-project-isekai/appview/etzhayyim-wasm-isekai-is3k41w0/svelte/static/giemon-factory.htm` |
 
 ## Charter / gates
 

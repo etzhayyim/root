@@ -258,7 +258,7 @@ async def commit_entities(source: str, page: int, records: list[dict[str, Any]])
 async def fetch_sec_tickers() -> dict[str, Any]:
     headers = {
         "Accept": "application/json",
-        "User-Agent": "gftd-legal-entity/1.0 legal-entity@etzhayyim.com",
+        "User-Agent": "etzhayyim-legal-entity/1.0 legal-entity@etzhayyim.com",
     }
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         res = await client.get(SEC_TICKERS_URL, headers=headers)
@@ -297,7 +297,7 @@ async def resolve_sec_cik(ticker: str, cik: str) -> tuple[str, str]:
 async def fetch_sec_json(url: str) -> dict[str, Any]:
     headers = {
         "Accept": "application/json",
-        "User-Agent": "gftd-legal-entity/1.0 legal-entity@etzhayyim.com",
+        "User-Agent": "etzhayyim-legal-entity/1.0 legal-entity@etzhayyim.com",
     }
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         res = await client.get(url, headers=headers)
@@ -467,7 +467,7 @@ async def fetch_country_registry_page(
 ) -> tuple[list[dict[str, Any]], int]:
     if task_type == "legalEntity.registry.collectJpn":
         params: dict[str, Any] = {
-            "id": os.environ.get("NTA_APPLICATION_ID", "gftd-legal-entity"),
+            "id": os.environ.get("NTA_APPLICATION_ID", "etzhayyim-legal-entity"),
             "type": "12",
             "from": clean(variables.get("from") or "2015-10-05"),
             "to": clean(variables.get("to") or now_iso()[:10]),

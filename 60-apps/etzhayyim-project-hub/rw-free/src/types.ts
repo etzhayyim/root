@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys) + ADR-2605172400 (3-axis) + ADR-2605181100
  * (kotoba E2E encrypted-record envelope). Founder directive 2026-06-03: maximal
  * migration — front everything that can move; only irreducible regulated
- * execution stays gftd.
+ * execution stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — repository catalog metadata (owner/slug/
@@ -19,9 +19,9 @@
  *     findings = CUI), sealed.
  *   - webhook: delivery config (target URL + subscribed events + org binding) —
  *     confidential integration config, sealed. The signing SECRET itself never
- *     enters a record; it stays in gftd credential custody.
+ *     enters a record; it stays in etzhayyim credential custody.
  *
- *   STAYS gftd (consumed via consent-capability) — the irreducible regulated
+ *   STAYS etzhayyim (consumed via consent-capability) — the irreducible regulated
  *   EXECUTION, noted not modeled as a collection:
  *     * git smart-HTTP raw object/blob archive custody (the source-code object
  *       store — physically the archive analog; cannot live in AT PDS),

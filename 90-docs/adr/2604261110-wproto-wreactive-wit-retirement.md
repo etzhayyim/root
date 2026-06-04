@@ -26,8 +26,8 @@ DSM 整理 (2026-04-26) で、現 contract layer のうち以下 3 つは Shanno
 
 1. **WIT** (`_archive/00-contracts/wit/`, `_archive/wit-2026-04-13/`)
    F-Plan 2026-04-13 で `com.etzhayyim.host.*` Lexicon JSON に置換済み。
-   T3 Container (`ai-gftd-wasm-cad-cd4dview`) と Rust `contract-jco`
-   (`ai-gftd-wasm-hoge-h0g3t3st`) のみ in-tree `wit/` を保持。
+   T3 Container (`etzhayyim-wasm-cad-cd4dview`) と Rust `contract-jco`
+   (`etzhayyim-wasm-hoge-h0g3t3st`) のみ in-tree `wit/` を保持。
 2. **wproto** (`10-protocol/wproto/`)
    N3 migration (2026-04-12) 後は `@atproto/api` AtpAgent の facade に
    縮退。235 typed XRPC wrapper を保持しているが、Lexicon 起点の
@@ -45,8 +45,8 @@ ADR-2604261100 が Rego + DMN を一級化するのと並行して、subtractive
 ## 1. WIT — terminal、新規禁止
 
 - **新規 component で `wit/world.wit` を追加することを禁止**。
-- 既存 2 例外 (`ai-gftd-wasm-cad-cd4dview` Container runtime,
-  `ai-gftd-wasm-hoge-h0g3t3st` contract-jco generator) は legacy compat
+- 既存 2 例外 (`etzhayyim-wasm-cad-cd4dview` Container runtime,
+  `etzhayyim-wasm-hoge-h0g3t3st` contract-jco generator) は legacy compat
   として **凍結** (機能追加なし、bug fix のみ)。
 - `com.etzhayyim.host.*` Lexicon を全 host capability の SSoT として再宣言
   (F-Plan 2026-04-13 を上書き)。

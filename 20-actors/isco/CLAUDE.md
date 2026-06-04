@@ -1,4 +1,4 @@
-# ai-gftd-project-open-isco — ISCO Workforce Coordinator Rules
+# etzhayyim-project-open-isco — ISCO Workforce Coordinator Rules
 
 ISCO project 固有のルール。共通ルールは `60-apps/CLAUDE.md` と `70-tools/CLAUDE.md` を参照。
 
@@ -8,7 +8,7 @@ ILO ISCO-08 全分類を **1 app (coordinator) × 619 Multi-DIDs** で管理す�
 
 ## CRITICAL: Architecture — 1 App × Multi-DID
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-open-isco-architecture-1-app-×-multi-did` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-open-isco-architecture-1-app-×-multi-did` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Single App
 
@@ -33,7 +33,7 @@ did:web:isco.etzhayyim.com:occupation:{code}
 
 | WIT | パス | 内容 |
 |---|---|---|
-| `gftd:isco-workforce-coordinator` | `wasm/*/wit/world.wit` | coordinator world (contract + capability export) |
+| `etzhayyim:isco-workforce-coordinator` | `wasm/*/wit/world.wit` | coordinator world (contract + capability export) |
 | `magatama:isco-workforce-flow@1.0.0` | `wit/isco-workforce-flow/package.wit` | workforce-mobility, workforce-compensation, workforce-skills |
 
 ## Commands

@@ -17,10 +17,10 @@
  *   applies here). Written via sdk.encryptedWrite (read-cap = owner DID), so the
  *   substrate never sees recipient PII in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability) — print PRODUCTION execution,
+ *   STAYS etzhayyim (consumed via consent-capability) — print PRODUCTION execution,
  *   the yuubin `composeAndPost` postal-injection dispatch (blocking fulfillment
  *   action), the quote/scoring engine, and fiat settlement of print/postage
- *   costs. The job DATA record migrates; the regulated *acts* stay gftd.
+ *   costs. The job DATA record migrates; the regulated *acts* stay etzhayyim.
  *
  * AT-Lexicon: no float. Money/decimals as decimal STRINGS (estimatedCostUsd,
  * baseCostUsd, perPageUsd). Counts/pages/quantity/days as integers.

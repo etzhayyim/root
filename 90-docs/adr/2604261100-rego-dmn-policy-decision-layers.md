@@ -63,12 +63,12 @@ Rego は repo 未導入。
 
 - **Bundle 構造**: `00-contracts/policies/<package>/{policy.rego, data.json, test.rego}`
 - **Package 命名**: NSID を逆ドメイン化 — `com.etzhayyim.apps.<project>.<method>` →
-  `package gftd.apps.<project>.<method>`
+  `package etzhayyim.apps.<project>.<method>`
 - **Input contract** (Worker → Rego):
   ```
   input = {
     nsid:        "com.etzhayyim.apps.foo.bar",
-    actor:       { did: "did:gftd:...", handles: [...] },
+    actor:       { did: "did:etzhayyim:...", handles: [...] },
     target:      { did?, collection?, rkey? },
     permission_sets: ["..."],         // Lexicon Permission-Set 由来
     auth:        { method: "service-jwt"|"oauth"|"agent-token", scopes: [...] },

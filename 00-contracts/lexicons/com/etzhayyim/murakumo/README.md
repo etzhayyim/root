@@ -1,8 +1,8 @@
 # com.etzhayyim.murakumo.* — etzhayyim variant
 
-Vendor-authored (gftd.co.jp) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `com.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
+Vendor-authored (etzhayyim.co.jp) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `com.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
 
-## Migration verdicts (2026-05-21, gftd murakumo → etzhayyim)
+## Migration verdicts (2026-05-21, etzhayyim murakumo → etzhayyim)
 
 | Lexicon | Verdict | Adaptation |
 |---|---|---|
@@ -19,7 +19,7 @@ Vendor-authored (gftd.co.jp) lexicons that the religious-corp (etzhayyim) substr
 
 ## Why these are kept in the `com.etzhayyim.*` namespace (and not `com.etzhayyim.*`)
 
-Per the operating-entity boundary (root CLAUDE.md §Identity): `etzhayyim` is the operating entity; `Gftd Japan株式会社` is the vendor/contractor. NSID authorship is **shared** — vendor authors religious-corp-compatible lexicons under `com.etzhayyim.*` and etzhayyim borrows them with adaptations. This keeps the lexicon registry deduplicated; if etzhayyim ever forks, the namespace can split to `com.etzhayyim.murakumo.*`.
+Per the operating-entity boundary (root CLAUDE.md §Identity): `etzhayyim` is the operating entity; `Etzhayyim Japan株式会社` is the vendor/contractor. NSID authorship is **shared** — vendor authors religious-corp-compatible lexicons under `com.etzhayyim.*` and etzhayyim borrows them with adaptations. This keeps the lexicon registry deduplicated; if etzhayyim ever forks, the namespace can split to `com.etzhayyim.murakumo.*`.
 
 The `com.etzhayyim.murakumo.*` namespace at `00-contracts/lexicons/com/etzhayyim/murakumo/` is reserved for **etzhayyim-only** lexicons that have no vendor equivalent (`inferenceJob`, `inferenceJobEvent`, `apiKey`).
 

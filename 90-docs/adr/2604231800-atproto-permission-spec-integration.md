@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - adr-0022-auth-topology-consolidation
   - adr-0023-auth-shannon-optimal-4-layer
-  - adr-0029-did-gftd-method-specification
+  - adr-0029-did-etzhayyim-method-specification
 supersedes: []
 superseded_by: []
 ---
@@ -45,7 +45,7 @@ authorize flow 時に dynamic resolve し、UI で human-readable な consent �
 | Permission-Set lexicon | 9 etzhayyim + 3 Bluesky 公式 = 22 セット宣言済 | `00-contracts/lexicons/com/etzhayyim/*/auth*.json` / `deps.toml [[conventions]] "Permission Set"` |
 | OAuth 2.0 PAR + authorize + token + PKCE (S256) | 実装済 | `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts:37-255` |
 | Scope parse / validate (`atproto`, `transition:`, `include:`, `repo:`, `rpc:`) | 実装済 | `50-infra/cloudflare/workers/atproto/src/auth/scope.ts:140-179` (`checkTokenScope`) |
-| Service Auth JWT (ES256, `lxm` claim, 60s TTL) | 実装済 | `60-apps/ai-gftd-project-auth/worker/src-ts/service-auth.ts` / `10-protocol/xrpc/src/auth.ts:14-71` / `70-tools/gftd/gftd/scoped_auth.go` |
+| Service Auth JWT (ES256, `lxm` claim, 60s TTL) | 実装済 | `60-apps/etzhayyim-project-auth/worker/src-ts/service-auth.ts` / `10-protocol/xrpc/src/auth.ts:14-71` / `70-tools/etzhayyim/etzhayyim/scoped_auth.go` |
 | DPoP proof parse (`jkt` thumbprint 抽出) | 実装済 | `oauth.ts:143-163` |
 | **DPoP ES256 signature 検証** | **未実装** (header parse のみ) | 同上 |
 | **resource scope `blob` / `account` / `identity`** | **未実装** (`repo` + `rpc` のみ) | `scope.ts:140-179` |
@@ -87,7 +87,7 @@ consent / crypto layer 分離) は直交レイヤとして維持し、permission
 |---|---|---|
 | **外部 scope (OAuth client → PDS)** | **本 ADR + atproto permission spec** | consent 取得、scope 検証、token 発行 |
 | 内部 auth boundary (L0-L3) | ADR-0023 | Worker-to-Worker trust、crypto 分離、API key custody |
-| identity 構造 (did:gftd) | ADR-0029 | DID method 仕様、key rotation |
+| identity 構造 (did:etzhayyim) | ADR-0029 | DID method 仕様、key rotation |
 | token topology (API Key / ES256 JWT) | ADR-0022 | 2-token model、60s `lxm` scoped JWT |
 
 **禁止**: permission-set lexicon の意味論を ADR-0023 に書くこと / ADR-0023 の
@@ -97,7 +97,7 @@ consent / crypto layer 分離) は直交レイヤとして維持し、permission
 # Work Plan
 
 4 つの gap を優先度順に作業する。全て既存 Worker (`50-infra/cloudflare/workers/atproto`,
-`60-apps/ai-gftd-project-auth/worker`) 内の additive 変更で完結し、外部 schema 変更なし。
+`60-apps/etzhayyim-project-auth/worker`) 内の additive 変更で完結し、外部 schema 変更なし。
 
 ## Implementation Status (2026-04-23, status = active)
 
@@ -114,7 +114,7 @@ consent / crypto layer 分離) は直交レイヤとして維持し、permission
 署名検証が無かった → RFC 9449 の cryptographic binding 要件を満たさず。
 
 実装: `50-infra/cloudflare/workers/atproto/src/auth/dpop.ts` (new) に
-`verifyDpopProof` を port (reference: `60-apps/ai-gftd-project-auth/worker/src-ts/dpop.ts`)。
+`verifyDpopProof` を port (reference: `60-apps/etzhayyim-project-auth/worker/src-ts/dpop.ts`)。
 `typ=dpop+jwt` / `alg=ES256` / `htm` / `htu` / `iat` (30s future skew, 300s max age) /
 `jti` / ES256 signature を全て検証。`oauth.ts:143-153` で `verifyDpopProof` を呼び出し、
 失敗時は `400 invalidDpopProof` を返す。
@@ -137,13 +137,13 @@ consent / crypto layer 分離) は直交レイヤとして維持し、permission
 
 ## W3. Service Auth JWT `sub` claim (HIGH) — DONE (grace warn)
 
-- `60-apps/ai-gftd-project-auth/worker/src-ts/service-auth.ts:109-133` —
+- `60-apps/etzhayyim-project-auth/worker/src-ts/service-auth.ts:109-133` —
   `signServiceAuth(..., sub?)` に optional 第 5 引数追加、payload に `sub: sub || iss` を注入
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:921-926` / `966-971` —
+- `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:921-926` / `966-971` —
   bootstrap + proxyApiKeyManagement が `sub = accountDid` を渡して delegation 識別
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1668-1689` —
+- `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1668-1689` —
   `handleGetServiceAuth` が request body の `sub` を受け取り、未指定時は `iss` にフォールバック
-- `70-tools/gftd/gftd/agent_token.go` — `--sub <did>` flag が JWT payload に sub を追加
+- `70-tools/etzhayyim/etzhayyim/agent_token.go` — `--sub <did>` flag が JWT payload に sub を追加
 - `50-infra/cloudflare/workers/atproto/src/auth/verify.ts:150-213` —
   `verifyServiceAuthJWT` が `sub` を抽出。欠落時 **warn only (grace period)**、
   非-DID 形式は reject。grace 明けは `return null` に切替 (Phase 4)
@@ -186,7 +186,7 @@ consent / crypto layer 分離) は直交レイヤとして維持し、permission
 
 - ADR-0022 / ADR-0023 は不変。本 ADR は「外部面を公式 spec に寄せる」だけで、
   内部 4-layer boundary は touch しない
-- `did:gftd` (ADR-0029) は resolver 側で permission 文脈と無関係に動作
+- `did:etzhayyim` (ADR-0029) は resolver 側で permission 文脈と無関係に動作
 
 # Alternatives Considered
 
@@ -227,12 +227,12 @@ consent / crypto layer 分離) は直交レイヤとして維持し、permission
 - **Phase 3** ✅ (W4, 2026-04-23): `.well-known/oauth-*` に permission-set NSID 列挙 +
   DPoP bearer method 追加
 - **Phase 4** ⏳ (grace 明け, 2026-05-07 予定 = +2 weeks): `verify.ts:200-210` の
-  `sub` 欠落 warn を reject に切替 (`return null`)。CLI clients は `gftd agent-token --sub`
+  `sub` 欠落 warn を reject に切替 (`return null`)。CLI clients は `etzhayyim agent-token --sub`
   で明示指定 or default `iss` を使用することで事前対応可
 
 Phase 4 cutover 前に確認する項目:
 - `[verifyServiceAuthJWT] missing sub claim` warn ログの頻度 (Logpush `atproto-worker` → B2)
-- gftd CLI の全 release が `sub` claim 送信に対応 (>= 2026-04-23 build)
+- etzhayyim CLI の全 release が `sub` claim 送信に対応 (>= 2026-04-23 build)
 - 外部 agent (CI, Claude Code session) が最新 CLI に更新済み
 
 全 phase は existing Worker の additive deploy。DNS / route / schema 変更なし。
@@ -251,7 +251,7 @@ Phase 4 cutover 前に確認する項目:
 
 - `90-docs/adr/0022-auth-topology-consolidation.md` — 2-token model
 - `90-docs/adr/0023-auth-shannon-optimal-4-layer.md` — L0-L3 internal boundary (直交)
-- `90-docs/adr/0029-did-gftd-method-specification.md` — did:gftd method spec
+- `90-docs/adr/0029-did-etzhayyim-method-specification.md` — did:etzhayyim method spec
 - `90-docs/atproto/260324-atproto-permission-scope-design.md` — 本 repo 既存の
   permission scope 設計メモ (本 ADR が外部面を確定する canonical に昇格)
 
@@ -260,8 +260,8 @@ Phase 4 cutover 前に確認する項目:
 - `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts:37-255` — PAR / authorize / token
 - `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts:143-163` — DPoP parse (W1 作業対象)
 - `50-infra/cloudflare/workers/atproto/src/auth/scope.ts:140-179` — permission-set table + `checkTokenScope` (W2 作業対象)
-- `60-apps/ai-gftd-project-auth/worker/src-ts/service-auth.ts` — ES256 signer (W3 作業対象)
-- `60-apps/ai-gftd-project-auth/worker/src-ts/dpop.ts` — DPoP verify 既存実装 (W1 で再利用)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/service-auth.ts` — ES256 signer (W3 作業対象)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/dpop.ts` — DPoP verify 既存実装 (W1 で再利用)
 - `10-protocol/xrpc/src/auth.ts:14-71` — `ServiceAuth` class
-- `70-tools/gftd/gftd/scoped_auth.go` — `gftd agent-token --lxm <nsid>` (W3 作業対象)
+- `70-tools/etzhayyim/etzhayyim/scoped_auth.go` — `etzhayyim agent-token --lxm <nsid>` (W3 作業対象)
 - `00-contracts/lexicons/com/etzhayyim/*/auth*.json` — 9 permission-set lexicon (W2 で拡張)

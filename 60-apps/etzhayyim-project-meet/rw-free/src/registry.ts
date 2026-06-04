@@ -10,7 +10,7 @@
  * never sees on-behalf-of identity, participant presence, or spoken text in
  * plaintext.
  *
- * STAYS gftd (consent-capability, not modeled as a collection) — MLX whisper
+ * STAYS etzhayyim (consent-capability, not modeled as a collection) — MLX whisper
  * transcription inference, recorder-bot join/leave enforcement, OAuth/consent
  * credential custody, and the large media-byte archive.
  */

@@ -3,7 +3,7 @@
  * (ADR-2605181100): policy config + conversation ops-timeline plaintext;
  * per-person PII + draft/delivery payload + emotion analytics sealed E2E.
  * The Gmail/Outlook SEND action, LLM draft inference, and provider OAuth token
- * custody stay gftd, consumed via consent-capability.
+ * custody stay etzhayyim, consumed via consent-capability.
  */
 export * from "./types.js";
 export {

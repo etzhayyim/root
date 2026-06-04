@@ -130,7 +130,7 @@ DRY_RUN=1 bash scripts/apply-pending.sh <migration-name>
   small piece of the kysely migrator. If the kysely migrator is
   ever fixed upstream to support RisingWave cleanly, we'll need
   to revisit both.
-- The helper reaches into macOS Keychain for `gftd.rw / ROOT_URL`
+- The helper reaches into macOS Keychain for `etzhayyim.rw / ROOT_URL`
   by default; a non-macOS contributor has to export `DATABASE_URL`
   manually. Acceptable — this repo's ops are Mac-only today.
 - The pre-flight `ON CONFLICT` guard is an awk scan of comments and

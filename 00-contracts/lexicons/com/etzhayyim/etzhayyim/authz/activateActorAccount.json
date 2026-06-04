@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.authz.activateActorAccount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Deploy the caller's ERC-4337 smart account on the etzhayyim private chain (chainId 260425) by resolving the caller to an ERC725 root DID, then calling `etzhayyimActorRegistry.activate(rootDidHash, [packedPasskeyPubkey])`. Legacy did:etzhayyim/did:web sessions must already be linked through `etzhayyimRootIdentityRegistry`; this procedure no longer hashes legacy DIDs directly. Caller must hold a session (passkey-first policy). The Worker reads the caller's primary passkey credential from D1 (`passkey_credentials` table), strips the 0x04 prefix from the 65-byte uncompressed P-256 pubkey to get a 64-byte X||Y owner, signs a sealer-sponsored EIP-155 legacy tx with the SEALER_PRIV secret, and submits via `https://geth.etzhayyim.com/eth_sendRawTransaction`. Idempotent on the contract side (re-activating returns the existing address). On success returns the same shape as `getActorAccount`.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["accountDid", "rootDid", "didHash", "activated"],
+          "properties": {
+            "accountDid":   { "type": "string" },
+            "rootDid":      { "type": "string" },
+            "rootIdentity": { "type": "string" },
+            "didHash":      { "type": "string", "description": "ERC725 root DID hash, never a direct did:etzhayyim/did:web hash." },
+            "activated":    { "type": "boolean" },
+            "smartAccount": { "type": "string" },
+            "chainId":      { "type": "integer" },
+            "registryAddr": { "type": "string" },
+            "txHash":       { "type": "string", "description": "Transaction hash returned by eth_sendRawTransaction (only on first activation; idempotent re-call returns the existing address with txHash omitted)" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "AuthRequired" },
+        { "name": "ConfigError",     "description": "ETH_PRIVATE_RPC_URL / etzhayyim_ACTOR_REGISTRY_ADDR / etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR / SEALER_PRIV not configured" },
+        { "name": "RootIdentityRequired", "description": "Caller is still on an unmigrated legacy DID with no ERC725 root facade link" },
+        { "name": "PasskeyMissing",  "description": "Caller has no passkey credential to use as the smart-account owner" },
+        { "name": "RpcError",        "description": "eth_sendRawTransaction or post-tx readback failed" },
+        { "name": "TxRevert",        "description": "Transaction was mined but reverted (e.g. malformed owners, registry rejected)" }
+      ]
+    }
+  }
+}

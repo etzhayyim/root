@@ -35,7 +35,7 @@ Time: 2026-04-18 JST
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py:17)
+- [`60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py:17)
   - hardcoded `s3.credentials.access` and `s3.credentials.secret`
 
 Why it survives pruning:
@@ -48,13 +48,13 @@ Why it survives pruning:
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:29)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:29)
   - `StoredSession` contains both `accessJwt` and `refreshJwt`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:66)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:66)
   - session is serialized into `sessionStorage`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:91)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:91)
   - both JWTs are copied into `@etzhayyim/wproto`
-- [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8)
+- [`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8)
   - `#auth=` transfer is copied into `sessionStorage` before URL cleanup
 
 Why it survives pruning:
@@ -66,7 +66,7 @@ Why it survives pruning:
 
 Evidence:
 
-- [`60-apps/ai-gftd-project-murakumo/CLAUDE.md`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-murakumo/CLAUDE.md:503)
+- [`60-apps/etzhayyim-project-murakumo/CLAUDE.md`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-murakumo/CLAUDE.md:503)
   - shared fleet password appears alongside node names and private IP inventory
 
 Why it survives pruning:

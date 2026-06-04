@@ -22,7 +22,7 @@ PHASE = "R1.1-cartpole-poc"
 
 NV_COMPAT_MAP = {
     "Omniverse Kit":   "amenominaka",
-    "Nucleus":         "yatachain-nucleus",
+    "Nucleus":         "kotoba-datomic-nucleus",
     "Isaac Sim":       "e7m-sim",
     "Isaac Lab":       "e7m-shugyo",
     "OptiX":           "hikari-rt",

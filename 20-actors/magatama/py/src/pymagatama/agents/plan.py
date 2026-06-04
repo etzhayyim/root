@@ -69,7 +69,7 @@ class PlanState(TypedDict, total=False):
 
 
 _CLASSIFY_SYSTEM = """\
-You are an ingest-pipeline dispatcher routing rows through a gftd BPMN pipeline.
+You are an ingest-pipeline dispatcher routing rows through a etzhayyim BPMN pipeline.
 
 Output ONE minified JSON object with these EXACT four keys:
   branch      — one of "fast" | "thorough" | "skip"

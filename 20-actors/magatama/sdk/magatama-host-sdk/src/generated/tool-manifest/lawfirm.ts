@@ -13,7 +13,7 @@ export const APP_NAME = "lawfirm" as const;
 
 // ── Zod schemas ──
 
-export const InputAcceptExternalCounsel = z.object({ grantDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}:[0-9a-f]{24}$")), granteeSignalPubkey: z.string().describe("Signal X25519 identity pubkey for per-document key wrap").optional() }).openapi("LawfirmAcceptExternalCounselInput");
+export const InputAcceptExternalCounsel = z.object({ grantDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}:[0-9a-f]{24}$")), granteeSignalPubkey: z.string().describe("Signal X25519 identity pubkey for per-document key wrap").optional() }).openapi("LawfirmAcceptExternalCounselInput");
 
 export const OutputAcceptExternalCounsel = z.object({ grantDid: z.string(), status: z.enum(["accepted"] as const), acceptedAt: z.string().datetime({ offset: true }), wrappedDocumentKeyCount: z.number().int().optional() }).openapi("LawfirmAcceptExternalCounselOutput");
 
@@ -25,19 +25,19 @@ export const InputCreateCase = z.object({ domain: z.enum(["ni138", "land", "fami
 
 export const OutputCreateCase = z.object({ did: z.string(), uri: z.string(), cohortDid: z.string().describe("service cohort actor handling this matter"), caseNumber: z.string().optional() }).openapi("LawfirmCreateCaseOutput");
 
-export const InputCreateMatter = z.object({ firmDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}$")).describe("Law firm root DID (depth 1). Must match caller session accountDid."), matterType: z.enum(["litigation", "arbitration", "transactional", "advisory", "compliance", "ip", "tax", "labor", "criminal-defense", "family", "administrative", "ipc-criminal", "cpc-civil", "ibc-insolvency", "tmr-ip", "gst-tax", "id-act-labor", "writ-petition"] as const), clientDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$")), leadBengoshiDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}$")), coCounselDids: z.array(z.string()).optional(), counterpartyDids: z.array(z.string()).optional(), openedAt: z.string().datetime({ offset: true }), jurisdiction: z.string().describe("ISO 3166-1 alpha-3 (JPN, IND, USA, …)").optional(), procedureCode: z.string().describe("Statute/section reference (e.g. 'IPC § 498A', 'CPC O.VII R.1', 'IBC § 7')").optional(), subjectMatter: z.string().optional(), matterNumber: z.string().describe("Optional firm-local matter number (display only)").optional(), estimatedFee: z.number().optional(), currency: z.string().describe("ISO 4217").optional(), feeStructure: z.enum(["hourly", "fixed", "contingency", "retainer", "pro-bono"] as const).optional(), confidentiality: z.enum(["firm", "matter", "ethicalWall"] as const).default("matter").optional() }).openapi("LawfirmCreateMatterInput");
+export const InputCreateMatter = z.object({ firmDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}$")).describe("Law firm root DID (depth 1). Must match caller session accountDid."), matterType: z.enum(["litigation", "arbitration", "transactional", "advisory", "compliance", "ip", "tax", "labor", "criminal-defense", "family", "administrative", "ipc-criminal", "cpc-civil", "ibc-insolvency", "tmr-ip", "gst-tax", "id-act-labor", "writ-petition"] as const), clientDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$")), leadBengoshiDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}$")), coCounselDids: z.array(z.string()).optional(), counterpartyDids: z.array(z.string()).optional(), openedAt: z.string().datetime({ offset: true }), jurisdiction: z.string().describe("ISO 3166-1 alpha-3 (JPN, IND, USA, …)").optional(), procedureCode: z.string().describe("Statute/section reference (e.g. 'IPC § 498A', 'CPC O.VII R.1', 'IBC § 7')").optional(), subjectMatter: z.string().optional(), matterNumber: z.string().describe("Optional firm-local matter number (display only)").optional(), estimatedFee: z.number().optional(), currency: z.string().describe("ISO 4217").optional(), feeStructure: z.enum(["hourly", "fixed", "contingency", "retainer", "pro-bono"] as const).optional(), confidentiality: z.enum(["firm", "matter", "ethicalWall"] as const).default("matter").optional() }).openapi("LawfirmCreateMatterInput");
 
-export const OutputCreateMatter = z.object({ matterDid: z.string().describe("did:gftd:{firm}:{matterHash} (depth 2)"), matterRkey: z.string().describe("Last 24 hex of matterDid; used as AT record rkey (DID ↔ AT URI isomorphism)"), uri: z.string(), materialHashProof: z.string().describe("Hex-encoded material bytes used in H(firmDid || 0x1F || material) (ADR-0029 chain verification input)").optional() }).openapi("LawfirmCreateMatterOutput");
+export const OutputCreateMatter = z.object({ matterDid: z.string().describe("did:etzhayyim:{firm}:{matterHash} (depth 2)"), matterRkey: z.string().describe("Last 24 hex of matterDid; used as AT record rkey (DID ↔ AT URI isomorphism)"), uri: z.string(), materialHashProof: z.string().describe("Hex-encoded material bytes used in H(firmDid || 0x1F || material) (ADR-0029 chain verification input)").optional() }).openapi("LawfirmCreateMatterOutput");
 
 export const InputGetCaseStatus = z.object({ caseDid: z.string(), lang: z.string().describe("Translate output to this lang via did:web:lawfirm.etzhayyim.com:lang:{iso}").optional() }).openapi("LawfirmGetCaseStatusInput");
 
 export const OutputGetCaseStatus = z.object({ caseDid: z.string(), status: z.string(), domain: z.string().optional(), courtDid: z.string().optional(), cohortDid: z.string().optional(), nextHearingAt: z.string().datetime({ offset: true }).optional(), events: z.array(z.object({ event: z.string().optional(), occurredAt: z.string().datetime({ offset: true }).optional() })) }).openapi("LawfirmGetCaseStatusOutput");
 
-export const InputInviteExternalCounsel = z.object({ matterDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$")), granteeDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}$")), granteeHandle: z.string().optional(), role: z.enum(["coCounsel", "local", "advisory", "reviewer"] as const), capabilities: z.array(z.enum(["read", "comment", "uploadDocument", "propose", "sign", "scheduleHearing"] as const)), expiresAt: z.string().datetime({ offset: true }), message: z.string().describe("Optional message included in consent.request DM").optional() }).openapi("LawfirmInviteExternalCounselInput");
+export const InputInviteExternalCounsel = z.object({ matterDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$")), granteeDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}$")), granteeHandle: z.string().optional(), role: z.enum(["coCounsel", "local", "advisory", "reviewer"] as const), capabilities: z.array(z.enum(["read", "comment", "uploadDocument", "propose", "sign", "scheduleHearing"] as const)), expiresAt: z.string().datetime({ offset: true }), message: z.string().describe("Optional message included in consent.request DM").optional() }).openapi("LawfirmInviteExternalCounselInput");
 
-export const OutputInviteExternalCounsel = z.object({ grantDid: z.string().describe("did:gftd:{firm}:{matter}:{grant}"), grantUri: z.string(), conflictCheckPassed: z.boolean().optional(), materialHashProof: z.string().optional() }).openapi("LawfirmInviteExternalCounselOutput");
+export const OutputInviteExternalCounsel = z.object({ grantDid: z.string().describe("did:etzhayyim:{firm}:{matter}:{grant}"), grantUri: z.string(), conflictCheckPassed: z.boolean().optional(), materialHashProof: z.string().optional() }).openapi("LawfirmInviteExternalCounselOutput");
 
-export const InputIssueInvoice = z.object({ matterDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$")), period: z.object({ from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }) }), includeTimeEntryRefs: z.array(z.string()).describe("Optional explicit allowlist; omit to include all approved entries in period").optional(), flatFeeAmount: z.number().optional(), flatFeeNote: z.string().optional(), expenses: z.array(z.object({ description: z.string(), amount: z.number() })).optional(), taxRate: z.number().optional(), discountAmount: z.number().optional(), dueInDays: z.number().int().default(30).optional(), invoiceNumber: z.string().describe("Optional firm-local invoice number (display only)").optional() }).openapi("LawfirmIssueInvoiceInput");
+export const InputIssueInvoice = z.object({ matterDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$")), period: z.object({ from: z.string().datetime({ offset: true }), to: z.string().datetime({ offset: true }) }), includeTimeEntryRefs: z.array(z.string()).describe("Optional explicit allowlist; omit to include all approved entries in period").optional(), flatFeeAmount: z.number().optional(), flatFeeNote: z.string().optional(), expenses: z.array(z.object({ description: z.string(), amount: z.number() })).optional(), taxRate: z.number().optional(), discountAmount: z.number().optional(), dueInDays: z.number().int().default(30).optional(), invoiceNumber: z.string().describe("Optional firm-local invoice number (display only)").optional() }).openapi("LawfirmIssueInvoiceInput");
 
 export const OutputIssueInvoice = z.object({ invoiceDid: z.string(), uri: z.string(), subtotal: z.number().optional(), taxAmount: z.number().optional(), total: z.number(), currency: z.string(), timeEntriesBilled: z.number().int(), dueAt: z.string().datetime({ offset: true }).optional(), materialHashProof: z.string().optional() }).openapi("LawfirmIssueInvoiceOutput");
 
@@ -49,7 +49,7 @@ export const InputListConflictChecks = z.object({ matterDid: z.string(), scanSco
 
 export const OutputListConflictChecks = z.object({ items: z.array(z.object({}).passthrough()), offset: z.number().int(), limit: z.number().int(), total: z.number().int() }).openapi("LawfirmListConflictChecksOutput");
 
-export const InputListGrants = z.object({ matterDid: z.string().describe("Optional matter DID filter (depth-2 did:gftd)").optional(), includeRevoked: z.boolean().default(false).describe("When false, excludes grants where revoked_at OR parent_revoked_at is set").optional(), limit: z.number().int().min(1).max(200).default(50).optional(), offset: z.number().int().min(0).default(0).optional() }).openapi("LawfirmListGrantsInput");
+export const InputListGrants = z.object({ matterDid: z.string().describe("Optional matter DID filter (depth-2 did:etzhayyim)").optional(), includeRevoked: z.boolean().default(false).describe("When false, excludes grants where revoked_at OR parent_revoked_at is set").optional(), limit: z.number().int().min(1).max(200).default(50).optional(), offset: z.number().int().min(0).default(0).optional() }).openapi("LawfirmListGrantsInput");
 
 export const OutputListGrants = z.object({ items: z.array(z.object({ grantDid: z.string().optional(), matterDid: z.string().optional(), inviterDid: z.string().optional(), status: z.string().optional(), materialHashProof: z.string().optional(), createdAt: z.string().datetime({ offset: true }).optional(), revokedAt: z.string().datetime({ offset: true }).optional(), parentRevokedAt: z.string().datetime({ offset: true }).describe("Parent matter revoked_at — if set, grant is effectively revoked by cascade").optional(), effectivelyActive: z.boolean().describe("false when self OR parent is revoked").optional() })), offset: z.number().int(), limit: z.number().int(), total: z.number().int() }).openapi("LawfirmListGrantsOutput");
 
@@ -81,7 +81,7 @@ export const InputRevokeExternalCounsel = z.object({ grantDid: z.string(), reaso
 
 export const OutputRevokeExternalCounsel = z.object({ grantDid: z.string(), revokedAt: z.string().datetime({ offset: true }), descendantsInvalidated: z.number().int().describe("Number of child DIDs (sessions, sub-capabilities) now failing to resolve").optional() }).openapi("LawfirmRevokeExternalCounselOutput");
 
-export const InputRunConflictCheck = z.object({ matterDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$")), scanScope: z.enum(["matterIntake", "externalCounselInvite", "periodicAudit"] as const), counterpartyDids: z.array(z.string()).optional(), candidateDid: z.string().describe("Required when scanScope=externalCounselInvite").optional(), subjectMatter: z.string().optional() }).openapi("LawfirmRunConflictCheckInput");
+export const InputRunConflictCheck = z.object({ matterDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$")), scanScope: z.enum(["matterIntake", "externalCounselInvite", "periodicAudit"] as const), counterpartyDids: z.array(z.string()).optional(), candidateDid: z.string().describe("Required when scanScope=externalCounselInvite").optional(), subjectMatter: z.string().optional() }).openapi("LawfirmRunConflictCheckInput");
 
 export const OutputRunConflictCheck = z.object({ rkey: z.string(), uri: z.string(), result: z.enum(["clear", "disclosureRequired", "waivable", "blocked"] as const), conflicts: z.array(z.object({}).passthrough()).describe("Shape matches conflictCheck.conflicts[]").optional(), wallId: z.string().optional(), scannedAt: z.string().datetime({ offset: true }).optional() }).openapi("LawfirmRunConflictCheckOutput");
 
@@ -109,11 +109,11 @@ export const InputUpdateCase = z.object({ caseDid: z.string(), event: z.enum(["f
 
 export const OutputUpdateCase = z.object({ uri: z.string(), cid: z.string() }).openapi("LawfirmUpdateCaseOutput");
 
-export const InputUpdateMatterStatus = z.object({ matterDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$")), newStatus: z.enum(["intake", "conflictCheck", "engaged", "filed", "hearing", "trial", "judgment", "appeal", "execution", "closed", "archived", "withdrawn"] as const), reason: z.string().optional(), conflictCheckRef: z.string().describe("Required when newStatus=engaged and previous status was conflictCheck").optional() }).openapi("LawfirmUpdateMatterStatusInput");
+export const InputUpdateMatterStatus = z.object({ matterDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$")), newStatus: z.enum(["intake", "conflictCheck", "engaged", "filed", "hearing", "trial", "judgment", "appeal", "execution", "closed", "archived", "withdrawn"] as const), reason: z.string().optional(), conflictCheckRef: z.string().describe("Required when newStatus=engaged and previous status was conflictCheck").optional() }).openapi("LawfirmUpdateMatterStatusInput");
 
 export const OutputUpdateMatterStatus = z.object({ matterDid: z.string(), previousStatus: z.string(), newStatus: z.string(), updatedAt: z.string().datetime({ offset: true }) }).openapi("LawfirmUpdateMatterStatusOutput");
 
-export const InputUploadDocument = z.object({ matterDid: z.string().regex(new RegExp("^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$")), docType: z.enum(["pleading", "motion", "brief", "evidence", "contract", "memo", "letter", "opinion", "filing", "correspondence", "other"] as const), title: z.string(), cid: z.string().describe("SHA-256 hex of vault-encrypted ciphertext (pre-computed client-side)"), privileged: z.boolean(), authorDid: z.string().optional(), aiGenerated: z.boolean().default(false).describe("When true, record enters status=pendingReview until ISCO-2611 approval (RULE-003)").optional(), supersedesDocumentDid: z.string().optional() }).openapi("LawfirmUploadDocumentInput");
+export const InputUploadDocument = z.object({ matterDid: z.string().regex(new RegExp("^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$")), docType: z.enum(["pleading", "motion", "brief", "evidence", "contract", "memo", "letter", "opinion", "filing", "correspondence", "other"] as const), title: z.string(), cid: z.string().describe("SHA-256 hex of vault-encrypted ciphertext (pre-computed client-side)"), privileged: z.boolean(), authorDid: z.string().optional(), aiGenerated: z.boolean().default(false).describe("When true, record enters status=pendingReview until ISCO-2611 approval (RULE-003)").optional(), supersedesDocumentDid: z.string().optional() }).openapi("LawfirmUploadDocumentInput");
 
 export const OutputUploadDocument = z.object({ documentDid: z.string(), uri: z.string(), status: z.enum(["draft", "pendingReview", "approved"] as const), materialHashProof: z.string().optional() }).openapi("LawfirmUploadDocumentOutput");
 
@@ -122,7 +122,7 @@ export const OutputUploadDocument = z.object({ documentDid: z.string(), uri: z.s
 export const RouteAcceptExternalCounsel = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.acceptExternalCounsel",
-	operationId: "ai_gftd_apps_lawfirm_acceptExternalCounsel",
+	operationId: "ai_etzhayyim_apps_lawfirm_acceptExternalCounsel",
 	tags: ["lawfirm"],
 	summary: "External counsel accepts an externalCounselGrant. Caller must authenticate as granteeDid. Server flips grant status from 'invited' → 'accepted' and vault-wraps the matter document keys for the grantee (ECIES X25519+HKDF+AES-KW).",
 	request: { body: { content: { "application/json": { schema: InputAcceptExternalCounsel } }, required: true } },
@@ -141,7 +141,7 @@ export const RouteAcceptExternalCounsel = createRoute({
 export const RouteCloseMatter = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.closeMatter",
-	operationId: "ai_gftd_apps_lawfirm_closeMatter",
+	operationId: "ai_etzhayyim_apps_lawfirm_closeMatter",
 	tags: ["lawfirm"],
 	summary: "Close a matter. Server (1) checks no open hearings / unpaid invoices / pending-review documents, (2) revokes all active externalCounselGrant under the matter (ADR-0029 cascade), (3) sets matter.status='closed' + closedAt, (4) optional final report derive.",
 	request: { body: { content: { "application/json": { schema: InputCloseMatter } }, required: true } },
@@ -160,7 +160,7 @@ export const RouteCloseMatter = createRoute({
 export const RouteCreateCase = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.createCase",
-	operationId: "ai_gftd_apps_lawfirm_createCase",
+	operationId: "ai_etzhayyim_apps_lawfirm_createCase",
 	tags: ["lawfirm"],
 	summary: "Open a new client matter at lawfirm.etzhayyim.com. Routes to service cohort actor did:web:lawfirm.etzhayyim.com:geo:{state}[:{city}]:lang:{iso}:domain:{area} (ADR-0019 path topology, ADR-0026 cohort emergence). PII (client identity) → Preferences tier 3 (ADR-0018), AT Repo holds hashed cohort id only.",
 	request: { body: { content: { "application/json": { schema: InputCreateCase } }, required: true } },
@@ -179,9 +179,9 @@ export const RouteCreateCase = createRoute({
 export const RouteCreateMatter = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.createMatter",
-	operationId: "ai_gftd_apps_lawfirm_createMatter",
+	operationId: "ai_etzhayyim_apps_lawfirm_createMatter",
 	tags: ["lawfirm"],
-	summary: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
+	summary: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:etzhayyim:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
 	request: { body: { content: { "application/json": { schema: InputCreateMatter } }, required: true } },
 	responses: {
 		200: {
@@ -198,7 +198,7 @@ export const RouteCreateMatter = createRoute({
 export const RouteGetCaseStatus = createRoute({
 	method: "get",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.getCaseStatus",
-	operationId: "ai_gftd_apps_lawfirm_getCaseStatus",
+	operationId: "ai_etzhayyim_apps_lawfirm_getCaseStatus",
 	tags: ["lawfirm"],
 	summary: "Fetch latest status + event timeline for a case. Reads from RisingWave streaming MV (graphar.vertex_lawfirmCase + edge_caseEvent).",
 	request: { query: InputGetCaseStatus },
@@ -217,7 +217,7 @@ export const RouteGetCaseStatus = createRoute({
 export const RouteInviteExternalCounsel = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.inviteExternalCounsel",
-	operationId: "ai_gftd_apps_lawfirm_inviteExternalCounsel",
+	operationId: "ai_etzhayyim_apps_lawfirm_inviteExternalCounsel",
 	tags: ["lawfirm"],
 	summary: "Invite an external bengoshi (possibly from a different firm) to collaborate on a specific matter. Server: (1) runs conflict scan against matter counterparties, (2) mints a grant DID via com.etzhayyim.auth.mintChildDid under matterDid, (3) writes externalCounselGrant record in 'invited' status, (4) sends W Protocol DM with consent.request card. Ethical wall enforced at hash-prefix level (ADR-0029).",
 	request: { body: { content: { "application/json": { schema: InputInviteExternalCounsel } }, required: true } },
@@ -236,7 +236,7 @@ export const RouteInviteExternalCounsel = createRoute({
 export const RouteIssueInvoice = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.issueInvoice",
-	operationId: "ai_gftd_apps_lawfirm_issueInvoice",
+	operationId: "ai_etzhayyim_apps_lawfirm_issueInvoice",
 	tags: ["lawfirm"],
 	summary: "Generate an invoice from approved timeEntry records for a matter over a period. Server (1) selects timeEntry where status='approved' AND matter+period match, (2) mints invoiceDid via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=invoicePdfCid), (3) writes invoice record status='draft', (4) flips selected timeEntry status='billed' with invoiceRef. PDF rendering is optional and asynchronous.",
 	request: { body: { content: { "application/json": { schema: InputIssueInvoice } }, required: true } },
@@ -255,7 +255,7 @@ export const RouteIssueInvoice = createRoute({
 export const RouteListCases = createRoute({
 	method: "get",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.listCases",
-	operationId: "ai_gftd_apps_lawfirm_listCases",
+	operationId: "ai_etzhayyim_apps_lawfirm_listCases",
 	tags: ["lawfirm"],
 	summary: "List cases scoped by cohort / geo / lang / domain. Default 50, max 200.",
 	request: { query: InputListCases },
@@ -274,7 +274,7 @@ export const RouteListCases = createRoute({
 export const RouteListConflictChecks = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.listConflictChecks",
-	operationId: "ai_gftd_apps_lawfirm_listConflictChecks",
+	operationId: "ai_etzhayyim_apps_lawfirm_listConflictChecks",
 	tags: ["lawfirm"],
 	summary: "List conflict-of-interest scan history for a matter. Reads view_lawfirm_conflict_findings. Ordered by scannedAt DESC so the first row is the most recent scan (used by the UI to surface the current header badge).",
 	request: { body: { content: { "application/json": { schema: InputListConflictChecks } }, required: true } },
@@ -293,7 +293,7 @@ export const RouteListConflictChecks = createRoute({
 export const RouteListGrants = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.listGrants",
-	operationId: "ai_gftd_apps_lawfirm_listGrants",
+	operationId: "ai_etzhayyim_apps_lawfirm_listGrants",
 	tags: ["lawfirm"],
 	summary: "List external counsel grants (optionally filtered by matterDid). Reads view_lawfirm_external_counsel_access — joins grant identity with parent matter revocation cascade (ADR-0029).",
 	request: { body: { content: { "application/json": { schema: InputListGrants } }, required: true } },
@@ -312,7 +312,7 @@ export const RouteListGrants = createRoute({
 export const RouteListInvoices = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.listInvoices",
-	operationId: "ai_gftd_apps_lawfirm_listInvoices",
+	operationId: "ai_etzhayyim_apps_lawfirm_listInvoices",
 	tags: ["lawfirm"],
 	summary: "List invoices for a matter (or firm-wide). Reads view_lawfirm_invoice_ageing which surfaces subtotal/tax/total, dueAt, status, and a derived ageing bucket (current / dueSoon / overdue30 / overdue60 / overdue90).",
 	request: { body: { content: { "application/json": { schema: InputListInvoices } }, required: true } },
@@ -331,7 +331,7 @@ export const RouteListInvoices = createRoute({
 export const RouteListMatters = createRoute({
 	method: "get",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.listMatters",
-	operationId: "ai_gftd_apps_lawfirm_listMatters",
+	operationId: "ai_etzhayyim_apps_lawfirm_listMatters",
 	tags: ["lawfirm"],
 	summary: "List law firm matters with offset/limit pagination, optional filters.",
 	request: { query: InputListMatters },
@@ -350,7 +350,7 @@ export const RouteListMatters = createRoute({
 export const RouteRecordTimeEntry = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.recordTimeEntry",
-	operationId: "ai_gftd_apps_lawfirm_recordTimeEntry",
+	operationId: "ai_etzhayyim_apps_lawfirm_recordTimeEntry",
 	tags: ["lawfirm"],
 	summary: "Record a billable time entry against a matter (タイムシート).",
 	request: { body: { content: { "application/json": { schema: InputRecordTimeEntry } }, required: true } },
@@ -369,7 +369,7 @@ export const RouteRecordTimeEntry = createRoute({
 export const RouteRegisterLawfirm = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.registerLawfirm",
-	operationId: "ai_gftd_apps_lawfirm_registerLawfirm",
+	operationId: "ai_etzhayyim_apps_lawfirm_registerLawfirm",
 	tags: ["lawfirm"],
 	summary: "Register a law firm. Path-based DID: did:web:lawfirm.etzhayyim.com:{iso3}:{slug}. ISCO-2611 HAR gate enforced.",
 	request: { body: { content: { "application/json": { schema: InputRegisterLawfirm } }, required: true } },
@@ -388,7 +388,7 @@ export const RouteRegisterLawfirm = createRoute({
 export const RouteRequestConsult = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.requestConsult",
-	operationId: "ai_gftd_apps_lawfirm_requestConsult",
+	operationId: "ai_etzhayyim_apps_lawfirm_requestConsult",
 	tags: ["lawfirm"],
 	summary: "Initial intake. Routes through triage cohort → service cohort (ADR-0026). No PII in AT Repo; PII to Preferences tier 3.",
 	request: { body: { content: { "application/json": { schema: InputRequestConsult } }, required: true } },
@@ -407,7 +407,7 @@ export const RouteRequestConsult = createRoute({
 export const RouteRespondConsult = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.respondConsult",
-	operationId: "ai_gftd_apps_lawfirm_respondConsult",
+	operationId: "ai_etzhayyim_apps_lawfirm_respondConsult",
 	tags: ["lawfirm"],
 	summary: "Lawyer / agent response to a consult. Field-level encrypted (signal:v1:) — attorney-client privilege.",
 	request: { body: { content: { "application/json": { schema: InputRespondConsult } }, required: true } },
@@ -426,9 +426,9 @@ export const RouteRespondConsult = createRoute({
 export const RouteRevokeExternalCounsel = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.revokeExternalCounsel",
-	operationId: "ai_gftd_apps_lawfirm_revokeExternalCounsel",
+	operationId: "ai_etzhayyim_apps_lawfirm_revokeExternalCounsel",
 	tags: ["lawfirm"],
-	summary: "Terminate an external counsel grant. Sets vertex_gftd_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
+	summary: "Terminate an external counsel grant. Sets vertex_etzhayyim_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
 	request: { body: { content: { "application/json": { schema: InputRevokeExternalCounsel } }, required: true } },
 	responses: {
 		200: {
@@ -445,7 +445,7 @@ export const RouteRevokeExternalCounsel = createRoute({
 export const RouteRunConflictCheck = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.runConflictCheck",
-	operationId: "ai_gftd_apps_lawfirm_runConflictCheck",
+	operationId: "ai_etzhayyim_apps_lawfirm_runConflictCheck",
 	tags: ["lawfirm"],
 	summary: "Run a conflict-of-interest scan and write a conflictCheck record. Two modes:\n  - matterIntake: evaluate a prospective matter's counterparties against the firm's active matter portfolio + prior representation history.\n  - externalCounselInvite: verify a candidate grantee DID does not belong to a counterparty org (reverse scan).\nThe returned result may be {clear, disclosureRequired, waivable, blocked}. When blocked the caller MUST NOT advance matter.status past 'conflictCheck' or proceed with inviteExternalCounsel.",
 	request: { body: { content: { "application/json": { schema: InputRunConflictCheck } }, required: true } },
@@ -464,9 +464,9 @@ export const RouteRunConflictCheck = createRoute({
 export const RouteScheduleHearing = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.scheduleHearing",
-	operationId: "ai_gftd_apps_lawfirm_scheduleHearing",
+	operationId: "ai_etzhayyim_apps_lawfirm_scheduleHearing",
 	tags: ["lawfirm"],
-	summary: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
+	summary: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:etzhayyim:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
 	request: { body: { content: { "application/json": { schema: InputScheduleHearing } }, required: true } },
 	responses: {
 		200: {
@@ -483,7 +483,7 @@ export const RouteScheduleHearing = createRoute({
 export const RouteSubmitFiling = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.submitFiling",
-	operationId: "ai_gftd_apps_lawfirm_submitFiling",
+	operationId: "ai_etzhayyim_apps_lawfirm_submitFiling",
 	tags: ["lawfirm"],
 	summary: "Submit a court filing (plaint, application, vakalatnama, written statement, etc.). Document blob → Vault (zero-knowledge, ADR vault.etzhayyim.com). AT Repo holds metadata + Vault item id only.",
 	request: { body: { content: { "application/json": { schema: InputSubmitFiling } }, required: true } },
@@ -502,7 +502,7 @@ export const RouteSubmitFiling = createRoute({
 export const RouteTrackFiling = createRoute({
 	method: "get",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.trackFiling",
-	operationId: "ai_gftd_apps_lawfirm_trackFiling",
+	operationId: "ai_etzhayyim_apps_lawfirm_trackFiling",
 	tags: ["lawfirm"],
 	summary: "Track court filing status (registry acceptance, defect notice, listing, hearing date).",
 	request: { query: InputTrackFiling },
@@ -521,7 +521,7 @@ export const RouteTrackFiling = createRoute({
 export const RouteTranslateFromLang = createRoute({
 	method: "get",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.translateFromLang",
-	operationId: "ai_gftd_apps_lawfirm_translateFromLang",
+	operationId: "ai_etzhayyim_apps_lawfirm_translateFromLang",
 	tags: ["lawfirm"],
 	summary: "Translate a regional-language text into en (court of record) or hi. Inverse of translateToLang.",
 	request: { query: InputTranslateFromLang },
@@ -540,7 +540,7 @@ export const RouteTranslateFromLang = createRoute({
 export const RouteTranslateToLang = createRoute({
 	method: "get",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.translateToLang",
-	operationId: "ai_gftd_apps_lawfirm_translateToLang",
+	operationId: "ai_etzhayyim_apps_lawfirm_translateToLang",
 	tags: ["lawfirm"],
 	summary: "Translate a case-bound text fragment into a target Indian Scheduled Language. Pipethrough to did:web:lawfirm.etzhayyim.com:lang:{targetLang} actor (Murakumo MLX backend).",
 	request: { query: InputTranslateToLang },
@@ -559,7 +559,7 @@ export const RouteTranslateToLang = createRoute({
 export const RouteUpdateCase = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.updateCase",
-	operationId: "ai_gftd_apps_lawfirm_updateCase",
+	operationId: "ai_etzhayyim_apps_lawfirm_updateCase",
 	tags: ["lawfirm"],
 	summary: "Append a status transition or note to an existing case. Write-only derived (260407): handler writes com.etzhayyim.apps.lawfirm.caseEvent record; downstream notification + projector derive from magatama.jsonld rule.",
 	request: { body: { content: { "application/json": { schema: InputUpdateCase } }, required: true } },
@@ -578,7 +578,7 @@ export const RouteUpdateCase = createRoute({
 export const RouteUpdateMatterStatus = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.updateMatterStatus",
-	operationId: "ai_gftd_apps_lawfirm_updateMatterStatus",
+	operationId: "ai_etzhayyim_apps_lawfirm_updateMatterStatus",
 	tags: ["lawfirm"],
 	summary: "Transition a matter's lifecycle status. Enforces allowed transitions:\n  intake          → conflictCheck / engaged / withdrawn\n  conflictCheck   → engaged (requires conflictCheck.result IN {clear, disclosureRequired, waivable}) / withdrawn\n  engaged         → filed / closed (settled) / archived\n  filed           → hearing / judgment / withdrawn\n  hearing         → trial / judgment / conciliated\n  trial           → judgment\n  judgment        → appeal / execution / closed\n  appeal          → judgment / closed\n  execution       → closed\nReverse transitions are rejected. Use closeMatter for the terminal close flow (which performs open-blocker checks + grant cascade revoke).",
 	request: { body: { content: { "application/json": { schema: InputUpdateMatterStatus } }, required: true } },
@@ -597,9 +597,9 @@ export const RouteUpdateMatterStatus = createRoute({
 export const RouteUploadDocument = createRoute({
 	method: "post",
 	path: "/xrpc/com.etzhayyim.apps.lawfirm.uploadDocument",
-	operationId: "ai_gftd_apps_lawfirm_uploadDocument",
+	operationId: "ai_etzhayyim_apps_lawfirm_uploadDocument",
 	tags: ["lawfirm"],
-	summary: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
+	summary: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:etzhayyim:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
 	request: { body: { content: { "application/json": { schema: InputUploadDocument } }, required: true } },
 	responses: {
 		200: {
@@ -662,7 +662,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				grantDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				granteeSignalPubkey: {
 					type: "string",
@@ -778,7 +778,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "com.etzhayyim.apps.lawfirm.createMatter",
-		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
+		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:etzhayyim:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -792,7 +792,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				firmDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}$",
 					description: "Law firm root DID (depth 1). Must match caller session accountDid.",
 				},
 				matterType: {
@@ -821,12 +821,12 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				clientDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$",
 				},
 				leadBengoshiDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}$",
 				},
 				coCounselDids: {
 					type: "array",
@@ -926,12 +926,12 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				granteeDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}$",
 				},
 				granteeHandle: {
 					type: "string",
@@ -983,7 +983,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				period: {
 					type: "object",
@@ -1138,7 +1138,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					description: "Optional matter DID filter (depth-2 did:gftd)",
+					description: "Optional matter DID filter (depth-2 did:etzhayyim)",
 				},
 				includeRevoked: {
 					type: "boolean",
@@ -1435,7 +1435,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "com.etzhayyim.apps.lawfirm.revokeExternalCounsel",
-		description: "Terminate an external counsel grant. Sets vertex_gftd_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
+		description: "Terminate an external counsel grant. Sets vertex_etzhayyim_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1477,7 +1477,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				scanScope: {
 					type: "string",
@@ -1507,7 +1507,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "com.etzhayyim.apps.lawfirm.scheduleHearing",
-		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
+		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:etzhayyim:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1757,7 +1757,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				newStatus: {
 					type: "string",
@@ -1789,7 +1789,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 	},
 	{
 		name: "com.etzhayyim.apps.lawfirm.uploadDocument",
-		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
+		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:etzhayyim:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -1803,7 +1803,7 @@ export const MCP_TOOLS: readonly McpTool[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				docType: {
 					type: "string",
@@ -1866,7 +1866,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				grantDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				granteeSignalPubkey: {
 					type: "string",
@@ -2064,7 +2064,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "com.etzhayyim.apps.lawfirm.createMatter",
-		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:gftd:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
+		description: "Create a new legal matter. ADR-0029: server mints a recursive child DID (did:etzhayyim:{firm}:{matterHash}) via com.etzhayyim.auth.mintChildDid and writes the matter record at at://{firmDid}/com.etzhayyim.apps.lawfirm.matter/{matterHash}. 18 matterType values supported (civil / criminal / admin / IP / tax / labor / family / IN-specific).",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -2078,7 +2078,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				firmDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}$",
 					description: "Law firm root DID (depth 1). Must match caller session accountDid.",
 				},
 				matterType: {
@@ -2107,12 +2107,12 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				clientDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$",
 				},
 				leadBengoshiDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}$",
 				},
 				coCounselDids: {
 					type: "array",
@@ -2185,7 +2185,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 			properties: {
 				matterDid: {
 					type: "string",
-					description: "did:gftd:{firm}:{matterHash} (depth 2)",
+					description: "did:etzhayyim:{firm}:{matterHash} (depth 2)",
 				},
 				matterRkey: {
 					type: "string",
@@ -2287,12 +2287,12 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				granteeDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}$",
 				},
 				granteeHandle: {
 					type: "string",
@@ -2339,7 +2339,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 			properties: {
 				grantDid: {
 					type: "string",
-					description: "did:gftd:{firm}:{matter}:{grant}",
+					description: "did:etzhayyim:{firm}:{matter}:{grant}",
 				},
 				grantUri: {
 					type: "string",
@@ -2368,7 +2368,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				period: {
 					type: "object",
@@ -2630,7 +2630,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					description: "Optional matter DID filter (depth-2 did:gftd)",
+					description: "Optional matter DID filter (depth-2 did:etzhayyim)",
 				},
 				includeRevoked: {
 					type: "boolean",
@@ -3139,7 +3139,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "com.etzhayyim.apps.lawfirm.revokeExternalCounsel",
-		description: "Terminate an external counsel grant. Sets vertex_gftd_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
+		description: "Terminate an external counsel grant. Sets vertex_etzhayyim_identity.revoked_at on the grant DID — ADR-0029 ancestor cascade automatically invalidates all descendants (sessions, per-document capabilities). Vault document keys for the grantee become unwrap-impossible. Revocation is irreversible.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3202,7 +3202,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				scanScope: {
 					type: "string",
@@ -3273,7 +3273,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "com.etzhayyim.apps.lawfirm.scheduleHearing",
-		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:gftd:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
+		description: "Schedule a court hearing for a matter. Server (1) invokes saiban.scheduleTrialEvent via service sync (Write-Only Derived Architecture per ADR-0004), (2) mints hearingDid = did:etzhayyim:{firm}:{matter}:{hearing} via com.etzhayyim.auth.mintChildDid, (3) writes hearing record mirror, (4) registers Path F scheduler cron for reminder + docket-pull. Changes to the saiban-side record are replayed to the mirror via subscribeRepos on saiban collections.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3676,7 +3676,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				newStatus: {
 					type: "string",
@@ -3733,7 +3733,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 	},
 	{
 		nsid: "com.etzhayyim.apps.lawfirm.uploadDocument",
-		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:gftd:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
+		description: "Upload a legal document to a matter. Body contains vault-encrypted ciphertext (per ADR root §Vault Zero-Knowledge Invariant; server never sees plaintext). Server (1) stores ciphertext as R2 blob keyed by SHA-256 cid, (2) mints documentDid = did:etzhayyim:{firm}:{matter}:{doc} via com.etzhayyim.auth.mintChildDid (materialKind='doc', docCid=cid), (3) writes legalDocument record. Privileged by default; AI-generated drafts enter status='pendingReview' awaiting approverBengoshiDid.",
 		inputSchema: {
 			type: "object",
 			required: [
@@ -3747,7 +3747,7 @@ export const TOOL_MANIFEST: readonly ToolManifestEntry[] = Object.freeze(
 				matterDid: {
 					type: "string",
 					format: "did",
-					pattern: "^did:gftd:[0-9a-f]{24}:[0-9a-f]{24}$",
+					pattern: "^did:etzhayyim:[0-9a-f]{24}:[0-9a-f]{24}$",
 				},
 				docType: {
 					type: "string",

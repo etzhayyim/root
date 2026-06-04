@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.domain.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Coverage snapshot — counts of catalogued TLDs, registrars, eligibility advice rows, and active etzhayyim-side registrations.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "asOf": {"type": "string", "format": "datetime"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["asOf", "tldCount", "registrarCount", "regulatorCount", "adviceCount", "registrationsActive", "registrationsDraft"],
+          "properties": {
+            "asOf": {"type": "string", "format": "datetime"},
+            "tldCount": {"type": "integer"},
+            "registrarCount": {"type": "integer"},
+            "regulatorCount": {"type": "integer"},
+            "adviceCount": {"type": "integer"},
+            "registrationsActive": {"type": "integer"},
+            "registrationsDraft": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -550,7 +550,7 @@
     "description": "Detects unresolved research frontiers from academic DID knowledge graphs, generates hypotheses, collects evidence, and advances scientific understanding autonomously.",
     "displayName": "Kenkyusha — AI Research Frontier Explorer",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

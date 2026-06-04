@@ -100,7 +100,7 @@ manimani は user の頭の中の断片を扱うため **non-federable** とす�
 | L3 Routing | `bpmn-dispatcher.mitama-udf.svc.cluster.local:8080` (HMAC `x-internal-trust`) |
 | L3 Execution | LangGraph Server + Granian (`mitama-manimani-pool` Helm release) |
 | L4 SSoT | `vertex_manimani_{intake, project, artifact, run}` + `edge_manimani_belongs_to` |
-| L5 Storage | (Phase A は B2 unused、attach 等が増えた段階で `b2://ai-gftd-nats/manimani/v1/{actor_did}/...`) |
+| L5 Storage | (Phase A は B2 unused、attach 等が増えた段階で `b2://etzhayyim-nats/manimani/v1/{actor_did}/...`) |
 | L6 Compute | Anthropic API (`tier=fast/balanced/deep`) — vLLM Gemma4 (RunPod, ADR-2605010000) も選択可 |
 | L7 Bonsai | growth event = `manimani_project_emerged`、prune = `manimani_project_dormant` (90d 無入力) |
 
@@ -260,7 +260,7 @@ ADR-0095 RLS 列 (`actor_did` / `org_did` / `at_did` / `created_at`) を全 vert
 ### CF Worker scaffold (T3 edge facade)
 
 ```
-60-apps/ai-gftd-project-manimani/
+60-apps/etzhayyim-project-manimani/
 ├─ magatama.jsonld          T3 dispatcher actor + AI Agent profile
 ├─ wrangler.jsonc           manimani.etzhayyim.com/* + HYPERDRIVE binding (Phase B read shortcut 用)
 │                           PDS_SERVICE / AUTHN_SERVICE service binding
@@ -269,7 +269,7 @@ ADR-0095 RLS 列 (`actor_did` / `org_did` / `at_did` / `created_at`) を全 vert
 ├─ CLAUDE.md                project rules + forbidden patterns
 └─ src/
    ├─ app.ts                Hono entry + auth middleware + 6 NSID route
-   └─ dispatcher.ts         HMAC 署名 + caller context header (x-gftd-{org,actor}-did) 注入
+   └─ dispatcher.ts         HMAC 署名 + caller context header (x-etzhayyim-{org,actor}-did) 注入
 ```
 
 CF Worker 責務 = Hono + Auth middleware (PDS `/_internal/resolve-auth`) + XRPC facade のみ。**business logic は持たない**。全 NSID は K8s-internal endpoint に HMAC 付き forward する (ADR-2604282300 §Addendum 2026-04-30)。

@@ -10,7 +10,7 @@
 --   4. dispatcher (pymagatama/dispatcher_main.py) is deployed with the
 --      `/xrpc/com.etzhayyim.mcp.message` route AND _DEFAULT_ACTORS includes
 --      ("ki", [...]) AND _build_const_overrides registers tools.const.echo.
---   5. ki.etzhayyim.com Worker (`60-apps/ai-gftd-project-ki/src/app.ts`) is
+--   5. ki.etzhayyim.com Worker (`60-apps/etzhayyim-project-ki/src/app.ts`) is
 --      deployed with the MCP_NSID branch in fetch().
 --   6. End-to-end smoke test passed:
 --        curl -X POST https://ki.etzhayyim.com/xrpc/com.etzhayyim.mcp.message \

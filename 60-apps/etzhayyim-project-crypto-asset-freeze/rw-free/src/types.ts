@@ -19,14 +19,14 @@
  *     • freezeRequest: per-exchange / per-issuer freeze-request bodies
  *       (incidentId back-reference + target walletAddress + exchange). Also CUI.
  *
- *   STAYS gftd (consumed via consent-capability — NOT a collection):
+ *   STAYS etzhayyim (consumed via consent-capability — NOT a collection):
  *     • Freeze / unfreeze EXECUTION at exchange/issuer (Tether/Circle/CEX) —
  *       a regulated blocking ACTION. (Also fiat-adjacent: see
  *       00-contracts/bpmn/com/etzhayyim/stripe/{freeze,unfreeze}Card.bpmn.)
  *     • Recursive wallet-trace EXECUTION (Pregel, ADR-2605171200) — INFERENCE
  *       compute over the chain graph.
  *   The resulting DATA records (incident / request) migrate here as E2E; only
- *   the execution acts stay gftd.
+ *   the execution acts stay etzhayyim.
  *
  * AT-Lexicon: no float — all counts / hops / priority are integers; chain ids
  * and wallet addresses are strings.

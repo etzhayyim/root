@@ -30,7 +30,7 @@ export async function resolveApp(name: string): Promise<string> {
   const root = await findRepoRoot();
   const candidates = [
     path.join(root, '60-apps', name),
-    path.join(root, '60-apps', `ai-gftd-project-${name}`),
+    path.join(root, '60-apps', `etzhayyim-project-${name}`),
   ];
   for (const c of candidates) {
     if (await exists(c)) return c;

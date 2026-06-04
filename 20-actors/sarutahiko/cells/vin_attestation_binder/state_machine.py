@@ -2,7 +2,7 @@
 
 Aggregate all upstream attestations into per-VIN vehicleManufactureRecord.
 Issues per-VIN DID `did:web:etzhayyim.com:sarutahiko:vehicle:<vin>` and anchors
-on yatachain (G2 open VIN registry).
+on kotoba-datomic (G2 open VIN registry).
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ class BinderPhase(Enum):
     RECORDS_COLLECTED = "records_collected"
     VIN_ASSIGNED = "vin_assigned"
     VEHICLE_DID_ISSUED = "vehicle_did_issued"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -29,7 +29,7 @@ class BinderState:
     upstreamRecords: dict[str, str] | None = None
     vin: str | None = None
     vehicleDid: str | None = None
-    yatachainAnchor: dict[str, Any] | None = None
+    kotoba-datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -65,9 +65,9 @@ def transition_to_vehicle_did_issued(state: dict[str, Any]) -> dict[str, Any]:
     return {"binder_state": s.__dict__, "next_node": "anchor"}
 
 
-def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = BinderState(**state.get("binder_state", {}))
-    s.yatachainAnchor = {
+    s.kotoba-datomicAnchor = {
         "membraneNamespace": "com.etzhayyim.sarutahiko",
         "anchorTxHash": "0xSARUTAHIKOVINBINDER...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
@@ -75,7 +75,7 @@ def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
         "g2Compliant": True,
         "openVinRegistry": True,
     }
-    s.phase = BinderPhase.YATACHAIN_ANCHORED
+    s.phase = BinderPhase.KOTOBA_DATOMIC_ANCHORED
     s.completionPct = 90
     return {"binder_state": s.__dict__, "next_node": "record"}
 
@@ -90,7 +90,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "vin": s.vin,
         "vehicleDid": s.vehicleDid,
         "upstreamRecords": s.upstreamRecords,
-        "yatachainAnchor": s.yatachainAnchor,
+        "kotoba-datomicAnchor": s.kotoba-datomicAnchor,
         "recordedAt": "2026-05-26T20:00:00Z",
     }
     return {"binder_state": s.__dict__, "vehicle_manufacture_record": record, "next_node": "end"}

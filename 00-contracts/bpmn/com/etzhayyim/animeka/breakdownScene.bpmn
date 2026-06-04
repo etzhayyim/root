@@ -4,13 +4,13 @@
   in:  sceneId, sceneSummary, fps (default 24)
   out: planJson (array of {cutNum, durationFrames, cameraMode, cameraNote})
   note: The planner row (kind=sceneBreakdown) is written to vertex_animeka;
-        animeka.gftd.ai Worker UI reads it + fanouts addCut per entry.
+        animeka.etzhayyim.com Worker UI reads it + fanouts addCut per entry.
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_animeka_breakdown_scene"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_breakdown_scene" name="animeka breakdown scene" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -51,9 +51,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:  &quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.sceneBreakdown/&quot; + string(sceneId),
-              owner_did:  &quot;did:web:animeka.gftd.ai&quot;,
-              repo:       &quot;did:web:animeka.gftd.ai&quot;,
+              vertex_id:  &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.sceneBreakdown/&quot; + string(sceneId),
+              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,
               collection: &quot;com.etzhayyim.apps.animeka.sceneBreakdown&quot;,
               rkey:       string(sceneId),
               kind:       &quot;sceneBreakdown&quot;,
@@ -72,7 +72,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;breakdownScene&quot;" target="action"/>
           <zeebe:input source="={sceneId: string(sceneId), inserted: inserted}" target="payload"/>
         </zeebe:ioMapping>

@@ -94,7 +94,7 @@ wired) the automated preflight (§Automated preflight below) samples
 `wrangler tail` directly. Manual equivalent:
 
 ```bash
-wrangler tail --format=json ai-gftd-pds-2603241700 \
+wrangler tail --format=json etzhayyim-pds-2603241700 \
   | jq -r '
       (.logs // []) as $logs
       | ($logs[]?.message? // [])
@@ -111,10 +111,10 @@ The issuance side (`/oauth/token`) already does this for every DPoP-bound
 flow as of commit `0cbfcfd3845` (2026-04-23). Re-confirm by:
 
 ```bash
-# Mint a fresh token via gftd CLI (issues with cnf.jkt post-A2 deploy).
-gftd authn signin
-# Grab the access token from ~/.gftd/auth.json and decode:
-jq -r .api_key ~/.gftd/auth.json | cut -d. -f2 | base64 -d | jq .cnf
+# Mint a fresh token via etzhayyim CLI (issues with cnf.jkt post-A2 deploy).
+etzhayyim authn signin
+# Grab the access token from ~/.etzhayyim/auth.json and decode:
+jq -r .api_key ~/.etzhayyim/auth.json | cut -d. -f2 | base64 -d | jq .cnf
 # Expect: {"jkt": "<thumbprint>"}
 ```
 

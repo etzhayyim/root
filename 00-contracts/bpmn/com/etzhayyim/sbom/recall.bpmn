@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  sbom.gftd.ai — recall (Phase D blast-radius query).
+  sbom.etzhayyim.com — recall (Phase D blast-radius query).
   Single task: pymagatama runs the supplier-scoped JOIN over
   vertex_sbom_component × vertex_sbom_artifact + vuln_match counts,
   returns the affected artifact list. Audit emit closes the trace.
@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_sbom_recall"
-    targetNamespace="https://gftd.ai/bpmn/sbom"
+    targetNamespace="https://etzhayyim.ai/bpmn/sbom"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="sbom_recall" name="sbom recall (blast-radius)" isExecutable="true">
@@ -32,7 +32,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:sb0m001x.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:sb0m001x.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;sbom.recall&quot;" target="action"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

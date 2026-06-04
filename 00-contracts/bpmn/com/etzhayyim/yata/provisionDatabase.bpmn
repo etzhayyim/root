@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  yatabase.gftd.ai — provisionDatabase workflow (XRPC, admin-only).
+  yatabase.etzhayyim.com — provisionDatabase workflow (XRPC, admin-only).
 
-  Caller MUST be did:web:billing.gftd.ai admin or an internal-trust
+  Caller MUST be did:web:billing.etzhayyim.com admin or an internal-trust
   provisioning agent (gateway header check). Creates a per-tenant RW
   database `yata_<sha256(orgDid)[:16]>`, dedicated PG ROLE with
   CREATE/USAGE on that DB only, then applies the storage schema
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_provision_database"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_provision_database" name="yata provision database" isExecutable="true">
@@ -52,7 +52,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yatabase.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.yata.provisionDatabase&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;orgDid&quot;: orgDid, &quot;dbName&quot;: dbName, &quot;plan&quot;: plan, &quot;alreadyExisted&quot;: alreadyExisted }" target="attributes"/>
         </zeebe:ioMapping>

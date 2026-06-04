@@ -121,9 +121,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ben"
    :gov.unit/name-en "Supreme Court of Benin"
+   :gov.unit/official-url "https://www.coursupreme.bj/"
    :gov.unit/wikidata "Q3001098"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3001098" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.coursupreme.bj/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bgd.supreme-court"
@@ -156,9 +157,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Cassation Court"
+   :gov.unit/official-url "https://www.moj.gov.bh/en"
    :gov.unit/wikidata "Q125496459"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q125496459" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moj.gov.bh/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bhs.supreme-court"
@@ -203,9 +205,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Supreme Court of Belize"
+   :gov.unit/official-url "https://judiciary.bz/supreme-court/"
    :gov.unit/wikidata "Q7644879"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644879" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://judiciary.bz/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.supreme-court"
@@ -250,9 +253,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "brn"
    :gov.unit/name-en "Supreme Court of Brunei Darussalam"
+   :gov.unit/official-url "https://www.judiciary.gov.bn/supreme-court/"
    :gov.unit/wikidata "Q85804255"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q85804255" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.judiciary.gov.bn/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.btn.supreme-court"
@@ -261,9 +265,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Supreme Court of Bhutan"
+   :gov.unit/official-url "https://www.judiciary.gov.bt/"
    :gov.unit/wikidata "Q7644880"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644880" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.judiciary.gov.bt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.supreme-court"
@@ -440,9 +445,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "dji"
    :gov.unit/name-en "Supreme Court of Djibouti"
+   :gov.unit/official-url "https://justice.gouv.dj/pages/DetailPages/54"
    :gov.unit/wikidata "Q106938197"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q106938197" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://justice.gouv.dj/pages/DetailPages/54" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dom.supreme-court"
@@ -510,10 +516,11 @@
    :gov.unit/parent "gov.eth"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "eth"
-   :gov.unit/name-en "Q16117669"
+   :gov.unit/name-en "Federal Supreme Court of Ethiopia"
+   :gov.unit/official-url "https://www.fsc.gov.et/"
    :gov.unit/wikidata "Q16117669"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16117669" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.fsc.gov.et/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fin.supreme-court"
@@ -534,9 +541,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "fji"
    :gov.unit/name-en "Supreme Court of Fiji"
+   :gov.unit/official-url "https://judiciary.gov.fj/courts/supreme-court/"
    :gov.unit/wikidata "Q7644836"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644836" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://judiciary.gov.fj/courts/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fra.supreme-court"
@@ -581,9 +589,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "gha"
    :gov.unit/name-en "Supreme Court of Ghana"
+   :gov.unit/official-url "https://judicial.gov.gh/index.php/the-supreme-court"
    :gov.unit/wikidata "Q1513611"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1513611" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://judicial.gov.gh/index.php/the-supreme-court" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gin.supreme-court"
@@ -591,10 +600,11 @@
    :gov.unit/parent "gov.gin"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "gin"
-   :gov.unit/name-en "Q4109088"
+   :gov.unit/name-en "Supreme Court of Guinea"
+   :gov.unit/official-url "https://coursupreme.org.gn/"
    :gov.unit/wikidata "Q4109088"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4109088" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://coursupreme.org.gn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gnb.supreme-court"
@@ -662,9 +672,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "hti"
    :gov.unit/name-en "Supreme Court of Haiti"
+   :gov.unit/official-url "https://cspj.ht/"
    :gov.unit/wikidata "Q3001011"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3001011" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://cspj.ht/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hun.supreme-court"
@@ -817,9 +828,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Supreme Court of Kyrgyzstan"
+   :gov.unit/official-url "https://www.sot.kg/"
    :gov.unit/wikidata "Q106498794"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q106498794" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sot.kg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kor.supreme-court"
@@ -840,9 +852,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "lbr"
    :gov.unit/name-en "Supreme Court of Liberia"
+   :gov.unit/official-url "https://judiciary.gov.lr/"
    :gov.unit/wikidata "Q174776"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q174776" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://judiciary.gov.lr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lby.supreme-court"
@@ -850,10 +863,11 @@
    :gov.unit/parent "gov.lby"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Q121546554"
+   :gov.unit/name-en "Supreme Court of Libya"
+   :gov.unit/official-url "https://alolya.gov.ly/"
    :gov.unit/wikidata "Q121546554"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q121546554" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://alolya.gov.ly/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lie.supreme-court"
@@ -861,10 +875,11 @@
    :gov.unit/parent "gov.lie"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "lie"
-   :gov.unit/name-en "Q1277866"
+   :gov.unit/name-en "Supreme Court of Liechtenstein"
+   :gov.unit/official-url "https://www.gerichte.li/die-gerichte/oberster-gerichtshof"
    :gov.unit/wikidata "Q1277866"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1277866" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gerichte.li/die-gerichte/oberster-gerichtshof" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lka.supreme-court"
@@ -921,9 +936,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Supreme Court of Morocco"
+   :gov.unit/official-url "https://www.courdecassation.ma/"
    :gov.unit/wikidata "Q3001004"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3001004" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.courdecassation.ma/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mco.supreme-court"
@@ -932,9 +948,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mco"
    :gov.unit/name-en "Supreme Court of Monaco"
+   :gov.unit/official-url "https://www.tribunal-supreme.mc/"
    :gov.unit/wikidata "Q2743465"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2743465" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.tribunal-supreme.mc/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mda.supreme-court"
@@ -979,9 +996,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mhl"
    :gov.unit/name-en "Supreme Court of the Marshall Islands"
+   :gov.unit/official-url "https://rmicourts.org/"
    :gov.unit/wikidata "Q25350659"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25350659" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rmicourts.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mkd.supreme-court"
@@ -1002,9 +1020,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mli"
    :gov.unit/name-en "Supreme Court of Mali"
+   :gov.unit/official-url "https://coursupreme.ml/"
    :gov.unit/wikidata "Q3001096"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3001096" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://coursupreme.ml/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mmr.supreme-court"
@@ -1013,9 +1032,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Supreme Court of Myanmar"
+   :gov.unit/official-url "https://www.unionsupremecourt.gov.mm/"
    :gov.unit/wikidata "Q4120189"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4120189" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.unionsupremecourt.gov.mm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mne.supreme-court"
@@ -1048,9 +1068,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "moz"
    :gov.unit/name-en "Supreme Court of Mozambique"
+   :gov.unit/official-url "https://www.ts.gov.mz/"
    :gov.unit/wikidata "Q5438742"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5438742" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.ts.gov.mz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mus.supreme-court"
@@ -1143,9 +1164,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "nru"
    :gov.unit/name-en "Supreme Court of Nauru"
+   :gov.unit/official-url "https://naurujudiciary.gov.nr/supreme-court/"
    :gov.unit/wikidata "Q7644949"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644949" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://naurujudiciary.gov.nr/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nzl.supreme-court"
@@ -1226,9 +1248,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "png"
    :gov.unit/name-en "Supreme Court of Papua New Guinea"
+   :gov.unit/official-url "https://www.pngjudiciary.gov.pg/supreme-court"
    :gov.unit/wikidata "Q7644964"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644964" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.pngjudiciary.gov.pg/supreme-court" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pol.supreme-court"
@@ -1284,9 +1307,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Supreme Constitutional Court of Qatar"
+   :gov.unit/official-url "https://www.sjc.gov.qa/en"
    :gov.unit/wikidata "Q12192494"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12192494" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sjc.gov.qa/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rou.supreme-court"
@@ -1330,10 +1354,11 @@
    :gov.unit/parent "gov.sau"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sau"
-   :gov.unit/name-en "Q20393621"
+   :gov.unit/name-en "Supreme Court of Saudi Arabia"
+   :gov.unit/official-url "https://www.moj.gov.sa/English/Ministry/Courts/Pages/HighCourt.aspx"
    :gov.unit/wikidata "Q20393621"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q20393621" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.moj.gov.sa/English/Ministry/Courts/Pages/HighCourt.aspx" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sdn.supreme-court"
@@ -1342,9 +1367,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sdn"
    :gov.unit/name-en "Supreme Court of Sudan"
+   :gov.unit/official-url "https://sj.gov.sd/en"
    :gov.unit/wikidata "Q7644845"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644845" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://sj.gov.sd/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sen.supreme-court"
@@ -1353,9 +1379,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sen"
    :gov.unit/name-en "Court of Cassation"
+   :gov.unit/official-url "https://www.coursupreme.gouv.sn/"
    :gov.unit/wikidata "Q3001010"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3001010" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.coursupreme.gouv.sn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sgp.supreme-court"
@@ -1364,9 +1391,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sgp"
    :gov.unit/name-en "Court of Appeal of Singapore"
+   :gov.unit/official-url "https://www.judiciary.gov.sg/"
    :gov.unit/wikidata "Q14874268"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q14874268" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.judiciary.gov.sg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sle.supreme-court"
@@ -1375,9 +1403,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sle"
    :gov.unit/name-en "Supreme Court of Sierra Leone"
+   :gov.unit/official-url "https://www.judiciary.gov.sl/"
    :gov.unit/wikidata "Q7644980"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644980" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.judiciary.gov.sl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.supreme-court"
@@ -1410,9 +1439,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "South Sudan Supreme Court"
+   :gov.unit/official-url "https://mojca.gov.ss/supreme-court/"
    :gov.unit/wikidata "Q7568581"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7568581" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mojca.gov.ss/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.stp.supreme-court"
@@ -1421,9 +1451,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "stp"
    :gov.unit/name-en "Supreme Court of São Tomé and Príncipe"
+   :gov.unit/official-url "https://stj.st/"
    :gov.unit/wikidata "Q3196789"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3196789" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://stj.st/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sur.supreme-court"
@@ -1432,9 +1463,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "High Court of Justice of Suriname"
+   :gov.unit/official-url "https://rechtspraak.sr/"
    :gov.unit/wikidata "Q2394876"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2394876" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rechtspraak.sr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svn.supreme-court"
@@ -1501,7 +1533,7 @@
    :gov.unit/parent "gov.tgo"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tgo"
-   :gov.unit/name-en "Q125959623"
+   :gov.unit/name-en "Supreme Court of Togo"
    :gov.unit/official-url "https://www.coursupremetogo.tg/"
    :gov.unit/wikidata "Q125959623"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1526,9 +1558,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Supreme Court of Tajikistan"
+   :gov.unit/official-url "https://egov.tj/site/sud-tjk?lang=en"
    :gov.unit/wikidata "Q21662238"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q21662238" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://egov.tj/site/sud-tjk?lang=en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tkm.supreme-court"
@@ -1548,9 +1581,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ton"
    :gov.unit/name-en "Privy Council of Tonga"
+   :gov.unit/official-url "https://www.justice.gov.to/supreme-court/"
    :gov.unit/wikidata "Q1253633"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1253633" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.justice.gov.to/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tur.supreme-court"
@@ -1571,9 +1605,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Supreme Court of Uganda"
+   :gov.unit/official-url "https://judiciary.go.ug/"
    :gov.unit/wikidata "Q2368307"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2368307" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://judiciary.go.ug/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ukr.supreme-court"
@@ -1594,9 +1629,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ury"
    :gov.unit/name-en "Supreme Court of Uruguay"
+   :gov.unit/official-url "https://www.poderjudicial.gub.uy/"
    :gov.unit/wikidata "Q6512554"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6512554" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.poderjudicial.gub.uy/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.usa.supreme-court"
@@ -1653,9 +1689,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "vut"
    :gov.unit/name-en "Supreme Court of Vanuatu"
+   :gov.unit/official-url "https://courts.gov.vu/about-us/supreme-court"
    :gov.unit/wikidata "Q7644993"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644993" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://courts.gov.vu/about-us/supreme-court" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.wsm.supreme-court"
@@ -1664,9 +1701,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "wsm"
    :gov.unit/name-en "Supreme Court of Samoa"
+   :gov.unit/official-url "https://www.mjca.gov.ws/our-courts/supreme-court/"
    :gov.unit/wikidata "Q48804555"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q48804555" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mjca.gov.ws/our-courts/supreme-court/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.yem.supreme-court"
@@ -1675,9 +1713,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Supreme Court of the Republic"
+   :gov.unit/official-url "https://sc-yemen.com/"
    :gov.unit/wikidata "Q12192498"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12192498" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://sc-yemen.com/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zaf.supreme-court"
@@ -1698,7 +1737,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Supreme Court of Zimbabwe"
+   :gov.unit/official-url "https://www.jsc.org.zw/"
    :gov.unit/wikidata "Q7644999"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644999" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.jsc.org.zw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

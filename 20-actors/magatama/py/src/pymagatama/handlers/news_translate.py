@@ -2,7 +2,7 @@
 ADR-0049 Phase B4 — news translation UDF.
 
 Replaces the RunPod `gemma4:26b` round-trip in
-`60-apps/ai-gftd-project-news/appview/news-core-component/src/app.ts`
+`60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts`
 `translateText()` with a direct call to Vultr Serverless Inference
 through the shared `pymagatama.llm` tier abstraction.
 

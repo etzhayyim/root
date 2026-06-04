@@ -129,7 +129,7 @@
       "name": "class_certification_binder",
       "module": "watatsumi.cells.class_certification_binder",
       "murakumoNode": "judah",
-      "phase": "terminal — DNV-RU-UWT / ABS Underwater Vehicles audit binder on yatachain"
+      "phase": "terminal — DNV-RU-UWT / ABS Underwater Vehicles audit binder on kotoba-datomic"
     }
   ],
   "lexiconNamespaces": [
@@ -146,7 +146,7 @@
     "description": "14 immutable gates per ADR-2605252200. Changes require Council Lv6+ supermajority + new ADR.",
     "gates": {
       "G1": "Pressure hull CAD + FEA + firmware open-source (Apache 2.0 + Charter Rider)",
-      "G2": "Class certification audit log on yatachain (DNV/ABS/NK/BV equivalent)",
+      "G2": "Class certification audit log on kotoba-datomic (DNV/ABS/NK/BV equivalent)",
       "G3": "Every weld pass + test step IPFS-pinned photo + video (ADR-2605241500)",
       "G4": "Witness quorum ≥2 distinct robots per critical weld (Ed25519, DID-bound; ADR-2605191524)",
       "G5": "JP + EN bilingual minimum for all permits / class reports / owner's manuals",

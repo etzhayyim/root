@@ -1267,7 +1267,7 @@ def resend_dns_ready(domain: str = "etzhayyim.com") -> bool:
 
 def resend_domain_verified(domain: str = "etzhayyim.com") -> bool:
     api_key = os.environ.get("RESEND_API_KEY") or load_keychain_secret(
-        service="gftd.resend", account="API_KEY"
+        service="etzhayyim.resend", account="API_KEY"
     )
     if not api_key:
         return False
@@ -1277,7 +1277,7 @@ def resend_domain_verified(domain: str = "etzhayyim.com") -> bool:
         headers={
             "authorization": f"Bearer {api_key}",
             "accept": "application/json",
-            "user-agent": "gftd-mailer-zeebe/1",
+            "user-agent": "etzhayyim-mailer-zeebe/1",
         },
     )
     try:
@@ -2433,7 +2433,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run local active-inference daemon")
     parser.add_argument(
         "--agent-did",
-        default=os.environ.get("AGENT_DID", "did:gftd:agent:local"),
+        default=os.environ.get("AGENT_DID", "did:etzhayyim:agent:local"),
     )
     parser.add_argument(
         "--process-id",
@@ -2543,7 +2543,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> None:
     load_env_file()
     if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
+        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
         if rw_url:
             os.environ["RW_URL"] = rw_url
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")

@@ -67,19 +67,19 @@ interface HostWitExports {
 }
 
 /**
- * Extract the `gftd_session` cookie from request headers.
+ * Extract the `etzhayyim_session` cookie from request headers.
  * Used to inject session JWT as Authorization header for cross-subdomain SSO on *.etzhayyim.com.
  */
 function extractSessionCookie(headers: Headers): string {
   const cookie = headers.get("cookie");
   if (!cookie) return "";
-  const match = cookie.match(/(?:^|;\s*)gftd_session=([^\s;]+)/);
+  const match = cookie.match(/(?:^|;\s*)etzhayyim_session=([^\s;]+)/);
   return match?.[1] ?? "";
 }
 
 /**
  * Collect request headers as [key, value] pairs for XRPC forwarding.
- * When no Authorization header is present but a `gftd_session` cookie exists,
+ * When no Authorization header is present but a `etzhayyim_session` cookie exists,
  * injects `Authorization: Bearer <jwt>` for cross-subdomain SSO on *.etzhayyim.com.
  */
 function collectHeadersWithCookieAuth(raw: Headers): [string, string][] {
@@ -146,7 +146,7 @@ export function createHostWebRouter(args: {
     const appDID = ev("APP_DID") || ev("PERFORMER_DID") || `did:web:${appNanoid}.etzhayyim.com`;
     // ADR-2604231839: serviceEndpoint for this actor's own XRPC surface.
     // Matches the request origin (what the resolver fetched) so spec-compliant
-    // clients can route Atproto-Proxy:<did>#gftd_actor back to the same host.
+    // clients can route Atproto-Proxy:<did>#etzhayyim_actor back to the same host.
     const selfOrigin = `${new URL(c.req.url).origin}`;
     const caps = (() => {
       try {
@@ -173,7 +173,7 @@ export function createHostWebRouter(args: {
           ...(appVersion ? { version: appVersion } : {}),
         },
         {
-          id: `${appDID}#gftd_actor`, type: "etzhayyimActor",
+          id: `${appDID}#etzhayyim_actor`, type: "etzhayyimActor",
           serviceEndpoint: selfOrigin,
         },
       ],
@@ -318,9 +318,9 @@ export function createHostWebRouter(args: {
       || "actor";
     // ADR-2604261000 §F1: prefer APP_ACTOR_HANDLE over APP_NANOID so the
     // default did:web:{handle}.etzhayyim.com matches sync-mcp-registry.py keying
-    // (NSID 4th segment, e.g. "lawfirm"). gftd deploy injects
+    // (NSID 4th segment, e.g. "lawfirm"). etzhayyim deploy injects
     // APP_ACTOR_HANDLE from magatama.jsonld profile.handle or component dir
-    // slug ai-gftd-wasm-{slug}-{nanoid}.
+    // slug etzhayyim-wasm-{slug}-{nanoid}.
     const registryActorDid = mcpRegistry?.actorDid
       || ev("APP_DID")
       || ev("PERFORMER_DID")
@@ -509,7 +509,7 @@ p{font-size:14px;color:#8b949e;max-width:400px;line-height:1.5}
 <p>${desc}</p>
 ${capBadges ? `<div class="caps">${capBadges}</div>` : ""}
 </div>
-<script>window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'${nanoid}'},'*')</script>
+<script>window.parent?.postMessage({type:'etzhayyim:embed:ready',nanoid:'${nanoid}'},'*')</script>
 </body></html>`;
 }
 /** KAMI Engine WebGPU embed HTML — dual canvas split view (VRM left, Hybrid right). */
@@ -573,6 +573,6 @@ await Promise.allSettled([
   loadPane('kami2', 'L2', 'GetScene', 'FF Groups (R)'),
 ]);
 
-window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'${nanoid}'},'*');
+window.parent?.postMessage({type:'etzhayyim:embed:ready',nanoid:'${nanoid}'},'*');
 </script></body></html>`;
 }

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_orbital_debris_flag_asat_debris"
-    targetNamespace="https://gftd.ai/bpmn/open-orbital-debris"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-orbital-debris"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_orbital_debris_flag_asat_debris" name="ASAT デブリ フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-orbital-debris.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-orbital-debris.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;space.asatDebris&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: eventVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>

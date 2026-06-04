@@ -8,7 +8,7 @@
 --                                       Legitimate exception per ADR Phase E
 --                                       §Known constraints #4)
 --   load_context         py_primitive  KEPT (dynamic-WHERE SQL on
---                                       vertex_gftdcojp_raci + multi-row text
+--                                       vertex_etzhayyimcojp_raci + multi-row text
 --                                       assembly = exception #4)
 --   supervisor           py_primitive  KEPT — LLM JSON classifier producing
 --                                       state.route. The mcp_tool envelope
@@ -23,7 +23,7 @@
 --                                       already routes on `field: route`;
 --                                       behavior preserved.
 --   company_ops          py_primitive  KEPT — cross-graph dispatch via
---                                       `gftdcojp_company_ops.build_graph().invoke()`
+--                                       `etzhayyimcojp_company_ops.build_graph().invoke()`
 --                                       (legitimate exception, side effect)
 --   lawfirm_marketing    py_primitive  KEPT — cross-graph dispatch via
 --                                       `lawfirm_marketing_ops.build_graph().invoke()`

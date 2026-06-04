@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — IPFS pin worker (R/PT5M timer-start, autonomous).
+  karma.etzhayyim.com — IPFS pin worker (R/PT5M timer-start, autonomous).
 
   Lifts new edges from RisingWave (L0) to:
-    - L2 IPFS self-hosted cluster (ipfs.gftd.ai)
+    - L2 IPFS self-hosted cluster (ipfs.etzhayyim.com)
     - L3 IPFS external pinning (Pinata + Filebase + Web3.Storage)
     - writes ipfs_cid back into edge_karma_dependency
     - inserts vertex_karma_ipfs_pin rows per (cid, service)
@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_ipfs_pin"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_ipfs_pin" name="karma ipfs pin" isExecutable="true">
@@ -76,7 +76,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.ipfsPin&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;pinned&quot;: pinned, &quot;failed&quot;: failed }" target="attributes"/>
         </zeebe:ioMapping>

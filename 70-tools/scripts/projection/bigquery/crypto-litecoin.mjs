@@ -23,7 +23,7 @@
  *
  * Usage:
  *   node 70-tools/scripts/projection/bigquery/crypto-litecoin.mjs \
- *     --project ai-gftd-ws-ingest \
+ *     --project etzhayyim-ws-ingest \
  *     [--since-days 7] \
  *     [--max-bytes-billed-per-query 107374182400] \
  *     [--dry-run]

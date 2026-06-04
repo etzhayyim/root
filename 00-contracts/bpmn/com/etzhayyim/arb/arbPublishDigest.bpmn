@@ -6,14 +6,14 @@
   EDUCATIONAL ONLY. Worker enforces score >= 0.5 + cohort allowlist + executed=false.
 
   NSID: com.etzhayyim.apps.arb.publishDigest
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/arb-publish-digest-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/arb-publish-digest-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_arb_publish_digest"
-    targetNamespace="https://gftd.ai/bpmn/arb"
+    targetNamespace="https://etzhayyim.ai/bpmn/arb"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="arb_publish_digest" name="arb publishDigest" isExecutable="true">
     <bpmn:documentation>
@@ -62,7 +62,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://arb.gftd.ai/xrpc/com.etzhayyim.apps.arb.scoreProposal&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.scoreProposal&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;" target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={ &quot;proposalId&quot;: row.proposal_id }" target="body"/>
@@ -83,10 +83,10 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://arb.gftd.ai/xrpc/com.etzhayyim.apps.arb.publishProposal&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://arb.etzhayyim.com/xrpc/com.etzhayyim.apps.arb.publishProposal&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;" target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
-          <zeebe:input source="={ &quot;proposalId&quot;: row.proposal_id, &quot;mentionCohort&quot;: &quot;trader.gftd.ai&quot; }" target="body"/>
+          <zeebe:input source="={ &quot;proposalId&quot;: row.proposal_id, &quot;mentionCohort&quot;: &quot;trader.etzhayyim.com&quot; }" target="body"/>
           <zeebe:input source="=20000" target="timeoutMs"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

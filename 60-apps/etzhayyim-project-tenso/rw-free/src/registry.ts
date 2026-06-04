@@ -8,7 +8,7 @@
  * read-cap) + explicit extra recipients. The substrate never sees sender/
  * recipient/filename/manifest in plaintext.
  *
- * STAYS gftd (consent-capability): B2 chunk store/download EXECUTION, Signal
+ * STAYS etzhayyim (consent-capability): B2 chunk store/download EXECUTION, Signal
  * X3DH/prekey custody, download-limit + revoke ENFORCEMENT.
  */
 

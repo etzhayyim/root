@@ -3,7 +3,7 @@
   maps3d.processTile — single-tile photogrammetry pipeline.
 
   Cadence: timer-start R/PT15M draws one pending tile per tick; manual
-  invocation via `POST http://dispatcher.gftd.ai:8080/xrpc/com.etzhayyim.apps.maps3d.processTile`
+  invocation via `POST http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.maps3d.processTile`
   with { tileH3 } skips the picker.
 
   Pipeline (sequential within one tile, time-budgeted):
@@ -26,14 +26,14 @@
   Tokyo landmark backfill (~2,000 tiles) ≈ 60 days end-to-end with one pod.
 
   NSID: com.etzhayyim.apps.maps3d.processTile
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_maps3d_process_tile"
-    targetNamespace="https://gftd.ai/bpmn/maps3d"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps3d"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="maps3d_process_tile" name="maps3d processTile" isExecutable="true">

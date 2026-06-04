@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Phase D — lawfirm read-path projection views.
  *
- * Reads off `vertex_gftd_identity` + `mv_gftd_identity_children` only
+ * Reads off `vertex_etzhayyim_identity` + `mv_etzhayyim_identity_children` only
  * (ADR-0029 recursive DID tree is the single authoritative source). The
  * lexicon-specific `vertex_atrecord_lawfirm_*` tables are PDS-pipeline-
  * generated on first write and do not yet exist on a fresh cluster, so the
@@ -17,7 +17,7 @@ import { Kysely, sql } from 'kysely';
  * (<vendor-rw-host-deprecated>:4566) triggered repeated compute pod recovery loops
  * ("failed to collect barrier", "database 1 unavailable cluster is under
  * recovering") even with `enable_locality_backfill = true` + `background_ddl
- * = true`. Given that `vertex_gftd_identity` is empty at Phase D time
+ * = true`. Given that `vertex_etzhayyim_identity` is empty at Phase D time
  * (0 matters minted yet), a streaming MV provides no freshness benefit
  * while adding cluster state. Plain VIEWs are cost-free metadata and
  * evaluate on-demand with the same SQL shape.
@@ -27,15 +27,15 @@ import { Kysely, sql } from 'kysely';
  *   (b) cluster memory headroom is > 64 GiB and compute is idle.
  * Both were deferred per graph-schema CLAUDE.md §MV Memory Safety Guardrails.
  *
- * Spec: 90-docs/adr/0029-did-gftd-recursive-hash-merkle.md
- * Base: 20260416140100_gftd_did_identity_graph.ts
- *     + 20260417150000_gftd_did_recursive_tree.ts
+ * Spec: 90-docs/adr/0029-did-etzhayyim-recursive-hash-merkle.md
+ * Base: 20260416140100_etzhayyim_did_identity_graph.ts
+ *     + 20260417150000_etzhayyim_did_recursive_tree.ts
  */
 
 export async function up(db: Kysely<any>): Promise<void> {
   // ── View 1: view_lawfirm_matter_roster ──────────────────────────────
   // Per-matter summary keyed by matter_did.
-  // Joins firm (parent) identity + child counts from mv_gftd_identity_children.
+  // Joins firm (parent) identity + child counts from mv_etzhayyim_identity_children.
 
   await sql`CREATE VIEW view_lawfirm_matter_roster AS
     SELECT
@@ -55,12 +55,12 @@ export async function up(db: Kysely<any>): Promise<void> {
       COALESCE(docs.active_child_count,  0) AS active_doc_count,
       COALESCE(grants.child_count,       0) AS total_grant_count,
       COALESCE(grants.active_child_count,0) AS active_grant_count
-    FROM vertex_gftd_identity m
-    LEFT JOIN vertex_gftd_identity firm
+    FROM vertex_etzhayyim_identity m
+    LEFT JOIN vertex_etzhayyim_identity firm
       ON firm.did = m.parent_did
-    LEFT JOIN mv_gftd_identity_children docs
+    LEFT JOIN mv_etzhayyim_identity_children docs
       ON docs.parent_did = m.did AND docs.material_kind = 'doc'
-    LEFT JOIN mv_gftd_identity_children grants
+    LEFT JOIN mv_etzhayyim_identity_children grants
       ON grants.parent_did = m.did AND grants.material_kind = 'grant'
     WHERE m.material_kind = 'matter'
       AND m.parent_did IS NOT NULL
@@ -82,8 +82,8 @@ export async function up(db: Kysely<any>): Promise<void> {
       g.updated_at,
       g.revoked_at,
       m.revoked_at               AS parent_revoked_at
-    FROM vertex_gftd_identity g
-    LEFT JOIN vertex_gftd_identity m
+    FROM vertex_etzhayyim_identity g
+    LEFT JOIN vertex_etzhayyim_identity m
       ON m.did = g.parent_did
     WHERE g.material_kind = 'grant'
       AND g.parent_did IS NOT NULL

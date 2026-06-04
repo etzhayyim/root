@@ -253,9 +253,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Belarus"
+   :gov.unit/official-url "https://mfa.gov.by/"
    :gov.unit/wikidata "Q2047848"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2047848" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mfa.gov.by/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.blz.foreign"
@@ -336,9 +337,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "caf"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Central African Republic"
+   :gov.unit/official-url "https://diplomatie.gouv.cf/"
    :gov.unit/wikidata "Q62035799"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q62035799" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://diplomatie.gouv.cf/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.foreign"
@@ -419,9 +421,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cog"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of the Congo"
+   :gov.unit/official-url "https://diplobrazza.net/"
    :gov.unit/wikidata "Q95382924"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q95382924" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://diplobrazza.net/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.foreign"
@@ -1124,7 +1127,7 @@
    :gov.unit/parent "gov.mdg"
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdg"
-   :gov.unit/name-en "Q123358936"
+   :gov.unit/name-en "Ministry of Foreign Affairs of Madagascar"
    :gov.unit/official-url "https://www.diplomatie.gov.mg/"
    :gov.unit/wikidata "Q123358936"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1269,9 +1272,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Ministry of Foreign Affairs, Cooperation and African Integration"
+   :gov.unit/official-url "https://diplomatie.gouv.ne/"
    :gov.unit/wikidata "Q6866981"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6866981" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://diplomatie.gouv.ne/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.foreign"
@@ -1544,9 +1548,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sle"
    :gov.unit/name-en "Ministry of Foreign Affairs and International Relations of Sierra Leone"
+   :gov.unit/official-url "https://foreignaffairs.gov.sl/"
    :gov.unit/wikidata "Q4294409"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4294409" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://foreignaffairs.gov.sl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.foreign"
@@ -1735,9 +1740,10 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Tajikistan"
+   :gov.unit/official-url "https://mfa.tj/"
    :gov.unit/wikidata "Q25592941"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25592941" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mfa.tj/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tkm.foreign"

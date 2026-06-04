@@ -8,14 +8,14 @@
   CF Worker XRPC endpoint is a thin dispatcher stub only.
 
   NSID: com.etzhayyim.apps.resourceFlow.detectAnomaly
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/resource-flow-detect-anomaly-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/resource-flow-detect-anomaly-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_resource_flow_detect_anomaly"
-    targetNamespace="https://gftd.ai/bpmn/resource-flow"
+    targetNamespace="https://etzhayyim.ai/bpmn/resource-flow"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="resource_flow_detect_anomaly" name="resource-flow detectAnomaly" isExecutable="true">
@@ -54,7 +54,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:resource-flow.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:resource-flow.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;resource-flow.anomaly.scan&quot;"     target="action"/>
           <zeebe:input source="={runId: runId, scanned: scanned, flagged: flagged}" target="payload"/>
         </zeebe:ioMapping>

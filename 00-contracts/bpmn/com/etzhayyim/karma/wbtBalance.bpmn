@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — WBT balance query (XRPC entry).
+  karma.etzhayyim.com — WBT balance query (XRPC entry).
 
   Pure read: returns balance + aggregate stats. Returns zero for
   never-seen DIDs (silent default).
@@ -10,7 +10,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_wbt_balance"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_wbt_balance" name="karma WBT balance" isExecutable="true">

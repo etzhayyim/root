@@ -49,7 +49,7 @@ tokio-util.workspace = true
 
 # WASM-safe tokio subset (sync, macros, rt, time only)
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-tokio = { version = "1.46", features = ["sync", "macros", "rt", "time"] }
+tokio = { version = "1.52", features = ["sync", "macros", "rt", "time"] }
 tokio-stream = "0.1.14"
 object_store = { version = "0.13.2", default-features = false }
 

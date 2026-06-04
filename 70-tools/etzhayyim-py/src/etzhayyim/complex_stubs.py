@@ -20,10 +20,10 @@ import click
 
 
 def _go_stub(cmd: str, detail: str = "") -> None:
-    msg = f"gftd {cmd} requires the Go binary."
+    msg = f"etzhayyim {cmd} requires the Go binary."
     if detail:
         msg += f" {detail}"
-    msg += f" Run: gftd {cmd}"
+    msg += f" Run: etzhayyim {cmd}"
     click.echo(msg, err=True)
     sys.exit(1)
 
@@ -35,7 +35,7 @@ def version_cmd() -> None:
     """Print etzhayyim-py version."""
     try:
         from importlib.metadata import version
-        ver = version("gftd")
+        ver = version("etzhayyim")
     except Exception:
         ver = "dev"
     click.echo(f"etzhayyim-py {ver}")
@@ -190,8 +190,8 @@ def _resolve_cc_project_script(name: str) -> Path | None:
     if root is None:
         return None
     candidates = [
-        root / "60-apps" / "ai-gftd-project-common-crawl" / "scripts" / name,
-        root / "projects" / "ai-gftd-project-common-crawl" / "scripts" / name,
+        root / "60-apps" / "etzhayyim-project-common-crawl" / "scripts" / name,
+        root / "projects" / "etzhayyim-project-common-crawl" / "scripts" / name,
     ]
     for p in candidates:
         if p.exists():
@@ -277,11 +277,11 @@ def pds() -> None:
 
 
 def _load_auth() -> dict:
-    """Load ~/.gftd/auth.json if it exists, else return empty dict."""
+    """Load ~/.etzhayyim/auth.json if it exists, else return empty dict."""
     import json
     from pathlib import Path
 
-    auth_path = Path.home() / ".gftd" / "auth.json"
+    auth_path = Path.home() / ".etzhayyim" / "auth.json"
     if auth_path.exists():
         try:
             return json.loads(auth_path.read_text())
@@ -425,13 +425,13 @@ def code_quality(ctx: click.Context, workspace_dir: str | None, skip: str, json_
 
 
 def _find_agent_dir() -> Path | None:
-    # try git root / 60-apps/ai-gftd-terminal-agent
+    # try git root / 60-apps/etzhayyim-terminal-agent
     try:
         root = subprocess.run(
             ["git", "rev-parse", "--show-toplevel"],
             capture_output=True, text=True, check=True
         ).stdout.strip()
-        p = Path(root) / "60-apps" / "ai-gftd-terminal-agent"
+        p = Path(root) / "60-apps" / "etzhayyim-terminal-agent"
         if p.exists():
             return p
     except Exception:
@@ -451,7 +451,7 @@ def code_exec(work_dir: str, message: str, model: str, api_key: str, uv_bin: str
     """Run terminal-agent in non-interactive one-shot mode (--message required)."""
     msg = message.strip()
     if not msg:
-        raise click.ClickException("--message is required for 'gftd code exec'")
+        raise click.ClickException("--message is required for 'etzhayyim code exec'")
 
     resolved_key = api_key or os.environ.get("OPENROUTER_API_KEY", "")
     if not resolved_key and not dry_run:
@@ -474,7 +474,7 @@ def code_exec(work_dir: str, message: str, model: str, api_key: str, uv_bin: str
     agent_dir = _find_agent_dir()
     if agent_dir is None:
         raise click.ClickException(
-            "terminal-agent directory not found. Expected: <repo>/60-apps/ai-gftd-terminal-agent"
+            "terminal-agent directory not found. Expected: <repo>/60-apps/etzhayyim-terminal-agent"
         )
 
     import os as _os
@@ -482,7 +482,7 @@ def code_exec(work_dir: str, message: str, model: str, api_key: str, uv_bin: str
     resolved_model = model or _os.environ.get("AGENT_MODEL", "anthropic/claude-sonnet-4-6")
     uv_args = ["run", "agent", "--local", "--message", msg, "--dir", work_path]
 
-    click.echo(f"==> gftd code exec: model={resolved_model} dir={work_path}", err=True)
+    click.echo(f"==> etzhayyim code exec: model={resolved_model} dir={work_path}", err=True)
     if dry_run:
         click.echo(f"==> dry-run: {uv_bin} {' '.join(uv_args)}", err=True)
         return
@@ -504,8 +504,8 @@ def code_agent(prompt_text: str, run_local: bool, agent_server: str, model: str,
     agent_dir = _find_agent_dir()
     if agent_dir is None:
         click.echo(
-            "error: ai-gftd-terminal-agent directory not found. "
-            "Check that 60-apps/ai-gftd-terminal-agent exists in the git root.",
+            "error: etzhayyim-terminal-agent directory not found. "
+            "Check that 60-apps/etzhayyim-terminal-agent exists in the git root.",
             err=True,
         )
         sys.exit(1)
@@ -537,7 +537,7 @@ def code_bench(runs: int, model: str, json_out: bool, dry_run: bool) -> None:
     agent_dir = _find_agent_dir()
     if agent_dir is None:
         raise click.ClickException(
-            "terminal-agent directory not found. Expected: <repo>/60-apps/ai-gftd-terminal-agent"
+            "terminal-agent directory not found. Expected: <repo>/60-apps/etzhayyim-terminal-agent"
         )
     import os as _os
     env = _os.environ.copy()
@@ -749,8 +749,8 @@ def _cc_project_script(name: str) -> str:
             ["git", "rev-parse", "--show-toplevel"], stderr=subprocess.DEVNULL
         ).strip().decode()
         candidates = [
-            os.path.join(repo_root, "60-apps", "ai-gftd-project-common-crawl", "scripts", name),
-            os.path.join(repo_root, "projects", "ai-gftd-project-common-crawl", "scripts", name),
+            os.path.join(repo_root, "60-apps", "etzhayyim-project-common-crawl", "scripts", name),
+            os.path.join(repo_root, "projects", "etzhayyim-project-common-crawl", "scripts", name),
         ]
         for p in candidates:
             if os.path.exists(p):
@@ -869,9 +869,9 @@ def cc_intel(limit: int, resume: bool, model: str, min_pages: int,
 @click.option("--dry-run", is_flag=True, default=False)
 @click.option("--pds", default=None)
 def cc_inject(source: str, batch_size: int, dry_run: bool, pds: str | None) -> None:
-    """[deprecated] Use: gftd domain-ingest common-crawl"""
-    click.echo("warning: 'gftd common-crawler inject' is deprecated; use 'gftd domain-ingest common-crawl' instead", err=True)
-    cmd = [sys.executable, "-m", "gftd", "domain-ingest", "common-crawl",
+    """[deprecated] Use: etzhayyim domain-ingest common-crawl"""
+    click.echo("warning: 'etzhayyim common-crawler inject' is deprecated; use 'etzhayyim domain-ingest common-crawl' instead", err=True)
+    cmd = [sys.executable, "-m", "etzhayyim", "domain-ingest", "common-crawl",
            "--source", source, "--batch-size", str(batch_size)]
     if dry_run:
         cmd.append("--dry-run")
@@ -1336,7 +1336,7 @@ def _scan_app_schema(project_dir: Path) -> dict:
 
 def _render_schema_md(s: dict) -> str:
     lines = [
-        "<!-- AUTO-GENERATED by gftd docs-gen schema. Regenerate: gftd docs-gen schema --dir . --format md --out schema.auto.md -->",
+        "<!-- AUTO-GENERATED by etzhayyim docs-gen schema. Regenerate: etzhayyim docs-gen schema --dir . --format md --out schema.auto.md -->",
         f"<!-- scannedAt: {s.get('scannedAt', '')} -->",
         "",
         f"## Schema: {s.get('app', '')}",
@@ -1393,9 +1393,9 @@ def docs_gen_schema(component_dir: str, scan_all: bool, fmt: str, out_path: str)
         if not pattern_dir.is_dir():
             raise click.ClickException(f"60-apps/ not found under {git_root}")
         wrote = skipped = 0
-        for manifest in sorted(pattern_dir.glob("ai-gftd-project-*/wasm/*/magatama.jsonld")):
+        for manifest in sorted(pattern_dir.glob("etzhayyim-project-*/wasm/*/magatama.jsonld")):
             comp = manifest.parent
-            if ".gftd-deploy" in str(comp):
+            if ".etzhayyim-deploy" in str(comp):
                 continue
             try:
                 schema = _scan_app_schema(comp)
@@ -1612,13 +1612,13 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
         click.echo(f"  skip {comp_dir.name} (magatama.jsonld already exists)", err=True)
         return False
 
-    gftd_path = comp_dir / "etzhayyim.json"
-    if not gftd_path.exists():
+    etzhayyim_path = comp_dir / "etzhayyim.json"
+    if not etzhayyim_path.exists():
         click.echo(f"  skip {comp_dir.name} (no etzhayyim.json)", err=True)
         return False
 
     try:
-        gftd = json.loads(gftd_path.read_text(encoding="utf-8"))
+        etzhayyim = json.loads(etzhayyim_path.read_text(encoding="utf-8"))
     except Exception as exc:
         click.echo(f"  FAIL {comp_dir.name}: parse etzhayyim.json: {exc}", err=True)
         return False
@@ -1645,7 +1645,7 @@ def _migrate_single(comp_dir: Path, dry_run: bool) -> bool:
 
     for key in ("project", "org", "version", "template", "source"):
         if etzhayyim.get(key):
-            manifest[key] = gftd[key]
+            manifest[key] = etzhayyim[key]
 
     manifest["runtimeType"] = rt
 
@@ -1762,7 +1762,7 @@ _PLUGIN_DEFS = [
 
 def _plugin_cache_dir(name: str) -> Path:
     home = Path.home()
-    return home / ".cache" / "gftd" / "plugins" / name
+    return home / ".cache" / "etzhayyim" / "plugins" / name
 
 
 def _plugin_bin_path(name: str, install_bin: str) -> Path:
@@ -1896,7 +1896,7 @@ def plugin_install(plugin_name: str, version: str) -> None:
     p = next((x for x in _PLUGIN_DEFS if x["name"] == plugin_name), None)
     if p is None:
         click.echo(
-            f"unknown plugin: {plugin_name}\nRun 'gftd plugin list' to see available plugins",
+            f"unknown plugin: {plugin_name}\nRun 'etzhayyim plugin list' to see available plugins",
             err=True,
         )
         sys.exit(1)

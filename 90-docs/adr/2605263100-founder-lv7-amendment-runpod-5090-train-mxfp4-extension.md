@@ -90,7 +90,7 @@ following constraints:
 
 Permitted: **continued pretrain of BitNet 2B-4T on religious-corp-aligned corpus**
 under same MXFP4 precision + same constraints as §1.1.A. Use cases:
-- domain adaptation to religious-corp tokens (Charter / yatachain / etc.)
+- domain adaptation to religious-corp tokens (Charter / kotoba-datomic / etc.)
 - targeted weakness recovery (math 29-39% baseline → target ≥50%)
 
 ### §1.2 (AMENDED) NOT permitted
@@ -148,7 +148,7 @@ Per ADR-2605263000 §4 framing:
 - If Council REJECTS this amendment at P3:
   - All train outputs from this rental window remain **fleet-internal** (no
     external publication occurred per §1.1.A G13 inheritance)
-  - Founder accepts **second** retroactive reprimand recorded on yatachain
+  - Founder accepts **second** retroactive reprimand recorded on kotoba-datomic
   - Future emergency authorizations require **pre-Council notification** (new ADR + 7-day public notice) per parent ADR §4
   - Trained checkpoints can still be evaluated locally but NOT distributed
 - If Council RATIFIES: this ADR's status flips `accepted-by-council`, train

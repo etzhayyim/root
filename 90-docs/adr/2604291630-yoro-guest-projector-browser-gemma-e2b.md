@@ -66,7 +66,7 @@ actors such as `uqpel6i6.etzhayyim.com` are also covered.
 
 # References
 
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/LiveStage.svelte`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/ProjectorGuestChat.svelte`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/atproto-agent.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/tests/guest-projector-chat.spec.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/LiveStage.svelte`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/profile/[handle]/ProjectorGuestChat.svelte`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/atproto-agent.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/tests/guest-projector-chat.spec.ts`

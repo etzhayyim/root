@@ -131,7 +131,7 @@
     "description": "12 immutable gates per ADR-2605263200. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan on every emergency document",
-      "G2": "yatachain attestation lineage on every record",
+      "G2": "kotoba-datomic attestation lineage on every record",
       "G3": "Community-scale only (NOT large municipal / regional / national replacement)",
       "G4": "NO commercial disaster management software (Veoci / NC4 / Crisis Track / Everbridge / OnSolve / SAP DR / Microsoft DR Hub / IBM Crisis Response PROHIBITED)",
       "G5": "NO armed enforcement (civilian only; force authorization separate per ADR-2605192315)",

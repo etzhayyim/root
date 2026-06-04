@@ -100,7 +100,7 @@ did:web:n1st0csf.etzhayyim.com                          → root coordinator
 
 ## Seed Script
 
-`npx tsx 60-apps/ai-gftd-project-nist/seed.ts` — 全 ~1,060 records を PDS XRPC 経由で登録。
+`npx tsx 60-apps/etzhayyim-project-nist/seed.ts` — 全 ~1,060 records を PDS XRPC 経由で登録。
 
 ## Cross-actor Integration
 

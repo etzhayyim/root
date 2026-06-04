@@ -8,13 +8,13 @@ from .state_machine import (
     ProvenanceBinderPhase,
     transition_to_records_gathered,
     transition_to_mass_balance_computed,
-    transition_to_yatachain_anchored,
+    transition_to_kotoba-datomic_anchored,
     transition_to_binder_complete,
 )
 
 
 class ElvProvenanceBinderCell:
-    """Terminal yatachain provenance binder (R0 scaffold)."""
+    """Terminal kotoba-datomic provenance binder (R0 scaffold)."""
 
     def __init__(self) -> None:
         self.graph = self._build_graph()
@@ -53,7 +53,7 @@ class ElvProvenanceBinderCell:
         return transition_to_mass_balance_computed(state)
 
     def _anchor(self, state: dict[str, Any]) -> dict[str, Any]:
-        return transition_to_yatachain_anchored(state)
+        return transition_to_kotoba-datomic_anchored(state)
 
     def _complete(self, state: dict[str, Any]) -> dict[str, Any]:
         return transition_to_binder_complete(state)

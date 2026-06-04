@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_caf_shinka"
-    targetNamespace="https://gftd.ai/bpmn/govCaf"
+    targetNamespace="https://etzhayyim.ai/bpmn/govCaf"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_caf_shinka" name="govCaf shinka" isExecutable="true">

@@ -76,7 +76,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   const rows: Row[] = [
     // ── Orgs ──
-    row('gftd', 'etzhayyim', '🌐', 'Orgs', 'https://etzhayyim.com', 'etzhayyim.com', 'etzhayyim portal'),
+    row('etzhayyim', 'etzhayyim', '🌐', 'Orgs', 'https://etzhayyim.com', 'etzhayyim.com', 'etzhayyim portal'),
 
     // ── Security ──
     row('kiyome', 'Kiyome', '🔍', 'Services', 'https://smishing.etzhayyim.com', 'smishing.etzhayyim.com:actor:kiyome', 'SMS phishing analysis & threat intelligence'),

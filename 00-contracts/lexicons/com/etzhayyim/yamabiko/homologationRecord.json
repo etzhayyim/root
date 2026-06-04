@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.yamabiko.homologationRecord",
-  "description": "Homologation binder record (L5c terminal). EN 50126/50128/50129 (RAMS) / 日本鉄道事業法 / FRA Tier I-III. Aggregates upstream attestations + issues per-trainset DID (G13). Yatachain anchor (G2). Per ADR-2605252600 L5c.",
+  "description": "Homologation binder record (L5c terminal). EN 50126/50128/50129 (RAMS) / 日本鉄道事業法 / FRA Tier I-III. Aggregates upstream attestations + issues per-trainset DID (G13). KotobaDatomic anchor (G2). Per ADR-2605252600 L5c.",
   "defs": {
     "main": {
       "type": "record",
@@ -22,7 +22,7 @@
               "decision": {"type": "string", "knownValues": ["ISSUE_TYPE_APPROVAL", "REQUEST_REVISION", "REJECT"]}
             }
           },
-          "yatachainAnchor": {
+          "kotoba-datomicAnchor": {
             "type": "object",
             "properties": {
               "membraneNamespace": {"type": "string"},
@@ -33,7 +33,7 @@
           },
           "recordedAt": {"type": "string", "format": "datetime"}
         },
-        "required": ["trainsetId", "serial", "trainsetDid", "authorityReview", "yatachainAnchor"]
+        "required": ["trainsetId", "serial", "trainsetDid", "authorityReview", "kotoba-datomicAnchor"]
       }
     }
   }

@@ -31,7 +31,7 @@ ADR-0049 (pyzeebe in-cluster worker), ADR-0023 (auth Shannon-optimal)
 
 The yoro `/projects` projector (`com.etzhayyim.projector.*`) currently runs
 as a co-located handler inside the PDS CF Worker
-(`50-infra/cloudflare/workers/atproto/src/handlers/gftd/`). Reasoning
+(`50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/`). Reasoning
 loops (Chain-of-Thought, Tree-of-Thoughts, Self-Consistency, Reflexion)
 and PM tool calling (`pm.search_agents`, `pm.web_research`,
 `pm.create_entity_did`, `pm.graph_search`, `pm.invite_agent`) are all
@@ -75,7 +75,7 @@ matching the canonical 8-layer Shannon-optimal topology
 
 | Layer | Component | Responsibility |
 |---|---|---|
-| **L3 Dispatcher** | `pds-handlers-gftd.ts handleSendProjectMessage` | XRPC accept, viewer DID resolution, `sdk.zeebe.publishMessage(name="com.etzhayyim.apps.projector.sendProjectMessage", correlationKey=convoId, variables)`. Returns 202 + convoId. **No reasoning, no tool dispatch.** |
+| **L3 Dispatcher** | `pds-handlers-etzhayyim.ts handleSendProjectMessage` | XRPC accept, viewer DID resolution, `sdk.zeebe.publishMessage(name="com.etzhayyim.apps.projector.sendProjectMessage", correlationKey=convoId, variables)`. Returns 202 + convoId. **No reasoning, no tool dispatch.** |
 | **L7 Orchestration** | Zeebe (Vultr k8s) | XOR command routing, sub-process call activities, retry, OCEL audit emission, guardrail boundary events. |
 | **L7 pyzeebe** | `pymagatama.primitives.projector.*` | LangGraph StateGraph entries: ReAct (`projector.agent.loop`), ToT (`projector.tot.expand`), Self-Consistency (`projector.sc.parallel`), Reflexion R/W (`projector.reflexion.{load,write}`), MCP discovery (`projector.tools.discover`), persist (`projector.persist.message`), command parser (`projector.command.parse`). |
 | **L4 Registry** | RisingWave PG | `vertex_bpmn_process_def` × 4 + `vertex_bpmn_lexicon_binding` × 4 (this ADR's seed migration). `vertex_projector_reflection` for episodic memory. `vertex_repo_record` for projector replies (graph-visible to existing yoro UI fetch path). |
@@ -190,7 +190,7 @@ Protocol firehose).
 | **Phase 1** | ✅ Scaffolded | 4 BPMN files, `pymagatama.primitives.projector` module with LangGraph ReAct, Reflexion, history loader, tool discovery, persist primitive. Migration `20260427160000_seed_projector_bpmn_actors.ts` registers `process_def` + `lexicon_binding`. Worker registration in `zeebe_worker_main.py`. |
 | **Phase 2** | ✅ Scaffolded | Tree-of-Thoughts (`projector.tot.expand`) and Self-Consistency (`projector.sc.parallel`) implementations, `treeOfThoughts.bpmn` + `selfConsistency.bpmn`, XOR routing in `sendProjectMessage.bpmn`. |
 | **Phase 3** | ✅ implemented (flag-gated, default off) | (a) CF Worker `handleSendProjectMessage` now branches on `env.PROJECTOR_USE_BPMN`: when `1`/`true`, it `waitUntil(fetch(dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.projector.sendProjectMessage))` and returns `202 + {convoId, backend:"bpmn"}`. (b) yoro Worker exposes `GET /sse/projects/{convoId}` (90s server budget, auto-reconnect) — Server-Sent Events stream of new `vertex_repo_record` rows scoped to that convoId. (c) `/projects/[projectId]/+page.svelte` opens `EventSource` on `initProjectChat`, dedups by rkey, appends BPMN replies as they land. (d) `projector.persist.message` honours `PROJECTOR_PERSIST_VIA_PDS=1` to route the reply through `generic.pds.dispatch` (HMAC-mint Service Auth) so it federates; default = direct `vertex_repo_record` INSERT (graph-visible, non-federable). (e) `projector.auth.mint` task type exposes the existing `_mint_pds_service_auth(lxm)` helper to BPMN flows so PM tools can splice a Bearer for downstream `generic.http.fetch` / `generic.pds.dispatch` without 401. `/image` and `/think` slash commands stay on the deferred shim (BPMN-side reply text) — moving them to dedicated `imageGen.bpmn` / `deepReason.bpmn` sub-processes is deferred to Phase 5. |
-| **Phase 4** | pending | Delete the obsolete TS reasoning code from `pds-handlers-gftd.ts` (≈ 1500 LoC), keep PDS-bound writes (`branchConvo`, `addReflection`, `newProjectConvo` metadata) in TS. CF Worker bundle size measurement target: −30%. |
+| **Phase 4** | pending | Delete the obsolete TS reasoning code from `pds-handlers-etzhayyim.ts` (≈ 1500 LoC), keep PDS-bound writes (`branchConvo`, `addReflection`, `newProjectConvo` metadata) in TS. CF Worker bundle size measurement target: −30%. |
 | **Phase 5** | pending | DMN guardrail rules (richer policy beyond the Phase 1 deny-list), per-tool RACI binding in `vertex_bpmn_lexicon_binding.governance_json`, A/B vs CF Worker direct path on a 5% canary cohort. |
 
 ## Consequences
@@ -296,17 +296,17 @@ Protocol firehose).
 | `20-actors/magatama/py/src/pymagatama/primitives/projector.py` | new |
 | `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` | edit (1 line: register projector) |
 | `30-graph/graph-schema/migrations/20260427160000_seed_projector_bpmn_actors.ts` | new |
-| `60-apps/ai-gftd-project-projector/CLAUDE.md` | edit (L7 LangGraph Migration section) |
+| `60-apps/etzhayyim-project-projector/CLAUDE.md` | edit (L7 LangGraph Migration section) |
 | `90-docs/adr/2604271600-projector-l7-langgraph-integration.md` | new (this file) |
 
 ### Phase 3 (flag-gated cutover, default off)
 
 | Path | Type |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | edit (early-return BPMN delegate when `PROJECTOR_USE_BPMN=1`) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | edit (early-return BPMN delegate when `PROJECTOR_USE_BPMN=1`) |
 | `20-actors/magatama/py/src/pymagatama/primitives/projector.py` | edit (`PROJECTOR_PERSIST_VIA_PDS` branch in `task_projector_persist_message` + new `task_projector_auth_mint` task type) |
-| `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts` | edit (new `GET /sse/projects/:convoId` route, 90s budget, vertex_repo_record poll) |
-| `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/projects/[projectId]/+page.svelte` | edit (`EventSource` consumer, dedup by rkey, auto-reconnect, `onDestroy` cleanup) |
+| `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts` | edit (new `GET /sse/projects/:convoId` route, 90s budget, vertex_repo_record poll) |
+| `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/projects/[projectId]/+page.svelte` | edit (`EventSource` consumer, dedup by rkey, auto-reconnect, `onDestroy` cleanup) |
 
 Phase 3 leaves the inline TS reasoning path in place; the flag is the
 only behavior switch. Phase 4 deletes the obsolete TS surface

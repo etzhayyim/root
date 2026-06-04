@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 authoritative_for:
   - RunPod compute backend topology for animeka / mangaka / shinshi ComfyUI / image generation pipelines
   - ComfyUI gateway routing (50-infra/cloudflare/workers/comfyui/wrangler.jsonc UPSTREAM_URL)
-  - shinshi photoreal upstream (60-apps/ai-gftd-project-shinshi/.../wrangler.jsonc COMFY_POD_URL)
+  - shinshi photoreal upstream (60-apps/etzhayyim-project-shinshi/.../wrangler.jsonc COMFY_POD_URL)
   - Custom RunPod image build pipeline (50-infra/runpod/vllm-gemma-image/, .github/workflows/runpod-vllm-gemma-image.yml)
 related:
   - adr-2604282100  # LLM benchmark gemma4 default
@@ -41,7 +41,7 @@ notes: |
 | 用途 | バックエンド | 状態 (2026-04-30) |
 |---|---|---|
 | LLM (chat / structured JSON / planning) | Murakumo Mac mini fleet (LiteLLM @ judah:4000) | 動作中だが 17s 帰り (cold) — judah → Ollama gemma4-e4b の serial path |
-| LLM (高品質 32B クラス) | `llm.etzhayyim.com` (CF Worker `ai-gftd-runpod` → RunPod Serverless `3fctheq51haikt`) | gemma4:26b-a4b-it-q4_K_M (Ollama on serverless), 421 jobs success, $19/day standby |
+| LLM (高品質 32B クラス) | `llm.etzhayyim.com` (CF Worker `etzhayyim-runpod` → RunPod Serverless `3fctheq51haikt`) | gemma4:26b-a4b-it-q4_K_M (Ollama on serverless), 421 jobs success, $19/day standby |
 | 画像生成 (SDXL) | RunPod pod `r127r1ab2arjg8` (RTX 6000 Ada, EU-SE-1) | 2026-04-29 頃 terminate、`comfyui.etzhayyim.com` upstream 死亡 |
 
 User の方針 (2026-04-30):
@@ -102,7 +102,7 @@ ADR-2605080600.
 ## Topology
 
 ```
-Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払い出し (2026-05-17 SUPPLY_CONSTRAINT)
+Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-etzhayyim, $0.77/hr)  ← 未払い出し (2026-05-17 SUPPLY_CONSTRAINT)
 │  (旧: numnfxlu2qx7s2 terminated、旧: 58pvflvw9w6nt3 US-KS-2、旧: vyp99t9px7h4dl US-KS-2)
 │
 ├─ Image: ghcr.io/etzhayyim/runpod-vllm-gemma:latest
@@ -118,7 +118,7 @@ Pod <NEW_ID> (RTX 6000 Ada 48 GB, US-WA-1, comfyui-gftd, $0.77/hr)  ← 未払�
 │
 ├─ Service :8188 — ComfyUI 0.18.2
 │    Public URL: https://<NEW_ID>-8188.proxy.runpod.net  ← DOWN (pod なし)
-│    Front: comfyui.etzhayyim.com (CF Worker ai-gftd-comfyui-2604221600)
+│    Front: comfyui.etzhayyim.com (CF Worker etzhayyim-comfyui-2604221600)
 │    VRAM: ~10-12 GiB peak per model
 │
 ├─ Service :8000 — vLLM 0.19.1 (CUDA 12.x)
@@ -172,7 +172,7 @@ shinshi.etzhayyim.com (CF Worker 0df83283)
 - Cons: $1.11/hr × 24 × 30 = $800/mo (vs unified $555/mo)
 - 採用せず: VRAM の現実的余裕は同居でも確保可能、月 $245 削減効果大
 
-## B. ComfyUI on pod + LLM on serverless (gftd-llm-gemma4-runpod を継続)
+## B. ComfyUI on pod + LLM on serverless (etzhayyim-llm-gemma4-runpod を継続)
 
 - Pros: serverless は idle scale-to-zero で burst-friendly、421 jobs 既に成功実績
 - Cons: workersStandby=2 で $19/日 = $576/mo (pod ほぼ同額)、cold start が generation flow を阻害、別 model alias 系統の二重管理
@@ -198,16 +198,16 @@ shinshi.etzhayyim.com (CF Worker 0df83283)
 
 ```bash
 # RunPod API key
-security add-generic-password -s "gftd.runpod" -a "RUNPOD_API_KEY" -w "<key>" -U
+security add-generic-password -s "etzhayyim.runpod" -a "RUNPOD_API_KEY" -w "<key>" -U
 
 # HuggingFace token (gated models: FLUX, gemma-4, Seedance 2)
-security add-generic-password -s "gftd.hf" -a "HF_TOKEN" -w "<tok>" -U
+security add-generic-password -s "etzhayyim.hf" -a "HF_TOKEN" -w "<tok>" -U
 
-# Cloudflare Tunnel token (comfyui-gftd tunnel)
-security add-generic-password -s "gftd.cloudflare" -a "COMFYUI_TUNNEL_TOKEN" -w "<token>" -U
+# Cloudflare Tunnel token (comfyui-etzhayyim tunnel)
+security add-generic-password -s "etzhayyim.cloudflare" -a "COMFYUI_TUNNEL_TOKEN" -w "<token>" -U
 
 # SSH public key for pod access (RunPod AUTHORIZED_KEYS)
-security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/id_ed25519.pub)" -U
+security add-generic-password -s "etzhayyim.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/id_ed25519.pub)" -U
 # id_rsa.pub は id_ed25519.pub がない場合の自動フォールバック (scripts/_lib.sh ssh_pubkey())
 
 # RunPod container registry auth (ghcr.io pull)
@@ -216,9 +216,9 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 ```
 
 **`scripts/_lib.sh` の Keychain loader**:
-- `runpod_key()` → `security find-generic-password -s gftd.runpod -a RUNPOD_API_KEY -w`
-- `hf_token()` → `security find-generic-password -s gftd.hf -a HF_TOKEN -w`
-- `ssh_pubkey()` → Keychain `gftd.runpod/SSH_PUBKEY` → fallback `~/.ssh/id_ed25519.pub` → fallback `~/.ssh/id_rsa.pub`
+- `runpod_key()` → `security find-generic-password -s etzhayyim.runpod -a RUNPOD_API_KEY -w`
+- `hf_token()` → `security find-generic-password -s etzhayyim.hf -a HF_TOKEN -w`
+- `ssh_pubkey()` → Keychain `etzhayyim.runpod/SSH_PUBKEY` → fallback `~/.ssh/id_ed25519.pub` → fallback `~/.ssh/id_rsa.pub`
 
 # Image build
 
@@ -240,8 +240,8 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 3. **`runpod-podid-update-checklist`** (priority 6.0, NEW): pod 再作成時に sed 一括更新する箇所:
    - `50-infra/cloudflare/workers/comfyui/wrangler.jsonc` `UPSTREAM_URL` → `wrangler deploy`
    - `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` `LLM_CHAT_COMPLETIONS_URL` + `etzhayyim_LLM_URL` → `helm upgrade --reuse-values` + `kubectl rollout restart deploy/zeebe-worker`
-   - `60-apps/ai-gftd-project-shinshi/.../wrangler.jsonc` `COMFY_POD_URL` (+ src/app.ts default fallback) → `gftd deploy`
-   - watchdog plist `~/Library/LaunchAgents/com.gftd.runpod-comfyui.plist` は **bootout 維持** (旧 GPU_TYPE_ID で 4090 auto-respawn する)
+   - `60-apps/etzhayyim-project-shinshi/.../wrangler.jsonc` `COMFY_POD_URL` (+ src/app.ts default fallback) → `etzhayyim deploy`
+   - watchdog plist `~/Library/LaunchAgents/com.etzhayyim.runpod-comfyui.plist` は **bootout 維持** (旧 GPU_TYPE_ID で 4090 auto-respawn する)
 
 # Cost
 
@@ -264,7 +264,7 @@ security add-generic-password -s "gftd.runpod" -a "SSH_PUBKEY" -w "$(cat ~/.ssh/
 - volume `43k3uq9ldn` (EUR-IS-1, deleted)
 - volume `bskaa2wrjo` (EUR-IS-1, 100 GB, deleted 2026-05-07)
 - volume `p9riuzhrvf` (US-KS-2, 250 GB, deleted 2026-05-17 — DC GPU 全在庫切れ)
-- serverless `gftd-llm-gemma4-runpod` (`3fctheq51haikt`, workersStandby=0、ID 残置で緊急 fallback 可)
+- serverless `etzhayyim-llm-gemma4-runpod` (`3fctheq51haikt`, workersStandby=0、ID 残置で緊急 fallback 可)
 
 # Verification
 

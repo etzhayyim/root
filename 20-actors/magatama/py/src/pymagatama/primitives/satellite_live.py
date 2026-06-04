@@ -147,7 +147,7 @@ def _new_run_id(prefix: str = "satellite") -> str:
 
 
 def _http_get_text(url: str, *, timeout: float = 60.0) -> tuple[int, str]:
-    req = Request(url, headers={"user-agent": "gftd-maps-n2yo/1.0"}, method="GET")
+    req = Request(url, headers={"user-agent": "etzhayyim-maps-n2yo/1.0"}, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return getattr(resp, "status", 200), resp.read().decode("utf-8", errors="replace")

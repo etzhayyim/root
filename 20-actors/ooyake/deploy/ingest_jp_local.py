@@ -6,7 +6,7 @@ Japanese local-government dataset (47 prefectures + designated cities + Tokyo 23
 special wards + capitals) into the `gov-atlas-v1` graph as :gov.unit entities.
 
 SOURCE (no fabrication, no network — G4/G5): the committed authoritative dataset at
-    60-apps/ai-gftd-project-states/data/gov/jpn/{prefecture,municipality}.ndjson
+    60-apps/etzhayyim-project-states/data/gov/jpn/{prefecture,municipality}.ndjson
 which carries official 全国地方公共団体コード (JIS X 0401/0402, in `adminCode`) +
 地方自治法 legal basis. Each row's adminCode is preserved as :gov.unit/external-code
 (jp-jichitai:<code>) and the official website as :gov.unit/provenance. Rows ship
@@ -32,14 +32,14 @@ import urllib.request
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.normpath(os.path.join(_HERE, "..", "..", ".."))
-DATASET_DIR = os.path.join(_REPO, "60-apps", "ai-gftd-project-states", "data", "gov", "jpn")
+DATASET_DIR = os.path.join(_REPO, "60-apps", "etzhayyim-project-states", "data", "gov", "jpn")
 PREF_NDJSON = os.path.join(DATASET_DIR, "prefecture.ndjson")
 MUNI_NDJSON = os.path.join(DATASET_DIR, "municipality.ndjson")
 
 GOV_GRAPH = "gov-atlas-v1"
 NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 LAST_VERIFIED = "2026-06-02"
-PROVENANCE_DATASET = "60-apps/ai-gftd-project-states/data/gov/jpn (官公庁公開データ / 地方自治法)"
+PROVENANCE_DATASET = "60-apps/etzhayyim-project-states/data/gov/jpn (官公庁公開データ / 地方自治法)"
 
 _WARD_TYPES = {"special-ward", "ward"}
 

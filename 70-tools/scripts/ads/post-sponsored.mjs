@@ -3,7 +3,7 @@
  * Post a sponsored `app.bsky.feed.post` with a self `!ad` label.
  *
  * Auth: mints a 60s Service Auth JWT scoped to `com.atproto.repo.createRecord`
- * via `gftd agent-token`. Caller must have run `gftd authn signin` once, or
+ * via `etzhayyim agent-token`. Caller must have run `etzhayyim authn signin` once, or
  * have a `sk_live_*` API key in `etzhayyim_TOKEN`.
  *
  * Usage:
@@ -37,12 +37,12 @@ if (!values.did || !values.text) {
 
 let token;
 try {
-	token = execFileSync('gftd', ['agent-token', '--lxm', 'com.atproto.repo.createRecord', '--ttl', values.ttl], {
+	token = execFileSync('etzhayyim', ['agent-token', '--lxm', 'com.atproto.repo.createRecord', '--ttl', values.ttl], {
 		encoding: 'utf8',
 		stdio: ['ignore', 'pipe', 'inherit'],
 	}).trim();
 } catch (e) {
-	console.error('failed to mint agent-token. run `gftd authn signin` first.');
+	console.error('failed to mint agent-token. run `etzhayyim authn signin` first.');
 	process.exit(1);
 }
 

@@ -50,7 +50,7 @@ log = logging.getLogger(__name__)
 
 _STEAM_URL = "https://store.steampowered.com/api/appdetails"
 _TIMEOUT_SEC = 12
-_UA = "gftd-steam-udf/1.0 (ops@etzhayyim.com)"
+_UA = "etzhayyim-steam-udf/1.0 (ops@etzhayyim.com)"
 _YEAR_RE = _re.compile(r"(19\d{2}|20\d{2})")
 _FORMATS = ("%d %b, %Y", "%b %d, %Y", "%d %B, %Y", "%B %d, %Y")
 

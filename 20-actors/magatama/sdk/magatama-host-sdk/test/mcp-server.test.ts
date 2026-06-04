@@ -124,7 +124,7 @@ describe("dispatchMcp — tools/call", () => {
 			seen.path = path;
 			seen.args = JSON.parse(new TextDecoder().decode(body));
 			return {
-				body: new TextEncoder().encode(JSON.stringify({ did: "did:gftd:abc", uri: "at://..." })),
+				body: new TextEncoder().encode(JSON.stringify({ did: "did:etzhayyim:abc", uri: "at://..." })),
 				status: 200,
 				headers: {},
 			};
@@ -144,7 +144,7 @@ describe("dispatchMcp — tools/call", () => {
 		expect(result.isError).toBe(false);
 		expect(result.content).toHaveLength(1);
 		expect(result.content[0].type).toBe("text");
-		expect(JSON.parse(result.content[0].text)).toEqual({ did: "did:gftd:abc", uri: "at://..." });
+		expect(JSON.parse(result.content[0].text)).toEqual({ did: "did:etzhayyim:abc", uri: "at://..." });
 	});
 
 	it("marks isError=true when downstream XRPC returns 4xx/5xx", async () => {

@@ -258,7 +258,7 @@ source scripts/load-database-url.sh && pnpm db:gen
 source scripts/load-database-url.sh && pnpm db:drift
 
 # Dumper roll
-cd 60-apps/ai-gftd-project-maps/bulk-ingest
+cd 60-apps/etzhayyim-project-maps/bulk-ingest
 ./deploy.sh build && ./deploy.sh apply
 kubectl -n maps-bulk-ingest rollout restart deploy/bulk-ingest-gsplat-train
 
@@ -316,8 +316,8 @@ job failure は既に RW + log に記録済みなので、webhook の再試行�
 
 ```bash
 # Worker re-deploy (per-tile cap + cap response fields)
-cd 60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6
-gftd deploy
+cd 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6
+etzhayyim deploy
 
 # Dumper re-roll (failure webhook + same parse)
 cd ../../bulk-ingest && ./deploy.sh build && ./deploy.sh apply
@@ -398,8 +398,8 @@ source scripts/load-database-url.sh && pnpm db:gen        # regenerate database.
 source scripts/load-database-url.sh && pnpm db:drift      # confirm zero drift
 
 # Worker
-cd 60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6
-gftd deploy   # picks up cmdGetGsplatCostSummary
+cd 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6
+etzhayyim deploy   # picks up cmdGetGsplatCostSummary
 
 # Dumper
 cd ../../bulk-ingest
@@ -436,8 +436,8 @@ D12 以前にアップロード済みの blob は `Cache-Control` ヘッダな�
 で skip) なので何度回しても安全。
 
 ```bash
-cd 60-apps/ai-gftd-project-maps/bulk-ingest
-source ~/.gftd/maps.env  # B2_*
+cd 60-apps/etzhayyim-project-maps/bulk-ingest
+source ~/.etzhayyim/maps.env  # B2_*
 python3 tools/rewrite_gsplat_cache_control.py
 # → list_objects_v2 paginate
 # → copy_object self-loop with header rewrite

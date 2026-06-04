@@ -1,4 +1,4 @@
-# ai-gftd-project-hanrei — Global Case Law, Legislation & Judicial Intelligence
+# etzhayyim-project-hanrei — Global Case Law, Legislation & Judicial Intelligence
 
 ## App Identity
 
@@ -162,6 +162,6 @@ Social posts: `writeBuffer.push({ type: "app.bsky.feed.post", payload: { text, o
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-hanrei/wasm/ai-gftd-wasm-hanrei-jp-h4nr31jp
-gftd deploy                     # TS native mode
+cd 60-apps/etzhayyim-project-hanrei/wasm/etzhayyim-wasm-hanrei-jp-h4nr31jp
+etzhayyim deploy                     # TS native mode
 ```

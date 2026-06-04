@@ -24,7 +24,7 @@ related:
   - adr-0092-every-vertex-as-actor
   - adr-0026-agent-only-reverse-identity-topology
   - adr-2604231811-atproto-extension-service-layers
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
 supersedes: []
 superseded_by: []
 ---
@@ -35,7 +35,7 @@ superseded_by: []
 actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 - **T1 MCP-Compose actor** (`20-actors/yoro/actor-manifest.jsonld`, 279 行, `executionTier: "T1"`) が canonical。PDS Shared Executor / ActorExecutorDO が pipeline を解釈し pds.dispatch + graph.write + agent.chat を実行。
-- **wasm SPA Worker** (`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/`) は Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target)。`/xrpc/*` route は剥離済 (Candidate C, ADR-2604231828)。
+- **wasm SPA Worker** (`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/`) は Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target)。`/xrpc/*` route は剥離済 (Candidate C, ADR-2604231828)。
 
 これを次の 3 behavior で動く **自律 actor** に引き上げたい。
 
@@ -91,7 +91,7 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 ## behavior → path 写像
 
 **(1) 自律登録・投稿・成長**
-- 登録 = `gftd authn signin` で did:web:yoro 確立。成長 fission は ADR-0026 cohort posterior > 0.95 で path-child DID 発行。
+- 登録 = `etzhayyim authn signin` で did:web:yoro 確立。成長 fission は ADR-0026 cohort posterior > 0.95 で path-child DID 発行。
 - 投稿 = BPMN `com.etzhayyim.yoro.autoplan` process_def が Murakumo で draft → actor-manifest `governance.classification` + `capabilities[]` で executor が consent gate → `sdk.pds.dispatch({type:'app.bsky.feed.post'})`。
 - 成長 = `udf_yoro_score` (RisingWave Python External, ADR-0049 shared pool) が `mv_yoro_growth_signal` を書き、Zeebe message-start でアクションを発火。
 
@@ -152,7 +152,7 @@ E が優位になる条件 (**現在の yoro には当たらない**):
 - actor が per-actor model weight / 大きな local state (数 GB) を持つ
 - 完全 federation 相互運用を demonstrate し、Bluesky から「独立ホスト」と見える必要がある
 
-yoro と 96 Mitama actor は同じ運用主体 (gftd) で ADR-0056 / Path F / ADR-0026 の基盤を共有する。E の "actor = AT user として peer 化" という利点は、D でも `sdk.pds.dispatch({type:'app.bsky.feed.post'})` で AT 面から見れば実質同一。→ **D 採用**。E は将来 "yoro を外部第三者として federate する" 選択肢として記録のみ残す。
+yoro と 96 Mitama actor は同じ運用主体 (etzhayyim) で ADR-0056 / Path F / ADR-0026 の基盤を共有する。E の "actor = AT user として peer 化" という利点は、D でも `sdk.pds.dispatch({type:'app.bsky.feed.post'})` で AT 面から見れば実質同一。→ **D 採用**。E は将来 "yoro を外部第三者として federate する" 選択肢として記録のみ残す。
 
 # Consequences
 
@@ -185,7 +185,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
 
 ### Inference backend
 
-`agent.chat` primitive の LLM upstream は ADR で Murakumo MLX を canonical としている。**2026-04-27 に Murakumo を canonical に復帰**: Mac mini fleet (10 ノード Ollama + judah:4000 LiteLLM gateway) 経由の `https://murakumo-serve.etzhayyim.com` が CF Zero Trust tunnel `ae341542` の remote ingress 設定欠落で 404 degraded 状態だったが、tunnel ingress に `murakumo-serve.etzhayyim.com → http://localhost:4000` を追加して即時復活 (10/10 nodes healthy、`yoro.chat` MCP probe で 200 + 23s cold inference 確認)。同時に PDS Worker (`ai-gftd-pds-2603241700`) の暫定 secret `RUNPOD_API_KEY` / `RUNPOD_ENDPOINT_ID` を削除し、`50-infra/cloudflare/workers/atproto/src/agent/infer.ts:callLLM` の RunPod gate (`runpodKey && runpodEndpointId`) を false 化 → Murakumo フォールバック (`MURAKUMO_SERVICE` binding + `SS_MURAKUMO_API_KEY`) を primary に戻した。RunPod Serverless endpoint `9z9l2nzwugnqyu` (yoro-chat-gemma4) は idle 状態で残置 (再切替が必要なら secret 再投入 + `RUNPOD_ENDPOINT_ID=9z9l2nzwugnqyu`)。
+`agent.chat` primitive の LLM upstream は ADR で Murakumo MLX を canonical としている。**2026-04-27 に Murakumo を canonical に復帰**: Mac mini fleet (10 ノード Ollama + judah:4000 LiteLLM gateway) 経由の `https://murakumo-serve.etzhayyim.com` が CF Zero Trust tunnel `ae341542` の remote ingress 設定欠落で 404 degraded 状態だったが、tunnel ingress に `murakumo-serve.etzhayyim.com → http://localhost:4000` を追加して即時復活 (10/10 nodes healthy、`yoro.chat` MCP probe で 200 + 23s cold inference 確認)。同時に PDS Worker (`etzhayyim-pds-2603241700`) の暫定 secret `RUNPOD_API_KEY` / `RUNPOD_ENDPOINT_ID` を削除し、`50-infra/cloudflare/workers/atproto/src/agent/infer.ts:callLLM` の RunPod gate (`runpodKey && runpodEndpointId`) を false 化 → Murakumo フォールバック (`MURAKUMO_SERVICE` binding + `SS_MURAKUMO_API_KEY`) を primary に戻した。RunPod Serverless endpoint `9z9l2nzwugnqyu` (yoro-chat-gemma4) は idle 状態で残置 (再切替が必要なら secret 再投入 + `RUNPOD_ENDPOINT_ID=9z9l2nzwugnqyu`)。
 
 ### Open follow-ups (separate PRs)
 
@@ -209,7 +209,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
 ## 実装境界
 
 - **T1 MCP-Compose actor** (`20-actors/yoro/actor-manifest.jsonld`): inner loop 専用。PDS Shared Executor / ActorExecutorDO が pipeline を解釈。`agent.chat` primitive 経由の短時間 LLM call のみ。LangChain JS は置かない。
-- **yoro wasm Worker** (`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/`): Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target) のみ。自律ループ側からは参照しない。
+- **yoro wasm Worker** (`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/`): Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target) のみ。自律ループ側からは参照しない。
 - **pyzeebe worker** (`zeebe-worker` deployment): outer loop 専用。LangChain + Murakumo client。ADR-0056 の generic primitives (`generic.{db.select, db.insert, llm.chat, llm.json, http.fetch, pds.dispatch, audit.emit}` + `com.etzhayyim.shinka.tick`) に加え、Yoro social C-path は専用 primitive `yoro.social.*GraphFallback` が担当する。BPMN file は process orchestration、PyZeebe は serviceTask implementation の境界を守る。
 - **RisingWave**: sensor と policy の state store。Act 層ではない。UDF から XRPC を呼ぶ場合は pds.dispatch 相当の CF Worker gateway を経由する (直接 HTTP 書き込みは禁止)。
 - **BPMN file**: `20-actors/yoro/bpmn/autoplan.bpmn` を canonical に置く。`vertex_bpmn_process_def` に row を INSERT、F5 watcher (ADR-0056) が 30s 以内に Zeebe deploy。
@@ -252,6 +252,6 @@ ADR-0046 の 3 monitor actor が本 ADR の全層を観測する:
 - `90-docs/adr/0092-every-vertex-as-actor.md`
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`
 - `90-docs/adr/2604231811-atproto-extension-service-layers.md`
-- `90-docs/adr/2604231828-appview-domain-separation-bsky-gftd-ai.md`
+- `90-docs/adr/2604231828-appview-domain-separation-bsky-etzhayyim-ai.md`
 - `90-docs/260413-agent-loop-unification-path-analysis.md`
 - `90-docs/260413-path-f-openclaw-agent-os-design.md`

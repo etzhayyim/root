@@ -15,7 +15,7 @@ depends_on:
   - adr-2605092345-runpod-l40s-fp8-multimodal-model-design
 related:
   - wellbecoming-karma-lean-proofs
-  - 60-apps/ai-gftd-project-comfyui/ansible/        # earlier L40S precedent
+  - 60-apps/etzhayyim-project-comfyui/ansible/        # earlier L40S precedent
 supersedes: []
 superseded_by: []
 ---
@@ -128,7 +128,7 @@ Optional metadata (for `deps.toml` cross-references and audit):
   the vault is named `etzhayyim Japan株式会社`. The vault id
   `dk3qlcuqumtoml2oaxrs5mwiji` is exposed as `op_vault_id` so every
   manifest can build URIs like
-  `op://dk3qlcuqumtoml2oaxrs5mwiji/gftd.runpod/RUNPOD_API_KEY/password`.
+  `op://dk3qlcuqumtoml2oaxrs5mwiji/etzhayyim.runpod/RUNPOD_API_KEY/password`.
 - Per-pod env values that start with `op://` are resolved inside the
   role's `create.yaml` under `no_log: true`, never echoed to console
   or written to disk.
@@ -141,15 +141,15 @@ Optional metadata (for `deps.toml` cross-references and audit):
 The H100 training manifest's env block depends on a fixed set of op
 entries. Existing (read OK via vault-id URI):
 
-- `gftd.runpod/RUNPOD_API_KEY` (control plane)
-- `gftd.hf/HF_TOKEN`
-- `gftd.b2/ACCESS_KEY_ID`, `gftd.b2/SECRET_ACCESS_KEY`,
-  `gftd.b2/ENDPOINT_URL`, `gftd.b2/REGION` (S3-compat — matches
+- `etzhayyim.runpod/RUNPOD_API_KEY` (control plane)
+- `etzhayyim.hf/HF_TOKEN`
+- `etzhayyim.b2/ACCESS_KEY_ID`, `etzhayyim.b2/SECRET_ACCESS_KEY`,
+  `etzhayyim.b2/ENDPOINT_URL`, `etzhayyim.b2/REGION` (S3-compat — matches
   `training_export.py` env-var convention)
 
 Missing — must be created before first H100 apply:
 
-- `gftd.runpod-training/AUTH_TOKEN` — bearer the H100 pod's
+- `etzhayyim.runpod-training/AUTH_TOKEN` — bearer the H100 pod's
   `pymagatama.training_http_server` expects on `/train/run` and
   `/train/status/*`. Distinct from `RUNPOD_API_KEY`. Single
   `password` field, value = random 32-byte hex shared with the pod.
@@ -163,7 +163,7 @@ pod's runtime configuration.
 
 ```
 host_vars/h100_training.yaml          (manifest, in repo, version-controlled)
-        ↓ runpod_pod_name = "gftd-h100-train"
+        ↓ runpod_pod_name = "etzhayyim-h100-train"
 RunPod GraphQL myself.pods            (live state, queried per apply)
         ↓ id = "mcax1y64ihgw4u"
 deps.toml [invariants.runpod_pods]    (audit table, hand-updated when a pod is provisioned)
@@ -180,7 +180,7 @@ visibility.
 | RunPod-aware abstraction | No (URI module) | Yes (Pod / NetworkVolume / Endpoint) | Limited (Pod only on most providers) |
 | State | None — API is state | Pulumi backend (Cloud or S3) | tfstate |
 | Secret leak risk in state | None | Configurable | High (tfstate plaintext) |
-| Repo precedent | L40S Ansible (`60-apps/ai-gftd-project-comfyui/ansible/`) | None | Vultr Terraform |
+| Repo precedent | L40S Ansible (`60-apps/etzhayyim-project-comfyui/ansible/`) | None | Vultr Terraform |
 | New toolchain | None | Yes | Mostly no |
 | Drift detection | Weak | Strong | Strong |
 | Resource graph | None | Strong | Strong |
@@ -230,7 +230,7 @@ end apply against live RunPod is gated on:
 1. The operator's `op` session being authenticated to the
    `etzhayyim Japan株式会社` vault (vault id
    `dk3qlcuqumtoml2oaxrs5mwiji`).
-2. `op://dk3qlcuqumtoml2oaxrs5mwiji/gftd.runpod-training/AUTH_TOKEN/password`
+2. `op://dk3qlcuqumtoml2oaxrs5mwiji/etzhayyim.runpod-training/AUTH_TOKEN/password`
    existing — **still missing as of session-close 2026-05-10**.
    Create as a `Password`-category item with a single `password`
    field set to `openssl rand -hex 32` output, shared between the
@@ -246,7 +246,7 @@ After a successful apply, copy the assigned pod id into
 # References
 
 - wellbecoming-karma-lean-proofs
-- 60-apps/ai-gftd-project-comfyui/ansible/ (L40S Ansible precedent)
+- 60-apps/etzhayyim-project-comfyui/ansible/ (L40S Ansible precedent)
 - ADR 2605010000 (6000 Ada unified pod)
 - ADR 2605092345 (H100 training pod)
 - ADR 2605101000 (Baien-MX, the immediate consumer of declarative H100 provisioning)

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free impl of resource-provider (Consensys c-split). Public marketplace catalog (resourceListing) + aggregate stats (contributionStat) plaintext; provider PII (providerProfile), contribution content (contributionEntry), reward ledger + balances (rewardLedgerEntry/rewardBalance) sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100). GPU/LLM inference, quality-validation compute, raw-credential custody, and the fiat MoR / payout settlement rail stay gftd via consent-capability.",
+  "description": "RW-free impl of resource-provider (Consensys c-split). Public marketplace catalog (resourceListing) + aggregate stats (contributionStat) plaintext; provider PII (providerProfile), contribution content (contributionEntry), reward ledger + balances (rewardLedgerEntry/rewardBalance) sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100). GPU/LLM inference, quality-validation compute, raw-credential custody, and the fiat MoR / payout settlement rail stay etzhayyim via consent-capability.",
   "license": "Apache-2.0",
   "main": "src/index.ts",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },

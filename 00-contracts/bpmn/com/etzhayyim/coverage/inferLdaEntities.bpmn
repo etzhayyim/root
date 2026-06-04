@@ -23,7 +23,7 @@
   Trigger:
     timer-start R/P7D (weekly, after inferLdaTopics) AND XRPC (`com.etzhayyim.apps.coverage.inferLdaEntities`).
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-entities-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-entities-v1
   NSID:      com.etzhayyim.apps.coverage.inferLdaEntities
 -->
 <bpmn:definitions
@@ -31,7 +31,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_coverage_infer_lda_entities"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="coverage_infer_lda_entities" name="coverage infer LDA entities" isExecutable="true">
 
@@ -125,10 +125,10 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_latent_entity&quot;" target="table"/>
           <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = vertex_id]) >= 5] return {
-    &quot;vertex_id&quot;:             &quot;at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
+    &quot;vertex_id&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
     &quot;_seq&quot;:                   t.topic_index + 1,
     &quot;sensitivity_ord&quot;:        if (t.entity_kind_hint = &quot;person&quot;) then 300 else 0,
-    &quot;owner_did&quot;:              &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;owner_did&quot;:              &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;entity_kind&quot;:            if (t.entity_kind_hint != null) then t.entity_kind_hint else &quot;unknown&quot;,
     &quot;canonical_label&quot;:        t.topic_label,
     &quot;existence_probability&quot;:  if (sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0,
@@ -139,8 +139,8 @@
     &quot;viewpoint_consensus&quot;:    1,
     &quot;fission_eligible&quot;:       (if (sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0) > 0.85 and count(thetaEdges[dst_vid = t.vertex_id]) >= 20,
     &quot;status&quot;:                 if ((if (sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0) > 0.5) then &quot;emerging&quot; else &quot;latent&quot;,
-    &quot;actor_did&quot;:              &quot;did:web:coverage.gftd.ai&quot;,
-    &quot;org_did&quot;:               &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;actor_did&quot;:              &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:               &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;created_at&quot;:             now()
   }" target="rows"/>
           <zeebe:output source="=inserted" target="entitiesCreated"/>
@@ -160,15 +160,15 @@
           <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = vertex_id]) &gt;= 5] return {
     &quot;edge_id&quot;:             &quot;lda-bind-&quot; + substring(t.vertex_id, 60),
     &quot;src_vid&quot;:             t.vertex_id,
-    &quot;dst_vid&quot;:             &quot;at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
+    &quot;dst_vid&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
     &quot;_seq&quot;:                1,
     &quot;sensitivity_ord&quot;:     0,
-    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;binding_confidence&quot;:  t.coherence_score,
     &quot;stability_score&quot;:     0.5,
     &quot;binding_type&quot;:        &quot;primary&quot;,
-    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
-    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;created_at&quot;:          now()
   }" target="rows"/>
           <zeebe:output source="=inserted" target="bindingsCreated"/>
@@ -189,16 +189,16 @@
   return {
     &quot;edge_id&quot;:             &quot;lda-ev-&quot; + substring(e.src_vid, 60) + &quot;-&quot; + substring(e.dst_vid, 60),
     &quot;src_vid&quot;:             e.src_vid,
-    &quot;dst_vid&quot;:             &quot;at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(e.dst_vid, 80),
+    &quot;dst_vid&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(e.dst_vid, 80),
     &quot;_seq&quot;:                1,
     &quot;sensitivity_ord&quot;:     0,
-    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;evidence_weight&quot;:     e.weight,
     &quot;evidence_kind&quot;:       &quot;statistical&quot;,
     &quot;source_collection&quot;:   if (e.source_collection != null) then e.source_collection else &quot;unknown&quot;,
     &quot;observed_at&quot;:         now(),
-    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
-    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;created_at&quot;:          now()
   }" target="rows"/>
           <zeebe:output source="=inserted" target="evidenceLinked"/>
@@ -217,15 +217,15 @@
           <zeebe:input source="=&quot;edge_entity_cohort_link&quot;" target="table"/>
           <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = vertex_id]) &gt;= 20 and (if (sum(thetaEdges[dst_vid = vertex_id].weight) &gt; 0) then 1 - exp(-(sum(thetaEdges[dst_vid = vertex_id].weight)) / 10) else 0.0) &gt; 0.85] return {
     &quot;edge_id&quot;:             &quot;lda-cohort-link-&quot; + substring(t.vertex_id, 60),
-    &quot;src_vid&quot;:             &quot;at://did:web:coverage.gftd.ai/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
-    &quot;dst_vid&quot;:             &quot;at://did:web:natural-person.gftd.ai/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
+    &quot;src_vid&quot;:             &quot;at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/lda-&quot; + substring(t.vertex_id, 80),
+    &quot;dst_vid&quot;:             &quot;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,
     &quot;_seq&quot;:                1,
     &quot;sensitivity_ord&quot;:     0,
-    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;link_confidence&quot;:     if (sum(thetaEdges[dst_vid = t.vertex_id].weight) &gt; 0) then 1 - exp(-(sum(thetaEdges[dst_vid = t.vertex_id].weight)) / 10) else 0.0,
     &quot;link_type&quot;:           &quot;fission_candidate&quot;,
-    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
-    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;created_at&quot;:          now()
   }" target="rows"/>
           <zeebe:output source="=inserted" target="cohortLinked"/>
@@ -241,7 +241,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferLdaEntities.bind&quot;" target="action"/>
           <zeebe:input source="={
             &quot;topics_read&quot;:       topicCount,
@@ -262,7 +262,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferLdaEntities.noInput&quot;" target="action"/>
           <zeebe:input source="={ &quot;topics_read&quot;: topicCount, &quot;status&quot;: &quot;no-topics&quot; }" target="payload"/>
         </zeebe:ioMapping>

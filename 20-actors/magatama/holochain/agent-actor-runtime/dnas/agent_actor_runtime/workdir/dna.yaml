@@ -1,7 +1,7 @@
 manifest_version: '0'
 name: agent_actor_runtime
 integrity:
-  network_seed: gftd-agent-actor-runtime-experimental
+  network_seed: etzhayyim-agent-actor-runtime-experimental
   properties:
     projection_sink: vertex_actor_event_holochain
   zomes:

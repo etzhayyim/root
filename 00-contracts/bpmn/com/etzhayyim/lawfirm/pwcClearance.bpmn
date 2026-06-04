@@ -3,7 +3,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_lawfirm_pwc_clearance"
-                  targetNamespace="https://gftd.ai/bpmn/lawfirm"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
                   exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="lawfirm_pwc_clearance"
@@ -65,7 +65,7 @@
 
     <bpmn:userTask id="Task_CEOReview" name="CEO PwC clearance HITL">
       <bpmn:extensionElements>
-        <zeebe:assignmentDefinition assignee="did:web:j-kawasaki.gftd.ai"/>
+        <zeebe:assignmentDefinition assignee="did:web:j-kawasaki.etzhayyim.com"/>
         <zeebe:ioMapping>
           <zeebe:input source="=clearance_uri" target="clearance_uri"/>
           <zeebe:output source="=clearance_decision"   target="clearance_decision"/>
@@ -99,7 +99,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lawfirm.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;lawfirm.pwc.clearance.decided&quot;" target="event_type"/>
           <zeebe:input source="={clearance_uri: clearance_uri, matter_uri: matter_uri, status: clearance_status, decision: clearance_decision}" target="attributes"/>
         </zeebe:ioMapping>

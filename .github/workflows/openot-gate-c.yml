@@ -7,12 +7,12 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - '60-apps/ai-gftd-project-open-ot/**'
+      - '60-apps/etzhayyim-project-open-ot/**'
       - '.github/workflows/openot-gate-c.yml'
   push:
     branches: [main]
     paths:
-      - '60-apps/ai-gftd-project-open-ot/**'
+      - '60-apps/etzhayyim-project-open-ot/**'
       - '.github/workflows/openot-gate-c.yml'
 
 permissions:
@@ -20,7 +20,7 @@ permissions:
 
 env:
   CARGO_TERM_COLOR: always
-  OPEN_OT: 60-apps/ai-gftd-project-open-ot
+  OPEN_OT: 60-apps/etzhayyim-project-open-ot
 
 jobs:
   # Gate C §2.3 — cargo geiger gate

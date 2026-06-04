@@ -56,9 +56,9 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py:20-23`
+- `60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py:20-23`
   - embedded S3 access key and secret
-- `git ls-files 60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py`
+- `git ls-files 60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py`
   - file is committed
 
 Why it survives pruning:
@@ -71,13 +71,13 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34-39`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:34-39`
   - session model stores both `accessJwt` and `refreshJwt`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:75-78`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:75-78`
   - session blob is written to `sessionStorage`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:99-106`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:99-106`
   - both JWTs are mirrored into the in-page `wproto` session
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8-17`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8-17`
   - `#auth=` fragment is copied into `sessionStorage` before URL cleanup
 
 Why it survives pruning:
@@ -131,9 +131,9 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-murakumo/CLAUDE.md:503`
+- `60-apps/etzhayyim-project-murakumo/CLAUDE.md:503`
   - contains a plaintext fleet SSH password
-- `git ls-files 60-apps/ai-gftd-project-murakumo/CLAUDE.md`
+- `git ls-files 60-apps/etzhayyim-project-murakumo/CLAUDE.md`
   - file is committed
 
 Why it survives pruning:
@@ -150,14 +150,14 @@ Why it survives pruning:
 
 ### Pruned: `vault` wildcard CORS by itself
 
-- `60-apps/ai-gftd-project-vault/worker/src-ts/util.ts:41-51`
-- `60-apps/ai-gftd-project-vault/worker/src-ts/index.ts:64-72`
+- `60-apps/etzhayyim-project-vault/worker/src-ts/util.ts:41-51`
+- `60-apps/etzhayyim-project-vault/worker/src-ts/index.ts:64-72`
 
 Reason:
 
 - The worker still requires bearer authentication and vault membership checks:
-  - `60-apps/ai-gftd-project-vault/worker/src-ts/auth.ts`
-  - `60-apps/ai-gftd-project-vault/worker/src-ts/handlers.ts:443-451`
+  - `60-apps/etzhayyim-project-vault/worker/src-ts/auth.ts`
+  - `60-apps/etzhayyim-project-vault/worker/src-ts/handlers.ts:443-451`
 - This is worth tightening, but it is not a stronger repo-wide issue than the confirmed token exposure paths above.
 
 ### Pruned: `git-server` internal auth pattern

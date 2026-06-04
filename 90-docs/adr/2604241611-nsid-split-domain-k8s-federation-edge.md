@@ -11,7 +11,7 @@ authoritative_for:
   - edge-vs-k8s-cut-line
 related:
   - adr-2604241038-yoro-pds-ideal-topology
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-0056-bpmn-as-actor
   - adr-0081-worker-direct-hyperdrive-persistence
   - adr-0041
@@ -50,7 +50,7 @@ NSID prefix をデプロイ面 (CF edge / K8s Vultr) の判定キーに昇格さ
 | `com.etzhayyim.apps.*` per-actor Worker | **0 個** | 0 個維持 |
 | BPMN bindings | 137 rows, 16 NSID が `NSID_EXACT_MATCH_TABLE` で dispatcher:8080 へ pipethrough | 全 `com.etzhayyim.apps.*` が default で dispatcher へ |
 | K8s XRPC ingress | CF Tunnel (cloudflared pod) → zeebe-gateway ClusterIP → aiohttp :8080 (HTTP, `noTLSVerify`) | cert-manager TLS termination |
-| Trust plane | 4 パターン混在 (`x-gftd-authenticated-did` / `x-magatama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-gftd-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
+| Trust plane | 4 パターン混在 (`x-etzhayyim-authenticated-did` / `x-magatama-verified` / `x-internal-trust` / binding existence) | HMAC-SHA256 `x-etzhayyim-internal-trust` 1 本 (ADR-2604241038 Contract 3) |
 
 したがって本 ADR は新規大規模 migration ではなく、**既存トラジェクトリの終端定義** である。
 
@@ -101,7 +101,7 @@ Rule 1 の `com.etzhayyim.apps.*` → K8s に対する **唯一の例外** は *
 
 ## Rule 5 — Trust plane HMAC-SHA256 統一 (ADR-2604241038 Contract 3 依存)
 
-本 ADR は独立した trust plane 決定を持たず、ADR-2604241038 Contract 3 (Phase γ1–4) の完遂を implicit dependency とする。edge → K8s の全 pipethrough は `x-gftd-internal-trust` HMAC-SHA256 header (`timestamp:method:path` 入力で署名) を K8s 側 ingress middleware で verify する。既存 `x-magatama-verified` / `x-gftd-authenticated-did` (unsigned) / binding-existence 推論は廃止する。
+本 ADR は独立した trust plane 決定を持たず、ADR-2604241038 Contract 3 (Phase γ1–4) の完遂を implicit dependency とする。edge → K8s の全 pipethrough は `x-etzhayyim-internal-trust` HMAC-SHA256 header (`timestamp:method:path` 入力で署名) を K8s 側 ingress middleware で verify する。既存 `x-magatama-verified` / `x-etzhayyim-authenticated-did` (unsigned) / binding-existence 推論は廃止する。
 
 # Rationale
 
@@ -152,8 +152,8 @@ C は edge-thin PDS + K8s actor core の「責務分離」止まりで、NSID pr
 
 ## Phase δ4 — Trust plane HMAC 統一 (ADR-2604241038 Contract 3 依存、並走可)
 
-- `x-magatama-verified` / `x-gftd-authenticated-did` (unsigned) を全 handler から除去
-- `x-gftd-internal-trust` HMAC-SHA256 を PDS dispatch.ts / bpmn-dispatcher / chat / signal で強制
+- `x-magatama-verified` / `x-etzhayyim-authenticated-did` (unsigned) を全 handler から除去
+- `x-etzhayyim-internal-trust` HMAC-SHA256 を PDS dispatch.ts / bpmn-dispatcher / chat / signal で強制
 - K8s ingress middleware で verify 失敗時 401 を返す
 
 ## Phase δ5 — 本 ADR completion (post δ1–δ4)
@@ -195,7 +195,7 @@ B, C, E は [Rationale § η math](#η-math-redundant-path-count-analytical-esti
 # References
 
 - ADR-2604241038 yoro-pds-ideal-topology (Contract 2 の完成形として本 ADR)
-- ADR-2604231828 appview-domain-separation-bsky-gftd-ai (edge tier の先行分離)
+- ADR-2604231828 appview-domain-separation-bsky-etzhayyim-ai (edge tier の先行分離)
 - ADR-0056 bpmn-as-actor (K8s domain actor の実装基盤)
 - ADR-0081 worker-direct-hyperdrive-persistence (domain write の現行 invariant)
 - ADR-0041 pds-commit-content-addressed-pk (federation 経路の race 対策)

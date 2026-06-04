@@ -220,7 +220,7 @@
     "description": "ISCO-08 scoped talent registry (cohort-first, PII Tier 3, self-sovereign).",
     "displayName": "Talent",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

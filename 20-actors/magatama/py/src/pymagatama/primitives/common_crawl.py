@@ -205,7 +205,7 @@ def _openrouter_extract(domain: str, url: str, title: str, description: str) -> 
         "Content-Type": "application/json",
         "Authorization": f"Bearer {_OPENROUTER_KEY}",
         "HTTP-Referer": "https://cc26m4x1.etzhayyim.com",
-        "X-Title": "gftd-common-crawl",
+        "X-Title": "etzhayyim-common-crawl",
     })
     try:
         with _req.urlopen(req, timeout=25) as resp:

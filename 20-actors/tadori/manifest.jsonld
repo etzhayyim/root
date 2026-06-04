@@ -222,7 +222,7 @@
       "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md"
     },
     "crossActor": {
-      "malak": "/60-apps/ai-gftd-project-recap/lg/pymagatama/src/pymagatama/malak/ (compute sibling — pymagatama Pregel family, not a standalone actor dir; the wallet_deep_inspect_pursuit + address_label_pursuit Pregels are the ADR-2605152000 design; see also ADR-2605131600 / 2605172000)",
+      "malak": "/60-apps/etzhayyim-project-recap/lg/pymagatama/src/pymagatama/malak/ (compute sibling — pymagatama Pregel family, not a standalone actor dir; the wallet_deep_inspect_pursuit + address_label_pursuit Pregels are the ADR-2605152000 design; see also ADR-2605131600 / 2605172000)",
       "ipaddress": "/20-actors/ipaddress/CLAUDE.md (1次 IP/WHOIS/GeoIP source — T2 migration target)",
       "yabai": "/20-actors/yabai/CLAUDE.md (risk + enforcement-routing sink — T3 migration target)"
     },

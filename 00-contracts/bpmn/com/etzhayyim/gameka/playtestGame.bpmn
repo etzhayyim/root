@@ -34,7 +34,7 @@
            "exhausted" → End (no derive — chain stops)
 
   NSID: com.etzhayyim.apps.gameka.playtestGame (XRPC procedure)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/gameka-playtest-game-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gameka-playtest-game-v1
 
   Notes:
    - Playwright session steps use generic.pds.dispatch, not generic.http.fetch,
@@ -52,7 +52,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_gameka_playtest_game"
-    targetNamespace="https://gftd.ai/bpmn/gameka"
+    targetNamespace="https://etzhayyim.ai/bpmn/gameka"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gameka_playtest_game" name="gameka playtestGame" isExecutable="true">
@@ -135,14 +135,14 @@
 
     <!-- Step 4: navigate to the static playtest shell with all the
          loader inputs as query params. The shell at
-         game-play.gftd.ai/__playtest__.html is a Workers Asset (no
+         game-play.etzhayyim.com/__playtest__.html is a Workers Asset (no
          server logic) that:
            - reads ?w (wasmUrl) + ?j (jsUrl) + ?e (entryFn) + ?c (cid)
            - dynamic-imports the JS glue
            - calls init(wasmUrl) to override the default same-dir
              wasm fetch with the explicit presigned binary URL
            - calls window[entryFn]('canvas-id') to bootstrap kami-app
-           - exposes window.__gftdProbe(durationMs) for the rAF probe
+           - exposes window.__etzhayyimProbe(durationMs) for the rAF probe
          Slug → entryFn = "run_" + slug.replace("-", "_") (matches
          kami-codegen.entry_fn). Pre-P5 rows have empty js_url and the
          shell short-circuits to captureSucceeded=false. -->
@@ -154,7 +154,7 @@
           <zeebe:input source="={
               sessionId: ptSessionId,
               url: string join([
-                  &quot;https://game-play.gftd.ai/__playtest__.html&quot;,
+                  &quot;https://game-play.etzhayyim.com/__playtest__.html&quot;,
                   &quot;?c=&quot;, wasmCid,
                   &quot;&amp;w=&quot;, wasmUrl,
                   &quot;&amp;j=&quot;, if wasmJsUrl = null then &quot;&quot; else wasmJsUrl,
@@ -171,21 +171,21 @@
     <bpmn:sequenceFlow id="Flow_ToProbeMetrics" sourceRef="Task_Goto" targetRef="Task_ProbeMetrics"/>
 
     <!-- Step 5: in-page rAF probe (~5s). The shell page exposes
-         window.__gftdProbe(durationMs) which:
+         window.__etzhayyimProbe(durationMs) which:
            - hooks console.error, increments a counter
            - samples performance.now() per rAF, computes p50/p95
            - records the time from goto to first non-blank canvas frame
            - returns { fpsP50, fpsP95, sceneLoadMs, consoleErrorCount }
          The evaluate lexicon is allowlist-restricted, so the shell
          exposes the exact API surface we need; no arbitrary JS. -->
-    <bpmn:serviceTask id="Task_ProbeMetrics" name="evaluate __gftdProbe(5000)">
+    <bpmn:serviceTask id="Task_ProbeMetrics" name="evaluate __etzhayyimProbe(5000)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.pds.dispatch" retries="1"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.playwright.evaluate&quot;" target="nsid"/>
           <zeebe:input source="={
               sessionId: ptSessionId,
-              jsCode: &quot;return await window.__gftdProbe(5000);&quot;
+              jsCode: &quot;return await window.__etzhayyimProbe(5000);&quot;
           }" target="input"/>
           <zeebe:output source="=output.value.fpsP50"            target="fpsP50"/>
           <zeebe:output source="=output.value.fpsP95"            target="fpsP95"/>
@@ -340,7 +340,7 @@
     <bpmn:scriptTask id="Task_BuildQaVid" name="at:// vertex_id">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["at://did:web:gameka.gftd.ai/com.etzhayyim.apps.gameka.gameQa/", qaRkey], "")'
+            expression='=string join(["at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.gameQa/", qaRkey], "")'
             resultVariable="qaVertexId"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToQaVid</bpmn:incoming>
@@ -357,9 +357,9 @@
           <zeebe:input source="=&quot;vertex_gameka_qa&quot;" target="table"/>
           <zeebe:input source="={
               vertex_id: qaVertexId,
-              owner_did: &quot;did:web:gameka.gftd.ai&quot;,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
               rkey: qaRkey,
-              repo: &quot;did:web:gameka.gftd.ai&quot;,
+              repo: &quot;did:web:gameka.etzhayyim.com&quot;,
               qa_id: qaRkey,
               artifact_id: artifactId,
               fps_p50: fpsP50,
@@ -381,7 +381,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=string join([&quot;gameka.qa.&quot;, outcome], &quot;&quot;)" target="action"/>
           <zeebe:input source="={
               specId: specId,

@@ -44,7 +44,7 @@
   "profile": {
     "agentType": "autonomous",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "displayName": "Insatsu",
     "description": "Cloud print and postal orchestration across regional print shops and postal lanes.",
     "capabilities": [

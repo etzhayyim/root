@@ -42,12 +42,12 @@ platform: linux/amd64
 ```
 
 The scaffold is intentionally not the production runtime. The CLI contract
-smoke previously lived in `70-tools/gftd/gftd/`; that tree was removed
-2026-05-20 along with the gftd CLI. Until the Holochain plan is re-ported
+smoke previously lived in `70-tools/etzhayyim/etzhayyim/`; that tree was removed
+2026-05-20 along with the etzhayyim CLI. Until the Holochain plan is re-ported
 (target: `e7m agent holochain-plan` or similar), the smoke is unavailable:
 
 ```sh
-# (former) cd 70-tools/gftd/gftd
+# (former) cd 70-tools/etzhayyim/etzhayyim
 # (former) go test . -run Holochain
 # (former) go run . agent-runtime holochain-plan \
   --agent-did did:web:kami-agent.etzhayyim.com \

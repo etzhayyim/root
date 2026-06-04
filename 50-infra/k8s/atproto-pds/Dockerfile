@@ -1,7 +1,7 @@
 # atproto PDS — Bun container build (ADR-2605111300, Phase P1)
 #
 # Builds the existing TS PDS Worker (50-infra/cloudflare/workers/atproto/src/)
-# as a single-file Bun bundle. Workspace deps (@gftd/*) are resolved via
+# as a single-file Bun bundle. Workspace deps (@etzhayyim/*) are resolved via
 # pnpm install, then bundled into one JS file with `bun build`.
 #
 # Build context = repo root. Invoke via 50-infra/k8s/atproto-pds/build.sh.
@@ -13,7 +13,7 @@ WORKDIR /repo
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
 
 # Workspace packages the PDS depends on (transitively).
-COPY 10-protocol/did-gftd/            10-protocol/did-gftd/
+COPY 10-protocol/did-etzhayyim/            10-protocol/did-etzhayyim/
 COPY 10-protocol/xrpc/                10-protocol/xrpc/
 COPY 10-protocol/lexicons-bundle/     10-protocol/lexicons-bundle/
 COPY 10-protocol/signal/              10-protocol/signal/
@@ -25,7 +25,7 @@ COPY 50-infra/cloudflare/workers/atproto/  50-infra/cloudflare/workers/atproto/
 # pnpm install with workspace resolution.
 RUN apk add --no-cache git nodejs npm \
  && npm install -g pnpm@9 \
- && pnpm install --frozen-lockfile --filter "ai-gftd-pds-2603241700..."
+ && pnpm install --frozen-lockfile --filter "etzhayyim-pds-2603241700..."
 
 # ── build stage ──
 FROM deps AS build

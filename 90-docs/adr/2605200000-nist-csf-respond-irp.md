@@ -96,7 +96,7 @@ T+72h  PIR 完了 + deps.toml [[migrations]] に follow-on items 登録
 |---|---|
 | Slack `#incidents` | リアルタイム状況共有 |
 | Teams channel (microsoft actor 経由) | 正式記録、エビデンス保存 |
-| `gftd projector` MCP | インシデントブロッカー追跡 |
+| `etzhayyim projector` MCP | インシデントブロッカー追跡 |
 
 #### 外部通信
 
@@ -131,7 +131,7 @@ P0/P1 では T+15m 以内に更新必須。
 ### 7. Rego Policy 連携
 
 インシデント中の clearance 緊急昇格は
-`00-contracts/policies/gftd/defense/clearance/policy.rego` の
+`00-contracts/policies/etzhayyim/defense/clearance/policy.rego` の
 `emergency_override` ルール (別 PR で追加) を通じてのみ実行。
 口頭指示のみでの権限変更禁止。
 
@@ -146,7 +146,7 @@ P0/P1 では T+15m 以内に更新必須。
 ## References
 
 - `90-docs/260425-vultr-cache-refill-drift-postmortem.md` — PIR テンプレート原型
-- `00-contracts/policies/gftd/defense/clearance/policy.rego` — clearance 制御 SSoT
+- `00-contracts/policies/etzhayyim/defense/clearance/policy.rego` — clearance 制御 SSoT
 - `20-actors/defense/py/src/pydefense/metrics.py` — Prometheus metrics (DETECT 基盤)
 - `deps.toml [etzhayyim_agent.oncall]` — on-call ローテーション記録先
 - NIST CSF 2.0: https://doi.org/10.6028/NIST.CSWP.29

@@ -413,7 +413,7 @@ contract, not a library.
   as the underlying Kubo client through the Kubo HTTP API, so there is
   no language coupling penalty.
 - **DVC + S3** — rejected (centralized backend; can't be reframed as a
-  yatachain-projection because it isn't derived from MST).
+  kotoba-datomic-projection because it isn't derived from MST).
 - **Hugging Face Hub direct reference (no local pin)** — rejected (no
   reproducibility guarantee).
 - **DataLad + git-annex with IPFS as a `type=external externaltype=ipfs`

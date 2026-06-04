@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — coverage (XRPC com.etzhayyim.apps.lifehack.coverage).
+  lifehack.etzhayyim.com — coverage (XRPC com.etzhayyim.apps.lifehack.coverage).
 
   Read-only single-task snapshot. Used by soak monitors / dashboard.
 -->
@@ -9,7 +9,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_coverage"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_coverage" name="lifehack coverage" isExecutable="true">

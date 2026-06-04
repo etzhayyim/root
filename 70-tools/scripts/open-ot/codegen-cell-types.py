@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """open-ot codegen: cell `manifest.json` → typed Python pack/unpack module.
 
-For each `60-apps/ai-gftd-project-open-ot/cells/<cell>/manifest.json`,
+For each `60-apps/etzhayyim-project-open-ot/cells/<cell>/manifest.json`,
 emits `orchestrator/src/open_ot_orchestrator/_generated/<cell>.py` with:
 
   - `struct.pack` format strings derived from Rust `#[repr(C)]` layout
@@ -41,10 +41,10 @@ def _short(p: Path) -> str:
         return str(p)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-DEFAULT_CELLS_DIR = REPO_ROOT / "60-apps/ai-gftd-project-open-ot/cells"
+DEFAULT_CELLS_DIR = REPO_ROOT / "60-apps/etzhayyim-project-open-ot/cells"
 DEFAULT_OUTPUT_DIR = (
     REPO_ROOT
-    / "60-apps/ai-gftd-project-open-ot/orchestrator/src/open_ot_orchestrator/_generated"
+    / "60-apps/etzhayyim-project-open-ot/orchestrator/src/open_ot_orchestrator/_generated"
 )
 
 

@@ -241,7 +241,7 @@ CREATE TABLE vertex_yoro_monitor_vote (
 
 | Action | Quorum | Who executes | Blast radius | Example trigger |
 |---|---|---|---|---|
-| **alert** | **unilateral** (1 monitor) | 発動 monitor が PagerDuty / Slack / gftd notify | 人間のみ | 任意の `stale` / 軽度 drift |
+| **alert** | **unilateral** (1 monitor) | 発動 monitor が PagerDuty / Slack / etzhayyim notify | 人間のみ | 任意の `stale` / 軽度 drift |
 | **pause** | **2-of-3** | gateway (goose wrapper) が crontab から該当 recipe を削除 | yoro 社 post 停止、DM read 停止 | `flood` / `loop` / `knowledge stale` |
 | **rollback** | **2-of-3** + moderator signoff | moderator.etzhayyim.com が問題 AT commit を tombstone | 直近 N 投稿の取消 | `PII leak` / `impersonation` |
 | **rotate-key** | **2-of-3** + human approve | authz.etzhayyim.com が yoro の ES256 key を rotate (ADR-0022 multi-key policy) | yoro 全 XRPC 再認証 | `byzantine disagree` / 鍵漏洩疑義 |
@@ -272,7 +272,7 @@ CREATE TABLE vertex_yoro_monitor_vote (
   yoro-shinka/actor-manifest.jsonld          (axis=shinka,   host=judah)
   yoro-integrity/actor-manifest.jsonld       (axis=behavior, host=CF Worker)
 
-60-apps/ai-gftd-project-murakumo/ansible/roles/goose/
+60-apps/etzhayyim-project-murakumo/ansible/roles/goose/
   templates/
     yoro-liveness-watchdog.yaml.j2           (Monitor-L recipe, deploy → jacob)
     yoro-shinka-watchdog.yaml.j2             (Monitor-K recipe, deploy → judah)
@@ -286,11 +286,11 @@ CREATE TABLE vertex_yoro_monitor_vote (
 30-graph/graph-schema/migrations/
   2026042200000_yoro_monitor_tables.ts       (vertex_yoro_monitor_attestation/_vote)
 
-70-tools/gftd/
-  monitor/vote.go                            (gftd monitor vote list/cast/resolve CLI)
+70-tools/etzhayyim/
+  monitor/vote.go                            (etzhayyim monitor vote list/cast/resolve CLI)
 ```
 
-**Inventory 追加** (`60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml`):
+**Inventory 追加** (`60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml`):
 
 ```yaml
 yoro_watchdog_liveness:
@@ -327,13 +327,13 @@ yoro_watchdog_shinka:
 - **CF Worker の cold start**: Monitor-B は CF Worker cold start で 1101 応答することがある。ADR-0041 と同じく retry が回復すれば attestation = 'ok'。systematic 1101 (全 retry 失敗) は 'stale' 判定。
 - **goose wrapper の cadence override**: joucho mood による cadence 変動 (ADR-0034) は L monitor の `cadence_ms` judgment に `override_reason` として渡される。3x 超過判定はその override 後の期待値と比較する。
 - **Self-pause**: yoro 本人が自己判断で `com.etzhayyim.yoro.shinkaEvolution` に `status='self-paused'` を書くのは許容。Resume (再度 'active' に戻す write) は quorum 必須。
-- **Human override**: oncall 運用者は `gftd monitor vote force-pass --ticket <JIRA>` で quorum を強制通過できる (全行為は audit 対象)。
+- **Human override**: oncall 運用者は `etzhayyim monitor vote force-pass --ticket <JIRA>` で quorum を強制通過できる (全行為は audit 対象)。
 
 # Implementation Phases
 
 **Phase 0 — schema + CLI** (T+0〜T+3d):
 - `30-graph/graph-schema/migrations/2026042200000_yoro_monitor_tables.ts` 2 table
-- `gftd monitor vote list/cast/resolve` CLI
+- `etzhayyim monitor vote list/cast/resolve` CLI
 - Unit test (false-positive drill harness)
 
 **Phase 1 — Monitor-B on CF Worker** (T+3〜T+7d):
@@ -366,22 +366,22 @@ Each phase gate:
 
 ```bash
 # Monitor self-compliance (per-did-kyumei-shinka-autonomy rule L49)
-gftd apps kyumei-koji -nanoid <monitor-nanoid> -repo-did did:web:yoro-<axis>.etzhayyim.com \
+etzhayyim apps kyumei-koji -nanoid <monitor-nanoid> -repo-did did:web:yoro-<axis>.etzhayyim.com \
   -dir ./20-actors -json
 
 # Cross-attestation freshness (no monitor silent > 3× cadence)
 # Direct Hyperdrive read (com.etzhayyim.kagami.graph.query は 2026-04 に archive 済。
 # CF Worker 外からの検証は macOS Keychain 経由の psql)
-RW=$(security find-generic-password -s gftd.rw -a ROOT_URL -w)
+RW=$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w)
 psql "$RW" -c "SELECT monitor_did, axis, max(observed_at) FROM vertex_yoro_monitor_attestation \
                WHERE observed_at > now() - interval '1 hour' GROUP BY 1,2"
 
 # Quorum dry-run (synthetic fault injection — new CLI, Phase 0 deliverable)
-gftd monitor vote dry-run --subject did:web:yoro.etzhayyim.com \
+etzhayyim monitor vote dry-run --subject did:web:yoro.etzhayyim.com \
   --action pause --reason flood --fake-ballots 2
 
 # False-positive drill (週 1)
-gftd monitor drill --axis all --subject did:web:yoro.etzhayyim.com
+etzhayyim monitor drill --axis all --subject did:web:yoro.etzhayyim.com
 ```
 
 Acceptance:
@@ -398,9 +398,9 @@ Proposed 状態の段階で、前提条件と ADR 内の主張を実測で verif
 
 | 前提条件 | 検証コマンド | 結果 |
 |---|---|---|
-| `gftd apps kyumei-koji` 実在 | `gftd apps kyumei-koji --help` | ✓ 存在 |
-| `gftd monitor shinka` 実在 | `gftd monitor shinka --help` | ✓ 存在 |
-| `gftd monitor vote` 実在 | `gftd monitor vote --help` | ✗ 未実装 (Phase 0 で新設) |
+| `etzhayyim apps kyumei-koji` 実在 | `etzhayyim apps kyumei-koji --help` | ✓ 存在 |
+| `etzhayyim monitor shinka` 実在 | `etzhayyim monitor shinka --help` | ✓ 存在 |
+| `etzhayyim monitor vote` 実在 | `etzhayyim monitor vote --help` | ✗ 未実装 (Phase 0 で新設) |
 | yoro.etzhayyim.com live | `curl https://yoro.etzhayyim.com/_app/meta` | ✓ 200, 正規 HTML |
 | 3 goose recipe が judah で scheduled | `ssh judah crontab -l \| grep goose` | ✓ heartbeat `*/15` + persona-cron `0 */4` + mention-drain `*/15` が active、NSID collection が Monitor-L axis の観測対象と一致 |
 | jacob LiteLLM reachable (Monitor-L placement) | `curl http://192.168.1.37:4000/health/liveliness` | ✓ 200, 17ms |
@@ -408,13 +408,13 @@ Proposed 状態の段階で、前提条件と ADR 内の主張を実測で verif
 | 提案 subdomain 未占有 | `curl https://yoro-{liveness,shinka,integrity}.etzhayyim.com/` | ✓ 全 404 — 3 subdomain 全て deploy 可能 |
 | 既存 monitor actor との衝突 | `grep yoro-{liveness,shinka,integrity}` on repo | ✓ 衝突なし (本 ADR のみが参照) |
 | 既存 schema との衝突 | `grep vertex_yoro_monitor_* on migrations` | ✓ 衝突なし |
-| yoro current readiness | `gftd apps kyumei-koji -nanoid g00h5zto -repo-did did:web:yoro.etzhayyim.com` | readiness_score=6 (D grade) — domain records 0 件、sub-DID 0 件。**外部監視の必要性を裏付け** (self-compliance が weak なので triple-witness が正当化される) |
+| yoro current readiness | `etzhayyim apps kyumei-koji -nanoid g00h5zto -repo-did did:web:yoro.etzhayyim.com` | readiness_score=6 (D grade) — domain records 0 件、sub-DID 0 件。**外部監視の必要性を裏付け** (self-compliance が weak なので triple-witness が正当化される) |
 
 ### ADR 内容の訂正
 
 プローブで判明した訂正点:
 
-1. **`com.etzhayyim.kagami.graph.query` は archived** (`Gone` 410 レスポンス、"Use Kysely directly via createKyselyDb(env.HYPERDRIVE)")。ADR 内で CF Worker 外部からの cross-attestation 検証コマンドとして引用していたが、**CF Worker 内 Hyperdrive 直接 + CLI は Keychain `gftd.rw ROOT_URL` 経由 psql** に差し替えた (§Verification 実行例を修正済)。Monitor-B 自体は元から Hyperdrive 直接 (ADR-0036) で書込・読込するため、**設計本体には影響なし**。
+1. **`com.etzhayyim.kagami.graph.query` は archived** (`Gone` 410 レスポンス、"Use Kysely directly via createKyselyDb(env.HYPERDRIVE)")。ADR 内で CF Worker 外部からの cross-attestation 検証コマンドとして引用していたが、**CF Worker 内 Hyperdrive 直接 + CLI は Keychain `etzhayyim.rw ROOT_URL` 経由 psql** に差し替えた (§Verification 実行例を修正済)。Monitor-B 自体は元から Hyperdrive 直接 (ADR-0036) で書込・読込するため、**設計本体には影響なし**。
 2. **RisingWave :4566 への直接 psql は ad-hoc 時 connection closed あり**。Hyperdrive binding 経由 (CF Worker / Cloudflared LAN 内) は安定。Monitor 実装では直接 psql 経路に依存しない (CLI 検証のみ使用)。
 
 ### 未検証 (実装後に必要)
@@ -424,7 +424,7 @@ Proposed 状態の段階で、前提条件と ADR 内の主張を実測で verif
 - `vertex_yoro_monitor_attestation` / `_vote` の migration 適用
 - Monitor-B の CF Worker deploy (Cron Trigger `*/10 min`) + HYPERDRIVE binding
 - Monitor-L/K の goose recipe + ansible role deploy
-- `gftd monitor vote {dry-run,cast,resolve,force-pass,drill}` CLI 新規実装
+- `etzhayyim monitor vote {dry-run,cast,resolve,force-pass,drill}` CLI 新規実装
 - 2-of-3 quorum の E2E (synthetic fault injection)
 
 # References

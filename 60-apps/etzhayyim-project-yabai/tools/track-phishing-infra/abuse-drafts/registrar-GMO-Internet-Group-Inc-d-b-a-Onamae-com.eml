@@ -1,0 +1,30 @@
+From: abuse-liaison@etzhayyim.ai
+To: abuse@onamae.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][Registrar] 2 phishing domains registered via GMO Internet Group, Inc. d/b/a Onamae.com
+Date: Sun, 19 Apr 2026 11:22:51 GMT
+Content-Type: text/plain; charset=utf-8
+
+Hello GMO Internet Group, Inc. d/b/a Onamae.com abuse team,
+
+We are reporting 2 domains registered through GMO Internet Group, Inc. d/b/a Onamae.com
+that resolve to active phishing / typosquat infrastructure.
+
+Domains:
+aocunts.com
+whotsupp.com
+
+We identified the following domains as active phishing / typosquat
+infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
+evidence category PhishingInfrastructure, confidence >=0.95). Probe
+method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
+
+Request: please investigate and take appropriate action (suspend /
+null-route / revoke registration) in accordance with your AUP and
+applicable ICANN / local law obligations.
+
+We can provide additional evidence (original phishing SMS/email payload,
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
+
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

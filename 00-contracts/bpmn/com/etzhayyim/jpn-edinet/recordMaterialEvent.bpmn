@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jpn_edinet_record_material_event"
-    targetNamespace="https://gftd.ai/bpmn/jpn-edinet"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-edinet"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jpn_edinet_record_material_event" name="金融庁 EDINET 臨報" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -58,7 +58,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-edinet.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-edinet.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnEdinet.event.tradingHalt&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, eventId: eventId, edinetCode: edinetCode, eventType: eventType, priority: priority}" target="payload"/>
         </zeebe:ioMapping>
@@ -70,7 +70,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-edinet.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-edinet.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnEdinet.event.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, eventId: eventId, edinetCode: edinetCode, eventType: eventType, priority: priority}" target="payload"/>
         </zeebe:ioMapping>

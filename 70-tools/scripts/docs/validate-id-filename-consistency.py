@@ -15,7 +15,7 @@ auto-fix + permissive matching improvement):
 
   - uppercase 'ADR-' prefix — should be 'adr-' (cycle 61 cleaned 6;
     baseline 0 going forward; auto-fix-safe in future)
-  - gftdcojp/amanomibashira pre-cutover filename — accepted per
+  - etzhayyimcojp/amanomibashira pre-cutover filename — accepted per
     CLAUDE.md root §"Do Not" rename-invariants (2 known;
     documented-deferred)
   - short id missing slug — id='adr-NNNN' but filename has slug
@@ -54,7 +54,7 @@ def categorize_mismatch(path: str, fid: str) -> str:
     """Return category name for an id↔filename mismatch."""
     if fid.startswith("ADR-"):
         return "uppercase-ADR-prefix"
-    if "gftdcojp" in path or "amanomibashira" in path:
+    if "etzhayyimcojp" in path or "amanomibashira" in path:
         return "pre-cutover-rename"
     if re.match(r"^adr-\d{4,10}$", fid):
         return "short-id-missing-slug"

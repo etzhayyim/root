@@ -4,13 +4,13 @@ import { Kysely, sql } from 'kysely';
 // tier: B
 
 /**
- * vertex_shiharai_* + edge_shiharai_* tables for ai-gftd-project-shiharai (sh1h4r41).
+ * vertex_shiharai_* + edge_shiharai_* tables for etzhayyim-project-shiharai (sh1h4r41).
  *
  * P10v2 GraphAr-native: 1 AT record = 1 row, typed columns, no val_json.
  * RLS 3-col (org_id/user_id/actor_id) + created_at required on every table.
  *
  * Columns align with records emitted by
- *   60-apps/ai-gftd-project-shiharai/appview/ai-gftd-wasm-shiharai-sh1h4r41/src/app.ts
+ *   60-apps/etzhayyim-project-shiharai/appview/etzhayyim-wasm-shiharai-sh1h4r41/src/app.ts
  * via collection NSIDs com.etzhayyim.apps.shiharai.{bill,payment,biller,recurring,
  * job,jobResult}.
  *

@@ -22,8 +22,8 @@ depends_on:
   - adr-2605101000-baien-mx-multimodal-expansion-from-rw       # Oka/Baien escalation pattern
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod # Murakumo-only inference invariant
   - adr-2605241900-baien-edge-target-invariant                                              # Baien edge-target invariant (WASM-32 + iPhone 12+ + Android 4GB)
-  - adr-2605231400-yatachain-holochain-iso-substrate                                              # yatachain Holochain-iso substrate composition
-  - adr-2605231500-yatachain-projection                                              # yatachain-projection (regenerable cache rules)
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate                                              # kotoba-datomic Holochain-iso substrate composition
+  - adr-2605231500-kotoba-datomic-projection                                              # kotoba-datomic-projection (regenerable cache rules)
   - adr-2605231902-feed-post-membrane-and-feed-discover-projection                                              # feed-discover L1 projection (first MST → projection wire)
   - adr-2605242600-baien-federated-train-via-ameno-webgpu                                              # baien federated training via ameno WebGPU (R0 scaffold)
   - adr-2605250400-gemma-coder-distill-rocm                                              # gemma-coder-distill precedent (EVO-X2 ROCm peft+trl)
@@ -53,7 +53,7 @@ ADR-2605092345 (Oka) defines a multimodal generative trunk on 9 modalities (audi
 - `vertex_training_*` lineage shared with Baien
 - Shared trunk + modality adapters + LoRA cohorts
 
-Oka has **no explicit graph-aware modality fusion layer**. Modalities enter a shared transformer trunk and lose modality identity at the first attention block (the classic "early-fusion in disguise" problem). Yet the substrate is a graph: yatachain MST (ADR-2605231400) connects members ↔ posts ↔ products ↔ lexicon records ↔ projections via DID-resolved edges, and projections such as `feed-discover` (ADR-2605231902) already produce per-edge structure.
+Oka has **no explicit graph-aware modality fusion layer**. Modalities enter a shared transformer trunk and lose modality identity at the first attention block (the classic "early-fusion in disguise" problem). Yet the substrate is a graph: kotoba-datomic MST (ADR-2605231400) connects members ↔ posts ↔ products ↔ lexicon records ↔ projections via DID-resolved edges, and projections such as `feed-discover` (ADR-2605231902) already produce per-edge structure.
 
 ## What MMSheaf provides
 
@@ -80,7 +80,7 @@ Gonzàlez i Català (Cambridge, May 2025, supervisor Pietro Liò) — "Sheaf-Bas
 
 1. **9 modalities are already declared** in Oka (ADR-2605092345 §1). They map directly onto MMSheaf rows: `d_node = m = 9`.
 2. **Server / edge tier split is already constitutionally required** (ADR-2605101000 escalation pattern + ADR-2605241900 Baien edge invariant). MMSheaf V4 (rich, scalar-weighted) fits server FP8; MMSheaf V3 (block-diagonal) ternary-quantises cleanly for Baien BitNet 1.58.
-3. **Graph substrate already exists** — yatachain MST + projections (`feed-discover`, libp2p peer-resolution, did-resolved-references) provide nodes and edges out of the box; no new substrate is required.
+3. **Graph substrate already exists** — kotoba-datomic MST + projections (`feed-discover`, libp2p peer-resolution, did-resolved-references) provide nodes and edges out of the box; no new substrate is required.
 4. **Training contract precedent is already established** — `gemma-coder-distill` (ADR-2605250400) proved peft+trl bf16 LoRA works on EVO-X2 ROCm 7.2.1. MMSheaf training reuses the same recipe.
 5. **Constitutionally compatible** — no RunPod, no commercial GPU rental, no advertising/eros/gore/eschatology surface, encoders frozen (G1 baien invariant), lineage in existing `vertex_training_*`.
 
@@ -88,7 +88,7 @@ Gonzàlez i Català (Cambridge, May 2025, supervisor Pietro Liò) — "Sheaf-Bas
 
 ## 1. Adopt MMSheaf as Oka's graph-aware modality fusion layer
 
-Introduce a sheaf-diffusion layer **between Oka's frozen modality encoders and downstream task heads**. The layer consumes yatachain-projection graphs (deterministically rebuildable from MST per ADR-2605231500) and outputs modality-aware node embeddings.
+Introduce a sheaf-diffusion layer **between Oka's frozen modality encoders and downstream task heads**. The layer consumes kotoba-datomic-projection graphs (deterministically rebuildable from MST per ADR-2605231500) and outputs modality-aware node embeddings.
 
 ## 2. Two-tier deployment
 
@@ -163,7 +163,7 @@ Murakumo fleet impact (R3+): one new cell on `levi`. No new node added (contrast
 | **R0** (this ADR) | scaffold declared, no executable code; deps.toml + adr/README registry parity; library/cell paths reserved | ADR accepted; deps.toml + adr/README updated |
 | **R1** | implement V1/V2/V3/V4 in pymagatama.mmsheaf; synthetic bench replication on EVO-X2 ROCm (2-modality complementary signal, n=1000) | Sheaf models > GCN baseline by ≥ +10% absolute on synthetic bench |
 | **R2** | Ele-Fashion replication; release lexicon `diffusionRoundReceipt` schema; emit first attestation | MMSheafV4 ≥ 85.5% ± 1.0 on Ele-Fashion |
-| **R3** | Production deploy on yatachain `feed-discover` projection; libp2p distribution of V3 weights to edge nodes; baien-distill V3 ternary node | First production attestation on MST; V3 ternary checkpoint ≤ 2GB @ 4k ctx |
+| **R3** | Production deploy on kotoba-datomic `feed-discover` projection; libp2p distribution of V3 weights to edge nodes; baien-distill V3 ternary node | First production attestation on MST; V3 ternary checkpoint ≤ 2GB @ 4k ctx |
 | **R4** | baien-federated R2+ integration (member-device WebGPU LoRA on V3 restriction maps) — separate ADR | Out of scope here |
 
 Each R-phase requires its own ADR (mirrors wadachi R0 ADR-2605242000 and baien-federated R0/R1 pattern ADR-2605242600 / ADR-2605242630).
@@ -175,7 +175,7 @@ Each R-phase requires its own ADR (mirrors wadachi R0 ADR-2605242000 and baien-f
 | No RunPod / commercial GPU rental for religious-corp inference + training | ADR-2605215000 + CHARTER-RIDER §2(i) | ✅ EVO-X2 ROCm + Mac mini fleet only |
 | Baien encoders + trunk frozen | ADR-2605241900 G1 | ✅ MMSheaf is strictly post-encoder; encoders frozen |
 | Baien ≤2GB @ 4k ctx / ≤2.5GB @ 16k ctx | ADR-2605241900 G3 | ⚠️ to be empirically verified in R3 with V3 ternary checkpoint |
-| Substrate boundary (MST + IPFS + L2; no Postgres/RW write home) | ADR-2605172000 + ADR-2605231400 | ✅ Graph is yatachain-projection (regenerable per ADR-2605231500); attestations emit to MST |
+| Substrate boundary (MST + IPFS + L2; no Postgres/RW write home) | ADR-2605172000 + ADR-2605231400 | ✅ Graph is kotoba-datomic-projection (regenerable per ADR-2605231500); attestations emit to MST |
 | Server-side signing capability (no platform-held keys) | ADR-2605231525 | ✅ Diffusion aggregator publishes to MST via member or operator DID; no platform key |
 | Charter Rider §2 scan on training data | ADR-2605192200 | ✅ Scanner pre-pass on text modality |
 | Lineage in `vertex_training_*` | ADR-2605092345 + ADR-2605070700 | ✅ Reuses existing schema with new `kind` values |
@@ -198,7 +198,7 @@ Each R-phase requires its own ADR (mirrors wadachi R0 ADR-2605242000 and baien-f
 - **9-modality stalk is constitutionally fixed at R0**. Adding a 10th modality (e.g., haptic, EEG, smell) requires a new ADR; this may slow future modality expansion.
 - **Missing-modality mask extension** is unvalidated by the paper. We are extending beyond the paper's experimental envelope; ablation needed at R1.
 - **V3 ternary quantisation of block-diagonal restriction maps is unproven**. Block-diagonal structure looks ternary-friendly (per-modality BitLinear), but R3 PoC may surface accuracy degradation that requires V4 → bonsai (server tier) fallback for some workloads. ADR-2605242100 (baien tier ladder) supports this fallback explicitly.
-- **Modality gap mitigation** — paper notes V3 is weaker under large modality gaps. For yatachain real graphs (where text-vs-image gap is large per CLIP literature), V4 server tier may be the only viable production deployment, and V3 edge tier may degrade. To be measured at R2.
+- **Modality gap mitigation** — paper notes V3 is weaker under large modality gaps. For kotoba-datomic real graphs (where text-vs-image gap is large per CLIP literature), V4 server tier may be the only viable production deployment, and V3 edge tier may degrade. To be measured at R2.
 - **Training on EVO-X2 ROCm only** — no H100 access on religious-corp side. Larger restriction-map MLPs (V4 with `dnode = 9` and `dedge = 4` produces a 81-element block per edge) may train slowly; budget 4× over the paper's A100 baseline.
 - **Federated R4 path may complicate restriction-map convergence** — different member devices producing different α_ij is unstudied. Out of scope here; R4 ADR will address Byzantine-median / Krum aggregation extension.
 
@@ -248,8 +248,8 @@ Each R-phase requires its own ADR (mirrors wadachi R0 ADR-2605242000 and baien-f
 - ADR-2605101000 — Baien MX Multimodal Expansion from RW (Oka escalation pattern)
 - ADR-2605215000 — etzhayyim inference is Murakumo-fleet-only — RunPod is constitutionally prohibited
 - ADR-2605241900 — Baien edge-target invariant (WASM-32 + iPhone 12+ + Android 4GB)
-- ADR-2605231400 — yatachain Holochain-iso substrate composition
-- ADR-2605231500 — yatachain-projection (regenerable cache rules)
+- ADR-2605231400 — kotoba-datomic Holochain-iso substrate composition
+- ADR-2605231500 — kotoba-datomic-projection (regenerable cache rules)
 - ADR-2605231902 — Feed-post membrane + feed-discover L1 projection
 - ADR-2605242600 — Baien federated training via ameno WebGPU (R0 scaffold)
 - ADR-2605242630 — Baien federated R1 WebGPU backward-pass framework

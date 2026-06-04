@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.membrane.verdict",
-  "description": "yatachain §4 membrane verdict — a content-addressed witness that an L3 deterministic cell evaluated a record under the (L1 schema, L2 Rego, L3 cell) triple defined for its collection. Emitted by Pregel cells (e.g. FeedPostCell for app.bsky.feed.post) into the cell's own MST as a sidecar. Per ADR-2605231400 SPEC §4 + ADR-2605192200 §2 + ADR-2605192400. Approve/reject/escalate verdicts let downstream consumers (yatachain-projection, mst-projector, ipfs-pinner) decide whether to propagate the original record into the projection cache, anchor it, or quarantine it pending Council review.",
+  "description": "kotoba-datomic §4 membrane verdict — a content-addressed witness that an L3 deterministic cell evaluated a record under the (L1 schema, L2 Rego, L3 cell) triple defined for its collection. Emitted by Pregel cells (e.g. FeedPostCell for app.bsky.feed.post) into the cell's own MST as a sidecar. Per ADR-2605231400 SPEC §4 + ADR-2605192200 §2 + ADR-2605192400. Approve/reject/escalate verdicts let downstream consumers (kotoba-datomic-projection, mst-projector, ipfs-pinner) decide whether to propagate the original record into the projection cache, anchor it, or quarantine it pending Council review.",
   "defs": {
     "main": {
       "type": "record",

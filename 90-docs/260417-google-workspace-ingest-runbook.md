@@ -7,15 +7,15 @@
 
 | Service | API | App folder | Ingest status |
 |---|---|---|---|
-| Gmail | Gmail API v1 | `60-apps/ai-gftd-project-gmail/` | ✅ Live (multi-account OAuth, cron 15m incremental via `history.list`) |
-| Calendar | Calendar API v3 | `60-apps/ai-gftd-project-calendar/` | ⏳ Scaffold — existing AT record store, Google API sync TODO |
-| Drive | Drive API v3 | `60-apps/ai-gftd-project-drive/` | ⏳ Scaffold — UI only, needs OAuth + `changes.list` + `files.watch` |
-| Contacts | People API v1 | `60-apps/ai-gftd-project-contacts/` | ❌ Not built |
-| Tasks | Tasks API v1 | `60-apps/ai-gftd-project-tasks/` | ❌ Not built |
-| Docs | Docs API v1 | `60-apps/ai-gftd-project-docs/` | ❌ Not built |
-| Sheets | Sheets API v4 | `60-apps/ai-gftd-project-sheets/` | ❌ Not built |
-| Slides | Slides API v1 | `60-apps/ai-gftd-project-slides/` | ❌ Not built |
-| Meet | Meet REST API v2 | `60-apps/ai-gftd-project-meet/` | ❌ Not built |
+| Gmail | Gmail API v1 | `60-apps/etzhayyim-project-gmail/` | ✅ Live (multi-account OAuth, cron 15m incremental via `history.list`) |
+| Calendar | Calendar API v3 | `60-apps/etzhayyim-project-calendar/` | ⏳ Scaffold — existing AT record store, Google API sync TODO |
+| Drive | Drive API v3 | `60-apps/etzhayyim-project-drive/` | ⏳ Scaffold — UI only, needs OAuth + `changes.list` + `files.watch` |
+| Contacts | People API v1 | `60-apps/etzhayyim-project-contacts/` | ❌ Not built |
+| Tasks | Tasks API v1 | `60-apps/etzhayyim-project-tasks/` | ❌ Not built |
+| Docs | Docs API v1 | `60-apps/etzhayyim-project-docs/` | ❌ Not built |
+| Sheets | Sheets API v4 | `60-apps/etzhayyim-project-sheets/` | ❌ Not built |
+| Slides | Slides API v1 | `60-apps/etzhayyim-project-slides/` | ❌ Not built |
+| Meet | Meet REST API v2 | `60-apps/etzhayyim-project-meet/` | ❌ Not built |
 | **Keep** | no public API | — | 🚫 **Out of scope** (no ingest path) |
 | **Sites** | v1 classic read-metadata only | — | 🚫 **Out of scope** (near-zero value) |
 | **Chat** | requires bot-install per Workspace | — | ⏸ **Deferred** (different auth model) |
@@ -159,15 +159,15 @@ DATABASE_URL=... pnpm db:gen
 DATABASE_URL=... pnpm db:drift   # must report OK
 
 # 2. Provision secrets (one-time per app)
-cd 60-apps/ai-gftd-project-{service}/appview/<component-dir>
+cd 60-apps/etzhayyim-project-{service}/appview/<component-dir>
 wrangler secret put SS_GOOGLE_OAUTH_CLIENT_ID
 wrangler secret put SS_GOOGLE_OAUTH_CLIENT_SECRET
 wrangler secret put SS_GWORKSPACE_TOKEN_KEK   # 32-byte base64url, shared across all services
 
 # 3. Build + deploy each app
 for svc in gmail calendar drive contacts tasks docs sheets slides meet; do
-  cd 60-apps/ai-gftd-project-$svc/appview/*/
-  gftd deploy
+  cd 60-apps/etzhayyim-project-$svc/appview/*/
+  etzhayyim deploy
 done
 
 # 4. Per-account OAuth
@@ -182,7 +182,7 @@ done
 1. Operator runs: ./70-tools/scripts/google-accounts-from-1p.sh
      → prints JSON: [{ "email": "jun@etzhayyim.com", "label": "…" }, …]
 2. For each email:
-     a. Open https://gmail.etzhayyim.com in browser signed in as gftd user.
+     a. Open https://gmail.etzhayyim.com in browser signed in as etzhayyim user.
      b. Call com.etzhayyim.apps.gmail.connectAccount { email }
      c. Google consent screen → grants all 12 scopes.
      d. /oauth/callback stores refresh_token in vertex_gmail_oauth_token.
@@ -196,9 +196,9 @@ done
 
 Extract the gmail KEK envelope / token table / Google token exchange
 into `60-apps/_shared/google-oauth.ts` (or vendor copy per app since the
-current gftd deploy pipeline favours single-file TS Native). For Phase
+current etzhayyim deploy pipeline favours single-file TS Native). For Phase
 0, each new app **copies** the 8 helper functions from
-`ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1/src/app.ts`:
+`etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1/src/app.ts`:
 `envelopeEncrypt`, `envelopeDecrypt`, `importKek`, `b64u{Encode,Decode}`,
 `exchangeAuthCode`, `refreshAccessToken`, `getAccessToken`,
 `ensureTokenTable`. Rename the D1 table per service
@@ -233,8 +233,8 @@ identical shape.
 - `30-graph/graph-schema/migrations/20260417140000_vertex_google_workspace_tables.ts` — new
 - `90-docs/260417-google-workspace-ingest-runbook.md` — this file
 - `70-tools/scripts/google-accounts-from-1p.sh` — account-list discovery
-- `60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts` — Google Calendar sync added (full)
-- `60-apps/ai-gftd-project-{drive,contacts,tasks,docs,sheets,slides,meet}/appview/*-mcp-component/src/app.ts` — scaffolded by `70-tools/scripts/scaffold-google-app.sh`. drive→`drive-app-component/`, docs→`docs-performers-r5ycqp6x/` (consolidated with existing svelte UI dirs).
+- `60-apps/etzhayyim-project-calendar/appview/calendar-mcp-component/src/app.ts` — Google Calendar sync added (full)
+- `60-apps/etzhayyim-project-{drive,contacts,tasks,docs,sheets,slides,meet}/appview/*-mcp-component/src/app.ts` — scaffolded by `70-tools/scripts/scaffold-google-app.sh`. drive→`drive-app-component/`, docs→`docs-performers-r5ycqp6x/` (consolidated with existing svelte UI dirs).
 - `00-contracts/lexicons/com/etzhayyim/apps/{calendar,drive,contacts,tasks,docs,sheets,slides,meet}/{connectAccount,syncFromGoogle}.json` — 16 new lexicons
 - `70-tools/templates/google-workspace-oauth.ts` — inline-copy OAuth/KEK helpers reference
 - `70-tools/scripts/scaffold-google-app.sh` — per-service app generator
@@ -246,8 +246,8 @@ identical shape.
 - [x] **Schema migration `20260417140000_vertex_google_workspace_tables` applied 2026-04-17** — 41 tables (33 vertex + 8 edge). Applied out-of-band via `30-graph/graph-schema/scripts/run-one-migration.mjs` (kysely migrator blocked by pre-existing drift). `kysely_migration` row inserted + `FLUSH`. Migration file fix: JSDoc `vertex_*/edge_*` → `vertex_ / edge_` (the `*/` was terminating the block comment early, causing TS1109)
 - [ ] 7 D1 dbs created (`calendar/drive/contacts/tasks/docs/sheets/slides-tokens`) + IDs pasted into 7 `wrangler.jsonc` files (gmail = `gm4il0x1` done)
 - [ ] Remaining redirect URIs added to GCP Console (only `gmail.etzhayyim.com` registered; `calendar/drive/…/meet.etzhayyim.com` TODO)
-- [ ] Drive worker initial `gftd deploy` / `wrangler deploy` (currently `drive.etzhayyim.com` returns `UnknownActor`)
+- [ ] Drive worker initial `etzhayyim deploy` / `wrangler deploy` (currently `drive.etzhayyim.com` returns `UnknownActor`)
 - [ ] `pnpm db:gen` + `pnpm db:drift` clean (regenerate `database.ts` now that 41 new tables exist)
-- [ ] All 9 apps deploy clean (`gftd deploy` per dir)
+- [ ] All 9 apps deploy clean (`etzhayyim deploy` per dir)
 - [ ] First account OAuth round-trip verified end-to-end (in progress — `jun@etzhayyim.com` Gmail consent pending)
 - [ ] Per-service `syncFromGoogle()` body implemented (currently TODO stub for non-calendar/non-gmail)

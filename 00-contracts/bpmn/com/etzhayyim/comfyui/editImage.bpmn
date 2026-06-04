@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_comfyui_openai_image_edit"
-    targetNamespace="https://gftd.ai/bpmn/comfyui"
+    targetNamespace="https://etzhayyim.ai/bpmn/comfyui"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="comfyui_openai_image_edit" name="comfyui OpenAI image edit" isExecutable="true">
@@ -27,7 +27,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:comfyui.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:comfyui.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;comfyui.editImage&quot;" target="action"/>
           <zeebe:input source="={ result: result }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

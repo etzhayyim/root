@@ -112,7 +112,7 @@ stage_cf_tunnel() {
 
 stage_pages_deploy() {
   echo "━━ Stage 5: Cloudflare Pages (Svelte SuperApp) ━━"
-  cd "$REPO_ROOT/60-apps/ai-gftd-project-karute/appview/ai-gftd-wasm-karute-karu7t3e/svelte"
+  cd "$REPO_ROOT/60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte"
   run pnpm install
   run pnpm build
   run wrangler pages deploy dist --project-name karute --branch main

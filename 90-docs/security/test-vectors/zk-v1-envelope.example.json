@@ -2,7 +2,7 @@
   "version": "zk-v1",
   "owner": {
     "did": "did:web:etzhayyim.com:u:m9r4k8m0",
-    "orgDid": "did:web:etzhayyim.com:org:gftd"
+    "orgDid": "did:web:etzhayyim.com:org:etzhayyim"
   },
   "deviceId": "dev_ipadpro_2026_001",
   "alg": {

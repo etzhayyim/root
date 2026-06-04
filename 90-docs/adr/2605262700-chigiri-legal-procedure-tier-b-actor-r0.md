@@ -81,7 +81,7 @@ priority remaining miss, blocking:
 
 Two existing actor scaffolds touch the legal domain peripherally:
 
-- `20-actors/hanrei/` (legacy GFTD bibliography-style global case-law
+- `20-actors/hanrei/` (legacy Etzhayyim bibliography-style global case-law
   intelligence; 83 jurisdictions; references a `lawfirm.etzhayyim.com`
   actor that does not exist — this ADR creates the religious-corp
   native replacement);
@@ -145,7 +145,7 @@ substrate actor at `20-actors/chigiri/`, with DID
 | Tier | Tier-B per-domain leader actor |
 | Cross-actor (data) | `hanrei.etzhayyim.com` (case-law lookup) / `bunken.etzhayyim.com` (legal literature) |
 | Cross-actor (procedure) | `musubi` (covenant ceremony, future) / `shidemori` (memorial / cemetery, future) / `mitate` (medical attestation interop) |
-| Replaces | legacy `lawfirm.etzhayyim.com` reference in 20-actors/hanrei/CLAUDE.md (religious-corp native, no legacy gftd lineage) |
+| Replaces | legacy `lawfirm.etzhayyim.com` reference in 20-actors/hanrei/CLAUDE.md (religious-corp native, no legacy etzhayyim lineage) |
 
 ## §2. Scope (7 sections, internal → external → routing-around → force → content → financial → labor)
 
@@ -305,7 +305,7 @@ All 9 records require schema-level field validation. R0 = scaffold + skeleton sc
 | Gate | Description |
 |---|---|
 | **G1** | Every legal document (ingested OR produced) MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block, no Lexicon emit, no procedural advancement. |
-| **G2** | Every procedure MUST emit `com.etzhayyim.chigiri.*` Lexicon record with yatachain attestation lineage (kotoba block CID + Council attestation signatures); missing record = procedure invisible. |
+| **G2** | Every procedure MUST emit `com.etzhayyim.chigiri.*` Lexicon record with kotoba-datomic attestation lineage (kotoba block CID + Council attestation signatures); missing record = procedure invisible. |
 | **G3** | Internal procedure MUST NOT require state-issued personal ID (DID + SBT only); external interface (counsel KYC, vendor contract) MAY require state ID at the boundary. |
 | **G4** | Charter Rider amendment MUST be Council Lv6+ ≥4/7. |
 | **G5** | Constitutional invariant amendment MUST be Council Lv7+ unanimity (Preamble §0.4). |
@@ -460,8 +460,8 @@ No code activation in R0. Lint hook `70-tools/scripts/lint/no-chigiri-legal-advi
    is a data actor (case law bibliography). Mixing data + procedure
    breaks the actor-as-organism single-responsibility discipline.
 
-2. **Use legacy `lawfirm.etzhayyim.com` GFTD substrate-port**.
-   Rejected — that substrate runs on RisingWave + Hyperdrive (gftd
+2. **Use legacy `lawfirm.etzhayyim.com` Etzhayyim substrate-port**.
+   Rejected — that substrate runs on RisingWave + Hyperdrive (etzhayyim
    stack), violates ADR-2605172000 RW-free invariant.
 
 3. **Defer until Bootstrap Council ratifies**. Considered. Rejected
@@ -484,7 +484,7 @@ No code activation in R0. Lint hook `70-tools/scripts/lint/no-chigiri-legal-advi
 
 6. **Split internal vs external chigiri into two actors**. Considered.
    Rejected — the two share so many primitives (Charter Rider scan,
-   yatachain attestation, Council procedure) that the split would
+   kotoba-datomic attestation, Council procedure) that the split would
    double work without benefit.
 
 7. **Skip Transparent Force authorization integration at R0-R2**.

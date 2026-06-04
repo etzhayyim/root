@@ -1,5 +1,5 @@
 MODEL (
-  name gftd_graph_schema.mv_ndl_image_ocr_coverage,
+  name etzhayyim_graph_schema.mv_ndl_image_ocr_coverage,
   kind FULL
 );
 

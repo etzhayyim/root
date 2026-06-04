@@ -15,9 +15,9 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-absorb',
+  ('at://did:web:ki.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-ki-absorb',
    0, 0,
-   'com.etzhayyim.apps.ki.absorb', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.absorb', 'did:web:ki.etzhayyim.com', 'ki.etzhayyim.com', 'procedure',
    'Absorb a source vertex into ki for vertical synthesis.',
    '{"type":"object","properties":{"sourceVertexId":{"type":"string"},"inputKind":{"type":"string"},"contentSnippet":{"type":"string"}}}',
    '{"type":"object","properties":{"absorbId":{"type":"string"},"status":{"type":"string"},"error":{"type":"string"}}}',
@@ -25,9 +25,9 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/ki/absorb.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
 
-  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-synthesize',
+  ('at://did:web:ki.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-ki-synthesize',
    0, 0,
-   'com.etzhayyim.apps.ki.synthesize', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.synthesize', 'did:web:ki.etzhayyim.com', 'ki.etzhayyim.com', 'procedure',
    'Synthesize an absorbed input into a structured artifact.',
    '{"type":"object","properties":{"absorbId":{"type":"string"}}}',
    '{"type":"object","properties":{"artifactId":{"type":"string"},"synthesis":{"type":"string"},"confidence":{"type":"number"},"error":{"type":"string"}}}',
@@ -35,9 +35,9 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/ki/synthesize.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
 
-  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-bloom',
+  ('at://did:web:ki.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-ki-bloom',
    0, 0,
-   'com.etzhayyim.apps.ki.bloom', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.bloom', 'did:web:ki.etzhayyim.com', 'ki.etzhayyim.com', 'procedure',
    'Publish a synthesized artifact (bloom).',
    '{"type":"object","properties":{"artifactId":{"type":"string"}}}',
    '{"type":"object","properties":{"bloomId":{"type":"string"},"publishedAt":{"type":"string"},"error":{"type":"string"}}}',
@@ -45,9 +45,9 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/ki/bloom.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
 
-  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-apps-ki-ring',
+  ('at://did:web:ki.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-ki-ring',
    0, 0,
-   'com.etzhayyim.apps.ki.ring', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.apps.ki.ring', 'did:web:ki.etzhayyim.com', 'ki.etzhayyim.com', 'procedure',
    'Snapshot a ring (periodic aggregation marker) at the end of the cycle.',
    '{"type":"object","properties":{"period":{"type":"string"}}}',
    '{"type":"object","properties":{"ringId":{"type":"string"},"snapshotCount":{"type":"integer"},"error":{"type":"string"}}}',

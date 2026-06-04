@@ -25,7 +25,7 @@ cab_body_forming ───┘                                                   
                                                                                          ↓
                           emissions_audit (cross, levi) ←──────────────────────────────┘
                                             ↓
-                          vin_attestation_binder (terminal, judah) — yatachain anchor
+                          vin_attestation_binder (terminal, judah) — kotoba-datomic anchor
 ```
 
 ## Robotics Fleet (R0 reservation only)
@@ -49,7 +49,7 @@ cab_body_forming ───┘                                                   
 Key enforcement:
 
 - **G1**: ECU + all electrical firmware open-source
-- **G2**: Per-VIN manufacturing log yatachain anchor + open VIN registry
+- **G2**: Per-VIN manufacturing log kotoba-datomic anchor + open VIN registry
 - **G3**: Per-VIN IPFS-pinned photo + video (welding / paint / road test)
 - **G4**: Witness quorum ≥2 distinct robots per critical weld + final marriage
 - **G7**: **R0/R1 transition: B100 biodiesel + diesel hybrid acceptable. R2+: LFP / H₂ / NH₃ / methanol fuel-cell only.** Pure-fossil phased out at R2.
@@ -91,7 +91,7 @@ Key enforcement:
 8. `com.etzhayyim.sarutahiko.emissionsAuditRecord` — cross-cutting
 9. `com.etzhayyim.sarutahiko.silenVehicleReview` — Council 5-of-7 Safe
 
-Terminal `vehicleManufactureRecord` (yatachain-anchored aggregate) emitted by `vin_attestation_binder` cell.
+Terminal `vehicleManufactureRecord` (kotoba-datomic-anchored aggregate) emitted by `vin_attestation_binder` cell.
 
 ## Pregel Cells (Detailed)
 
@@ -144,7 +144,7 @@ Terminal `vehicleManufactureRecord` (yatachain-anchored aggregate) emitted by `v
 ### vin_attestation_binder (terminal)
 - **Murakumo node**: judah
 - **Input**: all prior records + VIN
-- **Output**: `vehicleManufactureRecord` (G2 + G13 yatachain anchor with per-VIN DID)
+- **Output**: `vehicleManufactureRecord` (G2 + G13 kotoba-datomic anchor with per-VIN DID)
 
 ## Build & Deploy (R0 → R1)
 

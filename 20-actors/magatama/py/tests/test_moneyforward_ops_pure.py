@@ -44,7 +44,7 @@ def test_issue_invoice_writes_draft_invoice(fake_db: list[tuple[str, tuple[Any, 
         taxRate=0.1,
     )
 
-    assert result["invoiceDid"] == "did:plc:gftd-works|com.etzhayyim.apps.seikyu.invoice|inv-001"
+    assert result["invoiceDid"] == "did:plc:etzhayyim-works|com.etzhayyim.apps.seikyu.invoice|inv-001"
     assert result["subtotal"] == 1000
     assert result["taxAmount"] == 100
     assert result["total"] == 1100
@@ -55,7 +55,7 @@ def test_issue_invoice_writes_draft_invoice(fake_db: list[tuple[str, tuple[Any, 
 def test_record_payment_updates_invoice_status(monkeypatch: pytest.MonkeyPatch, fake_db: list[tuple[str, tuple[Any, ...]]]):
     def fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
         if "FROM vertex_atrecord_seikyu_invoice" in sql:
-            return {"owner_did": "did:plc:gftd-works", "total": 1100}
+            return {"owner_did": "did:plc:etzhayyim-works", "total": 1100}
         if "SUM(amount)" in sql:
             return {"paid": 1100}
         return None
@@ -63,7 +63,7 @@ def test_record_payment_updates_invoice_status(monkeypatch: pytest.MonkeyPatch, 
     monkeypatch.setattr(mf, "_fetch_one", fetch_one)
 
     result = mf.record_payment_received(
-        invoiceDid="did:plc:gftd-works|com.etzhayyim.apps.seikyu.invoice|inv-001",
+        invoiceDid="did:plc:etzhayyim-works|com.etzhayyim.apps.seikyu.invoice|inv-001",
         paymentDate="2026-05-09",
         amount=1100,
         reference="bank-1",
@@ -87,7 +87,7 @@ def test_draft_agreement_creates_recurring_schedule_when_amount_present(fake_db:
         recurringFrequency="monthly",
     )
 
-    assert result["agreementDid"].startswith("did:plc:gftd-works|com.etzhayyim.apps.keiyaku.agreement|msa-")
+    assert result["agreementDid"].startswith("did:plc:etzhayyim-works|com.etzhayyim.apps.keiyaku.agreement|msa-")
     assert any("vertex_atrecord_keiyaku_agreement" in sql for sql, _ in fake_db)
     assert any("vertex_atrecord_seikyu_recurring_schedule" in sql for sql, _ in fake_db)
 
@@ -143,5 +143,5 @@ def test_register_saas_asset_targets_kaisya_inventory(fake_db: list[tuple[str, t
     )
 
     assert result["ok"] is True
-    assert result["assetDid"] == "did:plc:gftd-works|com.etzhayyim.apps.kaisya.saasAsset|box-folder-folder-1"
+    assert result["assetDid"] == "did:plc:etzhayyim-works|com.etzhayyim.apps.kaisya.saasAsset|box-folder-folder-1"
     assert any("vertex_kaisya_saas_asset" in sql for sql, _ in fake_db)

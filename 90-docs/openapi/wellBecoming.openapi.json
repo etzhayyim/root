@@ -12,7 +12,7 @@
   "paths": {},
   "components": {
     "schemas": {
-      "ai_gftd_wellBecoming_skillClaim": {
+      "ai_etzhayyim_wellBecoming_skillClaim": {
         "type": "object",
         "properties": {
           "$type": {

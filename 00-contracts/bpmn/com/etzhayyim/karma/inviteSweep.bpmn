@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — invitation expiry sweeper (R/PT1H).
+  karma.etzhayyim.com — invitation expiry sweeper (R/PT1H).
 
   Marks invitations past expires_at_ms as status='expired'.
 -->
@@ -9,7 +9,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_invite_sweep"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_invite_sweep" name="karma invitation sweep" isExecutable="true">
@@ -42,7 +42,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.inviteSweep&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;expired&quot;: expired, &quot;stillPending&quot;: stillPending }" target="attributes"/>
         </zeebe:ioMapping>

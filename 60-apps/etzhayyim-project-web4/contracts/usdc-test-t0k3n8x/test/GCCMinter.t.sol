@@ -97,7 +97,7 @@ contract GCCMinterTest is Test {
         vm.warp(1700000000);
 
         // Deploy GCC token
-        gcc = new TestUSDC("Gftd Computing Credits", "GCC", "USD", owner, owner, owner, owner);
+        gcc = new TestUSDC("Etzhayyim Computing Credits", "GCC", "USD", owner, owner, owner, owner);
 
         // Deploy mock stablecoins
         usdc = new MockERC20("USD Coin", "USDC", 6);

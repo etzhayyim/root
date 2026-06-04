@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS vertex_tsukuru_cad_project (
   updated_at        VARCHAR,
   project_id        VARCHAR NOT NULL,
   project_name      VARCHAR,
-  product_ref       VARCHAR,    -- e.g. "ai-gftd-project-open-robo"
+  product_ref       VARCHAR,    -- e.g. "etzhayyim-project-open-robo"
   cad_tool          VARCHAR,    -- fusion360 | onshape | freecad
   status            VARCHAR,    -- draft | modeling | tolerance_review | ready_to_order | ordered | delivered
   total_parts       INTEGER,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS vertex_tsukuru_pcb_project (
   updated_at          VARCHAR,
   project_id          VARCHAR NOT NULL,
   pcb_name            VARCHAR,
-  product_ref         VARCHAR,           -- e.g. "ai-gftd-project-open-robo"
+  product_ref         VARCHAR,           -- e.g. "etzhayyim-project-open-robo"
   kicad_version       VARCHAR,           -- "8.0"
   board_size_mm       VARCHAR,           -- "85x65"
   layer_count         INTEGER,
@@ -141,7 +141,7 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-cadProject-create',
    0, 0, 'com.etzhayyim.apps.tsukuru.cadProject.create',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new CAD design project on tsukuru, linked to a hardware product.',
@@ -151,7 +151,7 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cadProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-cadPart-upsert',
    0, 0, 'com.etzhayyim.apps.tsukuru.cadPart.upsert',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Upsert a CAD part record within a project (create or update status/step_file_ref).',
@@ -161,7 +161,7 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cadPart/upsert.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-meviy-requestQuote',
    0, 0, 'com.etzhayyim.apps.tsukuru.meviy.requestQuote',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit STEP files to Misumi Meviy for automatic machining quote.',
@@ -171,7 +171,7 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/meviy/requestQuote.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-pcbProject-create',
    0, 0, 'com.etzhayyim.apps.tsukuru.pcbProject.create',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new PCB design project on tsukuru.',
@@ -181,7 +181,7 @@ VALUES
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/pcbProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-pban-requestQuote',
    0, 0, 'com.etzhayyim.apps.tsukuru.pban.requestQuote',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit Gerber ZIP to P-Ban.com for PCB fabrication + assembly quote.',

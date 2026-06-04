@@ -23,7 +23,7 @@ import { Kysely, sql } from 'kysely';
  * Heavy geometry (BREP solids, tessellation caches, STEP blobs) lives
  * in B2 (Backblaze B2 S3-compatible, ADR-0048) content-addressed under
  * `cad/blobs/{sha256}` / `cad/meshes/{sha256}` / `cad/exports/{sha256}`
- * in bucket `ai-gftd-cad`. Only the `blob_key` + metadata is stored here.
+ * in bucket `etzhayyim-cad`. Only the `blob_key` + metadata is stored here.
  */
 export async function up(db: Kysely<any>): Promise<void> {
   // ── vertex_cad_model ──

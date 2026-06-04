@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瞬間解凍中... - Kyber</title>
+    <style>
+        :root {
+            --kyber-primary: #0066FF;
+            --kyber-bg-primary: #ffffff;
+            --kyber-bg-secondary: #f9fafb;
+            --kyber-text-primary: #1f2937;
+            --kyber-text-secondary: #6b7280;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--kyber-bg-primary);
+            color: var(--kyber-text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .error-page {
+            padding: 2rem;
+        }
+
+        .defrost-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #0066FF 0%, #00CCFF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .defrost-subtitle {
+            font-size: 1.25rem;
+            color: var(--kyber-text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .microwave-container {
+            margin-bottom: 2.5rem;
+        }
+
+        .microwave {
+            width: 320px;
+            height: 200px;
+            background: #E9ECEF;
+            border-radius: 12px;
+            border: 4px solid #DEE2E6;
+            display: flex;
+            padding: 1rem;
+            gap: 1rem;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .microwave-window {
+            flex: 1;
+            background: #212529;
+            border-radius: 8px;
+            border: 4px solid #CED4DA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .food-plate {
+            width: 100px;
+            height: 20px;
+            background: #FFFFFF;
+            border: 1px solid #DEE2E6;
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 3s linear infinite;
+        }
+
+        .food-glow {
+            position: absolute;
+            top: -40px;
+            left: -50px;
+            width: 200px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 102, 0, 0.2) 0%, transparent 70%);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .microwave-controls {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .display {
+            background: #1a1a1a;
+            height: 40px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #333;
+        }
+
+        .timer {
+            color: #51CF66;
+            font-family: monospace;
+            font-size: 1.25rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .button {
+            width: 100%;
+            height: 20px;
+            background: #CED4DA;
+            border-radius: 2px;
+        }
+
+        .button.active {
+            background: #FF4400;
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .error-info {
+            max-width: 500px;
+            width: 100%;
+            background: var(--kyber-bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 0 auto;
+        }
+
+        .error-message {
+            color: var(--kyber-text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .refresh-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #0066FF 0%, #00CCFF 100%);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+        }
+
+        .refresh-button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+    <meta http-equiv="refresh" content="10">
+</head>
+<body>
+    <div class="error-page">
+        <div class="microwave-container">
+            <div class="microwave">
+                <div class="microwave-window">
+                    <div class="food-plate">
+                        <div class="food-glow"></div>
+                    </div>
+                </div>
+                <div class="microwave-controls">
+                    <div class="display">
+                        <span class="timer">50:3</span>
+                    </div>
+                    <div class="buttons">
+                        <div class="button"></div>
+                        <div class="button"></div>
+                        <div class="button active"></div>
+                        <div class="button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="defrost-title">瞬間解凍中...</h1>
+        <p class="defrost-subtitle">瞬間解凍（しなさい）</p>
+        
+        <div class="error-info">
+            <p class="error-message">
+                システムを解凍しています。これには数秒かかる場合があります。
+            </p>
+            <button onclick="window.location.reload()" class="refresh-button">再読み込み</button>
+        </div>
+    </div>
+</body>
+</html>
+
