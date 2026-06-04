@@ -14370,4 +14370,1278 @@
    :gov.address/line-en "Zambia Meteorological Department, Haile Selassie Avenue, Lusaka"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.afg.archives.hq"
+   :gov.address/unit "gov.afg.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "afg"
+   :gov.address/line-en "National Archives of Afghanistan, Salang Watt, Deh Afghanan, Kabul"
+   :gov.address/lat 34.52457 :gov.address/lon 69.16797
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ago.archives.hq"
+   :gov.address/unit "gov.ago.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Arquivo Histórico Nacional, Rua Pedro Félix Machado, Luanda"
+   :gov.address/lat -8.81768 :gov.address/lon 13.2311
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.alb.archives.hq"
+   :gov.address/unit "gov.alb.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "alb"
+   :gov.address/line-en "General Directorate of Archives, Rruga Jordan Misja, Tirana"
+   :gov.address/lat 41.33571 :gov.address/lon 19.813
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.and.archives.hq"
+   :gov.address/unit "gov.and.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "and"
+   :gov.address/line-en "Arxiu Nacional d'Andorra, Edifici Prada Casadet, Andorra la Vella"
+   :gov.address/lat 42.50577 :gov.address/lon 1.52311
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.are.archives.hq"
+   :gov.address/unit "gov.are.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "are"
+   :gov.address/line-en "National Library and Archives, Abu Dhabi"
+   :gov.address/lat 24.4198 :gov.address/lon 54.44704
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.arg.archives.hq"
+   :gov.address/unit "gov.arg.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "arg"
+   :gov.address/line-en "Archivo General de la Nación, Av. Leandro N. Alem 246, Buenos Aires"
+   :gov.address/lat -34.60444 :gov.address/lon -58.37039
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.arm.archives.hq"
+   :gov.address/unit "gov.arm.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "arm"
+   :gov.address/line-en "National Archives of Armenia, 5 Hrachya Kochar St, Arabkir, Yerevan"
+   :gov.address/lat 40.1989 :gov.address/lon 44.4949
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.aus.archives.hq"
+   :gov.address/unit "gov.aus.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "National Archives of Australia, Kings Avenue, Parkes, Canberra ACT"
+   :gov.address/lat -35.30489 :gov.address/lon 149.131
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.aut.archives.hq"
+   :gov.address/unit "gov.aut.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "aut"
+   :gov.address/line-en "Österreichisches Staatsarchiv, Nottendorfer Gasse 2, Vienna"
+   :gov.address/lat 48.19173 :gov.address/lon 16.4123
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.aze.archives.hq"
+   :gov.address/unit "gov.aze.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "aze"
+   :gov.address/line-en "National Archive Department, H. Zardabi Ave 598, Baku"
+   :gov.address/lat 40.4114 :gov.address/lon 49.83628
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ben.archives.hq"
+   :gov.address/unit "gov.ben.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ben"
+   :gov.address/line-en "Archives nationales du Bénin, Ouando, Porto-Novo"
+   :gov.address/lat 6.51193 :gov.address/lon 2.60632
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bfa.archives.hq"
+   :gov.address/unit "gov.bfa.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bfa"
+   :gov.address/line-en "Centre national des archives, Koulouba, Ouagadougou"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bgd.archives.hq"
+   :gov.address/unit "gov.bgd.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "National Archives of Bangladesh, 32 Syed Mahbub Morshed Ave, Agargaon, Dhaka"
+   :gov.address/lat 23.77604 :gov.address/lon 90.37501
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bgr.archives.hq"
+   :gov.address/unit "gov.bgr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgr"
+   :gov.address/line-en "Archives State Agency, 5 Moskovska St, Sofia"
+   :gov.address/lat 42.69722 :gov.address/lon 23.3266
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bhr.archives.hq"
+   :gov.address/unit "gov.bhr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhr"
+   :gov.address/line-en "Historical Documents Center, Isa Cultural Centre, Juffair, Manama"
+   :gov.address/lat 26.2205 :gov.address/lon 50.5994
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bhs.archives.hq"
+   :gov.address/unit "gov.bhs.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bhs"
+   :gov.address/line-en "Department of Archives, Mackey & Shirley Streets, Nassau"
+   :gov.address/lat 25.07188 :gov.address/lon -77.32258
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bih.archives.hq"
+   :gov.address/unit "gov.bih.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bih"
+   :gov.address/line-en "Archives of Bosnia and Herzegovina, Reisa Džemaludina Čauševića 6, Sarajevo"
+   :gov.address/lat 43.85845 :gov.address/lon 18.41388
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.blr.archives.hq"
+   :gov.address/unit "gov.blr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "blr"
+   :gov.address/line-en "National Archives of the Republic of Belarus, Praspiekt Niezaliežnasci 116, Minsk"
+   :gov.address/lat 53.93142 :gov.address/lon 27.64584
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.blz.archives.hq"
+   :gov.address/unit "gov.blz.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "Belize Archives and Records Service, 26/28 Unity Boulevard, Belmopan"
+   :gov.address/lat 17.25218 :gov.address/lon -88.76863
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bol.archives.hq"
+   :gov.address/unit "gov.bol.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bol"
+   :gov.address/line-en "Archivo y Biblioteca Nacionales de Bolivia, Calle España 43, Sucre"
+   :gov.address/lat -19.04878 :gov.address/lon -65.26073
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bra.archives.hq"
+   :gov.address/unit "gov.bra.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bra"
+   :gov.address/line-en "Arquivo Nacional, Praça da República 173, Centro, Rio de Janeiro"
+   :gov.address/lat -22.90652 :gov.address/lon -43.19074
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.brb.archives.hq"
+   :gov.address/unit "gov.brb.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "brb"
+   :gov.address/line-en "Barbados National Archives, Lazaretto Building, Black Rock, St. Michael"
+   :gov.address/lat 13.1366 :gov.address/lon -59.6342
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.brn.archives.hq"
+   :gov.address/unit "gov.brn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "brn"
+   :gov.address/line-en "Brunei National Archives, Bandar Seri Begawan"
+   :gov.address/lat 4.9149 :gov.address/lon 114.9472
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.btn.archives.hq"
+   :gov.address/unit "gov.btn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "btn"
+   :gov.address/line-en "National Library and Archives of Bhutan, Kawajangsa, Thimphu"
+   :gov.address/lat 27.4833 :gov.address/lon 89.63264
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.bwa.archives.hq"
+   :gov.address/unit "gov.bwa.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "bwa"
+   :gov.address/line-en "Botswana National Archives and Records Services, Government Enclave, Gaborone"
+   :gov.address/lat -24.65914 :gov.address/lon 25.91049
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.caf.archives.hq"
+   :gov.address/unit "gov.caf.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "caf"
+   :gov.address/line-en "National Archives of the Central African Republic, Bangui"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.che.archives.hq"
+   :gov.address/unit "gov.che.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "che"
+   :gov.address/line-en "Swiss Federal Archives (Bundesarchiv), Archivstrasse 24, Bern"
+   :gov.address/lat 46.94039 :gov.address/lon 7.44671
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.chl.archives.hq"
+   :gov.address/unit "gov.chl.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "chl"
+   :gov.address/line-en "Archivo Nacional de Chile, Miraflores 50, Santiago"
+   :gov.address/lat -33.44194 :gov.address/lon -70.64528
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cmr.archives.hq"
+   :gov.address/unit "gov.cmr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cmr"
+   :gov.address/line-en "Archives Nationales du Cameroun, Yaoundé"
+   :gov.address/lat 3.85918 :gov.address/lon 11.51799
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cod.archives.hq"
+   :gov.address/unit "gov.cod.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "Institut National des Archives du Congo (INACO), 42 Avenue de la Justice, Gombe, Kinshasa"
+   :gov.address/lat -4.30921 :gov.address/lon 15.28838
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cog.archives.hq"
+   :gov.address/unit "gov.cog.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cog"
+   :gov.address/line-en "Archives Nationales du Congo, Avenue Charles de Gaulle, Bacongo, Brazzaville"
+   :gov.address/lat -4.27937 :gov.address/lon 15.26242
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.col.archives.hq"
+   :gov.address/unit "gov.col.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "col"
+   :gov.address/line-en "Archivo General de la Nación, Carrera 6 No. 6-91, Centro Histórico, Bogotá"
+   :gov.address/lat 4.59394 :gov.address/lon -74.0769
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cpv.archives.hq"
+   :gov.address/unit "gov.cpv.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cpv"
+   :gov.address/line-en "Arquivo Nacional de Cabo Verde, Chã de Areia, Praia"
+   :gov.address/lat 14.9146 :gov.address/lon -23.51134
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cri.archives.hq"
+   :gov.address/unit "gov.cri.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cri"
+   :gov.address/line-en "Archivo Nacional de Costa Rica, Zapote, San José"
+   :gov.address/lat 9.92263 :gov.address/lon -84.04801
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cub.archives.hq"
+   :gov.address/unit "gov.cub.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Archivo Nacional de la República de Cuba, Calle Compostela 906, La Habana Vieja"
+   :gov.address/lat 23.1293 :gov.address/lon -82.3519
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.cze.archives.hq"
+   :gov.address/unit "gov.cze.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "cze"
+   :gov.address/line-en "Národní archiv, Archivní 2257/4, Praha 4-Chodovec"
+   :gov.address/lat 50.045 :gov.address/lon 14.49028
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.deu.archives.hq"
+   :gov.address/unit "gov.deu.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "deu"
+   :gov.address/line-en "Bundesarchiv (German Federal Archives), Potsdamer Straße 1, Koblenz"
+   :gov.address/lat 50.34239 :gov.address/lon 7.57243
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.dji.archives.hq"
+   :gov.address/unit "gov.dji.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "dji"
+   :gov.address/line-en "National Documentation Centre / Archives nationales de Djibouti, Balbala, Djibouti City"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.dom.archives.hq"
+   :gov.address/unit "gov.dom.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "dom"
+   :gov.address/line-en "Archivo General de la Nación, Calle General Modesto Díaz #2, Santo Domingo"
+   :gov.address/lat 18.45791 :gov.address/lon -69.92263
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.dza.archives.hq"
+   :gov.address/unit "gov.dza.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "dza"
+   :gov.address/line-en "Archives nationales d'Algérie, 20 rue Hassan Bennamane, Birkhadem, Algiers"
+   :gov.address/lat 36.72917 :gov.address/lon 3.05861
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ecu.archives.hq"
+   :gov.address/unit "gov.ecu.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "Archivo Nacional del Ecuador, Av. 10 de Agosto N11-539, Quito"
+   :gov.address/lat -0.2148 :gov.address/lon -78.5037
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.egy.archives.hq"
+   :gov.address/unit "gov.egy.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "egy"
+   :gov.address/line-en "Egyptian National Library and Archives (Dar al-Kutub), Corniche el-Nil, Ramlet Boulaq, Cairo"
+   :gov.address/lat 30.06639 :gov.address/lon 31.2275
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.eri.archives.hq"
+   :gov.address/unit "gov.eri.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "eri"
+   :gov.address/line-en "Research and Documentation Center, Asmara"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.esp.archives.hq"
+   :gov.address/unit "gov.esp.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Archivo Histórico Nacional, Calle de Serrano 115, Madrid"
+   :gov.address/lat 40.44066 :gov.address/lon -3.68705
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.est.archives.hq"
+   :gov.address/unit "gov.est.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "est"
+   :gov.address/line-en "National Archives of Estonia (Noora), Nooruse 3, Tartu"
+   :gov.address/lat 58.36578 :gov.address/lon 26.69227
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.eth.archives.hq"
+   :gov.address/unit "gov.eth.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "National Archives and Library of Ethiopia, Yared Street, Addis Ababa"
+   :gov.address/lat 9.018 :gov.address/lon 38.75009
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.fin.archives.hq"
+   :gov.address/unit "gov.fin.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "fin"
+   :gov.address/line-en "National Archives of Finland (Kansallisarkisto), Rauhankatu 17, Helsinki"
+   :gov.address/lat 60.17214 :gov.address/lon 24.95291
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.fji.archives.hq"
+   :gov.address/unit "gov.fji.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "fji"
+   :gov.address/line-en "National Archives of Fiji, 25 Carnarvon Street, Suva"
+   :gov.address/lat -18.14292 :gov.address/lon 178.42399
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.fra.archives.hq"
+   :gov.address/unit "gov.fra.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "fra"
+   :gov.address/line-en "Archives nationales, 59 rue Guynemer, Pierrefitte-sur-Seine"
+   :gov.address/lat 48.94782 :gov.address/lon 2.36407
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.fsm.archives.hq"
+   :gov.address/unit "gov.fsm.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "fsm"
+   :gov.address/line-en "FSM Office of National Archives, Culture & Historic Preservation, Palikir, Pohnpei"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.gab.archives.hq"
+   :gov.address/unit "gov.gab.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "gab"
+   :gov.address/line-en "Archives Nationales du Gabon (DGABD), Batterie IV, Libreville"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.gbr.archives.hq"
+   :gov.address/unit "gov.gbr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "gbr"
+   :gov.address/line-en "The National Archives (TNA), Bessant Drive, Kew, Richmond TW9 4DU"
+   :gov.address/lat 51.48112 :gov.address/lon -0.27921
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.geo.archives.hq"
+   :gov.address/unit "gov.geo.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "geo"
+   :gov.address/line-en "National Archives of Georgia, 1 Vaja-Pshavela Ave, Saburtalo, Tbilisi"
+   :gov.address/lat 41.72847 :gov.address/lon 44.7674
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.gin.archives.hq"
+   :gov.address/unit "gov.gin.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "gin"
+   :gov.address/line-en "Guinea National Library and Archives, Sandervalia, Kaloum, Conakry"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.gtm.archives.hq"
+   :gov.address/unit "gov.gtm.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "gtm"
+   :gov.address/line-en "Archivo General de Centro América (AGCA), 4a Avenida, Zona 1, Guatemala City"
+   :gov.address/lat 14.64192 :gov.address/lon -90.51559
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.guy.archives.hq"
+   :gov.address/unit "gov.guy.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "guy"
+   :gov.address/line-en "National Archives of Guyana (Walter Rodney Archives), Homestretch Avenue, Georgetown"
+   :gov.address/lat 6.80273 :gov.address/lon -58.14052
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.hnd.archives.hq"
+   :gov.address/unit "gov.hnd.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "hnd"
+   :gov.address/line-en "Archivo Nacional de Honduras, Antigua Casa Presidencial, Tegucigalpa"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.hti.archives.hq"
+   :gov.address/unit "gov.hti.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "hti"
+   :gov.address/line-en "Archives Nationales d'Haïti, Port-au-Prince"
+   :gov.address/lat 18.54815 :gov.address/lon -72.3361
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.hun.archives.hq"
+   :gov.address/unit "gov.hun.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "hun"
+   :gov.address/line-en "National Archives of Hungary, Bécsi kapu tér 2-4, Budapest I"
+   :gov.address/lat 47.50493 :gov.address/lon 19.03034
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.idn.archives.hq"
+   :gov.address/unit "gov.idn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "Arsip Nasional Republik Indonesia (ANRI), Jl. Ampera Raya, Cilandak Timur, Jakarta Selatan"
+   :gov.address/lat -6.27867 :gov.address/lon 106.81895
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ind.archives.hq"
+   :gov.address/unit "gov.ind.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "National Archives of India, Janpath, New Delhi"
+   :gov.address/lat 28.62784 :gov.address/lon 77.21897
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.irl.archives.hq"
+   :gov.address/unit "gov.irl.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "irl"
+   :gov.address/line-en "National Archives of Ireland, Bishop Street, Dublin"
+   :gov.address/lat 53.33848 :gov.address/lon -6.26884
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.irn.archives.hq"
+   :gov.address/unit "gov.irn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "irn"
+   :gov.address/line-en "National Library and Archives of Iran, Vanak/Abbasabad, Tehran"
+   :gov.address/lat 35.75237 :gov.address/lon 51.43435
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.irq.archives.hq"
+   :gov.address/unit "gov.irq.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "irq"
+   :gov.address/line-en "Iraq National Library and Archive, Baghdad"
+   :gov.address/lat 33.34644 :gov.address/lon 44.38454
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.isl.archives.hq"
+   :gov.address/unit "gov.isl.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "isl"
+   :gov.address/line-en "National Archives of Iceland (Þjóðskjalasafn), Laugavegur 162, Reykjavik"
+   :gov.address/lat 64.14222 :gov.address/lon -21.90667
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ita.archives.hq"
+   :gov.address/unit "gov.ita.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ita"
+   :gov.address/line-en "Archivio Centrale dello Stato, Piazzale degli Archivi, EUR, Rome"
+   :gov.address/lat 41.82904 :gov.address/lon 12.47538
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.jam.archives.hq"
+   :gov.address/unit "gov.jam.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "jam"
+   :gov.address/line-en "Jamaica Archives and Records Department, King Street, Spanish Town"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.jpn.archives.hq"
+   :gov.address/unit "gov.jpn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "jpn"
+   :gov.address/line-en "National Archives of Japan, 3-2 Kitanomaru-koen, Chiyoda, Tokyo"
+   :gov.address/lat 35.69026 :gov.address/lon 139.75389
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.kaz.archives.hq"
+   :gov.address/unit "gov.kaz.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "kaz"
+   :gov.address/line-en "National Archives of Kazakhstan, Nurzhol Blvd, Astana"
+   :gov.address/lat 51.12778 :gov.address/lon 71.42694
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ken.archives.hq"
+   :gov.address/unit "gov.ken.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Kenya National Archives, Moi Avenue, Nairobi"
+   :gov.address/lat -1.285 :gov.address/lon 36.82594
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.khm.archives.hq"
+   :gov.address/unit "gov.khm.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "khm"
+   :gov.address/line-en "National Archives of Cambodia, Street 61, Daun Penh, Phnom Penh"
+   :gov.address/lat 11.57646 :gov.address/lon 104.92004
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.kor.archives.hq"
+   :gov.address/unit "gov.kor.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "kor"
+   :gov.address/line-en "National Archives of Korea, Government Complex-Daejeon, 189 Cheongsa-ro, Seo-gu, Daejeon"
+   :gov.address/lat 36.361 :gov.address/lon 127.38538
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lbn.archives.hq"
+   :gov.address/unit "gov.lbn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lbn"
+   :gov.address/line-en "Centre des Archives Nationales, Rue Hamra, Beirut"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lbr.archives.hq"
+   :gov.address/unit "gov.lbr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lbr"
+   :gov.address/line-en "Center for National Documents and Records, Tubman Boulevard, Sinkor, Monrovia"
+   :gov.address/lat 6.29226 :gov.address/lon -10.78177
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lby.archives.hq"
+   :gov.address/unit "gov.lby.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lby"
+   :gov.address/line-en "Libyan Center for Archives and Historical Studies, Red Castle complex, Tripoli"
+   :gov.address/lat 32.8961 :gov.address/lon 13.1804
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lca.archives.hq"
+   :gov.address/unit "gov.lca.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lca"
+   :gov.address/line-en "National Archives Authority of Saint Lucia, Clarke Avenue, Vigie, Castries"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lie.archives.hq"
+   :gov.address/unit "gov.lie.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lie"
+   :gov.address/line-en "Liechtensteinisches Landesarchiv, Peter-Kaiser-Platz 2, Vaduz"
+   :gov.address/lat 47.13719 :gov.address/lon 9.5232
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lka.archives.hq"
+   :gov.address/unit "gov.lka.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lka"
+   :gov.address/line-en "Department of National Archives, Independence Avenue, Cinnamon Gardens, Colombo 7"
+   :gov.address/lat 6.90662 :gov.address/lon 79.86505
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lso.archives.hq"
+   :gov.address/unit "gov.lso.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lso"
+   :gov.address/line-en "Lesotho National Library and Archives, Kingsway, Maseru"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.lva.archives.hq"
+   :gov.address/unit "gov.lva.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "lva"
+   :gov.address/line-en "National Archives of Latvia, Šķūņu iela 11, Rīga"
+   :gov.address/lat 56.94917 :gov.address/lon 24.10736
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mar.archives.hq"
+   :gov.address/unit "gov.mar.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mar"
+   :gov.address/line-en "Archives du Maroc, 5 Avenue Ibn Batouta, Agdal, Rabat"
+   :gov.address/lat 34.00943 :gov.address/lon -6.8383
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mda.archives.hq"
+   :gov.address/unit "gov.mda.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mda"
+   :gov.address/line-en "National Archives Agency of Moldova, str. Gheorghe Asachi 67/B, Chișinău"
+   :gov.address/lat 46.99619 :gov.address/lon 28.82058
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mdg.archives.hq"
+   :gov.address/unit "gov.mdg.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdg"
+   :gov.address/line-en "Archives Nationales de Madagascar, 21 Rue Karija, Tsaralalàna, Antananarivo"
+   :gov.address/lat -18.90659 :gov.address/lon 47.51906
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mex.archives.hq"
+   :gov.address/unit "gov.mex.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mex"
+   :gov.address/line-en "Archivo General de la Nación (Palacio de Lecumberri), Av. Eduardo Molina 113, Mexico City"
+   :gov.address/lat 19.43609 :gov.address/lon -99.11316
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mhl.archives.hq"
+   :gov.address/unit "gov.mhl.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mhl"
+   :gov.address/line-en "National Archives of the Marshall Islands (Alele Museum, Library and National Archives), Majuro"
+   :gov.address/lat 7.10764 :gov.address/lon 171.37358
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mli.archives.hq"
+   :gov.address/unit "gov.mli.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mli"
+   :gov.address/line-en "Direction Nationale des Archives du Mali, Hamdallaye ACI 2000, Bamako"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mlt.archives.hq"
+   :gov.address/unit "gov.mlt.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mlt"
+   :gov.address/line-en "National Archives of Malta (Santo Spirito), Rabat"
+   :gov.address/lat 35.88197 :gov.address/lon 14.40131
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mmr.archives.hq"
+   :gov.address/unit "gov.mmr.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mmr"
+   :gov.address/line-en "National Archives Department, 114 Pyidaungsu Yeiktha Road, Dagon, Yangon"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mng.archives.hq"
+   :gov.address/unit "gov.mng.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mng"
+   :gov.address/line-en "National Archives of Mongolia (National Central Archives), Ulaanbaatar"
+   :gov.address/lat 47.84121 :gov.address/lon 106.78977
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.moz.archives.hq"
+   :gov.address/unit "gov.moz.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "moz"
+   :gov.address/line-en "Arquivo Histórico de Moçambique, Rua do Bagamoyo, Maputo"
+   :gov.address/lat -25.97386 :gov.address/lon 32.56924
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mrt.archives.hq"
+   :gov.address/unit "gov.mrt.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mrt"
+   :gov.address/line-en "Archives Nationales de Mauritanie, Avenue de l'Indépendance, Nouakchott"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mus.archives.hq"
+   :gov.address/unit "gov.mus.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mus"
+   :gov.address/line-en "National Archives of Mauritius, DBM Complex, Coromandel, Petite Rivière"
+   :gov.address/lat -20.1884 :gov.address/lon 57.4682
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mwi.archives.hq"
+   :gov.address/unit "gov.mwi.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mwi"
+   :gov.address/line-en "National Archives of Malawi, Sir Glyn Jones Road, Zomba"
+   :gov.address/lat -15.38363 :gov.address/lon 35.31526
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.mys.archives.hq"
+   :gov.address/unit "gov.mys.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Arkib Negara Malaysia, Jalan Tuanku Abdul Halim, Kuala Lumpur"
+   :gov.address/lat 3.17676 :gov.address/lon 101.67497
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nam.archives.hq"
+   :gov.address/unit "gov.nam.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "nam"
+   :gov.address/line-en "National Archives of Namibia, Eugène Marais Street, Windhoek"
+   :gov.address/lat -22.55719 :gov.address/lon 17.08633
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ner.archives.hq"
+   :gov.address/unit "gov.ner.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ner"
+   :gov.address/line-en "Archives Nationales du Niger, central Niamey"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nga.archives.hq"
+   :gov.address/unit "gov.nga.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "nga"
+   :gov.address/line-en "National Archives of Nigeria, Ibadan branch (Univ. of Ibadan campus); admin HQ Abuja"
+   :gov.address/lat 7.44897 :gov.address/lon 3.8991
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nic.archives.hq"
+   :gov.address/unit "gov.nic.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "nic"
+   :gov.address/line-en "Archivo General de la Nación, Palacio Nacional de la Cultura, Managua"
+   :gov.address/lat 12.15555 :gov.address/lon -86.27208
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nld.archives.hq"
+   :gov.address/unit "gov.nld.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "nld"
+   :gov.address/line-en "Nationaal Archief, Prins Willem-Alexanderhof 20, The Hague"
+   :gov.address/lat 52.08097 :gov.address/lon 4.32625
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nor.archives.hq"
+   :gov.address/unit "gov.nor.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "nor"
+   :gov.address/line-en "Arkivverket / Riksarkivet, Sognsveien 221, Oslo"
+   :gov.address/lat 59.96684 :gov.address/lon 10.73622
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.nzl.archives.hq"
+   :gov.address/unit "gov.nzl.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "nzl"
+   :gov.address/line-en "Archives New Zealand (Te Rua Mahara o te Kāwanatanga), 10 Mulgrave Street, Wellington"
+   :gov.address/lat -41.27717 :gov.address/lon 174.78
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.pak.archives.hq"
+   :gov.address/unit "gov.pak.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "National Archives of Pakistan, Constitution Avenue, Red Zone, Islamabad"
+   :gov.address/lat 33.74006 :gov.address/lon 73.09476
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.pan.archives.hq"
+   :gov.address/unit "gov.pan.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "pan"
+   :gov.address/line-en "Archivo Nacional de Panamá, Avenida Perú, Calidonia, Panama City"
+   :gov.address/lat 8.96863 :gov.address/lon -79.53798
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.phl.archives.hq"
+   :gov.address/unit "gov.phl.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "phl"
+   :gov.address/line-en "National Archives of the Philippines, National Library Building, T.M. Kalaw Avenue, Ermita, Manila"
+   :gov.address/lat 14.58205 :gov.address/lon 120.98104
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.plw.archives.hq"
+   :gov.address/unit "gov.plw.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "plw"
+   :gov.address/line-en "Palau National Archives, Bureau of Arts & Culture, Koror"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.png.archives.hq"
+   :gov.address/unit "gov.png.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "National Archives & Public Records Services of PNG, Waigani, Port Moresby"
+   :gov.address/lat -9.43244 :gov.address/lon 147.19094
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.pol.archives.hq"
+   :gov.address/unit "gov.pol.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "pol"
+   :gov.address/line-en "Archiwum Główne Akt Dawnych, Raczyński Palace, ul. Długa 7, Warsaw"
+   :gov.address/lat 52.25002 :gov.address/lon 21.00833
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.pry.archives.hq"
+   :gov.address/unit "gov.pry.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "pry"
+   :gov.address/line-en "Archivo Nacional de Asunción, Mariscal Estigarribia esq. Iturbe, Asunción"
+   :gov.address/lat -25.28347 :gov.address/lon -57.63225
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.rou.archives.hq"
+   :gov.address/unit "gov.rou.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Arhivele Naționale ale României, B-dul Regina Elisabeta 49, Bucharest"
+   :gov.address/lat 44.43404 :gov.address/lon 26.09267
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.rus.archives.hq"
+   :gov.address/unit "gov.rus.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "rus"
+   :gov.address/line-en "State Archive of the Russian Federation (GARF), Bolshaya Pirogovskaya ul. 17, Moscow"
+   :gov.address/lat 55.7332 :gov.address/lon 37.57563
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.rwa.archives.hq"
+   :gov.address/unit "gov.rwa.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "rwa"
+   :gov.address/line-en "National Archives of Rwanda, Kigali"
+   :gov.address/lat -1.96832 :gov.address/lon 30.08911
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sau.archives.hq"
+   :gov.address/unit "gov.sau.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "sau"
+   :gov.address/line-en "King Abdulaziz Foundation (Darah), Al Murabba, Riyadh"
+   :gov.address/lat 24.64828 :gov.address/lon 46.70909
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sdn.archives.hq"
+   :gov.address/unit "gov.sdn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "National Records Office (Dar al-Watha'iq al-Qawmiyya), Khartoum"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sen.archives.hq"
+   :gov.address/unit "gov.sen.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "sen"
+   :gov.address/line-en "Archives nationales du Sénégal, Immeuble Central Park, Avenue Malick Sy, Dakar"
+   :gov.address/lat 14.68233 :gov.address/lon -17.44019
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sgp.archives.hq"
+   :gov.address/unit "gov.sgp.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "National Archives of Singapore, 1 Canning Rise, Singapore"
+   :gov.address/lat 1.29305 :gov.address/lon 103.84849
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.slb.archives.hq"
+   :gov.address/unit "gov.slb.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "slb"
+   :gov.address/line-en "National Archives of Solomon Islands, Hibiscus Avenue, Honiara"
+   :gov.address/lat -9.43245 :gov.address/lon 159.95404
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sle.archives.hq"
+   :gov.address/unit "gov.sle.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "sle"
+   :gov.address/line-en "Sierra Leone Public Archives, Fourah Bay College, Mount Aureol, Freetown"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.slv.archives.hq"
+   :gov.address/unit "gov.slv.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Archivo General de la Nación, Biblioteca Nacional (BINAES), Centro Histórico, San Salvador"
+   :gov.address/lat 13.69671 :gov.address/lon -89.19126
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.srb.archives.hq"
+   :gov.address/unit "gov.srb.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "srb"
+   :gov.address/line-en "Archives of Serbia (Arhiv Srbije), Karnegijeva 2, Belgrade"
+   :gov.address/lat 44.80685 :gov.address/lon 20.47511
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ssd.archives.hq"
+   :gov.address/unit "gov.ssd.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ssd"
+   :gov.address/line-en "National Archives of South Sudan, Juba"
+   :gov.address/lat 4.87991 :gov.address/lon 31.57626
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.stp.archives.hq"
+   :gov.address/unit "gov.stp.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "stp"
+   :gov.address/line-en "Arquivo Histórico de São Tomé e Príncipe, Praça da Cultura, São Tomé"
+   :gov.address/lat 0.33967 :gov.address/lon 6.73634
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.sur.archives.hq"
+   :gov.address/unit "gov.sur.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "sur"
+   :gov.address/line-en "Nationaal Archief Suriname, Mr. Jagernath Lachmonstraat 174, Paramaribo"
+   :gov.address/lat 5.81113 :gov.address/lon -55.21167
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.svk.archives.hq"
+   :gov.address/unit "gov.svk.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "svk"
+   :gov.address/line-en "Slovenský národný archív, Drotárska cesta 42, Bratislava"
+   :gov.address/lat 48.15983 :gov.address/lon 17.08204
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.svn.archives.hq"
+   :gov.address/unit "gov.svn.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "svn"
+   :gov.address/line-en "Arhiv Republike Slovenije, Gruberjeva palača, Zvezdarska 1, Ljubljana"
+   :gov.address/lat 46.04566 :gov.address/lon 14.50678
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.swe.archives.hq"
+   :gov.address/unit "gov.swe.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "swe"
+   :gov.address/line-en "Riksarkivet (National Archives of Sweden), Fyrverkarbacken 13, Marieberg, Stockholm"
+   :gov.address/lat 59.3267 :gov.address/lon 18.0228
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.swz.archives.hq"
+   :gov.address/unit "gov.swz.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "swz"
+   :gov.address/line-en "Eswatini National Archives, Lobamba"
+   :gov.address/lat -26.44537 :gov.address/lon 31.20733
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.syc.archives.hq"
+   :gov.address/unit "gov.syc.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "Seychelles National Archives, Helena Complex, Île du Port, Victoria"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tgo.archives.hq"
+   :gov.address/unit "gov.tgo.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tgo"
+   :gov.address/line-en "Archives Nationales du Togo, Lomé"
+   :gov.address/lat 6.12944 :gov.address/lon 1.21889
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tha.archives.hq"
+   :gov.address/unit "gov.tha.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tha"
+   :gov.address/line-en "National Archives of Thailand, Samsen Road, Dusit, Bangkok"
+   :gov.address/lat 13.7733 :gov.address/lon 100.5045
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tkm.archives.hq"
+   :gov.address/unit "gov.tkm.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tkm"
+   :gov.address/line-en "Central State Archive of Turkmenistan, Ashgabat"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tls.archives.hq"
+   :gov.address/unit "gov.tls.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tls"
+   :gov.address/line-en "National Archives of Timor-Leste, Dili"
+   :gov.address/lat -8.55944 :gov.address/lon 125.57389
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tto.archives.hq"
+   :gov.address/unit "gov.tto.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tto"
+   :gov.address/line-en "National Archives of Trinidad and Tobago, 105 St Vincent Street, Port of Spain"
+   :gov.address/lat 10.6602 :gov.address/lon -61.5121
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tun.archives.hq"
+   :gov.address/unit "gov.tun.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tun"
+   :gov.address/line-en "Archives nationales de Tunisie, Boulevard du 9 Avril 1938, Tunis"
+   :gov.address/lat 36.7997 :gov.address/lon 10.1649
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tur.archives.hq"
+   :gov.address/unit "gov.tur.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tur"
+   :gov.address/line-en "Devlet Arşivleri Başkanlığı (State Archives), Gayret Mah. 95. Sokak No:3, Yenimahalle, Ankara"
+   :gov.address/lat 39.96347 :gov.address/lon 32.79895
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tuv.archives.hq"
+   :gov.address/unit "gov.tuv.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tuv"
+   :gov.address/line-en "Tuvalu National Library and Archives, Vaiaku Road, Funafuti"
+   :gov.address/lat -8.52028 :gov.address/lon 179.05028
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.tza.archives.hq"
+   :gov.address/unit "gov.tza.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "tza"
+   :gov.address/line-en "Tanzania National Archives, Vijibweni Street, Upanga, Dar es Salaam"
+   :gov.address/lat -6.8095 :gov.address/lon 39.2857
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ury.archives.hq"
+   :gov.address/unit "gov.ury.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ury"
+   :gov.address/line-en "Archivo General de la Nación, Convención 1474, Montevideo"
+   :gov.address/lat -34.90512 :gov.address/lon -56.19708
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.usa.archives.hq"
+   :gov.address/unit "gov.usa.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "National Archives and Records Administration (NARA), 700 Pennsylvania Ave NW, Washington DC"
+   :gov.address/lat 38.89281 :gov.address/lon -77.02311
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.uzb.archives.hq"
+   :gov.address/unit "gov.uzb.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "uzb"
+   :gov.address/line-en "Central State Archive of Uzbekistan, Chilanzar, Tashkent"
+   :gov.address/lat 41.29629 :gov.address/lon 69.23708
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.ven.archives.hq"
+   :gov.address/unit "gov.ven.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "ven"
+   :gov.address/line-en "Archivo General de la Nación, Foro Libertador, Avenida Panteón, Caracas"
+   :gov.address/lat 10.51306 :gov.address/lon -66.91167
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.vnm.archives.hq"
+   :gov.address/unit "gov.vnm.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "vnm"
+   :gov.address/line-en "State Records Management & Archives Department, 12 Đào Tấn, Ba Đình, Hanoi"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.zaf.archives.hq"
+   :gov.address/unit "gov.zaf.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "National Archives of South Africa, 24 Hamilton Street, Arcadia, Pretoria"
+   :gov.address/lat -25.73615 :gov.address/lon 28.20582
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.zmb.archives.hq"
+   :gov.address/unit "gov.zmb.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "zmb"
+   :gov.address/line-en "National Archives of Zambia, Bwinjimfumu Road, Ridgeway, Lusaka"
+   :gov.address/lat -15.42661 :gov.address/lon 28.31021
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
+
+  {:gov.address/id "addr.gov.zwe.archives.hq"
+   :gov.address/unit "gov.zwe.archives"
+   :gov.address/kind :headquarters
+   :gov.address/country "zwe"
+   :gov.address/line-en "National Archives of Zimbabwe, cnr Borrowdale Road & Ruth Taylor Avenue, Gun Hill, Harare"
+   :gov.address/lat -17.80181 :gov.address/lon 31.038
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-05"}
 ]}

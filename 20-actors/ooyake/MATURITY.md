@@ -43,6 +43,24 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — L3 ADDRESS: national archives — full sweep (701 → 845)
+
+Single-tier deep sweep: ALL 144 national ARCHIVES still missing an address. 12 web-research
+subagents (12 each). 144 added; **122 building-level lat/lon (85%), 22 honest line-en-only (G5)** —
+strong coverage because national archives are well-mapped in Wikidata P625 / named OSM building nodes.
+
+- agencies: 701 → **845/1049 (81%)** with an address record.
+- **3 data-quality name fixes** (mislabel → correct NATIONAL body):
+  - gov.gbr.archives "Gibraltar Archives" → **The National Archives (TNA), Kew** (UK national archive)
+  - gov.pry.archives "National Library of Paraguay" → **Archivo Nacional de Asunción**
+  - gov.srb.archives "Archives of Yugoslavia" → **Archives of Serbia (Arhiv Srbije)** (Karnegijeva 2)
+- honest notes: El Salvador AGN moved into BINAES (Nov 2023); Korea HQ is the Daejeon Government
+  Complex (Seoul is a branch); Nigeria coord = Ibadan principal repository (admin HQ Abuja
+  un-geocodable); 22 nulls are war-damaged / PO-box-only / relocated institutions (Sudan, Eritrea,
+  Lebanon, Mali, Myanmar, Niger, Mauritania, Palau, Sierra Leone, Turkmenistan, Vietnam, etc.).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — L3 ADDRESS: oversight bodies + meteorology (617 → 701)
 
 Closed out the accountability/oversight cluster (12 ombudsman + 11 prosecutor + 4 audit +

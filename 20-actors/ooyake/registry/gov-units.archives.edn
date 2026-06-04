@@ -27,7 +27,7 @@
    :gov.unit/parent "gov.gbr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "Gibraltar Archives"
+   :gov.unit/name-en "The National Archives (TNA), Kew"
    :gov.unit/official-url "http://www.gibraltar.gov.gi/gibraltar-archives"
    :gov.unit/wikidata "Q197928"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -279,7 +279,7 @@
    :gov.unit/parent "gov.srb"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
-   :gov.unit/name-en "Archives of Yugoslavia"
+   :gov.unit/name-en "Archives of Serbia (Arhiv Srbije)"
    :gov.unit/official-url "http://www.arhivyu.gov.rs/active/en/home.html"
    :gov.unit/wikidata "Q2860440"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1005,7 +1005,7 @@
    :gov.unit/parent "gov.pry"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pry"
-   :gov.unit/name-en "National Library of Paraguay"
+   :gov.unit/name-en "Archivo Nacional de Asunción"
    :gov.unit/official-url "http://bibliotecanacional.gov.py/"
    :gov.unit/wikidata "Q6974168"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
