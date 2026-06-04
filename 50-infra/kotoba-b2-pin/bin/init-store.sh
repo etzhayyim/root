@@ -42,15 +42,16 @@ if [[ "$TEST_ONLY" == "0" ]]; then
   if git annex info "$B2_ANNEX_REMOTE" >/dev/null 2>&1; then
     log "remote $B2_ANNEX_REMOTE already initialised"
   else
-    log "initremote $B2_ANNEX_REMOTE (S3 -> $B2_S3_HOST / bucket $B2_KOTOBA_BUCKET)"
+    log "initremote $B2_ANNEX_REMOTE (S3 -> $B2_S3_HOST / bucket $B2_KOTOBA_BUCKET / prefix $B2_FILEPREFIX)"
     git annex initremote "$B2_ANNEX_REMOTE" \
       type=S3 \
       host="$B2_S3_HOST" port=443 protocol=https \
       bucket="$B2_KOTOBA_BUCKET" \
+      fileprefix="$B2_FILEPREFIX" \
+      datacenter="$B2_S3_REGION" \
+      signature=v4 \
       encryption=none embedcreds=no \
-      autoenable=true \
-      "signature=v4" \
-      datacenter="${B2_S3_HOST#s3.}"
+      autoenable=true
   fi
 fi
 

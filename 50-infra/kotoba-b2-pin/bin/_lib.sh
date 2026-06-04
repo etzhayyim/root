@@ -25,17 +25,23 @@ set -euo pipefail
 # the internal boot disk; git metadata is tiny and the durable index.
 : "${KOTOBA_B2_STORE:=/Volumes/260317/etzhayyim/kotoba-b2-pin-store}"
 
-# B2 (S3-compatible) target. Bucket + region come from the operator / deps.toml
-# convention (B2_ENDPOINT default region us-west-004).
+# B2 (S3-compatible) target. Defaults match the existing 1Password item
+# `gftd.b2/datasets` (vault gftdcojp): a bucket-scoped S3 key for bucket
+# `ai-gftd-datasets`. kotoba blocks are isolated under a key prefix so they
+# never collide with the dataset objects already in that bucket.
 : "${B2_S3_HOST:=s3.us-west-004.backblazeb2.com}"
-: "${B2_KOTOBA_BUCKET:=etzhayyim-kotoba-blockstore}"
+: "${B2_S3_REGION:=us-west-004}"
+: "${B2_KOTOBA_BUCKET:=ai-gftd-datasets}"
+: "${B2_FILEPREFIX:=kotoba-blockstore/}"
 : "${B2_ANNEX_REMOTE:=b2}"
 
-# 1Password item reference for the B2 application key. Override to match the
-# actual vault/item. Fields expected: "access key id" + "secret access key"
-# (or set B2_OP_KEYID_REF / B2_OP_SECRET_REF to full op:// references).
-: "${B2_OP_ITEM:=Backblaze B2 — etzhayyim kotoba}"
-: "${B2_OP_VAULT:=Private}"
+# 1Password references for the B2 application key (op:// item-id form so the
+# slash in the item title 'gftd.b2/datasets' doesn't break path parsing).
+: "${B2_OP_KEYID_REF:=op://gftdcojp/qeskpcwf55wgho6dxjme4dusgi/keyID}"
+: "${B2_OP_SECRET_REF:=op://gftdcojp/qeskpcwf55wgho6dxjme4dusgi/applicationKey}"
+# Fallback item lookup (used only if the op:// refs are cleared).
+: "${B2_OP_ITEM:=gftd.b2/datasets}"
+: "${B2_OP_VAULT:=gftdcojp}"
 
 log()  { printf '\033[2m[b2-pin]\033[0m %s\n' "$*" >&2; }
 die()  { printf '\033[31m[b2-pin] ERROR:\033[0m %s\n' "$*" >&2; exit 1; }
@@ -45,8 +51,14 @@ need() { command -v "$1" >/dev/null 2>&1 || die "missing tool: $1"; }
 # Resolve B2 creds from 1Password into AWS_* env (git-annex S3 reads those).
 # Honors pre-set AWS_ACCESS_KEY_ID/SECRET (CI / op run) — only calls op if unset.
 load_b2_creds() {
-  if [[ -n "${AWS_ACCESS_KEY_ID:-}" && -n "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
-    log "B2 creds: using pre-set AWS_* env"
+  # Explicit B2 op:// references win over any ambient AWS_*/B2_* env — the host
+  # shell often has unrelated AWS_/R2 creds set, which would 403 against B2.
+  if [[ -n "${B2_OP_KEYID_REF:-}" && -n "${B2_OP_SECRET_REF:-}" ]]; then
+    need op
+    AWS_ACCESS_KEY_ID="$(op read "$B2_OP_KEYID_REF")"     || die "op read keyid failed (unlock 1Password: '! eval \$(op signin)')"
+    AWS_SECRET_ACCESS_KEY="$(op read "$B2_OP_SECRET_REF")" || die "op read secret failed"
+    export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+    log "B2 creds: loaded from 1Password (op refs)"
     return 0
   fi
   if [[ -n "${B2_ACCESS_KEY_ID:-}" && -n "${B2_SECRET_ACCESS_KEY:-}" ]]; then
@@ -55,10 +67,12 @@ load_b2_creds() {
     log "B2 creds: using pre-set B2_* env"
     return 0
   fi
+  if [[ -n "${AWS_ACCESS_KEY_ID:-}" && -n "${AWS_SECRET_ACCESS_KEY:-}" ]]; then
+    log "B2 creds: using pre-set AWS_* env"
+    return 0
+  fi
   need op
-  if [[ -n "${B2_OP_KEYID_REF:-}" && -n "${B2_OP_SECRET_REF:-}" ]]; then
-    AWS_ACCESS_KEY_ID="$(op read "$B2_OP_KEYID_REF")"   || die "op read keyid failed (unlock 1Password: '! eval \$(op signin)')"
-    AWS_SECRET_ACCESS_KEY="$(op read "$B2_OP_SECRET_REF")" || die "op read secret failed"
+  if false; then :
   else
     AWS_ACCESS_KEY_ID="$(op item get "$B2_OP_ITEM" --vault "$B2_OP_VAULT" --fields label='access key id' --reveal 2>/dev/null)" \
       || die "op item get failed — unlock 1Password ('! eval \$(op signin)') and/or set B2_OP_ITEM/B2_OP_VAULT or B2_OP_KEYID_REF/B2_OP_SECRET_REF"
