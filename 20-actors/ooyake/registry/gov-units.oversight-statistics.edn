@@ -703,6 +703,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "CYSTAT"
+   :gov.unit/name-local "Στατιστική Υπηρεσία Κύπρου"
+   :gov.unit/name-romanized "Statistiki Ypiresia Kyprou"
    :gov.unit/official-url "http://www.cystat.gov.cy/"
    :gov.unit/wikidata "Q28863790"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1076,6 +1078,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israel Central Bureau of Statistics"
+   :gov.unit/name-local "הלשכה המרכזית לסטטיסטיקה"
+   :gov.unit/name-romanized "HaLishka HaMerkazit LeStatistika"
    :gov.unit/official-url "https://www.cbs.gov.il/he"
    :gov.unit/wikidata "Q1043319"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1662,6 +1666,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "National Statistics and Information Authority"
+   :gov.unit/name-local "اداره ملی احصائیه و معلومات"
+   :gov.unit/name-romanized "Edara-ye Melli-ye Ehsaiya wa Malumat"
    :gov.unit/official-url "http://cso.gov.af/"
    :gov.unit/wikidata "Q5061867"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

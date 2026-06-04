@@ -571,6 +571,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "National Library of Afghanistan"
+   :gov.unit/name-local "کتابخانه عامه افغانستان"
+   :gov.unit/name-romanized "Ketabkhana-ye Amma-ye Afghanistan"
    :gov.unit/wikidata "Q59286291"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q59286291" :gov.unit/last-verified "2026-06-04"
@@ -1374,6 +1376,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "National Library of Israel"
+   :gov.unit/name-local "הספרייה הלאומית של ישראל"
+   :gov.unit/name-romanized "HaSifriya HaLe'umit shel Yisra'el"
    :gov.unit/official-url "https://nli.org.il/"
    :gov.unit/wikidata "Q188915"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1398,6 +1402,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Cyprus Library"
+   :gov.unit/name-local "Κυπριακή Βιβλιοθήκη"
+   :gov.unit/name-romanized "Kypriaki Vivliothiki"
    :gov.unit/official-url "http://www.cypruslibrary.gov.cy/"
    :gov.unit/wikidata "Q245888"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1655,6 +1661,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "National Library of Maldives"
+   :gov.unit/name-local "ޤައުމީ ކުތުބުޚާނާ"
+   :gov.unit/name-romanized "Qaumee Kuthubukhaanaa"
    :gov.unit/official-url "http://www.nlm.gov.mv/"
    :gov.unit/wikidata "Q625021"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

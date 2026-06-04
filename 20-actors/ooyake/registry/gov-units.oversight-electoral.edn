@@ -365,6 +365,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israeli Central Elections Committee"
+   :gov.unit/name-local "ועדת הבחירות המרכזית לכנסת"
+   :gov.unit/name-romanized "Va'adat HaBechirot HaMerkazit la'Knesset"
    :gov.unit/official-url "https://www.bechirot.gov.il/"
    :gov.unit/wikidata "Q2356351"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

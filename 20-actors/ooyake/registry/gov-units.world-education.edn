@@ -17,6 +17,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارت معارف"
+   :gov.unit/name-romanized "Wizarat-i Ma'arif"
    :gov.unit/official-url "http://moe.gov.af/en"
    :gov.unit/wikidata "Q6866838"
    :gov.unit/cofog ["09"]
@@ -378,6 +380,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Education and Skills Development"
+   :gov.unit/name-local "ཤེས་རིག་དང་རིག་རྩལ་གོང་འཕེལ་ལྷན་ཁག"
+   :gov.unit/name-romanized "shes rig dang rig rtsal gong phel lhan khag"
    :gov.unit/official-url "https://education.gov.bt/"
    :gov.unit/wikidata "Q18345328"
    :gov.unit/cofog ["09"]
@@ -524,6 +528,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Education, Sports and Youth"
+   :gov.unit/name-local "Υπουργείο Παιδείας, Αθλητισμού και Νεολαίας"
+   :gov.unit/name-romanized "Ypourgeio Paideias, Athlitismou kai Neolaias"
    :gov.unit/official-url "http://www.moec.gov.cy/"
    :gov.unit/wikidata "Q6590376"
    :gov.unit/cofog ["09"]
@@ -902,6 +908,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israel Ministry of Education"
+   :gov.unit/name-local "משרד החינוך"
+   :gov.unit/name-romanized "Misrad HaChinuch"
    :gov.unit/official-url "https://www.edu.gov.il/"
    :gov.unit/wikidata "Q2590151"
    :gov.unit/cofog ["09"]
@@ -1222,6 +1230,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "ތަޢުލީމާއި މަތީ ތަޢުލީމާއި ހުނަރުތައް ތަރައްޤީކުރުމާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Thauleemaai Mathee Thauleemaai Hunaruthah Tharaqqeekurumaa Behey Vuzaaraa"
    :gov.unit/official-url "https://presidency.gov.mv/Government/Officials/17/"
    :gov.unit/wikidata "Q30612846"
    :gov.unit/cofog ["09"]

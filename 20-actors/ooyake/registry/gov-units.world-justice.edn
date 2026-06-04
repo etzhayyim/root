@@ -17,6 +17,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارت عدلیه"
+   :gov.unit/name-romanized "Wezarat-e Adliya"
    :gov.unit/official-url "https://moj.gov.af/en"
    :gov.unit/wikidata "Q6867294"
    :gov.unit/cofog ["03.3"]
@@ -509,6 +511,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Justice and Public Order"
+   :gov.unit/name-local "Υπουργείο Δικαιοσύνης και Δημοσίας Τάξεως"
+   :gov.unit/name-romanized "Ypourgeio Dikaiosynis kai Dimosias Taxeos"
    :gov.unit/official-url "https://www.gov.cy/mjpo/"
    :gov.unit/wikidata "Q6867322"
    :gov.unit/cofog ["03.3"]
@@ -902,6 +906,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Justice of Israel"
+   :gov.unit/name-local "משרד המשפטים"
+   :gov.unit/name-romanized "Misrad HaMishpatim"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_justice"
    :gov.unit/wikidata "Q19315413"
    :gov.unit/cofog ["03.3"]

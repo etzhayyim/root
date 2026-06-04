@@ -30,6 +30,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارت دفاع ملی"
+   :gov.unit/name-romanized "Wizarat-i Difa'-i Milli"
    :gov.unit/official-url "http://www.mod.gov.af"
    :gov.unit/wikidata "Q2982461"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -318,6 +320,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "Υπουργείο Άμυνας"
+   :gov.unit/name-romanized "Ypourgeio Amynas"
    :gov.unit/official-url "https://www.gov.cy/mod/"
    :gov.unit/wikidata "Q12885629"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -651,6 +655,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "משרד הביטחון"
+   :gov.unit/name-romanized "Misrad HaBitachon"
    :gov.unit/official-url "https://mod.gov.il/"
    :gov.unit/wikidata "Q1862884"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

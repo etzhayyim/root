@@ -244,6 +244,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "National Library of Bhutan"
+   :gov.unit/name-local "འབྲུག་རྒྱལ་ཡོངས་དཔེ་མཛོད"
+   :gov.unit/name-romanized "Druk Gyelyong Pedzo"
    :gov.unit/official-url "http://www.library.gov.bt/index.html"
    :gov.unit/wikidata "Q2602355"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -346,6 +348,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "National Archives of Afghanistan"
+   :gov.unit/name-local "آرشیف ملی افغانستان"
+   :gov.unit/name-romanized "Arshif-i Milli-yi Afghanistan"
    :gov.unit/wikidata "Q2860544"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2860544" :gov.unit/last-verified "2026-06-04"

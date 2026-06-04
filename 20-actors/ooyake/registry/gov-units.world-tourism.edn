@@ -211,6 +211,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Deputy Ministry Of Tourism (Cyprus)"
+   :gov.unit/name-local "Υφυπουργείο Τουρισμού"
+   :gov.unit/name-romanized "Yfypourgeio Tourismou"
    :gov.unit/official-url "https://www.gov.cy/tourism/"
    :gov.unit/wikidata "Q86689369"
    :gov.unit/cofog ["04.7"]
@@ -361,6 +363,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "משרד התיירות"
+   :gov.unit/name-romanized "Misrad HaTayarut"
    :gov.unit/official-url "https://www.gov.il/ar/departments/ministry_of_tourism/govil-landing-page"
    :gov.unit/wikidata "Q2565132"
    :gov.unit/cofog ["04.7"]
@@ -497,6 +501,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "ފަތުރުވެރިކަމާއި މަދަނީ އުދުހުންތަކާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Fathuruverikamaai Madhanee Udhuhunthakaa Behey Vuzaaraa"
    :gov.unit/official-url "https://www.tourism.gov.mv/"
    :gov.unit/wikidata "Q30612667"
    :gov.unit/cofog ["04.7"]

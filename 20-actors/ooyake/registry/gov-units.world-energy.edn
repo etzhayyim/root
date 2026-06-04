@@ -16,6 +16,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Water and Energy Islamic Emirate of Afganistan"
+   :gov.unit/name-local "وزارت انرژی و آب"
+   :gov.unit/name-romanized "Wizarat-i Inarji wa Ab"
    :gov.unit/official-url "http://mew.gov.af/en/"
    :gov.unit/wikidata "Q6867648"
    :gov.unit/cofog ["04.3"]
@@ -362,6 +364,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Energy, Commerce and Industry"
+   :gov.unit/name-local "Υπουργείο Ενέργειας, Εμπορίου και Βιομηχανίας"
+   :gov.unit/name-romanized "Ypourgeio Energeias, Emporiou kai Viomichanias"
    :gov.unit/official-url "https://www.gov.cy/meci/"
    :gov.unit/wikidata "Q16737595"
    :gov.unit/cofog ["04.3"]
@@ -592,6 +596,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Energy and infrastructures"
+   :gov.unit/name-local "משרד האנרגיה והתשתיות"
+   :gov.unit/name-romanized "Misrad HaEnergiya veHaTashtiyot"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_energy"
    :gov.unit/wikidata "Q4294949"
    :gov.unit/cofog ["04.3"]

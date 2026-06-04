@@ -381,6 +381,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Agriculture, Rural Development and Environment"
+   :gov.unit/name-local "Υπουργείο Γεωργίας, Αγροτικής Ανάπτυξης και Περιβάλλοντος"
+   :gov.unit/name-romanized "Ypourgeio Georgias, Agrotikis Anaptyxis kai Perivallontos"
    :gov.unit/official-url "https://www.gov.cy/moa/"
    :gov.unit/wikidata "Q30285142"
    :gov.unit/cofog ["05"]
@@ -677,6 +679,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Environmental Protection"
+   :gov.unit/name-local "המשרד להגנת הסביבה"
+   :gov.unit/name-romanized "HaMisrad leHaganat HaSviva"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_environmental_protection"
    :gov.unit/wikidata "Q2907759"
    :gov.unit/cofog ["05"]

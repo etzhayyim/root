@@ -27,6 +27,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Da Afghanistan Bank"
+   :gov.unit/name-local "د افغانستان بانک"
+   :gov.unit/name-romanized "Da Afghanistan Bank"
    :gov.unit/official-url "http://dab.gov.af/en"
    :gov.unit/wikidata "Q1156372"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -301,6 +303,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Royal Monetary Authority of Bhutan"
+   :gov.unit/name-local "རྒྱལ་གཞུང་དངུལ་ལས་དབང་འཛིན"
+   :gov.unit/name-romanized "Gyalzhung Ngultreltsel Wangdzin"
    :gov.unit/official-url "http://www.rma.org.bt"
    :gov.unit/wikidata "Q1144649"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -434,6 +438,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Central Bank of Cyprus"
+   :gov.unit/name-local "Κεντρική Τράπεζα της Κύπρου"
+   :gov.unit/name-romanized "Kentriki Trapeza tis Kyprou"
    :gov.unit/official-url "http://www.centralbank.cy"
    :gov.unit/wikidata "Q74693"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -760,6 +766,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Bank of Israel"
+   :gov.unit/name-local "בנק ישראל"
+   :gov.unit/name-romanized "Bank Yisrael"
    :gov.unit/official-url "https://www.boi.org.il/"
    :gov.unit/wikidata "Q244411"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

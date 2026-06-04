@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: final non-Latin sweep IL/CY/BT/MV/AF (934 → 1013)
+
+Closed the remaining sizeable non-Latin jurisdictions. 8 web-research subagents. **79 endonyms added
+with romanization** (Israel 22 Hebrew, Cyprus 21 Greek, Bhutan 12 Dzongkha, Maldives 8 Dhivehi/Thaana,
+Afghanistan 16 Dari). **all-units name-local crosses 1,000 → 1013.**
+
+- scripts: Hebrew (הכנסת/HaKnesset, בית המשפט העליון), Greek-Cyprus (Βουλή των Αντιπροσώπων), Dzongkha
+  Tibetan (ལྷན་རྒྱས་གཞུང་ཚོགས/Lhengye Zhungtshog), Dhivehi Thaana (ރައްޔިތުންގެ މަޖިލިސް/Rayyithunge
+  Majlis, RTL), Dari Perso-Arabic (ستره محکمه, د افغانستان بانک) — all with romanization.
+- **5 honest nulls (G5)**: Bhutan anticorruption + statistics (English-only sites, no published
+  Dzongkha); Maldives MMA + meteorology + statistics (transliterated-English bodies, no independently
+  verified Thaana) — not fabricated.
+- honest notes: Israel agriculture renamed "…and Food Security" (2024) + energy reverted to "…and
+  Infrastructure" (2023); Maldives ministry Dhivehi reflects the Muizzu-administration restructured
+  "vuzaaraa" titles (broader scope than the short English labels); Da Afghanistan Bank's legal name is
+  Pashto-form د افغانستان بانک in both languages.
+
+**name-local axis ~complete for all non-Latin jurisdictions.** Started this axis at 78; now 1013
+(13× growth) across ~25 scripts (Latin-diacritic, CJK, Hangul, all Cyrillic, Arabic, Persian, Urdu,
+Hebrew, Greek, Armenian, Georgian, Bengali, Thai, Lao, Khmer, Burmese, Sinhala, Devanagari, Dzongkha,
+Thaana, Amharic, Tigrinya). Residual gaps are Latin-script jurisdictions where name-local would
+duplicate name-en (no value) plus a handful of small islands.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: SE/South Asia + Horn MM/KH/LA/NP/LK/ET/ER (832 → 934)
 
 Continued the endonym axis into 7 distinct indigenous scripts. 10 web-research subagents.

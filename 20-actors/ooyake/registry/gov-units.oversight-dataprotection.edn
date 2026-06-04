@@ -102,6 +102,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Commissioner for Personal Data Protection"
+   :gov.unit/name-local "Γραφείο Επιτρόπου Προστασίας Δεδομένων Προσωπικού Χαρακτήρα"
+   :gov.unit/name-romanized "Grafeio Epitropou Prostasias Dedomenon Prosopikou Charaktira"
    :gov.unit/official-url "https://www.dataprotection.gov.cy/"
    :gov.unit/wikidata "Q56056449"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -29,6 +29,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارت مالیه"
+   :gov.unit/name-romanized "Wezarat-e Maliya"
    :gov.unit/official-url "https://mof.gov.af/en"
    :gov.unit/wikidata "Q5959217"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -291,6 +293,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "དངུལ་རྩིས་ལྷན་ཁག"
+   :gov.unit/name-romanized "dngul rtsis lhan khag"
    :gov.unit/official-url "https://mof.gov.bt/"
    :gov.unit/wikidata "Q18345339"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -363,6 +367,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Υπουργείο Οικονομικών"
+   :gov.unit/name-romanized "Ypourgeio Oikonomikon"
    :gov.unit/official-url "https://www.gov.cy/mof/"
    :gov.unit/wikidata "Q65554946"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -652,6 +658,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "משרד האוצר"
+   :gov.unit/name-romanized "Misrad HaOtzar"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_finance"
    :gov.unit/wikidata "Q1707870"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -856,6 +864,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "މާލީކަންކަމާއި ސަރުކާރު ކުންފުނިތަކާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Maaleekankamaai Sarukaaru Kunfunithakaa Behey Vuzaaraa"
    :gov.unit/official-url "http://www.finance.gov.mv/"
    :gov.unit/wikidata "Q85785726"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
