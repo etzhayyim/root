@@ -271,12 +271,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Ministry of Social Development"
+   :gov.unit/official-url "https://www.mides.gob.pa/"
    :gov.unit/wikidata "Q21994542"
    :gov.unit/cofog ["10"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q21994542"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mides.gob.pa/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.per.social"
@@ -318,12 +319,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Social Affairs and Housing"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-sociale-zaken-en-huisvesting/"
    :gov.unit/wikidata "Q65615271"
    :gov.unit/cofog ["10"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65615271"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-sociale-zaken-en-huisvesting/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tls.social"

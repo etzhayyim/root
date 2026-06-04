@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — ministry tier COMPLETE: final 25 small-category sites web-verified (1596 → 1621/1642, 98.7%)
+
+Closed out the ministry tier with the remaining small categories (labour, science, industry,
+communications, housing, social, water + stragglers). 26 genuinely-new units researched by 3
+web-research subagents (the other 20 missing units were already documented honest nulls from
+prior passes and were NOT re-researched); 25 confirmed and added (provenance → the body's own
+official URL; `:last-verified` → 2026-06-04).
+
+- ministries: 1596 → **1621/1642** with an official site (**98.7%**). The remaining **21 are
+  all documented honest nulls** (G5) — bodies with no confirmable official site: Eritrea
+  (agri/finance/foreign), 7 defense ministries (Djibouti/Ethiopia/Guinea-Bissau/Equatorial
+  Guinea/Mauritania/North Korea/São Tomé), 3 justice (Guinea-Bissau/Kiribati/North Korea),
+  North Korea labour, Belgium federal education, Yemen tourism, Kuwait/Belize transport,
+  South Sudan culture/environment, Zimbabwe culture. **Every ministry that HAS a confirmable
+  official site now carries it.**
+- honest current-holder notes recorded (no standalone ministry; current portfolio holder
+  used): Argentina communications/industry (national-portal sections post-Decree-146/2026);
+  Belize housing→MIDH, labour→Rural Transformation; DR Congo science→MINESURSI; Spain
+  comms→digital.gob.es; Tanzania labour→PM's Office (kazi.go.tz); South Africa→Dept of
+  Employment & Labour; Yemen comms→MTIT; Suriname via gov.sr portal sections.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — agriculture + health + tourism + trade ministry sites: 37 web-verified (1559 → 1596 ministries, 97%)
 
 Continued the ministry tier with agriculture (10) + health (10) + tourism (10) + trade (9).

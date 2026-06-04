@@ -111,12 +111,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "Ministry of Irrigation and Water Resources"
+   :gov.unit/official-url "https://mwri.gov.ss/"
    :gov.unit/wikidata "Q17010443"
    :gov.unit/cofog ["06.3"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q17010443"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mwri.gov.ss/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zaf.water"
