@@ -98,12 +98,19 @@ Net: the Datomic *indexes* are tier-1 (EAVT point lookup ~180 ns); the Datomic
 
 ## A. CommitDag-as-WAL — embedded local block store + micro-batch synchronous commit; demote/remove the Journal WAL
 
-1. **Re-introduce an embedded, durable, in-process block store** (direct
-   flatfs/sled/redb — NOT Kubo-over-HTTP) as the hot durable tier inside
-   `TieredBlockStore`. This is what *"kotoba holds local IPFS"* must mean: blocks
-   are written to local disk directly (µs–ms, fsync), not via an HTTP RPC to a
-   sidecar daemon. Kubo (IPFS network) and the B2 cold pin (ADR-2606041130) become
-   **async export of sealed commits**, off the hot write path.
+1. **kotoba becomes its own IPFS blockstore + pinner** — re-introduce an
+   embedded, durable, in-process block store (direct flatfs/sled/redb — NOT
+   Kubo-over-HTTP) as the hot durable tier inside `TieredBlockStore`, and let
+   kotoba hold pins itself (a flag in its own store, no `pin/add` RPC). This is
+   what *"kotoba holds local IPFS"* must mean: blocks are written to local disk
+   directly (µs–ms, fsync), not via an HTTP round-trip to a sidecar daemon.
+   `IpfsPinClient` + the block-store abstraction already exist; only the durable
+   local backend is missing (the embedded `sled` store was removed 2026-05-26).
+   **Efficiency**: this removes the HTTP-RPC hop that today costs
+   **142 → 5,222 ingest ent/s (≈35×)** and the **~30 s WAL replay**, and lets the
+   B2 cold pin (ADR-2606041130) read blocks directly instead of `block/get` over
+   HTTP. Kubo (IPFS network) and B2 become **async export of sealed commits**, off
+   the hot write path.
 2. **Adopt micro-batch synchronous commit.** Each ingest call (or a short
    time/size window, e.g. ≤N ms / ≤K datoms) immediately runs `apply_batch` →
    new ProllyTree roots → a new `Commit` appended to the `CommitDag`, persisted to
@@ -140,6 +147,32 @@ enabler; micro-batch synchronous commit is what makes the Journal WAL unnecessar
 This makes "Datomic/Datalog primary" real: the canonical Datom indexes *and* the
 Datalog query engine both become first-tier.
 
+## C. (situational) kotoba as a networked IPFS *pin service* for peers — distributed-durability evolution
+
+Decision A makes kotoba its own *local* blockstore/pinner (the high-value, single-
+node win). A second, **situational** layer is to run kotoba as a *networked* IPFS
+pin **service** so peers replicate to each other natively:
+
+1. Re-enable `kotoba-net` p2p (today **QUIC-only and compile-gated** —
+   `--features p2p` is off in the running build) so kotoba serves/fetches blocks
+   over **bitswap + Kademlia DHT** directly, and optionally exposes the **IPFS
+   Pinning Service API** (`/api/v1/pins`) so other nodes can pin to it.
+2. The **donated-node mesh** (ameno / e7m / kotoba pods, ADR-2606012100) then
+   replicates sealed commits **peer-to-peer**, making off-host durability **live
+   and multi-copy** rather than a periodic backup. The B2 cold pin (ADR-2606041130)
+   becomes **one of several replication targets**, not the only off-host copy.
+   Charter-clean: this is the storage-donation node class
+   (`computeDonationAttestation`), content-addressed, **no server signing key**.
+
+**Cost / when**: a full networked node is heavy (always-on libp2p swarm + DHT +
+bitswap + NAT traversal, ADR-2606039000) and kotoba deliberately **removed the
+iroh-blobs stack 2026-05-27**, so this means re-adopting a Rust IPFS networking
+path. It is **worth it only when multi-node live replication is actually wanted**;
+for a single node, Decision A's local store captures ~90% of the efficiency. So C
+is gated on the donated mesh being live + `kotoba-net` p2p re-enabled, and it
+**supersedes the "periodic B2 pin is the only off-host copy" posture** of
+ADR-2606041130, not Decision A.
+
 # Consequences
 
 - **A**: removes WAL write-amplification + the ~30 s Kubo-RTT replay; restart
@@ -152,9 +185,16 @@ Datalog query engine both become first-tier.
   incremental. Cost: MV registry + memory for maintained views + invalidation
   policy. Risk: unbounded MV set; needs an eviction/budget (reuse
   `BudgetedBlockStore` semantics).
-- Both are **design-only** here (kotoba is an upstream submodule); no Charter
-  invariant is touched (Datom log remains canonical, no server key, Murakumo-only
-  inference unaffected). Implementation lands upstream in `40-engine/kotoba`.
+- **C** (situational): turns periodic, single-copy B2 backup into live multi-copy
+  peer replication across the donated mesh; off-host durability stops depending on
+  one volume + one scheduled job. Cost: re-enabling/owning a networked IPFS stack
+  (libp2p swarm, DHT, NAT, GC, provider records) — heavy; gated on the mesh being
+  live and only worthwhile for multi-node deployments. Supersedes the B2-only
+  off-host posture (ADR-2606041130), not Decision A.
+- All three are **design-only** here (kotoba is an upstream submodule); no Charter
+  invariant is touched (Datom log remains canonical, no server key — pinning is
+  content-addressed, Murakumo-only inference unaffected). Implementation lands
+  upstream in `40-engine/kotoba`.
 
 # Alternatives Considered
 
