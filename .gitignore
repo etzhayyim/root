@@ -58,8 +58,12 @@ logs/
 !.env.example
 *.pem
 *.key
+*.csr
+*.crt
 secrets/
 .secrets/
+.local-secrets/
+**/.local-secrets/
 
 # Wrangler / CF
 .wrangler/
@@ -118,4 +122,3 @@ foundry.lock
 
 # torch.utils.cpp_extension build dirs (kernel shootout, ADR-2605242000)
 **/_build_cpu/
-
