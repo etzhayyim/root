@@ -401,6 +401,7 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/official-url "http://www.mod.gov.et/"
    :gov.unit/wikidata "Q1627146"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q1627146" :gov.unit/last-verified "2026-06-03"
@@ -854,6 +855,7 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mrt"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/official-url "https://armee.mr/fr/"
    :gov.unit/wikidata "Q124176950"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q124176950" :gov.unit/last-verified "2026-06-03"

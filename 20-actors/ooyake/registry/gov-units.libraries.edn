@@ -733,6 +733,7 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mli"
    :gov.unit/name-en "National Library of Mali"
+   :gov.unit/official-url "http://www.bn.gouv.ml/"
    :gov.unit/wikidata "Q2090403"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2090403" :gov.unit/last-verified "2026-06-04"

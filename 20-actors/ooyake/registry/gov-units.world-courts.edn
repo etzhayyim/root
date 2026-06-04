@@ -1570,6 +1570,7 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tkm"
    :gov.unit/name-en "Supreme Court of Turkmenistan"
+   :gov.unit/official-url "https://court.gov.tm/"
    :gov.unit/wikidata "Q51874774"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q51874774" :gov.unit/last-verified "2026-06-03"

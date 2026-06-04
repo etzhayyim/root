@@ -176,6 +176,7 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry for Transport"
+   :gov.unit/official-url "https://transport.gov.bz/"
    :gov.unit/wikidata "Q97260537"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
