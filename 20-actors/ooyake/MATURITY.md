@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — L3 ADDRESS: national libraries — full sweep (845 → 999)
+
+Second single-tier deep sweep: ALL 154 national LIBRARIES still missing an address. 13 web-research
+subagents (~12 each). 154 added; **143 building-level lat/lon (93%), 11 honest line-en-only (G5)** —
+highest coverage yet, because national libraries are near-universally in Wikidata P625.
+
+- agencies: 845 → **999/1049 (95%)** with an address record.
+- **2 data-quality name fixes** (regional/wrong building → correct NATIONAL body):
+  - gov.bgr.library "Ivan Vazov" (Plovdiv regional) → **SS Cyril and Methodius National Library** (Sofia)
+  - gov.esp.library "Royal Library of Madrid" → **Biblioteca Nacional de España (BNE)** (Recoletos)
+- honest notes: Andorra NL relocated to former Hotel Rosaleda, Encamp (2020); El Salvador BINAES new
+  building (2023); Germany DNB dual-seat (Frankfurt primary + Leipzig); South Africa NLSA dual-campus
+  (Cape Town coord + Pretoria noted); 11 nulls are PO-box-only / un-geocoded (Afghanistan, Burundi,
+  Congo-Brazzaville, Comoros, Gabon, Kenya, Laos, Liberia, Malawi, Zambia, Zimbabwe).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — L3 ADDRESS: national archives — full sweep (701 → 845)
 
 Single-tier deep sweep: ALL 144 national ARCHIVES still missing an address. 12 web-research
