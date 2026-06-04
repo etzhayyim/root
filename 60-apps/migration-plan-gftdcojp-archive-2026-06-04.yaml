@@ -1,127 +1,24 @@
-version: 1
-generated_at: "2026-06-04"
+version: 3
+updated_at: "2026-06-04"
 source_roots:
   projects: "/Users/junkawasaki/github/com-junkawasaki/orgs/gftdcojp/ai-gftd-apps-gftdcojp/_archive/projects"
   scaffolds-2026-05-21: "/Users/junkawasaki/github/com-junkawasaki/orgs/gftdcojp/ai-gftd-apps-gftdcojp/_archive/scaffolds-2026-05-21"
 target_root: "/Users/junkawasaki/github/com-junkawasaki/orgs/etzhayyim/root/60-apps"
 criteria:
   migrated_project: "source slug exists as 60-apps/etzhayyim-project-{slug} or 60-apps/ai-gftd-project-{slug}"
-  ready_to_migrate: "missing source slug with no close existing target match"
-  needs_alias_review: "missing source slug with likely renamed or related existing target; not queued for direct migration"
+  source_path: "{source_roots.projects}/{source_name}"
+  target_name: "etzhayyim-project-{slug}"
 summary:
-  projects_total: 344
-  projects_migrated: 201
-  projects_missing: 143
-  scaffolds_total: 75
-  scaffolds_migrated: 4
-  scaffolds_missing: 71
-  ready_to_migrate_count: 92
-  needs_alias_review_count: 122
-  missing_app_component_count: 1
-target_naming:
-  project: "etzhayyim-project-{slug}"
-  source_path: "{source_roots[source_group]}/{source_name}"
-ready_to_migrate:
-  projects:
-    - { source_name: "ai-gftd-project-6chan", slug: "6chan", status: "pending" }
-    - { source_name: "ai-gftd-project-aircraft", slug: "aircraft", status: "pending" }
-    - { source_name: "ai-gftd-project-api", slug: "api", status: "pending" }
-    - { source_name: "ai-gftd-project-apify", slug: "apify", status: "pending" }
-    - { source_name: "ai-gftd-project-apparel", slug: "apparel", status: "pending" }
-    - { source_name: "ai-gftd-project-approvals", slug: "approvals", status: "pending" }
-    - { source_name: "ai-gftd-project-autorace", slug: "autorace", status: "pending" }
-    - { source_name: "ai-gftd-project-bankruptcy", slug: "bankruptcy", status: "pending" }
-    - { source_name: "ai-gftd-project-capital", slug: "capital", status: "pending" }
-    - { source_name: "ai-gftd-project-carbon", slug: "carbon", status: "pending" }
-    - { source_name: "ai-gftd-project-chizai", slug: "chizai", status: "pending" }
-    - { source_name: "ai-gftd-project-chuushajou", slug: "chuushajou", status: "pending" }
-    - { source_name: "ai-gftd-project-container", slug: "container", status: "pending" }
-    - { source_name: "ai-gftd-project-creditcard", slug: "creditcard", status: "pending" }
-    - { source_name: "ai-gftd-project-derivative", slug: "derivative", status: "pending" }
-    - { source_name: "ai-gftd-project-design", slug: "design", status: "pending" }
-    - { source_name: "ai-gftd-project-device", slug: "device", status: "pending" }
-    - { source_name: "ai-gftd-project-douro", slug: "douro", status: "pending" }
-    - { source_name: "ai-gftd-project-energy", slug: "energy", status: "pending" }
-    - { source_name: "ai-gftd-project-episode", slug: "episode", status: "pending" }
-    - { source_name: "ai-gftd-project-equipment", slug: "equipment", status: "pending" }
-    - { source_name: "ai-gftd-project-face-tracker", slug: "face-tracker", status: "pending" }
-    - { source_name: "ai-gftd-project-farm", slug: "farm", status: "pending" }
-    - { source_name: "ai-gftd-project-finance", slug: "finance", status: "pending" }
-    - { source_name: "ai-gftd-project-gftdcojp", slug: "gftdcojp", status: "pending" }
-    - { source_name: "ai-gftd-project-iam", slug: "iam", status: "pending" }
-    - { source_name: "ai-gftd-project-insurance", slug: "insurance", status: "pending" }
-    - { source_name: "ai-gftd-project-invoice", slug: "invoice", status: "pending" }
-    - { source_name: "ai-gftd-project-jiko", slug: "jiko", status: "pending" }
-    - { source_name: "ai-gftd-project-k8s", slug: "k8s", status: "pending" }
-    - { source_name: "ai-gftd-project-keiba", slug: "keiba", status: "pending" }
-    - { source_name: "ai-gftd-project-keiyaku", slug: "keiyaku", status: "pending" }
-    - { source_name: "ai-gftd-project-kensetsu", slug: "kensetsu", status: "pending" }
-    - { source_name: "ai-gftd-project-kenzai", slug: "kenzai", status: "pending" }
-    - { source_name: "ai-gftd-project-kessai", slug: "kessai", status: "pending" }
-    - { source_name: "ai-gftd-project-linkedin", slug: "linkedin", status: "pending" }
-    - { source_name: "ai-gftd-project-mine", slug: "mine", status: "pending" }
-    - { source_name: "ai-gftd-project-network-mobile", slug: "network-mobile", status: "pending" }
-    - { source_name: "ai-gftd-project-nijisousaku", slug: "nijisousaku", status: "pending" }
-    - { source_name: "ai-gftd-project-nimotsu", slug: "nimotsu", status: "pending" }
-    - { source_name: "ai-gftd-project-nirin", slug: "nirin", status: "pending" }
-    - { source_name: "ai-gftd-project-nougyou", slug: "nougyou", status: "pending" }
-    - { source_name: "ai-gftd-project-oryori", slug: "oryori", status: "pending" }
-    - { source_name: "ai-gftd-project-pachinko", slug: "pachinko", status: "pending" }
-    - { source_name: "ai-gftd-project-property", slug: "property", status: "pending" }
-    - { source_name: "ai-gftd-project-railway", slug: "railway", status: "pending" }
-    - { source_name: "ai-gftd-project-road", slug: "road", status: "pending" }
-    - { source_name: "ai-gftd-project-saigai", slug: "saigai", status: "pending" }
-    - { source_name: "ai-gftd-project-satellite", slug: "satellite", status: "pending" }
-    - { source_name: "ai-gftd-project-seiri", slug: "seiri", status: "pending" }
-    - { source_name: "ai-gftd-project-seizo", slug: "seizo", status: "pending" }
-    - { source_name: "ai-gftd-project-senkyo", slug: "senkyo", status: "pending" }
-    - { source_name: "ai-gftd-project-serial", slug: "serial", status: "pending" }
-    - { source_name: "ai-gftd-project-shinshi", slug: "shinshi", status: "pending" }
-    - { source_name: "ai-gftd-project-shisan", slug: "shisan", status: "pending" }
-    - { source_name: "ai-gftd-project-shisei", slug: "shisei", status: "pending" }
-    - { source_name: "ai-gftd-project-shizen", slug: "shizen", status: "pending" }
-    - { source_name: "ai-gftd-project-shohin", slug: "shohin", status: "pending" }
-    - { source_name: "ai-gftd-project-software", slug: "software", status: "pending" }
-    - { source_name: "ai-gftd-project-souden", slug: "souden", status: "pending" }
-    - { source_name: "ai-gftd-project-sozai", slug: "sozai", status: "pending" }
-    - { source_name: "ai-gftd-project-stripe", slug: "stripe", status: "pending" }
-    - { source_name: "ai-gftd-project-trust", slug: "trust", status: "pending" }
-    - { source_name: "ai-gftd-project-tuner", slug: "tuner", status: "pending" }
-    - { source_name: "ai-gftd-project-uchu", slug: "uchu", status: "pending" }
-    - { source_name: "ai-gftd-project-visa", slug: "visa", status: "pending" }
-    - { source_name: "ai-gftd-project-youtube", slug: "youtube", status: "pending" }
-  scaffolds-2026-05-21:
-    - { source_name: "ai-gftd-project-6chan", slug: "6chan", status: "pending" }
-    - { source_name: "ai-gftd-project-adr", slug: "adr", status: "pending" }
-    - { source_name: "ai-gftd-project-approvals", slug: "approvals", status: "pending" }
-    - { source_name: "ai-gftd-project-auto-compliance", slug: "auto-compliance", status: "pending" }
-    - { source_name: "ai-gftd-project-bankruptcy", slug: "bankruptcy", status: "pending" }
-    - { source_name: "ai-gftd-project-good-vibes-tuner", slug: "good-vibes-tuner", status: "pending" }
-    - { source_name: "ai-gftd-project-hatsubai", slug: "hatsubai", status: "pending" }
-    - { source_name: "ai-gftd-project-iam", slug: "iam", status: "pending" }
-    - { source_name: "ai-gftd-project-linkedin", slug: "linkedin", status: "pending" }
-    - { source_name: "ai-gftd-project-moderator", slug: "moderator", status: "pending" }
-    - { source_name: "ai-gftd-project-network-mobile", slug: "network-mobile", status: "pending" }
-    - { source_name: "ai-gftd-project-oil-distribution", slug: "oil-distribution", status: "pending" }
-    - { source_name: "ai-gftd-project-oil-midstream", slug: "oil-midstream", status: "pending" }
-    - { source_name: "ai-gftd-project-oil-refining", slug: "oil-refining", status: "pending" }
-    - { source_name: "ai-gftd-project-oil-shipping", slug: "oil-shipping", status: "pending" }
-    - { source_name: "ai-gftd-project-oil-trading", slug: "oil-trading", status: "pending" }
-    - { source_name: "ai-gftd-project-oil-upstream", slug: "oil-upstream", status: "pending" }
-    - { source_name: "ai-gftd-project-oryori", slug: "oryori", status: "pending" }
-    - { source_name: "ai-gftd-project-seiri", slug: "seiri", status: "pending" }
-    - { source_name: "ai-gftd-project-shisei", slug: "shisei", status: "pending" }
-    - { source_name: "ai-gftd-project-style", slug: "style", status: "pending" }
-    - { source_name: "ai-gftd-project-trust", slug: "trust", status: "pending" }
-    - { source_name: "ai-gftd-project-tuner", slug: "tuner", status: "pending" }
-    - { source_name: "ai-gftd-project-wallet-qr", slug: "wallet-qr", status: "pending" }
-    - { source_name: "ai-gftd-project-youtube", slug: "youtube", status: "pending" }
-missing_app_components:
-  - app_name: "ai-gftd-wasm-repo-r3p0s3rv"
-    source_group: "scaffolds-2026-05-21"
-    source_project: "ai-gftd-project-repo"
-    source_path: "/Users/junkawasaki/github/com-junkawasaki/orgs/gftdcojp/ai-gftd-apps-gftdcojp/_archive/scaffolds-2026-05-21/ai-gftd-project-repo/appview/ai-gftd-wasm-repo-r3p0s3rv"
-    status: "pending"
+  projects_original_total: 344
+  projects_remaining: 0
+  projects_exact_migrated_remaining: 0
+  scaffolds_original_total: 75
+  scaffolds_remaining: 0
+  scaffolds_exact_migrated_remaining: 0
+  latest_batch_migrated_scaffolds: 57
+  latest_batch_migrated_projects: 107
+  missing_app_component_count: 0
+status: complete
 notes:
-  - "The 122 needs_alias_review items are intentionally excluded from direct migration until a slug alias map is approved."
-  - "Duplicate slugs across projects and scaffolds should be reconciled before copying; prefer the fuller projects source unless scaffold contains newer metadata."
+  - "All remaining archive projects and scaffolds under the listed source roots were migrated into 60-apps/etzhayyim-project-{slug} or already had an exact migrated target, then removed from the archive roots."
+  - "Generated dependency folders were not copied when source archives contained broken package-manager symlinks, notably node_modules; source metadata, design files, app descriptors, and project files were preserved."
