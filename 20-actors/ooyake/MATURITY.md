@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: supranational tier COMPLETE (0 → 99/99 IGOs)
+
+Filled the fully-empty supranational tier — all 99 inter-governmental organizations. 7 web-research
+subagents located each IGO's **headquarters building + city + coordinates** (UN HQ NYC, the Geneva
+agencies, Rome FAO/IFAD/WFP, Washington IMF/World Bank/IADB/OAS, Brussels NATO/EU/WCO, Vienna VIC
+agencies, the regional development banks + blocs) from official sites + Wikipedia/Wikidata/OSM. 99
+`:gov.address :headquarters` records added (`country "int"`).
+
+- supranational tier: 0 → **99/99 with an address** (4th tier fully address-complete after country
+  191/192, legislature 186/186, court 206/206).
+- 85 carry building-level lat/lon; **14 honestly NULL coords** (G5): **BRICS, G7, G20, CELAC have NO
+  permanent secretariat** (rotating presidency — stated in line-en); AfCFTA, SICA, CIS, GCC, EAC,
+  ECOWAS, ECO, IGAD, SADC (new 2024 HQ), UNRWA — street/city confirmed but no reliable building
+  coordinate.
+- co-located bodies share a coordinate honestly: the 5 UN principal organs (Secretariat, GA, SC,
+  ECOSOC, Trusteeship) at UN HQ NYC; UNEP+UN-Habitat at UN Office Nairobi; UNIDO+UNODC+IAEA+CTBTO at
+  the Vienna International Centre. Each cites provenance + `:last-verified 2026-06-04`.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: court tier COMPLETE (149 → 206/206)
 
 Finished the court tier — the remaining 57 high courts (mostly European + small/mid states). 6

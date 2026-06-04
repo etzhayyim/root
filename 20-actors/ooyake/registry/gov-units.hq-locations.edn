@@ -6805,4 +6805,881 @@
    :gov.address/lat -13.81799 :gov.address/lon -171.7786
    :gov.address/sourcing :authoritative
    :gov.address/provenance "mjca.gov.ws / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bceao.hq"
+   :gov.address/unit "gov.bceao"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "BCEAO headquarters, Avenue Abdoulaye Fadiga, Dakar-Plateau, Dakar"
+   :gov.address/lat 14.6701 :gov.address/lon -17.42639
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "bceao.int / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.beac.hq"
+   :gov.address/unit "gov.beac"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "BEAC head office, Centre Administratif, Yaoundé"
+   :gov.address/lat 3.865 :gov.address/lon 11.51474
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eccb.hq"
+   :gov.address/unit "gov.eccb"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Eastern Caribbean Central Bank, Bird Rock Road, Basseterre"
+   :gov.address/lat 17.29854 :gov.address/lon -62.708
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "eccb-centralbank.org / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eu.hq"
+   :gov.address/unit "gov.eu"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "European Commission, Berlaymont, Rue de la Loi 200, Brussels"
+   :gov.address/lat 50.84361 :gov.address/lon 4.38278
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Berlaymont)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.african-continental-free-trade-area.hq"
+   :gov.address/unit "gov.igo.african-continental-free-trade-area"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "AfCFTA Secretariat, Africa Trade House, Ridge, Accra"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "au-afcfta.org (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.african-development-bank.hq"
+   :gov.address/unit "gov.igo.african-development-bank"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "African Development Bank HQ, Av. Joseph Anoma, Plateau, Abidjan"
+   :gov.address/lat 5.30882 :gov.address/lon -4.00764
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "afdb.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.african-union.hq"
+   :gov.address/unit "gov.igo.african-union"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "African Union Commission HQ, Roosevelt Street, Addis Ababa"
+   :gov.address/lat 9.00472 :gov.address/lon 38.76306
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "au.int / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.andean-community.hq"
+   :gov.address/unit "gov.igo.andean-community"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Andean Community (CAN) General Secretariat, Av. Paseo de la República 3895, San Isidro, Lima"
+   :gov.address/lat -12.10237 :gov.address/lon -77.02667
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "comunidadandina.org" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.arctic-council.hq"
+   :gov.address/unit "gov.igo.arctic-council"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Arctic Council Secretariat, Fram Centre, Tromsø"
+   :gov.address/lat 69.64371 :gov.address/lon 18.94862
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "arctic-council.org / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.asia-pacific-economic-cooperation.hq"
+   :gov.address/unit "gov.igo.asia-pacific-economic-cooperation"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "APEC Secretariat, 35 Heng Mui Keng Terrace, Singapore"
+   :gov.address/lat 1.29067 :gov.address/lon 103.77808
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "apec.org" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.asian-development-bank.hq"
+   :gov.address/unit "gov.igo.asian-development-bank"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Asian Development Bank HQ, 6 ADB Avenue, Mandaluyong, Metro Manila"
+   :gov.address/lat 14.59056 :gov.address/lon 121.06083
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "adb.org / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.asian-infrastructure-investment-bank.hq"
+   :gov.address/unit "gov.igo.asian-infrastructure-investment-bank"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "AIIB HQ, Asia Financial Center, Olympic Park, Chaoyang, Beijing"
+   :gov.address/lat 40.00697 :gov.address/lon 116.3834
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "aiib.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.association-of-southeast-asian-nations.hq"
+   :gov.address/unit "gov.igo.association-of-southeast-asian-nations"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ASEAN Secretariat, Jalan Sisingamangaraja 70A, South Jakarta"
+   :gov.address/lat -6.23917 :gov.address/lon 106.79944
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (ASEAN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.bank-for-international-settlements.hq"
+   :gov.address/unit "gov.igo.bank-for-international-settlements"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Bank for International Settlements, BIS Tower, Centralbahnplatz 2, Basel"
+   :gov.address/lat 47.54807 :gov.address/lon 7.59177
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (BIS Tower)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.brics.hq"
+   :gov.address/unit "gov.igo.brics"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "BRICS — no permanent secretariat (rotating annual presidency)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (BRICS)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.caribbean-community.hq"
+   :gov.address/unit "gov.igo.caribbean-community"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "CARICOM Secretariat, Turkeyen, Greater Georgetown"
+   :gov.address/lat 6.82024 :gov.address/lon -58.11685
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (CARICOM Secretariat)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.central-american-integration-system.hq"
+   :gov.address/unit "gov.igo.central-american-integration-system"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "SICA General Secretariat, Antiguo Cuscatlán (San Salvador metro)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.cern.hq"
+   :gov.address/unit "gov.igo.cern"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "CERN main site, Meyrin, Geneva"
+   :gov.address/lat 46.23306 :gov.address/lon 6.05569
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "home.cern" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.collective-security-treaty-organization.hq"
+   :gov.address/unit "gov.igo.collective-security-treaty-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "CSTO Secretariat, Sverchkov Lane 3/2, Moscow"
+   :gov.address/lat 55.76361 :gov.address/lon 37.63472
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "odkb-csto.org / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.commonwealth-of-independent-states.hq"
+   :gov.address/unit "gov.igo.commonwealth-of-independent-states"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "CIS Executive Committee, 17 Kirova Street, Minsk"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "eccis.org (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.commonwealth-of-nations.hq"
+   :gov.address/unit "gov.igo.commonwealth-of-nations"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Commonwealth Secretariat, Marlborough House, London"
+   :gov.address/lat 51.505 :gov.address/lon -0.13583
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Marlborough House)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.community-of-latin-american-and-caribbean-stat.hq"
+   :gov.address/unit "gov.igo.community-of-latin-american-and-caribbean-stat"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "CELAC — no permanent secretariat (rotating pro-tempore presidency)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (CELAC)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.comprehensive-nuclear-test-ban-treaty-organiza.hq"
+   :gov.address/unit "gov.igo.comprehensive-nuclear-test-ban-treaty-organiza"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "CTBTO Preparatory Commission, Vienna International Centre, Vienna"
+   :gov.address/lat 48.2342 :gov.address/lon 16.4168
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ctbto.org" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.cooperation-council-for-the-arab-states-of-the.hq"
+   :gov.address/unit "gov.igo.cooperation-council-for-the-arab-states-of-the"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Gulf Cooperation Council General Secretariat, Diplomatic Quarter, Riyadh"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.council-of-europe.hq"
+   :gov.address/unit "gov.igo.council-of-europe"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Council of Europe, Palais de l'Europe, Strasbourg"
+   :gov.address/lat 48.595 :gov.address/lon 7.77194
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palace of Europe)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.east-african-community.hq"
+   :gov.address/unit "gov.igo.east-african-community"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "East African Community HQ, Arusha International Conference Centre, Arusha"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "eac.int (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.economic-community-of-west-african-states.hq"
+   :gov.address/unit "gov.igo.economic-community-of-west-african-states"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ECOWAS Commission, 101 Yakubu Gowon Crescent, Asokoro, Abuja"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ecowas.int (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.economic-cooperation-organization.hq"
+   :gov.address/unit "gov.igo.economic-cooperation-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ECO Secretariat, Kamranieh, Tehran"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.eurasian-economic-union.hq"
+   :gov.address/unit "gov.igo.eurasian-economic-union"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Eurasian Economic Commission HQ, Moscow"
+   :gov.address/lat 55.73954 :gov.address/lon 37.58403
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.european-bank-for-reconstruction-and-developme.hq"
+   :gov.address/unit "gov.igo.european-bank-for-reconstruction-and-developme"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "EBRD HQ, One Bank Street, Canary Wharf, London"
+   :gov.address/lat 51.50384 :gov.address/lon -0.02474
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.european-investment-bank.hq"
+   :gov.address/unit "gov.igo.european-investment-bank"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "European Investment Bank HQ, Kirchberg, Luxembourg City"
+   :gov.address/lat 49.62114 :gov.address/lon 6.13871
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.european-space-agency.hq"
+   :gov.address/unit "gov.igo.european-space-agency"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "European Space Agency HQ, 8-10 rue Mario Nikis, Paris"
+   :gov.address/lat 48.84817 :gov.address/lon 2.30439
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.financial-action-task-force.hq"
+   :gov.address/unit "gov.igo.financial-action-task-force"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "FATF Secretariat (at OECD), 2 rue André Pascal, Paris"
+   :gov.address/lat 48.86167 :gov.address/lon 2.26924
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM (OECD)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.food-and-agriculture-organization-of-the-unite.hq"
+   :gov.address/unit "gov.igo.food-and-agriculture-organization-of-the-unite"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "FAO HQ, Viale delle Terme di Caracalla, Rome"
+   :gov.address/lat 41.88278 :gov.address/lon 12.48873
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.g20.hq"
+   :gov.address/unit "gov.igo.g20"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "G20 — no permanent secretariat (rotating annual presidency)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (G20)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.gas-exporting-countries-forum.hq"
+   :gov.address/unit "gov.igo.gas-exporting-countries-forum"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "GECF HQ, Tornado Tower, West Bay, Doha"
+   :gov.address/lat 25.31928 :gov.address/lon 51.52798
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.group-of-seven.hq"
+   :gov.address/unit "gov.igo.group-of-seven"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "G7 — no permanent secretariat (rotating annual presidency)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (G7)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.inter-american-development-bank.hq"
+   :gov.address/unit "gov.igo.inter-american-development-bank"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Inter-American Development Bank HQ, 1300 New York Ave NW, Washington DC"
+   :gov.address/lat 38.8994 :gov.address/lon -77.03051
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.intergovernmental-authority-on-development.hq"
+   :gov.address/unit "gov.igo.intergovernmental-authority-on-development"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IGAD Secretariat, Avenue Georges Clemenceau, Djibouti City"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "igad.int (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-atomic-energy-agency.hq"
+   :gov.address/unit "gov.igo.international-atomic-energy-agency"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IAEA HQ, Vienna International Centre, Vienna"
+   :gov.address/lat 48.23505 :gov.address/lon 16.41779
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-civil-aviation-organization.hq"
+   :gov.address/unit "gov.igo.international-civil-aviation-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ICAO HQ, 999 Robert-Bourassa Blvd, Montreal"
+   :gov.address/lat 45.50027 :gov.address/lon -73.56363
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-committee-of-the-red-cross.hq"
+   :gov.address/unit "gov.igo.international-committee-of-the-red-cross"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ICRC HQ, 19 Avenue de la Paix, Geneva"
+   :gov.address/lat 46.22775 :gov.address/lon 6.13728
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-court-of-justice.hq"
+   :gov.address/unit "gov.igo.international-court-of-justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Peace Palace, The Hague"
+   :gov.address/lat 52.08653 :gov.address/lon 4.29575
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Peace Palace)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-energy-agency.hq"
+   :gov.address/unit "gov.igo.international-energy-agency"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "International Energy Agency, 9 rue de la Fédération, Paris"
+   :gov.address/lat 48.85483 :gov.address/lon 2.29065
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "iea.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-fund-for-agricultural-developmen.hq"
+   :gov.address/unit "gov.igo.international-fund-for-agricultural-developmen"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IFAD HQ, Via Paolo di Dono 44, Rome"
+   :gov.address/lat 41.82996 :gov.address/lon 12.49441
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ifad.org / Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-labour-organization.hq"
+   :gov.address/unit "gov.igo.international-labour-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ILO HQ, 4 route des Morillons, Geneva"
+   :gov.address/lat 46.22913 :gov.address/lon 6.13445
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "ilo.org / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-maritime-organization.hq"
+   :gov.address/unit "gov.igo.international-maritime-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IMO HQ, 4 Albert Embankment, London"
+   :gov.address/lat 51.49336 :gov.address/lon -0.12098
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "imo.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-monetary-fund.hq"
+   :gov.address/unit "gov.igo.international-monetary-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IMF HQ1, 700 19th Street NW, Washington DC"
+   :gov.address/lat 38.89894 :gov.address/lon -77.04421
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "imf.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-organization-for-migration.hq"
+   :gov.address/unit "gov.igo.international-organization-for-migration"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IOM HQ, 17 route des Morillons, Grand-Saconnex, Geneva"
+   :gov.address/lat 46.23169 :gov.address/lon 6.13203
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "iom.int / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-organization-for-standardization.hq"
+   :gov.address/unit "gov.igo.international-organization-for-standardization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ISO Central Secretariat, Chemin de Blandonnet 8, Vernier, Geneva"
+   :gov.address/lat 46.22046 :gov.address/lon 6.09868
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "iso.org" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-renewable-energy-agency.hq"
+   :gov.address/unit "gov.igo.international-renewable-energy-agency"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "IRENA HQ, Masdar City, Abu Dhabi"
+   :gov.address/lat 24.4271 :gov.address/lon 54.61819
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (IRENA)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.international-telecommunication-union.hq"
+   :gov.address/unit "gov.igo.international-telecommunication-union"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "ITU HQ, Place des Nations, Geneva"
+   :gov.address/lat 46.22089 :gov.address/lon 6.1383
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "itu.int / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.interpol.hq"
+   :gov.address/unit "gov.igo.interpol"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "INTERPOL General Secretariat, 200 quai Charles de Gaulle, Lyon"
+   :gov.address/lat 45.78216 :gov.address/lon 4.84811
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "interpol.int / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.league-of-arab-states.hq"
+   :gov.address/unit "gov.igo.league-of-arab-states"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Arab League HQ, Tahrir Square, Cairo"
+   :gov.address/lat 30.04417 :gov.address/lon 31.23472
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.mercosur.hq"
+   :gov.address/unit "gov.igo.mercosur"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Edificio Mercosur, Luis Piera 1992, Montevideo"
+   :gov.address/lat -34.91406 :gov.address/lon -56.17131
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mercosur / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.nato.hq"
+   :gov.address/unit "gov.igo.nato"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "NATO HQ, Boulevard Léopold III, Haren, Brussels"
+   :gov.address/lat 50.87931 :gov.address/lon 4.42611
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia / Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.nordic-council.hq"
+   :gov.address/unit "gov.igo.nordic-council"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Nordic Council, Ved Stranden 18, Copenhagen"
+   :gov.address/lat 55.6778 :gov.address/lon 12.581
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.office-of-the-high-commissioner-for-human-righ.hq"
+   :gov.address/unit "gov.igo.office-of-the-high-commissioner-for-human-righ"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OHCHR, Palais Wilson, Geneva"
+   :gov.address/lat 46.2149 :gov.address/lon 6.151
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palais Wilson)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.office-of-the-united-nations-high-commissioner.hq"
+   :gov.address/unit "gov.igo.office-of-the-united-nations-high-commissioner"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNHCR HQ, 94 Rue de Montbrillant, Geneva"
+   :gov.address/lat 46.22054 :gov.address/lon 6.14112
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "unhcr.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organisation-for-the-prohibition-of-chemical-w.hq"
+   :gov.address/unit "gov.igo.organisation-for-the-prohibition-of-chemical-w"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OPCW HQ, Johan de Wittlaan 32, The Hague"
+   :gov.address/lat 52.09124 :gov.address/lon 4.28319
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (OPCW)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organisation-internationale-de-la-francophonie.hq"
+   :gov.address/unit "gov.igo.organisation-internationale-de-la-francophonie"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OIF, 19-21 Avenue Bosquet, Paris"
+   :gov.address/lat 48.86 :gov.address/lon 2.30333
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (OIF)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organisation-of-islamic-cooperation.hq"
+   :gov.address/unit "gov.igo.organisation-of-islamic-cooperation"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Organisation of Islamic Cooperation HQ, Jeddah"
+   :gov.address/lat 21.51006 :gov.address/lon 39.18258
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organization-for-economic-cooperation-and-deve.hq"
+   :gov.address/unit "gov.igo.organization-for-economic-cooperation-and-deve"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OECD, Château de la Muette, Paris"
+   :gov.address/lat 48.86139 :gov.address/lon 2.26944
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Château de la Muette)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organization-for-security-and-co-operation-in.hq"
+   :gov.address/unit "gov.igo.organization-for-security-and-co-operation-in"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OSCE Secretariat, Wallnerstrasse 6, Vienna"
+   :gov.address/lat 48.21 :gov.address/lon 16.36648
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "osce.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organization-of-american-states.hq"
+   :gov.address/unit "gov.igo.organization-of-american-states"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OAS Main Building, 17th St & Constitution Ave NW, Washington DC"
+   :gov.address/lat 38.89291 :gov.address/lon -77.04037
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (OAS)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organization-of-the-black-sea-economic-coopera.hq"
+   :gov.address/unit "gov.igo.organization-of-the-black-sea-economic-coopera"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "BSEC PERMIS, Sakıp Sabancı Cad., Emirgan, Istanbul"
+   :gov.address/lat 41.10292 :gov.address/lon 29.0558
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM (street-level)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.organization-of-the-petroleum-exporting-countr.hq"
+   :gov.address/unit "gov.igo.organization-of-the-petroleum-exporting-countr"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "OPEC Secretariat, Helferstorferstrasse 17, Vienna"
+   :gov.address/lat 48.21303 :gov.address/lon 16.37458
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.pacific-islands-forum.hq"
+   :gov.address/unit "gov.igo.pacific-islands-forum"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Pacific Islands Forum Secretariat, Ratu Sukuna Road, Suva"
+   :gov.address/lat -18.15395 :gov.address/lon 178.43702
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "forumsec / OSM (street-level)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.shanghai-cooperation-organisation.hq"
+   :gov.address/unit "gov.igo.shanghai-cooperation-organisation"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "SCO Secretariat, 7 Ritan Road, Chaoyang, Beijing"
+   :gov.address/lat 39.90958 :gov.address/lon 116.43479
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sectsco.org / OSM (street-level)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.south-asian-association-for-regional-cooperati.hq"
+   :gov.address/unit "gov.igo.south-asian-association-for-regional-cooperati"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "SAARC Secretariat, Tridevi Marg, Kathmandu"
+   :gov.address/lat 27.71343 :gov.address/lon 85.31442
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "saarc-sec.org / OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.southern-african-development-community.hq"
+   :gov.address/unit "gov.igo.southern-african-development-community"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "SADC House, Plot 54385, Western Commercial Road, CBD, Gaborone"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "sadc.int (new HQ 2024; building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.un-tourism.hq"
+   :gov.address/unit "gov.igo.un-tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN Tourism (UNWTO) HQ, C. del Poeta Joan Maragall 42, Madrid"
+   :gov.address/lat 40.46046 :gov.address/lon -3.69132
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.un-trade-and-development.hq"
+   :gov.address/unit "gov.igo.un-trade-and-development"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN Trade and Development (UNCTAD), Palais des Nations, Geneva"
+   :gov.address/lat 46.22678 :gov.address/lon 6.14048
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palace of Nations)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.un-women.hq"
+   :gov.address/unit "gov.igo.un-women"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN Women HQ, 220 East 42nd Street, New York"
+   :gov.address/lat 40.74972 :gov.address/lon -73.97306
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Daily News Building)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.unesco.hq"
+   :gov.address/unit "gov.igo.unesco"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNESCO HQ, 7 Place de Fontenoy, Paris"
+   :gov.address/lat 48.84944 :gov.address/lon 2.30611
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UNESCO HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.unicef.hq"
+   :gov.address/unit "gov.igo.unicef"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNICEF House, 3 United Nations Plaza, New York"
+   :gov.address/lat 40.75034 :gov.address/lon -73.96977
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Three UN Plaza)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.union-for-the-mediterranean.hq"
+   :gov.address/unit "gov.igo.union-for-the-mediterranean"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UfM Secretariat, Palau Reial de Pedralbes, Barcelona"
+   :gov.address/lat 41.38839 :gov.address/lon 2.11703
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Palau Reial de Pedralbes)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations.hq"
+   :gov.address/unit "gov.igo.united-nations"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "United Nations Headquarters, 405 East 42nd Street, New York"
+   :gov.address/lat 40.74944 :gov.address/lon -73.96806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-development-programme.hq"
+   :gov.address/unit "gov.igo.united-nations-development-programme"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNDP HQ, One United Nations Plaza, New York"
+   :gov.address/lat 40.75056 :gov.address/lon -73.96917
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (One UN Plaza)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-economic-and-social-council.hq"
+   :gov.address/unit "gov.igo.united-nations-economic-and-social-council"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN ECOSOC, UN Headquarters, 405 East 42nd Street, New York"
+   :gov.address/lat 40.74944 :gov.address/lon -73.96806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-environment-programme.hq"
+   :gov.address/unit "gov.igo.united-nations-environment-programme"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNEP HQ, UN Office at Nairobi, Gigiri, Nairobi"
+   :gov.address/lat -1.23233 :gov.address/lon 36.80753
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UNON)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-general-assembly.hq"
+   :gov.address/unit "gov.igo.united-nations-general-assembly"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN General Assembly, UN Headquarters, 405 East 42nd Street, New York"
+   :gov.address/lat 40.74944 :gov.address/lon -73.96806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-human-settlements-programme.hq"
+   :gov.address/unit "gov.igo.united-nations-human-settlements-programme"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN-Habitat HQ, UN Office at Nairobi, Gigiri, Nairobi"
+   :gov.address/lat -1.23233 :gov.address/lon 36.80753
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UNON)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-industrial-development-organiza.hq"
+   :gov.address/unit "gov.igo.united-nations-industrial-development-organiza"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNIDO HQ, Vienna International Centre, Vienna"
+   :gov.address/lat 48.2342 :gov.address/lon 16.4168
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (VIC)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-office-on-drugs-and-crime.hq"
+   :gov.address/unit "gov.igo.united-nations-office-on-drugs-and-crime"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNODC HQ, Vienna International Centre, Vienna"
+   :gov.address/lat 48.2342 :gov.address/lon 16.4168
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (VIC)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-population-fund.hq"
+   :gov.address/unit "gov.igo.united-nations-population-fund"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNFPA HQ, 730 Third Avenue, New York"
+   :gov.address/lat 40.7536 :gov.address/lon -73.974
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "unfpa.org (Midtown Manhattan)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-relief-and-works-agency-for-pal.hq"
+   :gov.address/unit "gov.igo.united-nations-relief-and-works-agency-for-pal"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNRWA Headquarters, Bayader Wadi Al-Seer, Amman"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "unrwa.org (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-secretariat.hq"
+   :gov.address/unit "gov.igo.united-nations-secretariat"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN Secretariat Building, UN Headquarters, 405 East 42nd Street, New York"
+   :gov.address/lat 40.74944 :gov.address/lon -73.96806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-security-council.hq"
+   :gov.address/unit "gov.igo.united-nations-security-council"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN Security Council Chamber, UN Headquarters, New York"
+   :gov.address/lat 40.74944 :gov.address/lon -73.96806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-trusteeship-council.hq"
+   :gov.address/unit "gov.igo.united-nations-trusteeship-council"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UN Trusteeship Council Chamber (suspended), UN Headquarters, New York"
+   :gov.address/lat 40.74944 :gov.address/lon -73.96806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UN HQ)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.united-nations-university.hq"
+   :gov.address/unit "gov.igo.united-nations-university"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "UNU Centre, 5-53-70 Jingumae, Shibuya, Tokyo"
+   :gov.address/lat 35.66237 :gov.address/lon 139.70836
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UNU)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.universal-postal-union.hq"
+   :gov.address/unit "gov.igo.universal-postal-union"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "Universal Postal Union International Bureau, Weltpoststrasse 4, Bern"
+   :gov.address/lat 46.93889 :gov.address/lon 7.47333
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (UPU)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-bank-group.hq"
+   :gov.address/unit "gov.igo.world-bank-group"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "World Bank Group HQ (MC Building), 1818 H Street NW, Washington DC"
+   :gov.address/lat 38.89884 :gov.address/lon -77.04257
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-customs-organization.hq"
+   :gov.address/unit "gov.igo.world-customs-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "World Customs Organization, Rue du Marché 30, Brussels"
+   :gov.address/lat 50.85688 :gov.address/lon 4.35722
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-food-programme.hq"
+   :gov.address/unit "gov.igo.world-food-programme"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "World Food Programme HQ, Via Cesare Giulio Viola 68/70, Parco de' Medici, Rome"
+   :gov.address/lat 41.82145 :gov.address/lon 12.40734
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-health-organization.hq"
+   :gov.address/unit "gov.igo.world-health-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "WHO HQ, Avenue Appia 20, Geneva"
+   :gov.address/lat 46.23268 :gov.address/lon 6.13422
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-intellectual-property-organization.hq"
+   :gov.address/unit "gov.igo.world-intellectual-property-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "WIPO HQ (Arpad Bogsch Building), Chemin des Colombettes 34, Geneva"
+   :gov.address/lat 46.22189 :gov.address/lon 6.13653
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-meteorological-organization.hq"
+   :gov.address/unit "gov.igo.world-meteorological-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "WMO HQ, 7bis Avenue de la Paix, Geneva"
+   :gov.address/lat 46.22325 :gov.address/lon 6.14625
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.igo.world-trade-organization.hq"
+   :gov.address/unit "gov.igo.world-trade-organization"
+   :gov.address/kind :headquarters
+   :gov.address/country "int"
+   :gov.address/line-en "WTO HQ (Centre William Rappard), Rue de Lausanne 154, Geneva"
+   :gov.address/lat 46.22417 :gov.address/lon 6.14944
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia (Centre William Rappard)" :gov.address/last-verified "2026-06-04"}
 ]}
