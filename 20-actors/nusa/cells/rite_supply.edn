@@ -1,0 +1,11 @@
+{:cell/id "rite_supply"
+ :cell/glyph "幣"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/node "asher"
+ :cell/doc "Maps ritual-artifact demand (注連縄 / 大幣 / 祓串) to licensed low-THC fibre supply over the SBT↔SBT internal carve-out — neutral provisioning, not a market. No external purchase inflow (§1.3); member-principal (G4); live provisioning G8-gated."
+ :cell/entry "cells/rite_supply/cell.py"
+ :cell/handler "RiteSupplyCell"
+ :cell/llm {:provider :murakumo :endpoint "127.0.0.1:4000" :model "gemma3:4b" :charter-rider true}
+ :cell/gates ["G4" "G8"]
+ :cell/kotoba {:reads [:rite/id :rite/uses-cultivar :hemp.license/id] :writes []}}
