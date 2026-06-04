@@ -8370,4 +8370,542 @@
    :gov.address/lat 35.89556 :gov.address/lon 14.50889
    :gov.address/sourcing :authoritative
    :gov.address/provenance "Wikipedia (Auberge de Castille)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.agriculture.hq"
+   :gov.address/unit "gov.ind.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Krishi Bhawan, New Delhi"
+   :gov.address/lat 28.6164 :gov.address/lon 77.2135
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM (approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.education.hq"
+   :gov.address/unit "gov.ind.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Shastri Bhawan, New Delhi"
+   :gov.address/lat 28.6161 :gov.address/lon 77.2144
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.energy.hq"
+   :gov.address/unit "gov.ind.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Shram Shakti Bhawan, New Delhi"
+   :gov.address/lat 28.6194 :gov.address/lon 77.2117
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.environment.hq"
+   :gov.address/unit "gov.ind.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Indira Paryavaran Bhawan, New Delhi"
+   :gov.address/lat 28.5852 :gov.address/lon 77.2182
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.interior.hq"
+   :gov.address/unit "gov.ind.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "North Block, Central Secretariat, New Delhi"
+   :gov.address/lat 28.6151 :gov.address/lon 77.2066
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.labour.hq"
+   :gov.address/unit "gov.ind.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Shram Shakti Bhawan, New Delhi"
+   :gov.address/lat 28.6194 :gov.address/lon 77.2117
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.science.hq"
+   :gov.address/unit "gov.ind.science"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Technology Bhawan, New Mehrauli Road, New Delhi"
+   :gov.address/lat 28.5378 :gov.address/lon 77.1898
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mappls" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.social.hq"
+   :gov.address/unit "gov.ind.social"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Shastri Bhawan, New Delhi"
+   :gov.address/lat 28.6161 :gov.address/lon 77.2144
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.tourism.hq"
+   :gov.address/unit "gov.ind.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Transport Bhawan, 1 Sansad Marg, New Delhi"
+   :gov.address/lat 28.619 :gov.address/lon 77.2103
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mappls/Google" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.transport.hq"
+   :gov.address/unit "gov.ind.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Transport Bhawan, 1 Sansad Marg, New Delhi"
+   :gov.address/lat 28.619 :gov.address/lon 77.2103
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mappls/Google" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.water.hq"
+   :gov.address/unit "gov.ind.water"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Shram Shakti Bhawan, Rafi Marg, New Delhi"
+   :gov.address/lat 28.619389 :gov.address/lon 77.211727
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Mappls" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.usa.health.hq"
+   :gov.address/unit "gov.usa.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Hubert H. Humphrey Building, 200 Independence Ave SW, Washington DC"
+   :gov.address/lat 38.88667 :gov.address/lon -77.01444
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.culture.hq"
+   :gov.address/unit "gov.pak.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "Kohsar Block, Pakistan Secretariat, Islamabad"
+   :gov.address/lat 33.736111 :gov.address/lon 73.092833
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia/official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.defense.hq"
+   :gov.address/unit "gov.pak.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "Pakistan Secretariat No. II, Adam Jee Road, Rawalpindi"
+   :gov.address/lat 33.5941748 :gov.address/lon 73.0572494
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.education.hq"
+   :gov.address/unit "gov.pak.education"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "C-Block, Pakistan Secretariat, Islamabad"
+   :gov.address/lat 33.736111 :gov.address/lon 73.092833
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia/official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.environment.hq"
+   :gov.address/unit "gov.pak.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "LG&RD Complex, G-5/2, Islamabad"
+   :gov.address/lat 33.7228241 :gov.address/lon 73.0960757
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.tourism.hq"
+   :gov.address/unit "gov.pak.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "Kohsar Block, Pakistan Secretariat, Islamabad"
+   :gov.address/lat 33.736111 :gov.address/lon 73.092833
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bra.interior.hq"
+   :gov.address/unit "gov.bra.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "bra"
+   :gov.address/line-en "Palácio da Justiça, Esplanada dos Ministérios, Brasília"
+   :gov.address/lat -15.7973161 :gov.address/lon -47.8658636
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bra.transport.hq"
+   :gov.address/unit "gov.bra.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "bra"
+   :gov.address/line-en "Esplanada dos Ministérios, Bloco R, Brasília"
+   :gov.address/lat -15.7968 :gov.address/lon -47.8672
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikimedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.agriculture.hq"
+   :gov.address/unit "gov.bgd.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Building 4, Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.culture.hq"
+   :gov.address/unit "gov.bgd.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Building 6, Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia/official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.defense.hq"
+   :gov.address/unit "gov.bgd.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Ministry of Defence, Sher-e-Bangla Nagar, Dhaka"
+   :gov.address/lat 23.7662 :gov.address/lon 90.3731
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/Banglapedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.energy.hq"
+   :gov.address/unit "gov.bgd.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Bidyut Bhaban, 1 Abdul Gani Road, Dhaka"
+   :gov.address/lat 23.7283 :gov.address/lon 90.4069
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.finance.hq"
+   :gov.address/unit "gov.bgd.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Building 7, Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.foreign.hq"
+   :gov.address/unit "gov.bgd.foreign"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Ministry of Foreign Affairs, Segunbagicha, Dhaka"
+   :gov.address/lat 23.7306 :gov.address/lon 90.4057
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.housing.hq"
+   :gov.address/unit "gov.bgd.housing"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Building 5, Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.industry.hq"
+   :gov.address/unit "gov.bgd.industry"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Shilpa Bhaban, 91 Motijheel C/A, Dhaka"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official (building coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.justice.hq"
+   :gov.address/unit "gov.bgd.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Building 4, Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.labour.hq"
+   :gov.address/unit "gov.bgd.labour"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.tourism.hq"
+   :gov.address/unit "gov.bgd.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Building 6, Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgd.water.hq"
+   :gov.address/unit "gov.bgd.water"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgd"
+   :gov.address/line-en "Bangladesh Secretariat, Dhaka"
+   :gov.address/lat 23.7288 :gov.address/lon 90.4086
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rus.communications.hq"
+   :gov.address/unit "gov.rus.communications"
+   :gov.address/kind :headquarters
+   :gov.address/country "rus"
+   :gov.address/line-en "Presnenskaya Naberezhnaya 10 bld 2 (IQ-quarter), Moscow"
+   :gov.address/lat 55.7475 :gov.address/lon 37.535
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "digital.gov.ru/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mex.tourism.hq"
+   :gov.address/unit "gov.mex.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "mex"
+   :gov.address/line-en "Av. Presidente Masaryk 172, Bosques de Chapultepec, Mexico City"
+   :gov.address/lat 19.43 :gov.address/lon -99.191
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "gob.mx (address-level approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.agriculture.hq"
+   :gov.address/unit "gov.eth.agriculture"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ministry of Agriculture, Gurd Shola, Bole, Addis Ababa"
+   :gov.address/lat 9.0153 :gov.address/lon 38.8121
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/moa.gov.et" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.culture.hq"
+   :gov.address/unit "gov.eth.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ministry of Tourism, Africa Avenue, Bole, Addis Ababa"
+   :gov.address/lat 8.9932 :gov.address/lon 38.7812
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/mot.gov.et" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.defense.hq"
+   :gov.address/unit "gov.eth.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ministry of National Defence HQ, Lideta, Addis Ababa"
+   :gov.address/lat 9.0076 :gov.address/lon 38.7233
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "map.et/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.finance.hq"
+   :gov.address/unit "gov.eth.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ministry of Finance, Arat Kilo, Addis Ababa"
+   :gov.address/lat 9.0412 :gov.address/lon 38.7613
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.science.hq"
+   :gov.address/unit "gov.eth.science"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ministry of Innovation and Technology, Arada, Addis Ababa"
+   :gov.address/lat 9.0238 :gov.address/lon 38.7549
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/mint.gov.et" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.transport.hq"
+   :gov.address/unit "gov.eth.transport"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ministry of Transport, Ras Desta Damtew St, Lideta, Addis Ababa"
+   :gov.address/lat 9.0197 :gov.address/lon 38.7527
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.phl.health.hq"
+   :gov.address/unit "gov.phl.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "phl"
+   :gov.address/line-en "Department of Health, San Lazaro Compound, Manila"
+   :gov.address/lat 14.6152 :gov.address/lon 120.981
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.phl.interior.hq"
+   :gov.address/unit "gov.phl.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "phl"
+   :gov.address/line-en "DILG–NAPOLCOM Center, EDSA cor Quezon Ave, Quezon City"
+   :gov.address/lat 14.6446 :gov.address/lon 121.0367
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/Wikipedia" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vnm.defense.hq"
+   :gov.address/unit "gov.vnm.defense"
+   :gov.address/kind :headquarters
+   :gov.address/country "vnm"
+   :gov.address/line-en "7 Nguyễn Tri Phương, Ba Đình, Hanoi"
+   :gov.address/lat 21.0314 :gov.address/lon 105.8415
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "mod.gov.vn/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vnm.health.hq"
+   :gov.address/unit "gov.vnm.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "vnm"
+   :gov.address/line-en "138A Giảng Võ, Ba Đình, Hanoi"
+   :gov.address/lat 21.0287 :gov.address/lon 105.8248
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "moh.gov.vn/OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cod.finance.hq"
+   :gov.address/unit "gov.cod.finance"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "Boulevard du 30 Juin, Gombe, Kinshasa"
+   :gov.address/lat -4.3188 :gov.address/lon 15.2774
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cod.interior.hq"
+   :gov.address/unit "gov.cod.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "Ministry of Interior, Kinshasa-Gombe"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "interieur.gouv.cd (coordinate unconfirmed)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cod.justice.hq"
+   :gov.address/unit "gov.cod.justice"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "Place de l'Indépendance, Gombe, Kinshasa"
+   :gov.address/lat -4.3114 :gov.address/lon 15.2806
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cod.science.hq"
+   :gov.address/unit "gov.cod.science"
+   :gov.address/kind :headquarters
+   :gov.address/country "cod"
+   :gov.address/line-en "Avenue Lubefu, Gombe, Kinshasa"
+   :gov.address/lat -4.3182 :gov.address/lon 15.2799
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irn.tourism.hq"
+   :gov.address/unit "gov.irn.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "irn"
+   :gov.address/line-en "Yadegar-e Emam (Azadi Expressway), Tehran"
+   :gov.address/lat 35.6993 :gov.address/lon 51.3587
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/mcth.ir" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.irn.trade.hq"
+   :gov.address/unit "gov.irn.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "irn"
+   :gov.address/line-en "District 6, Tehran"
+   :gov.address/lat 35.7133 :gov.address/lon 51.4154
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/mimt.gov.ir" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.deu.interior.hq"
+   :gov.address/unit "gov.deu.interior"
+   :gov.address/kind :headquarters
+   :gov.address/country "deu"
+   :gov.address/line-en "Alt-Moabit 140, 10557 Berlin"
+   :gov.address/lat 52.5218 :gov.address/lon 13.3632
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/bmi.bund.de" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tha.environment.hq"
+   :gov.address/unit "gov.tha.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "tha"
+   :gov.address/line-en "92 Soi Phahonyothin 7, Bangkok"
+   :gov.address/lat 13.78507 :gov.address/lon 100.53965
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/mnre.go.th" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gbr.culture.hq"
+   :gov.address/unit "gov.gbr.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "gbr"
+   :gov.address/line-en "100 Parliament Street, London"
+   :gov.address/lat 51.50149 :gov.address/lon -0.12665
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gbr.trade.hq"
+   :gov.address/unit "gov.gbr.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "gbr"
+   :gov.address/line-en "Old Admiralty Building, Whitehall, London"
+   :gov.address/lat 51.50589 :gov.address/lon -0.12881
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fra.trade.hq"
+   :gov.address/unit "gov.fra.trade"
+   :gov.address/kind :headquarters
+   :gov.address/country "fra"
+   :gov.address/line-en "139 Rue de Bercy, 75012 Paris"
+   :gov.address/lat 48.84106 :gov.address/lon 2.37832
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.culture.hq"
+   :gov.address/unit "gov.zaf.culture"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Sechaba House, 202 Madiba Street, Pretoria"
+   :gov.address/lat -25.74461 :gov.address/lon 28.18816
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/dsac.gov.za" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.energy.hq"
+   :gov.address/unit "gov.zaf.energy"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Trevenna Campus, cnr Meintjies & Francis Baard, Pretoria"
+   :gov.address/lat -25.7494 :gov.address/lon 28.2003
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM (approx)" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.environment.hq"
+   :gov.address/unit "gov.zaf.environment"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Environment House, 473 Steve Biko Road, Arcadia, Pretoria"
+   :gov.address/lat -25.73804 :gov.address/lon 28.20234
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/dffe.gov.za" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.health.hq"
+   :gov.address/unit "gov.zaf.health"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Civitas Building, 222 Thabo Sehume Street, Pretoria"
+   :gov.address/lat -25.74119 :gov.address/lon 28.18963
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/health.gov.za" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.social.hq"
+   :gov.address/unit "gov.zaf.social"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "HSRC Building, 134 Pretorius Street, Pretoria"
+   :gov.address/lat -25.748017 :gov.address/lon 28.18495
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "hsrc.ac.za" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.tourism.hq"
+   :gov.address/unit "gov.zaf.tourism"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "Tourism House, 17 Trevenna Street, Pretoria"
+   :gov.address/lat -25.74975 :gov.address/lon 28.20331
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "OSM/tourism.gov.za" :gov.address/last-verified "2026-06-04"}
 ]}

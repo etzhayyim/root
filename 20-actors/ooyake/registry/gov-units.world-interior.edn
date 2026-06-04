@@ -272,7 +272,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bra"
-   :gov.unit/name-en "Ministry of Justice and Internal Affairs"
+   :gov.unit/name-en "Ministry of Justice and Public Security"
    :gov.unit/official-url "https://www.gov.br/mj/pt-br"
    :gov.unit/wikidata "Q105766446"
    :gov.unit/cofog ["03.1"]
@@ -368,7 +368,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
-   :gov.unit/name-en "Ministry of the Interior and Security"
+   :gov.unit/name-en "Ministry of Interior, Security, Decentralization and Customary Affairs"
    :gov.unit/official-url "https://interieur.gouv.cd/"
    :gov.unit/wikidata "Q6421178"
    :gov.unit/cofog ["03.1"]
@@ -448,7 +448,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "deu"
-   :gov.unit/name-en "Ministry of the Interior, for Digitalization and Municipalities of Baden-Württemberg"
+   :gov.unit/name-en "Federal Ministry of the Interior and Community"
    :gov.unit/official-url "https://im.baden-wuerttemberg.de/"
    :gov.unit/wikidata "Q1276780"
    :gov.unit/cofog ["03.1"]

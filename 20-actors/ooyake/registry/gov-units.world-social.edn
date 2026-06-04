@@ -174,7 +174,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ind"
-   :gov.unit/name-en "Social Justice and Empowerment Department"
+   :gov.unit/name-en "Ministry of Social Justice and Empowerment"
    :gov.unit/official-url "https://sje.gujarat.gov.in"
    :gov.unit/wikidata "Q116909097"
    :gov.unit/cofog ["10"]

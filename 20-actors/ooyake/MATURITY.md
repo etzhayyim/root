@@ -43,6 +43,34 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: 60 priority ministry HQs (1149 → 1209) + 20 subnational-mislabel fixes
+
+Opened the ministry-tier address fill (493 missing) with 60 HQs across the 17 most-populous /
+significant countries (India, Pakistan, Bangladesh, Brazil, Ethiopia, Vietnam, DR Congo, South
+Africa, Indonesia-adjacent, etc.). **Tooling note:** attempted the user-requested `gemini` CLI
+(`-p` headless) for parallel geocoding — single calls worked, but free-tier quota throttles
+concurrency (Pro exhausted at -P 6/-P 3) and multi-item headless batches returned empty even at
+-P 1 / 6-item / 300s; so this batch was delivered via the proven web-research subagents (gemini
+remains viable only for low-rate single-item calls).
+
+- ministries: 1149 → **1209/1642** with an address. 58/60 building-level lat/lon; 2 honest NULL
+  coords (G5): Bangladesh Industries (Shilpa Bhaban, 91 Motijheel — no building pin), DR Congo
+  Interior (not in OSM).
+- **20 data-quality name fixes** (Wikidata subnational/stale → correct NATIONAL body): India
+  science/social/power/labour/home/road-transport/Jal-Shakti; **USA health = Alabama Dept of
+  Public Health → US Dept of Health and Human Services**; Pakistan education (Punjab dept)→Federal
+  Education, environment→Climate Change, tourism→PTDC; Brazil interior→Justice & Public Security;
+  Russia comms (Tatarstan)→federal Ministry of Digital Development; Ethiopia culture→Tourism,
+  science→Innovation & Technology; Iran trade→Industry/Mine/Trade; **Germany interior (Baden-
+  Württemberg)→Federal Ministry of the Interior**; DR Congo interior full name; Thailand
+  environment→Natural Resources & Environment; France trade→Economy/Finance; ZA culture/health.
+- honest seat notes: Bangladesh Defence at Sher-e-Bangla Nagar (not Cantonment); India Tourism +
+  Road Transport share Transport Bhawan; Mexico SECTUR address-level approx (registry "Insurgentes
+  Sur" was wrong → Masaryk 172).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: cabinet tier COMPLETE (52 → 129/129)
 
 Finished the cabinet/executive tier — the remaining 77 executives (small/mid states). 7 web-research

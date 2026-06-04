@@ -494,7 +494,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mex"
-   :gov.unit/name-en "Secretariat of Tourism"
+   :gov.unit/name-en "Secretariat of Tourism (SECTUR)"
    :gov.unit/official-url "http://www.sectur.gob.mx/"
    :gov.unit/wikidata "Q384440"
    :gov.unit/cofog ["04.7"]
@@ -574,7 +574,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-en "Pakistan Tourism Development Corporation (PTDC)"
    :gov.unit/official-url "https://tourism.gov.pk/"
    :gov.unit/wikidata "Q6867580"
    :gov.unit/cofog ["04.7"]
