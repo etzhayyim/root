@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — L3 ADDRESS: oversight bodies + meteorology (617 → 701)
+
+Closed out the accountability/oversight cluster (12 ombudsman + 11 prosecutor + 4 audit +
+5 competition + 3 data-protection) and opened the SCIENTIFIC-SERVICE cluster with 49 national
+METEOROLOGY/weather services. 7 web-research subagents. 84 added; **56 building-level lat/lon,
+28 honest line-en-only (G5)** — many met services are rooms inside airports (Singapore Changi T2,
+Seychelles/Trinidad/Maldives/Fiji airports) or PO-box-only, geocoded only where a building node exists.
+
+- agencies: 617 → **701/1049** (67%) with an address record.
+- **8 data-quality name fixes** (narrow/sub-national/amateur mislabels → correct NATIONAL body):
+  - gov.aus.ombudsman "Private Health Insurance Ombudsman" → **Commonwealth Ombudsman** (Canberra)
+  - gov.esp.ombudsman "Andalusian Village Defense" → **Defensor del Pueblo** (Madrid)
+  - gov.gbr.ombudsman "Scottish Information Commissioner" → **Parliamentary & Health Service Ombudsman** (Manchester)
+  - gov.mex.prosecutor "Procuraduría General de la República" → **Fiscalía General de la República (FGR)** (renamed 2019)
+  - gov.aus.audit "Victorian Auditor-General" (state) → **Australian National Audit Office (ANAO)** (Canberra)
+  - gov.mex.dataprotection "Transparency for the People" → **Transparencia para el Pueblo / SABG** (INAI dissolved 2025)
+  - gov.gbr.meteorology "European Centre for Medium-Range Weather Forecasts" (intergovernmental) → **Met Office** (Exeter)
+  - gov.lux.meteorology "Météo Boulaide" (amateur station) → **MeteoLux** (ANA, Findel Airport)
+- honest notes: USCIS Ombudsman administratively closed Mar 2025 (mailing only, null); India DPB & Indonesia
+  PDP agency newly created / not yet operational (null); MeteoSwiss HQ moved to Zurich-Airport Op Center 1
+  (2014); Météo-France registered seat Saint-Mandé (main ops Toulouse); Vietnam VNMHA address in flux post
+  April-2025 reorg (null).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: accountability agencies — statistics + NHRI + revenue (559 → 617)
 
 Continued the agency-tier address fill with the next accountability cluster: 28 national STATISTICS

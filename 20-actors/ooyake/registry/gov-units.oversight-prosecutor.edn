@@ -242,7 +242,7 @@
    :gov.unit/parent "gov.mex"
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mex"
-   :gov.unit/name-en "Procuraduría General de la República"
+   :gov.unit/name-en "Fiscalía General de la República (FGR)"
    :gov.unit/official-url "http://www.pgr.gob.mx"
    :gov.unit/wikidata "Q50150345"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
