@@ -63,12 +63,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Housing"
+   :gov.unit/official-url "https://www.midh.gov.bz/"
    :gov.unit/wikidata "Q97260523"
    :gov.unit/cofog ["06.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97260523"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.midh.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.housing"
@@ -238,12 +239,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "prt"
    :gov.unit/name-en "Ministry of Infrastructure and Housing"
+   :gov.unit/official-url "https://www.portugal.gov.pt/pt/gc25/area-de-governo/infraestruturas-e-habitacao"
    :gov.unit/wikidata "Q86734622"
    :gov.unit/cofog ["06.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q86734622"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.portugal.gov.pt/pt/gc25/area-de-governo/infraestruturas-e-habitacao"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.swz.housing"
@@ -269,12 +271,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Public Works and Housing (Syria)"
+   :gov.unit/official-url "http://mopwh.gov.sy/"
    :gov.unit/wikidata "Q65232496"
    :gov.unit/cofog ["06.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65232496"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://mopwh.gov.sy/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ukr.housing"

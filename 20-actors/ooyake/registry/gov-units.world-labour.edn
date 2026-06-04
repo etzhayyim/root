@@ -128,12 +128,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Labour"
+   :gov.unit/official-url "https://www.ruraltransformation.gov.bz/the-ministry/labour/"
    :gov.unit/wikidata "Q97260505"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97260505"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.ruraltransformation.gov.bz/the-ministry/labour/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bra.labour"
@@ -287,12 +288,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Labour, Employment and Social Security"
+   :gov.unit/official-url "https://www.mtess.gov.dz/"
    :gov.unit/wikidata "Q42343120"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q42343120"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mtess.gov.dz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ecu.labour"
@@ -398,12 +400,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "gtm"
    :gov.unit/name-en "Ministry of Labour and Social Welfare of Guatemala"
+   :gov.unit/official-url "https://www.mintrabajo.gob.gt/"
    :gov.unit/wikidata "Q6017458"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6017458"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mintrabajo.gob.gt/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.labour"
@@ -525,12 +528,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbr"
    :gov.unit/name-en "Ministry of Labour, Liberia"
+   :gov.unit/official-url "https://mol.gov.lr/"
    :gov.unit/wikidata "Q123804883"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q123804883"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mol.gov.lr/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.labour"
@@ -875,12 +879,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Labor, Employment and Youth Affairs"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-arbeid-werkgelegenheid-en-jeugdzaken/"
    :gov.unit/wikidata "Q56284875"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56284875"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-arbeid-werkgelegenheid-en-jeugdzaken/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.labour"
@@ -954,12 +959,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Ministry of Labour and Employment"
+   :gov.unit/official-url "https://www.kazi.go.tz/"
    :gov.unit/wikidata "Q14866849"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q14866849"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.kazi.go.tz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ury.labour"
@@ -1001,12 +1007,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
    :gov.unit/name-en "Department of Employment and Labour"
+   :gov.unit/official-url "https://www.labour.gov.za/"
    :gov.unit/wikidata "Q5260370"
    :gov.unit/cofog ["04.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5260370"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.labour.gov.za/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zmb.labour"
