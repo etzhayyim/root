@@ -274,6 +274,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Industry, Mine and Trade"
+   :gov.unit/name-local "وزارت صنعت، معدن و تجارت"
+   :gov.unit/name-romanized "Vezārat-e Sanʿat, Maʿdan va Tejārat"
    :gov.unit/official-url "https://en.mimt.gov.ir/"
    :gov.unit/wikidata "Q1574903"
    :gov.unit/cofog ["04.1"]
@@ -618,6 +620,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Economy and Trade (Syria)"
+   :gov.unit/name-local "وزارة الاقتصاد والتجارة الخارجية"
+   :gov.unit/name-romanized "Wizārat al-Iqtiṣād wa-l-Tijāra al-Khārijiyya"
    :gov.unit/official-url "http://syrecon.gov.sy/"
    :gov.unit/wikidata "Q4294831"
    :gov.unit/cofog ["04.1"]

@@ -596,6 +596,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Economic Affairs and Finance (Iran)"
+   :gov.unit/name-local "وزارت امور اقتصادی و دارایی"
+   :gov.unit/name-romanized "Vezārat-e Omur-e Eqtesādi va Dārāyi"
    :gov.unit/official-url "https://www.mefa.ir/"
    :gov.unit/wikidata "Q6588993"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -608,6 +610,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Finance (Iraq)"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "http://www.mof.gov.iq"
    :gov.unit/wikidata "Q15626404"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -656,6 +660,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Finance (Jordan)"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "https://mof.gov.jo/"
    :gov.unit/wikidata "Q22686379"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1416,6 +1422,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "https://mof-yemen.com/"
    :gov.unit/wikidata "Q12250990"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

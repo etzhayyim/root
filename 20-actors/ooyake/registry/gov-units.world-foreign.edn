@@ -834,6 +834,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Foreign Affairs of Iran"
+   :gov.unit/name-local "وزارت امور خارجه"
+   :gov.unit/name-romanized "Vezārat-e Omur-e Khārejeh"
    :gov.unit/official-url "https://en.mfa.ir/"
    :gov.unit/wikidata "Q2565708"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -846,6 +848,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Iraq"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizārat al-Khārijiyya"
    :gov.unit/official-url "http://www.mofa.gov.iq/en/"
    :gov.unit/wikidata "Q6867009"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -906,6 +910,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Kingdom of Jordan"
+   :gov.unit/name-local "وزارة الخارجية وشؤون المغتربين"
+   :gov.unit/name-romanized "Wizārat al-Khārijiyya wa-Shuʾūn al-Mughtaribīn"
    :gov.unit/official-url "http://www.mfa.gov.jo/"
    :gov.unit/wikidata "Q15989681"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1720,6 +1726,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Foreign Affairs and Expatriates"
+   :gov.unit/name-local "وزارة الخارجية والمغتربين"
+   :gov.unit/name-romanized "Wizārat al-Khārijiyya wa-l-Mughtaribīn"
    :gov.unit/official-url "https://mofaex.gov.sy/"
    :gov.unit/wikidata "Q1829504"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

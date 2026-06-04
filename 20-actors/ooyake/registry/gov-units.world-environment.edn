@@ -647,6 +647,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Environment of Iraq"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizārat al-Bīʾa"
    :gov.unit/official-url "https://moen.gov.iq/"
    :gov.unit/wikidata "Q16126958"
    :gov.unit/cofog ["05"]
@@ -679,6 +681,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Environment of Jordan"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizārat al-Bīʾa"
    :gov.unit/official-url "https://moenv.gov.jo/"
    :gov.unit/wikidata "Q22690682"
    :gov.unit/cofog ["05"]

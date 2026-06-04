@@ -660,6 +660,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Agriculture Jihad"
+   :gov.unit/name-local "وزارت جهاد کشاورزی"
+   :gov.unit/name-romanized "Vezārat-e Jahād-e Keshāvarzi"
    :gov.unit/official-url "https://maj.ir"
    :gov.unit/wikidata "Q6589161"
    :gov.unit/cofog ["04.2"]
@@ -1416,6 +1418,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Agriculture and Agrarian Reform of Syria"
+   :gov.unit/name-local "وزارة الزراعة والإصلاح الزراعي"
+   :gov.unit/name-romanized "Wizārat al-Zirāʿa wa-l-Iṣlāḥ al-Zirāʿī"
    :gov.unit/official-url "https://moaar.gov.sy/"
    :gov.unit/wikidata "Q4294686"
    :gov.unit/cofog ["04.2"]

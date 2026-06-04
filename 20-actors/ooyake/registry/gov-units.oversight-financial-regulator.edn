@@ -374,6 +374,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Syrian Commission on Financial Markets and Securities"
+   :gov.unit/name-local "هيئة الأوراق والأسواق المالية السورية"
+   :gov.unit/name-romanized "Hayʾat al-Awrāq wa-l-Aswāq al-Māliyya al-Sūriyya"
    :gov.unit/official-url "https://www.scfms.sy"
    :gov.unit/wikidata "Q119939123"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

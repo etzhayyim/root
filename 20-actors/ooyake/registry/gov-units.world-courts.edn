@@ -736,6 +736,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Supreme Court of Iran"
+   :gov.unit/name-local "دیوان عالی کشور"
+   :gov.unit/name-romanized "Divān-e Āli-ye Keshvar"
    :gov.unit/official-url "http://divanealee.eadl.ir/"
    :gov.unit/wikidata "Q13107481"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -747,7 +749,9 @@
    :gov.unit/parent "gov.irq"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "irq"
-   :gov.unit/name-en "Supreme Court of Iraq"
+   :gov.unit/name-en "Federal Supreme Court of Iraq"
+   :gov.unit/name-local "المحكمة الاتحادية العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-Ittiḥādiyya al-ʿUlyā"
    :gov.unit/official-url "https://iraqfsc.iq/"
    :gov.unit/wikidata "Q3001100"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1525,6 +1529,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Supreme Constitutional Court of Syria"
+   :gov.unit/name-local "المحكمة الدستورية العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-Dustūriyya al-ʿUlyā"
    :gov.unit/wikidata "Q7644818"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644818" :gov.unit/last-verified "2026-06-03"
@@ -1728,6 +1734,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Supreme Court of the Republic"
+   :gov.unit/name-local "المحكمة العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-ʿUlyā"
    :gov.unit/official-url "https://sc-yemen.com/"
    :gov.unit/wikidata "Q12192498"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

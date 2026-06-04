@@ -660,6 +660,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Roads and Urban Development"
+   :gov.unit/name-local "وزارت راه و شهرسازی"
+   :gov.unit/name-romanized "Vezārat-e Rāh va Shahrsāzi"
    :gov.unit/official-url "http://www.mrud.ir/"
    :gov.unit/wikidata "Q1091495"
    :gov.unit/cofog ["04.5"]
@@ -676,6 +678,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Transport (Iraq)"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "http://www.motrans.gov.iq/"
    :gov.unit/wikidata "Q22690700"
    :gov.unit/cofog ["04.5"]
@@ -740,6 +744,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Transport of Jordan"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "https://www.mot.gov.jo/"
    :gov.unit/wikidata "Q22690699"
    :gov.unit/cofog ["04.5"]
@@ -1261,6 +1267,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "https://www.mot.gov.sy/web/main.php"
    :gov.unit/wikidata "Q6867611"
    :gov.unit/cofog ["04.5"]
@@ -1421,6 +1429,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "https://www.mot.gov.ye/"
    :gov.unit/wikidata "Q12250994"
    :gov.unit/cofog ["04.5"]

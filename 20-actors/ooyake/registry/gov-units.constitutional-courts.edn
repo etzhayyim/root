@@ -582,6 +582,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Jordanian Constitutional Court"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama al-Dustūriyya"
    :gov.unit/official-url "https://cco.gov.jot"
    :gov.unit/wikidata "Q3000935"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

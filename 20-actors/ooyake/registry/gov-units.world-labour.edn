@@ -933,6 +933,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Social Affairs and Labour (Syria)"
+   :gov.unit/name-local "وزارة الشؤون الاجتماعية والعمل"
+   :gov.unit/name-romanized "Wizārat al-Shuʾūn al-Ijtimāʿiyya wa-l-ʿAmal"
    :gov.unit/official-url "https://mosal.gov.sy/"
    :gov.unit/wikidata "Q60576089"
    :gov.unit/cofog ["04.1"]

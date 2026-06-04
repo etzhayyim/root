@@ -870,6 +870,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Justice (Iran)"
+   :gov.unit/name-local "وزارت دادگستری"
+   :gov.unit/name-romanized "Vezārat-e Dādgostari"
    :gov.unit/official-url "http://www.justice.ir/"
    :gov.unit/wikidata "Q2606340"
    :gov.unit/cofog ["03.3"]
@@ -934,6 +936,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "https://moj.gov.jo/"
    :gov.unit/wikidata "Q22686378"
    :gov.unit/cofog ["03.3"]
@@ -1789,6 +1793,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "http://jus.moj.gov.sy/"
    :gov.unit/wikidata "Q4294874"
    :gov.unit/cofog ["03.3"]
@@ -1997,6 +2003,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل وحقوق الإنسان"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl wa-Ḥuqūq al-Insān"
    :gov.unit/official-url "https://www.moj.gov.ye/"
    :gov.unit/wikidata "Q12250981"
    :gov.unit/cofog ["03.3"]
