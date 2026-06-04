@@ -49,12 +49,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "and"
    :gov.unit/name-en "Ministry of Justice and Interior of Andorra"
+   :gov.unit/official-url "https://www.govern.ad/ca/ministeris-i-secretaries-d-estat/ministeri-de-justicia-i-interior"
    :gov.unit/wikidata "Q28711571"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q28711571"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.govern.ad/ca/ministeris-i-secretaries-d-estat/ministeri-de-justicia-i-interior"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.arg.interior"
@@ -256,12 +257,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/official-url "https://www.homeaffairs.gov.bz/"
    :gov.unit/wikidata "Q97488004"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q97488004"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.homeaffairs.gov.bz/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bra.interior"
@@ -271,12 +273,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bra"
    :gov.unit/name-en "Ministry of Justice and Internal Affairs"
+   :gov.unit/official-url "https://www.gov.br/mj/pt-br"
    :gov.unit/wikidata "Q105766446"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q105766446"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.br/mj/pt-br"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.brn.interior"
@@ -366,12 +369,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Ministry of the Interior and Security"
+   :gov.unit/official-url "https://interieur.gouv.cd/"
    :gov.unit/wikidata "Q6421178"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6421178"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://interieur.gouv.cd/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.interior"
@@ -685,12 +689,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Secretariat of the Interior of Honduras"
+   :gov.unit/official-url "https://www.sgjd.gob.hn/"
    :gov.unit/wikidata "Q6123225"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6123225"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sgjd.gob.hn/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hrv.interior"
@@ -940,12 +945,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Public Administration and Home Affairs"
+   :gov.unit/official-url "https://pubad.gov.lk/web/index.php?lang=en"
    :gov.unit/wikidata "Q16152199"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16152199"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://pubad.gov.lk/web/index.php?lang=en"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ltu.interior"
@@ -1003,12 +1009,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/official-url "https://www.interieur.gov.ma/"
    :gov.unit/wikidata "Q22934919"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q22934919"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.interieur.gov.ma/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mda.interior"
@@ -1034,12 +1041,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/official-url "https://www.mohst.gov.mv/"
    :gov.unit/wikidata "Q30612710"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q30612710"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mohst.gov.mv/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mex.interior"
@@ -1161,12 +1169,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Ministry of the Interior"
+   :gov.unit/official-url "https://interieur.gouv.ne/"
    :gov.unit/wikidata "Q123731371"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q123731371"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://interieur.gouv.ne/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.interior"
@@ -1176,12 +1185,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/official-url "https://interior.gov.ng/"
    :gov.unit/wikidata "Q25351971"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25351971"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://interior.gov.ng/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.npl.interior"
@@ -1255,12 +1265,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "phl"
    :gov.unit/name-en "Ministry of the Interior and Local Government"
+   :gov.unit/official-url "https://www.dilg.gov.ph/"
    :gov.unit/wikidata "Q65047910"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q65047910"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.dilg.gov.ph/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pol.interior"
@@ -1302,12 +1313,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Ministry of the Interior"
+   :gov.unit/official-url "https://www.mdi.gov.py/"
    :gov.unit/wikidata "Q84487003"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q84487003"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mdi.gov.py/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.qat.interior"
@@ -1445,12 +1457,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Ministry of Internal Affairs"
+   :gov.unit/official-url "https://gov.sr/ministeries/ministerie-van-binnenlandse-zaken/"
    :gov.unit/wikidata "Q56476954"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q56476954"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gov.sr/ministeries/ministerie-van-binnenlandse-zaken/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.svk.interior"
@@ -1540,12 +1553,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Internal Affairs"
+   :gov.unit/official-url "https://mvd.tj/"
    :gov.unit/wikidata "Q25593307"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25593307"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mvd.tj/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tls.interior"
@@ -1747,12 +1761,13 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zmb"
    :gov.unit/name-en "Ministry of Home Affairs (Zambia)"
+   :gov.unit/official-url "https://www.mohais.gov.zm/"
    :gov.unit/wikidata "Q55623295"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55623295"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.mohais.gov.zm/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zwe.interior"
@@ -1762,10 +1777,11 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/official-url "http://www.moha.gov.zw/"
    :gov.unit/wikidata "Q6867146"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q6867146"
-   :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.moha.gov.zw/"
+   :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}

@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — education + interior ministry sites: 31 web-verified (1494 → 1525 ministries)
+
+Continued the ministry tier with education (16) + interior/home-affairs (16). 4 web-research
+subagents found + **confirmed each ministry's own official site by fetching it**. 31 confirmed
+(provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+
+- ministries: 1494 → **1525/1642** with an official site (93%).
+- 1 HONESTLY left null (G5): **Belgium education** — no federal education ministry exists
+  (constitutionally devolved to the Flemish / French-community / German-speaking communities);
+  the federal belgium.be page is informational only.
+- honest structural notes recorded: Bosnia uses the state Ministry of Civil Affairs (no state
+  education ministry); Indonesia split into Kemendikdasmen (primary/secondary, Oct 2024);
+  Liechtenstein education now under the Ministry of Infrastructure & Education; Marshall
+  Islands via the Public School System; Honduras interior = SGJD (Gobernación). Caveats:
+  Sierra Leone mbsse.gov.sl homepage temporarily serving a broken WordPress default (domain
+  identity certain); several gov sites (Morocco/DRC interior, Nigeria/Philippines/Zambia/
+  Zimbabwe) refuse the automated fetcher (geo/TLS/timeout) but are multi-source-corroborated
+  official domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — transport + defense ministry sites: 27 web-verified (1467 → 1494 ministries)
 
 Continued the ministry tier with transport (19) + defense (17) categories. 4 web-research
