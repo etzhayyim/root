@@ -278,7 +278,7 @@
    :gov.unit/parent "gov.esp"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Basque Statistics Office"
+   :gov.unit/name-en "Instituto Nacional de Estadística (INE)"
    :gov.unit/official-url "https://eu.eustat.eus/indice.html"
    :gov.unit/wikidata "Q810379"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -410,7 +410,7 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Census and Statistics Department"
+   :gov.unit/name-en "National Bureau of Statistics of China"
    :gov.unit/official-url "http://www.censtatd.gov.hk/"
    :gov.unit/wikidata "Q839897"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

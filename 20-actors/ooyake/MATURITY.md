@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: accountability agencies — statistics + NHRI + revenue (559 → 617)
+
+Continued the agency-tier address fill with the next accountability cluster: 28 national STATISTICS
+offices + 18 NATIONAL HUMAN-RIGHTS INSTITUTIONS + 12 TAX/REVENUE authorities. 6 web-research
+subagents. 58 added; **43 building-level lat/lon, 15 honest line-en-only (G5)**.
+
+- agencies: 559 → **617/1049** with an address record.
+- **8 data-quality name fixes** (sub-national / NGO mislabels → the correct NATIONAL body):
+  - gov.chn.statistics "Census & Statistics Dept" (Hong Kong) → **National Bureau of Statistics of China** (Beijing)
+  - gov.esp.statistics "Basque Statistics Office" (Eustat, regional) → **Instituto Nacional de Estadística (INE)** (Madrid)
+  - gov.can.nhri Quebec CDPDJ (provincial) → **Canadian Human Rights Commission** (Ottawa)
+  - gov.gtm.nhri "Guatemala HR Commission" (US NGO) → **Procurador de los Derechos Humanos (PDH)** (Guatemala City)
+  - gov.ken.nhri "Kenya HR Commission" (NGO) → **Kenya National Commission on Human Rights (KNCHR)** (Nairobi)
+  - gov.tha.nhri "Asian Human Rights Commission" (HK regional NGO) → **National Human Rights Commission of Thailand (NHRCT)** (Bangkok)
+  - gov.cze.revenue a Prague branch office → **Generální finanční ředitelství** (General Financial Directorate)
+  - gov.tur.revenue mislabeled "customs" → **Gelir İdaresi Başkanlığı** (Revenue Administration, Ankara)
+- honest notes: AIHRC Afghanistan offices confiscated 2022 (null coord, city retained); North Korea
+  CBS district-only; SUHAKAM relocated to Menara Aras Raya (Oct 2025); Paraguay merged tax+customs
+  into DNIT (Law 7143/2023); DIAN Bogotá building not reliably geocodable (null, address retained).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: accountability agencies — electoral + anti-corruption (509 → 559)
 
 Opened the agency-tier address fill with the highest-civic-value accountability bodies: 25 national
