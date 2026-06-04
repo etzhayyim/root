@@ -258,3 +258,30 @@ path), and (2) optional removal of the now-dead Journal write/replay code.
   `mv_registry` in state, maintained on every commit, `kg.mv.register` /
   `kg.mv.result` endpoints (PR #29). Follow-on: route `kg.query` through a
   matching maintained MV; retraction-aware maintenance.
+
+## A.6 — WAL-off default flip: prerequisite (finding 2026-06-04)
+
+Flipping the default to `KOTOBA_JOURNAL_WAL=off` is **not yet free**. Recovery
+*correctness* is validated (A.4/A.5), but **cold reads do not promote to the hot
+arrangement**: `get_entity_quads_cold` serves from the cold ProllyTree without
+populating the hot 4-index Arrangement (and the `hot_covers_all` flag stays
+false). So after a WAL-off restart the legacy hot arrangement is empty and reads
+stay on the cold path (correct, but ms-class instead of µs) until new writes
+repopulate it — a persistent post-restart latency regression, not just a
+cold-start blip.
+
+**Prerequisite to flip the default safely:** a boot-time *legacy-arrangement
+rehydration from the committed CommitDag* (the legacy-quad analogue of
+`warm_datomic_live_caches`, which already re-warms the datomic read path from each
+graph's IPNS head). Until that exists, **keep WAL-off opt-in** — the efficiency
+win (no per-datom double-write) is available now via the flag for deployments that
+accept the post-restart cold-read warmup. Building the rehydration (with its
+own full-graph-load-on-boot tradeoffs) is a deliberate follow-up, not a default
+flip to rush.
+
+## B follow-on landed — kg.query MV routing
+
+`kg.query` accepts an optional `mv_name`: when set to a `kg.mv.register`'d view,
+it serves the incrementally-maintained result (`source: "mv"`) instead of the
+per-request from-scratch evaluation. Auto-matching an arbitrary query to an
+equivalent registered view (no explicit name) remains a separate design question.
