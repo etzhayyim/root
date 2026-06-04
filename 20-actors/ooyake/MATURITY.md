@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — L3 ADDRESS: SWF + residuals — AGENCY TIER COMPLETE (999 → 1049/1049)
+
+Final agency cleanup: the last 50 gaps = 45 sovereign-wealth-funds + ECB + Japan National Tax Agency
++ US IRS + 2 financial regulators. 5 web-research subagents. 50 added; **38 building-level lat/lon,
+12 honest line-en-only (G5)** — the 12 nulls are pure accounting/statutory funds with no distinct
+managing office (Brazil FSB [dissolved 2019], Chile ESSF, Shanghai/Cape Verde/Gabon funds, the 4 US
+state permanent funds, both Nauru funds, Tuvalu Trust Fund).
+
+- **agencies: 999 → 1049/1049 (100%)** — the ENTIRE agency tier now carries an address record.
+- All units overall: **7093/7106** with an address (13 stragglers remain: 1 country [aus], 1 JP
+  prefecture [Tokyo], 1 bureau [NTA Tokyo], 10 adm1 subdivisions — next iteration).
+- honest notes: KIC HQ corrected to State Tower Namsan (not Seoul Finance Center); PIF Tower is in
+  KAFD (not Al Olaya); both Norway SWF entries = same fund (NBIM, Bankplassen 2); CREECO registered
+  in Oujé-Bougoumou (not Montreal); Danantara moved to Plaza Mandiri (2025).
+
+### L3 address coverage by tier (cumulative, 6 iterations)
+country / legislature / court / supranational / cabinet / ministry — COMPLETE; agency — **1049/1049 COMPLETE**.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — L3 ADDRESS: national libraries — full sweep (845 → 999)
 
 Second single-tier deep sweep: ALL 154 national LIBRARIES still missing an address. 13 web-research
