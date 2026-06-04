@@ -192,6 +192,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Human Resources and Social Security of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国人力资源和社会保障部"
+   :gov.unit/name-romanized "Rénlì Zīyuán hé Shèhuì Bǎozhàng Bù"
    :gov.unit/official-url "https://www.12333.gov.cn/"
    :gov.unit/wikidata "Q1002017"
    :gov.unit/cofog ["04.1"]
@@ -512,6 +514,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Employment and Labor"
+   :gov.unit/name-local "고용노동부"
+   :gov.unit/name-romanized "Goyong Nodongbu"
    :gov.unit/official-url "http://www.moel.go.kr/"
    :gov.unit/wikidata "Q488949"
    :gov.unit/cofog ["04.1"]

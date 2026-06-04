@@ -161,6 +161,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Human Rights Commission of Korea"
+   :gov.unit/name-local "국가인권위원회"
+   :gov.unit/name-romanized "Gukga Ingwon Wiwonhoe"
    :gov.unit/official-url "http://www.humanrights.go.kr"
    :gov.unit/wikidata "Q624507"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

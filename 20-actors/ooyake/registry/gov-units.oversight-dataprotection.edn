@@ -290,6 +290,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Personal Information Protection Commission"
+   :gov.unit/name-local "個人情報保護委員会"
+   :gov.unit/name-romanized "Kojin Jōhō Hogo Iinkai"
    :gov.unit/official-url "https://www.ppc.go.jp/"
    :gov.unit/wikidata "Q17221586"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -302,6 +304,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Personal Information Protection Commission"
+   :gov.unit/name-local "개인정보보호위원회"
+   :gov.unit/name-romanized "Gaein Jeongbo Boho Wiwonhoe"
    :gov.unit/official-url "http://www.pipc.go.kr"
    :gov.unit/wikidata "Q12583260"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -446,6 +450,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Roskomnadzor"
+   :gov.unit/name-local "Федеральная служба по надзору в сфере связи, информационных технологий и массовых коммуникаций"
+   :gov.unit/name-romanized "Roskomnadzor"
    :gov.unit/official-url "https://eng.rkn.gov.ru/"
    :gov.unit/wikidata "Q129597"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

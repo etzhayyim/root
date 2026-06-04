@@ -63,6 +63,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Industry and Information Technology of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国工业和信息化部"
+   :gov.unit/name-romanized "Gōngyè hé Xìnxīhuà Bù"
    :gov.unit/official-url "http://www.miit.gov.cn/"
    :gov.unit/wikidata "Q1002010"
    :gov.unit/cofog ["04.4"]

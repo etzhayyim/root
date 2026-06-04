@@ -111,6 +111,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Housing and Urban-Rural Development of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国住房和城乡建设部"
+   :gov.unit/name-romanized "Zhùfáng hé Chéngxiāng Jiànshè Bù"
    :gov.unit/official-url "http://www.mohurd.gov.cn/"
    :gov.unit/wikidata "Q11366945"
    :gov.unit/cofog ["06.1"]

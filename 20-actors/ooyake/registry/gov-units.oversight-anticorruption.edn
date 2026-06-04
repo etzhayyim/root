@@ -99,7 +99,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Independent Commission Against Corruption"
+   :gov.unit/name-en "National Supervisory Commission of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国国家监察委员会"
+   :gov.unit/name-romanized "Guójiā Jiānchá Wěiyuánhuì"
    :gov.unit/official-url "https://www.icac.org.hk/"
    :gov.unit/wikidata "Q30999"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -256,6 +258,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Korea Independent Commission Against Corruption"
+   :gov.unit/name-local "국민권익위원회"
+   :gov.unit/name-romanized "Gungmin Gwonik Wiwonhoe"
    :gov.unit/official-url "http://www.acrc.go.kr"
    :gov.unit/wikidata "Q412404"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

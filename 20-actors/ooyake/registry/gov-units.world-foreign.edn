@@ -385,6 +385,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Foreign Affairs of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国外交部"
+   :gov.unit/name-romanized "Wàijiāo Bù"
    :gov.unit/official-url "https://www.mfa.gov.cn"
    :gov.unit/wikidata "Q1155502"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -972,6 +974,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Korea"
+   :gov.unit/name-local "외교부"
+   :gov.unit/name-romanized "Oegyobu"
    :gov.unit/official-url "http://www.mofa.go.kr/"
    :gov.unit/wikidata "Q9405654"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1476,6 +1480,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Russian Federation"
+   :gov.unit/name-local "Министерство иностранных дел Российской Федерации"
+   :gov.unit/name-romanized "MID"
    :gov.unit/official-url "https://mid.ru"
    :gov.unit/wikidata "Q789889"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

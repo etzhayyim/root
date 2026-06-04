@@ -241,6 +241,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Agriculture and Rural Affairs of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国农业农村部"
+   :gov.unit/name-romanized "Nóngyè Nóngcūn Bù"
    :gov.unit/official-url "http://english.moa.gov.cn/"
    :gov.unit/wikidata "Q50484565"
    :gov.unit/cofog ["04.2"]
@@ -784,6 +786,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Agriculture, Food and Rural Affairs"
+   :gov.unit/name-local "농림축산식품부"
+   :gov.unit/name-romanized "Nongnimchuksansingmubu"
    :gov.unit/official-url "https://www.mafra.go.kr/"
    :gov.unit/wikidata "Q624460"
    :gov.unit/cofog ["04.2"]
@@ -1248,6 +1252,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Agriculture"
+   :gov.unit/name-local "Министерство сельского хозяйства Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo selskogo khozyaystva RF"
    :gov.unit/official-url "https://mcx.gov.ru"
    :gov.unit/wikidata "Q4294685"
    :gov.unit/cofog ["04.2"]

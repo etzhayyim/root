@@ -303,6 +303,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Labour and Social Protection of the Russian Federation"
+   :gov.unit/name-local "Министерство труда и социальной защиты Российской Федерации"
+   :gov.unit/name-romanized "Mintrud"
    :gov.unit/official-url "https://mintrud.gov.ru"
    :gov.unit/wikidata "Q4294762"
    :gov.unit/cofog ["10"]

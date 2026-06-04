@@ -384,6 +384,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Digital Development, Communications and Mass Media of the Russian Federation"
+   :gov.unit/name-local "Министерство цифрового развития, связи и массовых коммуникаций Российской Федерации"
+   :gov.unit/name-romanized "Mintsifry"
    :gov.unit/official-url "https://digital.tatarstan.ru/"
    :gov.unit/wikidata "Q20591796"
    :gov.unit/cofog ["04.6"]

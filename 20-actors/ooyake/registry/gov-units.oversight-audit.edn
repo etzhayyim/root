@@ -125,6 +125,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Board of Audit"
+   :gov.unit/name-local "会計検査院"
+   :gov.unit/name-romanized "Kaikei Kensain"
    :gov.unit/official-url "https://www.jbaudit.go.jp/"
    :gov.unit/wikidata "Q615225"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -209,6 +211,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Accounts Chamber of the Russian Federation"
+   :gov.unit/name-local "Счётная палата Российской Федерации"
+   :gov.unit/name-romanized "Schyotnaya palata RF"
    :gov.unit/official-url "https://ach.gov.ru/"
    :gov.unit/wikidata "Q1968051"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -182,6 +182,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Hydrometeorological Centre of Russia"
+   :gov.unit/name-local "Гидрометеорологический научно-исследовательский центр Российской Федерации"
+   :gov.unit/name-romanized "Gidromettsentr Rossii"
    :gov.unit/official-url "http://wmc.meteoinfo.ru"
    :gov.unit/wikidata "Q4138141"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -217,7 +219,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "National Meteorological Centre"
+   :gov.unit/name-en "China Meteorological Administration"
+   :gov.unit/name-local "中国气象局"
+   :gov.unit/name-romanized "Zhōngguó Qìxiàng Jú"
    :gov.unit/official-url "http://www.nmc.cn/"
    :gov.unit/wikidata "Q6974317"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

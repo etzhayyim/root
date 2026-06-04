@@ -96,6 +96,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Commerce of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国商务部"
+   :gov.unit/name-romanized "Shāngwù Bù"
    :gov.unit/official-url "http://www.mofcom.gov.cn/"
    :gov.unit/wikidata "Q1064994"
    :gov.unit/cofog ["04.1"]
@@ -528,6 +530,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Industry and Trade"
+   :gov.unit/name-local "Министерство промышленности и торговли Российской Федерации"
+   :gov.unit/name-romanized "Minpromtorg"
    :gov.unit/official-url "https://minpromtorg.gov.ru"
    :gov.unit/wikidata "Q2028312"
    :gov.unit/cofog ["04.1"]

@@ -1009,6 +1009,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Health and Welfare"
+   :gov.unit/name-local "보건복지부"
+   :gov.unit/name-romanized "Bogeon Bokjibu"
    :gov.unit/official-url "http://www.mohw.go.kr/"
    :gov.unit/wikidata "Q482921"
    :gov.unit/cofog ["07"]
@@ -1633,6 +1635,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Healthcare of the Russian Federation"
+   :gov.unit/name-local "Министерство здравоохранения Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo zdravookhraneniya RF"
    :gov.unit/official-url "https://minzdrav.gov.ru"
    :gov.unit/wikidata "Q2624248"
    :gov.unit/cofog ["07"]

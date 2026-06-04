@@ -313,6 +313,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Supreme People's Court of the People's Republic of China"
+   :gov.unit/name-local "最高人民法院"
+   :gov.unit/name-romanized "Zuìgāo Rénmín Fǎyuàn"
    :gov.unit/official-url "https://english.court.gov.cn/"
    :gov.unit/wikidata "Q691994"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -792,6 +794,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Supreme Court of Japan"
+   :gov.unit/name-local "最高裁判所"
+   :gov.unit/name-romanized "Saikō Saibansho"
    :gov.unit/official-url "https://www.courts.go.jp/index.html"
    :gov.unit/wikidata "Q1142255"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -840,6 +844,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Supreme Court of Korea"
+   :gov.unit/name-local "대법원"
+   :gov.unit/name-romanized "Daebeobwon"
    :gov.unit/official-url "https://www.scourt.go.kr/supreme/supreme.jsp"
    :gov.unit/wikidata "Q623906"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1331,6 +1337,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Supreme Court of Russia"
+   :gov.unit/name-local "Верховный Суд Российской Федерации"
+   :gov.unit/name-romanized "Verkhovnyy Sud RF"
    :gov.unit/official-url "http://www.vsrf.ru"
    :gov.unit/wikidata "Q2622450"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
