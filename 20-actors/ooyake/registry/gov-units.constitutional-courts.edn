@@ -53,7 +53,9 @@
    :gov.unit/parent "gov.dza"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "dza"
-   :gov.unit/name-en "Constitutional Council of Algeria"
+   :gov.unit/name-en "Constitutional Court of Algeria"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama ad-Dustūriyya"
    :gov.unit/official-url "http://www.conseil-constitutionnel.dz"
    :gov.unit/wikidata "Q25462993"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -658,6 +660,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Constitutional Court"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama ad-Dustūriyya"
    :gov.unit/wikidata "Q54314384"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q54314384" :gov.unit/last-verified "2026-06-04"
@@ -717,6 +721,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Constitutional Court of Morocco"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama ad-Dustūriyya"
    :gov.unit/official-url "https://www.cour-constitutionnelle.ma/"
    :gov.unit/wikidata "Q3000934"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

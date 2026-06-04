@@ -384,6 +384,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "National Accountability Bureau"
+   :gov.unit/name-local "قومی احتساب بیورو"
+   :gov.unit/name-romanized "Qaumī Ehtisāb Beuro"
    :gov.unit/official-url "http://www.nab.gov.pk/"
    :gov.unit/wikidata "Q6970148"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

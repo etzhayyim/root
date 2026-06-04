@@ -469,6 +469,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Tourism, Handicrafts and Social and Solidarity Economy"
+   :gov.unit/name-local "وزارة السياحة والصناعة التقليدية والاقتصاد الاجتماعي والتضامني"
+   :gov.unit/name-romanized "Wizārat as-Siyāḥa"
    :gov.unit/official-url "https://mtaess.gov.ma/fr/tourisme/"
    :gov.unit/wikidata "Q62202002"
    :gov.unit/cofog ["04.7"]
@@ -777,6 +779,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizārat as-Siyāḥa"
    :gov.unit/official-url "https://www.tourisme.gov.tn/"
    :gov.unit/wikidata "Q3315443"
    :gov.unit/cofog ["04.7"]

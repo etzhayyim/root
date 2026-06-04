@@ -370,6 +370,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Transport Ministry of Algeria"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "http://www.ministere-transports.gov.dz/"
    :gov.unit/wikidata "Q3073286"
    :gov.unit/cofog ["04.5"]
@@ -877,6 +879,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Transport and Logistics"
+   :gov.unit/name-local "وزارة النقل واللوجستيك"
+   :gov.unit/name-romanized "Wizārat an-Naql wa-l-Lūjistīk"
    :gov.unit/official-url "https://www.transport.gov.ma/fr"
    :gov.unit/wikidata "Q1445967"
    :gov.unit/cofog ["04.5"]
@@ -1333,6 +1337,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat an-Naql"
    :gov.unit/official-url "http://www.transport.tn/"
    :gov.unit/wikidata "Q3315448"
    :gov.unit/cofog ["04.5"]

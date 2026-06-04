@@ -144,6 +144,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Communication (Algeria)"
+   :gov.unit/name-local "وزارة الاتصال"
+   :gov.unit/name-romanized "Wizārat al-Ittiṣāl"
    :gov.unit/official-url "http://www.ministerecommunication.gov.dz/en"
    :gov.unit/wikidata "Q42343128"
    :gov.unit/cofog ["04.6"]
@@ -308,6 +310,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Communications"
+   :gov.unit/name-local "قطاع التواصل (وزارة الشباب والثقافة والتواصل)"
+   :gov.unit/name-romanized "Qiṭāʿ at-Tawāṣul"
    :gov.unit/official-url "http://www.mincom.gov.ma"
    :gov.unit/wikidata "Q6866677"
    :gov.unit/cofog ["04.6"]
@@ -356,6 +360,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Communications"
+   :gov.unit/name-local "وزارت مواصلات"
+   :gov.unit/name-romanized "Wizārat-e-Mawāsalāt"
    :gov.unit/official-url "http://www.communication.gov.pk/"
    :gov.unit/wikidata "Q6866683"
    :gov.unit/cofog ["04.6"]
@@ -474,6 +480,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Information and Communication Technologies"
+   :gov.unit/name-local "وزارة تكنولوجيات الاتصال"
+   :gov.unit/name-romanized "Wizārat Tiknūlūjiyyāt al-Ittiṣāl"
    :gov.unit/official-url "https://www.mtc.gov.tn/"
    :gov.unit/wikidata "Q3315407"
    :gov.unit/cofog ["04.6"]

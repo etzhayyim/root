@@ -288,6 +288,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Securities and Exchange Commission of Pakistan"
+   :gov.unit/name-local "سیکیورٹیز اینڈ ایکسچینج کمیشن آف پاکستان"
+   :gov.unit/name-romanized "Sekyūriṭīz aiṇḍ Eksacheinj Kamīshan"
    :gov.unit/official-url "http://www.secp.gov.pk"
    :gov.unit/wikidata "Q17018130"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

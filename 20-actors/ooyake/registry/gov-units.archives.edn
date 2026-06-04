@@ -387,6 +387,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "National Archives of Tunisia"
+   :gov.unit/name-local "الأرشيف الوطني التونسي"
+   :gov.unit/name-romanized "al-Arshīf al-Waṭanī at-Tūnisī"
    :gov.unit/official-url "http://www.archives.nat.tn/"
    :gov.unit/wikidata "Q2860551"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -495,6 +497,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Algerian National Archives"
+   :gov.unit/name-local "الأرشيف الوطني الجزائري"
+   :gov.unit/name-romanized "al-Arshīf al-Waṭanī al-Jazāʾirī"
    :gov.unit/official-url "https://archives-can.dz/category/uncategorized-ar/"
    :gov.unit/wikidata "Q4787283"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -949,6 +953,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "National Archives of Pakistan"
+   :gov.unit/name-local "قومی محفوظات پاکستان"
+   :gov.unit/name-romanized "Qaumī Mahfūzāt-e-Pākistān"
    :gov.unit/official-url "http://www.nap.gov.pk/default.asp/"
    :gov.unit/wikidata "Q6970451"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1490,6 +1496,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Archives du Maroc"
+   :gov.unit/name-local "أرشيف المغرب"
+   :gov.unit/name-romanized "Arshīf al-Maghrib"
    :gov.unit/official-url "https://www.archivesdumaroc.ma/"
    :gov.unit/wikidata "Q39048614"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

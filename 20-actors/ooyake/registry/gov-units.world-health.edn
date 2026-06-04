@@ -531,6 +531,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Health of Algeria"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣiḥḥa"
    :gov.unit/official-url "http://www.sante.gov.dz"
    :gov.unit/wikidata "Q17639127"
    :gov.unit/cofog ["07"]
@@ -1181,6 +1183,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة والحماية الاجتماعية"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣiḥḥa wa-l-Ḥimāya al-Ijtimāʿiyya"
    :gov.unit/official-url "http://www.sante.gov.ma"
    :gov.unit/wikidata "Q3315316"
    :gov.unit/cofog ["07"]
@@ -1517,6 +1521,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of National Health Services, Regulation and Coordination"
+   :gov.unit/name-local "وزارتِ قومی صحت خدمات، ضوابط و رابطہ"
+   :gov.unit/name-romanized "Wizārat-e Qaumī Sehat Khidmāt"
    :gov.unit/official-url "https://www.nhsrc.gov.pk/"
    :gov.unit/wikidata "Q4294354"
    :gov.unit/cofog ["07"]
@@ -2003,6 +2009,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣiḥḥa"
    :gov.unit/official-url "http://www.santetunisie.rns.tn/"
    :gov.unit/wikidata "Q3315318"
    :gov.unit/cofog ["07"]

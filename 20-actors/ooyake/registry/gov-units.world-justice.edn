@@ -565,6 +565,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "http://www.mjustice.dz/"
    :gov.unit/wikidata "Q3315293"
    :gov.unit/cofog ["03.3"]
@@ -1166,6 +1168,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Justice (Morocco)"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "http://www.justice.gov.ma/"
    :gov.unit/wikidata "Q3315292"
    :gov.unit/cofog ["03.3"]
@@ -1422,6 +1426,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Law and Justice"
+   :gov.unit/name-local "وزارتِ قانون و انصاف"
+   :gov.unit/name-romanized "Wizārat-e Qānūn o Insāf"
    :gov.unit/official-url "https://www.molaw.gov.pk"
    :gov.unit/wikidata "Q6867308"
    :gov.unit/cofog ["03.3"]
@@ -1891,6 +1897,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "https://www.justice.gov.tn/"
    :gov.unit/wikidata "Q3315297"
    :gov.unit/cofog ["03.3"]

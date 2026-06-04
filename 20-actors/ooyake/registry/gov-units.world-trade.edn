@@ -438,6 +438,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "وزارتِ تجارت"
+   :gov.unit/name-romanized "Wizārat-e Tijārat"
    :gov.unit/official-url "https://www.commerce.gov.pk"
    :gov.unit/wikidata "Q6866669"
    :gov.unit/cofog ["04.1"]
@@ -654,6 +656,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "وزارة التجارة وتنمية الصادرات"
+   :gov.unit/name-romanized "Wizārat at-Tijāra wa-Tanmiyat aṣ-Ṣādirāt"
    :gov.unit/official-url "https://commerce.gov.tn/"
    :gov.unit/wikidata "Q3315426"
    :gov.unit/cofog ["04.1"]

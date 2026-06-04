@@ -564,6 +564,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of National Education"
+   :gov.unit/name-local "وزارة التربية الوطنية"
+   :gov.unit/name-romanized "Wizārat at-Tarbiya al-Waṭaniyya"
    :gov.unit/official-url "http://www.education.gov.dz/index.php/ar"
    :gov.unit/wikidata "Q3315259"
    :gov.unit/cofog ["09"]
@@ -1164,6 +1166,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of National Education"
+   :gov.unit/name-local "وزارة التربية الوطنية والتعليم الأولي والرياضة"
+   :gov.unit/name-romanized "Wizārat at-Tarbiya al-Waṭaniyya wa-t-Taʿlīm al-Awwalī wa-r-Riyāḍa"
    :gov.unit/official-url "https://www.madrastna.ma/fr-FR/"
    :gov.unit/wikidata "Q12250943"
    :gov.unit/cofog ["09"]
@@ -1484,6 +1488,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Federal Education and Professional Training"
+   :gov.unit/name-local "وزارت وفاقی تعلیم و پیشہ ورانہ تربیت"
+   :gov.unit/name-romanized "Wizārat-e-Wifāqī Taʿlīm o Pesha-warāna Tarbiyat"
    :gov.unit/official-url "https://schools.punjab.gov.pk/"
    :gov.unit/wikidata "Q18355943"
    :gov.unit/cofog ["09"]
@@ -1924,6 +1930,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Education of Tunisia"
+   :gov.unit/name-local "وزارة التربية"
+   :gov.unit/name-romanized "Wizārat at-Tarbiya"
    :gov.unit/official-url "http://www.education.gov.tn/"
    :gov.unit/wikidata "Q3315241"
    :gov.unit/cofog ["09"]

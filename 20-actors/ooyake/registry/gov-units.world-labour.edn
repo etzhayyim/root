@@ -290,6 +290,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Labour, Employment and Social Security"
+   :gov.unit/name-local "وزارة العمل والتشغيل والضمان الاجتماعي"
+   :gov.unit/name-romanized "Wizārat al-ʿAmal wa-t-Tashghīl wa-d-Ḍamān al-Ijtimāʿī"
    :gov.unit/official-url "https://www.mtess.gov.dz/"
    :gov.unit/wikidata "Q42343120"
    :gov.unit/cofog ["04.1"]

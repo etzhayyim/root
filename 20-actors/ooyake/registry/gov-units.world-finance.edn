@@ -391,6 +391,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "http://www.mf.gov.dz/"
    :gov.unit/wikidata "Q3315378"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -784,6 +786,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Economy and Finance (Morocco)"
+   :gov.unit/name-local "وزارة الاقتصاد والمالية"
+   :gov.unit/name-romanized "Wizārat al-Iqtiṣād wa-l-Māliyya"
    :gov.unit/official-url "http://www.finances.gov.ma"
    :gov.unit/wikidata "Q3315238"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1048,6 +1052,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Finance and Revenue"
+   :gov.unit/name-local "وزارت خزانہ و محصولات"
+   :gov.unit/name-romanized "Wizārat-e-Khazāna o Mahsūlāt"
    :gov.unit/official-url "https://www.finance.gov.pk"
    :gov.unit/wikidata "Q6866949"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1326,6 +1332,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "https://www.finances.gov.tn/"
    :gov.unit/wikidata "Q3315377"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -163,6 +163,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Industries and Production"
+   :gov.unit/name-local "وزارتِ صنعت و پیداوار"
+   :gov.unit/name-romanized "Wizārat-e Sanʿat o Paidāwār"
    :gov.unit/official-url "https://moip.gov.pk"
    :gov.unit/wikidata "Q6867182"
    :gov.unit/cofog ["04.4"]
@@ -211,6 +213,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Industry"
+   :gov.unit/name-local "وزارة الصناعة والمناجم والطاقة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣināʿa wa-l-Manājim wa-ṭ-Ṭāqa"
    :gov.unit/official-url "https://www.tunisieindustrie.gov.tn/"
    :gov.unit/wikidata "Q3315220"
    :gov.unit/cofog ["04.4"]

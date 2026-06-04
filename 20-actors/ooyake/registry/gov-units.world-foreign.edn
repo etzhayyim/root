@@ -521,6 +521,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Foreign Affairs of Algeria"
+   :gov.unit/name-local "وزارة الشؤون الخارجية والجالية الوطنية بالخارج"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Khārijiyya wa-l-Jāliya al-Waṭaniyya bi-l-Khārij"
    :gov.unit/official-url "http://www.mae.gov.dz/default_en.aspx"
    :gov.unit/wikidata "Q3315352"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1108,6 +1110,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Foreign Affairs, African Cooperation and Moroccan Expatriates"
+   :gov.unit/name-local "وزارة الشؤون الخارجية والتعاون الإفريقي والمغاربة المقيمين بالخارج"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Khārijiyya"
    :gov.unit/official-url "https://diplomatie.ma/"
    :gov.unit/wikidata "Q3315358"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1372,6 +1376,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "وزارت خارجہ"
+   :gov.unit/name-romanized "Wizārat-e-Khārija"
    :gov.unit/official-url "http://www.mofa.gov.pk"
    :gov.unit/wikidata "Q4294393"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1800,6 +1806,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Foreign Affairs of Tunisia"
+   :gov.unit/name-local "وزارة الشؤون الخارجية والهجرة والتونسيين بالخارج"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Khārijiyya wa-l-Hijra"
    :gov.unit/official-url "https://www.diplomatie.gov.tn/"
    :gov.unit/wikidata "Q3315361"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

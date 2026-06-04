@@ -151,6 +151,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Court of Audit of Morocco"
+   :gov.unit/name-local "المجلس الأعلى للحسابات"
+   :gov.unit/name-romanized "al-Majlis al-Aʿlā lil-Ḥisābāt"
    :gov.unit/official-url "http://www.courdescomptes.ma/"
    :gov.unit/wikidata "Q3001048"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
