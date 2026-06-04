@@ -1,0 +1,13 @@
+{
+  "@context": "https://resources.gftd.ai/ontology/crawler/context.jsonld",
+  "@type": "gftd:CrawlPage",
+  "@id": "https://resources.gftd.ai/content/crawl/page/res-1772522600-000001",
+  "identifier": "res-1772522600-000001",
+  "url": "https://www.nicovideo.jp",
+  "jobId": "crawl-1772522599-000001",
+  "name": "ニコニコ",
+  "httpStatus": 200,
+  "contentSize": 146688,
+  "linkCount": 78,
+  "generatedAtTime": "2026-03-03T07:23:20Z"
+}

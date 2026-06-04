@@ -1,0 +1,20 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://resources.gftd.ai/ontology#",
+      "prov": "http://www.w3.org/ns/prov#"
+    }
+  ],
+  "@type": "gftd:PublicCompanyProfile",
+  "identifier": "sony-financial-group",
+  "name": "Sony Financial Group, Inc.",
+  "legalName": "Sony Financial Group, Inc.",
+  "tickerSymbol": "8729",
+  "gftd:exchangeMic": "XTKS",
+  "gftd:countryCode": "JP",
+  "gftd:parentCompanyId": "sony-group",
+  "url": "https://www.sonyfg.co.jp/en/",
+  "description": "Public company profile for automated IR/News ingestion and entity generation.",
+  "prov:generatedAtTime": "2026-03-03T00:00:00Z"
+}

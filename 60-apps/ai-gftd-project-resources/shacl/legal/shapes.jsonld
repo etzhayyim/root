@@ -1,0 +1,292 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "schema": "https://schema.org/",
+    "gftd": "https://resources.gftd.ai/ontology#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "gftd:LegislationShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "schema:Legislation",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:datePublished",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:url",
+          "sh:maxCount": 1,
+          "sh:nodeKind": "sh:IRI"
+        },
+        {
+          "sh:path": "gftd:legislationIdentifier",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:legislationType",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:legislationStatus",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:string"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:CourtShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:Court",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:courtType",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:courtLevel",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:integer"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:CourtCaseShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:CourtCase",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:caseNumber",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:caseName",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:decisionDate",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:date"
+        },
+        {
+          "sh:path": "gftd:decisionType",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:decidedBy",
+          "sh:minCount": 1,
+          "sh:nodeKind": "sh:IRI"
+        },
+        {
+          "sh:path": "gftd:ecli",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:string"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:JudgeShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:Judge",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:judgeCategory",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:assignedCourt",
+          "sh:minCount": 1,
+          "sh:nodeKind": "sh:IRI"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:LawyerShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:Lawyer",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:registrationNumber",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:barAssociation",
+          "sh:minCount": 1,
+          "sh:nodeKind": "sh:IRI"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:BarAssociationShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:BarAssociation",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:barAssociationCode",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:TreatyShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:Treaty",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:signedDate",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:date"
+        },
+        {
+          "sh:path": "gftd:entryIntoForceDate",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:date"
+        },
+        {
+          "sh:path": "gftd:signatoryJurisdictions",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        }
+      ]
+    },
+    {
+      "@id": "gftd:RegulationShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:Regulation",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:jurisdiction",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:issuingAuthority",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:regulationStatus",
+          "sh:maxCount": 1,
+          "sh:datatype": "xsd:string"
+        }
+      ]
+    }
+  ]
+}

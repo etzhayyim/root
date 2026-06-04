@@ -1,0 +1,12 @@
+{
+  "@context": "https://resources.gftd.ai/ontology/crawler/context.jsonld",
+  "@type": "schema:WebSite",
+  "@id": "https://resources.gftd.ai/content/crawl/site/www.xvideos.com",
+  "url": "https://www.xvideos.com",
+  "name": "Free Porn Videos - XVIDEOS.COM",
+  "pageCount": 1,
+  "lastCrawledAt": "2026-03-03T07:23:26Z",
+  "hasPart": [
+    "https://resources.gftd.ai/content/crawl/page/res-1772522606-000001"
+  ]
+}

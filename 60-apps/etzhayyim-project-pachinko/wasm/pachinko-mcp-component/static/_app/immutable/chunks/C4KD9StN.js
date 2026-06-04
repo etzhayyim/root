@@ -1,0 +1,1 @@
+import{d as e,g as a,h as n,e as c,i as f}from"./BITFxHzJ.js";async function d(){return{stores:await f()}}async function l(t){const o=await e(t);if(o)return{store:o};const r=a.get(t)??n.find(s=>s.id===t);return r||c(404,"Store not found"),{store:r}}export{d as a,l};

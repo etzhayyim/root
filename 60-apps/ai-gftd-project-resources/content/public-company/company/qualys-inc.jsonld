@@ -1,0 +1,19 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://resources.gftd.ai/ontology#",
+      "prov": "http://www.w3.org/ns/prov#"
+    }
+  ],
+  "@type": "gftd:PublicCompanyProfile",
+  "identifier": "qualys-inc",
+  "name": "Qualys, Inc.",
+  "legalName": "Qualys, Inc.",
+  "tickerSymbol": "QLYS",
+  "gftd:exchangeMic": "XNAS",
+  "gftd:countryCode": "US",
+  "url": "https://investor.qualys.com/",
+  "description": "Public company profile for automated IR/News ingestion and entity generation.",
+  "prov:generatedAtTime": "2026-03-11T00:00:00Z"
+}

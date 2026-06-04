@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "schema": "https://schema.org/",
+    "gftd": "https://resources.gftd.ai/ontology#"
+  },
+  "@graph": [
+    {
+      "@id": "gftd:SocialCapitalRecordShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:SocialCapitalRecord",
+      "rdfs:comment": "Validates a social capital record representing branding value derived from a person's time investment. branding_value_jpy = hourly_rate_jpy * duration_seconds / 3600.",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "gftd:personId",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "gftd:hourlyRateJpy",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1,
+          "sh:minInclusive": 0
+        },
+        {
+          "sh:path": "gftd:perSecondRateJpy",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1,
+          "sh:minInclusive": 0
+        },
+        {
+          "sh:path": "gftd:durationSeconds",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1,
+          "sh:minInclusive": 0
+        },
+        {
+          "sh:path": "gftd:activityType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:brandingValue",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1,
+          "sh:minInclusive": 0
+        },
+        {
+          "sh:path": "schema:startTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 0
+        },
+        {
+          "sh:path": "schema:endTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 0
+        }
+      ]
+    }
+  ]
+}

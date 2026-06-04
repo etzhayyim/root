@@ -1,0 +1,10 @@
+{
+  "@context": "https://resources.gftd.ai/ontology/crawler/context.jsonld",
+  "@type": "gftd:CrawlPage",
+  "@id": "https://resources.gftd.ai/content/crawl/page/res-1772522538-000001",
+  "identifier": "res-1772522538-000001",
+  "url": "https://gftd.ai",
+  "jobId": "crawl-1772522538-000001",
+  "httpStatus": 500,
+  "generatedAtTime": "2026-03-03T07:22:18Z"
+}

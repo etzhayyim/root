@@ -1,0 +1,62 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://mailer.gftd.ai",
+  "name": "ai-gftd-project-mailer",
+  "description": "GFTD Mailer - AI-powered email client with multi-provider integration, alias addresses, and template management",
+  "url": "https://mailer.gftd.ai",
+  "applicationCategory": "Productivity",
+  "operatingSystem": "Kubernetes",
+  "author": {
+    "@type": "Organization",
+    "name": "gftdcojp",
+    "url": "https://gftd.ai"
+  },
+  "component": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "mailer-ui",
+      "description": "SvelteKit static UI for email management served via nginx",
+      "applicationCategory": "Frontend",
+      "programmingLanguage": "TypeScript",
+      "runtimePlatform": "nginx (Tier 3, Static)"
+    }
+  ],
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "scheduler.jsonld",
+        "content": {
+          "@context": [
+            "https://schema.org/",
+            {
+              "gftd": "https://gftd.ai/schemas/",
+              "capabilities": "gftd:capabilities",
+              "survivalIndicators": "gftd:survivalIndicators",
+              "scheduler": "gftd:scheduler",
+              "milestones": "gftd:milestones",
+              "blockers": "gftd:blockers",
+              "dependsOn": {
+                "@id": "gftd:dependsOn",
+                "@type": "@id"
+              },
+              "ingestKey": "gftd:ingestKey",
+              "window": "gftd:window",
+              "valueUpdatedAt": "gftd:valueUpdatedAt"
+            }
+          ],
+          "@type": "CreativeWork",
+          "name": "ai-gftd-project-mailer Scheduler",
+          "identifier": "ai-gftd-project-mailer/scheduler",
+          "description": "Project schedule (milestones) and blockers.",
+          "dateCreated": "2026-02-15T04:25:26+00:00",
+          "milestones": [],
+          "blockers": []
+        }
+      }
+    ]
+  }
+}

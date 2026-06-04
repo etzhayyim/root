@@ -1,0 +1,514 @@
+{
+  "@context": [
+    "https://resources.gftd.ai/ontology/supply-chain/context.jsonld",
+    {
+      "sh": "http://www.w3.org/ns/shacl#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "gftd:MaterialSourceShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:MaterialSource",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:materialCategory",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "iron",
+            "petroleum",
+            "fiber",
+            "food"
+          ]
+        },
+        {
+          "sh:path": "gftd:materialType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:latitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:longitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:countryCode",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:pattern": "^[A-Z]{2}$"
+        },
+        {
+          "sh:path": "gftd:estimatedReserves",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 0
+        },
+        {
+          "sh:path": "gftd:dailyOutput",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 0
+        },
+        {
+          "sh:path": "gftd:unitOfMeasure",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:SupplyCompanyShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:SupplyCompany",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:countryCode",
+          "sh:datatype": "xsd:string",
+          "sh:pattern": "^[A-Z]{2}$"
+        },
+        {
+          "sh:path": "gftd:isicSection",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:SupplyPersonShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:SupplyPerson",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:affiliatedCompanyIds",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:SupplyFamilyShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:SupplyFamily",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:countryCode",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:ManufacturingPlantShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:ManufacturingPlant",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:plantType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "assembly",
+            "processing",
+            "fabrication"
+          ]
+        },
+        {
+          "sh:path": "gftd:isicDivision",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "schema:latitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:longitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:inputMaterials",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:outputProducts",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:ProcessingPlantShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:ProcessingPlant",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:processType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "smelting",
+            "refining",
+            "milling",
+            "spinning"
+          ]
+        },
+        {
+          "sh:path": "schema:latitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:longitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:inputMaterials",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:outputMaterials",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:LogisticsHubShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:LogisticsHub",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:hubType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "warehouse",
+            "port",
+            "terminal",
+            "distribution-center",
+            "airport"
+          ]
+        },
+        {
+          "sh:path": "schema:latitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:longitude",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:capacityTonnes",
+          "sh:datatype": "xsd:decimal"
+        },
+        {
+          "sh:path": "gftd:unLocode",
+          "sh:datatype": "xsd:string",
+          "sh:pattern": "^[A-Z]{2}[A-Z0-9]{3}$"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:LogisticsVehicleShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:LogisticsVehicle",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:vehicleType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "truck",
+            "tanker",
+            "flatbed",
+            "van",
+            "reefer"
+          ]
+        },
+        {
+          "sh:path": "gftd:registrationNumber",
+          "sh:datatype": "xsd:string"
+        },
+        {
+          "sh:path": "gftd:capacityTonnes",
+          "sh:datatype": "xsd:decimal"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:LogisticsVesselShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:LogisticsVessel",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:vesselType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "container",
+            "bulk",
+            "tanker",
+            "roro",
+            "general"
+          ]
+        },
+        {
+          "sh:path": "gftd:imoNumber",
+          "sh:datatype": "xsd:string",
+          "sh:pattern": "^[0-9]{7}$"
+        },
+        {
+          "sh:path": "gftd:deadweightTonnes",
+          "sh:datatype": "xsd:decimal"
+        },
+        {
+          "sh:path": "gftd:flagState",
+          "sh:datatype": "xsd:string",
+          "sh:pattern": "^[A-Z]{2}$"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:LogisticsRailwayShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:LogisticsRailway",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:serviceType",
+          "sh:datatype": "xsd:string",
+          "sh:in": [
+            "freight",
+            "intermodal",
+            "unit-train"
+          ]
+        },
+        {
+          "sh:path": "gftd:capacityTonnes",
+          "sh:datatype": "xsd:decimal"
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:LogisticsContainerShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:LogisticsContainer",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "gftd:containerNumber",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:pattern": "^[A-Z]{4}[0-9]{7}$"
+        },
+        {
+          "sh:path": "gftd:containerType",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "dry",
+            "reefer",
+            "tank",
+            "open-top",
+            "flat-rack"
+          ]
+        },
+        {
+          "sh:path": "gftd:sizeTeu",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1,
+          "sh:in": [
+            1,
+            2
+          ]
+        },
+        {
+          "sh:path": "gftd:maxPayloadKg",
+          "sh:datatype": "xsd:decimal"
+        },
+        {
+          "sh:path": "gftd:transportMode",
+          "sh:datatype": "xsd:string",
+          "sh:in": [
+            "sea",
+            "rail",
+            "road",
+            "yard"
+          ]
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    }
+  ]
+}

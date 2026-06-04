@@ -1,0 +1,34 @@
+{
+  "@context": "https://gftd.ai/ns/magatama/v1",
+  "@id": "did:web:resources.gftd.ai",
+  "name": "resources",
+  "nanoid": "r3s0urc3",
+  "project": "resources",
+  "runtimeType": "worker",
+  "performerType": "service",
+  "uiType": "yoro",
+  "accent": "#10b981",
+  "convoSystemPrompt": "You are the resource management agent. You manage resource creation, allocation, and utilization tracking.",
+  "profile": {
+    "displayName": "Resource Management",
+    "description": "resources — Resource Management Platform. Create, allocate, and track resource utilization with BPMN-driven workflows.",
+    "avatar": "📦",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "amanomibashira",
+    "capabilities": ["createResource", "getResource", "updateResource", "deleteResource", "listResources", "allocateResource", "releaseResource", "resourceUsage"],
+    "protocols": ["xrpc", "mcp"]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "public"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.resources.resource",
+        "ai.gftd.apps.resources.allocation"
+      ]
+    }
+  }
+}
