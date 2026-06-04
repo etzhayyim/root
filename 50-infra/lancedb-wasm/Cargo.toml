@@ -71,7 +71,7 @@ arrow-data = "58.3"
 arrow-ipc = { version = "54.1", features = ["zstd"] }
 arrow-ord = "54.1"
 arrow-row = "54.1"
-arrow-schema = "54.1"
+arrow-schema = "58.3"
 arrow-select = "54.1"
 async-recursion = "1.0"
 async-trait = "0.1"

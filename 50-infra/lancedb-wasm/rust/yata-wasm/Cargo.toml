@@ -19,7 +19,7 @@ lance-io = { path = "../lance-io", default-features = false }
 lance-file = { path = "../lance-file", default-features = false }
 lance-table = { path = "../lance-table", default-features = false }
 arrow-array = "54.1"
-arrow-schema = "54.1"
+arrow-schema = "58.3"
 bytes = "1"
 futures = "0.3"
 prost = "0.13"
