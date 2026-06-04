@@ -1776,10 +1776,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "esp"
    :gov.unit/name-en "Galicia"
+   :gov.unit/official-url "https://www.xunta.gal/"
    :gov.unit/wikidata "Q3908"
    :gov.unit/external-code ["iso3166-2:ES-GA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3908" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.xunta.gal/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.esp.adm1.es-as"
@@ -1866,10 +1867,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "esp"
    :gov.unit/name-en "Valencian Community"
+   :gov.unit/official-url "https://www.gva.es/"
    :gov.unit/wikidata "Q5720"
    :gov.unit/external-code ["iso3166-2:ES-VC"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5720" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gva.es/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.esp.adm1.es-ri"

@@ -884,10 +884,11 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bol"
    :gov.unit/name-en "Beni Department"
+   :gov.unit/official-url "https://beni.gob.bo/"
    :gov.unit/wikidata "Q233169"
    :gov.unit/external-code ["iso3166-2:BO-B"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q233169" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://beni.gob.bo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bol.adm1.bo-c"
