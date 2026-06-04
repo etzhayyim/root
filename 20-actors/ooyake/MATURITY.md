@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS axis: executive HQ for 52 major economies (cabinet 0 → 52/129)
+
+Continued the address axis into the fully-empty cabinet tier (was 0/129). Did the 52 highest-value
+executives (G20 + EU majors + other major economies): 5 web-research subagents located each
+**seat-of-government building + city + coordinates** (the building where the head of government /
+cabinet sits — Casa Rosada, Bundeskanzleramt, La Moncloa, Palazzo Chigi, Kantei, 10 Downing St,
+White House, Union Buildings, etc.) from Wikipedia building infoboxes / OSM. 52 added.
+
+- cabinet tier: 0 → **52/129** with an address.
+- 49 carry building-level lat/lon; **3 honestly NULL coords** (G5): Egypt (Cairo cabinet bldg +
+  partial relocation to the New Administrative Capital, no reliable coord), Morocco (Head of Govt
+  office inside the Méchouar Touarga royal complex), Vietnam (Government Office building has no
+  reliable published coord — did NOT misattribute the ceremonial Presidential Palace).
+- honest seat-of-govt disambiguations recorded: India = South Block/Secretariat (PMO), not
+  Rashtrapati Bhavan; South Korea = Government Complex Sejong (PM), not Seoul; Vietnam = PM's
+  Government Office, not the Presidential Palace. Lower-confidence (aggregator/geocode) flagged for
+  Kenya/Norway/Pakistan. Each cites geo provenance + `:last-verified 2026-06-04` `:sourcing :authoritative`.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: legislature HQ addresses COMPLETE (143 → 186/186)
 
 Pivoted from official-url (saturated at national level) to the **L3 address / location axis**
