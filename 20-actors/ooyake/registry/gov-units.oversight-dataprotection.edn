@@ -361,7 +361,7 @@
    :gov.unit/parent "gov.mex"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mex"
-   :gov.unit/name-en "Transparency for the People"
+   :gov.unit/name-en "Transparencia para el Pueblo (Secretaría Anticorrupción y Buen Gobierno)"
    :gov.unit/official-url "https://transparencia.gob.mx/"
    :gov.unit/wikidata "Q133828587"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

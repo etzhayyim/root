@@ -13642,4 +13642,732 @@
    :gov.address/lat 39.91218 :gov.address/lon 32.84326
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.and.ombudsman.hq"
+   :gov.address/unit "gov.and.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "and"
+   :gov.address/line-en "Raonador del Ciutadà (Ombudsman), Casa Bauró, Placeta Sant Esteve, Andorra la Vella"
+   :gov.address/lat 42.507 :gov.address/lon 1.52124
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aus.ombudsman.hq"
+   :gov.address/unit "gov.aus.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "Commonwealth Ombudsman, Level 5, 7 London Circuit, Canberra City, ACT"
+   :gov.address/lat -35.2817 :gov.address/lon 149.12479
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.esp.ombudsman.hq"
+   :gov.address/unit "gov.esp.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "Defensor del Pueblo, Palacio de Bermejillo, Paseo de Eduardo Dato 31, Madrid"
+   :gov.address/lat 40.43333 :gov.address/lon -3.68972
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gbr.ombudsman.hq"
+   :gov.address/unit "gov.gbr.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "gbr"
+   :gov.address/line-en "Parliamentary and Health Service Ombudsman (PHSO), Citygate, 47-51 Mosley Street, Manchester M2 3HQ"
+   :gov.address/lat 53.47975 :gov.address/lon -2.24025
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.isl.ombudsman.hq"
+   :gov.address/unit "gov.isl.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "isl"
+   :gov.address/line-en "Umboðsmaður Alþingis (Parliamentary Ombudsman), Þórshamar, Templarasund 5, Reykjavik"
+   :gov.address/lat 64.14614 :gov.address/lon -21.93991
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pol.ombudsman.hq"
+   :gov.address/unit "gov.pol.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "pol"
+   :gov.address/line-en "Rzecznik Praw Obywatelskich (Commissioner for Human Rights), Aleja Solidarności 77, Warsaw"
+   :gov.address/lat 52.24456 :gov.address/lon 21.00321
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bgr.prosecutor.hq"
+   :gov.address/unit "gov.bgr.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "bgr"
+   :gov.address/line-en "Prosecutor's Office of Bulgaria, Sofia Court House, 2 Vitosha Blvd, Sofia"
+   :gov.address/lat 42.69556 :gov.address/lon 23.32
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bra.prosecutor.hq"
+   :gov.address/unit "gov.bra.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "bra"
+   :gov.address/line-en "Procuradoria-Geral da República (PGR), Edifício-Sede, SAF Sul Quadra 4, Brasília"
+   :gov.address/lat -15.8075 :gov.address/lon -47.8589
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.che.prosecutor.hq"
+   :gov.address/unit "gov.che.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "che"
+   :gov.address/line-en "Office of the Attorney General of Switzerland (Bundesanwaltschaft), Guisanplatz 1, Bern"
+   :gov.address/lat 46.959 :gov.address/lon 7.46428
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.est.prosecutor.hq"
+   :gov.address/unit "gov.est.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "est"
+   :gov.address/line-en "Office of the Prosecutor General (Riigiprokuratuur), Wismari 7, Tallinn"
+   :gov.address/lat 59.43276 :gov.address/lon 24.73671
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fin.prosecutor.hq"
+   :gov.address/unit "gov.fin.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "fin"
+   :gov.address/line-en "National Prosecution Authority, Lintulahdenkuja 4, Helsinki"
+   :gov.address/lat 60.18319 :gov.address/lon 24.96121
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pry.ombudsman.hq"
+   :gov.address/unit "gov.pry.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "pry"
+   :gov.address/line-en "Defensoría del Pueblo, Edificio Robledo, Avda. Ygatimí 705, Asunción"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rou.ombudsman.hq"
+   :gov.address/unit "gov.rou.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "rou"
+   :gov.address/line-en "Avocatul Poporului (People's Advocate), Str. George Vraca 8, Sector 1, Bucharest"
+   :gov.address/lat 44.43687 :gov.address/lon 26.09539
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slv.ombudsman.hq"
+   :gov.address/unit "gov.slv.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "slv"
+   :gov.address/line-en "Procuraduría para la Defensa de los Derechos Humanos (PDDH), 5a Av. Norte y 19 Calle Pte. No. 12, San Salvador"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svk.ombudsman.hq"
+   :gov.address/unit "gov.svk.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "svk"
+   :gov.address/line-en "Kancelária verejného ochrancu práv (Public Defender of Rights), Grösslingová 35, Bratislava"
+   :gov.address/lat 48.14447 :gov.address/lon 17.11738
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.svn.ombudsman.hq"
+   :gov.address/unit "gov.svn.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "svn"
+   :gov.address/line-en "Varuh človekovih pravic RS (Human Rights Ombudsman), Dunajska cesta 56, Ljubljana"
+   :gov.address/lat 46.0655 :gov.address/lon 14.50984
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.usa.ombudsman.hq"
+   :gov.address/unit "gov.usa.ombudsman"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "Office of the Citizenship and Immigration Services Ombudsman (DHS), Washington, DC 20528 (mailing/DHS HQ only)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hun.prosecutor.hq"
+   :gov.address/unit "gov.hun.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "hun"
+   :gov.address/line-en "Legfőbb Ügyészség (Prosecution Service of Hungary), Palace of Justice, Markó utca 16, Budapest"
+   :gov.address/lat 47.50961 :gov.address/lon 19.05199
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mex.prosecutor.hq"
+   :gov.address/unit "gov.mex.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "mex"
+   :gov.address/line-en "Fiscalía General de la República (FGR), Dr. Velasco 175, Col. Doctores, Cuauhtémoc, Mexico City"
+   :gov.address/lat 19.41909 :gov.address/lon -99.14597
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nld.prosecutor.hq"
+   :gov.address/unit "gov.nld.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "nld"
+   :gov.address/line-en "Openbaar Ministerie, Parket-Generaal, Prins Clauslaan 16, The Hague"
+   :gov.address/lat 52.08199 :gov.address/lon 4.32836
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.srb.prosecutor.hq"
+   :gov.address/unit "gov.srb.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "srb"
+   :gov.address/line-en "Vrhovno javno tužilaštvo (Public Prosecutor's Office of Serbia), Nemanjina 22-26, Belgrade"
+   :gov.address/lat 44.80368 :gov.address/lon 20.46276
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tkm.prosecutor.hq"
+   :gov.address/unit "gov.tkm.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "tkm"
+   :gov.address/line-en "Prosecutor General's Office of Turkmenistan, Ashgabat"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ury.prosecutor.hq"
+   :gov.address/unit "gov.ury.prosecutor"
+   :gov.address/kind :headquarters
+   :gov.address/country "ury"
+   :gov.address/line-en "Fiscalía General de la Nación, Paysandú 1283, Montevideo"
+   :gov.address/lat -34.90184 :gov.address/lon -56.18878
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aus.audit.hq"
+   :gov.address/unit "gov.aus.audit"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "Australian National Audit Office (ANAO), 38 Sydney Avenue, Forrest, Canberra ACT"
+   :gov.address/lat -35.31218 :gov.address/lon 149.12978
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aze.audit.hq"
+   :gov.address/unit "gov.aze.audit"
+   :gov.address/kind :headquarters
+   :gov.address/country "aze"
+   :gov.address/line-en "Chamber of Accounts of Azerbaijan, 33 Xaqani Street, Baku"
+   :gov.address/lat 40.37449 :gov.address/lon 49.84746
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sau.audit.hq"
+   :gov.address/unit "gov.sau.audit"
+   :gov.address/kind :headquarters
+   :gov.address/country "sau"
+   :gov.address/line-en "General Court of Audit (General Auditing Bureau), Al Woroud district, Riyadh"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sur.audit.hq"
+   :gov.address/unit "gov.sur.audit"
+   :gov.address/kind :headquarters
+   :gov.address/country "sur"
+   :gov.address/line-en "Rekenkamer van Suriname (Court of Audit), Waterkant 28, Paramaribo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.aus.competition.hq"
+   :gov.address/unit "gov.aus.competition"
+   :gov.address/kind :headquarters
+   :gov.address/country "aus"
+   :gov.address/line-en "Australian Competition and Consumer Commission (ACCC), 23 Marcus Clarke Street, Canberra ACT"
+   :gov.address/lat -35.28096 :gov.address/lon 149.127
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bel.competition.hq"
+   :gov.address/unit "gov.bel.competition"
+   :gov.address/kind :headquarters
+   :gov.address/country "bel"
+   :gov.address/line-en "Belgian Competition Authority, City Atrium, Rue du Progrès 50, Brussels"
+   :gov.address/lat 50.85742 :gov.address/lon 4.35954
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.can.competition.hq"
+   :gov.address/unit "gov.can.competition"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Competition Bureau Canada, Place du Portage Phase I, 50 Victoria Street, Gatineau QC"
+   :gov.address/lat 45.422 :gov.address/lon -75.7077
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.competition.hq"
+   :gov.address/unit "gov.ken.competition"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Competition Authority of Kenya, CBK Pension Towers, Harambee Avenue, Nairobi"
+   :gov.address/lat -1.29035 :gov.address/lon 36.82312
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.usa.competition.hq"
+   :gov.address/unit "gov.usa.competition"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "US DOJ Antitrust Division, 950 Pennsylvania Avenue NW, Washington DC"
+   :gov.address/lat 38.89321 :gov.address/lon -77.0256
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.idn.dataprotection.hq"
+   :gov.address/unit "gov.idn.dataprotection"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "Personal Data Protection Agency (Lembaga Pelindungan Data Pribadi), Jakarta (not yet operational)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ind.dataprotection.hq"
+   :gov.address/unit "gov.ind.dataprotection"
+   :gov.address/kind :headquarters
+   :gov.address/country "ind"
+   :gov.address/line-en "Data Protection Board of India, New Delhi (NCR; no published street address)"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mex.dataprotection.hq"
+   :gov.address/unit "gov.mex.dataprotection"
+   :gov.address/kind :headquarters
+   :gov.address/country "mex"
+   :gov.address/line-en "Transparencia para el Pueblo (Secretaría Anticorrupción y Buen Gobierno), Av. Insurgentes Sur 1735, Mexico City"
+   :gov.address/lat 19.36058 :gov.address/lon -99.18366
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ago.meteorology.hq"
+   :gov.address/unit "gov.ago.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "ago"
+   :gov.address/line-en "Instituto Nacional de Meteorologia e Geofísica (INAMET), Av. 21 de Janeiro, Rotunda do Gamek, Luanda"
+   :gov.address/lat -8.88188 :gov.address/lon 13.19925
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.blz.meteorology.hq"
+   :gov.address/unit "gov.blz.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "blz"
+   :gov.address/line-en "National Meteorological Service of Belize, Philip Goldson International Airport, Ladyville"
+   :gov.address/lat 17.53429 :gov.address/lon -88.313
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.bra.meteorology.hq"
+   :gov.address/unit "gov.bra.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "bra"
+   :gov.address/line-en "INMET (Instituto Nacional de Meteorologia), Eixo Monumental Sul Via S1, Setor Sudoeste, Brasília"
+   :gov.address/lat -15.79014 :gov.address/lon -47.92455
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.can.meteorology.hq"
+   :gov.address/unit "gov.can.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "can"
+   :gov.address/line-en "Meteorological Service of Canada (ECCC), 4905 Dufferin Street, North York, Toronto"
+   :gov.address/lat 43.78129 :gov.address/lon -79.46831
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.che.meteorology.hq"
+   :gov.address/unit "gov.che.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "che"
+   :gov.address/line-en "MeteoSwiss, Operation Center 1, Zurich Airport, Zürich-Flughafen"
+   :gov.address/lat 47.45384 :gov.address/lon 8.56482
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.chn.meteorology.hq"
+   :gov.address/unit "gov.chn.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "chn"
+   :gov.address/line-en "National Meteorological Centre / China Meteorological Administration, 46 Zhongguancun South Street, Haidian, Beijing"
+   :gov.address/lat 39.94762 :gov.address/lon 116.32231
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cub.meteorology.hq"
+   :gov.address/unit "gov.cub.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "cub"
+   :gov.address/line-en "Instituto de Meteorología (INSMET), Loma de Casablanca, Regla, La Habana"
+   :gov.address/lat 23.14419 :gov.address/lon -82.34195
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.cze.meteorology.hq"
+   :gov.address/unit "gov.cze.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "cze"
+   :gov.address/line-en "Czech Hydrometeorological Institute (ČHMÚ), Na Šabatce 2050/17, Praha 4-Komořany"
+   :gov.address/lat 49.98813 :gov.address/lon 14.40501
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ecu.meteorology.hq"
+   :gov.address/unit "gov.ecu.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "ecu"
+   :gov.address/line-en "INAMHI, Iñaquito N36-14 y Corea, Quito"
+   :gov.address/lat -0.17791 :gov.address/lon -78.48772
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.egy.meteorology.hq"
+   :gov.address/unit "gov.egy.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "egy"
+   :gov.address/line-en "Egyptian Meteorological Authority (EMA), El-Khalifa El-Ma'moun St, Koubri El-Quobba, Cairo"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.esp.meteorology.hq"
+   :gov.address/unit "gov.esp.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "esp"
+   :gov.address/line-en "AEMET (Agencia Estatal de Meteorología), Calle Leonardo Prieto Castro 8, Ciudad Universitaria, Madrid"
+   :gov.address/lat 40.45221 :gov.address/lon -3.72373
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.eth.meteorology.hq"
+   :gov.address/unit "gov.eth.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "eth"
+   :gov.address/line-en "Ethiopian Meteorology Institute (EMI), Addis Ababa"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fin.meteorology.hq"
+   :gov.address/unit "gov.fin.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "fin"
+   :gov.address/line-en "Finnish Meteorological Institute (FMI), Dynamicum, Erik Palménin aukio 1, Kumpula, Helsinki"
+   :gov.address/lat 60.20405 :gov.address/lon 24.96121
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fji.meteorology.hq"
+   :gov.address/unit "gov.fji.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "fji"
+   :gov.address/line-en "Fiji Meteorological Service, Nadi Airport grounds, Namaka, Nadi"
+   :gov.address/lat -17.76022 :gov.address/lon 177.44437
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.fra.meteorology.hq"
+   :gov.address/unit "gov.fra.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "fra"
+   :gov.address/line-en "Météo-France, siège, 73 avenue de Paris, Saint-Mandé (main ops centre at Toulouse)"
+   :gov.address/lat 48.84564 :gov.address/lon 2.42456
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gbr.meteorology.hq"
+   :gov.address/unit "gov.gbr.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "gbr"
+   :gov.address/line-en "Met Office, FitzRoy Road, Exeter"
+   :gov.address/lat 50.72691 :gov.address/lon -3.47347
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.gha.meteorology.hq"
+   :gov.address/unit "gov.gha.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "gha"
+   :gov.address/line-en "Ghana Meteorological Agency (GMet), 37 Trinity Road, East Legon, Accra"
+   :gov.address/lat 5.65175 :gov.address/lon -0.16472
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.hun.meteorology.hq"
+   :gov.address/unit "gov.hun.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "hun"
+   :gov.address/line-en "OMSZ / HungaroMet, Kitaibel Pál utca 1, Budapest"
+   :gov.address/lat 47.51094 :gov.address/lon 19.02801
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.idn.meteorology.hq"
+   :gov.address/unit "gov.idn.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "idn"
+   :gov.address/line-en "BMKG, Jl. Angkasa I No.2, Kemayoran, Jakarta"
+   :gov.address/lat -6.15569 :gov.address/lon 106.84193
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.isr.meteorology.hq"
+   :gov.address/unit "gov.isr.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "isr"
+   :gov.address/line-en "Israel Meteorological Service, Bet Dagan"
+   :gov.address/lat 32.00689 :gov.address/lon 34.8149
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ita.meteorology.hq"
+   :gov.address/unit "gov.ita.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "ita"
+   :gov.address/line-en "Servizio Meteorologico (Aeronautica Militare) — COMet, Pratica di Mare AB, Pomezia/Rome"
+   :gov.address/lat 41.65559 :gov.address/lon 12.44942
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.jam.meteorology.hq"
+   :gov.address/unit "gov.jam.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "jam"
+   :gov.address/line-en "Meteorological Service of Jamaica, 65¾ Half Way Tree Road, Kingston 10"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ken.meteorology.hq"
+   :gov.address/unit "gov.ken.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "ken"
+   :gov.address/line-en "Kenya Meteorological Department, Dagoretti Corner, Ngong Road, Nairobi"
+   :gov.address/lat -1.30045 :gov.address/lon 36.75964
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.lux.meteorology.hq"
+   :gov.address/unit "gov.lux.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "lux"
+   :gov.address/line-en "MeteoLux (operated by ANA), Luxembourg-Findel Airport"
+   :gov.address/lat 49.62639 :gov.address/lon 6.20389
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mdv.meteorology.hq"
+   :gov.address/unit "gov.mdv.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "mdv"
+   :gov.address/line-en "Maldives Meteorological Service, Velana International Airport, Hulhulé"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mus.meteorology.hq"
+   :gov.address/unit "gov.mus.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "mus"
+   :gov.address/line-en "Mauritius Meteorological Services, St Paul Road B4, Vacoas"
+   :gov.address/lat -20.30022 :gov.address/lon 57.49272
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mwi.meteorology.hq"
+   :gov.address/unit "gov.mwi.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "mwi"
+   :gov.address/line-en "Department of Climate Change and Meteorological Services, Blantyre"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.mys.meteorology.hq"
+   :gov.address/unit "gov.mys.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "mys"
+   :gov.address/line-en "Malaysian Meteorological Department, Jalan Sultan, Petaling Jaya, Selangor"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nam.meteorology.hq"
+   :gov.address/unit "gov.nam.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "nam"
+   :gov.address/line-en "Namibia Meteorological Service, 12C Hügel Street, Windhoek"
+   :gov.address/lat -22.56888 :gov.address/lon 17.09151
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nga.meteorology.hq"
+   :gov.address/unit "gov.nga.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "nga"
+   :gov.address/line-en "Nigerian Meteorological Agency (NiMet), Nnamdi Azikiwe Int'l Airport, Bill Clinton Drive, Abuja"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.nor.meteorology.hq"
+   :gov.address/unit "gov.nor.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "nor"
+   :gov.address/line-en "Norwegian Meteorological Institute (MET Norway), Henrik Mohns plass 1, Blindern, Oslo"
+   :gov.address/lat 59.94262 :gov.address/lon 10.72108
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.pak.meteorology.hq"
+   :gov.address/unit "gov.pak.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "pak"
+   :gov.address/line-en "Pakistan Meteorological Department, Pitras Bukhari Road, Sector H-8/2, Islamabad"
+   :gov.address/lat 33.68356 :gov.address/lon 73.06392
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.png.meteorology.hq"
+   :gov.address/unit "gov.png.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "png"
+   :gov.address/line-en "PNG National Weather Service, Port Moresby"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.qat.meteorology.hq"
+   :gov.address/unit "gov.qat.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "qat"
+   :gov.address/line-en "Qatar Meteorology Department (QCAA), Doha"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rus.meteorology.hq"
+   :gov.address/unit "gov.rus.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "rus"
+   :gov.address/line-en "Hydrometeorological Centre of Russia, Bolshoy Predtechensky lane 11-13, Moscow"
+   :gov.address/lat 55.75937 :gov.address/lon 37.56905
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.rwa.meteorology.hq"
+   :gov.address/unit "gov.rwa.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "rwa"
+   :gov.address/line-en "Rwanda Meteorology Agency (Meteo Rwanda), KN 96 St, Kigali"
+   :gov.address/lat -1.95561 :gov.address/lon 30.05767
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sdn.meteorology.hq"
+   :gov.address/unit "gov.sdn.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "sdn"
+   :gov.address/line-en "Sudan Meteorological Authority, Africa Road, Khartoum"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.sgp.meteorology.hq"
+   :gov.address/unit "gov.sgp.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "sgp"
+   :gov.address/line-en "Meteorological Service Singapore (MSS), Changi Airport Terminal 2, 60 Airport Boulevard"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.slb.meteorology.hq"
+   :gov.address/unit "gov.slb.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "slb"
+   :gov.address/line-en "Solomon Islands Meteorological Service, GESO Building, Vavaya Ridge, Honiara"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.srb.meteorology.hq"
+   :gov.address/unit "gov.srb.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "srb"
+   :gov.address/line-en "Republic Hydrometeorological Service of Serbia (RHMZ), Kneza Višeslava 66, Košutnjak, Belgrade"
+   :gov.address/lat 44.77163 :gov.address/lon 20.42452
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.syc.meteorology.hq"
+   :gov.address/unit "gov.syc.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "syc"
+   :gov.address/line-en "Seychelles Meteorological Authority, Seychelles International Airport, Pointe Larue, Mahé"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tto.meteorology.hq"
+   :gov.address/unit "gov.tto.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "tto"
+   :gov.address/line-en "Trinidad and Tobago Meteorological Service, South Terminal, Piarco International Airport"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tuv.meteorology.hq"
+   :gov.address/unit "gov.tuv.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "tuv"
+   :gov.address/line-en "Tuvalu Meteorological Service, Fongafale, Funafuti"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.tza.meteorology.hq"
+   :gov.address/unit "gov.tza.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "tza"
+   :gov.address/line-en "Tanzania Meteorological Authority (TMA), Ubungo Plaza, Morogoro Road, Dar es Salaam"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.ukr.meteorology.hq"
+   :gov.address/unit "gov.ukr.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "ukr"
+   :gov.address/line-en "Ukrainian Hydrometeorological Center, 6-V Zolotovoritska Street, Kyiv"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.usa.meteorology.hq"
+   :gov.address/unit "gov.usa.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "usa"
+   :gov.address/line-en "National Weather Service (NOAA), NOAA Center for Weather and Climate Prediction, 5830 University Research Court, College Park, Maryland"
+   :gov.address/lat 38.97199 :gov.address/lon -76.92471
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.vnm.meteorology.hq"
+   :gov.address/unit "gov.vnm.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "vnm"
+   :gov.address/line-en "National Center for Hydro-Meteorological Forecasting (VNMHA), Đống Đa District, Hanoi"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zaf.meteorology.hq"
+   :gov.address/unit "gov.zaf.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "zaf"
+   :gov.address/line-en "South African Weather Service (SAWS), Eco Glades Block 1B, Eco Park, Centurion"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
+
+  {:gov.address/id "addr.gov.zmb.meteorology.hq"
+   :gov.address/unit "gov.zmb.meteorology"
+   :gov.address/kind :headquarters
+   :gov.address/country "zmb"
+   :gov.address/line-en "Zambia Meteorological Department, Haile Selassie Avenue, Lusaka"
+   :gov.address/sourcing :authoritative
+   :gov.address/provenance "official site + OSM/Wikidata" :gov.address/last-verified "2026-06-04"}
 ]}

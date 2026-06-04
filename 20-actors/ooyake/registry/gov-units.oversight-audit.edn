@@ -16,7 +16,7 @@
    :gov.unit/parent "gov.aus"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Victorian Auditor-General's Office"
+   :gov.unit/name-en "Australian National Audit Office (ANAO)"
    :gov.unit/official-url "https://www.audit.vic.gov.au"
    :gov.unit/wikidata "Q108248231"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

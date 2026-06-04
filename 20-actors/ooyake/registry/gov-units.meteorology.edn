@@ -109,7 +109,7 @@
    :gov.unit/parent "gov.gbr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "European Centre for Medium-Range Weather Forecasts"
+   :gov.unit/name-en "Met Office"
    :gov.unit/official-url "http://www.ecmwf.int"
    :gov.unit/wikidata "Q1274195"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -493,7 +493,7 @@
    :gov.unit/parent "gov.lux"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lux"
-   :gov.unit/name-en "Météo Boulaide"
+   :gov.unit/name-en "MeteoLux"
    :gov.unit/official-url "https://meteoboulaide.com/"
    :gov.unit/wikidata "Q105428140"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

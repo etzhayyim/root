@@ -28,7 +28,7 @@
    :gov.unit/parent "gov.aus"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Private Health Insurance Ombudsman"
+   :gov.unit/name-en "Commonwealth Ombudsman"
    :gov.unit/official-url "https://www.ombudsman.gov.au/"
    :gov.unit/wikidata "Q7246097"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -76,7 +76,7 @@
    :gov.unit/parent "gov.esp"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Andalusian Village Defense"
+   :gov.unit/name-en "Defensor del Pueblo"
    :gov.unit/official-url "https://www.defensordelpuebloandaluz.es/"
    :gov.unit/wikidata "Q3043122"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -88,7 +88,7 @@
    :gov.unit/parent "gov.gbr"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "Scottish Information Commissioner"
+   :gov.unit/name-en "Parliamentary and Health Service Ombudsman"
    :gov.unit/official-url "https://www.foi.scot/"
    :gov.unit/wikidata "Q7437791"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
