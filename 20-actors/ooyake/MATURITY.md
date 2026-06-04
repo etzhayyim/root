@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — L3 ADDRESS: ★ 100% COMPLETE — all 7106 units now carry an address (7093 → 7106)
+
+Closed the final 13 stragglers across mixed tiers: the country Australia, Tokyo Metropolis (都),
+Tokyo Regional Taxation Bureau, City of Skopje, and 9 subdivisions. 1 focused web-research subagent.
+13 added; **10 building/seat-level lat/lon, 3 honest line-en-only (G5)**.
+
+- **ALL units: 7106/7106 (100%) now carry a `:gov.address` record.** Every tier — supranational,
+  country, region, subdivision, prefecture, municipality, ward, ministry, agency, bureau,
+  legislature, court, cabinet — is address-complete.
+- the 3 nulls are honest non-seats: Iceland "Northwest" is an electoral constituency (no government
+  seat); Spain's "plazas de soberanía" are dispersed North-African islets (no single seat); Saudi
+  "list of provinces" is a Wikidata list artifact (placeholder, flagged).
+- correction: Tokyo Regional Taxation Bureau is in Chiyoda Otemachi (Joint Gov Bldg No.3), NOT
+  Chuo-ku/Tsukiji as first guessed.
+
+### L3 ADDRESS AXIS — DONE
+Six iterations (2026-06-04 → 06-05): country → legislature → court → supranational → cabinet →
+ministry → agency (electoral/anticorruption/statistics/NHRI/revenue/oversight/meteorology/archives/
+library/SWF) → final stragglers. Building-level lat/lon where a real seat exists; honest line-en-only
+nulls (G5, never fabricated) for war-damaged / PO-box-only / relocated / pure-accounting / non-seat units.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — L3 ADDRESS: SWF + residuals — AGENCY TIER COMPLETE (999 → 1049/1049)
 
 Final agency cleanup: the last 50 gaps = 45 sovereign-wealth-funds + ECB + Japan National Tax Agency
