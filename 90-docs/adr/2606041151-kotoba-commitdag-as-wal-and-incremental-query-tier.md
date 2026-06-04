@@ -222,3 +222,39 @@ ADR-2606041130, not Decision A.
 - 40-engine/kotoba/crates/kotoba-kqe/src/mv.rs (MaterializedView — unwired)
 - 40-engine/kotoba/docs/kotoba-canonical-vs-optimization.svg (analysis + A/B)
 - 40-engine/kotoba/docs/kotoba-datomic-architecture.svg (current)
+
+# Status (2026-06-04 — implementation)
+
+Landed upstream in `etzhayyim/kotoba` `main` and tracked by the monorepo submodule:
+
+- **A.1 embedded local store** — `FsBlockStore` (PR #27) + server wiring
+  `TieredBlockStore<BudgetedMemory, FsBlockStore>` via `KOTOBA_FS_BLOCKS_DIR`
+  (PR #28). kotoba is its own durable block store + pinner; no Kubo-over-HTTP hop.
+- **A.2 micro-batch synchronous commit — already present.** Empirical finding:
+  `commit_protocol_datoms` already seals a `DistributedCommitWriter` commit
+  (ProllyTree + IPNS head) on every kg ingest. The per-datom Journal WAL that
+  follows is a redundant double-write.
+- **A.3 Journal WAL opt-out** — `KOTOBA_JOURNAL_WAL=off` skips the per-datom WAL
+  block-write (default ON, unchanged); the hot-arrangement update always runs
+  (PR #30).
+- **A.4 recovery validated** — `crash_recovery_without_journal_replay_via_commit_dag`
+  proves committed data is recoverable from the CommitDag alone, no journal
+  replay (PR #31).
+- **A.5 restart-from-CommitDag — already present.** Finding: `replay_from_journal`
+  restores the CommitDag from the **checkpoint** (written by `commit()`,
+  independent of the per-datom WAL) *before* replaying journal entries; with WAL
+  off the entry-replay is an empty no-op. So restart already rebuilds the
+  CommitDag (cold queries work) without the WAL. The `warm_datomic_live_caches`
+  boot path independently re-warms the datomic read path from each graph's IPNS
+  head. The journal's only unique role is pre-warming the legacy *hot*
+  arrangement — an optimisation the cold path covers.
+
+**Net: Decision A is functionally complete + recovery-validated.** WAL-off is safe
+and opt-in today. The only remaining steps are non-mechanism: (1) flip the default
+to WAL-off after a production soak (a low-risk default change, not a new code
+path), and (2) optional removal of the now-dead Journal write/replay code.
+
+- **B incremental MaterializedView** — `MvRegistry` (PR #28) + server wiring:
+  `mv_registry` in state, maintained on every commit, `kg.mv.register` /
+  `kg.mv.result` endpoints (PR #29). Follow-on: route `kg.query` through a
+  matching maintained MV; retraction-aware maintenance.
