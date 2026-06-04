@@ -1471,7 +1471,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "School Education Department, Government of the Punjab"
+   :gov.unit/name-en "Ministry of Federal Education and Professional Training"
    :gov.unit/official-url "https://schools.punjab.gov.pk/"
    :gov.unit/wikidata "Q18355943"
    :gov.unit/cofog ["09"]

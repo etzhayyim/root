@@ -976,7 +976,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-en "Ministry of Climate Change"
    :gov.unit/official-url "http://www.pakistan.gov.pk/ministries/index.jsp?MinID=5&cPath=0"
    :gov.unit/wikidata "Q4294552"
    :gov.unit/cofog ["05"]
@@ -1215,7 +1215,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
-   :gov.unit/name-en "Ministry of Science, Technology and Environment"
+   :gov.unit/name-en "Ministry of Natural Resources and Environment"
    :gov.unit/official-url "http://www.most.go.th/"
    :gov.unit/wikidata "Q4921224"
    :gov.unit/cofog ["05"]

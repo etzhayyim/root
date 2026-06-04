@@ -383,7 +383,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
-   :gov.unit/name-en "Ministry of Digitalization of Public Administration, Information Technologies and Communications of the Republic of Tatarstan"
+   :gov.unit/name-en "Ministry of Digital Development, Communications and Mass Media of the Russian Federation"
    :gov.unit/official-url "https://digital.tatarstan.ru/"
    :gov.unit/wikidata "Q20591796"
    :gov.unit/cofog ["04.6"]

@@ -207,7 +207,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "fra"
-   :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-en "Ministry of the Economy, Finance and Industrial and Digital Sovereignty"
    :gov.unit/official-url "https://www.economie.gouv.fr/"
    :gov.unit/wikidata "Q13638290"
    :gov.unit/cofog ["04.1"]
@@ -271,7 +271,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
-   :gov.unit/name-en "Ministry of Commerce of Iran"
+   :gov.unit/name-en "Ministry of Industry, Mine and Trade"
    :gov.unit/official-url "https://en.mimt.gov.ir/"
    :gov.unit/wikidata "Q1574903"
    :gov.unit/cofog ["04.1"]

@@ -431,7 +431,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
-   :gov.unit/name-en "Ministry of Culture and Tourism"
+   :gov.unit/name-en "Ministry of Tourism (Ethiopia)"
    :gov.unit/official-url "http://www.tourismethiopia.org"
    :gov.unit/wikidata "Q279884"
    :gov.unit/cofog ["08.2"]
@@ -1039,7 +1039,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-en "National Heritage and Culture Division"
    :gov.unit/official-url "https://heritage.pakistan.gov.pk/"
    :gov.unit/wikidata "Q6866719"
    :gov.unit/cofog ["08.2"]
@@ -1454,7 +1454,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
-   :gov.unit/name-en "Department of Sports, Arts and Culture"
+   :gov.unit/name-en "Department of Sport, Arts and Culture"
    :gov.unit/official-url "https://www.dsac.gov.za/index.php/"
    :gov.unit/wikidata "Q98140210"
    :gov.unit/cofog ["08.2"]

@@ -2064,7 +2064,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "usa"
-   :gov.unit/name-en "Alabama Department of Public Health"
+   :gov.unit/name-en "United States Department of Health and Human Services"
    :gov.unit/official-url "http://www.alabamapublichealth.gov/"
    :gov.unit/wikidata "Q4705249"
    :gov.unit/cofog ["07"]
@@ -2144,7 +2144,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
-   :gov.unit/name-en "Department of Health"
+   :gov.unit/name-en "National Department of Health"
    :gov.unit/official-url "http://www.gov.za/issues/health"
    :gov.unit/wikidata "Q4294368"
    :gov.unit/cofog ["07"]
