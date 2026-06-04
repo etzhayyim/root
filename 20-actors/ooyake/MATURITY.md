@@ -43,6 +43,25 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 15 countries (1449 → 1509, 92%)
+
+Sixth ministry-address batch (Zambia, Gambia, Bahrain, Kuwait, Bhutan, Maldives, Dominican
+Republic, Panama, Greece, Moldova, Lebanon, Liberia, Malawi, Paraguay, Tajikistan). 6 web-research
+subagents. 60 added; **54 building-level lat/lon, 6 honest line-en-only (G5)** — Dominican Republic
+×4 (OSM returns only street-segment midpoints for Av. México / 27 de Febrero, not buildings),
+Zambia defence (street-level only), Liberia finance (OSM node in wrong neighbourhood).
+
+- ministries: 1449 → **1509/1642** with an address record (92%).
+- co-location/data findings: Bahrain Justice+Transport share the BFH East Tower; Maldives Education/
+  Interior/Tourism share the Velaanaage complex; Malawi Education/Justice/Transport at Capital Hill;
+  Liberia Agriculture+Labour at the EJS Ministerial Complex; Honduras-style SGJD pattern noted prior.
+  Honest geo notes: Gambia Petroleum/Energy is in Brusubi (Greater Banjul, not Banjul city); Paraguay
+  Agriculture HQ is in San Lorenzo; Greece Transport in Papagou suburb; Tajikistan Health OSM building
+  conflicts with the official Shevchenko-69 address (flagged).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 12 countries (1389 → 1449, 88%)
 
 Fifth ministry-address batch (Slovenia, Portugal, UAE, Jordan, Bolivia, Honduras, Haiti,
