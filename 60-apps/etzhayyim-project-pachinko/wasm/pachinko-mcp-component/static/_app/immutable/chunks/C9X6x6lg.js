@@ -1,1 +1,0 @@
-function f(){return typeof window>"u"?null:window}function c(o,n={}){var r;const t=f();if(t){if(typeof((r=t.gftdAnalytics)==null?void 0:r.track)=="function"){const i=typeof n.category=="string"?n.category:"custom";t.gftdAnalytics.track(o,i,n)}typeof t.gtag=="function"&&t.gtag("event",o,n),Array.isArray(t.dataLayer)&&t.dataLayer.push({event:o,...n})}}export{c as t};
