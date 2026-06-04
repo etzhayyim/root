@@ -43,6 +43,32 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis: Balkan Cyrillic + Caucasus BG/RS/MK/GE/AM (642 → 734)
+
+Continued the endonym axis into Balkan Cyrillic + Caucasus scripts. 7 web-research subagents.
+**92 ministry/agency/court/legislature endonyms added with romanization** (Bulgaria 26, Serbia 21,
+North Macedonia 10, Georgia 18, Armenia 17).
+
+- all-units name-local: 642 → **734**.
+- scripts: Bulgarian/Serbian/Macedonian Cyrillic (Народно събрание, Влада Републике Србије, Собрание),
+  Georgian (საქართველოს პარლამენტი/Sakartvelos parlamenti, უზენაესი სასამართლო), Armenian
+  (Ազգային ժողով/Azgayin zhoghov, սահմանադրական դատարան) — all with romanization.
+- **3 data-quality en-name fixes**: gov.geo.culture "Culture and Monument Protection" → Ministry of
+  Culture (Georgia split Culture/Sport 1 Jan 2025); gov.geo.energy → Ministry of Economy and
+  Sustainable Development (no standalone energy ministry); gov.arm.energy "Ministry of Energy
+  Infrastructures and Natural Resources" (abolished 2019) → Ministry of Territorial Administration and
+  Infrastructure.
+- honest notes: Serbia Supreme Court of Cassation renamed Supreme Court (2023); Serbia organised-crime
+  prosecutor dropped "Јавно" prefix post-2023 reform; both Georgia/Armenia energy folded into parent
+  ministries.
+- **fixed a self-inflicted parse bug**: gov.mkd.library's name-en contains escaped quotes
+  (\"St. Kliment of Ohrid\"); the field-insertion regex split the string — repaired, integrity green.
+
+Remaining non-Latin high-tier endonym gaps ~310 (Kazakhstan/Kyrgyzstan/Tajik Cyrillic, Mongolia,
+Myanmar/Cambodia/Laos/Nepal/Sri Lanka, Eritrea/Ethiopia, Belarus) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis: Bengali/Thai/Greek/Cyrillic BD/TH/GR/UA (543 → 642)
 
 Continued the endonym axis into a 4-script cluster. 8 web-research subagents. **99 ministry/agency/

@@ -99,6 +99,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Justice (Armenia)"
+   :gov.unit/name-local "Արդարադատության նախարարություն"
+   :gov.unit/name-romanized "Ardaradatutyan nakhararutyun"
    :gov.unit/official-url "https://moj.am"
    :gov.unit/wikidata "Q13053539"
    :gov.unit/cofog ["03.3"]
@@ -213,6 +215,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "Министерство на правосъдието"
+   :gov.unit/name-romanized "Ministerstvo na pravosadieto"
    :gov.unit/official-url "https://www.justice.government.bg/"
    :gov.unit/wikidata "Q12286837"
    :gov.unit/cofog ["03.3"]
@@ -715,6 +719,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "საქართველოს იუსტიციის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos iustitsiis saministro"
    :gov.unit/official-url "https://justice.gov.ge"
    :gov.unit/wikidata "Q3651856"
    :gov.unit/cofog ["03.3"]
@@ -1222,6 +1228,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "Министерство за правда"
+   :gov.unit/name-romanized "Ministerstvo za pravda"
    :gov.unit/official-url "https://www.pravda.gov.mk/"
    :gov.unit/wikidata "Q12286836"
    :gov.unit/cofog ["03.3"]
@@ -1691,6 +1699,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Justice of the Republic of Serbia"
+   :gov.unit/name-local "Министарство правде"
+   :gov.unit/name-romanized "Ministarstvo pravde"
    :gov.unit/official-url "http://www.mpravde.gov.rs"
    :gov.unit/wikidata "Q16664627"
    :gov.unit/cofog ["03.3"]

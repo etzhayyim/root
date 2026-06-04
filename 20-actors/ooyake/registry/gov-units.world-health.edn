@@ -67,6 +67,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "Առողջապահության նախարարություն"
+   :gov.unit/name-romanized "Aroghjapahutyan nakhararutyun"
    :gov.unit/official-url "https://moh.am"
    :gov.unit/wikidata "Q13053365"
    :gov.unit/cofog ["07"]
@@ -197,6 +199,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Health of Bulgaria"
+   :gov.unit/name-local "Министерство на здравеопазването"
+   :gov.unit/name-romanized "Ministerstvo na zdraveopazvaneto"
    :gov.unit/official-url "https://www.mh.government.bg/bg/"
    :gov.unit/wikidata "Q12286820"
    :gov.unit/cofog ["07"]
@@ -663,6 +667,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Internally Displaced Persons from the Occupied Territories, Labour, Health and Social Affairs of Georgia"
+   :gov.unit/name-local "საქართველოს ოკუპირებული ტერიტორიებიდან დევნილთა, შრომის, ჯანმრთელობისა და სოციალური დაცვის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos okupirebuli teritoriebidan devnilta, shromis, janmrtelobisa da sotsialuri datsvis saministro"
    :gov.unit/official-url "http://www.moh.gov.ge"
    :gov.unit/wikidata "Q4294343"
    :gov.unit/cofog ["07"]
@@ -1253,6 +1259,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "Министерство за здравство"
+   :gov.unit/name-romanized "Ministerstvo za zdravstvo"
    :gov.unit/official-url "https://zdravstvo.gov.mk/"
    :gov.unit/wikidata "Q12286821"
    :gov.unit/cofog ["07"]
@@ -1787,6 +1795,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Health of the Republic of Serbia"
+   :gov.unit/name-local "Министарство здравља"
+   :gov.unit/name-romanized "Ministarstvo zdravlja"
    :gov.unit/official-url "http://www.zdravlje.gov.rs"
    :gov.unit/wikidata "Q16664630"
    :gov.unit/cofog ["07"]

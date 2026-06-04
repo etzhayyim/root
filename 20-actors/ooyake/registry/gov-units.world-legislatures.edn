@@ -85,6 +85,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Assembly of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության Ազգային ժողով"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan Azgayin zhoghov"
    :gov.unit/official-url "http://parliament.am"
    :gov.unit/wikidata "Q1337463"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -207,6 +209,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "National Assembly of Bulgaria"
+   :gov.unit/name-local "Народно събрание на Република България"
+   :gov.unit/name-romanized "Narodno sabranie na Republika Balgaria"
    :gov.unit/official-url "https://www.parliament.bg"
    :gov.unit/wikidata "Q639704"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -740,6 +744,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Parliament of Georgia"
+   :gov.unit/name-local "საქართველოს პარლამენტი"
+   :gov.unit/name-romanized "Sakartvelos parlamenti"
    :gov.unit/official-url "https://parliament.ge/"
    :gov.unit/wikidata "Q1417210"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1355,6 +1361,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Assembly of North Macedonia"
+   :gov.unit/name-local "Собрание на Република Северна Македонија"
+   :gov.unit/name-romanized "Sobranie na Republika Severna Makedonija"
    :gov.unit/official-url "https://www.sobranie.mk/"
    :gov.unit/wikidata "Q1258164"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1853,6 +1861,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "National Assembly of Serbia"
+   :gov.unit/name-local "Народна скупштина"
+   :gov.unit/name-romanized "Narodna skupština"
    :gov.unit/official-url "http://www.parlament.gov.rs/"
    :gov.unit/wikidata "Q920222"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

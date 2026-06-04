@@ -445,6 +445,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Council of Ministers of Bulgaria"
+   :gov.unit/name-local "Министерски съвет на Република България"
+   :gov.unit/name-romanized "Ministerski savet na Republika Balgariya"
    :gov.unit/official-url "http://www.government.bg/"
    :gov.unit/wikidata "Q2396053"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -457,6 +459,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Government of North Macedonia"
+   :gov.unit/name-local "Влада на Република Северна Македонија"
+   :gov.unit/name-romanized "Vlada na Republika Severna Makedonija"
    :gov.unit/official-url "https://vlada.mk"
    :gov.unit/wikidata "Q1343342"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -469,6 +473,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Government of Georgia"
+   :gov.unit/name-local "საქართველოს მთავრობა"
+   :gov.unit/name-romanized "Sakartvelos mtavroba"
    :gov.unit/official-url "https://www.gov.ge/"
    :gov.unit/wikidata "Q2613132"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -553,6 +559,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Government of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության կառավարություն"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan karavarutyun"
    :gov.unit/official-url "https://www.gov.am/"
    :gov.unit/wikidata "Q13417106"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1323,6 +1331,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Government of Serbia"
+   :gov.unit/name-local "Влада Републике Србије"
+   :gov.unit/name-romanized "Vlada Republike Srbije"
    :gov.unit/official-url "http://www.srbija.gov.rs/"
    :gov.unit/wikidata "Q1285499"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

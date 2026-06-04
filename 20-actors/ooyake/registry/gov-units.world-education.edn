@@ -115,6 +115,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Education and Science"
+   :gov.unit/name-local "Կրթության, գիտության, մշակույթի և սպորտի նախարարություն"
+   :gov.unit/name-romanized "Krtutyan, gitutyan, mshakuyti yev sporti nakhararutyun"
    :gov.unit/official-url "http://www.edu.am/"
    :gov.unit/wikidata "Q13053375"
    :gov.unit/cofog ["09"]
@@ -228,6 +230,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Education and Science of Bulgaria"
+   :gov.unit/name-local "Министерство на образованието и науката"
+   :gov.unit/name-romanized "Ministerstvo na obrazovanieto i naukata"
    :gov.unit/official-url "https://mon.bg/"
    :gov.unit/wikidata "Q3396672"
    :gov.unit/cofog ["09"]
@@ -714,6 +718,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Education and Science"
+   :gov.unit/name-local "საქართველოს განათლების, მეცნიერებისა და ახალგაზრდობის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos ganatlebis, metsnierebisa da akhalgazrdobis saministro"
    :gov.unit/official-url "http://www.mes.gov.ge"
    :gov.unit/wikidata "Q6866865"
    :gov.unit/cofog ["09"]
@@ -1804,6 +1810,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Education, Science and Technological Development of the Republic of Serbia"
+   :gov.unit/name-local "Министарство просвете"
+   :gov.unit/name-romanized "Ministarstvo prosvete"
    :gov.unit/official-url "http://www.mpn.gov.rs"
    :gov.unit/wikidata "Q16664620"
    :gov.unit/cofog ["09"]

@@ -92,6 +92,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Defence of Armenia"
+   :gov.unit/name-local "Պաշտպանության նախարարություն"
+   :gov.unit/name-romanized "Pashtpanutyan nakhararutyun"
    :gov.unit/official-url "https://mil.am"
    :gov.unit/wikidata "Q3319270"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -166,6 +168,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Defence of Bulgaria"
+   :gov.unit/name-local "Министерство на отбраната"
+   :gov.unit/name-romanized "Ministerstvo na otbranata"
    :gov.unit/official-url "https://www.mod.bg/"
    :gov.unit/wikidata "Q3623141"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -469,6 +473,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Defense of Georgia"
+   :gov.unit/name-local "საქართველოს თავდაცვის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos tavdatsvis saministro"
    :gov.unit/official-url "http://www.mod.gov.ge/?lang=eng"
    :gov.unit/wikidata "Q3648988"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -825,6 +831,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Defense of North Macedonia"
+   :gov.unit/name-local "Министерство за одбрана"
+   :gov.unit/name-romanized "Ministerstvo za odbrana"
    :gov.unit/official-url "https://mod.gov.mk/"
    :gov.unit/wikidata "Q12286835"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1154,6 +1162,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Defense of the Republic of Serbia"
+   :gov.unit/name-local "Министарство одбране"
+   :gov.unit/name-romanized "Ministarstvo odbrane"
    :gov.unit/official-url "https://www.mod.gov.rs/"
    :gov.unit/wikidata "Q2198758"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -81,7 +81,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
-   :gov.unit/name-en "Ministry of Energy Infrastructures and Natural Resources"
+   :gov.unit/name-en "Ministry of Territorial Administration and Infrastructure of Armenia"
+   :gov.unit/name-local "Տարածքային կառավարման և ենթակառուցվածքների նախարարություն"
+   :gov.unit/name-romanized "Taratskayin karavarman yev entakarutsvatskneri nakhararutyun"
    :gov.unit/official-url "https://www.mtad.am/en"
    :gov.unit/wikidata "Q13053372"
    :gov.unit/cofog ["04.3"]
@@ -180,6 +182,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Energy of Bulgaria"
+   :gov.unit/name-local "Министерство на енергетиката"
+   :gov.unit/name-romanized "Ministerstvo na energetikata"
    :gov.unit/official-url "https://www.me.government.bg/bg"
    :gov.unit/wikidata "Q50041098"
    :gov.unit/cofog ["04.3"]
@@ -453,7 +457,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
-   :gov.unit/name-en "Ministry of Energy and Natural Resources"
+   :gov.unit/name-en "Ministry of Economy and Sustainable Development of Georgia"
+   :gov.unit/name-local "საქართველოს ეკონომიკისა და მდგრადი განვითარების სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos ekonomikisa da mdgradi ganvitarebis saministro"
    :gov.unit/official-url "http://www.minenergy.gov.ge/"
    :gov.unit/wikidata "Q724834"
    :gov.unit/cofog ["04.3"]

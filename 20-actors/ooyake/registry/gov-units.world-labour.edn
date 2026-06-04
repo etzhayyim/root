@@ -82,6 +82,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Labour and Social Policy"
+   :gov.unit/name-local "Министерство на труда и социалната политика"
+   :gov.unit/name-romanized "Ministerstvo na truda i sotsialnata politika"
    :gov.unit/official-url "https://www.mlsp.government.bg/"
    :gov.unit/wikidata "Q12286841"
    :gov.unit/cofog ["04.1"]
@@ -875,6 +877,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Labour, Employment, Veteran, and Social Policy of the Republic of Serbia"
+   :gov.unit/name-local "Министарство за рад, запошљавање, борачка и социјална питања"
+   :gov.unit/name-romanized "Ministarstvo za rad, zapošljavanje, boračka i socijalna pitanja"
    :gov.unit/official-url "http://www.minrzs.gov.rs"
    :gov.unit/wikidata "Q12755500"
    :gov.unit/cofog ["04.1"]

@@ -81,6 +81,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "Министерство на туризма"
+   :gov.unit/name-romanized "Ministerstvo na turizma"
    :gov.unit/official-url "http://www.tourism.government.bg/"
    :gov.unit/wikidata "Q42293177"
    :gov.unit/cofog ["04.7"]

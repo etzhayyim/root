@@ -76,6 +76,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Commission for Personal Data Protection"
+   :gov.unit/name-local "Комисия за защита на личните данни"
+   :gov.unit/name-romanized "Komisiya za zashtita na lichnite danni"
    :gov.unit/official-url "https://www.cpdp.bg"
    :gov.unit/wikidata "Q55505721"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

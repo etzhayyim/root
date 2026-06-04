@@ -89,6 +89,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Central Bank of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության կենտրոնական բանկ"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan kentronakan bank"
    :gov.unit/official-url "https://cba.am"
    :gov.unit/wikidata "Q190223"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -187,6 +189,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Bulgarian National Bank"
+   :gov.unit/name-local "Българска народна банка"
+   :gov.unit/name-romanized "Balgarska narodna banka"
    :gov.unit/official-url "http://www.bnb.bg/"
    :gov.unit/wikidata "Q74687"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

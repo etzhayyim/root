@@ -39,6 +39,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "National Statistics Office of Georgia"
+   :gov.unit/name-local "საქართველოს სტატისტიკის ეროვნული სამსახური"
+   :gov.unit/name-romanized "Sakartvelos statistikis erovnuli samsakhuri"
    :gov.unit/official-url "http://www.geostat.ge/"
    :gov.unit/wikidata "Q5938294"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -125,6 +127,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Statistical Service"
+   :gov.unit/name-local "Հայաստանի Հանրապետության վիճակագրական կոմիտե"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan vichakagrakan komite"
    :gov.unit/official-url "https://armstat.am"
    :gov.unit/wikidata "Q6978691"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -329,6 +333,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "National Statistical Institute"
+   :gov.unit/name-local "Национален статистически институт"
+   :gov.unit/name-romanized "Natsionalen statisticheski institut"
    :gov.unit/official-url "http://www.nsi.bg/"
    :gov.unit/wikidata "Q12287889"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -353,6 +359,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "State Statistical Office of North Macedonia"
+   :gov.unit/name-local "Државен завод за статистика"
+   :gov.unit/name-romanized "Drzhaven zavod za statistika"
    :gov.unit/official-url "http://www.stat.gov.mk/"
    :gov.unit/wikidata "Q12906246"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

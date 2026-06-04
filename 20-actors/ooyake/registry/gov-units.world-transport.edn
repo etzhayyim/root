@@ -114,6 +114,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Transport, Information Technology and Communications"
+   :gov.unit/name-local "Министерство на транспорта и съобщенията"
+   :gov.unit/name-romanized "Ministerstvo na transporta i saobshteniyata"
    :gov.unit/official-url "https://www.mtitc.government.bg/bg"
    :gov.unit/wikidata "Q6867606"
    :gov.unit/cofog ["04.5"]
@@ -1211,6 +1213,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Transportation, Construction and Infrastructure of the Republic of Serbia"
+   :gov.unit/name-local "Министарство грађевинарства, саобраћаја и инфраструктуре"
+   :gov.unit/name-romanized "Ministarstvo građevinarstva, saobraćaja i infrastrukture"
    :gov.unit/official-url "http://www.ms.gov.rs"
    :gov.unit/wikidata "Q16664650"
    :gov.unit/cofog ["04.5"]

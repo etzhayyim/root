@@ -248,6 +248,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Republic Hydrometeorological Institute of Serbia"
+   :gov.unit/name-local "Републички хидрометеоролошки завод Србије"
+   :gov.unit/name-romanized "Republički hidrometeorološki zavod Srbije"
    :gov.unit/official-url "https://www.hidmet.gov.rs/"
    :gov.unit/wikidata "Q7314402"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
