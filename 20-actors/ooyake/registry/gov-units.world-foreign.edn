@@ -25,6 +25,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Islamic Emirate of Afghanistan"
+   :gov.unit/name-local "وزارت امور خارجه"
+   :gov.unit/name-romanized "Wezarat-e Umur-e Kharija"
    :gov.unit/official-url "http://mfa.gov.af"
    :gov.unit/wikidata "Q4294381"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -335,6 +337,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Foreign Affairs and External Trade"
+   :gov.unit/name-local "ཕྱི་འབྲལ་དང་ཕྱིར་ཚོང་ལྷན་ཁག"
+   :gov.unit/name-romanized "phyi brel dang phyir tshong lhan khag"
    :gov.unit/official-url "http://www.mfa.gov.bt/"
    :gov.unit/wikidata "Q4294382"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -469,6 +473,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Foreign Affairs of Cyprus"
+   :gov.unit/name-local "Υπουργείο Εξωτερικών"
+   :gov.unit/name-romanized "Ypourgeio Exoterikon"
    :gov.unit/official-url "https://www.gov.cy/mfa/"
    :gov.unit/wikidata "Q3315347"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -890,6 +896,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Israel"
+   :gov.unit/name-local "משרד החוץ"
+   :gov.unit/name-romanized "Misrad HaChutz"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_foreign_affairs/"
    :gov.unit/wikidata "Q1431423"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1184,6 +1192,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "ޚާރިޖީ ވުޒާރާ"
+   :gov.unit/name-romanized "Khaarijee Vuzaaraa"
    :gov.unit/official-url "http://www.foreign.gov.mv/index.php/en/"
    :gov.unit/wikidata "Q48805959"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

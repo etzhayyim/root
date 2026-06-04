@@ -232,6 +232,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Labour, Welfare and Social Insurance"
+   :gov.unit/name-local "Υπουργείο Εργασίας και Κοινωνικών Ασφαλίσεων"
+   :gov.unit/name-romanized "Ypourgeio Ergasias kai Koinonikon Asfaliseon"
    :gov.unit/official-url "https://www.mlsi.gov.cy/"
    :gov.unit/wikidata "Q16331878"
    :gov.unit/cofog ["04.1"]

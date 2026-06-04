@@ -16,6 +16,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Communications and Information Technology"
+   :gov.unit/name-local "وزارت مخابرات و تکنالوژی معلوماتی"
+   :gov.unit/name-romanized "Wizarat-i Mukhabirat wa Tiknaloji-yi Ma'lumati"
    :gov.unit/official-url "http://mcit.gov.af/en"
    :gov.unit/wikidata "Q6866675"
    :gov.unit/cofog ["04.6"]
@@ -296,6 +298,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Communications"
+   :gov.unit/name-local "משרד התקשורת"
+   :gov.unit/name-romanized "Misrad HaTikshoret"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_communications"
    :gov.unit/wikidata "Q2077979"
    :gov.unit/cofog ["04.6"]

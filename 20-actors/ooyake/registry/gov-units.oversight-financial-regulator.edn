@@ -90,6 +90,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Cyprus Securities and Exchange Commission"
+   :gov.unit/name-local "Επιτροπή Κεφαλαιαγοράς Κύπρου"
+   :gov.unit/name-romanized "Epitropi Kefalaiagoras Kyprou"
    :gov.unit/official-url "http://www.cysec.gov.cy/"
    :gov.unit/wikidata "Q570231"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

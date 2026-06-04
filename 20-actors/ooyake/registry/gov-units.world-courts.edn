@@ -26,6 +26,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Afghan Supreme Court"
+   :gov.unit/name-local "ستره محکمه"
+   :gov.unit/name-romanized "Stera Mahkama"
    :gov.unit/official-url "http://supremecourt.gov.af/en"
    :gov.unit/wikidata "Q8561"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -271,6 +273,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Supreme Court of Bhutan"
+   :gov.unit/name-local "མངོན་མཐོའི་ཁྲིམས་འདུན"
+   :gov.unit/name-romanized "ngon tho thrimdun"
    :gov.unit/official-url "https://www.judiciary.gov.bt/"
    :gov.unit/wikidata "Q7644880"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -417,6 +421,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "The Supreme Court of Cyprus"
+   :gov.unit/name-local "Ανώτατο Δικαστήριο Κύπρου"
+   :gov.unit/name-romanized "Anotato Dikastirio Kyprou"
    :gov.unit/official-url "https://www.supremecourt.gov.cy/"
    :gov.unit/wikidata "Q19201850"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -790,6 +796,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israeli Supreme Court"
+   :gov.unit/name-local "בית המשפט העליון"
+   :gov.unit/name-romanized "Beit HaMishpat HaElyon"
    :gov.unit/official-url "https://supreme.court.gov.il/"
    :gov.unit/wikidata "Q399798"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1006,6 +1014,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Supreme Court of the Maldives"
+   :gov.unit/name-local "ދިވެހިރާއްޖޭގެ ސުޕްރީމް ކޯޓު"
+   :gov.unit/name-romanized "Dhivehiraajjeyge Supreme Koatu"
    :gov.unit/official-url "http://www.supremecourt.gov.mv"
    :gov.unit/wikidata "Q24944325"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

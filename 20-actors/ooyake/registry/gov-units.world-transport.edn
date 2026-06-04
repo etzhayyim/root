@@ -214,6 +214,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Infrastructure and Transport"
+   :gov.unit/name-local "གཞི་རྟེན་མཁོ་ཆས་དང་སྐྱེལ་འདྲེན་ལྷན་ཁག"
+   :gov.unit/name-romanized "gzhi rten mkho chas dang skyel dren lhan khag"
    :gov.unit/official-url "https://www.moit.gov.bt/"
    :gov.unit/wikidata "Q127973263"
    :gov.unit/cofog ["04.5"]
@@ -328,6 +330,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Transport, Communications and Works"
+   :gov.unit/name-local "Υπουργείο Μεταφορών, Επικοινωνιών και Έργων"
+   :gov.unit/name-romanized "Ypourgeio Metaforon, Epikoinonion kai Ergon"
    :gov.unit/official-url "https://www.gov.cy/mtcw/"
    :gov.unit/wikidata "Q6590368"
    :gov.unit/cofog ["04.5"]
@@ -708,6 +712,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Transport and Road Safety"
+   :gov.unit/name-local "משרד התחבורה והבטיחות בדרכים"
+   :gov.unit/name-romanized "Misrad HaTachbura VeHaBetichut BaDrachim"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_transport_and_road_safety"
    :gov.unit/wikidata "Q2661479"
    :gov.unit/cofog ["04.5"]

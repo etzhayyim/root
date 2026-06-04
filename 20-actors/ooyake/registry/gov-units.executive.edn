@@ -227,6 +227,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Lhengye Zhungtshog"
+   :gov.unit/name-local "ལྷན་རྒྱས་གཞུང་ཚོགས"
+   :gov.unit/name-romanized "Lhengye Zhungtshog"
    :gov.unit/official-url "https://www.cabinet.gov.bt/"
    :gov.unit/wikidata "Q2081864"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -803,6 +805,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Government of Islamic Emirate of Afghanistan"
+   :gov.unit/name-local "شورای وزیران / کابینه"
+   :gov.unit/name-romanized "Shora-ye Waziran / Kabina"
    :gov.unit/official-url "https://alemarahenglish.af/"
    :gov.unit/wikidata "Q20978159"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1255,6 +1259,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Government of Cyprus Republic"
+   :gov.unit/name-local "Υπουργικό Συμβούλιο"
+   :gov.unit/name-romanized "Ypourgiko Symvoulio"
    :gov.unit/official-url "http://www.cyprus.gov.cy"
    :gov.unit/wikidata "Q19358292"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

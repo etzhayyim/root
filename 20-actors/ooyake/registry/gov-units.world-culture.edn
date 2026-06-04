@@ -16,6 +16,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Information and Culture Afghanistan"
+   :gov.unit/name-local "وزارت اطلاعات و فرهنگ"
+   :gov.unit/name-romanized "Wizarat-i Ittila'at wa Farhang"
    :gov.unit/official-url "https://moic.gov.af/"
    :gov.unit/wikidata "Q6867213"
    :gov.unit/cofog ["08.2"]
@@ -644,6 +646,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Culture and Sports"
+   :gov.unit/name-local "משרד התרבות והספורט"
+   :gov.unit/name-romanized "Misrad HaTarbut veHaSport"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_culture_and_sport/"
    :gov.unit/wikidata "Q2081328"
    :gov.unit/cofog ["08.2"]

@@ -196,6 +196,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israel Meteorological Service"
+   :gov.unit/name-local "השירות המטאורולוגי"
+   :gov.unit/name-romanized "HaSherut HaMeteorologi"
    :gov.unit/official-url "http://www.ims.gov.il/"
    :gov.unit/wikidata "Q4619485"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

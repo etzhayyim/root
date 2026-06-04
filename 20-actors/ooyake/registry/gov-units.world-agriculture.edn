@@ -17,6 +17,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Agriculture, Irrigation and Livestock of Afghanistan"
+   :gov.unit/name-local "وزارت زراعت، آبیاری و مالداری"
+   :gov.unit/name-romanized "Wizarat-i Zira'at, Abyari wa Maldari"
    :gov.unit/official-url "http://mail.gov.af"
    :gov.unit/wikidata "Q6866610"
    :gov.unit/cofog ["04.2"]
@@ -215,6 +217,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Agriculture and Livestock"
+   :gov.unit/name-local "སོ་ནམ་དང་སྒོ་ནོར་ལྷན་ཁག"
+   :gov.unit/name-romanized "so nam dang sgo nor lhan khag"
    :gov.unit/official-url "http://www.moaf.gov.bt/"
    :gov.unit/wikidata "Q18345297"
    :gov.unit/cofog ["04.2"]
@@ -690,6 +694,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Agriculture and Food Security of Israel"
+   :gov.unit/name-local "משרד החקלאות וביטחון המזון"
+   :gov.unit/name-romanized "Misrad HaHakla'ut u'Vitachon HaMazon"
    :gov.unit/official-url "https://www.gov.il/he/Departments/ministry_of_agriculture_and_rural_development"
    :gov.unit/wikidata "Q2081350"
    :gov.unit/cofog ["04.2"]

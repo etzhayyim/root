@@ -140,6 +140,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Independent Authority Against Corruption"
+   :gov.unit/name-local "Ανεξάρτητη Αρχή κατά της Διαφθοράς"
+   :gov.unit/name-romanized "Anexartiti Archi kata tis Diafthoras"
    :gov.unit/official-url "https://www.iaac.org.cy/"
    :gov.unit/wikidata "Q135490371"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

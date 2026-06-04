@@ -313,6 +313,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/name-local "ནང་སྲིད་ལྷན་ཁག"
+   :gov.unit/name-romanized "Nangsi Lhenkhag"
    :gov.unit/official-url "https://www.moha.gov.bt/"
    :gov.unit/wikidata "Q369391"
    :gov.unit/cofog ["03.1"]
@@ -427,6 +429,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of the Interior"
+   :gov.unit/name-local "Υπουργείο Εσωτερικών"
+   :gov.unit/name-romanized "Ypourgeio Esoterikon"
    :gov.unit/official-url "https://www.gov.cy/moi/"
    :gov.unit/wikidata "Q12885640"
    :gov.unit/cofog ["03.1"]
@@ -823,6 +827,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Interior"
+   :gov.unit/name-local "משרד הפנים"
+   :gov.unit/name-romanized "Misrad HaPnim"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_interior"
    :gov.unit/wikidata "Q2909783"
    :gov.unit/cofog ["03.1"]
@@ -1077,6 +1083,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Home Affairs"
+   :gov.unit/name-local "ދާޚިލީ ސަލާމަތާއި މަސައްކަތްތެރިކަމާއި ފަންނިއްޔާތާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Dhaakhilee Salaamathaai Masakkaiytherikamaai Fanniyyaathaa Behey Vuzaaraa"
    :gov.unit/official-url "https://www.mohst.gov.mv/"
    :gov.unit/wikidata "Q30612710"
    :gov.unit/cofog ["03.1"]
