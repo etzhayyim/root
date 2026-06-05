@@ -43,6 +43,22 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Algeria 58 wilayas (1570 → 1628)
+
+Continued the subdivision endonym front with all 58 Algerian wilayas in Arabic. 5 web-research
+subagents (Wikidata native labels). **58 Arabic endonyms added with romanization.**
+
+- all-units name-local: 1570 → **1628**; subdivision name-local: 556 → **614**.
+- official ولاية<Name> form (ولاية الجزائر/Wilayat al-Jazair = Algiers, ولاية وهران = Oran, ولاية قسنطينة
+  = Constantine); includes the 10 NEW 2019 wilayas (تيميمون Timimoun … المنيعة El Meniaa). Arabic forms
+  preferred over French exonyms (e.g. Relizane = غليزان/Ghulizan). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets:
+Libya 22, Yemen 22, Bhutan 20, Maldives 20, Kazakhstan 18, Lao 17, Ethiopia 14, Syria 14, Morocco 12,
+Jordan 12, North Korea 12, Georgia 12, Armenia 11, Oman 11, plus smaller ones — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Cambodia + Mongolia + Myanmar (1503 → 1570)
 
 Continued the subdivision endonym front with 3 distinct SE/Central-Asian scripts. 6 web-research

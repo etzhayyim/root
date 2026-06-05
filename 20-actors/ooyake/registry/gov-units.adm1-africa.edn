@@ -1929,6 +1929,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Algiers Province"
+   :gov.unit/name-local "ولاية الجزائر"
+   :gov.unit/name-romanized "Wilayat al-Jazair"
    :gov.unit/official-url "https://www.wilaya-alger.dz/"
    :gov.unit/wikidata "Q141026"
    :gov.unit/external-code ["iso3166-2:DZ-16"]
@@ -1942,6 +1944,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Aïn Defla Province"
+   :gov.unit/name-local "ولاية عين الدفلى"
+   :gov.unit/name-romanized "Wilayat Ayn al-Dafla"
    :gov.unit/official-url "https://www.wilaya-aindefla.dz/"
    :gov.unit/wikidata "Q168953"
    :gov.unit/external-code ["iso3166-2:DZ-44"]
@@ -1955,6 +1959,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ghardaïa Province"
+   :gov.unit/name-local "ولاية غرداية"
+   :gov.unit/name-romanized "Wilayat Ghardaya"
    :gov.unit/official-url "http://wilayadeghardaia.dz/portal/"
    :gov.unit/wikidata "Q17601"
    :gov.unit/external-code ["iso3166-2:DZ-47"]
@@ -1968,6 +1974,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Adrar Province"
+   :gov.unit/name-local "ولاية أدرار"
+   :gov.unit/name-romanized "Wilayat Adrar"
    :gov.unit/official-url "https://www.wilaya-adrar.dz/"
    :gov.unit/wikidata "Q188166"
    :gov.unit/external-code ["iso3166-2:DZ-01"]
@@ -1981,6 +1989,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Annaba Province"
+   :gov.unit/name-local "ولاية عنابة"
+   :gov.unit/name-romanized "Wilayat Annaba"
    :gov.unit/wikidata "Q213944"
    :gov.unit/external-code ["iso3166-2:DZ-23"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1993,6 +2003,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Khenchela Province"
+   :gov.unit/name-local "ولاية خنشلة"
+   :gov.unit/name-romanized "Wilayat Khanshala"
    :gov.unit/official-url "https://wilaya-khenchela.dz/"
    :gov.unit/wikidata "Q213950"
    :gov.unit/external-code ["iso3166-2:DZ-40"]
@@ -2006,6 +2018,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Batna Province"
+   :gov.unit/name-local "ولاية باتنة"
+   :gov.unit/name-romanized "Wilayat Batna"
    :gov.unit/official-url "http://www.wilaya-batna.gov.dz/"
    :gov.unit/wikidata "Q215452"
    :gov.unit/external-code ["iso3166-2:DZ-05"]
@@ -2019,6 +2033,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Béchar Province"
+   :gov.unit/name-local "ولاية بشار"
+   :gov.unit/name-romanized "Wilayat Bashshar"
    :gov.unit/official-url "https://www.wilaya-bechar.gov.dz/"
    :gov.unit/wikidata "Q215467"
    :gov.unit/external-code ["iso3166-2:DZ-08"]
@@ -2032,6 +2048,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Beni Abbes Province"
+   :gov.unit/name-local "ولاية بني عباس"
+   :gov.unit/name-romanized "Wilayat Bani Abbas"
    :gov.unit/official-url "https://www.wilaya-beniabbes.dz/"
    :gov.unit/wikidata "Q21606902"
    :gov.unit/external-code ["iso3166-2:DZ-52"]
@@ -2045,6 +2063,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Timimoun Province"
+   :gov.unit/name-local "ولاية تيميمون"
+   :gov.unit/name-romanized "Wilayat Timimun"
    :gov.unit/wikidata "Q21606903"
    :gov.unit/external-code ["iso3166-2:DZ-49"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2057,6 +2077,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mostaganem Province"
+   :gov.unit/name-local "ولاية مستغانم"
+   :gov.unit/name-romanized "Wilayat Mustaghanam"
    :gov.unit/official-url "https://wilaya-mostaganem.dz/"
    :gov.unit/wikidata "Q221445"
    :gov.unit/external-code ["iso3166-2:DZ-27"]
@@ -2070,6 +2092,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tamanrasset Province"
+   :gov.unit/name-local "ولاية تمنراست"
+   :gov.unit/name-romanized "Wilayat Tamanrasat"
    :gov.unit/official-url "https://www.wilaya-tamanrasset.dz/"
    :gov.unit/wikidata "Q229467"
    :gov.unit/external-code ["iso3166-2:DZ-11"]
@@ -2083,6 +2107,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tindouf Province"
+   :gov.unit/name-local "ولاية تندوف"
+   :gov.unit/name-romanized "Wilayat Tinduf"
    :gov.unit/official-url "https://wilaya-tindouf.dz/"
    :gov.unit/wikidata "Q231151"
    :gov.unit/external-code ["iso3166-2:DZ-37"]
@@ -2096,6 +2122,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Oran Province"
+   :gov.unit/name-local "ولاية وهران"
+   :gov.unit/name-romanized "Wilayat Wahran"
    :gov.unit/official-url "http://wilayaoran.dz/"
    :gov.unit/wikidata "Q231331"
    :gov.unit/external-code ["iso3166-2:DZ-31"]
@@ -2109,6 +2137,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Laghouat Province"
+   :gov.unit/name-local "ولاية الأغواط"
+   :gov.unit/name-romanized "Wilayat al-Aghwat"
    :gov.unit/official-url "https://www.wilaya-laghouat.dz/"
    :gov.unit/wikidata "Q231748"
    :gov.unit/external-code ["iso3166-2:DZ-03"]
@@ -2122,6 +2152,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Chlef Province"
+   :gov.unit/name-local "ولاية الشلف"
+   :gov.unit/name-romanized "Wilayat ash-Shalaf"
    :gov.unit/wikidata "Q231752"
    :gov.unit/external-code ["iso3166-2:DZ-02"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2134,6 +2166,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Constantine Province"
+   :gov.unit/name-local "ولاية قسنطينة"
+   :gov.unit/name-romanized "Wilayat Qusantina"
    :gov.unit/official-url "https://wilayaconstantine.dz/"
    :gov.unit/wikidata "Q232043"
    :gov.unit/external-code ["iso3166-2:DZ-25"]
@@ -2147,6 +2181,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Djelfa Province"
+   :gov.unit/name-local "ولاية الجلفة"
+   :gov.unit/name-romanized "Wilayat al-Jalfa"
    :gov.unit/official-url "https://wilaya-djelfa.dz/"
    :gov.unit/wikidata "Q233233"
    :gov.unit/external-code ["iso3166-2:DZ-17"]
@@ -2160,6 +2196,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tiaret Province"
+   :gov.unit/name-local "ولاية تيارت"
+   :gov.unit/name-romanized "Wilayat Tiyarat"
    :gov.unit/official-url "http://www.wilaya-tiaret.dz/"
    :gov.unit/wikidata "Q233258"
    :gov.unit/external-code ["iso3166-2:DZ-14"]
@@ -2173,6 +2211,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tlemcen Province"
+   :gov.unit/name-local "ولاية تلمسان"
+   :gov.unit/name-romanized "Wilayat Tilimsan"
    :gov.unit/official-url "https://wilaya-tlemcen.dz/"
    :gov.unit/wikidata "Q233632"
    :gov.unit/external-code ["iso3166-2:DZ-13"]
@@ -2186,6 +2226,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Blida Province"
+   :gov.unit/name-local "ولاية البليدة"
+   :gov.unit/name-romanized "Wilayat al-Balida"
    :gov.unit/official-url "http://www.wilayadeblida.dz/"
    :gov.unit/wikidata "Q233637"
    :gov.unit/external-code ["iso3166-2:DZ-09"]
@@ -2199,6 +2241,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Saïda Province"
+   :gov.unit/name-local "ولاية سعيدة"
+   :gov.unit/name-romanized "Wilayat Saida"
    :gov.unit/official-url "https://wilaya-saida.dz/"
    :gov.unit/wikidata "Q233640"
    :gov.unit/external-code ["iso3166-2:DZ-20"]
@@ -2212,6 +2256,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tizi Ouzou Province"
+   :gov.unit/name-local "ولاية تيزي وزو"
+   :gov.unit/name-romanized "Wilayat Tizi Wuzu"
    :gov.unit/official-url "http://www.tizi-ouzou.wilaya.dz/"
    :gov.unit/wikidata "Q233645"
    :gov.unit/external-code ["iso3166-2:DZ-15"]
@@ -2225,6 +2271,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Oued Province"
+   :gov.unit/name-local "ولاية الوادي"
+   :gov.unit/name-romanized "Wilayat al-Wadi"
    :gov.unit/official-url "https://www.wilaya-eloued.dz/"
    :gov.unit/wikidata "Q233651"
    :gov.unit/external-code ["iso3166-2:DZ-39"]
@@ -2238,6 +2286,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bouira Province"
+   :gov.unit/name-local "ولاية البويرة"
+   :gov.unit/name-romanized "Wilayat al-Buwayra"
    :gov.unit/official-url "http://www.wilaya-bouira.dz/"
    :gov.unit/wikidata "Q233655"
    :gov.unit/external-code ["iso3166-2:DZ-10"]
@@ -2251,6 +2301,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Illizi Province"
+   :gov.unit/name-local "ولاية إليزي"
+   :gov.unit/name-romanized "Wilayat Ilizi"
    :gov.unit/wikidata "Q233659"
    :gov.unit/external-code ["iso3166-2:DZ-33"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2263,6 +2315,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Béjaïa Province"
+   :gov.unit/name-local "ولاية بجاية"
+   :gov.unit/name-romanized "Wilayat Bijaya"
    :gov.unit/official-url "https://wilaya-bejaia.dz/"
    :gov.unit/wikidata "Q233665"
    :gov.unit/external-code ["iso3166-2:DZ-06"]
@@ -2276,6 +2330,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Aïn Témouchent Province"
+   :gov.unit/name-local "ولاية عين تموشنت"
+   :gov.unit/name-romanized "Wilayat Ayn Timushant"
    :gov.unit/official-url "http://www.wilaya-aintemouchent.dz/"
    :gov.unit/wikidata "Q233670"
    :gov.unit/external-code ["iso3166-2:DZ-46"]
@@ -2289,6 +2345,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Naama Province"
+   :gov.unit/name-local "ولاية النعامة"
+   :gov.unit/name-romanized "Wilayat al-Naama"
    :gov.unit/official-url "https://www.wilaya-naama.dz/"
    :gov.unit/wikidata "Q233675"
    :gov.unit/external-code ["iso3166-2:DZ-45"]
@@ -2302,6 +2360,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Skikda Province"
+   :gov.unit/name-local "ولاية سكيكدة"
+   :gov.unit/name-romanized "Wilayat Skikda"
    :gov.unit/official-url "https://wilayadeskikda-dz.com/"
    :gov.unit/wikidata "Q234227"
    :gov.unit/external-code ["iso3166-2:DZ-21"]
@@ -2315,6 +2375,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Bayadh Province"
+   :gov.unit/name-local "ولاية البيض"
+   :gov.unit/name-romanized "Wilayat al-Bayd"
    :gov.unit/official-url "https://www.wilaya-elbayadh.gov.dz/"
    :gov.unit/wikidata "Q235703"
    :gov.unit/external-code ["iso3166-2:DZ-32"]
@@ -2328,6 +2390,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Oum El Bouaghi Province"
+   :gov.unit/name-local "ولاية أم البواقي"
+   :gov.unit/name-romanized "Wilayat Umm al-Bawaqi"
    :gov.unit/official-url "https://wilaya-oeb.dz/"
    :gov.unit/wikidata "Q235705"
    :gov.unit/external-code ["iso3166-2:DZ-04"]
@@ -2341,6 +2405,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ouargla Province"
+   :gov.unit/name-local "ولاية ورقلة"
+   :gov.unit/name-romanized "Wilayat Warqala"
    :gov.unit/official-url "http://wilaya-ouargla.dz/"
    :gov.unit/wikidata "Q235709"
    :gov.unit/external-code ["iso3166-2:DZ-30"]
@@ -2354,6 +2420,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Sidi Bel Abbès Province"
+   :gov.unit/name-local "ولاية سيدي بلعباس"
+   :gov.unit/name-romanized "Wilayat Sidi Bal Abbas"
    :gov.unit/official-url "https://wilaya-sidibelabbes.dz/"
    :gov.unit/wikidata "Q235714"
    :gov.unit/external-code ["iso3166-2:DZ-22"]
@@ -2367,6 +2435,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Jijel Province"
+   :gov.unit/name-local "ولاية جيجل"
+   :gov.unit/name-romanized "Wilayat Jijil"
    :gov.unit/official-url "http://wilaya-jijel.dz/"
    :gov.unit/wikidata "Q235718"
    :gov.unit/external-code ["iso3166-2:DZ-18"]
@@ -2380,6 +2450,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mila Province"
+   :gov.unit/name-local "ولاية ميلة"
+   :gov.unit/name-romanized "Wilayat Mila"
    :gov.unit/official-url "https://www.wilaya-mila.dz/"
    :gov.unit/wikidata "Q235723"
    :gov.unit/external-code ["iso3166-2:DZ-43"]
@@ -2393,6 +2465,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Guelma Province"
+   :gov.unit/name-local "ولاية قالمة"
+   :gov.unit/name-romanized "Wilayat Qalma"
    :gov.unit/official-url "https://wilaya-guelma.dz/"
    :gov.unit/wikidata "Q235727"
    :gov.unit/external-code ["iso3166-2:DZ-24"]
@@ -2406,6 +2480,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tissemsilt Province"
+   :gov.unit/name-local "ولاية تيسمسيلت"
+   :gov.unit/name-romanized "Wilayat Tisimsilt"
    :gov.unit/official-url "https://www.wilaya-tissemsilt.dz/"
    :gov.unit/wikidata "Q235805"
    :gov.unit/external-code ["iso3166-2:DZ-38"]
@@ -2419,6 +2495,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Médéa Province"
+   :gov.unit/name-local "ولاية المدية"
+   :gov.unit/name-romanized "Wilayat al-Madiyya"
    :gov.unit/official-url "http://www.wilayamedea.dz/"
    :gov.unit/wikidata "Q235810"
    :gov.unit/external-code ["iso3166-2:DZ-26"]
@@ -2432,6 +2510,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tipasa Province"
+   :gov.unit/name-local "ولاية تيبازة"
+   :gov.unit/name-romanized "Wilayat Tibaza"
    :gov.unit/official-url "https://www.wilaya-tipaza.dz/"
    :gov.unit/wikidata "Q235814"
    :gov.unit/external-code ["iso3166-2:DZ-42"]
@@ -2445,6 +2525,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Boumerdès Province"
+   :gov.unit/name-local "ولاية بومرداس"
+   :gov.unit/name-romanized "Wilayat Bumardas"
    :gov.unit/official-url "https://www.wilaya-boumerdes.dz/"
    :gov.unit/wikidata "Q236752"
    :gov.unit/external-code ["iso3166-2:DZ-35"]
@@ -2458,6 +2540,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Relizane Province"
+   :gov.unit/name-local "ولاية غليزان"
+   :gov.unit/name-romanized "Wilayat Ghulizan"
    :gov.unit/official-url "http://www.wilaya-relizane.dz/"
    :gov.unit/wikidata "Q236758"
    :gov.unit/external-code ["iso3166-2:DZ-48"]
@@ -2471,6 +2555,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Souk Ahras Province"
+   :gov.unit/name-local "ولاية سوق أهراس"
+   :gov.unit/name-romanized "Wilayat Suq Ahras"
    :gov.unit/official-url "https://www.wilaya-soukahras.dz/"
    :gov.unit/wikidata "Q236772"
    :gov.unit/external-code ["iso3166-2:DZ-41"]
@@ -2484,6 +2570,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mascara Province"
+   :gov.unit/name-local "ولاية معسكر"
+   :gov.unit/name-romanized "Wilayat Muaskar"
    :gov.unit/official-url "https://www.wilayamascara.dz/"
    :gov.unit/wikidata "Q236776"
    :gov.unit/external-code ["iso3166-2:DZ-29"]
@@ -2497,6 +2585,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Tarf Province"
+   :gov.unit/name-local "ولاية الطارف"
+   :gov.unit/name-romanized "Wilayat at-Tarif"
    :gov.unit/wikidata "Q236788"
    :gov.unit/external-code ["iso3166-2:DZ-36"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2509,6 +2599,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Sétif Province"
+   :gov.unit/name-local "ولاية سطيف"
+   :gov.unit/name-romanized "Wilayat Satif"
    :gov.unit/official-url "https://www.wilayasetif.dz/"
    :gov.unit/wikidata "Q237164"
    :gov.unit/external-code ["iso3166-2:DZ-19"]
@@ -2522,6 +2614,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "M'Sila Province"
+   :gov.unit/name-local "ولاية المسيلة"
+   :gov.unit/name-romanized "Wilayat al-Masila"
    :gov.unit/official-url "https://www.msilawilaya.dz/"
    :gov.unit/wikidata "Q240870"
    :gov.unit/external-code ["iso3166-2:DZ-28"]
@@ -2535,6 +2629,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bordj Bou Arréridj Province"
+   :gov.unit/name-local "ولاية برج بوعريريج"
+   :gov.unit/name-romanized "Wilayat Burj Bu Arririj"
    :gov.unit/wikidata "Q266411"
    :gov.unit/external-code ["iso3166-2:DZ-34"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2547,6 +2643,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tébessa Province"
+   :gov.unit/name-local "ولاية تبسة"
+   :gov.unit/name-romanized "Wilayat Tibissa"
    :gov.unit/official-url "http://wilaya-tebessa.dz/"
    :gov.unit/wikidata "Q267224"
    :gov.unit/external-code ["iso3166-2:DZ-12"]
@@ -2560,6 +2658,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Biskra Province"
+   :gov.unit/name-local "ولاية بسكرة"
+   :gov.unit/name-romanized "Wilayat Biskra"
    :gov.unit/official-url "http://wilayabiskra.dz/"
    :gov.unit/wikidata "Q458402"
    :gov.unit/external-code ["iso3166-2:DZ-07"]
@@ -2573,6 +2673,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Meniaa Province"
+   :gov.unit/name-local "ولاية المنيعة"
+   :gov.unit/name-romanized "Wilayat al-Mania"
    :gov.unit/official-url "https://wilaya-meniaa.dz/"
    :gov.unit/wikidata "Q76520264"
    :gov.unit/external-code ["iso3166-2:DZ-58"]
@@ -2586,6 +2688,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bordj Baji Mokhtar Province"
+   :gov.unit/name-local "ولاية برج باجي مختار"
+   :gov.unit/name-romanized "Wilayat Burj Baji Mukhtar"
    :gov.unit/wikidata "Q76592938"
    :gov.unit/external-code ["iso3166-2:DZ-50"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2598,6 +2702,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "In Salah Province"
+   :gov.unit/name-local "ولاية عين صالح"
+   :gov.unit/name-romanized "Wilayat Ayn Salih"
    :gov.unit/wikidata "Q76593022"
    :gov.unit/external-code ["iso3166-2:DZ-53"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2610,6 +2716,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Djanet Province"
+   :gov.unit/name-local "ولاية جانت"
+   :gov.unit/name-romanized "Wilayat Janit"
    :gov.unit/wikidata "Q77101547"
    :gov.unit/external-code ["iso3166-2:DZ-56"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2622,6 +2730,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "In Guezzam Province"
+   :gov.unit/name-local "ولاية عين قزّام"
+   :gov.unit/name-romanized "Wilayat Ayn Qazzam"
    :gov.unit/wikidata "Q77102475"
    :gov.unit/external-code ["iso3166-2:DZ-54"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2634,6 +2744,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El M'Ghair Province"
+   :gov.unit/name-local "ولاية المغير"
+   :gov.unit/name-romanized "Wilayat al-Mghir"
    :gov.unit/wikidata "Q77103173"
    :gov.unit/external-code ["iso3166-2:DZ-57"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2646,6 +2758,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Touggourt Province"
+   :gov.unit/name-local "ولاية تقرت"
+   :gov.unit/name-romanized "Wilayat Tuqqurt"
    :gov.unit/official-url "http://ca-touggourt.dz/ar/"
    :gov.unit/wikidata "Q77103880"
    :gov.unit/external-code ["iso3166-2:DZ-55"]
@@ -2659,6 +2773,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ouled Djellal Province"
+   :gov.unit/name-local "ولاية أولاد جلال"
+   :gov.unit/name-romanized "Wilayat Awlad Jallal"
    :gov.unit/official-url "https://wilaya-ouleddjellal.dz/"
    :gov.unit/wikidata "Q77105251"
    :gov.unit/external-code ["iso3166-2:DZ-51"]
