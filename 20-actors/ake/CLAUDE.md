@@ -93,7 +93,7 @@ on-chain** act, and the history is **immutable** (you cannot delete a revision).
 ## Build / test
 
 ```
-./run_tests.sh                                  # all 11 suites, 106 tests
+./run_tests.sh                                  # all 11 suites, 110 tests (hermetic)
 cd methods && python3 triage.py                 # triage the :representative seed
 cd methods && python3 analyze.py                # end-to-end membrane dry-run → methods/out/membrane-dryrun.md
 cd methods && python3 ingest.py                 # genesis history from the REAL actor-profile SSoT → methods/out/genesis-revisions.md
@@ -116,6 +116,12 @@ Test layering: `methods/*` unit-tests the engines; `cells/test_state_machines.py
 cell; `cells/test_membrane_flow.py` is the **cell-chain integration** — it threads one edit through
 all five cells in sequence (propose→edit_triage→review_vote→promote→revision_log), the runtime path,
 proving they compose. `.solve()` is never called (R0 scaffolds raise).
+
+Hermeticity: the suite is green in ANY checkout. `methods/ingest.py`'s genesis bridge is asserted
+against a committed fixture (`data/sample-profile-seed.kotoba.edn`, exact counts); the real
+`00-contracts/…/actor-profile-seed.kotoba.edn` is validated by a SOFT test that returns early if
+ake isn't registered there yet (the shared seed is committed by coordination, separately from ake's
+own commits). Don't re-introduce a hard dependency on the shared seed in ake's suite.
 
 ## Do not
 

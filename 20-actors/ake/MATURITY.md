@@ -13,9 +13,12 @@
 
 ## R0 evidence
 
-- **106 tests green** (`./run_tests.sh`): 17 triage + 7 revision + 6 edit-war + 8 contributor + 5
-  ingest + 16 charter-invariants + 6 analyze + 5 lexicons + 9 consistency/SSoT-drift-lock (methods)
-  + 20 cell state-machine + 7 cell-chain membrane-flow integration.
+- **110 tests green, HERMETIC** (`./run_tests.sh`): 17 triage + 7 revision + 6 edit-war + 8
+  contributor + 8 ingest + 16 charter-invariants + 6 analyze + 5 lexicons + 10
+  consistency/SSoT-drift-lock (methods) + 20 cell state-machine + 7 cell-chain membrane-flow
+  integration. The suite is green in any checkout: the ingest genesis bridge is asserted against a
+  committed fixture (`data/sample-profile-seed.kotoba.edn`); the real shared SSoT is validated by a
+  soft check that no longer hard-couples ake's suite to the (coordination-committed) shared seed.
 - **Cell composition proven** (`cells/test_membrane_flow.py`): one edit threaded through all five
   cells in sequence (propose→edit_triage→review_vote→promote→revision_log) — the runtime Pregel path
   — for every route (auto-accept / vote-accept / vote-reject / council-pending / rider-refused /
