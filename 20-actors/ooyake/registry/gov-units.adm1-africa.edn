@@ -7954,6 +7954,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Mwanza"
+   :gov.unit/official-url "https://mwanza.go.tz/"
    :gov.unit/wikidata "Q110218"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q110218" :gov.unit/last-verified "2026-06-03"
@@ -7978,6 +7979,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Unguja North Region"
+   :gov.unit/official-url "https://kaskaziniunguja.go.tz/"
    :gov.unit/wikidata "Q147116"
    :gov.unit/external-code ["iso3166-2:TZ-07"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8003,6 +8005,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Rukwa Region"
+   :gov.unit/official-url "https://rukwa.go.tz/"
    :gov.unit/wikidata "Q153329"
    :gov.unit/external-code ["iso3166-2:TZ-20"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8015,6 +8018,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Tabora Region"
+   :gov.unit/official-url "https://tabora.go.tz/"
    :gov.unit/wikidata "Q153335"
    :gov.unit/external-code ["iso3166-2:TZ-24"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8040,6 +8044,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Mjini Magharibi Region"
+   :gov.unit/official-url "https://mjinimagharibi.go.tz/"
    :gov.unit/wikidata "Q180822"
    :gov.unit/external-code ["iso3166-2:TZ-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8064,6 +8069,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Dodoma Region"
+   :gov.unit/official-url "https://dodoma.go.tz/"
    :gov.unit/wikidata "Q213268"
    :gov.unit/external-code ["iso3166-2:TZ-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8076,6 +8082,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Morogoro"
+   :gov.unit/official-url "https://morogoro.go.tz/"
    :gov.unit/wikidata "Q243319"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q243319" :gov.unit/last-verified "2026-06-03"
@@ -8087,6 +8094,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Kigoma"
+   :gov.unit/official-url "https://kigoma.go.tz/"
    :gov.unit/wikidata "Q244509"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q244509" :gov.unit/last-verified "2026-06-03"
@@ -8124,6 +8132,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Iringa Region"
+   :gov.unit/official-url "https://iringa.go.tz/"
    :gov.unit/wikidata "Q309352"
    :gov.unit/external-code ["iso3166-2:TZ-04"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8136,6 +8145,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Kilimanjaro Region"
+   :gov.unit/official-url "https://kilimanjaro.go.tz/"
    :gov.unit/wikidata "Q328922"
    :gov.unit/external-code ["iso3166-2:TZ-09"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8187,6 +8197,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Mbeya"
+   :gov.unit/official-url "https://mbeya.go.tz/"
    :gov.unit/wikidata "Q335548"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q335548" :gov.unit/last-verified "2026-06-03"
@@ -8289,6 +8300,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Mtwara Region"
+   :gov.unit/official-url "https://mtwara.go.tz/"
    :gov.unit/wikidata "Q499465"
    :gov.unit/external-code ["iso3166-2:TZ-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8314,6 +8326,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Tabora"
+   :gov.unit/official-url "https://tabora.go.tz/"
    :gov.unit/wikidata "Q643112"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q643112" :gov.unit/last-verified "2026-06-03"
@@ -8360,6 +8373,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Iringa"
+   :gov.unit/official-url "https://iringa.go.tz/"
    :gov.unit/wikidata "Q735609"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q735609" :gov.unit/last-verified "2026-06-03"
@@ -8371,6 +8385,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Kigoma Region"
+   :gov.unit/official-url "https://kigoma.go.tz/"
    :gov.unit/wikidata "Q747943"
    :gov.unit/external-code ["iso3166-2:TZ-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8383,6 +8398,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Shinyanga"
+   :gov.unit/official-url "https://shinyanga.go.tz/"
    :gov.unit/wikidata "Q818765"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q818765" :gov.unit/last-verified "2026-06-03"
@@ -8394,6 +8410,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Lindi"
+   :gov.unit/official-url "https://lindi.go.tz/"
    :gov.unit/wikidata "Q829886"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q829886" :gov.unit/last-verified "2026-06-03"

@@ -7601,6 +7601,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Zeta Municipality"
+   :gov.unit/official-url "https://zeta.me/"
    :gov.unit/wikidata "Q12750430"
    :gov.unit/external-code ["iso3166-2:ME-25"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7626,6 +7627,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Šavnik Municipality"
+   :gov.unit/official-url "https://savnik.me/"
    :gov.unit/wikidata "Q13365880"
    :gov.unit/external-code ["iso3166-2:ME-18"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7651,6 +7653,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Gusinje Municipality"
+   :gov.unit/official-url "https://www.opstinagusinje.me/"
    :gov.unit/wikidata "Q16085370"
    :gov.unit/external-code ["iso3166-2:ME-22"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7676,6 +7679,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Bar Municipality"
+   :gov.unit/official-url "https://bar.me/"
    :gov.unit/wikidata "Q2604068"
    :gov.unit/external-code ["iso3166-2:ME-02"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7701,6 +7705,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Mojkovac Municipality"
+   :gov.unit/official-url "https://www.mojkovac.me/"
    :gov.unit/wikidata "Q3299782"
    :gov.unit/external-code ["iso3166-2:ME-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7713,6 +7718,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Pljevlja Municipality"
+   :gov.unit/official-url "https://pljevlja.me/"
    :gov.unit/wikidata "Q3299950"
    :gov.unit/external-code ["iso3166-2:ME-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7738,6 +7744,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Žabljak Municipality"
+   :gov.unit/official-url "https://zabljak.me/"
    :gov.unit/wikidata "Q3304454"
    :gov.unit/external-code ["iso3166-2:ME-21"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7789,6 +7796,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Herceg Novi Municipality"
+   :gov.unit/official-url "https://www.hercegnovi.me/"
    :gov.unit/wikidata "Q3317366"
    :gov.unit/external-code ["iso3166-2:ME-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7801,6 +7809,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Tivat Municipality"
+   :gov.unit/official-url "https://opstinativat.me/"
    :gov.unit/wikidata "Q3738564"
    :gov.unit/external-code ["iso3166-2:ME-19"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7813,6 +7822,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Budva Municipality"
+   :gov.unit/official-url "https://www.budva.me/"
    :gov.unit/wikidata "Q3739214"
    :gov.unit/external-code ["iso3166-2:ME-05"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7825,6 +7835,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Danilovgrad Municipality"
+   :gov.unit/official-url "https://www.danilovgrad.me/"
    :gov.unit/wikidata "Q3741507"
    :gov.unit/external-code ["iso3166-2:ME-07"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7863,6 +7874,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Kotor Municipality"
+   :gov.unit/official-url "https://www.kotor.me/"
    :gov.unit/wikidata "Q4856305"
    :gov.unit/external-code ["iso3166-2:ME-10"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7875,6 +7887,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Plav Municipality"
+   :gov.unit/official-url "https://www.plav.me/"
    :gov.unit/wikidata "Q4859821"
    :gov.unit/external-code ["iso3166-2:ME-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7887,6 +7900,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Plužine Municipality"
+   :gov.unit/official-url "https://www.pluzine.me/"
    :gov.unit/wikidata "Q4864476"
    :gov.unit/external-code ["iso3166-2:ME-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7899,6 +7913,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mne"
    :gov.unit/name-en "Nikšić Municipality"
+   :gov.unit/official-url "http://niksic.me/"
    :gov.unit/wikidata "Q4865016"
    :gov.unit/external-code ["iso3166-2:ME-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -3425,6 +3425,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Fars Province"
+   :gov.unit/official-url "https://farsp.ir/"
    :gov.unit/wikidata "Q1004666"
    :gov.unit/external-code ["iso3166-2:IR-07"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3437,6 +3438,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Qazvin Province"
+   :gov.unit/official-url "https://ostan-qz.ir"
    :gov.unit/wikidata "Q1105893"
    :gov.unit/external-code ["iso3166-2:IR-26"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3449,6 +3451,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Lorestan Province"
+   :gov.unit/official-url "http://www.ostan-lr.ir/"
    :gov.unit/wikidata "Q1131727"
    :gov.unit/external-code ["iso3166-2:IR-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3500,6 +3503,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kurdistan Province"
+   :gov.unit/official-url "https://ostan-kd.ir/"
    :gov.unit/wikidata "Q134386"
    :gov.unit/external-code ["iso3166-2:IR-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3525,6 +3529,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Markazi Province"
+   :gov.unit/official-url "https://ostan-mr.ir/"
    :gov.unit/wikidata "Q134417"
    :gov.unit/external-code ["iso3166-2:IR-00"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3550,6 +3555,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Zanjan Province"
+   :gov.unit/official-url "https://ostandari-zn.ir"
    :gov.unit/wikidata "Q146726"
    :gov.unit/external-code ["iso3166-2:IR-19"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3575,6 +3581,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Semnan Province"
+   :gov.unit/official-url "http://www.ostan-sm.ir"
    :gov.unit/wikidata "Q168949"
    :gov.unit/external-code ["iso3166-2:IR-20"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3587,6 +3594,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Golestan Province"
+   :gov.unit/official-url "https://golestanp.ir"
    :gov.unit/wikidata "Q170041"
    :gov.unit/external-code ["iso3166-2:IR-27"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3625,6 +3633,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "South Khorasan Province"
+   :gov.unit/official-url "https://www.sko.ir"
    :gov.unit/wikidata "Q171551"
    :gov.unit/external-code ["iso3166-2:IR-29"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3650,6 +3659,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kermanshah Province"
+   :gov.unit/official-url "http://ostan-ks.ir/"
    :gov.unit/wikidata "Q174010"
    :gov.unit/external-code ["iso3166-2:IR-05"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3675,6 +3685,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kohgiluyeh and Boyer-Ahmad Province"
+   :gov.unit/official-url "http://www.ostan-kb.ir"
    :gov.unit/wikidata "Q180068"
    :gov.unit/external-code ["iso3166-2:IR-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3687,6 +3698,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "North Khorasan Province"
+   :gov.unit/official-url "https://nkhorasan.ir"
    :gov.unit/wikidata "Q180075"
    :gov.unit/external-code ["iso3166-2:IR-28"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3699,6 +3711,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Hamadan Province"
+   :gov.unit/official-url "https://www.ostan-hm.ir/"
    :gov.unit/wikidata "Q187373"
    :gov.unit/external-code ["iso3166-2:IR-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3737,6 +3750,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Alborz Province"
+   :gov.unit/official-url "https://www.alborz.ir"
    :gov.unit/wikidata "Q392522"
    :gov.unit/external-code ["iso3166-2:IR-30"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3749,6 +3763,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Razavi Khorasan Province"
+   :gov.unit/official-url "https://ostandari.khorasan.ir/"
    :gov.unit/wikidata "Q587090"
    :gov.unit/external-code ["iso3166-2:IR-09"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3761,6 +3776,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Tehran Province"
+   :gov.unit/official-url "https://ostan-th.ir"
    :gov.unit/wikidata "Q590866"
    :gov.unit/external-code ["iso3166-2:IR-23"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3773,6 +3789,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Hormozgan Province"
+   :gov.unit/official-url "https://hormozgan.ir"
    :gov.unit/wikidata "Q633659"
    :gov.unit/external-code ["iso3166-2:IR-22"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5105,6 +5122,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Cham Province"
+   :gov.unit/official-url "https://kampongcham.gov.kh/"
    :gov.unit/wikidata "Q142258"
    :gov.unit/external-code ["iso3166-2:KH-3"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5130,6 +5148,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Sihanoukville Province"
+   :gov.unit/official-url "https://sihanoukville.gov.kh/"
    :gov.unit/wikidata "Q220966"
    :gov.unit/external-code ["iso3166-2:KH-18"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5142,6 +5161,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Banteay Meanchey Province"
+   :gov.unit/official-url "https://www.banteaymeanchey.gov.kh/en/"
    :gov.unit/wikidata "Q3817"
    :gov.unit/external-code ["iso3166-2:KH-1"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5154,6 +5174,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Koh Kong Province"
+   :gov.unit/official-url "https://kohkong.gov.kh/en/"
    :gov.unit/wikidata "Q466000"
    :gov.unit/external-code ["iso3166-2:KH-9"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5166,6 +5187,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kandal Province"
+   :gov.unit/official-url "https://www.kandal.gov.kh/en/home-page-kandal-administration"
    :gov.unit/wikidata "Q466031"
    :gov.unit/external-code ["iso3166-2:KH-8"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5178,6 +5200,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Thom Province"
+   :gov.unit/official-url "https://kampongthom.gov.kh/"
    :gov.unit/wikidata "Q502148"
    :gov.unit/external-code ["iso3166-2:KH-6"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5190,6 +5213,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Preah Vihear Province"
+   :gov.unit/official-url "https://www.preahvihear.gov.kh/en/"
    :gov.unit/wikidata "Q502151"
    :gov.unit/external-code ["iso3166-2:KH-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5202,6 +5226,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Pailin Province"
+   :gov.unit/official-url "https://www.pailin.gov.kh/en/home"
    :gov.unit/wikidata "Q506646"
    :gov.unit/external-code ["iso3166-2:KH-24"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5214,6 +5239,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Takéo Province"
+   :gov.unit/official-url "https://www.takeo.gov.kh/"
    :gov.unit/wikidata "Q613345"
    :gov.unit/external-code ["iso3166-2:KH-21"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5226,6 +5252,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Oddar Meanchey Province"
+   :gov.unit/official-url "https://www.oddarmeanchey.gov.kh/en/"
    :gov.unit/wikidata "Q629538"
    :gov.unit/external-code ["iso3166-2:KH-22"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5238,6 +5265,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Siem Reap Province"
+   :gov.unit/official-url "https://siemreap.gov.kh/en/"
    :gov.unit/wikidata "Q652818"
    :gov.unit/external-code ["iso3166-2:KH-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5250,6 +5278,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Mondulkiri Province"
+   :gov.unit/official-url "https://www.mondulkiri.gov.kh/en/"
    :gov.unit/wikidata "Q652830"
    :gov.unit/external-code ["iso3166-2:KH-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5275,6 +5304,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ratanakiri Province"
+   :gov.unit/official-url "https://www.ratanakiri.gov.kh/"
    :gov.unit/wikidata "Q747846"
    :gov.unit/external-code ["iso3166-2:KH-16"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5287,6 +5317,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampot Province"
+   :gov.unit/official-url "https://www.kampot.gov.kh/en/"
    :gov.unit/wikidata "Q748470"
    :gov.unit/external-code ["iso3166-2:KH-7"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5299,6 +5330,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Svay Rieng Province"
+   :gov.unit/official-url "https://www.svayrieng.gov.kh/en/home"
    :gov.unit/wikidata "Q751864"
    :gov.unit/external-code ["iso3166-2:KH-20"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5311,6 +5343,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kratié Province"
+   :gov.unit/official-url "https://www.kratie.gov.kh/en/"
    :gov.unit/wikidata "Q785896"
    :gov.unit/external-code ["iso3166-2:KH-10"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5323,6 +5356,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Battambang Province"
+   :gov.unit/official-url "https://www.battambang.gov.kh/en/"
    :gov.unit/wikidata "Q810923"
    :gov.unit/external-code ["iso3166-2:KH-2"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5335,6 +5369,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Pursat Province"
+   :gov.unit/official-url "https://www.pursat.gov.kh/en/"
    :gov.unit/wikidata "Q834464"
    :gov.unit/external-code ["iso3166-2:KH-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5347,6 +5382,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Stung Treng Province"
+   :gov.unit/official-url "https://www.stungtreng.gov.kh/en/"
    :gov.unit/wikidata "Q837889"
    :gov.unit/external-code ["iso3166-2:KH-19"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5359,6 +5395,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kep Province"
+   :gov.unit/official-url "https://www.kep.gov.kh/en/"
    :gov.unit/wikidata "Q852089"
    :gov.unit/external-code ["iso3166-2:KH-23"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5371,6 +5408,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Prey Veng Province"
+   :gov.unit/official-url "https://www.preyveng.gov.kh/en/"
    :gov.unit/wikidata "Q856788"
    :gov.unit/external-code ["iso3166-2:KH-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5383,6 +5421,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Chhnang Province"
+   :gov.unit/official-url "https://www.kampongchhnang.gov.kh/en/"
    :gov.unit/wikidata "Q877468"
    :gov.unit/external-code ["iso3166-2:KH-4"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
