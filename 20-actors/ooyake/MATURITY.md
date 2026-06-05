@@ -43,6 +43,25 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Serbia + Bulgaria + Ukraine Cyrillic (1346 → 1430)
+
+Continued the subdivision endonym front with a 3-country Cyrillic cluster. 7 web-research subagents
+(Wikidata native labels). **84 Cyrillic endonyms added with romanization** (Serbia 30 districts,
+Bulgaria 28 provinces, Ukraine 26 oblasts).
+
+- all-units name-local: 1346 → **1430**; subdivision name-local: 332 → **416**.
+- Serbian districts in "<Adjective> управни округ" (Шумадијски управни округ; City of Belgrade = Град
+  Београд; Kosovo districts in Serbia's de jure listing as closed-compound Косовскомитровачки/
+  Косовскопоморавски — observational, G3). Bulgarian "Област <Name>" (Област Пловдив; Sofia City =
+  Област София (столица); Софийска област adjectival). Ukrainian "<Name> область" (Київська область;
+  Київ city; Автономна Республіка Крим de jure Ukrainian). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Khmer 24, Tunisia 24 (Arabic), Mongolia 22, Yemen 22, Myanmar 21, Maldives 20, Bhutan 20, Iran 31,
+Iraq 18, Lao 17, Georgia/Armenia/Kazakhstan/etc. — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: North Macedonia 81 municipalities (1265 → 1346)
 
 Continued the subdivision endonym front with all 81 North Macedonian municipalities (општини) in
