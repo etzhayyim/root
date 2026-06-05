@@ -43,6 +43,26 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: non-Latin sweep (Afghanistan+NKorea+Israel+Lebanon+Belarus+Tajik+Kyrgyz+SriLanka+Bangladesh+Nepal) (1859 → 1955)
+
+Swept the remaining genuinely non-Latin subdivision sets across 10 countries / 8 scripts in one pass.
+4 web-research subagents (Wikidata P1705 + lang labels). **96 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1859 → **1955**; subdivision name-local: 845 → **941**.
+- Afghanistan 34 (Perso-Arabic Dari/Pashto — کابل/Kabul, هرات/Herat, کندهار/Kandahar …).
+- North Korea 12 (DPRK Hangul — 평양직할시, 량강도 initial-ㄹ, 라선특별시; McCune–Reischauer DPRK-style romanization).
+- Israel 7 (Hebrew מחוז form), Lebanon 6 (Arabic).
+- Belarus 7 + Tajikistan 5 + Kyrgyzstan 1 (Cyrillic — Belarusian вобласць, Tajik вилоят, Kyrgyz шаары).
+- Sri Lanka 9 (Sinhala පළාත), Bangladesh 8 (Bengali বিভাগ), Nepal 7 (Devanagari प्रदेश).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. **All major distinct-script subdivision sets
+now covered** (Arabic, Hangul, Hebrew, Cyrillic, Devanagari, Bengali, Sinhala, Tamil, Lao, Thaana,
+Dzongkha/Tibetan, Ge'ez, Georgian, Armenian, Greek, Han, Cyrillic-RU). Remaining gaps are predominantly
+Latin-script subdivisions (Slovenia 212 municipalities, Uganda 135, Turkey 81, etc.) where name-local
+≈ name-en — a lower-yield, separate axis for future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Gulf + Maghreb Arabic (Morocco+Oman+Qatar+UAE+Kuwait+Bahrain) (1810 → 1859)
 
 Cleared the remaining Arabic-script subdivision sets across 6 states in one pass. 2 web-research
