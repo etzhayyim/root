@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — CONTACT axis: subdivision official-url — high-yield batch (5817 → 5905)
+
+Resumed the official-url coverage axis at the SUBDIVISION tier (1,223 first-level-division gaps).
+Targeted jurisdictions where each province/region/municipality demonstrably runs its OWN portal
+(skipping the many developing-country provinces that genuinely have none — those are honest future
+nulls). 7 web-research subagents. **88 official portals found and added; 4 honest nulls.**
+
+- official-url: 5817 → **5905/7106**.
+- **US states** (5): kentucky.gov, nebraska.gov, oklahoma.gov, oregon.gov, pr.gov.
+- **Iran provinces** (17): ostandari governor's-office portals (ostan-XX.ir / hormozgan.ir /
+  alborz.ir / sko.ir / nkhorasan.ir …) — data note: ostan-hm.ir is Hamadan NOT Hormozgan (corrected).
+- **Montenegro municipalities** (15): every opština portal (bar.me … zeta.me; Tivat = opstinativat.me
+  not tivat.me; Zeta migrated to zeta.me Aug 2025).
+- **Tanzania regions** (17 of 19): Regional-Commissioner .go.tz portals (mwanza/kigoma/dodoma/…) —
+  duplicate QID/ISO unit pairs both filled (q244509≡tz-08, q735609≡tz-04, q643112≡tz-24).
+- **Cambodia provinces** (22): every <province>.gov.kh provincial-administration portal.
+- **Panama** (12 of 14): gobernación pages under mingob.gob.pa (consolidated, no standalone domains).
+- **4 honest nulls (G5)**: Tanzania Q7296 ("Mount Kilimanjaro" — a Wikidata data-quality artifact, a
+  MOUNTAIN not a region) + Unguja South (social-media only); Panama Wargandí + Madugandí comarcas
+  (corregimiento-comarcal, traditional-congress governed, no gobernación/site). Not fabricated.
+- flagged data-quality artifact for a future cleanup: gov.tza.adm1.q7296 mislabels Mount Kilimanjaro
+  as a subdivision (the real Kilimanjaro Region is tz-09).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — /gov FRONT-END: render endonyms + romanization + seat map links
 
 Completed the publish-surface chain: the previous iteration put coords/endonyms/romanizations INTO

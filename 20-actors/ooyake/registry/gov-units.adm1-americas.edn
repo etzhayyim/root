@@ -5107,6 +5107,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Ngöbe-Buglé Comarca"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-comarca-ngabe-bugle/"
    :gov.unit/wikidata "Q1129783"
    :gov.unit/external-code ["iso3166-2:PA-NB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5119,6 +5120,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Emberá-Wounaan Comarca"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-comarca-embera-wounaan/"
    :gov.unit/wikidata "Q1141041"
    :gov.unit/external-code ["iso3166-2:PA-EM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5131,6 +5133,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Panamá Oeste Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-panama-oeste/"
    :gov.unit/wikidata "Q16250688"
    :gov.unit/external-code ["iso3166-2:PA-10"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5165,6 +5168,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Bocas del Toro Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-bocas-del-toro/"
    :gov.unit/wikidata "Q217138"
    :gov.unit/external-code ["iso3166-2:PA-1"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5177,6 +5181,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Panamá Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-de-la-provincia-panama/"
    :gov.unit/wikidata "Q557506"
    :gov.unit/external-code ["iso3166-2:PA-8"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5202,6 +5207,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Darién Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-darien/"
    :gov.unit/wikidata "Q688660"
    :gov.unit/external-code ["iso3166-2:PA-5"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5214,6 +5220,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Chiriquí Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-chiriqui/"
    :gov.unit/wikidata "Q739651"
    :gov.unit/external-code ["iso3166-2:PA-4"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5226,6 +5233,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Colón Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-colon/"
    :gov.unit/wikidata "Q820514"
    :gov.unit/external-code ["iso3166-2:PA-3"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5238,6 +5246,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Coclé Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-cocle/"
    :gov.unit/wikidata "Q825799"
    :gov.unit/external-code ["iso3166-2:PA-2"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5250,6 +5259,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Herrera Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-herrera/"
    :gov.unit/wikidata "Q842886"
    :gov.unit/external-code ["iso3166-2:PA-6"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5262,6 +5272,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Los Santos Province"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-provincia-los-santos/"
    :gov.unit/wikidata "Q911278"
    :gov.unit/external-code ["iso3166-2:PA-7"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5274,6 +5285,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pan"
    :gov.unit/name-en "Guna Yala"
+   :gov.unit/official-url "https://www.mingob.gob.pa/gobernacion-la-comarca-guna-yala/"
    :gov.unit/wikidata "Q919017"
    :gov.unit/external-code ["iso3166-2:PA-KY"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6569,6 +6581,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "usa"
    :gov.unit/name-en "Puerto Rico"
+   :gov.unit/official-url "https://pr.gov"
    :gov.unit/wikidata "Q1183"
    :gov.unit/external-code ["iso3166-2:US-PR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6958,6 +6971,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "usa"
    :gov.unit/name-en "Nebraska"
+   :gov.unit/official-url "https://nebraska.gov"
    :gov.unit/wikidata "Q1553"
    :gov.unit/external-code ["iso3166-2:US-NE"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7009,6 +7023,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "usa"
    :gov.unit/name-en "Kentucky"
+   :gov.unit/official-url "https://kentucky.gov"
    :gov.unit/wikidata "Q1603"
    :gov.unit/external-code ["iso3166-2:US-KY"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7034,6 +7049,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "usa"
    :gov.unit/name-en "Oklahoma"
+   :gov.unit/official-url "https://oklahoma.gov"
    :gov.unit/wikidata "Q1649"
    :gov.unit/external-code ["iso3166-2:US-OK"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7228,6 +7244,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "usa"
    :gov.unit/name-en "Oregon"
+   :gov.unit/official-url "https://oregon.gov"
    :gov.unit/wikidata "Q824"
    :gov.unit/external-code ["iso3166-2:US-OR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
