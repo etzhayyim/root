@@ -10351,6 +10351,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Muğla Province"
+   :gov.unit/name-local "Muğla"
+   :gov.unit/name-romanized "Mugla"
    :gov.unit/official-url "http://www.mugla.gov.tr"
    :gov.unit/wikidata "Q123934"
    :gov.unit/external-code ["iso3166-2:TR-48"]
@@ -10364,6 +10366,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Iğdır Province"
+   :gov.unit/name-local "Iğdır"
+   :gov.unit/name-romanized "Igdir"
    :gov.unit/official-url "http://www.igdir.gov.tr"
    :gov.unit/wikidata "Q125506"
    :gov.unit/external-code ["iso3166-2:TR-76"]
@@ -10377,6 +10381,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kütahya Province"
+   :gov.unit/name-local "Kütahya"
+   :gov.unit/name-romanized "Kutahya"
    :gov.unit/official-url "http://www.kutahya.gov.tr"
    :gov.unit/wikidata "Q126874"
    :gov.unit/external-code ["iso3166-2:TR-43"]
@@ -10390,6 +10396,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kilis Province"
+   :gov.unit/name-local "Kilis"
+   :gov.unit/name-romanized "Kilis"
    :gov.unit/official-url "https://kilis.gov.tr"
    :gov.unit/wikidata "Q128978"
    :gov.unit/external-code ["iso3166-2:TR-79"]
@@ -10403,6 +10411,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Tekirdağ Province"
+   :gov.unit/name-local "Tekirdağ"
+   :gov.unit/name-romanized "Tekirdag"
    :gov.unit/official-url "http://www.tekirdag.gov.tr"
    :gov.unit/wikidata "Q129387"
    :gov.unit/external-code ["iso3166-2:TR-59"]
@@ -10416,6 +10426,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Manisa Province"
+   :gov.unit/name-local "Manisa"
+   :gov.unit/name-romanized "Manisa"
    :gov.unit/official-url "http://www.manisa.gov.tr"
    :gov.unit/wikidata "Q130553"
    :gov.unit/external-code ["iso3166-2:TR-45"]
@@ -10429,6 +10441,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Mardin Province"
+   :gov.unit/name-local "Mardin"
+   :gov.unit/name-romanized "Mardin"
    :gov.unit/official-url "http://www.mardin.bel.tr/"
    :gov.unit/wikidata "Q131293"
    :gov.unit/external-code ["iso3166-2:TR-47"]
@@ -10442,6 +10456,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Malatya Province"
+   :gov.unit/name-local "Malatya"
+   :gov.unit/name-romanized "Malatya"
    :gov.unit/official-url "http://malatya.gov.tr/"
    :gov.unit/wikidata "Q131384"
    :gov.unit/external-code ["iso3166-2:TR-44"]
@@ -10455,6 +10471,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Muş Province"
+   :gov.unit/name-local "Muş"
+   :gov.unit/name-romanized "Mus"
    :gov.unit/official-url "http://www.mus.gov.tr"
    :gov.unit/wikidata "Q131387"
    :gov.unit/external-code ["iso3166-2:TR-49"]
@@ -10468,6 +10486,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kırklareli Province"
+   :gov.unit/name-local "Kırklareli"
+   :gov.unit/name-romanized "Kirklareli"
    :gov.unit/official-url "http://www.kirklareli.gov.tr"
    :gov.unit/wikidata "Q131597"
    :gov.unit/external-code ["iso3166-2:TR-39"]
@@ -10481,6 +10501,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Mersin Province"
+   :gov.unit/name-local "Mersin"
+   :gov.unit/name-romanized "Mersin"
    :gov.unit/official-url "http://www.mersin.gov.tr/"
    :gov.unit/wikidata "Q132637"
    :gov.unit/external-code ["iso3166-2:TR-33"]
@@ -10494,6 +10516,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kırşehir Province"
+   :gov.unit/name-local "Kırşehir"
+   :gov.unit/name-romanized "Kirsehir"
    :gov.unit/official-url "http://www.kirsehir.gov.tr/"
    :gov.unit/wikidata "Q134187"
    :gov.unit/external-code ["iso3166-2:TR-40"]
@@ -10507,6 +10531,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Sinop Province"
+   :gov.unit/name-local "Sinop"
+   :gov.unit/name-romanized "Sinop"
    :gov.unit/official-url "http://www.sinop.gov.tr"
    :gov.unit/wikidata "Q134413"
    :gov.unit/external-code ["iso3166-2:TR-57"]
@@ -10520,6 +10546,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Niğde Province"
+   :gov.unit/name-local "Niğde"
+   :gov.unit/name-romanized "Nigde"
    :gov.unit/official-url "http://www.nigde.gov.tr/"
    :gov.unit/wikidata "Q155219"
    :gov.unit/external-code ["iso3166-2:TR-51"]
@@ -10533,6 +10561,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Zonguldak Province"
+   :gov.unit/name-local "Zonguldak"
+   :gov.unit/name-romanized "Zonguldak"
    :gov.unit/official-url "http://www.zonguldak.gov.tr"
    :gov.unit/wikidata "Q219956"
    :gov.unit/external-code ["iso3166-2:TR-67"]
@@ -10546,6 +10576,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Ankara Province"
+   :gov.unit/name-local "Ankara"
+   :gov.unit/name-romanized "Ankara"
    :gov.unit/official-url "http://www.ankara.gov.tr/"
    :gov.unit/wikidata "Q2297724"
    :gov.unit/external-code ["iso3166-2:TR-06"]
@@ -10559,6 +10591,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Isparta Province"
+   :gov.unit/name-local "Isparta"
+   :gov.unit/name-romanized "Isparta"
    :gov.unit/official-url "http://www.isparta.gov.tr"
    :gov.unit/wikidata "Q268043"
    :gov.unit/external-code ["iso3166-2:TR-32"]
@@ -10572,6 +10606,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Çankırı Province"
+   :gov.unit/name-local "Çankırı"
+   :gov.unit/name-romanized "Cankiri"
    :gov.unit/official-url "http://www.cankiri.gov.tr"
    :gov.unit/wikidata "Q272662"
    :gov.unit/external-code ["iso3166-2:TR-18"]
@@ -10585,6 +10621,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Çorum Province"
+   :gov.unit/name-local "Çorum"
+   :gov.unit/name-romanized "Corum"
    :gov.unit/official-url "http://www.corum.gov.tr"
    :gov.unit/wikidata "Q272947"
    :gov.unit/external-code ["iso3166-2:TR-19"]
@@ -10598,6 +10636,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Osmaniye Province"
+   :gov.unit/name-local "Osmaniye"
+   :gov.unit/name-romanized "Osmaniye"
    :gov.unit/official-url "http://www.osmaniye.gov.tr"
    :gov.unit/wikidata "Q281206"
    :gov.unit/external-code ["iso3166-2:TR-80"]
@@ -10611,6 +10651,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "İzmir Province"
+   :gov.unit/name-local "İzmir"
+   :gov.unit/name-romanized "Izmir"
    :gov.unit/official-url "http://www.izmir.gov.tr"
    :gov.unit/wikidata "Q344490"
    :gov.unit/external-code ["iso3166-2:TR-35"]
@@ -10624,6 +10666,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Erzurum Province"
+   :gov.unit/name-local "Erzurum"
+   :gov.unit/name-romanized "Erzurum"
    :gov.unit/official-url "http://www.erzurum.gov.tr"
    :gov.unit/wikidata "Q376797"
    :gov.unit/external-code ["iso3166-2:TR-25"]
@@ -10637,6 +10681,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Şanlıurfa Province"
+   :gov.unit/name-local "Şanlıurfa"
+   :gov.unit/name-romanized "Sanliurfa"
    :gov.unit/official-url "http://www.sanliurfa.gov.tr/"
    :gov.unit/wikidata "Q388469"
    :gov.unit/external-code ["iso3166-2:TR-63"]
@@ -10650,6 +10696,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Trabzon Province"
+   :gov.unit/name-local "Trabzon"
+   :gov.unit/name-romanized "Trabzon"
    :gov.unit/official-url "http://www.trabzon.gov.tr"
    :gov.unit/wikidata "Q388995"
    :gov.unit/external-code ["iso3166-2:TR-61"]
@@ -10663,6 +10711,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Antalya Province"
+   :gov.unit/name-local "Antalya"
+   :gov.unit/name-romanized "Antalya"
    :gov.unit/official-url "http://www.antalya.gov.tr"
    :gov.unit/wikidata "Q40249"
    :gov.unit/external-code ["iso3166-2:TR-07"]
@@ -10676,6 +10726,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Adana Province"
+   :gov.unit/name-local "Adana"
+   :gov.unit/name-romanized "Adana"
    :gov.unit/official-url "http://www.adana.gov.tr/"
    :gov.unit/wikidata "Q40549"
    :gov.unit/external-code ["iso3166-2:TR-01"]
@@ -10689,6 +10741,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Nevşehir Province"
+   :gov.unit/name-local "Nevşehir"
+   :gov.unit/name-romanized "Nevsehir"
    :gov.unit/official-url "http://www.nevsehir.gov.tr/"
    :gov.unit/wikidata "Q430693"
    :gov.unit/external-code ["iso3166-2:TR-50"]
@@ -10702,6 +10756,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Düzce Province"
+   :gov.unit/name-local "Düzce"
+   :gov.unit/name-romanized "Duzce"
    :gov.unit/official-url "http://www.duzce.gov.tr/"
    :gov.unit/wikidata "Q432391"
    :gov.unit/external-code ["iso3166-2:TR-81"]
@@ -10715,6 +10771,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bursa Province"
+   :gov.unit/name-local "Bursa"
+   :gov.unit/name-romanized "Bursa"
    :gov.unit/official-url "http://www.bursa.gov.tr/"
    :gov.unit/wikidata "Q43690"
    :gov.unit/external-code ["iso3166-2:TR-16"]
@@ -10728,6 +10786,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Artvin Province"
+   :gov.unit/name-local "Artvin"
+   :gov.unit/name-romanized "Artvin"
    :gov.unit/official-url "http://www.artvin.gov.tr"
    :gov.unit/wikidata "Q43745"
    :gov.unit/external-code ["iso3166-2:TR-08"]
@@ -10741,6 +10801,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Adıyaman Province"
+   :gov.unit/name-local "Adıyaman"
+   :gov.unit/name-romanized "Adiyaman"
    :gov.unit/official-url "https://www.adiyaman.gov.tr/"
    :gov.unit/wikidata "Q43924"
    :gov.unit/external-code ["iso3166-2:TR-02"]
@@ -10754,6 +10816,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Afyonkarahisar Province"
+   :gov.unit/name-local "Afyonkarahisar"
+   :gov.unit/name-romanized "Afyonkarahisar"
    :gov.unit/official-url "http://www.afyonkarahisar.gov.tr"
    :gov.unit/wikidata "Q45220"
    :gov.unit/external-code ["iso3166-2:TR-03"]
@@ -10767,6 +10831,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bilecik Province"
+   :gov.unit/name-local "Bilecik"
+   :gov.unit/name-romanized "Bilecik"
    :gov.unit/official-url "http://www.Bilecik.bel.tr/"
    :gov.unit/wikidata "Q46763"
    :gov.unit/external-code ["iso3166-2:TR-11"]
@@ -10780,6 +10846,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Balıkesir Province"
+   :gov.unit/name-local "Balıkesir"
+   :gov.unit/name-romanized "Balikesir"
    :gov.unit/official-url "http://www.balikesir.bel.tr/"
    :gov.unit/wikidata "Q47117"
    :gov.unit/external-code ["iso3166-2:TR-10"]
@@ -10793,6 +10861,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Çanakkale Province"
+   :gov.unit/name-local "Çanakkale"
+   :gov.unit/name-romanized "Canakkale"
    :gov.unit/official-url "http://www.canakkale.gov.tr/"
    :gov.unit/wikidata "Q47813"
    :gov.unit/external-code ["iso3166-2:TR-17"]
@@ -10806,6 +10876,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Giresun Province"
+   :gov.unit/name-local "Giresun"
+   :gov.unit/name-romanized "Giresun"
    :gov.unit/official-url "http://www.giresun.gov.tr"
    :gov.unit/wikidata "Q482779"
    :gov.unit/external-code ["iso3166-2:TR-28"]
@@ -10819,6 +10891,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Gümüşhane Province"
+   :gov.unit/name-local "Gümüşhane"
+   :gov.unit/name-romanized "Gumushane"
    :gov.unit/official-url "http://www.gumushane.bel.tr/"
    :gov.unit/wikidata "Q482788"
    :gov.unit/external-code ["iso3166-2:TR-29"]
@@ -10832,6 +10906,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Siirt Province"
+   :gov.unit/name-local "Siirt"
+   :gov.unit/name-romanized "Siirt"
    :gov.unit/official-url "http://www.siirt.gov.tr/"
    :gov.unit/wikidata "Q482825"
    :gov.unit/external-code ["iso3166-2:TR-56"]
@@ -10845,6 +10921,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kahramanmaraş Province"
+   :gov.unit/name-local "Kahramanmaraş"
+   :gov.unit/name-romanized "Kahramanmaras"
    :gov.unit/official-url "http://www.kahramanmaras.gov.tr"
    :gov.unit/wikidata "Q482834"
    :gov.unit/external-code ["iso3166-2:TR-46"]
@@ -10858,6 +10936,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Karaman Province"
+   :gov.unit/name-local "Karaman"
+   :gov.unit/name-romanized "Karaman"
    :gov.unit/official-url "https://www.karaman.gov.tr"
    :gov.unit/wikidata "Q482975"
    :gov.unit/external-code ["iso3166-2:TR-70"]
@@ -10871,6 +10951,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Samsun Province"
+   :gov.unit/name-local "Samsun"
+   :gov.unit/name-romanized "Samsun"
    :gov.unit/official-url "http://www.samsun.gov.tr"
    :gov.unit/wikidata "Q483040"
    :gov.unit/external-code ["iso3166-2:TR-55"]
@@ -10884,6 +10966,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Eskişehir Province"
+   :gov.unit/name-local "Eskişehir"
+   :gov.unit/name-romanized "Eskisehir"
    :gov.unit/official-url "http://www.eskisehir.gov.tr/"
    :gov.unit/wikidata "Q483053"
    :gov.unit/external-code ["iso3166-2:TR-26"]
@@ -10897,6 +10981,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bayburt Province"
+   :gov.unit/name-local "Bayburt"
+   :gov.unit/name-romanized "Bayburt"
    :gov.unit/official-url "http://www.bayburt.gov.tr"
    :gov.unit/wikidata "Q483063"
    :gov.unit/external-code ["iso3166-2:TR-69"]
@@ -10910,6 +10996,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Uşak Province"
+   :gov.unit/name-local "Uşak"
+   :gov.unit/name-romanized "Usak"
    :gov.unit/official-url "http://www.usak.gov.tr"
    :gov.unit/wikidata "Q483078"
    :gov.unit/external-code ["iso3166-2:TR-64"]
@@ -10923,6 +11011,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Yalova Province"
+   :gov.unit/name-local "Yalova"
+   :gov.unit/name-romanized "Yalova"
    :gov.unit/official-url "http://www.yalova.gov.tr"
    :gov.unit/wikidata "Q483083"
    :gov.unit/external-code ["iso3166-2:TR-77"]
@@ -10936,6 +11026,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Elazığ Province"
+   :gov.unit/name-local "Elazığ"
+   :gov.unit/name-romanized "Elazig"
    :gov.unit/official-url "http://www.elazig.gov.tr"
    :gov.unit/wikidata "Q483091"
    :gov.unit/external-code ["iso3166-2:TR-23"]
@@ -10949,6 +11041,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Sivas Province"
+   :gov.unit/name-local "Sivas"
+   :gov.unit/name-romanized "Sivas"
    :gov.unit/official-url "http://www.sivas.gov.tr/"
    :gov.unit/wikidata "Q483100"
    :gov.unit/external-code ["iso3166-2:TR-58"]
@@ -10962,6 +11056,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Gaziantep Province"
+   :gov.unit/name-local "Gaziantep"
+   :gov.unit/name-romanized "Gaziantep"
    :gov.unit/official-url "http://www.gaziantep.gov.tr/ilimiz-gaziantep"
    :gov.unit/wikidata "Q483154"
    :gov.unit/external-code ["iso3166-2:TR-27"]
@@ -10975,6 +11071,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Karabük Province"
+   :gov.unit/name-local "Karabük"
+   :gov.unit/name-romanized "Karabuk"
    :gov.unit/official-url "http://www.karabuk.gov.tr"
    :gov.unit/wikidata "Q483168"
    :gov.unit/external-code ["iso3166-2:TR-78"]
@@ -10988,6 +11086,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Erzincan Province"
+   :gov.unit/name-local "Erzincan"
+   :gov.unit/name-romanized "Erzincan"
    :gov.unit/official-url "http://www.erzincan.gov.tr"
    :gov.unit/wikidata "Q483173"
    :gov.unit/external-code ["iso3166-2:TR-24"]
@@ -11001,6 +11101,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Ordu Province"
+   :gov.unit/name-local "Ordu"
+   :gov.unit/name-romanized "Ordu"
    :gov.unit/official-url "http://www.ordu.gov.tr"
    :gov.unit/wikidata "Q483180"
    :gov.unit/external-code ["iso3166-2:TR-52"]
@@ -11014,6 +11116,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kastamonu Province"
+   :gov.unit/name-local "Kastamonu"
+   :gov.unit/name-romanized "Kastamonu"
    :gov.unit/official-url "http://www.kastamonu.gov.tr"
    :gov.unit/wikidata "Q483191"
    :gov.unit/external-code ["iso3166-2:TR-37"]
@@ -11027,6 +11131,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Tokat Province"
+   :gov.unit/name-local "Tokat"
+   :gov.unit/name-romanized "Tokat"
    :gov.unit/official-url "http://www.tokat.gov.tr"
    :gov.unit/wikidata "Q483195"
    :gov.unit/external-code ["iso3166-2:TR-60"]
@@ -11040,6 +11146,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kayseri Province"
+   :gov.unit/name-local "Kayseri"
+   :gov.unit/name-romanized "Kayseri"
    :gov.unit/official-url "http://www.kayseri.gov.tr/"
    :gov.unit/wikidata "Q483472"
    :gov.unit/external-code ["iso3166-2:TR-38"]
@@ -11053,6 +11161,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Rize Province"
+   :gov.unit/name-local "Rize"
+   :gov.unit/name-romanized "Rize"
    :gov.unit/official-url "http://www.rize.gov.tr/"
    :gov.unit/wikidata "Q483481"
    :gov.unit/external-code ["iso3166-2:TR-53"]
@@ -11066,6 +11176,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kırıkkale Province"
+   :gov.unit/name-local "Kırıkkale"
+   :gov.unit/name-romanized "Kirikkale"
    :gov.unit/official-url "http://www.kirikkale.gov.tr/"
    :gov.unit/wikidata "Q484392"
    :gov.unit/external-code ["iso3166-2:TR-71"]
@@ -11079,6 +11191,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Istanbul Province"
+   :gov.unit/name-local "İstanbul"
+   :gov.unit/name-romanized "Istanbul"
    :gov.unit/official-url "http://www.istanbul.gov.tr/"
    :gov.unit/wikidata "Q534799"
    :gov.unit/external-code ["iso3166-2:TR-34"]
@@ -11092,6 +11206,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Tunceli Province"
+   :gov.unit/name-local "Tunceli"
+   :gov.unit/name-romanized "Tunceli"
    :gov.unit/official-url "http://www.tunceli.gov.tr/"
    :gov.unit/wikidata "Q620742"
    :gov.unit/external-code ["iso3166-2:TR-62"]
@@ -11105,6 +11221,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Şırnak Province"
+   :gov.unit/name-local "Şırnak"
+   :gov.unit/name-romanized "Sirnak"
    :gov.unit/official-url "http://www.sirnak.gov.tr"
    :gov.unit/wikidata "Q647378"
    :gov.unit/external-code ["iso3166-2:TR-73"]
@@ -11118,6 +11236,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Yozgat Province"
+   :gov.unit/name-local "Yozgat"
+   :gov.unit/name-romanized "Yozgat"
    :gov.unit/official-url "http://www.yozgat.gov.tr/"
    :gov.unit/wikidata "Q75445"
    :gov.unit/external-code ["iso3166-2:TR-66"]
@@ -11131,6 +11251,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bingöl Province"
+   :gov.unit/name-local "Bingöl"
+   :gov.unit/name-romanized "Bingol"
    :gov.unit/official-url "http://www.bingol.gov.tr"
    :gov.unit/wikidata "Q79760"
    :gov.unit/external-code ["iso3166-2:TR-12"]
@@ -11144,6 +11266,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Ardahan Province"
+   :gov.unit/name-local "Ardahan"
+   :gov.unit/name-romanized "Ardahan"
    :gov.unit/official-url "http://www.ardahan.gov.tr"
    :gov.unit/wikidata "Q79840"
    :gov.unit/external-code ["iso3166-2:TR-75"]
@@ -11157,6 +11281,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Aydın Province"
+   :gov.unit/name-local "Aydın"
+   :gov.unit/name-romanized "Aydin"
    :gov.unit/official-url "http://www.aydin.gov.tr"
    :gov.unit/wikidata "Q79846"
    :gov.unit/external-code ["iso3166-2:TR-09"]
@@ -11170,6 +11296,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Amasya Province"
+   :gov.unit/name-local "Amasya"
+   :gov.unit/name-romanized "Amasya"
    :gov.unit/official-url "http://www.amasya.gov.tr"
    :gov.unit/wikidata "Q80036"
    :gov.unit/external-code ["iso3166-2:TR-05"]
@@ -11183,6 +11311,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Ağrı Province"
+   :gov.unit/name-local "Ağrı"
+   :gov.unit/name-romanized "Agri"
    :gov.unit/official-url "http://agri.gov.tr/"
    :gov.unit/wikidata "Q80051"
    :gov.unit/external-code ["iso3166-2:TR-04"]
@@ -11196,6 +11326,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Burdur Province"
+   :gov.unit/name-local "Burdur"
+   :gov.unit/name-romanized "Burdur"
    :gov.unit/official-url "http://www.burdur.gov.tr"
    :gov.unit/wikidata "Q80088"
    :gov.unit/external-code ["iso3166-2:TR-15"]
@@ -11209,6 +11341,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Batman Province"
+   :gov.unit/name-local "Batman"
+   :gov.unit/name-romanized "Batman"
    :gov.unit/official-url "http://www.batman.gov.tr/"
    :gov.unit/wikidata "Q80370"
    :gov.unit/external-code ["iso3166-2:TR-72"]
@@ -11222,6 +11356,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Van Province"
+   :gov.unit/name-local "Van"
+   :gov.unit/name-romanized "Van"
    :gov.unit/official-url "http://www.van.gov.tr/"
    :gov.unit/wikidata "Q80550"
    :gov.unit/external-code ["iso3166-2:TR-65"]
@@ -11235,6 +11371,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Konya Province"
+   :gov.unit/name-local "Konya"
+   :gov.unit/name-romanized "Konya"
    :gov.unit/official-url "http://www.konya.gov.tr/"
    :gov.unit/wikidata "Q81551"
    :gov.unit/external-code ["iso3166-2:TR-42"]
@@ -11248,6 +11386,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bolu Province"
+   :gov.unit/name-local "Bolu"
+   :gov.unit/name-romanized "Bolu"
    :gov.unit/official-url "http://www.bolu.gov.tr/"
    :gov.unit/wikidata "Q82089"
    :gov.unit/external-code ["iso3166-2:TR-14"]
@@ -11261,6 +11401,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Denizli Province"
+   :gov.unit/name-local "Denizli"
+   :gov.unit/name-romanized "Denizli"
    :gov.unit/official-url "http://www.denizli.gov.tr"
    :gov.unit/wikidata "Q82096"
    :gov.unit/external-code ["iso3166-2:TR-20"]
@@ -11274,6 +11416,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Sakarya Province"
+   :gov.unit/name-local "Sakarya"
+   :gov.unit/name-romanized "Sakarya"
    :gov.unit/official-url "http://www.sakarya.gov.tr"
    :gov.unit/wikidata "Q83069"
    :gov.unit/external-code ["iso3166-2:TR-54"]
@@ -11287,6 +11431,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Aksaray Province"
+   :gov.unit/name-local "Aksaray"
+   :gov.unit/name-romanized "Aksaray"
    :gov.unit/official-url "http://www.aksaray.gov.tr/"
    :gov.unit/wikidata "Q83073"
    :gov.unit/external-code ["iso3166-2:TR-68"]
@@ -11300,6 +11446,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kars Province"
+   :gov.unit/name-local "Kars"
+   :gov.unit/name-romanized "Kars"
    :gov.unit/official-url "http://www.kars.gov.tr"
    :gov.unit/wikidata "Q83077"
    :gov.unit/external-code ["iso3166-2:TR-36"]
@@ -11313,6 +11461,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Diyarbakır Province"
+   :gov.unit/name-local "Diyarbakır"
+   :gov.unit/name-romanized "Diyarbakir"
    :gov.unit/official-url "https://diyarbakir.gov.tr"
    :gov.unit/wikidata "Q83081"
    :gov.unit/external-code ["iso3166-2:TR-21"]
@@ -11326,6 +11476,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Edirne Province"
+   :gov.unit/name-local "Edirne"
+   :gov.unit/name-romanized "Edirne"
    :gov.unit/official-url "http://www.edirne.bel.tr/index.html"
    :gov.unit/wikidata "Q83102"
    :gov.unit/external-code ["iso3166-2:TR-22"]
@@ -11339,6 +11491,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bitlis Province"
+   :gov.unit/name-local "Bitlis"
+   :gov.unit/name-romanized "Bitlis"
    :gov.unit/official-url "http://www.bitlis.gov.tr"
    :gov.unit/wikidata "Q83239"
    :gov.unit/external-code ["iso3166-2:TR-13"]
@@ -11352,6 +11506,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Hatay Province"
+   :gov.unit/name-local "Hatay"
+   :gov.unit/name-romanized "Hatay"
    :gov.unit/official-url "http://hatay.gov.tr"
    :gov.unit/wikidata "Q83274"
    :gov.unit/external-code ["iso3166-2:TR-31"]
@@ -11365,6 +11521,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Bartın Province"
+   :gov.unit/name-local "Bartın"
+   :gov.unit/name-romanized "Bartin"
    :gov.unit/official-url "http://www.bartin.gov.tr"
    :gov.unit/wikidata "Q83342"
    :gov.unit/external-code ["iso3166-2:TR-74"]
@@ -11378,6 +11536,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kocaeli Province"
+   :gov.unit/name-local "Kocaeli"
+   :gov.unit/name-romanized "Kocaeli"
    :gov.unit/official-url "http://www.kocaeli.gov.tr/"
    :gov.unit/wikidata "Q83965"
    :gov.unit/external-code ["iso3166-2:TR-41"]
@@ -11391,6 +11551,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Hakkâri Province"
+   :gov.unit/name-local "Hakkâri"
+   :gov.unit/name-romanized "Hakkari"
    :gov.unit/official-url "http://www.hakkari.gov.tr/"
    :gov.unit/wikidata "Q93209"
    :gov.unit/external-code ["iso3166-2:TR-30"]
@@ -11586,6 +11748,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Ho Chi Minh City"
+   :gov.unit/name-local "Thành phố Hồ Chí Minh"
+   :gov.unit/name-romanized "Thanh pho Ho Chi Minh"
    :gov.unit/official-url "http://www.hochiminhcity.gov.vn/"
    :gov.unit/wikidata "Q1854"
    :gov.unit/external-code ["iso3166-2:VN-SG"]
@@ -11599,6 +11763,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Hanoi"
+   :gov.unit/name-local "Hà Nội"
+   :gov.unit/name-romanized "Ha Noi"
    :gov.unit/official-url "https://hanoi.gov.vn/"
    :gov.unit/wikidata "Q1858"
    :gov.unit/external-code ["iso3166-2:VN-HN"]
@@ -11612,6 +11778,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Cần Thơ"
+   :gov.unit/name-local "Cần Thơ"
+   :gov.unit/name-romanized "Can Tho"
    :gov.unit/official-url "https://cantho.gov.vn/"
    :gov.unit/wikidata "Q216075"
    :gov.unit/external-code ["iso3166-2:VN-CT"]
@@ -11625,6 +11793,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Tuyên Quang"
+   :gov.unit/name-local "Tuyên Quang"
+   :gov.unit/name-romanized "Tuyen Quang"
    :gov.unit/official-url "https://tuyenquang.gov.vn/"
    :gov.unit/wikidata "Q2332060"
    :gov.unit/external-code ["iso3166-2:VN-07"]
@@ -11638,6 +11808,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Da Nang"
+   :gov.unit/name-local "Đà Nẵng"
+   :gov.unit/name-romanized "Da Nang"
    :gov.unit/official-url "http://www.danang.gov.vn/"
    :gov.unit/wikidata "Q25282"
    :gov.unit/external-code ["iso3166-2:VN-DN"]
@@ -11651,6 +11823,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Thái Nguyên"
+   :gov.unit/name-local "Thái Nguyên"
+   :gov.unit/name-romanized "Thai Nguyen"
    :gov.unit/official-url "http://thainguyen.gov.vn/"
    :gov.unit/wikidata "Q26575"
    :gov.unit/external-code ["iso3166-2:VN-69"]
@@ -11664,6 +11838,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Đồng Nai"
+   :gov.unit/name-local "Đồng Nai"
+   :gov.unit/name-romanized "Dong Nai"
    :gov.unit/official-url "http://www.dongnai.gov.vn/"
    :gov.unit/wikidata "Q33271"
    :gov.unit/external-code ["iso3166-2:VN-39"]
@@ -11677,6 +11853,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Quảng Ngãi"
+   :gov.unit/name-local "Quảng Ngãi"
+   :gov.unit/name-romanized "Quang Ngai"
    :gov.unit/official-url "http://www.quangngai.gov.vn/"
    :gov.unit/wikidata "Q33304"
    :gov.unit/external-code ["iso3166-2:VN-29"]
@@ -11690,6 +11868,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Hà Tĩnh"
+   :gov.unit/name-local "Hà Tĩnh"
+   :gov.unit/name-romanized "Ha Tinh"
    :gov.unit/official-url "http://www.hatinh.gov.vn/"
    :gov.unit/wikidata "Q33351"
    :gov.unit/external-code ["iso3166-2:VN-23"]
@@ -11703,6 +11883,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Cà Mau"
+   :gov.unit/name-local "Cà Mau"
+   :gov.unit/name-romanized "Ca Mau"
    :gov.unit/official-url "http://www.camau.gov.vn/"
    :gov.unit/wikidata "Q33354"
    :gov.unit/external-code ["iso3166-2:VN-59"]
@@ -11716,6 +11898,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Khánh Hòa"
+   :gov.unit/name-local "Khánh Hòa"
+   :gov.unit/name-romanized "Khanh Hoa"
    :gov.unit/official-url "https://www.khanhhoa.gov.vn/"
    :gov.unit/wikidata "Q33369"
    :gov.unit/external-code ["iso3166-2:VN-34"]
@@ -11729,6 +11913,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Sơn La"
+   :gov.unit/name-local "Sơn La"
+   :gov.unit/name-romanized "Son La"
    :gov.unit/official-url "http://www.sonla.gov.vn"
    :gov.unit/wikidata "Q33379"
    :gov.unit/external-code ["iso3166-2:VN-05"]
@@ -11742,6 +11928,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Quảng Ninh"
+   :gov.unit/name-local "Quảng Ninh"
+   :gov.unit/name-romanized "Quang Ninh"
    :gov.unit/official-url "http://quangninh.gov.vn"
    :gov.unit/wikidata "Q33396"
    :gov.unit/external-code ["iso3166-2:VN-13"]
@@ -11755,6 +11943,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Lạng Sơn"
+   :gov.unit/name-local "Lạng Sơn"
+   :gov.unit/name-romanized "Lang Son"
    :gov.unit/official-url "http://www.langson.gov.vn"
    :gov.unit/wikidata "Q33403"
    :gov.unit/external-code ["iso3166-2:VN-09"]
@@ -11768,6 +11958,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Bắc Ninh"
+   :gov.unit/name-local "Bắc Ninh"
+   :gov.unit/name-romanized "Bac Ninh"
    :gov.unit/official-url "http://www.bacninh.gov.vn"
    :gov.unit/wikidata "Q33408"
    :gov.unit/external-code ["iso3166-2:VN-56"]
@@ -11781,6 +11973,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Hưng Yên"
+   :gov.unit/name-local "Hưng Yên"
+   :gov.unit/name-romanized "Hung Yen"
    :gov.unit/official-url "https://hungyen.gov.vn/"
    :gov.unit/wikidata "Q36235"
    :gov.unit/external-code ["iso3166-2:VN-66"]
@@ -11794,6 +11988,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Huế"
+   :gov.unit/name-local "Huế"
+   :gov.unit/name-romanized "Hue"
    :gov.unit/official-url "https://hue.gov.vn/vi-vn/"
    :gov.unit/wikidata "Q36399"
    :gov.unit/external-code ["iso3166-2:VN-26"]
@@ -11807,6 +12003,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Lai Châu"
+   :gov.unit/name-local "Lai Châu"
+   :gov.unit/name-romanized "Lai Chau"
    :gov.unit/official-url "http://www.laichau.gov.vn"
    :gov.unit/wikidata "Q36409"
    :gov.unit/external-code ["iso3166-2:VN-01"]
@@ -11820,6 +12018,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Lào Cai"
+   :gov.unit/name-local "Lào Cai"
+   :gov.unit/name-romanized "Lao Cai"
    :gov.unit/official-url "http://www.laocai.gov.vn"
    :gov.unit/wikidata "Q36446"
    :gov.unit/external-code ["iso3166-2:VN-02"]
@@ -11833,6 +12033,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Thanh Hóa"
+   :gov.unit/name-local "Thanh Hóa"
+   :gov.unit/name-romanized "Thanh Hoa"
    :gov.unit/official-url "https://en-us.thanhhoa.gov.vn"
    :gov.unit/wikidata "Q36512"
    :gov.unit/external-code ["iso3166-2:VN-21"]
@@ -11846,6 +12048,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Quảng Trị"
+   :gov.unit/name-local "Quảng Trị"
+   :gov.unit/name-romanized "Quang Tri"
    :gov.unit/official-url "http://www.quangtri.gov.vn"
    :gov.unit/wikidata "Q36579"
    :gov.unit/external-code ["iso3166-2:VN-25"]
@@ -11859,6 +12063,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Nghệ An"
+   :gov.unit/name-local "Nghệ An"
+   :gov.unit/name-romanized "Nghe An"
    :gov.unit/official-url "http://www.nghean.gov.vn/"
    :gov.unit/wikidata "Q36587"
    :gov.unit/external-code ["iso3166-2:VN-22"]
@@ -11872,6 +12078,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "An Giang"
+   :gov.unit/name-local "An Giang"
+   :gov.unit/name-romanized "An Giang"
    :gov.unit/official-url "http://www.angiang.gov.vn/"
    :gov.unit/wikidata "Q36592"
    :gov.unit/external-code ["iso3166-2:VN-44"]
@@ -11885,6 +12093,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Tây Ninh"
+   :gov.unit/name-local "Tây Ninh"
+   :gov.unit/name-romanized "Tay Ninh"
    :gov.unit/official-url "http://www.tayninh.gov.vn"
    :gov.unit/wikidata "Q36608"
    :gov.unit/external-code ["iso3166-2:VN-37"]
@@ -11898,6 +12108,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Phú Thọ"
+   :gov.unit/name-local "Phú Thọ"
+   :gov.unit/name-romanized "Phu Tho"
    :gov.unit/official-url "https://phutho.gov.vn/"
    :gov.unit/wikidata "Q36610"
    :gov.unit/external-code ["iso3166-2:VN-68"]
@@ -11911,6 +12123,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Gia Lai"
+   :gov.unit/name-local "Gia Lai"
+   :gov.unit/name-romanized "Gia Lai"
    :gov.unit/official-url "https://gialai.gov.vn/"
    :gov.unit/wikidata "Q36662"
    :gov.unit/external-code ["iso3166-2:VN-30"]
@@ -11924,6 +12138,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Đồng Tháp"
+   :gov.unit/name-local "Đồng Tháp"
+   :gov.unit/name-romanized "Dong Thap"
    :gov.unit/official-url "http://www.dongthap.gov.vn"
    :gov.unit/wikidata "Q36676"
    :gov.unit/external-code ["iso3166-2:VN-45"]
@@ -11937,6 +12153,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Đắk Lắk"
+   :gov.unit/name-local "Đắk Lắk"
+   :gov.unit/name-romanized "Dak Lak"
    :gov.unit/official-url "http://www.daklak.gov.vn"
    :gov.unit/wikidata "Q36690"
    :gov.unit/external-code ["iso3166-2:VN-33"]
@@ -11950,6 +12168,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Lâm Đồng"
+   :gov.unit/name-local "Lâm Đồng"
+   :gov.unit/name-romanized "Lam Dong"
    :gov.unit/official-url "http://www.lamdong.gov.vn"
    :gov.unit/wikidata "Q36721"
    :gov.unit/external-code ["iso3166-2:VN-35"]
@@ -11963,6 +12183,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Cao Bằng"
+   :gov.unit/name-local "Cao Bằng"
+   :gov.unit/name-romanized "Cao Bang"
    :gov.unit/official-url "http://www.caobang.gov.vn"
    :gov.unit/wikidata "Q36865"
    :gov.unit/external-code ["iso3166-2:VN-04"]
@@ -11976,6 +12198,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Ninh Bình"
+   :gov.unit/name-local "Ninh Bình"
+   :gov.unit/name-romanized "Ninh Binh"
    :gov.unit/official-url "http://www.ninhbinh.gov.vn/"
    :gov.unit/wikidata "Q36900"
    :gov.unit/external-code ["iso3166-2:VN-18"]
@@ -11989,6 +12213,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Điện Biên"
+   :gov.unit/name-local "Điện Biên"
+   :gov.unit/name-romanized "Dien Bien"
    :gov.unit/official-url "http://www.dienbien.gov.vn"
    :gov.unit/wikidata "Q36955"
    :gov.unit/external-code ["iso3166-2:VN-71"]
@@ -12002,6 +12228,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Haiphong"
+   :gov.unit/name-local "Hải Phòng"
+   :gov.unit/name-romanized "Hai Phong"
    :gov.unit/official-url "http://haiphong.gov.vn/"
    :gov.unit/wikidata "Q72818"
    :gov.unit/external-code ["iso3166-2:VN-HP"]
@@ -12015,6 +12243,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "vnm"
    :gov.unit/name-en "Vĩnh Long"
+   :gov.unit/name-local "Vĩnh Long"
+   :gov.unit/name-romanized "Vinh Long"
    :gov.unit/official-url "http://www.vinhlong.gov.vn"
    :gov.unit/wikidata "Q7333405"
    :gov.unit/external-code ["iso3166-2:VN-49"]
