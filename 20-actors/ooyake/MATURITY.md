@@ -43,6 +43,22 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Thailand 77 provinces (1188 → 1265)
+
+Continued the subdivision endonym front with all 77 Thai provinces (จังหวัด) in Thai script.
+7 web-research subagents (Wikidata native labels). **77 Thai endonyms added with RTGS romanization.**
+
+- all-units name-local: 1188 → **1265**; subdivision name-local: 174 → **251**.
+- official จังหวัด<name> form (จังหวัดเชียงใหม่/Chiang Mai, จังหวัดภูเก็ต/Phuket, …); Bangkok =
+  กรุงเทพมหานคร (special admin area, no จังหวัด prefix). All RTGS-romanized → searchable by Latin
+  reading on /gov.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+North Macedonia 81, Serbia 30, Bulgaria 28, Ukraine 26, Khmer 24, Tunisia 24 (Arabic), Mongolia 22,
+Yemen 22, Myanmar 21, Maldives 20, Bhutan 20, Lao 17 — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Russia 85 federal subjects (1103 → 1188)
 
 Continued the subdivision endonym front with the single largest non-Latin subdivision set: all 85
