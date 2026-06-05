@@ -518,15 +518,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q152825" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.aze.adm1.q158903.seat"
-   :gov.address/unit "gov.aze.adm1.q158903"
-   :gov.address/kind :seat
-   :gov.address/country "aze"
-   :gov.address/lat 39.76021 :gov.address/lon 46.75038
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q158903" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.aze.adm1.az-ye.seat"
+{:gov.address/id "addr.gov.aze.adm1.az-ye.seat"
    :gov.address/unit "gov.aze.adm1.az-ye"
    :gov.address/kind :seat
    :gov.address/country "aze"
@@ -26052,31 +26044,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q955095" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.lby.adm1.q131323.seat"
-   :gov.address/unit "gov.lby.adm1.q131323"
-   :gov.address/kind :seat
-   :gov.address/country "lby"
-   :gov.address/lat 32.37778 :gov.address/lon 15.09014
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q131323" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.lby.adm1.q132409.seat"
-   :gov.address/unit "gov.lby.adm1.q132409"
-   :gov.address/kind :seat
-   :gov.address/country "lby"
-   :gov.address/lat 31.86861 :gov.address/lon 10.98111
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q132409" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.lby.adm1.q209393.seat"
-   :gov.address/unit "gov.lby.adm1.q209393"
-   :gov.address/kind :seat
-   :gov.address/country "lby"
-   :gov.address/lat 24.96111 :gov.address/lon 10.175
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q209393" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.lby.adm1.ly-mb.seat"
+{:gov.address/id "addr.gov.lby.adm1.ly-mb.seat"
    :gov.address/unit "gov.lby.adm1.ly-mb"
    :gov.address/kind :seat
    :gov.address/country "lby"
@@ -26085,15 +26053,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q209778" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.lby.adm1.q221503.seat"
-   :gov.address/unit "gov.lby.adm1.q221503"
-   :gov.address/kind :seat
-   :gov.address/country "lby"
-   :gov.address/lat 32.75444 :gov.address/lon 12.72972
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q221503" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.lby.adm1.ly-jg.seat"
+{:gov.address/id "addr.gov.lby.adm1.ly-jg.seat"
    :gov.address/unit "gov.lby.adm1.ly-jg"
    :gov.address/kind :seat
    :gov.address/country "lby"
@@ -26219,15 +26179,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q329060" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.lby.adm1.q3579.seat"
-   :gov.address/unit "gov.lby.adm1.q3579"
-   :gov.address/kind :seat
-   :gov.address/country "lby"
-   :gov.address/lat 32.8875 :gov.address/lon 13.1875
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q3579" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.lby.adm1.ly-ba.seat"
+{:gov.address/id "addr.gov.lby.adm1.ly-ba.seat"
    :gov.address/unit "gov.lby.adm1.ly-ba"
    :gov.address/kind :seat
    :gov.address/country "lby"

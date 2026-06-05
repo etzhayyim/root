@@ -43,6 +43,28 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — DATA-QUALITY:全法域 QID/ISO duplicate sweep — 6 more removed (7093 → 7087)
+
+Ran a SYSTEMATIC QID-vs-ISO duplicate scan across ALL jurisdictions (normalize name, strip the
+level suffix, match a `.qNNN`-keyed subdivision to an ISO-3166-2-keyed one of the same place).
+Found 6 more dual-entries beyond the Tanzania batch and removed the QID duplicates (each: unit def +
+address row). **Re-scan now reports ZERO remaining QID/ISO subdivision duplicates atlas-wide.**
+
+- **Azerbaijan**: gov.aze.adm1.q158903 (Shusha) ≡ az-sus (Shusha District) — both had the url+coord;
+  ISO kept.
+- **Libya** (5): q131323 Misrata ≡ ly-mi, q132409 Nalut ≡ ly-nl, q209393 Ghat ≡ ly-gt, q221503
+  Zawiya ≡ ly-za, q3579 Tripoli ≡ ly-tb. ISO entries keep the coords.
+- data note: the removed Tripoli QID carried a non-official `http://www.tripoli.info` URL (an .info
+  city-info site, NOT a .gov.ly portal) — deliberately NOT transferred to the canonical ly-tb (which
+  honestly stays url-less; Libyan districts largely have no official portal). Net accuracy gain.
+- units 7093 → **7087**; addresses 1:1 preserved; no live OFFICIAL url lost.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN; index regenerates 7,665 units +
+validate_atlas --file ✓. The atlas is now duplicate-free across both the Tanzania (11) and this
+6-unit sweep — 19 Wikidata-import artifacts removed total over the two cleanup PRs.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — DATA-QUALITY: remove 13 duplicate/artifact subdivisions (7106 → 7093 units)
 
 Cleaned up the Wikidata-import artifacts flagged over the prior iterations. **Removed 13 bogus
