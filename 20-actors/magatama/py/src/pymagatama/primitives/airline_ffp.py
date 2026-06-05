@@ -6,9 +6,7 @@ import datetime as _dt
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 APP_DID = "did:web:air-ffp.etzhayyim.com"
 ACTOR_SLUG = "air-ffp"
 
@@ -38,23 +36,26 @@ def enroll_member(
 ) -> dict[str, Any]:
     vertex_id = _vid("member", memberNumber or memberDid)
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_member
-              (vertex_id, member_did, member_number, first_name, last_name, email,
-               nationality, tier, miles_balance, status, enrolled_at, created_at,
-               actor_did, org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, memberDid or callerDid or APP_DID,
-                memberNumber or vertex_id,
-                firstName or "", lastName or "", email or "", nationality or "",
-                "classic", 0, "active", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_member", {
+        "vertex_id": vertex_id,
+        "member_did": memberDid or callerDid or APP_DID,
+        "member_number": memberNumber or vertex_id,
+        "first_name": firstName or '',
+        "last_name": lastName or '',
+        "email": email or '',
+        "nationality": nationality or '',
+        "tier": 'classic',
+        "miles_balance": 0,
+        "status": 'active',
+        "enrolled_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -78,23 +79,25 @@ def accrue_miles(
     vertex_id = _new_vid("accrue")
     now = _now()
     total_miles = int(milesEarned) + int(bonusMiles)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_transaction
-              (vertex_id, member_number, flight_no, dep_date, miles_earned,
-               bonus_miles, total_miles, transaction_ref, transaction_type,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, memberNumber, flightNo or "", depDate or "", int(milesEarned),
-                int(bonusMiles), total_miles, transactionRef or vertex_id,
-                "accrual", "posted", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_transaction", {
+        "vertex_id": vertex_id,
+        "member_number": memberNumber,
+        "flight_no": flightNo or '',
+        "dep_date": depDate or '',
+        "miles_earned": int(milesEarned),
+        "bonus_miles": int(bonusMiles),
+        "total_miles": total_miles,
+        "transaction_ref": transactionRef or vertex_id,
+        "transaction_type": 'accrual',
+        "status": 'posted',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -118,24 +121,24 @@ def redeem_reward(
     vertex_id = _new_vid("redeem")
     now = _now()
     sufficient = int(currentBalance) >= int(milesRequired)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_transaction
-              (vertex_id, member_number, reward_code, miles_required, current_balance,
-               sufficient, redemption_ref, transaction_type, status, created_at,
-               actor_did, org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, memberNumber, rewardCode, int(milesRequired),
-                int(currentBalance), sufficient, redemptionRef or vertex_id,
-                "redemption",
-                "approved" if sufficient else "declined",
-                now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_transaction", {
+        "vertex_id": vertex_id,
+        "member_number": memberNumber,
+        "reward_code": rewardCode,
+        "miles_required": int(milesRequired),
+        "current_balance": int(currentBalance),
+        "sufficient": sufficient,
+        "redemption_ref": redemptionRef or vertex_id,
+        "transaction_type": 'redemption',
+        "status": 'approved' if sufficient else 'declined',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -158,22 +161,22 @@ def update_tier(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("tier-update")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_member
-              (vertex_id, member_number, new_tier, previous_tier, qualifying_miles,
-               effective_date, status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, memberNumber, newTier, previousTier or "",
-                int(qualifyingMiles), effectiveDate or now[:10],
-                "tier_updated", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_member", {
+        "vertex_id": vertex_id,
+        "member_number": memberNumber,
+        "new_tier": newTier,
+        "previous_tier": previousTier or '',
+        "qualifying_miles": int(qualifyingMiles),
+        "effective_date": effectiveDate or now[:10],
+        "status": 'tier_updated',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -194,22 +197,22 @@ def transfer_miles(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("transfer")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_transaction
-              (vertex_id, from_member_number, to_member_number, miles_amount,
-               transfer_ref, transaction_type, status, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, fromMemberNumber, toMemberNumber, int(milesAmount),
-                transferRef or vertex_id, "transfer",
-                "completed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_transaction", {
+        "vertex_id": vertex_id,
+        "from_member_number": fromMemberNumber,
+        "to_member_number": toMemberNumber,
+        "miles_amount": int(milesAmount),
+        "transfer_ref": transferRef or vertex_id,
+        "transaction_type": 'transfer',
+        "status": 'completed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -233,23 +236,24 @@ def purchase_miles(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("purchase")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_transaction
-              (vertex_id, member_number, miles_purchased, price_per_mile,
-               total_price, currency, payment_ref, transaction_type, status,
-               created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, memberNumber, int(milesPurchased), float(pricePerMile),
-                float(totalPrice), currency, paymentRef or vertex_id,
-                "purchase", "completed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_transaction", {
+        "vertex_id": vertex_id,
+        "member_number": memberNumber,
+        "miles_purchased": int(milesPurchased),
+        "price_per_mile": float(pricePerMile),
+        "total_price": float(totalPrice),
+        "currency": currency,
+        "payment_ref": paymentRef or vertex_id,
+        "transaction_type": 'purchase',
+        "status": 'completed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -271,21 +275,22 @@ def expire_miles(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("expire")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_transaction
-              (vertex_id, member_number, miles_expired, expiry_date, reason,
-               transaction_type, status, created_at, actor_did, org_id, user_id,
-               actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, memberNumber, int(milesExpired), expiryDate or now[:10],
-                reason, "expiry", "expired", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_transaction", {
+        "vertex_id": vertex_id,
+        "member_number": memberNumber,
+        "miles_expired": int(milesExpired),
+        "expiry_date": expiryDate or now[:10],
+        "reason": reason,
+        "transaction_type": 'expiry',
+        "status": 'expired',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -308,23 +313,25 @@ def partner_reconcile(
 ) -> dict[str, Any]:
     vertex_id = _vid("partner-reconcile", f"{partnerCode}:{reconciliationPeriod}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_ffp_transaction
-              (vertex_id, partner_code, reconciliation_period, transaction_count,
-               total_miles, currency, settlement_amount, transaction_type, status,
-               reconciled_at, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, partnerCode, reconciliationPeriod, int(transactionCount),
-                int(totalMiles), currency, float(settlementAmount),
-                "partner_reconciliation", "reconciled", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_ffp_transaction", {
+        "vertex_id": vertex_id,
+        "partner_code": partnerCode,
+        "reconciliation_period": reconciliationPeriod,
+        "transaction_count": int(transactionCount),
+        "total_miles": int(totalMiles),
+        "currency": currency,
+        "settlement_amount": float(settlementAmount),
+        "transaction_type": 'partner_reconciliation',
+        "status": 'reconciled',
+        "reconciled_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",

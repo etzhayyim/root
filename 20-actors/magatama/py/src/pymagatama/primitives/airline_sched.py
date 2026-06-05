@@ -7,9 +7,7 @@ import hashlib
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 APP_DID = "did:web:air-sched.etzhayyim.com"
 ACTOR_SLUG = "air-sched"
 
@@ -40,21 +38,24 @@ def register_schedule(
 ) -> dict[str, Any]:
     vertex_id = _vid("schedule", f"{flightNo}:{depDate}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_schedule
-              (vertex_id, flight_no, dep_date, dep_iata, arr_iata, dep_time, arr_time,
-               aircraft_type, status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, depIata, arrIata, depTime, arrTime,
-                aircraftType or "", "scheduled", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_schedule", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "dep_iata": depIata,
+        "arr_iata": arrIata,
+        "dep_time": depTime,
+        "arr_time": arrTime,
+        "aircraft_type": aircraftType or '',
+        "status": 'scheduled',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -76,21 +77,22 @@ def request_slot(
 ) -> dict[str, Any]:
     vertex_id = _vid("slot", f"{flightNo}:{depDate}:{slotType}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_slot
-              (vertex_id, flight_no, dep_date, dep_iata, slot_type, requested_time,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, depIata, slotType, requestedTime,
-                "requested", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_slot", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "dep_iata": depIata,
+        "slot_type": slotType,
+        "requested_time": requestedTime,
+        "status": 'requested',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -109,21 +111,20 @@ def allocate_slot(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("slot-alloc")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_slot
-              (vertex_id, slot_ref, allocated_time, allocated_by,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, slotRef, allocatedTime, allocatedBy or "",
-                "allocated", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_slot", {
+        "vertex_id": vertex_id,
+        "slot_ref": slotRef,
+        "allocated_time": allocatedTime,
+        "allocated_by": allocatedBy or '',
+        "status": 'allocated',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -143,21 +144,21 @@ def assign_fleet(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("fleet-assign")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_schedule
-              (vertex_id, flight_no, dep_date, aircraft_type, tail_number,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, aircraftType, tailNumber or "",
-                "fleet_assigned", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_schedule", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "aircraft_type": aircraftType,
+        "tail_number": tailNumber or '',
+        "status": 'fleet_assigned',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -178,21 +179,22 @@ def publish_schedule(
 ) -> dict[str, Any]:
     vertex_id = _vid("schedule-pub", seasonCode)
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_schedule
-              (vertex_id, season_code, valid_from, valid_to, flight_count,
-               status, published_at, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, seasonCode, validFrom, validTo, int(flightCount),
-                "published", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_schedule", {
+        "vertex_id": vertex_id,
+        "season_code": seasonCode,
+        "valid_from": validFrom,
+        "valid_to": validTo,
+        "flight_count": int(flightCount),
+        "status": 'published',
+        "published_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -213,21 +215,22 @@ def assign_gate(
 ) -> dict[str, Any]:
     vertex_id = _vid("gate", f"{flightNo}:{depDate}:{airport}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_schedule
-              (vertex_id, flight_no, dep_date, gate_code, terminal, airport,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, gateCode, terminal or "", airport or "",
-                "gate_assigned", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_schedule", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "gate_code": gateCode,
+        "terminal": terminal or '',
+        "airport": airport or '',
+        "status": 'gate_assigned',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -248,21 +251,22 @@ def change_frequency(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("freq-change")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_schedule
-              (vertex_id, flight_no, season_code, old_frequency, new_frequency,
-               effective_date, status, created_at, actor_did, org_id, user_id,
-               actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, seasonCode, oldFrequency, newFrequency,
-                effectiveDate or now[:10], "frequency_changed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_schedule", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "season_code": seasonCode,
+        "old_frequency": oldFrequency,
+        "new_frequency": newFrequency,
+        "effective_date": effectiveDate or now[:10],
+        "status": 'frequency_changed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -284,21 +288,22 @@ def register_codeshare(
 ) -> dict[str, Any]:
     vertex_id = _vid("codeshare", f"{operatingFlightNo}:{marketingFlightNo}:{depDate}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sched_codeshare
-              (vertex_id, operating_flight_no, marketing_flight_no, partner_airline,
-               dep_date, seat_allocation, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, operatingFlightNo, marketingFlightNo, partnerAirline,
-                depDate, int(seatAllocation), "active", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sched_codeshare", {
+        "vertex_id": vertex_id,
+        "operating_flight_no": operatingFlightNo,
+        "marketing_flight_no": marketingFlightNo,
+        "partner_airline": partnerAirline,
+        "dep_date": depDate,
+        "seat_allocation": int(seatAllocation),
+        "status": 'active',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",

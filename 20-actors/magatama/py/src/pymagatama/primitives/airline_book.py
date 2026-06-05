@@ -7,9 +7,7 @@ import hashlib
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 APP_DID = "did:web:air-book.etzhayyim.com"
 ACTOR_SLUG = "air-book"
 
@@ -47,21 +45,23 @@ def create_pnr(
     now = _now()
     passenger_hash = _hash(f"{passengerName}:{passengerDob}")
     contact_hash = _hash(contactEmail) if contactEmail else ""
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_pnr
-              (vertex_id, flight_no, dep_date, passenger_hash, contact_hash,
-               origin_iata, dest_iata, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, passenger_hash, contact_hash,
-                originIata, destIata, "created", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_pnr", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "passenger_hash": passenger_hash,
+        "contact_hash": contact_hash,
+        "origin_iata": originIata,
+        "dest_iata": destIata,
+        "status": 'created',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -82,21 +82,22 @@ def confirm_booking(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("booking")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_pnr
-              (vertex_id, pnr_ref, payment_ref, fare_class, total_fare, currency,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnrRef, paymentRef or "", fareClass, float(totalFare), currency,
-                "confirmed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_pnr", {
+        "vertex_id": vertex_id,
+        "pnr_ref": pnrRef,
+        "payment_ref": paymentRef or '',
+        "fare_class": fareClass,
+        "total_fare": float(totalFare),
+        "currency": currency,
+        "status": 'confirmed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -117,21 +118,22 @@ def issue_ticket(
 ) -> dict[str, Any]:
     vertex_id = _vid("ticket", ticketNumber or pnrRef)
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_ticket
-              (vertex_id, pnr_ref, ticket_number, fare_class, issuing_airline,
-               status, issued_at, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnrRef, ticketNumber, fareClass, issuingAirline or "",
-                "issued", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_ticket", {
+        "vertex_id": vertex_id,
+        "pnr_ref": pnrRef,
+        "ticket_number": ticketNumber,
+        "fare_class": fareClass,
+        "issuing_airline": issuingAirline or '',
+        "status": 'issued',
+        "issued_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -152,21 +154,22 @@ def assign_seat(
 ) -> dict[str, Any]:
     vertex_id = _vid("seat", f"{flightNo}:{depDate}:{seatNumber}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_pnr
-              (vertex_id, pnr_ref, flight_no, dep_date, seat_number, seat_class,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnrRef, flightNo, depDate, seatNumber, seatClass or "",
-                "seat_assigned", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_pnr", {
+        "vertex_id": vertex_id,
+        "pnr_ref": pnrRef,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "seat_number": seatNumber,
+        "seat_class": seatClass or '',
+        "status": 'seat_assigned',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -188,21 +191,23 @@ def add_ancillary(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("ancillary")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_ancillary
-              (vertex_id, pnr_ref, ancillary_type, ancillary_code, quantity, price,
-               currency, status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnrRef, ancillaryType, ancillaryCode or "", int(quantity),
-                float(price), currency, "added", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_ancillary", {
+        "vertex_id": vertex_id,
+        "pnr_ref": pnrRef,
+        "ancillary_type": ancillaryType,
+        "ancillary_code": ancillaryCode or '',
+        "quantity": int(quantity),
+        "price": float(price),
+        "currency": currency,
+        "status": 'added',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -223,21 +228,22 @@ def cancel_booking(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("cancel")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_pnr
-              (vertex_id, pnr_ref, cancel_reason, refund_amount, currency,
-               status, cancelled_at, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnrRef, reason or "", float(refundAmount), currency,
-                "cancelled", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_pnr", {
+        "vertex_id": vertex_id,
+        "pnr_ref": pnrRef,
+        "cancel_reason": reason or '',
+        "refund_amount": float(refundAmount),
+        "currency": currency,
+        "status": 'cancelled',
+        "cancelled_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -258,21 +264,21 @@ def reprotect_passenger(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("irrop-pnr")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_pnr
-              (vertex_id, original_pnr_ref, flight_no, dep_date, irrop_reason,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, originalPnrRef, newFlightNo, newDepDate, irropReason or "",
-                "reprotected", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_pnr", {
+        "vertex_id": vertex_id,
+        "original_pnr_ref": originalPnrRef,
+        "flight_no": newFlightNo,
+        "dep_date": newDepDate,
+        "irrop_reason": irropReason or '',
+        "status": 'reprotected',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -295,22 +301,24 @@ def settle_bsp(
 ) -> dict[str, Any]:
     vertex_id = _vid("bsp-settlement", f"{agentCode}:{settlementPeriod}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_book_bsp_settlement
-              (vertex_id, agent_code, settlement_period, ticket_count, gross_amount,
-               net_amount, currency, status, settled_at, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, agentCode, settlementPeriod, int(ticketCount),
-                float(grossAmount), float(netAmount), currency,
-                "settled", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_book_bsp_settlement", {
+        "vertex_id": vertex_id,
+        "agent_code": agentCode,
+        "settlement_period": settlementPeriod,
+        "ticket_count": int(ticketCount),
+        "gross_amount": float(grossAmount),
+        "net_amount": float(netAmount),
+        "currency": currency,
+        "status": 'settled',
+        "settled_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",

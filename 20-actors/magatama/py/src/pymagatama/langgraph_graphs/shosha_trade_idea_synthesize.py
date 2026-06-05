@@ -21,9 +21,7 @@ import uuid
 import time as _time
 from typing import TypedDict
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 # ── State ──────────────────────────────────────────────────────────────
 
 class ShoshaTradeIdeaState(TypedDict, total=False):
@@ -53,24 +51,15 @@ def synth_ideas(state: ShoshaTradeIdeaState) -> dict:
 def emit_audit(state: ShoshaTradeIdeaState) -> dict:
     """Write OCEL audit row (non-fatal)."""
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_repo_commit
-                  (vertex_id, repo, collection, rkey, action, ts_ms, record_json)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    str(uuid.uuid4()),
-                    "did:web:shosha.etzhayyim.com",
-                    "com.etzhayyim.apps.shosha.tradeIdeaSynthesize",
-                    f"lg-{int(_time.time() * 1000)}",
-                    "create",
-                    int(_time.time() * 1000),
-                    f'{{"ideaCount":{state.get("ideaCount",0)},'
-                    f'"ok":{str(state.get("ok",True)).lower()}}}',
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_repo_commit", {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": 'did:web:shosha.etzhayyim.com',
+            "collection": 'com.etzhayyim.apps.shosha.tradeIdeaSynthesize',
+            "rkey": f'lg-{int(_time.time() * 1000)}',
+            "action": 'create',
+            "ts_ms": int(_time.time() * 1000),
+            "record_json": f"""{{"ideaCount":{state.get('ideaCount', 0)},"ok":{str(state.get('ok', True)).lower()}}}""",
+        })
     except Exception:
         pass
     return {}

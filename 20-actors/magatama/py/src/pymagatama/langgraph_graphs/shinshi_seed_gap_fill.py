@@ -24,8 +24,7 @@ import uuid
 import time as _time
 from typing import TypedDict
 
-from pymagatama.db_sync import sync_cursor
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 _SHINSHI_ACTOR = "did:web:sh1n5h1x.etzhayyim.com"
 
 
@@ -79,25 +78,15 @@ def bulk_seed(state: ShinshiSeedGapFillState) -> dict:
 def emit_audit(state: ShinshiSeedGapFillState) -> dict:
     """Write OCEL audit row (non-fatal)."""
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_repo_commit
-                  (vertex_id, repo, collection, rkey, action, ts_ms, record_json)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    str(uuid.uuid4()),
-                    _SHINSHI_ACTOR,
-                    "com.etzhayyim.apps.shinshi.seedGapFill",
-                    f"lg-{int(_time.time() * 1000)}",
-                    "create",
-                    int(_time.time() * 1000),
-                    f'{{"totalIncomplete":{state.get("totalIncomplete", 0)},'
-                    f'"scenesPosted":{state.get("scenesPosted", 0)},'
-                    f'"ok":{str(state.get("ok", True)).lower()}}}',
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_repo_commit", {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": _SHINSHI_ACTOR,
+            "collection": 'com.etzhayyim.apps.shinshi.seedGapFill',
+            "rkey": f'lg-{int(_time.time() * 1000)}',
+            "action": 'create',
+            "ts_ms": int(_time.time() * 1000),
+            "record_json": f"""{{"totalIncomplete":{state.get('totalIncomplete', 0)},"scenesPosted":{state.get('scenesPosted', 0)},"ok":{str(state.get('ok', True)).lower()}}}""",
+        })
     except Exception:
         pass
     return {}
