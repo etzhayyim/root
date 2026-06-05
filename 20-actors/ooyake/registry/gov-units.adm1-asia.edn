@@ -2025,6 +2025,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Chongqing"
+   :gov.unit/name-local "重庆市"
+   :gov.unit/name-romanized "Chóngqìng Shì"
    :gov.unit/official-url "https://www.cq.gov.cn/"
    :gov.unit/wikidata "Q11725"
    :gov.unit/external-code ["iso3166-2:CN-CQ"]
@@ -2038,6 +2040,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Tianjin"
+   :gov.unit/name-local "天津市"
+   :gov.unit/name-romanized "Tiānjīn Shì"
    :gov.unit/official-url "http://www.tj.gov.cn"
    :gov.unit/wikidata "Q11736"
    :gov.unit/external-code ["iso3166-2:CN-TJ"]
@@ -2051,6 +2055,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Macau"
+   :gov.unit/name-local "澳门特别行政区"
+   :gov.unit/name-romanized "Àomén Tèbié Xíngzhèngqū"
    :gov.unit/official-url "https://www.gov.mo/"
    :gov.unit/wikidata "Q14773"
    :gov.unit/external-code ["iso3166-2:CN-MO"]
@@ -2064,6 +2070,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Guangdong"
+   :gov.unit/name-local "广东省"
+   :gov.unit/name-romanized "Guǎngdōng Shěng"
    :gov.unit/official-url "http://www.gd.gov.cn/"
    :gov.unit/wikidata "Q15175"
    :gov.unit/external-code ["iso3166-2:CN-GD"]
@@ -2077,6 +2085,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Guangxi"
+   :gov.unit/name-local "广西壮族自治区"
+   :gov.unit/name-romanized "Guǎngxī Zhuàngzú Zìzhìqū"
    :gov.unit/official-url "http://www.gxzf.gov.cn/"
    :gov.unit/wikidata "Q15176"
    :gov.unit/external-code ["iso3166-2:CN-GX"]
@@ -2090,6 +2100,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Jiangsu"
+   :gov.unit/name-local "江苏省"
+   :gov.unit/name-romanized "Jiāngsū Shěng"
    :gov.unit/official-url "http://www.jiangsu.gov.cn"
    :gov.unit/wikidata "Q16963"
    :gov.unit/external-code ["iso3166-2:CN-JS"]
@@ -2103,6 +2115,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Zhejiang"
+   :gov.unit/name-local "浙江省"
+   :gov.unit/name-romanized "Zhèjiāng Shěng"
    :gov.unit/official-url "https://www.zj.gov.cn/"
    :gov.unit/wikidata "Q16967"
    :gov.unit/external-code ["iso3166-2:CN-ZJ"]
@@ -2116,6 +2130,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Tibet Autonomous Region"
+   :gov.unit/name-local "西藏自治区"
+   :gov.unit/name-romanized "Xīzàng Zìzhìqū"
    :gov.unit/official-url "http://www.xizang.gov.cn/"
    :gov.unit/wikidata "Q17269"
    :gov.unit/external-code ["iso3166-2:CN-XZ"]
@@ -2129,6 +2145,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Heilongjiang"
+   :gov.unit/name-local "黑龙江省"
+   :gov.unit/name-romanized "Hēilóngjiāng Shěng"
    :gov.unit/official-url "http://www.hlj.gov.cn"
    :gov.unit/wikidata "Q19206"
    :gov.unit/external-code ["iso3166-2:CN-HL"]
@@ -2142,6 +2160,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Sichuan"
+   :gov.unit/name-local "四川省"
+   :gov.unit/name-romanized "Sìchuān Shěng"
    :gov.unit/official-url "http://www.sc.gov.cn"
    :gov.unit/wikidata "Q19770"
    :gov.unit/external-code ["iso3166-2:CN-SC"]
@@ -2155,6 +2175,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Hebei"
+   :gov.unit/name-local "河北省"
+   :gov.unit/name-romanized "Héběi Shěng"
    :gov.unit/official-url "http://www.hebei.gov.cn"
    :gov.unit/wikidata "Q21208"
    :gov.unit/external-code ["iso3166-2:CN-HE"]
@@ -2168,6 +2190,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Xinjiang"
+   :gov.unit/name-local "新疆维吾尔自治区"
+   :gov.unit/name-romanized "Xīnjiāng Wéiwúʼěr Zìzhìqū"
    :gov.unit/official-url "http://www.xinjiang.gov.cn"
    :gov.unit/wikidata "Q34800"
    :gov.unit/external-code ["iso3166-2:CN-XJ"]
@@ -2181,6 +2205,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Anhui"
+   :gov.unit/name-local "安徽省"
+   :gov.unit/name-romanized "Ānhuī Shěng"
    :gov.unit/official-url "http://www.ah.gov.cn"
    :gov.unit/wikidata "Q40956"
    :gov.unit/external-code ["iso3166-2:CN-AH"]
@@ -2194,6 +2220,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Inner Mongolia"
+   :gov.unit/name-local "内蒙古自治区"
+   :gov.unit/name-romanized "Nèiménggǔ Zìzhìqū"
    :gov.unit/official-url "https://www.nmg.gov.cn/"
    :gov.unit/wikidata "Q41079"
    :gov.unit/external-code ["iso3166-2:CN-NM"]
@@ -2207,6 +2235,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Fujian"
+   :gov.unit/name-local "福建省"
+   :gov.unit/name-romanized "Fújiàn Shěng"
    :gov.unit/official-url "http://www.fujian.gov.cn"
    :gov.unit/wikidata "Q41705"
    :gov.unit/external-code ["iso3166-2:CN-FJ"]
@@ -2220,6 +2250,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Hainan"
+   :gov.unit/name-local "海南省"
+   :gov.unit/name-romanized "Hǎinán Shěng"
    :gov.unit/official-url "https://en.hainan.gov.cn/"
    :gov.unit/wikidata "Q42200"
    :gov.unit/external-code ["iso3166-2:CN-HI"]
@@ -2233,6 +2265,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Gansu"
+   :gov.unit/name-local "甘肃省"
+   :gov.unit/name-romanized "Gānsù Shěng"
    :gov.unit/official-url "http://www.gansu.gov.cn"
    :gov.unit/wikidata "Q42392"
    :gov.unit/external-code ["iso3166-2:CN-GS"]
@@ -2246,6 +2280,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Yunnan"
+   :gov.unit/name-local "云南省"
+   :gov.unit/name-romanized "Yúnnán Shěng"
    :gov.unit/official-url "http://www.yn.gov.cn"
    :gov.unit/wikidata "Q43194"
    :gov.unit/external-code ["iso3166-2:CN-YN"]
@@ -2259,6 +2295,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Shandong"
+   :gov.unit/name-local "山东省"
+   :gov.unit/name-romanized "Shāndōng Shěng"
    :gov.unit/official-url "http://www.sd.gov.cn"
    :gov.unit/wikidata "Q43407"
    :gov.unit/external-code ["iso3166-2:CN-SD"]
@@ -2272,6 +2310,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Henan"
+   :gov.unit/name-local "河南省"
+   :gov.unit/name-romanized "Hénán Shěng"
    :gov.unit/official-url "http://www.henan.gov.cn"
    :gov.unit/wikidata "Q43684"
    :gov.unit/external-code ["iso3166-2:CN-HA"]
@@ -2285,6 +2325,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Liaoning"
+   :gov.unit/name-local "辽宁省"
+   :gov.unit/name-romanized "Liáoníng Shěng"
    :gov.unit/official-url "http://www.ln.gov.cn"
    :gov.unit/wikidata "Q43934"
    :gov.unit/external-code ["iso3166-2:CN-LN"]
@@ -2298,6 +2340,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Jilin"
+   :gov.unit/name-local "吉林省"
+   :gov.unit/name-romanized "Jílín Shěng"
    :gov.unit/official-url "http://www.jl.gov.cn"
    :gov.unit/wikidata "Q45208"
    :gov.unit/external-code ["iso3166-2:CN-JL"]
@@ -2311,6 +2355,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Hunan"
+   :gov.unit/name-local "湖南省"
+   :gov.unit/name-romanized "Húnán Shěng"
    :gov.unit/official-url "http://www.hunan.gov.cn"
    :gov.unit/wikidata "Q45761"
    :gov.unit/external-code ["iso3166-2:CN-HN"]
@@ -2324,6 +2370,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Qinghai"
+   :gov.unit/name-local "青海省"
+   :gov.unit/name-romanized "Qīnghǎi Shěng"
    :gov.unit/official-url "http://www.qh.gov.cn/"
    :gov.unit/wikidata "Q45833"
    :gov.unit/external-code ["iso3166-2:CN-QH"]
@@ -2337,6 +2385,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Hubei"
+   :gov.unit/name-local "湖北省"
+   :gov.unit/name-romanized "Húběi Shěng"
    :gov.unit/official-url "http://www.hubei.gov.cn"
    :gov.unit/wikidata "Q46862"
    :gov.unit/external-code ["iso3166-2:CN-HB"]
@@ -2350,6 +2400,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Shanxi"
+   :gov.unit/name-local "山西省"
+   :gov.unit/name-romanized "Shānxī Shěng"
    :gov.unit/official-url "http://www.shanxi.gov.cn"
    :gov.unit/wikidata "Q46913"
    :gov.unit/external-code ["iso3166-2:CN-SX"]
@@ -2363,6 +2415,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Guizhou"
+   :gov.unit/name-local "贵州省"
+   :gov.unit/name-romanized "Guìzhōu Shěng"
    :gov.unit/official-url "http://www.gzgov.gov.cn"
    :gov.unit/wikidata "Q47097"
    :gov.unit/external-code ["iso3166-2:CN-GZ"]
@@ -2376,6 +2430,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Shaanxi"
+   :gov.unit/name-local "陕西省"
+   :gov.unit/name-romanized "Shǎnxī Shěng"
    :gov.unit/official-url "http://www.shaanxi.gov.cn"
    :gov.unit/wikidata "Q47974"
    :gov.unit/external-code ["iso3166-2:CN-SN"]
@@ -2389,6 +2445,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Jiangxi"
+   :gov.unit/name-local "江西省"
+   :gov.unit/name-romanized "Jiāngxī Shěng"
    :gov.unit/official-url "http://www.jiangxi.gov.cn/"
    :gov.unit/wikidata "Q57052"
    :gov.unit/external-code ["iso3166-2:CN-JX"]
@@ -2402,6 +2460,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ningxia"
+   :gov.unit/name-local "宁夏回族自治区"
+   :gov.unit/name-romanized "Níngxià Huízú Zìzhìqū"
    :gov.unit/official-url "http://www.nx.gov.cn"
    :gov.unit/wikidata "Q57448"
    :gov.unit/external-code ["iso3166-2:CN-NX"]
@@ -2415,6 +2475,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Hong Kong"
+   :gov.unit/name-local "香港特别行政区"
+   :gov.unit/name-romanized "Xiānggǎng Tèbié Xíngzhèngqū"
    :gov.unit/official-url "http://www.gov.hk"
    :gov.unit/wikidata "Q8646"
    :gov.unit/external-code ["iso3166-2:CN-HK"]
@@ -2428,6 +2490,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Shanghai"
+   :gov.unit/name-local "上海市"
+   :gov.unit/name-romanized "Shànghǎi Shì"
    :gov.unit/official-url "https://shanghai.gov.cn"
    :gov.unit/wikidata "Q8686"
    :gov.unit/external-code ["iso3166-2:CN-SH"]
@@ -2441,6 +2505,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Beijing"
+   :gov.unit/name-local "北京市"
+   :gov.unit/name-romanized "Běijīng Shì"
    :gov.unit/official-url "https://www.beijing.gov.cn/"
    :gov.unit/wikidata "Q956"
    :gov.unit/external-code ["iso3166-2:CN-BJ"]
@@ -5437,6 +5503,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Busan"
+   :gov.unit/name-local "부산광역시"
+   :gov.unit/name-romanized "Busan Gwangyeoksi"
    :gov.unit/official-url "https://www.busan.go.kr/"
    :gov.unit/wikidata "Q16520"
    :gov.unit/external-code ["iso3166-2:KR-26"]
@@ -5450,6 +5518,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Daejeon"
+   :gov.unit/name-local "대전광역시"
+   :gov.unit/name-romanized "Daejeon Gwangyeoksi"
    :gov.unit/official-url "https://www.daejeon.go.kr/"
    :gov.unit/wikidata "Q20921"
    :gov.unit/external-code ["iso3166-2:KR-30"]
@@ -5463,6 +5533,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Daegu"
+   :gov.unit/name-local "대구광역시"
+   :gov.unit/name-romanized "Daegu Gwangyeoksi"
    :gov.unit/official-url "https://www.daegu.go.kr"
    :gov.unit/wikidata "Q20927"
    :gov.unit/external-code ["iso3166-2:KR-27"]
@@ -5476,6 +5548,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Sejong"
+   :gov.unit/name-local "세종특별자치시"
+   :gov.unit/name-romanized "Sejong Teukbyeoljachisi"
    :gov.unit/official-url "http://www.sejong.go.kr"
    :gov.unit/wikidata "Q20929"
    :gov.unit/external-code ["iso3166-2:KR-50"]
@@ -5489,6 +5563,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Incheon"
+   :gov.unit/name-local "인천광역시"
+   :gov.unit/name-romanized "Incheon Gwangyeoksi"
    :gov.unit/official-url "https://www.incheon.go.kr/"
    :gov.unit/wikidata "Q20934"
    :gov.unit/external-code ["iso3166-2:KR-28"]
@@ -5502,6 +5578,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Gyeonggi Province"
+   :gov.unit/name-local "경기도"
+   :gov.unit/name-romanized "Gyeonggi-do"
    :gov.unit/official-url "https://www.gg.go.kr/"
    :gov.unit/wikidata "Q20937"
    :gov.unit/external-code ["iso3166-2:KR-41"]
@@ -5515,6 +5593,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "North Chungcheong"
+   :gov.unit/name-local "충청북도"
+   :gov.unit/name-romanized "Chungcheongbuk-do"
    :gov.unit/official-url "https://www.chungbuk.go.kr"
    :gov.unit/wikidata "Q41066"
    :gov.unit/external-code ["iso3166-2:KR-43"]
@@ -5528,6 +5608,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "South Chungcheong"
+   :gov.unit/name-local "충청남도"
+   :gov.unit/name-romanized "Chungcheongnam-do"
    :gov.unit/official-url "http://www.chungnam.go.kr/englishMain.do"
    :gov.unit/wikidata "Q41070"
    :gov.unit/external-code ["iso3166-2:KR-44"]
@@ -5541,6 +5623,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Gangwon Province"
+   :gov.unit/name-local "강원특별자치도"
+   :gov.unit/name-romanized "Gangwon Teukbyeoljachido"
    :gov.unit/official-url "https://state.gwd.go.kr/eng"
    :gov.unit/wikidata "Q41071"
    :gov.unit/external-code ["iso3166-2:KR-42"]
@@ -5554,6 +5638,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "South Gyeongsang"
+   :gov.unit/name-local "경상남도"
+   :gov.unit/name-romanized "Gyeongsangnam-do"
    :gov.unit/official-url "https://www.gyeongnam.go.kr/"
    :gov.unit/wikidata "Q41151"
    :gov.unit/external-code ["iso3166-2:KR-48"]
@@ -5567,6 +5653,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "North Gyeongsang"
+   :gov.unit/name-local "경상북도"
+   :gov.unit/name-romanized "Gyeongsangbuk-do"
    :gov.unit/official-url "http://www.gb.go.kr/eng/main/main.jsp"
    :gov.unit/wikidata "Q41154"
    :gov.unit/external-code ["iso3166-2:KR-47"]
@@ -5580,6 +5668,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "North Jeolla"
+   :gov.unit/name-local "전북특별자치도"
+   :gov.unit/name-romanized "Jeonbuk Teukbyeoljachido"
    :gov.unit/official-url "http://www.jeonbuk.go.kr"
    :gov.unit/wikidata "Q41157"
    :gov.unit/external-code ["iso3166-2:KR-45"]
@@ -5593,6 +5683,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Jeju Province"
+   :gov.unit/name-local "제주특별자치도"
+   :gov.unit/name-romanized "Jeju Teukbyeoljachido"
    :gov.unit/official-url "http://www.jeju.go.kr"
    :gov.unit/wikidata "Q41164"
    :gov.unit/external-code ["iso3166-2:KR-49"]
@@ -5606,6 +5698,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ulsan"
+   :gov.unit/name-local "울산광역시"
+   :gov.unit/name-romanized "Ulsan Gwangyeoksi"
    :gov.unit/official-url "https://www.ulsan.go.kr/"
    :gov.unit/wikidata "Q41278"
    :gov.unit/external-code ["iso3166-2:KR-31"]
@@ -5619,6 +5713,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Seoul"
+   :gov.unit/name-local "서울특별시"
+   :gov.unit/name-romanized "Seoul Teukbyeolsi"
    :gov.unit/official-url "https://english.seoul.go.kr/"
    :gov.unit/wikidata "Q8684"
    :gov.unit/external-code ["iso3166-2:KR-11"]

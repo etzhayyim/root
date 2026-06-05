@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — name-local axis extends to SUBDIVISIONS: CN/KR/EG/GR (1014 → 1103)
+
+Opened a new front for the endonym axis: SUBDIVISIONS of non-Latin jurisdictions had ZERO name-local
+(only the high-tier ministries/courts carried endonyms). Began with the 4 highest-reference clusters.
+6 web-research subagents (Wikidata native labels). **89 first-level-division endonyms added with
+romanization** (China 33 provinces, Korea 15, Egypt 27 governorates, Greece 14 regions).
+
+- all-units name-local: 1014 → **1103**; subdivision name-local: 0 → **89** (a brand-new tier).
+- China provinces in 简体中文 with official suffixes (安徽省/Ānhuī Shěng, 新疆维吾尔自治区, 香港特别行政区);
+  Korea in Hangul (서울특별시/Seoul Teukbyeolsi, 강원특별자치도 — reflects the 2023 Gangwon + 2024 Jeonbuk
+  Special Self-Governing Province upgrades); Egypt governorates in Arabic (القاهرة/al-Qāhira); Greece
+  regions in Greek (Περιφέρεια Αττικής; gr-69 = Άγιον Όρος autonomous monastic state). All romanized.
+- the /gov map already renders nameRomanized + makes it searchable, so these 89 provinces are now
+  findable by Latin reading too (e.g. "Ānhuī", "Gyeonggi", "al-Qāhira").
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN; index regen → 1103 with name-local.
+Hundreds more non-Latin subdivisions remain (Russia 85, Thailand 77, North Macedonia 81, Iran 31,
+Ukraine 26, …) — a long runway for future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — DATA-QUALITY: structural sweep — fix Brazil interior/justice slot collision
 
 Extended the data-quality pass beyond subdivisions to ALL units: scanned for dangling parent refs
