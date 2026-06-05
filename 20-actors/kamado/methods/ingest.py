@@ -24,7 +24,12 @@ CONSTITUTIONAL (kamado G1 / G4 / G7 / G8):
 
 stdlib only. Usage:
     python3 ingest.py --export data/ingest/legacy-oil-refining-export.sample.json [--out OUTDIR]
+    KOTOBA_JWT=<bearer> python3 ingest.py --push   # POST batch → live kotobase.net (G8; JWT = attestation)
     python3 ingest.py --live          # refused unless KAMADO_OPERATOR_GATE=1 (G8)
+
+The live target is the gftd kotobase endpoint (did:web:kotobase.net, etzhayyim/kotoba
+upstream): POST https://kotobase.net/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch, Bearer JWT.
+kg.ingest is a TENANT write (sub == tenant_did); datomic.transact is operator-only.
 """
 from __future__ import annotations
 
@@ -32,8 +37,15 @@ import json
 import os
 import pathlib
 import sys
+import urllib.error
+import urllib.request
 
 import analyze  # reuse the EDN reader + classify for dedup-vs-seed
+
+# Live kotoba endpoint (gftd kotobase — etzhayyim/kotoba upstream; did:web:kotobase.net).
+# Verified 2026-06-05: /health ok, kg.ingest_batch is a tenant write (Bearer gftd-AUTHN JWT).
+KOTOBASE_ENDPOINT = "https://kotobase.net"
+KG_INGEST_BATCH_NSID = "ai.gftd.apps.kotobase.kg.ingest_batch"
 
 # G4: fields that would tie a refinery to a natural person — refused on sight.
 PERSON_FIELDS = ("owner_person", "ceo", "person", "individual", "operator_person", "crew")
@@ -127,10 +139,11 @@ def dedup_vs_seed(migrated, seed_dict, idkey):
 
 
 # ── kotoba kg.ingest_batch (mirrors publish-actor-records.mjs recordToKgEntity) ──
-def _entity(eid, kind, label, row, relations):
+def _entity(eid, etype, label, row, relations):
+    # live kg.ingest contract (ai.gftd.apps.kotobase): {id, type?, label_*, claims?, relations?}
     claims = [{"pred": k.lstrip(":"), "value": str(v)}
               for k, v in row.items() if v not in (None, "", 0) or k.endswith("throughput-bpd")]
-    return {"id": eid, "kind": kind, "label_en": label, "claims": claims, "relations": relations}
+    return {"id": eid, "type": etype, "label_en": label, "claims": claims, "relations": relations}
 
 
 def to_kg_batch(refineries, units, outages):
@@ -145,6 +158,25 @@ def to_kg_batch(refineries, units, outages):
         entities.append(_entity(f"outage.{oid}", "refinery-outage", oid, o,
                                  [{"pred": "outage/unit", "target": f"unit.{o[':outage/unit']}"}]))
     return {"entities": entities}
+
+
+def push_batch(batch, jwt, endpoint=KOTOBASE_ENDPOINT, nsid=KG_INGEST_BATCH_NSID):
+    """POST the kg.ingest_batch to the LIVE kotoba endpoint (G8 — Bearer JWT = operator attestation).
+
+    Uses stdlib urllib (no third-party deps). Returns (status, body). kg.ingest is a TENANT
+    write (sub == tenant_did); datomic.transact is operator-only and not used here.
+    """
+    url = f"{endpoint.rstrip('/')}/xrpc/{nsid}"
+    data = json.dumps(batch, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(url, data=data, method="POST", headers={
+        "content-type": "application/json",
+        "authorization": f"Bearer {jwt}",
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return r.status, r.read().decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        return e.code, e.read().decode("utf-8", "replace")
 
 
 def render_edn(refineries, units, outages):
@@ -199,8 +231,21 @@ def main(argv):
     print(f"  merged vs seed: +{a1} refineries, +{a2} units, +{a3} outages new "
           f"(seed identity wins) → {out}/refinery-graph.migrated.kotoba.edn")
     print(f"  kg.ingest_batch: {len(batch['entities'])} entities → {out}/oil-refining-kotoba-batch.json")
+
+    if "--push" in argv:
+        # G8: the live push. A valid gftd-AUTHN JWT IS the operator attestation.
+        jwt = os.environ.get("KOTOBA_JWT")
+        if not jwt:
+            sys.exit("kamado G8: --push needs a gftd-AUTHN JWT. Set KOTOBA_JWT=<bearer> "
+                     "(tenant write; sub == tenant_did) then re-run. Target: "
+                     f"{KOTOBASE_ENDPOINT}/xrpc/{KG_INGEST_BATCH_NSID}.")
+        status, body = push_batch(batch, jwt)
+        print(f"  → POST {KOTOBASE_ENDPOINT}/xrpc/{KG_INGEST_BATCH_NSID}  [{status}]")
+        print(f"    {body[:400]}")
+        return 0 if 200 <= status < 300 else 1
+
     print("  promote to live kotoba/KV (operator-gated, G8):")
-    print("    POST $KOTOBA_ENDPOINT/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch  (refining graph)")
+    print(f"    KOTOBA_JWT=<bearer> python3 ingest.py --push   →  {KOTOBASE_ENDPOINT}/xrpc/{KG_INGEST_BATCH_NSID}  (refining graph)")
     print("    node ../../50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs "
           "--actor kamado --put-kv --ingest-kotoba   (actor-profile identity)")
     return 0

@@ -46,16 +46,23 @@ def test_g4_refuses_non_org_operator():
         ingest.migrate(bad)
 
 
-def test_kg_batch_shape_matches_publisher_entity_contract():
+def test_kg_batch_shape_matches_live_kotobase_contract():
+    """ai.gftd.apps.kotobase.kg.ingest {id, type?, label_*, claims?, relations?}."""
     ref, unit, outage = ingest.migrate(_export())
     batch = ingest.to_kg_batch(ref, unit, outage)
     assert len(batch["entities"]) == 12
     e0 = batch["entities"][0]
-    assert set(e0) == {"id", "kind", "label_en", "claims", "relations"}
+    assert set(e0) == {"id", "type", "label_en", "claims", "relations"}
     assert all("pred" in c and "value" in c for c in e0["claims"])
     # units carry a relation back to their refinery
-    units = [e for e in batch["entities"] if e["kind"] == "refinery-unit"]
+    units = [e for e in batch["entities"] if e["type"] == "refinery-unit"]
     assert units and units[0]["relations"][0]["pred"] == "unit/refinery"
+
+
+def test_push_refuses_without_jwt(monkeypatch):
+    monkeypatch.delenv("KOTOBA_JWT", raising=False)
+    with pytest.raises(SystemExit, match="G8"):
+        ingest.main(["ingest.py", "--push"])
 
 
 def test_live_migration_is_outward_gated(monkeypatch):

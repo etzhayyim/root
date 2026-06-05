@@ -60,17 +60,28 @@ bypassed), and **G7** (`:representative`).
 
 ## Promotion to live KV / kotoba (operator-gated, G8)
 
+Live kotoba endpoint VERIFIED 2026-06-05: **`https://kotobase.net`** (gftd kotobase,
+`did:web:kotobase.net`, etzhayyim/kotoba upstream; `/health` ok). The KG ingest surface is
+`POST https://kotobase.net/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch` `{entities:[...]}` —
+a **tenant write** (`sub == tenant_did`), `Authorization: Bearer <JWT>`. The JWT is issued by
+the gftd auth service `authn.gftd.ai` (its `sub` is the tenant DID); `datomic.transact` is
+operator-only and not used. `ingest.py` already emits the live `{id, type, label_en, claims,
+relations}` entity contract.
+
 Two independent surfaces, both Council Lv6+ + operator gated:
 
-1. **Domain data** (refinery/unit/outage) → the refining graph:
-   `POST $KOTOBA_ENDPOINT/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch` with
-   `out/oil-refining-kotoba-batch.json`. Live legacy read: `ingest.py --live` (refused unless
-   `KAMADO_OPERATOR_GATE=1`).
+1. **Domain data** (refinery/unit/outage) → the refining graph — one command:
+   ```
+   KOTOBA_JWT=<bearer> python3 20-actors/kamado/methods/ingest.py --push
+   ```
+   (refused with a G8 message if `KOTOBA_JWT` is unset). Live legacy *read* from a RisingWave
+   dump is the separate `ingest.py --live` path (refused unless `KAMADO_OPERATOR_GATE=1`).
 2. **Actor-profile identity** (already wired in the publisher):
    `node 50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs --actor kamado --put-kv --ingest-kotoba`
-   → CF KV `actor:kamado` + the `actors-v1` graph. This promotes kamado from the compiled
-   `INFRA_ACTORS` fallback to the live KV/kotoba source (identical output; KV just becomes
-   authoritative).
+   → CF KV `actor:kamado` + the `actors-v1` graph. NOTE: the publisher still targets the
+   internal `com.etzhayyim.apps.kotobase.*` nsid with a `kind` field; pointing it at the live
+   gftd `ai.gftd.apps.kotobase.*` + `type` contract is a shared-infra follow-up (the kamado
+   domain bridge above is already on the live contract).
 
 Until an operator runs the above, the apex Worker serves kamado from the compiled `INFRA_ACTORS`
 fallback (3-tier fail-open KV → kotoba → compiled), so `/actor/kamado/did.json` resolves today.
