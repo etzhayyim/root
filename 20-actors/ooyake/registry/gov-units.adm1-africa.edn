@@ -4363,6 +4363,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Murqub"
+   :gov.unit/name-local "المرقب"
+   :gov.unit/name-romanized "Al Marqab"
    :gov.unit/wikidata "Q209778"
    :gov.unit/external-code ["iso3166-2:LY-MB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4375,6 +4377,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jabal al Gharbi District"
+   :gov.unit/name-local "الجبل الغربي"
+   :gov.unit/name-romanized "Al Jabal al Gharbi"
    :gov.unit/wikidata "Q25632"
    :gov.unit/external-code ["iso3166-2:LY-JG"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4387,6 +4391,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Butnan District"
+   :gov.unit/name-local "البطنان"
+   :gov.unit/name-romanized "Al Butnan"
    :gov.unit/wikidata "Q25931"
    :gov.unit/external-code ["iso3166-2:LY-BU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4399,6 +4405,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Al Wahat District"
+   :gov.unit/name-local "الواحات"
+   :gov.unit/name-romanized "Al Wahat"
    :gov.unit/official-url "http://www.alwahatly.net"
    :gov.unit/wikidata "Q26000"
    :gov.unit/external-code ["iso3166-2:LY-WA"]
@@ -4412,6 +4420,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Marj District"
+   :gov.unit/name-local "المرج"
+   :gov.unit/name-romanized "Al Marj"
    :gov.unit/wikidata "Q26023"
    :gov.unit/external-code ["iso3166-2:LY-MJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4424,6 +4434,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Derna District"
+   :gov.unit/name-local "درنة"
+   :gov.unit/name-romanized "Darnah"
    :gov.unit/wikidata "Q26124"
    :gov.unit/external-code ["iso3166-2:LY-DR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4436,6 +4448,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Sabha District"
+   :gov.unit/name-local "سبها"
+   :gov.unit/name-romanized "Sabha"
    :gov.unit/wikidata "Q26132"
    :gov.unit/external-code ["iso3166-2:LY-SB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4448,6 +4462,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Zawiya District"
+   :gov.unit/name-local "الزاوية"
+   :gov.unit/name-romanized "Az Zawiyah"
    :gov.unit/wikidata "Q26153"
    :gov.unit/external-code ["iso3166-2:LY-ZA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4460,6 +4476,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Nuqat al Khams District"
+   :gov.unit/name-local "النقاط الخمس"
+   :gov.unit/name-romanized "An Nuqat al Khams"
    :gov.unit/wikidata "Q26161"
    :gov.unit/external-code ["iso3166-2:LY-NQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4472,6 +4490,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Sirte District"
+   :gov.unit/name-local "سرت"
+   :gov.unit/name-romanized "Surt"
    :gov.unit/wikidata "Q26417"
    :gov.unit/external-code ["iso3166-2:LY-SR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4484,6 +4504,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Nalut District"
+   :gov.unit/name-local "نالوت"
+   :gov.unit/name-romanized "Nalut"
    :gov.unit/wikidata "Q27659"
    :gov.unit/external-code ["iso3166-2:LY-NL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4496,6 +4518,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Tripoli District"
+   :gov.unit/name-local "طرابلس"
+   :gov.unit/name-romanized "Tarabulus"
    :gov.unit/wikidata "Q32837"
    :gov.unit/external-code ["iso3166-2:LY-TB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4508,6 +4532,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jabal al Akhdar"
+   :gov.unit/name-local "الجبل الأخضر"
+   :gov.unit/name-romanized "Al Jabal al Akhdar"
    :gov.unit/wikidata "Q32841"
    :gov.unit/external-code ["iso3166-2:LY-JA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4520,6 +4546,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Misrata District"
+   :gov.unit/name-local "مصراتة"
+   :gov.unit/name-romanized "Misratah"
    :gov.unit/wikidata "Q32845"
    :gov.unit/external-code ["iso3166-2:LY-MI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4532,6 +4560,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jafara"
+   :gov.unit/name-local "الجفارة"
+   :gov.unit/name-romanized "Al Jafarah"
    :gov.unit/wikidata "Q329060"
    :gov.unit/external-code ["iso3166-2:LY-JI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4544,6 +4574,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Benghazi"
+   :gov.unit/name-local "بنغازي"
+   :gov.unit/name-romanized "Banghazi"
    :gov.unit/official-url "http://benghazimun.ly/"
    :gov.unit/wikidata "Q40816"
    :gov.unit/external-code ["iso3166-2:LY-BA"]
@@ -4557,6 +4589,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Kufra District"
+   :gov.unit/name-local "الكفرة"
+   :gov.unit/name-romanized "Al Kufrah"
    :gov.unit/wikidata "Q48200"
    :gov.unit/external-code ["iso3166-2:LY-KF"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4569,6 +4603,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Wadi al Shatii District"
+   :gov.unit/name-local "وادي الشاطئ"
+   :gov.unit/name-romanized "Wadi ash Shati"
    :gov.unit/wikidata "Q48232"
    :gov.unit/external-code ["iso3166-2:LY-WS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4581,6 +4617,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Wadi al Hayaa District"
+   :gov.unit/name-local "وادي الحياة"
+   :gov.unit/name-romanized "Wadi al Hayat"
    :gov.unit/wikidata "Q48233"
    :gov.unit/external-code ["iso3166-2:LY-WD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4593,6 +4631,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Ghat District"
+   :gov.unit/name-local "غات"
+   :gov.unit/name-romanized "Ghat"
    :gov.unit/wikidata "Q48236"
    :gov.unit/external-code ["iso3166-2:LY-GT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4605,6 +4645,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Murzuq District"
+   :gov.unit/name-local "مرزق"
+   :gov.unit/name-romanized "Murzuq"
    :gov.unit/wikidata "Q48239"
    :gov.unit/external-code ["iso3166-2:LY-MQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4617,6 +4659,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jufra"
+   :gov.unit/name-local "الجفرة"
+   :gov.unit/name-romanized "Al Jufrah"
    :gov.unit/wikidata "Q48247"
    :gov.unit/external-code ["iso3166-2:LY-JU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
