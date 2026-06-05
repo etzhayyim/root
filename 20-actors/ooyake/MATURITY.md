@@ -43,6 +43,24 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Iran + Iraq + Tunisia (1430 → 1503)
+
+Continued the subdivision endonym front with the Persian + Arabic cluster. 7 web-research subagents
+(Wikidata native labels). **73 endonyms added with romanization** (Iran 31 provinces [Persian],
+Iraq 18 governorates [Arabic], Tunisia 24 governorates [Arabic]).
+
+- all-units name-local: 1430 → **1503** (crossed 1,500); subdivision name-local: 416 → **489**.
+- Iran استان<Name> (استان تهران/Ostan-e Tehran, استان خراسان رضوی; noun-first adjective order captured —
+  آذربایجان شرقی East Azarbaijan). Iraq محافظة<Name> (محافظة بغداد; Kurdish-region governorates Erbil/
+  Duhok/Sulaymaniyah given in Arabic per registry standard). Tunisia ولاية<Name> (ولاية تونس; Kef =
+  ولاية الكاف with the definite article; Wikidata ق form preferred over the regional ڨ glyph). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Khmer 24, Mongolia 22, Yemen 22, Myanmar 21, Maldives 20, Bhutan 20, Lao 17, Georgia/Armenia/
+Kazakhstan/Tajikistan/Kyrgyzstan, Greek-Cyprus, Bangladesh — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Serbia + Bulgaria + Ukraine Cyrillic (1346 → 1430)
 
 Continued the subdivision endonym front with a 3-country Cyrillic cluster. 7 web-research subagents

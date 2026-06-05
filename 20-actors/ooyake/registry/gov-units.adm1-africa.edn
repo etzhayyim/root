@@ -7703,6 +7703,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ariana Governorate"
+   :gov.unit/name-local "ولاية أريانة"
+   :gov.unit/name-romanized "Wilayat Aryanah"
    :gov.unit/wikidata "Q233116"
    :gov.unit/external-code ["iso3166-2:TN-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7715,6 +7717,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ben Arous Governorate"
+   :gov.unit/name-local "ولاية بن عروس"
+   :gov.unit/name-romanized "Wilayat Bin Arus"
    :gov.unit/official-url "https://www.gouvernorat-benarous.gov.tn/"
    :gov.unit/wikidata "Q238555"
    :gov.unit/external-code ["iso3166-2:TN-13"]
@@ -7728,6 +7732,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Bizerte Governorate"
+   :gov.unit/name-local "ولاية بنزرت"
+   :gov.unit/name-romanized "Wilayat Banzart"
    :gov.unit/official-url "http://www.gouvernorat-bizerte.gov.tn/"
    :gov.unit/wikidata "Q241129"
    :gov.unit/external-code ["iso3166-2:TN-23"]
@@ -7741,6 +7747,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Sfax Governorate"
+   :gov.unit/name-local "ولاية صفاقس"
+   :gov.unit/name-romanized "Wilayat Safaqis"
    :gov.unit/official-url "http://www.gouvernorat-sfax.gov.tn/"
    :gov.unit/wikidata "Q241145"
    :gov.unit/external-code ["iso3166-2:TN-61"]
@@ -7754,6 +7762,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Gabès Governorate"
+   :gov.unit/name-local "ولاية قابس"
+   :gov.unit/name-romanized "Wilayat Qabis"
    :gov.unit/official-url "https://www.internationalcitiesofpeace.org/cities-listing/gabes-gabes-governorate-tunisia/"
    :gov.unit/wikidata "Q242263"
    :gov.unit/external-code ["iso3166-2:TN-81"]
@@ -7767,6 +7777,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Gafsa Governorate"
+   :gov.unit/name-local "ولاية قفصة"
+   :gov.unit/name-romanized "Wilayat Qafsa"
    :gov.unit/official-url "http://www.gouvernorat-gafsa.gov.tn/"
    :gov.unit/wikidata "Q269968"
    :gov.unit/external-code ["iso3166-2:TN-71"]
@@ -7780,6 +7792,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Sousse Governorate"
+   :gov.unit/name-local "ولاية سوسة"
+   :gov.unit/name-romanized "Wilayat Susa"
    :gov.unit/official-url "https://www.tripadvisor.co.uk/Tourism-g2629162-Sousse_Governorate-Vacations.html"
    :gov.unit/wikidata "Q276565"
    :gov.unit/external-code ["iso3166-2:TN-51"]
@@ -7793,6 +7807,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kairouan Governorate"
+   :gov.unit/name-local "ولاية القيروان"
+   :gov.unit/name-romanized "Wilayat al-Qayrawan"
    :gov.unit/official-url "https://www.getyourguide.co.uk/kairouan-governorate-l2212/?visitor-id=HKC0F19TSX2EJ272G21OEF6AYMZBDPNZ&locale_autoredirect_optout=true"
    :gov.unit/wikidata "Q276574"
    :gov.unit/external-code ["iso3166-2:TN-41"]
@@ -7806,6 +7822,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Béja Governorate"
+   :gov.unit/name-local "ولاية باجة"
+   :gov.unit/name-romanized "Wilayat Bajah"
    :gov.unit/official-url "http://www.gouvernorat-beja.gov.tn/"
    :gov.unit/wikidata "Q276576"
    :gov.unit/external-code ["iso3166-2:TN-31"]
@@ -7819,6 +7837,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Jendouba Governorate"
+   :gov.unit/name-local "ولاية جندوبة"
+   :gov.unit/name-romanized "Wilayat Jundubah"
    :gov.unit/official-url "http://www.gouvernorat-jendouba.gov.tn/"
    :gov.unit/wikidata "Q276580"
    :gov.unit/external-code ["iso3166-2:TN-32"]
@@ -7832,6 +7852,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Zaghouan Governorate"
+   :gov.unit/name-local "ولاية زغوان"
+   :gov.unit/name-romanized "Wilayat Zaghwan"
    :gov.unit/official-url "http://www.zaghouan.tn/"
    :gov.unit/wikidata "Q27916"
    :gov.unit/external-code ["iso3166-2:TN-22"]
@@ -7845,6 +7867,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kebili Governorate"
+   :gov.unit/name-local "ولاية قبلي"
+   :gov.unit/name-romanized "Wilayat Qibili"
    :gov.unit/wikidata "Q286063"
    :gov.unit/external-code ["iso3166-2:TN-73"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7857,6 +7881,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Monastir Governorate"
+   :gov.unit/name-local "ولاية المنستير"
+   :gov.unit/name-romanized "Wilayat al-Munastir"
    :gov.unit/official-url "https://g-monastir.tn"
    :gov.unit/wikidata "Q318102"
    :gov.unit/external-code ["iso3166-2:TN-52"]
@@ -7870,6 +7896,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tataouine Governorate"
+   :gov.unit/name-local "ولاية تطاوين"
+   :gov.unit/name-romanized "Wilayat Tatawin"
    :gov.unit/wikidata "Q327045"
    :gov.unit/external-code ["iso3166-2:TN-83"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7882,6 +7910,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Medenine Governorate"
+   :gov.unit/name-local "ولاية مدنين"
+   :gov.unit/name-romanized "Wilayat Madanin"
    :gov.unit/wikidata "Q327087"
    :gov.unit/external-code ["iso3166-2:TN-82"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7894,6 +7924,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Sidi Bouzid Governorate"
+   :gov.unit/name-local "ولاية سيدي بوزيد"
+   :gov.unit/name-romanized "Wilayat Sidi Bu Zayd"
    :gov.unit/wikidata "Q327097"
    :gov.unit/external-code ["iso3166-2:TN-43"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7906,6 +7938,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tunis Governorate"
+   :gov.unit/name-local "ولاية تونس"
+   :gov.unit/name-romanized "Wilayat Tunis"
    :gov.unit/official-url "https://gouvernorat-tunis.gov.tn/"
    :gov.unit/wikidata "Q328109"
    :gov.unit/external-code ["iso3166-2:TN-11"]
@@ -7919,6 +7953,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Siliana Governorate"
+   :gov.unit/name-local "ولاية سليانة"
+   :gov.unit/name-romanized "Wilayat Silyanah"
    :gov.unit/wikidata "Q328115"
    :gov.unit/external-code ["iso3166-2:TN-34"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7931,6 +7967,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Nabeul Governorate"
+   :gov.unit/name-local "ولاية نابل"
+   :gov.unit/name-romanized "Wilayat Nabul"
    :gov.unit/official-url "http://www.nabeul.gov.tn/"
    :gov.unit/wikidata "Q328145"
    :gov.unit/external-code ["iso3166-2:TN-21"]
@@ -7944,6 +7982,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Mahdia Governorate"
+   :gov.unit/name-local "ولاية المهدية"
+   :gov.unit/name-romanized "Wilayat al-Mahdiyya"
    :gov.unit/official-url "http://www.gouvernorat-mahdia.tn/"
    :gov.unit/wikidata "Q328164"
    :gov.unit/external-code ["iso3166-2:TN-53"]
@@ -7957,6 +7997,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kef Governorate"
+   :gov.unit/name-local "ولاية الكاف"
+   :gov.unit/name-romanized "Wilayat al-Kaf"
    :gov.unit/official-url "https://www.citypopulation.de/en/tunisia/mun/admin/23__kef/"
    :gov.unit/wikidata "Q328199"
    :gov.unit/external-code ["iso3166-2:TN-33"]
@@ -7970,6 +8012,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kasserine Governorate"
+   :gov.unit/name-local "ولاية القصرين"
+   :gov.unit/name-romanized "Wilayat al-Qasrayn"
    :gov.unit/official-url "https://portail-region-kasserine.tn/"
    :gov.unit/wikidata "Q388047"
    :gov.unit/external-code ["iso3166-2:TN-42"]
@@ -7983,6 +8027,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tozeur Governorate"
+   :gov.unit/name-local "ولاية توزر"
+   :gov.unit/name-romanized "Wilayat Tawzar"
    :gov.unit/wikidata "Q388059"
    :gov.unit/external-code ["iso3166-2:TN-72"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7995,6 +8041,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Manouba Governorate"
+   :gov.unit/name-local "ولاية منوبة"
+   :gov.unit/name-romanized "Wilayat Manubah"
    :gov.unit/wikidata "Q734328"
    :gov.unit/external-code ["iso3166-2:TN-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

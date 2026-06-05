@@ -3480,6 +3480,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Fars Province"
+   :gov.unit/name-local "استان فارس"
+   :gov.unit/name-romanized "Ostan-e Fars"
    :gov.unit/official-url "https://farsp.ir/"
    :gov.unit/wikidata "Q1004666"
    :gov.unit/external-code ["iso3166-2:IR-07"]
@@ -3493,6 +3495,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Qazvin Province"
+   :gov.unit/name-local "استان قزوین"
+   :gov.unit/name-romanized "Ostan-e Qazvin"
    :gov.unit/official-url "https://ostan-qz.ir"
    :gov.unit/wikidata "Q1105893"
    :gov.unit/external-code ["iso3166-2:IR-26"]
@@ -3506,6 +3510,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Lorestan Province"
+   :gov.unit/name-local "استان لرستان"
+   :gov.unit/name-romanized "Ostan-e Lorestan"
    :gov.unit/official-url "http://www.ostan-lr.ir/"
    :gov.unit/wikidata "Q1131727"
    :gov.unit/external-code ["iso3166-2:IR-15"]
@@ -3519,6 +3525,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Qom Province"
+   :gov.unit/name-local "استان قم"
+   :gov.unit/name-romanized "Ostan-e Qom"
    :gov.unit/official-url "http://www.ghom.ir/"
    :gov.unit/wikidata "Q131664"
    :gov.unit/external-code ["iso3166-2:IR-25"]
@@ -3532,6 +3540,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Bushehr Province"
+   :gov.unit/name-local "استان بوشهر"
+   :gov.unit/name-romanized "Ostan-e Bushehr"
    :gov.unit/official-url "https://ostb.ir"
    :gov.unit/wikidata "Q132945"
    :gov.unit/external-code ["iso3166-2:IR-18"]
@@ -3545,6 +3555,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ardabil Province"
+   :gov.unit/name-local "استان اردبیل"
+   :gov.unit/name-romanized "Ostan-e Ardabil"
    :gov.unit/official-url "http://ardabil.ostan-ar.ir/"
    :gov.unit/wikidata "Q134228"
    :gov.unit/external-code ["iso3166-2:IR-24"]
@@ -3558,6 +3570,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kurdistan Province"
+   :gov.unit/name-local "استان کردستان"
+   :gov.unit/name-romanized "Ostan-e Kordestan"
    :gov.unit/official-url "https://ostan-kd.ir/"
    :gov.unit/wikidata "Q134386"
    :gov.unit/external-code ["iso3166-2:IR-12"]
@@ -3571,6 +3585,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "West Azarbaijan Province"
+   :gov.unit/name-local "استان آذربایجان غربی"
+   :gov.unit/name-romanized "Ostan-e Azarbayjan-e Gharbi"
    :gov.unit/official-url "http://www.ostan-ag.gov.ir"
    :gov.unit/wikidata "Q134411"
    :gov.unit/external-code ["iso3166-2:IR-04"]
@@ -3584,6 +3600,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Markazi Province"
+   :gov.unit/name-local "استان مرکزی"
+   :gov.unit/name-romanized "Ostan-e Markazi"
    :gov.unit/official-url "https://ostan-mr.ir/"
    :gov.unit/wikidata "Q134417"
    :gov.unit/external-code ["iso3166-2:IR-00"]
@@ -3597,6 +3615,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Isfahan Province"
+   :gov.unit/name-local "استان اصفهان"
+   :gov.unit/name-romanized "Ostan-e Esfahan"
    :gov.unit/official-url "http://www.ostan-es.ir/"
    :gov.unit/wikidata "Q1367759"
    :gov.unit/external-code ["iso3166-2:IR-10"]
@@ -3610,6 +3630,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Zanjan Province"
+   :gov.unit/name-local "استان زنجان"
+   :gov.unit/name-romanized "Ostan-e Zanjan"
    :gov.unit/official-url "https://ostandari-zn.ir"
    :gov.unit/wikidata "Q146726"
    :gov.unit/external-code ["iso3166-2:IR-19"]
@@ -3623,6 +3645,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kerman Province"
+   :gov.unit/name-local "استان کرمان"
+   :gov.unit/name-romanized "Ostan-e Kerman"
    :gov.unit/official-url "http://gov.kr.ir/"
    :gov.unit/wikidata "Q165352"
    :gov.unit/external-code ["iso3166-2:IR-08"]
@@ -3636,6 +3660,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Semnan Province"
+   :gov.unit/name-local "استان سمنان"
+   :gov.unit/name-romanized "Ostan-e Semnan"
    :gov.unit/official-url "http://www.ostan-sm.ir"
    :gov.unit/wikidata "Q168949"
    :gov.unit/external-code ["iso3166-2:IR-20"]
@@ -3649,6 +3675,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Golestan Province"
+   :gov.unit/name-local "استان گلستان"
+   :gov.unit/name-romanized "Ostan-e Golestan"
    :gov.unit/official-url "https://golestanp.ir"
    :gov.unit/wikidata "Q170041"
    :gov.unit/external-code ["iso3166-2:IR-27"]
@@ -3662,6 +3690,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Yazd Province"
+   :gov.unit/name-local "استان یزد"
+   :gov.unit/name-romanized "Ostan-e Yazd"
    :gov.unit/official-url "https://ostanyazd.ir"
    :gov.unit/wikidata "Q170568"
    :gov.unit/external-code ["iso3166-2:IR-21"]
@@ -3675,6 +3705,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ilam Province"
+   :gov.unit/name-local "استان ایلام"
+   :gov.unit/name-romanized "Ostan-e Ilam"
    :gov.unit/official-url "http://www.portal-il.ir/"
    :gov.unit/wikidata "Q170570"
    :gov.unit/external-code ["iso3166-2:IR-16"]
@@ -3688,6 +3720,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "South Khorasan Province"
+   :gov.unit/name-local "استان خراسان جنوبی"
+   :gov.unit/name-romanized "Ostan-e Khorasan-e Jonubi"
    :gov.unit/official-url "https://www.sko.ir"
    :gov.unit/wikidata "Q171551"
    :gov.unit/external-code ["iso3166-2:IR-29"]
@@ -3701,6 +3735,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Chaharmahal and Bakhtiari Province"
+   :gov.unit/name-local "استان چهارمحال و بختیاری"
+   :gov.unit/name-romanized "Ostan-e Chahar Mahal va Bakhtiari"
    :gov.unit/official-url "https://ostan-chb.ir"
    :gov.unit/wikidata "Q171702"
    :gov.unit/external-code ["iso3166-2:IR-14"]
@@ -3714,6 +3750,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kermanshah Province"
+   :gov.unit/name-local "استان کرمانشاه"
+   :gov.unit/name-romanized "Ostan-e Kermanshah"
    :gov.unit/official-url "http://ostan-ks.ir/"
    :gov.unit/wikidata "Q174010"
    :gov.unit/external-code ["iso3166-2:IR-05"]
@@ -3727,6 +3765,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "East Azarbaijan Province"
+   :gov.unit/name-local "استان آذربایجان شرقی"
+   :gov.unit/name-romanized "Ostan-e Azarbayjan-e Sharqi"
    :gov.unit/official-url "http://ostan-as.gov.ir"
    :gov.unit/wikidata "Q176081"
    :gov.unit/external-code ["iso3166-2:IR-03"]
@@ -3740,6 +3780,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Kohgiluyeh and Boyer-Ahmad Province"
+   :gov.unit/name-local "استان کهگیلویه و بویراحمد"
+   :gov.unit/name-romanized "Ostan-e Kohgiluyeh va Buyer Ahmad"
    :gov.unit/official-url "http://www.ostan-kb.ir"
    :gov.unit/wikidata "Q180068"
    :gov.unit/external-code ["iso3166-2:IR-17"]
@@ -3753,6 +3795,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "North Khorasan Province"
+   :gov.unit/name-local "استان خراسان شمالی"
+   :gov.unit/name-romanized "Ostan-e Khorasan-e Shomali"
    :gov.unit/official-url "https://nkhorasan.ir"
    :gov.unit/wikidata "Q180075"
    :gov.unit/external-code ["iso3166-2:IR-28"]
@@ -3766,6 +3810,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Hamadan Province"
+   :gov.unit/name-local "استان همدان"
+   :gov.unit/name-romanized "Ostan-e Hamadan"
    :gov.unit/official-url "https://www.ostan-hm.ir/"
    :gov.unit/wikidata "Q187373"
    :gov.unit/external-code ["iso3166-2:IR-13"]
@@ -3779,6 +3825,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Khuzestan Province"
+   :gov.unit/name-local "استان خوزستان"
+   :gov.unit/name-romanized "Ostan-e Khuzestan"
    :gov.unit/official-url "http://www.ostan-kz.ir"
    :gov.unit/wikidata "Q241119"
    :gov.unit/external-code ["iso3166-2:IR-06"]
@@ -3792,6 +3840,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Mazandaran Province"
+   :gov.unit/name-local "استان مازندران"
+   :gov.unit/name-romanized "Ostan-e Mazandaran"
    :gov.unit/official-url "https://ostan-mz.ir"
    :gov.unit/wikidata "Q308864"
    :gov.unit/external-code ["iso3166-2:IR-02"]
@@ -3805,6 +3855,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Alborz Province"
+   :gov.unit/name-local "استان البرز"
+   :gov.unit/name-romanized "Ostan-e Alborz"
    :gov.unit/official-url "https://www.alborz.ir"
    :gov.unit/wikidata "Q392522"
    :gov.unit/external-code ["iso3166-2:IR-30"]
@@ -3818,6 +3870,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Razavi Khorasan Province"
+   :gov.unit/name-local "استان خراسان رضوی"
+   :gov.unit/name-romanized "Ostan-e Khorasan-e Razavi"
    :gov.unit/official-url "https://ostandari.khorasan.ir/"
    :gov.unit/wikidata "Q587090"
    :gov.unit/external-code ["iso3166-2:IR-09"]
@@ -3831,6 +3885,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Tehran Province"
+   :gov.unit/name-local "استان تهران"
+   :gov.unit/name-romanized "Ostan-e Tehran"
    :gov.unit/official-url "https://ostan-th.ir"
    :gov.unit/wikidata "Q590866"
    :gov.unit/external-code ["iso3166-2:IR-23"]
@@ -3844,6 +3900,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Hormozgan Province"
+   :gov.unit/name-local "استان هرمزگان"
+   :gov.unit/name-romanized "Ostan-e Hormozgan"
    :gov.unit/official-url "https://hormozgan.ir"
    :gov.unit/wikidata "Q633659"
    :gov.unit/external-code ["iso3166-2:IR-22"]
@@ -3857,6 +3915,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Gilan Province"
+   :gov.unit/name-local "استان گیلان"
+   :gov.unit/name-romanized "Ostan-e Gilan"
    :gov.unit/official-url "https://www.gilan.ir/"
    :gov.unit/wikidata "Q928828"
    :gov.unit/external-code ["iso3166-2:IR-01"]
@@ -3870,6 +3930,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Sistan and Baluchestan Province"
+   :gov.unit/name-local "استان سیستان و بلوچستان"
+   :gov.unit/name-romanized "Ostan-e Sistan va Baluchestan"
    :gov.unit/official-url "http://www.sbportal.ir"
    :gov.unit/wikidata "Q939575"
    :gov.unit/external-code ["iso3166-2:IR-11"]
@@ -3883,6 +3945,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Al Anbar Governorate"
+   :gov.unit/name-local "محافظة الأنبار"
+   :gov.unit/name-romanized "Muhafazat al-Anbar"
    :gov.unit/official-url "https://anbar.iq/"
    :gov.unit/wikidata "Q187334"
    :gov.unit/external-code ["iso3166-2:IQ-AN"]
@@ -3896,6 +3960,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Nineveh Governorate"
+   :gov.unit/name-local "محافظة نينوى"
+   :gov.unit/name-romanized "Muhafazat Naynawa"
    :gov.unit/official-url "https://www.ninava.gov.iq/"
    :gov.unit/wikidata "Q189352"
    :gov.unit/external-code ["iso3166-2:IQ-NI"]
@@ -3909,6 +3975,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Duhok Governorate"
+   :gov.unit/name-local "محافظة دهوك"
+   :gov.unit/name-romanized "Muhafazat Dahuk"
    :gov.unit/official-url "http://www.duhokgov.org"
    :gov.unit/wikidata "Q189541"
    :gov.unit/external-code ["iso3166-2:IQ-DA"]
@@ -3922,6 +3990,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Wasit Governorate"
+   :gov.unit/name-local "محافظة واسط"
+   :gov.unit/name-romanized "Muhafazat Wasit"
    :gov.unit/official-url "https://wasit.gov.iq/"
    :gov.unit/wikidata "Q189747"
    :gov.unit/external-code ["iso3166-2:IQ-WA"]
@@ -3935,6 +4005,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Saladin Governorate"
+   :gov.unit/name-local "محافظة صلاح الدين"
+   :gov.unit/name-romanized "Muhafazat Salah ad-Din"
    :gov.unit/official-url "https://salahaldeen.gov.iq/"
    :gov.unit/wikidata "Q190131"
    :gov.unit/external-code ["iso3166-2:IQ-SD"]
@@ -3948,6 +4020,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Baghdad Governorate"
+   :gov.unit/name-local "محافظة بغداد"
+   :gov.unit/name-romanized "Muhafazat Baghdad"
    :gov.unit/official-url "http://www.baghdad.gov.iq/"
    :gov.unit/wikidata "Q191075"
    :gov.unit/external-code ["iso3166-2:IQ-BG"]
@@ -3961,6 +4035,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Najaf Governorate"
+   :gov.unit/name-local "محافظة النجف"
+   :gov.unit/name-romanized "Muhafazat an-Najaf"
    :gov.unit/official-url "https://najaf.gov.iq/"
    :gov.unit/wikidata "Q192882"
    :gov.unit/external-code ["iso3166-2:IQ-NA"]
@@ -3974,6 +4050,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Kirkuk Governorate"
+   :gov.unit/name-local "محافظة كركوك"
+   :gov.unit/name-romanized "Muhafazat Karkuk"
    :gov.unit/official-url "https://www.kirkuk.gov.iq/"
    :gov.unit/wikidata "Q193268"
    :gov.unit/external-code ["iso3166-2:IQ-KI"]
@@ -3987,6 +4065,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Basra Governorate"
+   :gov.unit/name-local "محافظة البصرة"
+   :gov.unit/name-romanized "Muhafazat al-Basra"
    :gov.unit/official-url "http://en.basrahgov.com/index.php"
    :gov.unit/wikidata "Q193551"
    :gov.unit/external-code ["iso3166-2:IQ-BA"]
@@ -4000,6 +4080,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Al Muthanna Governorate"
+   :gov.unit/name-local "محافظة المثنى"
+   :gov.unit/name-romanized "Muhafazat al-Muthanna"
    :gov.unit/official-url "https://muthana.gov.iq/"
    :gov.unit/wikidata "Q212761"
    :gov.unit/external-code ["iso3166-2:IQ-MU"]
@@ -4013,6 +4095,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Maysan Governorate"
+   :gov.unit/name-local "محافظة ميسان"
+   :gov.unit/name-romanized "Muhafazat Maysan"
    :gov.unit/official-url "https://www.maysan.gov.iq/"
    :gov.unit/wikidata "Q213170"
    :gov.unit/external-code ["iso3166-2:IQ-MA"]
@@ -4026,6 +4110,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Sulaymaniyah Governorate"
+   :gov.unit/name-local "محافظة السليمانية"
+   :gov.unit/name-romanized "Muhafazat as-Sulaymaniyyah"
    :gov.unit/official-url "http://www.slemani.gov.krd/"
    :gov.unit/wikidata "Q213182"
    :gov.unit/external-code ["iso3166-2:IQ-SU"]
@@ -4039,6 +4125,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Erbil Governorate"
+   :gov.unit/name-local "محافظة أربيل"
+   :gov.unit/name-romanized "Muhafazat Arbil"
    :gov.unit/official-url "https://www.hawlergov.org/"
    :gov.unit/wikidata "Q213189"
    :gov.unit/external-code ["iso3166-2:IQ-AR"]
@@ -4052,6 +4140,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Karbala Governorate"
+   :gov.unit/name-local "محافظة كربلاء"
+   :gov.unit/name-romanized "Muhafazat Karbala"
    :gov.unit/official-url "https://karbala.gov.iq/"
    :gov.unit/wikidata "Q214104"
    :gov.unit/external-code ["iso3166-2:IQ-KA"]
@@ -4065,6 +4155,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Dhi Qar Governorate"
+   :gov.unit/name-local "محافظة ذي قار"
+   :gov.unit/name-romanized "Muhafazat Dhi Qar"
    :gov.unit/official-url "https://thiqar.gov.iq/"
    :gov.unit/wikidata "Q215649"
    :gov.unit/external-code ["iso3166-2:IQ-DQ"]
@@ -4078,6 +4170,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Diyala Governorate"
+   :gov.unit/name-local "محافظة ديالى"
+   :gov.unit/name-romanized "Muhafazat Diyala"
    :gov.unit/official-url "https://diyala.gov.iq/"
    :gov.unit/wikidata "Q217075"
    :gov.unit/external-code ["iso3166-2:IQ-DI"]
@@ -4091,6 +4185,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Babylon Governorate"
+   :gov.unit/name-local "محافظة بابل"
+   :gov.unit/name-romanized "Muhafazat Babil"
    :gov.unit/official-url "https://www.babel.gov.iq/"
    :gov.unit/wikidata "Q59202"
    :gov.unit/external-code ["iso3166-2:IQ-BB"]
@@ -4104,6 +4200,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Al-Qādisiyyah Governorate"
+   :gov.unit/name-local "محافظة القادسية"
+   :gov.unit/name-romanized "Muhafazat al-Qadisiyyah"
    :gov.unit/official-url "https://diwaniya.gov.iq/"
    :gov.unit/wikidata "Q62987"
    :gov.unit/external-code ["iso3166-2:IQ-QA"]
