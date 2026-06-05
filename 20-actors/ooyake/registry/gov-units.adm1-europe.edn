@@ -455,6 +455,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Gabrovo"
+   :gov.unit/name-local "Област Габрово"
+   :gov.unit/name-romanized "Oblast Gabrovo"
    :gov.unit/official-url "http://www.gb.government.bg/"
    :gov.unit/wikidata "Q1007272"
    :gov.unit/external-code ["iso3166-2:BG-07"]
@@ -468,6 +470,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Kardzhali"
+   :gov.unit/name-local "Област Кърджали"
+   :gov.unit/name-romanized "Oblast Kardzhali"
    :gov.unit/official-url "http://www.kj.government.bg/"
    :gov.unit/wikidata "Q1104675"
    :gov.unit/external-code ["iso3166-2:BG-09"]
@@ -481,6 +485,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Kyustendil"
+   :gov.unit/name-local "Област Кюстендил"
+   :gov.unit/name-romanized "Oblast Kyustendil"
    :gov.unit/official-url "https://kn.egov.bg"
    :gov.unit/wikidata "Q1112985"
    :gov.unit/external-code ["iso3166-2:BG-10"]
@@ -494,6 +500,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Sliven"
+   :gov.unit/name-local "Област Сливен"
+   :gov.unit/name-romanized "Oblast Sliven"
    :gov.unit/official-url "http://www.sliven.government.bg/"
    :gov.unit/wikidata "Q113120"
    :gov.unit/external-code ["iso3166-2:BG-20"]
@@ -507,6 +515,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ruse"
+   :gov.unit/name-local "Област Русе"
+   :gov.unit/name-romanized "Oblast Ruse"
    :gov.unit/official-url "https://obshtinaruse.bg/"
    :gov.unit/wikidata "Q1251933"
    :gov.unit/external-code ["iso3166-2:BG-18"]
@@ -520,6 +530,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Sofia City"
+   :gov.unit/name-local "Област София (столица)"
+   :gov.unit/name-romanized "Oblast Sofia (stolitsa)"
    :gov.unit/official-url "http://www.sf.government.bg/"
    :gov.unit/wikidata "Q1585725"
    :gov.unit/external-code ["iso3166-2:BG-22"]
@@ -533,6 +545,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Haskovo"
+   :gov.unit/name-local "Област Хасково"
+   :gov.unit/name-romanized "Oblast Haskovo"
    :gov.unit/official-url "http://hs.government.bg"
    :gov.unit/wikidata "Q182809"
    :gov.unit/external-code ["iso3166-2:BG-26"]
@@ -546,6 +560,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Varna"
+   :gov.unit/name-local "Област Варна"
+   :gov.unit/name-romanized "Oblast Varna"
    :gov.unit/official-url "http://www.vn.government.bg/"
    :gov.unit/wikidata "Q183487"
    :gov.unit/external-code ["iso3166-2:BG-03"]
@@ -559,6 +575,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Shumen"
+   :gov.unit/name-local "Област Шумен"
+   :gov.unit/name-romanized "Oblast Shumen"
    :gov.unit/official-url "http://www.sh.government.bg"
    :gov.unit/wikidata "Q184981"
    :gov.unit/external-code ["iso3166-2:BG-27"]
@@ -572,6 +590,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Plovdiv"
+   :gov.unit/name-local "Област Пловдив"
+   :gov.unit/name-romanized "Oblast Plovdiv"
    :gov.unit/official-url "http://www.pd.government.bg/"
    :gov.unit/wikidata "Q187874"
    :gov.unit/external-code ["iso3166-2:BG-16"]
@@ -585,6 +605,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Montana Oblast"
+   :gov.unit/name-local "Област Монтана"
+   :gov.unit/name-romanized "Oblast Montana"
    :gov.unit/official-url "https://montanaoblast.egov.bg/"
    :gov.unit/wikidata "Q2012057"
    :gov.unit/external-code ["iso3166-2:BG-12"]
@@ -598,6 +620,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Pazardzhik"
+   :gov.unit/name-local "Област Пазарджик"
+   :gov.unit/name-romanized "Oblast Pazardzhik"
    :gov.unit/official-url "http://www.pz.government.bg/"
    :gov.unit/wikidata "Q2012227"
    :gov.unit/external-code ["iso3166-2:BG-13"]
@@ -611,6 +635,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Pernik"
+   :gov.unit/name-local "Област Перник"
+   :gov.unit/name-romanized "Oblast Pernik"
    :gov.unit/official-url "https://www.pk.government.bg/"
    :gov.unit/wikidata "Q2012234"
    :gov.unit/external-code ["iso3166-2:BG-14"]
@@ -624,6 +650,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Pleven"
+   :gov.unit/name-local "Област Плевен"
+   :gov.unit/name-romanized "Oblast Pleven"
    :gov.unit/official-url "http://www.pleven-oblast.bg/"
    :gov.unit/wikidata "Q2012242"
    :gov.unit/external-code ["iso3166-2:BG-15"]
@@ -637,6 +665,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Silistra"
+   :gov.unit/name-local "Област Силистра"
+   :gov.unit/name-romanized "Oblast Silistra"
    :gov.unit/official-url "http://www.ss.government.bg/"
    :gov.unit/wikidata "Q2012423"
    :gov.unit/external-code ["iso3166-2:BG-19"]
@@ -650,6 +680,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Smolyan"
+   :gov.unit/name-local "Област Смолян"
+   :gov.unit/name-romanized "Oblast Smolyan"
    :gov.unit/official-url "http://www.region-smolyan.org/"
    :gov.unit/wikidata "Q2012430"
    :gov.unit/external-code ["iso3166-2:BG-21"]
@@ -663,6 +695,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Stara Zagora"
+   :gov.unit/name-local "Област Стара Загора"
+   :gov.unit/name-romanized "Oblast Stara Zagora"
    :gov.unit/official-url "http://www.sz.government.bg/"
    :gov.unit/wikidata "Q2012583"
    :gov.unit/external-code ["iso3166-2:BG-24"]
@@ -676,6 +710,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Targovishte"
+   :gov.unit/name-local "Област Търговище"
+   :gov.unit/name-romanized "Oblast Targovishte"
    :gov.unit/official-url "http://www.tg.government.bg/"
    :gov.unit/wikidata "Q2012589"
    :gov.unit/external-code ["iso3166-2:BG-25"]
@@ -689,6 +725,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Veliko Tarnovo"
+   :gov.unit/name-local "Област Велико Търново"
+   :gov.unit/name-romanized "Oblast Veliko Tarnovo"
    :gov.unit/official-url "http://www.vt.government.bg/"
    :gov.unit/wikidata "Q2012621"
    :gov.unit/external-code ["iso3166-2:BG-04"]
@@ -702,6 +740,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Vidin"
+   :gov.unit/name-local "Област Видин"
+   :gov.unit/name-romanized "Oblast Vidin"
    :gov.unit/official-url "http://www.vidin.government.bg/"
    :gov.unit/wikidata "Q2012772"
    :gov.unit/external-code ["iso3166-2:BG-05"]
@@ -715,6 +755,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Vratsa"
+   :gov.unit/name-local "Област Враца"
+   :gov.unit/name-romanized "Oblast Vratsa"
    :gov.unit/official-url "http://www.oblast.vratsa.bg/"
    :gov.unit/wikidata "Q2012785"
    :gov.unit/external-code ["iso3166-2:BG-06"]
@@ -728,6 +770,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Sofia Oblast"
+   :gov.unit/name-local "Софийска област"
+   :gov.unit/name-romanized "Sofiyska oblast"
    :gov.unit/official-url "https://sofoblast.egov.bg/"
    :gov.unit/wikidata "Q202904"
    :gov.unit/external-code ["iso3166-2:BG-23"]
@@ -741,6 +785,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Yambol"
+   :gov.unit/name-local "Област Ямбол"
+   :gov.unit/name-romanized "Oblast Yambol"
    :gov.unit/official-url "http://yambol.government.bg/stk/"
    :gov.unit/wikidata "Q220736"
    :gov.unit/external-code ["iso3166-2:BG-28"]
@@ -754,6 +800,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Razgrad"
+   :gov.unit/name-local "Област Разград"
+   :gov.unit/name-romanized "Oblast Razgrad"
    :gov.unit/official-url "https://razgrad-oblast.egov.bg/wps/portal/district-razgrad/home"
    :gov.unit/wikidata "Q2790675"
    :gov.unit/external-code ["iso3166-2:BG-17"]
@@ -767,6 +815,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Burgas"
+   :gov.unit/name-local "Област Бургас"
+   :gov.unit/name-romanized "Oblast Burgas"
    :gov.unit/official-url "http://www.bsregion.org/"
    :gov.unit/wikidata "Q369220"
    :gov.unit/external-code ["iso3166-2:BG-02"]
@@ -780,6 +830,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Lovech"
+   :gov.unit/name-local "Област Ловеч"
+   :gov.unit/name-romanized "Oblast Lovech"
    :gov.unit/official-url "https://lovech.government.bg/"
    :gov.unit/wikidata "Q6587068"
    :gov.unit/external-code ["iso3166-2:BG-11"]
@@ -793,6 +845,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Blagoevgrad"
+   :gov.unit/name-local "Област Благоевград"
+   :gov.unit/name-romanized "Oblast Blagoevgrad"
    :gov.unit/official-url "http://www.bl.government.bg/"
    :gov.unit/wikidata "Q804311"
    :gov.unit/external-code ["iso3166-2:BG-01"]
@@ -806,6 +860,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Dobrich"
+   :gov.unit/name-local "Област Добрич"
+   :gov.unit/name-romanized "Oblast Dobrich"
    :gov.unit/official-url "http://www.dobrich-governor.org/"
    :gov.unit/wikidata "Q907395"
    :gov.unit/external-code ["iso3166-2:BG-08"]
@@ -10793,6 +10849,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Rasina District"
+   :gov.unit/name-local "Расински управни округ"
+   :gov.unit/name-romanized "Rasinski upravni okrug"
    :gov.unit/official-url "http://www.rasinskiokrug.org.rs/"
    :gov.unit/wikidata "Q1043446"
    :gov.unit/external-code ["iso3166-2:RS-19"]
@@ -10806,6 +10864,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Kolubara District"
+   :gov.unit/name-local "Колубарски управни округ"
+   :gov.unit/name-romanized "Kolubarski upravni okrug"
    :gov.unit/official-url "http://www.kolubarski.okrug.gov.rs/"
    :gov.unit/wikidata "Q1048139"
    :gov.unit/external-code ["iso3166-2:RS-09"]
@@ -10819,6 +10879,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Toplica District"
+   :gov.unit/name-local "Топлички управни округ"
+   :gov.unit/name-romanized "Toplički upravni okrug"
    :gov.unit/official-url "http://www.toplicki.okrug.gov.rs/"
    :gov.unit/wikidata "Q1048184"
    :gov.unit/external-code ["iso3166-2:RS-21"]
@@ -10832,6 +10894,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Nišava District"
+   :gov.unit/name-local "Нишавски управни округ"
+   :gov.unit/name-romanized "Nišavski upravni okrug"
    :gov.unit/official-url "http://www.nis.okrug.gov.rs/"
    :gov.unit/wikidata "Q1061076"
    :gov.unit/external-code ["iso3166-2:RS-20"]
@@ -10845,6 +10909,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Raška District"
+   :gov.unit/name-local "Рашки управни округ"
+   :gov.unit/name-romanized "Raški upravni okrug"
    :gov.unit/official-url "https://raski.okrug.gov.rs/"
    :gov.unit/wikidata "Q1061082"
    :gov.unit/external-code ["iso3166-2:RS-18"]
@@ -10858,6 +10924,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Pčinja District"
+   :gov.unit/name-local "Пчињски управни округ"
+   :gov.unit/name-romanized "Pčinjski upravni okrug"
    :gov.unit/official-url "http://www.pcinjski.okrug.gov.rs/"
    :gov.unit/wikidata "Q1061099"
    :gov.unit/external-code ["iso3166-2:RS-24"]
@@ -10871,6 +10939,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Kosovo-Pomoravlje District"
+   :gov.unit/name-local "Косовскопоморавски управни округ"
+   :gov.unit/name-romanized "Kosovskopomoravski upravni okrug"
    :gov.unit/wikidata "Q124725"
    :gov.unit/external-code ["iso3166-2:RS-29"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10883,6 +10953,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Kosovo District"
+   :gov.unit/name-local "Косовски управни округ"
+   :gov.unit/name-romanized "Kosovski upravni okrug"
    :gov.unit/wikidata "Q1452368"
    :gov.unit/external-code ["iso3166-2:RS-25"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10895,6 +10967,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Prizren District (Serbia)"
+   :gov.unit/name-local "Призренски управни округ"
+   :gov.unit/name-romanized "Prizrenski upravni okrug"
    :gov.unit/wikidata "Q201085"
    :gov.unit/external-code ["iso3166-2:RS-27"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10907,6 +10981,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Kosovska Mitrovica District"
+   :gov.unit/name-local "Косовскомитровачки управни округ"
+   :gov.unit/name-romanized "Kosovskomitrovački upravni okrug"
    :gov.unit/wikidata "Q2017517"
    :gov.unit/external-code ["iso3166-2:RS-28"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10919,6 +10995,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "City of Belgrade"
+   :gov.unit/name-local "Град Београд"
+   :gov.unit/name-romanized "Grad Beograd"
    :gov.unit/official-url "http://www.beograd.org.rs/"
    :gov.unit/wikidata "Q2074197"
    :gov.unit/external-code ["iso3166-2:RS-00"]
@@ -10932,6 +11010,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Srem District"
+   :gov.unit/name-local "Сремски управни округ"
+   :gov.unit/name-romanized "Sremski upravni okrug"
    :gov.unit/official-url "https://sremski.okrug.gov.rs/"
    :gov.unit/wikidata "Q217331"
    :gov.unit/external-code ["iso3166-2:RS-07"]
@@ -10945,6 +11025,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Peć District"
+   :gov.unit/name-local "Пећки управни округ"
+   :gov.unit/name-romanized "Pećki upravni okrug"
    :gov.unit/wikidata "Q2510536"
    :gov.unit/external-code ["iso3166-2:RS-26"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10957,6 +11039,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Central Banat District"
+   :gov.unit/name-local "Средњобанатски управни округ"
+   :gov.unit/name-romanized "Srednjobanatski upravni okrug"
    :gov.unit/official-url "http://www.srednjobanatski.okrug.gov.rs/"
    :gov.unit/wikidata "Q425782"
    :gov.unit/external-code ["iso3166-2:RS-02"]
@@ -10970,6 +11054,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Bor District"
+   :gov.unit/name-local "Борски управни округ"
+   :gov.unit/name-romanized "Borski upravni okrug"
    :gov.unit/official-url "http://borski.okrug.gov.rs/"
    :gov.unit/wikidata "Q477586"
    :gov.unit/external-code ["iso3166-2:RS-14"]
@@ -10983,6 +11069,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Zlatibor District"
+   :gov.unit/name-local "Златиборски управни округ"
+   :gov.unit/name-romanized "Zlatiborski upravni okrug"
    :gov.unit/official-url "http://zlatiborski.okrug.gov.rs/"
    :gov.unit/wikidata "Q478278"
    :gov.unit/external-code ["iso3166-2:RS-16"]
@@ -10996,6 +11084,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Šumadija District"
+   :gov.unit/name-local "Шумадијски управни округ"
+   :gov.unit/name-romanized "Šumadijski upravni okrug"
    :gov.unit/official-url "http://www.sumadijski.okrug.gov.rs/"
    :gov.unit/wikidata "Q544118"
    :gov.unit/external-code ["iso3166-2:RS-12"]
@@ -11009,6 +11099,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Pirot District"
+   :gov.unit/name-local "Пиротски управни округ"
+   :gov.unit/name-romanized "Pirotski upravni okrug"
    :gov.unit/official-url "http://pirotski.okrug.gov.rs/"
    :gov.unit/wikidata "Q580069"
    :gov.unit/external-code ["iso3166-2:RS-22"]
@@ -11022,6 +11114,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "South Bačka District"
+   :gov.unit/name-local "Јужнобачки управни округ"
+   :gov.unit/name-romanized "Južnobački upravni okrug"
    :gov.unit/official-url "http://juznobacki.okrug.gov.rs"
    :gov.unit/wikidata "Q648718"
    :gov.unit/external-code ["iso3166-2:RS-06"]
@@ -11035,6 +11129,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "North Bačka District"
+   :gov.unit/name-local "Севернобачки управни округ"
+   :gov.unit/name-romanized "Severnobački upravni okrug"
    :gov.unit/official-url "http://www.severnobacki.okrug.gov.rs/"
    :gov.unit/wikidata "Q648758"
    :gov.unit/external-code ["iso3166-2:RS-01"]
@@ -11048,6 +11144,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "South Banat District"
+   :gov.unit/name-local "Јужнобанатски управни округ"
+   :gov.unit/name-romanized "Južnobanatski upravni okrug"
    :gov.unit/official-url "https://juznobanatski.okrug.gov.rs/"
    :gov.unit/wikidata "Q720030"
    :gov.unit/external-code ["iso3166-2:RS-04"]
@@ -11061,6 +11159,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "North Banat District"
+   :gov.unit/name-local "Севернобанатски управни округ"
+   :gov.unit/name-romanized "Severnobanatski upravni okrug"
    :gov.unit/official-url "http://severnobanatski.okrug.gov.rs/"
    :gov.unit/wikidata "Q728041"
    :gov.unit/external-code ["iso3166-2:RS-03"]
@@ -11074,6 +11174,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "West Bačka District"
+   :gov.unit/name-local "Западнобачки управни округ"
+   :gov.unit/name-romanized "Zapadnobački upravni okrug"
    :gov.unit/official-url "http://www.zapadnobacki.okrug.gov.rs/"
    :gov.unit/wikidata "Q735169"
    :gov.unit/external-code ["iso3166-2:RS-05"]
@@ -11087,6 +11189,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Podunavlje District"
+   :gov.unit/name-local "Подунавски управни округ"
+   :gov.unit/name-romanized "Podunavski upravni okrug"
    :gov.unit/official-url "https://www.podunavskiokrug.rs/"
    :gov.unit/wikidata "Q778561"
    :gov.unit/external-code ["iso3166-2:RS-10"]
@@ -11100,6 +11204,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Braničevo District"
+   :gov.unit/name-local "Браничевски управни округ"
+   :gov.unit/name-romanized "Braničevski upravni okrug"
    :gov.unit/official-url "http://branicevski.okrug.gov.rs/"
    :gov.unit/wikidata "Q861539"
    :gov.unit/external-code ["iso3166-2:RS-11"]
@@ -11113,6 +11219,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Mačva District"
+   :gov.unit/name-local "Мачвански управни округ"
+   :gov.unit/name-romanized "Mačvanski upravni okrug"
    :gov.unit/official-url "http://macvanski.okrug.gov.rs/macokr/"
    :gov.unit/wikidata "Q867803"
    :gov.unit/external-code ["iso3166-2:RS-08"]
@@ -11126,6 +11234,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Pomoravlje District"
+   :gov.unit/name-local "Поморавски управни округ"
+   :gov.unit/name-romanized "Pomoravski upravni okrug"
    :gov.unit/official-url "http://puo.rs/"
    :gov.unit/wikidata "Q867816"
    :gov.unit/external-code ["iso3166-2:RS-13"]
@@ -11139,6 +11249,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Jablanica District"
+   :gov.unit/name-local "Јабланички управни округ"
+   :gov.unit/name-romanized "Jablanički upravni okrug"
    :gov.unit/official-url "http://jablanicki.okrug.gov.rs/"
    :gov.unit/wikidata "Q876541"
    :gov.unit/external-code ["iso3166-2:RS-23"]
@@ -11152,6 +11264,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Moravica District"
+   :gov.unit/name-local "Моравички управни округ"
+   :gov.unit/name-romanized "Moravički upravni okrug"
    :gov.unit/official-url "https://moravicki.okrug.gov.rs/"
    :gov.unit/wikidata "Q915380"
    :gov.unit/external-code ["iso3166-2:RS-17"]
@@ -11165,6 +11279,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Zaječar District"
+   :gov.unit/name-local "Зајечарски управни округ"
+   :gov.unit/name-romanized "Zaječarski upravni okrug"
    :gov.unit/official-url "https://zajecarski.okrug.gov.rs/"
    :gov.unit/wikidata "Q967339"
    :gov.unit/external-code ["iso3166-2:RS-15"]
@@ -14309,6 +14425,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Cherkasy Oblast"
+   :gov.unit/name-local "Черкаська область"
+   :gov.unit/name-romanized "Cherkaska oblast"
    :gov.unit/official-url "https://ck-oda.gov.ua/"
    :gov.unit/wikidata "Q161808"
    :gov.unit/external-code ["iso3166-2:UA-71"]
@@ -14322,6 +14440,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Kherson Oblast"
+   :gov.unit/name-local "Херсонська область"
+   :gov.unit/name-romanized "Khersonska oblast"
    :gov.unit/official-url "https://khoda.gov.ua/"
    :gov.unit/wikidata "Q163271"
    :gov.unit/external-code ["iso3166-2:UA-65"]
@@ -14335,6 +14455,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Lviv Oblast"
+   :gov.unit/name-local "Львівська область"
+   :gov.unit/name-romanized "Lvivska oblast"
    :gov.unit/official-url "http://www.loda.gov.ua"
    :gov.unit/wikidata "Q164193"
    :gov.unit/external-code ["iso3166-2:UA-46"]
@@ -14348,6 +14470,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Vinnytsia Oblast"
+   :gov.unit/name-local "Вінницька область"
+   :gov.unit/name-romanized "Vinnytska oblast"
    :gov.unit/official-url "http://www.vin.gov.ua"
    :gov.unit/wikidata "Q166709"
    :gov.unit/external-code ["iso3166-2:UA-05"]
@@ -14361,6 +14485,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Volyn Oblast"
+   :gov.unit/name-local "Волинська область"
+   :gov.unit/name-romanized "Volynska oblast"
    :gov.unit/official-url "https://voladm.gov.ua"
    :gov.unit/wikidata "Q167859"
    :gov.unit/external-code ["iso3166-2:UA-07"]
@@ -14374,6 +14500,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Chernihiv Oblast"
+   :gov.unit/name-local "Чернігівська область"
+   :gov.unit/name-romanized "Chernihivska oblast"
    :gov.unit/official-url "https://cg.gov.ua/"
    :gov.unit/wikidata "Q167874"
    :gov.unit/external-code ["iso3166-2:UA-74"]
@@ -14387,6 +14515,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Chernivtsi Oblast"
+   :gov.unit/name-local "Чернівецька область"
+   :gov.unit/name-romanized "Chernivetska oblast"
    :gov.unit/official-url "https://bukoda.gov.ua/"
    :gov.unit/wikidata "Q168856"
    :gov.unit/external-code ["iso3166-2:UA-77"]
@@ -14400,6 +14530,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Poltava Oblast"
+   :gov.unit/name-local "Полтавська область"
+   :gov.unit/name-romanized "Poltavska oblast"
    :gov.unit/official-url "http://www.adm-pl.gov.ua/"
    :gov.unit/wikidata "Q169501"
    :gov.unit/external-code ["iso3166-2:UA-53"]
@@ -14413,6 +14545,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Kyiv Oblast"
+   :gov.unit/name-local "Київська область"
+   :gov.unit/name-romanized "Kyivska oblast"
    :gov.unit/official-url "http://www.kor.gov.ua"
    :gov.unit/wikidata "Q170036"
    :gov.unit/external-code ["iso3166-2:UA-32"]
@@ -14426,6 +14560,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Zakarpattia Oblast"
+   :gov.unit/name-local "Закарпатська область"
+   :gov.unit/name-romanized "Zakarpatska oblast"
    :gov.unit/official-url "https://carpathia.gov.ua/"
    :gov.unit/wikidata "Q170213"
    :gov.unit/external-code ["iso3166-2:UA-21"]
@@ -14439,6 +14575,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Sumy Oblast"
+   :gov.unit/name-local "Сумська область"
+   :gov.unit/name-romanized "Sumska oblast"
    :gov.unit/official-url "http://sm.gov.ua/"
    :gov.unit/wikidata "Q170446"
    :gov.unit/external-code ["iso3166-2:UA-59"]
@@ -14452,6 +14590,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Kharkiv Oblast"
+   :gov.unit/name-local "Харківська область"
+   :gov.unit/name-romanized "Kharkivska oblast"
    :gov.unit/official-url "https://kharkivoda.gov.ua/"
    :gov.unit/wikidata "Q170666"
    :gov.unit/external-code ["iso3166-2:UA-63"]
@@ -14465,6 +14605,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Dnipropetrovsk Oblast"
+   :gov.unit/name-local "Дніпропетровська область"
+   :gov.unit/name-romanized "Dnipropetrovska oblast"
    :gov.unit/official-url "http://www.adm.dp.gov.ua/"
    :gov.unit/wikidata "Q170672"
    :gov.unit/external-code ["iso3166-2:UA-12"]
@@ -14478,6 +14620,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Khmelnytskyi Oblast"
+   :gov.unit/name-local "Хмельницька область"
+   :gov.unit/name-romanized "Khmelnytska oblast"
    :gov.unit/official-url "http://adm-km.gov.ua"
    :gov.unit/wikidata "Q171331"
    :gov.unit/external-code ["iso3166-2:UA-68"]
@@ -14491,6 +14635,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Zaporizhzhia Oblast"
+   :gov.unit/name-local "Запорізька область"
+   :gov.unit/name-romanized "Zaporizka oblast"
    :gov.unit/official-url "https://www.zoda.gov.ua/"
    :gov.unit/wikidata "Q171334"
    :gov.unit/external-code ["iso3166-2:UA-23"]
@@ -14504,6 +14650,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Odesa Oblast"
+   :gov.unit/name-local "Одеська область"
+   :gov.unit/name-romanized "Odeska oblast"
    :gov.unit/official-url "https://oda.od.gov.ua/"
    :gov.unit/wikidata "Q171852"
    :gov.unit/external-code ["iso3166-2:UA-51"]
@@ -14517,6 +14665,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Luhansk Oblast"
+   :gov.unit/name-local "Луганська область"
+   :gov.unit/name-romanized "Luhanska oblast"
    :gov.unit/official-url "https://loga.gov.ua"
    :gov.unit/wikidata "Q171965"
    :gov.unit/external-code ["iso3166-2:UA-09"]
@@ -14530,6 +14680,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ternopil Oblast"
+   :gov.unit/name-local "Тернопільська область"
+   :gov.unit/name-romanized "Ternopilska oblast"
    :gov.unit/official-url "http://www.oda.te.gov.ua"
    :gov.unit/wikidata "Q173407"
    :gov.unit/external-code ["iso3166-2:UA-61"]
@@ -14543,6 +14695,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Rivne Oblast"
+   :gov.unit/name-local "Рівненська область"
+   :gov.unit/name-romanized "Rivnenska oblast"
    :gov.unit/official-url "https://www.rv.gov.ua/"
    :gov.unit/wikidata "Q174187"
    :gov.unit/external-code ["iso3166-2:UA-56"]
@@ -14556,6 +14710,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ivano-Frankivsk Oblast"
+   :gov.unit/name-local "Івано-Франківська область"
+   :gov.unit/name-romanized "Ivano-Frankivska oblast"
    :gov.unit/official-url "https://www.if.gov.ua/"
    :gov.unit/wikidata "Q178269"
    :gov.unit/external-code ["iso3166-2:UA-26"]
@@ -14569,6 +14725,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Kirovohrad Oblast"
+   :gov.unit/name-local "Кіровоградська область"
+   :gov.unit/name-romanized "Kirovohradska oblast"
    :gov.unit/official-url "http://www.kr-admin.gov.ua"
    :gov.unit/wikidata "Q180981"
    :gov.unit/external-code ["iso3166-2:UA-35"]
@@ -14582,6 +14740,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Mykolaiv Oblast"
+   :gov.unit/name-local "Миколаївська область"
+   :gov.unit/name-romanized "Mykolaivska oblast"
    :gov.unit/official-url "http://www.mk.gov.ua/"
    :gov.unit/wikidata "Q181633"
    :gov.unit/external-code ["iso3166-2:UA-48"]
@@ -14595,6 +14755,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Kyiv"
+   :gov.unit/name-local "Київ"
+   :gov.unit/name-romanized "Kyiv"
    :gov.unit/official-url "https://kyivcity.gov.ua"
    :gov.unit/wikidata "Q1899"
    :gov.unit/external-code ["iso3166-2:UA-30"]
@@ -14608,6 +14770,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Donetsk Oblast"
+   :gov.unit/name-local "Донецька область"
+   :gov.unit/name-romanized "Donetska oblast"
    :gov.unit/official-url "https://dn.gov.ua"
    :gov.unit/wikidata "Q2012050"
    :gov.unit/external-code ["iso3166-2:UA-14"]
@@ -14621,6 +14785,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Zhytomyr Oblast"
+   :gov.unit/name-local "Житомирська область"
+   :gov.unit/name-romanized "Zhytomyrska oblast"
    :gov.unit/official-url "http://zt.gov.ua/"
    :gov.unit/wikidata "Q40637"
    :gov.unit/external-code ["iso3166-2:UA-18"]
@@ -14634,6 +14800,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Autonomous Republic of Crimea"
+   :gov.unit/name-local "Автономна Республіка Крим"
+   :gov.unit/name-romanized "Avtonomna Respublika Krym"
    :gov.unit/official-url "https://rada.crimea.ua"
    :gov.unit/wikidata "Q756294"
    :gov.unit/external-code ["iso3166-2:UA-43"]
