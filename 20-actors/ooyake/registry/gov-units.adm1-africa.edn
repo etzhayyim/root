@@ -4821,6 +4821,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Casablanca-Settat"
+   :gov.unit/name-local "الدار البيضاء سطات"
+   :gov.unit/name-romanized "Ad-Dar al-Bayda-Settat"
    :gov.unit/official-url "http://www.casablanca.ma/"
    :gov.unit/wikidata "Q19843788"
    :gov.unit/external-code ["iso3166-2:MA-06"]
@@ -4834,6 +4836,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Drâa-Tafilalet"
+   :gov.unit/name-local "درعة تافيلالت"
+   :gov.unit/name-romanized "Dara-Tafilalet"
    :gov.unit/official-url "https://www.draatafilalet.ma/"
    :gov.unit/wikidata "Q19950954"
    :gov.unit/external-code ["iso3166-2:MA-08"]
@@ -4847,6 +4851,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Fès-Meknès"
+   :gov.unit/name-local "فاس مكناس"
+   :gov.unit/name-romanized "Fas-Meknas"
    :gov.unit/official-url "http://www.region-fes-meknes.ma/"
    :gov.unit/wikidata "Q19951027"
    :gov.unit/external-code ["iso3166-2:MA-03"]
@@ -4860,6 +4866,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Guelmim-Oued Noun"
+   :gov.unit/name-local "كلميم واد نون"
+   :gov.unit/name-romanized "Guelmim-Oued Noun"
    :gov.unit/official-url "http://www.guelmiminvest.ma/donnees-generales.php"
    :gov.unit/wikidata "Q19951051"
    :gov.unit/external-code ["iso3166-2:MA-10"]
@@ -4873,6 +4881,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Laâyoune-Sakia El Hamra"
+   :gov.unit/name-local "العيون الساقية الحمراء"
+   :gov.unit/name-romanized "Al Ayoun-Saqia al-Hamra"
    :gov.unit/official-url "http://www.laayouneinvest.ma/source/crilaayoune.asp?codelangue=23&po=2"
    :gov.unit/wikidata "Q19951088"
    :gov.unit/external-code ["iso3166-2:MA-11"]
@@ -4886,6 +4896,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Marrakesh-Safi"
+   :gov.unit/name-local "مراكش آسفي"
+   :gov.unit/name-romanized "Marrakech-Asfi"
    :gov.unit/official-url "https://www.regionmarrakechsafi.com/"
    :gov.unit/wikidata "Q19951125"
    :gov.unit/external-code ["iso3166-2:MA-07"]
@@ -4899,6 +4911,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Rabat-Salé-Kénitra"
+   :gov.unit/name-local "الرباط سلا القنيطرة"
+   :gov.unit/name-romanized "Ar-Ribat-Sala-Al Qunaytira"
    :gov.unit/official-url "http://www.regionrsk.org/fr/"
    :gov.unit/wikidata "Q19951239"
    :gov.unit/external-code ["iso3166-2:MA-04"]
@@ -4912,6 +4926,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Tangier-Tetouan-Al Hoceima"
+   :gov.unit/name-local "طنجة تطوان الحسيمة"
+   :gov.unit/name-romanized "Tanja-Tetouan-Al Hoceima"
    :gov.unit/official-url "http://www.crtta.ma/"
    :gov.unit/wikidata "Q19951300"
    :gov.unit/external-code ["iso3166-2:MA-01"]
@@ -4925,6 +4941,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Béni Mellal-Khénifra"
+   :gov.unit/name-local "بني ملال خنيفرة"
+   :gov.unit/name-romanized "Beni Mellal-Khenifra"
    :gov.unit/official-url "http://www.benimellalkhenifra.ma"
    :gov.unit/wikidata "Q19953016"
    :gov.unit/external-code ["iso3166-2:MA-05"]
@@ -4938,6 +4956,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Souss-Massa"
+   :gov.unit/name-local "سوس ماسة"
+   :gov.unit/name-romanized "Sous-Massa"
    :gov.unit/official-url "https://www.soussmassa.ma/fr"
    :gov.unit/wikidata "Q20652586"
    :gov.unit/external-code ["iso3166-2:MA-09"]
@@ -4951,6 +4971,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Dakhla-Oued Ed-Dahab"
+   :gov.unit/name-local "الداخلة وادي الذهب"
+   :gov.unit/name-romanized "Ad-Dakhla-Oued Ed-Dahab"
    :gov.unit/official-url "https://www.hcp.ma/region-eddakhla/"
    :gov.unit/wikidata "Q21235104"
    :gov.unit/external-code ["iso3166-2:MA-12"]
@@ -4964,6 +4986,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Oriental"
+   :gov.unit/name-local "الشرق"
+   :gov.unit/name-romanized "Ash-Sharq"
    :gov.unit/official-url "http://www.oriental.ma/"
    :gov.unit/wikidata "Q23048167"
    :gov.unit/external-code ["iso3166-2:MA-02"]

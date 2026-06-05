@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Gulf + Maghreb Arabic (Morocco+Oman+Qatar+UAE+Kuwait+Bahrain) (1810 → 1859)
+
+Cleared the remaining Arabic-script subdivision sets across 6 states in one pass. 2 web-research
+subagents (Wikidata P1705 + ar Wikipedia). **49 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1810 → **1859**; subdivision name-local: 796 → **845**.
+- Morocco 12 regions (طنجة تطوان الحسيمة, الدار البيضاء سطات, مراكش آسفي; Oriental = الشرق).
+- Oman 11 (محافظة form; جنوب/شمال الباطنة + الشرقية pairs); Qatar 9 (بلدية form); UAE 7 (إمارة form);
+  Kuwait 6 + Bahrain 4 (محافظة; Bahrain Southern/Northern use adjectival المحافظة الجنوبية/الشمالية).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Arabic-script subdivision coverage now
+complete (DZ, LY, YE, SY, JO, MA, OM, QA, AE, KW, BH, IR, IQ + EG). Remaining non-Latin subdivision
+sets: North Korea 12 (Hangul), Sri Lanka 9 (Sinhala/Tamil), Bangladesh 8 (Bengali), Nepal 7
+(Devanagari), Tajikistan 5 (Cyrillic), Kyrgyzstan 1, plus scattered — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: S/SE Asia + Ge'ez (Bhutan+Maldives+Laos+Ethiopia) (1739 → 1810)
 
 Four more distinct scripts in one pass — Dzongkha (Tibetan), Thaana, Lao, Amharic Ge'ez. 4 web-research

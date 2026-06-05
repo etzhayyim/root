@@ -428,6 +428,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Ajman"
+   :gov.unit/name-local "إمارة عجمان"
+   :gov.unit/name-romanized "Imarat Ajman"
    :gov.unit/official-url "http://www.ajman.ae"
    :gov.unit/wikidata "Q159477"
    :gov.unit/external-code ["iso3166-2:AE-AJ"]
@@ -441,6 +443,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ras Al Khaimah"
+   :gov.unit/name-local "إمارة رأس الخيمة"
+   :gov.unit/name-romanized "Imarat Ras al-Khaymah"
    :gov.unit/official-url "http://rak.ae"
    :gov.unit/wikidata "Q170024"
    :gov.unit/external-code ["iso3166-2:AE-RK"]
@@ -454,6 +458,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Umm Al Quwain"
+   :gov.unit/name-local "إمارة أم القيوين"
+   :gov.unit/name-romanized "Imarat Umm al-Qaywayn"
    :gov.unit/official-url "https://www.uaq.ae"
    :gov.unit/wikidata "Q175021"
    :gov.unit/external-code ["iso3166-2:AE-UQ"]
@@ -467,6 +473,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Abu Dhabi"
+   :gov.unit/name-local "إمارة أبوظبي"
+   :gov.unit/name-romanized "Imarat Abu Zaby"
    :gov.unit/official-url "https://www.tamm.abudhabi/"
    :gov.unit/wikidata "Q187712"
    :gov.unit/external-code ["iso3166-2:AE-AZ"]
@@ -480,6 +488,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Sharjah"
+   :gov.unit/name-local "إمارة الشارقة"
+   :gov.unit/name-romanized "Imarat ash-Shariqah"
    :gov.unit/official-url "https://www.sharjah.ae/"
    :gov.unit/wikidata "Q188810"
    :gov.unit/external-code ["iso3166-2:AE-SH"]
@@ -493,6 +503,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Fujairah"
+   :gov.unit/name-local "إمارة الفجيرة"
+   :gov.unit/name-romanized "Imarat al-Fujayrah"
    :gov.unit/official-url "http://www.fujairah.ae/"
    :gov.unit/wikidata "Q4091"
    :gov.unit/external-code ["iso3166-2:AE-FU"]
@@ -506,6 +518,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Dubai"
+   :gov.unit/name-local "إمارة دبي"
+   :gov.unit/name-romanized "Imarat Dubayy"
    :gov.unit/official-url "http://www.dubai.ae"
    :gov.unit/wikidata "Q613"
    :gov.unit/external-code ["iso3166-2:AE-DU"]
@@ -1683,6 +1697,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Muharraq Governorate"
+   :gov.unit/name-local "محافظة المحرق"
+   :gov.unit/name-romanized "Muhafazat al-Muharraq"
    :gov.unit/official-url "http://www.muharraq.gov.bh/"
    :gov.unit/wikidata "Q375630"
    :gov.unit/external-code ["iso3166-2:BH-15"]
@@ -1696,6 +1712,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Capital Governorate"
+   :gov.unit/name-local "محافظة العاصمة"
+   :gov.unit/name-romanized "Muhafazat al-Asimah"
    :gov.unit/official-url "http://www.capital.gov.bh/"
    :gov.unit/wikidata "Q528953"
    :gov.unit/external-code ["iso3166-2:BH-13"]
@@ -1709,6 +1727,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Southern Governorate"
+   :gov.unit/name-local "المحافظة الجنوبية"
+   :gov.unit/name-romanized "al-Muhafazah al-Janubiyah"
    :gov.unit/official-url "http://www.southern.gov.bh/"
    :gov.unit/wikidata "Q838532"
    :gov.unit/external-code ["iso3166-2:BH-14"]
@@ -1722,6 +1742,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Northern Governorate"
+   :gov.unit/name-local "المحافظة الشمالية"
+   :gov.unit/name-romanized "al-Muhafazah ash-Shamaliyah"
    :gov.unit/official-url "http://www.northern.gov.bh/"
    :gov.unit/wikidata "Q840445"
    :gov.unit/external-code ["iso3166-2:BH-17"]
@@ -5996,6 +6018,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Capital Governorate"
+   :gov.unit/name-local "محافظة العاصمة"
+   :gov.unit/name-romanized "Muhafazat al-Asimah"
    :gov.unit/wikidata "Q1046645"
    :gov.unit/external-code ["iso3166-2:KW-KU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6008,6 +6032,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Farwaniya Governorate"
+   :gov.unit/name-local "محافظة الفروانية"
+   :gov.unit/name-romanized "Muhafazat al-Farwaniyah"
    :gov.unit/wikidata "Q1072757"
    :gov.unit/external-code ["iso3166-2:KW-FA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6020,6 +6046,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Al Jahra Governorate"
+   :gov.unit/name-local "محافظة الجهراء"
+   :gov.unit/name-romanized "Muhafazat al-Jahra"
    :gov.unit/wikidata "Q405701"
    :gov.unit/external-code ["iso3166-2:KW-JA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6032,6 +6060,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Al Ahmadi Governorate"
+   :gov.unit/name-local "محافظة الأحمدي"
+   :gov.unit/name-romanized "Muhafazat al-Ahmadi"
    :gov.unit/wikidata "Q552354"
    :gov.unit/external-code ["iso3166-2:KW-AH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6044,6 +6074,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Hawalli"
+   :gov.unit/name-local "محافظة حولي"
+   :gov.unit/name-romanized "Muhafazat Hawalli"
    :gov.unit/wikidata "Q747432"
    :gov.unit/external-code ["iso3166-2:KW-HA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6056,6 +6088,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Mubarak Al-Kabeer Governorate"
+   :gov.unit/name-local "محافظة مبارك الكبير"
+   :gov.unit/name-romanized "Muhafazat Mubarak al-Kabir"
    :gov.unit/wikidata "Q913370"
    :gov.unit/external-code ["iso3166-2:KW-MU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7700,6 +7734,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Dhofar Governorate"
+   :gov.unit/name-local "محافظة ظفار"
+   :gov.unit/name-romanized "Muhafazat Zufar"
    :gov.unit/official-url "http://www.dm.gov.om"
    :gov.unit/wikidata "Q1207752"
    :gov.unit/external-code ["iso3166-2:OM-ZU"]
@@ -7713,6 +7749,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Ad Dhahirah Governorate"
+   :gov.unit/name-local "محافظة الظاهرة"
+   :gov.unit/name-romanized "Muhafazat az-Zahirah"
    :gov.unit/wikidata "Q1468596"
    :gov.unit/external-code ["iso3166-2:OM-ZA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7725,6 +7763,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Musandam Governorate"
+   :gov.unit/name-local "محافظة مسندم"
+   :gov.unit/name-romanized "Muhafazat Musandam"
    :gov.unit/official-url "https://www.mg.gov.om/"
    :gov.unit/wikidata "Q372144"
    :gov.unit/external-code ["iso3166-2:OM-MU"]
@@ -7738,6 +7778,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Ash Sharqiyah North Governorate"
+   :gov.unit/name-local "محافظة شمال الشرقية"
+   :gov.unit/name-romanized "Muhafazat Shamal ash-Sharqiyah"
    :gov.unit/wikidata "Q4501876"
    :gov.unit/external-code ["iso3166-2:OM-SS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7750,6 +7792,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Ash Sharqiyah South Governorate"
+   :gov.unit/name-local "محافظة جنوب الشرقية"
+   :gov.unit/name-romanized "Muhafazat Janub ash-Sharqiyah"
    :gov.unit/wikidata "Q4501894"
    :gov.unit/external-code ["iso3166-2:OM-SJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7762,6 +7806,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Al Batinah North Governorate"
+   :gov.unit/name-local "محافظة شمال الباطنة"
+   :gov.unit/name-romanized "Muhafazat Shamal al-Batinah"
    :gov.unit/wikidata "Q4703564"
    :gov.unit/external-code ["iso3166-2:OM-BS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7774,6 +7820,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Al Batinah South Governorate"
+   :gov.unit/name-local "محافظة جنوب الباطنة"
+   :gov.unit/name-romanized "Muhafazat Janub al-Batinah"
    :gov.unit/wikidata "Q4703565"
    :gov.unit/external-code ["iso3166-2:OM-BJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7786,6 +7834,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Muscat Governorate"
+   :gov.unit/name-local "محافظة مسقط"
+   :gov.unit/name-romanized "Muhafazat Masqat"
    :gov.unit/wikidata "Q544762"
    :gov.unit/external-code ["iso3166-2:OM-MA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7798,6 +7848,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Ad Dakhiliyah Governorate"
+   :gov.unit/name-local "محافظة الداخلية"
+   :gov.unit/name-romanized "Muhafazat ad-Dakhiliyah"
    :gov.unit/wikidata "Q792550"
    :gov.unit/external-code ["iso3166-2:OM-DA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7810,6 +7862,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Al Buraimi Governorate"
+   :gov.unit/name-local "محافظة البريمي"
+   :gov.unit/name-romanized "Muhafazat al-Buraymi"
    :gov.unit/wikidata "Q852039"
    :gov.unit/external-code ["iso3166-2:OM-BU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7822,6 +7876,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Al Wusta Governorate"
+   :gov.unit/name-local "محافظة الوسطى"
+   :gov.unit/name-romanized "Muhafazat al-Wusta"
    :gov.unit/wikidata "Q958518"
    :gov.unit/external-code ["iso3166-2:OM-WU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8265,6 +8321,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Mesaieed"
+   :gov.unit/name-local "بلدية مسيعيد"
+   :gov.unit/name-romanized "Baladiyat Musayid"
    :gov.unit/official-url "http://www.mic.com.qa"
    :gov.unit/wikidata "Q1069900"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8277,6 +8335,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Al Jumaliyah"
+   :gov.unit/name-local "بلدية الجميلية"
+   :gov.unit/name-romanized "Baladiyat al-Jumayliyah"
    :gov.unit/wikidata "Q1147593"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q1147593" :gov.unit/last-verified "2026-06-03"
@@ -8288,6 +8348,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Al Khor"
+   :gov.unit/name-local "بلدية الخور"
+   :gov.unit/name-romanized "Baladiyat al-Khawr"
    :gov.unit/wikidata "Q1156471"
    :gov.unit/external-code ["iso3166-2:QA-KH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8300,6 +8362,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Al Shamal"
+   :gov.unit/name-local "بلدية الشمال"
+   :gov.unit/name-romanized "Baladiyat ash-Shamal"
    :gov.unit/wikidata "Q310872"
    :gov.unit/external-code ["iso3166-2:QA-MS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8312,6 +8376,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Al Wakrah"
+   :gov.unit/name-local "بلدية الوكرة"
+   :gov.unit/name-romanized "Baladiyat al-Wakrah"
    :gov.unit/official-url "https://www.doha.directory/municipality-office-of-al-wakra/i/671"
    :gov.unit/wikidata "Q310893"
    :gov.unit/external-code ["iso3166-2:QA-WA"]
@@ -8325,6 +8391,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Al Rayyan Municipality"
+   :gov.unit/name-local "بلدية الريان"
+   :gov.unit/name-romanized "Baladiyat ar-Rayyan"
    :gov.unit/official-url "http://www.mme.gov.qa/cui/index.dox?id=607&siteID=2"
    :gov.unit/wikidata "Q311272"
    :gov.unit/external-code ["iso3166-2:QA-RA"]
@@ -8338,6 +8406,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ad-Dawhah"
+   :gov.unit/name-local "بلدية الدوحة"
+   :gov.unit/name-romanized "Baladiyat ad-Dawhah"
    :gov.unit/wikidata "Q594208"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q594208" :gov.unit/last-verified "2026-06-03"
@@ -8349,6 +8419,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Al Ghuwariyah"
+   :gov.unit/name-local "بلدية الغويرية"
+   :gov.unit/name-romanized "Baladiyat al-Ghuwayriyah"
    :gov.unit/wikidata "Q623609"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q623609" :gov.unit/last-verified "2026-06-03"
@@ -8360,6 +8432,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Umm Salal Municipality"
+   :gov.unit/name-local "بلدية أم صلال"
+   :gov.unit/name-romanized "Baladiyat Umm Salal"
    :gov.unit/wikidata "Q990414"
    :gov.unit/external-code ["iso3166-2:QA-US"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
