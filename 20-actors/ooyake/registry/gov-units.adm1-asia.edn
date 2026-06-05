@@ -519,6 +519,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Aragatsotn Province"
+   :gov.unit/name-local "Արագածոտնի մարզ"
+   :gov.unit/name-romanized "Aragatsotni marz"
    :gov.unit/official-url "http://aragatsotn.mtad.am/"
    :gov.unit/wikidata "Q17915"
    :gov.unit/external-code ["iso3166-2:AM-AG"]
@@ -532,6 +534,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Yerevan"
+   :gov.unit/name-local "Երևան"
+   :gov.unit/name-romanized "Yerevan"
    :gov.unit/official-url "https://yerevan.am"
    :gov.unit/wikidata "Q1953"
    :gov.unit/external-code ["iso3166-2:AM-ER"]
@@ -545,6 +549,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ararat Province"
+   :gov.unit/name-local "Արարատի մարզ"
+   :gov.unit/name-romanized "Ararati marz"
    :gov.unit/official-url "http://ararat.mtad.am/"
    :gov.unit/wikidata "Q199880"
    :gov.unit/external-code ["iso3166-2:AM-AR"]
@@ -558,6 +564,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Gegharkunik Province"
+   :gov.unit/name-local "Գեղարքունիքի մարզ"
+   :gov.unit/name-romanized "Gegharkuniki marz"
    :gov.unit/official-url "http://gegharkunik.mtad.am/"
    :gov.unit/wikidata "Q199905"
    :gov.unit/external-code ["iso3166-2:AM-GR"]
@@ -571,6 +579,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Vayots Dzor Province"
+   :gov.unit/name-local "Վայոց ձորի մարզ"
+   :gov.unit/name-romanized "Vayots dzori marz"
    :gov.unit/official-url "http://vdzor.gov.am/"
    :gov.unit/wikidata "Q200124"
    :gov.unit/external-code ["iso3166-2:AM-VD"]
@@ -584,6 +594,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Lori Province"
+   :gov.unit/name-local "Լոռու մարզ"
+   :gov.unit/name-romanized "Lorru marz"
    :gov.unit/official-url "http://lori.mtad.am"
    :gov.unit/wikidata "Q200350"
    :gov.unit/external-code ["iso3166-2:AM-LO"]
@@ -597,6 +609,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Shirak Province"
+   :gov.unit/name-local "Շիրակի մարզ"
+   :gov.unit/name-romanized "Shiraki marz"
    :gov.unit/official-url "http://shirak.mtaes.am/"
    :gov.unit/wikidata "Q201063"
    :gov.unit/external-code ["iso3166-2:AM-SH"]
@@ -610,6 +624,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Tavush Province"
+   :gov.unit/name-local "Տավուշի մարզ"
+   :gov.unit/name-romanized "Tavushi marz"
    :gov.unit/official-url "http://tavush.mtad.am"
    :gov.unit/wikidata "Q201140"
    :gov.unit/external-code ["iso3166-2:AM-TV"]
@@ -623,6 +639,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Armavir Province"
+   :gov.unit/name-local "Արմավիրի մարզ"
+   :gov.unit/name-romanized "Armaviri marz"
    :gov.unit/official-url "http://armavir.gov.am/"
    :gov.unit/wikidata "Q201147"
    :gov.unit/external-code ["iso3166-2:AM-AV"]
@@ -636,6 +654,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Syunik Province"
+   :gov.unit/name-local "Սյունիքի մարզ"
+   :gov.unit/name-romanized "Syuniki marz"
    :gov.unit/official-url "http://syunik.mtaes.am/"
    :gov.unit/wikidata "Q2523428"
    :gov.unit/external-code ["iso3166-2:AM-SU"]
@@ -649,6 +669,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Kotayk Province"
+   :gov.unit/name-local "Կոտայքի մարզ"
+   :gov.unit/name-romanized "Kotayki marz"
    :gov.unit/official-url "http://kotayk.mtad.am/"
    :gov.unit/wikidata "Q4511"
    :gov.unit/external-code ["iso3166-2:AM-KT"]
@@ -5067,6 +5089,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Astana"
+   :gov.unit/name-local "Астана қаласы"
+   :gov.unit/name-romanized "Astana qalasy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/astana"
    :gov.unit/wikidata "Q1520"
    :gov.unit/external-code ["iso3166-2:KZ-71"]
@@ -5080,6 +5104,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Baikonur"
+   :gov.unit/name-local "Байқоңыр қаласы"
+   :gov.unit/name-romanized "Baiqonyr qalasy"
    :gov.unit/official-url "http://www.baikonuradm.ru"
    :gov.unit/wikidata "Q165413"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5092,6 +5118,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Almaty Region"
+   :gov.unit/name-local "Алматы облысы"
+   :gov.unit/name-romanized "Almaty oblysy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/almobl"
    :gov.unit/wikidata "Q186466"
    :gov.unit/external-code ["iso3166-2:KZ-19"]
@@ -5105,6 +5133,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Mangystau Region"
+   :gov.unit/name-local "Маңғыстау облысы"
+   :gov.unit/name-romanized "Mangystau oblysy"
    :gov.unit/official-url "http://mangystau.gov.kz/"
    :gov.unit/wikidata "Q238931"
    :gov.unit/external-code ["iso3166-2:KZ-47"]
@@ -5118,6 +5148,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Almaty"
+   :gov.unit/name-local "Алматы қаласы"
+   :gov.unit/name-romanized "Almaty qalasy"
    :gov.unit/official-url "https://almaty.kz"
    :gov.unit/wikidata "Q35493"
    :gov.unit/external-code ["iso3166-2:KZ-75"]
@@ -5131,6 +5163,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "East Kazakhstan Region"
+   :gov.unit/name-local "Шығыс Қазақстан облысы"
+   :gov.unit/name-romanized "Shygys Qazaqstan oblysy"
    :gov.unit/official-url "http://akimvko.gov.kz/"
    :gov.unit/wikidata "Q36156"
    :gov.unit/external-code ["iso3166-2:KZ-63"]
@@ -5144,6 +5178,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Atyrau Region"
+   :gov.unit/name-local "Атырау облысы"
+   :gov.unit/name-romanized "Atyrau oblysy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/atyrau"
    :gov.unit/wikidata "Q427658"
    :gov.unit/external-code ["iso3166-2:KZ-23"]
@@ -5157,6 +5193,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Akmola Region"
+   :gov.unit/name-local "Ақмола облысы"
+   :gov.unit/name-romanized "Aqmola oblysy"
    :gov.unit/official-url "http://akmo.gov.kz"
    :gov.unit/wikidata "Q485056"
    :gov.unit/external-code ["iso3166-2:KZ-11"]
@@ -5170,6 +5208,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "North Kazakhstan Region"
+   :gov.unit/name-local "Солтүстік Қазақстан облысы"
+   :gov.unit/name-romanized "Soltustik Qazaqstan oblysy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/sko"
    :gov.unit/wikidata "Q485088"
    :gov.unit/external-code ["iso3166-2:KZ-59"]
@@ -5183,6 +5223,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Kyzylorda Region"
+   :gov.unit/name-local "Қызылорда облысы"
+   :gov.unit/name-romanized "Qyzylorda oblysy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/kyzylorda"
    :gov.unit/wikidata "Q485322"
    :gov.unit/external-code ["iso3166-2:KZ-43"]
@@ -5196,6 +5238,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Karaganda Region"
+   :gov.unit/name-local "Қарағанды облысы"
+   :gov.unit/name-romanized "Qaragandy oblysy"
    :gov.unit/official-url "http://karaganda-region.gov.kz/"
    :gov.unit/wikidata "Q485429"
    :gov.unit/external-code ["iso3166-2:KZ-35"]
@@ -5209,6 +5253,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Aktobe Region"
+   :gov.unit/name-local "Ақтөбе облысы"
+   :gov.unit/name-romanized "Aqtobe oblysy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/aktobe"
    :gov.unit/wikidata "Q485437"
    :gov.unit/external-code ["iso3166-2:KZ-15"]
@@ -5222,6 +5268,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Shymkent"
+   :gov.unit/name-local "Шымкент қаласы"
+   :gov.unit/name-romanized "Shymkent qalasy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/shymkent"
    :gov.unit/wikidata "Q485496"
    :gov.unit/external-code ["iso3166-2:KZ-79"]
@@ -5235,6 +5283,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Kostanay Region"
+   :gov.unit/name-local "Қостанай облысы"
+   :gov.unit/name-romanized "Qostanai oblysy"
    :gov.unit/official-url "https://www.kostanay.gov.kz"
    :gov.unit/wikidata "Q485605"
    :gov.unit/external-code ["iso3166-2:KZ-39"]
@@ -5248,6 +5298,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "West Kazakhstan Region"
+   :gov.unit/name-local "Батыс Қазақстан облысы"
+   :gov.unit/name-romanized "Batys Qazaqstan oblysy"
    :gov.unit/official-url "http://bko.gov.kz"
    :gov.unit/wikidata "Q486007"
    :gov.unit/external-code ["iso3166-2:KZ-27"]
@@ -5261,6 +5313,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Pavlodar Region"
+   :gov.unit/name-local "Павлодар облысы"
+   :gov.unit/name-romanized "Pavlodar oblysy"
    :gov.unit/official-url "http://www.pavlodar.gov.kz"
    :gov.unit/wikidata "Q486144"
    :gov.unit/external-code ["iso3166-2:KZ-55"]
@@ -5274,6 +5328,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Jambyl Region"
+   :gov.unit/name-local "Жамбыл облысы"
+   :gov.unit/name-romanized "Jambyl oblysy"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/zhambyl"
    :gov.unit/wikidata "Q486657"
    :gov.unit/external-code ["iso3166-2:KZ-31"]
@@ -5287,6 +5343,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Turkistan Region"
+   :gov.unit/name-local "Түркістан облысы"
+   :gov.unit/name-romanized "Turkistan oblysy"
    :gov.unit/official-url "http://www.ontustik.gov.kz/"
    :gov.unit/wikidata "Q815330"
    :gov.unit/external-code ["iso3166-2:KZ-61"]
