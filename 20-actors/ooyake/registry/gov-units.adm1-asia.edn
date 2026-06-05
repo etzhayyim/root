@@ -3828,6 +3828,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Al Anbar Governorate"
+   :gov.unit/official-url "https://anbar.iq/"
    :gov.unit/wikidata "Q187334"
    :gov.unit/external-code ["iso3166-2:IQ-AN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3866,6 +3867,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Wasit Governorate"
+   :gov.unit/official-url "https://wasit.gov.iq/"
    :gov.unit/wikidata "Q189747"
    :gov.unit/external-code ["iso3166-2:IQ-WA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3878,6 +3880,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Saladin Governorate"
+   :gov.unit/official-url "https://salahaldeen.gov.iq/"
    :gov.unit/wikidata "Q190131"
    :gov.unit/external-code ["iso3166-2:IQ-SD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3903,6 +3906,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Najaf Governorate"
+   :gov.unit/official-url "https://najaf.gov.iq/"
    :gov.unit/wikidata "Q192882"
    :gov.unit/external-code ["iso3166-2:IQ-NA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3915,6 +3919,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Kirkuk Governorate"
+   :gov.unit/official-url "https://www.kirkuk.gov.iq/"
    :gov.unit/wikidata "Q193268"
    :gov.unit/external-code ["iso3166-2:IQ-KI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3940,6 +3945,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Al Muthanna Governorate"
+   :gov.unit/official-url "https://muthana.gov.iq/"
    :gov.unit/wikidata "Q212761"
    :gov.unit/external-code ["iso3166-2:IQ-MU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3952,6 +3958,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Maysan Governorate"
+   :gov.unit/official-url "https://www.maysan.gov.iq/"
    :gov.unit/wikidata "Q213170"
    :gov.unit/external-code ["iso3166-2:IQ-MA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3990,6 +3997,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Karbala Governorate"
+   :gov.unit/official-url "https://karbala.gov.iq/"
    :gov.unit/wikidata "Q214104"
    :gov.unit/external-code ["iso3166-2:IQ-KA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4002,6 +4010,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Dhi Qar Governorate"
+   :gov.unit/official-url "https://thiqar.gov.iq/"
    :gov.unit/wikidata "Q215649"
    :gov.unit/external-code ["iso3166-2:IQ-DQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4014,6 +4023,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Diyala Governorate"
+   :gov.unit/official-url "https://diyala.gov.iq/"
    :gov.unit/wikidata "Q217075"
    :gov.unit/external-code ["iso3166-2:IQ-DI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4026,6 +4036,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Babylon Governorate"
+   :gov.unit/official-url "https://www.babel.gov.iq/"
    :gov.unit/wikidata "Q59202"
    :gov.unit/external-code ["iso3166-2:IQ-BB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4038,6 +4049,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Al-Qādisiyyah Governorate"
+   :gov.unit/official-url "https://diwaniya.gov.iq/"
    :gov.unit/wikidata "Q62987"
    :gov.unit/external-code ["iso3166-2:IQ-QA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4133,6 +4145,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Aqaba Governorate"
+   :gov.unit/official-url "https://aseza.jo/"
    :gov.unit/wikidata "Q260796"
    :gov.unit/external-code ["iso3166-2:JO-AQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4145,6 +4158,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Amman Governorate"
+   :gov.unit/official-url "https://www.ammancity.gov.jo/"
    :gov.unit/wikidata "Q472788"
    :gov.unit/external-code ["iso3166-2:JO-AM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

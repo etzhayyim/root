@@ -1588,6 +1588,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Paul"
+   :gov.unit/official-url "https://www.cmpaul.cv/"
    :gov.unit/wikidata "Q1475374"
    :gov.unit/external-code ["iso3166-2:CV-PA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1600,6 +1601,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Porto Novo"
+   :gov.unit/official-url "https://cmportonovo.cv/"
    :gov.unit/wikidata "Q1552897"
    :gov.unit/external-code ["iso3166-2:CV-PN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1701,6 +1703,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "São Miguel"
+   :gov.unit/official-url "https://www.cmsm.cv/"
    :gov.unit/wikidata "Q494874"
    :gov.unit/external-code ["iso3166-2:CV-SM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1725,6 +1728,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Santa Catarina"
+   :gov.unit/official-url "https://www.cmscst.cv/"
    :gov.unit/wikidata "Q494882"
    :gov.unit/external-code ["iso3166-2:CV-CA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1750,6 +1754,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Santa Cruz"
+   :gov.unit/official-url "https://www.cmscz.cv/"
    :gov.unit/wikidata "Q497472"
    :gov.unit/external-code ["iso3166-2:CV-CR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1762,6 +1767,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "São Domingos"
+   :gov.unit/official-url "https://cmsd.cv/"
    :gov.unit/wikidata "Q499009"
    :gov.unit/external-code ["iso3166-2:CV-SD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1774,6 +1780,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Tarrafal"
+   :gov.unit/official-url "https://www.cmt.cv/"
    :gov.unit/wikidata "Q499598"
    :gov.unit/external-code ["iso3166-2:CV-TA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1786,6 +1793,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Ribeira Grande de Santiago"
+   :gov.unit/official-url "https://cmrgs.cv/"
    :gov.unit/wikidata "Q499620"
    :gov.unit/external-code ["iso3166-2:CV-RS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1837,6 +1845,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Ribeira Brava Municipality"
+   :gov.unit/official-url "https://www.cmrb.cv/"
    :gov.unit/wikidata "Q747221"
    :gov.unit/external-code ["iso3166-2:CV-RB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7666,6 +7675,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ben Arous Governorate"
+   :gov.unit/official-url "https://www.gouvernorat-benarous.gov.tn/"
    :gov.unit/wikidata "Q238555"
    :gov.unit/external-code ["iso3166-2:TN-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7756,6 +7766,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Béja Governorate"
+   :gov.unit/official-url "http://www.gouvernorat-beja.gov.tn/"
    :gov.unit/wikidata "Q276576"
    :gov.unit/external-code ["iso3166-2:TN-31"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7768,6 +7779,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Jendouba Governorate"
+   :gov.unit/official-url "http://www.gouvernorat-jendouba.gov.tn/"
    :gov.unit/wikidata "Q276580"
    :gov.unit/external-code ["iso3166-2:TN-32"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7854,6 +7866,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tunis Governorate"
+   :gov.unit/official-url "https://gouvernorat-tunis.gov.tn/"
    :gov.unit/wikidata "Q328109"
    :gov.unit/external-code ["iso3166-2:TN-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8604,6 +8617,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Luuka District"
+   :gov.unit/official-url "https://luuka.go.ug/"
    :gov.unit/wikidata "Q1114977"
    :gov.unit/external-code ["iso3166-2:UG-229"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8629,6 +8643,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Mukono District"
+   :gov.unit/official-url "https://mukono.go.ug/"
    :gov.unit/wikidata "Q1151066"
    :gov.unit/external-code ["iso3166-2:UG-108"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9525,6 +9540,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Kiryandongo District"
+   :gov.unit/official-url "https://www.kiryandongo.go.ug/"
    :gov.unit/wikidata "Q3539116"
    :gov.unit/external-code ["iso3166-2:UG-421"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9680,6 +9696,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Kakumiro District"
+   :gov.unit/official-url "https://www.kakumiro.go.ug/"
    :gov.unit/wikidata "Q38249480"
    :gov.unit/external-code ["iso3166-2:UG-428"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9796,6 +9813,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Butebo District"
+   :gov.unit/official-url "https://butebo.go.ug/"
    :gov.unit/wikidata "Q44377523"
    :gov.unit/external-code ["iso3166-2:UG-233"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9873,6 +9891,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Maracha District"
+   :gov.unit/official-url "https://maracha.go.ug/"
    :gov.unit/wikidata "Q588927"
    :gov.unit/external-code ["iso3166-2:UG-320"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9898,6 +9917,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Nabilatuk District"
+   :gov.unit/official-url "https://nabilatuk.go.ug/"
    :gov.unit/wikidata "Q60766910"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q60766910" :gov.unit/last-verified "2026-06-03"
@@ -9982,6 +10002,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Rwampara district"
+   :gov.unit/official-url "https://www.rwampara.go.ug/"
    :gov.unit/wikidata "Q85798241"
    :gov.unit/external-code ["iso3166-2:UG-435"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10111,6 +10132,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Nakasongola District"
+   :gov.unit/official-url "https://nakasongola.go.ug/"
    :gov.unit/wikidata "Q976859"
    :gov.unit/external-code ["iso3166-2:UG-109"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
