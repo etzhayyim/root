@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Russia 85 federal subjects (1103 → 1188)
+
+Continued the subdivision endonym front with the single largest non-Latin subdivision set: all 85
+Russian federal subjects (republics / oblasts / krais / autonomous okrugs / federal cities). 7 web-
+research subagents (Wikidata native labels). **85 Cyrillic endonyms added with romanization.**
+
+- all-units name-local: 1103 → **1188**; subdivision name-local: 89 → **174**.
+- standard administrative forms: republics Республика Татарстан / Чеченская Республика, oblasts
+  …ская область, krais …ский край, autonomous okrugs Ямало-Ненецкий автономный округ, federal cities
+  Москва / Санкт-Петербург. Captured the constitutional dual-names: Кемеровская область — Кузбасс and
+  Ханты-Мансийский автономный округ — Югра. All romanized → searchable by Latin reading on /gov.
+- honest note: Republic of Crimea (q15966495) + Sevastopol (ua-40) are internationally Ukrainian,
+  Russia-administered since the 2014 annexation (not internationally recognized). The Cyrillic
+  name-local is the linguistic endonym only — the atlas is an observational mirror (G3), not a
+  sovereignty claim; both spellings are identical in Russian and Ukrainian.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Thailand 77, North Macedonia 81, Iran 31, Ukraine 26, Bulgaria 28, Serbia 30, … (future iterations).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — name-local axis extends to SUBDIVISIONS: CN/KR/EG/GR (1014 → 1103)
 
 Opened a new front for the endonym axis: SUBDIVISIONS of non-Latin jurisdictions had ZERO name-local
