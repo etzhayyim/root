@@ -43,6 +43,27 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Latin-diacritic (Turkey 81 + Vietnam 34) (1955 → 2070)
+
+Opened the Latin-script-but-distinctive-orthography front. 2 web-research subagents.
+**115 endonyms added with ASCII romanization, 0 nulls.** all name-local 1955 → **2070**;
+subdivision 941 → **1056** (crossed 1000).
+
+- Turkey 81 provinces — proper Turkish orthography incl. dotted-İ (İstanbul corrected from "Istanbul",
+  İzmir, Şanlıurfa, Çanakkale, Diyarbakır, Muğla, Gümüşhane, Iğdır); romanized = ASCII fold.
+- Vietnam 34 — full Vietnamese diacritics; **corrected the 4 ASCII-only city names**: Hanoi → Hà Nội,
+  Da Nang → Đà Nẵng, Haiphong → Hải Phòng, Ho Chi Minh City → Thành phố Hồ Chí Minh.
+
+Note: for these two the English name already carried most diacritics, so the chief gains are (a) the
+verified native endonym field, (b) the dotted-İ / full-tone corrections, (c) ASCII romanized search keys.
+This is the lower-yield Latin-script axis (vs the now-complete distinct-script sets) but Turkey/Vietnam
+sit at the high end of it because their orthography genuinely diverges from plain ASCII.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Next Latin-diacritic candidates: Azerbaijan 69
+(ə/ç/ş/ğ), Indonesia 37, Romania 42 (ă/â/î/ş/ţ), Croatia 21 (č/ć/ž/š/đ), Iceland, etc.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — official-url: high-tier institution gap audit (G5 honest-null) (5983 → 5984)
 
 Pivoted axis: the non-Latin subdivision name-local front is effectively complete, so this iteration
