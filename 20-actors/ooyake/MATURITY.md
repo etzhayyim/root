@@ -43,6 +43,24 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Cambodia + Mongolia + Myanmar (1503 → 1570)
+
+Continued the subdivision endonym front with 3 distinct SE/Central-Asian scripts. 6 web-research
+subagents (Wikidata native labels). **67 endonyms added with romanization** (Cambodia 24 provinces
+[Khmer], Mongolia 22 provinces [Cyrillic], Myanmar 21 regions/states/self-admin [Burmese]).
+
+- all-units name-local: 1503 → **1570**; subdivision name-local: 489 → **556**.
+- Cambodia ខេត្ត<Name> (ខេត្តកំពង់ចាម; Phnom Penh = រាជធានីភ្នំពេញ). Mongolia <Name> аймаг
+  (Орхон аймаг; Ulaanbaatar = Улаанбаатар, a municipality, no аймаг suffix). Myanmar regions
+  <Name>တိုင်းဒေသကြီး + states <Name>ပြည်နယ် + the 6 self-administered zones/division
+  (ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ/ရတိုင်း — captured the zone-vs-division distinction for Wa). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets:
+Yemen 22, Maldives 20, Bhutan 20, Lao 17, Iraq done, Georgia/Armenia, Kazakhstan/Tajikistan/Kyrgyz,
+Greek-Cyprus, Bangladesh, Nepal, Sri Lanka, Ethiopia — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Iran + Iraq + Tunisia (1430 → 1503)
 
 Continued the subdivision endonym front with the Persian + Arabic cluster. 7 web-research subagents
