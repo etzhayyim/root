@@ -17,6 +17,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Balkh Province"
+   :gov.unit/name-local "بلخ"
+   :gov.unit/name-romanized "Balkh"
    :gov.unit/wikidata "Q121104"
    :gov.unit/external-code ["iso3166-2:AF-BAL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -29,6 +31,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Zabul Province"
+   :gov.unit/name-local "زابل"
+   :gov.unit/name-romanized "Zabul"
    :gov.unit/wikidata "Q139126"
    :gov.unit/external-code ["iso3166-2:AF-ZAB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -41,6 +45,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Badakhshan Province"
+   :gov.unit/name-local "بدخشان"
+   :gov.unit/name-romanized "Badakhshan"
    :gov.unit/wikidata "Q165376"
    :gov.unit/external-code ["iso3166-2:AF-BDS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -53,6 +59,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Nuristan Province"
+   :gov.unit/name-local "نورستان"
+   :gov.unit/name-romanized "Nuristan"
    :gov.unit/wikidata "Q167485"
    :gov.unit/external-code ["iso3166-2:AF-NUR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -65,6 +73,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Baghlan Province"
+   :gov.unit/name-local "بغلان"
+   :gov.unit/name-romanized "Baghlan"
    :gov.unit/wikidata "Q170309"
    :gov.unit/external-code ["iso3166-2:AF-BGL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -77,6 +87,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Bamyan Province"
+   :gov.unit/name-local "بامیان"
+   :gov.unit/name-romanized "Bamyan"
    :gov.unit/wikidata "Q171382"
    :gov.unit/external-code ["iso3166-2:AF-BAM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -89,6 +101,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Badghis Province"
+   :gov.unit/name-local "بادغیس"
+   :gov.unit/name-romanized "Badghis"
    :gov.unit/wikidata "Q172052"
    :gov.unit/external-code ["iso3166-2:AF-BDG"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -101,6 +115,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Kandahar Province"
+   :gov.unit/name-local "کندهار"
+   :gov.unit/name-romanized "Kandahar"
    :gov.unit/wikidata "Q173808"
    :gov.unit/external-code ["iso3166-2:AF-KAN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -113,6 +129,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Kapisa Province"
+   :gov.unit/name-local "کاپیسا"
+   :gov.unit/name-romanized "Kapisa"
    :gov.unit/wikidata "Q173816"
    :gov.unit/external-code ["iso3166-2:AF-KAP"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -125,6 +143,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Helmand Province"
+   :gov.unit/name-local "هلمند"
+   :gov.unit/name-romanized "Helmand"
    :gov.unit/wikidata "Q173821"
    :gov.unit/external-code ["iso3166-2:AF-HEL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -137,6 +157,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Faryab Province"
+   :gov.unit/name-local "فاریاب"
+   :gov.unit/name-romanized "Faryab"
    :gov.unit/wikidata "Q173830"
    :gov.unit/external-code ["iso3166-2:AF-FYB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -149,6 +171,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Nangarhar Province"
+   :gov.unit/name-local "ننگرهار"
+   :gov.unit/name-romanized "Nangarhar"
    :gov.unit/wikidata "Q178471"
    :gov.unit/external-code ["iso3166-2:AF-NAN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -161,6 +185,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Farah Province"
+   :gov.unit/name-local "فراه"
+   :gov.unit/name-romanized "Farah"
    :gov.unit/wikidata "Q180330"
    :gov.unit/external-code ["iso3166-2:AF-FRA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -173,6 +199,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ghazni Province"
+   :gov.unit/name-local "غزنی"
+   :gov.unit/name-romanized "Ghazni"
    :gov.unit/wikidata "Q180415"
    :gov.unit/external-code ["iso3166-2:AF-GHA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -185,6 +213,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Daykundi Province"
+   :gov.unit/name-local "دایکندی"
+   :gov.unit/name-romanized "Daykundi"
    :gov.unit/official-url "http://daikundi.gov.af/"
    :gov.unit/wikidata "Q181220"
    :gov.unit/external-code ["iso3166-2:AF-DAY"]
@@ -198,6 +228,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Panjshir Province"
+   :gov.unit/name-local "پنجشیر"
+   :gov.unit/name-romanized "Panjshir"
    :gov.unit/wikidata "Q181235"
    :gov.unit/external-code ["iso3166-2:AF-PAN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -210,6 +242,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Sar-e Pol Province"
+   :gov.unit/name-local "سرپل"
+   :gov.unit/name-romanized "Sar-e Pul"
    :gov.unit/wikidata "Q182487"
    :gov.unit/external-code ["iso3166-2:AF-SAR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -222,6 +256,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Paktia Province"
+   :gov.unit/name-local "پکتیا"
+   :gov.unit/name-romanized "Paktiya"
    :gov.unit/wikidata "Q182493"
    :gov.unit/external-code ["iso3166-2:AF-PIA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -234,6 +270,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Herat Province"
+   :gov.unit/name-local "هرات"
+   :gov.unit/name-romanized "Herat"
    :gov.unit/wikidata "Q182844"
    :gov.unit/external-code ["iso3166-2:AF-HER"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -246,6 +284,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Samangan Province"
+   :gov.unit/name-local "سمنگان"
+   :gov.unit/name-romanized "Samangan"
    :gov.unit/wikidata "Q183015"
    :gov.unit/external-code ["iso3166-2:AF-SAM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -258,6 +298,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Nimruz Province"
+   :gov.unit/name-local "نیمروز"
+   :gov.unit/name-romanized "Nimroz"
    :gov.unit/wikidata "Q183021"
    :gov.unit/external-code ["iso3166-2:AF-NIM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -270,6 +312,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Uruzgan Province"
+   :gov.unit/name-local "ارزگان"
+   :gov.unit/name-romanized "Uruzgan"
    :gov.unit/wikidata "Q183028"
    :gov.unit/external-code ["iso3166-2:AF-URU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -282,6 +326,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Jowzjan Province"
+   :gov.unit/name-local "جوزجان"
+   :gov.unit/name-romanized "Jozjan"
    :gov.unit/official-url "http://ju.edu.af/"
    :gov.unit/wikidata "Q183036"
    :gov.unit/external-code ["iso3166-2:AF-JOW"]
@@ -295,6 +341,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Maidan Wardak Province"
+   :gov.unit/name-local "میدان وردک"
+   :gov.unit/name-romanized "Maidan Wardak"
    :gov.unit/wikidata "Q183056"
    :gov.unit/external-code ["iso3166-2:AF-WAR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -307,6 +355,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Laghman Province"
+   :gov.unit/name-local "لغمان"
+   :gov.unit/name-romanized "Laghman"
    :gov.unit/official-url "http://laghman.com"
    :gov.unit/wikidata "Q185442"
    :gov.unit/external-code ["iso3166-2:AF-LAG"]
@@ -320,6 +370,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Paktika Province"
+   :gov.unit/name-local "پکتیکا"
+   :gov.unit/name-romanized "Paktika"
    :gov.unit/wikidata "Q185575"
    :gov.unit/external-code ["iso3166-2:AF-PKA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -332,6 +384,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Khost Province"
+   :gov.unit/name-local "خوست"
+   :gov.unit/name-romanized "Khost"
    :gov.unit/wikidata "Q185752"
    :gov.unit/external-code ["iso3166-2:AF-KHO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -344,6 +398,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ghor Province"
+   :gov.unit/name-local "غور"
+   :gov.unit/name-romanized "Ghor"
    :gov.unit/wikidata "Q186392"
    :gov.unit/external-code ["iso3166-2:AF-GHO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -356,6 +412,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Takhar Province"
+   :gov.unit/name-local "تخار"
+   :gov.unit/name-romanized "Takhar"
    :gov.unit/wikidata "Q186395"
    :gov.unit/external-code ["iso3166-2:AF-TAK"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -368,6 +426,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Kunduz Province"
+   :gov.unit/name-local "کندز"
+   :gov.unit/name-romanized "Kunduz"
    :gov.unit/wikidata "Q186418"
    :gov.unit/external-code ["iso3166-2:AF-KDZ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -380,6 +440,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Kunar Province"
+   :gov.unit/name-local "کنر"
+   :gov.unit/name-romanized "Kunar"
    :gov.unit/wikidata "Q188147"
    :gov.unit/external-code ["iso3166-2:AF-KNR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -392,6 +454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Parwan Province"
+   :gov.unit/name-local "پروان"
+   :gov.unit/name-romanized "Parwan"
    :gov.unit/wikidata "Q188157"
    :gov.unit/external-code ["iso3166-2:AF-PAR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -404,6 +468,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Kabul Province"
+   :gov.unit/name-local "کابل"
+   :gov.unit/name-romanized "Kabul"
    :gov.unit/wikidata "Q188933"
    :gov.unit/external-code ["iso3166-2:AF-KAB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -416,6 +482,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Logar Province"
+   :gov.unit/name-local "لوگر"
+   :gov.unit/name-romanized "Logar"
    :gov.unit/wikidata "Q6667298"
    :gov.unit/external-code ["iso3166-2:AF-LOG"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1593,6 +1661,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Chattogram Division"
+   :gov.unit/name-local "চট্টগ্রাম বিভাগ"
+   :gov.unit/name-romanized "Chattogram Bibhag"
    :gov.unit/official-url "https://www.chittagongdiv.gov.bd/"
    :gov.unit/wikidata "Q158087"
    :gov.unit/external-code ["iso3166-2:BD-B"]
@@ -1606,6 +1676,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Mymensingh Division"
+   :gov.unit/name-local "ময়মনসিংহ বিভাগ"
+   :gov.unit/name-romanized "Mymensingh Bibhag"
    :gov.unit/official-url "http://www.mymensinghdiv.gov.bd"
    :gov.unit/wikidata "Q19594930"
    :gov.unit/external-code ["iso3166-2:BD-H"]
@@ -1619,6 +1691,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Dhaka Division"
+   :gov.unit/name-local "ঢাকা বিভাগ"
+   :gov.unit/name-romanized "Dhaka Bibhag"
    :gov.unit/official-url "http://www.dhakadiv.gov.bd"
    :gov.unit/wikidata "Q330158"
    :gov.unit/external-code ["iso3166-2:BD-C"]
@@ -1632,6 +1706,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Rajshahi Division"
+   :gov.unit/name-local "রাজশাহী বিভাগ"
+   :gov.unit/name-romanized "Rajshahi Bibhag"
    :gov.unit/official-url "http://www.rajshahidiv.gov.bd"
    :gov.unit/wikidata "Q379382"
    :gov.unit/external-code ["iso3166-2:BD-E"]
@@ -1645,6 +1721,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Barisal Division"
+   :gov.unit/name-local "বরিশাল বিভাগ"
+   :gov.unit/name-romanized "Barishal Bibhag"
    :gov.unit/official-url "http://www.barisaldiv.gov.bd"
    :gov.unit/wikidata "Q459723"
    :gov.unit/external-code ["iso3166-2:BD-A"]
@@ -1658,6 +1736,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Sylhet Division"
+   :gov.unit/name-local "সিলেট বিভাগ"
+   :gov.unit/name-romanized "Sylhet Bibhag"
    :gov.unit/official-url "http://www.sylhetdiv.gov.bd"
    :gov.unit/wikidata "Q459732"
    :gov.unit/external-code ["iso3166-2:BD-G"]
@@ -1671,6 +1751,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Khulna Division"
+   :gov.unit/name-local "খুলনা বিভাগ"
+   :gov.unit/name-romanized "Khulna Bibhag"
    :gov.unit/official-url "http://www.khulnadiv.gov.bd"
    :gov.unit/wikidata "Q501696"
    :gov.unit/external-code ["iso3166-2:BD-D"]
@@ -1684,6 +1766,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Rangpur Division"
+   :gov.unit/name-local "রংপুর বিভাগ"
+   :gov.unit/name-romanized "Rangpur Bibhag"
    :gov.unit/official-url "http://www.rangpurdiv.gov.bd"
    :gov.unit/wikidata "Q876023"
    :gov.unit/external-code ["iso3166-2:BD-F"]
@@ -4299,6 +4383,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Haifa District"
+   :gov.unit/name-local "מחוז חיפה"
+   :gov.unit/name-romanized "Mehoz Heifa"
    :gov.unit/wikidata "Q185845"
    :gov.unit/external-code ["iso3166-2:IL-HA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4311,6 +4397,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Southern District"
+   :gov.unit/name-local "מחוז הדרום"
+   :gov.unit/name-romanized "Mehoz HaDarom"
    :gov.unit/wikidata "Q188781"
    :gov.unit/external-code ["iso3166-2:IL-D"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4323,6 +4411,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Central District"
+   :gov.unit/name-local "המחוז המרכזי"
+   :gov.unit/name-romanized "HaMehoz HaMerkazi"
    :gov.unit/wikidata "Q188785"
    :gov.unit/external-code ["iso3166-2:IL-M"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4335,6 +4425,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Northern District"
+   :gov.unit/name-local "מחוז הצפון"
+   :gov.unit/name-romanized "Mehoz HaTzafon"
    :gov.unit/wikidata "Q189942"
    :gov.unit/external-code ["iso3166-2:IL-Z"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4347,6 +4439,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Jerusalem District"
+   :gov.unit/name-local "מחוז ירושלים"
+   :gov.unit/name-romanized "Mehoz Yerushalayim"
    :gov.unit/wikidata "Q192232"
    :gov.unit/external-code ["iso3166-2:IL-JM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4359,6 +4453,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Tel Aviv District"
+   :gov.unit/name-local "מחוז תל אביב"
+   :gov.unit/name-romanized "Mehoz Tel Aviv"
    :gov.unit/wikidata "Q192811"
    :gov.unit/external-code ["iso3166-2:IL-TA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4371,6 +4467,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Judea and Samaria Area"
+   :gov.unit/name-local "אזור יהודה ושומרון"
+   :gov.unit/name-romanized "Ezor Yehuda VeShomron"
    :gov.unit/wikidata "Q513200"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q513200" :gov.unit/last-verified "2026-06-03"
@@ -5420,6 +5518,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Bishkek"
+   :gov.unit/name-local "Бишкек шаары"
+   :gov.unit/name-romanized "Bishkek shaary"
    :gov.unit/official-url "https://bishkek.gov.kg/"
    :gov.unit/wikidata "Q9361"
    :gov.unit/external-code ["iso3166-2:KG-GB"]
@@ -6340,6 +6440,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Mount Lebanon Governorate"
+   :gov.unit/name-local "جبل لبنان"
+   :gov.unit/name-romanized "Jabal Lubnan"
    :gov.unit/wikidata "Q216945"
    :gov.unit/external-code ["iso3166-2:LB-JL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6352,6 +6454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "South Governorate"
+   :gov.unit/name-local "الجنوب"
+   :gov.unit/name-romanized "Al-Janub"
    :gov.unit/wikidata "Q223643"
    :gov.unit/external-code ["iso3166-2:LB-JA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6364,6 +6468,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Beqaa Governorate"
+   :gov.unit/name-local "البقاع"
+   :gov.unit/name-romanized "Al-Biqa"
    :gov.unit/wikidata "Q319632"
    :gov.unit/external-code ["iso3166-2:LB-BI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6376,6 +6482,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "North Governorate"
+   :gov.unit/name-local "الشمال"
+   :gov.unit/name-romanized "Ash-Shamal"
    :gov.unit/wikidata "Q390267"
    :gov.unit/external-code ["iso3166-2:LB-AS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6388,6 +6496,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Nabatieh Governorate"
+   :gov.unit/name-local "النبطية"
+   :gov.unit/name-romanized "An-Nabatiyah"
    :gov.unit/wikidata "Q458417"
    :gov.unit/external-code ["iso3166-2:LB-NA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6400,6 +6510,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Beirut Governorate"
+   :gov.unit/name-local "بيروت"
+   :gov.unit/name-romanized "Bayrut"
    :gov.unit/wikidata "Q651688"
    :gov.unit/external-code ["iso3166-2:LB-BA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6412,6 +6524,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Eastern Province"
+   :gov.unit/name-local "නැගෙනහිර පළාත"
+   :gov.unit/name-romanized "Negenahira Palata"
    :gov.unit/official-url "http://www.ep.gov.lk/"
    :gov.unit/wikidata "Q1046126"
    :gov.unit/external-code ["iso3166-2:LK-5"]
@@ -6425,6 +6539,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "North Central Province"
+   :gov.unit/name-local "උතුරු මැද පළාත"
+   :gov.unit/name-romanized "Uturu Meda Palata"
    :gov.unit/official-url "http://www.ncp.gov.lk/"
    :gov.unit/wikidata "Q1057124"
    :gov.unit/external-code ["iso3166-2:LK-7"]
@@ -6438,6 +6554,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Central Province"
+   :gov.unit/name-local "මධ්‍යම පළාත"
+   :gov.unit/name-romanized "Madhyama Palata"
    :gov.unit/official-url "http://www.cpcouncil.net/"
    :gov.unit/wikidata "Q190716"
    :gov.unit/external-code ["iso3166-2:LK-2"]
@@ -6451,6 +6569,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Northern Province"
+   :gov.unit/name-local "උතුරු පළාත"
+   :gov.unit/name-romanized "Uturu Palata"
    :gov.unit/official-url "http://www.np.gov.lk/"
    :gov.unit/wikidata "Q598745"
    :gov.unit/external-code ["iso3166-2:LK-4"]
@@ -6464,6 +6584,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Sabaragamuwa Province"
+   :gov.unit/name-local "සබරගමුව පළාත"
+   :gov.unit/name-romanized "Sabaragamuva Palata"
    :gov.unit/official-url "https://www.sg.gov.lk/"
    :gov.unit/wikidata "Q853272"
    :gov.unit/external-code ["iso3166-2:LK-9"]
@@ -6477,6 +6599,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Western Province"
+   :gov.unit/name-local "බස්නාහිර පළාත"
+   :gov.unit/name-romanized "Basnahira Palata"
    :gov.unit/official-url "http://www.wpc.gov.lk//"
    :gov.unit/wikidata "Q856686"
    :gov.unit/external-code ["iso3166-2:LK-1"]
@@ -6490,6 +6614,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Uva Province"
+   :gov.unit/name-local "ඌව පළාත"
+   :gov.unit/name-romanized "Uva Palata"
    :gov.unit/official-url "http://www.governor.up.gov.lk/"
    :gov.unit/wikidata "Q876293"
    :gov.unit/external-code ["iso3166-2:LK-8"]
@@ -6503,6 +6629,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Southern Province"
+   :gov.unit/name-local "දකුණු පළාත"
+   :gov.unit/name-romanized "Dakunu Palata"
    :gov.unit/official-url "http://www.spc.gov.lk/"
    :gov.unit/wikidata "Q876308"
    :gov.unit/external-code ["iso3166-2:LK-3"]
@@ -6516,6 +6644,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "North Western Province"
+   :gov.unit/name-local "වයඹ පළාත"
+   :gov.unit/name-romanized "Vayamba Palata"
    :gov.unit/official-url "https://www.nw.gov.lk/"
    :gov.unit/wikidata "Q876339"
    :gov.unit/external-code ["iso3166-2:LK-6"]
@@ -7644,6 +7774,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Koshi Province"
+   :gov.unit/name-local "कोशी प्रदेश"
+   :gov.unit/name-romanized "Koshi Pradesh"
    :gov.unit/official-url "https://koshi.gov.np/"
    :gov.unit/wikidata "Q25104008"
    :gov.unit/external-code ["iso3166-2:NP-P1"]
@@ -7657,6 +7789,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Madhesh Province"
+   :gov.unit/name-local "मधेश प्रदेश"
+   :gov.unit/name-romanized "Madhesh Pradesh"
    :gov.unit/official-url "https://madhesh.gov.np/"
    :gov.unit/wikidata "Q25104009"
    :gov.unit/external-code ["iso3166-2:NP-P2"]
@@ -7670,6 +7804,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Lumbini Province"
+   :gov.unit/name-local "लुम्बिनी प्रदेश"
+   :gov.unit/name-romanized "Lumbini Pradesh"
    :gov.unit/official-url "http://pradesh-5.com/"
    :gov.unit/wikidata "Q25104014"
    :gov.unit/external-code ["iso3166-2:NP-P5"]
@@ -7683,6 +7819,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Bagmati Province"
+   :gov.unit/name-local "बागमती प्रदेश"
+   :gov.unit/name-romanized "Bagmati Pradesh"
    :gov.unit/official-url "http://ocmcm.bagamati.gov.np/"
    :gov.unit/wikidata "Q25104015"
    :gov.unit/external-code ["iso3166-2:NP-P3"]
@@ -7696,6 +7834,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Gandaki Province"
+   :gov.unit/name-local "गण्डकी प्रदेश"
+   :gov.unit/name-romanized "Gandaki Pradesh"
    :gov.unit/official-url "http://gandaki.gov.np/"
    :gov.unit/wikidata "Q25104016"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7708,6 +7848,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Karnali Province"
+   :gov.unit/name-local "कर्णाली प्रदेश"
+   :gov.unit/name-romanized "Karnali Pradesh"
    :gov.unit/official-url "http://karnali.gov.np/"
    :gov.unit/wikidata "Q25104017"
    :gov.unit/external-code ["iso3166-2:NP-P6"]
@@ -7721,6 +7863,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Sudurpashchim Province"
+   :gov.unit/name-local "सुदूरपश्चिम प्रदेश"
+   :gov.unit/name-romanized "Sudurpashchim Pradesh"
    :gov.unit/official-url "http://p7.gov.np/"
    :gov.unit/wikidata "Q25104019"
    :gov.unit/external-code ["iso3166-2:NP-P7"]
@@ -8177,6 +8321,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "North Hwanghae Province"
+   :gov.unit/name-local "황해북도"
+   :gov.unit/name-romanized "Hwanghae-bukto"
    :gov.unit/wikidata "Q109342"
    :gov.unit/external-code ["iso3166-2:KP-06"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8189,6 +8335,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "North Pyongan Province"
+   :gov.unit/name-local "평안북도"
+   :gov.unit/name-romanized "Phyongan-bukto"
    :gov.unit/wikidata "Q109348"
    :gov.unit/external-code ["iso3166-2:KP-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8201,6 +8349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "North Hamgyong Province"
+   :gov.unit/name-local "함경북도"
+   :gov.unit/name-romanized "Hamgyong-bukto"
    :gov.unit/wikidata "Q109361"
    :gov.unit/external-code ["iso3166-2:KP-09"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8213,6 +8363,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "South Hamgyong Province"
+   :gov.unit/name-local "함경남도"
+   :gov.unit/name-romanized "Hamgyong-namdo"
    :gov.unit/wikidata "Q109368"
    :gov.unit/external-code ["iso3166-2:KP-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8225,6 +8377,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "South Pyongan Province"
+   :gov.unit/name-local "평안남도"
+   :gov.unit/name-romanized "Phyongan-namdo"
    :gov.unit/wikidata "Q109380"
    :gov.unit/external-code ["iso3166-2:KP-02"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8237,6 +8391,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "Nampo"
+   :gov.unit/name-local "남포특별시"
+   :gov.unit/name-romanized "Nampho Tukpyolsi"
    :gov.unit/wikidata "Q109386"
    :gov.unit/external-code ["iso3166-2:KP-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8249,6 +8405,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "Ryanggang Province"
+   :gov.unit/name-local "량강도"
+   :gov.unit/name-romanized "Ryanggang-do"
    :gov.unit/wikidata "Q110171"
    :gov.unit/external-code ["iso3166-2:KP-10"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8261,6 +8419,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "Pyongyang"
+   :gov.unit/name-local "평양직할시"
+   :gov.unit/name-romanized "Pyongyang Chikhalsi"
    :gov.unit/wikidata "Q18808"
    :gov.unit/external-code ["iso3166-2:KP-01"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8273,6 +8433,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "Rason"
+   :gov.unit/name-local "라선특별시"
+   :gov.unit/name-romanized "Rason Tukpyolsi"
    :gov.unit/wikidata "Q221734"
    :gov.unit/external-code ["iso3166-2:KP-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8285,6 +8447,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "Chagang Province"
+   :gov.unit/name-local "자강도"
+   :gov.unit/name-romanized "Chagang-do"
    :gov.unit/wikidata "Q272406"
    :gov.unit/external-code ["iso3166-2:KP-04"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8297,6 +8461,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "Kangwon Province"
+   :gov.unit/name-local "강원도"
+   :gov.unit/name-romanized "Kangwon-do"
    :gov.unit/wikidata "Q41416"
    :gov.unit/external-code ["iso3166-2:KP-07"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8309,6 +8475,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "South Hwanghae Province"
+   :gov.unit/name-local "황해남도"
+   :gov.unit/name-romanized "Hwanghae-namdo"
    :gov.unit/wikidata "Q626052"
    :gov.unit/external-code ["iso3166-2:KP-05"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9869,6 +10037,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Gorno-Badakhshan Autonomous Region"
+   :gov.unit/name-local "Вилояти Мухтори Кӯҳистони Бадахшон"
+   :gov.unit/name-romanized "Viloyati Mukhtori Kuhistoni Badakhshon"
    :gov.unit/wikidata "Q207319"
    :gov.unit/external-code ["iso3166-2:TJ-GB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9881,6 +10051,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Sughd Province"
+   :gov.unit/name-local "Вилояти Суғд"
+   :gov.unit/name-romanized "Viloyati Sughd"
    :gov.unit/wikidata "Q241582"
    :gov.unit/external-code ["iso3166-2:TJ-SU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9893,6 +10065,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Districts under Central Government Jurisdiction"
+   :gov.unit/name-local "Ноҳияҳои тобеи ҷумҳурӣ"
+   :gov.unit/name-romanized "Nohiyahoi tobei jumhuri"
    :gov.unit/wikidata "Q633490"
    :gov.unit/external-code ["iso3166-2:TJ-RA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9905,6 +10079,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Khatlon Province"
+   :gov.unit/name-local "Вилояти Хатлон"
+   :gov.unit/name-romanized "Viloyati Khatlon"
    :gov.unit/wikidata "Q633511"
    :gov.unit/external-code ["iso3166-2:TJ-KT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9917,6 +10093,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Dushanbe"
+   :gov.unit/name-local "Душанбе"
+   :gov.unit/name-romanized "Dushanbe"
    :gov.unit/official-url "https://dushanbe.tj"
    :gov.unit/wikidata "Q9365"
    :gov.unit/external-code ["iso3166-2:TJ-DU"]

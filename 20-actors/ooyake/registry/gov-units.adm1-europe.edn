@@ -913,6 +913,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Byerastsye Region"
+   :gov.unit/name-local "Брэсцкая вобласць"
+   :gov.unit/name-romanized "Brestskaya voblasts"
    :gov.unit/wikidata "Q173822"
    :gov.unit/external-code ["iso3166-2:BY-BR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -925,6 +927,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Vitsyebsk Region"
+   :gov.unit/name-local "Віцебская вобласць"
+   :gov.unit/name-romanized "Vitsyebskaya voblasts"
    :gov.unit/official-url "https://vitebsk-region.gov.by"
    :gov.unit/wikidata "Q185700"
    :gov.unit/external-code ["iso3166-2:BY-VI"]
@@ -938,6 +942,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Gomel Region"
+   :gov.unit/name-local "Гомельская вобласць"
+   :gov.unit/name-romanized "Homyelskaya voblasts"
    :gov.unit/official-url "https://gomel-region.gov.by"
    :gov.unit/wikidata "Q188732"
    :gov.unit/external-code ["iso3166-2:BY-HO"]
@@ -951,6 +957,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Mahilyow Region"
+   :gov.unit/name-local "Магілёўская вобласць"
+   :gov.unit/name-romanized "Mahilyowskaya voblasts"
    :gov.unit/official-url "https://president.gov.by/be/belarus/regions/mogilyovskaya"
    :gov.unit/wikidata "Q189822"
    :gov.unit/external-code ["iso3166-2:BY-MA"]
@@ -964,6 +972,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Horadnia Region"
+   :gov.unit/name-local "Гродзенская вобласць"
+   :gov.unit/name-romanized "Hrodzenskaya voblasts"
    :gov.unit/official-url "https://grodno-region.gov.by"
    :gov.unit/wikidata "Q191061"
    :gov.unit/external-code ["iso3166-2:BY-HR"]
@@ -977,6 +987,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Miensk Region"
+   :gov.unit/name-local "Мінская вобласць"
+   :gov.unit/name-romanized "Minskaya voblasts"
    :gov.unit/official-url "https://minsk-region.gov.by"
    :gov.unit/wikidata "Q192959"
    :gov.unit/external-code ["iso3166-2:BY-MI"]
@@ -990,6 +1002,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Minsk"
+   :gov.unit/name-local "горад Мінск"
+   :gov.unit/name-romanized "horad Minsk"
    :gov.unit/official-url "https://minsk.gov.by"
    :gov.unit/wikidata "Q2280"
    :gov.unit/external-code ["iso3166-2:BY-HM"]
