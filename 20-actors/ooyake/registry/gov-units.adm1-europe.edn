@@ -14157,6 +14157,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Luhansk Oblast"
+   :gov.unit/official-url "https://loga.gov.ua"
    :gov.unit/wikidata "Q171965"
    :gov.unit/external-code ["iso3166-2:UA-09"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

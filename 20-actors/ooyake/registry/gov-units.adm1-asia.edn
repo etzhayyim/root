@@ -454,6 +454,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Emirate of Umm Al Quwain"
+   :gov.unit/official-url "https://www.uaq.ae"
    :gov.unit/wikidata "Q175021"
    :gov.unit/external-code ["iso3166-2:AE-UQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9465,6 +9466,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Kilis Province"
+   :gov.unit/official-url "https://kilis.gov.tr"
    :gov.unit/wikidata "Q128978"
    :gov.unit/external-code ["iso3166-2:TR-79"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10387,6 +10389,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tur"
    :gov.unit/name-en "Diyarbakır Province"
+   :gov.unit/official-url "https://diyarbakir.gov.tr"
    :gov.unit/wikidata "Q83081"
    :gov.unit/external-code ["iso3166-2:TR-21"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
