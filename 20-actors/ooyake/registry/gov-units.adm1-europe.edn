@@ -9240,6 +9240,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Republic of Crimea"
+   :gov.unit/name-local "Республика Крым"
+   :gov.unit/name-romanized "Respublika Krym"
    :gov.unit/official-url "http://crimea.gov.ru"
    :gov.unit/wikidata "Q15966495"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9252,6 +9254,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Moscow Oblast"
+   :gov.unit/name-local "Московская область"
+   :gov.unit/name-romanized "Moskovskaya oblast"
    :gov.unit/official-url "http://mosreg.ru"
    :gov.unit/wikidata "Q1697"
    :gov.unit/external-code ["iso3166-2:RU-MOS"]
@@ -9265,6 +9269,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Samara Oblast"
+   :gov.unit/name-local "Самарская область"
+   :gov.unit/name-romanized "Samarskaya oblast"
    :gov.unit/official-url "http://www.samregion.ru/"
    :gov.unit/wikidata "Q1727"
    :gov.unit/external-code ["iso3166-2:RU-SAM"]
@@ -9278,6 +9284,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kaliningrad Oblast"
+   :gov.unit/name-local "Калининградская область"
+   :gov.unit/name-romanized "Kaliningradskaya oblast"
    :gov.unit/official-url "http://gov39.ru/"
    :gov.unit/wikidata "Q1749"
    :gov.unit/external-code ["iso3166-2:RU-KGD"]
@@ -9291,6 +9299,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Murmansk Oblast"
+   :gov.unit/name-local "Мурманская область"
+   :gov.unit/name-romanized "Murmanskaya oblast"
    :gov.unit/official-url "https://gov-murman.ru/"
    :gov.unit/wikidata "Q1759"
    :gov.unit/external-code ["iso3166-2:RU-MUR"]
@@ -9304,6 +9314,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Arkhangelsk Oblast"
+   :gov.unit/name-local "Архангельская область"
+   :gov.unit/name-romanized "Arkhangelskaya oblast"
    :gov.unit/official-url "http://dvinaland.ru/"
    :gov.unit/wikidata "Q1875"
    :gov.unit/external-code ["iso3166-2:RU-ARK"]
@@ -9317,6 +9329,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Karelia"
+   :gov.unit/name-local "Республика Карелия"
+   :gov.unit/name-romanized "Respublika Kareliya"
    :gov.unit/official-url "http://gov.karelia.ru/"
    :gov.unit/wikidata "Q1914"
    :gov.unit/external-code ["iso3166-2:RU-KR"]
@@ -9330,6 +9344,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Vologda Oblast"
+   :gov.unit/name-local "Вологодская область"
+   :gov.unit/name-romanized "Vologodskaya oblast"
    :gov.unit/official-url "http://www.vologda-oblast.ru/"
    :gov.unit/wikidata "Q2015"
    :gov.unit/external-code ["iso3166-2:RU-VLG"]
@@ -9343,6 +9359,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Komi Republic"
+   :gov.unit/name-local "Республика Коми"
+   :gov.unit/name-romanized "Respublika Komi"
    :gov.unit/official-url "http://www.rkomi.ru"
    :gov.unit/wikidata "Q2073"
    :gov.unit/external-code ["iso3166-2:RU-KO"]
@@ -9356,6 +9374,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Nenets Autonomous Okrug"
+   :gov.unit/name-local "Ненецкий автономный округ"
+   :gov.unit/name-romanized "Nenetsky avtonomny okrug"
    :gov.unit/official-url "https://adm-nao.ru"
    :gov.unit/wikidata "Q2164"
    :gov.unit/external-code ["iso3166-2:RU-NEN"]
@@ -9369,6 +9389,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Leningrad Oblast"
+   :gov.unit/name-local "Ленинградская область"
+   :gov.unit/name-romanized "Leningradskaya oblast"
    :gov.unit/official-url "http://www.lenobl.ru/"
    :gov.unit/wikidata "Q2191"
    :gov.unit/external-code ["iso3166-2:RU-LEN"]
@@ -9382,6 +9404,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Pskov Region"
+   :gov.unit/name-local "Псковская область"
+   :gov.unit/name-romanized "Pskovskaya oblast"
    :gov.unit/official-url "https://www.pskov.ru/"
    :gov.unit/wikidata "Q2218"
    :gov.unit/external-code ["iso3166-2:RU-PSK"]
@@ -9395,6 +9419,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Novgorod Oblast"
+   :gov.unit/name-local "Новгородская область"
+   :gov.unit/name-romanized "Novgorodskaya oblast"
    :gov.unit/official-url "http://www.novreg.ru/"
    :gov.unit/wikidata "Q2240"
    :gov.unit/external-code ["iso3166-2:RU-NGR"]
@@ -9408,6 +9434,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Nizhny Novgorod Oblast"
+   :gov.unit/name-local "Нижегородская область"
+   :gov.unit/name-romanized "Nizhegorodskaya oblast"
    :gov.unit/official-url "https://nobl.ru"
    :gov.unit/wikidata "Q2246"
    :gov.unit/external-code ["iso3166-2:RU-NIZ"]
@@ -9421,6 +9449,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tver Oblast"
+   :gov.unit/name-local "Тверская область"
+   :gov.unit/name-romanized "Tverskaya oblast"
    :gov.unit/official-url "http://www.region.tver.ru/"
    :gov.unit/wikidata "Q2292"
    :gov.unit/external-code ["iso3166-2:RU-TVE"]
@@ -9434,6 +9464,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Smolensk Region"
+   :gov.unit/name-local "Смоленская область"
+   :gov.unit/name-romanized "Smolenskaya oblast"
    :gov.unit/official-url "http://admin-smolensk.ru/"
    :gov.unit/wikidata "Q2347"
    :gov.unit/external-code ["iso3166-2:RU-SMO"]
@@ -9447,6 +9479,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Yaroslavl Oblast"
+   :gov.unit/name-local "Ярославская область"
+   :gov.unit/name-romanized "Yaroslavskaya oblast"
    :gov.unit/official-url "https://www.yarregion.ru/"
    :gov.unit/wikidata "Q2448"
    :gov.unit/external-code ["iso3166-2:RU-YAR"]
@@ -9460,6 +9494,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kostroma Oblast"
+   :gov.unit/name-local "Костромская область"
+   :gov.unit/name-romanized "Kostromskaya oblast"
    :gov.unit/official-url "http://adm44.ru"
    :gov.unit/wikidata "Q2596"
    :gov.unit/external-code ["iso3166-2:RU-KOS"]
@@ -9473,6 +9509,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ivanovo Oblast"
+   :gov.unit/name-local "Ивановская область"
+   :gov.unit/name-romanized "Ivanovskaya oblast"
    :gov.unit/official-url "http://www.ivanovoobl.ru/"
    :gov.unit/wikidata "Q2654"
    :gov.unit/external-code ["iso3166-2:RU-IVA"]
@@ -9486,6 +9524,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Vladimir Oblast"
+   :gov.unit/name-local "Владимирская область"
+   :gov.unit/name-romanized "Vladimirskaya oblast"
    :gov.unit/official-url "http://www.avo.ru/"
    :gov.unit/wikidata "Q2702"
    :gov.unit/external-code ["iso3166-2:RU-VLA"]
@@ -9499,6 +9539,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ryazan Oblast"
+   :gov.unit/name-local "Рязанская область"
+   :gov.unit/name-romanized "Ryazanskaya oblast"
    :gov.unit/official-url "https://www.ryazan.gov.ru"
    :gov.unit/wikidata "Q2753"
    :gov.unit/external-code ["iso3166-2:RU-RYA"]
@@ -9512,6 +9554,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tula Oblast"
+   :gov.unit/name-local "Тульская область"
+   :gov.unit/name-romanized "Tulskaya oblast"
    :gov.unit/official-url "https://tularegion.ru/"
    :gov.unit/wikidata "Q2792"
    :gov.unit/external-code ["iso3166-2:RU-TUL"]
@@ -9525,6 +9569,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Bryansk Oblast"
+   :gov.unit/name-local "Брянская область"
+   :gov.unit/name-romanized "Bryanskaya oblast"
    :gov.unit/official-url "http://www.bryanskobl.ru/"
    :gov.unit/wikidata "Q2810"
    :gov.unit/external-code ["iso3166-2:RU-BRY"]
@@ -9538,6 +9584,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kaluga Oblast"
+   :gov.unit/name-local "Калужская область"
+   :gov.unit/name-romanized "Kaluzhskaya oblast"
    :gov.unit/official-url "https://admoblkaluga.ru"
    :gov.unit/wikidata "Q2842"
    :gov.unit/external-code ["iso3166-2:RU-KLU"]
@@ -9551,6 +9599,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Oryol Oblast"
+   :gov.unit/name-local "Орловская область"
+   :gov.unit/name-romanized "Orlovskaya oblast"
    :gov.unit/official-url "http://orel-region.ru/"
    :gov.unit/wikidata "Q3129"
    :gov.unit/external-code ["iso3166-2:RU-ORL"]
@@ -9564,6 +9614,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kursk Oblast"
+   :gov.unit/name-local "Курская область"
+   :gov.unit/name-romanized "Kurskaya oblast"
    :gov.unit/official-url "http://rkursk.ru/"
    :gov.unit/wikidata "Q3178"
    :gov.unit/external-code ["iso3166-2:RU-KRS"]
@@ -9577,6 +9629,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Belgorod Oblast"
+   :gov.unit/name-local "Белгородская область"
+   :gov.unit/name-romanized "Belgorodskaya oblast"
    :gov.unit/official-url "https://belregion.ru/"
    :gov.unit/wikidata "Q3329"
    :gov.unit/external-code ["iso3166-2:RU-BEL"]
@@ -9590,6 +9644,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Voronezh Oblast"
+   :gov.unit/name-local "Воронежская область"
+   :gov.unit/name-romanized "Voronezhskaya oblast"
    :gov.unit/official-url "http://www.govvrn.ru/"
    :gov.unit/wikidata "Q3447"
    :gov.unit/external-code ["iso3166-2:RU-VOR"]
@@ -9603,6 +9659,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Lipetsk Oblast"
+   :gov.unit/name-local "Липецкая область"
+   :gov.unit/name-romanized "Lipetskaya oblast"
    :gov.unit/official-url "http://admlip.ru/"
    :gov.unit/wikidata "Q3510"
    :gov.unit/external-code ["iso3166-2:RU-LIP"]
@@ -9616,6 +9674,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tambov Oblast"
+   :gov.unit/name-local "Тамбовская область"
+   :gov.unit/name-romanized "Tambovskaya oblast"
    :gov.unit/official-url "http://www.tambov.gov.ru/"
    :gov.unit/wikidata "Q3550"
    :gov.unit/external-code ["iso3166-2:RU-TAM"]
@@ -9629,6 +9689,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Rostov Oblast"
+   :gov.unit/name-local "Ростовская область"
+   :gov.unit/name-romanized "Rostovskaya oblast"
    :gov.unit/official-url "http://www.donland.ru/"
    :gov.unit/wikidata "Q3573"
    :gov.unit/external-code ["iso3166-2:RU-ROS"]
@@ -9642,6 +9704,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Krasnodar Krai"
+   :gov.unit/name-local "Краснодарский край"
+   :gov.unit/name-romanized "Krasnodarsky kray"
    :gov.unit/official-url "http://admkrai.krasnodar.ru/"
    :gov.unit/wikidata "Q3680"
    :gov.unit/external-code ["iso3166-2:RU-KDA"]
@@ -9655,6 +9719,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Adygea"
+   :gov.unit/name-local "Республика Адыгея"
+   :gov.unit/name-romanized "Respublika Adygeya"
    :gov.unit/official-url "http://www.adygheya.ru/"
    :gov.unit/wikidata "Q3734"
    :gov.unit/external-code ["iso3166-2:RU-AD"]
@@ -9668,6 +9734,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Volgograd Oblast"
+   :gov.unit/name-local "Волгоградская область"
+   :gov.unit/name-romanized "Volgogradskaya oblast"
    :gov.unit/official-url "http://www.volgograd.ru/"
    :gov.unit/wikidata "Q3819"
    :gov.unit/external-code ["iso3166-2:RU-VGG"]
@@ -9681,6 +9749,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Astrakhan Oblast"
+   :gov.unit/name-local "Астраханская область"
+   :gov.unit/name-romanized "Astrakhanskaya oblast"
    :gov.unit/official-url "http://www.astrobl.ru/"
    :gov.unit/wikidata "Q3941"
    :gov.unit/external-code ["iso3166-2:RU-AST"]
@@ -9694,6 +9764,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kalmykia"
+   :gov.unit/name-local "Республика Калмыкия"
+   :gov.unit/name-romanized "Respublika Kalmykiya"
    :gov.unit/official-url "https://glava.region08.ru"
    :gov.unit/wikidata "Q3953"
    :gov.unit/external-code ["iso3166-2:RU-KL"]
@@ -9707,6 +9779,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Primorsky Krai"
+   :gov.unit/name-local "Приморский край"
+   :gov.unit/name-romanized "Primorsky kray"
    :gov.unit/official-url "http://www.primorsky.ru/"
    :gov.unit/wikidata "Q4341"
    :gov.unit/external-code ["iso3166-2:RU-PRI"]
@@ -9720,6 +9794,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Dagestan"
+   :gov.unit/name-local "Республика Дагестан"
+   :gov.unit/name-romanized "Respublika Dagestan"
    :gov.unit/official-url "http://www.e-dag.ru/"
    :gov.unit/wikidata "Q5118"
    :gov.unit/external-code ["iso3166-2:RU-DA"]
@@ -9733,6 +9809,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Chechnya"
+   :gov.unit/name-local "Чеченская Республика"
+   :gov.unit/name-romanized "Chechenskaya Respublika"
    :gov.unit/official-url "http://chechnya.gov.ru/"
    :gov.unit/wikidata "Q5187"
    :gov.unit/external-code ["iso3166-2:RU-CE"]
@@ -9746,6 +9824,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Stavropol Krai"
+   :gov.unit/name-local "Ставропольский край"
+   :gov.unit/name-romanized "Stavropolsky kray"
    :gov.unit/official-url "http://www.stavkray.ru/"
    :gov.unit/wikidata "Q5207"
    :gov.unit/external-code ["iso3166-2:RU-STA"]
@@ -9759,6 +9839,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ingushetia"
+   :gov.unit/name-local "Республика Ингушетия"
+   :gov.unit/name-romanized "Respublika Ingushetiya"
    :gov.unit/official-url "http://www.ingushetia.ru"
    :gov.unit/wikidata "Q5219"
    :gov.unit/external-code ["iso3166-2:RU-IN"]
@@ -9772,6 +9854,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "North Ossetia–Alania"
+   :gov.unit/name-local "Республика Северная Осетия — Алания"
+   :gov.unit/name-romanized "Respublika Severnaya Osetiya — Alaniya"
    :gov.unit/official-url "http://www.rso-a.ru/"
    :gov.unit/wikidata "Q5237"
    :gov.unit/external-code ["iso3166-2:RU-SE"]
@@ -9785,6 +9869,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kabardino-Balkaria"
+   :gov.unit/name-local "Кабардино-Балкарская Республика"
+   :gov.unit/name-romanized "Kabardino-Balkarskaya Respublika"
    :gov.unit/official-url "http://glava.kbr.ru/"
    :gov.unit/wikidata "Q5267"
    :gov.unit/external-code ["iso3166-2:RU-KB"]
@@ -9798,6 +9884,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Karachay-Cherkessia"
+   :gov.unit/name-local "Карачаево-Черкесская Республика"
+   :gov.unit/name-romanized "Karachayevo-Cherkesskaya Respublika"
    :gov.unit/official-url "http://www.kchr.info/"
    :gov.unit/wikidata "Q5328"
    :gov.unit/external-code ["iso3166-2:RU-KC"]
@@ -9811,6 +9899,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Saratov Oblast"
+   :gov.unit/name-local "Саратовская область"
+   :gov.unit/name-romanized "Saratovskaya oblast"
    :gov.unit/official-url "http://saratov.gov.ru/"
    :gov.unit/wikidata "Q5334"
    :gov.unit/external-code ["iso3166-2:RU-SAR"]
@@ -9824,6 +9914,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Orenburg Oblast"
+   :gov.unit/name-local "Оренбургская область"
+   :gov.unit/name-romanized "Orenburgskaya oblast"
    :gov.unit/official-url "https://orenburg-gov.ru/"
    :gov.unit/wikidata "Q5338"
    :gov.unit/external-code ["iso3166-2:RU-ORE"]
@@ -9837,6 +9929,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Mordovia"
+   :gov.unit/name-local "Республика Мордовия"
+   :gov.unit/name-romanized "Respublika Mordoviya"
    :gov.unit/official-url "https://e-mordovia.ru"
    :gov.unit/wikidata "Q5340"
    :gov.unit/external-code ["iso3166-2:RU-MO"]
@@ -9850,6 +9944,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kirov Oblast"
+   :gov.unit/name-local "Кировская область"
+   :gov.unit/name-romanized "Kirovskaya oblast"
    :gov.unit/official-url "http://www.kirovreg.ru"
    :gov.unit/wikidata "Q5387"
    :gov.unit/external-code ["iso3166-2:RU-KIR"]
@@ -9863,6 +9959,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Perm Krai"
+   :gov.unit/name-local "Пермский край"
+   :gov.unit/name-romanized "Permsky kray"
    :gov.unit/official-url "https://www.permkrai.ru/"
    :gov.unit/wikidata "Q5400"
    :gov.unit/external-code ["iso3166-2:RU-PER"]
@@ -9876,6 +9974,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Udmurtia"
+   :gov.unit/name-local "Удмуртская Республика"
+   :gov.unit/name-romanized "Udmurtskaya Respublika"
    :gov.unit/official-url "http://www.udmurt.ru/"
    :gov.unit/wikidata "Q5422"
    :gov.unit/external-code ["iso3166-2:RU-UD"]
@@ -9889,6 +9989,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Mari El"
+   :gov.unit/name-local "Республика Марий Эл"
+   :gov.unit/name-romanized "Respublika Mariy El"
    :gov.unit/official-url "http://mari-el.gov.ru"
    :gov.unit/wikidata "Q5446"
    :gov.unit/external-code ["iso3166-2:RU-ME"]
@@ -9902,6 +10004,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Sverdlovsk Oblast"
+   :gov.unit/name-local "Свердловская область"
+   :gov.unit/name-romanized "Sverdlovskaya oblast"
    :gov.unit/official-url "http://www.midural.ru"
    :gov.unit/wikidata "Q5462"
    :gov.unit/external-code ["iso3166-2:RU-SVE"]
@@ -9915,6 +10019,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Chuvashia"
+   :gov.unit/name-local "Чувашская Республика"
+   :gov.unit/name-romanized "Chuvashskaya Respublika"
    :gov.unit/official-url "https://www.cap.ru/"
    :gov.unit/wikidata "Q5466"
    :gov.unit/external-code ["iso3166-2:RU-CU"]
@@ -9928,6 +10034,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tatarstan"
+   :gov.unit/name-local "Республика Татарстан"
+   :gov.unit/name-romanized "Respublika Tatarstan"
    :gov.unit/official-url "http://tatarstan.ru/"
    :gov.unit/wikidata "Q5481"
    :gov.unit/external-code ["iso3166-2:RU-TA"]
@@ -9941,6 +10049,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Penza Oblast"
+   :gov.unit/name-local "Пензенская область"
+   :gov.unit/name-romanized "Penzenskaya oblast"
    :gov.unit/official-url "https://www.pnzreg.ru/"
    :gov.unit/wikidata "Q5545"
    :gov.unit/external-code ["iso3166-2:RU-PNZ"]
@@ -9954,6 +10064,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ulyanovsk Oblast"
+   :gov.unit/name-local "Ульяновская область"
+   :gov.unit/name-romanized "Ulyanovskaya oblast"
    :gov.unit/official-url "https://ulgov.gosuslugi.ru/"
    :gov.unit/wikidata "Q5634"
    :gov.unit/external-code ["iso3166-2:RU-ULY"]
@@ -9967,6 +10079,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Bashkortostan"
+   :gov.unit/name-local "Республика Башкортостан"
+   :gov.unit/name-romanized "Respublika Bashkortostan"
    :gov.unit/official-url "https://www.bashkortostan.ru/"
    :gov.unit/wikidata "Q5710"
    :gov.unit/external-code ["iso3166-2:RU-BA"]
@@ -9980,6 +10094,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Chelyabinsk Oblast"
+   :gov.unit/name-local "Челябинская область"
+   :gov.unit/name-romanized "Chelyabinskaya oblast"
    :gov.unit/official-url "http://www.pravmin74.ru/"
    :gov.unit/wikidata "Q5714"
    :gov.unit/external-code ["iso3166-2:RU-CHE"]
@@ -9993,6 +10109,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kurgan Oblast"
+   :gov.unit/name-local "Курганская область"
+   :gov.unit/name-romanized "Kurganskaya oblast"
    :gov.unit/official-url "http://kurganobl.ru/"
    :gov.unit/wikidata "Q5741"
    :gov.unit/external-code ["iso3166-2:RU-KGN"]
@@ -10006,6 +10124,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tyumen Oblast"
+   :gov.unit/name-local "Тюменская область"
+   :gov.unit/name-romanized "Tyumenskaya oblast"
    :gov.unit/official-url "http://admtyumen.ru/"
    :gov.unit/wikidata "Q5824"
    :gov.unit/external-code ["iso3166-2:RU-TYU"]
@@ -10019,6 +10139,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Omsk Oblast"
+   :gov.unit/name-local "Омская область"
+   :gov.unit/name-romanized "Omskaya oblast"
    :gov.unit/official-url "http://www.omskportal.ru/"
    :gov.unit/wikidata "Q5835"
    :gov.unit/external-code ["iso3166-2:RU-OMS"]
@@ -10032,6 +10154,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Novosibirsk Oblast"
+   :gov.unit/name-local "Новосибирская область"
+   :gov.unit/name-romanized "Novosibirskaya oblast"
    :gov.unit/official-url "http://www.nso.ru/"
    :gov.unit/wikidata "Q5851"
    :gov.unit/external-code ["iso3166-2:RU-NVS"]
@@ -10045,6 +10169,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tomsk Oblast"
+   :gov.unit/name-local "Томская область"
+   :gov.unit/name-romanized "Tomskaya oblast"
    :gov.unit/official-url "http://tomsk.gov.ru/"
    :gov.unit/wikidata "Q5884"
    :gov.unit/external-code ["iso3166-2:RU-TOM"]
@@ -10058,6 +10184,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Altai Krai"
+   :gov.unit/name-local "Алтайский край"
+   :gov.unit/name-romanized "Altayskiy kray"
    :gov.unit/official-url "http://www.altairegion22.ru/"
    :gov.unit/wikidata "Q5942"
    :gov.unit/external-code ["iso3166-2:RU-ALT"]
@@ -10071,6 +10199,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Altai Republic"
+   :gov.unit/name-local "Республика Алтай"
+   :gov.unit/name-romanized "Respublika Altay"
    :gov.unit/official-url "http://www.altai-republic.ru"
    :gov.unit/wikidata "Q5971"
    :gov.unit/external-code ["iso3166-2:RU-AL"]
@@ -10084,6 +10214,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kemerovo Oblast"
+   :gov.unit/name-local "Кемеровская область — Кузбасс"
+   :gov.unit/name-romanized "Kemerovskaya oblast — Kuzbass"
    :gov.unit/official-url "http://ako.ru"
    :gov.unit/wikidata "Q6076"
    :gov.unit/external-code ["iso3166-2:RU-KEM"]
@@ -10097,6 +10229,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Khanty-Mansi Autonomous Okrug"
+   :gov.unit/name-local "Ханты-Мансийский автономный округ — Югра"
+   :gov.unit/name-romanized "Khanty-Mansiysky avtonomny okrug — Yugra"
    :gov.unit/official-url "http://www.admhmao.ru"
    :gov.unit/wikidata "Q6320"
    :gov.unit/external-code ["iso3166-2:RU-KHM"]
@@ -10110,6 +10244,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Yamalo-Nenets Autonomous Okrug"
+   :gov.unit/name-local "Ямало-Ненецкий автономный округ"
+   :gov.unit/name-romanized "Yamalo-Nenetsky avtonomny okrug"
    :gov.unit/official-url "http://правительство.янао.рф/"
    :gov.unit/wikidata "Q6407"
    :gov.unit/external-code ["iso3166-2:RU-YAN"]
@@ -10123,6 +10259,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Moscow"
+   :gov.unit/name-local "Москва"
+   :gov.unit/name-romanized "Moskva"
    :gov.unit/official-url "https://visit-moscow-city.ru/"
    :gov.unit/wikidata "Q649"
    :gov.unit/external-code ["iso3166-2:RU-MOW"]
@@ -10136,6 +10274,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Khakassia"
+   :gov.unit/name-local "Республика Хакасия"
+   :gov.unit/name-romanized "Respublika Khakasiya"
    :gov.unit/official-url "https://www.r-19.ru/"
    :gov.unit/wikidata "Q6543"
    :gov.unit/external-code ["iso3166-2:RU-KK"]
@@ -10149,6 +10289,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Saint Petersburg"
+   :gov.unit/name-local "Санкт-Петербург"
+   :gov.unit/name-romanized "Sankt-Peterburg"
    :gov.unit/official-url "https://kvs.gov.spb.ru/en/"
    :gov.unit/wikidata "Q656"
    :gov.unit/external-code ["iso3166-2:RU-SPE"]
@@ -10162,6 +10304,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Krasnoyarsk Krai"
+   :gov.unit/name-local "Красноярский край"
+   :gov.unit/name-romanized "Krasnoyarsky kray"
    :gov.unit/official-url "http://www.krskstate.ru/"
    :gov.unit/wikidata "Q6563"
    :gov.unit/external-code ["iso3166-2:RU-KYA"]
@@ -10175,6 +10319,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Irkutsk Oblast"
+   :gov.unit/name-local "Иркутская область"
+   :gov.unit/name-romanized "Irkutskaya oblast"
    :gov.unit/official-url "http://www.irkobl.ru/"
    :gov.unit/wikidata "Q6585"
    :gov.unit/external-code ["iso3166-2:RU-IRK"]
@@ -10188,6 +10334,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Sakha"
+   :gov.unit/name-local "Республика Саха (Якутия)"
+   :gov.unit/name-romanized "Respublika Sakha (Yakutiya)"
    :gov.unit/official-url "https://www.sakha.gov.ru/"
    :gov.unit/wikidata "Q6605"
    :gov.unit/external-code ["iso3166-2:RU-SA"]
@@ -10201,6 +10349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Buryatia"
+   :gov.unit/name-local "Республика Бурятия"
+   :gov.unit/name-romanized "Respublika Buryatiya"
    :gov.unit/official-url "http://egov-buryatia.ru/"
    :gov.unit/wikidata "Q6809"
    :gov.unit/external-code ["iso3166-2:RU-BU"]
@@ -10214,6 +10364,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Zabaykalsky Krai"
+   :gov.unit/name-local "Забайкальский край"
+   :gov.unit/name-romanized "Zabaykalsky kray"
    :gov.unit/official-url "https://75.ru/"
    :gov.unit/wikidata "Q6838"
    :gov.unit/external-code ["iso3166-2:RU-ZAB"]
@@ -10227,6 +10379,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Amur Oblast"
+   :gov.unit/name-local "Амурская область"
+   :gov.unit/name-romanized "Amurskaya oblast"
    :gov.unit/official-url "https://www.amurobl.ru"
    :gov.unit/wikidata "Q6886"
    :gov.unit/external-code ["iso3166-2:RU-AMU"]
@@ -10240,6 +10394,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Sevastopol"
+   :gov.unit/name-local "Севастополь"
+   :gov.unit/name-romanized "Sevastopol"
    :gov.unit/official-url "https://sevastopolis.com/"
    :gov.unit/wikidata "Q7525"
    :gov.unit/external-code ["iso3166-2:UA-40"]
@@ -10253,6 +10409,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Jewish Autonomous Oblast"
+   :gov.unit/name-local "Еврейская автономная область"
+   :gov.unit/name-romanized "Yevreyskaya avtonomnaya oblast"
    :gov.unit/official-url "http://www.eao.ru/"
    :gov.unit/wikidata "Q7730"
    :gov.unit/external-code ["iso3166-2:RU-YEV"]
@@ -10266,6 +10424,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Khabarovsk Krai"
+   :gov.unit/name-local "Хабаровский край"
+   :gov.unit/name-romanized "Khabarovsky kray"
    :gov.unit/official-url "http://www.khabkrai.ru/"
    :gov.unit/wikidata "Q7788"
    :gov.unit/external-code ["iso3166-2:RU-KHA"]
@@ -10279,6 +10439,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Sakhalin Oblast"
+   :gov.unit/name-local "Сахалинская область"
+   :gov.unit/name-romanized "Sakhalinskaya oblast"
    :gov.unit/official-url "https://sakhalin.gov.ru/"
    :gov.unit/wikidata "Q7797"
    :gov.unit/external-code ["iso3166-2:RU-SAK"]
@@ -10292,6 +10454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Kamchatka Krai"
+   :gov.unit/name-local "Камчатский край"
+   :gov.unit/name-romanized "Kamchatsky kray"
    :gov.unit/official-url "https://kamgov.ru/"
    :gov.unit/wikidata "Q7948"
    :gov.unit/external-code ["iso3166-2:RU-KAM"]
@@ -10305,6 +10469,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Magadan Oblast"
+   :gov.unit/name-local "Магаданская область"
+   :gov.unit/name-romanized "Magadanskaya oblast"
    :gov.unit/official-url "https://www.49gov.ru/"
    :gov.unit/wikidata "Q7971"
    :gov.unit/external-code ["iso3166-2:RU-MAG"]
@@ -10318,6 +10484,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Chukotka Autonomous Okrug"
+   :gov.unit/name-local "Чукотский автономный округ"
+   :gov.unit/name-romanized "Chukotsky avtonomny okrug"
    :gov.unit/official-url "http://чукотка.рф"
    :gov.unit/wikidata "Q7984"
    :gov.unit/external-code ["iso3166-2:RU-CHU"]
@@ -10331,6 +10499,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Tuva"
+   :gov.unit/name-local "Республика Тыва"
+   :gov.unit/name-romanized "Respublika Tyva"
    :gov.unit/official-url "https://rtyva.ru"
    :gov.unit/wikidata "Q960"
    :gov.unit/external-code ["iso3166-2:RU-TY"]
