@@ -61,9 +61,16 @@ G11 safety-honesty (not a certified safety system) · G12 no-persistence-launder
 
 ```
 cd methods && python3 carbon_balance.py && python3 analyze.py
-cd methods && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest test_kamado.py        # 11
-cd cells   && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest test_state_machines.py # 8
+cd methods && python3 ingest.py    # legacy oil-refining graph export → kotoba EAVT + kg.ingest_batch
+cd methods && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest test_kamado.py test_ingest.py  # 11+6
+cd cells   && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest test_state_machines.py          # 8
 ```
+
+**Legacy migration** (supersedes `oil-refining`): `methods/ingest.py` converts a legacy
+RisingWave/Cypher node export (Refinery/RefineryUnit/RefineryOutage) → kotoba EAVT datoms +
+a `kg.ingest_batch` body (dedup vs seed; G4 no-person/org-operator; G1 `:observed-fossil`;
+G7 `:representative`). Live legacy read + KV/kotoba promotion are operator-gated (G8) — see
+`20-actors/oil-refining/MIGRATION-NOTES.md`.
 
 (Repo pytest plugin env is broken — `pydantic`/`langsmith`; the `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1`
 prefix runs the suites in isolation.)

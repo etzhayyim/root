@@ -34,5 +34,46 @@ legacy actor lacked:
 | `(:ActorCoverageSnapshot)` `MERGE` | derived datoms via `methods/analyze.py` (`:derived`) |
 | `com.etzhayyim.apps.oilRefining.*` XRPC | superseded by kamado cells + offline analyzer |
 
-Migration of any live data follows the **watari** precedent (ADR-2606041827): the legacy manifest
-is retained for reference until a dedicated cutover PR removes it; no new work should target it.
+## Executable migration bridge (legacy graph → kotoba EAVT)
+
+The ETL is implemented (watari `ingest.py` precedent):
+
+```
+20-actors/kamado/methods/ingest.py            # legacy node export → kotoba EAVT + kg.ingest_batch
+20-actors/kamado/data/ingest/legacy-oil-refining-export.sample.json   # Cypher-node-shaped sample
+```
+
+Run (offline, `:representative`):
+
+```
+cd 20-actors/kamado/methods
+python3 ingest.py --export ../data/ingest/legacy-oil-refining-export.sample.json
+# → out/refinery-graph.migrated.kotoba.edn   (kotoba EDN, dedup vs seed — seed identity wins)
+# → out/oil-refining-kotoba-batch.json       (kg.ingest_batch body: 12 entities/claims/relations)
+```
+
+A real RisingWave dump (`apoc.export.json` / cypher-shell of the `MATCH (r:Refinery)…` nodes)
+drops into `--export` unchanged. The bridge enforces **G4** (operator must be an `org.corp.*` id —
+a refinery is never a person; person fields are refused), **G1** (migrated assets are
+`:observed-fossil` — observation, not a `:synthesis` record, so `feedstock_guard` is never
+bypassed), and **G7** (`:representative`).
+
+## Promotion to live KV / kotoba (operator-gated, G8)
+
+Two independent surfaces, both Council Lv6+ + operator gated:
+
+1. **Domain data** (refinery/unit/outage) → the refining graph:
+   `POST $KOTOBA_ENDPOINT/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch` with
+   `out/oil-refining-kotoba-batch.json`. Live legacy read: `ingest.py --live` (refused unless
+   `KAMADO_OPERATOR_GATE=1`).
+2. **Actor-profile identity** (already wired in the publisher):
+   `node 50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs --actor kamado --put-kv --ingest-kotoba`
+   → CF KV `actor:kamado` + the `actors-v1` graph. This promotes kamado from the compiled
+   `INFRA_ACTORS` fallback to the live KV/kotoba source (identical output; KV just becomes
+   authoritative).
+
+Until an operator runs the above, the apex Worker serves kamado from the compiled `INFRA_ACTORS`
+fallback (3-tier fail-open KV → kotoba → compiled), so `/actor/kamado/did.json` resolves today.
+
+The legacy manifest is retained for reference until a dedicated cutover PR removes it (watari
+precedent); no new work should target it.
