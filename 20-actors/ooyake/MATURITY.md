@@ -43,6 +43,32 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision official-url — partial-coverage jurisdictions (5905 → 5949)
+
+Continued the subdivision official-url axis across 8 partially-covered jurisdictions. 8 web-research
+subagents. **44 official portals found + added; 41 honest nulls** (this batch deliberately tested
+several jurisdictions whose first-level divisions structurally have NO government portal — the nulls
+are the finding, not a miss).
+
+- official-url: 5905 → **5949/7106**.
+- **Iraq governorates** (12/12): every محافظة diwan portal (anbar.iq, najaf.gov.iq, karbala.gov.iq …).
+- **Cape Verde municipalities** (9/12): Câmara Municipal .cv portals (3 null = Facebook-only).
+- **Uganda districts** (9/9): <district>.go.ug local-government portals.
+- **Paraguay departments** (8/9): gobernación .gov.py portals (+ Asunción municipality for the Capital
+  District; Ñeembucú via IDN punycode xn--eembucu-3za.gov.py).
+- **Tunisia governorates** (4/12): only Tunis/Ben Arous/Béja/Jendouba run a gouvernorat-*.gov.tn site;
+  the rest have none (rejected commune-*.gov.tn municipality sites — wrong tier).
+- **Jordan** (2/11): only Amman (Greater Amman Municipality, metropolitan = governorate-scope) +
+  Aqaba (ASEZA, governs the whole zone). The other 9 governorates are MoI-administered with no
+  standalone portal; their seat-city municipalities are a DIFFERENT tier — left null (G5 accuracy,
+  not attributed up-tier).
+- **honest structural nulls**: Portugal districts (10/10 null — civil governments ABOLISHED 2011,
+  districts are statistical/electoral only; did NOT substitute the Câmara Municipal of the capital);
+  Philippine regions (10/10 null — administrative groupings not LGUs; the RDC is run by a national
+  DEPDev/NEDA regional office, not a regional government). Negros Island Region re-created 2024.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — CONTACT axis: subdivision official-url — high-yield batch (5817 → 5905)
 
 Resumed the official-url coverage axis at the SUBDIVISION tier (1,223 first-level-division gaps).

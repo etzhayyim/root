@@ -5636,6 +5636,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Paraguarí Department"
+   :gov.unit/official-url "https://gobernaciondeparaguari.gov.py/"
    :gov.unit/wikidata "Q240014"
    :gov.unit/external-code ["iso3166-2:PY-9"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5648,6 +5649,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Capital District"
+   :gov.unit/official-url "https://www.asuncion.gov.py/"
    :gov.unit/wikidata "Q2723419"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2723419" :gov.unit/last-verified "2026-06-03"
@@ -5659,6 +5661,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Canindeyú Department"
+   :gov.unit/official-url "http://canindeyu.gov.py/"
    :gov.unit/wikidata "Q279085"
    :gov.unit/external-code ["iso3166-2:PY-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5684,6 +5687,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "San Pedro Department"
+   :gov.unit/official-url "https://sanpedro.gov.py/"
    :gov.unit/wikidata "Q526176"
    :gov.unit/external-code ["iso3166-2:PY-2"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5709,6 +5713,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Alto Paraguay Department"
+   :gov.unit/official-url "https://www.gobernacionaltoparaguay.gov.py/"
    :gov.unit/wikidata "Q682642"
    :gov.unit/external-code ["iso3166-2:PY-16"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5760,6 +5765,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Boquerón Department"
+   :gov.unit/official-url "https://boqueron.gov.py/"
    :gov.unit/wikidata "Q741017"
    :gov.unit/external-code ["iso3166-2:PY-19"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5785,6 +5791,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Ñeembucú Department"
+   :gov.unit/official-url "https://xn--eembucu-3za.gov.py/"
    :gov.unit/wikidata "Q755115"
    :gov.unit/external-code ["iso3166-2:PY-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -5822,6 +5829,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "pry"
    :gov.unit/name-en "Caaguazú Department"
+   :gov.unit/official-url "https://www.gobernaciondelcaaguazu.gov.py/"
    :gov.unit/wikidata "Q880399"
    :gov.unit/external-code ["iso3166-2:PY-5"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
