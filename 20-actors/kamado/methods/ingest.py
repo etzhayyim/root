@@ -24,12 +24,18 @@ CONSTITUTIONAL (kamado G1 / G4 / G7 / G8):
 
 stdlib only. Usage:
     python3 ingest.py --export data/ingest/legacy-oil-refining-export.sample.json [--out OUTDIR]
-    KOTOBA_JWT=<bearer> python3 ingest.py --push   # POST batch → live kotobase.net (G8; JWT = attestation)
+    # CANONICAL write — etzhayyim's OWN kotoba, DID-bound auth (no vendor auth root):
+    KOTOBA_ENDPOINT=<etzhayyim-node> KOTOBA_AUTH=<did-bound-bearer> python3 ingest.py --push
+    # OPTIONAL gftd pinning mirror (content-addressed COPY only, NOT canonical):
+    KOTOBA_JWT=<gftd-jwt> python3 ingest.py --mirror-gftd
     python3 ingest.py --live          # refused unless KAMADO_OPERATOR_GATE=1 (G8)
 
-The live target is the gftd kotobase endpoint (did:web:kotobase.net, etzhayyim/kotoba
-upstream): POST https://kotobase.net/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch, Bearer JWT.
-kg.ingest is a TENANT write (sub == tenant_did); datomic.transact is operator-only.
+SUBSTRATE BOUNDARY: the canonical write goes to etzhayyim's own kotoba (the engine is
+etzhayyim's open-source, github.com/etzhayyim/kotoba), authenticated by an etzhayyim
+DID-bound token — religious-corp canonical state is NOT gated by a vendor auth service
+(Ownership invariant + Murakumo-only consent boundary). gftd kotobase
+(did:web:kotobase.net) is an OPTIONAL availability mirror only. kg.ingest is a TENANT
+write (sub == tenant_did); datomic.transact is operator-only.
 """
 from __future__ import annotations
 
@@ -42,10 +48,25 @@ import urllib.request
 
 import analyze  # reuse the EDN reader + classify for dedup-vs-seed
 
-# Live kotoba endpoint (gftd kotobase — etzhayyim/kotoba upstream; did:web:kotobase.net).
-# Verified 2026-06-05: /health ok, kg.ingest_batch is a tenant write (Bearer gftd-AUTHN JWT).
-KOTOBASE_ENDPOINT = "https://kotobase.net"
-KG_INGEST_BATCH_NSID = "ai.gftd.apps.kotobase.kg.ingest_batch"
+# ── Substrate-boundary (CRITICAL) ────────────────────────────────────────────
+# CANONICAL write path = etzhayyim's OWN kotoba endpoint, authenticated by an
+# etzhayyim DID-bound token (member/operator signature — no-server-key). The
+# kotoba ENGINE is etzhayyim's own open-source (github.com/etzhayyim/kotoba,
+# 40-engine/kotoba). Per the Ownership invariant (意思決定権・payoff = etzhayyim only)
+# + the Murakumo-only consent-capability boundary (ADR-2605215000), religious-corp
+# CANONICAL STATE must NOT be gated by a vendor's auth service. So the default
+# push target is operator-supplied (KOTOBA_ENDPOINT) — there is deliberately NO
+# hardcoded vendor default.
+CANONICAL_NSID = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
+
+# OPTIONAL pinning MIRROR = gftd kotobase (did:web:kotobase.net, runs etzhayyim/kotoba
+# unmodified; verified live 2026-06-05). Because state is content-addressed (CID
+# commit-DAG) + Base L2 anchored, a mirror can only host a COPY — it cannot alter or
+# own the data (datomic.transact is operator-only there; CIDs are immutable). gftd is
+# therefore a commodity availability vendor (Pinata-class), NEVER the canonical auth
+# root. It is opt-in ONLY via --mirror-gftd with a gftd-AUTHN JWT.
+GFTD_MIRROR_ENDPOINT = "https://kotobase.net"
+GFTD_MIRROR_NSID = "ai.gftd.apps.kotobase.kg.ingest_batch"
 
 # G4: fields that would tie a refinery to a natural person — refused on sight.
 PERSON_FIELDS = ("owner_person", "ceo", "person", "individual", "operator_person", "crew")
@@ -160,9 +181,11 @@ def to_kg_batch(refineries, units, outages):
     return {"entities": entities}
 
 
-def push_batch(batch, jwt, endpoint=KOTOBASE_ENDPOINT, nsid=KG_INGEST_BATCH_NSID):
-    """POST the kg.ingest_batch to the LIVE kotoba endpoint (G8 — Bearer JWT = operator attestation).
+def push_batch(batch, auth, endpoint, nsid):
+    """POST kg.ingest_batch to a kotoba endpoint (G8 — Bearer token = operator attestation).
 
+    Endpoint/nsid/auth are all explicit: the CANONICAL path supplies etzhayyim's own
+    endpoint + DID-bound token; the gftd MIRROR path supplies kotobase.net + a gftd JWT.
     Uses stdlib urllib (no third-party deps). Returns (status, body). kg.ingest is a TENANT
     write (sub == tenant_did); datomic.transact is operator-only and not used here.
     """
@@ -170,7 +193,7 @@ def push_batch(batch, jwt, endpoint=KOTOBASE_ENDPOINT, nsid=KG_INGEST_BATCH_NSID
     data = json.dumps(batch, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(url, data=data, method="POST", headers={
         "content-type": "application/json",
-        "authorization": f"Bearer {jwt}",
+        "authorization": f"Bearer {auth}",
     })
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -233,21 +256,44 @@ def main(argv):
     print(f"  kg.ingest_batch: {len(batch['entities'])} entities → {out}/oil-refining-kotoba-batch.json")
 
     if "--push" in argv:
-        # G8: the live push. A valid gftd-AUTHN JWT IS the operator attestation.
+        # CANONICAL path: etzhayyim's OWN kotoba endpoint + DID-bound token (no vendor auth root).
+        endpoint = os.environ.get("KOTOBA_ENDPOINT")
+        auth = os.environ.get("KOTOBA_AUTH")
+        nsid = os.environ.get("KOTOBA_NSID", CANONICAL_NSID)
+        if not endpoint or not auth:
+            sys.exit(
+                "kamado G8 (canonical write): --push targets etzhayyim's OWN kotoba — NOT a "
+                "vendor. Set KOTOBA_ENDPOINT=<etzhayyim kotoba node> and KOTOBA_AUTH=<etzhayyim "
+                "DID-bound bearer / member-sig> then re-run. (Ownership invariant: religious-corp "
+                "canonical state is not gated by a vendor auth service. For an OPTIONAL gftd "
+                "pinning mirror — copy only, never canonical — use --mirror-gftd with KOTOBA_JWT.)")
+        status, body = push_batch(batch, auth, endpoint, nsid)
+        print(f"  → POST {endpoint.rstrip('/')}/xrpc/{nsid}  [{status}]  (CANONICAL — etzhayyim)")
+        print(f"    {body[:400]}")
+        return 0 if 200 <= status < 300 else 1
+
+    if "--mirror-gftd" in argv:
+        # OPTIONAL mirror: a content-addressed COPY on gftd kotobase. NOT the canonical home.
         jwt = os.environ.get("KOTOBA_JWT")
         if not jwt:
-            sys.exit("kamado G8: --push needs a gftd-AUTHN JWT. Set KOTOBA_JWT=<bearer> "
-                     "(tenant write; sub == tenant_did) then re-run. Target: "
-                     f"{KOTOBASE_ENDPOINT}/xrpc/{KG_INGEST_BATCH_NSID}.")
-        status, body = push_batch(batch, jwt)
-        print(f"  → POST {KOTOBASE_ENDPOINT}/xrpc/{KG_INGEST_BATCH_NSID}  [{status}]")
+            sys.exit(f"kamado: --mirror-gftd pins a COPY to the gftd kotobase mirror "
+                     f"({GFTD_MIRROR_ENDPOINT}) — a commodity availability vendor, NEVER the "
+                     f"canonical auth root. Needs a gftd-AUTHN JWT: set KOTOBA_JWT=<bearer>. "
+                     f"The CANONICAL write is --push to etzhayyim's own kotoba.")
+        print("  NOTE: gftd kotobase is a pinning MIRROR (content-addressed copy), not canonical.")
+        status, body = push_batch(batch, jwt, GFTD_MIRROR_ENDPOINT, GFTD_MIRROR_NSID)
+        print(f"  → POST {GFTD_MIRROR_ENDPOINT}/xrpc/{GFTD_MIRROR_NSID}  [{status}]  (MIRROR — gftd)")
         print(f"    {body[:400]}")
         return 0 if 200 <= status < 300 else 1
 
     print("  promote to live kotoba/KV (operator-gated, G8):")
-    print(f"    KOTOBA_JWT=<bearer> python3 ingest.py --push   →  {KOTOBASE_ENDPOINT}/xrpc/{KG_INGEST_BATCH_NSID}  (refining graph)")
-    print("    node ../../50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs "
-          "--actor kamado --put-kv --ingest-kotoba   (actor-profile identity)")
+    print("    CANONICAL (etzhayyim's own kotoba — no vendor auth):")
+    print(f"      KOTOBA_ENDPOINT=<etzhayyim-node> KOTOBA_AUTH=<did-bound-bearer> python3 ingest.py --push")
+    print("    actor-profile identity (etzhayyim CF KV — own infra):")
+    print("      node ../../50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs "
+          "--actor kamado --put-kv --ingest-kotoba")
+    print("    OPTIONAL gftd pinning mirror (copy only, NOT canonical):")
+    print(f"      KOTOBA_JWT=<gftd-jwt> python3 ingest.py --mirror-gftd")
     return 0
 
 

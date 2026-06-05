@@ -60,28 +60,41 @@ bypassed), and **G7** (`:representative`).
 
 ## Promotion to live KV / kotoba (operator-gated, G8)
 
-Live kotoba endpoint VERIFIED 2026-06-05: **`https://kotobase.net`** (gftd kotobase,
-`did:web:kotobase.net`, etzhayyim/kotoba upstream; `/health` ok). The KG ingest surface is
-`POST https://kotobase.net/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch` `{entities:[...]}` —
-a **tenant write** (`sub == tenant_did`), `Authorization: Bearer <JWT>`. The JWT is issued by
-the gftd auth service `authn.gftd.ai` (its `sub` is the tenant DID); `datomic.transact` is
-operator-only and not used. `ingest.py` already emits the live `{id, type, label_en, claims,
-relations}` entity contract.
+### Substrate boundary (CRITICAL — why the canonical write is NOT gftd)
 
-Two independent surfaces, both Council Lv6+ + operator gated:
+The kotoba **engine** is etzhayyim's own open-source (`github.com/etzhayyim/kotoba`,
+`40-engine/kotoba`). `kotobase.net` is **gftd's commercial hosted deployment** of that engine
+(`did:web:kotobase.net`; verified live 2026-06-05, `/health` ok), and its `kg.ingest` requires a
+**gftd-AUTHN JWT** from `authn.gftd.ai`. Routing etzhayyim's **canonical religious-corp state**
+through a vendor's auth service would violate the **Ownership invariant** (意思決定権・payoff =
+etzhayyim only — a revocable vendor JWT must not gate canonical state) and the **Murakumo-only
+consent-capability boundary** (religious-corp functions do not route through vendor commercial
+paths, ADR-2605215000). So:
 
-1. **Domain data** (refinery/unit/outage) → the refining graph — one command:
+- **CANONICAL write = etzhayyim's OWN kotoba endpoint + etzhayyim DID-bound auth** (member/operator
+  signature, no-server-key). State stays content-addressed (CID commit-DAG) + Base L2 anchored, so
+  it is verifiable from any IPFS gateway and re-hostable anywhere.
+- **gftd kotobase = OPTIONAL availability MIRROR only** (a content-addressed copy; gftd can host but
+  cannot alter/own the data — `datomic.transact` is operator-only there, CIDs immutable). A
+  commodity vendor (Pinata-class), never the canonical auth root.
+
+### Commands
+
+1. **Domain data** (refinery/unit/outage) → etzhayyim's refining graph — CANONICAL:
    ```
-   KOTOBA_JWT=<bearer> python3 20-actors/kamado/methods/ingest.py --push
+   KOTOBA_ENDPOINT=<etzhayyim kotoba node> KOTOBA_AUTH=<etzhayyim DID-bound bearer> \
+     python3 20-actors/kamado/methods/ingest.py --push
    ```
-   (refused with a G8 message if `KOTOBA_JWT` is unset). Live legacy *read* from a RisingWave
-   dump is the separate `ingest.py --live` path (refused unless `KAMADO_OPERATOR_GATE=1`).
-2. **Actor-profile identity** (already wired in the publisher):
+   (refused with a G8 message if either is unset — there is NO hardcoded vendor default). Live
+   legacy *read* from a RisingWave dump is the separate `ingest.py --live` path
+   (refused unless `KAMADO_OPERATOR_GATE=1`).
+   OPTIONAL mirror (copy only): `KOTOBA_JWT=<gftd-jwt> python3 …/ingest.py --mirror-gftd`.
+2. **Actor-profile identity** → **etzhayyim's own CF KV** (Cloudflare = etzhayyim infra; KV namespace
+   `d33de8e0…` on etzhayyim's account — boundary-clean):
    `node 50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs --actor kamado --put-kv --ingest-kotoba`
-   → CF KV `actor:kamado` + the `actors-v1` graph. NOTE: the publisher still targets the
-   internal `com.etzhayyim.apps.kotobase.*` nsid with a `kind` field; pointing it at the live
-   gftd `ai.gftd.apps.kotobase.*` + `type` contract is a shared-infra follow-up (the kamado
-   domain bridge above is already on the live contract).
+   → CF KV `actor:kamado` + the `actors-v1` graph (point `--ingest-kotoba` at etzhayyim's own
+   kotoba via `KOTOBA_ENDPOINT`, not gftd). The publisher's internal
+   `com.etzhayyim.apps.kotobase.*` nsid is the etzhayyim self-host contract.
 
 Until an operator runs the above, the apex Worker serves kamado from the compiled `INFRA_ACTORS`
 fallback (3-tier fail-open KV → kotoba → compiled), so `/actor/kamado/did.json` resolves today.
