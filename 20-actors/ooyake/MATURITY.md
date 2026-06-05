@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: North Macedonia 81 municipalities (1265 → 1346)
+
+Continued the subdivision endonym front with all 81 North Macedonian municipalities (општини) in
+Macedonian Cyrillic. 7 web-research subagents (Wikidata native labels). **81 Cyrillic endonyms added
+with romanization.**
+
+- all-units name-local: 1265 → **1346**; subdivision name-local: 251 → **332**.
+- official "Општина <Name>" form (Општина Битола/Opština Bitola, Општина Тетово, Општина Ѓорче Петров
+  with the Ѓ letter); the capital = Град Скопје/Grad Skopje (City of Skopje, not Општина). All romanized
+  (ISO-9 Macedonian Latin) → searchable by Latin reading on /gov.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Serbia 30, Bulgaria 28, Ukraine 26, Khmer 24, Tunisia 24 (Arabic), Mongolia 22, Yemen 22, Myanmar 21,
+Maldives 20, Bhutan 20, Lao 17, Iran 31, Iraq 18 — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Thailand 77 provinces (1188 → 1265)
 
 Continued the subdivision endonym front with all 77 Thai provinces (จังหวัด) in Thai script.
