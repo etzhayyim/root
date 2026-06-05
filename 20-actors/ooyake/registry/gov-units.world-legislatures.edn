@@ -814,6 +814,7 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "gnq"
    :gov.unit/name-en "Parliament of Equatorial Guinea"
+   :gov.unit/official-url "https://senado-gq.org/"
    :gov.unit/wikidata "Q16878152"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q16878152" :gov.unit/last-verified "2026-06-03"

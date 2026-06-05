@@ -43,6 +43,36 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — official-url: high-tier institution gap audit (G5 honest-null) (5983 → 5984)
+
+Pivoted axis: the non-Latin subdivision name-local front is effectively complete, so this iteration
+audited the **66 high-tier institutions** (supranational/legislature/court/ministry/agency) that still
+lacked an official-url — the highest-value url gaps (a ministry/court URL is genuinely verifiable, vs a
+subdivision's generic provincial portal). 3 web-research subagents (Wikidata P856 + direct fetch).
+
+**Outcome = the honest finding (G5): only 1 of 66 has a verifiable official site.**
+- **ADDED**: Equatorial Guinea Senate → https://senado-gq.org/ (Wikidata P856 Q14759322; the Chamber of
+  Deputies has no separate site, so this represents the parliament). official-url 5983 → **5984**.
+- **65 verified honest-null** — recorded here so future iterations do NOT re-research them. Reasons:
+  - Fragile/conflict/closed states with no institutional web presence (Afghanistan, Syria, Sudan, CAR,
+    DRC, Eritrea, North Korea, South Sudan, Guinea-Bissau, Chad, Niger, Mauritania, Togo, Turkmenistan …).
+  - Dissolved / not-yet-constituted bodies (Syria Supreme Constitutional Court dissolved; Tunisia
+    Constitutional Court not yet constituted; Sudan National Legislature dissolved 2019).
+  - No permanent secretariat by design (BRICS, G7 — rotating-chair/presidency sites only, null per policy).
+  - Institutions that don't exist as labelled (Bank of Kiribati → became ANZ Kiribati 2001, no central
+    bank; India Data Protection Board constituted Nov 2025, no .gov.in site yet; Indonesia PDP authority
+    not yet operational).
+  - **Data-quality flags (NOT in our registry, so nothing to clean — but noted)**: widely-cited URLs that
+    are now HIJACKED/parked and should never be ingested — Comoros Assembly `assemblee-comores.com`
+    (Polish business directory; stale on Wikidata P856), St Lucia `stluciaarchives.org` (construction
+    template), Haiti/Syria national-library domains (dead/renamed post-2024).
+
+Residual: 2 wikidata gaps remain (gov.jpn.mof.nta.tokyo 東京国税局 + .kojimachi 麹町税務署, JP tax-office
+sub-units) — left honest-null pending primary-source QID verification (no guessing).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Published-index authoritative-scope gate
+(check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: non-Latin sweep (Afghanistan+NKorea+Israel+Lebanon+Belarus+Tajik+Kyrgyz+SriLanka+Bangladesh+Nepal) (1859 → 1955)
 
 Swept the remaining genuinely non-Latin subdivision sets across 10 countries / 8 scripts in one pass.
