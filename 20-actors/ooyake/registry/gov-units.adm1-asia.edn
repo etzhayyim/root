@@ -1787,6 +1787,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Pemagatshel District"
+   :gov.unit/name-local "པདྨ་དགའ་ཚལ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Pemagatshel Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=27"
    :gov.unit/wikidata "Q167279"
    :gov.unit/external-code ["iso3166-2:BT-43"]
@@ -1800,6 +1802,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Zhemgang District"
+   :gov.unit/name-local "གཞལམ་སྒང་རྫོང་ཁག"
+   :gov.unit/name-romanized "Zhemgang Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=39"
    :gov.unit/wikidata "Q197564"
    :gov.unit/external-code ["iso3166-2:BT-34"]
@@ -1813,6 +1817,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Thimphu District"
+   :gov.unit/name-local "ཐིམ་ཕུ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Thimphu Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=32"
    :gov.unit/wikidata "Q254889"
    :gov.unit/external-code ["iso3166-2:BT-15"]
@@ -1826,6 +1832,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Mongar District"
+   :gov.unit/name-local "མོང་སྒར་རྫོང་ཁག"
+   :gov.unit/name-romanized "Mongar Dzongkhag"
    :gov.unit/official-url "https://mongar.gov.bt"
    :gov.unit/wikidata "Q389734"
    :gov.unit/external-code ["iso3166-2:BT-42"]
@@ -1839,6 +1847,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Bumthang District"
+   :gov.unit/name-local "བུམ་ཐང་རྫོང་ཁག"
+   :gov.unit/name-romanized "Bumthang Dzongkhag"
    :gov.unit/official-url "http://www.bumthang.gov.bt"
    :gov.unit/wikidata "Q463242"
    :gov.unit/external-code ["iso3166-2:BT-33"]
@@ -1852,6 +1862,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Gasa District"
+   :gov.unit/name-local "མགར་ས་རྫོང་ཁག"
+   :gov.unit/name-romanized "Gasa Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=22"
    :gov.unit/wikidata "Q578294"
    :gov.unit/external-code ["iso3166-2:BT-GA"]
@@ -1865,6 +1877,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Punakha District"
+   :gov.unit/name-local "སྤུ་ན་ཁ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Punakha Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=28"
    :gov.unit/wikidata "Q587062"
    :gov.unit/external-code ["iso3166-2:BT-23"]
@@ -1878,6 +1892,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Lhuntse District"
+   :gov.unit/name-local "ལྷུན་རྩེ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Lhuntse Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=24"
    :gov.unit/wikidata "Q598793"
    :gov.unit/external-code ["iso3166-2:BT-44"]
@@ -1891,6 +1907,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Trashiyangtse District"
+   :gov.unit/name-local "བཀྲིས་གཡང་རྩེ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Trashiyangtse Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=35"
    :gov.unit/wikidata "Q600200"
    :gov.unit/external-code ["iso3166-2:BT-TY"]
@@ -1904,6 +1922,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Chukha District"
+   :gov.unit/name-local "ཆུ་ཁ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Chukha Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=20"
    :gov.unit/wikidata "Q652754"
    :gov.unit/external-code ["iso3166-2:BT-12"]
@@ -1917,6 +1937,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Trashigang District"
+   :gov.unit/name-local "བཀྲིས་སྒང་རྫོང་ཁག"
+   :gov.unit/name-romanized "Trashigang Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=34"
    :gov.unit/wikidata "Q652773"
    :gov.unit/external-code ["iso3166-2:BT-41"]
@@ -1930,6 +1952,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Paro District"
+   :gov.unit/name-local "སྤ་རོ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Paro Dzongkhag"
    :gov.unit/official-url "http://www.paro.gov.bt/"
    :gov.unit/wikidata "Q652784"
    :gov.unit/external-code ["iso3166-2:BT-11"]
@@ -1943,6 +1967,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Samtse District"
+   :gov.unit/name-local "བསམ་རྩེ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Samtse Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=30"
    :gov.unit/wikidata "Q728917"
    :gov.unit/external-code ["iso3166-2:BT-14"]
@@ -1956,6 +1982,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Tsirang District"
+   :gov.unit/name-local "རྩི་རང་རྫོང་ཁག"
+   :gov.unit/name-romanized "Tsirang Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=37"
    :gov.unit/wikidata "Q728922"
    :gov.unit/external-code ["iso3166-2:BT-21"]
@@ -1969,6 +1997,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Samdrup Jongkhar District"
+   :gov.unit/name-local "བསམ་གྲུབ་ལྗོངས་མཁར་རྫོང་ཁག"
+   :gov.unit/name-romanized "Samdrup Jongkhar Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=29"
    :gov.unit/wikidata "Q728929"
    :gov.unit/external-code ["iso3166-2:BT-45"]
@@ -1982,6 +2012,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Wangdue Phodrang District"
+   :gov.unit/name-local "དབང་འདུས་ཕོ་བྲང་རྫོང་ཁག"
+   :gov.unit/name-romanized "Wangdue Phodrang Dzongkhag"
    :gov.unit/official-url "http://www.bhutan.gov.bt/government/dzongkhags.php?dz_id=38"
    :gov.unit/wikidata "Q728933"
    :gov.unit/external-code ["iso3166-2:BT-24"]
@@ -1995,6 +2027,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Trongsa District"
+   :gov.unit/name-local "ཀྲོང་གསར་རྫོང་ཁག"
+   :gov.unit/name-romanized "Trongsa Dzongkhag"
    :gov.unit/official-url "http://www.trongsa.gov.bt/"
    :gov.unit/wikidata "Q728938"
    :gov.unit/external-code ["iso3166-2:BT-32"]
@@ -2008,6 +2042,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Sarpang District"
+   :gov.unit/name-local "གསར་སྤང་རྫོང་ཁག"
+   :gov.unit/name-romanized "Sarpang Dzongkhag"
    :gov.unit/official-url "http://www.sarpang.gov.bt/"
    :gov.unit/wikidata "Q728947"
    :gov.unit/external-code ["iso3166-2:BT-31"]
@@ -2021,6 +2057,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Dagana District"
+   :gov.unit/name-local "དར་དཀར་ན་རྫོང་ཁག"
+   :gov.unit/name-romanized "Dagana Dzongkhag"
    :gov.unit/official-url "http://www.dagana.gov.bt/"
    :gov.unit/wikidata "Q735146"
    :gov.unit/external-code ["iso3166-2:BT-22"]
@@ -2034,6 +2072,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Haa District"
+   :gov.unit/name-local "ཧཱ་རྫོང་ཁག"
+   :gov.unit/name-romanized "Haa Dzongkhag"
    :gov.unit/official-url "http://www.haa.gov.bt/"
    :gov.unit/wikidata "Q754448"
    :gov.unit/external-code ["iso3166-2:BT-13"]
@@ -6028,6 +6068,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Bolikhamsai Province"
+   :gov.unit/name-local "ບໍລິຄໍາໄຊ"
+   :gov.unit/name-romanized "Bolikhamsai"
    :gov.unit/wikidata "Q2403514"
    :gov.unit/external-code ["iso3166-2:LA-BL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6040,6 +6082,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Salavan Province"
+   :gov.unit/name-local "ສາລະວັນ"
+   :gov.unit/name-romanized "Salavan"
    :gov.unit/wikidata "Q302656"
    :gov.unit/external-code ["iso3166-2:LA-SL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6052,6 +6096,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Phongsaly Province"
+   :gov.unit/name-local "ຜົ້ງສາລີ"
+   :gov.unit/name-romanized "Phongsaly"
    :gov.unit/wikidata "Q334868"
    :gov.unit/external-code ["iso3166-2:LA-PH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6064,6 +6110,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Bokeo Province"
+   :gov.unit/name-local "ບໍ່ແກ້ວ"
+   :gov.unit/name-romanized "Bokeo"
    :gov.unit/wikidata "Q334884"
    :gov.unit/external-code ["iso3166-2:LA-BK"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6076,6 +6124,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Champasak Province"
+   :gov.unit/name-local "ຈຳປາສັກ"
+   :gov.unit/name-romanized "Champasak"
    :gov.unit/wikidata "Q334888"
    :gov.unit/external-code ["iso3166-2:LA-CH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6088,6 +6138,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Vientiane"
+   :gov.unit/name-local "ນະຄອນຫຼວງວຽງຈັນ"
+   :gov.unit/name-romanized "Nakhon Louang Viangchan"
    :gov.unit/wikidata "Q390377"
    :gov.unit/external-code ["iso3166-2:LA-VT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6100,6 +6152,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Sainyabūlī"
+   :gov.unit/name-local "ໄຊຍະບູລີ"
+   :gov.unit/name-romanized "Xaignabouli"
    :gov.unit/wikidata "Q465929"
    :gov.unit/external-code ["iso3166-2:LA-XA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6112,6 +6166,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Savannakhet Province"
+   :gov.unit/name-local "ສະຫວັນນະເຂດ"
+   :gov.unit/name-romanized "Savannakhet"
    :gov.unit/wikidata "Q465940"
    :gov.unit/external-code ["iso3166-2:LA-SV"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6124,6 +6180,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Xiangkhouang Province"
+   :gov.unit/name-local "ຊຽງຂວາງ"
+   :gov.unit/name-romanized "Xiangkhouang"
    :gov.unit/wikidata "Q465947"
    :gov.unit/external-code ["iso3166-2:LA-XI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6136,6 +6194,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Udomsai"
+   :gov.unit/name-local "ອຸດົມໄຊ"
+   :gov.unit/name-romanized "Oudomxay"
    :gov.unit/wikidata "Q465961"
    :gov.unit/external-code ["iso3166-2:LA-OU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6148,6 +6208,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Hūaphan"
+   :gov.unit/name-local "ຫົວພັນ"
+   :gov.unit/name-romanized "Houaphanh"
    :gov.unit/wikidata "Q502997"
    :gov.unit/external-code ["iso3166-2:LA-HO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6160,6 +6222,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Attapeu Province"
+   :gov.unit/name-local "ອັດຕະປື"
+   :gov.unit/name-romanized "Attapue"
    :gov.unit/wikidata "Q503004"
    :gov.unit/external-code ["iso3166-2:LA-AT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6172,6 +6236,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Khammouane Province"
+   :gov.unit/name-local "ຄໍາມ່ວນ"
+   :gov.unit/name-romanized "Khammouane"
    :gov.unit/wikidata "Q506641"
    :gov.unit/external-code ["iso3166-2:LA-KH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6184,6 +6250,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Sekong"
+   :gov.unit/name-local "ເຊກອງ"
+   :gov.unit/name-romanized "Sekong"
    :gov.unit/wikidata "Q585707"
    :gov.unit/external-code ["iso3166-2:LA-XE"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6196,6 +6264,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Vientiane Province"
+   :gov.unit/name-local "ວຽງຈັນ"
+   :gov.unit/name-romanized "Viangchan"
    :gov.unit/wikidata "Q720066"
    :gov.unit/external-code ["iso3166-2:LA-VI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6208,6 +6278,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Luang Prabang Province"
+   :gov.unit/name-local "ຫຼວງພະບາງ"
+   :gov.unit/name-romanized "Louangphabang"
    :gov.unit/wikidata "Q747881"
    :gov.unit/external-code ["iso3166-2:LA-LP"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6220,6 +6292,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Lūang Namthā"
+   :gov.unit/name-local "ຫຼວງນໍ້າທາ"
+   :gov.unit/name-romanized "Louang Namtha"
    :gov.unit/wikidata "Q948691"
    :gov.unit/external-code ["iso3166-2:LA-LM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6421,6 +6495,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Gaafu Alif Atoll"
+   :gov.unit/name-local "ގއ."
+   :gov.unit/name-romanized "Gaafu Alif"
    :gov.unit/wikidata "Q1116203"
    :gov.unit/external-code ["iso3166-2:MV-27"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6433,6 +6509,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Lhaviyani Atoll"
+   :gov.unit/name-local "ޅ."
+   :gov.unit/name-romanized "Lhaviyani"
    :gov.unit/wikidata "Q1390048"
    :gov.unit/external-code ["iso3166-2:MV-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6445,6 +6523,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Raa Atoll"
+   :gov.unit/name-local "ރ."
+   :gov.unit/name-romanized "Raa"
    :gov.unit/wikidata "Q1457965"
    :gov.unit/external-code ["iso3166-2:MV-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6457,6 +6537,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Kaafu Atoll"
+   :gov.unit/name-local "ކ."
+   :gov.unit/name-romanized "Kaafu"
    :gov.unit/wikidata "Q1468407"
    :gov.unit/external-code ["iso3166-2:MV-26"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6469,6 +6551,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Gnaviyani Atoll"
+   :gov.unit/name-local "ޏ."
+   :gov.unit/name-romanized "Gnaviyani"
    :gov.unit/wikidata "Q1811116"
    :gov.unit/external-code ["iso3166-2:MV-29"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6481,6 +6565,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Laamu Atoll"
+   :gov.unit/name-local "ލ."
+   :gov.unit/name-romanized "Laamu"
    :gov.unit/wikidata "Q1996432"
    :gov.unit/external-code ["iso3166-2:MV-05"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6493,6 +6579,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Shaviyani Atoll"
+   :gov.unit/name-local "ށ."
+   :gov.unit/name-romanized "Shaviyani"
    :gov.unit/wikidata "Q2190334"
    :gov.unit/external-code ["iso3166-2:MV-24"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6505,6 +6593,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Meemu Atoll"
+   :gov.unit/name-local "މ."
+   :gov.unit/name-romanized "Meemu"
    :gov.unit/wikidata "Q2210716"
    :gov.unit/external-code ["iso3166-2:MV-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6517,6 +6607,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Dhaalu Atoll"
+   :gov.unit/name-local "ދ."
+   :gov.unit/name-romanized "Dhaalu"
    :gov.unit/wikidata "Q2290784"
    :gov.unit/external-code ["iso3166-2:MV-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6529,6 +6621,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Alif Dhaal Atoll"
+   :gov.unit/name-local "އދ."
+   :gov.unit/name-romanized "Alif Dhaal"
    :gov.unit/wikidata "Q2316922"
    :gov.unit/external-code ["iso3166-2:MV-00"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6541,6 +6635,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Haa Dhaalu Atoll"
+   :gov.unit/name-local "ހދ."
+   :gov.unit/name-romanized "Haa Dhaalu"
    :gov.unit/wikidata "Q2360368"
    :gov.unit/external-code ["iso3166-2:MV-23"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6553,6 +6649,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Haa Alif Atoll"
+   :gov.unit/name-local "ހއ."
+   :gov.unit/name-romanized "Haa Alif"
    :gov.unit/wikidata "Q2360912"
    :gov.unit/external-code ["iso3166-2:MV-07"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6565,6 +6663,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Noonu Atoll"
+   :gov.unit/name-local "ނ."
+   :gov.unit/name-romanized "Noonu"
    :gov.unit/wikidata "Q2406322"
    :gov.unit/external-code ["iso3166-2:MV-25"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6577,6 +6677,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Faafu Atoll"
+   :gov.unit/name-local "ފ."
+   :gov.unit/name-romanized "Faafu"
    :gov.unit/official-url "http://www.faafu.gov.mv/"
    :gov.unit/wikidata "Q2469227"
    :gov.unit/external-code ["iso3166-2:MV-14"]
@@ -6590,6 +6692,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Gaafu Dhaalu Atoll"
+   :gov.unit/name-local "ގދ."
+   :gov.unit/name-romanized "Gaafu Dhaalu"
    :gov.unit/wikidata "Q2640183"
    :gov.unit/external-code ["iso3166-2:MV-28"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6602,6 +6706,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Vaavu Atoll"
+   :gov.unit/name-local "ވ."
+   :gov.unit/name-romanized "Vaavu"
    :gov.unit/wikidata "Q2709111"
    :gov.unit/external-code ["iso3166-2:MV-04"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6614,6 +6720,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Thaa Atoll"
+   :gov.unit/name-local "ތ."
+   :gov.unit/name-romanized "Thaa"
    :gov.unit/wikidata "Q2709118"
    :gov.unit/external-code ["iso3166-2:MV-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6626,6 +6734,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Addu Atoll"
+   :gov.unit/name-local "އައްޑޫ"
+   :gov.unit/name-romanized "Addu"
    :gov.unit/wikidata "Q353375"
    :gov.unit/external-code ["iso3166-2:MV-01"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6638,6 +6748,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Alif Alif Atoll"
+   :gov.unit/name-local "އއ."
+   :gov.unit/name-romanized "Alif Alif"
    :gov.unit/wikidata "Q775323"
    :gov.unit/external-code ["iso3166-2:MV-02"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6650,6 +6762,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Baa Atoll"
+   :gov.unit/name-local "ބ."
+   :gov.unit/name-romanized "Baa"
    :gov.unit/official-url "http://www.baa.gov.mv/"
    :gov.unit/wikidata "Q949513"
    :gov.unit/external-code ["iso3166-2:MV-20"]
