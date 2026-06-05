@@ -1,0 +1,24 @@
+{:lexicon 1
+ :id "com.etzhayyim.ake.editPromotion"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :description "The no-server-key promotion membrane (G1/G8). An accepted edit appends a new revision; a :representative value may be promoted to :authoritative ONLY with verifiable provenance (G4). The promotion is member/operator-signed (server signature refused). published is const false at R0 — live promotion into the served registry / live atproto publish is Council Lv6+ + operator (G8)."
+   :record
+   {:type "object"
+    :required ["editId" "signedBy" "serverHeldKey" "promoted" "published"]
+    :properties
+    {:editId        {:type "string" :description "→ :edit/id"}
+     :entity        {:type "string"}
+     :attr          {:type "string"}
+     :value         {:type "string"}
+     :sourcing      {:type "string" :enum ["representative" "authoritative"]
+                     :description "G4 — promotion to authoritative requires verifiable provenance"}
+     :asOf          {:type "integer" :description "the new revision's as-of instant (append, never overwrite)"}
+     :signedBy      {:type "string" :description "member/operator DID; a server signature is refused"}
+     :serverHeldKey {:type "boolean" :const false
+                     :description "G1 / no-server-key INVARIANT — only false (ADR-2605231525)"}
+     :promoted      {:type "boolean"}
+     :published     {:type "boolean" :const false
+                     :description "G8 INVARIANT — only false at R0; live publish is Council Lv6+ + operator gated"}}}}}}

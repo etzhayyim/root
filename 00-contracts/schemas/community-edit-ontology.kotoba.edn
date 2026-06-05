@@ -1,0 +1,99 @@
+;; community-edit-ontology.kotoba.edn
+;; 朱 (ake) — community-edit membrane ontology (ADR-2606052100)
+;;
+;; The Wikipedia collaborative-correction STANCE, fitted to the charter. An edit is a
+;; member-signed PROPOSAL appended to the kotoba Datom log (never an overwrite — 非終末論,
+;; full revision history). A Murakumo-only LLM scores risk + quality and ROUTES (Wikipedia
+;; ORES analogue) but NEVER decides accept/reject (G2). Low-risk well-sourced edits
+;; auto-accept (optimistic); risky / contested / invariant-adjacent edits escalate to
+;; 1 SBT = 1 vote (or Council Lv7+). Mirror entity-actors are CORRECTED as observations,
+;; never spoken-as (ADR-2606042330 preserved).
+;;
+;; STRUCTURAL INVARIANTS live in THREE places each (this schema :db/allowed / enum +
+;; lexicon :const / :enum + Python ValueError). The closed vocab vectors below are the
+;; single source the structural-invariant test parses.
+
+{:ontology/id        "com.etzhayyim.ake.community-edit"
+ :ontology/version   1
+ :ontology/title     "朱 (ake) — community-edit membrane"
+ :ontology/adr       "2606052100"
+
+ ;; ── closed structural vocab (the invariants, as data) ───────────────────────
+ ;; G3 — an edit targets a FACT or a PROFILE. :entity-speech / :impersonate ABSENT.
+ :ontology/target-kinds      [:kg-fact :actor-profile]
+ ;; G5 — append-only ops. :delete / :overwrite ABSENT (retraction is itself appended).
+ :ontology/edit-ops          [:assert :retract :promote-sourcing :challenge]
+ ;; G1 — only a 信者 member authors. :server / :anon ABSENT (no-server-key + conversion-gated).
+ :ontology/author-kinds      [:member]
+ ;; G2 — risk is a SCORE, never a verdict.
+ :ontology/triage-risks      [:low :medium :high :invariant]
+ ;; G2 — route is a PURE FUNCTION of (risk, quality); the model produces no route on its own.
+ :ontology/triage-routes     [:auto-accept :vote :council-lv7 :refused]
+ ;; G4 — promotion to :authoritative needs verifiable provenance.
+ :ontology/sourcing-grades   [:representative :authoritative]
+ ;; Wikipedia-style review: fast optimistic path + community vote + constitutional gate.
+ :ontology/review-mechanisms [:optimistic :sbt-vote :council-lv7]
+
+ :schema
+ [;; ── :edit/* — a member-signed correction proposal ──────────────────────────
+  {:db/ident :edit/id            :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :edit/target-kind   :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:kg-fact :actor-profile]
+   :db/doc "G3 — :entity-speech / :impersonate / :speak-as-entity are UNREPRESENTABLE (mirror invariant, ADR-2606042330)."}
+  {:db/ident :edit/target-entity :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :edit/target-attr   :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+  {:db/ident :edit/op            :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:assert :retract :promote-sourcing :challenge]
+   :db/doc "G5 — append-only. :delete / :overwrite UNREPRESENTABLE; a :retract is itself an appended datom (非終末論)."}
+  {:db/ident :edit/proposed-value :db/valueType :db.type/string :db/cardinality :db.cardinality/one}
+  {:db/ident :edit/author        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "G1 — SBT-bound member DID. REQUIRED."}
+  {:db/ident :edit/author-kind   :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:member]
+   :db/doc "G1 — :server / :anon UNREPRESENTABLE (no-server-key, ADR-2605231525 + 信者-gated)."}
+  {:db/ident :edit/provenance    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "G4 — source URL / IPFS CID. REQUIRED; an unsourced edit is refused (ValueError)."}
+  {:db/ident :edit/rationale     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :edit/server-held-key :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [false] :db/doc "G1 / no-server-key — only false is valid."}
+  {:db/ident :edit/info-as-of    :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+
+  ;; ── :triage/* — LLM advisory score + route (NO :triage/decision EXISTS, G2) ──
+  {:db/ident :triage/edit        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :triage/risk        :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:low :medium :high :invariant]}
+  {:db/ident :triage/quality     :db/valueType :db.type/double  :db/cardinality :db.cardinality/one
+   :db/doc "0..1 sourcing + plausibility + Rider-clean score (Wikipedia ORES analogue)."}
+  {:db/ident :triage/route       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:auto-accept :vote :council-lv7 :refused]
+   :db/doc "G2 — a PURE FUNCTION of (risk, quality). The LLM scores; it never accepts/rejects (非裁定)."}
+  {:db/ident :triage/by          :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "G6 — Murakumo model id; advisory only."}
+
+  ;; ── :review/* — 1 SBT = 1 vote (or Council) for escalated edits ─────────────
+  {:db/ident :review/edit        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :review/mechanism   :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:optimistic :sbt-vote :council-lv7]}
+  {:db/ident :review/yes         :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :review/no          :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :review/timelock-h  :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :review/outcome     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:accepted :rejected :pending]}
+
+  ;; ── :revision/* — the append-only "view history" projection ─────────────────
+  {:db/ident :revision/entity    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :revision/attr      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}
+  {:db/ident :revision/value     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :revision/sourcing  :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}
+  {:db/ident :revision/as-of     :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :revision/by        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :revision/op        :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:assert :retract :promote-sourcing :challenge]}
+  {:db/ident :revision/edit      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+
+  ;; ── :contributor/* — Wellbecoming trajectory, NOT a punitive score-of-soul ──
+  {:db/ident :contributor/did      :db/valueType :db.type/string :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :contributor/accepted :db/valueType :db.type/long   :db/cardinality :db.cardinality/one}
+  {:db/ident :contributor/refused  :db/valueType :db.type/long   :db/cardinality :db.cardinality/one}
+  {:db/ident :contributor/as-of    :db/valueType :db.type/long   :db/cardinality :db.cardinality/one}]}

@@ -13391,6 +13391,88 @@
       "lastVerified": "2026-06-05"
     },
     {
+      "id": "doc:adr-2606051600-noroshi-photonic-electronic-convergence-comms-chip-isac",
+      "type": "TechArticle",
+      "title": "ADR-2606051600: noroshi (烽) — Photonics-Electronics Convergence (光電融合) Comms Chip + ISAC Sim + Photonic Packaging Robotics",
+      "status": "proposed",
+      "topic": "noroshi-photonic-convergence",
+      "authoritative": true,
+      "authoritativeFor": [
+        "noroshi",
+        "photonic-electronic-convergence",
+        "isac-jcas-sim"
+      ],
+      "related": [
+        "doc:2605242515",
+        "doc:2605242530",
+        "doc:2605261300",
+        "doc:2606012600",
+        "doc:2606033600",
+        "doc:2605261800",
+        "doc:2606010600",
+        "doc:2606042330",
+        "doc:2605192100"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606051800-mitooshi-probabilistic-forecasting-observatory-r0",
+      "type": "TechArticle",
+      "title": "mitooshi 見通し — probabilistic forecasting observatory (Tier-B actor R0; the charter-clean inverse of a quant trading bot + the leak-free fact→error→weight→learn architecture)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "mitooshi-probabilistic-forecasting-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "mitooshi actor scope (probabilistic forecasting over public time-series + leak-free proper-scoring backtest + residual-driven recalibration; design-only)",
+        "the distribution-only / no-point-assertion invariant (:forecast/point-asserted false — 非終末論 made structural)",
+        "the non-speculative / no-trading invariant (:forecast/use enum excludes trade/wager/position)",
+        "the leak-free proper-scoring rule (info-as-of boundary; CRPS/pinball/Brier/log-score; skill vs documented baseline)",
+        "the baien-edge residual→weight online-update boundary (G8) + no-server-key model promotion (G9)"
+      ],
+      "related": [
+        "doc:adr-2606032000-kanjo-corporate-financial-disclosure-kg-r0",
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-r0"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0",
+      "status": "proposed",
+      "topic": "ake-community-edit-membrane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ake-community-edit-membrane",
+        "wikipedia-stance-collaborative-correction"
+      ],
+      "related": [
+        "doc:adr-2605291500-tsukuroi-authorized-vuln-remediation-patch-proposer",
+        "doc:adr-2605301600-danjo-public-accountability-oversight"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606052300-fuchi-maintainer-sustenance-allocator-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0",
+      "status": "proposed",
+      "topic": "fuchi-maintainer-sustenance-allocator",
+      "authoritative": true,
+      "authoritativeFor": [
+        "fuchi-maintainer-sustenance-allocator",
+        "investment-fund-charter-clean-inverse"
+      ],
+      "related": [
+        "doc:adr-2605302000-warifu-open-zero-fee-card",
+        "doc:adr-2605263500-wakai-mutual-aid-tier-b-actor-r0",
+        "doc:adr-2605301036-mission-funding-earned-revenue-arm",
+        "doc:adr-2606012100-okaimono-provisioning-commons"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
