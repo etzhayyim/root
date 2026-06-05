@@ -17564,11 +17564,4 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
 
-  {:gov.address/id "addr.gov.sau.adm1.q74063.hq"
-   :gov.address/unit "gov.sau.adm1.q74063"
-   :gov.address/kind :headquarters
-   :gov.address/country "sau"
-   :gov.address/line-en "Wikidata 'list of provinces of Saudi Arabia' — list/index artifact, not a single subdivision; placeholder, no seat"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "official site + Wikidata/OSM" :gov.address/last-verified "2026-06-05"}
 ]}

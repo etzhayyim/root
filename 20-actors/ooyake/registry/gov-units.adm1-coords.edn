@@ -5113,15 +5113,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q183314" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.pak.adm1.q19807103.seat"
-   :gov.address/unit "gov.pak.adm1.q19807103"
-   :gov.address/kind :seat
-   :gov.address/country "pak"
-   :gov.address/line-en "Junagadh"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q19807103" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.pak.adm1.pk-jk.seat"
+{:gov.address/id "addr.gov.pak.adm1.pk-jk.seat"
    :gov.address/unit "gov.pak.adm1.pk-jk"
    :gov.address/kind :seat
    :gov.address/country "pak"
@@ -28763,15 +28755,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q734328" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q110218.seat"
-   :gov.address/unit "gov.tza.adm1.q110218"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -2.51667 :gov.address/lon 32.9
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q110218" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.tz-21.seat"
+{:gov.address/id "addr.gov.tza.adm1.tz-21.seat"
    :gov.address/unit "gov.tza.adm1.tz-21"
    :gov.address/kind :seat
    :gov.address/country "tza"
@@ -28834,15 +28818,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q180822" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q1960.seat"
-   :gov.address/unit "gov.tza.adm1.q1960"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -6.81611 :gov.address/lon 39.28028
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q1960" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.tz-03.seat"
+{:gov.address/id "addr.gov.tza.adm1.tz-03.seat"
    :gov.address/unit "gov.tza.adm1.tz-03"
    :gov.address/kind :seat
    :gov.address/country "tza"
@@ -28851,23 +28827,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q213268" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q243319.seat"
-   :gov.address/unit "gov.tza.adm1.q243319"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -6.82417 :gov.address/lon 37.66333
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q243319" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.q244509.seat"
-   :gov.address/unit "gov.tza.adm1.q244509"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -4.88333 :gov.address/lon 29.63333
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q244509" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.tz-05.seat"
+{:gov.address/id "addr.gov.tza.adm1.tz-05.seat"
    :gov.address/unit "gov.tza.adm1.tz-05"
    :gov.address/kind :seat
    :gov.address/country "tza"
@@ -28930,15 +28890,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q331153" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q335548.seat"
-   :gov.address/unit "gov.tza.adm1.q335548"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -8.9 :gov.address/lon 33.45
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q335548" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.tz-25.seat"
+{:gov.address/id "addr.gov.tza.adm1.tz-25.seat"
    :gov.address/unit "gov.tza.adm1.tz-25"
    :gov.address/kind :seat
    :gov.address/country "tza"
@@ -29019,15 +28971,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q557539" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q643112.seat"
-   :gov.address/unit "gov.tza.adm1.q643112"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -5.01667 :gov.address/lon 32.8
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q643112" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.tz-11.seat"
+{:gov.address/id "addr.gov.tza.adm1.tz-11.seat"
    :gov.address/unit "gov.tza.adm1.tz-11"
    :gov.address/kind :seat
    :gov.address/country "tza"
@@ -29036,31 +28980,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q643120" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q646684.seat"
-   :gov.address/unit "gov.tza.adm1.q646684"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -10.27361 :gov.address/lon 40.18278
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q646684" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.q7296.seat"
-   :gov.address/unit "gov.tza.adm1.q7296"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -3.06667 :gov.address/lon 37.35917
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q7296" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.q735609.seat"
-   :gov.address/unit "gov.tza.adm1.q735609"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -7.77 :gov.address/lon 35.69
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q735609" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.tz-08.seat"
+{:gov.address/id "addr.gov.tza.adm1.tz-08.seat"
    :gov.address/unit "gov.tza.adm1.tz-08"
    :gov.address/kind :seat
    :gov.address/country "tza"
@@ -29069,23 +28989,7 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q747943" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.tza.adm1.q818765.seat"
-   :gov.address/unit "gov.tza.adm1.q818765"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -3.67236 :gov.address/lon 33.42968
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q818765" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.tza.adm1.q829886.seat"
-   :gov.address/unit "gov.tza.adm1.q829886"
-   :gov.address/kind :seat
-   :gov.address/country "tza"
-   :gov.address/lat -9.99694 :gov.address/lon 39.71444
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q829886" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.uga.adm1.ug-304.seat"
+{:gov.address/id "addr.gov.uga.adm1.ug-304.seat"
    :gov.address/unit "gov.uga.adm1.ug-304"
    :gov.address/kind :seat
    :gov.address/country "uga"
