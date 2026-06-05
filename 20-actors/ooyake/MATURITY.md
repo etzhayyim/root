@@ -43,6 +43,32 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — DATA-QUALITY: remove 13 duplicate/artifact subdivisions (7106 → 7093 units)
+
+Cleaned up the Wikidata-import artifacts flagged over the prior iterations. **Removed 13 bogus
+subdivision unit records** (each: the :units definition + its :addresses row), leaving every
+jurisdiction with its correct canonical first-level divisions.
+
+- **11 Tanzania QID duplicates** removed: gov.tza.adm1.q110218 (Mwanza), q1960 (Dar es Salaam),
+  q243319 (Morogoro), q244509 (Kigoma), q335548 (Mbeya), q643112 (Tabora), q646684 (Mtwara),
+  q7296 ("Mount Kilimanjaro" — a MOUNTAIN, not a region), q735609 (Iringa), q818765 (Shinyanga),
+  q829886 (Lindi). Each DUPLICATED a canonical ISO-3166-2 region (tz-18 Mwanza Region, tz-02 Dar es
+  Salaam Region, …, tz-09 Kilimanjaro Region) — the .go.tz portals + names live on the ISO entries.
+  Tanzania subdivisions: 37 → **26** (the correct count of mainland+Zanzibar regions).
+- **gov.pak.adm1.q19807103** "Junagadh and Manavadar" — a former princely state claimed by Pakistan
+  but India-administered since 1948; NOT a current Pakistani province. Removed.
+- **gov.sau.adm1.q74063** "list of provinces of Saudi Arabia" — a Wikidata LIST item, never a real
+  subdivision. Removed.
+- units 7106 → **7093**; address records 7106 → 7093 (1:1 preserved); name-local 1013 unchanged;
+  hq-coords 5670 → 5659 (the 11 dropped coords were on the removed duplicates; the canonical region
+  entries are areas without a separate building seat).
+
+Verified: check_seed_integrity --quiet ✓; run_tests.sh ALL GREEN; index regenerates to 7,671 units
+(was 7,684) and validate_atlas --file ✓ (JP-authoritative-scope, parent-refs, summary all pass).
+No live URLs lost (all were on the surviving ISO entries). Non-destructive to every real unit.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision official-url — Algeria wilayas + big-country mop-up (5949 → 5995)
 
 The big federal countries (Mexico/Brazil/Russia/China/India/Turkey/Thailand/…) are now subdivision-

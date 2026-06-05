@@ -8003,19 +8003,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q734328" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q110218"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q110218"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mwanza"
-   :gov.unit/official-url "https://mwanza.go.tz/"
-   :gov.unit/wikidata "Q110218"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q110218" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-21"
+{:gov.unit/id "gov.tza.adm1.tz-21"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-21"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8106,19 +8094,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q180822" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q1960"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q1960"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Dar es Salaam"
-   :gov.unit/official-url "http://www.dcc.go.tz/"
-   :gov.unit/wikidata "Q1960"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.dcc.go.tz/" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-03"
+{:gov.unit/id "gov.tza.adm1.tz-03"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-03"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8131,31 +8107,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q213268" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q243319"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q243319"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Morogoro"
-   :gov.unit/official-url "https://morogoro.go.tz/"
-   :gov.unit/wikidata "Q243319"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q243319" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q244509"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q244509"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Kigoma"
-   :gov.unit/official-url "https://kigoma.go.tz/"
-   :gov.unit/wikidata "Q244509"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q244509" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-05"
+{:gov.unit/id "gov.tza.adm1.tz-05"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-05"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8246,19 +8198,7 @@
    :gov.unit/provenance "http://www.mwanza.go.tz/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q335548"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q335548"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mbeya"
-   :gov.unit/official-url "https://mbeya.go.tz/"
-   :gov.unit/wikidata "Q335548"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q335548" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-25"
+{:gov.unit/id "gov.tza.adm1.tz-25"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-25"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8375,19 +8315,7 @@
    :gov.unit/provenance "https://dsm.go.tz/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q643112"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q643112"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Tabora"
-   :gov.unit/official-url "https://tabora.go.tz/"
-   :gov.unit/wikidata "Q643112"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q643112" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-11"
+{:gov.unit/id "gov.tza.adm1.tz-11"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-11"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8399,42 +8327,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q643120" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q646684"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q646684"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mtwara"
-   :gov.unit/official-url "https://www.mtwara.go.tz"
-   :gov.unit/wikidata "Q646684"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.mtwara.go.tz" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q7296"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q7296"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mount Kilimanjaro"
-   :gov.unit/wikidata "Q7296"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7296" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q735609"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q735609"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Iringa"
-   :gov.unit/official-url "https://iringa.go.tz/"
-   :gov.unit/wikidata "Q735609"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q735609" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-08"
+{:gov.unit/id "gov.tza.adm1.tz-08"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-08"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8447,31 +8340,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q747943" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q818765"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q818765"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Shinyanga"
-   :gov.unit/official-url "https://shinyanga.go.tz/"
-   :gov.unit/wikidata "Q818765"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q818765" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q829886"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q829886"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Lindi"
-   :gov.unit/official-url "https://lindi.go.tz/"
-   :gov.unit/wikidata "Q829886"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q829886" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.uga.adm1.ug-304"
+{:gov.unit/id "gov.uga.adm1.ug-304"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:uga:adm1:ug-304"
    :gov.unit/parent "gov.uga"
    :gov.unit/level :subdivision :gov.unit/branch :local

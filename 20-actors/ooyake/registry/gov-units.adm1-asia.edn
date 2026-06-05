@@ -7342,18 +7342,7 @@
    :gov.unit/provenance "http://kp.gov.pk/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.pak.adm1.q19807103"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:pak:adm1:q19807103"
-   :gov.unit/parent "gov.pak"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Junagadh and Manavadar"
-   :gov.unit/wikidata "Q19807103"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q19807103" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.pak.adm1.pk-jk"
+{:gov.unit/id "gov.pak.adm1.pk-jk"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:pak:adm1:pk-jk"
    :gov.unit/parent "gov.pak"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -7865,18 +7854,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q990414" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.sau.adm1.q74063"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:sau:adm1:q74063"
-   :gov.unit/parent "gov.sau"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "sau"
-   :gov.unit/name-en "list of provinces of Saudi Arabia"
-   :gov.unit/wikidata "Q74063"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q74063" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.sgp.adm1.sg-04"
+{:gov.unit/id "gov.sgp.adm1.sg-04"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:sgp:adm1:sg-04"
    :gov.unit/parent "gov.sgp"
    :gov.unit/level :subdivision :gov.unit/branch :local
