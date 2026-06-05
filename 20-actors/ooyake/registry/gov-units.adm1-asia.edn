@@ -719,19 +719,7 @@
    :gov.unit/provenance "https://vnaftalan.com/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.aze.adm1.q158903"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aze:adm1:q158903"
-   :gov.unit/parent "gov.aze"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "aze"
-   :gov.unit/name-en "Shusha"
-   :gov.unit/official-url "http://www.shusha-ih.gov.az"
-   :gov.unit/wikidata "Q158903"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.shusha-ih.gov.az" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.aze.adm1.az-ye"
+{:gov.unit/id "gov.aze.adm1.az-ye"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aze:adm1:az-ye"
    :gov.unit/parent "gov.aze"
    :gov.unit/level :subdivision :gov.unit/branch :local

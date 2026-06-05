@@ -4187,40 +4187,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q955095" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.lby.adm1.q131323"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q131323"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Misrata"
-   :gov.unit/wikidata "Q131323"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q131323" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.q132409"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q132409"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Nalut"
-   :gov.unit/wikidata "Q132409"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q132409" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.q209393"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q209393"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Ghat"
-   :gov.unit/wikidata "Q209393"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q209393" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.ly-mb"
+{:gov.unit/id "gov.lby.adm1.ly-mb"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:ly-mb"
    :gov.unit/parent "gov.lby"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -4232,18 +4199,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q209778" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.lby.adm1.q221503"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q221503"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Zawiya"
-   :gov.unit/wikidata "Q221503"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q221503" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.ly-jg"
+{:gov.unit/id "gov.lby.adm1.ly-jg"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:ly-jg"
    :gov.unit/parent "gov.lby"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -4412,19 +4368,7 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q329060" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.lby.adm1.q3579"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q3579"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Tripoli"
-   :gov.unit/official-url "http://www.tripoli.info"
-   :gov.unit/wikidata "Q3579"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.tripoli.info" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.ly-ba"
+{:gov.unit/id "gov.lby.adm1.ly-ba"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:ly-ba"
    :gov.unit/parent "gov.lby"
    :gov.unit/level :subdivision :gov.unit/branch :local
