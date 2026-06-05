@@ -8184,6 +8184,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Bueng Kan"
+   :gov.unit/name-local "จังหวัดบึงกาฬ"
+   :gov.unit/name-romanized "Bueng Kan"
    :gov.unit/official-url "http://www.buengkhan.go.th/"
    :gov.unit/wikidata "Q1001862"
    :gov.unit/external-code ["iso3166-2:TH-38"]
@@ -8197,6 +8199,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phuket"
+   :gov.unit/name-local "จังหวัดภูเก็ต"
+   :gov.unit/name-romanized "Phuket"
    :gov.unit/official-url "http://www.phuket.go.th/"
    :gov.unit/wikidata "Q182565"
    :gov.unit/external-code ["iso3166-2:TH-83"]
@@ -8210,6 +8214,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Bangkok"
+   :gov.unit/name-local "กรุงเทพมหานคร"
+   :gov.unit/name-romanized "Krung Thep Maha Nakhon"
    :gov.unit/official-url "https://www.bangkok.go.th/"
    :gov.unit/wikidata "Q1861"
    :gov.unit/external-code ["iso3166-2:TH-10"]
@@ -8223,6 +8229,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chon Buri"
+   :gov.unit/name-local "จังหวัดชลบุรี"
+   :gov.unit/name-romanized "Chon Buri"
    :gov.unit/official-url "https://ww2.chonburi.go.th/frontpage"
    :gov.unit/wikidata "Q207068"
    :gov.unit/external-code ["iso3166-2:TH-20"]
@@ -8236,6 +8244,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chiang Mai"
+   :gov.unit/name-local "จังหวัดเชียงใหม่"
+   :gov.unit/name-romanized "Chiang Mai"
    :gov.unit/official-url "http://www.chiangmai.go.th/"
    :gov.unit/wikidata "Q233588"
    :gov.unit/external-code ["iso3166-2:TH-50"]
@@ -8249,6 +8259,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Songkhla"
+   :gov.unit/name-local "จังหวัดสงขลา"
+   :gov.unit/name-romanized "Songkhla"
    :gov.unit/official-url "http://www.songkhla.go.th/"
    :gov.unit/wikidata "Q235574"
    :gov.unit/external-code ["iso3166-2:TH-90"]
@@ -8262,6 +8274,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Satun"
+   :gov.unit/name-local "จังหวัดสตูล"
+   :gov.unit/name-romanized "Satun"
    :gov.unit/official-url "http://www.satun.go.th/"
    :gov.unit/wikidata "Q236263"
    :gov.unit/external-code ["iso3166-2:TH-91"]
@@ -8275,6 +8289,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chiang Rai"
+   :gov.unit/name-local "จังหวัดเชียงราย"
+   :gov.unit/name-romanized "Chiang Rai"
    :gov.unit/official-url "http://www.chiangrai.go.th/"
    :gov.unit/wikidata "Q236419"
    :gov.unit/external-code ["iso3166-2:TH-57"]
@@ -8288,6 +8304,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Krabi"
+   :gov.unit/name-local "จังหวัดกระบี่"
+   :gov.unit/name-romanized "Krabi"
    :gov.unit/official-url "http://wwww.krabi.go.th"
    :gov.unit/wikidata "Q236769"
    :gov.unit/external-code ["iso3166-2:TH-81"]
@@ -8301,6 +8319,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Pattani"
+   :gov.unit/name-local "จังหวัดปัตตานี"
+   :gov.unit/name-romanized "Pattani"
    :gov.unit/official-url "http://www.pattani.go.th"
    :gov.unit/wikidata "Q236781"
    :gov.unit/external-code ["iso3166-2:TH-94"]
@@ -8314,6 +8334,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ranong"
+   :gov.unit/name-local "จังหวัดระนอง"
+   :gov.unit/name-romanized "Ranong"
    :gov.unit/official-url "http://www.ranong.go.th"
    :gov.unit/wikidata "Q236802"
    :gov.unit/external-code ["iso3166-2:TH-85"]
@@ -8327,6 +8349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phichit"
+   :gov.unit/name-local "จังหวัดพิจิตร"
+   :gov.unit/name-romanized "Phichit"
    :gov.unit/official-url "http://www.phichit.go.th/"
    :gov.unit/wikidata "Q237874"
    :gov.unit/external-code ["iso3166-2:TH-66"]
@@ -8340,6 +8364,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nakhon Sawan"
+   :gov.unit/name-local "จังหวัดนครสวรรค์"
+   :gov.unit/name-romanized "Nakhon Sawan"
    :gov.unit/official-url "http://www.nakhonsawan.go.th/"
    :gov.unit/wikidata "Q239844"
    :gov.unit/external-code ["iso3166-2:TH-60"]
@@ -8353,6 +8379,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Surat Thani"
+   :gov.unit/name-local "จังหวัดสุราษฎร์ธานี"
+   :gov.unit/name-romanized "Surat Thani"
    :gov.unit/official-url "http://www.suratthani.go.th/"
    :gov.unit/wikidata "Q240463"
    :gov.unit/external-code ["iso3166-2:TH-84"]
@@ -8366,6 +8394,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Lampang"
+   :gov.unit/name-local "จังหวัดลำปาง"
+   :gov.unit/name-romanized "Lampang"
    :gov.unit/official-url "http://www.lampang.go.th/"
    :gov.unit/wikidata "Q240495"
    :gov.unit/external-code ["iso3166-2:TH-52"]
@@ -8379,6 +8409,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phetchabun"
+   :gov.unit/name-local "จังหวัดเพชรบูรณ์"
+   :gov.unit/name-romanized "Phetchabun"
    :gov.unit/official-url "http://www.phetchabun.go.th/"
    :gov.unit/wikidata "Q240520"
    :gov.unit/external-code ["iso3166-2:TH-67"]
@@ -8392,6 +8424,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Lamphun"
+   :gov.unit/name-local "จังหวัดลำพูน"
+   :gov.unit/name-romanized "Lamphun"
    :gov.unit/official-url "http://www.lamphun.go.th/"
    :gov.unit/wikidata "Q240540"
    :gov.unit/external-code ["iso3166-2:TH-51"]
@@ -8405,6 +8439,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Trat"
+   :gov.unit/name-local "จังหวัดตราด"
+   :gov.unit/name-romanized "Trat"
    :gov.unit/official-url "http://www.trat.go.th/"
    :gov.unit/wikidata "Q241884"
    :gov.unit/external-code ["iso3166-2:TH-23"]
@@ -8418,6 +8454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nonthaburi"
+   :gov.unit/name-local "จังหวัดนนทบุรี"
+   :gov.unit/name-romanized "Nonthaburi"
    :gov.unit/official-url "http://www.nonthaburi.go.th/"
    :gov.unit/wikidata "Q242932"
    :gov.unit/external-code ["iso3166-2:TH-12"]
@@ -8431,6 +8469,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Yala"
+   :gov.unit/name-local "จังหวัดยะลา"
+   :gov.unit/name-romanized "Yala"
    :gov.unit/official-url "http://www.yala.go.th"
    :gov.unit/wikidata "Q242977"
    :gov.unit/external-code ["iso3166-2:TH-95"]
@@ -8444,6 +8484,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Amnat Charoen"
+   :gov.unit/name-local "จังหวัดอำนาจเจริญ"
+   :gov.unit/name-romanized "Amnat Charoen"
    :gov.unit/official-url "http://www.amnatcharoen.go.th/"
    :gov.unit/wikidata "Q243791"
    :gov.unit/external-code ["iso3166-2:TH-37"]
@@ -8457,6 +8499,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ang Thong"
+   :gov.unit/name-local "จังหวัดอ่างทอง"
+   :gov.unit/name-romanized "Ang Thong"
    :gov.unit/official-url "http://www.angthong.go.th/"
    :gov.unit/wikidata "Q243795"
    :gov.unit/external-code ["iso3166-2:TH-15"]
@@ -8470,6 +8514,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Trang"
+   :gov.unit/name-local "จังหวัดตรัง"
+   :gov.unit/name-romanized "Trang"
    :gov.unit/official-url "http://www.trang.go.th/"
    :gov.unit/wikidata "Q243805"
    :gov.unit/external-code ["iso3166-2:TH-92"]
@@ -8483,6 +8529,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phatthalung"
+   :gov.unit/name-local "จังหวัดพัทลุง"
+   :gov.unit/name-romanized "Phatthalung"
    :gov.unit/official-url "http://www.phatthalung.go.th/"
    :gov.unit/wikidata "Q243808"
    :gov.unit/external-code ["iso3166-2:TH-93"]
@@ -8496,6 +8544,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phayao"
+   :gov.unit/name-local "จังหวัดพะเยา"
+   :gov.unit/name-romanized "Phayao"
    :gov.unit/official-url "http://www.phayao.go.th/"
    :gov.unit/wikidata "Q244618"
    :gov.unit/external-code ["iso3166-2:TH-56"]
@@ -8509,6 +8559,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Prachuap Khiri Khan"
+   :gov.unit/name-local "จังหวัดประจวบคีรีขันธ์"
+   :gov.unit/name-romanized "Prachuap Khiri Khan"
    :gov.unit/official-url "http://www.prachuapkhirikhan.go.th/"
    :gov.unit/wikidata "Q244628"
    :gov.unit/external-code ["iso3166-2:TH-77"]
@@ -8522,6 +8574,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Uthai Thani"
+   :gov.unit/name-local "จังหวัดอุทัยธานี"
+   :gov.unit/name-romanized "Uthai Thani"
    :gov.unit/official-url "http://www.uthaithani.go.th/"
    :gov.unit/wikidata "Q244649"
    :gov.unit/external-code ["iso3166-2:TH-61"]
@@ -8535,6 +8589,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phrae"
+   :gov.unit/name-local "จังหวัดแพร่"
+   :gov.unit/name-romanized "Phrae"
    :gov.unit/official-url "http://www.phrae.go.th/"
    :gov.unit/wikidata "Q244652"
    :gov.unit/external-code ["iso3166-2:TH-54"]
@@ -8548,6 +8604,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nakhon Si Thammarat"
+   :gov.unit/name-local "จังหวัดนครศรีธรรมราช"
+   :gov.unit/name-romanized "Nakhon Si Thammarat"
    :gov.unit/official-url "http://www.nakhonsithammarat.go.th/"
    :gov.unit/wikidata "Q244691"
    :gov.unit/external-code ["iso3166-2:TH-80"]
@@ -8561,6 +8619,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chumphon"
+   :gov.unit/name-local "จังหวัดชุมพร"
+   :gov.unit/name-romanized "Chumphon"
    :gov.unit/official-url "http://www.chumphon.go.th/"
    :gov.unit/wikidata "Q244695"
    :gov.unit/external-code ["iso3166-2:TH-86"]
@@ -8574,6 +8634,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nan"
+   :gov.unit/name-local "จังหวัดน่าน"
+   :gov.unit/name-romanized "Nan"
    :gov.unit/official-url "http://www.nan.go.th/"
    :gov.unit/wikidata "Q244698"
    :gov.unit/external-code ["iso3166-2:TH-55"]
@@ -8587,6 +8649,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phetchaburi"
+   :gov.unit/name-local "จังหวัดเพชรบุรี"
+   :gov.unit/name-romanized "Phetchaburi"
    :gov.unit/official-url "http://www.phetchaburi.go.th/"
    :gov.unit/wikidata "Q244699"
    :gov.unit/external-code ["iso3166-2:TH-76"]
@@ -8600,6 +8664,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nong Bua Lamphu"
+   :gov.unit/name-local "จังหวัดหนองบัวลำภู"
+   :gov.unit/name-romanized "Nong Bua Lamphu"
    :gov.unit/official-url "http://www.nongbualamphu.go.th/"
    :gov.unit/wikidata "Q261241"
    :gov.unit/external-code ["iso3166-2:TH-39"]
@@ -8613,6 +8679,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Mae Hong Son"
+   :gov.unit/name-local "จังหวัดแม่ฮ่องสอน"
+   :gov.unit/name-romanized "Mae Hong Son"
    :gov.unit/official-url "http://www.maehongson.go.th/"
    :gov.unit/wikidata "Q269270"
    :gov.unit/external-code ["iso3166-2:TH-58"]
@@ -8626,6 +8694,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Narathiwat"
+   :gov.unit/name-local "จังหวัดนราธิวาส"
+   :gov.unit/name-romanized "Narathiwat"
    :gov.unit/official-url "http://www.narathiwat.go.th/"
    :gov.unit/wikidata "Q271442"
    :gov.unit/external-code ["iso3166-2:TH-96"]
@@ -8639,6 +8709,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Samut Prakan"
+   :gov.unit/name-local "จังหวัดสมุทรปราการ"
+   :gov.unit/name-romanized "Samut Prakan"
    :gov.unit/official-url "http://www.samutprakan.go.th/"
    :gov.unit/wikidata "Q271529"
    :gov.unit/external-code ["iso3166-2:TH-11"]
@@ -8652,6 +8724,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nakhon Ratchasima"
+   :gov.unit/name-local "จังหวัดนครราชสีมา"
+   :gov.unit/name-romanized "Nakhon Ratchasima"
    :gov.unit/official-url "http://www.nakhonratchasima.go.th/"
    :gov.unit/wikidata "Q271737"
    :gov.unit/external-code ["iso3166-2:TH-30"]
@@ -8665,6 +8739,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Suphan Buri"
+   :gov.unit/name-local "จังหวัดสุพรรณบุรี"
+   :gov.unit/name-romanized "Suphan Buri"
    :gov.unit/official-url "http://www.suphanburi.go.th/"
    :gov.unit/wikidata "Q272247"
    :gov.unit/external-code ["iso3166-2:TH-72"]
@@ -8678,6 +8754,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phang Nga"
+   :gov.unit/name-local "จังหวัดพังงา"
+   :gov.unit/name-romanized "Phang Nga"
    :gov.unit/official-url "https://www.phangnga.go.th/"
    :gov.unit/wikidata "Q273306"
    :gov.unit/external-code ["iso3166-2:TH-82"]
@@ -8691,6 +8769,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Uttaradit"
+   :gov.unit/name-local "จังหวัดอุตรดิตถ์"
+   :gov.unit/name-romanized "Uttaradit"
    :gov.unit/official-url "http://www.uttaradit.go.th/"
    :gov.unit/wikidata "Q273794"
    :gov.unit/external-code ["iso3166-2:TH-53"]
@@ -8704,6 +8784,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Kamphaeng Phet"
+   :gov.unit/name-local "จังหวัดกำแพงเพชร"
+   :gov.unit/name-romanized "Kamphaeng Phet"
    :gov.unit/official-url "http://www.kamphaengphet.go.th/"
    :gov.unit/wikidata "Q273807"
    :gov.unit/external-code ["iso3166-2:TH-62"]
@@ -8717,6 +8799,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chaiyaphum"
+   :gov.unit/name-local "จังหวัดชัยภูมิ"
+   :gov.unit/name-romanized "Chaiyaphum"
    :gov.unit/official-url "http://www.chaiyaphum.go.th/"
    :gov.unit/wikidata "Q275377"
    :gov.unit/external-code ["iso3166-2:TH-36"]
@@ -8730,6 +8814,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Loei"
+   :gov.unit/name-local "จังหวัดเลย"
+   :gov.unit/name-romanized "Loei"
    :gov.unit/official-url "http://www.loei.go.th/"
    :gov.unit/wikidata "Q275388"
    :gov.unit/external-code ["iso3166-2:TH-42"]
@@ -8743,6 +8829,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Kanchanaburi"
+   :gov.unit/name-local "จังหวัดกาญจนบุรี"
+   :gov.unit/name-romanized "Kanchanaburi"
    :gov.unit/official-url "http://www.kanchanaburi.go.th/"
    :gov.unit/wikidata "Q275740"
    :gov.unit/external-code ["iso3166-2:TH-71"]
@@ -8756,6 +8844,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Tak"
+   :gov.unit/name-local "จังหวัดตาก"
+   :gov.unit/name-romanized "Tak"
    :gov.unit/official-url "http://www.tak.go.th/"
    :gov.unit/wikidata "Q275758"
    :gov.unit/external-code ["iso3166-2:TH-63"]
@@ -8769,6 +8859,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phitsanulok"
+   :gov.unit/name-local "จังหวัดพิษณุโลก"
+   :gov.unit/name-romanized "Phitsanulok"
    :gov.unit/official-url "http://www.phitsanulok.go.th/"
    :gov.unit/wikidata "Q275781"
    :gov.unit/external-code ["iso3166-2:TH-65"]
@@ -8782,6 +8874,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Prachin Buri"
+   :gov.unit/name-local "จังหวัดปราจีนบุรี"
+   :gov.unit/name-romanized "Prachin Buri"
    :gov.unit/official-url "http://www.prachinburi.go.th/"
    :gov.unit/wikidata "Q321324"
    :gov.unit/external-code ["iso3166-2:TH-25"]
@@ -8795,6 +8889,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Buri Ram"
+   :gov.unit/name-local "จังหวัดบุรีรัมย์"
+   :gov.unit/name-romanized "Buri Ram"
    :gov.unit/official-url "http://www.buriram.go.th/"
    :gov.unit/wikidata "Q327510"
    :gov.unit/external-code ["iso3166-2:TH-31"]
@@ -8808,6 +8904,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Khon Kaen"
+   :gov.unit/name-local "จังหวัดขอนแก่น"
+   :gov.unit/name-romanized "Khon Kaen"
    :gov.unit/official-url "http://www.khonkaen.go.th/"
    :gov.unit/wikidata "Q327533"
    :gov.unit/external-code ["iso3166-2:TH-40"]
@@ -8821,6 +8919,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chanthaburi"
+   :gov.unit/name-local "จังหวัดจันทบุรี"
+   :gov.unit/name-romanized "Chanthaburi"
    :gov.unit/official-url "http://www.chanthaburi.go.th/"
    :gov.unit/wikidata "Q327730"
    :gov.unit/external-code ["iso3166-2:TH-22"]
@@ -8834,6 +8934,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nong Khai"
+   :gov.unit/name-local "จังหวัดหนองคาย"
+   :gov.unit/name-romanized "Nong Khai"
    :gov.unit/official-url "http://www.nongkhai.go.th/"
    :gov.unit/wikidata "Q327737"
    :gov.unit/external-code ["iso3166-2:TH-43"]
@@ -8847,6 +8949,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Samut Sakhon"
+   :gov.unit/name-local "จังหวัดสมุทรสาคร"
+   :gov.unit/name-romanized "Samut Sakhon"
    :gov.unit/official-url "http://www.samutsakhon.go.th"
    :gov.unit/wikidata "Q334686"
    :gov.unit/external-code ["iso3166-2:TH-74"]
@@ -8860,6 +8964,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Sing Buri"
+   :gov.unit/name-local "จังหวัดสิงห์บุรี"
+   :gov.unit/name-romanized "Sing Buri"
    :gov.unit/official-url "http://www.singburi.go.th/"
    :gov.unit/wikidata "Q334836"
    :gov.unit/external-code ["iso3166-2:TH-17"]
@@ -8873,6 +8979,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nakhon Pathom"
+   :gov.unit/name-local "จังหวัดนครปฐม"
+   :gov.unit/name-romanized "Nakhon Pathom"
    :gov.unit/official-url "http://www.nakhonpathom.go.th/"
    :gov.unit/wikidata "Q334841"
    :gov.unit/external-code ["iso3166-2:TH-73"]
@@ -8886,6 +8994,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chachoengsao"
+   :gov.unit/name-local "จังหวัดฉะเชิงเทรา"
+   :gov.unit/name-romanized "Chachoengsao"
    :gov.unit/official-url "http://www.chachoengsao.go.th/"
    :gov.unit/wikidata "Q334906"
    :gov.unit/external-code ["iso3166-2:TH-24"]
@@ -8899,6 +9009,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Mukdahan"
+   :gov.unit/name-local "จังหวัดมุกดาหาร"
+   :gov.unit/name-romanized "Mukdahan"
    :gov.unit/official-url "http://www.mukdahan.go.th"
    :gov.unit/wikidata "Q335119"
    :gov.unit/external-code ["iso3166-2:TH-49"]
@@ -8912,6 +9024,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Rayong"
+   :gov.unit/name-local "จังหวัดระยอง"
+   :gov.unit/name-romanized "Rayong"
    :gov.unit/official-url "http://www.rayong.go.th/"
    :gov.unit/wikidata "Q335221"
    :gov.unit/external-code ["iso3166-2:TH-21"]
@@ -8925,6 +9039,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ratchaburi"
+   :gov.unit/name-local "จังหวัดราชบุรี"
+   :gov.unit/name-romanized "Ratchaburi"
    :gov.unit/official-url "http://www.ratchaburi.go.th/"
    :gov.unit/wikidata "Q335492"
    :gov.unit/external-code ["iso3166-2:TH-70"]
@@ -8938,6 +9054,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Lopburi"
+   :gov.unit/name-local "จังหวัดลพบุรี"
+   :gov.unit/name-romanized "Lopburi"
    :gov.unit/official-url "http://www.lopburi.go.th/"
    :gov.unit/wikidata "Q336122"
    :gov.unit/external-code ["iso3166-2:TH-16"]
@@ -8951,6 +9069,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Saraburi"
+   :gov.unit/name-local "จังหวัดสระบุรี"
+   :gov.unit/name-romanized "Saraburi"
    :gov.unit/official-url "http://www.saraburi.go.th/"
    :gov.unit/wikidata "Q337627"
    :gov.unit/external-code ["iso3166-2:TH-19"]
@@ -8964,6 +9084,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Udon Thani"
+   :gov.unit/name-local "จังหวัดอุดรธานี"
+   :gov.unit/name-romanized "Udon Thani"
    :gov.unit/official-url "http://www.udonthani.go.th/"
    :gov.unit/wikidata "Q380752"
    :gov.unit/external-code ["iso3166-2:TH-41"]
@@ -8977,6 +9099,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Surin"
+   :gov.unit/name-local "จังหวัดสุรินทร์"
+   :gov.unit/name-romanized "Surin"
    :gov.unit/official-url "http://www.surin.go.th"
    :gov.unit/wikidata "Q380757"
    :gov.unit/external-code ["iso3166-2:TH-32"]
@@ -8990,6 +9114,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Si Sa Ket"
+   :gov.unit/name-local "จังหวัดศรีสะเกษ"
+   :gov.unit/name-romanized "Si Sa Ket"
    :gov.unit/official-url "http://www.sisaket.go.th/"
    :gov.unit/wikidata "Q380761"
    :gov.unit/external-code ["iso3166-2:TH-33"]
@@ -9003,6 +9129,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Sukhothai"
+   :gov.unit/name-local "จังหวัดสุโขทัย"
+   :gov.unit/name-romanized "Sukhothai"
    :gov.unit/official-url "http://www.sukhothai.go.th/"
    :gov.unit/wikidata "Q380764"
    :gov.unit/external-code ["iso3166-2:TH-64"]
@@ -9016,6 +9144,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Sa Kaeo"
+   :gov.unit/name-local "จังหวัดสระแก้ว"
+   :gov.unit/name-romanized "Sa Kaeo"
    :gov.unit/official-url "http://www.sakaeo.go.th/"
    :gov.unit/wikidata "Q381889"
    :gov.unit/external-code ["iso3166-2:TH-27"]
@@ -9029,6 +9159,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Sakon Nakhon"
+   :gov.unit/name-local "จังหวัดสกลนคร"
+   :gov.unit/name-romanized "Sakon Nakhon"
    :gov.unit/official-url "http://www.sakonnakhon.go.th/"
    :gov.unit/wikidata "Q382125"
    :gov.unit/external-code ["iso3166-2:TH-47"]
@@ -9042,6 +9174,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Kalasin"
+   :gov.unit/name-local "จังหวัดกาฬสินธุ์"
+   :gov.unit/name-romanized "Kalasin"
    :gov.unit/official-url "http://www.kalasin.go.th/"
    :gov.unit/wikidata "Q382144"
    :gov.unit/external-code ["iso3166-2:TH-46"]
@@ -9055,6 +9189,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Samut Songkhram"
+   :gov.unit/name-local "จังหวัดสมุทรสงคราม"
+   :gov.unit/name-romanized "Samut Songkhram"
    :gov.unit/official-url "http://www.samutsongkhram.go.th/"
    :gov.unit/wikidata "Q459742"
    :gov.unit/external-code ["iso3166-2:TH-75"]
@@ -9068,6 +9204,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Pathum Thani"
+   :gov.unit/name-local "จังหวัดปทุมธานี"
+   :gov.unit/name-romanized "Pathum Thani"
    :gov.unit/official-url "http://www.pathumthani.go.th/"
    :gov.unit/wikidata "Q459748"
    :gov.unit/external-code ["iso3166-2:TH-13"]
@@ -9081,6 +9219,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Chai Nat"
+   :gov.unit/name-local "จังหวัดชัยนาท"
+   :gov.unit/name-romanized "Chai Nat"
    :gov.unit/official-url "http://www.chainat.go.th/"
    :gov.unit/wikidata "Q459759"
    :gov.unit/external-code ["iso3166-2:TH-18"]
@@ -9094,6 +9234,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nakhon Nayok"
+   :gov.unit/name-local "จังหวัดนครนายก"
+   :gov.unit/name-romanized "Nakhon Nayok"
    :gov.unit/official-url "http://www.nakhonnayok.go.th/"
    :gov.unit/wikidata "Q466212"
    :gov.unit/external-code ["iso3166-2:TH-26"]
@@ -9107,6 +9249,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Nakhon Phanom"
+   :gov.unit/name-local "จังหวัดนครพนม"
+   :gov.unit/name-romanized "Nakhon Phanom"
    :gov.unit/official-url "http://www.nakhonphanom.go.th/"
    :gov.unit/wikidata "Q468547"
    :gov.unit/external-code ["iso3166-2:TH-48"]
@@ -9120,6 +9264,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Maha Sarakham"
+   :gov.unit/name-local "จังหวัดมหาสารคาม"
+   :gov.unit/name-romanized "Maha Sarakham"
    :gov.unit/official-url "http://www.mahasarakham.go.th/"
    :gov.unit/wikidata "Q468554"
    :gov.unit/external-code ["iso3166-2:TH-44"]
@@ -9133,6 +9279,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Phra Nakhon Si Ayutthaya"
+   :gov.unit/name-local "จังหวัดพระนครศรีอยุธยา"
+   :gov.unit/name-romanized "Phra Nakhon Si Ayutthaya"
    :gov.unit/official-url "http://www.ayutthaya.go.th/"
    :gov.unit/wikidata "Q476222"
    :gov.unit/external-code ["iso3166-2:TH-14"]
@@ -9146,6 +9294,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Yasothon"
+   :gov.unit/name-local "จังหวัดยโสธร"
+   :gov.unit/name-romanized "Yasothon"
    :gov.unit/official-url "http://www.yasothon.go.th/"
    :gov.unit/wikidata "Q506598"
    :gov.unit/external-code ["iso3166-2:TH-35"]
@@ -9159,6 +9309,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Roi Et"
+   :gov.unit/name-local "จังหวัดร้อยเอ็ด"
+   :gov.unit/name-romanized "Roi Et"
    :gov.unit/official-url "http://www.roiet.go.th/"
    :gov.unit/wikidata "Q625463"
    :gov.unit/external-code ["iso3166-2:TH-45"]
@@ -9172,6 +9324,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ubon Ratchathani"
+   :gov.unit/name-local "จังหวัดอุบลราชธานี"
+   :gov.unit/name-romanized "Ubon Ratchathani"
    :gov.unit/official-url "http://www.ubonratchathani.go.th/"
    :gov.unit/wikidata "Q629024"
    :gov.unit/external-code ["iso3166-2:TH-34"]
