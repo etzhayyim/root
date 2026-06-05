@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-04",
+  "updated_at": "2026-06-05",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -20779,6 +20779,75 @@
         "2605171300"
       ],
       "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606051200-hotaru-inp-iii-v-substrate-commons-r0.md",
+      "id": "adr-2606051200-hotaru-inp-iii-v-substrate-commons-r0",
+      "title": "hotaru 蛍 — III-V / InP substrate open-publication commons (Tier-B actor R0; the open-IP commons ADR-2605265500 §2's R4+ gate references — NOT a fab)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "hotaru-iii-v-inp-substrate-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "hotaru actor scope (III-V/InP substrate open-publication commons; design/datafication/simulation only)",
+        "the open-IP-only invariant for III-V process knowledge (:source-license practiceable-open set)",
+        "the design-only/not-fabricated invariant (:fabricated false through R3)",
+        "the commons-readiness index feeding the ADR-2605265500 §2 R4+ gate evaluation (non-adjudicating)"
+      ],
+      "related": [
+        "adr-2606012600-watatsuna-submarine-cable-resilience"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605265500-concentrated-pv-d-gate-evaluation-r0",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605261100",
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606051500-kamado-closed-loop-refining-decommission-actor-r0.md",
+      "id": "adr-2606051500-kamado-closed-loop-refining-decommission-actor-r0",
+      "title": "ADR-2606051500: kamado 竈 — closed-loop carbon refining + fossil-refinery decommissioning/transition actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kamado-closed-loop-refining",
+      "authoritative": true,
+      "authoritative_for": [
+        "kamado actor design, refining ontology, lexicons, gates",
+        "the :feedstock-class invariant (fossil-virgin-crude unrepresentable)",
+        "§2(d) fossil-refinery decommissioning/transition robotics scope",
+        "the net-atmospheric-carbon (D3) balance model for refining pathways"
+      ],
+      "related": [
+        "2606042100",
+        "2606031600",
+        "2605312330",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605192200",
+        "2605263500",
+        "2605261100",
+        "2605262130",
+        "2605215000",
+        "2605231525",
+        "2606032130"
+      ],
+      "last_verified": "2026-06-05",
       "amends": [],
       "amended_by": []
     },

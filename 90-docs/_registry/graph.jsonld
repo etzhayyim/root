@@ -13354,6 +13354,43 @@
       "lastVerified": "2026-06-04"
     },
     {
+      "id": "doc:adr-2606051200-hotaru-inp-iii-v-substrate-commons-r0",
+      "type": "TechArticle",
+      "title": "hotaru 蛍 — III-V / InP substrate open-publication commons (Tier-B actor R0; the open-IP commons ADR-2605265500 §2's R4+ gate references — NOT a fab)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "hotaru-iii-v-inp-substrate-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hotaru actor scope (III-V/InP substrate open-publication commons; design/datafication/simulation only)",
+        "the open-IP-only invariant for III-V process knowledge (:source-license practiceable-open set)",
+        "the design-only/not-fabricated invariant (:fabricated false through R3)",
+        "the commons-readiness index feeding the ADR-2605265500 §2 R4+ gate evaluation (non-adjudicating)"
+      ],
+      "related": "doc:adr-2606012600-watatsuna-submarine-cable-resilience",
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606051500-kamado-closed-loop-refining-decommission-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606051500: kamado 竈 — closed-loop carbon refining + fossil-refinery decommissioning/transition actor (R0)",
+      "status": "proposed",
+      "topic": "kamado-closed-loop-refining",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kamado actor design, refining ontology, lexicons, gates",
+        "the :feedstock-class invariant (fossil-virgin-crude unrepresentable)",
+        "§2(d) fossil-refinery decommissioning/transition robotics scope",
+        "the net-atmospheric-carbon (D3) balance model for refining pathways"
+      ],
+      "related": [
+        "doc:2606042100",
+        "doc:2606031600",
+        "doc:2605312330",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

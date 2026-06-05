@@ -1,0 +1,19 @@
+{:lexicon 1
+ :id "com.etzhayyim.hotaru.waferSpec"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :record
+   {:type "object"
+    :required ["waferId" "material" "diameterMm" "orientation" "fabricated"]
+    :properties
+    {:waferId     {:type "string" :description "→ :iiiv.wafer/id"}
+     :material    {:type "string"}
+     :diameterMm  {:type "number" :description "e.g. 50.8 (2-inch) / 76.2 (3-inch)"}
+     :orientation {:type "string" :description "e.g. (100)"}
+     :epdCm2      {:type "integer" :description "etch-pit-density target (cm^-2) — bulk crystal quality"}
+     :doping      {:type "string" :description "e.g. sulfur-n / iron-si (semi-insulating)"}
+     :fabricated  {:type "boolean" :const false
+                   :description "G2 INVARIANT — SPEC ONLY through R3. Only false is valid; a manufactured wafer is unrepresentable until the R4+ gate"}
+     :sourcing    {:type "string" :enum ["representative" "verified"]}}}}}}
