@@ -4298,6 +4298,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Aqaba Governorate"
+   :gov.unit/name-local "محافظة العقبة"
+   :gov.unit/name-romanized "Muhafazat al-Aqaba"
    :gov.unit/official-url "https://aseza.jo/"
    :gov.unit/wikidata "Q260796"
    :gov.unit/external-code ["iso3166-2:JO-AQ"]
@@ -4311,6 +4313,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Amman Governorate"
+   :gov.unit/name-local "محافظة عمّان"
+   :gov.unit/name-romanized "Muhafazat Amman"
    :gov.unit/official-url "https://www.ammancity.gov.jo/"
    :gov.unit/wikidata "Q472788"
    :gov.unit/external-code ["iso3166-2:JO-AM"]
@@ -4324,6 +4328,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ajloun Governorate"
+   :gov.unit/name-local "محافظة عجلون"
+   :gov.unit/name-romanized "Muhafazat Ajlun"
    :gov.unit/wikidata "Q506658"
    :gov.unit/external-code ["iso3166-2:JO-AJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4336,6 +4342,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ma'an Governorate"
+   :gov.unit/name-local "محافظة معان"
+   :gov.unit/name-romanized "Muhafazat Maan"
    :gov.unit/wikidata "Q606340"
    :gov.unit/external-code ["iso3166-2:JO-MN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4348,6 +4356,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Balqa Governorate"
+   :gov.unit/name-local "محافظة البلقاء"
+   :gov.unit/name-romanized "Muhafazat al-Balqa"
    :gov.unit/wikidata "Q721431"
    :gov.unit/external-code ["iso3166-2:JO-BA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4360,6 +4370,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Irbid Governorate"
+   :gov.unit/name-local "محافظة إربد"
+   :gov.unit/name-romanized "Muhafazat Irbid"
    :gov.unit/official-url "http://www.moi.gov.jo/Pages/viewpage.aspx?pageID=431"
    :gov.unit/wikidata "Q721441"
    :gov.unit/external-code ["iso3166-2:JO-IR"]
@@ -4373,6 +4385,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Zarqa Governorate"
+   :gov.unit/name-local "محافظة الزرقاء"
+   :gov.unit/name-romanized "Muhafazat az-Zarqa"
    :gov.unit/wikidata "Q721445"
    :gov.unit/external-code ["iso3166-2:JO-AZ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4385,6 +4399,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Karak Governorate"
+   :gov.unit/name-local "محافظة الكرك"
+   :gov.unit/name-romanized "Muhafazat al-Karak"
    :gov.unit/wikidata "Q735245"
    :gov.unit/external-code ["iso3166-2:JO-KA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4397,6 +4413,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Tafilah Governorate"
+   :gov.unit/name-local "محافظة الطفيلة"
+   :gov.unit/name-romanized "Muhafazat at-Tafila"
    :gov.unit/wikidata "Q750259"
    :gov.unit/external-code ["iso3166-2:JO-AT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4409,6 +4427,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Jerash Governorate"
+   :gov.unit/name-local "محافظة جرش"
+   :gov.unit/name-romanized "Muhafazat Jarash"
    :gov.unit/wikidata "Q750270"
    :gov.unit/external-code ["iso3166-2:JO-JA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4421,6 +4441,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Madaba Governorate"
+   :gov.unit/name-local "محافظة مادبا"
+   :gov.unit/name-romanized "Muhafazat Madaba"
    :gov.unit/wikidata "Q750447"
    :gov.unit/external-code ["iso3166-2:JO-MD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4433,6 +4455,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Mafraq Governorate"
+   :gov.unit/name-local "محافظة المفرق"
+   :gov.unit/name-romanized "Muhafazat al-Mafraq"
    :gov.unit/wikidata "Q854871"
    :gov.unit/external-code ["iso3166-2:JO-MA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8240,6 +8264,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Daraa Governorate"
+   :gov.unit/name-local "محافظة درعا"
+   :gov.unit/name-romanized "Muhafazat Dara"
    :gov.unit/official-url "https://daraa.gov.sy/"
    :gov.unit/wikidata "Q1689560"
    :gov.unit/external-code ["iso3166-2:SY-DR"]
@@ -8253,6 +8279,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Damascus Governorate"
+   :gov.unit/name-local "محافظة دمشق"
+   :gov.unit/name-romanized "Muhafazat Dimashq"
    :gov.unit/official-url "https://www.damascus.gov.sy/"
    :gov.unit/wikidata "Q2007044"
    :gov.unit/external-code ["iso3166-2:SY-DI"]
@@ -8266,6 +8294,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Aleppo Governorate"
+   :gov.unit/name-local "محافظة حلب"
+   :gov.unit/name-romanized "Muhafazat Halab"
    :gov.unit/official-url "https://www.aleppo.gov.sy/home"
    :gov.unit/wikidata "Q214064"
    :gov.unit/external-code ["iso3166-2:SY-HL"]
@@ -8279,6 +8309,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Homs Governorate"
+   :gov.unit/name-local "محافظة حمص"
+   :gov.unit/name-romanized "Muhafazat Hims"
    :gov.unit/official-url "https://homsgov.sy/"
    :gov.unit/wikidata "Q214094"
    :gov.unit/external-code ["iso3166-2:SY-HI"]
@@ -8292,6 +8324,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Quneitra Governorate"
+   :gov.unit/name-local "محافظة القنيطرة"
+   :gov.unit/name-romanized "Muhafazat al-Qunaytirah"
    :gov.unit/wikidata "Q219690"
    :gov.unit/external-code ["iso3166-2:SY-QU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8304,6 +8338,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Hama Governorate"
+   :gov.unit/name-local "محافظة حماة"
+   :gov.unit/name-romanized "Muhafazat Hamah"
    :gov.unit/official-url "https://hama.gov.sy"
    :gov.unit/wikidata "Q232355"
    :gov.unit/external-code ["iso3166-2:SY-HM"]
@@ -8317,6 +8353,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Tartus Governorate"
+   :gov.unit/name-local "محافظة طرطوس"
+   :gov.unit/name-romanized "Muhafazat Tartus"
    :gov.unit/wikidata "Q232382"
    :gov.unit/external-code ["iso3166-2:SY-TA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8329,6 +8367,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Deir ez-Zor Governorate"
+   :gov.unit/name-local "محافظة دير الزور"
+   :gov.unit/name-romanized "Muhafazat Dayr az-Zawr"
    :gov.unit/wikidata "Q232387"
    :gov.unit/external-code ["iso3166-2:SY-DY"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8341,6 +8381,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Rif Dimashq Governorate"
+   :gov.unit/name-local "محافظة ريف دمشق"
+   :gov.unit/name-romanized "Muhafazat Rif Dimashq"
    :gov.unit/official-url "https://www.reefdamascus.com/"
    :gov.unit/wikidata "Q232399"
    :gov.unit/external-code ["iso3166-2:SY-RD"]
@@ -8354,6 +8396,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Idlib Governorate"
+   :gov.unit/name-local "محافظة إدلب"
+   :gov.unit/name-romanized "Muhafazat Idlib"
    :gov.unit/wikidata "Q233218"
    :gov.unit/external-code ["iso3166-2:SY-ID"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8366,6 +8410,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Latakia Governorate"
+   :gov.unit/name-local "محافظة اللاذقية"
+   :gov.unit/name-romanized "Muhafazat al-Ladhiqiyyah"
    :gov.unit/official-url "https://latakia.gov.sy/"
    :gov.unit/wikidata "Q233236"
    :gov.unit/external-code ["iso3166-2:SY-LA"]
@@ -8379,6 +8425,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Hasakah Governorate"
+   :gov.unit/name-local "محافظة الحسكة"
+   :gov.unit/name-romanized "Muhafazat al-Hasakah"
    :gov.unit/official-url "http://www.esyria.sy/ehasakeh/"
    :gov.unit/wikidata "Q233914"
    :gov.unit/external-code ["iso3166-2:SY-HA"]
@@ -8392,6 +8440,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Raqqa Governorate"
+   :gov.unit/name-local "محافظة الرقة"
+   :gov.unit/name-romanized "Muhafazat ar-Raqqah"
    :gov.unit/wikidata "Q235563"
    :gov.unit/external-code ["iso3166-2:SY-RA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8404,6 +8454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Suwayda Governorate"
+   :gov.unit/name-local "محافظة السويداء"
+   :gov.unit/name-romanized "Muhafazat as-Suwayda"
    :gov.unit/wikidata "Q236797"
    :gov.unit/external-code ["iso3166-2:SY-SU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11552,6 +11604,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Socotra Archipelago Governorate"
+   :gov.unit/name-local "محافظة أرخبيل سقطرى"
+   :gov.unit/name-romanized "Muhafazat Arkhabil Suqutra"
    :gov.unit/wikidata "Q15728745"
    :gov.unit/external-code ["iso3166-2:YE-SU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11564,6 +11618,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Al Bayda' Governorate"
+   :gov.unit/name-local "محافظة البيضاء"
+   :gov.unit/name-romanized "Muhafazat al-Bayda"
    :gov.unit/wikidata "Q221212"
    :gov.unit/external-code ["iso3166-2:YE-BA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11576,6 +11632,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Hadhramaut Governorate"
+   :gov.unit/name-local "محافظة حضرموت"
+   :gov.unit/name-romanized "Muhafazat Hadramawt"
    :gov.unit/wikidata "Q241135"
    :gov.unit/external-code ["iso3166-2:YE-HD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11588,6 +11646,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Abyan Governorate"
+   :gov.unit/name-local "محافظة أبين"
+   :gov.unit/name-romanized "Muhafazat Abyan"
    :gov.unit/wikidata "Q241774"
    :gov.unit/external-code ["iso3166-2:YE-AB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11600,6 +11660,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "'Amran Governorate"
+   :gov.unit/name-local "محافظة عمران"
+   :gov.unit/name-romanized "Muhafazat Amran"
    :gov.unit/wikidata "Q275720"
    :gov.unit/external-code ["iso3166-2:YE-AM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11612,6 +11674,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Aden Governorate"
+   :gov.unit/name-local "محافظة عدن"
+   :gov.unit/name-romanized "Muhafazat Adan"
    :gov.unit/wikidata "Q275729"
    :gov.unit/external-code ["iso3166-2:YE-AD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11624,6 +11688,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Saada Governorate"
+   :gov.unit/name-local "محافظة صعدة"
+   :gov.unit/name-romanized "Muhafazat Sadah"
    :gov.unit/wikidata "Q275732"
    :gov.unit/external-code ["iso3166-2:YE-SD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11636,6 +11702,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Al Mahrah Governorate"
+   :gov.unit/name-local "محافظة المهرة"
+   :gov.unit/name-romanized "Muhafazat al-Mahrah"
    :gov.unit/wikidata "Q275752"
    :gov.unit/external-code ["iso3166-2:YE-MR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11648,6 +11716,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Al Hudaydah Governorate"
+   :gov.unit/name-local "محافظة الحديدة"
+   :gov.unit/name-romanized "Muhafazat al-Hudaydah"
    :gov.unit/wikidata "Q275755"
    :gov.unit/external-code ["iso3166-2:YE-HU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11660,6 +11730,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Amanat al-Asimah Governorate"
+   :gov.unit/name-local "أمانة العاصمة"
+   :gov.unit/name-romanized "Amanat al-Asimah"
    :gov.unit/wikidata "Q32130189"
    :gov.unit/external-code ["iso3166-2:YE-SA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11672,6 +11744,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Al Jawf Governorate"
+   :gov.unit/name-local "محافظة الجوف"
+   :gov.unit/name-romanized "Muhafazat al-Jawf"
    :gov.unit/wikidata "Q328128"
    :gov.unit/external-code ["iso3166-2:YE-JA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11684,6 +11758,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Hajjah Governorate"
+   :gov.unit/name-local "محافظة حجة"
+   :gov.unit/name-romanized "Muhafazat Hajjah"
    :gov.unit/wikidata "Q328158"
    :gov.unit/external-code ["iso3166-2:YE-HJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11696,6 +11772,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Shabwah Governorate"
+   :gov.unit/name-local "محافظة شبوة"
+   :gov.unit/name-romanized "Muhafazat Shabwah"
    :gov.unit/wikidata "Q328180"
    :gov.unit/external-code ["iso3166-2:YE-SH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11708,6 +11786,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Dhale Governorate"
+   :gov.unit/name-local "محافظة الضالع"
+   :gov.unit/name-romanized "Muhafazat ad-Dali"
    :gov.unit/wikidata "Q328187"
    :gov.unit/external-code ["iso3166-2:YE-DA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11720,6 +11800,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Dhamar Governorate"
+   :gov.unit/name-local "محافظة ذمار"
+   :gov.unit/name-romanized "Muhafazat Dhamar"
    :gov.unit/wikidata "Q328193"
    :gov.unit/external-code ["iso3166-2:YE-DH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11732,6 +11814,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ibb Governorate"
+   :gov.unit/name-local "محافظة إب"
+   :gov.unit/name-romanized "Muhafazat Ibb"
    :gov.unit/wikidata "Q388274"
    :gov.unit/external-code ["iso3166-2:YE-IB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11744,6 +11828,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Al Mahwit Governorate"
+   :gov.unit/name-local "محافظة المحويت"
+   :gov.unit/name-romanized "Muhafazat al-Mahwit"
    :gov.unit/wikidata "Q388280"
    :gov.unit/external-code ["iso3166-2:YE-MW"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11756,6 +11842,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Sanaa Governorate"
+   :gov.unit/name-local "محافظة صنعاء"
+   :gov.unit/name-romanized "Muhafazat Sana"
    :gov.unit/wikidata "Q388291"
    :gov.unit/external-code ["iso3166-2:YE-SN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11768,6 +11856,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Lahij Governorate"
+   :gov.unit/name-local "محافظة لحج"
+   :gov.unit/name-romanized "Muhafazat Lahij"
    :gov.unit/wikidata "Q388318"
    :gov.unit/external-code ["iso3166-2:YE-LA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11780,6 +11870,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ta'izz Governorate"
+   :gov.unit/name-local "محافظة تعز"
+   :gov.unit/name-romanized "Muhafazat Taizz"
    :gov.unit/wikidata "Q388330"
    :gov.unit/external-code ["iso3166-2:YE-TA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11792,6 +11884,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Raymah Governorate"
+   :gov.unit/name-local "محافظة ريمة"
+   :gov.unit/name-romanized "Muhafazat Raymah"
    :gov.unit/wikidata "Q475033"
    :gov.unit/external-code ["iso3166-2:YE-RA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -11804,6 +11898,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Marib Governorate"
+   :gov.unit/name-local "محافظة مأرب"
+   :gov.unit/name-romanized "Muhafazat Marib"
    :gov.unit/wikidata "Q498465"
    :gov.unit/external-code ["iso3166-2:YE-MA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

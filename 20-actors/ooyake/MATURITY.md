@@ -43,6 +43,25 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Arabic cluster Libya+Yemen+Syria+Jordan (1628 → 1698)
+
+Cleared the remaining large Arabic-script subdivision sets in one pass — 4 web-research subagents
+(Wikidata native labels P1705 + ar labels). **70 Arabic endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1628 → **1698**; subdivision name-local: 614 → **684**.
+- Libya 22 shabiyat (بنغازي/Banghazi, طرابلس/Tarabulus, مصراتة/Misratah …) — bare proper-name form
+  consistent with the P1705 values that exist; Derna/Jufra municipality-form labels normalized to
+  district proper names درنة/الجفرة.
+- Yemen 22 (محافظة <name>; capital kept as أمانة العاصمة not forced to محافظة; Socotra =
+  محافظة أرخبيل سقطرى).
+- Syria 14 + Jordan 12 governorates (محافظة form).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets now
+mostly smaller / mixed-script: Bhutan 20, Maldives 20, Kazakhstan 18, Lao 17, Ethiopia 14, Morocco 12,
+North Korea 12, Georgia 12, Armenia 11, Oman 11, Sri Lanka 9, Qatar 9, etc.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Algeria 58 wilayas (1570 → 1628)
 
 Continued the subdivision endonym front with all 58 Algerian wilayas in Arabic. 5 web-research
