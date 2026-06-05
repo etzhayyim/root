@@ -5289,6 +5289,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Cham Province"
+   :gov.unit/name-local "ខេត្តកំពង់ចាម"
+   :gov.unit/name-romanized "Khaet Kampong Cham"
    :gov.unit/official-url "https://kampongcham.gov.kh/"
    :gov.unit/wikidata "Q142258"
    :gov.unit/external-code ["iso3166-2:KH-3"]
@@ -5302,6 +5304,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Phnom Penh"
+   :gov.unit/name-local "រាជធានីភ្នំពេញ"
+   :gov.unit/name-romanized "Reachthani Phnom Penh"
    :gov.unit/official-url "https://www.phnompenh.gov.kh/"
    :gov.unit/wikidata "Q1850"
    :gov.unit/external-code ["iso3166-2:KH-12"]
@@ -5315,6 +5319,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Sihanoukville Province"
+   :gov.unit/name-local "ខេត្តព្រះសីហនុ"
+   :gov.unit/name-romanized "Khaet Preah Sihanouk"
    :gov.unit/official-url "https://sihanoukville.gov.kh/"
    :gov.unit/wikidata "Q220966"
    :gov.unit/external-code ["iso3166-2:KH-18"]
@@ -5328,6 +5334,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Banteay Meanchey Province"
+   :gov.unit/name-local "ខេត្តបន្ទាយមានជ័យ"
+   :gov.unit/name-romanized "Khaet Banteay Meanchey"
    :gov.unit/official-url "https://www.banteaymeanchey.gov.kh/en/"
    :gov.unit/wikidata "Q3817"
    :gov.unit/external-code ["iso3166-2:KH-1"]
@@ -5341,6 +5349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Koh Kong Province"
+   :gov.unit/name-local "ខេត្តកោះកុង"
+   :gov.unit/name-romanized "Khaet Koh Kong"
    :gov.unit/official-url "https://kohkong.gov.kh/en/"
    :gov.unit/wikidata "Q466000"
    :gov.unit/external-code ["iso3166-2:KH-9"]
@@ -5354,6 +5364,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kandal Province"
+   :gov.unit/name-local "ខេត្តកណ្ដាល"
+   :gov.unit/name-romanized "Khaet Kandal"
    :gov.unit/official-url "https://www.kandal.gov.kh/en/home-page-kandal-administration"
    :gov.unit/wikidata "Q466031"
    :gov.unit/external-code ["iso3166-2:KH-8"]
@@ -5367,6 +5379,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Thom Province"
+   :gov.unit/name-local "ខេត្តកំពង់ធំ"
+   :gov.unit/name-romanized "Khaet Kampong Thom"
    :gov.unit/official-url "https://kampongthom.gov.kh/"
    :gov.unit/wikidata "Q502148"
    :gov.unit/external-code ["iso3166-2:KH-6"]
@@ -5380,6 +5394,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Preah Vihear Province"
+   :gov.unit/name-local "ខេត្តព្រះវិហារ"
+   :gov.unit/name-romanized "Khaet Preah Vihear"
    :gov.unit/official-url "https://www.preahvihear.gov.kh/en/"
    :gov.unit/wikidata "Q502151"
    :gov.unit/external-code ["iso3166-2:KH-13"]
@@ -5393,6 +5409,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Pailin Province"
+   :gov.unit/name-local "ខេត្តប៉ៃលិន"
+   :gov.unit/name-romanized "Khaet Pailin"
    :gov.unit/official-url "https://www.pailin.gov.kh/en/home"
    :gov.unit/wikidata "Q506646"
    :gov.unit/external-code ["iso3166-2:KH-24"]
@@ -5406,6 +5424,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Takéo Province"
+   :gov.unit/name-local "ខេត្តតាកែវ"
+   :gov.unit/name-romanized "Khaet Takeo"
    :gov.unit/official-url "https://www.takeo.gov.kh/"
    :gov.unit/wikidata "Q613345"
    :gov.unit/external-code ["iso3166-2:KH-21"]
@@ -5419,6 +5439,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Oddar Meanchey Province"
+   :gov.unit/name-local "ខេត្តឧត្តរមានជ័យ"
+   :gov.unit/name-romanized "Khaet Oddar Meanchey"
    :gov.unit/official-url "https://www.oddarmeanchey.gov.kh/en/"
    :gov.unit/wikidata "Q629538"
    :gov.unit/external-code ["iso3166-2:KH-22"]
@@ -5432,6 +5454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Siem Reap Province"
+   :gov.unit/name-local "ខេត្តសៀមរាប"
+   :gov.unit/name-romanized "Khaet Siem Reap"
    :gov.unit/official-url "https://siemreap.gov.kh/en/"
    :gov.unit/wikidata "Q652818"
    :gov.unit/external-code ["iso3166-2:KH-17"]
@@ -5445,6 +5469,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Mondulkiri Province"
+   :gov.unit/name-local "ខេត្តមណ្ឌលគិរី"
+   :gov.unit/name-romanized "Khaet Mondulkiri"
    :gov.unit/official-url "https://www.mondulkiri.gov.kh/en/"
    :gov.unit/wikidata "Q652830"
    :gov.unit/external-code ["iso3166-2:KH-11"]
@@ -5458,6 +5484,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Speu Province"
+   :gov.unit/name-local "ខេត្តកំពង់ស្ពឺ"
+   :gov.unit/name-romanized "Khaet Kampong Speu"
    :gov.unit/official-url "http://www.moc.gov.kh/national_data_resource/Provincial%20Resources/Kampong%20Speu/Index.htm"
    :gov.unit/wikidata "Q652867"
    :gov.unit/external-code ["iso3166-2:KH-5"]
@@ -5471,6 +5499,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ratanakiri Province"
+   :gov.unit/name-local "ខេត្តរតនគិរី"
+   :gov.unit/name-romanized "Khaet Ratanakiri"
    :gov.unit/official-url "https://www.ratanakiri.gov.kh/"
    :gov.unit/wikidata "Q747846"
    :gov.unit/external-code ["iso3166-2:KH-16"]
@@ -5484,6 +5514,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampot Province"
+   :gov.unit/name-local "ខេត្តកំពត"
+   :gov.unit/name-romanized "Khaet Kampot"
    :gov.unit/official-url "https://www.kampot.gov.kh/en/"
    :gov.unit/wikidata "Q748470"
    :gov.unit/external-code ["iso3166-2:KH-7"]
@@ -5497,6 +5529,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Svay Rieng Province"
+   :gov.unit/name-local "ខេត្តស្វាយរៀង"
+   :gov.unit/name-romanized "Khaet Svay Rieng"
    :gov.unit/official-url "https://www.svayrieng.gov.kh/en/home"
    :gov.unit/wikidata "Q751864"
    :gov.unit/external-code ["iso3166-2:KH-20"]
@@ -5510,6 +5544,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kratié Province"
+   :gov.unit/name-local "ខេត្តក្រចេះ"
+   :gov.unit/name-romanized "Khaet Kratié"
    :gov.unit/official-url "https://www.kratie.gov.kh/en/"
    :gov.unit/wikidata "Q785896"
    :gov.unit/external-code ["iso3166-2:KH-10"]
@@ -5523,6 +5559,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Battambang Province"
+   :gov.unit/name-local "ខេត្តបាត់ដំបង"
+   :gov.unit/name-romanized "Khaet Battambang"
    :gov.unit/official-url "https://www.battambang.gov.kh/en/"
    :gov.unit/wikidata "Q810923"
    :gov.unit/external-code ["iso3166-2:KH-2"]
@@ -5536,6 +5574,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Pursat Province"
+   :gov.unit/name-local "ខេត្តពោធិ៍សាត់"
+   :gov.unit/name-romanized "Khaet Pursat"
    :gov.unit/official-url "https://www.pursat.gov.kh/en/"
    :gov.unit/wikidata "Q834464"
    :gov.unit/external-code ["iso3166-2:KH-15"]
@@ -5549,6 +5589,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Stung Treng Province"
+   :gov.unit/name-local "ខេត្តស្ទឹងត្រែង"
+   :gov.unit/name-romanized "Khaet Stung Treng"
    :gov.unit/official-url "https://www.stungtreng.gov.kh/en/"
    :gov.unit/wikidata "Q837889"
    :gov.unit/external-code ["iso3166-2:KH-19"]
@@ -5562,6 +5604,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kep Province"
+   :gov.unit/name-local "ខេត្តកែប"
+   :gov.unit/name-romanized "Khaet Kep"
    :gov.unit/official-url "https://www.kep.gov.kh/en/"
    :gov.unit/wikidata "Q852089"
    :gov.unit/external-code ["iso3166-2:KH-23"]
@@ -5575,6 +5619,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Prey Veng Province"
+   :gov.unit/name-local "ខេត្តព្រៃវែង"
+   :gov.unit/name-romanized "Khaet Prey Veng"
    :gov.unit/official-url "https://www.preyveng.gov.kh/en/"
    :gov.unit/wikidata "Q856788"
    :gov.unit/external-code ["iso3166-2:KH-14"]
@@ -5588,6 +5634,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Kampong Chhnang Province"
+   :gov.unit/name-local "ខេត្តកំពង់ឆ្នាំង"
+   :gov.unit/name-romanized "Khaet Kampong Chhnang"
    :gov.unit/official-url "https://www.kampongchhnang.gov.kh/en/"
    :gov.unit/wikidata "Q877468"
    :gov.unit/external-code ["iso3166-2:KH-4"]
@@ -6533,6 +6581,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Mandalay Region"
+   :gov.unit/name-local "မန္တလေးတိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Mandalay Region"
    :gov.unit/official-url "https://mandalayregion.gov.mm/"
    :gov.unit/wikidata "Q119494"
    :gov.unit/external-code ["iso3166-2:MM-04"]
@@ -6546,6 +6596,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Kachin State"
+   :gov.unit/name-local "ကချင်ပြည်နယ်"
+   :gov.unit/name-romanized "Kachin State"
    :gov.unit/official-url "https://kachinstate.gov.mm/"
    :gov.unit/wikidata "Q140646"
    :gov.unit/external-code ["iso3166-2:MM-11"]
@@ -6559,6 +6611,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Rakhine State"
+   :gov.unit/name-local "ရခိုင်ပြည်နယ်"
+   :gov.unit/name-romanized "Rakhine State"
    :gov.unit/wikidata "Q233838"
    :gov.unit/external-code ["iso3166-2:MM-16"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6571,6 +6625,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Pa Laung Self-Administered Zone"
+   :gov.unit/name-local "ပလောင်ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ"
+   :gov.unit/name-romanized "Pa Laung Self-Administered Zone"
    :gov.unit/wikidata "Q2613737"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2613737" :gov.unit/last-verified "2026-06-03"
@@ -6582,6 +6638,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Pa-O Self-Administered Zone"
+   :gov.unit/name-local "ပအိုဝ်းကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ"
+   :gov.unit/name-romanized "Pa-O Self-Administered Zone"
    :gov.unit/wikidata "Q2614061"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2614061" :gov.unit/last-verified "2026-06-03"
@@ -6593,6 +6651,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Naga Self-Administered Zone"
+   :gov.unit/name-local "နာဂကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ"
+   :gov.unit/name-romanized "Naga Self-Administered Zone"
    :gov.unit/wikidata "Q2701988"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2701988" :gov.unit/last-verified "2026-06-03"
@@ -6604,6 +6664,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Danu Self-Administered Zone"
+   :gov.unit/name-local "ဓနုကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ"
+   :gov.unit/name-romanized "Danu Self-Administered Zone"
    :gov.unit/wikidata "Q2701995"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2701995" :gov.unit/last-verified "2026-06-03"
@@ -6615,6 +6677,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Wa Self-Administered Division"
+   :gov.unit/name-local "ဝကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရတိုင်း"
+   :gov.unit/name-romanized "Wa Self-Administered Division"
    :gov.unit/wikidata "Q3712127"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q3712127" :gov.unit/last-verified "2026-06-03"
@@ -6626,6 +6690,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Kokang Self-Administered Zone"
+   :gov.unit/name-local "ကိုးကန့်ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ"
+   :gov.unit/name-romanized "Kokang Self-Administered Zone"
    :gov.unit/wikidata "Q4024716"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q4024716" :gov.unit/last-verified "2026-06-03"
@@ -6637,6 +6703,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Shan State"
+   :gov.unit/name-local "ရှမ်းပြည်နယ်"
+   :gov.unit/name-romanized "Shan State"
    :gov.unit/official-url "http://www.shanstate.gov.mm/"
    :gov.unit/wikidata "Q456847"
    :gov.unit/external-code ["iso3166-2:MM-17"]
@@ -6650,6 +6718,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Chin State"
+   :gov.unit/name-local "ချင်းပြည်နယ်"
+   :gov.unit/name-romanized "Chin State"
    :gov.unit/wikidata "Q46910"
    :gov.unit/external-code ["iso3166-2:MM-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6662,6 +6732,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ayeyarwady Region"
+   :gov.unit/name-local "ဧရာဝတီတိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Ayeyarwady Region"
    :gov.unit/official-url "https://www.ayeyarwadyregion.gov.mm/"
    :gov.unit/wikidata "Q47047"
    :gov.unit/external-code ["iso3166-2:MM-07"]
@@ -6675,6 +6747,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Naypyidaw Union Territory"
+   :gov.unit/name-local "နေပြည်တော် ပြည်ထောင်စုနယ်မြေ"
+   :gov.unit/name-romanized "Nay Pyi Taw Union Territory"
    :gov.unit/wikidata "Q4796"
    :gov.unit/external-code ["iso3166-2:MM-18"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6687,6 +6761,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Kayin State"
+   :gov.unit/name-local "ကရင်ပြည်နယ်"
+   :gov.unit/name-romanized "Kayin State"
    :gov.unit/official-url "https://www.kayinstate.gov.mm/"
    :gov.unit/wikidata "Q495342"
    :gov.unit/external-code ["iso3166-2:MM-13"]
@@ -6700,6 +6776,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Kayah State"
+   :gov.unit/name-local "ကယားပြည်နယ်"
+   :gov.unit/name-romanized "Kayah State"
    :gov.unit/official-url "https://www.kayahstate.gov.mm/"
    :gov.unit/wikidata "Q652845"
    :gov.unit/external-code ["iso3166-2:MM-12"]
@@ -6713,6 +6791,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Bago Region"
+   :gov.unit/name-local "ပဲခူးတိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Bago Region"
    :gov.unit/official-url "https://bagoregion.gov.mm/"
    :gov.unit/wikidata "Q800124"
    :gov.unit/external-code ["iso3166-2:MM-02"]
@@ -6726,6 +6806,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Mon State"
+   :gov.unit/name-local "မွန်ပြည်နယ်"
+   :gov.unit/name-romanized "Mon State"
    :gov.unit/wikidata "Q818742"
    :gov.unit/external-code ["iso3166-2:MM-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6738,6 +6820,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Magway Region"
+   :gov.unit/name-local "မကွေးတိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Magway Region"
    :gov.unit/wikidata "Q833013"
    :gov.unit/external-code ["iso3166-2:MM-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6750,6 +6834,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Tanintharyi Region"
+   :gov.unit/name-local "တနင်္သာရီတိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Tanintharyi Region"
    :gov.unit/wikidata "Q843954"
    :gov.unit/external-code ["iso3166-2:MM-05"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6762,6 +6848,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Sagaing Region"
+   :gov.unit/name-local "စစ်ကိုင်းတိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Sagaing Region"
    :gov.unit/wikidata "Q847289"
    :gov.unit/external-code ["iso3166-2:MM-01"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6774,6 +6862,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Yangon Region"
+   :gov.unit/name-local "ရန်ကုန်တိုင်းဒေသကြီး"
+   :gov.unit/name-romanized "Yangon Region"
    :gov.unit/wikidata "Q856781"
    :gov.unit/external-code ["iso3166-2:MM-06"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6786,6 +6876,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Zavkhan Province"
+   :gov.unit/name-local "Завхан аймаг"
+   :gov.unit/name-romanized "Zavkhan aimag"
    :gov.unit/official-url "http://zavkhan.gov.mn"
    :gov.unit/wikidata "Q167764"
    :gov.unit/external-code ["iso3166-2:MN-057"]
@@ -6799,6 +6891,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Darkhan-Uul Province"
+   :gov.unit/name-local "Дархан-Уул аймаг"
+   :gov.unit/name-romanized "Darkhan-Uul aimag"
    :gov.unit/official-url "http://darkhan.gov.mn/"
    :gov.unit/wikidata "Q18827"
    :gov.unit/external-code ["iso3166-2:MN-037"]
@@ -6812,6 +6906,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Bayan-Ölgii Province"
+   :gov.unit/name-local "Баян-Өлгий аймаг"
+   :gov.unit/name-romanized "Bayan-Ölgii aimag"
    :gov.unit/official-url "http://www.bayan-olgii.gov.mn/"
    :gov.unit/wikidata "Q191792"
    :gov.unit/external-code ["iso3166-2:MN-071"]
@@ -6825,6 +6921,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Uvs Province"
+   :gov.unit/name-local "Увс аймаг"
+   :gov.unit/name-romanized "Uvs aimag"
    :gov.unit/official-url "http://uvs.gov.mn/"
    :gov.unit/wikidata "Q192942"
    :gov.unit/external-code ["iso3166-2:MN-046"]
@@ -6838,6 +6936,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Govi-Altai Province"
+   :gov.unit/name-local "Говь-Алтай аймаг"
+   :gov.unit/name-romanized "Govi-Altai aimag"
    :gov.unit/official-url "http://www.govi-altai.gov.mn/"
    :gov.unit/wikidata "Q192945"
    :gov.unit/external-code ["iso3166-2:MN-065"]
@@ -6851,6 +6951,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Khovd Province"
+   :gov.unit/name-local "Ховд аймаг"
+   :gov.unit/name-romanized "Khovd aimag"
    :gov.unit/official-url "http://www.khovd.gov.mn/"
    :gov.unit/wikidata "Q194098"
    :gov.unit/external-code ["iso3166-2:MN-043"]
@@ -6864,6 +6966,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Dornod Province"
+   :gov.unit/name-local "Дорнод аймаг"
+   :gov.unit/name-romanized "Dornod aimag"
    :gov.unit/official-url "http://www.dornod.gov.mn/"
    :gov.unit/wikidata "Q207795"
    :gov.unit/external-code ["iso3166-2:MN-061"]
@@ -6877,6 +6981,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Arkhangai Province"
+   :gov.unit/name-local "Архангай аймаг"
+   :gov.unit/name-romanized "Arkhangai aimag"
    :gov.unit/official-url "http://arkhangai.gov.mn/"
    :gov.unit/wikidata "Q207809"
    :gov.unit/external-code ["iso3166-2:MN-073"]
@@ -6890,6 +6996,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Bulgan Province"
+   :gov.unit/name-local "Булган аймаг"
+   :gov.unit/name-romanized "Bulgan aimag"
    :gov.unit/official-url "http://bulgan.gov.mn/"
    :gov.unit/wikidata "Q209774"
    :gov.unit/external-code ["iso3166-2:MN-067"]
@@ -6903,6 +7011,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Dundgovi Province"
+   :gov.unit/name-local "Дундговь аймаг"
+   :gov.unit/name-romanized "Dundgovi aimag"
    :gov.unit/official-url "http://www.dundgovi.gov.mn/mn/"
    :gov.unit/wikidata "Q211835"
    :gov.unit/external-code ["iso3166-2:MN-059"]
@@ -6916,6 +7026,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Dornogovi Province"
+   :gov.unit/name-local "Дорноговь аймаг"
+   :gov.unit/name-romanized "Dornogovi aimag"
    :gov.unit/official-url "https://dornogovi.gov.mn/"
    :gov.unit/wikidata "Q213272"
    :gov.unit/external-code ["iso3166-2:MN-063"]
@@ -6929,6 +7041,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ulaanbaatar"
+   :gov.unit/name-local "Улаанбаатар"
+   :gov.unit/name-romanized "Ulaanbaatar"
    :gov.unit/official-url "https://ulaanbaatar.mn/"
    :gov.unit/wikidata "Q23430"
    :gov.unit/external-code ["iso3166-2:MN-1"]
@@ -6942,6 +7056,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Selenge Province"
+   :gov.unit/name-local "Сэлэнгэ аймаг"
+   :gov.unit/name-romanized "Selenge aimag"
    :gov.unit/official-url "http://selenge.gov.mn/"
    :gov.unit/wikidata "Q234680"
    :gov.unit/external-code ["iso3166-2:MN-049"]
@@ -6955,6 +7071,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Orkhon Province"
+   :gov.unit/name-local "Орхон аймаг"
+   :gov.unit/name-romanized "Orkhon aimag"
    :gov.unit/official-url "http://www.erdenet.mn/"
    :gov.unit/wikidata "Q234710"
    :gov.unit/external-code ["iso3166-2:MN-035"]
@@ -6968,6 +7086,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Övörkhangai Province"
+   :gov.unit/name-local "Өвөрхангай аймаг"
+   :gov.unit/name-romanized "Övörkhangai aimag"
    :gov.unit/official-url "http://uvurkhangai.mn/"
    :gov.unit/wikidata "Q234713"
    :gov.unit/external-code ["iso3166-2:MN-055"]
@@ -6981,6 +7101,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ömnögovi Province"
+   :gov.unit/name-local "Өмнөговь аймаг"
+   :gov.unit/name-romanized "Ömnögovi aimag"
    :gov.unit/official-url "http://www.omnogovi.gov.mn/"
    :gov.unit/wikidata "Q235579"
    :gov.unit/external-code ["iso3166-2:MN-053"]
@@ -6994,6 +7116,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Govisümber Province"
+   :gov.unit/name-local "Говьсүмбэр аймаг"
+   :gov.unit/name-romanized "Govisümber aimag"
    :gov.unit/official-url "http://govisumber.gov.mn/"
    :gov.unit/wikidata "Q236333"
    :gov.unit/external-code ["iso3166-2:MN-064"]
@@ -7007,6 +7131,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Khentii Province"
+   :gov.unit/name-local "Хэнтий аймаг"
+   :gov.unit/name-romanized "Khentii aimag"
    :gov.unit/official-url "http://khentii.mn"
    :gov.unit/wikidata "Q239040"
    :gov.unit/external-code ["iso3166-2:MN-039"]
@@ -7020,6 +7146,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Khövsgöl Province"
+   :gov.unit/name-local "Хөвсгөл аймаг"
+   :gov.unit/name-romanized "Khövsgöl aimag"
    :gov.unit/official-url "http://khovsgol.gov.mn/"
    :gov.unit/wikidata "Q244788"
    :gov.unit/external-code ["iso3166-2:MN-041"]
@@ -7033,6 +7161,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Sükhbaatar Province"
+   :gov.unit/name-local "Сүхбаатар аймаг"
+   :gov.unit/name-romanized "Sükhbaatar aimag"
    :gov.unit/official-url "http://www.sukhbaatar.mn/"
    :gov.unit/wikidata "Q244804"
    :gov.unit/external-code ["iso3166-2:MN-051"]
@@ -7046,6 +7176,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Töv Province"
+   :gov.unit/name-local "Төв аймаг"
+   :gov.unit/name-romanized "Töv aimag"
    :gov.unit/official-url "http://tov.gov.mn"
    :gov.unit/wikidata "Q276195"
    :gov.unit/external-code ["iso3166-2:MN-047"]
@@ -7059,6 +7191,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Bayankhongor Province"
+   :gov.unit/name-local "Баянхонгор аймаг"
+   :gov.unit/name-romanized "Bayankhongor aimag"
    :gov.unit/official-url "https://bayankhongor.gov.mn/"
    :gov.unit/wikidata "Q276200"
    :gov.unit/external-code ["iso3166-2:MN-069"]
