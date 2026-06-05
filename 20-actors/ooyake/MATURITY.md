@@ -43,6 +43,25 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: S/SE Asia + Ge'ez (Bhutan+Maldives+Laos+Ethiopia) (1739 → 1810)
+
+Four more distinct scripts in one pass — Dzongkha (Tibetan), Thaana, Lao, Amharic Ge'ez. 4 web-research
+subagents (Wikidata P1705 + lang labels). **71 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1739 → **1810**; subdivision name-local: 725 → **796**.
+- Bhutan 20 dzongkhag (ཐིམ་ཕུ་རྫོང་ཁག/Thimphu, སྤ་རོ་རྫོང་ཁག/Paro …) — Dzongkha Tibetan script.
+- Maldives 20 administrative atolls — official Thaana atoll-code form (ހއ. Haa Alif, އައްޑޫ Addu),
+  ISO-3166-2:MV aligned; readable name carried in romanized.
+- Laos 17 (ຫຼວງພະບາງ/Louangphabang; Vientiane Capital ນະຄອນຫຼວງວຽງຈັນ distinct from province ວຽງຈັນ;
+  Bokeo Thai-char contamination fixed → ບໍ່ແກ້ວ).
+- Ethiopia 14 regions/cities (አዲስ አበባ, ኦሮሚያ, ትግራይ …) — Amharic Ge'ez.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets now
+small/mixed: Morocco 12, North Korea 12, Oman 11, Sri Lanka 9 (Sinhala/Tamil), Qatar 9, Bangladesh 8,
+UAE 7, Nepal 7, Kuwait 6, Tajikistan 5, Bahrain 4, Kyrgyzstan 1, plus scattered — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Caucasus + Central Asia (Georgia+Armenia+Kazakhstan) (1698 → 1739)
 
 Three distinct own-scripts in one pass — Georgian Mkhedruli, Armenian, Kazakh Cyrillic. 3 web-research

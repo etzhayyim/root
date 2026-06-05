@@ -3265,6 +3265,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Harari Region"
+   :gov.unit/name-local "ሐረሪ"
+   :gov.unit/name-romanized "Harari"
    :gov.unit/wikidata "Q1033855"
    :gov.unit/external-code ["iso3166-2:ET-HA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3277,6 +3279,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Sidama Region"
+   :gov.unit/name-local "ሲዳማ"
+   :gov.unit/name-romanized "Sidama"
    :gov.unit/wikidata "Q1070673"
    :gov.unit/external-code ["iso3166-2:ET-SI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3289,6 +3293,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Southwest Ethiopia Regional State"
+   :gov.unit/name-local "የደቡብ ምዕራብ ኢትዮጵያ ክልሎች ክልል"
+   :gov.unit/name-romanized "Ye-Debub Mi'irab Ityop'iya Kililoch Kilil"
    :gov.unit/wikidata "Q109788993"
    :gov.unit/external-code ["iso3166-2:ET-SW"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3301,6 +3307,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "South Ethiopia Regional State"
+   :gov.unit/name-local "ደቡብ ኢትዮጵያ"
+   :gov.unit/name-romanized "Debub Ityop'iya"
    :gov.unit/official-url "https://www.southethiopiarspo.gov.et/"
    :gov.unit/wikidata "Q122148951"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3313,6 +3321,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Central Ethiopia Regional State"
+   :gov.unit/name-local "ማዕከላዊ ኢትዮጵያ"
+   :gov.unit/name-romanized "Ma'ekelawi Ityop'iya"
    :gov.unit/wikidata "Q122415622"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q122415622" :gov.unit/last-verified "2026-06-03"
@@ -3324,6 +3334,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Dire Dawa"
+   :gov.unit/name-local "ድሬዳዋ"
+   :gov.unit/name-romanized "Dire Dawa"
    :gov.unit/official-url "https://web.archive.org/web/20120325191237/http://www.dire-dawa.gov.et:80/site/index.php"
    :gov.unit/wikidata "Q193486"
    :gov.unit/external-code ["iso3166-2:ET-DD"]
@@ -3337,6 +3349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Afar Region"
+   :gov.unit/name-local "አፋር"
+   :gov.unit/name-romanized "Afar"
    :gov.unit/wikidata "Q193494"
    :gov.unit/external-code ["iso3166-2:ET-AF"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3349,6 +3363,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Tigray Region"
+   :gov.unit/name-local "ትግራይ"
+   :gov.unit/name-romanized "Tigray"
    :gov.unit/official-url "https://www.tig-gpr.org"
    :gov.unit/wikidata "Q200127"
    :gov.unit/external-code ["iso3166-2:ET-TI"]
@@ -3362,6 +3378,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Oromia Region"
+   :gov.unit/name-local "ኦሮሚያ"
+   :gov.unit/name-romanized "Oromiya"
    :gov.unit/wikidata "Q202107"
    :gov.unit/external-code ["iso3166-2:ET-OR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3374,6 +3392,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Somali Region"
+   :gov.unit/name-local "ሶማሌ"
+   :gov.unit/name-romanized "Somale"
    :gov.unit/official-url "http://www.somalistate.com/"
    :gov.unit/wikidata "Q202800"
    :gov.unit/external-code ["iso3166-2:ET-SO"]
@@ -3387,6 +3407,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Amhara Region"
+   :gov.unit/name-local "አምሐራ"
+   :gov.unit/name-romanized "Amhara"
    :gov.unit/wikidata "Q203009"
    :gov.unit/external-code ["iso3166-2:ET-AM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3399,6 +3421,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Benishangul-Gumuz Region"
+   :gov.unit/name-local "ቤኒሻንጉል-ጉሙዝ"
+   :gov.unit/name-romanized "Benishangul-Gumuz"
    :gov.unit/official-url "http://www.somalistate.com"
    :gov.unit/wikidata "Q207635"
    :gov.unit/external-code ["iso3166-2:ET-BE"]
@@ -3412,6 +3436,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Gambela Region"
+   :gov.unit/name-local "ጋምቤላ"
+   :gov.unit/name-romanized "Gambela"
    :gov.unit/wikidata "Q207638"
    :gov.unit/external-code ["iso3166-2:ET-GA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3424,6 +3450,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Addis Ababa"
+   :gov.unit/name-local "አዲስ አበባ"
+   :gov.unit/name-romanized "Addis Ababa"
    :gov.unit/official-url "https://cityaddisababa.gov.et/"
    :gov.unit/wikidata "Q3624"
    :gov.unit/external-code ["iso3166-2:ET-AA"]
