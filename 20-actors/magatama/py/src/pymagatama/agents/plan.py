@@ -35,12 +35,13 @@ from __future__ import annotations
 import json
 import logging
 import time
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 log = logging.getLogger(__name__)
 
@@ -156,12 +157,13 @@ def _summarise_plan(state: PlanState) -> PlanState:
 
 
 def _audit_plan(state: PlanState) -> PlanState:
-    """Append one vertex_repo_commit row so the planning decision is
-    auditable alongside the BPMN flow. Mirrors `generic.audit.emit`."""
+    """Append one vertex_repo_commit row to the kotoba Datom log so the
+    planning decision is auditable alongside the BPMN flow. Mirrors
+    `generic.audit.emit`."""
     ts_ms = int(time.time() * 1000)
     rkey = f"plan-{ts_ms}"
     vertex_id = f"did:web:langgraph.etzhayyim.com:com.etzhayyim.agent.plan:{rkey}:create"
-    created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    created_at = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
     payload = {
         "branch": state.get("branch"),
         "nextTool": state.get("nextTool"),
@@ -171,22 +173,23 @@ def _audit_plan(state: PlanState) -> PlanState:
         "llmModel": state.get("llmModel"),
         "planLatencyMs": state.get("planLatencyMs"),
     }
-    sql_text = (
-        "INSERT INTO vertex_repo_commit ("
-        "vertex_id, seq, repo, collection, rkey, action, "
-        "rev, cid, prev, sig, value_json, ts_ms, created_at"
-        ") SELECT %s, %s, %s, %s, %s, %s, '', '', '', '', %s, %s, %s "
-        "WHERE NOT EXISTS (SELECT 1 FROM vertex_repo_commit WHERE vertex_id = %s)"
-    )
+    row_dict = {
+        "vertex_id": vertex_id,
+        "seq": ts_ms,
+        "repo": "did:web:langgraph.etzhayyim.com",
+        "collection": "com.etzhayyim.agent.plan",
+        "rkey": rkey,
+        "action": "create",
+        "rev": "",
+        "cid": "",
+        "prev": "",
+        "sig": "",
+        "value_json": json.dumps(payload, ensure_ascii=False),
+        "ts_ms": ts_ms,
+        "created_at": created_at,
+    }
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, (
-                vertex_id, ts_ms, "did:web:langgraph.etzhayyim.com",
-                "com.etzhayyim.agent.plan", rkey, "create",
-                json.dumps(payload, ensure_ascii=False),
-                ts_ms, created_at,
-                vertex_id,
-            ))
+        get_kotoba_client().insert_row("vertex_repo_commit", row_dict)
         return {**state, "auditRkey": rkey}
     except Exception as e:  # noqa: BLE001
         log.warning("plan audit emit failed: %s", e)

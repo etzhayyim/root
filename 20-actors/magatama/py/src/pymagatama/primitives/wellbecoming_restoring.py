@@ -12,12 +12,12 @@ Pyzeebe task type: wellbecoming.restoring.capture
 
 from __future__ import annotations
 
-import datetime as _dt
 import logging
 import os
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.pydantic_job import ZeebeJobInput
 from pymagatama.langserver_compat import LangServerJob as Job, LangServerWorker
 
@@ -32,15 +32,15 @@ _MIN_SCORED_EVENTS: int = int(os.environ.get("WB_MIN_SCORED_EVENTS", "3"))
 
 class _RestoringInput(ZeebeJobInput):
     gamma_lr: float = _GAMMA_LR
-    min_scored_events: int = _MIN_SCORED_EVENTS
+    min_scored_events: int = _MIN_scored_events
 
 
 def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+    return datetime.now(tz=timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _tick_ms() -> int:
-    return int(_dt.datetime.now(tz=_dt.UTC).timestamp() * 1000)
+    return int(datetime.now(tz=timezone.utc).timestamp() * 1000)
 
 
 def task_belief_restoring_capture(
@@ -61,17 +61,23 @@ def task_belief_restoring_capture(
         mean_abs_deviation: 平均 |deviation|
         n_new_baselines: 今回新規に baseline を登録したエージェント数
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT agent_did, mean_score_total
-            FROM mv_attractor_stability_by_agent
-            WHERE scored_events >= {int(min_scored_events)}
-              AND mean_score_total IS NOT NULL
-            ORDER BY agent_did
-            """
-        )
-        agents = cur.fetchall()
+    # R0: Complex query using q() for multi-predicate WHERE and in-Python ORDER BY.
+    # Assumes Datalog attributes are snake_case.
+    query_edn = f"""
+    [:find ?agent_did ?mean_score_total
+     :where
+     [?e :mv-attractor-stability-by-agent/agent_did ?agent_did]
+     [?e :mv-attractor-stability-by-agent/mean_score_total ?mean_score_total]
+     [?e :mv-attractor-stability-by-agent/scored_events ?scored_events]
+     [(>= ?scored_events {int(min_scored_events)})]
+    ]
+    """
+    raw_agents = get_kotoba_client().q(query_edn=query_edn)
+    # Convert to list of dicts for consistency and sort by agent_did
+    agents = sorted(
+        [{"agent_did": r[0], "mean_score_total": r[1]} for r in raw_agents],
+        key=lambda x: x["agent_did"],
+    )
 
     if not agents:
         LOG.info("restoring_capture: no agents with sufficient scored events")
@@ -89,16 +95,20 @@ def task_belief_restoring_capture(
     agent_map = {row[0]: float(row[1]) for row in agents}
 
     # 既存 baseline を一括取得
-    did_list = ",".join(f"'{d}'" for d in agent_dids)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT agent_did, q0
-            FROM vertex_belief_baseline
-            WHERE agent_did IN ({did_list})
-            """
-        )
-        baseline_rows = cur.fetchall()
+    # R0: Use q() for IN clause.
+    # Assumes Datalog attributes are snake_case.
+    query_edn = """
+    [:find ?agent_did ?q0
+     :in $ [?agent_did ...]
+     :where
+     [?e :vertex-belief-baseline/agent_did ?agent_did]
+     [?e :vertex-belief-baseline/q0 ?q0]]
+    """
+    raw_baseline_rows = get_kotoba_client().q(
+        query_edn=query_edn,
+        args=[agent_dids],
+    )
+    baseline_rows = [{"agent_did": r[0], "q0": r[1]} for r in raw_baseline_rows]
 
     baseline_map = {row[0]: float(row[1]) for row in baseline_rows}
 
@@ -115,23 +125,20 @@ def task_belief_restoring_capture(
             baseline_map[agent_did] = q0
 
     if new_baselines:
-        with sync_cursor() as cur:
-            existing_ids = [r[0] for r in new_baselines]
-            id_list = ",".join(f"'{vid}'" for vid in existing_ids)
-            cur.execute(
-                f"DELETE FROM vertex_belief_baseline WHERE vertex_id IN ({id_list})"
-            )
-            for row in new_baselines:
-                cur.execute(
-                    """
-                    INSERT INTO vertex_belief_baseline
-                      (vertex_id, agent_did, q0, captured_at, updated_at,
-                       sensitivity_ord, org_id, user_id, actor_id)
-                    VALUES (%s, %s, %s, %s::timestamp, %s::timestamp,
-                            1, '', '', 'sys.bpmn.wellbecoming')
-                    """,
-                    row,
-                )
+        kotoba_client = get_kotoba_client()
+        for row_tuple in new_baselines:
+            row_dict = {
+                "vertex_id": row_tuple[0],
+                "agent_did": row_tuple[1],
+                "q0": row_tuple[2],
+                "captured_at": row_tuple[3],
+                "updated_at": row_tuple[4],
+                "sensitivity_ord": 1,
+                "org_id": "",
+                "user_id": "",
+                "actor_id": "sys.bpmn.wellbecoming",
+            }
+            kotoba_client.insert_row("vertex_belief_baseline", row_dict)
 
     # 各エージェントの restoring_delta を計算
     rows: list[tuple] = []
@@ -158,26 +165,25 @@ def task_belief_restoring_capture(
             "gamma_lr": gamma_lr,
         }
 
-    # vertex_belief_restoring に delete-then-insert
-    with sync_cursor() as cur:
-        existing_ids = [r[0] for r in rows]
-        id_list = ",".join(f"'{vid}'" for vid in existing_ids)
-        cur.execute(
-            f"DELETE FROM vertex_belief_restoring WHERE vertex_id IN ({id_list})"
-        )
-        for row in rows:
-            cur.execute(
-                """
-                INSERT INTO vertex_belief_restoring
-                  (vertex_id, agent_did, q_current, q0, deviation, restoring_delta,
-                   gamma_lr, tick_at, updated_at,
-                   sensitivity_ord, org_id, user_id, actor_id)
-                VALUES (%s, %s, %s, %s, %s, %s, %s,
-                        %s::timestamp, %s::timestamp,
-                        1, '', '', 'sys.bpmn.wellbecoming')
-                """,
-                row,
-            )
+    # vertex_belief_restoring に upsert
+    kotoba_client = get_kotoba_client()
+    for row_tuple in rows:
+        row_dict = {
+            "vertex_id": row_tuple[0],
+            "agent_did": row_tuple[1],
+            "q_current": row_tuple[2],
+            "q0": row_tuple[3],
+            "deviation": row_tuple[4],
+            "restoring_delta": row_tuple[5],
+            "gamma_lr": row_tuple[6],
+            "tick_at": row_tuple[7],
+            "updated_at": row_tuple[8],
+            "sensitivity_ord": 1,
+            "org_id": "",
+            "user_id": "",
+            "actor_id": "sys.bpmn.wellbecoming",
+        }
+        kotoba_client.insert_row("vertex_belief_restoring", row_dict)
 
     abs_devs = [abs(r[4]) for r in rows]
     max_abs = max(abs_devs) if abs_devs else 0.0

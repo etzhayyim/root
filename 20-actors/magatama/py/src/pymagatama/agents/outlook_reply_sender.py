@@ -19,7 +19,7 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 __all__ = ["send_reply_for_draft"]
 
@@ -76,53 +76,44 @@ def _client_credentials() -> tuple[str, str, str]:
 
 def get_message_context(email_vertex_id: str) -> dict | None:
     """Return {"message_id": ..., "account_did": ...} for the given email vertex.
+    Updated to use kotoba Datom log.
 
     Returns None if the row is not found.
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT message_id, account_did
-            FROM vertex_email_message
-            WHERE vertex_id = %s
-            LIMIT 1
-            """,
-            (email_vertex_id,),
-        )
-        row = cur.fetchone()
+    row = get_kotoba_client().select_first_where(
+        "vertex_email_message",
+        "vertex_id",
+        email_vertex_id,
+        columns=["message_id", "account_did"],
+    )
 
     if row is None:
         return None
 
-    return {"message_id": row[0] or "", "account_did": row[1] or ""}
+    return {"message_id": row.get("message_id", ""), "account_did": row.get("account_did", "")}
 
 
 def get_access_token_for_account(account_did: str) -> str | None:
     """Return a valid access token for the given account DID.
-
     If the stored token is expired, attempts a refresh token exchange and
     updates vertex_outlook_oauth_connection with the new token.
+    Updated to use kotoba Datom log.
 
     Returns None if no connected record exists or refresh fails.
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT access_token, refresh_token, expires_at
-            FROM vertex_outlook_oauth_connection
-            WHERE user_key = %s AND connected = true
-            LIMIT 1
-            """,
-            (account_did,),
-        )
-        row = cur.fetchone()
-
-    if row is None:
+    row = get_kotoba_client().select_first_where(
+        "vertex_outlook_oauth_connection",
+        "user_key",
+        account_did,
+        columns=["access_token", "refresh_token", "expires_at", "connected"],
+    )
+    # R0: Apply additional filter `connected = true` in Python.
+    if row is None or not row.get("connected"):
         return None
 
-    access_token: str = row[0] or ""
-    refresh_token: str = row[1] or ""
-    expires_at: str = row[2] or ""
+    access_token: str = row.get("access_token", "")
+    refresh_token: str = row.get("refresh_token", "")
+    expires_at: str = row.get("expires_at", "")
 
     if not _is_expired(expires_at):
         return access_token
@@ -163,17 +154,16 @@ def get_access_token_for_account(account_did: str) -> str | None:
     if not new_access_token:
         return None
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            UPDATE vertex_outlook_oauth_connection
-            SET access_token = %s,
-                refresh_token = %s,
-                expires_at = %s
-            WHERE user_key = %s
-            """,
-            (new_access_token, new_refresh_token, new_expires_at, account_did),
-        )
+    get_kotoba_client().insert_row(
+        "vertex_outlook_oauth_connection",
+        {
+            "user_key": account_did,  # Identity column for upsert
+            "access_token": new_access_token,
+            "refresh_token": new_refresh_token,
+            "expires_at": new_expires_at,
+            "connected": True,
+        },
+    )
 
     return new_access_token
 
@@ -205,26 +195,22 @@ def send_reply_for_draft(draft_id: str, reply_text: str) -> bool:
     """Send the approved reply for a draft.
 
     Looks up the email message context and OAuth token, then calls send_reply.
+    Updated to use kotoba Datom log.
 
     Returns True on success, False if context or token is unavailable.
     Raises on Graph API 4xx/5xx errors.
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT email_vertex_id
-            FROM vertex_email_reply_draft
-            WHERE vertex_id = %s
-            LIMIT 1
-            """,
-            (draft_id,),
-        )
-        row = cur.fetchone()
+    row = get_kotoba_client().select_first_where(
+        "vertex_email_reply_draft",
+        "vertex_id",
+        draft_id,
+        columns=["email_vertex_id"],
+    )
 
     if row is None:
         return False
 
-    email_vertex_id: str = row[0] or ""
+    email_vertex_id: str = row.get("email_vertex_id", "")
 
     ctx = get_message_context(email_vertex_id)
     if ctx is None:

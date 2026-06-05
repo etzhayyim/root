@@ -7,16 +7,17 @@ import os
 import time
 import urllib.request
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR = "did:web:ads.etzhayyim.com"
 PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.etzhayyim.com")
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _str(value: Any) -> str:
@@ -42,17 +43,10 @@ def _campaign_did(campaign_id: str) -> str:
     return f"{ACTOR}:campaign:{campaign_id}"
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
+
+
 
 
 def _http_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -111,14 +105,28 @@ def create_campaign(name: str = "", description: str = "", advertiser: str = "",
         "active": True,
         "createdAt": created_at,
     }
-    _execute(
-        """INSERT INTO vertex_ads_campaign
-        (vertex_id, owner_did, rkey, repo, collection, campaign_id, did, name, description, advertiser,
-         budget_jpy, active, created_at, org_id, user_id, actor_id, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,'com.etzhayyim.apps.ads.campaign',%s,%s,%s,%s,%s,%s,true,%s,'anon','anon',%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/com.etzhayyim.apps.ads.campaign/{_rkey(campaign_id)}", ACTOR, campaign_id, ACTOR, campaign_id, did, name, description or "", advertiser or "", _int(budgetJpy), created_at, ACTOR, ACTOR),
-    )
+    kotoba_client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.ads.campaign/{_rkey(campaign_id)}",
+        "owner_did": ACTOR,
+        "rkey": campaign_id,
+        "repo": ACTOR,
+        "collection": "com.etzhayyim.apps.ads.campaign",
+        "campaign_id": campaign_id,
+        "did": did,
+        "name": name,
+        "description": description or "",
+        "advertiser": advertiser or "",
+        "budget_jpy": _int(budgetJpy),
+        "active": True,
+        "created_at": created_at,
+        "org_id": "anon",
+        "user_id": "anon",
+        "actor_id": ACTOR,
+        "actor_did": ACTOR,
+        "org_did": "anon",
+    }
+    kotoba_client.insert_row("vertex_ads_campaign", row_dict)
     return {"campaignId": campaign_id, "did": did, "createdAt": created_at, **({"identityWarning": identity} if identity.get("error") else {})}
 
 
@@ -143,13 +151,25 @@ def post_sponsored(campaignId: str = "", text: str = "", embedUri: str = "", emb
     posted = _create_social_post(post, did)
     uri = _str(posted.get("uri"))
     cid = _str(posted.get("cid"))
-    _execute(
-        """INSERT INTO vertex_ads_sponsored_post
-        (vertex_id, owner_did, rkey, repo, collection, campaign_id, post_uri, cid, text, created_at, org_id, user_id, actor_id, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,'com.etzhayyim.apps.ads.sponsoredPost',%s,%s,%s,%s,%s,'anon','anon',%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/com.etzhayyim.apps.ads.sponsoredPost/{_rkey(campaignId + '-' + created_at)}", ACTOR, _rkey(campaignId + "-" + created_at), ACTOR, campaignId, uri, cid, text, created_at, ACTOR, ACTOR),
-    )
+    kotoba_client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.ads.sponsoredPost/{_rkey(campaignId + '-' + created_at)}",
+        "owner_did": ACTOR,
+        "rkey": _rkey(campaignId + "-" + created_at),
+        "repo": ACTOR,
+        "collection": "com.etzhayyim.apps.ads.sponsoredPost",
+        "campaign_id": campaignId,
+        "post_uri": uri,
+        "cid": cid,
+        "text": text,
+        "created_at": created_at,
+        "org_id": "anon",
+        "user_id": "anon",
+        "actor_id": ACTOR,
+        "actor_did": ACTOR,
+        "org_did": "anon",
+    }
+    kotoba_client.insert_row("vertex_ads_sponsored_post", row_dict)
     if posted.get("error"):
         return {"uri": "", "cid": "", "createdAt": created_at, "error": posted.get("error"), "body": posted.get("body")}
     return {"uri": uri, "cid": cid, "createdAt": created_at}
@@ -157,13 +177,27 @@ def post_sponsored(campaignId: str = "", text: str = "", embedUri: str = "", emb
 
 def list_campaigns(limit: Any = 50, **_: Any) -> dict[str, Any]:
     n = max(1, min(_int(limit, 50), 100))
-    rows = _fetch_all(
-        """SELECT campaign_id, did, name, description, advertiser, budget_jpy, active, created_at
-        FROM vertex_ads_campaign
-        ORDER BY created_at DESC
-        LIMIT %s""",
-        (n,),
+    kotoba_client = get_kotoba_client()
+    # R0: Fetch all campaign records matching the collection and apply ORDER BY and LIMIT in Python.
+    all_campaigns = kotoba_client.select_where(
+        "vertex_ads_campaign",
+        "collection",  # All entries in vertex_ads_campaign should have this collection
+        "com.etzhayyim.apps.ads.campaign",
+        columns=[
+            "campaign_id",
+            "did",
+            "name",
+            "description",
+            "advertiser",
+            "budget_jpy",
+            "active",
+            "created_at",
+        ],
+        limit=2000  # Max limit to fetch for in-memory sorting/slicing
     )
+    # Apply Python sorting and slicing
+    sorted_campaigns = sorted(all_campaigns, key=lambda x: x.get("created_at", ""), reverse=True)
+    rows = sorted_campaigns[:n]
     return {
         "campaigns": [
             {

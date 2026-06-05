@@ -12,7 +12,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
@@ -94,32 +94,7 @@ def write_outbox_sync_tick(tick: dict[str, Any], *, flush: bool = True) -> dict[
         "owner_did": PDS_DID,
         "sensitivity_ord": 2,
     }
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_pds_operation_tick (
-              vertex_id, tick_id, operation_kind, ok, http_status,
-              metric_primary, metric_secondary, error, value_json,
-              observed_at, created_at, owner_did, sensitivity_ord
-            )
-            VALUES (
-              %(vertex_id)s, %(tick_id)s, %(operation_kind)s, %(ok)s, %(http_status)s,
-              %(metric_primary)s, %(metric_secondary)s, %(error)s, %(value_json)s,
-              %(observed_at)s, %(created_at)s, %(owner_did)s, %(sensitivity_ord)s
-            )
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              ok = EXCLUDED.ok,
-              http_status = EXCLUDED.http_status,
-              metric_primary = EXCLUDED.metric_primary,
-              metric_secondary = EXCLUDED.metric_secondary,
-              error = EXCLUDED.error,
-              value_json = EXCLUDED.value_json,
-              observed_at = EXCLUDED.observed_at
-            """,
-            row,
-        )
-        if flush:
-            cur.execute("FLUSH")
+    get_kotoba_client().insert_row("vertex_pds_operation_tick", row)
     return {"uri": uri, "rkey": rkey}
 
 

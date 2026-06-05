@@ -5,10 +5,11 @@ from __future__ import annotations
 import json
 import re
 import time
+from datetime import datetime, timezone
 from typing import Any
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:scndu0rf.etzhayyim.com"
 CF_REGISTRAR_DID = "did:web:scndu0rf.etzhayyim.com:actor:cfRegistrar"
@@ -43,26 +44,31 @@ def _caller(kwargs: dict[str, Any]) -> str:
     return OWNER_DID
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
 def ensure_cf_registrar_actor() -> None:
-    _execute(
-        """INSERT INTO vertex_actor
-        (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)
-        VALUES (%s,0,%s,%s,%s,%s,%s,'T1','service','active','infra','dns-registrar','etzhayyim.com','autonomous','worker','appview','jp',%s)
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (CF_REGISTRAR_DID, OWNER_DID, CF_REGISTRAR_DID, "cf-registrar-scndu0rf.etzhayyim.com", "Cloudflare Registrar Receiver", "Cloudflare Registrar Receiver", today()),
+    get_kotoba_client().insert_row(
+        "vertex_actor",
+        {
+            "vertex_id": CF_REGISTRAR_DID,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+            "did": CF_REGISTRAR_DID,
+            "handle": "cf-registrar-scndu0rf.etzhayyim.com",
+            "display_name": "Cloudflare Registrar Receiver",
+            "name": "Cloudflare Registrar Receiver",
+            "execution_tier": "T1",
+            "performer_type": "service",
+            "status": "active",
+            "category": "infra",
+            "classification": "dns-registrar",
+            "operator": "etzhayyim.com",
+            "agent_type": "autonomous",
+            "runtime_type": "worker",
+            "ui_type": "appview",
+            "country": "jp",
+            "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        },
     )
     profile = {
         "displayName": "Cloudflare Registrar Receiver",
@@ -70,12 +76,22 @@ def ensure_cf_registrar_actor() -> None:
         "isBot": True,
         "agentType": "autonomous",
     }
-    _execute(
-        """INSERT INTO vertex_actor_manifest
-        (vertex_id, sensitivity_ord, owner_did, did, name, display_name, description, execution_tier, performer_type, profile_json, status, created_date)
-        VALUES (%s,0,%s,%s,%s,%s,%s,'T1','service',%s,'active',%s::date)
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (CF_REGISTRAR_DID, OWNER_DID, CF_REGISTRAR_DID, "Cloudflare Registrar Receiver", "Cloudflare Registrar Receiver", "Cloudflare Registrar API receiver", json.dumps(profile, ensure_ascii=False), today()),
+    get_kotoba_client().insert_row(
+        "vertex_actor_manifest",
+        {
+            "vertex_id": CF_REGISTRAR_DID,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+            "did": CF_REGISTRAR_DID,
+            "name": "Cloudflare Registrar Receiver",
+            "display_name": "Cloudflare Registrar Receiver",
+            "description": "Cloudflare Registrar API receiver",
+            "execution_tier": "T1",
+            "performer_type": "service",
+            "profile_json": json.dumps(profile, ensure_ascii=False),
+            "status": "active",
+            "created_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        },
     )
 
 
@@ -105,12 +121,24 @@ def transfer_from_squarespace(**kwargs: Any) -> dict[str, Any]:
     }
     if kwargs.get("note"):
         record["note"] = str(kwargs.get("note"))[:512]
-    _execute(
-        """INSERT INTO vertex_atrecord_dns_transfer_request
-        (vertex_id, _seq, owner_did, rkey, domain, from_registrar, to_registrar, requester_did, cf_registrar_did, sq_exporter_did, project_convo_id, status, approvals_json, requested_at, record_json)
-        VALUES (%s, _next_seq('vertex_atrecord_dns_transfer_request'), %s, %s, %s, 'squarespace', 'cloudflare', %s, %s, %s, %s, %s, %s, %s, %s)
-        ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status, approvals_json=EXCLUDED.approvals_json, record_json=EXCLUDED.record_json""",
-        (transfer_request_uri, CF_REGISTRAR_DID, rkey, domain, record["requesterDid"], CF_REGISTRAR_DID, SQ_EXPORTER_DID, rkey, status, json.dumps(approval_list), requested_at, json.dumps(record, ensure_ascii=False, sort_keys=True)),
+    get_kotoba_client().insert_row(
+        "vertex_atrecord_dns_transfer_request",
+        {
+            "vertex_id": transfer_request_uri,
+            "owner_did": CF_REGISTRAR_DID,
+            "rkey": rkey,
+            "domain": domain,
+            "from_registrar": "squarespace",
+            "to_registrar": "cloudflare",
+            "requester_did": record["requesterDid"],
+            "cf_registrar_did": CF_REGISTRAR_DID,
+            "sq_exporter_did": SQ_EXPORTER_DID,
+            "project_convo_id": rkey,
+            "status": status,
+            "approvals_json": json.dumps(approval_list),
+            "requested_at": requested_at,
+            "record_json": json.dumps(record, ensure_ascii=False, sort_keys=True),
+        },
     )
     return {
         "transferRequestUri": transfer_request_uri,
@@ -141,21 +169,47 @@ def transfer_outcome(**kwargs: Any) -> dict[str, Any]:
         "rollbackSteps": kwargs.get("rollbackSteps") if isinstance(kwargs.get("rollbackSteps"), list) else [],
         "completedAt": completed_at,
     }
-    _execute(
-        """INSERT INTO vertex_atrecord_dns_transfer_outcome
-        (vertex_id, _seq, owner_did, rkey, transfer_request_uri, domain, result, zone_did, cloudflare_zone_id, failure_reason, rollback_steps_json, completed_at, record_json)
-        VALUES (%s, _next_seq('vertex_atrecord_dns_transfer_outcome'), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        ON CONFLICT (vertex_id) DO UPDATE SET record_json=EXCLUDED.record_json""",
-        (f"at://{CF_REGISTRAR_DID}/com.etzhayyim.apps.dns.transferOutcome/{rkey}", CF_REGISTRAR_DID, rkey, record["transferRequestUri"], domain, result, record.get("zoneDid"), record.get("cloudflareZoneId"), record.get("failureReason"), json.dumps(record["rollbackSteps"]), completed_at, json.dumps(record, ensure_ascii=False, sort_keys=True)),
+    get_kotoba_client().insert_row(
+        "vertex_atrecord_dns_transfer_outcome",
+        {
+            "vertex_id": f"at://{CF_REGISTRAR_DID}/com.etzhayyim.apps.dns.transferOutcome/{rkey}",
+            "owner_did": CF_REGISTRAR_DID,
+            "rkey": rkey,
+            "transfer_request_uri": record["transferRequestUri"],
+            "domain": domain,
+            "result": result,
+            "zone_did": record.get("zoneDid"),
+            "cloudflare_zone_id": record.get("cloudflareZoneId"),
+            "failure_reason": record.get("failureReason"),
+            "rollback_steps_json": json.dumps(record["rollbackSteps"]),
+            "completed_at": completed_at,
+            "record_json": json.dumps(record, ensure_ascii=False, sort_keys=True),
+        },
     )
     if result != "success":
         return {"status": "recorded", "result": result, "domain": domain}
-    _execute(
-        """INSERT INTO vertex_actor
-        (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)
-        VALUES (%s,0,%s,%s,%s,%s,%s,'T1','service','active','dns-zone','cloudflare-zone','etzhayyim.com','logical','db-only','metadata-only','jp',%s)
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (zone_did, OWNER_DID, zone_did, f"{_domain_slug(domain)}.dns.etzhayyim.com", domain, domain, today()),
+    get_kotoba_client().insert_row(
+        "vertex_actor",
+        {
+            "vertex_id": zone_did,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+            "did": zone_did,
+            "handle": f"{_domain_slug(domain)}.dns.etzhayyim.com",
+            "display_name": domain,
+            "name": domain,
+            "execution_tier": "T1",
+            "performer_type": "service",
+            "status": "active",
+            "category": "dns-zone",
+            "classification": "cloudflare-zone",
+            "operator": "etzhayyim.com",
+            "agent_type": "logical",
+            "runtime_type": "db-only",
+            "ui_type": "metadata-only",
+            "country": "jp",
+            "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        },
     )
     ownership_id = f"at://{CF_REGISTRAR_DID}/com.etzhayyim.apps.dns.ownershipTransfer/{_id('own')}"
     ownership = {
@@ -166,11 +220,18 @@ def transfer_outcome(**kwargs: Any) -> dict[str, Any]:
         "status": "completed",
         "zoneDid": zone_did,
     }
-    _execute(
-        """INSERT INTO vertex_atrecord_dns_ownership_transfer
-        (vertex_id, _seq, owner_did, domain, from_registrar, to_registrar, zone_did, transfer_date, status, record_json)
-        VALUES (%s, _next_seq('vertex_atrecord_dns_ownership_transfer'), %s, %s, 'squarespace', 'cloudflare', %s, %s, 'completed', %s)
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (ownership_id, CF_REGISTRAR_DID, domain, zone_did, completed_at, json.dumps(ownership, ensure_ascii=False, sort_keys=True)),
+    get_kotoba_client().insert_row(
+        "vertex_atrecord_dns_ownership_transfer",
+        {
+            "vertex_id": ownership_id,
+            "owner_did": CF_REGISTRAR_DID,
+            "domain": domain,
+            "from_registrar": "squarespace",
+            "to_registrar": "cloudflare",
+            "zone_did": zone_did,
+            "transfer_date": completed_at,
+            "status": "completed",
+            "record_json": json.dumps(ownership, ensure_ascii=False, sort_keys=True),
+        },
     )
     return {"status": "completed", "result": result, "domain": domain, "zoneDid": zone_did, "ownershipTransferUri": ownership_id}

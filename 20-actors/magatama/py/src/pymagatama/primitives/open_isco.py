@@ -6,7 +6,7 @@ import hashlib
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OPEN_ISCO_DID = "did:web:open-isco.etzhayyim.com"
 ISCO_DID = "did:web:isco.etzhayyim.com"
@@ -80,16 +80,7 @@ def _audit(caller_did: str, employer_did: str = "") -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool) -> None:
     if dry_run:
         return
-    cols = list(row)
-    pk_col = "edge_id" if "edge_id" in row else "vertex_id"
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT 1 FROM {table} WHERE {pk_col} = %s LIMIT 1", (row[pk_col],))
-        if cur.fetchone():
-            return
-        cur.execute(
-            f"INSERT INTO {table} ({', '.join(cols)}) VALUES ({', '.join(['%s'] * len(cols))})",
-            tuple(row[c] for c in cols),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 async def _classify_langgraph(worker_did: str, isco_code: str, confidence: float) -> dict[str, Any]:

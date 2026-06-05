@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-import datetime as _dt
-import decimal as _decimal
-import time
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 KIYO_DID = "did:web:kiyo.etzhayyim.com"
@@ -15,21 +13,7 @@ PAPER_COLLECTION = "com.etzhayyim.apps.kiyo.paper"
 
 
 def _now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def _jsonable(v: Any) -> Any:
-    if isinstance(v, (_dt.datetime, _dt.date)):
-        return v.isoformat()
-    if isinstance(v, _decimal.Decimal):
-        f = float(v)
-        return int(f) if f.is_integer() else f
-    return v
-
-
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
-    return [{cols[i]: _jsonable(row[i]) for i in range(len(cols))} for row in cur.fetchall()]
+    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _bounded_int(v: Any, default: int, *, min_value: int, max_value: int) -> int:
@@ -47,33 +31,40 @@ def _paper_vid(paper_id: str) -> str:
 def task_kiyo_withdraw_paper(paperId: str = "", **_: Any) -> dict[str, Any]:
     if not paperId:
         return {"error": "paperId required"}
-    with sync_cursor() as cur:
-        cur.execute("UPDATE vertex_kiyo_paper SET status = %s WHERE paper_id = %s", ("withdrawn", paperId))
+    db = get_kotoba_client()
+    paper_vid = _paper_vid(paperId)
+    existing_paper = db.select_first_where("vertex_kiyo_paper", "vertex_id", paper_vid)
+    if existing_paper:
+        existing_paper["status"] = "withdrawn"
+        db.insert_row("vertex_kiyo_paper", existing_paper)
     return {"withdrawn": True}
 
 
 def task_kiyo_add_review(
     paperId: str = "", rating: Any = None, body: str = "", reviewType: str = "comment", callerDid: str = "", **_: Any
 ) -> dict[str, Any]:
-    if not paperId or not body:
-        return {"error": "paperId and body required"}
-    now = _now()
-    reviewer = callerDid or KIYO_DID
-    review_id = f"at://{KIYO_DID}/com.etzhayyim.apps.kiyo.review/{int(time.time() * 1000):x}"
+    review_id = f"at://{KIYO_DID}/com.etzhayyim.apps.kiyo.review/{int(datetime.now(timezone.utc).timestamp() * 1000):x}"
     rating_v: int | None
     try:
         rating_v = int(rating) if rating is not None else None
     except (TypeError, ValueError):
         rating_v = None
-    with sync_cursor() as cur:
-        cur.execute(
-            "INSERT INTO vertex_kiyo_review "
-            "(vertex_id,paper_id,reviewer_did,rating,body,review_type,owner_did,actor_did,org_did,created_at,sensitivity_ord) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (review_id, paperId, reviewer, rating_v, body, reviewType or "comment", reviewer, reviewer, "anon", now, 0),
-        )
+    db = get_kotoba_client()
+    review_data = {
+        "vertex_id": review_id,
+        "paper_id": paperId,
+        "reviewer_did": reviewer,
+        "rating": rating_v,
+        "body": body,
+        "review_type": reviewType or "comment",
+        "owner_did": reviewer,
+        "actor_did": reviewer,
+        "org_did": "anon",
+        "created_at": now,
+        "sensitivity_ord": 0,
+    }
+    db.insert_row("vertex_kiyo_review", review_data)
     return {"reviewId": review_id, "accepted": True}
-
 
 def task_kiyo_endorse_paper(paperId: str = "", callerDid: str = "", **_: Any) -> dict[str, Any]:
     if not paperId:
@@ -81,42 +72,40 @@ def task_kiyo_endorse_paper(paperId: str = "", callerDid: str = "", **_: Any) ->
     caller = callerDid or KIYO_DID
     paper_vid = _paper_vid(paperId)
     edge_id = f"edge:kiyo:endorses:{caller}:{paperId}"
-    with sync_cursor() as cur:
-        cur.execute(
-            "INSERT INTO edge_kiyo_endorses (edge_id,src_vid,dst_vid,created_at) VALUES (%s,%s,%s,%s)",
-            (edge_id, caller, paper_vid, _now()),
-        )
-        cur.execute("SELECT endorsement_count FROM mv_kiyo_paper_stats WHERE paper_id = %s LIMIT 1", (paperId,))
-        stats = _rows(cur)
-    return {"endorsed": True, "totalEndorsements": int((stats[0] if stats else {}).get("endorsement_count") or 0)}
+    db = get_kotoba_client()
+    edge_data = {
+        "edge_id": edge_id,
+        "src_vid": caller,
+        "dst_vid": paper_vid,
+        "created_at": _now(),
+    }
+    db.insert_row("edge_kiyo_endorses", edge_data)
+    stats = db.select_first_where("mv_kiyo_paper_stats", "paper_id", paperId)
+    return {"endorsed": True, "totalEndorsements": int((stats or {}).get("endorsement_count") or 0)}
 
 
 def task_kiyo_get_paper(paperId: str = "", **_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT * FROM vertex_kiyo_paper WHERE paper_id = %s LIMIT 1", (paperId,))
-        papers = _rows(cur)
-        if not papers:
-            return {"error": "not found"}
-        cur.execute("SELECT * FROM mv_kiyo_paper_stats WHERE paper_id = %s LIMIT 1", (paperId,))
-        stats = _rows(cur)
-        cur.execute(
-            "SELECT dst_vid, role FROM edge_kiyo_authored_by WHERE src_vid = %s ORDER BY order_num ASC",
-            (_paper_vid(paperId),),
-        )
-        authors = _rows(cur)
-    p = papers[0]
-    s = stats[0] if stats else {}
+    db = get_kotoba_client()
+    paper = db.select_first_where("vertex_kiyo_paper", "paper_id", paperId)
+    if not paper:
+        return {"error": "not found"}
+    stats = db.select_first_where("mv_kiyo_paper_stats", "paper_id", paperId)
+    # R0: In-Python sorting for 'order_num'
+    authors_raw = db.select_where("edge_kiyo_authored_by", "src_vid", _paper_vid(paperId), columns=["dst_vid", "role", "order_num"])
+    authors = sorted(authors_raw, key=lambda x: x.get("order_num", 0))
+
+    s = stats if stats else {}
     return {
-        "paperId": p.get("paper_id"),
-        "title": p.get("title"),
-        "abstract": p.get("abstract"),
-        "subject": p.get("subject"),
+        "paperId": paper.get("paper_id"),
+        "title": paper.get("title"),
+        "abstract": paper.get("abstract"),
+        "subject": paper.get("subject"),
         "authors": [a.get("dst_vid") for a in authors],
-        "authorType": p.get("author_type"),
-        "status": p.get("status"),
-        "ipfsCid": p.get("ipfs_cid"),
-        "latestVersion": p.get("latest_version"),
-        "submittedAt": p.get("submitted_at"),
+        "authorType": paper.get("author_type"),
+        "status": paper.get("status"),
+        "ipfsCid": paper.get("ipfs_cid"),
+        "latestVersion": paper.get("latest_version"),
+        "submittedAt": paper.get("submitted_at"),
         "citationCount": int(s.get("citation_in_count") or 0),
         "reviewCount": int(s.get("review_count") or 0),
         "endorsements": int(s.get("endorsement_count") or 0),
@@ -126,65 +115,81 @@ def task_kiyo_get_paper(paperId: str = "", **_: Any) -> dict[str, Any]:
 def task_kiyo_list_papers(subject: str = "", authorType: str = "", since: str = "", limit: Any = 50, offset: Any = 0, **_: Any) -> dict[str, Any]:
     limit_n = _bounded_int(limit, 50, min_value=1, max_value=100)
     offset_n = _bounded_int(offset, 0, min_value=0, max_value=100_000)
-    clauses = ["status = %s"]
-    params: list[Any] = ["active"]
-    if subject:
-        clauses.append("subject @> ARRAY[%s]::VARCHAR[]")
-        params.append(subject)
-    if authorType:
-        clauses.append("author_type = %s")
-        params.append(authorType)
-    if since:
-        clauses.append("submitted_at >= %s")
-        params.append(since)
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT paper_id,title,subject,author_type,submitted_at,ipfs_cid FROM vertex_kiyo_paper "
-            f"WHERE {' AND '.join(clauses)} ORDER BY submitted_at DESC LIMIT {limit_n} OFFSET {offset_n}",
-            tuple(params),
-        )
-        papers = _rows(cur)
+    db = get_kotoba_client()
+    # R0: Multi-predicate WHERE, ORDER BY, LIMIT, OFFSET handled in Python.
+    all_papers = db.select_where("vertex_kiyo_paper", "status", "active")
+
+    filtered_papers = []
+    for paper in all_papers:
+        match = True
+        if subject and not (paper.get("subject") and subject in paper["subject"]): # Assuming 'subject' is a list/array
+            match = False
+        if authorType and paper.get("author_type") != authorType:
+            match = False
+        if since and paper.get("submitted_at") and paper["submitted_at"] < since:
+            match = False
+        if match:
+            filtered_papers.append(paper)
+
+    sorted_papers = sorted(filtered_papers, key=lambda x: x.get("submitted_at", ""), reverse=True)
+
+    papers = sorted_papers[offset_n : offset_n + limit_n]
+
     return {"papers": papers, "offset": offset_n, "limit": limit_n}
 
 
 def task_kiyo_search_papers(q: str = "", subject: str = "", limit: Any = 20, offset: Any = 0, **_: Any) -> dict[str, Any]:
     limit_n = _bounded_int(limit, 20, min_value=1, max_value=50)
     offset_n = _bounded_int(offset, 0, min_value=0, max_value=100_000)
-    clauses = ["status = %s"]
-    params: list[Any] = ["active"]
-    if subject:
-        clauses.append("subject @> ARRAY[%s]::VARCHAR[]")
-        params.append(subject)
-    if q:
-        clauses.append("(title ILIKE %s OR abstract ILIKE %s)")
-        params.extend([f"%{q}%", f"%{q}%"])
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT paper_id,title,abstract,ipfs_cid,1.0 AS score FROM vertex_kiyo_paper "
-            f"WHERE {' AND '.join(clauses)} ORDER BY submitted_at DESC LIMIT {limit_n} OFFSET {offset_n}",
-            tuple(params),
-        )
-        papers = _rows(cur)
+    db = get_kotoba_client()
+    # R0: Multi-predicate WHERE (including ILIKE), ORDER BY, LIMIT, OFFSET handled in Python.
+    all_papers = db.select_where("vertex_kiyo_paper", "status", "active")
+
+    filtered_papers = []
+    q_lower = q.lower()
+    for paper in all_papers:
+        match = True
+        if subject and not (paper.get("subject") and subject in paper["subject"]): # Assuming 'subject' is a list/array
+            match = False
+        if q and not (
+            (paper.get("title") and q_lower in paper["title"].lower())
+            or (paper.get("abstract") and q_lower in paper["abstract"].lower())
+        ):
+            match = False
+        if match:
+            # Add a dummy score for consistency with original SQL
+            paper["score"] = 1.0
+            filtered_papers.append(paper)
+
+    sorted_papers = sorted(filtered_papers, key=lambda x: x.get("submitted_at", ""), reverse=True)
+
+    papers = sorted_papers[offset_n : offset_n + limit_n]
     return {"papers": papers, "offset": offset_n, "limit": limit_n}
 
 
 def task_kiyo_get_paper_file(paperId: str = "", version: Any = None, fileType: str = "pdf", ipfsGatewayUrl: str = "https://ipfs.etzhayyim.com", **_: Any) -> dict[str, Any]:
     version_n = _bounded_int(version, 0, min_value=0, max_value=10_000) if version not in (None, "") else 0
     cid = ""
-    with sync_cursor() as cur:
-        if version_n > 0:
-            cur.execute(
-                "SELECT ipfs_cid, source_ipfs_cid FROM vertex_kiyo_revision WHERE paper_id = %s AND version = %s LIMIT 1",
-                (paperId, version_n),
-            )
-            rows = _rows(cur)
-            if rows:
-                cid = str(rows[0].get("source_ipfs_cid") if fileType == "source" else rows[0].get("ipfs_cid") or "")
-        else:
-            cur.execute("SELECT ipfs_cid, latest_version FROM vertex_kiyo_paper WHERE paper_id = %s LIMIT 1", (paperId,))
-            rows = _rows(cur)
-            if rows:
-                cid = str(rows[0].get("ipfs_cid") or "")
+    db = get_kotoba_client()
+    if version_n > 0:
+        # R0: Multiple WHERE conditions require raw Datalog q()
+        query_edn = """
+            [:find ?ipfs_cid ?source_ipfs_cid
+             :where
+             [?e :vertex_kiyo_revision/paper_id ?paper_id]
+             [?e :vertex_kiyo_revision/version ?version_n]
+             [?e :vertex_kiyo_revision/ipfs_cid ?ipfs_cid]
+             [?e :vertex_kiyo_revision/source_ipfs_cid ?source_ipfs_cid]]
+        """
+        rows = db.q(query_edn, args={"?paper_id": paperId, "?version_n": version_n})
+        if rows:
+            # q() returns list of lists, convert to dict for consistency
+            row_dict = {"ipfs_cid": rows[0][0], "source_ipfs_cid": rows[0][1]}
+            cid = str(row_dict.get("source_ipfs_cid") if fileType == "source" else row_dict.get("ipfs_cid") or "")
+    else:
+        paper = db.select_first_where("vertex_kiyo_paper", "paper_id", paperId, columns=["ipfs_cid", "latest_version"])
+        if paper:
+            cid = str(paper.get("ipfs_cid") or "")
     if not cid:
         return {"error": "not found"}
     base = (ipfsGatewayUrl or "https://ipfs.etzhayyim.com").rstrip("/")
@@ -199,21 +204,53 @@ def task_kiyo_get_paper_file(paperId: str = "", version: Any = None, fileType: s
 def task_kiyo_list_by_author(authorDid: str = "", limit: Any = 50, offset: Any = 0, **_: Any) -> dict[str, Any]:
     limit_n = _bounded_int(limit, 50, min_value=1, max_value=100)
     offset_n = _bounded_int(offset, 0, min_value=0, max_value=100_000)
-    with sync_cursor() as cur:
-        cur.execute("SELECT * FROM mv_kiyo_author_hindex WHERE author_did = %s LIMIT 1", (authorDid,))
-        hrows = _rows(cur)
-        cur.execute(
-            "SELECT p.paper_id, p.title, e.role, p.submitted_at, s.citation_in_count AS citationCount "
-            "FROM edge_kiyo_authored_by e "
-            "JOIN vertex_kiyo_paper p ON p.vertex_id = e.src_vid "
-            "LEFT JOIN mv_kiyo_paper_stats s ON s.paper_id = p.paper_id "
-            "WHERE e.dst_vid = %s ORDER BY p.submitted_at DESC "
-            f"LIMIT {limit_n} OFFSET {offset_n}",
-            (authorDid,),
-        )
-        papers = _rows(cur)
-    h = hrows[0] if hrows else {}
-    total_citations = int(h.get("total_citations") or 0)
+    db = get_kotoba_client()
+    h = db.select_first_where("mv_kiyo_author_hindex", "author_did", authorDid)
+
+    # R0: Complex JOIN with ORDER BY, LIMIT, OFFSET handled by Datalog q() and Python processing
+    query_edn = """
+        [:find
+          ?paper_id ?title ?role ?submitted_at ?citation_in_count
+         :where
+          [?e_authored :edge_kiyo_authored_by/dst_vid ?authorDid]
+          [?e_authored :edge_kiyo_authored_by/src_vid ?paper_vid]
+          [?e_authored :edge_kiyo_authored_by/role ?role]
+
+          [?p :vertex_kiyo_paper/vertex_id ?paper_vid]
+          [?p :vertex_kiyo_paper/paper_id ?paper_id]
+          [?p :vertex_kiyo_paper/title ?title]
+          [?p :vertex_kiyo_paper/submitted_at ?submitted_at]
+
+          (or
+            (and
+              [?s :mv_kiyo_paper_stats/paper_id ?paper_id]
+              [?s :mv_kiyo_paper_stats/citation_in_count ?citation_in_count]
+            )
+            (not
+              [?s :mv_kiyo_paper_stats/paper_id ?paper_id]
+              [(identity 0) ?citation_in_count]
+            )
+          )
+        ]
+    """
+    raw_papers = db.q(query_edn, args={"?authorDid": authorDid})
+
+    # Convert results from lists to dicts for easier processing
+    papers_list = []
+    for row in raw_papers:
+        papers_list.append({
+            "paper_id": row[0],
+            "title": row[1],
+            "role": row[2],
+            "submitted_at": row[3],
+            "citationCount": row[4],
+        })
+
+    # Apply ORDER BY, LIMIT, OFFSET in Python
+    sorted_papers = sorted(papers_list, key=lambda x: x.get("submitted_at", ""), reverse=True)
+    papers = sorted_papers[offset_n : offset_n + limit_n]
+
+    total_citations = int(h.get("total_citations") or 0) if h else 0
     return {
         "authorDid": authorDid,
         "hIndex": int(total_citations ** 0.5) if h else 0,
@@ -227,25 +264,40 @@ def task_kiyo_list_by_author(authorDid: str = "", limit: Any = 50, offset: Any =
 
 def task_kiyo_get_citation_graph(paperId: str = "", **_: Any) -> dict[str, Any]:
     paper_vid = _paper_vid(paperId)
-    with sync_cursor() as cur:
-        cur.execute("SELECT src_vid, ref_label, confidence FROM edge_kiyo_cites WHERE dst_vid = %s LIMIT 100", (paper_vid,))
-        citing = _rows(cur)
-        cur.execute("SELECT dst_vid, resolved_doi, ref_label, confidence FROM edge_kiyo_cites WHERE src_vid = %s LIMIT 100", (paper_vid,))
-        cited = _rows(cur)
+    db = get_kotoba_client()
+    citing = db.select_where("edge_kiyo_cites", "dst_vid", paper_vid, columns=["src_vid", "ref_label", "confidence"], limit=100)
+    cited = db.select_where("edge_kiyo_cites", "src_vid", paper_vid, columns=["dst_vid", "resolved_doi", "ref_label", "confidence"], limit=100)
     return {"paperId": paperId, "citing": citing, "cited": cited}
 
 
 def task_kiyo_get_stats(**_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT COUNT(paper_id) AS totalPapers FROM vertex_kiyo_paper WHERE status = %s", ("active",))
-        totals = _rows(cur)
-        cur.execute(
-            "SELECT subject_code, paper_count, recent_30d_count FROM mv_kiyo_subject_stats "
-            "ORDER BY paper_count DESC LIMIT 50"
-        )
-        subject_rows = _rows(cur)
+    db = get_kotoba_client()
+    total_papers_count = int(db.aggregate_where("vertex_kiyo_paper", "count", "paper_id", "status", "active"))
+
+    # R0: ORDER BY and LIMIT for mv_kiyo_subject_stats handled by Datalog q() and Python processing
+    query_edn = """
+        [:find ?subject_code ?paper_count ?recent_30d_count
+         :where
+         [?e :mv_kiyo_subject_stats/subject_code ?subject_code]
+         [?e :mv_kiyo_subject_stats/paper_count ?paper_count]
+         [?e :mv_kiyo_subject_stats/recent_30d_count ?recent_30d_count]]
+    """
+    raw_subject_stats = db.q(query_edn)
+
+    subject_rows_list = []
+    for row in raw_subject_stats:
+        subject_rows_list.append({
+            "subject_code": row[0],
+            "paper_count": row[1],
+            "recent_30d_count": row[2],
+        })
+
+    # Apply ORDER BY and LIMIT in Python
+    sorted_subject_rows = sorted(subject_rows_list, key=lambda x: x.get("paper_count", 0), reverse=True)
+    subject_rows = sorted_subject_rows[:50]
+
     return {
-        "totalPapers": int((totals[0] if totals else {}).get("totalPapers") or (totals[0] if totals else {}).get("totalpapers") or 0),
+        "totalPapers": total_papers_count,
         "subjects": [
             {
                 "subjectCode": s.get("subject_code"),

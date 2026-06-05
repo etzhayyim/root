@@ -12,6 +12,9 @@ from __future__ import annotations
 
 import json
 from typing import Any, TypedDict
+from datetime import datetime, timezone
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 class CrmLeiReviewState(TypedDict, total=False):
@@ -28,63 +31,55 @@ class CrmLeiReviewState(TypedDict, total=False):
     error: str | None
 
 
-def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    try:
-        from pymagatama.db_sync import sync_cursor
 
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            cols = [desc[0] for desc in cur.description]
-            return [dict(zip(cols, row, strict=False)) for row in (cur.fetchall() or [])]
-    except Exception:
-        return []
-
-
-def _rw_exec(sql: str, params: tuple[Any, ...] = ()) -> int:
-    try:
-        from pymagatama.db_sync import sync_cursor
-
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            return int(cur.rowcount or 0)
-    except Exception:
-        return 0
 
 
 def load_review_queue(state: CrmLeiReviewState) -> dict[str, Any]:
     limit = int(state.get("limit") or 20)
     limit = max(1, min(limit, 100))
-    filters = ["review_status IN ('open', 'needs_human_review')"]
-    values: list[Any] = []
+    client = get_kotoba_client()
+    # R0: Complex filtering and ordering requires raw Datalog query.
+    find_clause = '[:find ?vertex-id ?review-id ?crm-system ?crm-entity-type ?crm-source-id ?crm-legal-name ?crm-country ?review-status ?review-reason ?candidate-count ?candidates-json ?priority ?evidence-note'
+    where_clauses = [
+        ':where',
+        '[?e :vertex.crm-lei-review-queue/review-status ?review-status]',
+        '[(contains? #{"open" "needs_human_review"} ?review-status)]',
+        '[?e :vertex.crm-lei-review-queue/vertex-id ?vertex-id]',
+        '[?e :vertex.crm-lei-review-queue/review-id ?review-id]',
+        '[?e :vertex.crm-lei-review-queue/crm-system ?crm-system]',
+        '[?e :vertex.crm-lei-review-queue/crm-entity-type ?crm-entity-type]',
+        '[?e :vertex.crm-lei-review-queue/crm-source-id ?crm-source-id]',
+        '[?e :vertex.crm-lei-review-queue/crm-legal-name ?crm-legal-name]',
+        '[?e :vertex.crm-lei-review-queue/crm-country ?crm-country]',
+        '[?e :vertex.crm-lei-review-queue/review-reason ?review-reason]',
+        '[?e :vertex.crm-lei-review-queue/candidate-count ?candidate-count]',
+        '[?e :vertex.crm-lei-review-queue/candidates-json ?candidates-json]',
+        '[?e :vertex.crm-lei-review-queue/priority ?priority]',
+        '[?e :vertex.crm-lei-review-queue/evidence-note ?evidence-note]'
+    ]
+
     if state.get("crmSystem"):
-        filters.append("crm_system = %s")
-        values.append(state["crmSystem"])
+        where_clauses.append(f'[?e :vertex.crm-lei-review-queue/crm-system "{state["crmSystem"]}"]')
     if state.get("entityType"):
-        filters.append("crm_entity_type = %s")
-        values.append(state["entityType"])
+        where_clauses.append(f'[?e :vertex.crm-lei-review-queue/crm-entity-type "{state["entityType"]}"]')
     if state.get("country"):
-        filters.append("crm_country = %s")
-        values.append(str(state["country"]).upper())
-    rows = _rw_query(
-        f"""
-        SELECT vertex_id, review_id, crm_system, crm_entity_type,
-               crm_source_id, crm_legal_name, crm_country, review_status,
-               review_reason, candidate_count, candidates_json, priority,
-               evidence_note
-          FROM view_crm_lei_review_queue
-         WHERE {' AND '.join(filters)}
-         ORDER BY priority DESC, updated_at DESC
-         LIMIT {limit}
-        """,
-        tuple(values),
-    )
-    for row in rows:
-        raw = row.get("candidates_json")
-        if isinstance(raw, str) and raw:
-            try:
-                row["candidates"] = json.loads(raw)
-            except Exception:
-                row["candidates"] = []
+        where_clauses.append(f'[?e :vertex.crm-lei-review-queue/crm-country "{str(state["country"]).upper()}"]')
+
+    order_by_clause = ':order-by [?priority :desc] [?e :db/txInstant :desc]' # Assuming updated_at maps to db/txInstant
+    limit_clause = f':limit {limit}]'
+
+    query_edn = ' '.join([find_clause] + where_clauses + [order_by_clause] + [limit_clause])
+
+    raw_rows = client.q(query_edn)
+
+    cols = [
+        "vertex_id", "review_id", "crm_system", "crm_entity_type",
+        "crm_source_id", "crm_legal_name", "crm_country", "review_status",
+        "review_reason", "candidate_count", "candidates_json", "priority",
+        "evidence_note"
+    ]
+    rows = [dict(zip(cols, row, strict=False)) for row in raw_rows]
+
     return {
         "queueItems": rows,
         "queueCount": len(rows),
@@ -113,31 +108,33 @@ def maybe_interrupt(state: CrmLeiReviewState) -> dict[str, Any]:
 
 
 def mark_waiting(state: CrmLeiReviewState) -> dict[str, Any]:
+    client = get_kotoba_client()
     items = state.get("queueItems") or []
     count = 0
     for item in items:
-        count += _rw_exec(
-            """
-            UPDATE vertex_crm_lei_review_item
-               SET review_status = 'needs_human_review',
-                   updated_at = %s,
-                   evidence_note = %s
-             WHERE vertex_id = %s
-               AND review_status = 'open'
-            """,
-            (
-                _now_iso(),
-                "crm_lei_review_loop interrupted for human LEI evidence review",
-                item.get("vertex_id"),
-            ),
+        vertex_id = item.get("vertex_id")
+        if not vertex_id:
+            continue
+
+        # Fetch the current item to check its status
+        current_item = client.select_first_where(
+            "vertex_crm_lei_review_item", "vertex_id", vertex_id
         )
+
+        if current_item and current_item.get("review_status") == "open":
+            updated_item = current_item.copy()
+            updated_item.update(
+                review_status="needs_human_review",
+                updated_at=datetime.now(timezone.utc).isoformat(),
+                evidence_note="crm_lei_review_loop interrupted for human LEI evidence review",
+            )
+            # Use insert_row for upsert functionality
+            client.insert_row("vertex_crm_lei_review_item", updated_item)
+            count += 1
     return {"markedCount": count}
 
 
-def _now_iso() -> str:
-    from datetime import UTC, datetime
 
-    return datetime.now(tz=UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _route_after_load(state: CrmLeiReviewState) -> str:

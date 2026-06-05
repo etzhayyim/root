@@ -21,7 +21,7 @@ from fastapi import FastAPI, Header, HTTPException
 
 from pymagatama.jukyu.adapter import normalize_crude_oil, normalize_entity_vessel_transport, normalize_naphtha, normalize_semiconductor
 from pymagatama.jukyu.graph import build_graph
-from pymagatama.db_sync import fetch_all
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _GRAPH = build_graph()
 GRAPHS: dict[str, Any] = {"jukyu_global_equilibrium_v1": _GRAPH}
@@ -146,14 +146,26 @@ async def cron_outbox_drain(
 ) -> dict[str, Any]:
     _enforce_auth(x_api_key)
     try:
-        rows = fetch_all(
-            """
-            SELECT signal_id, target_company_did, target_channel, domain,
-                   severity, risk_score, confidence, notification_status
-            FROM mv_jukyu_notification_outbox
-            ORDER BY risk_score DESC LIMIT 250
-            """
-        )
+        # R0: Datalog does not natively support ORDER BY or LIMIT.
+        # Fetching all records and applying sorting/limiting in Python.
+        query_edn = """
+        [:find ?signal_id ?target_company_did ?target_channel ?domain
+                ?severity ?risk_score ?confidence ?notification_status
+         :where [?e :mv-jukyu-notification-outbox/signal-id ?signal_id]
+                [?e :mv-jukyu-notification-outbox/target-company-did ?target_company_did]
+                [?e :mv-jukyu-notification-outbox/target-channel ?target_channel]
+                [?e :mv-jukyu-notification-outbox/domain ?domain]
+                [?e :mv-jukyu-notification-outbox/severity ?severity]
+                [?e :mv-jukyu-notification-outbox/risk-score ?risk_score]
+                [?e :mv-jukyu-notification-outbox/confidence ?confidence]
+                [?e :mv-jukyu-notification-outbox/notification-status ?notification_status]]
+        """
+        raw_rows = get_kotoba_client().q(query_edn)
+
+        # Sort by risk_score DESC (risk_score is at index 5)
+        sorted_rows = sorted(raw_rows, key=lambda x: x[5], reverse=True)
+        # Apply limit
+        rows = sorted_rows[:250]
     except Exception as exc:
         return {
             "ok": False,

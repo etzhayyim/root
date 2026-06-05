@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 HOTEL_COLUMNS = (
@@ -35,10 +35,6 @@ def _int(v: Any, default: int, *, min_value: int, max_value: int) -> int:
     return max(min_value, min(max_value, n))
 
 
-def _row_dict(row: Any) -> dict[str, Any]:
-    return {col: row[i] for i, col in enumerate(HOTEL_COLUMNS)}
-
-
 def task_yadoya_search_hotels(
     country: str = "",
     region: str = "",
@@ -49,45 +45,52 @@ def task_yadoya_search_hotels(
     limit: Any = 50,
     **_: Any,
 ) -> dict[str, Any]:
-    """Filtered catalog search for com.etzhayyim.apps.yadoya.searchHotels."""
+    """Filtered catalog search for com.etzhayyim.apps.yadoya.searchHotels.
+    # R0: Multiple predicates and ORDER BY NULLS LAST are handled by fetching a broader set
+    # and applying filtering/sorting in Python.
+    """
     limit_n = _int(limit, 50, min_value=1, max_value=200)
     try:
         price_max = int(priceJpyMax or 0)
     except (TypeError, ValueError):
         price_max = 0
 
-    clauses = ["status = %s"]
-    params: list[Any] = ["published"]
-    if country:
-        clauses.append("country = %s")
-        params.append(country)
-    if region:
-        clauses.append("region = %s")
-        params.append(region)
-    if city:
-        clauses.append("city = %s")
-        params.append(city)
-    if chainDid:
-        clauses.append("chain_did = %s")
-        params.append(chainDid)
-    if isicCode:
-        clauses.append("isic_code = %s")
-        params.append(isicCode)
-    if price_max > 0:
-        clauses.append("price_jpy_min <= %s")
-        params.append(price_max)
-
-    sql = (
-        f"SELECT {', '.join(HOTEL_COLUMNS)} "
-        "FROM vertex_yadoya_hotel "
-        f"WHERE {' AND '.join(clauses)} "
-        "ORDER BY region NULLS LAST, city NULLS LAST, name NULLS LAST "
-        f"LIMIT {limit_n}"
+    # Fetch all published hotels up to a reasonable limit, then filter in Python
+    all_hotels = get_kotoba_client().select_where(
+        "vertex_yadoya_hotel",
+        "status",
+        "published",
+        columns=HOTEL_COLUMNS,
+        limit=2000, # Per instruction: fetch a broader set with limit=2000
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        rows = cur.fetchall()
-    hotels = [_row_dict(row) for row in rows]
+
+    filtered_hotels = []
+    for hotel in all_hotels:
+        if country and hotel.get("country") != country:
+            continue
+        if region and hotel.get("region") != region:
+            continue
+        if city and hotel.get("city") != city:
+            continue
+        if chainDid and hotel.get("chain_did") != chainDid:
+            continue
+        if isicCode and hotel.get("isic_code") != isicCode:
+            continue
+        if price_max > 0 and hotel.get("price_jpy_min", 0) > price_max:
+            continue
+        filtered_hotels.append(hotel)
+
+    # Apply ORDER BY region NULLS LAST, city NULLS LAST, name NULLS LAST
+    # Sorting key for NULLS LAST: (is_none_field, field_value)
+    filtered_hotels.sort(
+        key=lambda x: (
+            x.get("region") is None, x.get("region"),
+            x.get("city") is None, x.get("city"),
+            x.get("name") is None, x.get("name"),
+        )
+    )
+
+    hotels = filtered_hotels[:limit_n]
     return {"hotels": hotels, "total": len(hotels)}
 
 
@@ -98,31 +101,43 @@ def task_yadoya_list_hotels(
     offset: Any = 0,
     **_: Any,
 ) -> dict[str, Any]:
-    """Unfiltered/paged catalog listing for com.etzhayyim.apps.yadoya.listHotels."""
+    """Unfiltered/paged catalog listing for com.etzhayyim.apps.yadoya.listHotels.
+    # R0: Multiple predicates, ORDER BY NULLS LAST, OFFSET, and LIMIT are handled by
+    # fetching a broader set and applying filtering/sorting/paging in Python.
+    """
     limit_n = _int(limit, 50, min_value=1, max_value=500)
     offset_n = _int(offset, 0, min_value=0, max_value=100_000)
 
-    clauses = ["status = %s"]
-    params: list[Any] = ["published"]
-    if region:
-        clauses.append("region = %s")
-        params.append(region)
-    if chainDid:
-        clauses.append("chain_did = %s")
-        params.append(chainDid)
-
-    sql = (
-        f"SELECT {', '.join(HOTEL_COLUMNS)} "
-        "FROM vertex_yadoya_hotel "
-        f"WHERE {' AND '.join(clauses)} "
-        "ORDER BY region NULLS LAST, city NULLS LAST, name NULLS LAST "
-        f"LIMIT {limit_n} OFFSET {offset_n}"
+    # Fetch all published hotels up to a reasonable limit, then filter and page in Python
+    all_hotels = get_kotoba_client().select_where(
+        "vertex_yadoya_hotel",
+        "status",
+        "published",
+        columns=HOTEL_COLUMNS,
+        limit=2000, # Per instruction: fetch a broader set with limit=2000
     )
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        rows = cur.fetchall()
-    hotels = [_row_dict(row) for row in rows]
-    return {"hotels": hotels, "total": len(hotels), "offset": offset_n, "limit": limit_n}
+
+    filtered_hotels = []
+    for hotel in all_hotels:
+        if region and hotel.get("region") != region:
+            continue
+        if chainDid and hotel.get("chain_did") != chainDid:
+            continue
+        filtered_hotels.append(hotel)
+
+    # Apply ORDER BY region NULLS LAST, city NULLS LAST, name NULLS LAST
+    filtered_hotels.sort(
+        key=lambda x: (
+            x.get("region") is None, x.get("region"),
+            x.get("city") is None, x.get("city"),
+            x.get("name") is None, x.get("name"),
+        )
+    )
+
+    # Apply OFFSET and LIMIT
+    paged_hotels = filtered_hotels[offset_n : offset_n + limit_n]
+
+    return {"hotels": paged_hotels, "total": len(filtered_hotels), "offset": offset_n, "limit": limit_n}
 
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:

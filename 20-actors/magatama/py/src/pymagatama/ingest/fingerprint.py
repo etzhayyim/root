@@ -18,6 +18,7 @@ import logging
 import os
 import time
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from pymagatama.ingest.core import (
@@ -27,7 +28,7 @@ from pymagatama.ingest.core import (
     stable_run_id,
     upsert_run,
 )
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger(__name__)
 
@@ -54,16 +55,27 @@ def _proxy_fingerprint(host: str, port: int, proxy_url: str, key: str) -> dict:
 
 
 def _stale_hosts(batch_size: int) -> list[str]:
-    """Return domains that haven't been fingerprinted recently."""
-    sql = (
-        "SELECT DISTINCT domain FROM vertex_dns_observation "
-        "WHERE observed_at::timestamptz < NOW() - INTERVAL '30 days' "
-        f"ORDER BY observed_at ASC LIMIT {int(batch_size)}"
-    )
+    """Return domains that haven't been fingerprinted recently.
+
+    # R0: This query requires Datalog for temporal filtering, distinct, order-by, and limit.
+    """
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql)
-            return [row[0] for row in (cur.fetchall() or []) if row[0]]
+        thirty_days_ago = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+        # Note: The Datalog query expects named parameters, but kotoba_datomic.q accepts a tuple of args.
+        # The args are substituted positionally for variables in the :in clause.
+        # Since this query does not have an explicit :in clause, the variables are implicitly
+        # bound by their usage in the :where clause and passed as a tuple.
+        query_edn = f"""
+            [:find (distinct ?domain)
+             :where
+             [?e :vertex.dns-observation/domain ?domain]
+             [?e :vertex.dns-observation/observed-at ?observed-at]
+             [(< ?observed-at "{thirty_days_ago}")] ; direct substitution for string literal
+             :order-by [?observed-at :asc]
+             :limit {int(batch_size)}]
+        """
+        results = get_kotoba_client().q(query_edn)
+        return [row[0] for row in results if row and row[0]]
     except Exception as e:
         LOG.warning("stale_hosts_fingerprint query failed: %s", e)
         return []
@@ -76,39 +88,34 @@ def _insert_fingerprint(host: str, port: int, fp: dict, run_id: str) -> bool:
         f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.collector.scanResult"
         f"/{host}:{port}:fp"
     )
-    sql = (
-        "INSERT INTO vertex_scan_result "
-        "(vertex_id, owner_did, ip, port, protocol, state, service, software, version, "
-        "banner, tls_version, tls_cipher, cert_subject, cert_issuer, cert_expires, "
-        "os_guess, scanner_host, scanned_at, sensitivity_ord, created_date) "
-        "SELECT %s::varchar, %s::varchar, %s::varchar, %s::bigint, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, %s::varchar, %s::varchar, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, 1::bigint, CURRENT_DATE "
-        "WHERE NOT EXISTS (SELECT 1 FROM vertex_scan_result WHERE vertex_id = %s::varchar)"
-    )
     banner_raw = fp.get("banner", "") or fp.get("http_server", "")
-    params = (
-        vertex_id, INGEST_ACTOR, host, int(port), proto,
-        "open" if fp.get("open") else "filtered",
-        fp.get("service", "https" if port == _HTTPS_PORT else "http"),
-        fp.get("software", ""),
-        fp.get("version", ""),
-        str(banner_raw)[:512],
-        fp.get("tls_version", ""),
-        fp.get("tls_cipher", ""),
-        str(fp.get("cert_subject", ""))[:512],
-        str(fp.get("cert_issuer", ""))[:256],
-        fp.get("cert_expires", ""),
-        "",
-        "proxy-fp",
-        ts,
-        vertex_id,
-    )
+
+    row_dict = {
+        "vertex_id": vertex_id,
+        "owner_did": INGEST_ACTOR,
+        "ip": host,
+        "port": int(port),
+        "protocol": proto,
+        "state": "open" if fp.get("open") else "filtered",
+        "service": fp.get("service", "https" if port == _HTTPS_PORT else "http"),
+        "software": fp.get("software", ""),
+        "version": fp.get("version", ""),
+        "banner": str(banner_raw)[:512],
+        "tls_version": fp.get("tls_version", ""),
+        "tls_cipher": fp.get("tls_cipher", ""),
+        "cert_subject": str(fp.get("cert_subject", ""))[:512],
+        "cert_issuer": str(fp.get("cert_issuer", ""))[:256],
+        "cert_expires": fp.get("cert_expires", ""),
+        "os_guess": "",
+        "scanner_host": "proxy-fp",
+        "scanned_at": ts,
+        "sensitivity_ord": 1,
+        "created_date": datetime.now(timezone.utc).date().isoformat(),
+    }
+
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            return (cur.rowcount or 0) > 0
+        get_kotoba_client().insert_row("vertex_scan_result", row_dict)
+        return True  # If insert_row succeeds without exception, it's considered successful
     except Exception as e:
         LOG.warning("fingerprint insert failed host=%s:%s: %s", host, port, e)
         return False

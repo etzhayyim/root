@@ -32,7 +32,7 @@ from typing import Any, TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives import langgraph_registry
 
 log = logging.getLogger(__name__)
@@ -160,30 +160,29 @@ def db_write(state: BPState) -> BPState:
 
     from datetime import datetime, timezone
     ts_date = datetime.now(timezone.utc).date().isoformat()
-
+    client = get_kotoba_client()
     try:
-        with sync_cursor() as cur:
-            written = 0
-            for p in persons:
-                lei = p["lei"]
-                name = p["person_name"]
-                role = p["role"]
-                country = p["jurisdiction"][:3] if p["jurisdiction"] else ""
-                # Use existing vertex_business_person schema (0001_initial_schema.ts)
-                # key columns: vertex_id, display_name, name, title, country, source, source_url, created_date
-                cur.execute(
-                    "INSERT INTO vertex_business_person "
-                    "(vertex_id,display_name,name,title,org_name,country,source,source_url,created_date) "
-                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                    (
-                        p["vertex_id"], name, name, role,
-                        f"LEI:{lei}", country,
-                        "gleif_lei",
-                        f"https://api.gleif.org/api/v1/lei-records/{lei}",
-                        ts_date,
-                    ),
-                )
-                written += 1
+        written = 0
+        for p in persons:
+            lei = p["lei"]
+            name = p["person_name"]
+            role = p["role"]
+            country = p["jurisdiction"][:3] if p["jurisdiction"] else ""
+            # Use existing vertex_business_person schema (0001_initial_schema.ts)
+            # key columns: vertex_id, display_name, name, title, org_name, country, source, source_url, created_date
+            row_dict = {
+                "vertex_id": p["vertex_id"],
+                "display_name": name,
+                "name": name,
+                "title": role,
+                "org_name": f"LEI:{lei}",
+                "country": country,
+                "source": "gleif_lei",
+                "source_url": f"https://api.gleif.org/api/v1/lei-records/{lei}",
+                "created_date": ts_date,
+            }
+            client.insert_row("vertex_business_person", row_dict)
+            written += 1
     except Exception as exc:  # noqa: BLE001
         return {**state, "rowsWritten": 0, "error": f"db_write: {exc}"}
 

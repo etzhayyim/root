@@ -16,7 +16,7 @@ from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import close_sync_pool
+
 from pymagatama.zeebe_worker_main import (
     _activation_monitor,
     _watchdog,
@@ -85,10 +85,7 @@ async def main() -> None:
             await task
         except (asyncio.CancelledError, Exception):
             pass
-    try:
-        close_sync_pool()
-    except Exception as e:  # noqa: BLE001
-        LOG.warning("sync pool close failed: %s", e)
+
     LOG.info("blockchain_worker stopped cleanly")
 
 

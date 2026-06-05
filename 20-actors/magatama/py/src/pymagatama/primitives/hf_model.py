@@ -15,29 +15,32 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-from pymagatama.ingest.hf_model import (
-    task_hf_model_fetch_detail,
-    task_hf_model_resolve_lineage,
-    task_hf_model_scan,
-)
+from pymagatama.kotoba_datomic import get_kotoba_client
+
 
 LOG = logging.getLogger(__name__)
 
 
-def _fetchall(sql_str: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
-        return cur.fetchall() or []
+def _fetchall(table: str, column: str, value: Any, columns: list[str] | None = None, limit: int | None = None) -> list[dict]:
+    return get_kotoba_client().select_where(table, column, value, columns, limit)
 
 
 def task_hf_model_list_filters(**_: Any) -> dict[str, Any]:
+    # R0: Filtering for entity_type='model' or 'both' done in Python due to multi-predicate WHERE.
+    # The limit is applied after fetching, so a higher limit is used here to ensure 200 results if available.
     rows = _fetchall(
-        "SELECT vertex_id FROM vertex_hfhub_filter "
-        "WHERE enabled = true AND (entity_type = 'model' OR entity_type = 'both') "
-        "LIMIT 200"
+        table="vertex_hfhub_filter",
+        column="enabled",
+        value=True,
+        columns=["vertex_id", "entity_type"],
+        limit=2000,  # Fetch more to allow for in-Python filtering
     )
-    ids = [r[0] for r in rows]
+    filtered_rows = [
+        row["vertex_id"]
+        for row in rows
+        if row["entity_type"] in ("model", "both")
+    ][:200]  # Apply the original limit after filtering
+    ids = filtered_rows
     return {"ok": True, "filter_ids": ids, "filter_count": len(ids)}
 
 
@@ -64,20 +67,33 @@ def task_hf_model_fetch_detail_batch(
     **_: Any,
 ) -> dict[str, Any]:
     """Fetch full model card for models missing parameter info (list API gaps)."""
+    # R0: Filtering for num_parameters IS NULL, ORDER BY downloads_month, and LIMIT are done in Python
+    # due to multi-predicate WHERE and ORDER BY clauses not supported by simple shims.
+    # Fetch a broader set and filter/sort in Python.
     rows = _fetchall(
-        f"SELECT repo_id FROM vertex_hfhub_model "
-        f"WHERE num_parameters IS NULL AND status = 'active' "
-        f"ORDER BY downloads_month DESC LIMIT {int(batch_size)}"
+        table="vertex_hfhub_model",
+        column="status",
+        value="active",
+        columns=["repo_id", "num_parameters", "downloads_month"],
+        limit=2000,  # Fetch more to allow for in-Python filtering and sorting
     )
+
+    filtered_and_sorted_rows = sorted(
+        [row for row in rows if row["num_parameters"] is None],
+        key=lambda x: x.get("downloads_month", 0),  # Handle potential missing downloads_month
+        reverse=True,
+    )[:batch_size]  # Apply the batch_size limit after filtering and sorting
+
     enriched = 0
-    for (repo_id,) in rows:
+    for row in filtered_and_sorted_rows:
+        repo_id = row["repo_id"]
         try:
             result = task_hf_model_fetch_detail(repo_id=repo_id)
             if result.get("ok"):
                 enriched += 1
         except Exception as exc:
             LOG.warning("model fetchDetail failed repo=%s: %s", repo_id, exc)
-    return {"ok": True, "processed": len(rows), "enriched": enriched}
+    return {"ok": True, "processed": len(filtered_and_sorted_rows), "enriched": enriched}
 
 
 def task_hf_model_scan_one(filter_id: str | None = None, limit: int = 500, **_: Any) -> dict[str, Any]:

@@ -15,7 +15,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 MURAKUMO_DID = "did:web:murakumo.etzhayyim.com"
@@ -178,69 +178,26 @@ def write_fleet_health(roster: dict[str, Any], *, flush: bool = True) -> dict[st
         "litellm_version": str(litellm.get("version") or ""),
         "litellm_error": str(litellm.get("error") or "")[:500],
     }
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_murakumo_fleet_health (
-              vertex_id, record_key, status, value_json,
-              indexed_at, created_at, updated_at, actor_did, org_did, owner_did, sensitivity_ord,
-              epoch_ms, health_pct, nodes_healthy, nodes_total,
-              litellm_reachable, litellm_latency_ms, litellm_version, litellm_error
-            )
-            VALUES (
-              %(vertex_id)s, %(record_key)s, %(status)s, %(value_json)s,
-              %(indexed_at)s, %(created_at)s, %(updated_at)s, %(actor_did)s, %(org_did)s, %(owner_did)s, %(sensitivity_ord)s,
-              %(epoch_ms)s, %(health_pct)s, %(nodes_healthy)s, %(nodes_total)s,
-              %(litellm_reachable)s, %(litellm_latency_ms)s, %(litellm_version)s, %(litellm_error)s
-            )
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              status = EXCLUDED.status,
-              value_json = EXCLUDED.value_json,
-              indexed_at = EXCLUDED.indexed_at,
-              updated_at = EXCLUDED.updated_at,
-              health_pct = EXCLUDED.health_pct,
-              nodes_healthy = EXCLUDED.nodes_healthy,
-              nodes_total = EXCLUDED.nodes_total,
-              litellm_reachable = EXCLUDED.litellm_reachable,
-              litellm_latency_ms = EXCLUDED.litellm_latency_ms,
-              litellm_version = EXCLUDED.litellm_version,
-              litellm_error = EXCLUDED.litellm_error
-            """,
-            row,
-        )
-        for node in roster.get("nodes", []):
-            if not isinstance(node, dict):
-                continue
-            node_name = str(node.get("name") or "unknown")
-            edge_id = f"edge:murakumo:fleet_node_health:{rkey}:{node_name}"
-            cur.execute(
-                """
-                INSERT INTO edge_murakumo_fleet_node_health (
-                  edge_id, from_vertex_id, to_vertex_id, node_name, node_ip,
-                  healthy, model, snapshot_ts, created_at, owner_did, sensitivity_ord
-                )
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (edge_id) DO UPDATE SET
-                  healthy = EXCLUDED.healthy,
-                  model = EXCLUDED.model,
-                  snapshot_ts = EXCLUDED.snapshot_ts
-                """,
-                (
-                    edge_id,
-                    uri,
-                    f"at://{MURAKUMO_DID}/com.etzhayyim.apps.murakumo.node/{node_name}",
-                    node_name,
-                    str(node.get("ip") or ""),
-                    bool(node.get("healthy")),
-                    str(node.get("model") or ""),
-                    ts,
-                    ts,
-                    MURAKUMO_DID,
-                    2,
-                ),
-            )
-        if flush:
-            cur.execute("FLUSH")
+    get_kotoba_client().insert_row("vertex_murakumo_fleet_health", row)
+    for node in roster.get("nodes", []):
+        if not isinstance(node, dict):
+            continue
+        node_name = str(node.get("name") or "unknown")
+        edge_id = f"edge:murakumo:fleet_node_health:{rkey}:{node_name}"
+        edge_row_dict = {
+            "edge_id": edge_id,
+            "from_vertex_id": uri,
+            "to_vertex_id": f"at://{MURAKUMO_DID}/com.etzhayyim.apps.murakumo.node/{node_name}",
+            "node_name": node_name,
+            "node_ip": str(node.get("ip") or ""),
+            "healthy": bool(node.get("healthy")),
+            "model": str(node.get("model") or ""),
+            "snapshot_ts": ts,
+            "created_at": ts,
+            "owner_did": MURAKUMO_DID,
+            "sensitivity_ord": 2,
+        }
+        get_kotoba_client().insert_row("edge_murakumo_fleet_node_health", edge_row_dict)
     return {"uri": uri, "rkey": rkey, "roster": roster}
 
 

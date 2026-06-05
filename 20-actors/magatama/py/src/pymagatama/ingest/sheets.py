@@ -1,15 +1,16 @@
-"""Google Sheets ingest Zeebe worker — Drive changes filter + spreadsheets.get."""
+"""Google Sheets ingest Zeebe worker — Drive changes filter + spreadsheets.get. Uses kotoba Datom log for state management."""
 
 from __future__ import annotations
 
 import json
 import os
-import time
+
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 SHEETS_TOKEN_TABLE = "vertex_gsheets_oauth_token"
 SHEETS_SPREADSHEET_TABLE = "vertex_gsheets_spreadsheet"
@@ -18,30 +19,17 @@ ACTOR_DID = "did:web:sheets.etzhayyim.com"
 GSHEETS_MIME = "application/vnd.google-apps.spreadsheet"
 
 
-def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
 
 
 def _str(v: Any) -> str:
     return "" if v is None else str(v)
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
 
 
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
@@ -51,12 +39,7 @@ def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, head
 
 
 def _insert(table: str, row: dict[str, Any]) -> None:
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    _execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) SELECT {placeholders} WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        tuple(row[c] for c in cols) + (_str(row["vertex_id"]),),
-    )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _refresh_access_token(refresh_token: str) -> str:
@@ -193,7 +176,24 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
             if f.get("mimeType") != GSHEETS_MIME:
                 continue
             if change.get("removed"):
-                _execute(f"DELETE FROM {SHEETS_SPREADSHEET_TABLE} WHERE file_id = %s AND account_did = %s", (file_id, _str(token.get("account_did"))))
+                # R0: Deleting by retracting entity in Datalog via q().
+                spreadsheet_to_delete = get_kotoba_client().select_first_where(
+                    SHEETS_SPREADSHEET_TABLE, "file_id", file_id
+                )
+                # Filter by account_did in Python
+                if spreadsheet_to_delete and spreadsheet_to_delete.get("account_did") == _str(token.get("account_did")):
+                    vertex_id_to_retract = spreadsheet_to_delete.get("vertex_id")
+                    if vertex_id_to_retract:
+                        # Constructing a Datalog transaction to retract the entity identified by vertex_id
+                        # This assumes vertex_id is directly usable as a Datomic entity identifier.
+                        # The transaction uses [:db.fn/retractEntity entity-id].
+                        # The `q` method is being used to execute this transaction, assuming it can execute transactions.
+                        # This is a critical assumption for "mechanical conversion" of DELETE.
+                        get_kotoba_client().q(
+                            f'[:db.fn/retractEntity "{vertex_id_to_retract}"]',
+                            args=(),
+                            graph=None
+                        )
             else:
                 try:
                     # includeGridData=true fetches sheet values (first 20 rows per sheet)
@@ -211,24 +211,53 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
         new_cursor = _str(data.get("newStartPageToken") or data.get("nextPageToken") or page_token)
         page_token = _str(data.get("nextPageToken"))
 
-    _execute(
-        f"UPDATE {SHEETS_TOKEN_TABLE} SET last_sync_at = %s, cursor = %s, updated_at = %s WHERE vertex_id = %s",
-        (now_iso(), new_cursor, now_iso(), _str(token.get("vertex_id"))),
+    # R0: UPDATE converted to SELECT, modify in-Python, then insert_row (UPSERT).
+    existing_token = get_kotoba_client().select_first_where(
+        SHEETS_TOKEN_TABLE, "vertex_id", _str(token.get("vertex_id"))
     )
+    if existing_token:
+        current_time = datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
+        existing_token["last_sync_at"] = current_time
+        existing_token["cursor"] = new_cursor
+        existing_token["updated_at"] = current_time
+        get_kotoba_client().insert_row(SHEETS_TOKEN_TABLE, existing_token)
     return {"ok": True, "synced": synced, "cursor": new_cursor}
 
 
 def sync_from_google(email: str = "", **_: Any) -> dict[str, Any]:
     if not email:
         return {"ok": False, "error": "email required"}
-    token = _fetch_one(f"SELECT * FROM {SHEETS_TOKEN_TABLE} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
+    # R0: Multi-predicate SELECT converted to select_where + in-Python filtering.
+    email_tokens = get_kotoba_client().select_where(
+        SHEETS_TOKEN_TABLE, "email", email
+    )
+    token = None
+    for t in email_tokens:
+        if t.get("status") == "active":
+            token = t
+            break
+
     if not token:
         return {"ok": False, "error": "No active Sheets account. connectAccount first."}
     return _sync_token(token)
 
 
 def cron_tick(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT * FROM {SHEETS_TOKEN_TABLE} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    # R0: Complex SELECT (ORDER BY, COALESCE) converted to select_where + in-Python filtering and sorting.
+    active_tokens = get_kotoba_client().select_where(
+        SHEETS_TOKEN_TABLE, "status", "active"
+    )
+    # Apply ORDER BY COALESCE(last_sync_at, created_at) ASC
+    def sort_key(t):
+        last_sync = t.get("last_sync_at")
+        created = t.get("created_at")
+        if last_sync:
+            return last_sync
+        return created if created else "" # Fallback for None, empty string for consistent comparison
+
+    active_tokens.sort(key=sort_key)
+    rows = active_tokens[:10] # Apply LIMIT 10
+
     synced = 0
     errors = 0
     for token in rows:

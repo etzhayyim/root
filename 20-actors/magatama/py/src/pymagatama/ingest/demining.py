@@ -7,11 +7,11 @@ rules, Tier 3 field handling, and graph writes live here.
 from __future__ import annotations
 
 import json
-import time
+from datetime import datetime, timezone
 from typing import Any
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:dm1nactz.etzhayyim.com"
 PROHIBITED_PATTERNS = ("produce_apm", "stockpile_apm", "transfer_apm", "deploy_apm", "manufacture_apm")
@@ -19,7 +19,7 @@ TIER3_FIELDS = {"geometryWkt", "hitCoordsWkt", "operatorDid", "operatorDids", "v
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
 
 
 def _id(prefix: str) -> str:
@@ -58,39 +58,40 @@ def _split_tier3(input: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]
     return public, tier3
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
 
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
 def _write_public(owner: str, record_type: str, record_id: str, collection: str, rec: dict[str, Any], tier: int) -> None:
     vertex_id = f"at://{owner}/{collection}/{record_id}"
-    _execute(
-        """INSERT INTO vertex_atrecord_demining_public
-        (vertex_id, _seq, owner_did, record_type, record_id, collection, record_json, sensitivity_tier, created_at)
-        VALUES (%s, _next_seq('vertex_atrecord_demining_public'), %s, %s, %s, %s, %s, %s, %s)
-        ON CONFLICT (vertex_id) DO UPDATE SET
-          record_json=EXCLUDED.record_json,
-          sensitivity_tier=EXCLUDED.sensitivity_tier,
-          created_at=EXCLUDED.created_at""",
-        (vertex_id, owner, record_type, record_id, collection, json.dumps(rec, ensure_ascii=False, sort_keys=True), tier, now_iso()),
+    get_kotoba_client().insert_row(
+        "vertex_atrecord_demining_public",
+        {
+            "vertex_id": vertex_id,
+            "owner_did": owner,
+            "record_type": record_type,
+            "record_id": record_id,
+            "collection": collection,
+            "record_json": json.dumps(rec, ensure_ascii=False, sort_keys=True),
+            "sensitivity_tier": tier,
+            "created_at": now_iso(),
+        },
     )
 
 
 def _audit(actor: str, action: str, record_id: str = "", record_type: str = "", field_name: str = "", jurisdiction: str = "", reason: str = "") -> None:
-    _execute(
-        """INSERT INTO vertex_atrecord_demining_tier3_audit
-        (vertex_id, _seq, occurred_at, actor_did, action, record_id, record_type, field_name, jurisdiction, reason)
-        VALUES (%s, _next_seq('vertex_atrecord_demining_tier3_audit'), %s, %s, %s, %s, %s, %s, %s, %s)""",
-        (_id("audit"), now_iso(), actor, action, record_id or None, record_type or None, field_name or None, jurisdiction or None, reason or None),
+    get_kotoba_client().insert_row(
+        "vertex_atrecord_demining_tier3_audit",
+        {
+            "vertex_id": _id("audit"),
+            "occurred_at": now_iso(),
+            "actor_did": actor,
+            "action": action,
+            "record_id": record_id or None,
+            "record_type": record_type or None,
+            "field_name": field_name or None,
+            "jurisdiction": jurisdiction or None,
+            "reason": reason or None,
+        },
     )
 
 
@@ -103,16 +104,21 @@ def _store_tier3(record_id: str, record_type: str, owner: str, jurisdiction: str
             continue
         value_text = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, sort_keys=True)
         vertex_id = f"demining:tier3:{record_id}:{field}"
-        _execute(
-            """INSERT INTO vertex_atrecord_demining_tier3_field
-            (vertex_id, _seq, owner_did, record_id, record_type, field_name, field_value, jurisdiction, actor_did, released, created_at, updated_at)
-            VALUES (%s, _next_seq('vertex_atrecord_demining_tier3_field'), %s, %s, %s, %s, %s, %s, %s, FALSE, %s, %s)
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              field_value=EXCLUDED.field_value,
-              jurisdiction=EXCLUDED.jurisdiction,
-              actor_did=EXCLUDED.actor_did,
-              updated_at=EXCLUDED.updated_at""",
-            (vertex_id, owner, record_id, record_type, field, value_text, jurisdiction, actor, now_iso(), now_iso()),
+        get_kotoba_client().insert_row(
+            "vertex_atrecord_demining_tier3_field",
+            {
+                "vertex_id": vertex_id,
+                "owner_did": owner,
+                "record_id": record_id,
+                "record_type": record_type,
+                "field_name": field,
+                "field_value": value_text,
+                "jurisdiction": jurisdiction,
+                "actor_did": actor,
+                "released": False,
+                "created_at": now_iso(),
+                "updated_at": now_iso(),
+            },
         )
         stored.append(field)
         _audit(actor, "write", record_id, record_type, field, jurisdiction or "")
@@ -120,14 +126,16 @@ def _store_tier3(record_id: str, record_type: str, owner: str, jurisdiction: str
 
 
 def _load_tier3(record_id: str, field: str, actor: str) -> str | None:
-    rows = _fetch_all(
-        """SELECT field_value, record_type, jurisdiction
-        FROM vertex_atrecord_demining_tier3_field
-        WHERE record_id=%s AND field_name=%s
-        ORDER BY _seq DESC
-        LIMIT 1""",
-        (record_id, field),
+    client = get_kotoba_client()
+    rows = client.select_where(
+        "vertex_atrecord_demining_tier3_field",
+        "record_id",
+        record_id,
+        columns=["field_value", "record_type", "jurisdiction", "_seq"], # include _seq for sorting
+        limit=2000 # R0: arbitrary limit, filtering in python
     )
+    # R0: Order by _seq in Python to emulate ORDER BY _seq DESC LIMIT 1
+    rows = sorted(rows, key=lambda x: x.get("_seq", 0), reverse=True)
     if not rows:
         return None
     row = rows[0]
@@ -137,12 +145,20 @@ def _load_tier3(record_id: str, field: str, actor: str) -> str | None:
 
 
 def _mark_released(area_id: str, decision_id: str, actor: str) -> None:
-    _execute(
-        """UPDATE vertex_atrecord_demining_tier3_field
-        SET released=TRUE, released_at=%s, released_by_decision=%s, updated_at=%s
-        WHERE record_id=%s""",
-        (now_iso(), decision_id, now_iso(), area_id),
+    # R0: Multi-row update by fetching and re-inserting
+    client = get_kotoba_client()
+    existing_records = client.select_where(
+        "vertex_atrecord_demining_tier3_field",
+        "record_id",
+        area_id,
+        limit=2000 # R0: arbitrary limit for records to update
     )
+    for record in existing_records:
+        record["released"] = True
+        record["released_at"] = now_iso()
+        record["released_by_decision"] = decision_id
+        record["updated_at"] = now_iso()
+        client.insert_row("vertex_atrecord_demining_tier3_field", record)
     _audit(actor, "release", area_id, "hazardArea", reason=f"decision={decision_id}")
 
 
@@ -163,12 +179,16 @@ def register_hazard_area(**kwargs: Any) -> dict[str, Any]:
 def list_hazard_areas(status: Any = None, adminAreaDid: Any = None, contaminationType: Any = None, offset: Any = 0, limit: Any = 50, **_: Any) -> dict[str, Any]:
     lim = max(1, min(int(limit or 50), 200))
     off = max(0, int(offset or 0))
-    rows = _fetch_all(
-        """SELECT record_id, owner_did, record_json, created_at
-        FROM vertex_atrecord_demining_public
-        WHERE record_type='hazardArea'
-        ORDER BY _seq DESC""",
+    client = get_kotoba_client()
+    rows = client.select_where(
+        "vertex_atrecord_demining_public",
+        "record_type",
+        "hazardArea",
+        columns=["record_id", "owner_did", "record_json", "created_at", "_seq"], # Include _seq for sorting
+        limit=2000 # R0: arbitrary limit, filtering in python
     )
+    # R0: Order by _seq in Python to emulate ORDER BY _seq DESC
+    rows = sorted(rows, key=lambda x: x.get("_seq", 0), reverse=True)
     areas: list[dict[str, Any]] = []
     for row in rows:
         try:

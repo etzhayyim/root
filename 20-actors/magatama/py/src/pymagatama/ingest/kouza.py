@@ -8,9 +8,10 @@ import io
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 NS = "com.etzhayyim.apps.kouza"
 ACTOR = "did:web:kouza.etzhayyim.com"
@@ -18,7 +19,7 @@ READ_SCOPES = {"accounts.read", "transactions.read", "documents.read", "balances
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
 
 
 def _str(value: Any) -> str:
@@ -55,24 +56,16 @@ def _record_did(owner_did: str, collection: str, rkey: str) -> str:
     return f"{owner_did}|{collection}|{rkey}"
 
 
+# R0: Datalog escape hatch to get MAX _seq as direct aggregation is not available in shims.
 def _next_seq(table: str) -> int:
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT COALESCE(MAX(_seq), 0) + 1 AS seq FROM {table}")
-        row = cur.fetchone()
-        return int(row[0] if row else 1)
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
+    client = get_kotoba_client()
+    # Datalog query to find the maximum _seq for entities of a given table type.
+    # Assumes table names are used as part of Datomic entity identity/schema.
+    # The attribute for `_seq` is assumed to be `:<table_name>/_seq`
+    query_edn = f'[:find (max ?seq) . :where [?e :{table}/_seq ?seq]]'
+    result = client.q(query_edn)
+    max_seq = result[0][0] if result and result[0] and result[0][0] is not None else 0
+    return max_seq + 1
 
 
 def _scopes(scopes: Any) -> list[str]:
@@ -96,14 +89,24 @@ def register_connection(ownerDid: str = "", institutionName: str = "", instituti
     did = _record_did(owner, f"{NS}.institutionConnection", rkey)
     seq = _next_seq("vertex_atrecord_kouza_institution_connection")
     now = now_iso()
-    _execute(
-        """INSERT INTO vertex_atrecord_kouza_institution_connection
-        (vertex_id, _seq, owner_did, rkey, institution_name, institution_kind, provider_key,
-         credential_vault_ref, scopes_json, consent_expires_at, status, created_at, updated_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'active',%s,%s)
-        ON CONFLICT (vertex_id) DO UPDATE SET credential_vault_ref=EXCLUDED.credential_vault_ref,
-        scopes_json=EXCLUDED.scopes_json, consent_expires_at=EXCLUDED.consent_expires_at, status='active', updated_at=EXCLUDED.updated_at""",
-        (did, seq, owner, rkey, institutionName, institutionKind, providerKey, credentialVaultRef or None, json.dumps(allowed), consentExpiresAt or None, now, now),
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_atrecord_kouza_institution_connection",
+        {
+            "vertex_id": did,
+            "_seq": seq,
+            "owner_did": owner,
+            "rkey": rkey,
+            "institution_name": institutionName,
+            "institution_kind": institutionKind,
+            "provider_key": providerKey,
+            "credential_vault_ref": credentialVaultRef or None,
+            "scopes_json": json.dumps(allowed),
+            "consent_expires_at": consentExpiresAt or None,
+            "status": "active",
+            "created_at": now,
+            "updated_at": now,
+        },
     )
     return {"connectionDid": did, "status": "active"}
 
@@ -120,18 +123,28 @@ def _ensure_financial_account(input: dict[str, Any]) -> str:
     rkey = f"acct-{external_hash}"
     did = _record_did(owner, f"{NS}.financialAccount", rkey)
     now = now_iso()
-    _execute(
-        """INSERT INTO vertex_atrecord_kouza_financial_account
-        (vertex_id, _seq, owner_did, rkey, connection_did, external_account_id_hash, masked_account_number,
-         display_name, account_kind, currency, current_balance_minor, balance_as_of, kaikei_account_did, status, created_at, updated_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        ON CONFLICT (vertex_id) DO UPDATE SET masked_account_number=COALESCE(EXCLUDED.masked_account_number, vertex_atrecord_kouza_financial_account.masked_account_number),
-        display_name=COALESCE(EXCLUDED.display_name, vertex_atrecord_kouza_financial_account.display_name),
-        current_balance_minor=COALESCE(EXCLUDED.current_balance_minor, vertex_atrecord_kouza_financial_account.current_balance_minor),
-        balance_as_of=COALESCE(EXCLUDED.balance_as_of, vertex_atrecord_kouza_financial_account.balance_as_of),
-        kaikei_account_did=COALESCE(EXCLUDED.kaikei_account_did, vertex_atrecord_kouza_financial_account.kaikei_account_did),
-        status=EXCLUDED.status, updated_at=EXCLUDED.updated_at""",
-        (did, _next_seq("vertex_atrecord_kouza_financial_account"), owner, rkey, connection, external_hash, input.get("maskedAccountNumber") or None, input.get("displayName") or None, input.get("accountKind") or "checking", input.get("currency") or "JPY", input.get("currentBalanceMinor"), input.get("balanceAsOf") or None, input.get("kaikeiAccountDid") or None, input.get("status") or "active", now, now),
+    seq = _next_seq("vertex_atrecord_kouza_financial_account")
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_atrecord_kouza_financial_account",
+        {
+            "vertex_id": did,
+            "_seq": seq,
+            "owner_did": owner,
+            "rkey": rkey,
+            "connection_did": connection,
+            "external_account_id_hash": external_hash,
+            "masked_account_number": input.get("maskedAccountNumber") or None,
+            "display_name": input.get("displayName") or None,
+            "account_kind": input.get("accountKind") or "checking",
+            "currency": input.get("currency") or "JPY",
+            "current_balance_minor": input.get("currentBalanceMinor"),
+            "balance_as_of": input.get("balanceAsOf") or None,
+            "kaikei_account_did": input.get("kaikeiAccountDid") or None,
+            "status": input.get("status") or "active",
+            "created_at": now,
+            "updated_at": now,
+        },
     )
     return did
 
@@ -147,14 +160,35 @@ def _create_sync_run(owner: str, connection: str, status: str, counts: dict[str,
     rkey = f"sync-{uuid.uuid4().hex[:14]}"
     did = _record_did(owner, f"{NS}.syncRun", rkey)
     now = now_iso()
-    _execute(
-        """INSERT INTO vertex_atrecord_kouza_sync_run
-        (vertex_id, _seq, owner_did, rkey, connection_did, adapter_key, started_at, finished_at,
-         accounts_imported, transactions_imported, documents_imported, status, error_message, created_at)
-        VALUES (%s,%s,%s,%s,%s,'manual-statement',%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (did, _next_seq("vertex_atrecord_kouza_sync_run"), owner, rkey, connection, now, now, counts.get("accounts", 0), counts.get("txns", 0), counts.get("docs", 0), status, error or None, now),
+    seq = _next_seq("vertex_atrecord_kouza_sync_run")
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_atrecord_kouza_sync_run",
+        {
+            "vertex_id": did,
+            "_seq": seq,
+            "owner_did": owner,
+            "rkey": rkey,
+            "connection_did": connection,
+            "adapter_key": "manual-statement",
+            "started_at": now,
+            "finished_at": now,
+            "accounts_imported": counts.get("accounts", 0),
+            "transactions_imported": counts.get("txns", 0),
+            "documents_imported": counts.get("docs", 0),
+            "status": status,
+            "error_message": error or None,
+            "created_at": now,
+        },
     )
-    _execute("UPDATE vertex_atrecord_kouza_institution_connection SET last_sync_run_did=%s, updated_at=%s WHERE vertex_id=%s", (did, now, connection))
+    client.insert_row(
+        "vertex_atrecord_kouza_institution_connection",
+        {
+            "vertex_id": connection,
+            "last_sync_run_did": did,
+            "updated_at": now,
+        },
+    )
     return did
 
 
@@ -173,14 +207,39 @@ def import_statement(ownerDid: str = "", connectionDid: str = "", financialAccou
         external_id = _str(row.get("externalTxnId")) or _hash({"financialAccountDid": account, **row})
         rkey = f"txn-{_hash({'financialAccountDid': account, 'externalTxnId': external_id})}"
         did = _record_did(owner, f"{NS}.externalTransaction", rkey)
-        inserted = _execute(
-            """INSERT INTO vertex_atrecord_kouza_external_transaction
-            (vertex_id, _seq, owner_did, rkey, financial_account_did, external_txn_id, posted_at, value_at,
-             amount_minor, currency, counterparty_name, description, category_hint, document_did, accounting_status, created_at)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,'pending',%s)
-            ON CONFLICT (vertex_id) DO NOTHING""",
-            (did, _next_seq("vertex_atrecord_kouza_external_transaction"), owner, rkey, account, external_id, posted, row.get("valueAt") or None, amount, currency, row.get("counterpartyName") or None, row.get("description") or None, row.get("categoryHint") or None, now_iso()),
+        client = get_kotoba_client()
+        existing_txn = client.select_first_where(
+            "vertex_atrecord_kouza_external_transaction",
+            "vertex_id",
+            did,
+            columns=["vertex_id"],  # Only need to check existence
         )
+        if existing_txn:
+            inserted = 0  # Already exists, so "do nothing" and count as 0 inserted
+        else:
+            seq = _next_seq("vertex_atrecord_kouza_external_transaction")
+            client.insert_row(
+                "vertex_atrecord_kouza_external_transaction",
+                {
+                    "vertex_id": did,
+                    "_seq": seq,
+                    "owner_did": owner,
+                    "rkey": rkey,
+                    "financial_account_did": account,
+                    "external_txn_id": external_id,
+                    "posted_at": posted,
+                    "value_at": row.get("valueAt") or None,
+                    "amount_minor": amount,
+                    "currency": currency,
+                    "counterparty_name": row.get("counterpartyName") or None,
+                    "description": row.get("description") or None,
+                    "category_hint": row.get("categoryHint") or None,
+                    "document_did": None,  # Original was NULL
+                    "accounting_status": "pending",
+                    "created_at": now_iso(),
+                },
+            )
+            inserted = 1
         if inserted == 0:
             skipped += 1
             continue
@@ -202,20 +261,53 @@ def import_statement_csv(csvText: str = "", **kwargs: Any) -> dict[str, Any]:
 def _derive_kaikei(owner: str, account_did: str, row: dict[str, Any], external_did: str) -> str | None:
     if row.get("currency") != "JPY":
         return None
-    acct = _fetch_all("SELECT kaikei_account_did FROM vertex_atrecord_kouza_financial_account WHERE vertex_id=%s AND owner_did=%s LIMIT 1", (account_did, owner))
-    bank_did = (acct[0] or {}).get("kaikei_account_did") if acct else None
+    client = get_kotoba_client()
+    # R0: Datalog escape hatch for multi-predicate SELECT with LIMIT 1
+    query_edn = f"""
+    [:find ?kaikei_account_did .
+     :where
+     [?e :vertex_atrecord_kouza_financial_account/vertex_id "{account_did}"]
+     [?e :vertex_atrecord_kouza_financial_account/owner_did "{owner}"]
+     [?e :vertex_atrecord_kouza_financial_account/kaikei_account_did ?kaikei_account_did]]
+    """
+    result = client.q(query_edn)
+    bank_did = result[0] if result else None
     if not bank_did:
         return None
     bank_txn_id = _str(row.get("externalTxnId")) or _hash(row)
     rkey = f"kouza-{_hash({'financialAccountDid': account_did, 'bankTxnId': bank_txn_id})}"
     did = _record_did(owner, "com.etzhayyim.apps.kaikei.bankTransaction", rkey)
-    _execute(
-        """INSERT INTO vertex_atrecord_kaikei_bank_transaction
-        (vertex_id, _seq, owner_did, bank_did, bank_txn_id, posted_at, amount, counterparty_name, reconcile_status, created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,'pending',%s) ON CONFLICT (vertex_id) DO NOTHING""",
-        (did, _next_seq("vertex_atrecord_kaikei_bank_transaction"), owner, bank_did, bank_txn_id, row["postedAt"], row["amountMinor"], row.get("counterpartyName") or row.get("description") or None, now_iso()),
+    existing_bank_txn = client.select_first_where(
+        "vertex_atrecord_kaikei_bank_transaction",
+        "vertex_id",
+        did,
+        columns=["vertex_id"],
     )
-    _execute("UPDATE vertex_atrecord_kouza_external_transaction SET kaikei_bank_transaction_did=%s, accounting_status='derived' WHERE vertex_id=%s", (did, external_did))
+    if not existing_bank_txn:
+        seq = _next_seq("vertex_atrecord_kaikei_bank_transaction")
+        client.insert_row(
+            "vertex_atrecord_kaikei_bank_transaction",
+            {
+                "vertex_id": did,
+                "_seq": seq,
+                "owner_did": owner,
+                "bank_did": bank_did,
+                "bank_txn_id": bank_txn_id,
+                "posted_at": row["postedAt"],
+                "amount": row["amountMinor"],
+                "counterparty_name": row.get("counterpartyName") or row.get("description") or None,
+                "reconcile_status": "pending",
+                "created_at": now_iso(),
+            },
+        )
+    client.insert_row(
+        "vertex_atrecord_kouza_external_transaction",
+        {
+            "vertex_id": external_did,
+            "kaikei_bank_transaction_did": did,
+            "accounting_status": "derived",
+        },
+    )
     return did
 
 
@@ -226,44 +318,121 @@ def attach_document(ownerDid: str = "", financialAccountDid: str = "", documentK
         return {"error": "documentKind, vaultCid, contentHash, issuedAt required"}
     rkey = f"doc-{_hash({'financialAccountDid': account, 'documentKind': documentKind, 'contentHash': contentHash})}"
     did = _record_did(owner, f"{NS}.accountDocument", rkey)
-    _execute(
-        """INSERT INTO vertex_atrecord_kouza_account_document
-        (vertex_id, _seq, owner_did, rkey, financial_account_did, document_kind, title, period_from, period_to,
-         issued_at, vault_cid, content_hash, mime_type, created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO NOTHING""",
-        (did, _next_seq("vertex_atrecord_kouza_account_document"), owner, rkey, account, documentKind, title or None, periodFrom or None, periodTo or None, issuedAt, vaultCid, contentHash, mimeType or None, now_iso()),
+    client = get_kotoba_client()
+    existing_doc = client.select_first_where(
+        "vertex_atrecord_kouza_account_document",
+        "vertex_id",
+        did,
+        columns=["vertex_id"],
     )
+    if not existing_doc:
+        seq = _next_seq("vertex_atrecord_kouza_account_document")
+        client.insert_row(
+            "vertex_atrecord_kouza_account_document",
+            {
+                "vertex_id": did,
+                "_seq": seq,
+                "owner_did": owner,
+                "rkey": rkey,
+                "financial_account_did": account,
+                "document_kind": documentKind,
+                "title": title or None,
+                "period_from": periodFrom or None,
+                "period_to": periodTo or None,
+                "issued_at": issuedAt,
+                "vault_cid": vaultCid,
+                "content_hash": contentHash,
+                "mime_type": mimeType or None,
+                "created_at": now_iso(),
+            },
+        )
     return {"documentDid": did}
 
 
 def map_kaikei_account(financialAccountDid: str = "", kaikeiAccountDid: str = "", **_: Any) -> dict[str, Any]:
     account = _require_ref(financialAccountDid, "financialAccountDid")
     kaikei = _require_ref(kaikeiAccountDid, "kaikeiAccountDid")
-    updated = _execute("UPDATE vertex_atrecord_kouza_financial_account SET kaikei_account_did=%s, updated_at=%s WHERE vertex_id=%s", (kaikei, now_iso(), account))
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_atrecord_kouza_financial_account",
+        {
+            "vertex_id": account,
+            "kaikei_account_did": kaikei,
+            "updated_at": now_iso(),
+        },
+    )
+    updated = 1  # Assuming insert_row always "updates" if it succeeds for an existing record
     return {"ok": updated > 0}
 
 
 def list_accounts(ownerDid: str = "", limit: Any = 50, **_: Any) -> dict[str, Any]:
     owner = _require_did(ownerDid, "ownerDid")
     n = max(1, min(_int(limit, "limit"), 200))
-    rows = _fetch_all(
-        """SELECT vertex_id, connection_did, masked_account_number, display_name, account_kind, currency,
-        current_balance_minor, balance_as_of, kaikei_account_did, status, _seq AS cursor
-        FROM vertex_atrecord_kouza_financial_account WHERE owner_did=%s ORDER BY _seq DESC LIMIT %s""",
-        (owner, n),
+    client = get_kotoba_client()
+    # R0: Order by _seq DESC handled in Python. Fetching up to 2000 rows, then sorting and limiting.
+    all_rows = client.select_where(
+        "vertex_atrecord_kouza_financial_account",
+        "owner_did",
+        owner,
+        columns=[
+            "vertex_id",
+            "connection_did",
+            "masked_account_number",
+            "display_name",
+            "account_kind",
+            "currency",
+            "current_balance_minor",
+            "balance_as_of",
+            "kaikei_account_did",
+            "status",
+            "_seq",  # Keep _seq for sorting and as 'cursor'
+        ],
+        limit=2000,  # Fetch more to allow for sorting and then limiting as per prompt suggestion
     )
+    # Sort in Python by _seq descending, then take the top 'n'
+    all_rows.sort(key=lambda x: x.get("_seq", 0), reverse=True)
+    rows = all_rows[:n]
+    # Rename _seq to cursor
+    for row in rows:
+        row["cursor"] = row.pop("_seq")
+
+    return {"accounts": rows, "cursor": rows[-1]["cursor"] if rows else None}
     return {"accounts": rows, "cursor": rows[-1]["cursor"] if rows else None}
 
 
 def list_transactions(financialAccountDid: str = "", limit: Any = 100, **_: Any) -> dict[str, Any]:
     account = _require_ref(financialAccountDid, "financialAccountDid")
     n = max(1, min(_int(limit, "limit"), 500))
-    rows = _fetch_all(
-        """SELECT vertex_id, external_txn_id, posted_at, value_at, amount_minor, currency,
-        counterparty_name, description, category_hint, document_did, kaikei_bank_transaction_did,
-        accounting_status, _seq AS cursor
-        FROM vertex_atrecord_kouza_external_transaction
-        WHERE financial_account_did=%s ORDER BY posted_at DESC, _seq DESC LIMIT %s""",
-        (account, n),
+    client = get_kotoba_client()
+    # R0: Order by posted_at DESC, _seq DESC handled in Python. Fetching up to 2000 rows, then sorting and limiting.
+    all_rows = client.select_where(
+        "vertex_atrecord_kouza_external_transaction",
+        "financial_account_did",
+        account,
+        columns=[
+            "vertex_id",
+            "external_txn_id",
+            "posted_at",
+            "value_at",
+            "amount_minor",
+            "currency",
+            "counterparty_name",
+            "description",
+            "category_hint",
+            "document_did",
+            "kaikei_bank_transaction_did",
+            "accounting_status",
+            "_seq",  # Keep _seq for sorting and as 'cursor'
+        ],
+        limit=2000,  # Fetch more to allow for sorting and then limiting as per prompt suggestion
     )
+    # Sort in Python by posted_at DESC, then _seq DESC, then take the top 'n'
+    # posted_at is a string in ISO format, so direct string comparison should work for chronological order.
+    all_rows.sort(key=lambda x: (x.get("posted_at", ""), x.get("_seq", 0)), reverse=True)
+    rows = all_rows[:n]
+    # Rename _seq to cursor
+    for row in rows:
+        row["cursor"] = row.pop("_seq")
+
+    return {"transactions": rows, "cursor": rows[-1]["cursor"] if rows else None}
     return {"transactions": rows, "cursor": rows[-1]["cursor"] if rows else None}

@@ -23,7 +23,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("rl_policy")
 
@@ -51,26 +51,32 @@ def _weighted_sample(actions: list[str], probs: list[float]) -> str:
 
 def _fetch_latest_efe(actor_did: str) -> list[tuple[str, float, float]]:
     """Return [(action_nsid, policy_prob, efe_total)] for actor's latest step."""
-    with sync_cursor() as cur:
-        # Step 1: get latest step_id (lexicographic DESC works for 'rl:step:{did}:{ts_ms}')
-        cur.execute(
-            "SELECT step_id FROM vertex_rl_aif_efe "
-            "WHERE actor_did = %s "
-            "ORDER BY step_id DESC LIMIT 1",
-            (actor_did,),
-        )
-        row = cur.fetchone()
-        if not row:
-            return []
-        latest_step = row[0]
+    client = get_kotoba_client()
+    row = client.select_first_where(
+        "vertex_rl_aif_efe",
+        "actor_did",
+        actor_did,
+        columns=["step_id"],
+    )
+    if not row:
+        return []
+    latest_step = row["step_id"]
 
-        cur.execute(
-            "SELECT action_nsid, policy_prob, efe_total "
-            "FROM vertex_rl_aif_efe "
-            "WHERE actor_did = %s AND step_id = %s",
-            (actor_did, latest_step),
-        )
-        return [(r[0], float(r[1]), float(r[2])) for r in (cur.fetchall() or [])]
+    rows_data = client.select_where(
+        "vertex_rl_aif_efe",
+        "actor_did",
+        actor_did,
+        columns=["action_nsid", "policy_prob", "efe_total", "step_id"],
+    )
+    # R0: In-Python filter for step_id due to multiple WHERE clauses.
+    # select_where only supports single equality predicate.
+    filtered_rows = [
+        r for r in rows_data if r.get("step_id") == latest_step
+    ]
+    return [
+        (r["action_nsid"], float(r["policy_prob"]), float(r["efe_total"]))
+        for r in filtered_rows
+    ]
 
 
 def _sample(actor_did: str, epsilon: float) -> tuple[str | None, float | None, bool]:
@@ -104,18 +110,29 @@ def _resolve_dispatch_nsid(actor_did: str, action_nsid: str) -> str | None:
     if "." in action_nsid and action_nsid.startswith("com.etzhayyim."):
         return action_nsid
     try:
-        with sync_cursor() as cur:
-            slug = action_nsid.replace("_", "").replace("-", "").lower()
-            cur.execute(
-                "SELECT nsid FROM vertex_bpmn_lexicon_binding "
-                "WHERE actor_did = %s "
-                "ORDER BY "
-                "  CASE WHEN LOWER(REPLACE(REPLACE(bpmn_process_id,'_',''),'-','')) LIKE %s THEN 0 ELSE 1 END, "
-                "  nsid LIMIT 1",
-                (actor_did, f"%{slug}%"),
-            )
-            row = cur.fetchone()
-            return row[0] if row else None
+        client = get_kotoba_client()
+        slug = action_nsid.replace("_", "").replace("-", "").lower()
+        all_bindings = client.select_where(
+            "vertex_bpmn_lexicon_binding",
+            "actor_did",
+            actor_did,
+            columns=["nsid", "bpmn_process_id"],
+        )
+
+        # R0: In-Python filtering and ordering due to complex SQL WHERE/ORDER BY.
+        # The original query's logic (CASE WHEN LIKE) is replicated here.
+        def sort_key(binding):
+            bpmn_process_id = binding.get("bpmn_process_id", "")
+            processed_bpmn_id = bpmn_process_id.replace("_", "").replace("-", "").lower()
+            # Check if processed_bpmn_id contains the slug
+            like_match = slug in processed_bpmn_id
+            return (0 if like_match else 1, binding.get("nsid", ""))
+
+        all_bindings.sort(key=sort_key)
+
+        if all_bindings:
+            return all_bindings[0]["nsid"]
+        return None
     except Exception as exc:  # noqa: BLE001
         LOG.warning("resolve_nsid actor=%s action=%s: %s", actor_did, action_nsid, exc)
         return None
@@ -156,21 +173,24 @@ def _log_dispatch(
     dispatch_error: str,
 ) -> None:
     vid = f"aif:dispatch:{actor_did}:{dispatched_at}"
-    with sync_cursor() as cur:
-        cur.execute(
-            "INSERT INTO vertex_rl_aif_dispatch_log "
-            "(vertex_id, actor_did, action_nsid, dispatched_at, "
-            " free_energy_at_dispatch, epsilon, was_exploration, "
-            " dispatch_ok, dispatch_error, "
-            " sensitivity_ord, owner_did, org_id, user_id, actor_id) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,1,%s,%s,%s,%s)",
-            (
-                vid, actor_did, action_nsid, dispatched_at,
-                free_energy, epsilon, was_exploration,
-                dispatch_ok, dispatch_error or "",
-                actor_did, actor_did, actor_did, actor_did,
-            ),
-        )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vid,
+        "actor_did": actor_did,
+        "action_nsid": action_nsid,
+        "dispatched_at": dispatched_at,
+        "free_energy_at_dispatch": free_energy,
+        "epsilon": epsilon,
+        "was_exploration": was_exploration,
+        "dispatch_ok": dispatch_ok,
+        "dispatch_error": dispatch_error or "",
+        "sensitivity_ord": 1,
+        "owner_did": actor_did,
+        "org_id": actor_did,
+        "user_id": actor_did,
+        "actor_id": actor_did,
+    }
+    client.insert_row("vertex_rl_aif_dispatch_log", row_dict)
 
 
 # ─── task: rl.policy.dispatch (R/PT1H) ───────────────────────────────────────
@@ -186,12 +206,17 @@ def task_rl_policy_dispatch(
     (weighted sample from policy_prob). Dispatches via bpmn-dispatcher
     ClusterIP and writes vertex_rl_aif_dispatch_log for every attempt.
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT DISTINCT actor_did FROM vertex_rl_aif_efe "
-            "ORDER BY actor_did LIMIT %d" % int(batch_size)
-        )
-        actors = [r[0] for r in (cur.fetchall() or [])]
+    client = get_kotoba_client()
+    # R0: Fetch records to get distinct actor_did, then filter/sort in Python.
+    # select_rows has a default limit, but we'll request more to ensure enough for distinct + batch_size.
+    all_efe_records = client.select_rows(
+        "vertex_rl_aif_efe",
+        columns=["actor_did"],
+        limit=max(100, int(batch_size * 2)) # Fetch enough to cover unique actor_dids up to batch_size
+    )
+    # Extract actor_dids, get distinct values, sort, and limit.
+    unique_actor_dids = sorted(list(set(r["actor_did"] for r in all_efe_records if "actor_did" in r)))
+    actors = unique_actor_dids[:int(batch_size)]
 
     dispatched = 0
     errors = 0

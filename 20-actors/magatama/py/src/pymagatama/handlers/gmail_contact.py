@@ -38,10 +38,11 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama import udf
-from pymagatama.db_sync import execute
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _CONTACT_COLLECTION = "com.etzhayyim.apps.gmail.contact"
 _CONTACT_DID_PREFIX = "did:web:gmail.etzhayyim.com:contact:"
@@ -135,56 +136,41 @@ def upsert_contact(request_json: str) -> str:
     # round-trip cost of a separate pre-SELECT. The pattern degrades
     # message_count tracking — keep it fixed at 1; a streaming MV over
     # `vertex_gmail_email` can aggregate true counts later.
-    contact_rowcount = execute(
-        """
-        INSERT INTO vertex_gmail_contact (
-            vertex_id, created_date, sensitivity_ord, owner_did, rkey, repo,
-            contact_did, email, display_name,
-            first_seen_at, last_seen_at, message_count, created_at,
-            org_id, user_id, actor_id
-        )
-        SELECT
-            %s, to_char(now(),'YYYY-MM-DD')::date, 50, %s, %s, %s,
-            %s, %s, %s,
-            to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-            to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-            1,
-            to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"'),
-            'etzhayyim', 'system', 'sys.gmail-udf'
-        WHERE NOT EXISTS (
-            SELECT 1 FROM vertex_gmail_contact WHERE vertex_id = %s
-        )
-        """,
-        (
-            contact_vertex_id,
-            contact_did,
-            sanitized,
-            contact_did,
-            contact_did,
-            email,
-            display_name,
-            contact_vertex_id,
-        ),
-    )
-    was_new = contact_rowcount > 0
+    now_utc = datetime.now(timezone.utc)
+    contact_row_dict = {
+        "vertex_id": contact_vertex_id,
+        "created_date": now_utc.strftime('%Y-%m-%d'),
+        "sensitivity_ord": 50,
+        "owner_did": contact_did,
+        "rkey": sanitized,
+        "repo": contact_did,
+        "contact_did": contact_did,
+        "email": email,
+        "display_name": display_name,
+        "first_seen_at": now_utc.isoformat(timespec='seconds') + 'Z',
+        "last_seen_at": now_utc.isoformat(timespec='seconds') + 'Z',
+        "message_count": 1,
+        "created_at": now_utc.isoformat(timespec='seconds') + 'Z',
+        "org_id": "etzhayyim",
+        "user_id": "system",
+        "actor_id": "sys.gmail-udf",
+    }
+    inserted_contact = get_kotoba_client().insert_row("vertex_gmail_contact", contact_row_dict)
+    was_new = bool(inserted_contact)
 
-    edge_rowcount = execute(
-        """
-        INSERT INTO edge_gmail_email_from_contact (
-            edge_id, src_vid, dst_vid, created_date, sensitivity_ord, owner_did,
-            email_id, contact_did, created_at
-        )
-        SELECT
-            %s, %s, %s, to_char(now(),'YYYY-MM-DD')::date, 50, %s,
-            %s, %s,
-            to_char(now(),'YYYY-MM-DD"T"HH24:MI:SS"Z"')
-        WHERE NOT EXISTS (
-            SELECT 1 FROM edge_gmail_email_from_contact WHERE edge_id = %s
-        )
-        """,
-        (edge_id, email_vertex_id, contact_vertex_id, account_did, email_id, contact_did, edge_id),
-    )
-    edge_created = edge_rowcount > 0
+    edge_row_dict = {
+        "edge_id": edge_id,
+        "src_vid": email_vertex_id,
+        "dst_vid": contact_vertex_id,
+        "created_date": now_utc.strftime('%Y-%m-%d'),
+        "sensitivity_ord": 50,
+        "owner_did": account_did,
+        "email_id": email_id,
+        "contact_did": contact_did,
+        "created_at": now_utc.isoformat(timespec='seconds') + 'Z',
+    }
+    inserted_edge = get_kotoba_client().insert_row("edge_gmail_email_from_contact", edge_row_dict)
+    edge_created = bool(inserted_edge)
 
     return json.dumps(
         {

@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class RegistryWorker:
     def __init__(self):
         self.tasks = {}
-        
+
     def task(self, task_type: str, **kwargs):
         def decorator(f):
             self.tasks[task_type] = f
@@ -49,7 +49,7 @@ def _load_primitives():
                     kwargs["app"] = registry
                 else:
                     kwargs["worker"] = registry
-                
+
                 try:
                     mod.register(**kwargs)
                 except TypeError:
@@ -101,21 +101,23 @@ def _service_task_type(task: ET.Element) -> str:
 
 
 def _load_bpmn_contract(bpmn_process_id: str) -> str | None:
-    from pymagatama.db_sync import sync_cursor
+    from pymagatama.kotoba_datomic import get_kotoba_client
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT xml FROM vertex_bpmn_process_def
-            WHERE bpmn_process_id = %s AND status = 'active'
-            ORDER BY version DESC LIMIT 1
-            """,
-            (bpmn_process_id,),
-        )
-        row = cur.fetchone()
-    if not row:
+    client = get_kotoba_client()
+    # R0: Filtering for status='active' and ordering by version DESC is done in Python.
+    rows = client.select_where(
+        "vertex_bpmn_process_def", "bpmn_process_id", bpmn_process_id, columns=["xml", "status", "version"]
+    )
+
+    active_rows = [r for r in rows if r.get("status") == "active"]
+    if not active_rows:
         return None
-    xml_content = row[0] if isinstance(row, tuple) else row.get("xml")
+
+    # Sort by version in descending order and get the first one (equivalent to ORDER BY version DESC LIMIT 1)
+    active_rows.sort(key=lambda x: x.get("version", 0), reverse=True)
+    row = active_rows[0]
+
+    xml_content = row.get("xml")
     if isinstance(xml_content, bytes):
         return xml_content.decode("utf-8")
     return str(xml_content) if xml_content else None

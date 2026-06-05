@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 from .ids import ACTOR_DID, coverage_vid
 
@@ -164,43 +164,7 @@ def graph_rows(
     }
 
 
-def _insert_ignore(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> int:
-    values = {k: v for k, v in values.items() if v is not None}
-    cols = list(values)
-    placeholders = ", ".join(["%s"] * len(cols))
-    col_sql = ", ".join(cols)
-    cur.execute(
-        f"INSERT INTO {table} ({col_sql}) "
-        f"SELECT {placeholders} "
-        f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE {pk_col} = %s)",
-        (*[values[col] for col in cols], values[pk_col]),
-    )
-    return int(cur.rowcount or 0)
 
-
-def _update_by_pk(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> int:
-    clean_values = {
-        k: v
-        for k, v in values.items()
-        if k != pk_col and k not in {"_seq", "created_date", "created_at"} and v is not None
-    }
-    if not clean_values:
-        return 0
-    set_sql = ", ".join(f"{k} = %s" for k in clean_values)
-    cur.execute(
-        f"UPDATE {table} SET {set_sql} WHERE {pk_col} = %s",
-        (*clean_values.values(), values[pk_col]),
-    )
-    return int(cur.rowcount or 0)
-
-
-def _count_visible(cur: Any, table: str, pk_col: str, ids: list[str]) -> int:
-    if not ids:
-        return 0
-    placeholders = ", ".join(["%s"] * len(ids))
-    cur.execute(f"SELECT COUNT(*) FROM {table} WHERE {pk_col} IN ({placeholders})", tuple(ids))
-    row = cur.fetchone()
-    return int(row[0] if row else 0)
 
 
 def upsert_graph_rows(rows: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
@@ -210,29 +174,33 @@ def upsert_graph_rows(rows: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
         "vertex_jp_corp_finance_coverage": "vertex_id",
     }
     prepared = sum(len(items) for items in rows.values())
-    inserted = 0
-    updated = 0
+    processed_records = 0
     visibility: dict[str, dict[str, int]] = {}
 
-    with sync_cursor() as cur:
-        for table, items in rows.items():
-            pk_col = table_pk[table]
-            for item in items:
-                inserted += _insert_ignore(cur, table, pk_col, item)
-                updated += _update_by_pk(cur, table, pk_col, item)
+    client = get_kotoba_client()
+    for table, items in rows.items():
+        # R0: insert_row performs upsert; no separate insert/update count.
+        #    Each call to insert_row processes one record.
+        for item in items:
+            client.insert_row(table, item)
+            processed_records += 1
 
-        for table, items in rows.items():
-            pk_col = table_pk[table]
-            ids = [str(item[pk_col]) for item in items if item.get(pk_col)]
-            visible = _count_visible(cur, table, pk_col, ids)
-            visibility[table] = {"expected": len(ids), "visible": visible}
+    for table, items in rows.items():
+        pk_col = table_pk[table]
+        ids = [str(item[pk_col]) for item in items if item.get(pk_col)]
+        # R0: In-Python filtering for visible count.
+        visible = 0
+        for item_id in ids:
+            if client.select_first_where(table, pk_col, item_id, columns=[pk_col]):
+                visible += 1
+        visibility[table] = {"expected": len(ids), "visible": visible}
 
     visible_total = sum(v["visible"] for v in visibility.values())
     return {
         "ok": visible_total >= prepared,
         "recordsPrepared": prepared,
-        "recordsInserted": inserted,
-        "recordsUpdated": updated,
+        "recordsInserted": processed_records, # Renamed from inserted to processed_records
+        "recordsUpdated": 0, # No distinct updated count from kotoba_client insert_row
         "recordsVisible": visible_total,
         "visibility": visibility,
     }

@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
 import os
-import time
 import urllib.parse
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
+
 
 DOCS_TOKEN_TABLE = "vertex_gdocs_oauth_token"
 DOCS_DOCUMENT_TABLE = "vertex_gdocs_document"
@@ -18,44 +19,16 @@ GDOCS_MIME = "application/vnd.google-apps.document"
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _str(v: Any) -> str:
     return "" if v is None else str(v)
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
-
-
-def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
-    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "etzhayyim-docs-zeebe/1", **(headers or {})})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read().decode("utf-8"))
-
 
 def _insert(table: str, row: dict[str, Any]) -> None:
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    _execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) SELECT {placeholders} WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        tuple(row[c] for c in cols) + (_str(row["vertex_id"]),),
-    )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _refresh_access_token(refresh_token: str) -> str:
@@ -161,7 +134,21 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
             if f.get("mimeType") != GDOCS_MIME:
                 continue
             if change.get("removed"):
-                _execute(f"DELETE FROM {DOCS_DOCUMENT_TABLE} WHERE file_id = %s AND account_did = %s", (file_id, _str(token.get("account_did"))))
+                # R0: Datomic retract requires entity ID, so we must first query for vertex_id.
+                # Assuming DOCS_DOCUMENT_TABLE maps directly to a Datomic entity.
+                doc_to_delete = get_kotoba_client().select_first_where(
+                    DOCS_DOCUMENT_TABLE,
+                    "file_id",
+                    file_id,
+                    columns=["vertex_id", "account_did"]
+                )
+                if doc_to_delete and doc_to_delete.get("account_did") == _str(token.get("account_did")):
+                    entity_id_result = get_kotoba_client().q(
+                        f'[:find ?e :where [?e :vertex/id "{doc_to_delete["vertex_id"]}"]]', args=()
+                    )
+                    if entity_id_result:
+                        entity_id = entity_id_result[0][0]
+                        get_kotoba_client().q(f'[:db.fn/retractEntity {entity_id}]', args=())
             else:
                 try:
                     doc = _http_json(f"https://docs.googleapis.com/v1/documents/{file_id}", headers={"authorization": f"Bearer {access}"})
@@ -173,24 +160,48 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
         new_cursor = _str(data.get("newStartPageToken") or data.get("nextPageToken") or page_token)
         page_token = _str(data.get("nextPageToken"))
 
-    _execute(
-        f"UPDATE {DOCS_TOKEN_TABLE} SET last_sync_at = %s, cursor = %s, updated_at = %s WHERE vertex_id = %s",
-        (now_iso(), new_cursor, now_iso(), _str(token.get("vertex_id"))),
-    )
+    token_update_data = {
+        "vertex_id": _str(token.get("vertex_id")),
+        "last_sync_at": now_iso(),
+        "cursor": new_cursor,
+        "updated_at": now_iso(),
+    }
+    get_kotoba_client().insert_row(DOCS_TOKEN_TABLE, token_update_data)
     return {"ok": True, "synced": synced, "cursor": new_cursor}
 
 
 def sync_from_google(email: str = "", **_: Any) -> dict[str, Any]:
     if not email:
         return {"ok": False, "error": "email required"}
-    token = _fetch_one(f"SELECT * FROM {DOCS_TOKEN_TABLE} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
-    if not token:
+    # R0: Filtering for `status = 'active'` in Python as select_first_where only supports a single equality predicate.
+    token = get_kotoba_client().select_first_where(
+        DOCS_TOKEN_TABLE,
+        "email",
+        email,
+        columns=["*"]
+    )
+    if not token or token.get("status") != "active":
         return {"ok": False, "error": "No active Docs account. connectAccount first."}
     return _sync_token(token)
 
 
 def cron_tick(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT * FROM {DOCS_TOKEN_TABLE} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    # R0: Filtering for 'status' and ordering by 'last_sync_at' or 'created_at' in Python
+    # as select_where does not support complex WHERE clauses, ORDER BY, or COALESCE.
+    all_active_tokens = get_kotoba_client().select_where(
+        DOCS_TOKEN_TABLE,
+        "status",
+        "active",
+        columns=["*"]
+    )
+
+    def sort_key(token_row):
+        last_sync = token_row.get("last_sync_at")
+        created_at = token_row.get("created_at")
+        return last_sync if last_sync is not None else created_at
+
+    rows = sorted(all_active_tokens, key=sort_key)[:10]
+
     synced = 0
     errors = 0
     for token in rows:

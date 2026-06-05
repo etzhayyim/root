@@ -14,9 +14,10 @@ import os
 import time
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 SCOPES = " ".join([
     "openid",
@@ -47,29 +48,12 @@ TOKEN_TABLES = {
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
 
 
 def _str(value: Any) -> str:
     return "" if value is None else str(value)
 
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
@@ -134,12 +118,22 @@ def oauth_callback(app: str, code: str = "", error: str = "", state: str = "", *
     now = now_iso()
     vid = f"{state or 'did:anonymous'}|{email}"
     actor = f"did:web:{app}.etzhayyim.com"
-    _execute(f"DELETE FROM {table} WHERE vertex_id = %s", (vid,))
-    _execute(
-        f"""INSERT INTO {table}
-        (vertex_id, account_did, email, encrypted_refresh_token, wrapped_data_key, iv, scope, status, created_at, updated_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,'active',%s,%s,%s,'anon')""",
-        (vid, state or "did:anonymous", email, refresh, "", "", _str(tokens.get("scope") or SCOPES), now, now, actor),
+    get_kotoba_client().insert_row(
+        table,
+        {
+            "vertex_id": vid,
+            "account_did": state or "did:anonymous",
+            "email": email,
+            "encrypted_refresh_token": refresh,
+            "wrapped_data_key": "",
+            "iv": "",
+            "scope": _str(tokens.get("scope") or SCOPES),
+            "status": "active",
+            "created_at": now,
+            "updated_at": now,
+            "actor_did": actor,
+            "org_did": "anon",
+        },
     )
     _write_account(app, state or "did:anonymous", email, _str(payload.get("name")), _str(tokens.get("scope") or SCOPES))
     return {"ok": True, "html": f"<h1>Google {app.title()} connected</h1><p>{email}</p>", "email": email}
@@ -158,24 +152,57 @@ def _write_account(app: str, account_did: str, email: str, display_name: str, sc
     actor = f"did:web:{app}.etzhayyim.com"
     now = now_iso()
     vid = f"at://{actor}/com.etzhayyim.apps.{app}.account/{email}"
-    _execute(f"DELETE FROM {table} WHERE vertex_id = %s", (vid,))
-    _execute(
-        f"""INSERT INTO {table}
-        (vertex_id, created_date, sensitivity_ord, owner_did, rkey, repo, account_did, email, display_name, status, scope, last_sync_at, connected_at, created_at, org_id, user_id, actor_id, actor_did, org_did)
-        VALUES (%s,%s,100,%s,%s,%s,%s,%s,%s,'active',%s,'',%s,%s,'anon','anon',%s,%s,'anon')""",
-        (vid, now[:10], actor, email, actor, account_did, email, display_name, scope, now, now, f"{app}-mcp", actor),
+    get_kotoba_client().insert_row(
+        table,
+        {
+            "vertex_id": vid,
+            "created_date": now[:10],
+            "sensitivity_ord": 100,
+            "owner_did": actor,
+            "rkey": email,
+            "repo": actor,
+            "account_did": account_did,
+            "email": email,
+            "display_name": display_name,
+            "status": "active",
+            "scope": scope,
+            "last_sync_at": "",
+            "connected_at": now,
+            "created_at": now,
+            "org_id": "anon",
+            "user_id": "anon",
+            "actor_id": f"{app}-mcp",
+            "actor_did": actor,
+            "org_did": "anon",
+        },
     )
 
 
 def sync_from_google(app: str, email: str = "", **_: Any) -> dict[str, Any]:
     if not email:
         return {"ok": False, "error": "email required"}
-    row = _fetch_one(f"SELECT * FROM {TOKEN_TABLES[app]} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
+    # R0: Multi-predicate filter applied in Python
+    row = get_kotoba_client().select_first_where(TOKEN_TABLES[app], "email", email)
+    if row and row.get("status") != "active":
+        row = None
     if not row:
         return {"ok": False, "error": "No active account. connectAccount first."}
     return {"ok": True, "jobId": f"gsync-{app}-{int(time.time())}", "synced": 0}
 
 
 def cron_tick(app: str, **_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT email FROM {TOKEN_TABLES[app]} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    # R0: ORDER BY and COALESCE applied in Python after fetching.
+    fetched_rows = get_kotoba_client().select_where(
+        TOKEN_TABLES[app],
+        "status",
+        "active",
+        columns=["email", "last_sync_at", "created_at"],
+        limit=1000, # Fetch a larger set to ensure we get 10 after sorting
+    )
+    # Sort in Python based on COALESCE(last_sync_at, created_at)
+    rows = sorted(
+        fetched_rows,
+        key=lambda r: r.get("last_sync_at") or r.get("created_at") or "",
+    )[:10]
+
     return {"ok": True, "accounts": len(rows), "synced": 0, "errors": 0}

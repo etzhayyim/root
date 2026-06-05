@@ -1,7 +1,7 @@
 """OpenPGP E2EE helpers for cross-provider email encryption (RFC 4880).
 
 Supports Gmail, Outlook, Thunderbird, and any RFC-4880-compliant client.
-Key storage uses vertex_mailer_pgp_key; WKD discovery is NOT attempted —
+Key storage uses kotoba Datom log; WKD discovery is NOT attempted —
 callers must register keys explicitly via register_public_key().
 """
 
@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import time
 from typing import Any
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import pgpy
 from pgpy.constants import (
@@ -50,19 +51,22 @@ def decrypt(
 
 def lookup_public_key(email: str) -> str | None:
     """Return armored public key for email, or None if not registered."""
-    from pymagatama.db_sync import sync_cursor
-
-    with sync_cursor() as cur:
-        cur.execute(
-            """SELECT public_key_armored
-               FROM vertex_mailer_pgp_key
-               WHERE email = %s AND revoked = FALSE
-               ORDER BY created_at_ms DESC
-               LIMIT 1""",
-            (email.lower().strip(),),
-        )
-        row = cur.fetchone()
-        return str(row[0]) if row else None
+    client = get_kotoba_client()
+    # R0: Multi-predicate WHERE (revoked = FALSE), ORDER BY, and LIMIT 1 are handled in Python.
+    rows = client.select_where(
+        "vertex_mailer_pgp_key",
+        "email",
+        email.lower().strip(),
+        columns=["public_key_armored", "revoked", "created_at_ms"]
+    )
+    if rows:
+        # Filter for revoked = FALSE
+        active_keys = [row for row in rows if not row.get("revoked")]
+        if active_keys:
+            # Order by created_at_ms DESC and take the first
+            active_keys.sort(key=lambda x: x.get("created_at_ms", 0), reverse=True)
+            return str(active_keys[0].get("public_key_armored"))
+    return None
 
 
 def register_public_key(email: str, public_key_armored: str) -> dict[str, Any]:
@@ -71,38 +75,43 @@ def register_public_key(email: str, public_key_armored: str) -> dict[str, Any]:
     Upserts on (email, fingerprint). Existing revoked keys are un-revoked
     when the same fingerprint is re-registered.
     """
-    from pymagatama.db_sync import sync_cursor
-
     key, _ = pgpy.PGPKey.from_blob(public_key_armored)
     fingerprint = str(key.fingerprint)
     now_ms = int(time.time() * 1000)
-    with sync_cursor() as cur:
-        cur.execute(
-            """INSERT INTO vertex_mailer_pgp_key
-               (email, fingerprint, public_key_armored, revoked, created_at_ms)
-               VALUES (%s, %s, %s, FALSE, %s)
-               ON CONFLICT (email, fingerprint)
-               DO UPDATE SET
-                 public_key_armored = EXCLUDED.public_key_armored,
-                 revoked = FALSE,
-                 created_at_ms = EXCLUDED.created_at_ms""",
-            (email.lower().strip(), fingerprint, public_key_armored, now_ms),
-        )
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_mailer_pgp_key",
+        {
+            "email": email.lower().strip(),
+            "fingerprint": fingerprint,
+            "public_key_armored": public_key_armored,
+            "revoked": False,
+            "created_at_ms": now_ms,
+        },
+    )
     return {"email": email, "fingerprint": fingerprint}
 
 
 def revoke_public_key(email: str, fingerprint: str) -> dict[str, Any]:
     """Mark a registered key as revoked (soft-delete)."""
-    from pymagatama.db_sync import sync_cursor
+    client = get_kotoba_client()
+    # R0: UPDATE operation is handled by fetching, modifying in Python, and re-inserting.
+    # The 'select_where' only supports a single column for the WHERE clause.
+    # Therefore, we fetch by email and then filter by fingerprint in Python.
+    rows = client.select_where(
+        "vertex_mailer_pgp_key",
+        "email",
+        email.lower().strip(),
+        columns=["email", "fingerprint", "public_key_armored", "revoked", "created_at_ms"]
+    )
+    affected = 0
+    for row in rows:
+        if row.get("fingerprint") == fingerprint:
+            row["revoked"] = True
+            client.insert_row("vertex_mailer_pgp_key", row) # Upsert the modified row
+            affected += 1
+            break # Assuming fingerprint is unique per email, only one row to update
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """UPDATE vertex_mailer_pgp_key
-               SET revoked = TRUE
-               WHERE email = %s AND fingerprint = %s""",
-            (email.lower().strip(), fingerprint),
-        )
-        affected = int(cur.rowcount or 0)
     return {"email": email, "fingerprint": fingerprint, "revoked": affected > 0}
 
 

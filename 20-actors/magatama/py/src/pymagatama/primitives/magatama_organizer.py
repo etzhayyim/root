@@ -16,7 +16,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 MAGATAMA_DID = "did:web:magatama.etzhayyim.com"
@@ -111,43 +111,7 @@ def write_organizer_run(tick: dict[str, Any], *, flush: bool = True) -> dict[str
         "latency_ms": int(value.get("latencyMs") or 0),
         "error": str(value.get("error") or "")[:500],
     }
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_magatama_organizer_run (
-              vertex_id, record_key, status, value_json,
-              indexed_at, created_at, updated_at, actor_did, org_did, owner_did, sensitivity_ord,
-              http_status, runs_total_24h, summary_hot, summary_normal, summary_stale,
-              summary_silent, summary_archived, fleet_saturation, plan_ts, latency_ms, error
-            )
-            VALUES (
-              %(vertex_id)s, %(record_key)s, %(status)s, %(value_json)s,
-              %(indexed_at)s, %(created_at)s, %(updated_at)s, %(actor_did)s, %(org_did)s, %(owner_did)s, %(sensitivity_ord)s,
-              %(http_status)s, %(runs_total_24h)s, %(summary_hot)s, %(summary_normal)s, %(summary_stale)s,
-              %(summary_silent)s, %(summary_archived)s, %(fleet_saturation)s, %(plan_ts)s, %(latency_ms)s, %(error)s
-            )
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              status = EXCLUDED.status,
-              value_json = EXCLUDED.value_json,
-              indexed_at = EXCLUDED.indexed_at,
-              updated_at = EXCLUDED.updated_at,
-              http_status = EXCLUDED.http_status,
-              runs_total_24h = EXCLUDED.runs_total_24h,
-              summary_hot = EXCLUDED.summary_hot,
-              summary_normal = EXCLUDED.summary_normal,
-              summary_stale = EXCLUDED.summary_stale,
-              summary_silent = EXCLUDED.summary_silent,
-              summary_archived = EXCLUDED.summary_archived,
-              fleet_saturation = EXCLUDED.fleet_saturation,
-              plan_ts = EXCLUDED.plan_ts,
-              latency_ms = EXCLUDED.latency_ms,
-              error = EXCLUDED.error
-            """,
-            row,
-        )
-        if flush:
-            cur.execute("FLUSH")
-    return {"uri": uri, "rkey": rkey}
+    get_kotoba_client().insert_row("vertex_magatama_organizer_run", row)
 
 
 def task_magatama_organizer_run(

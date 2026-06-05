@@ -4,42 +4,17 @@ from __future__ import annotations
 
 import json
 import os
-import time
+
 import urllib.parse
 import urllib.request
 from typing import Any
+from datetime import datetime, timezone
 
-from pymagatama.db_sync import sync_cursor
-
-DRIVE_TOKEN_TABLE = "vertex_gdrive_oauth_token"
-DRIVE_FILE_TABLE = "vertex_gdrive_file"
-ACTOR_DID = "did:web:drive.etzhayyim.com"
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-
-
-def _str(v: Any) -> str:
-    return "" if v is None else str(v)
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
@@ -49,12 +24,7 @@ def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, head
 
 
 def _insert(table: str, row: dict[str, Any]) -> None:
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    _execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) SELECT {placeholders} WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        tuple(row[c] for c in cols) + (_str(row["vertex_id"]),),
-    )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _refresh_access_token(refresh_token: str) -> str:
@@ -70,13 +40,13 @@ def _get_start_page_token(access: str) -> str:
     return _str(data.get("startPageToken"))
 
 
-def _file_row(token: dict[str, Any], f: dict[str, Any]) -> dict[str, Any]:
+def _file_row(token: dict[str, Any], f: dict[str, Any], is_removed: bool = False) -> dict[str, Any]:
     file_id = _str(f.get("id"))
     actor = ACTOR_DID
     now = now_iso()
-    return {
+    base_row = {
         "vertex_id": f"at://{actor}/com.etzhayyim.apps.drive.file/{file_id}",
-        "_seq": int(time.time() * 1000),
+        "_seq": int(datetime.now(timezone.utc).timestamp() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
         "owner_did": actor,
@@ -84,43 +54,82 @@ def _file_row(token: dict[str, Any], f: dict[str, Any]) -> dict[str, Any]:
         "repo": actor,
         "file_id": file_id,
         "account_did": _str(token.get("account_did")),
-        "name": _str(f.get("name")),
-        "mime_type": _str(f.get("mimeType")),
-        "kind": _str(f.get("kind")),
-        "size_bytes": int(f.get("size") or 0),
-        "md5_checksum": _str(f.get("md5Checksum")),
-        "sha256_checksum": _str(f.get("sha256Checksum")),
-        "description": _str(f.get("description")),
-        "starred": "true" if f.get("starred") else "false",
-        "trashed": "true" if f.get("trashed") else "false",
-        "explicitly_trashed": "true" if f.get("explicitlyTrashed") else "false",
-        "shared": "true" if f.get("shared") else "false",
-        "owners_json": json.dumps(f.get("owners") or [], ensure_ascii=False),
-        "parents_json": json.dumps(f.get("parents") or [], ensure_ascii=False),
-        "spaces_json": json.dumps(f.get("spaces") or [], ensure_ascii=False),
-        "web_view_link": _str(f.get("webViewLink")),
-        "web_content_link": _str(f.get("webContentLink")),
-        "icon_link": _str(f.get("iconLink")),
-        "thumbnail_link": _str(f.get("thumbnailLink")),
-        "original_filename": _str(f.get("originalFilename")),
-        "file_extension": _str(f.get("fileExtension")),
-        "full_file_extension": _str(f.get("fullFileExtension")),
-        "head_revision_id": _str(f.get("headRevisionId")),
-        "version_num": int(f.get("version") or 0),
-        "view_count": int((f.get("fileViewerAccess") or {}).get("viewCount") or 0),
-        "capabilities_json": json.dumps(f.get("capabilities") or {}, ensure_ascii=False),
-        "export_links_json": json.dumps(f.get("exportLinks") or {}, ensure_ascii=False),
-        "drive_id": _str(f.get("driveId")),
-        "team_drive_id": _str(f.get("teamDriveId")),
-        "created_time": _str(f.get("createdTime")),
-        "modified_time": _str(f.get("modifiedTime")),
-        "viewed_by_me_time": _str(f.get("viewedByMeTime")),
-        "shared_with_me_time": _str(f.get("sharedWithMeTime")),
         "created_at": now,
         "org_id": "anon",
         "user_id": _str(token.get("account_did")),
         "actor_id": "drive-mcp",
     }
+    if is_removed:
+        base_row.update({
+            "name": "",
+            "mime_type": "",
+            "kind": "",
+            "size_bytes": 0,
+            "md5_checksum": "",
+            "sha256_checksum": "",
+            "description": "",
+            "starred": "false",
+            "trashed": "true",
+            "explicitly_trashed": "true",
+            "shared": "false",
+            "owners_json": "[]",
+            "parents_json": "[]",
+            "spaces_json": "[]",
+            "web_view_link": "",
+            "web_content_link": "",
+            "icon_link": "",
+            "thumbnail_link": "",
+            "original_filename": "",
+            "file_extension": "",
+            "full_file_extension": "",
+            "head_revision_id": "",
+            "version_num": 0,
+            "view_count": 0,
+            "capabilities_json": "{}",
+            "export_links_json": "{}",
+            "drive_id": "",
+            "team_drive_id": "",
+            "created_time": "",
+            "modified_time": "",
+            "viewed_by_me_time": "",
+            "shared_with_me_time": "",
+        })
+    else:
+        base_row.update({
+            "name": _str(f.get("name")),
+            "mime_type": _str(f.get("mimeType")),
+            "kind": _str(f.get("kind")),
+            "size_bytes": int(f.get("size") or 0),
+            "md5_checksum": _str(f.get("md5Checksum")),
+            "sha256_checksum": _str(f.get("sha256Checksum")),
+            "description": _str(f.get("description")),
+            "starred": "true" if f.get("starred") else "false",
+            "trashed": "true" if f.get("trashed") else "false",
+            "explicitly_trashed": "true" if f.get("explicitlyTrashed") else "false",
+            "shared": "true" if f.get("shared") else "false",
+            "owners_json": json.dumps(f.get("owners") or [], ensure_ascii=False),
+            "parents_json": json.dumps(f.get("parents") or [], ensure_ascii=False),
+            "spaces_json": json.dumps(f.get("spaces") or [], ensure_ascii=False),
+            "web_view_link": _str(f.get("webViewLink")),
+            "web_content_link": _str(f.get("webContentLink")),
+            "icon_link": _str(f.get("iconLink")),
+            "thumbnail_link": _str(f.get("thumbnailLink")),
+            "original_filename": _str(f.get("originalFilename")),
+            "file_extension": _str(f.get("fileExtension")),
+            "full_file_extension": _str(f.get("fullFileExtension")),
+            "head_revision_id": _str(f.get("headRevisionId")),
+            "version_num": int(f.get("version") or 0),
+            "view_count": int((f.get("fileViewerAccess") or {}).get("viewCount") or 0),
+            "capabilities_json": json.dumps(f.get("capabilities") or {}, ensure_ascii=False),
+            "export_links_json": json.dumps(f.get("exportLinks") or {}, ensure_ascii=False),
+            "drive_id": _str(f.get("driveId")),
+            "team_drive_id": _str(f.get("teamDriveId")),
+            "created_time": _str(f.get("createdTime")),
+            "modified_time": _str(f.get("modifiedTime")),
+            "viewed_by_me_time": _str(f.get("viewedByMeTime")),
+            "shared_with_me_time": _str(f.get("sharedWithMeTime")),
+        })
+    return base_row
 
 
 def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
@@ -147,7 +156,8 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
             if not f or not f.get("id"):
                 continue
             if change.get("removed"):
-                _execute(f"DELETE FROM {DRIVE_FILE_TABLE} WHERE file_id = %s AND account_did = %s", (f.get("id"), _str(token.get("account_did"))))
+                # Instead of DELETE, insert a row reflecting the removed status.
+                _insert(DRIVE_FILE_TABLE, _file_row(token, f, is_removed=True))
             else:
                 _insert(DRIVE_FILE_TABLE, _file_row(token, f))
             synced += 1
@@ -155,24 +165,35 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
         new_cursor = _str(data.get("newStartPageToken") or data.get("nextPageToken") or page_token)
         page_token = _str(data.get("nextPageToken"))
 
-    _execute(
-        f"UPDATE {DRIVE_TOKEN_TABLE} SET last_sync_at = %s, cursor = %s, updated_at = %s WHERE vertex_id = %s",
-        (now_iso(), new_cursor, now_iso(), _str(token.get("vertex_id"))),
+    # Update the token in kotoba Datom log
+    current_token_data = get_kotoba_client().select_first_where(
+        DRIVE_TOKEN_TABLE, "vertex_id", _str(token.get("vertex_id"))
     )
+    if current_token_data:
+        current_token_data["last_sync_at"] = now_iso()
+        current_token_data["cursor"] = new_cursor
+        current_token_data["updated_at"] = now_iso()
+        get_kotoba_client().insert_row(DRIVE_TOKEN_TABLE, current_token_data)
     return {"ok": True, "synced": synced, "cursor": new_cursor}
 
 
 def sync_from_google(email: str = "", **_: Any) -> dict[str, Any]:
     if not email:
         return {"ok": False, "error": "email required"}
-    token = _fetch_one(f"SELECT * FROM {DRIVE_TOKEN_TABLE} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
+    # R0: status filter applied in Python
+    token = get_kotoba_client().select_first_where(DRIVE_TOKEN_TABLE, "email", email, columns=["*"])
+    if token and token.get("status") != "active":
+        token = None
     if not token:
         return {"ok": False, "error": "No active Drive account. connectAccount first."}
     return _sync_token(token)
 
 
 def cron_tick(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT * FROM {DRIVE_TOKEN_TABLE} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    # R0: ORDER BY and LIMIT applied in Python
+    rows = get_kotoba_client().select_where(DRIVE_TOKEN_TABLE, "status", "active", columns=["*"], limit=100) # Fetch more than needed
+    rows.sort(key=lambda x: x.get("last_sync_at") or x.get("created_at") or "", reverse=False)
+    rows = rows[:10]
     synced = 0
     errors = 0
     for token in rows:

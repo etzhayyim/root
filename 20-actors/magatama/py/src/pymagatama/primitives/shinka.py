@@ -11,7 +11,7 @@ import json
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.primitives.shinka_murakumo import shinka_tick
 
 
 def _now_ms() -> int:
@@ -19,17 +19,18 @@ def _now_ms() -> int:
 
 
 async def task_shinka_tick(actor: str = "") -> dict[str, Any]:
-    """Call shinka_tick_actor for one actor and return stable JSON fields."""
+    """Call shinka_murakumo.shinka_tick for one actor and return stable JSON fields."""
     if not actor:
         return {"error": "actor required"}
     try:
-        with sync_cursor() as cur:
-            cur.execute("SELECT shinka_tick_actor(%s)", (actor,))
-            row = cur.fetchone()
+        raw = await shinka_tick(adherent_did=actor)
     except Exception as exc:  # noqa: BLE001
-        return {"error": f"shinka_tick_actor failed: {exc}", "actor": actor}
+        return {"error": f"shinka_murakumo.shinka_tick failed: {exc}", "actor": actor}
 
-    raw = row[0] if row else None
+    # The result from shinka_murakumo.shinka_tick is already a dict.
+    # The original logic expected `row[0]` which could be a string (JSON) or a dict.
+    # We will assume `shinka_tick` returns a dict, as per its docstring "Wire shape (output) is byte-compatible with vendor shinka_tick_actor JSON response".
+    # This means 'raw' will always be a dict, effectively skipping the 'isinstance(raw, str)' branch.
     if isinstance(raw, str):
         try:
             tick: dict[str, Any] = json.loads(raw)

@@ -1,23 +1,18 @@
 """
 netintel_dns — DNS / RDAP enrichment for shadow-level domains.
 
-Pulls stale domains from vertex_dns_observation (not updated in last 30 days),
+Pulls stale domains from vertex_dns_observation (kotoba Datom log),
 re-queries RDAP (IANA endpoint) + Cloudflare DoH for A/AAAA/NS/MX/TXT,
-and writes updated rows back.
+and writes updated rows back to the kotoba Datom log.
 
 Task type: netintel.dns.delta
-Env: none required (uses public RDAP/DoH APIs)
+Env: kotoba node required (uses public RDAP/DoH APIs)
 """
 
 from __future__ import annotations
 
 import hashlib
-import json
-import logging
-import time
-import urllib.parse
-import urllib.request
-from typing import Any
+from datetime import datetime, timezone, timedelta
 
 from pymagatama.ingest.core import (
     IngestRun,
@@ -26,7 +21,7 @@ from pymagatama.ingest.core import (
     stable_run_id,
     upsert_run,
 )
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger(__name__)
 
@@ -116,49 +111,70 @@ def _doh_records(domain: str) -> dict[str, Any]:
 
 
 def _stale_domains(batch_size: int) -> list[str]:
-    sql = (
-        "SELECT DISTINCT domain, observed_at FROM vertex_dns_observation "
-        "WHERE observed_at::timestamptz < NOW() - INTERVAL '30 days' "
-        f"ORDER BY observed_at ASC LIMIT {int(batch_size)}"
-    )
+    """Retrieve stale domains from the kotoba Datom log."""
+    cutoff_dt = datetime.now(timezone.utc) - timedelta(days=30)
+    cutoff_iso = cutoff_dt.isoformat(timespec="milliseconds") + "Z"  # Datomic expects 'Z' for UTC
+
+    query_edn = f"""
+    [:find (pull ?e [:vertex.dns-observation/domain :vertex.dns-observation/observed-at])
+     :where
+     [?e :vertex.dns-observation/domain ?domain]
+     [?e :vertex.dns-observation/observed-at ?observed_at]
+     [(< ?observed_at "{cutoff_iso}")]]
+    """
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql)
-            return [row[0] for row in (cur.fetchall() or []) if row[0]]
+        # R0: Order by and limit are applied in Python because Datalog `q` method doesn't directly support them.
+        client = get_kotoba_client()
+        raw_results = client.q(query_edn)
+
+        # Process results: filter, sort, and limit in Python
+        # Each item in raw_results is a list containing a dict, e.g., [{'vertex.dns-observation/domain': 'example.com', ...}]
+        domains_with_obs_at = []
+        for item in raw_results:
+            if isinstance(item, list) and item and isinstance(item[0], dict):
+                entity = item[0]
+                domain = entity.get(":vertex.dns-observation/domain")
+                observed_at_str = entity.get(":vertex.dns-observation/observed-at")
+                if domain and observed_at_str:
+                    try:
+                        observed_at_dt = datetime.fromisoformat(observed_at_str.replace('Z', '+00:00'))
+                        domains_with_obs_at.append((domain, observed_at_dt))
+                    except ValueError:
+                        LOG.warning("Could not parse observed_at timestamp: %s", observed_at_str)
+
+        domains_with_obs_at.sort(key=lambda x: x[1])
+        return [row[0] for row in domains_with_obs_at[:batch_size]]
+
     except Exception as e:
         LOG.warning("stale_domains query failed: %s", e)
         return []
 
 
 def _insert_dns_row(domain: str, rdap: dict, doh: dict, run_id: str) -> bool:
+    """Insert a new DNS observation record into the kotoba Datom log."""
     ts = now_iso()
     vertex_id = f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.collector.dnsObservation/{domain}"
-    sql = (
-        "INSERT INTO vertex_dns_observation "
-        "(vertex_id, owner_did, domain, registrar, nameservers, "
-        "registration_date, expiration_date, last_changed_date, dnssec, status, "
-        "run_id, observed_at, sensitivity_ord, created_date) "
-        "SELECT %s::varchar, %s::varchar, %s::varchar, %s::varchar, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, %s::varchar, %s::varchar, "
-        "%s::varchar, %s::varchar, 1::bigint, CURRENT_DATE "
-        "WHERE NOT EXISTS (SELECT 1 FROM vertex_dns_observation WHERE vertex_id = %s::varchar)"
-    )
-    params = (
-        vertex_id, INGEST_ACTOR, domain,
-        rdap.get("registrar", ""),
-        rdap.get("nameservers", "") or doh.get("NS", ""),
-        rdap.get("registration_date", ""),
-        rdap.get("expiration_date", ""),
-        rdap.get("last_changed_date", ""),
-        rdap.get("dnssec", ""),
-        rdap.get("status", ""),
-        run_id, ts,
-        vertex_id,
-    )
+
+    row_dict = {
+        "vertex_id": vertex_id,
+        "owner_did": INGEST_ACTOR,
+        "domain": domain,
+        "registrar": rdap.get("registrar", ""),
+        "nameservers": rdap.get("nameservers", "") or doh.get("NS", ""),
+        "registration_date": rdap.get("registration_date", ""),
+        "expiration_date": rdap.get("expiration_date", ""),
+        "last_changed_date": rdap.get("last_changed_date", ""),
+        "dnssec": rdap.get("dnssec", ""),
+        "status": rdap.get("status", ""),
+        "run_id": run_id,
+        "observed_at": ts,
+        "sensitivity_ord": 1,
+        "created_date": datetime.now(timezone.utc).date().isoformat(), # Replaces CURRENT_DATE
+    }
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            return (cur.rowcount or 0) > 0
+        client = get_kotoba_client()
+        result = client.insert_row("vertex_dns_observation", row_dict)
+        return result.get("datom_count", 0) > 0
     except Exception as e:
         LOG.warning("dns insert failed domain=%s: %s", domain, e)
         return False

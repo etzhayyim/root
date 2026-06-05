@@ -29,9 +29,10 @@ from __future__ import annotations
 
 import re
 import time
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama import llm
 
 
@@ -74,58 +75,57 @@ def _strip_think(text: str) -> str:
     return text.strip()
 
 
-# ── RW helpers ────────────────────────────────────────────────────────
 
-def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[Any]:
-    try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            return cur.fetchall() or []
-    except Exception:
-        return []
 
 
 # ── Nodes ─────────────────────────────────────────────────────────────
 
 def fetch_context(state: ShoshaAgentState) -> dict:
-    """Read recent intel, market views, and exposure from RisingWave."""
+    """Read recent intel, market views, and exposure from kotoba Datom log."""
     focus = (state.get("commodityFocus") or "").strip() or None
-    params: tuple[Any, ...] = (focus,) if focus else ()
+    client = get_kotoba_client()
 
-    intel = _rw_query(
-        "SELECT symbol, value, unit, ts_ms FROM vertex_shosha_intel "
-        "WHERE value IS NOT NULL "
-        + ("AND symbol = %s " if focus else "")
-        + "ORDER BY ts_ms DESC LIMIT 30",
-        params,
-    )
-    views = _rw_query(
-        "SELECT commodity, direction, confidence, price_target, rationale "
-        "FROM vertex_shosha_market_view "
-        + ("WHERE commodity = %s " if focus else "")
-        + "ORDER BY as_of_date DESC LIMIT 20",
-        params,
-    )
-    exposure = _rw_query(
-        "SELECT commodity, net_usd FROM mv_shosha_exposure_by_commodity "
-        + ("WHERE commodity = %s " if focus else "")
-        + "ORDER BY net_usd DESC LIMIT 20",
-        params,
-    )
+    # R0: In-Python filtering for value IS NOT NULL, sorting by ts_ms DESC, and LIMIT.
+    if focus:
+        intel = client.select_where("vertex_shosha_intel", column="symbol", value=focus)
+    else:
+        intel = client.select_where("vertex_shosha_intel")
+    intel = [row for row in intel if row.get("value") is not None]
+    intel.sort(key=lambda x: x.get("ts_ms", 0), reverse=True)
+    intel = intel[:30]
+
+    # R0: In-Python filtering for sorting by as_of_date DESC and LIMIT.
+    if focus:
+        views = client.select_where("vertex_shosha_market_view", column="commodity", value=focus)
+    else:
+        views = client.select_where("vertex_shosha_market_view")
+    views.sort(key=lambda x: x.get("as_of_date", ""), reverse=True)
+    views = views[:20]
+
+    # R0: In-Python filtering for sorting by net_usd DESC and LIMIT.
+    if focus:
+        exposure = client.select_where("mv_shosha_exposure_by_commodity", column="commodity", value=focus)
+    else:
+        exposure = client.select_where("mv_shosha_exposure_by_commodity")
+    exposure.sort(key=lambda x: x.get("net_usd", 0.0), reverse=True)
+    exposure = exposure[:20]
 
     lines: list[str] = []
     if intel:
         lines.append("Recent intel ticks (symbol, value, unit, ts_ms):")
-        for s, v, u, t in intel[:15]:
-            lines.append(f"  - {s} | {v} | {u} | {t}")
+        for row in intel[:15]:
+            lines.append(f"  - {row['symbol']} | {row['value']} | {row['unit']} | {row['ts_ms']}")
     if views:
         lines.append("Market views (commodity, direction, conf, target, rationale):")
-        for c, d, cf, pt, r in views[:10]:
-            lines.append(f"  - {c} | {d} | {cf} | {pt} | {r}")
+        for row in views[:10]:
+            lines.append(
+                f"  - {row['commodity']} | {row['direction']} | {row['confidence']} | "
+                f"{row['price_target']} | {row['rationale']}"
+            )
     if exposure:
         lines.append("Open exposure (commodity, net USD):")
-        for c, n in exposure[:10]:
-            lines.append(f"  - {c} | {n}")
+        for row in exposure[:10]:
+            lines.append(f"  - {row['commodity']} | {row['net_usd']}")
 
     # Phase E1 (ADR-2605082000): pre-render `_userMessage` so the downstream
     # mcp_tool com.etzhayyim.tools.llm.chat node can consume `user` directly via
@@ -168,29 +168,22 @@ def call_llm(state: ShoshaAgentState) -> dict:
 
 
 def emit_audit(state: ShoshaAgentState) -> dict:
-    """Write OCEL audit row to RisingWave (non-fatal if it fails)."""
+    """Write OCEL audit row to kotoba Datom log (non-fatal if it fails)."""
     import uuid
-    import time as _time
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_repo_commit
-                  (vertex_id, repo, collection, rkey, action, ts_ms, record_json)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    str(uuid.uuid4()),
-                    "did:web:shosha.etzhayyim.com",
-                    "com.etzhayyim.apps.shosha.agentLoop",
-                    f"lg-{int(_time.time() * 1000)}",
-                    "create",
-                    int(_time.time() * 1000),
-                    f'{{"ok":{str(state.get("ok", False)).lower()},'
-                    f'"latencyMs":{state.get("latencyMs", 0)}}}',
-                ),
-            )
+        client = get_kotoba_client()
+        row_dict = {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": "did:web:shosha.etzhayyim.com",
+            "collection": "com.etzhayyim.apps.shosha.agentLoop",
+            "rkey": f"lg-{int(datetime.now(timezone.utc).timestamp() * 1000)}",
+            "action": "create",
+            "ts_ms": int(datetime.now(timezone.utc).timestamp() * 1000),
+            "record_json": f'{{"ok":{str(state.get("ok", False)).lower()},'
+                           f'"latencyMs":{state.get("latencyMs", 0)}}}',
+        }
+        client.insert_row("vertex_repo_commit", row_dict)
     except Exception:
         pass
     return {}

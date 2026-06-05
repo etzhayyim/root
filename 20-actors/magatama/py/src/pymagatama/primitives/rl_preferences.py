@@ -19,24 +19,21 @@ Key constraints observed from data (2026-05-06):
 from __future__ import annotations
 
 import datetime as _dt
+from datetime import datetime, timezone
 import logging
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("rl_preferences")
 
-
-def _now_ts() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
-
+# Remove _now_ts function as datetime.now(timezone.utc).isoformat(timespec='seconds') will be used directly.
 
 def _get_total_step_count() -> int:
     try:
-        with sync_cursor() as cur:
-            cur.execute("SELECT COUNT(*) FROM vertex_rl_step WHERE source='server'")
-            row = cur.fetchone()
-        return int(row[0]) if row else 0
+        client = get_kotoba_client()
+        count_float = client.aggregate_where("vertex_rl_step", "count", "*", "source", "server")
+        return int(count_float)
     except Exception as e:
         LOG.warning("get_total_step_count failed: %s", e)
         return 0
@@ -58,9 +55,9 @@ def task_rl_generate_preferences(
     FEEL gate in BPMN: =totalSteps >= min_steps
     totalSteps is written to process variables by a preceding query step.
 
-    Conventions:
-    - rw-psycopg3-no-param-limit: LIMIT/OFFSET inlined as int literals
-    - flush: bool = False: never FLUSH in pymagatama
+    # Conventions:
+    # - kotoba-datomic-q-idiom: Datalog query with explicit graph and custom Python sorting.
+    # - flush: bool = False: never FLUSH in pymagatama
     """
     total_steps = _get_total_step_count()
     if total_steps < int(min_steps):
@@ -75,7 +72,7 @@ def task_rl_generate_preferences(
             "gate_passed": False,
         }
 
-    now = _now_ts()
+    now = datetime.now(timezone.utc).isoformat(timespec='seconds')
     generated = 0
     skipped = 0
     threshold = float(delta_threshold)
@@ -84,27 +81,77 @@ def task_rl_generate_preferences(
     # With current data volume (22–100 rows) a full load is safe.
     # At >10K rows switch to cursor-based per-action_nsid pagination.
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                f"""SELECT vertex_id, action_nsid, actor_did,
-                           reward_scalar, reward_floor, reward_spirit, reward_eta,
-                           sensitivity_ord, owner_did, org_id, user_id, actor_id
-                    FROM vertex_rl_step
-                    WHERE source = 'server'
-                      AND reward_scalar IS NOT NULL
-                    ORDER BY action_nsid, reward_scalar DESC
-                    LIMIT {int(batch_limit)}"""
-            )
-            rows = cur.fetchall()
+        client = get_kotoba_client()
+        # R0: Multi-predicate/ORDER BY/LIMIT not directly supported by select_where shim.
+        #    Using raw q() for full SQL compatibility.
+        rows_tuples = client.q(
+            f"""[:find ?vertex_id ?action_nsid ?actor_did ?reward_scalar
+                   ?reward_floor ?reward_spirit ?reward_eta ?sensitivity_ord
+                   ?owner_did ?org_id ?user_id ?actor_id
+                :where
+                  [?e :vertex_rl_step/vertex_id ?vertex_id]
+                  [?e :vertex_rl_step/source "server"]
+                  [?e :vertex_rl_step/reward_scalar ?reward_scalar]
+                  [?e :vertex_rl_step/action_nsid ?action_nsid]
+                  [?e :vertex_rl_step/actor_did ?actor_did]
+                  (or
+                    [?e :vertex_rl_step/reward_floor ?reward_floor]
+                    (not [?e :vertex_rl_step/reward_floor _]))
+                  (or
+                    [?e :vertex_rl_step/reward_spirit ?reward_spirit]
+                    (not [?e :vertex_rl_step/reward_spirit _]))
+                  (or
+                    [?e :vertex_rl_step/reward_eta ?reward_eta]
+                    (not [?e :vertex_rl_step/reward_eta _]))
+                  (or
+                    [?e :vertex_rl_step/sensitivity_ord ?sensitivity_ord]
+                    (not [?e :vertex_rl_step/sensitivity_ord _]))
+                  (or
+                    [?e :vertex_rl_step/owner_did ?owner_did]
+                    (not [?e :vertex_rl_step/owner_did _]))
+                  (or
+                    [?e :vertex_rl_step/org_id ?org_id]
+                    (not [?e :vertex_rl_step/org_id _]))
+                  (or
+                    [?e :vertex_rl_step/user_id ?user_id]
+                    (not [?e :vertex_rl_step/user_id _]))
+                  (or
+                    [?e :vertex_rl_step/actor_id ?actor_id]
+                    (not [?e :vertex_rl_step/actor_id _]))
+                :limit {int(batch_limit)}
+                :order-by desc ?action_nsid desc ?reward_scalar]""",
+            graph="pymagatama" # Explicitly specify graph for consistency
+        )
+        # Convert list of lists from q() to list of dicts for consistency with select_where
+        # and re-sort in Python as Datalog :order-by might not be exact for multiple keys
+        # or handle nulls the same way SQL does.
+        rows = [
+            {
+                "vertex_id": row[0],
+                "action_nsid": row[1],
+                "actor_did": row[2],
+                "reward_scalar": row[3],
+                "reward_floor": row[4],
+                "reward_spirit": row[5],
+                "reward_eta": row[6],
+                "sensitivity_ord": row[7],
+                "owner_did": row[8],
+                "org_id": row[9],
+                "user_id": row[10],
+                "actor_id": row[11],
+            }
+            for row in rows_tuples
+        ]
+        rows.sort(key=lambda x: (x["action_nsid"], -float(x["reward_scalar"] or 0.0)))
     except Exception as e:
         LOG.warning("rl.generate.preferences: query failed: %s", e)
         return {"generated": 0, "skipped": 0, "total_steps": total_steps, "error": str(e)}
 
     # Group by action_nsid
     from collections import defaultdict
-    by_action: dict[str, list[tuple[Any, ...]]] = defaultdict(list)
+    by_action: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
-        action_nsid = str(row[1] or "")
+        action_nsid = str(row["action_nsid"] or "")
         by_action[action_nsid].append(row)
 
     for action_nsid, steps in by_action.items():
@@ -112,62 +159,52 @@ def task_rl_generate_preferences(
         # steps is already sorted DESC by reward_scalar (from SQL ORDER BY).
         for i, chosen_row in enumerate(steps):
             for rejected_row in steps[i + 1 :]:
-                chosen_scalar = float(chosen_row[3] or 0.0)
-                rejected_scalar = float(rejected_row[3] or 0.0)
+                chosen_scalar = float(chosen_row["reward_scalar"] or 0.0)
+                rejected_scalar = float(rejected_row["reward_scalar"] or 0.0)
                 reward_delta = chosen_scalar - rejected_scalar
 
                 if reward_delta < threshold:
                     # Since sorted DESC, remaining will also be < threshold
                     break
 
-                chosen_actor = str(chosen_row[2] or "")
-                rejected_actor = str(rejected_row[2] or "")
+                chosen_actor = str(chosen_row["actor_did"] or "")
+                rejected_actor = str(rejected_row["actor_did"] or "")
 
                 # Skip same-actor pairs (within-actor variance = zero, no signal)
                 if chosen_actor == rejected_actor:
                     continue
 
-                chosen_step_id = str(chosen_row[0])
-                rejected_step_id = str(rejected_row[0])
+                chosen_step_id = str(chosen_row["vertex_id"])
+                rejected_step_id = str(rejected_row["vertex_id"])
 
                 # Stable pair_id: sorted step IDs so (A,B) == (B,A)
                 pair_key = ":".join(sorted([chosen_step_id, rejected_step_id]))
                 pair_id = f"rl:pair:{pair_key}"
 
                 try:
-                    with sync_cursor() as cur:
-                        cur.execute(
-                            """INSERT INTO vertex_rl_preference_pair
-                               (vertex_id, action_nsid,
-                                chosen_step_id, rejected_step_id,
-                                chosen_actor_did, rejected_actor_did,
-                                chosen_reward, rejected_reward, reward_delta,
-                                pairing_strategy,
-                                sensitivity_ord, owner_did, org_id, user_id, actor_id,
-                                created_at)
-                               VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s::TIMESTAMP)""",
-                            (
-                                pair_id,
-                                action_nsid,
-                                chosen_step_id,
-                                rejected_step_id,
-                                chosen_actor,
-                                rejected_actor,
-                                chosen_scalar,
-                                rejected_scalar,
-                                round(reward_delta, 4),
-                                "cross_actor_reward_delta",
-                                int(chosen_row[7] or 1),
-                                str(chosen_row[8] or ""),
-                                str(chosen_row[9] or ""),
-                                str(chosen_row[10] or ""),
-                                str(chosen_row[11] or "rl.generate"),
-                                now,
-                            ),
-                        )
+                    client = get_kotoba_client()
+                    row_dict = {
+                        "vertex_id": pair_id,
+                        "action_nsid": action_nsid,
+                        "chosen_step_id": chosen_step_id,
+                        "rejected_step_id": rejected_step_id,
+                        "chosen_actor_did": chosen_actor,
+                        "rejected_actor_did": rejected_actor,
+                        "chosen_reward": chosen_scalar,
+                        "rejected_reward": rejected_scalar,
+                        "reward_delta": round(reward_delta, 4),
+                        "pairing_strategy": "cross_actor_reward_delta",
+                        "sensitivity_ord": int(chosen_row["sensitivity_ord"] or 1),
+                        "owner_did": str(chosen_row["owner_did"] or ""),
+                        "org_id": str(chosen_row["org_id"] or ""),
+                        "user_id": str(chosen_row["user_id"] or ""),
+                        "actor_id": str(chosen_row["actor_id"] or "rl.generate"),
+                        "created_at": datetime.now(timezone.utc).isoformat(timespec='seconds'), # ISO format for timestamp
+                    }
+                    client.insert_row("vertex_rl_preference_pair", row_dict)
                     generated += 1
                 except Exception as e:
-                    # Duplicate pair_id = already generated; skip silently
+                    # Duplicate vertex_id for upsert means already generated; skip silently
                     LOG.debug("insert pair skipped for %s: %s", pair_id, e)
                     skipped += 1
 
