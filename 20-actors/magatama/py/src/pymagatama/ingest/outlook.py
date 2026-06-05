@@ -12,42 +12,8 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-ACTOR = "did:web:outlook.etzhayyim.com"
-SCOPE = "offline_access openid profile email Mail.Read Mail.Send Mail.ReadWrite Calendars.Read"
-DEFAULT_TENANT = "common"
-PENDING_TTL_SEC = 600
-
-
-def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-
-
-def _str(value: Any) -> str:
-    return "" if value is None else str(value)
-
-
-def _user_key(userKey: str = "", userId: str = "", actorDid: str = "", accountDid: str = "", **_: Any) -> str:
-    return userKey or userId or actorDid or accountDid or "anon"
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
+from pymagatama.kotoba_datomic import get_kotoba_client
+from datetime import datetime, timezone
 
 
 def _b64u(raw: bytes) -> str:
@@ -93,7 +59,7 @@ def _form(url: str, params: dict[str, str]) -> dict[str, Any]:
 
 
 def _expires(expires_in: Any) -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() + max(0, int(expires_in or 3600))))
+    return datetime.fromtimestamp(time.time() + max(0, int(expires_in or 3600)), tz=timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _is_expired(iso: str) -> bool:
@@ -148,21 +114,38 @@ def start_auth(redirect_uri: str = "https://outlook.etzhayyim.com/auth/callback"
         "code_challenge": _challenge(verifier),
         "code_challenge_method": "S256",
     })
-    now = now_iso()
-    _execute(
-        """INSERT INTO vertex_outlook_pending_oauth
-        (vertex_id, user_key, state, code_verifier, redirect_uri, created_at, expires_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO UPDATE SET state=EXCLUDED.state, code_verifier=EXCLUDED.code_verifier, redirect_uri=EXCLUDED.redirect_uri, created_at=EXCLUDED.created_at, expires_at=EXCLUDED.expires_at""",
-        (f"{ACTOR}/pending/{_rkey(key)}", key, state, verifier, redirect_uri, now, time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() + PENDING_TTL_SEC)), ACTOR),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    get_kotoba_client().insert_row(
+        "vertex_outlook_pending_oauth",
+        {
+            "vertex_id": f"{ACTOR}/pending/{_rkey(key)}",
+            "user_key": key,
+            "state": state,
+            "code_verifier": verifier,
+            "redirect_uri": redirect_uri,
+            "created_at": now,
+            "expires_at": datetime.fromtimestamp(time.time() + PENDING_TTL_SEC, tz=timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
     return {"ok": True, "auth_url": f"{auth}?{qs}", "state": state, "code_verifier": verifier, "expires_in": PENDING_TTL_SEC}
 
 
 def _pending(key: str) -> dict[str, Any] | None:
-    row = _fetch_one("SELECT * FROM vertex_outlook_pending_oauth WHERE user_key=%s LIMIT 1", (key,))
+    row = get_kotoba_client().select_first_where("vertex_outlook_pending_oauth", "user_key", key)
     if row and _is_expired(_str(row.get("expires_at"))):
-        _execute("DELETE FROM vertex_outlook_pending_oauth WHERE user_key=%s", (key,))
+        # R0: Explicit DELETE not directly supported by shims; using q() as Datalog escape hatch for retraction.
+        entity_id_to_retract = get_kotoba_client().q(f"""
+            [:find ?e .
+             :in $ ?user_key
+             :where
+             [?e :vertex_outlook_pending_oauth/user_key ?user_key]]
+        """, args=[key])
+        if entity_id_to_retract:
+            get_kotoba_client().q(f"""
+                [[:db.fn/retractEntity {entity_id_to_retract}]]
+            """)
         return None
     return row
 
@@ -178,9 +161,11 @@ def _sync_summary(access: str, limit: int = 25) -> dict[str, Any]:
         cal = _http_json(f"https://graph.microsoft.com/v1.0/me/events?$top={top}&$select=id,subject,start,end", headers={"authorization": f"Bearer {access}"})
         emails = len(mail.get("value") or [])
         events = len(cal.get("value") or [])
-        return {"last_synced_at": now_iso(), "emails_found": emails, "emails_saved": emails, "calendar_events_found": events, "calendar_events_saved": events}
+        current_time_iso = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+        return {"last_synced_at": current_time_iso, "emails_found": emails, "emails_saved": emails, "calendar_events_found": events, "calendar_events_saved": events}
     except Exception as e:
-        return {"last_synced_at": now_iso(), "emails_found": 0, "emails_saved": 0, "calendar_events_found": 0, "calendar_events_saved": 0, "error": str(e)[:240]}
+        current_time_iso = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+        return {"last_synced_at": current_time_iso, "emails_found": 0, "emails_saved": 0, "calendar_events_found": 0, "calendar_events_saved": 0, "error": str(e)[:240]}
 
 
 def exchange_code(code: str = "", redirect_uri: str = "https://outlook.etzhayyim.com/auth/callback", state: str = "", code_verifier: str = "", **kwargs: Any) -> dict[str, Any]:
@@ -208,20 +193,43 @@ def exchange_code(code: str = "", redirect_uri: str = "https://outlook.etzhayyim
         return {"ok": False, "error": "Token exchange succeeded but access_token missing"}
     me = _fetch_me(access)
     sync = _sync_summary(access, 25)
-    now = now_iso()
-    _execute(
-        """INSERT INTO vertex_outlook_oauth_connection
-        (vertex_id, user_key, connected, access_token, refresh_token, expires_at, token_type, display_name, email, scope, last_synced_at, created_at, updated_at, actor_did, org_did)
-        VALUES (%s,%s,true,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO UPDATE SET connected=true, access_token=EXCLUDED.access_token, refresh_token=EXCLUDED.refresh_token, expires_at=EXCLUDED.expires_at, token_type=EXCLUDED.token_type, display_name=EXCLUDED.display_name, email=EXCLUDED.email, scope=EXCLUDED.scope, last_synced_at=EXCLUDED.last_synced_at, updated_at=EXCLUDED.updated_at""",
-        (f"{ACTOR}/connection/{_rkey(key)}", key, access, _str(tokens.get("refresh_token")), _expires(tokens.get("expires_in")), _str(tokens.get("token_type") or "Bearer"), _str(me.get("displayName")), _str(me.get("mail") or me.get("userPrincipalName")), _str(tokens.get("scope") or SCOPE), sync["last_synced_at"], now, now, ACTOR),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    get_kotoba_client().insert_row(
+        "vertex_outlook_oauth_connection",
+        {
+            "vertex_id": f"{ACTOR}/connection/{_rkey(key)}",
+            "user_key": key,
+            "connected": True,
+            "access_token": access,
+            "refresh_token": _str(tokens.get("refresh_token")),
+            "expires_at": _expires(tokens.get("expires_in")),
+            "token_type": _str(tokens.get("token_type") or "Bearer"),
+            "display_name": _str(me.get("displayName")),
+            "email": _str(me.get("mail") or me.get("userPrincipalName")),
+            "scope": _str(tokens.get("scope") or SCOPE),
+            "last_synced_at": sync["last_synced_at"],
+            "created_at": now,
+            "updated_at": now,
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
-    _execute("DELETE FROM vertex_outlook_pending_oauth WHERE user_key=%s", (key,))
+    # R0: Explicit DELETE not directly supported by shims; using q() as Datalog escape hatch for retraction.
+    entity_id_to_retract = get_kotoba_client().q(f"""
+        [:find ?e .
+         :in $ ?user_key
+         :where
+         [?e :vertex_outlook_pending_oauth/user_key ?user_key]]
+    """, args=[key])
+    if entity_id_to_retract:
+        get_kotoba_client().q(f"""
+            [[:db.fn/retractEntity {entity_id_to_retract}]]
+        """)
     return {"ok": True, "connection": _view(_connection(key)), "sync": sync}
 
 
 def _connection(key: str) -> dict[str, Any] | None:
-    return _fetch_one("SELECT * FROM vertex_outlook_oauth_connection WHERE user_key=%s LIMIT 1", (key,))
+    return get_kotoba_client().select_first_where("vertex_outlook_oauth_connection", "user_key", key)
 
 
 def _refresh(row: dict[str, Any]) -> dict[str, Any]:
@@ -240,10 +248,19 @@ def _refresh(row: dict[str, Any]) -> dict[str, Any]:
     })
     if not tokens.get("access_token"):
         raise RuntimeError("Refresh token response missing access_token")
-    _execute(
-        "UPDATE vertex_outlook_oauth_connection SET access_token=%s, refresh_token=%s, expires_at=%s, token_type=%s, scope=%s, updated_at=%s WHERE vertex_id=%s",
-        (_str(tokens.get("access_token")), _str(tokens.get("refresh_token") or refresh), _expires(tokens.get("expires_in")), _str(tokens.get("token_type") or row.get("token_type") or "Bearer"), _str(tokens.get("scope") or row.get("scope") or SCOPE), now_iso(), row["vertex_id"]),
-    )
+    # Fetch the existing row to get all fields, then update the necessary ones for insert_row
+    # Assuming `row` passed to _refresh already contains `user_key` and `vertex_id`
+    existing_row = get_kotoba_client().select_first_where("vertex_outlook_oauth_connection", "vertex_id", row["vertex_id"])
+    if existing_row:
+        existing_row.update({
+            "access_token": _str(tokens.get("access_token")),
+            "refresh_token": _str(tokens.get("refresh_token") or refresh),
+            "expires_at": _expires(tokens.get("expires_in")),
+            "token_type": _str(tokens.get("token_type") or row.get("token_type") or "Bearer"),
+            "scope": _str(tokens.get("scope") or row.get("scope") or SCOPE),
+            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        })
+        get_kotoba_client().insert_row("vertex_outlook_oauth_connection", existing_row)
     return _connection(_str(row.get("user_key"))) or row
 
 
@@ -261,23 +278,57 @@ def sync_mailbox(limit: int = 25, **kwargs: Any) -> dict[str, Any]:
     key = _user_key(**kwargs)
     row = _connection(key)
     if not row or not row.get("connected"):
-        return {"ok": True, "sync": {"last_synced_at": now_iso(), "emails_found": 0, "emails_saved": 0, "calendar_events_found": 0, "calendar_events_saved": 0, "error": "not connected"}}
+        current_time_iso = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+        return {"ok": True, "sync": {"last_synced_at": current_time_iso, "emails_found": 0, "emails_saved": 0, "calendar_events_found": 0, "calendar_events_saved": 0, "error": "not connected"}}
     active = _refresh(row)
     sync = _sync_summary(_str(active.get("access_token")), limit)
-    _execute("UPDATE vertex_outlook_oauth_connection SET last_synced_at=%s, updated_at=%s WHERE vertex_id=%s", (sync["last_synced_at"], now_iso(), active["vertex_id"]))
-    _execute(
-        """INSERT INTO vertex_outlook_sync_job
-        (vertex_id, user_key, email, status, emails_found, emails_saved, calendar_events_found, calendar_events_saved, error, created_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon')""",
-        (f"{ACTOR}/sync/{int(time.time() * 1000)}", key, active.get("email"), "failed" if sync.get("error") else "completed", sync["emails_found"], sync["emails_saved"], sync["calendar_events_found"], sync["calendar_events_saved"], sync.get("error", ""), now_iso(), ACTOR),
+    active_row = get_kotoba_client().select_first_where("vertex_outlook_oauth_connection", "vertex_id", active["vertex_id"])
+    if active_row:
+        active_row.update({
+            "last_synced_at": sync["last_synced_at"],
+            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        })
+        get_kotoba_client().insert_row("vertex_outlook_oauth_connection", active_row)
+    get_kotoba_client().insert_row(
+        "vertex_outlook_sync_job",
+        {
+            "vertex_id": f"{ACTOR}/sync/{int(time.time() * 1000)}",
+            "user_key": key,
+            "email": active.get("email"),
+            "status": "failed" if sync.get("error") else "completed",
+            "emails_found": sync["emails_found"],
+            "emails_saved": sync["emails_saved"],
+            "calendar_events_found": sync["calendar_events_found"],
+            "calendar_events_saved": sync["calendar_events_saved"],
+            "error": sync.get("error", ""),
+            "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
     return {"ok": not bool(sync.get("error")), "sync": sync}
 
 
 def disconnect(**kwargs: Any) -> dict[str, Any]:
     key = _user_key(**kwargs)
-    _execute("DELETE FROM vertex_outlook_pending_oauth WHERE user_key=%s", (key,))
-    _execute("UPDATE vertex_outlook_oauth_connection SET connected=false, updated_at=%s WHERE user_key=%s", (now_iso(), key))
+    # R0: Explicit DELETE not directly supported by shims; using q() as Datalog escape hatch for retraction.
+    entity_id_to_retract = get_kotoba_client().q(f"""
+        [:find ?e .
+         :in $ ?user_key
+         :where
+         [?e :vertex_outlook_pending_oauth/user_key ?user_key]]
+    """, args=[key])
+    if entity_id_to_retract:
+        get_kotoba_client().q(f"""
+            [[:db.fn/retractEntity {entity_id_to_retract}]]
+        """)
+    connection_row = get_kotoba_client().select_first_where("vertex_outlook_oauth_connection", "user_key", key)
+    if connection_row:
+        connection_row.update({
+            "connected": False,
+            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        })
+        get_kotoba_client().insert_row("vertex_outlook_oauth_connection", connection_row)
     return {"ok": True, "connection": {"connected": False}}
 
 

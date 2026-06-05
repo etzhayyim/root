@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-import json
-import time
+from datetime import datetime, timezone
 from typing import Any
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:p0rt7890.etzhayyim.com"
 PUBLIC_DID = "did:web:port.etzhayyim.com"
@@ -63,7 +62,7 @@ SEED_PORTS = [
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _id(prefix: str) -> str:
@@ -81,11 +80,6 @@ def _n(value: Any, default: float = 0) -> float:
         return default
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
 
 def _inflate(row: dict[str, Any]) -> dict[str, Any]:
     props = row.get("props")
@@ -101,50 +95,50 @@ def _inflate(row: dict[str, Any]) -> dict[str, Any]:
 
 def _select_other(label: str, limit: int = 10000, offset: int = 0) -> list[dict[str, Any]]:
     table = OTHER_TABLE[label]
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT * FROM {table} ORDER BY created_date DESC LIMIT %s OFFSET %s", (limit, offset))
-        cols = [d[0] for d in cur.description or []]
-        return [_inflate(dict(zip(cols, row))) for row in cur.fetchall()]
+    # R0: select_where does not support ORDER BY. Fetch all and sort in Python.
+    rows = get_kotoba_client().select_where(table, None, None, limit=10000)
+    # Apply ordering and offset in Python
+    rows.sort(key=lambda x: x.get("created_date", ""), reverse=True)
+    return [_inflate(row) for row in rows[offset : offset + limit]]
 
 
 def _select_ports(limit: int = 10000, offset: int = 0) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT * FROM vertex_transport WHERE label = 'Port' ORDER BY created_date DESC LIMIT %s OFFSET %s", (limit, offset))
-        cols = [d[0] for d in cur.description or []]
-        return [_inflate(dict(zip(cols, row))) for row in cur.fetchall()]
+    # R0: select_where does not support ORDER BY. Fetch all and sort in Python.
+    rows = get_kotoba_client().select_where("vertex_transport", "label", "Port", limit=10000)
+    # Apply ordering and offset in Python
+    rows.sort(key=lambda x: x.get("created_date", ""), reverse=True)
+    return [_inflate(row) for row in rows[offset : offset + limit]]
 
 
 def _insert_port(props: dict[str, Any], port_id: str | None = None) -> dict[str, Any]:
     pid = _s(port_id or props.get("portId") or props.get("unLocode") or _id("port"))
     props = {**props, "portId": pid, "nodeLabel": "Port", "createdAt": props.get("createdAt") or now_iso()}
     did = props.get("did") or f"{PUBLIC_DID}:{pid.lower()}"
-    _execute(
-        """INSERT INTO vertex_transport
-        (vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo, label, did, name, display_name,
-         description, category, code, lat, lng, status, props, actor_did, org_did)
-        VALUES (%s, _next_seq('vertex_transport'), %s, %s, %s, %s, %s, 'Port', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        ON CONFLICT (vertex_id) DO UPDATE SET props = EXCLUDED.props, status = EXCLUDED.status""",
-        (
-            f"at://{OWNER_DID}/com.etzhayyim.apps.port.port/{pid}",
-            time.strftime("%Y-%m-%d", time.gmtime()),
-            100,
-            OWNER_DID,
-            pid,
-            OWNER_DID,
-            did,
-            props.get("name"),
-            props.get("name"),
-            props.get("description"),
-            props.get("portType") or "port",
-            props.get("unLocode") or pid,
-            _n(props.get("latitude")),
-            _n(props.get("longitude")),
-            props.get("status") or "operational",
-            json.dumps(props, ensure_ascii=False, sort_keys=True),
-            OWNER_DID,
-            "anon",
-        ),
-    )
+
+    row_dict = {
+        "vertex_id": f"at://{OWNER_DID}/com.etzhayyim.apps.port.port/{pid}",
+        "created_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "sensitivity_ord": 100,
+        "owner_did": OWNER_DID,
+        "rkey": pid,
+        "repo": OWNER_DID,
+        "label": "Port",
+        "did": did,
+        "name": props.get("name"),
+        "display_name": props.get("name"),
+        "description": props.get("description"),
+        "category": props.get("portType") or "port",
+        "code": props.get("unLocode") or pid,
+        "lat": _n(props.get("latitude")),
+        "lng": _n(props.get("longitude")),
+        "status": props.get("status") or "operational",
+        "props": json.dumps(props, ensure_ascii=False, sort_keys=True),
+        "actor_did": OWNER_DID,
+        "org_did": "anon",
+    }
+    # _seq is handled by the kotoba client's insert_row for vertex tables.
+
+    get_kotoba_client().insert_row("vertex_transport", row_dict)
     return {"ok": True, "portId": pid}
 
 
@@ -153,42 +147,31 @@ def _insert_other(label: str, props: dict[str, Any], id_field: str) -> dict[str,
     rec_id = _s(props.get(id_field) or _id(label.lower()))
     props = {**props, id_field: rec_id, "nodeLabel": label, "createdAt": props.get("createdAt") or now_iso(), "orgId": "anon", "userId": "anon", "actorId": OWNER_DID}
     vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.port.{label}/{rec_id}"
-    columns = [
-        "vertex_id", "_seq", "created_date", "sensitivity_ord", "owner_did", "rkey", "repo",
-        "label", "did", "collection", "status", "props", "actor_did", "org_did",
-    ]
-    values: list[Any] = [
-        vertex_id,
-        time.strftime("%Y-%m-%d", time.gmtime()),
-        100,
-        OWNER_DID,
-        rec_id,
-        OWNER_DID,
-        label,
-        props.get("did") or vertex_id,
-        OTHER_COLLECTION[label],
-        "active",
-        json.dumps(props, ensure_ascii=False, sort_keys=True),
-        OWNER_DID,
-        "anon",
-    ]
+
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "sensitivity_ord": 100,
+        "owner_did": OWNER_DID,
+        "rkey": rec_id,
+        "repo": OWNER_DID,
+        "label": label,
+        "did": props.get("did") or vertex_id,
+        "collection": OTHER_COLLECTION[label],
+        "status": "active",
+        "props": json.dumps(props, ensure_ascii=False, sort_keys=True),
+        "actor_did": OWNER_DID,
+        "org_did": "anon",
+    }
+
     promoted = PROMOTED_COLUMNS[label]
     for column, prop_name in promoted.items():
-        columns.append(column)
         value = props.get(prop_name)
         if column in {"length_m", "depth_m", "capacity"}:
             value = _n(value)
-        values.append(value)
-    placeholders = ", ".join(["%s"] * (len(values) - 1))
-    update_columns = ["props", "status", *promoted.keys()]
-    assignments = ", ".join(f"{column} = EXCLUDED.{column}" for column in update_columns)
-    _execute(
-        f"""INSERT INTO {table}
-        ({", ".join(columns)})
-        VALUES (%s, _next_seq('{table}'), {placeholders})
-        ON CONFLICT (vertex_id) DO UPDATE SET {assignments}""",
-        tuple(values),
-    )
+        row_dict[column] = value
+
+    get_kotoba_client().insert_row(table, row_dict)
     if label in {"Berth", "Terminal"} and props.get("portId"):
         _insert_edge("edge_port_infrastructure", rec_id, f"at://{OWNER_DID}/com.etzhayyim.apps.port.port/{props.get('portId')}", vertex_id, f"HAS_{label.upper()}", props)
     elif label == "PortCallEvent":
@@ -198,24 +181,20 @@ def _insert_other(label: str, props: dict[str, Any], id_field: str) -> dict[str,
 
 def _insert_edge(table: str, key: str, src_vid: str, dst_vid: str, relation: str, props: dict[str, Any]) -> None:
     edge_id = f"at://{OWNER_DID}/{table}/{key}"
-    _execute(
-        f"""INSERT INTO {table}
-        (edge_id, _seq, created_date, sensitivity_ord, owner_did, src_vid, dst_vid, relation, status, props, actor_did, org_did)
-        VALUES (%s, _next_seq('{table}'), %s, %s, %s, %s, %s, %s, 'active', %s, %s, %s)
-        ON CONFLICT (edge_id) DO UPDATE SET src_vid = EXCLUDED.src_vid, dst_vid = EXCLUDED.dst_vid, props = EXCLUDED.props""",
-        (
-            edge_id,
-            time.strftime("%Y-%m-%d", time.gmtime()),
-            100,
-            OWNER_DID,
-            src_vid,
-            dst_vid,
-            relation,
-            json.dumps(props, ensure_ascii=False, sort_keys=True),
-            OWNER_DID,
-            "anon",
-        ),
-    )
+    row_dict = {
+        "edge_id": edge_id,
+        "created_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "sensitivity_ord": 100,
+        "owner_did": OWNER_DID,
+        "src_vid": src_vid,
+        "dst_vid": dst_vid,
+        "relation": relation,
+        "status": "active",
+        "props": json.dumps(props, ensure_ascii=False, sort_keys=True),
+        "actor_did": OWNER_DID,
+        "org_did": "anon",
+    }
+    get_kotoba_client().insert_row(table, row_dict)
 
 
 def register_port(**kwargs: Any) -> dict[str, Any]:

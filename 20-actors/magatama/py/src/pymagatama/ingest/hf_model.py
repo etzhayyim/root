@@ -14,7 +14,7 @@ HF Hub API used:
 Env (reuses K8s Secret training-hf-creds):
   HF_TOKEN   read-only HuggingFace API token
 
-RW conventions:
+kotoba Datom log conventions:
   - No ON CONFLICT — PK implicit upsert
   - LIMIT inlined as {int(n)} — avoids psycopg3 prepared-statement rejection
   - No CURRENT_DATE in prepared statements
@@ -29,9 +29,10 @@ import os
 import time
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger(__name__)
 
@@ -45,11 +46,10 @@ _SCAN_LIMIT = int(os.environ.get("HF_MODEL_SCAN_LIMIT", "500"))
 # ── helpers ───────────────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
-
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 def _today() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def _hf_request(url: str) -> Any:
@@ -65,16 +65,7 @@ def _hf_request(url: str) -> Any:
         return None
 
 
-def _execute(sql_str: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetchall(sql_str: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
-        return cur.fetchall() or []
 
 
 # ── HF Hub API — model list ───────────────────────────────────────────────────
@@ -209,70 +200,73 @@ def _model_passes_filter(m: dict[str, Any], fspec: dict[str, Any]) -> bool:
 # ── DB writes ─────────────────────────────────────────────────────────────────
 
 def _upsert_model(m: dict[str, Any]) -> None:
+    client = get_kotoba_client()
     ts = _now_iso()
     date = _today()
-    _execute(
-        """INSERT INTO vertex_hfhub_model
-        (vertex_id, created_date, repo_id, author, sha,
-         pipeline_tag, library_name, model_type, architecture, auto_model_class, inference_state,
-         num_parameters, primary_dtype, used_storage_bytes,
-         license, base_model, trending_score, downloads_month, likes,
-         gated, disabled, private, card_data, spaces_count,
-         status, last_scanned_at, created_at_hf, last_modified_hf,
-         actor_did, created_at)
-        VALUES (
-          %s, %s::date, %s, %s, %s,
-          %s, %s, %s, %s, %s, %s,
-          %s, %s, %s,
-          %s, %s, %s, %s, %s,
-          %s, %s, %s, %s, %s,
-          'active', %s::timestamp, %s::timestamp, %s::timestamp,
-          %s, %s::timestamp
-        )""",
-        (
-            m["vertex_id"], date, m["repo_id"], m["author"], m["sha"],
-            m["pipeline_tag"], m["library_name"], m["model_type"],
-            m["architecture"], m["auto_model_class"], m["inference_state"],
-            m["num_parameters"], m["primary_dtype"], m["used_storage_bytes"],
-            m["license"], m["base_model"], m["trending_score"],
-            m["downloads_month"], m["likes"],
-            m["gated"], m["disabled"], m["private"],
-            m["card_data"], m["spaces_count"],
-            ts, m["created_at_hf"], m["last_modified_hf"],
-            _OWNER_DID, ts,
-        ),
-    )
+
+    row_dict = {
+        "vertex_id": m["vertex_id"],
+        "created_date": date,
+        "repo_id": m["repo_id"],
+        "author": m["author"],
+        "sha": m["sha"],
+        "pipeline_tag": m["pipeline_tag"],
+        "library_name": m["library_name"],
+        "model_type": m["model_type"],
+        "architecture": m["architecture"],
+        "auto_model_class": m["auto_model_class"],
+        "inference_state": m["inference_state"],
+        "num_parameters": m["num_parameters"],
+        "primary_dtype": m["primary_dtype"],
+        "used_storage_bytes": m["used_storage_bytes"],
+        "license": m["license"],
+        "base_model": m["base_model"],
+        "trending_score": m["trending_score"],
+        "downloads_month": m["downloads_month"],
+        "likes": m["likes"],
+        "gated": m["gated"],
+        "disabled": m["disabled"],
+        "private": m["private"],
+        "card_data": m["card_data"],
+        "spaces_count": m["spaces_count"],
+        "status": "active",
+        "last_scanned_at": ts,
+        "created_at_hf": m["created_at_hf"],
+        "last_modified_hf": m["last_modified_hf"],
+        "actor_did": _OWNER_DID,
+        "created_at": ts,
+    }
+    client.insert_row("vertex_hfhub_model", row_dict)
 
 
 def _upsert_model_edges(m: dict[str, Any]) -> None:
+    client = get_kotoba_client()
     vid = m["vertex_id"]
     for tag in m["tags"]:
-        _execute("INSERT INTO edge_hfhub_model_tag (model_id, tag) VALUES (%s, %s)", (vid, tag))
+        client.insert_row("edge_hfhub_model_tag", {"edge_id": f"{vid}-{tag}", "model_id": vid, "tag": tag})
     for task in m["task_categories"]:
-        _execute("INSERT INTO edge_hfhub_model_task (model_id, task_category) VALUES (%s, %s)", (vid, task))
+        client.insert_row("edge_hfhub_model_task", {"edge_id": f"{vid}-{task}", "model_id": vid, "task_category": task})
     # Also insert pipeline_tag as a task edge (more reliable)
     if m["pipeline_tag"] and m["pipeline_tag"] not in m["task_categories"]:
-        _execute("INSERT INTO edge_hfhub_model_task (model_id, task_category) VALUES (%s, %s)",
-                 (vid, m["pipeline_tag"]))
+        client.insert_row("edge_hfhub_model_task", {"edge_id": f"{vid}-{m['pipeline_tag']}", "model_id": vid, "task_category": m["pipeline_tag"]})
     for lang in m["languages"]:
-        _execute("INSERT INTO edge_hfhub_model_language (model_id, lang_code) VALUES (%s, %s)", (vid, lang))
+        client.insert_row("edge_hfhub_model_language", {"edge_id": f"{vid}-{lang}", "model_id": vid, "lang_code": lang})
     for depth, bm in enumerate(m["base_models"], start=1):
-        _execute(
-            "INSERT INTO edge_hfhub_model_base (model_id, base_model_id, depth) VALUES (%s, %s, %s)",
-            (vid, bm, depth),
-        )
+        client.insert_row("edge_hfhub_model_base", {"edge_id": f"{vid}-{bm}-{depth}", "model_id": vid, "base_model_id": bm, "depth": depth})
     for ds in m["training_datasets"]:
-        _execute(
-            "INSERT INTO edge_hfhub_model_dataset (model_id, dataset_repo_id) VALUES (%s, %s)",
-            (vid, ds),
-        )
+        client.insert_row("edge_hfhub_model_dataset", {"edge_id": f"{vid}-{ds}", "model_id": vid, "dataset_repo_id": ds})
 
 
 def _upsert_filter_match(filter_id: str, model_id: str) -> None:
-    _execute(
-        "INSERT INTO edge_hfhub_filter_match (filter_id, dataset_id, matched_at) VALUES (%s, %s, %s::timestamp)",
-        (filter_id, model_id, _now_iso()),
-    )
+    client = get_kotoba_client()
+    ts = _now_iso()
+    row_dict = {
+        "edge_id": f"{filter_id}-{model_id}",
+        "filter_id": filter_id,
+        "dataset_id": model_id,
+        "matched_at": ts,
+    }
+    client.insert_row("edge_hfhub_filter_match", row_dict)
 
 
 # ── Zeebe task implementations ────────────────────────────────────────────────
@@ -293,18 +287,25 @@ def task_hf_model_scan(
     if not filter_id:
         return {"ok": False, "error": "filter_id required"}
 
-    rows = _fetchall(
-        """SELECT vertex_id, slug, filter_tags, filter_tasks, filter_languages,
-                  filter_license, min_downloads, max_rows, require_gated, exclude_private
-           FROM vertex_hfhub_filter
-           WHERE vertex_id = %s AND enabled = true""",
-        (filter_id,),
+    client = get_kotoba_client()
+    row = client.select_first_where(
+        "vertex_hfhub_filter",
+        "vertex_id",
+        filter_id,
+        columns=[
+            "vertex_id", "slug", "filter_tags", "filter_tasks", "filter_languages",
+            "filter_license", "min_downloads", "max_rows", "require_gated", "exclude_private", "enabled"
+        ]
     )
-    if not rows:
+    # R0: select_first_where only supports a single WHERE clause, so 'enabled' check is done in Python.
+    if not row or not row.get("enabled"):
         return {"ok": False, "error": f"filter not found or disabled: {filter_id}"}
 
     (vid, slug, filter_tags, filter_tasks, filter_languages,
-     filter_license, min_downloads, max_rows, require_gated, exclude_private) = rows[0]
+     filter_license, min_downloads, max_rows, require_gated, exclude_private) = (
+        row["vertex_id"], row["slug"], row["filter_tags"], row["filter_tasks"], row["filter_languages"],
+        row["filter_license"], row["min_downloads"], row["max_rows"], row["require_gated"], row["exclude_private"]
+    )
 
     fspec = {
         "tags": json.loads(filter_tags) if filter_tags else [],
@@ -334,9 +335,13 @@ def task_hf_model_scan(
         except Exception as exc:
             LOG.warning("model upsert failed repo=%s: %s", m["repo_id"], exc)
 
-    _execute(
-        "UPDATE vertex_hfhub_filter SET last_run_at = %s::timestamp, match_count = %s WHERE vertex_id = %s",
-        (_now_iso(), matched, filter_id),
+    client.insert_row(
+        "vertex_hfhub_filter",
+        {
+            "vertex_id": filter_id,
+            "last_run_at": _now_iso(),
+            "match_count": matched,
+        },
     )
 
     LOG.info("hf.model.scan filter=%s scanned=%d matched=%d", filter_id, len(models), matched)
@@ -390,34 +395,52 @@ def task_hf_model_resolve_lineage(
 
     Idempotent — safe to re-run.
     """
+    client = get_kotoba_client()
+
     # Resolve dataset cross-references
-    unresolved = _fetchall(
-        f"SELECT model_id, dataset_repo_id FROM edge_hfhub_model_dataset "
-        f"WHERE dataset_vertex_id IS NULL LIMIT {int(batch_size)}"
-    )
+    # R0: Multi-predicate WHERE (dataset_vertex_id IS NULL) and LIMIT handled in Python.
+    all_dataset_edges = client.select_where("edge_hfhub_model_dataset", "dataset_vertex_id", None, limit=batch_size)
+    unresolved = [
+        (edge["model_id"], edge["dataset_repo_id"])
+        for edge in all_dataset_edges
+        if edge["dataset_vertex_id"] is None
+    ]
+
     ds_resolved = 0
     for (model_id, ds_repo_id) in unresolved:
         ds_vid = f"hf:dataset:{ds_repo_id}"
-        exists = _fetchall(
-            "SELECT 1 FROM vertex_hfhub_dataset WHERE vertex_id = %s LIMIT 1",
-            (ds_vid,),
+        exists = client.select_first_where(
+            "vertex_hfhub_dataset",
+            "vertex_id",
+            ds_vid,
+            columns=["vertex_id"]
         )
         if exists:
-            _execute(
-                "INSERT INTO edge_hfhub_model_dataset (model_id, dataset_repo_id, dataset_vertex_id) "
-                "VALUES (%s, %s, %s)",
-                (model_id, ds_repo_id, ds_vid),
+            client.insert_row(
+                "edge_hfhub_model_dataset",
+                {
+                    "edge_id": f"{model_id}-{ds_repo_id}",  # Assuming edge_id exists, needs to be unique
+                    "model_id": model_id,
+                    "dataset_repo_id": ds_repo_id,
+                    "dataset_vertex_id": ds_vid,
+                },
             )
             ds_resolved += 1
 
     # Enrich models that are missing num_parameters (were scanned from list API)
-    pending = _fetchall(
-        f"SELECT repo_id FROM vertex_hfhub_model "
-        f"WHERE num_parameters IS NULL AND status = 'active' "
-        f"ORDER BY downloads_month DESC LIMIT {int(batch_size)}"
-    )
+    # R0: Multi-predicate WHERE (num_parameters IS NULL, status='active') and ORDER BY handled in Python.
+    all_hfhub_models = client.select_where("vertex_hfhub_model", "num_parameters", None, limit=batch_size * 2) # Fetch more to allow for filtering
+    pending = [
+        model["repo_id"]
+        for model in all_hfhub_models
+        if model["num_parameters"] is None and model["status"] == "active"
+    ]
+    # Apply order by downloads_month DESC in Python
+    pending.sort(key=lambda repo_id: client.select_first_where("vertex_hfhub_model", "repo_id", repo_id, columns=["downloads_month"])["downloads_month"], reverse=True)
+    pending = pending[:batch_size]
+
     enriched = 0
-    for (repo_id,) in pending:
+    for repo_id in pending:
         result = task_hf_model_fetch_detail(repo_id=repo_id)
         if result.get("ok"):
             enriched += 1

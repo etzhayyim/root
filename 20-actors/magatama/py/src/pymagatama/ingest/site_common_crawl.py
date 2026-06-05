@@ -18,8 +18,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-import sqlite3
-from contextlib import contextmanager
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.ingest.core import (
     IngestArtifact,
     IngestRun,
@@ -28,21 +27,6 @@ from pymagatama.ingest.core import (
     upsert_cursor,
     upsert_run,
 )
-
-
-
-@contextmanager
-def sync_cursor():
-    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
-    os.makedirs(db_dir, exist_ok=True)
-    db_path = os.path.join(db_dir, "ingest_site_common_crawl.db")
-    with sqlite3.connect(db_path) as conn:
-        conn.execute('PRAGMA journal_mode=WAL;')
-        conn.execute('''CREATE TABLE IF NOT EXISTS mv_site_page_total (cnt INTEGER)''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_page (vertex_id TEXT PRIMARY KEY, crawl TEXT)''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS mv_site_job_total (cnt INTEGER)''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_collection_job (vertex_id TEXT PRIMARY KEY)''')
-        yield conn.cursor()
 
 ACTOR_DID = "did:web:site.etzhayyim.com"
 SOURCE_ID = "common-crawl"
@@ -156,22 +140,26 @@ def _record_artifacts(run_id: str, source_id: str, data_dir: Path, stats: dict[s
 
 def _site_counts(crawl: str = "") -> dict[str, int]:
     out = {"pageTotal": 0, "jobTotal": 0, "crawlPageTotal": 0}
-    with sync_cursor() as cur:
-        try:
-            cur.execute("SELECT cnt FROM mv_site_page_total LIMIT 1")
-            out["pageTotal"] = int((cur.fetchone() or [0])[0] or 0)
-        except Exception:
-            cur.execute("SELECT count(*) FROM vertex_page")
-            out["pageTotal"] = int((cur.fetchone() or [0])[0] or 0)
-        try:
-            cur.execute("SELECT cnt FROM mv_site_job_total LIMIT 1")
-            out["jobTotal"] = int((cur.fetchone() or [0])[0] or 0)
-        except Exception:
-            cur.execute("SELECT count(*) FROM vertex_collection_job")
-            out["jobTotal"] = int((cur.fetchone() or [0])[0] or 0)
-        if crawl:
-            cur.execute("SELECT count(*) FROM vertex_page WHERE crawl = ?", (crawl,))
-            out["crawlPageTotal"] = int((cur.fetchone() or [0])[0] or 0)
+    kotoba = get_kotoba_client()
+
+    # R0: Initial SELECT cnt from mv_site_page_total
+    page_total_mv = kotoba.select_first_where(table="mv_site_page_total", column=None, value=None, columns=["cnt"])
+    if page_total_mv:
+        out["pageTotal"] = int(page_total_mv.get("cnt") or 0)
+    else:
+        # Fallback if mv_site_page_total does not exist or is empty
+        out["pageTotal"] = int(kotoba.aggregate_where("vertex_page", "count", "*", None, None) or 0)
+
+    # R0: Initial SELECT cnt from mv_site_job_total
+    job_total_mv = kotoba.select_first_where(table="mv_site_job_total", column=None, value=None, columns=["cnt"])
+    if job_total_mv:
+        out["jobTotal"] = int(job_total_mv.get("cnt") or 0)
+    else:
+        # Fallback if mv_site_job_total does not exist or is empty
+        out["jobTotal"] = int(kotoba.aggregate_where("vertex_collection_job", "count", "*", None, None) or 0)
+
+    if crawl:
+        out["crawlPageTotal"] = int(kotoba.aggregate_where("vertex_page", "count", "*", "crawl", crawl) or 0)
     return out
 
 

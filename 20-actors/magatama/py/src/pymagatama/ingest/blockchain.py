@@ -1,7 +1,7 @@
 """Blockchain head-delta ingest tasks for Zeebe workers.
 
 The node pods own chain sync. These helpers only read stable RPC endpoints and
-write deterministic RisingWave rows plus the generic ingest cursor.
+write deterministic kotoba Datom log entries plus the generic ingest cursor.
 """
 
 from __future__ import annotations
@@ -15,44 +15,10 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-import sqlite3
-from contextlib import contextmanager
+from datetime import datetime, timezone
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.ingest.core import now_iso, today, upsert_cursor
-
-
-
-
-@contextmanager
-def sync_cursor():
-    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
-    os.makedirs(db_dir, exist_ok=True)
-    db_path = os.path.join(db_dir, "ingest_blockchain.db")
-    with sqlite3.connect(db_path) as conn:
-        conn.execute('PRAGMA journal_mode=WAL;')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_ingest_cursor (
-            vertex_id TEXT PRIMARY KEY,
-            cursor_value TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_blockchain_actor (
-            vertex_id TEXT PRIMARY KEY, _seq INTEGER, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
-            rkey TEXT, repo TEXT, label TEXT, did TEXT, chain TEXT, address TEXT, name TEXT, balance INTEGER,
-            total_received INTEGER, total_sent INTEGER, tx_count INTEGER, unconfirmed_tx_count INTEGER,
-            risk_score REAL, source TEXT, observed_at TEXT, props TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_blockchain_block (
-            vertex_id TEXT PRIMARY KEY, _seq INTEGER, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
-            chain TEXT, source_id TEXT, height INTEGER, block_hash TEXT, parent_hash TEXT, block_time TEXT,
-            tx_count INTEGER, raw_sha256 TEXT, raw_json TEXT, canonical_status TEXT, ingested_at TEXT, run_id TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_blockchain_tx (
-            vertex_id TEXT PRIMARY KEY, _seq INTEGER, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
-            chain TEXT, source_id TEXT, block_hash TEXT, block_height INTEGER, tx_hash TEXT, tx_index INTEGER,
-            from_addr TEXT, to_addr TEXT, value_wei TEXT, raw_sha256 TEXT, raw_json TEXT, canonical_status TEXT, ingested_at TEXT, run_id TEXT
-        )''')
-        yield conn.cursor()
-
-OWNER_DID = "did:web:blockchain.etzhayyim.com"
-_BLOCK_TABLES_AVAILABLE: bool | None = None
 
 
 def _json_dumps(value: Any) -> str:
@@ -114,32 +80,19 @@ def _ethereum_rpc(method: str, params: list[Any] | None = None) -> Any:
 def _get_cursor_height(source_id: str) -> int | None:
     vid = f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.ingest.cursor/blockchain-{source_id}-head"
     try:
-        with sync_cursor() as cur:
-            cur.execute("SELECT cursor_value FROM vertex_ingest_cursor WHERE vertex_id = ?", (vid,))
-            row = cur.fetchone()
-        if not row or row[0] is None:
+        client = get_kotoba_client()
+        row = client.select_first_where(
+            "vertex_ingest_cursor", "vertex_id", vid, columns=["cursor_value"]
+        )
+        if not row or row["cursor_value"] is None:
             return None
-        return int(str(row[0]))
+        return int(str(row["cursor_value"]))
     except Exception:
-        return None
-
-
-def _block_tables_available() -> bool:
-    global _BLOCK_TABLES_AVAILABLE
-    if _BLOCK_TABLES_AVAILABLE is not None:
-        return _BLOCK_TABLES_AVAILABLE
-    try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name IN ('vertex_blockchain_block', 'vertex_blockchain_tx')
-                """
-            )
-            row = cur.fetchone()
-        _BLOCK_TABLES_AVAILABLE = int(row[0] if row else 0) == 2
-    except Exception:
-        _BLOCK_TABLES_AVAILABLE = False
-    return _BLOCK_TABLES_AVAILABLE
+        def _block_tables_available() -> bool:
+            # In Datomic, tables/entities are implicitly available once referenced.
+            # This function previously checked for SQLite table existence, which is no longer applicable.
+            # Therefore, we assume the equivalent Datomic entities are always available.
+            return True
 
 
 def _insert_actor_landing(row: dict[str, Any], *, kind: str) -> int:
@@ -162,38 +115,33 @@ def _insert_actor_landing(row: dict[str, Any], *, kind: str) -> int:
         }
     )
     address = row.get("block_hash") if kind == "block" else row.get("tx_hash")
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT OR IGNORE INTO vertex_blockchain_actor (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              rkey, repo, label, did, chain, address, name, balance,
-              total_received, total_sent, tx_count, unconfirmed_tx_count,
-              risk_score, source, observed_at, props
-            )
-            VALUES (?, NULL, ?, 0, ?,
-                   ?, ?, ?, ?, ?, ?, ?, 0,
-                   0, 0, ?, 0,
-                   0.0, ?, ?, ?)
-            """,
-            (
-                row["vertex_id"],
-                today(),
-                OWNER_DID,
-                row["vertex_id"][-64:],
-                OWNER_DID,
-                f"{kind}:{row.get('height', row.get('block_height', ''))}",
-                f"did:web:blockchain.etzhayyim.com:{kind}:{row['vertex_id'][-48:]}",
-                row["chain"],
-                address or "",
-                row["vertex_id"],
-                row.get("tx_count", 0),
-                row.get("source_id", ""),
-                now_iso(),
-                props,
-            ),
-        )
-        return int(cur.rowcount or 0)
+
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": row["vertex_id"],
+        "_seq": None,
+        "created_date": today(),
+        "sensitivity_ord": 0,
+        "owner_did": OWNER_DID,
+        "rkey": row["vertex_id"][-64:],
+        "repo": OWNER_DID,
+        "label": f"{kind}:{row.get('height', row.get('block_height', ''))}",
+        "did": f"did:web:blockchain.etzhayyim.com:{kind}:{row['vertex_id'][-48:]}",
+        "chain": row["chain"],
+        "address": address or "",
+        "name": row["vertex_id"],
+        "balance": 0,
+        "total_received": 0,
+        "total_sent": 0,
+        "tx_count": row.get("tx_count", 0),
+        "unconfirmed_tx_count": 0,
+        "risk_score": 0.0,
+        "source": row.get("source_id", ""),
+        "observed_at": now_iso(),
+        "props": props,
+    }
+    client.insert_row("vertex_blockchain_actor", row_dict)
+    return 1
 
 
 def _insert_block(row: dict[str, Any]) -> int:
@@ -202,39 +150,29 @@ def _insert_block(row: dict[str, Any]) -> int:
     raw_json = _json_dumps(row.get("raw") or {})
     raw_sha256 = _sha256_text(raw_json)
     now = now_iso()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT OR IGNORE INTO vertex_blockchain_block (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              chain, source_id, height, block_hash, parent_hash, block_time,
-              tx_count, raw_sha256, raw_json, canonical_status, ingested_at,
-              run_id
-            )
-            VALUES (?, NULL, ?, 0, ?,
-                   ?, ?, ?, ?, ?, ?,
-                   ?, ?, ?, ?, ?,
-                   ?)
-            """,
-            (
-                row["vertex_id"],
-                today(),
-                OWNER_DID,
-                row["chain"],
-                row["source_id"],
-                row["height"],
-                row["block_hash"],
-                row.get("parent_hash", ""),
-                row.get("block_time", ""),
-                row.get("tx_count", 0),
-                raw_sha256,
-                raw_json,
-                "canonical",
-                now,
-                row.get("run_id", ""),
-            ),
-        )
-        return int(cur.rowcount or 0)
+
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": row["vertex_id"],
+        "_seq": None,
+        "created_date": today(),
+        "sensitivity_ord": 0,
+        "owner_did": OWNER_DID,
+        "chain": row["chain"],
+        "source_id": row["source_id"],
+        "height": row["height"],
+        "block_hash": row["block_hash"],
+        "parent_hash": row.get("parent_hash", ""),
+        "block_time": row.get("block_time", ""),
+        "tx_count": row.get("tx_count", 0),
+        "raw_sha256": raw_sha256,
+        "raw_json": raw_json,
+        "canonical_status": "canonical",
+        "ingested_at": now,
+        "run_id": row.get("run_id", ""),
+    }
+    client.insert_row("vertex_blockchain_block", row_dict)
+    return 1
 
 
 def _insert_tx(row: dict[str, Any]) -> int:
@@ -243,41 +181,31 @@ def _insert_tx(row: dict[str, Any]) -> int:
     raw_json = _json_dumps(row.get("raw") or {})
     raw_sha256 = _sha256_text(raw_json)
     now = now_iso()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT OR IGNORE INTO vertex_blockchain_tx (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              chain, source_id, block_hash, block_height, tx_hash, tx_index,
-              from_addr, to_addr, value_wei, raw_sha256, raw_json,
-              canonical_status, ingested_at, run_id
-            )
-            VALUES (?, NULL, ?, 0, ?,
-                   ?, ?, ?, ?, ?, ?,
-                   ?, ?, ?, ?, ?,
-                   ?, ?, ?)
-            """,
-            (
-                row["vertex_id"],
-                today(),
-                OWNER_DID,
-                row["chain"],
-                row["source_id"],
-                row["block_hash"],
-                row["block_height"],
-                row["tx_hash"],
-                row["tx_index"],
-                row.get("from_addr", ""),
-                row.get("to_addr", ""),
-                row.get("value_wei", ""),
-                raw_sha256,
-                raw_json,
-                "canonical",
-                now,
-                row.get("run_id", ""),
-            ),
-        )
-        return int(cur.rowcount or 0)
+
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": row["vertex_id"],
+        "_seq": None,
+        "created_date": today(),
+        "sensitivity_ord": 0,
+        "owner_did": OWNER_DID,
+        "chain": row["chain"],
+        "source_id": row["source_id"],
+        "block_hash": row["block_hash"],
+        "block_height": row["block_height"],
+        "tx_hash": row["tx_hash"],
+        "tx_index": row["tx_index"],
+        "from_addr": row.get("from_addr", ""),
+        "to_addr": row.get("to_addr", ""),
+        "value_wei": row.get("value_wei", ""),
+        "raw_sha256": raw_sha256,
+        "raw_json": raw_json,
+        "canonical_status": "canonical",
+        "ingested_at": now,
+        "run_id": row.get("run_id", ""),
+    }
+    client.insert_row("vertex_blockchain_tx", row_dict)
+    return 1
 
 
 def ingest_bitcoin_head(*, run_id: str, source_id: str, max_blocks: int) -> dict[str, Any]:

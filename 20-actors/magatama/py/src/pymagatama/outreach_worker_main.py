@@ -22,7 +22,7 @@ Run:
 
 Env:
   AGENTGATEWAY_MCP_URL      — LangServer AgentGateway URL (default 127.0.0.1:8080)
-  RW_URL             — RisingWave postgres URL
+  KOTOBA_URL         — Kotoba Datomic Client URL
   ANTHROPIC_API_KEY
   RESEND_API_KEY
   RESEND_FROM        — sender address (default outreach@etzhayyim.com)
@@ -37,7 +37,6 @@ import hashlib
 import json
 import logging
 import os
-import time
 from datetime import datetime, timezone
 from typing import Annotated, Any, TypedDict
 
@@ -47,7 +46,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_one, sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 from pymagatama.llm import resolve_model
 
@@ -96,17 +95,16 @@ def research_prospect(state: OutreachState) -> dict[str, Any]:
     """Fetch prospect context from graph + lightweight web research."""
     prospect_id = state["prospect_id"]
 
-    row = fetch_one(
-        "SELECT email, prospect_name, title, company, cohort_name, linkedin_url, company_website "
-        "FROM vertex_outreach_prospect WHERE vertex_id = %s",
-        (prospect_id,),
+    prospect = get_kotoba_client().select_first_where(
+        "vertex_outreach_prospect", "vertex_id", prospect_id,
+        columns=["email", "prospect_name", "title", "company", "cohort_name", "linkedin_url", "company_website"],
     )
-    if not row:
+    if not prospect:
         return {"company_summary": "", "prospect_context": "unknown prospect"}
 
-    company = row[3] or ""
-    title = row[2] or ""
-    website = row[6] or ""
+    company = prospect.get("company") or ""
+    title = prospect.get("title") or ""
+    website = prospect.get("company_website") or ""
 
     # lightweight: just use available structured data (no external fetch to avoid timeout)
     prospect_context = f"{title} at {company}" if title and company else company or "unknown"
@@ -171,38 +169,29 @@ def quality_gate(state: OutreachState) -> dict[str, Any]:
 
 
 def store_step(state: OutreachState) -> dict[str, Any]:
-    """INSERT draft to vertex_outreach_step (no onConflict — PK implicit)."""
+    """INSERT draft to vertex_outreach_step (kotoba Datom log)."""
     sequence_id = state["sequence_id"]
     step_number = state.get("step_number", 1)
     now = datetime.now(timezone.utc).isoformat()
     vertex_id = hashlib.sha256(f"{sequence_id}:step:{step_number}".encode()).hexdigest()
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_outreach_step
-              (vertex_id, record_id, owner_did, label, status, agent_did,
-               created_at, updated_at, sensitivity_ord,
-               sequence_id, step_number, subject_line, body_text, quality_score)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id,
-                f"outreach:step:{sequence_id}:{step_number}",
-                OUTREACH_DID,
-                "OutreachStep",
-                "drafted",
-                OUTREACH_DID,
-                now,
-                now,
-                0,
-                sequence_id,
-                step_number,
-                state.get("subject_line", ""),
-                state.get("body_text", ""),
-                state.get("quality_score", 0.0),
-            ),
-        )
+    row_data = {
+        "vertex_id": vertex_id,
+        "record_id": f"outreach:step:{sequence_id}:{step_number}",
+        "owner_did": OUTREACH_DID,
+        "label": "OutreachStep",
+        "status": "drafted",
+        "agent_did": OUTREACH_DID,
+        "created_at": now,
+        "updated_at": now,
+        "sensitivity_ord": 0,
+        "sequence_id": sequence_id,
+        "step_number": step_number,
+        "subject_line": state.get("subject_line", ""),
+        "body_text": state.get("body_text", ""),
+        "quality_score": state.get("quality_score", 0.0),
+    }
+    get_kotoba_client().insert_row("vertex_outreach_step", row_data)
 
     LOG.info("store_step: vertex_id=%s step=%d score=%.2f", vertex_id, step_number, state.get("quality_score", 0))
     return {"stored": True}
@@ -258,17 +247,15 @@ async def task_check_dnc(
     **_: Any,
 ) -> dict[str, Any]:
     """Check if prospect email is on DNC list before any send."""
-    prospect = fetch_one(
-        "SELECT email FROM vertex_outreach_prospect WHERE vertex_id = %s",
-        (prospect_id,),
+    prospect = get_kotoba_client().select_first_where(
+        "vertex_outreach_prospect", "vertex_id", prospect_id, columns=["email"]
     )
-    if not prospect or not prospect[0]:
+    if not prospect or not prospect.get("email"):
         return {"isDnc": False}
 
-    email = prospect[0]
-    dnc_row = fetch_one(
-        "SELECT vertex_id FROM vertex_outreach_dnc WHERE email = %s",
-        (email,),
+    email = prospect["email"]
+    dnc_row = get_kotoba_client().select_first_where(
+        "vertex_outreach_dnc", "email", email, columns=["vertex_id"]
     )
     is_dnc = bool(dnc_row)
     if is_dnc:
@@ -324,16 +311,16 @@ async def task_send_via_resend(
     if not api_key:
         api_key = load_keychain_secret(service="etzhayyim.resend", account="API_KEY") or ""
 
-    prospect = fetch_one(
-        "SELECT email, prospect_name FROM vertex_outreach_prospect WHERE vertex_id = %s",
-        (prospect_id,),
+    prospect = get_kotoba_client().select_first_where(
+        "vertex_outreach_prospect", "vertex_id", prospect_id,
+        columns=["email", "prospect_name"],
     )
-    if not prospect or not prospect[0]:
+    if not prospect or not prospect.get("email"):
         LOG.warning("task_send_via_resend: no email for prospect_id=%s", prospect_id)
         return {"resendEmailId": "", "sent": False}
 
-    to_email = prospect[0]
-    to_name = prospect[1] or ""
+    to_email = prospect["email"]
+    to_name = prospect.get("prospect_name") or ""
     to_addr = f"{to_name} <{to_email}>" if to_name else to_email
 
     payload = {
@@ -359,37 +346,37 @@ async def task_send_via_resend(
 
     now = datetime.now(timezone.utc).isoformat()
     # update step record with sent info
-    with sync_cursor() as cur:
-        step_vid = hashlib.sha256(f"{sequence_id}:step:{step_number}".encode()).hexdigest()
-        cur.execute(
-            "UPDATE vertex_outreach_step SET status=%s, resend_email_id=%s, sent_at=%s, updated_at=%s WHERE vertex_id=%s",
-            ("sent", resend_email_id, now, now, step_vid),
-        )
-        # edge: sequence → prospect
-        edge_id = hashlib.sha256(f"sent:{sequence_id}:{prospect_id}:{step_number}".encode()).hexdigest()
-        seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
-        cur.execute(
-            """
-            INSERT INTO edge_outreach_sent
-              (edge_id, src_vid, dst_vid, relation_kind, created_at, updated_at,
-               owner_did, sensitivity_ord, sequence_id, prospect_id, step_number, resend_email_id)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                edge_id,
-                seq_vid,
-                prospect_id,
-                "SENT_TO",
-                now,
-                now,
-                OUTREACH_DID,
-                3,
-                sequence_id,
-                prospect_id,
-                step_number,
-                resend_email_id,
-            ),
-        )
+    step_vid = hashlib.sha256(f"{sequence_id}:step:{step_number}".encode()).hexdigest()
+    # Fetch existing step, update fields, then insert_row (upsert)
+    existing_step = get_kotoba_client().select_first_where(
+        "vertex_outreach_step", "vertex_id", step_vid
+    )
+    if existing_step:
+        existing_step["status"] = "sent"
+        existing_step["resend_email_id"] = resend_email_id
+        existing_step["sent_at"] = now
+        existing_step["updated_at"] = now
+        get_kotoba_client().insert_row("vertex_outreach_step", existing_step)
+    else:
+        LOG.warning("task_send_via_resend: Could not find vertex_outreach_step for vertex_id=%s to update", step_vid)
+    # edge: sequence → prospect
+    edge_id = hashlib.sha256(f"sent:{sequence_id}:{prospect_id}:{step_number}".encode()).hexdigest()
+    seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
+    edge_data = {
+        "edge_id": edge_id,
+        "src_vid": seq_vid,
+        "dst_vid": prospect_id,
+        "relation_kind": "SENT_TO",
+        "created_at": now,
+        "updated_at": now,
+        "owner_did": OUTREACH_DID,
+        "sensitivity_ord": 3,
+        "sequence_id": sequence_id,
+        "prospect_id": prospect_id,
+        "step_number": step_number,
+        "resend_email_id": resend_email_id,
+    }
+    get_kotoba_client().insert_row("edge_outreach_sent", edge_data)
 
     _update_sequence_status(sequence_id, f"sent_step_{step_number}")
     LOG.info("task_send_via_resend: sequence_id=%s step=%d email_id=%s", sequence_id, step_number, resend_email_id)
@@ -410,33 +397,44 @@ async def task_correlate_reply(
         return {"correlated": False}
 
     # find prospect by email
-    prospect = fetch_one(
-        "SELECT vertex_id FROM vertex_outreach_prospect WHERE email = %s",
-        (from_email,),
+    prospect = get_kotoba_client().select_first_where(
+        "vertex_outreach_prospect", "email", from_email, columns=["vertex_id"]
     )
     if not prospect:
         LOG.debug("task_correlate_reply: no prospect for email (omitted for PII)")
         return {"correlated": False}
 
-    prospect_id = prospect[0]
-    sequence = fetch_one(
-        "SELECT sequence_id, zeebe_process_instance_key FROM vertex_outreach_sequence "
-        "WHERE prospect_id = %s AND status NOT IN ('completed','replied','skipped_dnc') "
-        "ORDER BY created_at DESC LIMIT 1",
-        (prospect_id,),
+    prospect_id = prospect["vertex_id"]
+    # R0: Multi-predicate with NOT IN and ORDER BY handled in Python.
+    sequences = get_kotoba_client().select_where(
+        "vertex_outreach_sequence", "prospect_id", prospect_id,
+        columns=["sequence_id", "zeebe_process_instance_key", "status", "created_at"],
+        limit=2000, # Fetch a reasonable number to filter in Python
     )
+    # Filter in Python for status NOT IN and order by created_at DESC
+    filtered_sequences = [
+        s for s in sequences if s.get("status") not in ("completed", "replied", "skipped_dnc")
+    ]
+    filtered_sequences.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    sequence = filtered_sequences[0] if filtered_sequences else None
+
     if not sequence:
         return {"correlated": False}
 
-    sequence_id = sequence[0]
+    sequence_id = sequence["sequence_id"]
     now = datetime.now(timezone.utc).isoformat()
     _update_sequence_status(sequence_id, "replied")
-    with sync_cursor() as cur:
-        seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
-        cur.execute(
-            "UPDATE vertex_outreach_sequence SET reply_detected=%s, updated_at=%s WHERE vertex_id=%s",
-            (True, now, seq_vid),
-        )
+    seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
+    # Fetch existing sequence, update fields, then insert_row (upsert)
+    existing_sequence = get_kotoba_client().select_first_where(
+        "vertex_outreach_sequence", "vertex_id", seq_vid
+    )
+    if existing_sequence:
+        existing_sequence["reply_detected"] = True
+        existing_sequence["updated_at"] = now
+        get_kotoba_client().insert_row("vertex_outreach_sequence", existing_sequence)
+    else:
+        LOG.warning("task_correlate_reply: Could not find vertex_outreach_sequence for vertex_id=%s to update", seq_vid)
 
     LOG.info("task_correlate_reply: sequence_id=%s marked replied (source=%s)", sequence_id, source)
     return {"correlated": True, "sequenceId": sequence_id, "replyDetected": True}
@@ -451,12 +449,12 @@ async def task_create_sponsor_slot(
     if not include_sponsor_slot:
         return {"adCampaignId": ""}
 
-    sequence = fetch_one(
-        "SELECT sequence_name, goal FROM vertex_outreach_sequence WHERE sequence_id = %s",
-        (sequence_id,),
+    sequence = get_kotoba_client().select_first_where(
+        "vertex_outreach_sequence", "sequence_id", sequence_id,
+        columns=["sequence_name", "goal"],
     )
-    name = sequence[0] if sequence and sequence[0] else sequence_id
-    goal = sequence[1] if sequence and sequence[1] else ""
+    name = sequence.get("sequence_name") if sequence else sequence_id
+    goal = sequence.get("goal") if sequence else ""
 
     ad_campaign_id = ""
     try:
@@ -478,12 +476,17 @@ async def task_create_sponsor_slot(
 
     if ad_campaign_id:
         now = datetime.now(timezone.utc).isoformat()
-        with sync_cursor() as cur:
-            seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
-            cur.execute(
-                "UPDATE vertex_outreach_sequence SET ad_campaign_id=%s, updated_at=%s WHERE vertex_id=%s",
-                (ad_campaign_id, now, seq_vid),
-            )
+        seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
+        # Fetch existing sequence, update fields, then insert_row (upsert)
+        existing_sequence = get_kotoba_client().select_first_where(
+            "vertex_outreach_sequence", "vertex_id", seq_vid
+        )
+        if existing_sequence:
+            existing_sequence["ad_campaign_id"] = ad_campaign_id
+            existing_sequence["updated_at"] = now
+            get_kotoba_client().insert_row("vertex_outreach_sequence", existing_sequence)
+        else:
+            LOG.warning("task_create_sponsor_slot: Could not find vertex_outreach_sequence for vertex_id=%s to update", seq_vid)
 
     LOG.info("task_create_sponsor_slot: sequence_id=%s ad_campaign_id=%s", sequence_id, ad_campaign_id)
     return {"adCampaignId": ad_campaign_id}
@@ -496,11 +499,16 @@ async def task_create_sponsor_slot(
 def _update_sequence_status(sequence_id: str, status: str) -> None:
     now = datetime.now(timezone.utc).isoformat()
     seq_vid = hashlib.sha256(f"sequence:{sequence_id}".encode()).hexdigest()
-    with sync_cursor() as cur:
-        cur.execute(
-            "UPDATE vertex_outreach_sequence SET status=%s, updated_at=%s WHERE vertex_id=%s",
-            (status, now, seq_vid),
-        )
+    # Fetch existing sequence, update fields, then insert_row (upsert)
+    existing_sequence = get_kotoba_client().select_first_where(
+        "vertex_outreach_sequence", "vertex_id", seq_vid
+    )
+    if existing_sequence:
+        existing_sequence["status"] = status
+        existing_sequence["updated_at"] = now
+        get_kotoba_client().insert_row("vertex_outreach_sequence", existing_sequence)
+    else:
+        LOG.warning("_update_sequence_status: Could not find vertex_outreach_sequence for vertex_id=%s to update", seq_vid)
 
 
 # ---------------------------------------------------------------------------

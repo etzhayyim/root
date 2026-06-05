@@ -3,7 +3,7 @@
 Receives XRPC saveResult / listHistory forwarded from
 ameno.etzhayyim.com CF Worker → bpmn-dispatcher → AgentGateway MCP →
 ameno-langserver pod, and persists / queries vertex_ameno_inferenceresult
-via the shared sync psycopg pool.
+via the kotoba Datomic client.
 
 Lexicons (SSoT):
   00-contracts/lexicons/com/etzhayyim/apps/ameno/saveResult.json
@@ -21,7 +21,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any, AsyncIterator, Iterable
 
-from pymagatama.db_sync import sync_cursor as _sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _TABLE = "vertex_ameno_inferenceresult"
 _KNOWN_MODELS = {"gemma-4-e2b-it", "gemma-4-e4b-it", "baien-bitnet-2b"}
@@ -76,7 +76,7 @@ def _credit_amount(output_tokens: int) -> int:
 
 
 def _record_credit_event(
-    cur: Any,
+    client: Any,
     actor_did: str,
     org_did: str,
     result_id: str,
@@ -95,24 +95,17 @@ def _record_credit_event(
     user_id = actor_did or "anon"
     ts_ms = int(time.time() * 1000)
     af_vertex_id = f"af://credits/{user_id}/{result_id}"
-    cur.execute(
-        """
-        INSERT INTO vertex_credits_af_event (
-          vertex_id, user_id, event_type, amount, ts_ms, created_at,
-          actor_did, org_did
-        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """,
-        (
-            af_vertex_id,
-            user_id,
-            _CREDIT_EVENT_TYPE,
-            amount,
-            ts_ms,
-            created_at,
-            actor_did or "anon",
-            org_did or "anon",
-        ),
-    )
+    row_dict = {
+        "vertex_id": af_vertex_id,
+        "user_id": user_id,
+        "event_type": _CREDIT_EVENT_TYPE,
+        "amount": amount,
+        "ts_ms": ts_ms,
+        "created_at": created_at,
+        "actor_did": actor_did or "anon",
+        "org_did": org_did or "anon",
+    }
+    client.insert_row("vertex_credits_af_event", row_dict)
 
 
 def handle_save_result(payload: dict[str, Any]) -> dict[str, Any]:
@@ -139,66 +132,26 @@ def handle_save_result(payload: dict[str, Any]) -> dict[str, Any]:
         json.dumps(list(lora_adapters_raw)) if isinstance(lora_adapters_raw, Iterable) and not isinstance(lora_adapters_raw, (str, bytes)) else ""
     )
 
-    columns = (
-        "vertex_id",
-        "result_id",
-        "model_id",
-        "lora_adapters",
-        "prompt",
-        "output",
-        "prompt_tokens",
-        "output_tokens",
-        "elapsed_ms",
-        "tokens_per_sec",
-        "webgpu_adapter",
-        "rag_context_used",
-        "actor_did",
-        "org_did",
-        "owner_did",
-        "sensitivity_ord",
-        "created_at",
-    )
-    values = (
-        vertex_id,
-        result_id,
-        model_id,
-        lora_adapters_json,
-        prompt,
-        output,
-        _safe_int(payload.get("promptTokens")),
-        _safe_int(payload.get("outputTokens")),
-        _safe_int(payload.get("elapsedMs")),
-        _safe_int(payload.get("tokensPerSec")),
-        _safe_str(payload.get("webgpuAdapter")),
-        bool(payload.get("ragContextUsed")),
-        actor_did or "anon",
-        _safe_str(payload.get("orgDid"), "anon"),
-        actor_did or "did:web:ameno.etzhayyim.com",
-        2,
-        created_at,
-    )
-    placeholders = ", ".join(["%s"] * len(columns))
-    column_list = ", ".join(columns)
-    insert_sql = f"INSERT INTO {_TABLE} ({column_list}) VALUES ({placeholders})"
+    row_dict = dict(zip(columns, values))
+    client = get_kotoba_client()
 
     org_did = _safe_str(payload.get("orgDid"), "anon")
     try:
-        with _sync_cursor() as cur:
-            cur.execute(insert_sql, values)
-            try:
-                _record_credit_event(
-                    cur,
-                    actor_did,
-                    org_did,
-                    result_id,
-                    _safe_int(payload.get("outputTokens")),
-                    created_at,
-                )
-            except Exception:  # noqa: BLE001
-                # Phase 5c: credit event is best-effort. The inference is
-                # already persisted by the line above; a metering failure
-                # must not roll back the user-visible saveResult result.
-                pass
+        client.insert_row(_TABLE, row_dict)
+        try:
+            _record_credit_event(
+                client,
+                actor_did,
+                org_did,
+                result_id,
+                _safe_int(payload.get("outputTokens")),
+                created_at,
+            )
+        except Exception:  # noqa: BLE001
+            # Phase 5c: credit event is best-effort. The inference is
+            # already persisted by the line above; a metering failure
+            # must not roll back the user-visible saveResult result.
+            pass
     except Exception as exc:  # noqa: BLE001
         return {"status": "failed", "error": str(exc)}
 
@@ -326,49 +279,53 @@ def handle_list_actor_adapters(payload: dict[str, Any]) -> dict[str, Any]:
     domain = _safe_str(payload.get("domain"))
     limit = max(1, min(_safe_int(payload.get("limit"), 20), 100))
 
-    clauses = ["did = %s", "status = %s"]
-    params: list[Any] = [actor_did, "active"]
-    if domain:
-        clauses.append("domain = %s")
-        params.append(domain)
-    where = " AND ".join(clauses)
-
-    select_cols = ", ".join(_ADAPTER_COLS)
-    list_sql = (
-        f"SELECT {select_cols} FROM vertex_lora_adapter WHERE {where} "
-        f"ORDER BY created_at DESC LIMIT %s"
-    )
-    count_sql = f"SELECT COUNT(*) FROM vertex_lora_adapter WHERE {where}"
-
+    client = get_kotoba_client()
     items: list[dict[str, Any]] = []
     total = 0
     try:
-        with _sync_cursor() as cur:
-            cur.execute(count_sql, params)
-            row = cur.fetchone()
-            total = int(row[0] if row else 0)
-            cur.execute(list_sql, [*params, limit])
-            for r in cur.fetchall() or []:
-                # adapter_alpha is DOUBLE PRECISION on RW but the lexicon
-                # constrains output to integer (×1000) per AT Protocol rules.
-                alpha_raw = r[9] if r[9] is not None else 0.0
-                items.append(
-                    {
-                        "adapterId": r[0] or "",
-                        "actorDid": r[1] or "",
-                        "domain": r[2] or "",
-                        "status": r[3] or "",
-                        "baseModel": r[4] or "",
-                        "weightB2Uri": r[5] or "",
-                        "weightByteSize": int(r[6] or 0),
-                        "weightSha256": r[7] or "",
-                        "adapterRank": int(r[8] or 0),
-                        "adapterAlpha": int(round(float(alpha_raw) * 1000)),
-                        "adapterFormat": r[10] or "",
-                        "displayNameYomi": r[11] or "",
-                        "createdAt": r[12] or "",
-                    }
-                )
+        # R0: Multi-predicate filter and ORDER BY are applied in Python.
+        # Fetch all active adapters for the actor_did up to a reasonable limit.
+        raw_results = client.select_where(
+            "vertex_lora_adapter", "did", actor_did, columns=_ADAPTER_COLS, limit=2000
+        )
+
+        filtered_results = []
+        for r in raw_results:
+            if r.get("status") == "active":
+                if domain and r.get("domain") != domain:
+                    continue
+                filtered_results.append(r)
+
+        total = len(filtered_results)
+
+        # Sort by created_at in descending order
+        filtered_results.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+
+        # Apply limit
+        limited_results = filtered_results[:limit]
+
+        for r in limited_results:
+            # adapter_alpha is DOUBLE PRECISION on RW but the lexicon
+            # constrains output to integer (×1000) per AT Protocol rules.
+            alpha_raw = r.get("adapter_alpha")
+            alpha_val = float(alpha_raw) if alpha_raw is not None else 0.0
+            items.append(
+                {
+                    "adapterId": r.get("adapter_id") or "",
+                    "actorDid": r.get("did") or "",
+                    "domain": r.get("domain") or "",
+                    "status": r.get("status") or "",
+                    "baseModel": r.get("base_model") or "",
+                    "weightB2Uri": r.get("weight_b2_uri") or "",
+                    "weightByteSize": int(r.get("weight_byte_size") or 0),
+                    "weightSha256": r.get("weight_sha256") or "",
+                    "adapterRank": int(r.get("adapter_rank") or 0),
+                    "adapterAlpha": int(round(alpha_val * 1000)),
+                    "adapterFormat": r.get("adapter_format") or "",
+                    "displayNameYomi": r.get("display_name_yomi") or "",
+                    "createdAt": r.get("created_at") or "",
+                }
+            )
     except Exception:  # noqa: BLE001
         return {"items": [], "total": 0}
 
@@ -380,28 +337,29 @@ def handle_list_my_credits(payload: dict[str, Any]) -> dict[str, Any]:
     actor_did = _safe_str(payload.get("actorDid"))
     if not actor_did:
         return {"actorDid": "", "balance": 0, "eventCount": 0}
+    client = get_kotoba_client()
     try:
-        with _sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT balance, event_count, last_event_ts_ms, last_event_created_at
-                FROM mv_ameno_credits_balance
-                WHERE user_id = %s
-                LIMIT 1
-                """,
-                (actor_did,),
-            )
-            row = cur.fetchone()
+        row = client.select_first_where(
+            "mv_ameno_credits_balance",
+            "user_id",
+            actor_did,
+            columns=[
+                "balance",
+                "event_count",
+                "last_event_ts_ms",
+                "last_event_created_at",
+            ],
+        )
     except Exception:  # noqa: BLE001
         return {"actorDid": actor_did, "balance": 0, "eventCount": 0}
     if not row:
         return {"actorDid": actor_did, "balance": 0, "eventCount": 0}
     return {
         "actorDid": actor_did,
-        "balance": int(row[0] or 0),
-        "eventCount": int(row[1] or 0),
-        "lastEventTsMs": int(row[2] or 0),
-        "lastEventCreatedAt": row[3] or "",
+        "balance": int(row.get("balance") or 0),
+        "eventCount": int(row.get("event_count") or 0),
+        "lastEventTsMs": int(row.get("last_event_ts_ms") or 0),
+        "lastEventCreatedAt": row.get("last_event_created_at") or "",
     }
 
 
@@ -413,45 +371,59 @@ def handle_list_history(payload: dict[str, Any]) -> dict[str, Any]:
     limit = max(1, min(limit_raw, 100))
     offset = max(0, _safe_int(payload.get("offset"), 0))
 
-    clauses: list[str] = []
-    params: list[Any] = []
-    if actor_did:
-        clauses.append("actor_did = %s")
-        params.append(actor_did)
-    if model_id:
-        clauses.append("model_id = %s")
-        params.append(model_id)
-    where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
-
-    select_cols = ", ".join(_LIST_COLS)
-    list_sql = (
-        f"SELECT {select_cols} FROM {_TABLE} {where} "
-        f"ORDER BY created_at DESC LIMIT %s OFFSET %s"
-    )
-    count_sql = f"SELECT COUNT(*) FROM {_TABLE} {where}"
-
+    client = get_kotoba_client()
     items: list[dict[str, Any]] = []
-    total = 0
+    all_results: list[dict[str, Any]] = []
     try:
-        with _sync_cursor() as cur:
-            cur.execute(count_sql, params)
-            row = cur.fetchone()
-            total = int(row[0] if row else 0)
-            cur.execute(list_sql, [*params, limit, offset])
-            for r in cur.fetchall() or []:
-                items.append(
-                    {
-                        "resultId": r[0] or "",
-                        "uri": r[1] or "",
-                        "modelId": r[2] or "",
-                        "actorDid": r[3] or "",
-                        "prompt": r[4] or "",
-                        "output": r[5] or "",
-                        "elapsedMs": int(r[6] or 0),
-                        "tokensPerSec": int(r[7] or 0),
-                        "createdAt": r[8] or "",
-                    }
-                )
+        # R0: Multi-predicate filter, ORDER BY, LIMIT, and OFFSET are applied in Python.
+        if actor_did:
+            all_results = client.select_where(_TABLE, "actor_did", actor_did, columns=_LIST_COLS, limit=2000)
+        elif model_id:
+            all_results = client.select_where(_TABLE, "model_id", model_id, columns=_LIST_COLS, limit=2000)
+        else:
+            # Full table scan via Datalog if no specific filter is provided.
+            # Assuming _TABLE "vertex_ameno_inferenceresult" maps to ":vertex/type "ameno-inferenceresult""
+            # and columns map to Datomic attributes.
+            cols_for_pull = [f":{c.replace('_', '-')}" for c in _LIST_COLS]
+            datalog_query = f"""
+            [:find (pull ?e [{", ".join(cols_for_pull)}])
+             :where
+               [?e :vertex/type "ameno-inferenceresult"]]
+            """
+            raw_q_results = client.q(datalog_query, graph='magatama')
+            all_results = [r[0] for r in raw_q_results]
+
+        # Apply secondary filter if primary was broader
+        if actor_did and model_id:
+            all_results = [r for r in all_results if r.get("model_id") == model_id]
+        elif actor_did and not model_id: # primary filter was actor_did, no secondary filter
+            pass
+        elif model_id and not actor_did: # primary filter was model_id, no secondary filter
+            pass
+        # else (no filters for select_where, used q()), already broad
+
+        total = len(all_results)
+
+        # Sort by created_at in descending order
+        all_results.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+
+        # Apply offset and limit
+        limited_results = all_results[offset : offset + limit]
+
+        for r in limited_results:
+            items.append(
+                {
+                    "resultId": r.get("result_id") or "",
+                    "uri": r.get("vertex_id") or "",
+                    "modelId": r.get("model_id") or "",
+                    "actorDid": r.get("actor_did") or "",
+                    "prompt": r.get("prompt") or "",
+                    "output": r.get("output") or "",
+                    "elapsedMs": int(r.get("elapsed_ms") or 0),
+                    "tokensPerSec": int(r.get("tokens_per_sec") or 0),
+                    "createdAt": r.get("created_at") or "",
+                }
+            )
     except Exception:  # noqa: BLE001
         return {"items": [], "total": 0, "offset": offset, "limit": limit}
 

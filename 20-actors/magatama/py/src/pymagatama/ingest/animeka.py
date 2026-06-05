@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR_DID = "did:web:animeka.etzhayyim.com"
 REPO_DID = "did:web:an1m3k4x.etzhayyim.com"
@@ -29,7 +30,7 @@ NUMERIC_KEYS = {
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def gen_id(prefix: str) -> str:
@@ -45,24 +46,6 @@ def _snake(name: str) -> str:
     for ch in name:
         out += f"_{ch.lower()}" if ch.isupper() else ch
     return out.lstrip("_")
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _json(value: Any) -> str:
@@ -107,50 +90,63 @@ def _write(collection: str, rkey: str, record: dict[str, Any]) -> dict[str, str]
         "org_did": "anon",
         **_typed(record),
     }
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    try:
-        _execute(f"INSERT INTO vertex_animeka ({', '.join(cols)}) VALUES ({placeholders})", tuple(row[c] for c in cols))
-    except Exception as e:
-        if "duplicate" not in str(e).lower() and "23505" not in str(e):
-            raise
-        sets = ", ".join([f"{c} = %s" for c in cols if c != "vertex_id"])
-        values = tuple(row[c] for c in cols if c != "vertex_id") + (uri,)
-        _execute(f"UPDATE vertex_animeka SET {sets} WHERE vertex_id = %s", values)
+    get_kotoba_client().insert_row("vertex_animeka", row)
     return {"uri": uri, "cid": ""}
 
 
-def _where_clause(where: dict[str, Any]) -> tuple[str, list[Any]]:
-    clauses = ["repo = %s"]
-    params: list[Any] = [REPO_DID]
-    for key, value in where.items():
-        if value is None or value == "":
-            continue
-        clauses.append(f"{key} = %s")
-        params.append(value)
-    return " AND ".join(clauses), params
-
-
 def _list(collection: str, where: dict[str, Any] | None = None, order: str = "created_at", desc: bool = True, limit: int = 100, offset: int = 0) -> list[dict[str, Any]]:
-    where_sql, params = _where_clause({"collection": collection, **(where or {})})
-    direction = "DESC" if desc else "ASC"
-    return _fetch_all(
-        f"SELECT * FROM view_animeka_record_flat WHERE {where_sql} ORDER BY {order} {direction} LIMIT %s OFFSET %s",
-        tuple(params + [min(max(int(limit or 100), 1), 500), max(int(offset or 0), 0)]),
-    )
+    # R0: Multiple predicates, ordering, and pagination handled by in-Python filter
+    all_results = get_kotoba_client().select_where("view_animeka_record_flat", "repo", REPO_DID, limit=2000)
+
+    filtered_results = []
+    full_where = {"collection": collection, **(where or {})}
+    for row in all_results:
+        match = True
+        for k, v in full_where.items():
+            if row.get(k) != v:
+                match = False
+                break
+        if match:
+            filtered_results.append(row)
+
+    # Apply ordering
+    if order in filtered_results[0] if filtered_results else []:
+        filtered_results.sort(key=lambda x: x.get(order), reverse=desc)
+
+    # Apply pagination
+    start = max(int(offset or 0), 0)
+    end = start + min(max(int(limit or 100), 1), 500)
+
+    return filtered_results[start:end]
 
 
 def _count(collection: str, where: dict[str, Any] | None = None) -> int:
-    where_sql, params = _where_clause({"collection": collection, **(where or {})})
-    row = _fetch_one(f"SELECT COUNT(*) AS cnt FROM view_animeka_record_flat WHERE {where_sql}", tuple(params))
-    return int(row.get("cnt") or 0) if row else 0
+    where = {"collection": collection, **(where or {})}
+    if len(where) == 1:
+        key, value = list(where.items())[0]
+        return int(get_kotoba_client().aggregate_where("view_animeka_record_flat", "count", "*", key, value))
+    else:
+        # R0: Multiple predicates handled by in-Python filter
+        results = get_kotoba_client().select_where("view_animeka_record_flat", "repo", REPO_DID, limit=2000)
+        count = 0
+        for row in results:
+            match = True
+            for k, v in where.items():
+                if row.get(k) != v:
+                    match = False
+                    break
+            if match:
+                count += 1
+        return count
 
 
 def _get(collection: str, rkey: str) -> dict[str, Any] | None:
-    return _fetch_one(
-        "SELECT * FROM view_animeka_record_flat WHERE repo = %s AND collection = %s AND rkey = %s LIMIT 1",
-        (REPO_DID, collection, rkey),
-    )
+    # R0: Multiple predicates (collection, rkey) handled by in-Python filter
+    results = get_kotoba_client().select_where("view_animeka_record_flat", "repo", REPO_DID, limit=10)
+    for row in results:
+        if row.get("collection") == collection and row.get("rkey") == rkey:
+            return row
+    return None
 
 
 def create_work(**req: Any) -> dict[str, Any]:

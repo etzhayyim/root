@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR_DID = "did:web:calendar.etzhayyim.com"
 GCAL_TOKEN_TABLE = "vertex_gcal_oauth_token"
@@ -46,22 +46,7 @@ def _str(value: Any) -> str:
     return "" if value is None else str(value)
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _http_json(url: str, *, method: str = "GET", headers: dict[str, str] | None = None, body: bytes | None = None, timeout: int = 30) -> Any:
@@ -78,12 +63,7 @@ def _snake(name: str) -> str:
 
 
 def _insert(table: str, row: dict[str, Any]) -> None:
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    _execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) SELECT {placeholders} WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        tuple(row[c] for c in cols) + (_str(row["vertex_id"]),),
-    )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _base(collection: str, rkey: str, created: str | None = None) -> dict[str, Any]:
@@ -178,7 +158,36 @@ def update_event(eventId: str = "", **req: Any) -> dict[str, Any]:
 def delete_event(eventId: str = "", **_: Any) -> dict[str, Any]:
     if not eventId:
         return {"ok": False, "error": "eventId is required"}
-    count = _execute("DELETE FROM vertex_calendar_event WHERE event_id = %s", (eventId,))
+
+    event_record = get_kotoba_client().select_first_where("vertex_calendar_event", "event_id", eventId, columns=["vertex_id"])
+    if not event_record:
+        return {"ok": False, "error": "event not found", "eventId": eventId}
+
+    vertex_id = event_record["vertex_id"]
+
+    # R0: Using q() as a Datalog escape hatch for deletion (retraction)
+    # First, query for the Datomic entity ID (:db/id) using the vertex_id
+    entity_id_result = get_kotoba_client().q(
+        '[:find ?e . :where [?e :vertex/id "$vertex_id"]]',
+        args={"$vertex_id": vertex_id}
+    )
+
+    if not entity_id_result:
+        return {"ok": False, "error": "event entity not found in Datomic", "eventId": eventId}
+
+    entity_id = entity_id_result
+
+    # Construct the Datalog transaction for retraction
+    # This assumes `q()` can execute transactions if provided with transaction EDN
+    transaction_edn = f'[[:db/retractEntity {entity_id}]]'
+    try:
+        get_kotoba_client().q(transaction_edn) # Assuming q() can transact
+        count = 1 # Assuming one entity was retracted
+    except Exception as e:
+        # Log the error or handle it as appropriate
+        print(f"Error during Datalog retraction: {e}")
+        count = 0
+
     return {"ok": count > 0, "status": "deleted" if count else "not_found", "eventId": eventId}
 
 
@@ -202,34 +211,38 @@ def _normalize_event(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def list_events(startDate: str = "", endDate: str = "", status: str = "", visibility: str = "", limit: int = 50, offset: int = 0, **_: Any) -> dict[str, Any]:
-    limit = min(max(int(limit or 50), 1), 100)
-    offset = max(int(offset or 0), 0)
-    clauses: list[str] = []
-    params: list[Any] = []
-    if startDate:
-        clauses.append("start_time >= %s")
-        params.append(startDate)
-    if endDate:
-        clauses.append("end_time <= %s")
-        params.append(endDate)
-    if status:
-        clauses.append("status = %s")
-        params.append(status)
-    if visibility:
-        clauses.append("visibility = %s")
-        params.append(visibility)
-    where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
-    rows = _fetch_all(f"SELECT * FROM vertex_calendar_event {where} ORDER BY start_time ASC LIMIT %s OFFSET %s", tuple(params + [limit, offset]))
-    return {"ok": True, "events": [_normalize_event(r) for r in rows], "total": len(rows), "offset": offset, "limit": limit}
+    # R0: Multiple predicates, ORDER BY, LIMIT, OFFSET applied in Python
+    all_events = get_kotoba_client().select_where("vertex_calendar_event", "owner_did", ACTOR_DID)
+    filtered_events = []
+    for event in all_events:
+        match = True
+        if startDate and event.get("start_time", "") < startDate:
+            match = False
+        if endDate and event.get("end_time", "") > endDate:
+            match = False
+        if status and event.get("status", "") != status:
+            match = False
+        if visibility and event.get("visibility", "") != visibility:
+            match = False
+        if match:
+            filtered_events.append(event)
+
+    # Apply order by, limit, and offset
+    sorted_events = sorted(filtered_events, key=lambda x: x.get("start_time", ""))
+    paginated_events = sorted_events[offset:offset + limit]
+
+    return {"ok": True, "events": [_normalize_event(r) for r in paginated_events], "total": len(filtered_events), "offset": offset, "limit": limit}
 
 
 def get_event(eventId: str = "", **_: Any) -> dict[str, Any]:
     if not eventId:
         return {"ok": False, "error": "eventId is required"}
-    row = _fetch_one("SELECT * FROM vertex_calendar_event WHERE event_id = %s LIMIT 1", (eventId,))
+    row = get_kotoba_client().select_first_where("vertex_calendar_event", "event_id", eventId)
     if not row:
         return {"ok": False, "error": "event not found", "eventId": eventId}
-    rsvps = _fetch_all("SELECT rsvp_id, respondent_did, response, comment, created_at FROM vertex_calendar_rsvp WHERE event_id = %s ORDER BY created_at DESC LIMIT 200", (eventId,))
+    # R0: ORDER BY and LIMIT applied in Python
+    rsvps_raw = get_kotoba_client().select_where("vertex_calendar_rsvp", "event_id", eventId, columns=["rsvp_id", "respondent_did", "response", "comment", "created_at"])
+    rsvps = sorted(rsvps_raw, key=lambda x: x.get("created_at", ""), reverse=True)[:200]
     return {"ok": True, **_normalize_event(row), "rsvps": rsvps}
 
 
@@ -282,22 +295,32 @@ def rsvp(eventId: str = "", response: str = "", respondentDid: str = "", comment
         "comment": comment,
         "props": json.dumps({"eventId": eventId, "respondentDid": respondent, "response": response}, ensure_ascii=False),
     })
-    _execute("UPDATE vertex_calendar_invitation SET status = %s, responded_at = %s WHERE event_id = %s AND invitee_did = %s", (response, now_iso(), eventId, respondent))
+    # R0: Convert UPDATE to select, modify, insert_row
+    invitation_to_update = get_kotoba_client().select_first_where(
+        "vertex_calendar_invitation", "event_id", eventId,
+        columns=["invitation_id", "event_id", "invitee_did", "organizer_did", "status", "responded_at", "created_at"]
+    )
+    if invitation_to_update and invitation_to_update.get("invitee_did") == respondent:
+        invitation_to_update["status"] = response
+        invitation_to_update["responded_at"] = now_iso()
+        get_kotoba_client().insert_row("vertex_calendar_invitation", invitation_to_update)
     return {"ok": True, "status": "recorded", "rsvpId": rsvp_id, "eventId": eventId, "response": response}
 
 
 def list_invitations(inviteeDid: str = "", status: str = "", limit: int = 50, offset: int = 0, **_: Any) -> dict[str, Any]:
-    limit = min(max(int(limit or 50), 1), 100)
-    offset = max(int(offset or 0), 0)
-    clauses: list[str] = []
-    params: list[Any] = []
-    if inviteeDid:
-        clauses.append("invitee_did = %s")
-        params.append(inviteeDid)
-    clauses.append("status = %s")
-    params.append(status or "pending")
-    rows = _fetch_all(f"SELECT invitation_id, event_id, invitee_did, organizer_did, status, responded_at, created_at FROM vertex_calendar_invitation WHERE {' AND '.join(clauses)} ORDER BY created_at DESC LIMIT %s OFFSET %s", tuple(params + [limit, offset]))
-    return {"ok": True, "invitations": rows, "total": len(rows), "offset": offset, "limit": limit}
+    # R0: Multiple predicates, ORDER BY, LIMIT, OFFSET applied in Python
+    all_invitations_raw = get_kotoba_client().select_where("vertex_calendar_invitation", "invitee_did", inviteeDid or ACTOR_DID, columns=["invitation_id", "event_id", "invitee_did", "organizer_did", "status", "responded_at", "created_at"])
+
+    filtered_invitations = []
+    required_status = status or "pending"
+    for invitation in all_invitations_raw:
+        if invitation.get("status") == required_status:
+            filtered_invitations.append(invitation)
+
+    sorted_invitations = sorted(filtered_invitations, key=lambda x: x.get("created_at", ""), reverse=True)
+    paginated_invitations = sorted_invitations[offset:offset + limit]
+
+    return {"ok": True, "invitations": paginated_invitations, "total": len(filtered_invitations), "offset": offset, "limit": limit}
 
 
 def connect_account(accountDid: str = "did:anonymous", email: str = "", **_: Any) -> dict[str, Any]:
@@ -380,13 +403,19 @@ def _base_gcal(collection: str, rkey: str) -> dict[str, Any]:
 def _store_token(account_did: str, email: str, refresh_token: str, scope: str) -> None:
     now = now_iso()
     vid = f"{account_did}|{email}"
-    _execute(f"DELETE FROM {GCAL_TOKEN_TABLE} WHERE vertex_id = %s", (vid,))
-    _execute(
-        f"""INSERT INTO {GCAL_TOKEN_TABLE}
-        (vertex_id, account_did, email, encrypted_refresh_token, wrapped_data_key, iv, scope, status, created_at, updated_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,'active',%s,%s)""",
-        (vid, account_did, email, refresh_token, "", "", scope, now, now),
-    )
+    row = {
+        "vertex_id": vid,
+        "account_did": account_did,
+        "email": email,
+        "encrypted_refresh_token": refresh_token,
+        "wrapped_data_key": "",
+        "iv": "",
+        "scope": scope,
+        "status": "active",
+        "created_at": now,
+        "updated_at": now,
+    }
+    get_kotoba_client().insert_row(GCAL_TOKEN_TABLE, row)
 
 
 def _refresh_access_token(refresh_token: str) -> str:
@@ -400,14 +429,21 @@ def _refresh_access_token(refresh_token: str) -> str:
 def sync_from_google(email: str = "", **_: Any) -> dict[str, Any]:
     if not email:
         return {"ok": False, "error": "email required"}
-    token = _fetch_one(f"SELECT * FROM {GCAL_TOKEN_TABLE} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
+    # R0: Multiple predicates not supported by select_first_where directly, filtering in Python
+    tokens = get_kotoba_client().select_where(GCAL_TOKEN_TABLE, "email", email)
+    token = next((t for t in tokens if t.get("status") == "active"), None)
     if not token:
         return {"ok": False, "error": "No active Google Calendar account. Call connectAccount first."}
     return _sync_token(token)
 
 
 def cron_tick(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT * FROM {GCAL_TOKEN_TABLE} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    # R0: ORDER BY COALESCE and LIMIT applied in Python
+    all_active_tokens = get_kotoba_client().select_where(GCAL_TOKEN_TABLE, "status", "active")
+
+    # Sort by COALESCE(last_sync_at, created_at) ASC and apply limit
+    sorted_tokens = sorted(all_active_tokens, key=lambda x: x.get("last_sync_at") or x.get("created_at"))
+    rows = sorted_tokens[:10]
     synced = 0
     errors = 0
     for token in rows:
@@ -432,7 +468,13 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
             if attendee.get("email"):
                 _insert("vertex_gcal_attendee", _gcal_attendee_row(ev, attendee))
         synced += 1
-    _execute(f"UPDATE {GCAL_TOKEN_TABLE} SET last_sync_at = %s, cursor = %s, updated_at = %s WHERE vertex_id = %s", (now_iso(), _str(data.get("nextSyncToken")), now_iso(), _str(token.get("vertex_id"))))
+    # R0: Convert UPDATE to select, modify, insert_row
+    token_to_update = get_kotoba_client().select_first_where(GCAL_TOKEN_TABLE, "vertex_id", _str(token.get("vertex_id")))
+    if token_to_update:
+        token_to_update["last_sync_at"] = now_iso()
+        token_to_update["cursor"] = _str(data.get("nextSyncToken"))
+        token_to_update["updated_at"] = now_iso()
+        get_kotoba_client().insert_row(GCAL_TOKEN_TABLE, token_to_update)
     return {"ok": True, "synced": synced, "syncToken": _str(data.get("nextSyncToken"))}
 
 

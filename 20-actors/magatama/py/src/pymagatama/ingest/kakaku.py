@@ -18,7 +18,7 @@ import urllib.parse
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 KAKAKU_DID = "did:web:kakaku.etzhayyim.com"
 PRODUCT_COLLECTION = "com.etzhayyim.apps.kakaku.product"
@@ -182,55 +182,13 @@ def _history_id(offer_id: str, observed_at: str, total_price: float, currency: s
     return f"{_slug(offer_id)}_{_hash_slug(observed_at, total_price, currency, size=6)}"
 
 
-def _insert_ignore(cur: Any, table: str, values: dict[str, Any]) -> int:
-    values = {k: v for k, v in values.items() if v is not None}
-    cols = list(values)
-    col_sql = ", ".join(cols)
-    def placeholder(col: str) -> str:
-        if col in {"created_date"}:
-            return "%s::date"
-        if col in {"sensitivity_ord", "selector_version"}:
-            return "%s::bigint"
-        if col in {"price", "shipping_fee", "total_price", "reputation_score", "selector_rollout", "confidence"}:
-            return "%s::double precision"
-        return "%s::varchar"
-    placeholders = ", ".join(placeholder(c) for c in cols)
-    params = [values[c] for c in cols]
-    cur.execute(
-        f"INSERT INTO {table} ({col_sql}) "
-        f"SELECT {placeholders} "
-        f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        (*params, values["vertex_id"]),
-    )
-    return int(cur.rowcount or 0)
 
 
-def _schedule_flush() -> None:
-    dsn = os.environ.get("RW_URL")
-    if not dsn:
-        return
-    try:
-        subprocess.Popen(
-            ["psql", dsn, "-qAt", "-c", "FLUSH"],
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            start_new_session=True,
-        )
-    except Exception:
-        pass
 
 
-def _update_by_vertex(cur: Any, table: str, vertex_id: str, values: dict[str, Any]) -> int:
-    clean_values = {k: v for k, v in values.items() if k != "vertex_id" and v is not None}
-    if not clean_values:
-        return 0
-    set_sql = ", ".join(f"{k} = %s" for k in clean_values)
-    cur.execute(
-        f"UPDATE {table} SET {set_sql} WHERE vertex_id = %s",
-        (*clean_values.values(), vertex_id),
-    )
-    return int(cur.rowcount or 0)
+
+
+
 
 
 def upsert_offer_record(payload: dict[str, Any]) -> dict[str, Any]:
@@ -353,57 +311,54 @@ def upsert_offer_record(payload: dict[str, Any]) -> dict[str, Any]:
         "created_at": now,
     }
 
+    client = get_kotoba_client()
     writes = 0
-    with sync_cursor() as cur:
-        writes += _insert_ignore(cur, "vertex_kakaku_product", product_values)
-        _update_by_vertex(
-            cur,
-            "vertex_kakaku_product",
-            product_vid,
-            {k: product_values[k] for k in ("name", "brand", "model", "jan", "gtin", "mpn", "pack_size", "category", "canonical_gtin14", "updated_at")},
-        )
-        writes += _insert_ignore(cur, "vertex_kakaku_merchant", merchant_values)
-        _update_by_vertex(
-            cur,
-            "vertex_kakaku_merchant",
-            merchant_vid,
-            {k: merchant_values[k] for k in ("name", "domain", "base_currency", "selector_profile", "selector_version", "selector_rollout", "active_revision_id", "updated_at")},
-        )
-        writes += _insert_ignore(cur, "vertex_kakaku_offer", offer_values)
-        _update_by_vertex(cur, "vertex_kakaku_offer", offer_vid, offer_values)
-        history_written = _insert_ignore(cur, "vertex_kakaku_price_history", history_values)
-        writes += history_written
 
-        match_created = 0
-        if not canonical and ids["productKeySource"] == "title_hash":
-            candidate_id = f"{ids['merchantId']}:{_clean(payload.get('merchantSku')) or _hash_slug(product_url or ids['offerId'], size=6)}"
-            candidate_vid = f"at://{KAKAKU_DID}/{MATCH_COLLECTION}/{_slug(candidate_id)}"
-            match_created = _insert_ignore(
-                cur,
-                "vertex_kakaku_match_candidate",
-                {
-                    "vertex_id": candidate_vid,
-                    "_seq": None,
-                    "created_date": date,
-                    "sensitivity_ord": 1,
-                    "owner_did": KAKAKU_DID,
-                    "candidate_id": candidate_id,
-                    "did": f"{KAKAKU_DID}:match:{_slug(candidate_id)}",
-                    "source_merchant_id": ids["merchantId"],
-                    "source_sku": _clean(payload.get("merchantSku")) or None,
-                    "source_url": product_url or None,
-                    "product_id": ids["productId"],
-                    "product_did": ids["productDid"],
-                    "confidence": 0.35,
-                    "reason": "title-hash product identity requires human or GTIN confirmation",
-                    "status": "pending",
-                    "repo": KAKAKU_DID,
-                    "collection": MATCH_COLLECTION,
-                    "created_at": now,
-                },
-            )
-            writes += match_created
-        _schedule_flush()
+    client.insert_row("vertex_kakaku_product", product_values)
+    # The 'insert_row' method performs an upsert, so explicit updates are not needed.
+    writes += 1
+
+    client.insert_row("vertex_kakaku_merchant", merchant_values)
+    # The 'insert_row' method performs an upsert, so explicit updates are not needed.
+    writes += 1
+
+    client.insert_row("vertex_kakaku_offer", offer_values)
+    # The 'insert_row' method performs an upsert, so explicit updates are not needed.
+    writes += 1
+
+    client.insert_row("vertex_kakaku_price_history", history_values)
+    history_written = 1
+    writes += history_written
+
+    match_created = 0
+    if not canonical and ids["productKeySource"] == "title_hash":
+        candidate_id = f"{ids['merchantId']}:{_clean(payload.get('merchantSku')) or _hash_slug(product_url or ids['offerId'], size=6)}"
+        candidate_vid = f"at://{KAKAKU_DID}/{MATCH_COLLECTION}/{_slug(candidate_id)}"
+        client.insert_row(
+            "vertex_kakaku_match_candidate",
+            {
+                "vertex_id": candidate_vid,
+                "_seq": None,
+                "created_date": date,
+                "sensitivity_ord": 1,
+                "owner_did": KAKAKU_DID,
+                "candidate_id": candidate_id,
+                "did": f"{KAKAKU_DID}:match:{_slug(candidate_id)}",
+                "source_merchant_id": ids["merchantId"],
+                "source_sku": _clean(payload.get("merchantSku")) or None,
+                "source_url": product_url or None,
+                "product_id": ids["productId"],
+                "product_did": ids["productDid"],
+                "confidence": 0.35,
+                "reason": "title-hash product identity requires human or GTIN confirmation",
+                "status": "pending",
+                "repo": KAKAKU_DID,
+                "collection": MATCH_COLLECTION,
+                "created_at": now,
+            },
+        )
+        match_created = 1
+        writes += match_created
 
     return {
         "status": "ok",
@@ -584,25 +539,54 @@ def task_compare_offers(productId: str = "", productDid: str = "", limit: int = 
         product_id = _clean(productDid).rsplit(":", 1)[-1]
     if not product_id:
         return {"productId": "", "offers": [], "error": "productId is required"}
-    rows: list[dict[str, Any]] = []
     safe_limit = max(1, min(int(limit or 50), 100))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT o.offer_id, o.merchant_id, o.price, o.shipping_fee, o.total_price,
-                   o.currency, o.availability, o.delivery_eta, o.product_url,
-                   o.observed_at, COALESCE(m.reputation_score, 0.5) AS reputation_score,
-                   COALESCE(m.status, 'unknown') AS merchant_status
-              FROM vertex_kakaku_offer o
-              LEFT JOIN vertex_kakaku_merchant m ON m.merchant_id = o.merchant_id
-             WHERE o.product_id = %s AND COALESCE(o.status, 'active') = 'active'
-             ORDER BY o.total_price ASC
-             LIMIT {safe_limit}
-            """,
-            (product_id,),
-        )
-        col_names = [d[0] for d in cur.description] if cur.description else []
-        rows = [dict(zip(col_names, r)) for r in (cur.fetchall() or [])]
+    client = get_kotoba_client()
+
+    # R0: Fetch all offers for the product_id and then apply join/order/limit in Python.
+    offers_raw = client.select_where("vertex_kakaku_offer", "product_id", product_id)
+
+    rows: list[dict[str, Any]] = []
+    for offer in offers_raw:
+        # Apply WHERE COALESCE(o.status, 'active') = 'active'
+        offer_status = offer.get("status")
+        if offer_status is None:
+            offer_status = "active"
+        if offer_status != "active":
+            continue
+
+        merchant_id = offer.get("merchant_id")
+        merchant_data = None
+        if merchant_id:
+            merchant_data = client.select_first_where("vertex_kakaku_merchant", "merchant_id", merchant_id)
+
+        reputation_score = merchant_data.get("reputation_score") if merchant_data else None
+        merchant_status = merchant_data.get("status") if merchant_data else None
+
+        # Apply COALESCE(m.reputation_score, 0.5)
+        reputation_score = float(reputation_score) if reputation_score is not None else 0.5
+        # Apply COALESCE(m.status, 'unknown')
+        merchant_status = str(merchant_status) if merchant_status is not None else "unknown"
+
+        rows.append({
+            "offer_id": offer.get("offer_id"),
+            "merchant_id": offer.get("merchant_id"),
+            "price": offer.get("price"),
+            "shipping_fee": offer.get("shipping_fee"),
+            "total_price": offer.get("total_price"),
+            "currency": offer.get("currency"),
+            "availability": offer.get("availability"),
+            "delivery_eta": offer.get("delivery_eta"),
+            "product_url": offer.get("product_url"),
+            "observed_at": offer.get("observed_at"),
+            "reputation_score": reputation_score,
+            "merchant_status": merchant_status,
+        })
+
+    # Apply ORDER BY o.total_price ASC
+    rows.sort(key=lambda x: float(x.get("total_price") or 0.0))
+
+    # Apply LIMIT
+    rows = rows[:safe_limit]
 
     def score(row: dict[str, Any]) -> float:
         total = float(row.get("total_price") or 0.0)
