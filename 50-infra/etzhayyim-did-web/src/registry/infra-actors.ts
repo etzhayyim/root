@@ -221,6 +221,28 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606041827"],
   },
+  kamado: {
+    description:
+      "竈 — closed-loop carbon refining + fossil-refinery decommissioning/transition + refinery observation. The kotoba-native successor to the legacy oil-refining Cypher/RisingWave actor (which it supersedes; no graph.write). 竈 = the hearth-furnace kami (竈神/荒神); the transformation apparatus is neutral, the carbon origin + fate carry the harm. Empirically (carbon_balance.py): a fossil→combusted pathway is +3.50 tCO2e/t (one-way geological stock→flow = genuinely multi-generational), and full robotic process-control reaches only +3.38 (~3% cut) — robotics makes fossil refining cleaner, never harmless, so net≤0 is reached ONLY by changing the feedstock to closed-loop carbon. That finding is made structural: :fossil-virgin-crude is unrepresentable (the :feedstock/class invariant). Three faces over the kotoba Datom log: (A) observation — refinery/unit/outage + transition-readiness as a resilience + transition map, NEVER a target-list (G4); (B) §2(d) robotics to wind down / remediate / convert existing fossil assets (→ hikari / synthesis / hodoki+kanayama); (C) closed-loop synthetic refining on biogenic / captured-CO2 / recycled carbon only, every design D3-scored. Per ADR-2606051500.",
+    glyph: "竈",
+    displayName:
+      "Kamado — Closed-Loop Carbon Refining + Fossil-Refinery Decommissioning Observation",
+    primaryLexicon: "com.etzhayyim.kamado",
+    primarySchema: "00-contracts/schemas/refining-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kamado#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kamado#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606051500"],
+  },
   tsumugi: {
     description:
       "紡ぎ — Engi Knowledge Graph (産霊の網) intel weaver. Runs Spirit-in-Physics (RBF emotion-kernel → spectral 3D embed → tensegrity) over real PUBLIC power-entities (法人 / institution / public-role) and their 縁 to surface 取-concentration (power held OVER others) routed to release. An aggregate-first accountability map, NEVER a target-list (powerless absent by construction; edge-primary karma N1 — no per-soul score). World-coverage; upper layer over danjo / kanae / tadori / himotoki. Per ADR-2606011800.",
@@ -366,6 +388,48 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606042300"],
+  },
+  hotaru: {
+    description:
+      "蛍 — open-publication knowledge commons for III-V compound-semiconductor SUBSTRATE generation + manufacturing, indium phosphide (InP) first. Datafies the substrate chain (synthesis → single-crystal bulk-growth LEC/VGF/VB → wafering → epi-ready surface-prep) into the kotoba Datom log. NOT a fab: charter-clean by construction — only practiceable-OPEN process knowledge (source-license invariant, G1; vendor-proprietary MOCVD recipes unrepresentable), crystals + wafers design/spec ONLY (fabricated=false, G2). hotaru IS the construction of the 'open-source III-V wafer IP commons' that ADR-2605265500 §2's R4+ re-evaluation gate references; III-V fabrication remains PROHIBITED through R3 (inherited) and hotaru is NON-ADJUDICATING on the gate (G3 — it reports, Council Lv7+ decides). The light-emitting direct-bandgap sibling of the iwakura/fuigo indirect-bandgap silicon track. Per ADR-2606051200.",
+    glyph: "蛍",
+    displayName: "Hotaru — III-V / InP Substrate Open-Publication Commons",
+    primaryLexicon: "com.etzhayyim.hotaru",
+    primarySchema: "00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:hotaru#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:hotaru#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606051200"],
+  },
+  noroshi: {
+    description:
+      "烽 — photonics-electronics convergence (光電融合) communication-chip actor. The silicon-photonic / co-packaged-optics (CPO) sibling of the ELECTRONIC silicon/iwakura/fuigo ternary-ASIC line and the RF tsutae comms device, and the transceiver-chip end of the watatsuna submarine-cable medium. 烽 (狼煙, beacon-fire) is the original optical telecom — a watchtower SENSES a distant fire and RELAYS a coded message, one emission with two functions, which is exactly ISAC (Integrated Sensing And Communication). Three faces, each a verifiable method core: (chip) silicon-photonic / CPO comms-chip design + optical link budget on open photonic-EDA (CPO 3.96× lower energy/bit than a pluggable); (isac) an OFDM-JCAS simulator doing communication capacity AND civilian range-Doppler sensing from one waveform; (packaging) photonic assembly robotics (fibre↔grating active alignment) under an IEC 60825 laser-safety interlock. CIVILIAN by construction: weaponisation (directed-energy / laser-dazzle / fire-control radar) is structurally unrepresentable (N1), ISAC senses objects never persons (N2/G4), EPDA is clean-room open-source only (N5), and the packaging fleet is Displacement-Dividend-coupled (G2). Per ADR-2606051600.",
+    glyph: "烽",
+    displayName: "Noroshi — 光電融合 Communication Chip + ISAC + Photonic Packaging Robotics",
+    primaryLexicon: "com.etzhayyim.noroshi",
+    primarySchema: "00-contracts/schemas/photonic-convergence-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:noroshi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:noroshi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606051600"],
   },
 } as const;
 
