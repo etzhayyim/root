@@ -8528,10 +8528,9 @@
    :gov.address/unit "gov.bra.interior"
    :gov.address/kind :headquarters
    :gov.address/country "bra"
-   :gov.address/line-en "Palácio da Justiça, Esplanada dos Ministérios, Brasília"
-   :gov.address/lat -15.7973161 :gov.address/lon -47.8658636
+   :gov.address/line-en "Esplanada dos Ministérios, Bloco E, Brasília (MIDR)"
    :gov.address/sourcing :authoritative
-   :gov.address/provenance "OSM" :gov.address/last-verified "2026-06-04"}
+   :gov.address/provenance "gov.br/mdr (MIDR; re-pointed from MJSP — building-level coord not separately verified)" :gov.address/last-verified "2026-06-05"}
 
   {:gov.address/id "addr.gov.bra.transport.hq"
    :gov.address/unit "gov.bra.transport"
