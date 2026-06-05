@@ -2878,6 +2878,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Kakheti"
+   :gov.unit/name-local "კახეთი"
+   :gov.unit/name-romanized "Kakheti"
    :gov.unit/official-url "http://www.kakheti.gov.ge/"
    :gov.unit/wikidata "Q169674"
    :gov.unit/external-code ["iso3166-2:GE-KA"]
@@ -2891,6 +2893,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Guria"
+   :gov.unit/name-local "გურია"
+   :gov.unit/name-romanized "Guria"
    :gov.unit/official-url "https://www.guria.gov.ge/"
    :gov.unit/wikidata "Q19038"
    :gov.unit/external-code ["iso3166-2:GE-GU"]
@@ -2904,6 +2908,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Samtskhe–Javakheti"
+   :gov.unit/name-local "სამცხე-ჯავახეთი"
+   :gov.unit/name-romanized "Samtskhe-Javakheti"
    :gov.unit/official-url "http://samtskhe-javakheti.gov.ge/"
    :gov.unit/wikidata "Q19039"
    :gov.unit/external-code ["iso3166-2:GE-SJ"]
@@ -2917,6 +2923,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Imereti"
+   :gov.unit/name-local "იმერეთი"
+   :gov.unit/name-romanized "Imereti"
    :gov.unit/official-url "http://imereti.gov.ge/"
    :gov.unit/wikidata "Q200045"
    :gov.unit/external-code ["iso3166-2:GE-IM"]
@@ -2930,6 +2938,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Shida Kartli"
+   :gov.unit/name-local "შიდა ქართლი"
+   :gov.unit/name-romanized "Shida Kartli"
    :gov.unit/official-url "http://shidakartli.gov.ge/"
    :gov.unit/wikidata "Q200047"
    :gov.unit/external-code ["iso3166-2:GE-SK"]
@@ -2943,6 +2953,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Kvemo Kartli"
+   :gov.unit/name-local "ქვემო ქართლი"
+   :gov.unit/name-romanized "Kvemo Kartli"
    :gov.unit/official-url "https://kvemokartli.gov.ge"
    :gov.unit/wikidata "Q200048"
    :gov.unit/external-code ["iso3166-2:GE-KK"]
@@ -2956,6 +2968,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Samegrelo-Zemo Svaneti"
+   :gov.unit/name-local "სამეგრელო-ზემო სვანეთი"
+   :gov.unit/name-romanized "Samegrelo-Zemo Svaneti"
    :gov.unit/official-url "https://szs.gov.ge/"
    :gov.unit/wikidata "Q200309"
    :gov.unit/external-code ["iso3166-2:GE-SZ"]
@@ -2969,6 +2983,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Mtskheta-Mtianeti"
+   :gov.unit/name-local "მცხეთა-მთიანეთი"
+   :gov.unit/name-romanized "Mtskheta-Mtianeti"
    :gov.unit/official-url "http://www.mtskheta-mtianeti.gov.ge"
    :gov.unit/wikidata "Q203339"
    :gov.unit/external-code ["iso3166-2:GE-MM"]
@@ -2982,6 +2998,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Autonomous Republic of Abkhazia"
+   :gov.unit/name-local "აფხაზეთის ავტონომიური რესპუბლიკა"
+   :gov.unit/name-romanized "Apkhazetis Avtonomiuri Respublika"
    :gov.unit/official-url "http://abkhazia.gov.ge/"
    :gov.unit/wikidata "Q2914461"
    :gov.unit/external-code ["iso3166-2:GE-AB"]
@@ -2995,6 +3013,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Racha-Lechkhumi and Kvemo Svaneti"
+   :gov.unit/name-local "რაჭა-ლეჩხუმი და ქვემო სვანეთი"
+   :gov.unit/name-romanized "Racha-Lechkhumi da Kvemo Svaneti"
    :gov.unit/official-url "http://rls.gov.ge/"
    :gov.unit/wikidata "Q38893"
    :gov.unit/external-code ["iso3166-2:GE-RL"]
@@ -3008,6 +3028,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Adjara"
+   :gov.unit/name-local "აჭარის ავტონომიური რესპუბლიკა"
+   :gov.unit/name-romanized "Acharis Avtonomiuri Respublika"
    :gov.unit/official-url "https://adjara.gov.ge"
    :gov.unit/wikidata "Q45693"
    :gov.unit/external-code ["iso3166-2:GE-AJ"]
@@ -3021,6 +3043,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Tbilisi"
+   :gov.unit/name-local "თბილისი"
+   :gov.unit/name-romanized "Tbilisi"
    :gov.unit/official-url "https://my.tbilisi.gov.ge/"
    :gov.unit/wikidata "Q994"
    :gov.unit/external-code ["iso3166-2:GE-TB"]

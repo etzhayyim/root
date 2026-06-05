@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Caucasus + Central Asia (Georgia+Armenia+Kazakhstan) (1698 → 1739)
+
+Three distinct own-scripts in one pass — Georgian Mkhedruli, Armenian, Kazakh Cyrillic. 3 web-research
+subagents (Wikidata P1705). **41 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1698 → **1739**; subdivision name-local: 684 → **725**.
+- Georgia 12 (თბილისი/Tbilisi, აჭარის ავტონომიური რესპუბლიკა, სამეგრელო-ზემო სვანეთი …) — Mkhedruli.
+- Armenia 11 (Երևան/Yerevan, Արագածոտնի մարզ … "X-i marz" genitive form).
+- Kazakhstan 18 (Kazakh Cyrillic constitutional form; regions облысы, cities қаласы; incl. Astana
+  Астана қаласы, Baikonur Байқоңыр қаласы).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets:
+Bhutan 20 (Dzongkha), Maldives 20 (Thaana), Lao 17, Ethiopia 14 (Ge'ez), Morocco 12, North Korea 12,
+Oman 11, Sri Lanka 9 (Sinhala/Tamil), Qatar 9, plus smaller ones — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Arabic cluster Libya+Yemen+Syria+Jordan (1628 → 1698)
 
 Cleared the remaining large Arabic-script subdivision sets in one pass — 4 web-research subagents
