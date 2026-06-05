@@ -280,13 +280,14 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bra"
-   :gov.unit/name-en "Ministry of Justice and Public Security"
-   :gov.unit/official-url "https://www.gov.br/mj/pt-br"
-   :gov.unit/wikidata "Q105766446"
+   :gov.unit/name-en "Ministry of Integration and Regional Development"
+   :gov.unit/name-local "Ministério da Integração e do Desenvolvimento Regional"
+   :gov.unit/official-url "https://www.gov.br/mdr/pt-br"
+   :gov.unit/wikidata "Q10330386"
    :gov.unit/cofog ["03.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.gov.br/mj/pt-br"
+   :gov.unit/provenance "https://www.gov.br/mdr/pt-br"
    :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 

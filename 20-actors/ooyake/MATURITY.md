@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — DATA-QUALITY: structural sweep — fix Brazil interior/justice slot collision
+
+Extended the data-quality pass beyond subdivisions to ALL units: scanned for dangling parent refs
+(0 found — clean) and for duplicate name-en within the same (country, level). One collision remained:
+**gov.bra.interior AND gov.bra.justice were BOTH "Ministry of Justice and Public Security"** (both
+pointing at gov.br/mj) — Brazil has no separate Interior Ministry, so the "interior" functional slot
+had been mis-filled with a duplicate of Justice.
+
+- **re-pointed gov.bra.interior** to the genuinely distinct ministry that fills Brazil's internal/
+  regional-affairs function: **Ministry of Integration and Regional Development (MIDR / Ministério da
+  Integração e do Desenvolvimento Regional)** — gov.br/mdr/pt-br, Wikidata Q10330386 (handles regional
+  integration + civil protection / Secretaria Nacional de Proteção e Defesa Civil). Added the
+  Portuguese name-local. gov.bra.justice stays the canonical MJSP. (1 web-research subagent confirmed.)
+- **fixed its address**: the old hq row pointed at the Palácio da Justiça (the MJSP building, coord
+  -15.7973/-47.8659) — wrong for MIDR. Re-set to "Esplanada dos Ministérios, Bloco E, Brasília (MIDR)"
+  and DROPPED the Justice-building coord (G5 — did not fabricate a MIDR coord; honest null).
+
+Verified: check_seed_integrity ✓; **duplicate name-en groups atlas-wide now 0**; dangling parent refs
+0; run_tests.sh ALL GREEN. The atlas is now structurally clean: no QID/ISO subdivision duplicates, no
+same-(country,level) name collisions, no dangling parents.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — DATA-QUALITY:全法域 QID/ISO duplicate sweep — 6 more removed (7093 → 7087)
 
 Ran a SYSTEMATIC QID-vs-ISO duplicate scan across ALL jurisdictions (normalize name, strip the
