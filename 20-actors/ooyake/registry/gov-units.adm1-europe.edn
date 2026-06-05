@@ -6504,6 +6504,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Petrovec Municipality"
+   :gov.unit/name-local "Општина Петровец"
+   :gov.unit/name-romanized "Opština Petrovec"
    :gov.unit/official-url "http://www.petrovec.gov.mk/"
    :gov.unit/wikidata "Q1018191"
    :gov.unit/external-code ["iso3166-2:MK-810"]
@@ -6517,6 +6519,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Šuto Orizari Municipality"
+   :gov.unit/name-local "Општина Шуто Оризари"
+   :gov.unit/name-romanized "Opština Šuto Orizari"
    :gov.unit/official-url "http://www.sutoorizari.org.mk/"
    :gov.unit/wikidata "Q1020859"
    :gov.unit/external-code ["iso3166-2:MK-817"]
@@ -6530,6 +6534,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Brvenica Municipality"
+   :gov.unit/name-local "Општина Брвеница"
+   :gov.unit/name-romanized "Opština Brvenica"
    :gov.unit/official-url "http://www.brvenica.gov.mk/"
    :gov.unit/wikidata "Q1057563"
    :gov.unit/external-code ["iso3166-2:MK-602"]
@@ -6543,6 +6549,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ohrid Municipality"
+   :gov.unit/name-local "Општина Охрид"
+   :gov.unit/name-romanized "Opština Ohrid"
    :gov.unit/official-url "http://www.Ohrid.gov.mk/"
    :gov.unit/wikidata "Q1125333"
    :gov.unit/external-code ["iso3166-2:MK-310"]
@@ -6556,6 +6564,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kavadarci Municipality"
+   :gov.unit/name-local "Општина Кавадарци"
+   :gov.unit/name-romanized "Opština Kavadarci"
    :gov.unit/official-url "http://www.kavadarci.gov.mk"
    :gov.unit/wikidata "Q1155055"
    :gov.unit/external-code ["iso3166-2:MK-104"]
@@ -6569,6 +6579,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Saraj Municipality"
+   :gov.unit/name-local "Општина Сарај"
+   :gov.unit/name-romanized "Opština Saraj"
    :gov.unit/official-url "http://www.saraj.gov.mk/"
    :gov.unit/wikidata "Q1309481"
    :gov.unit/external-code ["iso3166-2:MK-811"]
@@ -6582,6 +6594,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Delčevo Municipality"
+   :gov.unit/name-local "Општина Делчево"
+   :gov.unit/name-romanized "Opština Delčevo"
    :gov.unit/official-url "http://www.Delcevo.gov.mk"
    :gov.unit/wikidata "Q1323322"
    :gov.unit/external-code ["iso3166-2:MK-203"]
@@ -6595,6 +6609,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Mavrovo i Rostuše Municipality"
+   :gov.unit/name-local "Општина Маврово и Ростуше"
+   :gov.unit/name-romanized "Opština Mavrovo i Rostuše"
    :gov.unit/official-url "http://www.mavrovoirostuse.gov.mk"
    :gov.unit/wikidata "Q1323332"
    :gov.unit/external-code ["iso3166-2:MK-607"]
@@ -6608,6 +6624,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Debarca Municipality"
+   :gov.unit/name-local "Општина Дебарца"
+   :gov.unit/name-romanized "Opština Debarca"
    :gov.unit/official-url "https://debrca.gov.mk/"
    :gov.unit/wikidata "Q1323340"
    :gov.unit/external-code ["iso3166-2:MK-304"]
@@ -6621,6 +6639,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Debar Municipality"
+   :gov.unit/name-local "Општина Дебар"
+   :gov.unit/name-romanized "Opština Debar"
    :gov.unit/official-url "http://www.dibra.gov.mk"
    :gov.unit/wikidata "Q1344996"
    :gov.unit/external-code ["iso3166-2:MK-303"]
@@ -6634,6 +6654,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Karbinci Municipality"
+   :gov.unit/name-local "Општина Карбинци"
+   :gov.unit/name-romanized "Opština Karbinci"
    :gov.unit/official-url "http://www.karbinci.gov.mk/"
    :gov.unit/wikidata "Q1346554"
    :gov.unit/external-code ["iso3166-2:MK-205"]
@@ -6647,6 +6669,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kisela Voda Municipality"
+   :gov.unit/name-local "Општина Кисела Вода"
+   :gov.unit/name-romanized "Opština Kisela Voda"
    :gov.unit/official-url "http://www.kiselavoda.gov.mk/"
    :gov.unit/wikidata "Q1386136"
    :gov.unit/external-code ["iso3166-2:MK-809"]
@@ -6660,6 +6684,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Čair Municipality"
+   :gov.unit/name-local "Општина Чаир"
+   :gov.unit/name-romanized "Opština Čair"
    :gov.unit/official-url "http://www.cair.gov.mk"
    :gov.unit/wikidata "Q1419314"
    :gov.unit/external-code ["iso3166-2:MK-815"]
@@ -6673,6 +6699,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kriva Palanka Municipality"
+   :gov.unit/name-local "Општина Крива Паланка"
+   :gov.unit/name-romanized "Opština Kriva Palanka"
    :gov.unit/official-url "https://www.krivapalanka.gov.mk/"
    :gov.unit/wikidata "Q1422453"
    :gov.unit/external-code ["iso3166-2:MK-702"]
@@ -6686,6 +6714,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Centar Municipality"
+   :gov.unit/name-local "Општина Центар"
+   :gov.unit/name-romanized "Opština Centar"
    :gov.unit/official-url "http://www.opstinacentar.gov.mk/"
    :gov.unit/wikidata "Q1463152"
    :gov.unit/external-code ["iso3166-2:MK-814"]
@@ -6699,6 +6729,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Karpoš Municipality"
+   :gov.unit/name-local "Општина Карпош"
+   :gov.unit/name-romanized "Opština Karpoš"
    :gov.unit/official-url "http://www.karpos.gov.mk"
    :gov.unit/wikidata "Q1463246"
    :gov.unit/external-code ["iso3166-2:MK-808"]
@@ -6712,6 +6744,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Rankovce Municipality"
+   :gov.unit/name-local "Општина Ранковце"
+   :gov.unit/name-romanized "Opština Rankovce"
    :gov.unit/official-url "http://rankovce.gov.mk/"
    :gov.unit/wikidata "Q1475001"
    :gov.unit/external-code ["iso3166-2:MK-705"]
@@ -6725,6 +6759,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Bitola Municipality"
+   :gov.unit/name-local "Општина Битола"
+   :gov.unit/name-romanized "Opština Bitola"
    :gov.unit/official-url "http://www.bitola.gov.mk/"
    :gov.unit/wikidata "Q159380"
    :gov.unit/external-code ["iso3166-2:MK-501"]
@@ -6738,6 +6774,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Centar Župa Municipality"
+   :gov.unit/name-local "Општина Центар Жупа"
+   :gov.unit/name-romanized "Opština Centar Župa"
    :gov.unit/official-url "https://merkezjupa.gov.mk"
    :gov.unit/wikidata "Q1779085"
    :gov.unit/external-code ["iso3166-2:MK-313"]
@@ -6751,6 +6789,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Bosilovo Municipality"
+   :gov.unit/name-local "Општина Босилово"
+   :gov.unit/name-romanized "Opština Bosilovo"
    :gov.unit/official-url "http://www.opstinabosilovo.gov.mk/"
    :gov.unit/wikidata "Q1779775"
    :gov.unit/external-code ["iso3166-2:MK-402"]
@@ -6764,6 +6804,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kočani Municipality"
+   :gov.unit/name-local "Општина Кочани"
+   :gov.unit/name-romanized "Opština Kočani"
    :gov.unit/official-url "http://www.kocani.gov.mk"
    :gov.unit/wikidata "Q1819289"
    :gov.unit/external-code ["iso3166-2:MK-206"]
@@ -6777,6 +6819,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Mogila Municipality"
+   :gov.unit/name-local "Општина Могила"
+   :gov.unit/name-romanized "Opština Mogila"
    :gov.unit/official-url "http://www.mogila.gov.mk/mak/index.asp"
    :gov.unit/wikidata "Q1839369"
    :gov.unit/external-code ["iso3166-2:MK-506"]
@@ -6790,6 +6834,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Novo Selo Municipality"
+   :gov.unit/name-local "Општина Ново Село"
+   :gov.unit/name-romanized "Opština Novo Selo"
    :gov.unit/official-url "http://www.novoselo.gov.mk/"
    :gov.unit/wikidata "Q1946579"
    :gov.unit/external-code ["iso3166-2:MK-408"]
@@ -6803,6 +6849,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Dolneni Municipality"
+   :gov.unit/name-local "Општина Долнени"
+   :gov.unit/name-romanized "Opština Dolneni"
    :gov.unit/official-url "http://www.opstinadolneni.gov.mk"
    :gov.unit/wikidata "Q1992691"
    :gov.unit/external-code ["iso3166-2:MK-503"]
@@ -6816,6 +6864,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Gradsko Municipality"
+   :gov.unit/name-local "Општина Градско"
+   :gov.unit/name-romanized "Opština Gradsko"
    :gov.unit/official-url "http://www.gradsko.gov.mk/"
    :gov.unit/wikidata "Q1992701"
    :gov.unit/external-code ["iso3166-2:MK-102"]
@@ -6829,6 +6879,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Aerodrom Municipality"
+   :gov.unit/name-local "Општина Аеродром"
+   :gov.unit/name-romanized "Opština Aerodrom"
    :gov.unit/official-url "http://www.aerodrom.gov.mk/"
    :gov.unit/wikidata "Q1992708"
    :gov.unit/external-code ["iso3166-2:MK-801"]
@@ -6842,6 +6894,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kratovo Municipality"
+   :gov.unit/name-local "Општина Кратово"
+   :gov.unit/name-romanized "Opština Kratovo"
    :gov.unit/official-url "http://www.OpstinaKratovo.gov.mk"
    :gov.unit/wikidata "Q1992716"
    :gov.unit/external-code ["iso3166-2:MK-701"]
@@ -6855,6 +6909,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Konče Municipality"
+   :gov.unit/name-local "Општина Конче"
+   :gov.unit/name-romanized "Opština Konče"
    :gov.unit/official-url "http://www.konce.gov.mk/"
    :gov.unit/wikidata "Q1992728"
    :gov.unit/external-code ["iso3166-2:MK-407"]
@@ -6868,6 +6924,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Bogdanci Municipality"
+   :gov.unit/name-local "Општина Богданци"
+   :gov.unit/name-romanized "Opština Bogdanci"
    :gov.unit/official-url "http://www.bogdanci.gov.mk"
    :gov.unit/wikidata "Q1992752"
    :gov.unit/external-code ["iso3166-2:MK-401"]
@@ -6881,6 +6939,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Čaška Municipality"
+   :gov.unit/name-local "Општина Чашка"
+   :gov.unit/name-romanized "Opština Čaška"
    :gov.unit/official-url "http://www.caska.gov.mk"
    :gov.unit/wikidata "Q1994547"
    :gov.unit/external-code ["iso3166-2:MK-109"]
@@ -6894,6 +6954,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Želino Municipality"
+   :gov.unit/name-local "Општина Желино"
+   :gov.unit/name-romanized "Opština Želino"
    :gov.unit/official-url "https://zhelina.gov.mk"
    :gov.unit/wikidata "Q1996410"
    :gov.unit/external-code ["iso3166-2:MK-605"]
@@ -6907,6 +6969,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Dojran Municipality"
+   :gov.unit/name-local "Општина Дојран"
+   :gov.unit/name-romanized "Opština Dojran"
    :gov.unit/official-url "http://dojran.gov.mk"
    :gov.unit/wikidata "Q1996413"
    :gov.unit/external-code ["iso3166-2:MK-406"]
@@ -6920,6 +6984,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Lozovo Municipality"
+   :gov.unit/name-local "Општина Лозово"
+   :gov.unit/name-romanized "Opština Lozovo"
    :gov.unit/official-url "http://www.OpstinaLozovo.gov.mk"
    :gov.unit/wikidata "Q1996470"
    :gov.unit/external-code ["iso3166-2:MK-105"]
@@ -6933,6 +6999,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Vrapčište Municipality"
+   :gov.unit/name-local "Општина Врапчиште"
+   :gov.unit/name-romanized "Opština Vrapčište"
    :gov.unit/official-url "https://komunavrapcisht.gov.mk/mk/"
    :gov.unit/wikidata "Q1996740"
    :gov.unit/external-code ["iso3166-2:MK-603"]
@@ -6946,6 +7014,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Plasnica Municipality"
+   :gov.unit/name-local "Општина Пласница"
+   :gov.unit/name-romanized "Opština Plasnica"
    :gov.unit/official-url "http://www.plasnica.gov.mk/"
    :gov.unit/wikidata "Q2018921"
    :gov.unit/external-code ["iso3166-2:MK-311"]
@@ -6959,6 +7029,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Krivogaštani Municipality"
+   :gov.unit/name-local "Општина Кривогаштани"
+   :gov.unit/name-romanized "Opština Krivogaštani"
    :gov.unit/official-url "http://www.krivogastani.gov.mk"
    :gov.unit/wikidata "Q2018930"
    :gov.unit/external-code ["iso3166-2:MK-504"]
@@ -6972,6 +7044,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kičevo Municipality"
+   :gov.unit/name-local "Општина Кичево"
+   :gov.unit/name-romanized "Opština Kičevo"
    :gov.unit/official-url "http://www.kicevo.gov.mk/"
    :gov.unit/wikidata "Q2018957"
    :gov.unit/external-code ["iso3166-2:MK-307"]
@@ -6985,6 +7059,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Valandovo Municipality"
+   :gov.unit/name-local "Општина Валандово"
+   :gov.unit/name-romanized "Opština Valandovo"
    :gov.unit/official-url "http://www.valandovo.gov.mk"
    :gov.unit/wikidata "Q2018965"
    :gov.unit/external-code ["iso3166-2:MK-403"]
@@ -6998,6 +7074,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Gevgelija Municipality"
+   :gov.unit/name-local "Општина Гевгелија"
+   :gov.unit/name-romanized "Opština Gevgelija"
    :gov.unit/official-url "http://www.gevgelija.gov.mk/"
    :gov.unit/wikidata "Q2018974"
    :gov.unit/external-code ["iso3166-2:MK-405"]
@@ -7011,6 +7089,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Vasilevo Municipality"
+   :gov.unit/name-local "Општина Василево"
+   :gov.unit/name-romanized "Opština Vasilevo"
    :gov.unit/official-url "http://www.opstinavasilevo.gov.mk/"
    :gov.unit/wikidata "Q2018980"
    :gov.unit/external-code ["iso3166-2:MK-404"]
@@ -7024,6 +7104,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Gazi Baba Municipality"
+   :gov.unit/name-local "Општина Гази Баба"
+   :gov.unit/name-romanized "Opština Gazi Baba"
    :gov.unit/official-url "http://www.gazibaba.gov.mk"
    :gov.unit/wikidata "Q2019836"
    :gov.unit/external-code ["iso3166-2:MK-804"]
@@ -7037,6 +7119,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Vevčani Municipality"
+   :gov.unit/name-local "Општина Вевчани"
+   :gov.unit/name-romanized "Opština Vevčani"
    :gov.unit/official-url "http://www.vevcani.org.mk/"
    :gov.unit/wikidata "Q2029825"
    :gov.unit/external-code ["iso3166-2:MK-301"]
@@ -7050,6 +7134,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Makedonska Kamenica Municipality"
+   :gov.unit/name-local "Општина Македонска Каменица"
+   :gov.unit/name-romanized "Opština Makedonska Kamenica"
    :gov.unit/official-url "http://www.MakedonskaKamenica.gov.mk"
    :gov.unit/wikidata "Q2041219"
    :gov.unit/external-code ["iso3166-2:MK-207"]
@@ -7063,6 +7149,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Lipkovo Municipality"
+   :gov.unit/name-local "Општина Липково"
+   :gov.unit/name-romanized "Opština Lipkovo"
    :gov.unit/official-url "https://komunaelikoves.gov.mk/"
    :gov.unit/wikidata "Q2041236"
    :gov.unit/external-code ["iso3166-2:MK-704"]
@@ -7076,6 +7164,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Novaci Municipality"
+   :gov.unit/name-local "Општина Новаци"
+   :gov.unit/name-romanized "Opština Novaci"
    :gov.unit/official-url "http://www.opstinanovaci.gov.mk/"
    :gov.unit/wikidata "Q2088022"
    :gov.unit/external-code ["iso3166-2:MK-507"]
@@ -7089,6 +7179,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Studeničani Municipality"
+   :gov.unit/name-local "Општина Студеничани"
+   :gov.unit/name-romanized "Opština Studeničani"
    :gov.unit/official-url "http://www.studenicani.gov.mk/index.php?lang=sq"
    :gov.unit/wikidata "Q2088034"
    :gov.unit/external-code ["iso3166-2:MK-813"]
@@ -7102,6 +7194,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Veles Municipality"
+   :gov.unit/name-local "Општина Велес"
+   :gov.unit/name-romanized "Opština Veles"
    :gov.unit/official-url "https://veles.gov.mk"
    :gov.unit/wikidata "Q2088561"
    :gov.unit/external-code ["iso3166-2:MK-101"]
@@ -7115,6 +7209,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Rosoman Municipality"
+   :gov.unit/name-local "Општина Росоман"
+   :gov.unit/name-romanized "Opština Rosoman"
    :gov.unit/official-url "http://www.opstinarosoman.gov.mk"
    :gov.unit/wikidata "Q2088585"
    :gov.unit/external-code ["iso3166-2:MK-107"]
@@ -7128,6 +7224,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Staro Nagoričane Municipality"
+   :gov.unit/name-local "Општина Старо Нагоричане"
+   :gov.unit/name-romanized "Opština Staro Nagoričane"
    :gov.unit/official-url "http://staronagoricane.gov.mk/"
    :gov.unit/wikidata "Q2128903"
    :gov.unit/external-code ["iso3166-2:MK-706"]
@@ -7141,6 +7239,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Probištip Municipality"
+   :gov.unit/name-local "Општина Пробиштип"
+   :gov.unit/name-romanized "Opština Probištip"
    :gov.unit/official-url "http://www.Probistip.gov.mk"
    :gov.unit/wikidata "Q2270414"
    :gov.unit/external-code ["iso3166-2:MK-209"]
@@ -7154,6 +7254,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Sopište Municipality"
+   :gov.unit/name-local "Општина Сопиште"
+   :gov.unit/name-romanized "Opština Sopište"
    :gov.unit/official-url "http://www.sopiste.gov.mk/"
    :gov.unit/wikidata "Q2282240"
    :gov.unit/external-code ["iso3166-2:MK-812"]
@@ -7167,6 +7269,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Tearce Municipality"
+   :gov.unit/name-local "Општина Теарце"
+   :gov.unit/name-romanized "Opština Tearce"
    :gov.unit/official-url "http://www.tearce.gov.mk"
    :gov.unit/wikidata "Q2282274"
    :gov.unit/external-code ["iso3166-2:MK-608"]
@@ -7180,6 +7284,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Sveti Nikole Municipality"
+   :gov.unit/name-local "Општина Свети Николе"
+   :gov.unit/name-romanized "Opština Sveti Nikole"
    :gov.unit/official-url "http://www.SvetiNikole.gov.mk"
    :gov.unit/wikidata "Q2308277"
    :gov.unit/external-code ["iso3166-2:MK-108"]
@@ -7193,6 +7299,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Strumica Municipality"
+   :gov.unit/name-local "Општина Струмица"
+   :gov.unit/name-romanized "Opština Strumica"
    :gov.unit/official-url "http://www.strumica.gov.mk/"
    :gov.unit/wikidata "Q2308287"
    :gov.unit/external-code ["iso3166-2:MK-410"]
@@ -7206,6 +7314,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kumanovo Municipality"
+   :gov.unit/name-local "Општина Куманово"
+   :gov.unit/name-romanized "Opština Kumanovo"
    :gov.unit/official-url "https://kumanovo.gov.mk/"
    :gov.unit/wikidata "Q2352376"
    :gov.unit/external-code ["iso3166-2:MK-703"]
@@ -7219,6 +7329,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Makedonski Brod Municipality"
+   :gov.unit/name-local "Општина Македонски Брод"
+   :gov.unit/name-romanized "Opština Makedonski Brod"
    :gov.unit/official-url "http://www.MBrod.gov.mk"
    :gov.unit/wikidata "Q2364199"
    :gov.unit/external-code ["iso3166-2:MK-308"]
@@ -7232,6 +7344,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Demir Kapija Municipality"
+   :gov.unit/name-local "Општина Демир Капија"
+   :gov.unit/name-romanized "Opština Demir Kapija"
    :gov.unit/official-url "http://www.opstinademirkapija.gov.mk"
    :gov.unit/wikidata "Q2370973"
    :gov.unit/external-code ["iso3166-2:MK-103"]
@@ -7245,6 +7359,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Štip Municipality"
+   :gov.unit/name-local "Општина Штип"
+   :gov.unit/name-romanized "Opština Štip"
    :gov.unit/official-url "http://www.Stip.gov.mk"
    :gov.unit/wikidata "Q2423082"
    :gov.unit/external-code ["iso3166-2:MK-211"]
@@ -7258,6 +7374,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Kruševo Municipality"
+   :gov.unit/name-local "Општина Крушево"
+   :gov.unit/name-romanized "Opština Kruševo"
    :gov.unit/official-url "http://www.krusevo.gov.mk"
    :gov.unit/wikidata "Q2476159"
    :gov.unit/external-code ["iso3166-2:MK-505"]
@@ -7271,6 +7389,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Vinica Municipality"
+   :gov.unit/name-local "Општина Виница"
+   :gov.unit/name-romanized "Opština Vinica"
    :gov.unit/official-url "http://www.opstinavinica.gov.mk"
    :gov.unit/wikidata "Q2479526"
    :gov.unit/external-code ["iso3166-2:MK-202"]
@@ -7284,6 +7404,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "City of Skopje"
+   :gov.unit/name-local "Град Скопје"
+   :gov.unit/name-romanized "Grad Skopje"
    :gov.unit/official-url "http://www.skopje.gov.mk/"
    :gov.unit/wikidata "Q2575820"
    :gov.unit/external-code ["iso3166-2:MK-85"]
@@ -7297,6 +7419,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Radoviš Municipality"
+   :gov.unit/name-local "Општина Радовиш"
+   :gov.unit/name-romanized "Opština Radoviš"
    :gov.unit/official-url "http://www.radovis.gov.mk"
    :gov.unit/wikidata "Q2738284"
    :gov.unit/external-code ["iso3166-2:MK-409"]
@@ -7310,6 +7434,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Češinovo-Obleševo Municipality"
+   :gov.unit/name-local "Општина Чешиново-Облешево"
+   :gov.unit/name-romanized "Opština Češinovo-Obleševo"
    :gov.unit/official-url "http://www.cesinovo-oblesevo.gov.mk"
    :gov.unit/wikidata "Q281898"
    :gov.unit/external-code ["iso3166-2:MK-210"]
@@ -7323,6 +7449,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Tetovo Municipality"
+   :gov.unit/name-local "Општина Тетово"
+   :gov.unit/name-romanized "Opština Tetovo"
    :gov.unit/official-url "http://www.tetova.gov.mk/"
    :gov.unit/wikidata "Q3245456"
    :gov.unit/external-code ["iso3166-2:MK-609"]
@@ -7336,6 +7464,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Negotino Municipality"
+   :gov.unit/name-local "Општина Неготино"
+   :gov.unit/name-romanized "Opština Negotino"
    :gov.unit/official-url "https://negotino.gov.mk/"
    :gov.unit/wikidata "Q3246545"
    :gov.unit/external-code ["iso3166-2:MK-106"]
@@ -7349,6 +7479,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Pehčevo Municipality"
+   :gov.unit/name-local "Општина Пехчево"
+   :gov.unit/name-romanized "Opština Pehčevo"
    :gov.unit/official-url "https://pehcevo.gov.mk/"
    :gov.unit/wikidata "Q426114"
    :gov.unit/external-code ["iso3166-2:MK-208"]
@@ -7362,6 +7494,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Jegunovce Municipality"
+   :gov.unit/name-local "Општина Јегуновце"
+   :gov.unit/name-romanized "Opština Jegunovce"
    :gov.unit/official-url "http://www.OpstinaJegunovce.gov.mk"
    :gov.unit/wikidata "Q431908"
    :gov.unit/external-code ["iso3166-2:MK-606"]
@@ -7375,6 +7509,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Gostivar Municipality"
+   :gov.unit/name-local "Општина Гостивар"
+   :gov.unit/name-romanized "Opština Gostivar"
    :gov.unit/official-url "http://gostivari.gov.mk/"
    :gov.unit/wikidata "Q521112"
    :gov.unit/external-code ["iso3166-2:MK-604"]
@@ -7388,6 +7524,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Aračinovo Municipality"
+   :gov.unit/name-local "Општина Арачиново"
+   :gov.unit/name-romanized "Opština Aračinovo"
    :gov.unit/official-url "https://www.haracina.gov.mk/"
    :gov.unit/wikidata "Q597345"
    :gov.unit/external-code ["iso3166-2:MK-802"]
@@ -7401,6 +7539,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Čučer-Sandevo Municipality"
+   :gov.unit/name-local "Општина Чучер-Сандево"
+   :gov.unit/name-romanized "Opština Čučer-Sandevo"
    :gov.unit/official-url "http://www.cucersandevo.gov.mk/"
    :gov.unit/wikidata "Q629720"
    :gov.unit/external-code ["iso3166-2:MK-816"]
@@ -7414,6 +7554,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Prilep Municipality"
+   :gov.unit/name-local "Општина Прилеп"
+   :gov.unit/name-romanized "Opština Prilep"
    :gov.unit/official-url "http://www.prilep.gov.mk"
    :gov.unit/wikidata "Q6312454"
    :gov.unit/external-code ["iso3166-2:MK-508"]
@@ -7427,6 +7569,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ilinden Municipality"
+   :gov.unit/name-local "Општина Илинден"
+   :gov.unit/name-romanized "Opština Ilinden"
    :gov.unit/official-url "http://www.ilinden.gov.mk/"
    :gov.unit/wikidata "Q657754"
    :gov.unit/external-code ["iso3166-2:MK-807"]
@@ -7440,6 +7584,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Resen Municipality"
+   :gov.unit/name-local "Општина Ресен"
+   :gov.unit/name-romanized "Opština Resen"
    :gov.unit/official-url "http://www.resen.gov.mk"
    :gov.unit/wikidata "Q740591"
    :gov.unit/external-code ["iso3166-2:MK-509"]
@@ -7453,6 +7599,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Struga Municipality"
+   :gov.unit/name-local "Општина Струга"
+   :gov.unit/name-romanized "Opština Struga"
    :gov.unit/official-url "http://www.struga.gov.mk/"
    :gov.unit/wikidata "Q749618"
    :gov.unit/external-code ["iso3166-2:MK-312"]
@@ -7466,6 +7614,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Berovo Municipality"
+   :gov.unit/name-local "Општина Берово"
+   :gov.unit/name-romanized "Opština Berovo"
    :gov.unit/official-url "http://berovo.gov.mk"
    :gov.unit/wikidata "Q793727"
    :gov.unit/external-code ["iso3166-2:MK-201"]
@@ -7479,6 +7629,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Demir Hisar Municipality"
+   :gov.unit/name-local "Општина Демир Хисар"
+   :gov.unit/name-romanized "Opština Demir Hisar"
    :gov.unit/official-url "http://www.demirhisar.gov.mk"
    :gov.unit/wikidata "Q856278"
    :gov.unit/external-code ["iso3166-2:MK-502"]
@@ -7492,6 +7644,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Bogovinje Municipality"
+   :gov.unit/name-local "Општина Боговиње"
+   :gov.unit/name-romanized "Opština Bogovinje"
    :gov.unit/official-url "http://www.komunabogovine.gov.mk"
    :gov.unit/wikidata "Q9035785"
    :gov.unit/external-code ["iso3166-2:MK-601"]
@@ -7505,6 +7659,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Zelenikovo Municipality"
+   :gov.unit/name-local "Општина Зелениково"
+   :gov.unit/name-romanized "Opština Zelenikovo"
    :gov.unit/official-url "https://zelenikovo.gov.mk"
    :gov.unit/wikidata "Q9050283"
    :gov.unit/external-code ["iso3166-2:MK-806"]
@@ -7518,6 +7674,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ǵorče Petrov Municipality"
+   :gov.unit/name-local "Општина Ѓорче Петров"
+   :gov.unit/name-romanized "Opština Ǵorče Petrov"
    :gov.unit/official-url "http://www.opstinagpetrov.gov.mk"
    :gov.unit/wikidata "Q924278"
    :gov.unit/external-code ["iso3166-2:MK-805"]
@@ -7531,6 +7689,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Butel Municipality"
+   :gov.unit/name-local "Општина Бутел"
+   :gov.unit/name-romanized "Opština Butel"
    :gov.unit/official-url "http://www.opstinabutel.gov.mk"
    :gov.unit/wikidata "Q935620"
    :gov.unit/external-code ["iso3166-2:MK-803"]
@@ -7544,6 +7704,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Zrnovci Municipality"
+   :gov.unit/name-local "Општина Зрновци"
+   :gov.unit/name-romanized "Opština Zrnovci"
    :gov.unit/official-url "http://www.Zrnovci.gov.mk/"
    :gov.unit/wikidata "Q950881"
    :gov.unit/external-code ["iso3166-2:MK-204"]
