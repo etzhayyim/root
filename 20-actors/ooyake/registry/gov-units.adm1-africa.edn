@@ -1929,6 +1929,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Algiers Province"
+   :gov.unit/official-url "https://www.wilaya-alger.dz/"
    :gov.unit/wikidata "Q141026"
    :gov.unit/external-code ["iso3166-2:DZ-16"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1941,6 +1942,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Aïn Defla Province"
+   :gov.unit/official-url "https://www.wilaya-aindefla.dz/"
    :gov.unit/wikidata "Q168953"
    :gov.unit/external-code ["iso3166-2:DZ-44"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1953,6 +1955,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ghardaïa Province"
+   :gov.unit/official-url "http://wilayadeghardaia.dz/portal/"
    :gov.unit/wikidata "Q17601"
    :gov.unit/external-code ["iso3166-2:DZ-47"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1965,6 +1968,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Adrar Province"
+   :gov.unit/official-url "https://www.wilaya-adrar.dz/"
    :gov.unit/wikidata "Q188166"
    :gov.unit/external-code ["iso3166-2:DZ-01"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1989,6 +1993,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Khenchela Province"
+   :gov.unit/official-url "https://wilaya-khenchela.dz/"
    :gov.unit/wikidata "Q213950"
    :gov.unit/external-code ["iso3166-2:DZ-40"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2014,6 +2019,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Béchar Province"
+   :gov.unit/official-url "https://www.wilaya-bechar.gov.dz/"
    :gov.unit/wikidata "Q215467"
    :gov.unit/external-code ["iso3166-2:DZ-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2026,6 +2032,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Beni Abbes Province"
+   :gov.unit/official-url "https://www.wilaya-beniabbes.dz/"
    :gov.unit/wikidata "Q21606902"
    :gov.unit/external-code ["iso3166-2:DZ-52"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2050,6 +2057,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mostaganem Province"
+   :gov.unit/official-url "https://wilaya-mostaganem.dz/"
    :gov.unit/wikidata "Q221445"
    :gov.unit/external-code ["iso3166-2:DZ-27"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2062,6 +2070,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tamanrasset Province"
+   :gov.unit/official-url "https://www.wilaya-tamanrasset.dz/"
    :gov.unit/wikidata "Q229467"
    :gov.unit/external-code ["iso3166-2:DZ-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2074,6 +2083,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tindouf Province"
+   :gov.unit/official-url "https://wilaya-tindouf.dz/"
    :gov.unit/wikidata "Q231151"
    :gov.unit/external-code ["iso3166-2:DZ-37"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2086,6 +2096,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Oran Province"
+   :gov.unit/official-url "http://wilayaoran.dz/"
    :gov.unit/wikidata "Q231331"
    :gov.unit/external-code ["iso3166-2:DZ-31"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2098,6 +2109,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Laghouat Province"
+   :gov.unit/official-url "https://www.wilaya-laghouat.dz/"
    :gov.unit/wikidata "Q231748"
    :gov.unit/external-code ["iso3166-2:DZ-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2122,6 +2134,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Constantine Province"
+   :gov.unit/official-url "https://wilayaconstantine.dz/"
    :gov.unit/wikidata "Q232043"
    :gov.unit/external-code ["iso3166-2:DZ-25"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2134,6 +2147,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Djelfa Province"
+   :gov.unit/official-url "https://wilaya-djelfa.dz/"
    :gov.unit/wikidata "Q233233"
    :gov.unit/external-code ["iso3166-2:DZ-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2159,6 +2173,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tlemcen Province"
+   :gov.unit/official-url "https://wilaya-tlemcen.dz/"
    :gov.unit/wikidata "Q233632"
    :gov.unit/external-code ["iso3166-2:DZ-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2184,6 +2199,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Saïda Province"
+   :gov.unit/official-url "https://wilaya-saida.dz/"
    :gov.unit/wikidata "Q233640"
    :gov.unit/external-code ["iso3166-2:DZ-20"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2196,6 +2212,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tizi Ouzou Province"
+   :gov.unit/official-url "http://www.tizi-ouzou.wilaya.dz/"
    :gov.unit/wikidata "Q233645"
    :gov.unit/external-code ["iso3166-2:DZ-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2221,6 +2238,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bouira Province"
+   :gov.unit/official-url "http://www.wilaya-bouira.dz/"
    :gov.unit/wikidata "Q233655"
    :gov.unit/external-code ["iso3166-2:DZ-10"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2245,6 +2263,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Béjaïa Province"
+   :gov.unit/official-url "https://wilaya-bejaia.dz/"
    :gov.unit/wikidata "Q233665"
    :gov.unit/external-code ["iso3166-2:DZ-06"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2270,6 +2289,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Naama Province"
+   :gov.unit/official-url "https://www.wilaya-naama.dz/"
    :gov.unit/wikidata "Q233675"
    :gov.unit/external-code ["iso3166-2:DZ-45"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2282,6 +2302,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Skikda Province"
+   :gov.unit/official-url "https://wilayadeskikda-dz.com/"
    :gov.unit/wikidata "Q234227"
    :gov.unit/external-code ["iso3166-2:DZ-21"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2294,6 +2315,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Bayadh Province"
+   :gov.unit/official-url "https://www.wilaya-elbayadh.gov.dz/"
    :gov.unit/wikidata "Q235703"
    :gov.unit/external-code ["iso3166-2:DZ-32"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2306,6 +2328,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Oum El Bouaghi Province"
+   :gov.unit/official-url "https://wilaya-oeb.dz/"
    :gov.unit/wikidata "Q235705"
    :gov.unit/external-code ["iso3166-2:DZ-04"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2318,6 +2341,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ouargla Province"
+   :gov.unit/official-url "http://wilaya-ouargla.dz/"
    :gov.unit/wikidata "Q235709"
    :gov.unit/external-code ["iso3166-2:DZ-30"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2330,6 +2354,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Sidi Bel Abbès Province"
+   :gov.unit/official-url "https://wilaya-sidibelabbes.dz/"
    :gov.unit/wikidata "Q235714"
    :gov.unit/external-code ["iso3166-2:DZ-22"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2342,6 +2367,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Jijel Province"
+   :gov.unit/official-url "http://wilaya-jijel.dz/"
    :gov.unit/wikidata "Q235718"
    :gov.unit/external-code ["iso3166-2:DZ-18"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2354,6 +2380,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mila Province"
+   :gov.unit/official-url "https://www.wilaya-mila.dz/"
    :gov.unit/wikidata "Q235723"
    :gov.unit/external-code ["iso3166-2:DZ-43"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2366,6 +2393,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Guelma Province"
+   :gov.unit/official-url "https://wilaya-guelma.dz/"
    :gov.unit/wikidata "Q235727"
    :gov.unit/external-code ["iso3166-2:DZ-24"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2378,6 +2406,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tissemsilt Province"
+   :gov.unit/official-url "https://www.wilaya-tissemsilt.dz/"
    :gov.unit/wikidata "Q235805"
    :gov.unit/external-code ["iso3166-2:DZ-38"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2390,6 +2419,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Médéa Province"
+   :gov.unit/official-url "http://www.wilayamedea.dz/"
    :gov.unit/wikidata "Q235810"
    :gov.unit/external-code ["iso3166-2:DZ-26"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2402,6 +2432,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tipasa Province"
+   :gov.unit/official-url "https://www.wilaya-tipaza.dz/"
    :gov.unit/wikidata "Q235814"
    :gov.unit/external-code ["iso3166-2:DZ-42"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2414,6 +2445,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Boumerdès Province"
+   :gov.unit/official-url "https://www.wilaya-boumerdes.dz/"
    :gov.unit/wikidata "Q236752"
    :gov.unit/external-code ["iso3166-2:DZ-35"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2439,6 +2471,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Souk Ahras Province"
+   :gov.unit/official-url "https://www.wilaya-soukahras.dz/"
    :gov.unit/wikidata "Q236772"
    :gov.unit/external-code ["iso3166-2:DZ-41"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2451,6 +2484,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mascara Province"
+   :gov.unit/official-url "https://www.wilayamascara.dz/"
    :gov.unit/wikidata "Q236776"
    :gov.unit/external-code ["iso3166-2:DZ-29"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2475,6 +2509,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Sétif Province"
+   :gov.unit/official-url "https://www.wilayasetif.dz/"
    :gov.unit/wikidata "Q237164"
    :gov.unit/external-code ["iso3166-2:DZ-19"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2487,6 +2522,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "M'Sila Province"
+   :gov.unit/official-url "https://www.msilawilaya.dz/"
    :gov.unit/wikidata "Q240870"
    :gov.unit/external-code ["iso3166-2:DZ-28"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2511,6 +2547,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tébessa Province"
+   :gov.unit/official-url "http://wilaya-tebessa.dz/"
    :gov.unit/wikidata "Q267224"
    :gov.unit/external-code ["iso3166-2:DZ-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2536,6 +2573,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Meniaa Province"
+   :gov.unit/official-url "https://wilaya-meniaa.dz/"
    :gov.unit/wikidata "Q76520264"
    :gov.unit/external-code ["iso3166-2:DZ-58"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2608,6 +2646,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Touggourt Province"
+   :gov.unit/official-url "http://ca-touggourt.dz/ar/"
    :gov.unit/wikidata "Q77103880"
    :gov.unit/external-code ["iso3166-2:DZ-55"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2620,6 +2659,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ouled Djellal Province"
+   :gov.unit/official-url "https://wilaya-ouleddjellal.dz/"
    :gov.unit/wikidata "Q77105251"
    :gov.unit/external-code ["iso3166-2:DZ-51"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2671,6 +2711,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Beheira Governorate"
+   :gov.unit/official-url "https://behira.gov.eg"
    :gov.unit/wikidata "Q30630"
    :gov.unit/external-code ["iso3166-2:EG-BH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -6023,6 +6064,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "Kano State"
+   :gov.unit/official-url "https://kanostate.gov.ng"
    :gov.unit/wikidata "Q682571"
    :gov.unit/external-code ["iso3166-2:NG-KN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision official-url — Algeria wilayas + big-country mop-up (5949 → 5995)
+
+The big federal countries (Mexico/Brazil/Russia/China/India/Turkey/Thailand/…) are now subdivision-
+url-complete; the one large remaining gap was Algeria (51 wilayas). Plus a scattered mop-up of the
+last 1-2-unit gaps in Turkey/Nigeria/UAE/Ukraine/Egypt/Venezuela/Pakistan/Saudi. 5 web-research
+subagents. **46 official portals found + added; 15 honest nulls.**
+
+- official-url: 5949 → **5995/7106**.
+- **Algeria wilayas** (40 of 51): official wali (provincial governor's office) .dz portals
+  (wilaya-<name>.dz / <name>.wilaya.dz / .gov.dz patterns). 11 nulls — mostly the NEW 2019 wilayas
+  (Timimoun, Bordj Badji Mokhtar, In Salah, In Guezzam, Djanet, El M'Ghair) which only have tourism-
+  directorate / commune / Facebook presence, plus 5 defunct/dead-domain older ones (Chlef, Annaba,
+  Illizi, BBA, El Tarf). Rejected .mta.gov.dz tourism directorates + commune sites (wrong body).
+- **mop-up** (6): Turkey Diyarbakır + Kilis valilik (.gov.tr); Nigeria Kano State; UAE Umm Al Quwain
+  (uaq.ae — corrected, NOT uaq.gov.ae); Ukraine Luhansk Oblast military admin (loga.gov.ua); Egypt
+  Beheira (behira.gov.eg — corrected spelling).
+- **honest nulls + 2 flagged data artifacts (G5)**: Venezuela Federal Dependencies + Delta Amacuro
+  (centrally administered / social-only); **gov.pak.adm1.q19807103 "Junagadh and Manavadar"** (a
+  former princely state claimed by Pakistan but India-administered since 1948 — NOT a current
+  Pakistani province) and **gov.sau.adm1.q74063 "list of provinces of Saudi Arabia"** (a Wikidata
+  LIST item, not a subdivision) — both flagged for a future data-quality cleanup, alongside
+  gov.tza.adm1.q7296 (Mount Kilimanjaro) noted earlier.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision official-url — partial-coverage jurisdictions (5905 → 5949)
 
 Continued the subdivision official-url axis across 8 partially-covered jurisdictions. 8 web-research
