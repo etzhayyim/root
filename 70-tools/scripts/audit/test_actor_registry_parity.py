@@ -26,11 +26,15 @@ _REPO = pathlib.Path(__file__).resolve().parents[3]
 _INFRA = _REPO / "50-infra" / "etzhayyim-did-web" / "src" / "registry" / "infra-actors.ts"
 _SEED = _REPO / "00-contracts" / "schemas" / "actor-profile-seed.kotoba.edn"
 
-# ── KNOWN baseline drift (2026-06-05) — GOAL: drive to empty ─────────────────────
-# Registered in INFRA_ACTORS but missing an actor-profile-seed record (no published profile):
-KNOWN_INFRA_ONLY = {"kanjo", "todoke", "watari"}
-# Has an actor-profile-seed record but absent from the compiled INFRA_ACTORS fallback:
-KNOWN_PROFILE_ONLY = {"nusa", "yadori"}
+# ── baseline drift: EMPTY (driven to zero 2026-06-05) ────────────────────────────
+# The original 2026-06-05 baseline {kanjo, todoke, watari} (infra-only) + {nusa, yadori}
+# (profile-only) was CLOSED in the same commit that empties this set: kanjo/todoke/watari gained
+# actor-profile-seed records, nusa/yadori gained INFRA_ACTORS entries. Parity is now strict —
+# every actor MUST be registered in BOTH the apex Worker's INFRA_ACTORS and the kotoba SSoT
+# actor-profile-seed, or these tests fail. Do not re-populate these sets to paper over new drift;
+# register the actor in both places instead.
+KNOWN_INFRA_ONLY: set[str] = set()
+KNOWN_PROFILE_ONLY: set[str] = set()
 
 
 def infra_handles() -> set[str]:

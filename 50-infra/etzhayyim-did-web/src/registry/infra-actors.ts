@@ -177,6 +177,47 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2605231100", "2605231900"],
   },
+  yadori: {
+    description:
+      "宿り — DNS-availability + member-principal domain acquisition. Checks availability via RDAP and shepherds an at-cost acquisition through the Cloudflare Registrar — the charter-clean inverse of a retail registrar (GoDaddy/Namecheap): no fiat inflow / no markup / no affiliate / no parking / no speculation; acquisition runs through okaimono assisted-checkout (yadori is never the buyer, so §1.3 holds). G5 no-server-key (member signs; server signature refused), G6 no-squatting (typo/trademark/confusable screen). Per ADR-2606038400.",
+    glyph: "宿",
+    displayName: "Yadori — DNS-Availability + Domain Acquisition",
+    primaryLexicon: "com.etzhayyim.yadori",
+    primarySchema: "00-contracts/schemas/dns-domain-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:yadori#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:yadori#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606038400"],
+  },
+  nusa: {
+    description:
+      "幣 — ritual/industrial hemp heritage + low-THC cultivation. NOT a legalization actor: the charter-clean answer. 幣=大幣 (ōnusa, the hemp purification wand). Datafies Japan's ritual-hemp heritage (Shinto 注連縄/祓串/大幣; the Imperial 麁服 aratae + 阿波忌部 lineage) and the low-THC fiber/ritual cultivation-licence pathway reopened by the 2023 大麻草の栽培の規制に関する法律 into the kotoba Datom log. Fiber + ritual + cultural history ONLY: recreational/psychoactive THC is structurally unrepresentable (:thc-class invariant in schema/lexicon/code). Non-adjudicating + politically neutral on legalization (→ danjo/moushibumi). Per ADR-2606039800.",
+    glyph: "幣",
+    displayName: "Nusa — Ritual/Industrial Hemp Heritage + Low-THC Cultivation",
+    primarySchema: "00-contracts/schemas/ritual-hemp-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:nusa#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:nusa#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606039800"],
+  },
   watatsuna: {
     description:
       "綿津綱 — world submarine-cable network knowledge graph. Datafies cable systems / landing stations / segments / fault bulletins into the kotoba Datom log; surfaces chokepoint single-point-of-failure concentration routed to redundancy + faster repair (a resilience map, NEVER a target-list — paired with watatsumi N8). Per ADR-2606012600.",
@@ -430,6 +471,110 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606051600"],
+  },
+  mitooshi: {
+    description:
+      "見通し — probabilistic forecasting observatory. The charter-clean inverse of a quant trading bot: a naive quant predictor IS profit speculation (Charter §1.3 + the yobel predictive-market bar), so mitooshi instead emits probability DISTRIBUTIONS over public time-series (chokepoint transit-load, congestion, availability, flow-rate, price-index, search-interest) routed to resilience / planning / early-warning (danjo/kanae/watari/watatsuna siblings), and NEVER places a trade, holds a position, or derives P&L. It does not adjudicate or advise (kanjo boundary — not 投資助言業). The 'fact→error→weight→learn' loop is structural on the append-only Datom log: a forecast carries its info-as-of stamp, the realizing observation arrives later as an append-only datom, and the proper-scoring residual (CRPS/pinball/Brier/log-score) is the join across kotoba as-of — so a backtest can never see future data (look-ahead leak is structurally impossible on an append-only log). Residuals drive an EWMA bias + variance-inflation recalibration whose training substrate is baien federated edge (Murakumo-only). Distribution-only (point-asserted=false, G1, 非終末論); non-speculative use (G2); primary-public sources only — proprietary terminals + scraped Google-Trends unrepresentable (G4); promotion only when the model beats a baseline AND is calibrated AND is member-signed (G7/G9/G12). Per ADR-2606051800.",
+    glyph: "見通し",
+    displayName: "Mitooshi — Probabilistic Forecasting Observatory",
+    primaryLexicon: "com.etzhayyim.mitooshi",
+    primarySchema: "00-contracts/schemas/forecasting-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:mitooshi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:mitooshi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606051800"],
+  },
+  ake: {
+    description:
+      "朱 — community-edit membrane. The Wikipedia collaborative-correction STANCE fitted to the charter (朱=訂正の朱墨, 朱を入れる=校正). A 信者 (SBT holder) proposes a correction to a KG fact or an actor profile; every edit is a member-signed proposal appended to the kotoba Datom log (never an overwrite — 非終末論, full immutable revision history). A Murakumo-only LLM scores risk + quality and ROUTES (the Wikipedia ORES analogue) but NEVER decides accept/reject (G2 — route is a pure function of (risk,quality), and :triage/decision does not exist); low-risk well-sourced edits auto-accept (optimistic), risky/contested edits escalate to 1 SBT = 1 vote, invariant-adjacent edits escalate to Council Lv7+, and a Charter-Rider §2 hit is refused (no vote can promote it). Mirror entity-actors are CORRECTED as observations, never spoken-as (ADR-2606042330 preserved; :entity-speech unrepresentable). This is NOT anonymous open-edit — it is 信者-gated + member-signed (no-server-key) by construction (N1). ZERO invariant amendments: it STRENGTHENS no-server-key (ADR-2605231525), kotoba-canonical-state (ADR-2605312345), 1 SBT = 1 vote, and the mirror invariant. Per ADR-2606052100.",
+    glyph: "朱",
+    displayName: "Ake — Community-Edit Membrane (Wikipedia-stance KG/profile correction)",
+    primaryLexicon: "com.etzhayyim.ake",
+    primarySchema: "00-contracts/schemas/community-edit-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:ake#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:ake#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606052100"],
+  },
+  himawari: {
+    description:
+      "向日葵 — solar-grade crystalline-silicon PV module manufacturing Tier-B actor (polysilicon feedstock QA → ingot/wafer → cell process → module assembly → flash/EL test) + finished-module loading robotics + outbound logistics handoff + feedstock/consumable procurement. Modules are produced for INTERNAL hikari install ONLY (SBT↔SBT carve-out); no external commercial PV sale. Structurally closes hikari §G2 (no XUAR forced-labor polysilicon) via first-party on-chain feedstock provenance (polysiliconProvenanceAttestation). Completes the energy supply chain: 製造 (himawari) → 積込 (sarutahiko F10 LoaderRobot) → 輸送 (kami-autodrive) → 設置 (hikari). R0.1: 7 cell solvers + 7 lexicons implemented (pure-logic tests green); runtime/sim/kotoba-entity materialization pending R1. Per ADR-2606021200 (R0) + 2606022300 (R1 benchtop module-assembly PoC).",
+    glyph: "向日葵",
+    displayName: "Himawari — Solar PV Manufacturing",
+    primaryLexicon: "com.etzhayyim.himawari",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:himawari#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:himawari#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606021200", "2606022300"],
+  },
+  fuchi: {
+    description:
+      "扶持 — mission-aligned maintainer sustenance allocator, the charter-clean INVERSE of a business investment fund. Where a VC fund invests capital in founders expecting equity + ROI + an exit, 扶持 (the feudal 扶持米 in-kind retainer-stipend) allocates IN-KIND sustenance + commons-asset access + tooling/compute to the real-world MAINTAINERS (信者) who keep etzhayyim's actors alive (business / robotics / remote-control). It is a redistribution / sustenance allocator, NEVER an investor: no equity, no ROI, no debt, no profit claim, no exit; cash≡0. The fund vocabulary (NAV / carry / IRR / cap-table / exit / dividend) is UNREPRESENTABLE (the nusa :psychoactive / tazuna :weaponizable / kamado :fossil-virgin-crude pattern — :alloc/instrument :db/allowed only the sustenance set). Sustenance flows DOWN the existing in-kind rails (commons housing / mitsuho food / hikari energy / Murakumo compute / okaimono tooling / iyashi·hagukumi·kokoro care); the maintainer's irreducible external fiat need is routed ONLY as MEMBER-PRINCIPAL 0% warifu liquidity — 扶持 never holds, lends, or pays cash (§1.3 holds without amendment). A horizontal control-plane on TOP of the Public Fund + Displacement Dividend + Basic-High-Income-in-kind machinery; tenure-weighted (reusing the Displacement-Dividend ln-curve). Governance is non-adjudicating (G7): 扶持 computes + routes (auto / 1 SBT=1 vote / Council Lv7 / refused), the vote or Council decides. ZERO invariant amendments — STRENGTHENS cash≡0 (ADR-2605301020), no-server-key (ADR-2605231525), payoff帰属=etzhayyim, and the non-profit / donation-only invariants. Per ADR-2606052300.",
+    glyph: "扶持",
+    displayName: "Fuchi — Maintainer Sustenance Allocator (investment-fund inverse)",
+    primaryLexicon: "com.etzhayyim.fuchi.allocationIntent",
+    primarySchema: "00-contracts/schemas/maintainer-sustenance-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:fuchi#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:fuchi#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606052300"],
+  },
+  tasuke: {
+    description:
+      "助 — free cybercrime-victim-support membrane. 助 (たすけ) is where a consenting member hit by online crime (phishing / 不正送金 / account-takeover / サポート詐欺 / ロマンス詐欺 / 投資詐欺 / ransomware / なりすまし / 架空請求) is walked, FOR FREE, from 相談トリアージ → 証拠保全 → ready-to-use document generation → free public windows → account recovery. It GENERATES the documents the victim themselves submits (被害届 / 被害状況報告書 / 証拠目録 / 被害額算定書 for the police side; 銀行 不正送金 組戻し・口座凍結依頼 under 振り込め詐欺救済法 + プラットフォーム凍結/復旧/開示依頼 for the bank/platform side; アカウント復旧手順 for the recovery side), so complete an officer or a bank desk can work straight from them. Three load-bearing structural invariants (schema :db/allowed + lexicon :const + Python ValueError): G1 全て無料 — a fee/charge/subscription is UNREPRESENTABLE (:support/cost-jpy :db/allowed [0], cash≡0; every case journey costs the victim ¥0); G2 本人作成・本人提出 — :support/role allows only {guide, draft-assist, self-submit}, so 代理作成/代理提出 are UNREPRESENTABLE (行政書士法/弁護士法 独占業務不踏; the member authors, signs, submits); G3 警察authored不可 — :doc/authored-by :db/allowed [:member] only, so a police-authored 公文書 is UNREPRESENTABLE (公文書偽造を構造的に排除; the generated filing is the victim's own 申告書類). 助 connects to NO paid counsel (G5 — 弁護士へつながない; only FREE public windows #9110 / 188 / 国民生活センター / フィッシング対策協議会 / JPCERT / セーフライン / 銀行 / 振り込め詐欺救済法). Evidence is encrypted-by-reference (G6), every submission member-signed (G7, no-server-key), inference Murakumo-only (G8), live filing draft-only at R0 (G9). NON-adjudicating (G4): a scam KIND is a routing label, never a finding that a crime occurred (danjo/chigiri boundary). ZERO invariant amendments. Per ADR-2606060900.",
+    glyph: "助",
+    displayName: "Tasuke — Free Cybercrime-Victim-Support Membrane",
+    primaryLexicon: "com.etzhayyim.tasuke.victimIntake",
+    primarySchema: "00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:tasuke#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:tasuke#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606060900"],
   },
 } as const;
 
