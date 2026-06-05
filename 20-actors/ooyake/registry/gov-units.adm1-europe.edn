@@ -2978,6 +2978,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ionian Islands Region"
+   :gov.unit/name-local "Περιφέρεια Ιονίων Νήσων"
+   :gov.unit/name-romanized "Periféreia Ioníon Níson"
    :gov.unit/official-url "https://pin.gov.gr"
    :gov.unit/wikidata "Q1147674"
    :gov.unit/external-code ["iso3166-2:GR-F"]
@@ -2991,6 +2993,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Crete Region"
+   :gov.unit/name-local "Περιφέρεια Κρήτης"
+   :gov.unit/name-romanized "Periféreia Krítis"
    :gov.unit/official-url "https://www.crete.gov.gr"
    :gov.unit/wikidata "Q1267522"
    :gov.unit/external-code ["iso3166-2:GR-M"]
@@ -3004,6 +3008,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Western Macedonia Region"
+   :gov.unit/name-local "Περιφέρεια Δυτικής Μακεδονίας"
+   :gov.unit/name-romanized "Periféreia Dytikís Makedonías"
    :gov.unit/official-url "https://www.pdm.gov.gr"
    :gov.unit/wikidata "Q165408"
    :gov.unit/external-code ["iso3166-2:GR-C"]
@@ -3017,6 +3023,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "West Greece Region"
+   :gov.unit/name-local "Περιφέρεια Δυτικής Ελλάδας"
+   :gov.unit/name-romanized "Periféreia Dytikís Elládas"
    :gov.unit/official-url "https://www.pde.gov.gr/gr/"
    :gov.unit/wikidata "Q170291"
    :gov.unit/external-code ["iso3166-2:GR-G"]
@@ -3030,6 +3038,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Eastern Macedonia and Thrace Region"
+   :gov.unit/name-local "Περιφέρεια Ανατολικής Μακεδονίας και Θράκης"
+   :gov.unit/name-romanized "Periféreia Anatolikís Makedonías kai Thrákis"
    :gov.unit/official-url "https://www.pamth.gov.gr"
    :gov.unit/wikidata "Q171314"
    :gov.unit/external-code ["iso3166-2:GR-A"]
@@ -3043,6 +3053,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Central Macedonia Region"
+   :gov.unit/name-local "Περιφέρεια Κεντρικής Μακεδονίας"
+   :gov.unit/name-romanized "Periféreia Kentrikís Makedonías"
    :gov.unit/official-url "https://www.pkm.gov.gr"
    :gov.unit/wikidata "Q17152"
    :gov.unit/external-code ["iso3166-2:GR-B"]
@@ -3056,6 +3068,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "South Aegean Region"
+   :gov.unit/name-local "Περιφέρεια Νοτίου Αιγαίου"
+   :gov.unit/name-romanized "Periféreia Notíou Aigaíou"
    :gov.unit/official-url "https://www.pnai.gov.gr"
    :gov.unit/wikidata "Q173616"
    :gov.unit/external-code ["iso3166-2:GR-L"]
@@ -3069,6 +3083,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "North Aegean Region"
+   :gov.unit/name-local "Περιφέρεια Βορείου Αιγαίου"
+   :gov.unit/name-romanized "Periféreia Voreíou Aigaíou"
    :gov.unit/official-url "https://pvaigaiou.gov.gr"
    :gov.unit/wikidata "Q173620"
    :gov.unit/external-code ["iso3166-2:GR-K"]
@@ -3082,6 +3098,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Epirus Region"
+   :gov.unit/name-local "Περιφέρεια Ηπείρου"
+   :gov.unit/name-romanized "Periféreia Ipeírou"
    :gov.unit/official-url "https://php.gov.gr"
    :gov.unit/wikidata "Q180484"
    :gov.unit/external-code ["iso3166-2:GR-D"]
@@ -3095,6 +3113,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Central Greece Region"
+   :gov.unit/name-local "Περιφέρεια Στερεάς Ελλάδας"
+   :gov.unit/name-romanized "Periféreia Stereás Elládas"
    :gov.unit/official-url "https://pste.gov.gr"
    :gov.unit/wikidata "Q199580"
    :gov.unit/external-code ["iso3166-2:GR-H"]
@@ -3108,6 +3128,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Peloponnese Region"
+   :gov.unit/name-local "Περιφέρεια Πελοποννήσου"
+   :gov.unit/name-romanized "Periféreia Peloponnísou"
    :gov.unit/official-url "https://www.ppel.gov.gr"
    :gov.unit/wikidata "Q202484"
    :gov.unit/external-code ["iso3166-2:GR-J"]
@@ -3121,6 +3143,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Thessaly Region"
+   :gov.unit/name-local "Περιφέρεια Θεσσαλίας"
+   :gov.unit/name-romanized "Periféreia Thessalías"
    :gov.unit/official-url "https://thessaly.gov.gr"
    :gov.unit/wikidata "Q22807284"
    :gov.unit/external-code ["iso3166-2:GR-E"]
@@ -3134,6 +3158,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Attica Region"
+   :gov.unit/name-local "Περιφέρεια Αττικής"
+   :gov.unit/name-romanized "Periféreia Attikís"
    :gov.unit/official-url "https://www.patt.gov.gr"
    :gov.unit/wikidata "Q758056"
    :gov.unit/external-code ["iso3166-2:GR-I"]
@@ -3147,6 +3173,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "monastic community of Mount Athos"
+   :gov.unit/name-local "Αυτόνομη Μοναστική Πολιτεία Αγίου Όρους"
+   :gov.unit/name-romanized "Aftonomi Monastiki Politeia Agiou Orous"
    :gov.unit/official-url "https://www.mountathos.org/el-GR/Home.aspx"
    :gov.unit/wikidata "Q780149"
    :gov.unit/external-code ["iso3166-2:GR-69"]

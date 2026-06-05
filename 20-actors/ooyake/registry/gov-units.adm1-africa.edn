@@ -2672,6 +2672,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Aswan Governorate"
+   :gov.unit/name-local "أسوان"
+   :gov.unit/name-romanized "Aswān"
    :gov.unit/official-url "http://aswan.gov.eg/"
    :gov.unit/wikidata "Q29937"
    :gov.unit/external-code ["iso3166-2:EG-ASN"]
@@ -2685,6 +2687,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Alexandria Governorate"
+   :gov.unit/name-local "الإسكندرية"
+   :gov.unit/name-romanized "al-Iskandariyya"
    :gov.unit/official-url "http://www.alexandria.gov.eg"
    :gov.unit/wikidata "Q29943"
    :gov.unit/external-code ["iso3166-2:EG-ALX"]
@@ -2698,6 +2702,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Asyut Governorate"
+   :gov.unit/name-local "أسيوط"
+   :gov.unit/name-romanized "Asyūṭ"
    :gov.unit/official-url "http://www.assiut.gov.eg"
    :gov.unit/wikidata "Q29965"
    :gov.unit/external-code ["iso3166-2:EG-AST"]
@@ -2711,6 +2717,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Beheira Governorate"
+   :gov.unit/name-local "البحيرة"
+   :gov.unit/name-romanized "al-Buḥayra"
    :gov.unit/official-url "https://behira.gov.eg"
    :gov.unit/wikidata "Q30630"
    :gov.unit/external-code ["iso3166-2:EG-BH"]
@@ -2724,6 +2732,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Damietta Governorate"
+   :gov.unit/name-local "دمياط"
+   :gov.unit/name-romanized "Dumyāṭ"
    :gov.unit/official-url "http://www.domyat.gov.eg"
    :gov.unit/wikidata "Q30644"
    :gov.unit/external-code ["iso3166-2:EG-DT"]
@@ -2737,6 +2747,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "New Valley Governorate"
+   :gov.unit/name-local "الوادي الجديد"
+   :gov.unit/name-romanized "al-Wadi al-Jadid"
    :gov.unit/official-url "http://www.newvalley.gov.eg"
    :gov.unit/wikidata "Q30650"
    :gov.unit/external-code ["iso3166-2:EG-WAD"]
@@ -2750,6 +2762,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Faiyum Governorate"
+   :gov.unit/name-local "الفيوم"
+   :gov.unit/name-romanized "al-Fayyūm"
    :gov.unit/official-url "http://www.fayoum.gov.eg"
    :gov.unit/wikidata "Q30656"
    :gov.unit/external-code ["iso3166-2:EG-FYM"]
@@ -2763,6 +2777,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "North Sinai Governorate"
+   :gov.unit/name-local "شمال سيناء"
+   :gov.unit/name-romanized "Shamal Sinaʾ"
    :gov.unit/official-url "http://www.northsinai.gov.eg"
    :gov.unit/wikidata "Q30662"
    :gov.unit/external-code ["iso3166-2:EG-SIN"]
@@ -2776,6 +2792,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Sohag Governorate"
+   :gov.unit/name-local "سوهاج"
+   :gov.unit/name-romanized "Suhaj"
    :gov.unit/official-url "http://www.sohag.gov.eg"
    :gov.unit/wikidata "Q30669"
    :gov.unit/external-code ["iso3166-2:EG-SHG"]
@@ -2789,6 +2807,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Minya Governorate"
+   :gov.unit/name-local "المنيا"
+   :gov.unit/name-romanized "al-Minya"
    :gov.unit/official-url "http://www.minia.gov.eg"
    :gov.unit/wikidata "Q30675"
    :gov.unit/external-code ["iso3166-2:EG-MN"]
@@ -2802,6 +2822,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Matruh Governorate"
+   :gov.unit/name-local "مطروح"
+   :gov.unit/name-romanized "Matruh"
    :gov.unit/official-url "http://www.matrouh.gov.eg"
    :gov.unit/wikidata "Q30682"
    :gov.unit/external-code ["iso3166-2:EG-MT"]
@@ -2815,6 +2837,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Beni Suef Governorate"
+   :gov.unit/name-local "بني سويف"
+   :gov.unit/name-romanized "Banī Suwayf"
    :gov.unit/official-url "http://www.benisuef.gov.eg"
    :gov.unit/wikidata "Q30683"
    :gov.unit/external-code ["iso3166-2:EG-BNS"]
@@ -2828,6 +2852,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Monufia Governorate"
+   :gov.unit/name-local "المنوفية"
+   :gov.unit/name-romanized "al-Munufiyya"
    :gov.unit/official-url "http://www.monofeya.gov.eg"
    :gov.unit/wikidata "Q30786"
    :gov.unit/external-code ["iso3166-2:EG-MNF"]
@@ -2841,6 +2867,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Luxor Governorate"
+   :gov.unit/name-local "الأقصر"
+   :gov.unit/name-romanized "al-Uqsur"
    :gov.unit/official-url "http://www.luxor.gov.eg"
    :gov.unit/wikidata "Q30797"
    :gov.unit/external-code ["iso3166-2:EG-LX"]
@@ -2854,6 +2882,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Cairo Governorate"
+   :gov.unit/name-local "القاهرة"
+   :gov.unit/name-romanized "al-Qāhira"
    :gov.unit/official-url "http://www.cairo.gov.eg"
    :gov.unit/wikidata "Q30805"
    :gov.unit/external-code ["iso3166-2:EG-C"]
@@ -2867,6 +2897,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "South Sinai Governorate"
+   :gov.unit/name-local "جنوب سيناء"
+   :gov.unit/name-romanized "Janūb Sīnāʾ"
    :gov.unit/official-url "http://www.southsinai.gov.eg"
    :gov.unit/wikidata "Q30815"
    :gov.unit/external-code ["iso3166-2:EG-JS"]
@@ -2880,6 +2912,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Red Sea Governorate"
+   :gov.unit/name-local "البحر الأحمر"
+   :gov.unit/name-romanized "al-Baḥr al-Aḥmar"
    :gov.unit/official-url "http://www.redsea.gov.eg"
    :gov.unit/wikidata "Q30831"
    :gov.unit/external-code ["iso3166-2:EG-BA"]
@@ -2893,6 +2927,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Giza Governorate"
+   :gov.unit/name-local "الجيزة"
+   :gov.unit/name-romanized "al-Jīza"
    :gov.unit/official-url "http://www.giza.gov.eg"
    :gov.unit/wikidata "Q30832"
    :gov.unit/external-code ["iso3166-2:EG-GZ"]
@@ -2906,6 +2942,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Gharbia Governorate"
+   :gov.unit/name-local "الغربية"
+   :gov.unit/name-romanized "al-Gharbiyya"
    :gov.unit/official-url "http://gharbeia.gov.eg/Pages/default.aspx"
    :gov.unit/wikidata "Q30835"
    :gov.unit/external-code ["iso3166-2:EG-GH"]
@@ -2919,6 +2957,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Kafr el-Sheikh Governorate"
+   :gov.unit/name-local "كفر الشيخ"
+   :gov.unit/name-romanized "Kafr ash-Shaykh"
    :gov.unit/official-url "http://www.kafrelsheikh.gov.eg"
    :gov.unit/wikidata "Q30946"
    :gov.unit/external-code ["iso3166-2:EG-KFS"]
@@ -2932,6 +2972,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Qena Governorate"
+   :gov.unit/name-local "قنا"
+   :gov.unit/name-romanized "Qina"
    :gov.unit/official-url "http://www.qena.gov.eg"
    :gov.unit/wikidata "Q31065"
    :gov.unit/external-code ["iso3166-2:EG-KN"]
@@ -2945,6 +2987,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ismailia Governorate"
+   :gov.unit/name-local "الإسماعيلية"
+   :gov.unit/name-romanized "al-Ismāʿīliyya"
    :gov.unit/official-url "http://www.ismailia.gov.eg"
    :gov.unit/wikidata "Q31067"
    :gov.unit/external-code ["iso3166-2:EG-IS"]
@@ -2958,6 +3002,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Dakahlia Governorate"
+   :gov.unit/name-local "الدقهلية"
+   :gov.unit/name-romanized "al-Daqahliyya"
    :gov.unit/official-url "http://www.dakahliya.gov.eg"
    :gov.unit/wikidata "Q31068"
    :gov.unit/external-code ["iso3166-2:EG-DK"]
@@ -2971,6 +3017,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Suez Governorate"
+   :gov.unit/name-local "السويس"
+   :gov.unit/name-romanized "as-Suways"
    :gov.unit/official-url "http://www.suez.gov.eg/"
    :gov.unit/wikidata "Q31070"
    :gov.unit/external-code ["iso3166-2:EG-SUZ"]
@@ -2984,6 +3032,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Sharqia Governorate"
+   :gov.unit/name-local "الشرقية"
+   :gov.unit/name-romanized "ash-Sharqiyya"
    :gov.unit/official-url "http://www.sharkia.gov.eg"
    :gov.unit/wikidata "Q31074"
    :gov.unit/external-code ["iso3166-2:EG-SHR"]
@@ -2997,6 +3047,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Qalyubia Governorate"
+   :gov.unit/name-local "القليوبية"
+   :gov.unit/name-romanized "al-Qalyubiyya"
    :gov.unit/official-url "http://www.qaliobia.gov.eg"
    :gov.unit/wikidata "Q31075"
    :gov.unit/external-code ["iso3166-2:EG-KB"]
@@ -3010,6 +3062,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Port Said Governorate"
+   :gov.unit/name-local "بورسعيد"
+   :gov.unit/name-romanized "Bur Saʿid"
    :gov.unit/official-url "http://www.portsaid.gov.eg"
    :gov.unit/wikidata "Q31079"
    :gov.unit/external-code ["iso3166-2:EG-PTS"]
