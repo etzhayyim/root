@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Latin-diacritic (Azerbaijan 69 + Romania 42) (2070 → 2181)
+
+Continued the Latin-diacritic front. 2 web-research subagents. **111 endonyms added with ASCII
+romanization, 0 nulls.** all name-local 2070 → **2181**; subdivision 1056 → **1167**.
+
+- Azerbaijan 69 — Azeri Latin (ə/ç/ş/ğ/ı), HIGH yield: the stored English names are fully anglicized
+  and genuinely diverge — Aghstafa→Ağstafa, Jabrayil→Cəbrayıl, Khachmaz→Xaçmaz, Gazakh→Qazax,
+  Ganja→Gəncə, Baku→Bakı, Shaki→Şəki, Sumgait→Sumqayıt, Kalbajar→Kəlbəcər. romanized = ASCII fold.
+- Romania 42 counties — Romanian (ă/â/î/ș/ț); English already carried diacritics so the gain is the
+  verified native field (București) + ASCII search keys.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Next Latin-diacritic candidates: Indonesia 37,
+Croatia 21 (č/ć/ž/š/đ), Lithuania 59 (county-level, ė/š/ž/ū), Latvia 41, plus the larger plain-Latin
+sets (Slovenia 212, Uganda 135) where name-local ≈ name-en (lowest yield).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
 ## 2026-06-05 — subdivision name-local: Latin-diacritic (Turkey 81 + Vietnam 34) (1955 → 2070)
 
 Opened the Latin-script-but-distinctive-orthography front. 2 web-research subagents.
