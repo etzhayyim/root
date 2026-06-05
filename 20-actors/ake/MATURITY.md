@@ -7,15 +7,18 @@
 |---|---|---|---|
 | **propose intake** | offline screen+record over seed | live `:edit/*` intake over real KG seed | standing service across all KG actors |
 | **triage** | deterministic risk+quality + pure-function route | Murakumo-only LLM refines scores (route stays pure) | calibrated scoring vs accepted-edit history |
-| **review** | optimistic / vote-sim / council-pending | real 1 SBT = 1 vote + 48h timelock | edit-war resolution (danjo-observed + Council) |
+| **review** | optimistic / vote-sim / council-pending + challenge→revert rollback primitive | real 1 SBT = 1 vote + 48h timelock | edit-war resolution wired to danjo-observed + Council |
 | **promote** | member-signed dry-run, `published=false` | member-signed live promotion | `:representative→:authoritative` coverage pipeline |
 | **history** | append-only revision engine (as-of/current) | "view history" tab on /actor + /search | contributor-trajectory dashboards |
 
 ## R0 evidence
 
-- **93 tests green** (`./run_tests.sh`): 17 triage + 7 revision + 8 contributor + 5 ingest + 16
-  charter-invariants + 6 analyze + 5 lexicons + 9 consistency/SSoT-drift-lock (methods) + 20 cell
-  state-machine.
+- **99 tests green** (`./run_tests.sh`): 17 triage + 7 revision + 6 edit-war + 8 contributor + 5
+  ingest + 16 charter-invariants + 6 analyze + 5 lexicons + 9 consistency/SSoT-drift-lock (methods)
+  + 20 cell state-machine.
+- **Edit-war resolution landed** (`revision.revert` + `test_editwar.py`): a `:challenge` routes
+  high→vote; an upheld challenge rolls back to the predecessor by appending (Wikipedia revert) — the
+  bad edit is undone for the current reader yet preserved in the auditable history (danjo-observable).
 - **Membrane proven over REAL repo data** (`methods/ingest.py`): bootstraps the append-only revision
   history from the actual committed `actor-profile-seed.kotoba.edn`; surfaced + closed an
   `INFRA_ACTORS`↔profile-seed drift (added mitooshi + noroshi profile records, 19→21).

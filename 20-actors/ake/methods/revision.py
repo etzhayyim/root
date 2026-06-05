@@ -66,6 +66,29 @@ def promote_sourcing(history: list[dict], entity: str, attr: str, provenance: st
     return list(history) + [rev]
 
 
+def revert(history: list[dict], entity: str, attr: str, by: str, edit_id: str,
+           as_of: int) -> list[dict]:
+    """Roll back the CURRENT revision of (entity, attr) to its predecessor (edit-war resolution).
+
+    The Wikipedia 'revert/rollback', append-only: when a `:challenge` of the current value is
+    upheld by a vote, the challenged revision is UNDONE by appending a NEW revision that restores
+    the predecessor's value (op `:retract`). Nothing is deleted — the challenged revision remains in
+    the history at its own `as-of`, so the edit war is fully auditable (danjo-observable). Reverting
+    the very first revision restores the empty pre-existence state.
+
+    Raises if there is nothing to revert.
+    """
+    hist = history_of(history, entity, _kw(attr))
+    if not hist:
+        raise ValueError(f"nothing to revert: no revision for {entity}:{_kw(attr)}")
+    prior = hist[-2] if len(hist) >= 2 else None
+    restored_value = prior.get(":revision/value", "") if prior else ""
+    restored_sourcing = prior.get(":revision/sourcing", ":representative") if prior else ":representative"
+    rev = _rev(entity, _kw(attr), restored_value, restored_sourcing,
+               as_of, by, ":retract", edit_id)
+    return list(history) + [rev]
+
+
 def history_of(history: list[dict], entity: str, attr: str) -> list[dict]:
     """Full ordered revision history for (entity, attr) — the 'view history' tab."""
     attr = _kw(attr)

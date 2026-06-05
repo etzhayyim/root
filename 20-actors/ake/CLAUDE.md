@@ -93,7 +93,7 @@ on-chain** act, and the history is **immutable** (you cannot delete a revision).
 ## Build / test
 
 ```
-./run_tests.sh                                  # all 9 suites, 93 tests
+./run_tests.sh                                  # all 10 suites, 99 tests
 cd methods && python3 triage.py                 # triage the :representative seed
 cd methods && python3 analyze.py                # end-to-end membrane dry-run → methods/out/membrane-dryrun.md
 cd methods && python3 ingest.py                 # genesis history from the REAL actor-profile SSoT → methods/out/genesis-revisions.md
@@ -105,6 +105,12 @@ cd methods && python3 ingest.py                 # genesis history from the REAL 
 member edits append on top; `methods/test_consistency.py` is the SSoT drift-lock (manifest ↔ cell
 tree ↔ lex ↔ ontology ↔ seed ↔ registry). Touch a cell/lexicon/route and the drift-lock fails
 loudly before it ships.
+
+Edit-wars: a `:challenge` of the current value routes high → vote (never auto); an upheld challenge
+calls `revision.revert()` — the Wikipedia rollback — which **appends** a revision restoring the
+predecessor's value. The bad edit is undone for the current reader but stays in the history
+(time-travel `as_of` still surfaces it), so the war is fully auditable (danjo-observable). Live
+binding votes + danjo/Council arbitration are R1/G8. See `methods/test_editwar.py`.
 
 ## Do not
 
