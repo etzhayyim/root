@@ -16,6 +16,7 @@ SUITES=(
   "methods/test_lexicons.py"
   "methods/test_consistency.py"
   "cells/test_state_machines.py"
+  "cells/test_membrane_flow.py"
 )
 
 fail=0

@@ -45,9 +45,10 @@ Datom log** — never an overwrite (非終末論, the full revision history is i
 | e4 | license attr (invariant-adjacent) | `council-lv7` | pending (G7) |
 | e5 | "now runs advertising" (Rider §2 hit) | `refused` | unpromotable |
 
-**99 tests green** — `./run_tests.sh` (incl. a 6-test edit-war / challenge→revert suite, an 8-test
-G9 contributor-trajectory suite, a 5-test genesis bridge over the REAL actor-profile SSoT, and a
-9-test SSoT drift-lock).
+**106 tests green** — `./run_tests.sh` (incl. a 7-test cell-chain integration that threads one edit
+through all five cells in sequence, a 6-test edit-war / challenge→revert suite, an 8-test G9
+contributor-trajectory suite, a 5-test genesis bridge over the REAL actor-profile SSoT, and a 9-test
+SSoT drift-lock).
 
 Edit-wars are settled the Wikipedia way: a `:challenge` of the current value routes to a vote, and
 an upheld challenge **reverts** to the predecessor by *appending* a rollback revision — the bad edit

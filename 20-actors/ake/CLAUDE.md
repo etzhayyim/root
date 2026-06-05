@@ -93,7 +93,7 @@ on-chain** act, and the history is **immutable** (you cannot delete a revision).
 ## Build / test
 
 ```
-./run_tests.sh                                  # all 10 suites, 99 tests
+./run_tests.sh                                  # all 11 suites, 106 tests
 cd methods && python3 triage.py                 # triage the :representative seed
 cd methods && python3 analyze.py                # end-to-end membrane dry-run → methods/out/membrane-dryrun.md
 cd methods && python3 ingest.py                 # genesis history from the REAL actor-profile SSoT → methods/out/genesis-revisions.md
@@ -111,6 +111,11 @@ calls `revision.revert()` — the Wikipedia rollback — which **appends** a rev
 predecessor's value. The bad edit is undone for the current reader but stays in the history
 (time-travel `as_of` still surfaces it), so the war is fully auditable (danjo-observable). Live
 binding votes + danjo/Council arbitration are R1/G8. See `methods/test_editwar.py`.
+
+Test layering: `methods/*` unit-tests the engines; `cells/test_state_machines.py` unit-tests each
+cell; `cells/test_membrane_flow.py` is the **cell-chain integration** — it threads one edit through
+all five cells in sequence (propose→edit_triage→review_vote→promote→revision_log), the runtime path,
+proving they compose. `.solve()` is never called (R0 scaffolds raise).
 
 ## Do not
 

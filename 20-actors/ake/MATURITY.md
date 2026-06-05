@@ -13,9 +13,13 @@
 
 ## R0 evidence
 
-- **99 tests green** (`./run_tests.sh`): 17 triage + 7 revision + 6 edit-war + 8 contributor + 5
+- **106 tests green** (`./run_tests.sh`): 17 triage + 7 revision + 6 edit-war + 8 contributor + 5
   ingest + 16 charter-invariants + 6 analyze + 5 lexicons + 9 consistency/SSoT-drift-lock (methods)
-  + 20 cell state-machine.
+  + 20 cell state-machine + 7 cell-chain membrane-flow integration.
+- **Cell composition proven** (`cells/test_membrane_flow.py`): one edit threaded through all five
+  cells in sequence (propose→edit_triage→review_vote→promote→revision_log) — the runtime Pregel path
+  — for every route (auto-accept / vote-accept / vote-reject / council-pending / rider-refused /
+  server-sig-refused), confirming each cell's output is valid input to the next.
 - **Edit-war resolution landed** (`revision.revert` + `test_editwar.py`): a `:challenge` routes
   high→vote; an upheld challenge rolls back to the predecessor by appending (Wikipedia revert) — the
   bad edit is undone for the current reader yet preserved in the auditable history (danjo-observable).
