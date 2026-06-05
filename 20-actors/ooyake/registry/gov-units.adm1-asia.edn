@@ -766,6 +766,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Yardimli District"
+   :gov.unit/name-local "Yardımlı"
+   :gov.unit/name-romanized "Yardimli"
    :gov.unit/official-url "http://yardimli-ih.gov.az/index.html"
    :gov.unit/wikidata "Q127255"
    :gov.unit/external-code ["iso3166-2:AZ-YAR"]
@@ -779,6 +781,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Khankendi"
+   :gov.unit/name-local "Xankəndi"
+   :gov.unit/name-romanized "Xankandi"
    :gov.unit/wikidata "Q129352"
    :gov.unit/external-code ["iso3166-2:AZ-XA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -791,6 +795,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Ganja"
+   :gov.unit/name-local "Gəncə"
+   :gov.unit/name-romanized "Gance"
    :gov.unit/official-url "https://ganja-ih.gov.az"
    :gov.unit/wikidata "Q131290"
    :gov.unit/external-code ["iso3166-2:AZ-GA"]
@@ -804,6 +810,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Zaqatala District"
+   :gov.unit/name-local "Zaqatala"
+   :gov.unit/name-romanized "Zaqatala"
    :gov.unit/official-url "http://www.zaqatala-ih.gov.az/"
    :gov.unit/wikidata "Q147553"
    :gov.unit/external-code ["iso3166-2:AZ-ZAQ"]
@@ -817,6 +825,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Naftalan"
+   :gov.unit/name-local "Naftalan"
+   :gov.unit/name-romanized "Naftalan"
    :gov.unit/official-url "https://vnaftalan.com/"
    :gov.unit/wikidata "Q152825"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -829,6 +839,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Yevlakh"
+   :gov.unit/name-local "Yevlax"
+   :gov.unit/name-romanized "Yevlax"
    :gov.unit/official-url "http://yevlax-ih.gov.az/"
    :gov.unit/wikidata "Q175459"
    :gov.unit/external-code ["iso3166-2:AZ-YE"]
@@ -842,6 +854,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Absheron District"
+   :gov.unit/name-local "Abşeron"
+   :gov.unit/name-romanized "Absheron"
    :gov.unit/official-url "http://absheron.az/"
    :gov.unit/wikidata "Q179538"
    :gov.unit/external-code ["iso3166-2:AZ-ABS"]
@@ -855,6 +869,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Sumgait"
+   :gov.unit/name-local "Sumqayıt"
+   :gov.unit/name-romanized "Sumqayit"
    :gov.unit/official-url "http://www.sumqayit-ih.gov.az/"
    :gov.unit/wikidata "Q179833"
    :gov.unit/external-code ["iso3166-2:AZ-SM"]
@@ -868,6 +884,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Aghdam District"
+   :gov.unit/name-local "Ağdam"
+   :gov.unit/name-romanized "Agdam"
    :gov.unit/official-url "http://agdam-ih.gov.az/az"
    :gov.unit/wikidata "Q201647"
    :gov.unit/external-code ["iso3166-2:AZ-AGM"]
@@ -881,6 +899,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Lankaran"
+   :gov.unit/name-local "Lənkəran"
+   :gov.unit/name-romanized "Lankaran"
    :gov.unit/official-url "http://lenkeran-ih.gov.az"
    :gov.unit/wikidata "Q228811"
    :gov.unit/external-code ["iso3166-2:AZ-LA"]
@@ -894,6 +914,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Mingachevir"
+   :gov.unit/name-local "Mingəçevir"
+   :gov.unit/name-romanized "Mingacevir"
    :gov.unit/official-url "http://mingechevir-ih.gov.az/"
    :gov.unit/wikidata "Q230932"
    :gov.unit/external-code ["iso3166-2:AZ-MI"]
@@ -907,6 +929,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shaki"
+   :gov.unit/name-local "Şəki"
+   :gov.unit/name-romanized "Saki"
    :gov.unit/official-url "http://sheki-ih.gov.az/az"
    :gov.unit/wikidata "Q234783"
    :gov.unit/external-code ["iso3166-2:AZ-SA"]
@@ -920,6 +944,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shirvan"
+   :gov.unit/name-local "Şirvan"
+   :gov.unit/name-romanized "Sirvan"
    :gov.unit/official-url "http://www.shirvan-ih.gov.az"
    :gov.unit/wikidata "Q241116"
    :gov.unit/external-code ["iso3166-2:AZ-SR"]
@@ -933,6 +959,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Zangilan District"
+   :gov.unit/name-local "Zəngilan"
+   :gov.unit/name-romanized "Zangilan"
    :gov.unit/official-url "http://zengilan-ih.gov.az/"
    :gov.unit/wikidata "Q249252"
    :gov.unit/external-code ["iso3166-2:AZ-ZAN"]
@@ -946,6 +974,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Zardab District"
+   :gov.unit/name-local "Zərdab"
+   :gov.unit/name-romanized "Zardab"
    :gov.unit/official-url "http://www.zerdab-ih.gov.az"
    :gov.unit/wikidata "Q249293"
    :gov.unit/external-code ["iso3166-2:AZ-ZAR"]
@@ -959,6 +989,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Astara District"
+   :gov.unit/name-local "Astara"
+   :gov.unit/name-romanized "Astara"
    :gov.unit/official-url "http://astara-ih.gov.az/"
    :gov.unit/wikidata "Q269680"
    :gov.unit/external-code ["iso3166-2:AZ-AST"]
@@ -972,6 +1004,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Lankaran District"
+   :gov.unit/name-local "Lənkəran"
+   :gov.unit/name-romanized "Lankaran"
    :gov.unit/official-url "http://www.lenkeran-ih.gov.az/"
    :gov.unit/wikidata "Q269986"
    :gov.unit/external-code ["iso3166-2:AZ-LAN"]
@@ -985,6 +1019,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Aghstafa District"
+   :gov.unit/name-local "Ağstafa"
+   :gov.unit/name-romanized "Agstafa"
    :gov.unit/official-url "http://www.agstafa-ih.gov.az/"
    :gov.unit/wikidata "Q275744"
    :gov.unit/external-code ["iso3166-2:AZ-AGA"]
@@ -998,6 +1034,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Aghdash District"
+   :gov.unit/name-local "Ağdaş"
+   :gov.unit/name-romanized "Agdas"
    :gov.unit/official-url "http://www.agdash-ih.gov.az/"
    :gov.unit/wikidata "Q275784"
    :gov.unit/external-code ["iso3166-2:AZ-AGS"]
@@ -1011,6 +1049,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Lachin District"
+   :gov.unit/name-local "Laçın"
+   :gov.unit/name-romanized "Lacin"
    :gov.unit/official-url "http://lachin-ih.gov.az"
    :gov.unit/wikidata "Q301832"
    :gov.unit/external-code ["iso3166-2:AZ-LAC"]
@@ -1024,6 +1064,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Gadabay District"
+   :gov.unit/name-local "Gədəbəy"
+   :gov.unit/name-romanized "Gadabay"
    :gov.unit/official-url "http://gedebey-ih.gov.az/"
    :gov.unit/wikidata "Q330749"
    :gov.unit/external-code ["iso3166-2:AZ-GAD"]
@@ -1037,6 +1079,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Khojaly District"
+   :gov.unit/name-local "Xocalı"
+   :gov.unit/name-romanized "Xocali"
    :gov.unit/official-url "http://xocali-ih.gov.az/"
    :gov.unit/wikidata "Q330790"
    :gov.unit/external-code ["iso3166-2:AZ-XCI"]
@@ -1050,6 +1094,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Qakh District"
+   :gov.unit/name-local "Qax"
+   :gov.unit/name-romanized "Qax"
    :gov.unit/official-url "http://www.qax-ih.gov.az"
    :gov.unit/wikidata "Q330796"
    :gov.unit/external-code ["iso3166-2:AZ-QAX"]
@@ -1063,6 +1109,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Agsu District"
+   :gov.unit/name-local "Ağsu"
+   :gov.unit/name-romanized "Agsu"
    :gov.unit/official-url "http://agsu-ih.gov.az/"
    :gov.unit/wikidata "Q330800"
    :gov.unit/external-code ["iso3166-2:AZ-AGU"]
@@ -1076,6 +1124,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Beylagan District"
+   :gov.unit/name-local "Beyləqan"
+   :gov.unit/name-romanized "Beylaqan"
    :gov.unit/official-url "http://www.beyleqan-ih.gov.az/"
    :gov.unit/wikidata "Q330807"
    :gov.unit/external-code ["iso3166-2:AZ-BEY"]
@@ -1089,6 +1139,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Khojavend District"
+   :gov.unit/name-local "Xocavənd"
+   :gov.unit/name-romanized "Xocavand"
    :gov.unit/official-url "http://www.xocavend-ih.gov.az/"
    :gov.unit/wikidata "Q330813"
    :gov.unit/external-code ["iso3166-2:AZ-XVD"]
@@ -1102,6 +1154,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Aghjabadi District"
+   :gov.unit/name-local "Ağcabədi"
+   :gov.unit/name-romanized "Agcabadi"
    :gov.unit/official-url "http://www.agcabedi-ih.gov.az"
    :gov.unit/wikidata "Q330818"
    :gov.unit/external-code ["iso3166-2:AZ-AGC"]
@@ -1115,6 +1169,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Bilasuvar District"
+   :gov.unit/name-local "Biləsuvar"
+   :gov.unit/name-romanized "Bilasuvar"
    :gov.unit/official-url "http://bilesuvar-ih.gov.az/"
    :gov.unit/wikidata "Q330834"
    :gov.unit/external-code ["iso3166-2:AZ-BIL"]
@@ -1128,6 +1184,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shamakhi District"
+   :gov.unit/name-local "Şamaxı"
+   :gov.unit/name-romanized "Samaxi"
    :gov.unit/official-url "http://www.shamaxi-ih.gov.az/"
    :gov.unit/wikidata "Q330839"
    :gov.unit/external-code ["iso3166-2:AZ-SMI"]
@@ -1141,6 +1199,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Goranboy District"
+   :gov.unit/name-local "Goranboy"
+   :gov.unit/name-romanized "Goranboy"
    :gov.unit/official-url "http://www.goranboy-ih.gov.az"
    :gov.unit/wikidata "Q330843"
    :gov.unit/external-code ["iso3166-2:AZ-GOR"]
@@ -1154,6 +1214,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Balakan District"
+   :gov.unit/name-local "Balakən"
+   :gov.unit/name-romanized "Balakan"
    :gov.unit/official-url "http://balaken-ih.gov.az/"
    :gov.unit/wikidata "Q330850"
    :gov.unit/external-code ["iso3166-2:AZ-BAL"]
@@ -1167,6 +1229,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Barda District"
+   :gov.unit/name-local "Bərdə"
+   :gov.unit/name-romanized "Barda"
    :gov.unit/official-url "http://www.berde-ih.gov.az"
    :gov.unit/wikidata "Q330857"
    :gov.unit/external-code ["iso3166-2:AZ-BAR"]
@@ -1180,6 +1244,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shaki District"
+   :gov.unit/name-local "Şəki"
+   :gov.unit/name-romanized "Saki"
    :gov.unit/official-url "http://sheki-ih.gov.az/az"
    :gov.unit/wikidata "Q330864"
    :gov.unit/external-code ["iso3166-2:AZ-SAK"]
@@ -1193,6 +1259,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Fuzuli District"
+   :gov.unit/name-local "Füzuli"
+   :gov.unit/name-romanized "Fuzuli"
    :gov.unit/official-url "http://www.fuzuli-ih.gov.az/"
    :gov.unit/wikidata "Q331687"
    :gov.unit/external-code ["iso3166-2:AZ-FUZ"]
@@ -1206,6 +1274,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Imishli District"
+   :gov.unit/name-local "İmişli"
+   :gov.unit/name-romanized "Imisli"
    :gov.unit/official-url "http://www.imishli.com/"
    :gov.unit/wikidata "Q343908"
    :gov.unit/external-code ["iso3166-2:AZ-IMI"]
@@ -1219,6 +1289,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Ismayilli District"
+   :gov.unit/name-local "İsmayıllı"
+   :gov.unit/name-romanized "Ismayilli"
    :gov.unit/official-url "http://ismayilli-ih.gov.az/"
    :gov.unit/wikidata "Q344252"
    :gov.unit/external-code ["iso3166-2:AZ-ISM"]
@@ -1232,6 +1304,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Jalilabad District"
+   :gov.unit/name-local "Cəlilabad"
+   :gov.unit/name-romanized "Calilabad"
    :gov.unit/official-url "http://celilabad-ih.gov.az/"
    :gov.unit/wikidata "Q372795"
    :gov.unit/external-code ["iso3166-2:AZ-CAL"]
@@ -1245,6 +1319,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Sabirabad District"
+   :gov.unit/name-local "Sabirabad"
+   :gov.unit/name-romanized "Sabirabad"
    :gov.unit/official-url "http://www.sabirabad-ih.gov.az"
    :gov.unit/wikidata "Q382132"
    :gov.unit/external-code ["iso3166-2:AZ-SAB"]
@@ -1258,6 +1334,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Qusar District"
+   :gov.unit/name-local "Qusar"
+   :gov.unit/name-romanized "Qusar"
    :gov.unit/official-url "http://www.qusar-ih.gov.az"
    :gov.unit/wikidata "Q386506"
    :gov.unit/external-code ["iso3166-2:AZ-QUS"]
@@ -1271,6 +1349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shabran District"
+   :gov.unit/name-local "Şabran"
+   :gov.unit/name-romanized "Sabran"
    :gov.unit/official-url "http://shabran-ih.gov.az"
    :gov.unit/wikidata "Q387994"
    :gov.unit/external-code ["iso3166-2:AZ-SBN"]
@@ -1284,6 +1364,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Goygol District"
+   :gov.unit/name-local "Göygöl"
+   :gov.unit/name-romanized "Goygol"
    :gov.unit/official-url "http://goygol-ih.gov.az"
    :gov.unit/wikidata "Q388087"
    :gov.unit/external-code ["iso3166-2:AZ-GYG"]
@@ -1297,6 +1379,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shusha District"
+   :gov.unit/name-local "Şuşa"
+   :gov.unit/name-romanized "Susa"
    :gov.unit/official-url "http://shusha-ih.gov.az/index.html"
    :gov.unit/wikidata "Q388960"
    :gov.unit/external-code ["iso3166-2:AZ-SUS"]
@@ -1310,6 +1394,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Tovuz District"
+   :gov.unit/name-local "Tovuz"
+   :gov.unit/name-romanized "Tovuz"
    :gov.unit/official-url "http://tovuz-ih.gov.az/"
    :gov.unit/wikidata "Q388980"
    :gov.unit/external-code ["iso3166-2:AZ-TOV"]
@@ -1323,6 +1409,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Gazakh District"
+   :gov.unit/name-local "Qazax"
+   :gov.unit/name-romanized "Qazax"
    :gov.unit/official-url "http://www.qazax-ih.gov.az/"
    :gov.unit/wikidata "Q389381"
    :gov.unit/external-code ["iso3166-2:AZ-QAZ"]
@@ -1336,6 +1424,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Salyan District"
+   :gov.unit/name-local "Salyan"
+   :gov.unit/name-romanized "Salyan"
    :gov.unit/official-url "http://www.salyan-ih.gov.az"
    :gov.unit/wikidata "Q457485"
    :gov.unit/external-code ["iso3166-2:AZ-SAL"]
@@ -1349,6 +1439,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Jabrayil District"
+   :gov.unit/name-local "Cəbrayıl"
+   :gov.unit/name-romanized "Cabrayil"
    :gov.unit/official-url "http://www.cabrail-ih.gov.az/"
    :gov.unit/wikidata "Q457491"
    :gov.unit/external-code ["iso3166-2:AZ-CAB"]
@@ -1362,6 +1454,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Dashkasan District"
+   :gov.unit/name-local "Daşkəsən"
+   :gov.unit/name-romanized "Daskasan"
    :gov.unit/official-url "http://www.dashkesen-ih.gov.az"
    :gov.unit/wikidata "Q457494"
    :gov.unit/external-code ["iso3166-2:AZ-DAS"]
@@ -1375,6 +1469,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Guba District"
+   :gov.unit/name-local "Quba"
+   :gov.unit/name-romanized "Quba"
    :gov.unit/official-url "http://www.quba-ih.gov.az/"
    :gov.unit/wikidata "Q457499"
    :gov.unit/external-code ["iso3166-2:AZ-QBA"]
@@ -1388,6 +1484,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Gobustan District"
+   :gov.unit/name-local "Qobustan"
+   :gov.unit/name-romanized "Qobustan"
    :gov.unit/official-url "http://qobustan-ih.gov.az"
    :gov.unit/wikidata "Q457508"
    :gov.unit/external-code ["iso3166-2:AZ-QOB"]
@@ -1401,6 +1499,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Kalbajar District"
+   :gov.unit/name-local "Kəlbəcər"
+   :gov.unit/name-romanized "Kalbacar"
    :gov.unit/official-url "http://kelbecer-ih.gov.az/az"
    :gov.unit/wikidata "Q457513"
    :gov.unit/external-code ["iso3166-2:AZ-KAL"]
@@ -1414,6 +1514,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Yevlakh District"
+   :gov.unit/name-local "Yevlax"
+   :gov.unit/name-romanized "Yevlax"
    :gov.unit/official-url "http://yevlax-ih.gov.az/"
    :gov.unit/wikidata "Q458524"
    :gov.unit/external-code ["iso3166-2:AZ-YEV"]
@@ -1427,6 +1529,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Shamkir District"
+   :gov.unit/name-local "Şəmkir"
+   :gov.unit/name-romanized "Samkir"
    :gov.unit/official-url "http://shamkir-ih.gov.az/"
    :gov.unit/wikidata "Q467491"
    :gov.unit/external-code ["iso3166-2:AZ-SKR"]
@@ -1440,6 +1544,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Hajigabul District"
+   :gov.unit/name-local "Hacıqabul"
+   :gov.unit/name-romanized "Haciqabul"
    :gov.unit/official-url "http://haciqabul-ih.gov.az/"
    :gov.unit/wikidata "Q476690"
    :gov.unit/external-code ["iso3166-2:AZ-HAC"]
@@ -1453,6 +1559,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Masally District"
+   :gov.unit/name-local "Masallı"
+   :gov.unit/name-romanized "Masalli"
    :gov.unit/official-url "http://www.masalli-ih.gov.az"
    :gov.unit/wikidata "Q476695"
    :gov.unit/external-code ["iso3166-2:AZ-MAS"]
@@ -1466,6 +1574,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Ujar District"
+   :gov.unit/name-local "Ucar"
+   :gov.unit/name-romanized "Ucar"
    :gov.unit/official-url "http://ucar-ih.gov.az/"
    :gov.unit/wikidata "Q476703"
    :gov.unit/external-code ["iso3166-2:AZ-UCA"]
@@ -1479,6 +1589,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Khizi District"
+   :gov.unit/name-local "Xızı"
+   :gov.unit/name-romanized "Xizi"
    :gov.unit/official-url "http://www.khizi-ih.gov.az/az"
    :gov.unit/wikidata "Q476708"
    :gov.unit/external-code ["iso3166-2:AZ-XIZ"]
@@ -1492,6 +1604,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Goychay District"
+   :gov.unit/name-local "Göyçay"
+   :gov.unit/name-romanized "Goycay"
    :gov.unit/official-url "http://www.goychay-ih.gov.az"
    :gov.unit/wikidata "Q477163"
    :gov.unit/external-code ["iso3166-2:AZ-GOY"]
@@ -1505,6 +1619,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Tartar District"
+   :gov.unit/name-local "Tərtər"
+   :gov.unit/name-romanized "Tartar"
    :gov.unit/official-url "http://terter-ih.gov.az"
    :gov.unit/wikidata "Q477168"
    :gov.unit/external-code ["iso3166-2:AZ-TAR"]
@@ -1518,6 +1634,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Samukh District"
+   :gov.unit/name-local "Samux"
+   :gov.unit/name-romanized "Samux"
    :gov.unit/official-url "http://www.samux-ih.gov.az/"
    :gov.unit/wikidata "Q498437"
    :gov.unit/external-code ["iso3166-2:AZ-SMX"]
@@ -1531,6 +1649,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Qabala District"
+   :gov.unit/name-local "Qəbələ"
+   :gov.unit/name-romanized "Qabala"
    :gov.unit/official-url "http://www.qebele-ih.gov.az"
    :gov.unit/wikidata "Q593872"
    :gov.unit/external-code ["iso3166-2:AZ-QAB"]
@@ -1544,6 +1664,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Saatly District"
+   :gov.unit/name-local "Saatlı"
+   :gov.unit/name-romanized "Saatli"
    :gov.unit/official-url "http://www.saatli-ih.gov.az"
    :gov.unit/wikidata "Q601105"
    :gov.unit/external-code ["iso3166-2:AZ-SAT"]
@@ -1557,6 +1679,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Khachmaz District"
+   :gov.unit/name-local "Xaçmaz"
+   :gov.unit/name-romanized "Xacmaz"
    :gov.unit/official-url "http://www.xachmaz-ih.gov.az/"
    :gov.unit/wikidata "Q6398826"
    :gov.unit/external-code ["iso3166-2:AZ-XAC"]
@@ -1570,6 +1694,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Oghuz District"
+   :gov.unit/name-local "Oğuz"
+   :gov.unit/name-romanized "Oguz"
    :gov.unit/official-url "http://oguz-ih.gov.az"
    :gov.unit/wikidata "Q643989"
    :gov.unit/external-code ["iso3166-2:AZ-OGU"]
@@ -1583,6 +1709,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Gubadly District"
+   :gov.unit/name-local "Qubadlı"
+   :gov.unit/name-romanized "Qubadli"
    :gov.unit/official-url "http://qubadli-ih.gov.az/"
    :gov.unit/wikidata "Q644048"
    :gov.unit/external-code ["iso3166-2:AZ-QBI"]
@@ -1596,6 +1724,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Kurdamir District"
+   :gov.unit/name-local "Kürdəmir"
+   :gov.unit/name-romanized "Kurdamir"
    :gov.unit/official-url "http://www.kurdemir-ih.gov.az"
    :gov.unit/wikidata "Q688589"
    :gov.unit/external-code ["iso3166-2:AZ-KUR"]
@@ -1609,6 +1739,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Lerik District"
+   :gov.unit/name-local "Lerik"
+   :gov.unit/name-romanized "Lerik"
    :gov.unit/official-url "http://lerik-ih.gov.az"
    :gov.unit/wikidata "Q688626"
    :gov.unit/external-code ["iso3166-2:AZ-LER"]
@@ -1622,6 +1754,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Neftchala District"
+   :gov.unit/name-local "Neftçala"
+   :gov.unit/name-romanized "Neftcala"
    :gov.unit/official-url "http://www.neftchala-ih.gov.az"
    :gov.unit/wikidata "Q688633"
    :gov.unit/external-code ["iso3166-2:AZ-NEF"]
@@ -1635,6 +1769,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Siyazan District"
+   :gov.unit/name-local "Siyəzən"
+   :gov.unit/name-romanized "Siyazan"
    :gov.unit/official-url "http://siyezen-ih.gov.az"
    :gov.unit/wikidata "Q820940"
    :gov.unit/external-code ["iso3166-2:AZ-SIY"]
@@ -1648,6 +1784,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "aze"
    :gov.unit/name-en "Baku"
+   :gov.unit/name-local "Bakı"
+   :gov.unit/name-romanized "Baki"
    :gov.unit/official-url "http://www.baku-ih.gov.az/"
    :gov.unit/wikidata "Q9248"
    :gov.unit/external-code ["iso3166-2:AZ-BA"]

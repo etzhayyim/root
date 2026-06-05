@@ -8950,6 +8950,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Satu Mare County"
+   :gov.unit/name-local "Satu Mare"
+   :gov.unit/name-romanized "Satu Mare"
    :gov.unit/official-url "http://www.prefecturasatumare.ro/"
    :gov.unit/wikidata "Q165459"
    :gov.unit/external-code ["iso3166-2:RO-SM"]
@@ -8963,6 +8965,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Vaslui County"
+   :gov.unit/name-local "Vaslui"
+   :gov.unit/name-romanized "Vaslui"
    :gov.unit/official-url "http://www.prefectura.vaslui.ro/"
    :gov.unit/wikidata "Q167199"
    :gov.unit/external-code ["iso3166-2:RO-VS"]
@@ -8976,6 +8980,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Botoșani County"
+   :gov.unit/name-local "Botoșani"
+   :gov.unit/name-romanized "Botosani"
    :gov.unit/official-url "https://www.cjbotosani.ro/"
    :gov.unit/wikidata "Q178861"
    :gov.unit/external-code ["iso3166-2:RO-BT"]
@@ -8989,6 +8995,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Arad County"
+   :gov.unit/name-local "Arad"
+   :gov.unit/name-romanized "Arad"
    :gov.unit/official-url "http://www.cjarad.ro"
    :gov.unit/wikidata "Q179559"
    :gov.unit/external-code ["iso3166-2:RO-AR"]
@@ -9002,6 +9010,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Argeș County"
+   :gov.unit/name-local "Argeș"
+   :gov.unit/name-romanized "Arges"
    :gov.unit/official-url "http://www.cjarges.ro"
    :gov.unit/wikidata "Q179567"
    :gov.unit/external-code ["iso3166-2:RO-AG"]
@@ -9015,6 +9025,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Bihor County"
+   :gov.unit/name-local "Bihor"
+   :gov.unit/name-romanized "Bihor"
    :gov.unit/official-url "http://www.cjbihor.ro"
    :gov.unit/wikidata "Q179588"
    :gov.unit/external-code ["iso3166-2:RO-BH"]
@@ -9028,6 +9040,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Bacău County"
+   :gov.unit/name-local "Bacău"
+   :gov.unit/name-romanized "Bacau"
    :gov.unit/official-url "http://www.csjbacau.ro"
    :gov.unit/wikidata "Q179779"
    :gov.unit/external-code ["iso3166-2:RO-BC"]
@@ -9041,6 +9055,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Suceava County"
+   :gov.unit/name-local "Suceava"
+   :gov.unit/name-romanized "Suceava"
    :gov.unit/official-url "http://www.prefecturasuceava.ro/"
    :gov.unit/wikidata "Q181209"
    :gov.unit/external-code ["iso3166-2:RO-SV"]
@@ -9054,6 +9070,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Bistrița-Năsăud County"
+   :gov.unit/name-local "Bistrița-Năsăud"
+   :gov.unit/name-romanized "Bistrita-Nasaud"
    :gov.unit/official-url "http://www.portalbn.ro/Pagini/default.aspx"
    :gov.unit/wikidata "Q181513"
    :gov.unit/external-code ["iso3166-2:RO-BN"]
@@ -9067,6 +9085,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Brașov County"
+   :gov.unit/name-local "Brașov"
+   :gov.unit/name-romanized "Brasov"
    :gov.unit/official-url "http://www.judbrasov.ro"
    :gov.unit/wikidata "Q182614"
    :gov.unit/external-code ["iso3166-2:RO-BV"]
@@ -9080,6 +9100,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Cluj County"
+   :gov.unit/name-local "Cluj"
+   :gov.unit/name-romanized "Cluj"
    :gov.unit/official-url "http://www.prefecturacluj.ro/"
    :gov.unit/wikidata "Q182624"
    :gov.unit/external-code ["iso3166-2:RO-CJ"]
@@ -9093,6 +9115,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Vrancea County"
+   :gov.unit/name-local "Vrancea"
+   :gov.unit/name-romanized "Vrancea"
    :gov.unit/official-url "http://www.prefecturavrancea.ro/"
    :gov.unit/wikidata "Q182778"
    :gov.unit/external-code ["iso3166-2:RO-VN"]
@@ -9106,6 +9130,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Iași County"
+   :gov.unit/name-local "Iași"
+   :gov.unit/name-romanized "Iasi"
    :gov.unit/official-url "https://is.prefectura.mai.gov.ro/"
    :gov.unit/wikidata "Q182888"
    :gov.unit/external-code ["iso3166-2:RO-IS"]
@@ -9119,6 +9145,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Sibiu County"
+   :gov.unit/name-local "Sibiu"
+   :gov.unit/name-romanized "Sibiu"
    :gov.unit/official-url "http://www.prefecturasibiu.ro/"
    :gov.unit/wikidata "Q184797"
    :gov.unit/external-code ["iso3166-2:RO-SB"]
@@ -9132,6 +9160,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Buzău County"
+   :gov.unit/name-local "Buzău"
+   :gov.unit/name-romanized "Buzau"
    :gov.unit/official-url "http://www.cjbuzau.ro"
    :gov.unit/wikidata "Q185309"
    :gov.unit/external-code ["iso3166-2:RO-BZ"]
@@ -9145,6 +9175,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Timiș County"
+   :gov.unit/name-local "Timiș"
+   :gov.unit/name-romanized "Timis"
    :gov.unit/official-url "http://www.cjtimis.ro/"
    :gov.unit/wikidata "Q185586"
    :gov.unit/external-code ["iso3166-2:RO-TM"]
@@ -9158,6 +9190,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Vâlcea County"
+   :gov.unit/name-local "Vâlcea"
+   :gov.unit/name-romanized "Valcea"
    :gov.unit/official-url "http://www.prefecturavalcea.ro/"
    :gov.unit/wikidata "Q186838"
    :gov.unit/external-code ["iso3166-2:RO-VL"]
@@ -9171,6 +9205,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Caraș-Severin County"
+   :gov.unit/name-local "Caraș-Severin"
+   :gov.unit/name-romanized "Caras-Severin"
    :gov.unit/official-url "http://www.cjcs.ro/"
    :gov.unit/wikidata "Q187925"
    :gov.unit/external-code ["iso3166-2:RO-CS"]
@@ -9184,6 +9220,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Brăila County"
+   :gov.unit/name-local "Brăila"
+   :gov.unit/name-romanized "Braila"
    :gov.unit/official-url "http://www.cjbraila.ro/"
    :gov.unit/wikidata "Q188503"
    :gov.unit/external-code ["iso3166-2:RO-BR"]
@@ -9197,6 +9235,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Constanța County"
+   :gov.unit/name-local "Constanța"
+   :gov.unit/name-romanized "Constanta"
    :gov.unit/official-url "http://www.cjc.ro"
    :gov.unit/wikidata "Q188505"
    :gov.unit/external-code ["iso3166-2:RO-CT"]
@@ -9210,6 +9250,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Neamț County"
+   :gov.unit/name-local "Neamț"
+   :gov.unit/name-romanized "Neamt"
    :gov.unit/official-url "http://www.prefecturaneamt.ro/"
    :gov.unit/wikidata "Q188661"
    :gov.unit/external-code ["iso3166-2:RO-NT"]
@@ -9223,6 +9265,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Prahova County"
+   :gov.unit/name-local "Prahova"
+   :gov.unit/name-romanized "Prahova"
    :gov.unit/official-url "https://cjph.ro"
    :gov.unit/wikidata "Q188665"
    :gov.unit/external-code ["iso3166-2:RO-PH"]
@@ -9236,6 +9280,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Galați County"
+   :gov.unit/name-local "Galați"
+   :gov.unit/name-romanized "Galati"
    :gov.unit/official-url "http://www.cjgalati.ro/"
    :gov.unit/wikidata "Q188796"
    :gov.unit/external-code ["iso3166-2:RO-GL"]
@@ -9249,6 +9295,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Dâmbovița County"
+   :gov.unit/name-local "Dâmbovița"
+   :gov.unit/name-romanized "Dambovita"
    :gov.unit/official-url "http://www.cjd.ro"
    :gov.unit/wikidata "Q188797"
    :gov.unit/external-code ["iso3166-2:RO-DB"]
@@ -9262,6 +9310,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Maramureș County"
+   :gov.unit/name-local "Maramureș"
+   :gov.unit/name-romanized "Maramures"
    :gov.unit/official-url "https://mm.prefectura.mai.gov.ro/"
    :gov.unit/wikidata "Q188813"
    :gov.unit/external-code ["iso3166-2:RO-MM"]
@@ -9275,6 +9325,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Olt County"
+   :gov.unit/name-local "Olt"
+   :gov.unit/name-romanized "Olt"
    :gov.unit/official-url "http://www.prefecturaolt.ro/"
    :gov.unit/wikidata "Q188945"
    :gov.unit/external-code ["iso3166-2:RO-OT"]
@@ -9288,6 +9340,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Călărași County"
+   :gov.unit/name-local "Călărași"
+   :gov.unit/name-romanized "Calarasi"
    :gov.unit/official-url "http://www.calarasi.ro"
    :gov.unit/wikidata "Q188948"
    :gov.unit/external-code ["iso3166-2:RO-CL"]
@@ -9301,6 +9355,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Covasna County"
+   :gov.unit/name-local "Covasna"
+   :gov.unit/name-romanized "Covasna"
    :gov.unit/official-url "http://www.covasna.info.ro"
    :gov.unit/wikidata "Q188959"
    :gov.unit/external-code ["iso3166-2:RO-CV"]
@@ -9314,6 +9370,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Gorj County"
+   :gov.unit/name-local "Gorj"
+   :gov.unit/name-romanized "Gorj"
    :gov.unit/official-url "http://www.cjgorj.ro"
    :gov.unit/wikidata "Q190406"
    :gov.unit/external-code ["iso3166-2:RO-GJ"]
@@ -9327,6 +9385,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Sălaj County"
+   :gov.unit/name-local "Sălaj"
+   :gov.unit/name-romanized "Salaj"
    :gov.unit/official-url "http://www.prefecturasalaj.ro/"
    :gov.unit/wikidata "Q190690"
    :gov.unit/external-code ["iso3166-2:RO-SJ"]
@@ -9340,6 +9400,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Harghita County"
+   :gov.unit/name-local "Harghita"
+   :gov.unit/name-romanized "Harghita"
    :gov.unit/official-url "http://www.harghitacounty.ro"
    :gov.unit/wikidata "Q190702"
    :gov.unit/external-code ["iso3166-2:RO-HR"]
@@ -9353,6 +9415,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Mureș County"
+   :gov.unit/name-local "Mureș"
+   :gov.unit/name-romanized "Mures"
    :gov.unit/official-url "http://www.prefecturams.ro/"
    :gov.unit/wikidata "Q190711"
    :gov.unit/external-code ["iso3166-2:RO-MS"]
@@ -9366,6 +9430,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Dolj County"
+   :gov.unit/name-local "Dolj"
+   :gov.unit/name-romanized "Dolj"
    :gov.unit/official-url "http://www.cjdolj.ro"
    :gov.unit/wikidata "Q191065"
    :gov.unit/external-code ["iso3166-2:RO-DJ"]
@@ -9379,6 +9445,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Hunedoara County"
+   :gov.unit/name-local "Hunedoara"
+   :gov.unit/name-romanized "Hunedoara"
    :gov.unit/official-url "http://www.prefecturahunedoara.ro/"
    :gov.unit/wikidata "Q191071"
    :gov.unit/external-code ["iso3166-2:RO-HD"]
@@ -9392,6 +9460,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Tulcea County"
+   :gov.unit/name-local "Tulcea"
+   :gov.unit/name-romanized "Tulcea"
    :gov.unit/official-url "http://www.prefecturatulcea.ro/"
    :gov.unit/wikidata "Q191078"
    :gov.unit/external-code ["iso3166-2:RO-TL"]
@@ -9405,6 +9475,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Teleorman County"
+   :gov.unit/name-local "Teleorman"
+   :gov.unit/name-romanized "Teleorman"
    :gov.unit/official-url "http://www.prefecturateleorman.ro/"
    :gov.unit/wikidata "Q191653"
    :gov.unit/external-code ["iso3166-2:RO-TR"]
@@ -9418,6 +9490,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Ilfov County"
+   :gov.unit/name-local "Ilfov"
+   :gov.unit/name-romanized "Ilfov"
    :gov.unit/official-url "http://www.prefecturailfov.ro/"
    :gov.unit/wikidata "Q191670"
    :gov.unit/external-code ["iso3166-2:RO-IF"]
@@ -9431,6 +9505,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Mehedinți County"
+   :gov.unit/name-local "Mehedinți"
+   :gov.unit/name-romanized "Mehedinti"
    :gov.unit/official-url "http://www.prefecturamehedinti.ro/"
    :gov.unit/wikidata "Q191717"
    :gov.unit/external-code ["iso3166-2:RO-MH"]
@@ -9444,6 +9520,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Ialomița County"
+   :gov.unit/name-local "Ialomița"
+   :gov.unit/name-romanized "Ialomita"
    :gov.unit/official-url "http://www.prefecturaialomita.ro/"
    :gov.unit/wikidata "Q193044"
    :gov.unit/external-code ["iso3166-2:RO-IL"]
@@ -9457,6 +9535,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Giurgiu County"
+   :gov.unit/name-local "Giurgiu"
+   :gov.unit/name-romanized "Giurgiu"
    :gov.unit/official-url "http://www.cjgiurgiu.ro"
    :gov.unit/wikidata "Q193055"
    :gov.unit/external-code ["iso3166-2:RO-GR"]
@@ -9470,6 +9550,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Bucharest"
+   :gov.unit/name-local "București"
+   :gov.unit/name-romanized "Bucuresti"
    :gov.unit/official-url "https://www.pmb.ro/"
    :gov.unit/wikidata "Q19660"
    :gov.unit/external-code ["iso3166-2:RO-B"]
@@ -9483,6 +9565,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Alba County"
+   :gov.unit/name-local "Alba"
+   :gov.unit/name-romanized "Alba"
    :gov.unit/official-url "http://www.cjalba.ro/"
    :gov.unit/wikidata "Q45868"
    :gov.unit/external-code ["iso3166-2:RO-AB"]
