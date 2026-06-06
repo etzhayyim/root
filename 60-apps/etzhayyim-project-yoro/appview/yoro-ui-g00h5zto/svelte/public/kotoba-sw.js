@@ -21,6 +21,157 @@ const SEARCH_NSIDS = new Set([
   "com.etzhayyim.yoro.actor.searchActors",
 ]);
 
+// ── Browser-only feed/profile reads (ADR-2606013800 + 2605312345) ───────────
+// These NSIDs are assembled ENTIRELY in the browser from the in-page kotoba
+// Datom log (the same-origin seed), never from a server adapter. The apex
+// Worker rewrites app.bsky.feed.* → com.etzhayyim.yoro.feed.* and forwards to
+// the rw-free adapter, which does not implement them (404) — so without this
+// shim the home/author feed is empty. We intercept BOTH spellings.
+const FEED_TIMELINE_NSIDS = new Set([
+  "app.bsky.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed",
+  "com.etzhayyim.yoro.feed.getTimeline",
+  "com.etzhayyim.yoro.feed.getDiscoverFeed",
+]);
+const FEED_AUTHOR_NSIDS = new Set([
+  "app.bsky.feed.getAuthorFeed",
+  "com.etzhayyim.yoro.feed.getAuthorFeed",
+]);
+const FEED_THREAD_NSIDS = new Set([
+  "app.bsky.feed.getPostThread",
+  "com.etzhayyim.yoro.feed.getPostThread",
+]);
+const PROFILE_NSIDS = new Set([
+  "app.bsky.actor.getProfile",
+  "com.etzhayyim.yoro.actor.getProfile",
+]);
+function isFeedNsid(nsid) {
+  return (
+    FEED_TIMELINE_NSIDS.has(nsid) ||
+    FEED_AUTHOR_NSIDS.has(nsid) ||
+    FEED_THREAD_NSIDS.has(nsid) ||
+    PROFILE_NSIDS.has(nsid)
+  );
+}
+
+// Raw hydrated datom array (same shape as seed-datoms.json: {e,a,v_edn,added}).
+// Kept in sync by hydrate()/refreshSnapshot(); feed/profile views are built
+// from THIS, in JS, so they never depend on a wasm export-shape detail.
+let seedDatoms = [];
+
+// v_edn is the EDN-encoded value; for our string-typed attrs that is exactly
+// JSON.stringify(value), so JSON.parse recovers it. Posts carry a render-ready
+// `:yoro.post/view` whose value is the JSON-stringified feedView object.
+function edVal(v_edn) {
+  try {
+    return JSON.parse(v_edn);
+  } catch {
+    return v_edn;
+  }
+}
+
+// did:web:etzhayyim.com:actor:foo  → also matches handle / bare actor segment.
+function actorMatches(view, wanted) {
+  if (!wanted) return true;
+  const a = view && view.author ? view.author : {};
+  const w = String(wanted).toLowerCase();
+  return [a.did, a.handle, a.displayName]
+    .filter(Boolean)
+    .some((x) => String(x).toLowerCase() === w || String(x).toLowerCase().includes(w));
+}
+
+// Build the render-ready feedView post objects from the local datom log.
+// Each post entity carries `:yoro.post/view` (the full app.bsky.feed.defs#postView
+// produced upstream and stored at publish time), plus scalar attrs for sort/filter.
+function buildPostViews(datoms) {
+  const byE = new Map();
+  for (const d of datoms) {
+    if (!d || !d.a || !d.a.startsWith(":yoro.post/")) continue;
+    let o = byE.get(d.e);
+    if (!o) {
+      o = {};
+      byE.set(d.e, o);
+    }
+    const k = d.a.slice(":yoro.post/".length);
+    const v = edVal(d.v_edn);
+    o[k] = k === "view" ? safeParse(v) : v;
+  }
+  const out = [];
+  for (const o of byE.values()) {
+    const view = o.view && typeof o.view === "object" ? o.view : null;
+    if (!view || !view.uri) continue;
+    // sort key: prefer scalar createdAt, fall back to the view's record.
+    view.__sortAt = o.createdAt || (view.record && view.record.createdAt) || view.indexedAt || "";
+    out.push(view);
+  }
+  out.sort((a, b) => (b.__sortAt < a.__sortAt ? -1 : b.__sortAt > a.__sortAt ? 1 : 0));
+  for (const v of out) delete v.__sortAt;
+  return out;
+}
+function safeParse(s) {
+  if (typeof s !== "string") return s;
+  try {
+    return JSON.parse(s);
+  } catch {
+    return null;
+  }
+}
+
+function buildProfileView(datoms, wanted) {
+  const byE = new Map();
+  for (const d of datoms) {
+    if (!d || !d.a || !d.a.startsWith(":yoro.profile/")) continue;
+    let o = byE.get(d.e);
+    if (!o) {
+      o = {};
+      byE.set(d.e, o);
+    }
+    o[d.a.slice(":yoro.profile/".length)] = edVal(d.v_edn);
+  }
+  const w = String(wanted || "").toLowerCase();
+  let hit = null;
+  for (const p of byE.values()) {
+    if (!w) continue;
+    if (
+      String(p.did || "").toLowerCase() === w ||
+      String(p.handle || "").toLowerCase() === w ||
+      String(p.handle || "").toLowerCase().includes(w)
+    ) {
+      hit = p;
+      break;
+    }
+  }
+  if (!hit) return null;
+  const posts = buildPostViews(datoms).filter((v) =>
+    actorMatches(v, hit.did) || actorMatches(v, hit.handle),
+  );
+  return {
+    did: hit.did || "",
+    handle: hit.handle || "",
+    displayName: hit.displayName || hit.handle || "",
+    description: hit.description || "",
+    avatar:
+      hit.avatar ||
+      `https://api.dicebear.com/9.x/identicon/svg?seed=${encodeURIComponent(hit.did || hit.handle || "")}`,
+    postsCount: posts.length,
+    followersCount: 0,
+    followsCount: 0,
+    indexedAt: hit.indexedAt || new Date(0).toISOString(),
+    viewer: {},
+    labels: [],
+  };
+}
+
+function jsonResponse(obj, tag) {
+  return new Response(JSON.stringify(obj), {
+    status: 200,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "x-kotoba-sw": tag,
+    },
+  });
+}
+
 // ── IndexedDB persistence ──────────────────────────────────────────────────
 const DB_NAME = "kotoba-node";
 const STORE = "state";
@@ -93,6 +244,7 @@ let ready = null;
 
 function hydrate(datoms) {
   node = node || new KotobaNode();
+  seedDatoms = Array.isArray(datoms) ? datoms : []; // feed/profile build source
   return node.loadDatoms(JSON.stringify(datoms));
 }
 
@@ -182,7 +334,59 @@ self.addEventListener("fetch", (event) => {
   }
   if (url.origin !== self.location.origin) return;
   const m = url.pathname.match(/^\/xrpc\/([^/?]+)$/);
-  if (!m || !SEARCH_NSIDS.has(m[1])) return; // not ours → default network
+  if (!m) return;
+  const nsid = m[1];
+  if (!SEARCH_NSIDS.has(nsid) && !isFeedNsid(nsid)) return; // not ours → network
+
+  // ── Browser-only feed / profile reads (kotoba-wasm Datom log) ─────────────
+  // Assembled locally from the same-origin seed; on any miss/exception we fall
+  // through to the network (hybrid — never makes the broken alias path worse).
+  if (isFeedNsid(nsid)) {
+    event.respondWith(
+      (async () => {
+        try {
+          await ensureReady();
+          const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get("limit") || "50", 10) || 50));
+
+          if (PROFILE_NSIDS.has(nsid)) {
+            const actor = url.searchParams.get("actor") || url.searchParams.get("handle") || "";
+            const prof = buildProfileView(seedDatoms, actor);
+            if (prof) return jsonResponse(prof, "local-wasm-profile");
+            return fetch(event.request);
+          }
+
+          if (FEED_THREAD_NSIDS.has(nsid)) {
+            const uri = url.searchParams.get("uri") || "";
+            const view = buildPostViews(seedDatoms).find((v) => v.uri === uri);
+            if (view) {
+              return jsonResponse(
+                { thread: { $type: "app.bsky.feed.defs#threadViewPost", post: view, replies: [] } },
+                "local-wasm-thread",
+              );
+            }
+            return fetch(event.request);
+          }
+
+          // getTimeline / getDiscoverFeed / getAuthorFeed
+          let views = buildPostViews(seedDatoms);
+          if (FEED_AUTHOR_NSIDS.has(nsid)) {
+            const actor = url.searchParams.get("actor") || "";
+            views = views.filter((v) => actorMatches(v, actor));
+          }
+          const feed = views.slice(0, limit).map((v) => ({ post: v }));
+          // Empty local set → defer to network (don't shadow a live server with []).
+          if (feed.length === 0) return fetch(event.request);
+          return jsonResponse(
+            { feed, cursor: "" },
+            FEED_AUTHOR_NSIDS.has(nsid) ? "local-wasm-authorfeed" : "local-wasm-feed",
+          );
+        } catch {
+          return fetch(event.request); // hybrid fallback
+        }
+      })(),
+    );
+    return;
+  }
 
   event.respondWith(
     (async () => {
