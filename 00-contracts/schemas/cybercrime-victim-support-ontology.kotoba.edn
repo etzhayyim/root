@@ -1,0 +1,125 @@
+;; cybercrime-victim-support-ontology.kotoba.edn
+;; 助 (tasuke) — free cybercrime-victim-support membrane ontology (ADR-2606060900)
+;;
+;; The charter-clean answer to 「日本でサイバー犯罪被害に遭った時に対応サポートする actor」.
+;; A 信者 (or consenting member) who has been hit by online crime (phishing / 不正送金 /
+;; account-takeover / サポート詐欺 / ロマンス詐欺 / 投資詐欺 / ランサム / なりすまし / 架空請求)
+;; brings the case here. 助 GENERATES the ready-to-use documents the victim themselves submits:
+;; 被害届 / 被害状況報告書 / 証拠目録 / 被害額算定書 (police-side), プラットフォーム凍結・復旧・
+;; 組戻し依頼 (platform/bank-side), アカウント復旧手順 (recovery-side) — all FREE.
+;;
+;; STRUCTURAL INVARIANTS live in THREE places each (this schema :db/allowed / enum +
+;; lexicon :const / :enum + Python ValueError). The closed vocab vectors below are the single
+;; source the structural-invariant test parses. The three load-bearing ones:
+;;   G1 全て無料  — :fee/* and :support/cost-jpy are :db/allowed [0]; a paid path is UNREPRESENTABLE.
+;;   G2 本人作成・本人提出 — :support/role allows only {:guide :draft-assist :self-submit};
+;;                          :represent / :proxy-submit / :agent-file ABSENT (行政書士法/弁護士法 独占業務不踏).
+;;   G3 警察authored不可 — :doc/authored-by :db/allowed [:member]; :police / :official / :server ABSENT
+;;                          (生成書面は被害者本人の申告書類; 公文書偽造を構造的に排除).
+
+{:ontology/id        "com.etzhayyim.tasuke.cybercrime-victim-support"
+ :ontology/version   1
+ :ontology/title     "助 (tasuke) — free cybercrime-victim-support membrane"
+ :ontology/adr       "2606060900"
+
+ ;; ── closed structural vocab (the invariants, as data) ───────────────────────
+ ;; the cybercrime classes 助 supports (G4 — these are KINDS, not legal verdicts).
+ :ontology/scam-kinds
+ [:phishing :unauthorized-transfer :account-takeover :support-scam :romance-scam
+  :investment-scam :ransomware :impersonation :fake-billing :sns-fraud :leak-extortion]
+ ;; the documents 助 GENERATES — every one is authored BY THE MEMBER for the member to submit.
+ :ontology/doc-kinds
+ [:damage-report          ;; 被害届 (下書き; 本人が署名・提出)
+  :incident-statement     ;; 被害状況報告書 (時系列・供述の整理)
+  :evidence-index         ;; 証拠目録 (hash 付き)
+  :damage-calculation     ;; 被害額算定書
+  :platform-request       ;; プラットフォーム凍結/復旧/開示依頼書
+  :bank-freeze-request    ;; 銀行 不正送金 組戻し・口座凍結依頼 (振り込め詐欺救済法)
+  :recovery-plan]         ;; アカウント復旧手順書
+ ;; G3 — who a generated document is authored by. ONLY the member. 警察/official/server ABSENT.
+ :ontology/doc-authors       [:member]
+ ;; G2 — what 助 is allowed to DO for the member. NO 代理. self-submit by construction.
+ :ontology/support-roles     [:guide :draft-assist :self-submit]
+ ;; the public, FREE windows 助 may point a victim to (G5 — never a paid counsel referral).
+ :ontology/referral-windows
+ [:police-cyber-9110 :consumer-188 :nccc :antiphishing-council :jpcert :safeline
+  :bank-direct :platform-abuse-desk :no-and-bank-fund-recovery]
+ ;; evidence categories (G6 — captured as encrypted envelope refs, never plaintext PII).
+ :ontology/evidence-kinds
+ [:url :email-header :screenshot :chat-log :transaction-record :wallet-address
+  :phone-number :account-id :file-hash :audio :other]
+ ;; severity tiers (G4 — a triage SCORE that routes initial-action urgency; never a verdict).
+ :ontology/severity-tiers    [:info :elevated :urgent :critical]
+
+ :schema
+ [;; ── :case/* — a consenting victim's support case (the folder) ───────────────
+  {:db/ident :case/id            :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :case/subject       :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "G1/G7 — the victim's SBT-bound member DID. The principal who signs + submits every document."}
+  {:db/ident :case/scam-kind     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:phishing :unauthorized-transfer :account-takeover :support-scam :romance-scam
+                :investment-scam :ransomware :impersonation :fake-billing :sns-fraud :leak-extortion]
+   :db/doc "G4 — a KIND, classified for routing; NOT a finding that a crime occurred (非裁定; danjo/chigiri boundary)."}
+  {:db/ident :case/severity      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:info :elevated :urgent :critical]}
+  {:db/ident :case/occurred-at   :db/valueType :db.type/long    :db/cardinality :db.cardinality/one}
+  {:db/ident :case/loss-jpy      :db/valueType :db.type/long    :db/cardinality :db.cardinality/one
+   :db/doc "reported monetary loss in JPY (the VICTIM's loss; nothing to do with any 助 fee — see :support/cost-jpy)."}
+  {:db/ident :case/consent       :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/doc "G7 — explicit consent of the victim. A case is never opened without it."}
+  {:db/ident :case/server-held-key :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [false] :db/doc "G7 / no-server-key — only false (ADR-2605231525). The member signs every submission."}
+
+  ;; ── :support/* — what 助 does, and that it is FREE ─────────────────────────
+  {:db/ident :support/role       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:guide :draft-assist :self-submit]
+   :db/doc "G2 — 案内 / 起草補助 / 本人提出 のみ。:represent / :proxy-submit / :agent-file は UNREPRESENTABLE (行政書士法/弁護士法 独占業務不踏)."}
+  {:db/ident :support/cost-jpy   :db/valueType :db.type/long    :db/cardinality :db.cardinality/one
+   :db/allowed [0] :db/doc "G1 全て無料 — only 0 is valid. A fee/charge/subscription is UNREPRESENTABLE (cash≡0)."}
+  {:db/ident :support/paid-referral :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [false] :db/doc "G5 — 助 never routes to a PAID counsel; only false (free public windows only)."}
+
+  ;; ── :doc/* — a GENERATED document, authored by the member ──────────────────
+  {:db/ident :doc/id             :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :doc/case           :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :doc/kind           :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:damage-report :incident-statement :evidence-index :damage-calculation
+                :platform-request :bank-freeze-request :recovery-plan]}
+  {:db/ident :doc/authored-by    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:member]
+   :db/doc "G3 — 生成書面は被害者本人の申告書類。:police / :official / :server は UNREPRESENTABLE (公文書偽造を構造的に排除)."}
+  {:db/ident :doc/addressed-to   :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "宛先 (e.g. ○○警察署長 / ○○銀行 / プラットフォーム abuse desk) — a recipient, NOT the author."}
+  {:db/ident :doc/needs-member-signature :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [true] :db/doc "G2/G7 — every generated document requires the member's own signature before use; only true."}
+  {:db/ident :doc/published      :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [false] :db/doc "G9 — R0 is draft-only; live filing/submission is Council Lv6+ + operator gated. Only false."}
+
+  ;; ── :evidence/* — encrypted envelope refs, never plaintext PII ─────────────
+  {:db/ident :evidence/id        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :evidence/case      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :evidence/kind      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:url :email-header :screenshot :chat-log :transaction-record :wallet-address
+                :phone-number :account-id :file-hash :audio :other]}
+  {:db/ident :evidence/envelope-ref :db/valueType :db.type/string :db/cardinality :db.cardinality/one
+   :db/doc "G6 — com.etzhayyim.encrypted.* envelope CID. The PII content lives encrypted; only the ref + a hash sit here."}
+  {:db/ident :evidence/sha256    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "chain-of-custody integrity hash — lets the victim prove the item is unchanged since capture."}
+  {:db/ident :evidence/captured-at :db/valueType :db.type/long  :db/cardinality :db.cardinality/one}
+
+  ;; ── :referral/* — FREE public windows only (G5) ────────────────────────────
+  {:db/ident :referral/case      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :referral/window    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:police-cyber-9110 :consumer-188 :nccc :antiphishing-council :jpcert :safeline
+                :bank-direct :platform-abuse-desk :no-and-bank-fund-recovery]}
+  {:db/ident :referral/paid      :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one
+   :db/allowed [false] :db/doc "G5 — a referral is to a FREE public window. A paid one is UNREPRESENTABLE."}
+
+  ;; ── :registry/* — coded procedure/window registry (:representative, G10) ────
+  {:db/ident :registry/window    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one :db/unique :db.unique/identity}
+  {:db/ident :registry/name      :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :registry/contact   :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
+  {:db/ident :registry/basis     :db/valueType :db.type/string  :db/cardinality :db.cardinality/one
+   :db/doc "根拠法令 / 制度 (e.g. 振り込め詐欺救済法, 特商法). G10 — :representative; verify against primary source."}
+  {:db/ident :registry/sourcing  :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+   :db/allowed [:representative :authoritative]}]}

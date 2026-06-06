@@ -1,11 +1,11 @@
 ---
 id: adr-2606042330-entity-as-actor-society-wide-social-mirror-graph
 title: "ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors"
-status: proposed
+status: accepted
 doc_type: adr
 topic: entity-as-actor-social-mirror-graph
 authoritative: true
-last_verified: 2026-06-04
+last_verified: 2026-06-06
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -233,6 +233,60 @@ isMirror=true`, `const serverHeldKey=false`, `personSubject` **unrepresentable**
 - **N4** NOT surveillance / pattern-of-life / target-list (G4).
 - **N5** NOT a new state store — state stays the kotoba Datom log (ADR-2605262130/2605312345); no
   RisingWave/SQL.
+
+# Update — landed + LIVE (2026-06-06)
+
+Status flipped **proposed → accepted**: the design shipped and is verified in production.
+
+**Registry + resolution**
+
+- `gen-entity-handles.mjs` → 5 `entity-handles.<ns>.gen.ts` (gov 7,106 + corp 1,733 + cable 14 +
+  station 22 + craft 13 = **8,888** keyless mirror handles); `corp` unifies kabuto+tsumugi+kanjo over
+  `org.corp.*`.
+- `entity-actors.ts` resolves each `did:web:etzhayyim.com:actor:<ns>-<…>` as a keyless record
+  (`verificationMethod:[]`, G5) + `searchEntityActors` offset-cursor pagination `{records, nextOffset,
+  total}`.
+- **43 Tier-B named actors registered** via `tier-b-actors.gen.ts` (`gen-tier-b-actors.mjs` scans
+  `manifest.jsonld` for `tier=="Tier-B"` not already in `INFRA_ACTORS`); `infra-actors.ts` renamed its
+  hand-authored export to `HAND_AUTHORED_ACTORS` and now exports
+  `INFRA_ACTORS = { ...TIER_B_ACTORS, ...HAND_AUTHORED_ACTORS }`. Total resolvable ≈ **8,947**.
+
+**Three fixes that made `/search` honest (12 → society scale)**
+
+1. `searchActors` short-circuit in `worker.ts` (entity matches + best-effort PDS merge).
+2. **`getSuggestions` also short-circuited** — default `/search` browse calls `getSuggestions`, not
+   `searchActors`; without this the page stayed at ~62.
+3. **yoro service-worker (`kotoba-sw.js`) backfill defeated** — the in-browser kotoba node intercepted
+   `searchActors` and set `merged.totalActors = merged.actors.length` (~62). Fixed by prepending the
+   compiled named/infra actors on `offset===0` so the SW finds nothing missing and passes the response
+   through; `totalActors` now reports `ENTITY_TOTAL_COUNT + namedActors.length`.
+
+**Per-profile 500 fixed**
+
+- `yoro .../profile/[handle]/+page.svelte`: the actor-DID branch called `getAuthorProfile` against the
+  PDS (`atproto.etzhayyim.com`), which 405'd on GET → threw inside `Promise.all` → SvelteKit 500.
+  Replaced with a guarded **relative `/xrpc/app.bsky.actor.getProfile`** fetch against the apex
+  (`.catch(()=>null)` + a record-derived fallback object), so a miss degrades gracefully instead of
+  500-ing. `magatama-yoro` deployed (version `92d5aa2c`).
+- A complementary `etzhayyim-xrpc-proxy` apex-routing change (`tryApexActorProfile`) is committed but
+  **not deployed** — its deploy is blocked by a cross-account service binding
+  (`etzhayyim-pds-2603241700`), and the yoro-side fix already resolves the 500, so it is redundant.
+
+**SDK clean-build restored** — `@etzhayyim/sdk/src/index.ts` had `export * as kotoba-datomic` (invalid
+identifier, leftover from rename cutover `96186ef915`); renamed to `kotobaDatomic` (the
+`@etzhayyim/sdk/kotoba-datomic` package-exports subpath is unaffected). `tsc --noEmit` exit 0.
+
+**Verified live (2026-06-06)**
+
+- `https://etzhayyim.com/actor/himawari/profile.json` → **HTTP 200**
+- `https://etzhayyim.com/profile/did:web:etzhayyim.com:actor:himawari` → **HTTP 200** (no longer 500)
+- `/search` reports society scale (8,888 entities + 18,342 unspsc + named/service).
+
+**Count without GROUP-BY rescan** — `actor-count-mv.kotoba.edn` + `emit_ingest_batch.mjs` reference the
+kotoba `MvRegistry::maintain` incremental tally (assert/retract deltas net the per-namespace count);
+`ENTITY_TOTAL_COUNT` is the compiled constant, no per-request aggregate scan.
+
+Tests green: 7/7 (TS) + 5/5 (py); gen deterministic; zero invariant amendments.
 
 # Consequences
 
