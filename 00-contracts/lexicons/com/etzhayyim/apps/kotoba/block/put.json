@@ -51,6 +51,7 @@
             "ok": { "type": "boolean" },
             "root": { "type": "string" },
             "storedBlocks": { "type": "integer" },
+            "rlTokens": { "type": "integer", "description": "Remaining best-effort KV rate-limit tokens for the signer after this advance (observability)." },
             "attest": {
               "type": "object",
               "properties": {
@@ -66,6 +67,7 @@
         { "name": "BadRequest", "description": "Malformed JSON or missing required root/did/sig." },
         { "name": "BadSignature", "description": "ed25519 verification of sig over root failed." },
         { "name": "Conflict", "description": "The head advanced since prevRoot; response carries currentRoot — rebase and retry." },
+        { "name": "RateLimited", "description": "Per-DID best-effort publish rate exceeded (KV token-bucket); retry after retryAfterMs." },
         { "name": "TooManyBlocks", "description": "Block count exceeds the per-publish bound (max 64)." },
         { "name": "BadBlock", "description": "A submitted block failed validation (CID/size)." },
         { "name": "PublishUnavailable", "description": "The publish store (ACTOR_KV) is not bound." }

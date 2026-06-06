@@ -186,14 +186,28 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     did,
     updatedAt: new Date().toISOString(),
   };
+  let rlTokens: number | undefined; // remaining rate-limit tokens (DO path), for observability
 
   // 3) Advance the published head under KV CHECK-AND-SET (advance only if the
   //    publisher rebased on the current head — prevents lost updates). No Durable
   //    Object (ADR-2605262130 / 2605312345: kotoba is the canonical, content-
-  //    addressed substrate; there is no operated server-state primitive). The KV
+  //    addressed substrate; there is no operated server-state primitive). KV
   //    read-check-write narrows the race window and the consumer re-verifies every
   //    CID on ingest, so a concurrent advance can only orphan reusable blocks,
-  //    never corrupt the log.
+  //    never corrupt the log. Rate-limit + stats below are KV-backed best-effort
+  //    (non-atomic) — coarse DoS control + observability where exactness is
+  //    unnecessary, NOT an authoritative server-state primitive.
+  const bumpStat = async (field: string, extra?: Record<string, unknown>) => {
+    try {
+      const raw = await env.ACTOR_KV!.get(`kstats:${graph}`);
+      const s = (raw ? JSON.parse(raw) : {}) as Record<string, unknown>;
+      s[field] = ((s[field] as number) ?? 0) + 1;
+      await env.ACTOR_KV!.put(`kstats:${graph}`, JSON.stringify({ ...s, ...extra }));
+    } catch {
+      /* stats are best-effort observability — never fail the publish on a stats write */
+    }
+  };
+  // CAS conflict (someone advanced the head) — a rebase, NOT abuse, costs no token.
   const prevRaw = await env.ACTOR_KV.get(`kroot:${graph}`);
   if (prevRaw) {
     let cur: { root?: string } = {};
@@ -203,13 +217,47 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
       /* treat as no prior */
     }
     if (cur.root && cur.root !== body.prevRoot) {
+      await bumpStat("conflicts");
       return new Response(
         JSON.stringify({ error: "Conflict", message: "root advanced — rebase and retry", currentRoot: cur.root }),
         { status: 409, headers: JSON_HEADERS },
       );
     }
   }
+  // Best-effort per-DID token-bucket rate limit on actual head advances (caps the
+  // sustained root-churn DoS vector). A token is spent ONLY on a real advance, so
+  // honest rebasers are never charged.
+  {
+    const CAP = 12;
+    const REFILL_MS = 2500;
+    const now = Date.now();
+    const rlKey = `krl:${graph}:${did || "anon"}`;
+    let b: { tokens: number; ts: number } = { tokens: CAP, ts: now };
+    try {
+      const raw = await env.ACTOR_KV.get(rlKey);
+      if (raw) b = JSON.parse(raw) as { tokens: number; ts: number };
+    } catch {
+      /* fresh bucket */
+    }
+    const refill = Math.floor((now - b.ts) / REFILL_MS);
+    if (refill > 0) {
+      b.tokens = Math.min(CAP, b.tokens + refill);
+      b.ts = now;
+    }
+    if (b.tokens < 1) {
+      await env.ACTOR_KV.put(rlKey, JSON.stringify(b));
+      await bumpStat("rateLimited");
+      return new Response(
+        JSON.stringify({ error: "RateLimited", message: "publish rate exceeded — retry later", retryAfterMs: REFILL_MS }),
+        { status: 429, headers: { ...JSON_HEADERS, "retry-after": String(Math.ceil(REFILL_MS / 1000)) } },
+      );
+    }
+    b.tokens -= 1;
+    rlTokens = b.tokens;
+    await env.ACTOR_KV.put(rlKey, JSON.stringify(b));
+  }
   await env.ACTOR_KV.put(`kroot:${graph}`, JSON.stringify(manifest));
+  await bumpStat("advances", { lastAdvanceAt: new Date().toISOString(), root });
 
   // 4) Suppressable, encrypted IP attestation (Wikipedia-style accountability,
   //    captured server-side, never in the immutable blocks).
@@ -230,6 +278,7 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
       ok: true,
       root,
       storedBlocks: blocks.length,
+      rlTokens,
       attest: { ipHash: attest.ipHash, ipPrefix: attest.ipPrefix, ipEncrypted: !!attest.ipEnc },
     }),
     { status: 200, headers: JSON_HEADERS },
@@ -268,6 +317,41 @@ export async function handleRootGet(url: URL, env: PublishEnv): Promise<Response
     if (raw) return new Response(raw, { status: 200, headers: JSON_HEADERS });
   }
   return new Response(JSON.stringify({ ...GENESIS_ROOT_FALLBACK, graph }), { status: 200, headers: JSON_HEADERS });
+}
+
+/** GET com.etzhayyim.apps.kotoba.stats?graph=… — publish outcome counters
+ *  (advances / conflicts / rateLimited) from the authoritative head DO. Public,
+ *  no PII — operability/monitoring surface. */
+export async function handleStatsGet(url: URL, env: PublishEnv): Promise<Response> {
+  const graph = url.searchParams.get("graph") || "yoro-social-v1";
+  if (!env.ACTOR_KV) {
+    return new Response(JSON.stringify({ error: "StatsUnavailable", message: "ACTOR_KV not bound" }), {
+      status: 503,
+      headers: JSON_HEADERS,
+    });
+  }
+  // Best-effort KV-backed publish-outcome counters (advances / conflicts /
+  // rateLimited) — observability only, no DO (ADR-2605262130 / 2605312345).
+  let s: Record<string, unknown> = {};
+  try {
+    const raw = await env.ACTOR_KV.get(`kstats:${graph}`);
+    if (raw) s = JSON.parse(raw) as Record<string, unknown>;
+  } catch {
+    /* no stats yet */
+  }
+  const rootRaw = await env.ACTOR_KV.get(`kroot:${graph}`);
+  let root = "";
+  let updatedAt = "";
+  if (rootRaw) {
+    try {
+      const m = JSON.parse(rootRaw) as { root?: string; updatedAt?: string };
+      root = m.root ?? "";
+      updatedAt = m.updatedAt ?? "";
+    } catch {
+      /* ignore */
+    }
+  }
+  return new Response(JSON.stringify({ graph, ...s, root, updatedAt }), { status: 200, headers: JSON_HEADERS });
 }
 
 /** GET /kotoba/blocks/<cid> fallback — serves a dynamically published block from

@@ -21590,6 +21590,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606065500-kotoba-browser-only-social-feed.md",
+      "id": "adr-2606065500-kotoba-browser-only-social-feed",
+      "title": "ADR-2606065500: etzhayyim.com browser-only kotoba social feed — browser read/write + member-signed block publish (no query node)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-browser-only-social-feed",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim.com social feed read/write path",
+        "member-signed kotoba block publish (apex)"
+      ],
+      "related": [
+        "2606041822",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312345",
+        "2605262130",
+        "2605231525",
+        "2606013800",
+        "2606014600",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606065500-session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free.md",
       "id": "adr-2606065500-session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
       "title": "ADR-2606065500: Session close — apex did-web actor+DID resolution → kotoba-datomic, content-addressed, Cloudflare-primitive-free",
