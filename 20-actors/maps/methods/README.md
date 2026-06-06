@@ -20,6 +20,8 @@ log. These methods are stdlib-only; the real-H3 test layer needs an `h3` install
 | `test_reverse.py` | 10 tests: haversine (pure, always) + real-H3 e2e (nearest=Tokyo Station, label filter, limit, distant-Haneda excluded, ocean empty). |
 | `chunk.py` | kotoba-native chunk read (§2): the `cmdGetChunk` HTTP reference — `AVET(:feature.cell/r{lod}, cells)` → grouped GeoJSON `{chunks:{cell:{label:[Feature]}}}`. The cell-read sibling of transit/search/reverse (previously only the TS adapter + in-memory store proved it). |
 | `test_chunk.py` | 6 tests (real-H3): cell/label grouping, label filter, point geometry, coarse-LOD aggregate, empty cell + the **4-read integration** (chunk · search · reverse · transit compose over ONE graph). |
+| `verify.py` | the **R1 readiness check** (operator/CronJob): runs all four reads against a kotoba endpoint, prints `{chunk,search,reverse,transit,allOk}`, exit 0 iff `allOk`. `python3 verify.py --endpoint URL [--lat --lon --query --stop]`. |
+| `test_verify.py` | 4 tests (real-H3): all-reads-ready, ocean-probe-not-ready, endpoint-down-fail-soft, report shape. |
 | `kotoba_local_server.py` | stdlib HTTP **stand-in** for the kotoba XRPC surface (`kg.ingest_batch` Bearer + `graph.sparql` AVET + `kg.entity`) — the local target for the R1 dry-run. |
 | `test_e2e_http.py` | 5 tests: the full maps↔kotoba **HTTP loop** (auth gate 401, real `ingest.push_batch`, AVET cell query, label-filter, point lookup). |
 
@@ -68,7 +70,13 @@ gated (G7) and member/operator-DID-signed (G4 no-server-key).**
    - latency: p50/p95 of the kotoba `queryByCells` AVET read must meet the **<50 ms** budget
      the legacy BTREE path holds. Measure with the maps-3d streamer's 4 s tick under a walk.
    The AVET retrieval logic is already proven offline (`test_avet_roundtrip.py`, real Tokyo
-   H3); R1 measures it at scale on the live endpoint.
+   H3); R1 measures it at scale on the live endpoint. **Readiness gate** — run the readiness
+   verifier against the live endpoint and require exit 0 before flipping reads kotoba-primary:
+   ```
+   python3 methods/verify.py --endpoint "$KOTOBA_ENDPOINT" \
+     --lat 35.6812 --lon 139.7671 --query tok --stop <a-real-stop-id>
+   # exits 0 iff chunk + search + reverse + transit all return → reads are live-ready
+   ```
 
 4. **R2/R3** (separate PRs): port the 5 bulk-ingest dumpers + the 172-command tail through the
    adapter (`ingestFeatures` / `queryByCells`); then delete the `HYPERDRIVE` binding, the
