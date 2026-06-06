@@ -56,6 +56,48 @@ def stamp_cells(lat: Any, lon: Any) -> dict[str, str]:
         return {}
 
 
+# ── name-search index tokens (ADR-2606064500 R2) ──
+# MUST equal 20-actors/maps/methods/search.py `name_tokens` (asserted by test_kotoba_substrate)
+# so a feature is name-searchable regardless of which write path (maps adapter / bulk dumper)
+# ingested it. ASCII name-prefixes (len 2..12) + CJK bigrams.
+_MAX_PREFIX = 12
+
+
+def _is_cjk(ch: str) -> bool:
+    o = ord(ch)
+    return (0x3040 <= o <= 0x30FF or 0x3400 <= o <= 0x9FFF
+            or 0xF900 <= o <= 0xFAFF or 0xFF66 <= o <= 0xFF9D)
+
+
+def _name_runs(name: str):
+    out, buf, kind = [], [], None
+    for ch in (name or "").lower():
+        k = "cjk" if _is_cjk(ch) else ("ascii" if ch.isalnum() else None)
+        if k != kind:
+            if buf:
+                out.append((kind, "".join(buf)))
+            buf, kind = [], k
+        if k is not None:
+            buf.append(ch)
+    if buf and kind is not None:
+        out.append((kind, "".join(buf)))
+    return out
+
+
+def name_tokens(name: str) -> set[str]:
+    """INDEX tokens for a feature name (stored as :feature/name-token)."""
+    toks: set[str] = set()
+    for kind, text in _name_runs(name):
+        if kind == "ascii" and len(text) >= 2:
+            for n in range(2, min(len(text), _MAX_PREFIX) + 1):
+                toks.add(text[:n])
+        elif kind == "cjk":
+            toks.update(text[i:i + 2] for i in range(len(text) - 1))
+            if len(text) == 1:
+                toks.add(text)
+    return toks
+
+
 _PROMOTED = ("geometry", "heightM", "height_m", "levels", "floors")
 
 
@@ -105,6 +147,13 @@ def row_to_entity(row: dict[str, Any]) -> dict[str, Any] | None:
         add("feature/props", json.dumps(rest, ensure_ascii=False))
     for k, v in stamp_cells(lat, lon).items():
         add(k, v)
+    # name-search index — so a dumper-ingested feature is name-searchable (search.py)
+    toks: set[str] = set()
+    for nm in (row.get("name"), row.get("display_name")):
+        if nm:
+            toks |= name_tokens(str(nm))
+    for t in sorted(toks):
+        claims.append({"pred": "feature/name-token", "value": t})
 
     return {
         "id": str(fid),
