@@ -26,9 +26,18 @@ ISIC J6201 · ISCO 2512/3514 · UNSPSC 81112 (computer programming / web automat
 
 ## Cells (langgraph→WASM; Murakumo-only; `.solve()` raises at R0)
 
-service_resolve (reuben) · command_plan (simeon) · **session_broker** (levi — coded reference cell) ·
-**adapter_invoke** (judah — coded reference cell: wires command.py + t2_browser.py into the
-tos-gate→mutate-gate→dry-run→execute-gated graph) · export_roundtrip (zebulun).
+All five are coded reference cells (state machines unit-tested; `.solve()` raises at R0):
+**service_resolve** (reuben — resolve → tier + both stance axes) · **command_plan** (simeon — NL
+brief → gated ServiceOps via the Murakumo planner, N6 scan) · **session_broker** (levi — member-keyless
+session broker) · **adapter_invoke** (judah — wires command.py + t2_browser.py into
+tos-gate→mutate-gate→dry-run→execute-gated) · **export_roundtrip** (zebulun — T3 own-data-only
+encrypted export).
+
+Methods layer: `command.py` (parser/planner) · `t2_browser.py` (browser-use T2 plan builder) ·
+`nl_plan.py` (Murakumo NL→ServiceOp, G4 — live LLM operator-gated) · `export.py` (T3 export, G9) ·
+`adapter_live.py` (the single live-execution membrane — refuses unless flag + operator + Council Lv6+
++ member-sig, G6/G3) · `datom.py` (kotoba Datom audit projector, G7). browser-use live-driver contract:
+`docs/browser-use-live-integration.md`.
 
 ## Gates (immutable R0→R3)
 
@@ -56,10 +65,11 @@ driving of prohibited-content or third-party ad/affiliate systems (Charter-Rider
 ## Build / test
 
 ```
-cd methods && python3 -m pytest                 # ServiceOp parser/planner + browser-use T2 plan (49 tests)
-cd cells   && python3 -m pytest                 # session_broker (G1/G3/G5) + adapter_invoke (G2/G5/G6/G8) (17 tests)
-python3 methods/command.py karakuri google messages.list        # api-ok → T1 (not browser-automated)
-python3 methods/t2_browser.py karakuri legacy-portal records.list  # T2 browser-use dry-run plan
+cd methods && python3 -m pytest                 # command/t2_browser/nl_plan/export/adapter_live/datom (79 tests)
+cd cells   && python3 -m pytest                 # all five coded cells (31 tests)
+python3 methods/command.py karakuri google messages.list          # api-ok → T1 (not browser-automated)
+python3 methods/t2_browser.py karakuri legacy-portal records.list # T2 browser-use dry-run plan
+python3 methods/nl_plan.py "list all my gmail messages"           # NL → ServiceOp (Murakumo, G4)
 ```
 
 (If a global pytest plugin errors on pydantic, prefix `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` — the
