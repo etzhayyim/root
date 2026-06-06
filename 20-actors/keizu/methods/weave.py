@@ -116,6 +116,8 @@ def validate_statement(s: dict) -> None:
     srcs = s.get(":statement/sources") or []
     if not isinstance(srcs, list) or len(srcs) < 1:
         raise ValueError(f"G3: statement {s.get(':statement/id')!r} needs ≥1 public source")
+    if (d := source_denied(srcs)):
+        raise ValueError(f"Rider §2(e)/N5: source {d!r} is a commercial gov-intel terminal — prohibited citation")
     if _kw(s.get(":statement/sourcing", "")) not in SOURCING:
         raise ValueError("G11: every statement must declare :statement/sourcing")
 

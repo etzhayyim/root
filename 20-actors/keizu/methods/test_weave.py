@@ -280,6 +280,13 @@ def test_statement_needs_sourcing():
                                               ":statement/sources": ["u"]}), contains="G11")
 
 
+def test_statement_deny_commercial_gov_intel_source():
+    # the SOURCE_DENY list must apply to statements too, not only rels/money
+    bad = {":statement/id": "s", ":statement/speaker": "a", ":statement/sourcing": ":representative",
+           ":statement/sources": ["https://about.bloomberg.com/government"]}
+    expect_raises(lambda: validate_statement(bad), contains="Rider §2(e)")
+
+
 def test_statement_index_by_speaker_and_topic():
     si = concentration(_g())["statement_index"]
     assert si["count"] == 3
