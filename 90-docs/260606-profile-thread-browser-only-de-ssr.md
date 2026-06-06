@@ -77,6 +77,31 @@ A seeded feed-author profile → `csr-sw` + rendered; a random actor → SW `not
   profile + a random actor → revert (one-line `ssr=true`) if data_path ≠ csr-sw or
   the page renders blank.
 
+## Attempt #1 (2026-06-06) — REVERTED, lessons
+
+Tried the minimal de-SSR: removed `getProfile()` from `profile/[handle]/+page.server.ts`
+(server returns `{handle, og:{}}`), expecting the client `loadProfile()` (which routes
+`app.bsky.actor.getProfile` SAME-ORIGIN via `SW_LOCAL_NSIDS` → kotoba SW) to fill the
+data browser-side. Built + deployed (Version 56acbe71) + verified with kotoba-e2e:
+
+- `data_path` stayed `ssr` (0 client XRPC) — the client `getProfile` did NOT fire/render.
+- A content check showed the page rendering the SvelteKit **"500 Internal Error"** boundary.
+
+→ **Reverted** (`getProfile` restored, Version 9096789c). Lessons:
+1. `loadProfile()` did NOT issue an observable client `getProfile` even with empty
+   `data.og` — its multi-branch logic (did:web vs did:gftd vs human) does not cleanly
+   fall back to a client read when SSR data is absent. The real de-SSR must REWORK
+   `loadProfile()` so every branch fetches `getProfile` client-side, not just drop the
+   server fetch.
+2. **Separate pre-existing finding (NOT caused by this change):** `/profile/<*>` renders
+   the SvelteKit 500 error boundary in **headless Chromium after hydration**, while the
+   **SSR HTML is 200 + clean for every UA** (curl, default + browser UA). No JS
+   `pageerror`, no failing critical request (only auth-gated 401s + an optional ONNX
+   404). Cause unidentified from headless alone — needs **real-browser DevTools** to
+   confirm whether real users hit it (possible SW/hydration interaction, or a headless
+   artifact). This is the *profile-page* analogue of the original "vibes slow/flaky"
+   report and is independent of the de-SSR work.
+
 ## Not doing (yet)
 
 - Reworking `+page.svelte`'s multi-branch loader is deferred to an implementation
