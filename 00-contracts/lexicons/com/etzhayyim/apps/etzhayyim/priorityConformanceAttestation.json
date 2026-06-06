@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.priorityConformanceAttestation",
+  "description": "The Tier-1 amendment artifact required by ADR-2606062100 + Charter Rider v3.0 §0/§6. A Council Lv7+ UNANIMOUS attestation that a proposed amendment to a Tier-1 Derived Policy (a Charter-Rider §2 prohibited-use category) serves a Tier-0 Priority at least as well as the text it replaces. Tier-0 priorities themselves are fork-only and can NEVER be amended via this record (structural invariant). Recorded on the kotoba Datom log (append-only, permanent — ADR-2606062100 §2).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "amendsTier",
+          "riderSection",
+          "servesPriority",
+          "conformanceFinding",
+          "priorTextHash",
+          "proposedTextHash",
+          "councilUnanimous",
+          "tier0Immutable",
+          "serverHeldKey",
+          "proposedBy",
+          "attestedAt"
+        ],
+        "properties": {
+          "amendsTier": {
+            "type": "string",
+            "const": "tier-1",
+            "description": "INVARIANT — this attestation governs ONLY Tier-1 Derived Policy amendments. Only 'tier-1' is valid. (ADR-2606062100 §3)"
+          },
+          "tier0Immutable": {
+            "type": "boolean",
+            "const": true,
+            "description": "INVARIANT — a Tier-0 Priority (wellbecoming / multigen / collective / permanent-memory / tithe-exists) can NEVER be amended by this record; only fork (founding a different association) changes it. Only true is valid. → :charter.amend/tier0-immutable"
+          },
+          "riderSection": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "The Charter-Rider §2 clause being amended, e.g. '2(a)', '2(d)'. → :charter.amend/rider-section"
+          },
+          "servesPriority": {
+            "type": "string",
+            "enum": [
+              "wellbecoming_over_wellbeing",
+              "multigen_over_current",
+              "collective_over_individual",
+              "right_to_erasure_denied",
+              "permanent_record",
+              "deeds_public_intimate_encrypted",
+              "tithe_redistribution_exists"
+            ],
+            "description": "Which Tier-0 Priority the amendment is shown to serve. Maps 1:1 to the Constitution.sol Tier-0 constant keys. → :charter.amend/serves-priority"
+          },
+          "conformanceFinding": {
+            "type": "string",
+            "enum": ["serves-better", "serves-equally"],
+            "description": "INVARIANT — an amendment may only be attested if it serves the named Tier-0 priority BETTER or EQUALLY vs the text it replaces. 'serves-worse' is structurally unrepresentable (an amendment that degrades a priority can never be conformant). → :charter.amend/conformance"
+          },
+          "priorTextHash": {
+            "type": "string",
+            "maxLength": 66,
+            "description": "keccak256 (0x-prefixed hex) of the Rider text being replaced; ties to Constitution.sol license.charter_rider_text_hash. → :charter.amend/prior-hash"
+          },
+          "proposedTextHash": {
+            "type": "string",
+            "maxLength": 66,
+            "description": "keccak256 (0x-prefixed hex) of the proposed replacement text; becomes the new license.charter_rider_text_hash on ratification. → :charter.amend/proposed-hash"
+          },
+          "councilUnanimous": {
+            "type": "boolean",
+            "const": true,
+            "description": "INVARIANT — Tier-1 amendment requires Council Lv7+ UNANIMITY (全会一致), not supermajority. Only true is valid. (Preamble §0.7; with a one-member roster, unanimity = that member's assent.) → :charter.amend/unanimous"
+          },
+          "councilApprovals": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Count of Lv7+ member approvals recorded for this amendment (must equal the current Lv7+ member count for unanimity to hold). → :charter.amend/approvals"
+          },
+          "serverHeldKey": {
+            "type": "boolean",
+            "const": false,
+            "description": "INVARIANT — no-server-key; the attestation is member/Council-signed, never platform-signed. Only false is valid (ADR-2605231525). → :charter.amend/server-key"
+          },
+          "proposedBy": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the proposing member/Council seat. → :charter.amend/proposed-by"
+          },
+          "supersededAttestation": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional at-uri of a prior priorityConformanceAttestation this one supersedes (the record is append-only; supersession is a link, not a delete — 非終末論). → :charter.amend/supersedes"
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 3000,
+            "description": "Human-readable justification of why the amendment serves the Tier-0 priority at least as well as the prior text. → :charter.amend/rationale"
+          },
+          "attestedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the unanimous attestation was finalized. → :charter.amend/attested-at"
+          }
+        }
+      }
+    }
+  }
+}
