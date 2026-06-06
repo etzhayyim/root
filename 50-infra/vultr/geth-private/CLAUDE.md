@@ -29,7 +29,7 @@ etzhayyimRootIdentityRegistry and etzhayyimAgentRegistry, also listed in
 | Genesis hash | `0x944c4a5e5c95ddad221cd8cb5f2356628b88de9dcebdfbbd0b84d0d8b8ef4c13` |
 | Geth version | `ethereum/client-go:v1.13.15` (last release with native PoA support; v1.14+ requires external CL) |
 | Cluster | Vultr VKE `vke-a61d513b-…` (lax), namespace `geth-private` |
-| Node pool | `risingwave-pool-32gb` (shared with RisingWave; geth req 100m CPU / 256Mi) |
+| Node pool | `kotoba-pool-32gb` (shared with Kotoba/Datomic; geth req 100m CPU / 256Mi) |
 | Storage | 50 GiB Vultr Block Storage (`vultr-block-storage` SC) |
 | RPC (in-cluster) | `http://geth-private.geth-private.svc.cluster.local:8545` |
 | WS (in-cluster)  | `ws://geth-private.geth-private.svc.cluster.local:8546` |

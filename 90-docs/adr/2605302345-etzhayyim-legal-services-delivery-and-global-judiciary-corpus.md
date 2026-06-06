@@ -149,7 +149,7 @@ stay in the encrypted envelope (`com.etzhayyim.encrypted.*`, ADR-2605181100) unt
 
 ### D7. Substrate discipline
 
-kotoba-EAVT-native (ADR-2605262130; no RisingWave/projection layer); Murakumo-only inference
+kotoba-EAVT-native (ADR-2605262130; no Kotoba/Datomic/projection layer); Murakumo-only inference
 (ADR-2605215000) for any classification/summarization of corpus text; Apache-2.0 + Charter Rider; ingestion
 runs as an organism sensor (`pymagatama.organism.sensors.judiciary.*`) on heartbeat cadence.
 

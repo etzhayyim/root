@@ -105,7 +105,7 @@ graph = builder.compile(checkpointer=saver)
 > 本 ADR は既存実装を SSoT 認定する形に書き直した。
 
 **backend**: 既存 `pymagatama/langgraph_checkpoint_rw.py` の
-`RisingWaveCheckpointSaver` (LangGraph `BaseCheckpointSaver` 実装)。
+`Kotoba/DatomicCheckpointSaver` (LangGraph `BaseCheckpointSaver` 実装)。
 
 **Schema (既存 live)**:
 
@@ -167,8 +167,8 @@ match mode:
         from langgraph.checkpoint.postgres import PostgresSaver
         cp = PostgresSaver.from_conn_string(env.HYPERDRIVE_LANGGRAPH_URL)
     case "rw_vertex":
-        from pymagatama.langgraph_checkpoint_rw import RisingWaveCheckpointSaver
-        cp = RisingWaveCheckpointSaver()  # uses ensure_rw_async_pool()
+        from pymagatama.langgraph_checkpoint_rw import Kotoba/DatomicCheckpointSaver
+        cp = Kotoba/DatomicCheckpointSaver()  # uses ensure_rw_async_pool()
 graph = builder.compile(checkpointer=cp)
 ```
 

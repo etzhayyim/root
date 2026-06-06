@@ -33,16 +33,16 @@ Derived metrics:
 Run from `30-graph/graph-schema`:
 
 ```bash
-DATABASE_URL="$RW_URL" pnpm verify:gov-fetch
+DATABASE_URL="$KOTOBA_URL" pnpm verify:gov-fetch
 ```
 
 Limit to selected country/domain codes:
 
 ```bash
-GOV_FETCH_COVERAGE_DOMAINS=afg,rus,chl DATABASE_URL="$RW_URL" pnpm verify:gov-fetch
+GOV_FETCH_COVERAGE_DOMAINS=afg,rus,chl DATABASE_URL="$KOTOBA_URL" pnpm verify:gov-fetch
 ```
 
-If running locally, port-forward RisingWave first and rewrite the host to
+If running locally, port-forward Kotoba/Datomic first and rewrite the host to
 `127.0.0.1:4566`.
 
 ## Operational Interpretation

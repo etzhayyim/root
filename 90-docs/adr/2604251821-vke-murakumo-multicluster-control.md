@@ -15,7 +15,7 @@ related:
   - adr-2604251758-murakumo-yoro-actor-worker-fleet
   - adr-2604250836-langgraph-as-zeebe-servicetask
   - adr-0056-bpmn-as-actor
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0061-murakumo-platform-auth-unification
 supersedes: []
 superseded_by: []
@@ -24,7 +24,7 @@ superseded_by: []
 # Context
 
 Vultr Kubernetes Engine (VKE) is the managed cloud cluster that currently hosts
-RisingWave, Zeebe, mitama UDF workers, and other cloud-side services. Murakumo
+Kotoba/Datomic, Zeebe, mitama UDF workers, and other cloud-side services. Murakumo
 is now an 11-node Mac mini k3s cluster that runs per-node llama.cpp Vulkan
 inference and yoro/shinka actor workers.
 
@@ -54,14 +54,14 @@ placement contracts as declarative bootstrap inputs under
 
 | Cluster | Role | Owns |
 |---|---|---|
-| `vke-primary` | hub + cloud services | `risingwave`, `mitama-udf`, `zeebe-system`, public ingress, long-lived cloud PVCs |
+| `vke-primary` | hub + cloud services | `kotoba`, `mitama-udf`, `zeebe-system`, public ingress, long-lived cloud PVCs |
 | `murakumo-k3s` | private GPU/actor worker member | `murakumo-system`, `yoro-actors`, per-node llama.cpp Vulkan, Mac-local actor workers |
 
 ## Placement Rules
 
 | Workload class | Placement |
 |---|---|
-| RisingWave / metastore / B2-backed DB | `vke-primary` |
+| Kotoba/Datomic / metastore / B2-backed DB | `vke-primary` |
 | Zeebe broker/gateway | `vke-primary` initially; may move to `zeebe-system` on Murakumo only by new migration |
 | bpmn-dispatcher | `vke-primary` |
 | pyzeebe generic workers | `vke-primary` by default; actor-heavy workers can be propagated to Murakumo |
@@ -135,7 +135,7 @@ Trade-offs:
    `50-infra/multicluster/murakumo-vke/topology.yaml`.
 5. Apply placement policies for:
    - `murakumo-system` and `yoro-actors` → `murakumo-k3s`
-   - `risingwave`, `mitama-udf`, `zeebe-system` → `vke-primary`
+   - `kotoba`, `mitama-udf`, `zeebe-system` → `vke-primary`
 6. Verify:
    - both clusters report Ready in the hub
    - no resource is created in `default`
@@ -159,4 +159,4 @@ pod set. Service-local `/v1/models` returns `smollm2-vulkan`.
 - Do not expose the Murakumo kube-apiserver publicly for hub push-mode control.
 - Do not merge pod CIDRs or assume cross-cluster Service DNS.
 - Do not create fallback resources in `default`.
-- Do not move RisingWave storage to Murakumo Mac mini local disks.
+- Do not move Kotoba/Datomic storage to Murakumo Mac mini local disks.

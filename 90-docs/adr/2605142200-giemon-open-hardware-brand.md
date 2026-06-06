@@ -10,10 +10,10 @@ last_verified: 2026-05-14
 
 # ADR-2605142200 — Giemon オープンハードウェアブランド確立
 
-**Status**: Accepted  
-**Date**: 2026-05-14  
-**Authors**: Jun Kawasaki  
-**Supersedes**: —  
+**Status**: Accepted
+**Date**: 2026-05-14
+**Authors**: Jun Kawasaki
+**Supersedes**: —
 **Amended by**: ADR-2605142300 (Kaigo 応用プラットフォーム追加)
 
 ---
@@ -39,8 +39,8 @@ last_verified: 2026-05-14
 | 製品 3 | **Giemon Caterpillar** | 重装甲デュアルトラック UGV（380mm, LiDAR+ステレオカメラ） | 設計中 |
 | 応用 | **Giemon Kaigo** | 3製品を介護・住宅・Well-Being に統合するプラットフォーム (ADR-2605142300) | 開発中 |
 
-「おてて」は幼児語で手・腕を意味し、アームロボットの親しみやすさを表現する。  
-「人型」は文字通り人間型ロボットを指す。  
+「おてて」は幼児語で手・腕を意味し、アームロボットの親しみやすさを表現する。
+「人型」は文字通り人間型ロボットを指す。
 「キャタピラー」は無限軌道（クローラー）型 UGV。
 
 ### ドメイン

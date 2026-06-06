@@ -7,7 +7,7 @@ implementation landed.
 
 ## Preconditions
 
-- `RW_DSN` or `DATABASE_URL` is available to the operator.
+- `KOTOBA_URL` or `DATABASE_URL` is available to the operator.
 - SpiffWorkflow engine host is deployed and `/readyz` returns ready.
 - `pymagatama` image includes `pymagatama.spiff_moneyforward_worker`.
 - MoneyForward exports for the dual-run period are stored in encrypted vault/B2
@@ -17,9 +17,9 @@ implementation landed.
 
 ```bash
 cd 30-graph/graph-schema
-DATABASE_URL="$RW_DSN" pnpm db:migrate
-DATABASE_URL="$RW_DSN" pnpm db:gen
-DATABASE_URL="$RW_DSN" pnpm db:drift
+DATABASE_URL="$KOTOBA_URL" pnpm db:migrate
+DATABASE_URL="$KOTOBA_URL" pnpm db:gen
+DATABASE_URL="$KOTOBA_URL" pnpm db:drift
 ```
 
 Expected migration objects:

@@ -55,7 +55,7 @@
     {
       "snapshot_id": 1775714400000,
       "snapshot_ms": 1775714400000,
-      "summary": "2026-04-09 04:00 actor-unified-graph 1096 actors 32 fields η=0.935 (49 RisingWave columns)",
+      "summary": "2026-04-09 04:00 actor-unified-graph 1096 actors 32 fields η=0.935 (49 Kotoba/Datomic columns)",
       "data_file": "snapshots/snap-20260409-actor-unified-graph.parquet"
     },
     {

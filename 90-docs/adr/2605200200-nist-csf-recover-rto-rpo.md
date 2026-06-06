@@ -16,7 +16,7 @@ axis: security
 weight: 0.70
 depends_on:
   - adr-2605200000-nist-csf-respond-irp
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 related:
   - adr-2605200100-nist-csf-detect-prometheus-alerts
@@ -30,7 +30,7 @@ superseded_by: []
 ## Context
 
 分析 (2026-05-20) で RECOVER function が最弱であると判明:
-- RisingWave hourly meta backup CronJob は存在するが RTO/RPO SLA 未定義
+- Kotoba/Datomic hourly meta backup CronJob は存在するが RTO/RPO SLA 未定義
 - DR drill スクリプトは Linode エンドポイント (`sg-sin-1.linodeobjects.com`) のまま (ADR-0048 以降未更新)
 - バックアップ整合性テストの記録が 2026-04-15 (1ヶ月以上前) で停止
 - セカンダリリージョンなし (single region: Vultr LAX)
@@ -48,20 +48,20 @@ DR drill を定期実施する」決定を記録する。
 | **T0-Vault** | Cloudflare D1 (vault) | 15 min | 0 | CF managed replication |
 | **T0-PDS** | AT Protocol PDS (K8s pod) | 30 min | 1 h | pod 再スケジュール + record-log replay |
 | **T1-LangServer** | LangGraph Server pods | 10 min | 0 | stateless; checkpoint は RW に保存 |
-| **T1-RW** | RisingWave (domain data) | **2 h** | **1 h** | hourly meta snapshot + Foyer 30 min warm |
+| **T1-RW** | Kotoba/Datomic (domain data) | **2 h** | **1 h** | hourly meta snapshot + Foyer 30 min warm |
 | **T1-Defense** | defense-langgraph-server | 30 min | 1 h | pod 再起動 + RW 依存 |
 | **T2-AirGap** | (将来 T2) | 4 h | 1 h | on-prem cold-start |
 
 **RTO の起点**: インシデント IC が「復旧開始」を宣言した時点。
 **RPO の起点**: 最後の正常 write が確認できた時点。
 
-### 2. RisingWave DR 手順 (T1-RW の主シナリオ)
+### 2. Kotoba/Datomic DR 手順 (T1-RW の主シナリオ)
 
 ```
 Step 1  rw-health-gate.sh で現状確認 (5 min)
 Step 2  meta snapshot ID 確認: risectl meta list-meta-snapshots (2 min)
 Step 3  meta pod に対して restore-meta --dry-run (5 min)
-Step 4  compute/compactor 停止: kubectl scale sts risingwave-compute --replicas=0 (2 min)
+Step 4  compute/compactor 停止: kubectl scale sts kotoba-compute --replicas=0 (2 min)
 Step 5  meta pod restart で catalog 上書き (10 min)
 Step 6  compute 再起動: replicas=1 (5 min)
 Step 7  Foyer warm-up 待機: pod age >= 1800s (30 min)
@@ -82,8 +82,8 @@ blockchain に独立して存在するため RW 損失後も検証可能。
 | **Full restore drill** | 四半期 (手動) | `dr-restore-drill.sh --full` | catalog table 数 ≥ 前回実績 |
 | **Failover simulation** | 半年 | 手動 + 段階的 | RTO 目標内に復旧 |
 
-**DR drill の SSoT スクリプト**: `50-infra/vultr/risingwave/dr-restore-drill.sh`
-(Linode 版 `50-infra/linode/risingwave-iceberg/helm/dr-restore-drill.sh` から
+**DR drill の SSoT スクリプト**: `50-infra/vultr/kotoba/dr-restore-drill.sh`
+(Linode 版 `50-infra/linode/kotoba-iceberg/helm/dr-restore-drill.sh` から
 Vultr/B2 エンドポイントに移植済み)。
 
 ### 4. バックアップ整合性 KPI
@@ -105,16 +105,16 @@ Vultr/B2 エンドポイントに移植済み)。
 
 ## Consequences
 
-- RTO 2h / RPO 1h が RisingWave の公式 SLA になる
+- RTO 2h / RPO 1h が Kotoba/Datomic の公式 SLA になる
 - 毎月の dry-run drill で backup 整合性を継続確認できる
 - 四半期の full drill で実際の復旧手順を検証し rot を防ぐ
 - セカンダリリージョンは Phase 2 (T1 Sovereign 移行時) に Sakura Cloud で追加予定
 
 ## References
 
-- `50-infra/vultr/risingwave/dr-restore-drill.sh` — Vultr/B2 対応 DR drill スクリプト
-- `50-infra/vultr/risingwave/rw-meta-backup-cronjob.yaml` — hourly backup CronJob
-- `50-infra/vultr/risingwave/alerts/rw-critical.yaml` — backup stale アラート (追加済み)
-- `50-infra/linode/risingwave-iceberg/paths/backup-restore.md` — Linode 版 (参考)
+- `50-infra/vultr/kotoba/dr-restore-drill.sh` — Vultr/B2 対応 DR drill スクリプト
+- `50-infra/vultr/kotoba/rw-meta-backup-cronjob.yaml` — hourly backup CronJob
+- `50-infra/vultr/kotoba/alerts/rw-critical.yaml` — backup stale アラート (追加済み)
+- `50-infra/linode/kotoba-iceberg/paths/backup-restore.md` — Linode 版 (参考)
 - `90-docs/irp/dr-drill-log.md` — drill 実施記録 (初回: 2026-04-15, Linode)
-- ADR-0048: RisingWave Vultr+B2 primary
+- ADR-0048: Kotoba/Datomic Vultr+B2 primary

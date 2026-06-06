@@ -12,7 +12,7 @@
 両方とも:
 
 - Image: `ghcr.io/etzhayyim/pymagatama:ndl-oai-resident-...` (ndl-online-oai-resident と同一)
-- 接続: `mitama-udf-pool-rw` secret の `RW_URL` で Kotoba/Datomic 直接
+- 接続: `mitama-udf-pool-rw` secret の `KOTOBA_URL` で Kotoba/Datomic 直接
 - 実装: `pymagatama.ingest.maps_collection.{advance_coverage, refresh_coverage_stats}` を `asyncio.to_thread` で wrap して node にする
 - graph 定義は CronJob YAML 内 inline (image 再ビルド不要)
 

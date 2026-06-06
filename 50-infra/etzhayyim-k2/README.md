@@ -28,7 +28,7 @@ mutation** and **IPFS pinning** are etzhayyim-exclusive. The K2
 ecosystem currently lives partly in the vendor repo and partly
 on-chain via the private 260425 chain; under the substrate axis the
 chain-touching components migrate here while the off-chain compute
-(k8s pods, BPMN engines, RisingWave projections) stays vendor.
+(k8s pods, BPMN engines, Kotoba/Datomic projections) stays vendor.
 
 ## Components in migration scope
 

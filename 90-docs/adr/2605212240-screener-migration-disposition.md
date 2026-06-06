@@ -67,7 +67,7 @@ Constraints carried forward:
 - Migrated app count increments from 184 → 185.
 - DEFER count decrements from 2 → 1 (only `shinshi` remains).
 - No new substrate-boundary violation introduced (Next.js + Tailwind only;
-  no Stripe / RisingWave / @atproto/api direct imports detected at scan).
+  no Stripe / Kotoba/Datomic / @atproto/api direct imports detected at scan).
 
 # Alternatives Considered
 

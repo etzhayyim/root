@@ -1,6 +1,6 @@
 ---
 id: cohort-identity-posterior-mv-draft-260414
-title: "Cohort Identity Posterior MV — RisingWave DDL Draft (ADR-0026 Iter 2)"
+title: "Cohort Identity Posterior MV — Kotoba/Datomic DDL Draft (ADR-0026 Iter 2)"
 status: active
 doc_type: how-to
 topic: cohort-evaluation
@@ -53,7 +53,7 @@ WHERE collection = 'com.etzhayyim.cohort.evidence'
 GROUP BY cohort_did;
 
 -- Index for hot read (fission decision path)
--- RisingWave MV auto-indexes the GROUP BY key; no explicit CREATE INDEX needed.
+-- Kotoba/Datomic MV auto-indexes the GROUP BY key; no explicit CREATE INDEX needed.
 ```
 
 ## Required promoted columns (insert pipeline)
@@ -121,7 +121,7 @@ OCEL object list: `cohort` (cohort_did), `evidence` (evidence_hash), 条件に�
 1. `insert-columns.ts` に 7 列追加
 2. `migrations/0052_vertex_repo_record_cohort_columns.ts` / `0053_vertex_cohort_actor.ts` / `0054_cohort_identity_posterior_mv.ts` として確定
 3. `30-graph/graph-schema/CLAUDE.md` §Migration History を更新
-4. 本番 RisingWave に apply 完了
+4. 本番 Kotoba/Datomic に apply 完了
 5. `src/database.ts` に `MvCohortIdentityPosteriorRow` / `MvCohortKDriftRow` 型追加済
 
 # References

@@ -1,6 +1,6 @@
-# Vultr + B2 RisingWave 並行構成設計
+# Vultr + B2 Kotoba/Datomic 並行構成設計
 
-作成: 2026-04-21  
+作成: 2026-04-21
 ステータス: 提案
 
 ## 目的
@@ -21,9 +21,9 @@
 | **合計** | | **~$364/月** |
 
 **主要エンドポイント:**
-- RisingWave PG wire: `172.236.132.11:4566`
+- Kotoba/Datomic PG wire: `172.236.132.11:4566`
 - Hyperdrive binding: `e84c0a2babe44fc7b74818e394b4b896`
-- Hummock state: `hummock+s3://etzhayyim-iceberg/risingwave/state`
+- Hummock state: `hummock+s3://etzhayyim-iceberg/kotoba/state`
 - S3 endpoint: `https://sg-sin-1.linodeobjects.com`
 
 **S3 互換ワークアラウンド (Linode 固有):**
@@ -43,7 +43,7 @@ is_force_path_style=true
 Cloudflare Workers
   └── Hyperdrive (新 binding)
         └── Vultr VKE LoadBalancer :4566
-              └── RisingWave Pod (Vultr VKE)
+              └── Kotoba/Datomic Pod (Vultr VKE)
                     └── Hummock state store
                           └── Backblaze B2 ap-southeast-001
                                 └── bucket: etzhayyim-iceberg-b2
@@ -57,8 +57,8 @@ Cloudflare Workers
 | **本番同等 (コスト優先)** | High Performance AMD | 16 | 32 GB | ~$192 ※ |
 | **本番同等 (Dedicated)** | CPU Optimized | 16 | 32 GB | $320 |
 
-※ Vultr High Performance 16vCPU/32GB は Linode g6-dedicated-16 と同額だが **Shared vCPU**。  
-RisingWave の streaming workload では Dedicated が望ましい。  
+※ Vultr High Performance 16vCPU/32GB は Linode g6-dedicated-16 と同額だが **Shared vCPU**。
+Kotoba/Datomic の streaming workload では Dedicated が望ましい。
 初期並行テストは 8vCPU/16GB ($96) で問題ない。
 
 **VKE (Vultr Kubernetes Engine):** コントロールプレーン無料。ワーカーノード費用のみ。
@@ -70,7 +70,7 @@ RisingWave の streaming workload では Dedicated が望ましい。
 | リージョン | `us-west-004` (US West — B2 に AP リージョン未存在) |
 | バケット名 | `etzhayyim-nats` (既存 DR バックアップバケット流用) |
 | S3 エンドポイント | `https://s3.us-west-004.backblazeb2.com` |
-| Hummock state path | `hummock+s3://etzhayyim-nats/vultr/risingwave/state` |
+| Hummock state path | `hummock+s3://etzhayyim-nats/vultr/kotoba/state` |
 | Application Key ID | B2 アプリキーID (Keychain: `etzhayyim.b2`) |
 | Application Key | B2 アプリキー (Keychain: `etzhayyim.b2`) |
 
@@ -85,13 +85,13 @@ RisingWave の streaming workload では Dedicated が望ましい。
 is_force_path_style: false  # B2 は virtual-hosted style 対応
 ```
 
-### 2-4. RisingWave 環境変数差分
+### 2-4. Kotoba/Datomic 環境変数差分
 
 ```yaml
 # 変更箇所のみ (その他は現行 values.yaml を継承)
 env:
   - name: RW_STATE_STORE
-    value: "hummock+s3://etzhayyim-iceberg-b2/risingwave/state"
+    value: "hummock+s3://etzhayyim-iceberg-b2/kotoba/state"
   - name: AWS_REGION
     value: "ap-southeast-001"  # B2 region
   - name: AWS_ENDPOINT_URL
@@ -166,7 +166,7 @@ Vultr は B2 の **Bandwidth Ally** 公式パートナー。以下が無料:
 2. B2 バケット `etzhayyim-iceberg-b2` 作成 (ap-southeast-001)
 3. B2 Application Key 発行 → macOS Keychain `etzhayyim.b2` に登録
 4. Kubernetes Secret `b2-credentials` 作成
-5. RisingWave Helm デプロイ (B2 endpoint に向ける)
+5. Kotoba/Datomic Helm デプロイ (B2 endpoint に向ける)
 6. Hyperdrive 新規 binding 作成 → `HYPERDRIVE_VULTR` として worker に追加
 7. Linode B2 rclone バックアップから初期データリストア
 8. 読み書き動作確認 (psql + Hyperdrive)
@@ -184,7 +184,7 @@ Vultr は B2 の **Bandwidth Ally** 公式パートナー。以下が無料:
 ```
 50-infra/
   vultr/
-    risingwave/
+    kotoba/
       values.yaml          # Helm values (B2 endpoint 差分のみ)
       deploy.sh            # VKE デプロイスクリプト
       b2-secret.sh         # B2 credentials → K8s Secret 作成
@@ -199,6 +199,6 @@ Vultr は B2 の **Bandwidth Ally** 公式パートナー。以下が無料:
 |---|---|
 | B2 の AP リージョン不在 | B2 は US West / US East / EU Central / CA East のみ。Vultr SGP → B2 US West は ~150ms だが Hummock は非同期フラッシュ主体のため影響小 |
 | Hummock の S3 互換性 | B2 は AWS S3 API 完全互換。Linode 固有のワークアラウンド不要 |
-| Vultr HP は Shared vCPU | RisingWave compute は CPU バースト依存。本番は Dedicated ($320) を検討 |
+| Vultr HP は Shared vCPU | Kotoba/Datomic compute は CPU バースト依存。本番は Dedicated ($320) を検討 |
 | 初期データ投入 | Linode B2 DR バックアップ (rclone) から直接リストア可 → 既に B2 に 7.63 TB 存在 |
 | Foyer キャッシュ | emptyDir 32 GiB → VKE でも同様に設定可 |

@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.70
 priority_note: "SQLMesh が MV SQL の正本 (source of truth)。Kysely MV migration を段階的に置き換え。RW streaming MV は DDL チャネル経由で適用"
 authoritative_for:
-  - SQLMesh project structure for RisingWave MV definitions
+  - SQLMesh project structure for Kotoba/Datomic MV definitions
   - MV SQL source of truth (sqlmesh/models/*.sql)
   - Migration path from Kysely TypeScript MV to SQLMesh
   - SQLMesh state schema (_sqlmesh) separation from vertex_*/edge_*/mv_*
@@ -20,7 +20,7 @@ depends_on:
   - adr-2605080000-distributed-cognitive-actor-system
 related:
   - adr-2605080400-alembic-scope-contract
-  - adr-2605080700-graph-schema-live-risingwave-baseline
+  - adr-2605080700-graph-schema-live-kotoba-baseline
 amends: []
 amended_by: []
 supersedes: []
@@ -59,11 +59,11 @@ sqlmesh/models/*.sql     ← SQL source of truth for each MV
         ↓ sqlmesh plan
 Generated DDL diff       ← review (not auto-applied to RW)
         ↓ rw-health-gate.sh + psql
-RisingWave streaming MV  ← deployed MV (CREATE MATERIALIZED VIEW)
+Kotoba/Datomic streaming MV  ← deployed MV (CREATE MATERIALIZED VIEW)
 ```
 
-SQLMesh **does not** execute `CREATE MATERIALIZED VIEW` on RisingWave directly.
-RisingWave streaming MVs use an incremental computation engine that differs from
+SQLMesh **does not** execute `CREATE MATERIALIZED VIEW` on Kotoba/Datomic directly.
+Kotoba/Datomic streaming MVs use an incremental computation engine that differs from
 standard PostgreSQL MVs — they cannot be wrapped in a `CREATE TABLE AS SELECT`.
 
 Instead, SQLMesh:
@@ -100,8 +100,8 @@ GROUP BY 1
 
 SQLMesh's `kind = FULL` maps to `CREATE OR REPLACE TABLE AS SELECT` in
 execution, but here we use it as a **documentation contract** — the actual
-RisingWave DDL is `CREATE MATERIALIZED VIEW`. The dialect is `postgres` (closest
-to RisingWave's SQL).
+Kotoba/Datomic DDL is `CREATE MATERIALIZED VIEW`. The dialect is `postgres` (closest
+to Kotoba/Datomic's SQL).
 
 ### Rule 3: SQLMesh state lives in `_sqlmesh` schema
 
@@ -156,7 +156,7 @@ pip install "pymagatama[db-tools]"
 - Incremental migration path from Kysely without breaking existing deployments
 
 **Constraints**:
-- SQLMesh does not auto-apply streaming MVs to RisingWave; DDL is applied manually
+- SQLMesh does not auto-apply streaming MVs to Kotoba/Datomic; DDL is applied manually
 - Requires `rw-health-gate.sh` gate before any MV DDL change (existing constraint)
 - Heavy dep (60 MB+); must not enter the worker image
 
@@ -168,9 +168,9 @@ pip install "pymagatama[db-tools]"
 - `20-actors/magatama/py/sqlmesh/models/`
 - ADR-2605080300: SQLAlchemy Core Usage Contract
 - ADR-2605080400: Alembic Scope Contract
-- ADR-2605080700: graph-schema Live RisingWave Baseline
+- ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline
 - `30-graph/graph-schema/migrations/` (existing Kysely MV migrations)
-- `50-infra/vultr/risingwave/scaling-contract.yaml` (DDL gate)
+- `50-infra/vultr/kotoba/scaling-contract.yaml` (DDL gate)
 - `70-tools/scripts/ingest/rw-health-gate.sh`
 
 ---
@@ -178,7 +178,7 @@ pip install "pymagatama[db-tools]"
 ## Addendum 2026-05-08 — Baseline Interaction
 
 ADR-2605080700 changes the graph-schema baseline: new graph-schema DDL starts
-from the live RisingWave catalog, not from replaying Kysely migration history.
+from the live Kotoba/Datomic catalog, not from replaying Kysely migration history.
 For MV work, SQLMesh remains the source for model SQL and lineage, while the
-live RisingWave catalog plus `src/database.ts` drift gate remains the deployed
+live Kotoba/Datomic catalog plus `src/database.ts` drift gate remains the deployed
 schema truth.

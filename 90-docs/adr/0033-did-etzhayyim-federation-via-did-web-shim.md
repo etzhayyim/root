@@ -153,7 +153,7 @@ did.etzhayyim.com Worker は `vertex_etzhayyim_identity` から on-demand 生成
 ```
 
 - **Cache**: CF edge cache 60s (ADR-0023 multi-key rotation の propagation 窓と整合)
-- **Resolution**: `GET /{s0}/.../did.json` → D1 / RisingWave から `vertex_etzhayyim_identity`
+- **Resolution**: `GET /{s0}/.../did.json` → D1 / Kotoba/Datomic から `vertex_etzhayyim_identity`
   lookup → `federated=true` 確認 → did.json 生成 → 200 / 404 (非 federated or revoked)
 - **Depth**: recursive form (`/{s0}/.../{sN}/did.json`) は ancestor chain verify が成立
   (ADR-0029 resolver) した場合のみ 200
@@ -282,7 +282,7 @@ plc.directory への真の需要分 submit が残るため scale 問題が部分
 - `50-infra/cloudflare/workers/did-resolver/` 新規 Worker (`did.etzhayyim.com` route)
   - `GET /:h0/did.json` (depth 1)
   - `GET /:h0/:h1/did.json` ... (depth 2-6)
-  - D1 or RisingWave lookup → chain verify (ADR-0029 resolver ロジック再利用)
+  - D1 or Kotoba/Datomic lookup → chain verify (ADR-0029 resolver ロジック再利用)
   - edge cache 60s、revocation は cache-busting 不要 (TTL で propagate)
 - migration: `vertex_etzhayyim_identity` に `federated BOOLEAN DEFAULT false` + index
 - `70-tools/etzhayyim/etzhayyim/actor_federate.go` — `etzhayyim actor federate --did {did}` CLI

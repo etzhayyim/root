@@ -2,7 +2,7 @@
   "did": "did:web:etzhayyim.com:actor:watari",
   "handle": "watari.etzhayyim.com",
   "displayName": "Watari — World Live Moving-Craft (Ship + Aircraft) Knowledge Graph",
-  "description": "公開トランスポンダ放送のみ(船=AIS/AISStream, 航空機=ADS-B/OpenSky+adsb.fi)を kotoba Datom log に append-only as-of 軌跡として取込(最新 :craft.fix=現在地, fix 列=航跡, 非終末論; mutable 上書き行なし)。sea-lane/air-corridor/chokepoint/approach 集中を安全・衝突回避・混雑緩和・resilience へ。watatsuna(静的ケーブル)の動的兄弟で同一 chokepoint キー(海/空 path trilogy)。状況把握マップであって人の監視 feed でも target-list でもない(G4 craft は craft、人ではない; private yacht/jet 除外)。RisingWave/SQL 不使用(N5、legacy maps/vessel を supersede)。Per ADR-2606041827。",
+  "description": "公開トランスポンダ放送のみ(船=AIS/AISStream, 航空機=ADS-B/OpenSky+adsb.fi)を kotoba Datom log に append-only as-of 軌跡として取込(最新 :craft.fix=現在地, fix 列=航跡, 非終末論; mutable 上書き行なし)。sea-lane/air-corridor/chokepoint/approach 集中を安全・衝突回避・混雑緩和・resilience へ。watatsuna(静的ケーブル)の動的兄弟で同一 chokepoint キー(海/空 path trilogy)。状況把握マップであって人の監視 feed でも target-list でもない(G4 craft は craft、人ではない; private yacht/jet 除外)。Kotoba/Datomic/SQL 不使用(N5、legacy maps/vessel を supersede)。Per ADR-2606041827。",
   "avatar": "",
   "banner": "",
   "followersCount": 0,

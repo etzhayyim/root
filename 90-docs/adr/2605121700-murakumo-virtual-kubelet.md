@@ -34,5 +34,5 @@ We will integrate the Mac mini fleet into the Kubernetes cluster natively by dev
 ## 4. Consequences
 
 - **Security:** The `murakumo-agent` currently accepts plain HTTP on port 8888. Because it runs on a trusted, wired private LAN (`192.168.1.x`), this is acceptable for phase 1. Future phases may introduce mTLS or WireGuard overlays if the network trust boundary expands.
-- **State Persistence:** Pods running via the Virtual Kubelet do not support standard K8s PersistentVolumeClaims (PVCs). Applications must handle state externally (e.g., connecting to the cloud RisingWave instance via `RW_URL` over the internet).
+- **State Persistence:** Pods running via the Virtual Kubelet do not support standard K8s PersistentVolumeClaims (PVCs). Applications must handle state externally (e.g., connecting to the cloud Kotoba/Datomic instance via `KOTOBA_URL` over the internet).
 - **Scale-Out:** Scaling out involves deploying the agent to new Mac minis over SSH and spinning up a corresponding `murakumo-kubelet` process (or Pod) to bridge that IP into the cluster. This process has been automated via the `etzhayyim murakumo` CLI.

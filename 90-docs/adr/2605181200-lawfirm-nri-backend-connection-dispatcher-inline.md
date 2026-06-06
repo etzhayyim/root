@@ -175,10 +175,10 @@ Fix: `com.etzhayyim.apps.*` → `dispatcher.etzhayyim.com` (with `x-internal-tru
 
 Fix: `%(name)s` style に統一、`actor_did`、`status='invited'` を明示。
 
-### Bug 3 — RisingWave LIMIT $N + _q() tuple→dict (dispatcher_main.py)
+### Bug 3 — Kotoba/Datomic LIMIT $N + _q() tuple→dict (dispatcher_main.py)
 
 `lawyer_direct_handler` の `_q()` が `:name` → `%(lim)s` 変換後に psycopg3 が
-`LIMIT $1 OFFSET $2` として prepared statement に昇格 → RisingWave "Failed to prepare the statement"。
+`LIMIT $1 OFFSET $2` として prepared statement に昇格 → Kotoba/Datomic "Failed to prepare the statement"。
 また `sa_query()` が生タプルを返すのに全呼び出し元が `.get()` (dict アクセス) → `AttributeError`。
 
 Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。

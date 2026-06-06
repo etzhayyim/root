@@ -21,7 +21,7 @@ depends_on:
 related:
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
   - adr-2605091600-plasmid-graft-horizontal-tool-acquisition
-  - adr-2604262359-risingwave-multimodal-vector-search-topology
+  - adr-2604262359-kotoba-multimodal-vector-search-topology
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 supersedes: []
@@ -246,7 +246,7 @@ Pixal3D が primary に昇格するかは、Phase 3b の 100-sample 品質比較
 - ADR-2605091400 — MCP as cell-membrane / Lexicon XRPC demotion
 - ADR-2605091300 — Cultivar layer
 - ADR-2605091600 — Plasmid graft / horizontal tool acquisition
-- ADR-2604262359 — RisingWave vector substrate (vertex_vector_embedding_768)
+- ADR-2604262359 — Kotoba/Datomic vector substrate (vertex_vector_embedding_768)
 
 ## External
 

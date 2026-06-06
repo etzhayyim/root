@@ -32,7 +32,7 @@ For each of the 105 defence BPMNs:
 ```
 PDS (XRPC) → CF Worker (per-actor DID, Service Auth scoped)
                 ↓ Hyperdrive
-             RisingWave (vertex_open_defence_event INSERT, then audit emit)
+             Kotoba/Datomic (vertex_open_defence_event INSERT, then audit emit)
 ```
 
 Result:

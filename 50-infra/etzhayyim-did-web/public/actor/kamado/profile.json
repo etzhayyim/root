@@ -2,7 +2,7 @@
   "did": "did:web:etzhayyim.com:actor:kamado",
   "handle": "kamado.etzhayyim.com",
   "displayName": "Kamado — Closed-Loop Carbon Refining + Fossil-Refinery Decommissioning Observation",
-  "description": "石油精製プラントの actor・robotics への charter-clean な答え。竈=変成の炉(竈神/荒神); 装置は中立、炭素の出自(origin)と末路(fate)が多世代害を担う。実証(carbon_balance.py): 化石→燃焼経路は +3.50 tCO2e/t(地質貯留からの一方向 stock→flow = 真に多世代的)、ロボ高度制御を全投入しても +3.38(削減~3%)— ロボティクスは化石精製を『綺麗』にできても『無害』にはできず、純≤0 に届くのは feedstock を閉ループ炭素に変えた経路のみ。この結論を構造化: :fossil-virgin-crude は表現不能(:feedstock/class 不変条件 — schema enum + lexicon const + feedstock_guard.py)。kotoba Datom log 上の3つの顔: (A) 観測 — 製油所/装置/停止 + 転換準備度を resilience+transition マップとして(target-list ではない、G4); (B) §2(d) ロボティクス — 既存化石資産の安全な停止/除染/転換(→ hikari / 合成プラント / hodoki+kanayama); (C) 閉ループ合成精製 — バイオ/捕集CO2/リサイクル炭素のみ、各設計を D3 採点。legacy oil-refining(Cypher/RisingWave)を supersede。ZERO invariant amendments。",
+  "description": "石油精製プラントの actor・robotics への charter-clean な答え。竈=変成の炉(竈神/荒神); 装置は中立、炭素の出自(origin)と末路(fate)が多世代害を担う。実証(carbon_balance.py): 化石→燃焼経路は +3.50 tCO2e/t(地質貯留からの一方向 stock→flow = 真に多世代的)、ロボ高度制御を全投入しても +3.38(削減~3%)— ロボティクスは化石精製を『綺麗』にできても『無害』にはできず、純≤0 に届くのは feedstock を閉ループ炭素に変えた経路のみ。この結論を構造化: :fossil-virgin-crude は表現不能(:feedstock/class 不変条件 — schema enum + lexicon const + feedstock_guard.py)。kotoba Datom log 上の3つの顔: (A) 観測 — 製油所/装置/停止 + 転換準備度を resilience+transition マップとして(target-list ではない、G4); (B) §2(d) ロボティクス — 既存化石資産の安全な停止/除染/転換(→ hikari / 合成プラント / hodoki+kanayama); (C) 閉ループ合成精製 — バイオ/捕集CO2/リサイクル炭素のみ、各設計を D3 採点。legacy oil-refining(Cypher/Kotoba/Datomic)を supersede。ZERO invariant amendments。",
   "avatar": "",
   "banner": "",
   "followersCount": 0,

@@ -115,7 +115,7 @@ runs on the user's device.
 
 This is the highest-leverage **reasoning** move available at 2B
 scale. Not because we make Baien smarter, but because we **outsource
-recall to RisingWave** and let the trunk focus on synthesis.
+recall to Kotoba/Datomic** and let the trunk focus on synthesis.
 
 **Concrete steps**
 
@@ -231,6 +231,6 @@ Concrete first sprint (one H100 session, ≤ 12 hours wall clock):
 - ADR 2605091300 (cultivar layer)
 - ADR 2605091400 (cell-membrane / Lexicon demotion)
 - ADR 2605091600 (plasmid / horizontal tool acquisition)
-- ADR 2604262359 (RisingWave vector substrate)
+- ADR 2604262359 (Kotoba/Datomic vector substrate)
 - `00-contracts/lexicons/com/etzhayyim/apps/training/runBaienMultimodalGraft.json`
 - `20-actors/magatama/py/src/pymagatama/primitives/training_run.py:task_train_baien_graft_run`

@@ -53,7 +53,7 @@ launchd's process-group model cannot express these requirements cleanly:
 
 Parallel evidence: `50-infra/k8s/etzhayyim-organism/` has been running the CNS daemon as a Pod on orbstack k8s for 24+ hours without incident, and `50-infra/k8s/lg-open-unispsc/deployment.yaml` already specifies a complete Deployment manifest for the 18,342 UNSPSC agent XRPC façade (currently unapplied because it carries an ADR-2605172000 violation — see §Decision item 3).
 
-Additional constraint discovered 2026-05-23: the lg-open-unispsc manifest references `secretKeyRef: mitama-udf-pool-rw / RW_URL` for both `RW_URL` and `DATABASE_URL` env vars, plus `RW_SYNC_POOL=1`. This is a direct violation of ADR-2605172000 (RW-free substrate). Inspection of `pymagatama/langgraph_server_app.py` shows the RW dependency is confined to the `/readyz` DB probe (line 670-687); the XRPC façade itself, the UNSPSC graph registry, and the invoke pipeline never touch RisingWave. The contamination is therefore probe-only and removable without functional regression.
+Additional constraint discovered 2026-05-23: the lg-open-unispsc manifest references `secretKeyRef: mitama-udf-pool-rw / KOTOBA_URL` for both `KOTOBA_URL` and `DATABASE_URL` env vars, plus `RW_SYNC_POOL=1`. This is a direct violation of ADR-2605172000 (RW-free substrate). Inspection of `pymagatama/langgraph_server_app.py` shows the RW dependency is confined to the `/readyz` DB probe (line 670-687); the XRPC façade itself, the UNSPSC graph registry, and the invoke pipeline never touch Kotoba/Datomic. The contamination is therefore probe-only and removable without functional regression.
 
 ## Decision
 
@@ -70,7 +70,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 
 **(3) `50-infra/k8s/lg-open-unispsc/deployment.yaml` is decontaminated** in the same change set:
 
-- Remove env vars `RW_URL`, `DATABASE_URL`, `RW_SYNC_POOL` and the `mitama-udf-pool-rw` secretRef
+- Remove env vars `KOTOBA_URL`, `DATABASE_URL`, `RW_SYNC_POOL` and the `mitama-udf-pool-rw` secretRef
 - Switch readinessProbe target from `/xrpc/com.etzhayyim.apps.unispsc.health` (which transitively touches RW via `/readyz`) to `/healthz` (graph registry counts only, no DB)
 - Add env vars `ETZ_SUBSTRATE=kotoba-datomic`, `ETZ_CHECKPOINTER_SOCKET=/run/etzhayyim/checkpointer.sock` as forward-compatible markers for Stage 2 (Pod sidecar wiring of `@etzhayyim/sdk` MstCheckpointSaver — not in this ADR scope)
 - Comment-link the new ADR ID in the manifest header

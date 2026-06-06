@@ -79,7 +79,7 @@ class only, LangGraph Server may route inference to the Murakumo Mac mini fleet
 as the **L8 Somatic Inference Layer** when all conditions hold:
 
 - the actor identity, checkpoint, memory, and objective state remain in DID +
-  LangGraph thread + RisingWave
+  LangGraph thread + Kotoba/Datomic
 - Murakumo is used only as an OpenAI-compatible inference organ, not as the
   authoritative actor subject
 - the route is explicit (`LLAMA_BASE_URL` / `etzhayyim_LLM_URL`) and observable

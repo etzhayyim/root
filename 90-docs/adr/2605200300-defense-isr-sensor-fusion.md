@@ -9,7 +9,7 @@ last_verified: 2026-05-20
 authoritative_for:
   - defense ISR track ingest and sensor fusion
   - defIsr lexicon NSID namespace
-  - mv_defense_fused_cop RisingWave streaming MV
+  - mv_defense_fused_cop Kotoba/Datomic streaming MV
   - vertex_defense_track / edge_defense_track_fusion schema
   - COP (Common Operating Picture) latency contract (<5s)
 priority: 8.5
@@ -18,7 +18,7 @@ weight: 0.85
 depends_on:
   - adr-2605190100-defense-cluster-topology
   - adr-2605200100-defense-mission-orchestration-lattice
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 related:
   - adr-2605200200-defense-platform-control-autonomous
@@ -55,7 +55,7 @@ Anduril Lattice センサー融合相当のトラックインジェスト・マ�
 | confidencePermille | integer | 0–1000 (‰) |
 | classificationLevel | integer | 2–4 |
 
-### センサー融合 (RisingWave Streaming MV)
+### センサー融合 (Kotoba/Datomic Streaming MV)
 
 ```sql
 -- mv_defense_fused_cop
@@ -65,7 +65,7 @@ Anduril Lattice センサー融合相当のトラックインジェスト・マ�
 ```
 
 `vertex_defense_track` → streaming MV `mv_defense_fused_cop` → COP API レスポンス。
-レイテンシ目標: **< 5 秒** (RisingWave streaming MV)。
+レイテンシ目標: **< 5 秒** (Kotoba/Datomic streaming MV)。
 
 ### LangGraph グラフ
 
@@ -74,7 +74,7 @@ Anduril Lattice センサー融合相当のトラックインジェスト・マ�
 - `correlate_tracks` ノード: RW MV クエリで近接エンティティ取得
 - `emit_fused_entity` ノード: 融合エンティティ生成 + `edge_defense_track_fusion` INSERT
 
-### RisingWave スキーマ
+### Kotoba/Datomic スキーマ
 
 ```
 vertex_defense_track         — センサートラックノード
@@ -84,7 +84,7 @@ mv_defense_fused_cop         — 融合 COP streaming MV
 
 ## Consequences
 
-- RisingWave streaming MV により < 5 秒レイテンシの近リアルタイム COP を実現
+- Kotoba/Datomic streaming MV により < 5 秒レイテンシの近リアルタイム COP を実現
 - radar / EO-IR 相関融合でファルスポジティブを削減
 - classification ≥ 2 必須; 全トラックデータは signal:v1 暗号化対象 (level ≥ 2)
-- ingest 頻度は RisingWave B2 quota 制約を受ける (bulk ingest は `SET dml_rate_limit` 必須)
+- ingest 頻度は Kotoba/Datomic B2 quota 制約を受ける (bulk ingest は `SET dml_rate_limit` 必須)

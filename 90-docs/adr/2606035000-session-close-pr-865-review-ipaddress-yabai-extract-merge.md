@@ -88,7 +88,7 @@ this follow-up registers them on `main`:
 - **monorepo-health** CI is red on `main` for reasons unrelated to this work
   (`sanae.*` missing lexicons, `gov.*` orphan lexicons, dependabot) — none in
   the merged diff; pre-existing debt.
-- ADR-2605301400 **§T4** dual-read set-equality + legacy RisingWave retirement
+- ADR-2605301400 **§T4** dual-read set-equality + legacy Kotoba/Datomic retirement
   remain Council Lv6+ gated; this session shipped substrate + active ingest
   only, on bounded `:representative` seeds.
 

@@ -91,7 +91,7 @@ This ADR creates that actor: **取次 (toritsugi)**.
 
 Create **取次 toritsugi** as a Tier-B actor at
 `did:web:toritsugi.etzhayyim.com` (`20-actors/toritsugi/`), kotoba-EAVT-native
-(ADR-2605262130; no RisingWave / no projection layer), Murakumo-only inference
+(ADR-2605262130; no Kotoba/Datomic / no projection layer), Murakumo-only inference
 (ADR-2605215000), atproto/MST-native for member-facing channels.
 
 ## §1 Scope (per founder decision 2026-05-31: option 1 + 2)
@@ -256,7 +256,7 @@ ratification.
   member's personal knowledge graph (with consent).
 - **`com.etzhayyim.encrypted.*` (ADR-2605181100)**: the only home for member PII.
 - **kotoba EAVT (ADR-2605262130)**: procedure catalog + guide/draft/submission
-  lifecycle datoms; no RisingWave / no projection layer.
+  lifecycle datoms; no Kotoba/Datomic / no projection layer.
 
 ## §8 Roadmap
 
@@ -327,7 +327,7 @@ ratification.
 - ADR-2605302000 (warifu — 手数料 settlement)
 - ADR-2605301600 (danjo — oversight counterpart)
 - ADR-2605181100 (confidentiality — encrypted PII envelopes)
-- ADR-2605262130 (kotoba storage substrate — no RisingWave)
+- ADR-2605262130 (kotoba storage substrate — no Kotoba/Datomic)
 - ADR-2605231525 (no platform-held signing key)
 - ADR-2605192100 §1.12 / §1.16 / §2(c) (mission charter)
 - ADR-2605192200 (Charter Rider) · ADR-2605192300 (Bootstrap Council)

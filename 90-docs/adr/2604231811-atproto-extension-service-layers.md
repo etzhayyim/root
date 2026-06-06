@@ -75,7 +75,7 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 | # | Layer | 責務 | 本 repo の実体 |
 |---|---|---|---|
 | 1 | **PDS** (Personal Data Server) | repo commit + blob + identity | `atproto.etzhayyim.com` の PDS 部 (pipethrough 先の `etzhayyim-pds`) |
-| 2 | **AppView** | indexed view for an app lexicon | yoro AppView (`app.bsky.*` indexed view、graph Worker + RisingWave) |
+| 2 | **AppView** | indexed view for an app lexicon | yoro AppView (`app.bsky.*` indexed view、graph Worker + Kotoba/Datomic) |
 | 3 | **Relay** (BGS) | firehose 集約 | (未運用、Bluesky 公式依存) |
 | 4 | **Entryway** (Authorization Server) | OAuth / DPoP / PAR / PKCE | `atproto.etzhayyim.com` の OAuth handler 部 (ADR-2604231800) |
 | 5 | **Feed Generator** | `app.bsky.feed.getFeedSkeleton` | 未運用 |

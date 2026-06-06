@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-20
 authoritative_for:
   - Prometheus alert rule SSoT (PrometheusRule CRDs)
-  - RisingWave operational alert thresholds
+  - Kotoba/Datomic operational alert thresholds
   - defense cluster security alert thresholds
   - NIST CSF 2.0 DETECT function implementation
 priority: 7.5
@@ -16,7 +16,7 @@ axis: security
 weight: 0.75
 depends_on:
   - adr-2605200000-nist-csf-respond-irp
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-2605190100-defense-cluster-topology
 related:
   - adr-2605200200-nist-csf-recover-rto-rpo   # 将来 ADR
@@ -30,7 +30,7 @@ superseded_by: []
 
 分析 (2026-05-20) で NIST CSF 2.0 DETECT function の実装状況:
 - Prometheus metrics は `pydefense/metrics.py` に存在する (clearance rejections, risk score, EVM audit)
-- RisingWave のインシデント事後分析 (`260425-postmortem.md §6.4`) でアラートルールが提案されたが **未コミット**
+- Kotoba/Datomic のインシデント事後分析 (`260425-postmortem.md §6.4`) でアラートルールが提案されたが **未コミット**
 - kube-prometheus-stack は Vultr VKE に導入済み (`helmfile.yaml`, `monitoring` namespace)
 - `ruleSelectorNilUsesHelmValues: false` + `ruleNamespaceSelector: matchLabels: {}` → 全 namespace の PrometheusRule を自動収集
 
@@ -42,13 +42,13 @@ superseded_by: []
 
 | ファイル | 対象 | namespace |
 |---|---|---|
-| `50-infra/vultr/risingwave/alerts/rw-critical.yaml` | RisingWave インフラ | `risingwave` |
+| `50-infra/vultr/kotoba/alerts/rw-critical.yaml` | Kotoba/Datomic インフラ | `kotoba` |
 | `50-infra/vultr/ops/defense-alerts.yaml` | defense actor セキュリティ | `murakumo-system` |
 
 追加のアラートは対象サービスの `50-infra/vultr/<service>/alerts/` 配下に置く。
 グローバルなセキュリティアラートは `50-infra/vultr/ops/` に集約する。
 
-### RisingWave 重要アラート (postmortem §6.4 実装)
+### Kotoba/Datomic 重要アラート (postmortem §6.4 実装)
 
 | Alert | 閾値 | Severity | 根拠 |
 |---|---|---|---|
@@ -76,7 +76,7 @@ superseded_by: []
 | CSF Category | 実装 |
 |---|---|
 | DE.AE (Anomalies & Events) | clearance rejection burst アラート |
-| DE.CM (Continuous Monitoring) | RisingWave health + EVM audit chain monitoring |
+| DE.CM (Continuous Monitoring) | Kotoba/Datomic health + EVM audit chain monitoring |
 | DE.AE-4 (Impact) | supply chain risk score histogram |
 
 ### pydefense ServiceMonitor
@@ -104,5 +104,5 @@ Alertmanager routing config は `helmfile.yaml` の `alertmanager:` セクショ
 - `90-docs/260425-vultr-cache-refill-drift-postmortem.md §6.4`
 - `20-actors/defense/py/src/pydefense/metrics.py`
 - `50-infra/vultr/helmfile.yaml` (`kube-prometheus-stack`)
-- `50-infra/vultr/risingwave/alerts/rw-critical.yaml`
+- `50-infra/vultr/kotoba/alerts/rw-critical.yaml`
 - `50-infra/vultr/ops/defense-alerts.yaml`

@@ -141,7 +141,7 @@ Placement registry は 1 箇所の config 変更で全 slot に波及 (O(1) chan
 
 広告主アカウント (path-DID per campaign per ADR-0019) が **通常の `app.bsky.feed.post`** を投稿し、self-label `!ad` を付与する。投稿は firehose に乗って federate する。他 AppView は labeler 経由で `!ad` を除外可能 (Bluesky standard flow)。
 
-ADR-0036 allowlist: `app.bsky.feed.post` は federable に含まれているため違反なし。Ad metadata (impression / click / campaign bid) は AT Repo に書かず **RisingWave direct** (ADR-0036 §graph-first write path)。
+ADR-0036 allowlist: `app.bsky.feed.post` は federable に含まれているため違反なし。Ad metadata (impression / click / campaign bid) は AT Repo に書かず **Kotoba/Datomic direct** (ADR-0036 §graph-first write path)。
 
 ### Architecture
 
@@ -192,7 +192,7 @@ score = 0.5 · (viewer follows advertiser)
 | Federate? | No (iframe) | Yes (`app.bsky.feed.post` + `!ad` label) |
 | UI | 矩形 creative | 通常 post UI + "Sponsored" pill |
 | Filter | Cookie consent decline | Labeler で `!ad` 除外 |
-| Ad click telemetry | 3rd party | RisingWave direct (将来 advectors backend) |
+| Ad click telemetry | 3rd party | Kotoba/Datomic direct (将来 advectors backend) |
 
 ### User Control
 
@@ -240,7 +240,7 @@ B の 3 XRPC を `atQuery` / `atProcedure` で叩く。Auth は yoro セッシ�
 
 1. Campaign DID を `SPONSORED_DIDS[]` に登録する運用フロー (手動 or `ads.listCampaigns` を yoro 起動時に fetch して動的注入)
 2. advectors backend (別 project) — `com.etzhayyim.apps.advectors.listCandidates` (AppView-side auction + ML ranker) で client-side heuristic を置換
-4. Ad click telemetry pipeline — click event → RisingWave direct (ADR-0036)
+4. Ad click telemetry pipeline — click event → Kotoba/Datomic direct (ADR-0036)
 5. Per-advertiser mute — Tier 3 Preferences に格納、"Why this ad?" link を `/settings/ads` に接続
 6. Labeler 対応 — yoro labeler が `!ad` を既知 label として登録、他 AppView もこれを購読すれば除外可能
 7. AdSense 管理画面で各 placement に対応する ad unit を作成し `AD_SLOTS[*].id` を埋める

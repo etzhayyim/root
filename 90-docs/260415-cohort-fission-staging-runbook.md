@@ -19,7 +19,7 @@ ADR-0026 cohort lifecycle (Phase A→B→C) を staging 環境で end-to-end 動
 
 # Prerequisites
 
-- Migrations 0052/0053/0054/0056 が staging RisingWave に apply 済
+- Migrations 0052/0053/0054/0056 が staging Kotoba/Datomic に apply 済
 - PDS deploy 済 (handlers/etzhayyim/cohort.ts + agent/cohort-watchdog.ts)
 - `etzhayyim authn signin` で session token 取得済
 - staging PDS URL: 通常 `https://atproto.etzhayyim.com` (本番と分離する場合は `--pds` flag)
@@ -77,7 +77,7 @@ etzhayyim_TOKEN=$AT_TOKEN etzhayyim cohort emit \
   --posterior 0.97 --judge=true
 ```
 
-verify mv 反映 (RisingWave streaming, ~1s lag):
+verify mv 反映 (Kotoba/Datomic streaming, ~1s lag):
 
 ```bash
 etzhayyim cohort evidence --cohort "$COHORT" --min-posterior 0.95 --judge true
@@ -158,7 +158,7 @@ SQL
 |---|---|
 | `posterior must be >= 0.95` error on fission | check `--posterior` value; gate enforced server-side |
 | `cohort fission_enabled=false` error | watchdog disabled it — check `mv_cohort_k_drift` for k_proxy < 50 |
-| MV not updating | check RisingWave compute pod logs, possibly OOM |
+| MV not updating | check Kotoba/Datomic compute pod logs, possibly OOM |
 | edge_cohort_derived missing | `etzhayyim cohort repair-edge --did <fissioned> --dry-run=false` |
 
 # References

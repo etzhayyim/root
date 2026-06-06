@@ -895,7 +895,7 @@
     },
     "/xrpc/com.etzhayyim.yoro.actor.getProfile": {
       "get": {
-        "summary": "Get detailed profile view for an actor. Yoro AppView endpoint — queries RisingWave directly, returns W Protocol extensions (performerType, uiType, embedUrl, capabilities).",
+        "summary": "Get detailed profile view for an actor. Yoro AppView endpoint — queries Kotoba/Datomic directly, returns W Protocol extensions (performerType, uiType, embedUrl, capabilities).",
         "operationId": "com.etzhayyim.yoro.actor.getProfile",
         "parameters": [
           {
@@ -929,7 +929,7 @@
     },
     "/xrpc/com.etzhayyim.yoro.actor.searchActors": {
       "get": {
-        "summary": "Search for actors with agent-first ranking. Yoro AppView endpoint — queries RisingWave directly with W Protocol extensions (performerType, sensitivity).",
+        "summary": "Search for actors with agent-first ranking. Yoro AppView endpoint — queries Kotoba/Datomic directly with W Protocol extensions (performerType, sensitivity).",
         "operationId": "com.etzhayyim.yoro.actor.searchActors",
         "parameters": [
           {

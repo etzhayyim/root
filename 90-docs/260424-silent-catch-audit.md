@@ -66,5 +66,5 @@ Plus **3 `Promise.allSettled`** call sites (`mcp-adapter.ts`, `handlers/appview/
 
 ## Related
 
-- `90-docs/260424-bsky-compat-risingwave-split.md` — MST context
+- `90-docs/260424-bsky-compat-kotoba-split.md` — MST context
 - `90-docs/260420-pds-commit-seq-race-analysis.md` — seq race analysis (core.ts:2705+ block)

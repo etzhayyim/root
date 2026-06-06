@@ -77,7 +77,7 @@ pre-religious-corp commercial-fund era left several legacy scripts at
 `gleif-bulk-ingest.mjs` / `lg-isin-listed-company-ingest-langserver.mjs`
 plus ADR-2604291500 (jp-corporate-financial-disclosure) and
 ADR-2605150000 (lg-isin-listed-company), but none of these were
-migrated to the religious-corp substrate (RisingWave/Postgres-bound,
+migrated to the religious-corp substrate (Kotoba/Datomic/Postgres-bound,
 not DataLad+IPFS; pre-Charter-Rider; pre-passive-only-discipline; no
 sensor abstraction; no Tier ladder; no ossekai consumer wiring).
 

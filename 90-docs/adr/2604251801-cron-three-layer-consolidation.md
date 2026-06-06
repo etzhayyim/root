@@ -43,7 +43,7 @@ Shannon η の観点で集約する必要がある。
 
 ## 1. k8s CronJob — infra / batch / backup
 
-**役割**: クラスタ内部リソース (RisingWave / B2 / OSM / 医療データ) を
+**役割**: クラスタ内部リソース (Kotoba/Datomic / B2 / OSM / 医療データ) を
 直接触る、長尺バッチ・バックアップ・大容量 ingest。
 
 **選定基準**:

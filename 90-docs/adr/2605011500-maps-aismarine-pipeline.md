@@ -16,13 +16,13 @@ authoritative_for:
 related:
   - adr-0017-maritime-energy-cluster-topology
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0044-risingwave-udf-language-strategy
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-0044-kotoba-udf-language-strategy
+  - adr-0048-kotoba-vultr-b2-primary
   - adr-0056-bpmn-as-actor
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-2604280900-maps-transit-pipeline-gtfs-rt
   - adr-2604282300
-  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - adr-2604241342-kotoba-out-of-band-migration-pattern
 ---
 
 # ADR-2605011500 — Maps AIS Marine Vessel Tracking Pipeline
@@ -77,7 +77,7 @@ Add to existing `maps-ui-uqpel6i6` Worker (no new Worker, ADR-2604282300):
 
 All four use `createKyselyDb(env.HYPERDRIVE)` (ADR-0036 read path). No PDS pipethrough.
 
-### Layer 4: RisingWave schema
+### Layer 4: Kotoba/Datomic schema
 
 Single migration `20260501XXXXXX_vertex_aismarine_phase1.ts`:
 
@@ -235,7 +235,7 @@ def task_aismarine_query_bbox(bbox, types, limit)
 | Master enrichment: paid (VT Explorer / IHS) vs open AIS-only | **AIS-only** | Open-only constraint; AIS Type-5 broadcast covers MMSI/IMO/name/dims; gaps acceptable |
 | Geo filter: bbox subscribe vs global | **global** | Operator decision; aisstream global subscribe ~100-500 msg/s is within single-replica budget |
 | Consumer placement: BPMN timer-start vs K8s Deployment | **K8s Deployment** | WebSocket is persistent; timer-start would handshake per fire and drop in-flight messages |
-| Position table partition: time-range vs append | **append-only, no partition (Phase 1)** | RisingWave Hummock cold-tiering handles aging; partitioning deferred until row count justifies |
+| Position table partition: time-range vs append | **append-only, no partition (Phase 1)** | Kotoba/Datomic Hummock cold-tiering handles aging; partitioning deferred until row count justifies |
 | Read path: PDS pipethrough vs Worker-direct Hyperdrive | **Worker-direct** | ADR-0036 mandates domain reads via Hyperdrive; PDS reserved for social/federation/messaging/vault/signal |
 | Tile rendering: PMTiles bake vs live MV | **live MV** | `tileGeoJson` XRPC + `mv_vessel_density_h3_r6` matches recent decision to retire PMTiles (ADR-2604280900 superseded `maps-tile-server-deploy`) |
 
@@ -253,7 +253,7 @@ def task_aismarine_query_bbox(bbox, types, limit)
 
 - **`aisStreamConsumer.bpmn` is a stub**: it exists in the BPMN catalog for actor-discovery uniformity (ADR-0056) but contains no executable tasks. The actual consumer is the K8s Deployment. This is the only non-executable BPMN in the maps catalog; flagged here to preempt drift.
 - **`SET dml_rate_limit` is required for the consumer batch path** even though it normally applies only to bulk-backfill. AIS bursts at port arrivals (e.g. Singapore Strait) can spike to >2000 msg/s and would otherwise saturate B2 SlowDown thresholds (ADR-0048 §incident_2026_04_25 retraction).
-- **`mv_vessel_latest_position` cannot use `DISTINCT ON`** (RisingWave limitation). Use the documented "MAX subquery + JOIN" pattern from ADR-2604241342.
+- **`mv_vessel_latest_position` cannot use `DISTINCT ON`** (Kotoba/Datomic limitation). Use the documented "MAX subquery + JOIN" pattern from ADR-2604241342.
 
 ## Implementation Order (single ADR, four sequential PRs)
 
@@ -266,7 +266,7 @@ Each PR is independently deployable. Live cutover is at PR-D (consumer start).
 
 ## Addendum 2026-05-05 — Phase 1 RW 2.8.1 compatibility deltas
 
-During runbook step-1 cutover (2026-05-05) three RisingWave 2.8.1 limitations
+During runbook step-1 cutover (2026-05-05) three Kotoba/Datomic 2.8.1 limitations
 were hit. Phase 1 absorbs the deltas; Phase 2 will re-introduce the original
 design once the upstream RW gaps are filled.
 
@@ -335,11 +335,11 @@ migration.
 
 - ADR-0017 — Maritime + Energy Cluster Topology (vertex_open_ports, oil tanker)
 - ADR-0036 — Worker-direct Hyperdrive Persistence (write path)
-- ADR-0044 — RisingWave UDF Language Strategy (SQL UDF for type_class / flag_iso)
-- ADR-0048 — RisingWave Vultr+B2 Primary (dml_rate_limit, B2 SlowDown lessons)
+- ADR-0044 — Kotoba/Datomic UDF Language Strategy (SQL UDF for type_class / flag_iso)
+- ADR-0048 — Kotoba/Datomic Vultr+B2 Primary (dml_rate_limit, B2 SlowDown lessons)
 - ADR-0056 — BPMN-as-actor (process_def + lexicon_binding pattern)
 - ADR-2604251830 — Shannon-Optimal 8-Layer Architecture (CF=L1-L3 only)
 - ADR-2604280900 — Maps Transit Pipeline (sister pipeline, same shape)
 - ADR-2604282300 — CF Worker = Edge Layer Only (T1/T2/T3 placement)
-- ADR-2604241342 — RisingWave Migration Failure Modes (DISTINCT ON, ON CONFLICT)
+- ADR-2604241342 — Kotoba/Datomic Migration Failure Modes (DISTINCT ON, ON CONFLICT)
 - aisstream.io API docs (free WebSocket AIS relay)

@@ -156,7 +156,7 @@ each with independent failure modes:
 
 | Layer | Provider | Independence guarantee |
 |---|---|---|
-| L0 | RisingWave hot (Hyperdrive direct, ADR-0036) | DB layer |
+| L0 | Kotoba/Datomic hot (Hyperdrive direct, ADR-0036) | DB layer |
 | L1 | AT Protocol PDS repo record | Federation layer |
 | L2 | IPFS self-hosted cluster | Self-controlled CID |
 | L3 | IPFS external pinning (Pinata + Filebase + Web3.Storage) | 3-vendor minimum |
@@ -251,7 +251,7 @@ maps cleanly to lex-stratified tiers without overlap.
 
 ## Alt 3: Single-layer persistence (rejected)
 
-Storing karma only in RisingWave (or only in AT Protocol) creates
+Storing karma only in Kotoba/Datomic (or only in AT Protocol) creates
 a single point of failure. Rejected because the security model
 demands cryptographic independence across providers — a single
 hostile actor (or service shutdown) must not be able to erase

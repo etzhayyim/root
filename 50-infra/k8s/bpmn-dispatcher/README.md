@@ -41,7 +41,7 @@ reconciled with the canonical `pymagatama.dispatcher_main` source in
    with the pymagatama image built from `etzhayyim/20-actors/magatama/py/`.
 4. **Secrets**: provision in namespace `mitama-udf` —
    `bpmn-dispatcher-auth` (`INTERNAL_SECRET`),
-   `bpmn-dispatcher-rw` (`RW_URL`, see Substrate boundary below),
+   `bpmn-dispatcher-rw` (`KOTOBA_URL`, see Substrate boundary below),
    `lawfirm-stripe` + `public-malak-r2-creds` + `lg-pregel-secrets`
    (optional refs).
 5. **Apply**: `kubectl apply -f .` from this directory.
@@ -60,7 +60,7 @@ rule "MUST NOT integrate fiat payment processors":
 | Env var (inherited) | Why preserved | Cleanup path |
 |---|---|---|
 | `STRIPE_US_API_KEY` / `STRIPE_JP_API_KEY` / `STRIPE_IN_API_KEY` / `STRIPE_PUBLIC_KEY` / `STRIPE_WEBHOOK_SECRET` | `pymagatama.primitives.lawfirm_checkout` / `lawfirm_billing` / `ingest.stripe` still reference them | pymagatama Stripe extraction (track in `deps.toml [[migrations]]`); after extraction drop the entire STRIPE_* block |
-| `RW_URL` | `pymagatama.db_sync` uses Kotoba/Datomic for `vertex_bpmn_lexicon_binding` lookup | Migrate binding registry to AT MST records or IPFS; after migration drop `RW_URL` + `RW_*_GUARD` block |
+| `KOTOBA_URL` | `pymagatama.db_sync` uses Kotoba/Datomic for `vertex_bpmn_lexicon_binding` lookup | Migrate binding registry to AT MST records or IPFS; after migration drop `KOTOBA_URL` + `RW_*_GUARD` block |
 
 These were already present in pymagatama at the time of its etzhayyim
 migration; this iter does not introduce new violations. Substrate purity

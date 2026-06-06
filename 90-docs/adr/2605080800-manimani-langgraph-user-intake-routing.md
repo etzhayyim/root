@@ -37,7 +37,7 @@ related: []
 # ADR-2605080800: manimani LangGraph User Intake & Project Routing Pipeline
 
 > **⚠️ 2026-05-29 — substrate/runtime/inference layers SUPERSEDED by ADR-2605291100.**
-> RisingWave/Hyperdrive persistence, Anthropic-direct / RunPod vLLM inference, and the
+> Kotoba/Datomic/Hyperdrive persistence, Anthropic-direct / RunPod vLLM inference, and the
 > Python LangGraph Server + Granian pool described below are now constitutionally prohibited
 > (ADR-2605262130 kotoba; ADR-2605215000 Murakumo-only). The reconciled design maps manimani
 > onto kotoba EAVT datoms + kotoba StateGraph + Murakumo LiteLLM + Signal E2E, and adds the
@@ -56,7 +56,7 @@ user が自分の頭の中にある断片 (text / link / file への参照) を 
 ### In scope (Phase A — 本 ADR で contract を確定)
 
 - T3 actor `manimani.etzhayyim.com` (CF Worker edge facade + LangGraph Server execution) の定義
-- 4 vertex + 1 edge + 2 MV の RisingWave schema (Hyperdrive direct, ADR-0036)
+- 4 vertex + 1 edge + 2 MV の Kotoba/Datomic schema (Hyperdrive direct, ADR-0036)
 - 6 NSID lexicon (`com.etzhayyim.apps.manimani.{ingest, classify, process, getProject, listProjects, coverage}`)
 - LangGraph StateGraph 7 node (parse_input → classify_project → route_processor → 3 並列 processor → persist_artifact → emit_audit)
 - LLM 主導 project classification の Pydantic v2 contract (Anthropic structured output)
@@ -140,7 +140,7 @@ manimani は user の頭の中の断片を扱うため **non-federable** とす�
                                     END
 ```
 
-State は Pydantic v2 (ADR-2605080200) で型付け。`thread_id = run_id = sha256(actor_did + ts_ms + intake_hash)`。中断・再開は LangGraph `BaseCheckpointSaver` の RisingWave 実装 (`vertex_manimani_run.checkpoint_json`、ADR-2605080600 P3) を Phase B で導入。Phase A は in-process cache + run row だけ書く。
+State は Pydantic v2 (ADR-2605080200) で型付け。`thread_id = run_id = sha256(actor_did + ts_ms + intake_hash)`。中断・再開は LangGraph `BaseCheckpointSaver` の Kotoba/Datomic 実装 (`vertex_manimani_run.checkpoint_json`、ADR-2605080600 P3) を Phase B で導入。Phase A は in-process cache + run row だけ書く。
 
 ### project classification — LLM 主導 (Phase A)
 
@@ -181,7 +181,7 @@ LLM tier は `fast` (Anthropic Haiku / Gemma4-26B) を default、`MANIMANI_CLASS
 
 processor は全て stateless function (`(parsed_text, project_meta) -> Artifact`)、Pydantic v2 で I/O 検証。失敗時は `Artifact(artifact_kind="error", error_text=...)` を 1 件 INSERT して END に進む (run は `failed` ではなく `completed_with_error`)。
 
-### Schema (RisingWave Hyperdrive direct, ADR-0036)
+### Schema (Kotoba/Datomic Hyperdrive direct, ADR-0036)
 
 ```
 vertex_manimani_intake (PK content-addressed: sha256(actor_did + ts_ms + raw_text_hash))
@@ -222,7 +222,7 @@ vertex_manimani_run (PK = run_id = thread_id)
   - project_vertex_id VARCHAR FK
   - status ∈ {pending, running, interrupted, completed, completed_with_error, failed}
   - current_node VARCHAR
-  - checkpoint_json VARCHAR         (Phase B で RisingWave BaseCheckpointSaver が書く)
+  - checkpoint_json VARCHAR         (Phase B で Kotoba/Datomic BaseCheckpointSaver が書く)
   - started_at / finished_at
   - cost_jpy_micro BIGINT           (LLM call cost、host-sdk metering と整合)
 
@@ -302,7 +302,7 @@ LLM inference は `pymagatama.llm.call_tier` 経由:
 | `sdk.pds.dispatch({type:"com.atproto.repo.createRecord"})` で `com.etzhayyim.apps.manimani.*` 書込 | `createKyselyDb(env.HYPERDRIVE).insertInto('vertex_manimani_*').values(...).execute()` (ADR-0036) |
 | AT Repo (federable) に manimani の intake / project / artifact を emit | non-federable 維持。social derive は user の明示 `pds.dispatch({type:'app.bsky.feed.post'})` opt-in のみ |
 | ハードコード LLM model 名 | `resolveModelId()` / `MURAKUMO_DEFAULT_MODEL` (LLM Model SSoT convention) |
-| LangGraph state を Postgres / Redis に永続化 | RisingWave 直 (`vertex_manimani_run.checkpoint_json` + custom `BaseCheckpointSaver`、Phase B) |
+| LangGraph state を Postgres / Redis に永続化 | Kotoba/Datomic 直 (`vertex_manimani_run.checkpoint_json` + custom `BaseCheckpointSaver`、Phase B) |
 | classifier の出力を Pydantic 検証なしで graph 書込 | `ProjectClassification.model_validate(tool_use.input)` 必須 (ADR-2605080200) |
 | RW MV に `MAX(varchar)` / 無制限 GROUP BY | bounded `GROUP BY (project_vertex_id, kind, day)` のみ (RW MV cardinality budget) |
 | ORM / SQLAlchemy Session / autoflush | SQLAlchemy Core only (`sa_execute()` / `sa_query()` / `sa_rowcount()`、ADR-2605080300) |
@@ -351,7 +351,7 @@ manimani が扱うのは user の頭の中 / 機密情報 / 個人 PII を含む
 | **Phase 0 — 本 ADR (contract 確定)** | doc + registry 登録のみ | user 承認 → P1 着手 |
 | Phase 1 — Foundation | 4 vertex + 1 edge + 2 MV migration / 6 lexicon / CF Worker scaffold / state.py + graph.py 骨組み | `pnpm db:migrate latest` (or OOB) で 1 schema migration が green |
 | Phase 2 — Live execution | classifier.py + processors.py 実装 + Helm `mitama-manimani-pool` + 初回 deploy | text intake → project 自動生成 + artifact 1 件着地 |
-| Phase 3 — URL fetch + reclassify + checkpoint | `parse_input` の URL readability + `classify` / `process` XRPC + RisingWave `BaseCheckpointSaver` | 既存 intake の再振り分けが artifact を上書きせず append できる |
+| Phase 3 — URL fetch + reclassify + checkpoint | `parse_input` の URL readability + `classify` / `process` XRPC + Kotoba/Datomic `BaseCheckpointSaver` | 既存 intake の再振り分けが artifact を上書きせず append できる |
 | **Phase 4 — HITL + MCP** | `MANIMANI_HITL_NEW_PROJECT=1` で classify_project が新規 project を emerge する直前に pause + `resumeRun` XRPC + 7 lexicon を `vertex_mcp_tool_def` に seed (canonical `/mcp` `tools/call` 経由で外部 agent から到達) | HITL run が `interrupted` で stop し、`resumeRun` で再開可能 |
 | Phase 5 — yoro AppView UI | yoro Svelte 拡張 (project list / artifact viewer / reclassify UI) | 任意 |
 

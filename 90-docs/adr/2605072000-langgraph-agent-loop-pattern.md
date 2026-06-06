@@ -30,7 +30,7 @@ amended_by:
 ## Context
 
 The etzhayyim platform needs multi-step AI agent loops where:
-- Each step can call external tools (web scrape, LLM inference, RisingWave read/write)
+- Each step can call external tools (web scrape, LLM inference, Kotoba/Datomic read/write)
 - The full graph of steps has conditional branches (e.g., quality gate → retry or deliver)
 - State must persist across steps within one "run" (proposal generation can take 30–120s)
 - Human-in-the-loop approval can pause the graph at defined checkpoints
@@ -56,7 +56,7 @@ with branching.** For ≤ 2 sequential LLM calls, plain async suffices.
 ADR-2605080600 expands this pattern from "LangGraph inside a Zeebe job" to
 "LangGraph Server as the main L3 actor runtime". The graph/state-machine
 guidance in this ADR still applies, but new implementations should target
-LangGraph Server + Granian with RisingWave checkpoint/store persistence.
+LangGraph Server + Granian with Kotoba/Datomic checkpoint/store persistence.
 
 BPMN-native flows should use ADR-2605081200 SpiffWorkflow BPMN workers instead
 of wrapping every BPMN process as a LangGraph graph.
@@ -73,7 +73,7 @@ Zeebe BPMN process
                  ├─ node: generate_strategy     (Claude claude-sonnet-4-6)
                  ├─ node: generate_copy         (Claude claude-sonnet-4-6)
                  ├─ node: quality_gate          (score ≥ 0.7 → deliver, else retry)
-                 └─ node: store_proposal        (RisingWave INSERT)
+                 └─ node: store_proposal        (Kotoba/Datomic INSERT)
 ```
 
 PyZeebe owns **durability** (retries, timeouts, escalation). LangGraph owns **intra-run
@@ -81,7 +81,7 @@ state transitions**. The two layers do not overlap.
 
 ### Checkpointing
 
-LangGraph checkpointer is **not used** (set to `None`). Durability comes from RisingWave
+LangGraph checkpointer is **not used** (set to `None`). Durability comes from Kotoba/Datomic
 `vertex_*_proposal` rows written by the `store_proposal` node. If the Zeebe job fails, the
 BPMN timer retries the whole job (idempotent on `proposalId`).
 

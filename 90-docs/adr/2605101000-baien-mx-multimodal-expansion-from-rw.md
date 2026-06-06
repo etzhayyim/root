@@ -1,6 +1,6 @@
 ---
 id: adr-2605101000-baien-mx-multimodal-expansion-from-rw
-title: "Baien-MX: trunk-surgery multimodal expansion from RisingWave-native modalities"
+title: "Baien-MX: trunk-surgery multimodal expansion from Kotoba/Datomic-native modalities"
 status: proposed
 doc_type: adr
 topic: edge-multimodal-model-1bit
@@ -8,12 +8,12 @@ authoritative: true
 last_verified: 2026-05-10
 authoritative_for:
   - Baien-MX architecture (per-modality 1.58-bit branches + new cross-modal layers)
-  - Training data sourced exclusively from existing RisingWave vertex/views
+  - Training data sourced exclusively from existing Kotoba/Datomic vertex/views
   - Per-modality weight separation in vertex_training_checkpoint
 depends_on:
   - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
   - adr-2605070700-rw-native-model-training-weight-lineage
-  - adr-2604262359-risingwave-multimodal-vector-search-topology
+  - adr-2604262359-kotoba-multimodal-vector-search-topology
 related:
   - 30-graph/graph-schema/migrations/20260508000000_vertex_training_lineage.ts
   - 30-graph/graph-schema/migrations/20260427001000_vector_embedding_project_tables.ts
@@ -29,7 +29,7 @@ superseded_by: []
 Extend Baien from a text-only 1.58-bit trunk into a **proper
 multimodal model** by **adding new layers and per-modality weight
 branches**, all trained on **modalities that already live in
-RisingWave**. No external dataset ingest, no new pretraining budget.
+Kotoba/Datomic**. No external dataset ingest, no new pretraining budget.
 
 This supersedes the conservative LLaVA-style "freeze SigLIP, train
 projector only" path described in
@@ -51,7 +51,7 @@ In scope:
   shared BitNet trunk + at least one new 1.58-bit cross-modal
   fusion block inserted mid-trunk.
 - Modality coverage = the four modalities natively available in
-  RisingWave today: text, knowledge triples, multimodal vector
+  Kotoba/Datomic today: text, knowledge triples, multimodal vector
   embeddings (768d and 4096d FP8), and 3D blob latents.
 - Per-modality weight separation in `vertex_training_checkpoint`
   (one row per modality projector + one row per shared block).
@@ -143,7 +143,7 @@ loads only the needed projector + the trunk + the fusion block.
 
 ## 3. Training data — RW-native multimodal sample view
 
-Define a new RisingWave materialized view
+Define a new Kotoba/Datomic materialized view
 `v_training_multimodal_sample` that joins:
 
 ```sql
@@ -301,7 +301,7 @@ this order:
 - ADR 2605092350 (Baien design + bisect log)
 - ADR 2605092345 (Oka — sibling FP8 trunk, shares the H100 pod)
 - ADR 2605070700 (training lineage SSoT)
-- ADR 2604262359 (RisingWave multimodal vector substrate)
+- ADR 2604262359 (Kotoba/Datomic multimodal vector substrate)
 - `90-docs/baien/multimodal-reasoning-roadmap.md` (the path
   superseded for RW-native modalities, retained for raw-bytes
   modalities)

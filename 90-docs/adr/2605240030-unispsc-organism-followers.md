@@ -40,7 +40,7 @@ The TS side reads followers from `mv_followers as e` joined with
 `vertex_actor`, plus wellness scores from a constituent-rank table. The
 Python side needs an equivalent — but the substrate boundary (per
 CLAUDE.md hard rules) forbids the Python organism from importing
-`@atproto/api` directly or hitting RisingWave. Reads must go via
+`@atproto/api` directly or hitting Kotoba/Datomic. Reads must go via
 `@etzhayyim/sdk`, and the Python binding for that SDK is not yet shipped.
 
 This ADR lands the **interface** now so the fleet cell can wire it, and

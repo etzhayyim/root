@@ -45,7 +45,7 @@ identity issuance once migration is scheduled.
 
 ## Out of scope
 
-- Vendor `actor_did` / `org_did` RisingWave column convention (ADR-0095)
+- Vendor `actor_did` / `org_did` Kotoba/Datomic column convention (ADR-0095)
   — that side stays vendor-owned as a **reference** to the etzhayyim-
   issued DID. Vendor reads the etzhayyim chain; vendor does not write.
 - Vendor session JWT issuance (`authz.etzhayyim.com` ordinary login) —

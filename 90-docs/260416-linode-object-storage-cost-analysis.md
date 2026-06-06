@@ -8,7 +8,7 @@
 
 ## 原因分析: Versioning × Hummock LSM の相性
 
-RisingWave Hummock は S3 を LSM-tree の永続層として使う。コンパクション時に古い SSTable (SST) を S3 DELETE で削除しながら新しい SST を PUT し続ける。
+Kotoba/Datomic Hummock は S3 を LSM-tree の永続層として使う。コンパクション時に古い SSTable (SST) を S3 DELETE で削除しながら新しい SST を PUT し続ける。
 
 | 設定 | 動作 |
 |---|---|
@@ -19,7 +19,7 @@ RisingWave Hummock は S3 を LSM-tree の永続層として使う。コンパ�
 
 ### hummock_min_sst_retention_time_sec との関係
 
-`hummock_min_sst_retention_time_sec` (デフォルト 86400 = 24h) は **RisingWave 内部** のガベージコレクション抑制パラメータであり、S3 versioning とは完全に独立。この値は「RW が自分で削除リクエストを出すまでの最低待機時間」であり、S3 側の Lifecycle ルールとは別の概念。
+`hummock_min_sst_retention_time_sec` (デフォルト 86400 = 24h) は **Kotoba/Datomic 内部** のガベージコレクション抑制パラメータであり、S3 versioning とは完全に独立。この値は「RW が自分で削除リクエストを出すまでの最低待機時間」であり、S3 側の Lifecycle ルールとは別の概念。
 
 ---
 
@@ -41,7 +41,7 @@ RisingWave Hummock は S3 を LSM-tree の永続層として使う。コンパ�
 実行後バケットサイズ: 7.63 TB (18.74 TB → 7.63 TB)
 ```
 
-スクリプト: `list_object_versions` + `delete_objects` 500件バッチ、5リトライ指数バックオフ。  
+スクリプト: `list_object_versions` + `delete_objects` 500件バッチ、5リトライ指数バックオフ。
 Linode が大量削除時に `InternalError: failed authorization` を返す（レートリミット）ため、バッチサイズとリトライが重要。
 
 ---
@@ -89,7 +89,7 @@ Linode が大量削除時に `InternalError: failed authorization` を返す（�
 | 項目 | 計算 | 月額 |
 |---|---|---|
 | Storage (8.21 TB) | 8.21 × $20/TB | $164 |
-| Egress (RisingWave reads) | 同一DC = 無料 | $0 |
+| Egress (Kotoba/Datomic reads) | 同一DC = 無料 | $0 |
 | **合計** | | **~$164/月** |
 
 ### B2 3-region をプライマリにした場合
@@ -97,14 +97,14 @@ Linode が大量削除時に `InternalError: failed authorization` を返す（�
 | 項目 | 計算 | 月額 |
 |---|---|---|
 | Storage (3 replicas × 8.21 TB) | 3 × 8.21 × $6/TB | $148 |
-| Egress: RisingWave → B2 reads | X TB × $10/TB | **$10X/月** |
+| Egress: Kotoba/Datomic → B2 reads | X TB × $10/TB | **$10X/月** |
 | Cross-region replication egress | server-side でも課金される可能性 | 要確認 |
 
 **ストレージ節約額: $16/月。しかし Hummock の S3 GET エグレスが支配的になる。**
 
 ### Hummock コンパクション read 量の見積もり
 
-実測チャーン: ~3.2 TB/day の SST 作成・削除 = 月間 ~96 TB の S3 PUT。  
+実測チャーン: ~3.2 TB/day の SST 作成・削除 = 月間 ~96 TB の S3 PUT。
 コンパクション時の S3 GET は PUT と同程度〜2倍程度（マージ元読み取り）。
 
 | Foyer キャッシュヒット率 | 月間 S3 GET | B2 Egress 費 |
@@ -129,7 +129,7 @@ Hummock のような高チャーン LSM workload には **同一 DC に egress �
 ## 最適アーキテクチャ (決定)
 
 ```
-RisingWave (Linode SG, sg-sin-2)
+Kotoba/Datomic (Linode SG, sg-sin-2)
   ↕ free egress (同一DC)
 Linode Object Storage etzhayyim-iceberg (PRIMARY, sg-sin-1)
   ↓ rclone linode-to-b2-replication CronJob */15min (write-only, ingress free)
@@ -162,6 +162,6 @@ export AWS_RESPONSE_CHECKSUM_VALIDATION=WHEN_REQUIRED
 
 ## 関連
 
-- `50-infra/linode/risingwave-iceberg/deps.toml` — バケット設定・lifecycle rules・B2 レプリケーション設定
-- `50-infra/linode/risingwave-iceberg/kustomize/base/b2-replication-cronjob.yaml` — rclone CronJob
-- `50-infra/linode/risingwave-iceberg/paths/backup-restore.md` — バックアップ/リストア手順
+- `50-infra/linode/kotoba-iceberg/deps.toml` — バケット設定・lifecycle rules・B2 レプリケーション設定
+- `50-infra/linode/kotoba-iceberg/kustomize/base/b2-replication-cronjob.yaml` — rclone CronJob
+- `50-infra/linode/kotoba-iceberg/paths/backup-restore.md` — バックアップ/リストア手順

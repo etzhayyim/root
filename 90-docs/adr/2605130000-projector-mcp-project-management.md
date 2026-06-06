@@ -73,7 +73,7 @@ Claude Agent (MCP client)
                      Superstep 1: blocked signal を edge_projector_project_dep で伝播
                      Superstep 2: unblocked signal を逆伝播 (max_hop=2)
 
-RisingWave Tables:
+Kotoba/Datomic Tables:
   vertex_project_props          (progress_permille, lifecycle_state, lg_thread_id, target_date)
   vertex_projector_blocker      (type, severity, status)
   edge_projector_project_dep    (依存グラフ、Pregel traversal 用)
@@ -171,7 +171,7 @@ planning → active → blocked → active (ループ可) → done
 2. lifecycle 遷移は LangGraph `projector_lifecycle` が担当し、CF Worker から XRPC 経由で呼び出す
 3. blocker の依存グラフ伝播は Pregel BSP `blocker_pregel` が担当する (ADR-2605131800 の pregel pod を拡張)
 4. read は `mv_projector_project_status` から直接取得 (LangGraph 不要)
-5. CF Worker から RisingWave への直接接続は ADR-2605111200 に従い禁止。全 write は pod 経由
+5. CF Worker から Kotoba/Datomic への直接接続は ADR-2605111200 に従い禁止。全 write は pod 経由
 6. `summarize=true` 指定時のみ LLM (gemma-4-E2B-it) による status サマリを生成する
 
 ## Consequences
@@ -337,7 +337,7 @@ blocker が解消されたら**即時**呼ぶ。
 | 「完了です」と報告する前に `update_status(done)` を省略する | 報告前に必ず呼ぶ |
 | blocked になっているのに `add_blocker` を後回しにする | 発生した瞬間に呼ぶ |
 | `progress_permille` を 1000 にしたまま `lifecycleState` を `active` にする | 1000 の場合は `lifecycleState=done` を必ず同時に指定する |
-| CF Worker から RisingWave に直接 INSERT する | ADR-2605111200 に従い pod 経由のみ |
+| CF Worker から Kotoba/Datomic に直接 INSERT する | ADR-2605111200 に従い pod 経由のみ |
 
 ## References
 

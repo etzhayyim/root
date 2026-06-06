@@ -79,7 +79,7 @@ merge/deploy authority and no platform master key**.
 
 tsukuroi is kotoba-native (ADR-2605262130): datom/EAVT facts on
 `kotoba-kqe`, records on MST under `com.etzhayyim.tsukuroi.*`. It does **not**
-reuse akuma's older RisingWave data plane.
+reuse akuma's older Kotoba/Datomic data plane.
 
 ## RemediationMandate contract (parallel to akuma's scope contract)
 

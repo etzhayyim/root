@@ -48,7 +48,7 @@ needs it — to also design the **敷設 (cable-laying) robotics**.
 
 Audit of the repo found only **legacy `etzhayyim`-namespaced lexicons** scattered across
 `telecom`, `telecomInfra`, and `cableRepairFleet` (record schemas authored against the
-deprecated RisingWave vertex model), **no** dedicated actor, **no** kotoba EAVT dataset,
+deprecated Kotoba/Datomic vertex model), **no** dedicated actor, **no** kotoba EAVT dataset,
 and **no** ADR. The closest actor, **watatsumi 綿津見** (民生 submersible, ADR-2605252200),
 already scopes "subsea infrastructure inspection + cable laying support (≤2000 m)" and
 lists "submarine cable cutting / sabotage" as constitutional non-goal **N8**.
@@ -166,7 +166,7 @@ where `redundancy-gap`, pre-stage repair where `chokepoint-load` is high. watats
 
 1. **Fold into tsumugi** — rejected; tsumugi is power-entity 縁 (organisms), cable network is
    physical infrastructure with distinct vocab and a distinct dual-use risk profile.
-2. **Reuse the legacy `etzhayyim` lexicons as-is** — rejected; they assume RisingWave vertices
+2. **Reuse the legacy `etzhayyim` lexicons as-is** — rejected; they assume Kotoba/Datomic vertices
    (substrate-boundary violation) and include the intent-adjudicating tamper flag.
 3. **Put the KG inside watatsumi** — rejected; watatsumi is a manufacturing/operational actor.
    Observation vs operation is the same split as danjo(watch)↔toritsugi(act); pairing two

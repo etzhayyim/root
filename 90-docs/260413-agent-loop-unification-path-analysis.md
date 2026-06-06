@@ -153,6 +153,6 @@ B) agentInfer delegation (推奨)
 | `agent/infer.ts` | 統合 ReAct loop (②③④ のエントリ) |
 | `agent/memory.ts` | 3-tier memory (全パス共通) |
 | `agent/consent.ts` | 4-tier risk gate (②③④ で適用) |
-| `agent/audit.ts` | OCEL + RisingWave audit (全パス共通) |
+| `agent/audit.ts` | OCEL + Kotoba/Datomic audit (全パス共通) |
 | `agent/scheduler.ts` | Proactive cron + event trigger |
 | `handlers/etzhayyim/index.ts` | ⑤ projector に memory/audit inject |

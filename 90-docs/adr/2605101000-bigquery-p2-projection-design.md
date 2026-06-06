@@ -26,8 +26,8 @@ Define how BigQuery public datasets that have advanced past P0 catalog and
 P1 profile review (`vertex_public_dataset_catalog.review_status = 'approved'`,
 `edge_dataset_produces_vertex_type` row exists, and where applicable
 `edge_dataset_allowed_for_training_task` row exists) project into the canonical
-RisingWave domain `vertex_*`, `edge_*`, and training corpus surfaces — without
-copying raw all-history payloads into RisingWave or violating the cost ceilings
+Kotoba/Datomic domain `vertex_*`, `edge_*`, and training corpus surfaces — without
+copying raw all-history payloads into Kotoba/Datomic or violating the cost ceilings
 set in ADR 2605092700.
 
 # Scope
@@ -42,7 +42,7 @@ Out of scope for this ADR:
 
 - automatic license inference (P0 SSoT covers this)
 - training corpus build itself (downstream of `mv_training_source_eligibility`)
-- live BigQuery → RisingWave streaming (P2 is batch projection only)
+- live BigQuery → Kotoba/Datomic streaming (P2 is batch projection only)
 
 # Decision
 
@@ -77,7 +77,7 @@ The adapter is responsible for:
   row level.
 
 Adapters MUST NOT call `sdk.pds.dispatch` for domain projections; the data
-plane stays Worker → Hyperdrive → RisingWave per ADR-0036
+plane stays Worker → Hyperdrive → Kotoba/Datomic per ADR-0036
 (`Worker-direct Hyperdrive Persistence`). Domain `vertex_*` rows are not
 federable AT records.
 
@@ -266,7 +266,7 @@ broad projection). Subsequent monthly delta refreshes for time-partitioned
 sources (NOAA / blockchain / Stack Overflow / open_targets) project to ~5
 TiB/month → ~$31/month.
 
-Excluded: B2 / GCS storage for staged Parquet, RisingWave compute scaling,
+Excluded: B2 / GCS storage for staged Parquet, Kotoba/Datomic compute scaling,
 LLM training compute, OCR / labeling. Tracked separately in infra docs.
 
 # Production Hardening (2026-05-11)
@@ -295,7 +295,7 @@ shardKey })` and `saveCursor({...})`. Adapters read at start, save
 
 ## Periodic FLUSH inside `rwBatchInsert`
 
-RisingWave buffers DML until checkpoint. A single large INSERT loop
+Kotoba/Datomic buffers DML until checkpoint. A single large INSERT loop
 (observed 150k rows / Litecoin transactions) lost all uncommitted rows
 when the cluster entered recovery mid-run. Fix: `rwBatchInsert` issues
 `FLUSH` every `flushEveryNChunks` chunks (default 20 × chunkSize 100 =
@@ -316,7 +316,7 @@ flush window worth of rows. Combined with record-log upsert this gives
 ## Connection durability — fresh client per record + maintained client per INSERT loop
 
 The pg-pool default `idleTimeoutMillis: 10000` race-conditions against
-RisingWave's silent connection drop during BigQuery polling (queries
+Kotoba/Datomic's silent connection drop during BigQuery polling (queries
 take 10–60s with no pg activity). Adapters now:
 
 - use **fresh `pg.Client` per record (ledger / cursor) call** — `rwQuery`
@@ -406,7 +406,7 @@ both `complete`).
 
 - ADR 2605092700 — BigQuery public data ingest cost topology (P0/P1 gate).
 - ADR 0036 — Worker-direct Hyperdrive Persistence (data plane choice).
-- ADR 0044 — RisingWave UDF language strategy (selecting where projection
+- ADR 0044 — Kotoba/Datomic UDF language strategy (selecting where projection
   logic lives).
 - `90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md` —
   orchestration runtime.

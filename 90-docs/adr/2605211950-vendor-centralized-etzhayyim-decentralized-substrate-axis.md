@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 8.5
 axis: architecture
 weight: 0.85
-priority_note: "Sharpens the vendor/etzhayyim boundary established by ADR-2605152100 + 2605172000 + 2605172100 + 2605172400. Adds the centralization axis as a constitutional rule: decentralization primitives (Ethereum / Base L2 / IPFS / AT MST / did:web / did:plc / ERC-4337 / ERC725) live exclusively in etzhayyim; centralized substrate (fiat / Stripe / RisingWave / operator-controlled storage / central JWT) lives exclusively in etzhayyim."
+priority_note: "Sharpens the vendor/etzhayyim boundary established by ADR-2605152100 + 2605172000 + 2605172100 + 2605172400. Adds the centralization axis as a constitutional rule: decentralization primitives (Ethereum / Base L2 / IPFS / AT MST / did:web / did:plc / ERC-4337 / ERC725) live exclusively in etzhayyim; centralized substrate (fiat / Stripe / Kotoba/Datomic / operator-controlled storage / central JWT) lives exclusively in etzhayyim."
 authoritative_for:
   - rule: decentralization primitives are etzhayyim-exclusive
   - rule: centralized substrate is vendor-exclusive
@@ -79,8 +79,8 @@ The **centralization axis** is now the constitutional split between vendor and e
 |---|---|---|
 | **Identity** | `did:web:etzhayyim.com`, `did:plc:*`, ERC-4337 Smart Wallet (DID-bound), WebAuthn passkey, **ERC725 root identity** | Operator JWT, internal account ID, vendor-issued session token, OAuth (etzhayyim-side IdP) |
 | **Payment / settlement** | Base L2 + USDC, ERC-4337 UserOp, 0xSplits, Superfluid, etzhayyim Paymaster, on-chain escrow | Stripe (Charges + Issuing), bank ACH/wire, PayPal/Square/Razorpay, fiat invoicing, tax-recognized commercial relationship |
-| **State / persistence** | AT Protocol MST + IPFS + Base L2 anchor (ADR-2605171800), did:web cloudflare worker | RisingWave / PostgreSQL / Hyperdrive / Kysely, S3 / B2 (operator-controlled), Cloudflare KV/D1, internal materialized views |
-| **Compute / runtime** | langGraph cells on murakumo fleet (launchd), CF Worker edge proxy, k8s pods that read MST | k8s pods over RisingWave, BuildKit on remote builder, vendor-internal cron, vendor CI |
+| **State / persistence** | AT Protocol MST + IPFS + Base L2 anchor (ADR-2605171800), did:web cloudflare worker | Kotoba/Datomic / PostgreSQL / Hyperdrive / Kysely, S3 / B2 (operator-controlled), Cloudflare KV/D1, internal materialized views |
+| **Compute / runtime** | langGraph cells on murakumo fleet (launchd), CF Worker edge proxy, k8s pods that read MST | k8s pods over Kotoba/Datomic, BuildKit on remote builder, vendor-internal cron, vendor CI |
 | **DNS / domain** | `etzhayyim.com` + did:web resolver | `etzhayyim.com`, `etzhayyim.com` and subdomains, vendor-controlled DNS |
 | **Governance** | 1 SBT = 1 vote (on-chain), Council attestation (on-chain), Charter Rider (license + on-chain Council) | Vendor org chart, employment contracts, internal RACI, board governance |
 | **Storage of off-chain blobs** | IPFS via etzhayyim ipfs-pinner | S3 / B2 / R2 (operator-owned bucket) |
@@ -97,7 +97,7 @@ The **centralization axis** is now the constitutional split between vendor and e
 
 2. **No centralization primitive may be implemented in `etzhayyim/root/`**, including:
    - Stripe / PayPal / Square / Razorpay / fiat processor SDKs.
-   - RisingWave / PostgreSQL / Kysely / Hyperdrive (consumer-side read via vendor paid-tier XRPC OK).
+   - Kotoba/Datomic / PostgreSQL / Kysely / Hyperdrive (consumer-side read via vendor paid-tier XRPC OK).
    - Operator-owned S3/B2 buckets that aren't IPFS-mirrored.
    - Vendor-issued JWTs as primary trust root (consume vendor JWT only as a paid-tier session, never as identity).
 

@@ -11,7 +11,7 @@ authoritative_for:
   - kogu actor (工具・設備・測定器ライフサイクル)
   - sekkei actor (設計図・技術文書・BOMライフサイクル)
   - BPMN flows for nogu/kogu/sekkei
-  - RisingWave schema for vertex_nogu_* / vertex_kogu_* / vertex_sekkei_*
+  - Kotoba/Datomic schema for vertex_nogu_* / vertex_kogu_* / vertex_sekkei_*
 related:
   - adr-0056-bpmn-as-actor
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
@@ -22,9 +22,9 @@ related:
 
 # ADR-2604281430 — nogu / kogu / sekkei Actor Registry
 
-**Status**: active  
-**Date**: 2026-04-28  
-**Authors**: Jun Kawasaki + Claude Code  
+**Status**: active
+**Date**: 2026-04-28
+**Authors**: Jun Kawasaki + Claude Code
 
 ## Context
 
@@ -60,7 +60,7 @@ Option A (sub-actor under tsukuru) was rejected: lifecycle concerns (inspection 
 
 All 9 processes deployed to Zeebe via F5 watcher at 2026-04-28T07:00–07:22Z (commit `5b821da3403`).
 
-### RisingWave schema — 14 tables + 1 MV
+### Kotoba/Datomic schema — 14 tables + 1 MV
 
 **nogu** (migration `20260428220000`):
 - `vertex_nogu_item` — 農具/農機具個体 (category: hand-tool/tractor/transplanter/harvester/cultivator/sprayer/irrigation/other-machinery)
@@ -83,7 +83,7 @@ All 9 processes deployed to Zeebe via F5 watcher at 2026-04-28T07:00–07:22Z (c
 - `vertex_sekkei_release` — 製造リリース記録
 - `mv_sekkei_stale_reviews` — `status='pending-approval'` の revision 一覧 (sekkei dailyPulse 参照)
 
-FLUSH added between each `CREATE INDEX` to avoid RisingWave streaming job scheduler conflicts (lesson from prior kogu migration failure).
+FLUSH added between each `CREATE INDEX` to avoid Kotoba/Datomic streaming job scheduler conflicts (lesson from prior kogu migration failure).
 
 ### Lexicon contracts — 17 JSON files
 
@@ -106,7 +106,7 @@ ERC725 root identity (ADR-0074) must be provisioned via `POST /internal/provisio
 
 - **dailyPulse BPMNs** (timer-start R/P1D) activate automatically in Zeebe. First fires expected at next midnight UTC after deploy.
 - **XRPC calls** to `com.etzhayyim.apps.{nogu,kogu,sekkei}.*` route via `dispatcher.etzhayyim.com:8080/xrpc/{nsid}` per ADR-0056.
-- **Writes** go directly to RisingWave via `generic.db.insert` primitives in pymagatama.
+- **Writes** go directly to Kotoba/Datomic via `generic.db.insert` primitives in pymagatama.
 - **`write_table_allowlist`** in `vertex_bpmn_lexicon_binding` is NULL (unrestricted) for all 9 bindings — tighten per-table when domain writes are stabilized.
 - **ERC725** not yet provisioned — DID doc serves `did:web:{name}.etzhayyim.com` AT facade only. Upgrade path: call `provision-root-identity` + update deps.toml `erc725_root_pending = false` + add `erc725_did`.
 

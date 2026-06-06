@@ -84,7 +84,7 @@ hardcoded strings.
 8. `coverage actors heal` — parallel ThreadPoolExecutor + LLM healing of magatama.jsonld. ✓
 9. `authn signin` — OAuth2 Auth Code + PKCE; localhost callback server; writes `~/.etzhayyim/auth.json`. ✓
 10. `dns-sync` — CF API mutations. ✓
-11. `database migrate` — RisingWave migration runner. ✓
+11. `database migrate` — Kotoba/Datomic migration runner. ✓
 12. `mokuteki kashika` — HTML/JSON/DOT visualization; auto-opens browser via `webbrowser.open()`. ✓
 13. `mokuteki store` — flatten report → temp JSON → `duckdb` CLI → Parquet; update catalog.json. ✓
 14. `mokuteki query` — shell out to `duckdb -c SQL` with parquet glob; `$TABLE` substitution. ✓
@@ -139,7 +139,7 @@ hardcoded strings.
 - `code-quality run` — unified quality scorer: cargo-machete, cargo-duplicates, go-vet, go-mod-tidy, jscpd, magatama-lint, frontend-lint, perf-test, sql-injection/full-scan, dead-exports; JSON + text output; `--skip` filter. ✓
 - `murakumo fleet-plan` — Hayate V5 fleet plan generator (hayate_v5_split.py fleet); target-slots/dim/groups/mamba-per-group/top-m/batch-size/lr/data-source/lancedb-uri; `--dry-run`. ✓
 - `actors migrate-to-plc` — upgraded from stub to real XRPC `com.etzhayyim.plc.migrateActor`; `--offline` mock mode; `--apply` gate. ✓
-- `coverage world/infer/hospitality` — Go-only stubs (require RisingWave direct via pgxpool); `--help` prints available options. ✓
+- `coverage world/infer/hospitality` — Go-only stubs (require Kotoba/Datomic direct via pgxpool); `--help` prints available options. ✓
 - `deps governance-wit` — WIT + governance compliance static analysis: wit/world.wit import count, src/app.ts command/handle count, magatama.jsonld governance fields; score + verdict; `--format json`. ✓
 - `identity migrate-paths` — legacy-nanoid → did:etzhayyim path migration: reads `[[legacy_nanoids]]` from deps.toml, computes SHA-256-based path DID, submits via XRPC `com.etzhayyim.identity.submitOp`; `--apply` gate; `--json`. ✓
 - `migrate-manifest run` — pure file transformation (etzhayyim.json → magatama.jsonld); reads routes/runtime/build/deploy fields from etzhayyim.json; optionally parses `magatama.toml` (sections: component, component.env, component.compose, triggers.http, triggers.w_commit, ui, ui.ssr_routes, game, space, [[space.channels]], evolver, pool, [[extensions]], interfaces); `--batch` scans subdirs; `--dry-run` prints to stdout; zero DB dependencies. ✓
@@ -150,7 +150,7 @@ hardcoded strings.
 - `plugin list/install/upgrade` — GitHub-release downloader: fetches latest version via `api.github.com/repos/bytecodealliance/wasm-tools/releases/latest`, downloads tar.gz, extracts binary to `~/.cache/etzhayyim/plugins/<name>/`; also shows `tinygo`/`docker` from PATH; no DB access. ✓
 - `dodaf tv1 query` / `dodaf av2 get` / `dodaf rules context` / `dodaf add` / `dodaf validate` — DuckDB CLI subprocess commands against `80-data/dodaf/*.parquet`; TV-1 query by `--id`, `--tags`, `--severity`, `--path`; AV-2 dict lookup by term/alias; cross-view `rules context` query; `add` appends row to any view; `validate` scans CLAUDE.md for unregistered `## CRITICAL:` sections; `--json` flag on all; NDJSON/array output normalization. ✓
 - `dodaf init` — seeds TV-1 (11 seed rules), AV-2 (9 terms), OV-5 (6 activities) from embedded Python dicts → temp NDJSON → DuckDB `COPY … TO (FORMAT PARQUET)` in `80-data/dodaf/`; `--workspace-dir`; `--force` to overwrite existing parquet files. ✓
-- `deps mv` — generates 2 RisingWave `CREATE MATERIALIZED VIEW` DDL statements (`mv_deps_component_live`, `mv_deps_summary_live`) from embedded SQL; `--format sql|text`; `--apply` exits nonzero with "use etzhayyim (Go CLI)" message (requires live RisingWave pgxpool). ✓
+- `deps mv` — generates 2 Kotoba/Datomic `CREATE MATERIALIZED VIEW` DDL statements (`mv_deps_component_live`, `mv_deps_summary_live`) from embedded SQL; `--format sql|text`; `--apply` exits nonzero with "use etzhayyim (Go CLI)" message (requires live Kotoba/Datomic pgxpool). ✓
 - `dodaf migrate` — walks workspace for all `CLAUDE.md` files; extracts `## CRITICAL:` sections via line-scanner; generates TV-1 IDs from dir+title slug; appends new rows to `tv1_standards.parquet` via `_write_json_to_parquet`; replaces section body with `→ etzhayyim dodaf tv1 query --id <id>` pointer in-place; `--dry-run`, `--skip-pointer`. ✓
 - `dodaf seed` — reads `tv1_standards.parquet` via DuckDB CLI; POSTs each row to `com.atproto.repo.createRecord` as `com.etzhayyim.dodaf.tv1Standard` via `urllib.request`; `etzhayyim_TOKEN` auth; `--dry-run` prints without hitting PDS; `--pds` override. ✓
 - `domain-ingest local` — upgraded from stub: resolves `70-tools/scripts/ingest-domain-data.ts` from git root, runs `npx tsx <script> [--domain] [--limit] [--dry-run] [--skip-llm]`; exits nonzero when script or `npx` missing. ✓
@@ -249,10 +249,10 @@ or a shared registry endpoint. Tracked in root `deps.toml` `[[migrations]]`.
 | `seed-oil-backbone` / `seed-naphtha-supply` | Seed commands use `etzhayyimdb` for bulk graph inserts. |
 | `monitor-vote cast/resolve/list` | Direct `pgxpool` (pgx/v5) connections for triple-witness quorum writes. |
 | `murakumo models list/apply` | SSH connections to Mac mini fleet nodes; no Python Nomad/SSH equivalent planned. |
-| `coverage world` / `coverage infer` / `coverage hospitality` | Direct `pgxpool` connections to RisingWave `graphar.vertex_*`; Python has stubs that print error. |
-| `actors cc-coverage` (actors common-crawler-coverage) | Direct `pgxpool` connections to RisingWave for Common Crawler domain coverage. |
+| `coverage world` / `coverage infer` / `coverage hospitality` | Direct `pgxpool` connections to Kotoba/Datomic `graphar.vertex_*`; Python has stubs that print error. |
+| `actors cc-coverage` (actors common-crawler-coverage) | Direct `pgxpool` connections to Kotoba/Datomic for Common Crawler domain coverage. |
 | `ka` (company operations dashboard) | Direct `pgxpool` Strategy Graph queries; Python has no equivalent. |
 | `domain-ingest`, `collect`, `common-crawler`, `docs generate` | DB-dependent or machine-specific infrastructure; deferred indefinitely. `docs-gen schema` (local file analysis) and `migrate-manifest run` (pure file transformation) are ported; `docs generate` (LLM-backed generation) remains Go-only. `plugin list/install/upgrade` is ported (GitHub release downloader). |
-| `deps sql` | Direct `db.RawQuery` on `mv_deps_component_live` (pgx/v5 — RisingWave). |
-| `deps mv` | Generates + applies RisingWave DDL (`CREATE MATERIALIZED VIEW`); `--apply` uses `db.RawQuery`. |
+| `deps sql` | Direct `db.RawQuery` on `mv_deps_component_live` (pgx/v5 — Kotoba/Datomic). |
+| `deps mv` | Generates + applies Kotoba/Datomic DDL (`CREATE MATERIALIZED VIEW`); `--apply` uses `db.RawQuery`. |
 | `deps export` | Calls `node scripts/generate-wit-deps-graph.mjs` + complex local scoring from graph JSON; deferred. |

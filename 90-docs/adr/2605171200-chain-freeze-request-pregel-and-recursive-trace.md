@@ -107,8 +107,8 @@ Adding a new packet kind = add (kind, renderer_function) entry to PACKET_RENDERE
 | State | Behavior |
 |---|---|
 | `live_write=False` (default) | Filesystem packet artifacts only. Phase 0 dry-run. |
-| `live_write=True` + `RW_URL` set | `schedule_review` node writes 1 vertex_malak_pursuit_target row per packet (kind='packet_review', priority=14, status='queued') so a human reviewer queue picks them up |
-| `live_write=True` + `RW_URL` unset | Logs warning; filesystem-only fallback |
+| `live_write=True` + `KOTOBA_URL` set | `schedule_review` node writes 1 vertex_malak_pursuit_target row per packet (kind='packet_review', priority=14, status='queued') so a human reviewer queue picks them up |
+| `live_write=True` + `KOTOBA_URL` unset | Logs warning; filesystem-only fallback |
 
 Pattern matches ADR-2605151500 + ADR-2605152000 Phase contract.
 

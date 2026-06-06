@@ -1,8 +1,8 @@
-# RisingWave Iceberg Hybrid Path Management Design
+# Kotoba/Datomic Iceberg Hybrid Path Management Design
 
 **Date**: 2026-04-11
 **Status**: Proposed
-**Scope**: `50-infra/linode/risingwave-iceberg`
+**Scope**: `50-infra/linode/kotoba-iceberg`
 
 ## Decision
 
@@ -14,14 +14,14 @@ Adopt a hybrid 3-layer management model for `path`, `blocker`, and `kosei`.
 
 ## Why Hybrid
 
-`deps.toml` alone is strong for tooling but becomes noisy when architecture reasoning grows.  
-`90-docs` alone is readable but too far from the component during editing.  
+`deps.toml` alone is strong for tooling but becomes noisy when architecture reasoning grows.
+`90-docs` alone is readable but too far from the component during editing.
 The hybrid split keeps current-state answers local while preserving full design history in a canonical document.
 
 ## Layout
 
 ```text
-50-infra/linode/risingwave-iceberg/
+50-infra/linode/kotoba-iceberg/
   deps.toml                  # selected_path, blockers, authoritative links
   paths/
     ACTIVE.md                # current path, blockers, rollback, next actions
@@ -33,7 +33,7 @@ The hybrid split keeps current-state answers local while preserving full design 
     path-e-hummock-only.md
 
 90-docs/
-  260411-risingwave-iceberg-hybrid-path-management-design.md
+  260411-kotoba-iceberg-hybrid-path-management-design.md
 ```
 
 ## Shannon Comparison

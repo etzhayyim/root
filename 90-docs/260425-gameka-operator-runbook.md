@@ -55,7 +55,7 @@ The shared platform must already be running:
 | `dispatcher.etzhayyim.com:8080` (bpmn-dispatcher) | infra | `BPMN_URL` binding in PDS Worker |
 | Zeebe broker (`zeebe-gateway.mitama-udf.svc:26500`) | infra | shared with yabai/yoro/etc. |
 | `mitama-udf` namespace zeebe-worker pod | infra | rebuild on each gameka task addition |
-| RisingWave + Hyperdrive `e84c0a2b…` | infra | shared graph DB |
+| Kotoba/Datomic + Hyperdrive `e84c0a2b…` | infra | shared graph DB |
 | Backblaze B2 account + Bandwidth Ally enabled | infra | `B2_*` Secrets reused from patent-blob-converter |
 | Murakumo LLM tier | infra | yoro / news already use it |
 | `playwright` actor (Layer-10 Worker) | apps | QA loop's `goto`/`evaluate`/`screenshot` |
@@ -238,7 +238,7 @@ curl -I 'https://game-play.etzhayyim.com/__playtest__.html'
 | `pkg/*.wasm missing` after rc=0 | wasm-bindgen output target mismatch | pin wasm-pack version in Dockerfile |
 | All ticks fire `gameka.tick.briefError` | Murakumo LLM tier down | check yoro/news to confirm Murakumo health; tickStudio retries automatically each 2h |
 | All visual critic verdicts are `degraded-no-vision` | LLM `tier="vision"` not configured | set `LLM_VISION_TIER=…` in zeebe-worker env or wire vision endpoint; until then the critic falls back to score=0.5 |
-| `502 backend error` from playtest-shell | Hyperdrive / RisingWave unreachable | check RW health: `kubectl logs -n risingwave …`; B2 SlowDown 503 storm? see `50-infra/vultr/risingwave/deps.toml` |
+| `502 backend error` from playtest-shell | Hyperdrive / Kotoba/Datomic unreachable | check RW health: `kubectl logs -n kotoba …`; B2 SlowDown 503 storm? see `50-infra/vultr/kotoba/deps.toml` |
 | `400 invalid slug` from /play/{slug} | slug doesn't match `[a-z0-9-]{1,32}` | publish path produced an unexpected slug — investigate codegen `_slug()` |
 | Visual critic publishes nothing for 3 iterations | spec is fundamentally broken | the chain ends with `outcome=exhausted`, lineage stays in graph for post-mortem |
 | `gameka.tick.live` fires but no spec row | LangGraph studio LLM error | check `vertex_repo_commit WHERE collection='com.etzhayyim.bpmn.audit'` for `briefError` events |
@@ -294,7 +294,7 @@ python3 -c "import html.parser as h; \
 | wasm-pack runner | idle most of the day; 5min/build cold, 30s warm sccache | live tickStudio ≈ 12 builds/day |
 | B2 storage | 16-20 KB per build (wasm + glue) + 1-5 KB per avatar | 1 GB ≈ 25k builds; <$1/mo |
 | Hyperdrive read | playtest-shell `/play/{slug}` 2 SELECTs per request | 60s CDN cache could be added if traffic grows |
-| RisingWave write | 1-2 rows per BPMN task; ~30 rows per full pipeline run | bounded by tickStudio cap |
+| Kotoba/Datomic write | 1-2 rows per BPMN task; ~30 rows per full pipeline run | bounded by tickStudio cap |
 
 ## Decommission
 

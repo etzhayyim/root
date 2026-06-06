@@ -48,7 +48,7 @@ The 3-axis rule does not force GTFS-RT to vendor — all three axes are technica
 
 GTFS-RT (the **real-time** path) stays in vendor (`etzhayyim-root`):
 
-- `bulk-ingest/workers/gtfs_rt_dumper.py` continues to write `vertex_maps_vehicle_position` / `vertex_maps_trip_update` / `vertex_maps_service_alert` to RisingWave via Hyperdrive direct INSERT (ADR-0036 path).
+- `bulk-ingest/workers/gtfs_rt_dumper.py` continues to write `vertex_maps_vehicle_position` / `vertex_maps_trip_update` / `vertex_maps_service_alert` to Kotoba/Datomic via Hyperdrive direct INSERT (ADR-0036 path).
 - The streaming MVs `mv_maps_recent_vehicle_position` / `mv_maps_recent_trip_update` / `mv_maps_active_alerts` (window-pruned DISTINCT ON keyed by stop/trip/alert) stay in vendor.
 - The XRPC handler `cmdRealtimeDelaysAtStop` (`com.etzhayyim.apps.maps.realtimeDelaysAtStop`) stays in vendor and continues to be served from `maps.etzhayyim.com`.
 
@@ -63,7 +63,7 @@ GET maps.etzhayyim.com/xrpc/com.etzhayyim.maps.realtimeDelaysAtStop?stopId=…
    ↓ pass-through
 GET maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.realtimeDelaysAtStop?stopId=…
    ↓
-RisingWave (vendor)
+Kotoba/Datomic (vendor)
 ```
 
 The proxy is stateless, holds no data, just rewrites NSID + forwards. This keeps the substrate boundary visible (vendor remains the system of record) while letting etzhayyim apps consume RT data without a substrate violation.

@@ -81,7 +81,7 @@ Why it survives pruning:
 
 Evidence reviewed:
 
-- commit `32aadce7b7d` added `50-infra/linode/risingwave-iceberg/kubeconfig.yaml`
+- commit `32aadce7b7d` added `50-infra/linode/kotoba-iceberg/kubeconfig.yaml`
 - current tree no longer contains that file
 
 Why it was pruned from active issues:

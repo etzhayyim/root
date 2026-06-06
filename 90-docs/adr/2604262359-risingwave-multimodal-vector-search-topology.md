@@ -1,6 +1,6 @@
 ---
-id: adr-2604262359-risingwave-multimodal-vector-search-topology
-title: RisingWave Multimodal Vector Search Topology
+id: adr-2604262359-kotoba-multimodal-vector-search-topology
+title: Kotoba/Datomic Multimodal Vector Search Topology
 status: active
 doc_type: adr
 topic: search
@@ -8,18 +8,18 @@ authoritative: true
 last_verified: 2026-05-01
 authoritative_for:
   - yoro-search-vector-topology
-  - risingwave-multimodal-search-topology
+  - kotoba-multimodal-search-topology
   - actor-post-media-search-embedding-model
   - 2b-10b-vector-search-query-shape
   - sensor-modality-embedding-roadmap
 related:
-  - adr-0002-persistence-risingwave-only
+  - adr-0002-persistence-kotoba-only
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
   - adr-0028-cohort-mv-sharding
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-0081-worker-direct-hyperdrive-persistence
-  - adr-0094-risingwave-stable-three-node-topology
-  - adr-2604261900-risingwave-ddl-backfill-path-topology
+  - adr-0094-kotoba-stable-three-node-topology
+  - adr-2604261900-kotoba-ddl-backfill-path-topology
   - adr-2604270015-vector-embedding-backfill-zeebe-worker
 supersedes: []
 superseded_by: []
@@ -39,10 +39,10 @@ At the target scale of 2B-10B records, two constraints dominate the design:
 
 - raw vector storage is already terabytes to tens of terabytes before index
   overhead;
-- no single RisingWave vector index should be treated as the global search
+- no single Kotoba/Datomic vector index should be treated as the global search
   engine for all tenants, modalities, and time ranges.
 
-RisingWave's official vector index support is `FLAT` and `HNSW`. The official
+Kotoba/Datomic's official vector index support is `FLAT` and `HNSW`. The official
 docs do not expose IVF. `FLAT` is exact but scans the candidate set. `HNSW` is
 approximate and suitable for large candidate sets, but it adds graph memory and
 build overhead. Therefore the topology must combine lexical/token routing,
@@ -55,16 +55,16 @@ Use a hybrid multimodal search topology:
 1. User-facing search must return lexical/prefix/token results first.
 2. Semantic vector search runs in parallel or as a second phase and merges into
    the visible result set.
-3. Multimodal embeddings are generated outside RisingWave by workers or batch
-   jobs, then stored as `VECTOR(n)` in append-only RisingWave tables.
-4. RisingWave `openai_embedding()` may be used for low-volume text query
+3. Multimodal embeddings are generated outside Kotoba/Datomic by workers or batch
+   jobs, then stored as `VECTOR(n)` in append-only Kotoba/Datomic tables.
+4. Kotoba/Datomic `openai_embedding()` may be used for low-volume text query
    embedding or demos, but not for corpus-scale embedding generation.
 5. Embedded Python/Rust/JavaScript UDFs are not used for LLM or multimodal
    embedding inference. They may be used only for lightweight normalization,
    tokenization, hashing, or scoring.
 6. The default production embedding dimension is 768 for unified multimodal
    vectors. Higher dimensions require an explicit quality/cost exception.
-7. `HNSW` is the default RisingWave vector index for hot semantic search.
+7. `HNSW` is the default Kotoba/Datomic vector index for hot semantic search.
    `FLAT` is allowed only for exact rerank or small prefiltered candidate sets.
 8. Actor semantic search uses the ERC725 root DID as the canonical vector
    identity key. `did:web` and `did:plc` are AT Protocol facade/profile keys
@@ -281,7 +281,7 @@ retrieval signal.
 
 - Search can show fast lexical results while semantic retrieval is still
   running, reducing perceived latency.
-- Corpus embedding generation moves out of RisingWave and into resumable batch
+- Corpus embedding generation moves out of Kotoba/Datomic and into resumable batch
   or worker infrastructure.
 - Re-embedding is required when the embedding model, output dimension, or
   prompt format changes.
@@ -299,15 +299,15 @@ retrieval signal.
 
 # Alternatives Considered
 
-- Use `FLAT` as the only RisingWave vector index. Rejected. It is exact, but at
+- Use `FLAT` as the only Kotoba/Datomic vector index. Rejected. It is exact, but at
   2B-10B records it is useful only after a strong prefilter or as a rerank over
   a small candidate set.
 - Use one global HNSW table for all actors, posts, and media. Rejected. It
   pushes tenant, time, modality, and safety filtering after ANN retrieval and
   creates one large operational blast radius.
-- Use IVF in RisingWave. Rejected for now because the official RisingWave vector
+- Use IVF in Kotoba/Datomic. Rejected for now because the official Kotoba/Datomic vector
   index docs expose `FLAT` and `HNSW`, not IVF.
-- Generate all embeddings inline with RisingWave `openai_embedding()`. Rejected
+- Generate all embeddings inline with Kotoba/Datomic `openai_embedding()`. Rejected
   for corpus scale because it couples query execution to external model API
   latency, cost, rate limits, and retry behavior.
 - Use embedded Python/Rust UDFs for model inference. Rejected. Embedded UDFs are
@@ -319,11 +319,11 @@ retrieval signal.
 
 # References
 
-- RisingWave vector indexes: https://docs.risingwave.com/processing/vector-indexes
-- RisingWave vector data type and distance operators: https://docs.risingwave.com/sql/data-types/vector
-- RisingWave `openai_embedding`: https://docs.risingwave.com/sql/functions/ai#openai_embedding
-- RisingWave embedded Python UDFs: https://docs.risingwave.com/sql/udfs/embedded-python-udfs
-- RisingWave Rust UDFs: https://docs.risingwave.com/sql/udfs/use-udfs-in-rust
+- Kotoba/Datomic vector indexes: https://docs.kotoba.com/processing/vector-indexes
+- Kotoba/Datomic vector data type and distance operators: https://docs.kotoba.com/sql/data-types/vector
+- Kotoba/Datomic `openai_embedding`: https://docs.kotoba.com/sql/functions/ai#openai_embedding
+- Kotoba/Datomic embedded Python UDFs: https://docs.kotoba.com/sql/udfs/embedded-python-udfs
+- Kotoba/Datomic Rust UDFs: https://docs.kotoba.com/sql/udfs/use-udfs-in-rust
 - Gemini embeddings: https://ai.google.dev/gemini-api/docs/embeddings
 - Gemini OpenAI compatibility: https://ai.google.dev/gemini-api/docs/openai
 - EmbeddingGemma model card: https://ai.google.dev/gemma/docs/embeddinggemma/model_card
@@ -352,9 +352,9 @@ Image: `ghcr.io/etzhayyim/pymagatama:0.3.22-202605010216-amd64` (built
 image built at 00:39 UTC predated the `site_ivf_pq.py` commit (00:42 UTC) and
 lacked faiss; a `--no-cache` rebuild was required.
 
-**RisingWave recovery risk**: DML fails with
+**Kotoba/Datomic recovery risk**: DML fails with
 `DML is not permitted during cluster recovery` when the compute nodes restart.
-Two of four shards (f1, f3) hit this when `risingwave-compute-0` had 6
+Two of four shards (f1, f3) hit this when `kotoba-compute-0` had 6
 restarts in the same window. Pattern: shard computes embeddings successfully,
 then crashes on the subsequent `UPDATE vertex_wet_chunk SET embedding = ...`
 batch write. Mitigation: K8s Job restart (new job name picks up from

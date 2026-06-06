@@ -26,7 +26,7 @@ python3 70-tools/scripts/ingest/legal-court-hf-datasets.py \
 ## Ingest SF Dataset
 
 ```bash
-export RW_URL='postgresql://...'
+export KOTOBA_URL='postgresql://...'
 export HF_TOKEN='...'
 
 python3 70-tools/scripts/ingest/legal-court-hf-datasets.py ingest-sf
@@ -44,7 +44,7 @@ python3 70-tools/scripts/ingest/legal-court-hf-datasets.py \
 ## Export Worldwide Non-SF Dataset
 
 ```bash
-export RW_URL='postgresql://...'
+export KOTOBA_URL='postgresql://...'
 
 python3 70-tools/scripts/ingest/legal-court-hf-datasets.py \
   export-world \

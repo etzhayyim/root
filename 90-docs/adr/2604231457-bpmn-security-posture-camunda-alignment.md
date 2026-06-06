@@ -36,7 +36,7 @@ surfaces opened as a side-effect:
    bind. `table` and `extraFilters.column` were already allow-listed, but
    `columns` (projection) and `orderBy` were spliced into SQL text
    unvalidated. A BPMN actor author — or an attacker who can persuade
-   RisingWave to emit a malformed binding — could craft arbitrary SQL.
+   Kotoba/Datomic to emit a malformed binding — could craft arbitrary SQL.
 
 Separately we had not written down what of Camunda 8's official surface we
 rely on vs. what we skip, which has caused confusion about version
@@ -92,7 +92,7 @@ Operate. Decision: stay on 8.6 until Operate becomes a requirement.
 
 | Camunda 8 component | Why we skip |
 |---|---|
-| **Operate** | requires Elasticsearch exporter; we rely on RisingWave `vertex_bpmn_instance` / `vertex_bpmn_history` streaming MVs + the dispatcher's `/bindings` endpoint for live state. |
+| **Operate** | requires Elasticsearch exporter; we rely on Kotoba/Datomic `vertex_bpmn_instance` / `vertex_bpmn_history` streaming MVs + the dispatcher's `/bindings` endpoint for live state. |
 | **Tasklist** | we have no human-task workflow; all actors are machine-executed. If added, tasklist-claim gating would be expressed as FEEL + an `approval` boundary event, still server-side. |
 | **Identity** | we already run our own DID + Service Auth stack (ADR-0022). Camunda Identity would be a duplicate trust root. Our strict-mode shared secret + planned ES256 upgrade uses the existing AuthN worker as the trust origin. |
 | **AI Agent Task connector** | Camunda's connector expects an OpenAI-compatible endpoint and serialises the full tool-use loop server-side. We route LLM calls through `generic.llm.json` (Murakumo LiteLLM gateway) so the tier-selection / tool-invocation loop stays in Python worker code where we already own the cache, audit, and retry behaviour. Revisit once Camunda ships a provider-agnostic tool contract. |
@@ -104,11 +104,11 @@ Operate. Decision: stay on 8.6 until Operate becomes a requirement.
 We add exactly two patterns that Camunda does not prescribe but do not
 violate the spec:
 
-1. **RisingWave-backed process-definition store**
+1. **Kotoba/Datomic-backed process-definition store**
    `vertex_bpmn_process_def` + `vertex_bpmn_lexicon_binding` are our own
    declarations consumed by `dispatcher_main.py`'s watcher loop and
    (re-)deployed to Zeebe on change. Camunda normally uses its own
-   Elasticsearch-backed catalog for this; we use RisingWave because it
+   Elasticsearch-backed catalog for this; we use Kotoba/Datomic because it
    is already the canonical state store (ADR-0058 Pillar 3).
 2. **Lexicon-bound job types**
    `zeebe:taskDefinition.type` values follow the `generic.<domain>.<action>`

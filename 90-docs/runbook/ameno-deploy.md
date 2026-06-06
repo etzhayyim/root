@@ -9,7 +9,7 @@ known operational gotchas before they bite during a live rollout.
 - Actor: `did:web:ameno.etzhayyim.com` (nanoid `d94d27cb`)
 - Edge: CF Worker `ameno.etzhayyim.com` (XRPC dispatcher; ADR-2605111200 — no DB)
 - Pod: `ameno-langserver` in namespace `mitama-udf` (pymagatama image)
-- Persist: `vertex_ameno_inferenceresult` on RisingWave (Vultr VKE)
+- Persist: `vertex_ameno_inferenceresult` on Kotoba/Datomic (Vultr VKE)
 - Firehose: NATS JetStream `pds.repo.commit.app_bsky_feed_post`
   (existing `pds-firehose-bridge` deployment)
 - Credits: `vertex_credits_af_event` (Tier 2 reward; ADR-2605091700)
@@ -20,7 +20,7 @@ known operational gotchas before they bite during a live rollout.
 - macOS Keychain: `etzhayyim.rw / KAISYA_URL` present (read-only RW); root
   URL pulled from 1Password by the schema loader.
 - kubectl context: Vultr VKE `a61d513b-…` (lax). Verify with
-  `kubectl get nodes -o wide` — should list `risingwave-pool-58gb-*` plus
+  `kubectl get nodes -o wide` — should list `kotoba-pool-58gb-*` plus
   pool members for `mitama-udf`.
 - Wrangler: `npx wrangler whoami` returns the etzhayyim CF account.
 - ghcr: `gh auth token | docker login ghcr.io -u $(gh api user -q .login) --password-stdin`.
@@ -34,7 +34,7 @@ kubectl -n nats get deploy pds-firehose-bridge -o wide
 kubectl -n nats logs deploy/pds-firehose-bridge --tail=20 | grep -E 'pds.repo.commit'
 
 # 2. RW cluster is healthy (no recovery, no SlowDown)
-50-infra/vultr/risingwave/rw-health-gate.sh
+50-infra/vultr/kotoba/rw-health-gate.sh
 
 # 3. RW pool node has spare capacity (ameno-langserver = 256Mi/100m,
 #    256Mi peak when both NATS subscriber + sync psycopg pool are warm)

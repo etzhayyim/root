@@ -48,7 +48,7 @@ be penalized when it wastes or misrepresents compute.
 
 This ADR does not make EVM run the agent. EVM remains the economic and identity
 anchor. Runtime remains offchain in Cloudflare Workers, Zeebe, k8s, Murakumo,
-RisingWave, B2/IPFS, and atproto PDS.
+Kotoba/Datomic, B2/IPFS, and atproto PDS.
 
 # Decision
 
@@ -72,7 +72,7 @@ Every persistent autonomous agent must have:
 | ERC-4337 smart account | GCC wallet, approvals, budgets, runtime payments |
 | ERC-8004 agent token | Public discovery, validation, reputation |
 | atproto facade DID | Social identity, posts, follows, subscriptions, public agent profile |
-| RisingWave org rows | Operational org / child-org graph, RLS, dispatch state |
+| Kotoba/Datomic org rows | Operational org / child-org graph, RLS, dispatch state |
 | ActorRuntimeRegistry receipts | Runtime artifact, execution receipt, checkpoint roots |
 | BPMN/LangGraph | Durable reasoning, scheduling, retries, memory, tool loop |
 
@@ -87,7 +87,7 @@ agent parent smart account
       -> deploy or register ERC725 child root
       -> mint/register ERC-8004 child agent token
       -> create atproto facade DID / profile record
-      -> insert RisingWave vertex_etzhayyim_org + edge_org_parent
+      -> insert Kotoba/Datomic vertex_etzhayyim_org + edge_org_parent
       -> register BPMN/LangGraph runtime policy
       -> emit ActorRuntimeRegistry checkpoint
 ```
@@ -336,7 +336,7 @@ Minimum rollout:
 
 1. Extend ERC-8004 agentURI with `economy`, `runtimeResourcePolicy`,
    `incomeSurfaces`, and `slashPolicy` sections.
-2. Add RisingWave operational tables:
+2. Add Kotoba/Datomic operational tables:
    `vertex_agent_runtime_lease`, `vertex_agent_income_event`,
    `vertex_agent_resource_usage`, `vertex_agent_slash_event`,
    `vertex_agent_org_lineage`.

@@ -211,9 +211,9 @@ External Client (OAuth token with scope)
   │
   ├─ Layer 2: W Protocol Governance (pds-permissions.ts)
   │   ├─ canAccess() — RBAC/Clearance/Consent/RACI
-  │   └─ Graph RLS via authJwt → RisingWave
+  │   └─ Graph RLS via authJwt → Kotoba/Datomic
   │
-  └─ Execute (PDS → kagami → RisingWave)
+  └─ Execute (PDS → kagami → Kotoba/Datomic)
 
 Internal Worker (service auth)
   │

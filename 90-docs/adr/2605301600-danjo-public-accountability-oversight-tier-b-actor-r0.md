@@ -81,7 +81,7 @@ identify fraud / violations":
 3. **The ingestion target must be kotoba, not a parallel store.**
    Per ADR-2605262130 the canonical substrate is kotoba (content-
    addressed Datalog + Pregel; EAVT/AEVT/AVET/VAET arrangements via
-   kotoba-kqe; RisingWave / Postgres / Lance prohibited as primary
+   kotoba-kqe; Kotoba/Datomic / Postgres / Lance prohibited as primary
    store or read backend). Any "ingest into kotoba" actor must build its
    cross-reference graph as kotoba datoms, exactly as tadori
    (ADR-2605301400) does for on-chain tracing.
@@ -162,7 +162,7 @@ Council ADR + R1 ratification")` at W1 creation.
 
 Cells communicate via `com.etzhayyim.danjo.*` lexicon records on MST;
 the cross-reference graph lives in kotoba QuadStore (EAVT) per
-ADR-2605262130. No RisingWave, no projection layer.
+ADR-2605262130. No Kotoba/Datomic, no projection layer.
 
 ## §3 — Lexicons (`com.etzhayyim.danjo.*`)
 
@@ -368,7 +368,7 @@ ratification post Bootstrap Council Seats 2-5 RFP close (2026-06-19).
 # References
 
 - `/90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md` — open-government corpus (primary input)
-- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no RisingWave)
+- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no Kotoba/Datomic)
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — §1.12 Transparent Religious Force + §2(c) covert-ops avoidance
 - `/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider §2(c)/(e)
 - `/90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md` — toritate (boundary sibling)

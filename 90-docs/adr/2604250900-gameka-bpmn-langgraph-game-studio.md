@@ -39,7 +39,7 @@ ADR-2604250836 (LangGraph as Zeebe ServiceTask) の上に置く。
 - 形状: ゲーム生成 pipeline の BPMN process 分割
 - LangGraph: 企画 deliberation の graph 定義
 - DID: per-game sub-DID 発行ポリシー
-- 永続: RisingWave vertex / B2 artifact / AT Repo record の責務分担
+- 永続: Kotoba/Datomic vertex / B2 artifact / AT Repo record の責務分担
 
 実装の手順 (P0–P5 rollout) は本 ADR が確定後に別 runbook に切り出す。
 

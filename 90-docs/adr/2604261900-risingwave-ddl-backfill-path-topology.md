@@ -1,26 +1,26 @@
 ---
-id: adr-2604261900-risingwave-ddl-backfill-path-topology
-title: RisingWave DDL Backfill and Hot Path Topology
+id: adr-2604261900-kotoba-ddl-backfill-path-topology
+title: Kotoba/Datomic DDL Backfill and Hot Path Topology
 status: active
 doc_type: adr
 topic: infrastructure
 authoritative: true
 last_verified: 2026-04-26
 authoritative_for:
-  - risingwave-write-path-topology
-  - risingwave-ddl-queue-topology
-  - risingwave-backfill-path-topology
-  - risingwave-flush-policy
+  - kotoba-write-path-topology
+  - kotoba-ddl-queue-topology
+  - kotoba-backfill-path-topology
+  - kotoba-flush-policy
 related:
-  - adr-0094-risingwave-stable-three-node-topology
-  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - adr-0094-kotoba-stable-three-node-topology
+  - adr-2604241342-kotoba-out-of-band-migration-pattern
 supersedes: []
 superseded_by: []
 ---
 
 # Context
 
-The production RisingWave cluster runs on Vultr VKE with Hummock state on
+The production Kotoba/Datomic cluster runs on Vultr VKE with Hummock state on
 Backblaze B2. The 2026-04-25 incidents showed that treating application ingest,
 DDL, backfill, migration, FLUSH, and scaling as one operational path creates a
 single failure surface:
@@ -30,7 +30,7 @@ single failure surface:
 - compute restart or scale events cold-started cache refill against B2;
 - write callers saw `DML is not permitted during cluster recovery`.
 
-RisingWave supports background DDL, `WAIT`, `CANCEL JOBS`, runtime parameters,
+Kotoba/Datomic supports background DDL, `WAIT`, `CANCEL JOBS`, runtime parameters,
 and catalog-based progress monitoring. Those controls only help if every writer
 uses a stable topology with explicit path ownership.
 
@@ -49,26 +49,26 @@ FLUSH. The ops paths are serialized and gated.
 | Path | K8s home | Allowed work | Forbidden work | Gate |
 |---|---|---|---|---|
 | Hot write path | app namespaces such as `mitama-udf`, `blockchain`, and social/fund workers | bounded `INSERT`/`UPDATE`/`DELETE`, cursor writes, small metadata updates | `CREATE TABLE`, `CREATE MATERIALIZED VIEW`, `CREATE INDEX`, source/sink creation, destructive `ALTER`/`DROP`, `FLUSH`, initial backfill | `RW_DDL_GUARD=1`, `RW_ALLOW_HEAVY_DDL=0`, `RW_ALLOW_FLUSH=0`, `rw-health-gate.sh` |
-| DDL queue path | `risingwave` namespace, future `rw-ddl-queue-runner` Job/Deployment | one heavy DDL at a time with background DDL and bounded parallelism | bulk data ingest, application-serving writes | `rw_recovery_info` running, no object-store errors, no pending compute, `rw_ddl_progress` owner check |
+| DDL queue path | `kotoba` namespace, future `rw-ddl-queue-runner` Job/Deployment | one heavy DDL at a time with background DDL and bounded parallelism | bulk data ingest, application-serving writes | `rw_recovery_info` running, no object-store errors, no pending compute, `rw_ddl_progress` owner check |
 | Migration runner path | graph-schema or migration namespace, isolated Job | submit migration statements to the DDL queue, record audit output | direct psql DDL from app images, concurrent runners | queue lock plus dry-run before apply |
 | Backfill path | dedicated `*-backfill-worker` Jobs or Zeebe workers | rate-limited historical ingest and MV/source backfills | hot cursor writes without throttle, schema creation outside queue | `dml_rate_limit`, `source_rate_limit` where applicable, small batches, circuit breaker |
 | Operator diagnostics path | short-lived operator Job/shell | `SHOW JOBS`, catalog reads, bounded diagnostic `FLUSH` only when explicitly required | commit primitive, cron-based flush, app-callable flush | manual reason, timeout, clean recovery/object-store gate |
 
 ## VKE and Helm Topology
 
-- `risingwave` namespace owns RisingWave Helm resources, `rw-meta-backup`, and
+- `kotoba` namespace owns Kotoba/Datomic Helm resources, `rw-meta-backup`, and
   the future `rw-ddl-queue-runner`.
 - Application namespaces own hot-path workers only. Their pod env must default
   to `RW_DDL_GUARD=1`, `RW_ALLOW_HEAVY_DDL=0`, `RW_ALLOW_FLUSH=0`, and
   `RW_SYNC_POOL=0`.
-- Cloudflare Workers using RisingWave through Hyperdrive are also hot-path
+- Cloudflare Workers using Kotoba/Datomic through Hyperdrive are also hot-path
   writers. Their `wrangler.jsonc` vars must default to `RW_ALLOW_FLUSH=0`.
   A Worker may issue `FLUSH` only when explicitly redeployed or configured for
   a bounded diagnostic run with `RW_ALLOW_FLUSH=1`.
 - Dedicated backfill workers use separate manifests, smaller resource requests,
   explicit rate limits, and resumable cursors. They do not share the same
   deployment as live hot-path consumers.
-- Migration jobs do not connect to RisingWave as free-form psql clients. They
+- Migration jobs do not connect to Kotoba/Datomic as free-form psql clients. They
   submit to the DDL queue, which is the only writer allowed to run heavy DDL.
 - Helm/HPA/node-pool changes use `scaling-contract.yaml` before apply. Compute
   scale-up is preferred before scale-out; scale-out remains bounded by the node
@@ -78,9 +78,9 @@ FLUSH. The ops paths are serialized and gated.
 
 1. Run `70-tools/scripts/ingest/rw-health-gate.sh`.
 2. Acquire a single queue lock, preferably a Kubernetes `Lease` in namespace
-   `risingwave`. A DB lock table is acceptable only if it is already available.
+   `kotoba`. A DB lock table is acceptable only if it is already available.
 3. Confirm `rw_catalog.rw_recovery_info` is running for every database.
-4. Confirm recent RisingWave logs contain no `SlowDown`, `RateLimited`,
+4. Confirm recent Kotoba/Datomic logs contain no `SlowDown`, `RateLimited`,
    `NoSuchUpload`, `write part timeout`, recovery block, or pending compute.
 5. Confirm `rw_catalog.rw_ddl_progress` is empty or the active job is owned by
    the same queue worker.
@@ -93,12 +93,12 @@ FLUSH. The ops paths are serialized and gated.
 8. Poll `rw_ddl_progress` and `SHOW JOBS`.
 9. Use `WAIT` for the created table, materialized view, index, source, or sink
    before the next heavy DDL is released.
-10. Record SQL hash, owner, start/end time, RisingWave job id, and gate status.
+10. Record SQL hash, owner, start/end time, Kotoba/Datomic job id, and gate status.
 
 Materialized views over existing data are always heavy DDL, even when the SQL
 looks narrow. They must not be submitted as foreground work from an ad-hoc psql
 session. Use `BACKGROUND_DDL`, bounded parallelism, and statement-level
-`source_rate_limit` where RisingWave supports it.
+`source_rate_limit` where Kotoba/Datomic supports it.
 
 ## Backfill and Flush Policy
 
@@ -125,7 +125,7 @@ application-level state path; they must not force a checkpoint from the hot path
 Operational support jobs also stay out of the hot path:
 
 - `rw-meta-backup` is allowed to run hourly, but snapshot count must be pruned
-  before it reaches RisingWave's 100-snapshot manifest limit. A successful
+  before it reaches Kotoba/Datomic's 100-snapshot manifest limit. A successful
   verification backup is required before deleting failed backup Jobs from an
   incident window.
 - `data-collection` state uses `collector-state-pvc`; on Vultr this PVC must be
@@ -165,11 +165,11 @@ heavy DDL after gates pass.
 
 # References
 
-- RisingWave background DDL: https://docs.risingwave.com/sql/commands/sql-set-background-ddl
-- RisingWave `WAIT`: https://docs.risingwave.com/sql/commands/sql-wait
-- RisingWave `CANCEL JOBS`: https://docs.risingwave.com/sql/commands/sql-cancel-jobs
-- RisingWave runtime parameters: https://docs.risingwave.com/operate/view-configure-runtime-parameters
-- RisingWave system catalogs: https://docs.risingwave.com/sql/system-catalogs/rw-catalog
-- RisingWave serverless backfill: https://docs.risingwave.com/processing/serverless-backfill
-- RisingWave Kubernetes scaling: https://docs.risingwave.com/deploy/k8s-cluster-scaling
-- RisingWave disk cache: https://docs.risingwave.com/get-started/disk-cache
+- Kotoba/Datomic background DDL: https://docs.kotoba.com/sql/commands/sql-set-background-ddl
+- Kotoba/Datomic `WAIT`: https://docs.kotoba.com/sql/commands/sql-wait
+- Kotoba/Datomic `CANCEL JOBS`: https://docs.kotoba.com/sql/commands/sql-cancel-jobs
+- Kotoba/Datomic runtime parameters: https://docs.kotoba.com/operate/view-configure-runtime-parameters
+- Kotoba/Datomic system catalogs: https://docs.kotoba.com/sql/system-catalogs/rw-catalog
+- Kotoba/Datomic serverless backfill: https://docs.kotoba.com/processing/serverless-backfill
+- Kotoba/Datomic Kubernetes scaling: https://docs.kotoba.com/deploy/k8s-cluster-scaling
+- Kotoba/Datomic disk cache: https://docs.kotoba.com/get-started/disk-cache

@@ -33,7 +33,7 @@ sed -i.bak "s|REPLACE_ME_IMAGE_REF|${IMAGE_REF}|g" deployment-dispatcher.yaml
 kubectl -n mitama-udf create secret generic bpmn-dispatcher-auth \
     --from-literal=INTERNAL_SECRET="$(openssl rand -hex 32)"
 kubectl -n mitama-udf create secret generic bpmn-dispatcher-rw \
-    --from-literal=RW_URL="<postgres://... — substrate-violation, see README>"
+    --from-literal=KOTOBA_URL="<postgres://... — substrate-violation, see README>"
 # Optional (Stripe / R2 / OpenRouter) — see README "Substrate boundary".
 
 # 6. Apply manifests

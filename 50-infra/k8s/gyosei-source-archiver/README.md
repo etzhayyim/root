@@ -11,7 +11,7 @@ Namespace: `mitama-udf`
 - installs runtime dependencies in the job container
 - runs the archiver on a schedule
 - skips unchanged sources by comparing current source sha256 with prior `metadata.json`
-- upserts `vertex_gyosei_source_blob` when `RW_URL` is available
+- upserts `vertex_gyosei_source_blob` when `KOTOBA_URL` is available
 
 ## Prereqs
 

@@ -2,7 +2,7 @@
   "schema": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json",
   "runtimeKind": "holochain",
   "status": "experimental",
-  "layer": "L3 virtual actor runtime experiment; L5 remains RisingWave",
+  "layer": "L3 virtual actor runtime experiment; L5 remains Kotoba/Datomic",
   "agentDid": "did:web:kami-agent.etzhayyim.com",
   "conductor": {
     "image": "ghcr.io/etzhayyim/holochain-agent-runtime:experimental",
@@ -30,7 +30,7 @@
     "enable_app(agent_did)",
     "call_zome(commit_actor_event)",
     "emit_signal(latest_actor_head)",
-    "project_to_risingwave(vertex_actor_event_holochain)"
+    "project_to_kotoba(vertex_actor_event_holochain)"
   ],
   "verification": {
     "mode": "offline-contract-smoke",
@@ -55,7 +55,7 @@
       {
         "name": "projection-boundary",
         "ok": true,
-        "detail": "Holochain source chain/DHT are event transport; RisingWave remains query projection SSoT"
+        "detail": "Holochain source chain/DHT are event transport; Kotoba/Datomic remains query projection SSoT"
       }
     ]
   },
@@ -67,7 +67,7 @@
   },
   "operationalGates": [
     "Do not use as production default runtime until conductor packaging is reproducible in CI.",
-    "Do not store query SSoT in Holochain; project accepted events to RisingWave.",
+    "Do not store query SSoT in Holochain; project accepted events to Kotoba/Datomic.",
     "Do not expose conductor admin API publicly; publish only MCP/XRPC facade endpoints."
   ]
 }

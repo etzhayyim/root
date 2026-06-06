@@ -58,7 +58,7 @@ Three additional gates surfaced during the closure audit:
 1. **RW-free substrate boundary (ADRs 2605172000 + 2605172100)**:
    etzhayyim is structurally RW-free. Any framing of "move helm
    templates to etzhayyim/root 50-infra" that assumed Vultr K8s +
-   RisingWave parity was conceptually invalid.
+   Kotoba/Datomic parity was conceptually invalid.
 
 2. **GitGuardian incident posture (ADR-2605173100)**: a placeholder
    PostgreSQL URI containing a 32-char string had been seeded across
@@ -255,17 +255,17 @@ etzhayyim/root scrubbed the leaked PostgreSQL URI from source on
   `kubectl.kubernetes.io/last-applied-configuration` annotation also
   patched.
 - 2 ingest .mjs scripts — hardcoded constant replaced with
-  `process.env.RW_CONN ?? "REDACTED_USE_RW_CONN_ENV"`.
+  `process.env.KOTOBA_URL ?? "REDACTED_USE_KOTOBA_URL_ENV"`.
 
 `secret/rw-credentials -n default` created from the existing
-`secret/rw-admin-url -n risingwave` (which already holds the rotated
+`secret/rw-admin-url -n kotoba` (which already holds the rotated
 `rw_admin` credential per ADR-2605173100). helm upgrade of
 `default-murakumo-raw` and `copyright-fulltext-fetch-raw` pending
 restoration of the VKE API server tunnel.
 
 Repo-wide grep for the placeholder string returns 0 hits in source.
 Git history retains the string; the credential remains in 1Password
-and is no longer functional auth in the cluster (RisingWave root user
+and is no longer functional auth in the cluster (Kotoba/Datomic root user
 had no password enforcement at the time of the leak; rotation to
 `rw_admin` happened during the 2026-05-17 incident response).
 
@@ -340,7 +340,7 @@ had no password enforcement at the time of the leak; rotation to
 - ADR-2605172000 (etzhayyim RW-free substrate)
 - ADR-2605172100 (payments on-chain only)
 - ADR-2605211200 (etzhayyim active-inference organism on murakumo, Phase 2A-2D BeliefStore pattern)
-- ADR-2605173100 (GitGuardian RisingWave credential-leak incident response)
+- ADR-2605173100 (GitGuardian Kotoba/Datomic credential-leak incident response)
 - ADR-2605181400 (BPMN extract to etzhayyim-root)
 - ADR-2605152100 (etzhayyim GitHub org boundary)
 - `deps.toml [[migrations]] tranche-f-70-worker-3-axis-classification-2026-05-21` (audit log + helm map + secret remediation status)

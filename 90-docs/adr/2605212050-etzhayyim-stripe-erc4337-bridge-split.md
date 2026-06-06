@@ -71,7 +71,7 @@ The bridge must be re-architected so that:
 │      → vendor webhook (`/stripe/issuing/authorization`)          │
 │      → vendor approves authorization (subject to internal        │
 │        Stripe rules + per-user limit)                            │
-│      → vendor records fiat receivable in RisingWave              │
+│      → vendor records fiat receivable in Kotoba/Datomic              │
 │        (`vertex_etzhayyim_stripe_issuing_authorization`)              │
 │      → vendor calls etzhayyim XRPC (D3 below):                   │
 │        `org.etzhayyim.payment.creditFromFiat`                    │
@@ -222,7 +222,7 @@ Vendor MUST honor `fiatBridgeRefundCallback` within 24h or the etzhayyim receipt
 - Tithe receipts per ADR-2605192130 increase — every fiat-originated chain credit contributes to the Public Fund. This is the intended design.
 - Treasury reserve becomes a single point of operational risk: depletion = bridge unavailable. Mitigation: minimum-balance alarm + vendor SOP for monthly top-up.
 - Council gains a daily-cap throttle as a governance lever over the fiat flow.
-- The vendor-side reading of vendor's `vertex_etzhayyim_stripe_issuing_authorization` table joins to the etzhayyim chain receipt via `vendorAuthorizationId`. Cross-repo data join lives in vendor analytics; etzhayyim does not import vendor RisingWave.
+- The vendor-side reading of vendor's `vertex_etzhayyim_stripe_issuing_authorization` table joins to the etzhayyim chain receipt via `vendorAuthorizationId`. Cross-repo data join lives in vendor analytics; etzhayyim does not import vendor Kotoba/Datomic.
 
 ## Alternatives Considered
 

@@ -333,7 +333,7 @@ contract KawaseYuiPool {
 - **G10**: KYC = Adherent SBT, period. NO Travel Rule / FATF passport / state-issued ID. Charter §1.12 routing-around invariant.
 - **G11**: NO chargeback / NO fraud reversal — on-chain finality per ADR-2605172100 §"No chargebacks" + ADR-2605263500 wakai N9 inherited. Disputes route to chigiri.disputeMediation (cooperative-first per ADR-2605262700 G10), NOT to settlement reversal.
 - **G12**: Murakumo-only inference for ALL pool cells — pool_match / fx_oracle_watcher / rebalance_proposer / jurisdiction_compliance / silen_review. ADR-2605215000 fleet.toml allow-list applies.
-- **G13**: 100% kotoba content-addressed substrate per ADR-2605262130. NO RisingWave projection, NO off-chain primary ledger, NO commercial DB.
+- **G13**: 100% kotoba content-addressed substrate per ADR-2605262130. NO Kotoba/Datomic projection, NO off-chain primary ledger, NO commercial DB.
 - **G14**: Per-jurisdiction Council Lv7+ unanimity activation. NO send/receive pair activated without explicit `jurisdictionAttestation` Lexicon record signed by all 5 Council seats. R1 launch jurisdictions: US (Founder seat 1) + JP (Founder seat 1) — Council Lv7+ unanimity will gate EU activation pending Bootstrap Council Seats 2-5 (RFP open until 2026-06-19).
 
 ### 12 non-goals N1..N12

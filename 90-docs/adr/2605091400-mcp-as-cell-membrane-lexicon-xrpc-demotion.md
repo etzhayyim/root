@@ -221,12 +221,12 @@ Browser
   -> same-origin SvelteKit route (/api/* or /xrpc/* facade)
   -> MCP router tools/call
   -> K8s pod tool / LangGraph / Granian
-  -> RisingWave / business logic
+  -> Kotoba/Datomic / business logic
 ```
 
 Rules:
 
-- SvelteKit edge MUST NOT connect to RisingWave, Hyperdrive, or other DB
+- SvelteKit edge MUST NOT connect to Kotoba/Datomic, Hyperdrive, or other DB
   bindings.
 - Page-specific `/api/*` routes may exist, but only as unwrap/aggregation
   facades over MCP tools.
