@@ -38,6 +38,19 @@
                 "collection": { "type": "string" },
                 "uri": { "type": "string" }
               }
+            },
+            "ipnsRecord": {
+              "type": "object",
+              "description": "Optional canonical kotoba IPNS head record (ADR-2606066000) from the browser's kotoba-wasm commitHeadSigned: a member-signed, self-verifying head pointer (value = this root). The server stores it as the head representation ONLY when value == root and controller_did == did, and RELAYS it untrusted (the reader verifies the signature). Authority does not switch to it yet.",
+              "properties": {
+                "name": { "type": "string", "description": "DID-derived IPNS name." },
+                "value": { "type": "string", "description": "Head CID multibase (must equal root)." },
+                "sequence": { "type": "integer", "description": "Monotonic CAS / stale-guard." },
+                "valid_until": { "type": "string" },
+                "controller_did": { "type": "string", "description": "Signing member did:key (must equal did)." },
+                "public_key_multibase": { "type": "string" },
+                "signature_multibase": { "type": "string", "description": "Ed25519 over the ciborium-CBOR payload." }
+              }
             }
           }
         }

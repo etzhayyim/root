@@ -138,6 +138,22 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     prevRoot?: string; // optimistic-concurrency base: advance only if KV root == prevRoot
     blocks?: { cid: string; hex: string }[];
     edit?: { collection?: string; uri?: string };
+    // Optional canonical kotoba IPNS head record (ADR-2606066000) emitted by the
+    // browser's kotoba-wasm `commitHeadSigned`. Self-verifying (member-signed over
+    // a ciborium-CBOR payload); the apex stores it as the head representation and
+    // RELAYS it untrusted — the reader verifies. Stored only when its `value`
+    // matches the just-verified root and its controller is the signer (a cheap
+    // consistency check; the apex never becomes the authority). Authority does NOT
+    // switch to it here — that is a gated follow-up once readers verify it.
+    ipnsRecord?: {
+      name?: string;
+      value?: string;
+      sequence?: number;
+      valid_until?: string;
+      controller_did?: string;
+      public_key_multibase?: string;
+      signature_multibase?: string;
+    };
   };
   try {
     body = await request.json();
@@ -179,13 +195,35 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
   //    CAS just leaves reusable orphan blocks). The consumer re-verifies each CID.
   await Promise.all(blocks.map((b) => env.ACTOR_KV!.put(`kblk:${b.cid}`, b.hex)));
 
-  const manifest = {
+  const manifest: {
+    graph: string;
+    root: string;
+    blocks: string[];
+    did: string;
+    updatedAt: string;
+    ipnsRecord?: typeof body.ipnsRecord;
+  } = {
     graph,
     root,
     blocks: blocks.map((b) => b.cid),
     did,
     updatedAt: new Date().toISOString(),
   };
+  // ADR-2606066000: carry the self-verifying IPNS head record when the publisher
+  // sent one AND it is consistent with what we just verified — its head must be
+  // THIS root and its controller must be the signing member. (Full signature
+  // verification is the reader's job via kotoba-wasm; the apex is a relay.)
+  const rec = body.ipnsRecord;
+  if (
+    rec &&
+    typeof rec === "object" &&
+    rec.value === root &&
+    (rec.controller_did === undefined || rec.controller_did === did) &&
+    typeof rec.signature_multibase === "string" &&
+    typeof rec.public_key_multibase === "string"
+  ) {
+    manifest.ipnsRecord = rec;
+  }
   let rlTokens: number | undefined; // remaining rate-limit tokens (DO path), for observability
 
   // 3) Advance the published head under KV CHECK-AND-SET (advance only if the
