@@ -333,7 +333,41 @@ async function handleCreateRecord(body) {
   console.log(
     `[kotoba-sw] local write ${collection} by ${did.slice(0, 24)}… → ${uri.slice(-12)}${signed ? ` (signed root ${String(signed.root).slice(0, 12)}…)` : ""}`,
   );
+  // Publish the new signed root + blocks so other browsers see it (best-effort).
+  await publishToApex({ collection, uri });
   return { uri, cid, commit: signed ? { rev: signed.root } : undefined, validationStatus: "valid" };
+}
+
+const GRAPH = "yoro-social-v1";
+const PUBLISH_URL = "/xrpc/com.etzhayyim.apps.kotoba.block.put";
+
+// Build the FULL merged tree from every current datom in a fresh node, member-
+// sign the root, and POST it + the blocks to the apex. The apex verifies the
+// signature (server never signs), stores the blocks, advances the published
+// root, and records a suppressable encrypted IP attestation. No node exposed.
+async function publishToApex(edit) {
+  try {
+    const seedHex = await idbGet("id-seed");
+    if (!seedHex || typeof KotobaNode.prototype.exportBlocks !== "function") return;
+    const pub = new KotobaNode();
+    pub.useIdentity(seedHex);
+    for (const d of seedDatoms) {
+      const val = JSON.parse(d.v_edn);
+      pub.assert(d.e, d.a, typeof val === "string" ? val : JSON.stringify(val));
+    }
+    const signed = JSON.parse(pub.commitSigned()); // { root, did, sig }
+    const blocks = JSON.parse(pub.exportBlocks()); // [{ cid, hex }]
+    const r = await fetch(PUBLISH_URL, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ graph: GRAPH, root: signed.root, did: signed.did, sig: signed.sig, blocks, edit }),
+    });
+    console.log(
+      `[kotoba-sw] publish ${r.ok ? "ok" : "HTTP " + r.status} root ${String(signed.root).slice(0, 12)}… (${blocks.length} blocks)`,
+    );
+  } catch (e) {
+    console.warn("[kotoba-sw] publish failed (local write intact)", e);
+  }
 }
 
 // ── IndexedDB persistence ──────────────────────────────────────────────────
@@ -417,32 +451,50 @@ function hydrate(datoms) {
 // bytes and rejects on CID mismatch — trustless), then hydrateFromProlly builds
 // the read arrangements. Feed/profile builders read the materialised datoms via
 // exportDatoms (same {e,a,v_edn} shape as the JSON seed). Returns true on success.
+// Resolve which root to hydrate: the LATEST published root from the apex (KV)
+// if any member has published, else the static genesis pointer.
+async function resolveRoot() {
+  try {
+    const lr = await fetch(`/xrpc/com.etzhayyim.apps.kotoba.root?graph=${GRAPH}`, { cache: "no-cache" });
+    if (lr.ok) {
+      const m = await lr.json();
+      if (m && m.root) return m.root;
+    }
+  } catch {
+    /* fall back to genesis */
+  }
+  const r = await fetch(ROOT_URL, { cache: "no-cache" });
+  if (!r.ok) return null;
+  const m = await r.json();
+  return m && m.root ? m.root : null;
+}
+
 async function bootFromBlocks() {
   if (typeof KotobaNode.prototype.ingestBlock !== "function") return false; // old wasm
-  const r = await fetch(ROOT_URL, { cache: "no-cache" });
-  if (!r.ok) return false;
-  const manifest = await r.json();
-  if (!manifest || !manifest.root) return false;
+  const root = await resolveRoot();
+  if (!root) return false;
   const n = new KotobaNode();
-  const cids =
-    Array.isArray(manifest.blocks) && manifest.blocks.length
-      ? manifest.blocks
-      : n.missingBlockCids(manifest.root);
-  for (const cid of cids) {
-    const br = await fetch(BLOCK_URL(cid), { cache: "force-cache" });
-    if (!br.ok) throw new Error(`block ${cid} HTTP ${br.status}`);
-    n.ingestBlock(cid, new Uint8Array(await br.arrayBuffer())); // throws on CID mismatch
+  // Iteratively fetch the covering tree: missingBlockCids(root) walks what the
+  // node still needs; each block is served from /kotoba/blocks/<cid> (genesis =
+  // static asset, post-genesis = apex KV) and CID-verified on ingest (trustless).
+  for (let i = 0; i < 64; i++) {
+    const missing = n.missingBlockCids(root);
+    if (!missing || missing.length === 0) break;
+    for (const cid of missing) {
+      const br = await fetch(BLOCK_URL(cid), { cache: "force-cache" });
+      if (!br.ok) throw new Error(`block ${cid} HTTP ${br.status}`);
+      n.ingestBlock(cid, new Uint8Array(await br.arrayBuffer())); // throws on CID mismatch
+    }
   }
-  const applied = n.hydrateFromProlly(manifest.root);
+  const applied = n.hydrateFromProlly(root);
   if (!applied) return false;
   node = n;
   seedDatoms = JSON.parse(n.exportDatoms()); // feed/profile build source
   hydrateSource = "blocks";
-  // Persist for offline reload (JSON snapshot of the block-hydrated state).
   await idbPut("datoms", seedDatoms);
   await idbPut("len", seedDatoms.length);
   console.log(
-    `[kotoba-sw] block-hydrated ${applied} datoms from root ${String(manifest.root).slice(0, 16)}… (${n.blockCount()} CID-verified blocks)`,
+    `[kotoba-sw] block-hydrated ${applied} datoms from root ${String(root).slice(0, 16)}… (${n.blockCount()} CID-verified blocks)`,
   );
   return true;
 }
