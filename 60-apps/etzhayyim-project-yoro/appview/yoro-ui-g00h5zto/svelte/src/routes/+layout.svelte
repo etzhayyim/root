@@ -167,6 +167,10 @@
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker
 				.register('/kotoba-sw.js', { type: 'module', scope: '/' })
+				.then(() => import('$lib/kotoba-identity'))
+				// Re-bind the passkey-derived signing key ONLY if the member opted in
+				// earlier (never prompts unprompted). Best-effort.
+				.then((m) => m.maybeRebindPasskeyIdentity())
 				.catch((e) => console.warn('[kotoba-sw] register failed', e));
 		}
 		// Auto-init embedding model (45MB, cached in OPFS after first download)
@@ -287,7 +291,7 @@
 				disabled={authBusy}
 				class="flex min-h-[36px] items-center rounded-full bg-[#58CC02] px-4 py-1.5 text-[14px] font-bold text-white shadow-[0_3px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[3px] transition-all duration-75 disabled:opacity-60"
 			>
-				新規登録
+				{authBusy ? '...' : '新規登録'}
 			</button>
 			{#if authMsg}
 				<p class="ml-2 max-w-[200px] text-[11px] leading-tight text-gv2-text-muted">{authMsg}</p>

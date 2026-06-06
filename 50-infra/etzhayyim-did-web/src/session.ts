@@ -17,7 +17,8 @@
  * and returns the resolved DID + granted scope for the client to gate its UI.
  */
 
-import { verifyCacao, type Cacao, type VerifyOutcome } from "./cacao.ts";
+import { verifyCacao, isWellFormed, type Cacao, type VerifyOutcome } from "./cacao.ts";
+import type { KotobaClaim } from "./kotoba.ts";
 
 export interface SessionScope {
   /** kotoba://op/* capability URIs requested by the CACAO. */
@@ -148,4 +149,107 @@ export async function handleVerifyCacao(
     status: 401,
     result: { valid: false, sigType: outcome.sigType, reason: outcome.reason },
   };
+}
+
+// ─── account write relay (same-origin → kotoba, ADR-2606061800) ─────────────
+
+const CAP_DATOM_TRANSACT = "kotoba://op/datom:transact";
+
+export interface RegisterAccountResult {
+  ok: boolean;
+  /** structurally valid, but the kotoba write endpoint is not enabled. */
+  gated?: boolean;
+  did?: string;
+  handle?: string;
+  reason?: string;
+}
+
+/**
+ * Relay a member-CACAO-authorized account write to the kotoba node
+ * (ADR-2606061800). The member signs a kotoba-scoped CACAO (aud = node
+ * `operator_did`, `kotoba://op/datom:transact`); the Worker re-encodes it to
+ * `cacaoB64` (CBOR) and forwards an `account.<did>` entity to the node's
+ * `kg.ingest`. The Worker holds NO key and does NOT verify the signature (the
+ * kotoba node does) — it sanity-checks the CACAO shape + capability and relays.
+ *
+ * ONE relay backs ALL account writes (the frontend supplies the claim set):
+ *   - register    → [account/did, account/controller, account/handle, …profile]
+ *   - device-wrap → [account/device/<credId> = wrappedArkB64]   (multi-device add)
+ *   - rotate      → [account/controller = newDid, account/rotation/<n> = …] (key rotation)
+ *
+ * `cborEncode` + `relay` are injected (unit-testable; the CBOR encoder + network
+ * stay out of this module). Missing `KOTOBA_WRITE_ENDPOINT` ⇒ relay "gated" ⇒
+ * HTTP 202 (honest R0).
+ */
+export async function handleAccountWrite(
+  body: unknown,
+  cborEncode: (cacao: Cacao) => string,
+  relay: (
+    cacaoB64: string,
+    id: string,
+    claims: KotobaClaim[],
+    labelEn?: string,
+  ) => Promise<"written" | "gated" | "error">,
+): Promise<{ status: number; result: RegisterAccountResult }> {
+  const b = body as
+    | {
+        cacao?: Cacao;
+        id?: string;
+        did?: string;
+        handle?: string;
+        profile?: Record<string, unknown>;
+        claims?: KotobaClaim[];
+        labelEn?: string;
+      }
+    | null;
+  const cacao = b?.cacao;
+  if (!cacao || !isWellFormed(cacao)) {
+    return { status: 400, result: { ok: false, reason: "missing or malformed 'cacao' in request body" } };
+  }
+  if (cacao.s.t !== "EdDSA") {
+    return { status: 400, result: { ok: false, reason: "account write requires an EdDSA (did:key) CACAO" } };
+  }
+  const caps = (cacao.p.resources ?? []).filter((r) => r.startsWith("kotoba://op/"));
+  if (!caps.includes(CAP_DATOM_TRANSACT)) {
+    return { status: 400, result: { ok: false, reason: `CACAO lacks ${CAP_DATOM_TRANSACT} capability` } };
+  }
+  const did = cacao.p.iss;
+  if (b?.did && b.did !== did) {
+    return { status: 400, result: { ok: false, reason: "body.did does not match the CACAO issuer (controller key)" } };
+  }
+  const id = b?.id ?? `account.${did}`;
+  if (!id.startsWith("account.")) {
+    return { status: 400, result: { ok: false, reason: "id must be 'account.<…>'" } };
+  }
+
+  let claims: KotobaClaim[];
+  if (Array.isArray(b?.claims) && b.claims.length > 0) {
+    // advanced: caller supplies the exact claim set (device-wrap, rotation, …).
+    if (!b.claims.every((c) => c && typeof c.pred === "string" && typeof c.value === "string")) {
+      return { status: 400, result: { ok: false, reason: "each claim must be {pred:string, value:string}" } };
+    }
+    claims = b.claims;
+  } else {
+    const handle = String(b?.handle ?? "");
+    claims = [
+      { pred: "account/did", value: did },
+      { pred: "account/controller", value: did },
+    ];
+    if (handle) claims.push({ pred: "account/handle", value: handle });
+    for (const [k, v] of Object.entries(b?.profile ?? {})) {
+      if (typeof v === "string") claims.push({ pred: `account/${k}`, value: v });
+    }
+  }
+
+  const cacaoB64 = cborEncode(cacao);
+  const handle = b?.handle ? String(b.handle) : undefined;
+  const write = await relay(cacaoB64, id, claims, b?.labelEn);
+  if (write === "written") return { status: 200, result: { ok: true, did, handle } };
+  if (write === "gated") {
+    return {
+      status: 202,
+      result: { ok: false, gated: true, did, handle, reason: "kotoba write endpoint not enabled (R0); not yet published" },
+    };
+  }
+  return { status: 502, result: { ok: false, did, handle, reason: "kotoba account write failed" } };
 }
