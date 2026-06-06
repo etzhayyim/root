@@ -10006,6 +10006,13 @@ status_note = "Fixes 「https://etzhayyim.com/ に post が表示されない」
 path = "90-docs/adr/2606065500-kotoba-browser-only-social-feed.md"
 adr = ["2606065500", "2605312345", "2605262130", "2605231525", "2606013800", "2606014600", "2605215000", "2606041822"]
 [[adrs]]
+id = "2606066000"
+title = "content-addressed feed head — kotoba IPNS commit-head resolves the 2606065500 open question (no Durable Object)"
+status = "accepted"
+status_note = "Closes the ADR-2606065500 OPEN head-primitive question. Decision: the authoritative published head is the kotoba IPNS commit-head — a member-signed IpnsRecord (Ed25519 over a ciborium-CBOR payload, base58btc multibase, monotonic sequence = CAS, DID-derived name via did_document_ipns_name) whose value = the CID of a content-addressed DistributedDatomCommit (parent-linked DAG + the 5 covering ProllyTree index roots eavt/aevt/avet/vaet/tea). That IS 'IPNS + signed DAG record' and is already implemented in the canonical engine (ADR-2606013600: kotoba-ipfs::IpnsRecord + kotoba-datomic::DistributedDatomCommit), so NO parallel signed-head format is built in the apex Worker (forbidden by ADR-2605262130). The Durable Object is rejected (operated trusted server-state, violates 2605262130/2605312345/2605231525) and the apex KV kroot: is demoted to a non-authoritative cache/relay of the self-verifying record: readers verify the member signature so the apex is never trusted (no-server-key holds); head latency is not the hot path (read once per session, then immutable blocks hydrate the feed). Discovery layers DID -> IPNS -> commit DAG; Kubo IPNS republish for global discovery is operator-gated/additive. HONEST implementation gap (the follow-on code): kotoba-wasm today exposes only commitSigned -> {root, did, sig}, NOT a full IpnsRecord nor a commit-with-parent — closing it needs an upstream kotoba-wasm binding emitting a member-signed IpnsRecord via kotoba's own IpnsRecord::sign_ed25519 (byte-identical interop) + an apex change to store/serve the record, both cross-verified before authority switches. ZERO Charter amendments."
+path = "90-docs/adr/2606066000-kotoba-content-addressed-head-ipns-commit.md"
+adr = ["2606066000", "2606065500", "2606013600", "2605312345", "2605262130", "2605231525"]
+[[adrs]]
 id = "2606064500"
 title = "maps — kotoba-native substrate migration (vertex_spatial → Datom log, H3-cell AVET spatial index)"
 status = "proposed"
