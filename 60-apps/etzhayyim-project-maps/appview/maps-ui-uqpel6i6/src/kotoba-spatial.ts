@@ -17,7 +17,7 @@
  * (KOTOBA_AUTH bearer). The maps Worker never holds a platform signing key. Live ingest is
  * additionally outward-gated (MAPS_OPERATOR_GATE) — R0 ships reads only.
  */
-import { cellToParent, latLngToCell } from "h3-js";
+import { latLngToCell } from "h3-js";
 import type { AnyRow } from "./geometry";
 
 /** H3 resolutions the client queries — the app's zoom→LOD ladder (ontology §2). */
@@ -43,14 +43,17 @@ export function kotobaEndpoint(env: KotobaSpatialEnv): string | null {
 
 /**
  * The owning H3 cell of a centroid at every queryable resolution — the spatial index keys.
- * Computed once from the res-15 cell via cellToParent (h3-js). This is the production cell
- * stamp the Python ingest.py defers to when `h3` is not installed (ADR-2606064500 §3).
+ * Computed with latLngToCell(lat, lon, r) DIRECTLY at each resolution (NOT cellToParent of a
+ * res-15 cell): H3 is not perfectly hierarchical, so the direct owning cell is what the
+ * client computes for the visible cells it queries — ingest stamp and query key must use the
+ * identical method or a feature stamped under cell A could be queried under cell B and missed.
+ * This is the production cell stamp the Python ingest.py defers to when `h3` is not installed
+ * (ADR-2606064500 §3) — methods/ingest.py uses latlng_to_cell at each res identically.
  */
 export function stampCells(lat: number, lon: number): Record<string, string> {
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) return {};
-  const base = latLngToCell(lat, lon, 15);
   const out: Record<string, string> = {};
-  for (const r of CELL_RESOLUTIONS) out[`feature.cell/r${r}`] = cellToParent(base, r);
+  for (const r of CELL_RESOLUTIONS) out[`feature.cell/r${r}`] = latLngToCell(lat, lon, r);
   return out;
 }
 

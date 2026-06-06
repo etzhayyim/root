@@ -138,6 +138,43 @@ def to_kg_batch(feats):
     return {"entities": entities}
 
 
+def _edn_val(v):
+    """Serialize a Python value as EDN (keywords kept verbatim, strings quoted)."""
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return str(v)
+    if isinstance(v, str):
+        if v.startswith(":"):           # already a keyword
+            return v
+        return '"' + v.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    return '"' + str(v) + '"'
+
+
+def render_features_edn(feats):
+    """:feature/* dicts → a kotoba-EDN vector (the backfill artifact, R1)."""
+    lines = [";; maps — backfilled :feature/* graph (ADR-2606064500 R1).",
+             ";; legacy vertex_spatial export normalized to kotoba EAVT, deduped vs seed.",
+             "["]
+    for fid in sorted(feats):
+        f = feats[fid]
+        pairs = " ".join(f"{k} {_edn_val(v)}" for k, v in f.items() if v not in (None, ""))
+        lines.append(" {" + pairs + "}")
+    lines.append("]")
+    return "\n".join(lines) + "\n"
+
+
+def dedup_vs_seed(feats, seed_path):
+    """Drop features whose :feature/id already exists in the seed (seed identity wins)."""
+    try:
+        import analyze
+        seed_feats, _, _ = analyze.classify(analyze.load_edn(seed_path))
+    except Exception:
+        seed_feats = {}
+    kept = {fid: f for fid, f in feats.items() if fid not in seed_feats}
+    return kept, len(feats) - len(kept)
+
+
 def push_batch(batch, auth, endpoint, nsid="com.etzhayyim.apps.kotobase.kg.ingest_batch"):
     url = f"{endpoint.rstrip('/')}/xrpc/{nsid}"
     data = json.dumps(batch, ensure_ascii=False).encode("utf-8")
@@ -160,6 +197,20 @@ def main(argv):
           f"({stamped} H3-stamped, {unstamped} await TS-adapter stamping) "
           f"from {export_path.name}")
 
+    actor_root = pathlib.Path(__file__).resolve().parent.parent
+    outdir = pathlib.Path(argv[argv.index("--out") + 1]) if "--out" in argv \
+        else actor_root / "out"
+
+    if "--emit-edn" in argv:
+        # R1 backfill artifact: merged :feature/* EDN, deduped vs the seed (seed identity wins)
+        seed_path = actor_root / "data" / "seed-spatial-graph.kotoba.edn"
+        kept, dropped = dedup_vs_seed(feats, seed_path)
+        outdir.mkdir(parents=True, exist_ok=True)
+        dst = outdir / "spatial-graph.backfilled.kotoba.edn"
+        dst.write_text(render_features_edn(kept), encoding="utf-8")
+        print(f"backfill: {len(kept)} new features (+{dropped} already in seed) → {dst}")
+        return
+
     if "--push" in argv:
         if os.environ.get("MAPS_OPERATOR_GATE") != "1":
             sys.exit("maps G7: live kg.ingest_batch push is Council+operator gated. "
@@ -174,8 +225,6 @@ def main(argv):
         print(f"pushed {len(batch['entities'])} entities → kotoba [{status}]: {body[:200]}")
         return
 
-    outdir = pathlib.Path(argv[argv.index("--out") + 1]) if "--out" in argv \
-        else pathlib.Path(__file__).resolve().parent.parent / "out"
     outdir.mkdir(parents=True, exist_ok=True)
     (outdir / "features.kg-batch.json").write_text(
         json.dumps(batch, ensure_ascii=False, indent=2), encoding="utf-8")

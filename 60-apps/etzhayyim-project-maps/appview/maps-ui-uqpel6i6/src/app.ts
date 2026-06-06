@@ -3084,7 +3084,8 @@ async function cmdGetChunk(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
     total++;
   }
 
-  return { chunks, lod, total };
+  // servedBy: which substrate answered this read (ADR-2606064500 §3 fail-open observability)
+  return { chunks, lod, total, servedBy: servedByKotoba ? "kotoba" : "risingwave" };
 }
 
 // ── getChunkModels: DB-driven science model instances for maps-walk.htm ──────
