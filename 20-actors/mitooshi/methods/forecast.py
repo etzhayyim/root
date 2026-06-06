@@ -25,6 +25,8 @@ from __future__ import annotations
 import pathlib
 import sys
 
+import math
+
 try:
     from analyze import load_edn
     from score import (Forecast, Observation, calibration_summary, climatology_gaussian,
@@ -34,6 +36,11 @@ except ImportError:
     from mitooshi.methods.score import (  # type: ignore
         Forecast, Observation, calibration_summary, climatology_gaussian,
         gaussian_crps, persistence_gaussian, score_pair, skill_score)
+
+# the canonical online recalibration from the online_update cell (single source of truth)
+_CELL = pathlib.Path(__file__).resolve().parent.parent / "cells" / "online_update"
+sys.path.insert(0, str(_CELL))
+from state_machine import apply_correction  # type: ignore  # noqa: E402
 
 METHODS = ("climatology", "persistence")
 
@@ -139,6 +146,71 @@ def compare_methods(rows: list[dict]) -> dict:
     return {m: backtest_rolling(rows, m) for m in METHODS}
 
 
+def _recalib_params(residuals: list[dict]) -> tuple[float, float]:
+    """Batch bias + variance-inflation from PAST residuals (same math as the online_update
+    cell's propose_update). bias = mean(error); var_infl = clamp(resid_std / mean_claimed_sd).
+    Returns (0.0, 1.0) — the identity correction — when there is nothing to learn from yet."""
+    errs = [float(r["error"]) for r in residuals if "error" in r]
+    sds = [float(r["sd"]) for r in residuals if r.get("sd", 0) > 0]
+    if not errs:
+        return 0.0, 1.0
+    n = len(errs)
+    mean_err = sum(errs) / n
+    if n >= 2:
+        rv = sum((e - mean_err) ** 2 for e in errs) / (n - 1)
+        resid_std = math.sqrt(rv) if rv > 0 else 0.0
+    else:
+        resid_std = abs(errs[0])
+    mean_sd = (sum(sds) / len(sds)) if sds else 1.0
+    raw = resid_std / mean_sd if mean_sd > 0 else 1.0
+    return round(mean_err, 6), round(max(0.25, min(4.0, raw)), 6)
+
+
+def backtest_calibrated(rows: list[dict], method: str = "climatology") -> dict:
+    """Leak-free ONLINE-recalibrated rolling backtest. At each origin, the raw forecast is
+    corrected (apply_correction) using ONLY residuals from origins strictly before it — bias
+    shifts the mean, inflation scales the spread (cells/online_update). This tests whether
+    the actor's own learning loop improves calibration toward G7-clearing. Per-series
+    recalibration (chokepoint scales differ by orders of magnitude). Returns the same shape
+    as backtest_rolling plus {bias_var: {series: (bias, var_infl)} at the final origin}."""
+    hist = series_histories(rows)
+    targets = sorted({t for pairs in hist.values() for t, _v in pairs})
+    resid: dict[str, list[dict]] = {sid: [] for sid in hist}
+    crps_all, skill_all, pit_all = [], [], []
+    final_bias_var: dict[str, tuple] = {}
+    for target_at in targets[1:]:
+        for sid, h in sorted(hist.items()):
+            raw = forecast_next(sid, h, target_at, method)
+            if raw is None or not any(t == target_at for t, _v in h):
+                continue
+            y = next(v for t, v in h if t == target_at)
+            bias, infl = _recalib_params(resid[sid])               # from PAST residuals only
+            final_bias_var[sid] = (bias, infl)
+            cmean, csd = apply_correction(raw.mean, raw.sd, bias, infl)
+            corr = Forecast(fid=raw.fid + ".cal", dist_kind="gaussian",
+                            info_as_of=raw.info_as_of, use=":resilience",
+                            point_asserted=False, mean=cmean, sd=csd)
+            s = score_pair(corr, Observation(oid=f"obs.{sid}.{target_at}",
+                                             observed_at=target_at, value=y))
+            crps_all.append(s["crps"])
+            pit_all.append(s["pit"])
+            # skill of the calibrated forecast vs the (uncorrected) climatology baseline
+            prior = [v for t, v in h if t < target_at]
+            cmu, csd0 = climatology_gaussian(prior)
+            base = gaussian_crps(cmu, csd0, y)
+            skill_all.append(skill_score(s["crps"], base))
+            # NOW record this origin's residual for FUTURE origins (leak-free ordering)
+            resid[sid].append({"error": y - raw.mean, "sd": raw.sd})
+    n = len(crps_all)
+    return {
+        "method": method, "n": n, "calibrated": True,
+        "mean_crps": round(sum(crps_all) / n, 6) if n else None,
+        "mean_skill": round(sum(skill_all) / n, 4) if n else None,
+        "calibration": calibration_summary(pit_all),
+        "bias_var": final_bias_var,
+    }
+
+
 def emit_scorecard_edn(comparison: dict) -> str:
     L = [";; chokepoint-backtest-scorecard.kotoba.edn — ROLLING-ORIGIN leak-free backtest.",
          ";; Aggregate skill vs climatology over ALL origins (no cherry-picked target).",
@@ -173,7 +245,7 @@ def emit_forecast_edn(forecasts: list[dict], target_at: int, method: str) -> str
 
 
 def main(argv: list[str]) -> int:
-    if "--trail" not in argv or ("--at" not in argv and "--backtest" not in argv):
+    if "--trail" not in argv or not any(f in argv for f in ("--at", "--backtest", "--calibrated")):
         sys.exit(__doc__)
     trail = pathlib.Path(argv[argv.index("--trail") + 1])
     target_at = int(argv[argv.index("--at") + 1]) if "--at" in argv else 0
@@ -191,6 +263,35 @@ def main(argv: list[str]) -> int:
         for m, s in sorted(comp.items()):
             print(f"  {m:12s} n={s['n']:3d}  mean-CRPS={s['mean_crps']}  "
                   f"mean-skill={s['mean_skill']:+}  PIT-mean={round(s['calibration']['pit_mean'], 3)}")
+        return 0
+
+    if "--calibrated" in argv:
+        print("mitooshi raw vs online-recalibrated backtest (leak-free recalibration):")
+        L = [";; chokepoint-calibration-compare.kotoba.edn — raw vs online-recalibrated.",
+             ";; Bias from PAST residuals only (leak-free); apply_correction from",
+             ";; cells/online_update. PIT-mean→0.5 = bias removed. DERIVED :representative.",
+             ";; G10-gated for live promotion. ADR-2606051800.", "", "["]
+        for m in METHODS:
+            raw = backtest_rolling(rows, m)
+            cal = backtest_calibrated(rows, m)
+            print(f"  {m}:")
+            print(f"    raw        CRPS={raw['mean_crps']}  PIT-mean={round(raw['calibration']['pit_mean'], 3)}  "
+                  f"dev={round(raw['calibration']['deviation'], 3)}")
+            print(f"    calibrated CRPS={cal['mean_crps']}  PIT-mean={round(cal['calibration']['pit_mean'], 3)}  "
+                  f"dev={round(cal['calibration']['deviation'], 3)}")
+            L.append(
+                f' {{:fc.calib/method :{m} :fc.calib/raw-crps {raw["mean_crps"]} '
+                f':fc.calib/cal-crps {cal["mean_crps"]} '
+                f':fc.calib/raw-pit-mean {round(raw["calibration"]["pit_mean"], 4)} '
+                f':fc.calib/cal-pit-mean {round(cal["calibration"]["pit_mean"], 4)} '
+                f':fc.calib/raw-deviation {round(raw["calibration"]["deviation"], 4)} '
+                f':fc.calib/cal-deviation {round(cal["calibration"]["deviation"], 4)} '
+                f':fc.calib/sourcing :representative}}')
+        L.append("]")
+        if "--out" in argv:
+            outdir = pathlib.Path(argv[argv.index("--out") + 1])
+            outdir.mkdir(parents=True, exist_ok=True)
+            (outdir / "chokepoint-calibration-compare.kotoba.edn").write_text("\n".join(L) + "\n")
         return 0
 
     fcs = forecast_trail(rows, target_at, method)
