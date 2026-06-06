@@ -152,3 +152,37 @@ honesty for SIWE:
   CACAO-authorized `datom:transact`, not opaque JWT-bearer mutations.
 - **Same-origin, no auth subdomain (ADR-2606060000)** — extended from `/profile`
   to the whole app.
+
+# Implementation (closing 2026-06-06)
+
+Landed in the worktree `worktree-cacao-only-header-auth` (yoro app
+`60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte`). **Not yet
+merged/deployed.**
+
+- **§1 client session** — `src/lib/auth/cacao-session.ts`: `establishCacaoSession`
+  (core, deps-injected), `signInWithPasskeyCacao` (browser, client-generated
+  WebAuthn challenge), `headerCacaoSignIn` (default kotoba wrap-store accessors),
+  `makeCacaoTokenProvider`, `signOutCacao`, `getCacaoSession`. Stores set from the
+  verified CACAO; `accessJwt` is `''`; the private session key is in-memory only.
+- **§2 write-auth** — `src/lib/atproto-agent.ts` `authHeader()` emits
+  `Authorization: CACAO <proof>` for the `cacao:` token; legacy JWT stays `Bearer`.
+- **§3 authn removal** — `routes/+layout.svelte` (header buttons), `routes/welcome`
+  (+ `lib/components/YoroAuthGate.svelte` `onAuth`), `routes/profile/+page.svelte`,
+  `routes/sign-in/+server.ts`. authn restore + JWT provider gated behind
+  `PUBLIC_AUTH_LEGACY_JWT` (default OFF).
+- **e7m-verify hook** — the pre-commit gate was falling back to the stale `gftd`
+  v0.2.0 binary (no `verify` subcommand → `unknown command: verify`). `lefthook.yml`
+  now runs the in-repo kotoba-premised e7m (venv else `python3 -m e7m`); `e7m`'s
+  `__main__.py` lazy-imports `rich` so `--json verify` runs on a bare stdlib
+  python3 and the hook reliably enforces.
+
+**Tests** — 9/9 `cacao-session.test.ts` (real crypto: enroll + recover
+determinism, EdDSA mint, apex-bound write-token cryptographic round-trip,
+single-use nonce, gated/error, signOut) + 4/4 `70-tools/e7m/tests/test_verify.py`
+(verify contract, `no_server_key` green, `--json` CLI exit-code, richless import).
+`svelte-check`: 0 new errors in touched files.
+
+**Follow-ups (kotoba-node-gated, honest)** — wrap-store CACAO-hardening +
+account-DID resolver + write-verification end-to-end; WebAuthn rpId migration to
+`etzhayyim.com`; `settings/developer` (developer API keys) still on authn, outside
+the header-login scope.
