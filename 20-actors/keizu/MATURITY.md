@@ -7,13 +7,14 @@
 | Stage | Scope | Gate | State |
 |---|---|---|---|
 | **R0** | ontology + 4 lexicons + `:representative` global seed + analyzer (weave/concentration/social/ingest) + 5 cell scaffolds (`.solve()` raise) + tests | ADR-2606066000 (PROPOSED) | ✅ landed |
-| R1 | ingest + committee_graph + money_graph build kotoba EAVT datoms over **offline** public-source batches; no live posting | Council Lv6+ ≥3 per cell | ⏳ |
+| R1 | ingest + committee_graph + money_graph build kotoba EAVT datoms over **offline** public-source batches; no live posting | Council Lv6+ ≥3 per cell | ⏳ (source registry ready — `registry/sources.seed.json`, 12 sources `unverified-seed`) |
 | R2 | +relation_weave aggregate concentration on live read-path; first dry-run networkPosts reviewed | Council Lv6+ ≥4 + 30-day public comment | ⏳ |
 | R3 | +social_post live publication under 1 SBT = 1 vote + member signature; live public-source ingest | Council Lv7+ + operator | ⏳ |
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **142 tests** across weave (40) / social (7) / ingest (14) / bridge (10) / export (6) / charter-invariants (28) / analyze (11) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Tests**: `./run_tests.sh` green — **150 tests** across weave (40) / social (7) / ingest (14) / sources (8) / bridge (10) / export (6) / charter-invariants (28) / analyze (11) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **R1-readiness — public-source registry** (`registry/sources.seed.json` + `VERIFICATION.md`): 12 global primary sources (JP/US/EU/OECD procurement · budget · political-finance · committee rosters · statements), each with a `mapsTo` keizu datom type, all `unverified-seed` (G8 — no live ingest until Council Lv6+ + operator verifies). The **no-commercial-gov-intel deny-list** (GovWin/Bloomberg Government/FiscalNote/四季報/CapIQ/… — Charter Rider §2(e), N5) is enforced by `test_sources.py`.
 - **Pipeline output**: `analyze.run` emits 3 downstream artifacts — `intel-report.md` (human), `relation-graph.kotoba.edn` (validated datoms), `kanae-render.json` (the kanae viz payload). The keizu→kanae export is now PRODUCED by the pipeline, not only unit-tested.
 - **Referential integrity** (`check_integrity` / `assert_integrity`): catches DANGLING refs the per-record validators miss — a `:rel`/`:money`/`:committee`/`:statement` pointing at a non-existent entity. Correct id-space per field (a `:rel` endpoint may be a node OR committee OR statement; money/members/speaker → node). Seed verified 0 dangling; analyzer reports the count as an honesty line.
 - **Ingest node validation** (`normalize_node`): the ingest path now validates NODES through `validate_node`, carrying through extra raw fields so a smuggled PII / power-score / private-scope field is REFUSED on ingest (not only on the seed via `weave()`). A bad node aborts the whole batch — G1/G4/G9 hold at the live-ingest boundary too.
