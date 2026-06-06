@@ -7,7 +7,7 @@
 //   node --experimental-strip-types --test scripts/identity.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { verifyHandleAttestation, selfCertifyingDidDoc } from "../src/identity.ts";
+import { verifyHandleAttestation, selfCertifyingDidDoc, verifyAccountBlock, parseDidKeyHex } from "../src/identity.ts";
 
 const B58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 function b58(bytes) {
@@ -116,4 +116,69 @@ test("selfCertifyingDidDoc: id is the did:key; did:web is only an alsoKnownAs al
   assert.equal(doc.verificationMethod[0].controller, did);
   // a domain change cannot forge identity: trust roots in the did:key, the
   // alias is just one resolution endpoint.
+});
+
+// ─── account-block read verification (read side) ─────────────────────────────
+
+/** The `did:key:z`+hex(32B) author form (block.put), SAME key as the z6Mk did. */
+async function didHexOf(kp) {
+  const pub = new Uint8Array(await crypto.subtle.exportKey("raw", kp.publicKey));
+  return "did:key:z" + Array.from(pub).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+async function accountBlock(kp, did, handle, withAttestation = true) {
+  const rec = { type: "account/register", "account/did": did, "account/controller": did };
+  if (handle) rec["account/handle"] = handle;
+  if (handle && withAttestation) rec["account/handle-attestation"] = await signHandleAttestation(kp, did, handle, NOW);
+  return new TextEncoder().encode(JSON.stringify(rec));
+}
+
+test("parseDidKeyHex: did:key:z + 64 hex → 32-byte pubkey; rejects non-hex/wrong-len", () => {
+  const pub = parseDidKeyHex("did:key:z" + "ab".repeat(32));
+  assert.equal(pub.length, 32);
+  assert.equal(pub[0], 0xab);
+  assert.throws(() => parseDidKeyHex("did:key:z6MkBase58Form"));
+  assert.throws(() => parseDidKeyHex("did:key:z" + "ab".repeat(31)));
+});
+
+test("verifyAccountBlock: valid block (author≡account/did, attested handle) → valid", async () => {
+  const { kp, did } = await genKey();
+  const block = await accountBlock(kp, did, "alice");
+  const r = await verifyAccountBlock(block, await didHexOf(kp), NOW + 60);
+  assert.equal(r.valid, true);
+  assert.equal(r.did, did);
+  assert.equal(r.handle, "alice");
+});
+
+test("verifyAccountBlock: block author key ≠ account/did key is rejected (no claiming another's did)", async () => {
+  const alice = await genKey();
+  const mallory = await genKey();
+  // mallory authors a block claiming alice's account/did
+  const block = await accountBlock(alice.kp, alice.did, "alice"); // record claims alice
+  const r = await verifyAccountBlock(block, await didHexOf(mallory.kp), NOW + 60); // but author is mallory
+  assert.equal(r.valid, false);
+  assert.match(r.reason, /author key ≠ account\/did|not this account/i);
+});
+
+test("verifyAccountBlock: handle present but missing/forged attestation is rejected", async () => {
+  const { kp, did } = await genKey();
+  const noAtt = await accountBlock(kp, did, "alice", false);
+  assert.equal((await verifyAccountBlock(noAtt, await didHexOf(kp), NOW + 60)).valid, false);
+  // forged: attestation for a DIFFERENT handle
+  const rec = { "account/did": did, "account/handle": "alice", "account/handle-attestation": await signHandleAttestation(kp, did, "not-alice", NOW) };
+  const forged = new TextEncoder().encode(JSON.stringify(rec));
+  assert.equal((await verifyAccountBlock(forged, await didHexOf(kp), NOW + 60)).valid, false);
+});
+
+test("verifyAccountBlock: handle-less record (no name claim) is valid if author≡did", async () => {
+  const { kp, did } = await genKey();
+  const block = await accountBlock(kp, did, null);
+  const r = await verifyAccountBlock(block, await didHexOf(kp), NOW + 60);
+  assert.equal(r.valid, true);
+  assert.equal(r.handle, undefined);
+});
+
+test("verifyAccountBlock: non-JSON / missing account/did rejected", async () => {
+  const { kp } = await genKey();
+  assert.equal((await verifyAccountBlock(new TextEncoder().encode("not json"), await didHexOf(kp), NOW)).valid, false);
+  assert.equal((await verifyAccountBlock(new TextEncoder().encode("{}"), await didHexOf(kp), NOW)).valid, false);
 });

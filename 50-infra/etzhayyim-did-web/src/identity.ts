@@ -126,6 +126,109 @@ export async function verifyHandleAttestation(
   return { valid: true, did: payload.iss, handle: payload.handle };
 }
 
+// ─── account-block read verification (ADR-2606061800) ───────────────────────
+
+/** Parse a `did:key:z`+hex(32B) — the kotoba-publish / `block.put` author form
+ *  (distinct from the standard base58 `did:key:z6Mk…` login form) → raw pubkey. */
+export function parseDidKeyHex(did: string): Uint8Array {
+  const PREFIX = "did:key:z";
+  if (!did.startsWith(PREFIX)) throw new Error("not a did:key:z+hex");
+  const h = did.slice(PREFIX.length);
+  if (h.length !== 64 || !/^[0-9a-f]+$/.test(h)) {
+    throw new Error("did:key:z+hex must be 64 lowercase hex chars");
+  }
+  const out = new Uint8Array(32);
+  for (let i = 0; i < 32; i += 1) out[i] = parseInt(h.slice(i * 2, i * 2 + 2), 16);
+  return out;
+}
+
+function eqBytes(a: Uint8Array, b: Uint8Array): boolean {
+  if (a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i += 1) d |= a[i] ^ b[i];
+  return d === 0;
+}
+
+export interface AccountBlockResult {
+  valid: boolean;
+  /** canonical did:key (standard base58 z6Mk form) of the account. */
+  did?: string;
+  handle?: string;
+  reason?: string;
+}
+
+/**
+ * Verify a published account record block before trusting its handle↔key binding
+ * (the apex read endpoint's gate). Two checks, both domain-independent:
+ *   1. the block AUTHOR (`did:key:z`+hex, the `block.put` signer) encodes the SAME
+ *      Ed25519 key as the record's canonical `account/did` (standard base58
+ *      `did:key:z6Mk…`) — reconciling the two did:key string forms so a block
+ *      cannot claim an `account/did` it didn't author;
+ *   2. when a handle is present, `account/handle-attestation` is the canonical
+ *      `did:key`'s OWN signature over the handle (`verifyHandleAttestation`) —
+ *      self-certifying, no domain/TLS.
+ * `authorDidHex` is the `did` the apex already verified on `block.put` (it signed
+ * the root CID); this binds that proven author to the record's canonical identity.
+ */
+export async function verifyAccountBlock(
+  blockBytes: Uint8Array,
+  authorDidHex: string,
+  nowSecs: number,
+): Promise<AccountBlockResult> {
+  let rec: Record<string, unknown>;
+  try {
+    rec = JSON.parse(new TextDecoder().decode(blockBytes)) as Record<string, unknown>;
+  } catch {
+    return { valid: false, reason: "account block is not valid JSON" };
+  }
+  const canonicalDid = rec["account/did"];
+  const handle = rec["account/handle"];
+  if (typeof canonicalDid !== "string") {
+    return { valid: false, reason: "record missing account/did" };
+  }
+  let authorPub: Uint8Array;
+  let canonPub: Uint8Array;
+  try {
+    authorPub = parseDidKeyHex(authorDidHex);
+  } catch (e) {
+    return { valid: false, reason: `author did: ${e instanceof Error ? e.message : String(e)}` };
+  }
+  try {
+    canonPub = parseEd25519DidKey(canonicalDid);
+  } catch (e) {
+    return {
+      valid: false,
+      reason: `account/did must be a base58 ed25519 did:key: ${e instanceof Error ? e.message : String(e)}`,
+    };
+  }
+  if (!eqBytes(authorPub, canonPub)) {
+    return {
+      valid: false,
+      reason: "block author key ≠ account/did key (the signer is not this account's controller)",
+      did: canonicalDid,
+    };
+  }
+  if (typeof handle === "string" && handle.length > 0) {
+    const att = rec["account/handle-attestation"];
+    if (typeof att !== "string") {
+      return { valid: false, reason: "handle present but no account/handle-attestation", did: canonicalDid };
+    }
+    const r = await verifyHandleAttestation(att, nowSecs);
+    if (!r.valid || r.did !== canonicalDid || r.handle !== handle) {
+      return {
+        valid: false,
+        reason: "handle-attestation does not bind this did:key to this handle",
+        did: canonicalDid,
+      };
+    }
+  }
+  return {
+    valid: true,
+    did: canonicalDid,
+    handle: typeof handle === "string" ? handle : undefined,
+  };
+}
+
 /**
  * Build the self-certifying DID Document for a member account. The `id` is the
  * canonical **`did:key`** (domain-independent); `did:web:etzhayyim.com:<handle>`
