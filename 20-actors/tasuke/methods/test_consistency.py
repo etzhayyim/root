@@ -75,6 +75,18 @@ def test_seed_cases_use_only_ontology_vocab():
         assert c[":case/consent"] is True             # G7
 
 
+# ── seed registry is reachable + within ontology vocab (the stray-brace guard) ─
+def test_seed_registry_windows_reachable_and_in_vocab():
+    onto = load_edn(_ONTOLOGY)
+    allowed = set(onto[":ontology/referral-windows"])
+    seed = load_edn(_ROOT / "data" / "seed-cybercrime-cases.kotoba.edn")
+    windows = seed.get(":registry/windows", [])
+    assert windows, "seed :registry/windows is unreachable (top-map brace bug?)"
+    for w in windows:
+        assert w[":registry/window"] in allowed, w[":registry/window"]
+        assert w[":registry/sourcing"] in (":representative", ":authoritative")
+
+
 # ── actor-profile seed registration matches the manifest ────────────────────
 def test_actor_profile_seed_has_tasuke():
     blob = _PROFILE_SEED.read_text(encoding="utf-8")

@@ -72,7 +72,7 @@
    :case/ongoing false
    :case/consent true
    :case/support-cost-jpy 0
-   :case/server-held-key false}]}
+   :case/server-held-key false}]
 
  ;; ── FREE public-window registry (G5/G10 :representative) ──────────────────────
  :registry/windows

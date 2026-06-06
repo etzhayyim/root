@@ -14,9 +14,15 @@
 - **Methods** (stdlib, runnable): `triage.py` (classify + severity + free windows + checklist +
   deadlines), `report_gen.py` (7 member-authored document generators), `evidence.py` (chain-of-
   custody sha256 + PII-by-reference), `analyze.py` (end-to-end, asserts ¥0).
-- **Seed**: 5 `:representative` victim cases (one per major scam KIND) + 9 FREE public windows.
-- **69 tests green** (12 triage + 7 evidence + 10 report_gen + 17 charter-invariants + 5 analyze +
-  5 lexicons + 8 consistency + 13 cells; `./run_tests.sh`).
+- **Usable surface** (`誰でも使える`): `packet.py` — one command turns a case into a complete,
+  ready-to-print document packet a real victim takes to the police / their bank / a platform
+  (`python3 packet.py --case <id>` or `--file my-case.edn` → `out/packet-<id>/` with a cover
+  checklist + free windows + each member-authored filing). `build_packet` re-asserts every
+  invariant (free / member-authored / signature-required / draft).
+- **Seed**: 5 `:representative` victim cases (one per major scam KIND) + 9 FREE public windows
+  (registry reachable + vocab-locked; the stray-brace regression is guarded).
+- **87 tests green** (12 triage + 7 evidence + 10 report_gen + 8 packet + 17 charter-invariants +
+  5 analyze + 5 lexicons + 10 consistency + 13 cells; `./run_tests.sh`).
 - **Registered** in INFRA_ACTORS + actor-profile-seed → `did:web:etzhayyim.com:actor:tasuke`
   (resolvable + searchable).
 

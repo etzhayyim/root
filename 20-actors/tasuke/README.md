@@ -42,10 +42,25 @@
 その他: G4 非裁定(詐欺認定はしない)/ G6 証拠は暗号化参照 / G7 no-server-key(本人署名)/
 G8 Murakumo-only / G9 R0 は draft のみ(実提出は Council+operator gated)/ G10 窓口は要一次情報確認。
 
-## 動かす
+## 使う（誰でも）
+
+被害に遭った本人が、ワンコマンドで **そのまま印刷して警察・銀行・プラットフォームに出せる書類一式**
+を作れる:
 
 ```bash
-./run_tests.sh                      # 8 suites
+cd methods
+python3 packet.py --case c-fund-1        # seed の被害ケースで生成
+python3 packet.py --file my-case.edn     # 自分の被害内容(EDN)で生成
+# → out/packet-<id>/ に 00-COVER.md(初動チェックリスト+無料窓口+期限) と
+#   各書類(被害届/被害状況報告書/証拠目録/被害額算定書/銀行組戻し依頼/復旧手順)が出力される
+```
+
+生成物はすべて **本人が署名して提出** する書類で、費用は **¥0**。
+
+## 開発
+
+```bash
+./run_tests.sh                      # 9 suites / 87 tests
 cd methods && python3 triage.py     # :representative の被害ケースをトリアージ
 cd methods && python3 analyze.py    # end-to-end(¥0 を assert) → methods/out/support-dryrun.md
 ```
