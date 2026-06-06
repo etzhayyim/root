@@ -12,6 +12,7 @@ from __future__ import annotations
 import pathlib
 
 from _edn import load_edn
+from export import render_json, to_kanae_flows
 from social import draft_committee_post, draft_money_post
 from weave import concentration, weave
 
@@ -36,7 +37,9 @@ def run(seed_path: pathlib.Path = SEED, out_dir: pathlib.Path = OUT) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     _write_report(out_dir / "intel-report.md", c, posts)
     _write_graph(out_dir / "relation-graph.kotoba.edn", g)
-    return {"concentration": c, "posts": posts}
+    (out_dir / "kanae-render.json").write_text(render_json(c), encoding="utf-8")  # downstream viz
+    kanae_flows = to_kanae_flows(g)
+    return {"concentration": c, "posts": posts, "kanae_flows": kanae_flows}
 
 
 def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
@@ -112,4 +115,6 @@ if __name__ == "__main__":
     print(f"  money HHI={c['money_concentration']['hhi']}, "
           f"cross-committee seats={len(c['cross_committee_seats'])}, "
           f"revolving-door={len(c['revolving_door'])}, posts={len(res['posts'])}")
-    print(f"  → {OUT/'intel-report.md'}")
+    print(f"  kanae flows exported: {len(res['kanae_flows']['flows'])} "
+          f"({res['kanae_flows']['skipped_count']} non-fiscal skipped)")
+    print(f"  → {OUT/'intel-report.md'}  +  {OUT/'kanae-render.json'}")

@@ -84,7 +84,8 @@ made a charter violation representable. `methods/test_charter_invariants.py` gua
 - `.solve()` raises `RuntimeError` on every cell at R0 — live execution is G8-gated. Do not wire a
   cell to a live portal fetch or a live firehose post.
 - Tests are standalone-runnable (`python3 test_*.py`); run everything with `./run_tests.sh`
-  (74 tests across 8 suites, hermetic — the registry check is soft).
+  (141 tests across 11 suites, hermetic — the registry check is soft). See MATURITY.md for the
+  per-suite breakdown.
 
 ## Honest R0
 
@@ -97,7 +98,7 @@ social posting are Council Lv6+ + operator gated (Lv7+ for live publication unde
 ## Build / test
 
 ```
-./run_tests.sh                       # all 8 suites, 74 tests
+./run_tests.sh                       # all 11 suites (141 tests)
 cd methods && python3 weave.py       # concentration over the :representative seed
 cd methods && python3 analyze.py     # end-to-end dry-run → methods/out/intel-report.md
 cd methods && python3 social.py      # dry-run social posts

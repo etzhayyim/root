@@ -49,7 +49,7 @@ Run over the bounded `:representative` global seed, the analyzer surfaces:
 ├── CLAUDE.md                       # actor invariants (read first)
 ├── manifest.jsonld                 # Tier-B manifest (DID, cells, gates, non-goals)
 ├── README.md                       # this file
-├── run_tests.sh                    # all 8 suites, 74 tests
+├── run_tests.sh                    # all suites (141 tests; see MATURITY.md)
 ├── data/
 │   └── seed-relation-graph.kotoba.edn   # :representative global seed (public roles/organs)
 ├── lex/                            # 4 lexicons (com.etzhayyim.keizu.*)

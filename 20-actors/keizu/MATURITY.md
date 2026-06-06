@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **141 tests** across weave (40) / social (7) / ingest (14) / bridge (10) / export (6) / charter-invariants (28) / analyze (10) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Tests**: `./run_tests.sh` green — **142 tests** across weave (40) / social (7) / ingest (14) / bridge (10) / export (6) / charter-invariants (28) / analyze (11) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Pipeline output**: `analyze.run` emits 3 downstream artifacts — `intel-report.md` (human), `relation-graph.kotoba.edn` (validated datoms), `kanae-render.json` (the kanae viz payload). The keizu→kanae export is now PRODUCED by the pipeline, not only unit-tested.
 - **Referential integrity** (`check_integrity` / `assert_integrity`): catches DANGLING refs the per-record validators miss — a `:rel`/`:money`/`:committee`/`:statement` pointing at a non-existent entity. Correct id-space per field (a `:rel` endpoint may be a node OR committee OR statement; money/members/speaker → node). Seed verified 0 dangling; analyzer reports the count as an honesty line.
 - **Ingest node validation** (`normalize_node`): the ingest path now validates NODES through `validate_node`, carrying through extra raw fields so a smuggled PII / power-score / private-scope field is REFUSED on ingest (not only on the seed via `weave()`). A bad node aborts the whole batch — G1/G4/G9 hold at the live-ingest boundary too.
 - **Cell-chain integration** (`cells/test_membrane_flow.py`): threads one public-source batch through all 5 cells in sequence (ingest→committee_graph→money_graph→relation_weave→social_post), the relation_weave finding becoming the social_post subject — proving the cells COMPOSE into the documented pipeline, not just pass in isolation. Head-refusal (private node) and tail-refusal (published request) both abort the chain.

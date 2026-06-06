@@ -1,6 +1,7 @@
 """test_analyze.py — 系図 (keizu) end-to-end membrane. ADR-2606066000."""
 from __future__ import annotations
 
+import json
 import pathlib
 import tempfile
 
@@ -15,6 +16,16 @@ def _run():
         report = (out / "intel-report.md").read_text(encoding="utf-8")
         graph = (out / "relation-graph.kotoba.edn").read_text(encoding="utf-8")
         return res, report, graph
+
+
+def test_kanae_render_artifact_written():
+    with tempfile.TemporaryDirectory() as d:
+        out = pathlib.Path(d)
+        res = analyze.run(out_dir=out)
+        payload = json.loads((out / "kanae-render.json").read_text(encoding="utf-8"))
+        assert payload["actor"] == "keizu" and payload["isMirror"] is True
+        assert res["kanae_flows"]["flows"]            # fiscal flows exported
+        assert res["kanae_flows"]["skipped_count"] >= 1   # political-donation skipped
 
 
 def test_runs_and_writes():
