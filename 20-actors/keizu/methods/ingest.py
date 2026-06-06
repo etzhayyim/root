@@ -17,7 +17,8 @@ import os
 from typing import Any
 
 from registry import sourcing_for
-from weave import validate_money, validate_node, validate_rel, _kw
+from weave import (validate_committee, validate_money, validate_node,
+                   validate_rel, _kw)
 
 # raw node fields that map to canonical :node/* attrs; anything else is carried through as
 # :node/<field> so the validate_node PII / power-score scan (G1/G4/G9) bites on the ingest path.
@@ -56,22 +57,18 @@ def normalize_node(raw: dict) -> dict:
 
 def normalize_committee(raw: dict) -> dict:
     """Normalize a public committee roster record → :committee/* datom (seats as node ids)."""
-    members = [str(m) for m in raw.get("members", [])]
-    if not members:
-        raise ValueError("G1: a committee composition needs ≥1 public seat")
-    sources = [s for s in raw.get("sources", []) if str(s).strip()]
-    if not sources:
-        raise ValueError("G3: a committee roster needs ≥1 public source")
-    return {
+    committee = {
         ":committee/id": raw["id"],
         ":committee/label": raw.get("label", raw["id"]),
         ":committee/jurisdiction": raw.get("jurisdiction", ""),
         ":committee/organ": raw.get("organ", ""),
-        ":committee/members": members,
+        ":committee/members": [str(m) for m in raw.get("members", [])],
         ":committee/term-from": int(raw.get("term_from", 0)),
         ":committee/sourcing": _sourcing(raw),
-        ":committee/sources": sources,
+        ":committee/sources": [s for s in raw.get("sources", []) if str(s).strip()],
     }
+    validate_committee(committee)   # G1 members + G3 sources/deny + G11 sourcing
+    return committee
 
 
 def normalize_rel(raw: dict) -> dict:

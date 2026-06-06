@@ -7,8 +7,8 @@ from _edn import load_edn
 from _t import expect_raises, run
 from weave import (active_as_of, assert_integrity, check_integrity,
                    concentration, connector_seats, statement_index,
-                   validate_money, validate_node, validate_rel,
-                   validate_statement, weave)
+                   validate_committee, validate_money, validate_node,
+                   validate_rel, validate_statement, weave)
 
 SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-relation-graph.kotoba.edn"
 
@@ -232,8 +232,10 @@ def test_connector_requires_distinct_organs():
     # two committees under the SAME organ → not a cross-organ connector
     g = weave({
         ":nodes": [{":node/id": "s1", ":node/scope": ":public-role", ":node/sourcing": ":representative"}],
-        ":committees": [{":committee/id": "c1", ":committee/organ": "X", ":committee/members": ["s1"]},
-                        {":committee/id": "c2", ":committee/organ": "X", ":committee/members": ["s1"]}],
+        ":committees": [{":committee/id": "c1", ":committee/organ": "X", ":committee/members": ["s1"],
+                         ":committee/sources": ["u"], ":committee/sourcing": ":representative"},
+                        {":committee/id": "c2", ":committee/organ": "X", ":committee/members": ["s1"],
+                         ":committee/sources": ["u"], ":committee/sourcing": ":representative"}],
         ":rels": [
             {":rel/id": "a", ":rel/source": "s1", ":rel/target": "c1", ":rel/kind": ":committee-membership",
              ":rel/non-adjudicating-notice": True, ":rel/sourcing": ":representative", ":rel/sources": ["u", "v"]},
@@ -278,6 +280,41 @@ def test_statement_needs_source():
 def test_statement_needs_sourcing():
     expect_raises(lambda: validate_statement({":statement/id": "s", ":statement/speaker": "a",
                                               ":statement/sources": ["u"]}), contains="G11")
+
+
+def _committee(**over):
+    base = {":committee/id": "c1", ":committee/members": ["s1"],
+            ":committee/sources": ["u"], ":committee/sourcing": ":representative"}
+    base.update(over)
+    return base
+
+
+def test_committee_valid():
+    validate_committee(_committee())
+
+
+def test_committee_needs_member():
+    expect_raises(lambda: validate_committee(_committee(**{":committee/members": []})), contains="G1")
+
+
+def test_committee_needs_source():
+    expect_raises(lambda: validate_committee(_committee(**{":committee/sources": []})), contains="G3")
+
+
+def test_committee_needs_sourcing():
+    c = _committee()
+    del c[":committee/sourcing"]
+    expect_raises(lambda: validate_committee(c), contains="G11")
+
+
+def test_committee_deny_commercial_gov_intel_source():
+    expect_raises(lambda: validate_committee(_committee(**{":committee/sources": ["bloomberg gov feed"]})),
+                  contains="Rider §2(e)")
+
+
+def test_seed_committees_validate():
+    for c in _g()["committees"].values():
+        validate_committee(c)
 
 
 def test_statement_deny_commercial_gov_intel_source():
@@ -334,7 +371,8 @@ def test_dangling_money_payee_detected():
 
 def test_dangling_committee_member_detected():
     g = weave({
-        ":committees": [{":committee/id": "c1", ":committee/members": ["ghost-seat"]}],
+        ":committees": [{":committee/id": "c1", ":committee/members": ["ghost-seat"],
+                         ":committee/sources": ["u"], ":committee/sourcing": ":representative"}],
     })
     rep = check_integrity(g)
     assert rep["dangling_count"] == 1 and rep["dangling"][0]["field"] == "member"
@@ -344,7 +382,8 @@ def test_rel_target_may_be_a_committee():
     # a tie pointing at a committee id (not a node) is NOT dangling — rel id-space includes committees
     g = weave({
         ":nodes": [{":node/id": "s1", ":node/scope": ":public-role", ":node/sourcing": ":representative"}],
-        ":committees": [{":committee/id": "c1", ":committee/members": ["s1"]}],
+        ":committees": [{":committee/id": "c1", ":committee/members": ["s1"],
+                         ":committee/sources": ["u"], ":committee/sourcing": ":representative"}],
         ":rels": [{":rel/id": "r", ":rel/source": "s1", ":rel/target": "c1",
                    ":rel/kind": ":committee-membership", ":rel/non-adjudicating-notice": True,
                    ":rel/sourcing": ":representative", ":rel/sources": ["u", "v"]}],
@@ -356,7 +395,8 @@ def test_unknown_organ_member_is_tolerated():
     g = weave({
         ":nodes": [{":node/id": "s1", ":node/scope": ":public-role",
                     ":node/sourcing": ":representative"}],  # no :node/organ
-        ":committees": [{":committee/id": "c1", ":committee/members": ["s1", "ghost"]}],
+        ":committees": [{":committee/id": "c1", ":committee/members": ["s1", "ghost"],
+                         ":committee/sources": ["u"], ":committee/sourcing": ":representative"}],
     })
     rows = concentration(g)["committee_cross_organ"]
     assert rows[0]["member_count"] == 2          # both counted

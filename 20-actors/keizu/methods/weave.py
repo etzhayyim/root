@@ -107,6 +107,23 @@ def validate_rel(r: dict) -> None:
         raise ValueError("G11: every relation must declare :rel/sourcing")
 
 
+def validate_committee(c: dict) -> None:
+    """A committee / advisory-council composition snapshot. Needs an id + ≥1 public seat (G1) +
+    ≥1 public source (G3, no prohibited terminal) + declared sourcing (G11)."""
+    if not str(c.get(":committee/id", "")).strip():
+        raise ValueError("committee needs :committee/id")
+    members = c.get(":committee/members") or []
+    if not isinstance(members, list) or len(members) < 1:
+        raise ValueError(f"G1: committee {c.get(':committee/id')!r} composition needs ≥1 public seat")
+    srcs = c.get(":committee/sources") or []
+    if not isinstance(srcs, list) or len(srcs) < 1:
+        raise ValueError(f"G3: committee {c.get(':committee/id')!r} needs ≥1 public source")
+    if (d := source_denied(srcs)):
+        raise ValueError(f"Rider §2(e)/N5: source {d!r} is a commercial gov-intel terminal — prohibited citation")
+    if _kw(c.get(":committee/sourcing", "")) not in SOURCING:
+        raise ValueError("G11: every committee must declare :committee/sourcing")
+
+
 def validate_statement(s: dict) -> None:
     """A public statement (発言) attributed to a public role. Must have a speaker + ≥1 public
     source (G3) + declared sourcing (G11). Non-adjudicating: a statement is recorded verbatim
@@ -153,6 +170,8 @@ def weave(graph: dict) -> dict:
     for n in nodes.values():
         validate_node(n)
     committees = {c[":committee/id"]: c for c in graph.get(":committees", [])}
+    for c in committees.values():
+        validate_committee(c)
     rels = list(graph.get(":rels", []))
     for r in rels:
         validate_rel(r)

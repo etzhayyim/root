@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **168 tests** across weave (48) / social (7) / ingest (17) / sources (8) / registry (7) / bridge (10) / export (6) / charter-invariants (28) / analyze (11) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Tests**: `./run_tests.sh` green — **174 tests** across weave (54) / social (7) / ingest (17) / sources (8) / registry (7) / bridge (10) / export (6) / charter-invariants (28) / analyze (11) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Committee validation** (`validate_committee`): committees are now gate-checked like the other datoms — id + ≥1 public seat (G1) + ≥1 public source with no prohibited terminal (G3/Rider §2(e)) + declared sourcing (G11). Enforced in `weave()` (seed) AND `ingest.normalize_committee`. All five datom types (node/committee/rel/money/statement) now have a validator on every write path.
 - **Deny-list uniform across all sourced datoms**: the commercial-gov-intel `SOURCE_DENY` is now enforced in `validate_statement` too (was only rel/money) — a statement citing a prohibited terminal is refused (Charter Rider §2(e)/N5). All three sourced datom types (rel/money/statement) now share the same source gate.
 - **Money amount robustness**: `validate_money` requires a finite, non-negative amount (absent→0 allowed) — a negative / NaN / inf / non-numeric amount is refused, protecting the HHI/share math in `money_concentration`/`payer_concentration` from corruption. Enforced on every path (seed/ingest/bridge).
 - **Registry-driven sourcing on ingest** (G11): if an ingest record names a registry `sourceId`, the REGISTRY's verification status wins — a caller cannot forge `:authoritative` for an unverified source (it stays `:representative` even if the record claims otherwise). With no `sourceId`, the caller's declared sourcing is honored.
