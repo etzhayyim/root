@@ -1,11 +1,11 @@
 ---
 id: adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite
 title: "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite"
-status: proposed
+status: active
 doc_type: adr
 topic: open-kyber-kotoba-datomic-erp
 authoritative: true
-last_verified: 2026-06-03
+last_verified: 2026-06-06
 priority: 6.0
 axis: architecture
 weight: 0.60
@@ -23,14 +23,18 @@ related:
   - "2606032000"  # kanjō (external public-company financials) — sibling reckoning vocab
   - "2606012100"  # okaimono provisioning commons (UNSPSC catalog ties to inventory)
   - "2606032100"  # labor-liberation robotics wave (ISIC/ISCO/UNSPSC ranking)
-supersedes: []
+supersedes:
+  - "0025"        # D1 supersedes the ADR-0025 RisingWave read path (kqe-over-Datom-log)
 superseded_by: []
 ---
 
 # ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite
 
-**Status**: proposed
-**Date**: 2026-06-03
+**Status**: active — the `rw-free` reference layer is landed and verified (R1/R2, 113 tests
+green incl. the drive file-tree core, `tsc` clean as of 2026-06-06). One compliance task
+remains open: the **live ERP Worker still holds `createKyselyDb(env.HYPERDRIVE)` read paths**
+and is not yet on the kqe-over-Datom-log path — see Consequences § "Open tasks".
+**Date**: 2026-06-03 (status updated 2026-06-06)
 **Deciders**: Jun Kawasaki
 
 # Context
@@ -270,14 +274,30 @@ just its section. **23 test files, 100 tests green; `tsc --noEmit` clean.**
 - Cross-links the ERP to the Tier-B actor mesh (each industry pack names its actor).
 
 **Negative / honest limits**
-- R0 is design only: the EDN vocab + packs exist; the TS loader, XRPC wiring, and tests are
-  R1+. The empty-envelope read stubs in `app.ts` remain until R2.
+- The `rw-free` reference layer is landed (R1/R2); the **deployed ERP Worker is not yet
+  migrated** — its `createKyselyDb(env.HYPERDRIVE)` read paths and empty-envelope stubs
+  persist until the R2 cutover runbook is executed (see Open tasks).
 - Pack overlays are `:representative` starting points, not a chartered-accountant's sector
   chart of accounts; division/class depth is incremental.
 - Docs/sheets are content-addressed blocks with revision history, **not** a real-time
   collaborative CRDT editor yet (that is a later round).
+- The suite cores are **TypeScript** (`rw-free/src/`), running in the ameno/Svelte SPA. They
+  are not yet content-addressed py/WASM edge actors; that runtime migration is designed in
+  `SUITE-PY-WASM-MIGRATION.md` (T1-raw-CID browser vs T2-dag-pb mesh tiering) but unbuilt.
 - No external-SaaS import path (by design) — tenants migrating from Google Workspace get the
   kotoba-native model, not a Gmail/Drive bridge.
+
+**Open tasks**
+- **[compliance, ADR-2605262130]** Execute `R2-WORKER-WIRING.md`: delete the live Worker's
+  `createKyselyDb(env.HYPERDRIVE)` read paths and route every XRPC handler through the tested
+  `rw-free` functions via `createXrpcBridge`. **Until done, the deployed Worker violates the
+  no-RisingWave/no-Hyperdrive substrate boundary** — the rw-free layer is compliant, the
+  deployment is not. Operator step (the worker package has no in-repo build harness).
+- **[suite]** Mailer has no openmail Postage *send* path yet (R3-gated); drive gained a real
+  file-tree core (`drive-tree.ts`, 2026-06-06) but a collaborative CRDT editor for docs/sheets
+  is still a later round.
+- **[runtime]** Adopt `SUITE-PY-WASM-MIGRATION.md` to turn the suite cores into CID-addressed
+  py/WASM actors (start with `recurrence`, finish with the exact-decimal `sheets-eval`).
 
 # Alternatives Considered
 
