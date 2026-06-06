@@ -99,6 +99,36 @@ JWKS** and checks `aud`/issuer.
   calling Worker, across the mailer and pymagatama (cache/sse) paths — i.e. live
   magatama traffic. Sequenced + gated like Stages A–D.
 
+## Implementation status
+
+- ✅ **Keyless verifier implemented + tested**: `access_jwt_verify.py` (this dir).
+  - `verify_access_jwt(token, team_domain, expected_aud, jwks)` — RS256 verify
+    against Cloudflare's PUBLIC JWKS (the pod holds **no signing secret**), with
+    aud/iss/exp/kid checks.
+  - `authorize_request(headers, mode, access_*, get_jwks, internal_secret)` —
+    **dual-accept** for the dispatcher's strict mode: a valid CF Access JWT
+    (preferred, keyless) OR the legacy HMAC `x-internal-trust` (bridge, removed at
+    cutover end).
+  - `test_access_jwt_verify.py` — **12/12 green** offline (local RSA keypair stands
+    in for Cloudflare's signing key; exercises valid / bad-aud / bad-iss / expired /
+    unknown-kid / foreign-key + all dual-accept paths).
+
+- ⏳ **Operator-gated wiring (NOT done — needs cluster + CF Access access):**
+  1. Add `pyjwt[crypto]` to the dispatcher image (it currently imports only `hmac`).
+  2. In the dispatcher's strict-mode auth block (embedded in
+     `configmap-pymagatama-*.yaml` + `configmap-mailer-direct-patch.yaml`), replace
+     the `hmac.compare_digest(provided, INTERNAL_SECRET)` check with a call to
+     `authorize_request(request.headers, mode=AUTH_MODE, access_team_domain=…,
+     access_aud=…, get_jwks=<cached JWKS fetch>, internal_secret=INTERNAL_SECRET)`.
+     With `internal_secret` still set, this is **zero-downtime dual-accept**.
+  3. Provision the Cloudflare Access application + service-token policy for the apex
+     Worker; set `CF_ACCESS_TEAM_DOMAIN` / `CF_ACCESS_AUD` env on the pod.
+  4. Switch the apex Worker to send `CF-Access-Client-Id`/`CF-Access-Client-Secret`.
+  5. Verify end-to-end, then drop `internal_secret`/`DISPATCHER_INTERNAL_SECRET`.
+
+  (These steps run `kubectl`/`cloudflared`/CF-dashboard on operated infra and are
+  gated like Stages A–D — outside what the repo-side tooling can deploy.)
+
 ## Note on the current commit gate
 
 Until Stage E lands, the `no_server_key` check stays red on these pre-existing
