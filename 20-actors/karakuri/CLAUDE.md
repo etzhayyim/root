@@ -27,7 +27,8 @@ ISIC J6201 · ISCO 2512/3514 · UNSPSC 81112 (computer programming / web automat
 ## Cells (langgraph→WASM; Murakumo-only; `.solve()` raises at R0)
 
 service_resolve (reuben) · command_plan (simeon) · **session_broker** (levi — coded reference cell) ·
-adapter_invoke (judah) · export_roundtrip (zebulun).
+**adapter_invoke** (judah — coded reference cell: wires command.py + t2_browser.py into the
+tos-gate→mutate-gate→dry-run→execute-gated graph) · export_roundtrip (zebulun).
 
 ## Gates (immutable R0→R3)
 
@@ -56,7 +57,7 @@ driving of prohibited-content or third-party ad/affiliate systems (Charter-Rider
 
 ```
 cd methods && python3 -m pytest                 # ServiceOp parser/planner + browser-use T2 plan (49 tests)
-cd cells   && python3 -m pytest                 # session_broker state machine G1/G3/G5 (8 tests)
+cd cells   && python3 -m pytest                 # session_broker (G1/G3/G5) + adapter_invoke (G2/G5/G6/G8) (17 tests)
 python3 methods/command.py karakuri google messages.list        # api-ok → T1 (not browser-automated)
 python3 methods/t2_browser.py karakuri legacy-portal records.list  # T2 browser-use dry-run plan
 ```
