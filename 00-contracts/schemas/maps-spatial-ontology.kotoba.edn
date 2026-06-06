@@ -80,6 +80,13 @@
   {:db/ident :feature/source-did  :db/valueType :db.type/string  :db/doc "path-based source DID (did:web:maps.etzhayyim.com:registry:gleif, …) — provenance carried unchanged from the legacy multi-DID model"}
   {:db/ident :feature/sourcing    :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
 
+  ;; ── :feature/name-token — the NAME SEARCH INDEX (token index, not a query key column) ──
+  ;;    AVET(:feature/name-token, <query-token>) = the kotoba-native successor to vertex_spatial
+  ;;    `name LIKE`. One tokenizer (methods/search.py name_tokens) stamps at write (ingest.py)
+  ;;    and probes at read (search.py): ASCII name-prefixes + CJK bigrams (mirrors kotoba's own
+  ;;    bm25/CJK-bigram web search). cardinality many.
+  {:db/ident :feature/name-token  :db/valueType :db.type/string  :db/index true :db/cardinality :db.cardinality/many :db/doc "search-index token (ASCII name-prefix or CJK bigram of :feature/name)"}
+
   ;; ── :feature.cell/* — the H3 SPATIAL INDEX (one owning cell per queryable resolution) ──
   ;;    AVET(:feature.cell/r{lod}, <cell>) → subjects = exactly the getChunk per-cell read.
   ;;    Cells are h3-js cellToParent(centroidR15, res). getChunk's zoom→LOD ladder uses

@@ -123,11 +123,23 @@ def normalize(export):
 
 
 def to_kg_batch(feats):
-    """:feature/* dicts → kg.ingest_batch body (kamado/watari shape)."""
+    """:feature/* dicts → kg.ingest_batch body (kamado/watari shape).
+    Also stamps :feature/name-token search-index claims (ADR-2606064500 R2; search.py reads
+    them via AVET — the name-search successor to vertex_spatial `name LIKE`)."""
+    try:
+        from search import name_tokens  # same tokenizer the read path uses
+    except Exception:
+        name_tokens = None
     entities = []
     for fid, f in feats.items():
         claims = [{"pred": k.lstrip(":"), "value": str(v)}
                   for k, v in f.items() if k != ":feature/id" and v not in (None, "")]
+        if name_tokens is not None:
+            toks = set()
+            for nk in (":feature/name", ":feature/display-name"):
+                if f.get(nk):
+                    toks |= name_tokens(str(f[nk]))
+            claims.extend({"pred": "feature/name-token", "value": t} for t in sorted(toks))
         entities.append({
             "id": fid,
             "type": "maps-feature",

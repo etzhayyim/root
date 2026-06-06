@@ -95,6 +95,40 @@ isolated build: member `did:key` + self-signed CACAO → `kg.ingest` →
 `kotoba://op/datom:transact`, **second-precision** timestamps, **base64url**
 signature, **CBOR/ciborium** with camelCase `cacaoB64`, `account.<did>` entity.
 
+## Domain-independent identity (did:key canonical, did:web demoted)
+
+`did:web:etzhayyim.com:<handle>` roots trust in **domain/TLS ownership** — if
+`etzhayyim.com` changes hands, the new owner could publish a different DID
+Document for the same handle and hijack the name. So `did:web` is **NOT** the
+identity; it is demoted to a non-authoritative readable alias:
+
+- **Canonical identity = the controller `did:key`** (self-certifying — the key is
+  in the DID; domain-independent). Login, control, signing, and the kotoba
+  account record (`account.<did:key>`) all key on it. A change of domain owner
+  does NOT affect a member's key, login, or records.
+- **Handle↔key binding is self-certifying**: the controller `did:key` itself
+  signs a compact EdDSA attestation `{ iss, sub, handle, iat }`
+  (`$lib/auth/identity.ts::signHandleAttestation`), stored as the
+  `account/handle-attestation` claim in the kotoba record. Anyone verifies it
+  against the key embedded in the DID — no domain, no TLS, no registry
+  (`50-infra/etzhayyim-did-web/src/identity.ts::verifyHandleAttestation`). A
+  forged did:web document is detectable: it is not signed by the member's key.
+- **The published DID Document is self-certifying** (`selfCertifyingDidDoc`):
+  `id` = the `did:key`, `verificationMethod` = the `did:key`, and
+  `did:web:etzhayyim.com:<handle>` appears only in `alsoKnownAs`. A resolver
+  trusts the key; the domain is just one resolution endpoint.
+- The kotoba Datom log (append-only, content-addressed) is the binding's
+  provenance, with an optional Base L2 anchor (the constitution's trust-anchor
+  layer) — so trust roots in the key + content-address + chain, never the domain.
+
+This same self-certifying record backs **multi-device** (`account/device/<credId>`
+= wrapped-ARK, signed by an enrolled device → the new device unwraps the SAME ARK
+→ SAME `did:key`) and **key rotation** (`account/controller` = new `did:key` +
+append-only `account/rotation/<n>`, signed by the CURRENT key). All three writes
+(`account-ops.ts`: `publishAccount` / `enrollDevice` / `rotateKey`) ride the one
+verify-only kotoba relay. did:web is unaffected by rotation — it only ever aliased
+the controller.
+
 ## Verification
 
 - Worker `tsc` clean; 12 same-origin auth tests green (8 `registerAccount` +
@@ -121,12 +155,39 @@ signature, **CBOR/ciborium** with camelCase `cacaoB64`, `account.<did>` entity.
   stale apex worker is auto-deployed; it activates fully when `main` is deployed
   + the two operator-gated steps land (below).
 
+## Account write path — member-signed content-addressed blocks (LIVE)
+
+Account publish does NOT write to a central kotoba node: writes there are
+intentionally operator-local (`kotoba.etzhayyim.com` is read-only by design,
+ADR-2606013200; `kotoba.gftd.ai` is being pruned). Instead the account record is a
+**member-signed, content-addressed block** published to the apex
+`com.etzhayyim.apps.kotoba.block.put` (main's `kotoba-publish`: verifies the
+member Ed25519 sig over the root CID, stores the block in KV, advances the
+member's account-graph root via the `KotobaRoot` Durable Object; the block is
+IPFS-pinned via **`kotobase.net`**). This is the most domain-independent form: the
+record is a **CID signed by the member's `did:key`** — dependent on neither the
+domain nor a central node. **No gated infra — it is LIVE** (proven: the real
+`block-publish.ts` module published an account block → `{ok:true, root:bafkrei…}`).
+
+- CID = `sha2-256` raw CIDv1 (`b`+base32), byte-identical to `cid.ts::computeCidV1`.
+- `block.put` author DID = `did:key:z`+hex(32B pubkey) (the kotoba-publish
+  convention) — the SAME Ed25519 key as the standard `did:key:z6Mk…` login
+  identity, carried inside the record as `account/did`.
+- Per-member account graph `acct-<pubkeyHex>` (no cross-member root contention).
+- Frontend `$lib/auth/block-publish.ts` + `account-ops.ts`
+  (`publishAccount` / `enrollDevice` / `rotateKey`).
+- (The earlier verify-only `kg.ingest` CACAO relay — `registerAccount` /
+  `handleAccountWrite` / `cbor.ts` / `kotoba-write.ts` — remains a tested
+  alternative if a central-node write surface is ever exposed; `block.put` is the
+  primary live path.)
+
 ## Honest R0 / remaining
 
-- `registerAccount` is `gated` until (1) the kotoba `did:key` self-resolve patch
-  ships (rebuild `kotoba-server` + restart; identity is keychain-stable so
-  `operator_did` survives), and (2) a Worker→node write path is opened past the
-  `kotoba.etzhayyim.com` 403 edge gate, then `KOTOBA_WRITE_ENDPOINT` +
-  `KOTOBA_OPERATOR_DID` are set. Until then login works without it.
+- The **read side** (apex resolves `account.<did>` / handle → did:key from the
+  published account blocks via KV `kroot`/`kblk` + IPFS) is a follow-on; the write
+  side is live.
+- `enrollDevice` + `rotateKey` are implemented + live-capable (same `block.put`
+  path) but not yet wired into a settings UI (library API; the wrapped-ARK store +
+  recovery UX is the remaining work).
 - Non-PRF cross-device login + PDS authenticated-write integration (EdDSA session
   PoP accepted by `atproto.etzhayyim.com`) are follow-ons.
