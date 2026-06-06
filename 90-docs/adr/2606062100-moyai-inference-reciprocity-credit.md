@@ -1,7 +1,7 @@
 ---
 id: adr-2606062100-moyai-inference-reciprocity-credit
 title: "ADR-2606062100: moyai 舫い — non-monetary inference reciprocity credit (give-to-get; reward kept, Basic High Income untouched)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: moyai-inference-reciprocity-credit
 authoritative: true
@@ -37,9 +37,9 @@ superseded_by: []
 
 # ADR-2606062100: moyai 舫い — non-monetary inference reciprocity credit
 
-**Status**: proposed
+**Status**: accepted (landed on `main` 2026-06-06 via PR #1184, merge `62e4c2c`; 46 tests green. Council Lv6+ ratification of the live mint/burn enablement remains the standing gate per §5/§6.)
 **Date**: 2026-06-06
-**Deciders**: Jun Kawasaki (author); Council Lv6+ ≥3 (ratify); 30-day public objection period
+**Deciders**: Jun Kawasaki (author); Council Lv6+ ≥3 (ratify live enablement); 30-day public objection period
 **ADR Hierarchy**: extends ADR-2606012100 (compute-node participation) with a reward layer; carves out its G4 narrowly; does **not** amend any constitutional invariant.
 
 ## Context
@@ -146,6 +146,25 @@ moyai is the kotoba-native, charter-clean successor to the RisingWave-era reward
 5. **Transferable/tradeable credit (a market).** Rejected: transferability re-enables sybil pooling and a shadow currency. Non-transferable + decaying by construction.
 6. **Resurrect the RisingWave credits BPMN/MV.** Rejected: forbidden store (ADR-2605262130), no verification, no firewall. moyai supersedes it on kotoba.
 7. **Trust self-reported contribution (no verification).** Rejected: re-opens the farming hole. Proof-of-contribution (honeypot + spot-check + dedupe + cap + slash) is the membrane.
+
+## Outcome (closing, 2026-06-06)
+
+**Landed.** Lexicons (`com.etzhayyim.moyai.{contributionAttestation,drawReceipt}`), reference
+implementation (`50-infra/etzhayyim-moyai-credit/` — ledger / proof_of_contribution /
+fair_share / analyze), and the **46-test** suite merged to `main` (PR #1184, `62e4c2c`),
+green pre- and post-merge. The directive is satisfied with **zero invariant amendments**: a
+reward for inference participation **exists** (verified work mints a spendable balance that
+wins scarce surplus compute) yet is structurally non-money, non-benefit, non-governance, and
+**Basic-High-Income-neutral** (the subsistence inference floor is served by need, never by
+contribution; credit governs only discretionary surplus under contention). The legacy
+RisingWave credits economy is superseded.
+
+**Standing gate (not closed):** this ADR ships the design + offline reference impl. Live
+mint/burn against the running Murakumo mesh + kotoba Datom log, and live external donor-node
+enrollment, remain **Council Lv6+ + operator** gated (inherits ADR-2606012100 G9). The
+verification oracle is a deterministic frozen-edge-model stand-in until wired to pinned core
+nodes. Follow-ups: Murakumo-mesh binding of the fair-share scheduler; toritate aggregate
+transparency of minted/burned totals (no per-donor leaderboard); ameno/e7m client surfaces.
 
 ## References
 
