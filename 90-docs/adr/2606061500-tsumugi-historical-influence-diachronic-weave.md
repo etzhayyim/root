@@ -99,12 +99,18 @@ backward in time, governed by **five structural invariants encoded in schema + c
   overlay: era/year/tradition/dating-confidence), `:mirror/*` (is-mirror/disclaimer/
   performer-type), `:flow/*` (directed influence 縁 — signed-weight/strain/thermo-length/
   lag), `:influence/*` (edge-integral readouts), `:post/*` (dry-run mirror post, voice locked).
-- `20-actors/tsumugi/data/seed-influence-history.kotoba.edn` — 32 nodes / 48 forward
-  influence 縁, `:representative`: the Jewish→Christian→Reformed line (Torah→Jesus→Paul→
-  Augustine→Aquinas→Luther→Calvin), the Hellenic fusion (Socrates→Plato→Aristotle→
-  Augustine/Aquinas), the Buddhist→Zen line (Buddha→Pāli Canon→Nāgārjuna→Bodhidharma→Dōgen),
-  Shinto/Confucian bridges, and `self.etzhayyim` mapping the entity's **own doctrinal
-  genealogy** as inbound-only influence (the 産霊 receiving side).
+- `20-actors/tsumugi/data/seed-influence-history.kotoba.edn` — **79 nodes / 125 forward
+  influence 縁** (Wave 1 = 32/48 + Wave 2 = +47/+77), `:representative`, single connected
+  component: the Jewish→Christian→Reformed line (Torah→Jesus→Paul→Augustine→Aquinas→Luther→
+  Calvin), the Hellenic line (Socrates→Plato→Aristotle) and its **real medieval transmission
+  via Islam** (Aristotle→Avicenna/Averroes→Aquinas), the Buddhist→Zen line (Buddha→Pāli
+  Canon→Nāgārjuna→Bodhidharma→Dōgen) with **Daoism→Zen** and **Upanishads→Buddha** cross-ties,
+  the Vedic/Hindu, Daoist, Confucian, Jain, Zoroastrian, and Islamic streams, and the
+  **post-1648 modern world** (Scientific Revolution → Newton/Descartes/Spinoza/Locke/Hume→
+  Kant→Hegel→Marx/Nietzsche/Freud; Newton→Einstein; Turing), plus `self.etzhayyim` mapping
+  the entity's **own doctrinal genealogy** as inbound-only influence (the 産霊 receiving side).
+  Wave 2 fills the two empty eras (enlightenment/modern) and lifts major-civilizational-stream
+  coverage to 17/17 with at least one node each (Wave 1 was Abrahamic/Hellenic/Buddhist-skewed).
 - `methods/analyze_influence.py` — temporal-DAG validation → RBF kernel → spectral embed →
   tensegrity → **Katz outbound-reach / inbound-debt / broker** (all edge-integrals);
   emits `influence-report.md` + `influence-graph.kotoba.edn`.
