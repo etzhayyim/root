@@ -140,9 +140,24 @@ class _KotobaSubstrateWriter(SubstrateWriter):
         self.nsid = os.environ.get(
             "KOTOBA_INGEST_NSID", "com.etzhayyim.apps.kotobase.kg.ingest_batch"
         )
+        # The H3-cell spatial index (:feature.cell/rN) is what makes a feature queryable by the
+        # cell-based getChunk read (ADR-2606064500 §2). It is stamped only when `h3` is
+        # importable in this pod. Without it, features still ingest but carry NO cell index →
+        # they are invisible to getChunk until re-stamped. Warn loudly so the operator ships an
+        # image with h3 (or accepts index-less ingest deliberately).
+        try:
+            import h3  # noqa: F401
+            self._h3 = True
+        except Exception:
+            self._h3 = False
+            log.warning(
+                "etzhayyim.substrate: kotoba mode — `h3` NOT importable; features will ingest "
+                "WITHOUT the :feature.cell/* spatial index and will NOT be queryable by the "
+                "cell-based getChunk read until re-stamped. Ship the dumper image with `h3`."
+            )
         log.warning(
-            "etzhayyim.substrate: kotoba mode active (endpoint=<redacted>). Writes land in the "
-            "canonical Datom log via %s (member-signed).", self.nsid,
+            "etzhayyim.substrate: kotoba mode active (endpoint=<redacted>, h3=%s). Writes land "
+            "in the canonical Datom log via %s (member-signed).", self._h3, self.nsid,
         )
 
     def _post(self, body: dict[str, Any]) -> None:
