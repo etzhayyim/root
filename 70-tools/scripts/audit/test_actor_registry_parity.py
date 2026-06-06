@@ -86,6 +86,30 @@ def test_ake_is_registered_in_both():
     assert "ake" in profile_handles()
 
 
+# ── schema-reference integrity: no registry may point at a non-existent ontology ──
+def _path_like(ref: str) -> str | None:
+    """The leading token of `ref` if it looks like a real file path (`…/x.edn`), else None.
+
+    Skips prose notes (e.g. todoke/tsuzuri use a descriptive primary-schema string), so only
+    genuine path references are dereferenced.
+    """
+    head = ref.strip().split()[0] if ref.strip() else ""
+    return head if (head.endswith(".edn") and "/" in head) else None
+
+
+def test_profile_seed_schema_refs_resolve():
+    refs = re.findall(r':actor/primary-schema\s+"([^"]+)"', _SEED.read_text(encoding="utf-8"))
+    missing = [p for r in refs if (p := _path_like(r)) and not (_REPO / p).is_file()]
+    assert not missing, f"actor-profile-seed primary-schema refs point at missing files: {missing}"
+
+
+def test_infra_actors_schema_refs_resolve():
+    body = _INFRA.read_text(encoding="utf-8").split("export const INFRA_ACTORS", 1)[1]
+    refs = re.findall(r'primarySchema:\s*"([^"]+)"', body)
+    missing = [p for r in refs if (p := _path_like(r)) and not (_REPO / p).is_file()]
+    assert not missing, f"INFRA_ACTORS primarySchema refs point at missing files: {missing}"
+
+
 if __name__ == "__main__":
     import sys
     infra, prof = infra_handles(), profile_handles()
