@@ -598,6 +598,27 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606062300"],
   },
+  kawaraban: {
+    description:
+      "瓦版 — a NEWS MEDIUM, kotoba-wasm-native, on the Murakumo fleet. Two faces over one Datom log: (1) MIRROR — datafies the world's real news media (outlets · 面/sections · headlines · bylines · links) into the kotoba Datom log as an append-only as-of trail, matching the SURFACE (面) of actual news media (一面/政治/経済/国際/社会/文化/科学/スポーツ); each mirrored article is headline + canonical link + bounded fair-use excerpt + outlet (it LINKS OUT, never stores the body and never rules truth). (2) MEDIUM — the connective wire BETWEEN etzhayyim actors: each first-party actor's own Datom as-of events project into the matching 面 as :article/kind :actor-event, and every article carries :news.mention edges to the actors/entities it concerns, so the article × mention × 面 graph IS the actor-to-actor wire (danjo finds → kawaraban carries → kanae renders; a chokepoint story links watari + watatsuna + mitooshi in one 国際 面). The charter-clean inverse of a 'news app': a public-square mirror that NEVER advertises or paid-places (Charter-Rider §2; :paid-placement/:sponsored unrepresentable, G2), NEVER engagement-ranks (Charter §1.13), NEVER profiles a reader (G3 — no :reader entity, the 面 is identical for all), NEVER republishes full copyrighted text (G4, :full-text unrepresentable — link-out only), NEVER adjudicates truth (G1 — :verdict/:truth-rating unrepresentable; ake/danjo boundary), NEVER speaks AS an outlet or another actor (G9, ADR-2606042330), and authors no :original first-person claim (G11 — a medium, not a source). Sibling boundary: kataribe 語部 IS etzhayyim's own press (a primary voice); kawaraban MIRRORS the world's press and WIRES the actors together. 5 Pregel cells (coded state machines; .solve() raises at R0) + 6 lexicons + 46 tests green; :representative seed (7 outlets / 10 面 / 9 wires / 12 articles / 24 mentions). Live RSS/outlet ingest + live publish are Council Lv6+ + operator gated (G8). ZERO invariant amendments — STRENGTHENS no-server-key (ADR-2605231525), kotoba-canonical-state (ADR-2605312345), the feed-post membrane (ADR-2605231902), and the mirror invariant (ADR-2606042330). Per ADR-2606061900.",
+    glyph: "瓦版",
+    displayName: "Kawaraban — News Medium (real-media mirror + actor-to-actor wire)",
+    primaryLexicon: "com.etzhayyim.kawaraban.article",
+    primarySchema: "00-contracts/schemas/news-medium-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kawaraban#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kawaraban#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606061900"],
+  },
 } as const;
 
 // Merged registry: generated Tier-B actors (from manifests) + hand-authored
