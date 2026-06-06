@@ -95,6 +95,40 @@ isolated build: member `did:key` + self-signed CACAO → `kg.ingest` →
 `kotoba://op/datom:transact`, **second-precision** timestamps, **base64url**
 signature, **CBOR/ciborium** with camelCase `cacaoB64`, `account.<did>` entity.
 
+## Domain-independent identity (did:key canonical, did:web demoted)
+
+`did:web:etzhayyim.com:<handle>` roots trust in **domain/TLS ownership** — if
+`etzhayyim.com` changes hands, the new owner could publish a different DID
+Document for the same handle and hijack the name. So `did:web` is **NOT** the
+identity; it is demoted to a non-authoritative readable alias:
+
+- **Canonical identity = the controller `did:key`** (self-certifying — the key is
+  in the DID; domain-independent). Login, control, signing, and the kotoba
+  account record (`account.<did:key>`) all key on it. A change of domain owner
+  does NOT affect a member's key, login, or records.
+- **Handle↔key binding is self-certifying**: the controller `did:key` itself
+  signs a compact EdDSA attestation `{ iss, sub, handle, iat }`
+  (`$lib/auth/identity.ts::signHandleAttestation`), stored as the
+  `account/handle-attestation` claim in the kotoba record. Anyone verifies it
+  against the key embedded in the DID — no domain, no TLS, no registry
+  (`50-infra/etzhayyim-did-web/src/identity.ts::verifyHandleAttestation`). A
+  forged did:web document is detectable: it is not signed by the member's key.
+- **The published DID Document is self-certifying** (`selfCertifyingDidDoc`):
+  `id` = the `did:key`, `verificationMethod` = the `did:key`, and
+  `did:web:etzhayyim.com:<handle>` appears only in `alsoKnownAs`. A resolver
+  trusts the key; the domain is just one resolution endpoint.
+- The kotoba Datom log (append-only, content-addressed) is the binding's
+  provenance, with an optional Base L2 anchor (the constitution's trust-anchor
+  layer) — so trust roots in the key + content-address + chain, never the domain.
+
+This same self-certifying record backs **multi-device** (`account/device/<credId>`
+= wrapped-ARK, signed by an enrolled device → the new device unwraps the SAME ARK
+→ SAME `did:key`) and **key rotation** (`account/controller` = new `did:key` +
+append-only `account/rotation/<n>`, signed by the CURRENT key). All three writes
+(`account-ops.ts`: `publishAccount` / `enrollDevice` / `rotateKey`) ride the one
+verify-only kotoba relay. did:web is unaffected by rotation — it only ever aliased
+the controller.
+
 ## Verification
 
 - Worker `tsc` clean; 12 same-origin auth tests green (8 `registerAccount` +
