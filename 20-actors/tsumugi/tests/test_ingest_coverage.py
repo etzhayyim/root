@@ -114,6 +114,58 @@ def test_ingest_live_gate_refused_without_env():
         if saved[1] is not None: os.environ["TSUMUGI_OPERATOR_DID"] = saved[1]
 
 
+# ── live Wikidata path (hermetic — recorded SPARQL fixture, NO network) ───────
+SPARQL_FIXTURE = FIXTURES / "wikidata-live-sample.sparql.json"
+
+
+def _sparql_obj():
+    import json
+    return json.loads(SPARQL_FIXTURE.read_text(encoding="utf-8"))
+
+
+def test_year_parses_ce_bce_and_none():
+    assert ing._year("1788-02-22T00:00:00Z") == 1788
+    assert ing._year("-0384-01-01T00:00:00Z") == -384   # BCE
+    assert ing._year(None) is None
+    assert ing._year("") is None
+
+
+def test_parse_wikidata_sparql_rows():
+    rows = ing.parse_wikidata_sparql(_sparql_obj())
+    assert len(rows) == 3
+    r0 = rows[0]
+    assert r0["infLabel"] == "Arthur Schopenhauer" and r0["pLabel"] == "Friedrich Nietzsche"
+    assert r0["infBirth"] == 1788 and r0["pDeath"] == 1900
+    # BCE row parsed with negative years
+    assert rows[1]["pBirth"] == -384 and rows[1]["infBirth"] == -428
+
+
+def test_normalize_wikidata_rows_membrane():
+    rows = ing.parse_wikidata_sparql(_sparql_obj())
+    nodes, flows, new_nodes, new_flows, dropped = ing.normalize_wikidata_rows(rows, SEED)
+    ids = {n[":organism/id"] for n in new_nodes}
+    assert "fig.schopenhauer" in ids, "new dead influencer must be added"
+    # Plato→Aristotle already in seed → deduped (not re-added as an edge)
+    assert not any(f[":flow/id"] == "fl.plato.aristotle" for f in new_flows)
+    # the new Schopenhauer→Nietzsche edge is present (Nietzsche already a seed node)
+    assert any(f[":flow/from"] == "fig.schopenhauer" and f[":flow/to"] == "fig.nietzsche"
+               for f in new_flows)
+    # N4: the undated influencer row is dropped
+    assert any("N4" in why for _, why in dropped)
+    # N2/N1/G5 on every ingested node
+    for n in new_nodes:
+        assert n[":mirror/is-mirror"] is True and n[":mirror/disclaimer"]
+        assert ":flow/signed-weight" not in n            # N1 edge-primary
+        assert n[":hist/sourcing"] == ":representative"  # G5
+    # N5 on every ingested edge
+    yr = {nid: (ing.node_year(nd, ":hist/year-from"), ing.node_year(nd, ":hist/year-to"))
+          for nid, nd in nodes.items()}
+    for n in new_nodes:
+        yr[n[":organism/id"]] = (n[":hist/year-from"], n[":hist/year-to"])
+    for f in new_flows:
+        assert yr[f[":flow/from"]][0] <= yr[f[":flow/to"]][1]
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     failed = 0
