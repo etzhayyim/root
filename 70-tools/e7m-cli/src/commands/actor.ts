@@ -73,7 +73,7 @@ actorCmd
 
 actorCmd
   .command('deploy <dir>')
-  .description('Deploy actor to Cloudflare Containers (wrangler deploy)')
+  .description('Deploy actor to Cloudflare Containers (wrangler deploy) — legacy CF path')
   .action(async (dir: string) => {
     const compDir = path.resolve(process.cwd(), dir);
     console.log(`>> Deploying actor at ${compDir}`);
@@ -82,6 +82,49 @@ actorCmd
       console.log('OK deployed.');
     } catch (err) {
       console.error('Actor deploy failed.', err);
+      process.exit(1);
+    }
+  });
+
+actorCmd
+  .command('deploy-kotoba <wasm>')
+  .description('Deploy a WASM actor the kotoba-premise way: content-address → pin to IPFS → register in the kotoba Datom log (Cloudflare-free, ADR-2606064600)')
+  .option('--actor <handle>', 'actor handle (defaults to the wasm filename stem)')
+  .option('--did <did>', 'actor DID (defaults to did:web:etzhayyim.com:actor:<handle>)')
+  .option('--pin <mode>', 'IPFS pin mode: kubo | pinner | none', 'none')
+  .option('--kubo <url>', 'kubo HTTP API for --pin kubo', 'http://127.0.0.1:5001')
+  .option('--pinner-dir <dir>', 'ipfs-pinner data dir for --pin pinner')
+  .option('--graph <graph>', 'kotoba graph (defaults to com.etzhayyim.<actor>)')
+  .option('--kotoba <url>', 'kotoba node URL', 'http://127.0.0.1:8077')
+  .option('--out <file>', 'deploy manifest output path')
+  .action(async (
+    wasm: string,
+    opts: { actor?: string; did?: string; pin: string; kubo: string; pinnerDir?: string; graph?: string; kotoba: string; out?: string },
+  ) => {
+    const wasmPath = path.resolve(process.cwd(), wasm);
+    try {
+      await fs.stat(wasmPath);
+    } catch {
+      console.error(`WASM file not found: ${wasmPath}`);
+      process.exit(1);
+    }
+    const root = await findRepoRoot();
+    const deployScript = path.join(root, '50-infra', 'e7m-wasm-runner', 'deploy.mjs');
+    const args = ['--file', wasmPath, '--pin', opts.pin, '--kubo', opts.kubo, '--kotoba', opts.kotoba];
+    if (opts.actor) args.push('--actor', opts.actor);
+    if (opts.did) args.push('--did', opts.did);
+    if (opts.pinnerDir) args.push('--pinner-dir', opts.pinnerDir);
+    if (opts.graph) args.push('--graph', opts.graph);
+    if (opts.out) args.push('--out', opts.out);
+    console.log(`>> kotoba-premise deploy: ${path.basename(wasmPath)} (pin=${opts.pin})`);
+    if (!process.env.KOTOBA_TOKEN) {
+      console.log('   (no KOTOBA_TOKEN → kotoba registration is a DRY RUN; no-server-key posture)');
+    }
+    try {
+      // Node ≥ 23 strips the runner's .ts imports natively; no build step.
+      await execa('node', [deployScript, ...args], { cwd: process.cwd(), stdio: 'inherit' });
+    } catch (err) {
+      console.error('kotoba deploy failed.', err);
       process.exit(1);
     }
   });
