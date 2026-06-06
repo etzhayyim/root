@@ -22,7 +22,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 _REPO = os.environ.get("YUKKURI_REPO_DID", "did:web:y5kk5r1x.etzhayyim.com")
 
@@ -49,8 +48,6 @@ async def _node_validate(state: _State) -> dict[str, Any]:
 async def _node_insert(state: _State) -> dict[str, Any]:
     if state.get("error"):
         return {}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     topic = (state.get("topic") or "").strip()
     outline = (state.get("outline") or "").strip() or None
     owner_did = state.get("owner_did") or _APP_DID
@@ -59,17 +56,20 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     created_at = datetime.now(tz=timezone.utc).isoformat()
     title = f"ゆっくり実況: {topic[:48]}"
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            await conn.execute(
-                """INSERT INTO vertex_yukkuri_video
-                   (video_id, vertex_id, repo, owner_did, title, topic, outline, status, created_at)
-                   VALUES (%s, %s, %s, %s, %s, %s, %s, 'queued', %s)""",
-                [rkey, vertex_id, _REPO, owner_did, title, topic, outline, created_at],
-            )
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        await asyncio.to_thread(client.insert_row, "vertex_yukkuri_video", {
+            "vertex_id": vertex_id,
+            "video_id": rkey,
+            "repo": _REPO,
+            "owner_did": owner_did,
+            "title": title,
+            "topic": topic,
+            "outline": outline,
+            "status": "queued",
+            "created_at": created_at
+        })
     except Exception as exc:  # noqa: BLE001
         _log.exception("compose insert failed")
         return {"error": f"insert: {exc!s}"[:300]}

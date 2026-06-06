@@ -17,7 +17,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 
 
@@ -34,28 +33,18 @@ async def _node_fetch_video(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                """SELECT video_id, owner_did, topic, outline, status,
-                          render_url, render_blob_key, created_at
-                   FROM vertex_yukkuri_video WHERE video_id = %s LIMIT 1""",
-                [video_id],
-            )
-            row = await cur.fetchone()
-        finally:
-            await conn.close()
-        if not row:
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
+        if not raw_rows:
             return {"error": f"video not found: {video_id}"}
+        r = raw_rows[0]
         video = {
-            "videoId": row[0], "ownerDid": row[1], "topic": row[2],
-            "outline": row[3], "status": row[4],
-            "renderUrl": row[5], "renderBlobKey": row[6], "createdAt": str(row[7] or ""),
+            "videoId": r.get("video_id"), "ownerDid": r.get("owner_did"), "topic": r.get("topic"),
+            "outline": r.get("outline"), "status": r.get("status"),
+            "renderUrl": r.get("render_url"), "renderBlobKey": r.get("render_blob_key"), "createdAt": str(r.get("created_at") or ""),
         }
         return {"video": video}
     except Exception as exc:  # noqa: BLE001
@@ -67,25 +56,13 @@ async def _node_fetch_scenes(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("video"):
         return {}
     video_id = state.get("video_id") or ""
-    if not _RW_URL:
-        return {}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                """SELECT scene_index, location, action
-                   FROM vertex_yukkuri_scene
-                   WHERE video_id = %s
-                   ORDER BY scene_index
-                   LIMIT 100""",
-                [video_id],
-            )
-            rows = await cur.fetchall()
-        finally:
-            await conn.close()
-        return {"scenes": [{"sceneIndex": r[0], "location": r[1], "action": r[2]} for r in rows]}
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_scene", "video_id", video_id, limit=100)
+        raw_rows.sort(key=lambda r: int(r.get("scene_index") or 0))
+        return {"scenes": [{"sceneIndex": int(r.get("scene_index") or 0), "location": r.get("location"), "action": r.get("action")} for r in raw_rows]}
     except Exception as exc:  # noqa: BLE001
         _log.warning("fetch_scenes failed: %s", exc)
         return {"scenes": []}
@@ -95,28 +72,16 @@ async def _node_fetch_lines(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("video"):
         return {}
     video_id = state.get("video_id") or ""
-    if not _RW_URL:
-        return {}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                """SELECT scene_index, line_index, speaker, text, emotion, voice_blob_key
-                   FROM vertex_yukkuri_line
-                   WHERE video_id = %s
-                   ORDER BY scene_index, line_index
-                   LIMIT 500""",
-                [video_id],
-            )
-            rows = await cur.fetchall()
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
+        raw_rows.sort(key=lambda r: (int(r.get("scene_index") or 0), int(r.get("line_index") or 0)))
         return {"lines": [
-            {"sceneIndex": r[0], "lineIndex": r[1], "speaker": r[2],
-             "text": r[3], "emotion": r[4], "voiceBlobKey": r[5]}
-            for r in rows
+            {"sceneIndex": int(r.get("scene_index") or 0), "lineIndex": int(r.get("line_index") or 0), "speaker": r.get("speaker"),
+             "text": r.get("text"), "emotion": r.get("emotion"), "voiceBlobKey": r.get("voice_blob_key")}
+            for r in raw_rows
         ]}
     except Exception as exc:  # noqa: BLE001
         _log.warning("fetch_lines failed: %s", exc)
@@ -127,27 +92,15 @@ async def _node_fetch_assets(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("video"):
         return {}
     video_id = state.get("video_id") or ""
-    if not _RW_URL:
-        return {}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                """SELECT kind, actor_did, blob_key, created_at
-                   FROM vertex_yukkuri_asset
-                   WHERE video_id = %s
-                   ORDER BY created_at
-                   LIMIT 200""",
-                [video_id],
-            )
-            rows = await cur.fetchall()
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_asset", "video_id", video_id, limit=200)
+        raw_rows.sort(key=lambda r: str(r.get("created_at") or ""))
         return {"assets": [
-            {"kind": r[0], "actorDid": r[1], "blobKey": r[2], "createdAt": str(r[3] or "")}
-            for r in rows
+            {"kind": r.get("kind"), "actorDid": r.get("actor_did"), "blobKey": r.get("blob_key"), "createdAt": str(r.get("created_at") or "")}
+            for r in raw_rows
         ]}
     except Exception as exc:  # noqa: BLE001
         _log.warning("fetch_assets failed: %s", exc)

@@ -2,12 +2,20 @@
 	import BrainrotMascot from './BrainrotMascot.svelte';
 	import { playSuccess, playClick } from '$lib/sound';
 	import { fade } from 'svelte/transition';
+	import { signIn, signUp } from '$lib/auth';
 
 	interface Props {
-		signInUrl: string;
-		signUpUrl: string;
+		/** Legacy authn redirect targets (used only when `onAuth` is absent). */
+		signInUrl?: string;
+		signUpUrl?: string;
+		/**
+		 * ADR-2606061500: same-origin CACAO sign-in handler. When provided it takes
+		 * precedence over the authn URL navigation — every auth button runs the
+		 * passkey → CACAO ceremony on this origin instead of hopping to authn.
+		 */
+		onAuth?: () => void | Promise<void>;
 	}
-	const { signInUrl, signUpUrl }: Props = $props();
+	const { signInUrl = '', signUpUrl = '', onAuth }: Props = $props();
 
 	let step = $state<'welcome' | 'auth'>('welcome');
 	let bouncing = $state(false);
@@ -65,7 +73,13 @@
 		step = 'auth';
 	}
 
-	function buildUrl(base: string): string {
+	let authBusy = $state(false);
+
+	// Same-origin passkey auth (ADR-2606061800): drive the in-app WebAuthn →
+	// did:key flow directly. NO redirect to authn.etzhayyim.com / mcp.etzhayyim.com.
+	// The signInUrl/signUpUrl props are kept only as a last-resort fallback for
+	// devices with no WebAuthn at all.
+	function fallbackUrl(base: string): string {
 		if (typeof window === 'undefined') return base;
 		const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 		const redirectUrl = isNative
@@ -76,17 +90,20 @@
 
 	function goAgentLogin() {
 		playSuccess();
-		window.location.href = buildUrl(signInUrl);
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signInUrl);
 	}
 
 	function goCreateAgent() {
 		playSuccess();
-		window.location.href = buildUrl(signUpUrl);
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signUpUrl);
 	}
 
 	function goHumanLogin() {
 		playSuccess();
-		window.location.href = buildUrl(signInUrl) + '&mode=human';
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signInUrl) + '&mode=human';
 	}
 
 	// 信者になる (constitutional Adherent path) — ADR-2605172600 joining ritual:
@@ -95,7 +112,8 @@
 	// the WebAuthn passkey + Smart Account flow instead of the credit-gated path.
 	function goAdherentJoin() {
 		playSuccess();
-		window.location.href = buildUrl(signUpUrl) + '&mode=adherent';
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signUpUrl) + '&mode=adherent';
 	}
 </script>
 

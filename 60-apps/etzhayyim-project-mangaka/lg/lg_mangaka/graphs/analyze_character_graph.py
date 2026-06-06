@@ -39,7 +39,6 @@ from langgraph.types import RetryPolicy
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_RW_URL = os.environ.get("RW_URL", "")
 _DEFAULT_WORK = "gh-work-ghost-hacker"
 
 
@@ -63,27 +62,29 @@ class _State(TypedDict, total=False):
 
 # Super-step 1: load all panels
 async def _step_load_panels(state: _State) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"status": "error", "error": "RW_URL not configured"}
-    import psycopg
     work_rkey = state.get("work_rkey") or _DEFAULT_WORK
-    # Filter: panels whose chapter→work parent matches.
-    # vertex_mangaka.parent_rkey on panel = page rkey, page.parent_rkey = chapter, etc.
-    # Simpler: filter panel rkey prefix that contains the episode pattern. Or accept all.
-    # For ghosthacker, panel rkeys are like 'gh-panel-episode:...'.
-    sql = (
-        "SELECT rkey, page_number, panel_number, props "
-        "FROM vertex_mangaka WHERE kind = 'panel' AND rkey LIKE 'gh-panel-%'"
-    )
-    panels: list[dict[str, Any]] = []
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
     try:
-        cur = conn.cursor()
-        await cur.execute(sql)
-        async for r in cur:
-            rkey, page_n, panel_n, props_str = r
+        rows = await asyncio.to_thread(
+            client.select_where,
+            "vertex_mangaka",
+            "kind",
+            "panel",
+            ["rkey", "page_number", "panel_number", "props"],
+            limit=1000000
+        )
+        panels: list[dict[str, Any]] = []
+        for r in rows:
+            rkey = r.get("rkey", "")
+            if not rkey.startswith("gh-panel-"):
+                continue
+            page_n = r.get("page_number")
+            panel_n = r.get("panel_number")
+            props_str = r.get("props")
             try:
-                p = json.loads(props_str or "{}")
+                p = json.loads(props_str or "{}") if isinstance(props_str, str) else (props_str or {})
             except Exception:
                 p = {}
             panels.append({
@@ -93,11 +94,10 @@ async def _step_load_panels(state: _State) -> dict[str, Any]:
                 "characters": p.get("characters") or [],
                 "environment": p.get("environment"),
             })
-    finally:
-        await conn.close()
+    except Exception as exc:
+        return {"status": "error", "error": str(exc)}
     _log.info("analyze_character_graph: loaded %d panels", len(panels))
     return {"panels": panels}
-
 
 # Super-step 2: extract cross-refs into adjacency-style dicts
 async def _step_extract_refs(state: _State) -> dict[str, Any]:
@@ -197,47 +197,40 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     metrics = state.get("metrics") or {}
     env_metrics = state.get("env_metrics") or {}
 
-    import psycopg
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
     written = {"character": 0, "environment": 0}
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        # For each character: fetch existing row, merge analytics, re-insert
-        for char_rkey, m in metrics.items():
-            await cur.execute(
-                "SELECT vertex_id, props FROM vertex_mangaka WHERE rkey = %s AND kind='character' LIMIT 1",
-                (char_rkey,))
-            row = await cur.fetchone()
-            if not row:
-                continue
-            vid, props_str = row
-            try:
-                p = json.loads(props_str or "{}")
-            except Exception:
-                p = {}
-            p["analytics"] = m
-            # Update only the props column (delete-then-insert is RW idiom, but
-            # for partial update we use UPDATE if RW supports it; otherwise
-            # delete-then-reinsert all columns).
-            await _reinsert_with_props(cur, vid, p)
-            written["character"] += 1
-        for env_rkey, m in env_metrics.items():
-            await cur.execute(
-                "SELECT vertex_id, props FROM vertex_mangaka WHERE rkey = %s AND kind='environment' LIMIT 1",
-                (env_rkey,))
-            row = await cur.fetchone()
-            if not row:
-                continue
-            vid, props_str = row
-            try:
-                p = json.loads(props_str or "{}")
-            except Exception:
-                p = {}
-            p["analytics"] = m
-            await _reinsert_with_props(cur, vid, p)
-            written["environment"] += 1
-    finally:
-        await conn.close()
+    
+    for char_rkey, m in metrics.items():
+        rows = await asyncio.to_thread(client.select_where, "vertex_mangaka", "rkey", char_rkey, limit=100)
+        row = next((r for r in rows if r.get("kind") == "character"), None)
+        if not row:
+            continue
+        props_str = row.get("props")
+        try:
+            p = json.loads(props_str or "{}") if isinstance(props_str, str) else (props_str or {})
+        except Exception:
+            p = {}
+        p["analytics"] = m
+        row["props"] = json.dumps(p, ensure_ascii=False) if isinstance(props_str, str) else p
+        await asyncio.to_thread(client.insert_row, "vertex_mangaka", row)
+        written["character"] += 1
+
+    for env_rkey, m in env_metrics.items():
+        rows = await asyncio.to_thread(client.select_where, "vertex_mangaka", "rkey", env_rkey, limit=100)
+        row = next((r for r in rows if r.get("kind") == "environment"), None)
+        if not row:
+            continue
+        props_str = row.get("props")
+        try:
+            p = json.loads(props_str or "{}") if isinstance(props_str, str) else (props_str or {})
+        except Exception:
+            p = {}
+        p["analytics"] = m
+        row["props"] = json.dumps(p, ensure_ascii=False) if isinstance(props_str, str) else p
+        await asyncio.to_thread(client.insert_row, "vertex_mangaka", row)
+        written["environment"] += 1
 
     return {
         "status": "analyzed",
@@ -249,47 +242,6 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
         },
         "error": None,
     }
-
-
-async def _reinsert_with_props(cur, vid: str, new_props: dict) -> None:
-    """RW doesn't support UPDATE on streaming tables → delete-then-insert.
-    We refetch the full row to preserve every column, then re-insert with new props."""
-    await cur.execute(
-        "SELECT created_date, sensitivity_ord, owner_did, rkey, repo, did, collection, "
-        "label, title, name, display_name, description, parent_rkey, page_number, "
-        "panel_number, asset_type, mime_type, cid, status, created_at, kind, actor_did, org_did "
-        "FROM vertex_mangaka WHERE vertex_id = %s LIMIT 1",
-        (vid,))
-    r = await cur.fetchone()
-    if not r:
-        return
-    (created_date, sens, owner, rkey, repo, did, coll,
-     label, title, name, dname, desc, parent, page_n, panel_n,
-     atype, mtype, cid, status_v, created_at, kind, actor_did, org_did) = r
-    await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-    await cur.execute(
-        """
-        INSERT INTO vertex_mangaka (
-          vertex_id, created_date, sensitivity_ord, owner_did,
-          rkey, repo, did, collection,
-          label, title, name, display_name, description, parent_rkey,
-          page_number, panel_number, asset_type, mime_type, cid,
-          status, created_at, props, kind, actor_did, org_did
-        ) VALUES (
-          %s, %s, %s, %s,
-          %s, %s, %s, %s,
-          %s, %s, %s, %s, %s, %s,
-          %s, %s, %s, %s, %s,
-          %s, %s, %s, %s, %s, %s
-        )
-        """,
-        (vid, created_date, sens, owner,
-         rkey, repo, did, coll,
-         label, title, name, dname, desc, parent,
-         page_n, panel_n, atype, mtype, cid,
-         status_v, created_at, json.dumps(new_props, ensure_ascii=False), kind,
-         actor_did, org_did),
-    )
 
 
 def _build():

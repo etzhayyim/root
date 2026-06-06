@@ -26,7 +26,6 @@ from typing import Any
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_DEFAULT_RW_URL = os.environ.get("RW_URL", "")
 
 
 # -----------------------------------------------------------------------------
@@ -103,43 +102,39 @@ async def tool_load_panel_plan(
     Returns `{"panel_plan": {...}}` on success or `{"error": str}` on failure.
     Pure I/O modulo RisingWave read.
     """
-    url = rw_url or _DEFAULT_RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
     if not panel_rkey:
         return {"error": "panel_rkey required"}
 
-    import psycopg
+    import asyncio
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    
+    def _fetch():
+        client = get_kotoba_client()
+        res = client.select_where("vertex_mangaka", "rkey", panel_rkey, columns=["rkey", "page_number", "panel_number", "props", "kind"])
+        for r in res:
+            if r.get("kind") == "panel":
+                return r
+        return None
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
+    row = await asyncio.to_thread(_fetch)
+    if not row:
+        return {"error": f"panel {panel_rkey} not found"}
+    props: dict[str, Any] = {}
     try:
-        cur = conn.cursor()
-        await cur.execute(
-            "SELECT rkey, page_number, panel_number, props "
-            "FROM vertex_mangaka WHERE kind = 'panel' AND rkey = %s LIMIT 1",
-            (panel_rkey,),
-        )
-        row = await cur.fetchone()
-        if not row:
-            return {"error": f"panel {panel_rkey} not found"}
-        props: dict[str, Any] = {}
-        try:
-            props = json.loads(row[3] or "{}")
-        except Exception:
-            props = {}
-        plan = {
-            "rkey": row[0],
-            "page_number": row[1],
-            "panel_number": row[2],
-            "shot": props.get("shot") or props.get("cameraAngle") or "MediumShot",
-            "characters": props.get("characters") or [],
-            "environment": props.get("environment"),
-            "action": props.get("action") or "",
-            "mood": props.get("mood") or "",
-            "props": props.get("props") or [],
-        }
-    finally:
-        await conn.close()
+        props = json.loads(row.get("props") or "{}")
+    except Exception:
+        props = {}
+    plan = {
+        "rkey": row.get("rkey"),
+        "page_number": row.get("page_number"),
+        "panel_number": row.get("panel_number"),
+        "shot": props.get("shot") or props.get("cameraAngle") or "MediumShot",
+        "characters": props.get("characters") or [],
+        "environment": props.get("environment"),
+        "action": props.get("action") or "",
+        "mood": props.get("mood") or "",
+        "props": props.get("props") or [],
+    }
     return {"panel_plan": plan}
 
 
@@ -156,54 +151,49 @@ async def tool_resolve_assets(
     Resolves character / environment / prop vertex rows referenced by the
     panel_plan, returning their VRM/glTF blob keys + display metadata.
     """
-    url = rw_url or _DEFAULT_RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
     if not panel_plan:
         return {"error": "panel_plan missing"}
 
-    import psycopg
+    import asyncio
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
 
     char_rkeys = list(panel_plan.get("characters") or [])
     env_rkey = panel_plan.get("environment")
     prop_rkeys = [p for p in (panel_plan.get("props") or []) if p]
 
     refs: dict[str, Any] = {"characters": {}, "environment": None, "props": {}}
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
+    
+    def _fetch():
         if char_rkeys:
-            placeholders = ",".join(["%s"] * len(char_rkeys))
-            await cur.execute(
-                f"SELECT rkey, props FROM vertex_mangaka "
-                f"WHERE kind = 'character' AND rkey IN ({placeholders})",
-                char_rkeys,
-            )
-            for row in await cur.fetchall():
-                try:
-                    p = json.loads(row[1] or "{}")
-                except Exception:
-                    p = {}
-                refs["characters"][row[0]] = {
-                    "vrm_blob_key": p.get("vrmBlobKey") or p.get("modelBlobKey"),
-                    "name": p.get("name"),
-                    "appearance": p.get("appearance") or {},
-                    "expressions": p.get("expressions") or {},
-                }
+            for char_rkey in char_rkeys:
+                raw = client.q(f'''[:find (pull ?e [:vertex.mangaka/rkey :vertex.mangaka/props])
+                                   :where [?e :vertex.mangaka/kind "character"]
+                                          [?e :vertex.mangaka/rkey "{char_rkey}"]]''')
+                if raw and raw[0]:
+                    ent = raw[0][0]
+                    try:
+                        p = json.loads(ent.get(":vertex.mangaka/props") or "{}")
+                    except Exception:
+                        p = {}
+                    refs["characters"][ent.get(":vertex.mangaka/rkey")] = {
+                        "vrm_blob_key": p.get("vrmBlobKey") or p.get("modelBlobKey"),
+                        "name": p.get("name"),
+                        "appearance": p.get("appearance") or {},
+                        "expressions": p.get("expressions") or {},
+                    }
         if env_rkey:
-            await cur.execute(
-                "SELECT rkey, props FROM vertex_mangaka "
-                "WHERE kind = 'environment' AND rkey = %s LIMIT 1",
-                (env_rkey,),
-            )
-            row = await cur.fetchone()
-            if row:
+            raw = client.q(f'''[:find (pull ?e [:vertex.mangaka/rkey :vertex.mangaka/props])
+                               :where [?e :vertex.mangaka/kind "environment"]
+                                      [?e :vertex.mangaka/rkey "{env_rkey}"]]''')
+            if raw and raw[0]:
+                ent = raw[0][0]
                 try:
-                    p = json.loads(row[1] or "{}")
+                    p = json.loads(ent.get(":vertex.mangaka/props") or "{}")
                 except Exception:
                     p = {}
                 refs["environment"] = {
-                    "rkey": row[0],
+                    "rkey": ent.get(":vertex.mangaka/rkey"),
                     "biome": p.get("biome") or "Plains",
                     "weather": p.get("weather"),
                     "base_prompt": p.get("basePrompt") or "",
@@ -211,23 +201,22 @@ async def tool_resolve_assets(
                     "seed": int(p.get("seed") or 0),
                 }
         if prop_rkeys:
-            placeholders = ",".join(["%s"] * len(prop_rkeys))
-            await cur.execute(
-                f"SELECT rkey, props FROM vertex_mangaka "
-                f"WHERE kind = 'asset' AND rkey IN ({placeholders})",
-                prop_rkeys,
-            )
-            for row in await cur.fetchall():
-                try:
-                    p = json.loads(row[1] or "{}")
-                except Exception:
-                    p = {}
-                refs["props"][row[0]] = {
-                    "gltf_blob_key": p.get("gltfBlobKey") or p.get("modelBlobKey"),
-                    "name": p.get("name"),
-                }
-    finally:
-        await conn.close()
+            for prop_rkey in prop_rkeys:
+                raw = client.q(f'''[:find (pull ?e [:vertex.mangaka/rkey :vertex.mangaka/props])
+                                   :where [?e :vertex.mangaka/kind "asset"]
+                                          [?e :vertex.mangaka/rkey "{prop_rkey}"]]''')
+                if raw and raw[0]:
+                    ent = raw[0][0]
+                    try:
+                        p = json.loads(ent.get(":vertex.mangaka/props") or "{}")
+                    except Exception:
+                        p = {}
+                    refs["props"][ent.get(":vertex.mangaka/rkey")] = {
+                        "gltf_blob_key": p.get("gltfBlobKey") or p.get("modelBlobKey"),
+                        "name": p.get("name"),
+                    }
+                    
+    await asyncio.to_thread(_fetch)
     return {"asset_refs": refs}
 
 
@@ -655,47 +644,33 @@ async def tool_attach_character_vrm(
     except Exception as exc:
         return {"error": f"B2 PUT failed: {exc!s}"}
 
-    # Write back to the character vertex. We do SELECT → JSON-patch →
-    # DELETE+INSERT per the RW convention (no `ON CONFLICT`). Vertex_id
-    # is the existing AT URI shape.
-    url = rw_url or _DEFAULT_RW_URL
-    if not url:
-        # Upload succeeded but graph write skipped — return blob key so
-        # the caller can patch the record manually.
-        return {
-            "blobKey": blob_key,
-            "vertexId": None,
-            "warning": "RW_URL not configured — character props NOT updated",
-        }
-
-    import psycopg
-
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            "SELECT props FROM vertex_mangaka "
-            "WHERE kind = 'character' AND rkey = %s LIMIT 1",
-            (character_rkey,),
-        )
-        row = await cur.fetchone()
-        if not row:
+    import asyncio
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    
+    def _write_back():
+        client = get_kotoba_client()
+        query_edn = f'''
+        [:find (pull ?e [:vertex.mangaka/vertex-id :vertex.mangaka/props])
+         :where [?e :vertex.mangaka/kind "character"]
+                [?e :vertex.mangaka/rkey "{character_rkey}"]]
+        '''
+        raw = client.q(query_edn)
+        if not raw or not raw[0]:
             return {
                 "blobKey": blob_key,
                 "vertexId": None,
                 "warning": f"character {character_rkey!r} not found in vertex_mangaka",
             }
-        existing_props: dict[str, Any] = {}
+        
+        ent = raw[0][0]
         try:
-            existing_props = json.loads(row[0] or "{}")
+            existing_props = json.loads(ent.get(":vertex.mangaka/props") or "{}")
         except Exception:
             existing_props = {}
-
-        # Idempotent: skip the UPDATE when the blob_key already matches.
+            
+        vertex_id = ent.get(":vertex.mangaka/vertex-id")
+            
         if existing_props.get("vrmBlobKey") == blob_key:
-            vertex_id = (
-                f"at://{_APP_DID}/com.etzhayyim.mangaka.character/{character_rkey}"
-            )
             return {
                 "blobKey": blob_key,
                 "vertexId": vertex_id,
@@ -703,20 +678,14 @@ async def tool_attach_character_vrm(
             }
 
         existing_props["vrmBlobKey"] = blob_key
-        new_props_json = json.dumps(existing_props, separators=(",", ":"))
-
-        await cur.execute(
-            "UPDATE vertex_mangaka SET props = %s "
-            "WHERE kind = 'character' AND rkey = %s",
-            (new_props_json, character_rkey),
-        )
-        vertex_id = (
-            f"at://{_APP_DID}/com.etzhayyim.mangaka.character/{character_rkey}"
-        )
-    finally:
-        await conn.close()
-
-    return {"blobKey": blob_key, "vertexId": vertex_id, "status": "attached"}
+        client.insert_row("vertex_mangaka", {
+            "vertex_id": vertex_id,
+            "props": json.dumps(existing_props, separators=(",", ":"))
+        })
+        
+        return {"blobKey": blob_key, "vertexId": vertex_id, "status": "attached"}
+        
+    return await asyncio.to_thread(_write_back)
 
 
 # -----------------------------------------------------------------------------
@@ -744,54 +713,42 @@ async def tool_persist_scene_3d(
     if dry_run:
         return {"scene_rkey": None, "status": "rendered"}
 
-    url = rw_url or _DEFAULT_RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
-
-    import psycopg
-
+    import asyncio
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    
     scene_rkey = f"scene3d-{panel_rkey}-{int(time.time())}"
     vertex_id = f"at://{_APP_DID}/com.etzhayyim.mangaka.scene3d/{scene_rkey}"
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
+    
+    def _write_back():
+        client = get_kotoba_client()
+        client.insert_row("vertex_mangaka_scene_3d", {
+            "vertex_id": vertex_id,
+            "_seq": 0,
+            "created_date": now_date,
+            "sensitivity_ord": 0,
+            "owner_did": _APP_DID,
+            "rkey": scene_rkey,
+            "panel_id": panel_rkey,
+            "scene_jsonld": json.dumps(scene_dag, separators=(",", ":")),
+            "camera_jsonld": json.dumps(camera_plan, separators=(",", ":")),
+            "pose_jsonld": json.dumps(pose_plan, separators=(",", ":")),
+            "render_blob_key": (selected or {}).get("blobKey"),
+            "depth_blob_key": (selected or {}).get("depthBlobKey"),
+            "outline_blob_key": (selected or {}).get("outlineBlobKey"),
+            "score": float(score or 0.0),
+            "iteration": int(iteration),
+            "sim_seed": int(sim_seed),
+            "shot_grammar": (selected or {}).get("angle"),
+            "status": "selected",
+            "created_at": now_iso,
+            "actor_did": _APP_DID,
+            "org_did": "anon"
+        })
+        return {"scene_rkey": scene_rkey, "status": "rendered"}
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute("DELETE FROM vertex_mangaka_scene_3d WHERE vertex_id = %s", (vertex_id,))
-        await cur.execute(
-            "INSERT INTO vertex_mangaka_scene_3d ("
-            "vertex_id, _seq, created_date, sensitivity_ord, owner_did, "
-            "rkey, panel_id, scene_jsonld, camera_jsonld, pose_jsonld, "
-            "render_blob_key, depth_blob_key, outline_blob_key, score, iteration, "
-            "sim_seed, shot_grammar, status, created_at, actor_did, org_did) "
-            "VALUES (%s, 0, %s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (
-                vertex_id,
-                now_date,
-                _APP_DID,
-                scene_rkey,
-                panel_rkey,
-                json.dumps(scene_dag, separators=(",", ":")),
-                json.dumps(camera_plan, separators=(",", ":")),
-                json.dumps(pose_plan, separators=(",", ":")),
-                (selected or {}).get("blobKey"),
-                (selected or {}).get("depthBlobKey"),
-                (selected or {}).get("outlineBlobKey"),
-                float(score or 0.0),
-                int(iteration),
-                int(sim_seed),
-                (selected or {}).get("angle"),
-                "selected",
-                now_iso,
-                _APP_DID,
-                "anon",
-            ),
-        )
-    finally:
-        await conn.close()
-
-    return {"scene_rkey": scene_rkey, "status": "rendered"}
+    return await asyncio.to_thread(_write_back)
 
 
 # -----------------------------------------------------------------------------
@@ -839,11 +796,9 @@ async def tool_persist_hume_emotion_observation(
         # Placeholder (pending-*) renders carry no real image — skip.
         return {"signal_id": None, "status": "skipped-no-blob"}
 
-    url = rw_url or _DEFAULT_RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
-
-    import psycopg
+    
+    import asyncio
+    from pymagatama.kotoba_datomic import get_kotoba_client
 
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
@@ -887,56 +842,34 @@ async def tool_persist_hume_emotion_observation(
     primary_name = (primary or {}).get("name")
     primary_score = (primary or {}).get("score")
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            "DELETE FROM vertex_vector_emotion_signal WHERE signal_id = %s",
-            (signal_id,),
-        )
-        await cur.execute(
-            "INSERT INTO vertex_vector_emotion_signal ("
-            "signal_id, _seq, created_date, sensitivity_ord, owner_did, "
-            "source_uri, source_vertex_id, tenant_id, shard_id, modality, "
-            "provider, model_id, model_version, granularity, language, "
-            "top_emotion, top_score, scores_json, raw_json, analyzed_at, "
-            "org_id, user_id, actor_id, created_at) "
-            "VALUES (%s, 0, %s, 0, %s, %s, %s, %s, %s, %s, "
-            "%s, %s, %s, %s, %s, "
-            "%s, %s, %s, %s, %s, "
-            "%s, %s, %s, %s)",
-            (
-                signal_id,
-                now_date,
-                _APP_DID,
-                source_uri,
-                source_uri,
-                "public",
-                0,
-                "image",
-                # Provider + model_id mirror the existing
-                # `vertex_vector_embedding_model` seed convention
-                # (provider='Hume AI'). model_id = 'hume-image-head' is the
-                # primitive family; model_version captures the specific
-                # algorithm (visual_heuristic_v1 stdlib vs
-                # visual_bootstrap_v1 student centroid).
-                "Hume AI",
-                "hume-image-head",
-                algorithm,
-                "panel",
-                None,
-                primary_name,
-                float(primary_score) if isinstance(primary_score, (int, float)) else None,
-                json.dumps(top_emotions or [], separators=(",", ":")),
-                json.dumps(raw_payload, separators=(",", ":")),
-                now_iso,
-                "anon",
-                "anon",
-                "",
-                now_iso,
-            ),
-        )
-    finally:
-        await conn.close()
+    def _write_back():
+        client = get_kotoba_client()
+        client.insert_row("vertex_vector_emotion_signal", {
+            "signal_id": signal_id,
+            "_seq": 0,
+            "created_date": now_date,
+            "sensitivity_ord": 0,
+            "owner_did": _APP_DID,
+            "source_uri": source_uri,
+            "source_vertex_id": source_uri,
+            "tenant_id": "public",
+            "shard_id": 0,
+            "modality": "image",
+            "provider": "Hume AI",
+            "model_id": "hume-image-head",
+            "model_version": algorithm,
+            "granularity": "panel",
+            "language": None,
+            "top_emotion": primary_name,
+            "top_score": float(primary_score) if isinstance(primary_score, (int, float)) else None,
+            "scores_json": json.dumps(top_emotions or [], separators=(",", ":")),
+            "raw_json": json.dumps(raw_payload, separators=(",", ":")),
+            "analyzed_at": now_iso,
+            "org_id": "anon",
+            "user_id": "anon",
+            "actor_id": "",
+            "created_at": now_iso,
+        })
+        return {"signal_id": signal_id, "status": "stored"}
 
-    return {"signal_id": signal_id, "status": "stored"}
+    return await asyncio.to_thread(_write_back)

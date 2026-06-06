@@ -1,9 +1,0 @@
-DROP INDEX IF EXISTS idx_vertex_akuma_audit_scope_target_ts;
-DROP INDEX IF EXISTS idx_vertex_akuma_finding_scope_status;
-DROP INDEX IF EXISTS idx_vertex_akuma_probe_scope;
-DROP INDEX IF EXISTS idx_vertex_akuma_scope_owner;
-DROP INDEX IF EXISTS idx_vertex_akuma_scope_status;
-DROP TABLE IF EXISTS vertex_akuma_audit;
-DROP TABLE IF EXISTS vertex_akuma_finding;
-DROP TABLE IF EXISTS vertex_akuma_probe;
-DROP TABLE IF EXISTS vertex_akuma_scope;

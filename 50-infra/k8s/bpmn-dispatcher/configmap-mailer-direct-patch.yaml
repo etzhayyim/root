@@ -1,85 +1,970 @@
-# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 apiVersion: v1
 data:
-  dispatcher_main.py: "\"\"\"\nF4 — generic XRPC dispatcher for BPMN-contract actors (ADR-0049 follow-on).\n\nSingle HTTP server that owns the entire T1/T2 actor surface:\n\n    POST /xrpc/{nsid}              — kick a BPMN process named by the\n                                      vertex_bpmn_lexicon_binding row\n                                      for `nsid`. Body becomes the\n                                      starting variables. Returns the\n                                      instance result variables JSON.\n\n    GET  /health                   — liveness\n    GET  /bindings                 — authenticated debug: list known\n                                      nsid → process_id\n    GET  /xrpc/{nsid}              — convenience for parameterless\n                                      lookups; same as POST with empty body\n\nAuth: gated by the `DISPATCHER_AUTH_MODE` env var.\n\n    off                — no auth check. Original behaviour, kept only\n                         for\
-    \ local rollback. LB exposure at this mode\n                         is a security risk — see ADR 2604231432\n                         security posture.\n    strict              — require header `x-internal-trust:\n                         <DISPATCHER_INTERNAL_SECRET>` on every\n                         `/xrpc/*` call. PDS pipethrough adds this\n                         header (dispatch.ts); direct callers must\n                         supply it too. Unmatched/absent → 401.\n\n`/health` is always open. `/bindings` uses the same gate as `/xrpc/*`\nbecause it reveals the active actor surface.\n\nRun:\n    python -m pymagatama.dispatcher_main\n\nEnv:\n    DISPATCHER_PORT               default 8080\n    AGENTGATEWAY_MCP_URL          pod-side MCP gateway URL\n    RW_URL                        required (binding lookup)\n    BINDING_TTL_SEC               default 30 (in-memory cache window)\n    DISPATCHER_AUTH_MODE          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET   \
-    \ shared secret when mode=strict\n\"\"\"\n\nfrom __future__ import annotations\n\nimport asyncio\nimport json\nimport logging\nimport os\nimport re\nimport time\nfrom typing import Any\n\nfrom aiohttp import web\n\nfrom pymagatama.db_sync import sync_cursor\n\nLOG = logging.getLogger(\"dispatcher\")\nlogging.basicConfig(level=logging.INFO, format=\"%(asctime)s %(levelname)s %(name)s %(message)s\")\n\nPORT = int(os.environ.get(\"DISPATCHER_PORT\", \"8080\"))\nAGENTGATEWAY_MCP_URL = os.environ.get(\n    \"AGENTGATEWAY_MCP_URL\",\n    \"http://agentgateway-mcp.mitama-udf.svc.cluster.local:8080\",\n)\nBINDING_TTL_SEC = int(os.environ.get(\"BINDING_TTL_SEC\", \"30\"))\n\nAUTH_MODE = os.environ.get(\"DISPATCHER_AUTH_MODE\", \"strict\").lower()\nINTERNAL_SECRET = os.environ.get(\"DISPATCHER_INTERNAL_SECRET\", \"\")\nINTERNAL_TRUST_HEADER = \"x-internal-trust\"\nPUBLIC_MALAK_PREFIX = \"com.etzhayyim.apps.publicMalak.\"\n\n# Yatabase pod proxy (ADR-2605111200 Option A, P59 2026-05-11).\n# Cloudflared\
-    \ on this VKE cannot reach the lg-yatabase pod network namespace\n# for reasons unknown (i/o timeout on every dial — FQDN, svc IP, pod IP,\n# node IP+hostPort all fail) while bpmn-dispatcher CAN reach it. So we\n# proxy the auth/leads XRPC surface through here instead of relying on the\n# cloudflared origin dialing the pod directly.\nLG_YATABASE_INTERNAL_URL = os.environ.get(\n    \"LG_YATABASE_INTERNAL_URL\",\n    \"http://lg-yatabase.mitama-udf.svc.cluster.local:8000\",\n)\nLG_YATABASE_PROXY_PREFIXES = (\n    # Everything under the yatabase product surface is owned by the pod.\n    # Specific NSIDs land on dedicated handlers; unknown ones get a clean\n    # 404 from FastAPI instead of crashing here.\n    \"com.etzhayyim.apps.yata.\",\n)\n\n# lg-animeka pod proxy (P3c 2026-05-12, same pattern as lg-yatabase).\nLG_ANIMEKA_INTERNAL_URL = os.environ.get(\n    \"LG_ANIMEKA_INTERNAL_URL\",\n    \"http://lg-animeka.mitama-udf.svc.cluster.local:8000\",\n)\nLG_ANIMEKA_PROXY_PREFIXES = (\n    \"com.etzhayyim.animeka.\"\
-    ,\n)\n\n# lg-recap pod proxy (2026-05-12, same pattern as lg-animeka).\nLG_RECAP_INTERNAL_URL = os.environ.get(\n    \"LG_RECAP_INTERNAL_URL\",\n    \"http://lg-recap.mitama-udf.svc.cluster.local:8000\",\n)\nLG_RECAP_PROXY_PREFIXES = (\n    \"com.etzhayyim.apps.recap.\",\n)\n\n# lg-mangaka pod proxy (2026-05-12, same pattern as lg-recap).\nLG_MANGAKA_INTERNAL_URL = os.environ.get(\n    \"LG_MANGAKA_INTERNAL_URL\",\n    \"http://lg-mangaka.mitama-udf.svc.cluster.local:8000\",\n)\nLG_MANGAKA_PROXY_NSIDS = frozenset({\n    \"com.etzhayyim.mangaka.saveDocument\",\n    \"com.etzhayyim.mangaka.loadDocument\",\n    \"com.etzhayyim.mangaka.listDocuments\",\n})\n\n# lg-shinshi pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).\nLG_SHINSHI_INTERNAL_URL = os.environ.get(\n    \"LG_SHINSHI_INTERNAL_URL\",\n    \"http://lg-shinshi.mitama-udf.svc.cluster.local:8000\",\n)\nLG_SHINSHI_PROXY_PREFIXES = (\"com.etzhayyim.apps.shinshi.\",)\n\n# lg-narou pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).\nLG_NAROU_INTERNAL_URL\
-    \ = os.environ.get(\n    \"LG_NAROU_INTERNAL_URL\",\n    \"http://lg-narou.mitama-udf.svc.cluster.local:8000\",\n)\nLG_NAROU_PROXY_PREFIXES = (\"com.etzhayyim.narou.\",)\n\n# lg-dougaka pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).\nLG_DOUGAKA_INTERNAL_URL = os.environ.get(\n    \"LG_DOUGAKA_INTERNAL_URL\",\n    \"http://lg-dougaka.mitama-udf.svc.cluster.local:8000\",\n)\nLG_DOUGAKA_PROXY_PREFIXES = (\"com.etzhayyim.apps.dougaka.\",)\n\n# lg-x pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).\nLG_X_INTERNAL_URL = os.environ.get(\n    \"LG_X_INTERNAL_URL\",\n    \"http://lg-x.mitama-udf.svc.cluster.local:8000\",\n)\nLG_X_PROXY_PREFIXES = (\"com.etzhayyim.apps.x.\",)\n\n# lg-yukkuri pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).\nLG_YUKKURI_INTERNAL_URL = os.environ.get(\n    \"LG_YUKKURI_INTERNAL_URL\",\n    \"http://lg-yukkuri.mitama-udf.svc.cluster.local:8000\",\n)\nLG_YUKKURI_PROXY_PREFIXES = (\"com.etzhayyim.apps.yukkuri.\",)\n\n# lg-open-jpn-mynumber pod proxy (2026-05-13,\
-    \ Zeebe→LangGraph migration Phase B).\nLG_OPEN_JPN_MYNUMBER_INTERNAL_URL = os.environ.get(\n    \"LG_OPEN_JPN_MYNUMBER_INTERNAL_URL\",\n    \"http://lg-open-jpn-mynumber.mitama-udf.svc.cluster.local:8000\",\n)\nLG_OPEN_JPN_MYNUMBER_PROXY_PREFIXES = (\"com.etzhayyim.apps.openJpnMynumber.\",)\n\n# lg-curpus2skill pod proxy (2026-05-13, Zeebe→LangGraph migration Phase B).\nLG_CURPUS2SKILL_INTERNAL_URL = os.environ.get(\n    \"LG_CURPUS2SKILL_INTERNAL_URL\",\n    \"http://lg-curpus2skill.mitama-udf.svc.cluster.local:8000\",\n)\nLG_CURPUS2SKILL_PROXY_PREFIXES = (\"com.etzhayyim.apps.curpus2skill.\",)\n\n# lg-pd-color pod proxy (2026-05-13, Zeebe→LangGraph migration Phase B).\nLG_PD_COLOR_INTERNAL_URL = os.environ.get(\n    \"LG_PD_COLOR_INTERNAL_URL\",\n    \"http://lg-pd-color.mitama-udf.svc.cluster.local:8000\",\n)\nLG_PD_COLOR_PROXY_PREFIXES = (\"com.etzhayyim.apps.pdColor.\",)\n\n# lg-karma pod proxy (2026-05-13, Zeebe→LangGraph migration Phase C).\nLG_KARMA_INTERNAL_URL = os.environ.get(\n    \"LG_KARMA_INTERNAL_URL\"\
-    ,\n    \"http://lg-karma.mitama-udf.svc.cluster.local:8000\",\n)\nLG_KARMA_PROXY_PREFIXES = (\"com.etzhayyim.apps.karma.\",)\n\n# lg-legal-entity pod proxy (2026-05-13, Zeebe→LangGraph migration Phase D).\nLG_LEGAL_ENTITY_INTERNAL_URL = os.environ.get(\n    \"LG_LEGAL_ENTITY_INTERNAL_URL\",\n    \"http://lg-legal-entity.mitama-udf.svc.cluster.local:8000\",\n)\nLG_LEGAL_ENTITY_PROXY_PREFIXES = (\"com.etzhayyim.legalEntity.\",)\n\n# lg-organism pod proxy (2026-05-13, Zeebe→LangGraph migration Phase E).\nLG_ORGANISM_INTERNAL_URL = os.environ.get(\n    \"LG_ORGANISM_INTERNAL_URL\",\n    \"http://lg-organism.mitama-udf.svc.cluster.local:8000\",\n)\nLG_ORGANISM_PROXY_PREFIXES = (\n    \"com.etzhayyim.hakkou.\",\n    \"com.etzhayyim.apps.kabi.\",\n    \"com.etzhayyim.ki.\",\n    \"com.etzhayyim.apps.kinoko.\",\n    \"com.etzhayyim.apps.kobo.\",\n    \"com.etzhayyim.koke.\",\n    \"com.etzhayyim.apps.saikin.\",\n)\n\n# LangGraph Server routing (ADR-2605080600 Phase 3).\n# When LANGGRAPH_SERVER_URL is set and a binding has routing_target='langgraph',\n\
-    # bpmn-dispatcher POSTs to /runs instead of calling Zeebe gRPC.\nLANGGRAPH_SERVER_URL = os.environ.get(\n    \"LANGGRAPH_SERVER_URL\",\n    \"http://langgraph-server.mitama-udf.svc.cluster.local:8000\",\n)\n\n\n# ─── Binding cache ───────────────────────────────────────────────────────\n\n# vertex_bpmn_lexicon_binding lookup is small but hot. Cache for a few\n# seconds so a burst of XRPC traffic doesn't hammer RW.\n\n_binding_cache: dict[str, tuple[dict[str, Any] | None, float]] = {}\n\n\ndef _lookup_binding_sync(nsid: str) -> dict[str, Any] | None:\n    # `langgraph_url` is optional (added by ADR-2605080700 migration\n    # 20260508250000); legacy clusters return NULL → falls back to the\n    # global LANGGRAPH_SERVER_URL env var. We tolerate the column being\n    # missing entirely so this dispatcher pod can roll out before the\n    # ALTER TABLE finishes.\n    select_with_url = (\n        \"SELECT bpmn_process_id, bpmn_version, result_timeout_ms, status, \"\n        \"routing_target,\
-    \ langgraph_url \"\n        \"FROM vertex_bpmn_lexicon_binding \"\n        \"WHERE nsid = %s AND status = 'active' \"\n        \"LIMIT 1\"\n    )\n    select_legacy = (\n        \"SELECT bpmn_process_id, bpmn_version, result_timeout_ms, status, \"\n        \"routing_target, NULL \"\n        \"FROM vertex_bpmn_lexicon_binding \"\n        \"WHERE nsid = %s AND status = 'active' \"\n        \"LIMIT 1\"\n    )\n    with sync_cursor() as cur:\n        try:\n            cur.execute(select_with_url, (nsid,))\n        except Exception:  # pragma: no cover — column-not-yet-created path\n            cur.execute(select_legacy, (nsid,))\n        row = cur.fetchone()\n    if not row:\n        return None\n    timeout_raw = row[2]\n    return {\n        \"bpmn_process_id\": row[0],\n        \"bpmn_version\": int(row[1] or 0),\n        \"result_timeout_ms\": 60_000 if timeout_raw is None else int(timeout_raw),\n        \"routing_target\": row[4] or \"zeebe\",\n        \"langgraph_url\": row[5] if len(row)\
-    \ > 5 else None,\n    }\n\n\nasync def lookup_binding(nsid: str) -> dict[str, Any] | None:\n    now = time.monotonic()\n    hit = _binding_cache.get(nsid)\n    if hit and (now - hit[1]) < BINDING_TTL_SEC:\n        LOG.info(\"binding cache hit nsid=%s ageMs=%d\", nsid, int((now - hit[1]) * 1000))\n        return hit[0]\n    try:\n        binding = await asyncio.to_thread(_lookup_binding_sync, nsid)\n    except Exception:\n        if hit:\n            LOG.warning(\"binding lookup failed nsid=%s; using stale cache\", nsid, exc_info=True)\n            return hit[0]\n        raise\n    _binding_cache[nsid] = (binding, now)\n    return binding\n\n\n# ─── HTTP handlers ───────────────────────────────────────────────────────\n\nasync def health(_request: web.Request) -> web.Response:\n    return web.json_response({\"status\": \"ok\"})\n\n\nasync def list_bindings(_request: web.Request) -> web.Response:\n    \"\"\"Debug endpoint — list active bindings (no cache, fresh DB read).\"\"\"\n    def\
-    \ _all() -> list[dict[str, Any]]:\n        select_with_url = (\n            \"SELECT nsid, bpmn_process_id, bpmn_version, result_timeout_ms, \"\n            \"routing_target, langgraph_url \"\n            \"FROM vertex_bpmn_lexicon_binding \"\n            \"WHERE status = 'active' \"\n            \"ORDER BY nsid\"\n        )\n        select_legacy = (\n            \"SELECT nsid, bpmn_process_id, bpmn_version, result_timeout_ms, \"\n            \"routing_target, NULL \"\n            \"FROM vertex_bpmn_lexicon_binding \"\n            \"WHERE status = 'active' \"\n            \"ORDER BY nsid\"\n        )\n        with sync_cursor() as cur:\n            try:\n                cur.execute(select_with_url)\n            except Exception:  # pragma: no cover\n                cur.execute(select_legacy)\n            return [\n                {\n                    \"nsid\": r[0],\n                    \"bpmnProcessId\": r[1],\n                    \"bpmnVersion\": int(r[2] or 0),\n              \
-    \      \"resultTimeoutMs\": 60_000 if r[3] is None else int(r[3]),\n                    \"routingTarget\": r[4] or \"zeebe\",\n                    \"langgraphUrl\": r[5] if len(r) > 5 else None,\n                }\n                for r in (cur.fetchall() or [])\n            ]\n    rows = await asyncio.to_thread(_all)\n    now = time.monotonic()\n    for row in rows:\n        _binding_cache[str(row[\"nsid\"])] = (\n            {\n                \"bpmn_process_id\": row[\"bpmnProcessId\"],\n                \"bpmn_version\": row[\"bpmnVersion\"],\n                \"result_timeout_ms\": row[\"resultTimeoutMs\"],\n                \"routing_target\": row[\"routingTarget\"],\n                \"langgraph_url\": row[\"langgraphUrl\"],\n            },\n            now,\n        )\n    return web.json_response({\"bindings\": rows, \"count\": len(rows)})\n\n\ndef _int_param(value: Any, default: int, *, lo: int = 1, hi: int = 500) -> int:\n    try:\n        parsed = int(value)\n    except (TypeError,\
-    \ ValueError):\n        parsed = default\n    return max(lo, min(parsed, hi))\n\n\ndef _bool_param(value: Any) -> bool | None:\n    if value is None or value == \"\":\n        return None\n    if isinstance(value, bool):\n        return value\n    raw = str(value).strip().lower()\n    if raw in {\"1\", \"true\", \"t\", \"yes\", \"y\"}:\n        return True\n    if raw in {\"0\", \"false\", \"f\", \"no\", \"n\"}:\n        return False\n    return None\n\n\ndef _permille(value: Any) -> int | None:\n    if value is None or value == \"\":\n        return None\n    try:\n        return int(float(value) * 1000)\n    except (TypeError, ValueError):\n        return None\n\n\ndef _request_params(request: web.Request, body: dict[str, Any] | None = None) -> dict[str, Any]:\n    params = dict(body or {})\n    for key, value in request.query.items():\n        params.setdefault(key, value)\n    return params\n\n\ndef _str_param(params: dict[str, Any], key: str, default: str = \"\") -> str:\n    value\
-    \ = params.get(key)\n    if value is None:\n        return default\n    return str(value).strip()\n\n\ndef _public_malak_search_terms(params: dict[str, Any]) -> list[str]:\n    raw = params.get(\"searchTerms\") or params.get(\"search_terms\") or params.get(\"queryValue\") or params.get(\"query\")\n    values = raw if isinstance(raw, list) else str(raw or \"\").split(\",\")\n    return [str(value).strip() for value in values if str(value).strip()]\n\n\ndef _public_malak_crawl_ads_sync(params: dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\n    platform = _str_param(params, \"platform\")\n    query_kind = _str_param(params, \"queryKind\", \"search\") or _str_param(params, \"query_kind\", \"search\")\n    country = _str_param(params, \"country\").upper()\n    search_terms = _public_malak_search_terms(params)\n    seeds = [\n        {\n            \"platform\": platform,\n            \"queryKind\": query_kind,\n            \"queryValue\": term,\n\
-    \            \"country\": country,\n        }\n        for term in search_terms\n    ]\n    out = public_malak_ads.queue_seed_runs(seeds=seeds, limit=_int_param(params.get(\"limit\"), 50, hi=500))\n    runs = out.get(\"runs\") if isinstance(out.get(\"runs\"), list) else []\n    first_run = runs[0] if runs and isinstance(runs[0], dict) else {}\n    return {\n        \"scraperRunUri\": first_run.get(\"vertexId\"),\n        \"searchTerms\": search_terms,\n        \"country\": country or None,\n        \"platform\": platform or None,\n        \"status\": \"queued\" if int(out.get(\"queued\") or 0) > 0 else \"completed\",\n        \"adsSeen\": 0,\n        \"adsNew\": 0,\n        \"adsUpdated\": 0,\n        \"queued\": int(out.get(\"queued\") or 0),\n        \"skipped\": int(out.get(\"skipped\") or 0),\n        \"runs\": runs,\n    }\n\n\ndef _public_malak_process_scraper_queue_sync(params: dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\n    return\
-    \ public_malak_ads.process_queue(\n        max_runs=_int_param(params.get(\"limit\") or params.get(\"max\") or params.get(\"maxRuns\"), 3, hi=50),\n        timeout_sec=float(_int_param(params.get(\"timeoutSec\") or params.get(\"timeout_sec\"), 20, lo=1, hi=600)),\n        platform=_str_param(params, \"platform\"),\n        reclaim_after_sec=_int_param(params.get(\"reclaimAfterSec\"), 1800, lo=60, hi=86400),\n    )\n\n\ndef _public_malak_analyze_recent_ads_sync(params: dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\n    return public_malak_ads.analyze_recent(\n        limit=_int_param(params.get(\"limit\"), 10, hi=100),\n        platform=_str_param(params, \"platform\"),\n        analysis_kind=_str_param(params, \"analysisKind\", \"competitive\") or \"competitive\",\n        model_id=_str_param(params, \"modelId\"),\n    )\n\n\ndef _public_malak_cluster_recent_ads_sync(params: dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives\
-    \ import public_malak_ads\n\n    return public_malak_ads.cluster_recent(\n        limit=_int_param(params.get(\"limit\"), 25, hi=200),\n        platform=_str_param(params, \"platform\"),\n        platform_scope=_str_param(params, \"platformScope\", \"platform\") or \"platform\",\n    )\n\n\ndef _public_malak_campaign_view(row: Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"campaignKey\": row[1],\n        \"platformScope\": row[2],\n        \"advertiserVertexId\": row[3],\n        \"advertiserName\": row[4],\n        \"landingDomain\": row[5],\n        \"claimToken\": row[6],\n        \"sampleHeadline\": row[7],\n        \"sampleBodyText\": row[8],\n        \"creativeCount\": int(row[9] or 0),\n        \"platformCount\": int(row[10] or 0),\n        \"firstSeenAt\": row[11],\n        \"lastSeenAt\": row[12],\n        \"riskScorePermille\": int(row[13] or 0),\n        \"summary\": row[14],\n    }\n\n\ndef _public_malak_cluster_creative_view(row: Any) ->\
-    \ dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"platform\": row[1],\n        \"platformAdId\": row[2],\n        \"advertiserName\": row[3],\n        \"headline\": row[4],\n        \"bodyText\": row[5],\n        \"landingUrl\": row[6],\n        \"lastSeenAt\": row[7],\n        \"matchBasis\": row[8],\n    }\n\n\ndef _public_malak_scraper_run_view(row: Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"platform\": row[1],\n        \"queryKind\": row[2],\n        \"queryValue\": row[3],\n        \"country\": row[4],\n        \"startedAt\": row[5],\n        \"finishedAt\": row[6],\n        \"status\": row[7],\n        \"adsSeen\": int(row[8] or 0),\n        \"adsNew\": int(row[9] or 0),\n        \"adsUpdated\": int(row[10] or 0),\n        \"errorMessage\": row[11],\n        \"userAgent\": row[12],\n        \"proxyCountry\": row[13],\n        \"playwrightTraceCid\": row[14],\n        \"robotsTxtSnapshotCid\": row[15],\n        \"rateLimitSleepMs\"\
-    : int(row[16] or 0),\n    }\n\n\ndef _public_malak_creative_view(row: Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"platform\": row[1],\n        \"platformAdId\": row[2],\n        \"advertiserVertexId\": row[3],\n        \"advertiserName\": row[4],\n        \"creativeType\": row[5],\n        \"headline\": row[6],\n        \"bodyText\": row[7],\n        \"ctaText\": row[8],\n        \"landingUrl\": row[9],\n        \"displayUrl\": row[10],\n        \"mediaUrl\": row[11],\n        \"mediaCid\": row[12],\n        \"thumbnailCid\": row[13],\n        \"languages\": row[14],\n        \"currency\": row[15],\n        \"impressionsMin\": None if row[16] is None else int(row[16]),\n        \"impressionsMax\": None if row[17] is None else int(row[17]),\n        \"spendMinPermille\": _permille(row[18]),\n        \"spendMaxPermille\": _permille(row[19]),\n        \"reachMin\": None if row[20] is None else int(row[20]),\n        \"reachMax\": None if row[21] is None\
-    \ else int(row[21]),\n        \"isPolitical\": None if row[22] is None else bool(row[22]),\n        \"isActive\": None if row[23] is None else bool(row[23]),\n        \"adDeliveryStartDate\": row[24],\n        \"adDeliveryStopDate\": row[25],\n        \"firstSeenAt\": row[26],\n        \"lastSeenAt\": row[27],\n        \"sourceUrl\": row[28],\n    }\n\n\ndef _public_malak_snapshot_view(row: Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"creativeVertexId\": row[1],\n        \"platform\": row[2],\n        \"platformAdId\": row[3],\n        \"scraper\": row[4],\n        \"scraperRunId\": row[5],\n        \"scrapedAt\": row[6],\n        \"sourceUrl\": row[7],\n        \"httpStatus\": None if row[8] is None else int(row[8]),\n        \"htmlCid\": row[9],\n        \"screenshotCid\": row[10],\n        \"harCid\": row[11],\n        \"observedIsActive\": None if row[12] is None else bool(row[12]),\n        \"observedImpressionsMin\": None if row[13] is None else\
-    \ int(row[13]),\n        \"observedImpressionsMax\": None if row[14] is None else int(row[14]),\n        \"observedSpendMinPermille\": _permille(row[15]),\n        \"observedSpendMaxPermille\": _permille(row[16]),\n        \"parserVersion\": row[17],\n        \"parseOk\": None if row[18] is None else bool(row[18]),\n        \"parseError\": row[19],\n    }\n\n\ndef _public_malak_advertiser_view(row: Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"platform\": row[1],\n        \"platformAdvertiserId\": row[2],\n        \"name\": row[3],\n        \"verifiedName\": row[4],\n        \"legalName\": row[5],\n        \"pageUrl\": row[6],\n        \"pageCategory\": row[7],\n        \"country\": row[8],\n        \"fundingEntity\": row[9],\n        \"isPolitical\": None if row[10] is None else bool(row[10]),\n        \"legalEntityDid\": row[11],\n        \"firstSeenAt\": row[12],\n        \"lastSeenAt\": row[13],\n    }\n\n\ndef _public_malak_analysis_view(row: Any)\
-    \ -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n        \"creativeVertexId\": row[1],\n        \"platform\": row[2],\n        \"platformAdId\": row[3],\n        \"analysisKind\": row[4],\n        \"modelId\": row[5],\n        \"status\": row[6],\n        \"summary\": row[7],\n        \"riskScorePermille\": None if row[8] is None else int(row[8]),\n        \"claimJson\": row[9],\n        \"targetingJson\": row[10],\n        \"signalsJson\": row[11],\n        \"sourceSnapshotId\": row[12],\n        \"analyzedAt\": row[13],\n    }\n\n\ndef _public_malak_creative_select_sql() -> str:\n    return \"\"\"\n        SELECT vertex_id, platform, platform_ad_id, advertiser_vertex_id,\n               advertiser_name, creative_type, headline, body_text, cta_text,\n               landing_url, display_url, media_url, media_cid, thumbnail_cid,\n               languages, currency, impressions_min, impressions_max,\n               spend_min, spend_max, reach_min, reach_max, is_political,\n\
-    \               is_active, ad_delivery_start_date, ad_delivery_stop_date,\n               first_seen_at, last_seen_at, source_url\n        FROM vertex_ads_creative\n    \"\"\"\n\n\ndef _public_malak_analysis_select_sql() -> str:\n    return \"\"\"\n        SELECT vertex_id, creative_vertex_id, platform, platform_ad_id,\n               analysis_kind, model_id, status, summary, risk_score_permille,\n               claim_json, targeting_json, signals_json, source_snapshot_id,\n               analyzed_at\n        FROM vertex_ads_analysis\n    \"\"\"\n\n\ndef _list_public_malak_ads_sync(params: dict[str, Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50, hi=500)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if params.get(\"platform\"):\n        filters.append(\"platform = %s\")\n        sql_params.append(str(params[\"platform\"]))\n    if params.get(\"advertiserVertexId\"):\n        filters.append(\"advertiser_vertex_id = %s\")\n        sql_params.append(str(params[\"\
-    advertiserVertexId\"]))\n    if params.get(\"country\"):\n        filters.append(\n            \"EXISTS (SELECT 1 FROM vertex_ads_snapshot s \"\n            \"JOIN vertex_ads_scraper_run r ON r.vertex_id = s.scraper_run_id \"\n            \"WHERE s.creative_vertex_id = vertex_ads_creative.vertex_id AND r.country = %s)\"\n        )\n        sql_params.append(str(params[\"country\"]).upper())\n    political = _bool_param(params.get(\"isPolitical\"))\n    if political is not None:\n        filters.append(\"is_political = %s\")\n        sql_params.append(political)\n    active = _bool_param(params.get(\"isActive\"))\n    if active is not None:\n        filters.append(\"is_active = %s\")\n        sql_params.append(active)\n    if params.get(\"cursor\"):\n        filters.append(\"last_seen_at < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n           \
-    \ f\"\"\"\n            {_public_malak_creative_select_sql()}\n            {where}\n            ORDER BY last_seen_at DESC\n            LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_creative_view(row) for row in rows[:limit]]\n    next_cursor = str(rows[limit][27]) if len(rows) > limit and rows[limit][27] else None\n    return {\"ads\": views, \"total\": len(views), \"cursor\": next_cursor}\n\n\ndef _list_public_malak_analyses_sync(params: dict[str, Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50, hi=500)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if params.get(\"creativeVertexId\"):\n        filters.append(\"creative_vertex_id = %s\")\n        sql_params.append(str(params[\"creativeVertexId\"]))\n    if params.get(\"platform\"):\n        filters.append(\"platform = %s\")\n        sql_params.append(str(params[\"platform\"]))\n    if params.get(\"\
-    platformAdId\"):\n        filters.append(\"platform_ad_id = %s\")\n        sql_params.append(str(params[\"platformAdId\"]))\n    if params.get(\"analysisKind\"):\n        filters.append(\"analysis_kind = %s\")\n        sql_params.append(str(params[\"analysisKind\"]))\n    if params.get(\"status\"):\n        filters.append(\"status = %s\")\n        sql_params.append(str(params[\"status\"]))\n    if params.get(\"minRiskScorePermille\") is not None:\n        filters.append(\"risk_score_permille >= %s\")\n        sql_params.append(_int_param(params.get(\"minRiskScorePermille\"), 0, lo=0, hi=1000))\n    if params.get(\"cursor\"):\n        filters.append(\"analyzed_at < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            {_public_malak_analysis_select_sql()}\n            {where}\n            ORDER BY analyzed_at DESC\n      \
-    \      LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_analysis_view(row) for row in rows[:limit]]\n    next_cursor = str(rows[limit][13]) if len(rows) > limit and rows[limit][13] else None\n    return {\"analyses\": views, \"total\": len(views), \"cursor\": next_cursor}\n\n\ndef _get_public_malak_analysis_sync(params: dict[str, Any]) -> dict[str, Any]:\n    vertex_id = _str_param(params, \"vertexId\") or _str_param(params, \"analysisVertexId\")\n    creative_vertex_id = _str_param(params, \"creativeVertexId\")\n    analysis_kind = _str_param(params, \"analysisKind\")\n    model_id = _str_param(params, \"modelId\")\n    if vertex_id:\n        where = \"vertex_id = %s\"\n        sql_params: tuple[Any, ...] = (vertex_id,)\n    elif creative_vertex_id and analysis_kind and model_id:\n        where = \"creative_vertex_id = %s AND analysis_kind = %s AND model_id = %s\"\n        sql_params =\
-    \ (creative_vertex_id, analysis_kind, model_id)\n    elif creative_vertex_id and analysis_kind:\n        where = \"creative_vertex_id = %s AND analysis_kind = %s\"\n        sql_params = (creative_vertex_id, analysis_kind)\n    else:\n        return {\"error\": \"vertexId or creativeVertexId+analysisKind required\"}\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            {_public_malak_analysis_select_sql()}\n            WHERE {where}\n            ORDER BY analyzed_at DESC\n            LIMIT 1\n            \"\"\",\n            sql_params,\n        )\n        row = cur.fetchone()\n    if not row:\n        return {\"error\": \"AnalysisNotFound\"}\n    return {\"analysis\": _public_malak_analysis_view(row)}\n\n\ndef _get_public_malak_creative_sync(params: dict[str, Any]) -> dict[str, Any]:\n    vertex_id = _str_param(params, \"vertexId\")\n    platform = _str_param(params, \"platform\")\n    platform_ad_id = _str_param(params, \"platformAdId\")\n    if vertex_id:\n\
-    \        where = \"vertex_id = %s\"\n        sql_params: tuple[Any, ...] = (vertex_id,)\n    elif platform and platform_ad_id:\n        where = \"platform = %s AND platform_ad_id = %s\"\n        sql_params = (platform, platform_ad_id)\n    else:\n        return {\"error\": \"vertexId or platform+platformAdId required\"}\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            {_public_malak_creative_select_sql()}\n            WHERE {where}\n            LIMIT 1\n            \"\"\",\n            sql_params,\n        )\n        row = cur.fetchone()\n    if not row:\n        return {\"error\": \"CreativeNotFound\"}\n    return {\"creative\": _public_malak_creative_view(row)}\n\n\ndef _get_public_malak_advertiser_sync(params: dict[str, Any]) -> dict[str, Any]:\n    vertex_id = _str_param(params, \"vertexId\")\n    platform = _str_param(params, \"platform\")\n    platform_advertiser_id = _str_param(params, \"platformAdvertiserId\")\n    if vertex_id:\n      \
-    \  where = \"vertex_id = %s\"\n        sql_params: tuple[Any, ...] = (vertex_id,)\n    elif platform and platform_advertiser_id:\n        where = \"platform = %s AND platform_advertiser_id = %s\"\n        sql_params = (platform, platform_advertiser_id)\n    else:\n        return {\"error\": \"vertexId or platform+platformAdvertiserId required\"}\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, platform, platform_advertiser_id, name,\n                   verified_name, legal_name, page_url, page_category, country,\n                   funding_entity, is_political, legal_entity_did,\n                   first_seen_at, last_seen_at\n            FROM vertex_ads_advertiser\n            WHERE {where}\n            LIMIT 1\n            \"\"\",\n            sql_params,\n        )\n        row = cur.fetchone()\n    if not row:\n        return {\"error\": \"AdvertiserNotFound\"}\n    return {\"advertiser\": _public_malak_advertiser_view(row)}\n\
-    \n\ndef _public_malak_analyze_ad_sync(params: dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\n    creative_vertex_id = _str_param(params, \"creativeVertexId\")\n    if not creative_vertex_id:\n        return {\"error\": \"creativeVertexId required\", \"status\": \"failed\"}\n    return public_malak_ads.analyze_creative(\n        creative_vertex_id=creative_vertex_id,\n        analysis_kind=_str_param(params, \"analysisKind\", \"competitive\") or \"competitive\",\n        model_id=_str_param(params, \"modelId\"),\n    )\n\n\ndef _list_public_malak_snapshots_sync(params: dict[str, Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50, hi=500)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if params.get(\"creativeVertexId\"):\n        filters.append(\"creative_vertex_id = %s\")\n        sql_params.append(str(params[\"creativeVertexId\"]))\n    if params.get(\"scraperRunId\"):\n        filters.append(\"\
-    scraper_run_id = %s\")\n        sql_params.append(str(params[\"scraperRunId\"]))\n    if params.get(\"platform\"):\n        filters.append(\"platform = %s\")\n        sql_params.append(str(params[\"platform\"]))\n    if params.get(\"platformAdId\"):\n        filters.append(\"platform_ad_id = %s\")\n        sql_params.append(str(params[\"platformAdId\"]))\n    if params.get(\"cursor\"):\n        filters.append(\"scraped_at < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, creative_vertex_id, platform, platform_ad_id,\n                   scraper, scraper_run_id, scraped_at, source_url, http_status,\n                   html_cid, screenshot_cid, har_cid, observed_is_active,\n                   observed_impressions_min, observed_impressions_max,\n                   observed_spend_min, observed_spend_max,\
-    \ parser_version,\n                   parse_ok, parse_error\n            FROM vertex_ads_snapshot\n            {where}\n            ORDER BY scraped_at DESC, vertex_id DESC\n            LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_snapshot_view(row) for row in rows[:limit]]\n    next_cursor = str(rows[limit][6]) if len(rows) > limit and rows[limit][6] else None\n    return {\"snapshots\": views, \"cursor\": next_cursor}\n\n\ndef _list_public_malak_scraper_runs_sync(params: dict[str, Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50, hi=500)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if params.get(\"platform\"):\n        filters.append(\"platform = %s\")\n        sql_params.append(str(params[\"platform\"]))\n    if params.get(\"status\"):\n        filters.append(\"status = %s\")\n        sql_params.append(str(params[\"status\"]))\n    if\
-    \ params.get(\"cursor\"):\n        filters.append(\"started_at < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, platform, query_kind, query_value, country,\n                   started_at, finished_at, status, ads_seen, ads_new,\n                   ads_updated, error_message, user_agent, proxy_country,\n                   playwright_trace_cid, robots_txt_snapshot_cid,\n                   rate_limit_sleep_ms\n            FROM vertex_ads_scraper_run\n            {where}\n            ORDER BY started_at DESC\n            LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_scraper_run_view(row) for row in rows[:limit]]\n    next_cursor = str(rows[limit][5]) if len(rows) > limit and rows[limit][5] else None\n\
-    \    return {\"runs\": views, \"cursor\": next_cursor}\n\n\ndef _list_public_malak_campaign_clusters_sync(params: dict[str, Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50, hi=200)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if params.get(\"platformScope\"):\n        filters.append(\"platform_scope = %s\")\n        sql_params.append(str(params[\"platformScope\"]))\n    if params.get(\"advertiserVertexId\"):\n        filters.append(\"advertiser_vertex_id = %s\")\n        sql_params.append(str(params[\"advertiserVertexId\"]))\n    if params.get(\"landingDomain\"):\n        filters.append(\"landing_domain = %s\")\n        sql_params.append(str(params[\"landingDomain\"]).lower())\n    if params.get(\"minCreativeCount\") is not None:\n        filters.append(\"creative_count >= %s\")\n        sql_params.append(_int_param(params.get(\"minCreativeCount\"), 1, hi=1_000_000))\n    if params.get(\"cursor\"):\n        filters.append(\"last_seen_at\
-    \ < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, campaign_key, platform_scope, advertiser_vertex_id,\n                   advertiser_name, landing_domain, claim_token, sample_headline,\n                   sample_body_text, creative_count, platform_count, first_seen_at,\n                   last_seen_at, risk_score_permille, summary\n            FROM vertex_ads_campaign_cluster\n            {where}\n            ORDER BY last_seen_at DESC\n            LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_campaign_view(row) for row in rows[:limit]]\n    next_cursor = str(rows[limit][12]) if len(rows) > limit and rows[limit][12] else None\n    return {\"clusters\": views, \"cursor\": next_cursor}\n\n\ndef _get_public_malak_campaign_cluster_sync(params:\
-    \ dict[str, Any]) -> dict[str, Any]:\n    vertex_id = str(params.get(\"vertexId\") or \"\")\n    campaign_key = str(params.get(\"campaignKey\") or \"\")\n    creative_limit = _int_param(params.get(\"creativeLimit\"), 50, hi=200)\n    analysis_limit = _int_param(params.get(\"analysisLimit\"), 100, hi=500)\n    if not vertex_id and not campaign_key:\n        return {\"error\": \"vertexId or campaignKey required\"}\n    if vertex_id:\n        where = \"vertex_id = %s\"\n        sql_params: tuple[Any, ...] = (vertex_id,)\n    else:\n        where = \"campaign_key = %s\"\n        sql_params = (campaign_key,)\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, campaign_key, platform_scope, advertiser_vertex_id,\n                   advertiser_name, landing_domain, claim_token, sample_headline,\n                   sample_body_text, creative_count, platform_count, first_seen_at,\n                   last_seen_at, risk_score_permille, summary\n\
-    \            FROM vertex_ads_campaign_cluster\n            WHERE {where}\n            LIMIT 1\n            \"\"\",\n            sql_params,\n        )\n        rows = cur.fetchall() or []\n        if not rows:\n            return {\"error\": \"CampaignClusterNotFound\"}\n        cluster = _public_malak_campaign_view(rows[0])\n        cur.execute(\n            f\"\"\"\n            SELECT c.vertex_id, c.platform, c.platform_ad_id, c.advertiser_name,\n                   c.headline, c.body_text, c.landing_url, c.last_seen_at,\n                   e.match_basis\n            FROM edge_ads_creative_in_campaign e\n            JOIN vertex_ads_creative c ON c.vertex_id = e.src_vid\n            WHERE e.dst_vid = %s\n            ORDER BY c.last_seen_at DESC\n            LIMIT {creative_limit}\n            \"\"\",\n            (cluster[\"vertexId\"],),\n        )\n        creative_rows = cur.fetchall() or []\n        cur.execute(\n            f\"\"\"\n            SELECT a.vertex_id, a.creative_vertex_id,\
-    \ a.platform, a.platform_ad_id,\n                   a.analysis_kind, a.model_id, a.status, a.summary,\n                   a.risk_score_permille, a.claim_json, a.targeting_json,\n                   a.signals_json, a.source_snapshot_id, a.analyzed_at\n            FROM edge_ads_creative_in_campaign e\n            JOIN vertex_ads_analysis a ON a.creative_vertex_id = e.src_vid\n            WHERE e.dst_vid = %s\n            ORDER BY a.analyzed_at DESC\n            LIMIT {analysis_limit}\n            \"\"\",\n            (cluster[\"vertexId\"],),\n        )\n        analysis_rows = cur.fetchall() or []\n    return {\n        \"cluster\": cluster,\n        \"creatives\": [_public_malak_cluster_creative_view(row) for row in creative_rows],\n        \"analyses\": [_public_malak_analysis_view(row) for row in analysis_rows],\n    }\n\n\nasync def public_malak_direct_query(request: web.Request, nsid: str, body: dict[str, Any] | None = None) -> web.Response | None:\n    params = _request_params(request,\
-    \ body)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listCampaignClusters\":\n        out = await asyncio.to_thread(_list_public_malak_campaign_clusters_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getCampaignCluster\":\n        out = await asyncio.to_thread(_get_public_malak_campaign_cluster_sync, params)\n        status = 400 if out.get(\"error\") == \"vertexId or campaignKey required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out, status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listScraperRuns\":\n        out = await asyncio.to_thread(_list_public_malak_scraper_runs_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listAds\":\n        out = await asyncio.to_thread(_list_public_malak_ads_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listAnalyses\":\n        out = await asyncio.to_thread(_list_public_malak_analyses_sync,\
-    \ params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getAnalysis\":\n        out = await asyncio.to_thread(_get_public_malak_analysis_sync, params)\n        status = 400 if out.get(\"error\") == \"vertexId or creativeVertexId+analysisKind required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out, status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getCreative\":\n        out = await asyncio.to_thread(_get_public_malak_creative_sync, params)\n        status = 400 if out.get(\"error\") == \"vertexId or platform+platformAdId required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out, status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getAdvertiser\":\n        out = await asyncio.to_thread(_get_public_malak_advertiser_sync, params)\n        status = 400 if out.get(\"error\") == \"vertexId or platform+platformAdvertiserId required\" else 404 if out.get(\"error\") else 200\n        return\
-    \ web.json_response(out, status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listSnapshots\":\n        out = await asyncio.to_thread(_list_public_malak_snapshots_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}crawlAds\":\n        out = await asyncio.to_thread(_public_malak_crawl_ads_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}processScraperQueue\":\n        out = await asyncio.to_thread(_public_malak_process_scraper_queue_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}analyzeRecentAds\":\n        out = await asyncio.to_thread(_public_malak_analyze_recent_ads_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}clusterRecentAds\":\n        out = await asyncio.to_thread(_public_malak_cluster_recent_ads_sync, params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}analyzeAd\"\
-    :\n        out = await asyncio.to_thread(_public_malak_analyze_ad_sync, params)\n        status = 400 if out.get(\"error\") == \"creativeVertexId required\" else 404 if out.get(\"error\") == \"CreativeNotFound\" else 200\n        return web.json_response(out, status=status)\n    return None\n\n\n\n\ndef _langgraph_request_headers() -> dict[str, str]:\n    \"\"\"Headers for dispatcher → LangGraph internal calls.\n\n    The LangGraph Server currently lives behind ClusterIP, but this keeps the\n    same shared-secret boundary as `/xrpc/*` when the server starts enforcing it.\n    \"\"\"\n    headers: dict[str, str] = {}\n    if INTERNAL_SECRET:\n        headers[INTERNAL_TRUST_HEADER] = INTERNAL_SECRET\n    return headers\n\n\ndef _first_str(mapping: dict[str, Any], *keys: str) -> str | None:\n    for key in keys:\n        value = mapping.get(key)\n        if isinstance(value, str) and value.strip():\n            return value.strip()\n    return None\n\n\ndef _langgraph_run_payload(assistant_id:\
-    \ str, process_vars: dict[str, Any]) -> dict[str, Any]:\n    \"\"\"Build the LangGraph `/runs` payload from dispatcher process variables.\n\n    Keep identity fields top-level so LangGraph Server can bind the run to the\n    same actor/thread regardless of the graph input schema. The full process\n    variables remain in `input` for graph-local logic and audit.\n    \"\"\"\n    payload: dict[str, Any] = {\n        \"assistant_id\": assistant_id,\n        \"input\": process_vars,\n    }\n    thread_id = _first_str(process_vars, \"thread_id\", \"threadId\", \"_threadId\")\n    actor_did = _first_str(process_vars, \"actor_did\", \"actorDid\", \"_actorDid\")\n    if thread_id:\n        payload[\"thread_id\"] = thread_id\n    if actor_did:\n        payload[\"actor_did\"] = actor_did\n    config = process_vars.get(\"config\")\n    if isinstance(config, dict):\n        payload[\"config\"] = config\n    return payload\n\n\nasync def _dispatch_langgraph(\n    nsid: str,\n    binding: dict[str,\
-    \ Any],\n    process_vars: dict[str, Any],\n    started: float,\n    override_assistant_id: str | None = None,\n) -> web.Response:\n    \"\"\"Route to LangGraph Server POST /runs (ADR-2605080600 Phase 3).\n\n    The assistant_id maps from bpmn_process_id (e.g. 'shosha_agent_loop' →\n    'shosha_agent_loop').  LangGraph Server returns {run_id, status} for\n    background runs.  We return immediately with 202 + run_id so the caller\n    can poll GET /runs/{run_id} if needed.\n    \"\"\"\n    import aiohttp\n\n    assistant_id = override_assistant_id or binding[\"bpmn_process_id\"]\n    # Per-binding URL override (ADR-2605080700). voxelforge ships its\n    # own Helm release exposing voxelforge-langgraph.mitama-udf.svc...:8000;\n    # other actors fall back to the global langgraph-server pod.\n    base = (binding.get(\"langgraph_url\") or LANGGRAPH_SERVER_URL).rstrip(\"/\")\n    url = f\"{base}/runs\"\n    payload = _langgraph_run_payload(assistant_id, process_vars)\n    headers = _langgraph_request_headers()\n\
-    \    timeout_ms = binding[\"result_timeout_ms\"]\n\n    try:\n        async with aiohttp.ClientSession() as session:\n            async with session.post(\n                url,\n                json=payload,\n                headers=headers,\n                timeout=aiohttp.ClientTimeout(total=max(10.0, timeout_ms / 1000.0)),\n            ) as resp:\n                try:\n                    body = await resp.json(content_type=None)\n                except Exception:\n                    text = await resp.text()\n                    body = {\"detail\": text[:500]}\n                latency_ms = int((time.monotonic() - started) * 1000)\n                LOG.info(\n                    \"langgraph dispatch nsid=%s assistant=%s run_id=%s status=%s latencyMs=%d\",\n                    nsid,\n                    assistant_id,\n                    body.get(\"run_id\"),\n                    body.get(\"status\"),\n                    latency_ms,\n                )\n                if resp.status\
-    \ >= 400:\n                    return web.json_response(\n                        {\"error\": body.get(\"detail\", \"langgraph error\"),\n                         \"nsid\": nsid, \"assistant_id\": assistant_id},\n                        status=resp.status,\n                    )\n                return web.json_response({\n                    \"ok\": True,\n                    \"asyncStarted\": True,\n                    \"nsid\": nsid,\n                    \"assistant_id\": assistant_id,\n                    \"run_id\": body.get(\"run_id\"),\n                    \"thread_id\": body.get(\"thread_id\"),\n                    \"actor_did\": payload.get(\"actor_did\"),\n                    \"status\": body.get(\"status\", \"pending\"),\n                    \"latencyMs\": latency_ms,\n                }, status=202)\n    except Exception as e:  # noqa: BLE001\n        LOG.exception(\"langgraph dispatch failed nsid=%s\", nsid)\n        return web.json_response(\n            {\"error\": f\"\
-    {type(e).__name__}: {str(e)[:300]}\",\n             \"nsid\": nsid, \"assistant_id\": assistant_id},\n            status=502,\n        )\n\n\nasync def _dispatch_mailer_direct(nsid: str, body: dict[str, Any]) -> web.Response | None:\n    \"\"\"Serve mailer single-step commands synchronously.\n\n    Dispatcher Phase G routes all generic bindings through LangGraph /runs,\n    which is async and requires assistant rows. The mailer appview still has\n    synchronous read surfaces (/api/stats, /api/emails), so keep this small\n    direct bridge until mailer has a first-class LangGraph facade.\n    \"\"\"\n    if not nsid.startswith(\"com.etzhayyim.apps.mailer.\"):\n        return None\n\n    op = nsid.rsplit(\".\", 1)[-1]\n    fn_name = {\n        \"health\": \"health\",\n        \"listEmails\": \"list_emails\",\n        \"listBindings\": \"list_bindings\",\n        \"stats\": \"stats\",\n        \"sendEmail\": \"send_email\",\n        \"provisionMailbox\": \"provision_mailbox\",\n        \"handleCommit\"\
-    : \"handle_commit\",\n        \"heartbeat\": \"heartbeat\",\n    }.get(op)\n    if not fn_name:\n        return None\n\n    def _run() -> dict[str, Any]:\n        from pymagatama.ingest import mailer\n\n        fn = getattr(mailer, fn_name)\n        return fn(**(body or {}))\n\n    try:\n        result = await asyncio.to_thread(_run)\n        return web.json_response(result)\n    except Exception as exc:  # noqa: BLE001\n        LOG.exception(\"mailer direct dispatch failed nsid=%s\", nsid)\n        return web.json_response(\n            {\"error\": f\"{type(exc).__name__}: {str(exc)[:300]}\", \"nsid\": nsid},\n            status=502,\n        )\n\n\nasync def _proxy_to_lg_yatabase(\n    request: web.Request, nsid: str, body: dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward yatabase XRPC NSIDs to the lg-yatabase Granian pod.\n\n    bpmn-dispatcher can reach the lg-yatabase pod over cluster networking;\n    cloudflared currently cannot (i/o timeout on dial). The Worker still\n \
-    \   HMAC-signs the body with DISPATCHER_INTERNAL_SECRET, which the pod's\n    `_verify_trust` also recomputes — so we forward the x-internal-trust\n    header verbatim and the pod accepts it.\n\n    CRITICAL: forward the original RAW body bytes, not a re-serialized\n    json.dumps(body). The pod recomputes HMAC over the raw bytes, so any\n    re-serialization changes the digest and the pod returns 401.\n    \"\"\"\n    import aiohttp as _aiohttp\n    target = f\"{LG_YATABASE_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method = request.method\n    headers: dict[str, str] = {}\n    # Forward HMAC + identity + trace headers verbatim.\n    for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession() as session:\n\
-    \            if method == \"GET\":\n                # GET params travel as querystring on the proxied request.\n                params = {k: v for k, v in request.query.items()}\n                async with session.get(\n                    target,\n                    params=params,\n                    headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=30),\n                ) as resp:\n                    raw = await resp.read()\n                    LOG.info(\n                        \"lg-yatabase proxy GET nsid=%s status=%s ms=%d\",\n                        nsid, resp.status, int((time.monotonic() - started) * 1000),\n                    )\n                    ct = (resp.headers.get(\"content-type\") or \"application/json\").split(\";\")[0].strip()\n                    return web.Response(status=resp.status, body=raw, content_type=ct)\n            # POST: forward the exact bytes the Worker signed (the body was\n            # already buffered by auth_middleware's\
-    \ `request.read()`).\n            try:\n                payload = await request.read()\n            except Exception:\n                payload = json.dumps(body).encode()\n            async with session.post(\n                target,\n                data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=30),\n            ) as resp:\n                raw = await resp.read()\n                LOG.info(\n                    \"lg-yatabase proxy POST nsid=%s status=%s ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started) * 1000),\n                )\n                ct = (resp.headers.get(\"content-type\") or \"application/json\").split(\";\")[0].strip()\n                return web.Response(status=resp.status, body=raw, content_type=ct)\n    except _aiohttp.ClientError as exc:\n        LOG.exception(\"lg-yatabase proxy failed nsid=%s err=%s\", nsid, exc)\n        return web.json_response(\n            {\"error\": \"\
-    ProxyFailed\", \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n        )\n    except asyncio.TimeoutError:\n        return web.json_response(\n            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n        )\n\n\nasync def _proxy_to_lg_animeka(\n    request: web.Request, nsid: str, body: dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward animeka XRPC NSIDs to the lg-animeka LangGraph pod (P3c 2026-05-12).\"\"\"\n    import aiohttp as _aiohttp\n    target = f\"{LG_ANIMEKA_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method = request.method\n    headers: dict[str, str] = {}\n    for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession() as session:\n         \
-    \   if method == \"GET\":\n                params = {k: v for k, v in request.query.items()}\n                async with session.get(\n                    target,\n                    params=params,\n                    headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=30),\n                ) as resp:\n                    raw = await resp.read()\n                    LOG.info(\n                        \"lg-animeka proxy GET nsid=%s status=%s ms=%d\",\n                        nsid, resp.status, int((time.monotonic() - started) * 1000),\n                    )\n                    return web.Response(\n                        status=resp.status, body=raw,\n                        content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                    )\n            try:\n                payload = await request.read()\n            except Exception:\n                payload = json.dumps(body).encode()\n            async with session.post(\n    \
-    \            target,\n                data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=30),\n            ) as resp:\n                raw = await resp.read()\n                LOG.info(\n                    \"lg-animeka proxy POST nsid=%s status=%s ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started) * 1000),\n                )\n                return web.Response(\n                    status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError as exc:\n        LOG.exception(\"lg-animeka proxy failed nsid=%s err=%s\", nsid, exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\", \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n        )\n    except asyncio.TimeoutError:\n        return web.json_response(\n            {\"error\": \"ProxyTimeout\"\
-    , \"nsid\": nsid}, status=504,\n        )\n\n\nasync def _proxy_to_lg_recap(\n    request: web.Request, nsid: str, body: dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward recap XRPC NSIDs to the lg-recap LangGraph pod (2026-05-12).\"\"\"\n    import aiohttp as _aiohttp\n    target = f\"{LG_RECAP_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method = request.method\n    headers: dict[str, str] = {}\n    for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession() as session:\n            if method == \"GET\":\n                params = {k: v for k, v in request.query.items()}\n                async with session.get(\n                    target,\n                    params=params,\n                    headers=headers,\n\
-    \                    timeout=_aiohttp.ClientTimeout(total=60),\n                ) as resp:\n                    raw = await resp.read()\n                    LOG.info(\n                        \"lg-recap proxy GET nsid=%s status=%s ms=%d\",\n                        nsid, resp.status, int((time.monotonic() - started) * 1000),\n                    )\n                    return web.Response(\n                        status=resp.status, body=raw,\n                        content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                    )\n            try:\n                payload = await request.read()\n            except Exception:\n                payload = json.dumps(body).encode()\n            async with session.post(\n                target,\n                data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=60),\n            ) as resp:\n                raw = await resp.read()\n                LOG.info(\n  \
-    \                  \"lg-recap proxy POST nsid=%s status=%s ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started) * 1000),\n                )\n                return web.Response(\n                    status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError as exc:\n        LOG.exception(\"lg-recap proxy failed nsid=%s err=%s\", nsid, exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\", \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n        )\n    except asyncio.TimeoutError:\n        return web.json_response(\n            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n        )\n\n\nasync def _proxy_to_lg_mangaka(\n    request: web.Request, nsid: str, body: dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward mangaka XRPC NSIDs to the lg-mangaka LangGraph pod (2026-05-12).\"\
-    \"\"\n    import aiohttp as _aiohttp\n    target = f\"{LG_MANGAKA_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method = request.method\n    headers: dict[str, str] = {}\n    for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession() as session:\n            if method == \"GET\":\n                params = {k: v for k, v in request.query.items()}\n                async with session.get(\n                    target,\n                    params=params,\n                    headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=30),\n                ) as resp:\n                    raw = await resp.read()\n                    LOG.info(\n                        \"lg-mangaka proxy GET nsid=%s\
-    \ status=%s ms=%d\",\n                        nsid, resp.status, int((time.monotonic() - started) * 1000),\n                    )\n                    return web.Response(\n                        status=resp.status, body=raw,\n                        content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                    )\n            try:\n                payload = await request.read()\n            except Exception:\n                payload = json.dumps(body).encode()\n            async with session.post(\n                target,\n                data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=30),\n            ) as resp:\n                raw = await resp.read()\n                LOG.info(\n                    \"lg-mangaka proxy POST nsid=%s status=%s ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started) * 1000),\n                )\n                return web.Response(\n          \
-    \          status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError as exc:\n        LOG.exception(\"lg-mangaka proxy failed nsid=%s err=%s\", nsid, exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\", \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n        )\n    except asyncio.TimeoutError:\n        return web.json_response(\n            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n        )\n\n\nasync def _proxy_to_lg_pod(\n    request: web.Request,\n    nsid: str,\n    body: dict[str, Any],\n    internal_url: str,\n    pod_name: str,\n    timeout: float = 60,\n) -> web.Response:\n    \"\"\"Generic proxy to any lg-* LangGraph pod (Zeebe→LangGraph Phase A, 2026-05-13).\"\"\"\n    import aiohttp as _aiohttp\n    target = f\"{internal_url.rstrip('/')}/xrpc/{nsid}\"\n    method = request.method\n    headers:\
-    \ dict[str, str] = {}\n    for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession() as session:\n            if method == \"GET\":\n                params = {k: v for k, v in request.query.items()}\n                async with session.get(\n                    target, params=params, headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=timeout),\n                ) as resp:\n                    raw = await resp.read()\n                    LOG.info(\n                        \"%s proxy GET nsid=%s status=%s ms=%d\",\n                        pod_name, nsid, resp.status,\n                        int((time.monotonic() - started) * 1000),\n                    )\n                    return\
-    \ web.Response(\n                        status=resp.status, body=raw,\n                        content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                    )\n            try:\n                payload = await request.read()\n            except Exception:\n                payload = json.dumps(body).encode()\n            async with session.post(\n                target, data=payload, headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=timeout),\n            ) as resp:\n                raw = await resp.read()\n                LOG.info(\n                    \"%s proxy POST nsid=%s status=%s ms=%d\",\n                    pod_name, nsid, resp.status,\n                    int((time.monotonic() - started) * 1000),\n                )\n                return web.Response(\n                    status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"content-type\", \"application/json\"),\n                )\n    except\
-    \ _aiohttp.ClientError as exc:\n        LOG.exception(\"%s proxy failed nsid=%s err=%s\", pod_name, nsid, exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\", \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n        )\n    except asyncio.TimeoutError:\n        return web.json_response(\n            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n        )\n\n\nasync def mcp_route(request: web.Request) -> web.Response:\n    \"\"\"POST /mcp — MCP JSON-RPC facade for pod-owned tools.\n\n    Tool names intentionally use the same Lexicon NSID strings as the XRPC\n    surface. Phase 1 routes Shinshi through the lg-shinshi pod MCP endpoint;\n    other app namespaces can be added here or moved behind a registry-backed\n    router without changing edge callers.\n    \"\"\"\n    try:\n        body = await request.json()\n    except json.JSONDecodeError as exc:\n        return web.json_response(\n            {\"jsonrpc\": \"2.0\",\
-    \ \"id\": None, \"error\": {\"code\": -32700, \"message\": f\"invalid JSON body: {exc}\"}},\n            status=400,\n        )\n    if not isinstance(body, dict):\n        return web.json_response(\n            {\"jsonrpc\": \"2.0\", \"id\": None, \"error\": {\"code\": -32600, \"message\": \"body must be a JSON object\"}},\n            status=400,\n        )\n\n    method = str(body.get(\"method\") or \"\")\n    params = body.get(\"params\")\n    tool_name = \"\"\n    if isinstance(params, dict):\n        tool_name = str(params.get(\"name\") or \"\")\n\n    if method == \"tools/call\" and not tool_name.startswith(\"com.etzhayyim.apps.shinshi.\"):\n        return web.json_response(\n            {\n                \"jsonrpc\": \"2.0\",\n                \"id\": body.get(\"id\"),\n                \"error\": {\n                    \"code\": -32601,\n                    \"message\": f\"no MCP route for tool {tool_name!r}\",\n                },\n            },\n            status=404,\n        )\n\
-    \n    import aiohttp as _aiohttp\n    target = f\"{LG_SHINSHI_INTERNAL_URL.rstrip('/')}/mcp\"\n    headers: dict[str, str] = {\"content-type\": \"application/json\"}\n    for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession() as session:\n            async with session.post(\n                target,\n                data=json.dumps(body).encode(\"utf-8\"),\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=60),\n            ) as resp:\n                raw = await resp.read()\n                LOG.info(\n                    \"mcp proxy method=%s tool=%s target=lg-shinshi status=%s ms=%d\",\n                    method,\n                    tool_name,\n                    resp.status,\n     \
-    \               int((time.monotonic() - started) * 1000),\n                )\n                content_type = (resp.headers.get(\"content-type\") or \"application/json\").split(\";\")[0].strip()\n                return web.Response(status=resp.status, body=raw, content_type=content_type)\n    except _aiohttp.ClientError as exc:\n        LOG.exception(\"mcp proxy failed method=%s tool=%s err=%s\", method, tool_name, exc)\n        return web.json_response(\n            {\n                \"jsonrpc\": \"2.0\",\n                \"id\": body.get(\"id\"),\n                \"error\": {\"code\": -32000, \"message\": f\"MCP proxy failed: {str(exc)[:300]}\"},\n            },\n            status=502,\n        )\n    except asyncio.TimeoutError:\n        return web.json_response(\n            {\n                \"jsonrpc\": \"2.0\",\n                \"id\": body.get(\"id\"),\n                \"error\": {\"code\": -32001, \"message\": \"MCP proxy timeout\"},\n            },\n            status=504,\n\
-    \        )\n\n\nasync def dispatch(request: web.Request) -> web.Response:\n    \"\"\"POST /xrpc/{nsid} — start a BPMN process and await result.\"\"\"\n    nsid = request.match_info.get(\"nsid\", \"\")\n    LOG.info(\"dispatch start method=%s nsid=%s\", request.method, nsid)\n    if not nsid:\n        return web.json_response({\"error\": \"nsid required in path\"}, status=400)\n\n    body: dict[str, Any] = {}\n    if request.body_exists and request.method == \"POST\":\n        try:\n            body = await request.json()\n        except json.JSONDecodeError as e:\n            return web.json_response(\n                {\"error\": f\"invalid JSON body: {e}\"}, status=400,\n            )\n        if not isinstance(body, dict):\n            return web.json_response(\n                {\"error\": \"body must be a JSON object\"}, status=400,\n            )\n\n    # ADR-2605091700 Phase 3: fan-out every dispatch to NATS for observability,\n    # replay, and decoupling. Subject = `mitama.{nsid}`\
-    \ (nsid keeps its dots).\n    nc = request.app.get(\"nats\")\n    if nc is not None:\n        try:\n            await nc.publish(\n                f\"mitama.{nsid}\",\n                json.dumps({\"nsid\": nsid, \"method\": request.method, \"body\": body}).encode(),\n            )\n        except Exception as exc:  # noqa: BLE001\n            LOG.debug(\"nats fan-out failed (non-fatal) nsid=%s err=%s\", nsid, exc)\n\n    direct_response = await public_malak_direct_query(request, nsid, body)\n    if direct_response is not None:\n        return direct_response\n\n    # ADR-2605111200 Option A (P59): proxy yatabase auth/leads/bmc XRPC NSIDs\n    # to lg-yatabase pod over cluster networking that bpmn-dispatcher can\n    # actually reach (cloudflared cannot dial the lg-yatabase pod network\n    # namespace from this VKE — see deps.toml cycle_20260511_02 blocker).\n    if any(nsid.startswith(p) for p in LG_YATABASE_PROXY_PREFIXES):\n        return await _proxy_to_lg_yatabase(request, nsid,\
-    \ body)\n\n    if any(nsid.startswith(p) for p in LG_ANIMEKA_PROXY_PREFIXES):\n        return await _proxy_to_lg_animeka(request, nsid, body)\n\n    if any(nsid.startswith(p) for p in LG_RECAP_PROXY_PREFIXES):\n        return await _proxy_to_lg_recap(request, nsid, body)\n\n    if nsid in LG_MANGAKA_PROXY_NSIDS:\n        return await _proxy_to_lg_mangaka(request, nsid, body)\n\n    if any(nsid.startswith(p) for p in LG_SHINSHI_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_SHINSHI_INTERNAL_URL, \"lg-shinshi\")\n\n    if any(nsid.startswith(p) for p in LG_NAROU_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_NAROU_INTERNAL_URL, \"lg-narou\")\n\n    if any(nsid.startswith(p) for p in LG_DOUGAKA_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_DOUGAKA_INTERNAL_URL, \"lg-dougaka\")\n\n    if any(nsid.startswith(p) for p in LG_X_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid,\
-    \ body, LG_X_INTERNAL_URL, \"lg-x\")\n\n    if any(nsid.startswith(p) for p in LG_YUKKURI_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_YUKKURI_INTERNAL_URL, \"lg-yukkuri\")\n\n    if any(nsid.startswith(p) for p in LG_OPEN_JPN_MYNUMBER_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_OPEN_JPN_MYNUMBER_INTERNAL_URL, \"lg-open-jpn-mynumber\")\n\n    if any(nsid.startswith(p) for p in LG_CURPUS2SKILL_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_CURPUS2SKILL_INTERNAL_URL, \"lg-curpus2skill\")\n\n    if any(nsid.startswith(p) for p in LG_PD_COLOR_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_PD_COLOR_INTERNAL_URL, \"lg-pd-color\")\n\n    if any(nsid.startswith(p) for p in LG_KARMA_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_KARMA_INTERNAL_URL, \"lg-karma\")\n\n    if any(nsid.startswith(p) for p in LG_LEGAL_ENTITY_PROXY_PREFIXES):\n\
-    \        return await _proxy_to_lg_pod(request, nsid, body, LG_LEGAL_ENTITY_INTERNAL_URL, \"lg-legal-entity\")\n\n    if any(nsid.startswith(p) for p in LG_ORGANISM_PROXY_PREFIXES):\n        return await _proxy_to_lg_pod(request, nsid, body, LG_ORGANISM_INTERNAL_URL, \"lg-organism\")\n\n    mailer_direct = await _dispatch_mailer_direct(nsid, body)\n    if mailer_direct is not None:\n        return mailer_direct\n\n    binding = await lookup_binding(nsid)\n    if not binding:\n        return web.json_response(\n            {\"error\": \"no active binding\", \"nsid\": nsid}, status=404,\n        )\n    LOG.info(\n        \"dispatch binding nsid=%s process=%s timeoutMs=%s\",\n        nsid,\n        binding[\"bpmn_process_id\"],\n        binding[\"result_timeout_ms\"],\n    )\n\n    timeout_ms = binding[\"result_timeout_ms\"]\n    started = time.monotonic()\n    # Inject the resolved bpmn_process_id as a process variable so worker\n    # tasks (e.g. generic.db.insert) can scope writes to\
-    \ the binding's\n    # write_table_allowlist. Caller body cannot override this (we set\n    # last-write-wins after spread). NSID is also injected for audit\n    # correlation; it's not used for enforcement.\n    process_vars = {\n        **(body or {}),\n        \"_bpmnProcessId\": binding[\"bpmn_process_id\"],\n        \"_nsid\": nsid,\n    }\n    LOG.info(\"dispatch process_vars keys=%s body_keys=%s\", list(process_vars.keys()), list(body.keys()))\n\n    # Phase G (2026-05-13): all vertex_bpmn_lexicon_binding rows migrated to routing_target='langgraph'.\n    # Zeebe/Spiff fallback removed.\n    return await _dispatch_langgraph(\n        nsid=nsid,\n        binding=binding,\n        process_vars=process_vars,\n        started=started,\n    )\n\n\n\n\n\n\n\n\n# ─── Auth middleware ─────────────────────────────────────────────────────\n\n@web.middleware\nasync def auth_middleware(request: web.Request, handler):\n    \"\"\"Gate `/xrpc/*` on shared-secret header when strict mode enabled.\n\
-    \n    `/health` is always open. `/bindings` is gated because it enumerates\n    the live NSID → BPMN process surface.\n    Unknown `DISPATCHER_AUTH_MODE` fails closed to avoid mis-configuration\n    silently dropping the gate.\n    \"\"\"\n    if request.path == \"/health\":\n        return await handler(request)\n    if not (request.path.startswith(\"/xrpc/\") or request.path == \"/mcp\" or request.path == \"/bindings\"):\n        return await handler(request)\n    if AUTH_MODE == \"off\":\n        return await handler(request)\n    if AUTH_MODE == \"strict\":\n        if not INTERNAL_SECRET:\n            LOG.error(\"DISPATCHER_AUTH_MODE=strict but DISPATCHER_INTERNAL_SECRET empty\")\n            return web.json_response(\n                {\"error\": \"AuthMisconfigured\",\n                 \"message\": \"dispatcher strict mode requires DISPATCHER_INTERNAL_SECRET\"},\n                status=500,\n            )\n        import hmac as _hmac\n        import hashlib as _hashlib\n     \
-    \   provided = request.headers.get(INTERNAL_TRUST_HEADER, \"\")\n        if not provided:\n            return web.json_response(\n                {\"error\": \"Unauthorized\",\n                 \"message\": f\"missing {INTERNAL_TRUST_HEADER} header\"},\n                status=401,\n            )\n        # Accept either raw shared-secret (legacy) OR HMAC-SHA256(body, secret)\n        # so callers like the yatabase Worker (P55 onwards) that already sign\n        # against DISPATCHER_INTERNAL_SECRET keep working.\n        if _hmac.compare_digest(provided, INTERNAL_SECRET):\n            return await handler(request)\n        try:\n            body_bytes = await request.read()\n        except Exception:  # noqa: BLE001\n            body_bytes = b\"\"\n        expected_hmac = _hmac.new(\n            INTERNAL_SECRET.encode(\"utf-8\"), body_bytes, _hashlib.sha256\n        ).hexdigest()\n        if _hmac.compare_digest(provided, expected_hmac):\n            return await handler(request)\n  \
-    \      return web.json_response(\n            {\"error\": \"Unauthorized\",\n             \"message\": f\"missing or invalid {INTERNAL_TRUST_HEADER} header\"},\n            status=401,\n        )\n    LOG.error(\"unknown DISPATCHER_AUTH_MODE=%r (expected off|strict)\", AUTH_MODE)\n    return web.json_response(\n        {\"error\": \"AuthMisconfigured\",\n         \"message\": f\"unknown DISPATCHER_AUTH_MODE={AUTH_MODE!r}\"},\n        status=500,\n    )\n\n\n# ─── App bootstrap ───────────────────────────────────────────────────────\n\nasync def make_app() -> web.Application:\n    app = web.Application(middlewares=[auth_middleware])\n\n    # ─── NATS JetStream fan-out (ADR-2605091700, Phase 3) ────────────────\n    # Every /xrpc/{nsid} dispatch publishes a copy to NATS subject\n    # `mitama.{nsid-with-dots}` so all actor invocations become observable\n    # / replayable / decoupled from RW availability. Fire-and-forget;\n    # publish failure does not block the dispatch.\n    nats_url\
-    \ = os.environ.get(\"NATS_URL\", \"\")\n    nats_enabled = bool(nats_url) and os.environ.get(\"DISPATCHER_NATS_ENABLED\", \"1\") == \"1\"\n    if nats_enabled:\n        try:\n            import nats as _nats  # type: ignore[import-not-found]\n            nc = await _nats.connect(\n                nats_url,\n                max_reconnect_attempts=-1,\n                reconnect_time_wait=2,\n                connect_timeout=3,\n            )\n            app[\"nats\"] = nc\n            LOG.info(\"dispatcher NATS connected url=%s\", nats_url)\n        except Exception as exc:  # noqa: BLE001\n            LOG.warning(\"dispatcher NATS connect failed (continuing without): %s\", exc)\n            app[\"nats\"] = None\n    else:\n        app[\"nats\"] = None\n    app.router.add_get(\"/health\", health)\n    app.router.add_get(\"/bindings\", list_bindings)\n    # MCP envelope route (ADR-2605082000 §2.6 + ADR-0087). Must be registered\n    # BEFORE the wildcard so /xrpc/com.etzhayyim.mcp.message hits\
-    \ the dedicated\n    # handler instead of the BPMN-binding lookup.\n    from pymagatama.mcp_dispatch import aiohttp_route as _mcp_route, build_default_handlers\n    app[\"mcp_handlers\"] = build_default_handlers()\n    app.router.add_post(\"/xrpc/com.etzhayyim.mcp.message\", _mcp_route)\n    app.router.add_post(\"/mcp\", mcp_route)\n    app.router.add_post(\"/xrpc/{nsid}\", dispatch)\n    app.router.add_get(\"/xrpc/{nsid}\", dispatch)\n\n    LOG.info(\n        \"dispatcher ready, agentgateway_mcp_url=%s, port=%d, binding_ttl=%ds\",\n        AGENTGATEWAY_MCP_URL,\n        PORT,\n        BINDING_TTL_SEC,\n    )\n    return app\n\n\ndef main() -> None:\n    if not os.environ.get(\"RW_URL\"):\n        LOG.warning(\"RW_URL not set — binding lookup will fail\")\n    web.run_app(make_app(), host=\"0.0.0.0\", port=PORT, access_log=None)\n\n\nif __name__ == \"__main__\":\n    main()\n"
+  dispatcher_main.py: "\"\"\"\nF4 \u2014 generic XRPC dispatcher for BPMN-contract\
+    \ actors (ADR-0049 follow-on).\n\nSingle HTTP server that owns the entire T1/T2\
+    \ actor surface:\n\n    POST /xrpc/{nsid}              \u2014 kick a BPMN process\
+    \ named by the\n                                      vertex_bpmn_lexicon_binding\
+    \ row\n                                      for `nsid`. Body becomes the\n  \
+    \                                    starting variables. Returns the\n       \
+    \                               instance result variables JSON.\n\n    GET  /health\
+    \                   \u2014 liveness\n    GET  /bindings                 \u2014\
+    \ authenticated debug: list known\n                                      nsid\
+    \ \u2192 process_id\n    GET  /xrpc/{nsid}              \u2014 convenience for\
+    \ parameterless\n                                      lookups; same as POST with\
+    \ empty body\n\nAuth: gated by the `DISPATCHER_AUTH_MODE` env var.\n\n    off\
+    \                \u2014 no auth check. Original behaviour, kept only\n       \
+    \                  for local rollback. LB exposure at this mode\n            \
+    \             is a security risk \u2014 see ADR 2604231432\n                 \
+    \        security posture.\n    strict              \u2014 require header `x-internal-trust:\n\
+    \                         <DISPATCHER_INTERNAL_SECRET>` on every\n           \
+    \              `/xrpc/*` call. PDS pipethrough adds this\n                   \
+    \      header (dispatch.ts); direct callers must\n                         supply\
+    \ it too. Unmatched/absent \u2192 401.\n\n`/health` is always open. `/bindings`\
+    \ uses the same gate as `/xrpc/*`\nbecause it reveals the active actor surface.\n\
+    \nRun:\n    python -m pymagatama.dispatcher_main\n\nEnv:\n    DISPATCHER_PORT\
+    \               default 8080\n    AGENTGATEWAY_MCP_URL          pod-side MCP gateway\
+    \ URL\n    RW_URL                        required (binding lookup)\n    BINDING_TTL_SEC\
+    \               default 30 (in-memory cache window)\n    DISPATCHER_AUTH_MODE\
+    \          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET    shared\
+    \ secret when mode=strict\n\"\"\"\n\nfrom __future__ import annotations\n\nimport\
+    \ asyncio\nimport json\nimport logging\nimport os\nimport re\nimport time\nfrom\
+    \ typing import Any\n\nfrom aiohttp import web\n\nfrom pymagatama.db_sync import\
+    \ sync_cursor\n\nLOG = logging.getLogger(\"dispatcher\")\nlogging.basicConfig(level=logging.INFO,\
+    \ format=\"%(asctime)s %(levelname)s %(name)s %(message)s\")\n\nPORT = int(os.environ.get(\"\
+    DISPATCHER_PORT\", \"8080\"))\nAGENTGATEWAY_MCP_URL = os.environ.get(\n    \"\
+    AGENTGATEWAY_MCP_URL\",\n    \"http://agentgateway-mcp.mitama-udf.svc.cluster.local:8080\"\
+    ,\n)\nBINDING_TTL_SEC = int(os.environ.get(\"BINDING_TTL_SEC\", \"30\"))\n\nAUTH_MODE\
+    \ = os.environ.get(\"DISPATCHER_AUTH_MODE\", \"strict\").lower()\nINTERNAL_SECRET\
+    \ = os.environ.get(\"DISPATCHER_INTERNAL_SECRET\", \"\")\nINTERNAL_TRUST_HEADER\
+    \ = \"x-internal-trust\"\nPUBLIC_MALAK_PREFIX = \"com.etzhayyim.apps.publicMalak.\"\
+    \n\n# Yatabase pod proxy (ADR-2605111200 Option A, P59 2026-05-11).\n# Cloudflared\
+    \ on this VKE cannot reach the lg-yatabase pod network namespace\n# for reasons\
+    \ unknown (i/o timeout on every dial \u2014 FQDN, svc IP, pod IP,\n# node IP+hostPort\
+    \ all fail) while bpmn-dispatcher CAN reach it. So we\n# proxy the auth/leads\
+    \ XRPC surface through here instead of relying on the\n# cloudflared origin dialing\
+    \ the pod directly.\nLG_YATABASE_INTERNAL_URL = os.environ.get(\n    \"LG_YATABASE_INTERNAL_URL\"\
+    ,\n    \"http://lg-yatabase.mitama-udf.svc.cluster.local:8000\",\n)\nLG_YATABASE_PROXY_PREFIXES\
+    \ = (\n    # Everything under the yatabase product surface is owned by the pod.\n\
+    \    # Specific NSIDs land on dedicated handlers; unknown ones get a clean\n \
+    \   # 404 from FastAPI instead of crashing here.\n    \"com.etzhayyim.apps.yata.\"\
+    ,\n)\n\n# lg-animeka pod proxy (P3c 2026-05-12, same pattern as lg-yatabase).\n\
+    LG_ANIMEKA_INTERNAL_URL = os.environ.get(\n    \"LG_ANIMEKA_INTERNAL_URL\",\n\
+    \    \"http://lg-animeka.mitama-udf.svc.cluster.local:8000\",\n)\nLG_ANIMEKA_PROXY_PREFIXES\
+    \ = (\n    \"com.etzhayyim.animeka.\",\n)\n\n# lg-recap pod proxy (2026-05-12,\
+    \ same pattern as lg-animeka).\nLG_RECAP_INTERNAL_URL = os.environ.get(\n    \"\
+    LG_RECAP_INTERNAL_URL\",\n    \"http://lg-recap.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_RECAP_PROXY_PREFIXES = (\n    \"com.etzhayyim.apps.recap.\",\n)\n\n#\
+    \ lg-mangaka pod proxy (2026-05-12, same pattern as lg-recap).\nLG_MANGAKA_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_MANGAKA_INTERNAL_URL\",\n    \"http://lg-mangaka.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_MANGAKA_PROXY_NSIDS = frozenset({\n    \"com.etzhayyim.mangaka.saveDocument\"\
+    ,\n    \"com.etzhayyim.mangaka.loadDocument\",\n    \"com.etzhayyim.mangaka.listDocuments\"\
+    ,\n})\n\n# lg-shinshi pod proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase\
+    \ A).\nLG_SHINSHI_INTERNAL_URL = os.environ.get(\n    \"LG_SHINSHI_INTERNAL_URL\"\
+    ,\n    \"http://lg-shinshi.mitama-udf.svc.cluster.local:8000\",\n)\nLG_SHINSHI_PROXY_PREFIXES\
+    \ = (\"com.etzhayyim.apps.shinshi.\",)\n\n# lg-narou pod proxy (2026-05-13, Zeebe\u2192\
+    LangGraph migration Phase A).\nLG_NAROU_INTERNAL_URL = os.environ.get(\n    \"\
+    LG_NAROU_INTERNAL_URL\",\n    \"http://lg-narou.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_NAROU_PROXY_PREFIXES = (\"com.etzhayyim.narou.\",)\n\n# lg-dougaka pod\
+    \ proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase A).\nLG_DOUGAKA_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_DOUGAKA_INTERNAL_URL\",\n    \"http://lg-dougaka.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_DOUGAKA_PROXY_PREFIXES = (\"com.etzhayyim.apps.dougaka.\",)\n\n# lg-x\
+    \ pod proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase A).\nLG_X_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_X_INTERNAL_URL\",\n    \"http://lg-x.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_X_PROXY_PREFIXES = (\"com.etzhayyim.apps.x.\",)\n\n# lg-yukkuri pod proxy\
+    \ (2026-05-13, Zeebe\u2192LangGraph migration Phase A).\nLG_YUKKURI_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_YUKKURI_INTERNAL_URL\",\n    \"http://lg-yukkuri.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_YUKKURI_PROXY_PREFIXES = (\"com.etzhayyim.apps.yukkuri.\",)\n\n# lg-open-jpn-mynumber\
+    \ pod proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase B).\nLG_OPEN_JPN_MYNUMBER_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_OPEN_JPN_MYNUMBER_INTERNAL_URL\",\n    \"http://lg-open-jpn-mynumber.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_OPEN_JPN_MYNUMBER_PROXY_PREFIXES = (\"com.etzhayyim.apps.openJpnMynumber.\"\
+    ,)\n\n# lg-curpus2skill pod proxy (2026-05-13, Zeebe\u2192LangGraph migration\
+    \ Phase B).\nLG_CURPUS2SKILL_INTERNAL_URL = os.environ.get(\n    \"LG_CURPUS2SKILL_INTERNAL_URL\"\
+    ,\n    \"http://lg-curpus2skill.mitama-udf.svc.cluster.local:8000\",\n)\nLG_CURPUS2SKILL_PROXY_PREFIXES\
+    \ = (\"com.etzhayyim.apps.curpus2skill.\",)\n\n# lg-pd-color pod proxy (2026-05-13,\
+    \ Zeebe\u2192LangGraph migration Phase B).\nLG_PD_COLOR_INTERNAL_URL = os.environ.get(\n\
+    \    \"LG_PD_COLOR_INTERNAL_URL\",\n    \"http://lg-pd-color.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_PD_COLOR_PROXY_PREFIXES = (\"com.etzhayyim.apps.pdColor.\",)\n\n# lg-karma\
+    \ pod proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase C).\nLG_KARMA_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_KARMA_INTERNAL_URL\",\n    \"http://lg-karma.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_KARMA_PROXY_PREFIXES = (\"com.etzhayyim.apps.karma.\",)\n\n# lg-legal-entity\
+    \ pod proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase D).\nLG_LEGAL_ENTITY_INTERNAL_URL\
+    \ = os.environ.get(\n    \"LG_LEGAL_ENTITY_INTERNAL_URL\",\n    \"http://lg-legal-entity.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\nLG_LEGAL_ENTITY_PROXY_PREFIXES = (\"com.etzhayyim.legalEntity.\",)\n\n#\
+    \ lg-organism pod proxy (2026-05-13, Zeebe\u2192LangGraph migration Phase E).\n\
+    LG_ORGANISM_INTERNAL_URL = os.environ.get(\n    \"LG_ORGANISM_INTERNAL_URL\",\n\
+    \    \"http://lg-organism.mitama-udf.svc.cluster.local:8000\",\n)\nLG_ORGANISM_PROXY_PREFIXES\
+    \ = (\n    \"com.etzhayyim.hakkou.\",\n    \"com.etzhayyim.apps.kabi.\",\n   \
+    \ \"com.etzhayyim.ki.\",\n    \"com.etzhayyim.apps.kinoko.\",\n    \"com.etzhayyim.apps.kobo.\"\
+    ,\n    \"com.etzhayyim.koke.\",\n    \"com.etzhayyim.apps.saikin.\",\n)\n\n# LangGraph\
+    \ Server routing (ADR-2605080600 Phase 3).\n# When LANGGRAPH_SERVER_URL is set\
+    \ and a binding has routing_target='langgraph',\n# bpmn-dispatcher POSTs to /runs\
+    \ instead of calling Zeebe gRPC.\nLANGGRAPH_SERVER_URL = os.environ.get(\n   \
+    \ \"LANGGRAPH_SERVER_URL\",\n    \"http://langgraph-server.mitama-udf.svc.cluster.local:8000\"\
+    ,\n)\n\n\n# \u2500\u2500\u2500 Binding cache \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n# vertex_bpmn_lexicon_binding\
+    \ lookup is small but hot. Cache for a few\n# seconds so a burst of XRPC traffic\
+    \ doesn't hammer kotoba.\n\n_binding_cache: dict[str, tuple[dict[str, Any] | None,\
+    \ float]] = {}\n\n\ndef _lookup_binding_sync(nsid: str) -> dict[str, Any] | None:\n\
+    \    from pymagatama.kotoba_datomic import get_kotoba_client\n    client = get_kotoba_client()\n\
+    \    rows = client.select_where(\"vertex_bpmn_lexicon_binding\", \"nsid\", nsid,\
+    \ limit=100)\n    active = [r for r in rows if r.get(\"status\") == \"active\"\
+    ]\n    if not active:\n        return None\n    row = active[0]\n    timeout_raw\
+    \ = row.get(\"result_timeout_ms\")\n    return {\n        \"bpmn_process_id\"\
+    : row.get(\"bpmn_process_id\"),\n        \"bpmn_version\": int(row.get(\"bpmn_version\"\
+    ) or 0),\n        \"result_timeout_ms\": 60_000 if timeout_raw is None else int(timeout_raw),\n\
+    \        \"routing_target\": row.get(\"routing_target\") or \"zeebe\",\n     \
+    \   \"langgraph_url\": row.get(\"langgraph_url\")\n    }\n\n\nasync def lookup_binding(nsid:\
+    \ str) -> dict[str, Any] | None:\n    now = time.monotonic()\n    hit = _binding_cache.get(nsid)\n\
+    \    if hit and (now - hit[1]) < BINDING_TTL_SEC:\n        LOG.info(\"binding\
+    \ cache hit nsid=%s ageMs=%d\", nsid, int((now - hit[1]) * 1000))\n        return\
+    \ hit[0]\n    try:\n        binding = await asyncio.to_thread(_lookup_binding_sync,\
+    \ nsid)\n    except Exception:\n        if hit:\n            LOG.warning(\"binding\
+    \ lookup failed nsid=%s; using stale cache\", nsid, exc_info=True)\n         \
+    \   return hit[0]\n        raise\n    _binding_cache[nsid] = (binding, now)\n\
+    \    return binding\n\n\n# \u2500\u2500\u2500 HTTP handlers \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \n\nasync def health(_request: web.Request) -> web.Response:\n    return web.json_response({\"\
+    status\": \"ok\"})\n\n\nasync def list_bindings(_request: web.Request) -> web.Response:\n\
+    \    \"\"\"Debug endpoint \u2014 list active bindings (no cache, fresh DB read).\"\
+    \"\"\n    def _all() -> list[dict[str, Any]]:\n        from pymagatama.kotoba_datomic\
+    \ import get_kotoba_client\n        client = get_kotoba_client()\n        rows\
+    \ = client.select_where(\"vertex_bpmn_lexicon_binding\", \"status\", \"active\"\
+    , limit=2000)\n        return [\n            {\n                \"nsid\": r.get(\"\
+    nsid\"),\n                \"bpmnProcessId\": r.get(\"bpmn_process_id\"),\n   \
+    \             \"bpmnVersion\": int(r.get(\"bpmn_version\") or 0),\n          \
+    \      \"resultTimeoutMs\": 60_000 if r.get(\"result_timeout_ms\") is None else\
+    \ int(r.get(\"result_timeout_ms\")),\n                \"routingTarget\": r.get(\"\
+    routing_target\") or \"zeebe\",\n                \"langgraphUrl\": r.get(\"langgraph_url\"\
+    ),\n            }\n            for r in rows\n        ]\n    rows = await asyncio.to_thread(_all)\n\
+    \    now = time.monotonic()\n    for row in rows:\n        _binding_cache[str(row[\"\
+    nsid\"])] = (\n            {\n                \"bpmn_process_id\": row[\"bpmnProcessId\"\
+    ],\n                \"bpmn_version\": row[\"bpmnVersion\"],\n                \"\
+    result_timeout_ms\": row[\"resultTimeoutMs\"],\n                \"routing_target\"\
+    : row[\"routingTarget\"],\n                \"langgraph_url\": row[\"langgraphUrl\"\
+    ],\n            },\n            now,\n        )\n    return web.json_response({\"\
+    bindings\": rows, \"count\": len(rows)})\n\n\ndef _int_param(value: Any, default:\
+    \ int, *, lo: int = 1, hi: int = 500) -> int:\n    try:\n        parsed = int(value)\n\
+    \    except (TypeError, ValueError):\n        parsed = default\n    return max(lo,\
+    \ min(parsed, hi))\n\n\ndef _bool_param(value: Any) -> bool | None:\n    if value\
+    \ is None or value == \"\":\n        return None\n    if isinstance(value, bool):\n\
+    \        return value\n    raw = str(value).strip().lower()\n    if raw in {\"\
+    1\", \"true\", \"t\", \"yes\", \"y\"}:\n        return True\n    if raw in {\"\
+    0\", \"false\", \"f\", \"no\", \"n\"}:\n        return False\n    return None\n\
+    \n\ndef _permille(value: Any) -> int | None:\n    if value is None or value ==\
+    \ \"\":\n        return None\n    try:\n        return int(float(value) * 1000)\n\
+    \    except (TypeError, ValueError):\n        return None\n\n\ndef _request_params(request:\
+    \ web.Request, body: dict[str, Any] | None = None) -> dict[str, Any]:\n    params\
+    \ = dict(body or {})\n    for key, value in request.query.items():\n        params.setdefault(key,\
+    \ value)\n    return params\n\n\ndef _str_param(params: dict[str, Any], key: str,\
+    \ default: str = \"\") -> str:\n    value = params.get(key)\n    if value is None:\n\
+    \        return default\n    return str(value).strip()\n\n\ndef _public_malak_search_terms(params:\
+    \ dict[str, Any]) -> list[str]:\n    raw = params.get(\"searchTerms\") or params.get(\"\
+    search_terms\") or params.get(\"queryValue\") or params.get(\"query\")\n    values\
+    \ = raw if isinstance(raw, list) else str(raw or \"\").split(\",\")\n    return\
+    \ [str(value).strip() for value in values if str(value).strip()]\n\n\ndef _public_malak_crawl_ads_sync(params:\
+    \ dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \n    platform = _str_param(params, \"platform\")\n    query_kind = _str_param(params,\
+    \ \"queryKind\", \"search\") or _str_param(params, \"query_kind\", \"search\"\
+    )\n    country = _str_param(params, \"country\").upper()\n    search_terms = _public_malak_search_terms(params)\n\
+    \    seeds = [\n        {\n            \"platform\": platform,\n            \"\
+    queryKind\": query_kind,\n            \"queryValue\": term,\n            \"country\"\
+    : country,\n        }\n        for term in search_terms\n    ]\n    out = public_malak_ads.queue_seed_runs(seeds=seeds,\
+    \ limit=_int_param(params.get(\"limit\"), 50, hi=500))\n    runs = out.get(\"\
+    runs\") if isinstance(out.get(\"runs\"), list) else []\n    first_run = runs[0]\
+    \ if runs and isinstance(runs[0], dict) else {}\n    return {\n        \"scraperRunUri\"\
+    : first_run.get(\"vertexId\"),\n        \"searchTerms\": search_terms,\n     \
+    \   \"country\": country or None,\n        \"platform\": platform or None,\n \
+    \       \"status\": \"queued\" if int(out.get(\"queued\") or 0) > 0 else \"completed\"\
+    ,\n        \"adsSeen\": 0,\n        \"adsNew\": 0,\n        \"adsUpdated\": 0,\n\
+    \        \"queued\": int(out.get(\"queued\") or 0),\n        \"skipped\": int(out.get(\"\
+    skipped\") or 0),\n        \"runs\": runs,\n    }\n\n\ndef _public_malak_process_scraper_queue_sync(params:\
+    \ dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \n    return public_malak_ads.process_queue(\n        max_runs=_int_param(params.get(\"\
+    limit\") or params.get(\"max\") or params.get(\"maxRuns\"), 3, hi=50),\n     \
+    \   timeout_sec=float(_int_param(params.get(\"timeoutSec\") or params.get(\"timeout_sec\"\
+    ), 20, lo=1, hi=600)),\n        platform=_str_param(params, \"platform\"),\n \
+    \       reclaim_after_sec=_int_param(params.get(\"reclaimAfterSec\"), 1800, lo=60,\
+    \ hi=86400),\n    )\n\n\ndef _public_malak_analyze_recent_ads_sync(params: dict[str,\
+    \ Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \n    return public_malak_ads.analyze_recent(\n        limit=_int_param(params.get(\"\
+    limit\"), 10, hi=100),\n        platform=_str_param(params, \"platform\"),\n \
+    \       analysis_kind=_str_param(params, \"analysisKind\", \"competitive\") or\
+    \ \"competitive\",\n        model_id=_str_param(params, \"modelId\"),\n    )\n\
+    \n\ndef _public_malak_cluster_recent_ads_sync(params: dict[str, Any]) -> dict[str,\
+    \ Any]:\n    from pymagatama.primitives import public_malak_ads\n\n    return\
+    \ public_malak_ads.cluster_recent(\n        limit=_int_param(params.get(\"limit\"\
+    ), 25, hi=200),\n        platform=_str_param(params, \"platform\"),\n        platform_scope=_str_param(params,\
+    \ \"platformScope\", \"platform\") or \"platform\",\n    )\n\n\ndef _public_malak_campaign_view(row:\
+    \ Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n     \
+    \   \"campaignKey\": row[1],\n        \"platformScope\": row[2],\n        \"advertiserVertexId\"\
+    : row[3],\n        \"advertiserName\": row[4],\n        \"landingDomain\": row[5],\n\
+    \        \"claimToken\": row[6],\n        \"sampleHeadline\": row[7],\n      \
+    \  \"sampleBodyText\": row[8],\n        \"creativeCount\": int(row[9] or 0),\n\
+    \        \"platformCount\": int(row[10] or 0),\n        \"firstSeenAt\": row[11],\n\
+    \        \"lastSeenAt\": row[12],\n        \"riskScorePermille\": int(row[13]\
+    \ or 0),\n        \"summary\": row[14],\n    }\n\n\ndef _public_malak_cluster_creative_view(row:\
+    \ Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n     \
+    \   \"platform\": row[1],\n        \"platformAdId\": row[2],\n        \"advertiserName\"\
+    : row[3],\n        \"headline\": row[4],\n        \"bodyText\": row[5],\n    \
+    \    \"landingUrl\": row[6],\n        \"lastSeenAt\": row[7],\n        \"matchBasis\"\
+    : row[8],\n    }\n\n\ndef _public_malak_scraper_run_view(row: Any) -> dict[str,\
+    \ Any]:\n    return {\n        \"vertexId\": row[0],\n        \"platform\": row[1],\n\
+    \        \"queryKind\": row[2],\n        \"queryValue\": row[3],\n        \"country\"\
+    : row[4],\n        \"startedAt\": row[5],\n        \"finishedAt\": row[6],\n \
+    \       \"status\": row[7],\n        \"adsSeen\": int(row[8] or 0),\n        \"\
+    adsNew\": int(row[9] or 0),\n        \"adsUpdated\": int(row[10] or 0),\n    \
+    \    \"errorMessage\": row[11],\n        \"userAgent\": row[12],\n        \"proxyCountry\"\
+    : row[13],\n        \"playwrightTraceCid\": row[14],\n        \"robotsTxtSnapshotCid\"\
+    : row[15],\n        \"rateLimitSleepMs\": int(row[16] or 0),\n    }\n\n\ndef _public_malak_creative_view(row:\
+    \ Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n     \
+    \   \"platform\": row[1],\n        \"platformAdId\": row[2],\n        \"advertiserVertexId\"\
+    : row[3],\n        \"advertiserName\": row[4],\n        \"creativeType\": row[5],\n\
+    \        \"headline\": row[6],\n        \"bodyText\": row[7],\n        \"ctaText\"\
+    : row[8],\n        \"landingUrl\": row[9],\n        \"displayUrl\": row[10],\n\
+    \        \"mediaUrl\": row[11],\n        \"mediaCid\": row[12],\n        \"thumbnailCid\"\
+    : row[13],\n        \"languages\": row[14],\n        \"currency\": row[15],\n\
+    \        \"impressionsMin\": None if row[16] is None else int(row[16]),\n    \
+    \    \"impressionsMax\": None if row[17] is None else int(row[17]),\n        \"\
+    spendMinPermille\": _permille(row[18]),\n        \"spendMaxPermille\": _permille(row[19]),\n\
+    \        \"reachMin\": None if row[20] is None else int(row[20]),\n        \"\
+    reachMax\": None if row[21] is None else int(row[21]),\n        \"isPolitical\"\
+    : None if row[22] is None else bool(row[22]),\n        \"isActive\": None if row[23]\
+    \ is None else bool(row[23]),\n        \"adDeliveryStartDate\": row[24],\n   \
+    \     \"adDeliveryStopDate\": row[25],\n        \"firstSeenAt\": row[26],\n  \
+    \      \"lastSeenAt\": row[27],\n        \"sourceUrl\": row[28],\n    }\n\n\n\
+    def _public_malak_snapshot_view(row: Any) -> dict[str, Any]:\n    return {\n \
+    \       \"vertexId\": row[0],\n        \"creativeVertexId\": row[1],\n       \
+    \ \"platform\": row[2],\n        \"platformAdId\": row[3],\n        \"scraper\"\
+    : row[4],\n        \"scraperRunId\": row[5],\n        \"scrapedAt\": row[6],\n\
+    \        \"sourceUrl\": row[7],\n        \"httpStatus\": None if row[8] is None\
+    \ else int(row[8]),\n        \"htmlCid\": row[9],\n        \"screenshotCid\":\
+    \ row[10],\n        \"harCid\": row[11],\n        \"observedIsActive\": None if\
+    \ row[12] is None else bool(row[12]),\n        \"observedImpressionsMin\": None\
+    \ if row[13] is None else int(row[13]),\n        \"observedImpressionsMax\": None\
+    \ if row[14] is None else int(row[14]),\n        \"observedSpendMinPermille\"\
+    : _permille(row[15]),\n        \"observedSpendMaxPermille\": _permille(row[16]),\n\
+    \        \"parserVersion\": row[17],\n        \"parseOk\": None if row[18] is\
+    \ None else bool(row[18]),\n        \"parseError\": row[19],\n    }\n\n\ndef _public_malak_advertiser_view(row:\
+    \ Any) -> dict[str, Any]:\n    return {\n        \"vertexId\": row[0],\n     \
+    \   \"platform\": row[1],\n        \"platformAdvertiserId\": row[2],\n       \
+    \ \"name\": row[3],\n        \"verifiedName\": row[4],\n        \"legalName\"\
+    : row[5],\n        \"pageUrl\": row[6],\n        \"pageCategory\": row[7],\n \
+    \       \"country\": row[8],\n        \"fundingEntity\": row[9],\n        \"isPolitical\"\
+    : None if row[10] is None else bool(row[10]),\n        \"legalEntityDid\": row[11],\n\
+    \        \"firstSeenAt\": row[12],\n        \"lastSeenAt\": row[13],\n    }\n\n\
+    \ndef _public_malak_analysis_view(row: Any) -> dict[str, Any]:\n    return {\n\
+    \        \"vertexId\": row[0],\n        \"creativeVertexId\": row[1],\n      \
+    \  \"platform\": row[2],\n        \"platformAdId\": row[3],\n        \"analysisKind\"\
+    : row[4],\n        \"modelId\": row[5],\n        \"status\": row[6],\n       \
+    \ \"summary\": row[7],\n        \"riskScorePermille\": None if row[8] is None\
+    \ else int(row[8]),\n        \"claimJson\": row[9],\n        \"targetingJson\"\
+    : row[10],\n        \"signalsJson\": row[11],\n        \"sourceSnapshotId\": row[12],\n\
+    \        \"analyzedAt\": row[13],\n    }\n\n\ndef _public_malak_creative_select_sql()\
+    \ -> str:\n    return \"\"\"\n        SELECT vertex_id, platform, platform_ad_id,\
+    \ advertiser_vertex_id,\n               advertiser_name, creative_type, headline,\
+    \ body_text, cta_text,\n               landing_url, display_url, media_url, media_cid,\
+    \ thumbnail_cid,\n               languages, currency, impressions_min, impressions_max,\n\
+    \               spend_min, spend_max, reach_min, reach_max, is_political,\n  \
+    \             is_active, ad_delivery_start_date, ad_delivery_stop_date,\n    \
+    \           first_seen_at, last_seen_at, source_url\n        FROM vertex_ads_creative\n\
+    \    \"\"\"\n\n\ndef _public_malak_analysis_select_sql() -> str:\n    return \"\
+    \"\"\n        SELECT vertex_id, creative_vertex_id, platform, platform_ad_id,\n\
+    \               analysis_kind, model_id, status, summary, risk_score_permille,\n\
+    \               claim_json, targeting_json, signals_json, source_snapshot_id,\n\
+    \               analyzed_at\n        FROM vertex_ads_analysis\n    \"\"\"\n\n\n\
+    def _list_public_malak_ads_sync(params: dict[str, Any]) -> dict[str, Any]:\n \
+    \   limit = _int_param(params.get(\"limit\"), 50, hi=500)\n    filters: list[str]\
+    \ = []\n    sql_params: list[Any] = []\n    if params.get(\"platform\"):\n   \
+    \     filters.append(\"platform = %s\")\n        sql_params.append(str(params[\"\
+    platform\"]))\n    if params.get(\"advertiserVertexId\"):\n        filters.append(\"\
+    advertiser_vertex_id = %s\")\n        sql_params.append(str(params[\"advertiserVertexId\"\
+    ]))\n    if params.get(\"country\"):\n        filters.append(\n            \"\
+    EXISTS (SELECT 1 FROM vertex_ads_snapshot s \"\n            \"JOIN vertex_ads_scraper_run\
+    \ r ON r.vertex_id = s.scraper_run_id \"\n            \"WHERE s.creative_vertex_id\
+    \ = vertex_ads_creative.vertex_id AND r.country = %s)\"\n        )\n        sql_params.append(str(params[\"\
+    country\"]).upper())\n    political = _bool_param(params.get(\"isPolitical\"))\n\
+    \    if political is not None:\n        filters.append(\"is_political = %s\")\n\
+    \        sql_params.append(political)\n    active = _bool_param(params.get(\"\
+    isActive\"))\n    if active is not None:\n        filters.append(\"is_active =\
+    \ %s\")\n        sql_params.append(active)\n    if params.get(\"cursor\"):\n \
+    \       filters.append(\"last_seen_at < %s\")\n        sql_params.append(str(params[\"\
+    cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else\
+    \ \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\
+    \"\n            {_public_malak_creative_select_sql()}\n            {where}\n \
+    \           ORDER BY last_seen_at DESC\n            LIMIT {limit + 1}\n      \
+    \      \"\"\",\n            tuple(sql_params),\n        )\n        rows = cur.fetchall()\
+    \ or []\n    views = [_public_malak_creative_view(row) for row in rows[:limit]]\n\
+    \    next_cursor = str(rows[limit][27]) if len(rows) > limit and rows[limit][27]\
+    \ else None\n    return {\"ads\": views, \"total\": len(views), \"cursor\": next_cursor}\n\
+    \n\ndef _list_public_malak_analyses_sync(params: dict[str, Any]) -> dict[str,\
+    \ Any]:\n    limit = _int_param(params.get(\"limit\"), 50, hi=500)\n    filters:\
+    \ list[str] = []\n    sql_params: list[Any] = []\n    if params.get(\"creativeVertexId\"\
+    ):\n        filters.append(\"creative_vertex_id = %s\")\n        sql_params.append(str(params[\"\
+    creativeVertexId\"]))\n    if params.get(\"platform\"):\n        filters.append(\"\
+    platform = %s\")\n        sql_params.append(str(params[\"platform\"]))\n    if\
+    \ params.get(\"platformAdId\"):\n        filters.append(\"platform_ad_id = %s\"\
+    )\n        sql_params.append(str(params[\"platformAdId\"]))\n    if params.get(\"\
+    analysisKind\"):\n        filters.append(\"analysis_kind = %s\")\n        sql_params.append(str(params[\"\
+    analysisKind\"]))\n    if params.get(\"status\"):\n        filters.append(\"status\
+    \ = %s\")\n        sql_params.append(str(params[\"status\"]))\n    if params.get(\"\
+    minRiskScorePermille\") is not None:\n        filters.append(\"risk_score_permille\
+    \ >= %s\")\n        sql_params.append(_int_param(params.get(\"minRiskScorePermille\"\
+    ), 0, lo=0, hi=1000))\n    if params.get(\"cursor\"):\n        filters.append(\"\
+    analyzed_at < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where\
+    \ = (\"WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor()\
+    \ as cur:\n        cur.execute(\n            f\"\"\"\n            {_public_malak_analysis_select_sql()}\n\
+    \            {where}\n            ORDER BY analyzed_at DESC\n            LIMIT\
+    \ {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n\
+    \        rows = cur.fetchall() or []\n    views = [_public_malak_analysis_view(row)\
+    \ for row in rows[:limit]]\n    next_cursor = str(rows[limit][13]) if len(rows)\
+    \ > limit and rows[limit][13] else None\n    return {\"analyses\": views, \"total\"\
+    : len(views), \"cursor\": next_cursor}\n\n\ndef _get_public_malak_analysis_sync(params:\
+    \ dict[str, Any]) -> dict[str, Any]:\n    vertex_id = _str_param(params, \"vertexId\"\
+    ) or _str_param(params, \"analysisVertexId\")\n    creative_vertex_id = _str_param(params,\
+    \ \"creativeVertexId\")\n    analysis_kind = _str_param(params, \"analysisKind\"\
+    )\n    model_id = _str_param(params, \"modelId\")\n    if vertex_id:\n       \
+    \ where = \"vertex_id = %s\"\n        sql_params: tuple[Any, ...] = (vertex_id,)\n\
+    \    elif creative_vertex_id and analysis_kind and model_id:\n        where =\
+    \ \"creative_vertex_id = %s AND analysis_kind = %s AND model_id = %s\"\n     \
+    \   sql_params = (creative_vertex_id, analysis_kind, model_id)\n    elif creative_vertex_id\
+    \ and analysis_kind:\n        where = \"creative_vertex_id = %s AND analysis_kind\
+    \ = %s\"\n        sql_params = (creative_vertex_id, analysis_kind)\n    else:\n\
+    \        return {\"error\": \"vertexId or creativeVertexId+analysisKind required\"\
+    }\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\"\n\
+    \            {_public_malak_analysis_select_sql()}\n            WHERE {where}\n\
+    \            ORDER BY analyzed_at DESC\n            LIMIT 1\n            \"\"\"\
+    ,\n            sql_params,\n        )\n        row = cur.fetchone()\n    if not\
+    \ row:\n        return {\"error\": \"AnalysisNotFound\"}\n    return {\"analysis\"\
+    : _public_malak_analysis_view(row)}\n\n\ndef _get_public_malak_creative_sync(params:\
+    \ dict[str, Any]) -> dict[str, Any]:\n    vertex_id = _str_param(params, \"vertexId\"\
+    )\n    platform = _str_param(params, \"platform\")\n    platform_ad_id = _str_param(params,\
+    \ \"platformAdId\")\n    if vertex_id:\n        where = \"vertex_id = %s\"\n \
+    \       sql_params: tuple[Any, ...] = (vertex_id,)\n    elif platform and platform_ad_id:\n\
+    \        where = \"platform = %s AND platform_ad_id = %s\"\n        sql_params\
+    \ = (platform, platform_ad_id)\n    else:\n        return {\"error\": \"vertexId\
+    \ or platform+platformAdId required\"}\n    with sync_cursor() as cur:\n     \
+    \   cur.execute(\n            f\"\"\"\n            {_public_malak_creative_select_sql()}\n\
+    \            WHERE {where}\n            LIMIT 1\n            \"\"\",\n       \
+    \     sql_params,\n        )\n        row = cur.fetchone()\n    if not row:\n\
+    \        return {\"error\": \"CreativeNotFound\"}\n    return {\"creative\": _public_malak_creative_view(row)}\n\
+    \n\ndef _get_public_malak_advertiser_sync(params: dict[str, Any]) -> dict[str,\
+    \ Any]:\n    vertex_id = _str_param(params, \"vertexId\")\n    platform = _str_param(params,\
+    \ \"platform\")\n    platform_advertiser_id = _str_param(params, \"platformAdvertiserId\"\
+    )\n    if vertex_id:\n        where = \"vertex_id = %s\"\n        sql_params:\
+    \ tuple[Any, ...] = (vertex_id,)\n    elif platform and platform_advertiser_id:\n\
+    \        where = \"platform = %s AND platform_advertiser_id = %s\"\n        sql_params\
+    \ = (platform, platform_advertiser_id)\n    else:\n        return {\"error\":\
+    \ \"vertexId or platform+platformAdvertiserId required\"}\n    with sync_cursor()\
+    \ as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id,\
+    \ platform, platform_advertiser_id, name,\n                   verified_name, legal_name,\
+    \ page_url, page_category, country,\n                   funding_entity, is_political,\
+    \ legal_entity_did,\n                   first_seen_at, last_seen_at\n        \
+    \    FROM vertex_ads_advertiser\n            WHERE {where}\n            LIMIT\
+    \ 1\n            \"\"\",\n            sql_params,\n        )\n        row = cur.fetchone()\n\
+    \    if not row:\n        return {\"error\": \"AdvertiserNotFound\"}\n    return\
+    \ {\"advertiser\": _public_malak_advertiser_view(row)}\n\n\ndef _public_malak_analyze_ad_sync(params:\
+    \ dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \n    creative_vertex_id = _str_param(params, \"creativeVertexId\")\n    if not\
+    \ creative_vertex_id:\n        return {\"error\": \"creativeVertexId required\"\
+    , \"status\": \"failed\"}\n    return public_malak_ads.analyze_creative(\n   \
+    \     creative_vertex_id=creative_vertex_id,\n        analysis_kind=_str_param(params,\
+    \ \"analysisKind\", \"competitive\") or \"competitive\",\n        model_id=_str_param(params,\
+    \ \"modelId\"),\n    )\n\n\ndef _list_public_malak_snapshots_sync(params: dict[str,\
+    \ Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50,\
+    \ hi=500)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if\
+    \ params.get(\"creativeVertexId\"):\n        filters.append(\"creative_vertex_id\
+    \ = %s\")\n        sql_params.append(str(params[\"creativeVertexId\"]))\n    if\
+    \ params.get(\"scraperRunId\"):\n        filters.append(\"scraper_run_id = %s\"\
+    )\n        sql_params.append(str(params[\"scraperRunId\"]))\n    if params.get(\"\
+    platform\"):\n        filters.append(\"platform = %s\")\n        sql_params.append(str(params[\"\
+    platform\"]))\n    if params.get(\"platformAdId\"):\n        filters.append(\"\
+    platform_ad_id = %s\")\n        sql_params.append(str(params[\"platformAdId\"\
+    ]))\n    if params.get(\"cursor\"):\n        filters.append(\"scraped_at < %s\"\
+    )\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"WHERE \"\
+    \ + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor() as cur:\n\
+    \        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, creative_vertex_id,\
+    \ platform, platform_ad_id,\n                   scraper, scraper_run_id, scraped_at,\
+    \ source_url, http_status,\n                   html_cid, screenshot_cid, har_cid,\
+    \ observed_is_active,\n                   observed_impressions_min, observed_impressions_max,\n\
+    \                   observed_spend_min, observed_spend_max, parser_version,\n\
+    \                   parse_ok, parse_error\n            FROM vertex_ads_snapshot\n\
+    \            {where}\n            ORDER BY scraped_at DESC, vertex_id DESC\n \
+    \           LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n\
+    \        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_snapshot_view(row)\
+    \ for row in rows[:limit]]\n    next_cursor = str(rows[limit][6]) if len(rows)\
+    \ > limit and rows[limit][6] else None\n    return {\"snapshots\": views, \"cursor\"\
+    : next_cursor}\n\n\ndef _list_public_malak_scraper_runs_sync(params: dict[str,\
+    \ Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50,\
+    \ hi=500)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if\
+    \ params.get(\"platform\"):\n        filters.append(\"platform = %s\")\n     \
+    \   sql_params.append(str(params[\"platform\"]))\n    if params.get(\"status\"\
+    ):\n        filters.append(\"status = %s\")\n        sql_params.append(str(params[\"\
+    status\"]))\n    if params.get(\"cursor\"):\n        filters.append(\"started_at\
+    \ < %s\")\n        sql_params.append(str(params[\"cursor\"]))\n    where = (\"\
+    WHERE \" + \" AND \".join(filters)) if filters else \"\"\n    with sync_cursor()\
+    \ as cur:\n        cur.execute(\n            f\"\"\"\n            SELECT vertex_id,\
+    \ platform, query_kind, query_value, country,\n                   started_at,\
+    \ finished_at, status, ads_seen, ads_new,\n                   ads_updated, error_message,\
+    \ user_agent, proxy_country,\n                   playwright_trace_cid, robots_txt_snapshot_cid,\n\
+    \                   rate_limit_sleep_ms\n            FROM vertex_ads_scraper_run\n\
+    \            {where}\n            ORDER BY started_at DESC\n            LIMIT\
+    \ {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n        )\n\
+    \        rows = cur.fetchall() or []\n    views = [_public_malak_scraper_run_view(row)\
+    \ for row in rows[:limit]]\n    next_cursor = str(rows[limit][5]) if len(rows)\
+    \ > limit and rows[limit][5] else None\n    return {\"runs\": views, \"cursor\"\
+    : next_cursor}\n\n\ndef _list_public_malak_campaign_clusters_sync(params: dict[str,\
+    \ Any]) -> dict[str, Any]:\n    limit = _int_param(params.get(\"limit\"), 50,\
+    \ hi=200)\n    filters: list[str] = []\n    sql_params: list[Any] = []\n    if\
+    \ params.get(\"platformScope\"):\n        filters.append(\"platform_scope = %s\"\
+    )\n        sql_params.append(str(params[\"platformScope\"]))\n    if params.get(\"\
+    advertiserVertexId\"):\n        filters.append(\"advertiser_vertex_id = %s\")\n\
+    \        sql_params.append(str(params[\"advertiserVertexId\"]))\n    if params.get(\"\
+    landingDomain\"):\n        filters.append(\"landing_domain = %s\")\n        sql_params.append(str(params[\"\
+    landingDomain\"]).lower())\n    if params.get(\"minCreativeCount\") is not None:\n\
+    \        filters.append(\"creative_count >= %s\")\n        sql_params.append(_int_param(params.get(\"\
+    minCreativeCount\"), 1, hi=1_000_000))\n    if params.get(\"cursor\"):\n     \
+    \   filters.append(\"last_seen_at < %s\")\n        sql_params.append(str(params[\"\
+    cursor\"]))\n    where = (\"WHERE \" + \" AND \".join(filters)) if filters else\
+    \ \"\"\n    with sync_cursor() as cur:\n        cur.execute(\n            f\"\"\
+    \"\n            SELECT vertex_id, campaign_key, platform_scope, advertiser_vertex_id,\n\
+    \                   advertiser_name, landing_domain, claim_token, sample_headline,\n\
+    \                   sample_body_text, creative_count, platform_count, first_seen_at,\n\
+    \                   last_seen_at, risk_score_permille, summary\n            FROM\
+    \ vertex_ads_campaign_cluster\n            {where}\n            ORDER BY last_seen_at\
+    \ DESC\n            LIMIT {limit + 1}\n            \"\"\",\n            tuple(sql_params),\n\
+    \        )\n        rows = cur.fetchall() or []\n    views = [_public_malak_campaign_view(row)\
+    \ for row in rows[:limit]]\n    next_cursor = str(rows[limit][12]) if len(rows)\
+    \ > limit and rows[limit][12] else None\n    return {\"clusters\": views, \"cursor\"\
+    : next_cursor}\n\n\ndef _get_public_malak_campaign_cluster_sync(params: dict[str,\
+    \ Any]) -> dict[str, Any]:\n    vertex_id = str(params.get(\"vertexId\") or \"\
+    \")\n    campaign_key = str(params.get(\"campaignKey\") or \"\")\n    creative_limit\
+    \ = _int_param(params.get(\"creativeLimit\"), 50, hi=200)\n    analysis_limit\
+    \ = _int_param(params.get(\"analysisLimit\"), 100, hi=500)\n    if not vertex_id\
+    \ and not campaign_key:\n        return {\"error\": \"vertexId or campaignKey\
+    \ required\"}\n    if vertex_id:\n        where = \"vertex_id = %s\"\n       \
+    \ sql_params: tuple[Any, ...] = (vertex_id,)\n    else:\n        where = \"campaign_key\
+    \ = %s\"\n        sql_params = (campaign_key,)\n    with sync_cursor() as cur:\n\
+    \        cur.execute(\n            f\"\"\"\n            SELECT vertex_id, campaign_key,\
+    \ platform_scope, advertiser_vertex_id,\n                   advertiser_name, landing_domain,\
+    \ claim_token, sample_headline,\n                   sample_body_text, creative_count,\
+    \ platform_count, first_seen_at,\n                   last_seen_at, risk_score_permille,\
+    \ summary\n            FROM vertex_ads_campaign_cluster\n            WHERE {where}\n\
+    \            LIMIT 1\n            \"\"\",\n            sql_params,\n        )\n\
+    \        rows = cur.fetchall() or []\n        if not rows:\n            return\
+    \ {\"error\": \"CampaignClusterNotFound\"}\n        cluster = _public_malak_campaign_view(rows[0])\n\
+    \        cur.execute(\n            f\"\"\"\n            SELECT c.vertex_id, c.platform,\
+    \ c.platform_ad_id, c.advertiser_name,\n                   c.headline, c.body_text,\
+    \ c.landing_url, c.last_seen_at,\n                   e.match_basis\n         \
+    \   FROM edge_ads_creative_in_campaign e\n            JOIN vertex_ads_creative\
+    \ c ON c.vertex_id = e.src_vid\n            WHERE e.dst_vid = %s\n           \
+    \ ORDER BY c.last_seen_at DESC\n            LIMIT {creative_limit}\n         \
+    \   \"\"\",\n            (cluster[\"vertexId\"],),\n        )\n        creative_rows\
+    \ = cur.fetchall() or []\n        cur.execute(\n            f\"\"\"\n        \
+    \    SELECT a.vertex_id, a.creative_vertex_id, a.platform, a.platform_ad_id,\n\
+    \                   a.analysis_kind, a.model_id, a.status, a.summary,\n      \
+    \             a.risk_score_permille, a.claim_json, a.targeting_json,\n       \
+    \            a.signals_json, a.source_snapshot_id, a.analyzed_at\n           \
+    \ FROM edge_ads_creative_in_campaign e\n            JOIN vertex_ads_analysis a\
+    \ ON a.creative_vertex_id = e.src_vid\n            WHERE e.dst_vid = %s\n    \
+    \        ORDER BY a.analyzed_at DESC\n            LIMIT {analysis_limit}\n   \
+    \         \"\"\",\n            (cluster[\"vertexId\"],),\n        )\n        analysis_rows\
+    \ = cur.fetchall() or []\n    return {\n        \"cluster\": cluster,\n      \
+    \  \"creatives\": [_public_malak_cluster_creative_view(row) for row in creative_rows],\n\
+    \        \"analyses\": [_public_malak_analysis_view(row) for row in analysis_rows],\n\
+    \    }\n\n\nasync def public_malak_direct_query(request: web.Request, nsid: str,\
+    \ body: dict[str, Any] | None = None) -> web.Response | None:\n    params = _request_params(request,\
+    \ body)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listCampaignClusters\":\n    \
+    \    out = await asyncio.to_thread(_list_public_malak_campaign_clusters_sync,\
+    \ params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getCampaignCluster\"\
+    :\n        out = await asyncio.to_thread(_get_public_malak_campaign_cluster_sync,\
+    \ params)\n        status = 400 if out.get(\"error\") == \"vertexId or campaignKey\
+    \ required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out,\
+    \ status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listScraperRuns\":\n\
+    \        out = await asyncio.to_thread(_list_public_malak_scraper_runs_sync, params)\n\
+    \        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listAds\"\
+    :\n        out = await asyncio.to_thread(_list_public_malak_ads_sync, params)\n\
+    \        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listAnalyses\"\
+    :\n        out = await asyncio.to_thread(_list_public_malak_analyses_sync, params)\n\
+    \        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getAnalysis\"\
+    :\n        out = await asyncio.to_thread(_get_public_malak_analysis_sync, params)\n\
+    \        status = 400 if out.get(\"error\") == \"vertexId or creativeVertexId+analysisKind\
+    \ required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out,\
+    \ status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getCreative\":\n    \
+    \    out = await asyncio.to_thread(_get_public_malak_creative_sync, params)\n\
+    \        status = 400 if out.get(\"error\") == \"vertexId or platform+platformAdId\
+    \ required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out,\
+    \ status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}getAdvertiser\":\n  \
+    \      out = await asyncio.to_thread(_get_public_malak_advertiser_sync, params)\n\
+    \        status = 400 if out.get(\"error\") == \"vertexId or platform+platformAdvertiserId\
+    \ required\" else 404 if out.get(\"error\") else 200\n        return web.json_response(out,\
+    \ status=status)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}listSnapshots\":\n  \
+    \      out = await asyncio.to_thread(_list_public_malak_snapshots_sync, params)\n\
+    \        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}crawlAds\"\
+    :\n        out = await asyncio.to_thread(_public_malak_crawl_ads_sync, params)\n\
+    \        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}processScraperQueue\"\
+    :\n        out = await asyncio.to_thread(_public_malak_process_scraper_queue_sync,\
+    \ params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}analyzeRecentAds\"\
+    :\n        out = await asyncio.to_thread(_public_malak_analyze_recent_ads_sync,\
+    \ params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}clusterRecentAds\"\
+    :\n        out = await asyncio.to_thread(_public_malak_cluster_recent_ads_sync,\
+    \ params)\n        return web.json_response(out)\n    if nsid == f\"{PUBLIC_MALAK_PREFIX}analyzeAd\"\
+    :\n        out = await asyncio.to_thread(_public_malak_analyze_ad_sync, params)\n\
+    \        status = 400 if out.get(\"error\") == \"creativeVertexId required\" else\
+    \ 404 if out.get(\"error\") == \"CreativeNotFound\" else 200\n        return web.json_response(out,\
+    \ status=status)\n    return None\n\n\n\n\ndef _langgraph_request_headers() ->\
+    \ dict[str, str]:\n    \"\"\"Headers for dispatcher \u2192 LangGraph internal\
+    \ calls.\n\n    The LangGraph Server currently lives behind ClusterIP, but this\
+    \ keeps the\n    same shared-secret boundary as `/xrpc/*` when the server starts\
+    \ enforcing it.\n    \"\"\"\n    headers: dict[str, str] = {}\n    if INTERNAL_SECRET:\n\
+    \        headers[INTERNAL_TRUST_HEADER] = INTERNAL_SECRET\n    return headers\n\
+    \n\ndef _first_str(mapping: dict[str, Any], *keys: str) -> str | None:\n    for\
+    \ key in keys:\n        value = mapping.get(key)\n        if isinstance(value,\
+    \ str) and value.strip():\n            return value.strip()\n    return None\n\
+    \n\ndef _langgraph_run_payload(assistant_id: str, process_vars: dict[str, Any])\
+    \ -> dict[str, Any]:\n    \"\"\"Build the LangGraph `/runs` payload from dispatcher\
+    \ process variables.\n\n    Keep identity fields top-level so LangGraph Server\
+    \ can bind the run to the\n    same actor/thread regardless of the graph input\
+    \ schema. The full process\n    variables remain in `input` for graph-local logic\
+    \ and audit.\n    \"\"\"\n    payload: dict[str, Any] = {\n        \"assistant_id\"\
+    : assistant_id,\n        \"input\": process_vars,\n    }\n    thread_id = _first_str(process_vars,\
+    \ \"thread_id\", \"threadId\", \"_threadId\")\n    actor_did = _first_str(process_vars,\
+    \ \"actor_did\", \"actorDid\", \"_actorDid\")\n    if thread_id:\n        payload[\"\
+    thread_id\"] = thread_id\n    if actor_did:\n        payload[\"actor_did\"] =\
+    \ actor_did\n    config = process_vars.get(\"config\")\n    if isinstance(config,\
+    \ dict):\n        payload[\"config\"] = config\n    return payload\n\n\nasync\
+    \ def _dispatch_langgraph(\n    nsid: str,\n    binding: dict[str, Any],\n   \
+    \ process_vars: dict[str, Any],\n    started: float,\n    override_assistant_id:\
+    \ str | None = None,\n) -> web.Response:\n    \"\"\"Route to LangGraph Server\
+    \ POST /runs (ADR-2605080600 Phase 3).\n\n    The assistant_id maps from bpmn_process_id\
+    \ (e.g. 'shosha_agent_loop' \u2192\n    'shosha_agent_loop').  LangGraph Server\
+    \ returns {run_id, status} for\n    background runs.  We return immediately with\
+    \ 202 + run_id so the caller\n    can poll GET /runs/{run_id} if needed.\n   \
+    \ \"\"\"\n    import aiohttp\n\n    assistant_id = override_assistant_id or binding[\"\
+    bpmn_process_id\"]\n    # Per-binding URL override (ADR-2605080700). voxelforge\
+    \ ships its\n    # own Helm release exposing voxelforge-langgraph.mitama-udf.svc...:8000;\n\
+    \    # other actors fall back to the global langgraph-server pod.\n    base =\
+    \ (binding.get(\"langgraph_url\") or LANGGRAPH_SERVER_URL).rstrip(\"/\")\n   \
+    \ url = f\"{base}/runs\"\n    payload = _langgraph_run_payload(assistant_id, process_vars)\n\
+    \    headers = _langgraph_request_headers()\n    timeout_ms = binding[\"result_timeout_ms\"\
+    ]\n\n    try:\n        async with aiohttp.ClientSession() as session:\n      \
+    \      async with session.post(\n                url,\n                json=payload,\n\
+    \                headers=headers,\n                timeout=aiohttp.ClientTimeout(total=max(10.0,\
+    \ timeout_ms / 1000.0)),\n            ) as resp:\n                try:\n     \
+    \               body = await resp.json(content_type=None)\n                except\
+    \ Exception:\n                    text = await resp.text()\n                 \
+    \   body = {\"detail\": text[:500]}\n                latency_ms = int((time.monotonic()\
+    \ - started) * 1000)\n                LOG.info(\n                    \"langgraph\
+    \ dispatch nsid=%s assistant=%s run_id=%s status=%s latencyMs=%d\",\n        \
+    \            nsid,\n                    assistant_id,\n                    body.get(\"\
+    run_id\"),\n                    body.get(\"status\"),\n                    latency_ms,\n\
+    \                )\n                if resp.status >= 400:\n                 \
+    \   return web.json_response(\n                        {\"error\": body.get(\"\
+    detail\", \"langgraph error\"),\n                         \"nsid\": nsid, \"assistant_id\"\
+    : assistant_id},\n                        status=resp.status,\n              \
+    \      )\n                return web.json_response({\n                    \"ok\"\
+    : True,\n                    \"asyncStarted\": True,\n                    \"nsid\"\
+    : nsid,\n                    \"assistant_id\": assistant_id,\n               \
+    \     \"run_id\": body.get(\"run_id\"),\n                    \"thread_id\": body.get(\"\
+    thread_id\"),\n                    \"actor_did\": payload.get(\"actor_did\"),\n\
+    \                    \"status\": body.get(\"status\", \"pending\"),\n        \
+    \            \"latencyMs\": latency_ms,\n                }, status=202)\n    except\
+    \ Exception as e:  # noqa: BLE001\n        LOG.exception(\"langgraph dispatch\
+    \ failed nsid=%s\", nsid)\n        return web.json_response(\n            {\"\
+    error\": f\"{type(e).__name__}: {str(e)[:300]}\",\n             \"nsid\": nsid,\
+    \ \"assistant_id\": assistant_id},\n            status=502,\n        )\n\n\nasync\
+    \ def _dispatch_mailer_direct(nsid: str, body: dict[str, Any]) -> web.Response\
+    \ | None:\n    \"\"\"Serve mailer single-step commands synchronously.\n\n    Dispatcher\
+    \ Phase G routes all generic bindings through LangGraph /runs,\n    which is async\
+    \ and requires assistant rows. The mailer appview still has\n    synchronous read\
+    \ surfaces (/api/stats, /api/emails), so keep this small\n    direct bridge until\
+    \ mailer has a first-class LangGraph facade.\n    \"\"\"\n    if not nsid.startswith(\"\
+    com.etzhayyim.apps.mailer.\"):\n        return None\n\n    op = nsid.rsplit(\"\
+    .\", 1)[-1]\n    fn_name = {\n        \"health\": \"health\",\n        \"listEmails\"\
+    : \"list_emails\",\n        \"listBindings\": \"list_bindings\",\n        \"stats\"\
+    : \"stats\",\n        \"sendEmail\": \"send_email\",\n        \"provisionMailbox\"\
+    : \"provision_mailbox\",\n        \"handleCommit\": \"handle_commit\",\n     \
+    \   \"heartbeat\": \"heartbeat\",\n    }.get(op)\n    if not fn_name:\n      \
+    \  return None\n\n    def _run() -> dict[str, Any]:\n        from pymagatama.ingest\
+    \ import mailer\n\n        fn = getattr(mailer, fn_name)\n        return fn(**(body\
+    \ or {}))\n\n    try:\n        result = await asyncio.to_thread(_run)\n      \
+    \  return web.json_response(result)\n    except Exception as exc:  # noqa: BLE001\n\
+    \        LOG.exception(\"mailer direct dispatch failed nsid=%s\", nsid)\n    \
+    \    return web.json_response(\n            {\"error\": f\"{type(exc).__name__}:\
+    \ {str(exc)[:300]}\", \"nsid\": nsid},\n            status=502,\n        )\n\n\
+    \nasync def _proxy_to_lg_yatabase(\n    request: web.Request, nsid: str, body:\
+    \ dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward yatabase XRPC NSIDs to\
+    \ the lg-yatabase Granian pod.\n\n    bpmn-dispatcher can reach the lg-yatabase\
+    \ pod over cluster networking;\n    cloudflared currently cannot (i/o timeout\
+    \ on dial). The Worker still\n    HMAC-signs the body with DISPATCHER_INTERNAL_SECRET,\
+    \ which the pod's\n    `_verify_trust` also recomputes \u2014 so we forward the\
+    \ x-internal-trust\n    header verbatim and the pod accepts it.\n\n    CRITICAL:\
+    \ forward the original RAW body bytes, not a re-serialized\n    json.dumps(body).\
+    \ The pod recomputes HMAC over the raw bytes, so any\n    re-serialization changes\
+    \ the digest and the pod returns 401.\n    \"\"\"\n    import aiohttp as _aiohttp\n\
+    \    target = f\"{LG_YATABASE_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method\
+    \ = request.method\n    headers: dict[str, str] = {}\n    # Forward HMAC + identity\
+    \ + trace headers verbatim.\n    for h in (\n        INTERNAL_TRUST_HEADER,\n\
+    \        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\",\n      \
+    \  \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n        v = request.headers.get(h)\n\
+    \        if v is not None:\n            headers[h] = v\n    started = time.monotonic()\n\
+    \    try:\n        async with _aiohttp.ClientSession() as session:\n         \
+    \   if method == \"GET\":\n                # GET params travel as querystring\
+    \ on the proxied request.\n                params = {k: v for k, v in request.query.items()}\n\
+    \                async with session.get(\n                    target,\n      \
+    \              params=params,\n                    headers=headers,\n        \
+    \            timeout=_aiohttp.ClientTimeout(total=30),\n                ) as resp:\n\
+    \                    raw = await resp.read()\n                    LOG.info(\n\
+    \                        \"lg-yatabase proxy GET nsid=%s status=%s ms=%d\",\n\
+    \                        nsid, resp.status, int((time.monotonic() - started) *\
+    \ 1000),\n                    )\n                    ct = (resp.headers.get(\"\
+    content-type\") or \"application/json\").split(\";\")[0].strip()\n           \
+    \         return web.Response(status=resp.status, body=raw, content_type=ct)\n\
+    \            # POST: forward the exact bytes the Worker signed (the body was\n\
+    \            # already buffered by auth_middleware's `request.read()`).\n    \
+    \        try:\n                payload = await request.read()\n            except\
+    \ Exception:\n                payload = json.dumps(body).encode()\n          \
+    \  async with session.post(\n                target,\n                data=payload,\n\
+    \                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=30),\n\
+    \            ) as resp:\n                raw = await resp.read()\n           \
+    \     LOG.info(\n                    \"lg-yatabase proxy POST nsid=%s status=%s\
+    \ ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started)\
+    \ * 1000),\n                )\n                ct = (resp.headers.get(\"content-type\"\
+    ) or \"application/json\").split(\";\")[0].strip()\n                return web.Response(status=resp.status,\
+    \ body=raw, content_type=ct)\n    except _aiohttp.ClientError as exc:\n      \
+    \  LOG.exception(\"lg-yatabase proxy failed nsid=%s err=%s\", nsid, exc)\n   \
+    \     return web.json_response(\n            {\"error\": \"ProxyFailed\", \"message\"\
+    : str(exc)[:300], \"nsid\": nsid},\n            status=502,\n        )\n    except\
+    \ asyncio.TimeoutError:\n        return web.json_response(\n            {\"error\"\
+    : \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n        )\n\n\nasync def _proxy_to_lg_animeka(\n\
+    \    request: web.Request, nsid: str, body: dict[str, Any],\n) -> web.Response:\n\
+    \    \"\"\"Forward animeka XRPC NSIDs to the lg-animeka LangGraph pod (P3c 2026-05-12).\"\
+    \"\"\n    import aiohttp as _aiohttp\n    target = f\"{LG_ANIMEKA_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\
+    \n    method = request.method\n    headers: dict[str, str] = {}\n    for h in\
+    \ (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n    \
+    \    \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\"\
+    ,\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n   \
+    \         headers[h] = v\n    started = time.monotonic()\n    try:\n        async\
+    \ with _aiohttp.ClientSession() as session:\n            if method == \"GET\"\
+    :\n                params = {k: v for k, v in request.query.items()}\n       \
+    \         async with session.get(\n                    target,\n             \
+    \       params=params,\n                    headers=headers,\n               \
+    \     timeout=_aiohttp.ClientTimeout(total=30),\n                ) as resp:\n\
+    \                    raw = await resp.read()\n                    LOG.info(\n\
+    \                        \"lg-animeka proxy GET nsid=%s status=%s ms=%d\",\n \
+    \                       nsid, resp.status, int((time.monotonic() - started) *\
+    \ 1000),\n                    )\n                    return web.Response(\n  \
+    \                      status=resp.status, body=raw,\n                       \
+    \ content_type=resp.headers.get(\"content-type\", \"application/json\"),\n   \
+    \                 )\n            try:\n                payload = await request.read()\n\
+    \            except Exception:\n                payload = json.dumps(body).encode()\n\
+    \            async with session.post(\n                target,\n             \
+    \   data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=30),\n\
+    \            ) as resp:\n                raw = await resp.read()\n           \
+    \     LOG.info(\n                    \"lg-animeka proxy POST nsid=%s status=%s\
+    \ ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started)\
+    \ * 1000),\n                )\n                return web.Response(\n        \
+    \            status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"\
+    content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError\
+    \ as exc:\n        LOG.exception(\"lg-animeka proxy failed nsid=%s err=%s\", nsid,\
+    \ exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\"\
+    , \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n   \
+    \     )\n    except asyncio.TimeoutError:\n        return web.json_response(\n\
+    \            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n    \
+    \    )\n\n\nasync def _proxy_to_lg_recap(\n    request: web.Request, nsid: str,\
+    \ body: dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward recap XRPC NSIDs\
+    \ to the lg-recap LangGraph pod (2026-05-12).\"\"\"\n    import aiohttp as _aiohttp\n\
+    \    target = f\"{LG_RECAP_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method\
+    \ = request.method\n    headers: dict[str, str] = {}\n    for h in (\n       \
+    \ INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\"\
+    ,\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n    \
+    \    v = request.headers.get(h)\n        if v is not None:\n            headers[h]\
+    \ = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession()\
+    \ as session:\n            if method == \"GET\":\n                params = {k:\
+    \ v for k, v in request.query.items()}\n                async with session.get(\n\
+    \                    target,\n                    params=params,\n           \
+    \         headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=60),\n\
+    \                ) as resp:\n                    raw = await resp.read()\n   \
+    \                 LOG.info(\n                        \"lg-recap proxy GET nsid=%s\
+    \ status=%s ms=%d\",\n                        nsid, resp.status, int((time.monotonic()\
+    \ - started) * 1000),\n                    )\n                    return web.Response(\n\
+    \                        status=resp.status, body=raw,\n                     \
+    \   content_type=resp.headers.get(\"content-type\", \"application/json\"),\n \
+    \                   )\n            try:\n                payload = await request.read()\n\
+    \            except Exception:\n                payload = json.dumps(body).encode()\n\
+    \            async with session.post(\n                target,\n             \
+    \   data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=60),\n\
+    \            ) as resp:\n                raw = await resp.read()\n           \
+    \     LOG.info(\n                    \"lg-recap proxy POST nsid=%s status=%s ms=%d\"\
+    ,\n                    nsid, resp.status, int((time.monotonic() - started) * 1000),\n\
+    \                )\n                return web.Response(\n                   \
+    \ status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"\
+    content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError\
+    \ as exc:\n        LOG.exception(\"lg-recap proxy failed nsid=%s err=%s\", nsid,\
+    \ exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\"\
+    , \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n   \
+    \     )\n    except asyncio.TimeoutError:\n        return web.json_response(\n\
+    \            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n    \
+    \    )\n\n\nasync def _proxy_to_lg_mangaka(\n    request: web.Request, nsid: str,\
+    \ body: dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward mangaka XRPC NSIDs\
+    \ to the lg-mangaka LangGraph pod (2026-05-12).\"\"\"\n    import aiohttp as _aiohttp\n\
+    \    target = f\"{LG_MANGAKA_INTERNAL_URL.rstrip('/')}/xrpc/{nsid}\"\n    method\
+    \ = request.method\n    headers: dict[str, str] = {}\n    for h in (\n       \
+    \ INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n        \"x-etzhayyim-org-did\"\
+    ,\n        \"x-etzhayyim-trace-id\",\n        \"content-type\",\n    ):\n    \
+    \    v = request.headers.get(h)\n        if v is not None:\n            headers[h]\
+    \ = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession()\
+    \ as session:\n            if method == \"GET\":\n                params = {k:\
+    \ v for k, v in request.query.items()}\n                async with session.get(\n\
+    \                    target,\n                    params=params,\n           \
+    \         headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=30),\n\
+    \                ) as resp:\n                    raw = await resp.read()\n   \
+    \                 LOG.info(\n                        \"lg-mangaka proxy GET nsid=%s\
+    \ status=%s ms=%d\",\n                        nsid, resp.status, int((time.monotonic()\
+    \ - started) * 1000),\n                    )\n                    return web.Response(\n\
+    \                        status=resp.status, body=raw,\n                     \
+    \   content_type=resp.headers.get(\"content-type\", \"application/json\"),\n \
+    \                   )\n            try:\n                payload = await request.read()\n\
+    \            except Exception:\n                payload = json.dumps(body).encode()\n\
+    \            async with session.post(\n                target,\n             \
+    \   data=payload,\n                headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=30),\n\
+    \            ) as resp:\n                raw = await resp.read()\n           \
+    \     LOG.info(\n                    \"lg-mangaka proxy POST nsid=%s status=%s\
+    \ ms=%d\",\n                    nsid, resp.status, int((time.monotonic() - started)\
+    \ * 1000),\n                )\n                return web.Response(\n        \
+    \            status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"\
+    content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError\
+    \ as exc:\n        LOG.exception(\"lg-mangaka proxy failed nsid=%s err=%s\", nsid,\
+    \ exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\"\
+    , \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n   \
+    \     )\n    except asyncio.TimeoutError:\n        return web.json_response(\n\
+    \            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n    \
+    \    )\n\n\nasync def _proxy_to_lg_pod(\n    request: web.Request,\n    nsid:\
+    \ str,\n    body: dict[str, Any],\n    internal_url: str,\n    pod_name: str,\n\
+    \    timeout: float = 60,\n) -> web.Response:\n    \"\"\"Generic proxy to any\
+    \ lg-* LangGraph pod (Zeebe\u2192LangGraph Phase A, 2026-05-13).\"\"\"\n    import\
+    \ aiohttp as _aiohttp\n    target = f\"{internal_url.rstrip('/')}/xrpc/{nsid}\"\
+    \n    method = request.method\n    headers: dict[str, str] = {}\n    for h in\
+    \ (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\",\n    \
+    \    \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n        \"content-type\"\
+    ,\n    ):\n        v = request.headers.get(h)\n        if v is not None:\n   \
+    \         headers[h] = v\n    started = time.monotonic()\n    try:\n        async\
+    \ with _aiohttp.ClientSession() as session:\n            if method == \"GET\"\
+    :\n                params = {k: v for k, v in request.query.items()}\n       \
+    \         async with session.get(\n                    target, params=params,\
+    \ headers=headers,\n                    timeout=_aiohttp.ClientTimeout(total=timeout),\n\
+    \                ) as resp:\n                    raw = await resp.read()\n   \
+    \                 LOG.info(\n                        \"%s proxy GET nsid=%s status=%s\
+    \ ms=%d\",\n                        pod_name, nsid, resp.status,\n           \
+    \             int((time.monotonic() - started) * 1000),\n                    )\n\
+    \                    return web.Response(\n                        status=resp.status,\
+    \ body=raw,\n                        content_type=resp.headers.get(\"content-type\"\
+    , \"application/json\"),\n                    )\n            try:\n          \
+    \      payload = await request.read()\n            except Exception:\n       \
+    \         payload = json.dumps(body).encode()\n            async with session.post(\n\
+    \                target, data=payload, headers=headers,\n                timeout=_aiohttp.ClientTimeout(total=timeout),\n\
+    \            ) as resp:\n                raw = await resp.read()\n           \
+    \     LOG.info(\n                    \"%s proxy POST nsid=%s status=%s ms=%d\"\
+    ,\n                    pod_name, nsid, resp.status,\n                    int((time.monotonic()\
+    \ - started) * 1000),\n                )\n                return web.Response(\n\
+    \                    status=resp.status, body=raw,\n                    content_type=resp.headers.get(\"\
+    content-type\", \"application/json\"),\n                )\n    except _aiohttp.ClientError\
+    \ as exc:\n        LOG.exception(\"%s proxy failed nsid=%s err=%s\", pod_name,\
+    \ nsid, exc)\n        return web.json_response(\n            {\"error\": \"ProxyFailed\"\
+    , \"message\": str(exc)[:300], \"nsid\": nsid},\n            status=502,\n   \
+    \     )\n    except asyncio.TimeoutError:\n        return web.json_response(\n\
+    \            {\"error\": \"ProxyTimeout\", \"nsid\": nsid}, status=504,\n    \
+    \    )\n\n\nasync def mcp_route(request: web.Request) -> web.Response:\n    \"\
+    \"\"POST /mcp \u2014 MCP JSON-RPC facade for pod-owned tools.\n\n    Tool names\
+    \ intentionally use the same Lexicon NSID strings as the XRPC\n    surface. Phase\
+    \ 1 routes Shinshi through the lg-shinshi pod MCP endpoint;\n    other app namespaces\
+    \ can be added here or moved behind a registry-backed\n    router without changing\
+    \ edge callers.\n    \"\"\"\n    try:\n        body = await request.json()\n \
+    \   except json.JSONDecodeError as exc:\n        return web.json_response(\n \
+    \           {\"jsonrpc\": \"2.0\", \"id\": None, \"error\": {\"code\": -32700,\
+    \ \"message\": f\"invalid JSON body: {exc}\"}},\n            status=400,\n   \
+    \     )\n    if not isinstance(body, dict):\n        return web.json_response(\n\
+    \            {\"jsonrpc\": \"2.0\", \"id\": None, \"error\": {\"code\": -32600,\
+    \ \"message\": \"body must be a JSON object\"}},\n            status=400,\n  \
+    \      )\n\n    method = str(body.get(\"method\") or \"\")\n    params = body.get(\"\
+    params\")\n    tool_name = \"\"\n    if isinstance(params, dict):\n        tool_name\
+    \ = str(params.get(\"name\") or \"\")\n\n    if method == \"tools/call\" and not\
+    \ tool_name.startswith(\"com.etzhayyim.apps.shinshi.\"):\n        return web.json_response(\n\
+    \            {\n                \"jsonrpc\": \"2.0\",\n                \"id\"\
+    : body.get(\"id\"),\n                \"error\": {\n                    \"code\"\
+    : -32601,\n                    \"message\": f\"no MCP route for tool {tool_name!r}\"\
+    ,\n                },\n            },\n            status=404,\n        )\n\n\
+    \    import aiohttp as _aiohttp\n    target = f\"{LG_SHINSHI_INTERNAL_URL.rstrip('/')}/mcp\"\
+    \n    headers: dict[str, str] = {\"content-type\": \"application/json\"}\n   \
+    \ for h in (\n        INTERNAL_TRUST_HEADER,\n        \"x-etzhayyim-actor-did\"\
+    ,\n        \"x-etzhayyim-org-did\",\n        \"x-etzhayyim-trace-id\",\n    ):\n\
+    \        v = request.headers.get(h)\n        if v is not None:\n            headers[h]\
+    \ = v\n    started = time.monotonic()\n    try:\n        async with _aiohttp.ClientSession()\
+    \ as session:\n            async with session.post(\n                target,\n\
+    \                data=json.dumps(body).encode(\"utf-8\"),\n                headers=headers,\n\
+    \                timeout=_aiohttp.ClientTimeout(total=60),\n            ) as resp:\n\
+    \                raw = await resp.read()\n                LOG.info(\n        \
+    \            \"mcp proxy method=%s tool=%s target=lg-shinshi status=%s ms=%d\"\
+    ,\n                    method,\n                    tool_name,\n             \
+    \       resp.status,\n                    int((time.monotonic() - started) * 1000),\n\
+    \                )\n                content_type = (resp.headers.get(\"content-type\"\
+    ) or \"application/json\").split(\";\")[0].strip()\n                return web.Response(status=resp.status,\
+    \ body=raw, content_type=content_type)\n    except _aiohttp.ClientError as exc:\n\
+    \        LOG.exception(\"mcp proxy failed method=%s tool=%s err=%s\", method,\
+    \ tool_name, exc)\n        return web.json_response(\n            {\n        \
+    \        \"jsonrpc\": \"2.0\",\n                \"id\": body.get(\"id\"),\n  \
+    \              \"error\": {\"code\": -32000, \"message\": f\"MCP proxy failed:\
+    \ {str(exc)[:300]}\"},\n            },\n            status=502,\n        )\n \
+    \   except asyncio.TimeoutError:\n        return web.json_response(\n        \
+    \    {\n                \"jsonrpc\": \"2.0\",\n                \"id\": body.get(\"\
+    id\"),\n                \"error\": {\"code\": -32001, \"message\": \"MCP proxy\
+    \ timeout\"},\n            },\n            status=504,\n        )\n\n\nasync def\
+    \ dispatch(request: web.Request) -> web.Response:\n    \"\"\"POST /xrpc/{nsid}\
+    \ \u2014 start a BPMN process and await result.\"\"\"\n    nsid = request.match_info.get(\"\
+    nsid\", \"\")\n    LOG.info(\"dispatch start method=%s nsid=%s\", request.method,\
+    \ nsid)\n    if not nsid:\n        return web.json_response({\"error\": \"nsid\
+    \ required in path\"}, status=400)\n\n    body: dict[str, Any] = {}\n    if request.body_exists\
+    \ and request.method == \"POST\":\n        try:\n            body = await request.json()\n\
+    \        except json.JSONDecodeError as e:\n            return web.json_response(\n\
+    \                {\"error\": f\"invalid JSON body: {e}\"}, status=400,\n     \
+    \       )\n        if not isinstance(body, dict):\n            return web.json_response(\n\
+    \                {\"error\": \"body must be a JSON object\"}, status=400,\n  \
+    \          )\n\n    # ADR-2605091700 Phase 3: fan-out every dispatch to NATS for\
+    \ observability,\n    # replay, and decoupling. Subject = `mitama.{nsid}` (nsid\
+    \ keeps its dots).\n    nc = request.app.get(\"nats\")\n    if nc is not None:\n\
+    \        try:\n            await nc.publish(\n                f\"mitama.{nsid}\"\
+    ,\n                json.dumps({\"nsid\": nsid, \"method\": request.method, \"\
+    body\": body}).encode(),\n            )\n        except Exception as exc:  # noqa:\
+    \ BLE001\n            LOG.debug(\"nats fan-out failed (non-fatal) nsid=%s err=%s\"\
+    , nsid, exc)\n\n    direct_response = await public_malak_direct_query(request,\
+    \ nsid, body)\n    if direct_response is not None:\n        return direct_response\n\
+    \n    # ADR-2605111200 Option A (P59): proxy yatabase auth/leads/bmc XRPC NSIDs\n\
+    \    # to lg-yatabase pod over cluster networking that bpmn-dispatcher can\n \
+    \   # actually reach (cloudflared cannot dial the lg-yatabase pod network\n  \
+    \  # namespace from this VKE \u2014 see deps.toml cycle_20260511_02 blocker).\n\
+    \    if any(nsid.startswith(p) for p in LG_YATABASE_PROXY_PREFIXES):\n       \
+    \ return await _proxy_to_lg_yatabase(request, nsid, body)\n\n    if any(nsid.startswith(p)\
+    \ for p in LG_ANIMEKA_PROXY_PREFIXES):\n        return await _proxy_to_lg_animeka(request,\
+    \ nsid, body)\n\n    if any(nsid.startswith(p) for p in LG_RECAP_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_recap(request, nsid, body)\n\n    if nsid in\
+    \ LG_MANGAKA_PROXY_NSIDS:\n        return await _proxy_to_lg_mangaka(request,\
+    \ nsid, body)\n\n    if any(nsid.startswith(p) for p in LG_SHINSHI_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_SHINSHI_INTERNAL_URL,\
+    \ \"lg-shinshi\")\n\n    if any(nsid.startswith(p) for p in LG_NAROU_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_NAROU_INTERNAL_URL,\
+    \ \"lg-narou\")\n\n    if any(nsid.startswith(p) for p in LG_DOUGAKA_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_DOUGAKA_INTERNAL_URL,\
+    \ \"lg-dougaka\")\n\n    if any(nsid.startswith(p) for p in LG_X_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_X_INTERNAL_URL,\
+    \ \"lg-x\")\n\n    if any(nsid.startswith(p) for p in LG_YUKKURI_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_YUKKURI_INTERNAL_URL,\
+    \ \"lg-yukkuri\")\n\n    if any(nsid.startswith(p) for p in LG_OPEN_JPN_MYNUMBER_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_OPEN_JPN_MYNUMBER_INTERNAL_URL,\
+    \ \"lg-open-jpn-mynumber\")\n\n    if any(nsid.startswith(p) for p in LG_CURPUS2SKILL_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_CURPUS2SKILL_INTERNAL_URL,\
+    \ \"lg-curpus2skill\")\n\n    if any(nsid.startswith(p) for p in LG_PD_COLOR_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_PD_COLOR_INTERNAL_URL,\
+    \ \"lg-pd-color\")\n\n    if any(nsid.startswith(p) for p in LG_KARMA_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_KARMA_INTERNAL_URL,\
+    \ \"lg-karma\")\n\n    if any(nsid.startswith(p) for p in LG_LEGAL_ENTITY_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_LEGAL_ENTITY_INTERNAL_URL,\
+    \ \"lg-legal-entity\")\n\n    if any(nsid.startswith(p) for p in LG_ORGANISM_PROXY_PREFIXES):\n\
+    \        return await _proxy_to_lg_pod(request, nsid, body, LG_ORGANISM_INTERNAL_URL,\
+    \ \"lg-organism\")\n\n    mailer_direct = await _dispatch_mailer_direct(nsid,\
+    \ body)\n    if mailer_direct is not None:\n        return mailer_direct\n\n \
+    \   binding = await lookup_binding(nsid)\n    if not binding:\n        return\
+    \ web.json_response(\n            {\"error\": \"no active binding\", \"nsid\"\
+    : nsid}, status=404,\n        )\n    LOG.info(\n        \"dispatch binding nsid=%s\
+    \ process=%s timeoutMs=%s\",\n        nsid,\n        binding[\"bpmn_process_id\"\
+    ],\n        binding[\"result_timeout_ms\"],\n    )\n\n    timeout_ms = binding[\"\
+    result_timeout_ms\"]\n    started = time.monotonic()\n    # Inject the resolved\
+    \ bpmn_process_id as a process variable so worker\n    # tasks (e.g. generic.db.insert)\
+    \ can scope writes to the binding's\n    # write_table_allowlist. Caller body\
+    \ cannot override this (we set\n    # last-write-wins after spread). NSID is also\
+    \ injected for audit\n    # correlation; it's not used for enforcement.\n    process_vars\
+    \ = {\n        **(body or {}),\n        \"_bpmnProcessId\": binding[\"bpmn_process_id\"\
+    ],\n        \"_nsid\": nsid,\n    }\n    LOG.info(\"dispatch process_vars keys=%s\
+    \ body_keys=%s\", list(process_vars.keys()), list(body.keys()))\n\n    # Phase\
+    \ G (2026-05-13): all vertex_bpmn_lexicon_binding rows migrated to routing_target='langgraph'.\n\
+    \    # Zeebe/Spiff fallback removed.\n    return await _dispatch_langgraph(\n\
+    \        nsid=nsid,\n        binding=binding,\n        process_vars=process_vars,\n\
+    \        started=started,\n    )\n\n\n\n\n\n\n\n\n# \u2500\u2500\u2500 Auth middleware\
+    \ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\n\n@web.middleware\nasync def auth_middleware(request: web.Request, handler):\n\
+    \    \"\"\"Gate `/xrpc/*` on shared-secret header when strict mode enabled.\n\n\
+    \    `/health` is always open. `/bindings` is gated because it enumerates\n  \
+    \  the live NSID \u2192 BPMN process surface.\n    Unknown `DISPATCHER_AUTH_MODE`\
+    \ fails closed to avoid mis-configuration\n    silently dropping the gate.\n \
+    \   \"\"\"\n    if request.path == \"/health\":\n        return await handler(request)\n\
+    \    if not (request.path.startswith(\"/xrpc/\") or request.path == \"/mcp\" or\
+    \ request.path == \"/bindings\"):\n        return await handler(request)\n   \
+    \ if AUTH_MODE == \"off\":\n        return await handler(request)\n    if AUTH_MODE\
+    \ == \"strict\":\n        if not INTERNAL_SECRET:\n            LOG.error(\"DISPATCHER_AUTH_MODE=strict\
+    \ but DISPATCHER_INTERNAL_SECRET empty\")\n            return web.json_response(\n\
+    \                {\"error\": \"AuthMisconfigured\",\n                 \"message\"\
+    : \"dispatcher strict mode requires DISPATCHER_INTERNAL_SECRET\"},\n         \
+    \       status=500,\n            )\n        import hmac as _hmac\n        import\
+    \ hashlib as _hashlib\n        provided = request.headers.get(INTERNAL_TRUST_HEADER,\
+    \ \"\")\n        if not provided:\n            return web.json_response(\n   \
+    \             {\"error\": \"Unauthorized\",\n                 \"message\": f\"\
+    missing {INTERNAL_TRUST_HEADER} header\"},\n                status=401,\n    \
+    \        )\n        # Accept either raw shared-secret (legacy) OR HMAC-SHA256(body,\
+    \ secret)\n        # so callers like the yatabase Worker (P55 onwards) that already\
+    \ sign\n        # against DISPATCHER_INTERNAL_SECRET keep working.\n        if\
+    \ _hmac.compare_digest(provided, INTERNAL_SECRET):\n            return await handler(request)\n\
+    \        try:\n            body_bytes = await request.read()\n        except Exception:\
+    \  # noqa: BLE001\n            body_bytes = b\"\"\n        expected_hmac = _hmac.new(\n\
+    \            INTERNAL_SECRET.encode(\"utf-8\"), body_bytes, _hashlib.sha256\n\
+    \        ).hexdigest()\n        if _hmac.compare_digest(provided, expected_hmac):\n\
+    \            return await handler(request)\n        return web.json_response(\n\
+    \            {\"error\": \"Unauthorized\",\n             \"message\": f\"missing\
+    \ or invalid {INTERNAL_TRUST_HEADER} header\"},\n            status=401,\n   \
+    \     )\n    LOG.error(\"unknown DISPATCHER_AUTH_MODE=%r (expected off|strict)\"\
+    , AUTH_MODE)\n    return web.json_response(\n        {\"error\": \"AuthMisconfigured\"\
+    ,\n         \"message\": f\"unknown DISPATCHER_AUTH_MODE={AUTH_MODE!r}\"},\n \
+    \       status=500,\n    )\n\n\n# \u2500\u2500\u2500 App bootstrap \u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\n\nasync def make_app() -> web.Application:\n    app = web.Application(middlewares=[auth_middleware])\n\
+    \n    # \u2500\u2500\u2500 NATS JetStream fan-out (ADR-2605091700, Phase 3) \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\n    # Every /xrpc/{nsid} dispatch publishes a copy to NATS subject\n\
+    \    # `mitama.{nsid-with-dots}` so all actor invocations become observable\n\
+    \    # / replayable / decoupled from RW availability. Fire-and-forget;\n    #\
+    \ publish failure does not block the dispatch.\n    nats_url = os.environ.get(\"\
+    NATS_URL\", \"\")\n    nats_enabled = bool(nats_url) and os.environ.get(\"DISPATCHER_NATS_ENABLED\"\
+    , \"1\") == \"1\"\n    if nats_enabled:\n        try:\n            import nats\
+    \ as _nats  # type: ignore[import-not-found]\n            nc = await _nats.connect(\n\
+    \                nats_url,\n                max_reconnect_attempts=-1,\n     \
+    \           reconnect_time_wait=2,\n                connect_timeout=3,\n     \
+    \       )\n            app[\"nats\"] = nc\n            LOG.info(\"dispatcher NATS\
+    \ connected url=%s\", nats_url)\n        except Exception as exc:  # noqa: BLE001\n\
+    \            LOG.warning(\"dispatcher NATS connect failed (continuing without):\
+    \ %s\", exc)\n            app[\"nats\"] = None\n    else:\n        app[\"nats\"\
+    ] = None\n    app.router.add_get(\"/health\", health)\n    app.router.add_get(\"\
+    /bindings\", list_bindings)\n    # MCP envelope route (ADR-2605082000 \xA72.6\
+    \ + ADR-0087). Must be registered\n    # BEFORE the wildcard so /xrpc/com.etzhayyim.mcp.message\
+    \ hits the dedicated\n    # handler instead of the BPMN-binding lookup.\n    from\
+    \ pymagatama.mcp_dispatch import aiohttp_route as _mcp_route, build_default_handlers\n\
+    \    app[\"mcp_handlers\"] = build_default_handlers()\n    app.router.add_post(\"\
+    /xrpc/com.etzhayyim.mcp.message\", _mcp_route)\n    app.router.add_post(\"/mcp\"\
+    , mcp_route)\n    app.router.add_post(\"/xrpc/{nsid}\", dispatch)\n    app.router.add_get(\"\
+    /xrpc/{nsid}\", dispatch)\n\n    LOG.info(\n        \"dispatcher ready, agentgateway_mcp_url=%s,\
+    \ port=%d, binding_ttl=%ds\",\n        AGENTGATEWAY_MCP_URL,\n        PORT,\n\
+    \        BINDING_TTL_SEC,\n    )\n    return app\n\n\ndef main() -> None:\n  \
+    \  if not os.environ.get(\"RW_URL\"):\n        LOG.warning(\"RW_URL not set \u2014\
+    \ binding lookup will fail\")\n    web.run_app(make_app(), host=\"0.0.0.0\", port=PORT,\
+    \ access_log=None)\n\n\nif __name__ == \"__main__\":\n    main()\n"
 kind: ConfigMap
 metadata:
   name: bpmn-dispatcher-mailer-direct-patch

@@ -45,7 +45,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _PDS_BLOB_FETCH = os.environ.get(
     "PDS_BLOB_FETCH_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.sync.getBlob",
 )
@@ -91,47 +90,36 @@ class _State(TypedDict, total=False):
 
 
 async def _fetch_video_and_subtitles(video_id: str) -> tuple[dict, list[dict]]:
-    import psycopg
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            """SELECT title, topic, language, render_blob_key, render_url,
-                      target_sec, resolution, fps
-               FROM vertex_yukkuri_video WHERE video_id = %s LIMIT 1""",
-            [video_id],
-        )
-        row = await cur.fetchone()
-        if not row:
-            return {}, []
-        video_row = {
-            "title": row[0] or f"yukkuri:{video_id}",
-            "topic": row[1] or "",
-            "language": row[2] or "ja",
-            "render_blob_key": row[3] or "",
-            "render_url": row[4] or "",
-            "target_sec": int(row[5] or 0),
-            "resolution": row[6] or "1080p",
-            "fps": int(row[7] or 30),
-        }
-        await cur.execute(
-            """SELECT blob_key, meta_json FROM vertex_yukkuri_asset
-               WHERE video_id = %s AND kind = 'subtitle' LIMIT 50""",
-            [video_id],
-        )
-        subs: list[dict] = []
-        for r in await cur.fetchall():
-            try:
-                meta = json.loads(r[1] or "{}")
-            except Exception:
-                meta = {}
-            subs.append({
-                "blob_key": r[0],
-                "lang": meta.get("lang") or "",
-                "format": meta.get("format", "srt"),
-            })
-    finally:
-        await conn.close()
+    import asyncio
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    raw_video = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
+    if not raw_video:
+        return {}, []
+    r = raw_video[0]
+    video_row = {
+        "title": r.get("title") or f"yukkuri:{video_id}",
+        "topic": r.get("topic") or "",
+        "language": r.get("language") or "ja",
+        "render_blob_key": r.get("render_blob_key") or "",
+        "render_url": r.get("render_url") or "",
+        "target_sec": int(r.get("target_sec") or 0),
+        "resolution": r.get("resolution") or "1080p",
+        "fps": int(r.get("fps") or 30),
+    }
+
+    raw_assets = await asyncio.to_thread(client.select_where, "vertex_yukkuri_asset", "video_id", video_id, limit=50)
+    subs = []
+    for r in raw_assets:
+        if r.get("kind") != "subtitle":
+            continue
+        try:
+            m = json.loads(r.get("meta_json") or "{}")
+            lang = m.get("lang")
+            if lang and r.get("blob_key"):
+                subs.append({"lang": lang, "blob_key": r.get("blob_key")})
+        except Exception:
+            pass
     return video_row, subs
 
 
@@ -139,8 +127,6 @@ async def _node_fetch(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     if not (_CLIENT_ID and _CLIENT_SECRET and _REFRESH_TOKEN):
         return {"error": "YOUTUBE_* credentials missing"}
     try:
@@ -316,39 +302,38 @@ async def _node_upload_captions(state: _State) -> dict[str, Any]:
 async def _node_persist(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("youtube_video_id"):
         return {}
-    if not _RW_URL:
-        return {}
     video_id = state.get("video_id") or ""
     yt_id = state["youtube_video_id"]
     created_at = datetime.now(tz=timezone.utc).isoformat()
     captions = state.get("captions_uploaded") or []
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            await conn.execute(
-                """UPDATE vertex_yukkuri_video
-                   SET status = 'published'
-                   WHERE video_id = %s""",
-                [video_id],
-            )
-            params_json = json.dumps({
-                "youtubeVideoId": yt_id,
-                "captionsUploaded": captions,
-                "privacy": state.get("privacy") or _DEFAULT_PRIVACY,
-            })
-            vertex_id = f"gen-yt-{video_id}-{int(time.time())}"
-            await conn.execute(
-                """INSERT INTO vertex_yukkuri_generation
-                   (vertex_id, target_uri, stage, actor_did, model_id,
-                    params, status, created_at)
-                   VALUES (%s, %s, 'youtube_upload', %s, 'youtube_data_api_v3',
-                           %s, 'published', %s)""",
-                [vertex_id, f"yt://{yt_id}", _PUBLISHER_DID,
-                 params_json, created_at],
-            )
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        
+        # advance video status
+        video_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id)
+        if video_rows:
+            video_row = video_rows[0]
+            video_row["status"] = "published"
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_video", video_row)
+
+        params_json = json.dumps({
+            "youtubeVideoId": yt_id,
+            "captionsUploaded": captions,
+            "privacy": state.get("privacy") or _DEFAULT_PRIVACY,
+        })
+        vertex_id = f"gen-yt-{video_id}-{int(time.time())}"
+        await asyncio.to_thread(client.insert_row, "vertex_yukkuri_generation", {
+            "vertex_id": vertex_id,
+            "target_uri": f"yt://{yt_id}",
+            "stage": "youtube_upload",
+            "actor_did": _PUBLISHER_DID,
+            "model_id": "youtube_data_api_v3",
+            "params": params_json,
+            "status": "published",
+            "created_at": created_at
+        })
     except Exception as exc:  # noqa: BLE001
         _log.exception("yt persist failed")
         return {"error": f"persist: {exc!s}"[:300]}

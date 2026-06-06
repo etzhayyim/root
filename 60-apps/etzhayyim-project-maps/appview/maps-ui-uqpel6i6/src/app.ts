@@ -27,6 +27,7 @@ import { normalizeMapsVertexIdentity } from "./vertex-identity";
 import { projectToVertexSpatial, isMapsControlPlaneEntity } from "./vertex-spatial-projection";
 import { registerCollectionCommands, registerWriterEntities } from "./collection-commands";
 import { mirrorVertexWrite, shadowTileGeoJsonRead } from "./etzhayyim-mirror";
+import { queryByCells as kotobaQueryByCells, kotobaEndpoint } from "./kotoba-spatial";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -3000,19 +3001,34 @@ async function cmdGetChunk(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
   const perLabelSum = labels.reduce((s, l) => s + limitFor(l), 0);
   const globalLimit = Math.min(perLabelSum * cells.length, 20_000);
   let allRows: AnyRow[] = [];
-  try {
-    allRows = await getDb()
-      .selectFrom("vertex_spatial")
-      .selectAll()
-      .where("label", "in", labels)
-      .where("lng", ">=", west)
-      .where("lng", "<=", east)
-      .where("lat", ">=", south)
-      .where("lat", "<=", north)
-      .limit(globalLimit)
-      .execute();
-  } catch {
-    allRows = [];
+  // kotoba-native read (ADR-2606064500 §2): when maps is wired to a kotoba endpoint, the
+  // read is an H3-cell AVET probe — O(cells), no bbox scan. Fail-open (§3): null → fall
+  // through to the legacy RisingWave path below, untouched, until R3 removes it.
+  let servedByKotoba = false;
+  if (kotobaEndpoint(_mapsEnv as Record<string, unknown>)) {
+    const kr = await kotobaQueryByCells(_mapsEnv as Record<string, unknown>, {
+      cells, lod, labels, limit: globalLimit,
+    });
+    // Only treat kotoba as authoritative when it actually returned features. A null (endpoint
+    // unset / error / un-stamped lod) AND an empty array both fall through to RisingWave, so a
+    // partially-populated kotoba never blanks the map during the transition (fail-open §3; B2).
+    if (kr && kr.length > 0) { allRows = kr; servedByKotoba = true; }
+  }
+  if (!servedByKotoba) {
+    try {
+      allRows = await getDb()
+        .selectFrom("vertex_spatial")
+        .selectAll()
+        .where("label", "in", labels)
+        .where("lng", ">=", west)
+        .where("lng", "<=", east)
+        .where("lat", ">=", south)
+        .where("lat", "<=", north)
+        .limit(globalLimit)
+        .execute();
+    } catch {
+      allRows = [];
+    }
   }
 
   // Route each row → owning H3 cell (via feature centroid). Drop rows whose
@@ -3071,7 +3087,8 @@ async function cmdGetChunk(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
     total++;
   }
 
-  return { chunks, lod, total };
+  // servedBy: which substrate answered this read (ADR-2606064500 §3 fail-open observability)
+  return { chunks, lod, total, servedBy: servedByKotoba ? "kotoba" : "risingwave" };
 }
 
 // ── getChunkModels: DB-driven science model instances for maps-walk.htm ──────

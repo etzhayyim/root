@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.moyai.drawReceipt",
+  "description": "moyai 舫い — a receipt for DRAWING inference from the commons, recording whether it was free (subsistence floor / idle mesh) or BURNED reciprocity credit (discretionary surplus under contention) per ADR-2606062100. This is the spend side of give-to-get. The firewall is explicit on every receipt: `withinSubsistenceFloor` draws are ALWAYS free and ALWAYS served (information-as-Basic-High-Income, delivered by need not by contribution); `creditBurned` is non-zero ONLY for discretionary surplus above the floor while the mesh is congested. A member with zero credit is never denied essential information — only non-essential surplus waits behind contributors. No monetary field exists: drawing inference costs credit-or-nothing, never money (cash≡0).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "drawerDid",
+          "requestedUnits",
+          "decision",
+          "creditBurned",
+          "withinSubsistenceFloor",
+          "essentialGuaranteed",
+          "redeemableUsdMicros",
+          "createdAt"
+        ],
+        "properties": {
+          "drawerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the member/agent drawing inference. No-server-key: the draw is authorized by the member's signature (ADR-2605231525)."
+          },
+          "requestedUnits": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Reference inference units requested in this draw."
+          },
+          "decision": {
+            "type": "string",
+            "description": "How the draw was served (fair_share.py). 'free-subsistence' = within the unconditional floor (information-as-BHI); 'free-idle' = surplus served free because the mesh had spare capacity; 'charge-surplus' = discretionary surplus under contention, credit burned; 'deferred' = surplus wanted under contention with no credit, essential floor still served, surplus waits behind contributors.",
+            "knownValues": ["free-subsistence", "free-idle", "charge-surplus", "deferred"]
+          },
+          "creditBurned": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "moyai credit units burned for this draw. Non-zero ONLY when decision='charge-surplus' (discretionary surplus above the floor under contention). 0 for every free/deferred draw. A burn can never exceed live balance (no overdraw)."
+          },
+          "withinSubsistenceFloor": {
+            "type": "boolean",
+            "description": "True if (the floor portion of) this draw fell within the member's unconditional subsistence allowance — information-as-Basic-High-Income, never gated by credit."
+          },
+          "essentialGuaranteed": {
+            "type": "boolean",
+            "const": true,
+            "description": "INVARIANT, always true. Essential information access is guaranteed on every draw regardless of credit: the subsistence floor is served first, unconditionally. moyai only ever defers non-essential surplus. This is the on-chain proof that the reward does NOT affect Basic High Income."
+          },
+          "meshLoadPermille": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Mesh load at draw time, per-mille. Credit is charged only at/above the contention threshold; below it surplus is free for all (moyai is a congestion fair-share scheduler, not a paywall)."
+          },
+          "redeemableUsdMicros": {
+            "type": "integer",
+            "const": 0,
+            "description": "INVARIANT, always 0. Drawing inference costs credit or nothing — never money. cash≡0 (N1)."
+          },
+          "jobRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT URI of the inference job this draw served."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the draw was served."
+          }
+        }
+      }
+    }
+  }
+}

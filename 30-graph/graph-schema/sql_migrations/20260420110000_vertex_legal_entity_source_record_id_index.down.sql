@@ -1,1 +1,0 @@
-DROP INDEX IF EXISTS idx_vertex_legal_entity_source_record_id;

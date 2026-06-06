@@ -103,14 +103,17 @@ head_sampling_rate = 1.0
 [placement]
 mode = "smart"
 
-# Durable Objects — REMOVED (kotoba only, no Cloudflare DO/KV per directive).
-# kotoba is content-addressed: blocks are static files under public/kotoba/blocks/
-# served by CF assets, and the browser kotoba-wasm resolves them directly. The
-# former KotobaRoot Durable Object (member-signed block-publish CAS over KV) is
-# deleted. There is intentionally NO [[durable_objects.bindings]] block. This
-# migration chain records the class's prior creation (v1, applied by an earlier
-# deploy) and its deletion (v2) so Cloudflare tears down the existing DO
-# instances on the next deploy.
+# Durable Objects are NOT used (ADR-2605262130 / 2605312345). kotoba is the
+# canonical, content-addressed substrate: genesis blocks are static files under
+# public/kotoba/blocks/<cid> (served by CF assets), post-genesis member-signed
+# deltas land in the content-addressed KV CAS, and the browser kotoba-wasm
+# resolves blocks directly — there is no operated server-state primitive. There
+# is intentionally NO [[durable_objects.bindings]] block.
+#
+# An earlier deploy briefly created a KotobaRoot DO; the migration chain below
+# records that prior creation (v1) and its deletion (v2) so Cloudflare tears down
+# the existing DO class + instances on the next deploy. Cloudflare requires the
+# delete migration to remain even though no binding exists.
 [[migrations]]
 tag = "v1"
 new_classes = ["KotobaRoot"]

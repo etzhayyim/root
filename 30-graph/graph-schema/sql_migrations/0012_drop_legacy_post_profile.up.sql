@@ -1,3 +1,0 @@
-DROP TABLE IF EXISTS "vertex_post" CASCADE;
-
-DROP TABLE IF EXISTS "vertex_profile" CASCADE;

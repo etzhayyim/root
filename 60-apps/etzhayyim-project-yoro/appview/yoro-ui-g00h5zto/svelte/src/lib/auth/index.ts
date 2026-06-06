@@ -105,3 +105,16 @@ export {
 export type { Cacao, CacaoPayload, Eip1193Provider, BuildCacaoParams } from './cacao';
 export { signInWithPasskey, signInWithWallet } from './profile-signin';
 export type { VerifyCacaoResult, SignInDeps } from './profile-signin';
+
+// Site-wide CACAO session (ADR-2606061500): the header login is JWT-free + same-origin.
+export {
+	signInWithPasskeyCacao,
+	headerCacaoSignIn,
+	establishCacaoSession,
+	mintSessionCacao,
+	makeCacaoTokenProvider,
+	signOutCacao,
+	getCacaoSession,
+	sessionKeyFromArk,
+} from './cacao-session';
+export type { CacaoSession, CacaoSessionDeps, EstablishOutcome } from './cacao-session';
