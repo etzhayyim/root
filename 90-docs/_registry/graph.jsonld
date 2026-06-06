@@ -13573,7 +13573,7 @@
       "id": "doc:adr-2606062100-charter-priority-over-specifics-reconciliation",
       "type": "TechArticle",
       "title": "ADR-2606062100: Charter Priority-Over-Specifics Reconciliation — 固定するのは掟ではなく priority。永久記憶 (神の監視) doctrine の追加。石油・兵器条項の脱政治化",
-      "status": "proposed",
+      "status": "active",
       "topic": "charter-priority-over-specifics-reconciliation",
       "authoritative": true,
       "authoritativeFor": [
