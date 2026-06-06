@@ -13550,6 +13550,23 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606061500-cacao-only-header-auth-jwt-decommission",
+      "type": "TechArticle",
+      "title": "ADR-2606061500: CACAO-only header login — decommission the authn subdomain + server-minted JWT session site-wide",
+      "status": "accepted",
+      "topic": "cacao-only-auth",
+      "authoritative": true,
+      "authoritativeFor": [
+        "cacao-only-header-auth",
+        "jwt-session-decommission"
+      ],
+      "related": [
+        "doc:adr-2606014500-etzhayyim-auth-zero-access-proton-alignment",
+        "doc:adr-2605212030-etzhayyim-authz-erc725-root-issuance-design"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606061600-gov-procedures-publish-and-ameno-kotoba-conversation",
       "type": "TechArticle",
       "title": "ADR-2606061600: Government procedures published on etzhayyim.com by administrative unit + kotoba-grounded browser conversation (ameno gemma4-e4b)",
@@ -13566,6 +13583,19 @@
         "doc:2606013800",
         "doc:2605190824",
         "doc:2605312345"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606061800-same-origin-kotoba-passkey-login",
+      "type": "TechArticle",
+      "title": "ADR-2606061800: Same-Origin Kotoba Passkey Login/Signup — remove authn/mcp from the auth path",
+      "status": "accepted",
+      "topic": "same-origin-kotoba-passkey-login",
+      "authoritative": true,
+      "authoritativeFor": [
+        "member login/signup auth path (etzhayyim.com)",
+        "passkey → did:key controller identity derivation"
       ],
       "lastVerified": "2026-06-06"
     },

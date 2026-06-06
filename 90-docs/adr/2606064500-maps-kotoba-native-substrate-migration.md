@@ -226,3 +226,34 @@ budget (R1 must measure, not assume); the six-resolution cell stamp multiplies w
 6× per feature (acceptable — cells are 8-byte strings, the index is the point); a full
 172-command cut is multi-PR (R2–R3) and the fail-open fallback means RisingWave lingers until
 R3, so the violation is *contained and on a path to zero*, not instantly gone.
+
+# Session close (2026-06-06) — landed increments
+
+This ADR's design landed across **9 PRs merged to `main`** (one foundation + eight loop
+increments under a self-paced "成熟度・coverage を高めて" /loop):
+
+| PR | Increment |
+|---|---|
+| **#1163** | R0 foundation + R1 offline proof — ADR · `maps-spatial-ontology.kotoba.edn` (`:feature/*`, H3-cell AVET index) · TS adapter `kotoba-spatial.ts` + `cmdGetChunk` rewired kotoba-first/fail-open · ingest/analyze methods · lexicons · AVET round-trip + HTTP-loop dry-run vs a stdlib stand-in. **Adversarial review caught + fixed 7 real bugs** (label-casing → 0 results, empty-array fail-open, geometry/props clobber, lod-ladder, gate-test tautology, stamp-method mismatch). |
+| **#1170** | R2 bulk-dumper write path — `ETZHAYYIM_SUBSTRATE_MODE=kotoba` on the shared substrate seam → all 6 Tier-1 feature dumpers; `_kotoba_feature.py` row→`:feature/*` mapping (label-map parity test-asserted vs `ingest.py`). |
+| **#1173** | R2 aux — GTFS `vertex_maps_trip`/`vertex_maps_stop_time` → `:transit.*` (`maps-transit-ontology.kotoba.edn`); `upsert_table` kotoba dispatch. |
+| **#1175** | transit READS — `transit.py` (`nextDeparturesAtStop` = AVET stop-index sorted by departure-time; `tripsOnRoute`). |
+| **#1178** | name search — `search.py` token index (`:feature/name-token`, ASCII-prefix + CJK-bigram; one tokenizer for write+read). |
+| **#1179** | dumper name-token parity — `_kotoba_feature.name_tokens` (tokenizer-equality test vs `search.py`) so dumper-ingested features are name-searchable. |
+| **#1180** | reverse geocode — `reverse.py` (`AVET(:feature.cell/r{res}, grid_disk)` + haversine). |
+| **#1182** | getChunk HTTP reference `chunk.py` + the **4-read integration test** (chunk · search · reverse · transit compose over one graph). |
+| **#1183** | `verify.py` — the **R1 readiness gate** (runs all four reads against a live endpoint, exit 0 iff `allOk`). |
+
+**State after this session:** the kotoba-native **read quartet** (cell-chunk / transit / name /
+reverse) + **two write paths** (maps-adapter + bulk-dumpers) + cross-path consistency tests +
+a readiness gate are all landed and **offline-verified — 68 Python tests green (real-H3 under a
+venv)**. The substrate is still **R0/R1-offline**: no live `KOTOBA_ENDPOINT` for maps, no
+`vertex_spatial` backfill, RisingWave/Hyperdrive still serving via the fail-open fallback.
+
+**Remaining (Council+operator-gated follow-ons):** the live R1 cut-over (wire `KOTOBA_ENDPOINT`
++ `KOTOBA_AUTH` → backfill via `ingest.py --push` → flip `cmdGetChunk` kotoba-primary → run
+`verify.py` + measure <50 ms parity); wiring the remaining TS read commands
+(`tileGeoJson`/`searchPlaces`/`reverseGeocode`/`nextDeparturesAtStop`) through the adapter using
+these Python references; mapping the still-unmapped aux tables (gsplat registries, GTFS-RT);
+and **R3** (delete the `HYPERDRIVE` binding + the `vertex_*` migrations). Runbook:
+`20-actors/maps/methods/README.md`. On live R1 completion, promote this ADR `proposed → accepted`.
