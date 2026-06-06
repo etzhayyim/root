@@ -10024,6 +10024,13 @@ status_note = "Closes the ADR-2606065500 OPEN head-primitive question. Decision:
 path = "90-docs/adr/2606066000-kotoba-content-addressed-head-ipns-commit.md"
 adr = ["2606066000", "2606065500", "2606013600", "2605312345", "2605262130", "2605231525"]
 [[adrs]]
+id = "2606070030"
+title = "session close — karakuri browser-use + kotoba content-addressed feed head (IPNS commit-head)"
+status = "active"
+status_note = "Documentation-only closure of the 2026-06-06→07 session (authoritative designs = ADR-2606039200 karakuri + ADR-2606066000 content-addressed head). Thread A (karakuri #1196): browser-use = the T2 engine; two-axis service stance (tos-stance official-API→T1, t2-stance browser-automation→T2); Google+Facebook = api-ok yet browser-prohibited → routed to T1, T2 refused; detection-evasion unrepresentable; all 5 cells coded + NL planner (Murakumo G4) + T3 export (G9) + live-exec membrane (refuse-by-default) + kotoba Datom audit (G7, args keys-only); methods 87/cells 31 green; R0 no live exec. Thread B (content-addressed head): kotoba #47 wasm-safe kotoba-ipns-record + commitHeadSigned producer, #48 kotoba-store native-only so kotoba-wasm links wasm32 (dropped reqwest→tokio/net→mio leak), #49 verifyIpnsRecord reader + JSON round-trip interop test; monorepo #1203 ADR, #1205 apex stores/serves the signed IpnsRecord as a non-authoritative relay (8/8 tests), #1208 submodule bump → 9157ea3e. Housekeeping: #1191 CLOSED not-merged (re-introduced the removed KotobaRoot Durable Object) → DO-independent parts salvaged in #1198. REMAINING (operator-coordinated, browser-E2E + deploy): rebuild the 3 kotoba_wasm bundles, route the yoro pure-TS write path through commitHeadSigned + gate reads on verifyIpnsRecord, flip block.put CAS to record sequence, wrangler deploy. ZERO Charter amendments."
+path = "90-docs/adr/2606070030-session-close-karakuri-browseruse-and-kotoba-content-addressed-head.md"
+adr = ["2606070030", "2606039200", "2606066000", "2606065500", "2606013600", "2605262130", "2605231525"]
+[[adrs]]
 id = "2606064500"
 title = "maps — kotoba-native substrate migration (vertex_spatial → Datom log, H3-cell AVET spatial index)"
 status = "proposed"
