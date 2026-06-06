@@ -13651,7 +13651,7 @@
       "id": "doc:adr-2606062100-moyai-inference-reciprocity-credit",
       "type": "TechArticle",
       "title": "ADR-2606062100: moyai 舫い — non-monetary inference reciprocity credit (give-to-get; reward kept, Basic High Income untouched)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "moyai-inference-reciprocity-credit",
       "authoritative": true,
       "authoritativeFor": [
@@ -13717,6 +13717,16 @@
         "doc:2605312200",
         "doc:2606011500"
       ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606065000-session-close-kawaraban-news-medium",
+      "type": "TechArticle",
+      "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",
+      "status": "active",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md",
       "lastVerified": "2026-06-06"
     },
     {
