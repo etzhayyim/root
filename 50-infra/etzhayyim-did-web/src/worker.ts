@@ -37,8 +37,6 @@ import {
 import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
 import { cacaoToCborBase64 } from "./cbor";
 import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
-// Durable Object class — must be exported from the Worker entry module.
-export { KotobaRoot } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
@@ -424,8 +422,6 @@ interface Env {
   // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
-  // Single-threaded authoritative head for atomic CAS on the published root.
-  KOTOBA_ROOT?: DurableObjectNamespace;
   // Operator oversight key (base64 32 bytes) for encrypting published-edit IP
   // attestations. Optional — absent → pseudonymous hash only (see kotoba-publish).
   KOTOBA_ATTEST_KEY?: string;
@@ -1428,12 +1424,14 @@ a{color:inherit}
       }
     }
 
-    // kotoba is content-addressed and Cloudflare-primitive-free: blocks live as
-    // static files under public/kotoba/blocks/<cid> (served by CF assets before
-    // the Worker) and the browser kotoba-wasm resolves them directly. The former
-    // KV/Durable-Object "block publish" surface (KotobaRoot DO + kblk:/kroot:/
-    // kattest: KV) was removed — kotoba only, no CF DO/KV (per directive). Any
-    // dynamic publish goes through the kotoba node, not this Worker.
+    // kotoba is content-addressed: genesis blocks live as static files under
+    // public/kotoba/blocks/<cid> (served by CF assets before the Worker) and the
+    // browser kotoba-wasm resolves them directly. Post-genesis, member-signed
+    // deltas are published through the content-addressed KV CAS below (kblk:/
+    // kroot:/kattest:). The former KotobaRoot Durable Object — the only operated
+    // server-state primitive — was REMOVED per ADR-2605262130 / 2605312345; the
+    // server now only verifies member signatures and stores content-addressed
+    // blocks, never holds authoritative mutable state.
 
     // ──────────────────────────────────────────────────────────────────
     // 2d) kotoba member-signed publish (ADR-2605312345 / 2605231525).

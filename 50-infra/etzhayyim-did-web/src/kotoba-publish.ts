@@ -23,8 +23,6 @@
 
 export interface PublishEnv {
   ACTOR_KV?: KVNamespace;
-  /** Single-threaded authoritative head — true atomic CAS on the published root. */
-  KOTOBA_ROOT?: DurableObjectNamespace;
   /** base64(32 bytes) AES-256-GCM oversight key. When set, the raw client IP is
    *  stored encrypted (recoverable only by oversight); otherwise only a salted
    *  hash + /24 prefix are kept (pseudonymous, charter-clean). Operator-gated. */
@@ -189,45 +187,29 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     updatedAt: new Date().toISOString(),
   };
 
-  // 3) Advance the published head under CHECK-AND-SET (advance only if the
-  //    publisher rebased on the current head — prevents lost updates). A Durable
-  //    Object gives TRUE atomicity (single-threaded read-check-write); without
-  //    the binding we fall back to the KV CAS (narrows, doesn't eliminate, the
-  //    race).
-  if (env.KOTOBA_ROOT) {
-    const stub = env.KOTOBA_ROOT.get(env.KOTOBA_ROOT.idFromName(graph));
-    const casResp = await stub.fetch("https://kotoba-root/cas", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ prevRoot: body.prevRoot ?? null, manifest }),
-    });
-    if (casResp.status === 409) {
-      const j = (await casResp.json()) as { currentRoot?: string };
+  // 3) Advance the published head under KV CHECK-AND-SET (advance only if the
+  //    publisher rebased on the current head — prevents lost updates). No Durable
+  //    Object (ADR-2605262130 / 2605312345: kotoba is the canonical, content-
+  //    addressed substrate; there is no operated server-state primitive). The KV
+  //    read-check-write narrows the race window and the consumer re-verifies every
+  //    CID on ingest, so a concurrent advance can only orphan reusable blocks,
+  //    never corrupt the log.
+  const prevRaw = await env.ACTOR_KV.get(`kroot:${graph}`);
+  if (prevRaw) {
+    let cur: { root?: string } = {};
+    try {
+      cur = JSON.parse(prevRaw);
+    } catch {
+      /* treat as no prior */
+    }
+    if (cur.root && cur.root !== body.prevRoot) {
       return new Response(
-        JSON.stringify({ error: "Conflict", message: "root advanced — rebase and retry", currentRoot: j.currentRoot }),
+        JSON.stringify({ error: "Conflict", message: "root advanced — rebase and retry", currentRoot: cur.root }),
         { status: 409, headers: JSON_HEADERS },
       );
     }
-    // Mirror to KV for the fast GET path (block.has + root read).
-    await env.ACTOR_KV.put(`kroot:${graph}`, JSON.stringify(manifest));
-  } else {
-    const prevRaw = await env.ACTOR_KV.get(`kroot:${graph}`);
-    if (prevRaw) {
-      let cur: { root?: string } = {};
-      try {
-        cur = JSON.parse(prevRaw);
-      } catch {
-        /* treat as no prior */
-      }
-      if (cur.root && cur.root !== body.prevRoot) {
-        return new Response(
-          JSON.stringify({ error: "Conflict", message: "root advanced — rebase and retry", currentRoot: cur.root }),
-          { status: 409, headers: JSON_HEADERS },
-        );
-      }
-    }
-    await env.ACTOR_KV.put(`kroot:${graph}`, JSON.stringify(manifest));
   }
+  await env.ACTOR_KV.put(`kroot:${graph}`, JSON.stringify(manifest));
 
   // 4) Suppressable, encrypted IP attestation (Wikipedia-style accountability,
   //    captured server-side, never in the immutable blocks).
@@ -303,42 +285,4 @@ export async function serveBlockFromKv(cid: string, env: PublishEnv): Promise<Re
       "x-kotoba-block": "kv",
     },
   });
-}
-
-/**
- * KotobaRoot — Durable Object holding the authoritative published head for a
- * graph. Because a DO instance is single-threaded, the read-check-write in /cas
- * is genuinely atomic: two concurrent publishers cannot both pass the CAS, so
- * no edit is ever lost (the loser gets 409 → rebases → retries).
- */
-export class KotobaRoot {
-  private state: DurableObjectState;
-  constructor(state: DurableObjectState) {
-    this.state = state;
-  }
-  async fetch(request: Request): Promise<Response> {
-    const url = new URL(request.url);
-    if (url.pathname === "/get") {
-      const m = (await this.state.storage.get("manifest")) ?? null;
-      return new Response(JSON.stringify(m), { headers: { "content-type": "application/json" } });
-    }
-    if (url.pathname === "/cas" && request.method === "POST") {
-      const { prevRoot, manifest } = (await request.json()) as {
-        prevRoot?: string | null;
-        manifest: { root: string };
-      };
-      const cur = (await this.state.storage.get("manifest")) as { root?: string } | undefined;
-      if (cur && cur.root && cur.root !== prevRoot) {
-        return new Response(JSON.stringify({ ok: false, currentRoot: cur.root }), {
-          status: 409,
-          headers: { "content-type": "application/json" },
-        });
-      }
-      await this.state.storage.put("manifest", manifest);
-      return new Response(JSON.stringify({ ok: true, root: manifest.root }), {
-        headers: { "content-type": "application/json" },
-      });
-    }
-    return new Response("not found", { status: 404 });
-  }
 }
