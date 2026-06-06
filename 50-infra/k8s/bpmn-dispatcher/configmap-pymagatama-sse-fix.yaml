@@ -1,3 +1,4 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 apiVersion: v1
 data:
   dispatcher_main.py: "\"\"\"\nF4 \u2014 generic XRPC dispatcher for BPMN-as-actor\
