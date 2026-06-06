@@ -18,6 +18,30 @@ from typing import Any
 
 from weave import validate_money, validate_node, validate_rel, _kw
 
+# raw node fields that map to canonical :node/* attrs; anything else is carried through as
+# :node/<field> so the validate_node PII / power-score scan (G1/G4/G9) bites on the ingest path.
+_KNOWN_NODE_FIELDS = ("id", "scope", "label", "jurisdiction", "organ", "sources", "sourcing")
+
+
+def normalize_node(raw: dict) -> dict:
+    """Normalize a public-seat record → validated :node/* datom (raises on G1/G4/G9). Extra raw
+    fields are carried through so a smuggled PII / power-score field is caught, not silently dropped."""
+    node = {
+        ":node/id": raw["id"],
+        ":node/scope": ":" + str(raw.get("scope", "")).lstrip(":"),
+        ":node/sourcing": ":" + raw.get("sourcing", "representative"),
+    }
+    for k in ("label", "jurisdiction", "organ"):
+        if raw.get(k):
+            node[":node/" + k] = raw[k]
+    if raw.get("sources"):
+        node[":node/sources"] = [s for s in raw["sources"] if str(s).strip()]
+    for k, v in raw.items():
+        if k not in _KNOWN_NODE_FIELDS:
+            node[":node/" + k] = v   # surfaces PII/power-score keys to validate_node
+    validate_node(node)
+    return node
+
 
 def normalize_committee(raw: dict) -> dict:
     """Normalize a public committee roster record → :committee/* datom (seats as node ids)."""
@@ -75,7 +99,9 @@ def normalize_money(raw: dict) -> dict:
 
 def normalize_batch(batch: dict) -> dict:
     """Normalize a mixed offline batch into keizu datoms. Each record validated."""
-    out: dict[str, list] = {"committees": [], "rels": [], "money": []}
+    out: dict[str, list] = {"nodes": [], "committees": [], "rels": [], "money": []}
+    for n in batch.get("nodes", []):
+        out["nodes"].append(normalize_node(n))
     for c in batch.get("committees", []):
         out["committees"].append(normalize_committee(c))
     for r in batch.get("rels", []):

@@ -5,7 +5,28 @@ import os
 
 from _t import expect_raises, run
 from ingest import (ingest_live, normalize_batch, normalize_committee,
-                    normalize_money, normalize_rel)
+                    normalize_money, normalize_node, normalize_rel)
+
+
+def test_normalize_node_public_seat():
+    n = normalize_node({"id": "s1", "scope": "public-role", "label": "会長 (seat)",
+                        "jurisdiction": "jp", "organ": "財務省", "sourcing": "representative"})
+    assert n[":node/scope"] == ":public-role" and n[":node/organ"] == "財務省"
+
+
+def test_normalize_node_rejects_private_scope():
+    expect_raises(lambda: normalize_node({"id": "s1", "scope": "private-person"}), contains="G1")
+
+
+def test_normalize_node_rejects_pii_field():
+    # G9 no-doxxing must bite on the INGEST path, not only on the seed
+    expect_raises(lambda: normalize_node({"id": "s1", "scope": "public-role", "email": "a@b.jp"}),
+                  contains="no-doxxing")
+
+
+def test_normalize_node_rejects_power_score():
+    expect_raises(lambda: normalize_node({"id": "s1", "scope": "public-role", "power-score": 9}),
+                  contains="G4")
 
 
 def test_normalize_committee():
@@ -46,13 +67,21 @@ def test_normalize_money_validates():
 
 def test_batch():
     out = normalize_batch({
+        "nodes": [{"id": "s1", "scope": "public-role", "sourcing": "representative"}],
         "committees": [{"id": "c1", "members": ["s1"], "sources": ["u"]}],
         "rels": [{"id": "r1", "source": "s1", "target": "c1", "kind": "committee-membership",
                   "sources": ["u1", "u2"]}],
         "money": [{"id": "m1", "payer": "m", "payee": "s1", "kind": "procurement-award",
                    "amount": 1.0, "currency": "JPY", "sources": ["u1", "u2"]}],
     })
+    assert len(out["nodes"]) == 1
     assert len(out["committees"]) == 1 and len(out["rels"]) == 1 and len(out["money"]) == 1
+
+
+def test_batch_aborts_on_bad_node():
+    # a PII-bearing node aborts the whole batch — no partial ingest
+    expect_raises(lambda: normalize_batch({"nodes": [{"id": "s1", "scope": "public-role", "phone": "x"}]}),
+                  contains="no-doxxing")
 
 
 def test_g8_live_refused_without_gate():
