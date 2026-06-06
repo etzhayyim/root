@@ -20,15 +20,25 @@ import os
 import sys
 from typing import Any
 
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from rich.text import Text
-
 from . import commands as cmd
 
+# `rich` powers the pretty TTY renderings only. The machine paths — every
+# `--json` command and, above all, the constitutional `verify` invoked by the
+# pre-commit hook (`python3 -m e7m --json verify`) — MUST run on a bare stdlib
+# python3 with no third-party deps (ADR-2606061500: the hook is the canonical
+# kotoba-premised invariant gate and may not be silently skipped just because
+# `rich` is absent on a workstation). So import rich lazily and degrade to JSON
+# when it is missing.
+try:
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.table import Table
+    from rich.text import Text
 
-console = Console()
+    console = Console()
+except ModuleNotFoundError:  # pragma: no cover - stdlib-only fallback path
+    Console = Panel = Table = Text = None  # type: ignore[assignment,misc]
+    console = None  # type: ignore[assignment]
 
 
 def _emit(payload: Any, as_json: bool) -> None:
@@ -271,6 +281,8 @@ def cmd_lands(args) -> int:
 def cmd_verify(args) -> int:
     out = cmd.verify()
     if args.json: _emit(out, True); return 0 if out["ok"] else 1
+    if console is None:  # rich-less workstation → plain machine output
+        _emit(out, True); return 0 if out["ok"] else 1
     tbl = Table(show_header=True, header_style="bold", box=None, padding=(0, 2))
     tbl.add_column("invariant"); tbl.add_column("pass", justify="center"); tbl.add_column("description")
     for c in out["checks"]:

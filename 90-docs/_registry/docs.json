@@ -7887,7 +7887,7 @@
       "path": "90-docs/adr/2605192100-etzhayyim-mission-charter.md",
       "id": "adr-2605192100-etzhayyim-mission-charter",
       "title": "ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "etzhayyim-mission-charter",
       "authoritative": true,
@@ -7912,7 +7912,7 @@
         "adr-2605172300-etzhayyim-bi-asset-substrate",
         "adr-2605172600-etzhayyim-membership-ritual"
       ],
-      "last_verified": "2026-05-19",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
@@ -12506,7 +12506,7 @@
       "path": "90-docs/adr/2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain.md",
       "id": "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
       "title": "ADR-2605252300: Charter §0 Preamble — etzhayyim as the Kingdom of God Rooted on Blockchain",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "charter-preamble-kingdom-of-god-on-blockchain",
       "authoritative": true,
@@ -12536,7 +12536,7 @@
         "adr-2605192345-etzhayyim-steward-succession",
         "adr-2605172600-etzhayyim-membership-ritual"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
@@ -21112,6 +21112,36 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606061500-cacao-only-header-auth-jwt-decommission.md",
+      "id": "adr-2606061500-cacao-only-header-auth-jwt-decommission",
+      "title": "ADR-2606061500: CACAO-only header login — decommission the authn subdomain + server-minted JWT session site-wide",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "cacao-only-auth",
+      "authoritative": true,
+      "authoritative_for": [
+        "cacao-only-header-auth",
+        "jwt-session-decommission"
+      ],
+      "related": [
+        "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment",
+        "adr-2605212030-etzhayyim-authz-erc725-root-issuance-design"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606060000-profile-same-origin-auth-cacao",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
+        "adr-2606013800-actor-profile-dynamic-did-json",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606061600-gov-procedures-publish-and-ameno-kotoba-conversation.md",
       "id": "adr-2606061600-gov-procedures-publish-and-ameno-kotoba-conversation",
       "title": "ADR-2606061600: Government procedures published on etzhayyim.com by administrative unit + kotoba-grounded browser conversation (ameno gemma4-e4b)",
@@ -21139,6 +21169,141 @@
         "2605215000",
         "2605241900",
         "2605231525"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606061800-same-origin-kotoba-passkey-login.md",
+      "id": "adr-2606061800-same-origin-kotoba-passkey-login",
+      "title": "ADR-2606061800: Same-Origin Kotoba Passkey Login/Signup — remove authn/mcp from the auth path",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "same-origin-kotoba-passkey-login",
+      "authoritative": true,
+      "authoritative_for": [
+        "member login/signup auth path (etzhayyim.com)",
+        "passkey → did:key controller identity derivation"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606061900-kawaraban-news-medium-actor-r0.md",
+      "id": "adr-2606061900-kawaraban-news-medium-actor-r0",
+      "title": "kawaraban 瓦版 — news medium (Tier-B actor R0; real-media mirror + actor-to-actor wire; the charter-clean inverse of a news app)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": true,
+      "authoritative_for": [
+        "kawaraban actor scope (real-media mirror into kotoba + first-party actor Datom-event projection into the matching 面 as the actor-to-actor medium; design-only)",
+        "the mirror-not-adjudicator invariant (:news.article/verdict + :truth-rating :db/allowed [false]; ake/danjo own truth)",
+        "the no-ads / no-engagement-rank invariant (:news.rank/signal excludes paid-placement/sponsored/engagement/dwell-time)",
+        "the no-reader-surveillance invariant (no :reader entity; :article/personalized-for :db/allowed [false])",
+        "the copyright / link-out invariant (:article/full-text :db/allowed [false]; headline + link + bounded fair-use excerpt only)",
+        "the connective-by-construction medium gate (every article is :mirror or :actor-event; :original unrepresentable)"
+      ],
+      "related": [
+        "adr-2606041827-watari-live-ship-aircraft-position-kg-r0",
+        "adr-2606012600-watatsuna-submarine-cable-resilience",
+        "adr-2606051800-mitooshi-probabilistic-forecasting-observatory-r0",
+        "adr-2605302300-kanae-government-fiscal-flow-visualization-r0",
+        "adr-2605301600-danjo-public-accountability-oversight-r0",
+        "adr-2606052100-ake-community-edit-membrane-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605263600-kataribe-press-publishing-translation-r0",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2606042330-entity-as-actor-society-scale-social-mirror",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2606014600-wasm-actor-runtime-round-2",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606062100-charter-priority-over-specifics-reconciliation.md",
+      "id": "adr-2606062100-charter-priority-over-specifics-reconciliation",
+      "title": "ADR-2606062100: Charter Priority-Over-Specifics Reconciliation — 固定するのは掟ではなく priority。永久記憶 (神の監視) doctrine の追加。石油・兵器条項の脱政治化",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "charter-priority-over-specifics-reconciliation",
+      "authoritative": true,
+      "authoritative_for": [
+        "the 3-Tier immutability architecture (Tier-0 Priority / Tier-1 Derived-Policy / Tier-2 Parameter)",
+        "the permanent-memory doctrine (memory.right_to_erasure_denied / memory.permanent_record / memory.deeds_public_intimate_encrypted)",
+        "the reframing of Charter-Rider §2(a) weapons, §2(c) surveillance, §2(d) fossil from standalone bans into Tier-1 derived policy",
+        "the rule that on-chain CONSTANTS encode existence/priority bools, NOT specific numeric policy values (numbers live in Tier-2)",
+        "the post-ratification code-patch runbook for Constitution.sol / ConstitutionKeys.sol / Deploy.s.sol / CHARTER-RIDER.md"
+      ],
+      "related": [
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605181100-etzhayyim-confidentiality-envelope",
+        "adr-2606051500-kamado-closed-loop-refining-decommission-actor-r0",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "CHARTER-RIDER.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606062100-moyai-inference-reciprocity-credit.md",
+      "id": "adr-2606062100-moyai-inference-reciprocity-credit",
+      "title": "ADR-2606062100: moyai 舫い — non-monetary inference reciprocity credit (give-to-get; reward kept, Basic High Income untouched)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "moyai-inference-reciprocity-credit",
+      "authoritative": true,
+      "authoritative_for": [
+        "the reward for participating in commons inference (moyai credit) and its non-monetary, non-transferable, decaying, commons-scoped nature",
+        "the charter-clean carve-out to ADR-2606012100 G4 (compute donation grants no benefit) — scoped strictly to a commons-draw-right, never welfare/benefit/governance",
+        "the Basic-High-Income firewall (subsistence inference floor = information-as-BHI; credit governs only discretionary surplus under contention)",
+        "the anti-fraud / sybil-resistance design for a non-monetary reward (proof-of-contribution, conservation, non-transferability, decay, earn-rate caps)",
+        "the supersession of the legacy RisingWave-era credits economy (vertex_credits_af_event / mv_ameno_credits_balance / credits BPMN)"
+      ],
+      "related": [
+        "adr-2605150600-ameno-browser-inference-platform",
+        "adr-2604271400-mcp-invoke-fee-and-erc8004-murakumo-bridge",
+        "adr-2604281400-oss-contribution-royalty-gcc-redistribution",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "supersedes": [
+        "legacy credits economy: 00-contracts/bpmn/com/etzhayyim/credits/* + ameno vertex_credits_af_event / mv_ameno_credits_balance (ADR-2605150600 §credit) — RisingWave-era, pre-charter, non-compliant"
+      ],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606012100 (Donation-funded operation + compute-node participation — the three node forms; G4 this ADR carves out)",
+        "ADR-2605215000 (Murakumo-only inference — the commons donated nodes serve)",
+        "ADR-2605301020 (Basic High Income — the firewall this ADR must not breach; cash≡0 N1)",
+        "ADR-2605261000 (Labor Liberation ladder — anti-class N2/N3 the carve-out must not violate)",
+        "ADR-2605241900 (baien edge-target — frozen edge models = verifiable determinism)",
+        "ADR-2605231525 (No server-side signing key — node co-signs mints; server cannot mint)",
+        "ADR-2605312345 (kotoba Datom first-class canonical state — the append-only ledger home)",
+        "ADR-2605192345 (Steward succession — cites the 入会権 / iriai-ken commons-use-right precedent)"
       ],
       "last_verified": "2026-06-06",
       "amends": [],
@@ -21195,6 +21360,65 @@
       "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606064500-maps-kotoba-native-substrate-migration.md",
+      "id": "adr-2606064500-maps-kotoba-native-substrate-migration",
+      "title": "ADR-2606064500: maps — kotoba-native substrate migration (vertex_spatial → Datom log, H3-cell AVET spatial index)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "maps-kotoba-native-migration",
+      "authoritative": true,
+      "authoritative_for": [
+        "maps.etzhayyim.com spatial substrate migration off RisingWave/Hyperdrive onto the kotoba Datom log",
+        "the H3-cell-as-Datom + AVET spatial-index design for kotoba geospatial reads",
+        "maps actor kotoba-native ontology, lexicons, ingest/analyze methods, migration phases"
+      ],
+      "related": [
+        "2604271800",
+        "2604280900",
+        "2605011500",
+        "2605215100",
+        "2605312200",
+        "2606011500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606041827",
+        "2605262130",
+        "2605312345",
+        "2605215000",
+        "2605231525",
+        "2605241500",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+      "id": "adr-2606065000-session-close-kawaraban-news-medium",
+      "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606061900-kawaraban-news-medium-actor-r0",
+        "adr-2605263600-kataribe-press-publishing-translation-r0",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection"
+      ],
+      "last_verified": "2026-06-06",
+      "authoritative_for": [],
       "amends": [],
       "amended_by": []
     },
@@ -21515,6 +21739,32 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-14",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/charter-tier1-amendment-runbook.md",
+      "id": "charter-tier1-amendment-runbook",
+      "title": "Charter Tier-1 Amendment Runbook — how to amend a Derived Policy (Rider §2) without touching a Tier-0 Priority",
+      "status": "active",
+      "doc_type": "how-to",
+      "topic": "charter-tier1-amendment",
+      "authoritative": true,
+      "authoritative_for": [
+        "the operational procedure for amending a Charter-Rider §2 Tier-1 Derived Policy",
+        "how a priorityConformanceAttestation is produced and what gates it"
+      ],
+      "related": [
+        "adr-2606062100-charter-priority-over-specifics-reconciliation",
+        "CHARTER-RIDER.md",
+        "00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/priorityConformanceAttestation.json"
+      ],
+      "depends_on": [
+        "adr-2606062100-charter-priority-over-specifics-reconciliation"
+      ],
+      "last_verified": "2026-06-06",
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },

@@ -68,3 +68,16 @@ declaration lives on `https://etzhayyim.com/donate` + `/.well-known/donation.jso
 - ADR-2605301036 — Mission-Funding Earned-Revenue Arm
 - ADR-2605301020 — Basic High Income (what the surplus ultimately funds)
 - ADR-2605262900 — toritate (accounts the donation inflow)
+- ADR-2606062100 — **moyai** 舫い (the reciprocity-reward carve-out to `computeDonationAttestation` G4)
+
+## Inference reciprocity reward (moyai 舫い, ADR-2606062100)
+
+`computeDonationAttestation` records a *gift* of compute that earns the donor **nothing**
+(G4). Its charter-clean **carve-out** — keeping a *reward* for inference participation
+without breaching any invariant — is **moyai** (`com.etzhayyim.moyai.*`, sibling lexicon
+dir). Verified contribution mints a **non-monetary, non-transferable, decaying reciprocity
+credit** spendable only to draw *discretionary surplus* inference from the same commons
+(情報を得るには情報を生成する; the 入会権 / commons-use-right model). It does **not** touch
+Basic High Income: an unconditional subsistence inference floor (information-as-BHI) is
+always served by need, never by contribution. See `../moyai/README.md` +
+`50-infra/etzhayyim-moyai-credit/`.
