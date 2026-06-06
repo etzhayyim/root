@@ -64,8 +64,24 @@ Version-parameterised; defaults follow widely-deployed CBPR+/SEPA versions.
 | **pain.001** | CustomerCreditTransferInitiation | `pain.001.001.09` | ingress (a party instructs a transfer) |
 | **pacs.008** | FIToFICustomerCreditTransfer | `pacs.008.001.08` | inter-bank leg (the SWIFT/CBPR+ carrier) |
 | **pacs.002** | FIToFIPaymentStatusReport | `pacs.002.001.10` | acceptance / rejection / pending ack |
+| **camt.053** | BankToCustomerStatement | `camt.053.001.08` | reconciliation (end-of-day account statement) |
+| **camt.054** | BankToCustomerDebitCreditNotification | `camt.054.001.08` | reconciliation (debit/credit notification) |
 
 Pass `version=` to any `build_*` / `parse_*` to target a different release.
+
+### Reconciliation (camt → ingress loop-close)
+
+A `camt.053`/`camt.054` entry that carries an `EndToEndId` maps to the
+**same** content-addressed transaction entity as the original
+`pain.001`/`pacs.008` ingress, so an inbound bank statement/notification
+*reconciles against* the earlier message instead of creating a parallel
+record — the off-ramp closing the loop in the kotoba Datom log:
+
+```python
+from kotoba_iso20022 import parse_camt054, to_datoms
+report = parse_camt054(camt054_xml)
+datoms = to_datoms(report)   # entry facts land on com.etzhayyim.iso20022/tx:<EndToEndId>
+```
 
 ## Usage
 
@@ -108,10 +124,10 @@ same message is idempotent and a later `pacs.002` status lands on the
 kotoba_iso20022/
 ├── validate.py   # ISO 13616 IBAN / ISO 9362 BIC / ISO 4217 ccy / amount
 ├── model.py      # frozen-dataclass domain model (GrpHdr / CdtTrfTxInf / …)
-├── codec.py      # build + parse XML for pain.001 / pacs.008 / pacs.002
-├── datoms.py     # message → kotoba EAVT Datom ingress mapping
+├── codec.py      # build + parse XML for pain.001 / pacs.008 / pacs.002 / camt.053 / camt.054
+├── datoms.py     # message → kotoba EAVT Datom ingress + reconciliation mapping
 └── __init__.py   # public surface
-tests/            # 43 tests (validators + round-trip + datom mapping)
+tests/            # 48 tests (validators + round-trip + datom mapping + camt reconciliation)
 ```
 
 ## Tests
@@ -137,14 +153,17 @@ CH/BE); BIC vectors are real ISO 9362 codes.
 
 ## Roadmap
 
-- `camt.053` / `camt.054` (statement + debit/credit notification) for the
-  off-ramp reconciliation direction.
+- ✅ `camt.053` / `camt.054` (statement + debit/credit notification) for the
+  off-ramp reconciliation direction — **shipped**, entries reconcile against
+  the ingress tx entity via `EndToEndId`.
 - A gated `kawase` ingress cell that calls `to_datoms` and transacts under
   G2/G13 (Council-ratified, post-RFP).
 - Lexicon mapping `com.etzhayyim.iso20022.*` ↔
   `com.etzhayyim.kawase.depositAttestation` for corridor reconciliation.
 - ISO 20022 XSD conformance harness (optional dev-time check against the
   official schema files; runtime stays schema-file-free).
+- `pain.002` customer payment-status report (the pain-side ack, sibling of
+  the pacs.002 already shipped).
 
 ## Related
 

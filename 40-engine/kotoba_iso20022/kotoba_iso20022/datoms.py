@@ -24,10 +24,13 @@ from dataclasses import dataclass
 from typing import Union
 
 from .model import (
+    BankToCustomerDebitCreditNotification,
+    BankToCustomerStatement,
     CreditTransferTransaction,
     CustomerCreditTransferInitiation,
     FIToFICustomerCreditTransfer,
     FIToFIPaymentStatusReport,
+    StatementEntry,
 )
 
 __all__ = ("Datom", "NS", "to_datoms")
@@ -38,6 +41,8 @@ AnyMessage = Union[
     CustomerCreditTransferInitiation,
     FIToFICustomerCreditTransfer,
     FIToFIPaymentStatusReport,
+    BankToCustomerStatement,
+    BankToCustomerDebitCreditNotification,
 ]
 
 
@@ -123,7 +128,44 @@ def to_datoms(msg: AnyMessage) -> list[Datom]:
             out.append(Datom(ent, f"{NS}.tx/status", sts.transaction_status))
             if sts.status_reason_code:
                 out.append(Datom(ent, f"{NS}.tx/statusReason", sts.status_reason_code))
+    elif isinstance(msg, BankToCustomerStatement):
+        out.append(Datom(msg_entity, f"{NS}.msg/definition", "camt.053"))
+        for stmt in msg.statements:
+            for entry in stmt.entries:
+                out.extend(_entry_datoms(msg_entity, entry, "camt.053"))
+    elif isinstance(msg, BankToCustomerDebitCreditNotification):
+        out.append(Datom(msg_entity, f"{NS}.msg/definition", "camt.054"))
+        for ntf in msg.notifications:
+            for entry in ntf.entries:
+                out.extend(_entry_datoms(msg_entity, entry, "camt.054"))
     else:  # pragma: no cover - exhaustive by construction
         raise TypeError(f"unsupported message type: {type(msg)!r}")
 
+    return out
+
+
+def _entry_datoms(msg_entity: str, entry: StatementEntry, definition: str) -> list[Datom]:
+    """Map a camt Ntry to reconciliation Datoms.
+
+    When the entry carries an EndToEndId it lands on the SAME content-
+    addressed transaction entity as the original pain.001/pacs.008 ingress,
+    so a statement/notification *reconciles* against the earlier message
+    (the off-ramp closing the loop) rather than creating a parallel record.
+    Entries without an EndToEndId get their own AcctSvcrRef-keyed entity.
+    """
+    ref = entry.end_to_end_id or entry.account_servicer_reference
+    ent = f"{NS}/tx:{ref}" if ref else msg_entity
+    out: list[Datom] = [
+        Datom(ent, f"{NS}.entry/amount", str(entry.amount.value)),
+        Datom(ent, f"{NS}.entry/currency", entry.amount.currency),
+        Datom(ent, f"{NS}.entry/creditDebit", entry.credit_debit),
+        Datom(ent, f"{NS}.entry/status", entry.status),
+        Datom(ent, f"{NS}.entry/reportedBy", definition),
+    ]
+    if entry.booking_date:
+        out.append(Datom(ent, f"{NS}.entry/bookingDate", entry.booking_date))
+    if entry.value_date:
+        out.append(Datom(ent, f"{NS}.entry/valueDate", entry.value_date))
+    if entry.account_servicer_reference:
+        out.append(Datom(ent, f"{NS}.entry/acctSvcrRef", entry.account_servicer_reference))
     return out

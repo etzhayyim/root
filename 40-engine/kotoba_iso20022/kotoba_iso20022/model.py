@@ -45,13 +45,26 @@ __all__ = (
     "ChargeBearer",
     "SettlementMethod",
     "TxStatusCode",
+    "CreditDebitCode",
+    "BalanceType",
+    "EntryStatus",
+    "CashBalance",
+    "StatementEntry",
+    "AccountStatement",
+    "BankToCustomerStatement",
+    "AccountNotification",
+    "BankToCustomerDebitCreditNotification",
 )
 
-# ISO 20022 external code subsets actually used by the three messages.
+# ISO 20022 external code subsets actually used by the messages here.
 ChargeBearer = Literal["DEBT", "CRED", "SHAR", "SLEV"]
 SettlementMethod = Literal["INDA", "INGA", "COVE", "CLRG"]
 # pacs.002 TransactionIndividualStatus (ISO external code set).
 TxStatusCode = Literal["ACCP", "ACSP", "ACSC", "ACWC", "ACWP", "RJCT", "PDNG"]
+# camt.05x CreditDebitCode + balance-type + entry-status code sets.
+CreditDebitCode = Literal["CRDT", "DBIT"]
+BalanceType = Literal["OPBD", "CLBD", "PRCD", "CLAV", "FWAV", "ITBD"]
+EntryStatus = Literal["BOOK", "PDNG", "INFO"]
 
 
 @dataclass(frozen=True)
@@ -203,3 +216,70 @@ class FIToFIPaymentStatusReport:
     original_message_id: str
     original_message_name_id: str  # e.g. "pacs.008.001.08"
     statuses: tuple[TransactionStatus, ...] = field(default_factory=tuple)
+
+
+# --------------------------------------------------------------------------
+# camt.053 / camt.054 — account reporting (reconciliation / off-ramp side)
+# --------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class CashBalance:
+    """``Bal`` — a statement balance (opening / closing / available …)."""
+
+    balance_type: BalanceType  # Tp/CdOrPrtry/Cd
+    amount: Amount
+    credit_debit: CreditDebitCode  # CdtDbtInd
+    date: str  # Dt/Dt (ISO date)
+
+
+@dataclass(frozen=True)
+class StatementEntry:
+    """``Ntry`` — one booked/pending entry, shared by camt.053 and camt.054."""
+
+    amount: Amount
+    credit_debit: CreditDebitCode  # CdtDbtInd
+    status: EntryStatus  # Sts (BOOK / PDNG / INFO)
+    booking_date: Optional[str] = None  # BookgDt/Dt
+    value_date: Optional[str] = None  # ValDt/Dt
+    account_servicer_reference: Optional[str] = None  # AcctSvcrRef
+    bank_transaction_code: Optional[str] = None  # BkTxCd/Domn/Cd (kept opaque)
+    end_to_end_id: Optional[str] = None  # NtryDtls/TxDtls/Refs/EndToEndId
+    remittance_info: Optional[RemittanceInfo] = None
+
+
+@dataclass(frozen=True)
+class AccountStatement:
+    """``Stmt`` — one account statement within camt.053."""
+
+    statement_id: str
+    creation_datetime: str
+    account: Account
+    balances: tuple[CashBalance, ...] = ()
+    entries: tuple[StatementEntry, ...] = ()
+
+
+@dataclass(frozen=True)
+class BankToCustomerStatement:
+    """camt.053 — ``BkToCstmrStmt``."""
+
+    group_header: GroupHeader
+    statements: tuple[AccountStatement, ...]
+
+
+@dataclass(frozen=True)
+class AccountNotification:
+    """``Ntfctn`` — one account notification within camt.054."""
+
+    notification_id: str
+    creation_datetime: str
+    account: Account
+    entries: tuple[StatementEntry, ...] = ()
+
+
+@dataclass(frozen=True)
+class BankToCustomerDebitCreditNotification:
+    """camt.054 — ``BkToCstmrDbtCdtNtfctn``."""
+
+    group_header: GroupHeader
+    notifications: tuple[AccountNotification, ...]

@@ -27,8 +27,13 @@ from typing import Optional
 
 from .model import (
     Account,
+    AccountNotification,
+    AccountStatement,
     Agent,
     Amount,
+    BankToCustomerDebitCreditNotification,
+    BankToCustomerStatement,
+    CashBalance,
     CreditTransferTransaction,
     CustomerCreditTransferInitiation,
     FIToFICustomerCreditTransfer,
@@ -38,6 +43,7 @@ from .model import (
     PaymentInstruction,
     PostalAddress,
     RemittanceInfo,
+    StatementEntry,
     TransactionStatus,
 )
 from .validate import (
@@ -58,12 +64,18 @@ __all__ = (
     "parse_pacs008",
     "build_pacs002",
     "parse_pacs002",
+    "build_camt053",
+    "parse_camt053",
+    "build_camt054",
+    "parse_camt054",
 )
 
 DEFAULT_VERSIONS: dict[str, str] = {
     "pain.001": "pain.001.001.09",
     "pacs.008": "pacs.008.001.08",
     "pacs.002": "pacs.002.001.10",
+    "camt.053": "camt.053.001.08",
+    "camt.054": "camt.054.001.08",
 }
 
 _URN_PREFIX = "urn:iso:std:iso:20022:tech:xsd:"
@@ -496,4 +508,179 @@ def parse_pacs002(xml: str, version: Optional[str] = None) -> FIToFIPaymentStatu
         original_message_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgId") or "",
         original_message_name_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgNmId") or "",
         statuses=tuple(statuses),
+    )
+
+
+# --------------------------------------------------------------------------
+# camt.053 / camt.054 — shared Bal + Ntry component build/parse
+# --------------------------------------------------------------------------
+
+
+def _build_amt(parent: ET.Element, ns: str, tag: str, amt: Amount) -> None:
+    el = _sub(parent, ns, tag, _fmt_amount(amt))
+    el.set("Ccy", validate_currency(amt.currency, require_active=False))
+
+
+def _build_balance(parent: ET.Element, ns: str, bal: CashBalance) -> None:
+    el = _sub(parent, ns, "Bal")
+    tp = _sub(el, ns, "Tp")
+    cdor = _sub(tp, ns, "CdOrPrtry")
+    _sub(cdor, ns, "Cd", bal.balance_type)
+    _build_amt(el, ns, "Amt", bal.amount)
+    _sub(el, ns, "CdtDbtInd", bal.credit_debit)
+    dt = _sub(el, ns, "Dt")
+    _sub(dt, ns, "Dt", bal.date)
+
+
+def _build_entry(parent: ET.Element, ns: str, entry: StatementEntry) -> None:
+    el = _sub(parent, ns, "Ntry")
+    _build_amt(el, ns, "Amt", entry.amount)
+    _sub(el, ns, "CdtDbtInd", entry.credit_debit)
+    _sub(el, ns, "Sts", entry.status)
+    if entry.booking_date:
+        bd = _sub(el, ns, "BookgDt")
+        _sub(bd, ns, "Dt", entry.booking_date)
+    if entry.value_date:
+        vd = _sub(el, ns, "ValDt")
+        _sub(vd, ns, "Dt", entry.value_date)
+    if entry.account_servicer_reference:
+        _sub(el, ns, "AcctSvcrRef", entry.account_servicer_reference)
+    if entry.bank_transaction_code:
+        btc = _sub(el, ns, "BkTxCd")
+        domn = _sub(btc, ns, "Domn")
+        _sub(domn, ns, "Cd", entry.bank_transaction_code)
+    if entry.end_to_end_id or entry.remittance_info:
+        dtls = _sub(el, ns, "NtryDtls")
+        txd = _sub(dtls, ns, "TxDtls")
+        if entry.end_to_end_id:
+            refs = _sub(txd, ns, "Refs")
+            _sub(refs, ns, "EndToEndId", entry.end_to_end_id)
+        if entry.remittance_info:
+            _build_remittance(txd, ns, entry.remittance_info)
+
+
+def _parse_balance(el: ET.Element, ns: str) -> CashBalance:
+    amt = _parse_amount(_find(el, ns, "Amt"))
+    if amt is None:
+        raise Iso20022CodecError("Bal missing Amt")
+    return CashBalance(
+        balance_type=_text(el, ns, "Tp/CdOrPrtry/Cd") or "OPBD",  # type: ignore[arg-type]
+        amount=amt,
+        credit_debit=_text(el, ns, "CdtDbtInd") or "CRDT",  # type: ignore[arg-type]
+        date=_text(el, ns, "Dt/Dt") or "",
+    )
+
+
+def _parse_entry(el: ET.Element, ns: str) -> StatementEntry:
+    amt = _parse_amount(_find(el, ns, "Amt"))
+    if amt is None:
+        raise Iso20022CodecError("Ntry missing Amt")
+    txd = _find(el, ns, "NtryDtls/TxDtls")
+    return StatementEntry(
+        amount=amt,
+        credit_debit=_text(el, ns, "CdtDbtInd") or "CRDT",  # type: ignore[arg-type]
+        status=_text(el, ns, "Sts") or "BOOK",  # type: ignore[arg-type]
+        booking_date=_text(el, ns, "BookgDt/Dt"),
+        value_date=_text(el, ns, "ValDt/Dt"),
+        account_servicer_reference=_text(el, ns, "AcctSvcrRef"),
+        bank_transaction_code=_text(el, ns, "BkTxCd/Domn/Cd"),
+        end_to_end_id=_text(txd, ns, "Refs/EndToEndId") if txd is not None else None,
+        remittance_info=_parse_remittance(_find(txd, ns, "RmtInf"), ns) if txd is not None else None,
+    )
+
+
+def _grphdr_min(parent: ET.Element, ns: str, gh: GroupHeader) -> None:
+    grp = _sub(parent, ns, "GrpHdr")
+    _sub(grp, ns, "MsgId", gh.message_id)
+    _sub(grp, ns, "CreDtTm", gh.creation_datetime)
+
+
+# --------------------------------------------------------------------------
+# camt.053 — BankToCustomerStatement
+# --------------------------------------------------------------------------
+
+
+def build_camt053(msg: BankToCustomerStatement, version: Optional[str] = None) -> str:
+    ns = urn_for(version or DEFAULT_VERSIONS["camt.053"])
+    doc, root = _root(ns, "BkToCstmrStmt")
+    _grphdr_min(root, ns, msg.group_header)
+    for stmt in msg.statements:
+        s = _sub(root, ns, "Stmt")
+        _sub(s, ns, "Id", stmt.statement_id)
+        _sub(s, ns, "CreDtTm", stmt.creation_datetime)
+        _build_account(s, ns, "Acct", stmt.account)
+        for bal in stmt.balances:
+            _build_balance(s, ns, bal)
+        for entry in stmt.entries:
+            _build_entry(s, ns, entry)
+    return _serialize(doc)
+
+
+def parse_camt053(xml: str, version: Optional[str] = None) -> BankToCustomerStatement:
+    ns = urn_for(version or DEFAULT_VERSIONS["camt.053"])
+    root = _root_or_raise(xml, ns, "BkToCstmrStmt")
+    gh = GroupHeader(
+        message_id=_text(root, ns, "GrpHdr/MsgId") or "",
+        creation_datetime=_text(root, ns, "GrpHdr/CreDtTm") or "",
+        number_of_txs=0,
+    )
+    statements = []
+    for s in _findall(root, ns, "Stmt"):
+        acct = _parse_account(_find(s, ns, "Acct"), ns)
+        if acct is None:
+            raise Iso20022CodecError("camt.053 Stmt missing Acct")
+        statements.append(
+            AccountStatement(
+                statement_id=_text(s, ns, "Id") or "",
+                creation_datetime=_text(s, ns, "CreDtTm") or "",
+                account=acct,
+                balances=tuple(_parse_balance(b, ns) for b in _findall(s, ns, "Bal")),
+                entries=tuple(_parse_entry(e, ns) for e in _findall(s, ns, "Ntry")),
+            )
+        )
+    return BankToCustomerStatement(group_header=gh, statements=tuple(statements))
+
+
+# --------------------------------------------------------------------------
+# camt.054 — BankToCustomerDebitCreditNotification
+# --------------------------------------------------------------------------
+
+
+def build_camt054(msg: BankToCustomerDebitCreditNotification, version: Optional[str] = None) -> str:
+    ns = urn_for(version or DEFAULT_VERSIONS["camt.054"])
+    doc, root = _root(ns, "BkToCstmrDbtCdtNtfctn")
+    _grphdr_min(root, ns, msg.group_header)
+    for ntf in msg.notifications:
+        n = _sub(root, ns, "Ntfctn")
+        _sub(n, ns, "Id", ntf.notification_id)
+        _sub(n, ns, "CreDtTm", ntf.creation_datetime)
+        _build_account(n, ns, "Acct", ntf.account)
+        for entry in ntf.entries:
+            _build_entry(n, ns, entry)
+    return _serialize(doc)
+
+
+def parse_camt054(xml: str, version: Optional[str] = None) -> BankToCustomerDebitCreditNotification:
+    ns = urn_for(version or DEFAULT_VERSIONS["camt.054"])
+    root = _root_or_raise(xml, ns, "BkToCstmrDbtCdtNtfctn")
+    gh = GroupHeader(
+        message_id=_text(root, ns, "GrpHdr/MsgId") or "",
+        creation_datetime=_text(root, ns, "GrpHdr/CreDtTm") or "",
+        number_of_txs=0,
+    )
+    notifications = []
+    for n in _findall(root, ns, "Ntfctn"):
+        acct = _parse_account(_find(n, ns, "Acct"), ns)
+        if acct is None:
+            raise Iso20022CodecError("camt.054 Ntfctn missing Acct")
+        notifications.append(
+            AccountNotification(
+                notification_id=_text(n, ns, "Id") or "",
+                creation_datetime=_text(n, ns, "CreDtTm") or "",
+                account=acct,
+                entries=tuple(_parse_entry(e, ns) for e in _findall(n, ns, "Ntry")),
+            )
+        )
+    return BankToCustomerDebitCreditNotification(
+        group_header=gh, notifications=tuple(notifications)
     )
