@@ -13,6 +13,7 @@ SUITES=(
   "methods/test_persist.py"
   "methods/test_forecast.py"
   "methods/test_backtest.py"
+  "methods/test_promote.py"
   "methods/test_horizon.py"
   "cells/test_state_machines.py"
   "test_learning_loop.py"
