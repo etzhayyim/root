@@ -29,7 +29,19 @@ export function isComponent(bytes) {
   return bytes[0] === 0x00 && bytes[1] === 0x61 && bytes[2] === 0x73 && bytes[3] === 0x6d && bytes[6] === 0x01;
 }
 
-export async function fetchVerified({ cid, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
+/** Ordered IPFS gateways to try — kotoba/IPFS-premise, NOT Cloudflare-premise
+ *  (ADR-2606064500). Local kubo first (a donated mesh node serves its own pins),
+ *  then public trustless gateways. Override with E7M_IPFS_GATEWAYS (comma list).
+ *  The apex `https://etzhayyim.com` is no longer the default — it is just one
+ *  more gateway you can pass explicitly. The CID is the trust anchor either way. */
+export function defaultIpfsGateways() {
+  const env = process.env.E7M_IPFS_GATEWAYS;
+  if (env) return env.split(",").map((s) => s.trim()).filter(Boolean);
+  return ["http://127.0.0.1:8080", "https://ipfs.io", "https://dweb.link"];
+}
+
+/** Fetch + CID/CAR-verify from ONE gateway. */
+async function fetchFromGateway({ cid, gatewayBase, fetchImpl = fetch }) {
   const base = `${gatewayBase.replace(/\/$/, "")}/ipfs/${cid}`;
   if (isRawCidV1(cid)) {
     const res = await fetchImpl(base);
@@ -46,8 +58,40 @@ export async function fetchVerified({ cid, gatewayBase = "https://etzhayyim.com"
   throw new Error(`unsupported CID: ${cid}`);
 }
 
-export async function didToCid({ did, didDoc, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
+/** Resolve + verify bytes for a CID across an ordered gateway list (first that
+ *  serves verifiable bytes wins). `gatewayBase` (single) still works for back-compat. */
+export async function fetchVerified({ cid, gatewayBase, gateways, fetchImpl = fetch }) {
+  const list = gateways ?? (gatewayBase ? [gatewayBase] : defaultIpfsGateways());
+  let lastErr;
+  for (const gw of list) {
+    try {
+      return await fetchFromGateway({ cid, gatewayBase: gw, fetchImpl });
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw new Error(`all gateways failed for ${cid}: ${lastErr?.message ?? "unknown"}`);
+}
+
+/** Resolve a did:web actor handle → wasm CID, kotoba-first (the canonical Datom
+ *  log binding `actor/wasm-cid`, ADR-2606064500), falling back to the did.json
+ *  EtzhayyimWasmComponent service. `kotobaUrl` (or KOTOBA_URL) enables the
+ *  Cloudflare-free path; without it, did:web TLS still anchors the handle→CID. */
+export async function didToCid({ did, didDoc, kotobaUrl = process.env.KOTOBA_URL, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
   const slug = did.replace(/^did:web:etzhayyim\.com:actor:/, "");
+  // 1. kotoba Datom log (canonical) — no apex Worker in the loop.
+  if (kotobaUrl && !didDoc) {
+    try {
+      const url = `${kotobaUrl.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kotobase.kg.entity?id=${encodeURIComponent(`actor.${slug}`)}`;
+      const body = await fetchImpl(url, { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null));
+      const claims = body?.entity?.claims ?? body?.claims ?? [];
+      const c = claims.find((x) => x?.pred === "actor/wasm-cid")?.value;
+      if (typeof c === "string" && c) return c;
+    } catch {
+      /* fall through to did.json */
+    }
+  }
+  // 2. did.json EtzhayyimWasmComponent service (did:web TLS-anchored).
   const doc = didDoc ?? (await fetchImpl(`${gatewayBase.replace(/\/$/, "")}/actor/${slug}/did.json`).then((r) => r.json()));
   const svc = (doc.service ?? []).find((s) => s.type === "EtzhayyimWasmComponent");
   if (!svc) throw new Error(`no EtzhayyimWasmComponent for ${did}`);
@@ -88,7 +132,15 @@ function isMain() {
 if (isMain()) {
   const args = process.argv.slice(2);
   const val = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : undefined; };
-  const opts = { file: val("--file"), cid: val("--cid"), did: val("--did"), gatewayBase: val("--gateway") };
+  const gws = val("--gateways");
+  const opts = {
+    file: val("--file"),
+    cid: val("--cid"),
+    did: val("--did"),
+    gatewayBase: val("--gateway"),
+    gateways: gws ? gws.split(",").map((s) => s.trim()).filter(Boolean) : undefined,
+    kotobaUrl: val("--kotoba"),
+  };
   resolveAndRun(opts)
     .then((r) => { console.log(JSON.stringify(r, null, 2)); })
     .catch((e) => { console.error("runner failed:", e.message); process.exit(1); });

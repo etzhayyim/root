@@ -1,13 +1,18 @@
 {
   "name": "@etzhayyim/e7m-wasm-runner",
   "version": "0.1.0",
-  "description": "T2 donated-mesh WASM-actor execution node — resolve, CID/CAR-verify, run core or component actors headlessly. Per ADR-2606015200.",
+  "description": "kotoba-premise WASM-actor deploy + T2 donated-mesh execution node — content-address (CAR/CID), pin to IPFS, register in the kotoba Datom log, resolve/verify/run from any IPFS gateway. Cloudflare-free. Per ADR-2606015200 + ADR-2606064500.",
   "license": "Apache-2.0",
   "private": false,
   "type": "module",
-  "bin": { "e7m-wasm-runner": "runner.mjs", "e7m-wasm-serve": "serve.mjs" },
+  "bin": {
+    "e7m-wasm-runner": "runner.mjs",
+    "e7m-wasm-serve": "serve.mjs",
+    "e7m-wasm-deploy": "deploy.mjs"
+  },
   "scripts": {
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
-    "serve": "node serve.mjs"
+    "serve": "node serve.mjs",
+    "deploy": "node deploy.mjs"
   }
 }
