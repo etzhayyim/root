@@ -9936,6 +9936,14 @@ status_note = "Answers 「/search に actor が少ししか出ない。全世界
 path = "90-docs/adr/2606042330-entity-as-actor-society-wide-social-mirror-graph.md"
 adr = ["2606042330", "2606013800", "2605241800", "2605231525", "2605231902", "2605262130", "2605312345", "2605215000", "2605192200", "2605171300", "2606021600", "2606022000", "2606032000", "2606011800", "2606012600", "2606041827"]
 
+[[adrs]]
+id = "2606062100"
+title = "moyai 舫い — non-monetary inference reciprocity credit (give-to-get; reward kept, Basic High Income untouched)"
+status = "proposed"
+status_note = "Answers 「推論に参加することによる報酬は残してほしい、ただし Basic High Income に影響を与えず、情報を得るには情報を生成する類のもの」. Keeps a REWARD for commons inference participation, charter-clean: a non-monetary, non-transferable, decaying RECIPROCITY credit (commons-use-right / 入会権), the carve-out to ADR-2606012100 G4 scoped strictly to commons-draw-rights. Five const locks (redeemableUsdMicros=0 / transferable=false / affectsBasicHighIncome=false / grantsGovernanceWeight=false / grantsBenefitOrStage=false) + decay + conservation. BHI firewall: unconditional subsistence inference floor = information-as-BHI; credit governs ONLY discretionary surplus under contention (congestion fair-share, not a paywall). Anti-fraud: honeypot + spot-check proof-of-contribution + dedupe + earn-rate cap + all-or-nothing slashing -> faking has no payoff (sybil structurally self-defeating). Lexicons com.etzhayyim.moyai.{contributionAttestation,drawReceipt}; reference impl 50-infra/etzhayyim-moyai-credit (46 tests green). Supersedes legacy RisingWave credits economy (bpmn/com/etzhayyim/credits/*, ameno vertex_credits_af_event). ZERO invariant amendments."
+path = "90-docs/adr/2606062100-moyai-inference-reciprocity-credit.md"
+adr = ["2606062100", "2606012100", "2605215000", "2605301020", "2605261000", "2605241900", "2605231525", "2605312345", "2605192345", "2605150600"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
@@ -9968,3 +9976,23 @@ enrollment = "R0 design; live external mesh-enrollment gated on Council + operat
 ameno = "browser WebGPU/WebNN inference on frozen baien edge models (zero install, WASM-32, iPhone 12+ / Android 4GB)"
 e7m = "e7m node join — laptop/workstation as Ollama (gemma3:4b) / WASM node"
 kotoba = "kotoba pod — IPFS block backend + Datom replication (optional Ollama)"
+
+# ─── Inference reciprocity reward (moyai 舫い, ADR-2606062100) ────────────────
+# The give-to-get REWARD for participating in commons inference. Non-monetary, non-
+# transferable, decaying; does NOT affect Basic High Income (情報を得るには情報を生成する).
+[donation.reciprocity]
+name = "moyai"
+adr = "2606062100"
+model = "give-to-get reciprocity credit (commons-use-right / 入会権)"
+redeemable_usd = 0                      # non-monetary; cash≡0 (N1); cannot be income
+transferable = false                   # anti-sybil: no transfer/gift/merge/pool verb exists
+affects_basic_high_income = false      # the firewall — moyai NEVER touches BHI
+grants_governance_weight = false       # 1 SBT = 1 vote untouched
+grants_benefit_or_stage = false        # anti-class; carve-out scoped to commons-draw-rights only
+decay = "half-life (anti-hoarding — a flow, not a store)"
+firewall = "unconditional subsistence inference floor (information-as-BHI); credit governs only discretionary surplus under contention"
+anti_fraud = "honeypot + spot-check proof-of-contribution + dedupe/replay + earn-rate cap + all-or-nothing slashing; faking has no payoff"
+lexicons = ["com.etzhayyim.moyai.contributionAttestation", "com.etzhayyim.moyai.drawReceipt"]
+reference_impl = "50-infra/etzhayyim-moyai-credit"
+supersedes = "legacy RisingWave credits economy (bpmn/com/etzhayyim/credits/*, ameno vertex_credits_af_event)"
+status = "R0/R1 reference impl (46 tests green); live mint/burn + external enrollment Council + operator gated"
