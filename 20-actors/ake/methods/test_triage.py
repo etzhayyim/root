@@ -11,7 +11,7 @@ import pathlib
 
 from _edn import load_edn
 from triage import (
-    QUALITY_AUTO_ACCEPT, assess_quality, rider_hit, route_for, score_edit,
+    QUALITY_AUTO_ACCEPT, RISKS, ROUTES, assess_quality, rider_hit, route_for, score_edit,
 )
 
 _SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-edit-graph.kotoba.edn"
@@ -43,6 +43,61 @@ def test_route_high_risk_always_votes():
 def test_route_rider_hit_is_refused_regardless():
     # even a "low risk, perfect quality" shape is refused if a Rider token is present
     assert route_for("low", 1.0, "advertis") == "refused"
+
+
+# ── route_for TOTALITY + PRIORITY — the G2 structural guarantee ──────────────────
+# A pure router is only trustworthy if it is TOTAL (defined on its whole domain) and
+# its priority ordering is exhaustive, not just spot-checked. These sweep the entire
+# (risk × quality-grid × {clean,rider}) space so no future signal can quietly open an
+# auto-accept hole or leave a (risk,quality) pair routing to an undefined value.
+_QGRID = (0.0, 0.15, 0.5, QUALITY_AUTO_ACCEPT - 1e-9, QUALITY_AUTO_ACCEPT, 0.85, 1.0)
+
+
+def test_route_for_is_total_and_closed_over_domain():
+    # every (risk, quality, rider) combination resolves to exactly one declared ROUTE
+    for risk in RISKS:
+        for q in _QGRID:
+            for rider in ("", "advertis", "兵器"):
+                r = route_for(risk, q, rider)
+                assert r in ROUTES, f"route_for({risk!r},{q},{rider!r})={r!r} not in {ROUTES}"
+
+
+def test_route_rider_dominates_every_risk_and_quality():
+    # a Charter-Rider §2 hit is :refused no matter the risk class or quality (G7/§2)
+    for risk in RISKS:
+        for q in _QGRID:
+            assert route_for(risk, q, "advertis") == "refused"
+
+
+def test_route_auto_accept_requires_low_risk_clean_and_high_quality():
+    # the ONLY door to the optimistic fast-path: low risk + clean + quality ≥ threshold.
+    # Nothing else may ever auto-accept (the inverse of the G2/G7 escalation guarantee).
+    for risk in RISKS:
+        for q in _QGRID:
+            for rider in ("", "advertis"):
+                got = route_for(risk, q, rider)
+                expected_auto = (risk == "low" and not rider and q >= QUALITY_AUTO_ACCEPT)
+                assert (got == "auto-accept") == expected_auto, (
+                    f"auto-accept leak: route_for({risk!r},{q},{rider!r})={got!r}"
+                )
+
+
+def test_route_is_monotone_at_low_risk_no_demotion_as_quality_rises():
+    # at low risk + clean, raising quality must never move AWAY from auto-accept
+    # (vote → auto-accept is allowed; auto-accept → vote on higher quality is a bug)
+    rank = {"vote": 0, "auto-accept": 1}
+    prev = -1
+    for q in sorted(_QGRID):
+        r = route_for("low", q, "")
+        assert r in rank, f"unexpected low-risk route {r!r}"
+        assert rank[r] >= prev, f"non-monotone at q={q}: {r!r}"
+        prev = rank[r]
+
+
+def test_route_invariant_risk_never_optimistic_accepts():
+    # constitutional-adjacent edits always escalate (council-lv7), never fast-path (G7)
+    for q in _QGRID:
+        assert route_for("invariant", q, "") == "council-lv7"
 
 
 # ── full scoring over the seed batch ────────────────────────────────────────────

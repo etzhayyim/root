@@ -45,7 +45,9 @@ Datom log** — never an overwrite (非終末論, the full revision history is i
 | e4 | license attr (invariant-adjacent) | `council-lv7` | pending (G7) |
 | e5 | "now runs advertising" (Rider §2 hit) | `refused` | unpromotable |
 
-**110 tests green** — `./run_tests.sh`, and the suite is **hermetic** (green in any checkout). Incl.
+**115 tests green** — `./run_tests.sh`, and the suite is **hermetic** (green in any checkout). Incl.
+a route_for totality + priority sweep proving the pure router is total over the whole
+risk×quality×rider domain and that auto-accept has exactly one door (the G2 guarantee), and incl.
 a 7-test cell-chain integration that threads one edit through all five cells in sequence, a 6-test
 edit-war / challenge→revert suite, an 8-test G9 contributor-trajectory suite, an 8-test genesis
 bridge (asserted against a committed fixture, with a soft real-SSoT integration check), and a
