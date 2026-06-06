@@ -162,14 +162,18 @@ intentionally operator-local (`kotoba.etzhayyim.com` is read-only by design,
 ADR-2606013200; `kotoba.gftd.ai` is being pruned). Instead the account record is a
 **member-signed, content-addressed block** published to the apex
 `com.etzhayyim.apps.kotoba.block.put` (main's `kotoba-publish`: verifies the
-member Ed25519 sig over the root CID, stores the block in KV, advances the
-member's account-graph root via the `KotobaRoot` Durable Object; the block is
-IPFS-pinned via **`kotobase.net`**). This is the most domain-independent form: the
-record is a **CID signed by the member's `did:key`** — dependent on neither the
-domain nor a central node. **No gated infra — it is LIVE** (proven: the real
-`block-publish.ts` module published an account block → `{ok:true, root:bafkrei…}`).
+member Ed25519 sig over the root CID, then **IPFS-pins the block via
+`kotobase.net`** as the **canonical content-addressed store**). The block's
+identity IS its CID — resolvable + verifiable by CID from any IPFS gateway, with
+**NO dependency on a centralized KV** (the apex KV in `kotoba-publish` is only a
+fast cache for the social feed's read SW, never the source of truth for account
+records — substrate boundary, no centralized DB). The most domain-independent
+form: a **CID signed by the member's `did:key`** — dependent on neither the
+domain, a central node, nor a KV. **No gated infra — it is LIVE** (proven: the
+real `block-publish.ts` module published an account block → `{ok:true, root:bafkrei…}`).
 
-- CID = `sha2-256` raw CIDv1 (`b`+base32), byte-identical to `cid.ts::computeCidV1`.
+- CID = `sha2-256` raw CIDv1 (`b`+base32), byte-identical to `cid.ts::cidV1Raw`
+  (locked by a frontend↔apex cross-impl test).
 - `block.put` author DID = `did:key:z`+hex(32B pubkey) (the kotoba-publish
   convention) — the SAME Ed25519 key as the standard `did:key:z6Mk…` login
   identity, carried inside the record as `account/did`.
@@ -183,15 +187,18 @@ domain nor a central node. **No gated infra — it is LIVE** (proven: the real
 
 ## Honest R0 / remaining
 
-- The **read side** is **content-addressed, not KV-backed**: resolve handle/did →
-  the account block CID, fetch the block **by CID from IPFS** (kotobase.net pin /
-  any gateway), re-compute + verify the CID (content-address), then
-  `identity.ts::verifyAccountBlock`. The verification core (`verifyAccountBlock`,
-  KV-agnostic — it takes block bytes) is landed; the remaining wiring is the
-  CID-fetch + the mutable handle→CID pointer, which must live in the kotoba Datom
-  log / DID doc / L2 anchor (content-addressed/anchored), **never a centralized
-  KV** (substrate boundary). (`block.put`'s current KV use is a fast cache, not
-  the source of truth — the IPFS-pinned content-address is canonical.)
+- The **read side is content-addressed, with NO KV**: fetch the account block
+  **by CID from IPFS** (kotobase.net pin / any gateway; the apex trustless
+  `/ipfs/<cid>` gateway re-verifies the CID), then
+  `identity.ts::resolveAccountFromBlock` — (1) re-computes the CID and asserts it
+  matches the bytes (content-address integrity), (2) verifies the self-certifying
+  `account/handle-attestation` (`account/did`'s own signature over the handle).
+  Trust roots in the content-address + the member's `did:key`, never a KV. The
+  read core (`resolveAccountFromBlock` + `verifyAccountBlock`, both KV-agnostic —
+  they take block bytes) is **landed + tested**. The only remaining wiring is the
+  mutable **handle→CID pointer**, which must live in the kotoba Datom log / DID
+  doc / L2 anchor (content-addressed/anchored), **never a centralized KV**
+  (substrate boundary, no centralized DB).
 - `enrollDevice` + `rotateKey` are implemented + live-capable (same `block.put`
   path) but not yet wired into a settings UI (library API; the wrapped-ARK store +
   recovery UX is the remaining work).

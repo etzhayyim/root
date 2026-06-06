@@ -18,6 +18,7 @@
  */
 
 import { parseEd25519DidKey } from "./cacao.ts";
+import { cidV1Raw } from "./cid.ts";
 
 export interface HandleAttestationResult {
   valid: boolean;
@@ -227,6 +228,61 @@ export async function verifyAccountBlock(
     did: canonicalDid,
     handle: typeof handle === "string" ? handle : undefined,
   };
+}
+
+/**
+ * Resolve an account from a content-addressed block — the **read side**, with NO
+ * KV and NO central node (ADR-2606061800). Given a block fetched **by CID** from
+ * IPFS (kotobase.net pin / any gateway), this (1) re-computes the CID and asserts
+ * it matches the bytes (content-address integrity — the block cannot have been
+ * tampered with), then (2) verifies the record's self-certifying
+ * handle-attestation (`account/did`'s own signature over `account/handle`). Trust
+ * roots in the content-address + the member's `did:key` — never a domain, a
+ * central node, or a KV. The caller supplies the CID-fetched bytes (e.g. via the
+ * apex trustless `/ipfs/<cid>` gateway, which itself re-verifies the CID).
+ */
+export async function resolveAccountFromBlock(
+  cid: string,
+  blockBytes: Uint8Array,
+  nowSecs: number,
+): Promise<AccountBlockResult> {
+  let recomputed: string;
+  try {
+    recomputed = await cidV1Raw(blockBytes as BufferSource);
+  } catch (e) {
+    return { valid: false, reason: `CID recompute failed: ${e instanceof Error ? e.message : String(e)}` };
+  }
+  if (recomputed !== cid) {
+    return { valid: false, reason: "block bytes do not match the CID (content-address integrity failure)" };
+  }
+  let rec: Record<string, unknown>;
+  try {
+    rec = JSON.parse(new TextDecoder().decode(blockBytes)) as Record<string, unknown>;
+  } catch {
+    return { valid: false, reason: "account block is not valid JSON" };
+  }
+  const did = rec["account/did"];
+  const handle = rec["account/handle"];
+  if (typeof did !== "string") {
+    return { valid: false, reason: "record missing account/did" };
+  }
+  // the canonical did:key must be a well-formed ed25519 did:key
+  try {
+    parseEd25519DidKey(did);
+  } catch (e) {
+    return { valid: false, reason: `account/did invalid: ${e instanceof Error ? e.message : String(e)}` };
+  }
+  if (typeof handle === "string" && handle.length > 0) {
+    const att = rec["account/handle-attestation"];
+    if (typeof att !== "string") {
+      return { valid: false, reason: "handle present but no account/handle-attestation", did };
+    }
+    const r = await verifyHandleAttestation(att, nowSecs);
+    if (!r.valid || r.did !== did || r.handle !== handle) {
+      return { valid: false, reason: "handle-attestation does not bind this did:key to this handle", did };
+    }
+  }
+  return { valid: true, did, handle: typeof handle === "string" ? handle : undefined };
 }
 
 /**

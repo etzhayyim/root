@@ -7,7 +7,8 @@
 //   node --experimental-strip-types --test scripts/identity.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { verifyHandleAttestation, selfCertifyingDidDoc, verifyAccountBlock, parseDidKeyHex } from "../src/identity.ts";
+import { verifyHandleAttestation, selfCertifyingDidDoc, verifyAccountBlock, parseDidKeyHex, resolveAccountFromBlock } from "../src/identity.ts";
+import { cidV1Raw } from "../src/cid.ts";
 
 const B58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 function b58(bytes) {
@@ -181,4 +182,45 @@ test("verifyAccountBlock: non-JSON / missing account/did rejected", async () => 
   const { kp } = await genKey();
   assert.equal((await verifyAccountBlock(new TextEncoder().encode("not json"), await didHexOf(kp), NOW)).valid, false);
   assert.equal((await verifyAccountBlock(new TextEncoder().encode("{}"), await didHexOf(kp), NOW)).valid, false);
+});
+
+// ─── content-addressed read resolution (NO KV) ───────────────────────────────
+
+test("resolveAccountFromBlock: correct CID + attested handle → valid (content-addressed, no KV)", async () => {
+  const { kp, did } = await genKey();
+  const block = await accountBlock(kp, did, "alice");
+  const cid = await cidV1Raw(block);
+  const r = await resolveAccountFromBlock(cid, block, NOW + 60);
+  assert.equal(r.valid, true);
+  assert.equal(r.did, did);
+  assert.equal(r.handle, "alice");
+});
+
+test("resolveAccountFromBlock: bytes not matching the CID rejected (content-address integrity)", async () => {
+  const { kp, did } = await genKey();
+  const block = await accountBlock(kp, did, "alice");
+  const cid = await cidV1Raw(block);
+  const tampered = await accountBlock(kp, did, "alice2"); // different bytes, same kp
+  const r = await resolveAccountFromBlock(cid, tampered, NOW + 60);
+  assert.equal(r.valid, false);
+  assert.match(r.reason, /content-address|do not match the CID/i);
+});
+
+test("resolveAccountFromBlock: forged handle-attestation rejected even with a valid CID", async () => {
+  const { kp, did } = await genKey();
+  const rec = { "account/did": did, "account/handle": "alice", "account/handle-attestation": await signHandleAttestation(kp, did, "not-alice", NOW) };
+  const block = new TextEncoder().encode(JSON.stringify(rec));
+  const cid = await cidV1Raw(block);
+  const r = await resolveAccountFromBlock(cid, block, NOW + 60);
+  assert.equal(r.valid, false);
+});
+
+test("resolveAccountFromBlock: handle-less record resolves to the did (content-address only)", async () => {
+  const { kp, did } = await genKey();
+  const block = await accountBlock(kp, did, null);
+  const cid = await cidV1Raw(block);
+  const r = await resolveAccountFromBlock(cid, block, NOW + 60);
+  assert.equal(r.valid, true);
+  assert.equal(r.did, did);
+  assert.equal(r.handle, undefined);
 });
