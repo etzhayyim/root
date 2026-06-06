@@ -1,3 +1,13 @@
+<!--
+NON-NORMATIVE NOTE (does not alter any clause below).
+Charter layering — proposed ADR-2606064500 (Council Lv7+ ratification pending):
+§2(a)–(h) are **Layer-B derived doctrines** (binding; each derives from a Layer-A
+axiom of the Mission Charter — e.g. §2(c)←Wellbecoming/§1.10+§1.8, §2(f)←§1.9,
+§2(g)←§1.8, §2(h)←§1.10), NOT first principles. §2(i) and CSP/lint mechanisms are
+**Layer-C implementation rules**. Only the 7 Layer-A axioms are the constitution
+proper (Lv7+ lock). Until ADR-2606064500 is ratified, every clause here keeps its
+current binding force and gate. See ADR-2606064500 for the derivation map.
+-->
 ```
 etzhayyim Charter Compliance Rider v3.0
 Last revised: 2026-06-06

@@ -21145,6 +21145,26 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606061800-same-origin-kotoba-passkey-login.md",
+      "id": "adr-2606061800-same-origin-kotoba-passkey-login",
+      "title": "ADR-2606061800: Same-Origin Kotoba Passkey Login/Signup — remove authn/mcp from the auth path",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "same-origin-kotoba-passkey-login",
+      "authoritative": true,
+      "authoritative_for": [
+        "member login/signup auth path (etzhayyim.com)",
+        "passkey → did:key controller identity derivation"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606062100-charter-priority-over-specifics-reconciliation.md",
       "id": "adr-2606062100-charter-priority-over-specifics-reconciliation",
       "title": "ADR-2606062100: Charter Priority-Over-Specifics Reconciliation — 固定するのは掟ではなく priority。永久記憶 (神の監視) doctrine の追加。石油・兵器条項の脱政治化",
@@ -21229,6 +21249,32 @@
       "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606064500-charter-principle-derivation-layering.md",
+      "id": "adr-2606064500-charter-principle-derivation-layering",
+      "title": "ADR-2606064500: Charter Principle/Derivation Layering — axioms vs derived doctrines vs implementation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "charter-principle-derivation-layering",
+      "authoritative": true,
+      "authoritative_for": [
+        "charter-layer-taxonomy",
+        "principle-vs-derivation-classification"
+      ],
+      "related": [
+        "adr-2605252300-charter-preamble-kingdom-of-god",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
