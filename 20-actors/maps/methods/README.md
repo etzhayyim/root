@@ -16,6 +16,8 @@ log. These methods are stdlib-only; the real-H3 test layer needs an `h3` install
 | `test_avet_roundtrip.py` | 10 tests: AVET cell round-trip (index contract always; real Tokyo-Station H3 e2e when `h3` present). |
 | `transit.py` | kotoba-native transit READS (R2 aux): `next_departures_at_stop` = `AVET(:transit.stop-time/stop, …)` sorted by departure-time (idx_maps_stop_time_stop_dep successor); `trips_on_route` = `AVET(:transit.trip/route, …)`. The read complement to the GTFS aux write path. |
 | `test_transit.py` | 8 tests: departure sort (incl. GTFS >24:00:00), `after` cutoff, limit, stop isolation, unknown-stop empty, trips-on-route, fail-soft. |
+| `reverse.py` | kotoba-native reverse geocoding (R2): the `cmdPlaceReverseGeocode` successor. `reverse_geocode` = `AVET(:feature.cell/r{res}, grid_disk(cell, ring))` candidates → `haversine_m` rank nearest-first, label-filterable. The H3 cell index doubles as a proximity index. |
+| `test_reverse.py` | 10 tests: haversine (pure, always) + real-H3 e2e (nearest=Tokyo Station, label filter, limit, distant-Haneda excluded, ocean empty). |
 | `kotoba_local_server.py` | stdlib HTTP **stand-in** for the kotoba XRPC surface (`kg.ingest_batch` Bearer + `graph.sparql` AVET + `kg.entity`) — the local target for the R1 dry-run. |
 | `test_e2e_http.py` | 5 tests: the full maps↔kotoba **HTTP loop** (auth gate 401, real `ingest.push_batch`, AVET cell query, label-filter, point lookup). |
 
