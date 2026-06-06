@@ -378,6 +378,7 @@ a{color:inherit}
 <p class="sub"><strong>${grandTotal}</strong> resolvable actors: ${named.length} named + ${infra.length} substrate services + <strong>${entityTotal}</strong> entity mirrors (below) + ${unispscTotal} UNSPSC agents. The named actors are the operators; the entity mirrors are the world they datafy, each given its own DID + profile + searchable presence.</p>
 
 <h2>Knowledge-graph &amp; Tier-B actors</h2>
+<p class="sub" id="kotoba-verify" data-enhance="actors-v1" hidden></p>
 ${namedCards}
 
 <h2>Society-scale entity mirrors · ${entityTotal} <span style="font-weight:400;font-size:.8em;opacity:.7">(ADR-2606042330)</span></h2>
@@ -391,6 +392,11 @@ ${infraCards}
 Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
 Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.
 </footer>
+<!-- Progressive enhancement: first-party, same-origin, zero-egress ES module
+     (CSP connect-src 'self') resolves the named actors + self-verifies each DID
+     from the content-addressed /kotoba blocks in the visitor's own browser. The
+     page is fully functional without it. Not surveillance (ADR-2606064500). -->
+<script type="module" src="/kotoba/actors-enhance.js"></script>
 </body>
 </html>
 `;
@@ -1131,9 +1137,18 @@ a{color:inherit}
           "content-type": "text/html; charset=utf-8",
           "cache-control": "public, max-age=300, must-revalidate",
           "x-content-type-options": "nosniff",
-          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          // Charter Rider §2(c) prohibits the SURVEILLANCE-CAPITALISM business
+          // model (third-party data collection / brokerage / trackers / cookies),
+          // not scripting — §2(c) is a Layer-B derived doctrine and the CSP is its
+          // Layer-C implementation (ADR-2606064500). This CSP enforces the value
+          // technically: `connect-src 'self'` makes any third-party beacon/tracker
+          // structurally impossible, while `script-src 'self' 'wasm-unsafe-eval'`
+          // permits ONLY first-party same-origin code (the ActorResolver lib
+          // resolving content-addressed /kotoba blocks in the visitor's own
+          // browser). No external resource, no inline, no cookie. First-party
+          // local resolution is not surveillance.
           "content-security-policy":
-            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+            "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",
