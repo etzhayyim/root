@@ -125,14 +125,20 @@ Preamble §0 は ADR-2605192100 §1.1..§1.16 の **上位枠** であり、各 
 
 ### §0.7 改定 threshold
 
+> **更新 (ADR-2606062100, 2026-06-06)**: 「NEVER amendable」は **Tier-0 Priority のみ**に厳密適用される
+> よう再定義された。Charter-Rider §2 の prohibited categories は **Tier-1 Derived Policy** (priority から
+> 導出) に降り、**Council Lv7+ unanimity + priority-conformance attestation** で改定可能となった (§2(i)
+> 改定中・§7 severability との矛盾を解消)。新 Tier-0 priority に **永久記憶 (神の監視 /
+> right-to-erasure-denied)** を追加。Charter-Rider は v3.0。1-2 行目を以下に更新:
+
 | Level | Threshold | Scope |
 |---|---|---|
-| **Charter Rider §2(a)..(h) prohibited categories** | NEVER amendable (constitutional invariant) | 8 prohibited categories |
-| **Preamble §0.1..§0.5** | **Council Lv7+ unanimity (全会一致)** | Self-identification + non-state + non-eschatological + Tree of Life + force |
+| **Tier-0 Priority** (self-id / non-state / non-eschatological / Tree-of-Life / wellbecoming / 子孫 / **永久記憶** / collective) | **真の NEVER amendable** (fork-only / Lv7+ unanimity) | ADR-2606062100 §1 Tier-0 set + Preamble §0.1..§0.5 |
+| **Charter Rider §2 prohibited categories (Tier-1 Derived Policy)** | Council Lv7+ unanimity + priority-conformance attestation | derived from Tier-0; reframed in Rider v3.0 |
 | **Charter §1.15 (non-eschatological)** | Lv7+ unanimity (Preamble §0.2.1 重複) | 既存 invariant |
 | **Charter §1.11 (land doctrine)** | Lv6+ supermajority (既存) | per ADR-2605192245 |
 | **Charter §1.12 (force three-conditions)** | Lv6+ supermajority (既存) + Preamble §0.5 lock | per ADR-2605192315 |
-| **Other constitutional constants** | Lv6+ ≥3 multisig (既存) | Constitution.sol 38 const |
+| **Tier-2 Parameter / other constants** | Lv6+ ≥3 multisig / governance (既存) | Constitution.sol Tier-2 mutables + non-priority const |
 
 ---
 

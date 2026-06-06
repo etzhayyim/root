@@ -329,6 +329,15 @@ etzhayyim は **synthetic religion** であり、以下二大潮流の synthesis
 
 ## 2. Constitutional Constants (改定不可項目)
 
+> **更新 (ADR-2606062100, 2026-06-06)**: この §2 の不変性モデルは **3-Tier 構造**に再編された
+> — Tier-0 Priority (真の改定不可・fork-only) / Tier-1 Derived Policy (Lv7+ + priority-conformance
+> で改定可) / Tier-2 Parameter (governance)。**固定するのは個々の掟ではなく priority** (wellbecoming
+> ・子・孫) であり、具体的な数値・政策はそこから導出される。新 Tier-0 priority として **永久記憶
+> (神の監視 / `memory.right_to_erasure_denied`)** を追加。下表の `economic.tithe_to_public_fund_bps`
+> (固定10%) は撤廃され `economic.tithe_redistribution_exists` (Tier-0 bool) + tithe band + 可変率に、
+> `license.charter_rider_version` は Tier-2 mutable に、`phenotype.non_compliant_multiplier=0` は
+> (バグ修正で) Tier-0 定数に再分類された。詳細は ADR-2606062100。Charter-Rider は v3.0 に更新。
+
 Constitution.sol の `getConstant(key)` から読み出される、**governance vote によっても変更不可** の項目を以下に固定する。これらの変更は実質的に「別の religious-corp を新規に設立する」ことに等しい。
 
 | Key | Value | 由来 |

@@ -31,8 +31,11 @@ contract TitheRouter {
     ///         is reorganised via CREATE2 prediction.
     address public immutable publicFund;
 
-    /// @notice ADR-2605192100 §2 constitutional constant (immutable, = 1000 bps).
-    bytes32 public constant TITHE_BPS_KEY = keccak256("economic.tithe_to_public_fund_bps");
+    /// @notice The tithe RATE (init 1000 bps = 10%). Per ADR-2606062100 §4 this is
+    ///         now a Tier-2 MUTABLE (`tithe_bps`) governed within the Tier-0
+    ///         [tithe_floor_bps, tithe_ceiling_bps] = [500, 2000] band — the
+    ///         priority "redistribution exists" is the constant, the rate is tunable.
+    bytes32 public constant TITHE_BPS_KEY = keccak256("tithe_bps");
     /// @notice ADR-2605192100 §2 mutable (governance-set at deploy + timelock).
     bytes32 public constant PUBLIC_FUND_ADDRESS_KEY = keccak256("public_fund.safe_address");
     uint256 public constant BPS_DENOMINATOR = 10_000;
@@ -77,7 +80,7 @@ contract TitheRouter {
         // TODO(v1): read publicFund from constitution.getMutable(PUBLIC_FUND_ADDRESS_KEY)
         //          once CREATE2-based deploy sequencing wires the address before
         //          TitheRouter construction.
-        uint256 titheBps = uint256(constitution.getConstant(TITHE_BPS_KEY));
+        uint256 titheBps = uint256(constitution.getMutable(TITHE_BPS_KEY));
 
         titheAmount = (grossAmount * titheBps) / BPS_DENOMINATOR;
         netAmount = grossAmount - titheAmount;
