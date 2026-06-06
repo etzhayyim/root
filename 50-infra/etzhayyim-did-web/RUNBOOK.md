@@ -68,3 +68,25 @@ npm test                                   # did-web: car + erc725 (node:test)
 node 50-infra/e7m-wasm-runner/ ; npm test  # runner
 (cd 20-actors/ameno && npm test)           # ameno: loader + panel
 ```
+
+## kotoba browser-publish (member-signed feed)
+
+The feed/profile reads + post/like/reply writes run in the browser kotoba-wasm
+node; signed blocks are published to this Worker. Operational notes:
+
+- **Always `wrangler deploy` after `wrangler secret put`.** `secret put` can
+  redeploy a *stale* bundle, which silently reverts the local publish routes
+  (`/xrpc/com.etzhayyim.apps.kotoba.block.{put,has}`, `.root`) to the kotoba
+  upstream proxy (403). A fresh `wrangler deploy` from source restores them.
+- **`KOTOBA_ATTEST_KEY`** (Worker secret, base64 32 bytes): the oversight key
+  that AES-GCM-encrypts the raw client IP in the suppressable edit-attestation
+  log (`kattest:<graph>:<root>`). Mirrored in macOS Keychain
+  (`security find-generic-password -a KOTOBA_ATTEST_KEY -s etzhayyim -w`). Absent
+  → only a salted hash + /24 prefix are stored (pseudonymous). IP is NEVER put
+  in the immutable IPFS blocks (erasable by deleting the KV attestation).
+- **`KOTOBA_ROOT`** Durable Object = the authoritative published head per graph
+  (atomic CAS). Migration tag `v1`. To regenerate the genesis blocks/root:
+  `./scripts/build-kotoba-wasm.sh && node scripts/gen-kotoba-blocks.mjs`.
+- Block/root serving: genesis blocks are static (`public/kotoba/blocks/<cid>`);
+  post-genesis blocks come from KV via the Worker fallback. Re-publishing only
+  sends the delta (`block.has`).
