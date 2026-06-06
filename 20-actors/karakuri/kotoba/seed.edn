@@ -43,6 +43,37 @@
   :op/mutate-gate :read-allowed
   :op/planned-at "2026-06-03T00:00:00Z"}
 
+ ;; a member's own Gmail, read op — :api-ok → routed to the official API (T1), NOT browser-automated
+ {:op/id "op:google:messages.list:0005"
+  :op/noun "messages" :op/verb "list"
+  :op/safety :read :op/destructive false
+  :op/adapter-tier :t1-official-api
+  :op/dry-run true
+  :op/tos-gate :ok
+  :op/mutate-gate :read-allowed
+  :op/planned-at "2026-06-04T00:00:00Z"}
+
+ ;; Facebook browser automation FORCED to T2 — refused by construction (api-ok but browser-prohibited, G2)
+ {:op/id "op:facebook:posts.list:0006"
+  :op/noun "posts" :op/verb "list"
+  :op/safety :read :op/destructive false
+  :op/adapter-tier :t2-headless-browser
+  :op/dry-run true
+  :op/tos-gate :refused-automation-prohibited
+  :op/mutate-gate :read-allowed
+  :op/planned-at "2026-06-04T00:00:00Z"}
+
+ ;; a GUI-only portal whose ToS permits automation → T2 via the browser-use engine (the legit T2 path)
+ {:op/id "op:legacy-portal:records.list:0007"
+  :op/noun "records" :op/verb "list"
+  :op/safety :read :op/destructive false
+  :op/adapter-tier :t2-headless-browser
+  :op/t2-engine :browser-use
+  :op/dry-run true
+  :op/tos-gate :ok
+  :op/mutate-gate :read-allowed
+  :op/planned-at "2026-06-04T00:00:00Z"}
+
  ;; member session grant — NO secret, encrypted-envelope ref only, member-signed (G1/G3)
  {:grant/id "grant:member:squarespace:0001"
   :grant/principal :member
