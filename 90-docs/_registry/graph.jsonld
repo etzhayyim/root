@@ -13737,6 +13737,23 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606064700-charter-principle-derivation-layering",
+      "type": "TechArticle",
+      "title": "ADR-2606064700: Charter Principle/Derivation Layering — axioms vs derived doctrines vs implementation",
+      "status": "proposed",
+      "topic": "charter-principle-derivation-layering",
+      "authoritative": true,
+      "authoritativeFor": [
+        "charter-layer-taxonomy",
+        "principle-vs-derivation-classification"
+      ],
+      "related": [
+        "doc:adr-2605252300-charter-preamble-kingdom-of-god",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606065000-session-close-kawaraban-news-medium",
       "type": "TechArticle",
       "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",
