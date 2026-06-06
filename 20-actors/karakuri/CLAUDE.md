@@ -65,7 +65,7 @@ driving of prohibited-content or third-party ad/affiliate systems (Charter-Rider
 ## Build / test
 
 ```
-cd methods && python3 -m pytest                 # command/t2_browser/nl_plan/export/adapter_live/datom (79 tests)
+cd methods && python3 -m pytest                 # command/t2_browser/nl_plan/export/adapter_live/datom (87 tests)
 cd cells   && python3 -m pytest                 # all five coded cells (31 tests)
 python3 methods/command.py karakuri google messages.list          # api-ok → T1 (not browser-automated)
 python3 methods/t2_browser.py karakuri legacy-portal records.list # T2 browser-use dry-run plan

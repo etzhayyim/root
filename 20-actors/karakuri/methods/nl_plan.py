@@ -12,6 +12,7 @@ G4 Murakumo-only (no other inference path) · G5 mutate-gated · G6 dry-run only
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass, field
 
 from command import ServiceOp, SERVICE_REGISTRY, plan
@@ -69,9 +70,17 @@ class CommandPlan:
 
 
 def charter_scan(text: str) -> tuple[bool, list[str]]:
-    """N6: scan a brief (or op) for Charter-Rider §2(a)-(h) prohibited categories. (clean, hits)."""
+    """N6: scan a brief (or op) for Charter-Rider §2(a)-(h) prohibited categories. (clean, hits).
+
+    Matches a term only at a WORD START (`\\b` before the term, any suffix allowed) so morphological
+    variants still hit (surveil→surveillance, gambl→gambling) without substring false-positives
+    ('stalk' must NOT fire on bean-stalk; 'betting' must NOT fire on a-betting).
+    """
     low = (text or "").lower()
-    hits = sorted({tag for term, tag in CHARTER_RIDER_TERMS.items() if term in low})
+    hits = sorted({
+        tag for term, tag in CHARTER_RIDER_TERMS.items()
+        if re.search(r"\b" + re.escape(term), low)
+    })
     return (not hits, hits)
 
 

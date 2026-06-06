@@ -52,6 +52,26 @@ def test_charter_scan_flags_prohibited_brief():
     assert clean is False and hits
 
 
+@pytest.mark.parametrize("brief", [
+    "list my beanstalk deployments",     # 'stalk' must NOT fire surveillance
+    "a note about aiding and abetting",  # 'betting' must NOT fire gambling
+    "show my github repos",
+])
+def test_charter_scan_no_substring_false_positive(brief):
+    clean, hits = charter_scan(brief)
+    assert clean is True and hits == []
+
+
+@pytest.mark.parametrize("brief", [
+    "set up surveillance on the office",   # surveil-prefix still caught
+    "open a casino gambling page",         # word-start still caught
+    "rotate a proxy-rotate evasion knob",
+])
+def test_charter_scan_still_catches_word_start(brief):
+    clean, hits = charter_scan(brief)
+    assert clean is False and hits
+
+
 def test_plan_refuses_charter_dirty_brief():
     cp = plan_from_brief("list my gmail and add a casino gambling widget")
     assert cp.charter_clean is False

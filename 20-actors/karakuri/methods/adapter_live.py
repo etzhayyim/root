@@ -71,6 +71,9 @@ def authorize_live(
         "authorized": True,
         "leg": op.adapter_tier,
         "engine": op.t2_engine or None,
+        "safety": op.safety,             # G5 — the driver must honor the mutate gate below
+        "mutateGate": op.mutate_gate,    # G5 — :read-allowed / :awaiting-member-sig (carried, not re-derived)
+        "destructive": op.destructive,   # G5 — a destructive leg the driver must surface to the member
         "authorizedBy": "member",        # G3
         "serverSigned": False,           # G3 — never
         "operatorAttested": True,        # G6

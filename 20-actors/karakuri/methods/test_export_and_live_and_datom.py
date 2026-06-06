@@ -141,6 +141,20 @@ def test_export_entity_is_member_and_encrypted():
     ent = export_to_entity(build_export_plan("google", "json"))
     assert ent[":export/owner"] == ":member"        # G9
     assert ent[":export/encrypted"] is True
+    assert ent[":export/service"] == "google"        # schema ref present (G7 audit)
+
+
+def test_op_entity_refuses_unknown_gate_value():
+    # G7: a drifted gate value must not be silently logged as :ok / :read-allowed (fail-closed audit).
+    op = plan("karakuri google messages.list")
+    op.tos_gate = "some-future-value"
+    with pytest.raises(ValueError):
+        op_to_entity(op, PLANNED_AT)
+
+
+def test_plan_rejects_unknown_prefer_tier():
+    with pytest.raises(ValueError):
+        plan("karakuri google messages.list", prefer_tier="t2")   # wrong spelling, not a real tier
 
 
 def test_ingest_batch_shape():

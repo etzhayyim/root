@@ -29,7 +29,8 @@ from dataclasses import dataclass, field
 #      "t2"  — the BROWSER-AUTOMATION stance: "permitted" / "restricted" / "prohibited"; a
 #              "prohibited" t2 stance refuses the T2 browser-use adapter by construction (G2),
 #              EVEN when an official API exists. A missing "t2" defaults to "prohibited"
-#              (default-deny browser automation — safest).
+#              (default-deny browser automation — safest). ("restricted" is treated as "permitted"
+#              at R0 — reserved for a future per-service throttle/scope limit.)
 #    Google + Facebook are the canonical api-ok / t2-prohibited case: drive their official API
 #    on the member's OWN account (T1), never browser-automate the consumer surface (T2 refused). ──
 SERVICE_REGISTRY: dict[str, dict] = {
@@ -83,7 +84,6 @@ MUTATE_AWAIT_SIG = "awaiting-member-sig"
 
 # Honest degradations (G8).
 UNKNOWN_SERVICE = "unknown-service"
-UNSUPPORTED_OP = "unsupported-op"
 
 
 @dataclass
@@ -171,7 +171,6 @@ def parse_command(line: str) -> tuple[str, str, str, dict]:
         raise ValueError(f"malformed op (empty noun or verb): {nv!r}")
 
     args: dict = {}
-    i = 2
     rest = tokens[2:]
     j = 0
     while j < len(rest):
@@ -195,6 +194,9 @@ def plan(line: str, prefer_tier: str | None = None) -> ServiceOp:
     `prefer_tier` lets a caller request a specific adapter (e.g. force T2) so the G2 ToS gate can be
     demonstrated; by default the safest tier is selected.
     """
+    if prefer_tier is not None and prefer_tier not in (TIER_T1, TIER_T2, TIER_T3):
+        raise ValueError(f"unknown prefer_tier {prefer_tier!r} (expected one of T1/T2/T3 constants)")
+
     service, noun, verb, args = parse_command(line)
     safety = classify_safety(verb)
     rec = resolve_service(service)

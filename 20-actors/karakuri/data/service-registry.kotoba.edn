@@ -18,6 +18,7 @@
   :service/official-api true
   :service/auth-model :oauth2
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "documented per-endpoint; backoff on 429"
   :service/representative true}
@@ -28,6 +29,7 @@
   :service/official-api true
   :service/auth-model :oauth2
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "REST API quota per app"
   :service/representative true}
@@ -38,6 +40,7 @@
   :service/official-api true
   :service/auth-model :oauth2
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "~3 req/s average"
   :service/representative true}
@@ -48,6 +51,7 @@
   :service/official-api true
   :service/auth-model :oauth2
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "leaky-bucket (Admin API)"
   :service/representative true}
@@ -58,6 +62,7 @@
   :service/official-api true
   :service/auth-model :api-key
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "100 req/s default"
   :service/representative true}
@@ -68,6 +73,7 @@
   :service/official-api true
   :service/auth-model :pat
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "5000 req/h (authenticated)"
   :service/representative true}
@@ -78,6 +84,7 @@
   :service/official-api true
   :service/auth-model :pat
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "5 req/s per base"
   :service/representative true}
@@ -88,6 +95,7 @@
   :service/official-api true
   :service/auth-model :oauth2
   :service/tos-stance :api-ok
+  :service/t2-stance :prohibited
   :service/tier :t1-official-api
   :service/rate-limit "host-dependent"
   :service/representative true}

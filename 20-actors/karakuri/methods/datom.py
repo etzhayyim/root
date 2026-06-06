@@ -51,17 +51,29 @@ def _args_keys(op: ServiceOp) -> str:
     return ",".join(sorted(op.args.keys()))
 
 
+def _require(mapping: dict, value: str, field: str) -> str:
+    """G7: map a gate value to its EDN keyword, REFUSING an unknown value rather than fail-open.
+
+    A silent default on a security-relevant audit field (tos-gate / mutate-gate) could record a
+    refused/mutating op as permitted/read-allowed; the audit must never misreport, so drift raises."""
+    if value not in mapping:
+        raise ValueError(f"G7 audit: unknown {field} value {value!r}; refuse to project a misleading datom")
+    return mapping[value]
+
+
 def op_to_entity(op: ServiceOp, planned_at: str, *, oid: str | None = None) -> dict:
     """Project one ServiceOp into a kotoba `:op/*` entity map (mirrors seed.edn; G7)."""
     ent = {
         ":op/id": oid or op_id(op, planned_at),
         ":op/noun": op.noun,
         ":op/verb": op.verb,
+        # safety defaults conservatively to :update (fail-CLOSED — an unknown verb is treated as mutating).
         ":op/safety": _SAFETY_KW.get(op.safety, ":update"),
         ":op/destructive": op.destructive,
         ":op/dry-run": True,                              # G6 invariant at R0
-        ":op/tos-gate": _TOS_KW.get(op.tos_gate, ":ok"),
-        ":op/mutate-gate": _MUTATE_KW.get(op.mutate_gate, ":read-allowed"),
+        # gate fields are strict (no fail-open default): an unknown value refuses to project (G7).
+        ":op/tos-gate": _require(_TOS_KW, op.tos_gate, "tos-gate"),
+        ":op/mutate-gate": _require(_MUTATE_KW, op.mutate_gate, "mutate-gate"),
         ":op/planned-at": planned_at,                     # as-of audit history (G7)
     }
     tier = _TIER_KW.get(op.adapter_tier)
@@ -92,6 +104,7 @@ def export_to_entity(artifact, *, eid: str | None = None) -> dict:
     """Project an ExportArtifact into a kotoba `:export/*` entity map (G7/G9)."""
     return {
         ":export/id": eid or f"export:{artifact.service}:{artifact.fmt}",
+        ":export/service": artifact.service,   # schema :export/service ref — audit which service (G7)
         ":export/format": f":{artifact.fmt}",
         ":export/owner": ":member",        # G9
         ":export/encrypted": True,         # G9
