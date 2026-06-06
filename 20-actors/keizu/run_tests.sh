@@ -9,6 +9,7 @@ SUITES=(
   "methods/test_weave.py"
   "methods/test_social.py"
   "methods/test_ingest.py"
+  "methods/test_bridge.py"
   "methods/test_charter_invariants.py"
   "methods/test_analyze.py"
   "methods/test_lexicons.py"

@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **95 tests** across weave (22) / social (7) / ingest (9) / charter-invariants (27) / analyze (7) / lexicons (5) / consistency (6) / cells (12). The charter-invariant suite parses all THREE homes of each structural gate (ontology `:db/allowed`/closed-vocab + lexicon `:const`/`:enum` + seed values) and asserts they agree, AND drift-locks lexicon enum ⊆/⊇ ontology closed vocab **both directions** (rel-kinds, money-kinds, sourcing-grades, post-status).
+- **Tests**: `./run_tests.sh` green — **105 tests** across weave (22) / social (7) / ingest (9) / bridge (10) / charter-invariants (27) / analyze (7) / lexicons (5) / consistency (6) / cells (12).
+- **Cross-actor bridge** (`bridge.py`): maps danjo crossReferenceLink → keizu `:rel` + kanae fundFlowEdge → keizu `:money`, re-asserting keizu's OWN G2/G3 gates at the import boundary (a verdict category or an under-sourced record is REFUSED — a sibling cannot smuggle a charter violation into keizu). The charter-invariant suite parses all THREE homes of each structural gate (ontology `:db/allowed`/closed-vocab + lexicon `:const`/`:enum` + seed values) and asserts they agree, AND drift-locks lexicon enum ⊆/⊇ ontology closed vocab **both directions** (rel-kinds, money-kinds, sourcing-grades, post-status).
 - **Analyzer** (`analyze.py` over the seed: 18 public role/organ nodes / 3 committees / 15 rels / 6 money / 3 statements): committee cross-organ concentration, 1 cross-committee co-membership seat, money HHI ≈ 0.96 **by payee + by payer (jp-meti top disburser)**, 1 revolving-door chain, 2 dry-run mirror posts.
 - **Registration**: `did:web:etzhayyim.com:actor:keizu` in `tier-b-actors.gen.ts` + `actor-profile-seed.kotoba.edn`.
 
@@ -41,6 +42,7 @@
 - ✅ ~~lexicon enum ⊆ ontology closed vocab drift-lock (both directions)~~ (iter 2).
 - ✅ ~~payer-side money concentration (HHI by payer)~~ (iter 2).
 - ✅ ~~award-and-fund co-occurrence (a node that both receives public money AND donates), FACTUAL + non-adjudicating, multi-hop money composition~~ (iter 3) + report-level no-verdict-language assertion.
-- Add a `bridge.py` that maps danjo discrepancy observations + kanae fiscal edges into keizu `:rel`/`:money` (cross-actor compose), tested on real sibling outputs.
+- ✅ ~~`bridge.py` mapping danjo crossref + kanae fiscal edges into keizu `:rel`/`:money`, with keizu gates re-asserted at the import boundary~~ (iter 4). Next: run it against REAL sibling outputs once danjo/kanae cells emit (R1).
 - Add appointment-tenure weighting to the relation graph (G10 as-of windows) + a betweenness/cross-organ centrality metric (still edge-primary, aggregate-first).
+- Bind the relation graph onto ooyake gov-unit ids (a `:node/organ` → ooyake unit resolution check).
 - MIGRATION-NOTES for any legacy gov-relation surface keizu supersedes.
