@@ -9936,6 +9936,14 @@ status_note = "Answers 「/search に actor が少ししか出ない。全世界
 path = "90-docs/adr/2606042330-entity-as-actor-society-wide-social-mirror-graph.md"
 adr = ["2606042330", "2606013800", "2605241800", "2605231525", "2605231902", "2605262130", "2605312345", "2605215000", "2605192200", "2605171300", "2606021600", "2606022000", "2606032000", "2606011800", "2606012600", "2606041827"]
 
+[[adrs]]
+id = "2606065500"
+title = "etzhayyim.com browser-only kotoba social feed — browser read/write + member-signed block publish (no query node)"
+status = "accepted"
+status_note = "Fixes 「https://etzhayyim.com/ に post が表示されない」then extends to writes + propagation. Feed/profile READS + post/reply/like/repost WRITES run in the browser kotoba-wasm node; reads hydrate from CID-verified IPFS blocks (x-kotoba-src=blocks, no query node); writes are member-signed (ed25519 did:key, no-server-key). The apex VERIFIES signatures (never signs), stores delta blocks (block.has), advances the head under atomic CAS with client rebase/CRDT-merge on 409 (no lost update), per-DID token-bucket rate limit, and a suppressable AES-GCM-encrypted IP attestation (never in immutable blocks; GDPR/APPI + charter PII). passkey-PRF setIdentity hook binds the signing key. LIVE-verified headless: feed renders from blocks; writes attributed to did:key + appear instantly; concurrent A/B publish both survive; delta 2/7 blocks; ipEncrypted=true. Tests: apex crypto + publish-handler integration (in-memory KV) + browser feed/merge units. Lexicons com.etzhayyim.apps.kotoba.{block.put,block.has,root,stats}. OPEN: authoritative-head primitive under reconciliation — deployed DO vs charter-aligned KV-CAS / content-addressed head (no operated server-state, ADR-2605262130/2605312345). ZERO Charter amendments."
+path = "90-docs/adr/2606065500-kotoba-browser-only-social-feed.md"
+adr = ["2606065500", "2605312345", "2605262130", "2605231525", "2606013800", "2606014600", "2605215000", "2606041822"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
