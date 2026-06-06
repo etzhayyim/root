@@ -43,7 +43,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.16",
-		"@types/node": "^25.9.1",
+		"@types/node": "^25.9.2",
 		"effect": "^3.21.2",
 		"fast-check": "^4.8.0",
 		"ts-node": "^10.0.0",
