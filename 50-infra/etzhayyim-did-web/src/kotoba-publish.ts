@@ -188,6 +188,7 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     did,
     updatedAt: new Date().toISOString(),
   };
+  let rlTokens: number | undefined; // remaining rate-limit tokens (DO path), for observability
 
   // 3) Advance the published head under CHECK-AND-SET (advance only if the
   //    publisher rebased on the current head — prevents lost updates). A Durable
@@ -199,7 +200,7 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     const casResp = await stub.fetch("https://kotoba-root/cas", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ prevRoot: body.prevRoot ?? null, manifest }),
+      body: JSON.stringify({ prevRoot: body.prevRoot ?? null, manifest, did }),
     });
     if (casResp.status === 409) {
       const j = (await casResp.json()) as { currentRoot?: string };
@@ -208,6 +209,24 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
         { status: 409, headers: JSON_HEADERS },
       );
     }
+    if (casResp.status === 429) {
+      const j = (await casResp.json()) as { retryAfterMs?: number };
+      return new Response(
+        JSON.stringify({ error: "RateLimited", message: "publish rate exceeded — retry later", retryAfterMs: j.retryAfterMs }),
+        {
+          status: 429,
+          headers: { ...JSON_HEADERS, "retry-after": String(Math.ceil((j.retryAfterMs ?? 2500) / 1000)) },
+        },
+      );
+    }
+    if (!casResp.ok) {
+      // DO error — surface it instead of masking as success (would orphan the root).
+      return new Response(JSON.stringify({ error: "HeadAdvanceFailed", status: casResp.status }), {
+        status: 502,
+        headers: JSON_HEADERS,
+      });
+    }
+    rlTokens = ((await casResp.json()) as { tokens?: number }).tokens;
     // Mirror to KV for the fast GET path (block.has + root read).
     await env.ACTOR_KV.put(`kroot:${graph}`, JSON.stringify(manifest));
   } else {
@@ -248,6 +267,7 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
       ok: true,
       root,
       storedBlocks: blocks.length,
+      rlTokens,
       attest: { ipHash: attest.ipHash, ipPrefix: attest.ipPrefix, ipEncrypted: !!attest.ipEnc },
     }),
     { status: 200, headers: JSON_HEADERS },
@@ -323,19 +343,46 @@ export class KotobaRoot {
       return new Response(JSON.stringify(m), { headers: { "content-type": "application/json" } });
     }
     if (url.pathname === "/cas" && request.method === "POST") {
-      const { prevRoot, manifest } = (await request.json()) as {
+      const { prevRoot, manifest, did } = (await request.json()) as {
         prevRoot?: string | null;
         manifest: { root: string };
+        did?: string;
       };
       const cur = (await this.state.storage.get("manifest")) as { root?: string } | undefined;
+      // Rebase needed (someone advanced the head) — NOT abuse, costs no token.
       if (cur && cur.root && cur.root !== prevRoot) {
         return new Response(JSON.stringify({ ok: false, currentRoot: cur.root }), {
           status: 409,
           headers: { "content-type": "application/json" },
         });
       }
+      // Per-DID token-bucket rate limit on actual head advances (burst-friendly,
+      // caps sustained churn — the root-churn DoS amplification vector). A token
+      // is spent ONLY on a real advance, so honest rebasers are never charged.
+      const CAP = 12;
+      const REFILL_MS = 2500;
+      const now = Date.now();
+      const rlKey = `rl:${did || "anon"}`;
+      const b = ((await this.state.storage.get(rlKey)) as { tokens: number; ts: number } | undefined) ?? {
+        tokens: CAP,
+        ts: now,
+      };
+      const refill = Math.floor((now - b.ts) / REFILL_MS);
+      if (refill > 0) {
+        b.tokens = Math.min(CAP, b.tokens + refill);
+        b.ts = now;
+      }
+      if (b.tokens < 1) {
+        await this.state.storage.put(rlKey, b);
+        return new Response(JSON.stringify({ ok: false, rateLimited: true, retryAfterMs: REFILL_MS }), {
+          status: 429,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      b.tokens -= 1;
+      await this.state.storage.put(rlKey, b);
       await this.state.storage.put("manifest", manifest);
-      return new Response(JSON.stringify({ ok: true, root: manifest.root }), {
+      return new Response(JSON.stringify({ ok: true, root: manifest.root, tokens: b.tokens }), {
         headers: { "content-type": "application/json" },
       });
     }

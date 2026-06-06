@@ -436,6 +436,14 @@ async function publishToApex(edit) {
         continue;
       }
 
+      if (r.status === 429) {
+        // Rate limited — do NOT retry. The write is already applied locally; it
+        // will propagate with the next publish (which rebuilds the full tree).
+        await idbPut("last-publish", { ok: false, rateLimited: true, root: signed.root, total: blocks.length });
+        console.warn(`[kotoba-sw] publish rate-limited — will propagate on next write`);
+        return;
+      }
+
       if (r.ok) publishedRoot = signed.root;
       await idbPut("last-publish", {
         ok: r.ok,
