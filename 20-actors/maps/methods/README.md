@@ -12,6 +12,8 @@ log. These methods are stdlib-only; the real-H3 test layer needs an `h3` install
 | `kotoba_local.py` | in-memory EAVT/AVET **reference store** — the executable proof of the §2 query design + the contract `src/kotoba-spatial.ts` issues to real kotoba. |
 | `test_methods.py` | 12 tests: normalization, sourcing honesty, coverage math, push-gate. |
 | `test_avet_roundtrip.py` | 10 tests: AVET cell round-trip (index contract always; real Tokyo-Station H3 e2e when `h3` present). |
+| `transit.py` | kotoba-native transit READS (R2 aux): `next_departures_at_stop` = `AVET(:transit.stop-time/stop, …)` sorted by departure-time (idx_maps_stop_time_stop_dep successor); `trips_on_route` = `AVET(:transit.trip/route, …)`. The read complement to the GTFS aux write path. |
+| `test_transit.py` | 8 tests: departure sort (incl. GTFS >24:00:00), `after` cutoff, limit, stop isolation, unknown-stop empty, trips-on-route, fail-soft. |
 | `kotoba_local_server.py` | stdlib HTTP **stand-in** for the kotoba XRPC surface (`kg.ingest_batch` Bearer + `graph.sparql` AVET + `kg.entity`) — the local target for the R1 dry-run. |
 | `test_e2e_http.py` | 5 tests: the full maps↔kotoba **HTTP loop** (auth gate 401, real `ingest.push_batch`, AVET cell query, label-filter, point lookup). |
 

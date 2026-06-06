@@ -6,3 +6,4 @@ PY="${PYTHON:-python3}"   # set PYTHON=/path/to/venv/bin/python to exercise the 
 "$PY" test_methods.py "$@"
 "$PY" test_avet_roundtrip.py "$@"
 "$PY" test_e2e_http.py "$@"
+"$PY" test_transit.py "$@"
