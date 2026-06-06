@@ -13496,7 +13496,7 @@
       "id": "doc:adr-2606052300-matsurigoto-egov-execution-commons",
       "type": "TechArticle",
       "title": "ADR-2606052300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "matsurigoto-egov-execution-commons",
       "authoritative": true,
       "authoritativeFor": [

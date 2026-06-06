@@ -1,7 +1,7 @@
 ---
 id: adr-2606052300-matsurigoto-egov-execution-commons
 title: "ADR-2606052300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: matsurigoto-egov-execution-commons
 authoritative: true
@@ -30,9 +30,19 @@ superseded_by: []
 
 # ADR-2606052300: matsurigoto 政 — COFOG-based e-Government execution commons
 
-**Status**: proposed
-**Date**: 2026-06-05
+**Status**: accepted
+**Date**: 2026-06-05 (accepted 2026-06-06)
 **Deciders**: Jun Kawasaki
+
+> **Acceptance note (2026-06-06)**: accepted at R0+R1. The 4 named functions (納税/徴税 ·
+> 住所管理 · 法人登記 · パスポート発行) each ship a spec-anchored `:reference-impl` reproducing
+> official test vectors exactly; R1.A WIT contract (wasm-tools-valid), R1.B kotoba Datom
+> persistence, R1.C verify-only sign layer (no-server-key), and R1.D per-jurisdiction rate
+> tables all landed offline; the actor is registered (DID resolvable, parity audit 7/7).
+> 98 tests green. The two-principal model + the corrected framing (etzhayyim IS a government —
+> the Kingdom of God — with a 統治機構) are accepted. R2 (key custody) / R3 (live integration +
+> pilot, principal-A self-governance first) remain Council-gated; live deploy of any
+> `:reference-impl` against a real record requires Council Lv7+ (A) / adopting-state authority (B).
 
 # Context
 
