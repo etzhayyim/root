@@ -926,15 +926,16 @@
       "id": "doc:ADR-2606061500",
       "type": "TechArticle",
       "title": "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "engi-knowledge-graph",
       "authoritative": true,
       "authoritativeFor": [
         "diachronic influence-as-information-flow over historical public figures/documents/events/traditions",
-        "mirror-only social projection of historical influence (non-impersonation)"
+        "mirror-only social projection of historical influence (non-impersonation)",
+        "coverage measurement + Wikidata/Pantheon live influence ingest (G7-gated)"
       ],
       "related": "doc:https://junkawasaki.com/en/posts/spirit-is-information/",
-      "lastVerified": "2026-06-06"
+      "lastVerified": "2026-06-07"
     },
     {
       "id": "doc:active-inference-agent-organism-design",
@@ -13858,6 +13859,97 @@
         "doc:2605262130"
       ],
       "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606066000-keizu-government-relations-graph-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606066000: 系図 (keizu) — government power-relations knowledge graph (procurement · money · statements · committee composition) R0",
+      "status": "accepted",
+      "topic": "keizu-government-relations-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "keizu-government-relations-graph",
+        "government-committee-composition-analysis",
+        "government-money-flow-relation-weave"
+      ],
+      "related": [
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor",
+        "doc:adr-2606021600-ooyake-world-government-atlas",
+        "doc:adr-2606042330-entity-as-actor-society-wide-social-mirror-graph",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606066000-kotoba-content-addressed-head-ipns-commit",
+      "type": "TechArticle",
+      "title": "ADR-2606066000: content-addressed feed head — kotoba IPNS commit-head resolves the 2606065500 open question (no Durable Object)",
+      "status": "accepted",
+      "topic": "kotoba-content-addressed-head",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-feed-head-primitive"
+      ],
+      "related": [
+        "doc:40-engine/kotoba/crates/kotoba-ipfs/src/ipns.rs",
+        "doc:40-engine/kotoba/crates/kotoba-datomic/src/distributed.rs",
+        "doc:50-infra/etzhayyim-did-web/src/kotoba-publish.ts"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606070030-session-close-karakuri-browseruse-and-kotoba-content-addressed-head",
+      "type": "TechArticle",
+      "title": "ADR-2606070030: session close — karakuri browser-use + kotoba content-addressed feed head (IPNS commit-head)",
+      "status": "active",
+      "topic": "session-close-2026-06-06-07",
+      "authoritative": false,
+      "related": [
+        "doc:https://github.com/etzhayyim/kotoba/pull/47",
+        "doc:https://github.com/etzhayyim/kotoba/pull/48",
+        "doc:https://github.com/etzhayyim/kotoba/pull/49"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071400-omise-kotoba-native-storefront-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",
+      "status": "proposed",
+      "topic": "omise-storefront-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/omise"
+      ],
+      "related": "doc:2605231525",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071500-ainori-pooled-mobility-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071500: ainori 相乗り — pooled passenger-mobility commons (Uber charter-clean inversion), R0",
+      "status": "proposed",
+      "topic": "ainori-mobility-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/ainori"
+      ],
+      "related": "doc:2606032130",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606071600-shukubo-pilgrim-lodging-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
+      "status": "proposed",
+      "topic": "shukubo-lodging-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/shukubo"
+      ],
+      "related": "doc:2606042300",
+      "lastVerified": "2026-06-07"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

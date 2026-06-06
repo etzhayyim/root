@@ -21738,6 +21738,84 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071400-omise-kotoba-native-storefront-commons-shopify-layer.md",
+      "id": "adr-2606071400-omise-kotoba-native-storefront-commons",
+      "title": "ADR-2606071400: omise お店 — kotoba-native storefront commons (Shopify-layer for internal sellers); promote scaffold → implementation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "omise-storefront-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/omise"
+      ],
+      "related": [
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605302000",
+        "2605262130",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606071500-ainori-pooled-mobility-commons-uber-inversion-r0.md",
+      "id": "adr-2606071500-ainori-pooled-mobility-commons",
+      "title": "ADR-2606071500: ainori 相乗り — pooled passenger-mobility commons (Uber charter-clean inversion), R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "ainori-mobility-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/ainori"
+      ],
+      "related": [
+        "2606032130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606042300",
+        "2605242000",
+        "2606042100",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606071600-shukubo-pilgrim-lodging-commons-airbnb-hotels-inversion-r0.md",
+      "id": "adr-2606071600-shukubo-pilgrim-lodging-commons",
+      "title": "ADR-2606071600: shukubo 宿坊 — pilgrim-lodging commons (Airbnb/Hotels charter-clean inversion), R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "shukubo-lodging-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/shukubo"
+      ],
+      "related": [
+        "2606042300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012100",
+        "2605302000",
+        "2605181100",
+        "2605262130"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
