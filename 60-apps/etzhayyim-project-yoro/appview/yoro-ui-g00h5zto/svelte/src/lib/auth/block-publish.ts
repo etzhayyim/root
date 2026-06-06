@@ -1,19 +1,21 @@
 /**
- * Member-signed content-addressed block publishing (ADR-2606061800 → 2606062600).
+ * Member-signed content-addressed block publishing (ADR-2606061800).
  *
  * The account record is NOT written to a central kotoba node (writes there are
  * operator-local, ADR-2606013200). It is published as a **member-signed,
  * content-addressed block** to the apex `com.etzhayyim.apps.kotoba.block.put`
- * (main's `kotoba-publish`: verifies the member sig, stores the block in KV,
- * advances the graph root via the KotobaRoot Durable Object, and the block is
- * IPFS-pinned via kotobase.net). This is the most domain-independent identity
- * form: the record is a CID (content-address) signed by the member's `did:key` —
- * it depends on neither the domain nor a central node. Proven live (`ok:true`).
+ * (main's `kotoba-publish`: verifies the member sig, then **IPFS-pins the block
+ * via kotobase.net** as the canonical, content-addressed store). The block's
+ * identity IS its CID — it is resolvable + verifiable by CID from any IPFS
+ * gateway, with NO dependency on a centralized KV (the apex KV is only a fast
+ * cache, never the source of truth — substrate boundary). The most
+ * domain-independent identity form: a CID signed by the member's `did:key`,
+ * dependent on neither the domain nor a central node. Proven live (`ok:true`).
  *
  * CID = `sha2-256` raw CIDv1 (`b`+base32), byte-identical to the apex
- * `cid.ts::computeCidV1`. The block.put author DID uses the `did:key:z`+hex(32B
+ * `cid.ts::cidV1Raw`. The block.put author DID uses the `did:key:z`+hex(32B
  * pubkey) form (the node/kotoba-publish convention) — the SAME Ed25519 key as the
- * standard `did:key:z6Mk…` login identity, which is carried inside the record as
+ * standard `did:key:z6Mk…` login identity, carried inside the record as
  * `account/did` (the canonical, login-linked identity).
  */
 
