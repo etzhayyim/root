@@ -1,6 +1,37 @@
-# maps bulk-ingest workers — RW → MST migration TODO
+# maps bulk-ingest workers — RW → kotoba/MST migration TODO
 
-**Status (2026-05-23)**: 🟡 partial. Substrate seam + 1 reference worker migrated.
+**Status (2026-06-06)**: 🟡 partial. Substrate seam now supports `kotoba` (canonical Datom
+log, ADR-2606064500), `mst` (AT Protocol ingress), and `rw` (transitional). The 6 Tier-1
+feature dumpers (openflights/wikidata/wikipedia/ferry_routes/geonames/overture_maps) reach
+kotoba through the seam unchanged once `ETZHAYYIM_SUBSTRATE_MODE=kotoba` is set.
+
+## kotoba mode (ADR-2606064500 R2)
+
+`ETZHAYYIM_SUBSTRATE_MODE=kotoba` routes `upsert_vertex_spatial(rows)` →
+`_kotoba_feature.rows_to_batch` (the 51 legacy labels fold onto `:feature/label`, the H3-cell
+index `:feature.cell/rN` is stamped from the centroid) → `kg.ingest_batch` on the canonical
+kotoba Datom log. This is the bulk-feed half of the maps substrate migration; the maps Worker
+read/write adapter (`maps-ui/src/kotoba-spatial.ts`) is the interactive half. Both share the
+`:feature/*` ontology and the SAME label map (a test asserts `_kotoba_feature._LABEL_MAP` ==
+`20-actors/maps/methods/ingest.py _LABEL_MAP`).
+
+**Gated (G4/G7, no-server-key):** kotoba mode REQUIRES `MAPS_OPERATOR_GATE=1` + `KOTOBA_ENDPOINT`
++ `KOTOBA_AUTH` (member/operator DID bearer; the pod holds no platform key). Absent any, the
+writer construction raises — a dumper flipped to kotoba mode without the gate fails loudly,
+never silently drops. `upsert_table` (aux RW tables: vertex_maps_trip, gsplat registries)
+maps the GTFS aux tables **`vertex_maps_trip` / `vertex_maps_stop_time`** →
+`:transit.trip/*` / `:transit.stop-time/*` (`00-contracts/schemas/maps-transit-ontology.kotoba.edn`);
+still-unmapped aux tables (gsplat registries, GTFS-RT) raise `NotImplementedError` (per-table
+kotoba schemas = ongoing R2 follow-up). The "next departures at stop X" read =
+`AVET(:transit.stop-time/stop, <stop-id>)` sorted by `:transit.stop-time/departure-time`
+(the kotoba equivalent of idx_maps_stop_time_stop_dep).
+
+Bring-up (operator): `kubectl -n maps-bulk-ingest set env deploy/<dumper> ETZHAYYIM_SUBSTRATE_MODE=kotoba MAPS_OPERATOR_GATE=1 KOTOBA_ENDPOINT=… KOTOBA_AUTH=…`.
+Tests: `python3 workers/test_kotoba_substrate.py` (15 green; real H3 under a venv with `h3`).
+
+---
+
+## (historical) RW → MST migration
 
 ## What changed
 

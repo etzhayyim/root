@@ -11,6 +11,8 @@
 		clerkUser,
 		displayName as clerkDisplayName,
 		getSessionToken,
+		signIn,
+		signUp,
 	} from '$lib/auth';
 	import { SuperAppLayout, Tuner } from '$lib/superapp';
 	import { currentTab, pathToTab } from '$lib/superapp';
@@ -48,6 +50,29 @@
 	let menuOpen = $state(false);
 	let drawerOpen = $state(false);
 	let bootstrapped = $state(false);
+
+	// Same-origin passkey auth (ADR-2606061800). The header buttons drive the
+	// in-app WebAuthn → did:key flow directly — NO redirect to authn.etzhayyim.com
+	// / mcp.etzhayyim.com (both removed from the auth path). `signIn`/`signUp`
+	// throw on a real error and return quietly on user cancellation.
+	let authBusy = $state(false);
+	let authError = $state('');
+	async function runAuth(fn: () => Promise<void>) {
+		if (authBusy) return;
+		authBusy = true;
+		authError = '';
+		try {
+			haptic('light');
+			await fn();
+		} catch (e) {
+			authError = e instanceof Error ? e.message : 'Sign-in failed';
+			console.error('[auth] same-origin passkey flow failed:', e);
+		} finally {
+			authBusy = false;
+		}
+	}
+	const doSignIn = () => runAuth(signIn);
+	const doSignUp = () => runAuth(signUp);
 
 	const menuActions = [
 		{ label: 'New message', onclick: () => { playClick(); goto('/projects'); } },
@@ -230,29 +255,21 @@
 		{:else}
 			<button
 				type="button"
-				onclick={() => {
-					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
-					const redirectUrl = isNative
-						? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
-						: window.location.href;
-					window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
-				}}
-				class="flex min-h-[36px] items-center rounded-full border border-gv2-border px-4 py-1.5 text-[14px] font-semibold text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform"
+				onclick={doSignIn}
+				disabled={authBusy}
+				title={authError || undefined}
+				class="flex min-h-[36px] items-center rounded-full border border-gv2-border px-4 py-1.5 text-[14px] font-semibold text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform disabled:opacity-60"
 			>
-				ログイン
+				{authBusy ? '...' : 'ログイン'}
 			</button>
 			<button
 				type="button"
-				onclick={() => {
-					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
-					const redirectUrl = isNative
-						? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
-						: window.location.href;
-					window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
-				}}
-				class="flex min-h-[36px] items-center rounded-full bg-[#58CC02] px-4 py-1.5 text-[14px] font-bold text-white shadow-[0_3px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[3px] transition-all duration-75"
+				onclick={doSignUp}
+				disabled={authBusy}
+				title={authError || undefined}
+				class="flex min-h-[36px] items-center rounded-full bg-[#58CC02] px-4 py-1.5 text-[14px] font-bold text-white shadow-[0_3px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[3px] transition-all duration-75 disabled:opacity-60"
 			>
-				新規登録
+				{authBusy ? '...' : '新規登録'}
 			</button>
 		{/if}
 	{/snippet}
