@@ -7,7 +7,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 - **Operating entity** (this repo's owner): `etzhayyim` (canonical)
   - Aliases: `amanomibashira` / `天御柱` / `עץ חיים` (Tree of Life) / `etz hayim` / `etzhayim` / `etz chaim` / `エツ・ハイム`
   - Form: 宗教法人 (任意団体 / unincorporated religious voluntary association)
-  - **Self-identification (per ADR-2605252300 Charter §0.1, proposed 2026-05-25)**: **the Kingdom of God (Malkhut Shamayim / Basileia tou Theou / 神の王国) rooted on blockchain** — now-and-here reign (non-eschatological per §1.15), not state-granted, Tree of Life-constituted. Amendment threshold: Council Lv7+ unanimity.
+  - **Self-identification (per ADR-2605252300 Charter §0.1, ratified 2026-06-06 by sole-member founder unanimity)**: **the Kingdom of God (Malkhut Shamayim / Basileia tou Theou / 神の王国) rooted on blockchain** — now-and-here reign (non-eschatological per §1.15), not state-granted, Tree of Life-constituted. Amendment threshold: Council Lv7+ unanimity (currently = founder, 1/1).
   - Registry: On-chain (blockchain-registered constitution and member roster); NOT registered under 日本国 宗教法人法 (constitutional invariant per Preamble §0.4, Lv7+ unanimity lock)
   - DID: `did:web:etzhayyim.com` (LIVE — CF Worker at `50-infra/etzhayyim-did-web/`, resolvable via curl + Universal Resolver since 2026-05-17T03:25Z)
   - Domain: https://etzhayyim.com (Cloudflare Registrar, 2026-05-15)
@@ -44,7 +44,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | Dataset CID substrate | DataLad + git-annex + IPFS pinner | ✅ | 2605241500 | 05-24 |
 | agentURI 5-layer | ERC-8004 + libp2p + AT XRPC peer-resolvable | ✅ | 2605241800 | 05-24 |
 | Gov 5-layer taxonomy | L1 namespace … L5 routing-around | ✅ | 2605212100 | 05-25 |
-| Charter §0 Preamble | Kingdom of God + Land Trust Wave 2 (ERC-721/5192/7401) | 🟡 | 2605252300 | 05-25 |
+| Charter §0 Preamble | Kingdom of God + Land Trust Wave 2 (ERC-721/5192/7401); **ratified active 2026-06-06 (sole-member unanimity)** | ✅ | 2605252300 | 05-25 |
 | Labor Liberation ladder | Adherent SBT → 7-stage L0..L6 | 🟡 | 2605261000 | 05-26 |
 | Basic High Income doctrine | imputed-income (flow) + commons-asset (stock) — high income in-kind, cash≡0 (N1-consistent) | 🟡 | 2605301020 | 05-30 |
 | Mission-funding revenue arm | vendor commercial surplus → donation → Public Fund; non-profit MEANS not profit END; ad-free + no-payroll preserved | 🟡 | 2605301036 | 05-30 |

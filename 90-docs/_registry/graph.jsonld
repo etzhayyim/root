@@ -5545,7 +5545,7 @@
       "id": "doc:adr-2605192100-etzhayyim-mission-charter",
       "type": "TechArticle",
       "title": "ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章",
-      "status": "proposed",
+      "status": "active",
       "topic": "etzhayyim-mission-charter",
       "authoritative": true,
       "authoritativeFor": [
@@ -5560,7 +5560,7 @@
         "doc:adr-2605192145-etzhayyim-public-fund-architecture",
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
-      "lastVerified": "2026-05-19"
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
@@ -8410,7 +8410,7 @@
       "id": "doc:adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
       "type": "TechArticle",
       "title": "ADR-2605252300: Charter §0 Preamble — etzhayyim as the Kingdom of God Rooted on Blockchain",
-      "status": "proposed",
+      "status": "active",
       "topic": "charter-preamble-kingdom-of-god-on-blockchain",
       "authoritative": true,
       "authoritativeFor": [
@@ -8428,7 +8428,7 @@
         "doc:MEMBERS.md",
         "doc:COUNCIL.md"
       ],
-      "lastVerified": "2026-05-25"
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2605252315-etzhayyim-land-trust-wave-2-multi-erc-alignment",

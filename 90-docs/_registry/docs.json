@@ -7887,7 +7887,7 @@
       "path": "90-docs/adr/2605192100-etzhayyim-mission-charter.md",
       "id": "adr-2605192100-etzhayyim-mission-charter",
       "title": "ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "etzhayyim-mission-charter",
       "authoritative": true,
@@ -7912,7 +7912,7 @@
         "adr-2605172300-etzhayyim-bi-asset-substrate",
         "adr-2605172600-etzhayyim-membership-ritual"
       ],
-      "last_verified": "2026-05-19",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
@@ -12506,7 +12506,7 @@
       "path": "90-docs/adr/2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain.md",
       "id": "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
       "title": "ADR-2605252300: Charter §0 Preamble — etzhayyim as the Kingdom of God Rooted on Blockchain",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "charter-preamble-kingdom-of-god-on-blockchain",
       "authoritative": true,
@@ -12536,7 +12536,7 @@
         "adr-2605192345-etzhayyim-steward-succession",
         "adr-2605172600-etzhayyim-membership-ritual"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
