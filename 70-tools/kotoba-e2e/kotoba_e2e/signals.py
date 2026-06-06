@@ -139,10 +139,45 @@ def check_posts_rendered(s: Signals) -> Check:
     return Check("posts_rendered", s.post_count > 0, f"posts={s.post_count}")
 
 
+def classify_data_path(s: Signals) -> str:
+    """How did this page's DATA reach the screen?
+
+      'csr-sw'  — a client feed/profile XRPC was issued AND SW-served (browser-only)
+      'csr-net' — a client feed/profile XRPC was issued but NOT SW-served (hit network)
+      'ssr'     — content rendered with NO client data XRPC ⇒ server-side rendered
+                  (the data source is a server fetch, INVISIBLE to the browser — so
+                  'no_risingwave_reads' is a false-clean for these pages)
+      'empty'   — no client data read and no content rendered
+    """
+    feed_reqs = [r for r in s.requests if _is_feed_read(r.url)]
+    if feed_reqs:
+        return "csr-sw" if all(r.header("x-kotoba-sw") for r in feed_reqs) else "csr-net"
+    return "ssr" if s.post_count > 0 else "empty"
+
+
+def check_data_path(s: Signals) -> Check:
+    """Informational: classify the data path + flag SSR honestly.
+
+    Passes for 'csr-sw' (true browser-only) and (vacuously) is informational
+    otherwise; the message names the path so an SSR page is not mistaken for
+    browser-only. 'csr-net' is the only one that means a browser-visible server
+    read happened (already caught by no_risingwave_reads if it was the AppView).
+    """
+    path = classify_data_path(s)
+    ok = path == "csr-sw"
+    note = {
+        "csr-sw": "feed/profile read SW-served browser-side (browser-only)",
+        "csr-net": "client read went to network (NOT SW-served)",
+        "ssr": "server-side rendered — data source NOT browser-observable (no client XRPC)",
+        "empty": "no client data read and nothing rendered",
+    }[path]
+    return Check("data_path", ok, f"{path} — {note}")
+
+
 # Core (must-pass) checks vs informational ones. The "browser-only" verdict turns
 # on the core set; skeleton/posts are quality signals.
 CORE_CHECKS = (check_sw_active, check_blocks_hydrated, check_no_risingwave_reads)
-QUALITY_CHECKS = (check_feed_served_by_sw, check_skeleton_lifecycle, check_posts_rendered)
+QUALITY_CHECKS = (check_data_path, check_feed_served_by_sw, check_skeleton_lifecycle, check_posts_rendered)
 
 
 def evaluate(s: Signals) -> tuple[bool, list]:

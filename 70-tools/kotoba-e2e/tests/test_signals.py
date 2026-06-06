@@ -101,6 +101,20 @@ def test_stuck_skeleton_flagged_quality_not_core():
     assert {c.name: c for c in checks}["skeleton_lifecycle"].passed is False
 
 
+
+def test_data_path_classifies_csr_sw_ssr_empty():
+    from kotoba_e2e.signals import classify_data_path
+    assert classify_data_path(browser_only_signals()) == "csr-sw"
+    # SSR: content rendered, no client feed read
+    ssr = Signals(requests=[Request(url="https://etzhayyim.com/profile/x", status=200)],
+                  sw_controller=True, post_count=9, skeleton_seen=True, skeleton_removed=True)
+    assert classify_data_path(ssr) == "ssr"
+    # csr-net: client feed read NOT sw-served
+    net = Signals(requests=[Request(url="https://etzhayyim.com/xrpc/app.bsky.feed.getTimeline", status=200)])
+    assert classify_data_path(net) == "csr-net"
+    assert classify_data_path(Signals()) == "empty"
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:
