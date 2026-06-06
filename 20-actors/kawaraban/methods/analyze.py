@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """kawaraban 瓦版 — compose an EDITION (front-面 digest) from the news-medium graph.
 
-ADR-2606060900. The composer ranks articles into 面 (sections) using G2 PUBLIC-GOOD
+ADR-2606061900. The composer ranks articles into 面 (sections) using G2 PUBLIC-GOOD
 signals ONLY — recency, section-fit, source-diversity, actor-relevance — and NEVER by
 paid placement, sponsorship, engagement, or dwell-time (those signals are not even
 representable; `assert_rank_signals` RAISES if an illegal signal is requested).
@@ -156,7 +156,7 @@ def render_md(c) -> str:
 
 def render_edn(c) -> str:
     issue_id = f"issue.kawaraban.{c['newest']}"
-    L = [";; kawaraban derived edition + actor-to-actor link edges (ADR-2606060900)",
+    L = [";; kawaraban derived edition + actor-to-actor link edges (ADR-2606061900)",
          ";; :derived — NOT re-ingested as authoritative. published=false / final=false (G7/G8/G10).",
          "["]
     sec_ids = [s for s in c["sections"]]

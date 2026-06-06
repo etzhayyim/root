@@ -1,7 +1,7 @@
 # kawaraban 瓦版 — News Medium
 
 > Real-media **mirror** + actor-to-actor **wire**. kotoba-wasm-native, runs on the
-> Murakumo fleet. ADR-2606060900.
+> Murakumo fleet. ADR-2606061900.
 
 瓦版 was the original Japanese news medium — Edo-period clay-block broadsheets cried and
 sold in the street. It is a **sheet (面)**, not an oracle: it carries *what was said* and
@@ -60,7 +60,7 @@ kawaraban/
 │   ├── ingest.py    # offline outlet normalizer (G4 membrane, --live G8-gated)
 │   └── test_route.py  test_analyze.py  test_ingest.py
 └── data/
-    └── seed-news-graph.kotoba.edn   # :representative seed (7 outlets / 10 面 / 12 articles / 9 wires / 17 mentions)
+    └── seed-news-graph.kotoba.edn   # :representative seed (7 outlets / 10 面 / 12 articles / 9 wires / 24 mentions)
 ```
 
 Ontology: [`/00-contracts/schemas/news-medium-ontology.kotoba.edn`](../../00-contracts/schemas/news-medium-ontology.kotoba.edn).

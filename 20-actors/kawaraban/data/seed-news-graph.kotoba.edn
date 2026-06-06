@@ -1,4 +1,4 @@
-;; kawaraban 瓦版 — seed news-medium graph (ADR-2606060900)
+;; kawaraban 瓦版 — seed news-medium graph (ADR-2606061900)
 ;; ============================================================================
 ;; A BOUNDED, :representative ILLUSTRATIVE seed — NOT live coverage and NOT a real
 ;; capture of any specific article. Every node is tagged :representative (G5).

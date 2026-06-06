@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """kawaraban 瓦版 — the MEDIUM: actor→面 routing + the actor-to-actor connection wire.
 
-ADR-2606060900. Reads a kotoba-EDN news-medium graph (:news.outlet/* :news.section/*
+ADR-2606061900. Reads a kotoba-EDN news-medium graph (:news.outlet/* :news.section/*
 :news.article/* :news.mention/* :news.wire/*) and exposes the connective core of the
 news medium:
 

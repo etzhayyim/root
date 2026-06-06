@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """kawaraban 瓦版 — offline outlet/headline normalizer (G4 membrane, G8 --live gate).
 
-ADR-2606060900. Normalizes a batch of public-facing-page headline records (JSON) into
+ADR-2606061900. Normalizes a batch of public-facing-page headline records (JSON) into
 :news.article/* :mirror datoms. It is a MEMBRANE: it REFUSES, by construction, any record
 that would breach the copyright / surveillance gates —
 

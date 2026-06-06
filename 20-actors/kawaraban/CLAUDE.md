@@ -1,6 +1,6 @@
 # kawaraban 瓦版 — CLAUDE instructions
 
-News medium. ADR-2606060900. **Read the root `/CLAUDE.md` Charter + substrate rules
+News medium. ADR-2606061900. **Read the root `/CLAUDE.md` Charter + substrate rules
 first.** kawaraban-specific invariants below make the Charter concrete for this actor;
 they weaken nothing.
 
