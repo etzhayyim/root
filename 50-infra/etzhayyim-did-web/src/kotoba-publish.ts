@@ -213,6 +213,28 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
   );
 }
 
+/** POST com.etzhayyim.apps.kotoba.block.has — body { cids: [...] } → { missing:
+ *  [...] } the CIDs not already in KV. Lets the publisher send only the delta
+ *  (content-addressed blocks are immutable, so "present" never needs resending). */
+export async function handleBlockHas(request: Request, env: PublishEnv): Promise<Response> {
+  let cids: string[] = [];
+  try {
+    const body = (await request.json()) as { cids?: unknown };
+    if (Array.isArray(body.cids)) cids = body.cids.filter((c): c is string => typeof c === "string").slice(0, 4096);
+  } catch {
+    return new Response(JSON.stringify({ error: "BadRequest" }), { status: 400, headers: JSON_HEADERS });
+  }
+  if (!env.ACTOR_KV) return new Response(JSON.stringify({ missing: cids }), { status: 200, headers: JSON_HEADERS });
+  const present = await Promise.all(
+    cids.map(async (c) => ((await env.ACTOR_KV!.get(`kblk:${c}`, "stream")) ? c : null)),
+  );
+  const has = new Set(present.filter(Boolean) as string[]);
+  return new Response(JSON.stringify({ missing: cids.filter((c) => !has.has(c)) }), {
+    status: 200,
+    headers: JSON_HEADERS,
+  });
+}
+
 /** GET com.etzhayyim.apps.kotoba.root?graph=… — the latest published root
  *  pointer (KV), or a 204-ish empty so the client falls back to the static
  *  genesis pointer. */

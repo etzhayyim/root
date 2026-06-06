@@ -357,13 +357,40 @@ async function publishToApex(edit) {
     }
     const signed = JSON.parse(pub.commitSigned()); // { root, did, sig }
     const blocks = JSON.parse(pub.exportBlocks()); // [{ cid, hex }]
+    // DELTA: ask the apex which of these content-addressed blocks it lacks and
+    // send only those (immutable blocks never need resending). Completeness is
+    // preserved — the apex keeps the ones it already had + the delta.
+    let toSend = blocks;
+    try {
+      const hasResp = await fetch("/xrpc/com.etzhayyim.apps.kotoba.block.has", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ cids: blocks.map((b) => b.cid) }),
+      });
+      if (hasResp.ok) {
+        const missing = new Set((await hasResp.json()).missing || []);
+        toSend = blocks.filter((b) => missing.has(b.cid));
+      }
+    } catch {
+      /* fall back to sending all */
+    }
     const r = await fetch(PUBLISH_URL, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ graph: GRAPH, root: signed.root, did: signed.did, sig: signed.sig, blocks, edit }),
+      body: JSON.stringify({ graph: GRAPH, root: signed.root, did: signed.did, sig: signed.sig, blocks: toSend, edit }),
+    });
+    const resJson = await r.clone().json().catch(() => ({}));
+    // Observability: stash the last publish so the page (same-origin IDB) can read it.
+    await idbPut("last-publish", {
+      ok: r.ok,
+      root: signed.root,
+      sent: toSend.length,
+      total: blocks.length,
+      ipEncrypted: !!(resJson && resJson.attest && resJson.attest.ipEncrypted),
+      ipPrefix: resJson && resJson.attest ? resJson.attest.ipPrefix : "",
     });
     console.log(
-      `[kotoba-sw] publish ${r.ok ? "ok" : "HTTP " + r.status} root ${String(signed.root).slice(0, 12)}… (${blocks.length} blocks)`,
+      `[kotoba-sw] publish ${r.ok ? "ok" : "HTTP " + r.status} root ${String(signed.root).slice(0, 12)}… (${toSend.length}/${blocks.length} blocks sent)`,
     );
   } catch (e) {
     console.warn("[kotoba-sw] publish failed (local write intact)", e);

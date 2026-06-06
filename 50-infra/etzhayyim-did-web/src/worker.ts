@@ -36,7 +36,7 @@ import {
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord } from "./kotoba";
-import { handleBlockPut, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
+import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
@@ -729,35 +729,25 @@ async function resolveActorRecord(
 async function resolveActorRecordTiered(
   handle: string,
   env: Env,
-  ctx: ExecutionContext,
+  _ctx: ExecutionContext,
 ): Promise<ActorRecord | null> {
-  // 1) KV snapshot — fast, origin-independent.
-  if (env.ACTOR_KV) {
-    try {
-      const raw = (await env.ACTOR_KV.get(`actor:${handle}`, "json")) as
-        | Record<string, unknown>
-        | null;
-      const rec = raw ? coerceActorRecord(raw, "kv") : null;
-      if (rec) return rec;
-    } catch {
-      /* KV unavailable → fall through */
-    }
-  }
-
-  // 2) kotoba pull — first-class canonical state; cache the hit into KV.
+  // Actor resolution no longer depends on CF KV (per the kotoba-datomic-only
+  // directive): the canonical actor + DID record lives in the `actors-v1` Datom
+  // log (content-addressed blocks under /kotoba/, resolved client-side by the
+  // browser kotoba-wasm; gen-kotoba-actor-blocks.mjs). The Worker keeps only a
+  // server-side did:web compatibility path:
+  //   1) an (empty-by-default) kotoba node pull,
+  //   2) the actors-v1 static projection (ACTORS_V1_RECORDS) — the KV-free,
+  //      seed-derived map of the same 28 Datom-log records,
+  //   3) the compiled INFRA_ACTORS mirror, so did:web never goes dark.
+  // ACTOR_KV remains bound ONLY for the gov-atlas index, not for actor records.
   const fromKotoba = await fetchKotobaActorRecord(env, handle);
-  if (fromKotoba) {
-    if (env.ACTOR_KV) {
-      ctx.waitUntil(
-        env.ACTOR_KV.put(`actor:${handle}`, JSON.stringify(fromKotoba), {
-          expirationTtl: 300,
-        }).catch(() => {}),
-      );
-    }
-    return fromKotoba;
-  }
+  if (fromKotoba) return fromKotoba;
 
-  // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
+  const fromActorsV1 = ACTORS_V1_RECORDS[handle];
+  if (fromActorsV1) return coerceActorRecord(fromActorsV1, "kotoba");
+
+  // compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);
 }
 
@@ -1433,6 +1423,9 @@ a{color:inherit}
       }
       if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.put" && request.method === "POST") {
         return handleBlockPut(request, env);
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.has" && request.method === "POST") {
+        return handleBlockHas(request, env);
       }
       if (
         url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.root" &&
