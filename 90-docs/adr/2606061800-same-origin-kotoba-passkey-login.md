@@ -183,9 +183,15 @@ domain nor a central node. **No gated infra — it is LIVE** (proven: the real
 
 ## Honest R0 / remaining
 
-- The **read side** (apex resolves `account.<did>` / handle → did:key from the
-  published account blocks via KV `kroot`/`kblk` + IPFS) is a follow-on; the write
-  side is live.
+- The **read side** is **content-addressed, not KV-backed**: resolve handle/did →
+  the account block CID, fetch the block **by CID from IPFS** (kotobase.net pin /
+  any gateway), re-compute + verify the CID (content-address), then
+  `identity.ts::verifyAccountBlock`. The verification core (`verifyAccountBlock`,
+  KV-agnostic — it takes block bytes) is landed; the remaining wiring is the
+  CID-fetch + the mutable handle→CID pointer, which must live in the kotoba Datom
+  log / DID doc / L2 anchor (content-addressed/anchored), **never a centralized
+  KV** (substrate boundary). (`block.put`'s current KV use is a fast cache, not
+  the source of truth — the IPFS-pinned content-address is canonical.)
 - `enrollDevice` + `rotateKey` are implemented + live-capable (same `block.put`
   path) but not yet wired into a settings UI (library API; the wrapped-ARK store +
   recovery UX is the remaining work).

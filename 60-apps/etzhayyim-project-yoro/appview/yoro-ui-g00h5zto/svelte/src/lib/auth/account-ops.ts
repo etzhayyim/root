@@ -1,13 +1,15 @@
 /**
- * Account operations over the domain-independent identity (ADR-2606061800 →
- * 2606062600). Canonical identity = the controller `did:key` (self-certifying).
- * The account record is a **member-signed, content-addressed block** published
- * to the apex `block.put` (main's `kotoba-publish`: verify sig → KV → KotobaRoot
- * DO root advance → IPFS pin via kotobase.net) — NOT a central-node write (those
- * are operator-local, ADR-2606013200). This is the most domain-independent form:
- * a CID signed by the member's key, dependent on neither domain nor a central
- * node. Proven live (`block.put` → `{ok:true}`). Best-effort: the local session
- * is already established, so a failed publish never breaks login.
+ * Account operations over the domain-independent identity (ADR-2606061800).
+ * Canonical identity = the controller `did:key` (self-certifying). The account
+ * record is a **member-signed, content-addressed block** published to the apex
+ * `block.put` (main's `kotoba-publish`: verify sig → **IPFS-pin via kotobase.net**
+ * as the canonical content-addressed store; the apex KV is only a fast cache,
+ * never the source of truth — substrate boundary) — NOT a central-node write
+ * (those are operator-local, ADR-2606013200). The most domain-independent form: a
+ * CID signed by the member's key, resolvable + verifiable by CID, dependent on
+ * neither domain nor central node nor KV. Proven live (`block.put` → `{ok:true}`).
+ * Best-effort: the local session is already established, so a failed publish
+ * never breaks login.
  */
 
 import type { SessionKey } from './session-key.js';
