@@ -1,11 +1,11 @@
 ---
 id: adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0
 title: "ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0"
-status: proposed
+status: accepted
 doc_type: adr
 topic: ake-community-edit-membrane
 authoritative: true
-last_verified: 2026-06-05
+last_verified: 2026-06-06
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -28,8 +28,8 @@ superseded_by: []
 
 # ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0
 
-**Status**: proposed
-**Date**: 2026-06-05
+**Status**: accepted
+**Date**: 2026-06-05 (accepted 2026-06-06)
 **Deciders**: Jun Kawasaki
 
 # Context

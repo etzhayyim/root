@@ -49,6 +49,7 @@ G8 Murakumo-only / G9 R0 は draft のみ(実提出は Council+operator gated)/ 
 
 ```bash
 cd methods
+python3 intake.py                        # 質問に答えるだけ(EDN不要・誰でも使える)
 python3 packet.py --case c-fund-1        # seed の被害ケースで生成
 python3 packet.py --file my-case.edn     # 自分の被害内容(EDN)で生成
 # → out/packet-<id>/ に 00-COVER.md(初動チェックリスト+無料窓口+期限) と
