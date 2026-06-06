@@ -35,6 +35,31 @@ import {
 } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+
+// CIDv1 (raw, sha2-256) of bytes — identical to scripts/publish-actor-records.mjs
+// + the worker's cid.ts, so a reader can recompute the DID-doc CID and verify the
+// handle→didDoc binding with no server (ADR-2606015400 / 2606015600).
+function _base32(bytes) {
+  const A = 'abcdefghijklmnopqrstuvwxyz234567';
+  let bits = 0,
+    val = 0,
+    out = '';
+  for (const b of bytes) {
+    val = (val << 8) | b;
+    bits += 8;
+    while (bits >= 5) {
+      out += A[(val >>> (bits - 5)) & 31];
+      bits -= 5;
+    }
+  }
+  if (bits > 0) out += A[(val << (5 - bits)) & 31];
+  return out;
+}
+function cidV1Raw(buf) {
+  const d = createHash('sha256').update(buf).digest();
+  return 'b' + _base32(Buffer.concat([Buffer.from([0x01, 0x55, 0x12, 0x20]), d]));
+}
 
 const here = dirname(fileURLToPath(import.meta.url));
 const apexPublic = resolve(here, '../public/kotoba');
@@ -81,7 +106,7 @@ const SCALAR = [
 ];
 const STRUCT = { service: 'serviceJson', vm: 'vmJson', adr: 'adrJson' };
 
-function recordToDatoms(rec) {
+function recordToDatoms(rec, didDocCanonical, didDocCid) {
   const e = `actor.${rec.handle}`;
   const out = [];
   for (const k of SCALAR) {
@@ -94,6 +119,13 @@ function recordToDatoms(rec) {
       out.push([e, `:actor/${attr}`, JSON.stringify(v)]);
     }
   }
+  // The DID document itself, defined IN the Datom log (worker-independent):
+  //   :actor/didDocJson  — canonical DID-doc bytes (the CID preimage)
+  //   :actor/didDocCid   — its content-addressed CIDv1 (self-verifying id)
+  // A resolver (browser wasm) recomputes CID(didDocJson) and checks == didDocCid,
+  // anchoring the handle→DID binding with no TLS / no server (ADR-2606015400/15600).
+  out.push([e, ':actor/didDocJson', didDocCanonical]);
+  out.push([e, ':actor/didDocCid', didDocCid]);
   return out;
 }
 
@@ -103,7 +135,26 @@ const recordFiles = readdirSync(recordsDir)
 const records = recordFiles.map((f) =>
   JSON.parse(readFileSync(resolve(recordsDir, f), 'utf8')),
 );
-const datoms = records.flatMap(recordToDatoms);
+
+// Load the materialised canonical DID doc + CID per actor and self-verify the
+// content-addressed binding (CID(canonical) === published .diddoc.cid) BEFORE it
+// goes into the log — this is exactly the check the wasm resolver re-runs.
+const datoms = records.flatMap((rec) => {
+  const h = rec.handle;
+  const canonical = readFileSync(
+    resolve(recordsDir, `${h}.did.canonical.json`),
+    'utf8',
+  ).trim();
+  const cid = readFileSync(resolve(recordsDir, `${h}.diddoc.cid`), 'utf8').trim();
+  const recomputed = cidV1Raw(Buffer.from(canonical, 'utf8'));
+  if (recomputed !== cid) {
+    console.error(
+      `✗ ${h}: DID-doc CID mismatch (file ${cid} ≠ recomputed ${recomputed})`,
+    );
+    process.exit(1);
+  }
+  return recordToDatoms(rec, canonical, cid);
+});
 console.log(`actors: ${records.length} | datoms: ${datoms.length}`);
 
 // WRITE path: assert every datom, then commit → ProllyTree root + blocks.
@@ -131,6 +182,30 @@ if (applied !== datoms.length || handles !== records.length) {
   console.error(
     `✗ round-trip mismatch (datoms ${applied}/${datoms.length}, handles ${handles}/${records.length}) — NOT writing blocks`,
   );
+  process.exit(1);
+}
+
+// Worker-independent DID RESOLUTION proof: from the hydrated blocks alone,
+// pull a sample actor's :actor/didDocJson + :actor/didDocCid and re-verify the
+// content-addressed binding — exactly what the browser wasm does at resolve time.
+const sample = 'yadori';
+const rq = JSON.parse(
+  r.datomicQ(
+    `{:find [?doc ?cid] :where [[?e :actor/handle "${sample}"] [?e :actor/didDocJson ?doc] [?e :actor/didDocCid ?cid]]}`,
+    '[]',
+  ),
+);
+const row = (rq.rows_edn || rq.rows || [])[0] || [];
+const unedn = (s) => (typeof s === 'string' && s.startsWith('"') ? JSON.parse(s) : s);
+const resolvedDoc = unedn(row[0]);
+const resolvedCid = unedn(row[1]);
+const didId = resolvedDoc ? JSON.parse(resolvedDoc).id : null;
+const cidOk = resolvedDoc && cidV1Raw(Buffer.from(resolvedDoc, 'utf8')) === resolvedCid;
+console.log(
+  `did-resolve(${sample}): id=${didId} cid=${resolvedCid} self-verify=${cidOk ? 'OK' : 'FAIL'}`,
+);
+if (!didId || !cidOk) {
+  console.error('✗ in-wasm DID resolution/self-verification failed — NOT writing blocks');
   process.exit(1);
 }
 
