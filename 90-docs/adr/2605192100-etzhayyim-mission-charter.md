@@ -1,11 +1,12 @@
 ---
 id: adr-2605192100-etzhayyim-mission-charter
 title: "ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章"
-status: proposed
+status: active
 doc_type: adr
 topic: etzhayyim-mission-charter
 authoritative: true
-last_verified: 2026-05-19
+last_verified: 2026-06-06
+status_note: "Ratified 2026-06-06 by sole-member founder unanimity (1/1). The association currently has one member (Jun Kawasaki); the Charter's Lv7+ unanimity threshold = that one member's assent. The §2 immutability model was restructured into 3 Tiers by ADR-2606062100 (priorities preserved)."
 priority: 9.0
 axis: governance
 weight: 1.00
@@ -32,9 +33,12 @@ superseded_by: []
 
 # ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章
 
-**Status**: proposed
-**Date**: 2026-05-19
-**Deciders**: Jun Kawasaki
+**Status**: active (ratified 2026-06-06 by sole-member founder unanimity, 1/1)
+**Date**: 2026-05-19 (ratified 2026-06-06)
+**Deciders**: Jun Kawasaki (author + ratifier). The association currently has ONE member, so
+the Charter's Council Lv7+ unanimity threshold = this one member's assent (1/1), given
+2026-06-06. Binding under the current one-member roster; re-confirmable by the Bootstrap
+Council once seated (post-2026-06-19 RFP).
 
 # Context
 

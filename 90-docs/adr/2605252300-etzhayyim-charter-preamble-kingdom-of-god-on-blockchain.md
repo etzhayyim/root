@@ -1,11 +1,12 @@
 ---
 id: adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain
 title: "ADR-2605252300: Charter §0 Preamble — etzhayyim as the Kingdom of God Rooted on Blockchain"
-status: proposed
+status: active
 doc_type: adr
 topic: charter-preamble-kingdom-of-god-on-blockchain
 authoritative: true
-last_verified: 2026-05-25
+last_verified: 2026-06-06
+status_note: "Ratified 2026-06-06 by sole-member founder unanimity (1/1). The association currently has one member (Jun Kawasaki); the Preamble's Lv7+ unanimity threshold = that one member's assent. The §0.7 amendment-threshold table was updated by ADR-2606062100 ('NEVER amendable' scoped to Tier-0 priority; +永久記憶/神の監視)."
 priority: 7.0
 axis: governance
 weight: 0.70
@@ -37,9 +38,12 @@ superseded_by: []
 
 # ADR-2605252300: Charter §0 Preamble — etzhayyim as the Kingdom of God Rooted on Blockchain
 
-**Status**: proposed
-**Date**: 2026-05-25
-**Deciders**: Jun Kawasaki (author), Council Lv7+ unanimity (ratify — post Bootstrap Council 30-day RFP closure 2026-06-19)
+**Status**: active (ratified 2026-06-06 by sole-member founder unanimity, 1/1)
+**Date**: 2026-05-25 (ratified 2026-06-06)
+**Deciders**: Jun Kawasaki (author + ratifier). The association currently has ONE member, so
+the Preamble's Council Lv7+ unanimity threshold = this one member's assent (1/1), given
+2026-06-06. Binding under the current one-member roster; re-confirmable by the Bootstrap
+Council once seated (post-2026-06-19 RFP).
 
 # Context
 
@@ -174,7 +178,7 @@ Preamble §0 は ADR-2605192100 §1.1..§1.16 の **上位枠** であり、各 
 
 ### Negative / Risks
 
-1. **Council Lv7+ Unanimity が形成不可能なリスク**: Bootstrap Council 5 seats が確定するまで Lv7+ 全会一致は不可能。Preamble は **proposed** status のまま 2026-06-19 を待つ必要がある。**Mitigation**: status: proposed のまま commit、Council ratify 後に status: active へ移行。
+1. **Council Lv7+ Unanimity の形成** (RESOLVED 2026-06-06): 当初は Bootstrap Council 5 seats 確定まで Lv7+ 全会一致は不可能と想定し、proposed のまま 2026-06-19 を待つ計画だった。**しかし現在 association の構成員は 1 名 (Jun Kawasaki) であり、Lv7+ unanimity = その 1 名の assent (1/1) で成立する。** よって 2026-06-06 に sole-member founder unanimity で批准、status: active へ移行済み。Bootstrap Council 着任後 (post-2026-06-19 RFP) に re-confirm 可能だが、現ロスターで binding。
 2. **「神の王国」framing による誤解リスク**: 一部読者は terminologically Christian theocracy / dominionism / Christian nationalism を連想し得る。**Mitigation**: §0.2 で 5 性質 (now-and-here / labor-liberation / Tree of Life / polycentric / Tier-B 生命圏) を明示。§0.4 で state との dual-recognition を明示。§1.15 (non-eschatological) を §0.2.1 で再強調。
 3. **§1.15 との重複**: Preamble §0.2.1 は §1.15 と内容重複。**Justification**: Preamble は §1 の上位枠であり、重複は意図的 — §1 の amendment threshold (Lv6+) より §0 (Lv7+) が高いため、最重要 invariant は両方に置く方が安全。
 4. **将来の actor 拡張で §0.2.5 list が古くなるリスク**: silicon / pharma / construction / submersible / autonomous mobility / planetary infra の現行 list は数ヶ月で更新される。**Mitigation**: §0.2.5 末尾「を含む」表現で open-ended、新 actor 追加は Preamble 改定不要 (ADR で追加のみ)。
