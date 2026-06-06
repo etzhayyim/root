@@ -243,22 +243,23 @@ async function confirmControl(sessionKey: SessionKey, nowMs: number): Promise<bo
 }
 
 /**
- * Publish the account record to kotoba (handle + controller did:key + a
- * self-certifying handle attestation) via the apex relay. Domain-independent:
- * the record is keyed by the `did:key` and authorized by a kotoba-scoped CACAO
- * the key itself signs (see `account-ops.ts` / `kotoba-write.ts`). Best-effort,
- * non-blocking, gated when the kotoba write endpoint is not configured.
+ * Publish the account record (controller did:key + a self-certifying handle
+ * attestation + profile) as a member-signed, content-addressed block via the
+ * apex `block.put` (see `account-ops.ts` / `block-publish.ts`). Domain-
+ * independent: the record is a CID signed by the `did:key`, dependent on neither
+ * the domain nor a central node (IPFS-pinned via kotobase.net). Best-effort,
+ * non-blocking — login already stands regardless of the publish result.
  */
 export async function registerAccount(
 	sessionKey: SessionKey,
 	handle: string,
 	nowMs: number,
 	profile: Record<string, unknown> = {},
-): Promise<{ ok: boolean; gated?: boolean }> {
+): Promise<{ ok: boolean }> {
 	const strProfile: Record<string, string> = {};
 	for (const [k, v] of Object.entries(profile)) if (typeof v === 'string') strProfile[k] = v;
 	const r = await publishAccount(sessionKey, handle, strProfile, { now: () => nowMs });
-	return { ok: r.ok, gated: r.gated };
+	return { ok: r.ok };
 }
 
 // ─── WebAuthn ceremonies ────────────────────────────────────────────────────

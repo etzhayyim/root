@@ -155,12 +155,39 @@ the controller.
   stale apex worker is auto-deployed; it activates fully when `main` is deployed
   + the two operator-gated steps land (below).
 
+## Account write path — member-signed content-addressed blocks (LIVE)
+
+Account publish does NOT write to a central kotoba node: writes there are
+intentionally operator-local (`kotoba.etzhayyim.com` is read-only by design,
+ADR-2606013200; `kotoba.gftd.ai` is being pruned). Instead the account record is a
+**member-signed, content-addressed block** published to the apex
+`com.etzhayyim.apps.kotoba.block.put` (main's `kotoba-publish`: verifies the
+member Ed25519 sig over the root CID, stores the block in KV, advances the
+member's account-graph root via the `KotobaRoot` Durable Object; the block is
+IPFS-pinned via **`kotobase.net`**). This is the most domain-independent form: the
+record is a **CID signed by the member's `did:key`** — dependent on neither the
+domain nor a central node. **No gated infra — it is LIVE** (proven: the real
+`block-publish.ts` module published an account block → `{ok:true, root:bafkrei…}`).
+
+- CID = `sha2-256` raw CIDv1 (`b`+base32), byte-identical to `cid.ts::computeCidV1`.
+- `block.put` author DID = `did:key:z`+hex(32B pubkey) (the kotoba-publish
+  convention) — the SAME Ed25519 key as the standard `did:key:z6Mk…` login
+  identity, carried inside the record as `account/did`.
+- Per-member account graph `acct-<pubkeyHex>` (no cross-member root contention).
+- Frontend `$lib/auth/block-publish.ts` + `account-ops.ts`
+  (`publishAccount` / `enrollDevice` / `rotateKey`).
+- (The earlier verify-only `kg.ingest` CACAO relay — `registerAccount` /
+  `handleAccountWrite` / `cbor.ts` / `kotoba-write.ts` — remains a tested
+  alternative if a central-node write surface is ever exposed; `block.put` is the
+  primary live path.)
+
 ## Honest R0 / remaining
 
-- `registerAccount` is `gated` until (1) the kotoba `did:key` self-resolve patch
-  ships (rebuild `kotoba-server` + restart; identity is keychain-stable so
-  `operator_did` survives), and (2) a Worker→node write path is opened past the
-  `kotoba.etzhayyim.com` 403 edge gate, then `KOTOBA_WRITE_ENDPOINT` +
-  `KOTOBA_OPERATOR_DID` are set. Until then login works without it.
+- The **read side** (apex resolves `account.<did>` / handle → did:key from the
+  published account blocks via KV `kroot`/`kblk` + IPFS) is a follow-on; the write
+  side is live.
+- `enrollDevice` + `rotateKey` are implemented + live-capable (same `block.put`
+  path) but not yet wired into a settings UI (library API; the wrapped-ARK store +
+  recovery UX is the remaining work).
 - Non-PRF cross-device login + PDS authenticated-write integration (EdDSA session
   PoP accepted by `atproto.etzhayyim.com`) are follow-ons.

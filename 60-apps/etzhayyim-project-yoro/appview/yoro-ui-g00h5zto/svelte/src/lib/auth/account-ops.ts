@@ -1,110 +1,101 @@
 /**
  * Account operations over the domain-independent identity (ADR-2606061800 →
- * 2606062600). Canonical identity = the controller `did:key`; the account record
- * is `account.<did:key>` in kotoba (self-certifying — authorized by the key's own
- * CACAO). did:web is only a readable alias. These orchestrate the kotoba-write
- * relay for the three account writes; all are best-effort (the local session is
- * already established, so a `gated`/offline response never breaks login).
+ * 2606062600). Canonical identity = the controller `did:key` (self-certifying).
+ * The account record is a **member-signed, content-addressed block** published
+ * to the apex `block.put` (main's `kotoba-publish`: verify sig → KV → KotobaRoot
+ * DO root advance → IPFS pin via kotobase.net) — NOT a central-node write (those
+ * are operator-local, ADR-2606013200). This is the most domain-independent form:
+ * a CID signed by the member's key, dependent on neither domain nor a central
+ * node. Proven live (`block.put` → `{ok:true}`). Best-effort: the local session
+ * is already established, so a failed publish never breaks login.
  */
 
 import type { SessionKey } from './session-key.js';
 import { signHandleAttestation } from './identity.js';
 import {
-	fetchKotobaWriteConfig,
-	signKotobaWriteCacao,
-	postAccountWrite,
-	type KotobaClaim,
-	type KotobaWriteDeps,
-	type AccountWriteOutcome,
-} from './kotoba-write.js';
+	publishSignedRecord,
+	accountGraph,
+	type BlockPublishDeps,
+	type BlockPublishOutcome,
+} from './block-publish.js';
 
-function defaultDeps(over: Partial<KotobaWriteDeps> = {}): KotobaWriteDeps {
-	return {
-		now: over.now ?? (() => Date.now()),
-		nonce:
-			over.nonce ??
-			(() => {
-				const b = crypto.getRandomValues(new Uint8Array(16));
-				let s = '';
-				for (const x of b) s += x.toString(16).padStart(2, '0');
-				return s;
-			}),
-		ttlSecs: over.ttlSecs,
-		fetch: over.fetch,
-		origin: over.origin,
-	};
+export type { BlockPublishOutcome as AccountWriteOutcome } from './block-publish.js';
+
+function nowMsOf(over?: { now?: () => number }): number {
+	return over?.now ? over.now() : Date.now();
 }
 
-const GATED: AccountWriteOutcome = { ok: false, gated: true, reason: 'kotoba write not configured' };
-
 /**
- * Publish (or update) the account record: the canonical `did:key` + a
- * **self-certifying handle attestation** (the did:key signs `{iss, handle}`) +
- * optional profile. The binding is the key's own assertion — domain-independent.
+ * Publish (or update) the account record block: the canonical `did:key`, a
+ * **self-certifying handle attestation** (the did:key signs `{iss,handle}`), and
+ * optional profile. The block is content-addressed + member-signed —
+ * domain-independent.
  */
 export async function publishAccount(
 	sessionKey: SessionKey,
 	handle: string,
 	profile: Record<string, string> = {},
-	over: Partial<KotobaWriteDeps> = {},
-): Promise<AccountWriteOutcome> {
-	const deps = defaultDeps(over);
-	const cfg = await fetchKotobaWriteConfig(deps);
-	if (!cfg.operatorDid) return GATED;
-	const nowMs = deps.now();
+	over: { now?: () => number } & BlockPublishDeps = {},
+	prevRoot?: string,
+): Promise<BlockPublishOutcome> {
+	const nowMs = nowMsOf(over);
 	const attestation = await signHandleAttestation(sessionKey, handle, Math.floor(nowMs / 1000));
-	const claims: KotobaClaim[] = [
-		{ pred: 'account/did', value: sessionKey.didKey },
-		{ pred: 'account/controller', value: sessionKey.didKey },
-		{ pred: 'account/handle', value: handle },
-		{ pred: 'account/handle-attestation', value: attestation },
-	];
-	for (const [k, v] of Object.entries(profile)) if (typeof v === 'string') claims.push({ pred: `account/${k}`, value: v });
-	const cacao = await signKotobaWriteCacao(sessionKey, cfg.operatorDid, deps);
-	return postAccountWrite(cacao, `account.${sessionKey.didKey}`, claims, deps, handle);
+	const record: Record<string, unknown> = {
+		type: 'account/register',
+		'account/did': sessionKey.didKey,
+		'account/controller': sessionKey.didKey,
+		'account/handle': handle,
+		'account/handle-attestation': attestation,
+		iat: Math.floor(nowMs / 1000),
+	};
+	for (const [k, v] of Object.entries(profile)) if (typeof v === 'string') record[`account/${k}`] = v;
+	return publishSignedRecord(sessionKey, accountGraph(sessionKey), record, prevRoot, over);
 }
 
 /**
- * Multi-device add: record a wrapped-ARK for a NEW device's passkey credential,
- * authorized by THIS (already-enrolled) device. The new device later reads
- * `account/device/<credId>` and unwraps with its own PRF to recover the SAME ARK
- * → the SAME did:key. The wrap is opaque (useless without the new passkey's PRF).
+ * Multi-device add: publish a wrapped-ARK record for a NEW device's passkey
+ * credential, signed by THIS (already-enrolled) device. The new device later
+ * reads it and unwraps with its own PRF to recover the SAME ARK → SAME did:key.
+ * The wrap is opaque (useless without the new passkey's PRF).
  */
 export async function enrollDevice(
 	sessionKey: SessionKey,
 	newCredentialId: string,
 	wrappedArkB64: string,
-	over: Partial<KotobaWriteDeps> = {},
-): Promise<AccountWriteOutcome> {
-	const deps = defaultDeps(over);
-	const cfg = await fetchKotobaWriteConfig(deps);
-	if (!cfg.operatorDid) return GATED;
-	const claims: KotobaClaim[] = [{ pred: `account/device/${newCredentialId}`, value: wrappedArkB64 }];
-	const cacao = await signKotobaWriteCacao(sessionKey, cfg.operatorDid, deps);
-	return postAccountWrite(cacao, `account.${sessionKey.didKey}`, claims, deps);
+	over: { now?: () => number } & BlockPublishDeps = {},
+	prevRoot?: string,
+): Promise<BlockPublishOutcome> {
+	const record = {
+		type: 'account/device',
+		'account/did': sessionKey.didKey,
+		'account/device-credential': newCredentialId,
+		'account/wrapped-ark': wrappedArkB64,
+		iat: Math.floor(nowMsOf(over) / 1000),
+	};
+	return publishSignedRecord(sessionKey, accountGraph(sessionKey), record, prevRoot, over);
 }
 
 /**
- * Key rotation: record a new controller `did:key` + an append-only rotation
- * entry, SIGNED BY THE CURRENT key (so the rotation is authorized by the holder
- * of the key being retired). did:web is unaffected — it only ever aliased the
- * controller, which now points at the new key. kotoba's append-only log keeps
- * the full rotation history (非終末論; the old key's prior records stay auditable).
+ * Key rotation: publish a record naming a new controller `did:key` + an
+ * append-only rotation entry, SIGNED BY THE CURRENT key (so the rotation is
+ * authorized by the holder of the key being retired). The content-addressed log
+ * keeps the full rotation history (非終末論; the old key's prior records stay
+ * auditable). did:web is unaffected — it only ever aliased the controller.
  */
 export async function rotateKey(
 	currentSessionKey: SessionKey,
 	newDidKey: string,
 	rotationIndex: number,
-	over: Partial<KotobaWriteDeps> = {},
-): Promise<AccountWriteOutcome> {
-	const deps = defaultDeps(over);
-	const cfg = await fetchKotobaWriteConfig(deps);
-	if (!cfg.operatorDid) return GATED;
-	const at = new Date(deps.now()).toISOString().replace(/\.\d{3}Z$/, 'Z');
-	const claims: KotobaClaim[] = [
-		{ pred: 'account/controller', value: newDidKey },
-		{ pred: `account/rotation/${rotationIndex}`, value: `${currentSessionKey.didKey}->${newDidKey}@${at}` },
-	];
-	const cacao = await signKotobaWriteCacao(currentSessionKey, cfg.operatorDid, deps);
-	return postAccountWrite(cacao, `account.${currentSessionKey.didKey}`, claims, deps);
+	over: { now?: () => number } & BlockPublishDeps = {},
+	prevRoot?: string,
+): Promise<BlockPublishOutcome> {
+	const at = new Date(nowMsOf(over)).toISOString().replace(/\.\d{3}Z$/, 'Z');
+	const record = {
+		type: 'account/rotation',
+		'account/did': currentSessionKey.didKey,
+		'account/controller': newDidKey,
+		[`account/rotation/${rotationIndex}`]: `${currentSessionKey.didKey}->${newDidKey}@${at}`,
+		iat: Math.floor(nowMsOf(over) / 1000),
+	};
+	return publishSignedRecord(currentSessionKey, accountGraph(currentSessionKey), record, prevRoot, over);
 }
