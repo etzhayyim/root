@@ -28,6 +28,13 @@ def test_g3_under_sourced_post_refused():
     expect_raises(lambda: draft_committee_post(_FINDING, ["only-one"]), contains="G3")
 
 
+def test_post_refuses_commercial_gov_intel_source():
+    # the deny-list must also gate the OUTBOUND social-post path (Rider §2(e)/N5)
+    expect_raises(lambda: draft_committee_post(_FINDING, ["https://about.bloomberg.com/government",
+                                                         "https://x.gov/"]),
+                  contains="Rider §2(e)")
+
+
 def test_money_post_dry_run():
     mc = {"hhi": 0.5, "total": 100.0, "shares": [("payee-x", 0.6), ("payee-y", 0.4)]}
     p = draft_money_post(mc, _SRCS)

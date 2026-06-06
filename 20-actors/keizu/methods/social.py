@@ -17,6 +17,8 @@ Stdlib only. Deterministic.
 
 from __future__ import annotations
 
+from weave import source_denied
+
 DISCLAIMER = (
     "【観測ミラー / accountability map — NOT the government, non-adjudicating】 "
     "公開情報から編んだ関係グラフの集計です。特定個人を名指しせず、不正の断定もしません。"
@@ -27,6 +29,8 @@ def _enough_sources(sources) -> list[str]:
     s = [x for x in (sources or []) if str(x).strip()]
     if len(s) < 2:
         raise ValueError("G3: a post needs ≥2 public-source citations")
+    if (d := source_denied(s)):
+        raise ValueError(f"Rider §2(e)/N5: source {d!r} is a commercial gov-intel terminal — a post may not cite it")
     return s
 
 
