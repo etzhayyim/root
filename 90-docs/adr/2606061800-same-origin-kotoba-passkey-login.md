@@ -180,10 +180,11 @@ real `block-publish.ts` module published an account block → `{ok:true, root:ba
 - Per-member account graph `acct-<pubkeyHex>` (no cross-member root contention).
 - Frontend `$lib/auth/block-publish.ts` + `account-ops.ts`
   (`publishAccount` / `enrollDevice` / `rotateKey`).
-- (The earlier verify-only `kg.ingest` CACAO relay — `registerAccount` /
-  `handleAccountWrite` / `cbor.ts` / `kotoba-write.ts` — remains a tested
-  alternative if a central-node write surface is ever exposed; `block.put` is the
-  primary live path.)
+- (The earlier verify-only `kg.ingest` CACAO relay — worker `registerAccount` /
+  `handleAccountWrite` / `cbor.ts` — remains a tested but client-less alternative
+  if a central-node write surface is ever exposed; its frontend client
+  `kotoba-write.ts` was removed as dead code now that `block.put` is the primary
+  live path.)
 
 ## Honest R0 / remaining
 
