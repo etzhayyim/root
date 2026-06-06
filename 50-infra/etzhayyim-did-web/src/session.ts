@@ -149,3 +149,92 @@ export async function handleVerifyCacao(
     result: { valid: false, sigType: outcome.sigType, reason: outcome.reason },
   };
 }
+
+// ─── account register (same-origin publish, ADR-2606061800) ─────────────────
+
+const CAP_ACCOUNT_REGISTER = "kotoba://op/account:register";
+
+export interface RegisterAccountResult {
+  ok: boolean;
+  /** structurally valid + control-proven, but the kotoba write is not enabled. */
+  gated?: boolean;
+  did?: string;
+  handle?: string;
+  reason?: string;
+}
+
+/**
+ * Relay an authorized account publish to kotoba. The member proves control of
+ * the controller `did:key` with a CACAO carrying the `account:register`
+ * capability; the Worker verifies it (no server key) and relays the
+ * handle↔did:key alias + profile to the kotoba node via `writeAccount`.
+ *
+ * `writeAccount` is injected so this is unit-testable and the Worker keeps the
+ * kotoba endpoint in `Env`. A missing endpoint resolves to `"gated"` (honest R0).
+ */
+export async function handleRegisterAccount(
+  body: unknown,
+  nowMs: number,
+  writeAccount: (
+    did: string,
+    handle: string,
+    profile: Record<string, unknown>,
+  ) => Promise<"written" | "gated" | "error">,
+): Promise<{ status: number; result: RegisterAccountResult }> {
+  const b = body as
+    | { cacao?: Cacao; handle?: string; did?: string; profile?: Record<string, unknown> }
+    | null;
+  const cacao = b?.cacao;
+  if (!cacao) {
+    return { status: 400, result: { ok: false, reason: "missing 'cacao' in request body" } };
+  }
+  if (!boundToApex(cacao)) {
+    return {
+      status: 403,
+      result: { ok: false, reason: "CACAO audience/domain not bound to etzhayyim.com" },
+    };
+  }
+  const resources = cacao.p.resources ?? [];
+  if (!resources.includes(CAP_ACCOUNT_REGISTER)) {
+    return {
+      status: 400,
+      result: { ok: false, reason: `CACAO lacks ${CAP_ACCOUNT_REGISTER} capability` },
+    };
+  }
+
+  const outcome: VerifyOutcome = await verifyCacao(cacao, nowMs);
+  if (!outcome.valid) {
+    return {
+      status: outcome.gated ? 202 : 401,
+      result: { ok: false, gated: outcome.gated, reason: outcome.reason },
+    };
+  }
+
+  const did = outcome.did;
+  if (b?.did && b.did !== did) {
+    return {
+      status: 400,
+      result: { ok: false, reason: "body.did does not match the CACAO issuer (controller key)" },
+    };
+  }
+  const handle = String(b?.handle ?? "");
+  const profile = (b?.profile ?? {}) as Record<string, unknown>;
+
+  const write = await writeAccount(did, handle, profile);
+  if (write === "written") {
+    return { status: 200, result: { ok: true, did, handle } };
+  }
+  if (write === "gated") {
+    return {
+      status: 202,
+      result: {
+        ok: false,
+        gated: true,
+        did,
+        handle,
+        reason: "kotoba account-write endpoint not enabled (R0); account not yet published",
+      },
+    };
+  }
+  return { status: 502, result: { ok: false, did, handle, reason: "kotoba account write failed" } };
+}

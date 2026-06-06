@@ -1,12 +1,28 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { isSignedIn } from '$lib/auth';
+	import { isSignedIn, signIn, signUp } from '$lib/auth';
 	import { ProfilePanel } from '$lib/superapp';
 	import { playTap, haptic } from '@etzhayyim/design-system/audio';
 	import { fade } from 'svelte/transition';
 	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import BrainrotMascot from '$lib/components/BrainrotMascot.svelte';
+
+	// Same-origin passkey auth (ADR-2606061800): in-app WebAuthn → did:key, no
+	// redirect to authn.etzhayyim.com / mcp.etzhayyim.com.
+	let authBusy = $state(false);
+	async function runAuth(fn: () => Promise<void>) {
+		if (authBusy) return;
+		authBusy = true;
+		try {
+			haptic('light');
+			await fn();
+		} catch (e) {
+			console.error('[auth] same-origin passkey flow failed:', e);
+		} finally {
+			authBusy = false;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -26,20 +42,8 @@
 			<p class="mt-2 text-[15px] text-gv2-text-muted leading-relaxed">アカウントを作成して、投稿やフォローを<br/>はじめよう</p>
 		</div>
 		<div class="flex flex-col gap-3 w-full max-w-[300px] mt-2">
-			<button type="button" onclick={() => {
-				const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
-				const redirectUrl = isNative
-					? `com.etzhayyim.yoro://callback?target=${encodeURIComponent('/')}`
-					: window.location.href;
-				window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
-			}} class="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[#58CC02] text-[18px] font-black text-white shadow-[0_5px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[5px] transition-all duration-75">アカウント作成</button>
-			<button type="button" onclick={() => {
-				const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
-				const redirectUrl = isNative
-					? `com.etzhayyim.yoro://callback?target=${encodeURIComponent('/')}`
-					: window.location.href;
-				window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
-			}} class="flex min-h-[52px] w-full items-center justify-center rounded-2xl border-[3px] border-gv2-border text-[18px] font-black text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform">ログイン</button>
+			<button type="button" disabled={authBusy} onclick={() => runAuth(signUp)} class="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[#58CC02] text-[18px] font-black text-white shadow-[0_5px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[5px] transition-all duration-75 disabled:opacity-60">{authBusy ? '...' : 'アカウント作成'}</button>
+			<button type="button" disabled={authBusy} onclick={() => runAuth(signIn)} class="flex min-h-[52px] w-full items-center justify-center rounded-2xl border-[3px] border-gv2-border text-[18px] font-black text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform disabled:opacity-60">{authBusy ? '...' : 'ログイン'}</button>
 			<p class="mt-1 text-center text-[12px] text-gv2-text-muted">登録無料 · Bluesky アカウントでもログインできます</p>
 		</div>
 		<div class="flex w-full max-w-[300px] flex-col gap-2 mt-4">
