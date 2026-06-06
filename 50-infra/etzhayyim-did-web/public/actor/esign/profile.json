@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:esign",
+  "handle": "esign.etzhayyim.com",
+  "displayName": "esign",
+  "description": "Document-signing actor — issues, collects, completes com.etzhayyim.esign.* envelopes.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-23T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "service",
+  "uiType": "none",
+  "_etzhayyim": {
+    "kind": "substrate-service",
+    "tier": null,
+    "status": "landed",
+    "adr": [
+      "2605231230"
+    ],
+    "primaryLexicon": "com.etzhayyim.esign",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/esign/did.json",
+    "source": "kotoba"
+  }
+}

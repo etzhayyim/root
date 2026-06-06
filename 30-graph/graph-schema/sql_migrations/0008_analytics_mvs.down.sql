@@ -1,5 +1,0 @@
-DROP MATERIALIZED VIEW IF EXISTS mv_post_engagement;
-
-DROP MATERIALIZED VIEW IF EXISTS mv_weighted_in_degree;
-
-DROP MATERIALIZED VIEW IF EXISTS mv_follow_2hop;

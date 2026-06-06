@@ -27,7 +27,6 @@ _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _NSID = "com.etzhayyim.mangaka.document"
-_RW_URL = os.environ.get("RW_URL", "")
 
 
 class _ListState(TypedDict, total=False):
@@ -41,9 +40,6 @@ class _ListState(TypedDict, total=False):
 
 
 async def _node_list(state: _ListState) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"items": [], "total": 0, "error": "RW_URL not configured"}
-
     limit = max(1, min(200, int(state.get("limit") or 50)))
     offset = max(0, int(state.get("offset") or 0))
     where = ["kind = 'document'", "collection = %s"]
@@ -56,31 +52,22 @@ async def _node_list(state: _ListState) -> dict[str, Any]:
 
     where_sql = " AND ".join(where)
     try:
-        import psycopg  # type: ignore
-
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                f"SELECT COUNT(*) FROM vertex_mangaka WHERE {where_sql}",
-                tuple(params),
-            )
-            row = await cur.fetchone()
-            total = int(row[0] or 0) if row else 0
-
-            await cur.execute(
-                f"""
-                SELECT rkey, name, vertex_id, created_at
-                FROM vertex_mangaka
-                WHERE {where_sql}
-                ORDER BY created_at DESC, rkey ASC
-                LIMIT {limit} OFFSET {offset}
-                """,
-                tuple(params),
-            )
-            rows = await cur.fetchall()
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        def _fetch():
+            client = get_kotoba_client()
+            res = client.select_where("vertex_mangaka", "kind", "document", columns=["rkey", "name", "vertex_id", "created_at", "props"])
+            if convo_id:
+                res = [r for r in res if r.get("props") and f'"convoId":"{convo_id}"' in r.get("props")]
+            
+            total = len(res)
+            res.sort(key=lambda x: x.get("rkey") or "")
+            res.sort(key=lambda x: x.get("created_at") or "", reverse=True)
+            
+            page = res[offset:offset+limit]
+            return total, [[r.get("rkey"), r.get("name"), r.get("vertex_id"), r.get("created_at")] for r in page]
+            
+        total, rows = await asyncio.to_thread(_fetch)
     except Exception as exc:  # noqa: BLE001
         _log.exception("list_documents query failed")
         return {"items": [], "total": 0, "error": f"{type(exc).__name__}: {exc!s}"[:300]}

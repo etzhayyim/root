@@ -10,8 +10,7 @@ persistence:
   - mangaka run summary: graphar.vertex_mangaka_cine_run
   - mangaka panel bind:  graphar.vertex_mangaka_cine_panel
 
-All writes go to RisingWave PG :4566 via asyncpg per ADR-2605111200 — pods
-are the sole writers, CF Workers never hold HYPERDRIVE.
+All writes go to kotoba datomic.
 
 The 8 lexicons under `00-contracts/lexicons/com/etzhayyim/apps/cine/` are the
 contract that this module implements; field names here match those JSON
@@ -26,14 +25,14 @@ import logging
 import os
 import secrets
 import time
+import asyncio
 from typing import Any, Iterable
 
-import psycopg
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_RW_URL = os.environ.get("RW_URL", "")
 _ORG_DID = os.environ.get("MANGAKA_ORG_DID", "anon")
 
 STAGE_NAMES: tuple[str, ...] = (
@@ -120,42 +119,28 @@ async def record_stage(
     """
     if stage not in STAGE_NAMES:
         return {"error": f"unknown stage {stage!r}; valid: {STAGE_NAMES}"}
-    url = rw_url or _RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
 
     producer = producer_did or _DEFAULT_PRODUCER_DIDS[stage]
     rkey = new_rkey(prefix=f"{stage[:3]}-")
     vid = cine_vertex_id(stage, rkey, producer)
     created = now_iso()
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            "DELETE FROM graphar.vertex_cine_stage WHERE vertex_id = %s", (vid,)
-        )
-        await cur.execute(
-            "INSERT INTO graphar.vertex_cine_stage "
-            "(vertex_id, _seq, stage, pipeline_run_id, subject_kind, subject_ref, "
-            " asset_cid, payload_jsonld, producer_did, actor_did, org_did, created_at) "
-            "VALUES (%s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (
-                vid,
-                stage,
-                pipeline_run_id,
-                subject_kind,
-                subject_ref,
-                asset_cid,
-                json.dumps(payload, separators=(",", ":")),
-                producer,
-                producer,
-                _ORG_DID,
-                created,
-            ),
-        )
-    finally:
-        await conn.close()
+    client = get_kotoba_client()
+    row = {
+        "vertex_id": vid,
+        "_seq": 0,
+        "stage": stage,
+        "pipeline_run_id": pipeline_run_id,
+        "subject_kind": subject_kind,
+        "subject_ref": subject_ref,
+        "asset_cid": asset_cid,
+        "payload_jsonld": json.dumps(payload, separators=(",", ":")),
+        "producer_did": producer,
+        "actor_did": producer,
+        "org_did": _ORG_DID,
+        "created_at": created
+    }
+    await asyncio.to_thread(client.insert_row, "vertex_cine_stage", row)
 
     return {"stage": stage, "rkey": rkey, "vertex_id": vid, "createdAt": created}
 
@@ -177,47 +162,30 @@ async def record_run(
     Called at the end of `cine_generate_scene` (status='scene_ready') and
     again at the end of `cine_generate_panel` (status='panels_rendered').
     """
-    url = rw_url or _RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
-
     producer = producer_did or _APP_DID
     vid = mangaka_vertex_id("cineRun", pipeline_run_id)
     created = now_iso()
     cids = scene_cids or {}
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            "DELETE FROM graphar.vertex_mangaka_cine_run WHERE vertex_id = %s",
-            (vid,),
-        )
-        await cur.execute(
-            "INSERT INTO graphar.vertex_mangaka_cine_run "
-            "(vertex_id, _seq, pipeline_run_id, subject_kind, subject_ref, "
-            " stages_completed, scene_world_cid, scene_usd_cid, scene_geom_cid, "
-            " scene_temporal_cid, status, producer_did, actor_did, org_did, created_at) "
-            "VALUES (%s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (
-                vid,
-                pipeline_run_id,
-                subject_kind,
-                subject_ref,
-                ",".join(stages_completed),
-                cids.get("worldModel"),
-                cids.get("usdScene"),
-                cids.get("neuralGeom"),
-                cids.get("temporalField"),
-                status,
-                producer,
-                producer,
-                _ORG_DID,
-                created,
-            ),
-        )
-    finally:
-        await conn.close()
+    client = get_kotoba_client()
+    row = {
+        "vertex_id": vid,
+        "_seq": 0,
+        "pipeline_run_id": pipeline_run_id,
+        "subject_kind": subject_kind,
+        "subject_ref": subject_ref,
+        "stages_completed": ",".join(stages_completed),
+        "scene_world_cid": cids.get("worldModel"),
+        "scene_usd_cid": cids.get("usdScene"),
+        "scene_geom_cid": cids.get("neuralGeom"),
+        "scene_temporal_cid": cids.get("temporalField"),
+        "status": status,
+        "producer_did": producer,
+        "actor_did": producer,
+        "org_did": _ORG_DID,
+        "created_at": created
+    }
+    await asyncio.to_thread(client.insert_row, "vertex_mangaka_cine_run", row)
 
     return {"vertex_id": vid, "status": status, "createdAt": created}
 
@@ -235,43 +203,26 @@ async def record_panel(
     rw_url: str | None = None,
 ) -> dict[str, Any]:
     """INSERT one finalized panel binding (output of cine_generate_panel)."""
-    url = rw_url or _RW_URL
-    if not url:
-        return {"error": "RW_URL not configured"}
-
     producer = producer_did or _APP_DID
     vid = mangaka_vertex_id("cinePanel", f"{panel_rkey}-{pipeline_run_id}")
     created = now_iso()
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            "DELETE FROM graphar.vertex_mangaka_cine_panel WHERE vertex_id = %s",
-            (vid,),
-        )
-        await cur.execute(
-            "INSERT INTO graphar.vertex_mangaka_cine_panel "
-            "(vertex_id, _seq, panel_rkey, page_rkey, pipeline_run_id, "
-            " render_blob_key, refined_blob_key, panel_blob_key, score, "
-            " producer_did, actor_did, org_did, created_at) "
-            "VALUES (%s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (
-                vid,
-                panel_rkey,
-                page_rkey,
-                pipeline_run_id,
-                render_blob_key,
-                refined_blob_key,
-                panel_blob_key,
-                int(score),
-                producer,
-                producer,
-                _ORG_DID,
-                created,
-            ),
-        )
-    finally:
-        await conn.close()
+    client = get_kotoba_client()
+    row = {
+        "vertex_id": vid,
+        "_seq": 0,
+        "panel_rkey": panel_rkey,
+        "page_rkey": page_rkey,
+        "pipeline_run_id": pipeline_run_id,
+        "render_blob_key": render_blob_key,
+        "refined_blob_key": refined_blob_key,
+        "panel_blob_key": panel_blob_key,
+        "score": int(score),
+        "producer_did": producer,
+        "actor_did": producer,
+        "org_did": _ORG_DID,
+        "created_at": created
+    }
+    await asyncio.to_thread(client.insert_row, "vertex_mangaka_cine_panel", row)
 
     return {"vertex_id": vid, "panel_rkey": panel_rkey, "createdAt": created}

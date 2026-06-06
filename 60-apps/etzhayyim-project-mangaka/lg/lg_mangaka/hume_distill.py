@@ -121,33 +121,33 @@ async def fetch_observations(
     if not url:
         raise RuntimeError("RW_URL not configured")
 
-    import psycopg
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
 
-    conn = await psycopg.AsyncConnection.connect(url, autocommit=True)
-    try:
-        cur = conn.cursor()
-        if since:
-            await cur.execute(
-                "SELECT raw_json FROM vertex_vector_emotion_signal "
-                "WHERE provider = %s AND model_id = %s AND modality = %s "
-                "AND analyzed_at >= %s "
-                "ORDER BY analyzed_at DESC LIMIT %s",
-                (_PROVIDER, _MODEL_ID, _MODALITY, since, int(limit)),
-            )
-        else:
-            await cur.execute(
-                "SELECT raw_json FROM vertex_vector_emotion_signal "
-                "WHERE provider = %s AND model_id = %s AND modality = %s "
-                "ORDER BY analyzed_at DESC LIMIT %s",
-                (_PROVIDER, _MODEL_ID, _MODALITY, int(limit)),
-            )
-        rows = await cur.fetchall()
-    finally:
-        await conn.close()
+    client = get_kotoba_client()
+    # Kotoba query with Datalog `q` or `select_where`. Since we need complex filter (>= since, ANDs),
+    # we'll use `q` with datalog. Or simpler: fetch all match model_id and modality, then filter in python.
+    # Wait, the easiest is to query `raw_json` where provider=_PROVIDER and model_id=_MODEL_ID and modality=_MODALITY
+    
+    def fetch_sync() -> list[dict[str, Any]]:
+        rows = client.select_where(
+            "vertex_vector_emotion_signal",
+            "model_id",
+            _MODEL_ID,
+            ["raw_json", "provider", "modality", "analyzed_at"],
+            limit=limit
+        )
+        return rows
+
+    rows = await asyncio.to_thread(fetch_sync)
 
     observations: list[dict[str, Any]] = []
-    for (raw,) in rows or []:
-        parsed = parse_observation_row(raw)
+    for r in rows or []:
+        if r.get("provider") != _PROVIDER or r.get("modality") != _MODALITY:
+            continue
+        if since and (r.get("analyzed_at") or "") < since:
+            continue
+        parsed = parse_observation_row(r.get("raw_json"))
         if parsed is not None:
             observations.append(parsed)
     return observations

@@ -1,7 +1,9 @@
 // Integration tests for the kotoba publish HANDLERS (the branchiest new code:
-// sig verify → CAS → token-bucket rate limit → IP attestation → stats), driven
-// against the REAL KotobaRoot Durable Object with in-memory KV + DO mocks. No
-// browser, no network. Run via: node --experimental-strip-types --test scripts/*.test.mjs
+// sig verify → KV check-and-set → best-effort token-bucket rate limit → IP
+// attestation → stats), driven against the KV-backed handlers with an in-memory
+// KV. No Durable Object (ADR-2605262130 / 2605312345: no operated server-state
+// primitive). No browser, no network.
+// Run via: node --experimental-strip-types --test scripts/*.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -9,7 +11,6 @@ import {
   handleBlockHas,
   handleRootGet,
   handleStatsGet,
-  KotobaRoot,
 } from "../src/kotoba-publish.ts";
 
 const B32 = "abcdefghijklmnopqrstuvwxyz234567";
@@ -43,36 +44,7 @@ function makeKV() {
     },
   };
 }
-function makeState() {
-  const m = new Map();
-  return {
-    storage: {
-      async get(k) {
-        return m.get(k);
-      },
-      async put(k, v) {
-        m.set(k, JSON.parse(JSON.stringify(v)));
-      },
-    },
-  };
-}
-function makeDONamespace() {
-  const instances = new Map();
-  return {
-    idFromName(name) {
-      return { name };
-    },
-    get(id) {
-      let inst = instances.get(id.name);
-      if (!inst) {
-        inst = new KotobaRoot(makeState());
-        instances.set(id.name, inst);
-      }
-      return { fetch: (input, init) => inst.fetch(new Request(input, init)) };
-    },
-  };
-}
-const makeEnv = (extra = {}) => ({ ACTOR_KV: makeKV(), KOTOBA_ROOT: makeDONamespace(), ...extra });
+const makeEnv = (extra = {}) => ({ ACTOR_KV: makeKV(), ...extra });
 
 // Build a member-signed publish the way kotoba-wasm does: did:key:z+hex(pub),
 // ed25519 over the raw 36-byte root CID (0x01 0x71 0x12 0x20 + 32-byte digest).

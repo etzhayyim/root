@@ -923,6 +923,20 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:ADR-2606061500",
+      "type": "TechArticle",
+      "title": "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)",
+      "status": "proposed",
+      "topic": "engi-knowledge-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "diachronic influence-as-information-flow over historical public figures/documents/events/traditions",
+        "mirror-only social projection of historical influence (non-impersonation)"
+      ],
+      "related": "doc:https://junkawasaki.com/en/posts/spirit-is-information/",
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:active-inference-agent-organism-design",
       "type": "Article",
       "title": "Active Inference Agent / Artificial Organism Design",
@@ -13060,7 +13074,7 @@
       "id": "doc:adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite",
       "type": "TechArticle",
       "title": "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite",
-      "status": "proposed",
+      "status": "active",
       "topic": "open-kyber-kotoba-datomic-erp",
       "authoritative": true,
       "authoritativeFor": [
@@ -13073,7 +13087,8 @@
         "doc:2606012100",
         "doc:2606032100"
       ],
-      "lastVerified": "2026-06-03"
+      "supersedes": "doc:0025",
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
@@ -13530,6 +13545,29 @@
       "lastVerified": "2026-06-05"
     },
     {
+      "id": "doc:adr-2606061000-maxwell-default-llm-weight",
+      "type": "TechArticle",
+      "title": "ADR-2606061000: Maxwell — etzhayyim default LLM weight (Gemma 4 E4B fine-tune)",
+      "status": "proposed",
+      "topic": "maxwell-default-llm-weight",
+      "authoritative": true,
+      "authoritativeFor": [
+        "default-llm-weight-name",
+        "murakumo-fleet-default-instruct-weight"
+      ],
+      "related": [
+        "doc:2605092350",
+        "doc:2605092345",
+        "doc:2605242000",
+        "doc:2605231300",
+        "doc:2605242400",
+        "doc:2606061600",
+        "doc:2605231525",
+        "doc:2605192200"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
       "type": "TechArticle",
       "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",
@@ -13546,6 +13584,23 @@
       "related": [
         "doc:2605302357",
         "doc:2606052300"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606061500-cacao-only-header-auth-jwt-decommission",
+      "type": "TechArticle",
+      "title": "ADR-2606061500: CACAO-only header login — decommission the authn subdomain + server-minted JWT session site-wide",
+      "status": "accepted",
+      "topic": "cacao-only-auth",
+      "authoritative": true,
+      "authoritativeFor": [
+        "cacao-only-header-auth",
+        "jwt-session-decommission"
+      ],
+      "related": [
+        "doc:adr-2606014500-etzhayyim-auth-zero-access-proton-alignment",
+        "doc:adr-2605212030-etzhayyim-authz-erc725-root-issuance-design"
       ],
       "lastVerified": "2026-06-06"
     },
@@ -13570,6 +13625,69 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606061800-same-origin-kotoba-passkey-login",
+      "type": "TechArticle",
+      "title": "ADR-2606061800: Same-Origin Kotoba Passkey Login/Signup — remove authn/mcp from the auth path",
+      "status": "accepted",
+      "topic": "same-origin-kotoba-passkey-login",
+      "authoritative": true,
+      "authoritativeFor": [
+        "member login/signup auth path (etzhayyim.com)",
+        "passkey → did:key controller identity derivation"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606061900-kawaraban-news-medium-actor-r0",
+      "type": "TechArticle",
+      "title": "kawaraban 瓦版 — news medium (Tier-B actor R0; real-media mirror + actor-to-actor wire; the charter-clean inverse of a news app)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kawaraban actor scope (real-media mirror into kotoba + first-party actor Datom-event projection into the matching 面 as the actor-to-actor medium; design-only)",
+        "the mirror-not-adjudicator invariant (:news.article/verdict + :truth-rating :db/allowed [false]; ake/danjo own truth)",
+        "the no-ads / no-engagement-rank invariant (:news.rank/signal excludes paid-placement/sponsored/engagement/dwell-time)",
+        "the no-reader-surveillance invariant (no :reader entity; :article/personalized-for :db/allowed [false])",
+        "the copyright / link-out invariant (:article/full-text :db/allowed [false]; headline + link + bounded fair-use excerpt only)",
+        "the connective-by-construction medium gate (every article is :mirror or :actor-event; :original unrepresentable)"
+      ],
+      "related": [
+        "doc:adr-2606041827-watari-live-ship-aircraft-position-kg-r0",
+        "doc:adr-2606012600-watatsuna-submarine-cable-resilience",
+        "doc:adr-2606051800-mitooshi-probabilistic-forecasting-observatory-r0",
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-r0",
+        "doc:adr-2606052100-ake-community-edit-membrane-r0"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606061900-suji-musculoskeletal-posture-load-biomechanics",
+      "type": "TechArticle",
+      "title": "ADR-2606061900: suji (筋) — Musculoskeletal Posture-Load Biomechanics Simulator",
+      "status": "proposed",
+      "topic": "suji-musculoskeletal-biomechanics",
+      "authoritative": true,
+      "authoritativeFor": [
+        "suji",
+        "musculoskeletal-biomechanics",
+        "posture-load-simulation"
+      ],
+      "related": [
+        "doc:2605260100",
+        "doc:2605263000",
+        "doc:2606010030",
+        "doc:2606010600",
+        "doc:2605261800",
+        "doc:2606051600",
+        "doc:2605241900",
+        "doc:2606042330",
+        "doc:2605192100"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606062100-charter-priority-over-specifics-reconciliation",
       "type": "TechArticle",
       "title": "ADR-2606062100: Charter Priority-Over-Specifics Reconciliation — 固定するのは掟ではなく priority。永久記憶 (神の監視) doctrine の追加。石油・兵器条項の脱政治化",
@@ -13590,6 +13708,29 @@
         "doc:adr-2605192315-etzhayyim-transparent-force-rd",
         "doc:CHARTER-RIDER.md"
       ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606062100-moyai-inference-reciprocity-credit",
+      "type": "TechArticle",
+      "title": "ADR-2606062100: moyai 舫い — non-monetary inference reciprocity credit (give-to-get; reward kept, Basic High Income untouched)",
+      "status": "accepted",
+      "topic": "moyai-inference-reciprocity-credit",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the reward for participating in commons inference (moyai credit) and its non-monetary, non-transferable, decaying, commons-scoped nature",
+        "the charter-clean carve-out to ADR-2606012100 G4 (compute donation grants no benefit) — scoped strictly to a commons-draw-right, never welfare/benefit/governance",
+        "the Basic-High-Income firewall (subsistence inference floor = information-as-BHI; credit governs only discretionary surplus under contention)",
+        "the anti-fraud / sybil-resistance design for a non-monetary reward (proof-of-contribution, conservation, non-transferability, decay, earn-rate caps)",
+        "the supersession of the legacy RisingWave-era credits economy (vertex_credits_af_event / mv_ameno_credits_balance / credits BPMN)"
+      ],
+      "related": [
+        "doc:adr-2605150600-ameno-browser-inference-platform",
+        "doc:adr-2604271400-mcp-invoke-fee-and-erc8004-murakumo-bridge",
+        "doc:adr-2604281400-oss-contribution-royalty-gcc-redistribution",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "supersedes": "doc:legacy credits economy: 00-contracts/bpmn/com/etzhayyim/credits/* + ameno vertex_credits_af_event / mv_ameno_credits_balance (ADR-2605150600 §credit) — RisingWave-era, pre-charter, non-compliant",
       "lastVerified": "2026-06-06"
     },
     {
@@ -13638,6 +13779,83 @@
         "doc:2605215100",
         "doc:2605312200",
         "doc:2606011500"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606064600-e7m-kotoba-premise-ipfs-deploy",
+      "type": "TechArticle",
+      "title": "ADR-2606064600: e7m kotoba-premise IPFS deploy (Cloudflare-free WASM-actor deploy)",
+      "status": "proposed",
+      "topic": "e7m-kotoba-premise-ipfs-deploy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "e7m-wasm-actor-deploy"
+      ],
+      "related": [
+        "doc:2605171800",
+        "doc:2606013800",
+        "doc:2606015600"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606064700-charter-principle-derivation-layering",
+      "type": "TechArticle",
+      "title": "ADR-2606064700: Charter Principle/Derivation Layering — axioms vs derived doctrines vs implementation",
+      "status": "proposed",
+      "topic": "charter-principle-derivation-layering",
+      "authoritative": true,
+      "authoritativeFor": [
+        "charter-layer-taxonomy",
+        "principle-vs-derivation-classification"
+      ],
+      "related": [
+        "doc:adr-2605252300-charter-preamble-kingdom-of-god",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606065000-session-close-kawaraban-news-medium",
+      "type": "TechArticle",
+      "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",
+      "status": "active",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md",
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606065500-kotoba-browser-only-social-feed",
+      "type": "TechArticle",
+      "title": "ADR-2606065500: etzhayyim.com browser-only kotoba social feed — browser read/write + member-signed block publish (no query node)",
+      "status": "accepted",
+      "topic": "kotoba-browser-only-social-feed",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim.com social feed read/write path",
+        "member-signed kotoba block publish (apex)"
+      ],
+      "related": [
+        "doc:2606041822",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606065500-session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
+      "type": "TechArticle",
+      "title": "ADR-2606065500: Session close — apex did-web actor+DID resolution → kotoba-datomic, content-addressed, Cloudflare-primitive-free",
+      "status": "active",
+      "topic": "session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
+      "authoritative": false,
+      "related": [
+        "doc:2606015400",
+        "doc:2606015600",
+        "doc:2605231525",
+        "doc:2606064500",
+        "doc:2605262130"
       ],
       "lastVerified": "2026-06-06"
     },

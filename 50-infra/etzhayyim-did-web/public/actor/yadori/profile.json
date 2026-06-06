@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:yadori",
+  "handle": "yadori.etzhayyim.com",
+  "displayName": "Yadori — DNS-Availability + Domain Acquisition",
+  "description": "DNS/ドメインの空きを RDAP で確認し、必要な名前の取得を member-principal で伴走する。リテール registrar (GoDaddy等) の反転: fiat流入なし・markup/affiliate/parking なし・投機なし。取得は okaimono assisted-checkout (ADR-2606012100) 経由で Cloudflare Registrar at-cost path、yadori は買主にならず §1.3 を維持。actor DID 発行と実ドメイン存在の間の欠落を埋める。",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-03T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "宿",
+  "displayNameJa": "宿り — DNS空き確認 + ドメイン取得",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606038400"
+    ],
+    "primaryLexicon": "com.etzhayyim.yadori",
+    "primarySchema": "00-contracts/schemas/dns-domain-ontology.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/yadori/did.json",
+    "source": "kotoba"
+  }
+}

@@ -65,6 +65,26 @@ class TestMapping(unittest.TestCase):
         batch = kf.rows_to_batch(ROWS)
         self.assertEqual(len(batch["entities"]), 4)
 
+    def test_name_tokens_stamped(self):
+        e = kf.row_to_entity({"vertex_id": "f.s.tokyo", "label": "Station", "name": "Tokyo Station"})
+        toks = {c["value"] for c in e["claims"] if c["pred"] == "feature/name-token"}
+        self.assertIn("to", toks)
+        self.assertIn("tokyo", toks)
+        self.assertIn("station", toks)
+
+    def test_name_tokens_match_canonical_search(self):
+        # the bulk-dumper tokenizer MUST equal 20-actors/maps/methods/search.py name_tokens, so
+        # a feature is name-searchable regardless of which write path ingested it
+        search_path = REPO / "20-actors" / "maps" / "methods" / "search.py"
+        if not search_path.exists():
+            self.skipTest("maps search.py not present in this checkout")
+        spec = importlib.util.spec_from_file_location("_maps_search", search_path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        for name in ["Tokyo Station", "Marunouchi Building", "東京駅", "新宿三丁目",
+                     "A", "JR-East 山手", "naha-airport"]:
+            self.assertEqual(kf.name_tokens(name), mod.name_tokens(name), name)
+
     def test_label_map_matches_canonical_maps_ingest(self):
         # the two write paths (maps Worker adapter / bulk dumpers) must agree on the keyword
         if not MAPS_INGEST.exists():

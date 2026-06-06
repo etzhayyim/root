@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "The latest published head (root pointer) for a graph, from the authoritative Durable Object (mirrored to KV for fast reads). Empty root means no member has published yet; the client falls back to the static genesis pointer. The browser then hydrates the Datom log by fetching the covering Prolly-tree blocks (CID-verified) — no kotoba query node is exposed.",
+      "description": "The latest published head (root pointer) for a graph, read from the authoritative published-head key in KV (no operated Durable Object — ADR-2605262130 / 2605312345). Empty root means no member has published yet; the client falls back to the static genesis pointer. The browser then hydrates the Datom log by fetching the covering Prolly-tree blocks (CID-verified) — no kotoba query node is exposed.",
       "parameters": {
         "type": "params",
         "required": [],

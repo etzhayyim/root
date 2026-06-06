@@ -51,7 +51,6 @@ _B2_BUCKET = os.environ.get("B2_BUCKET_MEDIA", "etzhayyim-nats")
 _B2_KEY_ID = os.environ.get("B2_KEY_ID", "")
 _B2_APP_KEY = os.environ.get("B2_APPLICATION_KEY", "")
 _BLOB_REPO = os.environ.get("BLOB_REPO", "yukkuri.etzhayyim.com")
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _RENDER_TIMEOUT = float(os.environ.get("RENDER_TIMEOUT_SEC", "600"))
 _APP_DID = os.environ.get("DOUGAKA_APP_DID", "did:web:dougaka.etzhayyim.com")
 
@@ -189,9 +188,7 @@ async def _node_upload_video(state: _State) -> dict[str, Any]:
 
 
 async def _node_write_record(state: _State) -> dict[str, Any]:
-    """INSERT vertex_dougaka_render row in RisingWave."""
-    if not _RW_URL:
-        return {}
+    """INSERT vertex_dougaka_render row in kotoba."""
     video_id = state.get("video_id") or ""
     blob_key = state.get("blob_key") or ""
     blob_url = state.get("blob_url") or ""
@@ -201,32 +198,20 @@ async def _node_write_record(state: _State) -> dict[str, Any]:
     vertex_id = f"at://dougaka.etzhayyim.com/com.etzhayyim.apps.dougaka.render/{video_id}"
 
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            await conn.execute("""
-                CREATE TABLE IF NOT EXISTS vertex_dougaka_render (
-                    vertex_id VARCHAR PRIMARY KEY,
-                    video_id VARCHAR NOT NULL,
-                    actor_did VARCHAR NOT NULL DEFAULT 'did:web:dougaka.etzhayyim.com',
-                    org_did VARCHAR NOT NULL DEFAULT 'anon',
-                    at_did VARCHAR,
-                    blob_key VARCHAR,
-                    blob_url TEXT,
-                    status VARCHAR NOT NULL,
-                    error_msg TEXT,
-                    created_at VARCHAR NOT NULL
-                )
-            """)
-            await conn.execute(
-                """INSERT INTO vertex_dougaka_render
-                   (vertex_id, video_id, actor_did, org_did, blob_key, blob_url, status, error_msg, created_at)
-                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-                [vertex_id, video_id, _APP_DID, "anon", blob_key, blob_url,
-                 status, error_msg[:500] if error_msg else "", created_at],
-            )
-        finally:
-            await conn.close()
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
+        await asyncio.to_thread(client.insert_row, "vertex_dougaka_render", {
+            "vertex_id": vertex_id,
+            "video_id": video_id,
+            "actor_did": _APP_DID,
+            "org_did": "anon",
+            "blob_key": blob_key,
+            "blob_url": blob_url,
+            "status": status,
+            "error_msg": error_msg[:500] if error_msg else "",
+            "created_at": created_at
+        })
     except Exception as exc:
         _log.warning("write_record non-fatal: %s", exc)
     return {}

@@ -124,6 +124,18 @@ async function getBearerToken(opts: XrpcOptions = {}): Promise<string> {
 	return session?.accessJwt ?? '';
 }
 
+/**
+ * Build the Authorization header from a token. ADR-2606061500: the CACAO-only
+ * session's token provider returns a `cacao:<base64url>` proof — emit it as a
+ * `CACAO` scheme so the kotoba node verifies the delegation + single-use nonce.
+ * A legacy `accessJwt` (PUBLIC_AUTH_LEGACY_JWT rollback) stays `Bearer`.
+ */
+function authHeader(token: string): Record<string, string> {
+	if (!token) return {};
+	if (token.startsWith('cacao:')) return { authorization: `CACAO ${token.slice('cacao:'.length)}` };
+	return { authorization: `Bearer ${token}` };
+}
+
 export function getSession(): Session | null {
 	return readStoredSession();
 }
@@ -177,7 +189,7 @@ async function xrpc<T>(method: 'GET' | 'POST', nsid: string, data?: unknown, opt
 			method,
 			headers: {
 				...(method === 'POST' ? { 'content-type': 'application/json' } : {}),
-				...(bearer ? { authorization: `Bearer ${bearer}` } : {}),
+				...authHeader(bearer),
 			},
 			signal: controller.signal,
 		};
