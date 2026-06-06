@@ -66,6 +66,11 @@ function postDatoms(items) {
   for (const it of items) {
     const view = it && it.post ? it.post : null;
     if (!view || !view.uri || seen.has(view.uri)) continue;
+    // Drop malformed/corrupt posts before they enter the browser-only seed: an
+    // empty author DID or an `at:///…` URI with no repo DID (both observed in the
+    // AppView feed) render as a broken-link card that can resolve no profile/thread.
+    if (!view.author || !view.author.did) continue;
+    if (view.uri.includes(':///')) continue;
     seen.add(view.uri);
     const e = `post:${view.uri}`;
     const rec = view.record || {};
