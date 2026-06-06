@@ -21400,6 +21400,38 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606064600-e7m-kotoba-premise-ipfs-deploy.md",
+      "id": "adr-2606064600-e7m-kotoba-premise-ipfs-deploy",
+      "title": "ADR-2606064600: e7m kotoba-premise IPFS deploy (Cloudflare-free WASM-actor deploy)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "e7m-kotoba-premise-ipfs-deploy",
+      "authoritative": true,
+      "authoritative_for": [
+        "e7m-wasm-actor-deploy"
+      ],
+      "related": [
+        "2605171800",
+        "2606013800",
+        "2606015600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606014500",
+        "2606014600",
+        "2606015200",
+        "2606015400",
+        "2606036000",
+        "2605262130",
+        "2605312345",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606064700-charter-principle-derivation-layering.md",
       "id": "adr-2606064700-charter-principle-derivation-layering",
       "title": "ADR-2606064700: Charter Principle/Derivation Layering — axioms vs derived doctrines vs implementation",

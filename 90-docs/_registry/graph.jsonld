@@ -13720,6 +13720,23 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606064600-e7m-kotoba-premise-ipfs-deploy",
+      "type": "TechArticle",
+      "title": "ADR-2606064600: e7m kotoba-premise IPFS deploy (Cloudflare-free WASM-actor deploy)",
+      "status": "proposed",
+      "topic": "e7m-kotoba-premise-ipfs-deploy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "e7m-wasm-actor-deploy"
+      ],
+      "related": [
+        "doc:2605171800",
+        "doc:2606013800",
+        "doc:2606015600"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606064700-charter-principle-derivation-layering",
       "type": "TechArticle",
       "title": "ADR-2606064700: Charter Principle/Derivation Layering — axioms vs derived doctrines vs implementation",
