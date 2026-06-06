@@ -450,11 +450,16 @@ interface Env {
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "com.etzhayyim.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "com.etzhayyim.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "com.etzhayyim.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "com.etzhayyim.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "com.etzhayyim.yoro.actor.getProfile",
+  // NOTE: the feed/profile read NSIDs (getTimeline / getDiscoverFeed /
+  // getAuthorFeed / getPostThread / actor.getProfile) were previously aliased
+  // to com.etzhayyim.yoro.* and forwarded to yoro-xrpc-adapter, which does NOT
+  // implement them (404 MethodNotFound) — that is why etzhayyim.com showed no
+  // posts. They are now served browser-locally by kotoba-sw.js from the kotoba
+  // Datom log; when the Service Worker is inactive/misses, these requests fall
+  // through here to the standard app.bsky.* → AppView route (XRPC_ATPROTO_UPSTREAM,
+  // GET→POST normalized) which returns real data. So they are intentionally NOT
+  // aliased anymore — removing the dead 404 path AND giving a working
+  // server-side fallback. (ADR-2605312345 / 2606013800.)
   "app.bsky.actor.searchActors":   "com.etzhayyim.yoro.actor.searchActors",
   "app.bsky.graph.getFollowers":   "com.etzhayyim.yoro.graph.getFollowers",
   "app.bsky.graph.getFollows":     "com.etzhayyim.yoro.graph.getFollows",
