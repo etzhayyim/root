@@ -179,6 +179,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | tasuke 助 | free cybercrime-victim-support membrane — walks a JP online-crime victim 相談→回復, generates ready-to-use 被害届/組戻し依頼/復旧手順; all free, member-authored/submitted, no paid counsel | 🟡 R0 | 2606060900 | 06-05 |
 | kawaraban 瓦版 | news MEDIUM — kotoba-wasm mirror of real news media (面 sections, headline + link-out, never the body/verdict) + actor-to-actor wire (each actor's Datom events → 面 + co-mention graph); no ads/personalization/surveillance | 🟡 R0 | 2606061900 | 06-06 |
 | suji 筋 | musculoskeletal posture-load biomechanics simulator — sagittal bone chain (kami-genesis PlanarChain) + static inverse dynamics → joint moment + cervical load (validated vs Hansraj) + Hill %MVC + Rohmert dose; laptop-posture strain; non-diagnostic, simulation-only | 🟡 R0 | 2606061900 | 06-06 |
+| keizu 系図 | government power-relations KG — weaves 調達/お金/発言/人間関係/委員会構成 into one kotoba Datom graph + dry-run social posts; 5th accountability sibling (danjo/kanae/tsumugi/tadori/ooyake); map-not-target, non-adjudicating, edge-primary, no-doxxing | 🟡 R0 | 2606066000 | 06-06 |
 
 > **Note**: ADR ids `2605263400` and `2605263500` each label two distinct ADRs (parallel-agent race in the source); filename + actor name disambiguate. Tracked for a future ADR-id reconciliation.
 
@@ -317,6 +318,19 @@ copy of the work). Sequence once merge is confirmed:
    `git worktree prune`. The `clean_gone` command also sweeps branches whose remote is `[gone]`.
 
 Only the worktree whose PR is still open (or whose work is unmerged) is kept.
+
+**Command — "worktree cleanup".** When the user says **`worktree cleanup`** (or asks to clean
+up worktrees), run this exact sweep over the current branch + every worktree
+(`git worktree list`); resolve each branch's PR state with `gh pr list --head <branch> --state all`:
+
+- **PR MERGED** (or branch fully contained in `origin/main`, or remote `[gone]`) → **delete** the
+  worktree + branch (`git worktree remove …` then `git branch -d/-D …`, per the sequence above).
+- **No PR yet** and the branch has commits ahead of `origin/main` → **open a PR** (`git push -u`
+  then `gh pr create --base main`). Skip a branch with nothing ahead of main.
+- **PR already OPEN (unmerged)** → **leave it** untouched.
+
+Never commit/push the shared main checkout's dirty working tree (other agents' in-flight work);
+push only the branch's committed HEAD. Report the final categorized outcome.
 
 ## ADR Authority (per ADR-2605170900)
 
