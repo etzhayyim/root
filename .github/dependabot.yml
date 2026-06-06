@@ -118,10 +118,6 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/30-graph/graph-schema"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
     directory: "/50-infra/anchor-cron"
     schedule:
       interval: "weekly"
@@ -692,10 +688,6 @@ updates:
       interval: "weekly"
   - package-ecosystem: "pip"
     directory: "/20-actors/magatama/py"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/30-graph/graph-schema"
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
