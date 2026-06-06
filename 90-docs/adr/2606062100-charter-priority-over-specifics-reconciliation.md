@@ -276,10 +276,16 @@ Tier-2 sets its magnitude within Tier-0-guarded bounds.*
   pre-mainnet (Base Sepolia post-Council; mainnet post-testnet), this is applied at the next
   genesis, not as a live migration. **No live contract is mutated by this ADR.**
 
-## Migration (post-ratification runbook — NOT applied while proposed)
+## Migration
 
-Per the Preamble-ADR convention, while this ADR is `proposed` the ADR text is the canonical
-reference and **no code is changed**. After Council Lv7+ ratification (post-2026-06-19), apply:
+**APPLIED to the repo 2026-06-06 by founder authority** (Jun Kawasaki, sole current Decider),
+ahead of formal Council Lv7+ ratification. This is sound because the religious-corp is
+**pre-mainnet** — there is no deployed Constitution to mutate; the changes alter the *next*
+genesis (`Deploy.s.sol`) + the canonical docs + the in-force Rider, all of which are repo
+artifacts. **On-chain Council Lv7+ unanimous ratification remains required before the mainnet
+genesis is locked** (and is only possible once the Bootstrap Council is seated post-2026-06-19
+RFP). The steps below are DONE in this branch except where marked otherwise; the genesis +
+test suite are green (`forge test`, 154 passing incl. `test_priority_and_memory_constants_set`).
 
 1. **`ConstitutionKeys.sol`** — add Tier-0 keys: `PRIORITY_WELLBECOMING_OVER_WELLBEING`,
    `PRIORITY_MULTIGEN_OVER_CURRENT`, `PRIORITY_COLLECTIVE_OVER_INDIVIDUAL`,
@@ -296,9 +302,11 @@ reference and **no code is changed**. After Council Lv7+ ratification (post-2026
    mutables array (the bug fix); **add** `tithe_bps = 1000`, `charter_rider_version = "v3.0"`.
 4. **`Constitution.sol`** doc-comment block — re-section into Tier-0 / Tier-1 / Tier-2; correct
    the phenotype line (now CONSTANT, "ratcheting" note removed).
-5. **`CHARTER-RIDER.md` → v3.0** — apply the §3 reframe (see `CHARTER-RIDER-v3.0-DRAFT.md`
-   shipped with this ADR); after ratification it replaces v2.0 and its keccak256 is written
-   to `license.charter_rider_text_hash`.
+5. **`CHARTER-RIDER.md` → v3.0** — apply the §3 reframe. **APPLIED 2026-06-06**: the
+   in-force `CHARTER-RIDER.md` is now v3.0 (§2(a) defensive-force / §2(c) 見守り / §2(d)
+   carbon-balance reframes + §2(j) forced-labor + §2(k) CSAM + §5 permanent-record). Its
+   keccak256 is written to `license.charter_rider_text_hash` at mainnet genesis (= 0
+   placeholder until then, like the reference addresses).
 6. **Tests** — update `Constitution.t.sol` / `ConstitutionReligiousCorpWave.t.sol` constant
    counts and the phenotype-multiplier-is-constant assertion; add a test that
    `tithe_bps` is mutable within `[tithe_floor_bps, tithe_ceiling_bps]` and that
@@ -347,7 +355,7 @@ A native Tier-1 contract path is a future ADR if the off-chain governance proves
 - ADR-2606051500 (kamado — carbon-balance test replacing "no oil" as a measurement)
 - ADR-2605192315 (Transparent Religious Force — §1.12.B elaboration; defensive-force basis)
 - ADR-2605172600 (membership ritual — consent-bound acceptance of permanent record)
-- `CHARTER-RIDER.md` (v2.0) + `CHARTER-RIDER-v3.0-DRAFT.md` (this wave)
+- `CHARTER-RIDER.md` (v3.0, applied 2026-06-06 — §2 reframed into Tier-1 derived policy)
 - `50-infra/etzhayyim-chain-contracts/src/{Constitution,ConstitutionKeys}.sol`,
   `script/Deploy.s.sol` (post-ratification patch targets)
 - Luke 17:21 / Matthew 6:10 (Kingdom now-and-here, Preamble §0.2) — memory as continuous, not final
