@@ -5,10 +5,10 @@ import pathlib
 
 from _edn import load_edn
 from _t import expect_raises, run
-from weave import (active_as_of, assert_integrity, check_integrity,
-                   concentration, connector_seats, statement_index,
-                   validate_committee, validate_money, validate_node,
-                   validate_rel, validate_statement, weave)
+from weave import (active_as_of, assert_integrity, by_jurisdiction,
+                   check_integrity, concentration, connector_seats,
+                   statement_index, validate_committee, validate_money,
+                   validate_node, validate_rel, validate_statement, weave)
 
 SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-relation-graph.kotoba.edn"
 
@@ -336,6 +336,25 @@ def test_statement_index_by_speaker_and_topic():
 def test_statement_index_empty_safe():
     si = concentration(weave({}))["statement_index"]
     assert si["count"] == 0 and si["by_speaker"] == [] and si["by_topic"] == []
+
+
+# ── by-jurisdiction ────────────────────────────────────────────────────────────
+def test_by_jurisdiction_covers_global_seed():
+    bj = {j["jurisdiction"]: j for j in by_jurisdiction(_g())}
+    assert {"jp", "us", "eu", "oecd"} <= set(bj), bj
+    assert bj["jp"]["nodes"] >= 1 and bj["jp"]["committees"] >= 1
+    # jp-meti disburses the JP procurement/subsidy flows → jp money_total is the largest
+    assert bj["jp"]["money_total"] == max(j["money_total"] for j in bj.values())
+
+
+def test_by_jurisdiction_money_attributed_to_payer():
+    # an EU grant (ec-digit payer, jurisdiction eu) lands under eu, not the payee's jurisdiction
+    bj = {j["jurisdiction"]: j for j in by_jurisdiction(_g())}
+    assert bj["eu"]["money_total"] > 0
+
+
+def test_by_jurisdiction_empty_safe():
+    assert by_jurisdiction(weave({})) == []
 
 
 # ── referential integrity ────────────────────────────────────────────────────────

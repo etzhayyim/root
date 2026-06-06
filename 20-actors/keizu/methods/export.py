@@ -68,6 +68,7 @@ def render_payload(c: dict) -> dict:
         "money_by_payer": [list(s) for s in c["payer_concentration"]["shares"]],
         "money_hhi": {"payee": c["money_concentration"]["hhi"],
                       "payer": c["payer_concentration"]["hhi"]},
+        "by_jurisdiction": c["by_jurisdiction"],
         "committee_cross_organ": c["committee_cross_organ"],
         "cross_committee_seats": c["cross_committee_seats"],
         "connector_seats": c["connector_seats"],

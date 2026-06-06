@@ -48,7 +48,11 @@ def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
          f"\nnodes={c['node_count']} committees={c['committee_count']} rels={c['rel_count']} "
          f"money={c['money_count']} statements={c['statement_count']}\n",
          f"\n_referential integrity: {c['integrity']['dangling_count']} dangling reference(s)._\n",
-         "\n## Committee cross-organ concentration\n"]
+         "\n## By jurisdiction\n"]
+    for j in c["by_jurisdiction"]:
+        L.append(f"- **{j['jurisdiction']}** — {j['nodes']} nodes, {j['committees']} committees, "
+                 f"money {j['money_total']:.0f}")
+    L.append("\n## Committee cross-organ concentration\n")
     for r in c["committee_cross_organ"]:
         L.append(f"- **{r['label']}** — {r['member_count']} seats from {r['distinct_organs']} organ(s): {', '.join(r['organs'])}")
     L.append("\n## Cross-committee seats (co-membership)\n")

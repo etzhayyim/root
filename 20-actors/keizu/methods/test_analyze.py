@@ -82,6 +82,11 @@ def test_connector_section_reported():
     assert "Cross-organ connector seats" in report
 
 
+def test_by_jurisdiction_section_reported():
+    _, report, _ = _run()
+    assert "## By jurisdiction" in report
+
+
 def test_statements_section_reported():
     _, report, _ = _run()
     assert "Statements (発言)" in report

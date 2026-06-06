@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **176 tests** across weave (54) / social (8) / ingest (17) / sources (8) / registry (7) / bridge (10) / export (6) / charter-invariants (28) / analyze (12) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Tests**: `./run_tests.sh` green — **180 tests** across weave (57) / social (8) / ingest (17) / sources (8) / registry (7) / bridge (10) / export (6) / charter-invariants (28) / analyze (13) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Per-jurisdiction slice** (`by_jurisdiction`): the core country-level view of a GLOBAL graph — node + committee counts and total disbursed money per jurisdiction (money attributed to the PAYER's jurisdiction). On the seed: jp 10 nodes/2 committees/¥2.3B · us 5/1/$40M · eu 2/0/€2M · oecd 1/0/0. Wired into the report + kanae payload.
 - **Empty-graph report path covered**: `analyze.run` over an empty seed exercises the `"(none in seed)"` fallbacks (cross-committee / connector / revolving-door / award-and-fund), the 0-dangling integrity line, and the empty posts/kanae-flows — the degenerate branches the populated seed never reaches.
 - **Deny-list on the outbound post path**: `social._enough_sources` now also runs `source_denied`, so a dry-run social post citing a commercial gov-intel terminal is refused (Rider §2(e)/N5). The deny-list now covers BOTH the inbound datoms (rel/money/statement/committee) and the public-facing post output.
 - **Committee validation** (`validate_committee`): committees are now gate-checked like the other datoms — id + ≥1 public seat (G1) + ≥1 public source with no prohibited terminal (G3/Rider §2(e)) + declared sourcing (G11). Enforced in `weave()` (seed) AND `ingest.normalize_committee`. All five datom types (node/committee/rel/money/statement) now have a validator on every write path.

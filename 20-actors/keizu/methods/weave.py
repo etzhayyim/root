@@ -381,6 +381,30 @@ def assert_integrity(g: dict) -> None:
         )
 
 
+def by_jurisdiction(g: dict) -> list[dict]:
+    """Per-jurisdiction slice of a GLOBAL graph: node + committee counts and total disbursed
+    money (attributed to the PAYER's jurisdiction). The core country-level view of a worldwide
+    accountability map. Aggregate, factual (G2/G3)."""
+    juris: dict[str, dict] = {}
+
+    def slot(j: str) -> dict:
+        return juris.setdefault(j or "(unknown)",
+                                {"jurisdiction": j or "(unknown)", "nodes": 0,
+                                 "committees": 0, "money_total": 0.0})
+
+    for n in g["nodes"].values():
+        slot(n.get(":node/jurisdiction", ""))["nodes"] += 1
+    for c in g["committees"].values():
+        slot(c.get(":committee/jurisdiction", ""))["committees"] += 1
+    for m in g["money"]:
+        payer = g["nodes"].get(m.get(":money/payer"), {})
+        slot(payer.get(":node/jurisdiction", ""))["money_total"] += float(m.get(":money/amount", 0.0))
+
+    for v in juris.values():
+        v["money_total"] = round(v["money_total"], 2)
+    return sorted(juris.values(), key=lambda x: (-x["nodes"], x["jurisdiction"]))
+
+
 def statement_index(g: dict) -> dict:
     """発言 (statements) aggregate: per-speaker statement count + per-topic speaker set (who
     spoke on what, from public record). Non-adjudicating — a statement is indexed by topic,
@@ -416,6 +440,7 @@ def concentration(g: dict) -> dict:
         "revolving_door": revolving_door_chains(g),
         "award_and_fund": award_and_fund(g),
         "statement_index": statement_index(g),
+        "by_jurisdiction": by_jurisdiction(g),
         "integrity": check_integrity(g),
     }
 
