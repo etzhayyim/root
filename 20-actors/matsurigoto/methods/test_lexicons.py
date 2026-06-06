@@ -56,7 +56,7 @@ def test_g3_operated_by_enum_matches_code_and_schema():
 
 def test_g3_authority_mode_enum_matches_code():
     lex_enum = set(_props("serviceExecution")["authorityMode"]["enum"])
-    code = {x.lstrip(":") for x in S.ALLOWED_AUTHORITY_MODE}
+    code = {x.lstrip(":") for x in D.ALLOWED_AUTHORITY_MODE}
     assert lex_enum == code, (lex_enum, code)
 
 
