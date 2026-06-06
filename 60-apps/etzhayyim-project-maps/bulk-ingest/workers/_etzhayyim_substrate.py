@@ -89,15 +89,112 @@ def open_substrate_writer() -> Iterator[SubstrateWriter]:
         writer: SubstrateWriter = _MstSubstrateWriter()
     elif mode == "rw":
         writer = _RwSubstrateWriter()
+    elif mode == "kotoba":
+        writer = _KotobaSubstrateWriter()
     else:
         raise ValueError(
             f"ETZHAYYIM_SUBSTRATE_MODE={mode!r} is not recognised. "
-            "Allowed: 'mst' (post-migration), 'rw' (transitional)."
+            "Allowed: 'kotoba' (canonical Datom log, ADR-2606064500), "
+            "'mst' (AT Protocol ingress), 'rw' (transitional RisingWave)."
         )
     try:
         yield writer
     finally:
         writer.close()
+
+
+# ─── kotoba backend (canonical Datom log via kg.ingest_batch, ADR-2606064500) ───
+
+
+class _KotobaSubstrateWriter(SubstrateWriter):
+    """Writes land in the kotoba Datom log as ``:feature/*`` entities (ADR-2606064500 R2).
+
+    Each ``vertex_spatial`` row is mapped (``_kotoba_feature.row_to_entity``) to a
+    ``:feature/*`` entity — the 51 legacy labels collapse onto ``:feature/label``, the H3-cell
+    spatial index (``:feature.cell/rN``) is stamped from the centroid — and POSTed to
+    ``com.etzhayyim.apps.kotobase.kg.ingest_batch``.
+
+    GATED (ADR-2606064500 G4/G7): the write is a member/operator-DID-signed CACAO batch — it
+    requires ``KOTOBA_ENDPOINT`` + ``KOTOBA_AUTH`` (member bearer; the pod holds no platform
+    key, no-server-key) AND ``MAPS_OPERATOR_GATE=1`` (operator attestation). Absent any of
+    these, construction RAISES so a dumper flipped to ``kotoba`` mode without the gate fails
+    loudly rather than silently dropping data.
+    """
+
+    def __init__(self) -> None:
+        from _kotoba_feature import rows_to_batch  # local import keeps the seam self-contained
+        self._rows_to_batch = rows_to_batch
+        self.endpoint = (os.environ.get("KOTOBA_ENDPOINT") or "").rstrip("/")
+        self.auth = os.environ.get("KOTOBA_AUTH") or ""
+        gate = os.environ.get("MAPS_OPERATOR_GATE")
+        if gate != "1":
+            raise RuntimeError(
+                "ETZHAYYIM_SUBSTRATE_MODE=kotoba is outward-gated (ADR-2606064500 G7): set "
+                "MAPS_OPERATOR_GATE=1 with operator attestation to enable live ingest."
+            )
+        if not self.endpoint or not self.auth:
+            raise RuntimeError(
+                "ETZHAYYIM_SUBSTRATE_MODE=kotoba requires KOTOBA_ENDPOINT + KOTOBA_AUTH "
+                "(member/operator DID bearer; the pod holds no server key — no-server-key)."
+            )
+        self.nsid = os.environ.get(
+            "KOTOBA_INGEST_NSID", "com.etzhayyim.apps.kotobase.kg.ingest_batch"
+        )
+        log.warning(
+            "etzhayyim.substrate: kotoba mode active (endpoint=<redacted>). Writes land in the "
+            "canonical Datom log via %s (member-signed).", self.nsid,
+        )
+
+    def _post(self, body: dict[str, Any]) -> None:
+        data = json.dumps(body, ensure_ascii=False).encode("utf-8")
+        req = urlrequest.Request(
+            f"{self.endpoint}/xrpc/{self.nsid}",
+            data=data,
+            headers={"content-type": "application/json",
+                     "authorization": f"Bearer {self.auth}"},
+            method="POST",
+        )
+        with urlrequest.urlopen(req, timeout=30) as resp:
+            if resp.status >= 300:
+                raise RuntimeError(f"kotoba ingest failed: HTTP {resp.status}")
+
+    def upsert_vertex_spatial(
+        self, rows: Sequence[dict[str, Any]], *, conflict_key: str = "vertex_id"
+    ) -> int:
+        if not rows:
+            return 0
+        batch = self._rows_to_batch(rows)
+        if not batch["entities"]:
+            return 0
+        # chunk to keep request bodies bounded; :feature/id unique-identity gives idempotency
+        # (upsert-by-assertion), so no DELETE+INSERT is needed.
+        total = 0
+        CHUNK = 500
+        ents = batch["entities"]
+        for i in range(0, len(ents), CHUNK):
+            self._post({"entities": ents[i:i + CHUNK]})
+            total += len(ents[i:i + CHUNK])
+        return total
+
+    def upsert_table(
+        self,
+        table: str,
+        rows: Sequence[dict[str, Any]],
+        *,
+        conflict_key: str | None = None,
+    ) -> int:
+        # Auxiliary RW tables (vertex_maps_trip, gsplat registries, …) have no :feature/*
+        # mapping yet — they need their own per-table kotoba schema (R2 follow-up). Raise
+        # loudly rather than silently drop, so a dumper relying on an aux table is not flipped
+        # to kotoba mode prematurely. The 6 Tier-1 feature dumpers use upsert_vertex_spatial.
+        raise NotImplementedError(
+            f"kotoba mode has no mapping for auxiliary table {table!r} yet (ADR-2606064500 R2 "
+            "follow-up). This dumper writes aux tables; keep it on rw/mst until its kotoba "
+            "schema lands."
+        )
+
+    def close(self) -> None:
+        pass
 
 
 # ─── MST backend (AT Protocol PDS → MST + IPFS + Base L2 anchor) ───
