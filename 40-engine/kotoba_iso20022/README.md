@@ -1,0 +1,155 @@
+# kotoba_iso20022 — cleanroom ISO 20022 payment-message codec
+
+A dependency-free, charter-clean reimplementation of the three ISO 20022
+message definitions the **kawase-yui (為替結)** cross-border actor
+(ADR-2605282200) needs at its **interop / ingress boundary** — built purely
+from the *open published* ISO 20022 standard, with **no proprietary SWIFT
+SDK** and no vendor schema files at runtime.
+
+This is the traditional-finance analogue of the CLAUDE.md substrate rule
+*"AT-Protocol MST = ingress/interop wire"*: here the wire is the global
+ISO 20022 banking network (the format **SWIFT itself migrated to** via the
+CBPR+ programme), and this module translates between that wire and the
+canonical **kotoba EAVT Datom log**.
+
+## Why this exists
+
+kawase-yui settles adherent-to-adherent over **Base L2 stablecoins**
+(USDC/EURC/…), never fiat. But an adherent *on/off-ramps* through the real
+banking system, which speaks ISO 20022. When a real bank credit transfer
+touches a kawase corridor, it must become **auditable, append-only kotoba
+history** (Wellbecoming `as-of`, no mutation). This codec is the format
+layer that makes that ingress possible without taking on a proprietary
+vendor dependency.
+
+## Scope (what this is — and is NOT)
+
+| | |
+|---|---|
+| **Is** | a pure XML **codec** + open-standard validators + kotoba Datom mapping |
+| **Is** | cleanroom — implemented from the public ISO 20022 element grammar only |
+| **Is NOT** | a network client — it opens no socket, calls no bank, joins no SWIFT |
+| **Is NOT** | a money-movement path — no chain, no transfer, no custody |
+| **Is NOT** | a Travel-Rule / FATF passport-KYC engine — the **Adherent SBT remains the KYC** (kawase-yui G10) |
+| **Is NOT** | a chargeback/reversal path — ingress Datoms are assertion-only, never retracted (kawase-yui G11 mirror) |
+| **Is NOT** | a commercial-MSB integration — no Wise/WU/MoneyGram/etc. (kawase-yui G7) |
+
+## Cleanroom provenance
+
+Every wire detail comes from the **open published standard**, not vendor code:
+
+- **Message structure** — `GrpHdr` / `PmtInf` / `CdtTrfTxInf` / `PmtId` /
+  `IntrBkSttlmAmt` / `OrgnlGrpInfAndSts` … from the ISO 20022 message
+  components.
+- **Namespace** — the official URN scheme
+  `urn:iso:std:iso:20022:tech:xsd:<msgdef>` (e.g.
+  `urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08`), emitted as the
+  canonical default-namespace `<Document xmlns="…">` form.
+- **Embedded identifiers** — validated by independent reimplementations of
+  the *open* identifier standards: **ISO 13616** IBAN (check digits via
+  **ISO 7064 MOD 97-10**), **ISO 9362** BIC, **ISO 4217** currency, and the
+  ISO 20022 `ActiveCurrencyAndAmount` lexical constraints.
+
+This is the same cleanroom posture warifu applied to ISO 8583 in
+`50-infra/warifu-gateway/` — facts of an open standard are not
+copyrightable expression, so a clean reimplementation is charter-clean
+(Charter Rider §2(c) vendor data-sovereignty + §2(e) anti-gatekeeping).
+
+## Supported message definitions
+
+Version-parameterised; defaults follow widely-deployed CBPR+/SEPA versions.
+
+| Def | Name | Default version | Direction |
+|---|---|---|---|
+| **pain.001** | CustomerCreditTransferInitiation | `pain.001.001.09` | ingress (a party instructs a transfer) |
+| **pacs.008** | FIToFICustomerCreditTransfer | `pacs.008.001.08` | inter-bank leg (the SWIFT/CBPR+ carrier) |
+| **pacs.002** | FIToFIPaymentStatusReport | `pacs.002.001.10` | acceptance / rejection / pending ack |
+
+Pass `version=` to any `build_*` / `parse_*` to target a different release.
+
+## Usage
+
+```python
+from decimal import Decimal
+from kotoba_iso20022 import build_pacs008, parse_pacs008, to_datoms
+from kotoba_iso20022.model import *
+
+tx = CreditTransferTransaction(
+    end_to_end_id="E2E-0001",
+    tx_id="TX-0001",
+    uetr="dced6a36-9e4b-4e2a-8b9f-2f3a4b5c6d7e",
+    interbank_amount=Amount(Decimal("1000.00"), "EUR"),
+    interbank_settlement_date="2026-06-08",
+    charge_bearer="SLEV",
+    debtor=Party("Alice Cohen"),
+    debtor_account=Account(iban="DE89370400440532013000"),
+    debtor_agent=Agent(bicfi="DEUTDEFF"),
+    creditor_agent=Agent(bicfi="NWBKGB2L"),
+    creditor=Party("Bob Levi"),
+    creditor_account=Account(iban="GB29NWBK60161331926819"),
+)
+gh = GroupHeader(message_id="MSG-1", creation_datetime="2026-06-08T09:30:00Z",
+                 number_of_txs=1, settlement_method="CLRG")
+msg = FIToFICustomerCreditTransfer(group_header=gh, transactions=(tx,))
+
+xml = build_pacs008(msg)        # → canonical ISO 20022 <Document xmlns="urn:…">
+back = parse_pacs008(xml)       # → round-trips back to the dataclass
+datoms = to_datoms(back)        # → append-only kotoba EAVT facts (ingress wire)
+```
+
+The Datom entity handle is **content-addressed on the message's own
+immutable identifiers** (UETR → TxId → EndToEndId), so re-ingesting the
+same message is idempotent and a later `pacs.002` status lands on the
+*same* transaction entity.
+
+## Layout
+
+```
+kotoba_iso20022/
+├── validate.py   # ISO 13616 IBAN / ISO 9362 BIC / ISO 4217 ccy / amount
+├── model.py      # frozen-dataclass domain model (GrpHdr / CdtTrfTxInf / …)
+├── codec.py      # build + parse XML for pain.001 / pacs.008 / pacs.002
+├── datoms.py     # message → kotoba EAVT Datom ingress mapping
+└── __init__.py   # public surface
+tests/            # 43 tests (validators + round-trip + datom mapping)
+```
+
+## Tests
+
+```bash
+cd 40-engine/kotoba_iso20022
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. python3 -m pytest tests/ -q
+# → 43 passed
+```
+
+IBAN test vectors are the published ISO 13616 registry examples (DE/GB/FR/
+CH/BE); BIC vectors are real ISO 9362 codes.
+
+## Charter & substrate alignment
+
+- **G2 / G13** — output is kotoba EAVT Datoms (content-addressed); this
+  module *maps* but does not transact (the gated kawase ingress cell does).
+- **G10** — no Travel-Rule KYC; Adherent SBT is the KYC.
+- **G11** — ingress Datoms are assertion-only (`op=True`), never retracted.
+- **No-server-key** — pure function; no signing, no key material.
+- **Inference-free** — deterministic codec; no Murakumo/LLM call (no G12
+  surface).
+
+## Roadmap
+
+- `camt.053` / `camt.054` (statement + debit/credit notification) for the
+  off-ramp reconciliation direction.
+- A gated `kawase` ingress cell that calls `to_datoms` and transacts under
+  G2/G13 (Council-ratified, post-RFP).
+- Lexicon mapping `com.etzhayyim.iso20022.*` ↔
+  `com.etzhayyim.kawase.depositAttestation` for corridor reconciliation.
+- ISO 20022 XSD conformance harness (optional dev-time check against the
+  official schema files; runtime stays schema-file-free).
+
+## Related
+
+- `90-docs/adr/2605282200-kawase-yui-multi-stable-adherent-remittance-mutual-aid.md` — consuming actor
+- `40-engine/kotoba_kawase/` — kawase-yui Python facade (sibling)
+- `50-infra/warifu-gateway/iso8583-map.md` — sibling cleanroom (card-side ISO 8583)
+- `90-docs/adr/2605262130` + `2605312345` — kotoba Datom first-class state
+- `/CHARTER-RIDER.md` — §2(c) + §2(e) cleanroom basis

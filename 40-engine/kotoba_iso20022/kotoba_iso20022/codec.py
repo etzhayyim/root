@@ -1,0 +1,499 @@
+"""Cleanroom ISO 20022 XML codec — build and parse, round-trip stable.
+
+Implemented purely from the published ISO 20022 message-component
+structure (``GrpHdr`` / ``PmtInf`` / ``CdtTrfTxInf`` / ``PmtId`` …) and the
+official namespace scheme::
+
+    urn:iso:std:iso:20022:tech:xsd:<msgdef>
+
+e.g. ``urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08``. No proprietary
+SWIFT SDK or vendor schema file is used or required at runtime — only the
+public element grammar of the open standard (same cleanroom posture as
+warifu's ISO 8583 map). Validation of embedded identifiers (IBAN/BIC/
+currency/amount) is delegated to :mod:`kotoba_iso20022.validate`.
+
+Supported message definitions (version-parameterised; CBPR+/SEPA defaults):
+
+- pain.001 — CustomerCreditTransferInitiation (default ``pain.001.001.09``)
+- pacs.008 — FIToFICustomerCreditTransfer    (default ``pacs.008.001.08``)
+- pacs.002 — FIToFIPaymentStatusReport       (default ``pacs.002.001.10``)
+"""
+
+from __future__ import annotations
+
+import xml.etree.ElementTree as ET
+from decimal import Decimal
+from typing import Optional
+
+from .model import (
+    Account,
+    Agent,
+    Amount,
+    CreditTransferTransaction,
+    CustomerCreditTransferInitiation,
+    FIToFICustomerCreditTransfer,
+    FIToFIPaymentStatusReport,
+    GroupHeader,
+    Party,
+    PaymentInstruction,
+    PostalAddress,
+    RemittanceInfo,
+    TransactionStatus,
+)
+from .validate import (
+    CCY_FRACTION_DIGITS,
+    validate_amount,
+    validate_bic,
+    validate_currency,
+    validate_iban,
+)
+
+__all__ = (
+    "Iso20022CodecError",
+    "DEFAULT_VERSIONS",
+    "urn_for",
+    "build_pain001",
+    "parse_pain001",
+    "build_pacs008",
+    "parse_pacs008",
+    "build_pacs002",
+    "parse_pacs002",
+)
+
+DEFAULT_VERSIONS: dict[str, str] = {
+    "pain.001": "pain.001.001.09",
+    "pacs.008": "pacs.008.001.08",
+    "pacs.002": "pacs.002.001.10",
+}
+
+_URN_PREFIX = "urn:iso:std:iso:20022:tech:xsd:"
+
+
+class Iso20022CodecError(ValueError):
+    """Raised on malformed input during build or parse."""
+
+
+def urn_for(msgdef: str) -> str:
+    """Return the official ISO 20022 namespace URN for a message def id."""
+    return _URN_PREFIX + msgdef
+
+
+# --------------------------------------------------------------------------
+# small XML helpers (namespace-qualified element construction / lookup)
+# --------------------------------------------------------------------------
+
+
+def _q(ns: str, tag: str) -> str:
+    return f"{{{ns}}}{tag}"
+
+
+def _sub(parent: ET.Element, ns: str, tag: str, text: Optional[str] = None) -> ET.Element:
+    el = ET.SubElement(parent, _q(ns, tag))
+    if text is not None:
+        el.text = text
+    return el
+
+
+def _find(parent: ET.Element, ns: str, path: str) -> Optional[ET.Element]:
+    return parent.find("/".join(_q(ns, t) for t in path.split("/")))
+
+
+def _findall(parent: ET.Element, ns: str, tag: str) -> list[ET.Element]:
+    return parent.findall(_q(ns, tag))
+
+
+def _text(parent: Optional[ET.Element], ns: str, path: str) -> Optional[str]:
+    if parent is None:
+        return None
+    el = _find(parent, ns, path)
+    return el.text if el is not None else None
+
+
+def _fmt_amount(amt: Amount) -> str:
+    ccy = validate_currency(amt.currency, require_active=False)
+    dec = validate_amount(amt.value, ccy)
+    digits = CCY_FRACTION_DIGITS.get(ccy, 2)
+    return f"{dec:.{digits}f}" if digits else str(int(dec))
+
+
+def _root(ns: str, container_tag: str) -> tuple[ET.Element, ET.Element]:
+    """Build ``<Document xmlns=ns><container_tag>`` and return both."""
+    # Register the message namespace as the default (no prefix) so the
+    # serialized form is the canonical ISO 20022 ``<Document xmlns="urn:…">``
+    # that SWIFT/CBPR+ validators expect, not a ``ns0:`` prefix.
+    ET.register_namespace("", ns)
+    doc = ET.Element(_q(ns, "Document"))
+    container = ET.SubElement(doc, _q(ns, container_tag))
+    return doc, container
+
+
+def _serialize(doc: ET.Element) -> str:
+    ET.indent(doc, space="  ")
+    return ET.tostring(doc, encoding="unicode", xml_declaration=True)
+
+
+# --------------------------------------------------------------------------
+# shared component builders
+# --------------------------------------------------------------------------
+
+
+def _build_group_header(parent: ET.Element, ns: str, gh: GroupHeader, *, is_pacs: bool) -> None:
+    grp = _sub(parent, ns, "GrpHdr")
+    _sub(grp, ns, "MsgId", gh.message_id)
+    _sub(grp, ns, "CreDtTm", gh.creation_datetime)
+    _sub(grp, ns, "NbOfTxs", str(gh.number_of_txs))
+    if gh.control_sum is not None:
+        _sub(grp, ns, "CtrlSum", str(gh.control_sum))
+    if is_pacs:
+        sttlm = _sub(grp, ns, "SttlmInf")
+        _sub(sttlm, ns, "SttlmMtd", gh.settlement_method or "CLRG")
+    elif gh.initiating_party is not None:
+        _build_party(grp, ns, "InitgPty", gh.initiating_party)
+
+
+def _build_party(parent: ET.Element, ns: str, tag: str, party: Party) -> None:
+    el = _sub(parent, ns, tag)
+    _sub(el, ns, "Nm", party.name)
+    if party.postal_address is not None:
+        adr = _sub(el, ns, "PstlAdr")
+        if party.postal_address.country:
+            _sub(adr, ns, "Ctry", party.postal_address.country)
+        for line in party.postal_address.address_lines:
+            _sub(adr, ns, "AdrLine", line)
+    if party.identifier is not None:
+        idn = _sub(el, ns, "Id")
+        org = _sub(idn, ns, "OrgId")
+        oth = _sub(org, ns, "Othr")
+        _sub(oth, ns, "Id", party.identifier)
+
+
+def _build_account(parent: ET.Element, ns: str, tag: str, acct: Account) -> None:
+    el = _sub(parent, ns, tag)
+    idn = _sub(el, ns, "Id")
+    if acct.iban:
+        _sub(idn, ns, "IBAN", validate_iban(acct.iban))
+    else:
+        oth = _sub(idn, ns, "Othr")
+        _sub(oth, ns, "Id", acct.other_id or "")
+    if acct.currency:
+        _sub(el, ns, "Ccy", validate_currency(acct.currency, require_active=False))
+
+
+def _build_agent(parent: ET.Element, ns: str, tag: str, agent: Agent) -> None:
+    el = _sub(parent, ns, tag)
+    fin = _sub(el, ns, "FinInstnId")
+    if agent.bicfi:
+        _sub(fin, ns, "BICFI", validate_bic(agent.bicfi))
+    if agent.name:
+        _sub(fin, ns, "Nm", agent.name)
+    if agent.clearing_member_id:
+        clr = _sub(fin, ns, "ClrSysMmbId")
+        _sub(clr, ns, "MmbId", agent.clearing_member_id)
+
+
+def _build_remittance(parent: ET.Element, ns: str, rmt: RemittanceInfo) -> None:
+    el = _sub(parent, ns, "RmtInf")
+    for line in rmt.unstructured:
+        _sub(el, ns, "Ustrd", line)
+
+
+# --------------------------------------------------------------------------
+# shared component parsers
+# --------------------------------------------------------------------------
+
+
+def _parse_amount(el: Optional[ET.Element]) -> Optional[Amount]:
+    if el is None or el.text is None:
+        return None
+    ccy = el.get("Ccy")
+    if not ccy:
+        raise Iso20022CodecError("amount element missing Ccy attribute")
+    return Amount(value=Decimal(el.text), currency=validate_currency(ccy, require_active=False))
+
+
+def _parse_party(el: Optional[ET.Element], ns: str) -> Optional[Party]:
+    if el is None:
+        return None
+    name = _text(el, ns, "Nm") or ""
+    country = _text(el, ns, "PstlAdr/Ctry")
+    adr_el = _find(el, ns, "PstlAdr")
+    lines = tuple(
+        l.text for l in (_findall(adr_el, ns, "AdrLine") if adr_el is not None else []) if l.text
+    )
+    postal = PostalAddress(country=country, address_lines=lines) if (country or lines) else None
+    identifier = _text(el, ns, "Id/OrgId/Othr/Id")
+    return Party(name=name, postal_address=postal, identifier=identifier)
+
+
+def _parse_account(el: Optional[ET.Element], ns: str) -> Optional[Account]:
+    if el is None:
+        return None
+    iban = _text(el, ns, "Id/IBAN")
+    other = _text(el, ns, "Id/Othr/Id")
+    ccy = _text(el, ns, "Ccy")
+    return Account(iban=iban, other_id=other, currency=ccy)
+
+
+def _parse_agent(el: Optional[ET.Element], ns: str) -> Optional[Agent]:
+    if el is None:
+        return None
+    return Agent(
+        bicfi=_text(el, ns, "FinInstnId/BICFI"),
+        name=_text(el, ns, "FinInstnId/Nm"),
+        clearing_member_id=_text(el, ns, "FinInstnId/ClrSysMmbId/MmbId"),
+    )
+
+
+def _parse_remittance(el: Optional[ET.Element], ns: str) -> Optional[RemittanceInfo]:
+    if el is None:
+        return None
+    return RemittanceInfo(
+        unstructured=tuple(u.text for u in _findall(el, ns, "Ustrd") if u.text)
+    )
+
+
+def _parse_group_header(parent: ET.Element, ns: str) -> GroupHeader:
+    grp = _find(parent, ns, "GrpHdr")
+    if grp is None:
+        raise Iso20022CodecError("missing GrpHdr")
+    ctrl = _text(grp, ns, "CtrlSum")
+    sttlm = _text(grp, ns, "SttlmInf/SttlmMtd")
+    return GroupHeader(
+        message_id=_text(grp, ns, "MsgId") or "",
+        creation_datetime=_text(grp, ns, "CreDtTm") or "",
+        number_of_txs=int(_text(grp, ns, "NbOfTxs") or "0"),
+        control_sum=Decimal(ctrl) if ctrl else None,
+        initiating_party=_parse_party(_find(grp, ns, "InitgPty"), ns),
+        settlement_method=sttlm,  # type: ignore[arg-type]
+    )
+
+
+def _root_or_raise(xml: str, ns: str, container_tag: str) -> ET.Element:
+    try:
+        doc = ET.fromstring(xml)
+    except ET.ParseError as exc:
+        raise Iso20022CodecError(f"not well-formed XML: {exc}") from exc
+    container = doc.find(_q(ns, container_tag))
+    if container is None:
+        raise Iso20022CodecError(f"missing {container_tag} (wrong namespace/version?)")
+    return container
+
+
+# --------------------------------------------------------------------------
+# pain.001 — CustomerCreditTransferInitiation
+# --------------------------------------------------------------------------
+
+
+def build_pain001(msg: CustomerCreditTransferInitiation, version: Optional[str] = None) -> str:
+    msgdef = version or DEFAULT_VERSIONS["pain.001"]
+    ns = urn_for(msgdef)
+    doc, root = _root(ns, "CstmrCdtTrfInitn")
+    _build_group_header(root, ns, msg.group_header, is_pacs=False)
+    for pmt in msg.payments:
+        pinf = _sub(root, ns, "PmtInf")
+        _sub(pinf, ns, "PmtInfId", pmt.payment_info_id)
+        _sub(pinf, ns, "PmtMtd", pmt.payment_method)
+        _sub(pinf, ns, "ReqdExctnDt", pmt.requested_execution_date)
+        _build_party(pinf, ns, "Dbtr", pmt.debtor)
+        _build_account(pinf, ns, "DbtrAcct", pmt.debtor_account)
+        _build_agent(pinf, ns, "DbtrAgt", pmt.debtor_agent)
+        for tx in pmt.transactions:
+            cdt = _sub(pinf, ns, "CdtTrfTxInf")
+            pid = _sub(cdt, ns, "PmtId")
+            if tx.instruction_id:
+                _sub(pid, ns, "InstrId", tx.instruction_id)
+            _sub(pid, ns, "EndToEndId", tx.end_to_end_id)
+            if tx.uetr:
+                _sub(pid, ns, "UETR", tx.uetr)
+            if tx.instructed_amount is None:
+                raise Iso20022CodecError("pain.001 CdtTrfTxInf requires InstdAmt")
+            amt = _sub(cdt, ns, "Amt")
+            instd = _sub(amt, ns, "InstdAmt", _fmt_amount(tx.instructed_amount))
+            instd.set("Ccy", validate_currency(tx.instructed_amount.currency, require_active=False))
+            if tx.creditor_agent:
+                _build_agent(cdt, ns, "CdtrAgt", tx.creditor_agent)
+            if tx.creditor:
+                _build_party(cdt, ns, "Cdtr", tx.creditor)
+            if tx.creditor_account:
+                _build_account(cdt, ns, "CdtrAcct", tx.creditor_account)
+            if tx.remittance_info:
+                _build_remittance(cdt, ns, tx.remittance_info)
+    return _serialize(doc)
+
+
+def parse_pain001(xml: str, version: Optional[str] = None) -> CustomerCreditTransferInitiation:
+    ns = urn_for(version or DEFAULT_VERSIONS["pain.001"])
+    root = _root_or_raise(xml, ns, "CstmrCdtTrfInitn")
+    gh = _parse_group_header(root, ns)
+    payments = []
+    for pinf in _findall(root, ns, "PmtInf"):
+        txs = []
+        for cdt in _findall(pinf, ns, "CdtTrfTxInf"):
+            pid = _find(cdt, ns, "PmtId")
+            txs.append(
+                CreditTransferTransaction(
+                    end_to_end_id=_text(pid, ns, "EndToEndId") or "",
+                    instruction_id=_text(pid, ns, "InstrId"),
+                    uetr=_text(pid, ns, "UETR"),
+                    instructed_amount=_parse_amount(_find(cdt, ns, "Amt/InstdAmt")),
+                    creditor_agent=_parse_agent(_find(cdt, ns, "CdtrAgt"), ns),
+                    creditor=_parse_party(_find(cdt, ns, "Cdtr"), ns),
+                    creditor_account=_parse_account(_find(cdt, ns, "CdtrAcct"), ns),
+                    remittance_info=_parse_remittance(_find(cdt, ns, "RmtInf"), ns),
+                )
+            )
+        debtor = _parse_party(_find(pinf, ns, "Dbtr"), ns)
+        debtor_acct = _parse_account(_find(pinf, ns, "DbtrAcct"), ns)
+        debtor_agt = _parse_agent(_find(pinf, ns, "DbtrAgt"), ns)
+        if debtor is None or debtor_acct is None or debtor_agt is None:
+            raise Iso20022CodecError("pain.001 PmtInf missing Dbtr/DbtrAcct/DbtrAgt")
+        payments.append(
+            PaymentInstruction(
+                payment_info_id=_text(pinf, ns, "PmtInfId") or "",
+                requested_execution_date=_text(pinf, ns, "ReqdExctnDt") or "",
+                debtor=debtor,
+                debtor_account=debtor_acct,
+                debtor_agent=debtor_agt,
+                transactions=tuple(txs),
+            )
+        )
+    return CustomerCreditTransferInitiation(group_header=gh, payments=tuple(payments))
+
+
+# --------------------------------------------------------------------------
+# pacs.008 — FIToFICustomerCreditTransfer
+# --------------------------------------------------------------------------
+
+
+def build_pacs008(msg: FIToFICustomerCreditTransfer, version: Optional[str] = None) -> str:
+    ns = urn_for(version or DEFAULT_VERSIONS["pacs.008"])
+    doc, root = _root(ns, "FIToFICstmrCdtTrf")
+    _build_group_header(root, ns, msg.group_header, is_pacs=True)
+    for tx in msg.transactions:
+        cdt = _sub(root, ns, "CdtTrfTxInf")
+        pid = _sub(cdt, ns, "PmtId")
+        if tx.instruction_id:
+            _sub(pid, ns, "InstrId", tx.instruction_id)
+        _sub(pid, ns, "EndToEndId", tx.end_to_end_id)
+        if tx.tx_id:
+            _sub(pid, ns, "TxId", tx.tx_id)
+        if tx.uetr:
+            _sub(pid, ns, "UETR", tx.uetr)
+        if tx.interbank_amount is None:
+            raise Iso20022CodecError("pacs.008 CdtTrfTxInf requires IntrBkSttlmAmt")
+        amt = _sub(cdt, ns, "IntrBkSttlmAmt", _fmt_amount(tx.interbank_amount))
+        amt.set("Ccy", validate_currency(tx.interbank_amount.currency, require_active=False))
+        if tx.interbank_settlement_date:
+            _sub(cdt, ns, "IntrBkSttlmDt", tx.interbank_settlement_date)
+        if tx.charge_bearer:
+            _sub(cdt, ns, "ChrgBr", tx.charge_bearer)
+        if tx.debtor:
+            _build_party(cdt, ns, "Dbtr", tx.debtor)
+        if tx.debtor_account:
+            _build_account(cdt, ns, "DbtrAcct", tx.debtor_account)
+        if tx.debtor_agent:
+            _build_agent(cdt, ns, "DbtrAgt", tx.debtor_agent)
+        if tx.creditor_agent:
+            _build_agent(cdt, ns, "CdtrAgt", tx.creditor_agent)
+        if tx.creditor:
+            _build_party(cdt, ns, "Cdtr", tx.creditor)
+        if tx.creditor_account:
+            _build_account(cdt, ns, "CdtrAcct", tx.creditor_account)
+        if tx.remittance_info:
+            _build_remittance(cdt, ns, tx.remittance_info)
+    return _serialize(doc)
+
+
+def parse_pacs008(xml: str, version: Optional[str] = None) -> FIToFICustomerCreditTransfer:
+    ns = urn_for(version or DEFAULT_VERSIONS["pacs.008"])
+    root = _root_or_raise(xml, ns, "FIToFICstmrCdtTrf")
+    gh = _parse_group_header(root, ns)
+    txs = []
+    for cdt in _findall(root, ns, "CdtTrfTxInf"):
+        pid = _find(cdt, ns, "PmtId")
+        txs.append(
+            CreditTransferTransaction(
+                end_to_end_id=_text(pid, ns, "EndToEndId") or "",
+                instruction_id=_text(pid, ns, "InstrId"),
+                tx_id=_text(pid, ns, "TxId"),
+                uetr=_text(pid, ns, "UETR"),
+                interbank_amount=_parse_amount(_find(cdt, ns, "IntrBkSttlmAmt")),
+                interbank_settlement_date=_text(cdt, ns, "IntrBkSttlmDt"),
+                charge_bearer=_text(cdt, ns, "ChrgBr"),  # type: ignore[arg-type]
+                debtor=_parse_party(_find(cdt, ns, "Dbtr"), ns),
+                debtor_account=_parse_account(_find(cdt, ns, "DbtrAcct"), ns),
+                debtor_agent=_parse_agent(_find(cdt, ns, "DbtrAgt"), ns),
+                creditor_agent=_parse_agent(_find(cdt, ns, "CdtrAgt"), ns),
+                creditor=_parse_party(_find(cdt, ns, "Cdtr"), ns),
+                creditor_account=_parse_account(_find(cdt, ns, "CdtrAcct"), ns),
+                remittance_info=_parse_remittance(_find(cdt, ns, "RmtInf"), ns),
+            )
+        )
+    return FIToFICustomerCreditTransfer(group_header=gh, transactions=tuple(txs))
+
+
+# --------------------------------------------------------------------------
+# pacs.002 — FIToFIPaymentStatusReport
+# --------------------------------------------------------------------------
+
+
+def build_pacs002(msg: FIToFIPaymentStatusReport, version: Optional[str] = None) -> str:
+    ns = urn_for(version or DEFAULT_VERSIONS["pacs.002"])
+    doc, root = _root(ns, "FIToFIPmtStsRpt")
+    grp = _sub(root, ns, "GrpHdr")
+    _sub(grp, ns, "MsgId", msg.group_header.message_id)
+    _sub(grp, ns, "CreDtTm", msg.group_header.creation_datetime)
+    orig = _sub(root, ns, "OrgnlGrpInfAndSts")
+    _sub(orig, ns, "OrgnlMsgId", msg.original_message_id)
+    _sub(orig, ns, "OrgnlMsgNmId", msg.original_message_name_id)
+    for sts in msg.statuses:
+        ts = _sub(root, ns, "TxInfAndSts")
+        _sub(ts, ns, "StsId", sts.status_id)
+        if sts.original_end_to_end_id:
+            _sub(ts, ns, "OrgnlEndToEndId", sts.original_end_to_end_id)
+        if sts.original_tx_id:
+            _sub(ts, ns, "OrgnlTxId", sts.original_tx_id)
+        if sts.original_uetr:
+            _sub(ts, ns, "OrgnlUETR", sts.original_uetr)
+        _sub(ts, ns, "TxSts", sts.transaction_status)
+        if sts.status_reason_code or sts.additional_info:
+            rsn = _sub(ts, ns, "StsRsnInf")
+            if sts.status_reason_code:
+                rcd = _sub(rsn, ns, "Rsn")
+                _sub(rcd, ns, "Cd", sts.status_reason_code)
+            for info in sts.additional_info:
+                _sub(rsn, ns, "AddtlInf", info)
+    return _serialize(doc)
+
+
+def parse_pacs002(xml: str, version: Optional[str] = None) -> FIToFIPaymentStatusReport:
+    ns = urn_for(version or DEFAULT_VERSIONS["pacs.002"])
+    root = _root_or_raise(xml, ns, "FIToFIPmtStsRpt")
+    grp = _find(root, ns, "GrpHdr")
+    gh = GroupHeader(
+        message_id=_text(grp, ns, "MsgId") or "",
+        creation_datetime=_text(grp, ns, "CreDtTm") or "",
+        number_of_txs=0,
+    )
+    statuses = []
+    for ts in _findall(root, ns, "TxInfAndSts"):
+        rsn = _find(ts, ns, "StsRsnInf")
+        statuses.append(
+            TransactionStatus(
+                status_id=_text(ts, ns, "StsId") or "",
+                original_end_to_end_id=_text(ts, ns, "OrgnlEndToEndId"),
+                original_tx_id=_text(ts, ns, "OrgnlTxId"),
+                original_uetr=_text(ts, ns, "OrgnlUETR"),
+                transaction_status=_text(ts, ns, "TxSts") or "ACSP",  # type: ignore[arg-type]
+                status_reason_code=_text(ts, ns, "StsRsnInf/Rsn/Cd"),
+                additional_info=tuple(
+                    a.text for a in (_findall(rsn, ns, "AddtlInf") if rsn is not None else []) if a.text
+                ),
+            )
+        )
+    return FIToFIPaymentStatusReport(
+        group_header=gh,
+        original_message_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgId") or "",
+        original_message_name_id=_text(root, ns, "OrgnlGrpInfAndSts/OrgnlMsgNmId") or "",
+        statuses=tuple(statuses),
+    )
