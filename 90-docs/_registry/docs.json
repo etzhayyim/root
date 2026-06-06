@@ -20963,7 +20963,7 @@
       "path": "90-docs/adr/2606052100-ake-community-edit-membrane-wikipedia-stance-r0.md",
       "id": "adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0",
       "title": "ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "ake-community-edit-membrane",
       "authoritative": true,
@@ -20984,7 +20984,7 @@
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
-      "last_verified": "2026-06-05",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
@@ -21080,6 +21080,36 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606061200-gov-legal-procedure-coverage-maturity-expansion.md",
+      "id": "adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
+      "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "gov-legal-procedure-coverage-maturity-expansion",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/toritsugi/registry/procedures.seed.json",
+        "20-actors/chigiri/registry/legal-aid.seed.json",
+        "20-actors/ooyake/registry/gov-units.intl-procedures.seed.edn",
+        "20-actors/ooyake/scripts/gen_intl_procedures.py",
+        "70-tools/scripts/coverage/gen_gov_legal_coverage.py"
+      ],
+      "related": [
+        "2605302357",
+        "2606052300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605312030",
+        "2606021600"
+      ],
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },

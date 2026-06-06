@@ -13460,7 +13460,7 @@
       "id": "doc:adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0",
       "type": "TechArticle",
       "title": "ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "ake-community-edit-membrane",
       "authoritative": true,
       "authoritativeFor": [
@@ -13471,7 +13471,7 @@
         "doc:adr-2605291500-tsukuroi-authorized-vuln-remediation-patch-proposer",
         "doc:adr-2605301600-danjo-public-accountability-oversight"
       ],
-      "lastVerified": "2026-06-05"
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2606052300-fuchi-maintainer-sustenance-allocator-r0",
@@ -13528,6 +13528,26 @@
         "doc:adr-2605262700-chigiri-legal-procedure-substrate"
       ],
       "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
+      "type": "TechArticle",
+      "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",
+      "status": "accepted",
+      "topic": "gov-legal-procedure-coverage-maturity-expansion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/toritsugi/registry/procedures.seed.json",
+        "20-actors/chigiri/registry/legal-aid.seed.json",
+        "20-actors/ooyake/registry/gov-units.intl-procedures.seed.edn",
+        "20-actors/ooyake/scripts/gen_intl_procedures.py",
+        "70-tools/scripts/coverage/gen_gov_legal_coverage.py"
+      ],
+      "related": [
+        "doc:2605302357",
+        "doc:2606052300"
+      ],
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
