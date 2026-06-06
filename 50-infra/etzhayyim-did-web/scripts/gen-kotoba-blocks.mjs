@@ -16,7 +16,7 @@
  * Run after the wasm is (re)built with exportBlocks (build-kotoba-wasm.sh):
  *   node scripts/gen-kotoba-blocks.mjs
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
@@ -71,8 +71,12 @@ if (applied !== seed.length || posts === 0) {
   process.exit(1);
 }
 
-// Publish: clean blocks dir, write each block as a content-addressed file.
-if (existsSync(blocksDir)) rmSync(blocksDir, { recursive: true });
+// Publish: write each block as a content-addressed file. DO NOT wipe the blocks
+// dir — it is SHARED across graphs (actors-v1 lives here too); a recursive rm
+// would delete another graph's live blocks (it did, until this was fixed).
+// Blocks are content-addressed, so writes are idempotent and graphs coexist by
+// CID; a superseded yoro-social-v1 block simply becomes an unreferenced orphan
+// (harmless — never served because no root points at it).
 mkdirSync(blocksDir, { recursive: true });
 for (const b of blocks) writeFileSync(resolve(blocksDir, b.cid), hexToBytes(b.hex));
 const manifest = {

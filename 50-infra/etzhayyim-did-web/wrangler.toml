@@ -95,17 +95,19 @@ XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
 # → the kotoba node via its cloudflared tunnel. Read-only; CACAO passes through.
 XRPC_KOTOBA_UPSTREAM = "https://kotoba.etzhayyim.com"
 
-# Durable Object — single-threaded authoritative head for member-signed kotoba
-# publishing, giving TRUE atomic check-and-set on the published root (KV
-# read-then-write only narrows the race; the DO eliminates it). One instance per
-# graph (idFromName(graph)).
-[[durable_objects.bindings]]
-name = "KOTOBA_ROOT"
-class_name = "KotobaRoot"
-
+# Durable Objects are NOT used (browser-complete kotoba + IPFS + WASM design; no
+# operated server-state primitive — ADR-2605262130 / 2605312345). The
+# member-signed publish path advances the root under KV check-and-set. The v1
+# migration briefly created a KotobaRoot DO; v2 deletes it so the class + its
+# instances are removed from the deployed Worker (Cloudflare requires a delete
+# migration to drop a previously-created DO class).
 [[migrations]]
 tag = "v1"
 new_classes = ["KotobaRoot"]
+
+[[migrations]]
+tag = "v2"
+deleted_classes = ["KotobaRoot"]
 
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]
