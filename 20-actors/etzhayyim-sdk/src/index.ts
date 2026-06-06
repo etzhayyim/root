@@ -624,7 +624,7 @@ export * as crypto from "./crypto.js";
 export * as signal from "./signal.js";
 export * as didSignal from "./did-signal.js";
 export * as atproto from "./atproto.js";
-export * as kotoba-datomic from "./kotoba-datomic/index.js";
+export * as kotobaDatomic from "./kotoba-datomic/index.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
 export {
   ETZHAYYIM_PRIVATE_CHAIN_ID,
