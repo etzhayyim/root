@@ -107,6 +107,7 @@ cd methods && python3 ingest.py      # offline normalize (──live refuses wit
 ## Do not
 
 - Do not add `:private-person`/`:individual` to node scopes, or a `:node/power-score` — G1/G4.
+- Do not add a personal-contact/sensitive field to a node (`:node/email`/`address`/`dob`/`mynumber`/`face`/…) — G9/G1 no-doxxing (`validate_node` raises; PII lives encrypted off-graph).
 - Do not add a verdict kind (`:corruption`/`:bribe`/`:collusion`/…) to rel/money kinds — G2.
 - Do not accept an under-sourced (<2) relation or money flow — G3.
 - Do not let a post be `:published` or `serverHeldKey:true` — G7/G8.

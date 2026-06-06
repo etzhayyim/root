@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **110 tests** across weave (26) / social (7) / ingest (9) / bridge (10) / charter-invariants (27) / analyze (8) / lexicons (5) / consistency (6) / cells (12).
+- **Tests**: `./run_tests.sh` green — **115 tests** across weave (30) / social (7) / ingest (9) / bridge (10) / charter-invariants (28) / analyze (8) / lexicons (5) / consistency (6) / cells (12).
+- **G9/G1 no-doxxing guard** (`PII_FORBIDDEN_NODE_ATTRS` + `validate_node`): a public-seat node carrying a personal-contact/sensitive field (email/phone/address/dob/mynumber/passport/face/health/…) is REFUSED in code — enforced across seed + ingest. Any such datum lives encrypted off-graph (ADR-2605181100).
 - **G10 as-of time-travel** (`active_as_of`): the append-only graph is queryable at any timestamp — a query at an earlier ts sees fewer datoms; nothing is overwritten (非終末論). Monotonic, verified.
 - **Cross-organ connector seats** (`connector_seats`): a seat bridging committees from >1 convening organ, derived on read from `:committee-membership` edges + each committee's organ (edge-primary, G4).
 - **Cross-actor bridge** (`bridge.py`): maps danjo crossReferenceLink → keizu `:rel` + kanae fundFlowEdge → keizu `:money`, re-asserting keizu's OWN G2/G3 gates at the import boundary (a verdict category or an under-sourced record is REFUSED — a sibling cannot smuggle a charter violation into keizu). The charter-invariant suite parses all THREE homes of each structural gate (ontology `:db/allowed`/closed-vocab + lexicon `:const`/`:enum` + seed values) and asserts they agree, AND drift-locks lexicon enum ⊆/⊇ ontology closed vocab **both directions** (rel-kinds, money-kinds, sourcing-grades, post-status).

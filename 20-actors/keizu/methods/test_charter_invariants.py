@@ -138,6 +138,15 @@ def test_seed_nodes_public_scope():
         assert ":node/power-score" not in n
 
 
+def test_seed_nodes_carry_no_pii():
+    from weave import PII_FORBIDDEN_NODE_ATTRS
+    assert PII_FORBIDDEN_NODE_ATTRS  # the closed no-doxxing set exists
+    seed = load_edn(SEED)
+    for n in seed[":nodes"]:
+        for key in n:
+            assert key.lstrip(":").split("/")[-1].lower() not in PII_FORBIDDEN_NODE_ATTRS, key
+
+
 def test_seed_rels_two_sources_and_factual():
     seed = load_edn(SEED)
     kinds = {k.lstrip(":") for k in _ont()[":ontology/rel-kinds"]}

@@ -34,6 +34,30 @@ def test_g4_power_score_rejected():
                   contains="G4")
 
 
+def test_g9_no_doxxing_email_rejected():
+    expect_raises(lambda: validate_node({":node/id": "x", ":node/scope": ":public-role",
+                                         ":node/email": "a@b.jp", ":node/sourcing": ":representative"}),
+                  contains="no-doxxing")
+
+
+def test_g9_no_doxxing_home_address_rejected():
+    expect_raises(lambda: validate_node({":node/id": "x", ":node/scope": ":public-role",
+                                         ":node/address": "1-2-3", ":node/sourcing": ":representative"}),
+                  contains="no-doxxing")
+
+
+def test_g9_no_doxxing_mynumber_rejected():
+    expect_raises(lambda: validate_node({":node/id": "x", ":node/scope": ":public-role",
+                                         ":node/mynumber": "999", ":node/sourcing": ":representative"}),
+                  contains="no-doxxing")
+
+
+def test_public_organ_node_still_valid():
+    # a normal public-seat node (label/jurisdiction/organ) must NOT trip the PII guard
+    validate_node({":node/id": "x", ":node/scope": ":public-role", ":node/label": "会長 (seat)",
+                   ":node/jurisdiction": "jp", ":node/organ": "財務省", ":node/sourcing": ":representative"})
+
+
 def test_g2_verdict_rel_kind_rejected():
     bad = {":rel/id": "r", ":rel/source": "a", ":rel/target": "b", ":rel/kind": ":corruption",
            ":rel/non-adjudicating-notice": True, ":rel/sourcing": ":representative",

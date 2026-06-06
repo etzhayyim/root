@@ -37,6 +37,15 @@ SOURCING = ("representative", "authoritative")
 VERDICT_TOKENS = ("corruption", "bribe", "kickback", "collusion", "guilt", "crime",
                   "fraud", "illegal", "slush", "不正", "違法", "汚職", "賄賂")
 
+# G9 / G1 no-doxxing — a node is a PUBLIC seat/organ, so a personal-contact or sensitive-PII
+# field on it is unrepresentable (any such datum lives encrypted off-graph, ADR-2605181100).
+PII_FORBIDDEN_NODE_ATTRS = frozenset({
+    "email", "phone", "tel", "mobile", "fax", "address", "home", "residence",
+    "dob", "birthdate", "birthday", "ssn", "mynumber", "my-number", "passport",
+    "personal-name", "private-name", "face", "photo", "headshot", "gender",
+    "religion", "ethnicity", "health", "private",
+})
+
 
 def _kw(v: Any) -> str:
     """Normalize an edn keyword/string to a bare lowercase token (':rel/kind' → 'kind')."""
@@ -54,6 +63,12 @@ def validate_node(n: dict) -> None:
         )
     if "power-score" in n or ":node/power-score" in n or ":node/influence" in n or ":node/rank" in n:
         raise ValueError("G4: a per-node power/influence/rank score is unrepresentable (edge-primary)")
+    for key in n:
+        if _kw(key) in PII_FORBIDDEN_NODE_ATTRS:
+            raise ValueError(
+                f"G9/G1 no-doxxing: node field {key!r} is personal/sensitive PII — unrepresentable "
+                f"on a public seat (any such datum lives encrypted off-graph, ADR-2605181100)"
+            )
     if _kw(n.get(":node/sourcing", "")) not in SOURCING:
         raise ValueError("G11: every node must declare :node/sourcing")
 
