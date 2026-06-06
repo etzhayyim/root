@@ -4,7 +4,7 @@
 #
 # Prerequisites:
 #   - ghcr.io/etzhayyim/maps-osm-ingest:latest pushed
-#   - maps-osm-ingest-secrets { RISINGWAVE_URL } exists in `maps` namespace
+#   - maps-osm-ingest-secrets { KOTOBA_URL } exists in `maps` namespace
 #   - Temporary osm-ingest node pool running with taint workload=osm-ingest:NoSchedule
 #     (see 50-infra/k8s/maps-osm-ingest/README.md bootstrap runbook)
 #
@@ -46,8 +46,8 @@ spec:
           effect: NoSchedule
       nodeSelector:
         workload: osm-ingest
-      # Use cluster-default DNS (Vultr VKE CoreDNS). RisingWave is reachable
-      # via in-cluster service name (risingwave.risingwave.svc.cluster.local).
+      # Use cluster-default DNS (Vultr VKE CoreDNS). Kotoba/Datomic is reachable
+      # via in-cluster service name (kotoba.kotoba.svc.cluster.local).
       dnsPolicy: ClusterFirst
       containers:
         - name: ingest
@@ -57,7 +57,7 @@ spec:
             - "--pbf-url"
             - "https://download.openstreetmap.fr/extracts/asia/japan.osm.pbf"
             - "--db"
-            - "$(RISINGWAVE_URL)"
+            - "$(KOTOBA_URL)"
             - "--source-did"
             - "did:web:maps.etzhayyim.com:jp"
             - "--batch-size"
@@ -71,11 +71,11 @@ spec:
           env:
             - name: RUST_LOG
               value: "info,maps_osm_ingest=debug,tokio_postgres=warn"
-            - name: RISINGWAVE_URL
+            - name: KOTOBA_URL
               valueFrom:
                 secretKeyRef:
                   name: maps-osm-ingest-secrets
-                  key: RISINGWAVE_URL
+                  key: KOTOBA_URL
           resources:
             requests:
               cpu: "4"

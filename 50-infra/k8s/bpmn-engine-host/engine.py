@@ -1,4 +1,4 @@
-"""SpiffWorkflow engine host — RisingWave-backed runtime.
+"""SpiffWorkflow engine host — Kotoba/Datomic-backed runtime.
 
 ADR 2605081200 (PoC Phase 1). Real implementation of the in-memory
 BPMN engine boundary up to "load XML + advance one instance one step":
@@ -217,7 +217,7 @@ class ProcessRegistry:
             nest_asyncio.apply()
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            
+
         async def fetch():
             # kotoba: limit to active matching the ID, sort descending by version
             rows = await asyncio.to_thread(self._client.select_where, "vertex_bpmn_process_def", "bpmn_process_id", bpmn_process_id, limit=100)
@@ -309,7 +309,7 @@ class SpiffEngine:
             )
             for job in ready_jobs:
                 await self._enqueue_job(job)
-        
+
         try:
             loop = asyncio.get_running_loop()
             loop.create_task(_save())
@@ -506,7 +506,7 @@ class SpiffEngine:
                     loop.create_task(_save_missing_target())
                 except RuntimeError:
                     asyncio.run(_save_missing_target())
-                
+
                 self._check_complete_visible(
                     job_id=job_id,
                     instance_id=instance_id,
@@ -540,7 +540,7 @@ class SpiffEngine:
             instance_seq = int(meta["next_seq"])
             visible_instance_seq = instance_seq
             completed_job_seq = int(job.get("_seq") or 0) + 2
-            
+
             async def _save_complete():
                 await self._persist_instance(
                     wf,
@@ -613,7 +613,7 @@ class SpiffEngine:
     ) -> dict[str, Any]:
         """Complete a just-enqueued service task before RW exposes its job row.
 
-        Inline worker dispatch can outrun RisingWave read visibility: the
+        Inline worker dispatch can outrun Kotoba/Datomic read visibility: the
         engine has returned a ready job record, but a follow-up `/complete`
         may not yet see `vertex_spiff_job(seq=0)`. The BPMN state snapshot is
         authoritative here, so synthesize the job metadata from
@@ -989,7 +989,7 @@ class SpiffEngine:
         import asyncio
         async def fetch():
             # Very basic stand-in for kotoba query: we pull a bunch of rows and find the ones that are 'running'.
-            # A full replacement would need a kotoba EDN query to do the group-by/latest logic from Postgres.
+            # A full replacement would need a kotoba EDN query to do the group-by/latest logic.
             raw_rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_instance", "status", "running", limit=safe_limit * 5)
             # Find unique instances
             seen = set()
@@ -1002,13 +1002,13 @@ class SpiffEngine:
                 if len(out) >= safe_limit:
                     break
             return out
-            
+
         try:
             loop = asyncio.get_running_loop()
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            
+
         rows = loop.run_until_complete(fetch())
         ticked = 0
         completed = 0
@@ -1074,11 +1074,11 @@ class SpiffEngine:
         completed = force_completed or self._workflow_completed(wf)
         status = "completed" if completed else "running"
         now = _now_iso()
-        
+
         raw_rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_instance", "instance_id", instance_id, limit=2000)
         raw_rows.sort(key=lambda r: int(r.get("_seq") or 0), reverse=True)
         latest = raw_rows[0] if raw_rows else None
-        
+
         if latest is not None:
             latest_seq = int(latest.get("_seq") or 0)
             latest_status = str(latest.get("status") or "")
@@ -1527,16 +1527,3 @@ class SpiffEngine:
                 "variables": dict(task.data) if task.data else (variables or {}),
             })
         return out
-
-
-# ── Pool factory ────────────────────────────────────────────────────────────
-def make_pool(dsn: str | None = None) -> ConnectionPool:
-    dsn = dsn or os.environ.get("RW_DSN")
-    if not dsn:
-        raise RuntimeError("RW_DSN required")
-    return ConnectionPool(
-        dsn,
-        min_size=1,
-        max_size=int(os.environ.get("BPMN_ENGINE_POOL_MAX", "8")),
-        kwargs={"autocommit": True, "prepare_threshold": None},
-    )

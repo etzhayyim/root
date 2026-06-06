@@ -2,7 +2,7 @@
 
 This is the **RW-free substrate replacement** for ``pymagatama.rw_async_pool`` +
 ``pymagatama.rw_sql`` (ADR-2605262130 + ADR-2605312345: kotoba Datom log is the
-first-class canonical state; no RisingWave / Postgres / Kysely). It speaks the
+first-class canonical state; no Kotoba/Datomic / Postgres / Kysely). It speaks the
 kotoba Datomic XRPC surface against a running kotoba node:
 
     POST /xrpc/com.etzhayyim.apps.kotoba.datomic.transact   {graph, tx_edn}
@@ -24,7 +24,7 @@ entity map whose attributes are namespaced by the table:
                                  column ``hired_at``   →  ``:vertex.employee/hired-at``
 
 ``vertex-id`` carries ``:db.unique/identity`` so a re-transact upserts — preserving
-the RisingWave "PK implicit overwrite" semantics the old pool relied on. Schema
+the Kotoba/Datomic "PK implicit overwrite" semantics the old pool relied on. Schema
 install (declaring the identity attributes) is a separate transact; ``ensure_schema``
 helps emit it.
 

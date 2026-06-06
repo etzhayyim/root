@@ -560,14 +560,14 @@ def actors_migrate_to_plc(
 @click.option("--topic", default="", help="filter by topic slug (e.g., government, technology)")
 @click.option("--min-pages", "min_pages", default=0, type=int, show_default=True)
 def actors_cc_coverage(fmt: str, graph: str, top: int, topic: str, min_pages: int) -> None:
-    """Common Crawl DID coverage analysis (requires RisingWave — use Go binary).
+    """Common Crawl DID coverage analysis (requires Kotoba/Datomic — use Go binary).
 
     Queries vertex_domain, vertex_page, edge_hosts_page, edge_links_to_domain
     tables directly via pgxpool. Use the Go binary for full functionality:
       etzhayyim actors cc-coverage [--format text|json] [--top N] [--topic SLUG]
     """
     raise click.ClickException(
-        "actors cc-coverage requires direct RisingWave access (pgxpool). "
+        "actors cc-coverage requires direct Kotoba/Datomic access (pgxpool). "
         "Use the Go binary: etzhayyim actors cc-coverage"
     )
 
@@ -579,8 +579,8 @@ def actors_cc_coverage(fmt: str, graph: str, top: int, topic: str, min_pages: in
 @click.option("--topic", default="")
 @click.option("--min-pages", "min_pages", default=0, type=int)
 def actors_common_crawler_coverage(fmt: str, graph: str, top: int, topic: str, min_pages: int) -> None:
-    """Alias for cc-coverage (requires RisingWave — use Go binary)."""
+    """Alias for cc-coverage (requires Kotoba/Datomic — use Go binary)."""
     raise click.ClickException(
-        "actors common-crawler-coverage requires direct RisingWave access (pgxpool). "
+        "actors common-crawler-coverage requires direct Kotoba/Datomic access (pgxpool). "
         "Use the Go binary: etzhayyim actors common-crawler-coverage"
     )

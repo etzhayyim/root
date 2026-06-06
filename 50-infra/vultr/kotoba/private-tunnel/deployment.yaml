@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudflared-risingwave-private
-  namespace: risingwave
+  name: cloudflared-kotoba-private
+  namespace: kotoba
   labels:
     app.kubernetes.io/name: cloudflared
-    app.kubernetes.io/instance: cloudflared-risingwave-private
+    app.kubernetes.io/instance: cloudflared-kotoba-private
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/instance: cloudflared-risingwave-private
+      app.kubernetes.io/instance: cloudflared-kotoba-private
   template:
     metadata:
       labels:
         app.kubernetes.io/name: cloudflared
-        app.kubernetes.io/instance: cloudflared-risingwave-private
+        app.kubernetes.io/instance: cloudflared-kotoba-private
     spec:
       containers:
         - name: cloudflared
@@ -47,7 +47,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: cloudflared-risingwave-private-config
+            name: cloudflared-kotoba-private-config
         - name: creds
           secret:
-            secretName: cloudflared-risingwave-private-credentials
+            secretName: cloudflared-kotoba-private-credentials

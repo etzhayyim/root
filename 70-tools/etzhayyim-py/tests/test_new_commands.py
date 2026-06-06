@@ -2509,7 +2509,7 @@ def test_deps_mv_text_output():
 
 
 def test_deps_mv_apply_exits_nonzero():
-    """deps mv --apply exits nonzero (requires live RisingWave connection)."""
+    """deps mv --apply exits nonzero (requires live Kotoba/Datomic connection)."""
     runner = CliRunner()
     result = runner.invoke(main, ["deps", "mv", "--apply"])
     assert result.exit_code != 0
@@ -3169,7 +3169,7 @@ def test_bonsai_canopy_is_go_only():
     result = runner.invoke(main, ["bonsai", "canopy"])
     assert result.exit_code != 0
     assert "Go binary" in result.output or "etzhayyimdb" in result.output.lower() or \
-           "risingwave" in result.output.lower()
+           "kotoba" in result.output.lower()
 
 
 def test_bonsai_growth_is_go_only():

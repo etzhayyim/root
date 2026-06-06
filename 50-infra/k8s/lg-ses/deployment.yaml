@@ -58,7 +58,7 @@ spec:
             - --access-log
             - pymagatama.ses.server:app
           env:
-            # RisingWave PG :4566 — vertex_ses_* writes + vertex_m365_sync_state cursor.
+            # Kotoba/Datomic PG :4566 — vertex_ses_* writes + vertex_m365_sync_state cursor.
             - name: RW_URL
               valueFrom:
                 secretKeyRef:

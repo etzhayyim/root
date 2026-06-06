@@ -69,7 +69,7 @@ spec:
             - pymagatama.langgraph_server_app:app
           env:
             # Substrate marker — kotoba-datomic composition per ADR-2605231400.
-            # No RisingWave / Postgres / Hyperdrive secrets are referenced from
+            # No Kotoba/Datomic / Postgres / Hyperdrive secrets are referenced from
             # this Pod (RW-free per ADR-2605172000, decontaminated by
             # ADR-2605232100). The legacy `mitama-udf-pool-rw` secretRef was
             # removed in the same change.
@@ -141,7 +141,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             # /healthz returns graph registry counts only (db_loaded / static_filled)
-            # and never touches RisingWave. The unispsc XRPC façade serves
+            # and never touches Kotoba/Datomic. The unispsc XRPC façade serves
             # listAgents / invokeAgent / classify from the in-memory _GRAPH_REGISTRY,
             # so registry-ready is the correct readiness signal.
             #

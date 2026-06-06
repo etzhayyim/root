@@ -15,8 +15,8 @@ Operational runbook for the K8s pod replacement of the PDS CF Worker (`etzhayyim
 
 - `createKyselyDb` was unconditionally throwing in the SDK (ADR-2605111200). Fixed with `isCFWorker()` guard (`caches && WorkerGlobalScope`) so Bun/Node pods work (ADR-2605111300). CF Workers still throw.
 - `ghcr-pull` imagePullSecret must be created in `atproto` namespace from current docker credentials.
-- RisingWave service is `risingwave.risingwave.svc.cluster.local:4566` (NOT `risingwave-frontend`). User=`root`, no password.
-- Metastore credentials (`risingwave` user, `wXIqw7pXSUxBmsD9Lx3TtGVP5yqPO6Qm`) are for the metastore PostgreSQL, not the RW data plane.
+- Kotoba/Datomic service is `kotoba.kotoba.svc.cluster.local:4566` (NOT `kotoba-frontend`). User=`root`, no password.
+- Metastore credentials (`kotoba` user, `wXIqw7pXSUxBmsD9Lx3TtGVP5yqPO6Qm`) are for the metastore PostgreSQL, not the RW data plane.
 - CF Tunnel public hostname (`atproto-canary.etzhayyim.com`) is shadowed by PDS Worker's wildcard route — direct access via port-forward works. P3 must modify CF Worker routes or add canary-specific route.
 
 ## Build (Phase P1)
@@ -37,7 +37,7 @@ and finish in ~2-3 min.
 ```bash
 50-infra/k8s/atproto-pds/build.sh canary --load
 docker run --rm -p 8787:8787 \
-  -e RISINGWAVE_URL=postgres://root@host.docker.internal:14566/dev?sslmode=disable \
+  -e KOTOBA_URL=postgres://root@host.docker.internal:14566/dev?sslmode=disable \
   -e PLC_DIRECTORY_URL=https://plc.etzhayyim.com \
   -e AUTH_SERVICE_URL=https://auth.etzhayyim.com \
   -e APPVIEW_SERVICE_URL=https://bsky.etzhayyim.com \
@@ -68,7 +68,7 @@ kubectl -n atproto apply -f 50-infra/k8s/atproto-pds/secrets-template.yaml
 # Then edit each Secret to inject real values from Vault (CF Secrets Store → Vault mirror).
 ```
 
-Required keys: `RISINGWAVE_URL`, `B2_KEY_ID`, `B2_APPLICATION_KEY`, `SS_REPO_SIGNING_KEK`, `SS_SIGNING_KEY`, tunnel `token`.
+Required keys: `KOTOBA_URL`, `B2_KEY_ID`, `B2_APPLICATION_KEY`, `SS_REPO_SIGNING_KEK`, `SS_SIGNING_KEY`, tunnel `token`.
 
 ## Deploy (Phase P1)
 
@@ -111,7 +111,7 @@ Monitor:
 
 - `atproto.etzhayyim.com` 5xx rate (CF Analytics)
 - `atproto-pds` pod 5xx (Prometheus, k8s ServiceMonitor)
-- RisingWave write rate (no spikes / no stalls)
+- Kotoba/Datomic write rate (no spikes / no stalls)
 - AT Protocol firehose lag (commit replication, separate dashboard)
 
 Rollback at any point: revert traffic weights to CF Worker.

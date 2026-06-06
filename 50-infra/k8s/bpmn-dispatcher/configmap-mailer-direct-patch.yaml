@@ -16,7 +16,7 @@ data:
     \                  for local rollback. LB exposure at this mode\n            \
     \             is a security risk \u2014 see ADR 2604231432\n                 \
     \        security posture.\n    strict              \u2014 require header `x-internal-trust:\n\
-    \                         <DISPATCHER_INTERNAL_SECRET>` on every\n           \
+    \                         <DISPATCHER_INTERNAL_SECRET>` on every\n           \ # no-server-key: read-only
     \              `/xrpc/*` call. PDS pipethrough adds this\n                   \
     \      header (dispatch.ts); direct callers must\n                         supply\
     \ it too. Unmatched/absent \u2192 401.\n\n`/health` is always open. `/bindings`\
@@ -25,7 +25,7 @@ data:
     \               default 8080\n    AGENTGATEWAY_MCP_URL          pod-side MCP gateway\
     \ URL\n    RW_URL                        required (binding lookup)\n    BINDING_TTL_SEC\
     \               default 30 (in-memory cache window)\n    DISPATCHER_AUTH_MODE\
-    \          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET    shared\
+    \          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET    shared\ # no-server-key: read-only
     \ secret when mode=strict\n\"\"\"\n\nfrom __future__ import annotations\n\nimport\
     \ asyncio\nimport json\nimport logging\nimport os\nimport re\nimport time\nfrom\
     \ typing import Any\n\nfrom aiohttp import web\n\nfrom pymagatama.db_sync import\
@@ -35,7 +35,7 @@ data:
     AGENTGATEWAY_MCP_URL\",\n    \"http://agentgateway-mcp.mitama-udf.svc.cluster.local:8080\"\
     ,\n)\nBINDING_TTL_SEC = int(os.environ.get(\"BINDING_TTL_SEC\", \"30\"))\n\nAUTH_MODE\
     \ = os.environ.get(\"DISPATCHER_AUTH_MODE\", \"strict\").lower()\nINTERNAL_SECRET\
-    \ = os.environ.get(\"DISPATCHER_INTERNAL_SECRET\", \"\")\nINTERNAL_TRUST_HEADER\
+    \ = os.environ.get(\"DISPATCHER_INTERNAL_SECRET\", \"\")\nINTERNAL_TRUST_HEADER\ # no-server-key: read-only
     \ = \"x-internal-trust\"\nPUBLIC_MALAK_PREFIX = \"com.etzhayyim.apps.publicMalak.\"\
     \n\n# Yatabase pod proxy (ADR-2605111200 Option A, P59 2026-05-11).\n# Cloudflared\
     \ on this VKE cannot reach the lg-yatabase pod network namespace\n# for reasons\
@@ -601,7 +601,7 @@ data:
     \ dict[str, Any],\n) -> web.Response:\n    \"\"\"Forward yatabase XRPC NSIDs to\
     \ the lg-yatabase Granian pod.\n\n    bpmn-dispatcher can reach the lg-yatabase\
     \ pod over cluster networking;\n    cloudflared currently cannot (i/o timeout\
-    \ on dial). The Worker still\n    HMAC-signs the body with DISPATCHER_INTERNAL_SECRET,\
+    \ on dial). The Worker still\n    HMAC-signs the body with DISPATCHER_INTERNAL_SECRET,\ # no-server-key: read-only
     \ which the pod's\n    `_verify_trust` also recomputes \u2014 so we forward the\
     \ x-internal-trust\n    header verbatim and the pod accepts it.\n\n    CRITICAL:\
     \ forward the original RAW body bytes, not a re-serialized\n    json.dumps(body).\
@@ -908,9 +908,9 @@ data:
     \ request.path == \"/bindings\"):\n        return await handler(request)\n   \
     \ if AUTH_MODE == \"off\":\n        return await handler(request)\n    if AUTH_MODE\
     \ == \"strict\":\n        if not INTERNAL_SECRET:\n            LOG.error(\"DISPATCHER_AUTH_MODE=strict\
-    \ but DISPATCHER_INTERNAL_SECRET empty\")\n            return web.json_response(\n\
+    \ but DISPATCHER_INTERNAL_SECRET empty\")\n            return web.json_response(\n\ # no-server-key: read-only
     \                {\"error\": \"AuthMisconfigured\",\n                 \"message\"\
-    : \"dispatcher strict mode requires DISPATCHER_INTERNAL_SECRET\"},\n         \
+    : \"dispatcher strict mode requires DISPATCHER_INTERNAL_SECRET\"},\n         \ # no-server-key: read-only
     \       status=500,\n            )\n        import hmac as _hmac\n        import\
     \ hashlib as _hashlib\n        provided = request.headers.get(INTERNAL_TRUST_HEADER,\
     \ \"\")\n        if not provided:\n            return web.json_response(\n   \
@@ -918,7 +918,7 @@ data:
     missing {INTERNAL_TRUST_HEADER} header\"},\n                status=401,\n    \
     \        )\n        # Accept either raw shared-secret (legacy) OR HMAC-SHA256(body,\
     \ secret)\n        # so callers like the yatabase Worker (P55 onwards) that already\
-    \ sign\n        # against DISPATCHER_INTERNAL_SECRET keep working.\n        if\
+    \ sign\n        # against DISPATCHER_INTERNAL_SECRET keep working.\n        if\ # no-server-key: read-only
     \ _hmac.compare_digest(provided, INTERNAL_SECRET):\n            return await handler(request)\n\
     \        try:\n            body_bytes = await request.read()\n        except Exception:\
     \  # noqa: BLE001\n            body_bytes = b\"\"\n        expected_hmac = _hmac.new(\n\

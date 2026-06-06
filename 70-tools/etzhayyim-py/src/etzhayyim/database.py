@@ -1,4 +1,4 @@
-"""database — Database management commands (RisingWave / Kysely).
+"""database — Database management commands (Kotoba/Datomic / Kysely).
 
 DDL migrations shell out to the Kysely TS runner in 30-graph/graph-schema/.
 SSoT: 30-graph/graph-schema/migrations/*.ts
@@ -125,14 +125,14 @@ def _list_graph_schema_migrations(schema_dir: Path) -> list[str]:
 
 @click.group("database")
 def database() -> None:
-    """Database management (RisingWave). SSoT: 30-graph/graph-schema/migrations/*.ts"""
+    """Database management (Kotoba/Datomic). SSoT: 30-graph/graph-schema/migrations/*.ts"""
 
 
 @database.command("status")
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def db_status(pds: str | None, json_out: bool) -> None:
-    """Database health (RisingWave + asyncpg)."""
+    """Database health (Kotoba/Datomic + asyncpg)."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(

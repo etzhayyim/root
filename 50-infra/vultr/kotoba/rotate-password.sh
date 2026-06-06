@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# RisingWave PostgreSQL credential rotation — via 1Password CLI
+# Kotoba/Datomic PostgreSQL credential rotation — via 1Password CLI
 #
-# Background: 2026-05-17 GitGuardian incident — RisingWave PostgreSQL DSN
+# Background: 2026-05-17 GitGuardian incident — Kotoba/Datomic PostgreSQL DSN
 # (root user, embedded password) leaked into git history via vendor seed.
 # Leaked credential identifier is tracked in 1Password vault
-# `etzhayyim Japan株式会社`, item "RisingWave root (compromised 2026-05-17)".
+# `etzhayyim Japan株式会社`, item "Kotoba/Datomic root (compromised 2026-05-17)".
 # Do not re-print the literal credential anywhere in this repo.
 #
 # This script:
 #   1. Generates a strong replacement password via `op generate` (32 chars,
 #      letters+digits+symbols; user can override length/charset).
 #   2. Stores the new password in 1Password vault `etzhayyim Japan株式会社` as
-#      item "RisingWave root (rotated YYYY-MM-DD)".
-#   3. Updates the K8s Secret `risingwave-credentials` on the Vultr VKE cluster.
-#   4. Restarts the RisingWave statefulset so pods pick up the new credentials.
+#      item "Kotoba/Datomic root (rotated YYYY-MM-DD)".
+#   3. Updates the K8s Secret `kotoba-credentials` on the Vultr VKE cluster.
+#   4. Restarts the Kotoba/Datomic statefulset so pods pick up the new credentials.
 #   5. Smoke-tests the new credentials.
 #
 # Prerequisites:
@@ -22,8 +22,8 @@
 #   - kubectl + jq + curl on PATH
 #
 # Usage:
-#   ./50-infra/vultr/risingwave/rotate-password.sh
-#   ./50-infra/vultr/risingwave/rotate-password.sh --dry-run   # show plan only
+#   ./50-infra/vultr/kotoba/rotate-password.sh
+#   ./50-infra/vultr/kotoba/rotate-password.sh --dry-run   # show plan only
 
 set -euo pipefail
 
@@ -31,11 +31,11 @@ DRY_RUN="${DRY_RUN:-false}"
 if [[ "${1:-}" == "--dry-run" ]]; then DRY_RUN=true; fi
 
 VAULT_NAME="${OP_VAULT:-etzhayyim Japan株式会社}"
-ITEM_TITLE="${OP_ITEM_TITLE:-RisingWave root (rotated $(date +%Y-%m-%d))}"
+ITEM_TITLE="${OP_ITEM_TITLE:-Kotoba/Datomic root (rotated $(date +%Y-%m-%d))}"
 CLUSTER_ID="${CLUSTER_ID:-a61d513b-f9b7-4121-abb9-b53732aa5ec4}"   # VKE lax
-NAMESPACE="${NAMESPACE:-risingwave}"
-SECRET_NAME="${SECRET_NAME:-risingwave-credentials}"
-STATEFULSET="${STATEFULSET:-risingwave}"
+NAMESPACE="${NAMESPACE:-kotoba}"
+SECRET_NAME="${SECRET_NAME:-kotoba-credentials}"
+STATEFULSET="${STATEFULSET:-kotoba}"
 
 # ─── 0. Pre-flight ─────────────────────────────────────────────────────────
 
@@ -80,7 +80,7 @@ else
     --category=password \
     --vault="${VAULT_NAME}" \
     --title="${ITEM_TITLE}" \
-    --tags="security,risingwave,rotation,gitguardian-incident-2026-05-17" \
+    --tags="security,kotoba,rotation,gitguardian-incident-2026-05-17" \
     --generate-password='letters,digits,symbols,32' \
     --format=json 2>&1)
   echo "${op_json}" > /tmp/op-output.json
@@ -107,7 +107,7 @@ else
   echo "  ✓ Secret updated"
 fi
 
-# ─── 3. Restart RisingWave statefulset ─────────────────────────────────────
+# ─── 3. Restart Kotoba/Datomic statefulset ─────────────────────────────────────
 
 step "Rolling-restart ${NAMESPACE}/${STATEFULSET}"
 run "kubectl -n '${NAMESPACE}' rollout restart statefulset/'${STATEFULSET}'"
@@ -139,7 +139,7 @@ spec:
                 secretKeyRef:
                   name: ${SECRET_NAME}
                   key: password
-          command: ["psql", "-h", "risingwave-frontend.${NAMESPACE}.svc.cluster.local", "-p", "4566", "-U", "root", "-d", "dev", "-c", "SELECT 1 AS rotated_smoke_test"]
+          command: ["psql", "-h", "kotoba-frontend.${NAMESPACE}.svc.cluster.local", "-p", "4566", "-U", "root", "-d", "dev", "-c", "SELECT 1 AS rotated_smoke_test"]
 EOF
   kubectl apply -f /tmp/rw-smoke.yaml
   sleep 5
@@ -161,10 +161,10 @@ echo "    - CI environment configs"
 echo "    - Developer .env files"
 echo "  - The new password is in 1Password: vault='${VAULT_NAME}' item='${ITEM_TITLE}'"
 echo "  - Previous (compromised) password is now invalid network-wide."
-echo "    (See 1Password item 'RisingWave root (compromised 2026-05-17)' for audit.)"
+echo "    (See 1Password item 'Kotoba/Datomic root (compromised 2026-05-17)' for audit.)"
 echo ""
 echo "Companion actions:"
-echo "  - 50-infra/vultr/risingwave-firewall-restrict.sh    (IP-restrict network access)"
+echo "  - 50-infra/vultr/kotoba-firewall-restrict.sh    (IP-restrict network access)"
 echo "  - filter-repo on vendor + etzhayyim                  (history scrubbed 2026-05-17)"
 echo "  - lefthook secret-scan hook                          (commit-time prevention)"
 

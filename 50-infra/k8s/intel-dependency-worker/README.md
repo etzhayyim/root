@@ -37,7 +37,7 @@ Required secret:
 
 ```sh
 kubectl -n intel create secret generic intel-dependency-worker-secrets \
-  --from-literal=RW_DSN='host=risingwave.risingwave.svc.cluster.local port=4566 dbname=dev user=root'
+  --from-literal=KOTOBA_URL='http://127.0.0.1:8077'
 ```
 
 RunPod/OpenAI-compatible LLM assist for ambiguous dependency/entity resolution
@@ -45,7 +45,7 @@ uses `https://llm.etzhayyim.com/v1/chat/completions` by default:
 
 ```sh
 kubectl -n intel create secret generic intel-dependency-worker-secrets \
-  --from-literal=RW_DSN='host=risingwave.risingwave.svc.cluster.local port=4566 dbname=dev user=root' \
+  --from-literal=KOTOBA_URL='http://127.0.0.1:8077' \
   --from-literal=INTEL_LLM_API_KEY='<optional-gateway-key>' \
   --dry-run=client -o yaml | kubectl apply -f -
 ```
@@ -84,7 +84,7 @@ Smoke-test the Kubernetes manifests and CronJob-derived Job locally:
 ./job-test.sh
 ```
 
-Run the worker integration tests without a live RisingWave connection:
+Run the worker integration tests without a live Kotoba/Datomic connection:
 
 ```sh
 python3 -m unittest test_worker.py
