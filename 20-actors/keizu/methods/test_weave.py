@@ -93,6 +93,45 @@ def test_revolving_door_detected():
     assert any(r["from"] == "jp-meti" for r in c["revolving_door"]), c["revolving_door"]
 
 
+# ── edge branches ────────────────────────────────────────────────────────────────
+def test_g11_node_missing_sourcing_rejected():
+    expect_raises(lambda: validate_node({":node/id": "x", ":node/scope": ":public-role"}),
+                  contains="G11")
+
+
+def test_g11_rel_missing_sourcing_rejected():
+    bad = {":rel/id": "r", ":rel/source": "a", ":rel/target": "b", ":rel/kind": ":funding-tie",
+           ":rel/non-adjudicating-notice": True, ":rel/sources": ["u1", "u2"]}
+    expect_raises(lambda: validate_rel(bad), contains="G11")
+
+
+def test_rel_sources_not_a_list_rejected():
+    bad = {":rel/id": "r", ":rel/source": "a", ":rel/target": "b", ":rel/kind": ":funding-tie",
+           ":rel/non-adjudicating-notice": True, ":rel/sourcing": ":representative",
+           ":rel/sources": "u1,u2"}
+    expect_raises(lambda: validate_rel(bad), contains="G3")
+
+
+def test_empty_graph_concentration_is_safe():
+    c = concentration(weave({}))
+    assert c["node_count"] == 0
+    assert c["money_concentration"]["hhi"] == 0.0          # no div-by-zero
+    assert c["money_concentration"]["total"] == 0.0
+    assert c["cross_committee_seats"] == []
+    assert c["revolving_door"] == []
+
+
+def test_unknown_organ_member_is_tolerated():
+    g = weave({
+        ":nodes": [{":node/id": "s1", ":node/scope": ":public-role",
+                    ":node/sourcing": ":representative"}],  # no :node/organ
+        ":committees": [{":committee/id": "c1", ":committee/members": ["s1", "ghost"]}],
+    })
+    rows = concentration(g)["committee_cross_organ"]
+    assert rows[0]["member_count"] == 2          # both counted
+    assert "(unknown)" in rows[0]["organs"]       # missing-organ seat folded to (unknown)
+
+
 if __name__ == "__main__":
     run("weave", [(k, v) for k, v in sorted(globals().items())
                   if k.startswith("test_") and callable(v)])

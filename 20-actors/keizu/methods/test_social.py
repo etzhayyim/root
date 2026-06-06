@@ -39,6 +39,17 @@ def test_g8_live_post_refused():
     expect_raises(lambda: build_live(), contains="G8")
 
 
+def test_money_post_empty_shares_safe():
+    p = draft_money_post({"hhi": 0.0, "total": 0.0, "shares": []}, _SRCS)
+    assert p[":post/status"] == ":dry-run"
+    assert "(none)" in p[":post/body"]   # no IndexError on empty concentration
+
+
+def test_committee_post_blank_author_is_fine():
+    p = draft_committee_post(_FINDING, _SRCS, author="")
+    assert p[":post/author"] == ""       # author only required for a (gated) live post
+
+
 if __name__ == "__main__":
     run("social", [(k, v) for k, v in sorted(globals().items())
                    if k.startswith("test_") and callable(v)])
