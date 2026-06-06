@@ -17,7 +17,6 @@ from typing import Any
 NAMESPACE = os.environ.get("NAMESPACE", "risingwave")
 CRONJOB_NAME = os.environ.get("CRONJOB_NAME", "medical-coverage-ingester")
 APP_LABEL = os.environ.get("APP_LABEL", "medical-coverage-ingester")
-RW_DSN = os.environ.get("RW_DSN", "")
 MCP_AUTH_TOKEN = os.environ.get("MCP_AUTH_TOKEN", "")
 PORT = int(os.environ.get("PORT", "8080"))
 

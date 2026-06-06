@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS vertex_hubspot_sync_cursor;
-DROP TABLE IF EXISTS vertex_hubspot_product;
-DROP TABLE IF EXISTS vertex_hubspot_line_item;
-DROP TABLE IF EXISTS vertex_hubspot_engagement;
-DROP TABLE IF EXISTS vertex_hubspot_owner;
-DROP TABLE IF EXISTS vertex_hubspot_ticket;
-DROP TABLE IF EXISTS vertex_hubspot_deal;
-DROP TABLE IF EXISTS vertex_hubspot_company;
-DROP TABLE IF EXISTS vertex_hubspot_contact;

@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS vertex_agent_policy_adaptation_proposal;

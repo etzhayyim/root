@@ -21432,6 +21432,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606064700-charter-principle-derivation-layering.md",
+      "id": "adr-2606064700-charter-principle-derivation-layering",
+      "title": "ADR-2606064700: Charter Principle/Derivation Layering — axioms vs derived doctrines vs implementation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "charter-principle-derivation-layering",
+      "authoritative": true,
+      "authoritative_for": [
+        "charter-layer-taxonomy",
+        "principle-vs-derivation-classification"
+      ],
+      "related": [
+        "adr-2605252300-charter-preamble-kingdom-of-god",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
       "id": "adr-2606065000-session-close-kawaraban-news-medium",
       "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",

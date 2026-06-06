@@ -1,9 +1,0 @@
-DROP MATERIALIZED VIEW IF EXISTS mv_open_jpn_mynumber_medical_info_status;
-
-DROP MATERIALIZED VIEW IF EXISTS mv_open_jpn_mynumber_electronic_application_status;
-
-DROP TABLE IF EXISTS edge_open_jpn_mynumber_request_consent;
-
-DROP TABLE IF EXISTS vertex_open_jpn_mynumber_medical_info_request;
-
-DROP TABLE IF EXISTS vertex_open_jpn_mynumber_electronic_application;

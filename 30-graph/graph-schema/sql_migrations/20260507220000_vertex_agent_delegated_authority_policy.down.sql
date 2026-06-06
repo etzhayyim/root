@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS vertex_agent_delegated_authority_policy;

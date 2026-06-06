@@ -27,10 +27,9 @@ from pathlib import Path
 from typing import Any, Iterator
 
 import boto3
-import psycopg2
+from kotoba_datomic import get_kotoba_client
 
 # ── config ────────────────────────────────────────────────────────────────────
-RW_DSN = os.environ["RW_DSN"]
 B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 B2_REGION = os.environ.get("B2_REGION", "us-west-004")
@@ -73,32 +72,14 @@ def log(obj: dict[str, Any]) -> None:
 
 
 # ── RW health gate ─────────────────────────────────────────────────────────────
-def check_rw_health(conn: Any) -> None:
+def check_rw_health(client: Any) -> None:
     if not RW_HEALTH_GATE:
         return
     try:
-        import subprocess
-        result = subprocess.run(
-            ["kubectl", "get", "pods", "-n", "risingwave", "-l", "risingwave.risingwavelabs.com/component=compute", "-o", "json"],
-            capture_output=True, text=True, timeout=30,
-        )
-        if result.returncode != 0:
-            raise RuntimeError(f"kubectl failed: {result.stderr}")
-        pods = json.loads(result.stdout).get("items", [])
-        ready_pods = 0
-        for pod in pods:
-            cond = next((c for c in pod.get("status", {}).get("conditions", []) if c["type"] == "Ready"), None)
-            if cond and cond.get("status") == "True":
-                start = pod.get("status", {}).get("startTime", "")
-                if start:
-                    age_s = (datetime.now(timezone.utc) - datetime.fromisoformat(start.replace("Z", "+00:00"))).total_seconds()
-                    if age_s >= RW_MIN_COMPUTE_AGE_SECONDS:
-                        ready_pods += 1
-        if ready_pods < RW_MIN_COMPUTE_READY:
-            raise RuntimeError(f"RW health gate: only {ready_pods}/{RW_MIN_COMPUTE_READY} compute pods ready ≥{RW_MIN_COMPUTE_AGE_SECONDS}s")
-        log({"event": "rw_health_ok", "ready_pods": ready_pods})
-    except FileNotFoundError:
-        log({"event": "rw_health_skip", "reason": "kubectl not found"})
+        client.q('[:find ?e :where [?e :db/ident :db/ident]]')
+        log({"event": "kotoba_health_ok"})
+    except Exception as exc:
+        raise RuntimeError(f"kotoba health gate failed: {exc}")
 
 
 # ── GLEIF Golden Copy API ──────────────────────────────────────────────────────
@@ -292,21 +273,16 @@ _COLS = [
 ]
 
 
-def batch_insert(cur: Any, rows: list[dict[str, Any]]) -> int:
+def batch_insert(client: Any, rows: list[dict[str, Any]]) -> int:
     rows = [r for r in rows if r.get("lei")]
     if not rows:
         return 0
-    ph = ", ".join(["(" + ", ".join(["%s"] * len(_COLS)) + ")"] * len(rows))
-    params: list[Any] = []
-    for row in rows:
-        params.extend(row.get(c) for c in _COLS)
-    cur.execute(_INSERT_SQL.format(placeholders=ph), params)
-    written = cur.rowcount if cur.rowcount and cur.rowcount > 0 else 0
-    return written
+    client.insert_rows("vertex_open_lei_record", rows)
+    return len(rows)
 
 
 def upsert_s3_run(
-    cur: Any,
+    client: Any,
     *,
     publish_date: str,
     key: str,
@@ -316,122 +292,85 @@ def upsert_s3_run(
     error_msg: str = "",
 ) -> None:
     vid = f"at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.s3Run/{publish_date}"
-    cur.execute(
-        """
-        INSERT INTO vertex_open_lei_s3_run (
-          vertex_id, created_date, sensitivity_ord, owner_did,
-          publish_date, b2_bucket, b2_key, records_read, records_written,
-          run_status, error_msg, started_at, finished_at, created_at,
-          org_id, user_id, actor_id
-        )
-        SELECT
-          %(vertex_id)s, CAST(%(created_date)s AS DATE), 1, %(owner_did)s,
-          CAST(%(publish_date)s AS DATE), %(b2_bucket)s, %(b2_key)s,
-          %(records_read)s, %(records_written)s,
-          %(run_status)s, %(error_msg)s, %(started_at)s, %(finished_at)s, %(created_at)s,
-          %(org_id)s, %(user_id)s, %(actor_id)s
-        WHERE NOT EXISTS (
-          SELECT 1 FROM vertex_open_lei_s3_run WHERE vertex_id = %(vertex_id)s
-        )
-        """,
-        {
-            "vertex_id": vid,
-            "created_date": utc_date(),
-            "owner_did": OWNER_DID,
-            "publish_date": publish_date,
-            "b2_bucket": B2_BUCKET,
-            "b2_key": key,
-            "records_read": records_read,
-            "records_written": records_written,
-            "run_status": status,
-            "error_msg": error_msg[:512] if error_msg else "",
-            "started_at": utc_now(),
-            "finished_at": utc_now(),
-            "created_at": utc_now(),
-            "org_id": OWNER_DID,
-            "user_id": OWNER_DID,
-            "actor_id": ACTOR_ID,
-        },
-    )
+    client.insert_row("vertex_open_lei_s3_run", {
+        "vertex_id": vid,
+        "created_date": utc_date(),
+        "owner_did": OWNER_DID,
+        "publish_date": publish_date,
+        "b2_bucket": B2_BUCKET,
+        "b2_key": key,
+        "records_read": records_read,
+        "records_written": records_written,
+        "run_status": status,
+        "error_msg": error_msg[:512] if error_msg else "",
+        "started_at": utc_now(),
+        "finished_at": utc_now(),
+        "created_at": utc_now(),
+        "org_id": OWNER_DID,
+        "user_id": OWNER_DID,
+        "actor_id": ACTOR_ID,
+    })
 
 
 # ── main ───────────────────────────────────────────────────────────────────────
 def run() -> dict[str, Any]:
     s3 = make_s3()
-    conn = psycopg2.connect(RW_DSN)
-    conn.autocommit = False
+    client = get_kotoba_client()
 
-    try:
-        with conn.cursor() as cur:
-            check_rw_health(conn)
+    check_rw_health(client)
 
-        # Phase 1: resolve publish date + ensure ZIP is in B2
-        log({"event": "golden_copy_query", "url": GLEIF_GOLDEN_COPY_API})
-        publish_date, download_url, expected_size = get_golden_copy_meta()
-        key = b2_key(publish_date)
-        log({"event": "golden_copy_meta", "publishDate": publish_date, "key": key, "bytes": expected_size})
+    # Phase 1: resolve publish date + ensure ZIP is in B2
+    log({"event": "golden_copy_query", "url": GLEIF_GOLDEN_COPY_API})
+    publish_date, download_url, expected_size = get_golden_copy_meta()
+    key = b2_key(publish_date)
+    log({"event": "golden_copy_meta", "publishDate": publish_date, "key": key, "bytes": expected_size})
 
-        if b2_exists(s3, key):
-            log({"event": "b2_cache_hit", "key": key})
-            zip_path = download_from_b2(s3, key)
-        else:
-            log({"event": "b2_cache_miss", "key": key})
-            zip_path = download_to_b2(s3, download_url, key, expected_size)
+    if b2_exists(s3, key):
+        log({"event": "b2_cache_hit", "key": key})
+        zip_path = download_from_b2(s3, key)
+    else:
+        log({"event": "b2_cache_miss", "key": key})
+        zip_path = download_to_b2(s3, download_url, key, expected_size)
 
-        # Phase 2: ingest
-        total_read = 0
-        total_written = 0
-        batch: list[dict[str, Any]] = []
+    # Phase 2: ingest
+    total_read = 0
+    total_written = 0
+    batch: list[dict[str, Any]] = []
 
-        for record in parse_lei_records(zip_path):
-            batch.append(record)
-            total_read += 1
+    for record in parse_lei_records(zip_path):
+        batch.append(record)
+        total_read += 1
 
-            if len(batch) >= BATCH_SIZE:
-                with conn.cursor() as cur:
-                    written = batch_insert(cur, batch)
-                conn.commit()
-                total_written += written
-                log({"event": "batch", "read": total_read, "written": total_written})
-                batch = []
-
-            if MAX_RECORDS and total_read >= MAX_RECORDS:
-                break
-
-        # flush tail
-        if batch:
-            with conn.cursor() as cur:
-                written = batch_insert(cur, batch)
-            conn.commit()
+        if len(batch) >= BATCH_SIZE:
+            written = batch_insert(client, batch)
             total_written += written
+            log({"event": "batch", "read": total_read, "written": total_written})
+            batch = []
 
-        with conn.cursor() as cur:
-            upsert_s3_run(
-                cur,
-                publish_date=publish_date,
-                key=key,
-                status="succeeded",
-                records_read=total_read,
-                records_written=total_written,
-            )
-        conn.commit()
+        if MAX_RECORDS and total_read >= MAX_RECORDS:
+            break
 
-        return {
-            "ok": True,
-            "publishDate": publish_date,
-            "b2Key": key,
-            "recordsRead": total_read,
-            "recordsWritten": total_written,
-        }
+    # flush tail
+    if batch:
+        written = batch_insert(client, batch)
+        total_written += written
 
-    except Exception as exc:
-        try:
-            conn.rollback()
-        except Exception:
-            pass
-        raise
-    finally:
-        conn.close()
+    upsert_s3_run(
+        client,
+        publish_date=publish_date,
+        key=key,
+        status="succeeded",
+        records_read=total_read,
+        records_written=total_written,
+    )
+
+    return {
+        "ok": True,
+        "publishDate": publish_date,
+        "b2Key": key,
+        "recordsRead": total_read,
+        "recordsWritten": total_written,
+    }
 
 
 def main() -> None:

@@ -41,7 +41,6 @@ from lg_yukkuri.comfy_workflows import scene_composite_workflow
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _COMFY_TIMEOUT = int(os.environ.get("COMFY_TIMEOUT_SEC", "180"))
 _PDS_BLOB_URL = os.environ.get(
     "PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob",
@@ -92,36 +91,18 @@ async def _node_plan(state: _State) -> dict[str, Any]:
     """Read scenes + lines + assets, decide per-scene dominant emotion."""
     if not state.get("video_id"):
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     video_id = state["video_id"]
 
-    import psycopg
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            """SELECT scene_index FROM vertex_yukkuri_scene
-               WHERE video_id = %s ORDER BY scene_index LIMIT 20""",
-            [video_id],
-        )
-        scene_idxs = [r[0] for r in await cur.fetchall()]
+    import asyncio
+    client = get_kotoba_client()
+    raw_scenes = await asyncio.to_thread(client.select_where, "vertex_yukkuri_scene", "video_id", video_id, limit=20)
+    scene_idxs = sorted([int(r.get("scene_index") or 0) for r in raw_scenes])
 
-        await cur.execute(
-            """SELECT scene_index, emotion FROM vertex_yukkuri_line
-               WHERE video_id = %s ORDER BY scene_index, line_index LIMIT 500""",
-            [video_id],
-        )
-        line_rows = await cur.fetchall()
+    raw_lines = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
+    line_rows = [(int(r.get("scene_index") or 0), r.get("emotion") or "normal") for r in raw_lines]
 
-        await cur.execute(
-            """SELECT kind, blob_key, meta_json FROM vertex_yukkuri_asset
-               WHERE video_id = %s LIMIT 200""",
-            [video_id],
-        )
-        asset_rows = await cur.fetchall()
-    finally:
-        await conn.close()
+    raw_assets = await asyncio.to_thread(client.select_where, "vertex_yukkuri_asset", "video_id", video_id, limit=200)
+    asset_rows = [(r.get("kind"), r.get("blob_key"), r.get("meta_json")) for r in raw_assets]
 
     # per-scene dominant emotion
     by_scene: dict[int, list[str]] = {}
@@ -257,36 +238,33 @@ async def _node_composite(state: _State) -> dict[str, Any]:
 async def _node_insert(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("composites"):
         return {}
-    if not _RW_URL:
-        return {}
     video_id = state.get("video_id") or ""
     created_at = datetime.now(tz=timezone.utc).isoformat()
     ok_rows = [c for c in (state.get("composites") or []) if not c.get("error")]
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            for c in ok_rows:
-                asset_id = (
-                    f"asset-scene-{video_id}-{c['scene_index']}-"
-                    f"{secrets.token_hex(3)}"
-                )
-                meta = (
-                    f'{{"sceneIndex":{c["scene_index"]},'
-                    f'"emotion":"{c.get("emotion", "normal")}",'
-                    f'"source":"comfyui-composite",'
-                    f'"comfyFilename":"{c.get("comfy_filename", "")}",'
-                    f'"elapsedMs":{c.get("elapsed_ms", 0)}}}'
-                )
-                await conn.execute(
-                    """INSERT INTO vertex_yukkuri_asset
-                       (asset_id, video_id, kind, actor_did, blob_key, meta_json, created_at)
-                       VALUES (%s, %s, 'scene', %s, %s, %s, %s)""",
-                    [asset_id, video_id, _EDITOR_DID, c["blob_key"],
-                     meta, created_at],
-                )
-        finally:
-            await conn.close()
+        import asyncio
+        client = get_kotoba_client()
+        for c in ok_rows:
+            asset_id = (
+                f"asset-scene-{video_id}-{c['scene_index']}-"
+                f"{secrets.token_hex(3)}"
+            )
+            meta = (
+                f'{{"sceneIndex":{c["scene_index"]},'
+                f'"emotion":"{c.get("emotion", "normal")}",'
+                f'"source":"comfyui-composite",'
+                f'"comfyFilename":"{c.get("comfy_filename", "")}",'
+                f'"elapsedMs":{c.get("elapsed_ms", 0)}}}'
+            )
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
+                "vertex_id": asset_id,
+                "video_id": video_id,
+                "kind": "scene",
+                "actor_did": _EDITOR_DID,
+                "blob_key": c["blob_key"],
+                "meta_json": meta,
+                "created_at": created_at
+            })
     except Exception as exc:  # noqa: BLE001
         _log.exception("insert scene composites failed")
         return {"error": f"insert: {exc!s}"[:300]}

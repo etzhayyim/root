@@ -55,19 +55,6 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def rw_dsn() -> str:
-    return os.environ.get("RW_URL") or os.environ.get("DATABASE_URL") or ""
-
-
-def connect_rw() -> Any:
-    import psycopg
-
-    dsn = rw_dsn()
-    if not dsn:
-        raise RuntimeError("RW_URL or DATABASE_URL is required")
-    return psycopg.connect(dsn, autocommit=True, prepare_threshold=None)
-
-
 def claim_vertex_id(claim_id: str) -> str:
     return f"at://{OWNER_DID}/{CLAIM_COLLECTION}/{claim_id[2:] if claim_id.startswith('0x') else claim_id}"
 
