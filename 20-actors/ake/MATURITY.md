@@ -13,10 +13,11 @@
 
 ## R0 evidence
 
-- **115 tests green, HERMETIC** (`./run_tests.sh`): 22 triage (incl. a route_for totality +
+- **120 tests green, HERMETIC** (`./run_tests.sh`): 22 triage (incl. a route_for totality +
   priority sweep over the whole risk×quality×rider domain — the G2 structural guarantee) + 7
-  revision + 6 edit-war + 8
-  contributor + 8 ingest + 16 charter-invariants + 6 analyze + 5 lexicons + 10
+  revision + 6 edit-war + 13 contributor (incl. per-DID isolation + a no-ranking/no-score-of-soul
+  API lock — the G9 structural guarantee) + 8 ingest + 16 charter-invariants + 6 analyze + 5
+  lexicons + 10
   consistency/SSoT-drift-lock (methods) + 20 cell state-machine + 7 cell-chain membrane-flow
   integration. The suite is green in any checkout: the ingest genesis bridge is asserted against a
   committed fixture (`data/sample-profile-seed.kotoba.edn`); the real shared SSoT is validated by a

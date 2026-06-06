@@ -70,6 +70,57 @@ def test_trajectory_view_shape():
     assert "acceptanceRate" in v and "events" in v
 
 
+# ── G9 structural: per-DID, NEVER a cross-contributor ranking (no score-of-soul) ──
+def test_contributors_are_isolated_no_cross_did_leak():
+    # one DID's flood/refusals must NOT change another DID's trajectory or throttle state —
+    # the membrane judges each contributor only against their OWN history, never a leaderboard.
+    t = contrib.empty()
+    for i in range(contrib.THROTTLE_REFUSED_RUN):
+        t = contrib.record(t, "did:m:vandal", "refused", 100 + i)
+    t = contrib.record(t, "did:m:saint", "accepted", 200)
+    assert contrib.is_throttled(t, "did:m:vandal")
+    assert not contrib.is_throttled(t, "did:m:saint")
+    assert contrib.counts(t, "did:m:saint") == {"accepted": 1, "refused": 0}
+    assert contrib.trajectory(t, "did:m:saint")["throttled"] is False
+
+
+def test_no_ranking_or_score_of_soul_api_exists():
+    # G9 forbids a minted reputation number or a contributor ranking. Lock the surface:
+    # no public helper may imply ordering/comparison/scoring of contributors against each other.
+    forbidden = ("rank", "leaderboard", "compare", "score", "reputation", "best", "worst", "top")
+    public = [n for n in dir(contrib) if not n.startswith("_") and callable(getattr(contrib, n))]
+    leaks = [n for n in public for f in forbidden if f in n.lower()]
+    assert not leaks, f"G9: ranking/score-of-soul-shaped API leaked: {leaks}"
+
+
+def test_events_are_returned_in_as_of_order_regardless_of_record_order():
+    t = contrib.empty()
+    for outcome, ts in (("accepted", 300), ("refused", 100), ("accepted", 200)):
+        t = contrib.record(t, "did:m:a", outcome, ts)
+    order = [e["as_of"] for e in contrib.events(t, "did:m:a")]
+    assert order == [100, 200, 300]
+
+
+def test_throttle_recovers_with_a_recent_accept_amid_later_refusals():
+    # an accept anywhere inside the recent window breaks the run — even if more refusals follow,
+    # so long as the accept stays within the last THROTTLE_RECENT outcomes (recoverable, not sticky).
+    t = contrib.empty()
+    seq = ["refused"] * 3 + ["accepted"] + ["refused"] * 3   # accept sits inside the last 5
+    for i, o in enumerate(seq):
+        t = contrib.record(t, "did:m:x", o, 100 + i)
+    assert not contrib.is_throttled(t, "did:m:x")
+
+
+def test_rate_window_lower_edge_is_exclusive():
+    # an event exactly at (now - window) has aged OUT of the sliding window (strict `>`),
+    # so it does not count toward the flood ceiling.
+    t = contrib.empty()
+    for i in range(contrib.RATE_MAX_IN_WINDOW):
+        t = contrib.record(t, "did:m:edge", "accepted", 1000 + i)
+    now = 1000 + contrib.RATE_WINDOW          # oldest event (t=1000) is now exactly at the edge
+    assert contrib.rate_ok(t, "did:m:edge", now=now)  # edge event excluded → under ceiling again
+
+
 if __name__ == "__main__":
     import sys
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
