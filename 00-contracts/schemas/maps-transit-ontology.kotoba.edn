@@ -1,0 +1,60 @@
+;; maps-transit-ontology — kotoba EAVT vocabulary for GTFS trips + stop-times
+;; ADR-2606064500 (R2 aux) · actor: maps · kotoba-native successor to vertex_maps_trip/stop_time
+;;
+;; PURPOSE
+;;   The transit half of the maps substrate that does NOT fit :feature/* (a trip is not a
+;;   placed point; a stop-time is a scheduled call). The kotoba-native successor to the
+;;   RisingWave aux tables vertex_maps_trip + vertex_maps_stop_time (the GTFS-JP Phase-2
+;;   per-trip / per-stop-time schedule). Completes the bulk-ingest write-path migration: the
+;;   6 Tier-1 feature dumpers already write :feature/* (ADR-2606064500 R2); the GTFS dumper
+;;   additionally writes these two record kinds.
+;;
+;; READ PATTERN (the index that matters): "next departures at stop X" — the legacy
+;;   idx_maps_stop_time_stop_dep (stop_id, departure_time). The kotoba equivalent is
+;;   AVET(:transit.stop-time/stop, <stop-id>) → stop-times, sorted by :transit.stop-time/
+;;   departure-time (HH:MM:SS text, GTFS allows >24:00:00, sortable as text within a day).
+;;
+;; SUBSTRATE (ADR-2605262130 + 2605312345): canonical state is the kotoba Datom log. NO
+;;   RisingWave / SQL. Idempotency = unique-identity on the composite id (upsert-by-assertion),
+;;   replacing the legacy per-feed DELETE+INSERT.
+;;
+;; SOURCING HONESTY (G3): every record carries :*/sourcing ∈
+;;   { :authoritative (a published GTFS feed) | :representative (bounded sample) | :synthesized }.
+
+{:schema/id        "maps-transit-ontology"
+ :schema/version   "0.1.0"
+ :schema/adr       "2606064500"
+ :schema/supersedes ["vertex_maps_trip" "vertex_maps_stop_time"]
+ :schema/note      "kotoba-native successor to the RisingWave GTFS aux tables. Trips/stop-times reference :feature/* stations (stop_id) and route features (route_id). Paired with maps-spatial-ontology.kotoba.edn (the placed-feature half)."
+
+ :attributes
+ [;; ── :transit.trip/* — one published GTFS trip (was vertex_maps_trip) ──
+  {:db/ident :transit.trip/id        :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "\"trip.{feed-id}.{trip-id}\""}
+  {:db/ident :transit.trip/feed      :db/valueType :db.type/string  :db/index true :db/doc "GTFS feed_id"}
+  {:db/ident :transit.trip/trip-id   :db/valueType :db.type/string  :db/doc "GTFS trip_id (within the feed)"}
+  {:db/ident :transit.trip/route     :db/valueType :db.type/string  :db/index true :db/doc "route_id — refs a :feature/* Railway/BusRoute (\"all trips on this route\" = AVET probe)"}
+  {:db/ident :transit.trip/service   :db/valueType :db.type/string  :db/index true :db/doc "service_id (calendar)"}
+  {:db/ident :transit.trip/shape     :db/valueType :db.type/string}
+  {:db/ident :transit.trip/direction :db/valueType :db.type/long    :db/doc "direction_id 0|1"}
+  {:db/ident :transit.trip/headsign  :db/valueType :db.type/string}
+  {:db/ident :transit.trip/short-name :db/valueType :db.type/string}
+  {:db/ident :transit.trip/block     :db/valueType :db.type/string}
+  {:db/ident :transit.trip/wheelchair-accessible :db/valueType :db.type/long}
+  {:db/ident :transit.trip/bikes-allowed :db/valueType :db.type/long}
+  {:db/ident :transit.trip/agency    :db/valueType :db.type/string}
+  {:db/ident :transit.trip/prefecture :db/valueType :db.type/string}
+  {:db/ident :transit.trip/sourcing  :db/valueType :db.type/keyword}
+
+  ;; ── :transit.stop-time/* — one scheduled stop call (was vertex_maps_stop_time) ──
+  {:db/ident :transit.stop-time/id   :db/valueType :db.type/string  :db/unique :db.unique/identity :db/doc "\"stoptime.{feed-id}.{trip-id}.{stop-sequence}\""}
+  {:db/ident :transit.stop-time/trip :db/valueType :db.type/ref     :db/index true :db/doc ":transit.trip/id"}
+  {:db/ident :transit.stop-time/stop :db/valueType :db.type/string  :db/index true :db/doc "stop_id — refs a :feature/* Station|BusStop. AVET(this, stop-id) = the 'next departures at stop X' index"}
+  {:db/ident :transit.stop-time/sequence :db/valueType :db.type/long :db/doc "stop_sequence"}
+  {:db/ident :transit.stop-time/arrival-time   :db/valueType :db.type/string :db/doc "HH:MM:SS (may exceed 24:00:00)"}
+  {:db/ident :transit.stop-time/departure-time :db/valueType :db.type/string :db/doc "HH:MM:SS, sortable as text; the read sort key"}
+  {:db/ident :transit.stop-time/pickup-type    :db/valueType :db.type/long}
+  {:db/ident :transit.stop-time/drop-off-type  :db/valueType :db.type/long}
+  {:db/ident :transit.stop-time/headsign       :db/valueType :db.type/string}
+  {:db/ident :transit.stop-time/shape-dist     :db/valueType :db.type/double}
+  {:db/ident :transit.stop-time/timepoint      :db/valueType :db.type/long}
+  {:db/ident :transit.stop-time/sourcing       :db/valueType :db.type/keyword}]}

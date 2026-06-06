@@ -19,11 +19,15 @@ read/write adapter (`maps-ui/src/kotoba-spatial.ts`) is the interactive half. Bo
 + `KOTOBA_AUTH` (member/operator DID bearer; the pod holds no platform key). Absent any, the
 writer construction raises — a dumper flipped to kotoba mode without the gate fails loudly,
 never silently drops. `upsert_table` (aux RW tables: vertex_maps_trip, gsplat registries)
-raises `NotImplementedError` in kotoba mode (per-table kotoba schemas are an R2 follow-up), so
-Tier-2 dumpers stay on rw/mst until mapped.
+maps the GTFS aux tables **`vertex_maps_trip` / `vertex_maps_stop_time`** →
+`:transit.trip/*` / `:transit.stop-time/*` (`00-contracts/schemas/maps-transit-ontology.kotoba.edn`);
+still-unmapped aux tables (gsplat registries, GTFS-RT) raise `NotImplementedError` (per-table
+kotoba schemas = ongoing R2 follow-up). The "next departures at stop X" read =
+`AVET(:transit.stop-time/stop, <stop-id>)` sorted by `:transit.stop-time/departure-time`
+(the kotoba equivalent of idx_maps_stop_time_stop_dep).
 
 Bring-up (operator): `kubectl -n maps-bulk-ingest set env deploy/<dumper> ETZHAYYIM_SUBSTRATE_MODE=kotoba MAPS_OPERATOR_GATE=1 KOTOBA_ENDPOINT=… KOTOBA_AUTH=…`.
-Tests: `python3 workers/test_kotoba_substrate.py` (10 green; real H3 under a venv with `h3`).
+Tests: `python3 workers/test_kotoba_substrate.py` (15 green; real H3 under a venv with `h3`).
 
 ---
 

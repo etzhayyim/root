@@ -198,15 +198,28 @@ class _KotobaSubstrateWriter(SubstrateWriter):
         *,
         conflict_key: str | None = None,
     ) -> int:
-        # Auxiliary RW tables (vertex_maps_trip, gsplat registries, …) have no :feature/*
-        # mapping yet — they need their own per-table kotoba schema (R2 follow-up). Raise
-        # loudly rather than silently drop, so a dumper relying on an aux table is not flipped
-        # to kotoba mode prematurely. The 6 Tier-1 feature dumpers use upsert_vertex_spatial.
-        raise NotImplementedError(
-            f"kotoba mode has no mapping for auxiliary table {table!r} yet (ADR-2606064500 R2 "
-            "follow-up). This dumper writes aux tables; keep it on rw/mst until its kotoba "
-            "schema lands."
-        )
+        # Mapped aux tables (GTFS vertex_maps_trip / vertex_maps_stop_time → :transit.*,
+        # maps-transit-ontology) ingest like features. Un-mapped aux tables (gsplat registries,
+        # GTFS-RT) have no kotoba schema yet — raise LOUDLY rather than silently drop, so a
+        # dumper relying on one is not flipped to kotoba mode prematurely.
+        from _kotoba_feature import aux_rows_to_batch
+        if not rows:
+            return 0
+        batch = aux_rows_to_batch(table, rows)
+        if batch is None:
+            raise NotImplementedError(
+                f"kotoba mode has no mapping for auxiliary table {table!r} yet (ADR-2606064500 "
+                "R2 follow-up). Keep this dumper on rw/mst until its kotoba schema lands."
+            )
+        ents = batch["entities"]
+        if not ents:
+            return 0
+        total = 0
+        CHUNK = 500
+        for i in range(0, len(ents), CHUNK):
+            self._post({"entities": ents[i:i + CHUNK]})
+            total += len(ents[i:i + CHUNK])
+        return total
 
     def close(self) -> None:
         pass
