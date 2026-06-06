@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — `civil-registry` module (R0 reference implementation).
 
-ADR-2606052300. Second executable vertical slice: the CRVS (Civil Registration & Vital
+ADR-2606062300. Second executable vertical slice: the CRVS (Civil Registration & Vital
 Statistics) engine behind `civil.birth.register` / `civil.death.register` /
 `civil.marriage.register` / `residency.move-in` / `residency.certificate` — i.e. 住所管理・戸籍.
 

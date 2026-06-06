@@ -1,4 +1,4 @@
-/// matsurigoto:egov — COFOG e-Government service module WIT surface (ADR-2606052300, R1.A)
+/// matsurigoto:egov — COFOG e-Government service module WIT surface (ADR-2606062300, R1.A)
 ///
 /// The kotoba-wasm component contract for matsurigoto's executable service modules
 /// (R0 reference impls in 20-actors/matsurigoto/methods/modules/<id>.py). A module is

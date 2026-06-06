@@ -1,5 +1,5 @@
 ;; egov-execution-ontology — canonical kotoba-EAVT vocabulary for matsurigoto 政 EXECUTION records
-;; ADR-2606052300 (R1.B). depends-on: ADR-2605262130 (kotoba substrate), ADR-2605312345
+;; ADR-2606062300 (R1.B). depends-on: ADR-2605262130 (kotoba substrate), ADR-2605312345
 ;;   (datom-first-class canonical state), ADR-2605231525 (no-server-key), ADR-2606021600 (ooyake
 ;;   gov-atlas — the OBSERVATION sibling whose :gov.* units these executions reference).
 ;;
@@ -20,7 +20,7 @@
 
 {:ontology
  {:id "egov-execution-ontology"
-  :adr "etzhayyim:adr:2606052300"
+  :adr "etzhayyim:adr:2606062300"
   :graph "egov-exec-v1"
   :note "matsurigoto execution transactions + records, append-only on the kotoba Datom log."}
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for the R1.B datom-persistence layer (matsurigoto 政, ADR-2606052300).
+"""Tests for the R1.B datom-persistence layer (matsurigoto 政, ADR-2606062300).
 
 Drives the REAL modules to produce outputs, then verifies the EAVT conversion + the structural
 invariants (G1 unsigned, G3 authority, G5 append-only, G8 gated). Standalone + pytest.

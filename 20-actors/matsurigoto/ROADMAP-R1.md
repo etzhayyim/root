@@ -1,6 +1,6 @@
 # matsurigoto 政 — R1 productionization design (reference → deployable e-gov substrate)
 
-**Status**: design (proposed) · **ADR**: 2606052300 · **Date**: 2026-06-06
+**Status**: design (proposed) · **ADR**: 2606062300 · **Date**: 2026-06-06
 **Author**: Jun Kawasaki
 
 This document closes the honest gap between **R0** (what exists) and a **kotoba-wasm
@@ -124,7 +124,7 @@ Not loop-doable; needs Council ratification of the no-server-key custody model.
   (principal A) — the `eid-wallet` module's job.
 - **Key infra**: Council 5-of-7 Safe operational for governance signing; per-adopting-state key
   onboarding runbook; ICAO-PKD trust for passports.
-- **Gate**: ADR-2606052300 must reach **Council Lv7+** (it asserts the Kingdom governs) before any
+- **Gate**: ADR-2606062300 must reach **Council Lv7+** (it asserts the Kingdom governs) before any
   principal-A live act; principal-B live acts need the adopting state's authority.
 
 ## 3. R3 — live integration + conformance certification + pilot
@@ -173,7 +173,7 @@ modules.
 4. **Register the actor** — ✅ **DONE 2026-06-06**: added to BOTH `infra-actors.ts` INFRA_ACTORS
    and `actor-profile-seed.kotoba.edn` (parity audit 7/7, ake suite green). `did:web:etzhayyim.com:actor:matsurigoto`
    now resolvable + searchable. Lexicons `com.etzhayyim.matsurigoto.*` = next.
-5. **Council track** (parallel, not code): ADR-2606052300 → Lv7+; pick the **principal-A self-pilot**
+5. **Council track** (parallel, not code): ADR-2606062300 → Lv7+; pick the **principal-A self-pilot**
    (the Kingdom runs its own civil-registry/ID/tax over 信者) as the lowest-risk first live deployment.
 
 > Honest bottom line: **the design + correctness layer is ~75% done and finishable in code.**

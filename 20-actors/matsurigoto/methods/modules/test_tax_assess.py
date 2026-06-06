@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conformance tests for the tax-assess module (matsurigoto 政, ADR-2606052300).
+"""Conformance tests for the tax-assess module (matsurigoto 政, ADR-2606062300).
 
 The income-tax assertions reproduce the published JP 速算表 (quick-calc table) EXACTLY —
 that is the conformance anchor proving the engine computes real progressive tax, not a toy.

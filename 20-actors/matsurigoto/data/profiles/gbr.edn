@@ -1,4 +1,4 @@
-;; Country profile — GBR United Kingdom (principal B). ADR-2606052300. sourcing :representative.
+;; Country profile — GBR United Kingdom (principal B). ADR-2606062300. sourcing :representative.
 ;; HONEST note: the UK has NO national residence registry (residency.move-in N/A; electoral
 ;; register + local council only). Companies House is a strong single corp-registry exemplar.
 {:country-profile/iso3 "GBR" :country-profile/name "United Kingdom"

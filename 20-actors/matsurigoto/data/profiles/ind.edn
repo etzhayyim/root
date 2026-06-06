@@ -1,4 +1,4 @@
-;; Country profile — IND India (principal B). ADR-2606052300. sourcing :representative.
+;; Country profile — IND India (principal B). ADR-2606062300. sourcing :representative.
 ;; India's Aadhaar (UIDAI) is the lineage of MOSIP, and DBT the lineage of OpenG2P — the open
 ;; specs the standard's credential-issue + benefit-disburse modules draw on. Population-scale.
 {:country-profile/iso3 "IND" :country-profile/name "भारत / India"

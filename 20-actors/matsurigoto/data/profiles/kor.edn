@@ -1,4 +1,4 @@
-;; Country profile — KOR Republic of Korea (principal B). ADR-2606052300. sourcing :representative.
+;; Country profile — KOR Republic of Korea (principal B). ADR-2606062300. sourcing :representative.
 ;; Korea has a strong resident-registration system (주민등록) + a unified Gov24 portal — a
 ;; high-maturity e-gov exemplar.
 {:country-profile/iso3 "KOR" :country-profile/name "대한민국"

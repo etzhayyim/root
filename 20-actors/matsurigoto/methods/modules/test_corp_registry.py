@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conformance tests for the corp-registry module (matsurigoto 政, ADR-2606052300).
+"""Conformance tests for the corp-registry module (matsurigoto 政, ADR-2606062300).
 
 The LEI tests exercise the real ISO 7064 MOD 97-10 checksum: an assembled LEI validates (mod
 97 == 1, proven algebraically), and flipping any character breaks it. Standalone + pytest.

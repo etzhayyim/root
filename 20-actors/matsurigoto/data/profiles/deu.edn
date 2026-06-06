@@ -1,4 +1,4 @@
-;; Country profile — DEU Germany (principal B). ADR-2606052300. sourcing :representative.
+;; Country profile — DEU Germany (principal B). ADR-2606062300. sourcing :representative.
 ;; Germany has a STRONG mandatory residence registration (Anmeldung / Bundesmeldegesetz) — a
 ;; good civil-registry exemplar — and is an eIDAS/EUDI member.
 {:country-profile/iso3 "DEU" :country-profile/name "Deutschland"

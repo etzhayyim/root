@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — R1.C: the sign / authority layer (verify-only, NO server key).
 
-ADR-2606052300 + ADR-2605231525. R0 artifacts are unsigned by construction (G1). This layer
+ADR-2606062300 + ADR-2605231525. R0 artifacts are unsigned by construction (G1). This layer
 attaches a signature WITHOUT matsurigoto ever holding a private key: the signature is produced
 EXTERNALLY by the governing organ —
 

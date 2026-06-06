@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conformance tests for the civil-registry module (matsurigoto 政, ADR-2606052300).
+"""Conformance tests for the civil-registry module (matsurigoto 政, ADR-2606062300).
 
 Standalone-runnable AND pytest-compatible.
 """

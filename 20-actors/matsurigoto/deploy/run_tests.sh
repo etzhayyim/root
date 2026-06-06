@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# matsurigoto 政 — run all test suites (ADR-2606052300). stdlib only, no deps.
+# matsurigoto 政 — run all test suites (ADR-2606062300). stdlib only, no deps.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT/methods"

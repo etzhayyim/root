@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conformance tests for the credential-issue module (matsurigoto 政, ADR-2606052300).
+"""Conformance tests for the credential-issue module (matsurigoto 政, ADR-2606062300).
 
 The check-digit tests reproduce the published ICAO Doc 9303 worked examples exactly:
   doc number L898902C3 → 6 ; DOB 740812 → 2 ; expiry 120415 → 9

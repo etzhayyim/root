@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for the R1.C sign/authority layer (matsurigoto 政, ADR-2606052300 + 2605231525)."""
+"""Tests for the R1.C sign/authority layer (matsurigoto 政, ADR-2606062300 + 2605231525)."""
 from __future__ import annotations
 
 import pathlib

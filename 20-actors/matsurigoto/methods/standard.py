@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — COFOG-based e-Government Service Standard loader / validator / coverage.
 
-ADR-2606052300 (proposed). Reads data/cofog-standard.kotoba.edn (the universal,
+ADR-2606062300 (proposed). Reads data/cofog-standard.kotoba.edn (the universal,
 spec-derived service standard built on the UN COFOG function backbone) and:
 
   1. VALIDATES the standard (structural integrity + the three charter invariants):

@@ -1,7 +1,7 @@
 # matsurigoto (政) — e-Government execution commons (COFOG-based service standard)
 
 **DID** (planned): `did:web:etzhayyim.com:actor:matsurigoto` · **Tier**: B · **Status**: R0 ·
-**ADR**: 2606052300 (proposed)
+**ADR**: 2606062300 (proposed)
 
 **Read the root `/CLAUDE.md` Charter + substrate rules first.** matsurigoto-specific
 invariants below make the Charter concrete for this actor; they weaken nothing.

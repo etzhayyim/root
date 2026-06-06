@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3-place invariant drift-lock (matsurigoto 政, ADR-2606052300).
+"""3-place invariant drift-lock (matsurigoto 政, ADR-2606062300).
 
 Proves the structural invariants are encoded identically in all THREE places —
   (1) the schema EDN  00-contracts/schemas/egov-execution-ontology.kotoba.edn

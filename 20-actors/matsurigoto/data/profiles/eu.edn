@@ -1,4 +1,4 @@
-;; Supranational profile — EU European Union (principal B, supranational layer). ADR-2606052300.
+;; Supranational profile — EU European Union (principal B, supranational layer). ADR-2606062300.
 ;; sourcing :representative. The EU operates the cross-border INTEROP + corp-interconnection +
 ;; digital-identity layers the standard's specs are literally drawn from (BRIS, eIDAS, eDelivery).
 ;; iso3 "EUR" is a placeholder for the supranational tier (mirrors ooyake's EU rows).

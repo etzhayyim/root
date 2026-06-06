@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — `tax-assess` module (R0 reference implementation).
 
-ADR-2606052300. The FIRST executable vertical slice of the COFOG e-gov standard: a
+ADR-2606062300. The FIRST executable vertical slice of the COFOG e-gov standard: a
 PURE-FUNCTION tax-assessment engine for the services `tax.income.file` /
 `tax.corporate.file` / `tax.vat.file`.
 

@@ -1,4 +1,4 @@
-;; Country profile — EST Estonia (principal B). ADR-2606052300. sourcing :representative.
+;; Country profile — EST Estonia (principal B). ADR-2606062300. sourcing :representative.
 ;; Estonia is THE digital-government exemplar and the ORIGIN of X-Road (the interop.dataexchange
 ;; spec the standard cites). Near-fully-online statecraft; the reference target for maturity.
 {:country-profile/iso3 "EST" :country-profile/name "Eesti"

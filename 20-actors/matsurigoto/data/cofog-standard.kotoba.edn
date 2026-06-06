@@ -1,5 +1,5 @@
 ;; COFOG-based e-Government Service Standard  —  matsurigoto 政
-;; ADR (proposed): 2606052300-matsurigoto-egov-execution-commons
+;; ADR (proposed): 2606062300-matsurigoto-egov-execution-commons
 ;; depends-on: ADR-2606021600 (ooyake gov-atlas — the OBSERVATION sibling),
 ;;   ADR-2605262130 (kotoba substrate), ADR-2605312345 (datom-first-class),
 ;;   ADR-2605231525 (no-server-key), ADR-2605215000 (Murakumo-only),

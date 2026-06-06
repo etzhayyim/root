@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — `corp-registry` module (R0 reference implementation).
 
-ADR-2606052300. Third executable vertical slice: company-registry engine behind
+ADR-2606062300. Third executable vertical slice: company-registry engine behind
 `corp.incorporation.register` / `corp.change.register` / `corp.certificate` — i.e. 法人登記.
 
 WHAT IT IS: pure-function VALIDATION + registry-number assignment + ISO 17442 **LEI** issuance

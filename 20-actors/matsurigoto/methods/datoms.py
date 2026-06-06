@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — R1.B: persist module executions to the kotoba Datom log.
 
-ADR-2606052300. Converts a service module's output (R0 returned in-memory dicts) into
+ADR-2606062300. Converts a service module's output (R0 returned in-memory dicts) into
 APPEND-ONLY EAVT datoms over the `egov-exec-v1` graph, and builds an offline `kg.ingest_batch`
 body. State becomes canonical, as-of, replayable (ADR-2605262130 + 2605312345) — the same
 membrane ake/watari/kanjo use.

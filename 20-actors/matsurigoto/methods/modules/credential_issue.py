@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """matsurigoto 政 — `credential-issue` module (R0 reference implementation).
 
-ADR-2606052300. Fourth executable vertical slice: travel-document / ID-credential engine
+ADR-2606062300. Fourth executable vertical slice: travel-document / ID-credential engine
 behind `passport.issue` / `passport.renew` / `id.national.issue` — i.e. パスポート発行.
 
 WHAT IT IS: a pure-function ICAO Doc 9303 **TD3 MRZ** (Machine Readable Zone) builder with the

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for the COFOG-based e-gov service standard (matsurigoto 政, ADR-2606052300).
+"""Tests for the COFOG-based e-gov service standard (matsurigoto 政, ADR-2606062300).
 
 Standalone-runnable (`python3 test_standard.py`) AND pytest-compatible
 (`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest`), mirroring the other actors' test style.

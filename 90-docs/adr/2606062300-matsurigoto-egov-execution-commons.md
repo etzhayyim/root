@@ -1,6 +1,6 @@
 ---
-id: adr-2606052300-matsurigoto-egov-execution-commons
-title: "ADR-2606052300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)"
+id: adr-2606062300-matsurigoto-egov-execution-commons
+title: "ADR-2606062300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)"
 status: accepted
 doc_type: adr
 topic: matsurigoto-egov-execution-commons
@@ -28,7 +28,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606052300: matsurigoto 政 — COFOG-based e-Government execution commons
+# ADR-2606062300: matsurigoto 政 — COFOG-based e-Government execution commons
 
 **Status**: accepted
 **Date**: 2026-06-05 (accepted 2026-06-06)
