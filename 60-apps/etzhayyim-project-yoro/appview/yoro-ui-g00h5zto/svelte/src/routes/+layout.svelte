@@ -148,6 +148,10 @@
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker
 				.register('/kotoba-sw.js', { type: 'module', scope: '/' })
+				.then(() => import('$lib/kotoba-identity'))
+				// Re-bind the passkey-derived signing key ONLY if the member opted in
+				// earlier (never prompts unprompted). Best-effort.
+				.then((m) => m.maybeRebindPasskeyIdentity())
 				.catch((e) => console.warn('[kotoba-sw] register failed', e));
 		}
 		// Auto-init embedding model (45MB, cached in OPFS after first download)
