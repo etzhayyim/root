@@ -249,6 +249,36 @@ etzhayyim/root/
 └── .gitignore
 ```
 
+## Worktree isolation (CRITICAL — concurrent-agent safety)
+
+**This repo's main checkout (`/Users/junkawasaki/github/etzhayyim-root`) is shared and
+raced by multiple concurrent Claude agents** that `git checkout` different feature branches
+in the *same* working tree. Untracked / uncommitted work in the shared checkout is fragile:
+a sibling agent's `checkout` / `reset` / `clean` can wipe it without warning (observed
+2026-06-04 — an entire untracked actor scaffold vanished mid-session).
+
+**Rule — before ANY substantive multi-file work, Claude MUST isolate into a git worktree:**
+
+1. **Enter a worktree first.** Use the `EnterWorktree` tool (creates an isolated checkout
+   under `.claude/worktrees/<name>` on a fresh branch off `origin/main`) — or, outside this
+   harness, `git worktree add .claude/worktrees/<name> origin/main`. Do the work there, not
+   in the shared main checkout. (The `ooyake` agent already runs isolated in `/private/tmp/owt56`.)
+2. **Commit early and often inside the worktree.** A commit is the only durable unit in a
+   raced tree; a `git reset --hard` by a sibling cannot destroy a commit (recoverable via
+   reflog), but it *will* destroy untracked files. Never leave a completed unit of work
+   uncommitted.
+3. **Scope commits to your own paths.** When the shared index already holds another agent's
+   staged files, commit with an explicit pathspec (`git commit -- <your paths>`) so you do
+   not sweep up a sibling's work.
+4. **Branch off `origin/main`, not the current shared HEAD**, so a sibling's in-flight
+   commit (e.g. another actor landing on the branch you happened to be on) does not become
+   part of your history.
+5. **Back up irreplaceable untracked work outside the git tree** (`cp -R … /tmp/…`) if you
+   cannot commit immediately — insurance against a concurrent wipe.
+
+Exit with `ExitWorktree` (`keep` to preserve the branch). The session's cron `/loop`
+iterations continue inside whatever worktree the session is in.
+
 ## ADR Authority (per ADR-2605170900)
 
 **This repo is canonical for religious-corp open ADRs.**
