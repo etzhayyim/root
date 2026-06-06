@@ -148,6 +148,35 @@ Concretely:
   L2 anchor over the commit-DAG root remains available as finality (ADR-2605312345)
   and is orthogonal to this head primitive.
 
+# Implementation status (2026-06-07)
+
+Substrate LANDED + merged (the record + producer + reader + apex relay):
+
+- **kotoba** `etzhayyim/kotoba` — **#47** wasm-safe `kotoba-ipns-record` crate
+  (`IpnsRecord` + Ed25519 sign/verify, factored out of `kotoba-ipfs`, re-exported
+  unchanged) + `kotoba-wasm` **`commitHeadSigned`** producer binding · **#48**
+  make `kotoba-store` native-only so `kotoba-wasm` links for `wasm32` (dropped a
+  `reqwest→tokio/net→mio` leak) · **#49** **`verifyIpnsRecord`** reader binding +
+  a JSON round-trip interop test (the TS↔Rust vector). Submodule pinned at
+  `9157ea3e`.
+- **monorepo** — **#1205** apex `block.put` accepts + stores the signed
+  `IpnsRecord` in the head manifest (only when `value == root` ∧
+  `controller_did == did`); `GET root` serves it; apex stays a NON-authoritative
+  relay (8/8 tests) + lexicon docs · **#1208** submodule bump to the verify
+  binding.
+
+REMAINING (operator-coordinated; browser-E2E + deploy):
+
+1. Rebuild the 3 checked-in `kotoba_wasm` bundle copies
+   (`50-infra/etzhayyim-did-web/scripts/build-kotoba-wasm.sh`).
+2. Route the yoro write path (`block-publish.ts::publishSignedRecord`, currently
+   pure-TS) through the wasm node's `commitHeadSigned`, and gate the read on
+   `KotobaNode.verifyIpnsRecord(...)`.
+3. Switch `block.put` CAS from `prevRoot` to the record `sequence` (the authority
+   switch), then browser E2E + `wrangler deploy`.
+
+See ADR-2606070030 (session close) for the full PR ledger.
+
 # References
 
 - ADR-2606065500 (browser-only kotoba social feed; the OPEN question this closes)
