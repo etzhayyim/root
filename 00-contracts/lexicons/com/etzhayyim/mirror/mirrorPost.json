@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mirror.mirrorPost",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A social-timeline post for an entity mirror-actor (ADR-2606042330 D4). Projects ONE material change in the entity's kotoba Datom as-of history (a new 決算 filing, a cable fault bulletin, a gov-unit procedure/address change, a craft chokepoint transit, a supply-edge rewiring) into an app.bsky.feed.post authored by the mirror-actor's DID. The timeline IS the entity's append-only as-of trajectory — there is no 'final state' post (非終末論, ADR-2605312345). Body is Murakumo-narrated (ADR-2605215000). LIVE publication to the atproto firehose is Council + operator gated (G8); R0 = dry-run projection only.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["actorHandle", "datomTxCid", "asOf", "narrator", "isMirror", "text"],
+        "properties": {
+          "actorHandle": { "type": "string", "description": "the mirror-actor authoring this post, e.g. 'corp-tw-tsmc'" },
+          "datomTxCid": {
+            "type": "string",
+            "description": "kotoba transaction CID of the as-of delta this post projects (content-addressed; the post is auditable back to the Datom log)"
+          },
+          "asOf": {
+            "type": "string",
+            "format": "datetime",
+            "description": "the Datom as-of instant; becomes the post createdAt (history, not now)"
+          },
+          "changeKind": {
+            "type": "string",
+            "description": "what changed, e.g. 'filing', 'fault', 'procedure', 'transit', 'supply-edge'"
+          },
+          "narrator": {
+            "type": "string",
+            "const": "murakumo",
+            "description": "G6 — narration is Murakumo-only; no off-Murakumo inference"
+          },
+          "isMirror": {
+            "type": "boolean",
+            "const": true,
+            "description": "G1 — the post is etzhayyim's record of a public fact, never the entity speaking"
+          },
+          "published": {
+            "type": "boolean",
+            "description": "G8 — false at R0 (dry-run); true only after Council + operator gate for live firehose publication"
+          },
+          "text": { "type": "string", "maxLength": 3000, "description": "the narrated post body (aggregate-first, :representative-honest)" }
+        }
+      }
+    }
+  }
+}

@@ -154,12 +154,26 @@
 				capabilitiesData = [];
 				performerData = {};
 				publicConvos = [];
-				// Single path: PDS XRPC getAuthorProfile → graph SQL path → RisingWave
+				// Resolve the actor profile via the apex did-web registry (relative
+				// `/xrpc` → etzhayyim.com), which resolves ALL registered actors
+				// (entity mirrors + named/Tier-B). The PDS (atproto.etzhayyim.com,
+				// the getAuthorProfile DEFAULT_SERVICE) answers GET getProfile with
+				// 405 for these, which previously threw out of Promise.all → the
+				// actorResult.displayName deref → SvelteKit 500 (ADR-2606042330).
+				// Guarded + fallback so a miss degrades gracefully, never 500s.
 				const actorLookup = !isDid(handle) && handle.includes(':') ? handle : did;
-				const [actorResult, currentDid] = await Promise.all([
-					getAuthorProfile(actorLookup),
+				const [actorResultRaw, currentDid] = await Promise.all([
+					fetch(`/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(actorLookup)}`)
+						.then((r) => (r.ok ? r.json() : null))
+						.catch(() => null),
 					getCurrentDID(),
 				]);
+				const actorResult = actorResultRaw ?? {
+					did,
+					handle: `${actorData.nanoid}.etzhayyim.com`,
+					displayName: actorData.name,
+					description: actorData.description,
+				};
 				// SSR tools (server-side, no extra fetch)
 				const ssrTools = data?.appTools;
 				if (Array.isArray(ssrTools) && ssrTools.length > 0) {

@@ -20715,6 +20715,45 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606042330-entity-as-actor-society-wide-social-mirror-graph.md",
+      "id": "adr-2606042330-entity-as-actor-society-wide-social-mirror-graph",
+      "title": "ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "entity-as-actor-social-mirror-graph",
+      "authoritative": true,
+      "authoritative_for": [
+        "1 entity = 1 actor: every public/power entity datafied by a knowledge-graph actor resolves its own did:web actor",
+        "keyless mirror-actor model (no-server-key) + namespaced generated handle registries",
+        "entity social timeline = kotoba Datom as-of history projected as app.bsky.feed.post",
+        "searchActors / getProfile at society scale across all entity namespaces + unispsc unification"
+      ],
+      "related": [
+        "2606021600",
+        "2606022000",
+        "2606032000",
+        "2606011800",
+        "2606012600",
+        "2606041827"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606013800",
+        "2605241800",
+        "2605231525",
+        "2605231902",
+        "2605262130",
+        "2605312345",
+        "2605215000",
+        "2605192200",
+        "2605171300"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
