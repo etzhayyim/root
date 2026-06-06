@@ -27,13 +27,13 @@ import sys
 
 try:
     from analyze import load_edn
-    from score import (Forecast, Observation, climatology_gaussian, gaussian_crps,
-                       persistence_gaussian, score_pair, skill_score)
+    from score import (Forecast, Observation, calibration_summary, climatology_gaussian,
+                       gaussian_crps, persistence_gaussian, score_pair, skill_score)
 except ImportError:
     from mitooshi.methods.analyze import load_edn  # type: ignore
     from mitooshi.methods.score import (  # type: ignore
-        Forecast, Observation, climatology_gaussian, gaussian_crps,
-        persistence_gaussian, score_pair, skill_score)
+        Forecast, Observation, calibration_summary, climatology_gaussian,
+        gaussian_crps, persistence_gaussian, score_pair, skill_score)
 
 METHODS = ("climatology", "persistence")
 
@@ -98,6 +98,64 @@ def forecast_trail(rows: list[dict], target_at: int, method: str = "climatology"
     return out
 
 
+def backtest_rolling(rows: list[dict], method: str = "climatology") -> dict:
+    """Rolling-origin backtest: at EVERY observed-at origin (after the first), forecast
+    each series from history strictly before it and score against the realized obs. This
+    is the leak-free, all-origins answer to "does this method have skill?" — not a single
+    cherry-picked target. Returns {method, n, mean_crps, mean_skill, calibration, per_origin}.
+    """
+    hist = series_histories(rows)
+    targets = sorted({t for pairs in hist.values() for t, _v in pairs})
+    crps_all, skill_all, pit_all = [], [], []
+    per_origin: list[dict] = []
+    for target_at in targets[1:]:                     # skip the first (no prior history)
+        scored = [r for r in forecast_trail(rows, target_at, method) if "crps" in r]
+        if not scored:
+            continue
+        o_crps = [r["crps"] for r in scored]
+        o_skill = [r["skill"] for r in scored]
+        crps_all += o_crps
+        skill_all += o_skill
+        for r in scored:                              # collect PIT for calibration
+            fc, h = r["forecast"], hist[r["series"]]
+            y = next(v for t, v in h if t == target_at)
+            pit_all.append(score_pair(fc, Observation(oid="o", observed_at=target_at, value=y))["pit"])
+        per_origin.append({"target_at": target_at, "n": len(scored),
+                           "mean_crps": round(sum(o_crps) / len(o_crps), 6),
+                           "mean_skill": round(sum(o_skill) / len(o_skill), 4)})
+    n = len(crps_all)
+    return {
+        "method": method, "n": n,
+        "mean_crps": round(sum(crps_all) / n, 6) if n else None,
+        "mean_skill": round(sum(skill_all) / n, 4) if n else None,
+        "calibration": calibration_summary(pit_all),
+        "per_origin": per_origin,
+    }
+
+
+def compare_methods(rows: list[dict]) -> dict:
+    """Rolling-origin backtest for every method → {method: summary}. The honest, all-origins
+    method comparison (no cherry-picked target, leak-free at each origin)."""
+    return {m: backtest_rolling(rows, m) for m in METHODS}
+
+
+def emit_scorecard_edn(comparison: dict) -> str:
+    L = [";; chokepoint-backtest-scorecard.kotoba.edn — ROLLING-ORIGIN leak-free backtest.",
+         ";; Aggregate skill vs climatology over ALL origins (no cherry-picked target).",
+         ";; G5 leak-free at each origin; G12 skill vs a documented baseline. DERIVED",
+         ";; :representative. Live promotion G10-gated. ADR-2606051800.", "", "["]
+    for m, s in sorted(comparison.items()):
+        cal = s["calibration"]
+        L.append(
+            f' {{:fc.score/method :{m} :fc.score/n {s["n"]} '
+            f':fc.score/mean-crps {s["mean_crps"]} :fc.score/mean-skill {s["mean_skill"]} '
+            f':fc.score/pit-mean {round(cal["pit_mean"], 4)} '
+            f':fc.score/calibration-deviation {round(cal["deviation"], 4)} '
+            f':fc.score/sourcing :representative}}')
+    L.append("]")
+    return "\n".join(L) + "\n"
+
+
 def emit_forecast_edn(forecasts: list[dict], target_at: int, method: str) -> str:
     L = [f";; chokepoint-forecast.kotoba.edn — DISTRIBUTION forecasts @ target={target_at} ({method}).",
          ";; G1 distribution-only (:forecast/point-asserted false, 非終末論). G5 leak-free",
@@ -115,13 +173,26 @@ def emit_forecast_edn(forecasts: list[dict], target_at: int, method: str) -> str
 
 
 def main(argv: list[str]) -> int:
-    if "--trail" not in argv or "--at" not in argv:
+    if "--trail" not in argv or ("--at" not in argv and "--backtest" not in argv):
         sys.exit(__doc__)
     trail = pathlib.Path(argv[argv.index("--trail") + 1])
-    target_at = int(argv[argv.index("--at") + 1])
+    target_at = int(argv[argv.index("--at") + 1]) if "--at" in argv else 0
     method = argv[argv.index("--method") + 1] if "--method" in argv else "climatology"
 
     rows = load_edn(trail)
+
+    if "--backtest" in argv:
+        comp = compare_methods(rows)
+        if "--out" in argv:
+            outdir = pathlib.Path(argv[argv.index("--out") + 1])
+            outdir.mkdir(parents=True, exist_ok=True)
+            (outdir / "chokepoint-backtest-scorecard.kotoba.edn").write_text(emit_scorecard_edn(comp))
+        print("mitooshi rolling-origin backtest (leak-free at each origin):")
+        for m, s in sorted(comp.items()):
+            print(f"  {m:12s} n={s['n']:3d}  mean-CRPS={s['mean_crps']}  "
+                  f"mean-skill={s['mean_skill']:+}  PIT-mean={round(s['calibration']['pit_mean'], 3)}")
+        return 0
+
     fcs = forecast_trail(rows, target_at, method)
     if "--out" in argv:
         outdir = pathlib.Path(argv[argv.index("--out") + 1])
