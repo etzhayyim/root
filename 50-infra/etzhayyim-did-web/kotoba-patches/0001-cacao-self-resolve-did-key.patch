@@ -1,0 +1,20 @@
+diff --git a/crates/kotoba-auth/src/cacao.rs b/crates/kotoba-auth/src/cacao.rs
+index 837d449..1d26830 100644
+--- a/crates/kotoba-auth/src/cacao.rs
++++ b/crates/kotoba-auth/src/cacao.rs
+@@ -318,6 +318,15 @@ impl Cacao {
+         if self.s.t != "EdDSA" {
+             return self.verify_signature();
+         }
++        // A `did:key` carries its own Ed25519 public key in the identifier, so it
++        // is self-certifying — verify against the embedded key directly and never
++        // hit the resolver. Resolving an unpublished member `did:key` would force
++        // a DID-document fetch over IPNS/IPFS that hangs (the document does not
++        // exist), which is exactly what blocked same-origin member account writes.
++        // Non-`did:key` issuers (did:web / did:plc) still resolve a DID Document.
++        if self.p.iss.starts_with("did:key:") {
++            return self.verify_signature();
++        }
+         let doc = resolver.resolve(&self.p.iss)?;
+         let pubkey = doc.ed25519_public_key().ok_or_else(|| {
+             CacaoError::DidResolver(format!("no Ed25519 key in DID Document for {}", self.p.iss))

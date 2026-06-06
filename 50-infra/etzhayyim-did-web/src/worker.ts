@@ -34,14 +34,14 @@ import {
   GOV_PROCEDURES_JURISDICTION_COUNT,
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
-import { fetchKotobaActorRecord } from "./kotoba";
+import { fetchKotobaActorRecord, putKotobaAccount } from "./kotoba";
 import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
 // Durable Object class — must be exported from the Worker entry module.
 export { KotobaRoot } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
-import { handleVerifyCacao } from "./session";
+import { handleVerifyCacao, handleRegisterAccount } from "./session";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -423,6 +423,11 @@ interface Env {
   // attestations. Optional — absent → pseudonymous hash only (see kotoba-publish).
   KOTOBA_ATTEST_KEY?: string;
   KOTOBA_ENDPOINT?: string;
+  // Same-origin account publish (ADR-2606061800). When set, the verify-only
+  // `registerAccount` relay writes the member's handle↔did:key alias + profile
+  // to the kotoba node here. Absent → the relay reports `gated` (honest R0): the
+  // member is still authenticated locally, the account just isn't published yet.
+  KOTOBA_WRITE_ENDPOINT?: string;
   // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
   // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
@@ -1451,13 +1456,42 @@ a{color:inherit}
       if (m) {
         const nsid = m[1];
 
+        // ── same-origin auth: CORS preflight for verify/register ──────────
+        // The SPA may run on yoro.etzhayyim.com (cross-origin to the apex), and
+        // the native app posts from a custom scheme — both need CORS. These two
+        // surfaces are public, no-cookie, verify-only (no credentials), so a
+        // permissive ACAO is safe.
+        const isSameOriginAuthNsid =
+          nsid === "com.etzhayyim.authz.verifyCacao" ||
+          nsid === "com.etzhayyim.authz.registerAccount";
+        if (isSameOriginAuthNsid && request.method === "OPTIONS") {
+          return new Response(null, {
+            status: 204,
+            headers: {
+              "access-control-allow-origin": "*",
+              "access-control-allow-methods": "POST, OPTIONS",
+              "access-control-allow-headers": "content-type",
+              "access-control-max-age": "86400",
+              "x-etzhayyim-no-cookie": "1",
+            },
+          });
+        }
+        const SAME_ORIGIN_AUTH_CORS: Record<string, string> = {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-etzhayyim-no-cookie": "1",
+          "x-etzhayyim-auth": "cacao-verify-only",
+          "access-control-allow-origin": "*",
+        };
+
         // ── verifyCacao short-circuit (ADR-2606060000) ────────────────────
-        // Same-origin auth gate for `/profile`: verify a member-signed CACAO
-        // (WebAuthn/passkey → Ed25519 did:key, verified LOCALLY via WebCrypto;
-        // SIWE/eip191 structurally validated + relayed to kotoba). No auth
-        // subdomain, no server key, no session minted — the Worker only
-        // confirms DID control + capability scope so the page can flip into
-        // edit-mode. Served locally; never proxied.
+        // Same-origin auth gate: verify a member-signed CACAO (WebAuthn/passkey
+        // → Ed25519 did:key, verified LOCALLY via WebCrypto; SIWE/eip191
+        // structurally validated + relayed to kotoba). No auth subdomain, no
+        // server key, no session minted — the Worker only confirms DID control +
+        // capability scope so the client can flip into a signed-in/edit state.
+        // This is now the primary login/signup control proof (ADR-2606061800),
+        // not just `/profile` edit-mode. Served locally; never proxied.
         if (
           nsid === "com.etzhayyim.authz.verifyCacao" &&
           request.method === "POST"
@@ -1474,12 +1508,37 @@ a{color:inherit}
           );
           return new Response(JSON.stringify(result) + "\n", {
             status,
-            headers: {
-              "content-type": "application/json; charset=utf-8",
-              "cache-control": "no-store",
-              "x-etzhayyim-no-cookie": "1",
-              "x-etzhayyim-auth": "cacao-verify-only",
-            },
+            headers: SAME_ORIGIN_AUTH_CORS,
+          });
+        }
+
+        // ── registerAccount short-circuit (ADR-2606061800) ────────────────
+        // Same-origin account publish: a member proves control of their
+        // controller did:key with a CACAO carrying the `account:register`
+        // capability; the Worker verifies it (no server key) and relays the
+        // handle↔did:key alias + profile to the kotoba node. Best-effort — when
+        // KOTOBA_WRITE_ENDPOINT is unset the relay reports `gated` (HTTP 202),
+        // honest R0: the member is authenticated locally, the account just isn't
+        // published yet. Served locally; never proxied.
+        if (
+          nsid === "com.etzhayyim.authz.registerAccount" &&
+          request.method === "POST"
+        ) {
+          let payload: unknown = null;
+          try {
+            payload = await request.json();
+          } catch {
+            payload = null;
+          }
+          const { status, result } = await handleRegisterAccount(
+            payload,
+            Date.now(),
+            (did, handle, profile) =>
+              putKotobaAccount(env, did, handle, profile),
+          );
+          return new Response(JSON.stringify(result) + "\n", {
+            status,
+            headers: SAME_ORIGIN_AUTH_CORS,
           });
         }
 
