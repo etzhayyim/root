@@ -273,8 +273,11 @@ Tier-2 sets its magnitude within Tier-0-guarded bounds.*
   validates clean — it structurally encodes the invariants (amendsTier const `tier-1`,
   tier0Immutable const `true`, conformanceFinding ∈ {serves-better, serves-equally} so
   `serves-worse` is unrepresentable, councilUnanimous const `true`, serverHeldKey const `false`).
-  The remaining gap is the Council *procedure* + on-chain submission path; until that is wired,
-  Tier-1 amendments still execute by Lv7+ unanimity with this record as the attached artifact.
+  The Council *procedure* is now documented in `90-docs/charter-tier1-amendment-runbook.md`
+  (draft text → compute hash → fill attestation → Lv7+ unanimity → update the Tier-2
+  `charter_rider_text_hash` anchor → re-run the CI drift-lock). The remaining gap is only the
+  on-chain *submission* path (a native contract entrypoint); until that is wired, Tier-1
+  amendments execute by the runbook with this record as the attached, append-only artifact.
 - **Re-deriving fossil/weapons as Tier-1 could be read as weakening them.** Mitigation: the
   substance is *stronger* — kamado's carbon-balance makes fossil-virgin-crude structurally
   unrepresentable (a measurement, harder to game than a 25%-revenue threshold), and defensive

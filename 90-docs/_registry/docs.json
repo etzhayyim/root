@@ -21527,6 +21527,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/charter-tier1-amendment-runbook.md",
+      "id": "charter-tier1-amendment-runbook",
+      "title": "Charter Tier-1 Amendment Runbook — how to amend a Derived Policy (Rider §2) without touching a Tier-0 Priority",
+      "status": "active",
+      "doc_type": "how-to",
+      "topic": "charter-tier1-amendment",
+      "authoritative": true,
+      "authoritative_for": [
+        "the operational procedure for amending a Charter-Rider §2 Tier-1 Derived Policy",
+        "how a priorityConformanceAttestation is produced and what gates it"
+      ],
+      "related": [
+        "adr-2606062100-charter-priority-over-specifics-reconciliation",
+        "CHARTER-RIDER.md",
+        "00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/priorityConformanceAttestation.json"
+      ],
+      "depends_on": [
+        "adr-2606062100-charter-priority-over-specifics-reconciliation"
+      ],
+      "last_verified": "2026-06-06",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/260414-cohort-coverage-evaluation-baseline.md",
       "id": "cohort-coverage-evaluation-baseline-260414",
       "title": "Cohort Coverage / Evaluation / Process Mining Baseline (ADR-0026 Iteration 1)",
