@@ -1,14 +1,16 @@
 ---
 id: ADR-2606061500
 title: tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)
-status: proposed
+status: accepted
 doc_type: adr
 topic: engi-knowledge-graph
 authoritative: true
 authoritative_for:
   - diachronic influence-as-information-flow over historical public figures/documents/events/traditions
   - mirror-only social projection of historical influence (non-impersonation)
-last_verified: 2026-06-06
+  - coverage measurement + Wikidata/Pantheon live influence ingest (G7-gated)
+last_verified: 2026-06-07
+note_id_collision: "ADR id 2606061500 is shared with 2606061500-cacao-only-header-auth-jwt-decommission.md (parallel-agent race); filename disambiguates (tracked for future ADR-id reconciliation, per repo CLAUDE.md)."
 related:
   - https://junkawasaki.com/en/posts/spirit-is-information/
 supersedes: []
@@ -157,6 +159,34 @@ Reformation). N5: all 48 edges forward in time.
   aggregate-first, never stored as a soul score or a ranking of worth.
 - **Model living natural persons now.** Rejected: that is the Council-Lv7+-gated `:human`
   scale (spirit-ontology N3) with 要配慮 PII; out of scope for R0, which is public + settled.
+
+## Landed (2026-06-06 … 06-07)
+
+Shipped to `main` over four scoped PRs, all tests green, zero invariant amendments:
+
+- **PR #1200 — Wave 1** (actor scaffold): `influence-history-ontology.kotoba.edn`,
+  `analyze_influence.py` (temporal-DAG → RBF/spectral/tensegrity → Katz reach),
+  `project_influence_posts.py` (dry-run observer-voice), `com.etzhayyim.influence.*` lexicons,
+  32-node/48-edge seed, 12 invariant tests + this ADR.
+- **PR #1201 — Wave 2** (manual gap-fill): seed **32→79 nodes / 48→125 縁**, single connected
+  component; added Islam / Vedic-Hindu / Daoist / Confucian / Jain / Zoroastrian streams and
+  the post-1648 modern world; cross-tradition channels (Aristotle→Avicenna/Averroes→Aquinas,
+  Daoism→Zen, Upanishads→Buddha, Hume→Kant→Hegel→Marx/Nietzsche, Newton→Einstein); fixed the
+  `trad.hellenic` isolation. **11/11 eras · 17/17 civilizational streams**.
+- **PR #1202 — coverage + ingest tooling**: `coverage_report.py` (honest coverage: era spine,
+  civilizational streams, external denominators, gap map — all-humanity ~0 by design) and
+  `ingest_influence.py` (offline fixtures → `:flow/` 縁 through the N1/N2/N4/N5/G5 membrane);
+  +10 tests.
+- **PR #1204 — live fetch wiring** (Council-approved, gate unchanged): real stdlib-`urllib`
+  Wikidata WDQS `P737` + best-effort Pantheon fetch behind G7; verified against real Wikidata
+  (gated smoke pulled real P737 pairs, N5 held on real BCE/CE dates); output to `out/` only —
+  the committed seed is never auto-mutated (promotion is a separate human-reviewed PR).
+  Hermetic recorded-WDQS-JSON test fixture; **25 tests total** (12 invariant + 13 coverage/ingest).
+
+**Honest open follow-up**: an unanchored `LIMIT N` live query returns backbone-disconnected
+fragments; growing the *connected* graph needs an **anchored** query (P737 neighbours of seed
+QIDs / domain-filter) — a query refinement, not a wiring gap. kami-engine WASM 3-D influence-cone
+visualization and `/search` mirror-actor registration remain future work.
 
 ## References
 
