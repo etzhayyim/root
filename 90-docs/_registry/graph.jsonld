@@ -13060,7 +13060,7 @@
       "id": "doc:adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite",
       "type": "TechArticle",
       "title": "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite",
-      "status": "proposed",
+      "status": "active",
       "topic": "open-kyber-kotoba-datomic-erp",
       "authoritative": true,
       "authoritativeFor": [
@@ -13073,7 +13073,8 @@
         "doc:2606012100",
         "doc:2606032100"
       ],
-      "lastVerified": "2026-06-03"
+      "supersedes": "doc:0025",
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
