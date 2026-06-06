@@ -51,8 +51,6 @@ _DEFAULT_ORG_DID = os.environ.get(
     "MANGAKA_DEFAULT_ORG_DID",
     "did:erc725:etzhayyim:260425:etzhayyim-japan",
 )
-_RW_URL = os.environ.get("RW_URL", "")
-
 
 def _coll(kind: str) -> str:
     return f"com.etzhayyim.mangaka.{kind}"
@@ -88,8 +86,6 @@ class _State(TypedDict, total=False):
 
 
 async def _node_import(state: _State) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"status": "error", "error": "RW_URL not configured"}
     # server.py xrpc shim converts camelCase keys to snake_case; tolerate both.
     def g(*keys: str, default=None):
         for k in keys:
@@ -111,49 +107,44 @@ async def _node_import(state: _State) -> dict[str, Any]:
                 "character": 0, "environment": 0, "organization": 0, "generatedImage": 0}
 
     try:
-        import psycopg  # type: ignore
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
 
-            async def upsert(*, kind: str, rkey: str, name: str | None = None,
-                             title: str | None = None, parent_rkey: str | None = None,
-                             page_number: int | None = None, panel_number: int | None = None,
-                             cid: str | None = None, props_obj: dict | None = None) -> str:
-                vid = _vid(kind, rkey)
-                await cur.execute(
-                    "DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-                await cur.execute(
-                    """
-                    INSERT INTO vertex_mangaka (
-                        vertex_id, created_date, sensitivity_ord, owner_did,
-                        rkey, repo, did, collection,
-                        label, title, name, display_name,
-                        kind, status, created_at, props, parent_rkey,
-                        page_number, panel_number, cid,
-                        actor_did, org_did
-                    ) VALUES (
-                        %s, %s, 0, %s,
-                        %s, %s, %s, %s,
-                        %s, %s, %s, %s,
-                        %s, 'saved', %s, %s, %s,
-                        %s, %s, %s,
-                        %s, %s
-                    )
-                    """,
-                    (
-                        vid, now_date, _APP_DID,
-                        rkey, _APP_DID, _APP_DID, _coll(kind),
-                        kind, title or name or rkey, name or rkey, name or rkey,
-                        kind, now_iso, json.dumps(props_obj or {}, ensure_ascii=False), parent_rkey,
-                        page_number, panel_number, cid,
-                        actor_did, org_did,
-                    ),
-                )
-                inserted[kind] = inserted.get(kind, 0) + 1
-                return rkey
+        async def upsert(*, kind: str, rkey: str, name: str | None = None,
+                         title: str | None = None, parent_rkey: str | None = None,
+                         page_number: int | None = None, panel_number: int | None = None,
+                         cid: str | None = None, props_obj: dict | None = None) -> str:
+            vid = _vid(kind, rkey)
+            row_dict = {
+                "vertex_id": vid,
+                "created_date": now_date,
+                "sensitivity_ord": 0,
+                "owner_did": _APP_DID,
+                "rkey": rkey,
+                "repo": _APP_DID,
+                "did": _APP_DID,
+                "collection": _coll(kind),
+                "label": kind,
+                "title": title or name or rkey,
+                "name": name or rkey,
+                "display_name": name or rkey,
+                "kind": kind,
+                "status": "saved",
+                "created_at": now_iso,
+                "props": json.dumps(props_obj or {}, ensure_ascii=False),
+                "parent_rkey": parent_rkey,
+                "page_number": page_number,
+                "panel_number": panel_number,
+                "cid": cid,
+                "actor_did": actor_did,
+                "org_did": org_did,
+            }
+            await asyncio.to_thread(client.insert_row, "vertex_mangaka", row_dict)
+            inserted[kind] = inserted.get(kind, 0) + 1
+            return rkey
 
-            # 1. Work
+        # 1. Work
             work_rkey = f"gh-work-{work_id}"
             await upsert(kind="work", rkey=work_rkey,
                          name=g("work_name", "workName") or "Ghost Hacker",
@@ -245,8 +236,6 @@ async def _node_import(state: _State) -> dict[str, Any]:
                                      cid=gen_cid,
                                      name=f"GenImage {panel_num}",
                                      props_obj={"prompt": sdxl})
-        finally:
-            await conn.close()
     except Exception as exc:  # noqa: BLE001
         _log.exception("import_ghosthacker failed (episodeId=%s)", episode_id)
         return {"status": "error", "error": f"{type(exc).__name__}: {exc!s}"[:300]}

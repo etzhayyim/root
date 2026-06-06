@@ -41,7 +41,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _VLLM_URL = os.environ.get(
     "VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1",
 ).rstrip("/")
@@ -96,30 +95,22 @@ class _State(TypedDict, total=False):
 
 
 async def _fetch_lines(video_id: str) -> list[_Line]:
-    import psycopg
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            """SELECT scene_index, line_index, speaker, text, emotion, voice_blob_key
-               FROM vertex_yukkuri_line
-               WHERE video_id = %s
-               ORDER BY scene_index, line_index LIMIT 500""",
-            [video_id],
-        )
-        rows = await cur.fetchall()
-    finally:
-        await conn.close()
+    import asyncio
+    client = get_kotoba_client()
+    raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
+    raw_rows.sort(key=lambda x: (int(x.get("scene_index") or 0), int(x.get("line_index") or 0)))
+    
     out: list[_Line] = []
-    for r in rows:
+    for r in raw_rows:
+        text = str(r.get("text") or "")
         out.append({
-            "scene_index": int(r[0] or 0),
-            "line_index": int(r[1] or 0),
-            "speaker": r[2] or "left",
-            "text": r[3] or "",
-            "emotion": r[4] or "normal",
-            "voice_blob_key": r[5] or None,
-            "duration_ms": max(800, int(160 * len(r[3] or ""))),
+            "scene_index": int(r.get("scene_index") or 0),
+            "line_index": int(r.get("line_index") or 0),
+            "speaker": r.get("speaker") or "left",
+            "text": text,
+            "emotion": r.get("emotion") or "normal",
+            "voice_blob_key": r.get("voice_blob_key") or None,
+            "duration_ms": max(800, int(160 * len(text))),
         })
     return out
 
@@ -248,8 +239,6 @@ async def _node_fetch(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     try:
         lines = await _fetch_lines(video_id)
     except Exception as exc:  # noqa: BLE001
@@ -318,47 +307,48 @@ async def _node_dub(state: _State) -> dict[str, Any]:
 async def _node_insert(state: _State) -> dict[str, Any]:
     if state.get("error"):
         return {}
-    if not _RW_URL:
-        return {}
     video_id = state.get("video_id") or ""
     subtitle_blobs = state.get("subtitle_blobs") or {}
     dub_blobs = state.get("dub_blobs") or {}
     created_at = datetime.now(tz=timezone.utc).isoformat()
 
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            for lang, blob_key in subtitle_blobs.items():
-                asset_id = f"asset-srt-{video_id}-{lang}-{secrets.token_hex(3)}"
-                meta = f'{{"lang":"{lang}","format":"srt"}}'
-                await conn.execute(
-                    """INSERT INTO vertex_yukkuri_asset
-                       (asset_id, video_id, kind, actor_did, blob_key, meta_json, created_at)
-                       VALUES (%s, %s, 'subtitle', %s, %s, %s, %s)""",
-                    [asset_id, video_id, _TRANSLATOR_DID, blob_key, meta, created_at],
+        import asyncio
+        client = get_kotoba_client()
+        for lang, blob_key in subtitle_blobs.items():
+            asset_id = f"asset-srt-{video_id}-{lang}-{secrets.token_hex(3)}"
+            meta = f'{{"lang":"{lang}","format":"srt"}}'
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
+                "vertex_id": asset_id,
+                "video_id": video_id,
+                "kind": "subtitle",
+                "actor_did": _TRANSLATOR_DID,
+                "blob_key": blob_key,
+                "meta_json": meta,
+                "created_at": created_at
+            })
+        for lang, items in dub_blobs.items():
+            for it in items:
+                asset_id = (
+                    f"asset-dub-{video_id}-{lang}-{it['sceneIndex']}-"
+                    f"{it['lineIndex']}-{secrets.token_hex(2)}"
                 )
-            for lang, items in dub_blobs.items():
-                for it in items:
-                    asset_id = (
-                        f"asset-dub-{video_id}-{lang}-{it['sceneIndex']}-"
-                        f"{it['lineIndex']}-{secrets.token_hex(2)}"
-                    )
-                    meta = (
-                        f'{{"lang":"{lang}","sceneIndex":{it["sceneIndex"]},'
-                        f'"lineIndex":{it["lineIndex"]},'
-                        f'"speaker":"{it["speaker"]}",'
-                        f'"voicePreset":"{it["voicePreset"]}"}}'
-                    )
-                    await conn.execute(
-                        """INSERT INTO vertex_yukkuri_asset
-                           (asset_id, video_id, kind, actor_did, blob_key, meta_json, created_at)
-                           VALUES (%s, %s, 'voice_dub', %s, %s, %s, %s)""",
-                        [asset_id, video_id, _TRANSLATOR_DID, it["blobKey"],
-                         meta, created_at],
-                    )
-        finally:
-            await conn.close()
+                meta = json.dumps({
+                    "lang": lang,
+                    "format": "mp3",
+                    "sceneIndex": it["sceneIndex"],
+                    "lineIndex": it["lineIndex"],
+                    "voicePreset": it["voicePreset"],
+                }, separators=(",", ":"))
+                await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
+                    "vertex_id": asset_id,
+                    "video_id": video_id,
+                    "kind": "voice_dub",
+                    "actor_did": _TRANSLATOR_DID,
+                    "blob_key": it["blobKey"],
+                    "meta_json": meta,
+                    "created_at": created_at
+                })
     except Exception as exc:  # noqa: BLE001
         _log.exception("translate insert failed")
         return {"error": f"insert: {exc!s}"[:300]}

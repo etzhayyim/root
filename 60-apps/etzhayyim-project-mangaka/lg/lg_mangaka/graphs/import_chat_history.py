@@ -34,7 +34,6 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
-_RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:etzhayyim:260425:etzhayyim-japan")
 
@@ -98,35 +97,43 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
         sess_n = sum(1 for p in plans if p["kind"] == "chatSession")
         msg_n = sum(1 for p in plans if p["kind"] == "chatMessage")
         return {"status": "imported", "counts": {"sessions": sess_n, "messages": msg_n}, "error": None}
-    if not _RW_URL: return {"status": "error", "error": "RW_URL not configured"}
-
+    
     work_rkey = state.get("work_rkey") or "gh-work-ghost-hacker"
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
     sess_count, msg_count = 0, 0
-    import psycopg
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        for plan in plans:
-            kind = plan["kind"]
-            rkey = plan["rkey"]
-            parent = plan.get("parent") or (work_rkey if kind == "chatSession" else None)
-            vid = f"at://{_APP_DID}/com.etzhayyim.mangaka.{kind}/{rkey}"
-            await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-            await cur.execute(
-                """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-                    rkey, repo, did, collection, label, title, name, display_name,
-                    kind, status, created_at, props, parent_rkey, page_number, actor_did, org_did
-                ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'saved', %s, %s, %s, %s, %s, %s)""",
-                (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID,
-                 f"com.etzhayyim.mangaka.{kind}", kind, plan.get("title"), plan.get("name"), plan.get("name"),
-                 kind, now_iso, json.dumps(plan.get("props") or {}, ensure_ascii=False),
-                 parent, plan.get("page_number"), _APP_DID, _DEFAULT_ORG_DID))
-            if kind == "chatSession": sess_count += 1
-            else: msg_count += 1
-    finally:
-        await conn.close()
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    for plan in plans:
+        kind = plan["kind"]
+        rkey = plan["rkey"]
+        parent = plan.get("parent") or (work_rkey if kind == "chatSession" else None)
+        vid = f"at://{_APP_DID}/com.etzhayyim.mangaka.{kind}/{rkey}"
+        await asyncio.to_thread(client.insert_row, "vertex_mangaka", {
+            "vertex_id": vid,
+            "created_date": now_date,
+            "sensitivity_ord": 0,
+            "owner_did": _APP_DID,
+            "rkey": rkey,
+            "repo": _APP_DID,
+            "did": _APP_DID,
+            "collection": f"com.etzhayyim.mangaka.{kind}",
+            "label": kind,
+            "title": plan.get("title"),
+            "name": plan.get("name"),
+            "display_name": plan.get("name"),
+            "kind": kind,
+            "status": "saved",
+            "created_at": now_iso,
+            "props": json.dumps(plan.get("props") or {}, ensure_ascii=False),
+            "parent_rkey": parent,
+            "page_number": plan.get("page_number"),
+            "actor_did": _APP_DID,
+            "org_did": _DEFAULT_ORG_DID
+        })
+        if kind == "chatSession": sess_count += 1
+        else: msg_count += 1
     return {"status": "imported", "counts": {"sessions": sess_count, "messages": msg_count}, "error": None}
 
 

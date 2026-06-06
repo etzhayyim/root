@@ -28,7 +28,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _ONGAKUKA_URL = os.environ.get(
     "ONGAKUKA_XRPC_URL", "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.ongakuka.compose"
 )
@@ -54,22 +53,15 @@ async def _node_fetch_topic(state: _State) -> dict[str, Any]:
     if state.get("topic"):
         return {}
     video_id = state.get("video_id") or ""
-    if not video_id or not _RW_URL:
+    if not video_id:
         return {}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                "SELECT topic FROM vertex_yukkuri_video WHERE video_id = %s LIMIT 1",
-                [video_id],
-            )
-            row = await cur.fetchone()
-        finally:
-            await conn.close()
-        if row:
-            return {"topic": row[0] or ""}
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
+        if raw_rows:
+            return {"topic": raw_rows[0].get("topic") or ""}
     except Exception as exc:
         _log.warning("fetch_topic failed: %s", exc)
     return {}
@@ -108,23 +100,22 @@ async def _node_compose_bgm(state: _State) -> dict[str, Any]:
 async def _node_insert_asset(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("bgm_blob_key"):
         return {}
-    if not _RW_URL:
-        return {}
     video_id = state.get("video_id") or ""
     asset_id = f"asset-bgm-{video_id}-{secrets.token_hex(3)}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            await conn.execute(
-                """INSERT INTO vertex_yukkuri_asset
-                   (asset_id, video_id, kind, actor_did, blob_key, meta_json, created_at)
-                   VALUES (%s, %s, 'bgm', %s, %s, '{}', %s)""",
-                [asset_id, video_id, _COMPOSER_DID, state["bgm_blob_key"], created_at],
-            )
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
+            "vertex_id": asset_id,
+            "video_id": video_id,
+            "kind": "bgm",
+            "actor_did": _COMPOSER_DID,
+            "blob_key": state["bgm_blob_key"],
+            "meta_json": "{}",
+            "created_at": created_at
+        })
     except Exception as exc:  # noqa: BLE001
         _log.exception("insert bgm asset failed")
         return {"error": f"insert: {exc!s}"[:300]}

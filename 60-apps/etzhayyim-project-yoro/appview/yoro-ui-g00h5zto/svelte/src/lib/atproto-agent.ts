@@ -71,6 +71,25 @@ const service = DEFAULT_SERVICE;
 
 export const agent = new AtpAgent({ service });
 
+// Feed/profile reads served browser-locally by the kotoba Service Worker
+// (kotoba-sw.js) from the in-page kotoba Datom log. A Service Worker can only
+// intercept SAME-ORIGIN requests, so these NSIDs must be sent to the apex
+// origin (etzhayyim.com/xrpc/...) rather than the cross-origin PDS — otherwise
+// the SW never sees them. Every other NSID keeps the direct PDS/AppView URL
+// (Candidate C topology unchanged). When the SW is inactive these fall through
+// to the apex Worker, identical to prior behaviour. (ADR-2605312345 /
+// 2605215000 / 2606013800.)
+const SW_LOCAL_NSIDS = new Set<string>([
+	'app.bsky.feed.getTimeline',
+	'app.bsky.feed.getDiscoverFeed',
+	'app.bsky.feed.getAuthorFeed',
+	'app.bsky.feed.getPostThread',
+	'app.bsky.actor.getProfile',
+	// writes (post / reply / comment / like / repost) — member-signed + stored
+	// in the in-page kotoba node by kotoba-sw.js (Wikipedia-style local edits).
+	'com.atproto.repo.createRecord',
+]);
+
 let tokenProvider: TokenProvider | null = null;
 let inMemorySession: Session | null = null;
 let lastSyncedJwt = '';
@@ -146,7 +165,13 @@ async function xrpc<T>(method: 'GET' | 'POST', nsid: string, data?: unknown, opt
 	const controller = new AbortController();
 	const timeout = typeof window !== 'undefined' ? window.setTimeout(() => controller.abort(), opts.timeout ?? 30_000) : undefined;
 	try {
-		const url = new URL(`/xrpc/${nsid}`, service);
+		// SW-handled feed/profile reads go same-origin so kotoba-sw.js can
+		// intercept them; all other NSIDs keep the direct PDS URL.
+		const base =
+			typeof window !== 'undefined' && SW_LOCAL_NSIDS.has(nsid)
+				? window.location.origin
+				: service;
+		const url = new URL(`/xrpc/${nsid}`, base);
 		const bearer = await getBearerToken(opts);
 		const init: RequestInit = {
 			method,
@@ -339,9 +364,10 @@ export async function getFollowers(actor: string, limitOrOpts: number | FeedOpti
 }
 
 export function likePost(uri: string, cid: string) {
-	const repo = getCurrentDID();
-	if (!repo) throw new Error('likePost: no session');
-	return agent.app.bsky.feed.like.create({ repo }, { subject: { uri, cid }, createdAt: new Date().toISOString() });
+	// Route through createRecord so it goes same-origin → kotoba-sw.js applies the
+	// like as a member-signed local write (no atproto session required; the SW
+	// holds the member identity). Falls through to the apex/AppView otherwise.
+	return createRecord('app.bsky.feed.like', { subject: { uri, cid }, createdAt: new Date().toISOString() });
 }
 
 export async function unlikePost(likeUri: string): Promise<void> {
@@ -351,9 +377,7 @@ export async function unlikePost(likeUri: string): Promise<void> {
 }
 
 export function repost(uri: string, cid: string) {
-	const repo = getCurrentDID();
-	if (!repo) throw new Error('repost: no session');
-	return agent.app.bsky.feed.repost.create({ repo }, { subject: { uri, cid }, createdAt: new Date().toISOString() });
+	return createRecord('app.bsky.feed.repost', { subject: { uri, cid }, createdAt: new Date().toISOString() });
 }
 
 export async function unrepost(repostUri: string): Promise<void> {

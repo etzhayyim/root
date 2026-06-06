@@ -24,7 +24,6 @@ from lg_mangaka.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _DEFAULT_APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 
 
@@ -36,19 +35,12 @@ class _HealthState(TypedDict, total=False):
     error: str | None
 
 
-async def _node_check_rw(state: _HealthState) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"rw_ok": False, "error": "RW_URL not set"}
+def _node_check_rw(state: _HealthState) -> dict[str, Any]:
     try:
-        import psycopg  # type: ignore
+        from pymagatama.kotoba_datomic import get_kotoba_client
         started = time.monotonic()
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True, connect_timeout=5)
-        try:
-            cur = conn.cursor()
-            await cur.execute("SELECT 1")
-            await cur.fetchone()
-        finally:
-            await conn.close()
+        client = get_kotoba_client()
+        client.q("[:find (pull ?e [*]) :where [?e :db/ident _]]")
         return {
             "rw_ok": True,
             "rw_latency_ms": int((time.monotonic() - started) * 1000),
