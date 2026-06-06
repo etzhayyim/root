@@ -13651,7 +13651,7 @@
       "id": "doc:adr-2606062100-moyai-inference-reciprocity-credit",
       "type": "TechArticle",
       "title": "ADR-2606062100: moyai 舫い — non-monetary inference reciprocity credit (give-to-get; reward kept, Basic High Income untouched)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "moyai-inference-reciprocity-credit",
       "authoritative": true,
       "authoritativeFor": [
