@@ -7257,7 +7257,7 @@ dependencies = [
  "bytes",
  "libc",
  "memmap2",
- "rand 0.9.4",
+ "rand 0.10.1",
  "serde",
  "serde_json",
  "tempfile",

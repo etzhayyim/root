@@ -91,7 +91,7 @@ indexmap = { version = "2", features = ["serde"] }
 # Crypto (bench signing + JWT verify)
 ed25519-dalek = { version = "2", features = ["rand_core"] }
 ring = "0.17"
-rand = "0.9"
+rand = "0.10"
 
 # Parallelism
 rayon = "1.10"
