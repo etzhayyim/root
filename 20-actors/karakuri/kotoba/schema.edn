@@ -6,7 +6,9 @@
  {:db/ident :service/category      :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; :site-builder :cms :commerce :payments :dev :productivity
  {:db/ident :service/official-api  :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
  {:db/ident :service/auth-model    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; :oauth2 :api-key :session-cookie :pat
- {:db/ident :service/tos-stance    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; :api-ok :automation-allowed :automation-restricted :automation-prohibited
+ {:db/ident :service/tos-stance    :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; OFFICIAL-API stance: :api-ok :automation-allowed :automation-restricted :automation-prohibited
+ {:db/ident :service/t2-stance     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; BROWSER-AUTOMATION stance (G2): :permitted :restricted :prohibited (missing => :prohibited, default-deny). Google/Facebook = :prohibited even though :api-ok
+ {:db/ident :service/t2-engine     :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; :browser-use (LangGraph browser agent over Playwright); present ONLY where t2-stance permits
  {:db/ident :service/tier          :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}  ;; :t1-official-api :t2-headless-browser :t3-structured-export
  {:db/ident :service/rate-limit    :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}
  {:db/ident :service/representative :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}  ;; G8
@@ -19,6 +21,7 @@
  {:db/ident :op/safety             :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}   ;; :read :create :update :delete
  {:db/ident :op/destructive        :db/valueType :db.type/boolean :db/cardinality :db.cardinality/one}
  {:db/ident :op/adapter-tier       :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}   ;; :t1-official-api …
+ {:db/ident :op/t2-engine          :db/valueType :db.type/keyword :db/cardinality :db.cardinality/one}   ;; :browser-use — set ONLY on a permitted T2 op (G2)
  {:db/ident :op/args               :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}   ;; serialized flags (kept; no secrets)
  {:db/ident :op/planned-at         :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}   ;; as-of plan history (G7)
  {:db/ident :op/executed-at        :db/valueType :db.type/string  :db/cardinality :db.cardinality/one}   ;; as-of exec history (G7)

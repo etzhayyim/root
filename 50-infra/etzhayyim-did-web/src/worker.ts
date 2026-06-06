@@ -36,7 +36,7 @@ import {
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
 import { cacaoToCborBase64 } from "./cbor";
-import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
+import { handleBlockPut, handleBlockHas, handleRootGet, handleStatsGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
@@ -1467,6 +1467,45 @@ a{color:inherit}
     }
 
     // ──────────────────────────────────────────────────────────────────
+    // 2d) kotoba member-signed publish (ADR-2605312345 / 2605231525).
+    //     - GET  /kotoba/blocks/<cid>  → dynamically published block from KV
+    //       (genesis blocks are static assets and never reach the Worker; a
+    //       request arriving here is a post-genesis block).
+    //     - POST /xrpc/com.etzhayyim.apps.kotoba.block.put → verify member sig,
+    //       store blocks + advance root + record suppressable encrypted IP.
+    //     - GET  /xrpc/com.etzhayyim.apps.kotoba.root → latest published root.
+    //     Handled LOCALLY (the generic XRPC proxy below would forward to the
+    //     internal kotoba node, which is not publicly reachable — and the whole
+    //     point is no node is needed).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const bm = url.pathname.match(/^\/kotoba\/blocks\/([A-Za-z0-9]+)$/);
+      if (bm && (request.method === "GET" || request.method === "HEAD")) {
+        const blk = await serveBlockFromKv(bm[1], env);
+        if (blk) return blk;
+        // not in KV → fall through (static asset already missed → 404 below)
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.put" && request.method === "POST") {
+        return handleBlockPut(request, env);
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.has" && request.method === "POST") {
+        return handleBlockHas(request, env);
+      }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.root" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleRootGet(url, env);
+      }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.stats" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleStatsGet(url, env);
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
     // 3) XRPC routing — `/xrpc/{NSID}` proxied by NSID prefix to the
     //    registered upstream (langserver pod, MCP gateway, etc.). One
     //    Worker handles every actor; new actors are added by appending
@@ -1482,26 +1521,6 @@ a{color:inherit}
       if (m) {
         const nsid = m[1];
 
-        // ── same-origin auth: CORS preflight for verify/register ──────────
-        // The SPA may run on yoro.etzhayyim.com (cross-origin to the apex), and
-        // the native app posts from a custom scheme — both need CORS. These two
-        // surfaces are public, no-cookie, verify-only (no credentials), so a
-        // permissive ACAO is safe.
-        const isSameOriginAuthNsid =
-          nsid === "com.etzhayyim.authz.verifyCacao" ||
-          nsid === "com.etzhayyim.authz.registerAccount";
-        if (isSameOriginAuthNsid && request.method === "OPTIONS") {
-          return new Response(null, {
-            status: 204,
-            headers: {
-              "access-control-allow-origin": "*",
-              "access-control-allow-methods": "POST, OPTIONS",
-              "access-control-allow-headers": "content-type",
-              "access-control-max-age": "86400",
-              "x-etzhayyim-no-cookie": "1",
-            },
-          });
-        }
         const SAME_ORIGIN_AUTH_CORS: Record<string, string> = {
           "content-type": "application/json; charset=utf-8",
           "cache-control": "no-store",
@@ -1511,13 +1530,12 @@ a{color:inherit}
         };
 
         // ── verifyCacao short-circuit (ADR-2606060000) ────────────────────
-        // Same-origin auth gate: verify a member-signed CACAO (WebAuthn/passkey
-        // → Ed25519 did:key, verified LOCALLY via WebCrypto; SIWE/eip191
-        // structurally validated + relayed to kotoba). No auth subdomain, no
-        // server key, no session minted — the Worker only confirms DID control +
-        // capability scope so the client can flip into a signed-in/edit state.
-        // This is now the primary login/signup control proof (ADR-2606061800),
-        // not just `/profile` edit-mode. Served locally; never proxied.
+        // Same-origin auth gate for `/profile`: verify a member-signed CACAO
+        // (WebAuthn/passkey → Ed25519 did:key, verified LOCALLY via WebCrypto;
+        // SIWE/eip191 structurally validated + relayed to kotoba). No auth
+        // subdomain, no server key, no session minted — the Worker only
+        // confirms DID control + capability scope so the page can flip into
+        // edit-mode. Served locally; never proxied.
         if (
           nsid === "com.etzhayyim.authz.verifyCacao" &&
           request.method === "POST"

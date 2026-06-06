@@ -1441,6 +1441,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606061500-tsumugi-historical-influence-diachronic-weave.md",
+      "id": "ADR-2606061500",
+      "title": "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "engi-knowledge-graph",
+      "authoritative": true,
+      "authoritative_for": [
+        "diachronic influence-as-information-flow over historical public figures/documents/events/traditions",
+        "mirror-only social projection of historical influence (non-impersonation)"
+      ],
+      "related": [
+        "https://junkawasaki.com/en/posts/spirit-is-information/"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606011800",
+        "ADR-2606011000",
+        "ADR-2606011500",
+        "ADR-2605081300",
+        "ADR-2605170000",
+        "ADR-2606042330",
+        "ADR-2605231902",
+        "ADR-2605192100",
+        "ADR-2605262130",
+        "ADR-2605312345"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/260506-active-inference-agent-organism-design.md",
       "id": "active-inference-agent-organism-design",
       "title": "Active Inference Agent / Artificial Organism Design",
@@ -20310,7 +20343,7 @@
       "path": "90-docs/adr/2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite.md",
       "id": "adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite",
       "title": "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "open-kyber-kotoba-datomic-erp",
       "authoritative": true,
@@ -20324,7 +20357,9 @@
         "2606012100",
         "2606032100"
       ],
-      "supersedes": [],
+      "supersedes": [
+        "0025"
+      ],
       "superseded_by": [],
       "depends_on": [
         "2605262130",
@@ -20332,7 +20367,7 @@
         "2605181100",
         "0025"
       ],
-      "last_verified": "2026-06-03",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
@@ -21551,6 +21586,36 @@
       ],
       "last_verified": "2026-06-06",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606065500-kotoba-browser-only-social-feed.md",
+      "id": "adr-2606065500-kotoba-browser-only-social-feed",
+      "title": "ADR-2606065500: etzhayyim.com browser-only kotoba social feed — browser read/write + member-signed block publish (no query node)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-browser-only-social-feed",
+      "authoritative": true,
+      "authoritative_for": [
+        "etzhayyim.com social feed read/write path",
+        "member-signed kotoba block publish (apex)"
+      ],
+      "related": [
+        "2606041822",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312345",
+        "2605262130",
+        "2605231525",
+        "2606013800",
+        "2606014600",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },

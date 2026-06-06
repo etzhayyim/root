@@ -923,6 +923,20 @@
       "lastVerified": "2026-05-29"
     },
     {
+      "id": "doc:ADR-2606061500",
+      "type": "TechArticle",
+      "title": "tsumugi historical-influence diachronic weave (past humanity as latent influence nodes)",
+      "status": "proposed",
+      "topic": "engi-knowledge-graph",
+      "authoritative": true,
+      "authoritativeFor": [
+        "diachronic influence-as-information-flow over historical public figures/documents/events/traditions",
+        "mirror-only social projection of historical influence (non-impersonation)"
+      ],
+      "related": "doc:https://junkawasaki.com/en/posts/spirit-is-information/",
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:active-inference-agent-organism-design",
       "type": "Article",
       "title": "Active Inference Agent / Artificial Organism Design",
@@ -13060,7 +13074,7 @@
       "id": "doc:adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite",
       "type": "TechArticle",
       "title": "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite",
-      "status": "proposed",
+      "status": "active",
       "topic": "open-kyber-kotoba-datomic-erp",
       "authoritative": true,
       "authoritativeFor": [
@@ -13073,7 +13087,8 @@
         "doc:2606012100",
         "doc:2606032100"
       ],
-      "lastVerified": "2026-06-03"
+      "supersedes": "doc:0025",
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
@@ -13809,6 +13824,23 @@
       "topic": "kawaraban-news-medium-actor",
       "authoritative": false,
       "related": "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md",
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606065500-kotoba-browser-only-social-feed",
+      "type": "TechArticle",
+      "title": "ADR-2606065500: etzhayyim.com browser-only kotoba social feed — browser read/write + member-signed block publish (no query node)",
+      "status": "accepted",
+      "topic": "kotoba-browser-only-social-feed",
+      "authoritative": true,
+      "authoritativeFor": [
+        "etzhayyim.com social feed read/write path",
+        "member-signed kotoba block publish (apex)"
+      ],
+      "related": [
+        "doc:2606041822",
+        "doc:2606013800"
+      ],
       "lastVerified": "2026-06-06"
     },
     {
