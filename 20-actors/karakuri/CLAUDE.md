@@ -14,7 +14,13 @@ inverts GoDaddy: **own-account-only · official-API-first · ToS-honest (no dete
 no-server-key · member-signed mutate · data-portability over lock-in**. The uniform vocabulary is a
 normalized **`ServiceOp`** (`service · noun · verb · safety · destructive · adapter-tier`), one vocab
 across the TS/py runtimes (the sumitsubo `ModelOp` pattern). Three adapter tiers, safest-first:
-**T1 official-API** > **T2 ToS-permitted headless-browser** > **T3 structured export**.
+**T1 official-API** > **T2 ToS-permitted headless-browser (engine: browser-use)** > **T3 structured
+export**. Routing uses two independent stance axes: `:service/tos-stance` (official-API → T1) and
+`:service/t2-stance` (browser-automation → T2); a `:prohibited` browser stance refuses T2 by
+construction *even when an API exists* — **Google + Facebook are the canonical `:api-ok` /
+browser-prohibited case** (drive the official API on the member's own account; never browser-automate
+the consumer surface). The T2 engine **browser-use** (LangGraph browser agent over Playwright) plans
+in `methods/t2_browser.py`, where detection-evasion verbs are structurally unrepresentable.
 
 ISIC J6201 · ISCO 2512/3514 · UNSPSC 81112 (computer programming / web automation).
 
@@ -49,9 +55,10 @@ driving of prohibited-content or third-party ad/affiliate systems (Charter-Rider
 ## Build / test
 
 ```
-cd methods && python3 -m pytest                 # ServiceOp parser/planner (21 tests)
+cd methods && python3 -m pytest                 # ServiceOp parser/planner + browser-use T2 plan (49 tests)
 cd cells   && python3 -m pytest                 # session_broker state machine G1/G3/G5 (8 tests)
-python3 methods/command.py karakuri squarespace pages.list   # offline planner demo
+python3 methods/command.py karakuri google messages.list        # api-ok → T1 (not browser-automated)
+python3 methods/t2_browser.py karakuri legacy-portal records.list  # T2 browser-use dry-run plan
 ```
 
 (If a global pytest plugin errors on pydantic, prefix `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` — the
@@ -64,9 +71,11 @@ registry only. **No live execution** of any adapter (T1/T2/T3); all gated Counci
 
 - Do not operate any account that is not the member's OWN, and do not build a third-party scraper /
   surveillance / data-harvesting feature — G1 / N1.
-- Do not use the T2 headless-browser adapter on a service whose ToS prohibits automation, and never
-  add detection-evasion (captcha-solving-as-evasion, proxy/IP rotation, rate-limit circumvention) —
-  G2 / N2 (`command.py tos_gate()` refuses; `select_tier()` is official-API-first).
+- Do not use the T2 browser-use adapter on a service whose browser-automation stance is prohibited
+  (incl. Google/Facebook — `:api-ok` but browser-prohibited; route to T1), and never add
+  detection-evasion (captcha-solving-as-evasion, proxy/IP rotation, rate-limit circumvention) —
+  G2 / N2 (`command.py tos_gate()` refuses; `select_tier()` is official-API-first; and
+  `t2_browser.py` makes evasion verbs unrepresentable — `_make_step` raises on them).
 - Do not store member service credentials/sessions server-side or let karakuri sign a mutating op —
   G3 / ADR-2605231525. The grant carries only an encrypted-envelope ref; the member signs.
 - Do not execute any create/update/delete without member-sig + dry-run confirm, and never run a live

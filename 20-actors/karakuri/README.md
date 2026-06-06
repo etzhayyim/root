@@ -31,6 +31,30 @@ karakuri <service> <noun>.<verb> [--flag value ...]
 …carrying a classified `safety` (`read`/`create`/`update`/`delete`), a `destructive` flag, and the
 selected adapter `tier` (T1 official-API > T2 ToS-permitted headless > T3 export).
 
+## browser操作 — the T2 engine is **browser-use**
+
+The headless-browser tier (T2) is driven by **browser-use** (a LangGraph-driven browser agent over
+Playwright), planning over the **member's OWN authenticated session**. Two independent stance axes
+govern routing: `:service/tos-stance` (the official-API axis → T1) and `:service/t2-stance` (the
+browser-automation axis → T2). A `:prohibited` browser stance refuses T2 **by construction**, *even
+when an official API exists*.
+
+**Google + Facebook** are exactly that case — `:api-ok` yet browser-automation-prohibited:
+
+```
+karakuri google messages.list          # → T1 official API (Gmail), NOT browser-automated
+karakuri google search.query --q hi    # forced T2 → refused (G2): use the API, don't browser-automate
+karakuri facebook posts.list           # → T1 Graph API for the member's OWN assets; T2 refused
+karakuri legacy-portal records.list    # no API + ToS permits → T2 via browser-use (the legit path)
+```
+
+The charter-clean reading of *「Google/Facebook を browser 操作する」*: where an official API exists,
+**drive the API on the member's own account** (T1); browser automation of those consumer surfaces is
+ToS-prohibited and karakuri refuses it. The browser-use engine is reserved for GUI-only services whose
+ToS permits automation. **Detection-evasion is unrepresentable** — `methods/t2_browser.py` has no verb
+for proxy/IP rotation, captcha-solving, stealth fingerprinting, or rate-limit circumvention; building
+such a step raises (G2 / N2).
+
 ## Status
 
 R0 (design + working ServiceOp parser/planner + session_broker state machine + `:representative`
@@ -44,5 +68,11 @@ non-goals N1–N6.
 python3 methods/command.py karakuri squarespace pages.list
 python3 methods/command.py karakuri shopify products.delete --id 42      # destructive → awaiting-member-sig
 python3 methods/command.py karakuri notion database.update --title Hello # mutate → awaiting-member-sig
+python3 methods/command.py karakuri google messages.list                # api-ok → T1, not browser
+python3 methods/command.py karakuri legacy-portal records.list           # T2 → engine=browser-use
 python3 methods/command.py karakuri totally-unknown widgets.list         # unknown service → honest degrade
+
+# browser-use T2 action plan (dry-run; refuses T1/Google + ToS-prohibited services):
+python3 methods/t2_browser.py karakuri legacy-portal records.list
+python3 methods/t2_browser.py karakuri google messages.list             # → no browser-use plan (T1)
 ```

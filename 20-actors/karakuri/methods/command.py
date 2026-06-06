@@ -8,9 +8,11 @@ string
 
 parses into exactly one ServiceOp. This module does the offline-safe parts purely and
 deterministically: command parsing, service resolution against a :representative registry, safety
-classification, adapter-tier selection (official-API-first), the **ToS gate** (T2 headless-browser
-is refused on an :automation-prohibited service — G2), and the **mutate gate** (mutating ops require
-member authorization — G5). It emits a **dry-run plan** and never touches the network (G6).
+classification, adapter-tier selection (official-API-first), the **ToS gate** (the T2 browser-use
+adapter is refused on a browser-automation-prohibited service — G2; Google + Facebook route to their
+official API and refuse browser automation), the **browser-use engine** selection for a permitted T2
+op, and the **mutate gate** (mutating ops require member authorization — G5). It emits a **dry-run
+plan** and never touches the network (G6). The T2 browser action plan is built by `t2_browser.py`.
 
 G1 own-account · G2 official-API-first / ToS-honest · G5 read-default/mutate-gated · G6 outward-gated
 · G8 :representative registry (bounded subset; unknown service/op degrades honestly).
@@ -21,19 +23,36 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 # ── :representative service capability + ToS registry (mirrors data/service-registry.kotoba.edn; G8).
-#    Runtime source of truth is the EDN registry; operator MUST verify a ToS stance before live use. ──
+#    Runtime source of truth is the EDN registry; operator MUST verify a ToS stance before live use.
+#    TWO independent stance axes (a service can sanction its API yet forbid browser automation):
+#      "tos" — the OFFICIAL-API stance (governs T1 selection).
+#      "t2"  — the BROWSER-AUTOMATION stance: "permitted" / "restricted" / "prohibited"; a
+#              "prohibited" t2 stance refuses the T2 browser-use adapter by construction (G2),
+#              EVEN when an official API exists. A missing "t2" defaults to "prohibited"
+#              (default-deny browser automation — safest).
+#    Google + Facebook are the canonical api-ok / t2-prohibited case: drive their official API
+#    on the member's OWN account (T1), never browser-automate the consumer surface (T2 refused). ──
 SERVICE_REGISTRY: dict[str, dict] = {
-    "squarespace": {"official_api": True,  "tos": "api-ok"},
-    "wix":         {"official_api": True,  "tos": "api-ok"},
-    "notion":      {"official_api": True,  "tos": "api-ok"},
-    "shopify":     {"official_api": True,  "tos": "api-ok"},
-    "stripe":      {"official_api": True,  "tos": "api-ok"},
-    "github":      {"official_api": True,  "tos": "api-ok"},
-    "airtable":    {"official_api": True,  "tos": "api-ok"},
-    "wordpress":   {"official_api": True,  "tos": "api-ok"},
-    "legacy-portal": {"official_api": False, "tos": "automation-allowed"},
-    "noauto-saas":   {"official_api": False, "tos": "automation-prohibited"},
+    "squarespace": {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "wix":         {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "notion":      {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "shopify":     {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "stripe":      {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "github":      {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "airtable":    {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "wordpress":   {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    # api-ok yet browser-automation-prohibited → default path is the official API (T1); T2 refused.
+    "google":      {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    "facebook":    {"official_api": True,  "tos": "api-ok", "t2": "prohibited"},
+    # no usable official API + ToS permits automation → T2 browser-use is the sanctioned path.
+    "legacy-portal": {"official_api": False, "tos": "automation-allowed", "t2": "permitted"},
+    "noauto-saas":   {"official_api": False, "tos": "automation-prohibited", "t2": "prohibited"},
 }
+
+# The T2 (headless-browser) engine: browser-use, a LangGraph-driven browser agent over Playwright.
+# It is selected ONLY for a T2 op whose service t2 stance permits automation (G2). Live execution is
+# Council Lv6+ + operator gated (G6); see methods/t2_browser.py for the dry-run action-plan builder.
+T2_ENGINE = "browser-use"
 
 # Safety classification (G5). The verb determines whether an op reads or mutates.
 SAFETY_READ = "read"
@@ -80,6 +99,7 @@ class ServiceOp:
     dry_run: bool = True              # G6 invariant — R0 never executes
     tos_gate: str = TOS_OK
     mutate_gate: str = MUTATE_READ_ALLOWED
+    t2_engine: str = ""              # browser-use, only on a permitted T2 op (G2)
     note: str = ""
 
 
@@ -98,20 +118,33 @@ def resolve_service(service_id: str) -> dict | None:
     return SERVICE_REGISTRY.get((service_id or "").strip().lower())
 
 
+def t2_stance(rec: dict) -> str:
+    """The browser-automation stance for a service. Missing → 'prohibited' (default-deny; G2)."""
+    return rec.get("t2", "prohibited")
+
+
 def select_tier(rec: dict) -> str:
-    """Safest-first (G2): official API > ToS-permitted headless-browser > structured export."""
+    """Safest-first (G2): official API > ToS-permitted browser-use > structured export."""
     if rec.get("official_api"):
         return TIER_T1
-    if rec.get("tos") in ("automation-allowed", "automation-restricted"):
+    if t2_stance(rec) in ("permitted", "restricted"):
         return TIER_T2
     return TIER_T3
 
 
 def tos_gate(rec: dict, tier: str) -> str:
-    """G2: a T2 headless-browser op on an :automation-prohibited service is refused by construction."""
-    if tier == TIER_T2 and rec.get("tos") == "automation-prohibited":
+    """G2: a T2 browser-use op on a service whose browser-automation stance is 'prohibited' is
+    refused by construction — even when an official API exists (e.g. Google, Facebook)."""
+    if tier == TIER_T2 and t2_stance(rec) == "prohibited":
         return TOS_REFUSED
     return TOS_OK
+
+
+def t2_engine(rec: dict, tier: str, gate: str) -> str:
+    """The browser-automation engine (browser-use) for a permitted T2 op; '' otherwise (G2)."""
+    if tier == TIER_T2 and gate == TOS_OK and t2_stance(rec) in ("permitted", "restricted"):
+        return T2_ENGINE
+    return ""
 
 
 def mutate_gate(safety: str) -> str:
@@ -177,15 +210,16 @@ def plan(line: str, prefer_tier: str | None = None) -> ServiceOp:
 
     tier = prefer_tier or select_tier(rec)
     gate = tos_gate(rec, tier)
+    engine = t2_engine(rec, tier, gate)
     note = ""
     if gate == TOS_REFUSED:
-        note = "G2: ToS prohibits automation; T2 headless refused — use T3 export or an official API"
+        note = "G2: ToS prohibits browser automation; T2 browser-use refused — use the official API (T1) or T3 export"
 
     return ServiceOp(
         service=service, noun=noun, verb=verb, safety=safety,
         destructive=is_destructive(safety), adapter_tier=tier,
         args=args, service_known=True, dry_run=True,
-        tos_gate=gate, mutate_gate=mutate_gate(safety), note=note,
+        tos_gate=gate, mutate_gate=mutate_gate(safety), t2_engine=engine, note=note,
     )
 
 
@@ -197,4 +231,5 @@ if __name__ == "__main__":  # pragma: no cover — tiny offline demo
     print(f"service={op.service} known={op.service_known} {op.noun}.{op.verb} "
           f"safety={op.safety} destructive={op.destructive} tier={op.adapter_tier} "
           f"tos={op.tos_gate} mutate={op.mutate_gate} dry_run={op.dry_run}"
+          + (f"  engine={op.t2_engine}" if op.t2_engine else "")
           + (f"  note={op.note}" if op.note else ""))

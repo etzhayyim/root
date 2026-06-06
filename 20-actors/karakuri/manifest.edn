@@ -17,7 +17,7 @@
 
  :actor/adapter-tiers
  [{:tier/id "T1" :tier/kind :official-api  :tier/preference 1 :tier/note "preferred — service's published API; ToS-sanctioned, rate-limit-documented"}
-  {:tier/id "T2" :tier/kind :headless-browser :tier/preference 2 :tier/note "Playwright/Puppeteer shape over the member's GUI session; ONLY where ToS permits automation (G2); no detection-evasion"}
+  {:tier/id "T2" :tier/kind :headless-browser :tier/engine :browser-use :tier/preference 2 :tier/note "browser-use (LangGraph-driven browser agent over Playwright) over the member's OWN GUI session; ONLY where the service browser-automation stance permits (G2); no detection-evasion — proxy/captcha/stealth verbs are structurally unrepresentable (methods/t2_browser.py). Google/Facebook are :api-ok but browser-prohibited → routed to T1, T2 refused"}
   {:tier/id "T3" :tier/kind :structured-export :tier/preference 3 :tier/note "import/export round-trip; the data-portability / anti-lock-in leg"}]
 
  :actor/gates
