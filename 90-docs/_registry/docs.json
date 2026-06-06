@@ -20310,7 +20310,7 @@
       "path": "90-docs/adr/2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite.md",
       "id": "adr-2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite",
       "title": "ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "open-kyber-kotoba-datomic-erp",
       "authoritative": true,
@@ -20324,7 +20324,9 @@
         "2606012100",
         "2606032100"
       ],
-      "supersedes": [],
+      "supersedes": [
+        "0025"
+      ],
       "superseded_by": [],
       "depends_on": [
         "2605262130",
@@ -20332,7 +20334,7 @@
         "2605181100",
         "0025"
       ],
-      "last_verified": "2026-06-03",
+      "last_verified": "2026-06-06",
       "amends": [],
       "amended_by": []
     },
