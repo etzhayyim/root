@@ -20637,6 +20637,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606041827-watari-live-ship-aircraft-position-kotoba-native.md",
+      "id": "adr-2606041827-watari-live-ship-aircraft-position-kotoba-native",
+      "title": "ADR-2606041827: watari 渡り — kotoba-native live ship + aircraft position knowledge graph",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "watari-live-moving-craft",
+      "authoritative": true,
+      "authoritative_for": [
+        "live real-time ship (AIS) + aircraft (ADS-B) position ingestion onto the kotoba Datom log",
+        "watari actor design, ontology, lexicons, gates"
+      ],
+      "related": [
+        "2605011500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606012600",
+        "2605262130",
+        "2605312345",
+        "2605215000",
+        "2605241500",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-04",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606042100-tazuna-cleanroom-remote-robotics-teleop-and-imitation-learning.md",
       "id": "adr-2606042100",
       "title": "tazuna 手綱 — clean-room remote-robotics fleet operation + teleoperation + learning-from-demonstration (the Orbit-shaped gap)",
