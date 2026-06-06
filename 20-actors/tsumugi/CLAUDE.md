@@ -131,3 +131,28 @@ layering · etzhayyim genealogy), `out/influence-graph.kotoba.edn` (`:spirit.bon
 **R0 design-only.** Live ingest (archives, citation graphs, genealogy corpora) and any
 **published** post are **G7 + Council-gated** (`:post/published` false at R0). Live narration
 routes through Murakumo (G6). New lexicons: `com.etzhayyim.influence.{influencePost,influenceFlow}`.
+
+## Coverage measurement + ingest (scaling the seed)
+
+```bash
+# honest coverage report (eras, civilizational streams, denominators, gap map)
+python3 20-actors/tsumugi/methods/coverage_report.py
+# offline influence ingest (Wikidata-P737-shaped fixtures → :flow/ 縁, merged with seed)
+python3 20-actors/tsumugi/methods/ingest_influence.py
+#   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
+python3 20-actors/tsumugi/methods/analyze_influence.py 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
+# live ingest is G7-gated (refused without the operator gate):
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… python3 …/ingest_influence.py --live
+# tests (22 total: 12 invariant/seed + 10 coverage/ingest)
+python3 20-actors/tsumugi/tests/test_influence.py
+python3 20-actors/tsumugi/tests/test_ingest_coverage.py
+```
+
+**Coverage truth (honest):** all-past-humanity coverage is ~0 **by design** (a bounded
+`:representative` sample). `coverage_report.py` measures the *useful* coverage — the major
+influence backbone of recorded thought — and names what is thin/missing. After Wave 2:
+**11/11 eras · 17/17 civilizational streams · 1 connected component · 0 isolated**; figures
+≈ 0.05% of MIT-Pantheon's 88,937 notables. Raising the real count needs the G7-gated
+`ingest_influence.py` live path (Wikidata `influencedBy` P737 / Pantheon → `:flow/` 縁;
+**N4 admits deceased/settled public figures only** — living-private persons stay the
+Council-Lv7+ `:human` scale; **N1** keeps notability off the node, influence on the edge).
