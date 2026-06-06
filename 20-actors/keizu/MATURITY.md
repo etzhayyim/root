@@ -13,8 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — weave / social / ingest / charter-invariants / analyze / lexicons / consistency / cells. The charter-invariant suite parses all THREE homes of each structural gate (ontology `:db/allowed`/closed-vocab + lexicon `:const`/`:enum` + seed values) and asserts they agree.
-- **Analyzer** (`analyze.py` over the seed: 18 public role/organ nodes / 3 committees / 15 rels / 6 money / 3 statements): committee cross-organ concentration, 1 cross-committee co-membership seat, money HHI ≈ 0.96, 1 revolving-door chain, 2 dry-run mirror posts.
+- **Tests**: `./run_tests.sh` green — **90 tests** across weave (19) / social (7) / ingest (9) / charter-invariants (27) / analyze (5) / lexicons (5) / consistency (6) / cells (12). The charter-invariant suite parses all THREE homes of each structural gate (ontology `:db/allowed`/closed-vocab + lexicon `:const`/`:enum` + seed values) and asserts they agree, AND drift-locks lexicon enum ⊆/⊇ ontology closed vocab **both directions** (rel-kinds, money-kinds, sourcing-grades, post-status).
+- **Analyzer** (`analyze.py` over the seed: 18 public role/organ nodes / 3 committees / 15 rels / 6 money / 3 statements): committee cross-organ concentration, 1 cross-committee co-membership seat, money HHI ≈ 0.96 **by payee + by payer (jp-meti top disburser)**, 1 revolving-door chain, 2 dry-run mirror posts.
 - **Registration**: `did:web:etzhayyim.com:actor:keizu` in `tier-b-actors.gen.ts` + `actor-profile-seed.kotoba.edn`.
 
 ## Invariant coverage (structural, 3 places each)
@@ -38,7 +38,9 @@
 
 ## Next maturity steps (loop targets)
 
-- Broaden the charter-invariant suite to assert every lexicon enum is a subset of its ontology closed vocab (drift-lock both directions).
+- ✅ ~~lexicon enum ⊆ ontology closed vocab drift-lock (both directions)~~ (iter 2).
+- ✅ ~~payer-side money concentration (HHI by payer)~~ (iter 2).
 - Add a `bridge.py` that maps danjo discrepancy observations + kanae fiscal edges into keizu `:rel`/`:money` (cross-actor compose), tested on real sibling outputs.
 - Add appointment-tenure weighting to the relation graph (G10 as-of windows) + a betweenness/cross-organ centrality metric (still edge-primary, aggregate-first).
+- Funding→committee proximity: surface a payer that both funds a party AND has a seat on a committee the party influences (multi-hop, aggregate, non-adjudicating).
 - MIGRATION-NOTES for any legacy gov-relation surface keizu supersedes.

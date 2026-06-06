@@ -161,6 +161,21 @@ def money_concentration(g: dict) -> dict:
     return {"total": total, "hhi": round(hhi, 4), "shares": ranked, "by_payee": by_payee}
 
 
+def payer_concentration(g: dict) -> dict:
+    """Per-PAYER money share + HHI (which public authority/donor disburses most concentratedly).
+    The payer-side complement of money_concentration (payee-side). Aggregate, factual (G2/G4)."""
+    by_payer: dict[str, float] = {}
+    total = 0.0
+    for m in g["money"]:
+        amt = float(m.get(":money/amount", 0.0))
+        by_payer[m[":money/payer"]] = by_payer.get(m[":money/payer"], 0.0) + amt
+        total += amt
+    shares = {p: (v / total if total else 0.0) for p, v in by_payer.items()}
+    hhi = sum(s * s for s in shares.values())
+    ranked = sorted(shares.items(), key=lambda kv: -kv[1])
+    return {"total": total, "hhi": round(hhi, 4), "shares": ranked, "by_payer": by_payer}
+
+
 def revolving_door_chains(g: dict) -> list[dict]:
     """Organ → committee-seat movements (:revolving-door edges)."""
     out = []
@@ -189,6 +204,7 @@ def concentration(g: dict) -> dict:
         "committee_cross_organ": committee_cross_organ(g),
         "cross_committee_seats": cross_committee_seats(g),
         "money_concentration": money_concentration(g),
+        "payer_concentration": payer_concentration(g),
         "revolving_door": revolving_door_chains(g),
     }
 

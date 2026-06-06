@@ -43,6 +43,11 @@ def test_money_hhi_reported():
     assert "HHI=" in report
 
 
+def test_both_payee_and_payer_sides_reported():
+    _, report, _ = _run()
+    assert "by payee" in report and "by payer" in report
+
+
 if __name__ == "__main__":
     run("analyze", [(k, v) for k, v in sorted(globals().items())
                     if k.startswith("test_") and callable(v)])

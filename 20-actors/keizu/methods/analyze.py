@@ -53,9 +53,13 @@ def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
     if not c["cross_committee_seats"]:
         L.append("- (none in seed)")
     mc = c["money_concentration"]
-    L.append(f"\n## Money concentration — HHI={mc['hhi']} over total {mc['total']:.0f}\n")
+    L.append(f"\n## Money concentration (by payee) — HHI={mc['hhi']} over total {mc['total']:.0f}\n")
     for payee, share in mc["shares"]:
         L.append(f"- `{payee}`: {share*100:.1f}%")
+    pc = c["payer_concentration"]
+    L.append(f"\n## Money concentration (by payer) — HHI={pc['hhi']}\n")
+    for payer, share in pc["shares"]:
+        L.append(f"- `{payer}`: {share*100:.1f}%")
     L.append("\n## Revolving-door chains\n")
     for r in c["revolving_door"]:
         L.append(f"- {r['from_label']} → {r['to_label']} (as-of {r['as_of']})")

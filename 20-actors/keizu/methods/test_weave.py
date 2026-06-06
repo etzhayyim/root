@@ -121,6 +121,19 @@ def test_empty_graph_concentration_is_safe():
     assert c["revolving_door"] == []
 
 
+def test_payer_concentration():
+    c = concentration(_g())
+    pc = c["payer_concentration"]
+    assert 0.0 < pc["hhi"] <= 1.0, pc
+    # jp-meti disburses the most flows in the seed → top payer share
+    assert pc["shares"][0][0] == "jp-meti", pc["shares"]
+
+
+def test_payer_concentration_empty_safe():
+    pc = concentration(weave({}))["payer_concentration"]
+    assert pc["hhi"] == 0.0 and pc["total"] == 0.0 and pc["shares"] == []
+
+
 def test_unknown_organ_member_is_tolerated():
     g = weave({
         ":nodes": [{":node/id": "s1", ":node/scope": ":public-role",

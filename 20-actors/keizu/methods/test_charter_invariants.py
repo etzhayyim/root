@@ -155,6 +155,43 @@ def test_seed_money_two_sources_and_factual():
         assert m[":money/kind"].lstrip(":") in kinds
 
 
+# ── lexicon ⊆ ontology drift-lock (BOTH directions) ─────────────────────────────
+def test_lex_rel_kind_subset_of_ontology():
+    enum = set(_props("relationEdge")[":kind"][":enum"])
+    vocab = {k.lstrip(":") for k in _ont()[":ontology/rel-kinds"]}
+    assert enum <= vocab, f"lexicon rel kinds not in ontology: {enum - vocab}"
+
+
+def test_ontology_rel_kinds_all_in_lex():
+    enum = set(_props("relationEdge")[":kind"][":enum"])
+    vocab = {k.lstrip(":") for k in _ont()[":ontology/rel-kinds"]}
+    assert vocab <= enum, f"ontology rel kinds missing from lexicon: {vocab - enum}"
+
+
+def test_lex_money_kind_subset_of_ontology():
+    enum = set(_props("moneyFlowObservation")[":kind"][":enum"])
+    vocab = {k.lstrip(":") for k in _ont()[":ontology/money-kinds"]}
+    assert enum <= vocab, f"lexicon money kinds not in ontology: {enum - vocab}"
+
+
+def test_ontology_money_kinds_all_in_lex():
+    enum = set(_props("moneyFlowObservation")[":kind"][":enum"])
+    vocab = {k.lstrip(":") for k in _ont()[":ontology/money-kinds"]}
+    assert vocab <= enum, f"ontology money kinds missing from lexicon: {vocab - enum}"
+
+
+def test_lex_sourcing_matches_ontology_grades():
+    grades = {g.lstrip(":") for g in _ont()[":ontology/sourcing-grades"]}
+    for lx in ("relationEdge", "moneyFlowObservation", "committeeComposition"):
+        enum = set(_props(lx)[":sourcing"][":enum"])
+        assert enum == grades, f"{lx} sourcing {enum} != ontology grades {grades}"
+
+
+def test_post_status_const_matches_ontology():
+    statuses = {s.lstrip(":") for s in _ont()[":ontology/post-statuses"]}
+    assert {_props("networkPost")[":status"][":const"]} == statuses
+
+
 if __name__ == "__main__":
     run("charter-invariants", [(k, v) for k, v in sorted(globals().items())
                                if k.startswith("test_") and callable(v)])
