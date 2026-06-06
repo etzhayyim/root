@@ -102,6 +102,38 @@ data browser-side. Built + deployed (Version 56acbe71) + verified with kotoba-e2
    artifact). This is the *profile-page* analogue of the original "vibes slow/flaky"
    report and is independent of the de-SSR work.
 
+## ⚠️ Confirmed pre-existing bug: profile pages 500 in REAL browsers (2026-06-07)
+
+Read-only diagnosis (Playwright, no deploy) isolated the profile post-hydration
+error definitively:
+
+| Variable | Result |
+|---|---|
+| Service Worker `block` vs `allow` | **error both** → SW-independent (NOT the browser-only-feed deploys) |
+| WebGL availability | **available** (swiftshader); GPU flags → still errors → NOT a LiveStage/3D headless artifact |
+| **headed vs headless** | **error BOTH** → NOT a headless artifact → **real browsers hit it** |
+| SSR HTML (curl, any UA) | **200 + clean** (crawlers see real content) |
+| 5xx responses / pageerror | **none** — a SvelteKit `load` threw → +error.svelte (status 500 "Internal Error") |
+
+**Conclusion:** `/profile/<*>` renders the SvelteKit 500 error boundary for real
+JS-running browser users, while SSR/crawlers get a clean 200. This is a genuine,
+**pre-existing, user-facing bug** — independent of this session's work (my de-SSR
+was reverted; it reproduces with the SW blocked). It is the profile-page reality
+behind the original "vibes 表示が遅い" report: the feed is browser-only + healthy,
+but profile pages are outright broken in-browser.
+
+**Cause not yet pinpointed:** prod is minified and SvelteKit hides 500 messages
+("Internal Error"), and no `pageerror`/5xx is emitted — so the throwing `load`
+can't be identified from prod alone. Pinpointing needs EITHER (a) a local `vite
+dev` repro (faithful repro is hard — the profile `+page.server.ts` uses the
+PDS_SERVICE Workers RPC binding, absent in `vite dev`), OR (b) a short diagnostic
+deploy that surfaces the error (a main-frontend deploy → needs confirmation).
+
+**Recommended next step (interactive):** reproduce in dev / add a temporary
+client error log, identify the throwing load, fix it. This likely SUBSUMES the
+de-SSR work — if the fix moves profile data client-side (browser-only via the SW)
+it both fixes the 500 AND achieves browser-only profiles.
+
 ## Not doing (yet)
 
 - Reworking `+page.svelte`'s multi-branch loader is deferred to an implementation
