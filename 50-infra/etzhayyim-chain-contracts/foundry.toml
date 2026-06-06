@@ -9,7 +9,10 @@ via_ir = true
 # Read-only access to the repo-root Charter Rider so ConstitutionInvariants.t.sol
 # can drift-lock license.charter_rider_text_hash against the actual Rider text
 # (ADR-2606062100 §4 — the on-chain Rider-integrity anchor).
-fs_permissions = [{ access = "read", path = "../../CHARTER-RIDER.md" }]
+fs_permissions = [
+  { access = "read", path = "../../CHARTER-RIDER.md" },
+  { access = "read", path = "../../00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/priorityConformanceAttestation.json" },
+]
 
 # Two-chain target per ADR-2605172300:
 #   etzhayyim_private — internal PoA chain (ChainID 2605); endpoint

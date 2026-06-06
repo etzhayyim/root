@@ -63,8 +63,11 @@ Tier-1 amendment were not written down. This is that procedure.
    - `amendsTier`: `tier-1` (const — the only legal value)
    - `tier0Immutable`: `true` (const — affirms no Tier-0 key is touched)
    - `riderSection`: e.g. `2(d)`
-   - `servesPriority`: the Tier-0 priority key the change serves (must be one of the enum,
-     which mirrors the `Constitution.sol` Tier-0 constants exactly)
+   - `servesPriority`: the Tier-0 priority key the change serves. The enum values are the
+     **exact** `Constitution.sol` Tier-0 constant keys (e.g. `priority.multigen_over_current`,
+     `memory.right_to_erasure_denied`) — `keccak256(value)` is a registered constant, and
+     `ConstitutionInvariants.t.sol::test_lexicon_servesPriority_matches_tier0_constants`
+     drift-locks the enum against the genesis (CI fails if they diverge)
    - `conformanceFinding`: `serves-better` or `serves-equally`
    - `priorTextHash`: hash of the Rider text **before** this change (the current on-chain
      `license.charter_rider_text_hash`)

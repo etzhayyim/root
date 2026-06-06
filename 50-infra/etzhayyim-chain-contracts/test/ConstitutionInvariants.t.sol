@@ -161,4 +161,49 @@ contract ConstitutionInvariantsTest is Test {
         bytes32 actual = keccak256(bytes(vm.readFile("../../CHARTER-RIDER.md")));
         assertEq(stored, actual, "genesis rider_text_hash must equal keccak256 of /CHARTER-RIDER.md");
     }
+
+    // ── Cross-artifact drift-lock: every priorityConformanceAttestation
+    //    `servesPriority` enum value is a real Tier-0 constant key, and the enum
+    //    covers EXACTLY the 7 Tier-0 priority/memory/tithe-exists keys. So the
+    //    lexicon (JSON) and the genesis (Solidity) cannot drift apart. ──────────
+
+    function test_lexicon_servesPriority_matches_tier0_constants() public view {
+        string memory json = vm.readFile(
+            "../../00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/priorityConformanceAttestation.json"
+        );
+        string[] memory enumVals = abi.decode(
+            vm.parseJson(json, ".defs.main.record.properties.servesPriority.enum"),
+            (string[])
+        );
+
+        // The enum must cover exactly the 7 Tier-0 priority/memory/tithe-exists keys.
+        assertEq(enumVals.length, 7, "servesPriority enum must list all 7 Tier-0 priorities");
+
+        // Forward: every enum value is a registered Tier-0 CONSTANT (not mutable).
+        for (uint256 i = 0; i < enumVals.length; ++i) {
+            bytes32 key = keccak256(bytes(enumVals[i]));
+            assertTrue(c.isConstant(key), string.concat("enum value not a Tier-0 constant: ", enumVals[i]));
+        }
+
+        // Reverse: each of the 7 Tier-0 keys appears in the enum (no priority omitted).
+        bytes32[7] memory tier0 = [
+            K.PRIORITY_WELLBECOMING_OVER_WELLBEING,
+            K.PRIORITY_MULTIGEN_OVER_CURRENT,
+            K.PRIORITY_COLLECTIVE_OVER_INDIVIDUAL,
+            K.MEMORY_RIGHT_TO_ERASURE_DENIED,
+            K.MEMORY_PERMANENT_RECORD,
+            K.MEMORY_DEEDS_PUBLIC_INTIMATE_ENCRYPTED,
+            K.ECONOMIC_TITHE_REDISTRIBUTION_EXISTS
+        ];
+        for (uint256 t = 0; t < tier0.length; ++t) {
+            bool found = false;
+            for (uint256 i = 0; i < enumVals.length; ++i) {
+                if (keccak256(bytes(enumVals[i])) == tier0[t]) {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found, "a Tier-0 priority key is missing from the lexicon enum");
+        }
+    }
 }
