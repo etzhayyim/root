@@ -39,7 +39,7 @@
 	},
 	"dependencies": {
 		"@neo4j/cypher-builder": "^3.3.0",
-		"neo4j-driver": "^6.0.1"
+		"neo4j-driver": "^6.1.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.16",
