@@ -283,6 +283,53 @@ def award_and_fund(g: dict) -> list[dict]:
     return out
 
 
+def check_integrity(g: dict) -> dict:
+    """Referential integrity: every reference must resolve to an existing entity. Per-record
+    validators check a record's OWN fields; this catches DANGLING refs across records (a typo'd
+    node id, a committee member that doesn't exist). A data-quality diagnostic, not a charter gate.
+
+    Id-space per field:
+      :rel/source, :rel/target  → node ∪ committee ∪ statement (a tie may point at any entity)
+      :money/payer, :money/payee → node
+      :committee/members         → node
+      :statement/speaker         → node
+    """
+    nodes = set(g["nodes"])
+    committees = set(g["committees"])
+    statements = {s.get(":statement/id") for s in g["statements"]}
+    rel_space = nodes | committees | statements
+    dangling = []
+
+    def chk(ref, space, kind, owner, field):
+        if ref and ref not in space:
+            dangling.append({"kind": kind, "owner": owner, "field": field, "ref": ref})
+
+    for r in g["rels"]:
+        chk(r.get(":rel/source"), rel_space, "rel", r.get(":rel/id"), "source")
+        chk(r.get(":rel/target"), rel_space, "rel", r.get(":rel/id"), "target")
+    for m in g["money"]:
+        chk(m.get(":money/payer"), nodes, "money", m.get(":money/id"), "payer")
+        chk(m.get(":money/payee"), nodes, "money", m.get(":money/id"), "payee")
+    for cid, c in g["committees"].items():
+        for mid in c.get(":committee/members", []):
+            chk(mid, nodes, "committee", cid, "member")
+    for s in g["statements"]:
+        chk(s.get(":statement/speaker"), nodes, "statement", s.get(":statement/id"), "speaker")
+
+    return {"dangling_count": len(dangling), "dangling": dangling}
+
+
+def assert_integrity(g: dict) -> None:
+    """Strict mode — raise if any reference dangles (used by the ingest/bridge data-quality gate)."""
+    rep = check_integrity(g)
+    if rep["dangling_count"]:
+        first = rep["dangling"][0]
+        raise ValueError(
+            f"integrity: {rep['dangling_count']} dangling ref(s); e.g. {first['kind']} "
+            f"{first['owner']!r} {first['field']}→{first['ref']!r} (no such entity)"
+        )
+
+
 def statement_index(g: dict) -> dict:
     """発言 (statements) aggregate: per-speaker statement count + per-topic speaker set (who
     spoke on what, from public record). Non-adjudicating — a statement is indexed by topic,
@@ -318,6 +365,7 @@ def concentration(g: dict) -> dict:
         "revolving_door": revolving_door_chains(g),
         "award_and_fund": award_and_fund(g),
         "statement_index": statement_index(g),
+        "integrity": check_integrity(g),
     }
 
 

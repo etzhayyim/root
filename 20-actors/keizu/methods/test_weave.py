@@ -5,8 +5,9 @@ import pathlib
 
 from _edn import load_edn
 from _t import expect_raises, run
-from weave import (active_as_of, concentration, connector_seats,
-                   statement_index, validate_money, validate_node, validate_rel,
+from weave import (active_as_of, assert_integrity, check_integrity,
+                   concentration, connector_seats, statement_index,
+                   validate_money, validate_node, validate_rel,
                    validate_statement, weave)
 
 SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-relation-graph.kotoba.edn"
@@ -253,6 +254,57 @@ def test_statement_index_by_speaker_and_topic():
 def test_statement_index_empty_safe():
     si = concentration(weave({}))["statement_index"]
     assert si["count"] == 0 and si["by_speaker"] == [] and si["by_topic"] == []
+
+
+# ── referential integrity ────────────────────────────────────────────────────────
+def test_seed_has_no_dangling_refs():
+    rep = check_integrity(_g())
+    assert rep["dangling_count"] == 0, rep["dangling"]
+    assert_integrity(_g())   # strict mode must not raise on a clean seed
+
+
+def test_dangling_rel_target_detected():
+    g = weave({
+        ":nodes": [{":node/id": "s1", ":node/scope": ":public-role", ":node/sourcing": ":representative"}],
+        ":rels": [{":rel/id": "r", ":rel/source": "s1", ":rel/target": "ghost",
+                   ":rel/kind": ":appointment", ":rel/non-adjudicating-notice": True,
+                   ":rel/sourcing": ":representative", ":rel/sources": ["u", "v"]}],
+    })
+    rep = check_integrity(g)
+    assert rep["dangling_count"] == 1
+    assert rep["dangling"][0]["ref"] == "ghost" and rep["dangling"][0]["field"] == "target"
+    expect_raises(lambda: assert_integrity(g), contains="dangling")
+
+
+def test_dangling_money_payee_detected():
+    g = weave({
+        ":nodes": [{":node/id": "jp-meti", ":node/scope": ":public-org", ":node/sourcing": ":representative"}],
+        ":money": [{":money/id": "m", ":money/payer": "jp-meti", ":money/payee": "nope",
+                    ":money/kind": ":subsidy", ":money/sourcing": ":representative",
+                    ":money/sources": ["u", "v"]}],
+    })
+    rep = check_integrity(g)
+    assert rep["dangling_count"] == 1 and rep["dangling"][0]["field"] == "payee"
+
+
+def test_dangling_committee_member_detected():
+    g = weave({
+        ":committees": [{":committee/id": "c1", ":committee/members": ["ghost-seat"]}],
+    })
+    rep = check_integrity(g)
+    assert rep["dangling_count"] == 1 and rep["dangling"][0]["field"] == "member"
+
+
+def test_rel_target_may_be_a_committee():
+    # a tie pointing at a committee id (not a node) is NOT dangling — rel id-space includes committees
+    g = weave({
+        ":nodes": [{":node/id": "s1", ":node/scope": ":public-role", ":node/sourcing": ":representative"}],
+        ":committees": [{":committee/id": "c1", ":committee/members": ["s1"]}],
+        ":rels": [{":rel/id": "r", ":rel/source": "s1", ":rel/target": "c1",
+                   ":rel/kind": ":committee-membership", ":rel/non-adjudicating-notice": True,
+                   ":rel/sourcing": ":representative", ":rel/sources": ["u", "v"]}],
+    })
+    assert check_integrity(g)["dangling_count"] == 0
 
 
 def test_unknown_organ_member_is_tolerated():

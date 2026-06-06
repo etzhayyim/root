@@ -59,6 +59,11 @@ def test_statements_section_reported():
     assert "never rated true/false" in report   # non-adjudicating framing
 
 
+def test_integrity_line_reported_clean():
+    _, report, _ = _run()
+    assert "referential integrity: 0 dangling reference(s)" in report
+
+
 def test_award_and_fund_section_is_non_adjudicating():
     _, report, _ = _run()
     assert "Award-and-fund co-occurrence" in report

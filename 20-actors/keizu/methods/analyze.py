@@ -44,6 +44,7 @@ def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
          "_Accountability map, NOT a target-list. Non-adjudicating. :representative seed._\n",
          f"\nnodes={c['node_count']} committees={c['committee_count']} rels={c['rel_count']} "
          f"money={c['money_count']} statements={c['statement_count']}\n",
+         f"\n_referential integrity: {c['integrity']['dangling_count']} dangling reference(s)._\n",
          "\n## Committee cross-organ concentration\n"]
     for r in c["committee_cross_organ"]:
         L.append(f"- **{r['label']}** — {r['member_count']} seats from {r['distinct_organs']} organ(s): {', '.join(r['organs'])}")
