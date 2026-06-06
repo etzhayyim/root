@@ -21082,6 +21082,40 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606061000-maxwell-default-llm-weight.md",
+      "id": "adr-2606061000-maxwell-default-llm-weight",
+      "title": "ADR-2606061000: Maxwell — etzhayyim default LLM weight (Gemma 4 E4B fine-tune)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "maxwell-default-llm-weight",
+      "authoritative": true,
+      "authoritative_for": [
+        "default-llm-weight-name",
+        "murakumo-fleet-default-instruct-weight"
+      ],
+      "related": [
+        "2605092350",
+        "2605092345",
+        "2605242000",
+        "2605231300",
+        "2605242400",
+        "2606061600",
+        "2605231525",
+        "2605192200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605215000",
+        "2605250400",
+        "2605242100",
+        "2605241900"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606061200-gov-legal-procedure-coverage-maturity-expansion.md",
       "id": "adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
       "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",

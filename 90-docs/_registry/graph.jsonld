@@ -13530,6 +13530,29 @@
       "lastVerified": "2026-06-05"
     },
     {
+      "id": "doc:adr-2606061000-maxwell-default-llm-weight",
+      "type": "TechArticle",
+      "title": "ADR-2606061000: Maxwell — etzhayyim default LLM weight (Gemma 4 E4B fine-tune)",
+      "status": "proposed",
+      "topic": "maxwell-default-llm-weight",
+      "authoritative": true,
+      "authoritativeFor": [
+        "default-llm-weight-name",
+        "murakumo-fleet-default-instruct-weight"
+      ],
+      "related": [
+        "doc:2605092350",
+        "doc:2605092345",
+        "doc:2605242000",
+        "doc:2605231300",
+        "doc:2605242400",
+        "doc:2606061600",
+        "doc:2605231525",
+        "doc:2605192200"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
       "type": "TechArticle",
       "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",
