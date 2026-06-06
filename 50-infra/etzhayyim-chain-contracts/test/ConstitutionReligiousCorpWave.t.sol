@@ -105,7 +105,8 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         // Reclassified to Tier-2 (ADR-2606062100 §4): tithe rate + rider version + text-hash
         mK[8]  = K.TITHE_BPS;                       mV[8]  = bytes32(uint256(1_000));
         mK[9]  = K.LICENSE_CHARTER_RIDER_VERSION;   mV[9]  = bytes32("v3.0");
-        mK[10] = K.LICENSE_CHARTER_RIDER_TEXT_HASH; mV[10] = bytes32(0);
+        // keccak256 of /CHARTER-RIDER.md v3.0 (drift-locked in ConstitutionInvariants.t.sol)
+        mK[10] = K.LICENSE_CHARTER_RIDER_TEXT_HASH; mV[10] = 0xf5fd8d96fae247fadfaa72b616d2163095b6dcf3c4b3b76b9f09688cd356dfa7;
         // Reference addresses initial = 0 (set via governance post-deploy)
         mK[11] = K.PUBLIC_FUND_SAFE_ADDRESS;            mV[11] = bytes32(0);
         mK[12] = K.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; mV[12] = bytes32(0);

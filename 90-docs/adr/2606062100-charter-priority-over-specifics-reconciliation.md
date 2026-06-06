@@ -178,7 +178,8 @@ Tier-1 holds the **named policies derived from Tier-0 priorities**. They are *no
 amendable"; they are amendable **only** when a Council Lv7+ unanimous vote is accompanied by a
 **priority-conformance attestation** showing the amendment serves a Tier-0 priority at least
 as well as the text it replaces (an on-chain
-`com.etzhayyim.apps.etzhayyim.priority-conformance` attestation). This is the honest
+`com.etzhayyim.apps.etzhayyim.priorityConformanceAttestation` record — **authored + validating
+clean as of this ADR**). This is the honest
 replacement for "NEVER amendable": the priority is locked; its derived policy may improve.
 
 The Charter-Rider §2 prohibited categories **move here**, reframed:
@@ -267,9 +268,13 @@ Tier-2 sets its magnitude within Tier-0-guarded bounds.*
   record. Members in erasure-rights jurisdictions retain their statutory rights against
   etzhayyim under applicable law; the doctrine is the religion's internal stance, and §7
   severability applies.
-- **Tier-1 "priority-conformance attestation" is a new governance surface** that does not yet
-  exist (lexicon + Council procedure). Until built, Tier-1 amendments fall back to the
-  existing Lv7+ unanimity bar without the conformance artifact.
+- **Tier-1 "priority-conformance attestation" governance surface** (PARTIALLY CLOSED 2026-06-06):
+  the lexicon `com.etzhayyim.apps.etzhayyim.priorityConformanceAttestation` is now authored and
+  validates clean — it structurally encodes the invariants (amendsTier const `tier-1`,
+  tier0Immutable const `true`, conformanceFinding ∈ {serves-better, serves-equally} so
+  `serves-worse` is unrepresentable, councilUnanimous const `true`, serverHeldKey const `false`).
+  The remaining gap is the Council *procedure* + on-chain submission path; until that is wired,
+  Tier-1 amendments still execute by Lv7+ unanimity with this record as the attached artifact.
 - **Re-deriving fossil/weapons as Tier-1 could be read as weakening them.** Mitigation: the
   substance is *stronger* — kamado's carbon-balance makes fossil-virgin-crude structurally
   unrepresentable (a measurement, harder to game than a 25%-revenue threshold), and defensive
@@ -362,5 +367,13 @@ A native Tier-1 contract path is a future ADR if the off-chain governance proves
 - ADR-2605172600 (membership ritual — consent-bound acceptance of permanent record)
 - `CHARTER-RIDER.md` (v3.0, applied 2026-06-06 — §2 reframed into Tier-1 derived policy)
 - `50-infra/etzhayyim-chain-contracts/src/{Constitution,ConstitutionKeys}.sol`,
-  `script/Deploy.s.sol` (post-ratification patch targets)
+  `script/Deploy.s.sol` (ratified genesis)
+- `50-infra/etzhayyim-chain-contracts/test/ConstitutionInvariants.t.sol` — maturity hardening
+  (2026-06-06): 10 invariant tests over the REAL deploy genesis — tier disjointness, counts,
+  tithe band, κ/quorum bounds, tier-ratio sum, the L3-floor-is-constant bug-fix lock, Tier-0
+  priority/memory completeness, and `test_rider_text_hash_matches_file` which drift-locks
+  `license.charter_rider_text_hash` (now wired to `keccak256(/CHARTER-RIDER.md)` =
+  `0xf5fd8d96…56dfa7`, no longer the 0 placeholder). `forge test` 164/164 green.
+- `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/priorityConformanceAttestation.json` —
+  the Tier-1 amendment artifact (authored 2026-06-06; validates clean)
 - Luke 17:21 / Matthew 6:10 (Kingdom now-and-here, Preamble §0.2) — memory as continuous, not final
