@@ -192,6 +192,32 @@ def revolving_door_chains(g: dict) -> list[dict]:
     return sorted(out, key=lambda x: str(x["from"]))
 
 
+def award_and_fund(g: dict) -> list[dict]:
+    """FACTUAL co-occurrence (non-adjudicating, G2): public roles that BOTH received public
+    money (procurement-award / subsidy / grant) AND made a political donation. A classic
+    accountability-map pattern — surfaced as a co-occurrence of two disclosed flows, NEVER as
+    an allegation. Aggregate, edge-primary; the substance lives on the money edges (G4)."""
+    received: dict[str, list] = {}   # payee → [(payer, amount)]
+    donated: dict[str, list] = {}    # payer → [(payee, amount)]
+    for m in g["money"]:
+        kind = _kw(m.get(":money/kind"))
+        amt = float(m.get(":money/amount", 0.0))
+        if kind in ("procurement-award", "subsidy", "grant", "budget-outlay"):
+            received.setdefault(m[":money/payee"], []).append((m[":money/payer"], amt))
+        if kind == "political-donation":
+            donated.setdefault(m[":money/payer"], []).append((m[":money/payee"], amt))
+    out = []
+    for node in sorted(set(received) & set(donated)):
+        out.append({
+            "node": node,
+            "received_from": sorted({p for p, _ in received[node]}),
+            "received_total": round(sum(a for _, a in received[node]), 2),
+            "donated_to": sorted({p for p, _ in donated[node]}),
+            "donated_total": round(sum(a for _, a in donated[node]), 2),
+        })
+    return out
+
+
 def concentration(g: dict) -> dict:
     """The full aggregate-first concentration report (G3/G4). All metrics are derived on
     read from edges/flows; nothing is a per-person score."""
@@ -206,6 +232,7 @@ def concentration(g: dict) -> dict:
         "money_concentration": money_concentration(g),
         "payer_concentration": payer_concentration(g),
         "revolving_door": revolving_door_chains(g),
+        "award_and_fund": award_and_fund(g),
     }
 
 

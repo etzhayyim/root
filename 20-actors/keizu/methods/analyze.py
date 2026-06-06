@@ -65,6 +65,13 @@ def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
         L.append(f"- {r['from_label']} → {r['to_label']} (as-of {r['as_of']})")
     if not c["revolving_door"]:
         L.append("- (none in seed)")
+    L.append("\n## Award-and-fund co-occurrence (FACTUAL, non-adjudicating)\n")
+    L.append("_A node that both received public money and made a political donation. A co-occurrence of two disclosed flows — NOT an allegation of wrongdoing._\n")
+    for r in c["award_and_fund"]:
+        L.append(f"- `{r['node']}` — received {r['received_total']:.0f} from {', '.join(r['received_from'])}; "
+                 f"donated {r['donated_total']:.0f} to {', '.join(r['donated_to'])}")
+    if not c["award_and_fund"]:
+        L.append("- (none in seed)")
     L.append("\n## Dry-run social posts\n")
     for p in posts:
         L.append(f"> {p[':post/body']}\n>\n> _status={p[':post/status']} isMirror={p[':post/is-mirror']} "

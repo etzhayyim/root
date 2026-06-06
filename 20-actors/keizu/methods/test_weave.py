@@ -134,6 +134,28 @@ def test_payer_concentration_empty_safe():
     assert pc["hhi"] == 0.0 and pc["total"] == 0.0 and pc["shares"] == []
 
 
+def test_award_and_fund_co_occurrence():
+    c = concentration(_g())
+    af = c["award_and_fund"]
+    # jp-vendor-x received procurement-award + subsidy AND donated to jp-party-a
+    vx = next((r for r in af if r["node"] == "jp-vendor-x"), None)
+    assert vx is not None, af
+    assert "jp-meti" in vx["received_from"]
+    assert "jp-party-a" in vx["donated_to"]
+    assert vx["received_total"] > 0 and vx["donated_total"] > 0
+
+
+def test_award_and_fund_requires_both_legs():
+    # us-vendor-y received an award but made no donation → must NOT appear
+    nodes = {r["node"] for r in concentration(_g())["award_and_fund"]}
+    assert "us-vendor-y" not in nodes
+    assert "ec-eg-ind-1" not in nodes   # got a grant, no donation
+
+
+def test_award_and_fund_empty_safe():
+    assert concentration(weave({}))["award_and_fund"] == []
+
+
 def test_unknown_organ_member_is_tolerated():
     g = weave({
         ":nodes": [{":node/id": "s1", ":node/scope": ":public-role",

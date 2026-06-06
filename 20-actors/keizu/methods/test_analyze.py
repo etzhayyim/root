@@ -48,6 +48,22 @@ def test_both_payee_and_payer_sides_reported():
     assert "by payee" in report and "by payer" in report
 
 
+def test_award_and_fund_section_is_non_adjudicating():
+    _, report, _ = _run()
+    assert "Award-and-fund co-occurrence" in report
+    assert "NOT an allegation" in report   # G2 framing on the most sensitive section
+
+
+def test_report_carries_no_verdict_language():
+    from weave import VERDICT_TOKENS
+    _, report, _ = _run()
+    low = report.lower()
+    # the report describes ties/shares; it must not assert wrongdoing
+    for tok in ("corruption", "bribe", "guilty", "illegal", "汚職", "賄賂"):
+        assert tok not in low, f"verdict token {tok!r} leaked into the report"
+    assert VERDICT_TOKENS  # the closed list exists and is the single source
+
+
 if __name__ == "__main__":
     run("analyze", [(k, v) for k, v in sorted(globals().items())
                     if k.startswith("test_") and callable(v)])
