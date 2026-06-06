@@ -5,7 +5,7 @@
 - **Name**: suji (筋 — muscle/sinew AND line-of-force/reasoning; the double meaning of a
   static force-balance engine)
 - **DID**: `did:web:etzhayyim.com:actor:suji`
-- **ADR**: ADR-2606061200 (R0 scaffold, 2026-06-06)
+- **ADR**: ADR-2606061900 (R0 scaffold, 2026-06-06)
 - **Parent ADR**: ADR-2605261000 (Liberation Ladder — L4 Care Tier gate)
 - **L4 Care Tier role**: **biomechanics-simulation / instrument layer — UPSTREAM of clinical
   adjudication.** `kizashi senses → suji simulates the loads → mitate diagnoses → iyashi treats`.

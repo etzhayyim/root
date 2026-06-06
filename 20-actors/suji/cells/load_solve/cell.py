@@ -1,6 +1,6 @@
 """LangGraph Pregel wrapper for the suji (筋) load_solve cell.
 
-R0 scaffold: .solve() raises until Council activation (ADR-2606061200 §Roadmap). The cell
+R0 scaffold: .solve() raises until Council activation (ADR-2606061900 §Roadmap). The cell
 runs static inverse dynamics for a posture (the kami-genesis PlanarChain gravity term) and
 distributes the joint moments to Hill-type muscle %MVC, enforcing NON-DIAGNOSTIC output by
 construction (G1, 医師法 §17). The phase transitions are pure and unit-tested
@@ -34,5 +34,5 @@ class LoadSolveCell:
     def solve(self, input_state: dict[str, Any]) -> dict[str, Any]:
         raise RuntimeError(
             "suji R0 scaffold: activate load_solve via Council ADR "
-            "(post-2606061200 ratification; live kizashi-fed solves Lv6+ + operator gated)"
+            "(post-2606061900 ratification; live kizashi-fed solves Lv6+ + operator gated)"
         )

@@ -1,4 +1,4 @@
-"""suji (筋) ↔ kami-genesis / Isaac-Sim articulation bridge. Stdlib only. ADR-2606061200.
+"""suji (筋) ↔ kami-genesis / Isaac-Sim articulation bridge. Stdlib only. ADR-2606061900.
 
 Maps the suji sagittal segment chain to the articulation spec that a kami-genesis
 `PlanarChain` (Featherstone RNEA/CRBA, ADR-2605311500/1800) — exposed through the

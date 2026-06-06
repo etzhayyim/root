@@ -1,6 +1,6 @@
 """LangGraph Pregel wrapper for the suji (筋) strain_accumulate cell.
 
-R0 scaffold: .solve() raises until Council activation (ADR-2606061200 §Roadmap). The cell
+R0 scaffold: .solve() raises until Council activation (ADR-2606061900 §Roadmap). The cell
 accumulates the Rohmert sustained-isometric dose from per-muscle %MVC into a 強張り stiffness
 map, enforcing NON-DIAGNOSTIC (G1) and SELF-REFERENCED Wellbecoming (G3) by construction. The
 phase transitions are pure and unit-tested (state_machine.py); the cell body stays gated.
@@ -33,5 +33,5 @@ class StrainAccumulateCell:
     def solve(self, input_state: dict[str, Any]) -> dict[str, Any]:
         raise RuntimeError(
             "suji R0 scaffold: activate strain_accumulate via Council ADR "
-            "(post-2606061200 ratification; live kizashi-fed solves Lv6+ + operator gated)"
+            "(post-2606061900 ratification; live kizashi-fed solves Lv6+ + operator gated)"
         )

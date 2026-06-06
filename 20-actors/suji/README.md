@@ -1,6 +1,6 @@
 # suji 筋 — musculoskeletal posture-load biomechanics simulator
 
-> **ADR-2606061200 · R0 · Tier-B · L4 Care (instrument/simulation layer)**
+> **ADR-2606061900 · R0 · Tier-B · L4 Care (instrument/simulation layer)**
 > DID: `did:web:etzhayyim.com:actor:suji`
 > 筋 = muscle / sinew **and** line-of-force / reasoning — the double meaning of a force-balance engine.
 
