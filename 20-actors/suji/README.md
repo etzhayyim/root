@@ -82,16 +82,16 @@ body model is passive.
 ## Layout
 
 ```
-methods/   segment · posture · load · muscle · strain · analyze · kami_biomech_bridge  (+ tests)
-cells/     segment_build · posture_resolve · load_solve(coded) · strain_accumulate · ergonomic_compare
+methods/   segment · posture · load · muscle · strain · analyze · datoms · kami_biomech_bridge  (+ tests)
+cells/     segment_build · posture_resolve · load_solve(coded) · strain_accumulate(coded) · ergonomic_compare
 lex/       bodyModel · postureScenario · jointLoad · muscleTension · strainReport · ergonomicComparison
-kotoba/    schema.edn · seed.edn      wit/  kami-biomech.wit      out/  posture-report.md
+kotoba/    schema.edn · seed.edn      wit/  kami-biomech.wit      out/  posture-report.md · posture-datoms.edn
 ```
 
 ## Run
 
 ```bash
-./run_tests.sh                 # 39 tests (25 methods + 14 cells) + analyze smoke
+./run_tests.sh                 # 45 tests (31 methods + 14 cells) + analyze smoke
 python3 methods/analyze.py     # the laptop-posture report (writes out/posture-report.md)
 ```
 

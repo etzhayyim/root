@@ -12,7 +12,7 @@
 - **Siblings**: kizashi 兆 (sensing), mitate (diagnosis), iyashi (clinical care), kokoro (mental
   health), kami-genesis (the articulation solver suji's chain maps onto).
 - **Status**: R0 — 5 cells (load_solve + strain_accumulate coded + 3 scaffold) + 6 lexicons + runnable, validated
-  physics methods + kami-genesis/Isaac WIT contract. 39 tests green.
+  physics methods + kami-genesis/Isaac WIT contract. 45 tests green.
 
 ## What this is
 
@@ -79,7 +79,7 @@ raises at R0 until Council activation.
 ## Run
 
 ```bash
-./run_tests.sh                 # 39 tests + analyze smoke
+./run_tests.sh                 # 45 tests + analyze smoke
 python3 methods/analyze.py     # writes out/posture-report.md
 ```
 
