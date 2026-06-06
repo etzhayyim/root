@@ -106,6 +106,31 @@ def test_g3_money_needs_two_sources():
     expect_raises(lambda: validate_money(bad), contains="G3")
 
 
+def _money(amount):
+    return {":money/id": "m", ":money/payer": "a", ":money/payee": "b", ":money/kind": ":subsidy",
+            ":money/sourcing": ":representative", ":money/sources": ["u1", "u2"], ":money/amount": amount}
+
+
+def test_negative_amount_rejected():
+    expect_raises(lambda: validate_money(_money(-1.0)), contains="≥ 0")
+
+
+def test_nan_amount_rejected():
+    expect_raises(lambda: validate_money(_money(float("nan"))), contains="finite")
+
+
+def test_inf_amount_rejected():
+    expect_raises(lambda: validate_money(_money(float("inf"))), contains="finite")
+
+
+def test_non_numeric_amount_rejected():
+    expect_raises(lambda: validate_money(_money("lots")), contains="number")
+
+
+def test_zero_amount_allowed():
+    validate_money(_money(0.0))   # 0 is degenerate but not corrupting; allowed
+
+
 def test_cross_committee_seat_detected():
     c = concentration(_g())
     seats = {x["seat"] for x in c["cross_committee_seats"]}

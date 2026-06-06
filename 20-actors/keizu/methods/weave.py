@@ -22,6 +22,7 @@ Stdlib only. Deterministic.
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 # ── closed vocab (mirror of the ontology :db/allowed) ───────────────────────────
@@ -130,6 +131,15 @@ def validate_money(m: dict) -> None:
         raise ValueError(f"G3: money flow {m.get(':money/id')!r} needs ≥2 public-source citations")
     if (d := source_denied(srcs)):
         raise ValueError(f"Rider §2(e)/N5: source {d!r} is a commercial gov-intel terminal — prohibited citation")
+    try:
+        amt = float(m.get(":money/amount", 0.0))   # absent → 0.0 (degenerate but allowed)
+    except (TypeError, ValueError):
+        raise ValueError(f"money flow {m.get(':money/id')!r} amount must be a number")
+    if not math.isfinite(amt) or amt < 0:
+        raise ValueError(
+            f"money flow {m.get(':money/id')!r} amount must be finite and ≥ 0 "
+            f"(a negative/NaN amount corrupts the HHI/share math)"
+        )
     if _kw(m.get(":money/sourcing", "")) not in SOURCING:
         raise ValueError("G11: every money flow must declare :money/sourcing")
 
