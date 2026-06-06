@@ -10,6 +10,7 @@ import json
 import pathlib
 
 from _t import run
+from weave import SOURCE_DENY as DENY   # single source of truth (also enforced at runtime)
 
 REG = pathlib.Path(__file__).resolve().parents[1] / "registry" / "sources.seed.json"
 
@@ -17,11 +18,6 @@ SOURCE_KINDS = {"procurement", "budget", "political-finance", "committee-roster"
 MAPSTO_PREFIXES = {"node", "committee", "rel", "money", "statement"}
 REQUIRED = ("sourceId", "title", "jurisdiction", "sourceKind", "authority", "datasetUrl",
             "legalBasis", "mapsTo", "verificationStatus")
-
-# Charter Rider §2(e) / N5 — commercial gov-intelligence terminals are PROHIBITED as sources.
-DENY = ("govwin", "bloomberg", "politico pro", "e&e news", "fiscalnote", "cq roll call",
-        "四季報", "capital iq", "capiq", "refinitiv", "factset", "pitchbook", "crunchbase",
-        "lexisnexis", "westlaw")
 
 
 def _reg():

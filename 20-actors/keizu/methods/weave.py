@@ -37,6 +37,22 @@ SOURCING = ("representative", "authoritative")
 VERDICT_TOKENS = ("corruption", "bribe", "kickback", "collusion", "guilt", "crime",
                   "fraud", "illegal", "slush", "不正", "違法", "汚職", "賄賂")
 
+# Charter Rider §2(e) / N5 — commercial gov-intelligence terminals are PROHIBITED as a citation
+# source (anti-gatekeeping: cite the public record, never the paywalled compilation). A derived
+# datom citing one of these is refused on EVERY path (seed / ingest / bridge).
+SOURCE_DENY = ("govwin", "bloomberg", "politico pro", "e&e news", "fiscalnote", "cq roll call",
+               "四季報", "capital iq", "capiq", "refinitiv", "factset", "pitchbook", "crunchbase",
+               "lexisnexis", "westlaw")
+
+
+def source_denied(sources) -> str:
+    """Return the first prohibited commercial gov-intel term found in any source, or '' if clean."""
+    blob = " ".join(str(s) for s in (sources or [])).lower()
+    for d in SOURCE_DENY:
+        if d in blob:
+            return d
+    return ""
+
 # G9 / G1 no-doxxing — a node is a PUBLIC seat/organ, so a personal-contact or sensitive-PII
 # field on it is unrepresentable (any such datum lives encrypted off-graph, ADR-2605181100).
 PII_FORBIDDEN_NODE_ATTRS = frozenset({
@@ -84,6 +100,8 @@ def validate_rel(r: dict) -> None:
     srcs = r.get(":rel/sources") or []
     if not isinstance(srcs, list) or len(srcs) < 2:
         raise ValueError(f"G3: relation {r.get(':rel/id')!r} needs ≥2 public-source citations")
+    if (d := source_denied(srcs)):
+        raise ValueError(f"Rider §2(e)/N5: source {d!r} is a commercial gov-intel terminal — prohibited citation")
     if _kw(r.get(":rel/sourcing", "")) not in SOURCING:
         raise ValueError("G11: every relation must declare :rel/sourcing")
 
@@ -110,6 +128,8 @@ def validate_money(m: dict) -> None:
     srcs = m.get(":money/sources") or []
     if not isinstance(srcs, list) or len(srcs) < 2:
         raise ValueError(f"G3: money flow {m.get(':money/id')!r} needs ≥2 public-source citations")
+    if (d := source_denied(srcs)):
+        raise ValueError(f"Rider §2(e)/N5: source {d!r} is a commercial gov-intel terminal — prohibited citation")
     if _kw(m.get(":money/sourcing", "")) not in SOURCING:
         raise ValueError("G11: every money flow must declare :money/sourcing")
 

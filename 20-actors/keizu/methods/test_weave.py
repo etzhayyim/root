@@ -81,6 +81,19 @@ def test_g3_rel_needs_two_sources():
     expect_raises(lambda: validate_rel(bad), contains="G3")
 
 
+def test_rider_deny_commercial_gov_intel_source_rel():
+    bad = {":rel/id": "r", ":rel/source": "a", ":rel/target": "b", ":rel/kind": ":funding-tie",
+           ":rel/non-adjudicating-notice": True, ":rel/sourcing": ":representative",
+           ":rel/sources": ["https://about.bloomberg.com/government", "https://x.gov/"]}
+    expect_raises(lambda: validate_rel(bad), contains="Rider §2(e)")
+
+
+def test_rider_deny_commercial_gov_intel_source_money():
+    bad = {":money/id": "m", ":money/payer": "a", ":money/payee": "b", ":money/kind": ":subsidy",
+           ":money/sourcing": ":representative", ":money/sources": ["fiscalnote feed", "https://x.gov/"]}
+    expect_raises(lambda: validate_money(bad), contains="Rider §2(e)")
+
+
 def test_g2_bribe_money_rejected():
     bad = {":money/id": "m", ":money/payer": "a", ":money/payee": "b", ":money/kind": ":bribe",
            ":money/sourcing": ":representative", ":money/sources": ["u1", "u2"]}
