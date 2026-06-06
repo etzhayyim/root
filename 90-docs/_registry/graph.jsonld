@@ -13496,7 +13496,7 @@
       "id": "doc:adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
       "type": "TechArticle",
       "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "tasuke-cybercrime-victim-support",
       "authoritative": true,
       "authoritativeFor": [
@@ -13533,6 +13533,26 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606061600-gov-procedures-publish-and-ameno-kotoba-conversation",
+      "type": "TechArticle",
+      "title": "ADR-2606061600: Government procedures published on etzhayyim.com by administrative unit + kotoba-grounded browser conversation (ameno gemma4-e4b)",
+      "status": "accepted",
+      "topic": "gov-procedures-publish-and-ameno-kotoba-conversation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "50-infra/etzhayyim-did-web/src/registry/gov-procedures.gen.ts",
+        "70-tools/scripts/entity-actors/gen-gov-procedures.py",
+        "70-tools/scripts/audit/test_gov_procedures_gen_fresh.py",
+        "40-engine/llm/inference/ameno/src/kotoba-ground.ts"
+      ],
+      "related": [
+        "doc:2606013800",
+        "doc:2605190824",
+        "doc:2605312345"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606062300-matsurigoto-egov-execution-commons",
       "type": "TechArticle",
       "title": "ADR-2606062300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)",
@@ -13548,6 +13568,16 @@
         "doc:adr-2605192100-etzhayyim-mission-charter"
       ],
       "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606063000-session-close-ooyake-world-model-reconcile",
+      "type": "TechArticle",
+      "title": "ADR-2606063000: Session close — ooyake↔tsumugi world-model reconcile layer (self-paced /loop maturation)",
+      "status": "active",
+      "topic": "ooyake-world-model-reconcile",
+      "authoritative": true,
+      "related": "doc:90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md",
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

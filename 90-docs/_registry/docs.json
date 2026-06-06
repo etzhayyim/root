@@ -21024,7 +21024,7 @@
       "path": "90-docs/adr/2606060900-tasuke-free-cybercrime-victim-support-membrane-r0.md",
       "id": "adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
       "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "tasuke-cybercrime-victim-support",
       "authoritative": true,
@@ -21083,6 +21083,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606061600-gov-procedures-publish-and-ameno-kotoba-conversation.md",
+      "id": "adr-2606061600-gov-procedures-publish-and-ameno-kotoba-conversation",
+      "title": "ADR-2606061600: Government procedures published on etzhayyim.com by administrative unit + kotoba-grounded browser conversation (ameno gemma4-e4b)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "gov-procedures-publish-and-ameno-kotoba-conversation",
+      "authoritative": true,
+      "authoritative_for": [
+        "50-infra/etzhayyim-did-web/src/registry/gov-procedures.gen.ts",
+        "70-tools/scripts/entity-actors/gen-gov-procedures.py",
+        "70-tools/scripts/audit/test_gov_procedures_gen_fresh.py",
+        "40-engine/llm/inference/ameno/src/kotoba-ground.ts"
+      ],
+      "related": [
+        "2606013800",
+        "2605190824",
+        "2605312345"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606061200",
+        "2606021600",
+        "2606042330",
+        "2605215000",
+        "2605241900",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606062300-matsurigoto-egov-execution-commons.md",
       "id": "adr-2606062300-matsurigoto-egov-execution-commons",
       "title": "ADR-2606062300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)",
@@ -21110,6 +21143,29 @@
         "adr-2605212100-gov-five-layer-taxonomy"
       ],
       "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md",
+      "id": "adr-2606063000-session-close-ooyake-world-model-reconcile",
+      "title": "ADR-2606063000: Session close — ooyake↔tsumugi world-model reconcile layer (self-paced /loop maturation)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "ooyake-world-model-reconcile",
+      "authoritative": true,
+      "related": [
+        "90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md"
+      ],
+      "depends_on": [
+        "adr-2606021600-ooyake-world-government-atlas",
+        "adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "adr-2606011000-engi-organism-ontology"
+      ],
+      "last_verified": "2026-06-06",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },

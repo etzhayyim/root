@@ -1,7 +1,7 @@
 ---
 id: adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0
 title: "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0"
-status: proposed
+status: accepted
 doc_type: adr
 topic: tasuke-cybercrime-victim-support
 authoritative: true
@@ -31,7 +31,7 @@ superseded_by: []
 
 # ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-06-05
 **Deciders**: Jun Kawasaki
 
@@ -136,6 +136,34 @@ self-help procedure the member executes (助 never logs into the member's accoun
 - Seed `20-actors/tasuke/data/seed-cybercrime-cases.kotoba.edn` (5 cases + 9 free windows)
 - 69 tests green (`20-actors/tasuke/run_tests.sh`)
 - Registered: `INFRA_ACTORS` + `actor-profile-seed.kotoba.edn` → `did:web:etzhayyim.com:actor:tasuke`
+
+## R0.1 → R0.3 — usability hardening (self-paced /loop session)
+
+R0 shipped the design + offline engines. A self-paced session then drove the actor toward the
+deciders' standing goal — *「etzhayyim.com の actor として誰でも使えるように」* — without amending a
+single invariant (78 → 100 tests green):
+
+- **R0.1 — `packet.py`** (the printable packet): one command turns a case into a complete,
+  ready-to-print document packet (`out/packet-<id>/` = cover checklist + free windows + 期限 + each
+  member-authored filing). This pass also **found and fixed a latent bug**: the seed
+  `:registry/windows` was unreachable behind a stray top-map brace, so all 9 free public windows
+  were silently dropped (rendered blank). Now parsed, vocab-locked against the ontology, and
+  regression-guarded.
+- **R0.2 — `intake.py`** (no EDN required): a non-technical victim answers **6 plain questions** and
+  gets their packet. `build_case_from_answers` is a pure, testable mapping with G1/G7 **baked in** —
+  the support cost is unenterable (always 0), consent must be an explicit yes or no case builds,
+  no-server-key forced.
+- **R0.3 — `app/index.html`** (the browser-local actor surface): a self-contained page anyone opens,
+  running **entirely on-device** (the ameno model, ADR-2606014500). No `fetch` / form POST /
+  analytics / external `src` — the victim's PII/evidence **never leaves the machine**: the G6/G7
+  (no-upload / no-server-key) invariant expressed as a property of the file. Each filing downloads as
+  `.txt`; the page prints to PDF. `test_app_parity.py` drift-locks the app's vocab to the kotoba
+  ontology and asserts the no-network guarantee structurally.
+
+**Still honest**: the browser app is built and openable today (`file://`) but not yet served at
+`etzhayyim.com/apps/tasuke/` (an infra deploy, deferred); classification is deterministic
+(Murakumo-LLM refinement = R1); the window registry is `:representative` and needs primary-source
+verification before live use; live filing/sending stays G9-gated.
 
 ## Non-goals
 
