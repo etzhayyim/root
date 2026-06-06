@@ -23,8 +23,15 @@
   invariant (free / member-authored / signature-required / draft).
 - **Seed**: 5 `:representative` victim cases (one per major scam KIND) + 9 FREE public windows
   (registry reachable + vocab-locked; the stray-brace regression is guarded).
-- **95 tests green** (12 triage + 7 evidence + 10 report_gen + 8 packet + 8 intake + 17
-  charter-invariants + 5 analyze + 5 lexicons + 10 consistency + 13 cells; `./run_tests.sh`).
+- **Browser-local app** (`app/index.html`, the etzhayyim.com-actor surface): a self-contained page
+  anyone opens — intake → classify → full document packet, **running entirely on-device** (the ameno
+  model, ADR-2606014500). No `fetch`, no form POST, no analytics, no external `src`: the victim's
+  PII/evidence **never leaves their machine** — the G6/G7 (no-upload / no-server-key) invariant as a
+  property of the file. Each generated filing downloads as `.txt`; the page prints to PDF. A parity
+  drift-lock (`test_app_parity.py`) keeps the app's scam-kinds / doc-kinds / window-codes equal to
+  the kotoba ontology and asserts the no-network guarantee structurally.
+- **100 tests green** (12 triage + 7 evidence + 10 report_gen + 8 packet + 8 intake + 5 app-parity +
+  17 charter-invariants + 5 analyze + 5 lexicons + 10 consistency + 13 cells; `./run_tests.sh`).
 - **Registered** in INFRA_ACTORS + actor-profile-seed → `did:web:etzhayyim.com:actor:tasuke`
   (resolvable + searchable).
 
@@ -33,6 +40,9 @@
 - **No live filing / sending / submission** — every cell `.solve()` raises; `:doc/published` is
   const false. Real 被害届 submission, bank/platform sending, account operations = Council Lv6+ +
   operator (G9).
+- **Browser app is built + self-contained but not yet deployed** — `app/index.html` is openable
+  today (anyone can use it locally / `file://`); serving it at `etzhayyim.com/apps/tasuke/` (the
+  tsuzuri pattern) is an infra deploy step, deferred (the Worker is shared/contended).
 - **Deterministic classification** — the scam-KIND classifier is keyword-based; Murakumo-only LLM
   refinement of classification + Japanese wording is R1 (G8).
 - **`:representative` registry** — windows / 根拠法令 / 法定処理期間 need primary-source

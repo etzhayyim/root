@@ -44,8 +44,12 @@ G8 Murakumo-only / G9 R0 は draft のみ(実提出は Council+operator gated)/ 
 
 ## 使う（誰でも）
 
+**ブラウザだけで(インストール不要・端末内で完結)**: `app/index.html` を開く → 質問に答える →
+書類一式が生成され、各書類を `.txt` 保存 / 印刷・PDF 保存できる。**通信は一切せず**、入力した情報は
+端末の外に出ない(no-server-key / PII 非送信)。`did:web:etzhayyim.com:actor:tasuke` の actor 面。
+
 被害に遭った本人が、ワンコマンドで **そのまま印刷して警察・銀行・プラットフォームに出せる書類一式**
-を作れる:
+を作れる(CLI):
 
 ```bash
 cd methods

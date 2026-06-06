@@ -11,6 +11,7 @@ SUITES=(
   "methods/test_report_gen.py"
   "methods/test_packet.py"
   "methods/test_intake.py"
+  "methods/test_app_parity.py"
   "methods/test_charter_invariants.py"
   "methods/test_analyze.py"
   "methods/test_lexicons.py"
