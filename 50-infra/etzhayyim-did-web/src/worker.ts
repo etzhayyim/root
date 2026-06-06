@@ -34,14 +34,15 @@ import {
   GOV_PROCEDURES_JURISDICTION_COUNT,
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
-import { fetchKotobaActorRecord, putKotobaAccount } from "./kotoba";
+import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
+import { cacaoToCborBase64 } from "./cbor";
 import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
 // Durable Object class — must be exported from the Worker entry module.
 export { KotobaRoot } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
-import { handleVerifyCacao, handleRegisterAccount } from "./session";
+import { handleVerifyCacao, handleAccountWrite } from "./session";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -428,6 +429,11 @@ interface Env {
   // to the kotoba node here. Absent → the relay reports `gated` (honest R0): the
   // member is still authenticated locally, the account just isn't published yet.
   KOTOBA_WRITE_ENDPOINT?: string;
+  // The kotoba node's `operator_did` — the REQUIRED CACAO `aud` for member
+  // account writes (ADR-2606061800). The frontend fetches it from the config GET
+  // below so the kotoba-write CACAO binds to the node; the node enforces an exact
+  // aud match. Keychain-stable, so it survives node restarts.
+  KOTOBA_OPERATOR_DID?: string;
   // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
   // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
@@ -1530,16 +1536,34 @@ a{color:inherit}
           } catch {
             payload = null;
           }
-          const { status, result } = await handleRegisterAccount(
+          const { status, result } = await handleAccountWrite(
             payload,
-            Date.now(),
-            (did, handle, profile) =>
-              putKotobaAccount(env, did, handle, profile),
+            cacaoToCborBase64,
+            (cacaoB64, id, claims, labelEn) =>
+              relayKotobaWrite(env, cacaoB64, id, claims, labelEn),
           );
           return new Response(JSON.stringify(result) + "\n", {
             status,
             headers: SAME_ORIGIN_AUTH_CORS,
           });
+        }
+
+        // ── kotoba-write config (ADR-2606061800) ──────────────────────────
+        // The frontend needs the node's operator_did (the required CACAO `aud`)
+        // to sign a kotoba-write CACAO for account publish / device-enroll /
+        // key-rotation. Returns it + whether writes are enabled. Public,
+        // no-cookie, no secret (the operator_did is a public identifier).
+        if (
+          nsid === "com.etzhayyim.authz.kotobaWriteConfig" &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          return new Response(
+            JSON.stringify({
+              operatorDid: env.KOTOBA_OPERATOR_DID ?? null,
+              writeEnabled: !!env.KOTOBA_WRITE_ENDPOINT && !!env.KOTOBA_OPERATOR_DID,
+            }) + "\n",
+            { status: 200, headers: SAME_ORIGIN_AUTH_CORS },
+          );
         }
 
         // ── searchActors + getSuggestions short-circuit (ADR-2606042330) ──
