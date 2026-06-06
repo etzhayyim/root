@@ -64,7 +64,7 @@
     "@langchain/langgraph-sdk": "^1.9.2",
     "@langchain/svelte": "^1.0.2",
     "@mlc-ai/web-llm": "^0.2.82",
-    "kysely": "^0.28.17",
+    "kysely": "^0.29.2",
     "lucide-svelte": "^0.460.1",
     "onnxruntime-web": "^1.24.3"
   },
