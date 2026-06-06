@@ -17,7 +17,6 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
-_RW_URL = os.environ.get("RW_URL", "")
 
 
 class _State(TypedDict, total=False):
@@ -31,25 +30,21 @@ class _State(TypedDict, total=False):
 
 
 async def _step_load_targets(state: _State) -> dict[str, Any]:
-    if not _RW_URL: return {"status": "error", "error": "RW_URL not configured"}
     profiles = state.get("profiles") or {}
     if not profiles: return {"targets": []}
     rkeys = list(profiles.keys())
-    import psycopg
     rows = []
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        placeholders = ",".join(["%s"] * len(rkeys))
-        await cur.execute(
-            f"SELECT vertex_id, rkey, props FROM vertex_mangaka WHERE kind='organization' AND rkey IN ({placeholders})",
-            tuple(rkeys))
-        async for r in cur:
-            try: p = json.loads(r[2] or "{}")
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    for rkey in rkeys:
+        rs = await asyncio.to_thread(client.select_where, "vertex_mangaka", "rkey", rkey, limit=100)
+        row = next((r for r in rs if r.get("kind") == "organization"), None)
+        if row:
+            props_str = row.get("props")
+            try: p = json.loads(props_str or "{}") if isinstance(props_str, str) else (props_str or {})
             except Exception: p = {}
-            rows.append({"vid": r[0], "rkey": r[1], "props": p})
-    finally:
-        await conn.close()
+            rows.append({"vid": row.get("vertex_id"), "rkey": rkey, "props": p})
     return {"targets": rows}
 
 
@@ -69,36 +64,21 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     merged = state.get("merged") or []
     if state.get("dry_run"):
         return {"status": "enriched", "counts": {"updated": len(merged)}, "error": None}
-    import psycopg
     written = 0
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        for m in merged:
-            await _reinsert(cur, m["vid"], m["new_props"])
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    for m in merged:
+        rows = await asyncio.to_thread(client.select_where, "vertex_mangaka", "vertex_id", m["vid"], limit=1)
+        if rows:
+            row = rows[0]
+            row["props"] = json.dumps(m["new_props"], ensure_ascii=False)
+            await asyncio.to_thread(client.insert_row, "vertex_mangaka", row)
             written += 1
-    finally:
-        await conn.close()
     return {"status": "enriched", "counts": {"updated": written}, "error": None}
 
 
-async def _reinsert(cur, vid: str, new_props: dict) -> None:
-    await cur.execute(
-        "SELECT created_date, sensitivity_ord, owner_did, rkey, repo, did, collection, "
-        "label, title, name, display_name, description, parent_rkey, page_number, "
-        "panel_number, asset_type, mime_type, cid, status, created_at, kind, actor_did, org_did "
-        "FROM vertex_mangaka WHERE vertex_id = %s LIMIT 1", (vid,))
-    r = await cur.fetchone()
-    if not r: return
-    (cd, s, o, rk, rp, dd, c, lb, ti, nm, dn, ds, pr, pgn, pln, at, mt, ci, st, ca, kd, ad, od) = r
-    await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-    await cur.execute(
-        """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-            rkey, repo, did, collection, label, title, name, display_name, description, parent_rkey,
-            page_number, panel_number, asset_type, mime_type, cid, status, created_at, props, kind, actor_did, org_did
-        ) VALUES (%s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s)""",
-        (vid, cd, s, o, rk, rp, dd, c, lb, ti, nm, dn, ds, pr, pgn, pln, at, mt, ci, st, ca,
-         json.dumps(new_props, ensure_ascii=False), kd, ad, od))
+
 
 
 def _build():

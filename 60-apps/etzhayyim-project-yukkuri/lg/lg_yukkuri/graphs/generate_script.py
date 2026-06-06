@@ -27,7 +27,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1").rstrip("/")
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "90"))
@@ -88,22 +87,14 @@ async def _node_fetch_video(state: _State) -> dict[str, Any]:
         return {"error": "video_id required"}
     if state.get("topic"):
         return {}
-    if not _RW_URL:
-        return {}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                "SELECT topic, outline FROM vertex_yukkuri_video WHERE video_id = %s LIMIT 1",
-                [video_id],
-            )
-            row = await cur.fetchone()
-        finally:
-            await conn.close()
-        if row:
-            return {"topic": row[0] or "", "outline": row[1]}
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
+        if raw_rows:
+            row = raw_rows[0]
+            return {"topic": row.get("topic") or "", "outline": row.get("outline")}
     except Exception as exc:
         _log.warning("fetch_video failed: %s", exc)
     return {}
@@ -163,46 +154,45 @@ async def _node_llm_script(state: _State) -> dict[str, Any]:
 async def _node_insert_scenes_lines(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("scenes"):
         return {}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     video_id = state.get("video_id") or ""
     scenes = state["scenes"]
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            for i, scene in enumerate(scenes):
-                scene_id = f"scene-{video_id}-{i}"
-                scene_vertex_id = f"at://{_REPO}/com.etzhayyim.apps.yukkuri.scene/{scene_id}"
-                await conn.execute(
-                    """INSERT INTO vertex_yukkuri_scene
-                       (vertex_id, scene_id, video_id, scene_index, location, action, created_at)
-                       VALUES (%s, %s, %s, %s, %s, %s, %s)""",
-                    [scene_vertex_id, scene_id, video_id, i,
-                     scene.get("location", ""), scene.get("action", ""), created_at],
-                )
-                for j, line in enumerate(scene.get("lines") or []):
-                    line_id = f"line-{video_id}-{i}-{j}"
-                    line_vertex_id = f"at://{_REPO}/com.etzhayyim.apps.yukkuri.line/{line_id}"
-                    await conn.execute(
-                        """INSERT INTO vertex_yukkuri_line
-                           (vertex_id, line_id, video_id, scene_index, line_index,
-                            speaker, text, emotion, created_at)
-                           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-                        [line_vertex_id, line_id, video_id, i, j,
-                         line.get("speaker", "left"),
-                         line.get("text", ""),
-                         line.get("emotion", "normal"),
-                         created_at],
-                    )
-            # advance video status
-            await conn.execute(
-                "UPDATE vertex_yukkuri_video SET status = 'script' WHERE video_id = %s",
-                [video_id],
-            )
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        for i, scene in enumerate(scenes):
+            scene_id = f"scene-{video_id}-{i}"
+            scene_vertex_id = f"at://{_REPO}/com.etzhayyim.apps.yukkuri.scene/{scene_id}"
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_scene", {
+                "vertex_id": scene_vertex_id,
+                "scene_id": scene_id,
+                "video_id": video_id,
+                "scene_index": i,
+                "location": scene.get("location", ""),
+                "action": scene.get("action", ""),
+                "created_at": created_at
+            })
+            for j, line in enumerate(scene.get("lines") or []):
+                line_id = f"line-{video_id}-{i}-{j}"
+                line_vertex_id = f"at://{_REPO}/com.etzhayyim.apps.yukkuri.line/{line_id}"
+                await asyncio.to_thread(client.insert_row, "vertex_yukkuri_line", {
+                    "vertex_id": line_vertex_id,
+                    "line_id": line_id,
+                    "video_id": video_id,
+                    "scene_index": i,
+                    "line_index": j,
+                    "speaker": line.get("speaker", "left"),
+                    "text": line.get("text", ""),
+                    "emotion": line.get("emotion", "normal"),
+                    "created_at": created_at
+                })
+        # advance video status
+        video_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id)
+        if video_rows:
+            video_row = video_rows[0]
+            video_row["status"] = "script"
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_video", video_row)
     except Exception as exc:  # noqa: BLE001
         _log.exception("insert scenes/lines failed")
         return {"error": f"insert: {exc!s}"[:300]}

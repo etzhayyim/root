@@ -24,7 +24,6 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
-_RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:etzhayyim:260425:etzhayyim-japan")
 
@@ -40,25 +39,21 @@ class _State(TypedDict, total=False):
 
 
 async def _step_load_existing(state: _State) -> dict[str, Any]:
-    if not _RW_URL: return {"status": "error", "error": "RW_URL not configured"}
     profiles = state.get("profiles") or {}
     if not profiles: return {"existing": {}}
     rkeys = list(profiles.keys())
-    import psycopg
     out: dict[str, dict] = {}
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        placeholders = ",".join(["%s"] * len(rkeys))
-        await cur.execute(
-            f"SELECT vertex_id, rkey, props FROM vertex_mangaka WHERE kind='environment' AND rkey IN ({placeholders})",
-            tuple(rkeys))
-        async for r in cur:
-            try: p = json.loads(r[2] or "{}")
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    for rkey in rkeys:
+        rows = await asyncio.to_thread(client.select_where, "vertex_mangaka", "rkey", rkey, limit=100)
+        row = next((r for r in rows if r.get("kind") == "environment"), None)
+        if row:
+            props_str = row.get("props")
+            try: p = json.loads(props_str or "{}") if isinstance(props_str, str) else (props_str or {})
             except Exception: p = {}
-            out[r[1]] = {"vid": r[0], "props": p}
-    finally:
-        await conn.close()
+            out[rkey] = {"vid": row.get("vertex_id"), "props": p}
     return {"existing": out}
 
 
@@ -81,53 +76,37 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
     if state.get("dry_run"):
         n_new = sum(1 for p in plans if p["vid"] is None)
         return {"status": "enriched", "counts": {"updated": len(plans) - n_new, "created": n_new}, "error": None}
-    import psycopg
     updated, created = 0, 0
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        for plan in plans:
-            if plan["vid"]:
-                await _reinsert(cur, plan["vid"], plan["new_props"])
+    from pymagatama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    for plan in plans:
+        if plan["vid"]:
+            rows = await asyncio.to_thread(client.select_where, "vertex_mangaka", "vertex_id", plan["vid"], limit=1)
+            if rows:
+                row = rows[0]
+                row["props"] = json.dumps(plan["new_props"], ensure_ascii=False)
+                await asyncio.to_thread(client.insert_row, "vertex_mangaka", row)
                 updated += 1
-            else:
-                rkey = plan["rkey"]
-                name = (plan["new_props"].get("name") or rkey)
-                vid = f"at://{_APP_DID}/com.etzhayyim.mangaka.environment/{rkey}"
-                await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-                await cur.execute(
-                    """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-                        rkey, repo, did, collection, label, title, name, display_name,
-                        kind, status, created_at, props, actor_did, org_did
-                    ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, 'environment', %s, %s, %s, 'environment', 'saved', %s, %s, %s, %s)""",
-                    (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID, "com.etzhayyim.mangaka.environment",
-                     name, name, name, now_iso, json.dumps(plan["new_props"], ensure_ascii=False),
-                     _APP_DID, _DEFAULT_ORG_DID))
-                created += 1
-    finally:
-        await conn.close()
+        else:
+            rkey = plan["rkey"]
+            name = (plan["new_props"].get("name") or rkey)
+            vid = f"at://{_APP_DID}/com.etzhayyim.mangaka.environment/{rkey}"
+            await asyncio.to_thread(client.insert_row, "vertex_mangaka", {
+                "vertex_id": vid, "created_date": now_date, "sensitivity_ord": 0, "owner_did": _APP_DID,
+                "rkey": rkey, "repo": _APP_DID, "did": _APP_DID, "collection": "com.etzhayyim.mangaka.environment",
+                "label": "environment", "title": name, "name": name, "display_name": name,
+                "kind": "environment", "status": "saved", "created_at": now_iso,
+                "props": json.dumps(plan["new_props"], ensure_ascii=False),
+                "actor_did": _APP_DID, "org_did": _DEFAULT_ORG_DID
+            })
+            created += 1
     return {"status": "enriched", "counts": {"updated": updated, "created": created}, "error": None}
 
 
-async def _reinsert(cur, vid: str, new_props: dict) -> None:
-    await cur.execute(
-        "SELECT created_date, sensitivity_ord, owner_did, rkey, repo, did, collection, "
-        "label, title, name, display_name, description, parent_rkey, page_number, "
-        "panel_number, asset_type, mime_type, cid, status, created_at, kind, actor_did, org_did "
-        "FROM vertex_mangaka WHERE vertex_id = %s LIMIT 1", (vid,))
-    r = await cur.fetchone()
-    if not r: return
-    (cd, s, o, rk, rp, dd, c, lb, ti, nm, dn, ds, pr, pgn, pln, at, mt, ci, st, ca, kd, ad, od) = r
-    await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-    await cur.execute(
-        """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-            rkey, repo, did, collection, label, title, name, display_name, description, parent_rkey,
-            page_number, panel_number, asset_type, mime_type, cid, status, created_at, props, kind, actor_did, org_did
-        ) VALUES (%s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s)""",
-        (vid, cd, s, o, rk, rp, dd, c, lb, ti, nm, dn, ds, pr, pgn, pln, at, mt, ci, st, ca,
-         json.dumps(new_props, ensure_ascii=False), kd, ad, od))
+
 
 
 def _build():

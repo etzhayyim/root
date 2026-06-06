@@ -6,7 +6,7 @@ edge Worker and forwards here via Service Binding / fetch.
 
 PoC endpoints implemented:
     GET  /healthz                     liveness
-    GET  /readyz                      readiness (RW pool ping)
+    GET  /readyz                      readiness (kotoba ping)
     POST /v1/instance                 { processId, variables?, correlationKey? }
                                       → { instanceId, completed, readyJobs }
     POST /v1/instance/{id}/advance    re-run do_engine_steps (no-op if blocked)
@@ -35,10 +35,10 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
-from psycopg import connect
 from pydantic import BaseModel
 
-from engine import SpiffEngine, make_pool
+from engine import SpiffEngine
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 log = logging.getLogger("bpmn_engine_host")
 logging.basicConfig(
@@ -49,15 +49,14 @@ logging.basicConfig(
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    pool = make_pool()
-    engine = SpiffEngine(pool)
-    app.state.pool = pool
+    client = get_kotoba_client()
+    engine = SpiffEngine(client)
+    app.state.client = client
     app.state.engine = engine
     log.info("bpmn-engine-host: started")
     try:
         yield
     finally:
-        pool.close()
         log.info("bpmn-engine-host: stopped")
 
 
@@ -80,20 +79,12 @@ def healthz() -> dict[str, str]:
 
 @app.get("/readyz")
 def readyz() -> dict[str, Any]:
-    timeout_s = float(os.environ.get("BPMN_ENGINE_READYZ_DB_TIMEOUT_S", "2.0"))
-    dsn = os.environ.get("RW_DSN")
-    if not dsn:
-        raise HTTPException(503, detail="RW_DSN required")
     try:
-        with connect(
-            dsn,
-            autocommit=True,
-            prepare_threshold=None,
-            connect_timeout=timeout_s,
-        ) as conn:
-            conn.execute("SELECT 1").fetchone()
+        client = get_kotoba_client()
+        # Ping the datomic client
+        client.q('[:find ?e :where [?e :db/ident :db/ident]]')
     except Exception as exc:  # noqa: BLE001
-        raise HTTPException(503, detail=f"rw not reachable: {exc!r}") from exc
+        raise HTTPException(503, detail=f"kotoba not reachable: {exc!r}") from exc
     return {"status": "ready"}
 
 

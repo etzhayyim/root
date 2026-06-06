@@ -48,7 +48,6 @@ _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _NSID = "com.etzhayyim.mangaka.document"
-_RW_URL = os.environ.get("RW_URL", "")
 _BLOB_BASE = os.environ.get("MANGAKA_BLOB_BASE", "https://mangaka.etzhayyim.com")
 
 
@@ -88,8 +87,7 @@ def _extract_cid(url: str) -> str:
 # Super-step 1: load document + resolve target ai-images
 async def _step_load_target(state: _State) -> dict[str, Any]:
     state_t0 = time.monotonic()
-    if not _RW_URL:
-        return {"status": "error", "error": "RW_URL not configured", "_t0": state_t0}
+    
     doc_id = (_g(state, "doc_id", "docId", default="") or "").strip()
     if not doc_id:
         return {"status": "error", "error": "docId required", "_t0": state_t0}
@@ -97,17 +95,18 @@ async def _step_load_target(state: _State) -> dict[str, Any]:
 
     vertex_id = f"at://{_APP_DID}/{_NSID}/{doc_id}"
     try:
-        import psycopg  # type: ignore
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                "SELECT props FROM vertex_mangaka WHERE vertex_id = %s AND kind = 'document' LIMIT 1",
-                (vertex_id,),
-            )
-            row = await cur.fetchone()
-        finally:
-            await conn.close()
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
+        rows = await asyncio.to_thread(
+            client.select_where,
+            "vertex_mangaka",
+            "vertex_id",
+            vertex_id,
+            ["props", "kind"],
+            limit=1
+        )
+        row = (rows[0].get("props") if rows and rows[0].get("kind") == "document" else None,) if rows else None
     except Exception as exc:  # noqa: BLE001
         return {"status": "error", "error": f"{type(exc).__name__}: {exc!s}"[:300], "_t0": state_t0}
     if not row:
@@ -286,37 +285,29 @@ async def _step_persist(state: _State) -> dict[str, Any]:
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
     try:
-        import psycopg  # type: ignore
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vertex_id,))
-            await cur.execute(
-                """
-                INSERT INTO vertex_mangaka (
-                    vertex_id, created_date, sensitivity_ord, owner_did,
-                    rkey, repo, did, collection,
-                    label, title, name, display_name,
-                    kind, status, created_at, props,
-                    actor_did, org_did
-                ) VALUES (
-                    %s, %s, 0, %s,
-                    %s, %s, %s, %s,
-                    'document', %s, %s, %s,
-                    'document', 'saved', %s, %s,
-                    %s, %s
-                )
-                """,
-                (
-                    vertex_id, now_date, _APP_DID,
-                    doc_id, _APP_DID, _APP_DID, _NSID,
-                    name, name, name,
-                    now_iso, document_json,
-                    _APP_DID, "did:erc725:etzhayyim:260425:etzhayyim-japan",
-                ),
-            )
-        finally:
-            await conn.close()
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
+        await asyncio.to_thread(client.insert_row, "vertex_mangaka", {
+            "vertex_id": vertex_id,
+            "created_date": now_date,
+            "sensitivity_ord": 0,
+            "owner_did": _APP_DID,
+            "rkey": doc_id,
+            "repo": _APP_DID,
+            "did": _APP_DID,
+            "collection": _NSID,
+            "label": "document",
+            "title": name,
+            "name": name,
+            "display_name": name,
+            "kind": "document",
+            "status": "saved",
+            "created_at": now_iso,
+            "props": document_json,
+            "actor_did": _APP_DID,
+            "org_did": "did:erc725:etzhayyim:260425:etzhayyim-japan"
+        })
     except Exception as exc:  # noqa: BLE001
         return {
             "status": "error",

@@ -47,9 +47,10 @@ from __future__ import annotations
 import logging
 import os
 import secrets
+import asyncio
 from typing import Annotated, Any, Dict, TypedDict
 
-import psycopg
+from pymagatama.kotoba_datomic import get_kotoba_client
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy, Send
 
@@ -62,7 +63,6 @@ from lg_mangaka.audit import emit_audit_bg
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_RW_URL = os.environ.get("RW_URL", "")
 _DEFAULT_RESOLUTION = (1080, 1920)  # portrait, mangaka standard
 
 
@@ -124,37 +124,34 @@ async def _load_scene(state: _State) -> dict[str, Any]:
             }
         return {"error": "pipeline_run_id required"}
 
-    # dry_run skips the RW lookup entirely — we fabricate a plausible scene
+    # dry_run skips the lookup entirely — we fabricate a plausible scene
     # so the per-panel render fan-out can demo the SSE + image preview path
-    # without requiring cine_generate_scene to have been run + RW populated.
-    if state.get("dry_run") or not _RW_URL:
+    # without requiring cine_generate_scene to have been run.
+    if state.get("dry_run"):
         return {"scene": _synthetic_scene(run_id)}
 
     vid = _cine.mangaka_vertex_id("cineRun", run_id)
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            "SELECT scene_world_cid, scene_usd_cid, scene_geom_cid, scene_temporal_cid, status "
-            "FROM graphar.vertex_mangaka_cine_run WHERE vertex_id = %s LIMIT 1",
-            (vid,),
-        )
-        row = await cur.fetchone()
-    finally:
-        await conn.close()
+    client = get_kotoba_client()
+    row = await asyncio.to_thread(
+        client.select_first_where,
+        "vertex_mangaka_cine_run",
+        "vertex_id",
+        vid,
+        ["scene_world_cid", "scene_usd_cid", "scene_geom_cid", "scene_temporal_cid", "status"]
+    )
 
     if not row:
         return {"error": f"scene run not found: {run_id}"}
 
     scene = {
-        "worldModelCid":   row[0],
-        "usdSceneCid":     row[1],
-        "neuralGeomCid":   row[2],
-        "temporalFieldCid": row[3],
-        "priorStatus":     row[4],
+        "worldModelCid":   row.get("scene_world_cid"),
+        "usdSceneCid":     row.get("scene_usd_cid"),
+        "neuralGeomCid":   row.get("scene_geom_cid"),
+        "temporalFieldCid": row.get("scene_temporal_cid"),
+        "priorStatus":     row.get("status"),
     }
     if not scene["temporalFieldCid"]:
-        return {"error": f"scene run {run_id} not ready (status={row[4]})"}
+        return {"error": f"scene run {run_id} not ready (status={row.get('status')})"}
     return {"scene": scene}
 
 

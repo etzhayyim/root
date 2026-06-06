@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS vertex_atrecord_kami_ketsu_gorilla_score;
