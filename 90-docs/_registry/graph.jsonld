@@ -13620,6 +13620,28 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606064500-maps-kotoba-native-substrate-migration",
+      "type": "TechArticle",
+      "title": "ADR-2606064500: maps — kotoba-native substrate migration (vertex_spatial → Datom log, H3-cell AVET spatial index)",
+      "status": "proposed",
+      "topic": "maps-kotoba-native-migration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "maps.etzhayyim.com spatial substrate migration off RisingWave/Hyperdrive onto the kotoba Datom log",
+        "the H3-cell-as-Datom + AVET spatial-index design for kotoba geospatial reads",
+        "maps actor kotoba-native ontology, lexicons, ingest/analyze methods, migration phases"
+      ],
+      "related": [
+        "doc:2604271800",
+        "doc:2604280900",
+        "doc:2605011500",
+        "doc:2605215100",
+        "doc:2605312200",
+        "doc:2606011500"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
