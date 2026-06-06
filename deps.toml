@@ -148,6 +148,22 @@ payment_rule_adr = "2605172100"
 
 identity_substrate = ["did:web:etzhayyim.com", "did:plc", "WebAuthn passkey", "Coinbase Smart Wallet"]
 auth_substrate = ["DID-bound signature", "WebAuthn", "passkey"]
+
+# ── Apex did-web actor + DID resolution: kotoba-datomic, content-addressed,
+#    Cloudflare-primitive-free (ADR-2606065500, deployed 2026-06-06) ──
+# The 28 named actors' record AND DID document are datoms in the actors-v1 Datom
+# log (`:actor/* :actor/didDocJson :actor/didDocCid`) → content-addressed
+# ProllyTree blocks served as STATIC files; the browser kotoba-wasm (ActorResolver
+# lib) resolves them client-side and self-verifies CID(didDocJson)==didDocCid.
+# NO Cloudflare KV and NO Durable Object in the actor path (KotobaRoot DO + the
+# kblk:/kroot:/kattest: KV block-publish API were removed; ACTOR_KV stays bound
+# only for the gov-atlas index). did:web is served as static did.json/profile.json.
+actor_resolution = "content-addressed kotoba-datomic (static /kotoba/blocks + browser-wasm ActorResolver); CF-primitive-free"
+actor_resolution_adr = "2606065500"
+actor_resolution_canonical_adr = "2606013800"   # actor-profile issuance + content-addressed did.json (2606015400/15600)
+actor_resolution_blocks_gen = "50-infra/etzhayyim-did-web/scripts/gen-kotoba-actor-blocks.mjs"
+actor_resolution_lib = "50-infra/etzhayyim-did-web/public/kotoba/actor-resolver.js"
+actor_resolution_prohibited = ["Cloudflare KV for actor/DID records", "Cloudflare Durable Objects (KotobaRoot removed)", "Worker as DID authority over the content-addressed Datom"]
 # Member login/signup: same-origin passkey → did:key controller, verify-only apex,
 # no authn/mcp, no server key (ADR-2606061800; promotes ADR-2606060000 to the
 # primary login path). Controller did:key is PRF-derived (deterministic across

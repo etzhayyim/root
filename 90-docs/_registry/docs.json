@@ -21455,6 +21455,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606065500-session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free.md",
+      "id": "adr-2606065500-session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
+      "title": "ADR-2606065500: Session close — apex did-web actor+DID resolution → kotoba-datomic, content-addressed, Cloudflare-primitive-free",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606015400",
+        "2606015600",
+        "2605231525",
+        "2606064500",
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312345",
+        "2606013800"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -1,0 +1,28 @@
+{
+  "did": "did:web:etzhayyim.com:actor:anchorer",
+  "handle": "anchorer.etzhayyim.com",
+  "displayName": "anchorer",
+  "description": "L2 anchor cron — submits L2Anchor records to Base L2 referencing per-shard pin receipts.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-17T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "service",
+  "uiType": "none",
+  "_etzhayyim": {
+    "kind": "substrate-service",
+    "tier": null,
+    "status": "landed",
+    "adr": [
+      "2605171800"
+    ],
+    "primaryLexicon": null,
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/anchorer/did.json",
+    "source": "kotoba"
+  }
+}

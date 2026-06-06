@@ -1,0 +1,31 @@
+{
+  "did": "did:web:etzhayyim.com:actor:himawari",
+  "handle": "himawari.etzhayyim.com",
+  "displayName": "Himawari — Solar PV Manufacturing",
+  "description": "Solar-grade c-Si PV module manufacturing (polysilicon QA → ingot/wafer → cell → module assembly → flash/EL test) for INTERNAL hikari install ONLY (SBT↔SBT carve-out; no external commercial sale, G12). Structurally closes hikari §G2 (no XUAR/forced-labor polysilicon) via first-party on-chain feedstock provenance. 製造 (himawari) → 積込 (sarutahiko F10) → 輸送 (kami-autodrive) → 設置 (hikari).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-02T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "none",
+  "glyph": "向日葵",
+  "displayNameJa": "向日葵 — 太陽光 PV モジュール製造",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606021200",
+      "2606022300"
+    ],
+    "primaryLexicon": "com.etzhayyim.himawari",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/himawari/did.json",
+    "source": "kotoba"
+  }
+}

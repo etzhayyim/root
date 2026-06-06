@@ -1,0 +1,29 @@
+{
+  "did": "did:web:etzhayyim.com:actor:audit",
+  "handle": "audit.etzhayyim.com",
+  "displayName": "audit",
+  "description": "Audit-event aggregator — substrate-wide com.etzhayyim.audit.event sink referenced by every actor manifest.",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-05-23T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "service",
+  "uiType": "none",
+  "_etzhayyim": {
+    "kind": "substrate-service",
+    "tier": null,
+    "status": "landed",
+    "adr": [
+      "2605231700",
+      "2605231900"
+    ],
+    "primaryLexicon": "com.etzhayyim.audit.event",
+    "primarySchema": null,
+    "didDocument": "https://etzhayyim.com/actor/audit/did.json",
+    "source": "kotoba"
+  }
+}

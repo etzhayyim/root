@@ -13747,6 +13747,22 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606065500-session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
+      "type": "TechArticle",
+      "title": "ADR-2606065500: Session close — apex did-web actor+DID resolution → kotoba-datomic, content-addressed, Cloudflare-primitive-free",
+      "status": "active",
+      "topic": "session-close-did-web-actor-did-kotoba-datomic-cf-primitive-free",
+      "authoritative": false,
+      "related": [
+        "doc:2606015400",
+        "doc:2606015600",
+        "doc:2605231525",
+        "doc:2606064500",
+        "doc:2605262130"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
