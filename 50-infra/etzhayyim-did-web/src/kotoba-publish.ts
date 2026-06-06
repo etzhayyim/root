@@ -39,7 +39,7 @@ const GENESIS_ROOT_FALLBACK: Record<string, unknown> = {
 
 // ─── base32 (RFC4648 lower, no pad) — CIDv1 multibase 'b' ────────────────────
 const B32 = "abcdefghijklmnopqrstuvwxyz234567";
-function base32Decode(s: string): Uint8Array {
+export function base32Decode(s: string): Uint8Array {
   let bits = 0;
   let value = 0;
   const out: number[] = [];
@@ -75,7 +75,7 @@ function b64(bytes: Uint8Array): string {
 // ed25519 verify of the member signature over the raw root CID bytes.
 // did = "did:key:z" + hex(32-byte pubkey); root = CIDv1 multibase ("b"+base32);
 // commit_signed signs root.0 (the raw CID bytes). (See kotoba-wasm WriteCrypto.)
-async function verifyRootSig(did: string, rootMultibase: string, sigHex: string): Promise<boolean> {
+export async function verifyRootSig(did: string, rootMultibase: string, sigHex: string): Promise<boolean> {
   try {
     if (!did.startsWith("did:key:z")) return false;
     const pub = hexToBytes(did.slice("did:key:z".length));
@@ -113,7 +113,7 @@ async function encryptIp(env: PublishEnv, ip: string): Promise<{ iv: string; ct:
   }
 }
 
-function ipPrefix(ip: string): string {
+export function ipPrefix(ip: string): string {
   if (ip.includes(".")) return ip.split(".").slice(0, 3).join(".") + ".0/24"; // IPv4 /24
   if (ip.includes(":")) return ip.split(":").slice(0, 3).join(":") + "::/48"; // IPv6 /48
   return "";
