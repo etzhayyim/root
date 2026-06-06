@@ -318,6 +318,19 @@ copy of the work). Sequence once merge is confirmed:
 
 Only the worktree whose PR is still open (or whose work is unmerged) is kept.
 
+**Command — "worktree cleanup".** When the user says **`worktree cleanup`** (or asks to clean
+up worktrees), run this exact sweep over the current branch + every worktree
+(`git worktree list`); resolve each branch's PR state with `gh pr list --head <branch> --state all`:
+
+- **PR MERGED** (or branch fully contained in `origin/main`, or remote `[gone]`) → **delete** the
+  worktree + branch (`git worktree remove …` then `git branch -d/-D …`, per the sequence above).
+- **No PR yet** and the branch has commits ahead of `origin/main` → **open a PR** (`git push -u`
+  then `gh pr create --base main`). Skip a branch with nothing ahead of main.
+- **PR already OPEN (unmerged)** → **leave it** untouched.
+
+Never commit/push the shared main checkout's dirty working tree (other agents' in-flight work);
+push only the branch's committed HEAD. Report the final categorized outcome.
+
 ## ADR Authority (per ADR-2605170900)
 
 **This repo is canonical for religious-corp open ADRs.**
