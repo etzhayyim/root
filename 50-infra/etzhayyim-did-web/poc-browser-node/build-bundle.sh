@@ -16,6 +16,10 @@ echo "── 1. node bundle (wasm-bindgen --target nodejs, release) ──"
 WASM="$KW/../../target/wasm32-unknown-unknown/release/kotoba_wasm.wasm"
 rm -rf "$POC/node-pkg"; mkdir -p "$POC/node-pkg"
 wasm-bindgen "$WASM" --out-dir "$POC/node-pkg" --target nodejs
+# wasm-bindgen --target nodejs emits CommonJS (exports.*). This package.json has
+# "type":"module", so mark node-pkg/ as CommonJS per-directory, else Node parses the
+# .js as ESM and throws `exports is not defined` (ESM `await import()` interops fine).
+printf '{"type":"commonjs"}\n' > "$POC/node-pkg/package.json"
 
 echo "── 2. web bundle (wasm-pack --target web --release, wasm-opt) ──"
 ( cd "$KW" && wasm-pack build --target web --out-dir web/pkg --release >/dev/null 2>&1 )
