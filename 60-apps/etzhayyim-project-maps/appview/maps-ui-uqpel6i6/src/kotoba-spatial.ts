@@ -24,6 +24,38 @@ import type { AnyRow } from "./geometry";
 export const CELL_RESOLUTIONS = [2, 4, 6, 8, 10, 12] as const;
 export type CellRes = (typeof CELL_RESOLUTIONS)[number];
 
+/**
+ * legacy vertex_spatial.label (PascalCase) ↔ kotoba :feature/label keyword (lowercase-kebab).
+ * MUST stay in lockstep with methods/ingest.py `_LABEL_MAP` — the read filter, the write path,
+ * and the Python ingest all have to agree on the stored keyword, or AVET(:feature/label, …)
+ * matches nothing. The reverse map restores the PascalCase the client keys its render layers
+ * by, so a kotoba-served chunk is byte-identical to a RisingWave-served one.
+ */
+const LABEL_TO_KEYWORD: Record<string, string> = {
+  Place: ":place", Road: ":road", Railway: ":railway", Building: ":building",
+  River: ":river", Lake: ":lake", Coastline: ":coastline", AdminArea: ":admin-area",
+  Mountain: ":mountain", Port: ":port", Airport: ":airport", Station: ":station",
+  BusStop: ":bus-stop", BusRoute: ":bus-route", SeaRoute: ":sea-route", AirRoute: ":air-route",
+  LegalEntity: ":legal-entity", LandRegistry: ":registry", SatelliteScene: ":satellite-scene",
+  Spot: ":place",
+};
+const KEYWORD_TO_LABEL: Record<string, string> = (() => {
+  const m: Record<string, string> = {};
+  for (const [label, kw] of Object.entries(LABEL_TO_KEYWORD)) if (!(kw in m)) m[kw] = label; // first wins
+  return m;
+})();
+
+/** Fold a legacy PascalCase label (or an already-keyworded one) to its :feature/label keyword. */
+export function foldLabel(label: string): string {
+  if (label.startsWith(":")) return label;
+  return LABEL_TO_KEYWORD[label] ?? `:${label.trim().toLowerCase().replace(/\s+/g, "-")}`;
+}
+/** Restore the PascalCase label the client render layers are keyed by, from a keyword. */
+export function legacyLabel(keyword: string): string {
+  const kw = keyword.startsWith(":") ? keyword : `:${keyword}`;
+  return KEYWORD_TO_LABEL[kw] ?? keyword.replace(/^:/, "");
+}
+
 const KOTOBA_TIMEOUT_MS = 1200;
 const KG_ENTITY_NSID = "com.etzhayyim.apps.kotobase.kg.entity";
 const KG_QUERY_NSID = "com.etzhayyim.apps.kotoba.graph.sparql";
@@ -71,7 +103,9 @@ export function entityToRow(entity: Record<string, unknown>): AnyRow | null {
     const p = c.pred.startsWith("feature/") ? c.pred.slice("feature/".length) : c.pred;
     const v = c.value;
     switch (p) {
-      case "label":        row.label = typeof v === "string" ? v.replace(/^:/, "") : v; break;
+      // restore the PascalCase label the client keys its render layers by (kotoba stores the
+      // kebab keyword; a RisingWave row carried "Building", so a kotoba row must too)
+      case "label":        row.label = typeof v === "string" ? legacyLabel(v) : v; break;
       case "name":         row.name = v; break;
       case "display-name": row.display_name = v; break;
       case "category":     row.category = v; break;
@@ -79,7 +113,9 @@ export function entityToRow(entity: Record<string, unknown>): AnyRow | null {
       case "source-did":   row.source_did = v; row.did = v; break;
       case "lat":          row.lat = typeof v === "string" ? Number(v) : v; break;
       case "lon":          row.lng = typeof v === "string" ? Number(v) : v; break;
-      case "props":        row.props = v; break;
+      // MERGE the props bag into the props object (never overwrite — geometry may already be
+      // there; the geometry claim can arrive before OR after this one)
+      case "props":        mergePropsBag(row, v); break;
       case "geometry":     mergeGeometryIntoProps(row, v); break;
       case "height-m":     mergePropsKey(row, "heightM", typeof v === "string" ? Number(v) : v); break;
       case "levels":       mergePropsKey(row, "levels", typeof v === "string" ? Number(v) : v); break;
@@ -95,6 +131,17 @@ function ensurePropsObject(row: Record<string, unknown>): Record<string, unknown
   }
   if (typeof row.props !== "object" || row.props === null) row.props = {};
   return row.props as Record<string, unknown>;
+}
+function mergePropsBag(row: Record<string, unknown>, bag: unknown) {
+  const p = ensurePropsObject(row);
+  let obj: unknown = bag;
+  if (typeof bag === "string") { try { obj = JSON.parse(bag); } catch { return; } }
+  if (obj && typeof obj === "object") {
+    for (const [k, v] of Object.entries(obj as Record<string, unknown>)) {
+      if (k === "geometry" && p.geometry !== undefined) continue; // don't clobber a parsed geometry
+      p[k] = v;
+    }
+  }
 }
 function mergeGeometryIntoProps(row: Record<string, unknown>, geom: unknown) {
   const p = ensurePropsObject(row);
@@ -134,15 +181,19 @@ export async function queryByCells(
 ): Promise<AnyRow[] | null> {
   const base = kotobaEndpoint(env);
   if (!base) return null;
-  const res = Math.max(0, Math.min(15, Math.round(opts.lod)));
+  const res = Math.round(opts.lod);
+  // only the stamped resolutions are indexed; any other lod has no cells → fall through to
+  // RisingWave rather than return a false-empty (§2 ladder; S2)
+  if (!(CELL_RESOLUTIONS as readonly number[]).includes(res)) return null;
   const cellPred = `feature.cell/r${res}`;
   // AVET cell probe per requested cell, label-filtered. Shaped as a structured graph query;
-  // the kotoba planner routes (cellPred, cell) → AVET → subjects.
+  // the kotoba planner routes (cellPred, cell) → AVET → subjects. Labels are folded to the
+  // stored :feature/label keyword (PascalCase "Building" → ":building") — B1.
   const query = {
     index: "avet",
     predicate: cellPred,
     objects: opts.cells,
-    filter: { predicate: "feature/label", in: opts.labels.map((l) => (l.startsWith(":") ? l : `:${l}`)) },
+    filter: { predicate: "feature/label", in: opts.labels.map(foldLabel) },
     select: ["feature/label", "feature/name", "feature/display-name", "feature/category",
              "feature/status", "feature/source-did", "feature/lat", "feature/lon",
              "feature/geometry", "feature/height-m", "feature/levels", "feature/props"],
@@ -197,7 +248,7 @@ export function buildIngestBatch(features: FeatureInput[]): { entities: unknown[
       if (value === undefined || value === null || value === "") return;
       claims.push({ pred, value: String(value) });
     };
-    push("feature/label", f.label?.startsWith(":") ? f.label : f.label ? `:${f.label}` : undefined);
+    push("feature/label", f.label ? foldLabel(f.label) : undefined); // kebab keyword, matches ingest.py
     push("feature/name", f.name);
     push("feature/display-name", f.display_name);
     push("feature/category", f.category);

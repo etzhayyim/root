@@ -113,8 +113,10 @@ class TestAvetRealH3(unittest.TestCase):
 
     @staticmethod
     def _real_cell(lat, lon, res):
-        base = _h3.latlng_to_cell(lat, lon, 15)
-        return _h3.cell_to_parent(base, res)
+        # MUST match production (TS stampCells + ingest.py _h3_cell): latlng_to_cell at each
+        # res DIRECTLY, NOT cell_to_parent of a res-15 cell (H3 is not perfectly hierarchical,
+        # so the two can disagree at boundaries — stamp and query must use the same method).
+        return _h3.latlng_to_cell(lat, lon, res)
 
     def setUp(self):
         self.store = KotobaLocal()

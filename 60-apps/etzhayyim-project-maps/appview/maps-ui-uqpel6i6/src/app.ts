@@ -3009,7 +3009,10 @@ async function cmdGetChunk(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
     const kr = await kotobaQueryByCells(_mapsEnv as Record<string, unknown>, {
       cells, lod, labels, limit: globalLimit,
     });
-    if (kr) { allRows = kr; servedByKotoba = true; }
+    // Only treat kotoba as authoritative when it actually returned features. A null (endpoint
+    // unset / error / un-stamped lod) AND an empty array both fall through to RisingWave, so a
+    // partially-populated kotoba never blanks the map during the transition (fail-open §3; B2).
+    if (kr && kr.length > 0) { allRows = kr; servedByKotoba = true; }
   }
   if (!servedByKotoba) {
     try {

@@ -55,7 +55,7 @@ describe("kotoba-spatial — entity → row materialization (getChunk shape)", (
     });
     expect(row).not.toBeNull();
     expect(row!.vertex_id).toBe("feature.building.marunouchi-bldg");
-    expect(row!.label).toBe("building"); // leading ":" stripped for downstream label match
+    expect(row!.label).toBe("Building"); // restored to the PascalCase the client keys layers by
     expect(row!.name).toBe("Marunouchi Building");
     expect(row!.lat).toBe(35.6809);
     expect(row!.lng).toBe(139.7644);
@@ -74,6 +74,22 @@ describe("kotoba-spatial — entity → row materialization (getChunk shape)", (
     });
     const props = row!.props as Record<string, unknown>;
     expect((props.geometry as { type: string }).type).toBe("LineString");
+  });
+
+  it("keeps geometry when a props-bag claim ALSO arrives (B3 — props must not clobber geometry)", () => {
+    // producers emit geometry BEFORE the props bag; the props case must merge, not overwrite
+    const row = entityToRow({
+      id: "f2",
+      claims: [
+        { pred: "feature/label", value: ":road" },
+        { pred: "feature/geometry", value: JSON.stringify({ type: "Polygon", coordinates: [[[139, 35], [140, 35], [140, 36], [139, 35]]] }) },
+        { pred: "feature/props", value: JSON.stringify({ surface: "asphalt", lanes: 4 }) },
+      ],
+    });
+    const props = row!.props as Record<string, unknown>;
+    expect((props.geometry as { type: string }).type).toBe("Polygon"); // survives the props claim
+    expect(props.surface).toBe("asphalt"); // and the bag is merged in
+    expect(props.lanes).toBe(4);
   });
 
   it("returns null for an entity with no id", () => {
@@ -95,7 +111,16 @@ describe("kotoba-spatial — ingest batch (write path)", () => {
     expect(preds).toContain("feature/sourcing"); // G3 — always present
     expect(preds).toContain("feature.cell/r12"); // §2 — spatial index stamped at write
     expect(preds).not.toContain("feature/id"); // id is the entity id, not a claim
-    // a bare label is normalized to a keyword (leading ":")
-    expect(e.claims.find((c) => c.pred === "feature/label")!.value).toBe(":Station");
+    // the legacy PascalCase label is FOLDED to the stored :feature/label keyword (matches
+    // ingest.py _LABEL_MAP so AVET(:feature/label, …) matches) — B1/S1
+    expect(e.claims.find((c) => c.pred === "feature/label")!.value).toBe(":station");
+  });
+
+  it("folds the legacy multi-word labels to their ontology keyword (AdminArea → :admin-area)", () => {
+    const batch = buildIngestBatch([
+      { vertex_id: "feature.admin-area.jp-13", label: "AdminArea", name: "Tokyo", lat: 35.68, lng: 139.69 },
+    ]);
+    const e = batch.entities[0] as { claims: { pred: string; value: string }[] };
+    expect(e.claims.find((c) => c.pred === "feature/label")!.value).toBe(":admin-area");
   });
 });

@@ -109,17 +109,36 @@ class TestIngest(unittest.TestCase):
         self.assertFalse(any(c["pred"] == "feature/id" for c in e["claims"]))
 
     def test_push_gate_refuses_without_operator(self):
-        # G7 — live push is refused unless MAPS_OPERATOR_GATE=1
-        feats, _, _ = ingest.normalize(self.export)
-        batch = ingest.to_kg_batch(feats)
+        # G7 — invoke ingest.main(--push) with the gate OFF and assert it sys.exit()s with the
+        # G7 refusal BEFORE any network call (deleting the gate would fail this test).
         old = os.environ.pop("MAPS_OPERATOR_GATE", None)
         try:
-            # simulate the main() gate decision without doing any network
-            gated = os.environ.get("MAPS_OPERATOR_GATE") != "1"
-            self.assertTrue(gated)
+            with self.assertRaises(SystemExit) as cm:
+                ingest.main(["ingest.py", "--export", str(SAMPLE), "--push"])
+            self.assertIn("G7", str(cm.exception))
         finally:
             if old is not None:
                 os.environ["MAPS_OPERATOR_GATE"] = old
+
+    def test_push_gate_refuses_without_auth_even_when_gated(self):
+        # with the gate ON but no KOTOBA_AUTH/ENDPOINT, --push still refuses (G4 no-server-key)
+        old_g = os.environ.get("MAPS_OPERATOR_GATE")
+        old_a = os.environ.pop("KOTOBA_AUTH", None)
+        old_e = os.environ.pop("KOTOBA_ENDPOINT", None)
+        os.environ["MAPS_OPERATOR_GATE"] = "1"
+        try:
+            with self.assertRaises(SystemExit) as cm:
+                ingest.main(["ingest.py", "--export", str(SAMPLE), "--push"])
+            self.assertIn("no server key", str(cm.exception).lower())
+        finally:
+            if old_g is None:
+                os.environ.pop("MAPS_OPERATOR_GATE", None)
+            else:
+                os.environ["MAPS_OPERATOR_GATE"] = old_g
+            if old_a is not None:
+                os.environ["KOTOBA_AUTH"] = old_a
+            if old_e is not None:
+                os.environ["KOTOBA_ENDPOINT"] = old_e
 
 
 if __name__ == "__main__":
