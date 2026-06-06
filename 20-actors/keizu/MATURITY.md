@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **127 tests** across weave (35) / social (7) / ingest (9) / bridge (10) / export (6) / charter-invariants (28) / analyze (9) / lexicons (5) / consistency (6) / cells (12).
+- **Tests**: `./run_tests.sh` green — **130 tests** across weave (35) / social (7) / ingest (9) / bridge (10) / export (6) / charter-invariants (28) / analyze (9) / lexicons (5) / consistency (6) / cells (12) / membrane-flow (3).
+- **Cell-chain integration** (`cells/test_membrane_flow.py`): threads one public-source batch through all 5 cells in sequence (ingest→committee_graph→money_graph→relation_weave→social_post), the relation_weave finding becoming the social_post subject — proving the cells COMPOSE into the documented pipeline, not just pass in isolation. Head-refusal (private node) and tail-refusal (published request) both abort the chain.
 - **keizu → kanae export** (`export.py`): fiscal `:money` → kanae fundFlowEdge shape (the outbound side of `bridge.py`) + a JSON-safe `render_payload` (Sankey/treemap-ready, carries isMirror/nonAdjudicating). `:political-donation` excluded as non-fiscal (honest skip count, no silent drop). Round-trip keizu→kanae→bridge→keizu preserves kind+amount for all 4 fiscal kinds.
 - **Statements (発言)**: `validate_statement` (speaker + ≥1 source G3 + sourcing G11, enforced in `weave()`) + `statement_index` (per-speaker count + per-topic speaker set) — indexed by topic, never rated true/false (ake/danjo own truth-rating). Closes the 発言 dimension of the original brief.
 - **G9/G1 no-doxxing guard** (`PII_FORBIDDEN_NODE_ATTRS` + `validate_node`): a public-seat node carrying a personal-contact/sensitive field (email/phone/address/dob/mynumber/passport/face/health/…) is REFUSED in code — enforced across seed + ingest. Any such datum lives encrypted off-graph (ADR-2605181100).
