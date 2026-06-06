@@ -10,3 +10,4 @@ PY="${PYTHON:-python3}"   # set PYTHON=/path/to/venv/bin/python to exercise the 
 "$PY" test_search.py "$@"
 "$PY" test_reverse.py "$@"
 "$PY" test_chunk.py "$@"
+"$PY" test_verify.py "$@"
