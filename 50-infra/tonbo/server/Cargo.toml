@@ -15,7 +15,7 @@ path = "src/main.rs"
 arrow = { version = "58", features = ["ipc"] }
 arrow-flight = { version = "53", features = ["flight-sql-experimental"] }
 arrow-ipc = "54"
-arrow-json = "53"
+arrow-json = "58"
 arrow-schema = "58"
 async-trait = "0.1"
 axum = "0.8"
