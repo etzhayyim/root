@@ -16,6 +16,18 @@
 # Usage (the operator supplies the CF token, e.g. from 1Password):
 #   CLOUDFLARE_API_TOKEN="$(op item get <cf-token-item> --fields label=password --reveal)" \
 #     [CLOUDFLARE_ACCOUNT_ID=<id>] bash scripts/put-actor-kv.sh <handle>
+#
+# TOKEN SCOPE (verified 2026-06-06): the token MUST carry "Workers KV Storage:Edit" on the
+# account that owns namespace d33de8e0… . The gftd 1Password CF tokens (gftd.cloudflare/API_TOKEN
+# etc.) authenticate (accounts list OK) but LACK KV scope → PUT returns 401 code 10000. Mint a
+# KV-scoped token in the CF dashboard of that account first, or this exits 401. The kamado DID
+# already resolves via the compiled INFRA_ACTORS fallback, so this promotion is optional + reversible.
+#
+# NOTE (anti-pattern caveat): the resolver (worker.ts resolveActorRecordTiered) uses KV only as a
+# 300 s auto-cache of the kotoba pull (tier-2 writes it with expirationTtl: 300). This script's PUT
+# has NO TTL → a PERMANENT entry that SHADOWS future kotoba/compiled updates until hand-deleted.
+# Prefer wiring tier-2 KOTOBA_ENDPOINT and letting KV self-fill; reach for this only for the
+# documented general promotion case (ADR-2606013800), never as part of an actor migration.
 set -euo pipefail
 
 HANDLE="${1:?usage: put-actor-kv.sh <handle>}"

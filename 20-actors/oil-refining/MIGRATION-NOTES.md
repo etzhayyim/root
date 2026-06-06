@@ -89,15 +89,31 @@ paths, ADR-2605215000). So:
    legacy *read* from a RisingWave dump is the separate `ingest.py --live` path
    (refused unless `KAMADO_OPERATOR_GATE=1`).
    OPTIONAL mirror (copy only): `KOTOBA_JWT=<gftd-jwt> python3 …/ingest.py --mirror-gftd`.
-2. **Actor-profile identity** → **etzhayyim's own CF KV** (Cloudflare = etzhayyim infra; KV namespace
-   `d33de8e0…` on etzhayyim's account — boundary-clean):
-   `node 50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs --actor kamado --put-kv --ingest-kotoba`
-   → CF KV `actor:kamado` + the `actors-v1` graph (point `--ingest-kotoba` at etzhayyim's own
-   kotoba via `KOTOBA_ENDPOINT`, not gftd). The publisher's internal
+2. **Actor-profile identity** → point the Worker's tier-2 at **etzhayyim's own kotoba**
+   (`KOTOBA_ENDPOINT`), then let resolution self-serve. **CF KV is NOT a required step** — see below.
+   `node 50-infra/etzhayyim-did-web/scripts/publish-actor-records.mjs --actor kamado --ingest-kotoba`
+   (point `--ingest-kotoba` at etzhayyim's own kotoba, not gftd). The publisher's internal
    `com.etzhayyim.apps.kotobase.*` nsid is the etzhayyim self-host contract.
 
-Until an operator runs the above, the apex Worker serves kamado from the compiled `INFRA_ACTORS`
-fallback (3-tier fail-open KV → kotoba → compiled), so `/actor/kamado/did.json` resolves today.
+### Why KV is NOT needed (verified 2026-06-06, against `worker.ts:711` `resolveActorRecordTiered`)
+
+The apex resolver is 3-tier fail-open **KV → kotoba → compiled `INFRA_ACTORS`**, but tier-1 KV is
+**only a 300 s auto-populated cache of the kotoba pull** (tier-2 writes it with `expirationTtl: 300`),
+not a source of truth. Both KV and `KOTOBA_ENDPOINT` are optional — if the `ACTOR_KV` binding is
+absent the resolver falls straight through to kotoba → compiled and `/actor/<h>/did.json` stays live.
+So the **sovereign 2-tier is sufficient**: canonical = etzhayyim's own kotoba (content-addressed +
+Base L2 anchored) → fallback = compiled `INFRA_ACTORS` (etzhayyim repo). KV is a CF-edge accelerator
+on gftd-managed infra, never canonical.
+
+Manually pre-seeding KV (`scripts/put-actor-kv.sh`) is therefore **unnecessary and mildly
+anti-pattern**: its PUT writes a **permanent, no-TTL** entry that would *shadow* future kotoba/compiled
+updates until hand-deleted — the opposite of the 300 s ephemeral cache the resolver itself maintains.
+The script is retained only for the documented general KV-promotion case (ADR-2606013800); it is **not
+part of the kamado/oil-refining migration** and requires a `Workers KV Storage:Edit`-scoped CF token
+(the gftd 1Password CF tokens authenticate but lack that scope, so PUT returns 401 code 10000 anyway).
+
+Until tier-2 kotoba is wired, the apex Worker serves kamado from the compiled `INFRA_ACTORS`
+fallback (tier-3), so `/actor/kamado/did.json` resolves today.
 
 The legacy manifest is retained for reference until a dedicated cutover PR removes it (watari
 precedent); no new work should target it.
