@@ -10044,6 +10044,14 @@ status_note = "Answers 「kami engine / kotoba で人体の骨・筋肉のシミ
 path = "90-docs/adr/2606061900-suji-musculoskeletal-posture-load-biomechanics.md"
 adr = ["2606061900", "2605312700", "2605260100", "2605263000", "2605261000", "2605311500", "2605311800", "2606010030", "2606010600", "2605261800", "2606051600", "2605231525", "2605215000", "2605241900", "2605312345", "2605181100", "2606042330", "2605192100"]
 
+[[adrs]]
+id = "2606071000"
+title = "intel/OSINT actor cohort — R1 forecast pipeline + cross-actor synthesis + Murakumo fleet-readiness"
+status = "accepted"
+status_note = "Brings the intel/OSINT cohort (mitooshi, watari, watatsuna, kabuto, kanjo, tadori, danjo, himotoki) to 8/8 deploy-ready (227 tests green, 15 persisted kotoba Datom artifacts), additively, ZERO invariant amendments. mitooshi gains a full R1 forecasting pipeline over the Datom log — observe(watari/watatsuna)→bridge→persist(append-only as-of trail)→forecast(leak-free Gaussian, G1 distribution-only)→rolling-origin backtest+scorecard(G12 skill)→online recalibration(cells/online_update, leak-free)→calibration_gate decision(G7/G9/G12)→cross-actor chokepoint resilience composite — both ends proven: the real two-regime trail is honestly REFUSED on G7, a single-regime fixture CLEARS when calibrated+member-signed. watari/watatsuna/kabuto/kanjo/tadori got the missing test suites+runners pinning each charter invariant (G2 resilience-not-targeting, G4 non-adjudication/no-person-tracking, G5/G6/G7). danjo (single-bidder-streak discrepancy analyzer, non-adjudicating) and himotoki (DSAR/FOIA draft generator, own-data-only/no-pretext/PII-encrypted/verify-before-dispatch) went pure-design→R1. New 70-tools/intel-fleet-readiness Murakumo deploy pre-flight (NEVER deploys) reports per-actor READY-PENDING-GATE + the blocking outward gate; found+closed 3 artifact gaps. Live deploy/ingest/publish/promotion remains outward-gated (Council Lv6+ + operator) per each actor's G7/G10/G14; all inference Murakumo-only; all state kotoba Datom EDN (no SQL/RW). PR #1206."
+path = "90-docs/adr/2606071000-intel-osint-actor-cohort-r1-and-fleet-readiness.md"
+adr = ["2606071000", "2606051800", "2606041827", "2606012600", "2606022000", "2606032000", "2605301400", "2605301600", "2605302130", "2605262130", "2605312345", "2605231525", "2605215000", "2605192415", "2605192100"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
