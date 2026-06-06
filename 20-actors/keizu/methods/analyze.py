@@ -52,6 +52,11 @@ def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
         L.append(f"- `{r['seat']}` sits on {r['committee_count']} committees: {', '.join(r['committees'])}")
     if not c["cross_committee_seats"]:
         L.append("- (none in seed)")
+    L.append("\n## Cross-organ connector seats\n")
+    for r in c["connector_seats"]:
+        L.append(f"- `{r['seat']}` bridges {r['organs_bridged']} organs: {', '.join(r['organs'])}")
+    if not c["connector_seats"]:
+        L.append("- (none in seed)")
     mc = c["money_concentration"]
     L.append(f"\n## Money concentration (by payee) — HHI={mc['hhi']} over total {mc['total']:.0f}\n")
     for payee, share in mc["shares"]:

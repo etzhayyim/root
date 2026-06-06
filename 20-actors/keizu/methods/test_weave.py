@@ -5,8 +5,8 @@ import pathlib
 
 from _edn import load_edn
 from _t import expect_raises, run
-from weave import (concentration, validate_money, validate_node, validate_rel,
-                   weave)
+from weave import (active_as_of, concentration, connector_seats,
+                   validate_money, validate_node, validate_rel, weave)
 
 SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-relation-graph.kotoba.edn"
 
@@ -154,6 +154,48 @@ def test_award_and_fund_requires_both_legs():
 
 def test_award_and_fund_empty_safe():
     assert concentration(weave({}))["award_and_fund"] == []
+
+
+def test_connector_seat_bridges_two_organs():
+    c = concentration(_g())
+    # jp-fsc-biz-1 sits on 財政制度等審議会 (財務省) + 規制改革推進会議 (内閣府) → bridges 2 organs
+    conn = next((r for r in c["connector_seats"] if r["seat"] == "jp-fsc-biz-1"), None)
+    assert conn is not None, c["connector_seats"]
+    assert conn["organs_bridged"] >= 2
+
+
+def test_connector_requires_distinct_organs():
+    # two committees under the SAME organ → not a cross-organ connector
+    g = weave({
+        ":nodes": [{":node/id": "s1", ":node/scope": ":public-role", ":node/sourcing": ":representative"}],
+        ":committees": [{":committee/id": "c1", ":committee/organ": "X", ":committee/members": ["s1"]},
+                        {":committee/id": "c2", ":committee/organ": "X", ":committee/members": ["s1"]}],
+        ":rels": [
+            {":rel/id": "a", ":rel/source": "s1", ":rel/target": "c1", ":rel/kind": ":committee-membership",
+             ":rel/non-adjudicating-notice": True, ":rel/sourcing": ":representative", ":rel/sources": ["u", "v"]},
+            {":rel/id": "b", ":rel/source": "s1", ":rel/target": "c2", ":rel/kind": ":committee-membership",
+             ":rel/non-adjudicating-notice": True, ":rel/sourcing": ":representative", ":rel/sources": ["u", "v"]},
+        ],
+    })
+    assert connector_seats(g) == []   # same organ → no cross-organ bridge
+
+
+def test_active_as_of_is_monotonic():
+    g = _g()
+    early = active_as_of(g, 20240101)   # before everything
+    mid = active_as_of(g, 20250301)
+    late = active_as_of(g, 20260101)    # after everything
+    assert early["active_rels"] == 0
+    assert early["active_rels"] <= mid["active_rels"] <= late["active_rels"]
+    assert late["active_rels"] == late["total_rels"]
+    assert late["active_committees"] == late["total_committees"]
+
+
+def test_active_as_of_partial_window():
+    # the revolving-door edge (as-of 20241001) is active by end-2024 but no 2025 memberships are
+    g = _g()
+    snap = active_as_of(g, 20241101)
+    assert 0 < snap["active_rels"] < snap["total_rels"]
 
 
 def test_unknown_organ_member_is_tolerated():

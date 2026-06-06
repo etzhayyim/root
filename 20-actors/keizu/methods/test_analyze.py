@@ -48,6 +48,11 @@ def test_both_payee_and_payer_sides_reported():
     assert "by payee" in report and "by payer" in report
 
 
+def test_connector_section_reported():
+    _, report, _ = _run()
+    assert "Cross-organ connector seats" in report
+
+
 def test_award_and_fund_section_is_non_adjudicating():
     _, report, _ = _run()
     assert "Award-and-fund co-occurrence" in report

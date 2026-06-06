@@ -192,6 +192,41 @@ def revolving_door_chains(g: dict) -> list[dict]:
     return sorted(out, key=lambda x: str(x["from"]))
 
 
+def connector_seats(g: dict) -> list[dict]:
+    """Cross-organ connectors: a public seat sitting on committees that span MORE THAN ONE
+    convening organ. Derived on read from the :committee-membership edges + each committee's
+    organ (edge-primary, G4; aggregate, G3). A connector bridging distinct organs is the
+    structural pattern keizu surfaces — never a per-person influence score."""
+    comm_organ = {cid: c.get(":committee/organ", "(unknown)") for cid, c in g["committees"].items()}
+    by_seat: dict[str, list[str]] = {}
+    for r in g["rels"]:
+        if _kw(r.get(":rel/kind")) == "committee-membership":
+            by_seat.setdefault(r[":rel/source"], []).append(r[":rel/target"])
+    out = []
+    for seat, comms in by_seat.items():
+        uniq_comms = sorted(set(comms))
+        organs = sorted({comm_organ.get(c, "(unknown)") for c in uniq_comms})
+        if len(uniq_comms) > 1 and len(organs) > 1:
+            out.append({"seat": seat, "committees": uniq_comms,
+                        "organs_bridged": len(organs), "organs": organs})
+    return sorted(out, key=lambda x: (-x["organs_bridged"], x["seat"]))
+
+
+def active_as_of(g: dict, ts: int) -> dict:
+    """G10 / 非終末論 — time-travel: which relations + committee compositions are active as of
+    `ts` (as-of/term-from ≤ ts). The graph is append-only, so a query at an earlier ts simply
+    sees fewer datoms; nothing is ever overwritten or deleted."""
+    active_rels = [r for r in g["rels"] if int(r.get(":rel/as-of", 0)) <= ts]
+    active_comms = [c for c in g["committees"].values() if int(c.get(":committee/term-from", 0)) <= ts]
+    return {
+        "ts": ts,
+        "active_rels": len(active_rels),
+        "total_rels": len(g["rels"]),
+        "active_committees": len(active_comms),
+        "total_committees": len(g["committees"]),
+    }
+
+
 def award_and_fund(g: dict) -> list[dict]:
     """FACTUAL co-occurrence (non-adjudicating, G2): public roles that BOTH received public
     money (procurement-award / subsidy / grant) AND made a political donation. A classic
@@ -229,6 +264,7 @@ def concentration(g: dict) -> dict:
         "statement_count": len(g["statements"]),
         "committee_cross_organ": committee_cross_organ(g),
         "cross_committee_seats": cross_committee_seats(g),
+        "connector_seats": connector_seats(g),
         "money_concentration": money_concentration(g),
         "payer_concentration": payer_concentration(g),
         "revolving_door": revolving_door_chains(g),
