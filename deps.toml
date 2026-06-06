@@ -331,6 +331,24 @@ smoke_txs = [
 ]
 conclusion = "Substrate proof-of-life on private EVM. Same chainId 260425 as the deployed geth-private; tx sequence will replay against geth.etzhayyim.com once that DNS / proxy is live."
 
+[[validation]]
+id = "yoro-browser-only-kotoba-e2e-2026-06-07"
+date = "2026-06-07"
+adr = "2606071100"
+target = "https://etzhayyim.com (apex did-web + magatama-yoro)"
+tool = "70-tools/kotoba-e2e (langgraph + browser-use + Murakumo-only LLM; deterministic Playwright layer)"
+home_feed = "browser-only: data_path=csr-sw, blocks_hydrated (x-kotoba-src=blocks), no_risingwave_reads clean, feed_served_by_sw, skeleton seen→removed, posts rendered (6/6 core)"
+profile_500_fix = "AgentProfile lazy-loads BpmnDiagram (bare bpmn-js CSS specifier under build-externalized bpmn-js was 500-ing every profile in-browser); verified no-500 in headed AND headless Chromium across 3 profiles"
+removed = [
+  "CF edge-cache over the RisingWave AppView (off-design)",
+  "KotobaRoot Durable Object (wrangler.toml v2 deleted_classes; publish CAS now KV-only, no server key)",
+  "XRPC_KOTOBA_UPSTREAM emptied — kotoba is not a server; non-local com.etzhayyim.apps.kotoba.* → 503",
+]
+seed = "yoro-social-v1: 102 posts / 0 malformed (corrupt empty-author/at:/// post filtered at generation)"
+offline_tests = "kotoba-e2e 7 signals + 6 murakumo-guard + 12 access-jwt = 25 green"
+not_yet = "profile/thread still SSR from RisingWave (de-SSR designed, deferred to interactive loadProfile rework); Stage-E HMAC dissolution operator-gated"
+conclusion = "Home feed renders browser-side from content-addressed IPFS blocks with zero RisingWave reads; AppView remains only for non-kotoba functions (writes/auth/search). A pre-existing all-profiles 500 is fixed."
+
 # ─── DNS records on etzhayyim.com (managed via CF API) ──────────────
 
 [[platform.dns]]
