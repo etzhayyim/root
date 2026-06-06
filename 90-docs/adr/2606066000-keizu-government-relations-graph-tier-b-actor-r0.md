@@ -109,16 +109,26 @@ ADR-2605312345); **G11** sourcing-honesty (`:representative` | `:authoritative`)
   G5/G7/G8 anchor), `ingest.py` (offline normalizer; `--live` refuses without the G8 gate),
   `analyze.py` (end-to-end → `methods/out/intel-report.md`).
 
-## Empirical (R0)
+## Empirical (R0, at session close)
 
-`./run_tests.sh` — **74 tests green across 8 suites** (weave 12 / social 5 / ingest 9 /
-charter-invariants 21 / analyze 4 / lexicons 5 / consistency 6 / cells 12). `analyze.py` over the
-`:representative` global seed (18 public-role/organ nodes, 3 committees, 15 relations, 6 money flows,
-3 statements) produces: committee cross-organ concentration, **one cross-committee co-membership
-seat** (`jp-fsc-biz-1` on 財政制度等審議会 + 規制改革推進会議), **money HHI = 0.96** (top payee 98%),
-**one revolving-door chain** (METI → 規制改革推進会議 industry seat), and **2 dry-run mirror posts**
-(`status=:dry-run`, `serverHeldKey=false`, ≥2 sources). The charter-invariant suite parses all
-three homes of each structural gate and asserts they agree.
+`./run_tests.sh` — **180 tests green across 13 suites** (weave 57 / social 8 / ingest 17 /
+sources 8 / registry 7 / bridge 10 / export 6 / charter-invariants 28 / analyze 13 / lexicons 5 /
+consistency 6 / cells 12 / membrane-flow 3). `analyze.py` over the `:representative` global seed
+(18 public-role/organ nodes, 3 committees, 15 relations, 6 money flows, 3 statements) produces:
+per-jurisdiction slice (jp/us/eu/oecd), committee cross-organ concentration, **one cross-committee
+co-membership seat** (`jp-fsc-biz-1` on 財政制度等審議会 + 規制改革推進会議), **money HHI = 0.96**
+(top payee 98%) by payee + by payer, **award-and-fund co-occurrence** (`jp-vendor-x` received public
+money AND donated — factual, non-adjudicating), **one revolving-door chain** (METI → 規制改革推進会議
+industry seat), cross-organ connectors, statement index, as-of time-travel, referential integrity,
+and **2 dry-run mirror posts** (`status=:dry-run`, `serverHeldKey=false`, ≥2 sources). The
+charter-invariant suite parses all three homes of each structural gate and asserts they agree.
+
+The R0 scaffold (initial landing) was **74 tests / 8 suites**; the figures above reflect the state
+reached over a self-paced hardening loop (21 iterations) that brought every datom type
+(node/committee/rel/money/statement) + the social-post path under uniform validation, made the
+commercial-gov-intel deny-list a runtime invariant on every citation surface, added the
+bidirectional kanae bridge/export, the R1-ready public-source registry with forge-proof sourcing,
+and the per-jurisdiction + as-of + integrity + amount-robustness analyzer depth.
 
 ## Honest R0
 
