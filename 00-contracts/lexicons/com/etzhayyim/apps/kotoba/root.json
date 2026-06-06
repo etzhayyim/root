@@ -26,7 +26,11 @@
               "description": "Block CIDs included in the most recent publish (a hint; clients should traverse via missingBlockCids)."
             },
             "did": { "type": "string", "description": "did:key of the most recent publisher." },
-            "updatedAt": { "type": "string", "format": "datetime" }
+            "updatedAt": { "type": "string", "format": "datetime" },
+            "ipnsRecord": {
+              "type": "object",
+              "description": "The canonical kotoba IPNS head record (ADR-2606066000), present when the publisher sent one: a member-signed, self-verifying head pointer (value = root). The reader SHOULD verify its Ed25519 signature (via kotoba-wasm) rather than trusting this endpoint — the apex is a non-authoritative relay."
+            }
           }
         }
       }
