@@ -119,3 +119,71 @@ def rows_to_batch(rows: Iterable[dict[str, Any]]) -> dict[str, list]:
     """vertex_spatial rows → a kg.ingest_batch body."""
     entities = [e for e in (row_to_entity(r) for r in rows) if e is not None]
     return {"entities": entities}
+
+
+# ── auxiliary tables → kotoba records (ADR-2606064500 R2 aux; maps-transit-ontology) ──
+#    NOT placed features (a trip is a schedule, a stop-time a call) → :transit.trip/* and
+#    :transit.stop-time/* instead of :feature/*. Successor to the GTFS RisingWave aux tables
+#    vertex_maps_trip / vertex_maps_stop_time.
+
+def _claims(pairs: Iterable[tuple[str, Any]]) -> list[dict[str, str]]:
+    return [{"pred": p, "value": str(v)} for p, v in pairs if v not in (None, "")]
+
+
+def trip_row_to_entity(row: dict[str, Any]) -> dict[str, Any] | None:
+    feed, trip = row.get("feed_id"), row.get("trip_id")
+    if not (feed and trip):
+        return None
+    tid = f"trip.{feed}.{trip}"
+    claims = _claims([
+        ("transit.trip/feed", feed), ("transit.trip/trip-id", trip),
+        ("transit.trip/route", row.get("route_id")), ("transit.trip/service", row.get("service_id")),
+        ("transit.trip/shape", row.get("shape_id")), ("transit.trip/direction", row.get("direction_id")),
+        ("transit.trip/headsign", row.get("headsign")), ("transit.trip/short-name", row.get("short_name")),
+        ("transit.trip/block", row.get("block_id")),
+        ("transit.trip/wheelchair-accessible", row.get("wheelchair_accessible")),
+        ("transit.trip/bikes-allowed", row.get("bikes_allowed")),
+        ("transit.trip/agency", row.get("agency")), ("transit.trip/prefecture", row.get("prefecture")),
+        ("transit.trip/sourcing", ":representative"),
+    ])
+    return {"id": tid, "type": "transit-trip",
+            "label_en": row.get("headsign") or row.get("short_name") or tid,
+            "claims": claims, "relations": []}
+
+
+def stop_time_row_to_entity(row: dict[str, Any]) -> dict[str, Any] | None:
+    feed, trip, seq = row.get("feed_id"), row.get("trip_id"), row.get("stop_sequence")
+    if not (feed and trip) or seq is None:
+        return None
+    sid = f"stoptime.{feed}.{trip}.{seq}"
+    claims = _claims([
+        ("transit.stop-time/trip", f"trip.{feed}.{trip}"),
+        ("transit.stop-time/stop", row.get("stop_id")),
+        ("transit.stop-time/sequence", seq),
+        ("transit.stop-time/arrival-time", row.get("arrival_time")),
+        ("transit.stop-time/departure-time", row.get("departure_time")),
+        ("transit.stop-time/pickup-type", row.get("pickup_type")),
+        ("transit.stop-time/drop-off-type", row.get("drop_off_type")),
+        ("transit.stop-time/headsign", row.get("stop_headsign")),
+        ("transit.stop-time/shape-dist", row.get("shape_dist_traveled")),
+        ("transit.stop-time/timepoint", row.get("timepoint")),
+        ("transit.stop-time/sourcing", ":representative"),
+    ])
+    return {"id": sid, "type": "transit-stop-time", "label_en": sid,
+            "claims": claims, "relations": []}
+
+
+# table name → row-mapper. Tables absent here have no kotoba schema yet (R2 follow-up).
+AUX_TABLE_MAPPERS = {
+    "vertex_maps_trip": trip_row_to_entity,
+    "vertex_maps_stop_time": stop_time_row_to_entity,
+}
+
+
+def aux_rows_to_batch(table: str, rows: Iterable[dict[str, Any]]) -> dict[str, list] | None:
+    """Known aux table's rows → kg.ingest_batch, or None if the table has no kotoba mapping
+    yet (the caller raises so an unmapped table is never a silent drop)."""
+    mapper = AUX_TABLE_MAPPERS.get(table)
+    if mapper is None:
+        return None
+    return {"entities": [e for e in (mapper(r) for r in rows) if e is not None]}
