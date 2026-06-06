@@ -32,6 +32,29 @@ CORE (gates exit): `sw_active`, `blocks_hydrated` (fresh fetch OR `x-kotoba-src`
 `atproto.etzhayyim.com`). QUALITY: `feed_served_by_sw`, `skeleton_lifecycle`,
 `posts_rendered`.
 
+## Finding (2026-06-06): SSR blind spot + profile/thread are NOT browser-only
+
+Running the harness against `/profile/<did>` on live etzhayyim.com:
+`sw_active ✓`, `no_risingwave_reads ✓ (clean)`, but `feed_served_by_sw ✗ "no feed
+read observed"` + `blocks_hydrated ✗`. The home FEED is browser-only (6/6, CSR via
+the SW), but **profile + post-thread pages are SSR'd** — yoro's `+page.server.ts`
+fetches `getProfile`/`getPostThread` via `PDS_SERVICE` (server-side, RisingWave-
+backed) before the HTML reaches the browser, so the SW never intercepts them.
+
+Consequence + limitation:
+- The data source of an SSR page is a SERVER-side fetch, invisible to the browser
+  — so `no_risingwave_reads` is a **false-clean** for SSR pages (it only sees
+  browser network). The harness verifies the CLIENT-side browser-only contract;
+  it cannot assert the data source of SSR'd pages.
+- This is the next real gap for "kotoba browser-only": the FEED is done; PROFILE
+  and THREAD still SSR from RisingWave. Closing it = move those `+page.server.ts`
+  loads to CSR + SW (or SSR from the kotoba blocks), which is a yoro architectural
+  change (SEO/perf tradeoff per yoro CLAUDE.md), not a quick edit.
+
+A future harness rev could detect SSR (data already in the initial HTML with no
+client XRPC) and report "data source not browser-observable (SSR)" instead of a
+plain ✗, so SSR pages aren't mistaken for browser-only.
+
 ## Gotchas
 
 - On a warm reload the SW serves from IndexedDB without re-fetching blocks — so
