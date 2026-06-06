@@ -279,6 +279,22 @@ a sibling agent's `checkout` / `reset` / `clean` can wipe it without warning (ob
    part of your history.
 5. **Back up irreplaceable untracked work outside the git tree** (`cp -R … /tmp/…`) if you
    cannot commit immediately — insurance against a concurrent wipe.
+6. **Treat the shared main checkout as read-only / not-yours.** It stays chronically dirty +
+   divergent (uncommitted edits + a HEAD that is both ahead and behind `origin`); its working
+   tree is a mix of *other* agents' in-flight work. Never commit it wholesale or assume its
+   uncommitted state is yours.
+7. **1 branch = 1 owner.** Do NOT push a divergent local commit onto a sibling's actively-CI'd
+   PR branch (you'd graft onto their in-flight work + risk conflicts). To land such a commit,
+   spin a fresh worktree off `origin/main`, `cherry-pick` it, and open its OWN PR (done
+   2026-06-06: local `9a8600db59` → PR #1188, leaving the sibling's PR #1174 untouched).
+8. **cherry-picks from the shared checkout drag in yoro build artifacts.** Conflicts in
+   `60-apps/etzhayyim-project-yoro/**/static/_app/immutable/*` (hashed SvelteKit chunks) are
+   generated noise — resolve by restoring yoro to `origin/main` (`git checkout origin/main --
+   60-apps/etzhayyim-project-yoro && git add`), never hand-merge them.
+
+**Shell gotcha (zsh):** `$PIPESTATUS` is unset in zsh (it's `$pipestatus`, 1-indexed), so
+`cmd | tail; echo ${PIPESTATUS[0]}` silently reports `tail`'s exit, not `cmd`'s. Check a
+command's real exit before piping it (e.g. `git apply` failed-but-looked-OK this way).
 
 Exit with `ExitWorktree` (`keep` to preserve the branch). The session's cron `/loop`
 iterations continue inside whatever worktree the session is in.
