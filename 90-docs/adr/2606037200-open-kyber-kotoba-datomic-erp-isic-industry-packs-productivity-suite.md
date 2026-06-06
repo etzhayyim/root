@@ -31,9 +31,12 @@ superseded_by: []
 # ADR-2606037200: open-kyber as kotoba-Datomic ERP — ISIC industry packs + productivity suite
 
 **Status**: active — the `rw-free` reference layer is landed and verified (R1/R2, 113 tests
-green incl. the drive file-tree core, `tsc` clean as of 2026-06-06). One compliance task
-remains open: the **live ERP Worker still holds `createKyselyDb(env.HYPERDRIVE)` read paths**
-and is not yet on the kqe-over-Datom-log path — see Consequences § "Open tasks".
+green incl. the drive file-tree core, `tsc` clean as of 2026-06-06). The **ERP Worker
+Kysely/Hyperdrive cutover is now done in source** (`etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts`
+routes all 28 commands through the rw-free functions via `createXrpcBridge`; zero
+`createKyselyDb`/`HYPERDRIVE` references; worker `app.ts` type-checks clean against the package
+sources). Only the operator **deploy** of that build remains (the worker package has no in-repo
+build harness) — see Consequences § "Open tasks".
 **Date**: 2026-06-03 (status updated 2026-06-06)
 **Deciders**: Jun Kawasaki
 
@@ -288,11 +291,14 @@ just its section. **23 test files, 100 tests green; `tsc --noEmit` clean.**
   kotoba-native model, not a Gmail/Drive bridge.
 
 **Open tasks**
-- **[compliance, ADR-2605262130]** Execute `R2-WORKER-WIRING.md`: delete the live Worker's
-  `createKyselyDb(env.HYPERDRIVE)` read paths and route every XRPC handler through the tested
-  `rw-free` functions via `createXrpcBridge`. **Until done, the deployed Worker violates the
-  no-RisingWave/no-Hyperdrive substrate boundary** — the rw-free layer is compliant, the
-  deployment is not. Operator step (the worker package has no in-repo build harness).
+- **[compliance, ADR-2605262130] — DONE in source (2026-06-06)** `R2-WORKER-WIRING.md` executed:
+  the Worker `src/app.ts` no longer references `createKyselyDb`/`HYPERDRIVE` and routes every
+  XRPC handler (all 28, incl. billing rewritten as kotoba records) through the tested `rw-free`
+  functions via `createXrpcBridge`. `app.ts` type-checks clean against the package sources.
+  **Remaining = operator deploy only**: `e7m actor build .` + `e7m actor deploy .` + the
+  createAccount→createJournalEntry→getTrialBalance→dashboard smoke (the worker package has no
+  in-repo build/typecheck harness, so the bundle+deploy happen where that toolchain exists).
+  New suite/tenant/ISIC commands stay deferred (need lexicon authoring + codegen, runbook Step 3).
 - **[suite]** Mailer has no openmail Postage *send* path yet (R3-gated); drive gained a real
   file-tree core (`drive-tree.ts`, 2026-06-06) but a collaborative CRDT editor for docs/sheets
   is still a later round.
