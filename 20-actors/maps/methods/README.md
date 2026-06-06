@@ -8,7 +8,9 @@ log. These methods are stdlib-only; the real-H3 test layer needs an `h3` install
 | file | what |
 |---|---|
 | `analyze.py` | Earth-coverage report off the Datom log (features by label, res-6 cell fraction, bbox, anchor density). Real H3 if `h3` installed, else an honest degree-grid stand-in. |
-| `ingest.py` | legacy `vertex_spatial` export → `:feature/*`; stamps the H3-cell index (`:feature.cell/rN`, real H3 if installed); `--emit-edn` backfill (dedup vs seed); `--push` to `kg.ingest_batch` (G7-gated). |
+| `ingest.py` | legacy `vertex_spatial` export → `:feature/*`; stamps the H3-cell index (`:feature.cell/rN`) + the name-search tokens (`:feature/name-token`); `--emit-edn` backfill (dedup vs seed); `--push` to `kg.ingest_batch` (G7-gated). |
+| `search.py` | kotoba-native name search (R2): the `cmdSearchPlaces` (`name LIKE`) successor. `name_tokens` (ASCII prefixes + CJK bigrams; one tokenizer for write+read) + `search_places` = `AVET(:feature/name-token, …)` ranked by token overlap, label-filterable. |
+| `test_search.py` | 12 tests: tokenizer (prefix/bigram/contract), ASCII-prefix + CJK search, ranking, label filter, limit, fail-soft. |
 | `kotoba_local.py` | in-memory EAVT/AVET **reference store** — the executable proof of the §2 query design + the contract `src/kotoba-spatial.ts` issues to real kotoba. |
 | `test_methods.py` | 12 tests: normalization, sourcing honesty, coverage math, push-gate. |
 | `test_avet_roundtrip.py` | 10 tests: AVET cell round-trip (index contract always; real Tokyo-Station H3 e2e when `h3` present). |
