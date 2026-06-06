@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kotoba.root",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "The latest published head (root pointer) for a graph, from the authoritative Durable Object (mirrored to KV for fast reads). Empty root means no member has published yet; the client falls back to the static genesis pointer. The browser then hydrates the Datom log by fetching the covering Prolly-tree blocks (CID-verified) — no kotoba query node is exposed.",
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "graph": { "type": "string", "description": "Graph id (default yoro-social-v1)." }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["graph", "root"],
+          "properties": {
+            "graph": { "type": "string" },
+            "root": { "type": "string", "description": "CIDv1 multibase of the current head, or empty if none." },
+            "blocks": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Block CIDs included in the most recent publish (a hint; clients should traverse via missingBlockCids)."
+            },
+            "did": { "type": "string", "description": "did:key of the most recent publisher." },
+            "updatedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}
