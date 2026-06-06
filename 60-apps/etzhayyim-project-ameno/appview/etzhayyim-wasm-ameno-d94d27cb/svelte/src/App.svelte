@@ -51,18 +51,38 @@
   /** When true, outputs are AES-GCM encrypted client-side before saveResult. */
   let privateMode = $state(false);
 
-  /** Engine model ids selectable by the user. MediaPipe LiteRT models are
-   *  listed first because transformers.js v3 does not yet recognise
-   *  `gemma4` as a model type, so those entries error on Load until the
-   *  ONNX side catches up. ADR-2605190824. */
-  const MODEL_OPTIONS = [
-    ...Object.keys(MEDIAPIPE_MODELS),
-    ...Object.keys(MODELS),
-  ];
   /** Models that prefer WASM ternary kernels over WebGPU. */
   const WASM_PREFERRED = new Set(["baien-bitnet-2b"]);
   /** Models that route through the MediaPipe LLM Inference Web runtime. */
   const MEDIAPIPE_PREFERRED = new Set(Object.keys(MEDIAPIPE_MODELS));
+
+  /**
+   * Selectable models, grouped by browser runtime so the picker shows which
+   * kernel each entry uses. MediaPipe LiteRT is listed first because its
+   * ungated `.task` bundles (Gemma 4 E2B/E4B, Apache 2.0) load and run fully
+   * in-browser today; the transformers.js ONNX entries for the same Gemma 4
+   * models are listed under "ONNX WebGPU" (these error on Load until
+   * transformers.js recognises the `gemma4` model type — ADR-2605190824).
+   * Labels come from each runtime's own meta registry (displayName) instead
+   * of raw ids so the user can clearly pick Gemma 4 E2B vs E4B. */
+  const MODEL_GROUPS: { label: string; options: { id: string; label: string }[] }[] = [
+    {
+      label: "Browser · MediaPipe LiteRT (recommended)",
+      options: Object.values(MEDIAPIPE_MODELS).map((m) => ({ id: m.id, label: m.displayName })),
+    },
+    {
+      label: "Browser · ONNX WebGPU (transformers.js)",
+      options: Object.values(MODELS)
+        .filter((m) => !WASM_PREFERRED.has(m.id))
+        .map((m) => ({ id: m.id, label: m.displayName })),
+    },
+    {
+      label: "Browser · WASM ternary",
+      options: Object.values(MODELS)
+        .filter((m) => WASM_PREFERRED.has(m.id))
+        .map((m) => ({ id: m.id, label: m.displayName })),
+    },
+  ].filter((g) => g.options.length > 0);
   /** Default to the smallest ungated MediaPipe-Web bundle (Gemma 4 E2B). */
   let selectedModelId = $state("gemma-4-e2b-mediapipe");
   /** Device override for the next loadModel() call. null = engine default. */
@@ -282,9 +302,9 @@
   }
 
   /** Load the selected model. Dispatches by kernel (ADR-2605190824):
-   *    Gemma 4 E2B/E4B → transformers.js WebGPU
-   *    Gemma 3n E2B/E4B → MediaPipe LiteRT (WebGPU `.task` bundle)
-   *    Baien BitNet → WASM ternary
+   *    *-mediapipe ids       → MediaPipe LiteRT (WebGPU `.task` bundle)
+   *    gemma-4-*-it (ONNX)   → transformers.js WebGPU
+   *    baien-bitnet-2b       → WASM ternary
    */
   async function handleLoadModel() {
     state.status = "loading";
@@ -931,8 +951,12 @@
             <div class="model-picker">
               <label for="model-select">Model:</label>
               <select id="model-select" bind:value={selectedModelId}>
-                {#each MODEL_OPTIONS as opt}
-                  <option value={opt}>{opt}</option>
+                {#each MODEL_GROUPS as group}
+                  <optgroup label={group.label}>
+                    {#each group.options as opt}
+                      <option value={opt.id}>{opt.label}</option>
+                    {/each}
+                  </optgroup>
                 {/each}
               </select>
               <span class="device-pill">

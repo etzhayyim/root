@@ -21,6 +21,9 @@ import os
 import struct
 import time
 from typing import Any, Iterable
+from datetime import datetime, timezone
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ── lazy imports — these are heavy and only needed at runtime in the
 # Granian pod, not during LangServer / CF Worker imports. ──
@@ -288,7 +291,7 @@ def register_artifacts_to_rw(
     if os.environ.get("etzhayyim_VOXELFORGE_DRY_RUN") == "1":
         return
 
-    from pymagatama.db_alchemy import sa_execute, sync_cursor  # type: ignore
+    
 
     now_iso = _utc_now_iso()
     with sync_cursor() as cur:

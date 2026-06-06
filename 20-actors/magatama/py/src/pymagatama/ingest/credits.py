@@ -179,11 +179,10 @@ def _set_balance(user_id: str, balance: int) -> None:
 
 def _events_in_last_hour(user_id: str, event_type: str) -> int:
     cutoff = int(time.time() * 1000) - 3_600_000
-    row = _fetch_one(
-        "SELECT COUNT(*) AS n FROM vertex_credits_af_event WHERE user_id=%s AND event_type=%s AND ts_ms >= %s",
-        (user_id, event_type, cutoff),
-    )
-    return _int((row or {}).get("n"))
+    # R0: Multi-predicate COUNT using select_where with in-Python filtering
+    events = get_kotoba_client().select_where("vertex_credits_af_event", "user_id", user_id, limit=2000)
+    filtered_events = [e for e in events if e.get("event_type") == event_type and _int(e.get("ts_ms")) >= cutoff]
+    return len(filtered_events)
 
 
 def _check_rate_limit(user_id: str, event_type: str) -> dict[str, Any]:
@@ -407,3 +406,6 @@ def process_commit_spend(repo: str = "", collection: str = "", action: str = "",
 
 def heartbeat(**_: Any) -> dict[str, Any]:
     return {"ok": True, "actions": []}
+ny]:
+    return {"ok": True, "actions": []}
+ True, "actions": []}

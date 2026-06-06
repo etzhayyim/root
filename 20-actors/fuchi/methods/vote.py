@@ -20,6 +20,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from live_gate import LiveGate, require
+
 DEFAULT_TIMELOCK_H = 48
 DEFAULT_QUORUM = 3
 CHOICES = ("yes", "no", "abstain")
@@ -123,3 +125,27 @@ def finalize(
             f"(now={now}h, window={timelock_h}h)"
         )
     return tally(ballots, opened_at, now, timelock_h, quorum)
+
+
+# ── R1(live) — binding finalize ──────────────────────────────────────────────────────────────
+def finalize_binding(
+    ballots: list[Ballot],
+    opened_at: int,
+    now: int,
+    gate: LiveGate,
+    *,
+    timelock_h: int = DEFAULT_TIMELOCK_H,
+    quorum: int = DEFAULT_QUORUM,
+    env: dict[str, str] | None = None,
+) -> dict:
+    """Finalize a vote as BINDING (the on-chain outcome), or refuse.
+
+    RAISES `live_gate.LiveGateRefused` unless the operator flag + attestation + Council Lv6+ +
+    member signature are all present (the default). The 48h timelock still applies strictly (a
+    binding finalize before the window closes raises `ValueError` via `finalize`), so the gate
+    cannot be used to short-circuit the timelock. Returns the tally annotated `binding=True`.
+    """
+    require(gate, env=env)  # refuses by default
+    result = finalize(ballots, opened_at, now, timelock_h, quorum)  # strict timelock still applies
+    return {**result, "binding": True, "ratified_by": gate.operator_did,
+            "council_level": gate.council_level}

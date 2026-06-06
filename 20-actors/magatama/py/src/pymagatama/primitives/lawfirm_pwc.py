@@ -14,44 +14,11 @@ ADR-0036 Hyperdrive direct.
 
 from __future__ import annotations
 
-import datetime as _dt
-import json
-import logging
-import os
-import uuid
+import datetime
+from datetime import timezone
 from typing import Any
 
-LOG = logging.getLogger("lawfirm.pwc")
-
-_FIRM_DID = "did:web:lawfirm.etzhayyim.com"
-_CEO_DID  = "did:web:j-kawasaki.etzhayyim.com"
-
-# Microsoft Teams channel email (Mail.Send app-only) — see kaisya CLAUDE.md
-# `teams_send_method="channel_email_via_mail_send"`. Default points to a
-# private CEO-only channel; override via env.
-_TEAMS_CHANNEL_EMAIL = os.environ.get(
-    "PWC_CLEARANCE_TEAMS_EMAIL",
-    "ceo-pwc-clearance.etzhayyim.etzhayyim.com@channels.etzhayyim.com",
-)
-
-
-def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%d %H:%M:%S")
-
-def _vid(kind: str) -> str:
-    stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
-
-
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 # ── Task: lawfirm.pwc.persistRequest ─────────────────────────────────────────

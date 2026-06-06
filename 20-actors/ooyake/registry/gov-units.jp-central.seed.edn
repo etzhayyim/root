@@ -85,6 +85,7 @@
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "経済産業省" :gov.unit/name-en "Ministry of Economy, Trade and Industry"
    :gov.unit/name-romanized "Keizai-sangyō-shō" :gov.unit/official-url "https://www.meti.go.jp/"
    :gov.unit/wikidata "Q1197264" :gov.unit/external-code ["jp-soshiki:経済産業省"] :gov.unit/cofog ["04"]
+   :gov.unit/organism "org.state.jp.meti"
    :gov.unit/status :active :gov.unit/sourcing :authoritative :gov.unit/provenance "https://www.meti.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :maintainer-verified}
 

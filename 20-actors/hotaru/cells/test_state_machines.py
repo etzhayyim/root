@@ -7,6 +7,18 @@ Standalone-runnable AND pytest-compatible (repo pytest plugin env is broken):
 """
 from __future__ import annotations
 
+from bulk_crystal_design.cell import BulkCrystalDesignCell
+from bulk_crystal_design.state_machine import (
+    GrowthPhase,
+    transition_to_designed,
+    transition_to_screened as growth_screen,
+)
+from commons_readiness.cell import CommonsReadinessCell
+from commons_readiness.state_machine import (
+    ReadinessPhase,
+    transition_to_assessed,
+    transition_to_reported,
+)
 from commons_ingest.cell import CommonsIngestCell
 from commons_ingest.state_machine import (
     IngestPhase,
@@ -15,6 +27,12 @@ from commons_ingest.state_machine import (
 )
 from precursor_safety.cell import PrecursorSafetyCell
 from precursor_safety.state_machine import SafetyPhase, review
+from wafer_fab_design.cell import WaferFabDesignCell
+from wafer_fab_design.state_machine import (
+    WaferPhase,
+    transition_to_screened as wafer_screen,
+    transition_to_specified,
+)
 
 
 # ─────────────────────────── commons_ingest (G1/G5) ────────────────────────
@@ -133,6 +151,166 @@ def test_precursor_safety_accepts_edn_keyword_sourcing():
 def test_precursor_safety_cell_solve_raises_at_r0():
     try:
         PrecursorSafetyCell().solve({})
+    except RuntimeError as e:
+        assert "R0 scaffold" in str(e)
+    else:
+        raise AssertionError("expected RuntimeError from R0 cell .solve()")
+
+
+# ─────────────────────── bulk_crystal_design (G2/G4) ───────────────────────
+def _growth(method="lec", dopant="sulfur", in_sourcing="conflict-free-attested",
+            crystal="c-lec-s", fabricated=False):
+    s = growth_screen({"cell_state": {}, "crystal_id": crystal, "method": method,
+                       "dopant": dopant, "in_sourcing": in_sourcing,
+                       "target_wafer": "w-2in-n", "fabricated": fabricated})
+    return transition_to_designed(s)
+
+
+def test_bulk_crystal_design_lec_designs():
+    cs = _growth()["cell_state"]
+    assert cs["phase"] == GrowthPhase.DESIGNED.value
+    assert cs["payload"]["fabricated"] is False
+    assert cs["payload"]["method"] == "lec"
+
+
+def test_bulk_crystal_design_accepts_edn_keyword_method():
+    cs = _growth(method=":vgf", dopant=":iron")["cell_state"]
+    assert cs["payload"]["method"] == "vgf" and cs["payload"]["dopant"] == "iron"
+
+
+def test_bulk_crystal_design_g2_refuses_fabricated_true():
+    try:
+        _growth(fabricated=True)
+    except ValueError as e:
+        assert "G2 violation" in str(e)
+    else:
+        raise AssertionError("expected ValueError on fabricated=true crystal")
+
+
+def test_bulk_crystal_design_g4_refuses_unverified_sourcing():
+    try:
+        _growth(in_sourcing="unverified")
+    except ValueError as e:
+        assert "G4 violation" in str(e)
+    else:
+        raise AssertionError("expected ValueError on unverified In sourcing")
+
+
+def test_bulk_crystal_design_refuses_epitaxy_method():
+    try:
+        _growth(method="movpe")
+    except ValueError as e:
+        assert "bulk-growth method" in str(e)
+    else:
+        raise AssertionError("expected ValueError on epitaxy method in bulk-growth cell")
+
+
+def test_bulk_crystal_design_cell_solve_raises_at_r0():
+    try:
+        BulkCrystalDesignCell().solve({})
+    except RuntimeError as e:
+        assert "R0 scaffold" in str(e)
+    else:
+        raise AssertionError("expected RuntimeError from R0 cell .solve()")
+
+
+# ───────────────────────── wafer_fab_design (G2/spec) ───────────────────────
+def _wafer(diameter_um=50800, orientation="(100)", epd=5000, fabricated=False, wid="w-2in-n"):
+    s = wafer_screen({"cell_state": {}, "wafer_id": wid, "diameter_um": diameter_um,
+                      "orientation": orientation, "epd_cm2": epd, "doping": "sulfur-n",
+                      "fabricated": fabricated})
+    return transition_to_specified(s)
+
+
+def test_wafer_fab_design_specifies():
+    cs = _wafer()["cell_state"]
+    assert cs["phase"] == WaferPhase.SPECIFIED.value
+    assert cs["payload"]["fabricated"] is False
+    assert cs["payload"]["diameterUm"] == 50800
+
+
+def test_wafer_fab_design_g2_refuses_fabricated_true():
+    try:
+        _wafer(fabricated=True)
+    except ValueError as e:
+        assert "G2 violation" in str(e)
+    else:
+        raise AssertionError("expected ValueError on fabricated=true wafer")
+
+
+def test_wafer_fab_design_refuses_unknown_diameter():
+    try:
+        _wafer(diameter_um=60000)
+    except ValueError as e:
+        assert "diameter" in str(e)
+    else:
+        raise AssertionError("expected ValueError on unknown diameter")
+
+
+def test_wafer_fab_design_refuses_nonpositive_epd():
+    try:
+        _wafer(epd=0)
+    except ValueError as e:
+        assert "epd-cm2" in str(e)
+    else:
+        raise AssertionError("expected ValueError on non-positive EPD")
+
+
+def test_wafer_fab_design_cell_solve_raises_at_r0():
+    try:
+        WaferFabDesignCell().solve({})
+    except RuntimeError as e:
+        assert "R0 scaffold" in str(e)
+    else:
+        raise AssertionError("expected RuntimeError from R0 cell .solve()")
+
+
+# ─────────────────────── commons_readiness (G3) ────────────────────────────
+def _readiness(per_stage=None, epitaxy=False, conflict=0, **extra):
+    per_stage = per_stage or {"synthesis": "open-mature", "bulk-growth": "open-mature",
+                              "wafering": "open-mature", "surface-prep": "open-mature"}
+    s = transition_to_assessed({"cell_state": {}, "per_stage": per_stage,
+                                "epitaxy_open_mature": epitaxy, "conflict_flagged": conflict,
+                                **extra})
+    return transition_to_reported(s)
+
+
+def test_commons_readiness_full_substrate_scores_one():
+    cs = _readiness()["cell_state"]
+    assert cs["phase"] == ReadinessPhase.REPORTED.value
+    assert cs["payload"]["maturityScore"] == 1.0
+    assert cs["payload"]["substrateCommonsReady"] is True
+    # epitaxy gap → R4+ gate not satisfiable; fabrication stays prohibited
+    assert cs["payload"]["r4GateSatisfiable"] is False
+    assert cs["payload"]["fabricationProhibited"] is True
+
+
+def test_commons_readiness_emerging_stage_lowers_score():
+    cs = _readiness(per_stage={"synthesis": "open-mature", "bulk-growth": "open-mature",
+                               "wafering": "open-emerging", "surface-prep": "open-mature"})["cell_state"]
+    assert cs["payload"]["maturityScore"] == 0.875
+    assert cs["payload"]["substrateCommonsReady"] is False
+
+
+def test_commons_readiness_g3_refuses_adjudicating_key():
+    try:
+        _readiness(gateOpened=True)
+    except ValueError as e:
+        assert "G3 violation" in str(e)
+    else:
+        raise AssertionError("expected ValueError on adjudicating key (G3)")
+
+
+def test_commons_readiness_r4_satisfiable_only_with_open_epitaxy():
+    cs = _readiness(epitaxy=True)["cell_state"]
+    assert cs["payload"]["r4GateSatisfiable"] is True
+    # even when the commons would satisfy the gate, the report never opens fabrication
+    assert cs["payload"]["fabricationProhibited"] is True
+
+
+def test_commons_readiness_cell_solve_raises_at_r0():
+    try:
+        CommonsReadinessCell().solve({})
     except RuntimeError as e:
         assert "R0 scaffold" in str(e)
     else:

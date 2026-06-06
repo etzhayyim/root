@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 OS_DID = "did:web:os.etzhayyim.com"
@@ -33,11 +33,10 @@ def _jsonable(v: Any) -> Any:
     return v
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
+def _transform_raw_data(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
-    for row in cur.fetchall():
-        raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}
+    for row in rows:
+        raw = {k: _jsonable(v) for k, v in row.items()}
         props = raw.get("value_json") or raw.get("props")
         if isinstance(props, str) and props:
             try:
@@ -78,94 +77,217 @@ def _insert(collection: str, record: dict[str, Any], *, label: str = "", status:
     now = str(record.get("created_at") or _now())
     vertex_id = f"at://{OS_DID}/{collection}/{rkey}"
     value = {**record, "vertexId": vertex_id, "rkey": rkey, "collection": collection, "label": label, "status": status or str(record.get("status") or "")}
-    with sync_cursor() as cur:
-        common = (str(record.get("org_id") or "anon"), str(record.get("user_id") or "anon"), str(record.get("actor_id") or APP_ID), OS_DID, 2)
-        if record_kind == "agent":
-            cur.execute(
-                """
-                INSERT INTO vertex_os_agent
-                  (vertex_id,agent_id,did,app_id,name,status,config_json,created_at,updated_at,org_id,user_id,actor_id,owner_did,sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status, updated_at=EXCLUDED.updated_at, config_json=EXCLUDED.config_json
-                """,
-                (vertex_id, rkey, str(record.get("did") or ""), str(record.get("appId") or ""), str(record.get("name") or label), str(record.get("status") or status), str(record.get("config") or "{}"), now, str(record.get("updated_at") or now), *common),
-            )
-        elif record_kind == "agentEvent":
-            cur.execute(
-                """
-                INSERT INTO vertex_os_agent_event
-                  (vertex_id,agent_id,event,target,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET event=EXCLUDED.event, target=EXCLUDED.target
-                """,
-                (vertex_id, str(record.get("agentId") or ""), str(record.get("event") or ""), str(record.get("target") or ""), now, *common),
-            )
-            cur.execute(
-                "INSERT INTO edge_os_agent_event (edge_id,src_vid,dst_vid,agent_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (f"{OS_DID}:agent:{record.get('agentId')}:EVENT:{rkey}", f"at://{OS_DID}/com.etzhayyim.apps.os.agent/{record.get('agentId')}", vertex_id, str(record.get("agentId") or ""), str(record.get("event") or "EVENT"), now, OS_DID, 2),
-            )
-        elif record_kind == "consentRequest":
-            cur.execute(
-                """
-                INSERT INTO vertex_os_consent_request
-                  (vertex_id,request_id,agent_did,action,risk_tier,estimated_cost,context_json,status,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status
-                """,
-                (vertex_id, rkey, str(record.get("agentDid") or ""), str(record.get("action") or ""), str(record.get("riskTier") or ""), float(record.get("estimatedCost") or 0), json.dumps(record.get("context"), ensure_ascii=False, default=str), str(record.get("status") or status), now, *common),
-            )
-        elif record_kind == "consentResponse":
-            cur.execute(
-                """
-                INSERT INTO vertex_os_consent_response
-                  (vertex_id,request_id,verdict,reason,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET verdict=EXCLUDED.verdict, reason=EXCLUDED.reason
-                """,
-                (vertex_id, rkey, str(record.get("verdict") or label), str(record.get("reason") or ""), now, *common),
-            )
-            cur.execute(
-                "INSERT INTO edge_os_consent_response (edge_id,src_vid,dst_vid,request_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (f"{OS_DID}:consent:{rkey}:RESPONSE:{vertex_id}", f"at://{OS_DID}/com.etzhayyim.apps.os.consentRequest/{rkey}", vertex_id, rkey, "RESPONDED_BY", now, OS_DID, 2),
-            )
-        elif record_kind == "budgetAllocation":
-            cur.execute(
-                """
-                INSERT INTO vertex_os_budget_allocation
-                  (vertex_id,agent_id,amount,expires_at,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET amount=EXCLUDED.amount, expires_at=EXCLUDED.expires_at
-                """,
-                (vertex_id, str(record.get("agentId") or ""), float(record.get("amount") or 0), str(record.get("expiresAt") or ""), now, *common),
-            )
-            cur.execute(
-                "INSERT INTO edge_os_budget_agent (edge_id,src_vid,dst_vid,agent_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (f"{OS_DID}:budget:{rkey}:FOR:{record.get('agentId')}", vertex_id, f"at://{OS_DID}/com.etzhayyim.apps.os.agent/{record.get('agentId')}", str(record.get("agentId") or ""), "ALLOCATED_TO", now, OS_DID, 2),
-            )
-        elif record_kind == "directoryEntry":
-            cur.execute(
-                "INSERT INTO vertex_os_directory_entry (vertex_id,did,name,tags_json,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET name=EXCLUDED.name,tags_json=EXCLUDED.tags_json",
-                (vertex_id, str(record.get("did") or ""), str(record.get("name") or label), str(record.get("tags") or "[]"), now, *common),
-            )
-        elif record_kind == "syncEvent":
-            cur.execute(
-                "INSERT INTO vertex_os_sync_event (vertex_id,direction,path,data_size,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET data_size=EXCLUDED.data_size",
-                (vertex_id, str(record.get("direction") or ""), str(record.get("path") or ""), int(record.get("dataSize") or 0), now, *common),
-            )
-        elif record_kind == "windowEvent":
-            cur.execute(
-                "INSERT INTO vertex_os_window_event (vertex_id,window_id,event,app_id,title,content_type,content_url,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET event=EXCLUDED.event",
-                (vertex_id, rkey, str(record.get("event") or ""), str(record.get("appId") or ""), str(record.get("title") or label), str(record.get("contentType") or ""), str(record.get("contentUrl") or ""), now, *common),
-            )
-        elif record_kind == "auditEntry":
-            cur.execute(
-                "INSERT INTO vertex_os_audit_entry (vertex_id,audit_id,agent_id,event,target,value_json,created_at,org_id,user_id,actor_id,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET value_json=EXCLUDED.value_json",
-                (vertex_id, rkey, str(record.get("agentId") or ""), str(record.get("event") or ""), str(record.get("target") or ""), json.dumps(value, ensure_ascii=False, separators=(",", ":"), default=str), now, *common),
-            )
-            cur.execute(
-                "INSERT INTO edge_os_agent_audit_entry (edge_id,src_vid,dst_vid,agent_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (f"{OS_DID}:agent:{record.get('agentId')}:AUDIT:{rkey}", f"at://{OS_DID}/com.etzhayyim.apps.os.agent/{record.get('agentId')}", vertex_id, str(record.get("agentId") or ""), str(record.get("event") or "AUDIT"), now, OS_DID, 2),
-            )
+    common = (str(record.get("org_id") or "anon"), str(record.get("user_id") or "anon"), str(record.get("actor_id") or APP_ID), OS_DID, 2)
+    client = get_kotoba_client()
+    if record_kind == "agent":
+        client.insert_row(
+            "vertex_os_agent",
+            {
+                "vertex_id": vertex_id,
+                "agent_id": rkey,
+                "did": str(record.get("did") or ""),
+                "app_id": str(record.get("appId") or ""),
+                "name": str(record.get("name") or label),
+                "status": str(record.get("status") or status),
+                "config_json": str(record.get("config") or "{}"),
+                "created_at": now,
+                "updated_at": str(record.get("updated_at") or now),
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+    elif record_kind == "agentEvent":
+        client.insert_row(
+            "vertex_os_agent_event",
+            {
+                "vertex_id": vertex_id,
+                "agent_id": str(record.get("agentId") or ""),
+                "event": str(record.get("event") or ""),
+                "target": str(record.get("target") or ""),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+        client.insert_row(
+            "edge_os_agent_event",
+            {
+                "edge_id": f"{OS_DID}:agent:{record.get('agentId')}:EVENT:{rkey}",
+                "src_vid": f"at://{OS_DID}/com.etzhayyim.apps.os.agent/{record.get('agentId')}",
+                "dst_vid": vertex_id,
+                "agent_id": str(record.get("agentId") or ""),
+                "relation": str(record.get("event") or "EVENT"),
+                "created_at": now,
+                "owner_did": OS_DID,
+                "sensitivity_ord": 2,
+            },
+        )
+    elif record_kind == "consentRequest":
+        client.insert_row(
+            "vertex_os_consent_request",
+            {
+                "vertex_id": vertex_id,
+                "request_id": rkey,
+                "agent_did": str(record.get("agentDid") or ""),
+                "action": str(record.get("action") or ""),
+                "risk_tier": str(record.get("riskTier") or ""),
+                "estimated_cost": float(record.get("estimatedCost") or 0),
+                "context_json": json.dumps(record.get("context"), ensure_ascii=False, default=str),
+                "status": str(record.get("status") or status),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+    elif record_kind == "consentResponse":
+        client.insert_row(
+            "vertex_os_consent_response",
+            {
+                "vertex_id": vertex_id,
+                "request_id": rkey,
+                "verdict": str(record.get("verdict") or label),
+                "reason": str(record.get("reason") or ""),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+        client.insert_row(
+            "edge_os_consent_response",
+            {
+                "edge_id": f"{OS_DID}:consent:{rkey}:RESPONSE:{vertex_id}",
+                "src_vid": f"at://{OS_DID}/com.etzhayyim.apps.os.consentRequest/{rkey}",
+                "dst_vid": vertex_id,
+                "request_id": rkey,
+                "relation": "RESPONDED_BY",
+                "created_at": now,
+                "owner_did": OS_DID,
+                "sensitivity_ord": 2,
+            },
+        )
+    elif record_kind == "budgetAllocation":
+        client.insert_row(
+            "vertex_os_budget_allocation",
+            {
+                "vertex_id": vertex_id,
+                "agent_id": str(record.get("agentId") or ""),
+                "amount": float(record.get("amount") or 0),
+                "expires_at": str(record.get("expiresAt") or ""),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+        client.insert_row(
+            "edge_os_budget_agent",
+            {
+                "edge_id": f"{OS_DID}:budget:{rkey}:FOR:{record.get('agentId')}",
+                "src_vid": vertex_id,
+                "dst_vid": f"at://{OS_DID}/com.etzhayyim.apps.os.agent/{record.get('agentId')}",
+                "agent_id": str(record.get("agentId") or ""),
+                "relation": "ALLOCATED_TO",
+                "created_at": now,
+                "owner_did": OS_DID,
+                "sensitivity_ord": 2,
+            },
+        )
+    elif record_kind == "directoryEntry":
+        client.insert_row(
+            "vertex_os_directory_entry",
+            {
+                "vertex_id": vertex_id,
+                "did": str(record.get("did") or ""),
+                "name": str(record.get("name") or label),
+                "tags_json": str(record.get("tags") or "[]"),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+    elif record_kind == "syncEvent":
+        client.insert_row(
+            "vertex_os_sync_event",
+            {
+                "vertex_id": vertex_id,
+                "direction": str(record.get("direction") or ""),
+                "path": str(record.get("path") or ""),
+                "data_size": int(record.get("dataSize") or 0),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+    elif record_kind == "windowEvent":
+        client.insert_row(
+            "vertex_os_window_event",
+            {
+                "vertex_id": vertex_id,
+                "window_id": rkey,
+                "event": str(record.get("event") or ""),
+                "app_id": str(record.get("appId") or ""),
+                "title": str(record.get("title") or label),
+                "content_type": str(record.get("contentType") or ""),
+                "content_url": str(record.get("contentUrl") or ""),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+    elif record_kind == "auditEntry":
+        client.insert_row(
+            "vertex_os_audit_entry",
+            {
+                "vertex_id": vertex_id,
+                "audit_id": rkey,
+                "agent_id": str(record.get("agentId") or ""),
+                "event": str(record.get("event") or ""),
+                "target": str(record.get("target") or ""),
+                "value_json": json.dumps(value, ensure_ascii=False, separators=(",", ":"), default=str),
+                "created_at": now,
+                "org_id": common[0],
+                "user_id": common[1],
+                "actor_id": common[2],
+                "owner_did": common[3],
+                "sensitivity_ord": common[4],
+            },
+        )
+        client.insert_row(
+            "edge_os_agent_audit_entry",
+            {
+                "edge_id": f"{OS_DID}:agent:{record.get('agentId')}:AUDIT:{rkey}",
+                "src_vid": f"at://{OS_DID}/com.etzhayyim.apps.os.agent/{record.get('agentId')}",
+                "dst_vid": vertex_id,
+                "agent_id": str(record.get("agentId") or ""),
+                "relation": str(record.get("event") or "AUDIT"),
+                "created_at": now,
+                "owner_did": OS_DID,
+                "sensitivity_ord": 2,
+            },
+        )
         else:
             raise ValueError(f"unsupported OS record kind: {record_kind}")
     return {"uri": vertex_id, "rkey": rkey}
@@ -187,12 +309,12 @@ def _list(collection: str, *, limit: int = 100) -> list[dict[str, Any]]:
     table, order_col = tables.get(record_kind, ("", "created_at"))
     if not table:
         return []
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT * FROM {table} ORDER BY {order_col} DESC LIMIT %s",
-            (max(1, min(limit, 500)),),
-        )
-        return _rows(cur)
+    client = get_kotoba_client()
+    # R0: select_where does not support ORDER BY. Fetch more data and sort in Python.
+    rows = client.select_where(table, "owner_did", OS_DID, limit=max(1, min(limit, 500)))
+    # Sort in Python by the order_col and apply the limit
+    sorted_rows = sorted(rows, key=lambda x: x.get(order_col, ""), reverse=True)
+    return _transform_raw_data(sorted_rows)[:limit]
 
 
 def _filter(collection: str, pred: Any, *, limit: int = 100) -> list[dict[str, Any]]:

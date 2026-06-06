@@ -21,6 +21,8 @@ import logging
 import uuid
 from typing import Any
 
+from pymagatama.kotoba_datomic import get_kotoba_client
+
 LOG = logging.getLogger("yard_ops.primitive")
 
 _YARD_DID = "did:web:yard-ops.etzhayyim.com"
@@ -34,27 +36,6 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
     return f"at://{_YARD_DID}/com.etzhayyim.apps.yardOps.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
-
-
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("yard_ops execute failed: %s", exc)
-        return False
-
-
-def _query(sql_str: str, params: dict) -> list[Any]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params)
-    except Exception as exc:
-        LOG.warning("yard_ops query failed: %s", exc)
-        return []
 
 
 # ── Trailer check-in ────────────────────────────────────────────────────────
@@ -76,23 +57,28 @@ async def task_yard_ops_trailer_persist(
     if not trailerPlate:
         return {"ok": False, "error": "trailerPlate required"}
     vid = _vid("trailer")
-    payload = {
+    payload_dict = {
         "trailerPlate": trailerPlate, "carrierDid": carrierDid,
         "yardSlotCode": yardSlotCode, "checkedInAt": _now_iso(),
     }
-    ok = _execute(
-        """
-        INSERT INTO vertex_yard_ops_trailer (
-          vertex_id, vertex_key, label, status, value_json,
-          created_at, updated_at, owner_did, actor_did, sensitivity_ord
-        ) VALUES (
-          :vid, :key, 'yardOps.trailer', 'in_yard', :payload,
-          :now, :now, :did, :did, 2
-        )
-        """,
-        {"vid": vid, "key": trailerPlate, "payload": json.dumps(payload),
-         "now": _now_iso(), "did": _YARD_DID},
-    )
+    row_data = {
+        "vertex_id": vid,
+        "vertex_key": trailerPlate,
+        "label": "yardOps.trailer",
+        "status": "in_yard",
+        "value_json": json.dumps(payload_dict),
+        "created_at": _now_iso(),
+        "updated_at": _now_iso(),
+        "owner_did": _YARD_DID,
+        "actor_did": _YARD_DID,
+        "sensitivity_ord": 2,
+    }
+    try:
+        get_kotoba_client().insert_row("vertex_yard_ops_trailer", row_data)
+        ok = True
+    except Exception as exc:
+        LOG.warning("yard_ops trailer persist failed: %s", exc)
+        ok = False
     return {"ok": ok, "vertexId": vid, "trailerVertexId": vid,
             "yardSlotCode": yardSlotCode}
 
@@ -127,44 +113,50 @@ async def task_yard_ops_dock_job_persist(
     if not trailerVertexId or not dockDoorCode:
         return {"ok": False, "error": "trailerVertexId + dockDoorCode required"}
     vid = _vid("dockJob")
-    payload = {
+    payload_dict = {
         "trailerVertexId": trailerVertexId,
         "dockDoorCode": dockDoorCode,
         "direction": direction,
         "loadPlanRef": loadPlanRef,
         "openedAt": _now_iso(),
     }
-    ok = _execute(
-        """
-        INSERT INTO vertex_yard_ops_dock_job (
-          vertex_id, vertex_key, label, status, value_json,
-          created_at, updated_at, owner_did, actor_did, sensitivity_ord
-        ) VALUES (
-          :vid, :key, 'yardOps.dockJob', 'open', :payload,
-          :now, :now, :did, :did, 2
-        )
-        """,
-        {"vid": vid, "key": f"{dockDoorCode}:{trailerVertexId}",
-         "payload": json.dumps(payload), "now": _now_iso(), "did": _YARD_DID},
-    )
+    vertex_row_data = {
+        "vertex_id": vid,
+        "vertex_key": f"{dockDoorCode}:{trailerVertexId}",
+        "label": "yardOps.dockJob",
+        "status": "open",
+        "value_json": json.dumps(payload_dict),
+        "created_at": _now_iso(),
+        "updated_at": _now_iso(),
+        "owner_did": _YARD_DID,
+        "actor_did": _YARD_DID,
+        "sensitivity_ord": 2,
+    }
+    try:
+        get_kotoba_client().insert_row("vertex_yard_ops_dock_job", vertex_row_data)
+        ok = True
+    except Exception as exc:
+        LOG.warning("yard_ops dock job persist failed (vertex): %s", exc)
+        ok = False
     # edge: trailer → dock_job
     if ok:
         edge_vid = _vid("edge.trailerDockJob")
-        _execute(
-            """
-            INSERT INTO edge_yard_ops_trailer_dock_job (
-              edge_id, edge_key, src_vid, dst_vid, relation, value_json,
-              created_at, updated_at, owner_did, sensitivity_ord
-            ) VALUES (
-              :eid, :key, :src, :dst, 'assigned_to', :payload,
-              :now, :now, :did, 2
-            )
-            """,
-            {"eid": edge_vid, "key": f"{trailerVertexId}->{vid}",
-             "src": trailerVertexId, "dst": vid,
-             "payload": json.dumps({"direction": direction}),
-             "now": _now_iso(), "did": _YARD_DID},
-        )
+        edge_row_data = {
+            "edge_id": edge_vid,
+            "edge_key": f"{trailerVertexId}->{vid}",
+            "src_vid": trailerVertexId,
+            "dst_vid": vid,
+            "relation": "assigned_to",
+            "value_json": json.dumps({"direction": direction}),
+            "created_at": _now_iso(),
+            "updated_at": _now_iso(),
+            "owner_did": _YARD_DID,
+            "sensitivity_ord": 2,
+        }
+        try:
+            get_kotoba_client().insert_row("edge_yard_ops_trailer_dock_job", edge_row_data)
+        except Exception as exc:
+            LOG.warning("yard_ops dock job persist failed (edge): %s", exc)
     return {"ok": ok, "vertexId": vid, "dockJobVertexId": vid,
             "dockDoorCode": dockDoorCode}
 
@@ -183,26 +175,28 @@ async def task_loading_robot_mission_dispatch(
         return {"ok": False, "error": "dockJobVertexId required"}
     mission_id = f"mission-{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}-{uuid.uuid4().hex[:6]}"
     edge_vid = _vid("edge.dockJobMission")
-    _execute(
-        """
-        INSERT INTO edge_yard_ops_dock_job_loading_mission (
-          edge_id, edge_key, src_vid, dst_vid, relation, value_json,
-          created_at, updated_at, owner_did, sensitivity_ord
-        ) VALUES (
-          :eid, :key, :src, :dst, 'dispatches', :payload,
-          :now, :now, :did, 2
-        )
-        """,
-        {"eid": edge_vid, "key": f"{dockJobVertexId}->{mission_id}",
-         "src": dockJobVertexId,
-         "dst": f"at://{_ROBOT_DID}/loadingRobot.mission/{mission_id}",
-         "payload": json.dumps({
-             "loadPlan": loadingRobotLoadPlan,
-             "cellDesign": loadingRobotCellDesign,
-         }),
-         "now": _now_iso(), "did": _YARD_DID},
-    )
-    return {"ok": True, "loadingRobotMissionId": mission_id}
+    edge_row_data = {
+        "edge_id": edge_vid,
+        "edge_key": f"{dockJobVertexId}->{mission_id}",
+        "src_vid": dockJobVertexId,
+        "dst_vid": f"at://{_ROBOT_DID}/loadingRobot.mission/{mission_id}",
+        "relation": "dispatches",
+        "value_json": json.dumps({
+            "loadPlan": loadingRobotLoadPlan,
+            "cellDesign": loadingRobotCellDesign,
+        }),
+        "created_at": _now_iso(),
+        "updated_at": _now_iso(),
+        "owner_did": _YARD_DID,
+        "sensitivity_ord": 2,
+    }
+    try:
+        get_kotoba_client().insert_row("edge_yard_ops_dock_job_loading_mission", edge_row_data)
+        ok = True
+    except Exception as exc:
+        LOG.warning("yard_ops mission dispatch failed: %s", exc)
+        ok = False
+    return {"ok": ok, "loadingRobotMissionId": mission_id}
 
 
 # ── Dock job completion ─────────────────────────────────────────────────────
@@ -215,51 +209,58 @@ async def task_yard_ops_dock_job_complete(
     if not dockJobVertexId:
         return {"ok": False, "error": "dockJobVertexId required"}
     vid = _vid("dockCompletion")
-    payload = {
+    payload_dict = {
         "dockJobVertexId": dockJobVertexId,
         "actualDurationMin": int(actualDurationMin or 0),
         "exceptions": exceptions or [],
         "closedAt": _now_iso(),
     }
-    ok = _execute(
-        """
-        INSERT INTO vertex_yard_ops_dock_completion (
-          vertex_id, vertex_key, label, status, value_json,
-          created_at, updated_at, owner_did, actor_did, sensitivity_ord
-        ) VALUES (
-          :vid, :key, 'yardOps.dockCompletion', 'closed', :payload,
-          :now, :now, :did, :did, 2
-        )
-        """,
-        {"vid": vid, "key": dockJobVertexId, "payload": json.dumps(payload),
-         "now": _now_iso(), "did": _YARD_DID},
-    )
+    vertex_completion_row_data = {
+        "vertex_id": vid,
+        "vertex_key": dockJobVertexId,
+        "label": "yardOps.dockCompletion",
+        "status": "closed",
+        "value_json": json.dumps(payload_dict),
+        "created_at": _now_iso(),
+        "updated_at": _now_iso(),
+        "owner_did": _YARD_DID,
+        "actor_did": _YARD_DID,
+        "sensitivity_ord": 2,
+    }
+    try:
+        get_kotoba_client().insert_row("vertex_yard_ops_dock_completion", vertex_completion_row_data)
+        ok = True
+    except Exception as exc:
+        LOG.warning("yard_ops dock completion failed (vertex): %s", exc)
+        ok = False
     if ok:
         edge_vid = _vid("edge.dockJobCompletion")
-        _execute(
-            """
-            INSERT INTO edge_yard_ops_dock_job_completion (
-              edge_id, edge_key, src_vid, dst_vid, relation, value_json,
-              created_at, updated_at, owner_did, sensitivity_ord
-            ) VALUES (
-              :eid, :key, :src, :dst, 'closed_by', :payload,
-              :now, :now, :did, 2
-            )
-            """,
-            {"eid": edge_vid, "key": f"{dockJobVertexId}->{vid}",
-             "src": dockJobVertexId, "dst": vid,
-             "payload": json.dumps({"durationMin": int(actualDurationMin or 0)}),
-             "now": _now_iso(), "did": _YARD_DID},
-        )
+        edge_completion_row_data = {
+            "edge_id": edge_vid,
+            "edge_key": f"{dockJobVertexId}->{vid}",
+            "src_vid": dockJobVertexId,
+            "dst_vid": vid,
+            "relation": "closed_by",
+            "value_json": json.dumps({"durationMin": int(actualDurationMin or 0)}),
+            "created_at": _now_iso(),
+            "updated_at": _now_iso(),
+            "owner_did": _YARD_DID,
+            "sensitivity_ord": 2,
+        }
+        try:
+            get_kotoba_client().insert_row("edge_yard_ops_dock_job_completion", edge_completion_row_data)
+        except Exception as exc:
+            LOG.warning("yard_ops dock completion failed (edge): %s", exc)
         # mark dock job as closed
-        _execute(
-            """
-            UPDATE vertex_yard_ops_dock_job
-               SET status = 'closed', updated_at = :now
-             WHERE vertex_id = :vid
-            """,
-            {"vid": dockJobVertexId, "now": _now_iso()},
-        )
+        dock_job_update_data = {
+            "vertex_id": dockJobVertexId,
+            "status": "closed",
+            "updated_at": _now_iso(),
+        }
+        try:
+            get_kotoba_client().insert_row("vertex_yard_ops_dock_job", dock_job_update_data) # insert_row acts as upsert
+        except Exception as exc:
+            LOG.warning("yard_ops dock job status update failed: %s", exc)
     return {"ok": ok, "vertexId": vid, "completionVertexId": vid}
 
 
@@ -269,30 +270,41 @@ async def task_yard_ops_dock_schedule_read(
     fromTs: str = "",
     toTs: str = "",
 ) -> dict:
-    rows = _query(
-        """
-        SELECT vertex_id, value_json, status, created_at
-        FROM vertex_yard_ops_dock_job
-        WHERE created_at >= :from_ts AND created_at <= :to_ts
-        ORDER BY created_at ASC
-        LIMIT 200
-        """,
-        {"from_ts": fromTs or "1970-01-01 00:00:00",
-         "to_ts": toTs or "2999-12-31 23:59:59"},
-    )
+    query_edn = """
+    [:find (pull ?e [:vertex/id :vertex/value_json :vertex/status :vertex/created_at])
+     :where
+     [?e :vertex/label "yardOps.dockJob"]
+     [?e :vertex/created_at ?created_at]
+     [(>= ?created_at $from_ts)]
+     [(<= ?created_at $to_ts)]
+     :limit 200
+     :order [?created_at :asc]]
+    """
+    try:
+        rows_raw = get_kotoba_client().q(
+            query_edn,
+            {"$from_ts": fromTs or "1970-01-01 00:00:00",
+             "$to_ts": toTs or "2999-12-31 23:59:59"},
+        )
+        # q returns a list of lists, where each inner list contains the pulled map
+        rows = [item[0] for item in rows_raw]
+    except Exception as exc:
+        LOG.warning("yard_ops dock schedule read failed: %s", exc)
+        rows = []
     schedule: list[dict] = []
-    for row in rows:
+    for row_dict in rows: # row is now a dictionary
         try:
-            v = json.loads(row[1]) if isinstance(row[1], str) else (row[1] or {})
+            # Assuming value_json is already a string
+            v = json.loads(row_dict.get(":vertex/value_json", "{}"))
         except Exception:
             v = {}
         schedule.append({
-            "dockJobVertexId": row[0],
+            "dockJobVertexId": row_dict.get(":vertex/id", ""),
             "dockDoorCode": v.get("dockDoorCode", ""),
             "trailerPlate": v.get("trailerPlate", ""),
             "direction": v.get("direction", ""),
-            "etaTs": str(row[3]),
-            "status": row[2] or "",
+            "etaTs": row_dict.get(":vertex/created_at", ""),
+            "status": row_dict.get(":vertex/status", ""),
         })
     return {"ok": True, "schedule": schedule}
 

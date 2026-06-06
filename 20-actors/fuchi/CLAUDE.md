@@ -26,8 +26,12 @@ fuchi-specific rules.
 - **G7 non-adjudicating** — `gov_route` is a pure function; never add a `:gov/decision` attribute
   or let a cell/operator decide accept/reject. The vote / Council decides.
 - **G9 no-server-key** — `:alloc/server-held-key` is `:db/allowed [false]` (ADR-2605231525).
-- **G8 Murakumo-only** inference; **G10 outward-gated** (no live disbursement/provisioning/land
-  grant/vote at R0).
+- **G8 Murakumo-only** inference; **G10 outward-gated** — every live leg goes through
+  `methods/live_gate.py` and **REFUSES by default**. A live `provision`/`vote`/`book`/`couple`
+  fires only when the operator flag `FUCHI_ALLOW_LIVE_<LEG>=1` + an operator attestation +
+  Council Lv6+ (Lv7+ for `couple`) + a member signature are ALL present. Never let the gate relax
+  cash≡0 / no-server-key / in-kind-only / the vote timelock / the G2 funded-cohort gate — it is an
+  *authorization* membrane, not an invariant override. Never sign server-side to satisfy it.
 
 ## When extending
 
@@ -35,8 +39,9 @@ fuchi-specific rules.
   — do not invent a second tenure formula.
 - New in-kind needs → add an `:envelope/line` + a rail in `LINE_TO_RAIL`, mapped to a **producing
   actor** (mitsuho/hikari/okaimono/iyashi/commons-land/warifu). Never add a rail that pays cash.
-- Keep tests green: `./run_tests.sh` (83 tests). The `test_charter_invariants.py` suite parses the
-  ontology + lexicons + code and will fail if an invariant drifts out of any of the three places.
+- Keep tests green: `./run_tests.sh` (174 tests). The `test_charter_invariants.py` suite parses the
+  ontology + lexicons + code and will fail if an invariant drifts out of any of the three places —
+  including the R1-live locks (every leg refused by default; `couple` is Lv7).
 
 ## Honest framing to preserve in all docs
 

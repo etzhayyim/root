@@ -7,7 +7,7 @@
 // did:web:etzhayyim.com:actor:gov-<...> — keyless mirror, NOT the entity
 // itself (no impersonation; verificationMethod:[]; isMirror=true).
 
-export const GOV_TOTAL_COUNT = 7106;
+export const GOV_TOTAL_COUNT = 7108;
 export const GOV_GENERATED_AT = "2026-06-04T00:00:00+00:00";
 
 // handle → displayName. Membership check is O(1) via .has(); name powers the
@@ -1579,6 +1579,7 @@ export const GOV_ENTITIES: ReadonlyMap<string, string> = new Map([
   ["gov-dma-adm1-dm-11", "Saint Peter Parish"],
   ["gov-dma-legislature", "House of Assembly of Dominica"],
   ["gov-dma-statistics", "Central Statistics Office"],
+  ["gov-dnk", "Denmark"],
   ["gov-dom", "Dominican Republic"],
   ["gov-dom-adm1-do-01", "Distrito Nacional"],
   ["gov-dom-adm1-do-02", "Azua Province"],
@@ -6820,6 +6821,7 @@ export const GOV_ENTITIES: ReadonlyMap<string, string> = new Map([
   ["gov-usa-nhri", "Inter-American Commission on Human Rights"],
   ["gov-usa-ombudsman", "Citizenship and Immigration Services Ombudsman"],
   ["gov-usa-revenue", "U.S. Customs and Border Protection"],
+  ["gov-usa-sec", "United States Securities and Exchange Commission"],
   ["gov-usa-statistics", "United States Census Bureau"],
   ["gov-usa-supreme-court", "Supreme Court of the United States"],
   ["gov-usa-swf-alabama-trust-fund", "Alabama Trust Fund"],

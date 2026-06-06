@@ -27,12 +27,20 @@ ALL_SH = REPO_ROOT / "70-tools/scripts/audit/all.sh"
 # Rollup baseline. Was 25 at iter-52 closure (2026-05-27); re-baselined to 7
 # on 2026-06-01 after a week of cleanup legitimately resolved the other
 # findings (every non-subrepo audit now reports 0 — dependabot / sdk-exports /
-# convention-drift / manifests / lexicons all clean). The remaining 7 are
+# convention-drift / manifests / lexicons all clean). The remaining findings are
 # entirely "stale subrepo upstream URLs" (the etzhayyim→etzhayyim 404 .gitrepo
-# remotes), matching test_subrepo_scripts.EXPECTED_STALE_URLS = 7. Fixing
+# remotes), matching test_subrepo_scripts.EXPECTED_STALE_URLS. Fixing
 # those will drop this to 0 and intentionally fail this test for a conscious
 # re-baseline.
-EXPECTED_TOTAL_FINDINGS = 7
+#
+# 2026-06-05 re-baseline 7 → 8 (investigated, not blind-bumped): the subrepo set
+# turned over since the 2026-05-27 baseline — several 2026-06-03/04 60-apps
+# subrepos (har / watashi / intel / os / news / activity-monitor / ai-gftd-
+# resources) were vendored with upstreams that were never published, so all 8
+# current stale URLs are confirmed 404 defunct/unpublished upstreams of vendored
+# app code (nothing internally fixable; restoring them would require pushing the
+# external repos). Full list lives in test_subrepo_scripts.EXPECTED_STALE_URLS.
+EXPECTED_TOTAL_FINDINGS = 8
 PERF_BUDGET_S = 5.0      # iter-61 actual ~1.1 s; 4.5x headroom for CI
 TEST_MODE_BUDGET_S = 20.0  # iter-66 pytest ~8 s; --all combined ~10 s; headroom
 

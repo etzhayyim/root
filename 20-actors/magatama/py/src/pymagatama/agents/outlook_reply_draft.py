@@ -3,7 +3,7 @@
 Manages LLM-generated reply drafts for emails that were triaged as "clean".
 Drafts are held for human review (approve / discard / edit) before sending.
 
-Table: ``vertex_email_reply_draft``
+Table: ``vertex_email_reply_draft`` (persisted in kotoba Datom log)
   vertex_id       VARCHAR PK   (format: ``draft-{email_vertex_id}``)
   email_vertex_id VARCHAR NOT NULL
   from_address    VARCHAR DEFAULT ''
@@ -15,7 +15,7 @@ Table: ``vertex_email_reply_draft``
   actor_did       VARCHAR NOT NULL
   created_at      VARCHAR NOT NULL
 
-DDL (run separately in autocommit — NOT executed here):
+DDL (for reference only; actual persistence handled by kotoba Datom log):
 
   CREATE TABLE vertex_email_reply_draft (
       vertex_id       VARCHAR PRIMARY KEY,
@@ -29,9 +29,6 @@ DDL (run separately in autocommit — NOT executed here):
       actor_did       VARCHAR NOT NULL,
       created_at      VARCHAR NOT NULL
   );
-
-RisingWave does NOT support ON CONFLICT — use INSERT ... SELECT ... WHERE NOT EXISTS.
-DDL runs in autocommit.  No FK constraints.
 """
 
 from __future__ import annotations
@@ -40,7 +37,7 @@ import os
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR_DID = "did:web:pregel.etzhayyim.com"
 
@@ -54,25 +51,21 @@ def _now_iso() -> str:
 
 def _fetch_email_details(email_vertex_id: str) -> dict | None:
     """SELECT from_address, subject, body_preview FROM vertex_email_message WHERE vertex_id = %s."""
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT from_address, subject, body_preview
-            FROM vertex_email_message
-            WHERE vertex_id = %s
-            LIMIT 1
-            """,
-            (email_vertex_id,),
-        )
-        row = cur.fetchone()
+    kotoba_client = get_kotoba_client()
+    row = kotoba_client.select_first_where(
+        "vertex_email_message",
+        "vertex_id",
+        email_vertex_id,
+        columns=["from_address", "subject", "body_preview"]
+    )
 
     if row is None:
         return None
 
     return {
-        "from_address": row[0] or "",
-        "subject": row[1] or "",
-        "body_preview": row[2] or "",
+        "from_address": row.get("from_address", ""),
+        "subject": row.get("subject", ""),
+        "body_preview": row.get("body_preview", ""),
     }
 
 
@@ -200,30 +193,32 @@ def queue_reply_draft(
     draft_text = _generate_draft_text(from_address, subject, body_preview)
     now = _now_iso()
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_email_reply_draft
-                (vertex_id, email_vertex_id, from_address, subject,
-                 draft_text, status, action, final_text, actor_did, created_at)
-            SELECT %s, %s, %s, %s, %s, 'pending', '', '', %s, %s
-            WHERE NOT EXISTS (
-                SELECT 1 FROM vertex_email_reply_draft
-                WHERE vertex_id = %s
-            )
-            """,
-            (
-                draft_vertex_id,
-                email_vertex_id,
-                str(from_address)[:480],
-                str(subject)[:480],
-                draft_text,
-                ACTOR_DID,
-                now,
-                draft_vertex_id,
-            ),
-        )
-        inserted = (cur.rowcount or 0) > 0
+    kotoba_client = get_kotoba_client()
+
+    # Check if draft already exists
+    existing_draft = kotoba_client.select_first_where(
+        "vertex_email_reply_draft",
+        "vertex_id",
+        draft_vertex_id
+    )
+
+    if existing_draft:
+        inserted = False
+    else:
+        row_dict = {
+            "vertex_id": draft_vertex_id,
+            "email_vertex_id": email_vertex_id,
+            "from_address": str(from_address)[:480],
+            "subject": str(subject)[:480],
+            "draft_text": draft_text,
+            "status": "pending",
+            "action": "",
+            "final_text": "",
+            "actor_did": ACTOR_DID,
+            "created_at": now,
+        }
+        inserted_row = kotoba_client.insert_row("vertex_email_reply_draft", row_dict)
+        inserted = bool(inserted_row)
 
     if inserted and _should_auto_approve(from_address):
         try:
@@ -240,26 +235,28 @@ def list_pending_drafts(limit: int = 50) -> list[dict]:
     Returns a list of dicts with keys:
       thread_id (= vertex_id), updated_at (= created_at),
       email_vertex_id, from_address, subject, draft_text
+
+    (Data sourced from kotoba Datom log)
     """
     limit = max(1, min(int(limit), 1000))
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT vertex_id, created_at, email_vertex_id,
-                   from_address, subject, draft_text
-            FROM vertex_email_reply_draft
-            WHERE status = 'pending'
-            ORDER BY created_at DESC
-            LIMIT %s
-            """,
-            (limit,),
-        )
-        cols = [d[0] for d in cur.description]
-        raw_rows = cur.fetchall() or []
+    kotoba_client = get_kotoba_client()
+    # R0: Fetching a broader set and applying ORDER BY and LIMIT in Python
+    raw_rows = kotoba_client.select_where(
+        "vertex_email_reply_draft",
+        "status",
+        "pending",
+        columns=["vertex_id", "created_at", "email_vertex_id",
+                 "from_address", "subject", "draft_text"],
+        limit=1000 # Max limit to fetch, then sort/limit in Python
+    )
+
+    # Sort in Python by 'created_at' in descending order
+    raw_rows.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    # Apply limit
+    raw_rows = raw_rows[:limit]
 
     result: list[dict] = []
-    for row in raw_rows:
-        r: dict[str, Any] = dict(zip(cols, row))
+    for r in raw_rows: # r is already a dict
         result.append(
             {
                 "thread_id": r["vertex_id"],
@@ -277,36 +274,31 @@ def get_draft_item(draft_id: str) -> dict | None:
     """SELECT a single reply draft by vertex_id.
 
     Returns a dict with all column values or ``None`` if not found.
+    (Data sourced from kotoba Datom log)
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT vertex_id, created_at, email_vertex_id,
-                   from_address, subject, draft_text,
-                   status, action, final_text
-            FROM vertex_email_reply_draft
-            WHERE vertex_id = %s
-            LIMIT 1
-            """,
-            (draft_id,),
-        )
-        cols = [d[0] for d in cur.description]
-        row = cur.fetchone()
+    kotoba_client = get_kotoba_client()
+    row = kotoba_client.select_first_where(
+        "vertex_email_reply_draft",
+        "vertex_id",
+        draft_id,
+        columns=["vertex_id", "created_at", "email_vertex_id",
+                 "from_address", "subject", "draft_text",
+                 "status", "action", "final_text"]
+    )
 
     if row is None:
         return None
 
-    r: dict[str, Any] = dict(zip(cols, row))
     return {
-        "thread_id": r["vertex_id"],
-        "updated_at": r["created_at"],
-        "email_vertex_id": r["email_vertex_id"],
-        "from_address": r["from_address"],
-        "subject": r["subject"],
-        "draft_text": r["draft_text"],
-        "status": r["status"],
-        "action": r["action"],
-        "final_text": r["final_text"],
+        "thread_id": row.get("vertex_id", ""),
+        "updated_at": row.get("created_at", ""),
+        "email_vertex_id": row.get("email_vertex_id", ""),
+        "from_address": row.get("from_address", ""),
+        "subject": row.get("subject", ""),
+        "draft_text": row.get("draft_text", ""),
+        "status": row.get("status", ""),
+        "action": row.get("action", ""),
+        "final_text": row.get("final_text", ""),
     }
 
 
@@ -320,41 +312,38 @@ def apply_draft_verdict(draft_id: str, action: str, final_text: str = "") -> boo
     - ``edit``    → ``status='approved'``, ``final_text`` = provided text (edited version)
 
     Returns ``True`` on success, ``False`` if the draft was not found.
+    (Data sourced from kotoba Datom log)
     """
     action = str(action).lower()[:120]
+    kotoba_client = get_kotoba_client()
 
-    with sync_cursor() as cur:
-        # Fetch existing draft to fall back to draft_text when final_text is empty
-        cur.execute(
-            """
-            SELECT draft_text
-            FROM vertex_email_reply_draft
-            WHERE vertex_id = %s
-            LIMIT 1
-            """,
-            (draft_id,),
-        )
-        row = cur.fetchone()
-        if row is None:
-            return False
+    # Fetch existing draft to fall back to draft_text when final_text is empty
+    existing_draft = kotoba_client.select_first_where(
+        "vertex_email_reply_draft",
+        "vertex_id",
+        draft_id,
+        columns=["draft_text"]
+    )
+    if existing_draft is None:
+        return False
 
-        original_draft_text: str = row[0] or ""
-        resolved_final_text = str(final_text).strip() if str(final_text).strip() else original_draft_text
+    original_draft_text: str = existing_draft.get("draft_text", "")
+    resolved_final_text = str(final_text).strip() if str(final_text).strip() else original_draft_text
 
-        if action == "discard":
-            new_status = "discarded"
-        else:
-            # approve or edit both result in approved status
-            new_status = "approved"
+    if action == "discard":
+        new_status = "discarded"
+    else:
+        # approve or edit both result in approved status
+        new_status = "approved"
 
-        cur.execute(
-            """
-            UPDATE vertex_email_reply_draft
-            SET status = %s, action = %s, final_text = %s
-            WHERE vertex_id = %s
-            """,
-            (new_status, action, resolved_final_text, draft_id),
-        )
+    # Update using insert_row (upsert behavior)
+    updated_row_dict = {
+        "vertex_id": draft_id,
+        "status": new_status,
+        "action": action,
+        "final_text": resolved_final_text,
+    }
+    kotoba_client.insert_row("vertex_email_reply_draft", updated_row_dict)
 
     if new_status == "approved":
         try:
@@ -364,7 +353,6 @@ def apply_draft_verdict(draft_id: str, action: str, final_text: str = "") -> boo
             pass  # sending is best-effort; DB status already updated
 
     return True
-
 
 __all__ = [
     "queue_reply_draft",

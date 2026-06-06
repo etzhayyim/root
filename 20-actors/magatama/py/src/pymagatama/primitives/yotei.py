@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-import datetime as _dt
+import datetime
+from datetime import timezone
 import decimal as _decimal
 import json
 import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 YOTEI_DID = "did:web:yotei.etzhayyim.com"
@@ -90,11 +91,7 @@ def _base(kind: str, id_value: str, status: str = "active") -> dict[str, Any]:
 
 
 def _insert(table: str, values: dict[str, Any]) -> None:
-    cols = list(values)
-    placeholders = ",".join(["%s"] * len(cols))
-    names = ",".join(cols)
-    with sync_cursor() as cur:
-        cur.execute(f"INSERT INTO {table} ({names}) VALUES ({placeholders})", tuple(values[c] for c in cols))
+    get_kotoba_client().insert_row(table, values)
 
 
 def _query(kind: str, where_sql: str = "", params: tuple[Any, ...] = (), order: str = "", limit: int = 100) -> list[dict[str, Any]]:

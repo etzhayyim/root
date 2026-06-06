@@ -31,7 +31,10 @@ from __future__ import annotations
 import json
 import logging
 import uuid
+from datetime import datetime, timezone, timedelta
 from typing import Any, Literal, TypedDict
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("warehouse_yard.optimizer")
 
@@ -49,9 +52,9 @@ class OptimizerState(TypedDict, total=False):
     trailer_vertex_id: str     # for dock_door
     direction: str             # 'inbound' | 'outbound'
 
-    # KPIs (read from MVs)
-    door_dwell_stats: list[dict]   # rows from mv_dock_dwell_minutes_15m
-    sku_throughput_stats: list[dict]  # rows from mv_warehouse_pick_throughput_1h
+    # KPIs (read from Datom log)
+    door_dwell_stats: list[dict]   # rows from mv.dock-dwell-minutes-15m
+    sku_throughput_stats: list[dict]  # rows from mv.warehouse-pick-throughput-1h
 
     # Output
     recommended_bin_code: str
@@ -63,63 +66,111 @@ class OptimizerState(TypedDict, total=False):
 
 # ── Node helpers ───────────────────────────────────────────────────────────
 
-def _query(sql_str: str, params: dict) -> list[Any]:
+def _query(datalog_query_edn: str, args: tuple[Any, ...] = ()) -> list[list[Any]]:
+    """Run a Datalog query against the kotoba client."""
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params)
+        kotoba_client = get_kotoba_client()
+        return kotoba_client.q(datalog_query_edn, args=args)
     except Exception as exc:
-        LOG.warning("optimizer query failed: %s", exc)
+        LOG.warning("optimizer datalog query failed: %s", exc)
         return []
 
 
 # ── Nodes ──────────────────────────────────────────────────────────────────
 
 def node_read_kpis(state: OptimizerState) -> OptimizerState:
-    """Read the latest dwell + throughput rows from the SQLMesh MVs."""
+    """Read the latest dwell + throughput rows from the kotoba Datom log."""
     door_rows: list[dict] = []
     sku_rows: list[dict] = []
+    
+    cutoff_ts = datetime.now(timezone.utc) - timedelta(hours=24)
+
     if state.get("request_kind") == "dock_door":
-        rows = _query(
-            """
-            SELECT dock_door_code,
-                   AVG(avg_dwell_min)        AS avg_dwell_min,
-                   AVG(p95_dwell_min)        AS p95_dwell_min,
-                   SUM(completion_count)     AS completion_count
-              FROM dev.mv_dock_dwell_minutes_15m
-             WHERE bucket_ts >= NOW() - INTERVAL '24 hours'
-             GROUP BY 1
-             ORDER BY avg_dwell_min ASC NULLS LAST
-             LIMIT 12
-            """,
-            {},
-        )
-        for r in rows:
-            door_rows.append({
-                "dock_door_code": r[0],
-                "avg_dwell_min": float(r[1] or 0.0),
-                "p95_dwell_min": float(r[2] or 0.0),
-                "completion_count": int(r[3] or 0),
-            })
+        # R0: Fetching raw data for mv.dock-dwell-minutes-15m; aggregation done in Python.
+        datalog_query_edn = """
+            [:find ?dock-door-code ?avg-dwell-min ?p95-dwell-min ?completion-count ?bucket-ts
+             :where
+             [?e :mv.dock-dwell-minutes-15m/dock-door-code ?dock-door-code]
+             [?e :mv.dock-dwell-minutes-15m/avg-dwell-min ?avg-dwell-min]
+             [?e :mv.dock-dwell-minutes-15m/p95-dwell-min ?p95-dwell-min]
+             [?e :mv.dock-dwell-minutes-15m/completion-count ?completion-count]
+             [?e :mv.dock-dwell-minutes-15m/bucket-ts ?bucket-ts]
+             [(> ?bucket-ts ?cutoff-ts)]]"""
+        
+        raw_results = _query(datalog_query_edn, args=(cutoff_ts,))
+
+        # Group by dock-door-code and aggregate in Python
+        grouped_data = {}
+        for r in raw_results:
+            dock_door_code, avg_dwell_min, p95_dwell_min, completion_count, bucket_ts = r
+            if dock_door_code not in grouped_data:
+                grouped_data[dock_door_code] = {
+                    "avg_dwell_min_sum": 0.0,
+                    "avg_dwell_min_count": 0,
+                    "p95_dwell_min_sum": 0.0,
+                    "p95_dwell_min_count": 0,
+                    "completion_count_sum": 0,
+                }
+            grouped_data[dock_door_code]["avg_dwell_min_sum"] += float(avg_dwell_min or 0.0)
+            grouped_data[dock_door_code]["avg_dwell_min_count"] += 1
+            grouped_data[dock_door_code]["p95_dwell_min_sum"] += float(p95_dwell_min or 0.0)
+            grouped_data[dock_door_code]["p95_dwell_min_count"] += 1
+            grouped_data[dock_door_code]["completion_count_sum"] += int(completion_count or 0)
+
+        for dock_door_code, aggregates in grouped_data.items():
+            if aggregates["avg_dwell_min_count"] > 0:
+                door_rows.append({
+                    "dock_door_code": dock_door_code,
+                    "avg_dwell_min": aggregates["avg_dwell_min_sum"] / aggregates["avg_dwell_min_count"],
+                    "p95_dwell_min": aggregates["p95_dwell_min_sum"] / aggregates["p95_dwell_min_count"],
+                    "completion_count": aggregates["completion_count_sum"],
+                })
+        
+        # Order by avg_dwell_min ASC NULLS LAST and Limit 12
+        door_rows.sort(key=lambda x: (x["avg_dwell_min"] if x["avg_dwell_min"] is not None else float('inf')))
+        door_rows = door_rows[:12]
+
     elif state.get("request_kind") == "putaway_bin":
-        rows = _query(
-            """
-            SELECT sku_code,
-                   AVG(picked_qty_total)     AS picked_qty_total,
-                   AVG(avg_bins_per_pick)    AS avg_bins_per_pick
-              FROM dev.mv_warehouse_pick_throughput_1h
-             WHERE bucket_ts >= NOW() - INTERVAL '24 hours'
-               AND sku_code = :sku
-             GROUP BY 1
-            """,
-            {"sku": state.get("sku_code", "")},
-        )
-        for r in rows:
-            sku_rows.append({
-                "sku_code": r[0],
-                "picked_qty_total": float(r[1] or 0.0),
-                "avg_bins_per_pick": float(r[2] or 0.0),
-            })
+        sku_code_param = state.get("sku_code", "")
+        # R0: Fetching raw data for mv.warehouse-pick-throughput-1h; aggregation done in Python.
+        datalog_query_edn = """
+            [:find ?sku-code ?picked-qty-total ?avg-bins-per-pick ?bucket-ts
+             :where
+             [?e :mv.warehouse-pick-throughput-1h/sku-code ?sku-code]
+             [?e :mv.warehouse-pick-throughput-1h/picked-qty-total ?picked-qty-total]
+             [?e :mv.warehouse-pick-throughput-1h/avg-bins-per-pick ?avg-bins-per-pick]
+             [?e :mv.warehouse-pick-throughput-1h/bucket-ts ?bucket-ts]
+             [(> ?bucket-ts ?cutoff-ts)]
+             [?e :mv.warehouse-pick-throughput-1h/sku-code ?sku-code-param]]"""
+        
+        raw_results = _query(datalog_query_edn, args=(cutoff_ts, sku_code_param))
+
+        # Group by sku-code and aggregate in Python
+        grouped_data = {}
+        for r in raw_results:
+            sku_code, picked_qty_total, avg_bins_per_pick, bucket_ts = r
+            if sku_code not in grouped_data:
+                grouped_data[sku_code] = {
+                    "picked_qty_total_sum": 0.0,
+                    "picked_qty_total_count": 0,
+                    "avg_bins_per_pick_sum": 0.0,
+                    "avg_bins_per_pick_count": 0,
+                }
+            grouped_data[sku_code]["picked_qty_total_sum"] += float(picked_qty_total or 0.0)
+            grouped_data[sku_code]["picked_qty_total_count"] += 1
+            grouped_data[sku_code]["avg_bins_per_pick_sum"] += float(avg_bins_per_pick or 0.0)
+            grouped_data[sku_code]["avg_bins_per_pick_count"] += 1
+        
+        for sku_code, aggregates in grouped_data.items():
+            if aggregates["picked_qty_total_count"] > 0:
+                sku_rows.append({
+                    "sku_code": sku_code,
+                    "picked_qty_total": aggregates["picked_qty_total_sum"] / aggregates["picked_qty_total_count"],
+                    "avg_bins_per_pick": aggregates["avg_bins_per_pick_sum"] / aggregates["avg_bins_per_pick_count"],
+                })
+        # The original SQL had GROUP BY 1, which means no specific ORDER BY or LIMIT.
+        # So, we just return the aggregated results.
+
     return {
         **state,
         "door_dwell_stats": door_rows,

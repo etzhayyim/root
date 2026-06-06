@@ -20,6 +20,7 @@ import pathlib
 
 import book
 import couple as couple_mod
+import live_gate
 import provision as prov
 import vote as vote_mod
 from _edn import load_edn
@@ -145,8 +146,14 @@ def run(seed_path: pathlib.Path = _SEED) -> dict:
         g = couple_mod.coupling_gate(ev, em, committed)
         coupling.append({"earmark": em, "gate": g})
 
+    # R1(live) — show every outward leg's gate REFUSING by default (no operator flag / attestation /
+    # Council / member signature in a dry run). This is the deliverable: the live path exists and is
+    # refused unless fully gated. `env={}` ⇒ the operator process flag is absent.
+    live_status = [live_gate.gate_status(live_gate.LiveGate(leg=leg), env={})
+                   for leg in live_gate.LEG_POLICY]
+
     return {"rows": rows, "derived": derived, "intents": intents, "ledger": ledger,
-            "flows": flows, "coupling": coupling}
+            "flows": flows, "coupling": coupling, "live_status": live_status}
 
 
 def _report(res: dict) -> str:
@@ -202,6 +209,20 @@ def _report(res: dict) -> str:
                    f"${em.earmark_usd_micros_yr/1_000_000:,.0f} | {'✓' if em.funded else '—'} | "
                    f"${g['committed']/1_000_000:,.0f} | {'✓ admissible' if g['admissible'] else '✗ REFUSED'} |")
 
+    out.append("\n## R1(live) outward-leg gate (default = REFUSED; G10)\n")
+    out.append("Each live leg fires only when its operator flag + attestation + Council level + "
+               "member signature are ALL present. In a dry run none are, so every leg is refused.\n")
+    out.append("| leg | env flag | min Council | operator flag | attested | ratified | member-signed | admissible |")
+    out.append("|---|---|---|---|---|---|---|---|")
+    for s in res.get("live_status", []):
+        c = s["conditions"]
+        def _m(b):
+            return "✓" if b else "✗"
+        out.append(f"| {s['leg']} | `{s['env_flag']}` | Lv{s['min_council']} | "
+                   f"{_m(c['operator_flag'])} | {_m(c['operator_attested'])} | "
+                   f"{_m(c['council_ratified'])} | {_m(c['member_signed'])} | "
+                   f"{'✓ admissible' if s['admissible'] else '✗ REFUSED'} |")
+
     out.append("\n## Invariants held\n")
     out.append("- **cash≡0** — every allocation / provisioning intent / ledgerEntry carries 0 cash (N1).")
     out.append("- **no investment vehicle** — instrument ∈ sustenance set; equity/debt/ROI/exit unrepresentable (G1).")
@@ -209,7 +230,9 @@ def _report(res: dict) -> str:
     out.append("- **in-kind first** — provisioning routed to real producing actors; external fiat only as member-principal warifu 0% (G3).")
     out.append("- **booked, not paid** — toritate cashStipendUsd ≡ 0; no payroll/wage category (R1c).")
     out.append("- **coupled** — a displacement is admissible only against a funded cohort earmark; "
-               "10% TitheRouter split exact (R1d).\n")
+               "10% TitheRouter split exact (R1d).")
+    out.append("- **outward-gated** — every live leg (provision/vote/book/couple) REFUSES unless "
+               "operator flag + attestation + Council Lv6+/Lv7+ + member signature; default = refused (R1-live).\n")
     return "\n".join(out)
 
 
@@ -264,10 +287,20 @@ def main() -> int:
             ":couple/committed-usd-micros-yr": c["gate"]["committed"],
             ":couple/admissible": c["gate"]["admissible"],
         } for c in res["coupling"]]) + "\n ]}\n", encoding="utf-8")
+    (_OUT / "live-gate-status.kotoba.edn").write_text(
+        "{:fuchi/live-gate\n [\n" + emit([{
+            ":gate/leg": ":" + s["leg"], ":gate/env-flag": s["env_flag"],
+            ":gate/min-council": s["min_council"],
+            ":gate/operator-flag": s["conditions"]["operator_flag"],
+            ":gate/operator-attested": s["conditions"]["operator_attested"],
+            ":gate/council-ratified": s["conditions"]["council_ratified"],
+            ":gate/member-signed": s["conditions"]["member_signed"],
+            ":gate/admissible": s["admissible"],
+        } for s in res.get("live_status", [])]) + "\n ]}\n", encoding="utf-8")
 
     print(_report(res))
     print(f"\nwrote allocation-dryrun.md + allocations / provisioning-intents / "
-          f"toritate-ledger / kanae-flow / cohort-earmarks .kotoba.edn → {_OUT}")
+          f"toritate-ledger / kanae-flow / cohort-earmarks / live-gate-status .kotoba.edn → {_OUT}")
     return 0
 
 

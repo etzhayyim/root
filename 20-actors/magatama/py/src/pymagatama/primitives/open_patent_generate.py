@@ -17,12 +17,13 @@ import asyncio
 import hashlib
 import json
 import os
+import re
 from datetime import datetime, timezone
 from typing import Any
 
 import httpx
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ── Actor DIDs ─────────────────────────────────────────────────────────
 OWNER_DID = "did:web:open-patent.etzhayyim.com"
@@ -74,21 +75,22 @@ def task_open_patent_gather_tech_trends(limit: int = 5) -> list[dict[str, Any]]:
     Read the top IPC classes from recent patents in the corpus.
     Returns list of {ipc_class, count, sample_titles}.
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT
-                COALESCE(ipc_classes, 'UNKNOWN') AS ipc_class,
-                COUNT(*) AS cnt
-            FROM vertex_open_patent_patent
-            WHERE ipc_classes IS NOT NULL
-            GROUP BY ipc_classes
-            ORDER BY cnt DESC
-            LIMIT {int(limit)}
-            """
-        )
-        rows = cur.fetchall()
+    # R0: Datalog query for aggregation with GROUP BY, ORDER BY, and COALESCE.
+    datalog_query = f"""
+    [:find ?ipc-class (count ?e)
+      :where
+        [?e :vertex/type :vertex.open-patent/patent]
+        [?e :vertex.open-patent.patent/ipc-classes ?ipc-class-raw]
+        [(not= ?ipc-class-raw nil)]
+        [(str ?ipc-class-raw) ?ipc-class-str]
+        [(coalesce ?ipc-class-str "UNKNOWN") ?ipc-class]
+      :group ?ipc-class
+      :order-by (desc (count ?e))
+      :limit {int(limit)}]
+    """
+    rows = get_kotoba_client().q(datalog_query)
 
+    # Convert the Datalog query result (list of lists) to the expected dictionary format.
     return [
         {
             "ipc_class": row[0],
@@ -187,35 +189,45 @@ def task_open_patent_search_prior_art(
     """
     ipc_filter = ipc_class.split("/")[0].strip()[:4] if ipc_class else ""
 
-    with sync_cursor() as cur:
-        if ipc_filter:
-            cur.execute(
-                f"""
-                SELECT vertex_id, patent_number, title
-                FROM vertex_open_patent_patent
-                WHERE ipc_classes LIKE %s
-                  AND (title LIKE %s OR title LIKE %s)
-                ORDER BY created_at DESC
-                LIMIT {int(limit)}
-                """,
-                (
-                    f"{ipc_filter}%",
-                    f"%{title[:60]}%",
-                    f"%{summary[:60]}%",
-                ),
-            )
-        else:
-            cur.execute(
-                f"""
-                SELECT vertex_id, patent_number, title
-                FROM vertex_open_patent_patent
-                WHERE title LIKE %s OR title LIKE %s
-                ORDER BY created_at DESC
-                LIMIT {int(limit)}
-                """,
-                (f"%{title[:60]}%", f"%{summary[:60]}%"),
-            )
-        rows = cur.fetchall() or []
+    # R0: Datalog query with regex for LIKE predicates and ORDER BY.
+    # The output from q() will be a list of lists (like tuples), so row[0], row[1], row[2] remain valid.
+    client = get_kotoba_client()
+    title_regex = f".*{re.escape(title[:60])}.*"
+    summary_regex = f".*{re.escape(summary[:60])}.*"
+
+    if ipc_filter:
+        ipc_filter_regex = f"^{re.escape(ipc_filter)}.*"
+        datalog_query = f"""
+        [:find ?vid ?pn ?title
+          :where
+            [?e :vertex/type :vertex.open-patent/patent]
+            [?e :vertex.open-patent.patent/vertex-id ?vid]
+            [?e :vertex.open-patent.patent/patent-number ?pn]
+            [?e :vertex.open-patent.patent/title ?title]
+            [?e :vertex.open-patent.patent/ipc-classes ?ipc-classes-val]
+            [(re-find #"{ipc_filter_regex}" ?ipc-classes-val)]
+            [(or (re-find #"{title_regex}" ?title) (re-find #"{summary_regex}" ?title))]
+            [?e :vertex.open-patent.patent/created-at ?created-at]
+          :order-by (desc ?created-at)
+          :limit {int(limit)}]
+        """
+        rows = client.q(datalog_query)
+    else:
+        datalog_query = f"""
+        [:find ?vid ?pn ?title
+          :where
+            [?e :vertex/type :vertex.open-patent/patent]
+            [?e :vertex.open-patent.patent/vertex-id ?vid]
+            [?e :vertex.open-patent.patent/patent-number ?pn]
+            [?e :vertex.open-patent.patent/title ?title]
+            [(or (re-find #"{title_regex}" ?title) (re-find #"{summary_regex}" ?title))]
+            [?e :vertex.open-patent.patent/created-at ?created-at]
+          :order-by (desc ?created-at)
+          :limit {int(limit)}]
+        """
+        rows = client.q(datalog_query)
+
+    rows = rows or []
 
     return [
         {
@@ -294,38 +306,27 @@ def task_open_patent_persist_seeds(seeds: list[dict[str, Any]]) -> int:
     from datetime import date
     today = date.today().isoformat()
     inserted = 0
-    with sync_cursor() as cur:
-        cur.execute("SET dml_rate_limit = 200")
-        for s in seeds:
-            # RisingWave: no ON CONFLICT — skip-if-exists via NOT EXISTS
-            cur.execute(
-                """
-                INSERT INTO vertex_open_patent_invention_seed (
-                    vertex_id, created_date, sensitivity_ord, owner_did,
-                    tech_domain, title, summary, key_claims_json, ipc_class,
-                    corpus_patent_ids_json, novelty_score, novelty_status,
-                    created_at, actor_id
-                )
-                SELECT %s, %s, 0, %s,
-                       %s, %s, %s, %s, %s,
-                       %s, %s, %s,
-                       %s, %s
-                WHERE NOT EXISTS (
-                    SELECT 1 FROM vertex_open_patent_invention_seed
-                    WHERE vertex_id = %s
-                )
-                """,
-                (
-                    s["vertex_id"], today, s["owner_did"],
-                    s["tech_domain"], s["title"], s["summary"],
-                    s["key_claims_json"], s["ipc_class"],
-                    s.get("corpus_patent_ids_json", "[]"),
-                    s.get("novelty_score"), s["novelty_status"],
-                    s["created_at"], s["actor_id"],
-                    s["vertex_id"],
-                ),
-            )
-            inserted += cur.rowcount
+    client = get_kotoba_client() # Get client outside loop for efficiency
+    for s in seeds:
+        row_dict = {
+            "vertex_id": s["vertex_id"],
+            "created_date": today,
+            "sensitivity_ord": 0,
+            "owner_did": s["owner_did"],
+            "tech_domain": s["tech_domain"],
+            "title": s["title"],
+            "summary": s["summary"],
+            "key_claims_json": s["key_claims_json"],
+            "ipc_class": s["ipc_class"],
+            "corpus_patent_ids_json": s.get("corpus_patent_ids_json", "[]"),
+            "novelty_score": s.get("novelty_score"),
+            "novelty_status": s["novelty_status"],
+            "created_at": s["created_at"],
+            "actor_id": s["actor_id"],
+        }
+        client.insert_row("vertex_open_patent_invention_seed", row_dict) # insert_row handles upsert
+        inserted += 1 # Count each attempted upsert as "inserted" for this context
+
     return inserted
 
 
@@ -348,42 +349,32 @@ def task_open_patent_persist_novelty_report(
 
     from datetime import date
     today = date.today().isoformat()
-    with sync_cursor() as cur:
-        cur.execute("SET dml_rate_limit = 100")
-        # RisingWave: no ON CONFLICT — delete-then-insert for upsert semantics
-        cur.execute(
-            "DELETE FROM vertex_open_patent_novelty_report WHERE vertex_id = %s",
-            (report_vid,),
-        )
-        cur.execute(
-            """
-            INSERT INTO vertex_open_patent_novelty_report (
-                vertex_id, created_date, sensitivity_ord, owner_did,
-                seed_vid, prior_art_count, prior_art_vids_json,
-                similarity_scores_json, overall_novelty_score,
-                reasoning, created_at, actor_id
-            ) VALUES (
-                %s, %s, 0, %s,
-                %s, %s, %s,
-                %s, %s,
-                %s, %s, %s
-            )
-            """,
-            (
-                report_vid, today, OWNER_DID,
-                seed_vid, len(prior_art),
-                json.dumps(prior_vids),
-                json.dumps(sim_scores), novelty_score,
-                assessment.get("reasoning", "")[:4000], now, ANALYST_DID,
-            ),
-        )
-        cur.execute(
-            """
-            UPDATE vertex_open_patent_invention_seed
-               SET novelty_score = %s, novelty_status = %s
-             WHERE vertex_id = %s
-            """,
-            (novelty_score, status, seed_vid),
-        )
+    client = get_kotoba_client()
+
+    # Insert/Upsert the novelty report
+    report_row_dict = {
+        "vertex_id": report_vid,
+        "created_date": today,
+        "sensitivity_ord": 0,
+        "owner_did": OWNER_DID,
+        "seed_vid": seed_vid,
+        "prior_art_count": len(prior_art),
+        "prior_art_vids_json": json.dumps(prior_vids),
+        "similarity_scores_json": json.dumps(sim_scores),
+        "overall_novelty_score": novelty_score,
+        "reasoning": assessment.get("reasoning", "")[:4000],
+        "created_at": now,
+        "actor_id": ANALYST_DID,
+    }
+    client.insert_row("vertex_open_patent_novelty_report", report_row_dict)
+
+    # Update the seed's novelty_score and novelty_status using upsert
+    existing_seed = client.select_first_where("vertex_open_patent_invention_seed", "vertex_id", seed_vid)
+    if existing_seed:
+        existing_seed["novelty_score"] = novelty_score
+        existing_seed["novelty_status"] = status
+        client.insert_row("vertex_open_patent_invention_seed", existing_seed)
+    # else: If the seed doesn't exist, we can't update it. This scenario should ideally not happen
+    # if seeds are persisted before reports are generated for them.
 
     return report_vid

@@ -24,6 +24,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from live_gate import LiveGate, require
+
 # rail kind → toritate ledgerEntry category (toritate's own enum, ADR-2605262900).
 # liquidity-warifu is intentionally ABSENT — it is not a Public-Fund disbursement.
 RAIL_TO_CATEGORY: dict[str, str] = {
@@ -114,3 +116,38 @@ def flow_graph(rails: list, alloc_id: str, maintainer_did: str) -> list[FlowEdge
         edges.append(FlowEdge(PUBLIC_FUND, FUCHI, "publicfund-to-fuchi", in_kind_total, True))
     edges.extend(legs)
     return edges
+
+
+# ── R1(live) — gated toritate write ──────────────────────────────────────────────────────────
+@dataclass(frozen=True)
+class BookingReceipt:
+    entries: tuple
+    operator_did: str
+    council_level: int
+    member_signature: str
+    committed: bool = True
+
+    def __post_init__(self) -> None:
+        for e in self.entries:
+            if e.cash_usd_micros != 0:
+                raise ValueError("cash≡0 INVARIANT (G2) holds in live mode too")
+
+
+def write_live(
+    entries: list,
+    gate: LiveGate,
+    *,
+    env: dict[str, str] | None = None,
+) -> BookingReceipt:
+    """Authorize a LIVE write of the ledgerEntry projection into toritate, or refuse.
+
+    RAISES `live_gate.LiveGateRefused` unless the operator flag + attestation + Council Lv6+ +
+    member signature are all present (the default). cash≡0 holds on every entry in live mode.
+    """
+    require(gate, env=env)  # refuses by default
+    return BookingReceipt(
+        entries=tuple(entries),
+        operator_did=gate.operator_did,
+        council_level=gate.council_level,
+        member_signature=gate.member_signature,
+    )

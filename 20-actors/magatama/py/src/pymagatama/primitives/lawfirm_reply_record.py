@@ -31,6 +31,8 @@ import logging
 import re
 from typing import Any
 
+from pymagatama.kotoba_datomic import get_kotoba_client
+
 LOG = logging.getLogger("lawfirm.cadence.reply")
 
 _FIRM_DID = "did:web:lawfirm.etzhayyim.com"
@@ -50,25 +52,7 @@ def _now_iso() -> str:
     return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
 
-
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
 
 
 def _classify_sentiment(body_preview: str) -> tuple[float, str]:
@@ -114,11 +98,17 @@ async def task_lawfirm_record_reply(
 
     # Idempotency: skip if graph_event_id already recorded
     if graph_event_id:
-        existing = _query(
-            "SELECT vertex_id FROM vertex_lawfirm_outreach_event "
-            "WHERE asset_uri = :gid AND event_kind = 'reply_received'",
-            {"gid": f"graph:{graph_event_id}"},
-        )
+    # R0: Multi-predicate query for idempotency check
+    query_edn_idempotency = """
+    [:find ?vid
+     :in $ ?gid
+     :where
+     [?e "asset_uri" ?gid]
+     [?e "event_kind" "reply_received"]
+     [?e "vertex_id" ?vid]]
+    """
+    existing_raw = get_kotoba_client().q(query_edn_idempotency, args=(f"graph:{graph_event_id}",))
+    existing = [{"vertex_id": item[0]} for item in existing_raw]
         if existing:
             return {
                 "ok": True, "matched_lead_id": "",
@@ -128,26 +118,43 @@ async def task_lawfirm_record_reply(
             }
 
     # Match by from_email (most reliable)
-    lead_rows = _query(
-        "SELECT lead_id, target_name, stage FROM vertex_lawfirm_lead "
-        "WHERE LOWER(target_email) = LOWER(:em) "
-        "ORDER BY created_at DESC LIMIT 1",
-        {"em": from_email},
-    )
+    # R0: Query for lead by email, case-insensitive, ordered by created_at, limited to 1
+    query_edn_lead_by_email = """
+    [:find (pull ?e [:lead_id :target_name :stage])
+     :in $ ?email
+     :where
+     [?e "target_email" ?target_email]
+     [(clojure.string/lower ?target_email) ?lower_target_email]
+     [(clojure.string/lower ?email) ?lower_email]
+     [(= ?lower_target_email ?lower_email)]
+     [?e "created_at" ?created_at]]
+    :order-by [[?created_at :desc]]
+    :limit 1]
+    """
+    lead_rows_raw = get_kotoba_client().q(query_edn_lead_by_email, args=(from_email,))
+    lead_rows = [item[0] for item in lead_rows_raw]
 
     # Fallback: subject thread match against prior outreach_event
     if not lead_rows and subject:
         stripped = _strip_subject_prefix(subject)
         if stripped:
-            lead_rows = _query(
-                "SELECT l.lead_id, l.target_name, l.stage "
-                "FROM vertex_lawfirm_outreach_event oe "
-                "JOIN vertex_lawfirm_lead l ON l.lead_id = oe.lead_id "
-                "WHERE oe.direction = 'outbound' "
-                "  AND oe.subject LIKE :pat "
-                "ORDER BY oe.occurred_at DESC LIMIT 1",
-                {"pat": f"%{stripped[:200]}%"},
-            )
+            # R0: Query for lead by subject match (LIKE), joining outreach_event and lead tables.
+            query_edn_subject_match = """
+            [:find (pull ?l [:lead_id :target_name :stage])
+             :in $ ?pat
+             :where
+             [?oe "direction" "outbound"]
+             [?oe "subject" ?subject]
+             [(str ?subject) ?subject_str]
+             [(.contains ?subject_str ?pat)] ; Equivalent of LIKE %pat%
+             [?oe "occurred_at" ?occurred_at]
+             [?oe "lead_id" ?lead_id]
+             [?l "lead_id" ?lead_id]]
+            :order-by [[?occurred_at :desc]]
+            :limit 1]
+            """
+            lead_rows_raw = get_kotoba_client().q(query_edn_subject_match, args=(stripped[:200],))
+            lead_rows = [item[0] for item in lead_rows_raw]
 
     if not lead_rows:
         # Unmatched: log + return ok (no failure — Graph webhook should not retry)
@@ -176,44 +183,44 @@ async def task_lawfirm_record_reply(
     asset_uri = f"graph:{graph_event_id}" if graph_event_id else (message_id or "")
     actor = f"mailto:{from_email}"
 
-    _execute(
-        "INSERT INTO vertex_lawfirm_outreach_event "
-        "(vertex_id, lead_id, event_kind, channel, direction, "
-        " subject, body_preview, asset_uri, occurred_at, actor_did, "
-        " sentiment, created_at, sensitivity_ord, owner_did) "
-        "VALUES (:vid, :lid, 'reply_received', 'email', 'inbound', "
-        " :subj, :preview, :asset, :occ, :actor, "
-        " CAST(:sent AS DOUBLE PRECISION), :now, 200, :owner)",
-        {
-            "vid": ev_uri, "lid": lead_id,
-            "subj": (subject or "")[:300],
-            "preview": (body_preview or "")[:500],
-            "asset": asset_uri,
-            "occ": occurred_at, "actor": actor,
-            "sent": sentiment_score, "now": _now_iso(),
-            "owner": _FIRM_DID,
-        },
-    )
+    outreach_event_data = {
+        "vertex_id": ev_uri,
+        "lead_id": lead_id,
+        "event_kind": "reply_received",
+        "channel": "email",
+        "direction": "inbound",
+        "subject": (subject or "")[:300],
+        "body_preview": (body_preview or "")[:500],
+        "asset_uri": asset_uri,
+        "occurred_at": occurred_at,
+        "actor_did": actor,
+        "sentiment": float(sentiment_score),
+        "created_at": _now_iso(),
+        "sensitivity_ord": 200,
+        "owner_did": _FIRM_DID,
+    }
+    get_kotoba_client().insert_row("vertex_lawfirm_outreach_event", outreach_event_data)
 
     # Stage advance: lead/contacted → meeting_requested on first reply
     stage_advanced = False
     new_stage = cur_stage
     if cur_stage in ("lead", "contacted"):
         new_stage = "meeting_requested" if sentiment_label != "negative" else "lost"
-        _execute(
-            "UPDATE vertex_lawfirm_lead "
-            "SET stage = :st, last_reply_at = :occ, last_touch_at = :now "
-            "WHERE lead_id = :lid",
-            {"st": new_stage, "occ": occurred_at, "now": _now_iso(), "lid": lead_id},
-        )
+        lead_update_data = {
+            "lead_id": lead_id,
+            "stage": new_stage,
+            "last_reply_at": occurred_at,
+            "last_touch_at": _now_iso(),
+        }
+        get_kotoba_client().insert_row("vertex_lawfirm_lead", lead_update_data)
         stage_advanced = True
     else:
-        _execute(
-            "UPDATE vertex_lawfirm_lead "
-            "SET last_reply_at = :occ, last_touch_at = :now "
-            "WHERE lead_id = :lid",
-            {"occ": occurred_at, "now": _now_iso(), "lid": lead_id},
-        )
+        lead_update_data = {
+            "lead_id": lead_id,
+            "last_reply_at": occurred_at,
+            "last_touch_at": _now_iso(),
+        }
+        get_kotoba_client().insert_row("vertex_lawfirm_lead", lead_update_data)
 
     LOG.info(
         "reply recorded lead=%s sentiment=%s (%.2f) stage=%s→%s",

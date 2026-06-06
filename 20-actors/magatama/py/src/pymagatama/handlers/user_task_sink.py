@@ -40,7 +40,8 @@ except ImportError:  # pragma: no cover — dispatcher image carries these
     gateway_pb2 = None  # type: ignore[assignment]
     gateway_pb2_grpc = None  # type: ignore[assignment]
 
-from pymagatama.db_sync import execute, fetch_one
+from pymagatama.kotoba_datomic import get_kotoba_client
+from datetime import datetime, timezone
 
 LOG = logging.getLogger("user_task_sink")
 
@@ -171,51 +172,14 @@ async def run_user_task_sink_loop() -> None:
 # RW writes
 # ---------------------------------------------------------------------------
 
-# Dual-write: new typed columns (migration 20260424030000_vertex_human_task_bpmn_columns)
-# + legacy string overloads that the kaisya Worker currently parses. Drop the
-# overloads once all consumers read the typed columns.
-_INSERT_HUMAN_TASK = """
-INSERT INTO vertex_human_task (
-    vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-    task_code, title, description, task_type,
-    assignee_did, assignee_role,
-    priority, deadline, related_project,
-    status, result_data,
-    zeebe_job_key, bpmn_process_instance_key, bpmn_process_definition_key,
-    bpmn_process_id, bpmn_element_id, form_key,
-    created_at, updated_at
-) VALUES (
-    %(vertex_id)s, %(seq)s, CURRENT_DATE, 1, %(owner_did)s,
-    %(task_code)s, %(title)s, %(description)s, %(task_type)s,
-    %(assignee_did)s, %(assignee_role)s,
-    0, %(deadline)s, %(related_project)s,
-    'pending', %(result_data)s,
-    %(zeebe_job_key)s, %(bpmn_process_instance_key)s, %(bpmn_process_definition_key)s,
-    %(bpmn_process_id)s, %(bpmn_element_id)s, %(form_key)s,
-    %(now)s, %(now)s
-)
-ON CONFLICT (vertex_id) DO UPDATE SET
-    title = EXCLUDED.title,
-    description = EXCLUDED.description,
-    task_type = EXCLUDED.task_type,
-    assignee_did = COALESCE(EXCLUDED.assignee_did, vertex_human_task.assignee_did),
-    assignee_role = COALESCE(EXCLUDED.assignee_role, vertex_human_task.assignee_role),
-    deadline = EXCLUDED.deadline,
-    related_project = EXCLUDED.related_project,
-    result_data = EXCLUDED.result_data,
-    zeebe_job_key = EXCLUDED.zeebe_job_key,
-    bpmn_process_instance_key = EXCLUDED.bpmn_process_instance_key,
-    bpmn_process_definition_key = EXCLUDED.bpmn_process_definition_key,
-    bpmn_process_id = EXCLUDED.bpmn_process_id,
-    bpmn_element_id = EXCLUDED.bpmn_element_id,
-    form_key = EXCLUDED.form_key,
-    updated_at = EXCLUDED.updated_at
-"""
+
 
 
 def _upsert_human_task(job: ActivatedUserTask) -> None:
     """Blocking INSERT … ON CONFLICT … UPDATE into vertex_human_task."""
-    now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    now_utc = datetime.now(timezone.utc)
+    now_iso = now_utc.isoformat(timespec="seconds")
+    created_date = now_utc.date().isoformat()
     description = (
         str(job.variables.get("caseTitle") or "")
         or str(job.variables.get("projectTitle") or "")
@@ -235,47 +199,71 @@ def _upsert_human_task(job: ActivatedUserTask) -> None:
         "dueDate": job.due_date,
         "variables": job.variables,
     })
-    execute(_INSERT_HUMAN_TASK, {
-        "vertex_id": f"htask:zeebe:{job.job_key}",
-        "seq": job.job_key,
-        "owner_did": "did:web:bpmn.etzhayyim.com",
-        "task_code": f"zeebe:{job.job_key}",
-        "title": job.element_name or job.element_id,
-        "description": description,
-        "task_type": f"bpmn:{job.element_id}",
-        "assignee_did": job.assignee,
-        "assignee_role": (job.candidate_groups or [None])[0],
-        "deadline": (job.due_date[:10] if job.due_date else None),
-        "related_project": str(job.process_instance_key),
-        "result_data": context_blob,
-        "zeebe_job_key": job.job_key,
-        "bpmn_process_instance_key": job.process_instance_key,
-        "bpmn_process_definition_key": job.process_definition_key,
-        "bpmn_process_id": job.bpmn_process_id,
-        "bpmn_element_id": job.element_id,
-        "form_key": job.form_key,
-        "now": now_iso,
-    })
+    get_kotoba_client().insert_row(
+        "vertex_human_task",
+        {
+            "vertex_id": f"htask:zeebe:{job.job_key}",
+            "_seq": job.job_key,
+            "created_date": created_date,
+            "sensitivity_ord": 1,
+            "owner_did": "did:web:bpmn.etzhayyim.com",
+            "task_code": f"zeebe:{job.job_key}",
+            "title": job.element_name or job.element_id,
+            "description": description,
+            "task_type": f"bpmn:{job.element_id}",
+            "assignee_did": job.assignee,
+            "assignee_role": (job.candidate_groups or [None])[0],
+            "deadline": (job.due_date[:10] if job.due_date else None),
+            "related_project": str(job.process_instance_key),
+            "status": "pending",
+            "result_data": context_blob,
+            "zeebe_job_key": job.job_key,
+            "bpmn_process_instance_key": job.process_instance_key,
+            "bpmn_process_definition_key": job.process_definition_key,
+            "bpmn_process_id": job.bpmn_process_id,
+            "bpmn_element_id": job.element_id,
+            "form_key": job.form_key,
+            "created_at": now_iso,
+            "updated_at": now_iso,
+        },
+    )
 
 
-_UPDATE_HUMAN_TASK_COMPLETED = """
-UPDATE vertex_human_task
-   SET status = 'completed',
-       completed_at = %(now)s,
-       updated_at = %(now)s,
-       result = 'complete',
-       result_data = %(result)s
- WHERE task_code = %(task_code)s
-"""
+
 
 
 def _mark_human_task_completed_sync(job_key: int, variables: dict[str, Any]) -> None:
-    now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    execute(_UPDATE_HUMAN_TASK_COMPLETED, {
-        "now": now_iso,
-        "result": json.dumps(variables),
-        "task_code": f"zeebe:{job_key}",
-    })
+    now_utc = datetime.now(timezone.utc)
+    now_iso = now_utc.isoformat(timespec="seconds")
+    task_code_val = f"zeebe:{job_key}"
+
+    # Fetch the existing task to get its vertex_id for upsert
+    existing_task = get_kotoba_client().select_first_where(
+        "vertex_human_task",
+        "task_code",
+        task_code_val,
+        columns=["vertex_id", "created_date", "sensitivity_ord", "owner_did",
+                 "task_code", "title", "description", "task_type",
+                 "assignee_did", "assignee_role",
+                 "priority", "deadline", "related_project",
+                 "status", "result_data",
+                 "zeebe_job_key", "bpmn_process_instance_key", "bpmn_process_definition_key",
+                 "bpmn_process_id", "bpmn_element_id", "form_key",
+                 "created_at", "updated_at"]
+    )
+
+    if existing_task:
+        # Update existing task fields
+        existing_task["status"] = "completed"
+        existing_task["completed_at"] = now_iso
+        existing_task["updated_at"] = now_iso
+        existing_task["result"] = "complete"
+        existing_task["result_data"] = json.dumps(variables)
+
+        # Perform upsert using insert_row
+        get_kotoba_client().insert_row("vertex_human_task", existing_task)
+    else:
+        LOG.warning("Could not find human task with task_code %s to mark as completed.", task_code_val)
 
 
 # ---------------------------------------------------------------------------
@@ -349,8 +337,12 @@ def register_routes(app: Any) -> None:
 
 
 def inbox_count() -> int:
-    row = fetch_one(
-        "SELECT COUNT(*) FROM vertex_human_task "
-        "WHERE owner_did = 'did:web:bpmn.etzhayyim.com' AND status = 'pending'"
+    # R0: Multi-predicate count requires in-Python filtering.
+    tasks = get_kotoba_client().select_where(
+        "vertex_human_task",
+        "owner_did",
+        "did:web:bpmn.etzhayyim.com",
+        columns=["status"]
     )
-    return int(row[0]) if row else 0
+    count = sum(1 for task in tasks if task.get("status") == "pending")
+    return count

@@ -29,6 +29,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from live_gate import LiveGate, require
+
 TITHE_BPS = 1000  # 10% TitheRouter split (ADR-2605192130); basis points of 10_000
 
 
@@ -116,3 +118,46 @@ def events_from_seed(records: list[dict]) -> list[DisplacementEvent]:
         surplus_usd_micros_yr=int(r.get(":event/surplus-usd-micros-yr", 0)),
         funded=bool(r.get(":event/funded", False)),
     ) for r in records]
+
+
+# ── R1(live) — binding displacement commit (invariant-adjacent: Council Lv7+) ──────────────────
+@dataclass(frozen=True)
+class CouplingCommit:
+    cohort_id: str
+    displacing_actor: str
+    committed_usd_micros_yr: int
+    operator_did: str
+    council_level: int
+    member_signature: str
+    admissible: bool = True
+
+
+def commit_live(
+    event: DisplacementEvent,
+    earmark: CohortEarmark,
+    committed_floor_usd_micros_yr: int,
+    gate: LiveGate,
+    *,
+    env: dict[str, str] | None = None,
+) -> CouplingCommit:
+    """Bind a displacement to its funded cohort earmark (LIVE), or refuse.
+
+    Two refusals stack, both by construction:
+      1. `live_gate.require` raises `LiveGateRefused` unless the operator flag + attestation +
+         **Council Lv7+** (invariant-adjacent — this binds the robotics displacement wave) +
+         member signature are present (the default);
+      2. the G2 `coupling_gate` raises `ValueError` if the cohort is not funded or the committed
+         sustenance exceeds the funded earmark (no live displacement without a funded cohort).
+    """
+    require(gate, env=env)  # refuses by default; couple leg requires Lv7
+    g = coupling_gate(event, earmark, committed_floor_usd_micros_yr)
+    if not g["admissible"]:
+        raise ValueError(g["reason"])  # G2 — no live displacement without a funded cohort
+    return CouplingCommit(
+        cohort_id=earmark.cohort_id,
+        displacing_actor=earmark.displacing_actor,
+        committed_usd_micros_yr=int(committed_floor_usd_micros_yr),
+        operator_did=gate.operator_did,
+        council_level=gate.council_level,
+        member_signature=gate.member_signature,
+    )

@@ -1,11 +1,11 @@
 ---
 id: adr-2606052300-fuchi-maintainer-sustenance-allocator-r0
-title: "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0"
-status: proposed
+title: "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0+R1"
+status: accepted
 doc_type: adr
 topic: fuchi-maintainer-sustenance-allocator
 authoritative: true
-last_verified: 2026-06-05
+last_verified: 2026-06-06
 priority: 5.0
 axis: architecture
 weight: 0.50
@@ -29,10 +29,10 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0
+# ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0+R1
 
-**Status**: proposed
-**Date**: 2026-06-05
+**Status**: accepted (design + offline/live-but-gated implementation; live execution Council-ratification-gated)
+**Date**: 2026-06-05 · **Closed**: 2026-06-06
 **Deciders**: Jun Kawasaki
 
 # Context
@@ -227,6 +227,38 @@ structural-invariant suite grew to 36 tests covering the R1 `:prov/:ballot/:vote
 :earmark/:couple` invariants (including the exact 10% TitheRouter split and the G2 gate) in all
 three places.
 
+# R1 (live-but-gated) addendum (landed offline, 2026-06-06)
+
+Each outward leg now has a **live execution path that refuses by default** — the deliverable being
+the *refusal*, exactly as yadori's live RDAP fetch refuses without `YADORI_ALLOW_LIVE_RDAP=1`. The
+single membrane is **`methods/live_gate.py`**:
+
+- `LiveGate(leg, operator_did, council_level, member_signature)` + `require(gate, env=…)`. A live
+  leg is admissible only when ALL of: (1) the operator process flag `FUCHI_ALLOW_LIVE_<LEG>=1` is
+  set; (2) `operator_did` is a non-empty operator/community attestation; (3) `council_level ≥`
+  the leg's minimum — **Lv6** for `provision`/`vote`/`book`, **Lv7** for `couple` (invariant-adjacent:
+  it binds the robotics displacement wave); (4) `member_signature` is a non-empty member-signed ref
+  (no-server-key — a `:server`/empty signer is refused). Any unmet condition ⇒ `LiveGateRefused`
+  naming the first failure.
+- The four legs: `provision.dispatch_live` (→ `DispatchedProvision`, intent stays `published=False`,
+  receipt carries the authorized-to-publish flag), `vote.finalize_binding` (wraps strict `finalize`
+  — the 48h timelock still raises `ValueError` if called early, so the gate cannot short-circuit it),
+  `book.write_live` (→ `BookingReceipt`, cash≡0 on every entry), `couple.commit_live` (requires Lv7
+  AND stacks the G2 `coupling_gate` `ValueError` — both refusals must clear).
+- **The gate is an authorization membrane, never an invariant override.** cash≡0 (G2), no-server-key
+  (G9), in-kind-only rails (G3), the vote timelock, and the G2 funded-cohort gate all hold in live
+  mode exactly as offline. There is no code path in which `require()` returns a value that lets a
+  caller move cash or hold a server key.
+- `analyze.py` emits a live-gate section (every leg **REFUSED** in a dry run, since no flag /
+  attestation / Council / signature is present) + `out/live-gate-status.kotoba.edn`.
+
+**174 tests green** (+25: 22 `test_live_gate.py` covering default-refusal, each missing condition,
+per-leg env flag, `couple`=Lv7, the timelock-still-strict and G2-still-refuses stacking, and
+invariants-held-in-live-mode; +3 `test_charter_invariants.py` locks: every leg refused by default,
+`couple` is invariant-adjacent Lv7, live mode holds cash≡0 + no-server-key). Actual live execution
+(real dispatch / on-chain binding vote / live toritate write / binding displacement commit) still
+requires the env flag flipped **and** Council ratification — it cannot happen on this branch.
+
 # Consequences
 
 - **Positive**: the labor-liberation mission gains its missing limb — a structural, auditable way
@@ -241,3 +273,29 @@ three places.
 - **Zero invariant amendments** — STRENGTHENS cash≡0 (ADR-2605301020), no-server-key
   (ADR-2605231525), payoff帰属=etzhayyim, Charter-Rider §2(b), and the non-profit / donation-only
   invariants.
+
+# Closing (R0 + R1 a/b/c/d + R1 live-but-gated, 2026-06-06)
+
+扶持 is delivered as the charter-clean inverse of a business investment fund, end-to-end and
+offline-complete:
+
+- **Pipeline**: `covenant → envelope → allocate → route → vote → provision → book → couple`, every
+  stage coded and tested; the investment-fund vocabulary (equity / ROI / debt / carry / exit /
+  cash) is structurally unrepresentable in all three places (schema · lexicon · code).
+- **Live edge**: every outward leg has a live path that **refuses by default** behind
+  `methods/live_gate.py` (operator flag + attestation + Council Lv6+/Lv7+ + member signature). The
+  gate authorizes; it never overrides cash≡0 / no-server-key / in-kind-only / the vote timelock /
+  the G2 funded-cohort gate.
+- **Evidence**: **174 tests green** (`./run_tests.sh`); `analyze.py` emits the dry-run scorecard +
+  `out/*.kotoba.edn` (incl. `live-gate-status.kotoba.edn` showing all four legs refused); DID
+  registered in `INFRA_ACTORS` + actor-profile seed; manifest / deps.toml / repo-root CLAUDE.md row
+  reconciled.
+- **What remains gated** (cannot happen on this branch): real provisioning dispatch, on-chain
+  binding vote, live toritate write, and binding displacement coupling — each needs the
+  `FUCHI_ALLOW_LIVE_<LEG>` flag flipped **and** Council ratification (Lv6+, Lv7+ for `couple`).
+
+This ADR is **accepted and closed** as a design + implementation record: 扶持 is feature-complete
+for R0 + R1 (offline) + R1 (live-but-gated), with the design decision and the merged implementation
+accepted. What remains is *operational*, not design: actual live execution of any outward leg still
+requires the `FUCHI_ALLOW_LIVE_<LEG>` flag flipped **and** Council ratification (Lv6+, Lv7+ for
+`couple`) — that gate is the deliverable, not a TODO. No invariant was amended.

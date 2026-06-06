@@ -72,6 +72,7 @@ the one-per-country dedup. See [`MATURITY.md`](MATURITY.md) (per-iteration recor
 ├── scripts/                     # check_seed_integrity · atlas_summary · coverage_matrix
 │   │                            #   · world_coverage · g20_coverage · reconcile · export_geojson
 ├── cells/reconcile/             # ReconcileCell + tests (incl. integrity-guard self-tests)
+├── cells/world_model/           # WorldModelCell — ooyake↔tsumugi cross-actor reconcile + tests
 ├── deploy/run_tests.sh          # offline gate runner (integrity + coverage + reconcile + …)
 └── viz/
     ├── gov-atlas.geojson         # 4,521-feature world-government map (generated)
@@ -89,7 +90,55 @@ the one-per-country dedup. See [`MATURITY.md`](MATURITY.md) (per-iteration recor
 - `scripts/atlas_summary.py` — by level / branch / sourcing / jurisdiction.
 - `scripts/coverage_matrix.py` — per-country presence across 35 functional categories.
 - `scripts/export_geojson.py` — derive `viz/gov-atlas.geojson` from the registry.
+- `scripts/world_model.py` — cross-actor **world-model reconcile**: join the
+  structural atlas (`:gov.unit/*`) to tsumugi's karma graph (`:organism/*`) over the
+  shared `:gov.unit/organism` id-space; `--edn out/` writes the proposed world-model
+  artifact. Offline, read-side proposal (G9) — see "World model" below.
 - open `viz/gov-atlas-map.htm` in a browser to explore the map.
+
+## World model (cross-actor reconcile)
+
+ooyake is **structure**; tsumugi (`:organism/* + :en/*`) is **karma** (縁/取). The
+two are joined per-entity by the `:gov.unit/organism` ref — the same public body
+seen from both graphs. `cells/world_model/` performs that reconcile OFFLINE and
+deterministically, classifying every **power-bearing** unit (country / supranational
+/ cabinet / ministry / agency / bureau / legislature / court — local 窓口/ward/
+division are **excluded by construction**, civic-wayfinding never a target-list) as:
+
+- **confirmed** — explicit `:gov.unit/organism` whose target organism exists
+  (today: `gov.jpn.meti → org.state.jp.meti`);
+- **derived** — derived organism id (`gov.X → org.gov.X`) already in the karma graph;
+- **dangling** — explicit link with a MISSING target (G5 flag);
+- **proposed** — power-bearing, no counterpart → a `:latent` / `:representative`
+  organism stub + proposed link written to `out/world-model.kotoba.edn`.
+
+It also flags **orphan** governmental organisms (in the karma graph, absent from the
+atlas) and counts non-gov organisms (corps/roles → kabuto/kanjo/tsumugi, correctly
+out of atlas scope). It is a **read-side proposal**: it never mutates a committed
+seed — applying a proposed link is a separate operator-gated step (`mode="live"`
+raises). Run: `python3 scripts/world_model.py --edn out/`.
+
+Beyond matched nodes, the world model resolves and persists the actual cross-graph
+join:
+
+- **Government stewardship paths** — reconciled gov-unit → its organism →
+  `:tends`/`:custodies` 縁 → entity. The report's `government_stewardship` view + the
+  `:government-stewardship` block in the artifact (e.g. `gov.eu --:tends--> Apple`,
+  `gov.usa.sec --:tends--> NVIDIA`). 9 reconciled gov nodes wire **20 paths** today.
+- **Bidirectional query** — `regulators_of(entity)` (reverse: who governs X?) and
+  `stewarded_entities_of(gov_unit)` (forward). Consumed by tsumugi/danjo/kanae via
+  `deploy/consumers_example.py::world_model_regulators`; CLI:
+  `scripts/world_model.py --entity org.corp.us.apple` → `{gov.eu, gov.usa.sec}`.
+- **kotoba persistence** — `deploy/ingest_world_model.py` projects the reconciled,
+  factual model (NOT the proposals) into the canonical named graph **`world-model-v1`**
+  (`world.gov` entities with `world/organism` + `world/stewards` relations). Dry-run
+  by default; live ingest operator-gated (`KOTOBA_TOKEN`); never auto-seals.
+- **Drift-lock** — `cells/world_model/test_consistency.py` binds the registry links,
+  tsumugi seed, coverage gate, manifest, ingest graph name, and runner to one SSoT.
+
+The 9 confirmed links today (METI, FSA, BOJ, SEC, Fed, EU, UK CMA, US DOJ, JFTC) are
+all publicly-documented regulator→entity ties; the rest of the atlas is honestly
+`:proposed`/`:representative`. All offline + gated; `bash deploy/run_tests.sh`.
 
 ## Query surface (read-only XRPC)
 

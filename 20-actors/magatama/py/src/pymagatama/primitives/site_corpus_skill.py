@@ -17,7 +17,7 @@ import time
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("site_corpus2skill")
 
@@ -57,26 +57,24 @@ def task_site_corpus2skill_distill_domain(
     LOG.info("corpus2skill.distillDomain domain=%s version=%s", domain, version_tag)
 
     # Load embeddings
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT vertex_id, embedding, ivf_cluster_id, markdown, url
-            FROM vertex_wet_chunk
-            WHERE domain = %s
-              AND embedding IS NOT NULL
-            LIMIT {int(sample_limit)}
-            """,
-            (domain,),
-        )
-        rows = cur.fetchall()
+    kotoba_client = get_kotoba_client()
+    # R0: Filtering for 'embedding IS NOT NULL' in Python
+    rows = kotoba_client.select_where(
+        "vertex_wet_chunk",
+        "domain",
+        domain,
+        columns=["vertex_id", "embedding", "ivf_cluster_id", "markdown", "url"],
+        limit=int(sample_limit)
+    )
+    rows = [row for row in rows if row.get("embedding") is not None]
 
     if not rows:
         return {"ok": False, "error": "no embedded chunks", "domain": domain}
 
-    vids = [r[0] for r in rows]
-    embs = np.array([r[1] for r in rows], dtype=np.float32)
-    cluster_ids = [r[2] for r in rows]
-    markdowns = [r[3] for r in rows]
+    vids = [r["vertex_id"] for r in rows]
+    embs = np.array([r["embedding"] for r in rows], dtype=np.float32)
+    cluster_ids = [r["ivf_cluster_id"] for r in rows]
+    markdowns = [r["markdown"] for r in rows]
 
     def _kmeans_assign(vectors: np.ndarray, k: int) -> tuple[np.ndarray, np.ndarray]:
         k = min(k, len(vectors))
@@ -108,37 +106,38 @@ def task_site_corpus2skill_distill_domain(
     ) -> None:
         if dry_run:
             return
-        now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_corpus_skill_node
-                  (node_id, owner_did, parent_id, level, domain,
-                   summary, doc_count, centroid, label,
-                   distill_version, status)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'active')
-                """,
-                (
-                    node_id, _OWNER_DID, parent_id, level, domain,
-                    summary, doc_count, list(map(float, centroid)), label,
-                    version_tag,
-                ),
-            )
+        kotoba_client = get_kotoba_client()
+        row_dict = {
+            "node_id": node_id,
+            "owner_did": _OWNER_DID,
+            "parent_id": parent_id,
+            "level": level,
+            "domain": domain,
+            "summary": summary,
+            "doc_count": doc_count,
+            "centroid": centroid, # already a list of floats
+            "label": label,
+            "distill_version": version_tag,
+            "status": "active",
+        }
+        kotoba_client.insert_row("vertex_corpus_skill_node", row_dict)
 
     def _insert_leaf_edges(node_id: str, chunk_vids: list[str], chunk_cluster_ids: list[int | None]) -> None:
         if dry_run:
             return
-        with sync_cursor() as cur:
-            for vid, cid in zip(chunk_vids, chunk_cluster_ids):
-                edge_id = hashlib.sha256(f"{node_id}:{vid}:{version_tag}".encode()).hexdigest()[:32]
-                cur.execute(
-                    """
-                    INSERT INTO edge_skill_doc
-                      (edge_id, node_id, chunk_vertex_id, domain, cluster_id, distill_version, distance)
-                    VALUES (%s, %s, %s, %s, %s, %s, NULL)
-                    """,
-                    (edge_id, node_id, vid, domain, cid, version_tag),
-                )
+        kotoba_client = get_kotoba_client()
+        for vid, cid in zip(chunk_vids, chunk_cluster_ids):
+            edge_id = hashlib.sha256(f"{node_id}:{vid}:{version_tag}".encode()).hexdigest()[:32]
+            row_dict = {
+                "edge_id": edge_id,
+                "node_id": node_id,
+                "chunk_vertex_id": vid,
+                "domain": domain,
+                "cluster_id": cid,
+                "distill_version": version_tag,
+                "distance": None,
+            }
+            kotoba_client.insert_row("edge_skill_doc", row_dict)
 
     # L0 root
     root_id = f"cs:{domain}:root:{version_tag}"
@@ -229,35 +228,45 @@ def corpus_skill_navigate_sync(
     Returns: {domain, cluster_ids, node_path, leaf_node_id, hop_count, distill_version}
     """
     # Find latest distill_version for domain
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT distill_version
-            FROM vertex_corpus_skill_node
-            WHERE domain = %s AND status = 'active' AND level = 0
-            ORDER BY distill_version DESC
-            LIMIT 1
-            """,
-            (domain,),
-        )
-        row = cur.fetchone()
+    kotoba_client = get_kotoba_client()
+    # R0: Order by and limit 1 to find the latest distill_version.
+    query_edn = f"""
+    [:find (max ?version) .
+     :where
+       [?e :vertex_corpus_skill_node/domain "{domain}"]
+       [?e :vertex_corpus_skill_node/status "active"]
+       [?e :vertex_corpus_skill_node/level 0]
+       [?e :vertex_corpus_skill_node/distill_version ?version]]
+    """
+    distill_version = kotoba_client.q(query_edn)
+    if distill_version is not None:
+        distill_version = str(distill_version) # Ensure it's a string
+
+    # The original code gets a 'row' then 'row[0]'.
+    # If distill_version is None, the original code would have row as None.
+    # So we need to handle that.
+    row = [distill_version] if distill_version else None
     if not row:
         return {"domain": domain, "cluster_ids": [], "node_path": [], "hop_count": 0}
 
     distill_version = row[0]
 
     # Start from root
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT node_id, label, summary
-            FROM vertex_corpus_skill_node
-            WHERE domain = %s AND distill_version = %s AND level = 0 AND status = 'active'
-            LIMIT 1
-            """,
-            (domain, distill_version),
-        )
-        root = cur.fetchone()
+    kotoba_client = get_kotoba_client()
+    # R0: Multiple predicates for selecting the root node.
+    query_edn = f"""
+    [:find ?node_id ?label ?summary .
+     :where
+       [?e :vertex_corpus_skill_node/domain "{domain}"]
+       [?e :vertex_corpus_skill_node/distill_version "{distill_version}"]
+       [?e :vertex_corpus_skill_node/level 0]
+       [?e :vertex_corpus_skill_node/status "active"]
+       [?e :vertex_corpus_skill_node/node_id ?node_id]
+       [?e :vertex_corpus_skill_node/label ?label]
+       [?e :vertex_corpus_skill_node/summary ?summary]]
+    """
+    root = kotoba_client.q(query_edn)
+
     if not root:
         return {"domain": domain, "cluster_ids": [], "node_path": [], "hop_count": 0}
 
@@ -268,17 +277,19 @@ def corpus_skill_navigate_sync(
     for hop in range(max_hops):
         # Load children
         current_level = hop  # root=0, after hop 1 we're at level 1, etc.
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT node_id, label, summary
-                FROM vertex_corpus_skill_node
-                WHERE parent_id = %s AND distill_version = %s AND status = 'active'
-                LIMIT 32
-                """,
-                (current_node_id, distill_version),
-            )
-            children = cur.fetchall()
+        # R0: Multiple predicates for selecting child nodes.
+        query_edn = f"""
+        [:find ?node_id ?label ?summary
+         :where
+           [?e :vertex_corpus_skill_node/parent_id "{current_node_id}"]
+           [?e :vertex_corpus_skill_node/distill_version "{distill_version}"]
+           [?e :vertex_corpus_skill_node/status "active"]
+           [?e :vertex_corpus_skill_node/node_id ?node_id]
+           [?e :vertex_corpus_skill_node/label ?label]
+           [?e :vertex_corpus_skill_node/summary ?summary]
+         :limit 32]
+        """
+        children = kotoba_client.q(query_edn)
 
         if not children:
             break
@@ -310,29 +321,32 @@ def corpus_skill_navigate_sync(
         hop_count += 1
 
         # Check if we've reached a leaf
-        with sync_cursor() as cur:
-            cur.execute(
-                "SELECT level FROM vertex_corpus_skill_node WHERE node_id = %s",
-                (current_node_id,),
-            )
-            level_row = cur.fetchone()
+        kotoba_client = get_kotoba_client()
+        level_row_dict = kotoba_client.select_first_where(
+            "vertex_corpus_skill_node",
+            "node_id",
+            current_node_id,
+            columns=["level"]
+        )
+        level_row = [level_row_dict["level"]] if level_row_dict else None
         if level_row and int(level_row[0]) >= 3:
             break
 
     # Get cluster_ids from edge_skill_doc for the leaf node
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT DISTINCT cluster_id
-            FROM edge_skill_doc
-            WHERE node_id = %s AND distill_version = %s AND cluster_id IS NOT NULL
-            LIMIT 64
-            """,
-            (current_node_id, distill_version),
-        )
-        cluster_rows = cur.fetchall()
+    # R0: Multiple predicates and DISTINCT for selecting cluster_ids.
+    query_edn = f"""
+    [:find ?cid
+     :where
+       [?e :edge_skill_doc/node_id "{current_node_id}"]
+       [?e :edge_skill_doc/distill_version "{distill_version}"]
+       [?e :edge_skill_doc/cluster_id ?cid]
+     :limit 64]
+    """
+    cluster_rows_raw = kotoba_client.q(query_edn)
+    # q returns a list of tuples, so we need to flatten and get distinct values
+    cluster_rows = list(set([row[0] for row in cluster_rows_raw]))
 
-    cluster_ids = [int(r[0]) for r in cluster_rows]
+    cluster_ids = [int(r) for r in cluster_rows]
 
     return {
         "domain": domain,

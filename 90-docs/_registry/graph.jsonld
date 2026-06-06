@@ -11988,6 +11988,26 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606013600-browser-kotoba-node-sovereign-tier2",
+      "type": "TechArticle",
+      "title": "ADR-2606013600: browser kotoba node — kqe-in-wasm as the sovereign client-side apex tier-2",
+      "status": "proposed",
+      "topic": "browser-kotoba-node",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the browser kotoba node (kotoba-wasm) as the client-side actor-resolution path",
+        "the sovereignty layering of the apex DID-web resolver (kotoba canonical + compiled fallback; KV is an optional edge cache)",
+        "the \"where to host kotoba\" answer — the browser IS the node; IPFS pinning is the only durable, commodity tier"
+      ],
+      "related": [
+        "doc:2606015400",
+        "doc:2606015600",
+        "doc:2606014500",
+        "doc:2606051500"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606013600-kotoba-persistent-ipns-graph-heads",
       "type": "TechArticle",
       "title": "ADR-2606013600: kotoba durable IPNS graph heads — disk-persistent registry replaces in-memory default",
@@ -13334,7 +13354,7 @@
       "id": "doc:adr-2606042330-entity-as-actor-society-wide-social-mirror-graph",
       "type": "TechArticle",
       "title": "ADR-2606042330: entity-as-actor — society-wide entity socialization via keyless mirror-actors",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "entity-as-actor-social-mirror-graph",
       "authoritative": true,
       "authoritativeFor": [
@@ -13351,7 +13371,7 @@
         "doc:2606012600",
         "doc:2606041827"
       ],
-      "lastVerified": "2026-06-04"
+      "lastVerified": "2026-06-06"
     },
     {
       "id": "doc:adr-2606051200-hotaru-inp-iii-v-substrate-commons-r0",
@@ -13456,8 +13476,8 @@
     {
       "id": "doc:adr-2606052300-fuchi-maintainer-sustenance-allocator-r0",
       "type": "TechArticle",
-      "title": "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0",
-      "status": "proposed",
+      "title": "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0+R1",
+      "status": "accepted",
       "topic": "fuchi-maintainer-sustenance-allocator",
       "authoritative": true,
       "authoritativeFor": [
@@ -13469,6 +13489,43 @@
         "doc:adr-2605263500-wakai-mutual-aid-tier-b-actor-r0",
         "doc:adr-2605301036-mission-funding-earned-revenue-arm",
         "doc:adr-2606012100-okaimono-provisioning-commons"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606052300-matsurigoto-egov-execution-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606052300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)",
+      "status": "proposed",
+      "topic": "matsurigoto-egov-execution-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "matsurigoto-egov-execution-commons",
+        "cofog-egov-service-standard"
+      ],
+      "related": [
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
+      "status": "proposed",
+      "topic": "tasuke-cybercrime-victim-support",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tasuke-cybercrime-victim-support-membrane",
+        "free-victim-relief-document-generation"
+      ],
+      "related": [
+        "doc:adr-2605301400-tadori-onchain-tx-tracing",
+        "doc:adr-2605312500-kurashimori-consumer-protection-concierge",
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge",
+        "doc:adr-2605302130-himotoki-active-disclosure-request-filer",
+        "doc:adr-2605262700-chigiri-legal-procedure-substrate"
       ],
       "lastVerified": "2026-06-05"
     },

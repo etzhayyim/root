@@ -7,7 +7,7 @@
 // did:web:etzhayyim.com:actor:corp-<...> — keyless mirror, NOT the entity
 // itself (no impersonation; verificationMethod:[]; isMirror=true).
 
-export const CORP_TOTAL_COUNT = 1733;
+export const CORP_TOTAL_COUNT = 1741;
 export const CORP_GENERATED_AT = "2026-06-04T00:00:00+00:00";
 
 // handle → displayName. Membership check is O(1) via .has(); name powers the
@@ -1745,5 +1745,13 @@ export const CORP_ENTITIES: ReadonlyMap<string, string> = new Map([
   ["corp-zw-econet", "Econet Wireless Zimbabwe"],
   ["river-aichi-yahagi", "Aichi Yahagi"],
   ["role-toyota-chair", "Toyota Chair"],
+  ["state-eu", "EU"],
+  ["state-jp-boj", "JP BOJ"],
+  ["state-jp-fsa", "JP FSA"],
+  ["state-jp-jftc", "JP Jftc"],
   ["state-jp-meti", "JP Meti"],
+  ["state-uk-cma", "UK CMA"],
+  ["state-us-doj-antitrust", "US DOJ Antitrust"],
+  ["state-us-fed", "US FED"],
+  ["state-us-sec", "US SEC"],
 ]);

@@ -9,8 +9,7 @@ Task types:
 Backs com.etzhayyim.apps.lawfirm.tenantBootstrap lexicon
 (00-contracts/lexicons/com/etzhayyim/apps/lawfirm/tenantBootstrap.json).
 
-Schema target: vertex_lawfirm_tenant + vertex_lawfirm_tenant_event +
-edge_lawfirm_tenant_lead (added by 20260509150000 migration).
+Schema target: kotoba Datom log (vertex_lawfirm_tenant, vertex_lawfirm_tenant_event, edge_lawfirm_tenant_lead).
 
 ADR-0036 Hyperdrive direct.
 ADR-0029 depth-1 root DID per tenant (did:web:<slug>.lawfirm.etzhayyim.com).
@@ -21,7 +20,10 @@ from __future__ import annotations
 import datetime as _dt
 import logging
 import re
+from datetime import datetime, timezone
 from typing import Any
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("lawfirm.tenant")
 
@@ -32,29 +34,14 @@ _BUILT_OUT_REGIONS = {"vultr-lax"}  # Phase 1 only
 _VALID_TIERS = {"sandbox", "saas-prod"}
 
 
-def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+def _now_iso() -> datetime:
+    return datetime.now(tz=timezone.utc)
 
 
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
 
 
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
+
+
 
 
 def _enc_field(plaintext: str) -> str:
@@ -96,10 +83,11 @@ async def task_lawfirm_tenant_bootstrap(
     # Idempotency check: existing (slug, tier) pair
     tenant_id = f"{tier.replace('saas-', '')}-{slug}" if tier == "sandbox" else f"prod-{slug}"
     vertex_id = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenant/{tenant_id}"
-    existing = _query(
-        "SELECT vertex_id, status, tier FROM vertex_lawfirm_tenant WHERE slug = :slug AND tier = :tier",
-        {"slug": slug, "tier": tier},
+    existing_candidates = get_kotoba_client().select_where(
+        "vertex_lawfirm_tenant", "slug", slug,
+        columns=["vertex_id", "status", "tier"]
     )
+    existing = [row for row in existing_candidates if row.get("tier") == tier]
     if existing:
         row = existing[0]
         return {
@@ -115,9 +103,9 @@ async def task_lawfirm_tenant_bootstrap(
         }
 
     # Different (slug, tier=other) collision check
-    other_tier = _query(
-        "SELECT tier, legal_name, country FROM vertex_lawfirm_tenant WHERE slug = :slug",
-        {"slug": slug},
+    other_tier = get_kotoba_client().select_where(
+        "vertex_lawfirm_tenant", "slug", slug,
+        columns=["tier", "legal_name", "country"]
     )
     if other_tier:
         for r in other_tier:
@@ -131,59 +119,41 @@ async def task_lawfirm_tenant_bootstrap(
     now = _now_iso()
     consent_str = ",".join(consent_regions or []) if consent_regions else ""
 
-    if not _execute(
-        "INSERT INTO vertex_lawfirm_tenant "
-        "(vertex_id, tenant_id, slug, tenant_did, legal_name, country, "
-        " data_region, tier, status, pilot_lead_id, admin_email_ct, consent_regions, "
-        " pds_url, xrpc_endpoint, kpi_dashboard_url, "
-        " provisioned_at, created_at, sensitivity_ord, owner_did) "
-        "VALUES (:vid, :tid, :slug, :did, :legal, :country, "
-        " :region, :tier, 'active', :lead, :admin, :consent, "
-        " :pds, 'https://lawfirm.etzhayyim.com', :kpi, "
-        " :now, :now, 200, :owner)",
-        {
-            "vid": vertex_id, "tid": tenant_id, "slug": slug, "did": tenant_did,
-            "legal": legal_name, "country": country, "region": data_region, "tier": tier,
-            "lead": pilot_lead_id or None,
-            "admin": _enc_field(admin_email),
-            "consent": consent_str,
-            "pds": pds_url, "kpi": kpi_url,
-            "now": now, "owner": _FIRM_DID,
-        },
-    ):
+    row_data = {
+        "vertex_id": vertex_id, "tenant_id": tenant_id, "slug": slug, "tenant_did": tenant_did,
+        "legal_name": legal_name, "country": country, "data_region": data_region, "tier": tier,
+        "status": "active", "pilot_lead_id": pilot_lead_id or None,
+        "admin_email_ct": _enc_field(admin_email),
+        "consent_regions": consent_str,
+        "pds_url": pds_url, "xrpc_endpoint": "https://lawfirm.etzhayyim.com",
+        "kpi_dashboard_url": kpi_url,
+        "provisioned_at": now, "created_at": now,
+        "sensitivity_ord": 200, "owner_did": _FIRM_DID,
+    }
+    if not get_kotoba_client().insert_row("vertex_lawfirm_tenant", row_data):
         return {"ok": False, "error": "PersistFailed"}
 
     # Audit event
-    event_vid = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/{tenant_id}-provisioned-{now}"
-    _execute(
-        "INSERT INTO vertex_lawfirm_tenant_event "
-        "(vertex_id, tenant_id, event_kind, from_status, to_status, "
-        " from_tier, to_tier, reason, actor_did, occurred_at, "
-        " created_at, sensitivity_ord, owner_did) "
-        "VALUES (:vid, :tid, 'provisioned', NULL, 'active', "
-        " NULL, :tier, 'tenantBootstrap procedure', :actor, :now, "
-        " :now, 200, :owner)",
-        {
-            "vid": event_vid, "tid": tenant_id, "tier": tier,
-            "actor": _FIRM_DID, "now": now, "owner": _FIRM_DID,
-        },
-    )
+    event_vid = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/{tenant_id}-provisioned-{now.isoformat()}"
+    event_row_data = {
+        "vertex_id": event_vid, "tenant_id": tenant_id, "event_kind": "provisioned",
+        "from_status": None, "to_status": "active", "from_tier": None, "to_tier": tier,
+        "reason": "tenantBootstrap procedure", "actor_did": _FIRM_DID,
+        "occurred_at": now, "created_at": now,
+        "sensitivity_ord": 200, "owner_did": _FIRM_DID,
+    }
+    get_kotoba_client().insert_row("vertex_lawfirm_tenant_event", event_row_data)
 
     # tenant ↔ lead edge (sandbox tier only)
     if tier == "sandbox" and pilot_lead_id:
         lead_vid = f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.lead/{pilot_lead_id}"
         edge_id = f"edge:tenant:{tenant_id}:for-lead:{pilot_lead_id}"
-        _execute(
-            "INSERT INTO edge_lawfirm_tenant_lead "
-            "(edge_id, src_vid, dst_vid, tenant_id, lead_id, rel_kind, "
-            " created_at, sensitivity_ord, owner_did) "
-            "VALUES (:eid, :src, :dst, :tid, :lead, 'sandbox_for_lead', "
-            " :now, 200, :owner)",
-            {
-                "eid": edge_id, "src": vertex_id, "dst": lead_vid,
-                "tid": tenant_id, "lead": pilot_lead_id, "now": now, "owner": _FIRM_DID,
-            },
-        )
+        edge_row_data = {
+            "edge_id": edge_id, "src_vid": vertex_id, "dst_vid": lead_vid,
+            "tenant_id": tenant_id, "lead_id": pilot_lead_id, "rel_kind": "sandbox_for_lead",
+            "created_at": now, "sensitivity_ord": 200, "owner_did": _FIRM_DID,
+        }
+        get_kotoba_client().insert_row("edge_lawfirm_tenant_lead", edge_row_data)
 
     LOG.info(
         "tenant provisioned slug=%s tier=%s did=%s lead=%s",
@@ -222,9 +192,9 @@ async def task_lawfirm_tenant_suspend(
     if not slug:
         return {"ok": False, "error": "slug required"}
 
-    rows = _query(
-        "SELECT vertex_id, tenant_id, status FROM vertex_lawfirm_tenant WHERE slug = :slug",
-        {"slug": slug},
+    rows = get_kotoba_client().select_where(
+        "vertex_lawfirm_tenant", "slug", slug,
+        columns=["vertex_id", "tenant_id", "status"]
     )
     if not rows:
         return {"ok": False, "error": "TenantNotFound"}
@@ -234,24 +204,21 @@ async def task_lawfirm_tenant_suspend(
     for row in rows:
         if row.get("status") == "suspended":
             continue
-        if _execute(
-            "UPDATE vertex_lawfirm_tenant SET status = 'suspended', suspended_at = :now "
-            "WHERE vertex_id = :vid",
-            {"now": now, "vid": row["vertex_id"]},
-        ):
-            event_vid = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/{row['tenant_id']}-suspended-{now}"
-            _execute(
-                "INSERT INTO vertex_lawfirm_tenant_event "
-                "(vertex_id, tenant_id, event_kind, from_status, to_status, "
-                " reason, actor_did, occurred_at, created_at, sensitivity_ord, owner_did) "
-                "VALUES (:vid, :tid, 'suspended', :from, 'suspended', "
-                " :reason, :actor, :now, :now, 200, :owner)",
-                {
-                    "vid": event_vid, "tid": row["tenant_id"],
-                    "from": row.get("status"), "reason": reason,
-                    "actor": _FIRM_DID, "now": now, "owner": _FIRM_DID,
-                },
-            )
+        update_data = {
+            "vertex_id": row["vertex_id"],
+            "status": "suspended",
+            "suspended_at": now,
+        }
+        if get_kotoba_client().insert_row("vertex_lawfirm_tenant", update_data):
+            event_vid = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/{row['tenant_id']}-suspended-{now.isoformat()}"
+            event_row_data = {
+                "vertex_id": event_vid, "tenant_id": row["tenant_id"],
+                "event_kind": "suspended", "from_status": row.get("status"),
+                "to_status": "suspended", "reason": reason,
+                "actor_did": _FIRM_DID, "occurred_at": now, "created_at": now,
+                "sensitivity_ord": 200, "owner_did": _FIRM_DID,
+            }
+            get_kotoba_client().insert_row("vertex_lawfirm_tenant_event", event_row_data)
             suspended += 1
 
     return {"ok": True, "suspended_count": suspended}
@@ -266,20 +233,22 @@ async def task_lawfirm_tenant_promote(
     if not slug:
         return {"ok": False, "error": "slug required"}
 
-    sandbox = _query(
-        "SELECT vertex_id, tenant_id, country, data_region "
-        "FROM vertex_lawfirm_tenant WHERE slug = :slug AND tier = 'sandbox' AND status = 'active'",
-        {"slug": slug},
+    sandbox_candidates = get_kotoba_client().select_where(
+        "vertex_lawfirm_tenant", "slug", slug,
+        columns=["vertex_id", "tenant_id", "country", "data_region", "tier", "status"]
     )
+    sandbox = [
+        row for row in sandbox_candidates
+        if row.get("tier") == "sandbox" and row.get("status") == "active"
+    ]
     if not sandbox:
         return {"ok": False, "error": "ActiveSandboxNotFound"}
 
     # Provision saas-prod tier reusing the same firm metadata
     src = sandbox[0]
-    legal_rows = _query(
-        "SELECT legal_name, admin_email_ct, consent_regions, pilot_lead_id "
-        "FROM vertex_lawfirm_tenant WHERE vertex_id = :vid",
-        {"vid": src["vertex_id"]},
+    legal_rows = get_kotoba_client().select_where(
+        "vertex_lawfirm_tenant", "vertex_id", src["vertex_id"],
+        columns=["legal_name", "admin_email_ct", "consent_regions", "pilot_lead_id"]
     )
     if not legal_rows:
         return {"ok": False, "error": "PromotionMetadataMissing"}
@@ -301,21 +270,16 @@ async def task_lawfirm_tenant_promote(
 
     # Audit promotion
     now = _now_iso()
-    event_vid = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/{src['tenant_id']}-promoted-{now}"
-    _execute(
-        "INSERT INTO vertex_lawfirm_tenant_event "
-        "(vertex_id, tenant_id, event_kind, from_status, to_status, "
-        " from_tier, to_tier, reason, actor_did, occurred_at, "
-        " created_at, sensitivity_ord, owner_did) "
-        "VALUES (:vid, :tid, 'promoted', 'active', 'active', "
-        " 'sandbox', 'saas-prod', :reason, :actor, :now, "
-        " :now, 200, :owner)",
-        {
-            "vid": event_vid, "tid": src["tenant_id"],
-            "reason": f"pilot conversion at USD {monthly_rate_usd}/mo",
-            "actor": _FIRM_DID, "now": now, "owner": _FIRM_DID,
-        },
-    )
+    event_vid = f"at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/{src['tenant_id']}-promoted-{now.isoformat()}"
+    event_row_data = {
+        "vertex_id": event_vid, "tenant_id": src["tenant_id"],
+        "event_kind": "promoted", "from_status": "active", "to_status": "active",
+        "from_tier": "sandbox", "to_tier": "saas-prod",
+        "reason": f"pilot conversion at USD {monthly_rate_usd}/mo",
+        "actor_did": _FIRM_DID, "occurred_at": now, "created_at": now,
+        "sensitivity_ord": 200, "owner_did": _FIRM_DID,
+    }
+    get_kotoba_client().insert_row("vertex_lawfirm_tenant_event", event_row_data)
 
     return {
         "ok": True,

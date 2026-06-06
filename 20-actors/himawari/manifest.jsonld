@@ -4,7 +4,7 @@
     "https://etzhayyim.com/ns/actor-manifest"
   ],
   "@type": "ActorManifest",
-  "id": "did:web:etzhayyim.com:himawari",
+  "id": "did:web:etzhayyim.com:actor:himawari",
   "name": "himawari",
   "displayName": "向日葵 — Solar PV Manufacturing",
   "displayNameJa": "向日葵",

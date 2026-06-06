@@ -12,6 +12,7 @@ SUITES=(
   "methods/test_vote.py"
   "methods/test_book.py"
   "methods/test_couple.py"
+  "methods/test_live_gate.py"
   "methods/test_analyze.py"
   "methods/test_charter_invariants.py"
   "methods/test_lexicons.py"

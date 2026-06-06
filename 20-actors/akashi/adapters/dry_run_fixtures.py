@@ -16,7 +16,7 @@ from regulator_bulk_fixture_parser import parse_regulator_bulk_fixture
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = Path(__file__).resolve().parents[3]
-LEX = REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "akashi"
+LEX = REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "akashi"
 REGULATOR_FIXTURE = ROOT / "fixtures" / "regulator_bulk" / "sample.json"
 REGULATOR_MISSING_OPTIONAL_FIXTURE = (
     ROOT / "fixtures" / "regulator_bulk" / "missing_optional_fields.json"

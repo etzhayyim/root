@@ -42,3 +42,14 @@ export {
   type AdapterCandidate,
   type RagLoraContext,
 } from "./rag-lora";
+
+export {
+  fetchGovProcedures,
+  tokenize,
+  retrieveProcedures,
+  buildKotobaContext,
+  groundedMessages,
+  type KotobaProcedure,
+  type RetrievedProcedure,
+  type GroundChatMessage,
+} from "./kotoba-ground";

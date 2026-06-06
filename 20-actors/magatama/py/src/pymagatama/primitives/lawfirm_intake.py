@@ -44,27 +44,6 @@ def _vid(kind: str) -> str:
     return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
-
-
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
-
-
 def _enc_field(plaintext: str) -> str:
     """App-layer field encryption placeholder.
     Production: signal:v1: prefix + AES-GCM with advocate-held key.
@@ -100,38 +79,29 @@ async def task_lawfirm_intake_submit(
     intake_uri = _vid("intake")
     intake_id = intake_uri.rsplit("/", 1)[-1]
 
-    _execute(
-        "INSERT INTO vertex_lawfirm_intake "
-        "(vertex_id, intake_id, tenant_id, submitted_at, lang, "
-        " client_name_cipher, client_email, client_phone_cipher, client_country, "
-        " matter_type_hint, jurisdiction_hint, cross_border_flag, summary_cipher, "
-        " consent_status, consent_ts, source_url, ip_country, "
-        " status, created_at, owner_did) "
-        "VALUES (:vid, :iid, :tid, :now, :lang, "
-        " :cnc, :ce, :cpc, :cc, "
-        " :mth, :jh, :xb, :sc, "
-        " :con, :now, :url, :ipc, "
-        " 'pending', :now, :owner)",
-        {
-            "vid":  intake_uri,
-            "iid":  intake_id,
-            "tid":  tenant_id,
-            "now":  _now_iso(),
-            "lang": lang,
-            "cnc":  _enc_field(client_name),
-            "ce":   client_email,
-            "cpc":  _enc_field(client_phone),
-            "cc":   client_country,
-            "mth":  matter_type_hint[:200],
-            "jh":   jurisdiction_hint,
-            "xb":   bool(cross_border_flag),
-            "sc":   _enc_field(summary[:8000]),
-            "con":  consent_status,
-            "url":  source_url[:500],
-            "ipc":  ip_country,
-            "owner": _FIRM_DID,
-        },
-    )
+    intake_row = {
+        "vertex_id":          intake_uri,
+        "intake_id":          intake_id,
+        "tenant_id":          tenant_id,
+        "submitted_at":       _now_iso(),
+        "lang":               lang,
+        "client_name_cipher": _enc_field(client_name),
+        "client_email":       client_email,
+        "client_phone_cipher": _enc_field(client_phone),
+        "client_country":     client_country,
+        "matter_type_hint":   matter_type_hint[:200],
+        "jurisdiction_hint":  jurisdiction_hint,
+        "cross_border_flag":  bool(cross_border_flag),
+        "summary_cipher":     _enc_field(summary[:8000]),
+        "consent_status":     consent_status,
+        "consent_ts":         _now_iso(),
+        "source_url":         source_url[:500],
+        "ip_country":         ip_country,
+        "status":             "pending",
+        "created_at":         _now_iso(),
+        "owner_did":          _FIRM_DID,
+    }
+    get_kotoba_client().insert_row("vertex_lawfirm_intake", intake_row)
 
     next_steps = _NEXT_STEPS_MESSAGES.get(lang, _NEXT_STEPS_MESSAGES["en"])
     LOG.info(
@@ -181,55 +151,42 @@ async def task_lawfirm_matter_create(
         f"opened: {_now_iso()}"
     )
 
-    _execute(
-        "INSERT INTO vertex_lawfirm_matter "
-        "(vertex_id, matter_id, tenant_id, intake_uri, client_did, "
-        " client_name_cipher, lead_advocate_did, co_counsel_dids, "
-        " matter_type, jurisdiction, subject_cipher, "
-        " fee_structure, fee_amount_minor, currency, "
-        " status, opened_at, bci_disclosure, "
-        " raw_metadata_json, created_at, owner_did) "
-        "VALUES (:vid, :mid, :tid, :iuri, :cdid, "
-        " :cnc, :lad, :ccd, "
-        " :mt, :jur, :sc, "
-        " :fs, :fam, :ccy, "
-        " :status, :now, :bci, "
-        " :raw, :now, :owner)",
-        {
-            "vid":   matter_uri,
-            "mid":   matter_id,
-            "tid":   tenant_id,
-            "iuri":  intake_uri,
-            "cdid":  client_did,
-            "cnc":   _enc_field(client_name),
-            "lad":   lead_advocate_did,
-            "ccd":   co_counsel_str,
-            "mt":    matter_type,
-            "jur":   jurisdiction,
-            "sc":    _enc_field(subject[:8000]),
-            "fs":    fee_structure,
-            "fam":   fee_amount_minor,
-            "ccy":   currency,
-            "status": initial_status,
-            "now":   _now_iso(),
-            "bci":   bci_disclosure[:1000],
-            "raw":   json.dumps({
-                "requester_did": requester_did,
-                "co_counsel": co_counsel_dids or [],
-                "skip_pwc": skip_pwc_clearance,
-            }, ensure_ascii=False)[:4000],
-            "owner": _FIRM_DID,
-        },
-    )
+    matter_row = {
+        "vertex_id":           matter_uri,
+        "matter_id":           matter_id,
+        "tenant_id":           tenant_id,
+        "intake_uri":          intake_uri,
+        "client_did":          client_did,
+        "client_name_cipher":  _enc_field(client_name),
+        "lead_advocate_did":   lead_advocate_did,
+        "co_counsel_dids":     co_counsel_str,
+        "matter_type":         matter_type,
+        "jurisdiction":        jurisdiction,
+        "subject_cipher":      _enc_field(subject[:8000]),
+        "fee_structure":       fee_structure,
+        "fee_amount_minor":    fee_amount_minor,
+        "currency":            currency,
+        "status":              initial_status,
+        "opened_at":           _now_iso(),
+        "bci_disclosure":      bci_disclosure[:1000],
+        "raw_metadata_json":   json.dumps({
+            "requester_did": requester_did,
+            "co_counsel": co_counsel_dids or [],
+            "skip_pwc": skip_pwc_clearance,
+        }, ensure_ascii=False)[:4000],
+        "created_at":          _now_iso(),
+        "owner_did":           _FIRM_DID,
+    }
+    get_kotoba_client().insert_row("vertex_lawfirm_matter", matter_row)
 
     # If intake_uri provided, mark intake as promoted
     if intake_uri:
-        _execute(
-            "UPDATE vertex_lawfirm_intake "
-            "SET status = 'promoted', promoted_matter_uri = :muri "
-            "WHERE vertex_id = :iuri",
-            {"muri": matter_uri, "iuri": intake_uri},
-        )
+        kotoba_client = get_kotoba_client()
+        intake_row = kotoba_client.select_first_where("vertex_lawfirm_intake", "vertex_id", intake_uri)
+        if intake_row:
+            intake_row["status"] = "promoted"
+            intake_row["promoted_matter_uri"] = matter_uri
+            kotoba_client.insert_row("vertex_lawfirm_intake", intake_row)
 
     next_action = (
         "PwC clearance pending — awaiting CEO HITL"
@@ -295,6 +252,17 @@ def register(app: Any, timeout_ms: int = 60_000) -> None:
             co_counsel_dids=co_counsel_dids or [],
             matter_type=matter_type, jurisdiction=jurisdiction,
             subject=subject, fee_structure=fee_structure,
+            fee_amount_minor=fee_amount_minor, currency=currency,
+            skip_pwc_clearance=skip_pwc_clearance,
+            requester_did=requester_did,
+        )
+
+    LOG.info("Registered tasks: lawfirm.intake.submit, lawfirm.matter.create")
+ester_did,
+        )
+
+    LOG.info("Registered tasks: lawfirm.intake.submit, lawfirm.matter.create")
+t, fee_structure=fee_structure,
             fee_amount_minor=fee_amount_minor, currency=currency,
             skip_pwc_clearance=skip_pwc_clearance,
             requester_did=requester_did,

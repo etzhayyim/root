@@ -39,6 +39,12 @@ run "validate_atlas"        "$ACTOR/deploy/validate_atlas.py"
 run "ingest_records (dry)"  "$ACTOR/deploy/ingest_records.py"
 run "ingest_jp_local (dry)" "$ACTOR/deploy/ingest_jp_local.py"
 run "promote_auth (dry)"    "$ACTOR/deploy/promote_authoritative.py"
+# cross-actor world-model reconcile (ooyake↔tsumugi) — cell tests + dry report
+run "world_model cell"      "$ACTOR/cells/world_model/test_world_model_cell.py"
+run "world_model drift-lock" "$ACTOR/cells/world_model/test_consistency.py"
+run "world_model coverage"  "$ACTOR/scripts/world_model_coverage.py" --quiet
+run "world_model (dry)"     "$ACTOR/scripts/world_model.py"
+run "world_model ingest (dry)" "$ACTOR/deploy/ingest_world_model.py"
 
 if [ "$fail" -eq 0 ]; then echo "ALL GREEN"; else echo "SOME FAILED"; fi
 exit "$fail"

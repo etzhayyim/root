@@ -1400,6 +1400,18 @@
    :gov.unit/provenance "https://norway.no" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
+  {:gov.unit/id "gov.dnk"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:dnk"
+   :gov.unit/level :country :gov.unit/branch :executive
+   :gov.unit/jurisdiction "dnk"
+   :gov.unit/name-en "Denmark"
+   :gov.unit/official-url "https://denmark.dk"
+   :gov.unit/wikidata "Q35"
+   :gov.unit/external-code ["iso3166-1-alpha3:DNK"]
+   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
+   :gov.unit/provenance "https://denmark.dk" :gov.unit/last-verified "2026-06-05"
+   :gov.unit/verification-status :maintainer-verified}
+
   {:gov.unit/id "gov.npl"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:npl"
    :gov.unit/level :country :gov.unit/branch :executive

@@ -98,13 +98,21 @@ def main() -> int:
             continue
 
         # Actors authored before the lexiconNamespaces convention use the
-        # `lexicons` key; the 31 newer actors use `lexiconNamespaces`. Read
-        # BOTH so the audit covers all 39 actors, not just the 8 legacy ones.
+        # `lexicons` key; the newer actors use `lexiconNamespaces`. Read BOTH so
+        # the audit covers every actor, not just the legacy ones. Entries come in
+        # TWO shapes: a bare NSID string, OR a rich object {id, status, emittedBy}
+        # — normalise the object form to its `id` so object-form manifests
+        # (ake/fuchi/hotaru/mitooshi/tasuke) are no longer a silent blind spot.
         declared = []
         for key in ("lexicons", "lexiconNamespaces"):
             v = data.get(key, [])
-            if isinstance(v, list):
-                declared.extend(v)
+            if not isinstance(v, list):
+                continue
+            for item in v:
+                if isinstance(item, str):
+                    declared.append(item)
+                elif isinstance(item, dict) and isinstance(item.get("id"), str):
+                    declared.append(item["id"])
         if not declared:
             continue
 

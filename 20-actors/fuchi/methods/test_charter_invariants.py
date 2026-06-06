@@ -247,6 +247,30 @@ def test_g2_refuses_unfunded():
     assert g["admissible"] is False and "G2" in g["reason"]
 
 
+# ── G10 (R1-live) — every outward leg refuses by default; couple is Lv7 ──────
+def test_g10_every_live_leg_refused_by_default():
+    from live_gate import LEG_POLICY, LiveGate, gate_status
+    for leg in LEG_POLICY:
+        assert gate_status(LiveGate(leg=leg), env={})["admissible"] is False
+
+
+def test_g10_couple_is_invariant_adjacent_lv7():
+    from live_gate import LEG_POLICY
+    assert LEG_POLICY["couple"][1] == 7
+    assert all(LEG_POLICY[k][1] == 6 for k in ("provision", "vote", "book"))
+
+
+def test_g10_live_mode_holds_cash_zero_and_no_server_key():
+    # the gate is an authorization membrane, never an invariant override
+    import provision as prov
+    from live_gate import LEG_POLICY, LiveGate
+    leg = "provision"
+    g = LiveGate(leg=leg, operator_did="op", council_level=6, member_signature="sig:m")
+    intents = prov.provision([{"kind": "food-mitsuho", "imputed_usd_micros_yr": 1_000_000}], "a")
+    out = prov.dispatch_live(intents, g, env={LEG_POLICY[leg][0]: "1"})
+    assert all(d.intent.cash_usd_micros == 0 and d.intent.server_held_key is False for d in out)
+
+
 def _run():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for fn in fns:

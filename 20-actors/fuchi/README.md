@@ -78,6 +78,27 @@ hit → `refused`. 扶持 computes + routes; the vote / Council decides.
   the surplus→donation is real USDC into the Public Fund; what the maintainer receives stays in-kind
   (cash≡0).
 
+## R1 (live-but-gated)
+
+Each outward leg now has a **live path that refuses by default** (`methods/live_gate.py`), exactly
+as yadori's live RDAP fetch refuses without `YADORI_ALLOW_LIVE_RDAP=1`:
+
+- `provision.dispatch_live` · `vote.finalize_binding` · `book.write_live` · `couple.commit_live`
+  each call `live_gate.require()`, which **raises `LiveGateRefused`** unless ALL of:
+  1. the operator process flag `FUCHI_ALLOW_LIVE_<LEG>=1` is set (an operator action on the box);
+  2. an **operator attestation** DID is present;
+  3. Council **Lv6+** has ratified (**Lv7+** for `couple` — invariant-adjacent: it binds the
+     robotics displacement wave);
+  4. a **member signature** is present (no-server-key — the server can never sign, ADR-2605231525).
+- The gate is an **authorization membrane, never an invariant override**: cash≡0, no-server-key,
+  in-kind-only rails, the 48h vote timelock, and the G2 funded-cohort gate all still hold in live
+  mode (the `couple` leg stacks `LiveGateRefused` *and* the G2 `ValueError`).
+- `analyze.py` prints every leg **refused** in a dry run and emits `out/live-gate-status.kotoba.edn`.
+
+Actual live execution (real dispatch / on-chain binding vote / live toritate write / binding
+displacement commit) still needs the env flag flipped **and** Council ratification — it cannot
+happen on this branch.
+
 ## Layout
 
 ```
@@ -92,6 +113,7 @@ fuchi/
 │   ├── vote.py            # R1(b) 1 SBT = 1 vote + 48h timelock
 │   ├── book.py            # R1(c) toritate ledgerEntry + kanae :flow/* graph
 │   ├── couple.py          # R1(d) Displacement-Dividend earmark + G2 coupling gate
+│   ├── live_gate.py       # R1(live) operator+Council+member gate; every leg refuses by default
 │   └── analyze.py         # end-to-end dry-run → out/*.kotoba.edn + allocation-dryrun.md
 └── cells/                 # 5 coded state machines (.solve() raises at R0)
 ```
@@ -99,7 +121,7 @@ fuchi/
 ## Run
 
 ```bash
-./run_tests.sh                 # 149 tests green
+./run_tests.sh                 # 174 tests green
 python3 methods/analyze.py     # end-to-end a→b→c→d dry-run scorecard + out/*.kotoba.edn
 ```
 

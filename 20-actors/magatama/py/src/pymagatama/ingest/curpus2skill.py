@@ -2,6 +2,7 @@
 
 Conservative corpus -> canonical ESCO skill evidence extraction. The task
 writes edge_corpus_skill_evidence rows only; it does not create vertex_skill.
+Persistence is handled by the kotoba Datom log.
 """
 
 from __future__ import annotations
@@ -12,43 +13,11 @@ import json
 import re
 import time
 import unicodedata
+from datetime import datetime, timezone
 from typing import Any
 
-import sqlite3
-from contextlib import contextmanager
-import os
+from pymagatama.kotoba_datomic import get_kotoba_client
 
-
-
-@contextmanager
-def sync_cursor():
-    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
-    os.makedirs(db_dir, exist_ok=True)
-    db_path = os.path.join(db_dir, "ingest_curpus2skill.db")
-    with sqlite3.connect(db_path) as conn:
-        conn.execute('PRAGMA journal_mode=WAL;')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_skill (
-            vertex_id TEXT PRIMARY KEY, label TEXT, name TEXT, alt_labels TEXT, source_license TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_legal_corpus_document (
-            vertex_id TEXT PRIMARY KEY, title TEXT, body_text TEXT, topic_tags_csv TEXT, owner_did TEXT, source_id TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_houbun_article (
-            vertex_id TEXT PRIMARY KEY, title TEXT, text TEXT, article_no TEXT, owner_did TEXT, source_url TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_domain_knowledge_chunk (
-            vertex_id TEXT PRIMARY KEY, document_vid TEXT, chunk_text TEXT, keywords TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_domain_knowledge_document (
-            vertex_id TEXT PRIMARY KEY, title TEXT, owner_did TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_corpus_skill_extraction_run (
-            vertex_id TEXT PRIMARY KEY, sensitivity_ord INTEGER, owner_did TEXT, rkey TEXT, repo TEXT, label TEXT, source_table TEXT, source_actor_did TEXT, extractor_version TEXT, model_id TEXT, params_json TEXT, corpus_limit INTEGER, skill_limit INTEGER, min_score REAL, matched_documents INTEGER, emitted_edges INTEGER, status TEXT, started_at TEXT, finished_at TEXT
-        )''')
-        conn.execute('''CREATE TABLE IF NOT EXISTS edge_corpus_skill_evidence (
-            edge_id TEXT PRIMARY KEY, corpus_vertex_id TEXT, corpus_table TEXT, skill_id TEXT, extraction_run_id TEXT, source_actor_did TEXT, match_kind TEXT, score REAL, evidence_text TEXT, evidence_start INTEGER, evidence_end INTEGER, source TEXT, source_license TEXT, ingested_at TEXT, props TEXT
-        )''')
-        yield conn.cursor()
 
 VERSION = "curpus2skill-langserver-v0.1.0"
 
@@ -157,19 +126,29 @@ def stable_id(prefix: str, parts: list[object]) -> str:
 
 
 def load_skills(skill_limit: int) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT vertex_id, label, name, alt_labels, source_license
-            FROM vertex_skill
-            WHERE COALESCE(name, label, '') <> ''
-            LIMIT {skill_limit}
-            """
-        )
-        cols = [d[0] for d in cur.description] if cur.description else []
-        rows = [dict(zip(cols, r)) for r in cur.fetchall() or []]
+    client = get_kotoba_client()
+    # R0: Using q() Datalog escape hatch to replicate SQL COALESCE logic
+    query_edn = f"""
+    [:find ?vertex_id ?label ?name ?alt_labels ?source_license
+     :where
+       [?e :vertex_skill/vertex_id ?vertex_id]
+       [?e :vertex_skill/label ?label]
+       [?e :vertex_skill/name ?name]
+       [?e :vertex_skill/alt_labels ?alt_labels]
+       [?e :vertex_skill/source_license ?source_license]
+       (or (not-empty ?name) (not-empty ?label) (not-empty ?alt_labels))
+     :limit {skill_limit}]
+    """
+    # Datomic's q() returns lists of values, not dicts, so we map them
+    rows = client.q(query_edn)
+    # The columns are hardcoded in the :find clause
+    cols = ["vertex_id", "label", "name", "alt_labels", "source_license"]
+    # Convert lists of values to dictionaries
+    dicts = [dict(zip(cols, r)) for r in rows]
+    # The original SQL had a WHERE clause that filtered based on COALESCE(name, label, '') <> ''.
+    # The Datalog query's (or (not-empty ?name) ...) handles this.
     out: list[dict[str, Any]] = []
-    for row in rows:
+    for row in dicts:
         labels = [
             str(x) for x in [
                 row.get("name"),
@@ -188,10 +167,130 @@ def load_skills(skill_limit: int) -> list[dict[str, Any]]:
 
 
 def load_corpus(source: dict[str, str], limit: int) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(source["sql"].format(limit=limit))
-        cols = [d[0] for d in cur.description] if cur.description else []
-        return [dict(zip(cols, r)) for r in cur.fetchall() or []]
+    client = get_kotoba_client()
+    table_name = source["table"]
+    actor_did_default = source["actor_did"]
+    corpus_table_label = source["table"] # This is constant for each source type
+
+    query_edn = ""
+    cols = []
+    
+    if table_name == "vertex_legal_corpus_document":
+        # R0: `NOT LIKE` clause will be filtered in Python. Datalog does not have direct NOT LIKE.
+        query_edn = f"""
+        [:find ?vertex_id ?title ?body_text ?topic_tags_csv ?owner_did ?source_id
+         :where
+           [?e :vertex_legal_corpus_document/vertex_id ?vertex_id]
+           [?e :vertex_legal_corpus_document/title ?title]
+           [?e :vertex_legal_corpus_document/body_text ?body_text]
+           (not (nil? ?body_text))
+           [?e :vertex_legal_corpus_document/topic_tags_csv ?topic_tags_csv]
+           [?e :vertex_legal_corpus_document/owner_did ?owner_did]
+           [?e :vertex_legal_corpus_document/source_id ?source_id]
+         :limit {limit}]
+        """
+        cols = ["vertex_id", "title", "body_text", "topic_tags_csv", "owner_did", "source_id"]
+        
+    elif table_name == "vertex_houbun_article":
+        # R0: `NOT LIKE` clause will be filtered in Python. Datalog does not have direct NOT LIKE.
+        query_edn = f"""
+        [:find ?vertex_id ?title ?text ?article_no ?owner_did ?source_url
+         :where
+           [?e :vertex_houbun_article/vertex_id ?vertex_id]
+           [?e :vertex_houbun_article/title ?title]
+           [?e :vertex_houbun_article/text ?text]
+           (not (nil? ?text))
+           [?e :vertex_houbun_article/article_no ?article_no]
+           [?e :vertex_houbun_article/owner_did ?owner_did]
+           [?e :vertex_houbun_article/source_url ?source_url]
+         :limit {limit}]
+        """
+        cols = ["vertex_id", "title", "text", "article_no", "owner_did", "source_url"]
+
+    elif table_name == "vertex_domain_knowledge_chunk":
+        # R0: `NOT LIKE` clause will be filtered in Python. Datalog does not have direct NOT LIKE.
+        query_edn = f"""
+        [:find ?c_vertex_id ?d_title ?c_chunk_text ?c_keywords ?d_owner_did ?c_keywords_for_license
+         :where
+           [?c :vertex_domain_knowledge_chunk/vertex_id ?c_vertex_id]
+           [?c :vertex_domain_knowledge_chunk/document_vid ?d_vertex_id]
+           [?c :vertex_domain_knowledge_chunk/chunk_text ?c_chunk_text]
+           (not (nil? ?c_chunk_text))
+           [?c :vertex_domain_knowledge_chunk/keywords ?c_keywords]
+           [?d :vertex_domain_knowledge_document/vertex_id ?d_vertex_id]
+           [?d :vertex_domain_knowledge_document/title ?d_title]
+           [?d :vertex_domain_knowledge_document/owner_did ?d_owner_did]
+           [?c :vertex_domain_knowledge_chunk/keywords ?c_keywords_for_license] ; Re-use keywords for source_license
+         :limit {limit}]
+        """
+        cols = ["c_vertex_id", "d_title", "c_chunk_text", "c_keywords", "d_owner_did", "c_keywords_for_license"]
+    else:
+        return [] # Should not happen with current SOURCES
+
+    rows = client.q(query_edn)
+    
+    output_docs = []
+    for r in rows:
+        row_dict = dict(zip(cols, r))
+        
+        # Apply COALESCE and NOT LIKE filtering in Python
+        body_text_col = ""
+        tags_col = ""
+        owner_did_col = ""
+        source_license_col = ""
+
+        if table_name == "vertex_legal_corpus_document":
+            if row_dict["body_text"] is None or row_dict["body_text"].startswith("signal:v1:"):
+                continue # Apply NOT LIKE and IS NOT NULL filter
+            body_text_col = row_dict["body_text"]
+            tags_col = row_dict["topic_tags_csv"] if row_dict["topic_tags_csv"] is not None else ''
+            owner_did_col = row_dict["owner_did"] if row_dict["owner_did"] is not None else actor_did_default
+            source_license_col = row_dict["source_id"] if row_dict["source_id"] is not None else 'unknown'
+            
+            output_docs.append({
+                "vertex_id": row_dict["vertex_id"],
+                "corpus_table": corpus_table_label,
+                "title": row_dict["title"],
+                "body": body_text_col,
+                "tags": tags_col,
+                "owner_did": owner_did_col,
+                "source_license": source_license_col,
+            })
+        elif table_name == "vertex_houbun_article":
+            if row_dict["text"] is None or row_dict["text"].startswith("signal:v1:"):
+                continue # Apply NOT LIKE and IS NOT NULL filter
+            body_text_col = row_dict["text"]
+            tags_col = row_dict["article_no"] if row_dict["article_no"] is not None else ''
+            owner_did_col = row_dict["owner_did"] if row_dict["owner_did"] is not None else actor_did_default
+            source_license_col = row_dict["source_url"] if row_dict["source_url"] is not None else 'unknown'
+            
+            output_docs.append({
+                "vertex_id": row_dict["vertex_id"],
+                "corpus_table": corpus_table_label,
+                "title": row_dict["title"],
+                "body": body_text_col,
+                "tags": tags_col,
+                "owner_did": owner_did_col,
+                "source_license": source_license_col,
+            })
+        elif table_name == "vertex_domain_knowledge_chunk":
+            if row_dict["c_chunk_text"] is None or row_dict["c_chunk_text"].startswith("signal:v1:"):
+                continue # Apply NOT LIKE and IS NOT NULL filter
+            body_text_col = row_dict["c_chunk_text"]
+            tags_col = row_dict["c_keywords"] if row_dict["c_keywords"] is not None else ''
+            owner_did_col = row_dict["d_owner_did"] if row_dict["d_owner_did"] is not None else actor_did_default
+            source_license_col = row_dict["c_keywords_for_license"] if row_dict["c_keywords_for_license"] is not None else 'unknown'
+
+            output_docs.append({
+                "vertex_id": row_dict["c_vertex_id"],
+                "corpus_table": corpus_table_label,
+                "title": row_dict["d_title"],
+                "body": body_text_col,
+                "tags": tags_col,
+                "owner_did": owner_did_col,
+                "source_license": source_license_col,
+            })
+    return output_docs
 
 
 def evidence(normalized_doc: str, label: str) -> dict[str, Any]:
@@ -231,27 +330,29 @@ def score_skill(normalized_doc: str, skill: dict[str, Any], min_score: float) ->
 
 
 def insert_run(run: dict[str, Any]) -> None:
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT OR IGNORE INTO vertex_corpus_skill_extraction_run (
-              vertex_id, sensitivity_ord, owner_did, rkey, repo, label,
-              source_table, source_actor_did, extractor_version, model_id,
-              params_json, corpus_limit, skill_limit, min_score,
-              matched_documents, emitted_edges, status, started_at, finished_at
-            )
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-            """,
-            (
-                run["vertex_id"], 1, "did:web:recruit.etzhayyim.com", run["rkey"],
-                "did:web:recruit.etzhayyim.com", run["label"], run["source_table"],
-                run["source_actor_did"], VERSION, "lexical-v0",
-                json.dumps(run["params"], ensure_ascii=False), run["corpus_limit"],
-                run["skill_limit"], run["min_score"], run["matched_documents"],
-                run["emitted_edges"], run["status"], run["started_at"],
-                run["finished_at"],
-            ),
-        )
+    client = get_kotoba_client()
+    row_to_insert = {
+        "vertex_id": run["vertex_id"],
+        "sensitivity_ord": 1,
+        "owner_did": "did:web:recruit.etzhayyim.com",
+        "rkey": run["rkey"],
+        "repo": "did:web:recruit.etzhayyim.com", # Original SQL had a literal here, not run["repo"]
+        "label": run["label"],
+        "source_table": run["source_table"],
+        "source_actor_did": run["source_actor_did"],
+        "extractor_version": VERSION,
+        "model_id": "lexical-v0",
+        "params_json": json.dumps(run["params"], ensure_ascii=False),
+        "corpus_limit": run["corpus_limit"],
+        "skill_limit": run["skill_limit"],
+        "min_score": run["min_score"],
+        "matched_documents": run["matched_documents"],
+        "emitted_edges": run["emitted_edges"],
+        "status": run["status"],
+        "started_at": run["started_at"], # These are already formatted ISO strings
+        "finished_at": run["finished_at"], # These are already formatted ISO strings
+    }
+    client.insert_row("vertex_corpus_skill_extraction_run", row_to_insert)
 
 
 def insert_edge(run_id: str, edge: dict[str, Any]) -> None:
@@ -259,26 +360,25 @@ def insert_edge(run_id: str, edge: dict[str, Any]) -> None:
         "edge:corpus-skill",
         [edge["corpus_table"], edge["corpus_vertex_id"], edge["skill_id"], edge["match_kind"]],
     )
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT OR IGNORE INTO edge_corpus_skill_evidence (
-              edge_id, corpus_vertex_id, corpus_table, skill_id,
-              extraction_run_id, source_actor_did, match_kind, score,
-              evidence_text, evidence_start, evidence_end, source,
-              source_license, ingested_at, props
-            )
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-            """,
-            (
-                edge_id, edge["corpus_vertex_id"], edge["corpus_table"],
-                edge["skill_id"], run_id, edge["source_actor_did"],
-                edge["match_kind"], edge["score"], edge["evidence_text"],
-                edge["evidence_start"], edge["evidence_end"], "curpus2skill",
-                edge.get("source_license"), edge["ingested_at"],
-                json.dumps({"skillName": edge.get("skill_name")}, ensure_ascii=False),
-            ),
-        )
+    client = get_kotoba_client()
+    row_to_insert = {
+        "edge_id": edge_id,
+        "corpus_vertex_id": edge["corpus_vertex_id"],
+        "corpus_table": edge["corpus_table"],
+        "skill_id": edge["skill_id"],
+        "extraction_run_id": run_id,
+        "source_actor_did": edge["source_actor_did"],
+        "match_kind": edge["match_kind"],
+        "score": edge["score"],
+        "evidence_text": edge["evidence_text"],
+        "evidence_start": edge["evidence_start"],
+        "evidence_end": edge["evidence_end"],
+        "source": "curpus2skill",
+        "source_license": edge.get("source_license"),
+        "ingested_at": edge["ingested_at"], # This is already formatted ISO string
+        "props": json.dumps({"skillName": edge.get("skill_name")}, ensure_ascii=False),
+    }
+    client.insert_row("edge_corpus_skill_evidence", row_to_insert)
 
 
 async def task_curpus2skill_extract_evidence(

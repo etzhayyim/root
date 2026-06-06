@@ -23,7 +23,7 @@
   "tier": "Tier-B",
   "siblingActor": "did:web:etzhayyim.com:iwakura",
   "scope": {
-    "phase": "R0 — 5 cells (commons_ingest + precursor_safety coded state machines; bulk_crystal_design / wafer_fab_design / commons_readiness RuntimeError stubs) + 6 lexicons + ontology + analyzer. 22 tests green (10 methods + 12 cells). Design/datafication/simulation only; NO fabrication.",
+    "phase": "R0 — 5 cells (all 5 coded state machines; .solve() wrappers still raise at R0) + 6 lexicons + ontology + analyzer (maturity-score + per-material chain-completeness metrics). 53 tests green (25 methods + 28 cells). Design/datafication/simulation only; NO fabrication.",
     "scopeBoundary": "Open-publication III-V/InP substrate commons (生成 + 製造 knowledge) + readiness reporting",
     "exclusions": [
       "III-V fabrication — PROHIBITED through R3 (ADR-2605265500 §2)",
@@ -38,10 +38,10 @@
   },
   "cells": [
     { "name": "commons_ingest", "module": "hotaru.cells.commons_ingest", "murakumoNode": "dan", "phase": "open-publication process-knowledge ingest + open-IP license screen (G1)", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.processKnowledge", "gates": ["G1", "G5", "G7", "G8"] },
-    { "name": "bulk_crystal_design", "module": "hotaru.cells.bulk_crystal_design", "murakumoNode": "naphtali", "phase": "single-crystal InP boule growth design + thermal-field sim (LEC/VGF/VB)", "status": "stub-runtimeerror", "emitsLexicon": "com.etzhayyim.hotaru.crystalGrowthDesign", "gates": ["G2", "G4", "G8", "N2"] },
-    { "name": "wafer_fab_design", "module": "hotaru.cells.wafer_fab_design", "murakumoNode": "gad", "phase": "boule → saw → lap → CMP → epi-ready surface spec design", "status": "stub-runtimeerror", "emitsLexicon": "com.etzhayyim.hotaru.waferSpec", "gates": ["G2", "G8", "N2"] },
+    { "name": "bulk_crystal_design", "module": "hotaru.cells.bulk_crystal_design", "murakumoNode": "naphtali", "phase": "single-crystal InP boule growth design + thermal-field sim (LEC/VGF/VB)", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.crystalGrowthDesign", "gates": ["G2", "G4", "G8", "N2"] },
+    { "name": "wafer_fab_design", "module": "hotaru.cells.wafer_fab_design", "murakumoNode": "gad", "phase": "boule → saw → lap → CMP → epi-ready surface spec design", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.waferSpec", "gates": ["G2", "G8", "N2"] },
     { "name": "precursor_safety", "module": "hotaru.cells.precursor_safety", "murakumoNode": "asher", "phase": "toxic-precursor + conflict-mineral + export-control refusal gate (G3/G4/G9/G11)", "status": "coded-state-machine", "emitsLexicon": "com.etzhayyim.hotaru.precursorSafetyAttestation", "gates": ["G4", "G9", "G11"] },
-    { "name": "commons_readiness", "module": "hotaru.cells.commons_readiness", "murakumoNode": "issachar", "phase": "per-stage open-coverage index → ADR-2605265500 §2 R4+ gate input (non-adjudicating)", "status": "stub-runtimeerror (logic in methods/analyze.py)", "emitsLexicon": "com.etzhayyim.hotaru.commonsReadinessReport", "gates": ["G3", "G8"] }
+    { "name": "commons_readiness", "module": "hotaru.cells.commons_readiness", "murakumoNode": "issachar", "phase": "per-stage open-coverage index → ADR-2605265500 §2 R4+ gate input (non-adjudicating)", "status": "coded-state-machine (logic mirrored in methods/analyze.py)", "emitsLexicon": "com.etzhayyim.hotaru.commonsReadinessReport", "gates": ["G3", "G8"] }
   ],
   "lexiconNamespaces": [
     { "id": "com.etzhayyim.hotaru.processKnowledge", "status": "implemented", "emittedBy": ["commons_ingest"] },
@@ -79,7 +79,7 @@
     }
   },
   "roadmap": [
-    { "phase": "R0", "date": "2026-06-05", "scope": "This ADR. Ontology + 6 lexicons + 5 cells (2 coded state machines, 3 RuntimeError stubs) + analyzer + :representative seed. Substrate commons READY (4/4 stages open-mature); epitaxy GAP; R4+ gate NOT satisfiable from the commons alone → fabrication stays prohibited. 22 tests green. No runtime/sim/live-kotoba.", "gate": "ADR-2606051200 (PROPOSED) + ADR-2605265500 §2 inherited" },
+    { "phase": "R0", "date": "2026-06-05", "scope": "This ADR. Ontology + 6 lexicons + 5 cells (all 5 coded state machines) + analyzer (maturity-score + per-material chain-completeness) + :representative seed. Substrate commons READY (4/4 stages open-mature, maturity 1.00); epitaxy GAP; R4+ gate NOT satisfiable from the commons alone → fabrication stays prohibited. 53 tests green. No runtime/sim/live-kotoba.", "gate": "ADR-2606051200 (PROPOSED) + ADR-2605265500 §2 inherited" },
     { "phase": "R1", "date": "post-Council", "scope": "Expand the open commons (more open-publication processes; close :open-emerging → :open-mature); bulk-growth thermal-field simulation (kami-genesis); honest epitaxy-gap map. Still design/sim only.", "gate": "Future ADR + ≥1 compound-semiconductor crystal-growth engineer on Council technical advisory" },
     { "phase": "R2", "date": "post-R1", "scope": "Simulation-validated substrate process designs; export-control/jurisdiction attestation framework; commons-readiness as a standing input to the ADR-2605265500 R4+ re-evaluation. NO fabrication.", "gate": "Future ADR + ADR-2605265500 R4+ gate evaluation reopened by Council Lv7+" },
     { "phase": "R3", "date": "deferred", "scope": "RESERVED — only reachable if the ADR-2605265500 R4+ gate opens (open-source III-V wafer + epitaxy IP commons complete AND religious-corp-owned capability AND jurisdictional-risk cleared). Fabrication is OUT of hotaru's R0..R2 scope by construction.", "gate": "ADR-2605265500 R4+ gate (Council Lv7+ unanimity)" }

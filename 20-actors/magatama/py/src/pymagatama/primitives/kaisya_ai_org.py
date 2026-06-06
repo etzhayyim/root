@@ -25,7 +25,7 @@ import os
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("kaisya.ai_org")
 
@@ -50,7 +50,7 @@ _AGENT_HUMAN: dict[str, str] = {
 # ── Helpers ───────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
-    # RisingWave TIMESTAMP (without timezone) rejects Z/+00:00 suffix.
+    # Kotoba Datom log TIMESTAMP (without timezone) rejects Z/+00:00 suffix.
     return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%d %H:%M:%S")
 
 def _vertex_id(prefix: str) -> str:
@@ -92,22 +92,25 @@ async def _write_run_log(
     vertex_id = _vertex_id(f"agentRun.{agent_id}")
     ran_at = _now_iso()
     human_did = _human_did(agent_id)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_kaisya_agent_run
-              (vertex_id, agent_id, process_id, task_type, human_did, status,
-               output_summary, tasks_created, ran_at,
-               owner_did, org_id, user_id, sensitivity_ord, created_at)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, agent_id, process_id, task_type, human_did, status,
-                output_summary[:2000] if output_summary else None,
-                tasks_created, ran_at,
-                OWNER_DID, ORG_DID, human_did, 1, ran_at,
-            ),
-        )
+    from datetime import datetime, timezone # R0: to_char(now(),..)
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "agent_id": agent_id,
+        "process_id": process_id,
+        "task_type": task_type,
+        "human_did": human_did,
+        "status": status,
+        "output_summary": output_summary[:2000] if output_summary else None,
+        "tasks_created": tasks_created,
+        "ran_at": ran_at,
+        "owner_did": OWNER_DID,
+        "org_id": ORG_DID,
+        "user_id": human_did,
+        "sensitivity_ord": 1,
+        "created_at": ran_at,
+    }
+    client.insert_row("vertex_kaisya_agent_run", row_dict)
     LOG.info("writeRunLog: %s %s %s", agent_id, task_type, vertex_id)
     return vertex_id
 
@@ -124,22 +127,23 @@ async def _create_task(
     now = _dt.datetime.now(tz=_dt.UTC)
     due_at = (now + _dt.timedelta(hours=due_hours)).strftime("%Y-%m-%d %H:%M:%S")
     created_at = now.strftime("%Y-%m-%d %H:%M:%S")
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_kaisya_task
-              (vertex_id, agent_id, human_did, title, context_json,
-               priority, status, due_at,
-               owner_did, org_id, user_id, sensitivity_ord, created_at)
-            VALUES (%s,%s,%s,%s,%s,%s,'pending',%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, agent_id, human_did, title,
-                context_json[:4000] if context_json else None,
-                priority, due_at,
-                OWNER_DID, ORG_DID, human_did, 1, created_at,
-            ),
-        )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "agent_id": agent_id,
+        "human_did": human_did,
+        "title": title,
+        "context_json": context_json[:4000] if context_json else None,
+        "priority": priority,
+        "status": "pending",
+        "due_at": due_at,
+        "owner_did": OWNER_DID,
+        "org_id": ORG_DID,
+        "user_id": human_did,
+        "sensitivity_ord": 1,
+        "created_at": created_at,
+    }
+    client.insert_row("vertex_kaisya_task", row_dict)
     LOG.info("createTask: %s priority=%d '%s'", agent_id, priority, title[:60])
     return vertex_id
 
@@ -271,13 +275,14 @@ async def _eng_infra_probe() -> dict[str, Any]:
     checks: list[str] = []
     failed: list[str] = []
 
-    # RisingWave: simple COUNT query
+    # Kotoba Datom log: simple COUNT query
     try:
-        with sync_cursor() as cur:
-            cur.execute("SELECT COUNT(*) FROM vertex_kaisya_agent_run LIMIT 1")
-        checks.append("RisingWave OK")
+        client = get_kotoba_client()
+        # R0: count is always >= 0, so no need to check for None
+        count = client.aggregate_where("vertex_kaisya_agent_run", "count", "*", None, None)
+        checks.append("Kotoba Datom log OK")
     except Exception as exc:  # noqa: BLE001
-        failed.append(f"RisingWave: {exc}")
+        failed.append(f"Kotoba Datom log: {exc}")
 
     # Zeebe dispatcher HTTP probe
     try:

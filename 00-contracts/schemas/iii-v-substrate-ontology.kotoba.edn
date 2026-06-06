@@ -63,6 +63,9 @@
   :iiiv.material/bandgap-type {:db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
                                :db/doc "one of :direct | :indirect — III-V family is :direct (the hotaru raison d'être)"
                                :db/allowed [:direct :indirect]}
+  :iiiv.material/form        {:db/valueType :db.type/keyword :db/cardinality :db.cardinality/one
+                              :db/doc "is this material grown as a bulk single-crystal SUBSTRATE, or only as an EPITAXIAL layer on another substrate? :epitaxial-only materials (e.g. InGaAs on InP) are NOT expected to have a bulk substrate chain — they are correctly excluded from substrate-coverage, not counted as a gap."
+                              :db/allowed [:bulk-substrate :epitaxial-only]}
   :iiiv.material/lattice-a   {:db/valueType :db.type/double  :db/cardinality :db.cardinality/one
                               :db/doc "lattice constant a in angstrom"}
   :iiiv.material/substrate-for {:db/valueType :db.type/keyword :db/cardinality :db.cardinality/many

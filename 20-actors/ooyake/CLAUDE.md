@@ -2,7 +2,7 @@
 
 **World government atlas — civic wayfinding map.** Tier-B ·
 `did:web:ooyake.etzhayyim.com` · ADR-2606021600 ·
-**R0/R1 — `reconcile` (bundled mode) runs + unit-tested; live ingest + serve + per-unit DID gated**.
+**R0/R1 — `reconcile` + `world_model` (bundled mode) run + unit-tested; live ingest + serve + per-unit DID gated**.
 
 ## What this actor IS
 
@@ -72,7 +72,16 @@ It is **read-only** and it is **not the government**.
 - **danjo** = *audits* state open-data. ooyake = *maps* structure; danjo consumes
   the atlas.
 - **tsumugi** = *karma* (縁/取) over `:organism` nodes. ooyake = *structure*.
-  `:gov.unit/organism` reconciles the SAME unit across both graphs.
+  `:gov.unit/organism` reconciles the SAME unit across both graphs. The join is
+  performed by `cells/world_model/` (the cross-actor **world-model reconcile**):
+  offline + deterministic, it classifies every **power-bearing** unit as
+  confirmed / derived / dangling / proposed against the tsumugi karma graph and
+  emits `out/world-model.kotoba.edn` (read-side proposal, G9 — never mutates a
+  seed; `mode="live"` is Council+operator gated). Local service surface
+  (窓口/ward/division) is **excluded by construction** (G1 power-only, never a
+  target-list). Today: 1 confirmed link (`gov.jpn.meti↔org.state.jp.meti`), the
+  rest honestly `:proposed`/`:representative` — the world model is mostly
+  unreconciled, which is the honest R1 state. `scripts/world_model.py`.
 
 ## Legacy `gov*` stubs
 

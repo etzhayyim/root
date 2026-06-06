@@ -3,21 +3,32 @@
 **Actor**: 扶持 (fuchi) — maintainer sustenance allocator (investment-fund inverse) · **ADR**:
 2606052300 · **DID**: `did:web:etzhayyim.com:actor:fuchi`
 
-| Axis | R0 + R1 a/b/c (offline, this) | R1 live (gated) | R2 (gated) |
+| Axis | R0 + R1 a/b/c/d (offline) | R1 live-but-gated (this) | live execution (Council-gated) |
 |---|---|---|---|
-| **covenant** | offline screen+record over seed (G4/G5/G9) | live intake over real 信者 roster (MEMBERS.md) | standing eligibility service |
-| **assessment** | in-kind envelope, cash≡0 (G2/G3) | live need assessment per maintainer | Wellbecoming-informed envelope |
-| **allocation** | tenure-weighted in-kind, G1 allowlist, cash≡0 | member-signed live allocation | Displacement-Dividend cohort coupling |
-| **routing (a)** | **rails wired to real producing-actor DIDs** (mitsuho/hikari/okaimono/iyashi/commons-land/Murakumo/warifu); dry-run intents | live provisioning dispatch | full provisioning-intent pipeline |
-| **governance (b)** | **real 1 SBT = 1 vote + 48h timelock** (dedupe, weight≡1, no-server-key, finalize-raises-early) | binding vote on-chain | quorum/timelock tuning by Council |
-| **booking (c)** | **toritate ledgerEntry projection** (cash≡0) + **kanae :flow/* graph** | toritate writes the live ledger + kanae renders live | full booking pipeline |
-| **coupling (d)** | **Displacement-Dividend earmark** (TitheRouter 10% split, exact) + **G2 gate** (no displacement w/o funded cohort) | live surplus→donation→earmark; binding G2 gate on the robotics wave | per-cohort tenure-weighted earmarks |
+| **covenant** | offline screen+record over seed (G4/G5/G9) | — | live intake over real 信者 roster (MEMBERS.md) |
+| **assessment** | in-kind envelope, cash≡0 (G2/G3) | — | live need assessment per maintainer |
+| **allocation** | tenure-weighted in-kind, G1 allowlist, cash≡0 | — | member-signed live allocation |
+| **routing (a)** | **rails wired to real producing-actor DIDs** (mitsuho/hikari/okaimono/iyashi/commons-land/Murakumo/warifu); dry-run intents | `dispatch_live()` exists, **refuses by default** (gate) | live provisioning dispatch (flag + Council Lv6+ + member sig) |
+| **governance (b)** | **real 1 SBT = 1 vote + 48h timelock** (dedupe, weight≡1, no-server-key, finalize-raises-early) | `finalize_binding()` exists, **refuses by default**; timelock still strict | binding vote on-chain |
+| **booking (c)** | **toritate ledgerEntry projection** (cash≡0) + **kanae :flow/* graph** | `write_live()` exists, **refuses by default** | toritate writes the live ledger + kanae renders live |
+| **coupling (d)** | **Displacement-Dividend earmark** (TitheRouter 10% split, exact) + **G2 gate** (no displacement w/o funded cohort) | `commit_live()` exists, **refuses by default**; needs **Lv7** + G2 funded-cohort | live surplus→donation→earmark; binding G2 gate on the robotics wave |
+| **live gate** | — | **`methods/live_gate.py`** — single authorization membrane; per-leg `FUCHI_ALLOW_LIVE_<LEG>` flag + operator attestation + Council Lv6+/Lv7+ + member sig; default refused; never overrides cash≡0/no-server-key/G3 | env flag flipped + Council ratifies |
 
-## R0 + R1 a/b/c/d evidence
+## R0 + R1 a/b/c/d + R1 live-but-gated evidence
 
-- **149 tests green** (`./run_tests.sh`): 15 allocate + 13 route + 8 provision + 11 vote + 10 book
-  + 10 couple + 15 analyze + 36 charter-invariants + 3 lexicons + 9 consistency/SSoT-drift-lock
-  (methods) + 19 cell state-machine.
+- **174 tests green** (`./run_tests.sh`): 15 allocate + 13 route + 8 provision + 11 vote + 10 book
+  + 10 couple + **22 live_gate** + 15 analyze + **39 charter-invariants** + 3 lexicons + 9
+  consistency/SSoT-drift-lock (methods) + 19 cell state-machine.
+- **R1 (live-but-gated)** — `methods/live_gate.py` is the single membrane every outward leg crosses.
+  `provision.dispatch_live` / `vote.finalize_binding` / `book.write_live` / `couple.commit_live`
+  each call `live_gate.require()`, which **raises `LiveGateRefused` unless** the operator process
+  flag (`FUCHI_ALLOW_LIVE_<LEG>=1`) + an operator attestation DID + Council **Lv6+** (Lv7+ for
+  `couple`, invariant-adjacent) + a **member signature** (no-server-key) are ALL present. Default =
+  refused (the deliverable). The gate is an authorization membrane, **never** an invariant override:
+  cash≡0, no-server-key, in-kind-only rails, the 48h vote timelock, and the G2 funded-cohort gate
+  all still hold in live mode (the `couple` leg stacks both refusals). `analyze.py` prints every leg
+  refused and emits `out/live-gate-status.kotoba.edn`. Actual live execution still needs the env
+  flag flipped + Council ratification.
 - **R1(a)** — `analyze.py` emits 14 provisioning intents over the seed, each addressed to a real
   producing actor DID; the seth liquidity intent is `member_principal` (warifu 0%); all dry-run
   (`published=false`, cash 0, keyless).

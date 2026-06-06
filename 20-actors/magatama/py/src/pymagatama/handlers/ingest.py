@@ -8,9 +8,10 @@ from __future__ import annotations
 
 import json
 from typing import Any
+from datetime import datetime, timezone
 
 from pymagatama import udf
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.ingest.core import IngestRun, mark_run_finished, upsert_run
 from pymagatama.ingest.zeebe import start_process_if_configured
 
@@ -68,29 +69,6 @@ def _mode(params: dict[str, Any], default: str = "delta") -> str:
     if mode not in {"delta", "backfill", "repair", "verify"}:
         raise ValueError("mode must be one of delta, backfill, repair, verify")
     return mode
-
-
-def _run_dict(row: tuple[Any, ...]) -> dict[str, Any]:
-    keys = [
-        "runVertexId",
-        "runId",
-        "ingestFamily",
-        "sourceId",
-        "mode",
-        "status",
-        "zeebeProcessInstanceKey",
-        "bpmnProcessId",
-        "startedAt",
-        "finishedAt",
-        "recordsRead",
-        "recordsWritten",
-        "recordsSkipped",
-        "errorCount",
-        "lastError",
-        "inputJson",
-        "outputJson",
-    ]
-    return {k: v for k, v in zip(keys, row)}
 
 
 def _plan_payload(params: dict[str, Any]) -> dict[str, Any]:
@@ -235,8 +213,28 @@ def ingest_status(params_json: str) -> str:
     except (ValueError, json.JSONDecodeError) as e:
         return _dump({"ok": False, "error": str(e), "runs": []})
 
-    clauses: list[str] = []
-    args: list[Any] = []
+    client = get_kotoba_client()
+    find_vars = []
+    where_clauses = [
+        '[?e :vertex/type "vertex_ingest_run"]',
+    ]
+    select_columns = [
+        "vertex_id", "run_id", "ingest_family", "source_id", "mode", "status",
+        "zeebe_process_instance_key", "bpmn_process_id", "started_at", "finished_at",
+        "records_read", "records_written", "records_skipped", "error_count",
+        "last_error", "input_json", "output_json", "updated_at"
+    ]
+
+    # Use a mapping for Datomic attributes as they are often hyphen-cased
+    datalog_col_mapping = {col: col.replace("_", "-") for col in select_columns}
+
+    for col in select_columns:
+        datalog_attr = datalog_col_mapping[col]
+        find_vars.append(f"?{datalog_attr}")
+        where_clauses.append(f"[?e :{datalog_attr} ?{datalog_attr}]")
+
+    filter_params = {}
+    # Add optional WHERE clauses based on input params
     for column, key in (
         ("run_id", "runId"),
         ("ingest_family", "ingestFamily"),
@@ -245,42 +243,91 @@ def ingest_status(params_json: str) -> str:
     ):
         value = params.get(key)
         if value:
-            clauses.append(f"{column} = %s")
-            args.append(str(value))
-    limit = max(1, min(int(params.get("limit") or 20), 100))
-    sql_text = """
-        SELECT vertex_id, run_id, ingest_family, source_id, mode, status,
-               zeebe_process_instance_key, bpmn_process_id, started_at, finished_at,
-               records_read, records_written, records_skipped, error_count,
-               last_error, input_json, output_json
-          FROM vertex_ingest_run
+            datalog_attr = column.replace("_", "-")
+            where_clauses.append(f"[?e :{datalog_attr} ${column}]")
+            filter_params[f"${column}"] = str(value)
+
+    # R0: Multi-predicate search with ORDER BY and LIMIT using q() and in-Python processing.
+    query_edn_template = f"""
+    [:find {' '.join(find_vars)}
+     :where
+       {' '.join(where_clauses)}
+    ]
     """
-    if clauses:
-        sql_text += " WHERE " + " AND ".join(clauses)
-    sql_text += f" ORDER BY started_at DESC LIMIT {int(limit)}"
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, tuple(args))
-            rows = cur.fetchall() or []
-        return _dump({"ok": True, "runs": [_run_dict(r) for r in rows]})
+        raw_results = client.q(query_edn_template, args=filter_params)
+
+        rows = []
+        for r in raw_results:
+            row_dict = {}
+            for i, col in enumerate(select_columns):
+                row_dict[col] = r[i]
+            rows.append(row_dict)
+
+        # Apply ORDER BY started_at DESC
+        # Ensure started_at values are comparable (e.g., all strings or all datetime objects)
+        # Assuming they are strings that sort correctly or datetime objects
+        rows.sort(key=lambda x: x.get("started_at", ""), reverse=True)
+
+        # Apply LIMIT
+        limit = max(1, min(int(params.get("limit") or 20), 100))
+        rows = rows[:limit]
+
+        return _dump({"ok": True, "runs": rows})
     except Exception as e:  # noqa: BLE001
         return _dump({"ok": False, "error": f"ingest.status failed: {e}", "runs": []})
 
 
 def _update_run_status(params: dict[str, Any], status: str) -> int:
-    clauses: list[str] = []
-    args: list[Any] = [status]
+    client = get_kotoba_client()
+    where_clauses_for_datalog: list[str] = ['[?e :vertex/type "vertex_ingest_run"]']
+    filter_params_for_datalog = {}
+
+    select_columns = [
+        "vertex_id", "run_id", "ingest_family", "source_id", "mode", "status",
+        "zeebe_process_instance_key", "bpmn_process_id", "started_at", "finished_at",
+        "records_read", "records_written", "records_skipped", "error_count",
+        "last_error", "input_json", "output_json", "updated_at"
+    ]
+    datalog_col_mapping = {col: col.replace("_", "-") for col in select_columns}
+
     for column, key in (("run_id", "runId"), ("ingest_family", "ingestFamily"), ("source_id", "sourceId")):
         value = params.get(key)
         if value:
-            clauses.append(f"{column} = %s")
-            args.append(str(value))
-    if not clauses:
+            datalog_attr = column.replace("_", "-")
+            where_clauses_for_datalog.append(f"[?e :{datalog_attr} ${column}]")
+            filter_params_for_datalog[f"${column}"] = str(value)
+
+    if not filter_params_for_datalog:
         raise ValueError("runId or ingestFamily/sourceId is required")
-    sql_text = "UPDATE vertex_ingest_run SET status = %s, updated_at = to_char(now() AT TIME ZONE 'UTC','YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') WHERE " + " AND ".join(clauses)
-    with sync_cursor() as cur:
-        cur.execute(sql_text, tuple(args))
-        return int(cur.rowcount or 0)
+
+    find_vars = [f"?{datalog_col_mapping[col]}" for col in select_columns]
+
+    # R0: Multi-predicate search in _update_run_status using q() to fetch records for update.
+    query_edn = f"""
+    [:find {' '.join(find_vars)}
+     :where
+       {' '.join(where_clauses_for_datalog)}
+    ]
+    """
+
+    raw_existing_records = client.q(query_edn, args=filter_params_for_datalog)
+
+    updated_count = 0
+    current_utc_time = datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
+
+    for r in raw_existing_records:
+        existing_record_dict = {}
+        for i, col in enumerate(select_columns):
+            existing_record_dict[col] = r[i]
+
+        existing_record_dict["status"] = status
+        existing_record_dict["updated_at"] = current_utc_time
+
+        client.insert_row("vertex_ingest_run", existing_record_dict)
+        updated_count += 1
+
+    return updated_count
 
 
 @udf(
@@ -337,21 +384,35 @@ def ingest_validate(params_json: str) -> str:
         source_id = str(params.get("sourceId") or "").strip()
         checks: list[dict[str, Any]] = []
         status = "ok"
-        with sync_cursor() as cur:
-            if run_id:
-                cur.execute("SELECT COUNT(*) FROM vertex_ingest_run WHERE run_id = %s", (run_id,))
-                run_count = int((cur.fetchone() or [0])[0])
-                checks.append({"name": "run_visible", "ok": run_count == 1, "count": run_count})
-                cur.execute("SELECT COUNT(*) FROM vertex_ingest_artifact WHERE run_id = %s", (run_id,))
-                artifact_count = int((cur.fetchone() or [0])[0])
-                checks.append({"name": "artifacts_visible", "ok": True, "count": artifact_count})
-            if family and source_id:
-                cur.execute(
-                    "SELECT COUNT(*) FROM vertex_ingest_cursor WHERE ingest_family = %s AND source_id = %s",
-                    (family, source_id),
-                )
-                cursor_count = int((cur.fetchone() or [0])[0])
-                checks.append({"name": "cursors_visible", "ok": True, "count": cursor_count})
+        client = get_kotoba_client() # Initialize client here
+
+        if run_id:
+            # Check run_visible
+            run_count = int(client.aggregate_where("vertex_ingest_run", "count", "*", "run_id", run_id))
+            checks.append({"name": "run_visible", "ok": run_count == 1, "count": run_count})
+
+            # Check artifacts_visible
+            artifact_count = int(client.aggregate_where("vertex_ingest_artifact", "count", "*", "run_id", run_id))
+            checks.append({"name": "artifacts_visible", "ok": True, "count": artifact_count})
+
+        if family and source_id:
+            # R0: Multi-predicate count for vertex_ingest_cursor using q().
+            query_edn_cursor_count = """
+            [:find (count ?e) .
+             :where
+               [?e :vertex/type "vertex_ingest_cursor"]
+               [?e :ingest-family $ingest_family]
+               [?e :source-id $source_id]
+            ]
+            """
+            cursor_count_raw = client.q(
+                query_edn_cursor_count,
+                args={"$ingest_family": family, "$source_id": source_id}
+            )
+            # client.q returns list of lists, or empty list. `(count ?e) .` returns a single value if it's there.
+            cursor_count = int(cursor_count_raw[0] if cursor_count_raw else 0)
+            checks.append({"name": "cursors_visible", "ok": True, "count": cursor_count})
+
         if any(not c.get("ok") for c in checks):
             status = "failed"
         return _dump({"ok": status == "ok", "status": status, "checks": checks})

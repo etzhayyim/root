@@ -27,8 +27,9 @@ import re
 import time
 import uuid
 from typing import Any
+from datetime import datetime, timezone
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama import llm
 
 LOG = logging.getLogger(__name__)
@@ -43,19 +44,7 @@ ACTOR_DID = "did:web:webya.etzhayyim.com"
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
-def _rq(sql_str: str, params: tuple = ()) -> list[Any]:
-    try:
-        with sync_cursor() as cur:
-            cur.execute(sql_str, params)
-            return cur.fetchall()
-    except Exception as exc:
-        LOG.warning("webya rq: %s", exc)
-        return []
 
-
-def _rx(sql_str: str, params: tuple = ()) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
 
 
 def _now() -> str:
@@ -108,18 +97,29 @@ async def task_webya_domain_provision(**kwargs: Any) -> dict[str, Any]:
         verification = ssl.get("txt_name", ""), ssl.get("txt_value", "")
         txt_name, txt_value = verification
 
-        _rx(
-            """INSERT INTO vertex_webya_domain
-               (vertex_id, domain_id, site_id, domain, cf_hostname_id,
-                ssl_status, ownership_verified, dns_cname_target,
-                verification_txt_name, verification_txt_value, provisioned_at)
-               VALUES (%s, %s, %s, %s, %s, 'pending', FALSE, %s, %s, %s, %s)""",
-            (vertex_id, domain_id, site_id, domain, cf_hostname_id,
-             _CF_PROXY_ORIGIN, txt_name, txt_value, now),
+        get_kotoba_client().insert_row(
+            "vertex_webya_domain",
+            {
+                "vertex_id": vertex_id,
+                "domain_id": domain_id,
+                "site_id": site_id,
+                "domain": domain,
+                "cf_hostname_id": cf_hostname_id,
+                "ssl_status": "pending",
+                "ownership_verified": False,
+                "dns_cname_target": _CF_PROXY_ORIGIN,
+                "verification_txt_name": txt_name,
+                "verification_txt_value": txt_value,
+                "provisioned_at": now,
+            },
         )
-        _rx(
-            "UPDATE vertex_webya_site SET custom_domain = %s, cf_custom_hostname_id = %s WHERE site_id = %s",
-            (domain, cf_hostname_id, site_id),
+        get_kotoba_client().insert_row(
+            "vertex_webya_site",
+            {
+                "site_id": site_id,
+                "custom_domain": domain,
+                "cf_custom_hostname_id": cf_hostname_id,
+            },
         )
 
         LOG.info("domain.provision ok site_id=%s domain=%s cf_id=%s", site_id, domain, cf_hostname_id)
@@ -147,9 +147,11 @@ async def task_webya_domain_check_all_pending(**kwargs: Any) -> dict[str, Any]:
         return {"ok": True, "pendingCount": 0, "activatedCount": 0, "errorCount": 0,
                 "error": "CF not configured"}
 
-    rows = _rq(
-        "SELECT domain_id, cf_hostname_id, domain FROM vertex_webya_domain WHERE ssl_status <> 'active' LIMIT 100",
+    # R0: Using q() for "not equal" predicate, and slicing for LIMIT 100 as q() doesn't support limit directly.
+    raw_results = get_kotoba_client().q(
+        '[:find ?domain_id ?cf_hostname_id ?domain :where [?e :vertex_webya_domain/ssl_status ?status] (not= ?status "active") [?e :vertex_webya_domain/domain_id ?domain_id] [?e :vertex_webya_domain/cf_hostname_id ?cf_hostname_id] [?e :vertex_webya_domain/domain ?domain]]'
     )
+    rows = raw_results[:100]
     pending_count  = len(rows)
     activated      = 0
     error_count    = 0
@@ -171,13 +173,28 @@ async def task_webya_domain_check_all_pending(**kwargs: Any) -> dict[str, Any]:
                 ssl_status = result.get("ssl", {}).get("status", "pending")
                 ownership_verified = result.get("ownership_verification_http", {}).get("http_body") is not None
 
-                _rx(
-                    "UPDATE vertex_webya_domain SET ssl_status = %s, ownership_verified = %s WHERE domain_id = %s",
-                    (ssl_status, ownership_verified, domain_id),
+                get_kotoba_client().insert_row(
+                    "vertex_webya_domain",
+                    {
+                        "domain_id": domain_id,
+                        "ssl_status": ssl_status,
+                        "ownership_verified": ownership_verified,
+                    },
                 )
                 if ssl_status == "active":
                     activated += 1
-                    _rx("UPDATE vertex_webya_site SET ssl_status = 'active' WHERE custom_domain = %s", (domain,))
+                    # R0: Fetching site_id by custom_domain for update via insert_row.
+                    site_row = get_kotoba_client().select_first_where(
+                        "vertex_webya_site", "custom_domain", domain, columns=["site_id"]
+                    )
+                    if site_row:
+                        get_kotoba_client().insert_row(
+                            "vertex_webya_site",
+                            {
+                                "site_id": site_row["site_id"],
+                                "ssl_status": "active",
+                            },
+                        )
 
             except Exception as exc:
                 LOG.warning("checkAllPending domain_id=%s: %s", domain_id, exc)
@@ -191,12 +208,11 @@ async def task_webya_domain_check_all_pending(**kwargs: Any) -> dict[str, Any]:
 
 async def task_webya_seo_audit_all_sites(**kwargs: Any) -> dict[str, Any]:
     """published サイトの全ページを SEO 監査し必要なら meta_description を更新。"""
-    rows = _rq(
-        "SELECT p.page_id, p.site_id, p.slug, p.title, p.meta_description "
-        "FROM vertex_webya_page p "
-        "JOIN vertex_webya_site s ON s.site_id = p.site_id "
-        "WHERE s.status = 'published' AND p.status = 'published' LIMIT 500",
+    # R0: Using q() for JOIN and multiple WHERE conditions, and slicing for LIMIT 500.
+    raw_results = get_kotoba_client().q(
+        '[:find ?page_id ?site_id ?slug ?title ?meta_description :where [?page :vertex_webya_page/status "published"] [?site :vertex_webya_site/status "published"] [?page :vertex_webya_page/site_id ?site-id-ref] [?site :vertex_webya_site/site_id ?site-id-ref] [?page :vertex_webya_page/page_id ?page_id] [?page :vertex_webya_page/site_id ?site_id] [?page :vertex_webya_page/slug ?slug] [?page :vertex_webya_page/title ?title] [?page :vertex_webya_page/meta_description ?meta_description]]'
     )
+    rows = raw_results[:500]
     pages_audited = 0
     pages_updated = 0
     issues_found  = 0
@@ -218,9 +234,13 @@ async def task_webya_seo_audit_all_sites(**kwargs: Any) -> dict[str, Any]:
                     result = llm.call_tier_json("fast", prompt, max_tokens=150)
                     new_meta = result.get("meta_description", "")[:120]
                     if new_meta:
-                        _rx(
-                            "UPDATE vertex_webya_page SET meta_description = %s, updated_at = %s WHERE page_id = %s",
-                            (new_meta, _now(), page_id),
+                        get_kotoba_client().insert_row(
+                            "vertex_webya_page",
+                            {
+                                "page_id": page_id,
+                                "meta_description": new_meta,
+                                "updated_at": _now(),
+                            },
                         )
                         pages_updated += 1
                 except Exception as exc:
@@ -233,22 +253,36 @@ async def task_webya_seo_audit_all_sites(**kwargs: Any) -> dict[str, Any]:
 # ── task: webya.coverage ──────────────────────────────────────────────────────
 
 async def task_webya_coverage(**kwargs: Any) -> dict[str, Any]:
-    total_rows   = _rq("SELECT COUNT(*) FROM vertex_webya_site")
-    published    = _rq("SELECT COUNT(*) FROM vertex_webya_site WHERE status = 'published'")
-    generating   = _rq("SELECT COUNT(*) FROM vertex_webya_site WHERE status = 'generating'")
-    ssl_pending  = _rq("SELECT COUNT(*) FROM vertex_webya_domain WHERE ssl_status <> 'active'")
-    gen_queue    = _rq("SELECT COUNT(*) FROM vertex_webya_generation_job WHERE status IN ('pending', 'running')")
-    by_prof      = _rq("SELECT profession_kind, status, site_count FROM mv_webya_sites_by_status")
+    total_rows   = int(get_kotoba_client().aggregate_where("vertex_webya_site", "count", "*"))
+    published    = int(get_kotoba_client().aggregate_where("vertex_webya_site", "count", "*", "status", "published"))
+    generating   = int(get_kotoba_client().aggregate_where("vertex_webya_site", "count", "*", "status", "generating"))
+
+    # R0: Using q() for "not equal" predicate in aggregate.
+    ssl_pending_raw = get_kotoba_client().q(
+        '[:find (count ?e) :where [?e :vertex_webya_domain/ssl_status ?status] (not= ?status "active")]'
+    )
+    ssl_pending = ssl_pending_raw[0][0] if ssl_pending_raw else 0
+
+    # R0: Using q() for "IN" predicate in aggregate.
+    gen_queue_raw = get_kotoba_client().q(
+        '[:find (count ?e) :where [?e :vertex_webya_generation_job/status ?status] (or (= ?status "pending") (= ?status "running"))]'
+    )
+    gen_queue = gen_queue_raw[0][0] if gen_queue_raw else 0
+
+    # R0: Using q() to select all from mv_webya_sites_by_status as no equivalent shim exists.
+    by_prof_rows = get_kotoba_client().q(
+        '[:find ?profession_kind ?status ?site_count :where [?e :mv_webya_sites_by_status/profession_kind ?profession_kind] [?e :mv_webya_sites_by_status/status ?status] [?e :mv_webya_sites_by_status/site_count ?site_count]]'
+    )
 
     return {
         "ok":              True,
-        "totalSites":      (total_rows[0][0] if total_rows else 0),
-        "publishedSites":  (published[0][0]  if published  else 0),
-        "generatingSites": (generating[0][0] if generating else 0),
-        "sslPending":      (ssl_pending[0][0] if ssl_pending else 0),
-        "generationQueue": (gen_queue[0][0]  if gen_queue  else 0),
+        "totalSites":      total_rows,
+        "publishedSites":  published,
+        "generatingSites": generating,
+        "sslPending":      ssl_pending,
+        "generationQueue": gen_queue,
         "byProfession":    [
-            {"professionKind": r[0], "status": r[1], "siteCount": r[2]} for r in by_prof
+            {"professionKind": r[0], "status": r[1], "siteCount": r[2]} for r in by_prof_rows
         ],
     }
 
@@ -260,39 +294,49 @@ async def task_webya_get_site(**kwargs: Any) -> dict[str, Any]:
     if not site_id:
         return {"ok": False, "error": "siteId required"}
 
-    rows = _rq(
-        "SELECT site_id, site_name, template_id, custom_domain, subdomain, "
-        "ssl_status, status, published_at FROM vertex_webya_site WHERE site_id = %s LIMIT 1",
-        (site_id,),
+    site_data = get_kotoba_client().select_first_where(
+        "vertex_webya_site",
+        "site_id",
+        site_id,
+        columns=["site_id", "site_name", "template_id", "custom_domain", "subdomain", "ssl_status", "status", "published_at"],
     )
-    if not rows:
+    if not site_data:
         return {"ok": False, "error": "site not found"}
 
-    r = rows[0]
-    pages = _rq("SELECT slug, title, status FROM vertex_webya_page WHERE site_id = %s", (site_id,))
-    job   = _rq(
-        "SELECT job_id, status FROM vertex_webya_generation_job WHERE site_id = %s ORDER BY started_at DESC LIMIT 1",
-        (site_id,),
+    pages_data = get_kotoba_client().select_where(
+        "vertex_webya_page",
+        "site_id",
+        site_id,
+        columns=["slug", "title", "status"],
     )
 
+    # R0: Using q() for ORDER BY and LIMIT 1 to get the latest job.
+    job_raw = get_kotoba_client().q(
+        '[:find ?job_id ?status :where [?e :vertex_webya_generation_job/site_id ?site_id] [?e :vertex_webya_generation_job/job_id ?job_id] [?e :vertex_webya_generation_job/status ?status] [?e :vertex_webya_generation_job/started_at ?started_at] :in $ ?site_id :order-by desc ?started_at]',
+        args=(site_id,)
+    )
+    job_data = job_raw[0] if job_raw else None
+
     # Get profession_kind from template mapping
-    tmpl = _rq("SELECT profession_kind FROM vertex_webya_template WHERE template_id = %s LIMIT 1", (r[2],))
-    profession_kind = tmpl[0][0] if tmpl else ""
+    tmpl_data = get_kotoba_client().select_first_where(
+        "vertex_webya_template", "template_id", site_data["template_id"], columns=["profession_kind"]
+    )
+    profession_kind = tmpl_data["profession_kind"] if tmpl_data else ""
 
     return {
         "ok": True,
         "site": {
-            "siteId":        r[0],
-            "siteName":      r[1],
+            "siteId":        site_data["site_id"],
+            "siteName":      site_data["site_name"],
             "professionKind": profession_kind,
-            "status":        r[6],
-            "subdomain":     r[4],
-            "customDomain":  r[3],
-            "sslStatus":     r[5],
-            "publishedAt":   r[7],
-            "pages":         [{"slug": p[0], "title": p[1], "status": p[2]} for p in pages],
-            "latestJobId":   job[0][0] if job else None,
-            "latestJobStatus": job[0][1] if job else None,
+            "status":        site_data["status"],
+            "subdomain":     site_data["subdomain"],
+            "customDomain":  site_data["custom_domain"],
+            "sslStatus":     site_data["ssl_status"],
+            "publishedAt":   site_data["published_at"],
+            "pages":         [{"slug": p["slug"], "title": p["title"], "status": p["status"]} for p in pages_data],
+            "latestJobId":   job_data[0] if job_data else None,
+            "latestJobStatus": job_data[1] if job_data else None,
         },
     }
 
@@ -303,22 +347,23 @@ async def task_webya_get_site_preview(**kwargs: Any) -> dict[str, Any]:
     site_id = str(kwargs.get("siteId") or kwargs.get("site_id") or "")
     slug    = str(kwargs.get("slug") or "home")
 
-    rows = _rq(
-        "SELECT slug, title, html_content, json_ld, status, updated_at "
-        "FROM vertex_webya_page WHERE site_id = %s AND slug = %s LIMIT 1",
-        (site_id, slug),
+    # R0: Using q() for multiple WHERE conditions with LIMIT 1.
+    raw_results = get_kotoba_client().q(
+        '[:find ?slug ?title ?html_content ?json_ld ?status ?updated_at :where [?e :vertex_webya_page/site_id ?in_site_id] [?e :vertex_webya_page/slug ?in_slug] (= ?in_site_id ?site_id) (= ?in_slug ?slug) [?e :vertex_webya_page/title ?title] [?e :vertex_webya_page/html_content ?html_content] [?e :vertex_webya_page/json_ld ?json_ld] [?e :vertex_webya_page/status ?status] [?e :vertex_webya_page/updated_at ?updated_at]]',
+        args=(site_id, slug)
     )
-    if not rows:
+    rows_data = raw_results[0] if raw_results else None
+
+    if not rows_data:
         return {"ok": False, "error": f"page not found: {slug}"}
 
-    r = rows[0]
     return {
         "ok":          True,
-        "slug":        r[0],
-        "htmlContent": r[2] or "",
-        "jsonLd":      r[3] or "",
-        "status":      r[4],
-        "updatedAt":   r[5],
+        "slug":        rows_data[0],
+        "htmlContent": rows_data[2] or "",
+        "jsonLd":      rows_data[3] or "",
+        "status":      rows_data[4],
+        "updatedAt":   rows_data[5],
     }
 
 
@@ -330,31 +375,52 @@ async def task_webya_list_sites(**kwargs: Any) -> dict[str, Any]:
     limit           = int(kwargs.get("limit") or 50)
     offset          = int(kwargs.get("offset") or 0)
 
-    # Build WHERE clause safely
-    conditions = []
-    params: list[Any] = []
+    # Build Datalog query for sites
+    query_find_part = '[:find ?site_id ?site_name ?s_status ?subdomain ?custom_domain ?published_at'
+    query_where_part = ':where [?s :vertex_webya_site/site_id ?site_id] [?s :vertex_webya_site/site_name ?site_name] [?s :vertex_webya_site/status ?s_status] [?s :vertex_webya_site/subdomain ?subdomain] [?s :vertex_webya_site/custom_domain ?custom_domain] [?s :vertex_webya_site/published_at ?published_at] [?s :vertex_webya_site/created_at ?created_at]'
+    query_in_part = ':in $'
+    query_order_by = ':order-by desc ?created_at'
+
+    args_for_q = []
 
     if profession_kind:
-        # Join via template for profession_kind
-        conditions.append("t.profession_kind = %s")
-        params.append(profession_kind)
+        query_where_part += ' [?s :vertex_webya_site/template_id ?t_id] [?t :vertex_webya_template/template_id ?t_id] [?t :vertex_webya_template/profession_kind ?in_profession_kind]'
+        query_in_part += ' ?in_profession_kind'
+        args_for_q.append(profession_kind)
     if status:
-        conditions.append("s.status = %s")
-        params.append(status)
+        query_where_part += ' (= ?s_status ?in_status)'
+        query_in_part += ' ?in_status'
+        args_for_q.append(status)
 
-    where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
-    join_clause = "LEFT JOIN vertex_webya_template t ON t.template_id = s.template_id" if profession_kind else ""
+    full_query = f"{query_find_part} {query_where_part} {query_in_part} {query_order_by}]"
+    
+    # R0: Using q() for complex query with dynamic WHERE, JOIN, ORDER BY, and manual LIMIT/OFFSET.
+    all_matching_sites = get_kotoba_client().q(full_query, args=tuple(args_for_q))
+    
+    # Apply limit and offset in Python
+    rows_data = all_matching_sites[offset : offset + limit]
 
-    rows = _rq(
-        f"SELECT s.site_id, s.site_name, s.status, s.subdomain, s.custom_domain, s.published_at "
-        f"FROM vertex_webya_site s {join_clause} {where} "
-        f"ORDER BY s.created_at DESC LIMIT {int(limit)} OFFSET {int(offset)}",
-        tuple(params),
-    )
-    count = _rq(
-        f"SELECT COUNT(*) FROM vertex_webya_site s {join_clause} {where}",
-        tuple(params),
-    )
+    # Build Datalog query for count
+    count_query_find_part = '[:find (count ?s)'
+    count_query_where_part = ':where [?s :vertex_webya_site/site_id]'
+    count_query_in_part = ':in $'
+
+    count_args_for_q = []
+    
+    if profession_kind:
+        count_query_where_part += ' [?s :vertex_webya_site/template_id ?t_id] [?t :vertex_webya_template/template_id ?t_id] [?t :vertex_webya_template/profession_kind ?in_profession_kind]'
+        count_query_in_part += ' ?in_profession_kind'
+        count_args_for_q.append(profession_kind)
+    if status:
+        count_query_where_part += ' [?s :vertex_webya_site/status ?s_status] (= ?s_status ?in_status)'
+        count_query_in_part += ' ?in_status'
+        count_args_for_q.append(status)
+
+    full_count_query = f"{count_query_find_part} {count_query_where_part} {count_query_in_part}]"
+    
+    # R0: Using q() for complex count query with dynamic WHERE and JOIN.
+    count_raw = get_kotoba_client().q(full_count_query, args=tuple(count_args_for_q))
+    total_count = count_raw[0][0] if count_raw else 0
 
     return {
         "ok":    True,
@@ -367,9 +433,9 @@ async def task_webya_list_sites(**kwargs: Any) -> dict[str, Any]:
                 "customDomain": r[4],
                 "publishedAt":  r[5],
             }
-            for r in rows
+            for r in rows_data
         ],
-        "total":  count[0][0] if count else 0,
+        "total":  total_count,
         "limit":  limit,
         "offset": offset,
     }

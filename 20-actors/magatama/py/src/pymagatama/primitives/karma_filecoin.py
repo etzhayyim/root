@@ -5,7 +5,7 @@ IPFS-pinned karma CID gets proposed to N=5 Filecoin storage providers
 via Estuary / Lighthouse / Web3.Storage HTTP API. Renewal cycle
 (R/P30D) re-proposes deals expiring within 30 days.
 
-Karma.lean karma_5_layer_persistence guarantee — RisingWave / AT-repo
+# Karma.lean karma_5_layer_persistence guarantee — kotoba Datom log / AT-repo
 / IPFS-self / IPFS-ext / Filecoin = 5 layers.
 
 Pyzeebe task types:
@@ -16,15 +16,17 @@ Pyzeebe task types:
 
 from __future__ import annotations
 
-import datetime as _dt
+
 import hashlib
 import logging
 import os
 import time
 import uuid
+from datetime import datetime, timezone # Added for kotoba_datomic migration
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client # Replaced db_sync
+# from pymagatama.db_sync import sync_cursor # Removed
 
 LOG = logging.getLogger("karma.filecoin")
 
@@ -60,7 +62,7 @@ def _now_ms() -> int:
 
 
 def _now_ts() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.now(tz=timezone.utc).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def _deal_vertex_id(deal_id: str) -> str:
@@ -103,24 +105,23 @@ async def task_karma_filecoin_propose_batch(**kwargs: Any) -> dict[str, Any]:
 
     now_ms = _now_ms()
     now_ts = _now_ts()
-    today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
+    today_iso = datetime.now(tz=timezone.utc).date().isoformat()
     expires_at_ms = now_ms + duration_days * 24 * 60 * 60 * 1000
 
-    with sync_cursor() as cur:
-        # Find pinned CIDs without an active deal.
-        cur.execute(
-            f"""
-            SELECT DISTINCT cid
-            FROM vertex_karma_ipfs_pin
-            WHERE cid NOT IN (
-              SELECT cid FROM vertex_karma_filecoin_deal
-              WHERE status IN ('proposed','sealed','active')
-            )
-            ORDER BY cid
-            LIMIT {int(batch_size)}
-            """
-        )
-        cids = [r[0] for r in cur.fetchall() if r[0]]
+    kc = get_kotoba_client()
+    # R0: Multi-predicate filter with NOT IN, ORDER BY and LIMIT handled in Python.
+    ipfs_cids_dicts = kc.select_where("vertex_karma_ipfs_pin", columns=["cid"])
+    all_pinned_cids = {d["cid"] for d in ipfs_cids_dicts if d and "cid" in d}
+
+    active_deals_proposed = kc.select_where("vertex_karma_filecoin_deal", "status", "proposed", columns=["cid"])
+    active_deals_sealed = kc.select_where("vertex_karma_filecoin_deal", "status", "sealed", columns=["cid"])
+    active_deals_active = kc.select_where("vertex_karma_filecoin_deal", "status", "active", columns=["cid"])
+
+    cids_with_active_deals = {d["cid"] for d in active_deals_proposed if d and "cid" in d}
+    cids_with_active_deals.update({d["cid"] for d in active_deals_sealed if d and "cid" in d})
+    cids_with_active_deals.update({d["cid"] for d in active_deals_active if d and "cid" in d})
+
+    cids = sorted(list(all_pinned_cids - cids_with_active_deals))[:batch_size]
 
         for cid in cids:
             sps = _select_sps(sp_count)
@@ -153,41 +154,36 @@ async def task_karma_filecoin_propose_batch(**kwargs: Any) -> dict[str, Any]:
                     error_message = ""
 
                 try:
-                    cur.execute(
-                        """
-                        INSERT INTO vertex_karma_filecoin_deal (
-                            vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                            deal_id, cid, sp_address, deal_proposal_cid,
-                            provider_endpoint, bundler_used,
-                            proposed_at, proposed_at_ms,
-                            sealed_at, sealed_at_ms,
-                            expires_at_ms, duration_days, bytes_size,
-                            retrieval_url, cost_usd_estimate,
-                            status, error_code, error_message,
-                            created_at, org_id, user_id, actor_id
-                        ) VALUES (
-                            %s, NULL, %s, 1, %s,
-                            %s, %s, %s, %s,
-                            %s, %s,
-                            %s, %s,
-                            NULL, NULL,
-                            %s, %s, %s,
-                            %s, NULL,
-                            %s, %s, %s,
-                            %s, %s, %s, %s
-                        )
-                        """,
-                        (
-                            vertex_id, today_iso, KARMA_DID,
-                            deal_id, cid, sp, proposal_cid,
-                            provider_endpoint, DEAL_PROVIDER,
-                            now_ts, now_ms,
-                            expires_at_ms, duration_days, DEFAULT_BYTES_FALLBACK,
-                            f"https://{sp}.deal/{deal_id}",
-                            status, error_code, error_message,
-                            now_ts, KARMA_DID, KARMA_DID, "karma.filecoin.proposeBatch",
-                        ),
-                    )
+                    deal_data = {
+                        "vertex_id": vertex_id,
+                        "_seq": None,
+                        "created_date": today_iso,
+                        "sensitivity_ord": 1,
+                        "owner_did": KARMA_DID,
+                        "deal_id": deal_id,
+                        "cid": cid,
+                        "sp_address": sp,
+                        "deal_proposal_cid": proposal_cid,
+                        "provider_endpoint": provider_endpoint,
+                        "bundler_used": DEAL_PROVIDER,
+                        "proposed_at": now_ts,
+                        "proposed_at_ms": now_ms,
+                        "sealed_at": None,
+                        "sealed_at_ms": None,
+                        "expires_at_ms": expires_at_ms,
+                        "duration_days": duration_days,
+                        "bytes_size": DEFAULT_BYTES_FALLBACK,
+                        "retrieval_url": f"https://{sp}.deal/{deal_id}",
+                        "cost_usd_estimate": None,
+                        "status": status,
+                        "error_code": error_code,
+                        "error_message": error_message,
+                        "created_at": now_ts,
+                        "org_id": KARMA_DID,
+                        "user_id": KARMA_DID,
+                        "actor_id": "karma.filecoin.proposeBatch",
+                    }
+                    kc.insert_row("vertex_karma_filecoin_deal", deal_data)
                     if status == "proposed":
                         proposed += 1
                     else:
@@ -215,19 +211,15 @@ async def task_karma_filecoin_renew_expiring(**kwargs: Any) -> dict[str, Any]:
 
     now_ms = _now_ms()
     now_ts = _now_ts()
-    today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
+    today_iso = datetime.now(tz=timezone.utc).date().isoformat()
     new_expires_at_ms = now_ms + new_duration_days * 24 * 60 * 60 * 1000
 
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT cid, sp_address, bytes_size
-            FROM mv_karma_filecoin_expiring_soon
-            ORDER BY expires_at_ms ASC
-            LIMIT {int(batch_size)}
-            """
-        )
-        rows = cur.fetchall()
+    kc = get_kotoba_client()
+    # R0: ORDER BY and LIMIT handled in Python.
+    all_expiring_deals = kc.select_where("mv_karma_filecoin_expiring_soon", columns=["cid", "sp_address", "bytes_size", "expires_at_ms"])
+    # Sort by expires_at_ms (ascending) and apply limit
+    sorted_deals = sorted(all_expiring_deals, key=lambda x: x.get("expires_at_ms", 0))[:batch_size]
+    rows = [(d["cid"], d["sp_address"], d["bytes_size"]) for d in sorted_deals]
 
         for cid, sp, bytes_size in rows:
             nonce = uuid.uuid4().hex
@@ -235,40 +227,36 @@ async def task_karma_filecoin_renew_expiring(**kwargs: Any) -> dict[str, Any]:
             proposal_cid = _deal_proposal_cid_stub(cid, sp, nonce + "-renew")
             vertex_id = _deal_vertex_id(deal_id)
             try:
-                cur.execute(
-                    """
-                    INSERT INTO vertex_karma_filecoin_deal (
-                        vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                        deal_id, cid, sp_address, deal_proposal_cid,
-                        provider_endpoint, bundler_used,
-                        proposed_at, proposed_at_ms,
-                        sealed_at, sealed_at_ms,
-                        expires_at_ms, duration_days, bytes_size,
-                        retrieval_url, cost_usd_estimate,
-                        status, error_code, error_message,
-                        created_at, org_id, user_id, actor_id
-                    ) VALUES (
-                        %s, NULL, %s, 1, %s,
-                        %s, %s, %s, %s,
-                        '', %s,
-                        %s, %s,
-                        NULL, NULL,
-                        %s, %s, %s,
-                        %s, NULL,
-                        'proposed', '', '',
-                        %s, %s, %s, %s
-                    )
-                    """,
-                    (
-                        vertex_id, today_iso, KARMA_DID,
-                        deal_id, cid, sp, proposal_cid,
-                        DEAL_PROVIDER,
-                        now_ts, now_ms,
-                        new_expires_at_ms, new_duration_days, int(bytes_size or DEFAULT_BYTES_FALLBACK),
-                        f"https://{sp}.deal/{deal_id}",
-                        now_ts, KARMA_DID, KARMA_DID, "karma.filecoin.renewExpiring",
-                    ),
-                )
+                deal_data = {
+                    "vertex_id": vertex_id,
+                    "_seq": None,
+                    "created_date": today_iso,
+                    "sensitivity_ord": 1,
+                    "owner_did": KARMA_DID,
+                    "deal_id": deal_id,
+                    "cid": cid,
+                    "sp_address": sp,
+                    "deal_proposal_cid": proposal_cid,
+                    "provider_endpoint": "", # from the VALUES in old code
+                    "bundler_used": DEAL_PROVIDER,
+                    "proposed_at": now_ts,
+                    "proposed_at_ms": now_ms,
+                    "sealed_at": None,
+                    "sealed_at_ms": None,
+                    "expires_at_ms": new_expires_at_ms,
+                    "duration_days": new_duration_days,
+                    "bytes_size": int(bytes_size or DEFAULT_BYTES_FALLBACK),
+                    "retrieval_url": f"https://{sp}.deal/{deal_id}",
+                    "cost_usd_estimate": None,
+                    "status": "proposed",
+                    "error_code": "",
+                    "error_message": "",
+                    "created_at": now_ts,
+                    "org_id": KARMA_DID,
+                    "user_id": KARMA_DID,
+                    "actor_id": "karma.filecoin.renewExpiring",
+                }
+                kc.insert_row("vertex_karma_filecoin_deal", deal_data)
                 renewed += 1
             except Exception as exc:  # noqa: BLE001
                 LOG.warning("filecoin.renew INSERT err cid=%s sp=%s: %s", cid, sp, exc)
@@ -287,34 +275,43 @@ async def task_karma_filecoin_status_get(**kwargs: Any) -> dict[str, Any]:
     expiring_soon = 0
     soon_threshold_ms = _now_ms() + 30 * 24 * 60 * 60 * 1000
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT deal_id, sp_address, status, sealed_at_ms, expires_at_ms,
-                   bytes_size, retrieval_url
-            FROM vertex_karma_filecoin_deal
-            WHERE cid = %s
-            ORDER BY proposed_at_ms DESC
-            LIMIT 50
-            """,
-            (cid,),
-        )
-        for row in cur.fetchall():
-            deal_id, sp, status, sealed_at_ms, expires_at_ms, bytes_size, retrieval_url = row
-            d = {
-                "dealId": deal_id,
-                "spAddress": sp,
-                "status": status,
-                "sealedAtMs": int(sealed_at_ms or 0),
-                "expiresAtMs": int(expires_at_ms or 0),
-                "bytesSize": int(bytes_size or 0),
-                "retrievalUrl": retrieval_url or "",
-            }
-            deals.append(d)
-            if status in ("proposed", "sealed", "active"):
-                active += 1
-                if expires_at_ms and int(expires_at_ms) < soon_threshold_ms:
-                    expiring_soon += 1
+    kc = get_kotoba_client()
+    # R0: ORDER BY and LIMIT handled in Python.
+    deal_records = kc.select_where(
+        "vertex_karma_filecoin_deal",
+        "cid",
+        cid,
+        columns=[
+            "deal_id", "sp_address", "status", "sealed_at_ms", "expires_at_ms",
+            "bytes_size", "retrieval_url", "proposed_at_ms" # Need proposed_at_ms for sorting
+        ]
+    )
+    # Sort by proposed_at_ms DESC and apply limit
+    sorted_deal_records = sorted(deal_records, key=lambda x: x.get("proposed_at_ms", 0), reverse=True)[:50]
+
+    for row in sorted_deal_records:
+        deal_id = row.get("deal_id")
+        sp = row.get("sp_address")
+        status = row.get("status")
+        sealed_at_ms = row.get("sealed_at_ms")
+        expires_at_ms = row.get("expires_at_ms")
+        bytes_size = row.get("bytes_size")
+        retrieval_url = row.get("retrieval_url")
+
+        d = {
+            "dealId": deal_id,
+            "spAddress": sp,
+            "status": status,
+            "sealedAtMs": int(sealed_at_ms or 0),
+            "expiresAtMs": int(expires_at_ms or 0),
+            "bytesSize": int(bytes_size or 0),
+            "retrievalUrl": retrieval_url or "",
+        }
+        deals.append(d)
+        if status in ("proposed", "sealed", "active"):
+            active += 1
+            if expires_at_ms and int(expires_at_ms) < soon_threshold_ms:
+                expiring_soon += 1
 
     return {
         "cid": cid,

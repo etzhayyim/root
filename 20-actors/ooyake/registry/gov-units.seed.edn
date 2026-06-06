@@ -229,6 +229,7 @@
    :gov.unit/level :supranational :gov.unit/branch :intergovernmental :gov.unit/jurisdiction "eu"
    :gov.unit/name-local "European Union" :gov.unit/name-en "European Union"
    :gov.unit/official-url "https://european-union.europa.eu/" :gov.unit/wikidata "Q458" :gov.unit/cofog ["01"]
+   :gov.unit/organism "org.state.eu"
    :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://european-union.europa.eu/" :gov.unit/last-verified "2026-06-02"
    :gov.unit/verification-status :maintainer-verified}]

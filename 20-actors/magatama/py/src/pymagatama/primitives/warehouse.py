@@ -9,7 +9,7 @@ Task types:
   warehouse.pick.persist
   warehouse.inventory.read
 
-ADR-0036 Hyperdrive direct (RisingWave via SQLAlchemy Core).
+ADR-2605262130, ADR-2605312345 (kotoba Datom log = canonical state).
 Cost-compression role: bin allocation + pick allocation are the
 hook points for cost-aware optimization (LangGraph optimizer).
 """
@@ -21,6 +21,8 @@ import json
 import logging
 import uuid
 from typing import Any
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("warehouse.primitive")
 
@@ -35,26 +37,6 @@ def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
     return f"at://{_WAREHOUSE_DID}/com.etzhayyim.apps.warehouse.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
-
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("warehouse execute failed: %s", exc)
-        return False
-
-
-def _query(sql_str: str, params: dict) -> list[Any]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params)
-    except Exception as exc:
-        LOG.warning("warehouse query failed: %s", exc)
-        return []
 
 
 # ── SKU master ───────────────────────────────────────────────────────────────
@@ -72,19 +54,27 @@ async def task_warehouse_sku_register(
         "skuCode": skuCode, "description": description,
         "unitOfMeasure": unitOfMeasure, "weightKg": weightKg,
     }
-    ok = _execute(
-        """
-        INSERT INTO vertex_warehouse_sku (
-          vertex_id, vertex_key, label, status, value_json,
-          created_at, updated_at, owner_did, actor_did, sensitivity_ord
-        ) VALUES (
-          :vid, :sku, 'warehouse.sku', 'active', :payload,
-          :now, :now, :did, :did, 2
+    client = get_kotoba_client()
+    ok = False
+    try:
+        client.insert_row(
+            "vertex_warehouse_sku",
+            {
+                "vertex_id": vid,
+                "vertex_key": skuCode,
+                "label": "warehouse.sku",
+                "status": "active",
+                "value_json": payload,
+                "created_at": _now_iso(),
+                "updated_at": _now_iso(),
+                "owner_did": _WAREHOUSE_DID,
+                "actor_did": _WAREHOUSE_DID,
+                "sensitivity_ord": 2
+            }
         )
-        """,
-        {"vid": vid, "sku": skuCode, "payload": json.dumps(payload),
-         "now": _now_iso(), "did": _WAREHOUSE_DID},
-    )
+        ok = True
+    except Exception as exc:
+        LOG.warning("warehouse.sku.register failed: %s", exc)
     return {"ok": ok, "vertexId": vid, "skuVertexId": vid}
 
 
@@ -126,19 +116,27 @@ async def task_warehouse_putaway_persist(
         "skuCode": skuCode, "quantity": int(quantity or 0),
         "binCode": assignedBinCode, "receivedAt": receivedAt or _now_iso(),
     }
-    ok = _execute(
-        """
-        INSERT INTO vertex_warehouse_putaway (
-          vertex_id, vertex_key, label, status, value_json,
-          created_at, updated_at, owner_did, actor_did, sensitivity_ord
-        ) VALUES (
-          :vid, :key, 'warehouse.putaway', 'active', :payload,
-          :now, :now, :did, :did, 2
+    client = get_kotoba_client()
+    ok = False
+    try:
+        client.insert_row(
+            "vertex_warehouse_putaway",
+            {
+                "vertex_id": vid,
+                "vertex_key": f"{skuCode}:{assignedBinCode}",
+                "label": "warehouse.putaway",
+                "status": "active",
+                "value_json": payload,
+                "created_at": _now_iso(),
+                "updated_at": _now_iso(),
+                "owner_did": _WAREHOUSE_DID,
+                "actor_did": _WAREHOUSE_DID,
+                "sensitivity_ord": 2
+            }
         )
-        """,
-        {"vid": vid, "key": f"{skuCode}:{assignedBinCode}",
-         "payload": json.dumps(payload), "now": _now_iso(), "did": _WAREHOUSE_DID},
-    )
+        ok = True
+    except Exception as exc:
+        LOG.warning("warehouse.putaway.persist failed: %s", exc)
     return {"ok": ok, "vertexId": vid, "putawayVertexId": vid,
             "assignedBinCode": assignedBinCode}
 
@@ -153,23 +151,27 @@ async def task_warehouse_pick_allocate(
     """Allocate stock from one or more bins. Naive FIFO: read putaway rows
     for skuCode, take bins until quantity satisfied. Optimizer can replace
     with travel-distance-aware allocation."""
-    rows = _query(
-        """
-        SELECT value_json
-        FROM vertex_warehouse_putaway
-        WHERE status = 'active'
-        ORDER BY created_at ASC
-        LIMIT 50
-        """,
-        {},
-    )
+    client = get_kotoba_client()
+    query_edn = """
+    [:find (pull ?e [:value_json])
+     :where
+     [?e :vertex/id _]
+     [?e :label "warehouse.putaway"]
+     [?e :status "active"]
+     :order-by [?e :created_at :asc]
+     :limit 50]
+    """
+    try:
+        results = client.q(query_edn)
+    except Exception as exc:
+        LOG.warning("warehouse.pick.allocate query failed: %s", exc)
+        results = []
+
+    rows = [r[0] for r in results] # results from q are list[list], so extract the dict
     bins: list[str] = []
     remaining = int(quantity or 0)
     for row in rows:
-        try:
-            v = json.loads(row[0]) if isinstance(row[0], str) else row[0]
-        except Exception:
-            continue
+        v = row.get("value_json", {})
         if v.get("skuCode") != skuCode:
             continue
         bins.append(v.get("binCode", ""))
@@ -193,19 +195,27 @@ async def task_warehouse_pick_persist(
         "orderId": orderId, "skuCode": skuCode,
         "quantity": int(quantity or 0), "bins": bins,
     }
-    ok = _execute(
-        """
-        INSERT INTO vertex_warehouse_pick (
-          vertex_id, vertex_key, label, status, value_json,
-          created_at, updated_at, owner_did, actor_did, sensitivity_ord
-        ) VALUES (
-          :vid, :key, 'warehouse.pick', 'active', :payload,
-          :now, :now, :did, :did, 2
+    client = get_kotoba_client()
+    ok = False
+    try:
+        client.insert_row(
+            "vertex_warehouse_pick",
+            {
+                "vertex_id": vid,
+                "vertex_key": f"{orderId}:{skuCode}",
+                "label": "warehouse.pick",
+                "status": "active",
+                "value_json": payload,
+                "created_at": _now_iso(),
+                "updated_at": _now_iso(),
+                "owner_did": _WAREHOUSE_DID,
+                "actor_did": _WAREHOUSE_DID,
+                "sensitivity_ord": 2
+            }
         )
-        """,
-        {"vid": vid, "key": f"{orderId}:{skuCode}",
-         "payload": json.dumps(payload), "now": _now_iso(), "did": _WAREHOUSE_DID},
-    )
+        ok = True
+    except Exception as exc:
+        LOG.warning("warehouse.pick.persist failed: %s", exc)
     return {"ok": ok, "vertexId": vid, "pickVertexId": vid,
             "pickedFromBins": bins}
 
@@ -215,20 +225,17 @@ async def task_warehouse_pick_persist(
 async def task_warehouse_inventory_read(skuCode: str = "") -> dict:
     if not skuCode:
         return {"ok": False, "onHandQty": 0, "bins": [], "error": "skuCode required"}
-    rows = _query(
-        """
-        SELECT value_json
-        FROM vertex_warehouse_putaway
-        WHERE status = 'active'
-        """,
-        {},
-    )
+    client = get_kotoba_client()
+    try:
+        rows = client.select_where(
+            "vertex_warehouse_putaway", "status", "active", columns=["value_json"]
+        )
+    except Exception as exc:
+        LOG.warning("warehouse.inventory.read query failed: %s", exc)
+        rows = []
     by_bin: dict[str, int] = {}
     for row in rows:
-        try:
-            v = json.loads(row[0]) if isinstance(row[0], str) else row[0]
-        except Exception:
-            continue
+        v = row.get("value_json", {})
         if v.get("skuCode") != skuCode:
             continue
         bin_code = v.get("binCode", "")

@@ -56,15 +56,15 @@ hotaru/
 ├── CLAUDE.md                        # agent rules
 ├── data/seed-iii-v-substrate.kotoba.edn   # :representative seed (InP-first)
 ├── lex/                             # 6 lexicons com.etzhayyim.hotaru.*
-├── cells/                           # 5 Pregel cells (2 coded state machines, 3 stubs) + 12 tests
-└── methods/analyze.py              # commons-readiness analyzer + 10 tests
+├── cells/                           # 5 Pregel cells (5 coded state machines) + 28 tests
+└── methods/analyze.py              # commons-readiness analyzer + 25 tests
 ```
 
 Vocabulary: `00-contracts/schemas/iii-v-substrate-ontology.kotoba.edn`.
 
 ## Tests
 
-22 green: `methods/test_analyze.py` (10) + `cells/test_state_machines.py` (12).
+53 green: `methods/test_analyze.py` (25) + `cells/test_state_machines.py` (28).
 
 ```
 cd methods && python3 test_analyze.py

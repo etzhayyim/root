@@ -39,10 +39,10 @@ ISIC C2611 · ISCO 2149/3119/8131 · UNSPSC 32.
 ## Cells (langgraph→WASM; Murakumo-only; `.solve()` raises at R0)
 
 commons_ingest (dan — **coded**; open-IP license screen, `ValueError` on vendor-proprietary) ·
-bulk_crystal_design (naphtali — stub; LEC/VGF/VB boule design, `fabricated false`) ·
-wafer_fab_design (gad — stub; saw/lap/CMP/surface spec, `fabricated false`) ·
+bulk_crystal_design (naphtali — **coded**; LEC/VGF/VB boule design, G2 `fabricated false` + G4 In-sourcing) ·
+wafer_fab_design (gad — **coded**; saw/lap/CMP/surface spec, G2 `fabricated false` + spec-sanity) ·
 precursor_safety (asher — **coded**; PH₃/In/Ga refusal gate, G3/G4/G9/G11) ·
-commons_readiness (issachar — stub; logic in `methods/analyze.py`, non-adjudicating).
+commons_readiness (issachar — **coded**; G3 non-adjudicating maturity-score report; logic mirrored in `methods/analyze.py`).
 
 ## Gates (immutable)
 
@@ -57,14 +57,20 @@ G11 process-safety. (Full text: `manifest.edn` / ADR.)
    `:iiiv.proc/source-license :db/allowed [...]` (open only) + `:iiiv.crystal/fabricated :db/allowed [false]`.
 2. **lexicon** `lex/processKnowledge.edn` `sourceLicense` enum (no `vendor-proprietary`) +
    `lex/crystalGrowthDesign.edn` / `lex/waferSpec.edn` `fabricated` `const false`.
-3. **code** `cells/commons_ingest/state_machine.py` + `cells/precursor_safety/state_machine.py` +
-   `methods/analyze.py` — raise/refuse on any non-open license, any `fabricated=true`, any unverified In/Ga.
+3. **code** `cells/{commons_ingest,bulk_crystal_design,wafer_fab_design,precursor_safety,commons_readiness}/state_machine.py`
+   + `methods/analyze.py` — raise/refuse on any non-open license, any `fabricated=true`, any unverified In/Ga.
+
+The agreement of these three places is **machine-checked** — `methods/test_analyze.py` asserts the
+schema `:db/allowed`, the lexicon `enum`/`const`, and the code sets are identical (G1 license, G2
+`fabricated false`) or in the deliberate clean-set relationship (G4 in-sourcing), so the invariant
+cannot silently drift. The seed is also **schema-validated**: `analyze.py` checks every datom
+against the ontology's `:db/allowed` sets and refuses to run (exit 2) on any non-conformant value.
 
 ## Build / test
 
 ```
-cd methods && python3 test_analyze.py           # 10/10 (or pytest with PYTEST_DISABLE_PLUGIN_AUTOLOAD=1)
-cd cells   && python3 test_state_machines.py    # 12/12
+cd methods && python3 test_analyze.py           # 25/25 (or pytest with PYTEST_DISABLE_PLUGIN_AUTOLOAD=1)
+cd cells   && python3 test_state_machines.py    # 28/28
 cd methods && python3 analyze.py                # → out/commons-readiness.md + out/iii-v-readiness.kotoba.edn
 ```
 

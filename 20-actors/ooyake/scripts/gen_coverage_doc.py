@@ -27,6 +27,7 @@ def main() -> int:
     units = {}
     addr = 0
     coords = 0
+    procedures = []
     for f in sorted(glob.glob(os.path.join(_REG, "gov-units*.edn"))):
         doc = parse_edn(open(f, encoding="utf-8").read())
         for u in doc.get(":units", []):
@@ -36,6 +37,7 @@ def main() -> int:
             addr += 1
             if a.get(":gov.address/lat") is not None:
                 coords += 1
+        procedures.extend(doc.get(":procedures", []))
     by_level = Counter(u.get(":gov.unit/level", "—") for u in units.values())
     by_branch = Counter(u.get(":gov.unit/branch", "—") for u in units.values())
     by_src = Counter(u.get(":gov.unit/sourcing", "—") for u in units.values())
@@ -93,6 +95,43 @@ def main() -> int:
              "target-list, never ranked as judgement — completeness here reflects Wikidata "
              "typing coverage, not a country's governance quality.")
     L.append("")
+
+    # ── Procedure linkage (illustrative; NOT counted as authoritative coverage, G5) ──
+    if procedures:
+        proc_juris = {p.get(":gov.procedure/jurisdiction") for p in procedures}
+        proc_juris.discard(None)
+        by_proc_src = Counter(p.get(":gov.procedure/sourcing", "—") for p in procedures)
+        linked = [p for p in procedures if p.get(":gov.procedure/toritsugi-ref")]
+        # cross-actor link resolution (read-only; degrade gracefully if file absent)
+        resolved = "—"
+        tor_path = os.path.normpath(
+            os.path.join(_HERE, "..", "..", "toritsugi", "registry", "procedures.seed.json")
+        )
+        try:
+            import json
+            tids = {p["procedureId"] for p in json.load(open(tor_path, encoding="utf-8"))["procedures"]}
+            resolved = sum(1 for p in linked if p.get(":gov.procedure/toritsugi-ref") in tids)
+        except Exception:
+            pass
+        L.append("## Procedure linkage (illustrative)")
+        L.append("")
+        L.append(f"**{len(procedures)} `:gov.procedure` records** across "
+                 f"**{len(proc_juris)} jurisdictions**, "
+                 f"{len(linked)} linked to toritsugi via `:gov.procedure/toritsugi-ref` "
+                 f"({resolved} resolve to a live toritsugi procedureId).")
+        L.append("")
+        L.append("| sourcing | procedures |")
+        L.append("|---|--:|")
+        for k, v in by_proc_src.most_common():
+            L.append(f"| {str(k).lstrip(':')} | {v:,} |")
+        L.append("")
+        L.append("> **Honesty (G5)**: these procedure rows are `:representative` / "
+                 "`:unverified-seed` wayfinding scaffold — they are **NOT authoritative "
+                 "coverage** and are never counted as such. They project the citizen-facing "
+                 "toritsugi procedures into the atlas tree (delivery ↔ structure) for "
+                 "navigation only; live use requires verification (toritsugi G14).")
+        L.append("")
+
     with open(_OUT, "w", encoding="utf-8") as fh:
         fh.write("\n".join(L))
     print(f"wrote {_OUT} — {len(units)} units, {len(countries)} jurisdictions")

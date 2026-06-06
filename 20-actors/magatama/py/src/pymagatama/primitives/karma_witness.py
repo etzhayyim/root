@@ -18,9 +18,10 @@ import json
 import logging
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("karma.witness")
 
@@ -73,82 +74,71 @@ async def task_karma_witness_invite_fan_out(**kwargs: Any) -> dict[str, Any]:
     invited_at_ms = _now_ms()
     invited_at = _now_ts()
     expires_at_ms = invited_at_ms + expires_in_days * 24 * 60 * 60 * 1000
-    today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
+    today_iso = datetime.now(timezone.utc).date().isoformat()
 
     candidate_json = json.dumps(candidate, separators=(",", ":")) if candidate else None
 
     invitation_ids: list[str] = []
     seen: set[str] = set()
 
-    with sync_cursor() as cur:
-        # Reject inviter from inviting themselves; dedup invitee list.
-        for invitee in invitee_dids:
-            if not invitee or invitee == inviter_did or invitee in seen:
+    # Reject inviter from inviting themselves; dedup invitee list.
+    for invitee in invitee_dids:
+        if not invitee or invitee == inviter_did or invitee in seen:
+            continue
+        seen.add(invitee)
+
+        # Prevent re-inviting an invitee who already attested this edge.
+        if edge_id:
+            # R0: Multi-predicate filter applied in Python over selected data.
+            witnesses = get_kotoba_client().select_where("vertex_karma_witness", "edge_id", edge_id)
+            already_witnessed = any(w.get("witness_did") == invitee for w in witnesses)
+            if already_witnessed:
+                LOG.info("invite skip: %s already witnessed %s", invitee, edge_id)
                 continue
-            seen.add(invitee)
 
-            # Prevent re-inviting an invitee who already attested this edge.
-            if edge_id:
-                cur.execute(
-                    """
-                    SELECT count(*) FROM vertex_karma_witness
-                    WHERE edge_id = %s AND witness_did = %s
-                    """,
-                    (edge_id, invitee),
-                )
-                if int(cur.fetchone()[0]) > 0:
-                    LOG.info("invite skip: %s already witnessed %s", invitee, edge_id)
-                    continue
-
-            # Prevent duplicate pending invitation.
-            if edge_id:
-                cur.execute(
-                    """
-                    SELECT count(*) FROM vertex_karma_witness_invitation
-                    WHERE edge_id = %s AND invitee_did = %s AND status = 'pending'
-                    """,
-                    (edge_id, invitee),
-                )
-                if int(cur.fetchone()[0]) > 0:
-                    LOG.info("invite skip: pending invitation already exists for %s/%s", invitee, edge_id)
-                    continue
-
-            nonce = uuid.uuid4().hex
-            invitation_id = _content_addressed_id(
-                "inv", edge_id or "candidate", inviter_did, invitee, str(invited_at_ms), nonce
+        # Prevent duplicate pending invitation.
+        if edge_id:
+            # R0: Multi-predicate filter applied in Python over selected data.
+            pending_invitations = get_kotoba_client().select_where(
+                "vertex_karma_witness_invitation", "edge_id", edge_id
             )
-            vertex_id = f"invitation-{invitation_id}"
-
-            cur.execute(
-                """
-                INSERT INTO vertex_karma_witness_invitation (
-                    vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                    invitation_id, edge_id, candidate_json,
-                    inviter_did, invitee_did,
-                    message, rationale_cid,
-                    invited_at, invited_at_ms, expires_at_ms,
-                    status,
-                    created_at, org_id, user_id, actor_id
-                ) VALUES (
-                    %s, NULL, %s, 1, %s,
-                    %s, %s, %s,
-                    %s, %s,
-                    %s, %s,
-                    %s, %s, %s,
-                    'pending',
-                    %s, %s, %s, %s
-                )
-                """,
-                (
-                    vertex_id, today_iso, inviter_did,
-                    invitation_id, edge_id or None, candidate_json,
-                    inviter_did, invitee,
-                    message, rationale_cid,
-                    invited_at, invited_at_ms, expires_at_ms,
-                    invited_at, inviter_did, inviter_did, "karma.witness.inviteFanOut",
-                ),
+            already_pending = any(
+                pi.get("invitee_did") == invitee and pi.get("status") == "pending"
+                for pi in pending_invitations
             )
-            invitation_ids.append(invitation_id)
+            if already_pending:
+                LOG.info("invite skip: pending invitation already exists for %s/%s", invitee, edge_id)
+                continue
+
+        nonce = uuid.uuid4().hex
+        invitation_id = _content_addressed_id(
+            "inv", edge_id or "candidate", inviter_did, invitee, str(invited_at_ms), nonce
+        )
+        vertex_id = f"invitation-{invitation_id}"
+
+        row_dict = {
+            "vertex_id": vertex_id,
+            "created_date": today_iso,
+            "sensitivity_ord": 1,
+            "owner_did": inviter_did,
+            "invitation_id": invitation_id,
+            "edge_id": edge_id or None,
+            "candidate_json": candidate_json,
+            "inviter_did": inviter_did,
+            "invitee_did": invitee,
+            "message": message,
+            "rationale_cid": rationale_cid,
+            "invited_at": invited_at,
+            "invited_at_ms": invited_at_ms,
+            "expires_at_ms": expires_at_ms,
+            "status": "pending",
+            "created_at": invited_at,
+            "org_id": inviter_did,
+            "user_id": inviter_did,
+            "actor_id": "karma.witness.inviteFanOut",
+        }
+        get_kotoba_client().insert_row("vertex_karma_witness_invitation", row_dict)
+        invitation_ids.append(invitation_id)
 
     return {
         "invitationIds": invitation_ids,
@@ -181,87 +171,63 @@ async def task_karma_witness_respond_to_invitation(**kwargs: Any) -> dict[str, A
 
     now_ms = _now_ms()
     responded_at = _now_ts()
-    today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
+    today_iso = datetime.now(timezone.utc).date().isoformat()
     witness_id = ""
 
-    with sync_cursor() as cur:
-        # Load + verify invitation.
-        cur.execute(
-            """
-            SELECT edge_id, invitee_did, expires_at_ms, status
-            FROM vertex_karma_witness_invitation
-            WHERE invitation_id = %s
-            LIMIT 1
-            """,
-            (invitation_id,),
-        )
-        row = cur.fetchone()
-        if not row:
-            raise ValueError(f"invitation {invitation_id} not found")
-        edge_id, invitee_did, expires_at_ms, status = row
-        if status != "pending":
-            raise ValueError(f"invitation already responded (status={status})")
-        if int(expires_at_ms) <= now_ms:
-            # Lazy expire: mark + reject.
-            cur.execute(
-                """
-                UPDATE vertex_karma_witness_invitation
-                SET status = 'expired',
-                    responded_at = %s, responded_at_ms = %s
-                WHERE invitation_id = %s AND status = 'pending'
-                """,
-                (responded_at, now_ms, invitation_id),
-            )
-            raise ValueError("invitation expired")
-        if responder_did != invitee_did:
-            raise ValueError("responder mismatch")
+    # Load + verify invitation.
+    invitation_row = get_kotoba_client().select_first_where(
+        "vertex_karma_witness_invitation", "invitation_id", invitation_id
+    )
+    if not invitation_row:
+        raise ValueError(f"invitation {invitation_id} not found")
+    edge_id = invitation_row["edge_id"]
+    invitee_did = invitation_row["invitee_did"]
+    expires_at_ms = invitation_row["expires_at_ms"]
+    status = invitation_row["status"]
 
-        if response == "accept":
-            witness_id = _content_addressed_id(
-                "witness", edge_id or "candidate", responder_did, attestation_kind, str(now_ms)
-            )
-            vertex_id = f"witness-{witness_id}"
-            cur.execute(
-                """
-                INSERT INTO vertex_karma_witness (
-                    vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                    witness_id, edge_id, witness_did, witness_organism_cid,
-                    attestation_kind, signature, signature_alg, ts_ms,
-                    created_at, org_id, user_id, actor_id
-                ) VALUES (
-                    %s, NULL, %s, 1, %s,
-                    %s, %s, %s, NULL,
-                    %s, %s, %s, %s,
-                    %s, %s, %s, %s
-                )
-                """,
-                (
-                    vertex_id, today_iso, responder_did,
-                    witness_id, edge_id or "", responder_did,
-                    attestation_kind, signature, signature_alg, now_ms,
-                    responded_at, responder_did, responder_did, "karma.witness.respondToInvitation",
-                ),
-            )
+    if status != "pending":
+        raise ValueError(f"invitation already responded (status={status})")
+    if int(expires_at_ms) <= now_ms:
+        # Lazy expire: mark + reject.
+        invitation_row["status"] = "expired"
+        invitation_row["responded_at"] = responded_at
+        invitation_row["responded_at_ms"] = now_ms
+        get_kotoba_client().insert_row("vertex_karma_witness_invitation", invitation_row)
+        raise ValueError("invitation expired")
+    if responder_did != invitee_did:
+        raise ValueError("responder mismatch")
 
-        cur.execute(
-            """
-            UPDATE vertex_karma_witness_invitation
-            SET status = %s,
-                response = %s,
-                response_witness_id = %s,
-                responded_at = %s,
-                responded_at_ms = %s
-            WHERE invitation_id = %s AND status = 'pending'
-            """,
-            (
-                "accepted" if response == "accept" else "declined",
-                response,
-                witness_id or None,
-                responded_at,
-                now_ms,
-                invitation_id,
-            ),
+    if response == "accept":
+        witness_id = _content_addressed_id(
+            "witness", edge_id or "candidate", responder_did, attestation_kind, str(now_ms)
         )
+        vertex_id = f"witness-{witness_id}"
+        witness_row_dict = {
+            "vertex_id": vertex_id,
+            "created_date": today_iso,
+            "sensitivity_ord": 1,
+            "owner_did": responder_did,
+            "witness_id": witness_id,
+            "edge_id": edge_id or "",
+            "witness_did": responder_did,
+            "witness_organism_cid": None,
+            "attestation_kind": attestation_kind,
+            "signature": signature,
+            "signature_alg": signature_alg,
+            "ts_ms": now_ms,
+            "created_at": responded_at,
+            "org_id": responder_did,
+            "user_id": responder_did,
+            "actor_id": "karma.witness.respondToInvitation",
+        }
+        get_kotoba_client().insert_row("vertex_karma_witness", witness_row_dict)
+
+    invitation_row["status"] = "accepted" if response == "accept" else "declined"
+    invitation_row["response"] = response
+    invitation_row["response_witness_id"] = witness_id or None
+    invitation_row["responded_at"] = responded_at
+    invitation_row["responded_at_ms"] = now_ms
+    get_kotoba_client().insert_row("vertex_karma_witness_invitation", invitation_row)
 
     return {
         "witnessId": witness_id,
@@ -276,34 +242,31 @@ async def task_karma_witness_sweep_expired(**kwargs: Any) -> dict[str, Any]:
     now_ms = _now_ms()
     responded_at = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT invitation_id
-            FROM vertex_karma_witness_invitation
-            WHERE status = 'pending' AND expires_at_ms <= %s
-            ORDER BY expires_at_ms ASC
-            LIMIT {INVITATION_PENDING_LIMIT}
-            """,
-            (now_ms,),
-        )
-        expired_ids = [r[0] for r in cur.fetchall()]
+    # R0: Multi-predicate filter, order, and limit applied in Python over selected data.
+    pending_invitations = get_kotoba_client().select_where(
+        "vertex_karma_witness_invitation", "status", "pending"
+    )
+    
+    expired_invitations = []
+    for inv in pending_invitations:
+        if inv.get("expires_at_ms") <= now_ms:
+            expired_invitations.append(inv)
+    
+    # Sort by expires_at_ms and limit
+    expired_invitations.sort(key=lambda x: x.get("expires_at_ms", 0))
+    expired_invitations = expired_invitations[:INVITATION_PENDING_LIMIT]
+    
+    expired_ids = []
+    for inv_row in expired_invitations:
+        inv_row["status"] = "expired"
+        inv_row["responded_at"] = responded_at
+        inv_row["responded_at_ms"] = now_ms
+        get_kotoba_client().insert_row("vertex_karma_witness_invitation", inv_row)
+        expired_ids.append(inv_row["invitation_id"])
 
-        for inv_id in expired_ids:
-            cur.execute(
-                """
-                UPDATE vertex_karma_witness_invitation
-                SET status = 'expired',
-                    responded_at = %s, responded_at_ms = %s
-                WHERE invitation_id = %s AND status = 'pending'
-                """,
-                (responded_at, now_ms, inv_id),
-            )
-
-        cur.execute(
-            "SELECT count(*) FROM vertex_karma_witness_invitation WHERE status = 'pending'"
-        )
-        still_pending = int(cur.fetchone()[0])
+    still_pending = get_kotoba_client().aggregate_where(
+        "vertex_karma_witness_invitation", "count", "*", "status", "pending"
+    )
 
     return {"expired": len(expired_ids), "stillPending": still_pending}
 

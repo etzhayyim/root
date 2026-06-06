@@ -43,23 +43,19 @@ def _vid(kind: str) -> str:
 
 # ── Persistence helpers ───────────────────────────────────────────────────────
 
-def _execute(sql_str: str, params: dict) -> bool:
+def _execute_insert_row(table_name: str, row: dict) -> bool:
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
+        get_kotoba_client().insert_row(table_name, row)
         return True
     except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
+        LOG.warning("execute_insert_row failed for table %s: %s", table_name, exc)
         return False
 
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
+def _query_kotoba(query_edn: str, args: tuple = ()) -> list[dict]:
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
+        return get_kotoba_client().q(query_edn, args)
     except Exception as exc:
-        LOG.warning("query failed: %s", exc)
+        LOG.warning("query_kotoba failed: %s", exc)
         return []
 
 
@@ -197,23 +193,20 @@ async def task_lawfirm_esign_request(
     expires_at = res.get("expires_at", "")
 
     # Persist request row
-    _execute(
-        "INSERT INTO vertex_lawfirm_esign_request (vertex_id, envelope_id, "
-        "provider, document_kind, matter_uri, recipients_json, status, "
-        "expires_at, callback_url, created_at, owner_did) "
-        "VALUES (:vid, :eid, :prov, :dk, :muri, :rec, :status, :exp, :cb, :now, :owner)",
+    _execute_insert_row(
+        "vertex_lawfirm_esign_request",
         {
-            "vid":    _vid("esignRequest"),
-            "eid":    envelope_id,
-            "prov":   provider,
-            "dk":     document_kind,
-            "muri":   matter_uri,
-            "rec":    json.dumps(recipients, ensure_ascii=False)[:8000],
+            "vertex_id": _vid("esignRequest"),
+            "envelope_id": envelope_id,
+            "provider": provider,
+            "document_kind": document_kind,
+            "matter_uri": matter_uri,
+            "recipients_json": json.dumps(recipients, ensure_ascii=False)[:8000],
             "status": "sent",
-            "exp":    expires_at,
-            "cb":     callback_url,
-            "now":    _now_iso(),
-            "owner":  _FIRM_DID,
+            "expires_at": expires_at,
+            "callback_url": callback_url,
+            "created_at": _now_iso(),
+            "owner_did": _FIRM_DID,
         },
     )
 
@@ -224,6 +217,15 @@ async def task_lawfirm_esign_request(
         "expires_at":   expires_at,
         "dry_run":      bool(res.get("dry_run")),
     }
+
+
+def _get_esign_request_by_envelope_id(envelope_id: str) -> dict | None:
+    return get_kotoba_client().select_first_where(
+        "vertex_lawfirm_esign_request", "envelope_id", envelope_id,
+        columns=["vertex_id", "envelope_id", "provider", "document_kind", "matter_uri",
+                 "recipients_json", "status", "expires_at", "callback_url",
+                 "created_at", "owner_did"]
+    )
 
 
 # ── Task: lawfirm.esign.webhook (envelope status updates) ─────────────────────
@@ -239,19 +241,19 @@ async def task_lawfirm_esign_webhook(
     if not envelope_id:
         return {"ok": False, "error": "missing_envelope_id"}
 
-    _execute(
-        "UPDATE vertex_lawfirm_esign_request "
-        "SET status = :status, completed_at = :completed, updated_at = :now, "
-        "    raw_status_json = :raw "
-        "WHERE envelope_id = :eid",
-        {
-            "status":    status,
-            "completed": completed_at or (_now_iso() if status == "completed" else ""),
-            "now":       _now_iso(),
-            "raw":       raw_payload[:30_000],
-            "eid":       envelope_id,
-        },
-    )
+    req_record = _get_esign_request_by_envelope_id(envelope_id)
+    if not req_record:
+        return {"ok": False, "error": "envelope_not_found"}
+
+    updated_record = {
+        **req_record,  # Start with existing data
+        "status": status,
+        "completed_at": completed_at or (_now_iso() if status == "completed" else ""),
+        "updated_at": _now_iso(),
+        "raw_status_json": raw_payload[:30_000],
+    }
+
+    _execute_insert_row("vertex_lawfirm_esign_request", updated_record)
     LOG.info("esign envelope=%s provider=%s status=%s", envelope_id, provider, status)
     return {"ok": True, "envelope_id": envelope_id, "status": status}
 
@@ -266,29 +268,59 @@ async def task_lawfirm_kpi_snapshot(
     if requester_did and requester_did not in _KPI_READERS:
         return {"ok": False, "error": "rls_denied"}
 
-    revenue = _query(
-        "SELECT month, currency, stream, amount_minor_total, payment_count "
-        "FROM mv_lawfirm_revenue_monthly "
-        "WHERE currency = :ccy "
-        f"ORDER BY month DESC LIMIT {int(window_months)}",
-        {"ccy": currency},
+    revenue = _query_kotoba(
+        f"""
+        [:find ?month ?currency ?stream ?amount_minor_total ?payment_count
+         :in $ ?ccy ?limit
+         :where [?e :mv_lawfirm_revenue_monthly/currency ?ccy]
+                [?e :mv_lawfirm_revenue_monthly/month ?month]
+                [?e :mv_lawfirm_revenue_monthly/stream ?stream]
+                [?e :mv_lawfirm_revenue_monthly/amount_minor_total ?amount_minor_total]
+                [?e :mv_lawfirm_revenue_monthly/payment_count ?payment_count]
+         :order-by (desc ?month)
+         :limit ?limit]
+        """,
+        (currency, window_months),
     )
 
-    outstanding = _query(
-        "SELECT COUNT(*) AS cnt, COALESCE(SUM(total_minor), 0) AS total_minor "
-        "FROM mv_lawfirm_outstanding_invoices WHERE currency = :ccy",
-        {"ccy": currency},
+    outstanding_result = _query_kotoba(
+        f"""
+        [:find (count ?e) (sum ?total_minor)
+         :in $ ?ccy
+         :where [?e :mv_lawfirm_outstanding_invoices/currency ?ccy]
+                [?e :mv_lawfirm_outstanding_invoices/total_minor ?total_minor]]
+        """,
+        (currency,),
     )
+    # The result is a list of lists, e.g., [[10, 1500.0]].
+    # We need to transform it to the expected dict format.
+    if outstanding_result and outstanding_result[0]:
+        count = outstanding_result[0][0]
+        total_minor = outstanding_result[0][1] if outstanding_result[0][1] is not None else 0
+        outstanding = [{"cnt": count, "total_minor": total_minor}]
+    else:
+        outstanding = [{"cnt": 0, "total_minor": 0}]
 
-    pipeline = _query(
-        "SELECT compliance_check, COUNT(*) AS cnt "
-        "FROM mv_lawfirm_marketing_publish_calendar "
-        "GROUP BY compliance_check"
+    pipeline_result = _query_kotoba(
+        f"""
+        [:find ?compliance_check (count ?e)
+         :in $
+         :where [?e :mv_lawfirm_marketing_publish_calendar/compliance_check ?compliance_check]]
+        """,
     )
+    pipeline = []
+    for row in pipeline_result:
+        if len(row) == 2:
+            pipeline.append({"compliance_check": row[0], "cnt": row[1]})
 
-    matters = _query(
-        "SELECT COUNT(*) AS cnt FROM vertex_lawfirm_matter WHERE status = 'active'"
+    matters_result = _query_kotoba(
+        f"""
+        [:find (count ?e)
+         :in $
+         :where [?e :vertex_lawfirm_matter/status "active"]]
+        """,
     )
+    matters = [{"cnt": matters_result[0][0]}] if matters_result and matters_result[0] else [{"cnt": 0}]
 
     return {
         "ok":                   True,

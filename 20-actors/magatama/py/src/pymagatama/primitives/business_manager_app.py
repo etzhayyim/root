@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-import datetime as _dt
+from datetime import datetime, timezone
 import decimal as _decimal
 import json
 import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:business-manager.etzhayyim.com"
@@ -20,8 +20,8 @@ PO_EXECUTIVE_APPROVAL_THRESHOLD = 5_000_000
 PROBATION_MONTHS = 3
 
 
-def _now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+def _now() -> datetime:
+    return datetime.now(timezone.utc).replace(microsecond=0)
 
 
 def _id(prefix: str) -> str:
@@ -53,11 +53,10 @@ def _vid(kind: str, key: str) -> str:
     return f"at://{APP_DID}/com.etzhayyim.apps.businessManager.{kind}/{key}"
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
+def _rows(raw_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
-    for row in cur.fetchall():
-        raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}
+    for row in raw_rows:
+        raw = {k: _jsonable(v) for k, v in row.items()}
         for key in ("line_items", "items"):
             if isinstance(raw.get(key), str) and raw[key].startswith("["):
                 try:
@@ -108,17 +107,28 @@ def _rows(cur: Any) -> list[dict[str, Any]]:
 
 def _write(kind: str, rec: dict[str, Any]) -> dict[str, Any]:
     record = {**rec, "org_id": rec.get("org_id") or "anon", "user_id": rec.get("user_id") or "anon", "actor_id": rec.get("actor_id") or APP_ID}
-    with sync_cursor() as cur:
-        if kind == "journalEntry":
+    if kind == "journalEntry":
             vid = _vid(kind, record["entryId"])
-            cur.execute(
-                """
-                INSERT INTO vertex_business_manager_journal_entry
-                  (vertex_id,entry_id,description,debit_account,credit_account,amount,currency,fiscal_period,approval_status,posted_at,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET approval_status=EXCLUDED.approval_status
-                """,
-                (vid, record["entryId"], record["description"], record["debitAccount"], record["creditAccount"], _num(record["amount"]), record.get("currency", "JPY"), record.get("fiscalPeriod", ""), record.get("approvalStatus", ""), record.get("postedAt") or _now(), record.get("created_at") or _now(), record["org_id"], record["user_id"], record["actor_id"], 2, APP_DID),
+            get_kotoba_client().insert_row(
+                "vertex_business_manager_journal_entry",
+                {
+                    "vertex_id": vid,
+                    "entry_id": record["entryId"],
+                    "description": record["description"],
+                    "debit_account": record["debitAccount"],
+                    "credit_account": record["creditAccount"],
+                    "amount": _num(record["amount"]),
+                    "currency": record.get("currency", "JPY"),
+                    "fiscal_period": record.get("fiscalPeriod", ""),
+                    "approval_status": record.get("approvalStatus", ""),
+                    "posted_at": record.get("postedAt") or _now(),
+                    "created_at": record.get("created_at") or _now(),
+                    "org_id": record["org_id"],
+                    "user_id": record["user_id"],
+                    "actor_id": record["actor_id"],
+                    "sensitivity_ord": 2,
+                    "owner_did": APP_DID,
+                },
             )
             return {"uri": vid}
         if kind == "invoice":
@@ -126,33 +136,88 @@ def _write(kind: str, rec: dict[str, Any]) -> dict[str, Any]:
             line_items = record.get("lineItems", "[]")
             if not isinstance(line_items, str):
                 line_items = json.dumps(line_items, ensure_ascii=False)
-            cur.execute(
-                """
-                INSERT INTO vertex_business_manager_invoice
-                  (vertex_id,invoice_id,counterparty,direction,amount,currency,line_items,payment_terms_days,due_date,status,issued_at,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status
-                """,
-                (vid, record["invoiceId"], record.get("counterparty", ""), record.get("direction", ""), _num(record.get("amount")), record.get("currency", "JPY"), line_items, int(_num(record.get("paymentTermsDays"))), record.get("dueDate", ""), record.get("status", "open"), record.get("issuedAt", ""), record.get("created_at") or _now(), record["org_id"], record["user_id"], record["actor_id"], 2, APP_DID),
+            get_kotoba_client().insert_row(
+                "vertex_business_manager_invoice",
+                {
+                    "vertex_id": vid,
+                    "invoice_id": record["invoiceId"],
+                    "counterparty": record.get("counterparty", ""),
+                    "direction": record.get("direction", ""),
+                    "amount": _num(record.get("amount")),
+                    "currency": record.get("currency", "JPY"),
+                    "line_items": line_items,
+                    "payment_terms_days": int(_num(record.get("paymentTermsDays"))),
+                    "due_date": record.get("dueDate", ""),
+                    "status": record.get("status", "open"),
+                    "issued_at": record.get("issuedAt", ""),
+                    "created_at": record.get("created_at") or _now(),
+                    "org_id": record["org_id"],
+                    "user_id": record["user_id"],
+                    "actor_id": record["actor_id"],
+                    "sensitivity_ord": 2,
+                    "owner_did": APP_DID,
+                },
             )
             return {"uri": vid}
         if kind == "payment":
             vid = _vid(kind, record["paymentId"])
             invoice_vid = _vid("invoice", record["invoiceId"])
-            cur.execute(
-                "INSERT INTO vertex_business_manager_payment (vertex_id,payment_id,invoice_id,amount,method,status_after,paid_at,org_id,user_id,actor_id,sensitivity_ord,owner_did) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO NOTHING",
-                (vid, record["paymentId"], record["invoiceId"], _num(record["amount"]), record.get("method", ""), record.get("statusAfter", ""), record.get("paidAt") or _now(), record["org_id"], record["user_id"], record["actor_id"], 2, APP_DID),
+            get_kotoba_client().insert_row(
+                "vertex_business_manager_payment",
+                {
+                    "vertex_id": vid,
+                    "payment_id": record["paymentId"],
+                    "invoice_id": record["invoiceId"],
+                    "amount": _num(record["amount"]),
+                    "method": record.get("method", ""),
+                    "status_after": record.get("statusAfter", ""),
+                    "paid_at": record.get("paidAt") or _now(),
+                    "org_id": record["org_id"],
+                    "user_id": record["user_id"],
+                    "actor_id": record["actor_id"],
+                    "sensitivity_ord": 2,
+                    "owner_did": APP_DID,
+                },
             )
-            cur.execute(
-                "INSERT INTO edge_business_manager_invoice_payment (edge_id,src_vid,dst_vid,invoice_id,payment_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (f"{invoice_vid}:PAID_BY:{vid}", invoice_vid, vid, record["invoiceId"], record["paymentId"], "PAID_BY", record.get("paidAt") or _now(), APP_DID, 2),
+            get_kotoba_client().insert_row(
+                "edge_business_manager_invoice_payment",
+                {
+                    "edge_id": f"{invoice_vid}:PAID_BY:{vid}",
+                    "src_vid": invoice_vid,
+                    "dst_vid": vid,
+                    "invoice_id": record["invoiceId"],
+                    "payment_id": record["paymentId"],
+                    "relation": "PAID_BY",
+                    "created_at": record.get("paidAt") or _now(),
+                    "owner_did": APP_DID,
+                    "sensitivity_ord": 2,
+                },
             )
             return {"uri": vid}
         if kind == "employee":
             vid = _vid(kind, record["employeeId"])
-            cur.execute(
-                "INSERT INTO vertex_business_manager_employee (vertex_id,employee_id,full_name,department,role,employment_type,start_date,salary,probation_status,probation_end_date,status,registered_at,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status",
-                (vid, record["employeeId"], record["fullName"], record["department"], record["role"], record["employmentType"], record["startDate"], _num(record["salary"]), record["probationStatus"], record["probationEndDate"], record.get("status", "active"), record.get("registeredAt") or _now(), record.get("created_at") or _now(), record["org_id"], record["user_id"], record["actor_id"], 2, APP_DID),
+            get_kotoba_client().insert_row(
+                "vertex_business_manager_employee",
+                {
+                    "vertex_id": vid,
+                    "employee_id": record["employeeId"],
+                    "full_name": record["fullName"],
+                    "department": record["department"],
+                    "role": record["role"],
+                    "employment_type": record["employmentType"],
+                    "start_date": record["startDate"],
+                    "salary": _num(record["salary"]),
+                    "probation_status": record["probationStatus"],
+                    "probation_end_date": record["probationEndDate"],
+                    "status": record.get("status", "active"),
+                    "registered_at": record.get("registeredAt") or _now(),
+                    "created_at": record.get("created_at") or _now(),
+                    "org_id": record["org_id"],
+                    "user_id": record["user_id"],
+                    "actor_id": record["actor_id"],
+                    "sensitivity_ord": 2,
+                    "owner_did": APP_DID,
+                },
             )
             return {"uri": vid}
         if kind == "purchaseOrder":
@@ -160,16 +225,51 @@ def _write(kind: str, rec: dict[str, Any]) -> dict[str, Any]:
             items = record.get("items", "[]")
             if not isinstance(items, str):
                 items = json.dumps(items, ensure_ascii=False)
-            cur.execute(
-                "INSERT INTO vertex_business_manager_purchase_order (vertex_id,po_id,vendor,items,total_amount,department,justification,approval_level,status,approver_comment,decided_at,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status,approver_comment=EXCLUDED.approver_comment,decided_at=EXCLUDED.decided_at",
-                (vid, record["poId"], record.get("vendor", ""), items, _num(record.get("totalAmount")), record.get("department", ""), record.get("justification", ""), record.get("approvalLevel", ""), record.get("status", ""), record.get("approverComment", ""), record.get("decidedAt", ""), record.get("createdAt") or record.get("created_at") or _now(), record["org_id"], record["user_id"], record["actor_id"], 2, APP_DID),
+            get_kotoba_client().insert_row(
+                "vertex_business_manager_purchase_order",
+                {
+                    "vertex_id": vid,
+                    "po_id": record["poId"],
+                    "vendor": record.get("vendor", ""),
+                    "items": items,
+                    "total_amount": _num(record.get("totalAmount")),
+                    "department": record.get("department", ""),
+                    "justification": record.get("justification", ""),
+                    "approval_level": record.get("approvalLevel", ""),
+                    "status": record.get("status", ""),
+                    "approver_comment": record.get("approverComment", ""),
+                    "decided_at": record.get("decidedAt", ""),
+                    "created_at": record.get("createdAt") or record.get("created_at") or _now(),
+                    "org_id": record["org_id"],
+                    "user_id": record["user_id"],
+                    "actor_id": record["actor_id"],
+                    "sensitivity_ord": 2,
+                    "owner_did": APP_DID,
+                },
             )
             return {"uri": vid}
         if kind == "budgetAllocation":
             vid = _vid(kind, record["allocationId"])
-            cur.execute(
-                "INSERT INTO vertex_business_manager_budget_allocation (vertex_id,allocation_id,department,fiscal_period,allocated_amount,spent_amount,remaining_amount,category,status,allocated_at,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO UPDATE SET remaining_amount=EXCLUDED.remaining_amount,status=EXCLUDED.status",
-                (vid, record["allocationId"], record["department"], record["fiscalPeriod"], _num(record["allocatedAmount"]), _num(record.get("spentAmount")), _num(record.get("remainingAmount")), record.get("category", ""), record.get("status", "active"), record.get("allocatedAt") or _now(), record.get("created_at") or _now(), record["org_id"], record["user_id"], record["actor_id"], 2, APP_DID),
+            get_kotoba_client().insert_row(
+                "vertex_business_manager_budget_allocation",
+                {
+                    "vertex_id": vid,
+                    "allocation_id": record["allocationId"],
+                    "department": record["department"],
+                    "fiscal_period": record["fiscalPeriod"],
+                    "allocated_amount": _num(record["allocatedAmount"]),
+                    "spent_amount": _num(record.get("spentAmount")),
+                    "remaining_amount": _num(record.get("remainingAmount")),
+                    "category": record.get("category", ""),
+                    "status": record.get("status", "active"),
+                    "allocated_at": record.get("allocatedAt") or _now(),
+                    "created_at": record.get("created_at") or _now(),
+                    "org_id": record["org_id"],
+                    "user_id": record["user_id"],
+                    "actor_id": record["actor_id"],
+                    "sensitivity_ord": 2,
+                    "owner_did": APP_DID,
+                },
             )
             return {"uri": vid}
     raise ValueError(f"unknown business-manager kind: {kind}")
@@ -185,18 +285,25 @@ def _list(kind: str, *, limit: int = 100) -> list[dict[str, Any]]:
         "budgetAllocation": ("vertex_business_manager_budget_allocation", "created_at"),
     }
     table, order_col = tables[kind]
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT * FROM {table} ORDER BY {order_col} DESC LIMIT %s",
-            (max(1, min(limit, 500)),),
-        )
-        return _rows(cur)
+    # R0: select_where does not support ORDER BY, so fetching all then sorting in Python.
+    raw_rows = get_kotoba_client().select_where(table)
+    sorted_rows = sorted(raw_rows, key=lambda x: x.get(order_col) or "", reverse=True)
+    return _rows(sorted_rows[:limit])
 
 
 def _find(kind: str, key: str, value: str) -> dict[str, Any] | None:
-    for row in _list(kind, limit=500):
-        if str(row.get(key) or "") == value:
-            return row
+    tables = {
+        "journalEntry": "vertex_business_manager_journal_entry",
+        "invoice": "vertex_business_manager_invoice",
+        "payment": "vertex_business_manager_payment",
+        "employee": "vertex_business_manager_employee",
+        "purchaseOrder": "vertex_business_manager_purchase_order",
+        "budgetAllocation": "vertex_business_manager_budget_allocation",
+    }
+    table = tables[kind]
+    # R0: using select_first_where for direct lookup.
+    raw_row = get_kotoba_client().select_first_where(table, key, value)
+    return _rows([raw_row])[0] if raw_row else None
     return None
 
 

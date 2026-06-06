@@ -102,6 +102,7 @@
    :gov.unit/name-en "Competition and Markets Authority"
    :gov.unit/official-url "https://gov.uk/cma"
    :gov.unit/wikidata "Q18363996"
+   :gov.unit/organism "org.state.uk.cma"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://gov.uk/cma" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
@@ -150,6 +151,7 @@
    :gov.unit/name-en "Fair Trade Commission"
    :gov.unit/official-url "http://www.jftc.go.jp/"
    :gov.unit/wikidata "Q842043"
+   :gov.unit/organism "org.state.jp.jftc"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "http://www.jftc.go.jp/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
@@ -198,6 +200,7 @@
    :gov.unit/name-en "United States Department of Justice Antitrust Division"
    :gov.unit/official-url "https://www.justice.gov/atr"
    :gov.unit/wikidata "Q7889730"
+   :gov.unit/organism "org.state.us.doj-antitrust"
    :gov.unit/cofog ["04.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.justice.gov/atr" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}]}

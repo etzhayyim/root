@@ -25,6 +25,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from live_gate import LiveGate, require
+
 # rail kind → (provider id, provider kind, short label). The single map; mirrors the ontology
 # :ontology/rails + :ontology/provider-kinds and route.LINE_TO_RAIL.
 PROVIDER_REGISTRY: dict[str, tuple[str, str, str]] = {
@@ -85,3 +87,48 @@ def provision(rails: list, alloc_id: str) -> list[ProvisioningIntent]:
             member_principal=bool(member_principal),
         ))
     return out
+
+
+# ── R1(live) — gated dispatch ────────────────────────────────────────────────────────────────
+# A dispatched provisioning is constructible ONLY after live_gate.require() passes. The intent it
+# wraps stays `published=False` (G10-structural); the dispatch RECEIPT carries the authorized-to-
+# publish flag, and only exists because an operator flag + attestation + Council Lv6+ + member
+# signature were all present. cash≡0 (G2) and no-server-key (G9) remain structural — the gate is an
+# authorization membrane, never an invariant override.
+
+
+@dataclass(frozen=True)
+class DispatchedProvision:
+    intent: ProvisioningIntent
+    operator_did: str
+    council_level: int
+    member_signature: str
+    authorized_to_publish: bool = True
+
+    def __post_init__(self) -> None:
+        if self.intent.cash_usd_micros != 0:
+            raise ValueError("cash≡0 INVARIANT (G2) holds in live mode too")
+        if self.intent.server_held_key:
+            raise ValueError("no-server-key INVARIANT (G9) holds in live mode too")
+
+
+def dispatch_live(
+    intents: list[ProvisioningIntent],
+    gate: LiveGate,
+    *,
+    env: dict[str, str] | None = None,
+) -> list[DispatchedProvision]:
+    """Authorize LIVE provisioning dispatch to the producing actors.
+
+    RAISES `live_gate.LiveGateRefused` unless the operator flag + attestation + Council Lv6+ +
+    member signature are all present (the default at R0/R1). When authorized, returns one dispatch
+    receipt per intent. The member-principal liquidity intent stays member-principal (warifu 0%;
+    扶持 still never holds, lends, or pays).
+    """
+    require(gate, env=env)  # refuses by default
+    return [DispatchedProvision(
+        intent=i,
+        operator_did=gate.operator_did,
+        council_level=gate.council_level,
+        member_signature=gate.member_signature,
+    ) for i in intents]

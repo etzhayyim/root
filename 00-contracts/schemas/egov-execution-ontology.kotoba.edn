@@ -1,0 +1,66 @@
+;; egov-execution-ontology — canonical kotoba-EAVT vocabulary for matsurigoto 政 EXECUTION records
+;; ADR-2606052300 (R1.B). depends-on: ADR-2605262130 (kotoba substrate), ADR-2605312345
+;;   (datom-first-class canonical state), ADR-2605231525 (no-server-key), ADR-2606021600 (ooyake
+;;   gov-atlas — the OBSERVATION sibling whose :gov.* units these executions reference).
+;;
+;; PURPOSE: when a matsurigoto service module runs (tax-assess / civil-registry / corp-registry /
+;; credential-issue), its result is persisted to the kotoba Datom log as an APPEND-ONLY,
+;; AS-OF, replayable transaction — the same canonical-state membrane every other actor uses.
+;; This is the R1.B home for what R0 returned only as in-memory dicts.
+;;
+;; STRUCTURAL CHARTER INVARIANTS (schema :db/allowed, mirrored in lexicon + methods/datoms.py):
+;;   G1 no-operator-master-key : :egov.tx/server-held-authority :db/allowed [false]; an unsigned
+;;                               artifact's :egov.cert/proof :db/allowed [nil] (a module signs
+;;                               nothing; the governing organ signs externally, ADR-2605231525).
+;;   G3 authority-bearing      : :egov.tx/operated-by ∈ {:etzhayyim-council, :adopting-government};
+;;                               :egov.tx/authority-mode ∈ {:sovereign-governance, :supplied-to-state}.
+;;   G5 append-only (非終末論)  : :egov.record/immutable :db/allowed [true]; corrections are appended
+;;                               datoms keyed by :egov.tx/as-of; nothing is overwritten.
+;;   G2 spec-derived           : :egov.tx/spec-basis required non-empty.
+
+{:ontology
+ {:id "egov-execution-ontology"
+  :adr "etzhayyim:adr:2606052300"
+  :graph "egov-exec-v1"
+  :note "matsurigoto execution transactions + records, append-only on the kotoba Datom log."}
+
+ ;; ── attribute catalog (EAVT) ──
+ :attributes
+ [;; a service EXECUTION transaction (the join root)
+  {:attr ":egov.tx/id"                    :type ":string"  :note "execution tx id (entity)"}
+  {:attr ":egov.tx/service"               :type ":string"  :note "service id, e.g. tax.income.file"}
+  {:attr ":egov.tx/module"                :type ":string"  :note "module id, e.g. tax-assess"}
+  {:attr ":egov.tx/operated-by"           :type ":keyword" :allowed [":etzhayyim-council" ":adopting-government"] :note "G3 — who governs"}
+  {:attr ":egov.tx/authority-mode"        :type ":keyword" :allowed [":sovereign-governance" ":supplied-to-state"] :note "G3"}
+  {:attr ":egov.tx/as-of"                 :type ":string"  :note "ISO-8601; append-only ordering (非終末論)"}
+  {:attr ":egov.tx/spec-basis"            :type ":string"  :note "G2 — the official public spec the run followed"}
+  {:attr ":egov.tx/sourcing"              :type ":keyword" :allowed [":representative" ":authoritative"] :note "G5/ooyake — coverage honesty"}
+  {:attr ":egov.tx/server-held-authority" :type ":bool"    :allowed [false] :note "G1 — never an operator master key"}
+  {:attr ":egov.tx/atlas-did"             :type ":string"  :note "ooyake unit the execution references (who/where)"}
+
+  ;; a vital / corp record produced by the execution
+  {:attr ":egov.record/id"                :type ":string"}
+  {:attr ":egov.record/of-tx"             :type ":ref"     :note "→ :egov.tx/id"}
+  {:attr ":egov.record/kind"              :type ":string"  :note "birth|death|marriage|residency|incorporation"}
+  {:attr ":egov.record/immutable"         :type ":bool"    :allowed [true] :note "G5 — append-only"}
+  {:attr ":egov.record/lei"               :type ":string"  :note "ISO 17442 LEI (corp)"}
+
+  ;; a tax assessment produced by the execution
+  {:attr ":egov.assessment/of-tx"         :type ":ref"     :note "→ :egov.tx/id"}
+  {:attr ":egov.assessment/liability"     :type ":number"}
+  {:attr ":egov.assessment/effective-rate" :type ":number"}
+  {:attr ":egov.assessment/currency"      :type ":string"}
+
+  ;; an UNSIGNED certificate / receipt (G1)
+  {:attr ":egov.cert/of-tx"               :type ":ref"     :note "→ :egov.tx/id"}
+  {:attr ":egov.cert/kind"                :type ":string"}
+  {:attr ":egov.cert/status"              :type ":string"  :allowed ["assessed-unsigned" "issued-unsigned"]}
+  {:attr ":egov.cert/proof"               :type ":string" :allowed [nil] :note "G1 — module never signs; nil until the governing organ signs externally"}]
+
+ ;; ── invariant lock (mirrored by methods/datoms.py + the lexicons) ──
+ :invariants
+ {:g1-no-server-key       {:attr ":egov.tx/server-held-authority" :allowed [false]}
+  :g1-cert-unsigned       {:attr ":egov.cert/proof"               :allowed [nil]}
+  :g3-operated-by         {:attr ":egov.tx/operated-by"           :allowed [":etzhayyim-council" ":adopting-government"]}
+  :g3-authority-mode      {:attr ":egov.tx/authority-mode"        :allowed [":sovereign-governance" ":supplied-to-state"]}
+  :g5-append-only         {:attr ":egov.record/immutable"         :allowed [true]}}}

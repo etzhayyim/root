@@ -15,12 +15,12 @@ Pyzeebe task type: wellbecoming.influence.propagate
 
 from __future__ import annotations
 
-import datetime as _dt
 import logging
 import os
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.pydantic_job import ZeebeJobInput
 from pymagatama.langserver_compat import LangServerJob as Job, LangServerWorker
 
@@ -39,11 +39,11 @@ class _InfluenceInput(ZeebeJobInput):
 
 
 def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _tick_ms() -> int:
-    return int(_dt.datetime.now(tz=_dt.UTC).timestamp() * 1000)
+    return int(datetime.now(timezone.utc).timestamp() * 1000)
 
 
 def task_belief_influence_propagate(
@@ -62,18 +62,24 @@ def task_belief_influence_propagate(
         max_abs_influence: 最大 |influence_delta| (収束指標)
         mean_abs_influence: 平均 |influence_delta|
     """
-    with sync_cursor() as cur:
-        # 信念状態が既知のエージェントを取得
-        cur.execute(
-            f"""
-            SELECT agent_did, mean_score_total
-            FROM mv_attractor_stability_by_agent
-            WHERE scored_events >= {int(min_scored_events)}
-              AND mean_score_total IS NOT NULL
-            ORDER BY agent_did
-            """
-        )
-        agents = cur.fetchall()
+    client = get_kotoba_client()
+    query_edn = f"""
+        [:find ?agent_did ?mean_score_total
+         :where
+         [?e :mv_attractor_stability_by_agent/agent_did ?agent_did]
+         [?e :mv_attractor_stability_by_agent/mean_score_total ?mean_score_total]
+         [?e :mv_attractor_stability_by_agent/scored_events ?scored_events]
+         [(>= ?scored_events {int(min_scored_events)})]
+         [(not= ?mean_score_total nil)]
+        ]
+    """
+    agents_data = client.q(query_edn)
+    agents = []
+    for row in agents_data:
+        agents.append([row[0], row[1]])
+    
+    # R0: Replicating ORDER BY agent_did in Python
+    agents.sort(key=lambda x: x[0])
 
     if not agents:
         LOG.info("influence_propagate: no agents with sufficient scored events")
@@ -90,18 +96,22 @@ def task_belief_influence_propagate(
     agent_dids = list(agent_map.keys())
 
     # edge_trust_weight から全 W_ij を取得（blocked=false のみ）
-    did_list = ",".join(f"'{d}'" for d in agent_dids)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT src_did, dst_did, weight
-            FROM edge_trust_weight
-            WHERE src_did IN ({did_list})
-              AND blocked = false
-              AND weight > 0.0
-            """
-        )
-        trust_rows = cur.fetchall()
+    client = get_kotoba_client()
+    query_edn_trust = f"""
+        [:find ?src_did ?dst_did ?weight
+         :where
+         [?e :edge_trust_weight/src_did ?src_did]
+         [?e :edge_trust_weight/dst_did ?dst_did]
+         [?e :edge_trust_weight/weight ?weight]
+         [?e :edge_trust_weight/blocked false]
+         [(> ?weight 0.0)]
+         [(contains? #{"{"}" ".join(f'"{d}"' for d in agent_dids)}{"}"} ?src_did)]
+        ]
+    """
+    trust_rows_data = client.q(query_edn_trust)
+    trust_rows = []
+    for row in trust_rows_data:
+        trust_rows.append([row[0], row[1], row[2]])
 
     if not trust_rows:
         LOG.info("influence_propagate: no non-blocked trust weights yet (W_ij = 0 for all pairs)")
@@ -153,23 +163,18 @@ def task_belief_influence_propagate(
             "lambda_lr": lambda_lr,
         }
 
-    # vertex_belief_influence に delete-then-insert（RisingWave ON CONFLICT 非対応）
-    # time-bucketed PK は新規 tick ごとにユニーク → 通常は DELETE 不要だが念のため
-    with sync_cursor() as cur:
-        existing_ids = [r[0] for r in rows]
-        id_list = ",".join(f"'{vid}'" for vid in existing_ids)
-        cur.execute(f"DELETE FROM vertex_belief_influence WHERE vertex_id IN ({id_list})")
-
-        for row in rows:
-            cur.execute(
-                """
-                INSERT INTO vertex_belief_influence
-                  (vertex_id, agent_did, influence_delta, n_influencing, lambda_lr,
-                   tick_at, updated_at)
-                VALUES (%s, %s, %s, %s, %s, %s::timestamp, %s::timestamp)
-                """,
-                row,
-            )
+    client = get_kotoba_client()
+    for row_tuple in rows:
+        row_dict = {
+            "vertex_id": row_tuple[0],
+            "agent_did": row_tuple[1],
+            "influence_delta": row_tuple[2],
+            "n_influencing": row_tuple[3],
+            "lambda_lr": row_tuple[4],
+            "tick_at": row_tuple[5],
+            "updated_at": row_tuple[6],
+        }
+        client.insert_row("vertex_belief_influence", row_dict)
 
     abs_deltas = [abs(r[2]) for r in rows]
     max_abs = max(abs_deltas) if abs_deltas else 0.0

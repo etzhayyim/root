@@ -1,9 +1,5 @@
 """Generic-primitive worker for com.etzhayyim.tools.sql.* (ADR-2605082000 §2 follow-up).
 
-Provides a read-only SELECT primitive that LangGraph nodes can bind to
-without per-actor py_primitive code. Strict guard: rejects anything that
-isn't a SELECT / WITH-CTE-SELECT.
-
 Wired into mcp_dispatch via ``register_overrides``.
 """
 
@@ -11,47 +7,11 @@ from __future__ import annotations
 
 import re
 from typing import Any
-
-# Allow only these leading keywords (case-insensitive, after whitespace +
-# optional /* ... */ leading comment).
-_READONLY_RE = re.compile(
-    r"\A\s*(?:/\*[\s\S]*?\*/\s*)?(SELECT|WITH)\b",
-    re.IGNORECASE,
-)
-_DEFAULT_LIMIT = 1000
-
-
-def _is_readonly(sql: str) -> bool:
-    if not isinstance(sql, str) or not sql.strip():
-        return False
-    return bool(_READONLY_RE.match(sql))
-
-
-def _row_to_dict(row: Any) -> dict[str, Any]:
-    # SQLAlchemy 2.x rows expose ._mapping. Tuples fall back to numeric keys.
-    mapping = getattr(row, "_mapping", None)
-    if mapping is not None:
-        return {k: v for k, v in dict(mapping).items()}
-    if isinstance(row, dict):
-        return dict(row)
-    if isinstance(row, (list, tuple)):
-        return {f"c{i}": v for i, v in enumerate(row)}
-    return {"value": row}
+from datetime import datetime, timezone
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 _RESERVED_KWARGS = {"sql", "params", "limit", "rows", "confirmWrite"}
-
-# Strict allow-list for ``task_sql_exec``: only INSERT / UPDATE / UPSERT
-# (incl. WITH … INSERT … RETURNING). DELETE / DROP / TRUNCATE / GRANT /
-# CREATE / ALTER are rejected.
-_WRITE_ALLOW_RE = re.compile(
-    r"\A\s*(?:/\*[\s\S]*?\*/\s*)?(INSERT|UPDATE|UPSERT|WITH)\b",
-    re.IGNORECASE,
-)
-_WRITE_DENY_RE = re.compile(
-    r"\b(DELETE|DROP|TRUNCATE|GRANT|REVOKE|CREATE|ALTER)\b",
-    re.IGNORECASE,
-)
 
 
 async def task_sql_query(
@@ -75,36 +35,8 @@ async def task_sql_query(
     Returns ``{"error": ...}`` on rejection / failure. ``limit`` (default
     1000) caps the response payload size to protect callers / hosts.
     """
-    if not _is_readonly(sql):
-        return {"error": "com.etzhayyim.tools.sql.query: SQL must start with SELECT or WITH"}
-    cap = int(limit) if limit is not None else _DEFAULT_LIMIT
-    merged_params: dict[str, Any] = {
-        k: v for k, v in extra_kwargs.items() if k not in _RESERVED_KWARGS
-    }
-    if params:
-        merged_params.update(params)
-    try:
-        from pymagatama.db_alchemy import sa_query
-    except Exception as exc:
-        return {"error": f"db_alchemy unavailable: {exc}"}
-    try:
-        raw = sa_query(sql, merged_params)
-    except Exception as exc:  # pragma: no cover — defensive
-        return {"error": f"sql_query failed: {exc}"}
-    rows = [_row_to_dict(r) for r in (raw or [])]
-    if cap > 0 and len(rows) > cap:
-        rows = rows[:cap]
-    return {"rows": rows, "rowCount": len(rows)}
-
-
-def _is_writeable(sql: str) -> tuple[bool, str | None]:
-    if not isinstance(sql, str) or not sql.strip():
-        return (False, "SQL is required")
-    if not _WRITE_ALLOW_RE.match(sql):
-        return (False, "SQL must start with INSERT / UPDATE / UPSERT / WITH")
-    if _WRITE_DENY_RE.search(sql):
-        return (False, "SQL contains forbidden keyword (DELETE / DROP / TRUNCATE / GRANT / REVOKE / CREATE / ALTER)")
-    return (True, None)
+    # This function now acts as a placeholder returning an error for generic SQL queries.
+    return {"error": "com.etzhayyim.tools.sql.query: Generic SQL queries are not supported by the Kotoba Datomic client."}
 
 
 async def task_sql_exec(
@@ -128,36 +60,8 @@ async def task_sql_exec(
         Returns ``{"rowCount": <total processed>}``.
       - Else → single ``sa_rowcount`` execute. Returns affected count.
     """
-    if not confirmWrite:
-        return {"error": "com.etzhayyim.tools.sql.exec: confirmWrite must be true"}
-    ok, why = _is_writeable(sql)
-    if not ok:
-        return {"error": f"com.etzhayyim.tools.sql.exec: {why}"}
-
-    merged_params: dict[str, Any] = {
-        k: v for k, v in extra_kwargs.items() if k not in _RESERVED_KWARGS
-    }
-    if params:
-        merged_params.update(params)
-
-    try:
-        from sqlalchemy import text as sa_text
-        from pymagatama.db_alchemy import sa_executemany, sa_rowcount
-    except Exception as exc:
-        return {"error": f"db_alchemy unavailable: {exc}"}
-
-    try:
-        clause = sa_text(sql)
-        if rows is not None:
-            if not isinstance(rows, list):
-                return {"error": "rows must be a list of objects"}
-            count = sa_executemany(clause, rows)
-        else:
-            count = sa_rowcount(clause, merged_params)
-    except Exception as exc:  # pragma: no cover — defensive
-        return {"error": f"sql_exec failed: {exc}"}
-
-    return {"rowCount": int(count or 0)}
+    # This function now acts as a placeholder returning an error for generic SQL execution.
+    return {"error": "com.etzhayyim.tools.sql.exec: Generic SQL execution is not supported by the Kotoba Datomic client."}
 
 
 # ---------------------------------------------------------------------------
@@ -184,9 +88,8 @@ def _render_vertex_id(template: str, owner_did: str, collection: str) -> str:
     Unknown placeholders pass through unchanged so the caller sees the
     literal `{foo}` if they typoed.
     """
-    import datetime as _dt
     import uuid as _uuid
-    stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
     nanoid8 = _uuid.uuid4().hex[:8]
     return (template
             .replace("{owner_did}", owner_did or "")
@@ -237,21 +140,7 @@ async def task_sql_insert_row(
         work["vertex_id"] = _render_vertex_id(vertex_id_template, owner_did, collection)
 
     try:
-        from sqlalchemy import Table, Column, String, MetaData
-        from pymagatama.db_alchemy import sa_metadata, sa_rowcount
-    except Exception as exc:
-        return {"error": f"db_alchemy unavailable: {exc}"}
-
-    try:
-        cols = [Column(k, String) for k in work]
-        # extend_existing=True so multiple iterations of foreach against the
-        # same table reuse the SQLAlchemy Table object instead of erroring.
-        t = Table(table, sa_metadata(), *cols, extend_existing=True)
-        # Coerce all values to str — RisingWave column types vary per actor
-        # but accept string coercion at INSERT (matches etzhayyim_company_ops
-        # `_db_insert` pattern this primitive replaces).
-        bound = {k: (str(v) if v is not None else None) for k, v in work.items()}
-        sa_rowcount(t.insert(), bound)
+        get_kotoba_client().insert_row(table, work)
     except Exception as exc:  # pragma: no cover — defensive
         return {"error": f"sql_insert_row failed: {exc}"}
 

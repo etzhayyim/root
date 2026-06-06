@@ -24,6 +24,8 @@ import urllib.request
 import uuid
 from typing import Any
 
+from pymagatama.kotoba_datomic import get_kotoba_client # <-- New import
+
 LOG = logging.getLogger("lawfirm.checkout")
 
 _FIRM_DID = "did:web:lawfirm.etzhayyim.com"
@@ -35,17 +37,6 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
     return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
-
-
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
 
 
 # ── Account routing ──────────────────────────────────────────────────────────
@@ -159,28 +150,24 @@ async def task_lawfirm_checkout_create(
         except Exception as exc:
             return {"ok": False, "error": f"stripe_call_failed: {exc}"}
 
-    # Persist intent row (mirrors invoice for pre-payment tracking)
-    _execute(
-        "INSERT INTO vertex_lawfirm_invoice "
-        "(vertex_id, stripe_invoice_id, matter_uri, client_did, stream, "
-        " amount_minor, currency, total_minor, status, issued_at, "
-        " hosted_invoice_url, raw_json, created_at, owner_did) "
-        "VALUES (:vid, :sid, :muri, :cdid, :stream, :amt, :ccy, :tot, "
-        " 'checkout_pending', :issued, :url, :raw, :now, :owner)",
+    # Persist intent row to kotoba (mirrors invoice for pre-payment tracking) # <-- Comment updated
+    get_kotoba_client().insert_row( # <-- Direct insert_row call
+        "vertex_lawfirm_invoice",
         {
-            "vid":    _vid("checkoutIntent"),
-            "sid":    session_id,
-            "muri":   matter_uri,
-            "cdid":   client_did,
+            "vertex_id":    _vid("checkoutIntent"),
+            "stripe_invoice_id":    session_id,
+            "matter_uri":   matter_uri,
+            "client_did":   client_did,
             "stream": stream,
-            "amt":    amount_minor,
-            "ccy":    currency.upper(),
-            "tot":    amount_minor,
-            "issued": _now_iso(),
-            "url":    checkout_url,
-            "raw":    json.dumps({"product_kind": product_kind, "metadata": meta, "dry_run": dry_run}, ensure_ascii=False)[:30_000],
-            "now":    _now_iso(),
-            "owner":  _FIRM_DID,
+            "amount_minor":    amount_minor,
+            "currency":    currency.upper(),
+            "total_minor":    amount_minor,
+            "status": "checkout_pending",
+            "issued_at": _now_iso(),
+            "hosted_invoice_url":    checkout_url,
+            "raw_json":    json.dumps({"product_kind": product_kind, "metadata": meta, "dry_run": dry_run}, ensure_ascii=False)[:30_000],
+            "created_at":    _now_iso(),
+            "owner_did":  _FIRM_DID,
         },
     )
 

@@ -30,9 +30,10 @@ import hashlib
 import json
 import re
 import time
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -50,7 +51,7 @@ _OPEN_LEGAL_TLDS = (".lawyer", ".legal", ".attorney")
 
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _slug(s: str, *, max_len: int = 64) -> str:
@@ -73,15 +74,6 @@ def _normalize_tld(tld: str) -> str:
     return t
 
 
-def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall())
-
-
-def _rw_execute(sql: str, params: tuple[Any, ...]) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -118,18 +110,62 @@ _SQL_REGULATOR_NAME = (
 
 
 def _resolve_advice(tld: str, jurisdiction: str, actor_kind: str) -> dict[str, Any] | None:
-    rows = _rw_query(_SQL_ADVICE_EXACT, (tld, jurisdiction, actor_kind))
+    client = get_kotoba_client()
+    
+    # SQL: _SQL_ADVICE_EXACT (WHERE status = 'active' AND tld = %s AND jurisdiction = %s AND actor_kind = %s LIMIT 1)
+    # R0: Multi-predicate WHERE clause converted to Python filtering after select_where.
+    all_advice_exact = client.select_where(
+        "vertex_domain_eligibility_advice",
+        "tld",
+        tld,
+        columns=["vertex_id", "tld", "jurisdiction", "regulator_slug", "actor_kind", "eligible",
+                 "basis", "policy_excerpt", "source_url", "status"],
+        limit=2000 # Fetching a broader set for in-Python filtering
+    )
+    # Filter in Python
+    rows_exact = [
+        a for a in all_advice_exact
+        if a["status"] == "active" and a["jurisdiction"] == jurisdiction and a["actor_kind"] == actor_kind
+    ]
+    if rows_exact:
+        rows = [rows_exact[0]] # Simulate LIMIT 1
+    else:
+        rows = []
+
     if not rows:
-        rows = _rw_query(_SQL_ADVICE_TLD_JURIS, (tld, jurisdiction))
+        # SQL: _SQL_ADVICE_TLD_JURIS (WHERE status = 'active' AND tld = %s AND jurisdiction = %s ORDER BY CASE WHEN actor_kind = 'any' THEN 1 ELSE 0 END DESC, eligible DESC LIMIT 1)
+        # R0: Multi-predicate WHERE clause and ORDER BY converted to Python filtering and sorting after select_where.
+        all_advice_tld_juris = client.select_where(
+            "vertex_domain_eligibility_advice",
+            "tld",
+            tld,
+            columns=["vertex_id", "tld", "jurisdiction", "regulator_slug", "actor_kind", "eligible",
+                     "basis", "policy_excerpt", "source_url", "status"],
+            limit=2000 # Fetching a broader set for in-Python filtering
+        )
+        # Filter in Python
+        filtered_advice_tld_juris = [
+            a for a in all_advice_tld_juris
+            if a["status"] == "active" and a["jurisdiction"] == jurisdiction
+        ]
+        # Apply ORDER BY in Python
+        filtered_advice_tld_juris.sort(
+            key=lambda r: (1 if r["actor_kind"] == "any" else 0, r["eligible"]),
+            reverse=True # DESC
+        )
+        if filtered_advice_tld_juris:
+            rows = [filtered_advice_tld_juris[0]] # Simulate LIMIT 1
+        else:
+            rows = []
+
     if not rows:
         return None
     r = rows[0]
     return {
-        "vertex_id": r[0], "tld": r[1], "jurisdiction": r[2],
-        "regulator_slug": r[3], "actor_kind": r[4], "eligible": bool(r[5]),
-        "basis": r[6] or "", "policy_excerpt": r[7] or "", "source_url": r[8] or "",
+        "vertex_id": r["vertex_id"], "tld": r["tld"], "jurisdiction": r["jurisdiction"],
+        "regulator_slug": r["regulator_slug"], "actor_kind": r["actor_kind"], "eligible": bool(r["eligible"]),
+        "basis": r["basis"] or "", "policy_excerpt": r["policy_excerpt"] or "", "source_url": r["source_url"] or "",
     }
-
 
 def _tld_metadata(tld: str) -> dict[str, Any] | None:
     rows = _rw_query(_SQL_TLD, (tld,))

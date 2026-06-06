@@ -1,13 +1,12 @@
 """Game Play Uploader handlers for BPMN + Zeebe."""
 
-from __future__ import annotations
-
+from datetime import datetime, timezone
 import json
 import time
 from typing import Any
 from uuid import NAMESPACE_URL, uuid4, uuid5
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:game-play-uploader.etzhayyim.com"
 RATE_JPY_PER_HOUR = 100
@@ -21,7 +20,7 @@ COLLECTION_TABLES = {
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
 
 
 def _id(prefix: str) -> str:
@@ -37,19 +36,6 @@ def _num(value: Any, default: int = 0) -> int:
         return max(0, int(value))
     except (TypeError, ValueError):
         return default
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
 
 
 def _vertex_id(collection: str, record_id: str) -> str:
@@ -94,48 +80,39 @@ def _typed_values(kind: str, payload: dict[str, Any]) -> dict[str, Any]:
     return {}
 
 
-def _write_edge(cur: Any, table: str, src: str, dst: str, relation: str, payload: dict[str, Any], created_at: str) -> None:
-    cur.execute(
-        f"""
-        INSERT INTO {table}
-          (edge_id,src_vid,dst_vid,relation_kind,value_json,created_at,updated_at,owner_did,sensitivity_ord)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        ON CONFLICT (edge_id) DO UPDATE SET
-          value_json = EXCLUDED.value_json,
-          updated_at = EXCLUDED.updated_at
-        """,
-        (
-            _edge_id(table, src, dst, relation),
-            src,
-            dst,
-            relation,
-            json.dumps(payload, ensure_ascii=False, sort_keys=True),
-            created_at,
-            _s(payload.get("updatedAt")) or created_at,
-            OWNER_DID,
-            2,
-        ),
-    )
+def _write_edge(table: str, src: str, dst: str, relation: str, payload: dict[str, Any], created_at: str) -> None:
+    edge_row = {
+        "edge_id": _edge_id(table, src, dst, relation),
+        "src_vid": src,
+        "dst_vid": dst,
+        "relation_kind": relation,
+        "value_json": json.dumps(payload, ensure_ascii=False, sort_keys=True),
+        "created_at": created_at,
+        "updated_at": _s(payload.get("updatedAt")) or created_at,
+        "owner_did": OWNER_DID,
+        "sensitivity_ord": 2,
+    }
+    get_kotoba_client().insert_row(table, edge_row)
 
 
-def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, payload: dict[str, Any], created_at: str) -> None:
+def _write_related_edges(collection: str, kind: str, record_id: str, payload: dict[str, Any], created_at: str) -> None:
     vertex_id = _vertex_id(collection, record_id)
     if kind == "uploadSession":
         participant = _s(payload.get("participantDid"))
         if participant:
-            _write_edge(cur, "edge_game_play_participant_session", _vertex_id("com.etzhayyim.apps.gamePlayUploader.participant", participant), vertex_id, "created_upload_session", payload, created_at)
+            _write_edge("edge_game_play_participant_session", _vertex_id("com.etzhayyim.apps.gamePlayUploader.participant", participant), vertex_id, "created_upload_session", payload, created_at)
     elif kind == "upload":
         session_id = _s(payload.get("sessionId"))
         if session_id:
-            _write_edge(cur, "edge_game_play_session_upload", _vertex_id("com.etzhayyim.apps.gamePlayUploader.uploadSession", session_id), vertex_id, "has_upload", payload, created_at)
+            _write_edge("edge_game_play_session_upload", _vertex_id("com.etzhayyim.apps.gamePlayUploader.uploadSession", session_id), vertex_id, "has_upload", payload, created_at)
     elif kind == "review":
         upload_id = _s(payload.get("uploadId"))
         if upload_id:
-            _write_edge(cur, "edge_game_play_upload_review", _vertex_id("com.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "reviewed_by", payload, created_at)
+            _write_edge("edge_game_play_upload_review", _vertex_id("com.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "reviewed_by", payload, created_at)
     elif kind == "reward":
         upload_id = _s(payload.get("uploadId"))
         if upload_id:
-            _write_edge(cur, "edge_game_play_upload_reward", _vertex_id("com.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "earned_reward", payload, created_at)
+            _write_edge("edge_game_play_upload_reward", _vertex_id("com.etzhayyim.apps.gamePlayUploader.upload", upload_id), vertex_id, "earned_reward", payload, created_at)
 
 
 def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str | None = None) -> dict[str, Any]:
@@ -161,19 +138,8 @@ def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str 
         "sensitivity_ord": 2,
         **typed,
     }
-    columns = ["vertex_id", "record_id", "owner_did", "participant_did", "session_id", "upload_id", "label", "status", "value_json", "created_at", "updated_at", "sensitivity_ord", *typed]
-    placeholders = ",".join(["%s"] * len(columns))
-    updates = ",".join([f"{c}=EXCLUDED.{c}" for c in columns if c != "vertex_id"])
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {updates}
-            """,
-            tuple(values[c] for c in columns),
-        )
-        _write_related_edges(cur, collection, kind, rid, rec, created)
+    get_kotoba_client().insert_row(table, values)
+    _write_related_edges(collection, kind, rid, rec, created)
     return rec
 
 
@@ -181,14 +147,43 @@ def _list(collection: str, where_sql: str = "", params: tuple[Any, ...] = (), li
     table = COLLECTION_TABLES.get(collection)
     if table is None:
         return []
-    rows = _fetch_all(
-        f"SELECT value_json AS record_json FROM {table} WHERE TRUE {where_sql} ORDER BY created_at DESC LIMIT %s",
-        (*params, max(1, min(limit, 1000))),
-    )
+
+    client = get_kotoba_client()
+    raw_db_rows: list[dict] = [] # These will be dicts from kotoba client, with snake_case keys
+
+    # Case 1: Specific upload_id lookup (single result expected)
+    if where_sql == "AND upload_id=%s" and params and len(params) == 1:
+        row = client.select_first_where(table, "record_id", params[0], columns=["value_json", "created_at"])
+        if row:
+            raw_db_rows.append(row)
+    # Case 2: Specific participant_did lookup (multiple results possible)
+    elif where_sql == "AND participant_did=%s" and params and len(params) == 1:
+        raw_db_rows = client.select_where(table, "participant_did", params[0], columns=["value_json", "created_at"], limit=limit)
+    # Case 3: Fetch all records (no specific WHERE clause, or complex WHERE not handled by shims)
+    else:
+        # R0: Fetching all records for a table using a Datalog `q` query and then sorting/limiting/filtering in Python.
+        # This is because `select_where` requires a specific column and value predicate, and `_list`
+        # can be called without such predicates or with dynamic SQL.
+        query_edn = f"""
+        [:find ?v_json ?c_at
+         :where [?e :db/doc "{table}"] [?e :value_json ?v_json] [?e :created_at ?c_at]]
+        """
+        results_from_q = client.q(query_edn)
+        for v_json, c_at in results_from_q:
+            raw_db_rows.append({"value_json": v_json, "created_at": c_at})
+
+        # Apply sorting and limit after fetching all.
+        raw_db_rows.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+        raw_db_rows = raw_db_rows[:limit]
+
+
     out: list[dict[str, Any]] = []
-    for row in rows:
+    for row in raw_db_rows:
         try:
-            parsed = json.loads(str(row["record_json"]))
+            # `value_json` could be a raw string or already deserialized by `kotoba_datomic`
+            # Ensure it's a string for json.loads
+            json_str = row["value_json"] if isinstance(row["value_json"], str) else json.dumps(row["value_json"])
+            parsed = json.loads(json_str)
         except (TypeError, ValueError):
             continue
         if isinstance(parsed, dict):
