@@ -1,0 +1,33 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:actor:suji",
+  "name": "suji",
+  "displayName": "筋 — Musculoskeletal Posture-Load Biomechanics Simulator",
+  "displayNameJa": "筋 (すじ)",
+  "displayNameEn": "Suji",
+  "description": "The physics-simulation answer to 'what does a laptop posture do to the body?'. A sagittal articulated bone chain (de Leva/Winter anthropometry — the kami-genesis PlanarChain) is driven through static inverse dynamics (Featherstone RNEA gravity term) to per-joint moment + cervical compressive load (VALIDATED against Hansraj 2014's forward-head-posture table), then to Hill-type muscle %MVC (緊張/tension) and a Rohmert sustained-isometric dose (強張り/stiffness) over a work session, comparing laptop-on-lap vs desk vs external-monitor-at-eye-level. The physics-simulation sibling of kizashi 兆 (which senses the body) and upstream of mitate (which diagnoses). NON-DIAGNOSTIC by construction (G1, 医師法 §17): every output is a mechanical quantity and no diagnosis/disease/prescription/treatment field is representable in schema, lexicon, or cell. Wires to kami-genesis / nv-compat Isaac-Sim via a WIT articulation contract (gated backend, the noroshi pattern).",
+  "descriptionJa": "「ノートパソコンの姿勢が人体にどういった緊張・強張りを作るか」への物理シミュレーション解。矢状面の骨格セグメント連鎖 (de Leva/Winter 人体計測 — kami-genesis の PlanarChain) を静的逆動力学 (Featherstone RNEA の重力項) で解き、各関節モーメント + 頸椎圧縮荷重 (Hansraj 2014 の前方頭位姿勢テーブルで検証) → Hill 型筋 %MVC (緊張) → Rohmert 等尺性持続負荷量 (強張り) を作業セッションに渡って算出し、膝上ノートPC vs 机上 vs 外部モニタ目線高さを比較する。身体を *感知* する kizashi 兆 の物理シミュレーション兄弟であり、*診断* する mitate の上流。構造的に非診断 (G1, 医師法 §17): 全出力は力学量で、診断/疾患/処方/治療フィールドは schema・lexicon・cell のいずれにも表現不能。kami-genesis / nv-compat Isaac-Sim へは WIT articulation 契約で接続 (gated backend, noroshi パターン)。",
+  "adr": {
+    "master": "etzhayyim:adr:2606061900",
+    "r0": "etzhayyim:adr:2606061900"
+  },
+  "tier": "Tier-B",
+  "glyph": "筋",
+  "kind": "musculoskeletal posture-load biomechanics simulator (design + validated physics substrate)",
+  "tierRole": "L4 Care — biomechanics-simulation / instrument layer, upstream of clinical adjudication",
+  "pipeline": "kizashi senses → suji simulates the loads → mitate diagnoses → iyashi treats",
+  "siblings": [
+    "did:web:etzhayyim.com:actor:kizashi",
+    "did:web:etzhayyim.com:actor:mitate",
+    "did:web:etzhayyim.com:actor:iyashi",
+    "did:web:etzhayyim.com:actor:kokoro"
+  ],
+  "siblingNote": "kizashi = the SENSOR (multimodal non-invasive scan); suji = the MECHANICS engine over a posture; mitate/iyashi = clinical diagnosis + care. suji never senses and never diagnoses.",
+  "validation": "cervical leg reproduces Hansraj (2014) forward-head-posture loads within ~10%",
+  "status": "r0",
+  "honestR0": "Design + runnable physics + validated cervical model. :representative anthropometry/muscle/endurance (G7); cervical validated, muscle/strain mechanistically grounded but illustrative. No hardware, no live member scan, no live kami-genesis backend (submodule unpopulated → WIT contract + Python reference). Cells .solve() raise at R0; load_solve transitions unit-tested. Live kizashi feed / clinical handoff Council Lv6+ + operator gated."
+}

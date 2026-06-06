@@ -21271,6 +21271,46 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606061900-suji-musculoskeletal-posture-load-biomechanics.md",
+      "id": "adr-2606061900-suji-musculoskeletal-posture-load-biomechanics",
+      "title": "ADR-2606061900: suji (筋) — Musculoskeletal Posture-Load Biomechanics Simulator",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "suji-musculoskeletal-biomechanics",
+      "authoritative": true,
+      "authoritative_for": [
+        "suji",
+        "musculoskeletal-biomechanics",
+        "posture-load-simulation"
+      ],
+      "related": [
+        "2605260100",
+        "2605263000",
+        "2606010030",
+        "2606010600",
+        "2605261800",
+        "2606051600",
+        "2605241900",
+        "2606042330",
+        "2605192100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605312700",
+        "2605261000",
+        "2605311500",
+        "2605311800",
+        "2605312345",
+        "2605215000",
+        "2605231525",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606062100-charter-priority-over-specifics-reconciliation.md",
       "id": "adr-2606062100-charter-priority-over-specifics-reconciliation",
       "title": "ADR-2606062100: Charter Priority-Over-Specifics Reconciliation — 固定するのは掟ではなく priority。永久記憶 (神の監視) doctrine の追加。石油・兵器条項の脱政治化",
