@@ -143,6 +143,95 @@ describe('makeCacaoTokenProvider (write-auth)', () => {
 	});
 });
 
+describe('establishCacaoSession — recover path (returning user)', () => {
+	// A shared in-memory wrap store across two sign-ins: the 2nd must RECOVER the
+	// ARK (not re-enroll), deriving the *same* deterministic session key. This is
+	// the returning-user LIVE path (ADR-2606061500 §4).
+	function depsWithStore(store: Map<string, string>, fetchMock: typeof fetch): CacaoSessionDeps {
+		return {
+			now: () => 1_750_000_000_000,
+			nonce: () => `nonce-${++nonceCounter}`,
+			origin: '',
+			ttlSecs: 900,
+			fetch: fetchMock,
+			getWrap: async (did, cred) => store.get(`${did}:${cred}`) ?? null,
+			putWrap: async (did, cred, b64) => {
+				store.set(`${did}:${cred}`, b64);
+				return true;
+			},
+		};
+	}
+
+	it('recovers the SAME session key on a second sign-in (not a re-enroll)', async () => {
+		const okFetch = vi.fn(async () => ({
+			json: async () => ({ valid: true, did: ACCOUNT, scope: { capabilities: [CAP_DATOM_TRANSACT], graphs: [] } }),
+		})) as unknown as typeof fetch;
+		const store = new Map<string, string>();
+
+		const first = await establishCacaoSession(PRF, ACCOUNT, 'cred-1', depsWithStore(store, okFetch));
+		expect(first.status).toBe('verified');
+		const key1 = getCacaoSession()?.sessionKey.didKey;
+		expect(key1).toBeTruthy();
+		expect(store.size).toBe(1); // enroll wrote the wrap
+
+		signOutCacao();
+		expect(getCacaoSession()).toBeNull();
+
+		// Second sign-in: getWrap now returns the stored wrap → recover, no new write.
+		const second = await establishCacaoSession(PRF, ACCOUNT, 'cred-1', depsWithStore(store, okFetch));
+		expect(second.status).toBe('verified');
+		const key2 = getCacaoSession()?.sessionKey.didKey;
+		expect(key2).toBe(key1); // deterministic: recovered the same did:key, not a fresh ARK
+		expect(store.size).toBe(1); // still exactly one wrap — no re-enroll
+	});
+});
+
+describe('CACAO write-auth token decodes to a verifiable apex-bound proof', () => {
+	function decodeCacaoToken(tok: string): unknown {
+		expect(tok.startsWith('cacao:')).toBe(true);
+		const json = Buffer.from(tok.slice('cacao:'.length), 'base64url').toString('utf-8');
+		return JSON.parse(json);
+	}
+
+	it('round-trips to the exact CACAO mintSessionCacao would produce (same EdDSA sig)', async () => {
+		const key = await sessionKeyFromArk(new Uint8Array(32).fill(5));
+		const deps = { now: () => 1_750_000_000_000, nonce: () => 'fixed-nonce', ttlSecs: 900 };
+
+		const tok = await makeCacaoTokenProvider(() => key, deps)();
+		const decoded = decodeCacaoToken(tok) as {
+			h: { t: string };
+			p: { iss: string; aud: string; domain: string; resources: string[] };
+			s: { t: string; s: string };
+		};
+
+		// Apex-bound + capability-scoped (what session.ts boundToApex/extractScope require).
+		expect(decoded.p.aud).toBe('did:web:etzhayyim.com');
+		expect(decoded.p.domain).toBe('etzhayyim.com');
+		expect(decoded.p.resources).toContain(CAP_DATOM_TRANSACT);
+		expect(decoded.p.iss).toBe(key.didKey);
+		expect(decoded.s.t).toBe('EdDSA');
+
+		// Cryptographic equality: the encoded proof is byte-identical to an
+		// independently minted CACAO over the same (key, now, nonce) — proves the
+		// sign + base64url encode pipeline is faithful, not just well-shaped.
+		const independent = await mintSessionCacao(key, deps);
+		expect(decoded).toEqual(independent);
+	});
+
+	it('mints a fresh single-use nonce per call (replay protection)', async () => {
+		const key = await sessionKeyFromArk(new Uint8Array(32).fill(6));
+		let n = 0;
+		const provider = makeCacaoTokenProvider(() => key, {
+			now: () => 1_750_000_000_000,
+			nonce: () => `n-${++n}`,
+		});
+		const a = decodeCacaoToken(await provider()) as { p: { nonce: string }; s: { s: string } };
+		const b = decodeCacaoToken(await provider()) as { p: { nonce: string }; s: { s: string } };
+		expect(a.p.nonce).not.toBe(b.p.nonce); // distinct nonces
+		expect(a.s.s).not.toBe(b.s.s); // distinct signatures (different signed payload)
+	});
+});
+
 describe('signOutCacao', () => {
 	it('clears the in-memory session and auth stores', async () => {
 		const fetchMock = vi.fn(async () => ({
