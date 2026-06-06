@@ -61,6 +61,20 @@ function isFeedNsid(nsid) {
   );
 }
 
+// ── Browser-local WRITES (post / reply / comment / like) ────────────────────
+// Wikipedia-style: every write is computed AND stored in the in-page kotoba
+// node, MEMBER-SIGNED (ed25519, the server never signs — ADR-2605231525), and
+// appended to the append-only Datom log (revision history, 非終末論). The signed
+// blocks are published to the apex separately; here we apply the write locally
+// so the author sees it immediately and it survives reload (IndexedDB/OPFS).
+const WRITE_NSIDS = new Set(["com.atproto.repo.createRecord"]);
+// Collections we materialise into :yoro.* datoms; anything else → network.
+const WRITE_COLLECTIONS = new Set([
+  "app.bsky.feed.post", // post / reply / comment
+  "app.bsky.feed.like",
+  "app.bsky.feed.repost",
+]);
+
 // Raw hydrated datom array (same shape as seed-datoms.json: {e,a,v_edn,added}).
 // Kept in sync by hydrate()/refreshSnapshot(); feed/profile views are built
 // from THIS, in JS, so they never depend on a wasm export-shape detail.
@@ -107,10 +121,25 @@ function buildPostViews(datoms) {
     const v = edVal(d.v_edn);
     o[k] = k === "view" ? safeParse(v) : v;
   }
+  // Engagement counts DERIVED from the log (Wikipedia-style: counts are a
+  // function of the append-only like/repost datoms, not a stored mutable field).
+  const likeBy = new Map(); // postUri -> count
+  const repostBy = new Map();
+  for (const d of datoms) {
+    if (d && d.a === ":yoro.like/subject") {
+      const u = edVal(d.v_edn);
+      likeBy.set(u, (likeBy.get(u) || 0) + 1);
+    } else if (d && d.a === ":yoro.repost/subject") {
+      const u = edVal(d.v_edn);
+      repostBy.set(u, (repostBy.get(u) || 0) + 1);
+    }
+  }
   const out = [];
   for (const o of byE.values()) {
     const view = o.view && typeof o.view === "object" ? o.view : null;
     if (!view || !view.uri) continue;
+    if (likeBy.has(view.uri)) view.likeCount = (view.likeCount || 0) + likeBy.get(view.uri);
+    if (repostBy.has(view.uri)) view.repostCount = (view.repostCount || 0) + repostBy.get(view.uri);
     // sort key: prefer scalar createdAt, fall back to the view's record.
     view.__sortAt = o.createdAt || (view.record && view.record.createdAt) || view.indexedAt || "";
     out.push(view);
@@ -182,6 +211,129 @@ function jsonResponse(obj, tag) {
       "x-kotoba-src": hydrateSource,
     },
   });
+}
+
+// ── Member signing identity (no-server-key) ─────────────────────────────────
+// A browser-held ed25519 identity (did:key). Generated once, persisted in IDB,
+// reused across sessions. R0: SW-local key; a passkey/wallet-derived member key
+// is the charter target (ADR-2605231525). Used to sign every local commit.
+let memberDid = null;
+async function ensureIdentity() {
+  if (memberDid) return memberDid;
+  let seedHex = await idbGet("id-seed");
+  if (!seedHex) {
+    const b = crypto.getRandomValues(new Uint8Array(32));
+    seedHex = Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    await idbPut("id-seed", seedHex);
+  }
+  memberDid = node.useIdentity(seedHex); // did:key
+  return memberDid;
+}
+
+// Sortable rkey (timestamp ms base36 + 4 random) — monotonic-ish, collision-safe.
+function newRkey() {
+  const r = crypto.getRandomValues(new Uint8Array(3));
+  return (
+    Date.now().toString(36) +
+    Array.from(r, (x) => x.toString(36).padStart(2, "0")).join("").slice(0, 4)
+  );
+}
+
+const edDatom = (e, a, value) => ({ e, a, v_edn: JSON.stringify(value), added: true });
+
+// Apply a write LOCALLY: materialise :yoro.* datoms, member-sign the commit,
+// persist, and inject into the live feed source. Returns the createRecord
+// response {uri, cid} or null (→ caller defers to network).
+async function handleCreateRecord(body) {
+  const collection = body && body.collection;
+  const record = (body && body.record) || {};
+  if (!collection || !WRITE_COLLECTIONS.has(collection)) return null;
+  await ensureReady();
+  if (!node) return null;
+  const did = await ensureIdentity();
+  const rkey = newRkey();
+  const cid = rkey; // content id placeholder (R0); real CID at publish/commit
+  const uri = `at://${did}/${collection}/${rkey}`;
+  const createdAt = record.createdAt || new Date().toISOString();
+  const datoms = [];
+
+  if (collection === "app.bsky.feed.post") {
+    const text = typeof record.text === "string" ? record.text : "";
+    const view = {
+      uri,
+      cid,
+      rkey,
+      record: {
+        $type: "app.bsky.feed.post",
+        text,
+        createdAt,
+        ...(record.embed ? { embed: record.embed } : {}),
+        ...(record.reply ? { reply: record.reply } : {}),
+        ...(record.facets ? { facets: record.facets } : {}),
+      },
+      author: {
+        did,
+        handle: did,
+        displayName: did,
+        avatar: `https://api.dicebear.com/9.x/identicon/svg?seed=${encodeURIComponent(did)}`,
+      },
+      indexedAt: createdAt,
+      likeCount: 0,
+      repostCount: 0,
+      replyCount: 0,
+      quoteCount: 0,
+      viewCount: 0,
+      text,
+      facets: record.facets || [],
+      ...(record.reply ? { reply: record.reply } : {}),
+    };
+    const e = `post:${uri}`;
+    datoms.push(
+      edDatom(e, ":yoro.post/uri", uri),
+      edDatom(e, ":yoro.post/cid", cid),
+      edDatom(e, ":yoro.post/author", did),
+      edDatom(e, ":yoro.post/createdAt", createdAt),
+      edDatom(e, ":yoro.post/indexedAt", createdAt),
+      edDatom(e, ":yoro.post/text", text),
+      edDatom(e, ":yoro.post/view", JSON.stringify(view)),
+    );
+  } else if (collection === "app.bsky.feed.like") {
+    const subj = (record.subject && record.subject.uri) || "";
+    const e = `like:${did}:${subj}`;
+    datoms.push(
+      edDatom(e, ":yoro.like/subject", subj),
+      edDatom(e, ":yoro.like/by", did),
+      edDatom(e, ":yoro.like/createdAt", createdAt),
+    );
+  } else if (collection === "app.bsky.feed.repost") {
+    const subj = (record.subject && record.subject.uri) || "";
+    const e = `repost:${did}:${subj}`;
+    datoms.push(
+      edDatom(e, ":yoro.repost/subject", subj),
+      edDatom(e, ":yoro.repost/by", did),
+      edDatom(e, ":yoro.repost/createdAt", createdAt),
+    );
+  }
+
+  // Write into the kotoba node (write-set) + member-sign the commit.
+  for (const d of datoms) node.assert(d.e, d.a, JSON.parse(d.v_edn));
+  let signed = null;
+  try {
+    signed = JSON.parse(node.commitSigned()); // { root, did, sig } — member-signed
+  } catch (e) {
+    console.warn("[kotoba-sw] commitSigned failed (local write still applied)", e);
+  }
+  // Reflect in the live feed source + persist (optimistic, survives reload).
+  seedDatoms = seedDatoms.concat(datoms);
+  await idbPut("datoms", seedDatoms);
+  await idbPut("len", seedDatoms.length);
+  try {
+    await appendTxJournal(datoms, Date.now()); // OPFS audit/journal
+  } catch {}
+  console.log(
+    `[kotoba-sw] local write ${collection} by ${did.slice(0, 24)}… → ${uri.slice(-12)}${signed ? ` (signed root ${String(signed.root).slice(0, 12)}…)` : ""}`,
+  );
+  return { uri, cid, commit: signed ? { rev: signed.root } : undefined, validationStatus: "valid" };
 }
 
 // ── IndexedDB persistence ──────────────────────────────────────────────────
@@ -392,7 +544,26 @@ self.addEventListener("fetch", (event) => {
   const m = url.pathname.match(/^\/xrpc\/([^/?]+)$/);
   if (!m) return;
   const nsid = m[1];
-  if (!SEARCH_NSIDS.has(nsid) && !isFeedNsid(nsid)) return; // not ours → network
+  if (!SEARCH_NSIDS.has(nsid) && !isFeedNsid(nsid) && !WRITE_NSIDS.has(nsid)) return; // not ours
+
+  // ── Browser-local WRITE (member-signed, stored in the kotoba node) ─────────
+  if (WRITE_NSIDS.has(nsid)) {
+    if (event.request.method !== "POST") return; // queries handled elsewhere
+    event.respondWith(
+      (async () => {
+        try {
+          const body = await event.request.clone().json();
+          const res = await handleCreateRecord(body);
+          if (res) return jsonResponse(res, "local-wasm-write");
+          return fetch(event.request); // unsupported collection → network
+        } catch (e) {
+          console.warn("[kotoba-sw] write failed → network", e);
+          return fetch(event.request);
+        }
+      })(),
+    );
+    return;
+  }
 
   // ── Browser-only feed / profile reads (kotoba-wasm Datom log) ─────────────
   // Assembled locally from the same-origin seed; on any miss/exception we fall

@@ -85,6 +85,9 @@ const SW_LOCAL_NSIDS = new Set<string>([
 	'app.bsky.feed.getAuthorFeed',
 	'app.bsky.feed.getPostThread',
 	'app.bsky.actor.getProfile',
+	// writes (post / reply / comment / like / repost) — member-signed + stored
+	// in the in-page kotoba node by kotoba-sw.js (Wikipedia-style local edits).
+	'com.atproto.repo.createRecord',
 ]);
 
 let tokenProvider: TokenProvider | null = null;
@@ -361,9 +364,10 @@ export async function getFollowers(actor: string, limitOrOpts: number | FeedOpti
 }
 
 export function likePost(uri: string, cid: string) {
-	const repo = getCurrentDID();
-	if (!repo) throw new Error('likePost: no session');
-	return agent.app.bsky.feed.like.create({ repo }, { subject: { uri, cid }, createdAt: new Date().toISOString() });
+	// Route through createRecord so it goes same-origin → kotoba-sw.js applies the
+	// like as a member-signed local write (no atproto session required; the SW
+	// holds the member identity). Falls through to the apex/AppView otherwise.
+	return createRecord('app.bsky.feed.like', { subject: { uri, cid }, createdAt: new Date().toISOString() });
 }
 
 export async function unlikePost(likeUri: string): Promise<void> {
@@ -373,9 +377,7 @@ export async function unlikePost(likeUri: string): Promise<void> {
 }
 
 export function repost(uri: string, cid: string) {
-	const repo = getCurrentDID();
-	if (!repo) throw new Error('repost: no session');
-	return agent.app.bsky.feed.repost.create({ repo }, { subject: { uri, cid }, createdAt: new Date().toISOString() });
+	return createRecord('app.bsky.feed.repost', { subject: { uri, cid }, createdAt: new Date().toISOString() });
 }
 
 export async function unrepost(repostUri: string): Promise<void> {
