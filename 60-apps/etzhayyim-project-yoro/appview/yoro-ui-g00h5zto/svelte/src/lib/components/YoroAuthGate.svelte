@@ -91,19 +91,19 @@
 	function goAgentLogin() {
 		playSuccess();
 		if (onAuth) { void onAuth(); return; }
-		window.location.href = buildUrl(signInUrl);
+		window.location.href = fallbackUrl(signInUrl);
 	}
 
 	function goCreateAgent() {
 		playSuccess();
 		if (onAuth) { void onAuth(); return; }
-		window.location.href = buildUrl(signUpUrl);
+		window.location.href = fallbackUrl(signUpUrl);
 	}
 
 	function goHumanLogin() {
 		playSuccess();
 		if (onAuth) { void onAuth(); return; }
-		window.location.href = buildUrl(signInUrl) + '&mode=human';
+		window.location.href = fallbackUrl(signInUrl) + '&mode=human';
 	}
 
 	// 信者になる (constitutional Adherent path) — ADR-2605172600 joining ritual:
@@ -113,7 +113,7 @@
 	function goAdherentJoin() {
 		playSuccess();
 		if (onAuth) { void onAuth(); return; }
-		window.location.href = buildUrl(signUpUrl) + '&mode=adherent';
+		window.location.href = fallbackUrl(signUpUrl) + '&mode=adherent';
 	}
 </script>
 
