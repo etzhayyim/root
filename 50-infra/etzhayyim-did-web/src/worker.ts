@@ -36,6 +36,8 @@ import {
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord } from "./kotoba";
+import { ACTORS_V1_RECORDS } from "./registry/actors-v1-records.gen";
+import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
@@ -415,6 +417,9 @@ interface Env {
   // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
+  // Operator oversight key (base64 32 bytes) for encrypting published-edit IP
+  // attestations. Optional — absent → pseudonymous hash only (see kotoba-publish).
+  KOTOBA_ATTEST_KEY?: string;
   KOTOBA_ENDPOINT?: string;
   // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
@@ -725,35 +730,26 @@ async function resolveActorRecord(
 async function resolveActorRecordTiered(
   handle: string,
   env: Env,
-  ctx: ExecutionContext,
+  _ctx: ExecutionContext,
 ): Promise<ActorRecord | null> {
-  // 1) KV snapshot — fast, origin-independent.
-  if (env.ACTOR_KV) {
-    try {
-      const raw = (await env.ACTOR_KV.get(`actor:${handle}`, "json")) as
-        | Record<string, unknown>
-        | null;
-      const rec = raw ? coerceActorRecord(raw, "kv") : null;
-      if (rec) return rec;
-    } catch {
-      /* KV unavailable → fall through */
-    }
-  }
-
-  // 2) kotoba pull — first-class canonical state; cache the hit into KV.
+  // Actor resolution no longer depends on CF KV (per the kotoba-datomic-only
+  // directive): the canonical actor + DID record lives in the `actors-v1` Datom
+  // log (content-addressed blocks under /kotoba/, resolved client-side by the
+  // browser kotoba-wasm; gen-kotoba-actor-blocks.mjs). The Worker keeps only a
+  // server-side did:web compatibility path:
+  //   1) an (empty-by-default) kotoba node pull,
+  //   2) the actors-v1 static projection (ACTORS_V1_RECORDS) — the KV-free,
+  //      seed-derived map of the same 28 Datom-log records,
+  //   3) the compiled INFRA_ACTORS mirror, so did:web never goes dark.
+  // ACTOR_KV remains bound ONLY for the gov-atlas index, not for actor records.
   const fromKotoba = await fetchKotobaActorRecord(env, handle);
-  if (fromKotoba) {
-    if (env.ACTOR_KV) {
-      ctx.waitUntil(
-        env.ACTOR_KV.put(`actor:${handle}`, JSON.stringify(fromKotoba), {
-          expirationTtl: 300,
-        }).catch(() => {}),
-      );
-    }
-    return fromKotoba;
-  }
+  if (fromKotoba) return fromKotoba;
 
-  // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
+  const fromActorsV1 = ACTORS_V1_RECORDS[handle];
+  if (fromActorsV1)
+    return coerceActorRecord(fromActorsV1 as Record<string, unknown>, "kotoba");
+
+  // compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);
 }
 
@@ -1405,6 +1401,39 @@ a{color:inherit}
           JSON.stringify({ error: "IpfsUnavailable", message: lastErr, cid }),
           { status: 502, headers: ACTOR_JSON_HEADERS },
         );
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2d) kotoba member-signed publish (ADR-2605312345 / 2605231525).
+    //     - GET  /kotoba/blocks/<cid>  → dynamically published block from KV
+    //       (genesis blocks are static assets and never reach the Worker; a
+    //       request arriving here is a post-genesis block).
+    //     - POST /xrpc/com.etzhayyim.apps.kotoba.block.put → verify member sig,
+    //       store blocks + advance root + record suppressable encrypted IP.
+    //     - GET  /xrpc/com.etzhayyim.apps.kotoba.root → latest published root.
+    //     Handled LOCALLY (the generic XRPC proxy below would forward to the
+    //     internal kotoba node, which is not publicly reachable — and the whole
+    //     point is no node is needed).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const bm = url.pathname.match(/^\/kotoba\/blocks\/([A-Za-z0-9]+)$/);
+      if (bm && (request.method === "GET" || request.method === "HEAD")) {
+        const blk = await serveBlockFromKv(bm[1], env);
+        if (blk) return blk;
+        // not in KV → fall through (static asset already missed → 404 below)
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.put" && request.method === "POST") {
+        return handleBlockPut(request, env);
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.has" && request.method === "POST") {
+        return handleBlockHas(request, env);
+      }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.root" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleRootGet(url, env);
       }
     }
 
