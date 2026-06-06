@@ -21400,6 +21400,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606065000-session-close-kawaraban-news-medium.md",
+      "id": "adr-2606065000-session-close-kawaraban-news-medium",
+      "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": false,
+      "related": [
+        "90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606061900-kawaraban-news-medium-actor-r0",
+        "adr-2605263600-kataribe-press-publishing-translation-r0",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection"
+      ],
+      "last_verified": "2026-06-06",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -13720,6 +13720,16 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606065000-session-close-kawaraban-news-medium",
+      "type": "TechArticle",
+      "title": "ADR-2606065000: Session close — kawaraban 瓦版 news medium (real-media mirror + actor-to-actor wire) landed, merged, registries updated",
+      "status": "active",
+      "topic": "kawaraban-news-medium-actor",
+      "authoritative": false,
+      "related": "doc:90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md",
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
