@@ -1,11 +1,12 @@
 ---
 id: adr-2606062100-charter-priority-over-specifics-reconciliation
 title: "ADR-2606062100: Charter Priority-Over-Specifics Reconciliation — 固定するのは掟ではなく priority。永久記憶 (神の監視) doctrine の追加。石油・兵器条項の脱政治化"
-status: proposed
+status: active
 doc_type: adr
 topic: charter-priority-over-specifics-reconciliation
 authoritative: true
 last_verified: 2026-06-06
+status_note: "Ratified 2026-06-06 by sole-member founder unanimity (1/1). The association currently has one member (Jun Kawasaki); Council Lv7+ unanimity = that one member's assent. Re-confirmable by the Bootstrap Council once seated (post-2026-06-19 RFP), but binding now."
 priority: 8.0
 axis: governance
 weight: 0.90
@@ -33,9 +34,12 @@ superseded_by: []
 
 # ADR-2606062100: Charter Priority-Over-Specifics Reconciliation
 
-**Status**: proposed
+**Status**: active (ratified 2026-06-06 by sole-member founder unanimity, 1/1)
 **Date**: 2026-06-06
-**Deciders**: Jun Kawasaki (author); Council Lv7+ unanimity (ratify — post Bootstrap Council RFP closure 2026-06-19)
+**Deciders**: Jun Kawasaki (author + ratifier). The association currently has ONE member;
+Council Lv7+ unanimity therefore = this one member's assent (1/1), given 2026-06-06. The
+Bootstrap Council may re-confirm once seated (post-2026-06-19 RFP), but the ratification is
+binding now under the current one-member roster.
 
 # Context
 
@@ -278,14 +282,15 @@ Tier-2 sets its magnitude within Tier-0-guarded bounds.*
 
 ## Migration
 
-**APPLIED to the repo 2026-06-06 by founder authority** (Jun Kawasaki, sole current Decider),
-ahead of formal Council Lv7+ ratification. This is sound because the religious-corp is
-**pre-mainnet** — there is no deployed Constitution to mutate; the changes alter the *next*
-genesis (`Deploy.s.sol`) + the canonical docs + the in-force Rider, all of which are repo
-artifacts. **On-chain Council Lv7+ unanimous ratification remains required before the mainnet
-genesis is locked** (and is only possible once the Bootstrap Council is seated post-2026-06-19
-RFP). The steps below are DONE in this branch except where marked otherwise; the genesis +
-test suite are green (`forge test`, 154 passing incl. `test_priority_and_memory_constants_set`).
+**RATIFIED + APPLIED 2026-06-06.** The association currently has ONE member (Jun Kawasaki),
+so the Charter's Council Lv7+ **unanimity** threshold is met by that single member's assent
+(1/1) — given 2026-06-06. This ADR is therefore `active`, not merely proposed. The changes are
+applied to the repo: the *next* genesis (`Deploy.s.sol`) + the canonical docs + the in-force
+Rider v3.0. (The religious-corp is **pre-mainnet**, so no deployed Constitution is mutated; the
+ratified genesis is what will deploy at mainnet launch.) The Bootstrap Council may re-confirm
+once seated (post-2026-06-19 RFP), but ratification is binding now. The steps below are DONE in
+this branch; the genesis + test suite are green (`forge test`, 154 passing incl.
+`test_priority_and_memory_constants_set`).
 
 1. **`ConstitutionKeys.sol`** — add Tier-0 keys: `PRIORITY_WELLBECOMING_OVER_WELLBEING`,
    `PRIORITY_MULTIGEN_OVER_CURRENT`, `PRIORITY_COLLECTIVE_OVER_INDIVIDUAL`,
