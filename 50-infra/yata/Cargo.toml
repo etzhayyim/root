@@ -33,7 +33,7 @@ debug = 0
 [workspace.dependencies]
 hex = "0.4"
 sha2 = "0.10"
-hmac = "0.12"
+hmac = "0.13"
 # Internal crate refs (workspace path deps)
 yata-core = { path = "yata-core" }
 yata-grin = { path = "yata-grin" }
