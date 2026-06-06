@@ -40,15 +40,15 @@
           "servesPriority": {
             "type": "string",
             "enum": [
-              "wellbecoming_over_wellbeing",
-              "multigen_over_current",
-              "collective_over_individual",
-              "right_to_erasure_denied",
-              "permanent_record",
-              "deeds_public_intimate_encrypted",
-              "tithe_redistribution_exists"
+              "priority.wellbecoming_over_wellbeing",
+              "priority.multigen_over_current",
+              "priority.collective_over_individual",
+              "memory.right_to_erasure_denied",
+              "memory.permanent_record",
+              "memory.deeds_public_intimate_encrypted",
+              "economic.tithe_redistribution_exists"
             ],
-            "description": "Which Tier-0 Priority the amendment is shown to serve. Maps 1:1 to the Constitution.sol Tier-0 constant keys. → :charter.amend/serves-priority"
+            "description": "Which Tier-0 Priority the amendment is shown to serve. Each value is the EXACT Constitution.sol Tier-0 constant key (keccak256(value) is a registered constant). Drift-locked against the genesis by ConstitutionInvariants.t.sol::test_lexicon_servesPriority_matches_tier0_constants. → :charter.amend/serves-priority"
           },
           "conformanceFinding": {
             "type": "string",
