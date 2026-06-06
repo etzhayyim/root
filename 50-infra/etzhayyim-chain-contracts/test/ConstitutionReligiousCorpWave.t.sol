@@ -21,9 +21,9 @@ contract ConstitutionReligiousCorpWaveTest is Test {
     Constitution internal c;
 
     function setUp() public {
-        // ─── Constants (39 = 8 original + 30 religious-corp wave + 1 kawase) ──
-        bytes32[] memory cK = new bytes32[](39);
-        bytes32[] memory cV = new bytes32[](39);
+        // ─── Constants (47 = 39 prior − 2 retired + 9 priority/memory/etc, ADR-2606062100) ──
+        bytes32[] memory cK = new bytes32[](47);
+        bytes32[] memory cV = new bytes32[](47);
 
         // Original (8)
         cK[0] = K.ONE_SBT_ONE_VOTE;            cV[0] = bytes32(uint256(1));
@@ -71,18 +71,29 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         cK[30] = K.ECONOMIC_NON_PROFIT_ONLY;            cV[30] = bytes32(uint256(1));
         cK[31] = K.ECONOMIC_DONATION_ONLY;              cV[31] = bytes32(uint256(1));
         cK[32] = K.ECONOMIC_NO_ADVERTISING;             cV[32] = bytes32(uint256(1));
-        cK[33] = K.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS;   cV[33] = bytes32(uint256(1_000));
+        // [33] tithe pinned → redistribution-exists; [36] rider-version → phenotype floor
+        cK[33] = K.ECONOMIC_TITHE_REDISTRIBUTION_EXISTS; cV[33] = bytes32(uint256(1));
         cK[34] = K.LICENSE_BASE;                          cV[34] = bytes32("Apache-2.0");
         cK[35] = K.LICENSE_CHARTER_RIDER_REQUIRED;      cV[35] = bytes32(uint256(1));
-        cK[36] = K.LICENSE_CHARTER_RIDER_VERSION;       cV[36] = bytes32("v2.0");
+        cK[36] = K.PHENOTYPE_NON_COMPLIANT_MULTIPLIER;  cV[36] = bytes32(uint256(0));
         cK[37] = K.ENFORCEMENT_THREE_TIER;               cV[37] = bytes32(uint256(1));
 
         // kawase-yui FX band (ADR-2605282200 G4)
         cK[38] = K.KAWASE_MAX_BAND_BPS;                  cV[38] = bytes32(uint256(50));
 
-        // ─── Mutables (17 = 8 original + 1 phenotype + 6 references + 1 kawase + 1 buffer) ──
-        bytes32[] memory mK = new bytes32[](17);
-        bytes32[] memory mV = new bytes32[](17);
+        // Priority-over-specifics + permanent memory (ADR-2606062100 §1-§2)
+        cK[39] = K.PRIORITY_WELLBECOMING_OVER_WELLBEING;   cV[39] = bytes32(uint256(1));
+        cK[40] = K.PRIORITY_MULTIGEN_OVER_CURRENT;         cV[40] = bytes32(uint256(1));
+        cK[41] = K.PRIORITY_COLLECTIVE_OVER_INDIVIDUAL;    cV[41] = bytes32(uint256(1));
+        cK[42] = K.MEMORY_RIGHT_TO_ERASURE_DENIED;         cV[42] = bytes32(uint256(1));
+        cK[43] = K.MEMORY_PERMANENT_RECORD;               cV[43] = bytes32(uint256(1));
+        cK[44] = K.MEMORY_DEEDS_PUBLIC_INTIMATE_ENCRYPTED; cV[44] = bytes32(uint256(1));
+        cK[45] = K.TITHE_FLOOR_BPS;                        cV[45] = bytes32(uint256(500));
+        cK[46] = K.TITHE_CEILING_BPS;                      cV[46] = bytes32(uint256(2_000));
+
+        // ─── Mutables (18 = 8 original + 3 reclassified + 6 references + 1 kawase) ──
+        bytes32[] memory mK = new bytes32[](18);
+        bytes32[] memory mV = new bytes32[](18);
         mK[0] = K.KISHA_BASE_RATE;        mV[0] = bytes32(uint256(1_000_000));
         mK[1] = K.KAPPA_BPS;               mV[1] = bytes32(uint256(300));
         mK[2] = K.TIER_LIQUID_BPS;         mV[2] = bytes32(uint256(1_000));
@@ -91,17 +102,19 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         mK[5] = K.QUORUM_BPS;              mV[5] = bytes32(uint256(3_300));
         mK[6] = K.ACTIVE_WINDOW_SECS;      mV[6] = bytes32(uint256(30 days));
         mK[7] = K.TIMELOCK_SECS;           mV[7] = bytes32(uint256(72 hours));
-        mK[8] = K.PHENOTYPE_NON_COMPLIANT_MULTIPLIER; mV[8] = bytes32(uint256(0));
+        // Reclassified to Tier-2 (ADR-2606062100 §4): tithe rate + rider version + text-hash
+        mK[8]  = K.TITHE_BPS;                       mV[8]  = bytes32(uint256(1_000));
+        mK[9]  = K.LICENSE_CHARTER_RIDER_VERSION;   mV[9]  = bytes32("v3.0");
+        mK[10] = K.LICENSE_CHARTER_RIDER_TEXT_HASH; mV[10] = bytes32(0);
         // Reference addresses initial = 0 (set via governance post-deploy)
-        mK[9]  = K.PUBLIC_FUND_SAFE_ADDRESS;            mV[9]  = bytes32(0);
-        mK[10] = K.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; mV[10] = bytes32(0);
-        mK[11] = K.TITHE_ROUTER_ADDRESS;                 mV[11] = bytes32(0);
-        mK[12] = K.LAND_REGISTRY_ADDRESS;                mV[12] = bytes32(0);
-        mK[13] = K.FORCE_AUTHORIZATION_ADDRESS;          mV[13] = bytes32(0);
-        mK[14] = K.PUBLIC_FUND_GOVERNANCE_ADDRESS;       mV[14] = bytes32(0);
+        mK[11] = K.PUBLIC_FUND_SAFE_ADDRESS;            mV[11] = bytes32(0);
+        mK[12] = K.CHARTERS_COMPLIANCE_REGISTRY_ADDRESS; mV[12] = bytes32(0);
+        mK[13] = K.TITHE_ROUTER_ADDRESS;                 mV[13] = bytes32(0);
+        mK[14] = K.LAND_REGISTRY_ADDRESS;                mV[14] = bytes32(0);
+        mK[15] = K.FORCE_AUTHORIZATION_ADDRESS;          mV[15] = bytes32(0);
+        mK[16] = K.PUBLIC_FUND_GOVERNANCE_ADDRESS;       mV[16] = bytes32(0);
         // kawase-yui per-member monthly cap (ADR-2605282200 G9): R1 default $1,000.
-        mK[15] = K.KAWASE_PER_MONTH_CAP_USD_MINOR;       mV[15] = bytes32(uint256(1_000_000_000));
-        mK[16] = bytes32(0);                              mV[16] = bytes32(0);
+        mK[17] = K.KAWASE_PER_MONTH_CAP_USD_MINOR;       mV[17] = bytes32(uint256(1_000_000_000));
 
         c = new Constitution(cK, cV, mK, mV);
     }
@@ -150,20 +163,38 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         assertEq(c.getConstant(K.ECONOMIC_NON_PROFIT_ONLY), bytes32(uint256(1)));
         assertEq(c.getConstant(K.ECONOMIC_DONATION_ONLY), bytes32(uint256(1)));
         assertEq(c.getConstant(K.ECONOMIC_NO_ADVERTISING), bytes32(uint256(1)));
-        // The crown jewel of religious-corp economics: 10% tithe constitutionalized
-        assertEq(c.getConstant(K.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS), bytes32(uint256(1_000)));
+        // ADR-2606062100 §4: Tier-0 locks that tithe redistribution EXISTS + the band;
+        // the 10% RATE is now a Tier-2 mutable within [500, 2000] bps.
+        assertEq(c.getConstant(K.ECONOMIC_TITHE_REDISTRIBUTION_EXISTS), bytes32(uint256(1)));
+        assertEq(c.getConstant(K.TITHE_FLOOR_BPS), bytes32(uint256(500)));
+        assertEq(c.getConstant(K.TITHE_CEILING_BPS), bytes32(uint256(2_000)));
+        assertEq(c.getMutable(K.TITHE_BPS), bytes32(uint256(1_000)));
+    }
+
+    function test_priority_and_memory_constants_set() public view {
+        // ADR-2606062100: the Charter locks PRIORITIES, not specific policies.
+        assertEq(c.getConstant(K.PRIORITY_WELLBECOMING_OVER_WELLBEING), bytes32(uint256(1)));
+        assertEq(c.getConstant(K.PRIORITY_MULTIGEN_OVER_CURRENT), bytes32(uint256(1)));
+        assertEq(c.getConstant(K.PRIORITY_COLLECTIVE_OVER_INDIVIDUAL), bytes32(uint256(1)));
+        // Permanent memory (神の監視): no right to be forgotten.
+        assertEq(c.getConstant(K.MEMORY_RIGHT_TO_ERASURE_DENIED), bytes32(uint256(1)));
+        assertEq(c.getConstant(K.MEMORY_PERMANENT_RECORD), bytes32(uint256(1)));
+        assertEq(c.getConstant(K.MEMORY_DEEDS_PUBLIC_INTIMATE_ENCRYPTED), bytes32(uint256(1)));
     }
 
     function test_license_rider_constants_set() public view {
         assertEq(c.getConstant(K.LICENSE_BASE), bytes32("Apache-2.0"));
         assertEq(c.getConstant(K.LICENSE_CHARTER_RIDER_REQUIRED), bytes32(uint256(1)));
-        assertEq(c.getConstant(K.LICENSE_CHARTER_RIDER_VERSION), bytes32("v2.0"));
+        // ADR-2606062100 §4: rider version is now a Tier-2 mutable (tracks amendments),
+        // not a fork-only constant. v3.0 is the priority-over-specifics Rider.
+        assertEq(c.getMutable(K.LICENSE_CHARTER_RIDER_VERSION), bytes32("v3.0"));
     }
 
     function test_three_tier_enforcement_constants_set() public view {
         assertEq(c.getConstant(K.ENFORCEMENT_THREE_TIER), bytes32(uint256(1)));
-        // L3 Phenotype multiplier for Non-Aligned = 0 (mutable, but ratcheting-only)
-        assertEq(c.getMutable(K.PHENOTYPE_NON_COMPLIANT_MULTIPLIER), bytes32(uint256(0)));
+        // ADR-2606062100 §4 bug fix: the L3 floor (Non-Aligned multiplier = 0) is now a
+        // Tier-0 CONSTANT — was mis-deployed as a mutable, contradicting the doctrine.
+        assertEq(c.getConstant(K.PHENOTYPE_NON_COMPLIANT_MULTIPLIER), bytes32(uint256(0)));
     }
 
     function test_kawase_yui_constants_set() public view {
@@ -207,9 +238,17 @@ contract ConstitutionReligiousCorpWaveTest is Test {
         assertTrue(c.isConstant(K.MISSION_EROS_PERMITTED), "eros");
         assertTrue(c.isConstant(K.MISSION_GORE_PROHIBITED), "gore");
         assertTrue(c.isConstant(K.MISSION_ESCHATOLOGICAL), "anti-eschaton");
-        assertTrue(c.isConstant(K.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS), "tithe");
+        assertTrue(c.isConstant(K.ECONOMIC_TITHE_REDISTRIBUTION_EXISTS), "tithe-exists");
         assertTrue(c.isConstant(K.LICENSE_CHARTER_RIDER_REQUIRED), "rider");
         assertTrue(c.isConstant(K.ENFORCEMENT_THREE_TIER), "three-tier");
         assertTrue(c.isConstant(K.KAWASE_MAX_BAND_BPS), "kawase-band");
+        // ADR-2606062100 Tier-0 priority + permanent-memory additions
+        assertTrue(c.isConstant(K.PRIORITY_WELLBECOMING_OVER_WELLBEING), "priority-wb");
+        assertTrue(c.isConstant(K.MEMORY_RIGHT_TO_ERASURE_DENIED), "memory-erasure");
+        assertTrue(c.isConstant(K.PHENOTYPE_NON_COMPLIANT_MULTIPLIER), "l3-floor-const");
+        // Retired/reclassified keys must NOT be constants anymore
+        assertFalse(c.isConstant(K.ECONOMIC_TITHE_TO_PUBLIC_FUND_BPS), "tithe-pinned-retired");
+        assertFalse(c.isConstant(K.TITHE_BPS), "tithe-rate-mutable");
+        assertFalse(c.isConstant(K.LICENSE_CHARTER_RIDER_VERSION), "rider-version-mutable");
     }
 }
