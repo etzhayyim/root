@@ -308,6 +308,23 @@ export async function handleRootGet(url: URL, env: PublishEnv): Promise<Response
   return new Response(JSON.stringify({ ...GENESIS_ROOT_FALLBACK, graph }), { status: 200, headers: JSON_HEADERS });
 }
 
+/** GET com.etzhayyim.apps.kotoba.stats?graph=… — publish outcome counters
+ *  (advances / conflicts / rateLimited) from the authoritative head DO. Public,
+ *  no PII — operability/monitoring surface. */
+export async function handleStatsGet(url: URL, env: PublishEnv): Promise<Response> {
+  const graph = url.searchParams.get("graph") || "yoro-social-v1";
+  if (!env.KOTOBA_ROOT) {
+    return new Response(JSON.stringify({ error: "StatsUnavailable", message: "KOTOBA_ROOT not bound" }), {
+      status: 503,
+      headers: JSON_HEADERS,
+    });
+  }
+  const stub = env.KOTOBA_ROOT.get(env.KOTOBA_ROOT.idFromName(graph));
+  const r = await stub.fetch("https://kotoba-root/stats");
+  const s = (await r.json().catch(() => ({}))) as Record<string, unknown>;
+  return new Response(JSON.stringify({ graph, ...s }), { status: 200, headers: JSON_HEADERS });
+}
+
 /** GET /kotoba/blocks/<cid> fallback — serves a dynamically published block from
  *  KV (the genesis blocks are static assets and never reach the Worker). */
 export async function serveBlockFromKv(cid: string, env: PublishEnv): Promise<Response | null> {
@@ -342,15 +359,31 @@ export class KotobaRoot {
       const m = (await this.state.storage.get("manifest")) ?? null;
       return new Response(JSON.stringify(m), { headers: { "content-type": "application/json" } });
     }
+    if (url.pathname === "/stats") {
+      // Observability: publish outcome counters seen by the authoritative head.
+      const s = (await this.state.storage.get("stats")) ?? {};
+      const m = (await this.state.storage.get("manifest")) as { root?: string; updatedAt?: string } | undefined;
+      return new Response(
+        JSON.stringify({ ...s, root: m?.root ?? "", updatedAt: m?.updatedAt ?? "" }),
+        { headers: { "content-type": "application/json" } },
+      );
+    }
     if (url.pathname === "/cas" && request.method === "POST") {
       const { prevRoot, manifest, did } = (await request.json()) as {
         prevRoot?: string | null;
         manifest: { root: string };
         did?: string;
       };
+      // Outcome counters (single-threaded DO → atomic).
+      const bump = async (field: string, extra?: Record<string, unknown>) => {
+        const s = ((await this.state.storage.get("stats")) as Record<string, number> | undefined) ?? {};
+        s[field] = (s[field] ?? 0) + 1;
+        await this.state.storage.put("stats", { ...s, ...extra });
+      };
       const cur = (await this.state.storage.get("manifest")) as { root?: string } | undefined;
       // Rebase needed (someone advanced the head) — NOT abuse, costs no token.
       if (cur && cur.root && cur.root !== prevRoot) {
+        await bump("conflicts");
         return new Response(JSON.stringify({ ok: false, currentRoot: cur.root }), {
           status: 409,
           headers: { "content-type": "application/json" },
@@ -374,6 +407,7 @@ export class KotobaRoot {
       }
       if (b.tokens < 1) {
         await this.state.storage.put(rlKey, b);
+        await bump("rateLimited");
         return new Response(JSON.stringify({ ok: false, rateLimited: true, retryAfterMs: REFILL_MS }), {
           status: 429,
           headers: { "content-type": "application/json" },
@@ -382,6 +416,7 @@ export class KotobaRoot {
       b.tokens -= 1;
       await this.state.storage.put(rlKey, b);
       await this.state.storage.put("manifest", manifest);
+      await bump("advances", { lastAdvanceAt: new Date().toISOString() });
       return new Response(JSON.stringify({ ok: true, root: manifest.root, tokens: b.tokens }), {
         headers: { "content-type": "application/json" },
       });
