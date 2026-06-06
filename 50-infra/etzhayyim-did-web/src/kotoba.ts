@@ -21,7 +21,40 @@ import {
 
 export interface KotobaEnv {
   readonly KOTOBA_ENDPOINT?: string;
+  readonly KOTOBA_WRITE_ENDPOINT?: string;
   readonly AUTHZ_CONTRACT_ADDRESS?: string;
+}
+
+/** Outcome of a best-effort kotoba account publish. */
+export type AccountWriteOutcome = "written" | "gated" | "error";
+
+/**
+ * Publish a member account record (handle alias + controller did:key + profile)
+ * to the kotoba node (ADR-2606061800). CACAO control is verified by the caller;
+ * this only relays the authorized write. No write endpoint configured → "gated"
+ * (honest R0 — login still works, the alias just isn't published yet).
+ */
+export async function putKotobaAccount(
+  env: KotobaEnv,
+  did: string,
+  handle: string,
+  profile: Record<string, unknown>,
+): Promise<AccountWriteOutcome> {
+  const base = env.KOTOBA_WRITE_ENDPOINT;
+  if (!base) return "gated";
+  const url =
+    `${base.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kotobase.account.register`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ did, handle, profile }),
+      signal: AbortSignal.timeout(KOTOBA_TIMEOUT_MS),
+    });
+    return res.ok ? "written" : "error";
+  } catch {
+    return "error";
+  }
 }
 
 const KOTOBA_TIMEOUT_MS = 1200;
