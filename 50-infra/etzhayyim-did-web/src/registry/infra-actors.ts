@@ -333,6 +333,32 @@ const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2605302300"],
   },
+  kyber: {
+    description:
+      "Kyber — open-kyber ERP as a content-addressed kotoba WASM actor. The ERP business logic (accounting GL / AP-AR / inventory / the kotoba-native productivity suite) compiled to a `kotoba-node` WASM component that the kotoba host / e7m-wasm-runner stores on IPFS (by CID) and runs, writing canonical ERP state straight into the kotoba Datom log via the `kqe` host import — no Cloudflare Worker, no XRPC→PDS hop. Multi-command dispatch over `run(ctx_cbor)`. R3 PoC (kyber-erp-core: createAccount / seedChartOfAccounts / createJournalEntry double-entry-validated + best-effort trial-balance/coverage reads); full 28-command port per WORKER-AS-WASM-ACTOR-MIGRATION.md. Per ADR-2606037200.",
+    glyph: "K",
+    displayName: "Kyber — open-kyber ERP (kotoba WASM actor)",
+    primarySchema: "00-contracts/schemas/erp-ontology.kotoba.edn",
+    // Content-addressed Rust WASM component (60-apps/etzhayyim-project-open-kyber/wasm/
+    // kyber-erp-core) — raw single-block CID (~119KB); a stateful multi-command ERP service,
+    // run on the kotoba host / donated mesh via e7m-wasm-runner (component → jco), NOT a
+    // per-actor server (ADR-2606014500). The deployed CF Worker (kyb3rerp) remains the live
+    // path until this actor is published + ratified.
+    wasmCid: "bafkreigdcmd54zval3z7xwmvmq5tgbsu6rpbxx4gtyhswxhvvfkaltaomi",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kyber#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kyber#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606037200"],
+  },
   kabuto: {
     description:
       "兜 — world public-company (listed-company) supply-chain knowledge graph. Datafies LISTED companies, their registered HQ address + public IR contact, the first-class SUPPLY edges (supplier → customer) that wire the global supply chain, and BPMN process templates into the kotoba Datom log; surfaces single-source / sector / jurisdiction CONCENTRATION routed to redundancy + accountability. Posts aggregate-first findings as atproto-compatible social posts; renders entirely in the in-browser kotoba-wasm node. A resilience + corporate-power-transparency map, NEVER a target-list (sibling of tsumugi / watatsuna / danjo; shares the org.corp.* id space). Per ADR-2606022000.",
