@@ -30,7 +30,7 @@ export function isComponent(bytes) {
 }
 
 /** Ordered IPFS gateways to try — kotoba/IPFS-premise, NOT Cloudflare-premise
- *  (ADR-2606064500). Local kubo first (a donated mesh node serves its own pins),
+ *  (ADR-2606064600). Local kubo first (a donated mesh node serves its own pins),
  *  then public trustless gateways. Override with E7M_IPFS_GATEWAYS (comma list).
  *  The apex `https://etzhayyim.com` is no longer the default — it is just one
  *  more gateway you can pass explicitly. The CID is the trust anchor either way. */
@@ -74,7 +74,7 @@ export async function fetchVerified({ cid, gatewayBase, gateways, fetchImpl = fe
 }
 
 /** Resolve a did:web actor handle → wasm CID, kotoba-first (the canonical Datom
- *  log binding `actor/wasm-cid`, ADR-2606064500), falling back to the did.json
+ *  log binding `actor/wasm-cid`, ADR-2606064600), falling back to the did.json
  *  EtzhayyimWasmComponent service. `kotobaUrl` (or KOTOBA_URL) enables the
  *  Cloudflare-free path; without it, did:web TLS still anchors the handle→CID. */
 export async function didToCid({ did, didDoc, kotobaUrl = process.env.KOTOBA_URL, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {

@@ -1,6 +1,6 @@
 /**
  * kotoba-register — bind a deployed WASM actor's content CID into the kotoba
- * Datom log (ADR-2606064500). This is the "register" leg of the kotoba-premise
+ * Datom log (ADR-2606064600). This is the "register" leg of the kotoba-premise
  * deploy: where the Cloudflare path mutated a CF Worker registry / wrangler
  * config, the kotoba path appends a Datom to the canonical log (ADR-2605312345)
  * — IPFS holds the bytes, kotoba holds the binding, no Cloudflare in the loop.
@@ -29,7 +29,7 @@ export function buildIngestBody({
   byteSize,
   blockCount,
   did,
-  adr = "2606064500",
+  adr = "2606064600",
   programType = "actor",
   graph,
   deployedAt,

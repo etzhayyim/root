@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * e7m deploy — the kotoba-premise WASM-actor deploy (ADR-2606064500).
+ * e7m deploy — the kotoba-premise WASM-actor deploy (ADR-2606064600).
  *
  * The mirror image of `runner.mjs`. Where the legacy deploy
  * (`70-tools/etzhayyim-cli/deploy.go`) built a Docker image, pushed it, wrote a
@@ -83,7 +83,7 @@ export async function deploy({
   graph,
   kotobaUrl,
   kotobaToken = process.env.KOTOBA_TOKEN,
-  adr = "2606064500",
+  adr = "2606064600",
   chunkSize,
   deployedAt = new Date().toISOString(),
   fetchImpl = fetch,

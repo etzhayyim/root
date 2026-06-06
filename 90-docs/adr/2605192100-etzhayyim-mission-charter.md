@@ -1,11 +1,12 @@
 ---
 id: adr-2605192100-etzhayyim-mission-charter
 title: "ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章"
-status: proposed
+status: active
 doc_type: adr
 topic: etzhayyim-mission-charter
 authoritative: true
-last_verified: 2026-05-19
+last_verified: 2026-06-06
+status_note: "Ratified 2026-06-06 by sole-member founder unanimity (1/1). The association currently has one member (Jun Kawasaki); the Charter's Lv7+ unanimity threshold = that one member's assent. The §2 immutability model was restructured into 3 Tiers by ADR-2606062100 (priorities preserved)."
 priority: 9.0
 axis: governance
 weight: 1.00
@@ -32,9 +33,12 @@ superseded_by: []
 
 # ADR-2605192100: etzhayyim Mission Charter — 人類の労働解放を最終目的とする宗教法人の上位憲章
 
-**Status**: proposed
-**Date**: 2026-05-19
-**Deciders**: Jun Kawasaki
+**Status**: active (ratified 2026-06-06 by sole-member founder unanimity, 1/1)
+**Date**: 2026-05-19 (ratified 2026-06-06)
+**Deciders**: Jun Kawasaki (author + ratifier). The association currently has ONE member, so
+the Charter's Council Lv7+ unanimity threshold = this one member's assent (1/1), given
+2026-06-06. Binding under the current one-member roster; re-confirmable by the Bootstrap
+Council once seated (post-2026-06-19 RFP).
 
 # Context
 
@@ -328,6 +332,15 @@ etzhayyim は **synthetic religion** であり、以下二大潮流の synthesis
 これは仏教の 不生 / 不滅 (生まれず滅びず) + 神道の 常若 (常に若くあり続ける) と整合的。
 
 ## 2. Constitutional Constants (改定不可項目)
+
+> **更新 (ADR-2606062100, 2026-06-06)**: この §2 の不変性モデルは **3-Tier 構造**に再編された
+> — Tier-0 Priority (真の改定不可・fork-only) / Tier-1 Derived Policy (Lv7+ + priority-conformance
+> で改定可) / Tier-2 Parameter (governance)。**固定するのは個々の掟ではなく priority** (wellbecoming
+> ・子・孫) であり、具体的な数値・政策はそこから導出される。新 Tier-0 priority として **永久記憶
+> (神の監視 / `memory.right_to_erasure_denied`)** を追加。下表の `economic.tithe_to_public_fund_bps`
+> (固定10%) は撤廃され `economic.tithe_redistribution_exists` (Tier-0 bool) + tithe band + 可変率に、
+> `license.charter_rider_version` は Tier-2 mutable に、`phenotype.non_compliant_multiplier=0` は
+> (バグ修正で) Tier-0 定数に再分類された。詳細は ADR-2606062100。Charter-Rider は v3.0 に更新。
 
 Constitution.sol の `getConstant(key)` から読み出される、**governance vote によっても変更不可** の項目を以下に固定する。これらの変更は実質的に「別の religious-corp を新規に設立する」ことに等しい。
 

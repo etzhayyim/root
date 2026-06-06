@@ -1,4 +1,4 @@
-// Tests for the kotoba-premise deploy (ADR-2606064500): deploy() manifest +
+// Tests for the kotoba-premise deploy (ADR-2606064600): deploy() manifest +
 // kotoba registration body + the Cloudflare-free run loop (a deployed CID, served
 // by an injected IPFS gateway, re-verifies + runs through runner.fetchVerified).
 //

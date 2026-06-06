@@ -1,4 +1,4 @@
-// Tests for the kotoba-premise CAR/CID encoder (ADR-2606064500). Asserts the
+// Tests for the kotoba-premise CAR/CID encoder (ADR-2606064600). Asserts the
 // *write* half (wasmcar.mjs) is the exact inverse of the committed *read* half
 // (cid.ts raw-verify + car.ts CAR-reassemble), for both the single-block raw
 // (T1) and multi-block dag-pb (T2) layouts.

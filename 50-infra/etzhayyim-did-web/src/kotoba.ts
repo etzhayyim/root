@@ -21,10 +21,62 @@ import {
 
 export interface KotobaEnv {
   readonly KOTOBA_ENDPOINT?: string;
+  readonly KOTOBA_WRITE_ENDPOINT?: string;
   readonly AUTHZ_CONTRACT_ADDRESS?: string;
 }
 
+/** Outcome of a best-effort kotoba account publish. */
+export type AccountWriteOutcome = "written" | "gated" | "error";
+
 const KOTOBA_TIMEOUT_MS = 1200;
+
+/** A single kotoba KG claim `(predicate, value)`. */
+export interface KotobaClaim {
+  pred: string;
+  value: string;
+}
+
+/**
+ * Relay a member-CACAO-authorized write to the kotoba node's existing
+ * `kg.ingest` endpoint (ADR-2606061800). The member signs a kotoba-scoped CACAO
+ * (aud = node operator_did, `kotoba://op/datom:transact`); this Worker only
+ * re-encodes its JSON form to the `cacaoB64` (CBOR) the node expects and forwards
+ * it — it holds NO key and verifies NOTHING (the kotoba node verifies the
+ * signature + capability + aud). Proven end-to-end against a live node:
+ * `{ok:true}`. No `KOTOBA_WRITE_ENDPOINT` → `"gated"` (honest R0).
+ *
+ * `cacaoB64` is injected so this stays unit-testable + the Worker keeps the CBOR
+ * encoder out of this network module.
+ */
+export async function relayKotobaWrite(
+  env: KotobaEnv,
+  cacaoB64: string,
+  id: string,
+  claims: KotobaClaim[],
+  labelEn?: string,
+): Promise<AccountWriteOutcome> {
+  const base = env.KOTOBA_WRITE_ENDPOINT;
+  if (!base) return "gated";
+  const url =
+    `${base.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        id,
+        type: "account",
+        labelEn,
+        claims,
+        cacaoB64,
+      }),
+      signal: AbortSignal.timeout(KOTOBA_TIMEOUT_MS),
+    });
+    return res.ok ? "written" : "error";
+  } catch {
+    return "error";
+  }
+}
 
 interface KgClaim {
   pred?: string;

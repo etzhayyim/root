@@ -2,7 +2,7 @@
 
 Kotoba-premise WASM-actor **deploy + run** — Cloudflare-free. Per
 [ADR-2606015200](../../90-docs/adr/2606015200-wasm-actor-runtime-round-2.md) (run)
-and [ADR-2606064500](../../90-docs/adr/2606064500-e7m-kotoba-premise-ipfs-deploy.md)
+and [ADR-2606064600](../../90-docs/adr/2606064600-e7m-kotoba-premise-ipfs-deploy.md)
 (deploy).
 
 A WASM actor is just a content-addressed `.wasm` on IPFS. Its **CID is the only

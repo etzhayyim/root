@@ -88,7 +88,7 @@ actorCmd
 
 actorCmd
   .command('deploy-kotoba <wasm>')
-  .description('Deploy a WASM actor the kotoba-premise way: content-address → pin to IPFS → register in the kotoba Datom log (Cloudflare-free, ADR-2606064500)')
+  .description('Deploy a WASM actor the kotoba-premise way: content-address → pin to IPFS → register in the kotoba Datom log (Cloudflare-free, ADR-2606064600)')
   .option('--actor <handle>', 'actor handle (defaults to the wasm filename stem)')
   .option('--did <did>', 'actor DID (defaults to did:web:etzhayyim.com:actor:<handle>)')
   .option('--pin <mode>', 'IPFS pin mode: kubo | pinner | none', 'none')

@@ -1,6 +1,6 @@
 /**
  * wasmcar — a self-contained, dependency-free CARv1 + CID encoder for the
- * kotoba-premise deploy path (ADR-2606064500).
+ * kotoba-premise deploy path (ADR-2606064600).
  *
  * The runtime side already had the *read* half: `cid.ts` (raw single-block CID
  * verify) + `car.ts` (multi-block dag-pb CAR verify + reassemble). This is the
