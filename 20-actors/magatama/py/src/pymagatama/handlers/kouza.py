@@ -7,11 +7,11 @@ import json
 import os
 import urllib.error
 import urllib.request
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta, timezone
 from typing import Any
 
 from pymagatama import udf
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 NS = "com.etzhayyim.apps.kouza"
 
@@ -96,29 +96,64 @@ def _int_param(params: dict[str, Any], key: str, default: int, minimum: int, max
 
 
 def _select_due_connections(owner_did: str, stale_minutes: int, limit: int) -> list[tuple[str, str, str]]:
-    where_owner = "AND c.owner_did = %s" if owner_did else ""
-    params: list[Any] = []
+    # R0: Order by and limit are applied in Python due to Datalog query limitations.
+    # R0: Datalog does not directly support 'NOT EXISTS' with complex predicates or 'NULLS FIRST' ordering.
+    kotoba_client = get_kotoba_client()
+    stale_ago = datetime.now(timezone.utc) - timedelta(minutes=stale_minutes)
+    stale_ago_iso = stale_ago.isoformat(timespec='seconds') + 'Z'
+
     if owner_did:
-        params.append(owner_did)
-    params.append(stale_minutes)
-    safe_limit = max(1, min(200, int(limit)))
-    sql = f"""
-        SELECT c.vertex_id, c.owner_did, c.provider_key
-        FROM vertex_atrecord_kouza_institution_connection c
-        WHERE c.status = 'active'
-          {where_owner}
-          AND NOT EXISTS (
-            SELECT 1
-            FROM vertex_atrecord_kouza_sync_run r
-            WHERE r.connection_did = c.vertex_id
-              AND r.started_at > (NOW() - (%s * INTERVAL '1 minute'))
-        )
-        ORDER BY c.updated_at NULLS FIRST, c.created_at ASC
-        LIMIT {safe_limit}
-    """
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
-        return list(cur.fetchall())
+        query_edn_template = """
+            [:find ?c-id ?found-owner-did ?provider-key ?updated-at ?created-at
+             :in $ ?owner-did-val ?stale-ago-inst
+             :where
+             [?c-id :atrecord/kouza.institution.connection/status "active"]
+             [?c-id :atrecord/kouza.institution.connection/ownerDid ?owner-did-val]
+             (not
+              [?r-id :atrecord/kouza.sync.run/connectionDid ?c-id]
+              [?r-id :atrecord/kouza.sync.run/startedAt ?started-at-str]
+              [(.compareTo ?started-at-str ?stale-ago-inst) ?cmp]
+              [(> ?cmp 0)])
+             [?c-id :atrecord/kouza.institution.connection/ownerDid ?found-owner-did]
+             [?c-id :atrecord/kouza.institution.connection/providerKey ?provider-key]
+             [?c-id :atrecord/kouza.institution.connection/updatedAt ?updated-at]
+             [?c-id :atrecord/kouza.institution.connection/createdAt ?created-at]]
+        """
+        datalog_args = [owner_did, stale_ago_iso]
+    else:
+        query_edn_template = """
+            [:find ?c-id ?owner-did ?provider-key ?updated-at ?created-at
+             :in $ ?stale-ago-inst
+             :where
+             [?c-id :atrecord/kouza.institution.connection/status "active"]
+             (not
+              [?r-id :atrecord/kouza.sync.run/connectionDid ?c-id]
+              [?r-id :atrecord/kouza.sync.run/startedAt ?started-at-str]
+              [(.compareTo ?started-at-str ?stale-ago-inst) ?cmp]
+              [(> ?cmp 0)])
+             [?c-id :atrecord/kouza.institution.connection/ownerDid ?owner-did]
+             [?c-id :atrecord/kouza.institution.connection/providerKey ?provider-key]
+             [?c-id :atrecord/kouza.institution.connection/updatedAt ?updated-at]
+             [?c-id :atrecord/kouza.institution.connection/createdAt ?created-at]]
+        """
+        datalog_args = [stale_ago_iso]
+
+    raw_results = kotoba_client.q(query_edn_template, args=tuple(datalog_args))
+
+    parsed_results = []
+    for row in raw_results:
+        c_id, o_did, p_key, updated_at_str, created_at_str = row
+        updated_at = datetime.fromisoformat(updated_at_str.replace("Z", "+00:00")) if updated_at_str else None
+        created_at = datetime.fromisoformat(created_at_str.replace("Z", "+00:00")) if created_at_str else None
+        parsed_results.append((c_id, o_did, p_key, updated_at, created_at))
+
+    # Sort by updated_at (NULLs first) then created_at (ASC)
+    sorted_results = sorted(
+        parsed_results,
+        key=lambda x: (x[3] is None, x[3], x[4])
+    )
+
+    return [row[:3] for row in sorted_results[:limit]]
 
 
 def sync_due_connections_payload(params: dict[str, Any]) -> dict[str, Any]:
@@ -158,45 +193,43 @@ def sync_due_connections_payload(params: dict[str, Any]) -> dict[str, Any]:
 
     now = _now_iso()
     sync_run_dids: list[str] = []
-    with sync_cursor() as cur:
-        cur.execute("SELECT COALESCE(MAX(_seq), 0) + 1 FROM vertex_atrecord_kouza_sync_run")
-        seq = int(cur.fetchone()[0])
-        for idx, (connection_did, row_owner_did, provider_key) in enumerate(rows):
-            rkey = f"sync-zeebe-{_hash({'connectionDid': connection_did, 'now': now, 'idx': idx})}"
-            sync_run_did = _record_did(row_owner_did, f"{NS}.syncRun", rkey)
-            cur.execute(
-                """
-                INSERT INTO vertex_atrecord_kouza_sync_run (
-                  vertex_id, _seq, owner_did, rkey, connection_did, adapter_key,
-                  started_at, finished_at, accounts_imported, transactions_imported,
-                  documents_imported, status, error_code, error_message, created_at
-                )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 0, 0, 0, %s, %s, %s, %s)
-                """,
-                (
-                    sync_run_did,
-                    seq + idx,
-                    row_owner_did,
-                    rkey,
-                    connection_did,
-                    provider_key or "zeebe-python-resident",
-                    now,
-                    now,
-                    "adapter_pending",
-                    "ADAPTER_NOT_CONFIGURED",
-                    "Resident Zeebe/Python scheduler recorded a due sync; provider adapter is not configured yet.",
-                    now,
-                ),
-            )
-            cur.execute(
-                """
-                UPDATE vertex_atrecord_kouza_institution_connection
-                SET last_sync_run_did = %s, updated_at = %s
-                WHERE vertex_id = %s
-                """,
-                (sync_run_did, now, connection_did),
-            )
-            sync_run_dids.append(sync_run_did)
+    kotoba_client = get_kotoba_client()
+    all_seqs = [
+        row["_seq"]
+        for row in kotoba_client.select_where("vertex_atrecord_kouza_sync_run", "_seq", "*", columns=["_seq"])
+        if "_seq" in row
+    ]
+    seq = (max(all_seqs) if all_seqs else 0) + 1
+    for idx, (connection_did, row_owner_did, provider_key) in enumerate(rows):
+        rkey = f"sync-zeebe-{_hash({'connectionDid': connection_did, 'now': now, 'idx': idx})}"
+        sync_run_did = _record_did(row_owner_did, f"{NS}.syncRun", rkey)
+        sync_run_row = {
+            "vertex_id": sync_run_did,
+            "_seq": seq + idx,
+            "owner_did": row_owner_did,
+            "rkey": rkey,
+            "connection_did": connection_did,
+            "adapter_key": provider_key or "zeebe-python-resident",
+            "started_at": now,
+            "finished_at": now,
+            "accounts_imported": 0,
+            "transactions_imported": 0,
+            "documents_imported": 0,
+            "status": "adapter_pending",
+            "error_code": "ADAPTER_NOT_CONFIGURED",
+            "error_message": "Resident Zeebe/Python scheduler recorded a due sync; provider adapter is not configured yet.",
+            "created_at": now,
+        }
+        kotoba_client.insert_row("vertex_atrecord_kouza_sync_run", sync_run_row)
+
+        # For UPDATE, we treat it as an upsert of the vertex record
+        connection_update_row = {
+            "vertex_id": connection_did,
+            "last_sync_run_did": sync_run_did,
+            "updated_at": now,
+        }
+        kotoba_client.insert_row("vertex_atrecord_kouza_institution_connection", connection_update_row)
+        sync_run_dids.append(sync_run_did)
 
     return {
         "ok": True,

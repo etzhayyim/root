@@ -31,6 +31,7 @@ import hashlib
 import time as _time
 import uuid
 from typing import Any, TypedDict
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import httpx
 
@@ -143,42 +144,10 @@ def _fetch_oa_text(doi: str) -> tuple[str, str, str]:
 
 # ── Nodes ─────────────────────────────────────────────────────────────
 
-def _vertex_work_blob_table() -> Any:
-    """SA Core Table for vertex_work_blob (ADR-2605080300)."""
-    from sqlalchemy import BigInteger, Column, String, Table
-    from pymagatama.db_alchemy import sa_metadata
-    return Table(
-        "vertex_work_blob", sa_metadata(),
-        Column("vertex_id", String),
-        Column("work_vertex_id", String),
-        Column("doi", String),
-        Column("oa_url", String),
-        Column("fulltext", String),
-        Column("lang", String),
-        Column("license", String),
-        Column("status", String),
-        Column("error", String),
-        Column("fetched_at", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", BigInteger),
-        extend_existing=True,
-    )
 
 
-def _edge_work_blob_of_table() -> Any:
-    """SA Core Table for edge_work_blob_of (ADR-2605080300)."""
-    from sqlalchemy import BigInteger, Column, String, Table
-    from pymagatama.db_alchemy import sa_metadata
-    return Table(
-        "edge_work_blob_of", sa_metadata(),
-        Column("edge_id", String),
-        Column("src_vid", String),
-        Column("dst_vid", String),
-        Column("owner_did", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", BigInteger),
-        extend_existing=True,
-    )
+
+
 
 
 def query_oa_works(state: CopyrightFulltextState) -> dict:
@@ -188,22 +157,24 @@ def query_oa_works(state: CopyrightFulltextState) -> dict:
     """
     batch_size = int(state.get("batchSize") or 50)
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_execute
-        rows = sa_execute(
-            text(
-                f"SELECT w.vertex_id, w.doi, w.registry"
-                f" FROM vertex_work w"
-                f" WHERE w.berne_automatic = true"
-                f"   AND w.doi IS NOT NULL"
-                f"   AND NOT EXISTS ("
-                f"     SELECT 1 FROM vertex_work_blob wb"
-                f"     WHERE wb.work_vertex_id = w.vertex_id"
-                f"   )"
-                f" LIMIT {batch_size}"
-            )
-        )
-        works = [{"vertex_id": r[0], "doi": r[1], "registry": r[2]} for r in rows]
+        # R0: Datalog query to select works without corresponding work_blob
+        query_edn = f"""
+            [:find (pull ?w [:vertex/id :work/doi :work/registry])
+             :where
+             [?w :work/berne_automatic true]
+             [?w :work/doi ?doi]
+             (not [?wb :work-blob/work-vertex-id ?w])]
+             :limit {batch_size}
+        """
+        rows_data = get_kotoba_client().q(query_edn)
+        works = []
+        for row in rows_data:
+            work = row[0] # pull returns a map within a list
+            works.append({
+                "vertex_id": work.get(":vertex/id"),
+                "doi": work.get(":work/doi"),
+                "registry": work.get(":work/registry"),
+            })
         return {"works": works, "worksQueried": len(works)}
     except Exception as e:
         return {"works": [], "worksQueried": 0, "error": str(e)}
@@ -240,9 +211,7 @@ def store_blobs(state: CopyrightFulltextState) -> dict:
     blobs = state.get("blobs") or []
     stored = 0
     failed = 0
-    from pymagatama.db_alchemy import sa_executemany
-    blob_table = _vertex_work_blob_table()
-    edge_table = _edge_work_blob_of_table()
+
     now = _now_str()
     today = now[:10]
     rows_done: list[dict] = []
@@ -283,14 +252,14 @@ def store_blobs(state: CopyrightFulltextState) -> dict:
     all_rows = rows_done + rows_fail
     if all_rows:
         try:
-            sa_executemany(blob_table.insert(), all_rows)
+            get_kotoba_client().insert_rows("vertex_work_blob", all_rows)
             stored = len(rows_done)
             failed = len(rows_fail)
         except Exception:
             failed = len(all_rows)
     if edge_rows:
         try:
-            sa_executemany(edge_table.insert(), edge_rows)
+            get_kotoba_client().insert_rows("edge_work_blob_of", edge_rows)
         except Exception:
             pass
     return {"blobsStored": stored, "blobsFailed": failed, "ok": True}
@@ -303,29 +272,22 @@ def emit_audit(state: CopyrightFulltextState) -> dict:
     failed = state.get("blobsFailed", 0)
     ok = state.get("ok", True)
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(
-            text(
-                "INSERT INTO vertex_repo_commit"
-                " (vertex_id, repo, collection, rkey, action, ts_ms, record_json)"
-                " VALUES (%(vid)s, %(repo)s, %(col)s, %(rkey)s, %(act)s, %(ts)s, %(rec)s)"
-            ),
-            {
-                "vid": str(uuid.uuid4()),
-                "repo": _COPYRIGHT_DID,
-                "col": "com.etzhayyim.apps.copyright.fulltext",
-                "rkey": f"lg-{ts_ms}",
-                "act": "create",
-                "ts": ts_ms,
-                "rec": (
-                    f'{{"worksQueried":{state.get("worksQueried", 0)},'
-                    f'"blobsStored":{stored},'
-                    f'"blobsFailed":{failed},'
-                    f'"ok":{str(ok).lower()}}}'
-                ),
-            },
+        record_json_content = (
+            f'{{"worksQueried":{state.get("worksQueried", 0)},'
+            f'"blobsStored":{stored},'
+            f'"blobsFailed":{failed},'
+            f'"ok":{str(ok).lower()}}}'
         )
+        audit_row = {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": _COPYRIGHT_DID,
+            "collection": "com.etzhayyim.apps.copyright.fulltext",
+            "rkey": f"lg-{ts_ms}",
+            "action": "create",
+            "ts_ms": ts_ms,
+            "record_json": record_json_content,
+        }
+        get_kotoba_client().insert_row("vertex_repo_commit", audit_row)
     except Exception:
         pass
     return {}

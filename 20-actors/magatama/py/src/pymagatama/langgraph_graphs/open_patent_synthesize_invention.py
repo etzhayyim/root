@@ -31,9 +31,7 @@ import time as _time
 import uuid
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 class OpenPatentSynthesizeState(TypedDict, total=False):
     techDomainLimit: int | None
     seedsPerDomain: int | None
@@ -179,25 +177,15 @@ def flag_for_review(state: OpenPatentSynthesizeState) -> dict:
 
 def emit_audit(state: OpenPatentSynthesizeState) -> dict:
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_repo_commit
-                  (vertex_id, repo, collection, rkey, action, ts_ms, record_json)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    str(uuid.uuid4()),
-                    "did:web:open-patent.etzhayyim.com",
-                    "com.etzhayyim.apps.openPatent.synthesizeInvention",
-                    f"lg-{int(_time.time() * 1000)}",
-                    "create",
-                    int(_time.time() * 1000),
-                    f'{{"seedsGenerated":{state.get("seedsGenerated",0)},'
-                    f'"seedsFlagged":{state.get("seedsFlagged",0)},'
-                    f'"ok":{str(state.get("ok",True)).lower()}}}',
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_repo_commit", {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": 'did:web:open-patent.etzhayyim.com',
+            "collection": 'com.etzhayyim.apps.openPatent.synthesizeInvention',
+            "rkey": f'lg-{int(_time.time() * 1000)}',
+            "action": 'create',
+            "ts_ms": int(_time.time() * 1000),
+            "record_json": f"""{{"seedsGenerated":{state.get('seedsGenerated', 0)},"seedsFlagged":{state.get('seedsFlagged', 0)},"ok":{str(state.get('ok', True)).lower()}}}""",
+        })
     except Exception:
         pass
     return {}

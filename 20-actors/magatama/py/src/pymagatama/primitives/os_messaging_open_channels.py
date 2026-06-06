@@ -10,9 +10,10 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 OWNER_DID = "did:web:os-messaging.etzhayyim.com"
@@ -21,7 +22,7 @@ KNOWN_PLATFORMS = {"telegram", "line"}
 
 
 def _utc_now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _today() -> str:
@@ -111,25 +112,21 @@ def _fetch(url: str, timeout_sec: float) -> dict[str, Any]:
 
 
 def _insert_ignore(table: str, row: dict[str, Any]) -> int:
-    cols = list(row.keys())
-    placeholders = ", ".join([f"%({c})s" for c in cols])
-    col_list = ", ".join(cols)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({col_list}) SELECT {placeholders} "
-            f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %(vertex_id)s)",
-            row,
-        )
-        return int(cur.rowcount or 0)
+    client = get_kotoba_client()
+    return 1 if client.insert_row(table, row) else 0
 
 
 def _update_run(vertex_id: str, status: str, **fields: Any) -> None:
-    assigns = ["status = %(status)s", *[f"{key} = %({key})s" for key in fields]]
-    with sync_cursor() as cur:
-        cur.execute(
-            f"UPDATE vertex_os_messaging_open_scraper_run SET {', '.join(assigns)} WHERE vertex_id = %(vertex_id)s",
-            {"vertex_id": vertex_id, "status": status, **fields},
-        )
+    client = get_kotoba_client()
+    # Fetch existing data for the run to merge updates
+    existing_run = client.select_first_where(
+        "vertex_os_messaging_open_scraper_run", "vertex_id", vertex_id
+    )
+    if existing_run:
+        # Merge new status and fields into the existing run data
+        # 'vertex_id' is already in existing_run and will be used by insert_row for upserting
+        updated_run_data = {**existing_run, "status": status, **fields}
+        client.insert_row("vertex_os_messaging_open_scraper_run", updated_run_data)
 
 
 def queue_seed_runs(seeds: Any = None, limit: int = 50) -> dict[str, Any]:
@@ -169,24 +166,24 @@ def queue_seed_runs(seeds: Any = None, limit: int = 50) -> dict[str, Any]:
         inserted = _insert_ignore("vertex_os_messaging_open_scraper_run", row)
         queued += inserted
         rows.append({"vertexId": vertex_id, "platform": seed["platform"], "channelId": seed["channel_id"], "created": bool(inserted)})
-    with sync_cursor() as cur:
-        cur.execute("FLUSH")
+
     return {"queued": queued, "skipped": skipped, "runs": rows}
 
 
 def _claim_runs(max_runs: int) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT vertex_id, platform, channel_id, channel_url, country, language
-            FROM vertex_os_messaging_open_scraper_run
-            WHERE status = 'queued'
-            ORDER BY started_at ASC
-            LIMIT {int(max_runs)}
-            """,
-        )
-        cols = [d[0] for d in cur.description] if cur.description else []
-        rows = [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
+    client = get_kotoba_client()
+    # R0: Order by and limit applied in Python as select_where does not support ORDER BY.
+    # Fetches all queued runs up to a reasonable limit, then sorts and limits them.
+    all_queued_runs = client.select_where(
+        "vertex_os_messaging_open_scraper_run",
+        "status",
+        "queued",
+        columns=["vertex_id", "platform", "channel_id", "channel_url", "country", "language", "started_at"],
+        limit=2000 # Increased limit to allow for in-Python sorting and limiting
+    )
+    # Sort by 'started_at' and then apply the limit
+    sorted_runs = sorted(all_queued_runs, key=lambda x: x.get("started_at", ""))
+    rows = sorted_runs[:max_runs]
     for row in rows:
         _update_run(str(row["vertex_id"]), "running", error_message="phase:claimed")
     return rows
@@ -275,8 +272,7 @@ def process_queue(max_runs: int = 5, timeout_sec: float = 20.0) -> dict[str, Any
             error_message=None if ok else str(fetched.get("error") or "empty response")[:500],
         )
         results.append({"vertexId": run["vertex_id"], "status": status, "messagesSeen": len(messages), "messagesNew": messages_new})
-    with sync_cursor() as cur:
-        cur.execute("FLUSH")
+
     return {
         "processed": len(results),
         "completed": sum(1 for r in results if r.get("status") == "completed"),

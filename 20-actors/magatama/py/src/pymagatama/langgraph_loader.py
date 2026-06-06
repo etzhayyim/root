@@ -100,7 +100,22 @@ def _resolve_checkpointer(mode: str | None) -> Any:
     """
     if not mode or mode == "none":
         return None
+    if mode in ("kotoba", "kotoba_datom"):
+        try:
+            from pymagatama.langgraph_checkpoint_kotoba import KotobaCheckpointSaver
+            return KotobaCheckpointSaver()
+        except Exception as exc:
+            LOG.warning("checkpointer kotoba init failed: %s", exc)
+            return None
     if mode == "rw_vertex":
+        import os
+        if os.environ.get("MAGATAMA_LG_BACKEND", "kotoba") != "rw":
+            try:
+                from pymagatama.langgraph_checkpoint_kotoba import KotobaCheckpointSaver
+                return KotobaCheckpointSaver()
+            except Exception as exc:
+                LOG.warning("checkpointer rw_vertex (via kotoba fallback) init failed: %s", exc)
+                return None
         try:
             from pymagatama.langgraph_checkpoint_rw import RisingWaveCheckpointSaver
             return RisingWaveCheckpointSaver()

@@ -27,10 +27,19 @@ import {
   entityNamespaceSummary,
   ENTITY_TOTAL_COUNT,
 } from "./registry/entity-actors";
+import {
+  GOV_PROCEDURES_BY_OWNER,
+  GOV_PROCEDURE_LIST,
+  GOV_PROCEDURES_TOTAL,
+  GOV_PROCEDURES_OWNER_COUNT,
+  GOV_PROCEDURES_JURISDICTION_COUNT,
+  GOV_PROCEDURES_GENERATED_AT,
+} from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord } from "./kotoba";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
+import { handleVerifyCacao } from "./session";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -1007,6 +1016,45 @@ export default {
         },
       });
     }
+    // Government PROCEDURES index — `/.well-known/gov-procedures.json`.
+    // Public administrative procedures published FINELY BY ADMINISTRATIVE UNIT:
+    // each procedure is grouped under its owning gov entity-actor handle
+    // (did:web:etzhayyim.com:actor:gov-<...>). Compiled into the Worker from the
+    // ooyake :gov.procedure registry (no KV needed; small index). OBSERVATIONAL
+    // MIRROR — where/how a public procedure is done; never the government, never
+    // an official channel, never filing on anyone's behalf (that is toritsugi,
+    // gated). Every row carries sourcing + verification-status; all are
+    // :representative / :unverified-seed (G5). Per ADR-2606021600 / 2606042330.
+    if (url.pathname === "/.well-known/gov-procedures.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      const body = {
+        graph: "actors-v1",
+        adr: ["2606021600", "2606042330"],
+        note: "Observational mirror: public administrative procedures grouped by owning gov entity-actor handle. NOT the government, NOT an official channel, never filed on anyone's behalf (→ toritsugi, gated). All rows :representative / :unverified-seed (G5).",
+        generatedAt: GOV_PROCEDURES_GENERATED_AT,
+        count: GOV_PROCEDURES_TOTAL,
+        owners: GOV_PROCEDURES_OWNER_COUNT,
+        jurisdictions: GOV_PROCEDURES_JURISDICTION_COUNT,
+        procedures: GOV_PROCEDURE_LIST,
+      };
+      return new Response(JSON.stringify(body) + "\n", {
+        status: 200,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
     // gov-atlas human search page — `/gov`. Browser-native: fetches
     // /.well-known/gov-units.json and filters client-side (no per-keystroke server
     // call, cookie-free, same-origin only). Civic wayfinding over the world
@@ -1209,6 +1257,46 @@ a{color:inherit}
     }
 
     // ──────────────────────────────────────────────────────────────────
+    // 2b') Per-administrative-unit PROCEDURES — `/actor/<handle>/procedures.json`.
+    //     The public procedures (passport / national-id / tax / business / …)
+    //     done at this gov entity-actor's unit, from the compiled ooyake
+    //     :gov.procedure registry. Observational mirror: where/how, never the
+    //     government, never filed on anyone's behalf (→ toritsugi, gated).
+    //     Per ADR-2606021600 / 2606042330. GET/HEAD only.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/actor\/([^/]+)\/procedures\.json$/);
+      if (m) {
+        if (request.method !== "GET" && request.method !== "HEAD") {
+          return new Response("Method Not Allowed", {
+            status: 405,
+            headers: { allow: "GET, HEAD" },
+          });
+        }
+        const handle = decodeURIComponent(m[1]).toLowerCase();
+        if (!HANDLE_REGEX.test(handle)) {
+          return new Response(
+            JSON.stringify({ error: "HandleInvalid" }),
+            { status: 400, headers: ACTOR_JSON_HEADERS },
+          );
+        }
+        const procs = GOV_PROCEDURES_BY_OWNER.get(handle) ?? [];
+        const body = {
+          handle,
+          did: `did:web:etzhayyim.com:actor:${handle}`,
+          adr: ["2606021600", "2606042330"],
+          note: "Observational mirror of public procedures done at this administrative unit. NOT the government, NOT an official channel; never filed on anyone's behalf (→ toritsugi, gated). All rows :representative / :unverified-seed (G5).",
+          count: procs.length,
+          procedures: procs,
+        };
+        return new Response(JSON.stringify(body, null, 2) + "\n", {
+          status: 200,
+          headers: ACTOR_JSON_HEADERS,
+        });
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
     // 2c) Trustless IPFS gateway — `/ipfs/<cid>` (ADR-2606014600).
     //     Fetches the content-addressed bytes from configurable upstream
     //     gateways and VERIFIES they hash to the requested CID before serving,
@@ -1330,6 +1418,38 @@ a{color:inherit}
       const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
       if (m) {
         const nsid = m[1];
+
+        // ── verifyCacao short-circuit (ADR-2606060000) ────────────────────
+        // Same-origin auth gate for `/profile`: verify a member-signed CACAO
+        // (WebAuthn/passkey → Ed25519 did:key, verified LOCALLY via WebCrypto;
+        // SIWE/eip191 structurally validated + relayed to kotoba). No auth
+        // subdomain, no server key, no session minted — the Worker only
+        // confirms DID control + capability scope so the page can flip into
+        // edit-mode. Served locally; never proxied.
+        if (
+          nsid === "com.etzhayyim.authz.verifyCacao" &&
+          request.method === "POST"
+        ) {
+          let payload: unknown = null;
+          try {
+            payload = await request.json();
+          } catch {
+            payload = null;
+          }
+          const { status, result } = await handleVerifyCacao(
+            payload,
+            Date.now(),
+          );
+          return new Response(JSON.stringify(result) + "\n", {
+            status,
+            headers: {
+              "content-type": "application/json; charset=utf-8",
+              "cache-control": "no-store",
+              "x-etzhayyim-no-cookie": "1",
+              "x-etzhayyim-auth": "cacao-verify-only",
+            },
+          });
+        }
 
         // ── searchActors + getSuggestions short-circuit (ADR-2606042330) ──
         // Make society-scale entity mirror-actors visible on `/search`. The

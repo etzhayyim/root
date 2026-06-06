@@ -324,71 +324,16 @@ def normalize_ownership_record(record: dict[str, Any]) -> tuple[dict[str, Any], 
     return ownership_row, edge_row
 
 
-_INSERT_OWNERSHIP = """
-INSERT INTO vertex_open_lei_ownership
-  (vertex_id, parent_lei, child_lei, relationship_type,
-   ownership_pct, relationship_period_start, relationship_period_end,
-   confidence, source, status, created_at, sensitivity_ord,
-   owner_did, org_id, user_id, actor_id)
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-"""
+from pymagatama.kotoba_datomic import get_kotoba_client
 
-_INSERT_EDGE = """
-INSERT INTO edge_open_lei_ownership_pair
-  (edge_id, src_vid, dst_vid, role, created_at, sensitivity_ord,
-   owner_did, org_id, user_id, actor_id)
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-"""
-
-
-def gleif_ownership_ingest(
-    *,
-    ownership_rows: Any = None,
-    batch_size: int = 500,
-    dry_run: bool = False,
-) -> dict[str, Any]:
-    """Normalize rr-cdf ownership records and write to vertex_open_lei_ownership + edge table."""
-    raw = [item for item in _as_list(ownership_rows) if isinstance(item, dict)]
-    normalized = [n for r in raw if (n := normalize_ownership_record(r)) is not None]
-
-    inserted = 0
-    skipped = 0
-    errors: list[str] = []
-
-    if not dry_run and normalized:
-        try:
-            from pymagatama.db_sync import sync_cursor  # imported here to stay testable without RW
-
+            kotoba_client = get_kotoba_client()
             for i in range(0, len(normalized), int(batch_size)):
                 batch = normalized[i : i + int(batch_size)]
-                with sync_cursor() as cur:
-                    for ownership_row, edge_row in batch:
-                        try:
-                            cur.execute(
-                                _INSERT_OWNERSHIP,
-                                (
-                                    ownership_row["vertex_id"], ownership_row["parent_lei"],
-                                    ownership_row["child_lei"], ownership_row["relationship_type"],
-                                    ownership_row.get("ownership_pct"),
-                                    ownership_row.get("relationship_period_start"),
-                                    ownership_row.get("relationship_period_end"),
-                                    ownership_row.get("confidence"), ownership_row["source"],
-                                    ownership_row["status"], ownership_row["created_at"],
-                                    ownership_row["sensitivity_ord"], ownership_row["owner_did"],
-                                    ownership_row["org_id"], ownership_row["user_id"],
-                                    ownership_row["actor_id"],
-                                ),
-                            )
-                            cur.execute(
-                                _INSERT_EDGE,
-                                (
-                                    edge_row["edge_id"], edge_row["src_vid"], edge_row["dst_vid"],
-                                    edge_row["role"], edge_row["created_at"],
-                                    edge_row["sensitivity_ord"], edge_row["owner_did"],
-                                    edge_row["org_id"], edge_row["user_id"], edge_row["actor_id"],
-                                ),
-                            )
-                            inserted += 1
+                for ownership_row, edge_row in batch:
+                    try:
+                        kotoba_client.insert_row("vertex_open_lei_ownership", ownership_row)
+                        kotoba_client.insert_row("edge_open_lei_ownership_pair", edge_row)
+                        inserted += 1
                         except Exception as exc:
                             skipped += 1
                             errors.append(str(exc)[:120])

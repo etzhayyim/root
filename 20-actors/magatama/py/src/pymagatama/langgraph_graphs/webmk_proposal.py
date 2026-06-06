@@ -17,7 +17,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama import llm
 
 WEBMK_DID = "did:web:webmk.etzhayyim.com"
@@ -179,31 +179,21 @@ def store_proposal(state: ProposalState) -> dict[str, Any]:
     strategy = _envelope_content(state, "strategyOut", "strategy_json")[:8000]
     copy = _envelope_content(state, "copyOut", "copy_markdown")[:8000]
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_webmk_proposal (
-                  vertex_id, record_id, owner_did, label, status,
-                  proposal_id, strategy_json, copy_markdown, quality_score,
-                  lg_run_id, created_at, updated_at, sensitivity_ord
-                ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{proposal_id}",
-                    proposal_id,
-                    WEBMK_DID,
-                    "proposal",
-                    "generated",
-                    proposal_id,
-                    strategy,
-                    copy,
-                    state.get("quality_score") or 0.0,
-                    proposal_id,
-                    _now(),
-                    _now(),
-                    2,
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_webmk_proposal", {
+            "vertex_id": f'at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{proposal_id}',
+            "record_id": proposal_id,
+            "owner_did": WEBMK_DID,
+            "label": 'proposal',
+            "status": 'generated',
+            "proposal_id": proposal_id,
+            "strategy_json": strategy,
+            "copy_markdown": copy,
+            "quality_score": state.get('quality_score') or 0.0,
+            "lg_run_id": proposal_id,
+            "created_at": _now(),
+            "updated_at": _now(),
+            "sensitivity_ord": 2,
+        })
         return {"ok": True}
     except Exception as exc:
         return {"ok": False, "error": str(exc)}

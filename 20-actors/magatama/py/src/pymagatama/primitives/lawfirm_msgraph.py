@@ -10,7 +10,7 @@ Token: app-only (Mail.Read tenant scope) via existing microsoft.etzhayyim.com
 identity. Token cache via env MS_GRAPH_APP_TOKEN (refreshed by separate
 microsoft.etzhayyim.com cron primitive).
 
-Persists into vertex_lawfirm_msgraph_subscription so renewal worker can find
+Persists into kotoba Datom log (table vertex_lawfirm_msgraph_subscription) so renewal worker can find
 all live subs.
 
 ADR-0036 Hyperdrive direct.
@@ -25,7 +25,10 @@ import os
 import urllib.parse
 import urllib.request
 import uuid
+from datetime import datetime, timezone
 from typing import Any
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("lawfirm.msgraph")
 
@@ -35,35 +38,15 @@ _RENEW_AHEAD_MINUTES = 60 * 24  # renew if expiring within 24h
 
 
 def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 def _now_plus_minutes(minutes: int) -> str:
-    return (_dt.datetime.now(tz=_dt.UTC) +
+    return (datetime.now(tz=timezone.utc) +
             _dt.timedelta(minutes=int(minutes))).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 def _vid(kind: str) -> str:
-    stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
+    stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%d%H%M%S")
     return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
-
-
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
-
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
 
 
 def _ms_token() -> str:
@@ -95,16 +78,19 @@ async def task_lawfirm_msgraph_subscription_ensure(
     client_state: str = "",
 ) -> dict:
     """Ensure a live MS Graph mail subscription exists for the given UPN."""
-    existing = _query(
-        "SELECT subscription_id, expires_at FROM vertex_lawfirm_msgraph_subscription "
-        "WHERE user_upn = :upn AND status = 'active' LIMIT 1",
-        {"upn": user_upn},
+    client = get_kotoba_client()
+    existing = client.select_first_where(
+        "vertex_lawfirm_msgraph_subscription",
+        "user_upn",
+        user_upn,
+        columns=["subscription_id", "expires_at"],
+        where={"status": "active"}
     )
     if existing:
         return {
             "ok": True,
-            "subscription_id": existing[0]["subscription_id"],
-            "expires_at": existing[0]["expires_at"],
+            "subscription_id": existing["subscription_id"],
+            "expires_at": existing["expires_at"],
             "created": False,
         }
 
@@ -122,22 +108,20 @@ async def task_lawfirm_msgraph_subscription_ensure(
     sub_id = resp.get("id", "") or f"dry-{uuid.uuid4().hex[:24]}"
     dry = bool(resp.get("_dry_run"))
 
-    _execute(
-        "INSERT INTO vertex_lawfirm_msgraph_subscription "
-        "(vertex_id, subscription_id, user_upn, resource, notification_url, "
-        " client_state, expires_at, status, last_renewed_at, created_at, owner_did) "
-        "VALUES (:vid, :sid, :upn, :res, :url, :cs, :exp, 'active', "
-        " :now, :now, :owner)",
+    client.insert_row(
+        "vertex_lawfirm_msgraph_subscription",
         {
-            "vid":   _vid("msgraphSubscription"),
-            "sid":   sub_id,
-            "upn":   user_upn,
-            "res":   body["resource"],
-            "url":   notification_url,
-            "cs":    cs,
-            "exp":   expires_at,
-            "now":   _now_iso(),
-            "owner": _FIRM_DID,
+            "vertex_id": _vid("msgraphSubscription"),
+            "subscription_id": sub_id,
+            "user_upn": user_upn,
+            "resource": body["resource"],
+            "notification_url": notification_url,
+            "client_state": cs,
+            "expires_at": expires_at,
+            "status": "active",
+            "last_renewed_at": _now_iso(),
+            "created_at": _now_iso(),
+            "owner_did": _FIRM_DID,
         },
     )
     LOG.info("MS Graph subscription ensured upn=%s sub=%s dry=%s", user_upn, sub_id, dry)
@@ -154,9 +138,12 @@ async def task_lawfirm_msgraph_subscription_ensure(
 
 async def task_lawfirm_msgraph_subscription_renew() -> dict:
     """PATCH expirationDateTime on all live subs that expire within 24h."""
-    subs = _query(
-        "SELECT vertex_id, subscription_id, user_upn, expires_at "
-        "FROM vertex_lawfirm_msgraph_subscription WHERE status = 'active'"
+    client = get_kotoba_client()
+    subs = client.select_where(
+        "vertex_lawfirm_msgraph_subscription",
+        "status",
+        "active",
+        columns=["vertex_id", "subscription_id", "user_upn", "expires_at"]
     )
     if not subs:
         return {"ok": True, "renewed": 0, "checked": 0}
@@ -179,11 +166,13 @@ async def task_lawfirm_msgraph_subscription_renew() -> dict:
                 body, method="PATCH",
             )
             dry = bool(resp.get("_dry_run"))
-            _execute(
-                "UPDATE vertex_lawfirm_msgraph_subscription "
-                "SET expires_at = :exp, last_renewed_at = :now "
-                "WHERE subscription_id = :sid",
-                {"exp": new_exp, "now": _now_iso(), "sid": sub_id},
+            client.insert_row(
+                "vertex_lawfirm_msgraph_subscription",
+                {
+                    "vertex_id": s["vertex_id"],
+                    "expires_at": new_exp,
+                    "last_renewed_at": _now_iso(),
+                },
             )
             renewed += 1
             LOG.info("MS Graph sub renewed id=%s exp=%s dry=%s", sub_id, new_exp, dry)

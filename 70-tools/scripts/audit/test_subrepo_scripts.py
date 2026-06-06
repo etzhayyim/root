@@ -33,7 +33,22 @@ SYMLINK_HEALTH_PERF_BUDGET_S = 2.0
 
 # Iter-39/52 baselines (post-audit-closure). Any drift in either
 # direction signals new work — investigate before bumping.
-EXPECTED_STALE_URLS = 7
+#
+# 2026-06-05 re-baseline 7 → 8 (investigated, not blind-bumped). The subrepo set
+# turned over since the 2026-05-27 baseline: most of the original 7 stale entries
+# were superseded and several new 60-apps subrepos were vendored on 2026-06-03/04
+# with upstreams that were never published. All 8 current stale URLs are
+# confirmed 404 (defunct/unpublished upstreams of vendored app code), none
+# internally fixable (would require pushing the external repos):
+#   1. 50-infra/yata/yata-wasm/lance-fork → etzhayyimcojp/lancedb-wasm (404)
+#   2. 60-apps/etzhayyim-project-har/.../svelte → etzhayyim/etzhayyim-har (404)
+#   3. 60-apps/etzhayyim-project-watashi → etzhayyim/watashi (404)
+#   4. 60-apps/ai-gftd-project-resources/...-i2zikw31 → gftdcojp/...-i2zikw31 (404)
+#   5. 60-apps/etzhayyim-project-intel → etzhayyim/etzhayyim-intel (404)
+#   6. 60-apps/etzhayyim-project-os → etzhayyim/etzhayyim-project-os (404)
+#   7. 60-apps/etzhayyim-project-news → etzhayyimcojp/etzhayyim-apps-media (404)
+#   8. 60-apps/etzhayyim-project-activity-monitor/...-xgng091s → etzhayyimcojp/...-xgng091s (404)
+EXPECTED_STALE_URLS = 8
 # ESCAPE_SYMLINKS baseline dropped 18 → 0 (2026-05-31): the 18 escape
 # symlinks were all the `CHARTER-RIDER.md → ../../CHARTER-RIDER.md`
 # pattern inside the kotoba **git-subrepo** (1 root + 17 crates), a

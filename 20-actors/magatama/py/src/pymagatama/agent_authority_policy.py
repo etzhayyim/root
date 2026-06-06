@@ -47,31 +47,51 @@ def load_delegated_authority_policy(
 ) -> dict[str, Any]:
     if not authority_ref or not policy_ref:
         return {}
-    from pymagatama.db_sync import sync_cursor
 
-    params: list[Any] = [authority_ref, policy_ref]
-    agent_filter = ""
-    if agent_did:
-        agent_filter = " AND agent_did = %s"
-        params.append(agent_did)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT authority_ref, policy_ref, agent_did, principal_did,
-                   channels_json, effect_classes_json, target_bindings_json,
-                   payload_constraints_json, budget_ref, rate_limit_json,
-                   expires_at, policy_cid, signature_ref, status
-            FROM vertex_agent_delegated_authority_policy
-            WHERE authority_ref = %s
-              AND policy_ref = %s
-              {agent_filter}
-            ORDER BY updated_at DESC
-            LIMIT 1
-            """,
-            tuple(params),
-        )
-        columns = [desc[0] for desc in cur.description or []]
-        row = cur.fetchone()
-    if not row:
+
+    client = get_kotoba_client()
+    # R0: Multi-predicate WHERE and ORDER BY. Fetching by authority_ref, then filtering and sorting in Python.
+    policy_columns = [
+        "authority_ref",
+        "policy_ref",
+        "agent_did",
+        "principal_did",
+        "channels_json",
+        "effect_classes_json",
+        "target_bindings_json",
+        "payload_constraints_json",
+        "budget_ref",
+        "rate_limit_json",
+        "expires_at",
+        "policy_cid",
+        "signature_ref",
+        "status",
+        "updated_at",  # Needed for sorting
+    ]
+
+    candidate_policies = client.select_where(
+        "vertex_agent_delegated_authority_policy",
+        "authority_ref",
+        authority_ref,
+        columns=policy_columns,
+        limit=2000, # Per instruction, add a limit for broader set fetches.
+    )
+
+    filtered_policies = [
+        p
+        for p in candidate_policies
+        if p.get("policy_ref") == policy_ref
+        and (not agent_did or p.get("agent_did") == agent_did)
+    ]
+
+    if not filtered_policies:
         return {}
-    return row_to_policy(dict(zip(columns, row, strict=False)))
+
+    # Sort by updated_at descending to get the latest policy
+    sorted_policies = sorted(
+        filtered_policies,
+        key=lambda p: p.get("updated_at") or "", # Handle potential None for updated_at
+        reverse=True
+    )
+    row = sorted_policies[0]
+    return row_to_policy(row)

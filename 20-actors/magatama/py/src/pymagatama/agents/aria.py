@@ -16,11 +16,12 @@ import json
 import logging
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 log = logging.getLogger(__name__)
 
@@ -184,32 +185,29 @@ def _reverse_topo(state: AriaState) -> AriaState:
 
 
 def _audit(state: AriaState) -> AriaState:
-    """Insert one row into vertex_wellbecoming_event for OCEL trail."""
+    """Insert one row into vertex_wellbecoming_event for OCEL trail in kotoba Datom log."""
     ts_ms = int(time.time() * 1000)
     rkey = f"aria-{ts_ms}"
     vertex_id = f"did:web:langgraph.etzhayyim.com:com.etzhayyim.signal.aria:{rkey}:create"
-    created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    # Use datetime.now(timezone.utc) for created_at
+    created_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     payload = {
         "area_integral": state.get("area_integral"),
         "eta_global":    state.get("eta_global"),
         "minimax":       state.get("minimax_result"),
         "threadId":      state.get("threadId"),
     }
-    sql_text = (
-        "INSERT INTO vertex_wellbecoming_event ("
-        "vertex_id, event_type, actor_did, payload_json, ts_ms, created_at"
-        ") VALUES (%s, %s, %s, %s, %s, %s)"
-    )
+    # Construct the row dictionary for insert_row
+    row_dict = {
+        "vertex_id": vertex_id,
+        "event_type": "aria.signal.ingest",
+        "actor_did": "did:web:langgraph.etzhayyim.com",
+        "payload_json": json.dumps(payload, ensure_ascii=False),
+        "ts_ms": ts_ms,
+        "created_at": created_at,
+    }
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql_text, (
-                vertex_id,
-                "aria.signal.ingest",
-                "did:web:langgraph.etzhayyim.com",
-                json.dumps(payload, ensure_ascii=False),
-                ts_ms,
-                created_at,
-            ))
+        get_kotoba_client().insert_row("vertex_wellbecoming_event", row_dict)
         return {**state, "audit_rkey": rkey}
     except Exception as exc:  # noqa: BLE001
         log.warning("aria audit emit failed: %s", exc)

@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
-import time
+
 from typing import Any
 from uuid import NAMESPACE_URL, uuid4, uuid5
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:apps.etzhayyim.com"
 COLLECTION_TABLES = {
@@ -18,7 +19,7 @@ COLLECTION_TABLES = {
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
 
 
 def _id(prefix: str) -> str:
@@ -32,18 +33,6 @@ def _s(value: Any, default: str = "") -> str:
 def _arr(value: Any) -> list[str]:
     return [str(v) for v in value] if isinstance(value, list) else []
 
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
 
 
 def _vertex_id(collection: str, record_id: str) -> str:
@@ -84,28 +73,19 @@ def _typed_values(kind: str, payload: dict[str, Any]) -> dict[str, Any]:
     return {}
 
 
-def _write_edge(cur: Any, table: str, src: str, dst: str, relation: str, payload: dict[str, Any], created_at: str) -> None:
-    cur.execute(
-        f"""
-        INSERT INTO {table}
-          (edge_id,src_vid,dst_vid,relation_kind,value_json,created_at,updated_at,owner_did,sensitivity_ord)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        ON CONFLICT (edge_id) DO UPDATE SET
-          value_json = EXCLUDED.value_json,
-          updated_at = EXCLUDED.updated_at
-        """,
-        (
-            _edge_id(table, src, dst, relation),
-            src,
-            dst,
-            relation,
-            json.dumps(payload, ensure_ascii=False, sort_keys=True),
-            created_at,
-            _s(payload.get("updatedAt")) or created_at,
-            OWNER_DID,
-            2,
-        ),
-    )
+def _write_edge(table: str, src: str, dst: str, relation: str, payload: dict[str, Any], created_at: str) -> None:
+    row_dict = {
+        "edge_id": _edge_id(table, src, dst, relation),
+        "src_vid": src,
+        "dst_vid": dst,
+        "relation_kind": relation,
+        "value_json": json.dumps(payload, ensure_ascii=False, sort_keys=True),
+        "created_at": created_at,
+        "updated_at": _s(payload.get("updatedAt")) or created_at,
+        "owner_did": OWNER_DID,
+        "sensitivity_ord": 2,
+    }
+    get_kotoba_client().insert_row(table, row_dict)
 
 
 def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, payload: dict[str, Any], created_at: str) -> None:
@@ -115,9 +95,9 @@ def _write_related_edges(cur: Any, collection: str, kind: str, record_id: str, p
     listing_vid = _vertex_id("com.etzhayyim.apps.apps.appListing", listing_id)
     vertex_id = _vertex_id(collection, record_id)
     if kind == "feature":
-        _write_edge(cur, "edge_apps_directory_listing_feature", listing_vid, vertex_id, "featured_as", payload, created_at)
+        _write_edge("edge_apps_directory_listing_feature", listing_vid, vertex_id, "featured_as", payload, created_at)
     elif kind == "installIntent":
-        _write_edge(cur, "edge_apps_directory_listing_install_intent", listing_vid, vertex_id, "has_install_intent", payload, created_at)
+        _write_edge("edge_apps_directory_listing_install_intent", listing_vid, vertex_id, "has_install_intent", payload, created_at)
 
 
 def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str | None = None) -> dict[str, Any]:
@@ -147,16 +127,8 @@ def _record(collection: str, kind: str, payload: dict[str, Any], record_id: str 
     columns = ["vertex_id", "record_id", "owner_did", "listing_id", "app_did", "label", "status", "category", "value_json", "created_at", "updated_at", "sensitivity_ord", *typed]
     placeholders = ",".join(["%s"] * len(columns))
     updates = ",".join([f"{c}=EXCLUDED.{c}" for c in columns if c != "vertex_id"])
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {updates}
-            """,
-            tuple(values[c] for c in columns),
-        )
-        _write_related_edges(cur, collection, kind, rid, rec, created)
+    get_kotoba_client().insert_row(table, values)
+    _write_related_edges(collection, kind, rid, rec, created)
     return rec
 
 
@@ -164,14 +136,16 @@ def _list(collection: str, limit: int = 500) -> list[dict[str, Any]]:
     table = COLLECTION_TABLES.get(collection)
     if table is None:
         return []
-    rows = _fetch_all(
-        f"SELECT value_json AS record_json FROM {table} ORDER BY created_at DESC LIMIT %s",
-        (max(1, min(limit, 1000)),),
-    )
+    # R0: Order by created_at DESC and limit are applied in Python.
+    #    select_where with no column or value means "select all from table"
+    rows = get_kotoba_client().select_where(table, None, None, columns=["value_json"], limit=2000)
+    # Sort in Python by 'created_at' in descending order
+    rows.sort(key=lambda x: json.loads(x.get("value_json", "{}")).get("createdAt", ""), reverse=True)
+    rows = rows[:max(1, min(limit, 1000))] # Apply limit
     out: list[dict[str, Any]] = []
     for row in rows:
         try:
-            parsed = json.loads(str(row["record_json"]))
+            parsed = json.loads(str(row["value_json"]))
         except (TypeError, ValueError):
             continue
         if isinstance(parsed, dict):

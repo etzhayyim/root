@@ -23,7 +23,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("karma.wbt")
 
@@ -54,33 +54,29 @@ def _balance_vertex_id(did: str) -> str:
     return f"wbt-bal-{hashlib.sha256(did.encode()).hexdigest()[:32]}"
 
 
-def _read_balance_row(cur: Any, did: str) -> dict[str, Any] | None:
-    cur.execute(
-        """
-        SELECT vertex_id, balance, total_inflow, total_outflow, tx_count,
-               last_tx_ts_ms, last_tx_id
-        FROM vertex_karma_wbt_balance
-        WHERE did = %s
-        LIMIT 1
-        """,
-        (did,),
+def _read_balance_row(did: str) -> dict[str, Any] | None:
+    client = get_kotoba_client()
+    row = client.select_first_where(
+        "vertex_karma_wbt_balance",
+        "did",
+        did,
+        columns=[
+            "vertex_id", "balance", "total_inflow", "total_outflow",
+            "tx_count", "last_tx_ts_ms", "last_tx_id",
+        ],
     )
-    row = cur.fetchone()
     if not row:
         return None
-    return {
-        "vertex_id": row[0],
-        "balance": float(row[1] or 0.0),
-        "total_inflow": float(row[2] or 0.0),
-        "total_outflow": float(row[3] or 0.0),
-        "tx_count": int(row[4] or 0),
-        "last_tx_ts_ms": int(row[5] or 0),
-        "last_tx_id": row[6] or "",
-    }
+    row["balance"] = float(row.get("balance") or 0.0)
+    row["total_inflow"] = float(row.get("total_inflow") or 0.0)
+    row["total_outflow"] = float(row.get("total_outflow") or 0.0)
+    row["tx_count"] = int(row.get("tx_count") or 0)
+    row["last_tx_ts_ms"] = int(row.get("last_tx_ts_ms") or 0)
+    row["last_tx_id"] = row.get("last_tx_id") or ""
+    return row
 
 
 def _upsert_balance(
-    cur: Any,
     did: str,
     new_balance: float,
     delta: float,
@@ -88,10 +84,12 @@ def _upsert_balance(
     tx_id: str,
     ts_ms: int,
 ) -> None:
-    """Idempotent upsert. RisingWave PK upsert semantics: same vertex_id
-    re-INSERT overwrites (per CLAUDE.md root rules). Avoid ON CONFLICT
-    (RW unsupported)."""
-    existing = _read_balance_row(cur, did)
+    """Idempotent upsert. Kotoba Datom log semantics: insert_row handles
+    upsert on vertex_id.
+    """
+    client = get_kotoba_client()
+    existing = _read_balance_row(did)
+
     today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
     created_at = _now_ts()
 
@@ -99,71 +97,110 @@ def _upsert_balance(
         vertex_id = _balance_vertex_id(did)
         total_inflow = abs(delta) if is_inflow else 0.0
         total_outflow = abs(delta) if not is_inflow else 0.0
-        cur.execute(
-            """
-            INSERT INTO vertex_karma_wbt_balance (
-                vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                did, balance, last_tx_ts_ms, last_tx_id,
-                total_inflow, total_outflow, tx_count,
-                created_at, org_id, user_id, actor_id
-            ) VALUES (
-                %s, NULL, %s, 1, %s,
-                %s, %s, %s, %s,
-                %s, %s, %s,
-                %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, today_iso, did,
-                did, new_balance, ts_ms, tx_id,
-                total_inflow, total_outflow, 1,
-                created_at, did, did, "karma.wbt.upsertBalance",
-            ),
-        )
+        tx_count = 1
+        # New record, so provide all default values
+        balance_row_dict = {
+            "vertex_id": vertex_id,
+            # "_seq": None, # Handled by Datomic
+            "created_date": today_iso,
+            "sensitivity_ord": 1,
+            "owner_did": did,
+            "did": did,
+            "balance": new_balance,
+            "last_tx_ts_ms": ts_ms,
+            "last_tx_id": tx_id,
+            "total_inflow": total_inflow,
+            "total_outflow": total_outflow,
+            "tx_count": tx_count,
+            "created_at": created_at,
+            "org_id": did,
+            "user_id": did,
+            "actor_id": "karma.wbt.upsertBalance",
+        }
     else:
-        new_inflow = existing["total_inflow"] + (abs(delta) if is_inflow else 0.0)
-        new_outflow = existing["total_outflow"] + (abs(delta) if not is_inflow else 0.0)
-        cur.execute(
-            """
-            UPDATE vertex_karma_wbt_balance
-            SET balance = %s,
-                last_tx_ts_ms = %s,
-                last_tx_id = %s,
-                total_inflow = %s,
-                total_outflow = %s,
-                tx_count = COALESCE(tx_count, 0) + 1
-            WHERE did = %s
-            """,
-            (new_balance, ts_ms, tx_id, new_inflow, new_outflow, did),
-        )
+        # Existing record, update relevant fields
+        vertex_id = existing["vertex_id"] # Use existing vertex_id for upsert
+        total_inflow = existing["total_inflow"] + (abs(delta) if is_inflow else 0.0)
+        total_outflow = existing["total_outflow"] + (abs(delta) if not is_inflow else 0.0)
+        tx_count = existing["tx_count"] + 1
+
+        balance_row_dict = {
+            "vertex_id": vertex_id,
+            "balance": new_balance,
+            "last_tx_ts_ms": ts_ms,
+            "last_tx_id": tx_id,
+            "total_inflow": total_inflow,
+            "total_outflow": total_outflow,
+            "tx_count": tx_count,
+            # Preserve other existing fields that are not changed
+            "created_date": existing["created_date"],
+            "sensitivity_ord": existing["sensitivity_ord"],
+            "owner_did": existing["owner_did"],
+            "did": existing["did"],
+            "created_at": existing["created_at"],
+            "org_id": existing["org_id"],
+            "user_id": existing["user_id"],
+            "actor_id": existing["actor_id"],
+            # "_seq": existing.get("_seq"), # Keep existing _seq if present, but handled by Datomic
+        }
+
+    client.insert_row("vertex_karma_wbt_balance", balance_row_dict)
 
 
-def _bump_commons_pool(cur: Any, amount: float, source_did: str, is_forfeit: bool, ts_ms: int) -> None:
-    cur.execute(
-        """
-        UPDATE vertex_karma_commons_pool
-        SET total_balance = COALESCE(total_balance, 0.0) + %s,
-            total_inflow = COALESCE(total_inflow, 0.0) + %s,
-            forfeit_inflow_count = COALESCE(forfeit_inflow_count, 0) +
-                                   CAST(%s AS bigint),
-            tax_inflow_count = COALESCE(tax_inflow_count, 0) +
-                               CAST(%s AS bigint),
-            last_inflow_ts_ms = %s,
-            last_inflow_did = %s
-        WHERE vertex_id = %s
-        """,
-        (
-            amount, amount,
-            1 if is_forfeit else 0,
-            0 if is_forfeit else 1,
-            ts_ms, source_did,
-            COMMONS_VERTEX_ID,
-        ),
+def _bump_commons_pool(amount: float, source_did: str, is_forfeit: bool, ts_ms: int) -> None:
+    client = get_kotoba_client()
+    
+    existing_pool = client.select_first_where(
+        "vertex_karma_commons_pool",
+        "vertex_id",
+        COMMONS_VERTEX_ID,
+        columns=[
+            "total_balance", "total_inflow", "forfeit_inflow_count",
+            "tax_inflow_count", "last_inflow_ts_ms", "last_inflow_did",
+            "created_at", "org_id", "user_id", "actor_id",
+            "created_date", "sensitivity_ord", "owner_did",
+        ],
     )
+
+    current_balance = float(existing_pool.get("total_balance", 0.0)) if existing_pool else 0.0
+    current_inflow = float(existing_pool.get("total_inflow", 0.0)) if existing_pool else 0.0
+    current_forfeit_count = int(existing_pool.get("forfeit_inflow_count", 0)) if existing_pool else 0
+    current_tax_count = int(existing_pool.get("tax_inflow_count", 0)) if existing_pool else 0
+
+    new_total_balance = current_balance + amount
+    new_total_inflow = current_inflow + amount
+    new_forfeit_inflow_count = current_forfeit_count + (1 if is_forfeit else 0)
+    new_tax_inflow_count = current_tax_count + (0 if is_forfeit else 1)
+
+    final_pool_row_dict = {
+        "vertex_id": COMMONS_VERTEX_ID,
+        "total_balance": new_total_balance,
+        "total_inflow": new_total_inflow,
+        "forfeit_inflow_count": new_forfeit_inflow_count,
+        "tax_inflow_count": new_tax_inflow_count,
+        "last_inflow_ts_ms": ts_ms,
+        "last_inflow_did": source_did,
+    }
+
+    if existing_pool:
+        for key in ["created_at", "org_id", "user_id", "actor_id", "created_date", "sensitivity_ord", "owner_did"]:
+            if key not in final_pool_row_dict and existing_pool.get(key) is not None:
+                final_pool_row_dict[key] = existing_pool[key]
+    else:
+        final_pool_row_dict.update({
+            "created_at": _now_ts(),
+            "org_id": COMMONS_DID,
+            "user_id": COMMONS_DID,
+            "actor_id": "karma.wbt.commons",
+            "created_date": _dt.datetime.now(tz=_dt.UTC).date().isoformat(),
+            "sensitivity_ord": 1,
+            "owner_did": COMMONS_DID,
+        })
+    
+    client.insert_row("vertex_karma_commons_pool", final_pool_row_dict)
 
 
 def _record_transfer(
-    cur: Any,
     transfer_id: str,
     from_did: str,
     to_did: str,
@@ -173,30 +210,32 @@ def _record_transfer(
     is_forfeit: bool,
     ts_ms: int,
 ) -> None:
+    client = get_kotoba_client()
     today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
     created_at = _now_ts()
     vertex_id = f"wbt-tx-{transfer_id}"
-    cur.execute(
-        """
-        INSERT INTO vertex_karma_wbt_transfer (
-            vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-            transfer_id, from_did, to_did, amount, reason, memo,
-            is_forfeit, is_inflow, ts_ms,
-            created_at, org_id, user_id, actor_id
-        ) VALUES (
-            %s, NULL, %s, 1, %s,
-            %s, %s, %s, %s, %s, %s,
-            %s, true, %s,
-            %s, %s, %s, %s
-        )
-        """,
-        (
-            vertex_id, today_iso, from_did,
-            transfer_id, from_did, to_did, amount, reason, memo,
-            is_forfeit, ts_ms,
-            created_at, from_did, from_did, "karma.wbt.transfer",
-        ),
-    )
+
+    transfer_row_dict = {
+        "vertex_id": vertex_id,
+        # "_seq": None, # Handled by Datomic
+        "created_date": today_iso,
+        "sensitivity_ord": 1,
+        "owner_did": from_did, # Owner DID is from_did for this record
+        "transfer_id": transfer_id,
+        "from_did": from_did,
+        "to_did": to_did,
+        "amount": amount,
+        "reason": reason,
+        "memo": memo,
+        "is_forfeit": is_forfeit,
+        "is_inflow": True, # This column is always true in the original INSERT
+        "ts_ms": ts_ms,
+        "created_at": created_at,
+        "org_id": from_did,
+        "user_id": from_did,
+        "actor_id": "karma.wbt.transfer",
+    }
+    client.insert_row("vertex_karma_wbt_transfer", transfer_row_dict)
 
 
 # ── Task: balance get ──────────────────────────────────────────────────
@@ -205,36 +244,34 @@ def _record_transfer(
 async def task_karma_wbt_balance_get(**kwargs: Any) -> dict[str, Any]:
     did = kwargs["did"]
     is_commons = did == COMMONS_DID
+    client = get_kotoba_client()
 
     if is_commons:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT total_balance, total_inflow, last_inflow_ts_ms
-                FROM vertex_karma_commons_pool
-                WHERE vertex_id = %s
-                """,
-                (COMMONS_VERTEX_ID,),
-            )
-            row = cur.fetchone()
-        if not row:
+        commons_pool_row = client.select_first_where(
+            "vertex_karma_commons_pool",
+            "vertex_id",
+            COMMONS_VERTEX_ID,
+            columns=[
+                "total_balance", "total_inflow", "last_inflow_ts_ms"
+            ]
+        )
+        if not commons_pool_row:
             return {
                 "did": did, "balance": 0.0, "totalInflow": 0.0, "totalOutflow": 0.0,
                 "txCount": 0, "lastTxTsMs": 0, "lastTxId": "", "isCommons": True,
             }
         return {
             "did": did,
-            "balance": float(row[0] or 0.0),
-            "totalInflow": float(row[1] or 0.0),
+            "balance": float(commons_pool_row.get("total_balance") or 0.0),
+            "totalInflow": float(commons_pool_row.get("total_inflow") or 0.0),
             "totalOutflow": 0.0,
             "txCount": 0,
-            "lastTxTsMs": int(row[2] or 0),
+            "lastTxTsMs": int(commons_pool_row.get("last_inflow_ts_ms") or 0),
             "lastTxId": "",
             "isCommons": True,
         }
 
-    with sync_cursor() as cur:
-        bal = _read_balance_row(cur, did)
+    bal = _read_balance_row(did)
     if bal is None:
         return {
             "did": did, "balance": 0.0, "totalInflow": 0.0, "totalOutflow": 0.0,
@@ -277,27 +314,26 @@ async def task_karma_wbt_transfer(**kwargs: Any) -> dict[str, Any]:
         "transfer", from_did, to_did, str(amount), reason, str(ts_ms), nonce
     )
 
-    with sync_cursor() as cur:
-        from_bal = _read_balance_row(cur, from_did)
-        if from_bal is None or from_bal["balance"] < amount:
-            raise ValueError("insufficient-funds")
+    from_bal = _read_balance_row(from_did)
+    if from_bal is None or from_bal["balance"] < amount:
+        raise ValueError("insufficient-funds")
 
-        new_from_balance = from_bal["balance"] - amount
+    new_from_balance = from_bal["balance"] - amount
 
-        # Append transfer log first (immutable record).
-        _record_transfer(cur, transfer_id, from_did, to_did, amount, reason, memo, is_forfeit, ts_ms)
+    # Append transfer log first (immutable record).
+    _record_transfer(transfer_id, from_did, to_did, amount, reason, memo, is_forfeit, ts_ms)
 
-        # Debit sender.
-        _upsert_balance(cur, from_did, new_from_balance, amount, is_inflow=False, tx_id=transfer_id, ts_ms=ts_ms)
+    # Debit sender.
+    _upsert_balance(from_did, new_from_balance, amount, is_inflow=False, tx_id=transfer_id, ts_ms=ts_ms)
 
-        # Credit receiver: if commons, bump pool singleton; else upsert balance.
-        if is_to_commons:
-            _bump_commons_pool(cur, amount, from_did, is_forfeit, ts_ms)
-            new_to_balance = -1.0  # signal: commons pool — query separately
-        else:
-            to_bal = _read_balance_row(cur, to_did)
-            new_to_balance = (to_bal["balance"] if to_bal else 0.0) + amount
-            _upsert_balance(cur, to_did, new_to_balance, amount, is_inflow=True, tx_id=transfer_id, ts_ms=ts_ms)
+    # Credit receiver: if commons, bump pool singleton; else upsert balance.
+    if is_to_commons:
+        _bump_commons_pool(amount, from_did, is_forfeit, ts_ms)
+        new_to_balance = -1.0  # signal: commons pool — query separately
+    else:
+        to_bal = _read_balance_row(to_did)
+        new_to_balance = (to_bal["balance"] if to_bal else 0.0) + amount
+        _upsert_balance(to_did, new_to_balance, amount, is_inflow=True, tx_id=transfer_id, ts_ms=ts_ms)
 
     return {
         "transferId": transfer_id,
@@ -317,11 +353,10 @@ async def task_karma_wbt_forfeit_to_commons(**kwargs: Any) -> dict[str, Any]:
     if did == COMMONS_DID:
         raise ValueError("commons cannot forfeit to itself")
 
-    with sync_cursor() as cur:
-        bal = _read_balance_row(cur, did)
-        if bal is None or bal["balance"] <= 0:
-            return {"wbtForfeited": 0.0, "transferId": ""}
-        amount = bal["balance"]
+    bal = _read_balance_row(did)
+    if bal is None or bal["balance"] <= 0:
+        return {"wbtForfeited": 0.0, "transferId": ""}
+    amount = bal["balance"]
 
     # Delegate to general transfer for atomicity.
     result = await task_karma_wbt_transfer(

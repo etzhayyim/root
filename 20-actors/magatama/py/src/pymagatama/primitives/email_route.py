@@ -27,16 +27,13 @@ from __future__ import annotations
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR_PREGEL = "did:web:pregel.etzhayyim.com"
 COLLECTION_MESSAGE = "com.etzhayyim.convo.message"
-
-
-def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
 def _new_vid() -> str:
@@ -62,43 +59,66 @@ async def task_email_route(
     account_filter = (accountDid or "").strip()
 
     # 1. Fetch pending non-sales emails from pregel output, not yet routed
-    with sync_cursor() as cur:
-        sql = (
-            "SELECT em.message_id, em.from_address, "
-            "SPLIT_PART(em.from_address, '@', 2) AS from_domain, "
-            "em.received_at "
-            "FROM graphar.vertex_email_message em "
-            "WHERE em.response_status = 'pending' AND em.is_sales = false "
-            "AND NOT EXISTS ("
-            "  SELECT 1 FROM edge_email_routes_to_project e "
-            "  WHERE e.email_vertex_id = em.message_id"
-            ") "
-        )
-        params: list[Any] = []
-        if account_filter:
-            sql += "AND em.owner = %s "
-            params.append(account_filter)
-        sql += f"ORDER BY em.received_at DESC LIMIT {batch}"
-        cur.execute(sql, params or None)
-        cols = [d[0] for d in cur.description]
-        emails = [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
+    # R0: Order by and limit are applied in Python.
+    datalog_query = """
+    [:find ?message_id ?from_address ?received_at
+     :where
+       [?e :vertex/type "email_message"]
+       [?e :email_message/response_status "pending"]
+       [?e :email_message/is_sales false]
+       (not-join [?e]
+         [?route :edge/type "edge_email_routes_to_project"]
+         [?route :email_routes_to_project/email_vertex_id ?e])
+       [?e :email_message/message_id ?message_id]
+       [?e :email_message/from_address ?from_address]
+       [?e :email_message/received_at ?received_at
+       ]
+    """
+    query_args = []
+    if account_filter:
+        datalog_query = f"[:in $ ?account_filter\n{datalog_query}"
+        datalog_query += "   [?e :email_message/owner ?account_filter]\n"
+        query_args.append(account_filter)
+
+    datalog_query += "]"
+
+    rows = get_kotoba_client().q(datalog_query, args=tuple(query_args))
+    emails_raw = [
+        {"message_id": r[0], "from_address": r[1], "received_at": r[2]}
+        for r in rows
+    ]
+
+    # R0: SPLIT_PART, ORDER BY, and LIMIT applied in Python
+    emails = []
+    for email_raw in emails_raw:
+        from_address = email_raw["from_address"]
+        from_domain = from_address.split('@', 1)[1] if '@' in from_address else ""
+        emails.append({
+            "message_id": email_raw["message_id"],
+            "from_address": from_address,
+            "from_domain": from_domain,
+            "received_at": email_raw["received_at"],
+        })
+
+    emails.sort(key=lambda x: x["received_at"], reverse=True)
+    emails = emails[:batch]
 
     if not emails:
         return {"routedTotal": 0, "skippedTotal": 0, "errors": "[]"}
 
     # 2. Load all routing rules ordered by priority
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT rule_id, project_slug, convo_id, match_type, "
-            "match_value, priority "
-            "FROM vertex_email_project_route "
-            "WHERE active = true "
-            "ORDER BY priority DESC, rule_id"
-        )
-        rule_cols = [d[0] for d in cur.description]
-        rules = [dict(zip(rule_cols, row)) for row in (cur.fetchall() or [])]
+    # R0: Order by is applied in Python.
+    rules_raw = get_kotoba_client().select_where(
+        "vertex_email_project_route", "active", True,
+        columns=["rule_id", "project_slug", "convo_id", "match_type", "match_value", "priority"]
+    )
+    rules = sorted(
+        rules_raw,
+        key=lambda x: (x.get("priority", 0), x.get("rule_id", "")),
+        reverse=True
+    )
 
-    now = _now_iso()
+    now = datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
     routed = 0
     skipped = 0
     errors: list[dict[str, str]] = []
@@ -134,46 +154,39 @@ async def task_email_route(
         msg_uri = f"at://{ACTOR_PREGEL}/{COLLECTION_MESSAGE}/{msg_rkey}"
 
         try:
-            with sync_cursor() as cur:
-                cur.execute(
-                    "INSERT INTO edge_email_routes_to_project "
-                    "(vertex_id, email_vertex_id, project_slug, convo_id, "
-                    "rule_id, matched_at, actor_did, created_at) "
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                    (
-                        edge_vid,
-                        email_vid,
-                        project_slug,
-                        convo_id,
-                        str(matched_rule.get("rule_id") or ""),
-                        now,
-                        ACTOR_PREGEL,
-                        now,
-                    ),
-                )
-                cur.execute(
-                    "INSERT INTO vertex_projector_message "
-                    "(vertex_id, convo_id, text, created_at, actor_id, "
-                    "rkey, uri, value_json) "
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                    (
-                        f"proj-msg-{uuid.uuid4().hex[:12]}",
-                        convo_id,
-                        f"[pregel] New email from {from_addr or from_domain} "
-                        f"routed to project:{project_slug}",
-                        now,
-                        ACTOR_PREGEL,
-                        msg_rkey,
-                        msg_uri,
-                        json.dumps({
-                            "sourceMessageId": str(msg_id),
-                            "fromDomain": from_domain,
-                            "fromAddress": from_addr,
-                            "matchType": matched_rule.get("match_type"),
-                            "matchValue": matched_rule.get("match_value"),
-                        }, ensure_ascii=False),
-                    ),
-                )
+            get_kotoba_client().insert_row(
+                "edge_email_routes_to_project",
+                {
+                    "vertex_id": edge_vid,
+                    "email_vertex_id": email_vid,
+                    "project_slug": project_slug,
+                    "convo_id": convo_id,
+                    "rule_id": str(matched_rule.get("rule_id") or ""),
+                    "matched_at": now,
+                    "actor_did": ACTOR_PREGEL,
+                    "created_at": now,
+                },
+            )
+            get_kotoba_client().insert_row(
+                "vertex_projector_message",
+                {
+                    "vertex_id": f"proj-msg-{uuid.uuid4().hex[:12]}",
+                    "convo_id": convo_id,
+                    "text": f"[pregel] New email from {from_addr or from_domain} "
+                            f"routed to project:{project_slug}",
+                    "created_at": now,
+                    "actor_id": ACTOR_PREGEL,
+                    "rkey": msg_rkey,
+                    "uri": msg_uri,
+                    "value_json": json.dumps({
+                        "sourceMessageId": str(msg_id),
+                        "fromDomain": from_domain,
+                        "fromAddress": from_addr,
+                        "matchType": matched_rule.get("match_type"),
+                        "matchValue": matched_rule.get("match_value"),
+                    }, ensure_ascii=False),
+                },
+            )
             routed += 1
         except Exception as exc:
             errors.append({"messageId": str(msg_id), "error": str(exc)[:120]})

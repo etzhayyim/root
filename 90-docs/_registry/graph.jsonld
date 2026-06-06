@@ -11988,6 +11988,26 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606013600-browser-kotoba-node-sovereign-tier2",
+      "type": "TechArticle",
+      "title": "ADR-2606013600: browser kotoba node — kqe-in-wasm as the sovereign client-side apex tier-2",
+      "status": "proposed",
+      "topic": "browser-kotoba-node",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the browser kotoba node (kotoba-wasm) as the client-side actor-resolution path",
+        "the sovereignty layering of the apex DID-web resolver (kotoba canonical + compiled fallback; KV is an optional edge cache)",
+        "the \"where to host kotoba\" answer — the browser IS the node; IPFS pinning is the only durable, commodity tier"
+      ],
+      "related": [
+        "doc:2606015400",
+        "doc:2606015600",
+        "doc:2606014500",
+        "doc:2606051500"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606013600-kotoba-persistent-ipns-graph-heads",
       "type": "TechArticle",
       "title": "ADR-2606013600: kotoba durable IPNS graph heads — disk-persistent registry replaces in-memory default",
@@ -13266,6 +13286,20 @@
       "lastVerified": "2026-06-04"
     },
     {
+      "id": "doc:adr-2606041827-watari-live-ship-aircraft-position-kotoba-native",
+      "type": "TechArticle",
+      "title": "ADR-2606041827: watari 渡り — kotoba-native live ship + aircraft position knowledge graph",
+      "status": "proposed",
+      "topic": "watari-live-moving-craft",
+      "authoritative": true,
+      "authoritativeFor": [
+        "live real-time ship (AIS) + aircraft (ADS-B) position ingestion onto the kotoba Datom log",
+        "watari actor design, ontology, lexicons, gates"
+      ],
+      "related": "doc:2605011500",
+      "lastVerified": "2026-06-04"
+    },
+    {
       "id": "doc:adr-2606042100",
       "type": "TechArticle",
       "title": "tazuna 手綱 — clean-room remote-robotics fleet operation + teleoperation + learning-from-demonstration (the Orbit-shaped gap)",
@@ -13337,6 +13371,229 @@
         "doc:2606012600",
         "doc:2606041827"
       ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606051200-hotaru-inp-iii-v-substrate-commons-r0",
+      "type": "TechArticle",
+      "title": "hotaru 蛍 — III-V / InP substrate open-publication commons (Tier-B actor R0; the open-IP commons ADR-2605265500 §2's R4+ gate references — NOT a fab)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "hotaru-iii-v-inp-substrate-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hotaru actor scope (III-V/InP substrate open-publication commons; design/datafication/simulation only)",
+        "the open-IP-only invariant for III-V process knowledge (:source-license practiceable-open set)",
+        "the design-only/not-fabricated invariant (:fabricated false through R3)",
+        "the commons-readiness index feeding the ADR-2605265500 §2 R4+ gate evaluation (non-adjudicating)"
+      ],
+      "related": "doc:adr-2606012600-watatsuna-submarine-cable-resilience",
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606051500-kamado-closed-loop-refining-decommission-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606051500: kamado 竈 — closed-loop carbon refining + fossil-refinery decommissioning/transition actor (R0)",
+      "status": "proposed",
+      "topic": "kamado-closed-loop-refining",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kamado actor design, refining ontology, lexicons, gates",
+        "the :feedstock-class invariant (fossil-virgin-crude unrepresentable)",
+        "§2(d) fossil-refinery decommissioning/transition robotics scope",
+        "the net-atmospheric-carbon (D3) balance model for refining pathways"
+      ],
+      "related": [
+        "doc:2606042100",
+        "doc:2606031600",
+        "doc:2605312330",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606051600-noroshi-photonic-electronic-convergence-comms-chip-isac",
+      "type": "TechArticle",
+      "title": "ADR-2606051600: noroshi (烽) — Photonics-Electronics Convergence (光電融合) Comms Chip + ISAC Sim + Photonic Packaging Robotics",
+      "status": "proposed",
+      "topic": "noroshi-photonic-convergence",
+      "authoritative": true,
+      "authoritativeFor": [
+        "noroshi",
+        "photonic-electronic-convergence",
+        "isac-jcas-sim"
+      ],
+      "related": [
+        "doc:2605242515",
+        "doc:2605242530",
+        "doc:2605261300",
+        "doc:2606012600",
+        "doc:2606033600",
+        "doc:2605261800",
+        "doc:2606010600",
+        "doc:2606042330",
+        "doc:2605192100"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606051800-mitooshi-probabilistic-forecasting-observatory-r0",
+      "type": "TechArticle",
+      "title": "mitooshi 見通し — probabilistic forecasting observatory (Tier-B actor R0; the charter-clean inverse of a quant trading bot + the leak-free fact→error→weight→learn architecture)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "mitooshi-probabilistic-forecasting-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "mitooshi actor scope (probabilistic forecasting over public time-series + leak-free proper-scoring backtest + residual-driven recalibration; design-only)",
+        "the distribution-only / no-point-assertion invariant (:forecast/point-asserted false — 非終末論 made structural)",
+        "the non-speculative / no-trading invariant (:forecast/use enum excludes trade/wager/position)",
+        "the leak-free proper-scoring rule (info-as-of boundary; CRPS/pinball/Brier/log-score; skill vs documented baseline)",
+        "the baien-edge residual→weight online-update boundary (G8) + no-server-key model promotion (G9)"
+      ],
+      "related": [
+        "doc:adr-2606032000-kanjo-corporate-financial-disclosure-kg-r0",
+        "doc:adr-2605302300-kanae-government-fiscal-flow-visualization-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-r0"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0",
+      "status": "accepted",
+      "topic": "ake-community-edit-membrane",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ake-community-edit-membrane",
+        "wikipedia-stance-collaborative-correction"
+      ],
+      "related": [
+        "doc:adr-2605291500-tsukuroi-authorized-vuln-remediation-patch-proposer",
+        "doc:adr-2605301600-danjo-public-accountability-oversight"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606052300-fuchi-maintainer-sustenance-allocator-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0+R1",
+      "status": "accepted",
+      "topic": "fuchi-maintainer-sustenance-allocator",
+      "authoritative": true,
+      "authoritativeFor": [
+        "fuchi-maintainer-sustenance-allocator",
+        "investment-fund-charter-clean-inverse"
+      ],
+      "related": [
+        "doc:adr-2605302000-warifu-open-zero-fee-card",
+        "doc:adr-2605263500-wakai-mutual-aid-tier-b-actor-r0",
+        "doc:adr-2605301036-mission-funding-earned-revenue-arm",
+        "doc:adr-2606012100-okaimono-provisioning-commons"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606060000-profile-same-origin-auth-cacao",
+      "type": "TechArticle",
+      "title": "ADR-2606060000: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key",
+      "status": "accepted",
+      "topic": "profile-same-origin-auth",
+      "authoritative": true,
+      "authoritativeFor": [
+        "profile-same-origin-auth",
+        "cacao-verify-only-apex-surface"
+      ],
+      "related": [
+        "doc:adr-2605212030-etzhayyim-authz-erc725-root-issuance-design",
+        "doc:adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
+      "status": "accepted",
+      "topic": "tasuke-cybercrime-victim-support",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tasuke-cybercrime-victim-support-membrane",
+        "free-victim-relief-document-generation"
+      ],
+      "related": [
+        "doc:adr-2605301400-tadori-onchain-tx-tracing",
+        "doc:adr-2605312500-kurashimori-consumer-protection-concierge",
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge",
+        "doc:adr-2605302130-himotoki-active-disclosure-request-filer",
+        "doc:adr-2605262700-chigiri-legal-procedure-substrate"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
+      "type": "TechArticle",
+      "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",
+      "status": "accepted",
+      "topic": "gov-legal-procedure-coverage-maturity-expansion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/toritsugi/registry/procedures.seed.json",
+        "20-actors/chigiri/registry/legal-aid.seed.json",
+        "20-actors/ooyake/registry/gov-units.intl-procedures.seed.edn",
+        "20-actors/ooyake/scripts/gen_intl_procedures.py",
+        "70-tools/scripts/coverage/gen_gov_legal_coverage.py"
+      ],
+      "related": [
+        "doc:2605302357",
+        "doc:2606052300"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606061600-gov-procedures-publish-and-ameno-kotoba-conversation",
+      "type": "TechArticle",
+      "title": "ADR-2606061600: Government procedures published on etzhayyim.com by administrative unit + kotoba-grounded browser conversation (ameno gemma4-e4b)",
+      "status": "accepted",
+      "topic": "gov-procedures-publish-and-ameno-kotoba-conversation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "50-infra/etzhayyim-did-web/src/registry/gov-procedures.gen.ts",
+        "70-tools/scripts/entity-actors/gen-gov-procedures.py",
+        "70-tools/scripts/audit/test_gov_procedures_gen_fresh.py",
+        "40-engine/llm/inference/ameno/src/kotoba-ground.ts"
+      ],
+      "related": [
+        "doc:2606013800",
+        "doc:2605190824",
+        "doc:2605312345"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
+      "id": "doc:adr-2606062300-matsurigoto-egov-execution-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606062300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)",
+      "status": "accepted",
+      "topic": "matsurigoto-egov-execution-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "matsurigoto-egov-execution-commons",
+        "cofog-egov-service-standard"
+      ],
+      "related": [
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge",
+        "doc:adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "lastVerified": "2026-06-05"
+    },
+    {
+      "id": "doc:adr-2606063000-session-close-ooyake-world-model-reconcile",
+      "type": "TechArticle",
+      "title": "ADR-2606063000: Session close — ooyake↔tsumugi world-model reconcile layer (self-paced /loop maturation)",
+      "status": "active",
+      "topic": "ooyake-world-model-reconcile",
+      "authoritative": true,
+      "related": "doc:90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md",
       "lastVerified": "2026-06-06"
     },
     {

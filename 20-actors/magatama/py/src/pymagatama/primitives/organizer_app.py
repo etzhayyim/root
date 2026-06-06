@@ -7,10 +7,11 @@ import decimal as _decimal
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:organizer.etzhayyim.com"
@@ -228,11 +229,11 @@ def _write_related_edges(cur: Any, name: str, record: dict[str, Any], vertex_id:
     if name == "classification":
         item_id = _str(record.get("item_rkey") or record.get("itemId"))
         if item_id:
-            _write_edge(cur, "edge_organizer_item_classification", _vertex_uri("item", item_id), vertex_id, "classified_as", record, now)
+            _write_edge("edge_organizer_item_classification", _vertex_uri("item", item_id), vertex_id, "classified_as", record, now)
     elif name == "tag":
         item_id = _str(record.get("item_rkey") or record.get("itemId"))
         if item_id:
-            _write_edge(cur, "edge_organizer_item_tag", _vertex_uri("item", item_id), vertex_id, "tagged_with", record, now)
+            _write_edge("edge_organizer_item_tag", _vertex_uri("item", item_id), vertex_id, "tagged_with", record, now)
     elif name == "organizeRule":
         collection_id = _str(record.get("targetCollectionId"))
         if collection_id:
@@ -274,19 +275,8 @@ def _write_vertex(name: str, record: dict[str, Any]) -> dict[str, str]:
         "sensitivity_ord": 2,
         **typed,
     }
-    columns = _common_columns() + list(typed)
-    placeholders = ",".join(["%s"] * len(columns))
-    updates = ",".join([f"{col} = EXCLUDED.{col}" for col in columns if col != "vertex_id"])
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {updates}
-            """,
-            tuple(values[col] for col in columns),
-        )
-        _write_related_edges(cur, name, record, vertex_id, now)
+    get_kotoba_client().insert_row(table, values)
+    _write_related_edges(name, record, vertex_id, now)
     return {"uri": vertex_id, "rkey": rkey}
 
 
@@ -297,8 +287,7 @@ def _write_collection_item(record: dict[str, Any]) -> dict[str, str]:
     item_id = _str(record.get("itemId"))
     src = _vertex_uri("collection", collection_id)
     dst = _vertex_uri("item", item_id)
-    with sync_cursor() as cur:
-        _write_edge(cur, "edge_organizer_collection_item", src, dst, "contains_item", {"$type": _collection("collectionItem"), **record}, now)
+    _write_edge("edge_organizer_collection_item", src, dst, "contains_item", {"$type": _collection("collectionItem"), **record}, now)
     return {"uri": _edge_id("edge_organizer_collection_item", src, dst, "contains_item"), "rkey": rkey}
 
 
@@ -312,17 +301,17 @@ def _list(name: str, match: dict[str, Any] | None = None, *, limit: int = 50, of
     table = KIND_TABLES.get(name)
     if table is None or table in EDGE_TABLES.values():
         raise ValueError(f"unsupported organizer list kind: {name}")
-    rows: list[dict[str, Any]]
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT * FROM {table} ORDER BY indexed_at DESC LIMIT %s OFFSET %s",
-            (max(1, min(limit, 500)), max(0, offset)),
-        )
-        rows = _rows(cur)
+    # R0: select_where does not support ORDER BY, LIMIT, OFFSET directly.
+    # Fetch all records and apply sorting/pagination in Python.
+    rows: list[dict[str, Any]] = get_kotoba_client().select_where(table, "org_id", _str((match or {}).get("orgId") or "anon"), limit=2000)
+    # Apply additional filtering for other match parameters
     match = {k: v for k, v in (match or {}).items() if v not in ("", None)}
     if match:
         rows = [r for r in rows if all(str(r.get(k) or "") == str(v) for k, v in match.items())]
-    return rows
+
+    # Apply sorting, limit, and offset in Python
+    rows.sort(key=lambda x: x.get("indexed_at") or "", reverse=True) # Sort by indexed_at DESC
+    return rows[offset:offset + limit]
 
 
 def _clamp(limit: Any = 50, offset: Any = 0) -> tuple[int, int]:
@@ -591,3 +580,4 @@ def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)
+

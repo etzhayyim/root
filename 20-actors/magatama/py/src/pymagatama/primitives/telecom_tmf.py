@@ -24,9 +24,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
 ACTOR_TAG = "sys.worker.telecom.tmf"
 
@@ -109,38 +107,28 @@ def handle_publish_product_offering(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("productOffering", offering_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_product_offering (
-              vertex_id, owner_did, offering_id, name, description,
-              lifecycle_status, product_spec_id, category_ids, channel_ids,
-              market_ids, price_ref, valid_from_at, valid_to_at,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, offering_id,
-                payload["name"], payload.get("description"),
-                lifecycle, payload.get("productSpecId"),
-                _join(payload.get("categoryIds")),
-                _join(payload.get("channelIds")),
-                _join(payload.get("marketIds")),
-                payload.get("priceRef"),
-                payload.get("validFromAt"), payload.get("validToAt"),
-                observed_at, "active", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_product_offering", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "offering_id": offering_id,
+        "name": payload['name'],
+        "description": payload.get('description'),
+        "lifecycle_status": lifecycle,
+        "product_spec_id": payload.get('productSpecId'),
+        "category_ids": _join(payload.get('categoryIds')),
+        "channel_ids": _join(payload.get('channelIds')),
+        "market_ids": _join(payload.get('marketIds')),
+        "price_ref": payload.get('priceRef'),
+        "valid_from_at": payload.get('validFromAt'),
+        "valid_to_at": payload.get('validToAt'),
+        "observed_at": observed_at,
+        "status": 'active',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "offeringId": offering_id, "status": "active"}
 
@@ -158,36 +146,28 @@ def handle_submit_product_order(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("productOrder", order_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_product_order (
-              vertex_id, owner_did, product_order_id, account_id, order_kind,
-              offering_id, product_id, order_item_hash, order_item_ref,
-              requested_start_at, requested_completion_at, priority, channel_id,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, order_id,
-                payload["accountId"], order_kind,
-                payload.get("offeringId"), payload.get("productId"),
-                payload.get("orderItemHash"), payload.get("orderItemRef"),
-                payload.get("requestedStartAt"), payload.get("requestedCompletionAt"),
-                payload.get("priority"), payload.get("channelId"),
-                observed_at, "acknowledged", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_product_order", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "product_order_id": order_id,
+        "account_id": payload['accountId'],
+        "order_kind": order_kind,
+        "offering_id": payload.get('offeringId'),
+        "product_id": payload.get('productId'),
+        "order_item_hash": payload.get('orderItemHash'),
+        "order_item_ref": payload.get('orderItemRef'),
+        "requested_start_at": payload.get('requestedStartAt'),
+        "requested_completion_at": payload.get('requestedCompletionAt'),
+        "priority": payload.get('priority'),
+        "channel_id": payload.get('channelId'),
+        "observed_at": observed_at,
+        "status": 'acknowledged',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "productOrderId": order_id, "status": "acknowledged"}
 
@@ -205,34 +185,25 @@ def handle_record_product_inventory_item(payload: dict[str, Any]) -> dict[str, A
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("productInventory", record_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_product_inventory (
-              vertex_id, owner_did, record_id, product_id, account_id,
-              offering_id, product_order_id, lifecycle_status,
-              started_at, terminated_at, observed_at, status, created_at,
-              sensitivity_ord, org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, record_id,
-                payload["productId"], payload["accountId"],
-                payload.get("offeringId"), payload.get("productOrderId"),
-                lifecycle,
-                payload.get("startedAt"), payload.get("terminatedAt"),
-                observed_at, "recorded", observed_at,
-                2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_product_inventory", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "record_id": record_id,
+        "product_id": payload['productId'],
+        "account_id": payload['accountId'],
+        "offering_id": payload.get('offeringId'),
+        "product_order_id": payload.get('productOrderId'),
+        "lifecycle_status": lifecycle,
+        "started_at": payload.get('startedAt'),
+        "terminated_at": payload.get('terminatedAt'),
+        "observed_at": observed_at,
+        "status": 'recorded',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "recordId": record_id, "status": "recorded"}
 
@@ -250,35 +221,26 @@ def handle_submit_service_order(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("serviceOrder", svc_order_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_service_order (
-              vertex_id, owner_did, service_order_id, product_order_id,
-              product_id, service_spec, order_kind, order_item_hash, order_item_ref,
-              requested_start_at, requested_completion_at,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, svc_order_id,
-                payload["productOrderId"],
-                payload.get("productId"), payload.get("serviceSpec"),
-                order_kind, payload.get("orderItemHash"), payload.get("orderItemRef"),
-                payload.get("requestedStartAt"), payload.get("requestedCompletionAt"),
-                observed_at, "acknowledged", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_service_order", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "service_order_id": svc_order_id,
+        "product_order_id": payload['productOrderId'],
+        "product_id": payload.get('productId'),
+        "service_spec": payload.get('serviceSpec'),
+        "order_kind": order_kind,
+        "order_item_hash": payload.get('orderItemHash'),
+        "order_item_ref": payload.get('orderItemRef'),
+        "requested_start_at": payload.get('requestedStartAt'),
+        "requested_completion_at": payload.get('requestedCompletionAt'),
+        "observed_at": observed_at,
+        "status": 'acknowledged',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "serviceOrderId": svc_order_id, "status": "acknowledged"}
 
@@ -296,37 +258,24 @@ def handle_activate_service_instance(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("serviceActivation", act_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_service_activation (
-              vertex_id, owner_did, activation_id, service_order_id,
-              service_instance_kind, service_instance_vid, action,
-              configuration_hash, configuration_ref,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, act_id,
-                payload["serviceOrderId"],
-                payload["serviceInstanceKind"],
-                payload.get("serviceInstanceVid"),
-                action,
-                payload.get("configurationHash"),
-                payload.get("configurationRef"),
-                observed_at, "completed", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_service_activation", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "activation_id": act_id,
+        "service_order_id": payload['serviceOrderId'],
+        "service_instance_kind": payload['serviceInstanceKind'],
+        "service_instance_vid": payload.get('serviceInstanceVid'),
+        "action": action,
+        "configuration_hash": payload.get('configurationHash'),
+        "configuration_ref": payload.get('configurationRef'),
+        "observed_at": observed_at,
+        "status": 'completed',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "activationId": act_id, "status": "completed"}
 
@@ -344,36 +293,25 @@ def handle_record_service_inventory_item(payload: dict[str, Any]) -> dict[str, A
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("serviceInventory", record_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_service_inventory (
-              vertex_id, owner_did, record_id, service_instance_kind,
-              service_instance_vid, product_id, service_order_id,
-              lifecycle_status, operational_state, started_at,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, record_id,
-                payload["serviceInstanceKind"],
-                payload.get("serviceInstanceVid"),
-                payload.get("productId"), payload.get("serviceOrderId"),
-                lifecycle, payload.get("operationalState"),
-                payload.get("startedAt"),
-                observed_at, "recorded", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_service_inventory", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "record_id": record_id,
+        "service_instance_kind": payload['serviceInstanceKind'],
+        "service_instance_vid": payload.get('serviceInstanceVid'),
+        "product_id": payload.get('productId'),
+        "service_order_id": payload.get('serviceOrderId'),
+        "lifecycle_status": lifecycle,
+        "operational_state": payload.get('operationalState'),
+        "started_at": payload.get('startedAt'),
+        "observed_at": observed_at,
+        "status": 'recorded',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "recordId": record_id, "status": "recorded"}
 
@@ -398,42 +336,29 @@ def handle_register_customer_account(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("customerAccount", account_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_customer_account (
-              vertex_id, owner_did, account_id, customer_kind, account_kind,
-              party_name, party_contact, party_tax_id, billing_address,
-              currency, payment_method_kind, payment_method_ref,
-              parent_subscriber_id, jurisdiction,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, account_id,
-                customer_kind, account_kind,
-                _hash_pii(payload.get("partyName")),
-                _hash_pii(payload.get("partyContact")),
-                _hash_pii(payload.get("partyTaxId")),
-                _hash_pii(payload.get("billingAddress")),
-                payload.get("currency"), payment_kind,
-                payload.get("paymentMethodRef"),
-                payload.get("parentSubscriberId"),
-                payload.get("jurisdiction"),
-                observed_at, "active", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_customer_account", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "account_id": account_id,
+        "customer_kind": customer_kind,
+        "account_kind": account_kind,
+        "party_name": _hash_pii(payload.get('partyName')),
+        "party_contact": _hash_pii(payload.get('partyContact')),
+        "party_tax_id": _hash_pii(payload.get('partyTaxId')),
+        "billing_address": _hash_pii(payload.get('billingAddress')),
+        "currency": payload.get('currency'),
+        "payment_method_kind": payment_kind,
+        "payment_method_ref": payload.get('paymentMethodRef'),
+        "parent_subscriber_id": payload.get('parentSubscriberId'),
+        "jurisdiction": payload.get('jurisdiction'),
+        "observed_at": observed_at,
+        "status": 'active',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "accountId": account_id, "status": "active"}
 
@@ -453,36 +378,26 @@ def handle_issue_customer_bill(payload: dict[str, Any]) -> dict[str, Any]:
     created_at = _now_iso()
     vertex_id = _vid("customerBill", bill_id)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_tmf_customer_bill (
-              vertex_id, owner_did, bill_id, account_id, period_start, period_end,
-              currency, source_invoice_vids, due_at, delivery_channel,
-              bill_document_ref, total_amount, status, created_at,
-              sensitivity_ord, org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, bill_id,
-                payload["accountId"],
-                payload["periodStart"], payload["periodEnd"],
-                payload.get("currency"),
-                _join(payload.get("sourceInvoiceVids")),
-                payload.get("dueAt"), delivery,
-                payload.get("billDocumentRef"),
-                total_amount, "issued", created_at,
-                2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_tmf_customer_bill", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "bill_id": bill_id,
+        "account_id": payload['accountId'],
+        "period_start": payload['periodStart'],
+        "period_end": payload['periodEnd'],
+        "currency": payload.get('currency'),
+        "source_invoice_vids": _join(payload.get('sourceInvoiceVids')),
+        "due_at": payload.get('dueAt'),
+        "delivery_channel": delivery,
+        "bill_document_ref": payload.get('billDocumentRef'),
+        "total_amount": total_amount,
+        "status": 'issued',
+        "created_at": created_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {
         "vertexId": vertex_id,

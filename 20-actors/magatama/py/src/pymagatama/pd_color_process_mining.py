@@ -1,17 +1,17 @@
-"""Export public-domain colorization process-mining logs from RisingWave."""
+"""Export public-domain colorization process-mining logs from kotoba Datom log."""
 
 from __future__ import annotations
 
 import argparse
 import csv
 import json
-import os
+
 import sys
 from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 EVENT_COLUMNS = (
     "case_id",
@@ -26,17 +26,28 @@ EVENT_COLUMNS = (
 
 
 def _fetch_event_rows(limit: int | None = None) -> list[dict[str, Any]]:
-    query = """
-        SELECT case_id, activity, timestamp, resource, lifecycle, work_id, artifact_id, detail
-        FROM view_pd_color_process_event_log
-        ORDER BY case_id, timestamp, activity
+    client = get_kotoba_client()
+    query_edn = """
+    [:find ?case_id ?activity ?timestamp ?resource ?lifecycle ?work_id ?artifact_id ?detail
+     :where
+     [?e :view_pd_color_process_event_log/case_id ?case_id]
+     [?e :view_pd_color_process_event_log/activity ?activity]
+     [?e :view_pd_color_process_event_log/timestamp ?timestamp]
+     [?e :view_pd_color_process_event_log/resource ?resource]
+     [?e :view_pd_color_process_event_log/lifecycle ?lifecycle]
+     [?e :view_pd_color_process_event_log/work_id ?work_id]
+     [?e :view_pd_color_process_event_log/artifact_id ?artifact_id]
+     [?e :view_pd_color_process_event_log/detail ?detail]]
     """
-    params: tuple[Any, ...] = ()
+    rows_tuples = client.q(query_edn)
+    # Convert tuples to dicts
+    rows = [dict(zip(EVENT_COLUMNS, row, strict=False)) for row in rows_tuples]
+
+    # R0: Order By and Limit applied in Python as q() doesn't directly support ORDER BY in the same way as SQL.
+    rows.sort(key=lambda r: (str(r.get("case_id") or ""), str(r.get("timestamp") or ""), str(r.get("activity") or "")))
     if limit is not None and limit > 0:
-        query += f" LIMIT {int(limit)}"
-    with sync_cursor() as cur:
-        cur.execute(query, params)
-        return [dict(zip(EVENT_COLUMNS, row, strict=False)) for row in cur.fetchall()]
+        rows = rows[:limit]
+    return rows
 
 
 def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -66,7 +77,7 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
     return {
         "generatedAt": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "source": "RisingWave view_pd_color_process_event_log",
+        "source": "kotoba Datom log view_pd_color_process_event_log",
         "eventCount": len(rows),
         "caseCount": len(by_case),
         "publishedCaseCount": len(published_cases),
@@ -97,8 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", default="", help="write output to this path instead of stdout")
     args = parser.parse_args(argv)
 
-    if not os.environ.get("RW_URL"):
-        parser.error("RW_URL is required")
+
 
     rows = _fetch_event_rows(args.limit or None)
     if args.command == "csv":

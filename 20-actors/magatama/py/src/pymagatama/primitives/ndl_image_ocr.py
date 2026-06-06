@@ -6,31 +6,14 @@ records do not have ISBNs. The durable image body is WebP in B2; RisingWave
 stores catalog metadata, page image hashes, OCR text, and run/cursor state.
 """
 
-from __future__ import annotations
-
-import base64
-import calendar
-import hashlib
-import html
-import io
-import json
-import os
-import re
-import subprocess
-import tempfile
-import time
-import urllib.error
-import urllib.parse
-import urllib.request
-from datetime import date
+from datetime import datetime, date, timezone
 from typing import Any
 from xml.etree import ElementTree as ET
 
 import httpx
-from sqlalchemy import text
 from PIL import Image
 
-from pymagatama.db_alchemy import sa_execute_one, sa_rowcount
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _ACTOR = "did:web:ndl.etzhayyim.com"
 _B2_BUCKET = os.environ.get("B2_NDL_BUCKET", "etzhayyim-ndl").strip() or "etzhayyim-ndl"
@@ -73,11 +56,11 @@ Do not summarize. Do not infer unreadable characters. Preserve Japanese text, ru
 
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _today_date() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
+    return date.today().isoformat()
 
 
 def _sha256(data: bytes) -> str:
@@ -100,63 +83,6 @@ def _http_get(url: str, *, timeout: float = 60.0, accept: str = "*/*") -> bytes:
         except Exception:
             pass
         raise RuntimeError(f"HTTP {exc.code} GET {url}: {detail}") from exc
-
-
-def _rw_exec(sql: str, row: dict[str, Any]) -> None:
-    sa_rowcount(text(sql), row)
-
-
-def _rw_exec_many(sql: str, rows: list[dict[str, Any]]) -> None:
-    if not rows:
-        return
-    from pymagatama.db_sync import sync_cursor
-
-    with sync_cursor() as cur:
-        cur.executemany(sql, rows)
-
-
-def _rw_one(sql: str, row: dict[str, Any]) -> tuple[Any, ...] | None:
-    return sa_execute_one(text(sql), row)
-
-
-def _rw_delete_vertex(table: str, vertex_id: str) -> None:
-    if table not in {
-        "vertex_ndl_digital_item",
-        "vertex_ndl_digital_page",
-        "vertex_ndl_ocr_text",
-        "vertex_ndl_ingest_cursor",
-        "vertex_ndl_ingest_run",
-        "vertex_ndl_oai_checkpoint",
-    }:
-        raise ValueError(f"unsupported NDL table: {table}")
-    sa_rowcount(text(f"DELETE FROM {table} WHERE vertex_id = %(vertex_id)s"), {"vertex_id": vertex_id})
-
-
-def _rw_delete_vertices(table: str, vertex_ids: list[str]) -> None:
-    if not vertex_ids:
-        return
-    if table not in {
-        "vertex_ndl_digital_item",
-        "vertex_ndl_digital_page",
-        "vertex_ndl_ocr_text",
-        "vertex_ndl_ingest_cursor",
-        "vertex_ndl_ingest_run",
-        "vertex_ndl_oai_checkpoint",
-    }:
-        raise ValueError(f"unsupported NDL table: {table}")
-    params = {f"v{i}": vertex_id for i, vertex_id in enumerate(vertex_ids)}
-    placeholders = ", ".join(f"%({key})s" for key in params)
-    sa_rowcount(text(f"DELETE FROM {table} WHERE vertex_id IN ({placeholders})"), params)
-
-
-def _rw_replace_vertex(table: str, vertex_id: str, insert_sql: str, row: dict[str, Any]) -> None:
-    _rw_delete_vertex(table, vertex_id)
-    _rw_exec(insert_sql, row)
-
-
-def _rw_replace_vertices(table: str, vertex_ids: list[str], insert_sql: str, rows: list[dict[str, Any]]) -> None:
-    _rw_delete_vertices(table, vertex_ids)
-    _rw_exec_many(insert_sql, rows)
 
 
 def _text_or_empty(parent: ET.Element, tag: str) -> str:
@@ -364,27 +290,37 @@ def _oai_checkpoint_vertex_id(
 
 
 def _read_oai_checkpoint(provider_id: str, set_group: str, window_start: str, window_end: str) -> tuple[str, int, int, int, str] | None:
-    row = _rw_one(
-        """
-        SELECT resumption_token, pages_seen, records_seen, items_inserted, status
-        FROM vertex_ndl_oai_checkpoint
-        WHERE provider_id = %(provider_id)s
-          AND set_group = %(set_group)s
-          AND window_start = %(window_start)s
-          AND window_end = %(window_end)s
-        ORDER BY pages_seen DESC, records_seen DESC, updated_at DESC
-        LIMIT 1
-        """,
-        {
-            "provider_id": provider_id,
+    row = get_kotoba_client().select_first_where(
+        "vertex_ndl_oai_checkpoint",
+        "provider_id",
+        provider_id,
+        columns=[
+            "resumption_token",
+            "pages_seen",
+            "records_seen",
+            "items_inserted",
+            "status",
+        ],
+        filters={
             "set_group": set_group,
             "window_start": window_start,
             "window_end": window_end,
         },
+        order_by=[
+            ("pages_seen", "desc"),
+            ("records_seen", "desc"),
+            ("updated_at", "desc"),
+        ],
     )
     if row is None:
         return None
-    return (str(row[0] or ""), int(row[1] or 0), int(row[2] or 0), int(row[3] or 0), str(row[4] or ""))
+    return (
+        str(row.get("resumption_token") or ""),
+        int(row.get("pages_seen") or 0),
+        int(row.get("records_seen") or 0),
+        int(row.get("items_inserted") or 0),
+        str(row.get("status") or ""),
+    )
 
 
 def _manifest_canvases(manifest_url: str) -> list[dict[str, Any]]:
@@ -465,35 +401,33 @@ def _cursor_vertex_id(provider_id: str, query: str) -> str:
 def _resume_start_record(provider_id: str, query: str, requested_start: int) -> int:
     if int(requested_start) > 1:
         return int(requested_start)
-    row = _rw_one(
-        """
-        SELECT next_start_record
-        FROM vertex_ndl_ingest_cursor
-        WHERE vertex_id = %(vertex_id)s AND status = 'active'
-        LIMIT 1
-        """,
-        {"vertex_id": _cursor_vertex_id(provider_id, query)},
+    row = get_kotoba_client().select_first_where(
+        "vertex_ndl_ingest_cursor",
+        "vertex_id",
+        _cursor_vertex_id(provider_id, query),
+        columns=["next_start_record"],
+        filters={"status": "active"},
     )
-    if row and row[0]:
-        return max(1, int(row[0]))
+    if row and row.get("next_start_record"):
+        return max(1, int(row["next_start_record"]))
     return max(1, int(requested_start))
 
 
 def _page_has_completed_ocr(pid: str, page_index: int) -> bool:
-    row = _rw_one(
-        """
-        SELECT p.ocr_status
-        FROM vertex_ndl_digital_page AS p
-        JOIN vertex_ndl_ocr_text AS o
-          ON o.pid = p.pid AND o.page_index = p.page_index AND o.status = 'active'
-        WHERE p.vertex_id = %(vertex_id)s
-          AND p.ocr_status = 'completed'
-          AND p.status = 'active'
-        LIMIT 1
-        """,
-        {"vertex_id": f"at://{_ACTOR}/com.etzhayyim.apps.ndl.digitalPage/{pid}-{page_index + 1:06d}"},
-    )
-    return row is not None
+    # R0: This uses a raw Datalog query for a join equivalent.
+    query_edn = f"""
+    [:find ?page-id
+     :where
+     [?page-id :vertex_ndl_digital_page/pid "{pid}"]
+     [?page-id :vertex_ndl_digital_page/page_index {page_index}]
+     [?page-id :vertex_ndl_digital_page/ocr_status "completed"]
+     [?page-id :vertex_ndl_digital_page/status "active"]
+     [?ocr-id :vertex_ndl_ocr_text/pid "{pid}"]
+     [?ocr-id :vertex_ndl_ocr_text/page_index {page_index}]
+     [?ocr-id :vertex_ndl_ocr_text/status "active"]]
+    """
+    results = get_kotoba_client().q(query_edn)
+    return bool(results)
 
 
 async def _ocr_webp(webp: bytes) -> dict[str, Any]:
@@ -573,90 +507,6 @@ def _ocr_webp_tesseract(webp: bytes) -> dict[str, Any]:
     }
 
 
-_INSERT_ITEM = """
-INSERT INTO vertex_ndl_digital_item (
-  vertex_id, created_date, sensitivity_ord, owner_did, pid, provider_id,
-  repository_no, title, creator, issued, language, material_type, access_scope,
-  content_license, source_url, manifest_url, record_xml_sha256, status,
-  discovered_at, updated_at, org_id, user_id, actor_id
-) VALUES (
-  %(vertex_id)s, %(created_date)s, 2, %(owner_did)s, %(pid)s, %(provider_id)s,
-  %(repository_no)s, %(title)s, %(creator)s, %(issued)s, %(language)s,
-  %(material_type)s, %(access_scope)s, %(content_license)s, %(source_url)s,
-  %(manifest_url)s, %(record_xml_sha256)s, 'active', %(discovered_at)s,
-  %(updated_at)s, %(org_id)s, %(user_id)s, %(actor_id)s
-)
-"""
-
-_INSERT_PAGE = """
-INSERT INTO vertex_ndl_digital_page (
-  vertex_id, created_date, sensitivity_ord, owner_did, pid, provider_id,
-  page_index, source_image_url, webp_sha256, webp_cid_v1, webp_b2_bucket,
-  webp_b2_key, webp_byte_size, width_px, height_px, ocr_status, status,
-  created_at, updated_at, org_id, user_id, actor_id
-) VALUES (
-  %(vertex_id)s, %(created_date)s, 2, %(owner_did)s, %(pid)s, %(provider_id)s,
-  %(page_index)s, %(source_image_url)s, %(webp_sha256)s, %(webp_cid_v1)s,
-  %(webp_b2_bucket)s, %(webp_b2_key)s, %(webp_byte_size)s, %(width_px)s,
-  %(height_px)s, %(ocr_status)s, 'active', %(created_at)s, %(updated_at)s,
-  %(org_id)s, %(user_id)s, %(actor_id)s
-)
-"""
-
-_INSERT_OCR = """
-INSERT INTO vertex_ndl_ocr_text (
-  vertex_id, created_date, sensitivity_ord, owner_did, pid, page_index,
-  ocr_engine, ocr_model, ocr_text, ocr_json, warnings, text_sha256,
-  text_byte_size, status, created_at, org_id, user_id, actor_id
-) VALUES (
-  %(vertex_id)s, %(created_date)s, 2, %(owner_did)s, %(pid)s, %(page_index)s,
-  %(ocr_engine)s, %(ocr_model)s, %(ocr_text)s, %(ocr_json)s, %(warnings)s,
-  %(text_sha256)s, %(text_byte_size)s, 'active', %(created_at)s,
-  %(org_id)s, %(user_id)s, %(actor_id)s
-)
-"""
-
-_INSERT_CURSOR = """
-INSERT INTO vertex_ndl_ingest_cursor (
-  vertex_id, created_date, sensitivity_ord, owner_did, provider_id, query,
-  next_start_record, last_run_id, status, updated_at, org_id, user_id, actor_id
-) VALUES (
-  %(vertex_id)s, %(created_date)s, 2, %(owner_did)s, %(provider_id)s, %(query)s,
-  %(next_start_record)s, %(last_run_id)s, %(status)s, %(updated_at)s,
-  %(org_id)s, %(user_id)s, %(actor_id)s
-)
-"""
-
-_INSERT_RUN = """
-INSERT INTO vertex_ndl_ingest_run (
-  vertex_id, created_date, sensitivity_ord, owner_did, run_id, provider_id,
-  query, start_record, max_records, max_items, max_pages_per_item, items_seen,
-  items_inserted, pages_inserted, pages_processed, ocr_inserted, bytes_webp,
-  status, error, started_at, finished_at, org_id, user_id, actor_id
-) VALUES (
-  %(vertex_id)s, %(created_date)s, 2, %(owner_did)s, %(run_id)s, %(provider_id)s,
-  %(query)s, %(start_record)s, %(max_records)s, %(max_items)s,
-  %(max_pages_per_item)s, %(items_seen)s, %(items_inserted)s,
-  %(pages_inserted)s, %(pages_processed)s, %(ocr_inserted)s, %(bytes_webp)s,
-  %(status)s, %(error)s, %(started_at)s, %(finished_at)s,
-  %(org_id)s, %(user_id)s, %(actor_id)s
-)
-"""
-
-_INSERT_OAI_CHECKPOINT = """
-INSERT INTO vertex_ndl_oai_checkpoint (
-  vertex_id, created_date, sensitivity_ord, owner_did, provider_id, set_group,
-  metadata_prefix, window_start, window_end, resumption_token, pages_seen,
-  records_seen, items_inserted, status, error, updated_at, org_id, user_id, actor_id
-) VALUES (
-  %(vertex_id)s, %(created_date)s, 2, %(owner_did)s, %(provider_id)s, %(set_group)s,
-  %(metadata_prefix)s, %(window_start)s, %(window_end)s, %(resumption_token)s,
-  %(pages_seen)s, %(records_seen)s, %(items_inserted)s, %(status)s, %(error)s,
-  %(updated_at)s, %(org_id)s, %(user_id)s, %(actor_id)s
-)
-"""
-
-
 def _item_insert_row(item: dict[str, str], now: str) -> dict[str, Any]:
     pid = item["pid"]
     return {
@@ -728,8 +578,7 @@ def _write_oai_checkpoint(
         "user_id": _ACTOR,
         "actor_id": "sys.langgraph.ndl-online-oai",
     }
-    _rw_delete_vertex("vertex_ndl_oai_checkpoint", vertex_id)
-    _rw_exec(_INSERT_OAI_CHECKPOINT, row)
+    get_kotoba_client().insert_row("vertex_ndl_oai_checkpoint", row)
 
 
 def _write_run_and_cursor(
@@ -747,8 +596,8 @@ def _write_run_and_cursor(
     started_at: str,
 ) -> None:
     finished = _now_iso()
-    _rw_exec(
-        _INSERT_RUN,
+    get_kotoba_client().insert_row(
+        "vertex_ndl_ingest_run",
         {
             "vertex_id": f"at://{_ACTOR}/com.etzhayyim.apps.ndl.ingestRun/{run_id}",
             "created_date": _today_date(),
@@ -778,10 +627,8 @@ def _write_run_and_cursor(
     next_start = int(stats.get("nextStartRecord") or 0)
     if status == "completed" and next_start > 0:
         vertex_id = _cursor_vertex_id(provider_id, query)
-        _rw_replace_vertex(
+        get_kotoba_client().insert_row(
             "vertex_ndl_ingest_cursor",
-            vertex_id,
-            _INSERT_CURSOR,
             {
                 "vertex_id": vertex_id,
                 "created_date": _today_date(),

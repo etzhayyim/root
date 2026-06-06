@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import datetime as _dt
+
 import hashlib
 import html as _html
 import re
@@ -8,9 +8,10 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as _ET
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ── Constants ──────────────────────────────────────────────────────────────
 
@@ -122,7 +123,7 @@ _ATOM_NS = "http://www.w3.org/2005/Atom"
 # ── Helpers ────────────────────────────────────────────────────────────────
 
 def _utc_now() -> str:
-    return _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _company_vid(exchange: str, sec_code: str) -> str:
@@ -230,33 +231,18 @@ def _parse_date(raw: str) -> str:
 
 def _insert_ignore(table: str, row: dict[str, Any]) -> int:
     row = {k: v for k, v in row.items() if v is not None}
-    vid = row.get("vertex_id", "")
-    cols = list(row.keys())
-    col_list = ", ".join(cols)
-    placeholders = ", ".join([f"%({c})s" for c in cols])
-    sql_text = (
-        f"INSERT INTO {table} ({col_list}) "
-        f"SELECT {placeholders} "
-        f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %(vertex_id)s)"
-    )
-    with sync_cursor() as cur:
-        cur.execute(sql_text, {**row, "vertex_id": vid}, prepare=False)
-        return int(cur.rowcount or 0)
+    if not row.get("vertex_id"):
+        return 0 # `insert_row` requires vertex_id for upsert logic
+
+    client = get_kotoba_client()
+    return client.insert_row(table, row)
 
 
 def _upsert(table: str, row: dict[str, Any]) -> None:
     row = {k: v for k, v in row.items() if v is not None}
-    cols = list(row.keys())
-    col_list = ", ".join(cols)
-    placeholders = ", ".join([f"%({c})s" for c in cols])
-    with sync_cursor() as cur:
-        if "vertex_id" in row:
-            cur.execute(
-                f"DELETE FROM {table} WHERE vertex_id = %(vertex_id)s",
-                {"vertex_id": row["vertex_id"]},
-                prepare=False,
-            )
-        cur.execute(f"INSERT INTO {table} ({col_list}) VALUES ({placeholders})", row, prepare=False)
+    # `insert_row` handles upsert logic based on the identity column (e.g., vertex_id)
+    # The explicit DELETE is no longer needed.
+    get_kotoba_client().insert_row(table, row)
 
 
 # ── Task: queue seeds ──────────────────────────────────────────────────────
@@ -291,15 +277,18 @@ def task_ir_scrape_queue_seeds(
         })
 
         # Skip if a queued or running run already exists
-        with sync_cursor() as cur:
-            cur.execute(
-                "SELECT COUNT(*) FROM vertex_ir_scraper_run "
-                "WHERE company_vertex_id = %(vid)s AND status IN ('queued', 'running') LIMIT 1",
-                {"vid": vid},
-                prepare=False,
-            )
-            row = cur.fetchone()
-            in_flight = int((row[0] if row else 0) or 0)
+        client = get_kotoba_client()
+        runs = client.select_where(
+            "vertex_ir_scraper_run",
+            "company_vertex_id",
+            vid,
+            columns=["status"],
+            limit=2000 # R0: arbitrary limit, then filter in python
+        )
+        in_flight = 0
+        for r in runs:
+            if r.get("status") in ("queued", "running"):
+                in_flight += 1
 
         if in_flight:
             skipped += 1
@@ -333,21 +322,26 @@ def task_ir_scrape_process_queue(
     now = _utc_now()
 
     # Reclaim runs stuck in 'running' for longer than the stale timeout.
-    stale_cutoff = _dt.datetime.now(_dt.timezone.utc) - _dt.timedelta(
+    client = get_kotoba_client()
+    # Reclaim runs stuck in 'running' for longer than the stale timeout.
+    stale_cutoff = datetime.now(timezone.utc) - datetime.timedelta(
         seconds=_STALE_RUNNING_TIMEOUT_SEC
     )
     stale_cutoff_str = stale_cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT vertex_id, company_vertex_id, ir_url "
-            "FROM vertex_ir_scraper_run "
-            "WHERE status = 'running' AND started_at < %(cutoff)s "
-            "LIMIT 20",
-            {"cutoff": stale_cutoff_str},
-            prepare=False,
-        )
-        cols = [d[0] for d in cur.description] if cur.description else []
-        stale = [dict(zip(cols, r)) for r in (cur.fetchall() or [])]
+
+    stale_runs_raw = client.select_where(
+        "vertex_ir_scraper_run",
+        "status",
+        "running",
+        columns=["vertex_id", "company_vertex_id", "ir_url", "started_at"],
+        limit=2000 # R0: arbitrary limit, then filter in python
+    )
+    stale = []
+    for r in stale_runs_raw:
+        if r.get("started_at") and r["started_at"] < stale_cutoff_str:
+            stale.append(r)
+        if len(stale) >= 20: # Apply the limit as well
+            break
     for s in stale:
         _upsert("vertex_ir_scraper_run", {
             "vertex_id": s["vertex_id"],
@@ -361,17 +355,17 @@ def task_ir_scrape_process_queue(
             "created_at": now,
         })
 
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT vertex_id, company_vertex_id, ir_url "
-            f"FROM vertex_ir_scraper_run "
-            f"WHERE status = 'queued' "
-            f"ORDER BY queued_at ASC NULLS LAST "
-            f"LIMIT {int(maxRuns)}",
-            prepare=False,
-        )
-        cols = [d[0] for d in cur.description] if cur.description else []
-        runs = [dict(zip(cols, r)) for r in (cur.fetchall() or [])]
+    queued_runs_raw = client.select_where(
+        "vertex_ir_scraper_run",
+        "status",
+        "queued",
+        columns=["vertex_id", "company_vertex_id", "ir_url", "queued_at"],
+        limit=2000 # R0: arbitrary limit, then sort and limit in python
+    )
+    # Sort by queued_at ASC, handling NULLS LAST (Python's None is smaller than string, so needs custom sort key)
+    # Datalog doesn't have NULLS LAST directly, so we sort by `is None` first.
+    runs = sorted(queued_runs_raw, key=lambda x: (x.get("queued_at") is None, x.get("queued_at")))
+    runs = runs[:int(maxRuns)]
 
     processed = 0
     total_inserted = 0

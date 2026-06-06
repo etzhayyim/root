@@ -15,11 +15,12 @@ import hashlib
 import json
 import os
 import re
-import time
+
 import urllib.request as _req
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _OPENROUTER_KEY = os.environ.get("SS_OPENROUTER_API_KEY", "").strip()
 _OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
@@ -225,71 +226,84 @@ def _openrouter_extract(domain: str, url: str, title: str, description: str) -> 
 def _get_cursor(dom: str) -> str:
     """Return last processed vertex_id for this domain ('' = start from beginning)."""
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                "SELECT last_vertex_id FROM vertex_cc_entity_cursor WHERE domain = %s",
-                [dom],
-            )
-            row = cur.fetchone()
-            return row[0] if row else ""
+        row = get_kotoba_client().select_first_where(
+            "vertex_cc_entity_cursor",
+            "domain",
+            dom,
+            columns=["last_vertex_id"],
+        )
+        return row["last_vertex_id"] if row else ""
     except Exception:
         return ""
 
 
 def _set_cursor(dom: str, last_vertex_id: str) -> None:
-    now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    now_iso = datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_cc_entity_cursor (domain, last_vertex_id, updated_at)
-                VALUES (%s, %s, %s)
-                """,
-                [dom, last_vertex_id, now_iso],
-            )
+        get_kotoba_client().insert_row(
+            "vertex_cc_entity_cursor",
+            {
+                "domain": dom,
+                "last_vertex_id": last_vertex_id,
+                "updated_at": now_iso,
+            },
+        )
     except Exception:
         pass
 
 
-def _write_entity_record(cur: Any, *, dom: str, cfg: dict[str, Any], rec: dict[str, Any], now_iso: str) -> None:
+def _write_entity_record(*, dom: str, cfg: dict[str, Any], rec: dict[str, Any], now_iso: str) -> None:
     uri = f"at://{cfg['repo']}/{cfg['collection']}/{rec['rkey']}"
     value = {"$type": cfg["collection"], **rec["value"]}
     name = str(rec["value"].get(cfg["entity_key"]) or rec["value"].get("name") or rec["value"].get("title") or "")[:512]
     source = str(rec["value"].get("_source") or "")
 
     if dom == "kuruma":
-        cur.execute(
-            """
-            INSERT INTO vertex_kuruma_model
-              (vertex_id, _seq, created_date, sensitivity_ord, owner_did, name, wikidata_qid)
-            VALUES (%s, 0, %s, 300, %s, %s, %s)
-            ON CONFLICT (vertex_id) DO UPDATE SET name = EXCLUDED.name, wikidata_qid = EXCLUDED.wikidata_qid
-            """,
-            (uri, now_iso[:10], cfg["repo"], name, str(rec["value"].get("wikidata_qid") or "")),
+        get_kotoba_client().insert_row(
+            "vertex_kuruma_model",
+            {
+                "vertex_id": uri,
+                "_seq": 0,
+                "created_date": now_iso[:10],
+                "sensitivity_ord": 300,
+                "owner_did": cfg["repo"],
+                "name": name,
+                "wikidata_qid": str(rec["value"].get("wikidata_qid") or ""),
+            },
         )
         return
 
     if dom == "media_anime":
-        cur.execute(
-            """
-            INSERT INTO vertex_anime_title
-              (vertex_id, _seq, created_date, sensitivity_ord, owner_did, external_ids, title_en, title_ja, type, status)
-            VALUES (%s, 0, %s, 300, %s, %s, %s, %s, %s, %s)
-            ON CONFLICT (vertex_id) DO UPDATE SET title_en = EXCLUDED.title_en, external_ids = EXCLUDED.external_ids
-            """,
-            (uri, now_iso[:10], cfg["repo"], source, name, str(rec["value"].get("title_ja") or ""), str(rec["value"].get("type") or ""), str(rec["value"].get("status") or "")),
+        get_kotoba_client().insert_row(
+            "vertex_anime_title",
+            {
+                "vertex_id": uri,
+                "_seq": 0,
+                "created_date": now_iso[:10],
+                "sensitivity_ord": 300,
+                "owner_did": cfg["repo"],
+                "external_ids": source,
+                "title_en": name,
+                "title_ja": str(rec["value"].get("title_ja") or ""),
+                "type": str(rec["value"].get("type") or ""),
+                "status": str(rec["value"].get("status") or ""),
+            },
         )
         return
 
     if dom == "media_gamers":
-        cur.execute(
-            """
-            INSERT INTO vertex_game_title
-              (vertex_id, _seq, created_date, sensitivity_ord, owner_did, external_ids, title_en, title_ja)
-            VALUES (%s, 0, %s, 300, %s, %s, %s, %s)
-            ON CONFLICT (vertex_id) DO UPDATE SET title_en = EXCLUDED.title_en, external_ids = EXCLUDED.external_ids
-            """,
-            (uri, now_iso[:10], cfg["repo"], source, name, str(rec["value"].get("title_ja") or "")),
+        get_kotoba_client().insert_row(
+            "vertex_game_title",
+            {
+                "vertex_id": uri,
+                "_seq": 0,
+                "created_date": now_iso[:10],
+                "sensitivity_ord": 300,
+                "owner_did": cfg["repo"],
+                "external_ids": source,
+                "title_en": name,
+                "title_ja": str(rec["value"].get("title_ja") or ""),
+            },
         )
         return
 
@@ -299,51 +313,40 @@ def _write_entity_record(cur: Any, *, dom: str, cfg: dict[str, Any], rec: dict[s
         source_page_did = str(rec["value"].get("_source_page_did") or "")
         manufacturer = str(rec["value"].get("manufacturer") or rec["value"].get("vendor") or "")
         family = str(rec["value"].get("product_family") or rec["value"].get("family") or rec["value"].get("series") or "")
-        cur.execute(
-            """
-            INSERT INTO vertex_handotai_chip
-              (vertex_id, chip_id, name, manufacturer, product_family,
-               source_url, source_title, source_domain, value_json,
-               indexed_at, created_at, updated_at, actor_did, org_did,
-               owner_did, sensitivity_ord)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 300)
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              name = EXCLUDED.name,
-              manufacturer = EXCLUDED.manufacturer,
-              product_family = EXCLUDED.product_family,
-              source_url = EXCLUDED.source_url,
-              value_json = EXCLUDED.value_json,
-              indexed_at = EXCLUDED.indexed_at,
-              updated_at = EXCLUDED.updated_at
-            """,
-            (
-                uri,
-                rec["rkey"],
-                name,
-                manufacturer,
-                family,
-                source_url,
-                str(rec["value"].get("title") or ""),
-                source,
-                value_json,
-                now_iso,
-                now_iso,
-                now_iso,
-                cfg["repo"],
-                "anon",
-                cfg["repo"],
-            ),
+        get_kotoba_client().insert_row(
+            "vertex_handotai_chip",
+            {
+                "vertex_id": uri,
+                "chip_id": rec["rkey"],
+                "name": name,
+                "manufacturer": manufacturer,
+                "product_family": family,
+                "source_url": source_url,
+                "source_title": str(rec["value"].get("title") or ""),
+                "source_domain": source,
+                "value_json": value_json,
+                "indexed_at": now_iso,
+                "created_at": now_iso,
+                "updated_at": now_iso,
+                "actor_did": cfg["repo"],
+                "org_did": "anon",
+                "owner_did": cfg["repo"],
+                "sensitivity_ord": 300,
+            },
         )
         if source_page_did:
             edge_id = "edge:handotai:chip_source_page:" + hashlib.sha256(f"{uri}|{source_page_did}".encode()).hexdigest()[:24]
-            cur.execute(
-                """
-                INSERT INTO edge_handotai_chip_source_page
-                  (edge_id, from_vertex_id, to_vertex_id, chip_id, source_url, relation, created_at)
-                VALUES (%s, %s, %s, %s, %s, 'extracted_from', %s)
-                ON CONFLICT (edge_id) DO UPDATE SET source_url = EXCLUDED.source_url
-                """,
-                (edge_id, uri, source_page_did, rec["rkey"], source_url, now_iso),
+            get_kotoba_client().insert_row(
+                "edge_handotai_chip_source_page",
+                {
+                    "edge_id": edge_id,
+                    "from_vertex_id": uri,
+                    "to_vertex_id": source_page_did,
+                    "chip_id": rec["rkey"],
+                    "source_url": source_url,
+                    "relation": "extracted_from",
+                    "created_at": now_iso,
+                },
             )
         return
 
@@ -357,8 +360,8 @@ def task_common_crawl_extract_entities(
     """
     Extract structured entities from vertex_page rows using cursor-based pagination.
 
-    Avoids IS NULL scan on a 985M-row table; uses vertex_id > last_cursor ORDER BY
-    vertex_id with the domain index (INCLUDE vertex_id) instead.
+    Uses Datalog query with `vertex_id > last_cursor` and `ORDER BY vertex_id`
+    for efficient pagination.
     When domain is empty (timer-start), processes all 4 domains in sequence.
     Returns {processed, extracted, domain, status}.
     """
@@ -370,26 +373,30 @@ def task_common_crawl_extract_entities(
     limit = max(1, min(30, limit or 15))
     total_processed = 0
     total_extracted = 0
-    now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    now_iso = datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
 
     for dom in domains_to_run:
         cfg = _DOMAINS[dom]
-        domain_list = ", ".join(f"'{d.replace(chr(39), chr(39)+chr(39))}'" for d in cfg["domains"])
+        domain_set = set(cfg["domains"])
         cursor = _get_cursor(dom)
 
-        with sync_cursor() as cur:
-            cur.execute(
-                f"""
-                SELECT vertex_id, url, title, description
-                FROM vertex_page
-                WHERE domain IN ({domain_list})
-                  AND vertex_id > %s
-                ORDER BY vertex_id ASC
-                LIMIT {int(limit)}
-                """,
-                [cursor],
-            )
-            rows = cur.fetchall()
+        query_edn = f"""
+        [:find ?vertex_id ?url ?title ?description
+         :where
+         [?e :vertex_page/domain ?d]
+         [(contains? %s ?d)]
+         [?e :vertex_page/vertex_id ?vertex_id]
+         [?e :vertex_page/url ?url]
+         [?e :vertex_page/title ?title]
+         [?e :vertex_page/description ?description]
+         [(> ?vertex_id %s)]
+         :in $ domain_set cursor
+         :limit {int(limit)}
+         :order-by [?vertex_id :asc]
+        ]
+        """
+        # R0: Converted complex SELECT with ORDER BY and LIMIT to raw Datalog query for cursor-based pagination efficiency.
+        rows = get_kotoba_client().q(query_edn, (domain_set, cursor))
 
         # If no rows after cursor, wrap around to beginning
         if not rows and cursor:
@@ -429,9 +436,8 @@ def task_common_crawl_extract_entities(
 
         # Write entity records to domain state tables.
         if valid_records:
-            with sync_cursor() as cur:
-                for rec in valid_records:
-                    _write_entity_record(cur, dom=dom, cfg=cfg, rec=rec, now_iso=now_iso)
+            for rec in valid_records:
+                _write_entity_record(dom=dom, cfg=cfg, rec=rec, now_iso=now_iso)
 
         # Advance cursor to max vertex_id processed this batch
         _set_cursor(dom, rows[-1][0])

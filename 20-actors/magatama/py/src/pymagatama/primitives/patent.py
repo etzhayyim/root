@@ -22,42 +22,15 @@ Tools required for patent.blob.convert on the worker pod:
 
 from __future__ import annotations
 
-import csv
-import gzip
-import hashlib
-import io
-import json
-import os
-import time
-import urllib.error
-import urllib.parse
-import urllib.request
-import uuid
-from typing import Any
-
-from pymagatama.db_sync import sync_cursor
-
-# ──────────────────────────────────────────────────────────────────────
-# Env vars
-# ──────────────────────────────────────────────────────────────────────
-
-_EPO_OPS_KEY = os.environ.get("EPO_OPS_CLIENT_KEY", "").strip()
-_EPO_OPS_SECRET = os.environ.get("EPO_OPS_CLIENT_SECRET", "").strip()
-_EPO_OPS_AUTH_URL = "https://ops.epo.org/3.2/auth/accesstoken"
-_EPO_OPS_BASE = "https://ops.epo.org/3.2/rest-services"
-
-_B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "").strip()
-_B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
-_B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")
-
-_PATENT_ACTOR = "did:web:patent.etzhayyim.com"
+from datetime import datetime, timezone
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ──────────────────────────────────────────────────────────────────────
 # Helpers
 # ──────────────────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _http_get(url: str, headers: dict[str, str] | None = None, timeout: float = 60.0) -> bytes:
@@ -155,17 +128,6 @@ def _b2_put(bucket: str, key: str, data: bytes, content_type: str) -> str:
         if resp.status not in (200, 204):
             raise RuntimeError(f"B2 PUT failed: {resp.status}")
     return f"b2://{bucket}/{key}"
-
-
-def _rw_execute(sql: str, params: tuple[Any, ...] = ()) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-
-
-def _rw_executemany(sql: str, rows: list[tuple[Any, ...]]) -> None:
-    with sync_cursor() as cur:
-        for row in rows:
-            cur.execute(sql, row)
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -281,12 +243,16 @@ async def task_patent_epo_ops_fill_citations(
             ))
 
         if cit_rows:
-            _rw_executemany(
-                f"INSERT INTO {citationEdgeTable} "
-                "(vertex_id, citing_patent_id, cited_patent_id, source, created_at) "
-                "VALUES (%s, %s, %s, %s, %s)",
-                cit_rows,
-            )
+            kotoba_cit_rows = []
+            for item in cit_rows:
+                kotoba_cit_rows.append({
+                    "vertex_id": item[0],
+                    "citing_patent_id": item[1],
+                    "cited_patent_id": item[2],
+                    "source": item[3],
+                    "created_at": item[4],
+                })
+            get_kotoba_client().insert_rows(citationEdgeTable, kotoba_cit_rows)
             citation_edges += len(cit_rows)
 
         # Fetch family members.
@@ -321,12 +287,15 @@ async def task_patent_epo_ops_fill_citations(
             fam_rows.append((edge_id, vertex_id, member_vid, _now_iso()))
 
         if fam_rows:
-            _rw_executemany(
-                f"INSERT INTO {familyEdgeTable} "
-                "(vertex_id, patent_id, family_member_id, created_at) "
-                "VALUES (%s, %s, %s, %s)",
-                fam_rows,
-            )
+            kotoba_fam_rows = []
+            for item in fam_rows:
+                kotoba_fam_rows.append({
+                    "vertex_id": item[0],
+                    "patent_id": item[1],
+                    "family_member_id": item[2],
+                    "created_at": item[3],
+                })
+            get_kotoba_client().insert_rows(familyEdgeTable, kotoba_fam_rows)
             family_edges += len(fam_rows)
 
         time.sleep(interval_sec)
@@ -396,26 +365,36 @@ async def task_patent_uspto_ingest_citation(
         ))
 
         if len(batch) >= batchSize:
-            _rw_executemany(
-                f"INSERT INTO {edgeTable} "
-                "(vertex_id, citing_patent_id, cited_patent_id, "
-                " citation_category, citation_sequence, citation_date, "
-                " source, created_at) "
-                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                batch,
-            )
+            kotoba_batch = []
+            for item in batch:
+                kotoba_batch.append({
+                    "vertex_id": item[0],
+                    "citing_patent_id": item[1],
+                    "cited_patent_id": item[2],
+                    "citation_category": item[3],
+                    "citation_sequence": item[4],
+                    "citation_date": item[5],
+                    "source": item[6],
+                    "created_at": item[7],
+                })
+            get_kotoba_client().insert_rows(edgeTable, kotoba_batch)
             rows_inserted += len(batch)
             batch = []
 
     if batch:
-        _rw_executemany(
-            f"INSERT INTO {edgeTable} "
-            "(vertex_id, citing_patent_id, cited_patent_id, "
-            " citation_category, citation_sequence, citation_date, "
-            " source, created_at) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-            batch,
-        )
+            kotoba_batch = []
+            for item in batch:
+                kotoba_batch.append({
+                    "vertex_id": item[0],
+                    "citing_patent_id": item[1],
+                    "cited_patent_id": item[2],
+                    "citation_category": item[3],
+                    "citation_sequence": item[4],
+                    "citation_date": item[5],
+                    "source": item[6],
+                    "created_at": item[7],
+                })
+            get_kotoba_client().insert_rows(edgeTable, kotoba_batch)
         rows_inserted += len(batch)
 
     return {"ok": True, "rows": rows_inserted}
@@ -494,46 +473,82 @@ async def task_patent_uspto_ingest_patent(
             blob_queued += 1
 
         if len(batch) >= batchSize:
-            _rw_executemany(
-                f"INSERT INTO {table} "
-                "(vertex_id, patent_number, jurisdiction, patent_type, "
-                " patent_date, title, abstract, num_claims, withdrawn, filename, "
-                " actor_did, org_did, sensitivity_ord, created_at) "
-                "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                batch,
-            )
+            kotoba_batch = []
+            for item in batch:
+                kotoba_batch.append({
+                    "vertex_id": item[0],
+                    "patent_number": item[1],
+                    "jurisdiction": item[2],
+                    "patent_type": item[3],
+                    "patent_date": item[4],
+                    "title": item[5],
+                    "abstract": item[6],
+                    "num_claims": item[7],
+                    "withdrawn": item[8],
+                    "filename": item[9],
+                    "actor_did": item[10],
+                    "org_did": item[11],
+                    "sensitivity_ord": item[12],
+                    "created_at": item[13],
+                })
+            get_kotoba_client().insert_rows(table, kotoba_batch)
             rows_inserted += len(batch)
             batch = []
 
         if len(blob_batch) >= batchSize:
-            _rw_executemany(
-                f"INSERT INTO {blobTable} "
-                "(vertex_id, patent_number, jurisdiction, pdf_source_url, status, "
-                " actor_did, org_did, sensitivity_ord, created_at) "
-                "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                blob_batch,
-            )
+            kotoba_blob_batch = []
+            for item in blob_batch:
+                kotoba_blob_batch.append({
+                    "vertex_id": item[0],
+                    "patent_number": item[1],
+                    "jurisdiction": item[2],
+                    "pdf_source_url": item[3],
+                    "status": item[4],
+                    "actor_did": item[5],
+                    "org_did": item[6],
+                    "sensitivity_ord": item[7],
+                    "created_at": item[8],
+                })
+            get_kotoba_client().insert_rows(blobTable, kotoba_blob_batch)
             blob_batch = []
 
     if batch:
-        _rw_executemany(
-            f"INSERT INTO {table} "
-            "(vertex_id, patent_number, jurisdiction, patent_type, "
-            " patent_date, title, abstract, num_claims, withdrawn, filename, "
-            " actor_did, org_did, sensitivity_ord, created_at) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            batch,
-        )
+        kotoba_batch = []
+        for item in batch:
+            kotoba_batch.append({
+                "vertex_id": item[0],
+                "patent_number": item[1],
+                "jurisdiction": item[2],
+                "patent_type": item[3],
+                "patent_date": item[4],
+                "title": item[5],
+                "abstract": item[6],
+                "num_claims": item[7],
+                "withdrawn": item[8],
+                "filename": item[9],
+                "actor_did": item[10],
+                "org_did": item[11],
+                "sensitivity_ord": item[12],
+                "created_at": item[13],
+            })
+        get_kotoba_client().insert_rows(table, kotoba_batch)
         rows_inserted += len(batch)
 
     if blob_batch:
-        _rw_executemany(
-            f"INSERT INTO {blobTable} "
-            "(vertex_id, patent_number, jurisdiction, pdf_source_url, status, "
-            " actor_did, org_did, sensitivity_ord, created_at) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            blob_batch,
-        )
+        kotoba_blob_batch = []
+        for item in blob_batch:
+            kotoba_blob_batch.append({
+                "vertex_id": item[0],
+                "patent_number": item[1],
+                "jurisdiction": item[2],
+                "pdf_source_url": item[3],
+                "status": item[4],
+                "actor_did": item[5],
+                "org_did": item[6],
+                "sensitivity_ord": item[7],
+                "created_at": item[8],
+            })
+        get_kotoba_client().insert_rows(blobTable, kotoba_blob_batch)
 
     return {"ok": True, "rows": rows_inserted, "blobQueued": blob_queued}
 
@@ -601,10 +616,13 @@ async def task_patent_blob_convert(
             pdf_bytes = _http_get(pdf_url, timeout=120.0)
         except RuntimeError:
             failed += 1
-            _rw_execute(
-                "INSERT INTO vertex_patent_blob (vertex_id, status, created_at) "
-                "VALUES (%s, 'download_failed', %s)",
-                (vertex_id, _now_iso()),
+            get_kotoba_client().insert_row(
+                "vertex_patent_blob",
+                {
+                    "vertex_id": vertex_id,
+                    "status": "download_failed",
+                    "created_at": _now_iso(),
+                },
             )
             continue
 
@@ -668,21 +686,15 @@ async def task_patent_blob_convert(
 
         # Update vertex_patent_blob — store ocr_text directly in RW
         # so v_training_text can UNION ALL without B2 fetches.
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(
-            text(
-                "INSERT INTO vertex_patent_blob"
-                " (vertex_id, pdf_sha256, webp_cid, ocr_text_cid, ocr_text, status, updated_at)"
-                " VALUES (%(vertex_id)s, %(pdf_sha)s, %(webp_uri)s, %(ocr_uri)s,"
-                " %(ocr_text)s, 'ocr_done', %(updated_at)s)"
-            ),
+        get_kotoba_client().insert_row(
+            "vertex_patent_blob",
             {
                 "vertex_id": vertex_id,
-                "pdf_sha": pdf_sha,
-                "webp_uri": webp_uri,
-                "ocr_uri": ocr_uri,
+                "pdf_sha256": pdf_sha,
+                "webp_cid": webp_uri,
+                "ocr_text_cid": ocr_uri,
                 "ocr_text": ocr_text,
+                "status": "ocr_done",
                 "updated_at": _now_iso(),
             },
         )

@@ -15,7 +15,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OPEN_ISIC_DID = "did:web:open-isic.etzhayyim.com"
 ACTOR_ID = "sys.worker.open-isic"
@@ -100,18 +100,7 @@ def _audit(caller_did: str) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool) -> None:
     if dry_run:
         return
-    cols = list(row)
-    pk_col = "edge_id" if "edge_id" in row else "vertex_id"
-    names = ", ".join(cols)
-    placeholders = ", ".join(["%s"] * len(cols))
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT 1 FROM {table} WHERE {pk_col} = %s LIMIT 1", (row[pk_col],))
-        if cur.fetchone():
-            return
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",
-            tuple(row[c] for c in cols),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 async def _classify_langgraph(entity_name: str, isic_class: dict[str, Any] | None, confidence: float) -> dict[str, Any]:

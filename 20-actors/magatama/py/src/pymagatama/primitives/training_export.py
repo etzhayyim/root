@@ -1,5 +1,6 @@
 """
-LLM training data export — RisingWave vertex_/edge_ → JSONL → B2.
+LLM training data export — kotoba Datom log (vertex_/edge_) → JSONL → B2.
+
 
 Two Zeebe task types:
   training.export.text   — v_training_text → shard-NNNNN.jsonl.gz (B2)
@@ -34,7 +35,8 @@ import os
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
+from datetime import datetime, timezone
 
 _OWNER_DID = "did:web:training.etzhayyim.com"
 _SHARD_ROWS = int(os.environ.get("TRAINING_SHARD_ROWS", "50000"))
@@ -166,20 +168,8 @@ def _b2_get(key: str) -> bytes:
         return resp.read()
 
 
-def _date_today() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
-
-
-def _to_jsonl_gz(records: list[dict[str, Any]]) -> bytes:
-    buf = io.BytesIO()
-    with gzip.GzipFile(fileobj=buf, mode="wb") as gz:
-        for rec in records:
-            gz.write((json.dumps(rec, ensure_ascii=False) + "\n").encode())
-    return buf.getvalue()
-
 
 def _record_shard(
-    cur: Any,
     vid: str,
     dataset_name: str,
     label: str,
@@ -187,12 +177,25 @@ def _record_shard(
     row_count: int,
     b2_key: str,
 ) -> None:
-    cur.execute("""
-        INSERT INTO vertex_training_shard
-          (vertex_id, dataset_name, label, shard_index, row_count,
-           b2_key, status, created_date, owner_did, _seq, sensitivity_ord)
-        VALUES (%s,%s,%s,%s,%s,%s,'done',%s,%s,0,0)
-    """, (vid, dataset_name, label, shard_index, row_count, b2_key, _date_today(), _OWNER_DID))
+    get_kotoba_client().insert_row(
+        "vertex_training_shard",
+        {
+            "vertex_id": vid,
+            "dataset_name": dataset_name,
+            "label": label,
+            "shard_index": shard_index,
+            "row_count": row_count,
+            "b2_key": b2_key,
+            "status": "done",
+            "created_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+            "owner_did": _OWNER_DID,
+            "_seq": 0,
+            "sensitivity_ord": 0,
+        },
+    )
+
+
+def _to_jsonl_gz(records: list[dict[str, Any]]) -> bytes:
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -216,24 +219,47 @@ def task_training_export_text(
       {status, row_count, b2_key, next_shard, has_more}
       status='done' when the shard is empty (export complete).
     """
-    label_filter = "" if label == "all" else f"AND label = '{label}'"
+    kotoba_client = get_kotoba_client()
+    query_limit = _SHARD_ROWS
+    query_offset = shard_index * _SHARD_ROWS
 
-    with sync_cursor() as cur:
-        cur.execute(f"""
-            SELECT vertex_id, label, content, lang, created_date
-            FROM v_training_text
-            WHERE 1=1 {label_filter}
-            ORDER BY vertex_id
-            LIMIT {_SHARD_ROWS}
-            OFFSET {shard_index * _SHARD_ROWS}
-        """)
-        rows = cur.fetchall()
-        cols = [d[0] for d in cur.description]
+    # R0: Using q() for complex WHERE, ORDER BY, LIMIT, OFFSET not covered by shims.
+    # Datalog queries return map keys as keywords, converting to snake_case strings.
 
-    if not rows:
+    # Base query components
+    find_clause = "[(pull ?e [:v_training_text/vertex_id :v_training_text/label :v_training_text/content :v_training_text/lang :v_training_text/created_date])]"
+    where_clauses = [
+        '[?e :table/name "v_training_text"]'
+    ]
+    if label != "all":
+        where_clauses.append(f'[?e :v_training_text/label "{label}"]')
+
+    datalog_query = f"""
+    [:find {find_clause}
+     :where
+     {" ".join(where_clauses)}
+     :order-by [?e :v_training_text/vertex_id :asc]
+     :limit {query_limit}
+     :offset {query_offset}]
+    """
+    rows_from_q = kotoba_client.q(datalog_query)
+
+    # Convert Datom keywords to snake_case strings
+    records = []
+    for r_list in rows_from_q: # each r_list is a list containing one dict, e.g., [{'v_training_text/vertex_id': value}]
+        datom_dict = r_list[0] # get the dict from the list
+        converted_dict = {}
+        for k, v in datom_dict.items():
+            # k is a string like ':v_training_text/vertex_id'
+            # We want 'vertex_id'
+            key_name = k.split('/')[-1] # get 'vertex_id' from 'v_training_text/vertex_id'
+            converted_key = key_name.replace("-", "_") # convert kebab-case to snake_case
+            converted_dict[converted_key] = v
+        records.append(converted_dict)
+
+    if not records:
         return {"status": "done", "row_count": 0, "shard_index": shard_index}
 
-    records = [dict(zip(cols, r)) for r in rows]
     # Sanitize label for B2 path: SigV4 + urllib disagree on URI-encoding
     # of ':', so labels like 'hf:ADSKAILab/...' break the signature.
     safe_label = label.replace(":", "_")
@@ -241,8 +267,7 @@ def task_training_export_text(
     _b2_put(b2_key, _to_jsonl_gz(records), "application/x-ndjson")
 
     vid = f"training-shard:{dataset_name}:{label}:{shard_index}"
-    with sync_cursor() as cur:
-        _record_shard(cur, vid, dataset_name, label, shard_index, len(records), b2_key)
+    _record_shard(vid, dataset_name, label, shard_index, len(records), b2_key)
 
     return {
         "status": "ok",
@@ -267,27 +292,44 @@ def task_training_export_triple(
     Returns:
       {status, row_count, b2_key, next_shard, has_more}
     """
-    with sync_cursor() as cur:
-        cur.execute(f"""
-            SELECT src_vid, relation, dst_vid, created_date
-            FROM v_training_triple
-            ORDER BY src_vid, relation
-            LIMIT {_SHARD_ROWS}
-            OFFSET {shard_index * _SHARD_ROWS}
-        """)
-        rows = cur.fetchall()
-        cols = [d[0] for d in cur.description]
+    kotoba_client = get_kotoba_client()
+    query_limit = _SHARD_ROWS
+    query_offset = shard_index * _SHARD_ROWS
 
-    if not rows:
+    # R0: Using q() for complex ORDER BY, LIMIT, OFFSET not covered by shims.
+    # Datalog queries return map keys as keywords, converting to snake_case strings.
+    datalog_query = f"""
+    [:find (pull ?e [:v_training_triple/src_vid :v_training_triple/relation :v_training_triple/dst_vid :v_training_triple/created_date])
+     :where
+     [?e :table/name "v_training_triple"]
+     [?e :v_training_triple/src_vid]
+     [?e :v_training_triple/relation]
+     [?e :v_training_triple/dst_vid]
+     [?e :v_training_triple/created_date]
+     :order-by [?e :v_training_triple/src_vid :asc] [?e :v_training_triple/relation :asc]
+     :limit {query_limit}
+     :offset {query_offset}]
+    """
+    rows_from_q = kotoba_client.q(datalog_query)
+
+    records = []
+    for r_list in rows_from_q:
+        datom_dict = r_list[0]
+        converted_dict = {}
+        for k, v in datom_dict.items():
+            key_name = k.split('/')[-1]
+            converted_key = key_name.replace("-", "_")
+            converted_dict[converted_key] = v
+        records.append(converted_dict)
+
+    if not records:
         return {"status": "done", "row_count": 0, "shard_index": shard_index}
 
-    records = [dict(zip(cols, r)) for r in rows]
     b2_key = f"{_B2_PREFIX}/{dataset_name}/triples/shard-{shard_index:05d}.jsonl.gz"
     _b2_put(b2_key, _to_jsonl_gz(records), "application/x-ndjson")
 
     vid = f"training-shard:{dataset_name}:triples:{shard_index}"
-    with sync_cursor() as cur:
-        _record_shard(cur, vid, dataset_name, "triples", shard_index, len(records), b2_key)
+    _record_shard(vid, dataset_name, "triples", shard_index, len(records), b2_key)
 
     return {
         "status": "ok",
@@ -326,14 +368,23 @@ def task_training_push_huggingface(
     if not _HF_TOKEN:
         raise RuntimeError("HF_TOKEN not set")
 
-    with sync_cursor() as cur:
-        cur.execute("""
-            SELECT shard_index, b2_key, row_count
-            FROM vertex_training_shard
-            WHERE dataset_name = %s AND label = %s AND status = 'done'
-            ORDER BY shard_index
-        """, (dataset_name, label))
-        shards = cur.fetchall()
+    kotoba_client = get_kotoba_client()
+
+    # R0: Using q() for multiple WHERE conditions and ORDER BY not covered by shims.
+    # Datalog queries return map keys as keywords.
+    datalog_query = f"""
+    [:find ?shard_index ?b2_key ?row_count
+     :where
+     [?e :table/name "vertex_training_shard"]
+     [?e :vertex_training_shard/dataset_name "{dataset_name}"]
+     [?e :vertex_training_shard/label "{label}"]
+     [?e :vertex_training_shard/status "done"]
+     [?e :vertex_training_shard/shard_index ?shard_index]
+     [?e :vertex_training_shard/b2_key ?b2_key]
+     [?e :vertex_training_shard/row_count ?row_count]
+     :order-by [?e :vertex_training_shard/shard_index :asc]]
+    """
+    shards = kotoba_client.q(datalog_query)
 
     if not shards:
         return {"status": "ok", "pushed_count": 0, "repo_id": _HF_REPO_ID}

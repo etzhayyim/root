@@ -26,23 +26,31 @@ class TsukuruIsicPulseState(TypedDict, total=False):
 
 
 def select_manufacturers(state: TsukuruIsicPulseState) -> dict:
-    from pymagatama.db_alchemy import sa_query
+    from pymagatama.kotoba_datomic import get_kotoba_client # R0: Replaced sa_query with kotoba_datomic.q
 
     codes = state.get("industry_codes") or []
     if not codes:
         return {"manufacturer_rows": [], "manufacturer_row_count": 0, "ok": True}
 
-    placeholders = ",".join([f"'{c}'" for c in codes if "'" not in c])
     try:
-        rows = sa_query(
-            f"""
-            SELECT props
-            FROM vertex_other
-            WHERE label = 'TsukuruManufacturer'
-              AND coalesce(props::jsonb ->> 'industryCode', '') IN ({placeholders})
-            LIMIT 25
-            """
-        )
+        # R0: Datalog query to select manufacturer props based on industry codes
+        query_edn = """
+        [:find (pull ?e [:vertex_other/props])
+         :in $ %
+         :where
+         [?e :vertex_other/label "TsukuruManufacturer"]
+         [?e :vertex_other/props ?props_map]
+         [(get ?props_map "industryCode") ?industry_code]
+         [(contains? % ?industry_code)]]
+        """
+        # Execute the query with a limit of 25 directly in Python after fetching all relevant results
+        results = get_kotoba_client().q(query_edn, args=(set(codes),))
+
+        # Process results: results are [[{:vertex_other/props {...}}], ...]
+        rows = [item[0].get('vertex_other/props', {}) for item in results if item and item[0]]
+        # Apply limit after fetching all results that match the criteria
+        rows = rows[:25] 
+
         return {
             "manufacturer_rows": rows,
             "manufacturer_row_count": len(rows),

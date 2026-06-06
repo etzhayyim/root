@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import json
 import os
-import time
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 CONTACTS_TOKEN_TABLE = "vertex_gcontacts_oauth_token"
 CONTACTS_TABLE = "vertex_gcontacts_contact"
@@ -17,29 +17,11 @@ ACTOR_DID = "did:web:contacts.etzhayyim.com"
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _str(v: Any) -> str:
     return "" if v is None else str(v)
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
@@ -48,13 +30,6 @@ def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, head
         return json.loads(resp.read().decode("utf-8"))
 
 
-def _insert(table: str, row: dict[str, Any]) -> None:
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    _execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) SELECT {placeholders} WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        tuple(row[c] for c in cols) + (_str(row["vertex_id"]),),
-    )
 
 
 def _refresh_access_token(refresh_token: str) -> str:
@@ -89,7 +64,7 @@ def _contact_row(token: dict[str, Any], p: dict[str, Any]) -> dict[str, Any]:
     updated_time = _str((metadata.get("sources") or [{}])[0].get("updateTime"))
     return {
         "vertex_id": f"at://{actor}/com.etzhayyim.apps.contacts.contact/{rkey}",
-        "_seq": int(time.time() * 1000),
+        "_seq": int(datetime.now(timezone.utc).timestamp() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
         "owner_did": actor,
@@ -156,9 +131,13 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
             if p.get("metadata", {}).get("deleted"):
                 rkey = _str(p.get("resourceName")).replace("/", "_")
                 vid = f"at://{ACTOR_DID}/com.etzhayyim.apps.contacts.contact/{rkey}"
-                _execute(f"DELETE FROM {CONTACTS_TABLE} WHERE vertex_id = %s", (vid,))
+                # R0: Deleting contact entity via Datalog transaction
+                db_id_result = get_kotoba_client().q(f'[:find ?dbid . :where [?dbid :vertex/vertex_id "{vid}"]]')
+                if db_id_result:
+                    db_id = db_id_result[0][0]
+                    get_kotoba_client().q(f'[:db/retractEntity {db_id}]')
             else:
-                _insert(CONTACTS_TABLE, _contact_row(token, p))
+                get_kotoba_client().insert_row(CONTACTS_TABLE, _contact_row(token, p))
             synced += 1
 
         new_cursor = _str(data.get("nextSyncToken") or new_cursor)
@@ -166,24 +145,43 @@ def _sync_token(token: dict[str, Any]) -> dict[str, Any]:
         if not page_token:
             break
 
-    _execute(
-        f"UPDATE {CONTACTS_TOKEN_TABLE} SET last_sync_at = %s, cursor = %s, updated_at = %s WHERE vertex_id = %s",
-        (now_iso(), new_cursor, now_iso(), _str(token.get("vertex_id"))),
-    )
+    # Upserting contact token status
+    update_row_dict = {
+        "vertex_id": _str(token.get("vertex_id")),
+        "last_sync_at": now_iso(),
+        "cursor": new_cursor,
+        "updated_at": now_iso(),
+    }
+    get_kotoba_client().insert_row(CONTACTS_TOKEN_TABLE, update_row_dict)
     return {"ok": True, "synced": synced, "cursor": new_cursor}
 
 
 def sync_from_google(email: str = "", **_: Any) -> dict[str, Any]:
     if not email:
         return {"ok": False, "error": "email required"}
-    token = _fetch_one(f"SELECT * FROM {CONTACTS_TOKEN_TABLE} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
+    # R0: Filtering by status in Python
+    all_tokens_by_email = get_kotoba_client().select_where(CONTACTS_TOKEN_TABLE, "email", email)
+    token = next((t for t in all_tokens_by_email if t.get("status") == "active"), None)
     if not token:
         return {"ok": False, "error": "No active Contacts account. connectAccount first."}
     return _sync_token(token)
 
 
 def cron_tick(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT * FROM {CONTACTS_TOKEN_TABLE} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    # R0: Filtering, ordering, and limiting in Python
+    all_active_tokens = get_kotoba_client().select_where(CONTACTS_TOKEN_TABLE, "status", "active")
+    # Sort by COALESCE(last_sync_at, created_at) ASC
+    def sort_key(t):
+        last_sync = t.get("last_sync_at")
+        created = t.get("created_at")
+        if last_sync:
+            return datetime.strptime(last_sync, "%Y-%m-%dT%H:%M:%SZ")
+        elif created:
+            return datetime.strptime(created, "%Y-%m-%dT%H:%M:%SZ")
+        return datetime.min # fallback for missing dates
+
+    sorted_tokens = sorted(all_active_tokens, key=sort_key)
+    rows = sorted_tokens[:10]
     synced = 0
     errors = 0
     for token in rows:

@@ -27,9 +27,11 @@ from typing import Any
 
 import httpx
 from PIL import Image
-from sqlalchemy import BigInteger, Column, Date, Float, Integer, String, Table, text
+from pymagatama.kotoba_datomic import get_kotoba_client
 
-from pymagatama.db_alchemy import sa_execute_one, sa_executemany, sa_metadata, sa_rowcount
+
+
+
 
 _ACTOR = "did:web:biblio.etzhayyim.com"
 _B2_BUCKET = os.environ.get("B2_BIBLIO_BUCKET", "etzhayyim-biblio").strip() or "etzhayyim-biblio"
@@ -89,202 +91,23 @@ def _env_int(name: str, default: int, *, minimum: int = 1, maximum: int = 5000) 
     return max(minimum, min(value, maximum))
 
 
-metadata = sa_metadata()
 
-vertex_biblio_source = Table(
-    "vertex_biblio_source", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("source_id", String),
-    Column("country_code", String),
-    Column("country_name", String),
-    Column("institution_name", String),
-    Column("service_name", String),
-    Column("base_url", String),
-    Column("api_base_url", String),
-    Column("access_protocols", String),
-    Column("metadata_formats", String),
-    Column("rights_note", String),
-    Column("machine_readability", String),
-    Column("geopolitical_group", String),
-    Column("status", String),
-    Column("discovered_at", String),
-    Column("updated_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-vertex_biblio_raw_record = Table(
-    "vertex_biblio_raw_record", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("source_id", String),
-    Column("source_record_id", String),
-    Column("harvest_run_id", String),
-    Column("protocol", String),
-    Column("record_schema", String),
-    Column("content_type", String),
-    Column("raw_payload", String),
-    Column("raw_sha256", String),
-    Column("fetched_at", String),
-    Column("source_updated_at", String),
-    Column("status", String),
-    Column("error", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-vertex_biblio_entity = Table(
-    "vertex_biblio_entity", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("entity_type", String),
-    Column("canonical_label", String),
-    Column("original_label", String),
-    Column("normalized_label", String),
-    Column("language", String),
-    Column("country_code", String),
-    Column("publication_year", Integer),
-    Column("source_id", String),
-    Column("source_record_id", String),
-    Column("source_url", String),
-    Column("metadata_json", String),
-    Column("confidence", Float),
-    Column("status", String),
-    Column("created_at", String),
-    Column("updated_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-vertex_biblio_identifier = Table(
-    "vertex_biblio_identifier", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("identifier_scheme", String),
-    Column("identifier_value", String),
-    Column("normalized_value", String),
-    Column("entity_vertex_id", String),
-    Column("source_id", String),
-    Column("status", String),
-    Column("created_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-edge_biblio_relation = Table(
-    "edge_biblio_relation", metadata,
-    Column("edge_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("src_vertex_id", String),
-    Column("dst_vertex_id", String),
-    Column("relation_type", String),
-    Column("source_id", String),
-    Column("source_record_id", String),
-    Column("confidence", Float),
-    Column("evidence_json", String),
-    Column("status", String),
-    Column("created_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-vertex_biblio_ingest_run = Table(
-    "vertex_biblio_ingest_run", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("run_id", String),
-    Column("source_id", String),
-    Column("protocol", String),
-    Column("query_key", String),
-    Column("cursor_start", String),
-    Column("cursor_end", String),
-    Column("raw_records_seen", Integer),
-    Column("raw_records_inserted", Integer),
-    Column("entities_inserted", Integer),
-    Column("identifiers_inserted", Integer),
-    Column("edges_inserted", Integer),
-    Column("status", String),
-    Column("error", String),
-    Column("started_at", String),
-    Column("finished_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-vertex_biblio_page_asset = Table(
-    "vertex_biblio_page_asset", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("source_id", String),
-    Column("source_record_id", String),
-    Column("page_index", Integer),
-    Column("source_image_url", String),
-    Column("webp_sha256", String),
-    Column("webp_cid_v1", String),
-    Column("webp_b2_bucket", String),
-    Column("webp_b2_key", String),
-    Column("webp_byte_size", BigInteger),
-    Column("width_px", Integer),
-    Column("height_px", Integer),
-    Column("ocr_status", String),
-    Column("status", String),
-    Column("created_at", String),
-    Column("updated_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
 
-vertex_biblio_ocr_text = Table(
-    "vertex_biblio_ocr_text", metadata,
-    Column("vertex_id", String, primary_key=True),
-    Column("_seq", BigInteger),
-    Column("created_date", Date),
-    Column("sensitivity_ord", Integer),
-    Column("owner_did", String),
-    Column("source_id", String),
-    Column("source_record_id", String),
-    Column("page_index", Integer),
-    Column("ocr_engine", String),
-    Column("ocr_model", String),
-    Column("ocr_text", String),
-    Column("ocr_json", String),
-    Column("warnings", String),
-    Column("text_sha256", String),
-    Column("text_byte_size", BigInteger),
-    Column("status", String),
-    Column("created_at", String),
-    Column("org_id", String),
-    Column("user_id", String),
-    Column("actor_id", String),
-)
+
+
+
+
+
+
+
+
+
 
 _SOURCES: list[dict[str, str]] = [
     {
@@ -883,15 +706,12 @@ def _assert_run_visible(run_id: str) -> None:
         minimum=1,
         maximum=60,
     )
-    query = text(
-        "SELECT run_id FROM public.vertex_biblio_ingest_run "
-        "WHERE run_id = %(run_id)s LIMIT 1"
-    )
+
     deadline = time.monotonic() + timeout_seconds
     last_error = ""
     while True:
         try:
-            row = sa_execute_one(query, {"run_id": run_id})
+            row = get_kotoba_client().select_first_where("vertex_biblio_ingest_run", "run_id", run_id)
         except Exception as exc:
             row = None
             last_error = str(exc)
@@ -902,7 +722,7 @@ def _assert_run_visible(run_id: str) -> None:
             detail = f"; last visibility check error: {last_error}" if last_error else ""
             raise RuntimeError(
                 f"ingest run {run_id} not visible after insert within "
-                f"{timeout_seconds}s; RisingWave barrier/read visibility may be stalled{detail}"
+                f"{timeout_seconds}s; kotoba Datomic client read visibility may be stalled{detail}"
             )
         time.sleep(min(poll_seconds, remaining))
 
@@ -1602,15 +1422,14 @@ def task_biblio_open_data_ingest(
             entity_rows.append(entity_row)
             identifier_rows.extend(ident_rows)
         if raw_rows:
-            raw_inserted = sa_executemany(vertex_biblio_raw_record.insert(), raw_rows, chunk_size=200)
+            raw_inserted = len(get_kotoba_client().insert_rows("vertex_biblio_raw_record", raw_rows))
         if entity_rows:
-            entities_inserted = sa_executemany(vertex_biblio_entity.insert(), entity_rows, chunk_size=200)
+            entities_inserted = len(get_kotoba_client().insert_rows("vertex_biblio_entity", entity_rows))
         if identifier_rows:
-            identifiers_inserted = sa_executemany(
-                vertex_biblio_identifier.insert(),
+            identifiers_inserted = len(get_kotoba_client().insert_rows(
+                "vertex_biblio_identifier",
                 identifier_rows,
-                chunk_size=200,
-            )
+            ))
         _insert_run({
             "vertex_id": f"at://{_ACTOR}/com.etzhayyim.apps.biblio.ingestRun/{run_id}",
             "_seq": 0,
@@ -1724,14 +1543,7 @@ def task_biblio_asia_open_data_actor(
 
 
 __all__ = [
-    "edge_biblio_relation",
-    "metadata",
     "task_biblio_asia_open_data_actor",
     "task_biblio_open_data_ingest",
-    "vertex_biblio_entity",
-    "vertex_biblio_identifier",
-    "vertex_biblio_ocr_text",
-    "vertex_biblio_page_asset",
-    "vertex_biblio_raw_record",
-    "vertex_biblio_source",
 ]
+

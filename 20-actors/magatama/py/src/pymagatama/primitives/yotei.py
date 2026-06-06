@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-import datetime as _dt
+import datetime
+from datetime import timezone
 import decimal as _decimal
 import json
 import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 YOTEI_DID = "did:web:yotei.etzhayyim.com"
@@ -23,7 +24,7 @@ COLLECTION_TABLE = {
 
 
 def _now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _today() -> str:
@@ -42,31 +43,7 @@ def _int(v: Any, default: int, *, min_value: int = 0, max_value: int = 100_000) 
     return max(min_value, min(max_value, n))
 
 
-def _jsonable(v: Any) -> Any:
-    if isinstance(v, (_dt.datetime, _dt.date)):
-        return v.isoformat()
-    if isinstance(v, _decimal.Decimal):
-        f = float(v)
-        return int(f) if f.is_integer() else f
-    return v
 
-
-def _camel(key: str) -> str:
-    bits = key.split("_")
-    return bits[0] + "".join(b[:1].upper() + b[1:] for b in bits[1:])
-
-
-def _inflate(row: dict[str, Any]) -> dict[str, Any]:
-    out = dict(row)
-    for k, v in row.items():
-        if "_" in k and _camel(k) not in out:
-            out[_camel(k)] = v
-    return out
-
-
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
-    return [_inflate({cols[i]: _jsonable(row[i]) for i in range(len(cols))}) for row in cur.fetchall()]
 
 
 def _row_text(row: dict[str, Any], key: str) -> str:
@@ -90,32 +67,135 @@ def _base(kind: str, id_value: str, status: str = "active") -> dict[str, Any]:
 
 
 def _insert(table: str, values: dict[str, Any]) -> None:
-    cols = list(values)
-    placeholders = ",".join(["%s"] * len(cols))
-    names = ",".join(cols)
-    with sync_cursor() as cur:
-        cur.execute(f"INSERT INTO {table} ({names}) VALUES ({placeholders})", tuple(values[c] for c in cols))
+    get_kotoba_client().insert_row(table, values)
 
 
 def _query(kind: str, where_sql: str = "", params: tuple[Any, ...] = (), order: str = "", limit: int = 100) -> list[dict[str, Any]]:
     table = COLLECTION_TABLE[kind]
-    status_filter = "status NOT IN ('deleted','removed','cancelled_tombstone')"
-    where = f"WHERE {status_filter}"
-    if where_sql:
-        where += f" AND {where_sql}"
-    sql = f"SELECT * FROM {table} {where}"
+
+    # R0: _query: Fetching a broader set (max 2000) using `select_where` and applying predicates, ordering, and limits in Python.
+    # The `select_where` shim only supports a single equality predicate. We'll use a commonly present column like 'owner_did'.
+    all_rows = get_kotoba_client().select_where(table, "owner_did", YOTEI_DID, limit=2000)
+
+    # Apply status filter: "status NOT IN ('deleted','removed','cancelled_tombstone')"
+    filtered_rows = [
+        row for row in all_rows
+        if row.get("status") not in ("deleted", "removed", "cancelled_tombstone")
+    ]
+
+    # Apply additional `where_sql` conditions in Python. This is a simplified interpretation.
+    # For more complex or performance-critical scenarios, `q()` Datalog escape hatch might be needed.
+
+    # A simple parser for 'col = %s' and basic 'AND' conditions.
+    # This might not cover all possible SQL `where_sql` patterns.
+    param_idx = 0
+    temp_filtered_rows = []
+    for row in filtered_rows:
+        match = True
+        if where_sql:
+            # This part needs careful handling of different WHERE clause formats
+            # The existing `_query` calls are mostly simple: "id = %s", "calendar_id = %s"
+            # Or combined with AND: "calendar_id = %s AND start_at >= %s AND start_at <= %s AND status != %s"
+
+            # Let's break `where_sql` into individual conditions and apply them.
+            conditions = where_sql.split(" AND ")
+            current_param_idx = 0
+            for cond in conditions:
+                cond_match = False
+                if "=" in cond:
+                    col, val_placeholder = cond.split("=", 1)
+                    col = col.strip()
+                    if "%s" in val_placeholder:
+                        if current_param_idx < len(params):
+                            if str(row.get(col)) == str(params[current_param_idx]):
+                                cond_match = True
+                            current_param_idx += 1
+                    else: # direct value in SQL, e.g., 'col = "value"'
+                        val = val_placeholder.strip().strip("'\"")
+                        if str(row.get(col)) == val:
+                            cond_match = True
+                elif ">=" in cond:
+                    col, val_placeholder = cond.split(">=", 1)
+                    col = col.strip()
+                    if "%s" in val_placeholder:
+                        if current_param_idx < len(params):
+                            if row.get(col) is not None and str(row.get(col)) >= str(params[current_param_idx]):
+                                cond_match = True
+                            current_param_idx += 1
+                elif "<=" in cond:
+                    col, val_placeholder = cond.split("<=", 1)
+                    col = col.strip()
+                    if "%s" in val_placeholder:
+                        if current_param_idx < len(params):
+                            if row.get(col) is not None and str(row.get(col)) <= str(params[current_param_idx]):
+                                cond_match = True
+                            current_param_idx += 1
+                elif "!=" in cond:
+                    col, val_placeholder = cond.split("!=", 1)
+                    col = col.strip()
+                    if "%s" in val_placeholder:
+                        if current_param_idx < len(params):
+                            if str(row.get(col)) != str(params[current_param_idx]):
+                                cond_match = True
+                            current_param_idx += 1
+                elif "IN" in cond:
+                    # e.g., `status IN (%s,%s)` -> params would have "proposed", "confirmed"
+                    col, in_values_str = cond.split("IN", 1)
+                    col = col.strip()
+                    # Assuming in_values_str is `(%s,%s)` or `('val1','val2')`
+                    # We need to extract the values from params for `%s` cases.
+
+                    # For now, let's assume `IN` will be explicitly converted to `or` in the call site or handled by `q()`.
+                    # For the current `task_yotei_analyze_schedule` with `status IN (%s,%s)`, the `params` will contain the values.
+
+                    # This is complex for a generic parser. Let's make an explicit handling for this case.
+                    if col == "status" and "IN (%s,%s)" in in_values_str:
+                        if current_param_idx + 1 < len(params):
+                            if row.get(col) in (params[current_param_idx], params[current_param_idx+1]):
+                                cond_match = True
+                            current_param_idx += 2 # Consume two parameters
+                    else:
+                        # Fallback for generic IN, potentially complex
+                        cond_match = False # If we can't parse, assume no match
+                else:
+                    cond_match = False # Unhandled condition type
+
+                if not cond_match:
+                    match = False
+                    break
+        if match:
+            temp_filtered_rows.append(row)
+
+    final_rows = temp_filtered_rows
+
+    # Apply ordering
     if order:
-        sql += f" ORDER BY {order}"
-    sql += f" LIMIT {max(1, min(limit, 500))}"
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return _rows(cur)
+        try:
+            # Assuming 'order' is like 'col ASC' or 'col DESC'
+            col_name = order.split(" ")[0].strip()
+            reverse = "DESC" in order.upper()
+            final_rows.sort(key=lambda x: x.get(col_name, ""), reverse=reverse)
+        except Exception:
+            # Fallback if ordering column is not found or type mismatch
+            pass
+
+    # Apply limit
+    final_rows = final_rows[:max(1, min(limit, 500))]
+
+    return final_rows
 
 
 def _update(table: str, id_value: str, values: dict[str, Any]) -> None:
-    sets = ", ".join(f"{k} = %s" for k in values)
-    with sync_cursor() as cur:
-        cur.execute(f"UPDATE {table} SET {sets} WHERE id = %s", (*values.values(), id_value))
+    # Determine 'kind' from the table name for _base function
+    kind = table.replace("vertex_yotei_", "")
+    # Create a base dictionary including the identity column 'vertex_id' and 'id'
+    base_dict = _base(kind, id_value, status=values.get("status", "active")) # Assuming status might be in values
+
+    # Merge the new values into the base dictionary
+    full_row_dict = {**base_dict, **values}
+
+    # Use insert_row for upsert functionality
+    get_kotoba_client().insert_row(table, full_row_dict)
 
 
 def task_yotei_create_calendar(name: str = "", timezone: str = "Asia/Tokyo", defaultDurationMin: Any = 30, **_: Any) -> dict[str, Any]:

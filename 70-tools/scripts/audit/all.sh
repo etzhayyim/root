@@ -92,7 +92,7 @@ if [ "$TEST" -eq 1 ]; then
       exit 1
     fi
   else
-    echo "── pytest suite (14 files / 262 tests) ──"
+    echo "── pytest suite (36 files / 419 tests) ──"
     if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
          70-tools/scripts/audit/test_adr_cross_ref_health.py \
          70-tools/scripts/audit/test_manifest_lexicon_drift.py \
@@ -108,6 +108,28 @@ if [ "$TEST" -eq 1 ]; then
          70-tools/scripts/audit/test_mitate_invariants.py \
          70-tools/scripts/audit/test_futawa_invariants.py \
          70-tools/scripts/audit/test_watatsumi_invariants.py \
+         70-tools/scripts/audit/test_kamado_invariants.py \
+         70-tools/scripts/audit/test_nusa_invariants.py \
+         70-tools/scripts/audit/test_todoke_invariants.py \
+         70-tools/scripts/audit/test_hotaru_invariants.py \
+         70-tools/scripts/audit/test_mitooshi_invariants.py \
+         70-tools/scripts/audit/test_noroshi_invariants.py \
+         70-tools/scripts/audit/test_chigiri_registry_seed.py \
+         70-tools/scripts/audit/test_danjo_registry_seed.py \
+         70-tools/scripts/audit/test_hagukumi_registry_seed.py \
+         70-tools/scripts/audit/test_himotoki_registry_seed.py \
+         70-tools/scripts/audit/test_kataribe_registry_seed.py \
+         70-tools/scripts/audit/test_kazaori_registry_seed.py \
+         70-tools/scripts/audit/test_kizashi_registry_seed.py \
+         70-tools/scripts/audit/test_kokoro_registry_seed.py \
+         70-tools/scripts/audit/test_kurashimori_registry_seed.py \
+         70-tools/scripts/audit/test_manabi_registry_seed.py \
+         70-tools/scripts/audit/test_moushibumi_registry_seed.py \
+         70-tools/scripts/audit/test_musubi_registry_seed.py \
+         70-tools/scripts/audit/test_shidemori_registry_seed.py \
+         70-tools/scripts/audit/test_toritsugi_registry_seed.py \
+         70-tools/scripts/audit/test_gov_legal_coverage_parity.py \
+         70-tools/scripts/audit/test_ooyake_procedure_integrity.py \
          2>&1; then
       echo "pytest suite FAILED — see output above" >&2
       exit 1

@@ -32,6 +32,9 @@ const HOST_MAP: Record<string, { upstream: keyof Env; rewriteHost: string }> = {
 };
 
 const STRIPPED_RESPONSE_HEADERS = new Set<string>([
+  // These headers are DELETED from upstream responses (headers.delete below);
+  // the proxy never writes a cookie — it removes inbound Set-Cookie.
+  // no-cookie: allow strip-list (removes Set-Cookie, never writes one)
   "set-cookie",
   "content-security-policy",
   "content-security-policy-report-only",

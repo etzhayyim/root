@@ -12,7 +12,7 @@ One domain per invocation:
   5. PDS writes: profile, app, knowledgeEdge (putRecord); feed post (createRecord)
 
 Env:
-  RW_URL              — RisingWave psycopg DSN (from mitama-udf-pool-rw secret)
+
   ATPROTO_BASE_URL    — PDS gateway (default: https://atproto.etzhayyim.com)
   PDS_INTERNAL_TOKEN  — x-magatama-verified header value (default: "true")
 """
@@ -33,7 +33,7 @@ from typing import Any
 import aiohttp
 
 from pymagatama import llm as llm_module
-from pymagatama.rw_async_pool import ensure_rw_async_pool
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("domain_expansion")
 
@@ -82,30 +82,31 @@ _STATIC_CANDIDATES = [
 
 async def _gap_query() -> str:
     """Return first domain in mv_cc_domain_coverage not yet registered in vertex_app."""
-    pool = await ensure_rw_async_pool()
-    async with pool.connection() as conn:
-        async with conn.cursor() as cur:
-            await cur.execute(
-                """
-                SELECT c.domain
-                FROM mv_cc_domain_coverage c
-                LEFT JOIN vertex_app a
-                  ON a.did = 'did:web:' || REPLACE(c.domain, '.', '-') || '.etzhayyim.com'
-                WHERE c.domain IS NOT NULL AND c.domain != '' AND a.did IS NULL
-                LIMIT 1
-                """
-            )
-            row = await cur.fetchone()
-    return str(row[0]) if row else ""
+    client = get_kotoba_client()
+    # R0: Datalog escape hatch for LEFT JOIN and string manipulation in WHERE clause.
+    datalog_query = """
+        [:find ?domain
+         :where
+           [?c :mv_cc_domain_coverage/domain ?domain]
+           (not= ?domain "")
+           (not= ?domain nil)
+           [(clojure.string/replace ?domain "." "-") ?domain-did-part]
+           [(str "did:web:" ?domain-did-part ".etzhayyim.com") ?did]
+           (not [?a :vertex_app/did ?did])]"""
+    result = client.q(datalog_query, limit=1)
+    return str(result[0][0]) if result else ""
 
 
 async def _registered_dids() -> set[str]:
-    pool = await ensure_rw_async_pool()
-    async with pool.connection() as conn:
-        async with conn.cursor() as cur:
-            await cur.execute("SELECT did FROM vertex_app LIMIT 5000")
-            rows = await cur.fetchall()
-    return {str(r[0]) for r in rows}
+    client = get_kotoba_client()
+    # R0: Datalog escape hatch to fetch all DIDs from vertex_app with a limit.
+    datalog_query = """
+        [:find ?did
+         :where
+           [?a :vertex_app/did ?did]
+         :limit 5000]"""
+    results = client.q(datalog_query)
+    return {str(r[0]) for r in results}
 
 
 async def _fetch_cc_context(session: aiohttp.ClientSession, domain: str) -> str:

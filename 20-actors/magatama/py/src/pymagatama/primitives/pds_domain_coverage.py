@@ -12,7 +12,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 PDS_DID = "did:web:atproto.etzhayyim.com"
@@ -92,34 +92,7 @@ def write_domain_coverage_tick(tick: dict[str, Any], *, flush: bool = True) -> d
         "owner_did": PDS_DID,
         "sensitivity_ord": 2,
     }
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_pds_domain_coverage_expansion (
-              vertex_id, tick_id, ok, http_status, domain, app_did,
-              knowledge_edges, post_written, error, value_json,
-              observed_at, created_at, owner_did, sensitivity_ord
-            )
-            VALUES (
-              %(vertex_id)s, %(tick_id)s, %(ok)s, %(http_status)s, %(domain)s, %(app_did)s,
-              %(knowledge_edges)s, %(post_written)s, %(error)s, %(value_json)s,
-              %(observed_at)s, %(created_at)s, %(owner_did)s, %(sensitivity_ord)s
-            )
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              ok = EXCLUDED.ok,
-              http_status = EXCLUDED.http_status,
-              domain = EXCLUDED.domain,
-              app_did = EXCLUDED.app_did,
-              knowledge_edges = EXCLUDED.knowledge_edges,
-              post_written = EXCLUDED.post_written,
-              error = EXCLUDED.error,
-              value_json = EXCLUDED.value_json,
-              observed_at = EXCLUDED.observed_at
-            """,
-            row,
-        )
-        if flush:
-            cur.execute("FLUSH")
+    get_kotoba_client().insert_row("vertex_pds_domain_coverage_expansion", row)
     return {"uri": vertex_id, "rkey": rkey}
 
 

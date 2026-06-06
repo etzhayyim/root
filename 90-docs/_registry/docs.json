@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-04",
+  "updated_at": "2026-06-06",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -18618,6 +18618,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606013600-browser-kotoba-node-sovereign-tier2.md",
+      "id": "adr-2606013600-browser-kotoba-node-sovereign-tier2",
+      "title": "ADR-2606013600: browser kotoba node — kqe-in-wasm as the sovereign client-side apex tier-2",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "browser-kotoba-node",
+      "authoritative": true,
+      "authoritative_for": [
+        "the browser kotoba node (kotoba-wasm) as the client-side actor-resolution path",
+        "the sovereignty layering of the apex DID-web resolver (kotoba canonical + compiled fallback; KV is an optional edge cache)",
+        "the \"where to host kotoba\" answer — the browser IS the node; IPFS pinning is the only durable, commodity tier"
+      ],
+      "related": [
+        "2606015400",
+        "2606015600",
+        "2606014500",
+        "2606051500"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262130",
+        "2605312345",
+        "2605215000",
+        "2605231525",
+        "2605241900",
+        "2606013800"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606013600-kotoba-persistent-ipns-graph-heads.md",
       "id": "adr-2606013600-kotoba-persistent-ipns-graph-heads",
       "title": "ADR-2606013600: kotoba durable IPNS graph heads — disk-persistent registry replaces in-memory default",
@@ -20779,6 +20812,389 @@
         "2605171300"
       ],
       "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606051200-hotaru-inp-iii-v-substrate-commons-r0.md",
+      "id": "adr-2606051200-hotaru-inp-iii-v-substrate-commons-r0",
+      "title": "hotaru 蛍 — III-V / InP substrate open-publication commons (Tier-B actor R0; the open-IP commons ADR-2605265500 §2's R4+ gate references — NOT a fab)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "hotaru-iii-v-inp-substrate-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "hotaru actor scope (III-V/InP substrate open-publication commons; design/datafication/simulation only)",
+        "the open-IP-only invariant for III-V process knowledge (:source-license practiceable-open set)",
+        "the design-only/not-fabricated invariant (:fabricated false through R3)",
+        "the commons-readiness index feeding the ADR-2605265500 §2 R4+ gate evaluation (non-adjudicating)"
+      ],
+      "related": [
+        "adr-2606012600-watatsuna-submarine-cable-resilience"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605265500-concentrated-pv-d-gate-evaluation-r0",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605261100",
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606051500-kamado-closed-loop-refining-decommission-actor-r0.md",
+      "id": "adr-2606051500-kamado-closed-loop-refining-decommission-actor-r0",
+      "title": "ADR-2606051500: kamado 竈 — closed-loop carbon refining + fossil-refinery decommissioning/transition actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kamado-closed-loop-refining",
+      "authoritative": true,
+      "authoritative_for": [
+        "kamado actor design, refining ontology, lexicons, gates",
+        "the :feedstock-class invariant (fossil-virgin-crude unrepresentable)",
+        "§2(d) fossil-refinery decommissioning/transition robotics scope",
+        "the net-atmospheric-carbon (D3) balance model for refining pathways"
+      ],
+      "related": [
+        "2606042100",
+        "2606031600",
+        "2605312330",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605192100",
+        "2605192200",
+        "2605263500",
+        "2605261100",
+        "2605262130",
+        "2605215000",
+        "2605231525",
+        "2606032130"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606051600-noroshi-photonic-electronic-convergence-comms-chip-isac.md",
+      "id": "adr-2606051600-noroshi-photonic-electronic-convergence-comms-chip-isac",
+      "title": "ADR-2606051600: noroshi (烽) — Photonics-Electronics Convergence (光電融合) Comms Chip + ISAC Sim + Photonic Packaging Robotics",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "noroshi-photonic-convergence",
+      "authoritative": true,
+      "authoritative_for": [
+        "noroshi",
+        "photonic-electronic-convergence",
+        "isac-jcas-sim"
+      ],
+      "related": [
+        "2605242515",
+        "2605242530",
+        "2605261300",
+        "2606012600",
+        "2606033600",
+        "2605261800",
+        "2606010600",
+        "2606042330",
+        "2605192100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605242500",
+        "2605312345",
+        "2605215000",
+        "2605231525",
+        "2606032130"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606051800-mitooshi-probabilistic-forecasting-observatory-r0.md",
+      "id": "adr-2606051800-mitooshi-probabilistic-forecasting-observatory-r0",
+      "title": "mitooshi 見通し — probabilistic forecasting observatory (Tier-B actor R0; the charter-clean inverse of a quant trading bot + the leak-free fact→error→weight→learn architecture)",
+      "status": "proposed-pending-council-ratification",
+      "doc_type": "adr",
+      "topic": "mitooshi-probabilistic-forecasting-observatory",
+      "authoritative": true,
+      "authoritative_for": [
+        "mitooshi actor scope (probabilistic forecasting over public time-series + leak-free proper-scoring backtest + residual-driven recalibration; design-only)",
+        "the distribution-only / no-point-assertion invariant (:forecast/point-asserted false — 非終末論 made structural)",
+        "the non-speculative / no-trading invariant (:forecast/use enum excludes trade/wager/position)",
+        "the leak-free proper-scoring rule (info-as-of boundary; CRPS/pinball/Brier/log-score; skill vs documented baseline)",
+        "the baien-edge residual→weight online-update boundary (G8) + no-server-key model promotion (G9)"
+      ],
+      "related": [
+        "adr-2606032000-kanjo-corporate-financial-disclosure-kg-r0",
+        "adr-2605302300-kanae-government-fiscal-flow-visualization-r0",
+        "adr-2605301600-danjo-public-accountability-oversight-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606041827-watari-live-ship-aircraft-position-kg-r0",
+        "adr-2606012600-watatsuna-submarine-cable-resilience",
+        "adr-2605242600-baien-federated-r0",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606052100-ake-community-edit-membrane-wikipedia-stance-r0.md",
+      "id": "adr-2606052100-ake-community-edit-membrane-wikipedia-stance-r0",
+      "title": "ADR-2606052100: 朱 (ake) — community-edit membrane (Wikipedia-stance KG/profile correction) R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "ake-community-edit-membrane",
+      "authoritative": true,
+      "authoritative_for": [
+        "ake-community-edit-membrane",
+        "wikipedia-stance-collaborative-correction"
+      ],
+      "related": [
+        "adr-2605291500-tsukuroi-authorized-vuln-remediation-patch-proposer",
+        "adr-2605301600-danjo-public-accountability-oversight"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606042330-entity-as-actor-society-wide-social-mirror-graph",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606052300-fuchi-maintainer-sustenance-allocator-r0.md",
+      "id": "adr-2606052300-fuchi-maintainer-sustenance-allocator-r0",
+      "title": "ADR-2606052300: 扶持 (fuchi) — mission-aligned maintainer sustenance allocator (investment-fund inverse) R0+R1",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "fuchi-maintainer-sustenance-allocator",
+      "authoritative": true,
+      "authoritative_for": [
+        "fuchi-maintainer-sustenance-allocator",
+        "investment-fund-charter-clean-inverse"
+      ],
+      "related": [
+        "adr-2605302000-warifu-open-zero-fee-card",
+        "adr-2605263500-wakai-mutual-aid-tier-b-actor-r0",
+        "adr-2605301036-mission-funding-earned-revenue-arm",
+        "adr-2606012100-okaimono-provisioning-commons"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606032130-displacement-dividend-tenure-weighted-basic-high-income",
+        "adr-2605301020-basic-high-income-imputed-in-kind",
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606060000-profile-same-origin-auth-cacao.md",
+      "id": "adr-2606060000-profile-same-origin-auth-cacao",
+      "title": "ADR-2606060000: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "profile-same-origin-auth",
+      "authoritative": true,
+      "authoritative_for": [
+        "profile-same-origin-auth",
+        "cacao-verify-only-apex-surface"
+      ],
+      "related": [
+        "adr-2605212030-etzhayyim-authz-erc725-root-issuance-design",
+        "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
+        "adr-2606013800-actor-profile-dynamic-did-json",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606060900-tasuke-free-cybercrime-victim-support-membrane-r0.md",
+      "id": "adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
+      "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tasuke-cybercrime-victim-support",
+      "authoritative": true,
+      "authoritative_for": [
+        "tasuke-cybercrime-victim-support-membrane",
+        "free-victim-relief-document-generation"
+      ],
+      "related": [
+        "adr-2605301400-tadori-onchain-tx-tracing",
+        "adr-2605312500-kurashimori-consumer-protection-concierge",
+        "adr-2605312030-toritsugi-government-procedure-concierge",
+        "adr-2605302130-himotoki-active-disclosure-request-filer",
+        "adr-2605262700-chigiri-legal-procedure-substrate"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231525-server-side-signing-capability-boundary",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605181100-etzhayyim-confidential-records-encryption",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606061200-gov-legal-procedure-coverage-maturity-expansion.md",
+      "id": "adr-2606061200-gov-legal-procedure-coverage-maturity-expansion",
+      "title": "ADR-2606061200: Worldwide Government/Legal Procedure Coverage + Maturity Expansion (toritsugi · chigiri · ooyake)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "gov-legal-procedure-coverage-maturity-expansion",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/toritsugi/registry/procedures.seed.json",
+        "20-actors/chigiri/registry/legal-aid.seed.json",
+        "20-actors/ooyake/registry/gov-units.intl-procedures.seed.edn",
+        "20-actors/ooyake/scripts/gen_intl_procedures.py",
+        "70-tools/scripts/coverage/gen_gov_legal_coverage.py"
+      ],
+      "related": [
+        "2605302357",
+        "2606052300"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605262700",
+        "2605312030",
+        "2606021600"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606061600-gov-procedures-publish-and-ameno-kotoba-conversation.md",
+      "id": "adr-2606061600-gov-procedures-publish-and-ameno-kotoba-conversation",
+      "title": "ADR-2606061600: Government procedures published on etzhayyim.com by administrative unit + kotoba-grounded browser conversation (ameno gemma4-e4b)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "gov-procedures-publish-and-ameno-kotoba-conversation",
+      "authoritative": true,
+      "authoritative_for": [
+        "50-infra/etzhayyim-did-web/src/registry/gov-procedures.gen.ts",
+        "70-tools/scripts/entity-actors/gen-gov-procedures.py",
+        "70-tools/scripts/audit/test_gov_procedures_gen_fresh.py",
+        "40-engine/llm/inference/ameno/src/kotoba-ground.ts"
+      ],
+      "related": [
+        "2606013800",
+        "2605190824",
+        "2605312345"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606061200",
+        "2606021600",
+        "2606042330",
+        "2605215000",
+        "2605241900",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606062300-matsurigoto-egov-execution-commons.md",
+      "id": "adr-2606062300-matsurigoto-egov-execution-commons",
+      "title": "ADR-2606062300: matsurigoto 政 — COFOG-based e-Government execution commons (the Kingdom's statecraft stack)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "matsurigoto-egov-execution-commons",
+      "authoritative": true,
+      "authoritative_for": [
+        "matsurigoto-egov-execution-commons",
+        "cofog-egov-service-standard"
+      ],
+      "related": [
+        "adr-2605312030-toritsugi-government-procedure-concierge",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606021600-ooyake-world-government-atlas",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605231525-no-server-key",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605252300-charter-preamble-kingdom-of-god",
+        "adr-2605212100-gov-five-layer-taxonomy"
+      ],
+      "last_verified": "2026-06-05",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606063000-session-close-ooyake-world-model-reconcile-loop.md",
+      "id": "adr-2606063000-session-close-ooyake-world-model-reconcile",
+      "title": "ADR-2606063000: Session close — ooyake↔tsumugi world-model reconcile layer (self-paced /loop maturation)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "ooyake-world-model-reconcile",
+      "authoritative": true,
+      "related": [
+        "90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md"
+      ],
+      "depends_on": [
+        "adr-2606021600-ooyake-world-government-atlas",
+        "adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "adr-2606011000-engi-organism-ontology"
+      ],
+      "last_verified": "2026-06-06",
+      "authoritative_for": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },

@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:oshikatsu.etzhayyim.com"
@@ -23,8 +23,8 @@ DEFAULT_TIERS = [
 ]
 
 
-def _now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+def _now() -> _dt.datetime:
+    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0)
 
 
 def _id(prefix: str) -> str:
@@ -60,11 +60,10 @@ def _edge_id(kind: str, src: str, dst: str) -> str:
     return f"at://{APP_DID}/com.etzhayyim.apps.oshikatsu.edge/{kind}:{src}:{dst}"[:512]
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
+def _rows(input_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
-    for row in cur.fetchall():
-        raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}
+    for row in input_rows:
+        raw = {k: _jsonable(v) for k, v in row.items()}
         for key in ("tiers", "media_urls"):
             if isinstance(raw.get(key), str) and raw[key].startswith("["):
                 try:
@@ -105,98 +104,207 @@ def _rows(cur: Any) -> list[dict[str, Any]]:
 
 def _write(kind: str, rec: dict[str, Any]) -> dict[str, Any]:
     record = {**rec, "orgId": rec.get("orgId") or "anon", "actorId": rec.get("actorId") or APP_ID}
-    with sync_cursor() as cur:
-        if kind == "creatorProfile":
-            vid = _vertex_id("creatorProfile", _str(record["id"]))
-            cur.execute(
-                """
-                INSERT INTO vertex_oshikatsu_creator_profile
-                  (vertex_id,id,creator_did,display_name,bio,tiers,subscriber_count,total_earned_credits,status,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET
-                  display_name=EXCLUDED.display_name,bio=EXCLUDED.bio,tiers=EXCLUDED.tiers,status=EXCLUDED.status
-                """,
-                (vid, record["id"], record["creatorDid"], record["displayName"], record.get("bio", ""), json.dumps(record.get("tiers") or [], ensure_ascii=False), int(_num(record.get("subscriberCount"))), _num(record.get("totalEarnedCredits")), record.get("status", "active"), record.get("createdAt") or _now(), record["orgId"], record.get("userId") or record["creatorDid"], record["actorId"], 2, APP_DID),
-            )
-            return {"uri": vid}
-        if kind == "subscriptionTier":
-            vid = _vertex_id("subscriptionTier", _str(record["tierId"]))
-            cur.execute(
-                """
-                INSERT INTO vertex_oshikatsu_subscription_tier
-                  (vertex_id,tier_id,rank,name,label,price_credits,description,creator_did,updated_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET
-                  rank=EXCLUDED.rank,name=EXCLUDED.name,label=EXCLUDED.label,price_credits=EXCLUDED.price_credits,description=EXCLUDED.description,updated_at=EXCLUDED.updated_at
-                """,
-                (vid, record["tierId"], int(_num(record.get("rank"))), record.get("name", ""), record.get("label", ""), _num(record.get("priceCredits")), record.get("description", ""), record.get("creatorDid", ""), record.get("updatedAt") or _now(), record["orgId"], record.get("userId") or record.get("creatorDid", ""), record["actorId"], 2, APP_DID),
-            )
-            creator = _find("creatorProfile", "creatorDid", _str(record.get("creatorDid")))
-            if creator:
-                cur.execute(
-                    "INSERT INTO edge_oshikatsu_creator_tier (edge_id,src_vid,dst_vid,creator_did,tier_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                    (_edge_id("creatorTier", _str(creator.get("vertexId")), vid), creator.get("vertexId"), vid, record.get("creatorDid"), record["tierId"], "HAS_TIER", _now(), APP_DID, 2),
-                )
-            return {"uri": vid}
-        if kind == "subscription":
-            vid = _vertex_id("subscription", _str(record["id"]))
-            cur.execute(
-                """
-                INSERT INTO vertex_oshikatsu_subscription
-                  (vertex_id,id,subscriber_did,creator_did,tier,price_credits,status,started_at,expires_at,auto_renew,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status,tier=EXCLUDED.tier,expires_at=EXCLUDED.expires_at
-                """,
-                (vid, record["id"], record["subscriberDid"], record["creatorDid"], record.get("tier", ""), _num(record.get("priceCredits")), record.get("status", "active"), record.get("startedAt") or _now(), record.get("expiresAt", ""), bool(record.get("autoRenew", True)), record.get("createdAt") or _now(), record["orgId"], record.get("userId") or record["subscriberDid"], record["actorId"], 2, APP_DID),
-            )
-            cur.execute(
-                "INSERT INTO edge_oshikatsu_subscription (edge_id,src_vid,dst_vid,subscriber_did,creator_did,subscription_id,tier,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (_edge_id("subscription", record["subscriberDid"], record["creatorDid"]), record["subscriberDid"], record["creatorDid"], record["subscriberDid"], record["creatorDid"], record["id"], record.get("tier", ""), "SUBSCRIBES_TO", record.get("createdAt") or _now(), APP_DID, 2),
-            )
-            return {"uri": vid}
-        if kind == "subscriptionCancel":
-            vid = _vertex_id("subscriptionCancel", _str(record["id"]))
-            cur.execute(
-                "INSERT INTO vertex_oshikatsu_subscription_cancel (vertex_id,id,subscriber_did,creator_did,cancelled_at,org_id,user_id,actor_id,sensitivity_ord,owner_did) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO NOTHING",
-                (vid, record["id"], record["subscriberDid"], record["creatorDid"], record.get("cancelledAt") or _now(), record["orgId"], record.get("userId") or record["subscriberDid"], record["actorId"], 2, APP_DID),
-            )
-            return {"uri": vid}
-        if kind == "exclusiveContent":
-            vid = _vertex_id("exclusiveContent", _str(record["id"]))
-            cur.execute(
-                """
-                INSERT INTO vertex_oshikatsu_exclusive_content
-                  (vertex_id,id,creator_did,title,body,content_type,min_tier,media_urls,preview_text,like_count,comment_count,tip_total_credits,status,published_at,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET title=EXCLUDED.title,body=EXCLUDED.body,status=EXCLUDED.status
-                """,
-                (vid, record["id"], record["creatorDid"], record["title"], record.get("body", ""), record.get("contentType", "post"), record.get("minTier", "supporter"), json.dumps(record.get("mediaUrls") or [], ensure_ascii=False), record.get("previewText", ""), int(_num(record.get("likeCount"))), int(_num(record.get("commentCount"))), _num(record.get("tipTotalCredits")), record.get("status", "published"), record.get("publishedAt") or _now(), record.get("createdAt") or _now(), record["orgId"], record.get("userId") or record["creatorDid"], record["actorId"], 2, APP_DID),
-            )
-            cur.execute(
-                "INSERT INTO edge_oshikatsu_content_by_creator (edge_id,src_vid,dst_vid,creator_did,content_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (_edge_id("contentBy", record["creatorDid"], record["id"]), record["creatorDid"], vid, record["creatorDid"], record["id"], "PUBLISHED", record.get("createdAt") or _now(), APP_DID, 2),
-            )
-            return {"uri": vid}
-        if kind == "tip":
-            vid = _vertex_id("tip", _str(record["id"]))
-            cur.execute(
-                "INSERT INTO vertex_oshikatsu_tip (vertex_id,id,from_did,creator_did,content_id,amount,message,created_at,org_id,user_id,actor_id,sensitivity_ord,owner_did) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (vertex_id) DO NOTHING",
-                (vid, record["id"], record["fromDid"], record["creatorDid"], record.get("contentId", ""), _num(record.get("amount")), record.get("message", ""), record.get("createdAt") or _now(), record["orgId"], record.get("userId") or record["fromDid"], record["actorId"], 2, APP_DID),
-            )
-            cur.execute(
-                "INSERT INTO edge_oshikatsu_tip_to_creator (edge_id,src_vid,dst_vid,from_did,creator_did,tip_id,amount,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                (_edge_id("tipTo", record["fromDid"], record["id"]), record["fromDid"], record["creatorDid"], record["fromDid"], record["creatorDid"], record["id"], _num(record.get("amount")), "TIPPED", record.get("createdAt") or _now(), APP_DID, 2),
-            )
-            if record.get("contentId"):
-                cur.execute(
-                    "INSERT INTO edge_oshikatsu_tip_for_content (edge_id,src_vid,dst_vid,tip_id,content_id,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-                    (_edge_id("tipFor", record["id"], record["contentId"]), vid, _vertex_id("exclusiveContent", _str(record["contentId"])), record["id"], record["contentId"], "TIPS_CONTENT", record.get("createdAt") or _now(), APP_DID, 2),
-                )
-            return {"uri": vid}
+    if kind == "creatorProfile":
+        vid = _vertex_id("creatorProfile", _str(record["id"]))
+        row_dict = {
+            "vertex_id": vid,
+            "id": record["id"],
+            "creator_did": record["creatorDid"],
+            "display_name": record["displayName"],
+            "bio": record.get("bio", ""),
+            "tiers": json.dumps(record.get("tiers") or [], ensure_ascii=False),
+            "subscriber_count": int(_num(record.get("subscriberCount"))),
+            "total_earned_credits": _num(record.get("totalEarnedCredits")),
+            "status": record.get("status", "active"),
+            "created_at": record.get("createdAt") or _now(),
+            "org_id": record["orgId"],
+            "user_id": record.get("userId") or record["creatorDid"],
+            "actor_id": record["actorId"],
+            "sensitivity_ord": 2,
+            "owner_did": APP_DID,
+        }
+        get_kotoba_client().insert_row("vertex_oshikatsu_creator_profile", row_dict)
+        return {"uri": vid}
+    if kind == "subscriptionTier":
+        vid = _vertex_id("subscriptionTier", _str(record["tierId"]))
+        row_dict = {
+            "vertex_id": vid,
+            "tier_id": record["tierId"],
+            "rank": int(_num(record.get("rank"))),
+            "name": record.get("name", ""),
+            "label": record.get("label", ""),
+            "price_credits": _num(record.get("priceCredits")),
+            "description": record.get("description", ""),
+            "creator_did": record.get("creatorDid", ""),
+            "updated_at": record.get("updatedAt") or _now(),
+            "org_id": record["orgId"],
+            "user_id": record.get("userId") or record.get("creatorDid", ""),
+            "actor_id": record["actorId"],
+            "sensitivity_ord": 2,
+            "owner_did": APP_DID,
+        }
+        get_kotoba_client().insert_row("vertex_oshikatsu_subscription_tier", row_dict)
+        creator = _find("creatorProfile", "creatorDid", _str(record.get("creatorDid")))
+        if creator:
+            edge_id = _edge_id("creatorTier", _str(creator.get("vertexId")), vid)
+            row_dict = {
+                "edge_id": edge_id,
+                "src_vid": creator.get("vertexId"),
+                "dst_vid": vid,
+                "creator_did": record.get("creatorDid"),
+                "tier_id": record["tierId"],
+                "relation": "HAS_TIER",
+                "created_at": _now(),
+                "owner_did": APP_DID,
+                "sensitivity_ord": 2,
+            }
+            get_kotoba_client().insert_row("edge_oshikatsu_creator_tier", row_dict)
+        return {"uri": vid}
+    if kind == "subscription":
+        vid = _vertex_id("subscription", _str(record["id"]))
+        row_dict = {
+            "vertex_id": vid,
+            "id": record["id"],
+            "subscriber_did": record["subscriberDid"],
+            "creator_did": record["creatorDid"],
+            "tier": record.get("tier", ""),
+            "price_credits": _num(record.get("priceCredits")),
+            "status": record.get("status", "active"),
+            "started_at": record.get("startedAt") or _now(),
+            "expires_at": record.get("expiresAt", ""),
+            "auto_renew": bool(record.get("autoRenew", True)),
+            "created_at": record.get("createdAt") or _now(),
+            "org_id": record["orgId"],
+            "user_id": record.get("userId") or record["subscriberDid"],
+            "actor_id": record["actorId"],
+            "sensitivity_ord": 2,
+            "owner_did": APP_DID,
+        }
+        get_kotoba_client().insert_row("vertex_oshikatsu_subscription", row_dict)
+        edge_id = _edge_id("subscription", record["subscriberDid"], record["creatorDid"])
+        row_dict = {
+            "edge_id": edge_id,
+            "src_vid": record["subscriberDid"],
+            "dst_vid": record["creatorDid"],
+            "subscriber_did": record["subscriberDid"],
+            "creator_did": record["creatorDid"],
+            "subscription_id": record["id"],
+            "tier": record.get("tier", ""),
+            "relation": "SUBSCRIBES_TO",
+            "created_at": record.get("createdAt") or _now(),
+            "owner_did": APP_DID,
+            "sensitivity_ord": 2,
+        }
+        get_kotoba_client().insert_row("edge_oshikatsu_subscription", row_dict)
+        return {"uri": vid}
+    if kind == "subscriptionCancel":
+        vid = _vertex_id("subscriptionCancel", _str(record["id"]))
+        row_dict = {
+            "vertex_id": vid,
+            "id": record["id"],
+            "subscriber_did": record["subscriberDid"],
+            "creator_did": record["creatorDid"],
+            "cancelled_at": record.get("cancelledAt") or _now(),
+            "org_id": record["orgId"],
+            "user_id": record.get("userId") or record["subscriberDid"],
+            "actor_id": record["actorId"],
+            "sensitivity_ord": 2,
+            "owner_did": APP_DID,
+        }
+        get_kotoba_client().insert_row("vertex_oshikatsu_subscription_cancel", row_dict)
+        return {"uri": vid}
+    if kind == "exclusiveContent":
+        vid = _vertex_id("exclusiveContent", _str(record["id"]))
+        row_dict = {
+            "vertex_id": vid,
+            "id": record["id"],
+            "creator_did": record["creatorDid"],
+            "title": record["title"],
+            "body": record.get("body", ""),
+            "content_type": record.get("contentType", "post"),
+            "min_tier": record.get("minTier", "supporter"),
+            "media_urls": json.dumps(record.get("mediaUrls") or [], ensure_ascii=False),
+            "preview_text": record.get("previewText", ""),
+            "like_count": int(_num(record.get("likeCount"))),
+            "comment_count": int(_num(record.get("commentCount"))),
+            "tip_total_credits": _num(record.get("tipTotalCredits")),
+            "status": record.get("status", "published"),
+            "published_at": record.get("publishedAt") or _now(),
+            "created_at": record.get("createdAt") or _now(),
+            "org_id": record["orgId"],
+            "user_id": record.get("userId") or record["creatorDid"],
+            "actor_id": record["actorId"],
+            "sensitivity_ord": 2,
+            "owner_did": APP_DID,
+        }
+        get_kotoba_client().insert_row("vertex_oshikatsu_exclusive_content", row_dict)
+        edge_id = _edge_id("contentBy", record["creatorDid"], record["id"])
+        row_dict = {
+            "edge_id": edge_id,
+            "src_vid": record["creatorDid"],
+            "dst_vid": vid,
+            "creator_did": record["creatorDid"],
+            "content_id": record["id"],
+            "relation": "PUBLISHED",
+            "created_at": record.get("createdAt") or _now(),
+            "owner_did": APP_DID,
+            "sensitivity_ord": 2,
+        }
+        get_kotoba_client().insert_row("edge_oshikatsu_content_by_creator", row_dict)
+        return {"uri": vid}
+    if kind == "tip":
+        vid = _vertex_id("tip", _str(record["id"]))
+        row_dict = {
+            "vertex_id": vid,
+            "id": record["id"],
+            "from_did": record["fromDid"],
+            "creator_did": record["creatorDid"],
+            "content_id": record.get("contentId", ""),
+            "amount": _num(record.get("amount")),
+            "message": record.get("message", ""),
+            "created_at": record.get("createdAt") or _now(),
+            "org_id": record["orgId"],
+            "user_id": record.get("userId") or record["fromDid"],
+            "actor_id": record["actorId"],
+            "sensitivity_ord": 2,
+            "owner_did": APP_DID,
+        }
+        get_kotoba_client().insert_row("vertex_oshikatsu_tip", row_dict)
+        edge_id = _edge_id("tipTo", record["fromDid"], record["id"])
+        row_dict = {
+            "edge_id": edge_id,
+            "src_vid": record["fromDid"],
+            "dst_vid": record["creatorDid"],
+            "from_did": record["fromDid"],
+            "creator_did": record["creatorDid"],
+            "tip_id": record["id"],
+            "amount": _num(record.get("amount")),
+            "relation": "TIPPED",
+            "created_at": record.get("createdAt") or _now(),
+            "owner_did": APP_DID,
+            "sensitivity_ord": 2,
+        }
+        get_kotoba_client().insert_row("edge_oshikatsu_tip_to_creator", row_dict)
+        if record.get("contentId"):
+            edge_id = _edge_id("tipFor", record["id"], record["contentId"])
+            row_dict = {
+                "edge_id": edge_id,
+                "src_vid": vid,
+                "dst_vid": _vertex_id("exclusiveContent", _str(record["contentId"])),
+                "tip_id": record["id"],
+                "content_id": record["contentId"],
+                "relation": "TIPS_CONTENT",
+                "created_at": record.get("createdAt") or _now(),
+                "owner_did": APP_DID,
+                "sensitivity_ord": 2,
+            }
+            get_kotoba_client().insert_row("edge_oshikatsu_tip_for_content", row_dict)
+        return {"uri": vid}
     raise ValueError(f"unknown oshikatsu kind: {kind}")
 
 
 def _list(kind: str, *, limit: int = 100, offset: int = 0) -> list[dict[str, Any]]:
+    # R0: Fetching a broader set with select_where and applying ordering/pagination in Python
     tables = {
         "creatorProfile": ("vertex_oshikatsu_creator_profile", "created_at"),
         "subscriptionTier": ("vertex_oshikatsu_subscription_tier", "updated_at"),
@@ -206,12 +314,17 @@ def _list(kind: str, *, limit: int = 100, offset: int = 0) -> list[dict[str, Any
         "tip": ("vertex_oshikatsu_tip", "created_at"),
     }
     table, order_col = tables[kind]
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT * FROM {table} ORDER BY {order_col} DESC LIMIT %s OFFSET %s",
-            (max(1, min(limit, 500)), max(0, offset)),
-        )
-        return _rows(cur)
+
+    rows = get_kotoba_client().select_where(table, "owner_did", APP_DID, limit=2000)
+
+    # Apply Python-based ordering
+    rows.sort(key=lambda r: r.get(order_col, _now()), reverse=True)
+
+    # Apply Python-based limit and offset
+    off = max(0, offset)
+    lim = max(1, min(limit, 500))
+
+    return _rows(rows[off:off + lim])
 
 
 def _find(kind: str, key: str, value: str) -> dict[str, Any] | None:
@@ -413,3 +526,4 @@ def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)
+False, timeout_ms=timeout_ms)(handler)

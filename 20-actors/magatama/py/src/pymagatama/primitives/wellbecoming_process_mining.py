@@ -20,9 +20,10 @@ import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
+from datetime import datetime, timezone
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("wellbecoming.process_mining")
 
@@ -120,18 +121,21 @@ def analyze(batch_size: int | None = None) -> dict[str, Any]:
     spirit_scores: list[float] = []
     sep_deltas: list[float] = []
 
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT vertex_id, response_preview, agent_did, case_id
-            FROM vertex_wellbecoming_event
-            WHERE scored = false
-              AND response_preview IS NOT NULL
-            ORDER BY created_at DESC
-            LIMIT {int(max_events)}
-            """
-        )
-        rows = cur.fetchall()
+    # R0: Using q() Datalog escape hatch for complex SELECT with ORDER BY and LIMIT.
+    query_edn = f"""
+    [:find ?vid ?preview ?agent_did ?case_id
+     :where
+     [?e :vertex_wellbecoming_event/scored false]
+     [?e :vertex_wellbecoming_event/response_preview ?preview]
+     (not= ?preview nil)
+     [?e :vertex_wellbecoming_event/agent_did ?agent_did]
+     [?e :vertex_wellbecoming_event/case_id ?case_id]
+     [?e :vertex_wellbecoming_event/vertex_id ?vid]
+     [?e :vertex_wellbecoming_event/created_at ?created_at]
+     :order-by (desc ?created_at)
+     :limit {int(max_events)}]
+    """
+    rows = get_kotoba_client().q(query_edn)
 
     defaults: dict[str, Any] = {
         "score_spirit": None, "score_wellbecoming": None,
@@ -163,35 +167,20 @@ def analyze(batch_size: int | None = None) -> dict[str, Any]:
         ) if all(scores[k] is not None for k in ["score_spirit","score_wellbecoming","score_feeling","score_buffer"]) else None
 
         try:
-            with sync_cursor() as cur:
-                cur.execute(
-                    """
-                    UPDATE vertex_wellbecoming_event SET
-                      score_spirit       = %s,
-                      score_wellbecoming = %s,
-                      score_feeling      = %s,
-                      score_buffer       = %s,
-                      score_total        = %s,
-                      separation_delta   = %s,
-                      floor_violated     = %s,
-                      floor_reason       = %s,
-                      scored             = true,
-                      scored_at          = %s
-                    WHERE vertex_id = %s
-                    """,
-                    (
-                        scores["score_spirit"],
-                        scores["score_wellbecoming"],
-                        scores["score_feeling"],
-                        scores["score_buffer"],
-                        score_total,
-                        scores["separation_delta"],
-                        scores["floor_violated"],
-                        scores["floor_reason"],
-                        now,
-                        vertex_id,
-                    ),
-                )
+            row_dict = {
+                "vertex_id": vertex_id,
+                "score_spirit": scores["score_spirit"],
+                "score_wellbecoming": scores["score_wellbecoming"],
+                "score_feeling": scores["score_feeling"],
+                "score_buffer": scores["score_buffer"],
+                "score_total": score_total,
+                "separation_delta": scores["separation_delta"],
+                "floor_violated": scores["floor_violated"],
+                "floor_reason": scores["floor_reason"],
+                "scored": True,
+                "scored_at": now,
+            }
+            get_kotoba_client().insert_row("vertex_wellbecoming_event", row_dict)
         except Exception as e:
             LOG.warning("DB update failed for %s: %s", vertex_id, e)
             continue
@@ -229,30 +218,24 @@ def analyze(batch_size: int | None = None) -> dict[str, Any]:
         "createdAt": now,
     }
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_wellbecoming_process_mining_report
-                  (vertex_id, record_key, text, scored_count, floor_violations,
-                   avg_spirit, avg_separation_delta, value_json, indexed_at,
-                   created_at, updated_at, actor_did, org_did, owner_did, sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,2)
-                ON CONFLICT (vertex_id) DO UPDATE SET
-                  text = EXCLUDED.text,
-                  scored_count = EXCLUDED.scored_count,
-                  floor_violations = EXCLUDED.floor_violations,
-                  avg_spirit = EXCLUDED.avg_spirit,
-                  avg_separation_delta = EXCLUDED.avg_separation_delta,
-                  value_json = EXCLUDED.value_json,
-                  indexed_at = EXCLUDED.indexed_at,
-                  updated_at = EXCLUDED.updated_at
-                """,
-                (
-                    report_uri, rkey, report_text[:2000], scored_count, floor_violations,
-                    avg_spirit, avg_sep, json.dumps(record, ensure_ascii=False),
-                    now, now, now, DEFAULT_REPO, "anon", DEFAULT_REPO,
-                ),
-            )
+        row_dict = {
+            "vertex_id": report_uri,
+            "record_key": rkey,
+            "text": report_text[:2000],
+            "scored_count": scored_count,
+            "floor_violations": floor_violations,
+            "avg_spirit": avg_spirit,
+            "avg_separation_delta": avg_sep,
+            "value_json": json.dumps(record, ensure_ascii=False),
+            "indexed_at": now,
+            "created_at": now,
+            "updated_at": now,
+            "actor_did": DEFAULT_REPO,
+            "org_did": "anon",
+            "owner_did": DEFAULT_REPO,
+            "sensitivity_ord": 2,
+        }
+        get_kotoba_client().insert_row("vertex_wellbecoming_process_mining_report", row_dict)
     except Exception as e:
         LOG.warning("report insert failed: %s", e)
 

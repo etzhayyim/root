@@ -20,6 +20,7 @@ import logging
 import os
 import time
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from pymagatama.ingest.core import (
@@ -29,7 +30,7 @@ from pymagatama.ingest.core import (
     stable_run_id,
     upsert_run,
 )
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger(__name__)
 
@@ -57,15 +58,22 @@ def _proxy_scan(ip: str, ports: list[int], proxy_url: str, key: str) -> list[dic
 
 
 def _stale_ips(batch_size: int) -> list[str]:
-    sql = (
-        "SELECT DISTINCT address FROM vertex_ip_address "
-        "WHERE observed_at::timestamptz < NOW() - INTERVAL '30 days' "
-        f"ORDER BY observed_at ASC LIMIT {int(batch_size)}"
-    )
+    # R0: Filtering by observed_at in Python as date arithmetic is not directly supported by the shims.
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql)
-            return [row[0] for row in (cur.fetchall() or []) if row[0]]
+        # Fetch all IP addresses from vertex_ip_address
+        all_ips = get_kotoba_client().select_where("vertex_ip_address", "pk", "*", columns=["address", "observed_at"], limit=2000)
+
+        # Filter in Python
+        thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
+        stale_ips_with_dates = [
+            row for row in all_ips
+            if row.get("observed_at") and datetime.fromisoformat(row["observed_at"].replace("Z", "+00:00")) < thirty_days_ago
+        ]
+
+        # Sort by observed_at and take the batch_size
+        stale_ips_with_dates.sort(key=lambda x: x.get("observed_at", ""))
+
+        return [row["address"] for row in stale_ips_with_dates[:batch_size] if row["address"]]
     except Exception as e:
         LOG.warning("stale_ips_scan query failed: %s", e)
         return []
@@ -78,38 +86,33 @@ def _insert_scan_result(ip: str, port: int, result: dict, run_id: str) -> bool:
         f"at://did:web:ingest.etzhayyim.com/com.etzhayyim.apps.collector.scanResult"
         f"/{ip}:{port}:{proto}"
     )
-    sql = (
-        "INSERT INTO vertex_scan_result "
-        "(vertex_id, owner_did, ip, port, protocol, state, service, software, version, "
-        "banner, tls_version, tls_cipher, cert_subject, cert_issuer, cert_expires, "
-        "os_guess, scanner_host, scanned_at, sensitivity_ord, created_date) "
-        "SELECT %s::varchar, %s::varchar, %s::varchar, %s::bigint, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, %s::varchar, %s::varchar, %s::varchar, "
-        "%s::varchar, %s::varchar, %s::varchar, 1::bigint, CURRENT_DATE "
-        "WHERE NOT EXISTS (SELECT 1 FROM vertex_scan_result WHERE vertex_id = %s::varchar)"
-    )
-    params = (
-        vertex_id, INGEST_ACTOR, ip, int(port), proto,
-        result.get("state", ""),
-        result.get("service", ""),
-        result.get("software", ""),
-        result.get("version", ""),
-        str(result.get("banner", ""))[:512],
-        result.get("tls_version", ""),
-        result.get("tls_cipher", ""),
-        result.get("cert_subject", ""),
-        result.get("cert_issuer", ""),
-        result.get("cert_expires", ""),
-        result.get("os_guess", ""),
-        "proxy",
-        ts,
-        vertex_id,
-    )
+
+    row_dict = {
+        "vertex_id": vertex_id,
+        "owner_did": INGEST_ACTOR,
+        "ip": ip,
+        "port": int(port),
+        "protocol": proto,
+        "state": result.get("state", ""),
+        "service": result.get("service", ""),
+        "software": result.get("software", ""),
+        "version": result.get("version", ""),
+        "banner": str(result.get("banner", ""))[:512],
+        "tls_version": result.get("tls_version", ""),
+        "tls_cipher": result.get("tls_cipher", ""),
+        "cert_subject": result.get("cert_subject", ""),
+        "cert_issuer": result.get("cert_issuer", ""),
+        "cert_expires": result.get("cert_expires", ""),
+        "os_guess": result.get("os_guess", ""),
+        "scanner_host": "proxy",
+        "scanned_at": ts,
+        "sensitivity_ord": 1,
+        "created_date": datetime.now(timezone.utc).date().isoformat(),
+    }
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            return (cur.rowcount or 0) > 0
+        # insert_row handles upsert logic based on the identity column (vertex_id)
+        get_kotoba_client().insert_row("vertex_scan_result", row_dict)
+        return True
     except Exception as e:
         LOG.warning("scan_result insert failed ip=%s port=%s: %s", ip, port, e)
         return False

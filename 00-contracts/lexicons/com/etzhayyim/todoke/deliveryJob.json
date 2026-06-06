@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.todoke.deliveryJob",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "jobId",
+          "payloadClass",
+          "origin",
+          "destination",
+          "consentRef",
+          "createdAt"
+        ],
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "description": "job DID"
+          },
+          "payloadClass": {
+            "type": "string",
+            "enum": [
+              "parcel",
+              "groceries",
+              "documents",
+              "meal",
+              "returns"
+            ],
+            "description": "N3: regulated classes (pharma/hazmat/age-restricted) are NOT valid here — routed to the proper actor (yakushi cold-chain etc.)"
+          },
+          "weightKg": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 25,
+            "description": "last-mile small-payload ceiling (G7 KPI cap)"
+          },
+          "origin": {
+            "type": "string",
+            "description": "curb/locker pickup point DID or geo-ref"
+          },
+          "destination": {
+            "type": "string",
+            "description": "recipient door/locker DID or geo-ref"
+          },
+          "consentRef": {
+            "type": "string",
+            "description": "G13: encrypted recipient consent record reference (required)"
+          },
+          "armed": {
+            "type": "boolean",
+            "const": false,
+            "description": "G14/N1 invariant — always false (no armed/weaponized payload or platform)"
+          },
+          "gig": {
+            "type": "boolean",
+            "const": false,
+            "description": "G5/N4 invariant — always false (no gig/piece-rate courier)"
+          },
+          "timeWindow": {
+            "type": "string",
+            "description": "delivery window (ISO interval)"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

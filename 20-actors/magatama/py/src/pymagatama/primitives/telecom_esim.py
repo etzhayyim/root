@@ -24,9 +24,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
 ACTOR_TAG = "sys.worker.telecom.esim"
 
@@ -81,32 +79,24 @@ def handle_provision_euicc(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("euicc", _new_id("euicc", eid_hash))
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_euicc (
-              vertex_id, owner_did, eid, device_kind, manufacturer_name,
-              platform_version, smdp_address, smds_address, profile_slots,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, eid_hash, device_kind,
-                payload.get("manufacturerName"), payload.get("platformVersion"),
-                payload.get("smdpAddress"), payload.get("smdsAddress"),
-                payload.get("profileSlots"),
-                observed_at, "active", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_euicc", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "eid": eid_hash,
+        "device_kind": device_kind,
+        "manufacturer_name": payload.get('manufacturerName'),
+        "platform_version": payload.get('platformVersion'),
+        "smdp_address": payload.get('smdpAddress'),
+        "smds_address": payload.get('smdsAddress'),
+        "profile_slots": payload.get('profileSlots'),
+        "observed_at": observed_at,
+        "status": 'active',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "eid": eid_hash, "status": "active"}
 
@@ -125,33 +115,25 @@ def handle_download_esim_profile(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("esimProfile", payload["downloadId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_profile (
-              vertex_id, owner_did, download_id, eid, iccid,
-              matching_id, smdp_address, profile_type, mno,
-              profile_state, observed_at, status, created_at,
-              sensitivity_ord, org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["downloadId"],
-                eid_hash, iccid_hash,
-                payload.get("matchingId"), payload["smdpAddress"],
-                profile_type, payload.get("mno"),
-                "installed", observed_at, "completed", observed_at,
-                2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_profile", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "download_id": payload['downloadId'],
+        "eid": eid_hash,
+        "iccid": iccid_hash,
+        "matching_id": payload.get('matchingId'),
+        "smdp_address": payload['smdpAddress'],
+        "profile_type": profile_type,
+        "mno": payload.get('mno'),
+        "profile_state": 'installed',
+        "observed_at": observed_at,
+        "status": 'completed',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "iccid": iccid_hash, "status": "completed"}
 
@@ -166,31 +148,23 @@ def handle_enable_esim_profile(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("esimProfileOp", payload["operationId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_profile_op (
-              vertex_id, owner_did, operation_id, eid, iccid,
-              op_kind, refresh_flag, reason,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["operationId"],
-                eid_hash, iccid_hash,
-                "enable", payload.get("refreshFlag", False), None,
-                observed_at, "enabled", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_profile_op", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "operation_id": payload['operationId'],
+        "eid": eid_hash,
+        "iccid": iccid_hash,
+        "op_kind": 'enable',
+        "refresh_flag": payload.get('refreshFlag', False),
+        "reason": None,
+        "observed_at": observed_at,
+        "status": 'enabled',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "iccid": iccid_hash, "status": "enabled"}
 
@@ -209,31 +183,23 @@ def handle_disable_esim_profile(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("esimProfileOp", payload["operationId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_profile_op (
-              vertex_id, owner_did, operation_id, eid, iccid,
-              op_kind, reason, refresh_flag,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["operationId"],
-                eid_hash, iccid_hash,
-                "disable", reason, False,
-                observed_at, "disabled", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_profile_op", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "operation_id": payload['operationId'],
+        "eid": eid_hash,
+        "iccid": iccid_hash,
+        "op_kind": 'disable',
+        "reason": reason,
+        "refresh_flag": False,
+        "observed_at": observed_at,
+        "status": 'disabled',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "iccid": iccid_hash, "status": "disabled"}
 
@@ -252,31 +218,23 @@ def handle_delete_esim_profile(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("esimProfileOp", payload["operationId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_profile_op (
-              vertex_id, owner_did, operation_id, eid, iccid,
-              op_kind, reason, refresh_flag,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["operationId"],
-                eid_hash, iccid_hash,
-                "delete", reason, False,
-                observed_at, "deleted", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_profile_op", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "operation_id": payload['operationId'],
+        "eid": eid_hash,
+        "iccid": iccid_hash,
+        "op_kind": 'delete',
+        "reason": reason,
+        "refresh_flag": False,
+        "observed_at": observed_at,
+        "status": 'deleted',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "iccid": iccid_hash, "status": "deleted"}
 
@@ -294,34 +252,24 @@ def handle_register_smdp_event(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("smdsEvent", payload["eventId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_smds_event (
-              vertex_id, owner_did, event_id, eid, smdp_address, smds_address,
-              event_type, iccid, expires_at,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["eventId"],
-                eid_hash, payload["smdpAddress"],
-                payload.get("smdsAddress"),
-                event_type,
-                _hash(payload.get("iccid")),
-                payload.get("expiresAt"),
-                observed_at, "pending", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_smds_event", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "event_id": payload['eventId'],
+        "eid": eid_hash,
+        "smdp_address": payload['smdpAddress'],
+        "smds_address": payload.get('smdsAddress'),
+        "event_type": event_type,
+        "iccid": _hash(payload.get('iccid')),
+        "expires_at": payload.get('expiresAt'),
+        "observed_at": observed_at,
+        "status": 'pending',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "eventId": payload["eventId"], "status": "pending"}
 
@@ -335,33 +283,23 @@ def handle_audit_euicc_state(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("esimAudit", payload["auditId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_audit (
-              vertex_id, owner_did, audit_id, eid, profile_count,
-              active_iccid, free_memory_bytes, last_contact_at,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["auditId"], eid_hash,
-                payload.get("profileCount"),
-                _hash(payload.get("activeIccid")),
-                payload.get("freeMemoryBytes"),
-                payload.get("lastContactAt"),
-                observed_at, "recorded", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_audit", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "audit_id": payload['auditId'],
+        "eid": eid_hash,
+        "profile_count": payload.get('profileCount'),
+        "active_iccid": _hash(payload.get('activeIccid')),
+        "free_memory_bytes": payload.get('freeMemoryBytes'),
+        "last_contact_at": payload.get('lastContactAt'),
+        "observed_at": observed_at,
+        "status": 'recorded',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "eid": eid_hash, "status": "recorded"}
 
@@ -376,32 +314,24 @@ def handle_transfer_esim_ownership(payload: dict[str, Any]) -> dict[str, Any]:
     observed_at = payload.get("observedAt") or _now_iso()
     vertex_id = _vid("esimOwnershipTransfer", payload["transferId"])
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_telecom_esim_ownership_transfer (
-              vertex_id, owner_did, transfer_id, eid, iccid,
-              source_mno, target_mno, target_smdp_address, porting_ref,
-              observed_at, status, created_at, sensitivity_ord,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, TELECOM_DID, payload["transferId"],
-                eid_hash, iccid_hash,
-                payload["sourceMno"], payload["targetMno"],
-                payload["targetSmdpAddress"], payload.get("portingRef"),
-                observed_at, "initiated", observed_at, 2,
-                payload.get("callerDid", TELECOM_DID),
-                payload.get("callerDid", TELECOM_DID),
-                ACTOR_TAG,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_telecom_esim_ownership_transfer", {
+        "vertex_id": vertex_id,
+        "owner_did": TELECOM_DID,
+        "transfer_id": payload['transferId'],
+        "eid": eid_hash,
+        "iccid": iccid_hash,
+        "source_mno": payload['sourceMno'],
+        "target_mno": payload['targetMno'],
+        "target_smdp_address": payload['targetSmdpAddress'],
+        "porting_ref": payload.get('portingRef'),
+        "observed_at": observed_at,
+        "status": 'initiated',
+        "created_at": observed_at,
+        "sensitivity_ord": 2,
+        "org_id": payload.get('callerDid', TELECOM_DID),
+        "user_id": payload.get('callerDid', TELECOM_DID),
+        "actor_id": ACTOR_TAG,
+    })
 
     return {"vertexId": vertex_id, "transferId": payload["transferId"], "status": "initiated"}
 

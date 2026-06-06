@@ -30,8 +30,7 @@ from typing import Any, TYPE_CHECKING
 if TYPE_CHECKING:
     from pymagatama.langserver_compat import LangServerWorker
 
-from pymagatama.db_sync import sync_cursor
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 LOG = logging.getLogger("contribution_royalty")
 
 # ── env ────────────────────────────────────────────────────────────────────
@@ -90,19 +89,16 @@ def emit_contribution_usage(
     )
     used_at = _utc_now_iso()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_contribution_usage
-                  (vertex_id, source_hash, consumer_did, usage_type,
-                   gcc_value_wei, used_at, actor_did, org_did)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    vertex_id, source_hash, consumer_did, usage_type,
-                    gcc_value_wei, used_at, actor_did, org_did,
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_contribution_usage", {
+            "vertex_id": vertex_id,
+            "source_hash": source_hash,
+            "consumer_did": consumer_did,
+            "usage_type": usage_type,
+            "gcc_value_wei": gcc_value_wei,
+            "used_at": used_at,
+            "actor_did": actor_did,
+            "org_did": org_did,
+        })
         return {"ok": True, "vertex_id": vertex_id}
     except Exception as exc:  # noqa: BLE001
         LOG.error("emit_contribution_usage failed: %s", exc)
@@ -280,22 +276,19 @@ def register_source_task(
     )
     created_at = _utc_now_iso()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_contribution_source
-                  (vertex_id, source_hash, canonical_id, source_type,
-                   contributor_addr, royalty_bps, description, license,
-                   created_at, actor_did, org_did)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    vertex_id, source_hash, canonical_id, source_type,
-                    contributor_addr.lower(), royalty_bps,
-                    description or "", license or "",
-                    created_at, actor_did, org_did,
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_contribution_source", {
+            "vertex_id": vertex_id,
+            "source_hash": source_hash,
+            "canonical_id": canonical_id,
+            "source_type": source_type,
+            "contributor_addr": contributor_addr.lower(),
+            "royalty_bps": royalty_bps,
+            "description": description or '',
+            "license": license or '',
+            "created_at": created_at,
+            "actor_did": actor_did,
+            "org_did": org_did,
+        })
         LOG.info("contribution.registerSource: sourceHash=%s vertexId=%s", source_hash, vertex_id)
         return {
             "ok": True,

@@ -7,9 +7,7 @@ import hashlib
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 APP_DID = "did:web:air-dcs.etzhayyim.com"
 ACTOR_SLUG = "air-dcs"
 
@@ -45,21 +43,22 @@ def process_checkin(
     vertex_id = _vid("checkin", f"{flightNo}:{depDate}:{pnr_hash[:16]}")
     now = _now()
     doc_hash = _hash(f"{documentType}:{documentNumber}") if documentNumber else ""
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_checkin
-              (vertex_id, pnr_hash, flight_no, dep_date, doc_hash,
-               status, checked_in_at, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnr_hash, flightNo, depDate, doc_hash,
-                "checked_in", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_checkin", {
+        "vertex_id": vertex_id,
+        "pnr_hash": pnr_hash,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "doc_hash": doc_hash,
+        "status": 'checked_in',
+        "checked_in_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -82,22 +81,23 @@ def process_boarding_pass(
     pnr_hash = _hash(pnrRef)
     vertex_id = _new_vid("boarding-pass")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_checkin
-              (vertex_id, pnr_hash, flight_no, dep_date, seat_number,
-               gate_code, boarding_group, status, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnr_hash, flightNo, depDate, seatNumber,
-                gateCode or "", boardingGroup or "A",
-                "boarding_pass_issued", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_checkin", {
+        "vertex_id": vertex_id,
+        "pnr_hash": pnr_hash,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "seat_number": seatNumber,
+        "gate_code": gateCode or '',
+        "boarding_group": boardingGroup or 'A',
+        "status": 'boarding_pass_issued',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -121,21 +121,24 @@ def accept_baggage(
     pnr_hash = _hash(pnrRef)
     vertex_id = _vid("baggage", tagNumber or f"{flightNo}:{depDate}:{pnr_hash[:12]}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_baggage
-              (vertex_id, pnr_hash, flight_no, dep_date, tag_number, weight_kg,
-               bag_count, status, accepted_at, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, pnr_hash, flightNo, depDate, tagNumber, float(weightKg),
-                int(bagCount), "accepted", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_baggage", {
+        "vertex_id": vertex_id,
+        "pnr_hash": pnr_hash,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "tag_number": tagNumber,
+        "weight_kg": float(weightKg),
+        "bag_count": int(bagCount),
+        "status": 'accepted',
+        "accepted_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -158,22 +161,22 @@ def reconcile_baggage(
     vertex_id = _new_vid("bag-reconcile")
     now = _now()
     reconciled = missingCount == 0
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_baggage
-              (vertex_id, flight_no, dep_date, loaded_count, offloaded_count,
-               missing_count, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, int(loadedCount), int(offloadedCount),
-                int(missingCount), "reconciled" if reconciled else "discrepancy",
-                now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_baggage", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "loaded_count": int(loadedCount),
+        "offloaded_count": int(offloadedCount),
+        "missing_count": int(missingCount),
+        "status": 'reconciled' if reconciled else 'discrepancy',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -199,22 +202,25 @@ def compute_load_sheet(
     vertex_id = _vid("load-sheet", f"{flightNo}:{depDate}")
     now = _now()
     zfw_kg = float(towKg) - float(fuelKg)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_load_sheet
-              (vertex_id, flight_no, dep_date, pax_count, bag_weight_kg,
-               cargo_weight_kg, fuel_kg, tow_kg, zfw_kg, status, created_at,
-               actor_did, org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, int(paxCount), float(bagWeightKg),
-                float(cargoWeightKg), float(fuelKg), float(towKg), zfw_kg,
-                "computed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_load_sheet", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "pax_count": int(paxCount),
+        "bag_weight_kg": float(bagWeightKg),
+        "cargo_weight_kg": float(cargoWeightKg),
+        "fuel_kg": float(fuelKg),
+        "tow_kg": float(towKg),
+        "zfw_kg": zfw_kg,
+        "status": 'computed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -237,21 +243,23 @@ def transmit_apis(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("apis")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_checkin
-              (vertex_id, flight_no, dep_date, dest_country, pax_count,
-               transmission_ref, status, transmitted_at, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, destCountry, int(paxCount),
-                transmissionRef or vertex_id, "transmitted", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_checkin", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "dest_country": destCountry,
+        "pax_count": int(paxCount),
+        "transmission_ref": transmissionRef or vertex_id,
+        "status": 'transmitted',
+        "transmitted_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -274,22 +282,23 @@ def track_turnaround(
 ) -> dict[str, Any]:
     vertex_id = _vid("turnaround", f"{flightNo}:{depDate}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_checkin
-              (vertex_id, flight_no, dep_date, arrival_time, gate_ready_time,
-               boarding_start_time, estimated_dep_time, status, created_at,
-               actor_did, org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, arrivalTime, gateReadyTime or "",
-                boardingStartTime or "", estimatedDepTime or "",
-                "in_progress", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_checkin", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "arrival_time": arrivalTime,
+        "gate_ready_time": gateReadyTime or '',
+        "boarding_start_time": boardingStartTime or '',
+        "estimated_dep_time": estimatedDepTime or '',
+        "status": 'in_progress',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -311,21 +320,22 @@ def departure_control(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("dep-control")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_dcs_checkin
-              (vertex_id, flight_no, dep_date, final_pax_count, boarded_count,
-               actual_dep_time, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, int(finalPaxCount), int(boardedCount),
-                actualDepTime or now, "departed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 3, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_dcs_checkin", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "final_pax_count": int(finalPaxCount),
+        "boarded_count": int(boardedCount),
+        "actual_dep_time": actualDepTime or now,
+        "status": 'departed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 3,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",

@@ -204,10 +204,15 @@ class TestBothKeysAndReverse:
             declared = []
             for key in ("lexicons", "lexiconNamespaces"):
                 v = data.get(key, [])
-                if isinstance(v, list):
-                    declared.extend(v)
+                if not isinstance(v, list):
+                    continue
+                for item in v:
+                    if isinstance(item, str):
+                        declared.append(item)
+                    elif isinstance(item, dict) and isinstance(item.get("id"), str):
+                        declared.append(item["id"])
             for nsid in declared:
-                if isinstance(nsid, str) and audit.NSID_RE.match(nsid):
+                if audit.NSID_RE.match(nsid):
                     if not audit.nsid_to_lexicon_path(nsid).exists():
                         missing += 1
         assert missing == 0, f"{missing} declared lexicon(s) (incl. lexiconNamespaces) have no JSON file"

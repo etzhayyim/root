@@ -11,15 +11,25 @@ READ-ONLY (G9), offline, no fabrication.
   himotoki (disclosure): resolve which authority + 窓口 + 住所 to file a 開示請求/FOIA at
   tsumugi (power-graph): the structural ancestry its 縁/取 karma overlays
                          (:gov.unit/organism is the reconcile attr, populated when the
-                          engi graph is wired)
+                          engi graph is wired) + the world-model reverse query
+                         "which government bodies regulate this entity?"
 """
 from __future__ import annotations
 
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, _HERE)
+sys.path.insert(0, os.path.normpath(os.path.join(_HERE, "..", "cells", "world_model")))
 from gov_atlas_client import GovAtlas  # noqa: E402
+from cell import (  # noqa: E402
+    load_edges,
+    load_gov_units,
+    load_organisms,
+    reconcile_world_model,
+    regulators_of,
+)
 
 
 def toritsugi_guide(a: GovAtlas, toritsugi_ref: str):
@@ -60,6 +70,18 @@ def tsumugi_structure(a: GovAtlas, uid: str):
              "organism": u.get(":gov.unit/organism")} for u in chain]
 
 
+def _world_model_report():
+    """build the ooyake↔tsumugi world-model reconcile report (offline, cached per run)."""
+    return reconcile_world_model(load_gov_units(), load_organisms(), load_edges())
+
+
+def world_model_regulators(entity_org_id: str, report=None):
+    """world-model reverse query: which government bodies steward/regulate an entity?
+    The cross-actor question tsumugi/danjo/kanae ask — answered by the reconciled join,
+    not re-derived. e.g. world_model_regulators('org.corp.us.apple') → EU + US SEC."""
+    return regulators_of(report or _world_model_report(), entity_org_id)
+
+
 # ── self-test ─────────────────────────────────────────────────────────────────
 def _test():
     a = GovAtlas()
@@ -79,7 +101,14 @@ def _test():
     # tsumugi
     ts = tsumugi_structure(a, "gov.jpn.mof.nta.tokyo.kojimachi")
     assert [u["name"] for u in ts] == ["日本国", "財務省", "国税庁", "東京国税局", "麹町税務署"], ts
-    print("PASS consumers_example self-test (toritsugi/danjo/kanae/himotoki/tsumugi)")
+    # world-model reverse query: Apple's regulators in the reconciled join
+    rep = _world_model_report()
+    apple_regs = {r["gov_unit"] for r in world_model_regulators("org.corp.us.apple", rep)}
+    assert {"gov.eu", "gov.usa.sec"} <= apple_regs, apple_regs
+    # MUFG is stewarded by JP FSA + BOJ + US Fed
+    mufg_regs = {r["gov_unit"] for r in world_model_regulators("org.corp.jp.8306", rep)}
+    assert {"gov.jpn.finreg", "gov.jpn.boj", "gov.usa.fed"} <= mufg_regs, mufg_regs
+    print("PASS consumers_example self-test (toritsugi/danjo/kanae/himotoki/tsumugi/world-model)")
 
 
 if __name__ == "__main__":
@@ -89,4 +118,5 @@ if __name__ == "__main__":
     print("  kanae   fiscal-nodes(jpn):", [n["name"] for n in kanae_fiscal_nodes(a, "jpn")][:6], "…")
     print("  himotoki route(住民票):", himotoki_route(a, "jp-juminhyo-utsushi"))
     print("  tsumugi structure(麹町):", " → ".join(u["name"] for u in tsumugi_structure(a, "gov.jpn.mof.nta.tokyo.kojimachi")))
+    print("  world-model regulators(Apple):", [r["gov_unit"] for r in world_model_regulators("org.corp.us.apple")])
     _test()

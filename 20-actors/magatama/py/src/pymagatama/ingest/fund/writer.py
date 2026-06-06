@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 from .ids import FUND_DID, edge_id, fund_vertex_id, manager_vertex_id, slug
 from .types import NormalizedFund, NormalizedFundManager
@@ -21,7 +21,6 @@ def manager_row(manager: NormalizedFundManager) -> dict[str, Any]:
     vid = manager_vertex_id(manager.manager_id)
     return {
         "vertex_id": vid,
-        "_seq": None,
         "created_date": today(),
         "sensitivity_ord": 1,
         "owner_did": FUND_DID,
@@ -50,7 +49,6 @@ def fund_row(fund: NormalizedFund) -> dict[str, Any]:
     manager_vid = manager_vertex_id(fund.manager_id)
     return {
         "vertex_id": vid,
-        "_seq": None,
         "created_date": today(),
         "sensitivity_ord": 1,
         "owner_did": FUND_DID,
@@ -108,76 +106,49 @@ def graph_rows(
     }
 
 
-def _insert_ignore(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> int:
-    values = {k: v for k, v in values.items() if v is not None}
-    cols = list(values)
-    placeholders = ", ".join(["%s"] * len(cols))
-    col_sql = ", ".join(cols)
-    cur.execute(
-        f"INSERT INTO {table} ({col_sql}) "
-        f"SELECT {placeholders} "
-        f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE {pk_col} = %s)",
-        (*[values[col] for col in cols], values[pk_col]),
-    )
-    return int(cur.rowcount or 0)
 
-
-def _update_by_pk(cur: Any, table: str, pk_col: str, values: dict[str, Any]) -> int:
-    clean_values = {
-        k: v
-        for k, v in values.items()
-        if k != pk_col and k not in {"_seq", "created_date", "created_at"} and v is not None
-    }
-    if not clean_values:
-        return 0
-    set_sql = ", ".join(f"{k} = %s" for k in clean_values)
-    cur.execute(
-        f"UPDATE {table} SET {set_sql} WHERE {pk_col} = %s",
-        (*clean_values.values(), values[pk_col]),
-    )
-    return int(cur.rowcount or 0)
-
-
-def _count_visible(cur: Any, table: str, pk_col: str, ids: list[str]) -> int:
-    if not ids:
-        return 0
-    placeholders = ", ".join(["%s"] * len(ids))
-    cur.execute(f"SELECT COUNT(*) FROM {table} WHERE {pk_col} IN ({placeholders})", tuple(ids))
-    row = cur.fetchone()
-    return int(row[0] if row else 0)
 
 
 def upsert_graph_rows(rows: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
-    """Idempotently write prepared fund graph rows and verify visibility."""
+    """Idempotently write prepared fund graph rows and verify visibility using kotoba Datom log."""
+    kotoba_client = get_kotoba_client()
     table_pk = {
         "vertex_fund_manager": "vertex_id",
         "vertex_fund": "vertex_id",
         "edge_fund_managed_by": "edge_id",
     }
     prepared = sum(len(items) for items in rows.values())
-    inserted = 0
-    updated = 0
     visibility: dict[str, dict[str, int]] = {}
 
-    with sync_cursor() as cur:
-        for table, items in rows.items():
-            pk_col = table_pk[table]
-            for item in items:
-                inserted += _insert_ignore(cur, table, pk_col, item)
-                updated += _update_by_pk(cur, table, pk_col, item)
+    for table, items in rows.items():
+        for item in items:
+            # insert_row handles both insert and update (upsert) based on the identity column
+            kotoba_client.insert_row(table, item)
 
-        for table, items in rows.items():
-            pk_col = table_pk[table]
-            ids = [str(item[pk_col]) for item in items if item.get(pk_col)]
-            visible = _count_visible(cur, table, pk_col, ids)
-            visibility[table] = {"expected": len(ids), "visible": visible}
+    for table, items in rows.items():
+        pk_col = table_pk[table]
+        ids = [str(item[pk_col]) for item in items if item.get(pk_col)]
+        visible = 0
+        if ids:
+            # R0: Using Datalog for multi-ID count, as shims do not support 'IN' clauses directly.
+            # Datalog's `contains?` with a set literal allows checking for multiple IDs efficiently.
+            id_literals = " ".join(f'"{_id}"' for _id in ids)
+            datalog_query = f"""
+            [:find (count ?e) .
+             :where
+             [?e :{table}/{pk_col} ?pk]
+             [(contains? #{{{id_literals}}} ?pk)]]
+            """
+            result = kotoba_client.q(datalog_query)
+            visible = int(result[0]) if result else 0
+        visibility[table] = {"expected": len(ids), "visible": visible}
 
     visible_total = sum(v["visible"] for v in visibility.values())
     return {
         "ok": visible_total >= prepared,
         "recordsPrepared": prepared,
-        "recordsInserted": inserted,
-        "recordsUpdated": updated,
+        "recordsInserted": 0,  # kotoba_datomic's insert_row does not return specific inserted/updated counts
+        "recordsUpdated": 0,  # kotoba_datomic's insert_row does not return specific inserted/updated counts
         "recordsVisible": visible_total,
         "visibility": visibility,
     }

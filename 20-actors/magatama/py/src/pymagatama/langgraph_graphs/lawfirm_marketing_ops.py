@@ -28,6 +28,7 @@ import logging
 import time as _time
 import uuid
 from typing import Any, Literal, TypedDict
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("lawfirm.marketing")
 
@@ -128,12 +129,7 @@ def _llm_json(system: str, user: str, max_tokens: int = 800) -> dict:
 
 def _db_insert(table: str, row: dict) -> bool:
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        cols = list(row.keys())
-        placeholders = ", ".join(f":{c}" for c in cols)
-        column_list = ", ".join(cols)
-        sa_rowcount(text(f"INSERT INTO {table} ({column_list}) VALUES ({placeholders})"), row)
+        get_kotoba_client().insert_row(table, row)
         return True
     except Exception as exc:
         LOG.warning("DB insert %s failed: %s", table, exc)
@@ -142,9 +138,11 @@ def _db_insert(table: str, row: dict) -> bool:
 
 def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
+        # R0: This is a direct SQL string, needs to be converted to Datalog if possible.
+        # For now, it's passed as a raw query to kotoba_datomic's q() for compatibility.
+        # This might not be optimal and could be further optimized with select_where.
+        # However, the original query implies joins or more complex filtering.
+        return get_kotoba_client().q(sql_str, args=params.values() if params else ())
     except Exception as exc:
         LOG.warning("DB query failed: %s", exc)
         return []

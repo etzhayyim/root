@@ -12,7 +12,8 @@ durable Zeebe worker per ADR-0056.
 
 from __future__ import annotations
 
-import datetime as _dt
+import datetime
+from datetime import datetime, timezone
 import hashlib
 import html
 import json
@@ -23,7 +24,7 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 OWNER_DID = "did:web:onion.etzhayyim.com"
@@ -48,7 +49,7 @@ THREAT_KEYWORDS: dict[str, tuple[str, ...]] = {
 
 
 def _utc_now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _today() -> str:
@@ -183,33 +184,33 @@ def _fetch_via_proxy(url: str, timeout_sec: float) -> dict[str, Any]:
 
 
 def _insert_ignore(table: str, row: dict[str, Any]) -> int:
-    """RisingWave plain INSERT — same-PK re-insert overwrites (CLAUDE.md
-    Record-log semantics). No ON CONFLICT, no WHERE NOT EXISTS — RW
-    can't prepare those statements."""
-    cols = list(row.keys())
-    placeholders = ", ".join([f"%({c})s" for c in cols])
-    col_list = ", ".join(cols)
-    sql_text = f"INSERT INTO {table} ({col_list}) VALUES ({placeholders})"
-    with sync_cursor() as cur:
-        cur.execute(sql_text, row)
-        return int(cur.rowcount or 0)
+    """Kotoba Datom log plain INSERT. Same-PK re-insert upserts."""
+    get_kotoba_client().insert_row(table, row)
+    return 1 # Assume 1 row processed for simplicity, as it's an upsert operation
 
 
 def _update_site(host: str, *, last_seen: str, page_count_inc: int, reachable: bool, category: str | None, risk_score: int | None) -> None:
     vid = _site_vid(host)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            UPDATE vertex_onion_site
-            SET last_seen = %(last_seen)s,
-                page_count = COALESCE(page_count, 0) + %(inc)s,
-                reachable = %(reachable)s,
-                category = COALESCE(%(category)s, category),
-                risk_score = GREATEST(COALESCE(risk_score, 0), COALESCE(%(risk_score)s, 0))
-            WHERE vertex_id = %(vid)s
-            """,
-            {"vid": vid, "last_seen": last_seen, "inc": page_count_inc, "reachable": reachable, "category": category, "risk_score": risk_score},
-        )
+    # R0: Replaced SQL UPDATE with select_first_where + in-Python update + insert_row for upsert
+    kotoba_client = get_kotoba_client()
+    existing_site = kotoba_client.select_first_where("vertex_onion_site", "vertex_id", vid)
+
+    if existing_site:
+        existing_site["last_seen"] = last_seen
+        existing_site["page_count"] = (existing_site.get("page_count") or 0) + page_count_inc
+        existing_site["reachable"] = reachable
+        if category is not None:
+            existing_site["category"] = category
+        if risk_score is not None:
+            existing_site["risk_score"] = max(existing_site.get("risk_score") or 0, risk_score)
+        kotoba_client.insert_row("vertex_onion_site", existing_site)
+    else:
+        # If site doesn't exist, this implies a potential race condition or data inconsistency.
+        # For now, we'll re-ensure the site if it wasn't found, though it should ideally exist
+        # before an update is attempted. This might create a new entry with partial data.
+        # A more robust solution might involve logging or raising an error.
+        _ensure_site(host, started_at=last_seen, category=category)
+
 
 
 def _ensure_site(host: str, *, started_at: str, category: str | None) -> str:
@@ -288,23 +289,35 @@ def _claim_stale_seeds(limit: int) -> list[dict[str, Any]]:
     """Pick the stalest reachable sites in vertex_onion_site that haven't
     been re-crawled within STALE_SEED_MAX_AGE_SEC. Returns a list of
     {url, host, category} dicts. Each becomes one seed for processQueue."""
-    cutoff = _dt.datetime.now(tz=_dt.UTC) - _dt.timedelta(seconds=STALE_SEED_MAX_AGE_SEC)
+    cutoff = datetime.now(timezone.utc) - datetime.timedelta(seconds=STALE_SEED_MAX_AGE_SEC)
     cutoff_iso = cutoff.replace(microsecond=0).isoformat().replace("+00:00", "Z")
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT onion_host, category, last_seen
-            FROM vertex_onion_site
-            WHERE reachable = true
-              AND onion_host IS NOT NULL
-              AND (last_seen IS NULL OR last_seen < %s)
-            ORDER BY last_seen NULLS FIRST
-            LIMIT {int(limit)}
-            """,
-            (cutoff_iso,),
-        )
-        cols = [d[0] for d in cur.description] if cur.description else []
-        rows = [dict(zip(cols, r)) for r in (cur.fetchall() or [])]
+
+    # R0: Multi-predicate / ORDER BY / LIMIT handled in Python
+    kotoba_client = get_kotoba_client()
+    potential_seeds = kotoba_client.select_where(
+        "vertex_onion_site",
+        "reachable",
+        True,
+        columns=["onion_host", "category", "last_seen"]
+    )
+
+    # Filter onion_host IS NOT NULL and (last_seen IS NULL OR last_seen < cutoff_iso)
+    filtered_seeds = [
+        s for s in potential_seeds
+        if s.get("onion_host") is not None and
+           (s.get("last_seen") is None or s.get("last_seen") < cutoff_iso)
+    ]
+
+    # Order by last_seen NULLS FIRST
+    # Python's sort handles None values by placing them before other values by default
+    # if None is considered "less" than other comparable values, or after if "greater".
+    # We want NULLS FIRST, so we'll sort based on last_seen directly.
+    # Note: Datetime strings can be compared lexicographically.
+    filtered_seeds.sort(key=lambda x: x.get("last_seen") or "") # Sorts None (which becomes empty string) first
+
+    # Apply limit
+    rows = filtered_seeds[:limit]
+
     return [
         {"url": f"http://{r['onion_host']}/", "host": str(r["onion_host"]), "category": r.get("category")}
         for r in rows

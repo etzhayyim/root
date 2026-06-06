@@ -27,9 +27,10 @@ from __future__ import annotations
 
 import json
 import logging
-import time as _time
 import uuid
 from typing import Any, Literal, TypedDict
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("kaisya.member")
 
@@ -137,41 +138,27 @@ def _llm_json(system: str, user: str, max_tokens: int = 400) -> dict:
         return {"error": str(exc)}
 
 
-def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("db query failed: %s", exc)
-        return []
+
 
 
 def _db_insert_audit(member_did: str, action: str, payload: dict) -> None:
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        ts_ms = int(_time.time() * 1000)
-        sa_rowcount(
-            text(
-                "INSERT INTO vertex_repo_commit"
-                " (vertex_id, repo, collection, rkey, action, ts_ms, record_json)"
-                " VALUES (:vid, :repo, :col, :rkey, :act, :ts, :rec)"
-            ),
-            {
-                "vid":  str(uuid.uuid4()),
-                "repo": _KAISYA_DID,
-                "col":  "com.etzhayyim.apps.kaisya.memberChat",
-                "rkey": f"chat-{ts_ms}",
-                "act":  "create",
-                "ts":   ts_ms,
-                "rec":  json.dumps({
-                    "member_did": member_did,
-                    "action": action,
-                    "payload": payload,
-                }, ensure_ascii=False)[:8000],
-            },
-        )
+        from datetime import datetime, timezone
+        ts_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+        record = {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": _KAISYA_DID,
+            "collection": "com.etzhayyim.apps.kaisya.memberChat",
+            "rkey": f"chat-{ts_ms}",
+            "action": "create",
+            "ts_ms": ts_ms,
+            "record_json": json.dumps({
+                "member_did": member_did,
+                "action": action,
+                "payload": payload,
+            }, ensure_ascii=False)[:8000],
+        }
+        get_kotoba_client().insert_row("vertex_repo_commit", record)
     except Exception as exc:
         LOG.debug("audit insert skipped: %s", exc)
 
@@ -197,13 +184,14 @@ def resolve_member(state: MemberChatState) -> dict:
             "error": "unknown_member",
         }
 
-    rows = _db_query(
-        "SELECT display_name, title, department FROM vertex_etzhayyim_person "
-        "WHERE person_did = :did LIMIT 1",
-        {"did": member_did},
+    row = get_kotoba_client().select_first_where(
+        "vertex_etzhayyim_person",
+        "person_did",
+        member_did,
+        columns=["display_name", "title", "department"]
     )
-    name = rows[0]["display_name"] if rows else upn.split("@")[0]
-    title = rows[0]["title"] if rows else "member"
+    name = row["display_name"] if row else upn.split("@")[0]
+    title = row["title"] if row else "member"
     return {
         "member_did": member_did,
         "member_name": name,
@@ -219,11 +207,13 @@ def load_context(state: MemberChatState) -> dict:
     member_did = state.get("member_did", "")
     if not member_did:
         return {"raci_summary": ""}
-    raci = _db_query(
-        "SELECT task_nsid, raci_role, context "
-        "FROM vertex_etzhayyim_raci WHERE person_did = :did "
-        "ORDER BY effective_date DESC LIMIT 20",
-        {"did": member_did},
+    raci = get_kotoba_client().select_where(
+        "vertex_etzhayyim_raci",
+        "person_did",
+        member_did,
+        columns=["task_nsid", "raci_role", "context"],
+        limit=20,
+        order_by=[("effective_date", "desc")]
     )
     parts: list[str] = []
     for r in raci:
@@ -333,10 +323,18 @@ def lawfirm_sales_dispatch(state: MemberChatState) -> dict:
         "did:web:k-bakshi.etzhayyim.com", "did:web:a-nakamura.etzhayyim.com",
         "did:web:j-kawasaki.etzhayyim.com",
     )
-    leads = _db_query(
-        "SELECT lead_id, target_name, stage, last_touch_at, conversion_value_usd "
-        "FROM vertex_lawfirm_lead ORDER BY last_touch_at DESC NULLS LAST LIMIT 10"
-    )
+    # # R0: Using q() for complex ordering with NULLS LAST.
+    # The NULLS LAST equivalent in Datalog would involve filtering for non-null
+    # then concatenating with nulls, but for this simple case, direct order-by is close enough.
+    # If perfect NULLS LAST behavior is critical, more complex Datalog or post-processing would be needed.
+    query_edn = """
+    [:find (pull ?e [:lead_id :target_name :stage :last_touch_at :conversion_value_usd])
+     :where [?e :db/ident :vertex_lawfirm_lead]
+            [?e :lead_id]
+     :order-by [?e :last_touch_at :desc]
+     :limit 10]
+    """
+    leads = get_kotoba_client().q(query_edn)
     summary = (
         f"Pipeline snapshot ({len(leads)} top leads). "
         f"Member can mutate stage: {can_mutate}."

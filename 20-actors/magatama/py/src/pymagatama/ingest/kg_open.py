@@ -41,11 +41,10 @@ import os
 import re
 import urllib.parse
 import urllib.request
-from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable
 
-import sqlite3
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 from pymagatama.ingest.core import (
     IngestArtifact,
@@ -161,55 +160,45 @@ def _is_japanese(text: str) -> bool:
     return any("぀" <= c <= "鿿" for c in text)
 
 
-# ── Local SQLite (canonical entities) ─────────────────────────────────────────
-@contextmanager
-def sync_cursor():
-    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
-    os.makedirs(db_dir, exist_ok=True)
-    db_path = os.path.join(db_dir, "ingest_kg_open.db")
-    with sqlite3.connect(db_path) as conn:
-        conn.execute("PRAGMA journal_mode=WAL;")
-        conn.execute(
-            """CREATE TABLE IF NOT EXISTS vertex_kg_entity (
-                vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
-                id TEXT, qid TEXT, type TEXT, label_ja TEXT, label_en TEXT,
-                source_id TEXT, license TEXT, extractor TEXT, confidence REAL,
-                status TEXT, discovered_at TEXT, updated_at TEXT, actor_did TEXT, org_did TEXT
-            )"""
-        )
-        yield conn.cursor()
 
 
-# ── PERSISTENCE SEAM (kotoba datomic refactor target — ADR-2605302130) ────────
-# Canonical entities currently land in the RW-free local SQLite. The RW→kotoba
-# refactor is performed KOTOBA-SIDE: replace THIS function body with a kotoba
-# datomic transact of the same `entities` dicts (POST
-# com.etzhayyim.apps.kotoba.datomic.transact, via yatabase_entity_to_tx_ops shape),
-# into an etzhayyim-owned graph. No other code here writes entities.
-def _persist_entities(cur: Any, entities: list[dict[str, Any]], source_id: str, now: str) -> int:
+# ── Persistence (kotoba datomic refactor target — ADR-2605302130) ─────────────
+# Canonical entities now land in the kotoba Datom log. The RW→kotoba refactor
+# is performed KOTOBA-SIDE: this function calls get_kotoba_client().insert_row()
+# with the entities. No other code here writes entities.
+def _persist_entities(entities: list[dict[str, Any]], source_id: str, now: str) -> int:
     inserted = 0
+    client = get_kotoba_client()
     for e in entities:
         eid = e.get("id")
         if not eid:
             continue
         vid = f"at://{KG_PATH_DID}/com.etzhayyim.apps.kg.entity/{eid}"
+        row_dict = {
+            "vertex_id": vid,
+            "created_date": today_iso(),
+            "sensitivity_ord": 0,
+            "owner_did": KG_PATH_DID,
+            "id": eid,
+            "qid": e.get("qid"),
+            "type": e.get("type"),
+            "label_ja": e.get("label_ja"),
+            "label_en": e.get("label_en"),
+            "source_id": e.get("source_id") or source_id,
+            "license": e.get("license"),
+            "extractor": e.get("extractor"),
+            "confidence": float(e.get("confidence") or 0.0),
+            "status": "active",
+            "discovered_at": now,
+            "updated_at": now,
+            "actor_did": KG_PATH_DID,
+            "org_did": "anon",
+        }
         try:
-            cur.execute(
-                """INSERT OR REPLACE INTO vertex_kg_entity (
-                    vertex_id, created_date, sensitivity_ord, owner_did,
-                    id, qid, type, label_ja, label_en,
-                    source_id, license, extractor, confidence,
-                    status, discovered_at, updated_at, actor_did, org_did
-                ) VALUES (?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, 'anon')""",
-                (
-                    vid, today_iso(), KG_PATH_DID,
-                    eid, e.get("qid"), e.get("type"), e.get("label_ja"), e.get("label_en"),
-                    e.get("source_id") or source_id, e.get("license"), e.get("extractor"),
-                    float(e.get("confidence") or 0.0), now, now, KG_PATH_DID,
-                ),
-            )
+            client.insert_row("vertex_kg_entity", row_dict)
             inserted += 1
-        except sqlite3.Error:
+        except Exception as exc:
+            _LOG.warning("Failed to insert entity %s: %s", vid, exc)
             continue
     return inserted
 
@@ -359,8 +348,7 @@ def _fetch_extract_persist(source_id: str) -> dict[str, Any]:
         if ent is not None:
             entities.append(ent)
     now = now_iso()
-    with sync_cursor() as cur:
-        inserted = _persist_entities(cur, entities, source_id, now)
+    inserted = _persist_entities(entities, source_id, now)
     return {
         "ok": True,
         "sourceId": source_id,
@@ -461,9 +449,8 @@ async def task_kgopen_verify_visibility(sourceId: str = "", shardKey: str = "", 
 
 
 def _verify_blocking(source_id: str) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT count(*) FROM vertex_kg_entity WHERE source_id = ?", (source_id,))
-        n = int((cur.fetchone() or [0])[0] or 0)
+    client = get_kotoba_client()
+    n = int(client.aggregate_where("vertex_kg_entity", "count", "*", "source_id", source_id))
     return {"ok": True, "verified": n > 0, "sourceId": source_id, "entityTotal": n}
 
 

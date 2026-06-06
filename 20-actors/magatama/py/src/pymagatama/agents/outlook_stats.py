@@ -1,57 +1,83 @@
 """Outlook triage analytics helpers.
 
 Runs lightweight COUNT/GROUP BY queries against the triage tables.
-All queries use LIMIT to stay within RisingWave safe read paths.
+All queries use LIMIT to stay within kotoba Datom log safe read paths.
 """
 
 from __future__ import annotations
 
-import time
+from datetime import datetime, timezone, timedelta
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
-def _cutoff_iso(days: int) -> str:
-    ts = time.gmtime(time.time() - days * 86400)
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", ts)
+def _cutoff_iso(days: int) -> datetime:
+    return datetime.now(timezone.utc) - timedelta(days=days)
 
 
 def get_triage_stats(days: int = 30) -> dict[str, Any]:
-    """COUNT triage_classification from vertex_email_message (last N days)."""
+    """COUNT triage_classification from vertex_email_message (last N days) in kotoba Datom log."""
     cutoff = _cutoff_iso(days)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT triage_classification, COUNT(*) AS cnt
-            FROM vertex_email_message
-            WHERE triaged_at >= %s
-            GROUP BY triage_classification
-            LIMIT 20
-            """,
-            (cutoff,),
-        )
-        rows = cur.fetchall() or []
-    return {str(r[0] or "unknown"): int(r[1]) for r in rows}
+    kotoba_client = get_kotoba_client()
+    # R0: Fetching all relevant records and applying grouping/counting in Python
+    # since the `triaged_at >= %s` range query and GROUP BY/COUNT are not
+    # directly supported by `select_where`. The original SQL had a LIMIT 20
+    # on the grouped results, so we fetch more (limit 2000) and then limit.
+    all_messages = kotoba_client.select_where(
+        "vertex_email_message",
+        None,  # No equality filter, will fetch all
+        None,
+        columns=["triage_classification", "triaged_at"],
+        limit=2000,  # A reasonable limit to avoid overwhelming the system
+    )
+
+    # Filter by triaged_at in Python
+    filtered_messages = [
+        msg for msg in all_messages if msg.get("triaged_at") and msg["triaged_at"] >= cutoff
+    ]
+
+    # Group and count in Python
+    triage_counts: dict[str, int] = {}
+    for msg in filtered_messages:
+        classification = msg.get("triage_classification")
+        if classification is None:
+            classification = "unknown"
+        triage_counts[classification] = triage_counts.get(classification, 0) + 1
+
+    # Sort and limit to 20 as per original SQL
+    sorted_counts = sorted(triage_counts.items(), key=lambda item: item[1], reverse=True)[:20]
+
+    return {str(k): int(v) for k, v in sorted_counts}
 
 
 def get_gray_queue_stats() -> dict[str, Any]:
-    """COUNT status/verdict breakdown from vertex_email_gray_queue."""
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT status, verdict, COUNT(*) AS cnt
-            FROM vertex_email_gray_queue
-            GROUP BY status, verdict
-            LIMIT 30
-            """,
-        )
-        rows = cur.fetchall() or []
+    """COUNT status/verdict breakdown from vertex_email_gray_queue in kotoba Datom log."""
+    kotoba_client = get_kotoba_client()
+    # R0: Fetching all relevant records and applying grouping/counting in Python
+    # since GROUP BY/COUNT is not directly supported by `select_where`.
+    all_queue_items = kotoba_client.select_where(
+        "vertex_email_gray_queue",
+        None,  # No equality filter, will fetch all
+        None,
+        columns=["status", "verdict"],
+        limit=2000,  # A reasonable limit
+    )
+
+    # Group and count in Python
+    queue_counts: dict[tuple[str, str], int] = {}
+    for item in all_queue_items:
+        status = item.get("status") or ""
+        verdict = item.get("verdict") or ""
+        key = (status, verdict)
+        queue_counts[key] = queue_counts.get(key, 0) + 1
+
+    # Convert to the desired result format, applying the LIMIT 30 after grouping.
+    # Sort by count (descending) to effectively apply the LIMIT 30 on the most frequent combinations.
+    sorted_queue_counts = sorted(queue_counts.items(), key=lambda item: item[1], reverse=True)[:30]
+
     result: dict[str, Any] = {"pending": 0, "resolved": {}, "skipped": 0}
-    for status, verdict, cnt in rows:
-        cnt = int(cnt)
-        status = str(status or "")
-        verdict = str(verdict or "")
+    for (status, verdict), cnt in sorted_queue_counts:
         if status == "pending":
             result["pending"] = result.get("pending", 0) + cnt
         elif status == "skipped":
@@ -63,22 +89,31 @@ def get_gray_queue_stats() -> dict[str, Any]:
 
 
 def get_draft_stats() -> dict[str, Any]:
-    """COUNT status/action breakdown from vertex_email_reply_draft."""
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT status, action, COUNT(*) AS cnt
-            FROM vertex_email_reply_draft
-            GROUP BY status, action
-            LIMIT 30
-            """,
-        )
-        rows = cur.fetchall() or []
+    """COUNT status/action breakdown from vertex_email_reply_draft in kotoba Datom log."""
+    kotoba_client = get_kotoba_client()
+    # R0: Fetching all relevant records and applying grouping/counting in Python
+    # since GROUP BY/COUNT is not directly supported by `select_where`.
+    all_draft_items = kotoba_client.select_where(
+        "vertex_email_reply_draft",
+        None,  # No equality filter, will fetch all
+        None,
+        columns=["status", "action"],
+        limit=2000,  # A reasonable limit
+    )
+
+    # Group and count in Python
+    draft_counts: dict[tuple[str, str], int] = {}
+    for item in all_draft_items:
+        status = item.get("status") or ""
+        action = item.get("action") or ""
+        key = (status, action)
+        draft_counts[key] = draft_counts.get(key, 0) + 1
+
+    # Convert to the desired result format, applying the LIMIT 30 after grouping.
+    sorted_draft_counts = sorted(draft_counts.items(), key=lambda item: item[1], reverse=True)[:30]
+
     result: dict[str, Any] = {"pending": 0, "approved": {}, "discarded": 0}
-    for status, action, cnt in rows:
-        cnt = int(cnt)
-        status = str(status or "")
-        action = str(action or "")
+    for (status, action), cnt in sorted_draft_counts:
         if status == "pending":
             result["pending"] = result.get("pending", 0) + cnt
         elif status == "discarded":
@@ -90,26 +125,43 @@ def get_draft_stats() -> dict[str, Any]:
 
 
 def get_feedback_stats(days: int = 90) -> dict[str, Any]:
-    """COUNT verdict from vertex_email_triage_feedback (last N days)."""
+    """COUNT verdict from vertex_email_triage_feedback (last N days) in kotoba Datom log."""
     cutoff = _cutoff_iso(days)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT verdict, COUNT(*) AS cnt
-            FROM vertex_email_triage_feedback
-            WHERE created_at >= %s
-            GROUP BY verdict
-            LIMIT 10
-            """,
-            (cutoff,),
-        )
-        rows = cur.fetchall() or []
-    return {str(r[0] or "unknown"): int(r[1]) for r in rows}
+    kotoba_client = get_kotoba_client()
+    # R0: Fetching all relevant records and applying grouping/counting in Python
+    # since the `created_at >= %s` range query and GROUP BY/COUNT are not
+    # directly supported by `select_where`. The original SQL had a LIMIT 10
+    # on the grouped results, so we fetch more (limit 2000) and then limit.
+    all_feedback_items = kotoba_client.select_where(
+        "vertex_email_triage_feedback",
+        None,  # No equality filter, will fetch all
+        None,
+        columns=["verdict", "created_at"],
+        limit=2000,  # A reasonable limit
+    )
+
+    # Filter by created_at in Python
+    filtered_feedback_items = [
+        item for item in all_feedback_items if item.get("created_at") and item["created_at"] >= cutoff
+    ]
+
+    # Group and count in Python
+    feedback_counts: dict[str, int] = {}
+    for item in filtered_feedback_items:
+        verdict = item.get("verdict")
+        if verdict is None:
+            verdict = "unknown"
+        feedback_counts[verdict] = feedback_counts.get(verdict, 0) + 1
+
+    # Sort and limit to 10 as per original SQL
+    sorted_counts = sorted(feedback_counts.items(), key=lambda item: item[1], reverse=True)[:10]
+
+    return {str(k): int(v) for k, v in sorted_counts}
 
 
 def get_all_stats(days: int = 30) -> dict[str, Any]:
     """Aggregate all stats into a single response dict."""
-    result: dict[str, Any] = {"days": days, "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    result: dict[str, Any] = {"days": days, "generated_at": datetime.now(timezone.utc).isoformat()}
     try:
         result["triage"] = get_triage_stats(days)
     except Exception as e:

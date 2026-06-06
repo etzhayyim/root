@@ -1,7 +1,7 @@
 """patent.blobConvert — LangGraph Functional API port (ADR-2605080600 Phase 5+).
 
 Replaces Zeebe timer-start BPMN `patent_blob_convert` (every 5 min).
-Self-selects pending vertex_patent_blob rows then converts (PDF → webp + OCR).
+Self-selects pending patent_blob entities from the kotoba Datom log then converts (PDF → webp + OCR).
 
 Migrated from StateGraph → Functional API (P2, 2026-05-09):
   - Single linear pipeline, no branching → @entrypoint + @task wins
@@ -20,7 +20,10 @@ State (input dict / output dict):
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any, TypedDict
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 class PatentBlobConvertState(TypedDict, total=False):
@@ -31,18 +34,33 @@ class PatentBlobConvertState(TypedDict, total=False):
 
 
 def _select_pending(limit: int) -> list[dict[str, Any]]:
-    from pymagatama.db_alchemy import sa_query
-
-    rows = sa_query(
-        f"""
-        SELECT vertex_id, patent_number, jurisdiction, pdf_source_url
-        FROM vertex_patent_blob
-        WHERE status = 'pending' AND pdf_source_url IS NOT NULL
-        ORDER BY collected_at ASC NULLS FIRST
-        LIMIT {int(limit)}
-        """
-    )
-    return rows or []
+    # R0: Replaced SQLAlchemy select with Datalog query due to complex predicates,
+    # ordering, and limiting which are best handled by a raw Datalog query.
+    query_edn = """
+    [:find ?vertex_id ?patent_number ?jurisdiction ?pdf_source_url
+     :where
+       [?e :vertex_patent_blob/status "pending"]
+       [?e :vertex_patent_blob/pdf_source_url ?pdf_source_url]
+       (not (= ?pdf_source_url nil))
+       [?e :vertex_patent_blob/vertex_id ?vertex_id]
+       [?e :vertex_patent_blob/patent_number ?patent_number]
+       [?e :vertex_patent_blob/jurisdiction ?jurisdiction]
+       [?e :vertex_patent_blob/collected_at ?collected_at]
+     :order-by ?collected_at
+     :limit ?limit]
+    """
+    rows = get_kotoba_client().q(query_edn, args={"?limit": limit})
+    # The Datalog query returns a list of lists. Convert to list of dicts.
+    # The order of fields in :find must match the keys here.
+    return [
+        {
+            "vertex_id": row[0],
+            "patent_number": row[1],
+            "jurisdiction": row[2],
+            "pdf_source_url": row[3],
+        }
+        for row in rows
+    ] or []
 
 
 async def _convert(rows: list[dict[str, Any]]) -> dict[str, Any]:

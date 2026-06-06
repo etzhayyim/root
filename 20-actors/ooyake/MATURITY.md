@@ -3,6 +3,95 @@
 Honest status per the gov-coverage maturity model (ADR-2605250680). Coverage gated
 by `:sourcing` (G5): only `:authoritative` rows count.
 
+## 2026-06-05 — cross-actor world-model reconcile (ooyake↔tsumugi)
+
+The atlas was a structural SSoT that *other* actors consumed, but nothing actually
+JOINED it to tsumugi's 縁/取 karma graph — `:gov.unit/organism` was defined in the
+ontology, populated by no unit, and reconciled by no code. Closed that gap:
+
+- New cell `cells/world_model/` (`WorldModelCell` + pure `reconcile_world_model`):
+  joins `:gov.unit/*` (structure) ↔ tsumugi `:organism/*` (karma) over the shared
+  `:gov.unit/organism` id-space. Classifies every **power-bearing** unit (country /
+  supranational / cabinet / ministry / agency / bureau / legislature / court) as
+  **confirmed / derived / dangling / proposed**; local service surface
+  (窓口 / ward / division / prefecture) is **excluded by construction** (G1 power-only,
+  never a target-list / G10). Read-side (G9) — emits `out/world-model.kotoba.edn`
+  (proposed `:latent` / `:representative` organisms + links), never mutates a seed;
+  `mode="live"` write-back is Council+operator gated.
+- Wired the first real link: `gov.jpn.meti` → `org.state.jp.meti` (the one gov body
+  tsumugi's seed carries). Honest result: **1 confirmed / 3,503 proposed of 3,504
+  power-bearing units (0.03% reconciled)** — the world model is mostly unreconciled,
+  which is the honest R1 state; growth needs more verified gov organisms, not number
+  inflation.
+- **Coverage step (same day): 1 → 4 confirmed links** by curating real, publicly-
+  documented regulator→regulated ties into tsumugi's karma seed (FSA→MUFG, BOJ→MUFG,
+  SEC→Apple/Microsoft/NVIDIA/Alphabet, all `:tends`, low grasping-load, `:representative`)
+  and wiring the `:gov.unit/organism` links: `gov.jpn.finreg`→`org.state.jp.fsa`,
+  `gov.jpn.boj`→`org.state.jp.boj`, **new `gov.usa.sec`**→`org.state.us.sec`. The US
+  SEC was a genuine atlas gap (`gov.usa.finreg` is the CFTC) — adding it lifts ooyake
+  coverage too. Reconciled 0.03%→**0.11% (4/3,505)**; gate floor raised to 4 with an
+  explicit expected-set check; tsumugi graph 19→22 organisms / 28→34 縁, still 1
+  connected component (TSMC still top 取). No fabrication — every tie is documented.
+- **Coverage step 2: 4 → 6 confirmed.** US Fed → MUFG (foreign-banking-organization
+  supervision) + EU → Apple/Google/Microsoft (antitrust + DMA gatekeeper, heavily
+  documented) wired via `gov.usa.fed`→`org.state.us.fed` and `gov.eu`→`org.state.eu`.
+  Reconciled →**0.17% (6/3,506)**; gate floor → 6; tsumugi 22→24 organisms / 34→38 縁,
+  1 component. Taiwan (NDF→TSMC) deferred to its own fire (atlas has no Taiwan units
+  yet; a geopolitically-sensitive country addition handled deliberately, G11).
+- **Coverage step 3: 6 → 9 confirmed.** Competition/antitrust authorities wired to
+  landmark documented matters: UK CMA → NVIDIA + Arm (blocked NVIDIA–Arm acquisition),
+  US DOJ Antitrust → Google (US v. Google search-monopoly), JFTC → Toyota (subcontracting
+  oversight) — via `gov.gbr.competition`→`org.state.uk.cma`,
+  `gov.usa.competition`→`org.state.us.doj-antitrust`, `gov.jpn.competition`→`org.state.jp.jftc`.
+  Reconciled →**0.26% (9/3,506)**; gate floor → 9; tsumugi 24→27 organisms / 38→42 縁,
+  1 component. Taiwan (NDF→TSMC) STILL deferred — adding a contested-status country in
+  an autonomous loop fire needs an explicit human decision (G11), flagged for the operator.
+- **Maturity step 4 — the cross-graph JOIN (not just node count).** The world model
+  now resolves **government→entity stewardship paths**: reconciled gov-unit → its
+  organism → `:tends`/`:custodies` 縁 → entity. `reconcile_world_model` gained an
+  `edges` arg (`load_edges` from the tsumugi seed) + a `government_stewardship` view;
+  CLI prints it, EDN artifact carries a `:government-stewardship` block, gate asserts
+  ≥10 paths all originating at reconciled units. **20 concrete paths** today (e.g.
+  `gov.eu --:tends--> Apple`, `gov.usa.sec --:tends--> NVIDIA`, `gov.jpn.meti --:tends-->
+  Toyota`). This turns the reconcile from *matched nodes* into the queryable structure↔
+  karma join the world model exists to produce. +4 sector-breadth enrichment 縁
+  (METI→Honda/DENSO, EU→NVIDIA, JFTC→Sony; no new gov organisms). tsumugi 27 organisms
+  / 42→46 縁, 1 component; cell tests 10→13. All suites green.
+- **Maturity step 5 — kotoba PERSISTENCE path.** The world model was a file; now it
+  has a canonical-substrate ingest. `deploy/ingest_world_model.py` (sibling of
+  `ingest_records.py`, reuses its `post_batch` write path) projects the **reconciled,
+  factual** world model into the named graph **`world-model-v1`**: one `world.gov`
+  entity per reconciled gov-unit carrying `world/organism` (→ its tsumugi organism)
+  and `world/stewards` (→ each entity it :tends/:custodies). Today **9 reconciled gov
+  nodes (~56 datoms) + 20 stewardship relations**. PROPOSED/latent links are NOT
+  persisted as facts (file-only candidates until an operator applies them — G5/G9).
+  Dry-run by default (no `KOTOBA_TOKEN`); live ingest operator-gated; never auto-seals
+  (WAL-durable, `kotoba commit` is the operator's cadence). Wired into `run_tests.sh`
+  as a dry-run gate. Closes the original "kotobaでの永続化 + world model" loop: the
+  join is now a persistable Datom graph, not just an artifact.
+- **Maturity step 6 — bidirectional query + actor consumption.** The world model is
+  now CONSUMABLE, not just computed. Cell gains pure helpers `stewarded_entities_of`
+  (gov-unit → entities) and `regulators_of` (entity → governing bodies, the reverse
+  cross-actor question). Wired into `deploy/consumers_example.py` as a 6th consumer
+  (`world_model_regulators`) so tsumugi/danjo/kanae read the join instead of re-deriving
+  it — e.g. `regulators_of(Apple)` → {gov.eu, gov.usa.sec}, `regulators_of(MUFG)` →
+  {gov.jpn.finreg, gov.jpn.boj, gov.usa.fed}. `scripts/world_model.py --entity <org>`
+  exposes it on the CLI. cell tests 13→15; consumers self-test extended; all green.
+- **Maturity step 7 — SSoT drift-lock + doc refresh (seed-independent hardening).**
+  `cells/world_model/test_consistency.py` (the ake/fuchi/noroshi pattern) binds six
+  facts to one source of truth so the feature can't silently rot: every committed
+  `:gov.unit/organism` link resolves to a real tsumugi organism (structural zero-
+  dangling); links are 1:1 (no two units claim one organism); the gate's
+  `EXPECTED_CONFIRMED` ⊆ wired links AND `CONFIRMED_FLOOR == len(EXPECTED_CONFIRMED)`
+  (no stale floor); the manifest declares the cell; the ingest graph name == the
+  artifact graph header (`world-model-v1`); the runner wires all three world_model
+  gates. 6 checks, wired into `run_tests.sh`. README "World model" section refreshed
+  to the full capability (stewardship/query/persistence/drift-lock). All green.
+- Hardened into a gate: `scripts/world_model_coverage.py` (confirmed-floor, zero
+  dangling, civic-surface-excluded, zero-orphan, well-formed-EDN) + `cells/world_model/
+  test_world_model_cell.py` (10 tests). All wired into `deploy/run_tests.sh`.
+- Registered as ooyake's 7th cell (manifest), documented (CLAUDE.md / README).
+
 ## 2026-06-03 — statistics + prosecution + revenue (239)
 
 Third oversight wave (national statistical offices finally landed via a light
@@ -2133,3 +2222,27 @@ provisional/bootstrap).
 - `/search` (yoro) surfacing gov units → pending a yoro Pages deploy.
 - `kotoba commit` IPFS cold-tier seal → operator cadence (WAL-durable meanwhile).
 - Live `:authoritative` promotion is **provisional** until Council re-ratifies.
+
+### 2026-06-05 (loop) — ooyake↔toritsugi 参照整合性を fail-closed テストで固定 (成熟度)
+新設 `70-tools/scripts/audit/test_ooyake_procedure_integrity.py`(R0-safe: test-only / network-free / runtime cell 非実行・pure `parse_edn` のみ import)。単一アクター suite では検証不能な**横断参照整合性**を 4 つ pin: (0) atlas に units + procedure が非空, (1) 全 `:gov.procedure/owner-unit` が実在 `:gov.unit/id` に解決(atlas 内 dangling owner = fail-closed), (2) 全 `:gov.procedure/toritsugi-ref` が実在 toritsugi `procedureId` に解決(**ooyake→toritsugi orphan link** = fail-closed; toritsugi 側の id rename を検出), (3) 全 procedure が `:verification-status :unverified-seed`(G14)。現データ(6 JP procedures / 7106 units)で **4/4 green**、負例(toritsugi id rename 模擬)で orphan 検出を実証(vacuous でない)。iter-4 の toritsugi↔chigiri parity test を補完し、3 アクター間の cross-reference を機械固定。関連 7 suite green。working-tree edits only。
+
+### 2026-06-05 (loop) — ooyake 手続きカバレッジを JP-only から 39 法域へ拡張 (整合保持)
+新規 seed `registry/gov-units.intl-passport-procedures.seed.edn`(38 件, 機械生成)を追加し、atlas の `:gov.procedure` を **6(JP) → 44 件 / 1 → 39 法域**に拡張。各手続きは toritsugi の旅券手続きに `:gov.procedure/toritsugi-ref` で接続(iter-6 integrity test が参照解決を強制)。**HONEST owner-unit 設計**: 旅券発行当局は国により外務省/内務省/移民局と異なり一律 ministry-unit 指定は捏造になるため、owner-unit は曖昧さのない**国レベル `gov.<iso>`**(常に解決可能)とし、正確な発行当局は `:gov.procedure/owner-authority`(toritsugi の authority verbatim)で保持。fee/legal-basis は捏造せず "(resolve at guide time)"。全件 `:sourcing :representative` + `:verification-status :unverified-seed`(G14)。dnk/hkg/twn は ooyake に国ユニット未登録のため honest にスキップ(38 件)。**seed_integrity `check()` = CLEAN []**(unit/address 検証に影響なし; check() は procedure 非対象), ooyake↔toritsugi integrity test が 44 手続きの owner-unit + toritsugi-ref 全解決を確認, 関連 7 suite **41/41 green**。working-tree edits only。
+
+### 2026-06-05 (loop) — COVERAGE.md に手続きカバレッジを可視化 (成熟度/observability)
+`scripts/gen_coverage_doc.py` を拡張し、自動生成ダッシュボードに新セクション **「Procedure linkage (illustrative)」** を追加 → COVERAGE.md 再生成。前 iter で atlas 手続きが 6→44/39法域に増えたが生成器が手続きを全く集計しておらず不可視だった点を解消。新セクションは (a) 総 `:gov.procedure` 数 + distinct 法域, (b) toritsugi-ref リンク数 + **実 toritsugi procedureId への解決数**(cross-actor; toritsugi JSON を read-only 参照、欠落時 graceful degrade), (c) sourcing 別内訳を表示。現値: **44 手続き / 39 法域 / 44 全リンク解決 / 全 :representative**。**G5 honesty を明示**: これら procedure 行は `:representative`/`:unverified-seed` の wayfinding scaffold で **authoritative coverage ではない**(units の G5 規律と一貫、過大表示なし)。ooyake integrity + seed_integrity **9/9 green**。working-tree edits only。
+
+### 2026-06-05 (loop) — Denmark 国ユニット追加 (孤立カバレッジギャップ解消) + dnk 手続きリンク
+国レベルカバレッジ監査で**主要主権国のうちデンマークのみが atlas に不在**(192国中、`gov.dnk` ABSENT)と判明 — 明確な主権国(EU/NATO/Nordic)の孤立ギャップ。`registry/gov-units.world-countries.edn` に `gov.dnk`(Wikidata **Q35**, denmark.dk, iso3166-1-alpha3:DNK, `:authoritative`/`:maintainer-verified`, 既存191国ユニットと同 tier・同形式)を追加 → **country units 192 → 193**。Q35 未使用を duplicate-qid guard で事前確認。`check_seed_integrity.check()` = **CLEAN []**(malformed/duplicate QID・G5 provenance 全 pass)。副次効果: 前 iter で `gov.dnk` 不在のため skip していた dnk 旅券手続きがリンク可能になり、`gen_intl_proc.py` 再生成で intl 手続き 38→39、**atlas 手続き 44→45 / 39→40 法域**(dnk: owner-unit `gov.dnk` + toritsugi-ref `pp-dnk-passport-application` 双方解決、integrity test 確認)。COVERAGE.md 再生成(193法域反映)。フル監査 `70-tools/scripts/audit/` **462 passed / 0 failed**。working-tree edits only。
+
+### 2026-06-05 (loop) — atlas↔toritsugi 投影を旅券のみ→全手続きに一般化 (45→95 手続き)
+旅券限定だった `:gov.procedure` 投影を **全 toritsugi 手続きの投影**に一般化。旧 `gov-units.intl-passport-procedures.seed.edn`(39 旅券)を `gov-units.intl-procedures.seed.edn`(**89 手続き**)で置換: passport / national-id / tax / social-security / civil-registration を含む non-JP toritsugi 手続きを全投影(id=`proc.<toritsugi-procedureId>` で一意)。**捏造なし**: toritsugi の実 `requiredDocuments` + `legalBasis`(存在時) + `channelType`→channel kw + provenance を持ち越し、owner-unit は honest に国レベル `gov.<iso>`、正確な発行当局は `owner-authority` verbatim。jpn(6, 手動投影済 proc.jpn.*)・eu-wide(4, 国ユニット無)・twn/hkg(各2, 国ユニット無)は honest スキップ。結果 **atlas 手続き 45 → 95 / 40 → 49 法域**(dangling owner=0 / orphan toritsugi-ref=0、integrity test 確認)。`check_seed_integrity.check()` = **CLEAN []**(check() は procedure 非対象だが units 健全性維持)。COVERAGE.md 再生成。フル監査 `70-tools/scripts/audit/` **462 passed / 0 failed**。AUTO-GENERATED ファイル(loop generator 再実行で再生成)。working-tree edits only。
+
+### 2026-06-05 (loop) — 投影生成器をリポジトリへコミット (再現性) + eu-wide 投影
+**再現性ギャップ解消**: atlas の `gov-units.intl-procedures.seed.edn` は "AUTO-GENERATED" と記すが生成器が一時領域にしか無かった問題を解消 — 正式スクリプト `scripts/gen_intl_procedures.py`(committed, repo-relative パス, docstring に honest owner-unit/skip 規律)を追加。誰でも `python3 scripts/gen_intl_procedures.py` で再生成可能に。**カバレッジ**: `eu-wide → gov.eu`(European Union supranational unit, 既存)マッピングを追加し、これまで国ユニット無で skip していた eu-wide 4 手続き(Single Digital Gateway / EHIC / GDPR DSAR 等)を投影 → atlas 手続き **95 → 99 / 49 → 50 法域**。skip は honest に jpn(6, 手動)・twn(2)・hkg(2)のみ。check() = **CLEAN []**、dangling owner=0 / orphan ref=0、eu-wide 4 件投影確認。COVERAGE.md 再生成。フル監査 **470 passed / 0 failed**。working-tree edits only。
+
+### 2026-06-05 (loop) — atlas↔toritsugi 投影に freshness テスト追加 (drift 防止)
+新設 `70-tools/scripts/audit/test_ooyake_intl_projection_fresh.py`(R0-safe; 生成器の pure helper を import、main() 非実行=disk 非書込)。AUTO-GENERATED な `gov-units.intl-procedures.seed.edn` の **stale 化を fail-closed 検出**: toritsugi 編集後に生成器再実行を忘れると committed 投影が silently drift する問題を pin。2 不変条件: (1) committed に投影された toritsugi-ref 集合が、生成器が今投影する集合と**完全一致**(missing=toritsugi 追加・未再生成 / ghost=toritsugi 削除・残存 を双方検出), (2) 各 row の owner-unit が生成器の割当(country-level gov.<iso> / eu-wide→gov.eu override)と一致。現 committed で **2/2 green**、負例(toritsugi 手続き追加模擬)で missing 検出を実証(vacuous でない)。これで iter-6 の参照整合性 + 本 freshness で、投影は「全 ref 解決」かつ「生成器と同期」が機械保証される。フル監査全 green。working-tree edits only。
+
+### 2026-06-05 (loop) — gov-procedures publish surface に freshness テスト (drift 防止)
+前段で apex Worker の手続き公開サーフェス(`/.well-known/gov-procedures.json` + `/actor/<gov-handle>/procedures.json`)を `gen-gov-procedures.py` → `gov-procedures.gen.ts`(157手続/51単位/50法域)で構築したが drift guard が無かった点を解消。新設 `70-tools/scripts/audit/test_gov_procedures_gen_fresh.py`(R0-safe; ooyake parse_edn 再利用・.gen.ts は regex 読取のみ)が **compiled Worker registry の stale 化を fail-closed 検出**: (1) committed .gen.ts の procedure id 集合が ooyake から今生成される集合と完全一致(missing=ooyake 追加・未再生成 / ghost=削除・残存), (2) GOV_PROCEDURES_TOTAL/_OWNER_COUNT/_JURISDICTION_COUNT が source と一致。現状 157/51/50 で **3/3 green**、負例(ooyake 追加模擬)で検出を実証。これで「ooyake→Worker 公開」も iter-14 の「ooyake→atlas 投影」と同様に生成器同期が機械保証。フル監査 **497 passed / 0 failed**。working-tree edits only。

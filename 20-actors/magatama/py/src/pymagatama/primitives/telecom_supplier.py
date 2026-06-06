@@ -23,10 +23,10 @@ from __future__ import annotations
 
 import hashlib
 import secrets
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -91,14 +91,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -214,26 +207,27 @@ def task_telecom_roaming_settle(
     payable = 0.0
     resolved_currency = currency or "USD"
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT
-                  SUM(CASE WHEN file_type IN ('tap','iot') THEN total_charge ELSE 0 END) AS receivable,
-                  SUM(CASE WHEN file_type IN ('rap','nrtrde') THEN total_charge ELSE 0 END) AS payable,
-                  COALESCE(MAX(currency), %s) AS currency
-                  FROM vertex_telecom_tap_file
-                 WHERE partner_vid = %s
-                   AND transfer_date >= %s
-                   AND transfer_date <  %s
-                   AND status = 'received'
-                """,
-                (resolved_currency, partner_vid, ps.isoformat(), pe.isoformat()),
-            )
-            r = cur.fetchone()
-            if r:
-                receivable = float(r[0] or 0.0)
-                payable = float(r[1] or 0.0)
-                resolved_currency = str(r[2] or resolved_currency)
+        # R0: Multi-predicate WHERE and aggregation are handled in Python.
+        tap_files = get_kotoba_client().select_where(
+            "vertex_telecom_tap_file", "partner_vid", partner_vid
+        )
+        currencies = set()
+        for r in tap_files:
+            file_transfer_date = _parse_date(r["transfer_date"], "transfer_date")
+            if (ps <= file_transfer_date < pe) and r["status"] == "received":
+                charge = float(r["total_charge"] or 0.0)
+                if r["file_type"] in ("tap", "iot"):
+                    receivable += charge
+                elif r["file_type"] in ("rap", "nrtrde"):
+                    payable += charge
+                if r["currency"]:
+                    currencies.add(r["currency"])
+
+        if currencies:
+            resolved_currency = list(currencies)[0] # Just pick one if multiple, as per original MAX behavior
+        else:
+            resolved_currency = currency or "USD"
+
     net = receivable - payable
     row = {
         "vertex_id": vid, "owner_did": _caller(payload),

@@ -17,14 +17,9 @@ ADR-0036 Hyperdrive direct.
 
 from __future__ import annotations
 
-import datetime as _dt
-import json
-import logging
-import os
-import urllib.parse
-import urllib.request
-import uuid
-from typing import Any
+import datetime
+from datetime import datetime, timezone
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("lawfirm.billing")
 
@@ -33,33 +28,18 @@ _STRIPE_API_BASE = "https://api.stripe.com/v1"
 
 
 def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now(tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _vid(kind: str) -> str:
-    stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
+    stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%d%H%M%S")
     return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
 
 
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
+
+
 
 
 def _select_stripe_key(currency: str) -> tuple[str, str]:
@@ -158,12 +138,15 @@ async def task_billing_mode_a_start_subscription(
     })
     subscription_id = subscription.get("id", "")
 
-    _execute(
-        "UPDATE vertex_lawfirm_tenant "
-        "SET stripe_customer_id = :cust, billing_mode = 'flat', "
-        "    platform_fee_pct = 100 "
-        "WHERE tenant_id = :tid",
-        {"cust": customer_id, "tid": tenant_id},
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_lawfirm_tenant",
+        {
+            "tenant_id": tenant_id,
+            "stripe_customer_id": customer_id,
+            "billing_mode": "flat",
+            "platform_fee_pct": 100
+        }
     )
 
     LOG.info(
@@ -216,12 +199,15 @@ async def task_billing_mode_b_onboard_connect(
     })
     onboarding_url = link.get("url", "")
 
-    _execute(
-        "UPDATE vertex_lawfirm_tenant "
-        "SET stripe_connect_account_id = :acct, billing_mode = 'rev_share_y1', "
-        "    platform_fee_pct = 85 "
-        "WHERE tenant_id = :tid",
-        {"acct": account_id, "tid": tenant_id},
+    client = get_kotoba_client()
+    client.insert_row(
+        "vertex_lawfirm_tenant",
+        {
+            "tenant_id": tenant_id,
+            "stripe_connect_account_id": account_id,
+            "billing_mode": "rev_share_y1",
+            "platform_fee_pct": 85
+        }
     )
 
     LOG.info(
@@ -251,16 +237,16 @@ async def task_billing_mode_b_start_subscription(
     if not (sub_tenant_id and sub_tenant_name and sub_tenant_email and advisor_tenant_id):
         return {"ok": False, "error": "sub_tenant_id, name, email, advisor_tenant_id required"}
 
-    advisor = _query(
-        "SELECT stripe_connect_account_id, slug FROM vertex_lawfirm_tenant "
-        "WHERE tenant_id = :tid",
-        {"tid": advisor_tenant_id},
+    client = get_kotoba_client()
+    advisor = client.select_first_where(
+        "vertex_lawfirm_tenant", "tenant_id", advisor_tenant_id,
+        columns=["stripe_connect_account_id", "slug"]
     )
-    if not advisor or not advisor[0].get("stripe_connect_account_id"):
+    if not advisor or not advisor.get("stripe_connect_account_id"):
         return {"ok": False, "error": "advisor tenant not Connect-onboarded"}
 
-    advisor_account = advisor[0]["stripe_connect_account_id"]
-    advisor_slug = advisor[0].get("slug", "")
+    advisor_account = advisor["stripe_connect_account_id"]
+    advisor_slug = advisor.get("slug", "")
 
     # Y1 = 85% etzhayyim / 15% firm; Y2 = 90/10; Y3 = 95/5
     fee_pct_map = {1: 85, 2: 90, 3: 95}
@@ -348,18 +334,18 @@ async def task_billing_process_webhook_invoice_paid(
         return {"ok": False, "error": "event_id, invoice_id, customer_id required"}
 
     # Resolve tenant_id by stripe customer or connect account
-    tenant_rows = _query(
-        "SELECT tenant_id, billing_mode, slug FROM vertex_lawfirm_tenant "
-        "WHERE stripe_customer_id = :cust",
-        {"cust": customer_id},
+    client = get_kotoba_client()
+    tenant_row = client.select_first_where(
+        "vertex_lawfirm_tenant", "stripe_customer_id", customer_id,
+        columns=["tenant_id", "billing_mode", "slug"]
     )
-    if not tenant_rows:
+    if not tenant_row:
         # Sub-tenant case: lookup by advisor_connect_account in stripe metadata is host-side;
         # here we degrade to "unknown_tenant" and emit audit-only.
         LOG.warning("webhook: no tenant for customer=%s event=%s", customer_id, event_id)
         return {"ok": True, "tenant_id": "unknown", "event_id": event_id, "matched": False}
 
-    row = tenant_rows[0]
+    row = tenant_row
     tenant_id = row["tenant_id"]
     billing_mode = row.get("billing_mode") or "flat"
     slug = row.get("slug") or ""
@@ -370,30 +356,26 @@ async def task_billing_process_webhook_invoice_paid(
     )
 
     # Idempotency on (tenant_id, stripe_invoice_id)
-    existing_inv = _query(
-        "SELECT vertex_id FROM vertex_lawfirm_invoice WHERE stripe_invoice_id = :iid",
-        {"iid": invoice_id},
+    existing_inv = client.select_first_where(
+        "vertex_lawfirm_invoice", "stripe_invoice_id", invoice_id, columns=["vertex_id"]
     )
     if not existing_inv:
         invoice_uri = _vid("invoice")
-        _execute(
-            "INSERT INTO vertex_lawfirm_invoice "
-            "(vertex_id, tenant_id, stripe_invoice_id, stripe_subscription_id, "
-            " amount_minor, currency, status, created_at, owner_did) "
-            "VALUES (:vid, :tid, :iid, :sid, :amt, :cur, 'paid', :now, :owner)",
+        client.insert_row(
+            "vertex_lawfirm_invoice",
             {
-                "vid": invoice_uri, "tid": tenant_id, "iid": invoice_id,
-                "sid": subscription_id, "amt": amount_paid_minor,
-                "cur": currency.lower(), "now": _now_iso(), "owner": _FIRM_DID,
+                "vertex_id": invoice_uri, "tenant_id": tenant_id, "stripe_invoice_id": invoice_id,
+                "stripe_subscription_id": subscription_id, "amount_minor": amount_paid_minor,
+                "currency": currency.lower(), "status": "paid", "created_at": _now_iso(),
+                "owner_did": _FIRM_DID,
             },
         )
     else:
-        invoice_uri = existing_inv[0]["vertex_id"]
+        invoice_uri = existing_inv["vertex_id"]
 
     # Idempotency on (event_id) for payment
-    existing_pay = _query(
-        "SELECT vertex_id FROM vertex_lawfirm_payment WHERE stripe_payment_intent_id = :ev",
-        {"ev": event_id},
+    existing_pay = client.select_first_where(
+        "vertex_lawfirm_payment", "stripe_payment_intent_id", event_id, columns=["vertex_id"]
     )
     if existing_pay:
         return {
@@ -402,29 +384,39 @@ async def task_billing_process_webhook_invoice_paid(
         }
 
     payment_uri = _vid("payment")
-    _execute(
-        "INSERT INTO vertex_lawfirm_payment "
-        "(vertex_id, tenant_id, invoice_uri, amount_minor, platform_fee_minor, "
-        " currency, paid_at, stripe_payment_intent_id, stripe_charge_id, "
-        " status, created_at, owner_did) "
-        "VALUES (:vid, :tid, :inv, :amt, :fee, :cur, :paid, :pi, :ch, "
-        " 'succeeded', :now, :owner)",
+    client.insert_row(
+        "vertex_lawfirm_payment",
         {
-            "vid": payment_uri, "tid": tenant_id, "inv": invoice_uri,
-            "amt": amount_paid_minor, "fee": application_fee_minor,
-            "cur": currency.lower(), "paid": paid_iso,
-            "pi": event_id, "ch": "",  # charge_id from webhook payload if available
-            "now": _now_iso(), "owner": _FIRM_DID,
+            "vertex_id": payment_uri, "tenant_id": tenant_id, "invoice_uri": invoice_uri,
+            "amount_minor": amount_paid_minor, "platform_fee_minor": application_fee_minor,
+            "currency": currency.lower(), "paid_at": paid_iso,
+            "stripe_payment_intent_id": event_id, "stripe_charge_id": "",
+            "status": "succeeded", "created_at": _now_iso(), "owner_did": _FIRM_DID,
         },
     )
 
     # Lead.stage promotion (sandbox or saas-prod first paid invoice)
     if slug:
-        _execute(
-            "UPDATE vertex_lawfirm_lead SET stage = 'paid', last_touch_at = :now "
-            "WHERE assigned_to_did LIKE :pat AND stage IN ('sow_signed','pilot_active')",
-            {"now": _now_iso(), "pat": f"%{slug}%"},
+        # R0: This complex query (LIKE and IN) needs q().
+        leads_to_update = client.q(
+            f"""
+            [:find ?v ?assigned_to_did ?stage
+             :where
+             [?v "assigned_to_did" ?assigned_to_did]
+             [(str ?assigned_to_did) ?pat-fn]
+             [(.startsWith ?pat-fn ?pat)]
+             [?v "stage" ?stage]
+             (or
+              [(= ?stage "sow_signed")]
+              [(= ?stage "pilot_active")])]
+            """,
+            args={"?pat": f"%{slug}%"}
         )
+        for lead_vertex_id, _, _ in leads_to_update:
+            client.insert_row(
+                "vertex_lawfirm_lead",
+                {"vertex_id": lead_vertex_id, "stage": "paid", "last_touch_at": _now_iso()}
+            )
 
     LOG.info(
         "webhook invoice.paid processed tenant=%s amount=%d %s billing_mode=%s",

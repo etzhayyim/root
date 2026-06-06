@@ -15,15 +15,15 @@ Pyzeebe task types:
 
 from __future__ import annotations
 
-import datetime as _dt
 import hashlib
 import json
 import logging
 import os
 import time
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("karma.zk")
 
@@ -47,7 +47,7 @@ def _now_ms() -> int:
 
 
 def _now_ts() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.now(timezone.utc).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def _proof_vertex_id(proof_id: str) -> str:
@@ -95,28 +95,27 @@ async def task_karma_zk_rebirth_verify(**kwargs: Any) -> dict[str, Any]:
         f"{new_did}|{nullifier}|{new_santana_root}".encode()
     ).hexdigest()[:32]
     vertex_id = _proof_vertex_id(proof_id)
-    today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
+    today_iso = datetime.now(timezone.utc).date().isoformat()
     now_ms = _now_ms()
     now_ts = _now_ts()
 
-    with sync_cursor() as cur:
-        # Double-spend check: nullifier already verified
-        cur.execute(
-            """
-            SELECT count(*) FROM vertex_karma_rebirth_proof
-            WHERE nullifier = %s AND status = 'verified'
-            """,
-            (nullifier,),
-        )
-        if int(cur.fetchone()[0]) > 0:
-            return {
-                "ok": False,
-                "proofId": proof_id,
-                "verifiedAt": "",
-                "txHash": "",
-                "blockNumber": 0,
-                "rejectedReason": "nullifier-already-burned",
-            }
+    # Double-spend check: nullifier already verified
+    # R0: Multi-predicate filter applied in Python (status = 'verified')
+    existing_proofs = get_kotoba_client().select_where(
+        "vertex_karma_rebirth_proof",
+        "nullifier",
+        nullifier,
+        columns=["nullifier", "status"]
+    )
+    if any(p["status"] == "verified" for p in existing_proofs):
+        return {
+            "ok": False,
+            "proofId": proof_id,
+            "verifiedAt": "",
+            "txHash": "",
+            "blockNumber": 0,
+            "rejectedReason": "nullifier-already-burned",
+        }
 
         # Phase K4 hook: real bundler call. Phase K3 stub: deterministic tx_hash.
         use_real_verifier = bool(os.environ.get("KARMA_BUNDLER_URL")) and bool(
@@ -142,39 +141,33 @@ async def task_karma_zk_rebirth_verify(**kwargs: Any) -> dict[str, Any]:
 
         # Persist
         try:
-            cur.execute(
-                """
-                INSERT INTO vertex_karma_rebirth_proof (
-                    vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                    proof_id, old_did_hash, new_did,
-                    new_santana_root, nullifier,
-                    proof_blob, public_signals,
-                    verifier_contract, verifier_chain,
-                    verified_at, verified_at_ms, tx_hash, block_number,
-                    status, error_message,
-                    created_at, org_id, user_id, actor_id
-                ) VALUES (
-                    %s, NULL, %s, 1, %s,
-                    %s, %s, %s,
-                    %s, %s,
-                    %s, %s,
-                    %s, %s,
-                    %s, %s, %s, %s,
-                    %s, %s,
-                    %s, %s, %s, %s
-                )
-                """,
-                (
-                    vertex_id, today_iso, KARMA_DID,
-                    proof_id, old_did_hash, new_did,
-                    new_santana_root, nullifier,
-                    proof_blob, public_signals_blob,
-                    DEFAULT_VERIFIER_CONTRACT, DEFAULT_VERIFIER_CHAIN,
-                    now_ts, now_ms, tx_hash, block_number,
-                    status, error_message,
-                    now_ts, KARMA_DID, KARMA_DID, "karma.zk.rebirthVerify",
-                ),
-            )
+            row_dict = {
+                "vertex_id": vertex_id,
+                "_seq": None,
+                "created_date": today_iso,
+                "sensitivity_ord": 1,
+                "owner_did": KARMA_DID,
+                "proof_id": proof_id,
+                "old_did_hash": old_did_hash,
+                "new_did": new_did,
+                "new_santana_root": new_santana_root,
+                "nullifier": nullifier,
+                "proof_blob": proof_blob,
+                "public_signals": public_signals_blob,
+                "verifier_contract": DEFAULT_VERIFIER_CONTRACT,
+                "verifier_chain": DEFAULT_VERIFIER_CHAIN,
+                "verified_at": now_ts,
+                "verified_at_ms": now_ms,
+                "tx_hash": tx_hash,
+                "block_number": block_number,
+                "status": status,
+                "error_message": error_message,
+                "created_at": now_ts,
+                "org_id": KARMA_DID,
+                "user_id": KARMA_DID,
+                "actor_id": "karma.zk.rebirthVerify",
+            }
+            get_kotoba_client().insert_row("vertex_karma_rebirth_proof", row_dict)
         except Exception as exc:  # noqa: BLE001
             LOG.warning("rebirth_proof INSERT err proof=%s: %s", proof_id, exc)
             return {
@@ -210,54 +203,52 @@ async def task_karma_zk_rebirth_proof_lookup(**kwargs: Any) -> dict[str, Any]:
     if not new_did and not nullifier:
         return {"found": False, "error": "newDid-or-nullifier-required"}
 
-    with sync_cursor() as cur:
-        if new_did and nullifier:
-            cur.execute(
-                """
-                SELECT proof_id, status, verified_at_ms, tx_hash, block_number,
-                       verifier_contract, verifier_chain
-                FROM vertex_karma_rebirth_proof
-                WHERE new_did = %s AND nullifier = %s
-                LIMIT 1
-                """,
-                (new_did, nullifier),
-            )
-        elif new_did:
-            cur.execute(
-                """
-                SELECT proof_id, status, verified_at_ms, tx_hash, block_number,
-                       verifier_contract, verifier_chain
-                FROM vertex_karma_rebirth_proof
-                WHERE new_did = %s
-                ORDER BY verified_at_ms DESC
-                LIMIT 1
-                """,
-                (new_did,),
-            )
-        else:
-            cur.execute(
-                """
-                SELECT proof_id, status, verified_at_ms, tx_hash, block_number,
-                       verifier_contract, verifier_chain
-                FROM vertex_karma_rebirth_proof
-                WHERE nullifier = %s
-                LIMIT 1
-                """,
-                (nullifier,),
-            )
-        row = cur.fetchone()
+    _COLS = [
+        "proof_id", "status", "verified_at_ms", "tx_hash", "block_number",
+        "verifier_contract", "verifier_chain",
+    ]
+
+    if new_did and nullifier:
+        # R0: Multi-predicate filter applied in Python (nullifier is AND-ed)
+        rows = get_kotoba_client().select_where(
+            "vertex_karma_rebirth_proof",
+            "new_did",
+            new_did,
+            columns=_COLS,
+            limit=10, # Add a limit to prevent excessive data fetching for in-Python filtering
+        )
+        row = next((r for r in rows if r["nullifier"] == nullifier), None)
+    elif new_did:
+        # R0: ORDER BY verified_at_ms DESC applied in Python
+        rows = get_kotoba_client().select_where(
+            "vertex_karma_rebirth_proof",
+            "new_did",
+            new_did,
+            columns=_COLS,
+            limit=10, # Add a limit to prevent excessive data fetching for in-Python filtering
+        )
+        # Sort in Python
+        rows.sort(key=lambda x: x.get("verified_at_ms", 0), reverse=True)
+        row = rows[0] if rows else None
+    else: # nullifier is present
+        row = get_kotoba_client().select_first_where(
+            "vertex_karma_rebirth_proof",
+            "nullifier",
+            nullifier,
+            columns=_COLS,
+        )
 
     if not row:
         return {"found": False}
     return {
         "found": True,
-        "proofId": row[0],
-        "status": row[1],
-        "verifiedAtMs": int(row[2] or 0),
-        "txHash": row[3] or "",
-        "blockNumber": int(row[4] or 0),
-        "verifierContract": row[5] or "",
-        "verifierChain": row[6] or "",
+        "proofId": row["proof_id"],
+        "status": row["status"],
+        "verifiedAtMs": int(row["verified_at_ms"] or 0),
+        "txHash": row["tx_hash"] or "",
+        "blockNumber": int(row["block_number"] or 0),
+        "verifierContract": row["verifier_contract"] or "",
+        "verifierChain": row["verifier_chain"] or "",
     }
 
 

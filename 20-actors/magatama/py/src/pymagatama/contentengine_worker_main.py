@@ -39,7 +39,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.local_agent_env import load_env_file
 from pymagatama.llm import resolve_model_id
 
@@ -88,13 +88,12 @@ def _llm() -> ChatAnthropic:
 
 def load_cohort_profile(state: ContentState) -> dict[str, Any]:
     """Load cohort profile from vertex_contentengine_cohort_profile."""
-    rw_url = os.environ.get("RW_URL", "")
     cohort_name = state.get("cohort_name", "")
 
-    row = fetch_one(
-        rw_url,
-        "SELECT interests, reading_level, preferred_formats, industry_context FROM vertex_contentengine_cohort_profile WHERE cohort_name = %s",
-        (cohort_name,),
+    client = get_kotoba_client()
+    row = client.select_first_where(
+        "vertex_contentengine_cohort_profile", "cohort_name", cohort_name,
+        columns=["interests", "reading_level", "preferred_formats", "industry_context"]
     )
     interests: list[str] = []
     reading_level = "intermediate"
@@ -118,25 +117,35 @@ def load_cohort_profile(state: ContentState) -> dict[str, Any]:
 
 def match_sources(state: ContentState) -> dict[str, Any]:
     """Find relevant news + narou content as writing signals."""
-    rw_url = os.environ.get("RW_URL", "")
     topic = state.get("topic", "")
     interests = state.get("cohort_interests", [])
 
+    client = get_kotoba_client()
     # query news articles
-    news_rows = fetch_all(
-        rw_url,
-        "SELECT title, body_text FROM vertex_news_article WHERE title ILIKE %s ORDER BY created_at DESC LIMIT 5",
-        (f"%{topic[:50]}%",),
+    # R0: ILIKE, ORDER BY, and LIMIT handled in Python
+    all_news_rows = client.select_where(
+        "vertex_news_article", "label", "NewsArticle", # Fetch a broad set
+        columns=["title", "body_text", "created_at"], limit=2000
     )
+    news_rows = [
+        row for row in all_news_rows if topic[:50].lower() in row.get("title", "").lower()
+    ]
+    news_rows.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    news_rows = news_rows[:5]
     # query narou chapters if creative content
     narou_rows: list[dict[str, Any]] = []
     if state.get("content_type") in ("blog_post", "social_thread") and interests:
         interest_term = interests[0] if interests else topic
-        narou_rows = fetch_all(
-            rw_url,
-            "SELECT title, body_text FROM vertex_narou_chapter WHERE title ILIKE %s ORDER BY created_at DESC LIMIT 3",
-            (f"%{interest_term[:50]}%",),
+        # R0: ILIKE, ORDER BY, and LIMIT handled in Python
+        all_narou_rows = client.select_where(
+            "vertex_narou_chapter", "label", "NarouChapter", # Fetch a broad set
+            columns=["title", "body_text", "created_at"], limit=2000
         )
+        narou_rows = [
+            row for row in all_narou_rows if interest_term[:50].lower() in row.get("title", "").lower()
+        ]
+        narou_rows.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+        narou_rows = narou_rows[:3]
 
     snippets = []
     for r in (news_rows or []):
@@ -237,43 +246,33 @@ def quality_gate_node(state: ContentState) -> dict[str, Any]:
 
 def store_content(state: ContentState) -> dict[str, Any]:
     """INSERT content to vertex_contentengine_content (no onConflict — PK implicit)."""
-    rw_url = os.environ.get("RW_URL", "")
     content_id = state["content_id"]
     now = datetime.now(timezone.utc).isoformat()
     vertex_id = hashlib.sha256(f"content:{content_id}".encode()).hexdigest()
 
-    with sync_cursor(rw_url) as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_contentengine_content
-              (vertex_id, record_id, owner_did, label, status, agent_did,
-               created_at, updated_at, sensitivity_ord,
-               content_id, cohort_name, content_type, topic, tone,
-               title, body, quality_score, relevance_score, include_sponsor_slot)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id,
-                f"contentengine:content:{content_id}",
-                CONTENTENGINE_DID,
-                "ContentEngineContent",
-                "ready",
-                CONTENTENGINE_DID,
-                now,
-                now,
-                0,
-                content_id,
-                state.get("cohort_name", ""),
-                state.get("content_type", ""),
-                state.get("topic", ""),
-                state.get("tone", ""),
-                state.get("title", ""),
-                state.get("body", ""),
-                state.get("quality_score", 0.0),
-                state.get("relevance_score", 0.0),
-                False,
-            ),
-        )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "record_id": f"contentengine:content:{content_id}",
+        "owner_did": CONTENTENGINE_DID,
+        "label": "ContentEngineContent",
+        "status": "ready",
+        "agent_did": CONTENTENGINE_DID,
+        "created_at": now,
+        "updated_at": now,
+        "sensitivity_ord": 0,
+        "content_id": content_id,
+        "cohort_name": state.get("cohort_name", ""),
+        "content_type": state.get("content_type", ""),
+        "topic": state.get("topic", ""),
+        "tone": state.get("tone", ""),
+        "title": state.get("title", ""),
+        "body": state.get("body", ""),
+        "quality_score": state.get("quality_score", 0.0),
+        "relevance_score": state.get("relevance_score", 0.0),
+        "include_sponsor_slot": False,
+    }
+    client.insert_row("vertex_contentengine_content", row_dict)
 
     LOG.info("store_content: content_id=%s quality=%.2f relevance=%.2f",
              content_id, state.get("quality_score", 0), state.get("relevance_score", 0))
@@ -393,14 +392,18 @@ async def task_create_sponsor_slot(
         LOG.warning("task_create_sponsor_slot: ads call failed: %s", exc)
 
     if ad_campaign_id:
-        rw_url = os.environ.get("RW_URL", "")
         now = datetime.now(timezone.utc).isoformat()
         vid = hashlib.sha256(f"content:{content_id}".encode()).hexdigest()
-        with sync_cursor(rw_url) as cur:
-            cur.execute(
-                "UPDATE vertex_contentengine_content SET ad_campaign_id=%s, include_sponsor_slot=%s, updated_at=%s WHERE vertex_id=%s",
-                (ad_campaign_id, True, now, vid),
-            )
+
+        client = get_kotoba_client()
+        # Retrieve existing row to update
+        existing_row = client.select_first_where("vertex_contentengine_content", "vertex_id", vid)
+
+        if existing_row:
+            existing_row["ad_campaign_id"] = ad_campaign_id
+            existing_row["include_sponsor_slot"] = True
+            existing_row["updated_at"] = now
+            client.insert_row("vertex_contentengine_content", existing_row) # Upsert with updated values
 
     LOG.info("task_create_sponsor_slot: content_id=%s ad_campaign_id=%s", content_id, ad_campaign_id)
     return {"adCampaignId": ad_campaign_id}

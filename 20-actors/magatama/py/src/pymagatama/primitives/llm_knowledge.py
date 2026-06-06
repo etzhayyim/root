@@ -4,7 +4,7 @@ These functions are Zeebe worker task bodies for:
   - llm.knowledge.retrieve
   - llm.knowledge.langgraphAnswer
 
-Facts are read from RisingWave domain-knowledge vertices/MVs. No domain facts
+Facts are read from kotoba Datom log domain-knowledge vertices/MVs. No domain facts
 are hard-coded in Python or Cloudflare Workers.
 """
 
@@ -13,10 +13,11 @@ from __future__ import annotations
 import os
 import re
 import time
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 try:
     from langgraph.graph import END, StateGraph
@@ -65,19 +66,25 @@ def _terms(question: str) -> list[str]:
 def _fetch_citations(document_vids: list[str]) -> list[str]:
     if not document_vids:
         return []
-    placeholders = ", ".join(["%s"] * len(document_vids))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT s.url
-            FROM edge_domain_knowledge_cites e
-            JOIN vertex_domain_knowledge_source s ON s.vertex_id = e.dst_vid
-            WHERE e.src_vid IN ({placeholders})
-            ORDER BY s.confidence DESC, s.url ASC
-            """,
-            tuple(document_vids),
-        )
-        return list(dict.fromkeys(str(row[0]) for row in cur.fetchall()))
+    kotoba_client = get_kotoba_client()
+    # R0: Using q() Datalog escape hatch for IN clause and JOIN, then sorting in Python.
+    # Assuming attributes:
+    # edge_domain_knowledge_cites: :edge-domain-knowledge-cites/src-vid, :edge-domain-knowledge-cites/dst-vid
+    # vertex_domain_knowledge_source: :vertex-domain-knowledge-source/vertex-id, :vertex-domain-knowledge-source/url, :vertex-domain-knowledge-source/confidence
+    query_edn = """
+    [:find ?url ?confidence
+     :in $ [?src_vid ...]
+     :where
+     [?e :edge-domain-knowledge-cites/src-vid ?src_vid]
+     [?e :edge-domain-knowledge-cites/dst-vid ?s_vid]
+     [?s_vid :vertex-domain-knowledge-source/url ?url]
+     [?s_vid :vertex-domain-knowledge-source/confidence ?confidence]]
+    """
+    results = kotoba_client.q(query_edn, args=(document_vids,))
+    # Sort in Python as per original SQL ORDER BY s.confidence DESC, s.url ASC
+    # results are list of [url, confidence] tuples
+    sorted_results = sorted(results, key=lambda x: (-x[1], x[0])) # x[1] is confidence, x[0] is url
+    return list(dict.fromkeys(str(row[0]) for row in sorted_results))
 
 
 def retrieve(
@@ -88,36 +95,81 @@ def retrieve(
     topK: int = 8,
 ) -> dict[str, Any]:
     qs = _terms(question)
-    clauses = ["lang = %s"]
-    params: list[Any] = [lang or "ja"]
-    if domain:
-        clauses.append("domain = %s")
-        params.append(domain)
-    if gameSlug:
-        clauses.append("game_slug = %s")
-        params.append(gameSlug)
-    if qs:
-        clauses.append("(" + " OR ".join(["search_text LIKE %s" for _ in qs]) + ")")
-        params.extend([f"%{q.lower()}%" for q in qs])
 
     limit = max(1, min(int(topK or 8), 20))
-    query = f"""
-      SELECT chunk_vid, document_vid, domain, actor_did, canonical_work_id,
-             game_slug, title, lang, chunk_index, chunk_text, keywords,
-             confidence, updated_at
-      FROM mv_domain_knowledge_search
-      WHERE {" AND ".join(clauses)}
-      ORDER BY updated_at DESC, chunk_index ASC
-      LIMIT {limit}
-    """
-    with sync_cursor() as cur:
-        cur.execute(query, tuple(params))
-        colnames = [desc[0] for desc in cur.description]
-        rows = [dict(zip(colnames, row)) for row in cur.fetchall()]
+    kotoba_client = get_kotoba_client()
 
-    used = sorted({str(row["document_vid"]) for row in rows})
+    # R0: Initial fetch based on 'lang', then filtering domain, game_slug, and search_text in Python
+    #     due to complex WHERE clauses (AND, OR, LIKE) not directly supported by select_where,
+    #     and applying ORDER BY and LIMIT in Python.
+    # The 'mv_domain_knowledge_search' is treated as a table name for select_where.
+    all_columns = [
+        "chunk_vid", "document_vid", "domain", "actor_did", "canonical_work_id",
+        "game_slug", "title", "lang", "chunk_index", "chunk_text", "keywords",
+        "confidence", "updated_at"
+    ]
+    # Fetch broadly by lang, assuming it's the primary filter for a large initial set.
+    # Limit to a reasonably large number (e.g., 2000) to ensure subsequent Python filters
+    # have enough data to work with.
+    fetched_rows = kotoba_client.select_where(
+        "mv_domain_knowledge_search",
+        "lang",
+        lang or "ja",
+        columns=all_columns,
+        limit=2000 # Use a generous limit for the initial fetch
+    )
+
+    filtered_rows = []
+    for row in fetched_rows:
+        # Apply domain filter
+        if domain and row.get("domain") != domain:
+            continue
+        # Apply gameSlug filter
+        if gameSlug and row.get("game_slug") != gameSlug:
+            continue
+
+        # Apply search_text LIKE filter (for qs terms)
+        match_qs = False
+        if not qs: # No search terms, so it's a match
+            match_qs = True
+        else:
+            chunk_text = row.get("chunk_text", "").lower()
+            keywords = row.get("keywords", "").lower()
+            for q_term in qs:
+                # Original SQL used %term%, so it's a substring match
+                if q_term.lower() in chunk_text or q_term.lower() in keywords:
+                    match_qs = True
+                    break
+        if not match_qs:
+            continue
+        filtered_rows.append(row)
+
+    # Apply ORDER BY updated_at DESC, chunk_index ASC in Python
+    # If updated_at is None, handle it to avoid errors during comparison.
+    # For descending updated_at, we need to sort descending.
+    # For chunk_index ascending, we sort ascending.
+    # To achieve updated_at DESC and chunk_index ASC with a single sort key,
+    # we use a tuple for sorting: updated_at (effectively descending), then chunk_index ascending.
+    # If `updated_at` values are `datetime` objects, `datetime.max - updated_at` can be used to reverse the order for sorting.
+    # We sort by `updated_at` descending and `chunk_index` ascending.
+    # Python's `sorted()` by default sorts ascending. To get `updated_at DESC`, we need to make larger `updated_at` values
+    # appear "smaller" in the sort key. If updated_at is a datetime object,
+    # `datetime.max - updated_at` effectively reverses its natural order.
+    final_sorted_rows = sorted(
+        filtered_rows,
+        key=lambda x: (
+            x.get("updated_at") if x.get("updated_at") is not None else datetime.min,
+            x.get("chunk_index", 0)
+        ),
+        reverse=True # Apply reverse to the whole tuple to sort updated_at in descending order. chunk_index will still be sorted ascending among equal updated_at values due to tuple sorting rules.
+    )
+
+    # Apply LIMIT
+    rows_limited = final_sorted_rows[:limit]
+
+    used = sorted({str(row["document_vid"]) for row in rows_limited})
     return {
-        "contexts": rows,
+        "contexts": rows_limited,
         "citations": _fetch_citations(used),
         "usedKnowledge": used,
     }
@@ -131,7 +183,7 @@ def _answer_node(state: AnswerState) -> AnswerState:
         return {
             **state,
             "ok": False,
-            "answer": "該当する domain knowledge が RisingWave に見つかりませんでした。",
+            "answer": "該当する domain knowledge が kotoba Datom log に見つかりませんでした。",
             "confidence": "low",
             "model": "none",
             "latencyMs": int((time.monotonic() - started) * 1000),

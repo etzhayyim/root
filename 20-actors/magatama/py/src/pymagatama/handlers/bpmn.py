@@ -7,7 +7,7 @@ Ports the *pure* subset of the TS implementation at
 - `com.etzhayyim.apps.bpmn.compileJsonToXml` — JSON subset → BPMN 2.0 XML
 - `com.etzhayyim.apps.bpmn.validateXml` — cheap well-formedness check
 - `com.etzhayyim.apps.bpmn.analyzeProcess` — Optimize-free OCEL process mining
-  over RisingWave BPMN audit rows, with optional LLM diagnosis
+  over kotoba Datom log BPMN audit rows, with optional LLM diagnosis
 
 Stateful commands (deployProcess / startInstance / signalInstance /
 getInstanceState / getActivityLog / cancelInstance / listProcesses /
@@ -20,11 +20,12 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama import udf
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ---------------------------------------------------------------------------
 # compileJsonToXml
@@ -339,30 +340,91 @@ def _fetch_audit_events(params: dict[str, Any]) -> list[dict[str, Any]]:
         where.append("created_at <= %s")
         bind.append(until)
 
-    sql_text = f"""
-        SELECT
-          COALESCE(
-            value_json::jsonb ->> 'case_id',
-            value_json::jsonb ->> 'caseId',
-            value_json::jsonb ->> 'runId',
-            rkey
-          ) AS case_id,
-          value_json::jsonb ->> 'action' AS activity,
-          repo AS actor_did,
-          ts_ms,
-          created_at AS timestamp,
-          NULLIF(value_json::jsonb ->> 'duration_ms', '')::bigint AS duration_ms,
-          COALESCE(NULLIF(value_json::jsonb ->> 'status', ''), 'ok') AS status,
-          value_json AS payload_json
-        FROM vertex_repo_commit
-        WHERE {' AND '.join(where)}
-        ORDER BY ts_ms DESC
-        LIMIT {limit}
-    """
-    with sync_cursor() as cur:
-        cur.execute(sql_text, tuple(bind))
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row, strict=False)) for row in (cur.fetchall() or [])]
+    # R0: Initial fetch for audit events from kotoba Datom log,
+    #     remaining filtering and projection applied in Python.
+    client = get_kotoba_client()
+
+    # Fetch all records for the specific collection. We'll filter further in Python.
+    # The actual 'where' clause for the initial select should be minimal
+    # to fetch a broad enough set, then filter in Python.
+    # We fetch relevant fields: vertex_id, value_json, repo, ts_ms, created_at.
+    # We use a generous limit for the initial fetch to allow for in-Python filtering.
+    raw_events = client.select_where(
+        "vertex_repo_commit",
+        "collection",
+        "com.etzhayyim.bpmn.audit",
+        columns=["vertex_id", "value_json", "repo", "ts_ms", "created_at"],
+        limit=5000,
+    )
+
+    processed_events: list[dict[str, Any]] = []
+    for event_row in raw_events:
+        value_json_str = event_row.get("value_json")
+        if not value_json_str:
+            continue
+        try:
+            event_value = json.loads(value_json_str)
+        except json.JSONDecodeError:
+            continue
+
+        # Apply actionPrefix filter
+        action = str(event_value.get("action", ""))
+        if action_prefix and not action.startswith(action_prefix):
+            continue
+
+        # Apply processId filter
+        process_id_val = str(event_value.get("process_id", ""))
+        process_id_val_alt = str(event_value.get("processId", ""))
+        process_id_val_bpmn = str(event_value.get("_bpmnProcessId", ""))
+        if process_id and not (process_id_val == process_id or process_id_val_alt == process_id or process_id_val_bpmn == process_id):
+            continue
+
+        # Apply caseId filter
+        event_rkey = str(event_row.get("vertex_id", ""))
+        case_id_val = str(event_value.get("case_id", ""))
+        case_id_val_alt = str(event_value.get("caseId", ""))
+        case_id_val_runid = str(event_value.get("runId", ""))
+        if case_id and not (case_id_val == case_id or case_id_val_alt == case_id or case_id_val_runid == case_id or event_rkey == case_id):
+            continue
+
+        # Apply since/until filters
+        created_at_str = str(event_row.get("created_at", ""))
+        if since and created_at_str < since:
+            continue
+        if until and created_at_str > until:
+            continue
+
+        # Construct the output row mirroring the SQL SELECT COALESCE/NULLIF logic
+        case_id_out = (
+            case_id_val or case_id_val_alt or case_id_val_runid or event_rkey
+        )
+        activity_out = event_value.get("action")
+        actor_did_out = event_row.get("repo")
+        ts_ms_out = event_row.get("ts_ms")
+        timestamp_out = event_row.get("created_at")
+
+        duration_ms_raw = event_value.get("duration_ms")
+        duration_ms_out = int(duration_ms_raw) if duration_ms_raw is not None and str(duration_ms_raw).strip() != '' else None
+
+        status_raw = str(event_value.get("status", ""))
+        status_out = status_raw if status_raw.strip() != '' else 'ok'
+
+        processed_events.append({
+            "case_id": case_id_out,
+            "activity": activity_out,
+            "actor_did": actor_did_out,
+            "ts_ms": ts_ms_out,
+            "timestamp": timestamp_out,
+            "duration_ms": duration_ms_out,
+            "status": status_out,
+            "payload_json": event_row.get("value_json"), # Keep original value_json as payload_json
+        })
+
+    # Apply ORDER BY ts_ms DESC
+    processed_events.sort(key=lambda x: x.get("ts_ms", 0) or 0, reverse=True)
+
+    # Apply LIMIT
+    return processed_events[:limit]
 
 
 def _summarize_events(events_desc: list[dict[str, Any]]) -> dict[str, Any]:
@@ -522,7 +584,7 @@ def _llm_analysis(params: dict[str, Any], summary: dict[str, Any]) -> dict[str, 
     agent_tool="Analyze BPMN/Zeebe OCEL audit events with deterministic statistics and optional LLM explanation.",
 )
 def analyze_process(params_json: str) -> str:
-    """Optimize-free process mining over `vertex_repo_commit` BPMN audit rows."""
+    """Optimize-free process mining over vertex_repo_commit (kotoba Datom log) BPMN audit rows."""
     try:
         params = _loads_obj(params_json)
         events = _fetch_audit_events(params)

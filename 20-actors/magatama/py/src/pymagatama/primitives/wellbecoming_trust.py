@@ -20,7 +20,7 @@ import math
 import os
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.pydantic_job import ZeebeJobInput
 from pymagatama.langserver_compat import LangServerJob as Job, LangServerWorker
 
@@ -66,23 +66,23 @@ def task_trust_weight_update(
         pairs_updated:   upsert した行数
         agents_found:    信念状態が既知のエージェント数
     """
-    with sync_cursor() as cur:
-        # 信念状態が既知のエージェント一覧を取得（scored_events 閾値でフィルタ）
-        cur.execute(
-            f"""
-            SELECT
-              agent_did,
-              mean_score_total,
-              entropy_spread,
-              attractor_status,
-              scored_events
-            FROM mv_attractor_stability_by_agent
-            WHERE scored_events >= {int(min_scored_events)}
-              AND mean_score_total IS NOT NULL
-            ORDER BY agent_did
-            """
-        )
-        agents = cur.fetchall()
+    client = get_kotoba_client()
+    # R0: Fetch all agents from mv_attractor_stability_by_agent and filter/order in Python
+    # due to complex WHERE (range, IS NOT NULL) and ORDER BY clauses not directly
+    # supported by select_where.
+    all_agents_raw = client.select_where(
+        "mv_attractor_stability_by_agent",
+        None,  # No specific column for equality filter
+        None,  # No specific value for equality filter
+        columns=["agent_did", "mean_score_total", "entropy_spread", "attractor_status", "scored_events"],
+        limit=2000 # as per instruction for fetching a broader set
+    )
+    # Apply filtering and ordering in Python
+    agents = [
+        agent for agent in all_agents_raw
+        if agent.get("scored_events", 0) >= min_scored_events and agent.get("mean_score_total") is not None
+    ]
+    agents.sort(key=lambda x: x["agent_did"])
 
     if len(agents) < 2:
         LOG.info("trust_weight_update: not enough agents with scored events (%d)", len(agents))
@@ -97,11 +97,11 @@ def task_trust_weight_update(
 
     # エージェント情報を dict に変換
     agent_map = {
-        row[0]: {
-            "mean_score": row[1],
-            "entropy_spread": row[2],
-            "attractor_status": row[3],
-            "scored_events": row[4],
+        row["agent_did"]: {
+            "mean_score": row["mean_score_total"],
+            "entropy_spread": row["entropy_spread"],
+            "attractor_status": row["attractor_status"],
+            "scored_events": row["scored_events"],
         }
         for row in agents
     }
@@ -135,23 +135,22 @@ def task_trust_weight_update(
             "bc_epsilon": bc_epsilon,
         }
 
-    # edge_trust_weight に upsert（PK 重複 = overwrite, RisingWave 仕様）
-    with sync_cursor() as cur:
-        # 既存行を DELETE してから INSERT（RisingWave は ON CONFLICT 非対応）
-        existing_ids = [u[0] for u in upserts]
-        if existing_ids:
-            id_list = ",".join(f"'{eid}'" for eid in existing_ids)
-            cur.execute(f"DELETE FROM edge_trust_weight WHERE edge_id IN ({id_list})")
-
-        for row in upserts:
-            cur.execute(
-                """
-                INSERT INTO edge_trust_weight
-                  (edge_id, src_did, dst_did, weight, distance, bc_epsilon, blocked, updated_at)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s::timestamp)
-                """,
-                row,
-            )
+    client = get_kotoba_client()
+    pairs_updated = 0
+    # edge_trust_weight に upsert (kotoba Datom log handles upsert logic internally)
+    for row_tuple in upserts:
+        row_dict = {
+            "edge_id": row_tuple[0],
+            "src_did": row_tuple[1],
+            "dst_did": row_tuple[2],
+            "weight": row_tuple[3],
+            "distance": row_tuple[4],
+            "bc_epsilon": row_tuple[5],
+            "blocked": row_tuple[6],
+            "updated_at": _dt.datetime.now(tz=_dt.UTC).isoformat(timespec="seconds").replace("+00:00", "Z"), # Use Python datetime
+        }
+        client.insert_row("edge_trust_weight", row_dict)
+        pairs_updated += 1
 
     blocked_pairs = [
         f"{u[1].split(':')[-1]}→{u[2].split(':')[-1]}"
@@ -171,7 +170,7 @@ def task_trust_weight_update(
         "agents_found": len(agents),
         "pairs_evaluated": len(upserts),
         "pairs_blocked": pairs_blocked,
-        "pairs_updated": len(upserts),
+        "pairs_updated": pairs_updated,  # Updated to use the counter
         "bc_epsilon": bc_epsilon,
         "weight_k": weight_k,
         "blocked_pairs": blocked_pairs[:10],  # log 用（最大 10 件）

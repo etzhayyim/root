@@ -19,7 +19,7 @@ import json
 import urllib.request as _req
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ---------------------------------------------------------------------------
 # Config
@@ -210,63 +210,46 @@ def task_ongakuka_music_generate(
 
     track_title = title or f"Track {now_iso[:16]}"
 
-    # -- RisingWave writes ----------------------------------------------------
-    with sync_cursor() as cur:
-        # T2 domain: vertex_ongakuka_track
-        track_vid = f"at://{_OWNER_DID}/com.etzhayyim.apps.ongakuka.track/{track_rkey}"
-        cur.execute(
-            """
-            INSERT INTO vertex_ongakuka_track
-              (vertex_id, title, style, duration_sec, blob_key, mime_type,
-               status, project_id, model_id, seed, created_at)
-            VALUES
-              (%(vertex_id)s, %(title)s, %(style)s, %(duration_sec)s,
-               %(blob_key)s, %(mime_type)s, %(status)s, %(project_id)s,
-               %(model_id)s, %(seed)s, %(created_at)s)
-            """,
-            {
-                "vertex_id":   track_vid,
-                "title":       track_title,
-                "style":       style,
-                "duration_sec": duration_sec,
-                "blob_key":    sha,
-                "mime_type":   "audio/wav",
-                "status":      "published",
-                "project_id":  project_id,
-                "model_id":    _MURAKUMO_MODEL,
-                "seed":        seed or 0,
-                "created_at":  now_iso,
-            },
-        )
+    # -- kotoba Datom log writes ----------------------------------------------
+    # T2 domain: vertex_ongakuka_track
+    track_vid = f"at://{_OWNER_DID}/com.etzhayyim.apps.ongakuka.track/{track_rkey}"
+    get_kotoba_client().insert_row(
+        "vertex_ongakuka_track",
+        {
+            "vertex_id":   track_vid,
+            "title":       track_title,
+            "style":       style,
+            "duration_sec": duration_sec,
+            "blob_key":    sha,
+            "mime_type":   "audio/wav",
+            "status":      "published",
+            "project_id":  project_id,
+            "model_id":    _MURAKUMO_MODEL,
+            "seed":        seed or 0,
+            "created_at":  now_iso,
+        },
+    )
 
-        # T2 domain: vertex_ongakuka_generation
-        gen_rkey = f"gen-{track_rkey}"
-        gen_vid  = f"at://{_COMPOSER_DID}/com.etzhayyim.apps.ongakuka.generation/{gen_rkey}"
-        cur.execute(
-            """
-            INSERT INTO vertex_ongakuka_generation
-              (vertex_id, target_uri, stage, actor_did, model_id, params,
-               audio_sec, inference_ms, node, status, created_at)
-            VALUES
-              (%(vertex_id)s, %(target_uri)s, %(stage)s, %(actor_did)s,
-               %(model_id)s, %(params)s, %(audio_sec)s, %(inference_ms)s,
-               %(node)s, %(status)s, %(created_at)s)
-            """,
-            {
-                "vertex_id":  gen_vid,
-                "target_uri": track_vid,
-                "stage":      "compose",
-                "actor_did":  _COMPOSER_DID,
-                "model_id":   _MURAKUMO_MODEL,
-                "params":     json.dumps({"prompt": style, "duration_sec": duration_sec,
-                                           "seed": seed or None, "sample_rate": sample_rate}),
-                "audio_sec":     duration_sec,
-                "inference_ms":  inference_ms,
-                "node":          node,
-                "status":        "ok",
-                "created_at":    now_iso,
-            },
-        )
+    # T2 domain: vertex_ongakuka_generation
+    gen_rkey = f"gen-{track_rkey}"
+    gen_vid  = f"at://{_COMPOSER_DID}/com.etzhayyim.apps.ongakuka.generation/{gen_rkey}"
+    get_kotoba_client().insert_row(
+        "vertex_ongakuka_generation",
+        {
+            "vertex_id":  gen_vid,
+            "target_uri": track_vid,
+            "stage":      "compose",
+            "actor_did":  _COMPOSER_DID,
+            "model_id":   _MURAKUMO_MODEL,
+            "params":     json.dumps({"prompt": style, "duration_sec": duration_sec,
+                                       "seed": seed or None, "sample_rate": sample_rate}),
+            "audio_sec":     duration_sec,
+            "inference_ms":  inference_ms,
+            "node":          node,
+            "status":        "ok",
+            "created_at":    now_iso,
+        },
+    )
 
     # -- T1 social post (C-path via vertex_repo_record) -----------------------
     from pymagatama.primitives.yoro_social import insert_social_post_record  # local import

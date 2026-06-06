@@ -2,49 +2,22 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
 import os
 import re
-import time
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:media-gamers.etzhayyim.com"
 SLUG_RE = re.compile(r"^[a-z0-9-]+$")
 
 
-def now_date() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
-
-
-def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-
 
 def _str(value: Any) -> str:
     return "" if value is None else str(value)
-
-
-def _int(value: Any, default: int = 0) -> int:
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return default
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
 def _post_json(url: str, payload: dict[str, Any], timeout: int = 120) -> Any:
@@ -99,18 +72,33 @@ CHAR_SCHEMA: dict[str, Any] = {
 
 
 def analyze_coverage(targetCount: Any = 12, limit: Any = 40, **_: Any) -> dict[str, Any]:
-    target = _int(targetCount, 12)
-    rows = _fetch_all(
-        """SELECT t.vertex_id AS scope_did, t.title_en, COALESCE(c.cnt, 0) AS current_count
-        FROM vertex_game_title t
-        LEFT JOIN (
-          SELECT title_did, COUNT(*) AS cnt FROM vertex_game_character GROUP BY title_did
-        ) c ON c.title_did=t.vertex_id
-        WHERE t.release_year >= 1990 AND COALESCE(c.cnt, 0) < %s
-        ORDER BY COALESCE(c.cnt, 0) ASC, t.release_year DESC
-        LIMIT %s""",
-        (target, max(1, min(_int(limit, 40), 200))),
+    target = int(targetCount) if targetCount is not None else 12
+    # R0: Complex query with LEFT JOIN, COALESCE, ORDER BY, and LIMIT handled in Python.
+    # Fetch titles released after 1990
+    titles = get_kotoba_client().select_where(
+        "vertex_game_title", "release_year", 1990, op=">=", columns=["vertex_id", "title_en", "release_year"]
     )
+    # Fetch character counts per title
+    character_counts_raw = get_kotoba_client().q(
+        '[:find ?title_did (count ?c) :where [?c :vertex_game_character/title_did ?title_did]]'
+    )
+    character_counts = {title_did: count for title_did, count in character_counts_raw}
+
+    processed_rows = []
+    for t_row in titles:
+        scope_did = t_row["vertex_id"]
+        current_count = character_counts.get(scope_did, 0)
+        processed_rows.append({
+            "scope_did": scope_did,
+            "title_en": t_row["title_en"],
+            "current_count": current_count,
+            "release_year": t_row["release_year"], # Keep for sorting
+        })
+
+    # Apply WHERE, ORDER BY, and LIMIT in Python
+    filtered_rows = [row for row in processed_rows if row["current_count"] < target]
+    filtered_rows.sort(key=lambda x: (x["current_count"], -x["release_year"])) # ASC by count, DESC by year
+    rows = filtered_rows[:max(1, min(int(limit) if limit is not None else 40, 200))]
     tasks = [
         {
             "kind": "expand-characters",
@@ -127,15 +115,15 @@ def analyze_coverage(targetCount: Any = 12, limit: Any = 40, **_: Any) -> dict[s
 def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[str, Any]:
     if not scope_did:
         return {"error": "scope_did required"}
-    existing_rows = _fetch_all("SELECT name, character_role, class FROM vertex_game_character WHERE title_did=%s", (scope_did,))
-    title_rows = _fetch_all("SELECT title_en, release_year FROM vertex_game_title WHERE vertex_id=%s", (scope_did,))
-    if not title_rows:
+    existing_rows = get_kotoba_client().select_where("vertex_game_character", "title_did", scope_did, columns=["name", "character_role", "class"])
+    title_row = get_kotoba_client().select_first_where("vertex_game_title", "vertex_id", scope_did, columns=["title_en", "release_year"])
+    if not title_row:
         return {"skipped": "title not found"}
-    need = _int(target_count, 12) - len(existing_rows)
+    need = (int(target_count) if target_count is not None else 12) - len(existing_rows)
     if need <= 0:
         return {"skipped": "already covered"}
-    title = title_rows[0].get("title_en")
-    year = title_rows[0].get("release_year")
+    title = title_row.get("title_en")
+    year = title_row.get("release_year")
     existing = ", ".join(f"{r.get('name')} ({r.get('character_role')})" for r in existing_rows)
     out = _ollama_json(
         "You are a knowledge graph generator for media-gamers.etzhayyim.com. Output strict JSON only. Slugs MUST match ^[a-z0-9-]+$.",
@@ -150,26 +138,46 @@ def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[
             skipped.append(f"bad-slug:{slug_text}")
             continue
         slug = f"did:etzhayyim:gamechar:{slug_text}"
-        if _fetch_all("SELECT 1 FROM vertex_game_character WHERE vertex_id=%s LIMIT 1", (slug,)):
+        if get_kotoba_client().select_first_where("vertex_game_character", "vertex_id", slug, columns=["vertex_id"]):
             skipped.append(f"dup:{slug_text}")
             continue
         name = _str(raw.get("name"))
         desc = _str(raw.get("description"))
-        _execute(
-            """INSERT INTO vertex_game_character
-            (vertex_id, sensitivity_ord, owner_did, title_did, name, name_ja, character_role, class, first_appearance_title_did, voice_actor_did)
-            VALUES (%s,0,%s,%s,%s,%s,%s,%s,%s,NULL)
-            ON CONFLICT (vertex_id) DO NOTHING""",
-            (slug, OWNER_DID, scope_did, name, _str(raw.get("name_ja")), _str(raw.get("role")), _str(raw.get("character_class")), scope_did),
-        )
+        char_row = {
+            "vertex_id": slug,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+            "title_did": scope_did,
+            "name": name,
+            "name_ja": _str(raw.get("name_ja")),
+            "character_role": _str(raw.get("role")),
+            "class": _str(raw.get("character_class")),
+            "first_appearance_title_did": scope_did,
+            "voice_actor_did": None,
+        }
+        get_kotoba_client().insert_row("vertex_game_character", char_row)
         handle = f"{slug_text}.media-gamers.etzhayyim.com"
-        _execute(
-            """INSERT INTO vertex_actor
-            (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)
-            VALUES (%s,0,%s,%s,%s,%s,%s,'T0','game-character','active','character',%s,'etzhayyim.com','logical','db-only','metadata-only','jp',%s)
-            ON CONFLICT (vertex_id) DO NOTHING""",
-            (slug, OWNER_DID, slug, handle, name, name, os.environ.get("KG_LLM_TIER", "T0"), now_date()),
-        )
+        actor_row = {
+            "vertex_id": slug,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+            "did": slug,
+            "handle": handle,
+            "display_name": name,
+            "name": name,
+            "execution_tier": "T0",
+            "performer_type": "game-character",
+            "status": "active",
+            "category": "character",
+            "classification": os.environ.get("KG_LLM_TIER", "T0"),
+            "operator": "etzhayyim.com",
+            "agent_type": "logical",
+            "runtime_type": "db-only",
+            "ui_type": "metadata-only",
+            "country": "jp",
+            "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        }
+        get_kotoba_client().insert_row("vertex_actor", actor_row)
         profile = {
             "displayName": name,
             "displayNameJa": _str(raw.get("name_ja")),
@@ -181,26 +189,53 @@ def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[
             "category": "game-character",
             "llm_generated": True,
             "llm_model": os.environ.get("OLLAMA_MODEL_EXTRACTION", "gemma4:e4b"),
-            "generated_at": now_iso(),
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z',
         }
-        _execute(
-            """INSERT INTO vertex_actor_manifest
-            (vertex_id, sensitivity_ord, owner_did, did, name, display_name, description, execution_tier, performer_type, profile_json, status, created_date)
-            VALUES (%s,0,%s,%s,%s,%s,%s,'T0','game-character',%s,'active',%s::date)
-            ON CONFLICT (vertex_id) DO NOTHING""",
-            (slug, OWNER_DID, slug, name, name, desc, json.dumps(profile, ensure_ascii=False), now_date()),
-        )
+        manifest_row = {
+            "vertex_id": slug,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+            "did": slug,
+            "name": name,
+            "display_name": name,
+            "description": desc,
+            "execution_tier": "T0",
+            "performer_type": "game-character",
+            "profile_json": json.dumps(profile, ensure_ascii=False),
+            "status": "active",
+            "created_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        }
+        get_kotoba_client().insert_row("vertex_actor_manifest", manifest_row)
         inserted += 1
     return {"inserted": inserted, "skipped": skipped}
 
 
 def status(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(
-        """SELECT
-        (SELECT count(*) FROM vertex_actor_manifest WHERE execution_tier='T0') AS t0_actors,
-        (SELECT count(*) FROM vertex_actor_manifest WHERE execution_tier='T0' AND profile_json LIKE '%llm_generated%true%') AS llm_generated,
-        (SELECT count(*) FROM vertex_game_character WHERE owner_did=%s) AS game_chars""",
-        (OWNER_DID,),
+    # R0: Multi-predicate count (llm_generated) and general status queries.
+    # The 'llm_generated' count requires a Datalog query or in-Python filtering.
+    # Using Datalog q() for the LIKE clause.
+
+    t0_actors_count = get_kotoba_client().aggregate_where(
+        "vertex_actor_manifest", "count", "*", "execution_tier", "T0"
     )
-    row = rows[0] if rows else {}
+
+    llm_generated_count_raw = get_kotoba_client().q(
+        f"""[:find (count ?e)
+             :where
+             [?e :vertex_actor_manifest/execution_tier "T0"]
+             [?e :vertex_actor_manifest/profile_json ?json_str]
+             [(re-find #"{'%llm_generated%true%'}" ?json_str)]
+           ]"""
+    )
+    llm_generated_count = llm_generated_count_raw[0][0] if llm_generated_count_raw else 0
+
+    game_chars_count = get_kotoba_client().aggregate_where(
+        "vertex_game_character", "count", "*", "owner_did", OWNER_DID
+    )
+
+    row = {
+        "t0_actors": int(t0_actors_count),
+        "llm_generated": int(llm_generated_count),
+        "game_chars": int(game_chars_count),
+    }
     return {"status": "alive", "linode_gpu": os.environ.get("OLLAMA_URL", ""), **row}

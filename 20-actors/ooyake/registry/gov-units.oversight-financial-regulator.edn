@@ -194,8 +194,24 @@
    :gov.unit/name-romanized "Kin'yūchō"
    :gov.unit/official-url "http://www.fsa.go.jp"
    :gov.unit/wikidata "Q615316"
+   :gov.unit/organism "org.state.jp.fsa"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "http://www.fsa.go.jp" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :maintainer-verified}
+
+  ;; United States SEC — the primary US securities regulator (was absent; gov.usa.finreg
+  ;; is the CFTC). Real authoritative body; reconciles to tsumugi org.state.us.sec.
+  {:gov.unit/id "gov.usa.sec"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:agency:sec"
+   :gov.unit/parent "gov.usa"
+   :gov.unit/level :agency :gov.unit/branch :independent
+   :gov.unit/jurisdiction "usa"
+   :gov.unit/name-en "United States Securities and Exchange Commission"
+   :gov.unit/official-url "https://www.sec.gov/"
+   :gov.unit/wikidata "Q827960"
+   :gov.unit/organism "org.state.us.sec"
+   :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
+   :gov.unit/provenance "https://www.sec.gov/" :gov.unit/last-verified "2026-06-05"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kor.finreg"

@@ -11,7 +11,7 @@ Six BPMN service tasks registered via ADR-0056 BPMN-as-actor:
 
 PII split per ADR-0018: AT Repo + main subscriber row hold hashed MSISDN/IMSI
 only; raw name / MSISDN / IMSI live in vertex_telecom_subscriber_pii at
-sensitivity_ord=3. Domain writes follow ADR-0036 (Worker-direct RisingWave
+sensitivity_ord=3. Domain writes follow ADR-0036 (Worker-direct kotoba Datom log
 INSERT, no PDS createRecord for com.etzhayyim.apps.telecom.*).
 """
 
@@ -22,7 +22,7 @@ import secrets
 from datetime import UTC, date, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -98,14 +98,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid_subscriber(subscriber_id: str) -> str:
@@ -303,21 +296,22 @@ def task_telecom_billing_cycle(
     vid = f"at://did:web:telecom.etzhayyim.com/com.etzhayyim.apps.telecom.invoice/{inv_id}"
     totals = {k: 0.0 for k in RATE_CARD}
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT usage_type, SUM(units) AS units
-                  FROM vertex_telecom_cdr
-                 WHERE subscriber_vid = %s
-                   AND started_at >= %s
-                   AND started_at <  %s
-                   AND status = 'recorded'
-                 GROUP BY usage_type
-                """,
-                (sub_vid, ps.isoformat(), pe.isoformat()),
-            )
-            for utype, units in cur.fetchall():
-                totals[str(utype)] = float(units or 0.0)
+        # R0: Multi-predicate filter and aggregation in Python
+        cdr_records = get_kotoba_client().select_where(
+            "vertex_telecom_cdr", "subscriber_vid", sub_vid, limit=2000
+        )
+        for record in cdr_records:
+            started_at_str = record.get("started_at")
+            status = record.get("status")
+            if (
+                started_at_str
+                and status == "recorded"
+                and ps.isoformat() <= started_at_str < pe.isoformat()
+            ):
+                usage_type = record.get("usage_type")
+                units = record.get("units", 0.0)
+                if usage_type in totals:
+                    totals[usage_type] += float(units)
     total = sum(totals.get(k, 0.0) * RATE_CARD[k] for k in RATE_CARD)
     row = {
         "vertex_id": vid,

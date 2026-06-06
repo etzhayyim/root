@@ -28,6 +28,9 @@ import os
 import re
 from pathlib import Path
 from typing import Any
+from datetime import datetime, timezone
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("lawfirm.cadence")
 
@@ -48,27 +51,6 @@ def _now_iso() -> str:
 
 def _today_date() -> str:
     return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%d")
-
-
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
-
-
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
 
 
 # ── Mail file parsing ─────────────────────────────────────────────────────────
@@ -178,16 +160,30 @@ async def task_cadence_dispatch_due_mails(
     today = _today_date()
     cutoff = today  # extend with horizon_days if needed at SQL level
 
-    rows = _query(
-        "SELECT lead_id, target_name, target_email, notes, next_action_at "
-        "FROM vertex_lawfirm_lead "
-        "WHERE stage = 'lead' "
-        "  AND next_action_at IS NOT NULL "
-        "  AND next_action_at <= :cutoff "
-        "ORDER BY next_action_at ASC "
-        "LIMIT :limit",
-        {"cutoff": cutoff, "limit": max(1, int(max_dispatches))},
-    )
+    # R0: Replaced SQL SELECT with Datalog query for leads, including order-by and limit.
+    query_edn_leads = """
+    [:find ?lead_id ?target_name ?target_email ?notes ?next_action_at
+     :in $ ?cutoff ?limit
+     :where
+       [?l :vertex_lawfirm_lead/stage "lead"]
+       [?l :vertex_lawfirm_lead/next_action_at ?next_action_at]
+       [(<= ?next_action_at ?cutoff)]
+       [?l :vertex_lawfirm_lead/lead_id ?lead_id]
+       [?l :vertex_lawfirm_lead/target_name ?target_name]
+       [?l :vertex_lawfirm_lead/target_email ?target_email]
+       [?l :vertex_lawfirm_lead/notes ?notes]]
+    """
+    rows_raw = get_kotoba_client().q(query_edn_leads, (cutoff, max(1, int(max_dispatches))))
+    rows = [
+        {
+            "lead_id": r[0],
+            "target_name": r[1],
+            "target_email": r[2],
+            "notes": r[3],
+            "next_action_at": r[4],
+        }
+        for r in rows_raw
+    ]
 
     dispatched: list[dict] = []
     skipped: list[dict] = []
@@ -200,11 +196,16 @@ async def task_cadence_dispatch_due_mails(
             continue
 
         # Idempotency: skip if T+0 warm-intro event already exists for this lead
-        existing = _query(
-            "SELECT vertex_id FROM vertex_lawfirm_outreach_event "
-            "WHERE lead_id = :lid AND event_kind = 'warm_intro_sent'",
-            {"lid": lead_id},
-        )
+        # R0: Replaced SQL SELECT with Datalog query for existing outreach event.
+        query_edn_existing = """
+        [:find ?vertex_id
+         :in $ ?lead_id ?event_kind
+         :where
+           [?e :vertex_lawfirm_outreach_event/lead_id ?lead_id]
+           [?e :vertex_lawfirm_outreach_event/event_kind ?event_kind]
+           [?e :vertex_lawfirm_outreach_event/vertex_id ?vertex_id]]
+        """
+        existing = get_kotoba_client().q(query_edn_existing, (lead_id, "warm_intro_sent"))
         if existing:
             skipped.append({"lead_id": lead_id, "reason": "already_sent"})
             continue
@@ -220,32 +221,38 @@ async def task_cadence_dispatch_due_mails(
             f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.outreachEvent/"
             f"{lead_id}-warm-intro-{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
         )
-        _execute(
-            "INSERT INTO vertex_lawfirm_outreach_event "
-            "(vertex_id, lead_id, event_kind, channel, direction, "
-            " subject, body_preview, asset_uri, occurred_at, actor_did, "
-            " created_at, sensitivity_ord, owner_did) "
-            "VALUES (:vid, :lid, 'warm_intro_sent', 'email', 'outbound', "
-            " :subj, :preview, :asset, :now, :actor, :now, 200, :owner)",
+        # R0: Replaced SQL INSERT with insert_row for vertex_lawfirm_outreach_event
+        get_kotoba_client().insert_row(
+            "vertex_lawfirm_outreach_event",
             {
-                "vid": ev_uri,
-                "lid": lead_id,
-                "subj": parsed.get("subject", "")[:300],
-                "preview": (parsed.get("body_text") or "")[:500],
-                "asset": eml_rel,
-                "now": _now_iso(),
-                "actor": _FIRM_DID,
-                "owner": _FIRM_DID,
+                "vertex_id": ev_uri,
+                "lead_id": lead_id,
+                "event_kind": "warm_intro_sent",
+                "channel": "email",
+                "direction": "outbound",
+                "subject": parsed.get("subject", "")[:300],
+                "body_preview": (parsed.get("body_text") or "")[:500],
+                "asset_uri": eml_rel,
+                "occurred_at": _now_iso(),
+                "actor_did": _FIRM_DID,
+                "created_at": _now_iso(),
+                "sensitivity_ord": 200,
+                "owner_did": _FIRM_DID,
             },
         )
 
         # Bump stage lead → contacted, set last_touch_at
-        _execute(
-            "UPDATE vertex_lawfirm_lead "
-            "SET stage = 'contacted', last_touch_at = :now "
-            "WHERE lead_id = :lid AND stage = 'lead'",
-            {"now": _now_iso(), "lid": lead_id},
-        )
+        # R0: Replaced SQL UPDATE with conditional select_first_where + insert_row to preserve WHERE clause logic.
+        current_lead = get_kotoba_client().select_first_where("vertex_lawfirm_lead", "lead_id", lead_id)
+        if current_lead and current_lead.get("stage") == "lead":
+            get_kotoba_client().insert_row(
+                "vertex_lawfirm_lead",
+                {
+                    "lead_id": lead_id,
+                    "stage": "contacted",
+                    "last_touch_at": _now_iso(),
+                },
+            )
 
         dispatched.append({
             "lead_id":      lead_id,
@@ -312,35 +319,54 @@ async def task_cadence_dispatch_follow_ups(
     skipped: list[dict] = []
 
     for cfg in _FOLLOWUP_STEPS:
-        rows = _query(
-            """
-            SELECT l.lead_id, l.target_name, l.target_email, l.notes, l.stage
-            FROM vertex_lawfirm_lead l
-            JOIN vertex_lawfirm_outreach_event prior
-              ON prior.lead_id = l.lead_id
-             AND prior.event_kind = :prior_kind
-             AND CAST(prior.occurred_at AS timestamptz) < now() - (:lookback || ' days')::interval
-            WHERE l.stage = 'contacted'
-              AND NOT EXISTS (
-                SELECT 1 FROM vertex_lawfirm_outreach_event nxt
-                WHERE nxt.lead_id = l.lead_id AND nxt.event_kind = :next_kind
-              )
-              AND NOT EXISTS (
-                SELECT 1 FROM vertex_lawfirm_outreach_event reply
-                WHERE reply.lead_id = l.lead_id
-                  AND reply.event_kind = 'reply_received'
-                  AND reply.direction = 'inbound'
-              )
-            ORDER BY prior.occurred_at ASC
-            LIMIT :limit
-            """,
-            {
-                "prior_kind": cfg["prior_kind"],
-                "next_kind":  cfg["next_kind"],
-                "lookback":   str(cfg["lookback_days"]),
-                "limit":      max(1, int(max_dispatches)),
-            },
+        now_utc = datetime.now(timezone.utc)
+        prior_cutoff_dt = now_utc - _dt.timedelta(days=cfg["lookback_days"])
+        prior_cutoff = prior_cutoff_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        # R0: Replaced complex SQL SELECT with Datalog query for follow-up leads, including joins, NOT EXISTS, and date logic.
+        query_edn_followups = """
+        [:find ?lead_id ?target_name ?target_email ?notes ?stage
+         :in $ ?prior_kind_arg ?next_kind_arg ?prior_cutoff_arg ?limit_arg
+         :where
+           [?l :vertex_lawfirm_lead/lead_id ?lead_id]
+           [?l :vertex_lawfirm_lead/stage "contacted"]
+           [?l :vertex_lawfirm_lead/target_name ?target_name]
+           [?l :vertex_lawfirm_lead/target_email ?target_email]
+           [?l :vertex_lawfirm_lead/notes ?notes]
+           [?l :vertex_lawfirm_lead/stage ?stage]
+
+           [?prior :vertex_lawfirm_outreach_event/lead_id ?lead_id]
+           [?prior :vertex_lawfirm_outreach_event/event_kind ?prior_kind_arg]
+           [?prior :vertex_lawfirm_outreach_event/occurred_at ?prior_occurred_at]
+           [(< ?prior_occurred_at ?prior_cutoff_arg)]
+
+           (not
+             [?nxt :vertex_lawfirm_outreach_event/lead_id ?lead_id]
+             [?nxt :vertex_lawfirm_outreach_event/event_kind ?next_kind_arg]
+           )
+
+           (not
+             [?reply :vertex_lawfirm_outreach_event/lead_id ?lead_id]
+             [?reply :vertex_lawfirm_outreach_event/event_kind "reply_received"]
+             [?reply :vertex_lawfirm_outreach_event/direction "inbound"]
+           )
+         :order-by [?prior_occurred_at :asc]
+         :limit ?limit_arg]
+        """
+        rows_raw = get_kotoba_client().q(
+            query_edn_followups,
+            (cfg["prior_kind"], cfg["next_kind"], prior_cutoff, max(1, int(max_dispatches)))
         )
+        rows = [
+            {
+                "lead_id": r[0],
+                "target_name": r[1],
+                "target_email": r[2],
+                "notes": r[3],
+                "stage": r[4],
+            }
+            for r in rows_raw
+        ]
 
         if not rows:
             continue
@@ -378,32 +404,38 @@ async def task_cadence_dispatch_follow_ups(
                 f"{lead_id}-{cfg['next_kind']}-"
                 f"{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
             )
-            _execute(
-                "INSERT INTO vertex_lawfirm_outreach_event "
-                "(vertex_id, lead_id, event_kind, channel, direction, "
-                " subject, body_preview, asset_uri, occurred_at, actor_did, "
-                " created_at, sensitivity_ord, owner_did) "
-                "VALUES (:vid, :lid, :kind, 'email', 'outbound', "
-                " :subj, :preview, :asset, :now, :actor, :now, 200, :owner)",
+            # R0: Replaced SQL INSERT with insert_row for vertex_lawfirm_outreach_event
+            get_kotoba_client().insert_row(
+                "vertex_lawfirm_outreach_event",
                 {
-                    "vid": ev_uri, "lid": lead_id, "kind": cfg["next_kind"],
-                    "subj": substituted["subject"][:300],
-                    "preview": substituted["body_text"][:500],
-                    "asset": cfg["template"],
-                    "now": _now_iso(), "actor": _FIRM_DID, "owner": _FIRM_DID,
+                    "vertex_id": ev_uri, "lead_id": lead_id, "event_kind": cfg["next_kind"],
+                    "channel": "email", "direction": "outbound",
+                    "subject": substituted["subject"][:300],
+                    "body_preview": substituted["body_text"][:500],
+                    "asset_uri": cfg["template"],
+                    "occurred_at": _now_iso(), "actor_did": _FIRM_DID,
+                    "created_at": _now_iso(), "sensitivity_ord": 200, "owner_did": _FIRM_DID,
                 },
             )
 
             if cfg.get("set_stage"):
-                _execute(
-                    "UPDATE vertex_lawfirm_lead SET stage = :stage, last_touch_at = :now "
-                    "WHERE lead_id = :lid",
-                    {"stage": cfg["set_stage"], "now": _now_iso(), "lid": lead_id},
+                # R0: Replaced SQL UPDATE with insert_row for vertex_lawfirm_lead
+                get_kotoba_client().insert_row(
+                    "vertex_lawfirm_lead",
+                    {
+                        "lead_id": lead_id,
+                        "stage": cfg["set_stage"],
+                        "last_touch_at": _now_iso(),
+                    },
                 )
             else:
-                _execute(
-                    "UPDATE vertex_lawfirm_lead SET last_touch_at = :now WHERE lead_id = :lid",
-                    {"now": _now_iso(), "lid": lead_id},
+                # R0: Replaced SQL UPDATE with insert_row for vertex_lawfirm_lead
+                get_kotoba_client().insert_row(
+                    "vertex_lawfirm_lead",
+                    {
+                        "lead_id": lead_id,
+                        "last_touch_at": _now_iso(),
+                    },
                 )
 
             dispatched.append({

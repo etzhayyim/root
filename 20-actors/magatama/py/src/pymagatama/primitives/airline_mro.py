@@ -6,9 +6,7 @@ import datetime as _dt
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 APP_DID = "did:web:air-mro.etzhayyim.com"
 ACTOR_SLUG = "air-mro"
 
@@ -38,22 +36,23 @@ def create_work_order(
 ) -> dict[str, Any]:
     vertex_id = _vid("work-order", workOrderRef or f"{tailNumber}:{taskType}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_work_order
-              (vertex_id, tail_number, work_order_ref, task_type, description,
-               priority, due_date, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, tailNumber, workOrderRef or vertex_id, taskType,
-                description or "", priority, dueDate or now[:10],
-                "open", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_work_order", {
+        "vertex_id": vertex_id,
+        "tail_number": tailNumber,
+        "work_order_ref": workOrderRef or vertex_id,
+        "task_type": taskType,
+        "description": description or '',
+        "priority": priority,
+        "due_date": dueDate or now[:10],
+        "status": 'open',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -85,23 +84,25 @@ def track_component(
             days_to_next_due = (due_dt - _dt.date.fromisoformat(today)).days
         except ValueError:
             days_to_next_due = 0
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_component
-              (vertex_id, part_number, serial_number, tail_number, install_date,
-               cycles_since_new, hours_since_new, next_due_date, days_to_next_due,
-               status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, partNumber, serialNumber, tailNumber, installDate or today,
-                int(cyclesSinceNew), float(hoursSinceNew), nextDueDate, days_to_next_due,
-                "serviceable", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_component", {
+        "vertex_id": vertex_id,
+        "part_number": partNumber,
+        "serial_number": serialNumber,
+        "tail_number": tailNumber,
+        "install_date": installDate or today,
+        "cycles_since_new": int(cyclesSinceNew),
+        "hours_since_new": float(hoursSinceNew),
+        "next_due_date": nextDueDate,
+        "days_to_next_due": days_to_next_due,
+        "status": 'serviceable',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -131,22 +132,23 @@ def check_airworthiness(
             days_until_due = (exp_dt - _dt.date.fromisoformat(today)).days
         except ValueError:
             days_until_due = 0
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_work_order
-              (vertex_id, tail_number, check_type, check_date, expiry_date,
-               inspector, days_until_due, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, tailNumber, checkType, checkDate or today,
-                expiryDate, inspector or "", days_until_due,
-                "airworthy", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_work_order", {
+        "vertex_id": vertex_id,
+        "tail_number": tailNumber,
+        "check_type": checkType,
+        "check_date": checkDate or today,
+        "expiry_date": expiryDate,
+        "inspector": inspector or '',
+        "days_until_due": days_until_due,
+        "status": 'airworthy',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -170,22 +172,23 @@ def report_occurrence(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("occurrence")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_work_order
-              (vertex_id, tail_number, flight_no, occurrence_date, category,
-               description, report_ref, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, tailNumber, flightNo or "", occurrenceDate or now[:10],
-                category or "", description or "", reportRef or vertex_id,
-                "reported", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_work_order", {
+        "vertex_id": vertex_id,
+        "tail_number": tailNumber,
+        "flight_no": flightNo or '',
+        "occurrence_date": occurrenceDate or now[:10],
+        "category": category or '',
+        "description": description or '',
+        "report_ref": reportRef or vertex_id,
+        "status": 'reported',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -207,22 +210,22 @@ def schedule_maintenance(
 ) -> dict[str, Any]:
     vertex_id = _vid("maint-sched", f"{tailNumber}:{checkType}:{scheduledDate}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_work_order
-              (vertex_id, tail_number, check_type, scheduled_date, estimated_days,
-               hangar_code, status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, tailNumber, checkType, scheduledDate or now[:10],
-                int(estimatedDays), hangarCode or "",
-                "scheduled", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_work_order", {
+        "vertex_id": vertex_id,
+        "tail_number": tailNumber,
+        "check_type": checkType,
+        "scheduled_date": scheduledDate or now[:10],
+        "estimated_days": int(estimatedDays),
+        "hangar_code": hangarCode or '',
+        "status": 'scheduled',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -244,22 +247,22 @@ def reliability_report(
 ) -> dict[str, Any]:
     vertex_id = _vid("reliability", f"{tailNumber}:{reportPeriod}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_work_order
-              (vertex_id, tail_number, report_period, dispatch_reliability,
-               technical_delay_count, pireps, status, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, tailNumber, reportPeriod, float(dispatchReliability),
-                int(technicalDelayCount), int(pireps),
-                "reported", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_work_order", {
+        "vertex_id": vertex_id,
+        "tail_number": tailNumber,
+        "report_period": reportPeriod,
+        "dispatch_reliability": float(dispatchReliability),
+        "technical_delay_count": int(technicalDelayCount),
+        "pireps": int(pireps),
+        "status": 'reported',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -281,22 +284,24 @@ def order_spare_part(
     vertex_id = _new_vid("spare-order")
     now = _now()
     aog_escalated = urgency.lower() == "aog"
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_component
-              (vertex_id, part_number, quantity, supplier_code, urgency,
-               work_order_ref, aog_escalated, status, ordered_at, created_at,
-               actor_did, org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, partNumber, int(quantity), supplierCode or "",
-                urgency, workOrderRef or "", aog_escalated,
-                "ordered", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_component", {
+        "vertex_id": vertex_id,
+        "part_number": partNumber,
+        "quantity": int(quantity),
+        "supplier_code": supplierCode or '',
+        "urgency": urgency,
+        "work_order_ref": workOrderRef or '',
+        "aog_escalated": aog_escalated,
+        "status": 'ordered',
+        "ordered_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -320,22 +325,23 @@ def record_gse(
 ) -> dict[str, Any]:
     vertex_id = _vid("gse", f"{gseId}:{iataCode}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_mro_work_order
-              (vertex_id, gse_id, gse_type, iata_code, service_date,
-               next_service_date, operational_status, status, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, gseId, gseType, iataCode,
-                serviceDate or now[:10], nextServiceDate or "",
-                operationalStatus, "recorded", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 1, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_mro_work_order", {
+        "vertex_id": vertex_id,
+        "gse_id": gseId,
+        "gse_type": gseType,
+        "iata_code": iataCode,
+        "service_date": serviceDate or now[:10],
+        "next_service_date": nextServiceDate or '',
+        "operational_status": operationalStatus,
+        "status": 'recorded',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 1,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",

@@ -26,7 +26,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -89,14 +89,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -406,25 +399,25 @@ def task_telecom_nfv_ns_terminate(
     vid = _vid("nfvNs", nsId)
     lifetime = None
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_nfv_ns
-                   SET terminated_at = %s,
-                       termination_kind = %s,
-                       termination_reason = %s,
-                       terminated_by = %s,
-                       lifetime_seconds = EXTRACT(EPOCH FROM (CAST(%s AS timestamptz) - CAST(instantiated_at AS timestamptz))),
-                       status = 'terminated'
-                 WHERE vertex_id = %s
-             RETURNING lifetime_seconds
-                """,
-                (terminatedAt, terminationKind, terminationReason or None,
-                 terminatedBy, terminatedAt, vid),
-            )
-            row = cur.fetchone()
-            if row:
-                lifetime = float(row[0]) if row[0] is not None else None
+        ns_row = get_kotoba_client().select_first_where("vertex_telecom_nfv_ns", "vertex_id", vid)
+        if ns_row and ns_row.get("instantiated_at"):
+            instantiated_at = datetime.fromisoformat(ns_row["instantiated_at"]).replace(tzinfo=UTC)
+            terminated_at_dt = datetime.fromisoformat(terminatedAt).replace(tzinfo=UTC)
+            lifetime_delta = terminated_at_dt - instantiated_at
+            lifetime = lifetime_delta.total_seconds()
+
+        updated_ns_row = {
+            "vertex_id": vid,
+            "terminated_at": terminatedAt,
+            "termination_kind": terminationKind,
+            "termination_reason": terminationReason or None,
+            "terminated_by": terminatedBy,
+            "lifetime_seconds": lifetime,
+            "status": "terminated",
+        }
+        # R0: This is an UPSERT on vertex_id to update the existing ns row
+        get_kotoba_client().insert_row("vertex_telecom_nfv_ns", updated_ns_row)
+
     return {"ok": True, "vertexId": vid, "nsId": nsId,
             "lifetimeSeconds": lifetime, "status": "terminated"}
 

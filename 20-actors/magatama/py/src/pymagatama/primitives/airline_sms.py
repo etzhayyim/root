@@ -6,9 +6,7 @@ import datetime as _dt
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
-
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 APP_DID = "did:web:air-sms.etzhayyim.com"
 ACTOR_SLUG = "air-sms"
 
@@ -38,22 +36,24 @@ def submit_safety_report(
 ) -> dict[str, Any]:
     vertex_id = _vid("safety-report", reportRef or occurrence or uuid.uuid4().hex[:16])
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, report_ref, reporter_did, category, occurrence, station,
-               flight_no, status, submitted_at, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, reportRef or vertex_id, reporterDid or callerDid or APP_DID,
-                category, occurrence or "", station or "", flightNo or "",
-                "submitted", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "report_ref": reportRef or vertex_id,
+        "reporter_did": reporterDid or callerDid or APP_DID,
+        "category": category,
+        "occurrence": occurrence or '',
+        "station": station or '',
+        "flight_no": flightNo or '',
+        "status": 'submitted',
+        "submitted_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -80,22 +80,23 @@ def assess_risk(
         risk_level = "medium"
     else:
         risk_level = "low"
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, report_ref, likelihood, severity, risk_score,
-               risk_level, mitigations, status, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, reportRef, int(likelihood), int(severity), risk_score,
-                risk_level, mitigations or "",
-                "assessed", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "report_ref": reportRef,
+        "likelihood": int(likelihood),
+        "severity": int(severity),
+        "risk_score": risk_score,
+        "risk_level": risk_level,
+        "mitigations": mitigations or '',
+        "status": 'assessed',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -118,22 +119,22 @@ def record_iosa_finding(
 ) -> dict[str, Any]:
     vertex_id = _vid("iosa-finding", findingRef or f"{auditRef}:{iosaCategory}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, audit_ref, finding_ref, iosa_category, finding_type,
-               due_date, status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, auditRef, findingRef or vertex_id, iosaCategory, findingType or "",
-                dueDate or now[:10],
-                "open", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "audit_ref": auditRef,
+        "finding_ref": findingRef or vertex_id,
+        "iosa_category": iosaCategory,
+        "finding_type": findingType or '',
+        "due_date": dueDate or now[:10],
+        "status": 'open',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -155,22 +156,23 @@ def file_regulatory(
 ) -> dict[str, Any]:
     vertex_id = _vid("regulatory", f"{regulatoryBody}:{filingType}:{filingRef or periodStart}")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, regulatory_body, filing_type, filing_ref, period_start,
-               period_end, status, filed_at, created_at, actor_did, org_id,
-               user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, regulatoryBody, filingType, filingRef or vertex_id,
-                periodStart or now[:10], periodEnd or now[:10],
-                "filed", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "regulatory_body": regulatoryBody,
+        "filing_type": filingType,
+        "filing_ref": filingRef or vertex_id,
+        "period_start": periodStart or now[:10],
+        "period_end": periodEnd or now[:10],
+        "status": 'filed',
+        "filed_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -191,22 +193,22 @@ def report_occurrence(
 ) -> dict[str, Any]:
     vertex_id = _vid("occurrence", occurrenceRef or occurrenceType)
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, occurrence_ref, occurrence_type, occurrence_date, station,
-               severity, status, created_at, actor_did, org_id, user_id, actor_id,
-               sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, occurrenceRef or vertex_id, occurrenceType,
-                occurrenceDate or now[:10], station or "", severity or "low",
-                "reported", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "occurrence_ref": occurrenceRef or vertex_id,
+        "occurrence_type": occurrenceType,
+        "occurrence_date": occurrenceDate or now[:10],
+        "station": station or '',
+        "severity": severity or 'low',
+        "status": 'reported',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -227,22 +229,23 @@ def distribute_bulletin(
 ) -> dict[str, Any]:
     vertex_id = _vid("bulletin", bulletinRef or bulletinType)
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, bulletin_ref, bulletin_type, subject, target_audience,
-               effective_date, status, distributed_at, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, bulletinRef or vertex_id, bulletinType, subject or "",
-                targetAudience or "all", effectiveDate or now[:10],
-                "distributed", now, now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "bulletin_ref": bulletinRef or vertex_id,
+        "bulletin_type": bulletinType,
+        "subject": subject or '',
+        "target_audience": targetAudience or 'all',
+        "effective_date": effectiveDate or now[:10],
+        "status": 'distributed',
+        "distributed_at": now,
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -265,22 +268,24 @@ def screen_dg(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("dg-screen")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, flight_no, dep_date, dg_class, un_number, quantity,
-               unit, notoc_ref, status, created_at, actor_did, org_id, user_id,
-               actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, flightNo, depDate, dgClass, unNumber or "",
-                float(quantity), unit or "kg", notocRef or vertex_id,
-                "screened", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "flight_no": flightNo,
+        "dep_date": depDate,
+        "dg_class": dgClass,
+        "un_number": unNumber or '',
+        "quantity": float(quantity),
+        "unit": unit or 'kg',
+        "notoc_ref": notocRef or vertex_id,
+        "status": 'screened',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",
@@ -304,22 +309,23 @@ def raise_security_alert(
 ) -> dict[str, Any]:
     vertex_id = _new_vid("sec-alert")
     now = _now()
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_air_sms_safety_report
-              (vertex_id, alert_ref, threat_type, flight_no, dep_date,
-               threat_level, description, status, created_at, actor_did,
-               org_id, user_id, actor_id, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, alertRef or vertex_id, threatType, flightNo or "",
-                depDate or "", threatLevel, description or "",
-                "active", now,
-                APP_DID, "anon", callerDid or APP_DID, ACTOR_SLUG, 2, callerDid or APP_DID,
-            ),
-        )
+    get_kotoba_client().insert_row("vertex_air_sms_safety_report", {
+        "vertex_id": vertex_id,
+        "alert_ref": alertRef or vertex_id,
+        "threat_type": threatType,
+        "flight_no": flightNo or '',
+        "dep_date": depDate or '',
+        "threat_level": threatLevel,
+        "description": description or '',
+        "status": 'active',
+        "created_at": now,
+        "actor_did": APP_DID,
+        "org_id": 'anon',
+        "user_id": callerDid or APP_DID,
+        "actor_id": ACTOR_SLUG,
+        "sensitivity_ord": 2,
+        "owner_did": callerDid or APP_DID,
+    })
     return {
         "vertexId": vertex_id,
         "status": "ok",

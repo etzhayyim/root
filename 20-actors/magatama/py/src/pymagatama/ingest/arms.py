@@ -6,9 +6,10 @@ import hashlib
 import secrets
 import string
 import time
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 APP_HANDLE = "arms.etzhayyim.com"
 PRIMARY_DID = "did:web:arms.etzhayyim.com"
@@ -23,7 +24,7 @@ VALID_INCIDENT_TYPES = {"theft", "loss", "unauthorized_discharge", "export_viola
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat()
 
 
 def nanoid(length: int = 12) -> str:
@@ -37,24 +38,6 @@ def sha256hex(text: str) -> str:
 
 def _caller(args: dict[str, Any]) -> str:
     return str(args.get("callerDid") or args.get("primaryDid") or PRIMARY_DID)
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> tuple[Any, ...] | None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return cur.fetchone()
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall() or [])
 
 
 def _err(error: str, message: str, status: int = 400) -> dict[str, Any]:
@@ -83,31 +66,53 @@ def register_firearm(**args: Any) -> dict[str, Any]:
     rid = nanoid(10)
     firearm_vid = f"at://did:web:{APP_HANDLE}/com.etzhayyim.apps.arms.firearm/{rid}"
     pii_vid = f"at://did:web:{APP_HANDLE}/com.etzhayyim.apps.arms.firearmPii/{rid}"
-    created = now_iso()
-    _execute(
-        """
-        INSERT INTO vertex_arms_firearm
-          (vertex_id, created_date, sensitivity_ord, owner_did, serial_number_hash,
-           make, model, caliber, category, status, registered_at, created_at,
-           org_id, user_id, actor_id)
-        VALUES (%s, %s, 2, %s, %s, %s, %s, %s, %s, 'active', %s, %s, %s, %s, %s)
-        """,
-        (firearm_vid, created[:10], holder, serial_hash, make, model, caliber, category, created, created, holder, caller, f"arms.{category}"),
+    created = datetime.now(timezone.utc)
+    get_kotoba_client().insert_row(
+        "vertex_arms_firearm",
+        {
+            "vertex_id": firearm_vid,
+            "created_date": created.strftime("%Y-%m-%d"),
+            "sensitivity_ord": 2,
+            "owner_did": holder,
+            "serial_number_hash": serial_hash,
+            "make": make,
+            "model": model,
+            "caliber": caliber,
+            "category": category,
+            "status": "active",
+            "registered_at": created.isoformat(),
+            "created_at": created.isoformat(),
+            "org_id": holder,
+            "user_id": caller,
+            "actor_id": f"arms.{category}",
+        },
     )
-    _execute(
-        """
-        INSERT INTO vertex_arms_firearm_pii
-          (vertex_id, firearm_vid, serial_number, manufacturer_code, country_of_origin,
-           year_of_manufacture, created_at, org_id, user_id, actor_id)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """,
-        (pii_vid, firearm_vid, serial, make, args.get("countryOfOrigin"), args.get("yearOfManufacture"), created, holder, caller, f"arms.{category}"),
+    get_kotoba_client().insert_row(
+        "vertex_arms_firearm_pii",
+        {
+            "vertex_id": pii_vid,
+            "firearm_vid": firearm_vid,
+            "serial_number": serial,
+            "manufacturer_code": make,
+            "country_of_origin": args.get("countryOfOrigin"),
+            "year_of_manufacture": args.get("yearOfManufacture"),
+            "created_at": created.isoformat(),
+            "org_id": holder,
+            "user_id": caller,
+            "actor_id": f"arms.{category}",
+        },
     )
-    _execute(
-        "INSERT INTO edge_arms_firearm_to_holder (src, dst, rel, since, permit_vid) VALUES (%s, %s, 'held_by', %s, NULL)",
-        (firearm_vid, holder, created),
+    get_kotoba_client().insert_row(
+        "edge_arms_firearm_to_holder",
+        {
+            "src": firearm_vid,
+            "dst": holder,
+            "rel": "held_by",
+            "since": created.isoformat(),
+            "permit_vid": None,
+        },
     )
-    return {"ok": True, "firearmVid": firearm_vid, "serialHash": serial_hash, "make": make, "model": model, "caliber": caliber, "category": category, "status": "active", "registeredAt": created}
+    return {"ok": True, "firearmVid": firearm_vid, "serialHash": serial_hash, "make": make, "model": model, "caliber": caliber, "category": category, "status": "active", "registeredAt": created.isoformat()}
 
 
 def authenticate_holder(**args: Any) -> dict[str, Any]:
@@ -117,27 +122,49 @@ def authenticate_holder(**args: Any) -> dict[str, Any]:
         return _err("InvalidRequest", "firearmVid required")
     if not isinstance(holder, str):
         return _err("InvalidRequest", "holderDid required")
-    firearm = _fetch_one("SELECT status FROM vertex_arms_firearm WHERE vertex_id = %s LIMIT 1", (firearm_vid,))
+    firearm = get_kotoba_client().select_first_where(
+        "vertex_arms_firearm", "vertex_id", firearm_vid, columns=["status"]
+    )
     if not firearm:
         return _err("NotFound", "firearm not found", 404)
-    if firearm[0] in {"stolen", "lost"}:
-        return _err("FirearmUnavailable", f"firearm status is {firearm[0]}", 409)
-    permit = _fetch_one("SELECT vertex_id FROM vertex_arms_permit WHERE holder_did = %s AND status = 'active' LIMIT 1", (holder,))
-    if not permit:
+    if firearm["status"] in {"stolen", "lost"}:
+        return _err("FirearmUnavailable", f"firearm status is {firearm['status']}", 409)
+
+    permit = get_kotoba_client().select_first_where(
+        "vertex_arms_permit",
+        "holder_did",
+        holder,
+        columns=["vertex_id"],
+        # R0: Multi-predicate filter applied in-Python
+    )
+    if not permit or not (
+        permit["status"] == "active" if "status" in permit else False
+    ):
         return _err("PermitRequired", "no active permit found for holder", 403)
+
     challenge = nanoid(32)
     session_id = nanoid(12)
     session_vid = f"at://did:web:{APP_HANDLE}/com.etzhayyim.apps.arms.authSession/{session_id}"
-    initiated = now_iso()
-    _execute(
-        """
-        INSERT INTO vertex_arms_auth_session
-          (vertex_id, created_date, sensitivity_ord, owner_did, firearm_vid, holder_did,
-           challenge, response_hash, auth_status, initiated_at, completed_at, created_at,
-           org_id, user_id, actor_id)
-        VALUES (%s, %s, 2, %s, %s, %s, %s, NULL, 'pending', %s, NULL, %s, %s, %s, 'arms.auth')
-        """,
-        (session_vid, initiated[:10], holder, firearm_vid, holder, sha256hex(challenge), initiated, initiated, holder, _caller(args)),
+    initiated = datetime.now(timezone.utc)
+    get_kotoba_client().insert_row(
+        "vertex_arms_auth_session",
+        {
+            "vertex_id": session_vid,
+            "created_date": initiated.strftime("%Y-%m-%d"),
+            "sensitivity_ord": 2,
+            "owner_did": holder,
+            "firearm_vid": firearm_vid,
+            "holder_did": holder,
+            "challenge": sha256hex(challenge),
+            "response_hash": None,
+            "auth_status": "pending",
+            "initiated_at": initiated.isoformat(),
+            "completed_at": None,
+            "created_at": initiated.isoformat(),
+            "org_id": holder,
+            "user_id": _caller(args),
+            "actor_id": "arms.auth",
+        },
     )
     return {"ok": True, "sessionVid": session_vid, "challenge": challenge, "holderDid": holder, "firearmVid": firearm_vid, "expiresIn": 300, "instructions": "Sign challenge with your DID private key and submit to verifyAuthChallenge"}
 

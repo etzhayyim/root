@@ -10,7 +10,7 @@ import urllib.request
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.ingest import credits
 
 ACTOR = "did:web:stripe.etzhayyim.com"
@@ -39,22 +39,7 @@ def _rkey(value: str) -> str:
     return "".join(c if c.isalnum() or c in "._~-" else "-" for c in value.lower())[:220] or uuid.uuid4().hex
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _stripe_form(data: dict[str, Any]) -> bytes:
@@ -113,29 +98,36 @@ def _normalize_auth(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def _cardholder(user_id: str, active: bool = False) -> dict[str, Any] | None:
-    sql = "SELECT * FROM vertex_stripe_cardholder WHERE user_id=%s"
-    params: tuple[Any, ...] = (user_id,)
+    kotoba = get_kotoba_client()
     if active:
-        sql += " AND status='active'"
-    row = _fetch_one(sql + " LIMIT 1", params)
+        # R0: in-Python filter for 'status'
+        rows = kotoba.select_where("vertex_stripe_cardholder", "user_id", user_id, limit=2000)
+        row = next((r for r in rows if r.get("status") == "active"), None)
+    else:
+        row = kotoba.select_first_where("vertex_stripe_cardholder", "user_id", user_id)
     return _normalize_cardholder(row) if row else None
 
 
 def _card(user_id: str, card_id: str) -> dict[str, Any] | None:
-    row = _fetch_one("SELECT * FROM vertex_stripe_issued_card WHERE user_id=%s AND id=%s LIMIT 1", (user_id, card_id))
+    kotoba = get_kotoba_client()
+    # R0: in-Python filter for card_id
+    rows = kotoba.select_where("vertex_stripe_issued_card", "user_id", user_id, limit=2000)
+    row = next((r for r in rows if r.get("id") == card_id), None)
     return _normalize_card(row) if row else None
 
 
 def _card_by_stripe(stripe_card_id: str) -> dict[str, Any] | None:
-    row = _fetch_one("SELECT * FROM vertex_stripe_issued_card WHERE stripe_card_id=%s LIMIT 1", (stripe_card_id,))
+    kotoba = get_kotoba_client()
+    row = kotoba.select_first_where("vertex_stripe_issued_card", "stripe_card_id", stripe_card_id)
     return _normalize_card(row) if row else None
 
 
 def _auth_tier(user_id: str) -> str:
-    for col in ("membership_plan", "\"membershipPlan\""):
+    kotoba = get_kotoba_client()
+    for col in ("membership_plan", "membershipPlan"):
         try:
-            row = _fetch_one(f"SELECT {col} AS plan FROM vertex_auth_account WHERE user_id=%s LIMIT 1", (user_id,))
-            plan = _str((row or {}).get("plan"))
+            row = kotoba.select_first_where("vertex_auth_account", "user_id", user_id, columns=[col])
+            plan = _str((row or {}).get(col))
             if plan in ("telecom", "verified"):
                 return plan
         except Exception:
@@ -144,23 +136,58 @@ def _auth_tier(user_id: str) -> str:
 
 
 def _insert_cardholder(record: dict[str, Any]) -> None:
-    _execute(
-        """INSERT INTO vertex_stripe_cardholder
-        (vertex_id, sensitivity_ord, owner_did, rkey, repo, collection, status, id, user_id, name, email, phone, auth_tier, stripe_cardholder_id, org_id, actor_id, created_at, actor_did, org_did)
-        VALUES (%s,1,%s,%s,%s,'com.etzhayyim.apps.stripe.cardholder',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/com.etzhayyim.apps.stripe.cardholder/{_rkey(record['id'])}", ACTOR, record["id"], ACTOR, record["status"], record["id"], record["userId"], record["name"], record["email"], record.get("phone", ""), record["authTier"], record["stripeCardholderId"], ACTOR, record["createdAt"], ACTOR),
-    )
+    kotoba = get_kotoba_client()
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.stripe.cardholder/{_rkey(record['id'])}",
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": record["id"],
+        "repo": ACTOR,
+        "collection": 'com.etzhayyim.apps.stripe.cardholder',
+        "status": record["status"],
+        "id": record["id"],
+        "user_id": record["userId"],
+        "name": record["name"],
+        "email": record["email"],
+        "phone": record.get("phone", ""),
+        "auth_tier": record["authTier"],
+        "stripe_cardholder_id": record["stripeCardholderId"],
+        "org_id": 'anon',
+        "actor_id": ACTOR,
+        "created_at": record["createdAt"],
+        "actor_did": ACTOR,
+        "org_did": 'anon',
+    }
+    kotoba.insert_row("vertex_stripe_cardholder", row_dict)
 
 
 def _insert_card(record: dict[str, Any]) -> None:
-    _execute(
-        """INSERT INTO vertex_stripe_issued_card
-        (vertex_id, sensitivity_ord, owner_did, rkey, repo, collection, status, id, cardholder_id, user_id, card_type, last_four, currency, spending_limit_amount, spending_limit_interval, stripe_card_id, org_id, actor_id, created_at, updated_at, actor_did, org_did)
-        VALUES (%s,1,%s,%s,%s,'com.etzhayyim.apps.stripe.issuedCard',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/com.etzhayyim.apps.stripe.issuedCard/{_rkey(record['id'])}", ACTOR, record["id"], ACTOR, record["status"], record["id"], record["cardholderId"], record["userId"], record["cardType"], record["lastFour"], record["currency"], record["spendingLimitAmount"], record["spendingLimitInterval"], record["stripeCardId"], ACTOR, record["createdAt"], record.get("updatedAt", ""), ACTOR),
-    )
+    kotoba = get_kotoba_client()
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.stripe.issuedCard/{_rkey(record['id'])}",
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": record["id"],
+        "repo": ACTOR,
+        "collection": 'com.etzhayyim.apps.stripe.issuedCard',
+        "status": record["status"],
+        "id": record["id"],
+        "cardholder_id": record["cardholderId"],
+        "user_id": record["userId"],
+        "card_type": record["cardType"],
+        "last_four": record["lastFour"],
+        "currency": record["currency"],
+        "spending_limit_amount": record["spendingLimitAmount"],
+        "spending_limit_interval": record["spendingLimitInterval"],
+        "stripe_card_id": record["stripeCardId"],
+        "org_id": 'anon',
+        "actor_id": ACTOR,
+        "created_at": record["createdAt"],
+        "updated_at": record.get("updatedAt", ""),
+        "actor_did": ACTOR,
+        "org_did": 'anon',
+    }
+    kotoba.insert_row("vertex_stripe_issued_card", row_dict)
 
 
 def create_cardholder(userId: str = "", name: str = "", email: str = "", phone: str = "", billingAddress: dict[str, Any] | None = None, **_: Any) -> dict[str, Any]:
@@ -208,7 +235,16 @@ def get_card(userId: str = "", cardId: str = "", **_: Any) -> dict[str, Any]:
 def list_cards(userId: str = "", limit: Any = 20, **_: Any) -> dict[str, Any]:
     if not userId:
         return {"error": "missingUserId"}
-    rows = _fetch_all("SELECT * FROM vertex_stripe_issued_card WHERE user_id=%s ORDER BY created_at DESC LIMIT %s", (userId, max(1, min(_int(limit, 20), 100))))
+    kotoba = get_kotoba_client()
+    # R0: in-Python sort and limit
+    # Fetch a reasonable number of cards to sort and limit in Python
+    # Assuming there won't be millions of cards for a single user for now.
+    # Set limit higher than actual requested limit to allow for sorting.
+    fetch_limit = max(1, min(_int(limit, 20), 100)) * 2
+    all_cards = kotoba.select_where("vertex_stripe_issued_card", "user_id", userId, limit=fetch_limit)
+    # Sort by created_at (assuming it's a string, can be converted to datetime if needed for robust sorting)
+    all_cards.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    rows = all_cards[:max(1, min(_int(limit, 20), 100))] # Apply actual limit after sorting
     items = [_normalize_card(r) for r in rows]
     return {"items": items, "total": len(items)}
 
@@ -249,9 +285,31 @@ def assign_card_credits(userId: str = "", cardId: str = "", amount: Any = 0, des
 
 
 def _insert_allocation(card_id: str, user_id: str, amount: int, allocated: int, consumed: int, available: int, destination_id: str) -> None:
+    kotoba = get_kotoba_client()
     rid = _gid("cca")
-    _execute("INSERT INTO vertex_stripe_card_credit_allocation (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,amount,allocated_total,consumed_total,available_total,destination_id,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'com.etzhayyim.apps.stripe.cardCreditAllocation','active',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/com.etzhayyim.apps.stripe.cardCreditAllocation/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, amount, allocated, consumed, available, destination_id, ACTOR, now_iso(), ACTOR))
-
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.stripe.cardCreditAllocation/{rid}",
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": rid,
+        "repo": ACTOR,
+        "collection": 'com.etzhayyim.apps.stripe.cardCreditAllocation',
+        "status": 'active',
+        "id": rid,
+        "card_id": card_id,
+        "user_id": user_id,
+        "amount": amount,
+        "allocated_total": allocated,
+        "consumed_total": consumed,
+        "available_total": available,
+        "destination_id": destination_id,
+        "org_id": 'anon',
+        "actor_id": ACTOR,
+        "created_at": now_iso(),
+        "actor_did": ACTOR,
+        "org_did": 'anon',
+    }
+    kotoba.insert_row("vertex_stripe_card_credit_allocation", row_dict)
 
 def get_card_credits(userId: str = "", cardId: str = "", **_: Any) -> dict[str, Any]:
     card = _card(userId, cardId) if userId and cardId else None
@@ -293,14 +351,60 @@ def handle_authorization(authorization: dict[str, Any] | None = None, payload: s
 
 
 def _insert_authorization(card_id: str, user_id: str, stripe_card_id: str, amount: int, currency: str, decision: str, reason: str, before: int, after: int) -> None:
+    kotoba = get_kotoba_client()
     rid = _gid("auth")
-    _execute("INSERT INTO vertex_stripe_authorization (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,stripe_card_id,amount,currency,decision,reason,available_before,available_after,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'com.etzhayyim.apps.stripe.authorization','active',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/com.etzhayyim.apps.stripe.authorization/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, stripe_card_id, amount, currency, decision, reason, before, after, ACTOR, now_iso(), ACTOR))
-
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.stripe.authorization/{rid}",
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": rid,
+        "repo": ACTOR,
+        "collection": 'com.etzhayyim.apps.stripe.authorization',
+        "status": 'active',
+        "id": rid,
+        "card_id": card_id,
+        "user_id": user_id,
+        "stripe_card_id": stripe_card_id,
+        "amount": amount,
+        "currency": currency,
+        "decision": decision,
+        "reason": reason,
+        "available_before": before,
+        "available_after": after,
+        "org_id": 'anon',
+        "actor_id": ACTOR,
+        "created_at": now_iso(),
+        "actor_did": ACTOR,
+        "org_did": 'anon',
+    }
+    kotoba.insert_row("vertex_stripe_authorization", row_dict)
 
 def _insert_consumption(card_id: str, user_id: str, stripe_card_id: str, amount: int, allocated: int, consumed: int, available: int) -> None:
+    kotoba = get_kotoba_client()
     rid = _gid("ccc")
-    _execute("INSERT INTO vertex_stripe_card_credit_consumption (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,stripe_card_id,amount,allocated_total,consumed_total,available_total,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'com.etzhayyim.apps.stripe.cardCreditConsumption','active',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/com.etzhayyim.apps.stripe.cardCreditConsumption/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, stripe_card_id, amount, allocated, consumed, available, ACTOR, now_iso(), ACTOR))
-
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.stripe.cardCreditConsumption/{rid}",
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": rid,
+        "repo": ACTOR,
+        "collection": 'com.etzhayyim.apps.stripe.cardCreditConsumption',
+        "status": 'active',
+        "id": rid,
+        "card_id": card_id,
+        "user_id": user_id,
+        "stripe_card_id": stripe_card_id,
+        "amount": amount,
+        "allocated_total": allocated,
+        "consumed_total": consumed,
+        "available_total": available,
+        "org_id": 'anon',
+        "actor_id": ACTOR,
+        "created_at": now_iso(),
+        "actor_did": ACTOR,
+        "org_did": 'anon',
+    }
+    kotoba.insert_row("vertex_stripe_card_credit_consumption", row_dict)
 
 def _card_status(userId: str, cardId: str, status: str, label: str) -> dict[str, Any]:
     card = _card(userId, cardId) if userId and cardId else None
@@ -309,7 +413,18 @@ def _card_status(userId: str, cardId: str, status: str, label: str) -> dict[str,
     result = _stripe("POST", f"/issuing/cards/{card['stripeCardId']}", {"status": status})
     if result.get("error"):
         return {"error": "stripeApiError", "detail": result}
-    _execute("UPDATE vertex_stripe_issued_card SET status=%s, updated_at=%s WHERE user_id=%s AND id=%s", (status, now_iso(), userId, cardId))
+
+    kotoba = get_kotoba_client()
+    # R0: Datomic update is an upsert via insert_row
+    current_raw_card_data = kotoba.select_first_where("vertex_stripe_issued_card", "id", cardId)
+    if not current_raw_card_data:
+        return {"error": "notFound"} # Should not happen if _card found it
+
+    current_raw_card_data["status"] = status
+    current_raw_card_data["updated_at"] = now_iso()
+
+    kotoba.insert_row("vertex_stripe_issued_card", current_raw_card_data)
+
     return {"status": label, "cardId": cardId}
 
 
@@ -333,18 +448,51 @@ def update_spending_limit(userId: str = "", cardId: str = "", amount: Any = None
     result = _stripe("POST", f"/issuing/cards/{card['stripeCardId']}", {"spending_controls": {"spending_limits": [{"amount": value, "interval": interval or "monthly", "categories": categories or []}]}})
     if result.get("error"):
         return {"error": "stripeApiError", "detail": result}
+
+    kotoba = get_kotoba_client()
     rid = _gid("sl")
-    _execute("INSERT INTO vertex_stripe_spending_limit (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,amount,interval,categories_json,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'com.etzhayyim.apps.stripe.spendingLimit','active',%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/com.etzhayyim.apps.stripe.spendingLimit/{rid}", ACTOR, rid, ACTOR, rid, cardId, userId, value, interval or "monthly", json.dumps(categories or []), ACTOR, now_iso(), ACTOR))
+    row_dict = {
+        "vertex_id": f"at://{ACTOR}/com.etzhayyim.apps.stripe.spendingLimit/{rid}",
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": rid,
+        "repo": ACTOR,
+        "collection": 'com.etzhayyim.apps.stripe.spendingLimit',
+        "status": 'active',
+        "id": rid, # Corrected: unique ID for the spending limit record
+        "card_id": cardId,
+        "user_id": userId,
+        "amount": value,
+        "interval": interval or "monthly",
+        "categories_json": json.dumps(categories or []),
+        "org_id": 'anon',
+        "actor_id": ACTOR,
+        "created_at": now_iso(),
+        "actor_did": ACTOR,
+        "org_did": 'anon',
+    }
+    kotoba.insert_row("vertex_stripe_spending_limit", row_dict)
     return {"status": "updated", "cardId": cardId, "amount": value, "interval": interval or "monthly"}
 
 
 def list_transactions(userId: str = "", cardId: str = "", limit: Any = 50, **_: Any) -> dict[str, Any]:
     if not userId:
         return {"error": "missingUserId"}
+    kotoba = get_kotoba_client()
+    fetch_limit = max(1, min(_int(limit, 50), 100)) * 2 # Fetch double the requested limit
+
+    all_transactions = []
     if cardId:
-        rows = _fetch_all("SELECT * FROM vertex_stripe_authorization WHERE user_id=%s AND card_id=%s ORDER BY created_at DESC LIMIT %s", (userId, cardId, max(1, min(_int(limit, 50), 100))))
+        # R0: in-Python filter for card_id, sort and limit
+        transactions_by_user = kotoba.select_where("vertex_stripe_authorization", "user_id", userId, limit=fetch_limit)
+        all_transactions = [t for t in transactions_by_user if t.get("card_id") == cardId]
     else:
-        rows = _fetch_all("SELECT * FROM vertex_stripe_authorization WHERE user_id=%s ORDER BY created_at DESC LIMIT %s", (userId, max(1, min(_int(limit, 50), 100))))
+        # R0: in-Python sort and limit
+        all_transactions = kotoba.select_where("vertex_stripe_authorization", "user_id", userId, limit=fetch_limit)
+
+    all_transactions.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    rows = all_transactions[:max(1, min(_int(limit, 50), 100))] # Apply actual limit after sorting
+
     items = [_normalize_auth(r) for r in rows]
     return {"items": items, "total": len(items)}
 
@@ -360,10 +508,11 @@ def wave(**_: Any) -> dict[str, Any]:
 
 
 def stats(**_: Any) -> dict[str, Any]:
-    ch = _fetch_one("SELECT COUNT(*) AS cnt FROM vertex_stripe_cardholder") or {}
-    cards = _fetch_one("SELECT COUNT(*) AS cnt FROM vertex_stripe_issued_card") or {}
-    auths = _fetch_one("SELECT COUNT(*) AS cnt FROM vertex_stripe_authorization") or {}
-    return {"totalCardholders": _int(ch.get("cnt")), "totalCards": _int(cards.get("cnt")), "totalAuthorizations": _int(auths.get("cnt")), "domain": "stripe"}
+    kotoba = get_kotoba_client()
+    ch_count = kotoba.aggregate_where("vertex_stripe_cardholder", "count", "*")
+    cards_count = kotoba.aggregate_where("vertex_stripe_issued_card", "count", "*")
+    auths_count = kotoba.aggregate_where("vertex_stripe_authorization", "count", "*")
+    return {"totalCardholders": _int(ch_count), "totalCards": _int(cards_count), "totalAuthorizations": _int(auths_count), "domain": "stripe"}
 
 
 def handle_commit(collection: str = "", action: str = "", **_: Any) -> dict[str, Any]:

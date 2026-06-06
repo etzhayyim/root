@@ -28,7 +28,7 @@ import time as _time
 import uuid
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 class OpenPatentIngestMultiState(TypedDict, total=False):
@@ -47,19 +47,15 @@ def check_backlog(state: OpenPatentIngestMultiState) -> dict:
     requested = state.get("jurisdictions") or ["us", "ep", "jp", "wo"]
     backlog: dict[str, int] = {}
 
-    with sync_cursor() as cur:
-        for jur in requested:
-            cc = jur.upper()
-            cur.execute(
-                f"""
-                SELECT 1
-                FROM vertex_open_patent_patent
-                WHERE jurisdiction = '{cc}'
-                LIMIT 1
-                """
-            )
-            row = cur.fetchone()
-            backlog[jur] = 1 if row else 0
+    _kotoba = get_kotoba_client()
+    for jur in requested:
+        cc = jur.upper()
+        row = _kotoba.select_first_where(
+            "vertex_open_patent_patent",
+            "jurisdiction",
+            cc
+        )
+        backlog[jur] = 1 if row else 0
 
     return {"backlog": backlog, "ok": True}
 
@@ -140,25 +136,19 @@ def emit_audit(state: OpenPatentIngestMultiState) -> dict:
         r.get("citationsAdded", 0) or 0 for r in results
     )
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_repo_commit
-                  (vertex_id, repo, collection, rkey, action, ts_ms, record_json)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """,
-                (
-                    str(uuid.uuid4()),
-                    "did:web:open-patent.etzhayyim.com",
-                    "com.etzhayyim.apps.openPatent.ingestMulti",
-                    f"lg-{int(_time.time() * 1000)}",
-                    "create",
-                    int(_time.time() * 1000),
-                    f'{{"citationsTotal":{citations_total},'
-                    f'"jurisdictions":{len(results)},'
-                    f'"ok":{str(state.get("ok", True)).lower()}}}',
-                ),
-            )
+        _kotoba = get_kotoba_client()
+        row_data = {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": "did:web:open-patent.etzhayyim.com",
+            "collection": "com.etzhayyim.apps.openPatent.ingestMulti",
+            "rkey": f"lg-{int(_time.time() * 1000)}",
+            "action": "create",
+            "ts_ms": int(_time.time() * 1000),
+            "record_json": f'{{"citationsTotal":{citations_total},'
+                           f'"jurisdictions":{len(results)},'
+                           f'"ok":{str(state.get("ok", True)).lower()}}}',
+        }
+        _kotoba.insert_row("vertex_repo_commit", row_data)
     except Exception:
         pass
     return {}

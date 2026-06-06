@@ -10,16 +10,15 @@ Tables: vertex_handotai_source / vertex_handotai_article / vertex_handotai_diges
 
 from __future__ import annotations
 
+import datetime
 import hashlib
-import re
-import time
 import xml.etree.ElementTree as ET
 from typing import Any
 
 import aiohttp
 
 from pymagatama import llm as _llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 _OWNER_DID = "did:web:handotai.etzhayyim.com"
@@ -51,7 +50,7 @@ _CAT_KEYWORDS: list[tuple[list[str], str]] = [
 
 
 def _utc_now() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
 
 
 def _src_vid(source_id: str) -> str:
@@ -184,30 +183,28 @@ def task_handotai_seed_writers() -> dict:
     """Idempotent upsert of 6 built-in RSS writer entries into vertex_handotai_source."""
     now = _utc_now()
     written = 0
-    with sync_cursor() as cur:
-        for w in _WRITERS:
-            vid = _src_vid(w["source_id"])
-            try:
-                cur.execute(
-                    """
-                    INSERT INTO vertex_handotai_source (
-                        vertex_id, source_id, name, url, source_type, language, category,
-                        crawl_interval_min, enabled, writer_did, actor_did, org_did, created_at
-                    ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                    """,
-                    (
-                        vid, w["source_id"], w["name"], w["url"], "rss",
-                        w["language"], w["category"], 15, True,
-                        f"{_OWNER_DID}:writer:{w['source_id']}",
-                        _OWNER_DID, _OWNER_DID, now,
-                    ),
-                )
-                written += 1
-            except Exception as e:
-                if "already exists" in str(e).lower() or "duplicate" in str(e).lower():
-                    pass
-                else:
-                    raise
+    kotoba_client = get_kotoba_client()
+    for w in _WRITERS:
+        vid = _src_vid(w["source_id"])
+        row_dict = {
+            "vertex_id": vid,
+            "source_id": w["source_id"],
+            "name": w["name"],
+            "url": w["url"],
+            "source_type": "rss",
+            "language": w["language"],
+            "category": w["category"],
+            "crawl_interval_min": 15,
+            "enabled": True,
+            "writer_did": f"{_OWNER_DID}:writer:{w['source_id']}",
+            "actor_did": _OWNER_DID,
+            "org_did": _OWNER_DID,
+            "created_at": now,
+        }
+        # insert_row handles upsert behavior for vertex_id automatically
+        kotoba_client.insert_row("vertex_handotai_source", row_dict)
+        written += 1
+    return {"written": written, "total": len(_WRITERS)}
     return {"written": written, "total": len(_WRITERS)}
 
 
@@ -241,46 +238,44 @@ async def task_handotai_collect_rss_all(maxPerSource: int = 20) -> dict:
             articles = _parse_feed(body, w["name"], w["language"], w["category"])
             articles = articles[:cap]
 
-            with sync_cursor() as cur:
-                for art in articles:
-                    vid = _art_vid(art["article_id"])
-                    try:
-                        cur.execute(
-                            """
-                            INSERT INTO vertex_handotai_article (
-                                vertex_id, article_id, source_url, source_name, source_lang,
-                                title_original, title_ja, title_en,
-                                summary_original, summary_ja, summary_en,
-                                category, subcategory, entities, tags,
-                                sentiment, importance, published_at, crawled_at,
-                                visibility, writer_did, actor_did, org_did, created_at
-                            ) VALUES (
-                                %s,%s,%s,%s,%s,
-                                %s,%s,%s,
-                                %s,%s,%s,
-                                %s,%s,%s,%s,
-                                %s,%s,%s,%s,
-                                %s,%s,%s,%s,%s
-                            )
-                            """,
-                            (
-                                vid, art["article_id"], art["source_url"], art["source_name"],
-                                art["source_lang"],
-                                art["title_original"], art["title_ja"], art["title_en"],
-                                art["summary_original"], art["summary_ja"], art["summary_en"],
-                                art["category"], art["subcategory"], art["entities"], art["tags"],
-                                art["sentiment"], art["importance"],
-                                art["published_at"], now,
-                                art["visibility"], art["writer_did"],
-                                _OWNER_DID, _OWNER_DID, now,
-                            ),
-                        )
-                        total_written += 1
-                    except Exception as e:
-                        if "already exists" in str(e).lower() or "duplicate" in str(e).lower():
-                            total_skipped += 1
-                        else:
-                            errors.append(f"insert:{art['article_id']}:{e!s:.60}")
+            kotoba_client = get_kotoba_client()
+            for art in articles:
+                vid = _art_vid(art["article_id"])
+                row_dict = {
+                    "vertex_id": vid,
+                    "article_id": art["article_id"],
+                    "source_url": art["source_url"],
+                    "source_name": art["source_name"],
+                    "source_lang": art["source_lang"],
+                    "title_original": art["title_original"],
+                    "title_ja": art["title_ja"],
+                    "title_en": art["title_en"],
+                    "summary_original": art["summary_original"],
+                    "summary_ja": art["summary_ja"],
+                    "summary_en": art["summary_en"],
+                    "category": art["category"],
+                    "subcategory": art["subcategory"],
+                    "entities": art["entities"],
+                    "tags": art["tags"],
+                    "sentiment": art["sentiment"],
+                    "importance": art["importance"],
+                    "published_at": art["published_at"],
+                    "crawled_at": now,
+                    "visibility": art["visibility"],
+                    "writer_did": art["writer_did"],
+                    "actor_did": _OWNER_DID,
+                    "org_did": _OWNER_DID,
+                    "created_at": now,
+                }
+                # insert_row handles upsert behavior for vertex_id automatically
+                try:
+                    kotoba_client.insert_row("vertex_handotai_article", row_dict)
+                    total_written += 1
+                except Exception as e:
+                    # R0: insert_row handles upsert internally, but we catch generic exceptions
+                    #     for other potential errors.
+                    total_skipped += 1 # Assume any error in insert_row for an existing primary key means skipped.
+                    errors.append(f"insert:{art['article_id']}:{e!s:.60}")
 
     return {"written": total_written, "skipped": total_skipped, "errors": errors[:10]}
 
@@ -292,23 +287,40 @@ async def task_handotai_collect_rss_all(maxPerSource: int = 20) -> dict:
 def task_handotai_generate_digest(date: str = "") -> dict:
     """Read today's articles from vertex_handotai_article, LLM-summarize, upsert digest."""
     if not date:
-        date = time.strftime("%Y-%m-%d", time.gmtime())
+        date = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
 
     articles: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT title_original, title_ja, title_en, category, importance, source_lang
-            FROM vertex_handotai_article
-            WHERE crawled_at >= %s AND crawled_at < %s
-            ORDER BY importance DESC
-            LIMIT {lim}
-            """.format(lim=50),
-            (f"{date}T00:00:00Z", f"{date}T23:59:59Z"),
-        )
-        rows = cur.fetchall()
-        cols = [d[0] for d in cur.description] if cur.description else []
-        articles = [dict(zip(cols, r)) for r in (rows or [])]
+    kotoba_client = get_kotoba_client()
+    # R0: Datalog `order-by` and `limit` not supported via `q()` shim; applying in Python.
+    q_edn = f"""
+    [:find ?title_original ?title_ja ?title_en ?category ?importance ?source_lang
+     :where
+     [?e :vertex/type "vertex_handotai_article"]
+     [?e :crawled_at ?crawled_at]
+     [(>= ?crawled_at "{date}T00:00:00Z")]
+     [(< ?crawled_at "{date}T23:59:59Z")]
+     [?e :title_original ?title_original]
+     [?e :title_ja ?title_ja]
+     [?e :title_en ?title_en]
+     [?e :category ?category]
+     [?e :importance ?importance]
+     [?e :source_lang ?source_lang]]
+    """
+    raw_results = kotoba_client.q(q_edn)
+
+    processed_articles = []
+    for r in raw_results:
+        processed_articles.append({
+            "title_original": r[0],
+            "title_ja": r[1],
+            "title_en": r[2],
+            "category": r[3],
+            "importance": int(r[4]), # Ensure importance is an integer
+            "source_lang": r[5],
+        })
+
+    # Sort by importance DESC and limit to 50
+    articles = sorted(processed_articles, key=lambda x: x.get("importance", 0), reverse=True)[:50]
 
     if not articles:
         return {"date": date, "articles": 0, "status": "noArticles"}
@@ -335,34 +347,19 @@ def task_handotai_generate_digest(date: str = "") -> dict:
 
     now = _utc_now()
     vid = _dig_vid(date)
-    with sync_cursor() as cur:
-        try:
-            cur.execute(
-                """
-                INSERT INTO vertex_handotai_digest (
-                    vertex_id, date, total_articles, summary_ja,
-                    generated_at, actor_did, org_did, created_at
-                ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (vid, date, len(articles), summary, now, _OWNER_DID, _OWNER_DID, now),
-            )
-        except Exception as e:
-            if "already exists" in str(e).lower() or "duplicate" in str(e).lower():
-                cur.execute(
-                    "DELETE FROM vertex_handotai_digest WHERE vertex_id = %s",
-                    (vid,),
-                )
-                cur.execute(
-                    """
-                    INSERT INTO vertex_handotai_digest (
-                        vertex_id, date, total_articles, summary_ja,
-                        generated_at, actor_did, org_did, created_at
-                    ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
-                    """,
-                    (vid, date, len(articles), summary, now, _OWNER_DID, _OWNER_DID, now),
-                )
-            else:
-                raise
+    kotoba_client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vid,
+        "date": date,
+        "total_articles": len(articles),
+        "summary_ja": summary,
+        "generated_at": now,
+        "actor_did": _OWNER_DID,
+        "org_did": _OWNER_DID,
+        "created_at": now,
+    }
+    # insert_row handles upsert behavior for vertex_id automatically
+    kotoba_client.insert_row("vertex_handotai_digest", row_dict)
 
     return {"date": date, "articles": len(articles), "status": "generated"}
 

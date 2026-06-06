@@ -14,10 +14,11 @@ import json
 import re
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 OWNER_DID = "did:web:legal-intel.etzhayyim.com"
@@ -49,20 +50,11 @@ class LegalHoubunLinkerState(TypedDict, total=False):
 
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _vid(collection: str) -> str:
     return f"at://{OWNER_DID}/{collection}/{int(time.time() * 1000)}-{uuid.uuid4().hex[:10]}"
-
-
-def _safe_rows(sql: str, params: tuple[Any, ...] = ()) -> list[Any]:
-    try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            return cur.fetchall() or []
-    except Exception:
-        return []
 
 
 def _json_loads_maybe(text: str) -> dict[str, Any]:
@@ -141,91 +133,194 @@ def load_candidates(state: LegalHoubunLinkerState) -> dict:
     entity_vid = (state.get("legalEntityVid") or "").strip()
     contract_vid = (state.get("contractVid") or "").strip()
 
-    entity_rows = _safe_rows(
-        f"""
-        SELECT vertex_id, lei, legal_name, country, legal_form, registration_authority
-        FROM vertex_open_lei_entity
-        WHERE (%s = '' OR vertex_id = %s)
-          AND (UPPER(COALESCE(country, '')) IN (%s, %s))
-          AND status = 'active'
-        ORDER BY next_renewal_at DESC NULLS LAST
-        LIMIT {max_entities}
-        """,
-        (entity_vid, entity_vid, country, jurisdiction),
-    )
+    kotoba_client = get_kotoba_client()
+
+    # R0: Converted complex SQL query for vertex_open_lei_entity to Datalog q() with in-Python filtering and ordering.
+    entity_datalog_query = """
+    [:find (pull ?e [:vertex/id :open_lei_entity/lei :open_lei_entity/legal_name
+                     :open_lei_entity/country :open_lei_entity/legal_form
+                     :open_lei_entity/registration_authority :open_lei_entity/next_renewal_at
+                     :open_lei_entity/status])
+     :where
+     [?e :vertex/type "open_lei_entity"]]
+    """
+    all_lei_entities = kotoba_client.q(entity_datalog_query)
+
+    filtered_entities = []
+    for r_list in all_lei_entities:
+        r = r_list[0] if isinstance(r_list, list) else r_list # q() returns list of lists or just lists of dicts
+        if not r or not isinstance(r, dict):
+            continue
+
+        # Apply WHERE conditions from original SQL query
+        vertex_id_match = (not entity_vid) or (r.get("vertex/id") == entity_vid)
+        country_upper = (r.get("open_lei_entity/country") or "").upper()
+        country_match = country_upper in (country, jurisdiction)
+        status_match = r.get("open_lei_entity/status") == "active"
+
+        if vertex_id_match and country_match and status_match:
+            filtered_entities.append(r)
+
+    # Sort and limit in Python as per original SQL ORDER BY and LIMIT
+    entities_sorted_limited = sorted(
+        filtered_entities,
+        key=lambda x: x.get("open_lei_entity/next_renewal_at") or "", # NULLS LAST is handled by empty string effectively
+        reverse=True,
+    )[:max_entities]
+
+    # Convert to desired dict format
     entities = [
         {
-            "vertexId": r[0],
-            "lei": r[1],
-            "name": r[2],
-            "country": r[3],
-            "legalForm": r[4],
-            "registrationAuthority": r[5],
+            "vertexId": r.get("vertex/id"),
+            "lei": r.get("open_lei_entity/lei"),
+            "name": r.get("open_lei_entity/legal_name"),
+            "country": r.get("open_lei_entity/country"),
+            "legalForm": r.get("open_lei_entity/legal_form"),
+            "registrationAuthority": r.get("open_lei_entity/registration_authority"),
         }
-        for r in entity_rows
+        for r in entities_sorted_limited
     ]
 
-    contract_rows = _safe_rows(
-        """
-        SELECT vertex_id, name, legal_basis, country_code, url
-        FROM vertex_governance_contract
-        WHERE (%s = '' OR vertex_id = %s)
-          AND (UPPER(COALESCE(country_code, '')) IN (%s, %s, ''))
-        ORDER BY effective_date DESC NULLS LAST
-        LIMIT 12
-        """,
-        (contract_vid, contract_vid, country, jurisdiction),
-    )
+    # R0: Converted complex SQL query for vertex_governance_contract to Datalog q() with in-Python filtering and ordering.
+    contract_datalog_query = """
+    [:find (pull ?e [:vertex/id :governance_contract/name :governance_contract/legal_basis
+                     :governance_contract/country_code :governance_contract/url
+                     :governance_contract/effective_date])
+     :where
+     [?e :vertex/type "governance_contract"]]
+    """
+    all_contracts = kotoba_client.q(contract_datalog_query)
+
+    filtered_contracts = []
+    for r_list in all_contracts:
+        r = r_list[0] if isinstance(r_list, list) else r_list
+        if not r or not isinstance(r, dict):
+            continue
+
+        # Apply WHERE conditions from original SQL query
+        vertex_id_match = (not contract_vid) or (r.get("vertex/id") == contract_vid)
+        country_upper = (r.get("governance_contract/country_code") or "").upper()
+        country_match = country_upper in (country, jurisdiction, "")
+
+        if vertex_id_match and country_match:
+            filtered_contracts.append(r)
+
+    # Sort and limit in Python as per original SQL ORDER BY and LIMIT
+    contracts_sorted_limited = sorted(
+        filtered_contracts,
+        key=lambda x: x.get("governance_contract/effective_date") or "", # NULLS LAST
+        reverse=True,
+    )[:12]
+
     contracts = [
         {
-            "vertexId": r[0],
-            "title": r[1],
-            "legalBasis": r[2],
-            "country": r[3],
-            "url": r[4],
+            "vertexId": r.get("vertex/id"),
+            "title": r.get("governance_contract/name"),
+            "legalBasis": r.get("governance_contract/legal_basis"),
+            "country": r.get("governance_contract/country_code"),
+            "url": r.get("governance_contract/url"),
         }
-        for r in contract_rows
+        for r in contracts_sorted_limited
     ]
 
-    houbun_rows = _safe_rows(
-        f"""
-        SELECT vertex_id, 'houbun' AS source_kind, statute_ref, article_no, title,
-               COALESCE(text, '') AS body
-        FROM vertex_houbun_article
-        WHERE UPPER(COALESCE(language, '')) IN ('JA', 'JPN', 'JAPANESE', '')
-           OR statute_ref ILIKE '%%jpn%%'
-        ORDER BY
-          CASE
-            WHEN text ILIKE '%%法人%%' OR title ILIKE '%%法人%%' THEN 0
-            WHEN text ILIKE '%%会社%%' OR title ILIKE '%%会社%%' THEN 1
-            WHEN text ILIKE '%%契約%%' OR title ILIKE '%%契約%%' THEN 2
-            WHEN text ILIKE '%%登記%%' OR title ILIKE '%%登記%%' THEN 3
-            ELSE 9
-          END,
-          article_no
-        LIMIT {max_articles}
-        """,
-    )
-    hourei_rows = _safe_rows(
-        f"""
-        SELECT vertex_id, 'hourei' AS source_kind, hourei_id, article_no, title,
-               COALESCE(summary, text, '') AS body
-        FROM vertex_hourei_jobun
-        ORDER BY article_no
-        LIMIT {max_articles}
-        """,
-    )
-    article_rows = (houbun_rows + hourei_rows)[:max_articles]
+    # R0: Converted complex SQL query for vertex_houbun_article to Datalog q() with in-Python filtering and ordering.
+    houbun_datalog_query = """
+    [:find (pull ?e [:vertex/id :houbun_article/statute_ref :houbun_article/article_no
+                     :houbun_article/title :houbun_article/text :houbun_article/language])
+     :where
+     [?e :vertex/type "houbun_article"]]
+    """
+    all_houbun_articles = kotoba_client.q(houbun_datalog_query)
+
+    houbun_articles_filtered = []
+    for r_list in all_houbun_articles:
+        r = r_list[0] if isinstance(r_list, list) else r_list
+        if not r or not isinstance(r, dict):
+            continue
+
+        language = (r.get("houbun_article/language") or "").upper()
+        statute_ref = (r.get("houbun_article/statute_ref") or "").lower()
+
+        # Apply WHERE conditions from original SQL query
+        if language in ("JA", "JPN", "JAPANESE", "") or "jpn" in statute_ref:
+            houbun_articles_filtered.append(r)
+
+    # R0: Converted complex SQL query for vertex_hourei_jobun to Datalog q() with in-Python filtering and ordering.
+    hourei_datalog_query = """
+    [:find (pull ?e [:vertex/id :hourei_jobun/hourei_id :hourei_jobun/article_no
+                     :hourei_jobun/title :hourei_jobun/summary :hourei_jobun/text])
+     :where
+     [?e :vertex/type "hourei_jobun"]]
+    """
+    all_hourei_jobuns = kotoba_client.q(hourei_datalog_query)
+
+    hourei_jobuns_filtered = []
+    for r_list in all_hourei_jobuns:
+        r = r_list[0] if isinstance(r_list, list) else r_list
+        if not r or not isinstance(r, dict):
+            continue
+        # No specific filtering for hourei_jobun in SQL, just language.
+        # Assuming Japanese for now based on context of 'JA', 'JPN' above.
+        # If there's a language field, it would be filtered like houbun.
+        # For now, all fetched hourei_jobun are considered.
+        hourei_jobuns_filtered.append(r)
+
+    # Prepare for in-Python sorting based on original SQL's complex ORDER BY
+    houbun_rows_for_sorting = [
+        {
+            "vertexId": r.get("vertex/id"),
+            "sourceKind": "houbun",
+            "lawId": r.get("houbun_article/statute_ref"),
+            "articleNo": r.get("houbun_article/article_no"),
+            "title": r.get("houbun_article/title"),
+            "text": (r.get("houbun_article/text") or ""),
+            "sort_text": (r.get("houbun_article/text") or "") + (r.get("houbun_article/title") or "")
+        }
+        for r in houbun_articles_filtered
+    ]
+
+    hourei_rows_for_sorting = [
+        {
+            "vertexId": r.get("vertex/id"),
+            "sourceKind": "hourei",
+            "lawId": r.get("hourei_jobun/hourei_id"),
+            "articleNo": r.get("hourei_jobun/article_no"),
+            "title": r.get("hourei_jobun/title"),
+            "text": (r.get("hourei_jobun/summary") or r.get("hourei_jobun/text") or ""),
+            "sort_text": (r.get("hourei_jobun/summary") or r.get("hourei_jobun/text") or "") + (r.get("hourei_jobun/title") or "")
+        }
+        for r in hourei_jobuns_filtered
+    ]
+
+    all_articles_for_sorting = houbun_rows_for_sorting + hourei_rows_for_sorting
+
+    def article_sort_key(article):
+        text = article.get("sort_text", "")
+        if "法人" in text:
+            return 0
+        if "会社" in text:
+            return 1
+        if "契約" in text:
+            return 2
+        if "登記" in text:
+            return 3
+        return 9
+
+    sorted_articles_limited = sorted(
+        all_articles_for_sorting,
+        key=lambda x: (article_sort_key(x), x.get("articleNo") or float('inf'))
+    )[:max_articles]
+
     articles = [
         {
-            "vertexId": r[0],
-            "sourceKind": r[1],
-            "lawId": r[2],
-            "articleNo": r[3],
-            "title": r[4],
-            "text": (r[5] or "")[:700],
+            "vertexId": r["vertexId"],
+            "sourceKind": r["sourceKind"],
+            "lawId": r["lawId"],
+            "articleNo": r["articleNo"],
+            "title": r["title"],
+            "text": (r["text"] or "")[:700],
         }
-        for r in article_rows
+        for r in sorted_articles_limited
     ]
 
     return {
@@ -343,92 +438,81 @@ def persist_links(state: LegalHoubunLinkerState) -> dict:
             "ok": True,
         }
 
+    kotoba_client = get_kotoba_client()
     hyp_rows = 0
     edge_rows = 0
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_legal_houbun_link_run
-              (vertex_id, run_id, country, jurisdiction, entity_count, contract_count,
-               article_count, hypothesis_count, model, status, started_at, completed_at,
-               created_date, sensitivity_ord, owner_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0,%s)
-            """,
-            (
-                run_vid,
-                run_id,
-                state.get("country") or "JP",
-                state.get("jurisdiction") or "JPN",
-                len(state.get("_entities") or []),
-                len(state.get("_contracts") or []),
-                len(state.get("_articles") or []),
-                len(hypotheses),
-                state.get("model") or "",
-                "completed",
-                now,
-                now,
-                today,
-                OWNER_DID,
-            ),
+
+    # Insert into vertex_legal_houbun_link_run
+    run_row_dict = {
+        "vertex_id": run_vid,
+        "run_id": run_id,
+        "country": state.get("country") or "JP",
+        "jurisdiction": state.get("jurisdiction") or "JPN",
+        "entity_count": len(state.get("_entities") or []),
+        "contract_count": len(state.get("_contracts") or []),
+        "article_count": len(state.get("_articles") or []),
+        "hypothesis_count": len(hypotheses),
+        "model": state.get("model") or "",
+        "status": "completed",
+        "started_at": now,
+        "completed_at": now,
+        "created_date": today,
+        "sensitivity_ord": 0,
+        "owner_did": OWNER_DID,
+    }
+    kotoba_client.insert_row("vertex_legal_houbun_link_run", run_row_dict)
+
+    for hyp in hypotheses:
+        hyp_vid = _vid(HYP_COLLECTION)
+        status = "pending_review"
+
+        # Insert into vertex_legal_houbun_link_hypothesis
+        hypothesis_row_dict = {
+            "vertex_id": hyp_vid,
+            "run_id": run_id,
+            "subject_vid": hyp["subjectVid"],
+            "subject_kind": hyp["subjectKind"],
+            "article_vid": hyp["articleVid"],
+            "relation_type": hyp["relationType"],
+            "confidence": hyp["confidence"],
+            "rationale": hyp["rationale"],
+            "evidence_json": json.dumps(hyp.get("evidence") or [], ensure_ascii=False),
+            "status": status,
+            "model": state.get("model") or "",
+            "created_at": now,
+            "created_date": today,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+        }
+        kotoba_client.insert_row("vertex_legal_houbun_link_hypothesis", hypothesis_row_dict)
+        hyp_rows += 1
+
+        if float(hyp["confidence"]) < min_conf:
+            continue
+
+        table = (
+            "edge_contract_houbun_article"
+            if hyp["subjectKind"] == "contract"
+            else "edge_legal_entity_houbun_article"
         )
-        for hyp in hypotheses:
-            hyp_vid = _vid(HYP_COLLECTION)
-            status = "pending_review"
-            cur.execute(
-                """
-                INSERT INTO vertex_legal_houbun_link_hypothesis
-                  (vertex_id, run_id, subject_vid, subject_kind, article_vid,
-                   relation_type, confidence, rationale, evidence_json, status,
-                   model, created_at, created_date, sensitivity_ord, owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,0,%s)
-                """,
-                (
-                    hyp_vid,
-                    run_id,
-                    hyp["subjectVid"],
-                    hyp["subjectKind"],
-                    hyp["articleVid"],
-                    hyp["relationType"],
-                    hyp["confidence"],
-                    hyp["rationale"],
-                    json.dumps(hyp.get("evidence") or [], ensure_ascii=False),
-                    status,
-                    state.get("model") or "",
-                    now,
-                    today,
-                    OWNER_DID,
-                ),
-            )
-            hyp_rows += 1
-            if float(hyp["confidence"]) < min_conf:
-                continue
-            table = (
-                "edge_contract_houbun_article"
-                if hyp["subjectKind"] == "contract"
-                else "edge_legal_entity_houbun_article"
-            )
-            edge_id = "edge:" + uuid.uuid4().hex
-            cur.execute(
-                f"""
-                INSERT INTO {table}
-                  (edge_id, src_vid, dst_vid, relation_type, confidence,
-                   hypothesis_vid, status, created_at, created_date,
-                   sensitivity_ord, owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,'inferred',%s,%s,0,%s)
-                """,
-                (
-                    edge_id,
-                    hyp["subjectVid"],
-                    hyp["articleVid"],
-                    hyp["relationType"],
-                    hyp["confidence"],
-                    hyp_vid,
-                    now,
-                    today,
-                    OWNER_DID,
-                ),
-            )
-            edge_rows += 1
+        edge_id = "edge:" + uuid.uuid4().hex
+
+        # Insert into edge_* table
+        edge_row_dict = {
+            "edge_id": edge_id,
+            "src_vid": hyp["subjectVid"],
+            "dst_vid": hyp["articleVid"],
+            "relation_type": hyp["relationType"],
+            "confidence": hyp["confidence"],
+            "hypothesis_vid": hyp_vid,
+            "status": "inferred",
+            "created_at": now,
+            "created_date": today,
+            "sensitivity_ord": 0,
+            "owner_did": OWNER_DID,
+        }
+        kotoba_client.insert_row(table, edge_row_dict)
+        edge_rows += 1
 
     return {
         "runId": run_id,
@@ -442,31 +526,26 @@ def persist_links(state: LegalHoubunLinkerState) -> dict:
 
 def emit_audit(state: LegalHoubunLinkerState) -> dict:
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_repo_commit
-                  (vertex_id, repo, collection, rkey, action, ts_ms, record_json)
-                VALUES (%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    str(uuid.uuid4()),
-                    OWNER_DID,
-                    RUN_COLLECTION,
-                    f"lg-{int(time.time() * 1000)}",
-                    "create",
-                    int(time.time() * 1000),
-                    json.dumps(
-                        {
-                            "runId": state.get("runId"),
-                            "hypothesisRows": state.get("hypothesisRows", 0),
-                            "edgeRows": state.get("edgeRows", 0),
-                            "ok": state.get("ok", False),
-                        },
-                        ensure_ascii=False,
-                    ),
-                ),
-            )
+        kotoba_client = get_kotoba_client()
+        # Insert into vertex_repo_commit
+        repo_commit_row_dict = {
+            "vertex_id": str(uuid.uuid4()),
+            "repo": OWNER_DID,
+            "collection": RUN_COLLECTION,
+            "rkey": f"lg-{int(time.time() * 1000)}",
+            "action": "create",
+            "ts_ms": int(time.time() * 1000),
+            "record_json": json.dumps(
+                {
+                    "runId": state.get("runId"),
+                    "hypothesisRows": state.get("hypothesisRows", 0),
+                    "edgeRows": state.get("edgeRows", 0),
+                    "ok": state.get("ok", False),
+                },
+                ensure_ascii=False,
+            ),
+        }
+        kotoba_client.insert_row("vertex_repo_commit", repo_commit_row_dict)
     except Exception:
         pass
     return {}

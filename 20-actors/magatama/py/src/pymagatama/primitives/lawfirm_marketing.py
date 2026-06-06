@@ -21,6 +21,8 @@ import time
 import uuid
 from typing import Any
 
+from pymagatama.kotoba_datomic import get_kotoba_client
+
 LOG = logging.getLogger("lawfirm.primitives")
 
 _FIRM_DID = "did:web:lawfirm.etzhayyim.com"
@@ -128,8 +130,8 @@ async def task_lawfirm_payment_stripe_webhook(
     currency = "USD"
 
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
+
+
 
         if type in ("invoice.paid", "invoice.payment_succeeded", "invoice.created", "invoice.finalized"):
             inv = evt.get("object") or evt
@@ -140,30 +142,24 @@ async def task_lawfirm_payment_stripe_webhook(
             matter_uri = str(metadata.get("matter_uri", ""))
             stream = str(metadata.get("stream", "advocate-fee"))
             paid_at = _now_iso() if type == "invoice.paid" else ""
-            sa_rowcount(
-                text(
-                    "INSERT INTO vertex_lawfirm_invoice (vertex_id, stripe_invoice_id, matter_uri, "
-                    "client_did, stream, amount_minor, currency, total_minor, status, issued_at, "
-                    "paid_at, hosted_invoice_url, raw_json, created_at, owner_did) "
-                    "VALUES (:vid, :sid, :muri, :cdid, :stream, :amt, :ccy, :tot, :status, "
-                    ":issued, :paid, :url, :raw, :now, :owner)"
-                ),
+            get_kotoba_client().insert_row(
+                "vertex_lawfirm_invoice",
                 {
-                    "vid":    _vid("invoice"),
-                    "sid":    stripe_invoice_id,
-                    "muri":   matter_uri,
-                    "cdid":   str(metadata.get("client_did", "")),
+                    "vertex_id":    _vid("invoice"),
+                    "stripe_invoice_id":    stripe_invoice_id,
+                    "matter_uri":   matter_uri,
+                    "client_did":   str(metadata.get("client_did", "")),
                     "stream": stream,
-                    "amt":    amount_minor,
-                    "ccy":    currency,
-                    "tot":    int(inv.get("total") or amount_minor),
+                    "amount_minor":    amount_minor,
+                    "currency":    currency,
+                    "total_minor":    int(inv.get("total") or amount_minor),
                     "status": "paid" if type == "invoice.paid" else "open",
-                    "issued": _now_iso(),
-                    "paid":   paid_at,
-                    "url":    str(inv.get("hosted_invoice_url", "")),
-                    "raw":    json.dumps(evt, ensure_ascii=False)[:60_000],
-                    "now":    _now_iso(),
-                    "owner":  _FIRM_DID,
+                    "issued_at": _now_iso(),
+                    "paid_at":   paid_at,
+                    "hosted_invoice_url":    str(inv.get("hosted_invoice_url", "")),
+                    "raw_json":    json.dumps(evt, ensure_ascii=False)[:60_000],
+                    "created_at":    _now_iso(),
+                    "owner_did":  _FIRM_DID,
                 },
             )
 
@@ -175,30 +171,23 @@ async def task_lawfirm_payment_stripe_webhook(
             metadata = ch.get("metadata") or {}
             matter_uri = str(metadata.get("matter_uri", ""))
             stream = str(metadata.get("stream", "advocate-fee"))
-            sa_rowcount(
-                text(
-                    "INSERT INTO vertex_lawfirm_payment (vertex_id, stripe_charge_id, "
-                    "stripe_invoice_id, matter_uri, client_did, stream, amount_minor, "
-                    "currency, paid_at, receipt_url, payment_method, raw_json, "
-                    "created_at, owner_did) "
-                    "VALUES (:vid, :cid, :iid, :muri, :cdid, :stream, :amt, :ccy, :paid, "
-                    ":receipt, :pm, :raw, :now, :owner)"
-                ),
+            get_kotoba_client().insert_row(
+                "vertex_lawfirm_payment",
                 {
-                    "vid":     _vid("payment"),
-                    "cid":     stripe_charge_id,
-                    "iid":     str(ch.get("invoice", "")),
-                    "muri":    matter_uri,
-                    "cdid":    str(metadata.get("client_did", "")),
+                    "vertex_id":     _vid("payment"),
+                    "stripe_charge_id":     stripe_charge_id,
+                    "stripe_invoice_id":     str(ch.get("invoice", "")),
+                    "matter_uri":    matter_uri,
+                    "client_did":    str(metadata.get("client_did", "")),
                     "stream":  stream,
-                    "amt":     amount_minor,
-                    "ccy":     currency,
-                    "paid":    _now_iso(),
-                    "receipt": str(ch.get("receipt_url", "")),
-                    "pm":      str(ch.get("payment_method_details", {}).get("type", "")),
-                    "raw":     json.dumps(evt, ensure_ascii=False)[:60_000],
-                    "now":     _now_iso(),
-                    "owner":   _FIRM_DID,
+                    "amount_minor":     amount_minor,
+                    "currency":     currency,
+                    "paid_at":    _now_iso(),
+                    "receipt_url": str(ch.get("receipt_url", "")),
+                    "payment_method":      str(ch.get("payment_method_details", {}).get("type", "")),
+                    "raw_json":     json.dumps(evt, ensure_ascii=False)[:60_000],
+                    "created_at":     _now_iso(),
+                    "owner_did":   _FIRM_DID,
                 },
             )
 

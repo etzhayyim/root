@@ -24,10 +24,10 @@ from __future__ import annotations
 
 import hashlib
 import secrets
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -113,14 +113,8 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    # Use the kotoba client for insertion
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -327,18 +321,30 @@ def task_telecom_wlan_session_attach(
     vid = _vid("wlanSession", s_id)
     is_release = bool(releasedAt and not sessionId)
     if releasedAt and sessionId and not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_wlan_session
-                   SET released_at = %s,
-                       duration_seconds = EXTRACT(EPOCH FROM (CAST(%s AS timestamptz) - CAST(attached_at AS timestamptz))),
-                       status = 'released'
-                 WHERE vertex_id = %s
-                """,
-                (releasedAt, releasedAt, vid),
-            )
-        return {"ok": True, "vertexId": vid, "sessionId": s_id, "status": "released"}
+        # Fetch the existing session to get 'attached_at'
+        existing_session = get_kotoba_client().select_first_where(
+            "vertex_telecom_wlan_session", "vertex_id", vid,
+            columns=["attached_at"] # Only need this column for duration calculation
+        )
+
+        if existing_session:
+            attached_at_str = existing_session["attached_at"]
+            # Convert to datetime objects for calculation
+            attached_at_dt = datetime.fromisoformat(attached_at_str)
+            released_at_dt = datetime.fromisoformat(releasedAt)
+
+            duration_seconds = int((released_at_dt - attached_at_dt).total_seconds())
+
+            # Prepare the update row. insert_row will upsert based on vertex_id.
+            update_row = {
+                "vertex_id": vid,
+                "released_at": releasedAt,
+                "duration_seconds": duration_seconds,
+                "status": "released",
+            }
+            # The client's insert_row performs an upsert on the identity column (vertex_id)
+            get_kotoba_client().insert_row("vertex_telecom_wlan_session", update_row)
+            return {"ok": True, "vertexId": vid, "sessionId": s_id, "status": "released"}
     row = {
         "vertex_id": vid, "owner_did": _caller(payload),
         "session_id": s_id,
@@ -465,27 +471,36 @@ def task_telecom_wlan_roaming_settle(
     total_in = 0
     total_out = 0
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT COUNT(DISTINCT session_vid),
-                       COALESCE(SUM(session_time_seconds), 0),
-                       COALESCE(SUM(ingress_bytes), 0),
-                       COALESCE(SUM(egress_bytes), 0)
-                  FROM vertex_telecom_wlan_roaming_exchange
-                 WHERE partner_org_id = %s
-                   AND observed_at >= %s
-                   AND observed_at <  %s
-                   AND message_kind = 'accounting_stop'
-                """,
-                (partnerOrgId, ps.isoformat(), pe.isoformat()),
-            )
-            r = cur.fetchone()
-            if r:
-                session_count = int(r[0] or 0)
-                total_session_time = int(r[1] or 0)
-                total_in = int(r[2] or 0)
-                total_out = int(r[3] or 0)
+        # R0: Multi-predicate query, aggregating in Python due to shim limitations.
+        # Fetch records matching partner_org_id and message_kind
+        exchanges = get_kotoba_client().select_where(
+            "vertex_telecom_wlan_roaming_exchange",
+            "partner_org_id",
+            partnerOrgId,
+            # Fetch all columns needed for filtering and aggregation
+            columns=["session_vid", "session_time_seconds", "ingress_bytes", "egress_bytes", "observed_at", "message_kind"]
+        )
+
+        filtered_exchanges = []
+        for ex in exchanges:
+            # Apply remaining filters in Python
+            if ex.get("message_kind") == "accounting_stop" and \
+               ex.get("observed_at", "") >= ps.isoformat() and \
+               ex.get("observed_at", "") < pe.isoformat():
+                filtered_exchanges.append(ex)
+
+        session_vids = set()
+        total_session_time = 0
+        total_in = 0
+        total_out = 0
+
+        for ex in filtered_exchanges:
+            session_vids.add(ex["session_vid"])
+            total_session_time += int(ex.get("session_time_seconds") or 0)
+            total_in += int(ex.get("ingress_bytes") or 0)
+            total_out += int(ex.get("egress_bytes") or 0)
+
+        session_count = len(session_vids)
     # Phase 13 default rate card (cents / unit). Tunable via Phase 1 rate card lookup later.
     # ingress (UE → AP) = receivable from partner; egress = payable to partner.
     receivable = round(total_in * 0.000_000_01, 4)

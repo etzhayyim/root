@@ -1,0 +1,28 @@
+{:lexicon 1
+ :id "com.etzhayyim.ake.editProposal"
+ :defs
+ {:main
+  {:type "record"
+   :key "tid"
+   :description "A member-signed correction PROPOSAL over a KG fact or an actor profile. The Wikipedia 'edit', fitted to the charter: 信者-gated (G1), sourced (G4), append-only (G5), and incapable of impersonating the subject (G3)."
+   :record
+   {:type "object"
+    :required ["editId" "targetKind" "targetEntity" "op" "author" "authorKind" "provenance" "serverHeldKey"]
+    :properties
+    {:editId        {:type "string" :description "→ :edit/id"}
+     :targetKind    {:type "string" :enum ["kg-fact" "actor-profile"]
+                     :description "G3 INVARIANT — only a fact or a profile may be edited. entity-speech / impersonate / speak-as-entity are NOT enum members (mirror invariant, ADR-2606042330)."}
+     :targetEntity  {:type "string" :description "→ :edit/target-entity (the KG entity or actor handle)"}
+     :targetAttr    {:type "string" :description "→ :edit/target-attr"}
+     :op            {:type "string" :enum ["assert" "retract" "promote-sourcing" "challenge"]
+                     :description "G5 INVARIANT — append-only ops. delete / overwrite are NOT enum members; a retract is itself an appended datom (非終末論)."}
+     :proposedValue {:type "string" :description "the corrected value (for :assert / :promote-sourcing)"}
+     :author        {:type "string" :description "G1 — SBT-bound member DID. Required."}
+     :authorKind    {:type "string" :const "member"
+                     :description "G1 INVARIANT — only 'member' is valid. server / anon are unrepresentable (no-server-key + 信者-gated)."}
+     :provenance    {:type "string" :description "G4 INVARIANT — source URL / IPFS CID. Required; an unsourced proposal is refused."}
+     :rationale     {:type "string" :description "edit summary, like a Wikipedia edit note"}
+     :serverHeldKey {:type "boolean" :const false
+                     :description "G1 / no-server-key INVARIANT — only false (ADR-2605231525)."}
+     :infoAsOf      {:type "integer" :description "ts the proposer could see"}
+     :sourcing      {:type "string" :enum ["representative" "authoritative"]}}}}}}

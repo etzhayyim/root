@@ -13,6 +13,7 @@ ADR-2605192130); these Lexicons are the AT Protocol counterparts.
 | `vendorMissionDonationAttestation` | Vendor (etzhayyim.com) mission-surplus donation → Public Fund (ADR-2605301036) |
 | `vendorSurplusPolicy` | Council-attested vendor payout-ratio + reserve policy (ADR-2605301036 §6) |
 | `computeDonationAttestation` | **In-kind COMPUTE donation** — compute/storage given to the Murakumo mesh + kotoba substrate by a donated node (ameno browser inference / e7m CLI / kotoba pod). Non-titheable, uncompensated, imputed-value (ADR-2606012100) |
+| `displacementTenureAttestation` | **Displacement Dividend registration** — a human displaced from an ISCO occupation by an etzhayyim OSS-robotics actor is registered for the tenure-weighted dividend, delivered as in-kind Basic High Income (`cashStipendUsdMicros` is a structural const-0 field = on-chain proof N1 cash≡0; aggregate-per-cohort only, 要配慮 PII via encrypted-envelope ref) (ADR-2606032130) |
 
 ## Mission-Funding Earned-Revenue arm (ADR-2605301036)
 

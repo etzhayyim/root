@@ -8,7 +8,8 @@ import time
 from typing import Any, Callable
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
+from datetime import datetime, timezone
 
 OWNER_DID = "did:web:vin.etzhayyim.com"
 NANOID = "v1n0g10b"
@@ -159,30 +160,91 @@ def _common(collection: str, did: str, rec_id: str | None = None) -> dict[str, A
     }
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
+
 
 
 def _select(table: str, where: str = "TRUE", params: tuple[Any, ...] = (), limit: int = 50, offset: int = 0) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT * FROM {table} WHERE {where} LIMIT %s OFFSET %s", (*params, limit, offset))
-        cols = [d[0] for d in cur.description or []]
-        return [dict(zip(cols, row)) for row in cur.fetchall()]
+    client = get_kotoba_client()
+    results: list[dict[str, Any]] = []
+
+    # Attempt to parse simple single equality predicate: e.g., "column = %s"
+    simple_equality_match = re.match(r"(\w+)\s*=\s*%s", where)
+
+    if simple_equality_match and len(params) == 1:
+        column = simple_equality_match.group(1)
+        value = params[0]
+        if limit == 1 and offset == 0:
+            row = client.select_first_where(table, column, value)
+            results = [row] if row else []
+        else:
+            # Fetch potentially more than needed to handle Python-side offset/limit
+            results = client.select_where(table, column, value, limit=limit + offset)
+            # R0: Offset and limit for single-equality `select_where` handled in Python.
+            results = results[offset : offset + limit]
+    elif where == "TRUE" and not params:
+        # No specific WHERE clause (equivalent to SELECT * FROM table)
+        # R0: Offset and limit for general table scan handled in Python.
+        all_rows = client.select_where(table, None, None, limit=limit + offset) # Fetch extra if offset is present
+        results = all_rows[offset : offset + limit]
+    elif " AND " in where:
+        # R0: Multi-predicate WHERE clauses (using AND) are handled by fetching a broader
+        # set using the first equality and then filtering in Python. A Datalog `q()`
+        # query would be more efficient for complex WHERE conditions.
+
+        # Try to extract the first simple equality from the AND clause for primary filtering
+        and_conditions = [cond.strip() for cond in where.split(" AND ")]
+        primary_column, primary_value = None, None
+        remaining_conditions = []
+        param_idx = 0
+
+        for cond in and_conditions:
+            eq_match = re.match(r"(\w+)\s*=\s*%s", cond)
+            if eq_match and param_idx < len(params):
+                if primary_column is None: # Take the first one as primary
+                    primary_column = eq_match.group(1)
+                    primary_value = params[param_idx]
+                else:
+                    remaining_conditions.append((eq_match.group(1), params[param_idx]))
+                param_idx += 1
+            else:
+                # If a condition isn't a simple equality with %s, it's too complex for this parsing
+                # For safety, we will treat this as an unhandled complex query.
+                primary_column = None # Reset to trigger fallback
+                break
+
+        if primary_column:
+            # Fetch a broader set based on the primary condition
+            # Limit is set high (e.g., 2000 as per prompt suggestion) if original limit+offset isn't enough
+            fetched_rows = client.select_where(table, primary_column, primary_value, limit=2000)
+
+            # Apply remaining AND conditions in Python
+            filtered_rows = []
+            for row in fetched_rows:
+                match = True
+                for rem_col, rem_val in remaining_conditions:
+                    if row.get(rem_col) != rem_val:
+                        match = False
+                        break
+                if match:
+                    filtered_rows.append(row)
+
+            results = filtered_rows[offset : offset + limit]
+        else:
+            # Fallback for complex ANDs or unhandled conditions
+            print(f"R0: Unhandled complex WHERE clause in _select for table {table}: '{where}'. Returning empty. Consider Datalog `q()` for full implementation.")
+            results = []
+    else:
+        # R0: Unhandled complex WHERE clause (e.g., OR, IN, ranges) or insufficient parameter matching.
+        # Returning empty. A Datalog `q()` query would be required for full implementation.
+        print(f"R0: Unhandled complex WHERE clause in _select for table {table}: '{where}'. Returning empty. Consider Datalog `q()` for full implementation.")
+        results = []
+
+    return results
 
 
 def _insert(table: str, values: dict[str, Any]) -> None:
-    values = {k: v for k, v in values.items() if v is not None}
-    cols = list(values)
-    placeholders = ", ".join(["%s"] * len(cols))
-    col_sql = ", ".join(cols)
-    updates = ", ".join([f"{c}=EXCLUDED.{c}" for c in cols if c != "vertex_id"])
-    _execute(
-        f"INSERT INTO {table} ({col_sql}) VALUES ({placeholders}) "
-        f"ON CONFLICT (vertex_id) DO UPDATE SET {updates}",
-        tuple(values[c] for c in cols),
-    )
+    filtered_values = {k: v for k, v in values.items() if v is not None}
+    get_kotoba_client().insert_row(table, filtered_values)
 
 
 def _summary(row: dict[str, Any] | None, keys: list[str]) -> dict[str, Any]:

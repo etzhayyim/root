@@ -20,7 +20,7 @@ import urllib.error as _u_err
 import urllib.request as _u_req
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 PRIMARY_DID = "did:web:yem-state.etzhayyim.com"
@@ -213,21 +213,7 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
                 "owner_did": PRIMARY_DID,
                 "sensitivity_ord": 2,
             }
-            with sync_cursor() as cur:
-                cur.execute(
-                    """
-                    INSERT INTO vertex_gov_actor_manifest
-                      (vertex_id,record_key,record_kind,path,country,display_name,description,performer_type,agent_type,is_bot,value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
-                    VALUES (%(vertex_id)s,%(record_key)s,%(record_kind)s,%(path)s,%(country)s,%(display_name)s,%(description)s,%(performer_type)s,%(agent_type)s,%(is_bot)s,%(value_json)s,%(indexed_at)s,%(created_at)s,%(updated_at)s,%(actor_did)s,%(org_did)s,%(owner_did)s,%(sensitivity_ord)s)
-                    ON CONFLICT (vertex_id) DO UPDATE SET
-                      display_name = EXCLUDED.display_name,
-                      description = EXCLUDED.description,
-                      value_json = EXCLUDED.value_json,
-                      indexed_at = EXCLUDED.indexed_at,
-                      updated_at = EXCLUDED.updated_at
-                    """,
-                    params,
-                )
+            get_kotoba_client().insert_row("vertex_gov_actor_manifest", params)
             return uri
         if collection == "com.etzhayyim.apps.states.govOrgSiteDep":
             path = str(record.get("path") or "")
@@ -250,21 +236,7 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
                 "owner_did": repo,
                 "sensitivity_ord": 2,
             }
-            with sync_cursor() as cur:
-                cur.execute(
-                    """
-                    INSERT INTO edge_gov_org_site_dependency
-                      (edge_id,record_key,from_vertex_id,to_vertex_id,path,site_nanoid,site_topic_did,site_did,value_json,indexed_at,created_at,updated_at,actor_did,org_did,owner_did,sensitivity_ord)
-                    VALUES (%(edge_id)s,%(record_key)s,%(from_vertex_id)s,%(to_vertex_id)s,%(path)s,%(site_nanoid)s,%(site_topic_did)s,%(site_did)s,%(value_json)s,%(indexed_at)s,%(created_at)s,%(updated_at)s,%(actor_did)s,%(org_did)s,%(owner_did)s,%(sensitivity_ord)s)
-                    ON CONFLICT (edge_id) DO UPDATE SET
-                      value_json = EXCLUDED.value_json,
-                      indexed_at = EXCLUDED.indexed_at,
-                      updated_at = EXCLUDED.updated_at,
-                      site_did = EXCLUDED.site_did,
-                      to_vertex_id = EXCLUDED.to_vertex_id
-                    """,
-                    params,
-                )
+            get_kotoba_client().insert_row("edge_gov_org_site_dependency", params)
             return uri
         raise ValueError(f"unsupported gov collection: {collection!r}")
     params = {
@@ -285,28 +257,7 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
         "owner_did": repo,
         "sensitivity_ord": 2,
     }
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_gov_record (
-              vertex_id, record_kind, record_key, label, status, value_json,
-              indexed_at, created_at, updated_at, org_id, user_id, actor_id,
-              actor_did, org_did, owner_did, sensitivity_ord
-            )
-            VALUES (
-              %(vertex_id)s, %(record_kind)s, %(record_key)s, %(label)s, %(status)s,
-              %(value_json)s, %(indexed_at)s, %(created_at)s, %(updated_at)s,
-              %(org_id)s, %(user_id)s, %(actor_id)s, %(actor_did)s, %(org_did)s,
-              %(owner_did)s, %(sensitivity_ord)s
-            )
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              value_json = EXCLUDED.value_json,
-              indexed_at = EXCLUDED.indexed_at,
-              updated_at = EXCLUDED.updated_at,
-              status = EXCLUDED.status
-            """,
-            params,
-        )
+    get_kotoba_client().insert_row("vertex_gov_record", params)
     return uri
 
 
@@ -335,27 +286,7 @@ def _upsert_gov_org(row: dict[str, Any]) -> None:
         "created_at": str(row.get("created_at") or now),
         "props": json.dumps(row.get("props") or {}, separators=(",", ":"), ensure_ascii=False),
     }
-    with sync_cursor() as cur:
-        cur.execute("DELETE FROM vertex_gov_org WHERE vertex_id = %(vertex_id)s", params)
-        cur.execute(
-            """
-            INSERT INTO vertex_gov_org (
-              vertex_id, sensitivity_ord, owner_did, path, name, name_en,
-              website, contract, tags, domain_code, org_tier, site_domain_slug,
-              site_followed, did_registered, last_ingested_at, last_content_hash,
-              last_kyumei_at, last_shinka_at, created_at, props
-            )
-            VALUES (
-              %(vertex_id)s, %(sensitivity_ord)s, %(owner_did)s, %(path)s,
-              %(name)s, %(name_en)s, %(website)s, %(contract)s, %(tags)s,
-              %(domain_code)s, %(org_tier)s, %(site_domain_slug)s,
-              %(site_followed)s, %(did_registered)s, %(last_ingested_at)s,
-              %(last_content_hash)s, %(last_kyumei_at)s, %(last_shinka_at)s,
-              %(created_at)s, %(props)s
-            )
-            """,
-            params,
-        )
+    get_kotoba_client().insert_row("vertex_gov_org", params)
 
 
 def _direct_fetch_hash(url: str, timeout: int = 10) -> tuple[str, str]:
@@ -386,38 +317,20 @@ def _update_gov_org_fields(path: str, fields: dict[str, str]) -> None:
     updates = {k: str(v) for k, v in fields.items() if k in allowed}
     if not path or not updates:
         return
-    set_sql = ", ".join(f"{key} = %({key})s" for key in updates)
     params: dict[str, Any] = {
+        "vertex_id": _vertex_id(path),
         "domain_code": DOMAIN_CODE,
         "owner_did": PRIMARY_DID,
         "path": path,
         **updates,
     }
-    with sync_cursor() as cur:
-        cur.execute(
-            (
-                f"UPDATE vertex_gov_org SET {set_sql} "
-                "WHERE domain_code = %(domain_code)s AND owner_did = %(owner_did)s AND path = %(path)s"
-            ),
-            params,
-        )
+    # R0: UPSERT based on vertex_id
+    get_kotoba_client().insert_row("vertex_gov_org", params)
 
 
 def _get_org(path: str) -> dict[str, Any] | None:
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT path, name, name_en, website, contract, tags, org_tier,
-                   site_domain_slug, site_followed, did_registered,
-                   last_ingested_at, last_content_hash, last_kyumei_at,
-                   last_shinka_at, created_at
-              FROM vertex_gov_org
-             WHERE domain_code = %s AND owner_did = %s AND path = %s
-             LIMIT 1
-            """,
-            (DOMAIN_CODE, PRIMARY_DID, path),
-        )
-        row = cur.fetchone()
+    row = get_kotoba_client().select_first_where("vertex_gov_org", "vertex_id", _vertex_id(path))
+    # R0: using vertex_id directly instead of domain_code/owner_did/path
     if not row:
         return None
     keys = [
@@ -426,20 +339,14 @@ def _get_org(path: str) -> dict[str, Any] | None:
         "last_ingested_at", "last_content_hash", "last_kyumei_at",
         "last_shinka_at", "created_at",
     ]
-    return dict(zip(keys, row))
+    return {k: row.get(k) for k in keys}
 
 
 def task_gov_yem_seed_orgs(limit: int = 30) -> dict[str, Any]:
     limit = max(1, min(int(limit or 30), 100))
-    with sync_cursor() as cur:
-        cur.execute(
-            (
-                "SELECT path FROM vertex_gov_org "
-                "WHERE domain_code = %s AND owner_did = %s AND name_en != '' LIMIT 10000"
-            ),
-            (DOMAIN_CODE, PRIMARY_DID),
-        )
-        existing = {str(r[0]) for r in cur.fetchall()}
+    all_rows = get_kotoba_client().select_where("vertex_gov_org", "domain_code", DOMAIN_CODE, limit=10000)
+    # R0: in-Python filter for owner_did and name_en
+    existing = {str(r.get("path")) for r in all_rows if r.get("owner_did") == PRIMARY_DID and r.get("name_en")}
     pending = [row for row in _load_seed_orgs() if row["path"] not in existing]
     written = 0
     for row in pending[:limit]:
@@ -467,36 +374,30 @@ def task_gov_yem_list_orgs(orgTier: str = "", offset: int = 0, limit: int = 50) 
     org_tier = str(orgTier or "").strip()
     offset = max(0, int(offset or 0))
     limit = max(1, min(int(limit or 50), 100))
-    params: list[Any] = [DOMAIN_CODE, PRIMARY_DID]
-    where = "domain_code = %s AND owner_did = %s AND name_en != ''"
+
+    all_rows = get_kotoba_client().select_where("vertex_gov_org", "domain_code", DOMAIN_CODE, limit=2000)
+    # R0: in-Python filter, sort, and pagination
+    filtered = [
+        r for r in all_rows
+        if r.get("owner_did") == PRIMARY_DID and r.get("name_en")
+    ]
     if org_tier:
-        where += " AND org_tier = %s"
-        params.append(org_tier)
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT COUNT(*) FROM vertex_gov_org WHERE {where}", tuple(params))
-        total = int((cur.fetchone() or [0])[0] or 0)
-        cur.execute(
-            f"""
-            SELECT path, name, name_en, website, did_registered
-              FROM vertex_gov_org
-             WHERE {where}
-             ORDER BY path
-             LIMIT {limit} OFFSET {offset}
-            """,
-            tuple(params),
-        )
-        rows = cur.fetchall()
+        filtered = [r for r in filtered if str(r.get("org_tier") or "") == org_tier]
+    filtered.sort(key=lambda x: str(x.get("path") or ""))
+    total = len(filtered)
+    page_rows = filtered[offset : offset + limit]
+
     return {
         "orgs": [
             {
-                "path": str(r[0] or ""),
-                "did": f"{PRIMARY_DID}:{str(r[0] or '')}",
-                "name": str(r[1] or ""),
-                "nameEn": str(r[2] or ""),
-                "website": str(r[3] or ""),
-                "didRegistered": str(r[4] or "") == "true",
+                "path": str(r.get("path") or ""),
+                "did": f"{PRIMARY_DID}:{str(r.get('path') or '')}",
+                "name": str(r.get("name") or ""),
+                "nameEn": str(r.get("name_en") or ""),
+                "website": str(r.get("website") or ""),
+                "didRegistered": str(r.get("did_registered") or "") == "true",
             }
-            for r in rows
+            for r in page_rows
         ],
         "total": total,
     }
@@ -504,38 +405,39 @@ def task_gov_yem_list_orgs(orgTier: str = "", offset: int = 0, limit: int = 50) 
 
 async def task_gov_yem_register_dids(limit: int = 10) -> dict[str, Any]:
     limit = max(1, min(int(limit or 10), 50))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT path, name, name_en, website, contract, tags, org_tier,
-                   site_domain_slug, site_followed, last_ingested_at,
-                   last_content_hash, last_kyumei_at, last_shinka_at, created_at
-              FROM vertex_gov_org
-             WHERE domain_code = %s AND owner_did = %s AND name_en != '' AND did_registered != 'true'
-             ORDER BY path
-             LIMIT {limit}
-            """,
-            (DOMAIN_CODE, PRIMARY_DID),
-        )
-        rows = cur.fetchall()
+    all_rows = get_kotoba_client().select_where("vertex_gov_org", "domain_code", DOMAIN_CODE, limit=2000)
+    # R0: in-Python filter for register_dids
+    filtered = [
+        r for r in all_rows
+        if r.get("owner_did") == PRIMARY_DID
+        and r.get("name_en")
+        and str(r.get("did_registered") or "") != "true"
+    ]
+    filtered.sort(key=lambda x: str(x.get("path") or ""))
+    page_rows = filtered[:limit]
+
     registered: list[str] = []
     pds_results: list[dict[str, Any]] = []
-    for r in rows:
+    for r in page_rows:
+        try:
+            tags_parsed = json.loads(str(r.get("tags") or "[]"))
+        except Exception:
+            tags_parsed = []
         row = {
-            "path": str(r[0] or ""),
-            "name": str(r[1] or ""),
-            "name_en": str(r[2] or ""),
-            "website": str(r[3] or ""),
-            "contract": str(r[4] or ""),
-            "tags": json.loads(str(r[5] or "[]")),
-            "org_tier": str(r[6] or ""),
-            "site_domain_slug": str(r[7] or ""),
-            "site_followed": str(r[8] or "false"),
-            "last_ingested_at": str(r[9] or ""),
-            "last_content_hash": str(r[10] or ""),
-            "last_kyumei_at": str(r[11] or ""),
-            "last_shinka_at": str(r[12] or ""),
-            "created_at": str(r[13] or _utc_now_iso()),
+            "path": str(r.get("path") or ""),
+            "name": str(r.get("name") or ""),
+            "name_en": str(r.get("name_en") or ""),
+            "website": str(r.get("website") or ""),
+            "contract": str(r.get("contract") or ""),
+            "tags": tags_parsed,
+            "org_tier": str(r.get("org_tier") or ""),
+            "site_domain_slug": str(r.get("site_domain_slug") or ""),
+            "site_followed": str(r.get("site_followed") or "false"),
+            "last_ingested_at": str(r.get("last_ingested_at") or ""),
+            "last_content_hash": str(r.get("last_content_hash") or ""),
+            "last_kyumei_at": str(r.get("last_kyumei_at") or ""),
+            "last_shinka_at": str(r.get("last_shinka_at") or ""),
+            "created_at": str(r.get("created_at") or _utc_now_iso()),
             "did_registered": "true",
         }
         path = row["path"]
@@ -607,43 +509,41 @@ async def task_gov_yem_register_dids(limit: int = 10) -> dict[str, Any]:
 async def task_gov_yem_follow_site_deps(limit: int = 15) -> dict[str, Any]:
     limit = max(1, min(int(limit or 15), 50))
     followed = 0
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT path, name, name_en, website, contract, tags, org_tier,
-                   site_domain_slug, did_registered, last_ingested_at,
-                   last_content_hash, last_kyumei_at, last_shinka_at, created_at
-              FROM vertex_gov_org
-             WHERE domain_code = %s
-               AND owner_did = %s
-               AND site_followed != 'true'
-               AND site_domain_slug != ''
-             ORDER BY path
-             LIMIT {limit}
-            """,
-            (DOMAIN_CODE, PRIMARY_DID),
-        )
-        rows = cur.fetchall()
-    for r in rows:
-        path = str(r[0] or "")
-        slug = str(r[7] or "")
+    all_rows = get_kotoba_client().select_where("vertex_gov_org", "domain_code", DOMAIN_CODE, limit=2000)
+    # R0: in-Python filter for follow_site_deps
+    filtered = [
+        r for r in all_rows
+        if r.get("owner_did") == PRIMARY_DID
+        and str(r.get("site_followed") or "") != "true"
+        and r.get("site_domain_slug")
+    ]
+    filtered.sort(key=lambda x: str(x.get("path") or ""))
+    page_rows = filtered[:limit]
+
+    for r in page_rows:
+        path = str(r.get("path") or "")
+        slug = str(r.get("site_domain_slug") or "")
         await _pds_xrpc("app.bsky.graph.follow", {"did": f"did:web:site.etzhayyim.com:{slug}"})
+        try:
+            tags_parsed = json.loads(str(r.get("tags") or "[]"))
+        except Exception:
+            tags_parsed = []
         row = {
             "path": path,
-            "name": str(r[1] or ""),
-            "name_en": str(r[2] or ""),
-            "website": str(r[3] or ""),
-            "contract": str(r[4] or ""),
-            "tags": json.loads(str(r[5] or "[]")),
-            "org_tier": str(r[6] or ""),
+            "name": str(r.get("name") or ""),
+            "name_en": str(r.get("name_en") or ""),
+            "website": str(r.get("website") or ""),
+            "contract": str(r.get("contract") or ""),
+            "tags": tags_parsed,
+            "org_tier": str(r.get("org_tier") or ""),
             "site_domain_slug": slug,
             "site_followed": "true",
-            "did_registered": str(r[8] or "false"),
-            "last_ingested_at": str(r[9] or ""),
-            "last_content_hash": str(r[10] or ""),
-            "last_kyumei_at": str(r[11] or ""),
-            "last_shinka_at": str(r[12] or ""),
-            "created_at": str(r[13] or _utc_now_iso()),
+            "did_registered": str(r.get("did_registered") or "false"),
+            "last_ingested_at": str(r.get("last_ingested_at") or ""),
+            "last_content_hash": str(r.get("last_content_hash") or ""),
+            "last_kyumei_at": str(r.get("last_kyumei_at") or ""),
+            "last_shinka_at": str(r.get("last_shinka_at") or ""),
+            "created_at": str(r.get("created_at") or _utc_now_iso()),
         }
         _insert_repo_record(
             f"{PRIMARY_DID}:{path}",
@@ -667,50 +567,38 @@ async def task_gov_yem_sync_wet_updates(limit: int = 10, postUpdates: bool = Tru
     limit = max(1, min(int(limit or 10), 50))
     cutoff = (_dt.datetime.now(tz=_dt.UTC) - _dt.timedelta(days=7)).replace(microsecond=0)
     cutoff_iso = cutoff.isoformat().replace("+00:00", "Z")
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT path, name_en, website, site_domain_slug, last_content_hash
-              FROM vertex_gov_org
-             WHERE domain_code = %s
-               AND owner_did = %s
-               AND site_domain_slug != ''
-               AND (
-                 last_ingested_at = ''
-                 OR last_ingested_at IS NULL
-                 OR last_ingested_at < %s
-               )
-             ORDER BY last_ingested_at ASC
-             LIMIT {limit}
-            """,
-            (DOMAIN_CODE, PRIMARY_DID, cutoff_iso),
-        )
-        rows = cur.fetchall()
+
+    all_rows = get_kotoba_client().select_where("vertex_gov_org", "domain_code", DOMAIN_CODE, limit=2000)
+    # R0: in-Python filter for sync_wet_updates
+    filtered = []
+    for r in all_rows:
+        if r.get("owner_did") != PRIMARY_DID or not r.get("site_domain_slug"):
+            continue
+        last_ingested_at = str(r.get("last_ingested_at") or "")
+        if not last_ingested_at or last_ingested_at < cutoff_iso:
+            filtered.append(r)
+    filtered.sort(key=lambda x: str(x.get("last_ingested_at") or ""))
+    page_rows = filtered[:limit]
+
     checked = 0
     updated = 0
     posted = 0
     now = _utc_now_iso()
-    for r in rows:
-        path = str(r[0] or "")
-        name_en = str(r[1] or "")
-        website = str(r[2] or "")
-        slug = str(r[3] or "")
-        last_hash = str(r[4] or "")
+    for r in page_rows:
+        path = str(r.get("path") or "")
+        name_en = str(r.get("name_en") or "")
+        website = str(r.get("website") or "")
+        slug = str(r.get("site_domain_slug") or "")
+        last_hash = str(r.get("last_content_hash") or "")
         if not path or not slug:
             continue
         checked += 1
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT markdown, content_hash
-                  FROM vertex_wet_chunk
-                 WHERE domain = %s
-                 ORDER BY crawled_at DESC
-                 LIMIT 1
-                """,
-                (slug,),
-            )
-            wet = cur.fetchone()
+
+        # R0: in-Python sort for latest chunk
+        wet_rows = get_kotoba_client().select_where("vertex_wet_chunk", "domain", slug, limit=50)
+        wet_rows.sort(key=lambda x: str(x.get("crawled_at") or ""), reverse=True)
+        wet = wet_rows[0] if wet_rows else None
+
         if not wet:
             fetch_hash, fetch_text = _direct_fetch_hash(website)
             if fetch_hash:
@@ -733,8 +621,8 @@ async def task_gov_yem_sync_wet_updates(limit: int = 10, postUpdates: bool = Tru
             else:
                 _update_gov_org_fields(path, {"last_ingested_at": now})
             continue
-        markdown = str(wet[0] or "")
-        content_hash = str(wet[1] or "")
+        markdown = str(wet.get("markdown") or "")
+        content_hash = str(wet.get("content_hash") or "")
         fields = {"last_ingested_at": now}
         if content_hash:
             fields["last_content_hash"] = content_hash
@@ -763,25 +651,21 @@ async def task_gov_yem_sync_wet_updates(limit: int = 10, postUpdates: bool = Tru
 
 async def task_gov_yem_shinka(limit: int = 1, postUpdates: bool = True) -> dict[str, Any]:
     limit = max(1, min(int(limit or 1), 5))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT path, name_en
-              FROM vertex_gov_org
-             WHERE domain_code = %s
-               AND owner_did = %s
-               AND did_registered = 'true'
-             ORDER BY last_shinka_at ASC
-             LIMIT {limit}
-            """,
-            (DOMAIN_CODE, PRIMARY_DID),
-        )
-        rows = cur.fetchall()
+    all_rows = get_kotoba_client().select_where("vertex_gov_org", "domain_code", DOMAIN_CODE, limit=2000)
+    # R0: in-Python filter for shinka
+    filtered = [
+        r for r in all_rows
+        if r.get("owner_did") == PRIMARY_DID
+        and str(r.get("did_registered") or "") == "true"
+    ]
+    filtered.sort(key=lambda x: str(x.get("last_shinka_at") or ""))
+    page_rows = filtered[:limit]
+
     posted = 0
     now = _utc_now_iso()
-    for r in rows:
-        path = str(r[0] or "")
-        name_en = str(r[1] or "")
+    for r in page_rows:
+        path = str(r.get("path") or "")
+        name_en = str(r.get("name_en") or "")
         if not path:
             continue
         org_did = f"{PRIMARY_DID}:{path}"
@@ -801,7 +685,7 @@ async def task_gov_yem_shinka(limit: int = 1, postUpdates: bool = True) -> dict[
             },
         )
         _update_gov_org_fields(path, {"last_shinka_at": now})
-    return {"ok": True, "posted": posted, "touched": len(rows)}
+    return {"ok": True, "posted": posted, "touched": len(page_rows)}
 
 
 async def task_gov_yem_heartbeat_tick(

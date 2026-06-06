@@ -18,8 +18,9 @@ import math
 import os
 import random
 from typing import Any
+from datetime import datetime, timezone # Added for kotoba client
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.pydantic_job import ZeebeJobInput
 from pymagatama.langserver_compat import LangServerJob as Job, LangServerWorker
 
@@ -66,17 +67,21 @@ def task_belief_noise_inject(
         mean_abs_xi:      平均 |ξ| (ノイズ振幅の監視指標)
         max_abs_xi:       最大 |ξ|
     """
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT agent_did
-            FROM mv_attractor_stability_by_agent
-            WHERE scored_events >= {int(min_scored_events)}
-              AND mean_score_total IS NOT NULL
-            ORDER BY agent_did
-            """
-        )
-        agents = [row[0] for row in cur.fetchall()]
+    client = get_kotoba_client()
+    # R0: Multi-predicate SELECT with ORDER BY, using q() for Datomic.
+    # Datomic query for mv_attractor_stability_by_agent where scored_events >= min_scored_events and mean_score_total is not nil.
+    query_agents = """
+    [:find ?agent_did
+     :in $ ?min_scored_events_val
+     :where
+       [?e :mv_attractor_stability_by_agent/agent_did ?agent_did]
+       [?e :mv_attractor_stability_by_agent/scored_events ?scored_events]
+       [(>= ?scored_events ?min_scored_events_val)]
+       [?e :mv_attractor_stability_by_agent/mean_score_total ?mean_score_total]
+       [(not= ?mean_score_total nil)]]
+    """
+    results_agents = client.q(query_agents, (int(min_scored_events),))
+    agents = sorted([row[0] for row in results_agents]) # Order by agent_did in Python
 
     if not agents:
         LOG.info("noise_inject: no agents with sufficient scored events")
@@ -91,15 +96,17 @@ def task_belief_noise_inject(
     did_list = ",".join(f"'{d}'" for d in agents)
 
     # 既存 OU 状態を取得
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT agent_did, xi_value
-            FROM vertex_belief_noise
-            WHERE agent_did IN ({did_list})
-            """
-        )
-        existing = {row[0]: float(row[1]) for row in cur.fetchall()}
+    # R0: SELECT ... WHERE IN (...), using q() for Datomic
+    query_existing = """
+    [:find ?agent_did ?xi_value
+     :in $ [?agent_did_in ...]
+     :where
+       [?e :vertex_belief_noise/agent_did ?agent_did]
+       [(contains? ?agent_did_in ?agent_did)]
+       [?e :vertex_belief_noise/xi_value ?xi_value]]
+    """
+    results_existing = client.q(query_existing, (agents,))
+    existing = {row[0]: float(row[1]) for row in results_existing}
 
     tick_ms = _tick_ms()
     now_iso = _now_iso()
@@ -108,33 +115,31 @@ def task_belief_noise_inject(
     exp_decay = math.exp(-ou_theta * dt_sec)
     noise_std = sigma * math.sqrt(max(0.0, 1.0 - exp_decay ** 2))
 
-    rows: list[tuple] = []
+    rows: list[dict[str, Any]] = []
     for agent_did in agents:
         xi_prev = existing.get(agent_did, 0.0)
         xi_new = xi_prev * exp_decay + noise_std * random.gauss(0.0, 1.0)
         vertex_id = f"wb:noise:{agent_did}"
-        rows.append((vertex_id, agent_did, tick_ms, xi_new, sigma, ou_theta, now_iso))
+        rows.append({
+            "vertex_id": vertex_id,
+            "agent_did": agent_did,
+            "tick_ms": tick_ms,
+            "xi_value": xi_new,
+            "sigma": sigma,
+            "ou_theta": ou_theta,
+            "created_at": _dt.datetime.now(tz=_dt.UTC), # Use datetime object
+            "sensitivity_ord": 1,
+            "org_id": "",
+            "user_id": "",
+            "actor_id": "sys.bpmn.wellbecoming",
+        })
 
-    # delete-then-insert (RisingWave は ON CONFLICT 非対応)
-    with sync_cursor() as cur:
-        vid_list = ",".join(f"'{r[0]}'" for r in rows)
-        cur.execute(
-            f"DELETE FROM vertex_belief_noise WHERE vertex_id IN ({vid_list})"
-        )
-        for row in rows:
-            cur.execute(
-                """
-                INSERT INTO vertex_belief_noise
-                  (vertex_id, agent_did, tick_ms, xi_value, sigma, ou_theta,
-                   created_at, sensitivity_ord, org_id, user_id, actor_id)
-                VALUES (%s, %s, %s, %s, %s, %s,
-                        %s::timestamp,
-                        1, '', '', 'sys.bpmn.wellbecoming')
-                """,
-                row,
-            )
+    # Idempotent upsert (kotoba Datom log handles upsert via insert_row)
+    client = get_kotoba_client()
+    for row_dict in rows:
+        client.insert_row("vertex_belief_noise", row_dict)
 
-    abs_xis = [abs(r[3]) for r in rows]
+    abs_xis = [abs(r["xi_value"]) for r in rows]
     mean_abs = sum(abs_xis) / len(abs_xis) if abs_xis else 0.0
     max_abs = max(abs_xis) if abs_xis else 0.0
 

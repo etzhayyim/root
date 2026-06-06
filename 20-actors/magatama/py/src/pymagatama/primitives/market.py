@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 PRIMARY_DID = "did:web:market.etzhayyim.com"
@@ -53,9 +53,7 @@ def _jsonable(v: Any) -> Any:
     return v
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
-    return [{cols[i]: _jsonable(row[i]) for i in range(len(cols))} for row in cur.fetchall()]
+
 
 
 def _lane(v: Any) -> str | None:
@@ -89,16 +87,17 @@ def _anchor(issuer_did: str, lxm: str, quantity: float, unit_price: float, verte
 def task_market_list_offer(lane: Any = "", status: Any = "active", limit: Any = 50, offset: Any = 0, **_: Any) -> dict[str, Any]:
     limit_i = max(1, min(int(_num(limit, 50)), 200))
     offset_i = max(0, int(_num(offset, 0)))
-    params: list[Any] = [_str(status) or "active"]
-    where = "WHERE status = %s"
-    lane_s = _lane(lane)
-    if lane_s:
-        where += " AND lane = %s"
-        params.append(lane_s)
-    params.extend([limit_i, offset_i])
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT * FROM vertex_market_listing {where} ORDER BY published_at DESC LIMIT %s OFFSET %s", tuple(params))
-        rows = _rows(cur)
+
+    client = get_kotoba_client()
+    # R0: Multi-predicate WHERE and ORDER BY are applied in Python.
+    listings_raw = client.select_where("vertex_market_listing", "status", _str(status) or "active")
+    rows = []
+    for listing in listings_raw:
+        if lane_s and listing.get("lane") != lane_s:
+            continue
+        rows.append(listing)
+    rows.sort(key=lambda x: x.get("published_at") or "", reverse=True)
+    rows = rows[offset_i : offset_i + limit_i]
     return {"listings": rows, "offers": rows, "limit": limit_i, "offset": offset_i}
 
 
@@ -123,25 +122,37 @@ def task_market_publish_offer(**body: Any) -> dict[str, Any]:
     vertex_id = f"at://{PRIMARY_DID}/com.etzhayyim.market.listing/{listing_id}"
     issuer_did = _str(body.get("issuerDid")) or _str(body.get("issuer_did")) or f"did:erc725:etzhayyim:260425:{lane}"
     currency = _str(body.get("settlementCurrency")) or _str(body.get("settlement_currency")) or _str(body.get("currency")) or "JPY"
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_market_listing
-              (vertex_id,created_date,sensitivity_ord,owner_did,listing_id,lane,issuer_did,title,description,
-               price_unit,settlement_currency,min_quantity,max_quantity,terms_uri,status,mokuteki_floor_pass,
-               spirit_separation_delta,published_at,created_at,org_id,user_id,actor_id,actor_did,org_did,
-               at_did,quantity,currency)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, now[:10], 1, PRIMARY_DID, listing_id, lane, issuer_did, title,
-                _str(body.get("description")), price_unit, currency, _num(body.get("minQuantity"), 0.0),
-                _num(body.get("maxQuantity"), quantity), _str(body.get("termsUri")) or None, "active",
-                bool(gate["floorPass"]), float(gate["spiritSeparationDelta"]), now, now,
-                _str(body.get("org_id")) or PRIMARY_DID, actor_did, APP_ID, actor_did, _str(body.get("org_did")) or "anon",
-                _str(body.get("at_did")) or None, quantity, currency,
-            ),
-        )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": now[:10],
+        "sensitivity_ord": 1,
+        "owner_did": PRIMARY_DID,
+        "listing_id": listing_id,
+        "lane": lane,
+        "issuer_did": issuer_did,
+        "title": title,
+        "description": _str(body.get("description")),
+        "price_unit": price_unit,
+        "settlement_currency": currency,
+        "min_quantity": _num(body.get("minQuantity"), 0.0),
+        "max_quantity": _num(body.get("maxQuantity"), quantity),
+        "terms_uri": _str(body.get("termsUri")) or None,
+        "status": "active",
+        "mokuteki_floor_pass": bool(gate["floorPass"]),
+        "spirit_separation_delta": float(gate["spiritSeparationDelta"]),
+        "published_at": now,
+        "created_at": now,
+        "org_id": _str(body.get("org_id")) or PRIMARY_DID,
+        "user_id": actor_did,
+        "actor_id": APP_ID,
+        "actor_did": actor_did,
+        "org_did": _str(body.get("org_did")) or "anon",
+        "at_did": _str(body.get("at_did")) or None,
+        "quantity": quantity,
+        "currency": currency,
+    }
+    client.insert_row("vertex_market_listing", row_dict)
     return {
         "ok": True,
         "listingId": listing_id,
@@ -155,13 +166,17 @@ def task_market_publish_offer(**body: Any) -> dict[str, Any]:
 
 
 def _listing_by_id(listing_id: str) -> dict[str, Any] | None:
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT * FROM vertex_market_listing WHERE vertex_id = %s OR listing_id = %s LIMIT 1",
-            (listing_id, listing_id),
-        )
-        rows = _rows(cur)
-    return rows[0] if rows else None
+    # R0: Multi-predicate WHERE (OR) requires using the q() escape hatch.
+    client = get_kotoba_client()
+    query_edn = """
+    [:find (pull ?e [*])
+     :where
+       [?e :vertex_market_listing/vertex_id ?id]
+       [(or (= ?id $listing_id) (= ?e :vertex_market_listing/listing_id $listing_id))]
+    ]
+    """
+    rows = client.q(query_edn, args={"$listing_id": listing_id})
+    return rows[0][0] if rows else None
 
 
 def task_market_quote_price(listingId: Any = "", listing_vertex_id: Any = "", vertex_id: Any = "", quantity: Any = 1, **_: Any) -> dict[str, Any]:
@@ -222,24 +237,40 @@ def task_market_settle_invoice(**body: Any) -> dict[str, Any]:
     payer_did = _str(body.get("payerDid")) or _str(body.get("payer_did")) or actor_did
     settlement_currency = _str(listing.get("settlement_currency")) or "USDC"
     anchor = _anchor(issuer_did, "com.etzhayyim.market.settleInvoice", quantity, unit_price, vertex_id, now)
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_market_settlement
-              (vertex_id,created_date,sensitivity_ord,owner_did,invoice_id,listing_id,lane,issuer_did,payer_did,lxm,
-               quantity,unit_price,total_price,settlement_currency,settlement_tx_hash,mokuteki_floor_pass,status,memo,
-               enqueued_at,mined_at,created_at,org_id,user_id,actor_id,actor_did,org_did,
-               at_did,listing_vertex_id,currency,settled_at)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, now[:10], 1, PRIMARY_DID, invoice_id, str(listing.get("listing_id") or listing_key),
-                lane, issuer_did, payer_did, "com.etzhayyim.market.settleInvoice", quantity, unit_price, total_price,
-                settlement_currency, anchor, True, "pending", _str(body.get("memo")) or None, now, None, now,
-                PRIMARY_DID, actor_did, "com.etzhayyim.market.settleInvoice", actor_did, _str(body.get("org_did")) or "anon",
-                _str(body.get("at_did")) or None, listing.get("vertex_id"), settlement_currency, None,
-            ),
-        )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": now[:10],
+        "sensitivity_ord": 1,
+        "owner_did": PRIMARY_DID,
+        "invoice_id": invoice_id,
+        "listing_id": str(listing.get("listing_id") or listing_key),
+        "lane": lane,
+        "issuer_did": issuer_did,
+        "payer_did": payer_did,
+        "lxm": "com.etzhayyim.market.settleInvoice",
+        "quantity": quantity,
+        "unit_price": unit_price,
+        "total_price": total_price,
+        "settlement_currency": settlement_currency,
+        "settlement_tx_hash": anchor,
+        "mokuteki_floor_pass": True,
+        "status": "pending",
+        "memo": _str(body.get("memo")) or None,
+        "enqueued_at": now,
+        "mined_at": None,
+        "created_at": now,
+        "org_id": PRIMARY_DID,
+        "user_id": actor_did,
+        "actor_id": "com.etzhayyim.market.settleInvoice",
+        "actor_did": actor_did,
+        "org_did": _str(body.get("org_did")) or "anon",
+        "at_did": _str(body.get("at_did")) or None,
+        "listing_vertex_id": listing.get("vertex_id"),
+        "currency": settlement_currency,
+        "settled_at": None,
+    }
+    client.insert_row("vertex_market_settlement", row_dict)
     return {
         "ok": True,
         "invoiceId": invoice_id,
@@ -265,37 +296,36 @@ def task_market_observe_demand(**body: Any) -> dict[str, Any]:
     now = _now()
     observed_at = _str(body.get("observed_at")) or _str(body.get("observedAt")) or now
     vertex_id = f"at://{PRIMARY_DID}/com.etzhayyim.market.demandSignal/{_rkey()}"
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_market_demand_signal
-              (vertex_id,created_date,sensitivity_ord,owner_did,signal_kind,lane,demand_hash,magnitude,
-               observed_at,created_at,org_id,user_id,actor_id,actor_did,org_did,description,at_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, observed_at[:10], 1, PRIMARY_DID, signal_kind, lane,
-                _str(body.get("demand_hash")) or _str(body.get("demandHash")) or "",
-                _num(body.get("magnitude"), 1.0), observed_at, now, PRIMARY_DID, actor_did,
-                "com.etzhayyim.market.observeDemand", actor_did, _str(body.get("org_did")) or "anon",
-                _str(body.get("description")), _str(body.get("at_did")) or None,
-            ),
-        )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": observed_at[:10],
+        "sensitivity_ord": 1,
+        "owner_did": PRIMARY_DID,
+        "signal_kind": signal_kind,
+        "lane": lane,
+        "demand_hash": _str(body.get("demand_hash")) or _str(body.get("demandHash")) or "",
+        "magnitude": _num(body.get("magnitude"), 1.0),
+        "observed_at": observed_at,
+        "created_at": now,
+        "org_id": PRIMARY_DID,
+        "user_id": actor_did,
+        "actor_id": "com.etzhayyim.market.observeDemand",
+        "actor_did": actor_did,
+        "org_did": _str(body.get("org_did")) or "anon",
+        "description": _str(body.get("description")),
+        "at_did": _str(body.get("at_did")) or None,
+    }
+    client.insert_row("vertex_market_demand_signal", row_dict)
     return {"ok": True, "vertexId": vertex_id, "vertex_id": vertex_id, "lane": lane, "signal_kind": signal_kind}
 
 
 def task_market_well_known(**_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT lane,issuer_did,title,description,price_unit,settlement_currency,min_quantity,max_quantity,published_at
-            FROM vertex_market_listing
-            WHERE status = 'active' AND mokuteki_floor_pass = TRUE
-            """
-        )
-        listings = _rows(cur)
-        cur.execute("SELECT lane,demand_total,supply_settled,vacuum_score FROM mv_market_vacuum_score")
-        vacuum = _rows(cur)
+    client = get_kotoba_client()
+    # R0: Multi-predicate WHERE is applied in Python.
+    listings_raw = client.select_where("vertex_market_listing", "status", "active")
+    listings = [l for l in listings_raw if l.get("mokuteki_floor_pass") is True]
+    vacuum = client.select_where("mv_market_vacuum_score", None, None)
     vacuum_by_lane: dict[str, dict[str, float]] = {}
     for v in vacuum:
         lane = str(v.get("lane") or "")
@@ -349,6 +379,10 @@ def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
         "xrpc.com.etzhayyim.market.quotePrice": task_market_quote_price,
         "xrpc.com.etzhayyim.market.settleInvoice": task_market_settle_invoice,
         "xrpc.com.etzhayyim.market.wellKnownMarket": task_market_well_known,
+    }
+    for task_type, handler in tasks.items():
+        worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)
+tzhayyim.market.wellKnownMarket": task_market_well_known,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

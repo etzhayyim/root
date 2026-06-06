@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import json
 import os
-import time
 import urllib.parse
 import urllib.request
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR_DID = "did:web:collector.etzhayyim.com"
 
@@ -70,7 +70,7 @@ TABLE_COLUMNS: dict[str, set[str]] = {
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
 
 
 def gen_id(prefix: str) -> str:
@@ -81,16 +81,10 @@ def _str(value: Any) -> str:
     return "" if value is None else str(value)
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall() or [])
+
+
 
 
 def _http_json(url: str, headers: dict[str, str] | None = None, timeout: int = 20) -> Any:
@@ -126,12 +120,7 @@ def _insert(table: str, rec: dict[str, Any]) -> None:
     allowed = TABLE_COLUMNS.get(table)
     if allowed:
         row = {k: v for k, v in row.items() if k in allowed}
-    cols = list(row.keys())
-    placeholders = ", ".join(["%s"] * len(cols))
-    _execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) SELECT {placeholders} WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE vertex_id = %s)",
-        tuple(row[c] for c in cols) + (row["vertex_id"],),
-    )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _snake(name: str) -> str:
@@ -297,7 +286,12 @@ def trigger_run(collector: str = "", target: str = "", **kwargs: Any) -> dict[st
 
 
 def get_dashboard(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all("SELECT metric, cnt FROM mv_collector_dashboard_counts", ())
+    # R0: `mv_collector_dashboard_counts` is a materialized view which doesn't directly map to Datomic entities.
+    # This Datalog query retrieves all facts for entities that have `mv_collector_dashboard_counts/metric` and `mv_collector_dashboard_counts/cnt` attributes.
+    # We then process these results in Python to recreate the original dictionary structure.
+    rows = get_kotoba_client().q(
+        '[:find ?metric ?cnt :where [?e :mv_collector_dashboard_counts/metric ?metric] [?e :mv_collector_dashboard_counts/cnt ?cnt]]'
+    )
     by_metric = {r[0]: int(r[1]) for r in rows}
     return {"ok": True, "collectorRuns": by_metric.get("collectorRuns", 0), "dnsObservations": by_metric.get("dnsObservations", 0), "btcAddresses": by_metric.get("btcAddresses", 0), "ethAddresses": by_metric.get("ethAddresses", 0), "scanResults": by_metric.get("scanResults", 0), "archiveSnapshots": by_metric.get("archiveSnapshots", 0)}
 
@@ -305,8 +299,20 @@ def get_dashboard(**_: Any) -> dict[str, Any]:
 def list_jobs(collector: str = "", limit: int = 50, offset: int = 0, **_: Any) -> dict[str, Any]:
     limit = min(int(limit or 50), 100)
     offset = max(int(offset or 0), 0)
+    # R0: Datalog handles filtering, but ORDER BY, LIMIT, OFFSET are applied in Python.
+    # We fetch all relevant runs and then apply Python's sorting and slicing for pagination.
+    query = '[:find ?run_id ?collector ?target ?status ?started_at ?finished_at :where [?e :vertex_collector_run/run_id ?run_id] [?e :vertex_collector_run/collector ?collector] [?e :vertex_collector_run/target ?target] [?e :vertex_collector_run/status ?status] [?e :vertex_collector_run/started_at ?started_at] [?e :vertex_collector_run/finished_at ?finished_at]]'
     if collector:
-        rows = _fetch_all("SELECT run_id, collector, target, status, started_at, finished_at FROM vertex_collector_run WHERE collector = %s ORDER BY started_at DESC LIMIT %s OFFSET %s", (collector, limit, offset))
-    else:
-        rows = _fetch_all("SELECT run_id, collector, target, status, started_at, finished_at FROM vertex_collector_run ORDER BY started_at DESC LIMIT %s OFFSET %s", (limit, offset))
-    return {"ok": True, "jobs": [dict(zip(["run_id", "collector", "target", "status", "started_at", "finished_at"], r)) for r in rows], "total": len(rows), "offset": offset, "limit": limit}
+        query = f'[:find ?run_id ?collector ?target ?status ?started_at ?finished_at :where [?e :vertex_collector_run/run_id ?run_id] [?e :vertex_collector_run/collector "{collector}"] [?e :vertex_collector_run/target ?target] [?e :vertex_collector_run/status ?status] [?e :vertex_collector_run/started_at ?started_at] [?e :vertex_collector_run/finished_at ?finished_at]]'
+
+    all_rows = get_kotoba_client().q(query)
+
+    # Sort by 'started_at' descending
+    all_rows.sort(key=lambda x: x[4], reverse=True) # x[4] corresponds to started_at
+
+    # Apply limit and offset
+    paginated_rows = all_rows[offset : offset + limit]
+
+    jobs = [dict(zip(["run_id", "collector", "target", "status", "started_at", "finished_at"], r)) for r in paginated_rows]
+
+    return {"ok": True, "jobs": jobs, "total": len(jobs), "offset": offset, "limit": limit}

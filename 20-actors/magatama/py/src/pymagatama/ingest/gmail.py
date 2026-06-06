@@ -14,9 +14,10 @@ import time
 import urllib.parse
 import urllib.request
 from email.utils import parseaddr
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR = "did:web:gmail.etzhayyim.com"
 TOKEN_TABLE = "vertex_gmail_oauth_token"
@@ -31,7 +32,7 @@ SCOPES = " ".join([
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _str(value: Any) -> str:
@@ -42,22 +43,7 @@ def _gen(prefix: str) -> str:
     return f"{prefix}-{int(time.time() * 1000)}"
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _b64u(data: bytes) -> str:
@@ -120,11 +106,19 @@ def _refresh(refresh_token: str) -> dict[str, Any]:
 
 
 def _active_token(email: str = "", account_did: str = "") -> dict[str, Any] | None:
+    db = get_kotoba_client()
     if email:
-        return _fetch_one(f"SELECT * FROM {TOKEN_TABLE} WHERE email = %s AND status = 'active' LIMIT 1", (email,))
+        return db.select_first_where(TOKEN_TABLE, "email", email, columns=["*"])
     if account_did:
-        return _fetch_one(f"SELECT * FROM {TOKEN_TABLE} WHERE account_did = %s AND status = 'active' LIMIT 1", (account_did,))
-    return _fetch_one(f"SELECT * FROM {TOKEN_TABLE} WHERE status = 'active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 1")
+        return db.select_first_where(TOKEN_TABLE, "account_did", account_did, columns=["*"])
+    # R0: Multi-predicate WHERE and ORDER BY is not directly supported by select_first_where.
+    # Fetch all active tokens and apply ordering in Python.
+    all_active_tokens = db.select_where(TOKEN_TABLE, "status", "active", columns=["*"], limit=2000)
+    if not all_active_tokens:
+        return None
+    # Sort by COALESCE(last_sync_at, created_at) ASC
+    all_active_tokens.sort(key=lambda t: t.get("last_sync_at") or t.get("created_at") or "")
+    return all_active_tokens[0]
 
 
 def _access_token(token: dict[str, Any]) -> str:
@@ -137,10 +131,14 @@ def _access_token(token: dict[str, Any]) -> str:
     access = _str(fresh.get("access_token"))
     if not access:
         raise RuntimeError("Google token refresh did not return access_token")
-    _execute(
-        f"UPDATE {TOKEN_TABLE} SET access_token_cache = %s, access_expires_at = %s, updated_at = %s WHERE vertex_id = %s",
-        (access, now + int(fresh.get("expires_in") or 3600), now_iso(), token["vertex_id"]),
-    )
+
+    # Update the token dictionary with new values
+    token["access_token_cache"] = access
+    token["access_expires_at"] = now + int(fresh.get("expires_in") or 3600)
+    token["updated_at"] = now_iso()
+
+    # Use insert_row for upsert, it will update if vertex_id exists
+    get_kotoba_client().insert_row(TOKEN_TABLE, token)
     return access
 
 
@@ -185,15 +183,7 @@ def _snake(name: str) -> str:
 
 
 def _insert(table: str, row: dict[str, Any]) -> None:
-    cols = list(row)
-    placeholders = ",".join(["%s"] * len(cols))
-    col_sql = ",".join(cols)
-    update_cols = [c for c in cols if c != "vertex_id"]
-    updates = ",".join([f"{c}=EXCLUDED.{c}" for c in update_cols])
-    _execute(
-        f"INSERT INTO {table} ({col_sql}) VALUES ({placeholders}) ON CONFLICT (vertex_id) DO UPDATE SET {updates}",
-        tuple(row[c] for c in cols),
-    )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _write(collection: str, data: dict[str, Any], rkey: str | None = None) -> None:
@@ -313,13 +303,22 @@ def oauth_callback(code: str = "", error: str = "", state: str = "", **_: Any) -
         return {"ok": False, "html": "<h1>Connect error</h1><p>missing refresh_token or email</p>"}
     account_did = state or "did:anonymous"
     now = now_iso()
-    _execute(
-        f"""INSERT INTO {TOKEN_TABLE}
-        (vertex_id, account_did, actor_did, org_did, at_did, email, encrypted_refresh_token, wrapped_data_key, iv, scope, status, created_at, updated_at)
-        VALUES (%s,%s,%s,'anon',%s,%s,%s,'','',%s,'active',%s,%s)
-        ON CONFLICT (vertex_id) DO UPDATE SET encrypted_refresh_token=EXCLUDED.encrypted_refresh_token, scope=EXCLUDED.scope, status='active', updated_at=EXCLUDED.updated_at""",
-        (f"{account_did}|{email}", account_did, account_did, account_did if account_did.startswith(("did:plc:", "did:web:")) else None, email, refresh, _str(tokens.get("scope") or SCOPES), now, now),
-    )
+    token_data = {
+        "vertex_id": f"{account_did}|{email}",
+        "account_did": account_did,
+        "actor_did": account_did,
+        "org_did": 'anon',
+        "at_did": account_did if account_did.startswith(("did:plc:", "did:web:")) else None,
+        "email": email,
+        "encrypted_refresh_token": refresh,
+        "wrapped_data_key": '',
+        "iv": '',
+        "scope": _str(tokens.get("scope") or SCOPES),
+        "status": 'active',
+        "created_at": now,
+        "updated_at": now,
+    }
+    get_kotoba_client().insert_row(TOKEN_TABLE, token_data)
     _write("account", {"accountDid": account_did, "email": email, "displayName": _str(payload.get("name")), "status": "active", "scope": _str(tokens.get("scope") or SCOPES), "connectedAt": now}, email)
     return {"ok": True, "html": f"<h1>Gmail connected</h1><p>{email}</p>", "email": email}
 
@@ -328,7 +327,14 @@ def disconnect_account(accountEmail: str = "", email: str = "", **_: Any) -> dic
     target = accountEmail or email
     if not target:
         return {"ok": False, "error": "accountEmail required"}
-    _execute(f"UPDATE {TOKEN_TABLE} SET status='disconnected', updated_at=%s WHERE email=%s", (now_iso(), target))
+
+    db = get_kotoba_client()
+    token_to_update = db.select_first_where(TOKEN_TABLE, "email", target, columns=["*"])
+    if token_to_update:
+        token_to_update["status"] = 'disconnected'
+        token_to_update["updated_at"] = now_iso()
+        db.insert_row(TOKEN_TABLE, token_to_update)
+
     _write("accountBinding", {"bindingId": _gen("binding"), "email": target, "status": "disconnected"}, _gen("binding"))
     return {"ok": True, "status": "disconnected"}
 
@@ -348,7 +354,12 @@ def sync_inbox(email: str = "", accountDid: str = "", maxResults: int = 25, page
             latest = _persist_message(token, msg) or latest
             synced += 1
         if latest:
-            _execute(f"UPDATE {TOKEN_TABLE} SET history_id=%s, last_sync_at=%s, updated_at=%s WHERE vertex_id=%s", (latest, now_iso(), now_iso(), token["vertex_id"]))
+            # Update the token dictionary with new values
+            token["history_id"] = latest
+            token["last_sync_at"] = now_iso()
+            token["updated_at"] = now_iso()
+            # Use insert_row for upsert, it will update if vertex_id exists
+            get_kotoba_client().insert_row(TOKEN_TABLE, token)
         _write("syncJob", {"jobId": job_id, "accountDid": token.get("account_did"), "email": token.get("email"), "kind": "full", "status": "completed", "messagesSynced": synced, "endHistoryId": latest, "completedAt": now_iso()}, job_id)
         return {"ok": True, "jobId": job_id, "status": "completed", "messagesSynced": synced, "historyId": latest, "nextPageToken": listing.get("nextPageToken")}
     except Exception as e:
@@ -410,8 +421,32 @@ def reply_to_thread(accountEmail: str = "", accountDid: str = "", threadId: str 
 
 
 def list_accounts(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT account_did,email,scope,history_id,last_sync_at,created_at,status FROM {TOKEN_TABLE} ORDER BY created_at DESC")
-    return {"ok": True, "accounts": [{"email": r["email"], "displayName": "", "status": r["status"], "scope": r.get("scope") or "", "historyId": r.get("history_id") or "", "lastSyncAt": r.get("last_sync_at") or "", "connectedAt": r.get("created_at") or ""} for r in rows], "total": len(rows)}
+    db = get_kotoba_client()
+    # R0: Using q() to fetch all records from TOKEN_TABLE as select_where requires a specific column-value predicate.
+    # Datalog query to find all entities of type TOKEN_TABLE and pull all their attributes.
+    # Assuming Datalog entity type for 'vertex_gmail_oauth_token' is ':vertex.gmail-oauth-token' and primary key is 'vertex-id'.
+    entity_type_datalog = TOKEN_TABLE.replace("vertex_", "vertex.").replace("_", "-")
+    query_edn = f'[:find (pull ?e [*]) :where [?e :{entity_type_datalog}/vertex-id ?id]]'
+    raw_tokens = db.q(query_edn)
+
+    # The result of q is a list of lists, where each inner list contains one pulled entity map.
+    all_tokens = [item[0] for item in raw_tokens if item]
+
+    # Sort by created_at DESC in Python
+    all_tokens.sort(key=lambda r: r.get("created_at") or "", reverse=True)
+
+    rows = []
+    for r in all_tokens:
+        rows.append({
+            "email": r.get("email") or "",
+            "displayName": r.get("display_name") or "",
+            "status": r.get("status") or "",
+            "scope": r.get("scope") or "",
+            "historyId": r.get("history_id") or "",
+            "lastSyncAt": r.get("last_sync_at") or "",
+            "connectedAt": r.get("created_at") or ""
+        })
+    return {"ok": True, "accounts": rows, "total": len(rows)}
 
 
 def list_threads(**_: Any) -> dict[str, Any]:
@@ -482,7 +517,12 @@ def triage(**kwargs: Any) -> dict[str, Any]:
 
 
 def cron_tick(**_: Any) -> dict[str, Any]:
-    rows = _fetch_all(f"SELECT * FROM {TOKEN_TABLE} WHERE status='active' ORDER BY COALESCE(last_sync_at, created_at) ASC LIMIT 10")
+    db = get_kotoba_client()
+    # Fetch all active tokens, then sort and limit in Python
+    all_active_tokens = db.select_where(TOKEN_TABLE, "status", "active", columns=["*"], limit=2000)
+    all_active_tokens.sort(key=lambda t: t.get("last_sync_at") or t.get("created_at") or "")
+    rows = all_active_tokens[:10]
+
     synced_total = 0
     errors = 0
     for token in rows:
@@ -495,7 +535,12 @@ def cron_tick(**_: Any) -> dict[str, Any]:
                     msg = _gmail(token, f"/users/me/messages/{item['id']}?format=metadata&metadataHeaders=From&metadataHeaders=To&metadataHeaders=Cc&metadataHeaders=Bcc&metadataHeaders=Subject&metadataHeaders=Reply-To&metadataHeaders=Return-Path&metadataHeaders=Message-ID&metadataHeaders=Date&metadataHeaders=Authentication-Results")
                     latest = _persist_message(token, msg) or latest
                     synced += 1
-                _execute(f"UPDATE {TOKEN_TABLE} SET history_id=%s, last_sync_at=%s, updated_at=%s WHERE vertex_id=%s", (latest, now_iso(), now_iso(), token["vertex_id"]))
+                # Update the token dictionary with new values
+                token["history_id"] = latest
+                token["last_sync_at"] = now_iso()
+                token["updated_at"] = now_iso()
+                # Use insert_row for upsert
+                db.insert_row(TOKEN_TABLE, token)
                 synced_total += synced
             else:
                 result = sync_inbox(email=_str(token.get("email")), maxResults=25)

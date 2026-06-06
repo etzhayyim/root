@@ -19,6 +19,12 @@
   } from "./lib/mediapipe-runtime";
   import { invokeAmeno, type GraphChunk, type GraphPhase } from "./lib/graph";
   import {
+    fetchGovProcedures,
+    retrieveProcedures,
+    buildKotobaContext,
+    type KotobaProcedure,
+  } from "./lib/kotoba-ground";
+  import {
     ensureEmbeddingLoaded,
     isEmbeddingReady as isEmbedReady,
   } from "./lib/embedding";
@@ -51,18 +57,38 @@
   /** When true, outputs are AES-GCM encrypted client-side before saveResult. */
   let privateMode = $state(false);
 
-  /** Engine model ids selectable by the user. MediaPipe LiteRT models are
-   *  listed first because transformers.js v3 does not yet recognise
-   *  `gemma4` as a model type, so those entries error on Load until the
-   *  ONNX side catches up. ADR-2605190824. */
-  const MODEL_OPTIONS = [
-    ...Object.keys(MEDIAPIPE_MODELS),
-    ...Object.keys(MODELS),
-  ];
   /** Models that prefer WASM ternary kernels over WebGPU. */
   const WASM_PREFERRED = new Set(["baien-bitnet-2b"]);
   /** Models that route through the MediaPipe LLM Inference Web runtime. */
   const MEDIAPIPE_PREFERRED = new Set(Object.keys(MEDIAPIPE_MODELS));
+
+  /**
+   * Selectable models, grouped by browser runtime so the picker shows which
+   * kernel each entry uses. MediaPipe LiteRT is listed first because its
+   * ungated `.task` bundles (Gemma 4 E2B/E4B, Apache 2.0) load and run fully
+   * in-browser today; the transformers.js ONNX entries for the same Gemma 4
+   * models are listed under "ONNX WebGPU" (these error on Load until
+   * transformers.js recognises the `gemma4` model type — ADR-2605190824).
+   * Labels come from each runtime's own meta registry (displayName) instead
+   * of raw ids so the user can clearly pick Gemma 4 E2B vs E4B. */
+  const MODEL_GROUPS: { label: string; options: { id: string; label: string }[] }[] = [
+    {
+      label: "Browser · MediaPipe LiteRT (recommended)",
+      options: Object.values(MEDIAPIPE_MODELS).map((m) => ({ id: m.id, label: m.displayName })),
+    },
+    {
+      label: "Browser · ONNX WebGPU (transformers.js)",
+      options: Object.values(MODELS)
+        .filter((m) => !WASM_PREFERRED.has(m.id))
+        .map((m) => ({ id: m.id, label: m.displayName })),
+    },
+    {
+      label: "Browser · WASM ternary",
+      options: Object.values(MODELS)
+        .filter((m) => WASM_PREFERRED.has(m.id))
+        .map((m) => ({ id: m.id, label: m.displayName })),
+    },
+  ].filter((g) => g.options.length > 0);
   /** Default to the smallest ungated MediaPipe-Web bundle (Gemma 4 E2B). */
   let selectedModelId = $state("gemma-4-e2b-mediapipe");
   /** Device override for the next loadModel() call. null = engine default. */
@@ -91,6 +117,12 @@
   let lastCritique = $state<{ score: number; feedback: string; iteration: number } | null>(null);
   /** Browser-local tool use toggle. ADR-2605191129. */
   let toolsEnabled = $state(false);
+  // kotoba mode: ground answers on etzhayyim's published gov-procedure records
+  // (/.well-known/gov-procedures.json) so the conversation proceeds on a kotoba
+  // basis. Records are fetched once and cached; retrieval is pure/client-side.
+  let kotobaMode = $state(false);
+  let kotobaProcs: KotobaProcedure[] | null = null;
+  let kotobaStatus = $state("");
   /** Daemon state snapshot, refreshed by a 1s interval. ADR-2605191135. */
   let daemonSnapshot = $state(getDaemonSnapshot());
   /** Whether the daemon details panel is expanded. */
@@ -282,9 +314,9 @@
   }
 
   /** Load the selected model. Dispatches by kernel (ADR-2605190824):
-   *    Gemma 4 E2B/E4B → transformers.js WebGPU
-   *    Gemma 3n E2B/E4B → MediaPipe LiteRT (WebGPU `.task` bundle)
-   *    Baien BitNet → WASM ternary
+   *    *-mediapipe ids       → MediaPipe LiteRT (WebGPU `.task` bundle)
+   *    gemma-4-*-it (ONNX)   → transformers.js WebGPU
+   *    baien-bitnet-2b       → WASM ternary
    */
   async function handleLoadModel() {
     state.status = "loading";
@@ -417,13 +449,30 @@
     setTimeout(scrollToBottom, 0);
 
     try {
+      let systemContent = state.actorDid
+        ? `You are Murakumo, a personalized AI assistant for actor ${state.actorDid}. Running locally in the browser via WebGPU with per-actor LoRA adaptation. Be concise and helpful.`
+        : "You are Murakumo, a helpful AI assistant running locally in the user's browser via WebGPU. Be concise and helpful.";
+
+      // kotoba mode: ground this turn on the published gov-procedure records.
+      // Lazy-load + cache the index, retrieve the records relevant to the user's
+      // message, and append them (with the mirror/honesty constraints) to the
+      // system prompt so the local model answers FROM the kotoba data.
+      if (kotobaMode) {
+        try {
+          if (!kotobaProcs) {
+            kotobaStatus = "loading kotoba records…";
+            kotobaProcs = await fetchGovProcedures();
+          }
+          const hits = retrieveProcedures(text, kotobaProcs, 5);
+          systemContent = `${systemContent}\n\n${buildKotobaContext(hits)}`;
+          kotobaStatus = `${kotobaProcs.length} records · ${hits.length} matched`;
+        } catch (e) {
+          kotobaStatus = `kotoba load failed: ${e instanceof Error ? e.message : String(e)}`;
+        }
+      }
+
       const chatMessages: ChatMessage[] = [
-        {
-          role: "system",
-          content: state.actorDid
-            ? `You are Murakumo, a personalized AI assistant for actor ${state.actorDid}. Running locally in the browser via WebGPU with per-actor LoRA adaptation. Be concise and helpful.`
-            : "You are Murakumo, a helpful AI assistant running locally in the user's browser via WebGPU. Be concise and helpful.",
-        },
+        { role: "system", content: systemContent },
         ...messages,
       ];
 
@@ -931,8 +980,12 @@
             <div class="model-picker">
               <label for="model-select">Model:</label>
               <select id="model-select" bind:value={selectedModelId}>
-                {#each MODEL_OPTIONS as opt}
-                  <option value={opt}>{opt}</option>
+                {#each MODEL_GROUPS as group}
+                  <optgroup label={group.label}>
+                    {#each group.options as opt}
+                      <option value={opt.id}>{opt.label}</option>
+                    {/each}
+                  </optgroup>
                 {/each}
               </select>
               <span class="device-pill">
@@ -1135,6 +1188,20 @@
           />
           Tools
         </label>
+        <label
+          class="ai-toggle"
+          title="Ground answers on etzhayyim's published government-procedure records (/.well-known/gov-procedures.json) — observational mirror, never files on your behalf"
+        >
+          <input
+            type="checkbox"
+            bind:checked={kotobaMode}
+            disabled={state.status === "generating"}
+          />
+          kotoba 行政手続き
+        </label>
+        {#if kotobaMode && kotobaStatus}
+          <span class="ai-toggle" style="opacity:0.7">{kotobaStatus}</span>
+        {/if}
         {#if activeInference}
           <label class="ai-toggle" title="MiniLM 22 MB lazy DL, WASM device">
             Surprise:

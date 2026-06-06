@@ -26,7 +26,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -95,14 +95,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:

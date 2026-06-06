@@ -15,7 +15,7 @@ DDL (run once in autocommit — do NOT execute from this module):
         created_at      VARCHAR NOT NULL
     );
 
-RisingWave does NOT support ON CONFLICT — use INSERT ... SELECT ... WHERE NOT EXISTS.
+kotoba Datom log does NOT support ON CONFLICT — use INSERT ... SELECT ... WHERE NOT EXISTS.
 DDL runs in autocommit.  No FK constraints.
 """
 
@@ -24,7 +24,7 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR_DID = "did:web:pregel.etzhayyim.com"
 
@@ -57,7 +57,7 @@ def record_verdict(
     """Record a human verdict for a triaged email.
 
     Uses ``INSERT ... SELECT ... WHERE NOT EXISTS`` to avoid duplicates
-    (RisingWave does not support ON CONFLICT).
+    (kotoba Datom log does not support ON CONFLICT).
 
     Args:
         email_vertex_id: The ``vertex_id`` of the source email message.
@@ -75,30 +75,22 @@ def record_verdict(
     from_address = str(from_address or "")[:480]
     triage_score = int(triage_score or 0)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_email_triage_feedback
-                (vertex_id, email_vertex_id, from_address,
-                 triage_score, verdict, actor_did, created_at)
-            SELECT %s, %s, %s, %s, %s, %s, %s
-            WHERE NOT EXISTS (
-                SELECT 1 FROM vertex_email_triage_feedback
-                WHERE vertex_id = %s
-            )
-            """,
-            (
-                vertex_id,
-                email_vertex_id,
-                from_address,
-                triage_score,
-                verdict,
-                ACTOR_DID,
-                now,
-                vertex_id,
-            ),
-        )
-        return (cur.rowcount or 0) > 0
+    client = get_kotoba_client()
+    existing_record = client.select_first_where("vertex_email_triage_feedback", "vertex_id", vertex_id)
+    if existing_record:
+        return False
+    else:
+        row_dict = {
+            "vertex_id": vertex_id,
+            "email_vertex_id": email_vertex_id,
+            "from_address": from_address,
+            "triage_score": triage_score,
+            "verdict": verdict,
+            "actor_did": ACTOR_DID,
+            "created_at": now,
+        }
+        client.insert_row("vertex_email_triage_feedback", row_dict)
+        return True
 
 
 def get_sender_prior(
@@ -127,25 +119,25 @@ def get_sender_prior(
     if not from_address:
         return {"clean_count": 0, "spam_count": 0, "gray_count": 0, "total": 0}
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT verdict, COUNT(*) AS cnt
-            FROM vertex_email_triage_feedback
-            WHERE from_address = %s
-              AND created_at >= %s
-            GROUP BY verdict
-            LIMIT %s
-            """,
-            (from_address, cutoff, limit),
-        )
-        rows = cur.fetchall() or []
+    client = get_kotoba_client()
+    # R0: In-Python filter for created_at and aggregation for verdict counts.
+    all_feedback_rows = client.select_where(
+        "vertex_email_triage_feedback",
+        "from_address",
+        from_address,
+        columns=["verdict", "created_at"],
+        limit=2000,
+    )
 
-    for row in rows:
-        verdict_val = str(row[0] or "").lower()
-        cnt = int(row[1] or 0)
+    filtered_rows = [
+        row for row in all_feedback_rows
+        if row["created_at"] >= cutoff
+    ]
+
+    for row in filtered_rows:
+        verdict_val = str(row["verdict"] or "").lower()
         if verdict_val in counts:
-            counts[verdict_val] = cnt
+            counts[verdict_val] += 1
 
     total = counts["clean"] + counts["spam"] + counts["gray"]
     return {

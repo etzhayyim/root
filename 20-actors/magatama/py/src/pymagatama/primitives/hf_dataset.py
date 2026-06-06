@@ -13,9 +13,10 @@ Task types handled:
 from __future__ import annotations
 
 import logging
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.ingest.hf_dataset import (
     task_hf_dataset_apply_filter,
     task_hf_dataset_fetch_splits,
@@ -25,19 +26,12 @@ from pymagatama.ingest.hf_dataset import (
 LOG = logging.getLogger(__name__)
 
 
-def _fetchall(sql_str: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
-        return cur.fetchall() or []
-
-
 # ── hf.dataset.listFilters ────────────────────────────────────────────────────
 
 def task_hf_dataset_list_filters(**_: Any) -> dict[str, Any]:
-    rows = _fetchall(
-        "SELECT vertex_id FROM vertex_hfhub_filter WHERE enabled = true LIMIT 200"
-    )
-    ids = [r[0] for r in rows]
+    client = get_kotoba_client()
+    rows = client.select_where("vertex_hfhub_filter", "enabled", True, columns=["vertex_id"], limit=200)
+    ids = [r["vertex_id"] for r in rows]
     return {"ok": True, "filter_ids": ids, "filter_count": len(ids)}
 
 
@@ -69,14 +63,43 @@ def task_hf_dataset_fetch_splits_batch(
     **_: Any,
 ) -> dict[str, Any]:
     """Fetch split metadata for up to batch_size pending datasets."""
-    rows = _fetchall(
-        f"SELECT repo_id FROM vertex_hfhub_dataset "
-        f"WHERE status = 'pending' OR last_scanned_at IS NULL "
-        f"ORDER BY created_at ASC LIMIT {int(batch_size)}"
+    # R0: Multi-predicate OR and ORDER BY handled in Python.
+    client = get_kotoba_client()
+
+    # Fetch rows where status is 'pending'
+    pending_rows = client.select_where(
+        "vertex_hfhub_dataset",
+        "status",
+        "pending",
+        columns=["repo_id", "created_at", "last_scanned_at"]
     )
+
+    # Fetch rows where last_scanned_at is NULL
+    null_scanned_rows = client.select_where(
+        "vertex_hfhub_dataset",
+        "last_scanned_at",
+        None,
+        columns=["repo_id", "created_at", "last_scanned_at"]
+    )
+
+    # Combine and remove duplicates, prioritizing entries if they appear in both lists
+    combined_rows_map = {row["repo_id"]: row for row in pending_rows}
+    for row in null_scanned_rows:
+        if row["repo_id"] not in combined_rows_map:
+            combined_rows_map[row["repo_id"]] = row
+
+    rows_to_process = list(combined_rows_map.values())
+
+    # Sort by created_at
+    rows_to_process.sort(key=lambda r: r["created_at"])
+
+    # Apply limit
+    rows = rows_to_process[:int(batch_size)]
+
     splits_total = 0
     files_total = 0
-    for (repo_id,) in rows:
+    for row in rows:
+        repo_id = row["repo_id"]
         try:
             result = task_hf_dataset_fetch_splits(repo_id=repo_id)
             splits_total += result.get("splits", 0)

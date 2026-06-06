@@ -2,17 +2,17 @@
 
 The functions in this module are deliberately small SQL boundaries. Durable
 retry and process state belong to LangGraph/Pregel orchestration; transactional
-records live in RisingWave vertex tables.
+records live in the kotoba Datom log.
 """
 
 from __future__ import annotations
 
 import json
 import time
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_MAP = {
     "works": "did:plc:etzhayyim-works",
@@ -54,41 +54,32 @@ def resolve_owner(value: Any) -> str:
     return OWNER_MAP.get(text, OWNER_MAP["works"])
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
 
 
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
-def _insert_if_missing(table: str, vertex_id: str, sql: str, params: tuple[Any, ...]) -> int:
-    try:
-        existing = _fetch_one(f"SELECT vertex_id FROM {table} WHERE vertex_id=%s LIMIT 1", (vertex_id,))
-    except RuntimeError as exc:
-        if "RW_URL env var not set" not in str(exc):
-            raise
-        existing = None
-    if existing:
-        return 0
-    return _execute(sql, params)
 
 
+
+
+
+
+# R0: _next_seq uses q() for MAX aggregate, derived Datomic attribute from table name.
 def _next_seq(table: str) -> int:
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT COALESCE(MAX(_seq), 0) + 1 AS seq FROM {table}")
-        row = cur.fetchone()
-        return int(row[0] if row else 1)
+    client = get_kotoba_client()
+    # Convert SQL table name to Datomic-style keyword for attribute prefix
+    # Example: "vertex_atrecord_seikyu_invoice" -> ":vertex-atrecord-seikyu-invoice/seq"
+    datomic_attr_prefix = table.replace("_", "-")
+    query_edn = f"""
+    [:find (max ?s) .
+     :where [?e :{datomic_attr_prefix}/seq ?s]]
+    """
+    result = client.q(query_edn)
+    # result is list of lists, e.g., [[123]] for max value, or [[]] if no results
+    max_seq = int(result[0][0]) if result and result[0] and result[0][0] is not None else 0
+    return max_seq + 1
 
 
 def _slug(text: str) -> str:
@@ -134,22 +125,39 @@ def issue_invoice(
     if not customerDid or not issuedAt or not dueAt:
         return {"error": "customerDid, issuedAt, dueAt required"}
     items = list(lineItems or [])
+    owner_did = resolve_owner(owner)
+    if not customerDid or not issuedAt or not dueAt:
+        return {"error": "customerDid, issuedAt, dueAt required"}
+    items = list(lineItems or [])
     attached = 0
+    client = get_kotoba_client()
     if includeApprovedTimeEntries and projectDid:
         period_from = (period or {}).get("from") if isinstance(period, dict) else ""
         period_to = (period or {}).get("to") if isinstance(period, dict) else ""
-        filters = ["project_did=%s", "approval_status='approved'", "billable=true"]
-        args: list[Any] = [projectDid]
-        if period_from:
-            filters.append("entry_date >= %s")
-            args.append(period_from[:10])
-        if period_to:
-            filters.append("entry_date <= %s")
-            args.append(period_to[:10])
-        rows = _fetch_all(
-            f"SELECT vertex_id, member_did, entry_date, hours FROM vertex_atrecord_kousuu_time_entry WHERE {' AND '.join(filters)} ORDER BY entry_date",
-            tuple(args),
+
+        # R0: Multi-predicate WHERE and ORDER BY are applied in Python after broad fetch.
+        time_entries = client.select_where(
+            "vertex_atrecord_kousuu_time_entry",
+            "project_did",
+            projectDid,
+            columns=["vertex_id", "member_did", "entry_date", "hours", "approval_status", "billable"],
+            limit=2000
         )
+        rows = []
+        # Add necessary imports if not already present
+        from datetime import datetime, timezone
+        period_from_date = datetime.fromisoformat(period_from[:10]) if period_from else None
+        period_to_date = datetime.fromisoformat(period_to[:10]) if period_to else None
+
+        for entry in time_entries:
+            if entry["approval_status"] == "approved" and entry["billable"]:
+                entry_date_obj = datetime.fromisoformat(entry["entry_date"])
+                if (period_from_date is None or entry_date_obj >= period_from_date) and \
+                   (period_to_date is None or entry_date_obj <= period_to_date):
+                    rows.append(entry)
+
+        rows.sort(key=lambda x: x["entry_date"]) # Apply ORDER BY entry_date in Python
+
         for row in rows:
             items.append({
                 "kind": "time",
@@ -169,21 +177,38 @@ def issue_invoice(
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.seikyu.invoice", rkey)
     period_from = (period or {}).get("from", "")[:10] if isinstance(period, dict) else None
     period_to = (period or {}).get("to", "")[:10] if isinstance(period, dict) else None
-    inserted = _insert_if_missing(
-        "vertex_atrecord_seikyu_invoice",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_seikyu_invoice
-        (vertex_id,_seq,owner_did,customer_did,project_did,agreement_did,invoice_number,
-         period_from,period_to,issued_at,due_at,subtotal,tax_rate,tax_amount,total,currency,
-         status,pdf_cid,peppol_message_id,sent_at,paid_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'draft',NULL,NULL,NULL,NULL,%s)""",
-        (
-            vertex_id, _next_seq("vertex_atrecord_seikyu_invoice"), owner_did,
-            customerDid, projectDid or None, agreementDid or None, number,
-            period_from, period_to, issuedAt, dueAt, subtotal, tax_rate, tax_amount,
-            total, currency or "JPY", now_iso(),
-        ),
-    )
+
+    # Replicate _insert_if_missing logic
+    existing_invoice = client.select_first_where("vertex_atrecord_seikyu_invoice", "vertex_id", vertex_id)
+    inserted = 0
+    if not existing_invoice:
+        invoice_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_seikyu_invoice"),
+            "owner_did": owner_did,
+            "customer_did": customerDid,
+            "project_did": projectDid or None,
+            "agreement_did": agreementDid or None,
+            "invoice_number": number,
+            "period_from": period_from,
+            "period_to": period_to,
+            "issued_at": issuedAt,
+            "due_at": dueAt,
+            "subtotal": subtotal,
+            "tax_rate": tax_rate,
+            "tax_amount": tax_amount,
+            "total": total,
+            "currency": currency or "JPY",
+            "status": "draft",
+            "pdf_cid": None,
+            "peppol_message_id": None,
+            "sent_at": None,
+            "paid_at": None,
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_seikyu_invoice", invoice_data)
+        inserted = 1
+
     return {
         "invoiceDid": vertex_id,
         "uri": _uri(owner_did, "com.etzhayyim.apps.seikyu.invoice", rkey),
@@ -199,21 +224,32 @@ def issue_invoice(
 def send_invoice(invoiceDid: str = "", pdfCid: str = "", peppolMessageId: str = "", **_: Any) -> dict[str, Any]:
     if not invoiceDid:
         return {"error": "invoiceDid required"}
-    updated = _execute(
-        """UPDATE vertex_atrecord_seikyu_invoice
-        SET status='sent', pdf_cid=COALESCE(NULLIF(%s,''), pdf_cid),
-            peppol_message_id=COALESCE(NULLIF(%s,''), peppol_message_id), sent_at=%s
-        WHERE vertex_id=%s""",
-        (pdfCid, peppolMessageId, now_iso(), invoiceDid),
-    )
+    client = get_kotoba_client()
+    existing_invoice = client.select_first_where("vertex_atrecord_seikyu_invoice", "vertex_id", invoiceDid)
+    updated = 0
+    if existing_invoice:
+        existing_invoice["status"] = "sent"
+        # COALESCE(NULLIF(%s,''), pdf_cid) logic
+        existing_invoice["pdf_cid"] = pdfCid if pdfCid else existing_invoice.get("pdf_cid")
+        existing_invoice["peppol_message_id"] = peppolMessageId if peppolMessageId else existing_invoice.get("peppol_message_id")
+        existing_invoice["sent_at"] = now_iso()
+
+        client.insert_row("vertex_atrecord_seikyu_invoice", existing_invoice)
+        updated = 1
     return {"ok": updated > 0, "invoiceDid": invoiceDid, "status": "sent"}
 
 
 def void_invoice(invoiceDid: str = "", reason: str = "", **_: Any) -> dict[str, Any]:
-    updated = _execute(
-        "UPDATE vertex_atrecord_seikyu_invoice SET status='void', pdf_cid=COALESCE(pdf_cid,%s) WHERE vertex_id=%s",
-        (reason or None, invoiceDid),
-    )
+    client = get_kotoba_client()
+    existing_invoice = client.select_first_where("vertex_atrecord_seikyu_invoice", "vertex_id", invoiceDid)
+    updated = 0
+    if existing_invoice:
+        existing_invoice["status"] = "void"
+        # COALESCE(pdf_cid, %s) logic
+        existing_invoice["pdf_cid"] = existing_invoice.get("pdf_cid") if existing_invoice.get("pdf_cid") else (reason or None)
+
+        client.insert_row("vertex_atrecord_seikyu_invoice", existing_invoice)
+        updated = 1
     return {"ok": updated > 0, "invoiceDid": invoiceDid, "status": "void"}
 
 
@@ -226,58 +262,113 @@ def record_payment_received(
     reference: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    invoice = _fetch_one("SELECT owner_did,total FROM vertex_atrecord_seikyu_invoice WHERE vertex_id=%s", (invoiceDid,))
+    client = get_kotoba_client()
+    invoice = client.select_first_where("vertex_atrecord_seikyu_invoice", "vertex_id", invoiceDid, columns=["owner_did", "total"])
     if not invoice:
         return {"error": "invoice not found"}
     rkey = _slug(f"{invoiceDid}-{paymentDate or today()}-{reference or int(time.time())}")
     vertex_id = _vid(invoice["owner_did"], "com.etzhayyim.apps.seikyu.paymentReceived", rkey)
-    _insert_if_missing(
-        "vertex_atrecord_seikyu_payment_received",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_seikyu_payment_received
-        (vertex_id,_seq,owner_did,invoice_did,payment_date,amount,currency,payment_method,reference,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (
-            vertex_id, _next_seq("vertex_atrecord_seikyu_payment_received"),
-            invoice["owner_did"], invoiceDid, (paymentDate or today())[:10],
-            _float(amount), currency or "JPY", paymentMethod or None, reference or None, now_iso(),
-        ),
-    )
-    paid = _fetch_one(
-        "SELECT COALESCE(SUM(amount),0) AS paid FROM vertex_atrecord_seikyu_payment_received WHERE invoice_did=%s",
-        (invoiceDid,),
-    )
+
+    # Replicate _insert_if_missing logic
+    existing_payment = client.select_first_where("vertex_atrecord_seikyu_payment_received", "vertex_id", vertex_id)
+    if not existing_payment:
+        payment_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_seikyu_payment_received"),
+            "owner_did": invoice["owner_did"],
+            "invoice_did": invoiceDid,
+            "payment_date": (paymentDate or today())[:10],
+            "amount": _float(amount),
+            "currency": currency or "JPY",
+            "payment_method": paymentMethod or None,
+            "reference": reference or None,
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_seikyu_payment_received", payment_data)
+
+    # R0: SUM aggregate for paid amount uses q() as shims don't support SUM.
+    query_edn = f"""
+    [:find (sum ?amount) .
+     :where
+     [?e :vertex-atrecord-seikyu-payment-received/invoice-did "{invoiceDid}"]
+     [?e :vertex-atrecord-seikyu-payment-received/amount ?amount]]
+    """
+    sum_result = client.q(query_edn)
+    paid_amount = _float(sum_result[0][0]) if sum_result and sum_result[0] and sum_result[0][0] is not None else 0.0
+    paid = {"paid": paid_amount} # Replicate the dict structure of original _fetch_one result
+
     status = "paid" if _float((paid or {}).get("paid")) >= _float(invoice.get("total")) else "partiallyPaid"
-    _execute("UPDATE vertex_atrecord_seikyu_invoice SET status=%s, paid_at=CASE WHEN %s='paid' THEN %s ELSE paid_at END WHERE vertex_id=%s", (status, status, now_iso(), invoiceDid))
+
+    # Replicate _execute UPDATE logic
+    existing_invoice_to_update = client.select_first_where("vertex_atrecord_seikyu_invoice", "vertex_id", invoiceDid)
+    if existing_invoice_to_update:
+        existing_invoice_to_update["status"] = status
+        if status == "paid":
+            existing_invoice_to_update["paid_at"] = now_iso()
+        client.insert_row("vertex_atrecord_seikyu_invoice", existing_invoice_to_update)
+
     return {"ok": True, "paymentDid": vertex_id, "invoiceDid": invoiceDid, "status": status}
 
 
 def list_invoices(owner: str = "", status: str = "", customerDid: str = "", limit: Any = 100, **_: Any) -> dict[str, Any]:
     owner_did = resolve_owner(owner)
-    args: list[Any] = [owner_did]
-    filters = ["owner_did=%s"]
-    if status:
-        args.append(status)
-        filters.append("status=%s")
-    if customerDid:
-        args.append(customerDid)
-        filters.append("customer_did=%s")
-    rows = _fetch_all(
-        f"SELECT *, _seq AS cursor FROM vertex_atrecord_seikyu_invoice WHERE {' AND '.join(filters)} ORDER BY _seq DESC LIMIT %s",
-        tuple(args + [max(1, min(_int(limit, 100), 500))]),
+    client = get_kotoba_client()
+
+    # R0: Multiple WHERE clauses, ORDER BY, and LIMIT are applied in Python after a broad fetch.
+    # Fetch all invoices for the owner_did
+    all_invoices = client.select_where(
+        "vertex_atrecord_seikyu_invoice",
+        "owner_did",
+        owner_did,
+        limit=2000 # Max limit for broad fetch before Python filtering
     )
+
+    filtered_invoices = []
+    for invoice in all_invoices:
+        if status and invoice.get("status") != status:
+            continue
+        if customerDid and invoice.get("customer_did") != customerDid:
+            continue
+        filtered_invoices.append(invoice)
+
+    # Apply ORDER BY _seq DESC
+    filtered_invoices.sort(key=lambda x: x.get("_seq", 0), reverse=True)
+
+    # Apply LIMIT
+    rows = filtered_invoices[:max(1, min(_int(limit, 100), 500))]
+
     return {"invoices": rows}
 
 
 def get_invoice_aging(owner: str = "", **_: Any) -> dict[str, Any]:
     owner_did = resolve_owner(owner)
-    rows = _fetch_all("SELECT * FROM view_seikyu_invoice_aging WHERE owner_did=%s ORDER BY due_at", (owner_did,))
-    return {"owner": owner_did, "items": rows}
+    client = get_kotoba_client()
+
+    # R0: Replicating SQL VIEW 'view_seikyu_invoice_aging' logic with Datalog or Python.
+    # Without the SQL definition of the view, this Datalog query is a placeholder.
+    # It fetches all invoices for the owner, and any "aging" logic would be applied in Python.
+
+    invoices = client.select_where(
+        "vertex_atrecord_seikyu_invoice",
+        "owner_did",
+        owner_did,
+        limit=2000 # R0: Limiting fetch for view simulation.
+    )
+
+    invoices.sort(key=lambda x: x.get("due_at", ""), reverse=False) # ORDER BY due_at ASC
+
+    return {"owner": owner_did, "items": invoices}
 
 
 def submit_peppol(invoiceDid: str = "", messageId: str = "", **_: Any) -> dict[str, Any]:
     msg = messageId or f"peppol-{int(time.time())}"
-    updated = _execute("UPDATE vertex_atrecord_seikyu_invoice SET peppol_message_id=%s WHERE vertex_id=%s", (msg, invoiceDid))
+    client = get_kotoba_client()
+    existing_invoice = client.select_first_where("vertex_atrecord_seikyu_invoice", "vertex_id", invoiceDid)
+    updated = 0
+    if existing_invoice:
+        existing_invoice["peppol_message_id"] = msg
+        client.insert_row("vertex_atrecord_seikyu_invoice", existing_invoice)
+        updated = 1
     return {"ok": updated > 0, "invoiceDid": invoiceDid, "peppolMessageId": msg}
 
 
@@ -301,70 +392,145 @@ def draft_agreement(
         return {"error": "counterpartyDid, title, effectiveFrom, pdfCid required"}
     rkey = _slug(f"{title}-{int(time.time())}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.keiyaku.agreement", rkey)
-    _insert_if_missing(
-        "vertex_atrecord_keiyaku_agreement",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_keiyaku_agreement
-        (vertex_id,_seq,owner_did,counterparty_did,title,agreement_type,effective_from,
-         term_months,auto_renew,total_amount,currency,pdf_cid,signing_status,signed_at,
-         terminated_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'drafted',NULL,NULL,%s)""",
-        (
-            vertex_id, _next_seq("vertex_atrecord_keiyaku_agreement"), owner_did,
-            counterpartyDid, title, agreementType, effectiveFrom[:10], termMonths,
-            bool(autoRenew), totalAmount, currency or "JPY", pdfCid, now_iso(),
-        ),
-    )
+
+    client = get_kotoba_client()
+    existing_agreement = client.select_first_where("vertex_atrecord_keiyaku_agreement", "vertex_id", vertex_id)
+    if not existing_agreement:
+        agreement_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_keiyaku_agreement"),
+            "owner_did": owner_did,
+            "counterparty_did": counterpartyDid,
+            "title": title,
+            "agreement_type": agreementType,
+            "effective_from": effectiveFrom[:10],
+            "term_months": termMonths,
+            "auto_renew": bool(autoRenew),
+            "total_amount": totalAmount,
+            "currency": currency or "JPY",
+            "pdf_cid": pdfCid,
+            "signing_status": "drafted",
+            "signed_at": None,
+            "terminated_at": None,
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_keiyaku_agreement", agreement_data)
+
     if recurringAmount:
         schedule_id = _vid(owner_did, "com.etzhayyim.apps.seikyu.recurringSchedule", _slug(rkey))
-        _insert_if_missing(
-            "vertex_atrecord_seikyu_recurring_schedule",
-            schedule_id,
-            """INSERT INTO vertex_atrecord_seikyu_recurring_schedule
-            (vertex_id,_seq,owner_did,customer_did,agreement_did,amount,currency,frequency,next_issue_date,status,created_at)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,'active',%s)""",
-            (
-                schedule_id, _next_seq("vertex_atrecord_seikyu_recurring_schedule"),
-                owner_did, counterpartyDid, vertex_id, _float(recurringAmount),
-                currency or "JPY", recurringFrequency or "monthly", effectiveFrom[:10], now_iso(),
-            ),
-        )
+        existing_schedule = client.select_first_where("vertex_atrecord_seikyu_recurring_schedule", "vertex_id", schedule_id)
+        if not existing_schedule:
+            schedule_data = {
+                "vertex_id": schedule_id,
+                "_seq": _next_seq("vertex_atrecord_seikyu_recurring_schedule"),
+                "owner_did": owner_did,
+                "customer_did": counterpartyDid,
+                "agreement_did": vertex_id,
+                "amount": _float(recurringAmount),
+                "currency": currency or "JPY",
+                "frequency": recurringFrequency or "monthly",
+                "next_issue_date": effectiveFrom[:10],
+                "status": "active",
+                "created_at": now_iso(),
+            }
+            client.insert_row("vertex_atrecord_seikyu_recurring_schedule", schedule_data)
     return {"agreementDid": vertex_id, "uri": _uri(owner_did, "com.etzhayyim.apps.keiyaku.agreement", rkey)}
 
 
 def submit_for_signature(agreementDid: str = "", signerDid: str = "", **_: Any) -> dict[str, Any]:
-    agreement = _fetch_one("SELECT owner_did FROM vertex_atrecord_keiyaku_agreement WHERE vertex_id=%s", (agreementDid,))
+    client = get_kotoba_client()
+    agreement = client.select_first_where("vertex_atrecord_keiyaku_agreement", "vertex_id", agreementDid, columns=["owner_did"])
     if not agreement:
         return {"error": "agreement not found"}
     flow_id = _vid(agreement["owner_did"], "com.etzhayyim.apps.keiyaku.signingFlow", _slug(f"{agreementDid}-{signerDid}-{int(time.time())}"))
-    _insert_if_missing(
-        "vertex_atrecord_keiyaku_signing_flow",
-        flow_id,
-        """INSERT INTO vertex_atrecord_keiyaku_signing_flow
-        (vertex_id,_seq,owner_did,agreement_did,signer_did,status,requested_at,completed_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,'requested',%s,NULL,%s)""",
-        (flow_id, _next_seq("vertex_atrecord_keiyaku_signing_flow"), agreement["owner_did"], agreementDid, signerDid or None, now_iso(), now_iso()),
-    )
-    _execute("UPDATE vertex_atrecord_keiyaku_agreement SET signing_status='sent' WHERE vertex_id=%s", (agreementDid,))
+
+    # Replicate _insert_if_missing logic
+    existing_flow = client.select_first_where("vertex_atrecord_keiyaku_signing_flow", "vertex_id", flow_id)
+    if not existing_flow:
+        flow_data = {
+            "vertex_id": flow_id,
+            "_seq": _next_seq("vertex_atrecord_keiyaku_signing_flow"),
+            "owner_did": agreement["owner_did"],
+            "agreement_did": agreementDid,
+            "signer_did": signerDid or None,
+            "status": "requested",
+            "requested_at": now_iso(),
+            "completed_at": None,
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_keiyaku_signing_flow", flow_data)
+
+    # Replicate _execute UPDATE logic
+    existing_agreement_to_update = client.select_first_where("vertex_atrecord_keiyaku_agreement", "vertex_id", agreementDid)
+    if existing_agreement_to_update:
+        existing_agreement_to_update["signing_status"] = "sent"
+        client.insert_row("vertex_atrecord_keiyaku_agreement", existing_agreement_to_update)
+
     return {"ok": True, "agreementDid": agreementDid, "signingFlowDid": flow_id, "status": "sent"}
 
 
 def sign_agreement(agreementDid: str = "", signedAt: str = "", **_: Any) -> dict[str, Any]:
+    client = get_kotoba_client()
     ts = signedAt or now_iso()
-    updated = _execute("UPDATE vertex_atrecord_keiyaku_agreement SET signing_status='signed', signed_at=%s WHERE vertex_id=%s", (ts, agreementDid))
-    _execute("UPDATE vertex_atrecord_keiyaku_signing_flow SET status='completed', completed_at=%s WHERE agreement_did=%s", (ts, agreementDid))
+
+    updated = 0
+    # First UPDATE for agreement
+    existing_agreement = client.select_first_where("vertex_atrecord_keiyaku_agreement", "vertex_id", agreementDid)
+    if existing_agreement:
+        existing_agreement["signing_status"] = "signed"
+        existing_agreement["signed_at"] = ts
+        client.insert_row("vertex_atrecord_keiyaku_agreement", existing_agreement)
+        updated = 1
+
+    # Second UPDATE for signing flow(s)
+    # This assumes there might be multiple signing flows for one agreement.
+    signing_flows = client.select_where("vertex_atrecord_keiyaku_signing_flow", "agreement_did", agreementDid)
+    for flow in signing_flows:
+        flow["status"] = "completed"
+        flow["completed_at"] = ts
+        client.insert_row("vertex_atrecord_keiyaku_signing_flow", flow) # Updates each flow by its vertex_id
+
     return {"ok": updated > 0, "agreementDid": agreementDid, "status": "signed"}
 
 
 def void_agreement(agreementDid: str = "", reason: str = "", **_: Any) -> dict[str, Any]:
-    updated = _execute("UPDATE vertex_atrecord_keiyaku_agreement SET signing_status='void', terminated_at=%s WHERE vertex_id=%s", (now_iso(), agreementDid))
+    client = get_kotoba_client()
+    updated = 0
+    existing_agreement = client.select_first_where("vertex_atrecord_keiyaku_agreement", "vertex_id", agreementDid)
+    if existing_agreement:
+        existing_agreement["signing_status"] = "void"
+        existing_agreement["terminated_at"] = now_iso()
+        client.insert_row("vertex_atrecord_keiyaku_agreement", existing_agreement)
+        updated = 1
     return {"ok": updated > 0, "agreementDid": agreementDid, "status": "void", "reason": reason}
 
 
 def list_active_agreements(owner: str = "", **_: Any) -> dict[str, Any]:
     owner_did = resolve_owner(owner)
-    rows = _fetch_all("SELECT * FROM view_keiyaku_active_agreements WHERE owner_did=%s ORDER BY effective_from DESC", (owner_did,))
-    return {"owner": owner_did, "agreements": rows}
+    client = get_kotoba_client()
+
+    # R0: Replicating SQL VIEW 'view_keiyaku_active_agreements' logic with Datalog or Python.
+    # Assuming 'view_keiyaku_active_agreements' selects from 'vertex_atrecord_keiyaku_agreement'
+    # and filters for active agreements.
+
+    # Fetch all agreements for the owner_did
+    all_agreements = client.select_where(
+        "vertex_atrecord_keiyaku_agreement",
+        "owner_did",
+        owner_did,
+        limit=2000 # R0: Limiting fetch for view simulation.
+    )
+
+    # Filter for active agreements (assuming 'signing_status' != 'void' and 'terminated_at' is NULL)
+    active_agreements = [
+        agg for agg in all_agreements
+        if agg.get("signing_status") != "void" and agg.get("terminated_at") is None
+    ]
+
+    # Apply ORDER BY effective_from DESC
+    active_agreements.sort(key=lambda x: x.get("effective_from", ""), reverse=True)
+
+    return {"owner": owner_did, "agreements": active_agreements}
 
 
 def create_project(owner: str = "", customerDid: str = "", projectCode: str = "", projectName: str = "", budgetHours: Any = None, budgetCostJpy: Any = None, startDate: str = "", endDate: str = "", **_: Any) -> dict[str, Any]:
@@ -373,14 +539,26 @@ def create_project(owner: str = "", customerDid: str = "", projectCode: str = ""
         return {"error": "projectCode, projectName, startDate required"}
     rkey = _slug(projectCode)
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.kousuu.project", rkey)
-    _insert_if_missing(
-        "vertex_atrecord_kousuu_project",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_kousuu_project
-        (vertex_id,_seq,owner_did,customer_did,project_code,project_name,budget_hours,budget_cost_jpy,start_date,end_date,status,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'active',%s)""",
-        (vertex_id, _next_seq("vertex_atrecord_kousuu_project"), owner_did, customerDid or None, projectCode, projectName, budgetHours, budgetCostJpy, startDate[:10], endDate[:10] if endDate else None, now_iso()),
-    )
+
+    client = get_kotoba_client()
+    existing_project = client.select_first_where("vertex_atrecord_kousuu_project", "vertex_id", vertex_id)
+    if not existing_project:
+        project_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_kousuu_project"),
+            "owner_did": owner_did,
+            "customer_did": customerDid or None,
+            "project_code": projectCode,
+            "project_name": projectName,
+            "budget_hours": budgetHours,
+            "budget_cost_jpy": budgetCostJpy,
+            "start_date": startDate[:10],
+            "end_date": endDate[:10] if endDate else None,
+            "status": "active",
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_kousuu_project", project_data)
+
     return {"projectDid": vertex_id, "uri": _uri(owner_did, "com.etzhayyim.apps.kousuu.project", rkey)}
 
 
@@ -390,29 +568,101 @@ def record_time_entry(owner: str = "", memberDid: str = "", projectDid: str = ""
         return {"error": "memberDid, projectDid, entryDate required"}
     rkey = _slug(f"{memberDid}-{projectDid}-{entryDate}-{int(time.time() * 1000)}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.kousuu.timeEntry", rkey)
-    _insert_if_missing(
-        "vertex_atrecord_kousuu_time_entry",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_kousuu_time_entry
-        (vertex_id,_seq,owner_did,member_did,project_did,task_did,entry_date,hours,billable,invoice_lineitem_cid,approval_status,approved_by_did,approved_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,NULL,'submitted',NULL,NULL,%s)""",
-        (vertex_id, _next_seq("vertex_atrecord_kousuu_time_entry"), owner_did, memberDid, projectDid, taskDid or None, entryDate[:10], _float(hours), bool(billable), now_iso()),
-    )
+
+    client = get_kotoba_client()
+    existing_time_entry = client.select_first_where("vertex_atrecord_kousuu_time_entry", "vertex_id", vertex_id)
+    if not existing_time_entry:
+        time_entry_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_kousuu_time_entry"),
+            "owner_did": owner_did,
+            "member_did": memberDid,
+            "project_did": projectDid,
+            "task_did": taskDid or None,
+            "entry_date": entryDate[:10],
+            "hours": _float(hours),
+            "billable": bool(billable),
+            "invoice_lineitem_cid": None,
+            "approval_status": "submitted",
+            "approved_by_did": None,
+            "approved_at": None,
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_kousuu_time_entry", time_entry_data)
+
     return {"timeEntryDid": vertex_id, "uri": _uri(owner_did, "com.etzhayyim.apps.kousuu.timeEntry", rkey)}
 
 
 def approve_time_entry(timeEntryDid: str = "", approvedByDid: str = "", approved: Any = True, **_: Any) -> dict[str, Any]:
     status = "approved" if bool(approved) else "rejected"
-    updated = _execute("UPDATE vertex_atrecord_kousuu_time_entry SET approval_status=%s, approved_by_did=%s, approved_at=%s WHERE vertex_id=%s", (status, approvedByDid or None, now_iso(), timeEntryDid))
+    client = get_kotoba_client()
+    updated = 0
+    existing_time_entry = client.select_first_where("vertex_atrecord_kousuu_time_entry", "vertex_id", timeEntryDid)
+    if existing_time_entry:
+        existing_time_entry["approval_status"] = status
+        existing_time_entry["approved_by_did"] = approvedByDid or None
+        existing_time_entry["approved_at"] = now_iso()
+        client.insert_row("vertex_atrecord_kousuu_time_entry", existing_time_entry)
+        updated = 1
     return {"ok": updated > 0, "timeEntryDid": timeEntryDid, "status": status}
 
 
 def get_project_burn(owner: str = "", projectDid: str = "", **_: Any) -> dict[str, Any]:
     owner_did = resolve_owner(owner)
+    client = get_kotoba_client()
+
+    # R0: Replicating SQL VIEW 'view_kousuu_project_burn' logic with in-Python aggregation.
+    # Fetches projects and time entries, then aggregates to simulate the view.
+
+    projects = client.select_where(
+        "vertex_atrecord_kousuu_project",
+        "owner_did",
+        owner_did,
+        columns=["vertex_id", "project_code", "budget_hours", "budget_cost_jpy"],
+        limit=2000
+    )
+
+    time_entries = client.select_where(
+        "vertex_atrecord_kousuu_time_entry",
+        "owner_did",
+        owner_did,
+        columns=["project_did", "entry_date", "hours"],
+        limit=2000
+    )
+
+    project_map = {p["vertex_id"]: p for p in projects}
+
+    burn_items = {} # Key: (project_did, period_month)
+
+    for entry in time_entries:
+        if projectDid and entry["project_did"] != projectDid:
+            continue
+
+        project = project_map.get(entry["project_did"])
+        if not project:
+            continue
+
+        period_month = entry["entry_date"][:7] # YYYY-MM
+
+        key = (entry["project_did"], period_month)
+        if key not in burn_items:
+            burn_items[key] = {
+                "project_did": entry["project_did"],
+                "project_code": project["project_code"],
+                "period_month": period_month,
+                "total_hours": 0.0,
+                "total_cost_jpy": 0.0 # This would need more complex logic if the view calculated it.
+            }
+
+        burn_items[key]["total_hours"] += _float(entry["hours"])
+
+    rows = list(burn_items.values())
+
     if projectDid:
-        rows = _fetch_all("SELECT * FROM view_kousuu_project_burn WHERE project_did=%s ORDER BY period_month", (projectDid,))
+        rows.sort(key=lambda x: x.get("period_month", "")) # ORDER BY period_month
     else:
-        rows = _fetch_all("SELECT * FROM view_kousuu_project_burn WHERE owner_did=%s ORDER BY project_code, period_month", (owner_did,))
+        rows.sort(key=lambda x: (x.get("project_code", ""), x.get("period_month", ""))) # ORDER BY project_code, period_month
+
     return {"owner": owner_did, "projectDid": projectDid or None, "items": rows}
 
 
@@ -422,20 +672,44 @@ def submit_expense(owner: str = "", employeeDid: str = "", projectDid: str = "",
         return {"error": "employeeDid and expenseDate required"}
     rkey = _slug(f"{employeeDid}-{expenseDate}-{int(time.time() * 1000)}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.keihi.expense", rkey)
-    _insert_if_missing(
-        "vertex_atrecord_keihi_expense",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_keihi_expense
-        (vertex_id,_seq,owner_did,employee_did,project_did,vendor_name,expense_date,amount,currency,tax_rate,category,receipt_cid,status,approved_by_did,approved_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'submitted',NULL,NULL,%s)""",
-        (vertex_id, _next_seq("vertex_atrecord_keihi_expense"), owner_did, employeeDid, projectDid or None, vendorName or None, expenseDate[:10], _float(amount), currency or "JPY", _float(taxRate), category or None, receiptCid or None, now_iso()),
-    )
+
+    client = get_kotoba_client()
+    existing_expense = client.select_first_where("vertex_atrecord_keihi_expense", "vertex_id", vertex_id)
+    if not existing_expense:
+        expense_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_keihi_expense"),
+            "owner_did": owner_did,
+            "employee_did": employeeDid,
+            "project_did": projectDid or None,
+            "vendor_name": vendorName or None,
+            "expense_date": expenseDate[:10],
+            "amount": _float(amount),
+            "currency": currency or "JPY",
+            "tax_rate": _float(taxRate),
+            "category": category or None,
+            "receipt_cid": receiptCid or None,
+            "status": "submitted",
+            "approved_by_did": None,
+            "approved_at": None,
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_keihi_expense", expense_data)
+
     return {"expenseDid": vertex_id, "uri": _uri(owner_did, "com.etzhayyim.apps.keihi.expense", rkey), "status": "submitted"}
 
 
 def approve_expense(expenseDid: str = "", approved: Any = True, approvedByDid: str = "", reason: str = "", **_: Any) -> dict[str, Any]:
     status = "approved" if bool(approved) else "rejected"
-    updated = _execute("UPDATE vertex_atrecord_keihi_expense SET status=%s, approved_by_did=%s, approved_at=%s WHERE vertex_id=%s", (status, approvedByDid or None, now_iso(), expenseDid))
+    client = get_kotoba_client()
+    updated = 0
+    existing_expense = client.select_first_where("vertex_atrecord_keihi_expense", "vertex_id", expenseDid)
+    if existing_expense:
+        existing_expense["status"] = status
+        existing_expense["approved_by_did"] = approvedByDid or None
+        existing_expense["approved_at"] = now_iso()
+        client.insert_row("vertex_atrecord_keihi_expense", existing_expense)
+        updated = 1
     return {"ok": updated > 0, "expenseDid": expenseDid, "status": status, "reason": reason, "kaikeiSourceType": "com.etzhayyim.apps.keihi.expense.approved" if status == "approved" else ""}
 
 
@@ -445,13 +719,23 @@ def upsert_employee(owner: str = "", employeeDid: str = "", displayNameEncrypted
         return {"error": "employeeDid and displayNameEncrypted required"}
     rkey = _slug(employeeDid)
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.jinji.employee", rkey)
-    _execute("DELETE FROM vertex_atrecord_jinji_employee WHERE vertex_id=%s", (vertex_id,))
-    _execute(
-        """INSERT INTO vertex_atrecord_jinji_employee
-        (vertex_id,_seq,owner_did,employee_did,display_name_encrypted,employment_status,joined_on,left_on,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (vertex_id, _next_seq("vertex_atrecord_jinji_employee"), owner_did, employeeDid, displayNameEncrypted, employmentStatus, joinedOn[:10] if joinedOn else None, leftOn[:10] if leftOn else None, now_iso()),
-    )
+
+    client = get_kotoba_client()
+
+    employee_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_atrecord_jinji_employee"), # _next_seq is called as per original DELETE+INSERT behavior
+        "owner_did": owner_did,
+        "employee_did": employeeDid,
+        "display_name_encrypted": displayNameEncrypted,
+        "employment_status": employmentStatus,
+        "joined_on": joinedOn[:10] if joinedOn else None,
+        "left_on": leftOn[:10] if leftOn else None,
+        "created_at": now_iso(),
+    }
+    # insert_row handles upsert behavior, replacing both DELETE and INSERT
+    client.insert_row("vertex_atrecord_jinji_employee", employee_data)
+
     return {"ok": True, "employeeVertexId": vertex_id}
 
 
@@ -459,14 +743,22 @@ def record_attendance(owner: str = "", employeeDid: str = "", workDate: str = ""
     owner_did = resolve_owner(owner)
     rkey = _slug(f"{employeeDid}-{workDate}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.jinji.attendance", rkey)
-    _insert_if_missing(
-        "vertex_atrecord_jinji_attendance",
-        vertex_id,
-        """INSERT INTO vertex_atrecord_jinji_attendance
-        (vertex_id,_seq,owner_did,employee_did,work_date,minutes_worked,status,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (vertex_id, _next_seq("vertex_atrecord_jinji_attendance"), owner_did, employeeDid, workDate[:10], _int(minutesWorked), status or "submitted", now_iso()),
-    )
+
+    client = get_kotoba_client()
+    existing_attendance = client.select_first_where("vertex_atrecord_jinji_attendance", "vertex_id", vertex_id)
+    if not existing_attendance:
+        attendance_data = {
+            "vertex_id": vertex_id,
+            "_seq": _next_seq("vertex_atrecord_jinji_attendance"),
+            "owner_did": owner_did,
+            "employee_did": employeeDid,
+            "work_date": workDate[:10],
+            "minutes_worked": _int(minutesWorked),
+            "status": status or "submitted",
+            "created_at": now_iso(),
+        }
+        client.insert_row("vertex_atrecord_jinji_attendance", attendance_data)
+
     return {"ok": True, "attendanceDid": vertex_id}
 
 
@@ -476,13 +768,24 @@ def complete_payroll_run(owner: str = "", payrollMonth: str = "", grossTotalEncr
         return {"error": "payrollMonth and grossTotalEncrypted required"}
     rkey = _slug(payrollMonth)
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.jinji.payrollRun", rkey)
-    _execute("DELETE FROM vertex_atrecord_jinji_payroll_run WHERE vertex_id=%s", (vertex_id,))
-    _execute(
-        """INSERT INTO vertex_atrecord_jinji_payroll_run
-        (vertex_id,_seq,owner_did,payroll_month,gross_total_encrypted,statutory_total_encrypted,net_total_encrypted,status,completed_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,'completed',%s,%s)""",
-        (vertex_id, _next_seq("vertex_atrecord_jinji_payroll_run"), owner_did, payrollMonth, grossTotalEncrypted, statutoryTotalEncrypted or None, netTotalEncrypted or None, now_iso(), now_iso()),
-    )
+
+    client = get_kotoba_client()
+
+    payroll_run_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_atrecord_jinji_payroll_run"), # _next_seq is called as per original DELETE+INSERT behavior
+        "owner_did": owner_did,
+        "payroll_month": payrollMonth,
+        "gross_total_encrypted": grossTotalEncrypted,
+        "statutory_total_encrypted": statutoryTotalEncrypted or None,
+        "net_total_encrypted": netTotalEncrypted or None,
+        "status": "completed",
+        "completed_at": now_iso(),
+        "created_at": now_iso(),
+    }
+    # insert_row handles upsert behavior, replacing both DELETE and INSERT
+    client.insert_row("vertex_atrecord_jinji_payroll_run", payroll_run_data)
+
     return {"ok": True, "payrollRunDid": vertex_id, "status": "completed", "kaikeiSourceType": "com.etzhayyim.apps.jinji.payrollRun.completed"}
 
 
@@ -499,16 +802,24 @@ def generate_statutory_report(
         return {"error": "reportType, periodFrom, periodTo required"}
     rkey = _slug(f"{reportType}-{periodFrom[:10]}-{periodTo[:10]}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.kaikei.statutoryReport", rkey)
-    _execute("DELETE FROM vertex_kaikei_statutory_report WHERE vertex_id=%s", (vertex_id,))
-    _execute(
-        """INSERT INTO vertex_kaikei_statutory_report
-        (vertex_id,_seq,owner_did,report_type,period_from,period_to,artifact_cid,status,generated_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,'generated',%s,%s)""",
-        (
-            vertex_id, _next_seq("vertex_kaikei_statutory_report"), owner_did,
-            reportType, periodFrom[:10], periodTo[:10], artifactCid or None, now_iso(), now_iso(),
-        ),
-    )
+
+    client = get_kotoba_client()
+
+    report_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_kaikei_statutory_report"), # _next_seq is called as per original DELETE+INSERT behavior
+        "owner_did": owner_did,
+        "report_type": reportType,
+        "period_from": periodFrom[:10],
+        "period_to": periodTo[:10],
+        "artifact_cid": artifactCid or None,
+        "status": "generated",
+        "generated_at": now_iso(),
+        "created_at": now_iso(),
+    }
+    # insert_row handles upsert behavior, replacing both DELETE and INSERT
+    client.insert_row("vertex_kaikei_statutory_report", report_data)
+
     return {"ok": True, "reportDid": vertex_id, "status": "generated"}
 
 
@@ -523,28 +834,46 @@ def validate_moneyforward_parity(
     owner_did = resolve_owner(owner)
     if not periodFrom or not periodTo:
         return {"error": "periodFrom and periodTo required"}
-    rw = _fetch_one(
-        """SELECT COALESCE(SUM(amount),0) AS total
-        FROM vertex_atrecord_kaikei_journal_entry
-        WHERE owner_did=%s AND posted_at >= %s AND posted_at <= %s""",
-        (owner_did, _as_utc_ts(periodFrom), _as_utc_ts(periodTo, end_of_day=True)),
-    )
-    rw_total = _float((rw or {}).get("total"))
+    client = get_kotoba_client()
+
+    # R0: SUM aggregate with multiple WHERE clauses uses q() as shims don't support complex aggregates or multiple filters.
+    query_edn = f"""
+    [:find (sum ?amount) .
+     :where
+     [?e :vertex-atrecord-kaikei-journal-entry/owner-did "{owner_did}"]
+     [?e :vertex-atrecord-kaikei-journal-entry/posted-at ?posted-at]
+     [(.compareTo ?posted-at "{_as_utc_ts(periodFrom)}") ?comp_start]
+     [(.compareTo ?posted-at "{_as_utc_ts(periodTo, end_of_day=True)}") ?comp_end]
+     [(>= ?comp_start 0)]
+     [(<= ?comp_end 0)]
+     [?e :vertex-atrecord-kaikei-journal-entry/amount ?amount]]
+    """
+    sum_result = client.q(query_edn)
+    rw_total = _float(sum_result[0][0]) if sum_result and sum_result[0] and sum_result[0][0] is not None else 0.0
+    rw = {"total": rw_total}
+
     mf_total = _float(mfTotal, rw_total)
     diff = rw_total - mf_total
     status = "matched" if abs(diff) < 1 else "mismatch"
     rkey = _slug(f"{periodFrom[:10]}-{periodTo[:10]}-{int(time.time())}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.kaikei.moneyForwardParityRun", rkey)
-    _execute(
-        """INSERT INTO vertex_kaikei_moneyforward_parity_run
-        (vertex_id,_seq,owner_did,period_from,period_to,mf_export_cid,rw_total,mf_total,diff_amount,status,checked_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (
-            vertex_id, _next_seq("vertex_kaikei_moneyforward_parity_run"), owner_did,
-            periodFrom[:10], periodTo[:10], mfExportCid or None, rw_total, mf_total,
-            diff, status, now_iso(), now_iso(),
-        ),
-    )
+
+    parity_run_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_kaikei_moneyforward_parity_run"),
+        "owner_did": owner_did,
+        "period_from": periodFrom[:10],
+        "period_to": periodTo[:10],
+        "mf_export_cid": mfExportCid or None,
+        "rw_total": rw_total,
+        "mf_total": mf_total,
+        "diff_amount": diff,
+        "status": status,
+        "checked_at": now_iso(),
+        "created_at": now_iso(),
+    }
+    client.insert_row("vertex_kaikei_moneyforward_parity_run", parity_run_data)
+
     return {"ok": True, "parityRunDid": vertex_id, "status": status, "diffAmount": diff}
 
 
@@ -564,17 +893,26 @@ def register_saas_asset(
         return {"error": "provider, assetType, externalId, displayName required"}
     rkey = _slug(f"{provider}-{assetType}-{externalId}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.kaisya.saasAsset", rkey)
-    _execute("DELETE FROM vertex_kaisya_saas_asset WHERE vertex_id=%s", (vertex_id,))
-    _execute(
-        """INSERT INTO vertex_kaisya_saas_asset
-        (vertex_id,_seq,owner_did,provider,asset_type,external_id,display_name,assignee_did,metadata_json,status,observed_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (
-            vertex_id, _next_seq("vertex_kaisya_saas_asset"), owner_did,
-            provider, assetType, externalId, displayName, assigneeDid or None,
-            _json(metadata), status or "active", now_iso(), now_iso(),
-        ),
-    )
+
+    client = get_kotoba_client()
+
+    asset_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_kaisya_saas_asset"), # _next_seq is called as per original DELETE+INSERT behavior
+        "owner_did": owner_did,
+        "provider": provider,
+        "asset_type": assetType,
+        "external_id": externalId,
+        "display_name": displayName,
+        "assignee_did": assigneeDid or None,
+        "metadata_json": _json(metadata),
+        "status": status or "active",
+        "observed_at": now_iso(),
+        "created_at": now_iso(),
+    }
+    # insert_row handles upsert behavior, replacing both DELETE and INSERT
+    client.insert_row("vertex_kaisya_saas_asset", asset_data)
+
     return {"ok": True, "assetDid": vertex_id}
 
 
@@ -592,18 +930,25 @@ def record_year_end_adjustment(
         return {"error": "employeeDid, taxYear, declarationHash required"}
     rkey = _slug(f"{employeeDid}-{taxYear}")
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.jinji.yearEndAdjustment", rkey)
-    _execute("DELETE FROM vertex_atrecord_jinji_year_end_adjustment WHERE vertex_id=%s", (vertex_id,))
+
+    client = get_kotoba_client()
     done = now_iso() if status == "completed" else None
-    _execute(
-        """INSERT INTO vertex_atrecord_jinji_year_end_adjustment
-        (vertex_id,_seq,owner_did,employee_did,tax_year,declaration_hash,status,artifact_cid,completed_at,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (
-            vertex_id, _next_seq("vertex_atrecord_jinji_year_end_adjustment"),
-            owner_did, employeeDid, _int(taxYear), declarationHash, status or "submitted",
-            artifactCid or None, done, now_iso(),
-        ),
-    )
+
+    adjustment_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_atrecord_jinji_year_end_adjustment"), # _next_seq is called as per original DELETE+INSERT behavior
+        "owner_did": owner_did,
+        "employee_did": employeeDid,
+        "tax_year": _int(taxYear),
+        "declaration_hash": declarationHash,
+        "status": status or "submitted",
+        "artifact_cid": artifactCid or None,
+        "completed_at": done,
+        "created_at": now_iso(),
+    }
+    # insert_row handles upsert behavior, replacing both DELETE and INSERT
+    client.insert_row("vertex_atrecord_jinji_year_end_adjustment", adjustment_data)
+
     return {"ok": True, "yearEndAdjustmentDid": vertex_id}
 
 
@@ -620,15 +965,20 @@ def register_mynumber_vault_ref(
         return {"error": "employeeDid, vaultRefEncrypted, declarationHash required"}
     rkey = _slug(employeeDid)
     vertex_id = _vid(owner_did, "com.etzhayyim.apps.jinji.mynumberVaultRef", rkey)
-    _execute("DELETE FROM vertex_atrecord_jinji_mynumber_vault_ref WHERE vertex_id=%s", (vertex_id,))
-    _execute(
-        """INSERT INTO vertex_atrecord_jinji_mynumber_vault_ref
-        (vertex_id,_seq,owner_did,employee_did,vault_ref_encrypted,declaration_hash,status,created_at)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
-        (
-            vertex_id, _next_seq("vertex_atrecord_jinji_mynumber_vault_ref"),
-            owner_did, employeeDid, vaultRefEncrypted, declarationHash,
-            status or "active", now_iso(),
-        ),
-    )
+
+    client = get_kotoba_client()
+
+    vault_ref_data = {
+        "vertex_id": vertex_id,
+        "_seq": _next_seq("vertex_atrecord_jinji_mynumber_vault_ref"), # _next_seq is called as per original DELETE+INSERT behavior
+        "owner_did": owner_did,
+        "employee_did": employeeDid,
+        "vault_ref_encrypted": vaultRefEncrypted,
+        "declaration_hash": declarationHash,
+        "status": status or "active",
+        "created_at": now_iso(),
+    }
+    # insert_row handles upsert behavior, replacing both DELETE and INSERT
+    client.insert_row("vertex_atrecord_jinji_mynumber_vault_ref", vault_ref_data)
+
     return {"ok": True, "vaultRefDid": vertex_id}

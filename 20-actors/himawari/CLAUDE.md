@@ -3,7 +3,7 @@
 ## Identity
 
 - **Name**: himawari (向日葵 — "sunflower / sun-turning"; heliotropic echo of solar trackers + the manufacture of light-capturing surfaces; deliberate sibling resonance with hikari 光)
-- **DID**: `did:web:etzhayyim.com:himawari`
+- **DID**: `did:web:etzhayyim.com:actor:himawari` (canonical actor form per ADR-2606013800; resolves at `/actor/himawari/did.json`)
 - **ADR**: ADR-2606021200 (R0 scaffold, 2026-06-02)
 - **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance via hikari)
 - **Tightest sibling**: hikari (ADR-2605261100 — generation/install)

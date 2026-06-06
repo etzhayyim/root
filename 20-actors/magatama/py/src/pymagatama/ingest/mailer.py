@@ -9,9 +9,9 @@ import time
 import urllib.parse
 import urllib.request
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 from pymagatama.gewp import (
     GewpMessage,
     compose_pgp_mime_raw,
@@ -22,12 +22,15 @@ from pymagatama.gewp import (
     to_dict as gewp_to_dict,
 )
 from pymagatama.local_agent_env import load_keychain_secret
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.pgp import lookup_public_key as _pgp_lookup
 
 ACTOR = "did:web:mailer.etzhayyim.com"
 INBOUND_REPO = "did:web:ml1nb0nd.etzhayyim.com"
 INBOUND_COLLECTION = "com.etzhayyim.apps.mailer.inboundEmail"
 PDS_ORIGIN = os.environ.get("PDS_ORIGIN", "https://atproto.etzhayyim.com")
+
+_kotoba_client = get_kotoba_client()
 
 
 def now_iso() -> str:
@@ -43,24 +46,6 @@ def _int(value: Any, default: int = 0) -> int:
         return int(value)
     except (TypeError, ValueError):
         return default
-
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> tuple[int, dict[str, Any], str]:
@@ -121,16 +106,28 @@ def health(**_: Any) -> dict[str, Any]:
 def list_emails(limit: Any = 30, toLocal: str = "", **_: Any) -> dict[str, Any]:
     n = max(1, min(_int(limit, 30), 100))
     to_local = toLocal.lower().strip()
-    where = "WHERE to_local=%s" if to_local else ""
-    params: tuple[Any, ...] = (to_local,) if to_local else ()
-    rows = _fetch_all(
-        f"""SELECT vertex_id, message_id, from_address_hash, to_local, to_local_hash,
-        subject, body_text, received_at_ms, content_protection, status
-        FROM vertex_mailer_inbound_email {where}
-        ORDER BY received_at_ms DESC
-        LIMIT {n}""",
-        params,
-    )
+
+    # R0: Using Datalog q() for ORDER BY and optional WHERE.
+    # Datalog query for list_emails
+    query_edn_parts = [
+        ":find", "(pull ?e [:vertex_id :message_id :from_address_hash :to_local :to_local_hash :subject :body_text :received_at_ms :content_protection :status])",
+        ":where", "[?e :vertex_id]",
+    ]
+    query_args: dict[str, Any] = {}
+
+    if to_local:
+        query_edn_parts.append("[?e :to_local $to_local_param]")
+        query_args["$to_local_param"] = to_local
+
+    query_edn_parts.extend([
+        ":order-by", "desc", "?received_at_ms",
+        ":limit", "$n_param"
+    ])
+    query_args["$n_param"] = n
+
+    rows_raw = _kotoba_client.q(json.dumps(query_edn_parts), args=query_args)
+    rows = [row[0] for row in rows_raw] if rows_raw and isinstance(rows_raw[0], list) else rows_raw
+
     if not rows:
         return _list_emails_from_pds(n, to_local)
     items = [
@@ -182,12 +179,24 @@ def _list_emails_from_pds(limit: int, to_local: str) -> dict[str, Any]:
 
 def list_bindings(limit: Any = 50, **_: Any) -> dict[str, Any]:
     n = max(1, min(_int(limit, 50), 200))
-    rows = _fetch_all(
-        f"""SELECT email, did, direction, verified, created_at_ms
-        FROM vertex_mailer_email_binding
-        ORDER BY created_at_ms DESC
-        LIMIT {n}""",
-    )
+
+    # R0: Using Datalog q() for ORDER BY.
+    query_edn_parts = [
+        ":find", "(pull ?e [:email :did :direction :verified :created_at_ms])",
+        ":where", "[?e :email]", # Assuming entities with :email attribute represent email bindings
+        "[?e :created_at_ms ?created_at_ms]",
+    ]
+    query_args = {}
+
+    query_edn_parts.extend([
+        ":order-by", "desc", "?created_at_ms",
+        ":limit", "$n_param"
+    ])
+    query_args["$n_param"] = n
+
+    rows_raw = _kotoba_client.q(json.dumps(query_edn_parts), args=query_args)
+    rows = [row[0] for row in rows_raw] if rows_raw and isinstance(rows_raw[0], list) else rows_raw
+
     items = [
         {
             "email": row.get("email") or "",
@@ -202,9 +211,14 @@ def list_bindings(limit: Any = 50, **_: Any) -> dict[str, Any]:
 
 
 def stats(**_: Any) -> dict[str, Any]:
-    emails = _fetch_one("SELECT COUNT(*) AS total FROM vertex_mailer_inbound_email") or {}
-    bindings = _fetch_one("SELECT COUNT(*) AS total FROM vertex_mailer_email_binding") or {}
-    return {"emails": _int(emails.get("total")), "bindings": _int(bindings.get("total")), "ts": now_iso()}
+    # R0: Using Datalog q() for COUNT(*) without WHERE clause.
+    emails_count_raw = _kotoba_client.q(json.dumps([":find", "(count ?e)", ":where", "[?e :vertex_id]"]), args={})
+    emails_total = emails_count_raw[0][0] if emails_count_raw else 0
+
+    bindings_count_raw = _kotoba_client.q(json.dumps([":find", "(count ?e)", ":where", "[?e :email]"]), args={})
+    bindings_total = bindings_count_raw[0][0] if bindings_count_raw else 0
+
+    return {"emails": _int(emails_total), "bindings": _int(bindings_total), "ts": now_iso()}
 
 
 def send_email(to: str = "", subject: str = "", text: str = "", html: str = "", from_: str = "", fromAddress: str = "", replyTo: str = "", **kwargs: Any) -> dict[str, Any]:
@@ -287,17 +301,36 @@ def _record_outbound(
     rid = f"outbound-{uuid.uuid4().hex[:16]}"
     now_ms = int(time.time() * 1000)
     vertex_id = f"at://{ACTOR}/com.etzhayyim.apps.mailer.outboundEmail/{rid}"
-    _execute("DELETE FROM vertex_mailer_outbound_email WHERE vertex_id = %s", (vertex_id,))
-    _execute(
-        """INSERT INTO vertex_mailer_outbound_email
-        (vertex_id, sensitivity_ord, owner_did, rkey, repo, message_id, from_address, to_address,
-         subject, body_text, body_html, provider, provider_message_id, status, error, sent_at_ms,
-         created_at, org_id, user_id, actor_id, gewp_thread_id, gewp_step, content_protection)
-        VALUES (%s,1,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon','anon',%s,%s,%s,%s)""",
-        (vertex_id, ACTOR, rid, ACTOR, message_id, sender, to, subject, text, html,
-         provider, message_id, status, error, now_ms, now_iso(), ACTOR,
-         gewp_thread_id or None, gewp_step or None, content_protection),
-    )
+
+    # R0: Replaced DELETE and INSERT with kotoba_datomic.insert_row for upsert.
+    # Replaced SQL now() with Python datetime.now(timezone.utc).
+
+    outbound_record = {
+        "vertex_id": vertex_id,
+        "sensitivity_ord": 1,
+        "owner_did": ACTOR,
+        "rkey": rid,
+        "repo": ACTOR,
+        "message_id": message_id,
+        "from_address": sender,
+        "to_address": to,
+        "subject": subject,
+        "body_text": text,
+        "body_html": html,
+        "provider": provider,
+        "provider_message_id": message_id,
+        "status": status,
+        "error": error,
+        "sent_at_ms": now_ms,
+        "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "org_id": 'anon',
+        "user_id": 'anon',
+        "actor_id": ACTOR,
+        "gewp_thread_id": gewp_thread_id or None,
+        "gewp_step": gewp_step or None,
+        "content_protection": content_protection,
+    }
+    _kotoba_client.insert_row("vertex_mailer_outbound_email", outbound_record)
 
 
 def provision_mailbox(handle: str = "", did: str = "", purpose: str = "", **_: Any) -> dict[str, Any]:
@@ -451,12 +484,15 @@ def parse_inbound_gewp(
 
     try:
         if vertex_id:
-            _execute(
-                """UPDATE vertex_mailer_inbound_email
-                   SET gewp_thread_id=%s, gewp_step=%s, gewp_type=%s, gewp_performative=%s
-                   WHERE vertex_id=%s""",
-                (msg.thread.id, msg.thread.step, msg.type, msg.performative, vertex_id),
-            )
+            # R0: Replaced UPDATE with kotoba_datomic.insert_row leveraging its upsert behavior.
+            update_record = {
+                "vertex_id": vertex_id,
+                "gewp_thread_id": msg.thread.id,
+                "gewp_step": msg.thread.step,
+                "gewp_type": msg.type,
+                "gewp_performative": msg.performative,
+            }
+            _kotoba_client.insert_row("vertex_mailer_inbound_email", update_record)
     except Exception:
         pass
 
@@ -503,9 +539,13 @@ def decrypt_inbound(
     """
     if not vertex_id or not private_key_armored:
         return {"error": "vertex_id and private_key_armored are required"}
-    row = _fetch_one(
-        "SELECT body_text, body_html, gewp_attachment_json FROM vertex_mailer_inbound_email WHERE vertex_id = %s",
-        (vertex_id,),
+
+    # R0: Replaced _fetch_one with kotoba_datomic.select_first_where.
+    row = _kotoba_client.select_first_where(
+        "vertex_mailer_inbound_email",
+        "vertex_id",
+        vertex_id,
+        columns=["body_text", "body_html", "gewp_attachment_json"],
     )
     if not row:
         return {"error": "not_found"}

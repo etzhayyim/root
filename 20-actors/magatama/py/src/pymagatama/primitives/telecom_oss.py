@@ -27,7 +27,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -55,7 +55,7 @@ def _now_iso() -> str:
 
 def _new_id(prefix: str, *parts: Any) -> str:
     if parts:
-        digest = hashlib.sha256("|".join(str(p) for p in parts).encode("utf-8")).hexdigest()[:24]
+        digest = hashlib.sha256("|".join(str(p) for p in parts).hexdigest())[:24]
         return f"{prefix}_{digest}"
     return f"{prefix}_{secrets.token_urlsafe(16).replace('-', '').replace('_', '')[:20]}"
 
@@ -94,14 +94,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -201,22 +194,23 @@ def task_telecom_oss_alarm_suppress(
     if suppressionReason not in SUPPRESSION_REASONS:
         raise ValueError(f"unsupported suppressionReason: {suppressionReason}")
     vid = _vid("alarm", alarmId)
+
+    status = "suppressed"
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_alarm
-                   SET suppress_until = %s,
-                       suppression_reason = %s,
-                       suppressed_by = %s,
-                       window_vid = %s,
-                       status = 'suppressed'
-                 WHERE vertex_id = %s
-                """,
-                (suppressUntil, suppressionReason, suppressedBy,
-                 windowVid or None, vid),
-            )
-    return {"ok": True, "vertexId": vid, "alarmId": alarmId, "status": "suppressed"}
+        client = get_kotoba_client()
+        existing_alarm = client.select_first_where(
+            "vertex_telecom_alarm", "vertex_id", vid,
+        )
+        if existing_alarm:
+            existing_alarm["suppress_until"] = suppressUntil
+            existing_alarm["suppression_reason"] = suppressionReason
+            existing_alarm["suppressed_by"] = suppressedBy
+            existing_alarm["window_vid"] = windowVid or None
+            existing_alarm["status"] = status
+            _insert("vertex_telecom_alarm", existing_alarm, dry_run=dryRun)
+        else:
+            raise ValueError(f"Alarm with vertex_id {vid} not found for suppression.")
+    return {"ok": True, "vertexId": vid, "alarmId": alarmId, "status": status}
 
 
 def task_telecom_oss_alarm_clear(
@@ -232,29 +226,34 @@ def task_telecom_oss_alarm_clear(
     if clearKind not in CLEAR_KINDS:
         raise ValueError(f"unsupported clearKind: {clearKind}")
     vid = _vid("alarm", alarmId)
+
     mttr = None
+    status = "cleared"
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_alarm
-                   SET cleared_at = %s,
-                       clear_kind = %s,
-                       cleared_by = %s,
-                       resolution_ref = %s,
-                       mttr_seconds = EXTRACT(EPOCH FROM (CAST(%s AS timestamptz) - CAST(raised_at AS timestamptz))),
-                       status = 'cleared'
-                 WHERE vertex_id = %s
-             RETURNING mttr_seconds
-                """,
-                (clearedAt, clearKind, clearedBy, resolutionRef or None,
-                 clearedAt, vid),
-            )
-            row = cur.fetchone()
-            if row:
-                mttr = float(row[0]) if row[0] is not None else None
+        client = get_kotoba_client()
+        existing_alarm = client.select_first_where(
+            "vertex_telecom_alarm", "vertex_id", vid,
+        )
+        if existing_alarm:
+            raised_at_str = existing_alarm.get("raised_at")
+            if raised_at_str:
+                raised_at_dt = datetime.fromisoformat(raised_at_str).astimezone(UTC)
+                cleared_at_dt = datetime.fromisoformat(clearedAt).astimezone(UTC)
+                mttr_seconds = (cleared_at_dt - raised_at_dt).total_seconds()
+                mttr = float(mttr_seconds) if mttr_seconds is not None else None
+
+            existing_alarm["cleared_at"] = clearedAt
+            existing_alarm["clear_kind"] = clearKind
+            existing_alarm["cleared_by"] = clearedBy
+            existing_alarm["resolution_ref"] = resolutionRef or None
+            existing_alarm["mttr_seconds"] = mttr
+            existing_alarm["status"] = status
+            _insert("vertex_telecom_alarm", existing_alarm, dry_run=dryRun)
+        else:
+            raise ValueError(f"Alarm with vertex_id {vid} not found for clearing.")
+
     return {"ok": True, "vertexId": vid, "alarmId": alarmId,
-            "mttrSeconds": mttr, "status": "cleared"}
+            "mttrSeconds": mttr, "status": status}
 
 
 def task_telecom_oss_change_submit(
@@ -330,28 +329,29 @@ def task_telecom_oss_change_approve(
         **_audit(payload),
     }
     _insert("vertex_telecom_change_approval", row, dry_run=dryRun)
+
+    change_status = decision
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_change_request
-                   SET decision = %s,
-                       decision_reason = %s,
-                       approver_id = %s,
-                       approver_role = %s,
-                       decided_at = %s,
-                       scheduled_start = COALESCE(%s, scheduled_start),
-                       scheduled_end = COALESCE(%s, scheduled_end),
-                       status = %s
-                 WHERE vertex_id = %s
-                """,
-                (decision, decisionReason or None, approverId, approverRole,
-                 observedAt,
-                 scheduledStart or None, scheduledEnd or None,
-                 decision, change_vid),
-            )
+        client = get_kotoba_client()
+        existing_change_request = client.select_first_where(
+            "vertex_telecom_change_request", "vertex_id", change_vid,
+        )
+        if existing_change_request:
+            existing_change_request["decision"] = decision
+            existing_change_request["decision_reason"] = decisionReason or None
+            existing_change_request["approver_id"] = approverId
+            existing_change_request["approver_role"] = approverRole
+            existing_change_request["decided_at"] = observedAt
+            existing_change_request["scheduled_start"] = scheduledStart or existing_change_request.get("scheduled_start")
+            existing_change_request["scheduled_end"] = scheduledEnd or existing_change_request.get("scheduled_end")
+            existing_change_request["status"] = decision
+            _insert("vertex_telecom_change_request", existing_change_request, dry_run=dryRun)
+            change_status = existing_change_request["status"]
+        else:
+            raise ValueError(f"Change request with vertex_id {change_vid} not found for approval.")
+
     return {"ok": True, "vertexId": vid, "approvalId": a_id,
-            "changeStatus": decision, "status": row["status"]}
+            "changeStatus": change_status, "status": row["status"]}
 
 
 def task_telecom_oss_config_snapshot(
@@ -376,14 +376,13 @@ def task_telecom_oss_config_snapshot(
     baseline_vid = _vid("configSnapshot", baselineSnapshotId) if baselineSnapshotId else None
     drift = False
     if baseline_vid and not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                "SELECT config_hash FROM vertex_telecom_config_snapshot WHERE vertex_id = %s",
-                (baseline_vid,),
-            )
-            row = cur.fetchone()
-            if row and row[0] != configHash:
-                drift = True
+        client = get_kotoba_client()
+        baseline_snapshot = client.select_first_where(
+            "vertex_telecom_config_snapshot", "vertex_id", baseline_vid,
+            columns=["config_hash"]
+        )
+        if baseline_snapshot and baseline_snapshot.get("config_hash") != configHash:
+            drift = True
     row = {
         "vertex_id": vid, "owner_did": _caller(payload),
         "snapshot_id": s_id,

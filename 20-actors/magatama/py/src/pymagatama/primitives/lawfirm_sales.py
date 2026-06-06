@@ -11,11 +11,13 @@ ADR-0036 Hyperdrive direct.
 
 from __future__ import annotations
 
-import datetime as _dt
 import json
 import logging
 import uuid
+from datetime import datetime, timezone
 from typing import Any
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("lawfirm.sales")
 
@@ -23,31 +25,16 @@ _FIRM_DID = "did:web:lawfirm.etzhayyim.com"
 
 
 def _now_iso() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 def _vid(kind: str) -> str:
-    stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
+    stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%d%H%M%S")
     return f"at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("execute failed: %s", exc)
-        return False
 
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("query failed: %s", exc)
-        return []
+
+
 
 
 # ── Stage advance map ────────────────────────────────────────────────────────
@@ -83,10 +70,8 @@ async def task_lawfirm_mail_reply_webhook(
 
     # Idempotency check
     if graph_event_id:
-        dup = _query(
-            "SELECT vertex_id FROM vertex_lawfirm_outreach_event "
-            "WHERE asset_uri = :gid LIMIT 1",
-            {"gid": f"graph://{graph_event_id}"},
+        dup = get_kotoba_client().select_first_where(
+            "vertex_lawfirm_outreach_event", "asset_uri", f"graph://{graph_event_id}"
         )
         if dup:
             return {"ok": True, "matched_lead_id": "", "stage_advanced": False, "duplicate": True}
@@ -94,12 +79,30 @@ async def task_lawfirm_mail_reply_webhook(
     # Match strategy: domain → target_email substring → subject keyword
     domain = from_email.split("@")[-1].lower() if "@" in from_email else ""
 
-    rows = _query(
-        "SELECT lead_id, stage FROM vertex_lawfirm_lead "
-        "WHERE LOWER(target_email) LIKE :pat OR LOWER(target_name) LIKE :npat "
-        "LIMIT 5",
-        {"pat": f"%{domain}%", "npat": f"%{domain.split('.')[0]}%"},
-    )
+    # R0: Datalog doesn't directly support SQL LIKE/LOWER in patterns,
+    # so fetching relevant fields and filtering in Python.
+    datalog_query = """
+[:find ?lead_id ?stage ?target_email ?target_name
+ :where
+ [?e :vertex/type :vertex_lawfirm_lead]
+ [?e :vertex_lawfirm_lead/lead_id ?lead_id]
+ [?e :vertex_lawfirm_lead/stage ?stage]
+ [?e :vertex_lawfirm_lead/target_email ?target_email]
+ [?e :vertex_lawfirm_lead/target_name ?target_name]]
+"""
+    raw_results = get_kotoba_client().q(datalog_query)
+
+    rows = []
+    domain_lower = domain.lower()
+    domain_first_part_lower = domain.split('.')[0].lower() if domain.split('.') else "" # Handle empty domain split
+
+    for r in raw_results:
+        lead_id, stage, target_email, target_name = r
+        if (domain_lower and domain_lower in target_email.lower()) or \
+           (domain_first_part_lower and domain_first_part_lower in target_name.lower()):
+            rows.append({"lead_id": lead_id, "stage": stage})
+        if len(rows) >= 5: # Apply LIMIT 5 here
+            break
     matched_lead_id = ""
     matched_stage = ""
     if rows:
@@ -108,22 +111,21 @@ async def task_lawfirm_mail_reply_webhook(
 
     # Persist inbound outreach event
     event_uri = _vid("outreachEvent")
-    _execute(
-        "INSERT INTO vertex_lawfirm_outreach_event "
-        "(vertex_id, lead_id, event_kind, channel, direction, subject, "
-        " body_preview, asset_uri, occurred_at, actor_did, created_at, owner_did) "
-        "VALUES (:vid, :lid, 'reply_received', 'email', 'in', :subj, "
-        " :body, :asset, :occ, :actor, :now, :owner)",
+    get_kotoba_client().insert_row(
+        "vertex_lawfirm_outreach_event",
         {
-            "vid":   event_uri,
-            "lid":   matched_lead_id,
-            "subj":  subject[:500],
-            "body":  body_preview[:1500],
-            "asset": f"graph://{graph_event_id}" if graph_event_id else "",
-            "occ":   received_at or _now_iso(),
-            "actor": from_email,
-            "now":   _now_iso(),
-            "owner": _FIRM_DID,
+            "vertex_id": event_uri,
+            "lead_id": matched_lead_id,
+            "event_kind": "reply_received",
+            "channel": "email",
+            "direction": "in",
+            "subject": subject[:500],
+            "body_preview": body_preview[:1500],
+            "asset_uri": f"graph://{graph_event_id}" if graph_event_id else "",
+            "occurred_at": received_at or _now_iso(),
+            "actor_did": from_email,
+            "created_at": _now_iso(),
+            "owner_did": _FIRM_DID,
         },
     )
 
@@ -132,26 +134,27 @@ async def task_lawfirm_mail_reply_webhook(
     if matched_lead_id and matched_stage in _STAGE_ON_REPLY:
         nxt = _STAGE_ON_REPLY[matched_stage]
         if nxt != matched_stage:
-            _execute(
-                "UPDATE vertex_lawfirm_lead "
-                "SET stage = :s, last_reply_at = :now, last_touch_at = :now "
-                "WHERE lead_id = :lid",
-                {"s": nxt, "now": _now_iso(), "lid": matched_lead_id},
-            )
-            _execute(
-                "INSERT INTO vertex_lawfirm_pipeline_stage "
-                "(vertex_id, lead_id, from_stage, to_stage, transitioned_at, "
-                " reason, decided_by_did, created_at, owner_did) "
-                "VALUES (:vid, :lid, :from, :to, :now, 'mail_reply_received', "
-                " :actor, :now, :owner)",
+            get_kotoba_client().insert_row(
+                "vertex_lawfirm_lead",
                 {
-                    "vid":   _vid("pipelineStage"),
-                    "lid":   matched_lead_id,
-                    "from":  matched_stage,
-                    "to":    nxt,
-                    "now":   _now_iso(),
-                    "actor": from_email,
-                    "owner": _FIRM_DID,
+                    "lead_id": matched_lead_id, # Identity column
+                    "stage": nxt,
+                    "last_reply_at": _now_iso(),
+                    "last_touch_at": _now_iso(),
+                },
+            )
+            get_kotoba_client().insert_row(
+                "vertex_lawfirm_pipeline_stage",
+                {
+                    "vertex_id": _vid("pipelineStage"),
+                    "lead_id": matched_lead_id,
+                    "from_stage": matched_stage,
+                    "to_stage": nxt,
+                    "transitioned_at": _now_iso(),
+                    "reason": "mail_reply_received",
+                    "decided_by_did": from_email,
+                    "created_at": _now_iso(),
+                    "owner_did": _FIRM_DID,
                 },
             )
             stage_advanced = True
@@ -187,32 +190,31 @@ async def task_lawfirm_pipeline_transition(
     if not lead_id or to_stage not in _VALID_STAGES:
         return {"ok": False, "error": f"invalid lead_id or stage: {to_stage!r}"}
 
-    cur = _query(
-        "SELECT stage FROM vertex_lawfirm_lead WHERE lead_id = :lid LIMIT 1",
-        {"lid": lead_id},
-    )
+    cur = get_kotoba_client().select_first_where("vertex_lawfirm_lead", "lead_id", lead_id, columns=["stage"])
     if not cur:
         return {"ok": False, "error": f"lead not found: {lead_id}"}
-    from_stage = cur[0]["stage"]
+    from_stage = cur["stage"]
 
-    _execute(
-        "UPDATE vertex_lawfirm_lead SET stage = :s, last_touch_at = :now WHERE lead_id = :lid",
-        {"s": to_stage, "now": _now_iso(), "lid": lead_id},
-    )
-    _execute(
-        "INSERT INTO vertex_lawfirm_pipeline_stage "
-        "(vertex_id, lead_id, from_stage, to_stage, transitioned_at, "
-        " reason, decided_by_did, created_at, owner_did) "
-        "VALUES (:vid, :lid, :from, :to, :now, :reason, :dec, :now, :owner)",
+    get_kotoba_client().insert_row(
+        "vertex_lawfirm_lead",
         {
-            "vid":    _vid("pipelineStage"),
-            "lid":    lead_id,
-            "from":   from_stage,
-            "to":     to_stage,
-            "now":    _now_iso(),
+            "lead_id": lead_id, # Identity column
+            "stage": to_stage,
+            "last_touch_at": _now_iso(),
+        },
+    )
+    get_kotoba_client().insert_row(
+        "vertex_lawfirm_pipeline_stage",
+        {
+            "vertex_id": _vid("pipelineStage"),
+            "lead_id": lead_id,
+            "from_stage": from_stage,
+            "to_stage": to_stage,
+            "transitioned_at": _now_iso(),
             "reason": reason[:500],
-            "dec":    decided_by_did or _FIRM_DID,
-            "owner":  _FIRM_DID,
+            "decided_by_did": decided_by_did or _FIRM_DID,
+            "created_at": _now_iso(),
+            "owner_did": _FIRM_DID,
         },
     )
     LOG.info("pipeline transition lead=%s %s → %s by %s", lead_id, from_stage, to_stage, decided_by_did)
@@ -234,29 +236,30 @@ async def task_lawfirm_record_outreach(
     if not lead_id:
         return {"ok": False, "error": "lead_id required"}
     event_uri = _vid("outreachEvent")
-    _execute(
-        "INSERT INTO vertex_lawfirm_outreach_event "
-        "(vertex_id, lead_id, event_kind, channel, direction, subject, "
-        " body_preview, asset_uri, occurred_at, actor_did, created_at, owner_did) "
-        "VALUES (:vid, :lid, :ek, :ch, :dir, :subj, :body, :asset, :now, :actor, :now, :owner)",
+    get_kotoba_client().insert_row(
+        "vertex_lawfirm_outreach_event",
         {
-            "vid":   event_uri,
-            "lid":   lead_id,
-            "ek":    event_kind,
-            "ch":    channel,
-            "dir":   direction,
-            "subj":  subject[:500],
-            "body":  body_preview[:1500],
-            "asset": asset_uri,
-            "now":   _now_iso(),
-            "actor": actor_did,
-            "owner": _FIRM_DID,
+            "vertex_id": event_uri,
+            "lead_id": lead_id,
+            "event_kind": event_kind,
+            "channel": channel,
+            "direction": direction,
+            "subject": subject[:500],
+            "body_preview": body_preview[:1500],
+            "asset_uri": asset_uri,
+            "occurred_at": _now_iso(),
+            "actor_did": actor_did,
+            "created_at": _now_iso(),
+            "owner_did": _FIRM_DID,
         },
     )
     if direction == "out":
-        _execute(
-            "UPDATE vertex_lawfirm_lead SET last_touch_at = :now WHERE lead_id = :lid",
-            {"now": _now_iso(), "lid": lead_id},
+        get_kotoba_client().insert_row(
+            "vertex_lawfirm_lead",
+            {
+                "lead_id": lead_id, # Identity column
+                "last_touch_at": _now_iso(),
+            },
         )
     return {"ok": True, "event_uri": event_uri}
 

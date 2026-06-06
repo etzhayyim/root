@@ -19,7 +19,7 @@ from fastapi import FastAPI, Header, HTTPException
 
 from pymagatama.supplychain.adapter import normalize_cleaning_robot
 from pymagatama.supplychain.graph import build_graph
-from pymagatama.db_sync import fetch_all
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _GRAPH = build_graph()
 GRAPHS: dict[str, Any] = {"supplychain_cleaning_robot_v1": _GRAPH}
@@ -112,16 +112,20 @@ async def cron_outbox_drain(
     _enforce_auth(x_api_key)
     domain = os.environ.get("SUPPLYCHAIN_DOMAIN", "cleaning_robot")
     try:
-        rows = fetch_all(
-            """
-            SELECT signal_id, target_company_did, target_channel, domain,
-                   severity, risk_score, confidence, notification_status
-            FROM mv_jukyu_notification_outbox
-            WHERE domain = %s
-            ORDER BY risk_score DESC LIMIT 100
-            """,
-            (domain,),
+        # R0: Order by risk_score DESC and LIMIT 100 in Python as kotoba_datomic select_where does not support ORDER BY.
+        client = get_kotoba_client()
+        all_rows = client.select_where(
+            "mv_jukyu_notification_outbox",
+            "domain",
+            domain,
+            columns=[
+                "signal_id", "target_company_did", "target_channel", "domain",
+                "severity", "risk_score", "confidence", "notification_status"
+            ],
+            limit=2000 # Fetch more rows to allow in-Python sorting
         )
+        # Sort by risk_score descending and take the top 100
+        rows = sorted(all_rows, key=lambda x: x.get("risk_score", 0.0), reverse=True)[:100]
     except Exception as exc:
         return {
             "ok": False,
@@ -135,14 +139,14 @@ async def cron_outbox_drain(
         "count": len(rows),
         "signals": [
             {
-                "signalId": row[0],
-                "targetCompanyDid": row[1],
-                "targetChannel": row[2],
-                "domain": row[3],
-                "severity": row[4],
-                "riskScore": row[5],
-                "confidence": row[6],
-                "status": row[7],
+                "signalId": row["signal_id"],
+                "targetCompanyDid": row["target_company_did"],
+                "targetChannel": row["target_channel"],
+                "domain": row["domain"],
+                "severity": row["severity"],
+                "riskScore": row["risk_score"],
+                "confidence": row["confidence"],
+                "status": row["notification_status"],
             }
             for row in rows
         ],

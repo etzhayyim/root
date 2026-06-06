@@ -2,7 +2,7 @@
 Zeebe worker for the graph-sos-intel actor (ADR-2605071700).
 
 Subscribes to 6 BPMN job types:
-  com.etzhayyim.apps.graphSosIntel.inventoryCatalog  – R/PT15M: snapshot RisingWave topology
+  com.etzhayyim.apps.graphSosIntel.inventoryCatalog  – R/PT15M: snapshot kotoba Datom log topology
   com.etzhayyim.apps.graphSosIntel.writeSnapshot     – persist snapshot + relation rows
   com.etzhayyim.apps.graphSosIntel.detectFindings    – compare snapshots, emit findings
   com.etzhayyim.apps.graphSosIntel.queryLatestSnapshot – fetch latest snapshot for briefing
@@ -14,7 +14,7 @@ Run:
 
 Env:
   AGENTGATEWAY_MCP_URL    — LangServer AgentGateway URL (default 127.0.0.1:8080)
-  RW_URL           — RisingWave postgres URL
+  KOTOBA_URL           — kotoba Datom log client URL
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("graph_sos_intel_worker")
@@ -58,26 +58,74 @@ async def task_inventory_catalog(**_kwargs: Any) -> dict[str, Any]:
     """Query information_schema to build a topology catalog snapshot."""
     observed_at = _now()
 
-    relations = await asyncio.to_thread(
-        fetch_all,
+    client = get_kotoba_client()
+    # R0: Specific Datalog query needed for Datomic schema introspection (tables).
+    # This Datalog is a placeholder and assumes a simplified Datomic schema.
+    relations_raw = await asyncio.to_thread(
+        client.q,
         """
-        SELECT table_schema, table_name, table_type, is_insertable_into
-        FROM information_schema.tables
-        WHERE table_schema = 'public'
-          AND table_name NOT LIKE 'rw_%'
-        ORDER BY table_name
+        [:find ?schema ?name ?type ?insertable
+         :where
+           ;; Placeholder: Replace with Datalog to query Datomic schema for table-like entities.
+           ;; For example, querying for all entity idents that represent 'tables'.
+           ;; [?e :db/ident ?ident]
+           ;; (str ?ident) ?ident-str
+           ;; (re-find #"^db.part/user" ?ident-str) ; Example for user-defined schema parts
+           ;; ... derive schema, name, type, insertable from Datomic's schema attributes
+           [?e :db/ident ?ident]
+           [(namespace ?ident) ?ns]
+           [(name ?ident) ?n]
+           [(str ?ns) ?schema]
+           [(str ?n) ?name]
+           ["BASE TABLE" ?type]
+           ["YES" ?insertable]
+           (not (re-find #"^db.sys" ?schema))
+           (not (re-find #"^db.part" ?schema))
+           (not (re-find #"^db.type" ?schema))
+           (not (re-find #"^db.cardinality" ?schema))
+           (not (re-find #"^db.unique" ?schema))
+           (not (re-find #"^db.fn" ?schema))
+           (not (re-find #"^db.install" ?schema))
+           (not (re-find #"^fressian" ?schema))
+           (not (re-find #"^datomic" ?schema))
+           (not (re-find #"^rw_" ?name))
+         ]
         """,
     )
+    # Convert to list of tuples and sort to match original output shape and ordering
+    relations = sorted([tuple(row) for row in relations_raw], key=lambda x: x[1])
 
-    indexes = await asyncio.to_thread(
-        fetch_all,
+    # R0: Specific Datalog query needed for Datomic schema introspection (indexes).
+    # This Datalog is a placeholder as Datomic doesn't have a direct 'pg_indexes' equivalent.
+    indexes_raw = await asyncio.to_thread(
+        client.q,
         """
-        SELECT schemaname, tablename, indexname, indexdef
-        FROM pg_indexes
-        WHERE schemaname = 'public'
-        ORDER BY tablename, indexname
+        [:find ?schema ?table ?index ?def
+         :where
+           ;; Placeholder: Replace with Datalog to query Datomic schema for index-like entities.
+           ;; Datomic indexes are implicit or defined by attributes like :db/fulltext, :db/unique.
+           ;; A custom Datalog query would be needed to extract 'index' information.
+           [?e :db/ident ?ident]
+           [(namespace ?ident) ?ns]
+           [(name ?ident) ?n]
+           [(str ?ns) ?schema]
+           [(str ?n) ?table]
+           ["placeholder-index" ?index] ; Placeholder for index name
+           ["placeholder-def" ?def]     ; Placeholder for index definition
+           (not (re-find #"^db.sys" ?schema))
+           (not (re-find #"^db.part" ?schema))
+           (not (re-find #"^db.type" ?schema))
+           (not (re-find #"^db.cardinality" ?schema))
+           (not (re-find #"^db.unique" ?schema))
+           (not (re-find #"^db.fn" ?schema))
+           (not (re-find #"^db.install" ?schema))
+           (not (re-find #"^fressian" ?schema))
+           (not (re-find #"^datomic" ?schema))
+         ]
         """,
     )
+    # Convert to list of tuples and sort to match original output shape and ordering
+    indexes = sorted([tuple(row) for row in indexes_raw], key=lambda x: (x[1], x[2]))
 
     vertex_tables = [r for r in relations if r[1].startswith("vertex_")]
     edge_tables = [r for r in relations if r[1].startswith("edge_")]
@@ -127,75 +175,76 @@ async def task_write_snapshot(
     created_at = _now()
 
     def _write() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_graph_sos_intel_snapshot
-                  (vertex_id, snapshot_id, actor_did, scope, status,
-                   relation_total, vertex_table_count, edge_table_count,
-                   mv_count, idx_count, anomaly_count,
-                   stale_relation_count, heavy_ddl_pending_count,
-                   summary, recommendation_json, evidence_json,
-                   created_at, updated_at, owner_did,
-                   org_id, user_id, actor_id, sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    vertex_id, snapshot_id, ACTOR_DID, "public", "active",
-                    relationTotal, vertexTableCount, edgeTableCount,
-                    mvCount, idxCount, 0, 0, 0,
-                    f"Topology snapshot {snapshot_id}: {relationTotal} relations",
-                    json.dumps({}), json.dumps({"observedAt": observedAt}),
-                    created_at, created_at, ACTOR_DID,
-                    "etzhayyim", "graph-sos-intel", "gs0s1nt7", 0,
-                ),
-            )
+        client = get_kotoba_client()
+        client.insert_row(
+            "vertex_graph_sos_intel_snapshot",
+            {
+                "vertex_id": vertex_id,
+                "snapshot_id": snapshot_id,
+                "actor_did": ACTOR_DID,
+                "scope": "public",
+                "status": "active",
+                "relation_total": relationTotal,
+                "vertex_table_count": vertexTableCount,
+                "edge_table_count": edgeTableCount,
+                "mv_count": mvCount,
+                "idx_count": idxCount,
+                "anomaly_count": 0,
+                "stale_relation_count": 0,
+                "heavy_ddl_pending_count": 0,
+                "summary": f"Topology snapshot {snapshot_id}: {relationTotal} relations",
+                "recommendation_json": json.dumps({}),
+                "evidence_json": json.dumps({"observedAt": observedAt}),
+                "created_at": created_at,
+                "updated_at": created_at,
+                "owner_did": ACTOR_DID,
+                "org_id": "etzhayyim",
+                "user_id": "graph-sos-intel",
+                "actor_id": "gs0s1nt7",
+                "sensitivity_ord": 0,
+            },
+        )
 
         if relations:
-            with sync_cursor() as cur:
-                for rel in relations[:500]:
-                    rel_vid = (
-                        f"at://{ACTOR_DID}/com.etzhayyim.apps.graphSosIntel.relation"
-                        f"/{snapshot_id}:{rel['name']}"
-                    )
-                    cur.execute(
-                        """
-                        INSERT INTO vertex_graph_sos_relation_inventory
-                          (vertex_id, schema_name, relation_name, relation_kind,
-                           table_type, is_insertable_into, observed_at,
-                           owner_did, sensitivity_ord)
-                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                        ON CONFLICT DO NOTHING
-                        """,
-                        (
-                            rel_vid, rel.get("schema", "public"),
-                            rel["name"], rel.get("kind", ""),
-                            rel.get("kind", ""), rel.get("insertable", "NO"),
-                            observedAt, ACTOR_DID, 0,
-                        ),
-                    )
+            for rel in relations[:500]:
+                rel_vid = (
+                    f"at://{ACTOR_DID}/com.etzhayyim.apps.graphSosIntel.relation"
+                    f"/{snapshot_id}:{rel['name']}"
+                )
+                client.insert_row(
+                    "vertex_graph_sos_relation_inventory",
+                    {
+                        "vertex_id": rel_vid,
+                        "schema_name": rel.get("schema", "public"),
+                        "relation_name": rel["name"],
+                        "relation_kind": rel.get("kind", ""),
+                        "table_type": rel.get("kind", ""),
+                        "is_insertable_into": rel.get("insertable", "NO"),
+                        "observed_at": observedAt,
+                        "owner_did": ACTOR_DID,
+                        "sensitivity_ord": 0,
+                    },
+                )
 
         if indexes:
-            with sync_cursor() as cur:
-                for idx in indexes[:500]:
-                    idx_vid = (
-                        f"at://{ACTOR_DID}/com.etzhayyim.apps.graphSosIntel.index"
-                        f"/{snapshot_id}:{idx['name']}"
-                    )
-                    cur.execute(
-                        """
-                        INSERT INTO vertex_graph_sos_index_inventory
-                          (vertex_id, schema_name, table_name, index_name,
-                           index_def, observed_at, owner_did, sensitivity_ord)
-                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
-                        ON CONFLICT DO NOTHING
-                        """,
-                        (
-                            idx_vid, idx.get("schema", "public"),
-                            idx.get("table", ""), idx["name"],
-                            idx.get("def", ""), observedAt, ACTOR_DID, 0,
-                        ),
-                    )
+            for idx in indexes[:500]:
+                idx_vid = (
+                    f"at://{ACTOR_DID}/com.etzhayyim.apps.graphSosIntel.index"
+                    f"/{snapshot_id}:{idx['name']}"
+                )
+                client.insert_row(
+                    "vertex_graph_sos_index_inventory",
+                    {
+                        "vertex_id": idx_vid,
+                        "schema_name": idx.get("schema", "public"),
+                        "table_name": idx.get("table", ""),
+                        "index_name": idx["name"],
+                        "index_def": idx.get("def", ""),
+                        "observed_at": observedAt,
+                        "owner_did": ACTOR_DID,
+                        "sensitivity_ord": 0,
+                    },
+                )
 
     await asyncio.to_thread(_write)
     LOG.info("writeSnapshot: persisted %s", snapshot_id)
@@ -213,17 +262,28 @@ async def task_detect_findings(
     **_kwargs: Any,
 ) -> dict[str, Any]:
     """Compare with previous snapshot and emit findings for anomalies."""
-    prev = await asyncio.to_thread(
-        fetch_one,
+    client = get_kotoba_client()
+    # R0: Complex Datalog query with ORDER BY and 'not equal' condition.
+    # This Datalog query needs to select the latest snapshot that is not the current one.
+    # Assuming snapshot_id is unique and created_at can be used for ordering.
+    prev_raw = await asyncio.to_thread(
+        client.q,
         """
-        SELECT snapshot_id, vertex_table_count, edge_table_count, mv_count
-        FROM vertex_graph_sos_intel_snapshot
-        WHERE snapshot_id != %s
-        ORDER BY created_at DESC
-        LIMIT 1
+        [:find ?sid ?vtc ?etc ?mvc
+         :where
+           [?e :vertex_graph_sos_intel_snapshot/snapshot_id ?sid]
+           [?e :vertex_graph_sos_intel_snapshot/vertex_table_count ?vtc]
+           [?e :vertex_graph_sos_intel_snapshot/edge_table_count ?etc]
+           [?e :vertex_graph_sos_intel_snapshot/mv_count ?mvc]
+           [?e :vertex_graph_sos_intel_snapshot/created_at ?created_at]
+           (not= ?sid ?current-snapshot-id)
+         :order-by desc ?created_at
+         :limit 1
+         ]
         """,
-        (snapshotId,),
+        args={"?current-snapshot-id": snapshotId}
     )
+    prev = prev_raw[0] if prev_raw else None
 
     findings: list[dict[str, Any]] = []
     created_at = _now()
@@ -252,31 +312,35 @@ async def task_detect_findings(
 
     if findings:
         def _write_findings() -> None:
-            with sync_cursor() as cur:
-                for f in findings:
-                    fid = f["finding_id"]
-                    vid = f"at://{ACTOR_DID}/com.etzhayyim.apps.graphSosIntel.finding/{fid}"
-                    cur.execute(
-                        """
-                        INSERT INTO vertex_graph_sos_intel_finding
-                          (vertex_id, finding_id, actor_did, finding_kind,
-                           severity, status, affected_relation,
-                           affected_relation_kind, summary, evidence_json,
-                           recommendation, recommended_action_kind,
-                           ddl_request_ref, created_at, updated_at,
-                           owner_did, org_id, user_id, actor_id, sensitivity_ord)
-                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                        """,
-                        (
-                            vid, fid, ACTOR_DID,
-                            f["finding_kind"], f["severity"], "open",
-                            f["affected_relation"], f["affected_relation_kind"],
-                            f["summary"], f["evidence_json"],
-                            f["recommendation"], f["recommended_action_kind"],
-                            snapshotId, created_at, created_at,
-                            ACTOR_DID, "etzhayyim", "graph-sos-intel", "gs0s1nt7", 0,
-                        ),
-                    )
+            client = get_kotoba_client()
+            for f in findings:
+                fid = f["finding_id"]
+                vid = f"at://{ACTOR_DID}/com.etzhayyim.apps.graphSosIntel.finding/{fid}"
+                client.insert_row(
+                    "vertex_graph_sos_intel_finding",
+                    {
+                        "vertex_id": vid,
+                        "finding_id": fid,
+                        "actor_did": ACTOR_DID,
+                        "finding_kind": f["finding_kind"],
+                        "severity": f["severity"],
+                        "status": "open",
+                        "affected_relation": f["affected_relation"],
+                        "affected_relation_kind": f["affected_relation_kind"],
+                        "summary": f["summary"],
+                        "evidence_json": f["evidence_json"],
+                        "recommendation": f["recommendation"],
+                        "recommended_action_kind": f["recommended_action_kind"],
+                        "ddl_request_ref": snapshotId,
+                        "created_at": created_at,
+                        "updated_at": created_at,
+                        "owner_did": ACTOR_DID,
+                        "org_id": "etzhayyim",
+                        "user_id": "graph-sos-intel",
+                        "actor_id": "gs0s1nt7",
+                        "sensitivity_ord": 0,
+                    },
+                )
 
         await asyncio.to_thread(_write_findings)
 
@@ -289,17 +353,27 @@ async def task_detect_findings(
 
 async def task_query_latest_snapshot(**_kwargs: Any) -> dict[str, Any]:
     """Return the most recent snapshot for the briefing task."""
-    row = await asyncio.to_thread(
-        fetch_one,
+    client = get_kotoba_client()
+    # R0: Complex Datalog query with ORDER BY and LIMIT.
+    row_raw = await asyncio.to_thread(
+        client.q,
         """
-        SELECT snapshot_id, relation_total, vertex_table_count,
-               edge_table_count, mv_count, idx_count,
-               anomaly_count, created_at
-        FROM vertex_graph_sos_intel_snapshot
-        ORDER BY created_at DESC
-        LIMIT 1
+        [:find ?sid ?rt ?vtc ?etc ?mvc ?ic ?ac ?cat
+         :where
+           [?e :vertex_graph_sos_intel_snapshot/snapshot_id ?sid]
+           [?e :vertex_graph_sos_intel_snapshot/relation_total ?rt]
+           [?e :vertex_graph_sos_intel_snapshot/vertex_table_count ?vtc]
+           [?e :vertex_graph_sos_intel_snapshot/edge_table_count ?etc]
+           [?e :vertex_graph_sos_intel_snapshot/mv_count ?mvc]
+           [?e :vertex_graph_sos_intel_snapshot/idx_count ?ic]
+           [?e :vertex_graph_sos_intel_snapshot/anomaly_count ?ac]
+           [?e :vertex_graph_sos_intel_snapshot/created_at ?cat]
+         :order-by desc ?cat
+         :limit 1
+         ]
         """,
     )
+    row = row_raw[0] if row_raw else None
     if not row:
         return {"snapshotFound": False}
 
@@ -388,27 +462,32 @@ async def task_write_finding(
     created_at = _now()
 
     def _write() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_graph_sos_intel_finding
-                  (vertex_id, finding_id, actor_did, finding_kind,
-                   severity, status, affected_relation,
-                   affected_relation_kind, summary, evidence_json,
-                   recommendation, recommended_action_kind,
-                   ddl_request_ref, created_at, updated_at,
-                   owner_did, org_id, user_id, actor_id, sensitivity_ord)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    vid, fid, ACTOR_DID, "briefing",
-                    severity, "open", "graph_topology", "snapshot",
-                    briefingText[:1000], json.dumps({"snapshotId": snapshotId}),
-                    "Review latest snapshot findings", "review",
-                    snapshotId, created_at, created_at,
-                    ACTOR_DID, "etzhayyim", "graph-sos-intel", "gs0s1nt7", 0,
-                ),
-            )
+        client = get_kotoba_client()
+        client.insert_row(
+            "vertex_graph_sos_intel_finding",
+            {
+                "vertex_id": vid,
+                "finding_id": fid,
+                "actor_did": ACTOR_DID,
+                "finding_kind": "briefing",
+                "severity": severity,
+                "status": "open",
+                "affected_relation": "graph_topology",
+                "affected_relation_kind": "snapshot",
+                "summary": briefingText[:1000],
+                "evidence_json": json.dumps({"snapshotId": snapshotId}),
+                "recommendation": "Review latest snapshot findings",
+                "recommended_action_kind": "review",
+                "ddl_request_ref": snapshotId,
+                "created_at": created_at,
+                "updated_at": created_at,
+                "owner_did": ACTOR_DID,
+                "org_id": "etzhayyim",
+                "user_id": "graph-sos-intel",
+                "actor_id": "gs0s1nt7",
+                "sensitivity_ord": 0,
+            },
+        )
 
     await asyncio.to_thread(_write)
     LOG.info("writeFinding: %s (severity=%s)", fid, severity)
@@ -455,13 +534,7 @@ async def run_worker() -> None:
 
 def main() -> None:
     load_env_file()
-    if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
-        if rw_url:
-            os.environ["RW_URL"] = rw_url
-    os.environ.setdefault("PYTHONUNBUFFERED", "1")
     os.environ.setdefault("AGENTGATEWAY_MCP_URL", "127.0.0.1:8080")
-    os.environ.setdefault("RW_SYNC_POOL", "0")
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s %(message)s",

@@ -30,7 +30,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -96,14 +96,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -204,17 +197,15 @@ def task_telecom_li_target_deactivate(
         raise ValueError(f"unsupported deactivationReason: {deactivationReason}")
     vid = _vid("liTarget", targetId)
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_li_target
-                   SET deactivated_at = %s,
-                       deactivation_reason = %s,
-                       status = 'deactivated'
-                 WHERE vertex_id = %s
-                """,
-                (deactivatedAt, deactivationReason, vid),
-            )
+        get_kotoba_client().insert_row(
+            "vertex_telecom_li_target",
+            {
+                "vertex_id": vid,
+                "deactivated_at": deactivatedAt,
+                "deactivation_reason": deactivationReason,
+                "status": "deactivated",
+            },
+        )
     return {"ok": True, "vertexId": vid, "targetId": targetId, "status": "deactivated"}
 
 
@@ -333,11 +324,14 @@ def task_telecom_li_delivery_ack(
     _insert("vertex_telecom_li_delivery_ack", row, dry_run=dryRun)
     if not dryRun:
         target_table = "vertex_telecom_li_iri_delivery" if deliveryKind == "iri" else "vertex_telecom_li_cc_delivery"
-        with sync_cursor() as cur:
-            cur.execute(
-                f"UPDATE {target_table} SET ack_status = %s, acked_at = %s WHERE vertex_id = %s",  # noqa: S608
-                (ackResult, ackedAt, deliveryVid),
-            )
+        get_kotoba_client().insert_row(
+            target_table,
+            {
+                "vertex_id": deliveryVid,
+                "ack_status": ackResult,
+                "acked_at": ackedAt,
+            },
+        )
     return {"ok": True, "vertexId": vid, "ackId": a_id, "status": row["status"]}
 
 
@@ -396,19 +390,17 @@ def task_telecom_li_warrant_close(
     _require_vault_ref(finalReportRef, "finalReportRef")
     vid = _vid("liWarrant", warrantId)
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_li_warrant
-                   SET closed_at = %s,
-                       closure_reason = %s,
-                       retention_until = %s,
-                       final_report_ref = %s,
-                       status = 'closed'
-                 WHERE vertex_id = %s
-                """,
-                (closedAt, closureReason, retentionUntil, finalReportRef or None, vid),
-            )
+        get_kotoba_client().insert_row(
+            "vertex_telecom_li_warrant",
+            {
+                "vertex_id": vid,
+                "closed_at": closedAt,
+                "closure_reason": closureReason,
+                "retention_until": retentionUntil,
+                "final_report_ref": finalReportRef or None,
+                "status": "closed",
+            },
+        )
     return {"ok": True, "vertexId": vid, "warrantId": warrantId, "status": "closed"}
 
 

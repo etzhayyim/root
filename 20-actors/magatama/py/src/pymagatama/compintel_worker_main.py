@@ -44,7 +44,7 @@ from langgraph.graph.message import add_messages
 from langgraph.types import Send
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.local_agent_env import load_env_file
 from pymagatama.llm import resolve_model_id
 
@@ -91,20 +91,25 @@ def _llm() -> ChatAnthropic:
 
 def fetch_signals(state: CompintelState) -> dict[str, Any]:
     """Gather structured data about the competitor from the graph (news articles)."""
-    rw_url = os.environ.get("RW_URL", "")
+
     competitor_name = state.get("competitor_name", "")
 
-    rows = fetch_all(
-        rw_url,
-        """
-        SELECT title, body_text, published_at
-        FROM vertex_news_article
-        WHERE body_text ILIKE %s
-        ORDER BY published_at DESC
-        LIMIT 10
-        """,
-        (f"%{competitor_name}%",),
+    # R0: Replaced SQL ILIKE with Python 'in' operator, and ORDER BY/LIMIT
+    # with Python sorting/slicing due to kotoba client shim limitations.
+    all_rows = get_kotoba_client().select_where(
+        "vertex_news_article",
+        "body_text",
+        None, # fetch all for this column to apply ILIKE in python
+        columns=["title", "body_text", "published_at"],
+        limit=2000 # Increased limit for Python-side filtering
     )
+    # Filter by body_text ILIKE %competitor_name% and sort
+    rows = [
+        r for r in all_rows
+        if competitor_name.lower() in (r.get("body_text", "") or "").lower()
+    ]
+    rows.sort(key=lambda r: r.get("published_at", ""), reverse=True)
+    rows = rows[:10]
     signal_text = "\n".join(
         f"- [{r.get('published_at', '')}] {r.get('title', '')}: {(r.get('body_text') or '')[:200]}"
         for r in rows
@@ -235,7 +240,7 @@ def reduce_judges(state: CompintelState) -> dict[str, Any]:
 
 def store_snapshot(state: CompintelState) -> dict[str, Any]:
     """INSERT competitive snapshot to vertex_compintel_snapshot (no onConflict — PK implicit)."""
-    rw_url = os.environ.get("RW_URL", "")
+
     competitor_id = state["competitor_id"]
     now = datetime.now(timezone.utc).isoformat()
 
@@ -243,45 +248,44 @@ def store_snapshot(state: CompintelState) -> dict[str, Any]:
     snapshot_id = hashlib.sha256(f"snapshot:{competitor_id}:{now}".encode()).hexdigest()
     vertex_id = snapshot_id
 
-    with sync_cursor(rw_url) as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_compintel_snapshot
-              (vertex_id, record_id, owner_did, label, status, agent_did,
-               created_at, updated_at, sensitivity_ord,
-               snapshot_id, competitor_id, latest_summary, pricing_signals,
-               product_signals, hiring_signals, funding_signals, press_signals,
-               threat_score, content_hash)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id,
-                f"compintel:snapshot:{competitor_id}:{now}",
-                COMPINTEL_DID,
-                "CompintelSnapshot",
-                "active",
-                COMPINTEL_DID,
-                now,
-                now,
-                0,
-                snapshot_id,
-                competitor_id,
-                state.get("latest_summary", ""),
-                state.get("pricing_signals", ""),
-                state.get("product_signals", ""),
-                state.get("hiring_signals", ""),
-                state.get("funding_signals", ""),
-                state.get("press_signals", ""),
-                state.get("threat_score", 0.5),
-                summary_hash,
-            ),
-        )
-        # update competitor threat_score + last_refreshed_at
-        comp_vid = hashlib.sha256(f"competitor:{competitor_id}".encode()).hexdigest()
-        cur.execute(
-            "UPDATE vertex_compintel_competitor SET threat_score=%s, last_refreshed_at=%s, updated_at=%s WHERE vertex_id=%s",
-            (state.get("threat_score", 0.5), now, now, comp_vid),
-        )
+    snapshot_row = {
+        "vertex_id": vertex_id,
+        "record_id": f"compintel:snapshot:{competitor_id}:{now}",
+        "owner_did": COMPINTEL_DID,
+        "label": "CompintelSnapshot",
+        "status": "active",
+        "agent_did": COMPINTEL_DID,
+        "created_at": now,
+        "updated_at": now,
+        "sensitivity_ord": 0,
+        "snapshot_id": snapshot_id,
+        "competitor_id": competitor_id,
+        "latest_summary": state.get("latest_summary", ""),
+        "pricing_signals": state.get("pricing_signals", ""),
+        "product_signals": state.get("product_signals", ""),
+        "hiring_signals": state.get("hiring_signals", ""),
+        "funding_signals": state.get("funding_signals", ""),
+        "press_signals": state.get("press_signals", ""),
+        "threat_score": state.get("threat_score", 0.5),
+        "content_hash": summary_hash,
+    }
+    get_kotoba_client().insert_row("vertex_compintel_snapshot", snapshot_row)
+
+    # update competitor threat_score + last_refreshed_at
+    comp_vid = hashlib.sha256(f"competitor:{competitor_id}".encode()).hexdigest()
+    # R0: Fetching existing competitor row to perform an upsert for update
+    existing_comp = get_kotoba_client().select_first_where(
+        "vertex_compintel_competitor",
+        "vertex_id",
+        comp_vid
+    )
+    if existing_comp:
+        existing_comp["threat_score"] = state.get("threat_score", 0.5)
+        existing_comp["last_refreshed_at"] = now
+        existing_comp["updated_at"] = now
+        get_kotoba_client().insert_row("vertex_compintel_competitor", existing_comp)
+    else:
+        LOG.warning("store_snapshot: Competitor %s not found for update", competitor_id)
 
     LOG.info("store_snapshot: competitor_id=%s snapshot_id=%s score=%.2f", competitor_id, snapshot_id, state.get("threat_score", 0))
     return {"stored": True}
@@ -348,19 +352,21 @@ async def task_run_research_agent(
     **_: Any,
 ) -> dict[str, Any]:
     """LangGraph research loop. mode=single_deep for trackCompetitor, mode=batch_all for weekly refresh."""
-    rw_url = os.environ.get("RW_URL", "")
+
 
     if mode == "batch_all":
-        competitors = fetch_all(
-            rw_url,
-            "SELECT competitor_id, competitor_name, website, tracking_dimensions FROM vertex_compintel_competitor WHERE status='active'",
-            (),
+        competitors = get_kotoba_client().select_where(
+            "vertex_compintel_competitor",
+            "status",
+            "active",
+            columns=["competitor_id", "competitor_name", "website", "tracking_dimensions"]
         )
     else:
-        row = fetch_one(
-            rw_url,
-            "SELECT competitor_id, competitor_name, website, tracking_dimensions FROM vertex_compintel_competitor WHERE competitor_id=%s",
-            (competitor_id,),
+        row = get_kotoba_client().select_first_where(
+            "vertex_compintel_competitor",
+            "competitor_id",
+            competitor_id,
+            columns=["competitor_id", "competitor_name", "website", "tracking_dimensions"]
         )
         competitors = [row] if row else []
 
@@ -399,45 +405,42 @@ async def task_score_threats(
     **_: Any,
 ) -> dict[str, Any]:
     """Compare latest snapshots to previous — emit alerts for significant changes."""
-    rw_url = os.environ.get("RW_URL", "")
+
     now = datetime.now(timezone.utc).isoformat()
 
     # find competitors with threat_score >= 0.7 (high)
-    high_threat = fetch_all(
-        rw_url,
-        "SELECT competitor_id, competitor_name, threat_score FROM vertex_compintel_competitor WHERE threat_score >= 0.7 AND status='active'",
-        (),
+    # R0: Replaced SQL WHERE threat_score >= 0.7 with Python filtering due to kotoba client shim limitations.
+    all_competitors = get_kotoba_client().select_where(
+        "vertex_compintel_competitor",
+        "status",
+        "active",
+        columns=["competitor_id", "competitor_name", "threat_score"]
     )
+    high_threat = [
+        c for c in all_competitors
+        if c.get("threat_score", 0.0) >= 0.7
+    ]
     alert_count = 0
     for comp in (high_threat or []):
         alert_id = hashlib.sha256(f"alert:{comp.get('competitor_id','')}:{now}".encode()).hexdigest()
         vertex_id = alert_id
-        with sync_cursor(rw_url) as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_compintel_alert
-                  (vertex_id, record_id, owner_did, label, status, agent_did,
-                   created_at, updated_at, sensitivity_ord,
-                   alert_id, competitor_id, dimension, summary, severity)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    vertex_id,
-                    f"compintel:alert:{alert_id}",
-                    COMPINTEL_DID,
-                    "CompintelAlert",
-                    "active",
-                    COMPINTEL_DID,
-                    now,
-                    now,
-                    0,
-                    alert_id,
-                    comp.get("competitor_id", ""),
-                    "overall",
-                    f"High threat score: {comp.get('threat_score', 0):.2f} for {comp.get('competitor_name', '')}",
-                    "high",
-                ),
-            )
+        alert_row = {
+            "vertex_id": vertex_id,
+            "record_id": f"compintel:alert:{alert_id}",
+            "owner_did": COMPINTEL_DID,
+            "label": "CompintelAlert",
+            "status": "active",
+            "agent_did": COMPINTEL_DID,
+            "created_at": now,
+            "updated_at": now,
+            "sensitivity_ord": 0,
+            "alert_id": alert_id,
+            "competitor_id": comp.get("competitor_id", ""),
+            "dimension": "overall",
+            "summary": f"High threat score: {comp.get('threat_score', 0):.2f} for {comp.get('competitor_name', '')}",
+            "severity": "high",
+        }
+        get_kotoba_client().insert_row("vertex_compintel_alert", alert_row)
         alert_count += 1
 
     has_high_severity = alert_count > 0
@@ -449,18 +452,22 @@ async def task_send_digest(
     **_: Any,
 ) -> dict[str, Any]:
     """Send weekly competitive intelligence digest via Resend for high-severity alerts."""
-    rw_url = os.environ.get("RW_URL", "")
+
     api_key = os.environ.get("RESEND_API_KEY", "")
     digest_to = DIGEST_TO
     if not digest_to or not api_key:
         LOG.warning("task_send_digest: DIGEST_TO or RESEND_API_KEY not set — skipping")
         return {"sent": False}
 
-    alerts = fetch_all(
-        rw_url,
-        "SELECT competitor_id, dimension, summary, severity FROM vertex_compintel_alert WHERE severity='high' ORDER BY created_at DESC LIMIT 20",
-        (),
+    # R0: Replaced SQL ORDER BY created_at DESC LIMIT 20 with Python sorting/slicing due to kotoba client shim limitations.
+    all_alerts = get_kotoba_client().select_where(
+        "vertex_compintel_alert",
+        "severity",
+        "high",
+        columns=["competitor_id", "dimension", "summary", "severity"]
     )
+    all_alerts.sort(key=lambda a: a.get("created_at", ""), reverse=True)
+    alerts = all_alerts[:20]
     if not alerts:
         return {"sent": False}
 

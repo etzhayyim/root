@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
-import time
+
 from decimal import Decimal
 from typing import Any
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:mold-allergy.etzhayyim.com"
 
@@ -29,7 +30,7 @@ IUIS_FUNGAL_ALLERGENS: list[dict[str, Any]] = [
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat() + "Z"
 
 
 def _id(prefix: str) -> str:
@@ -68,35 +69,25 @@ def _jsonable(value: Any) -> Any:
     return value
 
 
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [_jsonable(dict(zip(cols, row))) for row in (cur.fetchall() or [])]
-
-
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
-
 
 def seed_allergen_catalog(**_: Any) -> dict[str, Any]:
     written = 0
     created = now_iso()
     for item in IUIS_FUNGAL_ALLERGENS:
         vertex_id = f"mold-allergy:allergen:{item['allergen'].lower().replace(' ', '-')}"
-        _execute(
-            """INSERT INTO vertex_mold_allergen
-            (vertex_id, _seq, owner_did, species, allergen, uniprot, mw_kda, biochemical_function, source, created_at, actor_id)
-            VALUES (%s, _next_seq('vertex_mold_allergen'), %s, %s, %s, %s, %s, %s, 'WHO-IUIS allergen nomenclature', %s, 'm0ldalg1')
-            ON CONFLICT (vertex_id) DO UPDATE SET
-              species=EXCLUDED.species,
-              uniprot=EXCLUDED.uniprot,
-              mw_kda=EXCLUDED.mw_kda,
-              biochemical_function=EXCLUDED.biochemical_function""",
-            (vertex_id, OWNER_DID, item["species"], item["allergen"], item["uniprot"], item["mw_kda"], item["function"], created),
-        )
+        row_dict = {
+            "vertex_id": vertex_id,
+            "owner_did": OWNER_DID,
+            "species": item["species"],
+            "allergen": item["allergen"],
+            "uniprot": item["uniprot"],
+            "mw_kda": item["mw_kda"],
+            "biochemical_function": item["function"],
+            "source": "WHO-IUIS allergen nomenclature",
+            "created_at": created,
+            "actor_id": "m0ldalg1",
+        }
+        get_kotoba_client().insert_row("vertex_mold_allergen", row_dict)
         written += 1
     return {"written": written, "total": len(IUIS_FUNGAL_ALLERGENS)}
 
@@ -106,28 +97,23 @@ def record_air_sampling(**kwargs: Any) -> dict[str, Any]:
     if not site:
         return {"error": "site required"}
     session_id = _id("air")
-    _execute(
-        """INSERT INTO vertex_mold_air_sampling
-        (vertex_id, _seq, owner_did, session_id, site, sampled_at, method,
-         alternaria_count_per_m3, cladosporium_count_per_m3, aspergillus_count_per_m3,
-         penicillium_count_per_m3, temperature_c, relative_humidity, created_at, actor_id)
-        VALUES (%s, _next_seq('vertex_mold_air_sampling'), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'm0ldalg1')""",
-        (
-            f"mold-allergy:air:{session_id}",
-            OWNER_DID,
-            session_id,
-            site,
-            str(kwargs.get("sampledAt") or now_iso()),
-            str(kwargs.get("method") or "Burkard"),
-            _num(kwargs.get("alternariaCountPerM3")),
-            _num(kwargs.get("cladosporiumCountPerM3")),
-            _num(kwargs.get("aspergillusCountPerM3")),
-            _num(kwargs.get("penicilliumCountPerM3")),
-            _num(kwargs.get("temperatureC")),
-            _num(kwargs.get("relativeHumidity")),
-            now_iso(),
-        ),
-    )
+    row_dict = {
+        "vertex_id": f"mold-allergy:air:{session_id}",
+        "owner_did": OWNER_DID,
+        "session_id": session_id,
+        "site": site,
+        "sampled_at": str(kwargs.get("sampledAt") or now_iso()),
+        "method": str(kwargs.get("method") or "Burkard"),
+        "alternaria_count_per_m3": _num(kwargs.get("alternariaCountPerM3")),
+        "cladosporium_count_per_m3": _num(kwargs.get("cladosporiumCountPerM3")),
+        "aspergillus_count_per_m3": _num(kwargs.get("aspergillusCountPerM3")),
+        "penicillium_count_per_m3": _num(kwargs.get("penicilliumCountPerM3")),
+        "temperature_c": _num(kwargs.get("temperatureC")),
+        "relative_humidity": _num(kwargs.get("relativeHumidity")),
+        "created_at": now_iso(),
+        "actor_id": "m0ldalg1",
+    }
+    get_kotoba_client().insert_row("vertex_mold_air_sampling", row_dict)
     return {"sessionId": session_id}
 
 
@@ -139,58 +125,68 @@ def propose_slit_candidate(**kwargs: Any) -> dict[str, Any]:
     excipients = kwargs.get("excipients")
     if not isinstance(excipients, list):
         excipients = ["mannitol", "gelatin", "sodium hydroxide"]
-    _execute(
-        """INSERT INTO vertex_mold_slit_candidate
-        (vertex_id, _seq, owner_did, candidate_id, species, allergen_source, major_allergen,
-         dosage_form, buildup_weeks, maintenance_dose_jau, excipients_json,
-         target_indication, design_lineage, phase, created_at, actor_id)
-        VALUES (%s, _next_seq('vertex_mold_slit_candidate'), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'Shidakure/Acitea', %s, %s, 'm0ldalg1')""",
-        (
-            f"mold-allergy:slit:{candidate_id}",
-            OWNER_DID,
-            candidate_id,
-            species,
-            str(kwargs.get("allergenSource") or "recombinant"),
-            str(kwargs.get("majorAllergen") or ""),
-            str(kwargs.get("dosageForm") or "freeze-dried orodispersible tablet"),
-            int(_num(kwargs.get("buildupWeeks"), 1)),
-            _num(kwargs.get("maintenanceDoseJau"), 2000),
-            json.dumps(excipients, ensure_ascii=False),
-            str(kwargs.get("targetIndication") or "allergic rhinitis"),
-            str(kwargs.get("phase") or "preclinical"),
-            now_iso(),
-        ),
-    )
+    row_dict = {
+        "vertex_id": f"mold-allergy:slit:{candidate_id}",
+        "owner_did": OWNER_DID,
+        "candidate_id": candidate_id,
+        "species": species,
+        "allergen_source": str(kwargs.get("allergenSource") or "recombinant"),
+        "major_allergen": str(kwargs.get("majorAllergen") or ""),
+        "dosage_form": str(kwargs.get("dosageForm") or "freeze-dried orodispersible tablet"),
+        "buildup_weeks": int(_num(kwargs.get("buildupWeeks"), 1)),
+        "maintenance_dose_jau": _num(kwargs.get("maintenanceDoseJau"), 2000),
+        "excipients_json": json.dumps(excipients, ensure_ascii=False),
+        "target_indication": str(kwargs.get("targetIndication") or "allergic rhinitis"),
+        "design_lineage": "Shidakure/Acitea",
+        "phase": str(kwargs.get("phase") or "preclinical"),
+        "created_at": now_iso(),
+        "actor_id": "m0ldalg1",
+    }
+    get_kotoba_client().insert_row("vertex_mold_slit_candidate", row_dict)
     return {"candidateId": candidate_id}
 
 
 def list_allergens(species: Any = None, limit: Any = 50, offset: Any = 0, **_: Any) -> dict[str, Any]:
     lim = _clamp(limit, 50)
     off = _offset(offset)
+    all_rows = []
     if species:
-        rows = _fetch_all(
-            "SELECT * FROM vertex_mold_allergen WHERE species=%s ORDER BY species, allergen LIMIT %s OFFSET %s",
-            (str(species), lim, off),
+        # R0: Multi-predicate with ordering, limiting, and offsetting in Python
+        # Select all matching species, then filter/sort in-memory
+        unfiltered_rows = get_kotoba_client().select_where(
+            "vertex_mold_allergen", "species", str(species)
         )
+        all_rows = sorted(unfiltered_rows, key=lambda x: (x["species"], x["allergen"]))
     else:
-        rows = _fetch_all("SELECT * FROM vertex_mold_allergen ORDER BY species, allergen LIMIT %s OFFSET %s", (lim, off))
-    return {"allergens": rows, "total": len(rows), "offset": off, "limit": lim}
+        # R0: Ordering, limiting, and offsetting in Python
+        unfiltered_rows = get_kotoba_client().select_where("vertex_mold_allergen", "vertex_id", "*") # Fetch all
+        all_rows = sorted(unfiltered_rows, key=lambda x: (x["species"], x["allergen"]))
+
+    # Apply limit and offset in Python
+    rows = all_rows[off : off + lim]
+    return {"allergens": rows, "total": len(all_rows), "offset": off, "limit": lim}
 
 
 def list_slit_candidates(species: Any = None, phase: Any = None, limit: Any = 50, offset: Any = 0, **_: Any) -> dict[str, Any]:
     lim = _clamp(limit, 50)
     off = _offset(offset)
-    where: list[str] = []
-    params: list[Any] = []
-    if species:
-        where.append("species=%s")
-        params.append(str(species))
-    if phase:
-        where.append("phase=%s")
-        params.append(str(phase))
-    clause = f"WHERE {' AND '.join(where)}" if where else ""
-    rows = _fetch_all(
-        f"SELECT * FROM vertex_mold_slit_candidate {clause} ORDER BY created_at DESC LIMIT %s OFFSET %s",
-        (*params, lim, off),
-    )
-    return {"candidates": rows, "total": len(rows), "offset": off, "limit": lim}
+    # R0: Multi-predicate filter, ordering, limiting, and offsetting in Python
+    # Fetch all candidates and then apply filters, sort, limit, and offset in-memory.
+    all_candidates = get_kotoba_client().select_where("vertex_mold_slit_candidate", "vertex_id", "*")
+
+    filtered_candidates = []
+    for candidate in all_candidates:
+        match = True
+        if species and candidate.get("species") != str(species):
+            match = False
+        if phase and candidate.get("phase") != str(phase):
+            match = False
+        if match:
+            filtered_candidates.append(candidate)
+
+    # Sort by created_at DESC
+    filtered_candidates.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+
+    # Apply limit and offset in Python
+    rows = filtered_candidates[off : off + lim]
+    return {"candidates": rows, "total": len(filtered_candidates), "offset": off, "limit": lim}

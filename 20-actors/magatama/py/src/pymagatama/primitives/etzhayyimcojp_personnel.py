@@ -12,7 +12,7 @@ ADR refs:
   ADR-0018 Tier 3 PII (CEO/COO/CLO read only)
   ADR-0036 Hyperdrive direct write
   ADR-2604291800 Well-Becoming Spirit objective function
-  ADR-2605080300 SQLAlchemy Core only
+  ADR-2605080300 Kotoba Datomic client
 """
 
 from __future__ import annotations
@@ -23,10 +23,7 @@ import logging
 import uuid
 from typing import Any
 
-LOG = logging.getLogger("etzhayyim.personnel")
-
-_ORG_DID   = "did:web:etzhayyim.etzhayyim.com"
-_OWNER_DID = "did:web:bpmn.etzhayyim.com"
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # Tier 3 RLS allowlist (CEO + COO + CLO only)
 _TIER3_READERS = {
@@ -45,24 +42,7 @@ def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
     return f"at://{_OWNER_DID}/com.etzhayyim.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
-def _query(sql_str: str, params: dict | None = None) -> list[dict]:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("sa_query failed: %s", exc)
-        return []
 
-def _execute(sql_str: str, params: dict) -> bool:
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(text(sql_str), params)
-        return True
-    except Exception as exc:
-        LOG.warning("sa_execute failed: %s", exc)
-        return False
 
 def _llm_json(system: str, user: str, max_tokens: int = 1500) -> dict:
     try:
@@ -99,25 +79,33 @@ async def task_etzhayyim_personnel_load_profile(
     """
     redacted = requester_did not in _TIER3_READERS
 
-    skills = _query(
-        "SELECT skill_id, proficiency, peer_verified, last_used_at "
-        "FROM vertex_etzhayyim_person_skill WHERE person_did = :did",
-        {"did": person_did},
+    skills = get_kotoba_client().select_where(
+        "vertex_etzhayyim_person_skill",
+        "person_did",
+        person_did,
+        columns=["skill_id", "proficiency", "peer_verified", "last_used_at"],
     )
 
-    contracts = _query(
-        "SELECT c.contract_id, c.contract_kind, c.principal_did, c.vendor_did, "
-        "       c.title, c.start_date, c.end_date, c.status "
-        "FROM vertex_etzhayyim_contract c "
-        "JOIN edge_etzhayyim_person_contract e ON e.contract_id = c.contract_id "
-        "WHERE e.person_did = :did AND c.status = 'active'",
-        {"did": person_did},
+    # R0: This query requires a JOIN, so using raw Datalog (q)
+    contracts = get_kotoba_client().q(
+        """
+        [:find (pull ?c [:contract_id :contract_kind :principal_did :vendor_did
+                         :title :start_date :end_date :status])
+         :in $ ?person_did
+         :where
+         [?e :edge_etzhayyim_person_contract/person_did ?person_did]
+         [?e :edge_etzhayyim_person_contract/contract_id ?cid]
+         [?c :vertex_etzhayyim_contract/contract_id ?cid]
+         [?c :vertex_etzhayyim_contract/status "active"]]
+        """,
+        args=[person_did],
     )
 
-    person = _query(
-        "SELECT person_did, display_name, department, title, employment_type, status "
-        "FROM vertex_etzhayyim_person WHERE person_did = :did LIMIT 1",
-        {"did": person_did},
+    person = get_kotoba_client().select_first_where(
+        "vertex_etzhayyim_person",
+        "person_did",
+        person_did,
+        columns=["person_did", "display_name", "department", "title", "employment_type", "status"],
     )
 
     bundle: dict[str, Any] = {
@@ -128,48 +116,85 @@ async def task_etzhayyim_personnel_load_profile(
     }
 
     if not redacted:
-        bio = _query(
-            "SELECT birth_year, gender, birthplace_pref, household_type, "
-            "       socioeconomic_band, family_env_summary "
-            "FROM vertex_etzhayyim_person_bio WHERE person_did = :did LIMIT 1",
-            {"did": person_did},
+        bio = get_kotoba_client().select_first_where(
+            "vertex_etzhayyim_person_bio",
+            "person_did",
+            person_did,
+            columns=[
+                "birth_year", "gender", "birthplace_pref", "household_type",
+                "socioeconomic_band", "family_env_summary",
+            ],
         )
-        education = _query(
-            "SELECT level, institution, department, degree, major, "
-            "       start_date, end_date, graduated "
-            "FROM vertex_etzhayyim_person_education WHERE person_did = :did "
-            "ORDER BY start_date DESC LIMIT 10",
-            {"did": person_did},
+        # R0: This query requires ORDER BY and LIMIT, so using raw Datalog (q)
+        education = get_kotoba_client().q(
+            """
+            [:find (pull ?e [:level :institution :department :degree :major
+                             :start_date :end_date :graduated])
+             :in $ ?person_did
+             :where
+             [?e :vertex_etzhayyim_person_education/person_did ?person_did]
+             :limit 10
+             :order-by [[?e :vertex_etzhayyim_person_education/start_date :desc]]]
+            """,
+            args=[person_did],
         )
-        career = _query(
-            "SELECT employer, title, department, employment_type, "
-            "       start_date, end_date, current, key_achievement, reason_for_leaving "
-            "FROM vertex_etzhayyim_person_career WHERE person_did = :did "
-            "ORDER BY start_date DESC LIMIT 20",
-            {"did": person_did},
+        # R0: This query requires ORDER BY and LIMIT, so using raw Datalog (q)
+        career = get_kotoba_client().q(
+            """
+            [:find (pull ?c [:employer :title :department :employment_type
+                             :start_date :end_date :current :key_achievement :reason_for_leaving])
+             :in $ ?person_did
+             :where
+             [?c :vertex_etzhayyim_person_career/person_did ?person_did]
+             :limit 20
+             :order-by [[?c :vertex_etzhayyim_person_career/start_date :desc]]]
+            """,
+            args=[person_did],
         )
-        dependents = _query(
-            "SELECT relation, birth_year, financial_dependent, care_dependent, lives_with "
-            "FROM vertex_etzhayyim_person_dependent WHERE person_did = :did",
-            {"did": person_did},
+        dependents = get_kotoba_client().select_where(
+            "vertex_etzhayyim_person_dependent",
+            "person_did",
+            person_did,
+            columns=["relation", "birth_year", "financial_dependent", "care_dependent", "lives_with"],
         )
-        profile = _query(
-            "SELECT assessed_at, big5_openness, big5_conscientiousness, "
-            "       big5_extraversion, big5_agreeableness, big5_neuroticism, "
-            "       self_preservation, risk_tolerance, conflict_style, "
-            "       learning_velocity, autonomy_level, llm_compat_score, "
-            "       strengths_summary, caveats_summary "
-            "FROM vertex_etzhayyim_person_profile WHERE person_did = :did "
-            "ORDER BY assessed_at DESC LIMIT 1",
-            {"did": person_did},
+        # R0: This query requires ORDER BY and LIMIT, so using raw Datalog (q)
+        profile = get_kotoba_client().q(
+            """
+            [:find (pull ?p [:assessed_at :big5_openness :big5_conscientiousness
+                             :big5_extraversion :big5_agreeableness :big5_neuroticism
+                             :self_preservation :risk_tolerance :conflict_style
+                             :learning_velocity :autonomy_level :llm_compat_score
+                             :strengths_summary :caveats_summary])
+             :in $ ?person_did
+             :where
+             [?p :vertex_etzhayyim_person_profile/person_did ?person_did]
+             :limit 1
+             :order-by [[?p :vertex_etzhayyim_person_profile/assessed_at :desc]]]
+            """,
+            args=[person_did],
         )
-        utterance_stats = _query(
-            "SELECT COUNT(*) AS n, AVG(sentiment) AS avg_sentiment, "
-            "       AVG(conflict_score) AS avg_conflict, "
-            "       AVG(certainty_score) AS avg_certainty "
-            "FROM vertex_etzhayyim_person_utterance WHERE person_did = :did",
-            {"did": person_did},
+        # R0: This query requires aggregate functions, so using raw Datalog (q)
+        raw_stats = get_kotoba_client().q(
+            """
+            [:find (count ?u) (avg ?sentiment) (avg ?conflict_score) (avg ?certainty_score)
+             :in $ ?person_did
+             :where
+             [?u :vertex_etzhayyim_person_utterance/person_did ?person_did]
+             [?u :vertex_etzhayyim_person_utterance/sentiment ?sentiment]
+             [?u :vertex_etzhayyim_person_utterance/conflict_score ?conflict_score]
+             [?u :vertex_etzhayyim_person_utterance/certainty_score ?certainty_score]]
+            """,
+            args=[person_did],
         )
+        utterance_stats = []
+        if raw_stats:
+            stats_values = raw_stats[0]
+            utterance_stats.append({
+                "n": stats_values[0],
+                "avg_sentiment": stats_values[1],
+                "avg_conflict": stats_values[2],
+                "avg_certainty": stats_values[3],
+            })
 
         bundle.update({
             "bio":              bio[0] if bio else {},
@@ -270,22 +295,7 @@ async def task_etzhayyim_personnel_minimax_score(
         "created_at":             _now_iso(),
         "owner_did":              _ORG_DID,
     }
-    _execute(
-        "INSERT INTO vertex_etzhayyim_person_minimax "
-        "(vertex_id, person_did, decision_kind, candidate_target, "
-        " worst_case_loss_jpy, worst_case_summary, worst_case_probability, "
-        " expected_value_jpy, expected_value_summary, regret_score, "
-        " spirit_floor_violated, wellbecoming_delta, feeling_delta, buffer_delta, "
-        " ip_leak_risk, retention_risk, recommendation, rationale, "
-        " assessed_at, assessor_did, llm_model, created_at, owner_did) "
-        "VALUES (:vertex_id, :person_did, :decision_kind, :candidate_target, "
-        " :worst_case_loss_jpy, :worst_case_summary, :worst_case_probability, "
-        " :expected_value_jpy, :expected_value_summary, :regret_score, "
-        " :spirit_floor_violated, :wellbecoming_delta, :feeling_delta, :buffer_delta, "
-        " :ip_leak_risk, :retention_risk, :recommendation, :rationale, "
-        " :assessed_at, :assessor_did, :llm_model, :created_at, :owner_did)",
-        row,
-    )
+    get_kotoba_client().insert_row("vertex_etzhayyim_person_minimax", row)
 
     return {"minimax_result": scored, "ok": True}
 
@@ -343,38 +353,30 @@ async def task_etzhayyim_personnel_write_assignment(
 
     if task_nsid:
         # RACI write — default role = R (responsible)
-        _execute(
-            "INSERT INTO vertex_etzhayyim_raci "
-            "(vertex_id, task_nsid, person_did, raci_role, context, "
-            " effective_date, created_at, owner_did) "
-            "VALUES (:vid, :nsid, :did, 'R', :ctx, :eff, :now, :owner)",
-            {
-                "vid":   _vid("raci"),
-                "nsid":  task_nsid,
-                "did":   person_did,
-                "ctx":   minimax_result.get("rationale", "")[:500],
-                "eff":   _now_iso(),
-                "now":   _now_iso(),
-                "owner": _ORG_DID,
-            },
-        )
+        raci_row = {
+            "vertex_id": _vid("raci"),
+            "task_nsid": task_nsid,
+            "person_did": person_did,
+            "raci_role": "R",
+            "context": minimax_result.get("rationale", "")[:500],
+            "effective_date": _now_iso(),
+            "created_at": _now_iso(),
+            "owner_did": _ORG_DID,
+        }
+        get_kotoba_client().insert_row("vertex_etzhayyim_raci", raci_row)
     else:
-        _execute(
-            "INSERT INTO vertex_etzhayyim_assignment "
-            "(vertex_id, person_did, role_id, project_id, allocation_pct, "
-            " start_date, status, created_at, owner_did) "
-            "VALUES (:vid, :did, :rid, :pid, :pct, :start, 'active', :now, :owner)",
-            {
-                "vid":   assignment_vid,
-                "did":   person_did,
-                "rid":   role_id,
-                "pid":   project_id,
-                "pct":   100,
-                "start": _now_iso(),
-                "now":   _now_iso(),
-                "owner": _ORG_DID,
-            },
-        )
+        assignment_row = {
+            "vertex_id": assignment_vid,
+            "person_did": person_did,
+            "role_id": role_id,
+            "project_id": project_id,
+            "allocation_pct": 100,
+            "start_date": _now_iso(),
+            "status": "active",
+            "created_at": _now_iso(),
+            "owner_did": _ORG_DID,
+        }
+        get_kotoba_client().insert_row("vertex_etzhayyim_assignment", assignment_row)
 
     LOG.info(
         "personnel assignment written — person=%s target=%s id=%s",

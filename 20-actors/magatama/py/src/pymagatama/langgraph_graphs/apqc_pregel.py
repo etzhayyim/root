@@ -21,8 +21,7 @@ import uuid
 from datetime import UTC, datetime
 from typing import Annotated, Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
-
+from pymagatama.kotoba_datomic import get_kotoba_client
 try:
     from langgraph.graph import END, START, StateGraph
     from langgraph.types import Send
@@ -142,32 +141,28 @@ def _emit_ocel(
     vertex_id = f"at://{actor_did}/com.etzhayyim.apps.apqc.apqcEvent/{event_id}"
     ts = _now_iso()
     if not dry_run:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_apqc_event (
-                    vertex_id, rkey, repo,
-                    ocel_event_id, apqc_code, apqc_l1_name,
-                    task_id, event_type, case_id,
-                    objects_json, attributes_json, timestamp,
-                    created_at, sensitivity_ord, owner_did,
-                    org_id, user_id, actor_id, actor_did, org_did
-                ) VALUES (
-                    %s,%s,%s, %s,%s,%s, %s,%s,%s,
-                    %s,%s,%s, %s,%s,%s, %s,%s,%s,%s,%s
-                )
-                """,
-                (
-                    vertex_id, event_id, actor_did,
-                    event_id, apqc_code, l1.get("name", ""),
-                    task_id or None, event_type, case_id or None,
-                    json.dumps(objects, ensure_ascii=False),
-                    json.dumps(attributes, ensure_ascii=False),
-                    ts,
-                    ts, 1, actor_did,
-                    actor_did, actor_did, ACTOR_ID, actor_did, "anon",
-                ),
-            )
+        get_kotoba_client().insert_row("vertex_apqc_event", {
+            "vertex_id": vertex_id,
+            "rkey": event_id,
+            "repo": actor_did,
+            "ocel_event_id": event_id,
+            "apqc_code": apqc_code,
+            "apqc_l1_name": l1.get('name', ''),
+            "task_id": task_id or None,
+            "event_type": event_type,
+            "case_id": case_id or None,
+            "objects_json": json.dumps(objects, ensure_ascii=False),
+            "attributes_json": json.dumps(attributes, ensure_ascii=False),
+            "timestamp": ts,
+            "created_at": ts,
+            "sensitivity_ord": 1,
+            "owner_did": actor_did,
+            "org_id": actor_did,
+            "user_id": actor_did,
+            "actor_id": ACTOR_ID,
+            "actor_did": actor_did,
+            "org_did": 'anon',
+        })
     return event_id
 
 

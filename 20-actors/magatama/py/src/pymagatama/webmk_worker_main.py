@@ -39,7 +39,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_one, sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 from pymagatama.llm import resolve_model_id
 
@@ -212,33 +212,25 @@ Return ONLY a JSON: {{"score": 0.85, "reasoning": "..."}}
 
 
 async def node_store_proposal(state: ProposalState) -> dict[str, Any]:
-    """Persist proposal to RisingWave vertex_webmk_proposal."""
+    """Persist proposal to kotoba Datom log vertex_webmk_proposal."""
     def _run() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_webmk_proposal (
-                  vertex_id, record_id, owner_did, label, status,
-                  proposal_id, strategy_json, copy_markdown, quality_score,
-                  lg_run_id, created_at, updated_at, sensitivity_ord
-                ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{state['proposal_id']}",
-                    state["proposal_id"],
-                    WEBMK_DID,
-                    "proposal",
-                    "generated",
-                    state["proposal_id"],
-                    state["strategy_json"][:8000],
-                    state["copy_markdown"][:8000],
-                    state["quality_score"],
-                    state["proposal_id"],
-                    _now(),
-                    _now(),
-                    2,
-                ),
-            )
+        client = get_kotoba_client()
+        row_data = {
+            "vertex_id": f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{state['proposal_id']}",
+            "record_id": state["proposal_id"],
+            "owner_did": WEBMK_DID,
+            "label": "proposal",
+            "status": "generated",
+            "proposal_id": state["proposal_id"],
+            "strategy_json": state["strategy_json"][:8000],
+            "copy_markdown": state["copy_markdown"][:8000],
+            "quality_score": state["quality_score"],
+            "lg_run_id": state["proposal_id"],
+            "created_at": _now(),
+            "updated_at": _now(),
+            "sensitivity_ord": 2,
+        }
+        client.insert_row("vertex_webmk_proposal", row_data)
     await asyncio.get_event_loop().run_in_executor(None, _run)
     return {}
 
@@ -345,26 +337,29 @@ async def task_deliver_via_resend(
     deliveryEmail: str = "",
     **_: Any,
 ) -> dict[str, Any]:
-    """Fetch proposal from RisingWave and deliver via Resend."""
+    """Fetch proposal from kotoba Datom log and deliver via Resend."""
     if not deliveryEmail:
         LOG.info("deliver_via_resend: no deliveryEmail, skipping proposalId=%s", proposalId)
         return {"status": "skipped", "reason": "no deliveryEmail"}
 
     def _fetch() -> dict[str, Any] | None:
-        return fetch_one(
-            "SELECT client_name, website_url, strategy_json, copy_markdown, quality_score "
-            "FROM vertex_webmk_proposal WHERE proposal_id = %s",
-            (proposalId,),
+        client = get_kotoba_client()
+        return client.select_first_where(
+            "vertex_webmk_proposal",
+            "proposal_id",
+            proposalId,
+            columns=["client_name", "website_url", "strategy_json", "copy_markdown", "quality_score", "vertex_id"]
         )
 
     row = await asyncio.get_event_loop().run_in_executor(None, _fetch)
     if not row:
         raise ValueError(f"proposal not found: {proposalId}")
 
-    client_name = row[0] or "Your Company"
-    strategy_json = row[2] or ""
-    copy_markdown = row[3] or ""
-    quality_score = float(row[4] or 0)
+    client_name = row["client_name"] or "Your Company"
+    strategy_json = row["strategy_json"] or ""
+    copy_markdown = row["copy_markdown"] or ""
+    quality_score = float(row["quality_score"] or 0)
+    vertex_id = row["vertex_id"]
 
     html_body = f"""
 <h1>Web Marketing Proposal — {client_name}</h1>
@@ -405,12 +400,14 @@ async def task_deliver_via_resend(
     delivered_at = _now()
 
     def _mark_delivered() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_webmk_proposal SET status = %s, delivered_at = %s, updated_at = %s "
-                "WHERE proposal_id = %s",
-                ("delivered", delivered_at, delivered_at, proposalId),
-            )
+        client = get_kotoba_client()
+        row_data = {
+            "vertex_id": vertex_id,
+            "status": "delivered",
+            "delivered_at": delivered_at,
+            "updated_at": delivered_at,
+        }
+        client.insert_row("vertex_webmk_proposal", row_data)
 
     await asyncio.get_event_loop().run_in_executor(None, _mark_delivered)
     LOG.info("deliver_via_resend done proposalId=%s emailId=%s", proposalId, email_id)
@@ -426,7 +423,7 @@ async def task_create_ad_campaign(
     budgetJpy: int = 0,
     **_: Any,
 ) -> dict[str, Any]:
-    """Call ads.etzhayyim.com createCampaign and link to proposal."""
+    """Call ads.etzhayyim.com createCampaign and link to kotoba Datom log."""
     async with httpx.AsyncClient() as client:
         resp = await client.post(
             f"{ADS_XRPC_URL}/xrpc/com.etzhayyim.apps.ads.createCampaign",
@@ -446,29 +443,21 @@ async def task_create_ad_campaign(
     edge_id = _uid("ecl")
 
     def _link() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO edge_webmk_campaign_link (
-                  edge_id, src_vid, dst_vid, relation_kind,
-                  proposal_id, ads_campaign_id, ads_campaign_did,
-                  created_at, updated_at, owner_did, sensitivity_ord
-                ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    edge_id,
-                    f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{proposalId}",
-                    f"at://{ADS_DID}/com.etzhayyim.apps.ads.campaign/{campaign_id}",
-                    "has_campaign",
-                    proposalId,
-                    campaign_id,
-                    campaign_did,
-                    _now(),
-                    _now(),
-                    WEBMK_DID,
-                    2,
-                ),
-            )
+        client = get_kotoba_client()
+        row_data = {
+            "edge_id": edge_id,
+            "src_vid": f"at://{WEBMK_DID}/com.etzhayyim.apps.webmk.proposal/{proposalId}",
+            "dst_vid": f"at://{ADS_DID}/com.etzhayyim.apps.ads.campaign/{campaign_id}",
+            "relation_kind": "has_campaign",
+            "proposal_id": proposalId,
+            "ads_campaign_id": campaign_id,
+            "ads_campaign_did": campaign_did,
+            "created_at": _now(),
+            "updated_at": _now(),
+            "owner_did": WEBMK_DID,
+            "sensitivity_ord": 2,
+        }
+        client.insert_row("edge_webmk_campaign_link", row_data)
 
     await asyncio.get_event_loop().run_in_executor(None, _link)
     LOG.info("create_ad_campaign done proposalId=%s campaignId=%s", proposalId, campaign_id)
