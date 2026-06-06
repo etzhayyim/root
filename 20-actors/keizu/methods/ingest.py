@@ -16,11 +16,22 @@ from __future__ import annotations
 import os
 from typing import Any
 
+from registry import sourcing_for
 from weave import validate_money, validate_node, validate_rel, _kw
 
 # raw node fields that map to canonical :node/* attrs; anything else is carried through as
 # :node/<field> so the validate_node PII / power-score scan (G1/G4/G9) bites on the ingest path.
-_KNOWN_NODE_FIELDS = ("id", "scope", "label", "jurisdiction", "organ", "sources", "sourcing")
+_KNOWN_NODE_FIELDS = ("id", "scope", "label", "jurisdiction", "organ", "sources", "sourcing",
+                      "sourceId")
+
+
+def _sourcing(raw: dict) -> str:
+    """G11 — if the record names a registry sourceId, the REGISTRY'S verification status WINS
+    (a caller cannot forge :authoritative for an unverified source). Else honor the caller's
+    declared sourcing, defaulting to :representative."""
+    if raw.get("sourceId"):
+        return sourcing_for(raw["sourceId"])
+    return ":" + str(raw.get("sourcing", "representative")).lstrip(":")
 
 
 def normalize_node(raw: dict) -> dict:
@@ -29,7 +40,7 @@ def normalize_node(raw: dict) -> dict:
     node = {
         ":node/id": raw["id"],
         ":node/scope": ":" + str(raw.get("scope", "")).lstrip(":"),
-        ":node/sourcing": ":" + raw.get("sourcing", "representative"),
+        ":node/sourcing": _sourcing(raw),
     }
     for k in ("label", "jurisdiction", "organ"):
         if raw.get(k):
@@ -58,7 +69,7 @@ def normalize_committee(raw: dict) -> dict:
         ":committee/organ": raw.get("organ", ""),
         ":committee/members": members,
         ":committee/term-from": int(raw.get("term_from", 0)),
-        ":committee/sourcing": ":" + raw.get("sourcing", "representative"),
+        ":committee/sourcing": _sourcing(raw),
         ":committee/sources": sources,
     }
 
@@ -73,7 +84,7 @@ def normalize_rel(raw: dict) -> dict:
         ":rel/weight": float(raw.get("weight", 1.0)),
         ":rel/as-of": int(raw.get("as_of", 0)),
         ":rel/non-adjudicating-notice": True,
-        ":rel/sourcing": ":" + raw.get("sourcing", "representative"),
+        ":rel/sourcing": _sourcing(raw),
         ":rel/sources": [s for s in raw.get("sources", []) if str(s).strip()],
     }
     validate_rel(rel)
@@ -90,7 +101,7 @@ def normalize_money(raw: dict) -> dict:
         ":money/amount": float(raw.get("amount", 0.0)),
         ":money/currency": raw.get("currency", ""),
         ":money/as-of": int(raw.get("as_of", 0)),
-        ":money/sourcing": ":" + raw.get("sourcing", "representative"),
+        ":money/sourcing": _sourcing(raw),
         ":money/sources": [s for s in raw.get("sources", []) if str(s).strip()],
     }
     validate_money(m)

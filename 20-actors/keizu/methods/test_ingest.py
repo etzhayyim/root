@@ -84,6 +84,27 @@ def test_batch_aborts_on_bad_node():
                   contains="no-doxxing")
 
 
+def test_sourceid_drives_sourcing_registry_wins():
+    # a record naming an unverified-seed source is :representative EVEN IF it claims authoritative
+    r = normalize_rel({"id": "r1", "source": "a", "target": "b", "kind": "funding-tie",
+                       "sources": ["u1", "u2"], "sourceId": "jpn-procurement-pportal",
+                       "sourcing": "authoritative"})
+    assert r[":rel/sourcing"] == ":representative"   # registry (unverified) overrides the claim
+
+
+def test_no_sourceid_honors_caller_sourcing():
+    r = normalize_rel({"id": "r1", "source": "a", "target": "b", "kind": "funding-tie",
+                       "sources": ["u1", "u2"], "sourcing": "authoritative"})
+    assert r[":rel/sourcing"] == ":authoritative"   # no registry source → caller's claim honored
+
+
+def test_money_sourceid_drives_sourcing():
+    m = normalize_money({"id": "m1", "payer": "a", "payee": "b", "kind": "subsidy",
+                         "amount": 1.0, "currency": "JPY", "sources": ["u1", "u2"],
+                         "sourceId": "usa-fec", "sourcing": "authoritative"})
+    assert m[":money/sourcing"] == ":representative"
+
+
 def test_g8_live_refused_without_gate():
     os.environ.pop("KEIZU_ALLOW_LIVE", None)
     expect_raises(lambda: ingest_live(), contains="G8")
