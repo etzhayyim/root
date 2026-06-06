@@ -18,6 +18,8 @@ log. These methods are stdlib-only; the real-H3 test layer needs an `h3` install
 | `test_transit.py` | 8 tests: departure sort (incl. GTFS >24:00:00), `after` cutoff, limit, stop isolation, unknown-stop empty, trips-on-route, fail-soft. |
 | `reverse.py` | kotoba-native reverse geocoding (R2): the `cmdPlaceReverseGeocode` successor. `reverse_geocode` = `AVET(:feature.cell/r{res}, grid_disk(cell, ring))` candidates → `haversine_m` rank nearest-first, label-filterable. The H3 cell index doubles as a proximity index. |
 | `test_reverse.py` | 10 tests: haversine (pure, always) + real-H3 e2e (nearest=Tokyo Station, label filter, limit, distant-Haneda excluded, ocean empty). |
+| `chunk.py` | kotoba-native chunk read (§2): the `cmdGetChunk` HTTP reference — `AVET(:feature.cell/r{lod}, cells)` → grouped GeoJSON `{chunks:{cell:{label:[Feature]}}}`. The cell-read sibling of transit/search/reverse (previously only the TS adapter + in-memory store proved it). |
+| `test_chunk.py` | 6 tests (real-H3): cell/label grouping, label filter, point geometry, coarse-LOD aggregate, empty cell + the **4-read integration** (chunk · search · reverse · transit compose over ONE graph). |
 | `kotoba_local_server.py` | stdlib HTTP **stand-in** for the kotoba XRPC surface (`kg.ingest_batch` Bearer + `graph.sparql` AVET + `kg.entity`) — the local target for the R1 dry-run. |
 | `test_e2e_http.py` | 5 tests: the full maps↔kotoba **HTTP loop** (auth gate 401, real `ingest.push_batch`, AVET cell query, label-filter, point lookup). |
 
