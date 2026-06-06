@@ -12,6 +12,8 @@ log. These methods are stdlib-only; the real-H3 test layer needs an `h3` install
 | `kotoba_local.py` | in-memory EAVT/AVET **reference store** — the executable proof of the §2 query design + the contract `src/kotoba-spatial.ts` issues to real kotoba. |
 | `test_methods.py` | 12 tests: normalization, sourcing honesty, coverage math, push-gate. |
 | `test_avet_roundtrip.py` | 10 tests: AVET cell round-trip (index contract always; real Tokyo-Station H3 e2e when `h3` present). |
+| `kotoba_local_server.py` | stdlib HTTP **stand-in** for the kotoba XRPC surface (`kg.ingest_batch` Bearer + `graph.sparql` AVET + `kg.entity`) — the local target for the R1 dry-run. |
+| `test_e2e_http.py` | 5 tests: the full maps↔kotoba **HTTP loop** (auth gate 401, real `ingest.push_batch`, AVET cell query, label-filter, point lookup). |
 
 ```bash
 ./run_tests.sh                                  # stdlib (real-H3 layer auto-skips)
@@ -21,7 +23,17 @@ PYTHON=/path/to/venv/bin/python ./run_tests.sh  # full real-H3 e2e (python -m ve
 ## R1 — go-live runbook (operator + Council gated)
 
 R0 (landed) is offline-only: kotoba-preferring `getChunk` falls through to RisingWave because
-no maps kotoba endpoint is wired. R1 makes kotoba primary. **Every step is operator/Council
+no maps kotoba endpoint is wired. R1 makes kotoba primary.
+
+**Dry-run first (no gate, no live infra)** — prove the wire loop against the local stand-in:
+```bash
+python3 methods/kotoba_local_server.py --port 8077 --token dev &     # local kotoba stand-in
+MAPS_OPERATOR_GATE=1 KOTOBA_AUTH=dev KOTOBA_ENDPOINT=http://127.0.0.1:8077 \
+  python3 methods/ingest.py --export data/ingest/sample-vertex-spatial.json --push
+# → pushes over real HTTP; then point a maps Worker at the same endpoint to exercise getChunk.
+# test_e2e_http.py automates exactly this loop in CI.
+```
+Then the live steps: **Every step is operator/Council
 gated (G7) and member/operator-DID-signed (G4 no-server-key).**
 
 1. **Stand up the kotoba endpoint for maps.** Set the Worker var (wrangler `[vars]` /

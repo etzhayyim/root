@@ -85,6 +85,34 @@ class KotobaLocal:
                 row[key] = v[0]
         return row
 
+    def avet_query(self, predicate: str, objects, filter_pred=None, filter_in=None,
+                   limit: int = 500) -> list[dict]:
+        """The wire-level AVET query the TS adapter (kotoba-spatial.ts queryByCells) issues:
+        probe AVET(predicate, obj) for each obj, optionally ∩ AVET(filter_pred, v) for v in
+        filter_in, and return matching subjects as entity dicts {id, claims:[{pred,value}]}.
+        This is what a real kotoba graph.sparql endpoint returns; the adapter re-materializes."""
+        allow = set(filter_in) if filter_in else None
+        seen: set[str] = set()
+        out: list[dict] = []
+        for obj in objects:
+            for sid in self.avet.get((predicate, str(obj)), set()):
+                if sid in seen:
+                    continue
+                if allow is not None and self._first(sid, filter_pred) not in allow:
+                    continue
+                seen.add(sid)
+                claims = [{"pred": p, "value": v} for p, vs in self.eavt.get(sid, {}).items() for v in vs]
+                out.append({"id": sid, "claims": claims})
+                if len(out) >= limit:
+                    return out
+        return out
+
+    def entity(self, sid: str) -> dict | None:
+        a = self.eavt.get(sid)
+        if not a:
+            return None
+        return {"id": sid, "claims": [{"pred": p, "value": v} for p, vs in a.items() for v in vs]}
+
     # ── introspection (for tests / coverage) ──
     def feature_count(self) -> int:
         return sum(1 for s, a in self.eavt.items() if "feature/label" in a)

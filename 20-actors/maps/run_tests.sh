@@ -5,3 +5,4 @@ cd "$(dirname "$0")/methods"
 PY="${PYTHON:-python3}"   # set PYTHON=/path/to/venv/bin/python to exercise the real-H3 layer
 "$PY" test_methods.py "$@"
 "$PY" test_avet_roundtrip.py "$@"
+"$PY" test_e2e_http.py "$@"
