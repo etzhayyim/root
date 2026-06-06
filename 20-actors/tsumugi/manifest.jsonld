@@ -12,8 +12,9 @@
   "status": "R0-design-only",
   "tier": "B",
   "adr": "2606011800",
-  "dependsOnAdr": ["2606011000", "2606011500", "2605081300", "2605170000", "2605301600", "2605301400", "2605302300", "2605241500"],
-  "schema": ["00-contracts/schemas/engi-organism-ontology.kotoba.edn", "00-contracts/schemas/spirit-ontology.kotoba.edn"],
+  "extendedByAdr": ["2606061500"],
+  "dependsOnAdr": ["2606011000", "2606011500", "2605081300", "2605170000", "2605301600", "2605301400", "2605302300", "2605241500", "2606042330"],
+  "schema": ["00-contracts/schemas/engi-organism-ontology.kotoba.edn", "00-contracts/schemas/spirit-ontology.kotoba.edn", "00-contracts/schemas/influence-history-ontology.kotoba.edn"],
   "substrate": {
     "state": "kotoba Datom log (ADR-2605312345)",
     "largeAssets": "DataLad → IPFS (80-data/spirit-in-physics) — NO git-lfs",
@@ -27,6 +28,24 @@
       "input": "data/seed-power-graph.kotoba.edn",
       "output": ["out/intel-report.md", "out/spirit-graph.kotoba.edn"],
       "pipeline": "rbf-kernel → laplacian → spectral-embed-3 → tensegrity-unilateral → 取-concentration"
+    },
+    {
+      "id": "cell:tsumugi.analyze-influence",
+      "adr": "2606061500",
+      "method": "methods/analyze_influence.py",
+      "input": "data/seed-influence-history.kotoba.edn",
+      "output": ["out/influence-report.md", "out/influence-graph.kotoba.edn"],
+      "pipeline": "temporal-dag(N5) → rbf-kernel → spectral-embed-3 → tensegrity-unilateral → katz-reach(outbound/inbound/broker)",
+      "doc": "diachronic influence-as-information-flow over PUBLIC historical figures/documents/events/traditions (incl. YHWH/Jesus/Buddha as influence nodes); mirror-only, non-eschatological, edge-primary"
+    },
+    {
+      "id": "cell:tsumugi.project-influence-posts",
+      "adr": "2606061500",
+      "method": "methods/project_influence_posts.py",
+      "input": "data/seed-influence-history.kotoba.edn",
+      "output": ["out/influence-posts.dryrun.kotoba.edn"],
+      "pipeline": "mirror-observer-voice (N2, impersonation-refused) → published=false (G7 dry-run)",
+      "lexicon": ["com.etzhayyim.influence.influencePost", "com.etzhayyim.influence.influenceFlow"]
     }
   ],
   "gates": {
@@ -39,5 +58,16 @@
     "G7": "outward-gated (live ingest = Council + operator)",
     "G8": "no git-lfs; DataLad → IPFS",
     "G9": "要配慮 PII → XChaCha20-Poly1305 envelope"
+  },
+  "historicalExtension": {
+    "adr": "2606061500",
+    "scope": ":historical scale — diachronic influence over PUBLIC historical figures/documents/events/traditions (incl. YHWH/Jesus/Buddha as influence nodes); scaffolds now (public, no PII, like :institutional/:self scales of spirit-ontology)",
+    "invariants": {
+      "N1": "edge-primary — influence on :flow/signed-weight only; node readouts are integrals (no :influence/score-of-figure)",
+      "N2": "mirror, never impersonation — :mirror/is-mirror const true; :post/voice const :observer; first-person unrepresentable",
+      "N3": "non-eschatological + non-adjudicating truth — datafy INFLUENCE OF a tradition, never its theological truth; no verdict/salvation/afterlife datom (Charter §1.15)",
+      "N4": "public + long-settled + no PII — public influence-bearing figures only; living-private persons stay the Council-Lv7+-gated :human scale",
+      "N5": "temporal DAG — every :flow points forward in time (source.year-from ≤ receiver.year-to)"
+    }
   }
 }
