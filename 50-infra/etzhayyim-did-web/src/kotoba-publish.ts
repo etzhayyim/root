@@ -135,6 +135,7 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     root?: string;
     did?: string;
     sig?: string;
+    prevRoot?: string; // optimistic-concurrency base: advance only if KV root == prevRoot
     blocks?: { cid: string; hex: string }[];
     edit?: { collection?: string; uri?: string };
   };
@@ -174,10 +175,31 @@ export async function handleBlockPut(request: Request, env: PublishEnv): Promise
     });
   }
 
-  // 2) Store the delta blocks (content-addressed; consumer re-verifies CID).
+  // 2) Optimistic-concurrency CHECK-AND-SET: only advance if the publisher
+  //    rebased on the current head (prevents lost updates from concurrent
+  //    publishers). On mismatch the SW re-resolves + re-bases + retries.
+  //    (KV read-then-write is not atomic — narrows, doesn't eliminate, the race;
+  //    a Durable Object gives true atomicity later.)
+  const prevRaw = await env.ACTOR_KV.get(`kroot:${graph}`);
+  if (prevRaw) {
+    let cur: { root?: string } = {};
+    try {
+      cur = JSON.parse(prevRaw);
+    } catch {
+      /* treat as no prior */
+    }
+    if (cur.root && cur.root !== body.prevRoot) {
+      return new Response(
+        JSON.stringify({ error: "Conflict", message: "root advanced — rebase and retry", currentRoot: cur.root }),
+        { status: 409, headers: JSON_HEADERS },
+      );
+    }
+  }
+
+  // 3) Store the delta blocks (content-addressed; consumer re-verifies CID).
   await Promise.all(blocks.map((b) => env.ACTOR_KV!.put(`kblk:${b.cid}`, b.hex)));
 
-  // 3) Advance the published root pointer.
+  // 4) Advance the published root pointer.
   const manifest = {
     graph,
     root,

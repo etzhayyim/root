@@ -340,58 +340,118 @@ async function handleCreateRecord(body) {
 
 const GRAPH = "yoro-social-v1";
 const PUBLISH_URL = "/xrpc/com.etzhayyim.apps.kotoba.block.put";
+// The published root this SW last rebased on (optimistic-concurrency base).
+let publishedRoot = null;
 
-// Build the FULL merged tree from every current datom in a fresh node, member-
-// sign the root, and POST it + the blocks to the apex. The apex verifies the
-// signature (server never signs), stores the blocks, advances the published
-// root, and records a suppressable encrypted IP attestation. No node exposed.
+// Union two datom arrays, deduped by (e, attr, value) — the CRDT merge of two
+// append-only Datom sets (order-independent, idempotent).
+function mergeDatoms(a, b) {
+  const key = (d) => `${d.e} ${d.a} ${d.v_edn}`;
+  const seen = new Set(a.map(key));
+  const out = a.slice();
+  for (const d of b) {
+    const k = key(d);
+    if (!seen.has(k)) {
+      seen.add(k);
+      out.push(d);
+    }
+  }
+  return out;
+}
+
+// Hydrate a published root into a throwaway node and return its datoms (used to
+// rebase on a concurrent publisher's head).
+async function rootDatoms(root) {
+  const n = new KotobaNode();
+  for (let i = 0; i < 64; i++) {
+    const miss = n.missingBlockCids(root);
+    if (!miss || miss.length === 0) break;
+    for (const cid of miss) {
+      const br = await fetch(BLOCK_URL(cid), { cache: "force-cache" });
+      if (!br.ok) throw new Error(`block ${cid} HTTP ${br.status}`);
+      n.ingestBlock(cid, new Uint8Array(await br.arrayBuffer()));
+    }
+  }
+  n.hydrateFromProlly(root);
+  return JSON.parse(n.exportDatoms());
+}
+
+// Build the FULL merged tree from every current datom, member-sign the root,
+// and publish (delta) to the apex under optimistic concurrency: the apex only
+// advances the head if we rebased on the current head (prevRoot). On a 409 we
+// merge the concurrent publisher's datoms and retry — so no edit is lost.
 async function publishToApex(edit) {
   try {
     const seedHex = await idbGet("id-seed");
     if (!seedHex || typeof KotobaNode.prototype.exportBlocks !== "function") return;
-    const pub = new KotobaNode();
-    pub.useIdentity(seedHex);
-    for (const d of seedDatoms) {
-      const val = JSON.parse(d.v_edn);
-      pub.assert(d.e, d.a, typeof val === "string" ? val : JSON.stringify(val));
-    }
-    const signed = JSON.parse(pub.commitSigned()); // { root, did, sig }
-    const blocks = JSON.parse(pub.exportBlocks()); // [{ cid, hex }]
-    // DELTA: ask the apex which of these content-addressed blocks it lacks and
-    // send only those (immutable blocks never need resending). Completeness is
-    // preserved — the apex keeps the ones it already had + the delta.
-    let toSend = blocks;
-    try {
-      const hasResp = await fetch("/xrpc/com.etzhayyim.apps.kotoba.block.has", {
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const pub = new KotobaNode();
+      pub.useIdentity(seedHex);
+      for (const d of seedDatoms) {
+        const val = JSON.parse(d.v_edn);
+        pub.assert(d.e, d.a, typeof val === "string" ? val : JSON.stringify(val));
+      }
+      const signed = JSON.parse(pub.commitSigned()); // { root, did, sig }
+      const blocks = JSON.parse(pub.exportBlocks()); // [{ cid, hex }]
+      // DELTA: send only the blocks the apex lacks (immutable → never resent).
+      let toSend = blocks;
+      try {
+        const hasResp = await fetch("/xrpc/com.etzhayyim.apps.kotoba.block.has", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ cids: blocks.map((b) => b.cid) }),
+        });
+        if (hasResp.ok) {
+          const missing = new Set((await hasResp.json()).missing || []);
+          toSend = blocks.filter((b) => missing.has(b.cid));
+        }
+      } catch {
+        /* fall back to sending all */
+      }
+      const r = await fetch(PUBLISH_URL, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ cids: blocks.map((b) => b.cid) }),
+        body: JSON.stringify({
+          graph: GRAPH,
+          root: signed.root,
+          prevRoot: publishedRoot, // optimistic-concurrency base
+          did: signed.did,
+          sig: signed.sig,
+          blocks: toSend,
+          edit,
+        }),
       });
-      if (hasResp.ok) {
-        const missing = new Set((await hasResp.json()).missing || []);
-        toSend = blocks.filter((b) => missing.has(b.cid));
+      const resJson = await r.clone().json().catch(() => ({}));
+
+      if (r.status === 409 && resJson && resJson.currentRoot) {
+        // Concurrent publisher advanced the head — merge their datoms and retry.
+        try {
+          const theirs = await rootDatoms(resJson.currentRoot);
+          seedDatoms = mergeDatoms(seedDatoms, theirs);
+        } catch (e) {
+          console.warn("[kotoba-sw] rebase hydrate failed", e);
+        }
+        publishedRoot = resJson.currentRoot;
+        console.log(`[kotoba-sw] publish conflict → rebased on ${String(resJson.currentRoot).slice(0, 12)}…, retry`);
+        continue;
       }
-    } catch {
-      /* fall back to sending all */
+
+      if (r.ok) publishedRoot = signed.root;
+      await idbPut("last-publish", {
+        ok: r.ok,
+        root: signed.root,
+        sent: toSend.length,
+        total: blocks.length,
+        attempts: attempt + 1,
+        ipEncrypted: !!(resJson && resJson.attest && resJson.attest.ipEncrypted),
+        ipPrefix: resJson && resJson.attest ? resJson.attest.ipPrefix : "",
+      });
+      console.log(
+        `[kotoba-sw] publish ${r.ok ? "ok" : "HTTP " + r.status} root ${String(signed.root).slice(0, 12)}… (${toSend.length}/${blocks.length} blocks, try ${attempt + 1})`,
+      );
+      return;
     }
-    const r = await fetch(PUBLISH_URL, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ graph: GRAPH, root: signed.root, did: signed.did, sig: signed.sig, blocks: toSend, edit }),
-    });
-    const resJson = await r.clone().json().catch(() => ({}));
-    // Observability: stash the last publish so the page (same-origin IDB) can read it.
-    await idbPut("last-publish", {
-      ok: r.ok,
-      root: signed.root,
-      sent: toSend.length,
-      total: blocks.length,
-      ipEncrypted: !!(resJson && resJson.attest && resJson.attest.ipEncrypted),
-      ipPrefix: resJson && resJson.attest ? resJson.attest.ipPrefix : "",
-    });
-    console.log(
-      `[kotoba-sw] publish ${r.ok ? "ok" : "HTTP " + r.status} root ${String(signed.root).slice(0, 12)}… (${toSend.length}/${blocks.length} blocks sent)`,
-    );
+    console.warn("[kotoba-sw] publish gave up after retries (local write intact)");
   } catch (e) {
     console.warn("[kotoba-sw] publish failed (local write intact)", e);
   }
@@ -518,6 +578,7 @@ async function bootFromBlocks() {
   node = n;
   seedDatoms = JSON.parse(n.exportDatoms()); // feed/profile build source
   hydrateSource = "blocks";
+  publishedRoot = root; // optimistic-concurrency base for the next publish
   await idbPut("datoms", seedDatoms);
   await idbPut("len", seedDatoms.length);
   console.log(
@@ -592,6 +653,31 @@ self.addEventListener("activate", (event) => {
 // tx to the OPFS journal. Acks via the provided MessagePort.
 self.addEventListener("message", (event) => {
   const m = event.data || {};
+
+  // Passkey/wallet binding (no-server-key, ADR-2605231525): the page derives a
+  // 32-byte ed25519 seed from the member's authenticator — e.g. the WebAuthn
+  // PRF (hmac-secret) extension, or a wallet signature — and posts it here to
+  // replace the SW-local key, so kotoba commits are signed by the MEMBER's own
+  // key (not an ephemeral one). seedHex = 64 hex chars. The seed never leaves
+  // the device; the server is never involved.
+  if (m.type === "setIdentity" && typeof m.seedHex === "string") {
+    event.waitUntil(
+      (async () => {
+        let ack = { ok: false };
+        try {
+          await ensureReady();
+          await idbPut("id-seed", m.seedHex.trim());
+          memberDid = node.useIdentity(m.seedHex.trim());
+          ack = { ok: true, did: memberDid };
+        } catch (e) {
+          ack = { ok: false, error: String(e) };
+        }
+        if (event.ports && event.ports[0]) event.ports[0].postMessage(ack);
+      })(),
+    );
+    return;
+  }
+
   if (m.type !== "transact" || !Array.isArray(m.datoms)) return;
   event.waitUntil(
     (async () => {
