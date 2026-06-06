@@ -35,11 +35,18 @@ import {
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord } from "./kotoba";
-import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
+import { handleBlockPut, handleBlockHas, handleRootGet, handleStatsGet, serveBlockFromKv } from "./kotoba-publish";
+// Durable Object class — must be exported from the Worker entry module.
+export { KotobaRoot } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
 import { handleVerifyCacao } from "./session";
+import {
+  isAnonymousReadXrpc,
+  xrpcCacheKey,
+  XRPC_CACHE_CONTROL,
+} from "./xrpc-cache";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -415,6 +422,8 @@ interface Env {
   // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
+  // Single-threaded authoritative head for atomic CAS on the published root.
+  KOTOBA_ROOT?: DurableObjectNamespace;
   // Operator oversight key (base64 32 bytes) for encrypting published-edit IP
   // attestations. Optional — absent → pseudonymous hash only (see kotoba-publish).
   KOTOBA_ATTEST_KEY?: string;
@@ -515,9 +524,28 @@ async function proxyXrpc(
   request: Request,
   upstream: string,
   nsid: string,
+  ctx?: ExecutionContext,
 ): Promise<Response> {
   const incoming = new URL(request.url);
   const target = new URL(upstream);
+
+  // Edge-cache anonymous public reads — see CACHEABLE_READ_NSIDS. On a hit we
+  // skip the 2.8–5.2s AppView round-trip entirely.
+  const cacheable = isAnonymousReadXrpc(request, nsid);
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = cacheable ? xrpcCacheKey(request) : null;
+  if (cacheable && cacheKey) {
+    const hit = await cache.match(cacheKey);
+    if (hit) {
+      const h = new Headers(hit.headers);
+      h.set("x-edge-cache", "HIT");
+      return new Response(hit.body, {
+        status: hit.status,
+        statusText: hit.statusText,
+        headers: h,
+      });
+    }
+  }
   // Preserve the canonical XRPC path so the upstream sees the same NSID.
   target.pathname = `/xrpc/${nsid}`;
   target.search = incoming.search;
@@ -572,6 +600,27 @@ async function proxyXrpc(
     respHeaders.set("x-proxied-upstream", upstream);
     respHeaders.set("x-etzhayyim-no-cookie", "1");
     applyApexSecurityHeaders(respHeaders, target.pathname);
+
+    // Store successful anonymous reads at the edge so the next logged-out
+    // visitor skips the slow AppView round-trip. We buffer the body (feeds are
+    // ~40KB) because the stream must serve both the client and cache.put.
+    if (cacheable && cacheKey && upstreamResp.status === 200) {
+      const bytes = await upstreamResp.arrayBuffer();
+      respHeaders.set("cache-control", XRPC_CACHE_CONTROL);
+      respHeaders.set("x-edge-cache", "MISS");
+      // The cached copy carries the same headers (incl. cache-control TTL the
+      // Cache API honors). Returned and cached responses are independent bodies.
+      const toCache = new Response(bytes, {
+        status: 200,
+        statusText: upstreamResp.statusText,
+        headers: respHeaders,
+      });
+      const put = cache.put(cacheKey, toCache.clone());
+      if (ctx) ctx.waitUntil(put);
+      else await put;
+      return toCache;
+    }
+
     return new Response(upstreamResp.body, {
       status: upstreamResp.status,
       statusText: upstreamResp.statusText,
@@ -1429,6 +1478,12 @@ a{color:inherit}
       ) {
         return handleRootGet(url, env);
       }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.stats" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleStatsGet(url, env);
+      }
     }
 
     // ──────────────────────────────────────────────────────────────────
@@ -1714,7 +1769,7 @@ a{color:inherit}
             },
           );
         }
-        return proxyXrpc(request, upstream, nsid);
+        return proxyXrpc(request, upstream, nsid, ctx);
       }
     }
 
