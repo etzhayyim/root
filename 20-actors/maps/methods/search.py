@@ -14,9 +14,10 @@ Tokenizer (ONE function, used by BOTH write [ingest.py to_kg_batch] and read [se
   - CJK runs    → all adjacent BIGRAMS stored (+ the single char for length-1 runs); a query
     CJK run probes its bigrams (substring-ish match).
 
-Fail-soft: any error → empty list. The bulk-dumper write path (_kotoba_feature) does NOT yet
-stamp name-tokens (follow-up), so features ingested via dumpers are not name-searchable until
-that parity lands — an honest, documented gap (mirrors the h3-cell stamping note).
+Fail-soft: any error → empty list. BOTH write paths stamp name-tokens — the maps adapter
+(ingest.py to_kg_batch) AND the bulk dumpers (_kotoba_feature.name_tokens, a test asserts the
+two tokenizers are identical) — so a feature is name-searchable regardless of how it was
+ingested.
 
 Usage (library): from search import name_tokens, search_places
 """
