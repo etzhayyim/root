@@ -732,7 +732,7 @@ const _inner = createWorkerExportFromEnvFactory((env) => {
       withCapabilityTags("llm", "inference", "openaiCompatible"),
     )
     .command(nsid(ANSWER_WITH_KNOWLEDGE_NSID), (_ctx, body) => cmdAnswerWithKnowledge(sdk, body, env),
-      asAgentTool("Answer with RisingWave domain knowledge through the BPMN LangGraph workflow"),
+      asAgentTool("Answer with kotoba domain knowledge through the BPMN LangGraph workflow"),
       withCapabilityTags("llm", "knowledge", "rag", "bpmn", "langgraph"),
     )
     .command(nsid("com.etzhayyim.apps.llm.listModels"), (ctx, body) => cmdListModels(sdk, body),

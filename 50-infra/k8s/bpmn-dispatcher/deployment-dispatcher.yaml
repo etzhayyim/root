@@ -73,8 +73,6 @@ spec:
             # RisingWave URL — pymagatama.db_sync uses it for
             # vertex_bpmn_lexicon_binding lookup. Cleanup path:
             # migrate binding registry to AT MST records, drop RW_URL.
-            - name: RW_URL
-              valueFrom:
                 secretKeyRef:
                   name: bpmn-dispatcher-rw
                   key: RW_URL

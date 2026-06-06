@@ -30,7 +30,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _DOUGAKA_XRPC_URL = os.environ.get(
     "DOUGAKA_XRPC_URL", "http://lg-dougaka.mitama-udf.svc.cluster.local:8000"
 ).rstrip("/")
@@ -51,7 +50,7 @@ class _State(TypedDict, total=False):
 
 
 async def _node_build_timeline(state: _State) -> dict[str, Any]:
-    """Assemble timeline JSON from scenes + lines + assets in RW.
+    """Assemble timeline JSON from scenes + lines + assets in kotoba.
 
     RisingWave streaming INSERT may not be visible immediately; poll up to 60 s.
     """
@@ -60,8 +59,6 @@ async def _node_build_timeline(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
 
     scenes: list[dict] = []
     lines: list[dict] = []
@@ -70,39 +67,27 @@ async def _node_build_timeline(state: _State) -> dict[str, Any]:
     deadline = time.monotonic() + 60.0
     while time.monotonic() < deadline:
         try:
-            import psycopg
-            conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-            try:
-                cur = conn.cursor()
-                await cur.execute(
-                    "SELECT scene_index, location, action FROM vertex_yukkuri_scene "
-                    "WHERE video_id = %s ORDER BY scene_index LIMIT 20",
-                    [video_id],
-                )
-                scenes = [{"index": r[0], "location": r[1], "action": r[2]}
-                          for r in await cur.fetchall()]
-                if scenes:
-                    # lines with voice blobs
-                    await cur.execute(
-                        "SELECT scene_index, line_index, speaker, text, emotion, voice_blob_key "
-                        "FROM vertex_yukkuri_line WHERE video_id = %s "
-                        "ORDER BY scene_index, line_index LIMIT 500",
-                        [video_id],
-                    )
-                    lines = [{"sceneIndex": r[0], "lineIndex": r[1], "speaker": r[2],
-                              "text": r[3], "emotion": r[4], "voiceBlobKey": r[5]}
-                             for r in await cur.fetchall()]
-                    # assets
-                    await cur.execute(
-                        "SELECT kind, blob_key, meta_json FROM vertex_yukkuri_asset "
-                        "WHERE video_id = %s LIMIT 100",
-                        [video_id],
-                    )
-                    assets = [{"kind": r[0], "blobKey": r[1],
-                               "meta": json.loads(r[2] or "{}")}
-                              for r in await cur.fetchall()]
-            finally:
-                await conn.close()
+            from pymagatama.kotoba_datomic import get_kotoba_client
+            client = get_kotoba_client()
+            raw_scenes = await asyncio.to_thread(client.select_where, "vertex_yukkuri_scene", "video_id", video_id, limit=20)
+            raw_scenes.sort(key=lambda r: int(r.get("scene_index") or 0))
+            scenes = [{"index": int(r.get("scene_index") or 0), "location": r.get("location"), "action": r.get("action")} for r in raw_scenes]
+            
+            if scenes:
+                raw_lines = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
+                raw_lines.sort(key=lambda r: (int(r.get("scene_index") or 0), int(r.get("line_index") or 0)))
+                lines = [{"sceneIndex": int(r.get("scene_index") or 0), "lineIndex": int(r.get("line_index") or 0), "speaker": r.get("speaker"),
+                          "text": r.get("text"), "emotion": r.get("emotion"), "voiceBlobKey": r.get("voice_blob_key")}
+                         for r in raw_lines]
+                
+                raw_assets = await asyncio.to_thread(client.select_where, "vertex_yukkuri_asset", "video_id", video_id, limit=100)
+                assets = []
+                for r in raw_assets:
+                    try:
+                        meta = json.loads(r.get("meta_json") or "{}")
+                    except Exception:
+                        meta = {}
+                    assets.append({"kind": r.get("kind"), "blobKey": r.get("blob_key"), "meta": meta})
         except Exception as exc:  # noqa: BLE001
             _log.warning("build_timeline query failed: %s", exc)
 
@@ -152,21 +137,18 @@ async def _node_render(state: _State) -> dict[str, Any]:
 async def _node_update_status(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("render_blob_key"):
         return {}
-    if not _RW_URL:
-        return {}
     video_id = state.get("video_id") or ""
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            await conn.execute(
-                """UPDATE vertex_yukkuri_video
-                   SET status = 'rendered', render_blob_key = %s, render_url = %s
-                   WHERE video_id = %s""",
-                [state["render_blob_key"], state.get("render_url"), video_id],
-            )
-        finally:
-            await conn.close()
+        import asyncio
+        from pymagatama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id)
+        if raw_rows:
+            row = raw_rows[0]
+            row["status"] = "rendered"
+            row["render_blob_key"] = state["render_blob_key"]
+            row["render_url"] = state.get("render_url")
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_video", row)
     except Exception as exc:  # noqa: BLE001
         _log.exception("update status rendered failed")
         return {"error": f"update: {exc!s}"[:300]}
