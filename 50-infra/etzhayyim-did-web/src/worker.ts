@@ -11,7 +11,6 @@ import {
 } from "./registry/infra-actors";
 import {
   actorHandleFromParam,
-  coerceActorRecord,
   compiledActorRecord,
   toDidDoc,
   toGetProfileView,
@@ -36,7 +35,6 @@ import {
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord } from "./kotoba";
-import { ACTORS_V1_RECORDS } from "./registry/actors-v1-records.gen";
 import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
@@ -732,22 +730,18 @@ async function resolveActorRecordTiered(
   env: Env,
   _ctx: ExecutionContext,
 ): Promise<ActorRecord | null> {
-  // Actor resolution no longer depends on CF KV (per the kotoba-datomic-only
-  // directive): the canonical actor + DID record lives in the `actors-v1` Datom
-  // log (content-addressed blocks under /kotoba/, resolved client-side by the
-  // browser kotoba-wasm; gen-kotoba-actor-blocks.mjs). The Worker keeps only a
-  // server-side did:web compatibility path:
-  //   1) an (empty-by-default) kotoba node pull,
-  //   2) the actors-v1 static projection (ACTORS_V1_RECORDS) — the KV-free,
-  //      seed-derived map of the same 28 Datom-log records,
-  //   3) the compiled INFRA_ACTORS mirror, so did:web never goes dark.
+  // Actor resolution is content-addressed and worker-independent (step 3): the
+  // 28 named actors' did.json + profile.json are STATIC files under
+  // public/actor/<h>/, which Cloudflare serves from the edge BEFORE this Worker
+  // ever runs (their bytes are the canonical kotoba-datomic DID docs, CID in the
+  // actors-v1 Datom log; the browser ActorResolver re-verifies them). So this
+  // dynamic path is reached only for entity-actors, human members, and the
+  // XRPC getProfile query surface. No CF KV, no ACTORS_V1_RECORDS shim.
+  //   1) (empty-by-default) kotoba node pull,
+  //   2) compiled INFRA_ACTORS mirror, so registered handles never go dark.
   // ACTOR_KV remains bound ONLY for the gov-atlas index, not for actor records.
   const fromKotoba = await fetchKotobaActorRecord(env, handle);
   if (fromKotoba) return fromKotoba;
-
-  const fromActorsV1 = ACTORS_V1_RECORDS[handle];
-  if (fromActorsV1)
-    return coerceActorRecord(fromActorsV1 as Record<string, unknown>, "kotoba");
 
   // compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);

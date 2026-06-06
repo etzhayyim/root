@@ -1,0 +1,30 @@
+{
+  "did": "did:web:etzhayyim.com:actor:ooyake",
+  "handle": "ooyake.etzhayyim.com",
+  "displayName": "Ooyake — World Government Atlas (civic wayfinding map)",
+  "description": "kotoba-Datomic structural atlas of every government unit on Earth (国→省→庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN. The read-side SSoT danjo/kanae/tsumugi/toritsugi/himotoki consume. An observational MIRROR + civic wayfinding map — NEVER the government, NEVER an official channel, NEVER a target-list (G3/G10).",
+  "avatar": "",
+  "banner": "",
+  "followersCount": 0,
+  "followsCount": 0,
+  "postsCount": 0,
+  "indexedAt": "2026-06-02T00:00:00.000Z",
+  "labels": [],
+  "viewer": {},
+  "performerType": "system",
+  "uiType": "appview",
+  "glyph": "公",
+  "displayNameJa": "公 — 全世界政府アトラス (市民導線マップ)",
+  "_etzhayyim": {
+    "kind": "tier-b",
+    "tier": "B",
+    "status": "r0",
+    "adr": [
+      "2606021600"
+    ],
+    "primaryLexicon": "com.etzhayyim.ooyake",
+    "primarySchema": "00-contracts/schemas/gov-atlas-ontology.kotoba.edn",
+    "didDocument": "https://etzhayyim.com/actor/ooyake/did.json",
+    "source": "kotoba"
+  }
+}
