@@ -19,6 +19,12 @@
   } from "./lib/mediapipe-runtime";
   import { invokeAmeno, type GraphChunk, type GraphPhase } from "./lib/graph";
   import {
+    fetchGovProcedures,
+    retrieveProcedures,
+    buildKotobaContext,
+    type KotobaProcedure,
+  } from "./lib/kotoba-ground";
+  import {
     ensureEmbeddingLoaded,
     isEmbeddingReady as isEmbedReady,
   } from "./lib/embedding";
@@ -111,6 +117,12 @@
   let lastCritique = $state<{ score: number; feedback: string; iteration: number } | null>(null);
   /** Browser-local tool use toggle. ADR-2605191129. */
   let toolsEnabled = $state(false);
+  // kotoba mode: ground answers on etzhayyim's published gov-procedure records
+  // (/.well-known/gov-procedures.json) so the conversation proceeds on a kotoba
+  // basis. Records are fetched once and cached; retrieval is pure/client-side.
+  let kotobaMode = $state(false);
+  let kotobaProcs: KotobaProcedure[] | null = null;
+  let kotobaStatus = $state("");
   /** Daemon state snapshot, refreshed by a 1s interval. ADR-2605191135. */
   let daemonSnapshot = $state(getDaemonSnapshot());
   /** Whether the daemon details panel is expanded. */
@@ -437,13 +449,30 @@
     setTimeout(scrollToBottom, 0);
 
     try {
+      let systemContent = state.actorDid
+        ? `You are Murakumo, a personalized AI assistant for actor ${state.actorDid}. Running locally in the browser via WebGPU with per-actor LoRA adaptation. Be concise and helpful.`
+        : "You are Murakumo, a helpful AI assistant running locally in the user's browser via WebGPU. Be concise and helpful.";
+
+      // kotoba mode: ground this turn on the published gov-procedure records.
+      // Lazy-load + cache the index, retrieve the records relevant to the user's
+      // message, and append them (with the mirror/honesty constraints) to the
+      // system prompt so the local model answers FROM the kotoba data.
+      if (kotobaMode) {
+        try {
+          if (!kotobaProcs) {
+            kotobaStatus = "loading kotoba records…";
+            kotobaProcs = await fetchGovProcedures();
+          }
+          const hits = retrieveProcedures(text, kotobaProcs, 5);
+          systemContent = `${systemContent}\n\n${buildKotobaContext(hits)}`;
+          kotobaStatus = `${kotobaProcs.length} records · ${hits.length} matched`;
+        } catch (e) {
+          kotobaStatus = `kotoba load failed: ${e instanceof Error ? e.message : String(e)}`;
+        }
+      }
+
       const chatMessages: ChatMessage[] = [
-        {
-          role: "system",
-          content: state.actorDid
-            ? `You are Murakumo, a personalized AI assistant for actor ${state.actorDid}. Running locally in the browser via WebGPU with per-actor LoRA adaptation. Be concise and helpful.`
-            : "You are Murakumo, a helpful AI assistant running locally in the user's browser via WebGPU. Be concise and helpful.",
-        },
+        { role: "system", content: systemContent },
         ...messages,
       ];
 
@@ -1159,6 +1188,20 @@
           />
           Tools
         </label>
+        <label
+          class="ai-toggle"
+          title="Ground answers on etzhayyim's published government-procedure records (/.well-known/gov-procedures.json) — observational mirror, never files on your behalf"
+        >
+          <input
+            type="checkbox"
+            bind:checked={kotobaMode}
+            disabled={state.status === "generating"}
+          />
+          kotoba 行政手続き
+        </label>
+        {#if kotobaMode && kotobaStatus}
+          <span class="ai-toggle" style="opacity:0.7">{kotobaStatus}</span>
+        {/if}
         {#if activeInference}
           <label class="ai-toggle" title="MiniLM 22 MB lazy DL, WASM device">
             Surprise:

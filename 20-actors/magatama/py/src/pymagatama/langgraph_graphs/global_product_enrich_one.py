@@ -467,9 +467,7 @@ def write_graph(state: GlobalProductEnrichState) -> dict[str, Any]:
 
 
 def _write_evidence_rows(state: GlobalProductEnrichState) -> dict[str, Any]:
-    from sqlalchemy import Column, Float, Integer, String, Table
-
-    from pymagatama.db_alchemy import sa_executemany, sa_metadata
+    from pymagatama.kotoba_datomic import get_kotoba_client
 
     now = _now_iso()
     today = now[:10]
@@ -478,96 +476,10 @@ def _write_evidence_rows(state: GlobalProductEnrichState) -> dict[str, Any]:
     product_vid = str(canonical.get("productDid") or "")
     product_key = str(canonical.get("productId") or facts.get("productKey") or state.get("jobId") or "")
 
-    source_table = Table(
-        "vertex_product_source_page",
-        sa_metadata(),
-        Column("vertex_id", String),
-        Column("source_page_id", String),
-        Column("product_vid", String),
-        Column("product_key", String),
-        Column("source_kind", String),
-        Column("authority_rank", Integer),
-        Column("url", String),
-        Column("domain", String),
-        Column("title", String),
-        Column("content_sha256", String),
-        Column("fetched_at", String),
-        Column("fetch_method", String),
-        Column("http_status", Integer),
-        Column("evidence_json", String),
-        Column("status", String),
-        Column("created_at", String),
-        Column("updated_at", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", Integer),
-        Column("owner_did", String),
-        Column("actor_id", String),
-        extend_existing=True,
-    )
-    fact_table = Table(
-        "vertex_product_fact_evidence",
-        sa_metadata(),
-        Column("vertex_id", String),
-        Column("fact_id", String),
-        Column("product_vid", String),
-        Column("product_key", String),
-        Column("source_page_vid", String),
-        Column("source_kind", String),
-        Column("field_name", String),
-        Column("field_value", String),
-        Column("normalized_value", String),
-        Column("extraction_method", String),
-        Column("confidence", Float),
-        Column("model", String),
-        Column("prompt_version", String),
-        Column("evidence_json", String),
-        Column("status", String),
-        Column("created_at", String),
-        Column("updated_at", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", Integer),
-        Column("owner_did", String),
-        Column("actor_id", String),
-        extend_existing=True,
-    )
-    official_edge_table = Table(
-        "edge_product_official_source",
-        sa_metadata(),
-        Column("edge_id", String),
-        Column("src_vid", String),
-        Column("dst_vid", String),
-        Column("relation_type", String),
-        Column("source_kind", String),
-        Column("authority_rank", Integer),
-        Column("confidence", Float),
-        Column("evidence_json", String),
-        Column("status", String),
-        Column("created_at", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", Integer),
-        Column("owner_did", String),
-        Column("actor_id", String),
-        extend_existing=True,
-    )
-    brand_owner_edge_table = Table(
-        "edge_product_brand_owner",
-        sa_metadata(),
-        Column("edge_id", String),
-        Column("src_vid", String),
-        Column("dst_vid", String),
-        Column("relation_type", String),
-        Column("brand_name", String),
-        Column("owner_name", String),
-        Column("confidence", Float),
-        Column("evidence_json", String),
-        Column("status", String),
-        Column("created_at", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", Integer),
-        Column("owner_did", String),
-        Column("actor_id", String),
-        extend_existing=True,
-    )
+
+
+
+
     source_rows: list[dict[str, Any]] = []
     fact_rows: list[dict[str, Any]] = []
     official_edge_rows: list[dict[str, Any]] = []
@@ -686,13 +598,13 @@ def _write_evidence_rows(state: GlobalProductEnrichState) -> dict[str, Any]:
         )
     try:
         if source_rows:
-            sa_executemany(source_table.insert(), source_rows)
+            get_kotoba_client().insert_rows("vertex_product_source_page", source_rows)
         if fact_rows:
-            sa_executemany(fact_table.insert(), fact_rows)
+            get_kotoba_client().insert_rows("vertex_product_fact_evidence", fact_rows)
         if official_edge_rows:
-            sa_executemany(official_edge_table.insert(), official_edge_rows)
+            get_kotoba_client().insert_rows("edge_product_official_source", official_edge_rows)
         if brand_owner_edge_rows:
-            sa_executemany(brand_owner_edge_table.insert(), brand_owner_edge_rows)
+            get_kotoba_client().insert_rows("edge_product_brand_owner", brand_owner_edge_rows)
     except Exception as exc:
         return {"sourcePage": 0, "factEvidence": 0, "edge": 0, "evidenceWriteError": 1, "evidenceError": str(exc)}
     return {

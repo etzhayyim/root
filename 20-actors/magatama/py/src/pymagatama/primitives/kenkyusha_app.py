@@ -7,10 +7,11 @@ import decimal as _decimal
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:kenkyusha.etzhayyim.com"
@@ -38,7 +39,7 @@ ISCED = [
 
 
 def _now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _gid(prefix: str = "k") -> str:
@@ -66,21 +67,7 @@ def _jsonable(v: Any) -> Any:
     return v
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
-    out: list[dict[str, Any]] = []
-    for row in cur.fetchall():
-        raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}
-        value_json = raw.get("value_json")
-        if isinstance(value_json, str) and value_json:
-            try:
-                data = json.loads(value_json)
-                if isinstance(data, dict):
-                    raw = {**data, **raw}
-            except json.JSONDecodeError:
-                pass
-        out.append(raw)
-    return out
+
 
 
 def _djb2(prefix: str, parts: list[str]) -> str:
@@ -206,27 +193,27 @@ def _edge_id(table: str, src: str, dst: str, relation: str) -> str:
     return f"{table}:{uuid.uuid5(uuid.NAMESPACE_URL, f'{src}|{dst}|{relation}')}"
 
 
-def _write_edge(cur: Any, table: str, src: str, dst: str, relation: str, value: dict[str, Any], now: str) -> None:
+def _write_edge(table: str, src: str, dst: str, relation: str, value: dict[str, Any], now: str) -> None:
     value_json = json.dumps(value, ensure_ascii=False, separators=(",", ":"), default=str)
-    cur.execute(
-        f"""
-        INSERT INTO {table}
-          (edge_id,src_vid,dst_vid,relation_kind,value_json,created_at,updated_at,owner_did,sensitivity_ord)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        ON CONFLICT (edge_id) DO UPDATE SET
-          value_json = EXCLUDED.value_json,
-          updated_at = EXCLUDED.updated_at
-        """,
-        (_edge_id(table, src, dst, relation), src, dst, relation, value_json, now, now, APP_DID, 2),
-    )
+    row_dict = {
+        "edge_id": _edge_id(table, src, dst, relation),
+        "src_vid": src,
+        "dst_vid": dst,
+        "relation_kind": relation,
+        "value_json": value_json,
+        "created_at": now,
+        "updated_at": now,
+        "owner_did": APP_DID,
+        "sensitivity_ord": 2,
+    }
+    get_kotoba_client().insert_row(table, row_dict)
 
 
-def _write_edges(cur: Any, name: str, record: dict[str, Any], vertex_id: str, now: str) -> None:
+def _write_edges(name: str, record: dict[str, Any], vertex_id: str, now: str) -> None:
     if name == "frontier":
         discipline = _str(record.get("primaryDiscipline"))
         if discipline:
             _write_edge(
-                cur,
                 "edge_kenkyusha_frontier_discipline",
                 vertex_id,
                 _vertex_uri("discipline", discipline),
@@ -238,7 +225,6 @@ def _write_edges(cur: Any, name: str, record: dict[str, Any], vertex_id: str, no
         frontier_id = _str(record.get("frontierId"))
         if frontier_id:
             _write_edge(
-                cur,
                 "edge_kenkyusha_hypothesis_frontier",
                 vertex_id,
                 _vertex_uri("frontier", frontier_id),
@@ -250,7 +236,6 @@ def _write_edges(cur: Any, name: str, record: dict[str, Any], vertex_id: str, no
         hypothesis_id = _str(record.get("hypothesisId"))
         if hypothesis_id:
             _write_edge(
-                cur,
                 "edge_kenkyusha_evidence_hypothesis",
                 vertex_id,
                 _vertex_uri("hypothesis", hypothesis_id),
@@ -289,19 +274,8 @@ def _write(name: str, record: dict[str, Any]) -> dict[str, str]:
         "sensitivity_ord": 2,
         **typed,
     }
-    columns = _common_columns() + list(typed)
-    placeholders = ",".join(["%s"] * len(columns))
-    updates = ",".join([f"{col} = EXCLUDED.{col}" for col in columns if col != "vertex_id"])
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {updates}
-            """,
-            tuple(values[col] for col in columns),
-        )
-        _write_edges(cur, name, record, vertex_id, now)
+    get_kotoba_client().insert_row(table, values)
+    _write_edges(name, record, vertex_id, now)
     return {"uri": vertex_id, "rkey": rkey}
 
 
@@ -309,15 +283,34 @@ def _list(name: str, match: dict[str, Any] | None = None, limit: int = 50, offse
     table = KIND_TABLES.get(name)
     if table is None:
         raise ValueError(f"unsupported kenkyusha record kind: {name}")
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT * FROM {table} ORDER BY indexed_at DESC LIMIT %s OFFSET %s",
-            (max(1, min(limit, 500)), max(0, offset)),
-        )
-        rows = _rows(cur)
-    match = {k: v for k, v in (match or {}).items() if v not in ("", None)}
+
+    client = get_kotoba_client()
+    # R0: Multi-predicate / ORDER BY / OFFSET are handled in Python.
+    # The Datalog query fetches all entities associated with the given table name.
+    # This assumes entities are associated with a `:vertex/table` attribute for lookup.
+    datalog_query = f'[:find (pull ?e [*]) :where [?e :vertex/table "{table}"]]'
+    all_rows = client.q(datalog_query)
+
+    processed_rows = []
+    for row in all_rows:
+        raw = row
+        value_json_str = raw.get("value_json")
+        if isinstance(value_json_str, str) and value_json_str:
+            try:
+                data = json.loads(value_json_str)
+                if isinstance(data, dict):
+                    raw = {**data, **raw}
+            except json.JSONDecodeError:
+                pass
+        processed_rows.append(raw)
+
     if match:
-        rows = [r for r in rows if all(str(r.get(k) or "") == str(v) for k, v in match.items())]
+        processed_rows = [r for r in processed_rows if all(str(r.get(k) or "") == str(v) for k, v in match.items())]
+
+    processed_rows.sort(key=lambda x: x.get("indexed_at", ""), reverse=True)
+
+    rows = processed_rows[offset : offset + limit]
+
     return rows
 
 

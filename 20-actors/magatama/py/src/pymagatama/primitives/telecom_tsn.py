@@ -113,14 +113,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -474,5 +467,8 @@ def register(worker: Any, timeout_ms: int = 60_000) -> None:
     worker.task(task_type="telecom.tsn.stream.reserve",  single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_stream_reserve)
     worker.task(task_type="telecom.tsn.shaper.apply",    single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_shaper_apply)
     worker.task(task_type="telecom.tsn.frer.enable",     single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_frer_enable)
+    worker.task(task_type="telecom.tsn.sync.deviation",  single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_sync_deviation)
+    worker.task(task_type="telecom.tsn.sla.breach",      single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_sla_breach)
+
     worker.task(task_type="telecom.tsn.sync.deviation",  single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_sync_deviation)
     worker.task(task_type="telecom.tsn.sla.breach",      single_value=False, timeout_ms=timeout_ms)(task_telecom_tsn_sla_breach)

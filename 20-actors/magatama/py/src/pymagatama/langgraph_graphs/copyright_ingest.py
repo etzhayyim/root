@@ -18,9 +18,9 @@ State:
   dataciteError  str   error from datacite fetch/insert, or None (output)
   ok             bool  overall success flag (output)
 
-RisingWave persistence:
+Kotoba Datom log persistence:
   - vertex_work — PK overwrite dedup (same DOI safe to re-ingest)
-  - Checkpoint via kotoba checkpoint saver (RisingWave fallback via MAGATAMA_LG_BACKEND=rw) (thread_id = actor DID)
+  - Checkpoint via kotoba checkpoint saver (thread_id = actor DID)
   - Long-term state via kotoba store namespace ("did:web:copyright.etzhayyim.com","ingest_state")
 """
 
@@ -30,6 +30,8 @@ import time as _time
 from typing import Any, TypedDict
 
 import httpx
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 _CROSSREF_URL = (
     "https://api.crossref.org/works"
@@ -131,58 +133,16 @@ def _datacite_row(item: dict) -> dict | None:
     }
 
 
-def _vertex_work_table() -> "Any":
-    """SA Core Table for vertex_work (ADR-2605080300)."""
-    from sqlalchemy import BigInteger, Boolean, Column, String, Table
-    from pymagatama.db_alchemy import sa_metadata
-    return Table(
-        "vertex_work", sa_metadata(),
-        Column("vertex_id", String),
-        Column("owner_did", String),
-        Column("rkey", String),
-        Column("repo", String),
-        Column("did", String),
-        Column("status", String),
-        Column("kind", String),
-        Column("title", String),
-        Column("doi", String),
-        Column("registry", String),
-        Column("berne_automatic", Boolean),
-        Column("source_url", String),
-        Column("collected_at", String),
-        Column("sensitivity_ord", BigInteger),
-        extend_existing=True,
-    )
 
-
-def _vertex_copyright_ingest_run_table() -> "Any":
-    """SA Core Table for vertex_copyright_ingest_run (ADR-2605080300)."""
-    from sqlalchemy import BigInteger, Column, String, Table
-    from pymagatama.db_alchemy import sa_metadata
-    return Table(
-        "vertex_copyright_ingest_run", sa_metadata(),
-        Column("vertex_id", String),
-        Column("owner_did", String),
-        Column("registry", String),
-        Column("started_at", String),
-        Column("finished_at", String),
-        Column("status", String),
-        Column("rows_fetched", BigInteger),
-        Column("rows_inserted", BigInteger),
-        Column("error", String),
-        Column("created_date", String),
-        Column("sensitivity_ord", BigInteger),
-        extend_existing=True,
-    )
 
 
 def _bulk_insert_vertex_work(rows: list[dict]) -> int:
-    """Insert rows into vertex_work via sa_executemany (ADR-2605080300)."""
+    """Insert rows into vertex_work via kotoba_client.insert_rows."""
     if not rows:
         return 0
-    from pymagatama.db_alchemy import sa_executemany
     try:
-        return sa_executemany(_vertex_work_table().insert(), rows)
+        get_kotoba_client().insert_rows("vertex_work", rows)
+        return len(rows)
     except Exception:
         return 0
 
@@ -248,8 +208,6 @@ def emit_audit(state: CopyrightIngestState) -> dict:
     today = now[:10]
     ts_ms = int(_time.time() * 1000)
     try:
-        from pymagatama.db_alchemy import sa_executemany
-        t = _vertex_copyright_ingest_run_table()
         rows = [
             {
                 "vertex_id": f"at://{_COPYRIGHT_DID}/com.etzhayyim.apps.copyright.ingestRun/run-crossref-{ts_ms}",
@@ -278,7 +236,7 @@ def emit_audit(state: CopyrightIngestState) -> dict:
                 "sensitivity_ord": 100,
             },
         ]
-        sa_executemany(t.insert(), rows)
+        get_kotoba_client().insert_rows("vertex_copyright_ingest_run", rows)
     except Exception:
         pass
     return {}
@@ -301,12 +259,8 @@ def _update_ingest_state(
         import asyncio
         import os
 
-        if os.environ.get("MAGATAMA_LG_BACKEND", "kotoba") != "rw":
-            from pymagatama.langgraph_store_kotoba import KotobaStore
-            store = KotobaStore()
-        else:
-            from pymagatama.langgraph_store_rw import RisingWaveStore
-            store = RisingWaveStore()
+        from pymagatama.langgraph_store_kotoba import KotobaStore
+        store = KotobaStore()
         ns = (_COPYRIGHT_DID, "ingest_state")
 
         async def _put():
@@ -341,7 +295,7 @@ def build_graph():
       → emit_audit → END
 
     Crossref and DataCite are serialised (not parallel) to avoid
-    simultaneous RisingWave connection pressure.
+    simultaneous connection pressure.
     """
     from langgraph.graph import END, StateGraph
 

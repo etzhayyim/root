@@ -54,10 +54,11 @@ import json
 import logging
 import math
 import os
+from datetime import datetime, timezone
 from typing import Any, Optional, TypedDict
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("karma.agent")
 
@@ -177,28 +178,31 @@ def _load_organism_node(state: _KarmaState) -> _KarmaState:
     candidate = state.get("candidate")
 
     if edge_id:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT source_did_at_event, target_did_at_event,
-                       axis, tier, magnitude, direction, victim_vul,
-                       COALESCE(future_horizon_years, 0),
-                       COALESCE(irreversible, false),
-                       ts_ms
-                FROM edge_karma_dependency
-                WHERE edge_id = %s
-                LIMIT 1
-                """,
-                (edge_id,),
-            )
-            row = cur.fetchone()
+        client = get_kotoba_client()
+        row = client.select_first_where(
+            "edge_karma_dependency",
+            "edge_id",
+            edge_id,
+            columns=[
+                "source_did_at_event", "target_did_at_event", "axis", "tier",
+                "magnitude", "direction", "victim_vul", "future_horizon_years",
+                "irreversible", "ts_ms"
+            ]
+        )
         if not row:
             raise ValueError(f"karma.agent.evaluate: edge_id={edge_id} not found")
-        (
-            source_did, target_did,
-            axis, tier, magnitude, direction, victim_vul,
-            future_horizon_years, irreversible, ts_ms,
-        ) = row
+
+        source_did = row["source_did_at_event"]
+        target_did = row["target_did_at_event"]
+        axis = row["axis"]
+        tier = row["tier"]
+        magnitude = row["magnitude"]
+        direction = row["direction"]
+        victim_vul = row["victim_vul"]
+        future_horizon_years = row.get("future_horizon_years") or 0  # COALESCE(future_horizon_years, 0)
+        irreversible = row.get("irreversible") or False             # COALESCE(irreversible, false)
+        ts_ms = row["ts_ms"]
+
         state["source_did"] = source_did
         state["target_did"] = target_did
         state["axis"] = axis
@@ -206,7 +210,7 @@ def _load_organism_node(state: _KarmaState) -> _KarmaState:
         state["magnitude"] = float(magnitude)
         state["direction"] = direction
         state["victim_vul"] = float(victim_vul)
-        state["future_horizon_years"] = int(future_horizon_years or 0)
+        state["future_horizon_years"] = int(future_horizon_years)
         state["irreversible"] = bool(irreversible)
         state["ts_ms"] = int(ts_ms)
     elif candidate:
@@ -219,7 +223,7 @@ def _load_organism_node(state: _KarmaState) -> _KarmaState:
         state["victim_vul"] = float(candidate["victimVul"])
         state["future_horizon_years"] = int(candidate.get("futureHorizonYears") or 0)
         state["irreversible"] = bool(candidate.get("irreversible", False))
-        state["ts_ms"] = int(_dt.datetime.now(tz=_dt.UTC).timestamp() * 1000)
+        state["ts_ms"] = int(datetime.now(timezone.utc).timestamp() * 1000)
     else:
         raise ValueError("karma.agent.evaluate: edgeId or candidate required")
 
@@ -303,51 +307,46 @@ def _witness_search_node(state: _KarmaState) -> _KarmaState:
     superstep = 0
     max_hops = int(state.get("witness_hops") or DEFAULT_WITNESS_HOPS)
 
-    with sync_cursor() as cur:
-        for hop in range(1, max_hops + 1):
-            if not frontier:
-                break
-            superstep += 1
-            # Bound frontier per superstep to keep query bounded
-            current = list(frontier)[:MAX_FRONTIER_PER_SUPERSTEP]
-            placeholders = ",".join(["%s"] * len(current))
+    client = get_kotoba_client()
+    for hop in range(1, max_hops + 1):
+        if not frontier:
+            break
+        superstep += 1
+        # Bound frontier per superstep to keep query bounded
+        current = list(frontier)[:MAX_FRONTIER_PER_SUPERSTEP]
+        # R0: Datalog query for witness search
+        datalog_query = """
+        [:find ?neighbor_did (count ?e)
+         :in $current
+         :where
+         [?e :edge.karma_dependency/source_did_at_event ?s]
+         [?e :edge.karma_dependency/target_did_at_event ?t]
+         [(!= ?s ?t)]
+         (or
+          (and [(contains? $current ?s)] [(= ?neighbor_did ?t)])
+          (and [(contains? $current ?t)] [(= ?neighbor_did ?s)])
+         )]
+        """
+        rows = client.q(datalog_query, args={"$current": current})
 
-            # Neighbor discovery: 1-hop edges from any frontier vertex
-            cur.execute(
-                f"""
-                SELECT
-                    CASE WHEN source_did_at_event IN ({placeholders})
-                         THEN target_did_at_event
-                         ELSE source_did_at_event
-                    END AS neighbor_did,
-                    count(*) AS edge_overlap
-                FROM edge_karma_dependency
-                WHERE (source_did_at_event IN ({placeholders})
-                       OR target_did_at_event IN ({placeholders}))
-                  AND source_did_at_event != target_did_at_event
-                GROUP BY 1
-                """,
-                tuple(current) * 3,
-            )
-            rows = cur.fetchall()
+        new_frontier: set[str] = set()
+        for row in rows:
+            neighbor_did, overlap = row
+            if not neighbor_did:
+                continue
+            if neighbor_did in visited:
+                # Update overlap count (Pregel aggregation: max)
+                if overlap > visited[neighbor_did]["edge_overlap"]:
+                    visited[neighbor_did]["edge_overlap"] = int(overlap)
+                continue
+            visited[neighbor_did] = {
+                "hop": hop,
+                "edge_overlap": int(overlap),
+                "is_seed": False,
+            }
+            new_frontier.add(neighbor_did)
 
-            new_frontier: set[str] = set()
-            for neighbor_did, overlap in rows:
-                if not neighbor_did:
-                    continue
-                if neighbor_did in visited:
-                    # Update overlap count (Pregel aggregation: max)
-                    if overlap > visited[neighbor_did]["edge_overlap"]:
-                        visited[neighbor_did]["edge_overlap"] = int(overlap)
-                    continue
-                visited[neighbor_did] = {
-                    "hop": hop,
-                    "edge_overlap": int(overlap),
-                    "is_seed": False,
-                }
-                new_frontier.add(neighbor_did)
-
-            frontier = new_frontier
+        frontier = new_frontier
 
     # Witness candidates = visited - seeds, ranked by hop ASC + overlap DESC
     candidates = [

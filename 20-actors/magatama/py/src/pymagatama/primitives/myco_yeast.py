@@ -19,16 +19,15 @@ Task types registered via register():
 
 from __future__ import annotations
 
-import datetime as _dt
-import logging
+from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 logger = logging.getLogger(__name__)
 
-_NOW = lambda: _dt.datetime.utcnow().isoformat() + "Z"
+_NOW = lambda: datetime.now(timezone.utc).isoformat() + "Z"
 
 
 # ---------------------------------------------------------------------------
@@ -49,33 +48,33 @@ def task_kobo_bud_agent(
         return {"error": "parentDid, childDid, childVertexId, buddingEdgeId required"}
     now = _NOW()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_kobo_agent
-                  (vertex_id, agent_did, parent_did, role, status, eta, stress_score,
-                   created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, %s, 'active', %s, 0, %s, %s, 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM vertex_kobo_agent WHERE vertex_id = %s
-                )
-                """,
-                (childVertexId, childDid, parentDid, childRole,
-                 float(parentEta), now, callerDid or parentDid,
-                 childVertexId),
-            )
-            cur.execute(
-                """
-                INSERT INTO edge_kobo_budding
-                  (edge_id, src_vid, dst_vid, created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, %s, %s, 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM edge_kobo_budding WHERE edge_id = %s
-                )
-                """,
-                (buddingEdgeId, parentDid, childVertexId, now,
-                 callerDid or parentDid, buddingEdgeId),
-            )
+        kotoba = get_kotoba_client()
+        kotoba.insert_row(
+            "vertex_kobo_agent",
+            {
+                "vertex_id": childVertexId,
+                "agent_did": childDid,
+                "parent_did": parentDid,
+                "role": childRole,
+                "status": "active",
+                "eta": float(parentEta),
+                "stress_score": 0,
+                "created_at": now,
+                "owner_did": callerDid or parentDid,
+                "sensitivity_ord": 1,
+            },
+        )
+        kotoba.insert_row(
+            "edge_kobo_budding",
+            {
+                "edge_id": buddingEdgeId,
+                "src_vid": parentDid,
+                "dst_vid": childVertexId,
+                "created_at": now,
+                "owner_did": callerDid or parentDid,
+                "sensitivity_ord": 1,
+            },
+        )
         return {"ok": True, "childVertexId": childVertexId}
     except Exception as exc:
         logger.exception("kobo.bud_agent failed")
@@ -99,49 +98,43 @@ def task_kobo_germinate(
         return {"error": "sporeVertexId, newAgentDid, newAgentVertexId required",
                 "germinated": False}
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT COUNT(*) AS cnt
-                FROM edge_houshi_custody
-                WHERE src_vid = %s AND custody_confirmed = true
-                """,
-                (sporeVertexId,),
-            )
-            row = cur.fetchone()
-            confirmed_count = int(row[0]) if row else 0
+        kotoba = get_kotoba_client()
+        # R0: Multi-predicate WHERE in SELECT COUNT(*), falling back to Python filter
+        custody_edges = kotoba.select_where(
+            "edge_houshi_custody",
+            "src_vid",
+            sporeVertexId,
+            columns=["custody_confirmed"],
+        )
+        confirmed_count = sum(1 for edge in custody_edges if edge.get("custody_confirmed") is True)
 
         if confirmed_count < quorumN:
             return {"germinated": False, "confirmedCount": confirmed_count,
                     "quorumN": quorumN}
 
         now = _NOW()
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_kobo_agent
-                  (vertex_id, agent_did, parent_did, status, eta, stress_score,
-                   created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, 'active', %s, 0, %s, %s, 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM vertex_kobo_agent WHERE vertex_id = %s
-                )
-                """,
-                (newAgentVertexId, newAgentDid, originAgentDid,
-                 float(restoredEta), now, callerDid or originAgentDid,
-                 newAgentVertexId),
-            )
-            cur.execute(
-                """
-                INSERT INTO vertex_houshi_spore
-                  (vertex_id, germinated_at, status)
-                SELECT %s, %s, 'germinated'
-                ON CONFLICT (vertex_id) DO UPDATE
-                  SET germinated_at = EXCLUDED.germinated_at,
-                      status = EXCLUDED.status
-                """,
-                (sporeVertexId, now),
-            )
+        kotoba.insert_row(
+            "vertex_kobo_agent",
+            {
+                "vertex_id": newAgentVertexId,
+                "agent_did": newAgentDid,
+                "parent_did": originAgentDid,
+                "status": "active",
+                "eta": float(restoredEta),
+                "stress_score": 0,
+                "created_at": now,
+                "owner_did": callerDid or originAgentDid,
+                "sensitivity_ord": 1,
+            },
+        )
+        kotoba.insert_row(
+            "vertex_houshi_spore",
+            {
+                "vertex_id": sporeVertexId,
+                "germinated_at": now,
+                "status": "germinated",
+            },
+        )
         return {"germinated": True, "confirmedCount": confirmed_count,
                 "newAgentVertexId": newAgentVertexId}
     except Exception as exc:
@@ -163,29 +156,29 @@ def task_kobo_sporulate(
         return {"error": "sporeVertexId, agentDid, agentVertexId required"}
     now = _NOW()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_houshi_spore
-                  (vertex_id, agent_did, blob_cbor, revival_key_hint, quorum_n,
-                   status, created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, %s, %s, 'dormant', %s, %s, 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM vertex_houshi_spore WHERE vertex_id = %s
-                )
-                """,
-                (sporeVertexId, agentDid, blobCbor, revivalKeyHint,
-                 int(quorumN), now, callerDid or agentDid, sporeVertexId),
-            )
-            cur.execute(
-                """
-                INSERT INTO vertex_kobo_agent (vertex_id, status, updated_at)
-                SELECT %s, 'sporulated', %s
-                ON CONFLICT (vertex_id) DO UPDATE
-                  SET status = 'sporulated', updated_at = EXCLUDED.updated_at
-                """,
-                (agentVertexId, now),
-            )
+        kotoba = get_kotoba_client()
+        kotoba.insert_row(
+            "vertex_houshi_spore",
+            {
+                "vertex_id": sporeVertexId,
+                "agent_did": agentDid,
+                "blob_cbor": blobCbor,
+                "revival_key_hint": revivalKeyHint,
+                "quorum_n": int(quorumN),
+                "status": "dormant",
+                "created_at": now,
+                "owner_did": callerDid or agentDid,
+                "sensitivity_ord": 1,
+            },
+        )
+        kotoba.insert_row(
+            "vertex_kobo_agent",
+            {
+                "vertex_id": agentVertexId,
+                "status": "sporulated",
+                "updated_at": now,
+            },
+        )
         return {"ok": True, "sporeVertexId": sporeVertexId}
     except Exception as exc:
         logger.exception("kobo.sporulate failed")
@@ -239,20 +232,21 @@ def task_kabi_anastomosis_probe(
 
     now = _NOW()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO edge_kabi_anastomosis
-                  (edge_id, src_vid, dst_vid, compatible, compatibility_score,
-                   probe_reason, created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, %s, %s, %s, %s, %s, 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM edge_kabi_anastomosis WHERE edge_id = %s
-                )
-                """,
-                (edgeId, networkADid, networkBDid, compatible, score,
-                 reason[:500], now, callerDid or networkADid, edgeId),
-            )
+        kotoba = get_kotoba_client()
+        kotoba.insert_row(
+            "edge_kabi_anastomosis",
+            {
+                "edge_id": edgeId,
+                "src_vid": networkADid,
+                "dst_vid": networkBDid,
+                "compatible": compatible,
+                "compatibility_score": score,
+                "probe_reason": reason[:500],
+                "created_at": now,
+                "owner_did": callerDid or networkADid,
+                "sensitivity_ord": 1,
+            },
+        )
     except Exception as exc:
         logger.exception("kabi.anastomosis_probe db write failed")
         return {"error": str(exc), "probeResult": {"compatible": False}}
@@ -277,19 +271,26 @@ def task_kinoko_check_flow_threshold(
     Returns blockFormed:bool, totalFlow, participantCount, minEta.
     """
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                "SELECT SUM(total_flow), COUNT(*), AVG(avg_eta) "
-                "FROM mv_kabi_nutrient_flow"
-            )
-            row = cur.fetchone()
-    except Exception as exc:
-        logger.exception("kinoko.check_flow_threshold query failed")
-        return {"blockFormed": False, "error": str(exc)}
+        kotoba = get_kotoba_client()
+        # R0: Multi-aggregate query, falling back to Datalog + Python aggregation
+        query_edn = """
+        [:find ?total-flow ?avg-eta
+         :where
+         [?e :mv-kabi-nutrient-flow/total_flow ?total-flow]
+         [?e :mv-kabi-nutrient-flow/avg_eta ?avg-eta]]
+        """
+        rows = kotoba.q(query_edn)
 
-    total_flow = float(row[0] or 0)
-    participant_count = int(row[1] or 0)
-    min_eta = float(row[2] or 0.0)
+        total_flow = 0.0
+        participant_count = 0
+        sum_avg_eta = 0.0
+
+        for row in rows:
+            total_flow += row[0] if row[0] is not None else 0.0
+            sum_avg_eta += row[1] if row[1] is not None else 0.0
+            participant_count += 1
+
+        min_eta = sum_avg_eta / participant_count if participant_count > 0 else 0.0
 
     if total_flow < 100 or min_eta < 0.5:
         return {"blockFormed": False, "totalFlow": total_flow,
@@ -301,22 +302,22 @@ def task_kinoko_check_flow_threshold(
 
     now = _NOW()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_kinoko_block
-                  (vertex_id, prev_block_id, block_hash, total_flow,
-                   participant_count, eta_min_used, block_status, status,
-                   created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, %s, %s, %s, 'finalized', 'active', %s,
-                       'did:web:kinoko.etzhayyim.com', 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM vertex_kinoko_block WHERE vertex_id = %s
-                )
-                """,
-                (blockVertexId, lastBlockId, blockHash, total_flow,
-                 participant_count, min_eta, now, blockVertexId),
-            )
+        kotoba.insert_row(
+            "vertex_kinoko_block",
+            {
+                "vertex_id": blockVertexId,
+                "prev_block_id": lastBlockId,
+                "block_hash": blockHash,
+                "total_flow": total_flow,
+                "participant_count": participant_count,
+                "eta_min_used": min_eta,
+                "block_status": "finalized",
+                "status": "active",
+                "created_at": now,
+                "owner_did": "did:web:kinoko.etzhayyim.com",
+                "sensitivity_ord": 1,
+            },
+        )
     except Exception as exc:
         logger.exception("kinoko.check_flow_threshold block insert failed")
         return {"blockFormed": False, "error": str(exc)}
@@ -343,20 +344,21 @@ def task_hakkou_create_ferment_record(
         return {"error": "fermentVertexId, agentDid, inputKind required"}
     now = _NOW()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_hakkou_ferment
-                  (vertex_id, agent_did, input_kind, input_ref, output_kind,
-                   status, created_at, owner_did, sensitivity_ord)
-                SELECT %s, %s, %s, %s, %s, 'running', %s, %s, 1
-                WHERE NOT EXISTS (
-                  SELECT 1 FROM vertex_hakkou_ferment WHERE vertex_id = %s
-                )
-                """,
-                (fermentVertexId, agentDid, inputKind, inputRef, outputKind,
-                 now, callerDid or agentDid, fermentVertexId),
-            )
+        kotoba = get_kotoba_client()
+        kotoba.insert_row(
+            "vertex_hakkou_ferment",
+            {
+                "vertex_id": fermentVertexId,
+                "agent_did": agentDid,
+                "input_kind": inputKind,
+                "input_ref": inputRef,
+                "output_kind": outputKind,
+                "status": "running",
+                "created_at": now,
+                "owner_did": callerDid or agentDid,
+                "sensitivity_ord": 1,
+            },
+        )
         return {"ok": True, "fermentVertexId": fermentVertexId}
     except Exception as exc:
         logger.exception("hakkou.create_ferment_record failed")
@@ -412,23 +414,18 @@ def task_hakkou_finalize_ferment(
         return {"error": "fermentVertexId required"}
     now = _NOW()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_hakkou_ferment
-                  (vertex_id, output_vertex_id, ethanol_hash, co2_audit_ref,
-                   status, updated_at)
-                SELECT %s, %s, %s, %s, 'done', %s
-                ON CONFLICT (vertex_id) DO UPDATE
-                  SET output_vertex_id = EXCLUDED.output_vertex_id,
-                      ethanol_hash = EXCLUDED.ethanol_hash,
-                      co2_audit_ref = EXCLUDED.co2_audit_ref,
-                      status = 'done',
-                      updated_at = EXCLUDED.updated_at
-                """,
-                (fermentVertexId, outputVertexId, ethanolHash,
-                 co2AuditRef, now),
-            )
+        kotoba = get_kotoba_client()
+        kotoba.insert_row(
+            "vertex_hakkou_ferment",
+            {
+                "vertex_id": fermentVertexId,
+                "output_vertex_id": outputVertexId,
+                "ethanol_hash": ethanolHash,
+                "co2_audit_ref": co2AuditRef,
+                "status": "done",
+                "updated_at": now,
+            },
+        )
         return {"ok": True, "fermentVertexId": fermentVertexId}
     except Exception as exc:
         logger.exception("hakkou.finalize_ferment failed")

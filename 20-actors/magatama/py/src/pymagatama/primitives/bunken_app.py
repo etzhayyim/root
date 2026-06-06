@@ -13,7 +13,8 @@ import uuid
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
+from datetime import datetime, timezone
 
 
 APP_DID = "did:web:bunken.etzhayyim.com"
@@ -38,7 +39,7 @@ BIBLIOGRAPHIC_SOURCES: list[tuple[str, str, str]] = [
 
 
 def _now() -> str:
-    return _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _num(v: Any, fallback: float = 0.0) -> float:
@@ -53,47 +54,37 @@ def _str(v: Any) -> str:
     return v if isinstance(v, str) else ""
 
 
-def _jsonable(v: Any) -> Any:
-    if isinstance(v, (_dt.datetime, _dt.date)):
-        return v.isoformat()
-    if isinstance(v, _decimal.Decimal):
-        f = float(v)
-        return int(f) if f.is_integer() else f
-    return v
-
-
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
+def _apply_aliases(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
-    for row in cur.fetchall():
-        raw = {cols[i]: _jsonable(row[i]) for i in range(len(cols))}
-        aliases = {
-            "vertex_id": "vertexId",
-            "source_url": "sourceUrl",
-            "source_domain": "sourceDomain",
-            "crawl_id": "crawlId",
-            "discovered_count": "discoveredCount",
-            "registered_count": "registeredCount",
-            "started_at": "startedAt",
-            "completed_at": "completedAt",
-            "external_id": "externalId",
-            "material_type": "materialType",
-            "digital_url": "digitalUrl",
-            "did_registered": "didRegistered",
-            "did_registered_at": "didRegisteredAt",
-            "content_hash": "contentHash",
-            "discovered_at": "discoveredAt",
-            "enriched_at": "enrichedAt",
-            "src_vid": "srcVid",
-            "dst_vid": "dstVid",
-            "src_did": "srcDid",
-            "dst_did": "dstDid",
-            "created_at": "createdAt",
-        }
+    aliases = {
+        "vertex_id": "vertexId",
+        "source_url": "sourceUrl",
+        "source_domain": "sourceDomain",
+        "crawl_id": "crawlId",
+        "discovered_count": "discoveredCount",
+        "registered_count": "registeredCount",
+        "started_at": "startedAt",
+        "completed_at": "completedAt",
+        "external_id": "externalId",
+        "material_type": "materialType",
+        "digital_url": "digitalUrl",
+        "did_registered": "didRegistered",
+        "did_registered_at": "didRegisteredAt",
+        "content_hash": "contentHash",
+        "discovered_at": "discoveredAt",
+        "enriched_at": "enrichedAt",
+        "src_vid": "srcVid",
+        "dst_vid": "dstVid",
+        "src_did": "srcDid",
+        "dst_did": "dstDid",
+        "created_at": "createdAt",
+    }
+    for row in rows:
+        aliased_row = {**row}  # Start with all snake_case keys
         for src, dst in aliases.items():
-            if src in raw and dst not in raw:
-                raw[dst] = raw[src]
-        out.append(raw)
+            if src in aliased_row and dst not in aliased_row:
+                aliased_row[dst] = aliased_row[src]
+        out.append(aliased_row)
     return out
 
 
@@ -169,15 +160,17 @@ def _extract_id(url: str) -> tuple[str, str] | None:
 def _list_vertices(label: str) -> list[dict[str, Any]]:
     table = "vertex_bunken_collection_job" if label == "BunkenCollectionJob" else "vertex_bunken_bibliographic_item"
     order_col = "started_at" if label == "BunkenCollectionJob" else "discovered_at"
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT * FROM {table} ORDER BY {order_col} DESC")
-        return _rows(cur)
+    # R0: Order by in-Python because select_where does not support ORDER BY.
+    rows = get_kotoba_client().select_where(table, None, None, limit=2000)
+    rows.sort(key=lambda x: x.get(order_col) or '', reverse=True)
+    return _apply_aliases(rows)
 
 
 def _list_edges(label: str) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT * FROM edge_bunken_same_as ORDER BY created_at DESC")
-        return _rows(cur)
+    # R0: Order by in-Python because select_where does not support ORDER BY.
+    rows = get_kotoba_client().select_where("edge_bunken_same_as", None, None, limit=2000)
+    rows.sort(key=lambda x: x.get("created_at") or '', reverse=True)
+    return _apply_aliases(rows)
 
 
 def _find_vertex(label: str, pred: Any) -> dict[str, Any] | None:
@@ -192,25 +185,53 @@ def _insert_vertex(label: str, record: dict[str, Any]) -> dict[str, Any]:
     vertex_id = _vid(label, key)
     with sync_cursor() as cur:
         if label == "BunkenCollectionJob":
-            cur.execute(
-                """
-                INSERT INTO vertex_bunken_collection_job
-                  (vertex_id,id,scheme,source_url,source_domain,crawl_id,status,discovered_count,registered_count,started_at,completed_at,error,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET status=EXCLUDED.status,discovered_count=EXCLUDED.discovered_count,registered_count=EXCLUDED.registered_count,completed_at=EXCLUDED.completed_at,error=EXCLUDED.error
-                """,
-                (vertex_id, record.get("id"), record.get("scheme"), record.get("sourceUrl"), record.get("sourceDomain"), record.get("crawlId"), record.get("status", "pending"), int(_num(record.get("discoveredCount"))), int(_num(record.get("registeredCount"))), record.get("startedAt") or _now(), record.get("completedAt", ""), record.get("error", ""), "anon", APP_DID, "bunken", 2, APP_DID),
-            )
+            job_row = {
+                "vertex_id": vertex_id,
+                "id": record.get("id"),
+                "scheme": record.get("scheme"),
+                "source_url": record.get("sourceUrl"),
+                "source_domain": record.get("sourceDomain"),
+                "crawl_id": record.get("crawlId"),
+                "status": record.get("status", "pending"),
+                "discovered_count": int(_num(record.get("discoveredCount"))),
+                "registered_count": int(_num(record.get("registeredCount"))),
+                "started_at": record.get("startedAt") or _now(),
+                "completed_at": record.get("completedAt", ""),
+                "error": record.get("error", ""),
+                "org_id": "anon",
+                "user_id": APP_DID,
+                "actor_id": "bunken",
+                "sensitivity_ord": 2,
+                "owner_did": APP_DID,
+            }
+            get_kotoba_client().insert_row("vertex_bunken_collection_job", job_row)
         else:
-            cur.execute(
-                """
-                INSERT INTO vertex_bunken_bibliographic_item
-                  (vertex_id,scheme,external_id,did,source_url,title,author,year,language,material_type,era,country,digital_url,did_registered,did_registered_at,content_hash,discovered_at,enriched_at,org_id,user_id,actor_id,sensitivity_ord,owner_did)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                ON CONFLICT (vertex_id) DO UPDATE SET source_url=EXCLUDED.source_url,title=EXCLUDED.title,author=EXCLUDED.author,year=EXCLUDED.year,did_registered=EXCLUDED.did_registered,did_registered_at=EXCLUDED.did_registered_at,content_hash=EXCLUDED.content_hash,enriched_at=EXCLUDED.enriched_at
-                """,
-                (vertex_id, record.get("scheme"), record.get("externalId"), record.get("did"), record.get("sourceUrl"), record.get("title", ""), record.get("author", ""), int(record["year"]) if record.get("year") is not None else None, record.get("language", ""), record.get("materialType", "unknown"), record.get("era", "unknown"), record.get("country", ""), record.get("digitalUrl"), bool(record.get("didRegistered", False)), record.get("didRegisteredAt", ""), record.get("contentHash", ""), record.get("discoveredAt") or _now(), record.get("enrichedAt", ""), "anon", APP_DID, "bunken", 2, APP_DID),
-            )
+            item_row = {
+                "vertex_id": vertex_id,
+                "scheme": record.get("scheme"),
+                "external_id": record.get("externalId"),
+                "did": record.get("did"),
+                "source_url": record.get("sourceUrl"),
+                "title": record.get("title", ""),
+                "author": record.get("author", ""),
+                "year": int(record["year"]) if record.get("year") is not None else None,
+                "language": record.get("language", ""),
+                "material_type": record.get("materialType", "unknown"),
+                "era": record.get("era", "unknown"),
+                "country": record.get("country", ""),
+                "digital_url": record.get("digitalUrl"),
+                "did_registered": bool(record.get("didRegistered", False)),
+                "did_registered_at": record.get("didRegisteredAt", ""),
+                "content_hash": record.get("contentHash", ""),
+                "discovered_at": record.get("discoveredAt") or _now(),
+                "enriched_at": record.get("enrichedAt", ""),
+                "org_id": "anon",
+                "user_id": APP_DID,
+                "actor_id": "bunken",
+                "sensitivity_ord": 2,
+                "owner_did": APP_DID,
+            }
+            get_kotoba_client().insert_row("vertex_bunken_bibliographic_item", item_row)
     return {**record, "vertexId": vertex_id}
 
 
@@ -228,11 +249,18 @@ def _insert_edge(src: dict[str, Any], dst: dict[str, Any], label: str, relation:
     if not src_vid or not dst_vid:
         return
     edge_id = f"{src_vid}:{relation}:{dst_vid}"
-    with sync_cursor() as cur:
-        cur.execute(
-            "INSERT INTO edge_bunken_same_as (edge_id,src_vid,dst_vid,src_did,dst_did,relation,created_at,owner_did,sensitivity_ord) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (edge_id) DO NOTHING",
-            (edge_id, src_vid, dst_vid, src.get("did", ""), dst.get("did", ""), relation, _now(), APP_DID, 2),
-        )
+    edge_row = {
+        "edge_id": edge_id,
+        "src_vid": src_vid,
+        "dst_vid": dst_vid,
+        "src_did": src.get("did", ""),
+        "dst_did": dst.get("did", ""),
+        "relation": relation,
+        "created_at": _now(),
+        "owner_did": APP_DID,
+        "sensitivity_ord": 2,
+    }
+    get_kotoba_client().insert_row("edge_bunken_same_as", edge_row)
 
 
 def _fetch_text(url: str, timeout: int = 20) -> str:

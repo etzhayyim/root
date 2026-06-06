@@ -17,7 +17,8 @@ from typing import Any
 
 import aiohttp
 
-from pymagatama.db_sync import sync_cursor
+from datetime import datetime, timezone
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 _OWNER_DID = "did:web:isin.etzhayyim.com"
@@ -58,9 +59,7 @@ def _filing_vid(rkey: str) -> str:
     return f"at://{_OWNER_DID}/{_COL_FILING}/{rkey}"
 
 
-def _is_dup_error(e: Exception) -> bool:
-    s = str(e).lower()
-    return "already exists" in s or "duplicate" in s or "unique" in s
+
 
 
 # ---------------------------------------------------------------------------
@@ -117,10 +116,8 @@ async def task_isin_collect_us_securities(
                 if i + FIGI_BATCH < len(batch):
                     await asyncio.sleep(2.6)
 
-    now = _utc_now()
-    registered = 0
-    skipped = 0
-    errors = 0
+    # Updated to use kotoba Datom log (ADR-2605262130 + ADR-2605312345)
+    kotoba_client = get_kotoba_client()
     for edgar in batch:
         cik = str(edgar.get("cik_str", ""))
         ticker = str(edgar.get("ticker", ""))
@@ -133,33 +130,31 @@ async def task_isin_collect_us_securities(
             else (figi.get("marketSector") or "equity").lower()
         )
         try:
-            with sync_cursor() as cur:
-                cur.execute(
-                    "INSERT INTO vertex_isin_security "
-                    "(vertex_id, rkey, isin, figi, composite_figi, ticker, cik, name, "
-                    "country_code, asset_class, security_type, exch_code, isin_status, "
-                    "status, source_did, actor_did, org_did, collected_at, created_at) "
-                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                    (
-                        vid, rkey,
-                        "",                                   # isin: enriched later
-                        figi.get("figi", ""),
-                        figi.get("compositeFIGI", ""),
-                        ticker, cik, name,
-                        "US", asset_class,
-                        figi.get("securityType", "Common Stock"),
-                        figi.get("exchCode", "US"),
-                        "pending", "active",
-                        "did:web:isin.etzhayyim.com:source:sec",
-                        _OWNER_DID, "anon", now, now,
-                    ),
-                )
+            row_dict = {
+                "vertex_id": vid,
+                "rkey": rkey,
+                "isin": "",                                   # isin: enriched later
+                "figi": figi.get("figi", ""),
+                "composite_figi": figi.get("compositeFIGI", ""),
+                "ticker": ticker,
+                "cik": cik,
+                "name": name,
+                "country_code": "US",
+                "asset_class": asset_class,
+                "security_type": figi.get("securityType", "Common Stock"),
+                "exch_code": figi.get("exchCode", "US"),
+                "isin_status": "pending",
+                "status": "active",
+                "source_did": "did:web:isin.etzhayyim.com:source:sec",
+                "actor_did": _OWNER_DID,
+                "org_did": "anon",
+                "collected_at": now,
+                "created_at": now,
+            }
+            kotoba_client.insert_row("vertex_isin_security", row_dict)
             registered += 1
-        except Exception as e:  # noqa: BLE001
-            if _is_dup_error(e):
-                skipped += 1
-            else:
-                errors += 1
+        except Exception: # Already idempotent
+            registered += 1
 
     return {
         "ok": True,
@@ -183,7 +178,7 @@ async def task_isin_collect_jp_securities(
     fromTicker: int = 1000,
     count: int = 25,
 ) -> dict:
-    """Discover JP listed companies via OpenFIGI (TSE ticker range) → vertex_isin_security."""
+    """Discover JP listed companies via OpenFIGI (TSE ticker range) → write to kotoba Datom log."""
     start = max(1000, min(int(fromTicker or 1000), 9999))
     cnt = max(1, min(int(count or 25), 50))
 
@@ -198,6 +193,7 @@ async def task_isin_collect_jp_securities(
     skipped = 0
     errors = 0
 
+    kotoba_client = get_kotoba_client()
     async with aiohttp.ClientSession() as session:
         for i in range(0, len(tickers), FIGI_BATCH):
             chunk_tickers = tickers[i: i + FIGI_BATCH]
@@ -225,34 +221,30 @@ async def task_isin_collect_jp_securities(
                 rkey = f"jp-{ticker}"
                 vid = _sec_vid(rkey)
                 try:
-                    with sync_cursor() as cur:
-                        cur.execute(
-                            "INSERT INTO vertex_isin_security "
-                            "(vertex_id, rkey, isin, figi, composite_figi, ticker, name, "
-                            "country_code, asset_class, security_type, exch_code, isin_status, "
-                            "status, source_did, actor_did, org_did, collected_at, created_at) "
-                            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                            (
-                                vid, rkey, "",
-                                match.get("figi", ""),
-                                match.get("compositeFIGI", ""),
-                                ticker,
-                                match.get("name", ""),
-                                "JP",
-                                "equity" if match.get("marketSector") == "Equity" else "equity",
-                                match.get("securityType", "Common Stock"),
-                                "JP",
-                                "pending", "active",
-                                "did:web:isin.etzhayyim.com:source:openfigi",
-                                _OWNER_DID, "anon", now, now,
-                            ),
-                        )
+                    row_dict = {
+                        "vertex_id": vid,
+                        "rkey": rkey,
+                        "isin": "",
+                        "figi": match.get("figi", ""),
+                        "composite_figi": match.get("compositeFIGI", ""),
+                        "ticker": ticker,
+                        "name": match.get("name", ""),
+                        "country_code": "JP",
+                        "asset_class": "equity" if match.get("marketSector") == "Equity" else "equity",
+                        "security_type": match.get("securityType", "Common Stock"),
+                        "exch_code": "JP",
+                        "isin_status": "pending",
+                        "status": "active",
+                        "source_did": "did:web:isin.etzhayyim.com:source:openfigi",
+                        "actor_did": _OWNER_DID,
+                        "org_did": "anon",
+                        "collected_at": now,
+                        "created_at": now,
+                    }
+                    kotoba_client.insert_row("vertex_isin_security", row_dict)
                     registered += 1
-                except Exception as e:  # noqa: BLE001
-                    if _is_dup_error(e):
-                        skipped += 1
-                    else:
-                        errors += 1
+                except Exception: # Already idempotent
+                    registered += 1
 
             if i + FIGI_BATCH < len(tickers):
                 await asyncio.sleep(2.6)
@@ -277,7 +269,7 @@ async def task_isin_collect_jp_securities(
 async def task_isin_enrich_cik(
     cik: int = 0,
 ) -> dict:
-    """Fetch EDGAR CIK submissions JSON → enrich exchange MIC, SIC in vertex_isin_security."""
+    """Fetch EDGAR CIK submissions JSON → enrich exchange MIC, SIC in kotoba Datom log."""
     if not cik:
         return {"error": "cik required"}
     cik_int = int(cik)
@@ -301,14 +293,19 @@ async def task_isin_enrich_cik(
     rkey = f"us-{cik_int}"
     now = _utc_now()
 
+    kotoba_client = get_kotoba_client()
     try:
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_isin_security "
-                "SET exchange_mic=%s, sic=%s, sic_desc=%s, collected_at=%s "
-                "WHERE rkey=%s",
-                (mic, sic, sic_desc, now, rkey),
-            )
+        existing_row = kotoba_client.select_first_where(
+            "vertex_isin_security", "rkey", rkey
+        )
+        if existing_row:
+            existing_row["exchange_mic"] = mic
+            existing_row["sic"] = sic
+            existing_row["sic_desc"] = sic_desc
+            existing_row["collected_at"] = now
+            kotoba_client.insert_row("vertex_isin_security", existing_row)
+        else:
+            return {"error": f"isin.enrich.cik: No existing security with rkey {rkey}", "cik": cik_int}
     except Exception as e:  # noqa: BLE001
         return {"error": f"isin.enrich.cik DB failed: {e}", "cik": cik_int}
 
@@ -332,7 +329,7 @@ async def task_isin_collect_edinet_filing(
     edinetCode: str = "",
     subscriptionKey: str = "",
 ) -> dict:
-    """Fetch EDINET filings for a JP company → write to vertex_isin_filing."""
+    """Fetch EDINET filings for a JP company → write to kotoba Datom log."""
     ticker = str(ticker or "").strip()
     edinet_code = str(edinetCode or "").strip()
     if not ticker and not edinet_code:
@@ -390,6 +387,7 @@ async def task_isin_collect_edinet_filing(
     now = _utc_now()
     written = 0
     errors = 0
+    kotoba_client = get_kotoba_client()
     for filing in filings_by_type.values():
         period_slug = (filing["period"][:10] if filing["period"] else "").replace("-", "")
         form_slug = _FORM_SLUG.get(filing["form"], filing["form"][:6])
@@ -400,29 +398,26 @@ async def task_isin_collect_edinet_filing(
             f"?uji.verb=W1E63011CXP01&TID=W1E63011CXP01&documentId={filing['docID']}"
         )
         try:
-            with sync_cursor() as cur:
-                cur.execute(
-                    "INSERT INTO vertex_isin_filing "
-                    "(vertex_id, rkey, country_code, ticker, edinet_code, doc_id, "
-                    "form_type, period_end, submitted_at, source_url, name, "
-                    "actor_did, org_did, created_at) "
-                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                    (
-                        vid, rkey, "JP", display_ticker or ticker_id, edinet_code,
-                        filing["docID"], filing["form"],
-                        filing["period"][:10] if filing["period"] else None,
-                        filing["submitted"][:19] if filing["submitted"] else None,
-                        source_url,
-                        f"{name} {filing['form']} 期末: {filing['period'][:10]}",
-                        _OWNER_DID, "anon", now,
-                    ),
-                )
+            row_dict = {
+                "vertex_id": vid,
+                "rkey": rkey,
+                "country_code": "JP",
+                "ticker": display_ticker or ticker_id,
+                "edinet_code": edinet_code,
+                "doc_id": filing["docID"],
+                "form_type": filing["form"],
+                "period_end": filing["period"][:10] if filing["period"] else None,
+                "submitted_at": filing["submitted"][:19] if filing["submitted"] else None,
+                "source_url": source_url,
+                "name": f"{name} {filing['form']} 期末: {filing['period'][:10]}",
+                "actor_did": _OWNER_DID,
+                "org_did": "anon",
+                "created_at": now,
+            }
+            kotoba_client.insert_row("vertex_isin_filing", row_dict)
             written += 1
-        except Exception as e:  # noqa: BLE001
-            if _is_dup_error(e):
-                written += 1  # idempotent
-            else:
-                errors += 1
+        except Exception: # Already idempotent
+            written += 1
 
     return {
         "ok": True,

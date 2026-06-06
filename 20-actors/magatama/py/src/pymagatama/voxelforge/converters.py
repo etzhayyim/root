@@ -1,4 +1,4 @@
-"""Mesh / voxel converters + B2 upload + RisingWave register
+"""Mesh / voxel converters + B2 upload + kotoba Datom log register
 (ADR-2605080700, ADR-0036 Hyperdrive direct write).
 
 CadQuery exec runs in-process under tight resource limits.  Mesh
@@ -270,7 +270,7 @@ def b2_put(bucket: str, key: str, body: bytes, content_type: str) -> None:
     s3.put_object(Bucket=bucket, Key=key, Body=body, ContentType=content_type)
 
 
-# ── RisingWave register (Hyperdrive direct, ADR-0036) ────────────────
+# ── kotoba Datom log register (ADR-2605262130 + ADR-2605312345) ──────
 
 
 def register_artifacts_to_rw(
@@ -280,7 +280,7 @@ def register_artifacts_to_rw(
     actor_did: str,
     org_did: str,
 ) -> None:
-    """INSERT artifact rows + lineage edges into RisingWave.
+    """INSERT artifact rows + lineage edges into kotoba Datom log.
 
     Skips silently when ``etzhayyim_VOXELFORGE_DRY_RUN=1`` so unit tests do
     not need a live cluster. Production goes through the canonical
@@ -291,70 +291,48 @@ def register_artifacts_to_rw(
     if os.environ.get("etzhayyim_VOXELFORGE_DRY_RUN") == "1":
         return
 
-    
-
-    now_iso = _utc_now_iso()
-    with sync_cursor() as cur:
-        for a in artifacts:
-            sa_execute(
-                cur,
-                """
-                INSERT INTO vertex_voxelforge_artifact (
-                    vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                    design_vertex_id, run_vertex_id, format,
-                    b2_bucket, b2_key, sha256_hex, byte_size,
-                    voxel_dim, polygon_count, vertex_count,
-                    generated_by, ts_ms,
-                    actor_did, org_did, at_did, created_at)
-                VALUES (
-                    %(vertex_id)s, NULL, CURRENT_DATE, 2, %(actor_did)s,
-                    %(design_vertex_id)s, %(run_vertex_id)s, %(format)s,
-                    %(b2_bucket)s, %(b2_key)s, %(sha256_hex)s, %(byte_size)s,
-                    %(voxel_dim)s, %(polygon_count)s, %(vertex_count)s,
-                    %(generated_by)s, %(ts_ms)s,
-                    %(actor_did)s, %(org_did)s, NULL, %(created_at)s)
-                """,
-                {
-                    "vertex_id": a.vertex_id,
-                    "actor_did": actor_did,
-                    "design_vertex_id": design_vertex_id,
-                    "run_vertex_id": run_vertex_id,
-                    "format": a.format,
-                    "b2_bucket": a.b2_bucket,
-                    "b2_key": a.b2_key,
-                    "sha256_hex": a.sha256_hex,
-                    "byte_size": a.byte_size,
-                    "voxel_dim": a.voxel_dim,
-                    "polygon_count": a.polygon_count,
-                    "vertex_count": a.vertex_count,
-                    "generated_by": a.generated_by,
-                    "ts_ms": a.ts_ms,
-                    "org_did": org_did,
-                    "created_at": now_iso,
-                },
-            )
-            sa_execute(
-                cur,
-                """
-                INSERT INTO edge_voxelforge_derived_from (
-                    edge_id, src_vid, dst_vid, _seq, created_date,
-                    sensitivity_ord, owner_did,
-                    derivation_kind, created_at, org_did, actor_did)
-                VALUES (
-                    %(edge_id)s, %(src_vid)s, %(dst_vid)s, NULL, CURRENT_DATE,
-                    2, %(actor_did)s,
-                    'voxelforge_export', %(created_at)s, %(org_did)s, %(actor_did)s)
-                """,
-                {
-                    "edge_id": f"{a.vertex_id}|{design_vertex_id}",
-                    "src_vid": a.vertex_id,
-                    "dst_vid": design_vertex_id,
-                    "actor_did": actor_did,
-                    "org_did": org_did,
-                    "created_at": now_iso,
-                },
-            )
-
-
-def _utc_now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    now_iso = datetime.now(timezone.utc).isoformat(timespec='seconds') + 'Z'
+    client = get_kotoba_client()
+    for a in artifacts:
+        client.insert_row(
+            "vertex_voxelforge_artifact",
+            {
+                "vertex_id": a.vertex_id,
+                "_seq": None,
+                "created_date": now_iso.split('T')[0],  # Extract date part
+                "sensitivity_ord": 2,
+                "owner_did": actor_did,
+                "design_vertex_id": design_vertex_id,
+                "run_vertex_id": run_vertex_id,
+                "format": a.format,
+                "b2_bucket": a.b2_bucket,
+                "b2_key": a.b2_key,
+                "sha256_hex": a.sha256_hex,
+                "byte_size": a.byte_size,
+                "voxel_dim": a.voxel_dim,
+                "polygon_count": a.polygon_count,
+                "vertex_count": a.vertex_count,
+                "generated_by": a.generated_by,
+                "ts_ms": a.ts_ms,
+                "actor_did": actor_did,
+                "org_did": org_did,
+                "at_did": None,
+                "created_at": now_iso,
+            },
+        )
+        client.insert_row(
+            "edge_voxelforge_derived_from",
+            {
+                "edge_id": f"{a.vertex_id}|{design_vertex_id}",
+                "src_vid": a.vertex_id,
+                "dst_vid": design_vertex_id,
+                "_seq": None,
+                "created_date": now_iso.split('T')[0],  # Extract date part
+                "sensitivity_ord": 2,
+                "owner_did": actor_did,
+                "derivation_kind": "voxelforge_export",
+                "created_at": now_iso,
+                "org_did": org_did,
+                "actor_did": actor_did,
+            },
+        )

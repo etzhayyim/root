@@ -17,9 +17,10 @@ import hashlib
 import json
 import math
 import uuid
+from datetime import timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -116,22 +117,22 @@ def task_maps_building_claim_cells(
     # Fetch distinct (lat, lng) pairs for Building rows; derive cell keys.
     # We avoid GROUP BY on high-cardinality varchar columns (MV safety rule)
     # and instead bucket in Python after a bounded SELECT.
-    _sql = (
-        "SELECT vertex_id, lat, lng "
-        "FROM vertex_spatial "
-        "WHERE label = 'Building' "
-        "  AND lat IS NOT NULL "
-        "  AND lng IS NOT NULL "
-        f"LIMIT {int(cap * 500)}"
-    )
+    # R0: Multi-predicate filter and limit applied in Python since q() doesn't
+    #     natively support LIMIT with complex filters without explicit range.
+    _query_edn = """
+    [:find ?vid ?lat ?lng
+     :where
+     [?e :vertex/label "Building"]
+     [?e :vertex/vertex_id ?vid]
+     [?e :vertex/lat ?lat]
+     [?e :vertex/lng ?lng]
+     (not [?e :vertex/lat nil])
+     (not [?e :vertex/lng nil])]
+    """
+    db_rows = get_kotoba_client().q(_query_edn)
     rows: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(_sql)
-        db_rows = cur.fetchall()
-        col_names = [d[0] for d in (cur.description or [])]
-        for r in db_rows:
-            row = dict(zip(col_names, r))
-            rows.append(row)
+    for r in db_rows[:int(cap * 500)]:  # Apply limit here
+        rows.append({"vertex_id": r[0], "lat": r[1], "lng": r[2]})
 
     # Bucket buildings into approximate H3 cells.
     cell_to_rows: dict[str, list[dict[str, Any]]] = {}
@@ -156,16 +157,20 @@ def task_maps_building_claim_cells(
     cell_key_set = set(all_cell_keys)
     fresh_cells: set[str] = set()
     if all_cell_keys:
-        _cov_sql = (
-            "SELECT tile_h3 FROM vertex_maps_building_coverage "
-            f"WHERE last_ingest_at > %s "
-            f"LIMIT {int(len(all_cell_keys) + 1000)}"
-        )
-        with sync_cursor() as cur:
-            cur.execute(_cov_sql, [stale_cutoff])
-            for r in cur.fetchall():
-                if r[0] in cell_key_set:
-                    fresh_cells.add(r[0])
+        # R0: Range query with limit applied in Python.
+        _cov_query_edn = """
+        [:find ?tile_h3
+         :in $ ?stale_cutoff
+         :where
+         [?e :vertex.maps-building-coverage/last_ingest_at ?last_ingest_at]
+         [(> ?last_ingest_at ?stale_cutoff)]
+         [?e :vertex.maps-building-coverage/tile_h3 ?tile_h3]]
+        """
+        cov_db_rows = get_kotoba_client().q(_cov_query_edn, args=[stale_cutoff])
+        for r in cov_db_rows[:int(len(all_cell_keys) + 1000)]:  # Apply limit here
+            tile_h3 = r[0]
+            if tile_h3 in cell_key_set:
+                fresh_cells.add(tile_h3)
 
     pending_cells = [k for k in all_cell_keys if k not in fresh_cells][:cap]
 
@@ -213,92 +218,95 @@ def task_maps_building_enrich_from_osm(
         return {"buildingsIngested": 0, "cellsProcessed": 0}
 
     # Fetch spatial rows.
-    placeholders = ", ".join(["%s"] * len(all_vids))
-    _sel = (
-        f"SELECT vertex_id, lat, lng, name, props "
-        f"FROM vertex_spatial "
-        f"WHERE vertex_id IN ({placeholders})"
-    )
+    # R0: `IN` clause translated to Datalog `(contains?)`
+    _sel_query_edn = """
+    [:find ?vid ?lat ?lng ?name ?props
+     :in $ [?vids ...]
+     :where
+     [?e :vertex/vertex_id ?vid]
+     (not [?e :vertex/vertex_id nil]) ; Ensure vertex_id exists
+     [?e :vertex/lat ?lat]
+     (not [?e :vertex/lat nil])
+     [?e :vertex/lng ?lng]
+     (not [?e :vertex/lng nil])
+     [?e :vertex/name ?name]
+     (not [?e :vertex/name nil])
+     [?e :vertex/props ?props]
+     (not [?e :vertex/props nil])
+     [(contains? ?vids ?vid)]]
+    """
+    db_rows = get_kotoba_client().q(_sel_query_edn, args=[all_vids])
     spatial_rows: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
-        cur.execute(_sel, all_vids)
-        col_names = [d[0] for d in (cur.description or [])]
-        for r in cur.fetchall():
-            spatial_rows.append(dict(zip(col_names, r)))
+    for r in db_rows:
+        spatial_rows.append({
+            "vertex_id": r[0],
+            "lat": r[1],
+            "lng": r[2],
+            "name": r[3],
+            "props": r[4],
+        })
 
     # Build insert params for vertex_maps_building_3d.
-    _ins = (
-        "INSERT INTO vertex_maps_building_3d "
-        "(vertex_id, spatial_vertex_id, tile_h3, h3_resolution, centroid_lat, centroid_lng, "
-        " footprint_json, height_m, source, ingest_at, created_at, "
-        " sensitivity_ord, org_id, user_id, actor_id, owner_did) "
-        "SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s "
-        "WHERE NOT EXISTS "
-        "(SELECT 1 FROM vertex_maps_building_3d WHERE vertex_id = %s)"
-    )
-
     ingested = 0
     now = _now_iso()
-    with sync_cursor() as cur:
-        for row in spatial_rows:
-            spatial_vid = str(row.get("vertex_id") or "")
+    for row in spatial_rows:
+        spatial_vid = str(row.get("vertex_id") or "")
+        try:
+            lat = float(row.get("lat") or 0)
+            lng = float(row.get("lng") or 0)
+        except (TypeError, ValueError):
+            continue
+        if lat == 0.0 and lng == 0.0:
+            continue
+
+        cell_key = cell_map.get(spatial_vid, "")
+        rkey = _stable_rkey(spatial_vid)
+        new_vid = f"at://{DEFAULT_REPO}/{COLLECTION_BUILDING_3D}/{rkey}"
+
+        # Extract height from props JSON.
+        props: dict[str, Any] = {}
+        raw_props = row.get("props") or ""
+        if raw_props:
             try:
-                lat = float(row.get("lat") or 0)
-                lng = float(row.get("lng") or 0)
+                props = json.loads(raw_props)
             except (TypeError, ValueError):
-                continue
-            if lat == 0.0 and lng == 0.0:
-                continue
+                pass
+        height_m = float(props.get("height") or props.get("building:height") or 10.0)
 
-            cell_key = cell_map.get(spatial_vid, "")
-            rkey = _stable_rkey(spatial_vid)
-            new_vid = f"at://{DEFAULT_REPO}/{COLLECTION_BUILDING_3D}/{rkey}"
+        # Simple AABB footprint: centroid ± half_m degrees.
+        half_lat = _DEFAULT_HALF_M / _M_PER_DEG_LAT
+        half_lng = _DEFAULT_HALF_M / (_M_PER_DEG_LAT * math.cos(math.radians(lat)) + 1e-9)
+        footprint = {
+            "type": "Polygon",
+            "coordinates": [[
+                [lng - half_lng, lat - half_lat],
+                [lng + half_lng, lat - half_lat],
+                [lng + half_lng, lat + half_lat],
+                [lng - half_lng, lat + half_lat],
+                [lng - half_lng, lat - half_lat],
+            ]],
+        }
 
-            # Extract height from props JSON.
-            props: dict[str, Any] = {}
-            raw_props = row.get("props") or ""
-            if raw_props:
-                try:
-                    props = json.loads(raw_props)
-                except (TypeError, ValueError):
-                    pass
-            height_m = float(props.get("height") or props.get("building:height") or 10.0)
-
-            # Simple AABB footprint: centroid ± half_m degrees.
-            half_lat = _DEFAULT_HALF_M / _M_PER_DEG_LAT
-            half_lng = _DEFAULT_HALF_M / (_M_PER_DEG_LAT * math.cos(math.radians(lat)) + 1e-9)
-            footprint = {
-                "type": "Polygon",
-                "coordinates": [[
-                    [lng - half_lng, lat - half_lat],
-                    [lng + half_lng, lat - half_lat],
-                    [lng + half_lng, lat + half_lat],
-                    [lng - half_lng, lat + half_lat],
-                    [lng - half_lng, lat - half_lat],
-                ]],
-            }
-
-            params = (
-                new_vid,
-                spatial_vid,
-                cell_key,
-                _H3_RES,
-                lat,
-                lng,
-                json.dumps(footprint, separators=(",", ":")),
-                height_m,
-                "vertex_spatial",
-                now,
-                now,
-                1,
-                DEFAULT_REPO,
-                DEFAULT_REPO,
-                "sys.maps.building3d",
-                DEFAULT_REPO,
-                new_vid,
-            )
-            cur.execute(_ins, params)
-            ingested += 1
+        row_dict = {
+            "vertex_id": new_vid,
+            "spatial_vertex_id": spatial_vid,
+            "tile_h3": cell_key,
+            "h3_resolution": _H3_RES,
+            "centroid_lat": lat,
+            "centroid_lng": lng,
+            "footprint_json": json.dumps(footprint, separators=(",", ":")),
+            "height_m": height_m,
+            "source": "vertex_spatial",
+            "ingest_at": now,
+            "created_at": now,
+            "sensitivity_ord": 1,
+            "org_id": DEFAULT_REPO,
+            "user_id": DEFAULT_REPO,
+            "actor_id": "sys.maps.building3d",
+            "owner_did": DEFAULT_REPO,
+        }
+        get_kotoba_client().insert_row("vertex_maps_building_3d", row_dict)
+        ingested += 1
 
     return {
         "buildingsIngested": ingested,
@@ -323,72 +331,58 @@ def task_maps_building_update_coverage(
         return {"coverageUpdated": 0}
 
     now = _now_iso()
-    _ins = (
-        "INSERT INTO vertex_maps_building_coverage "
-        "(vertex_id, tile_h3, h3_resolution, centroid_lat, centroid_lng, "
-        " building_count, has_sentinel, has_mapraly, coverage_source, "
-        " last_ingest_at, status, created_at, sensitivity_ord, "
-        " org_id, user_id, actor_id, owner_did) "
-        "SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s "
-        "WHERE NOT EXISTS "
-        "(SELECT 1 FROM vertex_maps_building_coverage WHERE vertex_id = %s)"
-    )
-
     # Sentinel scene check: query vertex_satellite_scene for bbox containing centroid.
     # bbox column stores JSON array [minLon, minLat, maxLon, maxLat] as VARCHAR.
-    _sentinel_sql = (
-        "SELECT COUNT(*) AS cnt "
-        "FROM vertex_satellite_scene "
-        "WHERE bbox LIKE %s "
-        f"LIMIT 1"
-    )
-
     updated = 0
-    with sync_cursor() as cur:
-        for cell in cells:
-            cell_key = str(cell.get("cell_key") or "")
-            building_count = int(cell.get("building_count") or 0)
-            clat, clng = _centroid_of_cell(cell_key)
+    for cell in cells:
+        cell_key = str(cell.get("cell_key") or "")
+        building_count = int(cell.get("building_count") or 0)
+        clat, clng = _centroid_of_cell(cell_key)
 
-            # Rough sentinel check via LIKE on bbox — precision is sufficient
-            # for coverage flagging. Full spatial join deferred to Phase 2.
+        # Rough sentinel check via LIKE on bbox — precision is sufficient
+        # for coverage flagging. Full spatial join deferred to Phase 2.
+        has_sentinel = False
+        try:
+            lat_prefix = f"{clat:.2f}"[:4]  # first 4 chars of lat
+            # R0: LIKE '%pattern%' requires fetching all bboxes and filtering in Python
+            _bbox_query_edn = """
+            [:find ?bbox
+             :where
+             [?e :vertex.satellite-scene/bbox ?bbox]]
+            """
+            bbox_rows = get_kotoba_client().q(_bbox_query_edn)
+            matching_bboxes = [b[0] for b in bbox_rows if lat_prefix in b[0]]
+            has_sentinel = len(matching_bboxes) > 0
+        except Exception:
             has_sentinel = False
-            try:
-                lat_prefix = f"{clat:.2f}"[:4]  # first 4 chars of lat
-                cur.execute(_sentinel_sql, (f"%{lat_prefix}%",))
-                row = cur.fetchone()
-                has_sentinel = (row is not None and int(row[0] or 0) > 0)
-            except Exception:
-                has_sentinel = False
 
-            rkey = hashlib.sha256(cell_key.encode("utf-8")).hexdigest()[:16]
-            cov_vid = f"at://{DEFAULT_REPO}/{COLLECTION_COVERAGE}/{rkey}"
-            sources = ["vertex_spatial"]
-            if has_sentinel:
-                sources.append("sentinel")
+        rkey = hashlib.sha256(cell_key.encode("utf-8")).hexdigest()[:16]
+        cov_vid = f"at://{DEFAULT_REPO}/{COLLECTION_COVERAGE}/{rkey}"
+        sources = ["vertex_spatial"]
+        if has_sentinel:
+            sources.append("sentinel")
 
-            params = (
-                cov_vid,
-                cell_key,
-                _H3_RES,
-                clat,
-                clng,
-                building_count,
-                has_sentinel,
-                False,  # has_mapraly — Phase 2
-                ",".join(sources),
-                now,
-                "ingested",
-                now,
-                1,
-                DEFAULT_REPO,
-                DEFAULT_REPO,
-                "sys.maps.building3d",
-                DEFAULT_REPO,
-                cov_vid,
-            )
-            cur.execute(_ins, params)
-            updated += 1
+        row_dict = {
+            "vertex_id": cov_vid,
+            "tile_h3": cell_key,
+            "h3_resolution": _H3_RES,
+            "centroid_lat": clat,
+            "centroid_lng": clng,
+            "building_count": building_count,
+            "has_sentinel": has_sentinel,
+            "has_mapraly": False,
+            "coverage_source": ",".join(sources),
+            "last_ingest_at": now,
+            "status": "ingested",
+            "created_at": now,
+            "sensitivity_ord": 1,
+            "org_id": DEFAULT_REPO,
+            "user_id": DEFAULT_REPO,
+            "actor_id": "sys.maps.building3d",
+            "owner_did": DEFAULT_REPO,
+        }
+        get_kotoba_client().insert_row("vertex_maps_building_coverage", row_dict)
+        updated += 1
 
     return {"coverageUpdated": updated}
 

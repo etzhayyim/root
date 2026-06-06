@@ -19,21 +19,11 @@ LLM calls use pymagatama.llm.call_tier_json (Murakumo → LiteLLM fleet).
 from __future__ import annotations
 
 import json
-import time
-import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama import llm as _llm
-
-
-_OWNER_DID = "did:web:intel.etzhayyim.com"
-_COLLECTION_RUN = "com.etzhayyim.apps.intel.inferenceRun"
-_COLLECTION_EDGE = "com.etzhayyim.apps.intel.dependency"
-
-
-def _utc_now() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
 def _run_vid(run_id: str) -> str:

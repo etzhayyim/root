@@ -31,6 +31,8 @@ import logging
 import time as _time
 import uuid
 from typing import Any, Literal, TypedDict
+from pymagatama.kotoba_datomic import get_kotoba_client
+from datetime import datetime, timezone
 
 LOG = logging.getLogger("etzhayyim.company_ops")
 
@@ -114,13 +116,9 @@ def _llm_structured(system: str, user: str, max_tokens: int = 800) -> dict:
 
 
 def _db_insert(table: str, row: dict) -> bool:
-    """Insert row into RisingWave via SQLAlchemy Core (ADR-2605080300)."""
+    """Insert row into kotoba Datomic client."""
     try:
-        from sqlalchemy import Table, Column, String, BigInteger, Boolean, text
-        from pymagatama.db_alchemy import sa_rowcount, sa_metadata
-        cols = [Column(k, String) for k in row]
-        t = Table(table, sa_metadata(), *cols, extend_existing=True)
-        sa_rowcount(t.insert(), row)
+        get_kotoba_client().insert_row(table, row)
         return True
     except Exception as exc:
         LOG.warning("DB insert %s failed: %s", table, exc)
@@ -128,14 +126,8 @@ def _db_insert(table: str, row: dict) -> bool:
 
 
 def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
-    """Query RisingWave via SQLAlchemy Core (ADR-2605080300)."""
-    try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_query
-        return sa_query(text(sql_str), params or {})
-    except Exception as exc:
-        LOG.warning("DB query failed: %s", exc)
-        return []
+    """Deprecated: Query functions should directly use kotoba client methods."""
+    raise NotImplementedError("Direct SQL queries via _db_query are deprecated. Use kotoba_client.select_where or kotoba_client.q().")
 
 
 # ── Node: supervisor ───────────────────────────────────────────────────────────
@@ -297,9 +289,18 @@ def legal_agent(state: CompanyOpsState) -> dict:
     # Enrich with active cases if needed
     cases_ctx = ""
     if any(kw in task_type for kw in ("legal.", "contract.", "litigation", "case")):
-        rows = _db_query(
-            "SELECT vertex_id, title, status, priority FROM vertex_kaisya_legal_case "
-            "WHERE status IN ('active','pending') LIMIT 10"
+        # R0: Multi-predicate query for active/pending legal cases
+        rows = get_kotoba_client().q(
+            '[:find ?vertex_id ?title ?status ?priority '
+            ':where '
+            '  [?e :vertex/type "kaisya_legal_case"] '
+            '  [?e :vertex_kaisya_legal_case/vertex_id ?vertex_id] '
+            '  [?e :vertex_kaisya_legal_case/title ?title] '
+            '  [?e :vertex_kaisya_legal_case/status ?status] '
+            '  (or [?e :vertex_kaisya_legal_case/status "active"] '
+            '      [?e :vertex_kaisya_legal_case/status "pending"]) '
+            '  [?e :vertex_kaisya_legal_case/priority ?priority] '
+            ':limit 10]'
         )
         if rows:
             cases_ctx = "\nActive cases: " + json.dumps(rows, ensure_ascii=False)
@@ -395,13 +396,26 @@ def governance_agent(state: CompanyOpsState) -> dict:
     payload   = state.get("payload", {})
 
     # Collect org snapshot for Ω calculation
-    snapshot_rows = _db_query(
-        "SELECT omega_score, shannon_eta, u_spirit, u_wellbecoming, u_feeling, u_buffer, snapshot_at "
-        "FROM vertex_kaisya_org_snapshot ORDER BY snapshot_at DESC LIMIT 1"
+    # R0: Order-by and limit query for latest org snapshot
+    keys = ["omega_score", "shannon_eta", "u_spirit", "u_wellbecoming", "u_feeling", "u_buffer", "snapshot_at"]
+    raw_rows = get_kotoba_client().q(
+        '[:find ?omega_score ?shannon_eta ?u_spirit ?u_wellbecoming ?u_feeling ?u_buffer ?snapshot_at '
+        ':where '
+        '  [?e :vertex/type "kaisya_org_snapshot"] '
+        '  [?e :vertex_kaisya_org_snapshot/omega_score ?omega_score] '
+        '  [?e :vertex_kaisya_org_snapshot/shannon_eta ?shannon_eta] '
+        '  [?e :vertex_kaisya_org_snapshot/u_spirit ?u_spirit] '
+        '  [?e :vertex_kaisya_org_snapshot/u_wellbecoming ?u_wellbecoming] '
+        '  [?e :vertex_kaisya_org_snapshot/u_feeling ?u_feeling] '
+        '  [?e :vertex_kaisya_org_snapshot/u_buffer ?u_buffer] '
+        '  [?e :vertex_kaisya_org_snapshot/snapshot_at ?snapshot_at] '
+        ':order-by [?e :vertex_kaisya_org_snapshot/snapshot_at :desc] '
+        ':limit 1]'
     )
+    rows = [dict(zip(keys, row)) for row in raw_rows]
     snapshot_ctx = ""
-    if snapshot_rows:
-        snapshot_ctx = "\nLatest org snapshot: " + json.dumps(snapshot_rows[0], ensure_ascii=False)
+    if rows:
+        snapshot_ctx = "\nLatest org snapshot: " + json.dumps(rows[0], ensure_ascii=False)
 
     user_msg = (
         f"task: {task_type}\ndata: {json.dumps(payload, ensure_ascii=False)}{snapshot_ctx}"
@@ -470,10 +484,19 @@ def personnel_agent(state: CompanyOpsState) -> dict:
     # Enrich with current personnel snapshot for context
     snapshot_ctx = ""
     if task_type.startswith(("personnel.list", "role.list", "assignment.list", "raci.list")):
-        rows = _db_query(
-            "SELECT person_did, display_name, department, title, status "
-            "FROM vertex_etzhayyim_person WHERE status='active' LIMIT 50"
+        keys = ["person_did", "display_name", "department", "title", "status"]
+        raw_rows = get_kotoba_client().q(
+            '[:find ?person_did ?display_name ?department ?title ?status '
+            ':where '
+            '  [?e :vertex/type "etzhayyim_person"] '
+            '  [?e :vertex_etzhayyim_person/person_did ?person_did] '
+            '  [?e :vertex_etzhayyim_person/display_name ?display_name] '
+            '  [?e :vertex_etzhayyim_person/department ?department] '
+            '  [?e :vertex_etzhayyim_person/title ?title] '
+            '  [?e :vertex_etzhayyim_person/status "active"] '
+            ':limit 50]'
         )
+        rows = [dict(zip(keys, row)) for row in raw_rows]
         if rows:
             snapshot_ctx = "\nActive personnel: " + json.dumps(rows, ensure_ascii=False)
 
@@ -501,7 +524,7 @@ def personnel_agent(state: CompanyOpsState) -> dict:
 # ── Node: emit_audit ───────────────────────────────────────────────────────────
 
 def emit_audit(state: CompanyOpsState) -> dict:
-    """Write OCEL audit row to vertex_repo_commit."""
+    """Write OCEL audit row to kotoba Datom log."""
     ts_ms = int(_time.time() * 1000)
     domain   = state.get("domain", "unknown")
     ok       = state.get("ok", True)
@@ -509,29 +532,21 @@ def emit_audit(state: CompanyOpsState) -> dict:
     result   = state.get("result") or {}
 
     try:
-        from sqlalchemy import text
-        from pymagatama.db_alchemy import sa_rowcount
-        sa_rowcount(
-            text(
-                "INSERT INTO vertex_repo_commit"
-                " (vertex_id, repo, collection, rkey, action, ts_ms, record_json)"
-                " VALUES (%(vid)s, %(repo)s, %(col)s, %(rkey)s, %(act)s, %(ts)s, %(rec)s)"
-            ),
-            {
-                "vid":  str(uuid.uuid4()),
-                "repo": _ORG_DID,
-                "col":  "com.etzhayyim.apps.etzhayyim.ops",
-                "rkey": f"ops-{ts_ms}",
-                "act":  "create",
-                "ts":   ts_ms,
-                "rec":  json.dumps({
-                    "domain": domain,
-                    "ok": ok,
-                    "omega_score": omega,
-                    "action": result.get("action", ""),
-                }),
-            },
-        )
+        row_to_insert = {
+            "vertex_id": _vid("audit.repo_commit"),
+            "repo": _ORG_DID,
+            "collection": "com.etzhayyim.apps.etzhayyim.ops",
+            "rkey": f"ops-{ts_ms}",
+            "action": "create",
+            "ts_ms": ts_ms,
+            "record_json": json.dumps({
+                "domain": domain,
+                "ok": ok,
+                "omega_score": omega,
+                "action": result.get("action", ""),
+            }),
+        }
+        get_kotoba_client().insert_row("vertex_repo_commit", row_to_insert)
     except Exception as exc:
         LOG.debug("audit emit skipped (non-fatal): %s", exc)
 
@@ -642,9 +657,18 @@ def legal_fetch_ctx(state: CompanyOpsState) -> dict:
     """Pre-LLM SQL context: active legal cases, exposed as state.legalContext."""
     task_type = state.get("task_type", "")
     if any(kw in task_type for kw in ("legal.", "contract.", "litigation", "case")):
-        rows = _db_query(
-            "SELECT vertex_id, title, status, priority FROM vertex_kaisya_legal_case "
-            "WHERE status IN ('active','pending') LIMIT 10"
+        # R0: Multi-predicate query for active/pending legal cases
+        rows = get_kotoba_client().q(
+            '[:find ?vertex_id ?title ?status ?priority '
+            ':where '
+            '  [?e :vertex/type "kaisya_legal_case"] '
+            '  [?e :vertex_kaisya_legal_case/vertex_id ?vertex_id] '
+            '  [?e :vertex_kaisya_legal_case/title ?title] '
+            '  [?e :vertex_kaisya_legal_case/status ?status] '
+            '  (or [?e :vertex_kaisya_legal_case/status "active"] '
+            '      [?e :vertex_kaisya_legal_case/status "pending"]) '
+            '  [?e :vertex_kaisya_legal_case/priority ?priority] '
+            ':limit 10]'
         )
         if rows:
             return {"legalContext": "Active cases: " + json.dumps(rows, ensure_ascii=False)}
@@ -657,10 +681,23 @@ def legal_persist(state: CompanyOpsState) -> dict:
 
 def governance_fetch_ctx(state: CompanyOpsState) -> dict:
     """Pre-LLM SQL context: latest org snapshot, exposed as state.governanceContext."""
-    rows = _db_query(
-        "SELECT omega_score, shannon_eta, u_spirit, u_wellbecoming, u_feeling, u_buffer, snapshot_at "
-        "FROM vertex_kaisya_org_snapshot ORDER BY snapshot_at DESC LIMIT 1"
+    # R0: Order-by and limit query for latest org snapshot
+    keys = ["omega_score", "shannon_eta", "u_spirit", "u_wellbecoming", "u_feeling", "u_buffer", "snapshot_at"]
+    raw_rows = get_kotoba_client().q(
+        '[:find ?omega_score ?shannon_eta ?u_spirit ?u_wellbecoming ?u_feeling ?u_buffer ?snapshot_at '
+        ':where '
+        '  [?e :vertex/type "kaisya_org_snapshot"] '
+        '  [?e :vertex_kaisya_org_snapshot/omega_score ?omega_score] '
+        '  [?e :vertex_kaisya_org_snapshot/shannon_eta ?shannon_eta] '
+        '  [?e :vertex_kaisya_org_snapshot/u_spirit ?u_spirit] '
+        '  [?e :vertex_kaisya_org_snapshot/u_wellbecoming ?u_wellbecoming] '
+        '  [?e :vertex_kaisya_org_snapshot/u_feeling ?u_feeling] '
+        '  [?e :vertex_kaisya_org_snapshot/u_buffer ?u_buffer] '
+        '  [?e :vertex_kaisya_org_snapshot/snapshot_at ?snapshot_at] '
+        ':order-by [?e :vertex_kaisya_org_snapshot/snapshot_at :desc] '
+        ':limit 1]'
     )
+    rows = [dict(zip(keys, row)) for row in raw_rows]
     if rows:
         return {"governanceContext": "Latest org snapshot: " + json.dumps(rows[0], ensure_ascii=False)}
     return {"governanceContext": ""}
@@ -713,10 +750,19 @@ def personnel_fetch_ctx(state: CompanyOpsState) -> dict:
     """Pre-LLM SQL context: active personnel snapshot for list-style tasks."""
     task_type = state.get("task_type", "")
     if task_type.startswith(("personnel.list", "role.list", "assignment.list", "raci.list")):
-        rows = _db_query(
-            "SELECT person_did, display_name, department, title, status "
-            "FROM vertex_etzhayyim_person WHERE status='active' LIMIT 50"
+        keys = ["person_did", "display_name", "department", "title", "status"]
+        raw_rows = get_kotoba_client().q(
+            '[:find ?person_did ?display_name ?department ?title ?status '
+            ':where '
+            '  [?e :vertex/type "etzhayyim_person"] '
+            '  [?e :vertex_etzhayyim_person/person_did ?person_did] '
+            '  [?e :vertex_etzhayyim_person/display_name ?display_name] '
+            '  [?e :vertex_etzhayyim_person/department ?department] '
+            '  [?e :vertex_etzhayyim_person/title ?title] '
+            '  [?e :vertex_etzhayyim_person/status "active"] '
+            ':limit 50]'
         )
+        rows = [dict(zip(keys, row)) for row in raw_rows]
         if rows:
             return {"personnelContext": "Active personnel: " + json.dumps(rows, ensure_ascii=False)}
     return {"personnelContext": ""}

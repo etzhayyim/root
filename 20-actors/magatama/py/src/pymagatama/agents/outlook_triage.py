@@ -34,8 +34,7 @@ from __future__ import annotations
 
 import json
 import logging
-import re
-import time
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
 _log = logging.getLogger(__name__)
@@ -43,7 +42,7 @@ _log = logging.getLogger(__name__)
 from langgraph.graph import END, START, StateGraph
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives import langgraph_registry
 
 # Reuse pure helpers + 2 source-agnostic nodes from gmail_triage
@@ -88,11 +87,11 @@ class OutlookTriageState(TypedDict, total=False):
 
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
 
 
 def _today() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
+    return datetime.now(timezone.utc).date().isoformat()
 
 
 def _phish_score_metadata(
@@ -141,21 +140,47 @@ def _phish_score_metadata(
 async def _node_claim(state: OutlookTriageState) -> OutlookTriageState:
     batch = max(1, min(int(state.get("batchSize") or 50), 200))
     account_filter = (state.get("accountDid") or "").strip()
-    sql = (
-        "SELECT vertex_id, message_id, from_address, from_domain, from_name, "
-        "reply_to, sender_kind, first_seen_from_domain, "
-        "spf_result, dkim_result, dmarc_result, account_did, received_at "
-        "FROM vertex_email_message WHERE triaged_at IS NULL "
-    )
-    params: tuple[Any, ...] = ()
+    sql_where = []
+    sql_args: list[Any] = []
     if account_filter:
-        sql += "AND account_did = %s "
-        params = (account_filter,)
-    sql += f"ORDER BY received_at DESC LIMIT {int(batch)}"
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        claimed = [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
+        sql_where.append("?accountDid = :accountDid")
+        sql_args.append(account_filter)
+    # R0: using Datalog q() for IS NULL and ORDER BY.
+    # Note: Datalog's :in clause expects a single list of arguments for parameters.
+    # We must prepend the filters to sql_args
+    # Datalog query uses (not (has ?e :vertex/triaged_at)) for IS NULL
+    query_edn = """
+    [:find
+        (pull ?e [:vertex/id :vertex/message_id :vertex/from_address
+                  :vertex/from_domain :vertex/from_name :vertex/reply_to
+                  :vertex/sender_kind :vertex/first_seen_from_domain
+                  :vertex/spf_result :vertex/dkim_result :vertex/dmarc_result
+                  :vertex/account_did :vertex/received_at])
+     :in $
+     :where
+        [?e :vertex/type :vertex.type/email_message]
+        (not (has ?e :vertex/triaged_at))
+        %s
+     :order-by desc ?receivedAt
+     :limit %s]
+    """ % (" ".join([f"[{clause}]" for clause in sql_where]), batch)
+
+    # Datalog arguments need to be a tuple for :in $ [args...]
+    datalog_args = [account_filter] if account_filter else []
+
+    results = get_kotoba_client().q(query_edn, args=datalog_args)
+
+    claimed = []
+    for res_list in results:
+        res_dict = res_list[0] # pull returns the map as the first item in the list
+        # Transform datalog keys to snake_case for consistency with previous behavior
+        # and to match the keys expected by downstream logic.
+        # Also, remove the :vertex/ prefix
+        transformed_row = {
+            k.replace(':vertex/', '').replace(':', '').replace('-', '_'): v
+            for k, v in res_dict.items()
+        }
+        claimed.append(transformed_row)
     # Normalize address column name to from_addr so shared helpers
     # (_sanitize_addr / _node_t2_reputation) see the same key as gmail.
     for row in claimed:
@@ -346,21 +371,28 @@ async def _node_mark_triaged(state: OutlookTriageState) -> OutlookTriageState:
     rows = state.get("claimed") or []
     if not rows:
         return {**state, "triagedTotal": 0, "spamTotal": 0, "trashTotal": 0, "grayTotal": 0, "cleanTotal": 0}
-    now = _now_iso()
+    now = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
     counts = {"spam": 0, "trash": 0, "gray": 0, "clean": 0}
-    with sync_cursor() as cur:
-        for row in rows:
-            vid = row.get("vertex_id")
-            cls = str(row.get("classification") or "clean")
-            counts[cls] = counts.get(cls, 0) + 1
-            score = int(row.get("score") or 0)
-            reasons_csv = ",".join(str(x) for x in (row.get("reasons") or []))[:480]
-            cur.execute(
-                "UPDATE vertex_email_message SET triaged_at = %s, "
-                "triage_classification = %s, triage_score = %s, "
-                "triage_reasons = %s WHERE vertex_id = %s",
-                (now, cls, score, reasons_csv, vid),
-            )
+    for row in rows:
+        vid = row.get("vertex_id")
+        if not vid:
+            continue
+        cls = str(row.get("classification") or "clean")
+        counts[cls] = counts.get(cls, 0) + 1
+        score = int(row.get("score") or 0)
+        reasons_csv = ",".join(str(x) for x in (row.get("reasons") or []))[:480]
+
+        # Use insert_row for UPSERT behavior on vertex_email_message
+        get_kotoba_client().insert_row(
+            "vertex_email_message",
+            {
+                "vertex_id": vid,
+                "triaged_at": now,
+                "triage_classification": cls,
+                "triage_score": score,
+                "triage_reasons": reasons_csv,
+            },
+        )
     return {
         **state,
         "triagedTotal": len(rows),

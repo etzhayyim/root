@@ -24,7 +24,7 @@ import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -100,14 +100,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -418,19 +411,16 @@ def task_telecom_ntn_contact_record(
     _insert("vertex_telecom_ntn_contact", row, dry_run=dryRun)
     duration = None
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_ntn_contact
-                   SET duration_seconds = EXTRACT(EPOCH FROM (CAST(los_at AS timestamptz) - CAST(aos_at AS timestamptz)))
-                 WHERE vertex_id = %s
-             RETURNING duration_seconds
-                """,
-                (vid,),
-            )
-            r = cur.fetchone()
-            if r:
-                duration = float(r[0]) if r[0] is not None else None
+        # Calculate duration_seconds in Python as per the original SQL logic.
+        # R0: Replaced SQL calculation of duration_seconds with Python equivalent.
+        aos_dt = datetime.fromisoformat(aosAt)
+        los_dt = datetime.fromisoformat(losAt)
+        duration_delta = los_dt - aos_dt
+        duration = duration_delta.total_seconds()
+        # Update the row with the calculated duration
+        update_dict = {"vertex_id": vid, "duration_seconds": duration}
+        get_kotoba_client().insert_row("vertex_telecom_ntn_contact", update_dict)
+
     return {"ok": True, "vertexId": vid, "contactId": c_id,
             "durationSeconds": duration, "status": row["status"]}
 

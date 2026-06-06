@@ -202,6 +202,37 @@ deployed). These supersede the legacy `gov*` country stubs as the canonical mode
 - **Target-list risk**: G10 forbids any weak-point/SPOF derivation over the state; reviewed like tsumugi/
   watatsuna.
 
+# World-Model Reconcile Layer (`cells/world_model/`, added 2026-06-06)
+
+§3 named `:gov.unit/organism` as the reconcile attr to tsumugi's karma graph, but it was populated by no
+unit and joined by no code. The **world-model reconcile layer** closes that — the queryable join of
+structure (ooyake `:gov.unit/*`) and karma (tsumugi `:organism/* + :en/*`), offline + deterministic +
+read-side (G9). Charter shape unchanged: power-only (G1, local 窓口/ward/division **excluded by
+construction** — never a target-list, G10), sourcing-honest (G5), no seed mutation; ZERO invariant amendments.
+
+- **Reconcile** (`reconcile_world_model`): classifies every **power-bearing** unit (country / supranational /
+  cabinet / ministry / agency / bureau / legislature / court) as **confirmed** (explicit `:gov.unit/organism`
+  whose target organism exists) / **derived** (`gov.X → org.gov.X` already in the karma graph) / **dangling**
+  (G5 flag) / **proposed** (`:latent`/`:representative` organism stub + link, written to
+  `out/world-model.kotoba.edn`, NEVER to a committed seed). Flags orphan governmental organisms.
+- **9 confirmed links** today, all publicly-documented regulator→entity ties: METI, FSA, BOJ, US SEC (a real
+  atlas gap, added as `gov.usa.sec`), US Fed, EU, UK CMA, US DOJ Antitrust, JFTC. The rest of the atlas is
+  honestly `:proposed`/`:representative` — the world model is mostly unreconciled, which is the honest state.
+- **Government-stewardship join** (`government_stewardship`): reconciled gov-unit → its organism →
+  `:tends`/`:custodies` 縁 → entity. **20 concrete paths** (e.g. `gov.eu --:tends--> Apple`,
+  `gov.usa.sec --:tends--> NVIDIA`). `:depends-on` (the entity's reverse dependency) excluded.
+- **Bidirectional query**: `regulators_of(entity)` (reverse: who governs X?) + `stewarded_entities_of(unit)`;
+  consumed by tsumugi/danjo/kanae via `deploy/consumers_example.py::world_model_regulators`; CLI
+  `scripts/world_model.py --entity <org>`.
+- **kotoba persistence**: `deploy/ingest_world_model.py` projects the reconciled (NOT proposed) model into the
+  named graph **`world-model-v1`** (`world.gov` entities with `world/organism` + `world/stewards` relations).
+  Dry-run default; live ingest operator-gated (`KOTOBA_TOKEN`); never auto-seals.
+- **Gates**: `scripts/world_model_coverage.py` (confirmed-floor + expected-set + zero-dangling +
+  civic-surface-excluded + zero-orphan + stewardship-floor + well-formed-EDN) + `cells/world_model/
+  test_consistency.py` SSoT drift-lock + 16-test cell suite (incl. EDN round-trip), all wired into
+  `deploy/run_tests.sh`. Registered as ooyake's **7th cell** (manifest). `live` mode (planet-scale reconcile +
+  seed write-back) is Council Lv6+ + operator gated.
+
 # Alternatives Considered
 
 1. **Extend toritsugi** instead of a new actor — rejected: toritsugi is citizen-side *delivery* (guide/submit);

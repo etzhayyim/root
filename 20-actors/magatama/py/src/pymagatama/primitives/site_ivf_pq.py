@@ -17,9 +17,10 @@ import logging
 import os
 import threading
 import time
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("site_ivf_pq")
 
@@ -38,31 +39,62 @@ _codebook_lock = threading.Lock()
 
 
 def _get_active_codebook(collection_id: str) -> dict[str, Any] | None:
-    """Return cached active codebook or load from DB."""
+    # Return cached active codebook or load from kotoba Datom log.
     with _codebook_lock:
         if collection_id in _codebook_cache:
             return _codebook_cache[collection_id]
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT version_tag, m_subspaces, k_centroids, dim, subspace_dim, codebook_json
-            FROM vertex_pq_codebook
-            WHERE collection_id = %s AND status = 'active'
-            ORDER BY trained_at DESC
-            LIMIT 1
-            """,
-            (collection_id,),
-        )
-        row = cur.fetchone()
+    row = get_kotoba_client().select_first_where(
+        "vertex_pq_codebook",
+        "collection_id",
+        collection_id,
+        columns=[
+            "version_tag",
+            "m_subspaces",
+            "k_centroids",
+            "dim",
+            "subspace_dim",
+            "codebook_json",
+        ],
+        where_conditions={"status": "active"},
+        order_by=[{"column": "trained_at", "direction": "DESC"}],
+    )
+    # R0: select_first_where does not support order_by and where_conditions. Using q() instead.
+    query_edn = """
+    [:find ?version_tag ?m_subspaces ?k_centroids ?dim ?subspace_dim ?codebook_json
+     :where
+     [?e :vertex_pq_codebook/collection_id %s]
+     [?e :vertex_pq_codebook/status "active"]
+     [?e :vertex_pq_codebook/version_tag ?version_tag]
+     [?e :vertex_pq_codebook/m_subspaces ?m_subspaces]
+     [?e :vertex_pq_codebook/k_centroids ?k_centroids]
+     [?e :vertex_pq_codebook/dim ?dim]
+     [?e :vertex_pq_codebook/subspace_dim ?subspace_dim]
+     [?e :vertex_pq_codebook/codebook_json ?codebook_json]
+     [?e :vertex_pq_codebook/trained_at ?trained_at]
+     :order-by desc ?trained_at
+     :limit 1]
+    """
+    rows = get_kotoba_client().q(query_edn, args=[collection_id])
+    if not rows:
+        return None
+    row = {
+        "version_tag": rows[0][0],
+        "m_subspaces": rows[0][1],
+        "k_centroids": rows[0][2],
+        "dim": rows[0][3],
+        "subspace_dim": rows[0][4],
+        "codebook_json": rows[0][5],
+    }
+
     if not row:
         return None
     codebook = {
-        "version_tag": row[0],
-        "m": int(row[1]),
-        "k": int(row[2]),
-        "dim": int(row[3]),
-        "subspace_dim": int(row[4]),
-        "centroids": json.loads(row[5]),  # float[m][k][subspace_dim]
+        "version_tag": row["version_tag"],
+        "m": int(row["m_subspaces"]),
+        "k": int(row["k_centroids"]),
+        "dim": int(row["dim"]),
+        "subspace_dim": int(row["subspace_dim"]),
+        "centroids": json.loads(row["codebook_json"]),  # float[m][k][subspace_dim]
     }
     with _codebook_lock:
         _codebook_cache[collection_id] = codebook

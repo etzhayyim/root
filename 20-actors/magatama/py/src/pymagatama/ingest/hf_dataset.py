@@ -12,11 +12,11 @@ Zeebe task types:
 Env (from K8s Secret training-hf-creds — same secret as training_export.py):
   HF_TOKEN      HuggingFace API token (read-only is sufficient)
 
-RW conventions applied:
+Kotoba Datom log conventions applied:
   - No ON CONFLICT — PK implicit upsert (same-PK re-INSERT overwrites)
   - LIMIT inlined as {int(n)} — avoids psycopg3 prepared-statement rejection
   - No CURRENT_DATE in hot-path queries — pass date string from Python
-  - flush=False on all inserts (avoid RW_DDL_GUARD)
+  - flush=False on all inserts (avoid kotoba_datomic transaction guard)
   - dml_rate_limit not needed here (catalog rows <500K total, not bulk)
 """
 
@@ -25,11 +25,11 @@ from __future__ import annotations
 import json
 import logging
 import os
-import time
 import urllib.request
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger(__name__)
 
@@ -44,11 +44,11 @@ _SCAN_LIMIT = int(os.environ.get("HF_SCAN_LIMIT", "500"))
 # ── helpers ───────────────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def _today() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def _hf_get(path: str, params: dict[str, Any] | None = None) -> Any:
@@ -82,162 +82,74 @@ def _ds_server_get(endpoint: str, repo_id: str) -> Any:
         return None
 
 
-def _execute(sql_str: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
-        return int(cur.rowcount or 0)
-
-
-def _fetchall(sql_str: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql_str, params)
-        return cur.fetchall() or []
-
-
-# ── HF Hub API layer ──────────────────────────────────────────────────────────
-
-def _parse_filter_spec(row: tuple[Any, ...]) -> dict[str, Any]:
-    """Unpack vertex_hfhub_filter row into a dict."""
-    (
-        vertex_id, slug, filter_tags, filter_tasks, filter_languages,
-        filter_license, min_downloads, max_rows, require_gated, exclude_private,
-    ) = row
-    return {
-        "vertex_id": vertex_id,
-        "slug": slug,
-        "tags": json.loads(filter_tags) if filter_tags else [],
-        "tasks": json.loads(filter_tasks) if filter_tasks else [],
-        "languages": json.loads(filter_languages) if filter_languages else [],
-        "license": filter_license,
-        "min_downloads": min_downloads,
-        "max_rows": max_rows,
-        "require_gated": require_gated,
-        "exclude_private": exclude_private,
-    }
-
-
-def _list_hf_datasets(fspec: dict[str, Any], limit: int) -> list[dict[str, Any]]:
-    """Call HF Hub datasets list API with filter criteria."""
-    import urllib.parse  # local import — already in stdlib
-
-    params: dict[str, Any] = {"full": "true", "limit": int(limit)}
-    if fspec["tags"]:
-        # HF Hub accepts repeated `filter` params; urllib doesn't easily support that.
-        # Build the query string manually for multiple tags.
-        base = f"{_HF_API}/datasets?full=true&limit={int(limit)}"
-        for t in fspec["tags"]:
-            base += f"&filter={urllib.parse.quote(t)}"
-        for t in fspec["tasks"]:
-            base += f"&filter={urllib.parse.quote(t)}"
-        for lang in fspec["languages"]:
-            base += f"&filter=language:{urllib.parse.quote(lang)}"
-        if fspec["license"]:
-            base += f"&filter=license:{urllib.parse.quote(fspec['license'])}"
-        headers: dict[str, str] = {"Accept": "application/json"}
-        if _HF_TOKEN:
-            headers["Authorization"] = f"Bearer {_HF_TOKEN}"
-        req = urllib.request.Request(base, headers=headers)
-        try:
-            with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:
-                return json.loads(resp.read().decode()) or []
-        except Exception as exc:
-            LOG.warning("hf_list_datasets failed: %s", exc)
-            return []
-    else:
-        result = _hf_get("datasets", params)
-        return result if isinstance(result, list) else []
-
-
-def _extract_dataset_row(info: dict[str, Any]) -> dict[str, Any]:
-    """Normalise a HF Hub dataset info dict into our schema fields."""
-    repo_id = info.get("id", "")
-    author = info.get("author", "")
-    card = info.get("cardData", {}) or {}
-    tags: list[str] = info.get("tags", [])
-    task_categories: list[str] = []
-    languages: list[str] = []
-    for t in tags:
-        if t.startswith("task_categories:"):
-            task_categories.append(t.removeprefix("task_categories:"))
-        elif t.startswith("language:"):
-            languages.append(t.removeprefix("language:"))
-
-    return {
-        "vertex_id": f"hf:dataset:{repo_id}",
-        "repo_id": repo_id,
-        "author": author,
-        "sha": info.get("sha", ""),
-        "license": info.get("license", "") or card.get("license", ""),
-        "size_category": info.get("cardData", {}).get("size_categories", [""])[0] if card.get("size_categories") else "",
-        "downloads_month": int(info.get("downloads", 0) or 0),
-        "likes": int(info.get("likes", 0) or 0),
-        "gated": bool(info.get("gated", False)),
-        "disabled": bool(info.get("disabled", False)),
-        "private": bool(info.get("private", False)),
-        "description": str(info.get("description", "") or "")[:4000],
-        "card_data": json.dumps(card, ensure_ascii=False)[:8000],
-        "tags": tags,
-        "task_categories": task_categories,
-        "languages": languages,
-    }
-
-
-def _dataset_passes_filter(ds: dict[str, Any], fspec: dict[str, Any]) -> bool:
-    if fspec["exclude_private"] and ds["private"]:
-        return False
-    if fspec["require_gated"] and not ds["gated"]:
-        return False
-    if fspec["min_downloads"] and ds["downloads_month"] < fspec["min_downloads"]:
-        return False
-    return True
-
-
-# ── DB write helpers ──────────────────────────────────────────────────────────
-
 def _upsert_dataset(ds: dict[str, Any]) -> None:
     ts = _now_iso()
     date = _today()
-    _execute(
-        """INSERT INTO vertex_hfhub_dataset
-        (vertex_id, created_date, repo_id, author, sha, license, size_category,
-         downloads_month, likes, gated, disabled, private, description, card_data,
-         status, last_scanned_at, actor_did, created_at)
-        VALUES (%s, %s::date, %s, %s, %s, %s, %s,
-                %s, %s, %s, %s, %s, %s, %s, 'active', %s::timestamp, %s, %s::timestamp)""",
-        (
-            ds["vertex_id"], date, ds["repo_id"], ds["author"], ds["sha"],
-            ds["license"], ds["size_category"], ds["downloads_month"], ds["likes"],
-            ds["gated"], ds["disabled"], ds["private"],
-            ds["description"], ds["card_data"],
-            ts, _OWNER_DID, ts,
-        ),
+    get_kotoba_client().insert_row(
+        "vertex_hfhub_dataset",
+        {
+            "vertex_id": ds["vertex_id"],
+            "created_date": date,
+            "repo_id": ds["repo_id"],
+            "author": ds["author"],
+            "sha": ds["sha"],
+            "license": ds["license"],
+            "size_category": ds["size_category"],
+            "downloads_month": ds["downloads_month"],
+            "likes": ds["likes"],
+            "gated": ds["gated"],
+            "disabled": ds["disabled"],
+            "private": ds["private"],
+            "description": ds["description"],
+            "card_data": ds["card_data"],
+            "status": "active",
+            "last_scanned_at": ts,
+            "actor_did": _OWNER_DID,
+            "created_at": ts,
+        },
     )
 
 
 def _upsert_edges(ds: dict[str, Any]) -> None:
     vid = ds["vertex_id"]
     for tag in ds["tags"]:
-        _execute(
-            "INSERT INTO edge_hfhub_dataset_tag (dataset_id, tag) VALUES (%s, %s)",
-            (vid, tag),
+        get_kotoba_client().insert_row(
+            "edge_hfhub_dataset_tag",
+            {"dataset_id": vid, "tag": tag},
         )
     for task in ds["task_categories"]:
-        _execute(
-            "INSERT INTO edge_hfhub_dataset_task (dataset_id, task_category) VALUES (%s, %s)",
-            (vid, task),
+        get_kotoba_client().insert_row(
+            "edge_hfhub_dataset_task",
+            {"dataset_id": vid, "task_category": task},
         )
     for lang in ds["languages"]:
-        _execute(
-            "INSERT INTO edge_hfhub_dataset_language (dataset_id, lang_code) VALUES (%s, %s)",
-            (vid, lang),
+        get_kotoba_client().insert_row(
+            "edge_hfhub_dataset_language",
+            {"dataset_id": vid, "lang_code": lang},
         )
 
 
 def _upsert_filter_match(filter_id: str, dataset_id: str) -> None:
-    _execute(
-        "INSERT INTO edge_hfhub_filter_match (filter_id, dataset_id, matched_at) VALUES (%s, %s, %s::timestamp)",
-        (filter_id, dataset_id, _now_iso()),
+    get_kotoba_client().insert_row(
+        "edge_hfhub_filter_match",
+        {"filter_id": filter_id, "dataset_id": dataset_id, "matched_at": _now_iso()},
     )
+
+
+def _parse_filter_spec(row: dict[str, Any]) -> dict[str, Any]:
+    """Unpack vertex_hfhub_filter row into a dict."""
+    return {
+        "vertex_id": row["vertex_id"],
+        "slug": row["slug"],
+        "tags": json.loads(row["filter_tags"]) if row["filter_tags"] else [],
+        "tasks": json.loads(row["filter_tasks"]) if row["filter_tasks"] else [],
+        "languages": json.loads(row["filter_languages"]) if row["filter_languages"] else [],
+        "license": row["filter_license"],
+        "min_downloads": row["min_downloads"],
+        "max_rows": row["max_rows"],
+        "require_gated": row["require_gated"],
+        "exclude_private": row["exclude_private"],
+    }
 
 
 # ── Zeebe task handlers ───────────────────────────────────────────────────────
@@ -257,17 +169,20 @@ def task_hf_dataset_scan(
     if not filter_id:
         return {"ok": False, "error": "filter_id required"}
 
-    rows = _fetchall(
-        """SELECT vertex_id, slug, filter_tags, filter_tasks, filter_languages,
-                  filter_license, min_downloads, max_rows, require_gated, exclude_private
-           FROM vertex_hfhub_filter
-           WHERE vertex_id = %s AND enabled = true""",
-        (filter_id,),
+    fspec_row = get_kotoba_client().select_first_where(
+        "vertex_hfhub_filter",
+        "vertex_id",
+        filter_id,
+        columns=[
+            "vertex_id", "slug", "filter_tags", "filter_tasks", "filter_languages",
+            "filter_license", "min_downloads", "max_rows", "require_gated", "exclude_private",
+            "enabled",
+        ]
     )
-    if not rows:
+    if not fspec_row or not fspec_row.get("enabled"):
         return {"ok": False, "error": f"filter not found or disabled: {filter_id}"}
 
-    fspec = _parse_filter_spec(rows[0])
+    fspec = _parse_filter_spec(fspec_row)
     scan_limit = int(limit or _SCAN_LIMIT)
     datasets = _list_hf_datasets(fspec, scan_limit)
 
@@ -286,11 +201,14 @@ def task_hf_dataset_scan(
         except Exception as exc:
             LOG.warning("upsert failed repo=%s: %s", ds["repo_id"], exc)
 
-    # Update filter last_run_at + match_count
-    _execute(
-        "UPDATE vertex_hfhub_filter SET last_run_at = %s::timestamp, match_count = %s WHERE vertex_id = %s",
-        (_now_iso(), matched, filter_id),
+    # R0: Kotoba client does not have a direct UPDATE. Fetch, modify, then upsert.
+    filter_row = get_kotoba_client().select_first_where(
+        "vertex_hfhub_filter", "vertex_id", filter_id
     )
+    if filter_row:
+        filter_row["last_run_at"] = _now_iso()
+        filter_row["match_count"] = matched
+        get_kotoba_client().insert_row("vertex_hfhub_filter", filter_row)
 
     LOG.info("hf.dataset.scan filter=%s scanned=%d matched=%d", filter_id, len(datasets), matched)
     return {"ok": True, "filter_id": filter_id, "scanned": len(datasets), "inserted": inserted, "matched": matched}
@@ -335,20 +253,21 @@ def task_hf_dataset_fetch_splits(
             grp = sizes.get(info_key, {})
 
             ts = _now_iso()
-            _execute(
-                """INSERT INTO vertex_hfhub_split
-                (vertex_id, created_date, repo_id, config_name, split_name,
-                 num_rows, num_bytes, num_files, features_json, actor_did, created_at)
-                VALUES (%s, %s::date, %s, %s, %s,
-                        %s, %s, %s, %s, %s, %s)""",
-                (
-                    split_vid, _today(), repo_id, config, split,
-                    sp.get("num_rows"),
-                    grp.get("num_bytes"),
-                    grp.get("num_files", 0),
-                    json.dumps(sp.get("features", {}), ensure_ascii=False)[:4000],
-                    _OWNER_DID, ts,
-                ),
+            get_kotoba_client().insert_row(
+                "vertex_hfhub_split",
+                {
+                    "vertex_id": split_vid,
+                    "created_date": _today(),
+                    "repo_id": repo_id,
+                    "config_name": config,
+                    "split_name": split,
+                    "num_rows": sp.get("num_rows"),
+                    "num_bytes": grp.get("num_bytes"),
+                    "num_files": grp.get("num_files", 0),
+                    "features_json": json.dumps(sp.get("features", {}), ensure_ascii=False)[:4000],
+                    "actor_did": _OWNER_DID,
+                    "created_at": ts,
+                },
             )
             splits_written += 1
 
@@ -360,28 +279,36 @@ def task_hf_dataset_fetch_splits(
                     else fpath
                 )
                 file_vid = f"hf:file:{repo_id}:{config}:{split}:{fpath}"
-                _execute(
-                    """INSERT INTO vertex_hfhub_file
-                    (vertex_id, created_date, repo_id, split_vertex_id, file_path,
-                     file_format, file_size, blob_url, actor_did, created_at)
-                    VALUES (%s, %s::date, %s, %s, %s,
-                            'parquet', %s, %s, %s, %s)""",
-                    (
-                        file_vid, _today(), repo_id, split_vid,
-                        fpath, pf.get("size"), blob_url, _OWNER_DID, ts,
-                    ),
+                get_kotoba_client().insert_row(
+                    "vertex_hfhub_file",
+                    {
+                        "vertex_id": file_vid,
+                        "created_date": _today(),
+                        "repo_id": repo_id,
+                        "split_vertex_id": split_vid,
+                        "file_path": fpath,
+                        "file_format": "parquet",
+                        "file_size": pf.get("size"),
+                        "blob_url": blob_url,
+                        "actor_did": _OWNER_DID,
+                        "created_at": ts,
+                    },
                 )
-                _execute(
-                    "INSERT INTO edge_hfhub_split_file (split_id, file_id) VALUES (%s, %s)",
-                    (split_vid, file_vid),
+                get_kotoba_client().insert_row(
+                    "edge_hfhub_split_file",
+                    {"split_id": split_vid, "file_id": file_vid},
                 )
                 files_written += 1
 
     # Mark dataset active
-    _execute(
-        "UPDATE vertex_hfhub_dataset SET status = 'active', last_scanned_at = %s::timestamp WHERE repo_id = %s",
-        (_now_iso(), repo_id),
+    # R0: Kotoba client does not have a direct UPDATE. Fetch, modify, then upsert.
+    dataset_row = get_kotoba_client().select_first_where(
+        "vertex_hfhub_dataset", "repo_id", repo_id
     )
+    if dataset_row:
+        dataset_row["status"] = "active"
+        dataset_row["last_scanned_at"] = _now_iso()
+        get_kotoba_client().insert_row("vertex_hfhub_dataset", dataset_row)
 
     LOG.info("hf.dataset.fetchSplits repo=%s splits=%d files=%d", repo_id, splits_written, files_written)
     return {"ok": True, "repo_id": repo_id, "splits": splits_written, "files": files_written}
@@ -401,41 +328,45 @@ def task_hf_dataset_apply_filter(
     if not filter_id:
         return {"ok": False, "error": "filter_id required"}
 
-    rows = _fetchall(
-        """SELECT vertex_id, slug, filter_tags, filter_tasks, filter_languages,
-                  filter_license, min_downloads, max_rows, require_gated, exclude_private
-           FROM vertex_hfhub_filter WHERE vertex_id = %s""",
-        (filter_id,),
+    fspec_row = get_kotoba_client().select_first_where(
+        "vertex_hfhub_filter", "vertex_id", filter_id
     )
-    if not rows:
+    if not fspec_row:
         return {"ok": False, "error": f"filter not found: {filter_id}"}
 
-    fspec = _parse_filter_spec(rows[0])
+    fspec = _parse_filter_spec(fspec_row)
 
     # Pull tags/tasks/languages per dataset via edges
-    dataset_rows = _fetchall(
-        "SELECT vertex_id, repo_id, downloads_month, private, gated FROM vertex_hfhub_dataset "
-        "WHERE status = 'active' LIMIT 50000"
+    dataset_rows = get_kotoba_client().select_where(
+        "vertex_hfhub_dataset",
+        "status",
+        "active",
+        columns=["vertex_id", "repo_id", "downloads_month", "private", "gated"],
+        limit=50000
     )
 
     matched = 0
-    for (vid, repo_id, downloads, private, gated) in dataset_rows:
+    for ds_row in dataset_rows:
         ds_meta = {
-            "vertex_id": vid,
-            "repo_id": repo_id,
-            "downloads_month": downloads or 0,
-            "private": bool(private),
-            "gated": bool(gated),
+            "vertex_id": ds_row["vertex_id"],
+            "repo_id": ds_row["repo_id"],
+            "downloads_month": ds_row["downloads_month"] or 0,
+            "private": bool(ds_row["private"]),
+            "gated": bool(ds_row["gated"]),
         }
         if not _dataset_passes_filter(ds_meta, fspec):
             continue
-        _upsert_filter_match(filter_id, vid)
+        _upsert_filter_match(filter_id, ds_meta["vertex_id"])
         matched += 1
 
-    _execute(
-        "UPDATE vertex_hfhub_filter SET last_run_at = %s::timestamp, match_count = %s WHERE vertex_id = %s",
-        (_now_iso(), matched, filter_id),
+    # R0: Kotoba client does not have a direct UPDATE. Fetch, modify, then upsert.
+    filter_row = get_kotoba_client().select_first_where(
+        "vertex_hfhub_filter", "vertex_id", filter_id
     )
+    if filter_row:
+        filter_row["last_run_at"] = _now_iso()
+        filter_row["match_count"] = matched
+        get_kotoba_client().insert_row("vertex_hfhub_filter", filter_row)
 
     LOG.info("hf.dataset.applyFilter filter=%s matched=%d", filter_id, matched)
     return {"ok": True, "filter_id": filter_id, "evaluated": len(dataset_rows), "matched": matched}

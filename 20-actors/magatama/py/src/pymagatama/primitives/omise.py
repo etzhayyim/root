@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:omise.etzhayyim.com"
@@ -76,48 +76,55 @@ def _jsonable(v: Any) -> Any:
     return v
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
-    return [{cols[i]: _jsonable(row[i]) for i in range(len(cols))} for row in cur.fetchall()]
-
-
 def _rls(actor: str) -> dict[str, Any]:
     return {"org_id": "anon", "user_id": "anon", "actor_id": actor, "created_at": _now()}
 
 
 def _select(table: str, match: dict[str, Any] | None = None, *, limit: int = 50, offset: int = 0, order: str = "created_at") -> list[dict[str, Any]]:
     match = {k: v for k, v in (match or {}).items() if v not in ("", None)}
-    where = ""
-    params: list[Any] = []
-    if match:
-        where = "WHERE " + " AND ".join(f"{k} = %s" for k in match)
-        params.extend(match.values())
-    params.extend([max(1, min(limit, 500)), max(0, offset)])
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT * FROM {table} {where} ORDER BY {order} DESC LIMIT %s OFFSET %s", tuple(params))
-        return _rows(cur)
+    # R0: Multi-predicate match, offset, limit, and order are handled in Python after fetching from kotoba Datom log client.
+    # The kotoba client's select_where only supports single equality predicates and a basic limit.
+    # Datalog 'q' could be used for more complex queries, but Python filtering is sufficient here.
+
+    kotoba_client = get_kotoba_client()
+    if match and len(match) == 1:
+        col, val = next(iter(match.items()))
+        # Fetch up to 2000 rows with the single matching condition
+        all_rows = kotoba_client.select_where(table, col, val, limit=2000)
+    else:
+        # If no match or multiple matches, fetch a broad set and filter in Python
+        all_rows = kotoba_client.select_where(table, None, None, limit=2000) # Fetch up to 2000 rows broadly
+        if match:
+            all_rows = [row for row in all_rows if all(row.get(k) == v for k, v in match.items())]
+
+    # Apply ordering in Python (assuming DESC based on original SQL)
+    all_rows.sort(key=lambda x: x.get(order, ""), reverse=True)
+
+    # Apply offset and limit in Python
+    return all_rows[offset : offset + limit]
 
 
 def _count(table: str, match: dict[str, Any] | None = None) -> int:
     match = {k: v for k, v in (match or {}).items() if v not in ("", None)}
-    where = ""
-    params: list[Any] = []
-    if match:
-        where = "WHERE " + " AND ".join(f"{k} = %s" for k in match)
-        params.extend(match.values())
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT count(*) AS count FROM {table} {where}", tuple(params))
-        row = cur.fetchone()
-    return int(row[0] if row else 0)
+    # R0: Multi-predicate match is handled in Python after fetching from kotoba Datom log client.
+    # The kotoba client's aggregate_where only supports single equality predicates.
+
+    kotoba_client = get_kotoba_client()
+    if match and len(match) == 1:
+        col, val = next(iter(match.items()))
+        count = kotoba_client.aggregate_where(table, "count", "*", col, val)
+        return int(count)
+    else:
+        # If no match or multiple matches, fetch broadly and count in Python
+        all_rows = kotoba_client.select_where(table, None, None, limit=2000) # Fetch up to 2000 rows broadly
+        if match:
+            all_rows = [row for row in all_rows if all(row.get(k) == v for k, v in match.items())]
+        return len(all_rows)
 
 
 def _insert(table: str, record: dict[str, Any]) -> None:
-    clean = {k: v for k, v in record.items() if v is not None}
-    cols = list(clean)
-    placeholders = ",".join(["%s"] * len(cols))
-    col_sql = ",".join(cols)
-    with sync_cursor() as cur:
-        cur.execute(f"INSERT INTO {table} ({col_sql}) VALUES ({placeholders})", tuple(clean[c] for c in cols))
+    # insert_row handles UPSERT based on identity columns.
+    get_kotoba_client().insert_row(table, record)
 
 
 def _latest_cart(user_did: str) -> dict[str, Any] | None:

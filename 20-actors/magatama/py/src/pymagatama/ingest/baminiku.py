@@ -5,10 +5,11 @@ from __future__ import annotations
 import json
 import math
 import time
+from datetime import datetime, timezone
 from typing import Any
 from uuid import NAMESPACE_URL, uuid4, uuid5
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:baminiku.etzhayyim.com"
 KAMI_SDK = "etzhayyim:kami@1.0.0"
@@ -51,17 +52,7 @@ def _num(value: Any, default: float = 0) -> float:
         return default
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
 
 
 def _vertex_id(collection: str, record_id: str) -> str:
@@ -131,47 +122,38 @@ def _typed_values(kind: str, rec: dict[str, Any]) -> dict[str, Any]:
     return {}
 
 
-def _write_edge(cur: Any, table: str, src: str, dst: str, relation: str, value: dict[str, Any], created_at: str) -> None:
-    cur.execute(
-        f"""
-        INSERT INTO {table}
-          (edge_id,src_vid,dst_vid,relation_kind,value_json,created_at,updated_at,owner_did,sensitivity_ord)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        ON CONFLICT (edge_id) DO UPDATE SET
-          value_json = EXCLUDED.value_json,
-          updated_at = EXCLUDED.updated_at
-        """,
-        (
-            _edge_id(table, src, dst, relation),
-            src,
-            dst,
-            relation,
-            json.dumps(value, ensure_ascii=False, sort_keys=True),
-            created_at,
-            created_at,
-            OWNER_DID,
-            2,
-        ),
-    )
+def _write_edge(table: str, src: str, dst: str, relation: str, value: dict[str, Any], created_at: str) -> None:
+    edge_data = {
+        "edge_id": _edge_id(table, src, dst, relation),
+        "src_vid": src,
+        "dst_vid": dst,
+        "relation_kind": relation,
+        "value_json": json.dumps(value, ensure_ascii=False, sort_keys=True),
+        "created_at": created_at,
+        "updated_at": created_at,
+        "owner_did": OWNER_DID,
+        "sensitivity_ord": 2,
+    }
+    get_kotoba_client().insert_row(table, edge_data)
 
 
-def _write_related_edges(cur: Any, collection: str, kind: str, rec: dict[str, Any], vertex_id: str, created_at: str) -> None:
+def _write_related_edges(collection: str, kind: str, rec: dict[str, Any], vertex_id: str, created_at: str) -> None:
     stream_id = _s(rec.get("streamId"))
     stream_vid = _vertex_id("com.etzhayyim.apps.baminiku.stream", stream_id) if stream_id else ""
     if kind == "stream":
         agent_did = _s(rec.get("agentDid"))
         if agent_did:
-            _write_edge(cur, "edge_baminiku_stream_agent", vertex_id, _vertex_id("com.etzhayyim.apps.baminiku.agent", agent_did), "hosted_by_agent", rec, created_at)
+            _write_edge("edge_baminiku_stream_agent", vertex_id, _vertex_id("com.etzhayyim.apps.baminiku.agent", agent_did), "hosted_by_agent", rec, created_at)
     elif collection == "com.etzhayyim.apps.baminiku.stagePatch" and stream_vid:
-        _write_edge(cur, "edge_baminiku_stream_stage_patch", stream_vid, vertex_id, "has_stage_patch", rec, created_at)
+        _write_edge("edge_baminiku_stream_stage_patch", stream_vid, vertex_id, "has_stage_patch", rec, created_at)
     elif kind == "chat" and stream_vid:
-        _write_edge(cur, "edge_baminiku_stream_chat", stream_vid, vertex_id, "has_chat", rec, created_at)
+        _write_edge("edge_baminiku_stream_chat", stream_vid, vertex_id, "has_chat", rec, created_at)
     elif kind == "tip" and stream_vid:
-        _write_edge(cur, "edge_baminiku_stream_tip", stream_vid, vertex_id, "has_tip", rec, created_at)
+        _write_edge("edge_baminiku_stream_tip", stream_vid, vertex_id, "has_tip", rec, created_at)
     elif kind == "track" and stream_vid:
-        _write_edge(cur, "edge_baminiku_stream_track", stream_vid, vertex_id, "has_track", rec, created_at)
+        _write_edge("edge_baminiku_stream_track", stream_vid, vertex_id, "has_track", rec, created_at)
     elif collection == "com.etzhayyim.apps.baminiku.trackEvent" and stream_vid:
-        _write_edge(cur, "edge_baminiku_stream_track_event", stream_vid, vertex_id, "has_track_event", rec, created_at)
+        _write_edge("edge_baminiku_stream_track_event", stream_vid, vertex_id, "has_track_event", rec, created_at)
 
 
 def _record(
@@ -204,32 +186,10 @@ def _record(
         "sensitivity_ord": 2,
         **typed,
     }
-    columns = [
-        "vertex_id",
-        "record_id",
-        "owner_did",
-        "label",
-        "status",
-        "stream_id",
-        "agent_did",
-        "value_json",
-        "created_at",
-        "updated_at",
-        "sensitivity_ord",
-        *_typed_columns(kind),
-    ]
-    placeholders = ",".join(["%s"] * len(columns))
-    updates = ",".join([f"{c}=EXCLUDED.{c}" for c in columns if c != "vertex_id"])
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {updates}
-            """,
-            tuple(values[c] for c in columns),
-        )
-        _write_related_edges(cur, collection, kind, rec, vertex_id, created_at)
+    # The `columns`, `placeholders`, and `updates` are no longer needed for insert_row
+    # which takes a dictionary directly.
+    get_kotoba_client().insert_row(table, values)
+    _write_related_edges(collection, kind, rec, vertex_id, created_at)
     return rec
 
 
@@ -237,18 +197,55 @@ def _list_records(collection: str, where_sql: str = "", params: tuple[Any, ...] 
     table = COLLECTION_TABLES.get(collection)
     if table is None:
         raise ValueError(f"unsupported baminiku collection: {collection}")
-    rows = _fetch_all(
-        f"SELECT value_json AS record_json FROM {table} WHERE TRUE {where_sql} ORDER BY created_at DESC LIMIT %s",
-        (*params, max(1, min(limit, 500))),
-    )
+
+    where_column: str | None = None
+    where_value: Any = None
+
+    # Parse where_sql for simple "AND column=%s" patterns
+    if where_sql.startswith("AND ") and where_sql.endswith("=%s") and params:
+        # Extract column name, assuming format "AND col=%s"
+        where_column = where_sql[4:-3].strip()
+        where_value = params[0]
+
+    raw_records: list[dict[str, Any]] = []
+    if where_column and where_value:
+        # Use select_where for single equality predicates
+        # Fetch all necessary columns for later processing (sorting, JSON parsing)
+        # Fetch a higher limit to allow for in-Python sorting and limiting.
+        # R0: Fetching a broader set of records to allow for in-Python sorting and limiting
+        # since `select_where` does not support `ORDER BY` or direct `LIMIT` based on sorted results.
+        raw_records = get_kotoba_client().select_where(
+            table,
+            where_column,
+            where_value,
+            columns=["value_json", "created_at"],
+            limit=500  # Fetch up to 500 to match original limit range
+        )
+
+        # R0: In-Python sorting by created_at DESC.
+        raw_records.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+
+        # R0: In-Python limiting to the requested number of records.
+        # The original SQL had LIMIT max(1, min(limit, 500)).
+        raw_records = raw_records[:max(1, min(limit, 500))]
+    else:
+        # This case is not expected to be hit by existing calls to _list_records,
+        # as all calls currently provide a simple "AND column=%s" predicate.
+        # If a general "select all" or complex WHERE clause were needed,
+        # it would require a raw Datalog query via `q()`.
+        pass # No changes needed here as current uses are covered by the if block.
+
     out: list[dict[str, Any]] = []
-    for row in rows:
-        try:
-            parsed = json.loads(str(row["record_json"]))
-        except (TypeError, ValueError):
-            continue
-        if isinstance(parsed, dict):
-            out.append(parsed)
+    for record_dict in raw_records:
+        # Assuming record_dict contains 'value_json' as a string
+        record_json_str = record_dict.get("value_json")
+        if isinstance(record_json_str, str):
+            try:
+                parsed = json.loads(record_json_str)
+            except (TypeError, ValueError):
+                continue
+            if isinstance(parsed, dict):
+                out.append(parsed)
     return out
 
 

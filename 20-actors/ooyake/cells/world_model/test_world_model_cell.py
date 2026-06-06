@@ -17,6 +17,7 @@ from cell import (  # noqa: E402
     load_edges,
     load_gov_units,
     load_organisms,
+    parse_edn,
     reconcile_world_model,
     regulators_of,
     render_world_model_edn,
@@ -159,6 +160,25 @@ def test_live_seed_stewardship_present():
     # every stewardship path must originate at a reconciled gov-unit
     reconciled_units = {c["unit"] for c in r["confirmed_links"]} | {d["unit"] for d in r["derived_links"]}
     assert all(s["gov_unit"] in reconciled_units for s in stew)
+
+
+def test_edn_artifact_roundtrips_through_parser():
+    """the persisted artifact must be valid, re-readable EDN (the kotoba-ingest
+    contract) — not merely a balanced string. Render → parse → assert structure."""
+    r = reconcile_world_model(load_gov_units(), load_organisms(), load_edges())
+    doc = parse_edn(render_world_model_edn(r))
+    assert isinstance(doc, dict)
+    assert doc[":graph"][":name"] == "world-model-v1"
+    # reconciled block re-reads as a list of records carrying the wired METI link
+    recon = doc[":reconciled"]
+    assert isinstance(recon, list) and len(recon) == len(r["confirmed_links"]) + len(r["derived_links"])
+    assert any(rec.get(":gov.unit/id") == "gov.jpn.meti"
+               and rec.get(":gov.unit/organism") == "org.state.jp.meti" for rec in recon)
+    # stewardship block round-trips with the same cardinality
+    assert len(doc[":government-stewardship"]) == len(r["government_stewardship"])
+    # proposed blocks survive as lists too
+    assert isinstance(doc[":proposed-links"], list)
+    assert isinstance(doc[":dangling-links"], list)
 
 
 def test_query_helpers_both_directions():

@@ -39,6 +39,7 @@ import { fetchKotobaActorRecord } from "./kotoba";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
+import { handleVerifyCacao } from "./session";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -1416,6 +1417,38 @@ a{color:inherit}
       const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
       if (m) {
         const nsid = m[1];
+
+        // ── verifyCacao short-circuit (ADR-2606060000) ────────────────────
+        // Same-origin auth gate for `/profile`: verify a member-signed CACAO
+        // (WebAuthn/passkey → Ed25519 did:key, verified LOCALLY via WebCrypto;
+        // SIWE/eip191 structurally validated + relayed to kotoba). No auth
+        // subdomain, no server key, no session minted — the Worker only
+        // confirms DID control + capability scope so the page can flip into
+        // edit-mode. Served locally; never proxied.
+        if (
+          nsid === "com.etzhayyim.authz.verifyCacao" &&
+          request.method === "POST"
+        ) {
+          let payload: unknown = null;
+          try {
+            payload = await request.json();
+          } catch {
+            payload = null;
+          }
+          const { status, result } = await handleVerifyCacao(
+            payload,
+            Date.now(),
+          );
+          return new Response(JSON.stringify(result) + "\n", {
+            status,
+            headers: {
+              "content-type": "application/json; charset=utf-8",
+              "cache-control": "no-store",
+              "x-etzhayyim-no-cookie": "1",
+              "x-etzhayyim-auth": "cacao-verify-only",
+            },
+          });
+        }
 
         // ── searchActors + getSuggestions short-circuit (ADR-2606042330) ──
         // Make society-scale entity mirror-actors visible on `/search`. The

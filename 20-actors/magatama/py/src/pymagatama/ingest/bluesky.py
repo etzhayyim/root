@@ -15,7 +15,7 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger(__name__)
 
@@ -192,160 +192,125 @@ def map_post(post: dict[str, Any], indexed_at: str) -> dict[str, Any]:
     }
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
+
 
 
 def write_profile(rec: dict[str, Any], nanoid: str, indexed_at: str) -> int:
     rkey = rec["source_did"].replace(":", "-")
     vertex_id = f"at://{ACTOR_DID}/com.etzhayyim.apps.bluesky.profile/{rkey}"
-    return _execute(
-        """
-        INSERT INTO vertex_bluesky_profile
-          (vertex_id, rkey, repo, owner_did, source_did, handle, display_name, description,
-           avatar_cid, banner_cid, labels, opt_out_signal, indexed_at,
-           created_date, sensitivity_ord, actor_id)
-        SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 200, %s
-        WHERE NOT EXISTS (SELECT 1 FROM vertex_bluesky_profile WHERE vertex_id = %s)
-        """,
-        (
-            vertex_id,
-            rkey,
-            ACTOR_DID,
-            ACTOR_DID,
-            rec["source_did"],
-            rec["handle"],
-            rec["display_name"],
-            rec["description"],
-            rec["avatar_cid"],
-            rec["banner_cid"],
-            rec["labels"],
-            rec["opt_out_signal"],
-            indexed_at,
-            indexed_at[:10],
-            f"t1:bluesky:{nanoid}",
-            vertex_id,
-        ),
-    )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "rkey": rkey,
+        "repo": ACTOR_DID,
+        "owner_did": ACTOR_DID,
+        "source_did": rec["source_did"],
+        "handle": rec["handle"],
+        "display_name": rec["displayName"],
+        "description": rec["description"],
+        "avatar_cid": rec["avatar_cid"],
+        "banner_cid": rec["banner_cid"],
+        "labels": rec["labels"],
+        "opt_out_signal": rec["opt_out_signal"],
+        "indexed_at": indexed_at,
+        "created_date": indexed_at[:10],
+        "sensitivity_ord": 200,
+        "actor_id": f"t1:bluesky:{nanoid}",
+    }
+    client.insert_row("vertex_bluesky_profile", row_dict)
+    return 1
 
 
 def write_post(rec: dict[str, Any], nanoid: str, indexed_at: str) -> int:
     rkey = f"{rec['source_did'].replace(':', '-')}-{rec['source_rkey']}"
     vertex_id = f"at://{ACTOR_DID}/com.etzhayyim.apps.bluesky.post/{rkey}"
-    return _execute(
-        """
-        INSERT INTO vertex_bluesky_post
-          (vertex_id, rkey, repo, owner_did, source_did, source_rkey, source_uri, source_cid,
-           handle, text, lang, created_at, indexed_at,
-           reply_root_uri, reply_parent_uri, embed_kind, embed_media_cids, embed_alt_text,
-           embed_external_uri, labels, created_date, sensitivity_ord, actor_id)
-        SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 200, %s
-        WHERE NOT EXISTS (SELECT 1 FROM vertex_bluesky_post WHERE vertex_id = %s)
-        """,
-        (
-            vertex_id,
-            rkey,
-            ACTOR_DID,
-            ACTOR_DID,
-            rec["source_did"],
-            rec["source_rkey"],
-            rec["source_uri"],
-            rec["source_cid"],
-            rec["handle"],
-            rec["text"],
-            rec["lang"],
-            rec["created_at"],
-            indexed_at,
-            rec["reply_root_uri"],
-            rec["reply_parent_uri"],
-            rec["embed_kind"],
-            rec["embed_media_cids"],
-            rec["embed_alt_text"],
-            rec["embed_external_uri"],
-            rec["labels"],
-            indexed_at[:10],
-            f"t1:bluesky:{nanoid}",
-            vertex_id,
-        ),
-    )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "rkey": rkey,
+        "repo": ACTOR_DID,
+        "owner_did": ACTOR_DID,
+        "source_did": rec["source_did"],
+        "source_rkey": rec["source_rkey"],
+        "source_uri": rec["source_uri"],
+        "source_cid": rec["source_cid"],
+        "handle": rec["handle"],
+        "text": rec["text"],
+        "lang": rec["lang"],
+        "created_at": rec["created_at"],
+        "indexed_at": indexed_at,
+        "reply_root_uri": rec["reply_root_uri"],
+        "reply_parent_uri": rec["reply_parent_uri"],
+        "embed_kind": rec["embed_kind"],
+        "embed_media_cids": rec["embed_media_cids"],
+        "embed_alt_text": rec["embed_alt_text"],
+        "embed_external_uri": rec["embed_external_uri"],
+        "labels": rec["labels"],
+        "created_date": indexed_at[:10],
+        "sensitivity_ord": 200,
+        "actor_id": f"t1:bluesky:{nanoid}",
+    }
+    client.insert_row("vertex_bluesky_post", row_dict)
+    return 1
 
 
 def write_opt_out(did: str, handle: str | None, reason: str, hit_label: str, nanoid: str, indexed_at: str) -> int:
     rkey = did.replace(":", "-")
     vertex_id = f"at://{ACTOR_DID}/com.etzhayyim.apps.bluesky.optOut/{rkey}"
     note = f"hit label: {hit_label}" if hit_label else None
-    return _execute(
-        """
-        INSERT INTO vertex_bluesky_opt_out
-          (vertex_id, rkey, repo, owner_did, source_did, handle, reason, note,
-           detected_at, created_date, sensitivity_ord, actor_id)
-        SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 200, %s
-        WHERE NOT EXISTS (SELECT 1 FROM vertex_bluesky_opt_out WHERE vertex_id = %s)
-        """,
-        (
-            vertex_id,
-            rkey,
-            ACTOR_DID,
-            ACTOR_DID,
-            did,
-            handle,
-            reason,
-            note,
-            indexed_at,
-            indexed_at[:10],
-            f"t1:bluesky:{nanoid}",
-            vertex_id,
-        ),
-    )
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "rkey": rkey,
+        "repo": ACTOR_DID,
+        "owner_did": ACTOR_DID,
+        "source_did": did,
+        "handle": handle,
+        "reason": reason,
+        "note": note,
+        "detected_at": indexed_at,
+        "created_date": indexed_at[:10],
+        "sensitivity_ord": 200,
+        "actor_id": f"t1:bluesky:{nanoid}",
+    }
+    client.insert_row("vertex_bluesky_opt_out", row_dict)
+    return 1
 
 
 def cascade_tombstones(source_did: str, fresh_rkeys: set[str], nanoid: str, indexed_at: str) -> dict[str, Any]:
     if not fresh_rkeys:
         return {"purged": 0, "existingCount": 0, "toPurgeList": []}
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT source_rkey, created_at
-            FROM vertex_bluesky_post
-            WHERE source_did = %s
-            ORDER BY created_at DESC
-            LIMIT 25
-            """,
-            (source_did,),
-        )
-        existing = cur.fetchall() or []
+    client = get_kotoba_client()
+    existing_raw = client.select_where(
+        "vertex_bluesky_post", "source_did", source_did,
+        columns=["source_rkey", "created_at"], limit=25
+    )
+    # R0: Order by created_at DESC in Python, as kotoba_datomic.select_where does not support ORDER BY.
+    existing = sorted(existing_raw, key=lambda x: x["created_at"], reverse=True)
 
-    to_purge = [str(row[0]) for row in existing if str(row[0]) not in fresh_rkeys]
+    to_purge = [row["source_rkey"] for row in existing if row["source_rkey"] not in fresh_rkeys]
     for rkey in to_purge:
         vertex_id = f"at://{ACTOR_DID}/com.etzhayyim.apps.bluesky.post/{source_did.replace(':', '-')}-{rkey}"
-        _execute("DELETE FROM vertex_bluesky_post WHERE vertex_id = %s", (vertex_id,))
+        # R0: Deleting entity via Datalog transaction, assuming `q` can handle transaction data for retracting an entity by a unique attribute.
+        client.q(f'[[:db.fn/retractEntity [:vertex-bluesky-post/vertex-id "{vertex_id}"]]]')
         tomb_rkey = f"{source_did.replace(':', '-')}-{rkey}-{int(time.time() * 1000)}"
         tomb_vid = f"at://{ACTOR_DID}/com.etzhayyim.apps.bluesky.tombstone/{tomb_rkey}"
-        _execute(
-            """
-            INSERT INTO vertex_bluesky_tombstone
-              (vertex_id, rkey, repo, owner_did, source_did, source_rkey, source_collection,
-               event_kind, detected_at, cascade_completed_at,
-               created_date, sensitivity_ord, actor_id)
-            SELECT %s, %s, %s, %s, %s, %s, 'app.bsky.feed.post', 'delete', %s, %s, %s, 200, %s
-            WHERE NOT EXISTS (SELECT 1 FROM vertex_bluesky_tombstone WHERE vertex_id = %s)
-            """,
-            (
-                tomb_vid,
-                tomb_rkey,
-                ACTOR_DID,
-                ACTOR_DID,
-                source_did,
-                rkey,
-                indexed_at,
-                indexed_at,
-                indexed_at[:10],
-                f"t1:bluesky:{nanoid}",
-                tomb_vid,
-            ),
-        )
+        tomb_row_dict = {
+            "vertex_id": tomb_vid,
+            "rkey": tomb_rkey,
+            "repo": ACTOR_DID,
+            "owner_did": ACTOR_DID,
+            "source_did": source_did,
+            "source_rkey": rkey,
+            "source_collection": "app.bsky.feed.post",
+            "event_kind": "delete",
+            "detected_at": indexed_at,
+            "cascade_completed_at": indexed_at,
+            "created_date": indexed_at[:10],
+            "sensitivity_ord": 200,
+            "actor_id": f"t1:bluesky:{nanoid}",
+        }
+        client.insert_row("vertex_bluesky_tombstone", tomb_row_dict)
     return {"purged": len(to_purge), "existingCount": len(existing), "toPurgeList": to_purge}
 
 
@@ -416,19 +381,28 @@ def ingest_actor(actor: str, appview: str = DEFAULT_APPVIEW, nanoid: str = DEFAU
 
 
 def stale_actor_dids(batch_size: int) -> list[str]:
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT source_did, MAX(indexed_at) AS last_indexed
-            FROM vertex_bluesky_post
-            WHERE source_did NOT IN (SELECT source_did FROM vertex_bluesky_opt_out)
-            GROUP BY source_did
-            ORDER BY last_indexed ASC
-            LIMIT %s
-            """,
-            (int(batch_size),),
-        )
-        return [str(row[0]) for row in (cur.fetchall() or []) if row[0]]
+    client = get_kotoba_client()
+    # R0: Complex query using Datalog escape hatch `q()`. Aggregation, ordering, and limiting done in Python.
+    datalog_query = """
+    [:find ?source-did ?indexed-at
+     :where [?e :vertex-bluesky-post/source-did ?source-did]
+            [?e :vertex-bluesky-post/indexed-at ?indexed-at]
+            (not [?opt-out-e :vertex-bluesky-opt-out/source-did ?source-did])]
+    """
+    results_raw = client.q(datalog_query)
+
+    # Group by source_did and find max indexed_at
+    actor_last_indexed: dict[str, str] = {}
+    for row in results_raw:
+        source_did = row[0]
+        indexed_at = row[1]
+        if source_did not in actor_last_indexed or indexed_at > actor_last_indexed[source_did]:
+            actor_last_indexed[source_did] = indexed_at
+
+    # Sort by last_indexed ASC and limit
+    sorted_actors = sorted(actor_last_indexed.items(), key=lambda item: item[1])
+
+    return [did for did, _ in sorted_actors[:batch_size]]
 
 
 def refresh_stalest(

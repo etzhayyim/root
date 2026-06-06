@@ -15,9 +15,10 @@ import string
 import time
 import urllib.parse
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:arb.etzhayyim.com"
 DISCLAIMER = "Educational signal. Not advice. No execution."
@@ -31,8 +32,7 @@ STOOQ_SYMBOLS: dict[str, list[str]] = {
 BINANCE_PAIRS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "XRPUSDT", "ADAUSDT", "DOGEUSDT", "DOTUSDT", "LINKUSDT", "AVAXUSDT", "MATICUSDT"]
 
 
-def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
 
 
 def _str(value: Any) -> str:
@@ -73,21 +73,7 @@ def proposal_vid(owner_did: str, proposal_id: str) -> str:
     return f"at://{owner_did}/com.etzhayyim.apps.arb.proposal/{proposal_id}"
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall() or [])
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> tuple[Any, ...] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _http_json(url: str, timeout: int = 10) -> Any:
@@ -113,79 +99,74 @@ def ingest_quote(args: dict[str, Any]) -> dict[str, Any]:
 
     owner = f"{_str(args.get('primaryDid') or OWNER_DID)}:scout"
     vid = quote_vid(owner, venue, symbol, ts)
-    created_at = now_iso()
-    _execute(
-        """
-        INSERT INTO vertex_arb_quote
-          (vertex_id, created_date, sensitivity_ord, owner_did, asset_class, venue, symbol,
-           ts, bid, ask, mid, currency, src_url, created_at, org_id, user_id, actor_id)
-        SELECT %s, %s, 1, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'sys.arb.scout'
-        WHERE NOT EXISTS (SELECT 1 FROM vertex_arb_quote WHERE vertex_id = %s)
-        """,
-        (
-            vid,
-            created_at[:10],
-            owner,
-            asset_class,
-            venue,
-            symbol,
-            ts,
-            None if not math.isfinite(_float(args.get("bid"))) else _float(args.get("bid")),
-            None if not math.isfinite(_float(args.get("ask"))) else _float(args.get("ask")),
-            mid,
-            _str(args.get("currency")),
-            _str(args.get("srcUrl")),
-            created_at,
-            _str(args.get("orgId") or "anon"),
-            _str(args.get("userId") or "anon"),
-            vid,
-        ),
-    )
+    created_at = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vid,
+        "created_date": created_at[:10],
+        "sensitivity_ord": 1,
+        "owner_did": owner,
+        "asset_class": asset_class,
+        "venue": venue,
+        "symbol": symbol,
+        "ts": ts,
+        "bid": None if not math.isfinite(_float(args.get("bid"))) else _float(args.get("bid")),
+        "ask": None if not math.isfinite(_float(args.get("ask"))) else _float(args.get("ask")),
+        "mid": mid,
+        "currency": _str(args.get("currency")),
+        "src_url": _str(args.get("srcUrl")),
+        "created_at": created_at,
+        "org_id": _str(args.get("orgId") or "anon"),
+        "user_id": _str(args.get("userId") or "anon"),
+        "actor_id": "sys.arb.scout",
+    }
+    client.insert_row("vertex_arb_quote", row_dict)
     return {"ok": True, "vertexId": vid, "ts": ts}
 
 
 def detect_spread(asset_class: str, min_spread_bps: float = 20) -> dict[str, Any]:
     if asset_class not in ASSET_CLASSES:
         return {"ok": False, "error": "InvalidAssetClass"}
-    rows = _fetch_all(
-        """
-        SELECT venue, symbol, mid, ts, currency
-        FROM vertex_arb_quote
-        WHERE asset_class = %s
-        ORDER BY ts DESC
-        LIMIT 2000
-        """,
-        (asset_class,),
-    )
-    latest: dict[str, tuple[Any, ...]] = {}
+    client = get_kotoba_client()
+    rows = client.select_where(
+        "vertex_arb_quote",
+        "asset_class",
+        asset_class,
+        columns=["venue", "symbol", "mid", "ts", "currency"],
+        limit=2000,
+    )  # R0: Order by and limit handled in Python
+    # Sort by ts DESC in Python
+    rows.sort(key=lambda r: r["ts"], reverse=True)
+
+    latest: dict[str, dict[str, Any]] = {}
     for row in rows:
-        key = f"{row[0]}:{row[1]}"
+        key = f"{row['venue']}:{row['symbol']}"
         latest.setdefault(key, row)
 
-    by_symbol: dict[str, list[tuple[Any, ...]]] = {}
+    by_symbol: dict[str, list[dict[str, Any]]] = {}
     for row in latest.values():
-        by_symbol.setdefault(str(row[1]), []).append(row)
+        by_symbol.setdefault(row['symbol'], []).append(row)
 
     candidates: list[dict[str, Any]] = []
     for items in by_symbol.values():
         for i, a in enumerate(items):
             for b in items[i + 1 :]:
-                ma = _float(a[2])
-                mb = _float(b[2])
+                ma = _float(a["mid"])
+                mb = _float(b["mid"])
                 if not math.isfinite(ma) or not math.isfinite(mb) or ma <= 0 or mb <= 0:
                     continue
                 bps = round(((mb - ma) / ma) * 10_000)
                 if abs(bps) < min_spread_bps:
                     continue
-                long_leg = f"{a[0]}:{a[1]}" if bps > 0 else f"{b[0]}:{b[1]}"
-                short_leg = f"{b[0]}:{b[1]}" if bps > 0 else f"{a[0]}:{a[1]}"
+                long_leg = f"{a['venue']}:{a['symbol']}" if bps > 0 else f"{b['venue']}:{b['symbol']}"
+                short_leg = f"{b['venue']}:{b['symbol']}" if bps > 0 else f"{a['venue']}:{a['symbol']}"
                 candidates.append(
                     {
                         "legA": long_leg,
                         "legB": short_leg,
                         "spreadBps": abs(bps),
                         "edgeBps": max(0, abs(bps) - 10),
-                        "rationale": f"same-symbol cross-venue mid spread ({a[3]}/{b[3]})",
+                        "rationale": f"same-symbol cross-venue mid spread ({a['ts']}/{b['ts']})",
                     }
                 )
     candidates.sort(key=lambda c: c["edgeBps"], reverse=True)
@@ -204,70 +185,72 @@ def propose_trade(args: dict[str, Any]) -> dict[str, Any]:
     owner = f"{primary}:{asset_class}"
     proposal_id = _gen_id("p")
     vid = proposal_vid(owner, proposal_id)
-    created_at = now_iso()
-    expires_at = _str(args.get("expiresAt") or time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() + 1800)))
+    created_at = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
+    expires_at_dt = datetime.fromisoformat(
+        _str(args.get("expiresAt"))
+    ) if args.get("expiresAt") else datetime.now(timezone.utc) + timedelta(minutes=30)
+    expires_at = expires_at_dt.isoformat(timespec='seconds').replace('+00:00', 'Z')
     org_id = _str(args.get("orgId") or "anon")
     user_id = _str(args.get("userId") or "anon")
     actor_id = f"sys.arb.{asset_class}"
 
-    _execute(
-        """
-        INSERT INTO vertex_arb_proposal
-          (vertex_id, created_date, sensitivity_ord, owner_did, proposal_id, asset_class,
-           leg_a, leg_b, spread_bps, edge_bps, confidence, rationale, expires_at, executed,
-           created_at, org_id, user_id, actor_id)
-        VALUES (%s, %s, 1, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, false, %s, %s, %s, %s)
-        """,
-        (
-            vid,
-            created_at[:10],
-            owner,
-            proposal_id,
-            asset_class,
-            leg_a,
-            leg_b,
-            spread_bps,
-            edge_bps,
-            max(0, min(1, _float(args.get("confidence"), 0.5))),
-            _str(args.get("rationale")),
-            expires_at,
-            created_at,
-            org_id,
-            user_id,
-            actor_id,
-        ),
-    )
+    client = get_kotoba_client()
+    proposal_row_dict = {
+        "vertex_id": vid,
+        "created_date": created_at[:10],
+        "sensitivity_ord": 1,
+        "owner_did": owner,
+        "proposal_id": proposal_id,
+        "asset_class": asset_class,
+        "leg_a": leg_a,
+        "leg_b": leg_b,
+        "spread_bps": spread_bps,
+        "edge_bps": edge_bps,
+        "confidence": max(0, min(1, _float(args.get("confidence"), 0.5))),
+        "rationale": _str(args.get("rationale")),
+        "expires_at": expires_at,
+        "executed": False,
+        "created_at": created_at,
+        "org_id": org_id,
+        "user_id": user_id,
+        "actor_id": actor_id,
+    }
+    client.insert_row("vertex_arb_proposal", proposal_row_dict)
+
     for side, leg in (("long", leg_a), ("short", leg_b)):
         edge_id = f"edge:{proposal_id}:{side}"
-        _execute(
-            """
-            INSERT INTO edge_arb_proposal_leg
-              (edge_id, created_date, sensitivity_ord, owner_did, src_vid, dst_vid, side,
-               created_at, org_id, user_id, actor_id)
-            VALUES (%s, %s, 1, %s, %s, %s, %s, %s, %s, %s, %s)
-            """,
-            (edge_id, created_at[:10], owner, vid, leg, side, created_at, org_id, user_id, actor_id),
-        )
+        edge_row_dict = {
+            "edge_id": edge_id,
+            "created_date": created_at[:10],
+            "sensitivity_ord": 1,
+            "owner_did": owner,
+            "src_vid": vid,
+            "dst_vid": leg,
+            "side": side,
+            "created_at": created_at,
+            "org_id": org_id,
+            "user_id": user_id,
+            "actor_id": actor_id,
+        }
+        client.insert_row("edge_arb_proposal_leg", edge_row_dict)
     return {"ok": True, "proposalId": proposal_id, "uri": vid, "disclaimer": _str(args.get("disclaimer") or DISCLAIMER)}
 
 
 def score_proposal(proposal_id: str, model: str = "heuristic-v1") -> dict[str, Any]:
     if not proposal_id:
         return {"ok": False, "error": "InvalidRequest", "message": "proposalId required"}
-    row = _fetch_one(
-        """
-        SELECT edge_bps, spread_bps, confidence
-        FROM vertex_arb_proposal
-        WHERE proposal_id = %s
-        LIMIT 1
-        """,
-        (proposal_id,),
+    client = get_kotoba_client()
+    row = client.select_first_where(
+        "vertex_arb_proposal",
+        "proposal_id",
+        proposal_id,
+        columns=["edge_bps", "spread_bps", "confidence"],
     )
     if row is None:
         return {"ok": False, "error": "NotFound", "message": proposal_id}
-    edge_factor = max(0, min(1, _float(row[0], 0) / 200))
-    spread_factor = max(0, min(1, _float(row[1], 0) / 300))
-    conf_factor = _float(row[2], 0.5)
+    edge_factor = max(0, min(1, _float(row["edge_bps"], 0) / 200))
+    spread_factor = max(0, min(1, _float(row["spread_bps"], 0) / 300))
+    conf_factor = _float(row["confidence"], 0.5)
     score = round(0.5 * edge_factor + 0.3 * spread_factor + 0.2 * conf_factor, 4)
     risk_notes = (
         "low edge or low confidence; treat as noise"
@@ -278,58 +261,91 @@ def score_proposal(proposal_id: str, model: str = "heuristic-v1") -> dict[str, A
     )
     owner = f"{OWNER_DID}:judge"
     vid = f"at://{owner}/com.etzhayyim.apps.arb.score/{proposal_id}"
-    created_at = now_iso()
-    _execute("DELETE FROM vertex_arb_score WHERE vertex_id = %s", (vid,))
-    _execute(
-        """
-        INSERT INTO vertex_arb_score
-          (vertex_id, created_date, sensitivity_ord, owner_did, proposal_id, score,
-           risk_notes, llm_model, created_at, org_id, user_id, actor_id)
-        VALUES (%s, %s, 1, %s, %s, %s, %s, %s, %s, 'anon', 'anon', 'sys.arb.judge')
-        """,
-        (vid, created_at[:10], owner, proposal_id, score, risk_notes, model, created_at),
-    )
+    created_at = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
+    score_row_dict = {
+        "vertex_id": vid,
+        "created_date": created_at[:10],
+        "sensitivity_ord": 1,
+        "owner_did": owner,
+        "proposal_id": proposal_id,
+        "score": score,
+        "risk_notes": risk_notes,
+        "llm_model": model,
+        "created_at": created_at,
+        "org_id": "anon",
+        "user_id": "anon",
+        "actor_id": "sys.arb.judge",
+    }
+    client.insert_row("vertex_arb_score", score_row_dict)
     return {"ok": True, "score": score, "riskNotes": risk_notes, "model": model}
 
 
 def publish_proposal(proposal_id: str, mention_cohort: str = "trader.etzhayyim.com", disclaimer: str = DISCLAIMER) -> dict[str, Any]:
     if not proposal_id:
         return {"ok": False, "error": "InvalidRequest", "message": "proposalId required"}
-    row = _fetch_one(
-        """
-        SELECT p.asset_class, p.leg_a, p.leg_b, p.spread_bps, p.edge_bps, s.score
-        FROM vertex_arb_proposal p
-        LEFT JOIN vertex_arb_score s ON s.proposal_id = p.proposal_id
-        WHERE p.proposal_id = %s
-        LIMIT 1
-        """,
-        (proposal_id,),
+    client = get_kotoba_client()
+    # R0: Multi-table join requires q() Datalog escape hatch
+    query_edn = """
+    [:find ?asset_class ?leg_a ?leg_b ?spread_bps ?edge_bps ?score
+     :in $ ?proposal_id
+     :where
+     [?p :vertex/type :vertex_arb_proposal]
+     [?p :proposal_id ?proposal_id]
+     [?p :asset_class ?asset_class]
+     [?p :leg_a ?leg_a]
+     [?p :leg_b ?leg_b]
+     [?p :spread_bps ?spread_bps]
+     [?p :edge_bps ?edge_bps]
+     (or
+      (and [?s :vertex/type :vertex_arb_score]
+           [?s :proposal_id ?proposal_id]
+           [?s :score ?score])
+      (not [?s :proposal_id ?proposal_id]))]
+    """
+    rows = client.q(query_edn, (proposal_id,))
+    row = (
+        {
+            "asset_class": r[0],
+            "leg_a": r[1],
+            "leg_b": r[2],
+            "spread_bps": r[3],
+            "edge_bps": r[4],
+            "score": r[5],
+        }
+        for r in rows
     )
+    row = next(row, None) # Get the first (and only) result
+
     if row is None:
         return {"ok": False, "error": "NotFound", "message": proposal_id}
-    if row[5] is None or _float(row[5], 0) < 0.5:
+    if row["score"] is None or _float(row["score"], 0) < 0.5:
         return {"ok": False, "error": "BelowThreshold", "message": "score < 0.5; skip publication"}
     text = "\n".join(
         [
-            f"Arb signal [{row[0]}] long {row[1]} / short {row[2]}",
-            f"spread {row[3]}bps | edge {row[4]}bps | score {row[5]}",
+            f"Arb signal [{row['asset_class']}] long {row['leg_a']} / short {row['leg_b']}",
+            f"spread {row['spread_bps']}bps | edge {row['edge_bps']}bps | score {row['score']}",
             f"@{mention_cohort} - {disclaimer}",
         ]
     )
     post_uri = _pds_post(text)
     owner = f"{OWNER_DID}:herald"
     vid = f"at://{owner}/com.etzhayyim.apps.arb.publication/{proposal_id}"
-    created_at = now_iso()
-    _execute("DELETE FROM vertex_arb_publication WHERE vertex_id = %s", (vid,))
-    _execute(
-        """
-        INSERT INTO vertex_arb_publication
-          (vertex_id, created_date, sensitivity_ord, owner_did, proposal_id, post_uri,
-           mentions, disclaimer, created_at, org_id, user_id, actor_id)
-        VALUES (%s, %s, 1, %s, %s, %s, %s, %s, %s, 'anon', 'anon', 'sys.arb.herald')
-        """,
-        (vid, created_at[:10], owner, proposal_id, post_uri, mention_cohort, disclaimer, created_at),
-    )
+    created_at = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
+    publication_row_dict = {
+        "vertex_id": vid,
+        "created_date": created_at[:10],
+        "sensitivity_ord": 1,
+        "owner_did": owner,
+        "proposal_id": proposal_id,
+        "post_uri": post_uri,
+        "mentions": mention_cohort,
+        "disclaimer": disclaimer,
+        "created_at": created_at,
+        "org_id": "anon",
+        "user_id": "anon",
+        "actor_id": "sys.arb.herald",
+    }
+    client.insert_row("vertex_arb_publication", publication_row_dict)
     return {"ok": True, "postUri": post_uri, "mentions": [mention_cohort]}
 
 
@@ -349,7 +365,7 @@ def scout_quotes(asset_class: str) -> dict[str, Any]:
     if asset_class not in ASSET_CLASSES:
         return {"ok": False, "error": "InvalidAssetClass"}
     owner = f"{OWNER_DID}:scout"
-    ts = now_iso()
+    ts = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
     count = 0
     if asset_class == "cr":
         pair_set = set(BINANCE_PAIRS)
@@ -392,48 +408,85 @@ def scout_quotes(asset_class: str) -> dict[str, Any]:
 
 
 def list_proposals(limit: int = 50, offset: int = 0, min_edge_bps: float = 20, asset_class: str = "") -> dict[str, Any]:
-    params: list[Any] = [float(min_edge_bps)]
-    where = "edge_bps >= %s"
+    client = get_kotoba_client()
+    # R0: Datalog escape hatch for multi-predicate WHERE, ORDER BY, LIMIT, OFFSET
+    # LIMIT and OFFSET are applied in Python. ORDER BY is applied in Python.
+
+    query_edn_parts = [
+        "[:find ?vertex_id ?proposal_id ?asset_class ?leg_a ?leg_b ?spread_bps ?edge_bps ?confidence ?expires_at ?score ?risk_notes",
+        " :in $ ?min_edge_bps",
+    ]
+    query_params: list[Any] = [min_edge_bps]
+    where_clauses = [
+        "[?p :vertex/type :vertex_arb_proposal]",
+        "[?p :vertex_id ?vertex_id]",
+        "[?p :proposal_id ?proposal_id]",
+        "[?p :asset_class ?asset_class]",
+        "[?p :leg_a ?leg_a]",
+        "[?p :leg_b ?leg_b]",
+        "[?p :spread_bps ?spread_bps]",
+        "[?p :edge_bps ?edge_bps]",
+        "(>= ?edge_bps ?min_edge_bps)",
+        "[?p :confidence ?confidence]",
+        "[?p :expires_at ?expires_at]",
+        """(or
+            (and [?s :vertex/type :vertex_arb_score]
+                 [?s :proposal_id ?proposal_id]
+                 [?s :score ?score]
+                 [?s :risk_notes ?risk_notes])
+            (not [?s :proposal_id ?proposal_id]
+                 [(nil) ?score]
+                 [(nil) ?risk_notes]))""",
+    ]
+
     if asset_class:
-        where += " AND asset_class = %s"
-        params.append(asset_class)
-    params.extend([int(max(1, min(500, limit))), int(max(0, offset))])
-    rows = _fetch_all(
-        f"""
-        SELECT vertex_id, proposal_id, asset_class, leg_a, leg_b, spread_bps, edge_bps,
-               confidence, expires_at, score, risk_notes
-        FROM mv_arb_active_opps
-        WHERE {where}
-        ORDER BY edge_bps DESC
-        LIMIT %s OFFSET %s
-        """,
-        tuple(params),
-    )
+        query_edn_parts[1] += " ?asset_class_param"
+        where_clauses.append("[?p :asset_class ?asset_class_param]")
+        query_params.append(asset_class)
+
+    query_edn_parts.append(" :where")
+    query_edn_parts.extend(where_clauses)
+    query_edn_parts.append("]")
+    query_edn = "\n".join(query_edn_parts)
+
+    rows = client.q(query_edn, tuple(query_params))
+
+    # Convert to list of dicts for easier processing
+    cols = ["vertex_id", "proposal_id", "asset_class", "leg_a", "leg_b", "spread_bps", "edge_bps",
+            "confidence", "expires_at", "score", "risk_notes"]
+    proposals_data = [dict(zip(cols, r)) for r in rows]
+
+    # Apply ORDER BY, LIMIT, OFFSET in Python
+    proposals_data.sort(key=lambda x: x["edge_bps"], reverse=True)
+    total_proposals = len(proposals_data)
+    proposals_data = proposals_data[offset : offset + limit]
+
     proposals = [
         {
-            "vertex_id": r[0],
-            "proposal_id": r[1],
-            "asset_class": r[2],
-            "leg_a": r[3],
-            "leg_b": r[4],
-            "spread_bps": r[5],
-            "edge_bps": r[6],
-            "confidence": r[7],
-            "expires_at": r[8],
-            "score": r[9],
-            "risk_notes": r[10],
+            "vertex_id": r["vertex_id"],
+            "proposal_id": r["proposal_id"],
+            "asset_class": r["asset_class"],
+            "leg_a": r["leg_a"],
+            "leg_b": r["leg_b"],
+            "spread_bps": r["spread_bps"],
+            "edge_bps": r["edge_bps"],
+            "confidence": r["confidence"],
+            "expires_at": r["expires_at"],
+            "score": r["score"],
+            "risk_notes": r["risk_notes"],
         }
-        for r in rows
+        for r in proposals_data
     ]
-    return {"ok": True, "proposals": proposals, "total": len(proposals), "offset": offset, "limit": limit}
+    return {"ok": True, "proposals": proposals, "total": total_proposals, "offset": offset, "limit": limit}
 
 
 def get_proposal(proposal_id: str) -> dict[str, Any]:
     if not proposal_id:
         return {"ok": False, "error": "InvalidRequest", "message": "proposalId required"}
-    proposal = _fetch_one("SELECT * FROM vertex_arb_proposal WHERE proposal_id = %s LIMIT 1", (proposal_id,))
+    client = get_kotoba_client()
+    proposal = client.select_first_where("vertex_arb_proposal", "proposal_id", proposal_id)
     if proposal is None:
         return {"ok": False, "error": "NotFound", "message": proposal_id}
-    score = _fetch_one("SELECT * FROM vertex_arb_score WHERE proposal_id = %s LIMIT 1", (proposal_id,))
-    publication = _fetch_one("SELECT * FROM vertex_arb_publication WHERE proposal_id = %s LIMIT 1", (proposal_id,))
-    return {"ok": True, "proposal": tuple(proposal), "score": tuple(score) if score else None, "publication": tuple(publication) if publication else None}
+    score = client.select_first_where("vertex_arb_score", "proposal_id", proposal_id)
+    publication = client.select_first_where("vertex_arb_publication", "proposal_id", proposal_id)
+    return {"ok": True, "proposal": proposal, "score": score, "publication": publication}

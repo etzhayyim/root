@@ -222,9 +222,17 @@ def task_isekai_get_chunk(worldId: str = "", chunkX: Any = 0, chunkZ: Any = 0, *
 
 
 def task_isekai_get_roster(did: str = "anon", **_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT * FROM vertex_isekai_creature_roster WHERE owner_did = %s OR did = %s LIMIT 100", (did, did))
-        roster = _rows(cur)
+    # R0: OR condition requires fetching by each condition and combining in Python.
+    roster_by_owner = get_kotoba_client().select_where(
+        "vertex_isekai_creature_roster", "owner_did", did, limit=100
+    )
+    roster_by_did = get_kotoba_client().select_where(
+        "vertex_isekai_creature_roster", "did", did, limit=100
+    )
+    # Combine and deduplicate
+    combined_roster = {item["vertex_id"]: item for item in roster_by_owner + roster_by_did}.values()
+    roster = list(combined_roster)[:100] # Apply limit after deduplication
+
     return {"roster": roster, "total": len(roster), "did": did}
 
 
@@ -261,10 +269,18 @@ def task_isekai_catch_pokoa(did: str = "anon", speciesId: Any = 1, level: Any = 
 
 
 def task_isekai_heal_party(did: str = "anon", **_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT instance_id FROM vertex_isekai_creature_roster WHERE owner_did = %s OR did = %s LIMIT 100", (did, did))
-        rows = _rows(cur)
-    return {"healed": len(rows), "did": did}
+    # R0: OR condition requires fetching by each condition and combining in Python.
+    roster_by_owner = get_kotoba_client().select_where(
+        "vertex_isekai_creature_roster", "owner_did", did, columns=["instance_id"], limit=100
+    )
+    roster_by_did = get_kotoba_client().select_where(
+        "vertex_isekai_creature_roster", "did", did, columns=["instance_id"], limit=100
+    )
+    # Combine and deduplicate based on instance_id
+    combined_roster = {item["instance_id"]: item for item in roster_by_owner + roster_by_did}.values()
+    healed_instances = list(combined_roster)[:100] # Apply limit after deduplication
+
+    return {"healed": len(healed_instances), "did": did}
 
 
 def task_isekai_get_legendaries(**_: Any) -> dict[str, Any]:
@@ -290,9 +306,17 @@ def task_isekai_craft_item(did: str = "anon", recipeId: str = "", quantity: Any 
 
 
 def task_isekai_get_inventory(did: str = "anon", **_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT item_id, name, category, quantity FROM vertex_isekai_inventory_item WHERE props LIKE %s LIMIT 500", (f'%"{did}"%',))
-        rows = _rows(cur)
+    # R0: LIKE operator on JSON column not directly supported by shim, filtering in Python.
+    # Assuming 'owner_did' in _base corresponds to the 'did' we want to filter by in props.
+    all_inventory_items = get_kotoba_client().select_where(
+        "vertex_isekai_inventory_item", "owner_did", did, limit=500
+    )
+    rows = []
+    did_json_str = json.dumps({"did": did}) # To match the LIKE pattern
+    for item in all_inventory_items:
+        if item.get("props") and did_json_str in item["props"]: # Simple substring match for LIKE
+            rows.append(item)
+
     agg: dict[str, dict[str, Any]] = {}
     for r in rows:
         item = str(r.get("item_id") or "")
@@ -313,10 +337,13 @@ def task_isekai_roll_brainrot(biome: str = "plains", **_: Any) -> dict[str, Any]
 
 
 def task_isekai_get_portal_state(did: str = "anon", **_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT shard_count FROM vertex_isekai_brainrot_event WHERE owner_did = %s AND type = %s LIMIT 1", (did, "shard-collected"))
-        rows = _rows(cur)
-    shards = _int((rows[0] if rows else {}).get("shard_count"), 0)
+    # R0: Multiple WHERE conditions require raw Datalog `q()` query.
+    query_edn = """[:find (pull ?e [:vertex/shard_count])
+                   :where [?e :vertex/owner_did ?owner_did]
+                          [?e :vertex/type "shard-collected"]
+                   :in $ ?owner_did]"""
+    rows = get_kotoba_client().q(query_edn, args=[did])
+    shards = _int((rows[0][0] if rows else {}).get("shard_count"), 0)
     return {"shardsCollected": shards, "shardsRequired": 6, "portalOpen": shards >= 6, "message": "The Brainrot Dimension portal is OPEN!" if shards >= 6 else f"Collect {6-shards} more Brainrot Shards to open the portal."}
 
 
@@ -357,23 +384,42 @@ def task_isekai_register_compliance(**_: Any) -> dict[str, Any]:
 
 def task_isekai_get_compliance(risk: str = "", **_: Any) -> dict[str, Any]:
     records = [r for r in MS_COMPLIANCE_RECORDS if not risk or r.get("risk") == risk]
-    with sync_cursor() as cur:
-        cur.execute("SELECT compliance_id, type, title, risk, status, mitigation FROM vertex_isekai_compliance_dep LIMIT 50")
-        rows = _rows(cur)
+    # R0: Filtering by risk is done in Python.
+    rows = get_kotoba_client().select_where(
+        "vertex_isekai_compliance_dep",
+        "_seq",
+        0, # This condition will fetch all items with _seq > 0, which is implicitly true for all valid entries.
+        columns=["compliance_id", "type", "title", "risk", "status", "mitigation"],
+        limit=50,
+    )
     return {"complianceDeps": records, "summary": {"total": len(records), "highRisk": sum(1 for r in records if r.get("risk") == "high"), "mediumRisk": sum(1 for r in records if r.get("risk") == "medium"), "lowRisk": sum(1 for r in records if r.get("risk") == "low")}, "graphData": rows}
 
 
 def task_isekai_list_scenes(worldMapUri: str = "", limit: Any = 100, offset: Any = 0, **_: Any) -> dict[str, Any]:
     limit_n, offset_n = _int(limit, 100, lo=1, hi=500), _int(offset, 0, lo=0)
-    params: list[Any] = []
-    where = "WHERE _seq > 0"
+    # R0: In-Python OFFSET and ORDER BY due to shim limitations.
     if worldMapUri:
-        where += " AND world_map_uri = %s"
-        params.append(worldMapUri)
-    with sync_cursor() as cur:
-        cur.execute(f"SELECT vertex_id, world_map_uri, scene_type, x_dm, z_dm, radius_dm, label, params_json, repo, rkey FROM vertex_isekai_world_scene {where} ORDER BY _seq OFFSET {offset_n} LIMIT {limit_n}", tuple(params))
-        rows = _rows(cur)
-    return {"scenes": rows, "total": len(rows), "offset": offset_n, "limit": limit_n}
+        scenes = get_kotoba_client().select_where(
+            "vertex_isekai_world_scene",
+            "world_map_uri",
+            worldMapUri,
+            columns=["vertex_id", "world_map_uri", "scene_type", "x_dm", "z_dm", "radius_dm", "label", "params_json", "repo", "rkey"],
+            limit=offset_n + limit_n, # Fetch enough to apply offset and limit
+        )
+    else:
+        # If no worldMapUri, fetch all scenes (equivalent to _seq > 0)
+        scenes = get_kotoba_client().select_where(
+            "vertex_isekai_world_scene",
+            "_seq",
+            0, # This condition will fetch all items with _seq > 0, which is implicitly true for all valid entries.
+            columns=["vertex_id", "world_map_uri", "scene_type", "x_dm", "z_dm", "radius_dm", "label", "params_json", "repo", "rkey"],
+            limit=offset_n + limit_n, # Fetch enough to apply offset and limit
+        )
+
+    # Sort and paginate in Python
+    scenes = sorted(scenes, key=lambda x: x.get("_seq", 0))[offset_n:offset_n + limit_n]
+
+    return {"scenes": scenes, "total": len(scenes), "offset": offset_n, "limit": limit_n}
 
 
 def task_isekai_analyze(**_: Any) -> dict[str, Any]:

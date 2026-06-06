@@ -1,6 +1,6 @@
 """ADSKAILab / generic HuggingFace dataset ingest primitives.
 
-Pulls text/code datasets from HuggingFace Hub into RisingWave so the
+Pulls text/code datasets from HuggingFace Hub into kotoba Datom log so the
 existing training-export pipeline (`v_training_text` UNION ALL +
 `trainingExport.bpmn` → B2 → `etzhayyim/etzhayyim-corpus`) automatically
 picks them up.
@@ -14,7 +14,7 @@ Phase 1 scope (text/code only):
 Out of scope (Phase 2 → B2 blob storage): ABC-1M, Make-A-Shape-*,
 WaLa-* (3D voxel / point cloud / mesh).
 
-Output tables (created by 20260505220000_vertex_hf_dataset):
+Output records (created by 20260505220000_vertex_hf_dataset):
   vertex_hf_dataset           — catalog row per slug
   vertex_hf_dataset_record    — one row per training sample
                                 (text_for_training feeds v_training_text)
@@ -38,9 +38,10 @@ import os
 import re
 import time
 import zipfile
+from datetime import datetime, timezone
 from typing import Any, Iterable
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants / env
@@ -56,48 +57,6 @@ _RECORD_BYTE_HARDCAP = 64_000
 # skipped (matches v_training_text WHERE LENGTH(...) >= 20).
 _TEXT_MIN_BYTES = 20
 
-_INSERT_RECORD = (
-    "INSERT INTO vertex_hf_dataset_record ("
-    "vertex_id, owner_did, sensitivity_ord, slug, record_id, split, lang, "
-    "text_for_training, text_byte_size, raw_json, source_uri, "
-    "created_at, org_id, user_id, actor_id) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-_UPDATE_CATALOG = (
-    "UPDATE vertex_hf_dataset SET row_count_ingested = %s, last_synced_at = %s "
-    "WHERE slug = %s"
-)
-
-_SELECT_STALE_CATALOG = (
-    "SELECT slug, last_synced_at FROM vertex_hf_dataset "
-    "WHERE status = 'active'"
-)
-
-# ── ADR-2605080700 Phase 2 — 3D blob ingest (ABC-1M / Make-A-Shape /
-# WaLa).  These datasets ship STEP / OBJ / voxel-grid / latent blobs
-# too large for inline RW columns, so the catalog row stores the B2
-# location + sha256 only.  voxelforge's LangGraph route_generator may
-# later use this catalog as a few-shot retrieval store.
-
-_INSERT_3D_BLOB = (
-    "INSERT INTO vertex_3d_blob ("
-    "vertex_id, _seq, created_date, sensitivity_ord, owner_did, "
-    "source, slug, sample_id, format, "
-    "b2_bucket, b2_key, sha256_hex, byte_size, "
-    "polygon_count, voxel_dim, latent_dim, "
-    "license, hf_url, ts_ms, ingested_by_run_id, "
-    "actor_did, org_did, at_did, created_at, "
-    "org_id, user_id, actor_id) "
-    "VALUES (%s, NULL, CURRENT_DATE, 1, %s, "
-    "%s, %s, %s, %s, "
-    "%s, %s, %s, %s, "
-    "%s, %s, %s, "
-    "%s, %s, %s, %s, "
-    "%s, %s, NULL, %s, "
-    "NULL, NULL, NULL)"
-)
-
 
 # ──────────────────────────────────────────────────────────────────────
 # Helpers
@@ -105,11 +64,11 @@ _INSERT_3D_BLOB = (
 
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _today_date() -> str:
-    return time.strftime("%Y-%m-%d", time.gmtime())
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def _truncate(s: str | None, cap: int = _RECORD_BYTE_HARDCAP) -> str | None:
@@ -131,20 +90,24 @@ def _vertex_id(slug: str, record_id: str) -> str:
     return f"at://{_ADSK_ACTOR}/com.etzhayyim.apps.adsk.record/{safe_slug}--{safe_id}"
 
 
-def _rw_executemany(rows: list[tuple[Any, ...]]) -> int:
+def _rw_executemany(rows: list[dict[str, Any]]) -> int:
     if not rows:
         return 0
+    client = get_kotoba_client()
     n = 0
-    with sync_cursor() as cur:
-        for row in rows:
-            cur.execute(_INSERT_RECORD, row)
-            n += 1
+    for row_dict in rows:
+        client.insert_row("vertex_hf_dataset_record", row_dict)
+        n += 1
     return n
 
 
 def _update_catalog(slug: str, row_count: int) -> None:
-    with sync_cursor() as cur:
-        cur.execute(_UPDATE_CATALOG, (row_count, _now_iso(), slug))
+    client = get_kotoba_client()
+    client.insert_row("vertex_hf_dataset", {
+        "slug": slug,
+        "row_count_ingested": row_count,
+        "last_synced_at": _now_iso(),
+    })
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -320,23 +283,23 @@ def _row_to_record_args(
     ))
 
     vid = _vertex_id(slug, rid)
-    return (
-        vid,                # vertex_id
-        _ADSK_ACTOR,        # owner_did
-        0,                  # sensitivity_ord
-        slug,               # slug
-        rid,                # record_id
-        split,              # split
-        lang,               # lang
-        text,               # text_for_training
-        text_bytes,         # text_byte_size
-        raw_payload,        # raw_json
-        f"hf:{slug}",       # source_uri
-        _now_iso(),         # created_at
-        _ADSK_ACTOR,        # org_id
-        _ADSK_ACTOR,        # user_id
-        "sys.adsk.ingest",  # actor_id
-    )
+    return {
+        "vertex_id": vid,
+        "owner_did": _ADSK_ACTOR,
+        "sensitivity_ord": 0,
+        "slug": slug,
+        "record_id": rid,
+        "split": split,
+        "lang": lang,
+        "text_for_training": text,
+        "text_byte_size": text_bytes,
+        "raw_json": raw_payload,
+        "source_uri": f"hf:{slug}",
+        "created_at": _now_iso(),
+        "org_id": _ADSK_ACTOR,
+        "user_id": _ADSK_ACTOR,
+        "actor_id": "sys.adsk.ingest",
+    }
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -372,13 +335,23 @@ def _ingest_narrative_planning(slug: str, limit: int | None) -> int:
                     continue
                 rid = f"{archive}/{member}"
                 vid = _vertex_id(slug, rid)
-                rows.append((
-                    vid, _ADSK_ACTOR, 0, slug, rid, archive, None,
-                    text, len(text.encode("utf-8", errors="replace")),
-                    _truncate(json.dumps({"archive": archive, "member": member})),
-                    f"hf:{slug}", _now_iso(),
-                    _ADSK_ACTOR, _ADSK_ACTOR, "sys.adsk.ingest",
-                ))
+                rows.append({
+                    "vertex_id": vid,
+                    "owner_did": _ADSK_ACTOR,
+                    "sensitivity_ord": 0,
+                    "slug": slug,
+                    "record_id": rid,
+                    "split": archive,
+                    "lang": None,
+                    "text_for_training": text,
+                    "text_byte_size": len(text.encode("utf-8", errors="replace")),
+                    "raw_json": _truncate(json.dumps({"archive": archive, "member": member})),
+                    "source_uri": f"hf:{slug}",
+                    "created_at": _now_iso(),
+                    "org_id": _ADSK_ACTOR,
+                    "user_id": _ADSK_ACTOR,
+                    "actor_id": "sys.adsk.ingest",
+                })
                 n += 1
         if cap is not None and n >= cap:
             break
@@ -434,10 +407,8 @@ async def task_adsk_dataset_ingest(
 
         # Recompute total (best-effort): count what we actually inserted
         # this run plus what was already there.
-        with sync_cursor() as cur:
-            cur.execute("SELECT count(*) FROM vertex_hf_dataset_record WHERE slug = %s", (slug,))
-            total_row = cur.fetchone()
-        total = int(total_row[0]) if total_row else inserted
+        client = get_kotoba_client()
+        total = int(client.aggregate_where("vertex_hf_dataset_record", "count", "*", "slug", slug))
         _update_catalog(slug, total)
 
         return {"ok": True, "slug": slug, "rows": inserted, "skipped": skipped, "total": total}
@@ -456,16 +427,15 @@ async def task_adsk_dataset_ingest_all(
     on. On per-dataset failure we keep going; the failure is captured
     in the summary."""
     threshold_ts = time.gmtime(time.time() - max(0, int(staleSeconds)))
-    threshold_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", threshold_ts)
+    threshold_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ", threshold_ts)
 
-    with sync_cursor() as cur:
-        cur.execute(_SELECT_STALE_CATALOG)
-        rows = cur.fetchall() or []
+    client = get_kotoba_client()
+    rows = client.select_where("vertex_hf_dataset", "status", "active", columns=["slug", "last_synced_at"]) or []
 
     results: list[dict[str, Any]] = []
     total_rows = 0
     for r in rows:
-        slug, last_synced = (r[0], r[1])
+        slug, last_synced = (r["slug"], r["last_synced_at"])
         if last_synced and last_synced > threshold_iso:
             results.append({"slug": slug, "skipped": True, "reason": "fresh"})
             continue
@@ -514,18 +484,36 @@ async def task_adsk_3d_blob_ingest(
     ts_ms = int(time.time() * 1000)
     vertex_id = f"at://{_ADSK_ACTOR}/com.etzhayyim.apps.adsk.blob3d/{re.sub(r'[^a-zA-Z0-9._-]', '-', slug)}--{sha[:16]}"
 
-    with sync_cursor() as cur:
-        cur.execute(
-            _INSERT_3D_BLOB,
-            (
-                vertex_id, _ADSK_ACTOR,
-                source or "hf", slug, sample_id, fmt,
-                b2Bucket, b2Key, sha, int(byteSize or 0),
-                polygonCount, voxelDim, latentDim,
-                license, hfUrl or f"hf:{slug}", ts_ms, ingestedByRunId,
-                _ADSK_ACTOR, _ADSK_ACTOR, now,
-            ),
-        )
+    client = get_kotoba_client()
+    client.insert_row("vertex_3d_blob", {
+        "vertex_id": vertex_id,
+        "_seq": None,
+        "created_date": _today_date(),
+        "sensitivity_ord": 1,
+        "owner_did": _ADSK_ACTOR,
+        "source": source or "hf",
+        "slug": slug,
+        "sample_id": sample_id,
+        "format": fmt,
+        "b2_bucket": b2Bucket,
+        "b2_key": b2Key,
+        "sha256_hex": sha,
+        "byte_size": int(byteSize or 0),
+        "polygon_count": polygonCount,
+        "voxel_dim": voxelDim,
+        "latent_dim": latentDim,
+        "license": license,
+        "hf_url": hfUrl or f"hf:{slug}",
+        "ts_ms": ts_ms,
+        "ingested_by_run_id": ingestedByRunId,
+        "actor_did": _ADSK_ACTOR,
+        "org_did": _ADSK_ACTOR,
+        "at_did": None,
+        "created_at": now,
+        "org_id": None,
+        "user_id": None,
+        "actor_id": None,
+    })
 
     return {
         "ok": True,

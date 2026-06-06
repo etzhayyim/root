@@ -1,8 +1,8 @@
 """
-Hazelcast → RisingWave bridge for Zeebe process mining data.
+Hazelcast → kotoba Datom log bridge for Zeebe process mining data.
 
 Connects to the Zeebe-embedded Hazelcast ringbuffer (zeebe-hazelcast-exporter
-1.4.0) and writes decoded records to vertex_zeebe_* tables in RisingWave for
+1.4.0) and writes decoded records to vertex_zeebe_* tables in kotoba Datom log for
 persistent, pod-restart-resilient process monitoring.
 
 Architecture:
@@ -25,6 +25,8 @@ import logging
 import os
 import time
 from typing import Any
+
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("hazelcast_bridge")
 
@@ -117,7 +119,7 @@ def _i(fields: dict, num: int) -> int:
     if not isinstance(v, int):
         return 0
     # Zeebe uses uint64_max as a sentinel for "no value". Clamp to 0 so it fits
-    # in RisingWave BIGINT (signed int64, max = 2^63-1).
+    # in Kotoba Datom log BIGINT (signed int64, max = 2^63-1).
     if v == _UINT64_MAX or v > _INT64_MAX:
         return 0
     return int(v)
@@ -262,34 +264,27 @@ def _iso(ts_ms: int) -> str:
 def _load_seq_pos(ringbuffer: str) -> int:
     """Read next_seq from vertex_zeebe_seq_pos (0 = start from tail)."""
     try:
-        from pymagatama.db_sync import sync_cursor
-        with sync_cursor() as cur:
-            cur.execute(
-                "SELECT next_seq FROM vertex_zeebe_seq_pos WHERE ringbuffer_name = %s",
-                (ringbuffer,),
-            )
-            row = cur.fetchone()
-            return int(row[0]) if row else 0
+        row = get_kotoba_client().select_first_where(
+            "vertex_zeebe_seq_pos", "ringbuffer_name", ringbuffer, columns=["next_seq"]
+        )
+        return int(row["next_seq"]) if row else 0
     except Exception as exc:
         LOG.warning("hazelcast_bridge: failed to load seq_pos: %s", exc)
         return 0
 
 
 def _save_seq_pos(ringbuffer: str, next_seq: int) -> None:
-    """Persist sequence position. Uses delete-then-insert (no UPDATE in RisingWave)."""
+    """Persist sequence position. Uses upsert in Kotoba Datomic log."""
     try:
-        from pymagatama.db_sync import sync_cursor
         now = _iso(int(time.time() * 1000))
-        with sync_cursor() as cur:
-            cur.execute(
-                "DELETE FROM vertex_zeebe_seq_pos WHERE ringbuffer_name = %s",
-                (ringbuffer,),
-            )
-            cur.execute(
-                "INSERT INTO vertex_zeebe_seq_pos (ringbuffer_name, next_seq, updated_at)"
-                " VALUES (%s, %s, %s)",
-                (ringbuffer, next_seq, now),
-            )
+        get_kotoba_client().insert_row(
+            "vertex_zeebe_seq_pos",
+            {
+                "ringbuffer_name": ringbuffer,
+                "next_seq": next_seq,
+                "updated_at": now,
+            },
+        )
     except Exception as exc:
         LOG.warning("hazelcast_bridge: failed to save seq_pos=%d: %s", next_seq, exc)
 
@@ -297,119 +292,83 @@ def _save_seq_pos(ringbuffer: str, next_seq: int) -> None:
 def _write_record(rec: dict) -> None:
     """Write a decoded Zeebe record to the appropriate vertex_zeebe_* table."""
     try:
-        from pymagatama.db_sync import sync_cursor
+
         vtype = rec["vtype"]
         intent = rec["intent"]
         ts = rec["ts"]
         key = rec["key"]
 
-        with sync_cursor() as cur:
             if vtype == "PROCESS":
-                cur.execute(
-                    "DELETE FROM vertex_zeebe_process WHERE process_definition_key = %s",
-                    (rec["process_definition_key"],),
-                )
-                cur.execute(
-                    "INSERT INTO vertex_zeebe_process"
-                    " (process_definition_key, bpmn_process_id, version, resource_name, intent, event_time_ms)"
-                    " VALUES (%s, %s, %s, %s, %s, %s)",
-                    (
-                        rec["process_definition_key"],
-                        rec["bpmn_process_id"][:500],
-                        rec["version"],
-                        rec["resource_name"][:500],
-                        intent[:100],
-                        ts,
-                    ),
+                get_kotoba_client().insert_row(
+                    "vertex_zeebe_process",
+                    {
+                        "process_definition_key": rec["process_definition_key"],
+                        "bpmn_process_id": rec["bpmn_process_id"][:500],
+                        "version": rec["version"],
+                        "resource_name": rec["resource_name"][:500],
+                        "intent": intent[:100],
+                        "event_time_ms": ts,
+                    },
                 )
 
             elif vtype == "PROCESS_INSTANCE" and rec.get("bpmn_element_type") == "PROCESS":
                 # Only store root-level events (not sub-elements)
                 pik = rec["process_instance_key"]
-                cur.execute(
-                    "DELETE FROM vertex_zeebe_instance"
-                    " WHERE process_instance_key = %s AND intent = %s",
-                    (pik, intent),
-                )
-                cur.execute(
-                    "INSERT INTO vertex_zeebe_instance"
-                    " (process_instance_key, intent, event_time_ms,"
-                    "  bpmn_process_id, process_definition_key, bpmn_element_type)"
-                    " VALUES (%s, %s, %s, %s, %s, %s)",
-                    (
-                        pik,
-                        intent[:100],
-                        ts,
-                        rec["bpmn_process_id"][:500],
-                        rec["process_definition_key"],
-                        rec["bpmn_element_type"][:100],
-                    ),
+                get_kotoba_client().insert_row(
+                    "vertex_zeebe_instance",
+                    {
+                        "process_instance_key": pik,
+                        "intent": intent[:100],
+                        "event_time_ms": ts,
+                        "bpmn_process_id": rec["bpmn_process_id"][:500],
+                        "process_definition_key": rec["process_definition_key"],
+                        "bpmn_element_type": rec["bpmn_element_type"][:100],
+                    },
                 )
 
             elif vtype == "JOB":
-                cur.execute(
-                    "DELETE FROM vertex_zeebe_job WHERE job_key = %s AND intent = %s",
-                    (key, intent),
-                )
-                cur.execute(
-                    "INSERT INTO vertex_zeebe_job"
-                    " (job_key, intent, event_time_ms, job_type,"
-                    "  process_instance_key, bpmn_process_id, element_id, retries, error_message)"
-                    " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (
-                        key,
-                        intent[:100],
-                        ts,
-                        rec["job_type"][:200],
-                        rec["process_instance_key"],
-                        rec["bpmn_process_id"][:500],
-                        rec["element_id"][:200],
-                        rec["retries"],
-                        rec["error_message"][:1000],
-                    ),
+                get_kotoba_client().insert_row(
+                    "vertex_zeebe_job",
+                    {
+                        "job_key": key,
+                        "intent": intent[:100],
+                        "event_time_ms": ts,
+                        "job_type": rec["job_type"][:200],
+                        "process_instance_key": rec["process_instance_key"],
+                        "bpmn_process_id": rec["bpmn_process_id"][:500],
+                        "element_id": rec["element_id"][:200],
+                        "retries": rec["retries"],
+                        "error_message": rec["error_message"][:1000],
+                    },
                 )
 
             elif vtype == "INCIDENT":
-                cur.execute(
-                    "DELETE FROM vertex_zeebe_incident WHERE incident_key = %s AND intent = %s",
-                    (key, intent),
-                )
-                cur.execute(
-                    "INSERT INTO vertex_zeebe_incident"
-                    " (incident_key, intent, event_time_ms, error_type, error_message,"
-                    "  bpmn_process_id, process_instance_key, element_id, job_key)"
-                    " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (
-                        key,
-                        intent[:100],
-                        ts,
-                        rec["error_type"][:200],
-                        rec["error_message"][:1000],
-                        rec["bpmn_process_id"][:500],
-                        rec["process_instance_key"],
-                        rec["element_id"][:200],
-                        rec["job_key"],
-                    ),
+                get_kotoba_client().insert_row(
+                    "vertex_zeebe_incident",
+                    {
+                        "incident_key": key,
+                        "intent": intent[:100],
+                        "event_time_ms": ts,
+                        "error_type": rec["error_type"][:200],
+                        "error_message": rec["error_message"][:1000],
+                        "bpmn_process_id": rec["bpmn_process_id"][:500],
+                        "process_instance_key": rec["process_instance_key"],
+                        "element_id": rec["element_id"][:200],
+                        "job_key": rec["job_key"],
+                    },
                 )
 
             elif vtype == "MESSAGE":
-                cur.execute(
-                    "DELETE FROM vertex_zeebe_message WHERE message_key = %s AND intent = %s",
-                    (key, intent),
+                get_kotoba_client().insert_row(
+                    "vertex_zeebe_message",
+                    {
+                        "message_key": key,
+                        "intent": intent[:100],
+                        "event_time_ms": ts,
+                        "message_name": rec["message_name"][:500],
+                        "correlation_key": rec["correlation_key"][:500],
+                    },
                 )
-                cur.execute(
-                    "INSERT INTO vertex_zeebe_message"
-                    " (message_key, intent, event_time_ms, message_name, correlation_key)"
-                    " VALUES (%s, %s, %s, %s, %s)",
-                    (
-                        key,
-                        intent[:100],
-                        ts,
-                        rec["message_name"][:500],
-                        rec["correlation_key"][:500],
-                    ),
-                )
-
     except Exception as exc:
         LOG.warning("hazelcast_bridge: write error vtype=%s key=%s: %s", rec.get("vtype"), rec.get("key"), exc)
 

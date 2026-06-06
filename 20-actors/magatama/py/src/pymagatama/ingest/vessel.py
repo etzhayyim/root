@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
 import math
-import time
+
 from typing import Any
 from uuid import uuid4
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 OWNER_DID = "did:web:v3ss3l01.etzhayyim.com"
 PUBLIC_DID = "did:web:vessel.etzhayyim.com"
@@ -69,7 +70,7 @@ PROMOTED_COLUMNS = {
 
 
 def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _id(prefix: str) -> str:
@@ -87,10 +88,8 @@ def _n(value: Any, default: float = 0) -> float:
         return default
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
+def _execute(table: str, row_dict: dict) -> dict | None:
+    return get_kotoba_client().insert_row(table, row_dict)
 
 
 def _label_for_collection(collection: str) -> str:
@@ -103,13 +102,12 @@ def _label_for_collection(collection: str) -> str:
 def _select(collection: str, limit: int = 50, offset: int = 0) -> list[dict[str, Any]]:
     label = _label_for_collection(collection)
     table = LABEL_TABLE[label]
-    with sync_cursor() as cur:
-        cur.execute(
-            f"SELECT * FROM {table} ORDER BY created_date DESC LIMIT %s OFFSET %s",
-            (limit, offset),
-        )
-        cols = [d[0] for d in cur.description or []]
-        return [_inflate(dict(zip(cols, row))) for row in cur.fetchall()]
+    rows = get_kotoba_client().select_where(table, "status", "active", limit=2000) # R0: Fetch a broad set; apply sorting, limit, offset in Python
+    # Sort by created_date descending
+    rows.sort(key=lambda r: r.get("created_date", ""), reverse=True)
+    # Apply offset and limit
+    end_index = offset + limit
+    return [_inflate(row) for row in rows[offset:end_index]]
 
 
 def _inflate(row: dict[str, Any]) -> dict[str, Any]:
@@ -136,42 +134,29 @@ def _insert(label: str, props: dict[str, Any], id_field: str | None = None) -> d
     props.setdefault("userId", "anon")
     props.setdefault("actorId", OWNER_DID)
     vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.vessel.{label}/{rec_id}"
-    columns = [
-        "vertex_id", "_seq", "created_date", "sensitivity_ord", "owner_did", "rkey", "repo",
-        "label", "did", "collection", "status", "props", "actor_did", "org_did",
-    ]
-    values: list[Any] = [
-        vertex_id,
-        time.strftime("%Y-%m-%d", time.gmtime()),
-        100,
-        OWNER_DID,
-        rec_id,
-        OWNER_DID,
-        label,
-        props.get("did") or vertex_id,
-        collection,
-        "active",
-        json.dumps(props, ensure_ascii=False, sort_keys=True),
-        OWNER_DID,
-        "anon",
-    ]
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": now_iso(), # Using now_iso for consistency
+        "sensitivity_ord": 100,
+        "owner_did": OWNER_DID,
+        "rkey": rec_id,
+        "repo": OWNER_DID, # Consistent with original values list
+        "label": label,
+        "did": props.get("did") or vertex_id,
+        "collection": collection,
+        "status": "active",
+        "props": json.dumps(props, ensure_ascii=False, sort_keys=True),
+        "actor_did": OWNER_DID,
+        "org_did": "anon",
+    }
     promoted = PROMOTED_COLUMNS[label]
     for column, prop_name in promoted.items():
-        columns.append(column)
         value = props.get(prop_name)
         if column in {"latitude", "longitude", "course", "speed_knots", "heading"}:
             value = _n(value)
-        values.append(value)
-    placeholders = ", ".join(["%s"] * (len(values) - 1))
-    update_columns = ["props", "status", *promoted.keys()]
-    assignments = ", ".join(f"{column} = EXCLUDED.{column}" for column in update_columns)
-    _execute(
-        f"""INSERT INTO {table}
-        ({", ".join(columns)})
-        VALUES (%s, _next_seq('{table}'), {placeholders})
-        ON CONFLICT (vertex_id) DO UPDATE SET {assignments}""",
-        tuple(values),
-    )
+        row_dict[column] = value
+
+    _execute(table, row_dict)
     if label == "OwnerLink" and props.get("entityDid"):
         ship_vid = f"at://{OWNER_DID}/com.etzhayyim.apps.vessel.Ship/{props.get('imoNumber')}"
         _insert_edge("edge_vessel_owner_link", rec_id, ship_vid, _s(props.get("entityDid")), "ENTITY_OWNS", props)
@@ -183,24 +168,20 @@ def _insert(label: str, props: dict[str, Any], id_field: str | None = None) -> d
 
 def _insert_edge(table: str, key: str, src_vid: str, dst_vid: str, relation: str, props: dict[str, Any]) -> None:
     edge_id = f"at://{OWNER_DID}/{table}/{key}"
-    _execute(
-        f"""INSERT INTO {table}
-        (edge_id, _seq, created_date, sensitivity_ord, owner_did, src_vid, dst_vid, relation, status, props, actor_did, org_did)
-        VALUES (%s, _next_seq('{table}'), %s, %s, %s, %s, %s, %s, 'active', %s, %s, %s)
-        ON CONFLICT (edge_id) DO UPDATE SET src_vid = EXCLUDED.src_vid, dst_vid = EXCLUDED.dst_vid, props = EXCLUDED.props""",
-        (
-            edge_id,
-            time.strftime("%Y-%m-%d", time.gmtime()),
-            100,
-            OWNER_DID,
-            src_vid,
-            dst_vid,
-            relation,
-            json.dumps(props, ensure_ascii=False, sort_keys=True),
-            OWNER_DID,
-            "anon",
-        ),
-    )
+    row_dict = {
+        "edge_id": edge_id,
+        "created_date": now_iso(),
+        "sensitivity_ord": 100,
+        "owner_did": OWNER_DID,
+        "src_vid": src_vid,
+        "dst_vid": dst_vid,
+        "relation": relation,
+        "status": "active",
+        "props": json.dumps(props, ensure_ascii=False, sort_keys=True),
+        "actor_did": OWNER_DID,
+        "org_did": "anon",
+    }
+    _execute(table, row_dict)
 
 
 def _find(collection: str, predicate: Any) -> dict[str, Any] | None:

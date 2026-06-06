@@ -1,7 +1,7 @@
 """domain.etzhayyim.com (TLD registration assistance) primitives.
 
 T2 actor (ADR-2604282300): pymagatama module + BPMN + Zeebe, no CF Worker.
-All graph reads/writes hit RisingWave directly via Hyperdrive (ADR-0036).
+All graph reads/writes hit kotoba Datom log (ADR-2605262130, ADR-2605312345).
 
 BPMN coverage (ADR-0056 BPMN-as-actor):
   eligibilityCheck.bpmn      XRPC    → domain.eligibility.check
@@ -111,7 +111,7 @@ _SQL_REGULATOR_NAME = (
 
 def _resolve_advice(tld: str, jurisdiction: str, actor_kind: str) -> dict[str, Any] | None:
     client = get_kotoba_client()
-    
+
     # SQL: _SQL_ADVICE_EXACT (WHERE status = 'active' AND tld = %s AND jurisdiction = %s AND actor_kind = %s LIMIT 1)
     # R0: Multi-predicate WHERE clause converted to Python filtering after select_where.
     all_advice_exact = client.select_where(
@@ -168,24 +168,52 @@ def _resolve_advice(tld: str, jurisdiction: str, actor_kind: str) -> dict[str, A
     }
 
 def _tld_metadata(tld: str) -> dict[str, Any] | None:
-    rows = _rw_query(_SQL_TLD, (tld,))
+    client = get_kotoba_client()
+    # SQL: _SQL_TLD (WHERE tld = %s AND status = 'active' LIMIT 1)
+    # R0: Multi-predicate WHERE clause converted to Python filtering after select_where.
+    all_tld_meta = client.select_where(
+        "vertex_domain_tld",
+        "tld",
+        tld,
+        columns=["tld", "operator", "restricted", "eligibility_summary",
+                 "eligibility_policy_url", "verification_required", "status"],
+        limit=2000 # Fetching a broader set for in-Python filtering
+    )
+    # Filter in Python
+    rows = [
+        t for t in all_tld_meta
+        if t["status"] == "active"
+    ]
     if not rows:
         return None
-    r = rows[0]
+    r = rows[0] # Simulate LIMIT 1
     return {
-        "tld": r[0], "operator": r[1] or "", "restricted": bool(r[2]),
-        "eligibility_summary": r[3] or "",
-        "eligibility_policy_url": r[4] or "",
-        "verification_required": bool(r[5]),
+        "tld": r["tld"], "operator": r["operator"] or "", "restricted": bool(r["restricted"]),
+        "eligibility_summary": r["eligibility_summary"] or "",
+        "eligibility_policy_url": r["eligibility_policy_url"] or "",
+        "verification_required": bool(r["verification_required"]),
     }
 
 
 def _regulator_name(slug: str | None) -> str:
     if not slug:
         return ""
-    rows = _rw_query(_SQL_REGULATOR_NAME, (slug,))
-    return str(rows[0][0]) if rows else ""
-
+    client = get_kotoba_client()
+    # SQL: _SQL_REGULATOR_NAME (WHERE regulator_slug = %s AND status = 'active' LIMIT 1)
+    # R0: Multi-predicate WHERE clause converted to Python filtering after select_where.
+    all_regulators = client.select_where(
+        "vertex_domain_legal_regulator",
+        "regulator_slug",
+        slug,
+        columns=["name", "status"],
+        limit=2000 # Fetching a broader set for in-Python filtering
+    )
+    # Filter in Python
+    rows = [
+        r for r in all_regulators
+        if r["status"] == "active"
+    ]
+    return str(rows[0]["name"]) if rows else ""
 
 async def task_domain_eligibility_check(**kwargs: Any) -> dict[str, Any]:
     """Resolve (tld, jurisdiction, actorKind) → eligibility verdict.
@@ -268,35 +296,54 @@ _SQL_SUPPORTING_REGISTRARS = (
     "ORDER BY e.handles_verification DESC, r.jp_friendly DESC"
 )
 
-_INSERT_REGISTRATION = (
-    "INSERT INTO vertex_domain_registration ("
-    " vertex_id, owner_did, sensitivity_ord, "
-    " domain_name, tld, registrar_slug, registrant_did, registrant_name, "
-    " registrant_kind, jurisdiction, regulator_slug, eligibility_evidence_url, "
-    " eligibility_advice_vid, registered_at, expires_at, auto_renew, "
-    " ns_provider, status, notes, "
-    " created_at, org_id, user_id, actor_id) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
+
 
 
 def _select_registrars(tld: str, *, prefer_jp: bool = True) -> list[dict[str, Any]]:
-    rows = _rw_query(_SQL_SUPPORTING_REGISTRARS, (tld,))
-    out: list[dict[str, Any]] = []
-    for r in rows:
-        out.append({
-            "slug": r[0], "name": r[1] or "",
-            "jpFriendly": bool(r[2]) if r[2] is not None else None,
-            "notes": r[3] or "",
-            "handlesVerification": bool(r[4]) if r[4] is not None else False,
-        })
-    if prefer_jp:
-        out.sort(key=lambda r: (
-            0 if r.get("jpFriendly") else 1,
-            0 if r.get("handlesVerification") else 1,
-        ))
-    return out
+    client = get_kotoba_client()
 
+    # R0: JOIN operation implemented in Python due to complexity.
+    # Fetch edge_domain_registrar_supports_tld for the given tld
+    edges = client.select_where(
+        "edge_domain_registrar_supports_tld",
+        "tld",
+        tld,
+        columns=["registrar_slug", "tld", "handles_verification"],
+        limit=2000 # Fetching a broader set for in-Python join
+    )
+
+    # Fetch active vertex_domain_registrar
+    all_registrars = client.select_where(
+        "vertex_domain_registrar",
+        "status",
+        "active",
+        columns=["registrar_slug", "name", "jp_friendly", "notes", "status"],
+        limit=2000 # Fetching a broader set for in-Python join
+    )
+    # Convert list of dicts to a dict for easier lookup
+    registrar_map = {r["registrar_slug"]: r for r in all_registrars}
+
+    out: list[dict[str, Any]] = []
+    for edge in edges:
+        registrar_slug = edge["registrar_slug"]
+        registrar = registrar_map.get(registrar_slug)
+        if registrar and registrar["status"] == "active": # Ensure registrar is active after join
+            out.append({
+                "slug": registrar["registrar_slug"],
+                "name": registrar["name"] or "",
+                "jpFriendly": bool(registrar["jp_friendly"]) if registrar["jp_friendly"] is not None else None,
+                "notes": registrar["notes"] or "",
+                "handlesVerification": bool(edge["handles_verification"]) if edge["handles_verification"] is not None else False,
+            })
+
+    if prefer_jp:
+        # ORDER BY e.handles_verification DESC, r.jp_friendly DESC
+        out.sort(key=lambda r: (
+            0 if r.get("handlesVerification") else 1, # handlesVerification DESC
+            0 if r.get("jpFriendly") else 1,          # jpFriendly DESC
+        ), reverse=True) # Overall reverse to simulate DESC for both fields in the SQL
+
+    return out
 
 async def task_domain_register_assist(**kwargs: Any) -> dict[str, Any]:
     """Run eligibility check, recommend a registrar, append a draft ledger row.
@@ -377,14 +424,33 @@ async def task_domain_register_assist(**kwargs: Any) -> dict[str, Any]:
              + (f"Eligibility blocked — see alternatives: {','.join(elig.get('alternatives') or [])}."
                 if not eligible else "Operator must complete signup at the recommended registrar."))
 
-    _rw_execute(_INSERT_REGISTRATION, (
-        vertex_id, _DOMAIN_ACTOR, 0,
-        domain_name, tld, primary or None, registrant_did, registrant_name or None,
-        actor_kind, jurisdiction, regulator_slug, evidence_url,
-        advice_vid, None, None, False,
-        ns_provider, status, notes,
-        _now_iso(), _DOMAIN_ACTOR, registrant_did, "domain.register.assist",
-    ))
+    client = get_kotoba_client()
+    row_dict = {
+        "vertex_id": vertex_id,
+        "owner_did": _DOMAIN_ACTOR,
+        "sensitivity_ord": 0,
+        "domain_name": domain_name,
+        "tld": tld,
+        "registrar_slug": primary or None,
+        "registrant_did": registrant_did,
+        "registrant_name": registrant_name or None,
+        "registrant_kind": actor_kind,
+        "jurisdiction": jurisdiction,
+        "regulator_slug": regulator_slug,
+        "eligibility_evidence_url": evidence_url,
+        "eligibility_advice_vid": advice_vid,
+        "registered_at": None,
+        "expires_at": None,
+        "auto_renew": False,
+        "ns_provider": ns_provider,
+        "status": status,
+        "notes": notes,
+        "created_at": _now_iso(),
+        "org_id": _DOMAIN_ACTOR,
+        "user_id": registrant_did,
+        "actor_id": "domain.register.assist",
+    }
+    client.insert_row("vertex_domain_registration", row_dict)
 
     return {
         "ok": True,
@@ -411,9 +477,13 @@ async def task_domain_register_assist(**kwargs: Any) -> dict[str, Any]:
 async def task_domain_tld_catalog_refresh(**_kwargs: Any) -> dict[str, Any]:
     """Phase 1 stub. Phase 2 will fetch each TLD's eligibility_policy_url,
     diff against vertex_domain_eligibility_advice.policy_excerpt, and bump
-    effective_at + status when registry policies change."""
-    rows = _rw_query("SELECT COUNT(*) FROM vertex_domain_tld WHERE status = 'active'")
-    tld_count = int(rows[0][0]) if rows else 0
+    effective_at + status when registry policies change.
+    (Now uses kotoba Datom log instead of RisingWave.)"""
+    client = get_kotoba_client()
+    tld_count_float = client.aggregate_where(
+        "vertex_domain_tld", "count", "*", "status", "active"
+    )
+    tld_count = int(tld_count_float)
     return {
         "ok": True,
         "tldsChecked": tld_count,

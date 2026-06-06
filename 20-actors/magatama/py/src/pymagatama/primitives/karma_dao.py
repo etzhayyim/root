@@ -25,9 +25,10 @@ import json
 import logging
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 LOG = logging.getLogger("karma.dao")
 
@@ -81,22 +82,17 @@ async def task_karma_dao_find_voters(**kwargs: Any) -> dict[str, Any]:
 
     seeds: set[str] = set()
     if edge_id:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                SELECT source_did_at_event, target_did_at_event
-                FROM edge_karma_dependency
-                WHERE edge_id = %s
-                LIMIT 1
-                """,
-                (edge_id,),
-            )
-            row = cur.fetchone()
-            if row:
-                if row[0]:
-                    seeds.add(row[0])
-                if row[1]:
-                    seeds.add(row[1])
+        row = get_kotoba_client().select_first_where(
+            "edge_karma_dependency",
+            "edge_id",
+            edge_id,
+            columns=["source_did_at_event", "target_did_at_event"]
+        )
+        if row:
+            if row["source_did_at_event"]:
+                seeds.add(row["source_did_at_event"])
+            if row["target_did_at_event"]:
+                seeds.add(row["target_did_at_event"])
     else:
         if candidate.get("sourceDid"):
             seeds.add(candidate["sourceDid"])
@@ -110,63 +106,77 @@ async def task_karma_dao_find_voters(**kwargs: Any) -> dict[str, Any]:
     one_year_ago = _now_ms() - 365 * 24 * 60 * 60 * 1000
     five_years_ago = _now_ms() - 5 * 365 * 24 * 60 * 60 * 1000
 
-    with sync_cursor() as cur:
-        # Pregel superstep 1: 1-hop neighbors of seeds (in either direction).
-        seed_list = list(seeds)
-        placeholders = ",".join(["%s"] * len(seed_list))
-        cur.execute(
-            f"""
-            SELECT DISTINCT
-                CASE WHEN source_did_at_event IN ({placeholders})
-                     THEN target_did_at_event
-                     ELSE source_did_at_event
-                END AS neighbor_did
-            FROM edge_karma_dependency
-            WHERE source_did_at_event IN ({placeholders})
-               OR target_did_at_event IN ({placeholders})
-            """,
-            tuple(seed_list) * 3,
+    # R0: Complex SELECT DISTINCT with CASE WHEN and multiple WHERE conditions.
+    # Fetching data via multiple selects and processing in Python.
+    seed_list = list(seeds)
+    neighbors = set()
+
+    for seed_did in seed_list:
+        # Edges where seed_did is the source
+        source_edges = get_kotoba_client().select_where(
+            "edge_karma_dependency",
+            "source_did_at_event",
+            seed_did,
+            columns=["target_did_at_event"]
         )
-        neighbors = {r[0] for r in cur.fetchall() if r[0]}
+        for edge in source_edges:
+            if edge["target_did_at_event"]:
+                neighbors.add(edge["target_did_at_event"])
 
-        # Filter: positive karma streak + no recent floor violation.
-        candidates: list[str] = []
-        for did in neighbors:
-            if did in excluded:
-                continue
+        # Edges where seed_did is the target
+        target_edges = get_kotoba_client().select_where(
+            "edge_karma_dependency",
+            "target_did_at_event",
+            seed_did,
+            columns=["source_did_at_event"]
+        )
+        for edge in target_edges:
+            if edge["source_did_at_event"]:
+                neighbors.add(edge["source_did_at_event"])
 
-            # Has at least one help-direction edge in past 1y?
-            cur.execute(
-                """
-                SELECT count(*)
-                FROM edge_karma_dependency
-                WHERE source_did_at_event = %s
-                  AND direction = 'help'
-                  AND ts_ms >= %s
-                """,
-                (did, one_year_ago),
-            )
-            if int(cur.fetchone()[0]) == 0:
-                continue
+    neighbors = {r for r in neighbors if r} # Ensure no empty strings or None
 
-            # Zero floor violations in past 5y?
-            cur.execute(
-                """
-                SELECT count(*)
-                FROM edge_karma_dependency
-                WHERE source_did_at_event = %s
-                  AND tier = 'floor'
-                  AND direction = 'harm'
-                  AND ts_ms >= %s
-                """,
-                (did, five_years_ago),
-            )
-            if int(cur.fetchone()[0]) > 0:
-                continue
+    # Filter: positive karma streak + no recent floor violation.
+    candidates: list[str] = []
+    for did in neighbors:
+        if did in excluded:
+            continue
 
-            candidates.append(did)
-            if len(candidates) >= min_voters * 4:  # enough headroom
+        # Has at least one help-direction edge in past 1y?
+        # R0: Multiple predicates for count, filtering in Python.
+        help_edges = get_kotoba_client().select_where(
+            "edge_karma_dependency",
+            "source_did_at_event",
+            did,
+            columns=["direction", "ts_ms"]
+        )
+        found_help_edge = False
+        for edge in help_edges:
+            if edge["direction"] == "help" and edge["ts_ms"] >= one_year_ago:
+                found_help_edge = True
                 break
+        if not found_help_edge:
+            continue
+
+        # Zero floor violations in past 5y?
+        # R0: Multiple predicates for count, filtering in Python.
+        floor_violations = get_kotoba_client().select_where(
+            "edge_karma_dependency",
+            "source_did_at_event",
+            did,
+            columns=["tier", "direction", "ts_ms"]
+        )
+        found_floor_violation = False
+        for edge in floor_violations:
+            if edge["tier"] == "floor" and edge["direction"] == "harm" and edge["ts_ms"] >= five_years_ago:
+                found_floor_violation = True
+                break
+        if found_floor_violation:
+            continue
+
+        candidates.append(did)
+        if len(candidates) >= min_voters * 4:  # enough headroom
+            break
 
     return {"voters": candidates, "voterCount": len(candidates)}
 
@@ -199,34 +209,29 @@ async def task_karma_dao_open_arbitration(**kwargs: Any) -> dict[str, Any]:
     candidate_json = json.dumps(candidate, separators=(",", ":")) if candidate else None
     invited_csv = ",".join(voters)
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_karma_arbitration (
-                vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                arbitration_id, edge_id, candidate_json, opened_by_did,
-                opened_at, opened_at_ms, closes_at_ms,
-                voting_days, min_voters, invited_voters_csv,
-                rationale, status,
-                created_at, org_id, user_id, actor_id
-            ) VALUES (
-                %s, NULL, %s, 1, %s,
-                %s, %s, %s, %s,
-                %s, %s, %s,
-                %s, %s, %s,
-                %s, 'open',
-                %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, today_iso, opened_by,
-                arbitration_id, edge_id or None, candidate_json, opened_by,
-                opened_at, opened_at_ms, closes_at_ms,
-                voting_days, min_voters, invited_csv,
-                rationale,
-                opened_at, opened_by, opened_by, "karma.dao.openArbitration",
-            ),
-        )
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": today_iso,
+        "sensitivity_ord": 1,
+        "owner_did": opened_by,
+        "arbitration_id": arbitration_id,
+        "edge_id": edge_id or None,
+        "candidate_json": candidate_json,
+        "opened_by_did": opened_by,
+        "opened_at": opened_at,
+        "opened_at_ms": opened_at_ms,
+        "closes_at_ms": closes_at_ms,
+        "voting_days": voting_days,
+        "min_voters": min_voters,
+        "invited_voters_csv": invited_csv,
+        "rationale": rationale,
+        "status": "open",
+        "created_at": opened_at,
+        "org_id": opened_by,
+        "user_id": opened_by,
+        "actor_id": "karma.dao.openArbitration",
+    }
+    get_kotoba_client().insert_row("vertex_karma_arbitration", row_dict)
 
     return {"arbitrationId": arbitration_id, "closesAtMs": closes_at_ms}
 
@@ -236,19 +241,14 @@ async def task_karma_dao_open_arbitration(**kwargs: Any) -> dict[str, Any]:
 
 def _tally_for(arbitration_id: str) -> dict[str, int]:
     counts = {p: 0 for p in VOTE_POSITIONS}
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT vote_position, count(*)
-            FROM vertex_karma_vote
-            WHERE arbitration_id = %s
-            GROUP BY vote_position
-            """,
-            (arbitration_id,),
-        )
-        for pos, cnt in cur.fetchall():
-            if pos in counts:
-                counts[pos] = int(cnt)
+    # R0: Group by is not supported by select_where, aggregating in Python.
+    votes = get_kotoba_client().select_where(
+        "vertex_karma_vote", "arbitration_id", arbitration_id, columns=["vote_position"]
+    )
+    for vote in votes:
+        pos = vote["vote_position"]
+        if pos in counts:
+            counts[pos] += 1
     counts["total"] = sum(counts[p] for p in VOTE_POSITIONS)
     return counts
 
@@ -286,67 +286,63 @@ async def task_karma_dao_cast_vote(**kwargs: Any) -> dict[str, Any]:
 
     now_ms = _now_ms()
 
-    with sync_cursor() as cur:
-        # Verify arbitration is open + voter is invited + window not closed.
-        cur.execute(
-            """
-            SELECT status, closes_at_ms, invited_voters_csv
-            FROM vertex_karma_arbitration
-            WHERE arbitration_id = %s
-            LIMIT 1
-            """,
-            (arbitration_id,),
-        )
-        row = cur.fetchone()
-        if not row:
-            raise ValueError(f"arbitration {arbitration_id} not found")
-        status, closes_at_ms, invited_csv = row
-        if status != "open":
-            raise ValueError(f"arbitration not open (status={status})")
-        if int(closes_at_ms) <= now_ms:
-            raise ValueError("voting window closed")
-        invited = set((invited_csv or "").split(","))
-        if voter_did not in invited:
-            raise ValueError("voter not in invited set")
+    # Verify arbitration is open + voter is invited + window not closed.
+    row = get_kotoba_client().select_first_where(
+        "vertex_karma_arbitration",
+        "arbitration_id",
+        arbitration_id,
+        columns=["status", "closes_at_ms", "invited_voters_csv"]
+    )
+    if not row:
+        raise ValueError(f"arbitration {arbitration_id} not found")
+    status = row["status"]
+    closes_at_ms = row["closes_at_ms"]
+    invited_csv = row["invited_voters_csv"]
+    if status != "open":
+        raise ValueError(f"arbitration not open (status={status})")
+    if int(closes_at_ms) <= now_ms:
+        raise ValueError("voting window closed")
+    invited = set((invited_csv or "").split(","))
+    if voter_did not in invited:
+        raise ValueError("voter not in invited set")
 
-        # No double-vote check.
-        cur.execute(
-            """
-            SELECT count(*) FROM vertex_karma_vote
-            WHERE arbitration_id = %s AND voter_did = %s
-            """,
-            (arbitration_id, voter_did),
-        )
-        if int(cur.fetchone()[0]) > 0:
+    # No double-vote check.
+    # R0: Multiple predicates for existence check, filtering in Python.
+    existing_votes = get_kotoba_client().select_where(
+        "vertex_karma_vote",
+        "arbitration_id",
+        arbitration_id,
+        columns=["voter_did"]
+    )
+    for vote in existing_votes:
+        if vote["voter_did"] == voter_did:
             raise ValueError("voter already cast")
 
-        vote_id = _content_addressed_id(
-            "vote", arbitration_id, voter_did, position, str(now_ms)
-        )
-        vertex_id = f"vote-{vote_id}"
-        today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
+    vote_id = _content_addressed_id(
+        "vote", arbitration_id, voter_did, position, str(now_ms)
+    )
+    vertex_id = f"vote-{vote_id}"
+    today_iso = _dt.datetime.now(tz=_dt.UTC).date().isoformat()
 
-        cur.execute(
-            """
-            INSERT INTO vertex_karma_vote (
-                vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-                vote_id, arbitration_id, voter_did, vote_position,
-                signature, signature_alg, rationale_cid, ts_ms,
-                created_at, org_id, user_id, actor_id
-            ) VALUES (
-                %s, NULL, %s, 1, %s,
-                %s, %s, %s, %s,
-                %s, %s, %s, %s,
-                %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, today_iso, voter_did,
-                vote_id, arbitration_id, voter_did, position,
-                signature, signature_alg, rationale_cid, now_ms,
-                _now_ts(), voter_did, voter_did, "karma.dao.castVote",
-            ),
-        )
+    vote_row = {
+        "vertex_id": vertex_id,
+        "created_date": today_iso,
+        "sensitivity_ord": 1,
+        "owner_did": voter_did,
+        "vote_id": vote_id,
+        "arbitration_id": arbitration_id,
+        "voter_did": voter_did,
+        "vote_position": position,
+        "signature": signature,
+        "signature_alg": signature_alg,
+        "rationale_cid": rationale_cid,
+        "ts_ms": now_ms,
+        "created_at": _now_ts(),
+        "org_id": voter_did,
+        "user_id": voter_did,
+        "actor_id": "karma.dao.castVote",
+    }
+    get_kotoba_client().insert_row("vertex_karma_vote", vote_row)
 
     tally = _tally_for(arbitration_id)
     reached, majority_pos, pct = _supermajority_outcome(tally)
@@ -369,25 +365,26 @@ async def task_karma_dao_finalize(**kwargs: Any) -> dict[str, Any]:
     supermajority_pct = float(kwargs.get("supermajorityPct") or 0.0)
     finalized_at = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            UPDATE vertex_karma_arbitration
-            SET status = 'closed',
-                closed_at = %s,
-                finalized_position = %s,
-                finalized_at = %s,
-                finalized_supermajority_pct = %s
-            WHERE arbitration_id = %s
-            """,
-            (
-                finalized_at,
-                majority_position,
-                finalized_at,
-                supermajority_pct,
-                arbitration_id,
-            ),
-        )
+    # Fetch the existing arbitration row to update it.
+    # R0: Update operation converted to fetch, modify, and insert (upsert) pattern.
+    arbitration_row = get_kotoba_client().select_first_where(
+        "vertex_karma_arbitration",
+        "arbitration_id",
+        arbitration_id
+    )
+
+    if arbitration_row:
+        arbitration_row["status"] = "closed"
+        arbitration_row["closed_at"] = finalized_at
+        arbitration_row["finalized_position"] = majority_position
+        arbitration_row["finalized_at"] = finalized_at
+        arbitration_row["finalized_supermajority_pct"] = supermajority_pct
+
+        get_kotoba_client().insert_row("vertex_karma_arbitration", arbitration_row)
+    else:
+        # Handle case where arbitration_id is not found, although in a finalize scenario it should exist.
+        LOG.warning(f"Arbitration {arbitration_id} not found for finalization.")
+
 
     return {"finalizedAt": finalized_at}
 
@@ -403,60 +400,69 @@ async def task_karma_dao_sweep_expired(**kwargs: Any) -> dict[str, Any]:
     still_open = 0
     finalized_at = _now_ts()
 
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT arbitration_id
-            FROM vertex_karma_arbitration
-            WHERE status = 'open' AND closes_at_ms <= %s
-            ORDER BY closes_at_ms ASC
-            LIMIT 200
-            """,
-            (now_ms,),
-        )
-        expired_ids = [r[0] for r in cur.fetchall()]
+    # R0: Multiple WHERE conditions, ORDER BY, and LIMIT. Filtering, sorting, and limiting in Python.
+    all_open_arbitrations = get_kotoba_client().select_where(
+        "vertex_karma_arbitration",
+        "status",
+        "open",
+        columns=["arbitration_id", "closes_at_ms"]
+    )
+    # Filter by closes_at_ms
+    expired_arbitrations = [
+        arb for arb in all_open_arbitrations if arb["closes_at_ms"] <= now_ms
+    ]
+    # Sort by closes_at_ms ASC
+    expired_arbitrations.sort(key=lambda arb: arb["closes_at_ms"])
+    # Limit to 200
+    expired_ids = [arb["arbitration_id"] for arb in expired_arbitrations[:200]]
 
-        for arb_id in expired_ids:
-            tally = _tally_for(arb_id)
-            non_abstain = tally["total"] - tally.get("abstain", 0)
+    for arb_id in expired_ids:
+        tally = _tally_for(arb_id)
+        non_abstain = tally["total"] - tally.get("abstain", 0)
 
-            # Plurality among admit/floor/dismiss.
+        # Plurality among admit/floor/dismiss.
+        best_pos = "dismiss"
+        best_count = -1
+        tied = False
+        for pos in ("admit", "floor", "dismiss"):
+            c = tally.get(pos, 0)
+            if c > best_count:
+                best_pos = pos
+                best_count = c
+                tied = False
+            elif c == best_count:
+                tied = True
+
+        # Tied → conservative dismiss.
+        if tied:
             best_pos = "dismiss"
-            best_count = -1
-            tied = False
-            for pos in ("admit", "floor", "dismiss"):
-                c = tally.get(pos, 0)
-                if c > best_count:
-                    best_pos = pos
-                    best_count = c
-                    tied = False
-                elif c == best_count:
-                    tied = True
 
-            # Tied → conservative dismiss.
-            if tied:
-                best_pos = "dismiss"
+        pct = best_count / non_abstain if non_abstain > 0 else 0.0
 
-            pct = best_count / non_abstain if non_abstain > 0 else 0.0
+        # R0: Update operation converted to fetch, modify, and insert (upsert) pattern.
+        arbitration_row_to_update = get_kotoba_client().select_first_where(
+            "vertex_karma_arbitration",
+            "arbitration_id",
+            arb_id
+        )
 
-            cur.execute(
-                """
-                UPDATE vertex_karma_arbitration
-                SET status = 'closed',
-                    closed_at = %s,
-                    finalized_position = %s,
-                    finalized_at = %s,
-                    finalized_supermajority_pct = %s
-                WHERE arbitration_id = %s AND status = 'open'
-                """,
-                (finalized_at, best_pos, finalized_at, pct, arb_id),
-            )
+        if arbitration_row_to_update and arbitration_row_to_update["status"] == "open":
+            arbitration_row_to_update["status"] = "closed"
+            arbitration_row_to_update["closed_at"] = finalized_at
+            arbitration_row_to_update["finalized_position"] = best_pos
+            arbitration_row_to_update["finalized_at"] = finalized_at
+            arbitration_row_to_update["finalized_supermajority_pct"] = pct
+            get_kotoba_client().insert_row("vertex_karma_arbitration", arbitration_row_to_update)
             finalized += 1
 
-        cur.execute(
-            "SELECT count(*) FROM vertex_karma_arbitration WHERE status = 'open'"
-        )
-        still_open = int(cur.fetchone()[0])
+    # R0: Counting with a single predicate, using select_where and len in Python.
+    all_open = get_kotoba_client().select_where(
+        "vertex_karma_arbitration",
+        "status",
+        "open",
+        columns=["arbitration_id"] # Fetching minimal columns for count
+    )
+    still_open = len(all_open)
 
     return {"finalized": finalized, "stillOpen": still_open}
 

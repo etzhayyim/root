@@ -89,3 +89,19 @@ export type {
 } from './types';
 
 export { randomCharacterAppearance } from './types';
+
+// Same-origin /profile auth (ADR-2606060000): WebAuthn/passkey + SIWE → CACAO.
+export { default as ProfileEditGate } from './ProfileEditGate.svelte';
+export {
+	buildProfileCacao,
+	siweMessage,
+	signCacaoEd25519,
+	signCacaoSiwe,
+	didPkhEip155,
+	graphResource,
+	CAP_DATOM_TRANSACT,
+	CAP_DATOM_READ,
+} from './cacao';
+export type { Cacao, CacaoPayload, Eip1193Provider, BuildCacaoParams } from './cacao';
+export { signInWithPasskey, signInWithWallet } from './profile-signin';
+export type { VerifyCacaoResult, SignInDeps } from './profile-signin';

@@ -16,12 +16,13 @@ import json
 import time
 import urllib.error
 import urllib.request
+from datetime import timezone
 from typing import Any
 
 import aiohttp
 
 from pymagatama import llm as _llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 _OWNER_DID = "did:web:jp-fiscal.etzhayyim.com"
@@ -113,31 +114,37 @@ async def task_jp_fiscal_ingest_edinet(
             "350": "変更報告書",
         }.get(doc_type_code[:3], f"訂正({doc_type_code})")
 
-        with sync_cursor() as cur:
-            try:
-                cur.execute(
-                    "INSERT INTO vertex_jp_fiscal_beneficial_owner "
-                    "(vertex_id, created_date, sensitivity_ord, owner_did, "
-                    "child_did, child_jcn, parent_did, parent_type, "
-                    "evidence_kind, evidence_url, observed_at, status, "
-                    "external_refs_json, pii_tier, source_id, document_id, "
-                    "actor_did, org_did, created_at) "
-                    "VALUES (%s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s)",
-                    (
-                        vid, target_date, 100, _OWNER_DID,
-                        child_did, target, parent_did, "LEGAL",
-                        "EDINET", evidence_url, target_date, "PENDING",
-                        f'[{{"source":"EDINET","id":"{doc_id}","form":"{form_name}"}}]',
-                        1, "EDINET", doc_id,
-                        _OWNER_DID, "anon", now,
-                    ),
-                )
-                written += 1
-            except Exception as e:  # noqa: BLE001
-                if _is_dup_error(e):
+                try:
+                    get_kotoba_client().insert_row(
+                        "vertex_jp_fiscal_beneficial_owner",
+                        {
+                            "vertex_id": vid,
+                            "created_date": target_date,
+                            "sensitivity_ord": 100,
+                            "owner_did": _OWNER_DID,
+                            "child_did": child_did,
+                            "child_jcn": target,
+                            "parent_did": parent_did,
+                            "parent_type": "LEGAL",
+                            "evidence_kind": "EDINET",
+                            "evidence_url": evidence_url,
+                            "observed_at": target_date,
+                            "status": "PENDING",
+                            "external_refs_json": f'[{{"source":"EDINET","id":"{doc_id}","form":"{form_name}"}}]',
+                            "pii_tier": 1,
+                            "source_id": "EDINET",
+                            "document_id": doc_id,
+                            "actor_did": _OWNER_DID,
+                            "org_did": "anon",
+                            "created_at": now,
+                        },
+                    )
                     written += 1
-                else:
-                    errors += 1
+                except Exception as e:  # noqa: BLE001
+                    if _is_dup_error(e):
+                        written += 1
+                    else:
+                        errors += 1
 
     return {
         "ok": True,
@@ -219,30 +226,35 @@ async def task_jp_fiscal_ingest_egov_contracts(
                 kaikeiho_article = "29-3" if method in ("zuikei-random", "随契") else "29-1"
                 vid = _contract_vid(ministry, contract_no, seq)
 
-                with sync_cursor() as cur:
-                    try:
-                        cur.execute(
-                            "INSERT INTO vertex_jp_fiscal_contract "
-                            "(vertex_id, created_date, sensitivity_ord, owner_did, "
-                            "issuer_did, contractor_did, contractor_jcn, contract_no, "
-                            "method, amount_jpy, signed_date, deliverable, "
-                            "kaikeiho_article, publication_url, "
-                            "actor_did, org_did, created_at) "
-                            "VALUES (%s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s,%s, %s,%s, %s,%s,%s)",
-                            (
-                                vid, today, 100, _OWNER_DID,
-                                ministry_did, contractor_did, contractor_jcn, contract_no,
-                                method, amount_jpy, signed_date, deliverable,
-                                kaikeiho_article, url,
-                                _OWNER_DID, "anon", now,
-                            ),
-                        )
+                try:
+                    get_kotoba_client().insert_row(
+                        "vertex_jp_fiscal_contract",
+                        {
+                            "vertex_id": vid,
+                            "created_date": today,
+                            "sensitivity_ord": 100,
+                            "owner_did": _OWNER_DID,
+                            "issuer_did": ministry_did,
+                            "contractor_did": contractor_did,
+                            "contractor_jcn": contractor_jcn,
+                            "contract_no": contract_no,
+                            "method": method,
+                            "amount_jpy": amount_jpy,
+                            "signed_date": signed_date,
+                            "deliverable": deliverable,
+                            "kaikeiho_article": kaikeiho_article,
+                            "publication_url": url,
+                            "actor_did": _OWNER_DID,
+                            "org_did": "anon",
+                            "created_at": now,
+                        },
+                    )
+                    written += 1
+                except Exception as e:  # noqa: BLE001
+                    if _is_dup_error(e):
                         written += 1
-                    except Exception as e:  # noqa: BLE001
-                        if _is_dup_error(e):
-                            written += 1
-                        else:
-                            errors += 1
+                    else:
+                        errors += 1
 
             ministry_results[ministry] = {"written": written, "errors": errors, "rows": len(rows)}
             total_written += written
@@ -285,21 +297,42 @@ def _polite_fetch_sync(url: str, ua: str | None = None) -> str:
 
 
 def _load_dsls(only: str | None = None) -> list[dict[str, Any]]:
-    q = (
-        "SELECT d.vertex_id AS dsl_vid, s.source_url, s.ministry_did, s.ua, s.rate_ms,"
-        " s.content_type, d.target_table, d.target_columns, d.extract_hints,"
-        " d.edge_emit, d.llm_model, d.max_rows_per_run, d.prompt_override"
-        " FROM vertex_scraper_dsl d"
-        " JOIN vertex_scraper_source s ON s.vertex_id = d.source_vid"
-    )
-    with sync_cursor() as cur:
-        if only:
-            cur.execute(q + " WHERE d.vertex_id = %s AND s.status = 'active'", (only,))
-        else:
-            cur.execute(q + " WHERE s.status = 'active' AND d.dsl_kind = 'schema-first'"
-                        + f" LIMIT {50}")
-        col_names = [c[0] for c in cur.description]
-        return [dict(zip(col_names, row)) for row in (cur.fetchall() or [])]
+    # R0: Replaced SQL JOIN with in-Python join of select_where results.
+    client = get_kotoba_client()
+    dsls_raw: list[dict[str, Any]] = []
+
+    if only:
+        # Fetch DSLs directly by vertex_id
+        dsls_raw = client.select_where("vertex_scraper_dsl", "vertex_id", only)
+    else:
+        # Fetch DSLs by dsl_kind and apply limit
+        dsls_raw = client.select_where("vertex_scraper_dsl", "dsl_kind", "schema-first", limit=50)
+
+    results = []
+    for dsl in dsls_raw:
+        source_vid = dsl.get("source_vid")
+        if not source_vid:
+            continue
+
+        source = client.select_first_where("vertex_scraper_source", "vertex_id", source_vid)
+        if source and source.get("status") == "active":
+            # Manually construct the combined dictionary as per the original SELECT clause
+            results.append({
+                "dsl_vid": dsl.get("vertex_id"),
+                "source_url": source.get("source_url"),
+                "ministry_did": source.get("ministry_did"),
+                "ua": source.get("ua"),
+                "rate_ms": source.get("rate_ms"),
+                "content_type": source.get("content_type"),
+                "target_table": dsl.get("target_table"),
+                "target_columns": dsl.get("target_columns"),
+                "extract_hints": dsl.get("extract_hints"),
+                "edge_emit": dsl.get("edge_emit"),
+                "llm_model": dsl.get("llm_model"),
+                "max_rows_per_run": dsl.get("max_rows_per_run"),
+                "prompt_override": dsl.get("prompt_override"),
+            })
+    return results
 
 
 def _record_scraper_run(
@@ -309,19 +342,24 @@ def _record_scraper_run(
 ) -> None:
     run_id = f"run-{int(time.time() * 1000)}-{dsl_vid[-8:]}"
     now = _now_iso()
-    with sync_cursor() as cur:
-        cur.execute(
-            "INSERT INTO vertex_scraper_run"
-            " (vertex_id, dsl_vid, started_at, finished_at, status,"
-            "  extracted_rows, emitted_records, emitted_edges, error_summary,"
-            "  created_date, sensitivity_ord, owner_did, created_at)"
-            " VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                run_id, dsl_vid, now, now, status,
-                extracted, emitted, edges, err_summary,
-                _today(), 100, _OWNER_DID, now,
-            ),
-        )
+    get_kotoba_client().insert_row(
+        "vertex_scraper_run",
+        {
+            "vertex_id": run_id,
+            "dsl_vid": dsl_vid,
+            "started_at": now,
+            "finished_at": now,
+            "status": status,
+            "extracted_rows": extracted,
+            "emitted_records": emitted,
+            "emitted_edges": edges,
+            "error_summary": err_summary,
+            "created_date": _today(),
+            "sensitivity_ord": 100,
+            "owner_did": _OWNER_DID,
+            "created_at": now,
+        },
+    )
 
 
 def _run_single_dsl(dsl: dict[str, Any]) -> dict[str, Any]:
@@ -357,11 +395,12 @@ def _run_single_dsl(dsl: dict[str, Any]) -> dict[str, Any]:
             col_str = ", ".join(cols)
             val_str = ", ".join(["%s"] * len(cols))
             try:
-                with sync_cursor() as cur:
-                    cur.execute(
-                        f"INSERT INTO {dsl['target_table']} ({col_str}) VALUES ({val_str})",
-                        [row[c] for c in cols],
-                    )
+                # Construct the row_dict from selected columns in 'cols'
+                row_dict = {c: row[c] for c in cols}
+                get_kotoba_client().insert_row(
+                    dsl['target_table'],
+                    row_dict,
+                )
                 emitted += 1
             except Exception as e:  # noqa: BLE001
                 print(f"[jp_fiscal dsl insert] {dsl['target_table']}: {e!s:.200}")

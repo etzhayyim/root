@@ -14,7 +14,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.yoro_social import build_repo_record, insert_social_post_record
 
 
@@ -123,9 +123,7 @@ def _domain_vertex_id(collection: str, key: str) -> str:
     return f"at://{ASHIBA_DID}/{collection}/{key}"
 
 
-def _rows(cur: Any) -> list[dict[str, Any]]:
-    cols = [d[0] for d in (cur.description or [])]
-    return [{cols[i]: _jsonable(row[i]) for i in range(len(cols))} for row in cur.fetchall()]
+
 
 
 def _write_social_post_record(repo: str, collection: str, record: dict[str, Any], *, rkey: str = "") -> dict[str, Any]:
@@ -188,33 +186,27 @@ def _write_domain_vertex(collection: str, record: dict[str, Any], *, rkey: str =
     placeholders = ",".join(["%s"] * len(columns))
     update_columns = [column for column in columns if column not in {"vertex_id", "created_at"}]
     update_sql = ", ".join(f"{column} = COALESCE(EXCLUDED.{column}, {table}.{column})" for column in update_columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {update_sql}
-            """,
-            tuple([base[column] for column in base] + [promoted[column] for column in promoted]),
-        )
+    row_dict = {**base, **promoted}
+    get_kotoba_client().insert_row(table, row_dict)
     _write_domain_edges(collection, key, vertex_id, record, now)
     return {"uri": vertex_id, "rkey": key}
 
 
 def _write_edge(table: str, edge_key: str, src_vid: str, dst_vid: str, relation: str, record: dict[str, Any], now: str) -> None:
     edge_id = f"{table}:{edge_key}"
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table}
-              (edge_id,edge_key,src_vid,dst_vid,relation,value_json,created_at,updated_at,owner_did,sensitivity_ord)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            ON CONFLICT (edge_id) DO UPDATE SET
-              value_json = EXCLUDED.value_json,
-              updated_at = EXCLUDED.updated_at
-            """,
-            (edge_id, edge_key, src_vid, dst_vid, relation, _json_dumps(record), now, now, ASHIBA_DID, 2),
-        )
+    row_dict = {
+        "edge_id": edge_id,
+        "edge_key": edge_key,
+        "src_vid": src_vid,
+        "dst_vid": dst_vid,
+        "relation": relation,
+        "value_json": _json_dumps(record),
+        "created_at": now,
+        "updated_at": now,
+        "owner_did": ASHIBA_DID,
+        "sensitivity_ord": 2,
+    }
+    get_kotoba_client().insert_row(table, row_dict)
 
 
 def _write_domain_edges(collection: str, key: str, vertex_id: str, record: dict[str, Any], now: str) -> None:
@@ -251,39 +243,72 @@ def task_jp_ashiba_list_catalog(category: str = "", offset: Any = 0, limit: Any 
         clauses.append('"category" = %s')
         params.append(category)
     where = f" WHERE {' AND '.join(clauses)}" if clauses else ""
-    with sync_cursor() as cur:
-        cur.execute(f'SELECT * FROM "vertex_ScaffoldItem"{where} OFFSET {offset_n} LIMIT {limit_n}', tuple(params))
-        items = _rows(cur)
-        cur.execute(
-            f'SELECT coalesce(sum(cnt), 0) AS count FROM "mv_scaffold_item_count_by_category"{where}',
-            tuple(params),
-        )
-        total = int((_rows(cur)[0] or {}).get("count") or 0)
+    client = get_kotoba_client()
+    if category:
+        all_items = client.select_where("vertex_ScaffoldItem", "category", category)
+    else:
+        # R0: No direct way to select_all without a specific predicate, using q and filtering in Python for offset/limit.
+        all_items_raw = client.q('[:find (pull ?e [*]) :where [?e :vertex_ScaffoldItem/vertex_id _]]')
+        all_items = [item[0] for item in all_items_raw]
+
+    items = all_items[offset_n : offset_n + limit_n]
+
+    # For total, use q for aggregation as aggregate_where only supports count.
+    # R0: Aggregation of sum(cnt) from mv_scaffold_item_count_by_category using q.
+    if category:
+        query_edn_total = f"""
+        [:find (sum ?cnt) .
+         :in $category
+         :where
+         [?e :mv_scaffold_item_count_by_category/vertex_id _]
+         [?e :mv_scaffold_item_count_by_category/cnt ?cnt]
+         [?e :mv_scaffold_item_count_by_category/category $category]
+        ]
+        """
+        total_raw = client.q(query_edn_total, args=[category])
+    else:
+        query_edn_total = f"""
+        [:find (sum ?cnt) .
+         :where
+         [?e :mv_scaffold_item_count_by_category/vertex_id _]
+         [?e :mv_scaffold_item_count_by_category/cnt ?cnt]
+        ]
+        """
+        total_raw = client.q(query_edn_total)
+
+    total = int(total_raw or 0)
     return {"items": items, "offset": offset_n, "limit": limit_n, "total": total}
 
 
 def task_jp_ashiba_get_item(itemId: str = "", **_: Any) -> dict[str, Any]:
     if not itemId:
         return {"error": "itemId required"}
-    with sync_cursor() as cur:
-        cur.execute('SELECT * FROM "vertex_ScaffoldItem" WHERE "itemId" = %s LIMIT 1', (itemId,))
-        rows = _rows(cur)
-    return rows[0] if rows else {"error": "not_found"}
+    client = get_kotoba_client()
+    row = client.select_first_where("vertex_ScaffoldItem", "itemId", itemId)
+    return row if row else {"error": "not_found"}
 
 
 def task_jp_ashiba_check_availability(
     category: str = "", quantity: Any = 1, startDate: str = "", endDate: str = "", **_: Any
 ) -> dict[str, Any]:
     qty = _bounded_int(quantity, 1, min_value=1, max_value=100_000)
-    with sync_cursor() as cur:
-        cur.execute(
-            'SELECT "itemId", "spec", "availableStock", "unitPrice" '
-            'FROM "vertex_ScaffoldItem" '
-            'WHERE "category" = %s AND "condition" = %s AND "availableStock" >= %s '
-            "LIMIT 20",
-            (category, "good", qty),
-        )
-        items = _rows(cur)
+    client = get_kotoba_client()
+    qty = _bounded_int(quantity, 1, min_value=1, max_value=100_000)
+
+    # R0: Multiple predicates and comparison (availableStock >= qty) handled in Datalog. LIMIT 20 applied in Python.
+    query_edn = f"""
+    [:find (pull ?e ["itemId" "spec" "availableStock" "unitPrice"])
+     :in $category $condition
+     :where
+     [?e :vertex_ScaffoldItem/category $category]
+     [?e :vertex_ScaffoldItem/condition $condition]
+     [?e :vertex_ScaffoldItem/availableStock ?availableStock]
+     [(>= ?availableStock {qty})]
+    ]
+    """
+    items_raw = client.q(query_edn, args=[category, "good"])
+    items = [item[0] for item in items_raw][:20] # Apply LIMIT 20 in Python
+    return {"available": bool(items), "items": items, "requestedPeriod": {"startDate": startDate, "endDate": endDate}}
     return {"available": bool(items), "items": items, "requestedPeriod": {"startDate": startDate, "endDate": endDate}}
 
 
@@ -293,16 +318,15 @@ def task_jp_ashiba_create_quote(
     org_id, user_id = _ctx_defaults(orgId, userId)
     quote_items: list[dict[str, Any]] = []
     total_amount = 0.0
+    client = get_kotoba_client()
     for item in items if isinstance(items, list) else []:
         item_id = str(item.get("itemId") or "")
         qty = _num(item.get("quantity"))
         days = _num(item.get("days"))
-        with sync_cursor() as cur:
-            cur.execute('SELECT "unitPrice", "availableStock" FROM "vertex_ScaffoldItem" WHERE "itemId" = %s LIMIT 1', (item_id,))
-            rows = _rows(cur)
-        if not rows:
+        row = client.select_first_where("vertex_ScaffoldItem", "itemId", item_id, columns=["unitPrice", "availableStock"])
+        if not row:
             continue
-        unit_price = _num(rows[0].get("unitPrice"))
+        unit_price = _num(row.get("unitPrice"))
         line_total = unit_price * qty * days
         total_amount += line_total
         quote_items.append({**item, "unitPrice": unit_price, "lineTotal": line_total})
@@ -402,18 +426,28 @@ def task_jp_ashiba_cancel_subscription(subscriptionId: str = "", reason: str = "
 
 
 def task_jp_ashiba_get_usage_summary(subscriptionId: str = "", **_: Any) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute("SELECT * FROM vertex_jp_ashiba_subscription_plan WHERE subscription_id = %s LIMIT 1", (subscriptionId,))
-        subs = _rows(cur)
-        if not subs:
-            return {"error": "not_found"}
-        cur.execute(
-            "SELECT contract_id, value_json, start_date, end_date FROM vertex_jp_ashiba_rental_contract "
-            "WHERE customer_did = %s AND status = %s LIMIT 100",
-            (subs[0].get("customer_did"), "inUse"),
-        )
-        contracts = _rows(cur)
-    return {"subscription": subs[0], "activeRentals": contracts, "activeCount": len(contracts)}
+    client = get_kotoba_client()
+    subs = client.select_first_where("vertex_jp_ashiba_subscription_plan", "subscription_id", subscriptionId)
+    if not subs:
+        return {"error": "not_found"}
+
+    customer_did = subs.get("customer_did")
+    if not customer_did: # Should not happen if subs is valid, but good to check.
+        return {"error": "customer_did not found for subscription"}
+
+    # R0: Multiple predicates (customer_did AND status) handled in Datalog. LIMIT 100 applied in Python.
+    query_edn_contracts = f"""
+    [:find (pull ?e ["contract_id" "value_json" "start_date" "end_date"])
+     :in $customer_did $status
+     :where
+     [?e :vertex_jp_ashiba_rental_contract/customer_did $customer_did]
+     [?e :vertex_jp_ashiba_rental_contract/status $status]
+    ]
+    """
+    contracts_raw = client.q(query_edn_contracts, args=[customer_did, "inUse"])
+    contracts = [contract[0] for contract in contracts_raw][:100] # Apply LIMIT 100 in Python
+
+    return {"subscription": subs, "activeRentals": contracts, "activeCount": len(contracts)}
 
 
 def task_jp_ashiba_schedule_delivery(contractId: str = "", taskType: str = "", scheduledDate: str = "", assignedCrewDid: str = "", orgId: str = "", userId: str = "", **_: Any) -> dict[str, Any]:

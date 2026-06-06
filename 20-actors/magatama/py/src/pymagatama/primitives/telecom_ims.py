@@ -23,14 +23,10 @@ single row that bridges Phase 1 service / Phase 4 PDU session / Phase 3
 interconnect.
 """
 
-from __future__ import annotations
-
-import hashlib
-import secrets
 from datetime import UTC, datetime
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 TELECOM_DID = "did:web:telecom.etzhayyim.com"
@@ -107,14 +103,7 @@ def _audit(payload: dict[str, Any]) -> dict[str, Any]:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            tuple(row[c] for c in columns),
-        )
+    get_kotoba_client().insert_row(table, row)
 
 
 def _vid(kind: str, ident: str) -> str:
@@ -275,30 +264,35 @@ def task_telecom_voice_terminate(
     duration = None
     final_status = "released" if releaseCause == "normal" else "failed"
     if not dryRun:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_telecom_voice_call
-                   SET released_at = %s,
-                       release_cause = %s,
-                       released_by = %s,
-                       sip_response_code = %s,
-                       duration_seconds =
-                         CASE
-                           WHEN answered_at IS NULL THEN 0
-                           ELSE EXTRACT(EPOCH FROM (CAST(%s AS timestamptz) - CAST(answered_at AS timestamptz)))
-                         END,
-                       status = %s
-                 WHERE vertex_id = %s
-             RETURNING duration_seconds
-                """,
-                (releasedAt, releaseCause, releasedBy,
-                 int(sipResponseCode) if sipResponseCode is not None else None,
-                 releasedAt, final_status, vid),
-            )
-            row = cur.fetchone()
-            if row:
-                duration = float(row[0]) if row[0] is not None else None
+        client = get_kotoba_client()
+        # R0: Fetch existing call to calculate duration in Python
+        existing_call = client.select_first_where(
+            "vertex_telecom_voice_call", "vertex_id", vid, columns=["answered_at"]
+        )
+        answered_at_str = existing_call.get("answered_at") if existing_call else None
+
+        calculated_duration = None
+        if answered_at_str:
+            try:
+                answered_dt = datetime.fromisoformat(answered_at_str.replace("Z", "+00:00"))
+                released_dt = datetime.fromisoformat(releasedAt.replace("Z", "+00:00"))
+                calculated_duration = (released_dt - answered_dt).total_seconds()
+            except ValueError:
+                calculated_duration = 0.0
+        else:
+            calculated_duration = 0.0
+
+        update_row = {
+            "vertex_id": vid,  # Ensure vertex_id is present for upsert
+            "released_at": releasedAt,
+            "release_cause": releaseCause,
+            "released_by": releasedBy,
+            "sip_response_code": int(sipResponseCode) if sipResponseCode is not None else None,
+            "duration_seconds": calculated_duration,
+            "status": final_status,
+        }
+        client.insert_row("vertex_telecom_voice_call", update_row)
+        duration = calculated_duration
     return {"ok": True, "vertexId": vid, "callId": callId,
             "durationSeconds": duration, "status": final_status}
 
