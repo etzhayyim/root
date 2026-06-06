@@ -10,7 +10,7 @@ status = "expired-pharma-worker-wiring"
 [orchestration]
 dispatcher = "bpmn-dispatcher"
 worker = "worker/python/patent_expiry_worker.py"
-graph = "risingwave"
+graph = "kotoba"
 coverage_manifest = "../../70-tools/config/bpmn-coverage-manifest.json"
 coverage_area = "patent-expired-pharma"
 
