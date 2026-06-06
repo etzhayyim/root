@@ -33,10 +33,18 @@ try:
 except ImportError:
     from mitooshi.methods.analyze import load_edn  # type: ignore
 
-# import the canonical gate logic from the calibration_gate cell (single source of truth)
-_CELL = pathlib.Path(__file__).resolve().parent.parent / "cells" / "calibration_gate"
-sys.path.insert(0, str(_CELL))
-from state_machine import DEFAULT_DEVIATION_MAX, review_promotion  # type: ignore  # noqa: E402
+# the canonical gate logic from the calibration_gate cell (single source of truth).
+# Loaded under a UNIQUE module name to avoid colliding with other cells' state_machine.py.
+import importlib.util as _ilu
+
+_CG = (pathlib.Path(__file__).resolve().parent.parent / "cells" / "calibration_gate"
+       / "state_machine.py")
+_spec = _ilu.spec_from_file_location("mitooshi_calibration_gate_sm", _CG)
+_cg_mod = _ilu.module_from_spec(_spec)
+sys.modules[_spec.name] = _cg_mod          # register so the cell's @dataclass resolves
+_spec.loader.exec_module(_cg_mod)  # type: ignore
+DEFAULT_DEVIATION_MAX = _cg_mod.DEFAULT_DEVIATION_MAX
+review_promotion = _cg_mod.review_promotion
 
 
 def decide_from_scorecard(rows: list[dict], signed_by: str = "",

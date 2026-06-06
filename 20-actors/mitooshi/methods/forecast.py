@@ -37,10 +37,17 @@ except ImportError:
         Forecast, Observation, calibration_summary, climatology_gaussian,
         gaussian_crps, persistence_gaussian, score_pair, skill_score)
 
-# the canonical online recalibration from the online_update cell (single source of truth)
-_CELL = pathlib.Path(__file__).resolve().parent.parent / "cells" / "online_update"
-sys.path.insert(0, str(_CELL))
-from state_machine import apply_correction  # type: ignore  # noqa: E402
+# the canonical online recalibration from the online_update cell (single source of truth).
+# Loaded under a UNIQUE module name to avoid colliding with other cells' state_machine.py.
+import importlib.util as _ilu
+
+_OU = (pathlib.Path(__file__).resolve().parent.parent / "cells" / "online_update"
+       / "state_machine.py")
+_spec = _ilu.spec_from_file_location("mitooshi_online_update_sm", _OU)
+_ou_mod = _ilu.module_from_spec(_spec)
+sys.modules[_spec.name] = _ou_mod          # register so the cell's @dataclass resolves
+_spec.loader.exec_module(_ou_mod)  # type: ignore
+apply_correction = _ou_mod.apply_correction
 
 METHODS = ("climatology", "persistence")
 
@@ -254,12 +261,16 @@ def main(argv: list[str]) -> int:
     rows = load_edn(trail)
 
     if "--backtest" in argv:
-        comp = compare_methods(rows)
+        cal = "--calibrated" in argv                      # calibrated scorecard if requested
+        comp = ({m: backtest_calibrated(rows, m) for m in METHODS} if cal
+                else compare_methods(rows))
         if "--out" in argv:
             outdir = pathlib.Path(argv[argv.index("--out") + 1])
             outdir.mkdir(parents=True, exist_ok=True)
-            (outdir / "chokepoint-backtest-scorecard.kotoba.edn").write_text(emit_scorecard_edn(comp))
-        print("mitooshi rolling-origin backtest (leak-free at each origin):")
+            fname = ("chokepoint-backtest-scorecard-calibrated.kotoba.edn" if cal
+                     else "chokepoint-backtest-scorecard.kotoba.edn")
+            (outdir / fname).write_text(emit_scorecard_edn(comp))
+        print(f"mitooshi rolling-origin backtest ({'calibrated, ' if cal else ''}leak-free at each origin):")
         for m, s in sorted(comp.items()):
             print(f"  {m:12s} n={s['n']:3d}  mean-CRPS={s['mean_crps']}  "
                   f"mean-skill={s['mean_skill']:+}  PIT-mean={round(s['calibration']['pit_mean'], 3)}")
