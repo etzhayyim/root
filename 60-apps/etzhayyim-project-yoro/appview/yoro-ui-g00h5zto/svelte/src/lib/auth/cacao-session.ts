@@ -39,6 +39,7 @@ import {
 	type Cacao,
 } from './cacao.js';
 import { accountPrfSalt, prfEvalExtension, extractPrfSecret } from './prf.js';
+import { makeGetWrap, makePutWrap } from './account.js';
 
 const VERIFY_PATH = '/xrpc/com.etzhayyim.authz.verifyCacao';
 /** Apex rpId for the same-origin WebAuthn ceremony (no authn subdomain). */
@@ -371,16 +372,30 @@ export async function signInWithPasskeyCacao(
 	return establishCacaoSession(prfSecret, getStoredDid(), credentialId, deps);
 }
 
-function base64urlDecodeToBytes(s: string): Uint8Array {
+function base64urlDecodeToBytes(s: string): ArrayBuffer {
 	s = s.replace(/-/g, '+').replace(/_/g, '/');
 	while (s.length % 4) s += '=';
 	const binary = atob(s);
 	const out = new Uint8Array(binary.length);
 	for (let i = 0; i < binary.length; i++) out[i] = binary.charCodeAt(i);
-	return out;
+	// Return a concrete ArrayBuffer (a valid WebAuthn BufferSource for `id`).
+	return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
 }
 
 /** Re-derive a session key from a known ARK (used in tests + recovery paths). */
 export async function sessionKeyFromArk(ark: Uint8Array): Promise<SessionKey> {
 	return deriveSessionKeyPair(ark);
+}
+
+/**
+ * Default header / onboarding sign-in: same-origin passkey → CACAO over the
+ * kotoba zero-access ARK custody (NOT authn). The single convenience entrypoint
+ * shared by the header, `/welcome` and `/profile` so the wrap-store wiring lives
+ * in one place. Per ADR-2606061500 §4 the empty bearer is honest: the wrap-store
+ * CACAO-hardening is a kotoba-node follow-up (zero-access ciphertext until then).
+ */
+export async function headerCacaoSignIn(
+	overrides: Partial<CacaoSessionDeps> = {},
+): Promise<EstablishOutcome> {
+	return signInWithPasskeyCacao({ getWrap: makeGetWrap(''), putWrap: makePutWrap('') }, overrides);
 }

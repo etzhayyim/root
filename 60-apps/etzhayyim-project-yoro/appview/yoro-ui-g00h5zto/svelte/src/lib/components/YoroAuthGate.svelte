@@ -4,10 +4,17 @@
 	import { fade } from 'svelte/transition';
 
 	interface Props {
-		signInUrl: string;
-		signUpUrl: string;
+		/** Legacy authn redirect targets (used only when `onAuth` is absent). */
+		signInUrl?: string;
+		signUpUrl?: string;
+		/**
+		 * ADR-2606061500: same-origin CACAO sign-in handler. When provided it takes
+		 * precedence over the authn URL navigation — every auth button runs the
+		 * passkey → CACAO ceremony on this origin instead of hopping to authn.
+		 */
+		onAuth?: () => void | Promise<void>;
 	}
-	const { signInUrl, signUpUrl }: Props = $props();
+	const { signInUrl = '', signUpUrl = '', onAuth }: Props = $props();
 
 	let step = $state<'welcome' | 'auth'>('welcome');
 	let bouncing = $state(false);
@@ -76,16 +83,19 @@
 
 	function goAgentLogin() {
 		playSuccess();
+		if (onAuth) { void onAuth(); return; }
 		window.location.href = buildUrl(signInUrl);
 	}
 
 	function goCreateAgent() {
 		playSuccess();
+		if (onAuth) { void onAuth(); return; }
 		window.location.href = buildUrl(signUpUrl);
 	}
 
 	function goHumanLogin() {
 		playSuccess();
+		if (onAuth) { void onAuth(); return; }
 		window.location.href = buildUrl(signInUrl) + '&mode=human';
 	}
 
@@ -95,6 +105,7 @@
 	// the WebAuthn passkey + Smart Account flow instead of the credit-gated path.
 	function goAdherentJoin() {
 		playSuccess();
+		if (onAuth) { void onAuth(); return; }
 		window.location.href = buildUrl(signUpUrl) + '&mode=adherent';
 	}
 </script>
