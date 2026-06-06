@@ -141,9 +141,12 @@ python3 20-actors/tsumugi/methods/coverage_report.py
 python3 20-actors/tsumugi/methods/ingest_influence.py
 #   → out/seed-plus-ingest.kotoba.edn — run analyze/coverage on THIS to see the lift
 python3 20-actors/tsumugi/methods/analyze_influence.py 20-actors/tsumugi/out/seed-plus-ingest.kotoba.edn
-# live ingest is G7-gated (refused without the operator gate):
-TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… python3 …/ingest_influence.py --live
-# tests (22 total: 12 invariant/seed + 10 coverage/ingest)
+# live ingest (REAL Wikidata WDQS P737 fetch, stdlib urllib) — G7-gated, refused w/o operator gate:
+TSUMUGI_OPERATOR_GATE=1 TSUMUGI_OPERATOR_DID=did:web:… \
+  python3 …/ingest_influence.py --live --limit 200 [--no-pantheon]
+#   → writes out/seed-plus-ingest-live.kotoba.edn ONLY (gitignored); the committed seed is
+#     NEVER auto-mutated — promotion into the canonical seed is a separate human-reviewed PR.
+# tests (25 total: 12 invariant/seed + 13 coverage/ingest incl. hermetic WDQS-parse fixtures)
 python3 20-actors/tsumugi/tests/test_influence.py
 python3 20-actors/tsumugi/tests/test_ingest_coverage.py
 ```
@@ -156,3 +159,10 @@ influence backbone of recorded thought — and names what is thin/missing. After
 `ingest_influence.py` live path (Wikidata `influencedBy` P737 / Pantheon → `:flow/` 縁;
 **N4 admits deceased/settled public figures only** — living-private persons stay the
 Council-Lv7+ `:human` scale; **N1** keeps notability off the node, influence on the edge).
+
+The live WDQS fetch is **wired + verified against real Wikidata** (a gated smoke pulled real
+P737 pairs, N5 held on real BCE/CE dates, output to `out/` only). **Honest follow-up**: an
+unanchored `LIMIT N` query returns arbitrary influence pairs that are disconnected from the
+curated backbone (components rise). To grow the *connected* graph, the live query should be
+**anchored** to existing seed figures (P737 neighbours of seed QIDs) or domain-filtered —
+a query refinement, not a wiring gap.
