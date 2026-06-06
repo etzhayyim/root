@@ -18,6 +18,24 @@ def _run():
         return res, report, graph
 
 
+_EMPTY_SEED = ('{:graph {:name "t" :visibility :public} '
+               ':nodes [] :committees [] :rels [] :money [] :statements []}')
+
+
+def test_empty_seed_report_renders_none_fallbacks():
+    # the "(none in seed)" branches of _write_report only fire on an empty graph — exercise them
+    with tempfile.TemporaryDirectory() as d:
+        out = pathlib.Path(d)
+        seed = out / "empty.edn"
+        seed.write_text(_EMPTY_SEED, encoding="utf-8")
+        res = analyze.run(seed_path=seed, out_dir=out)
+        report = (out / "intel-report.md").read_text(encoding="utf-8")
+        assert "(none in seed)" in report          # the empty-section fallbacks rendered
+        assert "0 dangling reference(s)" in report  # empty graph has no dangling refs
+        assert res["posts"] == []                   # no committee/money posts on an empty graph
+        assert res["kanae_flows"]["flows"] == []    # nothing to export
+
+
 def test_kanae_render_artifact_written():
     with tempfile.TemporaryDirectory() as d:
         out = pathlib.Path(d)
