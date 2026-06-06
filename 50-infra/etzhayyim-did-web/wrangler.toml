@@ -91,9 +91,14 @@ IPFS_GATEWAYS = ""
 XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
 XRPC_etzhayyim_UPSTREAM = "https://atproto.etzhayyim.com"
-# kotoba graph query/SPARQL/MV surface (com.etzhayyim.apps.kotoba.* / .kotobase.*)
-# → the kotoba node via its cloudflared tunnel. Read-only; CACAO passes through.
-XRPC_KOTOBA_UPSTREAM = "https://kotoba.etzhayyim.com"
+# kotoba graph query surface — INTENTIONALLY EMPTY: kotoba is browser-only
+# (IPFS blocks + kotoba-wasm in the page/SW), NOT a server. block.put/has/root are
+# handled locally by this Worker (KV, keyless); every other com.etzhayyim.apps.kotoba.*
+# NSID now returns 503 UpstreamNotConfigured instead of proxying to a kotoba server.
+# (The route entry is kept so these NSIDs do NOT fall through to the com.etzhayyim.*
+# atproto catch-all.) Build-time ingest tooling talks to the kotoba node directly,
+# not through the apex. Per the browser-only-kotoba directive + ADR-2605262130/2605312345.
+XRPC_KOTOBA_UPSTREAM = ""
 
 # Durable Objects are NOT used (browser-complete kotoba + IPFS + WASM design; no
 # operated server-state primitive — ADR-2605262130 / 2605312345). The
