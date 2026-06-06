@@ -15,7 +15,14 @@
 
 import init, { KotobaNode } from "./kotoba/kotoba_wasm.js";
 
-const SEED_URL = "/kotoba/seed-datoms.json"; // same-origin snapshot (CORS-free)
+const SEED_URL = "/kotoba/seed-datoms.json"; // JSON snapshot fallback (CORS-free)
+// IPFS-block path (ADR-2605312345 / 2606014600): the canonical source. The
+// browser reads a tiny root pointer, then hydrates the kotoba Datom log by
+// fetching CID-addressed Prolly-tree blocks and verifying each CID on ingest —
+// NO kotoba query node is exposed; the only published thing is self-verifying
+// content + a root hash. Falls back to the JSON snapshot if unavailable.
+const ROOT_URL = "/kotoba/yoro-social-v1.root.json";
+const BLOCK_URL = (cid) => `/kotoba/blocks/${cid}`;
 const SEARCH_NSIDS = new Set([
   "app.bsky.actor.searchActors",
   "com.etzhayyim.yoro.actor.searchActors",
@@ -58,6 +65,10 @@ function isFeedNsid(nsid) {
 // Kept in sync by hydrate()/refreshSnapshot(); feed/profile views are built
 // from THIS, in JS, so they never depend on a wasm export-shape detail.
 let seedDatoms = [];
+// How the local Datom log was hydrated: "blocks" (canonical CID-verified IPFS
+// block path) | "seed" (JSON snapshot fallback) | "idb" | "none". Surfaced on
+// feed/profile responses as x-kotoba-src for observability.
+let hydrateSource = "none";
 
 // v_edn is the EDN-encoded value; for our string-typed attrs that is exactly
 // JSON.stringify(value), so JSON.parse recovers it. Posts carry a render-ready
@@ -168,6 +179,7 @@ function jsonResponse(obj, tag) {
     headers: {
       "content-type": "application/json; charset=utf-8",
       "x-kotoba-sw": tag,
+      "x-kotoba-src": hydrateSource,
     },
   });
 }
@@ -248,21 +260,64 @@ function hydrate(datoms) {
   return node.loadDatoms(JSON.stringify(datoms));
 }
 
+// Canonical hydration: traverse the kotoba Prolly tree over CID-verified IPFS
+// blocks. Reads the root pointer, ingests each block (ingestBlock re-hashes the
+// bytes and rejects on CID mismatch — trustless), then hydrateFromProlly builds
+// the read arrangements. Feed/profile builders read the materialised datoms via
+// exportDatoms (same {e,a,v_edn} shape as the JSON seed). Returns true on success.
+async function bootFromBlocks() {
+  if (typeof KotobaNode.prototype.ingestBlock !== "function") return false; // old wasm
+  const r = await fetch(ROOT_URL, { cache: "no-cache" });
+  if (!r.ok) return false;
+  const manifest = await r.json();
+  if (!manifest || !manifest.root) return false;
+  const n = new KotobaNode();
+  const cids =
+    Array.isArray(manifest.blocks) && manifest.blocks.length
+      ? manifest.blocks
+      : n.missingBlockCids(manifest.root);
+  for (const cid of cids) {
+    const br = await fetch(BLOCK_URL(cid), { cache: "force-cache" });
+    if (!br.ok) throw new Error(`block ${cid} HTTP ${br.status}`);
+    n.ingestBlock(cid, new Uint8Array(await br.arrayBuffer())); // throws on CID mismatch
+  }
+  const applied = n.hydrateFromProlly(manifest.root);
+  if (!applied) return false;
+  node = n;
+  seedDatoms = JSON.parse(n.exportDatoms()); // feed/profile build source
+  hydrateSource = "blocks";
+  // Persist for offline reload (JSON snapshot of the block-hydrated state).
+  await idbPut("datoms", seedDatoms);
+  await idbPut("len", seedDatoms.length);
+  console.log(
+    `[kotoba-sw] block-hydrated ${applied} datoms from root ${String(manifest.root).slice(0, 16)}… (${n.blockCount()} CID-verified blocks)`,
+  );
+  return true;
+}
+
 async function boot() {
   await init();
   node = new KotobaNode();
 
-  // 1) Reseed-free restore: if we persisted datoms before, load them and skip
+  // 1) CANONICAL: hydrate from CID-verified IPFS blocks (no node exposed).
+  try {
+    if (await bootFromBlocks()) return;
+  } catch (e) {
+    console.warn("[kotoba-sw] block path failed — falling back to snapshot", e);
+  }
+
+  // 2) Reseed-free restore: if we persisted datoms before, load them and skip
   //    the network entirely. A background refresh keeps them fresh.
   const cached = await idbGet("datoms");
   if (Array.isArray(cached) && cached.length) {
     hydrate(cached);
+    hydrateSource = "idb";
     console.log(`[kotoba-sw] restored ${cached.length} datoms from IndexedDB`);
     refreshSnapshot().catch(() => {});
     return;
   }
 
-  // 2) First run: pull the same-origin snapshot, hydrate, and persist.
+  // 3) Last resort: pull the same-origin JSON snapshot, hydrate, and persist.
   await refreshSnapshot();
 }
 
@@ -277,6 +332,7 @@ async function refreshSnapshot() {
     const sig = Array.isArray(fresh) ? fresh.length : -1;
     if (sig !== prevLen || !node) {
       const n = hydrate(fresh);
+      hydrateSource = "seed";
       await idbPut("datoms", fresh);
       await idbPut("len", sig);
       console.log(`[kotoba-sw] hydrated+persisted ${n} datoms (snapshot delta)`);
