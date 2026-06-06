@@ -35,7 +35,6 @@ import {
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
 import { fetchKotobaActorRecord } from "./kotoba";
-import { handleBlockPut, handleBlockHas, handleRootGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
@@ -421,9 +420,6 @@ interface Env {
   // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
-  // Operator oversight key (base64 32 bytes) for encrypting published-edit IP
-  // attestations. Optional — absent → pseudonymous hash only (see kotoba-publish).
-  KOTOBA_ATTEST_KEY?: string;
   KOTOBA_ENDPOINT?: string;
   // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
@@ -1413,38 +1409,12 @@ a{color:inherit}
       }
     }
 
-    // ──────────────────────────────────────────────────────────────────
-    // 2d) kotoba member-signed publish (ADR-2605312345 / 2605231525).
-    //     - GET  /kotoba/blocks/<cid>  → dynamically published block from KV
-    //       (genesis blocks are static assets and never reach the Worker; a
-    //       request arriving here is a post-genesis block).
-    //     - POST /xrpc/com.etzhayyim.apps.kotoba.block.put → verify member sig,
-    //       store blocks + advance root + record suppressable encrypted IP.
-    //     - GET  /xrpc/com.etzhayyim.apps.kotoba.root → latest published root.
-    //     Handled LOCALLY (the generic XRPC proxy below would forward to the
-    //     internal kotoba node, which is not publicly reachable — and the whole
-    //     point is no node is needed).
-    // ──────────────────────────────────────────────────────────────────
-    {
-      const bm = url.pathname.match(/^\/kotoba\/blocks\/([A-Za-z0-9]+)$/);
-      if (bm && (request.method === "GET" || request.method === "HEAD")) {
-        const blk = await serveBlockFromKv(bm[1], env);
-        if (blk) return blk;
-        // not in KV → fall through (static asset already missed → 404 below)
-      }
-      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.put" && request.method === "POST") {
-        return handleBlockPut(request, env);
-      }
-      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.has" && request.method === "POST") {
-        return handleBlockHas(request, env);
-      }
-      if (
-        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.root" &&
-        (request.method === "GET" || request.method === "HEAD")
-      ) {
-        return handleRootGet(url, env);
-      }
-    }
+    // kotoba is content-addressed and Cloudflare-primitive-free: blocks live as
+    // static files under public/kotoba/blocks/<cid> (served by CF assets before
+    // the Worker) and the browser kotoba-wasm resolves them directly. The former
+    // KV/Durable-Object "block publish" surface (KotobaRoot DO + kblk:/kroot:/
+    // kattest: KV) was removed — kotoba only, no CF DO/KV (per directive). Any
+    // dynamic publish goes through the kotoba node, not this Worker.
 
     // ──────────────────────────────────────────────────────────────────
     // 3) XRPC routing — `/xrpc/{NSID}` proxied by NSID prefix to the
