@@ -77,6 +77,13 @@ def _write_report(path: pathlib.Path, c: dict, posts: list[dict]) -> None:
                  f"donated {r['donated_total']:.0f} to {', '.join(r['donated_to'])}")
     if not c["award_and_fund"]:
         L.append("- (none in seed)")
+    si = c["statement_index"]
+    L.append(f"\n## Statements (発言) — {si['count']} indexed\n")
+    L.append("_Indexed by speaker + topic from public record; never rated true/false (ake/danjo own truth)._\n")
+    for speaker, n in si["by_speaker"]:
+        L.append(f"- `{speaker}`: {n} statement(s)")
+    for t in si["by_topic"]:
+        L.append(f"  - topic _{t['topic']}_ — {', '.join(t['speakers'])}")
     L.append("\n## Dry-run social posts\n")
     for p in posts:
         L.append(f"> {p[':post/body']}\n>\n> _status={p[':post/status']} isMirror={p[':post/is-mirror']} "

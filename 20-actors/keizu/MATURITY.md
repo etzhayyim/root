@@ -13,7 +13,8 @@
 
 ## R0 evidence
 
-- **Tests**: `./run_tests.sh` green — **115 tests** across weave (30) / social (7) / ingest (9) / bridge (10) / charter-invariants (28) / analyze (8) / lexicons (5) / consistency (6) / cells (12).
+- **Tests**: `./run_tests.sh` green — **121 tests** across weave (35) / social (7) / ingest (9) / bridge (10) / charter-invariants (28) / analyze (9) / lexicons (5) / consistency (6) / cells (12).
+- **Statements (発言)**: `validate_statement` (speaker + ≥1 source G3 + sourcing G11, enforced in `weave()`) + `statement_index` (per-speaker count + per-topic speaker set) — indexed by topic, never rated true/false (ake/danjo own truth-rating). Closes the 発言 dimension of the original brief.
 - **G9/G1 no-doxxing guard** (`PII_FORBIDDEN_NODE_ATTRS` + `validate_node`): a public-seat node carrying a personal-contact/sensitive field (email/phone/address/dob/mynumber/passport/face/health/…) is REFUSED in code — enforced across seed + ingest. Any such datum lives encrypted off-graph (ADR-2605181100).
 - **G10 as-of time-travel** (`active_as_of`): the append-only graph is queryable at any timestamp — a query at an earlier ts sees fewer datoms; nothing is overwritten (非終末論). Monotonic, verified.
 - **Cross-organ connector seats** (`connector_seats`): a seat bridging committees from >1 convening organ, derived on read from `:committee-membership` edges + each committee's organ (edge-primary, G4).

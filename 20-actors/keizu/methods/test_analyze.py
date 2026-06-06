@@ -53,6 +53,12 @@ def test_connector_section_reported():
     assert "Cross-organ connector seats" in report
 
 
+def test_statements_section_reported():
+    _, report, _ = _run()
+    assert "Statements (発言)" in report
+    assert "never rated true/false" in report   # non-adjudicating framing
+
+
 def test_award_and_fund_section_is_non_adjudicating():
     _, report, _ = _run()
     assert "Award-and-fund co-occurrence" in report

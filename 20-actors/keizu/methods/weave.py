@@ -88,6 +88,19 @@ def validate_rel(r: dict) -> None:
         raise ValueError("G11: every relation must declare :rel/sourcing")
 
 
+def validate_statement(s: dict) -> None:
+    """A public statement (発言) attributed to a public role. Must have a speaker + ≥1 public
+    source (G3) + declared sourcing (G11). Non-adjudicating: a statement is recorded verbatim
+    by topic, never characterized as true/false (ake/danjo own truth-rating)."""
+    if not str(s.get(":statement/speaker", "")).strip():
+        raise ValueError(f"statement {s.get(':statement/id')!r} needs a :statement/speaker")
+    srcs = s.get(":statement/sources") or []
+    if not isinstance(srcs, list) or len(srcs) < 1:
+        raise ValueError(f"G3: statement {s.get(':statement/id')!r} needs ≥1 public source")
+    if _kw(s.get(":statement/sourcing", "")) not in SOURCING:
+        raise ValueError("G11: every statement must declare :statement/sourcing")
+
+
 def validate_money(m: dict) -> None:
     kind = _kw(m.get(":money/kind", ""))
     if kind in VERDICT_TOKENS:
@@ -115,6 +128,8 @@ def weave(graph: dict) -> dict:
     for m in money:
         validate_money(m)
     statements = list(graph.get(":statements", []))
+    for s in statements:
+        validate_statement(s)
     return {
         "nodes": nodes,
         "committees": committees,
@@ -268,6 +283,24 @@ def award_and_fund(g: dict) -> list[dict]:
     return out
 
 
+def statement_index(g: dict) -> dict:
+    """発言 (statements) aggregate: per-speaker statement count + per-topic speaker set (who
+    spoke on what, from public record). Non-adjudicating — a statement is indexed by topic,
+    never rated true/false (ake/danjo own truth). Aggregate (G3)."""
+    by_speaker: dict[str, int] = {}
+    by_topic: dict[str, set] = {}
+    for s in g["statements"]:
+        sp = s.get(":statement/speaker", "?")
+        by_speaker[sp] = by_speaker.get(sp, 0) + 1
+        by_topic.setdefault(s.get(":statement/topic", "(untopiced)"), set()).add(sp)
+    return {
+        "count": len(g["statements"]),
+        "by_speaker": sorted(by_speaker.items(), key=lambda kv: (-kv[1], kv[0])),
+        "by_topic": sorted(({"topic": t, "speakers": sorted(sp)} for t, sp in by_topic.items()),
+                           key=lambda x: x["topic"]),
+    }
+
+
 def concentration(g: dict) -> dict:
     """The full aggregate-first concentration report (G3/G4). All metrics are derived on
     read from edges/flows; nothing is a per-person score."""
@@ -284,6 +317,7 @@ def concentration(g: dict) -> dict:
         "payer_concentration": payer_concentration(g),
         "revolving_door": revolving_door_chains(g),
         "award_and_fund": award_and_fund(g),
+        "statement_index": statement_index(g),
     }
 
 

@@ -6,7 +6,8 @@ import pathlib
 from _edn import load_edn
 from _t import expect_raises, run
 from weave import (active_as_of, concentration, connector_seats,
-                   validate_money, validate_node, validate_rel, weave)
+                   statement_index, validate_money, validate_node, validate_rel,
+                   validate_statement, weave)
 
 SEED = pathlib.Path(__file__).resolve().parents[1] / "data" / "seed-relation-graph.kotoba.edn"
 
@@ -220,6 +221,38 @@ def test_active_as_of_partial_window():
     g = _g()
     snap = active_as_of(g, 20241101)
     assert 0 < snap["active_rels"] < snap["total_rels"]
+
+
+# ── statements (発言) ──────────────────────────────────────────────────────────
+def test_statement_needs_speaker():
+    expect_raises(lambda: validate_statement({":statement/id": "s", ":statement/sources": ["u"],
+                                              ":statement/sourcing": ":representative"}),
+                  contains="speaker")
+
+
+def test_statement_needs_source():
+    expect_raises(lambda: validate_statement({":statement/id": "s", ":statement/speaker": "a",
+                                              ":statement/sources": [], ":statement/sourcing": ":representative"}),
+                  contains="G3")
+
+
+def test_statement_needs_sourcing():
+    expect_raises(lambda: validate_statement({":statement/id": "s", ":statement/speaker": "a",
+                                              ":statement/sources": ["u"]}), contains="G11")
+
+
+def test_statement_index_by_speaker_and_topic():
+    si = concentration(_g())["statement_index"]
+    assert si["count"] == 3
+    speakers = dict(si["by_speaker"])
+    assert "jp-fsc-chair" in speakers
+    topics = {t["topic"] for t in si["by_topic"]}
+    assert any("fiscal" in t.lower() for t in topics)
+
+
+def test_statement_index_empty_safe():
+    si = concentration(weave({}))["statement_index"]
+    assert si["count"] == 0 and si["by_speaker"] == [] and si["by_topic"] == []
 
 
 def test_unknown_organ_member_is_tolerated():
