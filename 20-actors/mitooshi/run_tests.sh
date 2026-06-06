@@ -10,6 +10,7 @@ SUITES=(
   "methods/test_analyze.py"
   "methods/test_ingest.py"
   "methods/test_bridge.py"
+  "methods/test_persist.py"
   "methods/test_horizon.py"
   "cells/test_state_machines.py"
   "test_learning_loop.py"
