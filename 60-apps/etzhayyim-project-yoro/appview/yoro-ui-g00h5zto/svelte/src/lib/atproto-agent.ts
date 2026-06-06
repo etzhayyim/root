@@ -88,6 +88,12 @@ const SW_LOCAL_NSIDS = new Set<string>([
 	// writes (post / reply / comment / like / repost) — member-signed + stored
 	// in the in-page kotoba node by kotoba-sw.js (Wikipedia-style local edits).
 	'com.atproto.repo.createRecord',
+	// Resource-flow read — assembled entirely in the browser from the kotoba
+	// Datom log (`:yoro.fiscal/*` + `:yoro.ownership/*` datoms), with Datomic-style
+	// as-of over the log's `observedAt` fact-time. Goes same-origin so kotoba-sw.js
+	// intercepts it; replaces the deprecated kagami SQL path (ADR-2605262130 — no
+	// Kotoba/Datomic; kotoba Datom log is canonical, ADR-2605312345).
+	'com.etzhayyim.yoro.fiscal.getResourceFlow',
 ]);
 
 let tokenProvider: TokenProvider | null = null;
