@@ -94,7 +94,7 @@ ring = "0.17"
 rand = "0.9"
 
 # Parallelism
-rayon = "1.10"
+rayon = "1.12"
 
 # rkyv zero-copy serialization (yata-core DurableWalOp types)
 rkyv = { version = "0.8", features = ["bytecheck"] }
