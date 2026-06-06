@@ -16,7 +16,7 @@ import { join } from "node:path";
 
 const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
 
-const RW_CONN = process.env.RW_CONN
+const KOTOBA_URL = process.env.KOTOBA_URL
   ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const REPO_DID = "did:web:yabai.etzhayyim.com";
 const CONTENT_DIR = "/Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-yabai/content";
@@ -25,7 +25,7 @@ const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
 const LIMIT = Number(args.includes("--limit") ? args[args.indexOf("--limit") + 1] : 0);
 
-const pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 120_000 });
+const pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 120_000 });
 
 const today = new Date().toISOString().slice(0, 10);
 const BATCH = 200;

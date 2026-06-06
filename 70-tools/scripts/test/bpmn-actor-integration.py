@@ -19,7 +19,7 @@ Env:
   BPMN_DISPATCHER_URL  default http://bpmn.etzhayyim.com:8080
                        pass a direct IP (http://<vendor-bpmn-dispatcher>:8080) to
                        bypass a stale local DNS cache.
-  RW_URL               default: fetched from macOS Keychain
+  KOTOBA_URL               default: fetched from macOS Keychain
                        (service=etzhayyim.rw, account=ROOT_URL)
 
 Usage:
@@ -56,7 +56,7 @@ DATACENTER_CAPACITY_NSID = "com.etzhayyim.apps.datacenter.reserveCapacity"
 
 
 def rw_url() -> str:
-    if url := os.environ.get("RW_URL"):
+    if url := os.environ.get("KOTOBA_URL"):
         return url
     try:
         out = subprocess.check_output(
@@ -67,7 +67,7 @@ def rw_url() -> str:
             return out
     except subprocess.CalledProcessError:
         pass
-    raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
+    raise SystemExit("KOTOBA_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
 
 
 # ─── HTTP helper ───────────────────────────────────────────────────────

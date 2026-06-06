@@ -40,8 +40,8 @@ const checks = [
       },
       {
         id: "migration-requires-dsn",
-        pattern: /DATABASE_URL or RW_DSN is required/,
-        message: "migration wrapper must refuse missing DATABASE_URL/RW_DSN",
+        pattern: /DATABASE_URL or KOTOBA_URL is required/,
+        message: "migration wrapper must refuse missing DATABASE_URL/KOTOBA_URL",
       },
       {
         id: "migration-writes-ledger",

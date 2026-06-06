@@ -5,7 +5,7 @@ import process from "node:process";
 const require = createRequire(import.meta.url);
 const pg = require(require.resolve("pg", { paths: ["30-graph/graph-schema"] }));
 
-const DATABASE_URL = process.env.DATABASE_URL ?? process.env.RW_URL ?? process.env.RW_CONN;
+const DATABASE_URL = process.env.DATABASE_URL ?? process.env.KOTOBA_URL ?? process.env.KOTOBA_URL;
 
 function usage(code = 0) {
   console.log(`Usage:
@@ -29,7 +29,7 @@ for (const arg of process.argv.slice(2)) {
 }
 
 if (!DATABASE_URL) {
-  console.error("Set DATABASE_URL, RW_URL, or RW_CONN.");
+  console.error("Set DATABASE_URL, KOTOBA_URL, or KOTOBA_URL.");
   process.exit(1);
 }
 

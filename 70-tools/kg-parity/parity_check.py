@@ -13,20 +13,20 @@ for osm, sha256(corp_num)[:16] for gBiz) — the etzhayyim extractors are faithf
 ports of the vendor ones — so a set difference is a real missing/extra entity, not
 a keying artifact.
 
-NOT runnable from a dev session: the RW side needs `RW_URL` reachability (and the
+NOT runnable from a dev session: the RW side needs `KOTOBA_URL` reachability (and the
 kotoba side needs a live kotoba-server, gated on G1). The pure `diff_snapshots`
 core is unit-tested (see test_kg_parity.py). An operator runs this where RW (+
 optionally kotoba) is reachable, once G1 (kotoba datomic activation) lands.
 
 Usage:
     # etzhayyim side from the local SQLite ingest store (default):
-    RW_URL=postgres://… python parity_check.py \\
+    KOTOBA_URL=postgres://… python parity_check.py \\
         --sources wikidata,crossref,openstreetmap \\
         --sqlite-dir /var/lib/etzhayyim/organism \\
         --out report.json
 
     # etzhayyim side from kotoba datomic (once G1 is live):
-    RW_URL=… KOTOBA_XRPC_URL=… python parity_check.py --etz-backend kotoba …
+    KOTOBA_URL=… KOTOBA_XRPC_URL=… python parity_check.py --etz-backend kotoba …
 """
 
 from __future__ import annotations
@@ -88,9 +88,9 @@ def diff_snapshots(rw: dict[str, Snapshot], etz: dict[str, Snapshot]) -> dict[st
 # ── Side readers (IO; guarded — not runnable without the real backends) ───────
 def read_rw(source_ids: list[str], rw_url: str | None) -> dict[str, Snapshot]:
     """Read entity ids from the vendor RisingWave `kg.vertex_entity` per source."""
-    rw_url = rw_url or os.environ.get("RW_URL")
+    rw_url = rw_url or os.environ.get("KOTOBA_URL")
     if not rw_url:
-        raise RuntimeError("RW_URL required for the RW side (operator must provide)")
+        raise RuntimeError("KOTOBA_URL required for the RW side (operator must provide)")
     try:
         import psycopg  # type: ignore[import-not-found]
     except ImportError as exc:  # pragma: no cover
@@ -140,7 +140,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Open-data KG cutover parity check (RW ↔ etzhayyim)")
     ap.add_argument("--sources", default=",".join(DEFAULT_SOURCES),
                     help="comma-separated source_id list")
-    ap.add_argument("--rw-url", default=None, help="RisingWave DSN (else $RW_URL)")
+    ap.add_argument("--rw-url", default=None, help="RisingWave DSN (else $KOTOBA_URL)")
     ap.add_argument("--etz-backend", choices=["sqlite", "kotoba"], default="sqlite")
     ap.add_argument("--sqlite-dir", default=None, help="etzhayyim ingest SQLite dir (else $ORGANISM_SQLITE_DIR)")
     ap.add_argument("--out", default=None, help="write the JSON report to this path")

@@ -107,9 +107,9 @@ Options:
 }
 
 const opts = parseArgs(process.argv.slice(2));
-const databaseUrl = process.env.DATABASE_URL ?? process.env.RW_URL ?? process.env.RW_CONN;
+const databaseUrl = process.env.DATABASE_URL ?? process.env.KOTOBA_URL ?? process.env.KOTOBA_URL;
 if (!databaseUrl) {
-  throw new Error("Set DATABASE_URL, RW_URL, or RW_CONN for RisingWave.");
+  throw new Error("Set DATABASE_URL, KOTOBA_URL, or KOTOBA_URL for RisingWave.");
 }
 
 const { default: pg } = await import(

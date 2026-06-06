@@ -2,7 +2,7 @@
 
 Tests the pure `diff_snapshots` core (the cutover-gate logic) and the etzhayyim
 SQLite reader against a populated temp ingest_kg_open.db. The RW side and the
-kotoba side are not exercised (no RW_URL / no live kotoba here) — they are guarded
+kotoba side are not exercised (no KOTOBA_URL / no live kotoba here) — they are guarded
 and run only by an operator post-G1.
 """
 
@@ -72,15 +72,15 @@ def test_read_etz_sqlite():
 def test_missing_rw_url_raises():
     try:
         pc.read_rw(["wikidata"], rw_url=None)
-        old = os.environ.pop("RW_URL", None)
-        assert old is None, "test env unexpectedly had RW_URL"
-        raise AssertionError("expected RuntimeError when RW_URL is absent")
+        old = os.environ.pop("KOTOBA_URL", None)
+        assert old is None, "test env unexpectedly had KOTOBA_URL"
+        raise AssertionError("expected RuntimeError when KOTOBA_URL is absent")
     except RuntimeError as e:
-        assert "RW_URL" in str(e), e
+        assert "KOTOBA_URL" in str(e), e
 
 
 if __name__ == "__main__":
-    os.environ.pop("RW_URL", None)
+    os.environ.pop("KOTOBA_URL", None)
     test_diff_parity_ok()
     test_diff_detects_drift()
     test_missing_source_one_side()

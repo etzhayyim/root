@@ -26,7 +26,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
-const RW_CONN = process.env.RISINGWAVE_URL
+const KOTOBA_URL = process.env.KOTOBA_URL
   ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 
 const args = process.argv.slice(2);
@@ -46,7 +46,7 @@ async function getRwPool() {
   const { default: pg } = await import(
     "/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js"
   );
-  _pgPool = new pg.Pool({ connectionString: RW_CONN, max: 2 });
+  _pgPool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2 });
   return _pgPool;
 }
 

@@ -29,7 +29,7 @@
 
 1. **For new ingestion**: use the W1 fetcher stubs at `70-tools/e7m-dataset/src/e7m_dataset/fetchers/` once their NotImplementedError stubs are filled in (W1 deliverable).
 2. **For data already in RisingWave**: read ADR-2605263800 §7 (W4 deliverable) for the migration plan. No migration tool is committed yet; the W4 deliverable will land it.
-3. **Do NOT run any of the 4 annotated scripts on the religious-corp substrate** — they will fail closed (RisingWave RW_CONN is not provisioned) or, if accidentally pointed at a stray PG cluster, will write non-Charter-Rider-compliant records that would need W4 cleanup.
+3. **Do NOT run any of the 4 annotated scripts on the religious-corp substrate** — they will fail closed (RisingWave KOTOBA_URL is not provisioned) or, if accidentally pointed at a stray PG cluster, will write non-Charter-Rider-compliant records that would need W4 cleanup.
 
 ## NOT annotated (out of scope for this iteration)
 

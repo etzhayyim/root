@@ -7,7 +7,7 @@
  * reconstructs observable cases from profile/seed-post artifacts.
  */
 
-const DEFAULT_DATABASE_URL = process.env.DATABASE_URL ?? process.env.RW_URL ?? process.env.RW_CONN;
+const DEFAULT_DATABASE_URL = process.env.DATABASE_URL ?? process.env.KOTOBA_URL ?? process.env.KOTOBA_URL;
 const NSID = "com.etzhayyim.apps.yoro.actorQualityEnrich";
 
 function parseArgs(argv) {
@@ -58,7 +58,7 @@ Options:
 
 const opts = parseArgs(process.argv.slice(2));
 if (!DEFAULT_DATABASE_URL) {
-  throw new Error("Set DATABASE_URL, RW_URL, or RW_CONN for RisingWave.");
+  throw new Error("Set DATABASE_URL, KOTOBA_URL, or KOTOBA_URL for RisingWave.");
 }
 
 const { default: pg } = await import(
