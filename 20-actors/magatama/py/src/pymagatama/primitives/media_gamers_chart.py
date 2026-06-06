@@ -16,7 +16,7 @@ Two LangServer task types backing chartFetch.bpmn + chartAnalyze.bpmn:
       text + insight_tags. Persist vertex_game_chart_analysis. Post to social
       feed via insert_social_post_record. Returns: analysisUri, socialText.
 
-ADR-0036: domain writes direct to Hyperdrive (sync_cursor).
+ADR-2605262130: domain writes direct to kotoba Datom log (ADR-2605312345).
 ADR-0056: BPMN-as-actor.
 ADR-0044: Murakumo LLM via pymagatama.llm (external IO tier).
 """
@@ -26,14 +26,13 @@ from __future__ import annotations
 import datetime as _dt
 import json
 import os
-import time
 import urllib.error as _u_err
 import urllib.request as _u_req
-import uuid
+from datetime import timezone
 from typing import Any
 
 from pymagatama import llm as _llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama.primitives.yoro_social import insert_social_post_record
 
 _ACTOR_DID = os.getenv("MEDIA_GAMERS_ACTOR_DID", "did:web:media-gamers.etzhayyim.com")
@@ -52,7 +51,7 @@ _CHART_LIMIT = 20  # how many ranks to store per source per week
 
 def _now_iso() -> str:
     return (
-        _dt.datetime.now(tz=_dt.UTC)
+        _dt.datetime.now(tz=timezone.utc)
         .replace(microsecond=0)
         .isoformat()
         .replace("+00:00", "Z")
@@ -181,27 +180,49 @@ def _match_title_did(external_id: str, steam_id: str | None, title_hint: str) ->
     if steam_id:
         candidates.add(steam_id)
 
-    with sync_cursor() as cur:
-        for cid in candidates:
-            cur.execute(
-                "SELECT vertex_id FROM vertex_game_title "
-                "WHERE external_ids LIKE %s OR external_ids LIKE %s LIMIT 1",
-                (f"%steam:{cid}%", f"%steamspy:{cid}%"),
-            )
-            row = cur.fetchone()
-            if row:
-                return row[0]
+    kotoba = get_kotoba_client()
+    for cid in candidates:
+        # R0: using q() for LIKE and OR conditions
+        result = kotoba.q(
+            """
+            [:find ?vid .
+             :in $ ?steam_cid ?steamspy_cid
+             :where
+              [?e :vertex/type :vertex.game.title]
+              [?e :vertex.game.title/vertex-id ?vid]
+              [?e :vertex.game.title/external-ids ?ext_ids]
+              (or
+                [(clojure.string/includes? ?ext_ids ?steam_cid)]
+                [(clojure.string/includes? ?ext_ids ?steamspy_cid)]
+              )
+            :limit 1]
+            """,
+            args=(f"steam:{cid}", f"steamspy:{cid}")
+        )
+        if result:
+            return result[0][0]
 
-        # title-based fallback (exact, case-insensitive)
-        if title_hint:
-            cur.execute(
-                "SELECT vertex_id FROM vertex_game_title "
-                "WHERE LOWER(title_en) = %s OR LOWER(title_ja) = %s LIMIT 1",
-                (title_hint.lower(), title_hint.lower()),
-            )
-            row = cur.fetchone()
-            if row:
-                return row[0]
+    # title-based fallback (exact, case-insensitive)
+    if title_hint:
+        lower_title_hint = title_hint.lower()
+        # R0: using q() for LOWER() and OR conditions
+        result = kotoba.q(
+            """
+            [:find ?vid .
+             :in $ ?lower_title_hint
+             :where
+              [?e :vertex/type :vertex.game.title]
+              [?e :vertex.game.title/vertex-id ?vid]
+              (or
+                (and [?e :vertex.game.title/title-en ?title_en] [(= (clojure.string/lower ?title_en) ?lower_title_hint)])
+                (and [?e :vertex.game.title/title-ja ?title_ja] [(= (clojure.string/lower ?title_ja) ?lower_title_hint)])
+              )
+            :limit 1]
+            """,
+            args=(lower_title_hint,)
+        )
+        if result:
+            return result[0][0]
     return None
 
 
@@ -209,13 +230,22 @@ def _match_title_did(external_id: str, steam_id: str | None, title_hint: str) ->
 
 def _prev_week_ranks(source: str, prev_week: _dt.date) -> dict[str, int]:
     """Return {external_id → rank} for the given source + prev_week."""
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT external_id, rank FROM vertex_game_chart_snapshot "
-            "WHERE source = %s AND week_start = %s",
-            (source, prev_week.isoformat()),
-        )
-        return {row[0]: row[1] for row in cur.fetchall()}
+    kotoba = get_kotoba_client()
+    # R0: using q() for multi-predicate SELECT
+    results = kotoba.q(
+        """
+        [:find ?ext_id ?rank
+         :in $ ?source ?week_start
+         :where
+          [?e :vertex/type :vertex.game.chart-snapshot]
+          [?e :vertex.game.chart-snapshot/source ?source]
+          [?e :vertex.game.chart-snapshot/week-start ?week_start]
+          [?e :vertex.game.chart-snapshot/external-id ?ext_id]
+          [?e :vertex.game.chart-snapshot/rank ?rank]]
+        """,
+        args=(source, prev_week.isoformat())
+    )
+    return {row[0]: row[1] for row in results}
 
 
 # ── Task 1: mediaGamers.chart.fetchAndPersist ─────────────────────────────────
@@ -244,60 +274,61 @@ def task_media_gamers_chart_fetch_and_persist() -> dict[str, Any]:
 
     prev_ranks = _prev_week_ranks(source, prev_week)
     snapshot_count = 0
+    kotoba = get_kotoba_client() # Initialize kotoba client once
 
-    with sync_cursor() as cur:
-        for rank, entry in enumerate(entries, start=1):
-            ext_id = entry["external_id"]
-            title_did = _match_title_did(ext_id, None, entry["title_hint"])
+    for rank, entry in enumerate(entries, start=1):
+        ext_id = entry["external_id"]
+        title_did = _match_title_did(ext_id, None, entry["title_hint"])
 
-            rank_prev = prev_ranks.get(ext_id)
-            rank_delta = (rank_prev - rank) if rank_prev is not None else None
+        rank_prev = prev_ranks.get(ext_id)
+        rank_delta = (rank_prev - rank) if rank_prev is not None else None
 
-            vertex_id = _vertex_id_snapshot(source, week, rank)
-            metadata = {
-                "tags": entry.get("tags", []),
-                "reviews_total": entry.get("reviews_total", 0),
+        vertex_id = _vertex_id_snapshot(source, week, rank)
+        metadata = {
+            "tags": entry.get("tags", []),
+            "reviews_total": entry.get("reviews_total", 0),
+        }
+        metadata_json = json.dumps(metadata, ensure_ascii=False, separators=(",", ":"))
+
+        snapshot_row = {
+            "vertex_id": vertex_id,
+            "owner_did": _ACTOR_DID,
+            "title_did": title_did,
+            "source": source,
+            "week_start": week.isoformat(),
+            "rank": rank,
+            "rank_prev": rank_prev,
+            "rank_delta": rank_delta,
+            "external_id": ext_id,
+            "title_hint": entry["title_hint"],
+            "score_source": entry.get("score_source"),
+            "players_2w": entry.get("players_2w"),
+            "price_usd": entry.get("price_usd"),
+            "metadata_json": metadata_json,
+            "fetched_at": created_at,
+            "actor_did": _ACTOR_DID,
+            "org_did": _ACTOR_DID,
+            "sensitivity_ord": 1,
+            "created_at": created_at,
+        }
+        kotoba.insert_row("vertex_game_chart_snapshot", snapshot_row)
+        snapshot_count += 1
+
+        # Edge: title → snapshot (only when matched)
+        if title_did:
+            edge_id = _edge_id_charted(title_did, source, week)
+            edge_row = {
+                "edge_id": edge_id,
+                "owner_did": _ACTOR_DID,
+                "src_vid": title_did,
+                "dst_vid": vertex_id,
+                "rank": rank,
+                "source": source,
+                "week_start": week.isoformat(),
+                "sensitivity_ord": 1,
+                "created_at": created_at,
             }
-            metadata_json = json.dumps(metadata, ensure_ascii=False, separators=(",", ":"))
-
-            cur.execute(
-                """
-                INSERT INTO vertex_game_chart_snapshot (
-                  vertex_id, owner_did, title_did, source, week_start, rank,
-                  rank_prev, rank_delta, external_id, title_hint, score_source,
-                  players_2w, price_usd, metadata_json, fetched_at,
-                  actor_did, org_did, sensitivity_ord, created_at
-                ) VALUES (
-                  %s, %s, %s, %s, %s, %s,
-                  %s, %s, %s, %s, %s,
-                  %s, %s, %s, %s,
-                  %s, %s, %s, %s
-                )
-                """,
-                (
-                    vertex_id, _ACTOR_DID, title_did, source, week.isoformat(), rank,
-                    rank_prev, rank_delta, ext_id, entry["title_hint"], entry.get("score_source"),
-                    entry.get("players_2w"), entry.get("price_usd"), metadata_json, created_at,
-                    _ACTOR_DID, _ACTOR_DID, 1, created_at,
-                ),
-            )
-            snapshot_count += 1
-
-            # Edge: title → snapshot (only when matched)
-            if title_did:
-                edge_id = _edge_id_charted(title_did, source, week)
-                cur.execute(
-                    """
-                    INSERT INTO edge_game_charted_at (
-                      edge_id, owner_did, src_vid, dst_vid, rank, source, week_start,
-                      sensitivity_ord, created_at
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    """,
-                    (
-                        edge_id, _ACTOR_DID, title_did, vertex_id,
-                        rank, source, week.isoformat(), 1, created_at,
-                    ),
-                )
+            kotoba.insert_row("edge_game_charted_at", edge_row)
 
     # Also try RAWG if API key is available (secondary source, non-blocking)
     rawg_key = os.getenv("RAWG_API_KEY", "")
@@ -321,51 +352,50 @@ def _persist_rawg_source(api_key: str, week: _dt.date, prev_week: _dt.date, crea
     if not entries:
         return
     prev_ranks = _prev_week_ranks(source, prev_week)
-    with sync_cursor() as cur:
-        for rank, entry in enumerate(entries, start=1):
-            ext_id = entry["external_id"]
-            steam_id = entry.get("steam_id")
-            title_did = _match_title_did(ext_id, steam_id, entry["title_hint"])
-            rank_prev = prev_ranks.get(ext_id)
-            rank_delta = (rank_prev - rank) if rank_prev is not None else None
-            vertex_id = _vertex_id_snapshot(source, week, rank)
-            metadata = {"tags": entry.get("tags", []), "reviews_total": entry.get("reviews_total", 0)}
-            cur.execute(
-                """
-                INSERT INTO vertex_game_chart_snapshot (
-                  vertex_id, owner_did, title_did, source, week_start, rank,
-                  rank_prev, rank_delta, external_id, title_hint, score_source,
-                  players_2w, price_usd, metadata_json, fetched_at,
-                  actor_did, org_did, sensitivity_ord, created_at
-                ) VALUES (
-                  %s, %s, %s, %s, %s, %s,
-                  %s, %s, %s, %s, %s,
-                  %s, %s, %s, %s,
-                  %s, %s, %s, %s
-                )
-                """,
-                (
-                    vertex_id, _ACTOR_DID, title_did, source, week.isoformat(), rank,
-                    rank_prev, rank_delta, ext_id, entry["title_hint"], entry.get("score_source"),
-                    None, None,
-                    json.dumps(metadata, ensure_ascii=False, separators=(",", ":")),
-                    created_at, _ACTOR_DID, _ACTOR_DID, 1, created_at,
-                ),
-            )
-            if title_did:
-                cur.execute(
-                    """
-                    INSERT INTO edge_game_charted_at (
-                      edge_id, owner_did, src_vid, dst_vid, rank, source, week_start,
-                      sensitivity_ord, created_at
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    """,
-                    (
-                        _edge_id_charted(title_did, source, week),
-                        _ACTOR_DID, title_did, vertex_id,
-                        rank, source, week.isoformat(), 1, created_at,
-                    ),
-                )
+    kotoba = get_kotoba_client()
+    for rank, entry in enumerate(entries, start=1):
+        ext_id = entry["external_id"]
+        steam_id = entry.get("steam_id")
+        title_did = _match_title_did(ext_id, steam_id, entry["title_hint"])
+        rank_prev = prev_ranks.get(ext_id)
+        rank_delta = (rank_prev - rank) if rank_prev is not None else None
+        vertex_id = _vertex_id_snapshot(source, week, rank)
+        metadata = {"tags": entry.get("tags", []), "reviews_total": entry.get("reviews_total", 0)}
+        snapshot_row = {
+            "vertex_id": vertex_id,
+            "owner_did": _ACTOR_DID,
+            "title_did": title_did,
+            "source": source,
+            "week_start": week.isoformat(),
+            "rank": rank,
+            "rank_prev": rank_prev,
+            "rank_delta": rank_delta,
+            "external_id": ext_id,
+            "title_hint": entry["title_hint"],
+            "score_source": entry.get("score_source"),
+            "players_2w": None,
+            "price_usd": None,
+            "metadata_json": json.dumps(metadata, ensure_ascii=False, separators=(",", ":")),
+            "fetched_at": created_at,
+            "actor_did": _ACTOR_DID,
+            "org_did": _ACTOR_DID,
+            "sensitivity_ord": 1,
+            "created_at": created_at,
+        }
+        kotoba.insert_row("vertex_game_chart_snapshot", snapshot_row)
+        if title_did:
+            edge_row = {
+                "edge_id": _edge_id_charted(title_did, source, week),
+                "owner_did": _ACTOR_DID,
+                "src_vid": title_did,
+                "dst_vid": vertex_id,
+                "rank": rank,
+                "source": source,
+                "week_start": week.isoformat(),
+                "sensitivity_ord": 1,
+                "created_at": created_at,
+            }
+            kotoba.insert_row("edge_game_charted_at", edge_row)
 
 
 # ── Task 2: mediaGamers.chart.analyze ────────────────────────────────────────
@@ -409,24 +439,24 @@ def task_media_gamers_chart_analyze(
 
     created_at = _now_iso()
     vertex_id = _vertex_id_analysis(source, week)
+    kotoba = get_kotoba_client() # Initialize kotoba client once
 
     # ── Load snapshot rows for this week + source ──────────────────────────
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            SELECT s.rank, s.rank_delta, s.rank_prev, s.title_hint,
-                   s.players_2w, s.score_source, s.external_id,
-                   s.title_did, s.metadata_json
-            FROM vertex_game_chart_snapshot s
-            WHERE s.source = %s AND s.week_start = %s
-            ORDER BY s.rank ASC
-            LIMIT {int(_CHART_LIMIT)}
-            """.replace("{int(_CHART_LIMIT)}", str(_CHART_LIMIT)),
-            (source, week.isoformat()),
-        )
-        rows = cur.fetchall()
+    # R0: using select_where and in-Python filtering/ordering for complex SELECT
+    snapshots = kotoba.select_where(
+        "vertex_game_chart_snapshot",
+        "source", source,
+        columns=[
+            "rank", "rank_delta", "rank_prev", "title_hint",
+            "players_2w", "score_source", "external_id",
+            "title_did", "metadata_json", "week_start"
+        ]
+    )
+    rows_dicts = [s for s in snapshots if s.get("week_start") == week.isoformat()]
+    rows_dicts.sort(key=lambda x: x["rank"])
+    rows_dicts = rows_dicts[:_CHART_LIMIT]
 
-    if not rows:
+    if not rows_dicts:
         return {
             "ok": False,
             "error": f"no snapshots for {source} week {week}",
@@ -435,23 +465,28 @@ def task_media_gamers_chart_analyze(
         }
 
     # ── Genre lookup for matched titles ───────────────────────────────────
-    matched_dids = [r[7] for r in rows if r[7]]
+    matched_dids = [r["title_did"] for r in rows_dicts if r.get("title_did")]
     genre_map: dict[str, str] = {}
     if matched_dids:
-        placeholders = ",".join(["%s"] * len(matched_dids))
-        with sync_cursor() as cur:
-            cur.execute(
-                f"""
-                SELECT g.src_vid, genre.name
-                FROM edge_game_has_genre g
-                JOIN vertex_game_genre genre ON genre.vertex_id = g.dst_vid
-                WHERE g.src_vid IN ({placeholders}) AND g.is_primary = true
-                LIMIT {int(len(matched_dids) * 2)}
-                """,
-                matched_dids,
-            )
-            for r in cur.fetchall():
-                genre_map[r[0]] = r[1]
+        # R0: using q() for JOIN and IN clause
+        results = kotoba.q(
+            """
+            [:find ?src_vid ?genre_name
+             :in $ [?src_vid_list ...]
+             :where
+              [?g :vertex/type :edge.game.has-genre]
+              [?g :edge.game.has-genre/src-vid ?src_vid]
+              [(.contains ?src_vid_list ?src_vid)]
+              [?g :edge.game.has-genre/is-primary true]
+              [?g :edge.game.has-genre/dst-vid ?genre_vid]
+              [?vgg :vertex/type :vertex.game.genre]
+              [?vgg :vertex.game.genre/vertex-id ?genre_vid]
+              [?vgg :vertex.game.genre/name ?genre_name]]
+            """,
+            args=(matched_dids,)
+        )
+        for r in results:
+            genre_map[r[0]] = r[1]
 
     # ── Build context for LLM ─────────────────────────────────────────────
     rising: list[dict] = []
@@ -460,8 +495,13 @@ def task_media_gamers_chart_analyze(
     genre_counts: dict[str, int] = {}
 
     top_lines: list[str] = []
-    for r in rows:
-        rank, rank_delta, rank_prev, title_hint, players_2w, score, ext_id, title_did, meta_json = r
+    for r in rows_dicts: # Iterate over dictionaries now
+        rank = r["rank"]
+        rank_delta = r.get("rank_delta")
+        rank_prev = r.get("rank_prev")
+        title_hint = r["title_hint"]
+        players_2w = r.get("players_2w")
+        title_did = r.get("title_did")
         genre = genre_map.get(title_did or "", "Unknown")
         genre_counts[genre] = genre_counts.get(genre, 0) + 1
 
@@ -482,7 +522,7 @@ def task_media_gamers_chart_analyze(
     top_genre = max(genre_counts, key=lambda k: genre_counts[k]) if genre_counts else "Unknown"
     context = (
         f"Week: {week} | Source: {source}\n"
-        f"Top {len(rows)} games:\n"
+        f"Top {len(rows_dicts)} games:\n" # Changed rows to rows_dicts
         + "\n".join(top_lines[:15])
         + f"\n\nRising: {[r['title_hint'] for r in rising[:3]]}"
         + f"\nFalling: {[f['title_hint'] for f in falling[:3]]}"
@@ -508,42 +548,33 @@ def task_media_gamers_chart_analyze(
         pass
 
     analysis_ja = (llm_result.get("analysis_ja") or
-                   f"今週のゲームチャート({source}): {top_lines[0] if top_lines else ''}ほか{len(rows)}作品をランクイン。")[:280]
+                   f"今週のゲームチャート({source}): {top_lines[0] if top_lines else ''}ほか{len(rows_dicts)}作品をランクイン。")[:280] # Changed rows to rows_dicts
     analysis_en = (llm_result.get("analysis_en") or
-                   f"Weekly chart ({source}, {week}): {top_genre} leads with {len(rows)} titles tracked.")[:400]
+                   f"Weekly chart ({source}, {week}): {top_genre} leads with {len(rows_dicts)} titles tracked.")[:400] # Changed rows to rows_dicts
     insight_tags = llm_result.get("insight_tags") or []
     if not isinstance(insight_tags, list):
         insight_tags = []
 
     # ── Persist vertex_game_chart_analysis ────────────────────────────────
-    with sync_cursor() as cur:
-        cur.execute(
-            """
-            INSERT INTO vertex_game_chart_analysis (
-              vertex_id, owner_did, week_start, source,
-              analysis_ja, analysis_en, top_genre,
-              rising_titles_json, falling_titles_json, new_entries_json,
-              insight_tags_json, model_id,
-              actor_did, org_did, sensitivity_ord, created_at
-            ) VALUES (
-              %s, %s, %s, %s,
-              %s, %s, %s,
-              %s, %s, %s,
-              %s, %s,
-              %s, %s, %s, %s
-            )
-            """,
-            (
-                vertex_id, _ACTOR_DID, week.isoformat(), source,
-                analysis_ja, analysis_en, top_genre,
-                json.dumps(rising[:5], ensure_ascii=False),
-                json.dumps(falling[:5], ensure_ascii=False),
-                json.dumps(new_entries[:5], ensure_ascii=False),
-                json.dumps(insight_tags[:5], ensure_ascii=False),
-                model_id,
-                _ACTOR_DID, _ACTOR_DID, 1, created_at,
-            ),
-        )
+    analysis_row = {
+        "vertex_id": vertex_id,
+        "owner_did": _ACTOR_DID,
+        "week_start": week.isoformat(),
+        "source": source,
+        "analysis_ja": analysis_ja,
+        "analysis_en": analysis_en,
+        "top_genre": top_genre,
+        "rising_titles_json": json.dumps(rising[:5], ensure_ascii=False),
+        "falling_titles_json": json.dumps(falling[:5], ensure_ascii=False),
+        "new_entries_json": json.dumps(new_entries[:5], ensure_ascii=False),
+        "insight_tags_json": json.dumps(insight_tags[:5], ensure_ascii=False),
+        "model_id": model_id,
+        "actor_did": _ACTOR_DID,
+        "org_did": _ACTOR_DID,
+        "sensitivity_ord": 1,
+        "created_at": created_at,
+    }
+    kotoba.insert_row("vertex_game_chart_analysis", analysis_row)
 
     # ── Social post ───────────────────────────────────────────────────────
     social_rkey = _rkey("chart")
@@ -554,12 +585,11 @@ def task_media_gamers_chart_analyze(
             text=analysis_ja,
             langs=["ja"],
         )
-        # Update social_post_rkey in analysis row
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_game_chart_analysis SET social_post_rkey = %s WHERE vertex_id = %s",
-                (social_rkey, vertex_id),
-            )
+        # R0: Update social_post_rkey using insert_row (upsert behavior)
+        kotoba.insert_row(
+            "vertex_game_chart_analysis",
+            {"vertex_id": vertex_id, "social_post_rkey": social_rkey}
+        )
     except Exception:  # noqa: BLE001
         pass
 

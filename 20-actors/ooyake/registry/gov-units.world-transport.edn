@@ -47,7 +47,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
-   :gov.unit/name-en "Secretariat of Transport of Argentina"
+   :gov.unit/name-en "Secretariat of Transport (Ministry of Economy)"
    :gov.unit/official-url "https://www.argentina.gob.ar/transporte"
    :gov.unit/wikidata "Q21611507"
    :gov.unit/cofog ["04.5"]
@@ -96,6 +96,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Road Transport and Bridges"
+   :gov.unit/name-local "সড়ক পরিবহন ও সেতু মন্ত্রণালয়"
+   :gov.unit/name-romanized "Sarak Paribahan O Setu Mantranalaya"
    :gov.unit/official-url "https://rthd.gov.bd/"
    :gov.unit/wikidata "Q24892364"
    :gov.unit/cofog ["04.5"]
@@ -112,6 +114,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Transport, Information Technology and Communications"
+   :gov.unit/name-local "Министерство на транспорта и съобщенията"
+   :gov.unit/name-romanized "Ministerstvo na transporta i saobshteniyata"
    :gov.unit/official-url "https://www.mtitc.government.bg/bg"
    :gov.unit/wikidata "Q6867606"
    :gov.unit/cofog ["04.5"]
@@ -160,6 +164,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Transport and Communications of the Republic of Belarus"
+   :gov.unit/name-local "Министерство транспорта и коммуникаций Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo transporta i kommunikatsiy Respubliki Belarus"
    :gov.unit/official-url "http://www.mintrans.gov.by/"
    :gov.unit/wikidata "Q6517899"
    :gov.unit/cofog ["04.5"]
@@ -176,6 +182,7 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Ministry for Transport"
+   :gov.unit/official-url "https://transport.gov.bz/"
    :gov.unit/wikidata "Q97260537"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
@@ -207,6 +214,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Infrastructure and Transport"
+   :gov.unit/name-local "གཞི་རྟེན་མཁོ་ཆས་དང་སྐྱེལ་འདྲེན་ལྷན་ཁག"
+   :gov.unit/name-romanized "gzhi rten mkho chas dang skyel dren lhan khag"
    :gov.unit/official-url "https://www.moit.gov.bt/"
    :gov.unit/wikidata "Q127973263"
    :gov.unit/cofog ["04.5"]
@@ -255,6 +264,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Transport of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国交通运输部"
+   :gov.unit/name-romanized "Jiāotōng Yùnshū Bù"
    :gov.unit/official-url "https://www.mot.gov.cn"
    :gov.unit/wikidata "Q832416"
    :gov.unit/cofog ["04.5"]
@@ -319,6 +330,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Transport, Communications and Works"
+   :gov.unit/name-local "Υπουργείο Μεταφορών, Επικοινωνιών και Έργων"
+   :gov.unit/name-romanized "Ypourgeio Metaforon, Epikoinonion kai Ergon"
    :gov.unit/official-url "https://www.gov.cy/mtcw/"
    :gov.unit/wikidata "Q6590368"
    :gov.unit/cofog ["04.5"]
@@ -367,6 +380,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Transport Ministry of Algeria"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "http://www.ministere-transports.gov.dz/"
    :gov.unit/wikidata "Q3073286"
    :gov.unit/cofog ["04.5"]
@@ -399,6 +414,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Transportation"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizarat al-Naql"
    :gov.unit/official-url "https://mot.gov.eg/"
    :gov.unit/wikidata "Q1864879"
    :gov.unit/cofog ["04.5"]
@@ -447,6 +464,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Transport and Communications"
+   :gov.unit/name-local "የትራንስፖርት እና ሎጂስቲክስ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Transport ena Lojistiks Minister"
    :gov.unit/official-url "http://www.motac.gov.et"
    :gov.unit/wikidata "Q4294746"
    :gov.unit/cofog ["04.5"]
@@ -543,6 +562,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Infrastructure and Transport (Greece)"
+   :gov.unit/name-local "Υπουργείο Υποδομών και Μεταφορών"
+   :gov.unit/name-romanized "Ypourgeio Ypodomon kai Metaforon"
    :gov.unit/official-url "https://www.yme.gr"
    :gov.unit/wikidata "Q2336314"
    :gov.unit/cofog ["04.5"]
@@ -655,6 +676,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Roads and Urban Development"
+   :gov.unit/name-local "وزارت راه و شهرسازی"
+   :gov.unit/name-romanized "Vezārat-e Rāh va Shahrsāzi"
    :gov.unit/official-url "http://www.mrud.ir/"
    :gov.unit/wikidata "Q1091495"
    :gov.unit/cofog ["04.5"]
@@ -671,6 +694,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Transport (Iraq)"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "http://www.motrans.gov.iq/"
    :gov.unit/wikidata "Q22690700"
    :gov.unit/cofog ["04.5"]
@@ -687,6 +712,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Transport and Road Safety"
+   :gov.unit/name-local "משרד התחבורה והבטיחות בדרכים"
+   :gov.unit/name-romanized "Misrad HaTachbura VeHaBetichut BaDrachim"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_transport_and_road_safety"
    :gov.unit/wikidata "Q2661479"
    :gov.unit/cofog ["04.5"]
@@ -735,6 +762,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Transport of Jordan"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "https://www.mot.gov.jo/"
    :gov.unit/wikidata "Q22690699"
    :gov.unit/cofog ["04.5"]
@@ -751,6 +780,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Transport of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Көлік министрлігі"
+   :gov.unit/name-romanized "Kölik ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/transport?lang=en"
    :gov.unit/wikidata "Q126810644"
    :gov.unit/cofog ["04.5"]
@@ -783,6 +814,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Land, Infrastructure and Transport"
+   :gov.unit/name-local "국토교통부"
+   :gov.unit/name-romanized "Gukto Gyotongbu"
    :gov.unit/official-url "http://www.molit.go.kr/"
    :gov.unit/wikidata "Q9398575"
    :gov.unit/cofog ["04.5"]
@@ -799,6 +832,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Transportation"
+   :gov.unit/name-local "وزارة المواصلات"
+   :gov.unit/name-romanized "Wizarat al-Muwasalat"
    :gov.unit/wikidata "Q22934979"
    :gov.unit/cofog ["04.5"]
    :gov.unit/status :active
@@ -814,6 +849,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "ප්‍රවාහන, මහාමාර්ග, වරාය සහ සිවිල් ගුවන් සේවා අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Pravahana, Mahamarga, Varaya saha Sivil Guvan Seva Amathyanshaya"
    :gov.unit/official-url "https://www.transport.gov.lk/"
    :gov.unit/wikidata "Q16056501"
    :gov.unit/cofog ["04.5"]
@@ -862,6 +899,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Transport and Logistics"
+   :gov.unit/name-local "وزارة النقل واللوجستيك"
+   :gov.unit/name-romanized "Wizārat an-Naql wa-l-Lūjistīk"
    :gov.unit/official-url "https://www.transport.gov.ma/fr"
    :gov.unit/wikidata "Q1445967"
    :gov.unit/cofog ["04.5"]
@@ -910,6 +949,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Road and Transport"
+   :gov.unit/name-local "Зам, тээврийн хөгжлийн яам"
+   :gov.unit/name-romanized "Zam, teevriin khögjliin yaam"
    :gov.unit/official-url "https://mrt.gov.mn/"
    :gov.unit/wikidata "Q135706395"
    :gov.unit/cofog ["04.5"]
@@ -1102,6 +1143,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Transport and Communications"
+   :gov.unit/name-local "وزارة المواصلات"
+   :gov.unit/name-romanized "Wizarat al-Muwasalat"
    :gov.unit/official-url "http://www.motc.gov.qa/en"
    :gov.unit/wikidata "Q59535303"
    :gov.unit/cofog ["04.5"]
@@ -1134,6 +1177,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Transport of the Russian Federation"
+   :gov.unit/name-local "Министерство транспорта Российской Федерации"
+   :gov.unit/name-romanized "Mintrans"
    :gov.unit/official-url "https://www.mintrans.gov.ru"
    :gov.unit/wikidata "Q1958537"
    :gov.unit/cofog ["04.5"]
@@ -1150,6 +1195,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Transport and Logistic Services of Saudi Arabia"
+   :gov.unit/name-local "وزارة النقل والخدمات اللوجستية"
+   :gov.unit/name-romanized "Wizarat an-Naql wa-l-Khadamat al-Lujistiyya"
    :gov.unit/official-url "https://www.mot.gov.sa/"
    :gov.unit/wikidata "Q12250992"
    :gov.unit/cofog ["04.5"]
@@ -1182,6 +1229,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Transportation, Construction and Infrastructure of the Republic of Serbia"
+   :gov.unit/name-local "Министарство грађевинарства, саобраћаја и инфраструктуре"
+   :gov.unit/name-romanized "Ministarstvo građevinarstva, saobraćaja i infrastrukture"
    :gov.unit/official-url "http://www.ms.gov.rs"
    :gov.unit/wikidata "Q16664650"
    :gov.unit/cofog ["04.5"]
@@ -1246,6 +1295,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "https://www.mot.gov.sy/web/main.php"
    :gov.unit/wikidata "Q6867611"
    :gov.unit/cofog ["04.5"]
@@ -1278,6 +1329,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "กระทรวงคมนาคม"
+   :gov.unit/name-romanized "Krasuang Khamanakhom"
    :gov.unit/official-url "http://www.mot.go.th/index.html"
    :gov.unit/wikidata "Q4170221"
    :gov.unit/cofog ["04.5"]
@@ -1310,6 +1363,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat an-Naql"
    :gov.unit/official-url "http://www.transport.tn/"
    :gov.unit/wikidata "Q3315448"
    :gov.unit/cofog ["04.5"]
@@ -1406,6 +1461,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Transport"
+   :gov.unit/name-local "وزارة النقل"
+   :gov.unit/name-romanized "Wizārat al-Naql"
    :gov.unit/official-url "https://www.mot.gov.ye/"
    :gov.unit/wikidata "Q12250994"
    :gov.unit/cofog ["04.5"]

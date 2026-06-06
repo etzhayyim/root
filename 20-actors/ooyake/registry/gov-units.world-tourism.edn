@@ -63,6 +63,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Civil Aviation and Tourism"
+   :gov.unit/name-local "বেসামরিক বিমান পরিবহন ও পর্যটন মন্ত্রণালয়"
+   :gov.unit/name-romanized "Besamarik Biman Paribahan O Parjatan Mantranalaya"
    :gov.unit/official-url "https://mocat.gov.bd/"
    :gov.unit/wikidata "Q25209250"
    :gov.unit/cofog ["04.7"]
@@ -79,6 +81,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "Министерство на туризма"
+   :gov.unit/name-romanized "Ministerstvo na turizma"
    :gov.unit/official-url "http://www.tourism.government.bg/"
    :gov.unit/wikidata "Q42293177"
    :gov.unit/cofog ["04.7"]
@@ -207,6 +211,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Deputy Ministry Of Tourism (Cyprus)"
+   :gov.unit/name-local "Υφυπουργείο Τουρισμού"
+   :gov.unit/name-romanized "Yfypourgeio Tourismou"
    :gov.unit/official-url "https://www.gov.cy/tourism/"
    :gov.unit/wikidata "Q86689369"
    :gov.unit/cofog ["04.7"]
@@ -255,6 +261,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Tourism and Antiquities"
+   :gov.unit/name-local "وزارة السياحة والآثار"
+   :gov.unit/name-romanized "Wizarat al-Siyaha wa-l-Athar"
    :gov.unit/official-url "http://www.antiquities.gov.eg"
    :gov.unit/wikidata "Q4116921"
    :gov.unit/cofog ["04.7"]
@@ -287,6 +295,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Tourism (Greece)"
+   :gov.unit/name-local "Υπουργείο Τουρισμού"
+   :gov.unit/name-romanized "Ypourgeio Tourismou"
    :gov.unit/official-url "https://mintour.gov.gr"
    :gov.unit/wikidata "Q6867588"
    :gov.unit/cofog ["04.7"]
@@ -335,6 +345,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Cultural Heritage, Tourism and Handicrafts"
+   :gov.unit/name-local "وزارت میراث فرهنگی، گردشگری و صنایع دستی"
+   :gov.unit/name-romanized "Vezārat-e Mirās-e Farhangi, Gardeshgari va Sanāyeʿ-e Dasti"
    :gov.unit/official-url "https://www.mcth.ir/"
    :gov.unit/wikidata "Q85976400"
    :gov.unit/cofog ["04.7"]
@@ -351,6 +363,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "משרד התיירות"
+   :gov.unit/name-romanized "Misrad HaTayarut"
    :gov.unit/official-url "https://www.gov.il/ar/departments/ministry_of_tourism/govil-landing-page"
    :gov.unit/wikidata "Q2565132"
    :gov.unit/cofog ["04.7"]
@@ -399,6 +413,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Tourism and Antiquities of Jordan"
+   :gov.unit/name-local "وزارة السياحة والآثار"
+   :gov.unit/name-romanized "Wizārat al-Siyāḥa wa-al-Āthār"
    :gov.unit/official-url "https://mota.gov.jo/"
    :gov.unit/wikidata "Q22686374"
    :gov.unit/cofog ["04.7"]
@@ -415,6 +431,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Tourism and Sports of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Туризм және спорт министрлігі"
+   :gov.unit/name-romanized "Turızm jäne sport ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/tsm?lang=kk"
    :gov.unit/wikidata "Q32804211"
    :gov.unit/cofog ["04.7"]
@@ -447,6 +465,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "සංචාරක හා ඉඩම් අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Sancharaka ha Idam Amathyanshaya"
    :gov.unit/official-url "http://www.tourismmin.gov.lk/"
    :gov.unit/wikidata "Q19901560"
    :gov.unit/cofog ["04.7"]
@@ -463,6 +483,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Tourism, Handicrafts and Social and Solidarity Economy"
+   :gov.unit/name-local "وزارة السياحة والصناعة التقليدية والاقتصاد الاجتماعي والتضامني"
+   :gov.unit/name-romanized "Wizārat as-Siyāḥa"
    :gov.unit/official-url "https://mtaess.gov.ma/fr/tourisme/"
    :gov.unit/wikidata "Q62202002"
    :gov.unit/cofog ["04.7"]
@@ -479,6 +501,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "ފަތުރުވެރިކަމާއި މަދަނީ އުދުހުންތަކާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Fathuruverikamaai Madhanee Udhuhunthakaa Behey Vuzaaraa"
    :gov.unit/official-url "https://www.tourism.gov.mv/"
    :gov.unit/wikidata "Q30612667"
    :gov.unit/cofog ["04.7"]
@@ -494,7 +518,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mex"
-   :gov.unit/name-en "Secretariat of Tourism"
+   :gov.unit/name-en "Secretariat of Tourism (SECTUR)"
    :gov.unit/official-url "http://www.sectur.gob.mx/"
    :gov.unit/wikidata "Q384440"
    :gov.unit/cofog ["04.7"]
@@ -527,6 +551,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Hotels and Tourism"
+   :gov.unit/name-local "ဟိုတယ်နှင့်ခရီးသွားလာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Hotel hnint Khayithwala-ye Wankyihtana"
    :gov.unit/official-url "https://tourism.gov.mm/"
    :gov.unit/wikidata "Q6867149"
    :gov.unit/cofog ["04.7"]
@@ -574,7 +600,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-en "Pakistan Tourism Development Corporation (PTDC)"
    :gov.unit/official-url "https://tourism.gov.pk/"
    :gov.unit/wikidata "Q6867580"
    :gov.unit/cofog ["04.7"]
@@ -655,6 +681,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizarat as-Siyaha"
    :gov.unit/official-url "https://mt.gov.sa/Pages/default.aspx"
    :gov.unit/wikidata "Q7427133"
    :gov.unit/cofog ["04.7"]
@@ -735,6 +763,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Tourism (Syria)"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizārat al-Siyāḥa"
    :gov.unit/official-url "https://mots.gov.sy/"
    :gov.unit/wikidata "Q60575868"
    :gov.unit/cofog ["04.7"]
@@ -751,6 +781,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Tourism and Sports (Thailand)"
+   :gov.unit/name-local "กระทรวงการท่องเที่ยวและกีฬา"
+   :gov.unit/name-romanized "Krasuang Kan Thongthiao lae Kila"
    :gov.unit/official-url "https://www.mots.go.th/"
    :gov.unit/wikidata "Q4919401"
    :gov.unit/cofog ["04.7"]
@@ -767,6 +799,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizārat as-Siyāḥa"
    :gov.unit/official-url "https://www.tourisme.gov.tn/"
    :gov.unit/wikidata "Q3315443"
    :gov.unit/cofog ["04.7"]
@@ -814,7 +848,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "Ministry of Culture and Tourism of Ukraine"
+   :gov.unit/name-en "State Agency for Tourism Development of Ukraine"
+   :gov.unit/name-local "Державне агентство розвитку туризму України"
+   :gov.unit/name-romanized "Derzhavne ahentstvo rozvytku turyzmu Ukrainy"
    :gov.unit/official-url "https://www.tourism.gov.ua/"
    :gov.unit/wikidata "Q4294447"
    :gov.unit/cofog ["04.7"]
@@ -879,6 +915,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Tourism"
+   :gov.unit/name-local "وزارة السياحة"
+   :gov.unit/name-romanized "Wizārat al-Siyāḥa"
    :gov.unit/wikidata "Q22932730"
    :gov.unit/cofog ["04.7"]
    :gov.unit/status :active

@@ -142,7 +142,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
-   :gov.unit/name-en "Ministry of Science and Technology, Ethiopia"
+   :gov.unit/name-en "Ministry of Innovation and Technology (Ethiopia)"
+   :gov.unit/name-local "የኢኖቬሽን እና ቴክኖሎጂ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Inoveshin ena Teknoloji Minister"
    :gov.unit/official-url "https://mint.gov.et/"
    :gov.unit/wikidata "Q20982439"
    :gov.unit/cofog ["01.4"]
@@ -158,7 +160,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ind"
-   :gov.unit/name-en "Science and Technology Department"
+   :gov.unit/name-en "Ministry of Science and Technology"
    :gov.unit/official-url "https://dst.gujarat.gov.in"
    :gov.unit/wikidata "Q116909095"
    :gov.unit/cofog ["01.4"]
@@ -175,6 +177,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Science and ICT"
+   :gov.unit/name-local "과학기술정보통신부"
+   :gov.unit/name-romanized "Gwahak Gisul Jeongbo Tongsinbu"
    :gov.unit/official-url "http://www.msit.go.kr/"
    :gov.unit/wikidata "Q33366149"
    :gov.unit/cofog ["01.4"]
@@ -239,6 +243,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Science and Higher Education"
+   :gov.unit/name-local "Министерство науки и высшего образования Российской Федерации"
+   :gov.unit/name-romanized "Minobrnauki"
    :gov.unit/official-url "https://minobrnauki.gov.ru"
    :gov.unit/wikidata "Q53579434"
    :gov.unit/cofog ["01.4"]

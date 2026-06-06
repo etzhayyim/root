@@ -15,6 +15,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Prosecutor General of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության դատախազություն"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan datakhazutyun"
    :gov.unit/official-url "https://www.prosecutor.am"
    :gov.unit/wikidata "Q4135344"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -39,6 +41,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Prosecutor's Office of Bulgaria"
+   :gov.unit/name-local "Прокуратура на Република България"
+   :gov.unit/name-romanized "Prokuratura na Republika Balgaria"
    :gov.unit/official-url "https://prb.bg/en"
    :gov.unit/wikidata "Q53124687"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -63,6 +67,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Prosecutor General's Office of the Republic of Belarus"
+   :gov.unit/name-local "Генеральная прокуратура Республики Беларусь"
+   :gov.unit/name-romanized "Generalnaya prokuratura Respubliki Belarus"
    :gov.unit/official-url "http://prokuratura.gov.by/"
    :gov.unit/wikidata "Q6482716"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -98,7 +104,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Fourth Division of the People's Procuratorate of Beijing Municipality"
+   :gov.unit/name-en "Supreme People's Procuratorate of the People's Republic of China"
+   :gov.unit/name-local "最高人民检察院"
+   :gov.unit/name-romanized "Zuìgāo Rénmín Jiǎnchá Yuàn"
    :gov.unit/official-url "https://www.bjjc.gov.cn/c/sify/"
    :gov.unit/wikidata "Q19851961"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -207,6 +215,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Supreme Prosecutors' Office of the Republic of Korea"
+   :gov.unit/name-local "대검찰청"
+   :gov.unit/name-romanized "Daegeomchalcheong"
    :gov.unit/official-url "https://www.spo.go.kr/"
    :gov.unit/wikidata "Q624031"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -242,7 +252,7 @@
    :gov.unit/parent "gov.mex"
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mex"
-   :gov.unit/name-en "Procuraduría General de la República"
+   :gov.unit/name-en "Fiscalía General de la República (FGR)"
    :gov.unit/official-url "http://www.pgr.gob.mx"
    :gov.unit/wikidata "Q50150345"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -315,6 +325,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Public Prosecution Service of the Russian Federation"
+   :gov.unit/name-local "Генеральная прокуратура Российской Федерации"
+   :gov.unit/name-romanized "Generalnaya prokuratura RF"
    :gov.unit/official-url "https://epp.genproc.gov.ru/"
    :gov.unit/wikidata "Q2387440"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -327,6 +339,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Public Prosecution Office for Organized Crime"
+   :gov.unit/name-local "Тужилаштво за организовани криминал"
+   :gov.unit/name-romanized "Tužilaštvo za organizovani kriminal"
    :gov.unit/official-url "https://tok.jt.rs"
    :gov.unit/wikidata "Q137396709"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -363,6 +377,8 @@
    :gov.unit/level :agency :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Office of the Prosecutor General of Ukraine"
+   :gov.unit/name-local "Офіс Генерального прокурора"
+   :gov.unit/name-romanized "Ofis Heneralnoho prokurora"
    :gov.unit/official-url "https://www.gp.gov.ua/"
    :gov.unit/wikidata "Q72282729"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

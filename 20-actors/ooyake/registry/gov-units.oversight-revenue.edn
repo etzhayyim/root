@@ -63,6 +63,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "National Revenue Agency"
+   :gov.unit/name-local "Национална агенция за приходите"
+   :gov.unit/name-romanized "Natsionalna agentsia za prihodite"
    :gov.unit/official-url "http://www.nap.bg/"
    :gov.unit/wikidata "Q12287903"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -122,7 +124,7 @@
    :gov.unit/parent "gov.cze"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "cze"
-   :gov.unit/name-en "Finanční úřad - Územní pracoviště pro Prahu - Jižní Město"
+   :gov.unit/name-en "Generální finanční ředitelství (General Financial Directorate)"
    :gov.unit/official-url "https://www.financnisprava.cz/cs/financni-sprava/organy-financni-spravy/financni-urady/app/urad-kontakt/2011"
    :gov.unit/wikidata "Q64352579"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -195,6 +197,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "State Tax Service under the Government of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Финансы министрлигине караштуу Мамлекеттик салык кызматы"
+   :gov.unit/name-romanized "Mamlekettik salyk kyzmaty"
    :gov.unit/official-url "https://sti.gov.kg/"
    :gov.unit/wikidata "Q25608481"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -243,6 +247,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Inland Revenue Department"
+   :gov.unit/name-local "आन्तरिक राजस्व विभाग"
+   :gov.unit/name-romanized "Antarik Rajaswa Vibhag"
    :gov.unit/official-url "https://www.ird.gov.np/"
    :gov.unit/wikidata "Q19659583"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -315,6 +321,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Zakat, Tax, and Customs Authority"
+   :gov.unit/name-local "هيئة الزكاة والضريبة والجمارك"
+   :gov.unit/name-romanized "Hayʾat az-Zakah wa-d-Dariba wa-l-Jamarik"
    :gov.unit/official-url "https://zatca.gov.sa/"
    :gov.unit/wikidata "Q106704595"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -362,7 +370,7 @@
    :gov.unit/parent "gov.tur"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tur"
-   :gov.unit/name-en "General Directorate of Customs Protection"
+   :gov.unit/name-en "Gelir İdaresi Başkanlığı (Revenue Administration)"
    :gov.unit/official-url "http://muhafaza.gtb.gov.tr"
    :gov.unit/wikidata "Q20473795"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -374,7 +382,9 @@
    :gov.unit/parent "gov.ukr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "State Fiscal Service"
+   :gov.unit/name-en "State Tax Service of Ukraine"
+   :gov.unit/name-local "Державна податкова служба України"
+   :gov.unit/name-romanized "Derzhavna podatkova sluzhba Ukrainy"
    :gov.unit/official-url "http://sfs.gov.ua/en/"
    :gov.unit/wikidata "Q20076220"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

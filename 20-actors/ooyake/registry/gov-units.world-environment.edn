@@ -65,6 +65,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Environment and Water of UAE"
+   :gov.unit/name-local "وزارة التغير المناخي والبيئة"
+   :gov.unit/name-romanized "Wizarat al-Taghayyur al-Munakhi wa al-Biʾa"
    :gov.unit/official-url "https://www.moccae.gov.ae/"
    :gov.unit/wikidata "Q12250940"
    :gov.unit/cofog ["05"]
@@ -97,6 +99,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Environment of Armenia"
+   :gov.unit/name-local "Շրջակա միջավայրի նախարարություն"
+   :gov.unit/name-romanized "Shrjaka mijavayri nakhararutyun"
    :gov.unit/official-url "https://environment.gov.am"
    :gov.unit/wikidata "Q6867413"
    :gov.unit/cofog ["05"]
@@ -145,6 +149,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Environment, Forest and Climate Change"
+   :gov.unit/name-local "পরিবেশ, বন ও জলবায়ু পরিবর্তন মন্ত্রণালয়"
+   :gov.unit/name-romanized "Paribesh, Bon O Jalbayu Paribartan Mantranalaya"
    :gov.unit/official-url "http://www.moef.gov.bd/"
    :gov.unit/wikidata "Q13058854"
    :gov.unit/cofog ["05"]
@@ -161,6 +167,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Environment and Water"
+   :gov.unit/name-local "Министерство на околната среда и водите"
+   :gov.unit/name-romanized "Ministerstvo na okolnata sreda i vodite"
    :gov.unit/official-url "https://www.moew.government.bg/?show=226&lang=en"
    :gov.unit/wikidata "Q12286834"
    :gov.unit/cofog ["05"]
@@ -193,6 +201,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Natural Resources and Environmental Protection of the Republic of Belarus"
+   :gov.unit/name-local "Министерство природных ресурсов и охраны окружающей среды Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo prirodnykh resursov i okhrany okruzhayushchey sredy"
    :gov.unit/official-url "http://www.minpriroda.gov.by"
    :gov.unit/wikidata "Q6517881"
    :gov.unit/cofog ["05"]
@@ -305,6 +315,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Ecology and Environment of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国生态环境部"
+   :gov.unit/name-romanized "Shēngtài Huánjìng Bù"
    :gov.unit/official-url "http://www.mee.gov.cn/"
    :gov.unit/wikidata "Q50484273"
    :gov.unit/cofog ["05"]
@@ -369,6 +381,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Agriculture, Rural Development and Environment"
+   :gov.unit/name-local "Υπουργείο Γεωργίας, Αγροτικής Ανάπτυξης και Περιβάλλοντος"
+   :gov.unit/name-romanized "Ypourgeio Georgias, Agrotikis Anaptyxis kai Perivallontos"
    :gov.unit/official-url "https://www.gov.cy/moa/"
    :gov.unit/wikidata "Q30285142"
    :gov.unit/cofog ["05"]
@@ -417,6 +431,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizarat al-Biʾa"
    :gov.unit/official-url "https://www.eeaa.gov.eg/"
    :gov.unit/wikidata "Q16065034"
    :gov.unit/cofog ["05"]
@@ -432,7 +448,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Ministry of Agriculture and Fisheries, Food and Environment"
+   :gov.unit/name-en "Ministry for the Ecological Transition and the Demographic Challenge (MITECO)"
    :gov.unit/official-url "http://www.mapama.gob.es/"
    :gov.unit/wikidata "Q27748945"
    :gov.unit/cofog ["05"]
@@ -481,6 +497,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Environmental Protection and Agriculture of Georgia"
+   :gov.unit/name-local "საქართველოს გარემოს დაცვისა და სოფლის მეურნეობის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos garemos datsvisa da soflis meurneobis saministro"
    :gov.unit/official-url "https://mepa.gov.ge/En/"
    :gov.unit/wikidata "Q4294677"
    :gov.unit/cofog ["05"]
@@ -529,6 +547,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of the Environment and Energy (Greece)"
+   :gov.unit/name-local "Υπουργείο Περιβάλλοντος και Ενέργειας"
+   :gov.unit/name-romanized "Ypourgeio Perivallontos kai Energeias"
    :gov.unit/official-url "https://ypen.gov.gr"
    :gov.unit/wikidata "Q3557152"
    :gov.unit/cofog ["05"]
@@ -641,6 +661,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Environment of Iraq"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizārat al-Bīʾa"
    :gov.unit/official-url "https://moen.gov.iq/"
    :gov.unit/wikidata "Q16126958"
    :gov.unit/cofog ["05"]
@@ -657,6 +679,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Environmental Protection"
+   :gov.unit/name-local "המשרד להגנת הסביבה"
+   :gov.unit/name-romanized "HaMisrad leHaganat HaSviva"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_environmental_protection"
    :gov.unit/wikidata "Q2907759"
    :gov.unit/cofog ["05"]
@@ -673,6 +697,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Environment of Jordan"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizārat al-Bīʾa"
    :gov.unit/official-url "https://moenv.gov.jo/"
    :gov.unit/wikidata "Q22690682"
    :gov.unit/cofog ["05"]
@@ -705,6 +731,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-local "환경부"
+   :gov.unit/name-romanized "Hwangyeongbu"
    :gov.unit/official-url "http://www.me.go.kr/"
    :gov.unit/wikidata "Q488961"
    :gov.unit/cofog ["05"]
@@ -833,6 +861,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Environment and Climate Change"
+   :gov.unit/name-local "Байгаль орчин, уур амьсгалын өөрчлөлтийн яам"
+   :gov.unit/name-romanized "Baigal orchin, uur amisgalyn öörchlöltiin yaam"
    :gov.unit/official-url "https://mecc.gov.mn/"
    :gov.unit/wikidata "Q127260163"
    :gov.unit/cofog ["05"]
@@ -848,7 +878,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Department of Environment"
+   :gov.unit/name-en "Ministry of Natural Resources and Environmental Sustainability (NRES)"
    :gov.unit/official-url "https://www.doe.gov.my/portalv1/"
    :gov.unit/wikidata "Q12688329"
    :gov.unit/cofog ["05"]
@@ -928,7 +958,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
-   :gov.unit/name-en "Ministry of Science, Technology and Environment"
+   :gov.unit/name-en "Ministry of Forests and Environment"
+   :gov.unit/name-local "वन तथा वातावरण मन्त्रालय"
+   :gov.unit/name-romanized "Van tatha Vatavaran Mantralaya"
    :gov.unit/official-url "https://moest.gov.np/"
    :gov.unit/wikidata "Q13186005"
    :gov.unit/cofog ["05"]
@@ -976,7 +1008,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-en "Ministry of Climate Change"
+   :gov.unit/name-local "وزارت موسمیاتی تبدیلی"
+   :gov.unit/name-romanized "Wizārat-e-Mausamiyātī Tabdīlī"
    :gov.unit/official-url "http://www.pakistan.gov.pk/ministries/index.jsp?MinID=5&cPath=0"
    :gov.unit/wikidata "Q4294552"
    :gov.unit/cofog ["05"]
@@ -1041,6 +1075,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Environment and Climate Change"
+   :gov.unit/name-local "وزارة البيئة والتغير المناخي"
+   :gov.unit/name-romanized "Wizarat al-Biʾah wa-t-Taghayyur al-Munakhi"
    :gov.unit/official-url "http://www.mme.gov.qa/cui/view.dox?id=316&siteID=1"
    :gov.unit/wikidata "Q30263866"
    :gov.unit/cofog ["05"]
@@ -1121,6 +1157,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Mining and Energy of the Republic of Serbia"
+   :gov.unit/name-local "Министарство рударства и енергетике"
+   :gov.unit/name-romanized "Ministarstvo rudarstva i energetike"
    :gov.unit/official-url "http://www.merz.gov.rs"
    :gov.unit/wikidata "Q22662468"
    :gov.unit/cofog ["05"]
@@ -1215,7 +1253,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
-   :gov.unit/name-en "Ministry of Science, Technology and Environment"
+   :gov.unit/name-en "Ministry of Natural Resources and Environment"
+   :gov.unit/name-local "กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม"
+   :gov.unit/name-romanized "Krasuang Sapphayakon Thammachat lae Singwaetlom"
    :gov.unit/official-url "http://www.most.go.th/"
    :gov.unit/wikidata "Q4921224"
    :gov.unit/cofog ["05"]
@@ -1232,6 +1272,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Environment"
+   :gov.unit/name-local "وزارة البيئة"
+   :gov.unit/name-romanized "Wizārat al-Bīʾa"
    :gov.unit/official-url "https://www.environnement.gov.tn/"
    :gov.unit/wikidata "Q3315206"
    :gov.unit/cofog ["05"]

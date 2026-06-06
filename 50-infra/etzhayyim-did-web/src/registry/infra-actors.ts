@@ -16,6 +16,7 @@
  */
 
 import didWebRoot from "../../did.json";
+import { TIER_B_ACTORS } from "./tier-b-actors.gen";
 
 
 /** One per-actor entry; injected into the path-based DID Doc by
@@ -59,7 +60,7 @@ const SIMEON_PEER_ID = "12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc";
  * Hand-authored canonical infra-actor registry. Add new entries to the
  * end of the object — order is the deployment chronology.
  */
-export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
+const HAND_AUTHORED_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   pinner: {
     description:
       "MST CAR pinner — pins shard CARs produced by mst-projector to IPFS. Per ADR-2605171800 Stage 4.",
@@ -598,6 +599,15 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     adrs: ["2606062300"],
   },
 } as const;
+
+// Merged registry: generated Tier-B actors (from manifests) + hand-authored
+// named/service actors. Hand-authored entries win on a handle clash
+// (spread last). Per ADR-2606042330 follow-up — every designed Tier-B actor
+// now resolves a DID and appears in /search.
+export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
+  ...TIER_B_ACTORS,
+  ...HAND_AUTHORED_ACTORS,
+};
 
 
 export function isInfraActor(handle: string): boolean {

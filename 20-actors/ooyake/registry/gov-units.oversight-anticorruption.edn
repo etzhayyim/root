@@ -39,7 +39,7 @@
    :gov.unit/parent "gov.aus"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Independent Commission Against Corruption"
+   :gov.unit/name-en "National Anti-Corruption Commission (NACC)"
    :gov.unit/official-url "http://www.icac.nsw.gov.au"
    :gov.unit/wikidata "Q17007670"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -64,6 +64,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Anti-Corruption Commission"
+   :gov.unit/name-local "দুর্নীতি দমন কমিশন"
+   :gov.unit/name-romanized "Durniti Daman Commission"
    :gov.unit/official-url "http://www.acc.org.bd/"
    :gov.unit/wikidata "Q4774512"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -99,7 +101,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Independent Commission Against Corruption"
+   :gov.unit/name-en "National Supervisory Commission of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国国家监察委员会"
+   :gov.unit/name-romanized "Guójiā Jiānchá Wěiyuánhuì"
    :gov.unit/official-url "https://www.icac.org.hk/"
    :gov.unit/wikidata "Q30999"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -136,6 +140,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Independent Authority Against Corruption"
+   :gov.unit/name-local "Ανεξάρτητη Αρχή κατά της Διαφθοράς"
+   :gov.unit/name-romanized "Anexartiti Archi kata tis Diafthoras"
    :gov.unit/official-url "https://www.iaac.org.cy/"
    :gov.unit/wikidata "Q135490371"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -160,6 +166,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Ethics and Anti-Corruption Commission"
+   :gov.unit/name-local "የፌዴራል የሥነ-ምግባርና የፀረ-ሙስና ኮሚሽን"
+   :gov.unit/name-romanized "Ye-Federal Ye-Sine-Migbarina Ye-Tsere-Musina Komishin"
    :gov.unit/official-url "http://www.feac.gov.et/"
    :gov.unit/wikidata "Q110834203"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -196,6 +204,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "General Inspection Office"
+   :gov.unit/name-local "سازمان بازرسی کل کشور"
+   :gov.unit/name-romanized "Sāzmān-e Bāzrasi-ye Koll-e Keshvar"
    :gov.unit/official-url "https://www.bazresi.ir/"
    :gov.unit/wikidata "Q5531956"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -220,6 +230,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Integrity and Anti-Corruption Commission - Jordan"
+   :gov.unit/name-local "هيئة النزاهة ومكافحة الفساد"
+   :gov.unit/name-romanized "Hayʾat al-Nazāha wa-Mukāfaḥat al-Fasād"
    :gov.unit/official-url "https://www.jiacc.gov.jo/"
    :gov.unit/wikidata "Q28716105"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -232,6 +244,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Anti Corruption agency of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасы Сыбайлас жемқорлыққа қарсы іс-қимыл агенттігі"
+   :gov.unit/name-romanized "Sybaiylas jemqorlyqqa qarsy ıs-qimyl agenttıgı"
    :gov.unit/official-url "http://www.anticorruption.gov.kz"
    :gov.unit/wikidata "Q19844106"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -256,6 +270,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Korea Independent Commission Against Corruption"
+   :gov.unit/name-local "국민권익위원회"
+   :gov.unit/name-romanized "Gungmin Gwonik Wiwonhoe"
    :gov.unit/official-url "http://www.acrc.go.kr"
    :gov.unit/wikidata "Q412404"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -304,6 +320,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Anti-Corruption Commission of Myanmar"
+   :gov.unit/name-local "အဂတိလိုက်စားမှုတိုက်ဖျက်ရေးကော်မရှင်"
+   :gov.unit/name-romanized "Agati Laiksamhu Taikphyetyay Kawmashin"
    :gov.unit/official-url "https://www.accm.gov.mm/"
    :gov.unit/wikidata "Q20990862"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -376,6 +394,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "National Accountability Bureau"
+   :gov.unit/name-local "قومی احتساب بیورو"
+   :gov.unit/name-romanized "Qaumī Ehtisāb Beuro"
    :gov.unit/official-url "http://www.nab.gov.pk/"
    :gov.unit/wikidata "Q6970148"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -424,6 +444,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "the Oversight and Anti-Corruption Commission"
+   :gov.unit/name-local "هيئة الرقابة ومكافحة الفساد (نزاهة)"
+   :gov.unit/name-romanized "Hayʾat al-Riqabah wa Mukafahat al-Fasad (Nazaha)"
    :gov.unit/official-url "http://www.nazaha.gov.sa/"
    :gov.unit/wikidata "Q7184025"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -472,6 +494,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Anti-Corruption Commission (Thailand)"
+   :gov.unit/name-local "คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ"
+   :gov.unit/name-romanized "Khana Kammakan Pongkan lae Prappram kan Thutcharit haeng Chat"
    :gov.unit/official-url "https://www.nacc.go.th/"
    :gov.unit/wikidata "Q13013388"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -484,6 +508,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "State Bureau of Investigation"
+   :gov.unit/name-local "Державне бюро розслідувань"
+   :gov.unit/name-romanized "Derzhavne biuro rozsliduvan"
    :gov.unit/official-url "http://www.dbr.gov.ua"
    :gov.unit/wikidata "Q16697654"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

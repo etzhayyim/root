@@ -1080,13 +1080,13 @@ select{padding:.4rem;border:1px solid #8888;border-radius:.4rem}
 #stats{opacity:.7;font-size:.85rem;margin:.6rem 0}
 ul{list-style:none;padding:0;margin:0}
 li{padding:.5rem .2rem;border-bottom:1px solid #8882;display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap}
-.nm{font-weight:600}.en{opacity:.6}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
+.nm{font-weight:600}.en{opacity:.6}.ro{opacity:.55;font-style:italic;font-size:.9em}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
 .au{color:#1a7f37;border-color:#1a7f3766}.re{opacity:.55}
 a{color:inherit}
 </style></head><body>
 <h1>公 — World Government Atlas</h1>
 <p class="sub">An observational <strong>mirror</strong> + civic wayfinding map of the world's government units — never the government, never an official channel, never a target-list (ADR-2606021600). Data: <a href="/.well-known/gov-units.json">/.well-known/gov-units.json</a>. <a href="/actors">/actors</a></p>
-<input id="q" placeholder="search government units… (try: 財務省, 札幌市, Stuttgart, London, prefecture)" autocomplete="off">
+<input id="q" placeholder="search by name, endonym, romanization or id… (try: 国会, Kokkai, Verkhovna, Knesset, 札幌市)" autocomplete="off">
 <div class="row">
 <select id="lvl"><option value="">all levels</option></select>
 <select id="src"><option value="">all sourcing</option><option value="authoritative">authoritative</option><option value="representative">representative</option></select>
@@ -1102,9 +1102,10 @@ a{color:inherit}
  const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
  function render(){
   const t=q.value.trim().toLowerCase(),fl=lvl.value,fs=src.value;
-  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
-  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · authoritative '+(d.bySourcing&&d.bySourcing.authoritative||0)+' / representative '+(d.bySourcing&&d.bySourcing.representative||0);
-  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+'</li>').join('');
+  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.nameRomanized||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
+  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · '+(d.withNameLocal||0)+' endonyms · '+(d.withCoords||0)+' located';
+  const geo=u=>(typeof u.lat==='number'&&typeof u.lon==='number')?' · <a href="geo:'+u.lat+','+u.lon+'" rel="noopener">map</a>':'';
+  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameRomanized&&u.nameRomanized!==u.name?' <span class="ro">'+esc(u.nameRomanized)+'</span>':'')+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+geo(u)+'</li>').join('');
  }
  q.oninput=lvl.onchange=src.onchange=render;render();
 })();
@@ -1482,6 +1483,30 @@ a{color:inherit}
           const offset = Number.isFinite(offParam) && offParam > 0 ? offParam : 0;
           const page = searchEntityActors(q, limit, offset);
           const entityActors = page.records.map((r) => toGetProfileView(r));
+          // First page also carries the compiled named/infra actors (tsumugi /
+          // ooyake / kabuto / watari / … + substrate services). They are real
+          // actors that belong in search, AND their presence is what stops the
+          // yoro service worker (kotoba-sw.js) from "backfilling" them and
+          // resetting `totalActors` to the page length — the bug that capped
+          // `/search` at ~62 even though this Worker returns 8,888. The SW only
+          // rewrites the response when it finds a seed actor MISSING from it;
+          // include them and it passes our response (totalActors intact) through.
+          let namedActors: unknown[] = [];
+          if (offset === 0) {
+            const ql = q.trim().toLowerCase();
+            for (const h of COMPILED_ACTOR_HANDLES) {
+              const rec = compiledActorRecord(h);
+              if (!rec) continue;
+              const name = (
+                rec.displayNameEn ||
+                rec.displayNameJa ||
+                rec.handle
+              ).toLowerCase();
+              if (!ql || h.includes(ql) || name.includes(ql)) {
+                namedActors.push(toGetProfileView(rec));
+              }
+            }
+          }
           // best-effort upstream merge (PDS members) — only on the FIRST page and
           // only when there is room, so the entity offset-cursor stays consistent
           // across pages. Tolerate absence (G8 R0).
@@ -1511,10 +1536,13 @@ a{color:inherit}
               // upstream unavailable — entity matches still answer the query.
             }
           }
-          const actors = [...entityActors, ...upstreamActors];
+          const actors = [...namedActors, ...entityActors, ...upstreamActors];
           // totalActors: full match count when a query is set, else the whole
-          // entity universe — so the UI shows "8,888 actors" not "62+".
-          const totalActors = q.trim() ? page.total : ENTITY_TOTAL_COUNT;
+          // entity universe — so the UI shows "8,888 actors" not "62+". The
+          // page-1 named actors are counted in too.
+          const totalActors =
+            (q.trim() ? page.total : ENTITY_TOTAL_COUNT) +
+            (offset === 0 ? namedActors.length : 0);
           const body: Record<string, unknown> = { actors, totalActors };
           // cursor drives the UI's infinite-scroll loadMoreActors(); omit at end.
           if (page.nextOffset !== null) body.cursor = String(page.nextOffset);

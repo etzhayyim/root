@@ -53,6 +53,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Central Election Commission"
+   :gov.unit/name-local "Централна избирателна комисия"
+   :gov.unit/name-romanized "Tsentralna izbiratelna komisiya"
    :gov.unit/official-url "https://www.cik.bg/"
    :gov.unit/wikidata "Q12298881"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -65,6 +67,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Central Election Commission of Belarus"
+   :gov.unit/name-local "Центральная комиссия Республики Беларусь по выборам и проведению республиканских референдумов"
+   :gov.unit/name-romanized "Tsentralnaya komissiya po vyboram i provedeniyu respublikanskikh referendumov"
    :gov.unit/official-url "http://rec.gov.by"
    :gov.unit/wikidata "Q2576708"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -197,6 +201,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "National Elections Commission"
+   :gov.unit/name-local "الهيئة الوطنية للانتخابات"
+   :gov.unit/name-romanized "al-Hayʾa al-Wataniyya li-l-Intikhabat"
    :gov.unit/official-url "https://www.elections.eg/home"
    :gov.unit/wikidata "Q42342907"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -221,6 +227,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Election Board of Ethiopia"
+   :gov.unit/name-local "የኢትዮጵያ ብሔራዊ ምርጫ ቦርድ"
+   :gov.unit/name-romanized "Ye-Ityopiya Biherawi Mircha Bord"
    :gov.unit/official-url "http://www.electionethiopia.org"
    :gov.unit/wikidata "Q1968187"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -329,6 +337,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Guardian Council"
+   :gov.unit/name-local "شورای نگهبان"
+   :gov.unit/name-romanized "Shorā-ye Negahbān"
    :gov.unit/official-url "https://www.shora-gc.ir/"
    :gov.unit/wikidata "Q828689"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -341,6 +351,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Independent High Electoral Commission"
+   :gov.unit/name-local "المفوضية العليا المستقلة للانتخابات"
+   :gov.unit/name-romanized "al-Mufawwaḍiyya al-ʿUlyā al-Mustaqilla lil-Intikhābāt"
    :gov.unit/official-url "https://www.ihec.iq/"
    :gov.unit/wikidata "Q6016663"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -353,6 +365,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israeli Central Elections Committee"
+   :gov.unit/name-local "ועדת הבחירות המרכזית לכנסת"
+   :gov.unit/name-romanized "Va'adat HaBechirot HaMerkazit la'Knesset"
    :gov.unit/official-url "https://www.bechirot.gov.il/"
    :gov.unit/wikidata "Q2356351"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -377,6 +391,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Central election commission of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Орталық сайлау комиссиясы"
+   :gov.unit/name-romanized "Ortalyq saiylau komissiyasy"
    :gov.unit/official-url "https://www.election.gov.kz/eng/"
    :gov.unit/wikidata "Q25451582"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -389,6 +405,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Central Electoral Commission of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Шайлоо жана референдум өткөрүү боюнча борбордук комиссиясы"
+   :gov.unit/name-romanized "Shayloo jana referendum ötkörüü boyuncha borborduk komissiyasy"
    :gov.unit/official-url "https://shailoo.gov.kg/"
    :gov.unit/wikidata "Q5061020"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -401,6 +419,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Election Commission of South Korea"
+   :gov.unit/name-local "중앙선거관리위원회"
+   :gov.unit/name-romanized "Jungang Seongeo Gwalli Wiwonhoe"
    :gov.unit/official-url "https://www.nec.go.kr/"
    :gov.unit/wikidata "Q626334"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -473,6 +493,7 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "moz"
    :gov.unit/name-en "Comissão Nacional de Eleições"
+   :gov.unit/official-url "http://www.cne.org.mz/"
    :gov.unit/wikidata "Q118144466"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q118144466" :gov.unit/last-verified "2026-06-03"
@@ -580,6 +601,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Central Election Commission of Russia"
+   :gov.unit/name-local "Центральная избирательная комиссия Российской Федерации"
+   :gov.unit/name-romanized "Tsentralnaya izbiratelnaya komissiya RF"
    :gov.unit/official-url "http://cikrf.ru/"
    :gov.unit/wikidata "Q190362"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -712,6 +735,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Central Election Commission of Ukraine"
+   :gov.unit/name-local "Центральна виборча комісія"
+   :gov.unit/name-romanized "Tsentralna vyborcha komisiia"
    :gov.unit/official-url "http://www.cvk.gov.ua/"
    :gov.unit/wikidata "Q913899"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -16,6 +16,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Water and Energy Islamic Emirate of Afganistan"
+   :gov.unit/name-local "وزارت انرژی و آب"
+   :gov.unit/name-romanized "Wizarat-i Inarji wa Ab"
    :gov.unit/official-url "http://mew.gov.af/en/"
    :gov.unit/wikidata "Q6867648"
    :gov.unit/cofog ["04.3"]
@@ -64,6 +66,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Energy of UAE"
+   :gov.unit/name-local "وزارة الطاقة والبنية التحتية"
+   :gov.unit/name-romanized "Wizarat al-Taqa wa al-Binya al-Tahtiyya"
    :gov.unit/official-url "https://www.moei.gov.ae/"
    :gov.unit/wikidata "Q12250976"
    :gov.unit/cofog ["04.3"]
@@ -79,7 +83,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
-   :gov.unit/name-en "Ministry of Energy Infrastructures and Natural Resources"
+   :gov.unit/name-en "Ministry of Territorial Administration and Infrastructure of Armenia"
+   :gov.unit/name-local "Տարածքային կառավարման և ենթակառուցվածքների նախարարություն"
+   :gov.unit/name-romanized "Taratskayin karavarman yev entakarutsvatskneri nakhararutyun"
    :gov.unit/official-url "https://www.mtad.am/en"
    :gov.unit/wikidata "Q13053372"
    :gov.unit/cofog ["04.3"]
@@ -160,6 +166,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Power, Energy and Mineral Resources"
+   :gov.unit/name-local "বিদ্যুৎ, জ্বালানি ও খনিজ সম্পদ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Bidyut, Jalani O Khanij Sampad Mantranalaya"
    :gov.unit/official-url "http://www.mpemr.gov.bd/"
    :gov.unit/wikidata "Q24301315"
    :gov.unit/cofog ["04.3"]
@@ -176,6 +184,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Energy of Bulgaria"
+   :gov.unit/name-local "Министерство на енергетиката"
+   :gov.unit/name-romanized "Ministerstvo na energetikata"
    :gov.unit/official-url "https://www.me.government.bg/bg"
    :gov.unit/wikidata "Q50041098"
    :gov.unit/cofog ["04.3"]
@@ -192,6 +202,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Energy of the Republic of Belarus"
+   :gov.unit/name-local "Министерство энергетики Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo energetiki Respubliki Belarus"
    :gov.unit/official-url "http://minenergo.gov.by/"
    :gov.unit/wikidata "Q13031631"
    :gov.unit/cofog ["04.3"]
@@ -271,7 +283,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-en "Natural Resources Canada"
    :gov.unit/official-url "http://www.energy.gov.on.ca/fr/"
    :gov.unit/wikidata "Q6866884"
    :gov.unit/cofog ["04.3"]
@@ -352,6 +364,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Energy, Commerce and Industry"
+   :gov.unit/name-local "Υπουργείο Ενέργειας, Εμπορίου και Βιομηχανίας"
+   :gov.unit/name-romanized "Ypourgeio Energeias, Emporiou kai Viomichanias"
    :gov.unit/official-url "https://www.gov.cy/meci/"
    :gov.unit/wikidata "Q16737595"
    :gov.unit/cofog ["04.3"]
@@ -416,6 +430,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Petroleum and Mineral Resources"
+   :gov.unit/name-local "وزارة البترول والثروة المعدنية"
+   :gov.unit/name-romanized "Wizarat al-Bitrul wa-l-Tharwa al-Maʿdaniyya"
    :gov.unit/official-url "https://www.petroleum.gov.eg/ar-eg/Pages/HomePage.aspx"
    :gov.unit/wikidata "Q4294486"
    :gov.unit/cofog ["04.3"]
@@ -447,7 +463,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
-   :gov.unit/name-en "Ministry of Energy and Natural Resources"
+   :gov.unit/name-en "Ministry of Economy and Sustainable Development of Georgia"
+   :gov.unit/name-local "საქართველოს ეკონომიკისა და მდგრადი განვითარების სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos ekonomikisa da mdgradi ganvitarebis saministro"
    :gov.unit/official-url "http://www.minenergy.gov.ge/"
    :gov.unit/wikidata "Q724834"
    :gov.unit/cofog ["04.3"]
@@ -560,6 +578,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Petroleum"
+   :gov.unit/name-local "وزارت نفت"
+   :gov.unit/name-romanized "Vezārat-e Naft"
    :gov.unit/official-url "http://www.mop.ir"
    :gov.unit/wikidata "Q4294485"
    :gov.unit/cofog ["04.3"]
@@ -576,6 +596,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Energy and infrastructures"
+   :gov.unit/name-local "משרד האנרגיה והתשתיות"
+   :gov.unit/name-romanized "Misrad HaEnergiya veHaTashtiyot"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_energy"
    :gov.unit/wikidata "Q4294949"
    :gov.unit/cofog ["04.3"]
@@ -608,6 +630,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "Қазақстан Республикасының Энергетика министрлігі"
+   :gov.unit/name-romanized "Energetika ministrlıgı"
    :gov.unit/official-url "http://energo.gov.kz/"
    :gov.unit/wikidata "Q18404762"
    :gov.unit/cofog ["04.3"]
@@ -624,6 +648,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Mines and Energy"
+   :gov.unit/name-local "ក្រសួងរ៉ែ និងថាមពល"
+   :gov.unit/name-romanized "Krasuong Re ning Thamopol"
    :gov.unit/official-url "https://mme.gov.kh/"
    :gov.unit/wikidata "Q6867189"
    :gov.unit/cofog ["04.3"]
@@ -640,6 +666,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Trade, Industry and Resource"
+   :gov.unit/name-local "산업통상자원부"
+   :gov.unit/name-romanized "Saneop Tongsang Jawonbu"
    :gov.unit/official-url "http://www.motie.go.kr/"
    :gov.unit/wikidata "Q491047"
    :gov.unit/cofog ["04.3"]
@@ -672,6 +700,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Power and Energy"
+   :gov.unit/name-local "විදුලිබල හා බලශක්ති අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Vidulibala ha Balashakthi Amathyanshaya"
    :gov.unit/official-url "http://www.mope.gov.lk/"
    :gov.unit/wikidata "Q4294848"
    :gov.unit/cofog ["04.3"]
@@ -768,6 +798,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "Эрчим хүчний яам"
+   :gov.unit/name-romanized "Erchim khüchnii yaam"
    :gov.unit/official-url "https://www.energy.gov.mn/"
    :gov.unit/wikidata "Q135710656"
    :gov.unit/cofog ["04.3"]
@@ -799,7 +831,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of Energy and Natural Resources"
+   :gov.unit/name-en "Ministry of Energy Transition and Water Transformation (PETRA)"
    :gov.unit/official-url "https://www.ketsa.gov.my/ms-my/Pages/default.aspx"
    :gov.unit/wikidata "Q6867411"
    :gov.unit/cofog ["04.3"]
@@ -864,6 +896,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Energy, Water Resources and Irrigation"
+   :gov.unit/name-local "ऊर्जा, जलस्रोत तथा सिँचाइ मन्त्रालय"
+   :gov.unit/name-romanized "Urja, Jalsrot tatha Sinchai Mantralaya"
    :gov.unit/official-url "https://www.moewri.gov.np/"
    :gov.unit/wikidata "Q17010322"
    :gov.unit/cofog ["04.3"]
@@ -880,6 +914,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "وزارت توانائی"
+   :gov.unit/name-romanized "Wizārat-e-Tawānāʾī"
    :gov.unit/official-url "https://power.gov.pk/"
    :gov.unit/wikidata "Q36347675"
    :gov.unit/cofog ["04.3"]
@@ -928,6 +964,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "وزارة الطاقة"
+   :gov.unit/name-romanized "Wizarat al-Taqah"
    :gov.unit/official-url "http://www.meim.gov.sa"
    :gov.unit/wikidata "Q12250935"
    :gov.unit/cofog ["04.3"]
@@ -976,6 +1014,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "وزارة الطاقة"
+   :gov.unit/name-romanized "Wizārat al-Ṭāqa"
    :gov.unit/official-url "https://moenergy.gov.sy/"
    :gov.unit/wikidata "Q133699397"
    :gov.unit/cofog ["04.3"]
@@ -1008,6 +1048,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Energy"
+   :gov.unit/name-local "กระทรวงพลังงาน"
+   :gov.unit/name-romanized "Krasuang Phalang-ngan"
    :gov.unit/official-url "https://www.energy.go.th/"
    :gov.unit/wikidata "Q6866887"
    :gov.unit/cofog ["04.3"]
@@ -1040,6 +1082,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Energy and Mines of Tunisia"
+   :gov.unit/name-local "وزارة الصناعة والمناجم والطاقة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣināʿa wa-l-Manājim wa-ṭ-Ṭāqa"
    :gov.unit/official-url "https://www.energiemines.gov.tn/"
    :gov.unit/wikidata "Q22934956"
    :gov.unit/cofog ["04.3"]
@@ -1088,6 +1132,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Energy of Ukraine"
+   :gov.unit/name-local "Міністерство енергетики України"
+   :gov.unit/name-romanized "Ministerstvo enerhetyky Ukrainy"
    :gov.unit/official-url "http://www.menr.gov.ua/"
    :gov.unit/wikidata "Q67117103"
    :gov.unit/cofog ["04.3"]

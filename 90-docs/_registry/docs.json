@@ -21021,6 +21021,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606060000-profile-same-origin-auth-cacao.md",
+      "id": "adr-2606060000-profile-same-origin-auth-cacao",
+      "title": "ADR-2606060000: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "profile-same-origin-auth",
+      "authoritative": true,
+      "authoritative_for": [
+        "profile-same-origin-auth",
+        "cacao-verify-only-apex-surface"
+      ],
+      "related": [
+        "adr-2605212030-etzhayyim-authz-erc725-root-issuance-design",
+        "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
+        "adr-2606013800-actor-profile-dynamic-did-json",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "last_verified": "2026-06-06",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606060900-tasuke-free-cybercrime-victim-support-membrane-r0.md",
       "id": "adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
       "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
@@ -21077,35 +21106,6 @@
         "2605262700",
         "2605312030",
         "2606021600"
-      ],
-      "last_verified": "2026-06-06",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/2606061200-profile-same-origin-auth-cacao.md",
-      "id": "adr-2606061200-profile-same-origin-auth-cacao",
-      "title": "ADR-2606061200: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "profile-same-origin-auth",
-      "authoritative": true,
-      "authoritative_for": [
-        "profile-same-origin-auth",
-        "cacao-verify-only-apex-surface"
-      ],
-      "related": [
-        "adr-2605212030-etzhayyim-authz-erc725-root-issuance-design",
-        "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "depends_on": [
-        "adr-2605231525-no-server-key-religious-corp-architecture",
-        "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
-        "adr-2606013800-actor-profile-dynamic-did-json",
-        "adr-2605262130-kotoba-storage-substrate-unification",
-        "adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
       "last_verified": "2026-06-06",
       "amends": [],

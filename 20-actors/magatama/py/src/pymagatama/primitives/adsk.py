@@ -50,7 +50,7 @@ from pymagatama.kotoba_datomic import get_kotoba_client
 _ADSK_ACTOR = "did:web:adsk.etzhayyim.com"
 _HF_TOKEN = os.environ.get("HF_TOKEN", "").strip() or None
 
-# Hard cap on a single record body persisted inline (RW varchar safety).
+# Hard cap on a single record body persisted inline (kotoba Datom log varchar safety).
 _RECORD_BYTE_HARDCAP = 64_000
 
 # Minimum text length to be useful for training. Shorter rows are
@@ -466,7 +466,7 @@ async def task_adsk_3d_blob_ingest(
     """Register an already-staged 3D blob in ``vertex_3d_blob``.
 
     ADR-2605080700 Phase 2 stores large ABC-1M / Make-A-Shape / WaLa
-    artifacts in B2 and persists only catalog metadata in RisingWave.
+    artifacts in B2 and persists only catalog metadata in kotoba Datom log.
     The heavy download/upload path is handled by the caller; this task
     validates and records the manifest row.
     """

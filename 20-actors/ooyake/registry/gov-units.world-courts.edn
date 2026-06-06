@@ -26,6 +26,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Afghan Supreme Court"
+   :gov.unit/name-local "ستره محکمه"
+   :gov.unit/name-romanized "Stera Mahkama"
    :gov.unit/official-url "http://supremecourt.gov.af/en"
    :gov.unit/wikidata "Q8561"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -133,6 +135,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Supreme Court of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ সুপ্রিম কোর্ট"
+   :gov.unit/name-romanized "Bangladesh Supreme Court"
    :gov.unit/official-url "http://www.supremecourt.gov.bd"
    :gov.unit/wikidata "Q3346963"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -145,6 +149,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Supreme Court of Cassation of Bulgaria"
+   :gov.unit/name-local "Върховен касационен съд"
+   :gov.unit/name-romanized "Varhoven kasatsionen sad"
    :gov.unit/official-url "http://www.vks.bg"
    :gov.unit/wikidata "Q7644888"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -193,6 +199,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Supreme Court of Belarus"
+   :gov.unit/name-local "Верховный Суд Республики Беларусь"
+   :gov.unit/name-romanized "Verkhovnyy Sud Respubliki Belarus"
    :gov.unit/official-url "http://www.supcourt.by/"
    :gov.unit/wikidata "Q3001108"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -265,6 +273,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Supreme Court of Bhutan"
+   :gov.unit/name-local "མངོན་མཐོའི་ཁྲིམས་འདུན"
+   :gov.unit/name-romanized "ngon tho thrimdun"
    :gov.unit/official-url "https://www.judiciary.gov.bt/"
    :gov.unit/wikidata "Q7644880"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -313,6 +323,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Supreme People's Court of the People's Republic of China"
+   :gov.unit/name-local "最高人民法院"
+   :gov.unit/name-romanized "Zuìgāo Rénmín Fǎyuàn"
    :gov.unit/official-url "https://english.court.gov.cn/"
    :gov.unit/wikidata "Q691994"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -409,6 +421,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "The Supreme Court of Cyprus"
+   :gov.unit/name-local "Ανώτατο Δικαστήριο Κύπρου"
+   :gov.unit/name-romanized "Anotato Dikastirio Kyprou"
    :gov.unit/official-url "https://www.supremecourt.gov.cy/"
    :gov.unit/wikidata "Q19201850"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -469,6 +483,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Supreme Court of Algeria"
+   :gov.unit/name-local "المحكمة العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-ʿUlyā"
    :gov.unit/official-url "http://www.coursupreme.dz/"
    :gov.unit/wikidata "Q25462150"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -481,6 +497,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Supreme Constitutional Court of Egypt"
+   :gov.unit/name-local "المحكمة الدستورية العليا"
+   :gov.unit/name-romanized "al-Mahkama al-Dusturiyya al-ʿUlya"
    :gov.unit/official-url "https://www.sccourt.gov.eg/"
    :gov.unit/wikidata "Q2156821"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -517,6 +535,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Supreme Court of Ethiopia"
+   :gov.unit/name-local "የፌዴራል ጠቅላይ ፍርድ ቤት"
+   :gov.unit/name-romanized "Ye-Federal Teklay Frd Bet"
    :gov.unit/official-url "https://www.fsc.gov.et/"
    :gov.unit/wikidata "Q16117669"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -577,6 +597,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Supreme Court of Georgia"
+   :gov.unit/name-local "საქართველოს უზენაესი სასამართლო"
+   :gov.unit/name-romanized "Sakartvelos uzenaesi sasamartlo"
    :gov.unit/official-url "http://www.supremecourt.ge"
    :gov.unit/wikidata "Q7644905"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -624,6 +646,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Court of Cassation"
+   :gov.unit/name-local "Άρειος Πάγος"
+   :gov.unit/name-romanized "Areios Pagos"
    :gov.unit/official-url "http://www.areiospagos.gr/"
    :gov.unit/wikidata "Q174932"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -732,6 +756,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Supreme Court of Iran"
+   :gov.unit/name-local "دیوان عالی کشور"
+   :gov.unit/name-romanized "Divān-e Āli-ye Keshvar"
    :gov.unit/official-url "http://divanealee.eadl.ir/"
    :gov.unit/wikidata "Q13107481"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -743,7 +769,9 @@
    :gov.unit/parent "gov.irq"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "irq"
-   :gov.unit/name-en "Supreme Court of Iraq"
+   :gov.unit/name-en "Federal Supreme Court of Iraq"
+   :gov.unit/name-local "المحكمة الاتحادية العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-Ittiḥādiyya al-ʿUlyā"
    :gov.unit/official-url "https://iraqfsc.iq/"
    :gov.unit/wikidata "Q3001100"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -768,6 +796,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israeli Supreme Court"
+   :gov.unit/name-local "בית המשפט העליון"
+   :gov.unit/name-romanized "Beit HaMishpat HaElyon"
    :gov.unit/official-url "https://supreme.court.gov.il/"
    :gov.unit/wikidata "Q399798"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -792,6 +822,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Supreme Court of Japan"
+   :gov.unit/name-local "最高裁判所"
+   :gov.unit/name-romanized "Saikō Saibansho"
    :gov.unit/official-url "https://www.courts.go.jp/index.html"
    :gov.unit/wikidata "Q1142255"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -804,6 +836,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Supreme Court of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Жоғарғы Соты"
+   :gov.unit/name-romanized "Joğarğy Soty"
    :gov.unit/official-url "https://sud.gov.kz"
    :gov.unit/wikidata "Q4109099"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -828,6 +862,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Supreme Court of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Жогорку соту"
+   :gov.unit/name-romanized "Jogorku sotu"
    :gov.unit/official-url "https://www.sot.kg/"
    :gov.unit/wikidata "Q106498794"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -840,6 +876,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Supreme Court of Korea"
+   :gov.unit/name-local "대법원"
+   :gov.unit/name-romanized "Daebeobwon"
    :gov.unit/official-url "https://www.scourt.go.kr/supreme/supreme.jsp"
    :gov.unit/wikidata "Q623906"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -888,6 +926,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Supreme Court of Sri Lanka"
+   :gov.unit/name-local "ශ්‍රේෂ්ඨාධිකරණය"
+   :gov.unit/name-romanized "Sreshthadhikaranaya"
    :gov.unit/official-url "http://www.supremecourt.lk/"
    :gov.unit/wikidata "Q1702908"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -935,7 +975,9 @@
    :gov.unit/parent "gov.mar"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mar"
-   :gov.unit/name-en "Supreme Court of Morocco"
+   :gov.unit/name-en "Court of Cassation (Morocco)"
+   :gov.unit/name-local "محكمة النقض"
+   :gov.unit/name-romanized "Maḥkamat an-Naqḍ"
    :gov.unit/official-url "https://www.courdecassation.ma/"
    :gov.unit/wikidata "Q3001004"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -972,6 +1014,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Supreme Court of the Maldives"
+   :gov.unit/name-local "ދިވެހިރާއްޖޭގެ ސުޕްރީމް ކޯޓު"
+   :gov.unit/name-romanized "Dhivehiraajjeyge Supreme Koatu"
    :gov.unit/official-url "http://www.supremecourt.gov.mv"
    :gov.unit/wikidata "Q24944325"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1008,6 +1052,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Supreme Court of North Macedonia"
+   :gov.unit/name-local "Врховен суд на Република Северна Македонија"
+   :gov.unit/name-romanized "Vrhoven sud na Republika Severna Makedonija"
    :gov.unit/official-url "http://www.vsrm.mk"
    :gov.unit/wikidata "Q20565315"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1032,6 +1078,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Supreme Court of Myanmar"
+   :gov.unit/name-local "ပြည်ထောင်စုတရားလွှတ်တော်ချုပ်"
+   :gov.unit/name-romanized "Pyidaungsu Taya Hluttaw-gyok"
    :gov.unit/official-url "https://www.unionsupremecourt.gov.mm/"
    :gov.unit/wikidata "Q4120189"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1056,6 +1104,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Supreme Court of Mongolia"
+   :gov.unit/name-local "Монгол Улсын Дээд шүүх"
+   :gov.unit/name-romanized "Mongol Ulsyn Deed shüükh"
    :gov.unit/official-url "https://www.supremecourt.mn/en"
    :gov.unit/wikidata "Q7644946"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1152,6 +1202,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Supreme Court of Nepal"
+   :gov.unit/name-local "सर्वोच्च अदालत"
+   :gov.unit/name-romanized "Sarvochcha Adalat"
    :gov.unit/official-url "http://www.supremecourt.gov.np"
    :gov.unit/wikidata "Q7644951"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1188,6 +1240,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Supreme Court of Pakistan"
+   :gov.unit/name-local "عدالتِ عظمیٰ پاکستان"
+   :gov.unit/name-romanized "ʿAdālat-e ʿUzmā Pākistān"
    :gov.unit/official-url "https://www.pakistanpressfoundation.org/"
    :gov.unit/wikidata "Q2989473"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1307,6 +1361,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Supreme Constitutional Court of Qatar"
+   :gov.unit/name-local "المحكمة الدستورية العليا"
+   :gov.unit/name-romanized "al-Mahkamah ad-Dusturiyyah al-ʿUlya"
    :gov.unit/official-url "https://www.sjc.gov.qa/en"
    :gov.unit/wikidata "Q12192494"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1331,6 +1387,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Supreme Court of Russia"
+   :gov.unit/name-local "Верховный Суд Российской Федерации"
+   :gov.unit/name-romanized "Verkhovnyy Sud RF"
    :gov.unit/official-url "http://www.vsrf.ru"
    :gov.unit/wikidata "Q2622450"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1355,6 +1413,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Supreme Court of Saudi Arabia"
+   :gov.unit/name-local "المحكمة العليا"
+   :gov.unit/name-romanized "al-Mahkama al-ʿUlya"
    :gov.unit/official-url "https://www.moj.gov.sa/English/Ministry/Courts/Pages/HighCourt.aspx"
    :gov.unit/wikidata "Q20393621"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1427,6 +1487,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Supreme Court of Republic of Serbia"
+   :gov.unit/name-local "Врховни суд"
+   :gov.unit/name-romanized "Vrhovni sud"
    :gov.unit/official-url "https://www.vk.sud.rs/"
    :gov.unit/wikidata "Q3608414"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1511,6 +1573,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Supreme Constitutional Court of Syria"
+   :gov.unit/name-local "المحكمة الدستورية العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-Dustūriyya al-ʿUlyā"
    :gov.unit/wikidata "Q7644818"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q7644818" :gov.unit/last-verified "2026-06-03"
@@ -1546,6 +1610,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Supreme Court of Thailand"
+   :gov.unit/name-local "ศาลฎีกา"
+   :gov.unit/name-romanized "San Dika"
    :gov.unit/official-url "http://www.supremecourt.or.th/"
    :gov.unit/wikidata "Q6152383"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1558,6 +1624,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Supreme Court of Tajikistan"
+   :gov.unit/name-local "Суди Олии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Sudi Olii Jumhurii Tojikiston"
    :gov.unit/official-url "https://egov.tj/site/sud-tjk?lang=en"
    :gov.unit/wikidata "Q21662238"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1570,6 +1638,7 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tkm"
    :gov.unit/name-en "Supreme Court of Turkmenistan"
+   :gov.unit/official-url "https://court.gov.tm/"
    :gov.unit/wikidata "Q51874774"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q51874774" :gov.unit/last-verified "2026-06-03"
@@ -1617,6 +1686,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Supreme Court of Ukraine"
+   :gov.unit/name-local "Верховний Суд"
+   :gov.unit/name-romanized "Verkhovnyi Sud"
    :gov.unit/official-url "http://supreme.court.gov.ua"
    :gov.unit/wikidata "Q2274281"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1713,6 +1784,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Supreme Court of the Republic"
+   :gov.unit/name-local "المحكمة العليا"
+   :gov.unit/name-romanized "al-Maḥkama al-ʿUlyā"
    :gov.unit/official-url "https://sc-yemen.com/"
    :gov.unit/wikidata "Q12192498"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

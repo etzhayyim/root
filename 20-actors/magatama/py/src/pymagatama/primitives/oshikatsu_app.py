@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:oshikatsu.etzhayyim.com"

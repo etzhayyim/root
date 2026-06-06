@@ -58,7 +58,9 @@
    :gov.unit/parent "gov.are"
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "are"
-   :gov.unit/name-en "Federal Supreme Council"
+   :gov.unit/name-en "Federal National Council"
+   :gov.unit/name-local "المجلس الوطني الاتحادي"
+   :gov.unit/name-romanized "al-Majlis al-Watani al-Ittihadi"
    :gov.unit/official-url "https://uaecabinet.ae/en/federal-supreme-council"
    :gov.unit/wikidata "Q5440456"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -83,6 +85,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Assembly of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության Ազգային ժողով"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan Azgayin zhoghov"
    :gov.unit/official-url "http://parliament.am"
    :gov.unit/wikidata "Q1337463"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -191,6 +195,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Jatiya Sangsad"
+   :gov.unit/name-local "জাতীয় সংসদ"
+   :gov.unit/name-romanized "Jatiya Sangsad"
    :gov.unit/official-url "https://www.parliament.gov.bd/"
    :gov.unit/wikidata "Q1684080"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -203,6 +209,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "National Assembly of Bulgaria"
+   :gov.unit/name-local "Народно събрание на Република България"
+   :gov.unit/name-romanized "Narodno sabranie na Republika Balgaria"
    :gov.unit/official-url "https://www.parliament.bg"
    :gov.unit/wikidata "Q639704"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -251,6 +259,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Assembly of the Republic of Belarus"
+   :gov.unit/name-local "Национальное собрание Республики Беларусь"
+   :gov.unit/name-romanized "Natsionalnoye sobraniye Respubliki Belarus"
    :gov.unit/official-url "http://www.house.gov.by/en/"
    :gov.unit/wikidata "Q1798607"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -323,6 +333,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Parliament of Bhutan"
+   :gov.unit/name-local "རྒྱལ་ཡོངས་ཚོགས་ཁང"
+   :gov.unit/name-romanized "Gyelyong Tshokhang"
    :gov.unit/official-url "https://parliament.bt/"
    :gov.unit/wikidata "Q2080399"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -395,6 +407,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "National People's Congress"
+   :gov.unit/name-local "全国人民代表大会"
+   :gov.unit/name-romanized "Quánguó Rénmín Dàibiǎo Dàhuì"
    :gov.unit/official-url "http://www.npc.gov.cn/"
    :gov.unit/wikidata "Q19211"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -514,6 +528,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "House of Representatives"
+   :gov.unit/name-local "Βουλή των Αντιπροσώπων"
+   :gov.unit/name-romanized "Vouli ton Antiprosopon"
    :gov.unit/official-url "https://www.parliament.cy/"
    :gov.unit/wikidata "Q1112381"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -586,6 +602,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Parliament of Algeria"
+   :gov.unit/name-local "البرلمان الجزائري"
+   :gov.unit/name-romanized "al-Barlamān al-Jazāʾirī"
    :gov.unit/official-url "http://www.apn-dz.org"
    :gov.unit/wikidata "Q3142337"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -610,6 +628,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Parliament of Egypt"
+   :gov.unit/name-local "مجلس النواب"
+   :gov.unit/name-romanized "Majlis al-Nuwwab"
    :gov.unit/official-url "https://www.parliament.gov.eg/"
    :gov.unit/wikidata "Q2584535"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -646,6 +666,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Parliamentary Assembly"
+   :gov.unit/name-local "የሕዝብ ተወካዮች ምክር ቤት"
+   :gov.unit/name-romanized "Ye-Hizb Tewekayoch Mikir Bet"
    :gov.unit/official-url "https://www.hopr.gov.et/"
    :gov.unit/wikidata "Q257899"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -730,6 +752,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Parliament of Georgia"
+   :gov.unit/name-local "საქართველოს პარლამენტი"
+   :gov.unit/name-romanized "Sakartvelos parlamenti"
    :gov.unit/official-url "https://parliament.ge/"
    :gov.unit/wikidata "Q1417210"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -790,6 +814,7 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "gnq"
    :gov.unit/name-en "Parliament of Equatorial Guinea"
+   :gov.unit/official-url "https://senado-gq.org/"
    :gov.unit/wikidata "Q16878152"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q16878152" :gov.unit/last-verified "2026-06-03"
@@ -801,6 +826,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Hellenic Parliament"
+   :gov.unit/name-local "Βουλή των Ελλήνων"
+   :gov.unit/name-romanized "Vouli ton Ellinon"
    :gov.unit/official-url "https://www.hellenicparliament.gr"
    :gov.unit/wikidata "Q477089"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -933,6 +960,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Islamic Consultative Assembly"
+   :gov.unit/name-local "مجلس شورای اسلامی"
+   :gov.unit/name-romanized "Majles-e Shorā-ye Eslāmi"
    :gov.unit/official-url "https://rc.majlis.ir/"
    :gov.unit/wikidata "Q378605"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -945,6 +974,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Council of Representatives of Iraq"
+   :gov.unit/name-local "مجلس النواب العراقي"
+   :gov.unit/name-romanized "Majlis al-Nuwwāb al-ʿIrāqī"
    :gov.unit/official-url "https://www.parliament.iq/"
    :gov.unit/wikidata "Q1973075"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -969,6 +1000,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "The Knesset"
+   :gov.unit/name-local "הכנסת"
+   :gov.unit/name-romanized "HaKnesset"
    :gov.unit/official-url "https://main.knesset.gov.il"
    :gov.unit/wikidata "Q133396"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1005,6 +1038,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Parliament of Jordan"
+   :gov.unit/name-local "مجلس الأمة"
+   :gov.unit/name-romanized "Majlis al-Umma"
    :gov.unit/official-url "http://www.parliament.jo"
    :gov.unit/wikidata "Q820697"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1017,6 +1052,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "National Diet"
+   :gov.unit/name-local "国会"
+   :gov.unit/name-romanized "Kokkai"
    :gov.unit/official-url "http://www.sangiin.go.jp/eng/index.htm"
    :gov.unit/wikidata "Q202384"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1041,6 +1078,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Supreme Council"
+   :gov.unit/name-local "Кыргыз Республикасынын Жогорку Кеңеши"
+   :gov.unit/name-romanized "Jogorku Keŋeshi"
    :gov.unit/official-url "http://www.kenesh.kg/"
    :gov.unit/wikidata "Q578193"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1053,6 +1092,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Parliament of Cambodia"
+   :gov.unit/name-local "សភាតំណាងរាស្ត្រ"
+   :gov.unit/name-romanized "Saphea Tamnang Reastr"
    :gov.unit/official-url "https://www.nac.org.kh/"
    :gov.unit/wikidata "Q1320418"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1089,6 +1130,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Assembly"
+   :gov.unit/name-local "국회"
+   :gov.unit/name-romanized "Gukhoe"
    :gov.unit/official-url "https://assembly.go.kr/"
    :gov.unit/wikidata "Q494162"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1101,6 +1144,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "National Assembly of Kuwait"
+   :gov.unit/name-local "مجلس الأمة"
+   :gov.unit/name-romanized "Majlis al-Umma"
    :gov.unit/official-url "http://kna.kw/"
    :gov.unit/wikidata "Q1139228"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1113,6 +1158,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "National Assembly"
+   :gov.unit/name-local "ສະພາແຫ່ງຊາດ"
+   :gov.unit/name-romanized "Sapha Haengxat"
    :gov.unit/official-url "http://www.na.gov.la/"
    :gov.unit/wikidata "Q1188525"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1185,6 +1232,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Parliament of Sri Lanka"
+   :gov.unit/name-local "ශ්‍රී ලංකා පාර්ලිමේන්තුව"
+   :gov.unit/name-romanized "Sri Lanka Parlimentuwa"
    :gov.unit/official-url "http://www.parliament.lk/"
    :gov.unit/wikidata "Q1450753"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1245,6 +1294,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Parliament of Morocco"
+   :gov.unit/name-local "برلمان المملكة المغربية"
+   :gov.unit/name-romanized "Barlamān al-Mamlaka al-Maghribiyya"
    :gov.unit/official-url "https://www.parlement.ma/"
    :gov.unit/wikidata "Q3004884"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1293,6 +1344,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "People's Majlis"
+   :gov.unit/name-local "ރައްޔިތުންގެ މަޖިލިސް"
+   :gov.unit/name-romanized "Rayyithunge Majlis"
    :gov.unit/official-url "https://majlis.gov.mv/"
    :gov.unit/wikidata "Q650066"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1329,6 +1382,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Assembly of North Macedonia"
+   :gov.unit/name-local "Собрание на Република Северна Македонија"
+   :gov.unit/name-romanized "Sobranie na Republika Severna Makedonija"
    :gov.unit/official-url "https://www.sobranie.mk/"
    :gov.unit/wikidata "Q1258164"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1353,6 +1408,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Assembly of the Union"
+   :gov.unit/name-local "ပြည်ထောင်စုလွှတ်တော်"
+   :gov.unit/name-romanized "Pyidaungsu Hluttaw"
    :gov.unit/official-url "http://www.pyithuhluttaw.gov.mm/"
    :gov.unit/wikidata "Q3363019"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1377,6 +1434,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "State Great Khural"
+   :gov.unit/name-local "Монгол Улсын Их Хурал"
+   :gov.unit/name-romanized "Mongol Ulsyn Ikh Khural"
    :gov.unit/official-url "https://www.parliament.mn/"
    :gov.unit/wikidata "Q1544714"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1497,6 +1556,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Parliament of Nepal"
+   :gov.unit/name-local "सङ्घीय संसद"
+   :gov.unit/name-romanized "Sanghiya Sansad"
    :gov.unit/official-url "https://www.parliament.gov.np/"
    :gov.unit/wikidata "Q3896143"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1545,6 +1606,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Parliament of Pakistan"
+   :gov.unit/name-local "مجلسِ شوریٰ (پارلیمان)"
+   :gov.unit/name-romanized "Majlis-e Shūrā (Pārlīmān)"
    :gov.unit/official-url "https://www.na.gov.pk/"
    :gov.unit/wikidata "Q2665089"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1664,6 +1727,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Consultative Assembly of Qatar"
+   :gov.unit/name-local "مجلس الشورى"
+   :gov.unit/name-romanized "Majlis ash-Shura"
    :gov.unit/official-url "https://www.shura.qa/"
    :gov.unit/wikidata "Q818691"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1688,6 +1753,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Federal Assembly of the Russian Federation"
+   :gov.unit/name-local "Федеральное Собрание Российской Федерации"
+   :gov.unit/name-romanized "Federalnoye Sobraniye RF"
    :gov.unit/official-url "http://www.gov.ru/main/page7.html"
    :gov.unit/wikidata "Q457869"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1711,7 +1778,9 @@
    :gov.unit/parent "gov.sau"
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "sau"
-   :gov.unit/name-en "Government of Saudi Arabia"
+   :gov.unit/name-en "Shura Council (Saudi Arabia)"
+   :gov.unit/name-local "مجلس الشورى"
+   :gov.unit/name-romanized "Majlis ash-Shura"
    :gov.unit/official-url "https://www.shura.gov.sa/"
    :gov.unit/wikidata "Q62399316"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1819,6 +1888,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "National Assembly of Serbia"
+   :gov.unit/name-local "Народна скупштина"
+   :gov.unit/name-romanized "Narodna skupština"
    :gov.unit/official-url "http://www.parlament.gov.rs/"
    :gov.unit/wikidata "Q920222"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1927,6 +1998,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "People's Assembly of Syria"
+   :gov.unit/name-local "مجلس الشعب"
+   :gov.unit/name-romanized "Majlis al-Shaʿb"
    :gov.unit/official-url "http://www.parliament.gov.sy"
    :gov.unit/wikidata "Q1372196"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1963,6 +2036,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Assembly of Thailand"
+   :gov.unit/name-local "รัฐสภา"
+   :gov.unit/name-romanized "Ratthasapha"
    :gov.unit/official-url "http://www.parliament.go.th/"
    :gov.unit/wikidata "Q1368318"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1975,6 +2050,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Supreme Assembly"
+   :gov.unit/name-local "Маҷлиси Олии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Majlisi Olii Jumhurii Tojikiston"
    :gov.unit/official-url "https://parlament.tj/"
    :gov.unit/wikidata "Q2011165"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2035,6 +2112,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Assembly of the Representatives of the People"
+   :gov.unit/name-local "مجلس نواب الشعب"
+   :gov.unit/name-romanized "Majlis Nuwwāb ash-Shaʿb"
    :gov.unit/official-url "https://arp.tn/"
    :gov.unit/wikidata "Q18342090"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2095,6 +2174,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Verkhovna Rada"
+   :gov.unit/name-local "Верховна Рада України"
+   :gov.unit/name-romanized "Verkhovna Rada Ukrainy"
    :gov.unit/official-url "https://rada.gov.ua"
    :gov.unit/wikidata "Q176296"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2203,6 +2284,8 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Parliament of Yemen"
+   :gov.unit/name-local "مجلس النواب"
+   :gov.unit/name-romanized "Majlis al-Nuwwāb"
    :gov.unit/official-url "http://yemenparliament.gov.ye/"
    :gov.unit/wikidata "Q34665845"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -33,6 +33,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Health and Prevention"
+   :gov.unit/name-local "وزارة الصحة ووقاية المجتمع"
+   :gov.unit/name-romanized "Wizarat al-Sihha wa Wiqayat al-Mujtamaʿ"
    :gov.unit/official-url "http://www.moh.gov.ae/en/Pages/default.aspx"
    :gov.unit/wikidata "Q22948578"
    :gov.unit/cofog ["07"]
@@ -65,6 +67,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "Առողջապահության նախարարություն"
+   :gov.unit/name-romanized "Aroghjapahutyan nakhararutyun"
    :gov.unit/official-url "https://moh.am"
    :gov.unit/wikidata "Q13053365"
    :gov.unit/cofog ["07"]
@@ -80,7 +84,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-en "Department of Health, Disability and Ageing"
    :gov.unit/official-url "https://www.health.nsw.gov.au/"
    :gov.unit/wikidata "Q6867095"
    :gov.unit/cofog ["07"]
@@ -177,6 +181,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Health and Family Welfare"
+   :gov.unit/name-local "স্বাস্থ্য ও পরিবার কল্যাণ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Sasthya O Paribar Kalyan Mantranalaya"
    :gov.unit/official-url "http://www.mohfw.gov.bd/"
    :gov.unit/wikidata "Q16952233"
    :gov.unit/cofog ["07"]
@@ -193,6 +199,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Health of Bulgaria"
+   :gov.unit/name-local "Министерство на здравеопазването"
+   :gov.unit/name-romanized "Ministerstvo na zdraveopazvaneto"
    :gov.unit/official-url "https://www.mh.government.bg/bg/"
    :gov.unit/wikidata "Q12286820"
    :gov.unit/cofog ["07"]
@@ -241,6 +249,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Public Health of the Republic of Belarus"
+   :gov.unit/name-local "Министерство здравоохранения Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo zdravookhraneniya Respubliki Belarus"
    :gov.unit/official-url "http://minzdrav.gov.by/"
    :gov.unit/wikidata "Q3919266"
    :gov.unit/cofog ["07"]
@@ -321,6 +331,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "གསོ་བའི་ལྷན་ཁག"
+   :gov.unit/name-romanized "gso ba'i lhan khag"
    :gov.unit/official-url "https://moh.gov.bt/"
    :gov.unit/wikidata "Q25203026"
    :gov.unit/cofog ["07"]
@@ -336,7 +348,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-en "Health Canada"
    :gov.unit/official-url "http://www.saskatchewan.ca/government/government-structure/ministries/health"
    :gov.unit/wikidata "Q17013968"
    :gov.unit/cofog ["07"]
@@ -384,7 +396,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "civ"
-   :gov.unit/name-en "Ministry of Health and the Fight against AIDS"
+   :gov.unit/name-en "Ministry of Health, Public Hygiene and Universal Health Coverage"
    :gov.unit/official-url "http://www.sante.gouv.ci/"
    :gov.unit/wikidata "Q25203092"
    :gov.unit/cofog ["07"]
@@ -465,6 +477,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Health of Cyprus"
+   :gov.unit/name-local "Υπουργείο Υγείας"
+   :gov.unit/name-romanized "Ypourgeio Ygeias"
    :gov.unit/official-url "https://www.gov.cy/moh/"
    :gov.unit/wikidata "Q14537396"
    :gov.unit/cofog ["07"]
@@ -529,6 +543,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Health of Algeria"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣiḥḥa"
    :gov.unit/official-url "http://www.sante.gov.dz"
    :gov.unit/wikidata "Q17639127"
    :gov.unit/cofog ["07"]
@@ -577,6 +593,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Health of Ethopia"
+   :gov.unit/name-local "ጤና ሚኒስቴር"
+   :gov.unit/name-romanized "Tena Minister"
    :gov.unit/official-url "http://www.moh.gov.et/"
    :gov.unit/wikidata "Q30280206"
    :gov.unit/cofog ["07"]
@@ -657,6 +675,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Internally Displaced Persons from the Occupied Territories, Labour, Health and Social Affairs of Georgia"
+   :gov.unit/name-local "საქართველოს ოკუპირებული ტერიტორიებიდან დევნილთა, შრომის, ჯანმრთელობისა და სოციალური დაცვის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos okupirebuli teritoriebidan devnilta, shromis, janmrtelobisa da sotsialuri datsvis saministro"
    :gov.unit/official-url "http://www.moh.gov.ge"
    :gov.unit/wikidata "Q4294343"
    :gov.unit/cofog ["07"]
@@ -721,6 +741,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Health (Greece)"
+   :gov.unit/name-local "Υπουργείο Υγείας"
+   :gov.unit/name-romanized "Ypourgeio Ygeias"
    :gov.unit/official-url "https://www.moh.gov.gr"
    :gov.unit/wikidata "Q2605975"
    :gov.unit/cofog ["07"]
@@ -849,6 +871,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Health and Medical Education"
+   :gov.unit/name-local "وزارت بهداشت، درمان و آموزش پزشکی"
+   :gov.unit/name-romanized "Vezārat-e Behdāsht, Darmān va Āmuzesh-e Pezeshki"
    :gov.unit/official-url "http://www.behdasht.gov.ir/"
    :gov.unit/wikidata "Q1091528"
    :gov.unit/cofog ["07"]
@@ -865,6 +889,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa"
    :gov.unit/official-url "http://www.moh.gov.iq"
    :gov.unit/wikidata "Q16842456"
    :gov.unit/cofog ["07"]
@@ -881,6 +907,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "משרד הבריאות"
+   :gov.unit/name-romanized "Misrad HaBri'ut"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_health"
    :gov.unit/wikidata "Q2079801"
    :gov.unit/cofog ["07"]
@@ -929,6 +957,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa"
    :gov.unit/official-url "http://www.moh.gov.jo"
    :gov.unit/wikidata "Q12250973"
    :gov.unit/cofog ["07"]
@@ -945,6 +975,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Healthcare of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Денсаулық сақтау министрлігі"
+   :gov.unit/name-romanized "Densaulyq saqtau ministrligi"
    :gov.unit/official-url "http://www.mz.gov.kz/ru"
    :gov.unit/wikidata "Q1519806"
    :gov.unit/cofog ["07"]
@@ -977,6 +1009,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Health of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Саламаттык сактоо министрлиги"
+   :gov.unit/name-romanized "Salamattyk saktoo ministrligi"
    :gov.unit/official-url "http://med.kg/index.php/ru/"
    :gov.unit/wikidata "Q33130027"
    :gov.unit/cofog ["07"]
@@ -993,6 +1027,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "ក្រសួងសុខាភិបាល"
+   :gov.unit/name-romanized "Krasuong Sokhaphibal"
    :gov.unit/official-url "http://www.hiscambodia.org/public/homepage_kh.php"
    :gov.unit/wikidata "Q6867092"
    :gov.unit/cofog ["07"]
@@ -1009,6 +1045,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Health and Welfare"
+   :gov.unit/name-local "보건복지부"
+   :gov.unit/name-romanized "Bogeon Bokjibu"
    :gov.unit/official-url "http://www.mohw.go.kr/"
    :gov.unit/wikidata "Q482921"
    :gov.unit/cofog ["07"]
@@ -1025,6 +1063,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizarat al-Sihha"
    :gov.unit/official-url "https://www.moh.gov.kw/"
    :gov.unit/wikidata "Q96679148"
    :gov.unit/cofog ["07"]
@@ -1041,6 +1081,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "ກະຊວງສາທາລະນະສຸກ"
+   :gov.unit/name-romanized "Kasuang Sathalanasuk"
    :gov.unit/official-url "http://www.moh.gov.la/"
    :gov.unit/wikidata "Q30280632"
    :gov.unit/cofog ["07"]
@@ -1089,6 +1131,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "සෞඛ්‍ය අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Saukya Amathyanshaya"
    :gov.unit/official-url "http://www.health.gov.lk/en/"
    :gov.unit/wikidata "Q16147207"
    :gov.unit/cofog ["07"]
@@ -1169,6 +1213,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة والحماية الاجتماعية"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣiḥḥa wa-l-Ḥimāya al-Ijtimāʿiyya"
    :gov.unit/official-url "http://www.sante.gov.ma"
    :gov.unit/wikidata "Q3315316"
    :gov.unit/cofog ["07"]
@@ -1233,6 +1279,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "Министерство за здравство"
+   :gov.unit/name-romanized "Ministerstvo za zdravstvo"
    :gov.unit/official-url "https://zdravstvo.gov.mk/"
    :gov.unit/wikidata "Q12286821"
    :gov.unit/cofog ["07"]
@@ -1281,6 +1329,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "ကျန်းမာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Kyanmaye Wankyihtana"
    :gov.unit/official-url "http://www.moh.gov.mm/"
    :gov.unit/wikidata "Q4294347"
    :gov.unit/cofog ["07"]
@@ -1313,6 +1363,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "Эрүүл мэндийн яам"
+   :gov.unit/name-romanized "Erüül mendiin yaam"
    :gov.unit/official-url "https://moh.gov.mn/home"
    :gov.unit/wikidata "Q20611164"
    :gov.unit/cofog ["07"]
@@ -1457,6 +1509,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "स्वास्थ्य तथा जनसंख्या मन्त्रालय"
+   :gov.unit/name-romanized "Svasthya tatha Janasankhya Mantralaya"
    :gov.unit/official-url "https://moh.koshi.gov.np/"
    :gov.unit/wikidata "Q130199279"
    :gov.unit/cofog ["07"]
@@ -1505,6 +1559,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of National Health Services, Regulation and Coordination"
+   :gov.unit/name-local "وزارتِ قومی صحت خدمات، ضوابط و رابطہ"
+   :gov.unit/name-romanized "Wizārat-e Qaumī Sehat Khidmāt"
    :gov.unit/official-url "https://www.nhsrc.gov.pk/"
    :gov.unit/wikidata "Q4294354"
    :gov.unit/cofog ["07"]
@@ -1633,6 +1689,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Healthcare of the Russian Federation"
+   :gov.unit/name-local "Министерство здравоохранения Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo zdravookhraneniya RF"
    :gov.unit/official-url "https://minzdrav.gov.ru"
    :gov.unit/wikidata "Q2624248"
    :gov.unit/cofog ["07"]
@@ -1665,6 +1723,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizarat al-Sihhah"
    :gov.unit/official-url "http://www.moh.gov.sa/"
    :gov.unit/wikidata "Q1720084"
    :gov.unit/cofog ["07"]
@@ -1761,6 +1821,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Health of the Republic of Serbia"
+   :gov.unit/name-local "Министарство здравља"
+   :gov.unit/name-romanized "Ministarstvo zdravlja"
    :gov.unit/official-url "http://www.zdravlje.gov.rs"
    :gov.unit/wikidata "Q16664630"
    :gov.unit/cofog ["07"]
@@ -1889,6 +1951,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa"
    :gov.unit/official-url "https://www.moh.gov.sy/"
    :gov.unit/wikidata "Q56376962"
    :gov.unit/cofog ["07"]
@@ -1905,6 +1969,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Public Health"
+   :gov.unit/name-local "กระทรวงสาธารณสุข"
+   :gov.unit/name-romanized "Krasuang Satharanasuk"
    :gov.unit/official-url "http://www.moph.go.th/"
    :gov.unit/wikidata "Q5970641"
    :gov.unit/cofog ["07"]
@@ -1921,6 +1987,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "Вазорати тандурустӣ ва ҳифзи иҷтимоии аҳолии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati tandurustī va hifzi ijtimoii aholii Jumhurii Tojikiston"
    :gov.unit/official-url "https://moh.tj/"
    :gov.unit/wikidata "Q6867102"
    :gov.unit/cofog ["07"]
@@ -1985,6 +2053,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Health"
+   :gov.unit/name-local "وزارة الصحة"
+   :gov.unit/name-romanized "Wizārat aṣ-Ṣiḥḥa"
    :gov.unit/official-url "http://www.santetunisie.rns.tn/"
    :gov.unit/wikidata "Q3315318"
    :gov.unit/cofog ["07"]
@@ -2033,6 +2103,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Healthcare of Ukraine"
+   :gov.unit/name-local "Міністерство охорони здоров'я України"
+   :gov.unit/name-romanized "Ministerstvo okhorony zdorovia Ukrainy"
    :gov.unit/official-url "http://www.moz.gov.ua"
    :gov.unit/wikidata "Q4294367"
    :gov.unit/cofog ["07"]
@@ -2064,7 +2136,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "usa"
-   :gov.unit/name-en "Alabama Department of Public Health"
+   :gov.unit/name-en "United States Department of Health and Human Services"
    :gov.unit/official-url "http://www.alabamapublichealth.gov/"
    :gov.unit/wikidata "Q4705249"
    :gov.unit/cofog ["07"]
@@ -2129,6 +2201,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Public Health and Population"
+   :gov.unit/name-local "وزارة الصحة العامة والسكان"
+   :gov.unit/name-romanized "Wizārat al-Ṣiḥḥa al-ʿĀmma wa-l-Sukkān"
    :gov.unit/official-url "https://moh.gov.ye/"
    :gov.unit/wikidata "Q22932827"
    :gov.unit/cofog ["07"]
@@ -2144,7 +2218,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
-   :gov.unit/name-en "Department of Health"
+   :gov.unit/name-en "National Department of Health"
    :gov.unit/official-url "http://www.gov.za/issues/health"
    :gov.unit/wikidata "Q4294368"
    :gov.unit/cofog ["07"]

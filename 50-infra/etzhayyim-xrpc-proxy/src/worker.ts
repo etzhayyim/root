@@ -32,6 +32,9 @@ const HOST_MAP: Record<string, { upstream: keyof Env; rewriteHost: string }> = {
 };
 
 const STRIPPED_RESPONSE_HEADERS = new Set<string>([
+  // These headers are DELETED from upstream responses (headers.delete below);
+  // the proxy never writes a cookie — it removes inbound Set-Cookie.
+  // no-cookie: allow strip-list (removes Set-Cookie, never writes one)
   "set-cookie",
   "content-security-policy",
   "content-security-policy-report-only",
@@ -88,10 +91,56 @@ function rewriteUpstreamResponse(upstream: Response, originalHost: string, rewri
   });
 }
 
+// getProfile short-circuit (ADR-2606042330): the PDS upstream answers GET
+// `app.bsky.actor.getProfile` with 405, so a client resolving a registered
+// etzhayyim actor DID through atproto.etzhayyim.com throws → the yoro profile
+// page 500s. Registered actors (8,888 entity mirrors + named/Tier-B) live in the
+// apex did-web Worker's registry; route their getProfile there. The apex returns
+// 200 for a registered actor and a non-2xx for anything else (then we fall back
+// to the normal PDS proxy, preserving human-profile behaviour). Scoped to
+// unambiguous `did:web:etzhayyim.com:actor:*` params.
+async function tryApexActorProfile(url: URL): Promise<Response | null> {
+  const actor = url.searchParams.get("actor") ?? "";
+  if (!actor.startsWith("did:web:etzhayyim.com:actor:")) return null;
+  try {
+    const apex = new URL(url.toString());
+    apex.hostname = "etzhayyim.com";
+    apex.port = "";
+    apex.protocol = "https:";
+    const r = await fetch(apex.toString(), {
+      method: "GET",
+      headers: { accept: "application/json" },
+    });
+    if (!r.ok) return null; // not a registered actor → fall back to PDS
+    const h = new Headers(r.headers);
+    for (const x of STRIPPED_RESPONSE_HEADERS) h.delete(x);
+    h.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+    h.set("x-proxied-by", "etzhayyim-xrpc-proxy");
+    h.set("x-proxied-upstream", "etzhayyim.com/xrpc (apex actor registry)");
+    return new Response(r.body, {
+      status: r.status,
+      statusText: r.statusText,
+      headers: h,
+    });
+  } catch {
+    return null; // apex unreachable → fall back to PDS
+  }
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const route = HOST_MAP[url.hostname];
+
+    if (
+      url.hostname === "atproto.etzhayyim.com" &&
+      (request.method === "GET" || request.method === "HEAD") &&
+      (url.pathname === "/xrpc/app.bsky.actor.getProfile" ||
+        url.pathname === "/xrpc/com.etzhayyim.actor.getProfile")
+    ) {
+      const apexResp = await tryApexActorProfile(url);
+      if (apexResp) return apexResp;
+    }
 
     if (!route) {
       return new Response(`No upstream binding for host: ${url.hostname}`, {

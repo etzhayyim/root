@@ -17,6 +17,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Afghan Independent Human Rights Commission"
+   :gov.unit/name-local "کمیسیون مستقل حقوق بشر افغانستان"
+   :gov.unit/name-romanized "Komisiyon-e Mustaqil-e Huquq-e Bashar-e Afghanistan"
    :gov.unit/official-url "https://www.aihrc.org.af"
    :gov.unit/wikidata "Q202413"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -53,6 +55,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "National Human Rights Commission of Bangladesh"
+   :gov.unit/name-local "জাতীয় মানবাধিকার কমিশন"
+   :gov.unit/name-romanized "Jatiya Manabadhikar Commission"
    :gov.unit/official-url "http://www.nhrc.org.bd/"
    :gov.unit/wikidata "Q24943586"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -64,7 +68,7 @@
    :gov.unit/parent "gov.can"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Commission des droits de la personne et des droits de la jeunesse"
+   :gov.unit/name-en "Canadian Human Rights Commission"
    :gov.unit/official-url "http://www.cdpdj.qc.ca/en/"
    :gov.unit/wikidata "Q748612"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -100,7 +104,7 @@
    :gov.unit/parent "gov.gtm"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "gtm"
-   :gov.unit/name-en "Guatemala Human Rights Commission"
+   :gov.unit/name-en "Procurador de los Derechos Humanos (PDH)"
    :gov.unit/official-url "https://www.ghrc-usa.org/"
    :gov.unit/wikidata "Q5614216"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -148,7 +152,7 @@
    :gov.unit/parent "gov.ken"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ken"
-   :gov.unit/name-en "Kenya Human Rights Commission"
+   :gov.unit/name-en "Kenya National Commission on Human Rights (KNCHR)"
    :gov.unit/official-url "https://www.khrc.or.ke/"
    :gov.unit/wikidata "Q6392583"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -161,6 +165,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Human Rights Commission of Korea"
+   :gov.unit/name-local "국가인권위원회"
+   :gov.unit/name-romanized "Gukga Ingwon Wiwonhoe"
    :gov.unit/official-url "http://www.humanrights.go.kr"
    :gov.unit/wikidata "Q624507"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -173,6 +179,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Myanmar National Human Rights Commission"
+   :gov.unit/name-local "မြန်မာနိုင်ငံအမျိုးသားလူ့အခွင့်အရေးကော်မရှင်"
+   :gov.unit/name-romanized "Myanma Naingngan Amyotha Lu-akwint-aye Kawmashin"
    :gov.unit/official-url "https://mnhrc.org.mm/"
    :gov.unit/wikidata "Q6946757"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -185,6 +193,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "National Human Rights Commission"
+   :gov.unit/name-local "Монгол Улсын Хүний эрхийн үндэсний комисс"
+   :gov.unit/name-romanized "Mongol Ulsyn Khünii erkhiin ündesnii komiss"
    :gov.unit/official-url "https://nhrcm.gov.mn/"
    :gov.unit/wikidata "Q16955174"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -233,6 +243,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "National Human Rights Commission"
+   :gov.unit/name-local "राष्ट्रिय मानव अधिकार आयोग"
+   :gov.unit/name-romanized "Rashtriya Manav Adhikar Aayog"
    :gov.unit/official-url "https://www.nhrcnepal.org/"
    :gov.unit/wikidata "Q6973441"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -256,7 +268,9 @@
    :gov.unit/parent "gov.pak"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Human Rights Commission of Pakistan"
+   :gov.unit/name-en "National Commission for Human Rights (Pakistan)"
+   :gov.unit/name-local "قومی کمیشن برائے انسانی حقوق"
+   :gov.unit/name-romanized "Qaumī Commission barāʾe Insānī Huqūq"
    :gov.unit/official-url "https://nchr.gov.pk/"
    :gov.unit/wikidata "Q5937433"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -291,7 +305,9 @@
    :gov.unit/parent "gov.tha"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tha"
-   :gov.unit/name-en "Asian Human Rights Commission"
+   :gov.unit/name-en "National Human Rights Commission of Thailand"
+   :gov.unit/name-local "คณะกรรมการสิทธิมนุษยชนแห่งชาติ"
+   :gov.unit/name-romanized "Khana Kammakan Sitthi Manutsayachon Haeng Chat"
    :gov.unit/official-url "http://www.humanrights.asia/"
    :gov.unit/wikidata "Q451867"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

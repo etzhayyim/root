@@ -7,10 +7,11 @@ import decimal as _decimal
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 APP_DID = "did:web:organizer.etzhayyim.com"
@@ -232,7 +233,7 @@ def _write_related_edges(cur: Any, name: str, record: dict[str, Any], vertex_id:
     elif name == "tag":
         item_id = _str(record.get("item_rkey") or record.get("itemId"))
         if item_id:
-            _write_edge(cur, "edge_organizer_item_tag", _vertex_uri("item", item_id), vertex_id, "tagged_with", record, now)
+            _write_edge("edge_organizer_item_tag", _vertex_uri("item", item_id), vertex_id, "tagged_with", record, now)
     elif name == "organizeRule":
         collection_id = _str(record.get("targetCollectionId"))
         if collection_id:
@@ -274,19 +275,8 @@ def _write_vertex(name: str, record: dict[str, Any]) -> dict[str, str]:
         "sensitivity_ord": 2,
         **typed,
     }
-    columns = _common_columns() + list(typed)
-    placeholders = ",".join(["%s"] * len(columns))
-    updates = ",".join([f"{col} = EXCLUDED.{col}" for col in columns if col != "vertex_id"])
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO {table} ({",".join(columns)})
-            VALUES ({placeholders})
-            ON CONFLICT (vertex_id) DO UPDATE SET {updates}
-            """,
-            tuple(values[col] for col in columns),
-        )
-        _write_related_edges(cur, name, record, vertex_id, now)
+    get_kotoba_client().insert_row(table, values)
+    _write_related_edges(name, record, vertex_id, now)
     return {"uri": vertex_id, "rkey": rkey}
 
 
@@ -590,5 +580,4 @@ def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)
-type, single_value=False, timeout_ms=timeout_ms)(handler)
-meout_ms=timeout_ms)(handler)
+

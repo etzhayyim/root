@@ -27,7 +27,7 @@
    :gov.unit/parent "gov.gbr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "Gibraltar Archives"
+   :gov.unit/name-en "The National Archives (TNA), Kew"
    :gov.unit/official-url "http://www.gibraltar.gov.gi/gibraltar-archives"
    :gov.unit/wikidata "Q197928"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -88,6 +88,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Iraq National Library and Archive"
+   :gov.unit/name-local "دار الكتب والوثائق العراقية"
+   :gov.unit/name-romanized "Dār al-Kutub wa-al-Wathāʾiq al-ʿIrāqiyya"
    :gov.unit/official-url "https://www.iraqnla.gov.iq/"
    :gov.unit/wikidata "Q620902"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -100,6 +102,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Archives of Korea"
+   :gov.unit/name-local "국가기록원"
+   :gov.unit/name-romanized "Gukga Girogwon"
    :gov.unit/official-url "http://www.archives.go.kr/"
    :gov.unit/wikidata "Q625999"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -136,6 +140,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "National Archives of Japan"
+   :gov.unit/name-local "国立公文書館"
+   :gov.unit/name-romanized "Kokuritsu Kōbunshokan"
    :gov.unit/official-url "https://www.archives.go.jp/"
    :gov.unit/wikidata "Q1072875"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -148,6 +154,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "National Library and Archives of Iran"
+   :gov.unit/name-local "سازمان اسناد و کتابخانه ملی جمهوری اسلامی ایران"
+   :gov.unit/name-romanized "Sāzmān-e Asnād va Ketābkhāne-ye Melli-ye Irān"
    :gov.unit/official-url "https://nlai.ir"
    :gov.unit/wikidata "Q1672405"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -208,6 +216,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "National Archives of Mongolia"
+   :gov.unit/name-local "Архивын ерөнхий газар"
+   :gov.unit/name-romanized "Arkhivyn yerönkhii gazar"
    :gov.unit/official-url "http://www.archives.gov.mn/"
    :gov.unit/wikidata "Q2257638"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -220,6 +230,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Archives and Library of Ethiopia"
+   :gov.unit/name-local "የኢትዮጵያ ቤተ መዛግብትና ቤተ መጻሕፍት አገልግሎት"
+   :gov.unit/name-romanized "Ye-Ityopiya Bete-Mezagibtina Bete-Metsahift Agelglot"
    :gov.unit/official-url "http://www.nale.gov.et/national_library.html"
    :gov.unit/wikidata "Q2567785"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -232,6 +244,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "National Library of Bhutan"
+   :gov.unit/name-local "འབྲུག་རྒྱལ་ཡོངས་དཔེ་མཛོད"
+   :gov.unit/name-romanized "Druk Gyelyong Pedzo"
    :gov.unit/official-url "http://www.library.gov.bt/index.html"
    :gov.unit/wikidata "Q2602355"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -244,6 +258,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Egyptian National Library and Archives"
+   :gov.unit/name-local "دار الكتب والوثائق القومية"
+   :gov.unit/name-romanized "Dar al-Kutub wa-l-Wathaʾiq al-Qawmiyya"
    :gov.unit/official-url "http://www.darelkotob.gov.eg/ar-eg/Pages/Home.aspx"
    :gov.unit/wikidata "Q2778411"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -268,6 +284,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "State Archive of the Russian Federation"
+   :gov.unit/name-local "Государственный архив Российской Федерации"
+   :gov.unit/name-romanized "Gosudarstvennyy arkhiv RF"
    :gov.unit/official-url "http://statearchive.ru/"
    :gov.unit/wikidata "Q2860426"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -279,7 +297,9 @@
    :gov.unit/parent "gov.srb"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
-   :gov.unit/name-en "Archives of Yugoslavia"
+   :gov.unit/name-en "Archives of Serbia (Arhiv Srbije)"
+   :gov.unit/name-local "Архив Србије"
+   :gov.unit/name-romanized "Arhiv Srbije"
    :gov.unit/official-url "http://www.arhivyu.gov.rs/active/en/home.html"
    :gov.unit/wikidata "Q2860440"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -328,6 +348,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "National Archives of Afghanistan"
+   :gov.unit/name-local "آرشیف ملی افغانستان"
+   :gov.unit/name-romanized "Arshif-i Milli-yi Afghanistan"
    :gov.unit/wikidata "Q2860544"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2860544" :gov.unit/last-verified "2026-06-04"
@@ -375,6 +397,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "National Archives of Tunisia"
+   :gov.unit/name-local "الأرشيف الوطني التونسي"
+   :gov.unit/name-romanized "al-Arshīf al-Waṭanī at-Tūnisī"
    :gov.unit/official-url "http://www.archives.nat.tn/"
    :gov.unit/wikidata "Q2860551"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -459,6 +483,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Archives of Armenia"
+   :gov.unit/name-local "Հայաստանի ազգային արխիվ"
+   :gov.unit/name-romanized "Hayastani azgayin arkhiv"
    :gov.unit/official-url "http://armarchives.am/"
    :gov.unit/wikidata "Q3644681"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -483,6 +509,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Algerian National Archives"
+   :gov.unit/name-local "الأرشيف الوطني الجزائري"
+   :gov.unit/name-romanized "al-Arshīf al-Waṭanī al-Jazāʾirī"
    :gov.unit/official-url "https://archives-can.dz/category/uncategorized-ar/"
    :gov.unit/wikidata "Q4787283"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -554,6 +582,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Archives State Agency"
+   :gov.unit/name-local "Държавна агенция „Архиви“"
+   :gov.unit/name-romanized "Darzhavna agentsiya Arhivi"
    :gov.unit/official-url "http://www.archives.government.bg/"
    :gov.unit/wikidata "Q12279299"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -566,6 +596,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Department of National Archives"
+   :gov.unit/name-local "ජාතික ලේඛනාරක්ෂණ දෙපාර්තමේන්තුව"
+   :gov.unit/name-romanized "Jathika Lekhanarakshana Departamentuwa"
    :gov.unit/official-url "http://www.archives.gov.lk/"
    :gov.unit/wikidata "Q5260411"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -578,6 +610,7 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gin"
    :gov.unit/name-en "Guinea National Library and Archives"
+   :gov.unit/official-url "https://archivesnationales.gov.gn/"
    :gov.unit/wikidata "Q5616474"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q5616474" :gov.unit/last-verified "2026-06-04"
@@ -637,6 +670,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "National Library and Archives (UAE)"
+   :gov.unit/name-local "الأرشيف والمكتبة الوطنية"
+   :gov.unit/name-romanized "Al-Arshif wa al-Maktaba al-Wataniyya"
    :gov.unit/official-url "http://www.nla.ae"
    :gov.unit/wikidata "Q6735845"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -661,6 +696,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "National Archives of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ জাতীয় আর্কাইভস"
+   :gov.unit/name-romanized "Bangladesh Jatiyo Archives"
    :gov.unit/official-url "http://www.nab.gov.bd/"
    :gov.unit/wikidata "Q6970422"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -816,6 +853,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "National Archives of Georgia"
+   :gov.unit/name-local "საქართველოს ეროვნული არქივი"
+   :gov.unit/name-romanized "Sakartvelos erovnuli arkivi"
    :gov.unit/official-url "https://archive.gov.ge/"
    :gov.unit/wikidata "Q6970436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -934,6 +973,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "National Archives of Pakistan"
+   :gov.unit/name-local "قومی محفوظات پاکستان"
+   :gov.unit/name-romanized "Qaumī Mahfūzāt-e-Pākistān"
    :gov.unit/official-url "http://www.nap.gov.pk/default.asp/"
    :gov.unit/wikidata "Q6970451"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -994,6 +1035,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Archives of Thailand"
+   :gov.unit/name-local "สำนักหอจดหมายเหตุแห่งชาติ"
+   :gov.unit/name-romanized "Samnak Ho Chotmaihet haeng Chat"
    :gov.unit/official-url "http://www.nat.go.th/"
    :gov.unit/wikidata "Q6970459"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1005,7 +1048,7 @@
    :gov.unit/parent "gov.pry"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pry"
-   :gov.unit/name-en "National Library of Paraguay"
+   :gov.unit/name-en "Archivo Nacional de Asunción"
    :gov.unit/official-url "http://bibliotecanacional.gov.py/"
    :gov.unit/wikidata "Q6974168"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1090,6 +1133,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Darah"
+   :gov.unit/name-local "دارة الملك عبدالعزيز"
+   :gov.unit/name-romanized "Darat al-Malik Abdulaziz"
    :gov.unit/official-url "https://www.darah.org.sa/"
    :gov.unit/wikidata "Q12211319"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1102,6 +1147,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "National Archives of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ұлттық мұрағаты"
+   :gov.unit/name-romanized "Ūlttyq mūrağaty"
    :gov.unit/official-url "http://ulttykarhiv.kz/ru/"
    :gov.unit/wikidata "Q12573359"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1150,6 +1197,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Archives of Belarus"
+   :gov.unit/name-local "Национальный архив Республики Беларусь"
+   :gov.unit/name-romanized "Natsionalnyy arkhiv Respubliki Belarus"
    :gov.unit/official-url "http://www.narb.by"
    :gov.unit/wikidata "Q15607766"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1473,6 +1522,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Archives du Maroc"
+   :gov.unit/name-local "أرشيف المغرب"
+   :gov.unit/name-romanized "Arshīf al-Maghrib"
    :gov.unit/official-url "https://www.archivesdumaroc.ma/"
    :gov.unit/wikidata "Q39048614"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1531,6 +1582,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "National Archives of Cambodia"
+   :gov.unit/name-local "បណ្ណសារដ្ឋានជាតិនៃកម្ពុជា"
+   :gov.unit/name-romanized "Bannasarodthan Cheat ney Kampuchea"
    :gov.unit/official-url "http://nac.gov.kh/"
    :gov.unit/wikidata "Q54820096"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1611,6 +1664,7 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Archives Nationales de la République démocratique du Congo"
+   :gov.unit/official-url "https://inaco.cd/"
    :gov.unit/wikidata "Q56541711"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q56541711" :gov.unit/last-verified "2026-06-04"
@@ -1645,6 +1699,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "National Archives of Myanmar"
+   :gov.unit/name-local "အမျိုးသားမော်ကွန်းတိုက်ဦးစီးဌာန"
+   :gov.unit/name-romanized "Amyothar Mawkundaik Usidana"
    :gov.unit/official-url "https://www.nam.gov.mm/"
    :gov.unit/wikidata "Q60745748"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

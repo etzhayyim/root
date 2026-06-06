@@ -43,26 +43,11 @@ def _get_active_codebook(collection_id: str) -> dict[str, Any] | None:
     with _codebook_lock:
         if collection_id in _codebook_cache:
             return _codebook_cache[collection_id]
-    row = get_kotoba_client().select_first_where(
-        "vertex_pq_codebook",
-        "collection_id",
-        collection_id,
-        columns=[
-            "version_tag",
-            "m_subspaces",
-            "k_centroids",
-            "dim",
-            "subspace_dim",
-            "codebook_json",
-        ],
-        where_conditions={"status": "active"},
-        order_by=[{"column": "trained_at", "direction": "DESC"}],
-    )
-    # R0: select_first_where does not support order_by and where_conditions. Using q() instead.
+    # R0: Multi-predicate WHERE clause and ORDER BY not supported by shims. Using q() Datalog escape hatch.
     query_edn = """
     [:find ?version_tag ?m_subspaces ?k_centroids ?dim ?subspace_dim ?codebook_json
      :where
-     [?e :vertex_pq_codebook/collection_id %s]
+     [?e :vertex_pq_codebook/collection_id ?collection_id]
      [?e :vertex_pq_codebook/status "active"]
      [?e :vertex_pq_codebook/version_tag ?version_tag]
      [?e :vertex_pq_codebook/m_subspaces ?m_subspaces]
@@ -77,7 +62,7 @@ def _get_active_codebook(collection_id: str) -> dict[str, Any] | None:
     rows = get_kotoba_client().q(query_edn, args=[collection_id])
     if not rows:
         return None
-    row = {
+    row_data = {
         "version_tag": rows[0][0],
         "m_subspaces": rows[0][1],
         "k_centroids": rows[0][2],
@@ -85,16 +70,13 @@ def _get_active_codebook(collection_id: str) -> dict[str, Any] | None:
         "subspace_dim": rows[0][4],
         "codebook_json": rows[0][5],
     }
-
-    if not row:
-        return None
     codebook = {
-        "version_tag": row["version_tag"],
-        "m": int(row["m_subspaces"]),
-        "k": int(row["k_centroids"]),
-        "dim": int(row["dim"]),
-        "subspace_dim": int(row["subspace_dim"]),
-        "centroids": json.loads(row["codebook_json"]),  # float[m][k][subspace_dim]
+        "version_tag": row_data["version_tag"],
+        "m": int(row_data["m_subspaces"]),
+        "k": int(row_data["k_centroids"]),
+        "dim": int(row_data["dim"]),
+        "subspace_dim": int(row_data["subspace_dim"]),
+        "centroids": json.loads(row_data["codebook_json"]),  # float[m][k][subspace_dim]
     }
     with _codebook_lock:
         _codebook_cache[collection_id] = codebook
@@ -128,17 +110,18 @@ def task_site_ivf_pq_embed_markdown(
     total_embedded = 0
 
     while True:
-        with sync_cursor() as cur:
-            cur.execute(
-                f"""
-                SELECT vertex_id, markdown
-                FROM vertex_wet_chunk
-                WHERE embedding IS NULL
-                  AND markdown IS NOT NULL AND markdown != ''
-                LIMIT {int(batch_size)}
-                """,
-            )
-            rows = cur.fetchall()
+        # R0: Multiple WHERE conditions (IS NULL, IS NOT NULL, != '') not supported by shims. Using q() Datalog escape hatch.
+        query_edn = f"""
+        [:find ?vid ?markdown
+         :where
+         [?e :vertex_wet_chunk/embedding ?embedding]
+         [(nil? ?embedding)]
+         [?e :vertex_wet_chunk/markdown ?markdown]
+         [(not= ?markdown "")]]
+        """
+        rows_data = get_kotoba_client().q(query_edn)
+        # Apply limit in Python
+        rows = [(row[0], row[1]) for row in rows_data[:batch_size]]
 
         if not rows:
             break
@@ -148,13 +131,19 @@ def task_site_ivf_pq_embed_markdown(
 
         embeddings = embed_texts_768(texts)
 
-        with sync_cursor() as cur:
-            for vid, emb in zip(vids, embeddings):
-                norm = math.sqrt(sum(v * v for v in emb))
-                cur.execute(
-                    "UPDATE vertex_wet_chunk SET embedding = %s, embedding_norm = %s WHERE vertex_id = %s",
-                    (emb, float(norm), vid),
-                )
+        # R0: Converting UPDATE to fetch, modify, and insert_row for upsert behavior.
+        for vid, emb in zip(vids, embeddings):
+            norm = math.sqrt(sum(v * v for v in emb))
+            # Fetch existing row
+            existing_row = get_kotoba_client().select_first_where(
+                "vertex_wet_chunk", "vertex_id", vid,
+            )
+            if existing_row:
+                existing_row["embedding"] = emb
+                existing_row["embedding_norm"] = float(norm)
+                get_kotoba_client().insert_row("vertex_wet_chunk", existing_row)
+            else:
+                LOG.warning("Could not find vertex_wet_chunk for vid %s to update.", vid)
 
         total_embedded += len(rows)
         LOG.info("embed_markdown domain=%s embedded_so_far=%d", domain, total_embedded)
@@ -191,16 +180,17 @@ def task_site_ivf_pq_update_centroids(
     LOG.info("ivfPq.updateCentroids domain=%s n_centroids=%d", domain, n_centroids)
 
     # Load embeddings (no domain filter — vertex_wet_chunk.domain stores per-URL hostnames)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT vertex_id, embedding
-            FROM vertex_wet_chunk
-            WHERE embedding IS NOT NULL
-            LIMIT {int(sample_limit)}
-            """,
-        )
-        rows = cur.fetchall()
+    # R0: WHERE condition (IS NOT NULL) and LIMIT not fully supported by shims. Using q() Datalog escape hatch.
+    query_edn = f"""
+    [:find ?vid ?embedding
+     :where
+     [?e :vertex_wet_chunk/embedding ?embedding]
+     [?e :vertex_wet_chunk/vertex_id ?vid]
+     (not (nil? ?embedding))]
+    """
+    rows_data = get_kotoba_client().q(query_edn)
+    # Apply limit in Python
+    rows = [(row[0], row[1]) for row in rows_data[:sample_limit]]
 
     if not rows:
         return {"ok": False, "error": "no embedded chunks found", "domain": domain}
@@ -220,25 +210,31 @@ def task_site_ivf_pq_update_centroids(
     assignments = assignments.flatten()
 
     # Upsert centroids into vertex_ivf_centroid
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    with sync_cursor() as cur:
-        for i, vec in enumerate(centroids):
-            centroid_id = f"at://{_OWNER_DID}/com.etzhayyim.apps.site.ivfCentroid/{domain}-{i}"
-            cur.execute(
-                """
-                INSERT INTO vertex_ivf_centroid (vertex_id, rkey, collection, embedding, actor_did, org_did)
-                VALUES (%s, %s, %s, %s, %s, %s)
-                """,
-                (centroid_id, str(i), domain, list(vec.astype(float)), _OWNER_DID, _OWNER_DID),
-            )
+    now = datetime.now(timezone.utc).isoformat()
+    for i, vec in enumerate(centroids):
+        centroid_id = f"at://{_OWNER_DID}/com.etzhayyim.apps.site.ivfCentroid/{domain}-{i}"
+        row_dict = {
+            "vertex_id": centroid_id,
+            "rkey": str(i),
+            "collection": domain,
+            "embedding": list(vec.astype(float)),
+            "actor_did": _OWNER_DID,
+            "org_did": _OWNER_DID,
+        }
+        get_kotoba_client().insert_row("vertex_ivf_centroid", row_dict)
 
     # Batch-update ivf_cluster_id on vertex_wet_chunk
-    with sync_cursor() as cur:
-        for vid, cluster_id in zip(vids, assignments.tolist()):
-            cur.execute(
-                "UPDATE vertex_wet_chunk SET ivf_cluster_id = %s WHERE vertex_id = %s",
-                (int(cluster_id), vid),
-            )
+    # R0: Converting UPDATE to fetch, modify, and insert_row for upsert behavior.
+    for vid, cluster_id in zip(vids, assignments.tolist()):
+        # Fetch existing row
+        existing_row = get_kotoba_client().select_first_where(
+            "vertex_wet_chunk", "vertex_id", vid,
+        )
+        if existing_row:
+            existing_row["ivf_cluster_id"] = int(cluster_id)
+            get_kotoba_client().insert_row("vertex_wet_chunk", existing_row)
+        else:
+            LOG.warning("Could not find vertex_wet_chunk for vid %s to update ivf_cluster_id.", vid)
 
     LOG.info("centroids written: %d, chunks assigned: %d", len(centroids), len(vids))
     return {
@@ -283,28 +279,27 @@ def task_site_ivf_pq_train_codebook(
     LOG.info("trainCodebook domain=%s version=%s m=%d k=%d", domain, version_tag, m_subspaces, k_centroids)
 
     # Load centroids
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT rkey, embedding FROM vertex_ivf_centroid WHERE collection = %s",
-            (domain,),
-        )
-        centroid_rows = cur.fetchall()
+    centroid_rows = get_kotoba_client().select_where(
+        "vertex_ivf_centroid", "collection", domain, columns=["rkey", "embedding"]
+    )
     if not centroid_rows:
         return {"ok": False, "error": "no centroids found — run updateCentroids first"}
 
     centroid_map = {int(r[0]): np.array(r[1], dtype=np.float32) for r in centroid_rows}
 
     # Load embeddings (no domain filter — vertex_wet_chunk.domain stores per-URL hostnames)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT embedding, ivf_cluster_id
-            FROM vertex_wet_chunk
-            WHERE embedding IS NOT NULL AND ivf_cluster_id IS NOT NULL
-            LIMIT {int(sample_limit)}
-            """,
-        )
-        rows = cur.fetchall()
+    # R0: Multiple WHERE conditions (IS NOT NULL) and LIMIT not fully supported by shims. Using q() Datalog escape hatch.
+    query_edn = f"""
+    [:find ?embedding ?ivf_cluster_id
+     :where
+     [?e :vertex_wet_chunk/embedding ?embedding]
+     [(not (nil? ?embedding))]
+     [?e :vertex_wet_chunk/ivf_cluster_id ?ivf_cluster_id]
+     [(not (nil? ?ivf_cluster_id))]]
+    """
+    rows_data = get_kotoba_client().q(query_edn)
+    # Apply limit in Python
+    rows = [(row[0], row[1]) for row in rows_data[:sample_limit]]
 
     if not rows:
         return {"ok": False, "error": "no embedded+assigned chunks"}
@@ -330,30 +325,36 @@ def task_site_ivf_pq_train_codebook(
 
     # Persist codebook
     codebook_json = json.dumps(all_centroids)
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    now = datetime.now(timezone.utc).isoformat()
     collection_id = domain
     vertex_id = f"at://{_OWNER_DID}/com.etzhayyim.apps.site.pqCodebook/{domain}-{version_tag}"
 
-    with sync_cursor() as cur:
-        # Mark previous active as superseded
-        cur.execute(
-            "UPDATE vertex_pq_codebook SET status = 'superseded' WHERE collection_id = %s AND status = 'active'",
-            (collection_id,),
-        )
-        cur.execute(
-            """
-            INSERT INTO vertex_pq_codebook
-              (vertex_id, owner_did, rkey, collection_id, version_tag,
-               m_subspaces, k_centroids, dim, subspace_dim,
-               n_train_vectors, codebook_json, trained_at, status)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'active')
-            """,
-            (
-                vertex_id, _OWNER_DID, version_tag, collection_id, version_tag,
-                m_subspaces, k_centroids, _DEFAULT_DIM, subspace_dim,
-                len(rows), codebook_json, now,
-            ),
-        )
+    # Mark previous active as superseded
+    # R0: Converting UPDATE to fetch, modify, and insert_row for upsert behavior.
+    active_codebooks = get_kotoba_client().select_where(
+        "vertex_pq_codebook", "collection_id", collection_id, where_conditions={"status": "active"}
+    )
+    for codebook_row in active_codebooks:
+        codebook_row["status"] = "superseded"
+        get_kotoba_client().insert_row("vertex_pq_codebook", codebook_row)
+
+    new_codebook_row = {
+        "vertex_id": vertex_id,
+        "owner_did": _OWNER_DID,
+        "rkey": version_tag,
+        "collection_id": collection_id,
+        "version_tag": version_tag,
+        "m_subspaces": m_subspaces,
+        "k_centroids": k_centroids,
+        "dim": _DEFAULT_DIM,
+        "subspace_dim": subspace_dim,
+        "n_train_vectors": len(rows),
+        "codebook_json": codebook_json,
+        "trained_at": now,
+        "status": "active",
+    }
+    get_kotoba_client().insert_row("vertex_pq_codebook", new_codebook_row)
+
 
     _invalidate_codebook_cache(collection_id)
     LOG.info("codebook trained and persisted: %s", vertex_id)
@@ -397,67 +398,65 @@ def task_site_ivf_pq_encode_chunks(
     cb_np = [np.array(codebook["centroids"][s], dtype=np.float32) for s in range(m)]
 
     # Load IVF centroids
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT rkey, embedding FROM vertex_ivf_centroid WHERE collection = %s",
-            (domain,),
-        )
-        centroid_rows = cur.fetchall()
+    centroid_rows = get_kotoba_client().select_where(
+        "vertex_ivf_centroid", "collection", domain, columns=["rkey", "embedding"]
+    )
     centroid_map = {int(r[0]): np.array(r[1], dtype=np.float32) for r in centroid_rows}
 
     # Find chunks not yet encoded with this codebook version (no domain filter)
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT w.vertex_id, w.embedding, w.ivf_cluster_id
-            FROM vertex_wet_chunk w
-            WHERE w.embedding IS NOT NULL
-              AND w.ivf_cluster_id IS NOT NULL
-              AND NOT EXISTS (
-                SELECT 1 FROM vertex_wet_chunk_pq p
-                WHERE p.chunk_vertex_id = w.vertex_id
-                  AND p.codebook_version = %s
-              )
-            LIMIT {int(batch_size)}
-            """,
-            (version_tag,),
-        )
-        rows = cur.fetchall()
+    # R0: Complex WHERE conditions (IS NOT NULL, NOT EXISTS) and LIMIT not supported by shims. Using q() Datalog escape hatch.
+    query_edn = f"""
+    [:find ?w_vid ?w_embedding ?w_ivf_cluster_id
+     :where
+     [?w :vertex_wet_chunk/vertex_id ?w_vid]
+     [?w :vertex_wet_chunk/embedding ?w_embedding]
+     [(not (nil? ?w_embedding))]
+     [?w :vertex_wet_chunk/ivf_cluster_id ?w_ivf_cluster_id]
+     [(not (nil? ?w_ivf_cluster_id))]
+     (not
+      [:where
+       [?p :vertex_wet_chunk_pq/chunk_vertex_id ?w_vid]
+       [?p :vertex_wet_chunk_pq/codebook_version "{version_tag}"]])]
+    """
+    rows_data = get_kotoba_client().q(query_edn)
+    # Apply limit in Python
+    rows = [(row[0], row[1], row[2]) for row in rows_data[:batch_size]]
 
     if not rows:
         return {"ok": True, "domain": domain, "encoded": 0, "message": "up to date"}
 
     encoded = 0
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    with sync_cursor() as cur:
-        for vid, emb_list, cluster_id in rows:
-            emb = np.array(emb_list, dtype=np.float32)
-            cid = int(cluster_id)
-            if cid in centroid_map:
-                residual = emb - centroid_map[cid]
-            else:
-                residual = emb
+    now = datetime.now(timezone.utc).isoformat()
+    for vid, emb_list, cluster_id in rows:
+        emb = np.array(emb_list, dtype=np.float32)
+        cid = int(cluster_id)
+        if cid in centroid_map:
+            residual = emb - centroid_map[cid]
+        else:
+            residual = emb
 
-            # Encode: find nearest PQ centroid per subspace
-            code_bytes = bytearray(m)
-            for s in range(m):
-                start = s * subspace_dim
-                end = start + subspace_dim
-                sub_vec = residual[start:end]
-                dists = np.sum((cb_np[s] - sub_vec) ** 2, axis=1)
-                code_bytes[s] = int(np.argmin(dists)) & 0xFF
+        # Encode: find nearest PQ centroid per subspace
+        code_bytes = bytearray(m)
+        for s in range(m):
+            start = s * subspace_dim
+            end = start + subspace_dim
+            sub_vec = residual[start:end]
+            dists = np.sum((cb_np[s] - sub_vec) ** 2, axis=1)
+            code_bytes[s] = int(np.argmin(dists)) & 0xFF
 
-            pq_code_b64 = base64.b64encode(bytes(code_bytes)).decode()
-            pq_id = f"pq:{vid}:{version_tag}"
-            cur.execute(
-                """
-                INSERT INTO vertex_wet_chunk_pq
-                  (pq_id, chunk_vertex_id, ivf_cluster_id, codebook_version, domain, pq_code, encoded_at)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """,
-                (pq_id, vid, cid, version_tag, domain, pq_code_b64, now),
-            )
-            encoded += 1
+        pq_code_b64 = base64.b64encode(bytes(code_bytes)).decode()
+        pq_id = f"pq:{vid}:{version_tag}"
+        row_dict = {
+            "pq_id": pq_id,
+            "chunk_vertex_id": vid,
+            "ivf_cluster_id": cid,
+            "codebook_version": version_tag,
+            "domain": domain,
+            "pq_code": pq_code_b64,
+            "encoded_at": now,
+        }
+        get_kotoba_client().insert_row("vertex_wet_chunk_pq", row_dict)
+        encoded += 1
 
     LOG.info("encodeChunks domain=%s version=%s encoded=%d", domain, version_tag, encoded)
     return {
@@ -500,12 +499,9 @@ def ivf_pq_search_sync(
     q = np.array(query_vec, dtype=np.float32)
 
     # 1. Find nearest n_probe IVF centroids
-    with sync_cursor() as cur:
-        cur.execute(
-            "SELECT rkey, embedding FROM vertex_ivf_centroid WHERE collection = %s",
-            (domain,),
-        )
-        centroid_rows = cur.fetchall()
+    centroid_rows = get_kotoba_client().select_where(
+        "vertex_ivf_centroid", "collection", domain, columns=["rkey", "embedding"]
+    )
     if not centroid_rows:
         return []
 
@@ -525,19 +521,21 @@ def ivf_pq_search_sync(
         dist_table[s] = np.sum(diff ** 2, axis=1)
 
     # 3. Load PQ codes for probe clusters
-    placeholders = ",".join(["%s"] * len(probe_cluster_ids))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT p.pq_id, p.chunk_vertex_id, p.pq_code
-            FROM vertex_wet_chunk_pq p
-            WHERE p.ivf_cluster_id IN ({placeholders})
-              AND p.codebook_version = %s
-            LIMIT 2000
-            """,
-            probe_cluster_ids + [version_tag],
-        )
-        pq_rows = cur.fetchall()
+    # R0: IN clause and LIMIT not fully supported by shims. Using q() Datalog escape hatch.
+    probe_cluster_id_args = " ".join([str(cid) for cid in probe_cluster_ids])
+    query_edn = f"""
+    [:find ?pq_id ?chunk_vertex_id ?pq_code
+     :where
+     [?p :vertex_wet_chunk_pq/ivf_cluster_id ?ivf_cluster_id]
+     [(contains? #{probe_cluster_id_args} ?ivf_cluster_id)]
+     [?p :vertex_wet_chunk_pq/codebook_version "{version_tag}"]
+     [?p :vertex_wet_chunk_pq/pq_id ?pq_id]
+     [?p :vertex_wet_chunk_pq/chunk_vertex_id ?chunk_vertex_id]
+     [?p :vertex_wet_chunk_pq/pq_code ?pq_code]]
+    """
+    pq_rows_data = get_kotoba_client().q(query_edn)
+    # Apply limit in Python
+    pq_rows = [(row[0], row[1], row[2]) for row in pq_rows_data[:2000]]
 
     if not pq_rows:
         return []
@@ -558,17 +556,20 @@ def ivf_pq_search_sync(
     # 5. Fetch markdown + url for top hits
     if not top_vids:
         return []
-    placeholders2 = ",".join(["%s"] * len(top_vids))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
-            SELECT vertex_id, url, domain, markdown, title, ivf_cluster_id
-            FROM vertex_wet_chunk
-            WHERE vertex_id IN ({placeholders2})
-            """,
-            top_vids,
-        )
-        chunk_rows = cur.fetchall()
+    # R0: IN clause not fully supported by shims. Using q() Datalog escape hatch.
+    top_vids_args = " ".join([f'"{vid}"' for vid in top_vids])
+    query_edn = f"""
+    [:find ?vertex_id ?url ?domain ?markdown ?title ?ivf_cluster_id
+     :where
+     [?e :vertex_wet_chunk/vertex_id ?vertex_id]
+     [(contains? #{top_vids_args} ?vertex_id)]
+     [?e :vertex_wet_chunk/url ?url]
+     [?e :vertex_wet_chunk/domain ?domain]
+     [?e :vertex_wet_chunk/markdown ?markdown]
+     [?e :vertex_wet_chunk/title ?title]
+     [?e :vertex_wet_chunk/ivf_cluster_id ?ivf_cluster_id]]
+    """
+    chunk_rows = get_kotoba_client().q(query_edn)
 
     vid_to_score = {vid: score for score, vid in scored[:top_k]}
     hits = []

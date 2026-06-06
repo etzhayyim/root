@@ -26,6 +26,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "National Library of Thailand"
+   :gov.unit/name-local "หอสมุดแห่งชาติ"
+   :gov.unit/name-romanized "Ho Samut Haeng Chat"
    :gov.unit/official-url "https://www.nlt.go.th/"
    :gov.unit/wikidata "Q618628"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -50,6 +52,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "UAE Public Library and Cultural Center"
+   :gov.unit/name-local "دار الكتب الوطنية لدولة الإمارات"
+   :gov.unit/name-romanized "Dar al-Kutub al-Wataniyya"
    :gov.unit/official-url "http://www.adach.ae/en"
    :gov.unit/wikidata "Q618281"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -85,6 +89,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Tabriz National Library"
+   :gov.unit/name-local "کتابخانه مرکزی تبریز"
+   :gov.unit/name-romanized "Ketābkhāne-ye Markazi-ye Tabriz"
    :gov.unit/official-url "http://www.tabrizcentlib.ir/"
    :gov.unit/wikidata "Q171290"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -109,6 +115,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "National Library of Greece"
+   :gov.unit/name-local "Εθνική Βιβλιοθήκη της Ελλάδος"
+   :gov.unit/name-romanized "Ethniki Vivliothiki tis Ellados"
    :gov.unit/official-url "https://nlg.gr"
    :gov.unit/wikidata "Q1467610"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -145,6 +153,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "National Diet Library"
+   :gov.unit/name-local "国立国会図書館"
+   :gov.unit/name-romanized "Kokuritsu Kokkai Toshokan"
    :gov.unit/official-url "https://www.ndl.go.jp/"
    :gov.unit/wikidata "Q477675"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -181,6 +191,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "King Fahd National Library"
+   :gov.unit/name-local "مكتبة الملك فهد الوطنية"
+   :gov.unit/name-romanized "Maktabat al-Malik Fahd al-Wataniyya"
    :gov.unit/official-url "http://www.kfnl.gov.sa/"
    :gov.unit/wikidata "Q620803"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -229,6 +241,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "National Library of Russia"
+   :gov.unit/name-local "Российская национальная библиотека"
+   :gov.unit/name-romanized "Rossiyskaya natsionalnaya biblioteka"
    :gov.unit/official-url "http://www.nlr.ru"
    :gov.unit/wikidata "Q267566"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -241,6 +255,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "National Library of Tajikistan"
+   :gov.unit/name-local "Китобхонаи миллии Тоҷикистон"
+   :gov.unit/name-romanized "Kitobkhonai millii Tojikiston"
    :gov.unit/official-url "http://kmt.tj/"
    :gov.unit/wikidata "Q13201421"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -253,6 +269,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "National Library of Syria"
+   :gov.unit/name-local "مكتبة الأسد الوطنية"
+   :gov.unit/name-romanized "Maktabat al-Asad al-Waṭaniyya"
    :gov.unit/wikidata "Q618436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q618436" :gov.unit/last-verified "2026-06-04"
@@ -264,6 +282,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "National Library of Armenia"
+   :gov.unit/name-local "Հայաստանի ազգային գրադարան"
+   :gov.unit/name-romanized "Hayastani azgayin gradaran"
    :gov.unit/official-url "https://nla.am"
    :gov.unit/wikidata "Q8213985"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -310,6 +330,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "National Library of Laos"
+   :gov.unit/name-local "ຫໍສະໝຸດແຫ່ງຊາດ"
+   :gov.unit/name-romanized "Ho Samut Haengxat"
    :gov.unit/official-url "http://www.nationallibraryoflaos.org"
    :gov.unit/wikidata "Q15116324"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -381,6 +403,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "National Library of Korea"
+   :gov.unit/name-local "국립중앙도서관"
+   :gov.unit/name-romanized "Gungnip Jungang Doseogwan"
    :gov.unit/official-url "http://www.nl.go.kr/"
    :gov.unit/wikidata "Q495005"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -404,6 +428,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "National Library of Georgia"
+   :gov.unit/name-local "საქართველოს პარლამენტის ეროვნული ბიბლიოთეკა"
+   :gov.unit/name-romanized "Sakartvelos parlamentis erovnuli biblioteka"
    :gov.unit/official-url "http://www.nplg.gov.ge/"
    :gov.unit/wikidata "Q631526"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -416,6 +442,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "National Library of Serbia"
+   :gov.unit/name-local "Народна библиотека Србије"
+   :gov.unit/name-romanized "Narodna biblioteka Srbije"
    :gov.unit/official-url "https://nb.rs/"
    :gov.unit/wikidata "Q945496"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -543,6 +571,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "National Library of Afghanistan"
+   :gov.unit/name-local "کتابخانه عامه افغانستان"
+   :gov.unit/name-romanized "Ketabkhana-ye Amma-ye Afghanistan"
    :gov.unit/wikidata "Q59286291"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q59286291" :gov.unit/last-verified "2026-06-04"
@@ -578,6 +608,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "National Library and Documentation Services Board"
+   :gov.unit/name-local "ජාතික පුස්තකාල හා ප්‍රලේඛන සේවා මණ්ඩලය"
+   :gov.unit/name-romanized "Jathika Pustakala ha Pralekhana Seva Mandalaya"
    :gov.unit/official-url "http://www.natlib.lk/"
    :gov.unit/wikidata "Q6974130"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -625,6 +657,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar National Library"
+   :gov.unit/name-local "مكتبة قطر الوطنية"
+   :gov.unit/name-romanized "Maktabat Qatar al-Wataniyyah"
    :gov.unit/official-url "http://www.qnl.qa"
    :gov.unit/wikidata "Q1361436"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -721,6 +755,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "National Library of Pakistan"
+   :gov.unit/name-local "قومی کتب خانہ پاکستان"
+   :gov.unit/name-romanized "Qaumī Kutub Khāna Pākistān"
    :gov.unit/official-url "http://www.nlp.gov.pk/"
    :gov.unit/wikidata "Q2046689"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -733,6 +769,7 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mli"
    :gov.unit/name-en "National Library of Mali"
+   :gov.unit/official-url "http://www.bn.gouv.ml/"
    :gov.unit/wikidata "Q2090403"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q2090403" :gov.unit/last-verified "2026-06-04"
@@ -744,6 +781,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "National and University Library \"St. Kliment of Ohrid\""
+   :gov.unit/name-local "Национална и универзитетска библиотека „Св. Климент Охридски“ – Скопје"
+   :gov.unit/name-romanized "Nacionalna i univerzitetska biblioteka Sv. Kliment Ohridski Skopje"
    :gov.unit/official-url "http://www.nubsk.edu.mk/"
    :gov.unit/wikidata "Q2424573"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -768,6 +807,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "National Library of Cambodia"
+   :gov.unit/name-local "បណ្ណាល័យជាតិនៃកម្ពុជា"
+   :gov.unit/name-romanized "Bannalai Cheat ney Kampuchea"
    :gov.unit/official-url "http://nlc.gov.kh//en/home/"
    :gov.unit/wikidata "Q2556297"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -792,6 +833,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Bibliotheca Alexandrina"
+   :gov.unit/name-local "مكتبة الإسكندرية"
+   :gov.unit/name-romanized "Maktabat al-Iskandariyya"
    :gov.unit/official-url "https://www.bibalex.org/"
    :gov.unit/wikidata "Q501851"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -828,6 +871,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "National Library of Algeria"
+   :gov.unit/name-local "المكتبة الوطنية الجزائرية"
+   :gov.unit/name-romanized "al-Maktaba al-Waṭaniyya al-Jazāʾiriyya"
    :gov.unit/official-url "http://www.biblionat.dz/"
    :gov.unit/wikidata "Q2901476"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -840,6 +885,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "National Library of the Kingdom of Morocco"
+   :gov.unit/name-local "المكتبة الوطنية للمملكة المغربية"
+   :gov.unit/name-romanized "al-Maktaba al-Waṭaniyya li-l-Mamlaka al-Maghribiyya"
    :gov.unit/official-url "https://www.bnrm.ma/"
    :gov.unit/wikidata "Q2901478"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -900,6 +947,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "National Library of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ұлттық академиялық кітапханасы"
+   :gov.unit/name-romanized "Ūlttyq akademııalyq kitaphanasy"
    :gov.unit/official-url "http://www.nlrk.kz/"
    :gov.unit/wikidata "Q627207"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1056,6 +1105,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "National Library of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ জাতীয় গ্রন্থাগার"
+   :gov.unit/name-romanized "Bangladesh Jatiya Granthagar"
    :gov.unit/official-url "http://nlb.gov.bd/"
    :gov.unit/wikidata "Q6974137"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1139,6 +1190,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "National Library of Jordan"
+   :gov.unit/name-local "دائرة المكتبة الوطنية"
+   :gov.unit/name-romanized "Dāʾirat al-Maktaba al-Waṭaniyya"
    :gov.unit/official-url "https://hazine.info/1051-2/"
    :gov.unit/wikidata "Q6974152"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1151,6 +1204,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "National Library of Kuwait"
+   :gov.unit/name-local "مكتبة الكويت الوطنية"
+   :gov.unit/name-romanized "Maktabat al-Kuwait al-Wataniyya"
    :gov.unit/official-url "https://www.nlk.gov.kw/"
    :gov.unit/wikidata "Q6974153"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1245,6 +1300,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "National Library of the Kyrgyz Republic"
+   :gov.unit/name-local "Алыкул Осмонов атындагы Кыргыз Республикасынын Улуттук китепканасы"
+   :gov.unit/name-romanized "Alykul Osmonov atyndagy Uluttuk kitepkanasy"
    :gov.unit/official-url "http://nlkr.gov.kg"
    :gov.unit/wikidata "Q6974182"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1269,6 +1326,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Vernadsky National Library of Ukraine"
+   :gov.unit/name-local "Національна бібліотека України імені В. І. Вернадського"
+   :gov.unit/name-romanized "Natsionalna biblioteka Ukrainy imeni V. I. Vernadskoho"
    :gov.unit/official-url "http://www.nbuv.gov.ua/"
    :gov.unit/wikidata "Q592734"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1317,6 +1376,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "National Library of Israel"
+   :gov.unit/name-local "הספרייה הלאומית של ישראל"
+   :gov.unit/name-romanized "HaSifriya HaLe'umit shel Yisra'el"
    :gov.unit/official-url "https://nli.org.il/"
    :gov.unit/wikidata "Q188915"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1341,6 +1402,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Cyprus Library"
+   :gov.unit/name-local "Κυπριακή Βιβλιοθήκη"
+   :gov.unit/name-romanized "Kypriaki Vivliothiki"
    :gov.unit/official-url "http://www.cypruslibrary.gov.cy/"
    :gov.unit/wikidata "Q245888"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1364,7 +1427,7 @@
    :gov.unit/parent "gov.esp"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "esp"
-   :gov.unit/name-en "Royal Library of Madrid"
+   :gov.unit/name-en "Biblioteca Nacional de España (BNE)"
    :gov.unit/official-url "http://www.realbiblioteca.es/"
    :gov.unit/wikidata "Q283349"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1425,6 +1488,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "National Library of Tunisia"
+   :gov.unit/name-local "دار الكتب الوطنية"
+   :gov.unit/name-romanized "Dār al-Kutub al-Waṭaniyya"
    :gov.unit/official-url "https://www.bibliotheque.nat.tn/"
    :gov.unit/wikidata "Q606065"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1484,6 +1549,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "National Library of Yemen"
+   :gov.unit/name-local "دار الكتب الوطنية"
+   :gov.unit/name-romanized "Dār al-Kutub al-Waṭaniyya"
    :gov.unit/official-url "http://www.nlye.org"
    :gov.unit/wikidata "Q618450"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1532,6 +1599,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Nepal National Library"
+   :gov.unit/name-local "नेपाल राष्ट्रिय पुस्तकालय"
+   :gov.unit/name-romanized "Nepal Rashtriya Pustakalaya"
    :gov.unit/official-url "https://nnl.gov.np/"
    :gov.unit/wikidata "Q619789"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1592,6 +1661,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "National Library of Maldives"
+   :gov.unit/name-local "ޤައުމީ ކުތުބުޚާނާ"
+   :gov.unit/name-romanized "Qaumee Kuthubukhaanaa"
    :gov.unit/official-url "http://www.nlm.gov.mv/"
    :gov.unit/wikidata "Q625021"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1616,6 +1687,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "National Library of Mongolia"
+   :gov.unit/name-local "Монгол Улсын Үндэсний номын сан"
+   :gov.unit/name-romanized "Mongol Ulsyn Ündesnii nomyn san"
    :gov.unit/official-url "http://www.nationallibrary.mn"
    :gov.unit/wikidata "Q625912"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1699,7 +1772,9 @@
    :gov.unit/parent "gov.bgr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
-   :gov.unit/name-en "Ivan Vazov National Library"
+   :gov.unit/name-en "SS Cyril and Methodius National Library"
+   :gov.unit/name-local "Национална библиотека „Св. св. Кирил и Методий“"
+   :gov.unit/name-romanized "Natsionalna biblioteka Sv. sv. Kiril i Metodiy"
    :gov.unit/official-url "http://www.libplovdiv.com"
    :gov.unit/wikidata "Q630839"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1712,6 +1787,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "National Library of Myanmar"
+   :gov.unit/name-local "အမျိုးသားစာကြည့်တိုက်"
+   :gov.unit/name-romanized "Amyotha Sakyitaik"
    :gov.unit/official-url "http://www.nlm-npt.gov.mm"
    :gov.unit/wikidata "Q631130"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1808,6 +1885,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Library of Belarus"
+   :gov.unit/name-local "Национальная библиотека Беларуси"
+   :gov.unit/name-romanized "Natsionalnaya biblioteka Belarusi"
    :gov.unit/official-url "https://www.nlb.by/"
    :gov.unit/wikidata "Q971450"
    :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative

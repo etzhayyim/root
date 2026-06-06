@@ -15,6 +15,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Government of Greece"
+   :gov.unit/name-local "Κυβέρνηση της Ελληνικής Δημοκρατίας"
+   :gov.unit/name-romanized "Kyvernisi tis Ellinikis Dimokratias"
    :gov.unit/official-url "https://www.government.gov.gr"
    :gov.unit/wikidata "Q15260617"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -183,6 +185,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Government of Kuwait"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzaraʾ"
    :gov.unit/official-url "https://www.cmgs.gov.kw/"
    :gov.unit/wikidata "Q12217491"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -195,6 +199,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Government of Nepal"
+   :gov.unit/name-local "नेपाल सरकार"
+   :gov.unit/name-romanized "Nepal Sarkar"
    :gov.unit/official-url "http://www.nepalgov.gov.np/"
    :gov.unit/wikidata "Q5589267"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -207,6 +213,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Government of Pakistan"
+   :gov.unit/name-local "حکومت پاکستان"
+   :gov.unit/name-romanized "Hukūmat-e-Pākistān"
    :gov.unit/official-url "http://www.pakistan.gov.pk/"
    :gov.unit/wikidata "Q3250182"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -219,6 +227,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Lhengye Zhungtshog"
+   :gov.unit/name-local "ལྷན་རྒྱས་གཞུང་ཚོགས"
+   :gov.unit/name-romanized "Lhengye Zhungtshog"
    :gov.unit/official-url "https://www.cabinet.gov.bt/"
    :gov.unit/wikidata "Q2081864"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -291,6 +301,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Cabinet of Japan"
+   :gov.unit/name-local "内閣"
+   :gov.unit/name-romanized "Naikaku"
    :gov.unit/official-url "https://www.kantei.go.jp/jp/naikaku/"
    :gov.unit/wikidata "Q529012"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -327,6 +339,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Government of Ethiopia"
+   :gov.unit/name-local "የሚኒስትሮች ምክር ቤት"
+   :gov.unit/name-romanized "Ye-Ministroch Mikir Bet"
    :gov.unit/official-url "https://www.pmo.gov.et/"
    :gov.unit/wikidata "Q5589204"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -375,6 +389,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Cabinet of Ministers of Ukraine"
+   :gov.unit/name-local "Кабінет Міністрів України"
+   :gov.unit/name-romanized "Kabinet Ministriv Ukrainy"
    :gov.unit/official-url "https://www.kmu.gov.ua/"
    :gov.unit/wikidata "Q613729"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -435,6 +451,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Council of Ministers of Bulgaria"
+   :gov.unit/name-local "Министерски съвет на Република България"
+   :gov.unit/name-romanized "Ministerski savet na Republika Balgariya"
    :gov.unit/official-url "http://www.government.bg/"
    :gov.unit/wikidata "Q2396053"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -447,6 +465,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Government of North Macedonia"
+   :gov.unit/name-local "Влада на Република Северна Македонија"
+   :gov.unit/name-romanized "Vlada na Republika Severna Makedonija"
    :gov.unit/official-url "https://vlada.mk"
    :gov.unit/wikidata "Q1343342"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -459,6 +479,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Government of Georgia"
+   :gov.unit/name-local "საქართველოს მთავრობა"
+   :gov.unit/name-romanized "Sakartvelos mtavroba"
    :gov.unit/official-url "https://www.gov.ge/"
    :gov.unit/wikidata "Q2613132"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -543,6 +565,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Government of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության կառավարություն"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan karavarutyun"
    :gov.unit/official-url "https://www.gov.am/"
    :gov.unit/wikidata "Q13417106"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -615,6 +639,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Government of Mongolia"
+   :gov.unit/name-local "Монгол Улсын Засгийн газар"
+   :gov.unit/name-romanized "Mongol Ulsyn Zasgiin gazar"
    :gov.unit/official-url "https://zasag.mn"
    :gov.unit/wikidata "Q16639003"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -675,6 +701,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Government of Iran"
+   :gov.unit/name-local "هیئت دولت"
+   :gov.unit/name-romanized "Heyʾat-e Dolat"
    :gov.unit/official-url "http://www.dolat.ir/"
    :gov.unit/wikidata "Q16052369"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -687,6 +715,9 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Government of Yemen"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzarāʾ"
+   :gov.unit/official-url "https://www.yemen.gov.ye/"
    :gov.unit/wikidata "Q28492198"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q28492198" :gov.unit/last-verified "2026-06-04"
@@ -698,6 +729,7 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "nic"
    :gov.unit/name-en "Government of Nicaragua"
+   :gov.unit/official-url "https://www.presidencia.gob.ni/"
    :gov.unit/wikidata "Q5589280"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589280" :gov.unit/last-verified "2026-06-04"
@@ -709,6 +741,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Cabinet of Ministers of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Министрлер Кабинети"
+   :gov.unit/name-romanized "Ministrler Kabineti"
    :gov.unit/official-url "https://www.gov.kg"
    :gov.unit/wikidata "Q24031608"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -745,6 +779,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Council of Ministers of Saudi Arabia"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzaraʾ"
    :gov.unit/official-url "https://my.gov.sa/en/agencies/17489"
    :gov.unit/wikidata "Q14654732"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -769,6 +805,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Government of Islamic Emirate of Afghanistan"
+   :gov.unit/name-local "شورای وزیران / کابینه"
+   :gov.unit/name-romanized "Shora-ye Waziran / Kabina"
    :gov.unit/official-url "https://alemarahenglish.af/"
    :gov.unit/wikidata "Q20978159"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1081,6 +1119,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Cabinet of Egypt"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzaraʾ"
    :gov.unit/official-url "https://www.cabinet.gov.eg/"
    :gov.unit/wikidata "Q4206677"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1117,6 +1157,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "State Council of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国国务院"
+   :gov.unit/name-romanized "Guówùyuàn"
    :gov.unit/official-url "https://www.gov.cn"
    :gov.unit/wikidata "Q59261"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1141,6 +1183,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Government of Russia"
+   :gov.unit/name-local "Правительство Российской Федерации"
+   :gov.unit/name-romanized "Pravitelstvo RF"
    :gov.unit/official-url "http://www.government.ru/"
    :gov.unit/wikidata "Q1140115"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1165,6 +1209,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Council of Ministers of the Republic of Belarus"
+   :gov.unit/name-local "Совет Министров Республики Беларусь"
+   :gov.unit/name-romanized "Sovet Ministrov Respubliki Belarus"
    :gov.unit/official-url "http://government.gov.by/by/"
    :gov.unit/wikidata "Q997640"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1213,6 +1259,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Government of Cyprus Republic"
+   :gov.unit/name-local "Υπουργικό Συμβούλιο"
+   :gov.unit/name-romanized "Ypourgiko Symvoulio"
    :gov.unit/official-url "http://www.cyprus.gov.cy"
    :gov.unit/wikidata "Q19358292"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1225,6 +1273,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Government of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Үкіметі"
+   :gov.unit/name-romanized "Ükımetı"
    :gov.unit/official-url "http://www.government.kz/ru/"
    :gov.unit/wikidata "Q3814905"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1261,6 +1311,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Government of Algeria"
+   :gov.unit/name-local "الحكومة"
+   :gov.unit/name-romanized "al-Ḥukūma"
    :gov.unit/official-url "http://www.premier-ministre.gov.dz/fr"
    :gov.unit/wikidata "Q12208528"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1297,6 +1349,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Government of Serbia"
+   :gov.unit/name-local "Влада Републике Србије"
+   :gov.unit/name-romanized "Vlada Republike Srbije"
    :gov.unit/official-url "http://www.srbija.gov.rs/"
    :gov.unit/wikidata "Q1285499"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1405,6 +1459,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Government of Syria"
+   :gov.unit/name-local "مجلس الوزراء"
+   :gov.unit/name-romanized "Majlis al-Wuzarāʾ"
    :gov.unit/official-url "https://www.gov.sy"
    :gov.unit/wikidata "Q113519305"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1417,6 +1473,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Government of Thailand"
+   :gov.unit/name-local "คณะรัฐมนตรี"
+   :gov.unit/name-romanized "Khana Ratthamontri"
    :gov.unit/official-url "http://www.thaigov.go.th"
    :gov.unit/wikidata "Q873675"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1429,6 +1487,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Government of South Korea"
+   :gov.unit/name-local "대한민국 정부"
+   :gov.unit/name-romanized "Daehanminguk Jeongbu"
    :gov.unit/official-url "https://www.gov.kr"
    :gov.unit/wikidata "Q626814"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1441,6 +1501,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Government of Bangladesh"
+   :gov.unit/name-local "বাংলাদেশ সরকার"
+   :gov.unit/name-romanized "Bangladesh Sarkar"
    :gov.unit/official-url "https://bangladesh.gov.bd"
    :gov.unit/wikidata "Q16056319"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1465,6 +1527,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Government of Tunisia"
+   :gov.unit/name-local "رئاسة الحكومة"
+   :gov.unit/name-romanized "Riʾāsat al-Ḥukūma"
    :gov.unit/official-url "http://www.tunisie.gov.tn/"
    :gov.unit/wikidata "Q526548"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1513,6 +1577,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Cabinet of Morocco"
+   :gov.unit/name-local "الحكومة"
+   :gov.unit/name-romanized "al-Ḥukūma"
    :gov.unit/official-url "https://www.cg.gov.ma/"
    :gov.unit/wikidata "Q12208534"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

@@ -14,6 +14,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Abu Dhabi Investment Authority"
+   :gov.unit/name-local "جهاز أبوظبي للاستثمار"
+   :gov.unit/name-romanized "Jihaz Abu Dhabi lil-Istithmar"
    :gov.unit/official-url "http://www.adia.ae"
    :gov.unit/wikidata "Q334956"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -26,6 +28,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Korea Investment Corporation"
+   :gov.unit/name-local "한국투자공사"
+   :gov.unit/name-romanized "Hanguk Tuja Gongsa"
    :gov.unit/official-url "http://www.kic.go.kr"
    :gov.unit/wikidata "Q486332"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -86,6 +90,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Investment Authority"
+   :gov.unit/name-local "جهاز قطر للاستثمار"
+   :gov.unit/name-romanized "Jihaz Qatar lil-Istithmar"
    :gov.unit/official-url "http://www.qia.qa/"
    :gov.unit/wikidata "Q1571175"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -109,6 +115,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Kuwait Investment Authority"
+   :gov.unit/name-local "الهيئة العامة للاستثمار"
+   :gov.unit/name-romanized "al-Hayʾa al-ʿAmma lil-Istithmar"
    :gov.unit/official-url "http://www.kia.gov.kw"
    :gov.unit/wikidata "Q1794766"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -133,6 +141,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Reserve Fund for Future Generation"
+   :gov.unit/name-local "احتياطي الأجيال القادمة"
+   :gov.unit/name-romanized "Ihtiyati al-Ajyal al-Qadima"
    :gov.unit/official-url "https://www.kia.gov.kw/"
    :gov.unit/wikidata "Q3427686"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -157,6 +167,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Russian Direct Investment Fund"
+   :gov.unit/name-local "Российский фонд прямых инвестиций"
+   :gov.unit/name-romanized "Rossiyskiy fond pryamykh investitsiy"
    :gov.unit/official-url "https://www.rdif.ru"
    :gov.unit/wikidata "Q4398142"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -169,6 +181,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Samruk-Kazyna"
+   :gov.unit/name-local "«Самұрық-Қазына» ұлттық әл-ауқат қоры"
+   :gov.unit/name-romanized "Samūryq-Qazyna ūlttyq äl-auqat qory"
    :gov.unit/official-url "https://www.sk.kz/"
    :gov.unit/wikidata "Q4407014"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -181,6 +195,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Russian National Wealth Fund"
+   :gov.unit/name-local "Фонд национального благосостояния Российской Федерации"
+   :gov.unit/name-romanized "Fond natsionalnogo blagosostoyaniya RF"
    :gov.unit/official-url "http://minfin.gov.ru/en/key/nationalwealthfund/"
    :gov.unit/wikidata "Q4491681"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -205,6 +221,7 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bra"
    :gov.unit/name-en "Sovereign Fund of Brazil"
+   :gov.unit/official-url "https://www.gov.br/tesouronacional/pt-br/fundo-soberano-do-brasil-fsb"
    :gov.unit/wikidata "Q7571596"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q7571596" :gov.unit/last-verified "2026-06-04"
@@ -252,6 +269,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Public Investment Fund"
+   :gov.unit/name-local "صندوق الاستثمارات العامة"
+   :gov.unit/name-romanized "Sunduq al-Istithmarat al-ʿAmma"
    :gov.unit/official-url "https://pif.gov.sa"
    :gov.unit/wikidata "Q12220298"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -264,6 +283,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israeli Citizens' Fund"
+   :gov.unit/name-local "הקרן לאזרחי ישראל"
+   :gov.unit/name-romanized "HaKeren LeEzrachei Yisra'el"
    :gov.unit/official-url "https://www.gov.il/en"
    :gov.unit/wikidata "Q24682007"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -276,6 +297,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Shanghai Municipal Investment Group"
+   :gov.unit/name-local "上海城投（集团）有限公司"
+   :gov.unit/name-romanized "Shànghǎi Chéngtóu (Jítuán) Yǒuxiàn Gōngsī"
    :gov.unit/official-url "https://www.chengtou.com/"
    :gov.unit/wikidata "Q39059847"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -288,6 +311,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Hainan Development Holdings Company Limited"
+   :gov.unit/name-local "海南省发展控股有限公司"
+   :gov.unit/name-romanized "Hǎinán Shěng Fāzhǎn Kònggǔ Yǒuxiàn Gōngsī"
    :gov.unit/official-url "http://www.hnhold.cn"
    :gov.unit/wikidata "Q43370584"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -300,6 +325,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Mubadala Investment Company"
+   :gov.unit/name-local "شركة مبادلة للاستثمار"
+   :gov.unit/name-romanized "Sharikat Mubadala lil-Istithmar"
    :gov.unit/official-url "https://www.mubadala.com/"
    :gov.unit/wikidata "Q55645212"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -312,6 +339,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "The Sovereign Fund of Egypt"
+   :gov.unit/name-local "صندوق مصر السيادي"
+   :gov.unit/name-romanized "Sunduq Misr al-Siyadi"
    :gov.unit/official-url "https://tsfe.com/ar"
    :gov.unit/wikidata "Q56440926"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -372,6 +401,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "ADQ"
+   :gov.unit/name-local "شركة أبوظبي التنموية القابضة"
+   :gov.unit/name-romanized "Sharikat Abu Dhabi al-Tanmawiyya al-Qabida (ADQ)"
    :gov.unit/official-url "https://adq.ae/ar"
    :gov.unit/wikidata "Q115774776"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -396,6 +427,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Chinggis Khaan Sovereign Wealth Fund"
+   :gov.unit/name-local "Чингис хаан Үндэсний баялгийн сан"
+   :gov.unit/name-romanized "Chingis khaan Ündesnii bayalgiin san"
    :gov.unit/official-url "https://swf.gov.mn/en/home"
    :gov.unit/wikidata "Q134464103"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

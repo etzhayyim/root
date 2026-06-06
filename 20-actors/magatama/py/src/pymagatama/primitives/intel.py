@@ -12,18 +12,24 @@ Implements 10 Zeebe task types for the intel.etzhayyim.com actor:
   intel.graph.counterparty   — counterparty relationship subgraph
   intel.graph.buildingOwnership — building ownership chain
 
-All DB writes use sync_cursor (psycopg3 sync pool, RisingWave PG :4566).
+All DB writes use kotoba Datom log (psycopg3 sync pool).
 LLM calls use pymagatama.llm.call_tier_json (Murakumo → LiteLLM fleet).
 """
 
 from __future__ import annotations
 
+import uuid
 import json
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.kotoba_datomic import get_kotoba_client
 from pymagatama import llm as _llm
+
+
+_OWNER_DID = "did:web:intel.etzhayyim.com"
+_COLLECTION_RUN = "com.etzhayyim.apps.intel.inferenceRun"
+_COLLECTION_EDGE = "com.etzhayyim.apps.intel.dependency"
 
 
 def _run_vid(run_id: str) -> str:
@@ -46,17 +52,22 @@ def task_intel_run_create(
 ) -> dict:
     run_id = uuid.uuid4().hex[:16]
     vid = _run_vid(run_id)
-    now = _utc_now()
+    now_iso = datetime.now(timezone.utc).isoformat()
     scope_json = json.dumps(scope or {}, separators=(",", ":"), ensure_ascii=False)
     if not dryRun:
         try:
-            with sync_cursor() as cur:
-                cur.execute(
-                    "INSERT INTO vertex_intel_inference_run "
-                    "(vertex_id, run_id, trigger_kind, scope_json, status, started_at, created_at) "
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                    (vid, run_id, str(triggerKind), scope_json, "running", now, now),
-                )
+            get_kotoba_client().insert_row(
+                "vertex_intel_inference_run",
+                {
+                    "vertex_id": vid,
+                    "run_id": run_id,
+                    "trigger_kind": str(triggerKind),
+                    "scope_json": scope_json,
+                    "status": "running",
+                    "started_at": now_iso,
+                    "created_at": now_iso,
+                },
+            )
         except Exception as e:  # noqa: BLE001
             return {"error": f"intel.run.create failed: {e}", "runId": run_id, "vertexId": vid}
     return {"runId": run_id, "vertexId": vid, "status": "running", "dryRun": bool(dryRun)}
@@ -90,18 +101,20 @@ def task_intel_candidate_scan(
         "WHERE " + " AND ".join(where_clauses) +
         f" ORDER BY created_at DESC LIMIT {limit}"
     )
-    try:
-        with sync_cursor() as cur:
-            cur.execute(sql, tuple(args))
-            rows = cur.fetchall() or []
-        candidates = [
-            {
-                "vertexId": r[0], "subjectKind": r[1], "canonicalKey": r[2],
-                "label": r[3], "lei": r[4], "jurisdiction": r[5],
-                "attributes": json.loads(r[6] or "{}"),
-            }
-            for r in rows
-        ]
+    # R0: Multi-predicate WHERE and ORDER BY require raw Datalog (q)
+    rows = get_kotoba_client().q(
+        query_edn=sql,
+        args=tuple(args),
+    ) or []
+    candidates = [
+        {
+            "vertexId": r["vertex_id"], "subjectKind": r["subject_kind"],
+            "canonicalKey": r["canonical_key"], "label": r["label"],
+            "lei": r["lei"], "jurisdiction": r["jurisdiction"],
+            "attributes": json.loads(r["attributes_json"] or "{}"),
+        }
+        for r in rows
+    ]
     except Exception as e:  # noqa: BLE001
         return {"error": f"intel.candidate.scan failed: {e}", "candidates": [], "count": 0}
     return {"candidates": candidates, "count": len(candidates), "runId": runId}
@@ -211,7 +224,7 @@ def task_intel_edge_materialize(
     edges = resolvedEdges if isinstance(resolvedEdges, list) else []
     active_count = 0
     review_count = 0
-    now = _utc_now()
+    now_iso = datetime.now(timezone.utc).isoformat()
     for edge in edges:
         if not isinstance(edge, dict):
             continue
@@ -229,16 +242,22 @@ def task_intel_edge_materialize(
         )
         if not dryRun:
             try:
-                with sync_cursor() as cur:
-                    cur.execute(
-                        "INSERT INTO edge_intel_dependency "
-                        "(edge_id, src_vid, dst_vid, predicate, confidence, "
-                        "evidence_count, evidence_json, inference_run_id, status, "
-                        "valid_from, created_at) "
-                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                        (edge_id, src, dst, predicate, confidence,
-                         1, evidence, runId, status, now, now),
-                    )
+                get_kotoba_client().insert_row(
+                    "edge_intel_dependency",
+                    {
+                        "edge_id": edge_id,
+                        "src_vid": src,
+                        "dst_vid": dst,
+                        "predicate": predicate,
+                        "confidence": confidence,
+                        "evidence_count": 1,
+                        "evidence_json": evidence,
+                        "inference_run_id": runId,
+                        "status": status,
+                        "valid_from": now_iso,
+                        "created_at": now_iso,
+                    },
+                )
             except Exception:  # noqa: BLE001
                 pass
         if status == "active":
@@ -248,14 +267,17 @@ def task_intel_edge_materialize(
     candidate_count = active_count + review_count
     if runId and not dryRun:
         try:
-            with sync_cursor() as cur:
-                cur.execute(
-                    "UPDATE vertex_intel_inference_run "
-                    "SET status = %s, candidate_count = %s, active_count = %s, "
-                    "review_count = %s, completed_at = %s "
-                    "WHERE run_id = %s",
-                    ("completed", candidate_count, active_count, review_count, now, runId),
-                )
+            get_kotoba_client().insert_row(
+                "vertex_intel_inference_run",
+                {
+                    "run_id": runId, # This is the identity column for upsert
+                    "status": "completed",
+                    "candidate_count": candidate_count,
+                    "active_count": active_count,
+                    "review_count": review_count,
+                    "completed_at": now_iso,
+                },
+            )
         except Exception:  # noqa: BLE001
             pass
     return {
@@ -305,13 +327,16 @@ def task_intel_entity_resolve(
         + ("WHERE " + " AND ".join(where_clauses) if where_clauses else "") +
         f" ORDER BY label ASC LIMIT {limit}"
     )
+    # R0: Multi-predicate WHERE, ILIKE, and ORDER BY require raw Datalog (q)
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, tuple(args))
-            rows = cur.fetchall() or []
+        rows = get_kotoba_client().q(
+            query_edn=sql,
+            args=tuple(args),
+        ) or []
         candidates = [
-            {"vertexId": r[0], "subjectKind": r[1], "canonicalKey": r[2],
-             "label": r[3], "lei": r[4], "jurisdiction": r[5]}
+            {"vertexId": r["vertex_id"], "subjectKind": r["subject_kind"],
+             "canonicalKey": r["canonical_key"], "label": r["label"],
+             "lei": r["lei"], "jurisdiction": r["jurisdiction"]}
             for r in rows
         ]
     except Exception as e:  # noqa: BLE001
@@ -346,15 +371,18 @@ def task_intel_dependency_list(
         + ("WHERE " + " AND ".join(where) if where else "") +
         f" ORDER BY confidence DESC LIMIT {lim} OFFSET {off}"
     )
+    # R0: Multi-predicate WHERE, ORDER BY, LIMIT, and OFFSET require raw Datalog (q)
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, tuple(args))
-            rows = cur.fetchall() or []
+        rows = get_kotoba_client().q(
+            query_edn=sql,
+            args=tuple(args),
+        ) or []
         edges = [
-            {"edgeId": r[0], "srcVid": r[1], "dstVid": r[2], "predicate": r[3],
-             "confidence": r[4], "status": r[5], "evidenceCount": r[6],
-             "evidence": json.loads(r[7] or "{}"), "inferenceRunId": r[8],
-             "validFrom": r[9]}
+            {"edgeId": r["edge_id"], "srcVid": r["src_vid"], "dstVid": r["dst_vid"],
+             "predicate": r["predicate"], "confidence": r["confidence"],
+             "status": r["status"], "evidenceCount": r["evidence_count"],
+             "evidence": json.loads(r["evidence_json"] or "{}"),
+             "inferenceRunId": r["inference_run_id"], "validFrom": r["valid_from"]}
             for r in rows
         ]
     except Exception as e:  # noqa: BLE001
@@ -375,30 +403,33 @@ def task_intel_dependency_explain(
     # Fetch the edge
     edge: dict[str, Any] = {}
     try:
-        with sync_cursor() as cur:
-            if edgeId:
-                cur.execute(
-                    "SELECT edge_id, src_vid, dst_vid, predicate, confidence, "
-                    "status, evidence_json, inference_run_id "
-                    "FROM edge_intel_dependency WHERE edge_id = %s LIMIT 1",
-                    (edgeId,),
-                )
-            else:
-                cur.execute(
-                    "SELECT edge_id, src_vid, dst_vid, predicate, confidence, "
-                    "status, evidence_json, inference_run_id "
-                    "FROM edge_intel_dependency "
-                    "WHERE src_vid = %s AND dst_vid = %s AND predicate = %s LIMIT 1",
-                    (fromVertexId, toVertexId, str(predicate).upper()),
-                )
-            row = cur.fetchone()
-            if row:
-                edge = {
-                    "edgeId": row[0], "srcVid": row[1], "dstVid": row[2],
-                    "predicate": row[3], "confidence": row[4], "status": row[5],
-                    "evidence": json.loads(row[6] or "{}"),
-                    "inferenceRunId": row[7],
-                }
+        if edgeId:
+            row = get_kotoba_client().select_first_where(
+                "edge_intel_dependency", "edge_id", edgeId,
+                columns=["edge_id", "src_vid", "dst_vid", "predicate",
+                         "confidence", "status", "evidence_json", "inference_run_id"]
+            )
+        else:
+            # R0: Multi-predicate WHERE requires raw Datalog (q) for exact match
+            rows = get_kotoba_client().q(
+                query_edn="""
+                SELECT edge_id, src_vid, dst_vid, predicate, confidence,
+                       status, evidence_json, inference_run_id
+                FROM edge_intel_dependency
+                WHERE src_vid = ? AND dst_vid = ? AND predicate = ? LIMIT 1
+                """,
+                args=(fromVertexId, toVertexId, str(predicate).upper()),
+            )
+            row = rows[0] if rows else None
+
+        if row:
+            edge = {
+                "edgeId": row["edge_id"], "srcVid": row["src_vid"],
+                "dstVid": row["dst_vid"], "predicate": row["predicate"],
+                "confidence": row["confidence"], "status": row["status"],
+                "evidence": json.loads(row["evidence_json"] or "{}"),
+                "inferenceRunId": row["inference_run_id"],
+            }
     except Exception as e:  # noqa: BLE001
         return {"error": f"intel.dependency.explain failed: {e}", "edge": {}, "explanation": ""}
 
@@ -452,17 +483,26 @@ def task_intel_graph_counterparty(
         + ("WHERE " + " AND ".join(where_parts) if where_parts else "") +
         f" ORDER BY e.confidence DESC LIMIT {lim}"
     )
+    # R0: Complex query with LEFT JOINs, multiple WHERE clauses, and ORDER BY requires raw Datalog (q)
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, tuple(args))
-            rows = cur.fetchall() or []
+        rows = get_kotoba_client().q(
+            query_edn=sql,
+            args=tuple(args),
+        ) or []
     except Exception as e:  # noqa: BLE001
         return {"error": f"intel.graph.counterparty failed: {e}", "nodes": [], "edges": [], "count": 0}
 
     node_map: dict[str, dict] = {}
     edges: list[dict] = []
     for r in rows:
-        edge_id, src_vid, dst_vid, predicate, confidence, src_label, dst_label = r
+        edge_id = r["edge_id"]
+        src_vid = r["src_vid"]
+        dst_vid = r["dst_vid"]
+        predicate = r["predicate"]
+        confidence = r["confidence"]
+        src_label = r["src_label"]
+        dst_label = r["dst_label"]
+
         if src_vid:
             node_map[src_vid] = {"vertexId": src_vid, "label": src_label or src_vid}
         if dst_vid:
@@ -505,16 +545,19 @@ def task_intel_graph_building_ownership(
         "WHERE " + " AND ".join(where_parts) +
         f" ORDER BY e.confidence DESC LIMIT {lim}"
     )
+    # R0: Complex query with LEFT JOINs, multiple WHERE clauses, and ORDER BY requires raw Datalog (q)
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, tuple(args))
-            rows = cur.fetchall() or []
+        rows = get_kotoba_client().q(
+            query_edn=sql,
+            args=tuple(args),
+        ) or []
     except Exception as e:  # noqa: BLE001
         return {"error": f"intel.graph.buildingOwnership failed: {e}", "chain": [], "count": 0}
 
     chain = [
-        {"edgeId": r[0], "ownerVid": r[1], "buildingVid": r[2], "relation": r[3],
-         "confidence": r[4], "ownerLabel": r[5], "ownerLei": r[6]}
+        {"edgeId": r["edge_id"], "ownerVid": r["src_vid"], "buildingVid": r["dst_vid"],
+         "relation": r["predicate"], "confidence": r["confidence"],
+         "ownerLabel": r["owner_label"], "ownerLei": r["owner_lei"]}
         for r in rows
     ]
     return {"chain": chain, "count": len(chain)}

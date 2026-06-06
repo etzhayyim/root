@@ -132,6 +132,1076 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-05 — subdivision name-local: Latin-diacritic (Azerbaijan 69 + Romania 42) (2070 → 2181)
+
+Continued the Latin-diacritic front. 2 web-research subagents. **111 endonyms added with ASCII
+romanization, 0 nulls.** all name-local 2070 → **2181**; subdivision 1056 → **1167**.
+
+- Azerbaijan 69 — Azeri Latin (ə/ç/ş/ğ/ı), HIGH yield: the stored English names are fully anglicized
+  and genuinely diverge — Aghstafa→Ağstafa, Jabrayil→Cəbrayıl, Khachmaz→Xaçmaz, Gazakh→Qazax,
+  Ganja→Gəncə, Baku→Bakı, Shaki→Şəki, Sumgait→Sumqayıt, Kalbajar→Kəlbəcər. romanized = ASCII fold.
+- Romania 42 counties — Romanian (ă/â/î/ș/ț); English already carried diacritics so the gain is the
+  verified native field (București) + ASCII search keys.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Next Latin-diacritic candidates: Indonesia 37,
+Croatia 21 (č/ć/ž/š/đ), Lithuania 59 (county-level, ė/š/ž/ū), Latvia 41, plus the larger plain-Latin
+sets (Slovenia 212, Uganda 135) where name-local ≈ name-en (lowest yield).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Latin-diacritic (Turkey 81 + Vietnam 34) (1955 → 2070)
+
+Opened the Latin-script-but-distinctive-orthography front. 2 web-research subagents.
+**115 endonyms added with ASCII romanization, 0 nulls.** all name-local 1955 → **2070**;
+subdivision 941 → **1056** (crossed 1000).
+
+- Turkey 81 provinces — proper Turkish orthography incl. dotted-İ (İstanbul corrected from "Istanbul",
+  İzmir, Şanlıurfa, Çanakkale, Diyarbakır, Muğla, Gümüşhane, Iğdır); romanized = ASCII fold.
+- Vietnam 34 — full Vietnamese diacritics; **corrected the 4 ASCII-only city names**: Hanoi → Hà Nội,
+  Da Nang → Đà Nẵng, Haiphong → Hải Phòng, Ho Chi Minh City → Thành phố Hồ Chí Minh.
+
+Note: for these two the English name already carried most diacritics, so the chief gains are (a) the
+verified native endonym field, (b) the dotted-İ / full-tone corrections, (c) ASCII romanized search keys.
+This is the lower-yield Latin-script axis (vs the now-complete distinct-script sets) but Turkey/Vietnam
+sit at the high end of it because their orthography genuinely diverges from plain ASCII.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Next Latin-diacritic candidates: Azerbaijan 69
+(ə/ç/ş/ğ), Indonesia 37, Romania 42 (ă/â/î/ş/ţ), Croatia 21 (č/ć/ž/š/đ), Iceland, etc.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — official-url: high-tier institution gap audit (G5 honest-null) (5983 → 5984)
+
+Pivoted axis: the non-Latin subdivision name-local front is effectively complete, so this iteration
+audited the **66 high-tier institutions** (supranational/legislature/court/ministry/agency) that still
+lacked an official-url — the highest-value url gaps (a ministry/court URL is genuinely verifiable, vs a
+subdivision's generic provincial portal). 3 web-research subagents (Wikidata P856 + direct fetch).
+
+**Outcome = the honest finding (G5): only 1 of 66 has a verifiable official site.**
+- **ADDED**: Equatorial Guinea Senate → https://senado-gq.org/ (Wikidata P856 Q14759322; the Chamber of
+  Deputies has no separate site, so this represents the parliament). official-url 5983 → **5984**.
+- **65 verified honest-null** — recorded here so future iterations do NOT re-research them. Reasons:
+  - Fragile/conflict/closed states with no institutional web presence (Afghanistan, Syria, Sudan, CAR,
+    DRC, Eritrea, North Korea, South Sudan, Guinea-Bissau, Chad, Niger, Mauritania, Togo, Turkmenistan …).
+  - Dissolved / not-yet-constituted bodies (Syria Supreme Constitutional Court dissolved; Tunisia
+    Constitutional Court not yet constituted; Sudan National Legislature dissolved 2019).
+  - No permanent secretariat by design (BRICS, G7 — rotating-chair/presidency sites only, null per policy).
+  - Institutions that don't exist as labelled (Bank of Kiribati → became ANZ Kiribati 2001, no central
+    bank; India Data Protection Board constituted Nov 2025, no .gov.in site yet; Indonesia PDP authority
+    not yet operational).
+  - **Data-quality flags (NOT in our registry, so nothing to clean — but noted)**: widely-cited URLs that
+    are now HIJACKED/parked and should never be ingested — Comoros Assembly `assemblee-comores.com`
+    (Polish business directory; stale on Wikidata P856), St Lucia `stluciaarchives.org` (construction
+    template), Haiti/Syria national-library domains (dead/renamed post-2024).
+
+Residual: 2 wikidata gaps remain (gov.jpn.mof.nta.tokyo 東京国税局 + .kojimachi 麹町税務署, JP tax-office
+sub-units) — left honest-null pending primary-source QID verification (no guessing).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Published-index authoritative-scope gate
+(check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: non-Latin sweep (Afghanistan+NKorea+Israel+Lebanon+Belarus+Tajik+Kyrgyz+SriLanka+Bangladesh+Nepal) (1859 → 1955)
+
+Swept the remaining genuinely non-Latin subdivision sets across 10 countries / 8 scripts in one pass.
+4 web-research subagents (Wikidata P1705 + lang labels). **96 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1859 → **1955**; subdivision name-local: 845 → **941**.
+- Afghanistan 34 (Perso-Arabic Dari/Pashto — کابل/Kabul, هرات/Herat, کندهار/Kandahar …).
+- North Korea 12 (DPRK Hangul — 평양직할시, 량강도 initial-ㄹ, 라선특별시; McCune–Reischauer DPRK-style romanization).
+- Israel 7 (Hebrew מחוז form), Lebanon 6 (Arabic).
+- Belarus 7 + Tajikistan 5 + Kyrgyzstan 1 (Cyrillic — Belarusian вобласць, Tajik вилоят, Kyrgyz шаары).
+- Sri Lanka 9 (Sinhala පළාත), Bangladesh 8 (Bengali বিভাগ), Nepal 7 (Devanagari प्रदेश).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. **All major distinct-script subdivision sets
+now covered** (Arabic, Hangul, Hebrew, Cyrillic, Devanagari, Bengali, Sinhala, Tamil, Lao, Thaana,
+Dzongkha/Tibetan, Ge'ez, Georgian, Armenian, Greek, Han, Cyrillic-RU). Remaining gaps are predominantly
+Latin-script subdivisions (Slovenia 212 municipalities, Uganda 135, Turkey 81, etc.) where name-local
+≈ name-en — a lower-yield, separate axis for future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Gulf + Maghreb Arabic (Morocco+Oman+Qatar+UAE+Kuwait+Bahrain) (1810 → 1859)
+
+Cleared the remaining Arabic-script subdivision sets across 6 states in one pass. 2 web-research
+subagents (Wikidata P1705 + ar Wikipedia). **49 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1810 → **1859**; subdivision name-local: 796 → **845**.
+- Morocco 12 regions (طنجة تطوان الحسيمة, الدار البيضاء سطات, مراكش آسفي; Oriental = الشرق).
+- Oman 11 (محافظة form; جنوب/شمال الباطنة + الشرقية pairs); Qatar 9 (بلدية form); UAE 7 (إمارة form);
+  Kuwait 6 + Bahrain 4 (محافظة; Bahrain Southern/Northern use adjectival المحافظة الجنوبية/الشمالية).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Arabic-script subdivision coverage now
+complete (DZ, LY, YE, SY, JO, MA, OM, QA, AE, KW, BH, IR, IQ + EG). Remaining non-Latin subdivision
+sets: North Korea 12 (Hangul), Sri Lanka 9 (Sinhala/Tamil), Bangladesh 8 (Bengali), Nepal 7
+(Devanagari), Tajikistan 5 (Cyrillic), Kyrgyzstan 1, plus scattered — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: S/SE Asia + Ge'ez (Bhutan+Maldives+Laos+Ethiopia) (1739 → 1810)
+
+Four more distinct scripts in one pass — Dzongkha (Tibetan), Thaana, Lao, Amharic Ge'ez. 4 web-research
+subagents (Wikidata P1705 + lang labels). **71 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1739 → **1810**; subdivision name-local: 725 → **796**.
+- Bhutan 20 dzongkhag (ཐིམ་ཕུ་རྫོང་ཁག/Thimphu, སྤ་རོ་རྫོང་ཁག/Paro …) — Dzongkha Tibetan script.
+- Maldives 20 administrative atolls — official Thaana atoll-code form (ހއ. Haa Alif, އައްޑޫ Addu),
+  ISO-3166-2:MV aligned; readable name carried in romanized.
+- Laos 17 (ຫຼວງພະບາງ/Louangphabang; Vientiane Capital ນະຄອນຫຼວງວຽງຈັນ distinct from province ວຽງຈັນ;
+  Bokeo Thai-char contamination fixed → ບໍ່ແກ້ວ).
+- Ethiopia 14 regions/cities (አዲስ አበባ, ኦሮሚያ, ትግራይ …) — Amharic Ge'ez.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets now
+small/mixed: Morocco 12, North Korea 12, Oman 11, Sri Lanka 9 (Sinhala/Tamil), Qatar 9, Bangladesh 8,
+UAE 7, Nepal 7, Kuwait 6, Tajikistan 5, Bahrain 4, Kyrgyzstan 1, plus scattered — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Caucasus + Central Asia (Georgia+Armenia+Kazakhstan) (1698 → 1739)
+
+Three distinct own-scripts in one pass — Georgian Mkhedruli, Armenian, Kazakh Cyrillic. 3 web-research
+subagents (Wikidata P1705). **41 endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1698 → **1739**; subdivision name-local: 684 → **725**.
+- Georgia 12 (თბილისი/Tbilisi, აჭარის ავტონომიური რესპუბლიკა, სამეგრელო-ზემო სვანეთი …) — Mkhedruli.
+- Armenia 11 (Երևան/Yerevan, Արագածոտնի մարզ … "X-i marz" genitive form).
+- Kazakhstan 18 (Kazakh Cyrillic constitutional form; regions облысы, cities қаласы; incl. Astana
+  Астана қаласы, Baikonur Байқоңыр қаласы).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets:
+Bhutan 20 (Dzongkha), Maldives 20 (Thaana), Lao 17, Ethiopia 14 (Ge'ez), Morocco 12, North Korea 12,
+Oman 11, Sri Lanka 9 (Sinhala/Tamil), Qatar 9, plus smaller ones — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Arabic cluster Libya+Yemen+Syria+Jordan (1628 → 1698)
+
+Cleared the remaining large Arabic-script subdivision sets in one pass — 4 web-research subagents
+(Wikidata native labels P1705 + ar labels). **70 Arabic endonyms added with romanization, 0 nulls.**
+
+- all-units name-local: 1628 → **1698**; subdivision name-local: 614 → **684**.
+- Libya 22 shabiyat (بنغازي/Banghazi, طرابلس/Tarabulus, مصراتة/Misratah …) — bare proper-name form
+  consistent with the P1705 values that exist; Derna/Jufra municipality-form labels normalized to
+  district proper names درنة/الجفرة.
+- Yemen 22 (محافظة <name>; capital kept as أمانة العاصمة not forced to محافظة; Socotra =
+  محافظة أرخبيل سقطرى).
+- Syria 14 + Jordan 12 governorates (محافظة form).
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets now
+mostly smaller / mixed-script: Bhutan 20, Maldives 20, Kazakhstan 18, Lao 17, Ethiopia 14, Morocco 12,
+North Korea 12, Georgia 12, Armenia 11, Oman 11, Sri Lanka 9, Qatar 9, etc.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Algeria 58 wilayas (1570 → 1628)
+
+Continued the subdivision endonym front with all 58 Algerian wilayas in Arabic. 5 web-research
+subagents (Wikidata native labels). **58 Arabic endonyms added with romanization.**
+
+- all-units name-local: 1570 → **1628**; subdivision name-local: 556 → **614**.
+- official ولاية<Name> form (ولاية الجزائر/Wilayat al-Jazair = Algiers, ولاية وهران = Oran, ولاية قسنطينة
+  = Constantine); includes the 10 NEW 2019 wilayas (تيميمون Timimoun … المنيعة El Meniaa). Arabic forms
+  preferred over French exonyms (e.g. Relizane = غليزان/Ghulizan). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets:
+Libya 22, Yemen 22, Bhutan 20, Maldives 20, Kazakhstan 18, Lao 17, Ethiopia 14, Syria 14, Morocco 12,
+Jordan 12, North Korea 12, Georgia 12, Armenia 11, Oman 11, plus smaller ones — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Cambodia + Mongolia + Myanmar (1503 → 1570)
+
+Continued the subdivision endonym front with 3 distinct SE/Central-Asian scripts. 6 web-research
+subagents (Wikidata native labels). **67 endonyms added with romanization** (Cambodia 24 provinces
+[Khmer], Mongolia 22 provinces [Cyrillic], Myanmar 21 regions/states/self-admin [Burmese]).
+
+- all-units name-local: 1503 → **1570**; subdivision name-local: 489 → **556**.
+- Cambodia ខេត្ត<Name> (ខេត្តកំពង់ចាម; Phnom Penh = រាជធានីភ្នំពេញ). Mongolia <Name> аймаг
+  (Орхон аймаг; Ulaanbaatar = Улаанбаатар, a municipality, no аймаг suffix). Myanmar regions
+  <Name>တိုင်းဒေသကြီး + states <Name>ပြည်နယ် + the 6 self-administered zones/division
+  (ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ/ရတိုင်း — captured the zone-vs-division distinction for Wa). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining non-Latin subdivision sets:
+Yemen 22, Maldives 20, Bhutan 20, Lao 17, Iraq done, Georgia/Armenia, Kazakhstan/Tajikistan/Kyrgyz,
+Greek-Cyprus, Bangladesh, Nepal, Sri Lanka, Ethiopia — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Iran + Iraq + Tunisia (1430 → 1503)
+
+Continued the subdivision endonym front with the Persian + Arabic cluster. 7 web-research subagents
+(Wikidata native labels). **73 endonyms added with romanization** (Iran 31 provinces [Persian],
+Iraq 18 governorates [Arabic], Tunisia 24 governorates [Arabic]).
+
+- all-units name-local: 1430 → **1503** (crossed 1,500); subdivision name-local: 416 → **489**.
+- Iran استان<Name> (استان تهران/Ostan-e Tehran, استان خراسان رضوی; noun-first adjective order captured —
+  آذربایجان شرقی East Azarbaijan). Iraq محافظة<Name> (محافظة بغداد; Kurdish-region governorates Erbil/
+  Duhok/Sulaymaniyah given in Arabic per registry standard). Tunisia ولاية<Name> (ولاية تونس; Kef =
+  ولاية الكاف with the definite article; Wikidata ق form preferred over the regional ڨ glyph). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Khmer 24, Mongolia 22, Yemen 22, Myanmar 21, Maldives 20, Bhutan 20, Lao 17, Georgia/Armenia/
+Kazakhstan/Tajikistan/Kyrgyzstan, Greek-Cyprus, Bangladesh — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Serbia + Bulgaria + Ukraine Cyrillic (1346 → 1430)
+
+Continued the subdivision endonym front with a 3-country Cyrillic cluster. 7 web-research subagents
+(Wikidata native labels). **84 Cyrillic endonyms added with romanization** (Serbia 30 districts,
+Bulgaria 28 provinces, Ukraine 26 oblasts).
+
+- all-units name-local: 1346 → **1430**; subdivision name-local: 332 → **416**.
+- Serbian districts in "<Adjective> управни округ" (Шумадијски управни округ; City of Belgrade = Град
+  Београд; Kosovo districts in Serbia's de jure listing as closed-compound Косовскомитровачки/
+  Косовскопоморавски — observational, G3). Bulgarian "Област <Name>" (Област Пловдив; Sofia City =
+  Област София (столица); Софийска област adjectival). Ukrainian "<Name> область" (Київська область;
+  Київ city; Автономна Республіка Крим de jure Ukrainian). All romanized.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Khmer 24, Tunisia 24 (Arabic), Mongolia 22, Yemen 22, Myanmar 21, Maldives 20, Bhutan 20, Iran 31,
+Iraq 18, Lao 17, Georgia/Armenia/Kazakhstan/etc. — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: North Macedonia 81 municipalities (1265 → 1346)
+
+Continued the subdivision endonym front with all 81 North Macedonian municipalities (општини) in
+Macedonian Cyrillic. 7 web-research subagents (Wikidata native labels). **81 Cyrillic endonyms added
+with romanization.**
+
+- all-units name-local: 1265 → **1346**; subdivision name-local: 251 → **332**.
+- official "Општина <Name>" form (Општина Битола/Opština Bitola, Општина Тетово, Општина Ѓорче Петров
+  with the Ѓ letter); the capital = Град Скопје/Grad Skopje (City of Skopje, not Општина). All romanized
+  (ISO-9 Macedonian Latin) → searchable by Latin reading on /gov.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Serbia 30, Bulgaria 28, Ukraine 26, Khmer 24, Tunisia 24 (Arabic), Mongolia 22, Yemen 22, Myanmar 21,
+Maldives 20, Bhutan 20, Lao 17, Iran 31, Iraq 18 — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Thailand 77 provinces (1188 → 1265)
+
+Continued the subdivision endonym front with all 77 Thai provinces (จังหวัด) in Thai script.
+7 web-research subagents (Wikidata native labels). **77 Thai endonyms added with RTGS romanization.**
+
+- all-units name-local: 1188 → **1265**; subdivision name-local: 174 → **251**.
+- official จังหวัด<name> form (จังหวัดเชียงใหม่/Chiang Mai, จังหวัดภูเก็ต/Phuket, …); Bangkok =
+  กรุงเทพมหานคร (special admin area, no จังหวัด prefix). All RTGS-romanized → searchable by Latin
+  reading on /gov.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+North Macedonia 81, Serbia 30, Bulgaria 28, Ukraine 26, Khmer 24, Tunisia 24 (Arabic), Mongolia 22,
+Yemen 22, Myanmar 21, Maldives 20, Bhutan 20, Lao 17 — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision name-local: Russia 85 federal subjects (1103 → 1188)
+
+Continued the subdivision endonym front with the single largest non-Latin subdivision set: all 85
+Russian federal subjects (republics / oblasts / krais / autonomous okrugs / federal cities). 7 web-
+research subagents (Wikidata native labels). **85 Cyrillic endonyms added with romanization.**
+
+- all-units name-local: 1103 → **1188**; subdivision name-local: 89 → **174**.
+- standard administrative forms: republics Республика Татарстан / Чеченская Республика, oblasts
+  …ская область, krais …ский край, autonomous okrugs Ямало-Ненецкий автономный округ, federal cities
+  Москва / Санкт-Петербург. Captured the constitutional dual-names: Кемеровская область — Кузбасс and
+  Ханты-Мансийский автономный округ — Югра. All romanized → searchable by Latin reading on /gov.
+- honest note: Republic of Crimea (q15966495) + Sevastopol (ua-40) are internationally Ukrainian,
+  Russia-administered since the 2014 annexation (not internationally recognized). The Cyrillic
+  name-local is the linguistic endonym only — the atlas is an observational mirror (G3), not a
+  sovereignty claim; both spellings are identical in Russian and Ukrainian.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN. Remaining big non-Latin subdivision sets:
+Thailand 77, North Macedonia 81, Iran 31, Ukraine 26, Bulgaria 28, Serbia 30, … (future iterations).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis extends to SUBDIVISIONS: CN/KR/EG/GR (1014 → 1103)
+
+Opened a new front for the endonym axis: SUBDIVISIONS of non-Latin jurisdictions had ZERO name-local
+(only the high-tier ministries/courts carried endonyms). Began with the 4 highest-reference clusters.
+6 web-research subagents (Wikidata native labels). **89 first-level-division endonyms added with
+romanization** (China 33 provinces, Korea 15, Egypt 27 governorates, Greece 14 regions).
+
+- all-units name-local: 1014 → **1103**; subdivision name-local: 0 → **89** (a brand-new tier).
+- China provinces in 简体中文 with official suffixes (安徽省/Ānhuī Shěng, 新疆维吾尔自治区, 香港特别行政区);
+  Korea in Hangul (서울특별시/Seoul Teukbyeolsi, 강원특별자치도 — reflects the 2023 Gangwon + 2024 Jeonbuk
+  Special Self-Governing Province upgrades); Egypt governorates in Arabic (القاهرة/al-Qāhira); Greece
+  regions in Greek (Περιφέρεια Αττικής; gr-69 = Άγιον Όρος autonomous monastic state). All romanized.
+- the /gov map already renders nameRomanized + makes it searchable, so these 89 provinces are now
+  findable by Latin reading too (e.g. "Ānhuī", "Gyeonggi", "al-Qāhira").
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN; index regen → 1103 with name-local.
+Hundreds more non-Latin subdivisions remain (Russia 85, Thailand 77, North Macedonia 81, Iran 31,
+Ukraine 26, …) — a long runway for future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — DATA-QUALITY: structural sweep — fix Brazil interior/justice slot collision
+
+Extended the data-quality pass beyond subdivisions to ALL units: scanned for dangling parent refs
+(0 found — clean) and for duplicate name-en within the same (country, level). One collision remained:
+**gov.bra.interior AND gov.bra.justice were BOTH "Ministry of Justice and Public Security"** (both
+pointing at gov.br/mj) — Brazil has no separate Interior Ministry, so the "interior" functional slot
+had been mis-filled with a duplicate of Justice.
+
+- **re-pointed gov.bra.interior** to the genuinely distinct ministry that fills Brazil's internal/
+  regional-affairs function: **Ministry of Integration and Regional Development (MIDR / Ministério da
+  Integração e do Desenvolvimento Regional)** — gov.br/mdr/pt-br, Wikidata Q10330386 (handles regional
+  integration + civil protection / Secretaria Nacional de Proteção e Defesa Civil). Added the
+  Portuguese name-local. gov.bra.justice stays the canonical MJSP. (1 web-research subagent confirmed.)
+- **fixed its address**: the old hq row pointed at the Palácio da Justiça (the MJSP building, coord
+  -15.7973/-47.8659) — wrong for MIDR. Re-set to "Esplanada dos Ministérios, Bloco E, Brasília (MIDR)"
+  and DROPPED the Justice-building coord (G5 — did not fabricate a MIDR coord; honest null).
+
+Verified: check_seed_integrity ✓; **duplicate name-en groups atlas-wide now 0**; dangling parent refs
+0; run_tests.sh ALL GREEN. The atlas is now structurally clean: no QID/ISO subdivision duplicates, no
+same-(country,level) name collisions, no dangling parents.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — DATA-QUALITY:全法域 QID/ISO duplicate sweep — 6 more removed (7093 → 7087)
+
+Ran a SYSTEMATIC QID-vs-ISO duplicate scan across ALL jurisdictions (normalize name, strip the
+level suffix, match a `.qNNN`-keyed subdivision to an ISO-3166-2-keyed one of the same place).
+Found 6 more dual-entries beyond the Tanzania batch and removed the QID duplicates (each: unit def +
+address row). **Re-scan now reports ZERO remaining QID/ISO subdivision duplicates atlas-wide.**
+
+- **Azerbaijan**: gov.aze.adm1.q158903 (Shusha) ≡ az-sus (Shusha District) — both had the url+coord;
+  ISO kept.
+- **Libya** (5): q131323 Misrata ≡ ly-mi, q132409 Nalut ≡ ly-nl, q209393 Ghat ≡ ly-gt, q221503
+  Zawiya ≡ ly-za, q3579 Tripoli ≡ ly-tb. ISO entries keep the coords.
+- data note: the removed Tripoli QID carried a non-official `http://www.tripoli.info` URL (an .info
+  city-info site, NOT a .gov.ly portal) — deliberately NOT transferred to the canonical ly-tb (which
+  honestly stays url-less; Libyan districts largely have no official portal). Net accuracy gain.
+- units 7093 → **7087**; addresses 1:1 preserved; no live OFFICIAL url lost.
+
+Verified: check_seed_integrity ✓; run_tests.sh ALL GREEN; index regenerates 7,665 units +
+validate_atlas --file ✓. The atlas is now duplicate-free across both the Tanzania (11) and this
+6-unit sweep — 19 Wikidata-import artifacts removed total over the two cleanup PRs.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — DATA-QUALITY: remove 13 duplicate/artifact subdivisions (7106 → 7093 units)
+
+Cleaned up the Wikidata-import artifacts flagged over the prior iterations. **Removed 13 bogus
+subdivision unit records** (each: the :units definition + its :addresses row), leaving every
+jurisdiction with its correct canonical first-level divisions.
+
+- **11 Tanzania QID duplicates** removed: gov.tza.adm1.q110218 (Mwanza), q1960 (Dar es Salaam),
+  q243319 (Morogoro), q244509 (Kigoma), q335548 (Mbeya), q643112 (Tabora), q646684 (Mtwara),
+  q7296 ("Mount Kilimanjaro" — a MOUNTAIN, not a region), q735609 (Iringa), q818765 (Shinyanga),
+  q829886 (Lindi). Each DUPLICATED a canonical ISO-3166-2 region (tz-18 Mwanza Region, tz-02 Dar es
+  Salaam Region, …, tz-09 Kilimanjaro Region) — the .go.tz portals + names live on the ISO entries.
+  Tanzania subdivisions: 37 → **26** (the correct count of mainland+Zanzibar regions).
+- **gov.pak.adm1.q19807103** "Junagadh and Manavadar" — a former princely state claimed by Pakistan
+  but India-administered since 1948; NOT a current Pakistani province. Removed.
+- **gov.sau.adm1.q74063** "list of provinces of Saudi Arabia" — a Wikidata LIST item, never a real
+  subdivision. Removed.
+- units 7106 → **7093**; address records 7106 → 7093 (1:1 preserved); name-local 1013 unchanged;
+  hq-coords 5670 → 5659 (the 11 dropped coords were on the removed duplicates; the canonical region
+  entries are areas without a separate building seat).
+
+Verified: check_seed_integrity --quiet ✓; run_tests.sh ALL GREEN; index regenerates to 7,671 units
+(was 7,684) and validate_atlas --file ✓ (JP-authoritative-scope, parent-refs, summary all pass).
+No live URLs lost (all were on the surviving ISO entries). Non-destructive to every real unit.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision official-url — Algeria wilayas + big-country mop-up (5949 → 5995)
+
+The big federal countries (Mexico/Brazil/Russia/China/India/Turkey/Thailand/…) are now subdivision-
+url-complete; the one large remaining gap was Algeria (51 wilayas). Plus a scattered mop-up of the
+last 1-2-unit gaps in Turkey/Nigeria/UAE/Ukraine/Egypt/Venezuela/Pakistan/Saudi. 5 web-research
+subagents. **46 official portals found + added; 15 honest nulls.**
+
+- official-url: 5949 → **5995/7106**.
+- **Algeria wilayas** (40 of 51): official wali (provincial governor's office) .dz portals
+  (wilaya-<name>.dz / <name>.wilaya.dz / .gov.dz patterns). 11 nulls — mostly the NEW 2019 wilayas
+  (Timimoun, Bordj Badji Mokhtar, In Salah, In Guezzam, Djanet, El M'Ghair) which only have tourism-
+  directorate / commune / Facebook presence, plus 5 defunct/dead-domain older ones (Chlef, Annaba,
+  Illizi, BBA, El Tarf). Rejected .mta.gov.dz tourism directorates + commune sites (wrong body).
+- **mop-up** (6): Turkey Diyarbakır + Kilis valilik (.gov.tr); Nigeria Kano State; UAE Umm Al Quwain
+  (uaq.ae — corrected, NOT uaq.gov.ae); Ukraine Luhansk Oblast military admin (loga.gov.ua); Egypt
+  Beheira (behira.gov.eg — corrected spelling).
+- **honest nulls + 2 flagged data artifacts (G5)**: Venezuela Federal Dependencies + Delta Amacuro
+  (centrally administered / social-only); **gov.pak.adm1.q19807103 "Junagadh and Manavadar"** (a
+  former princely state claimed by Pakistan but India-administered since 1948 — NOT a current
+  Pakistani province) and **gov.sau.adm1.q74063 "list of provinces of Saudi Arabia"** (a Wikidata
+  LIST item, not a subdivision) — both flagged for a future data-quality cleanup, alongside
+  gov.tza.adm1.q7296 (Mount Kilimanjaro) noted earlier.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — subdivision official-url — partial-coverage jurisdictions (5905 → 5949)
+
+Continued the subdivision official-url axis across 8 partially-covered jurisdictions. 8 web-research
+subagents. **44 official portals found + added; 41 honest nulls** (this batch deliberately tested
+several jurisdictions whose first-level divisions structurally have NO government portal — the nulls
+are the finding, not a miss).
+
+- official-url: 5905 → **5949/7106**.
+- **Iraq governorates** (12/12): every محافظة diwan portal (anbar.iq, najaf.gov.iq, karbala.gov.iq …).
+- **Cape Verde municipalities** (9/12): Câmara Municipal .cv portals (3 null = Facebook-only).
+- **Uganda districts** (9/9): <district>.go.ug local-government portals.
+- **Paraguay departments** (8/9): gobernación .gov.py portals (+ Asunción municipality for the Capital
+  District; Ñeembucú via IDN punycode xn--eembucu-3za.gov.py).
+- **Tunisia governorates** (4/12): only Tunis/Ben Arous/Béja/Jendouba run a gouvernorat-*.gov.tn site;
+  the rest have none (rejected commune-*.gov.tn municipality sites — wrong tier).
+- **Jordan** (2/11): only Amman (Greater Amman Municipality, metropolitan = governorate-scope) +
+  Aqaba (ASEZA, governs the whole zone). The other 9 governorates are MoI-administered with no
+  standalone portal; their seat-city municipalities are a DIFFERENT tier — left null (G5 accuracy,
+  not attributed up-tier).
+- **honest structural nulls**: Portugal districts (10/10 null — civil governments ABOLISHED 2011,
+  districts are statistical/electoral only; did NOT substitute the Câmara Municipal of the capital);
+  Philippine regions (10/10 null — administrative groupings not LGUs; the RDC is run by a national
+  DEPDev/NEDA regional office, not a regional government). Negros Island Region re-created 2024.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — CONTACT axis: subdivision official-url — high-yield batch (5817 → 5905)
+
+Resumed the official-url coverage axis at the SUBDIVISION tier (1,223 first-level-division gaps).
+Targeted jurisdictions where each province/region/municipality demonstrably runs its OWN portal
+(skipping the many developing-country provinces that genuinely have none — those are honest future
+nulls). 7 web-research subagents. **88 official portals found and added; 4 honest nulls.**
+
+- official-url: 5817 → **5905/7106**.
+- **US states** (5): kentucky.gov, nebraska.gov, oklahoma.gov, oregon.gov, pr.gov.
+- **Iran provinces** (17): ostandari governor's-office portals (ostan-XX.ir / hormozgan.ir /
+  alborz.ir / sko.ir / nkhorasan.ir …) — data note: ostan-hm.ir is Hamadan NOT Hormozgan (corrected).
+- **Montenegro municipalities** (15): every opština portal (bar.me … zeta.me; Tivat = opstinativat.me
+  not tivat.me; Zeta migrated to zeta.me Aug 2025).
+- **Tanzania regions** (17 of 19): Regional-Commissioner .go.tz portals (mwanza/kigoma/dodoma/…) —
+  duplicate QID/ISO unit pairs both filled (q244509≡tz-08, q735609≡tz-04, q643112≡tz-24).
+- **Cambodia provinces** (22): every <province>.gov.kh provincial-administration portal.
+- **Panama** (12 of 14): gobernación pages under mingob.gob.pa (consolidated, no standalone domains).
+- **4 honest nulls (G5)**: Tanzania Q7296 ("Mount Kilimanjaro" — a Wikidata data-quality artifact, a
+  MOUNTAIN not a region) + Unguja South (social-media only); Panama Wargandí + Madugandí comarcas
+  (corregimiento-comarcal, traditional-congress governed, no gobernación/site). Not fabricated.
+- flagged data-quality artifact for a future cleanup: gov.tza.adm1.q7296 mislabels Mount Kilimanjaro
+  as a subdivision (the real Kilimanjaro Region is tz-09).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — /gov FRONT-END: render endonyms + romanization + seat map links
+
+Completed the publish-surface chain: the previous iteration put coords/endonyms/romanizations INTO
+the index; this one makes the `/gov` atlas page actually USE them. Edited the apex Worker's `/gov`
+HTML (`50-infra/etzhayyim-did-web/src/worker.ts`):
+
+- **search now matches `nameRomanized`** — a Latin reader can find an endonym-named unit by typing
+  "Kokkai" / "Verkhovna" / "Knesset" (previously only native-script name / English / id matched).
+- **renders the romanization** (italic, after the endonym) when present.
+- **adds a `geo:lat,lon` "map" link** for the 5,670 located seats — opens the user's OWN map app via
+  the standard geo URI; NO third-party map/tile/script embedded (Charter ad-free / no-tracker / CSP
+  default-src 'none' preserved — it's a plain top-level navigation link, not a fetch).
+- stats line now reports "<N> endonyms · <N> located"; placeholder advertises endonym/romanization search.
+
+Verified: worker `tsc --noEmit` clean; a node smoke-harness ran the inline render logic against
+sample units → stats shows "2 endonyms · 1 located", output contains the Kokkai romanization hit and
+the geo:24.7628,46.6403 map link. Additive, CSP-safe, no new dependencies.
+
+The world atlas is now end-to-end: 7,106 units with addresses → 5,670 plottable seats + 1,013
+endonyms (25 scripts) flow registry → index generator → /.well-known/gov-units.json → /gov UI,
+each unit findable by its Latin reading and openable on the user's map.
+
+run_tests.sh (ooyake) ALL GREEN; validate_atlas ✓ (unchanged from prior PR).
+
+## 2026-06-05 — PUBLISH-SURFACE enrich: hq coords + endonyms into /gov atlas index
+
+Pivoted from data-entry to data-exposure: the 5,670 building-level seat coordinates and 1,013
+endonyms (+romanizations) we'd accumulated were NOT reaching the published `/gov` atlas index —
+the generator emitted only id/name/nameEn/level/url/sourcing. Enriched the index so the rich data
+actually surfaces.
+
+- `50-infra/etzhayyim-did-web/scripts/gen-gov-atlas-index.mjs`:
+  - now reads `:addresses` across every registry EDN and joins building-level `lat`/`lon` onto each
+    unit record (5,670 units gain plottable coords — omitted entirely where no real seat, G5).
+  - emits distinct `nameLocal` + `nameRomanized` fields (previously name-local was only folded into
+    the display `name`; the romanization was dropped on the floor).
+  - adds `withCoords` (5670) + `withNameLocal` (1013) summary counters to the index header.
+- additive only — `validate_atlas.py` (id/level/sourcing/summary/JP-authoritative-scope) still
+  PASSES; the published index stays all-`:representative` except the JP pref/city backbone (check #5).
+- the `/gov` map can now plot real ministry/agency/court/library/archive seats worldwide and render
+  each in its own script with a Latin reading.
+
+Verified: generator → 7,684 units, 5,670 with hq coords, 1,013 with name-local; validate_atlas
+--file ✓ all integrity checks passed; run_tests.sh ALL GREEN. (out/gov-units.json is a gitignored
+build artifact; only the generator is committed.)
+
+## 2026-06-05 — name-local axis: final non-Latin sweep IL/CY/BT/MV/AF (934 → 1013)
+
+Closed the remaining sizeable non-Latin jurisdictions. 8 web-research subagents. **79 endonyms added
+with romanization** (Israel 22 Hebrew, Cyprus 21 Greek, Bhutan 12 Dzongkha, Maldives 8 Dhivehi/Thaana,
+Afghanistan 16 Dari). **all-units name-local crosses 1,000 → 1013.**
+
+- scripts: Hebrew (הכנסת/HaKnesset, בית המשפט העליון), Greek-Cyprus (Βουλή των Αντιπροσώπων), Dzongkha
+  Tibetan (ལྷན་རྒྱས་གཞུང་ཚོགས/Lhengye Zhungtshog), Dhivehi Thaana (ރައްޔިތުންގެ މަޖިލިސް/Rayyithunge
+  Majlis, RTL), Dari Perso-Arabic (ستره محکمه, د افغانستان بانک) — all with romanization.
+- **5 honest nulls (G5)**: Bhutan anticorruption + statistics (English-only sites, no published
+  Dzongkha); Maldives MMA + meteorology + statistics (transliterated-English bodies, no independently
+  verified Thaana) — not fabricated.
+- honest notes: Israel agriculture renamed "…and Food Security" (2024) + energy reverted to "…and
+  Infrastructure" (2023); Maldives ministry Dhivehi reflects the Muizzu-administration restructured
+  "vuzaaraa" titles (broader scope than the short English labels); Da Afghanistan Bank's legal name is
+  Pashto-form د افغانستان بانک in both languages.
+
+**name-local axis ~complete for all non-Latin jurisdictions.** Started this axis at 78; now 1013
+(13× growth) across ~25 scripts (Latin-diacritic, CJK, Hangul, all Cyrillic, Arabic, Persian, Urdu,
+Hebrew, Greek, Armenian, Georgian, Bengali, Thai, Lao, Khmer, Burmese, Sinhala, Devanagari, Dzongkha,
+Thaana, Amharic, Tigrinya). Residual gaps are Latin-script jurisdictions where name-local would
+duplicate name-en (no value) plus a handful of small islands.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: SE/South Asia + Horn MM/KH/LA/NP/LK/ET/ER (832 → 934)
+
+Continued the endonym axis into 7 distinct indigenous scripts. 10 web-research subagents.
+**102 endonyms added with romanization** (Myanmar 18 Burmese, Cambodia 16 Khmer, Laos 8 Lao,
+Nepal 22 Devanagari, Sri Lanka 19 Sinhala, Ethiopia 18 Amharic, Eritrea 1 + 4 honest nulls).
+
+- all-units name-local: 832 → **934**.
+- scripts newly on the atlas: Burmese (ပြည်ထောင်စုလွှတ်တော်/Pyidaungsu Hluttaw), Khmer
+  (ក្រសួងមហាផ្ទៃ), Lao (ສະພາແຫ່ງຊາດ/Sapha Haengxat), Devanagari (नेपाल सरकार/Nepal Sarkar),
+  Sinhala (ශ්‍රී ලංකා මහ බැංකුව), Amharic (የሕዝብ ተወካዮች ምክር ቤት/Ye-Hizb Tewekayoch) — all romanized.
+- **4 honest nulls (G5)**: Eritrea agriculture/archives/finance/foreign — Eritrea has no
+  constitutionally-designated official language and these bodies publish no established Tigrinya
+  orthographic name (only the Bank of Eritrea ባንክ ኤርትራ is attested); not fabricated.
+- honest currency notes (names match registry labels): Ethiopia statistics rebranded to Ethiopian
+  Statistical Service (2021); Nepal CBS → National Statistics Office (2022 Act); Nepal Industry+Trade
+  are the same merged ministry; Myanmar finance = Ministry of Planning and Finance; Cambodia
+  constitutional body is the Constitutional Council (not a court).
+
+**Approaching name-local completion** for all sizeable non-Latin jurisdictions. Remaining gaps are
+scattered small/Pacific/sub-Saharan units (Bhutan Dzongkha, Maldives Thaana, Cyprus Greek, Israel
+Hebrew agencies, etc.) — a final sweep next.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: Central Asia + Belarus KZ/KG/TJ/MN/BY (734 → 832)
+
+Continued the endonym axis into Central-Asian + Mongolian + Belarusian Cyrillic. 8 web-research
+subagents. **98 ministry/agency/court/legislature endonyms added with romanization** (Kazakhstan 22,
+Kyrgyzstan 17, Tajikistan 12, Mongolia 21, Belarus 26).
+
+- all-units name-local: 734 → **832**.
+- scripts: Kazakh (Қазақстан Республикасының Үкіметі), Kyrgyz (Жогорку Кеңеши), Tajik (Маҷлиси Олӣ),
+  Mongolian (Улсын Их Хурал/Ulsyn Ikh Khural), Belarusian-Russian (Совет Министров, Нацыянальны…) — all
+  with romanization. (used an escaped-quote-safe insertion regex this round — no parse bug.)
+- **1 data-quality en-name fix**: gov.kaz.culture "Culture and Sports" → Ministry of Culture and
+  Information (current Kazakh body).
+- honest currency notes captured (names match registry labels): Kazakhstan's standalone Anti-Corruption
+  Agency dissolved 2025-06-30 into the National Security Committee; Mongolia education ministry now
+  "Боловсролын яам" (science split out 2024); Mongolia labour officially "Family, Labour and Social
+  Protection"; Kyrgyzstan agriculture reorganised to "Water Resources, Agriculture and Processing
+  Industry"; Mongolia SWF = Chinggis Khaan National Wealth Fund (umbrella; Future Heritage = sub-fund).
+
+Remaining non-Latin high-tier endonym gaps ~210 (Myanmar/Cambodia/Laos/Nepal/Sri Lanka, Eritrea/
+Ethiopia, plus scattered sub-Saharan/Pacific non-Latin) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: Balkan Cyrillic + Caucasus BG/RS/MK/GE/AM (642 → 734)
+
+Continued the endonym axis into Balkan Cyrillic + Caucasus scripts. 7 web-research subagents.
+**92 ministry/agency/court/legislature endonyms added with romanization** (Bulgaria 26, Serbia 21,
+North Macedonia 10, Georgia 18, Armenia 17).
+
+- all-units name-local: 642 → **734**.
+- scripts: Bulgarian/Serbian/Macedonian Cyrillic (Народно събрание, Влада Републике Србије, Собрание),
+  Georgian (საქართველოს პარლამენტი/Sakartvelos parlamenti, უზენაესი სასამართლო), Armenian
+  (Ազգային ժողով/Azgayin zhoghov, սահմանադրական դատարան) — all with romanization.
+- **3 data-quality en-name fixes**: gov.geo.culture "Culture and Monument Protection" → Ministry of
+  Culture (Georgia split Culture/Sport 1 Jan 2025); gov.geo.energy → Ministry of Economy and
+  Sustainable Development (no standalone energy ministry); gov.arm.energy "Ministry of Energy
+  Infrastructures and Natural Resources" (abolished 2019) → Ministry of Territorial Administration and
+  Infrastructure.
+- honest notes: Serbia Supreme Court of Cassation renamed Supreme Court (2023); Serbia organised-crime
+  prosecutor dropped "Јавно" prefix post-2023 reform; both Georgia/Armenia energy folded into parent
+  ministries.
+- **fixed a self-inflicted parse bug**: gov.mkd.library's name-en contains escaped quotes
+  (\"St. Kliment of Ohrid\"); the field-insertion regex split the string — repaired, integrity green.
+
+Remaining non-Latin high-tier endonym gaps ~310 (Kazakhstan/Kyrgyzstan/Tajik Cyrillic, Mongolia,
+Myanmar/Cambodia/Laos/Nepal/Sri Lanka, Eritrea/Ethiopia, Belarus) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: Bengali/Thai/Greek/Cyrillic BD/TH/GR/UA (543 → 642)
+
+Continued the endonym axis into a 4-script cluster. 8 web-research subagents. **99 ministry/agency/
+court/legislature endonyms added with romanization** (Bangladesh 26 Bengali, Thailand 25 Thai,
+Greece 22 Greek, Ukraine 26 Cyrillic).
+
+- all-units name-local: 543 → **642**.
+- new scripts on the atlas: Bengali (জাতীয় সংসদ/Jatiya Sangsad, বাংলাদেশ ব্যাংক), Thai
+  (กระทรวงการต่างประเทศ, ศาลฎีกา/San Dika), Greek (Βουλή των Ελλήνων, Άρειος Πάγος/Areios Pagos),
+  Ukrainian Cyrillic (Верховна Рада, Кабінет Міністрів України) — all with romanization.
+- **3 data-quality en-name fixes**: gov.grc.trade "Ministry for Trade" → Ministry of Development
+  (Greece has no standalone trade ministry); gov.ukr.revenue "State Fiscal Service" (split 2019) →
+  State Tax Service of Ukraine; gov.ukr.tourism (was duplicating "Ministry of Culture") → State
+  Agency for Tourism Development of Ukraine (DART, a separate central executive body).
+- honest notes captured (names match registry labels): Greece EETT is the telecom regulator not a
+  competition authority; Ukraine culture ministry renamed back to plain Міністерство культури in Oct
+  2025 (kept the labelled "…and Strategic Communications" form); Thai NACC = the commission proper.
+
+Remaining non-Latin high-tier endonym gaps ~400 (Central Asia Cyrillic [Kazakhstan/Kyrgyzstan/Tajik],
+Balkan Cyrillic [Serbia/Bulgaria/N.Macedonia/Mongolia], Caucasus [Georgia/Armenia], Myanmar/Cambodia/
+Laos/Nepal/Sri Lanka, Eritrea/Ethiopia) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: Maghreb + Pakistan (453 → 543)
+
+Continued the endonym axis into the Maghreb (Arabic) + Pakistan (Urdu). 8 web-research subagents.
+**90 ministry/agency/court/legislature endonyms added with romanization** (Morocco 20, Algeria 19,
+Tunisia 24, Pakistan 27 — 2 Pakistani bodies honestly null).
+
+- all-units name-local: 453 → **543**.
+- Arabic (Maghreb): بنك المغرب, المندوبية السامية للتخطيط (HCP), البرلمان الجزائري, مجلس نواب الشعب
+  (Tunisia); Urdu (Nastaliq): حکومت پاکستان, وزارت خارجہ, عدالتِ عظمیٰ پاکستان, محکمہ موسمیات پاکستان.
+- **3 data-quality en-name fixes**: gov.mar.supreme-court "Supreme Court of Morocco" → Court of
+  Cassation (محكمة النقض, renamed by Law 58-11/2011); gov.dza.constitutional-court "Constitutional
+  Council" → Constitutional Court (2020 revision); gov.pak.nhri "Human Rights Commission of Pakistan"
+  (an NGO/HRCP) → National Commission for Human Rights (NCHR, the official Paris-Principles body).
+- **2 honest nulls (G5)**: gov.pak.ombudsman (FOSPAH) and gov.pak.tourism (PTDC) operate under their
+  English names with no established single official Urdu form — not fabricated.
+- notes: Morocco merged Communications into the Youth/Culture/Communication ministry; Algeria interior
+  label "Territorial Planning" reflects the prior cabinet (current site lists "…and Transport").
+
+Remaining non-Latin high-tier endonym gaps ~499 (Bangladesh, Thai, Greek, Cyrillic neighbours,
+Central Asia, SE Asia, sub-Saharan non-Latin) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: Levant/Persia IR/IQ/JO/SY/YE (368 → 453)
+
+Continued the endonym axis into the Levant + Persia cluster. 7 web-research subagents.
+**85 ministry/agency/court/legislature endonyms added with romanization** (Iran 22 [Persian],
+Iraq 15, Jordan 14, Syria 22, Yemen 12).
+
+- all-units name-local: 368 → **453**.
+- Persian (Perso-Arabic): مجلس شورای اسلامی/Majles-e Shorā-ye Eslāmi, وزارت امور خارجه, دیوان عالی کشور;
+  Arabic: مجلس النواب العراقي, هيئة النزاهة ومكافحة الفساد (Jordan), مصرف سورية المركزي, etc.
+- **1 data-quality en-name fix**: gov.irq.supreme-court "Supreme Court of Iraq" → Federal Supreme Court
+  of Iraq (المحكمة الاتحادية العليا, the constitutional apex).
+- honest transition notes captured in romanization/source (not invented): Syria's 2024-25 transitional
+  govt merged Economy+Foreign-Trade into Economy+Industry and Petroleum+Electricity into Energy — the
+  stored name matches the registry English label; Iraq COSIT rebranded to Authority for Statistics &
+  Geospatial Information Systems (canonical الجهاز المركزي للإحصاء kept to match en); Iran energy unit =
+  Ministry of Petroleum (وزارت نفت).
+
+Remaining non-Latin high-tier endonym gaps ~589 (Maghreb [Morocco/Algeria/Tunisia], Pakistan/Bangladesh,
+Thai, Greek, Cyrillic neighbours, Central Asia, SE Asia) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: Arab core SA/AE/EG/QA/KW (272 → 368)
+
+Continued the endonym axis into the Arabic-script cluster: the Gulf core + Egypt. 7 web-research
+subagents. **96 ministry/agency/court/legislature Arabic names added with romanization** (Saudi 23,
+UAE 16, Egypt 25, Qatar 16, Kuwait 16).
+
+- all-units name-local: 272 → **368**.
+- Arabic script with transliteration: وزارة الخارجية/Wizarat al-Kharijiyya, الهيئة العامة للإحصاء,
+  صندوق الاستثمارات العامة (PIF), جهاز قطر للاستثمار (QIA), بنك الكويت المركزي, etc.
+- **5 data-quality en-name fixes**: gov.sau.legislature "Government of Saudi Arabia" → Shura Council
+  (مجلس الشورى); gov.are.legislature "Federal Supreme Council" (the rulers' council) → **Federal
+  National Council** (المجلس الوطني الاتحادي, the actual legislature); gov.egy.finreg EFSA → Financial
+  Regulatory Authority; gov.egy.statistics "Egypt Statistics" → CAPMAS; gov.qat.statistics "Ministry
+  of Development Planning and Statistics" → Planning and Statistics Authority.
+- honest data notes surfaced: Saudi ZATCA = merged zakat+tax+customs (2021); UAE archives Arabic word
+  order reverses the English ("الأرشيف والمكتبة الوطنية"); Kuwait transport ministry = وزارة المواصلات.
+
+Remaining non-Latin high-tier endonym gaps now ~674 (Iran, Iraq, Jordan, Syria, Tunisia, Morocco,
+Algeria, Yemen [Arabic]; Thai, Bengali, Greek, Cyrillic neighbours, etc.) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: great-power ministries JP/CN/KR/RU (182 → 272)
+
+Extended the endonym axis to high-tier institutions in non-Latin-script jurisdictions, starting with
+the 4 most-referenced great-power administrations. 7 web-research subagents (Wikidata native labels).
+**90 ministry/agency/court/legislature endonyms added with romanization** (Japan 11, China 24,
+Korea 28, Russia 27).
+
+- all-units name-local: 182 → **272**; JP 16→32, CN 2→27, KR 2→31, RU 2→30.
+- scripts: Japanese Kanji (会計検査院/Kaikei Kensain, 国立国会図書館/…), Simplified Chinese
+  (中华人民共和国外交部/…), Hangul (외교부/Oegyobu, 대법원/Daebeobwon), Cyrillic (Министерство
+  обороны…/…, Росстат) — all with romanization.
+- **4 data-quality en-name fixes** surfaced during research: gov.chn.anticorruption "ICAC" (a Hong
+  Kong body) → National Supervisory Commission; gov.chn.finreg "China Banking Regulatory Commission"
+  (dissolved 2023) → National Financial Regulatory Administration; gov.chn.meteorology "National
+  Meteorological Centre" (a sub-unit) → China Meteorological Administration; gov.chn.prosecutor
+  "Fourth Division of the People's Procuratorate of Beijing" (a wrong sub-division) → Supreme
+  People's Procuratorate.
+- honest note: gov.chn.electoral has no name-local — the PRC has no national electoral commission
+  (local elections run by ad-hoc 选举委员会), so no endonym was invented.
+
+770 high-tier endonym gaps remain across other non-Latin jurisdictions (Pakistan, Arab states, Thai,
+Greek, Cyrillic neighbours, etc.) — future iterations.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — name-local axis: country endonyms (19 → 123)
+
+New maturity axis: native-script / native-language official names (endonyms). name-local was only
+78/7106 across the whole atlas. Filled the COUNTRY tier first (foundational): 12 web-research
+subagents pulled Wikidata native labels for the 173 missing countries. **104 endonyms added**
+(non-Latin scripts + diacritic/spelling variants); 69 skipped as identical to the English name
+(English-official or coincident spelling — no value, not stored).
+
+- countries with name-local: 19 → **123/192**; all units: 78 → 182; +68 romanizations.
+- non-Latin scripts now carried with romanization: Arabic (مصر/Miṣr, السودان/as-Sūdān, …), Cyrillic
+  (Україна/Ukraïna, Србија/Srbija, Монгол Улс/Mongol Uls, …), CJK/Hangul (조선/Chosŏn), Devanagari
+  (नेपाल/Nepāl), Bengali, Thai, Khmer, Burmese, Amharic, Tigrinya, Georgian, Armenian, Greek,
+  Hebrew, Sinhala, Dhivehi (Thaana), Dzongkha.
+- honest scope notes: endonym = primary-official-language short form (e.g. Switzerland→Schweiz [de],
+  Belgium→"België / Belgique", NZ→Aotearoa [Māori], DPRK→조선 not 한국); the 69 skips are English-
+  official states (Jamaica, Ghana, Nigeria, …) and Latin endonyms identical to English (Angola, Chile,
+  Mali, …) where a name-local field would only duplicate name-en.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — CONTACT axis: official-url — high-tier gap closure (5802 → 5817)
+
+New maturity axis (continuation of the user-chosen 連絡先 enrichment): closing official-website gaps.
+Surveyed all tiers — official-url was 5802/7106, and phone/email/window-hours are 0 everywhere.
+Started with the 81 HIGH-TIER gaps (ministry/agency/court/country/legislature/cabinet/supranational).
+7 web-research subagents. **15 real official sites found and added; 66 confirmed to have NO official
+website (honest — left blank, G5 no-fabrication)**.
+
+- official-url: 5802 → **5817/7106**; high-tier gaps 81 → **66 (all genuinely site-less)**.
+- found: DRC archives (inaco.cd), Guinea archives (archivesnationales.gov.gn), Mali library
+  (bn.gouv.ml), Mozambique CNE (cne.org.mz), Nicaragua presidency (presidencia.gob.ni), Yemen portal
+  (yemen.gov.ye), Syria e-gov (egov.sy), Cameroon Constitutional Council, Turkmenistan Supreme Court
+  (court.gov.tm), Belize transport (transport.gov.bz), Ethiopia MoD (mod.gov.et), Kiribati justice
+  (moj.gov.ki), Mauritania defense (armee.mr), Zimbabwe education (mopse.ac.zw), Brazil FSB (Treasury).
+- the 66 site-less are honest: restricted-internet states (North Korea ministries/courts/legislature
+  have only the state portal; Eritrea publishes nothing), dissolved/unconstituted bodies (Sudan
+  legislature & constitutional court, Tunisia constitutional court, Syria SCC), Facebook-only national
+  archives/libraries, and no-permanent-secretariat IGOs (BRICS, G7 — only rotating-chair sites).
+  None substituted with Wikipedia/social-media per the official-domain rule.
+- data note: Kuwait has no standalone Ministry of Transportation (transport sits under Communications);
+  Belgium education is a regional/Community competence (no federal ministry site).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — L3 ADDRESS: ★ 100% COMPLETE — all 7106 units now carry an address (7093 → 7106)
+
+Closed the final 13 stragglers across mixed tiers: the country Australia, Tokyo Metropolis (都),
+Tokyo Regional Taxation Bureau, City of Skopje, and 9 subdivisions. 1 focused web-research subagent.
+13 added; **10 building/seat-level lat/lon, 3 honest line-en-only (G5)**.
+
+- **ALL units: 7106/7106 (100%) now carry a `:gov.address` record.** Every tier — supranational,
+  country, region, subdivision, prefecture, municipality, ward, ministry, agency, bureau,
+  legislature, court, cabinet — is address-complete.
+- the 3 nulls are honest non-seats: Iceland "Northwest" is an electoral constituency (no government
+  seat); Spain's "plazas de soberanía" are dispersed North-African islets (no single seat); Saudi
+  "list of provinces" is a Wikidata list artifact (placeholder, flagged).
+- correction: Tokyo Regional Taxation Bureau is in Chiyoda Otemachi (Joint Gov Bldg No.3), NOT
+  Chuo-ku/Tsukiji as first guessed.
+
+### L3 ADDRESS AXIS — DONE
+Six iterations (2026-06-04 → 06-05): country → legislature → court → supranational → cabinet →
+ministry → agency (electoral/anticorruption/statistics/NHRI/revenue/oversight/meteorology/archives/
+library/SWF) → final stragglers. Building-level lat/lon where a real seat exists; honest line-en-only
+nulls (G5, never fabricated) for war-damaged / PO-box-only / relocated / pure-accounting / non-seat units.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — L3 ADDRESS: SWF + residuals — AGENCY TIER COMPLETE (999 → 1049/1049)
+
+Final agency cleanup: the last 50 gaps = 45 sovereign-wealth-funds + ECB + Japan National Tax Agency
++ US IRS + 2 financial regulators. 5 web-research subagents. 50 added; **38 building-level lat/lon,
+12 honest line-en-only (G5)** — the 12 nulls are pure accounting/statutory funds with no distinct
+managing office (Brazil FSB [dissolved 2019], Chile ESSF, Shanghai/Cape Verde/Gabon funds, the 4 US
+state permanent funds, both Nauru funds, Tuvalu Trust Fund).
+
+- **agencies: 999 → 1049/1049 (100%)** — the ENTIRE agency tier now carries an address record.
+- All units overall: **7093/7106** with an address (13 stragglers remain: 1 country [aus], 1 JP
+  prefecture [Tokyo], 1 bureau [NTA Tokyo], 10 adm1 subdivisions — next iteration).
+- honest notes: KIC HQ corrected to State Tower Namsan (not Seoul Finance Center); PIF Tower is in
+  KAFD (not Al Olaya); both Norway SWF entries = same fund (NBIM, Bankplassen 2); CREECO registered
+  in Oujé-Bougoumou (not Montreal); Danantara moved to Plaza Mandiri (2025).
+
+### L3 address coverage by tier (cumulative, 6 iterations)
+country / legislature / court / supranational / cabinet / ministry — COMPLETE; agency — **1049/1049 COMPLETE**.
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — L3 ADDRESS: national libraries — full sweep (845 → 999)
+
+Second single-tier deep sweep: ALL 154 national LIBRARIES still missing an address. 13 web-research
+subagents (~12 each). 154 added; **143 building-level lat/lon (93%), 11 honest line-en-only (G5)** —
+highest coverage yet, because national libraries are near-universally in Wikidata P625.
+
+- agencies: 845 → **999/1049 (95%)** with an address record.
+- **2 data-quality name fixes** (regional/wrong building → correct NATIONAL body):
+  - gov.bgr.library "Ivan Vazov" (Plovdiv regional) → **SS Cyril and Methodius National Library** (Sofia)
+  - gov.esp.library "Royal Library of Madrid" → **Biblioteca Nacional de España (BNE)** (Recoletos)
+- honest notes: Andorra NL relocated to former Hotel Rosaleda, Encamp (2020); El Salvador BINAES new
+  building (2023); Germany DNB dual-seat (Frankfurt primary + Leipzig); South Africa NLSA dual-campus
+  (Cape Town coord + Pretoria noted); 11 nulls are PO-box-only / un-geocoded (Afghanistan, Burundi,
+  Congo-Brazzaville, Comoros, Gabon, Kenya, Laos, Liberia, Malawi, Zambia, Zimbabwe).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — L3 ADDRESS: national archives — full sweep (701 → 845)
+
+Single-tier deep sweep: ALL 144 national ARCHIVES still missing an address. 12 web-research
+subagents (12 each). 144 added; **122 building-level lat/lon (85%), 22 honest line-en-only (G5)** —
+strong coverage because national archives are well-mapped in Wikidata P625 / named OSM building nodes.
+
+- agencies: 701 → **845/1049 (81%)** with an address record.
+- **3 data-quality name fixes** (mislabel → correct NATIONAL body):
+  - gov.gbr.archives "Gibraltar Archives" → **The National Archives (TNA), Kew** (UK national archive)
+  - gov.pry.archives "National Library of Paraguay" → **Archivo Nacional de Asunción**
+  - gov.srb.archives "Archives of Yugoslavia" → **Archives of Serbia (Arhiv Srbije)** (Karnegijeva 2)
+- honest notes: El Salvador AGN moved into BINAES (Nov 2023); Korea HQ is the Daejeon Government
+  Complex (Seoul is a branch); Nigeria coord = Ibadan principal repository (admin HQ Abuja
+  un-geocodable); 22 nulls are war-damaged / PO-box-only / relocated institutions (Sudan, Eritrea,
+  Lebanon, Mali, Myanmar, Niger, Mauritania, Palau, Sierra Leone, Turkmenistan, Vietnam, etc.).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-05 — L3 ADDRESS: oversight bodies + meteorology (617 → 701)
+
+Closed out the accountability/oversight cluster (12 ombudsman + 11 prosecutor + 4 audit +
+5 competition + 3 data-protection) and opened the SCIENTIFIC-SERVICE cluster with 49 national
+METEOROLOGY/weather services. 7 web-research subagents. 84 added; **56 building-level lat/lon,
+28 honest line-en-only (G5)** — many met services are rooms inside airports (Singapore Changi T2,
+Seychelles/Trinidad/Maldives/Fiji airports) or PO-box-only, geocoded only where a building node exists.
+
+- agencies: 617 → **701/1049** (67%) with an address record.
+- **8 data-quality name fixes** (narrow/sub-national/amateur mislabels → correct NATIONAL body):
+  - gov.aus.ombudsman "Private Health Insurance Ombudsman" → **Commonwealth Ombudsman** (Canberra)
+  - gov.esp.ombudsman "Andalusian Village Defense" → **Defensor del Pueblo** (Madrid)
+  - gov.gbr.ombudsman "Scottish Information Commissioner" → **Parliamentary & Health Service Ombudsman** (Manchester)
+  - gov.mex.prosecutor "Procuraduría General de la República" → **Fiscalía General de la República (FGR)** (renamed 2019)
+  - gov.aus.audit "Victorian Auditor-General" (state) → **Australian National Audit Office (ANAO)** (Canberra)
+  - gov.mex.dataprotection "Transparency for the People" → **Transparencia para el Pueblo / SABG** (INAI dissolved 2025)
+  - gov.gbr.meteorology "European Centre for Medium-Range Weather Forecasts" (intergovernmental) → **Met Office** (Exeter)
+  - gov.lux.meteorology "Météo Boulaide" (amateur station) → **MeteoLux** (ANA, Findel Airport)
+- honest notes: USCIS Ombudsman administratively closed Mar 2025 (mailing only, null); India DPB & Indonesia
+  PDP agency newly created / not yet operational (null); MeteoSwiss HQ moved to Zurich-Airport Op Center 1
+  (2014); Météo-France registered seat Saint-Mandé (main ops Toulouse); Vietnam VNMHA address in flux post
+  April-2025 reorg (null).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-04 — L3 ADDRESS: accountability agencies — statistics + NHRI + revenue (559 → 617)
+
+Continued the agency-tier address fill with the next accountability cluster: 28 national STATISTICS
+offices + 18 NATIONAL HUMAN-RIGHTS INSTITUTIONS + 12 TAX/REVENUE authorities. 6 web-research
+subagents. 58 added; **43 building-level lat/lon, 15 honest line-en-only (G5)**.
+
+- agencies: 559 → **617/1049** with an address record.
+- **8 data-quality name fixes** (sub-national / NGO mislabels → the correct NATIONAL body):
+  - gov.chn.statistics "Census & Statistics Dept" (Hong Kong) → **National Bureau of Statistics of China** (Beijing)
+  - gov.esp.statistics "Basque Statistics Office" (Eustat, regional) → **Instituto Nacional de Estadística (INE)** (Madrid)
+  - gov.can.nhri Quebec CDPDJ (provincial) → **Canadian Human Rights Commission** (Ottawa)
+  - gov.gtm.nhri "Guatemala HR Commission" (US NGO) → **Procurador de los Derechos Humanos (PDH)** (Guatemala City)
+  - gov.ken.nhri "Kenya HR Commission" (NGO) → **Kenya National Commission on Human Rights (KNCHR)** (Nairobi)
+  - gov.tha.nhri "Asian Human Rights Commission" (HK regional NGO) → **National Human Rights Commission of Thailand (NHRCT)** (Bangkok)
+  - gov.cze.revenue a Prague branch office → **Generální finanční ředitelství** (General Financial Directorate)
+  - gov.tur.revenue mislabeled "customs" → **Gelir İdaresi Başkanlığı** (Revenue Administration, Ankara)
+- honest notes: AIHRC Afghanistan offices confiscated 2022 (null coord, city retained); North Korea
+  CBS district-only; SUHAKAM relocated to Menara Aras Raya (Oct 2025); Paraguay merged tax+customs
+  into DNIT (Law 7143/2023); DIAN Bogotá building not reliably geocodable (null, address retained).
+
+run_tests.sh ALL GREEN. Published-index authoritative-scope gate (check #5, JP backbone) untouched.
+
+## 2026-06-04 — L3 ADDRESS: accountability agencies — electoral + anti-corruption (509 → 559)
+
+Opened the agency-tier address fill with the highest-civic-value accountability bodies: 25 national
+ELECTORAL commissions + 25 ANTI-CORRUPTION agencies (the bodies danjo/toritate consume). 5
+web-research subagents. 50 added; **34 building-level lat/lon, 16 honest line-en-only (G5)** — bodies
+with PO-box-only / district-only / conflict-disrupted / state-namespace addresses (Burkina/Guinea/
+Honduras/Kyrgyzstan/Mozambique/Rwanda/Sudan/Senegal electoral; Australia NACC, Azerbaijan, DR Congo,
+Cyprus, Fiji, Jordan, Nigeria ICPC, Sierra Leone anti-corruption).
+
+- agencies: 509 → **559/1049** with an address record.
+- 1 data-quality name fix: gov.aus.anticorruption was "ICAC NSW" (a STATE body) → **National
+  Anti-Corruption Commission (NACC)** (the federal body, est. 2023).
+- honest data notes: Kazakhstan's standalone Anti-Corruption Agency was dissolved/merged into the
+  National Security Committee (July 2025; HQ building stands); Venezuela CNE is at the Edificio CNE,
+  El Recreo (not Centro Simón Bolívar); Italy's electoral directorate is a unit of the Ministry of
+  Interior (Palazzo del Viminale); KNAB is at Citadeles iela 1 (not the old Brīvības address); ACRC
+  in Sejong Government Complex Building 7-2.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: ministry tier COMPLETE (1642/1642 address records)
+
+Closed the ministry tier — the final 73 (a scattered long tail across ~52 countries). 6 web-research
+subagents. 73 added; **52 building-level lat/lon, 21 honest line-en-only (G5)** — Libya/North Korea/
+Somalia patterns plus small/sparse-OSM states (Comoros, Cape Verde, Fiji, Gabon defence, Eq. Guinea,
+Kiribati, São Tomé, Seychelles, Togo, Tajikistan justice, Turkmenistan, Uganda, Venezuela, Vanuatu,
+Senegal/PNG one each). Belgium education honest-null (Community competence — no federal ministry).
+
+- **ministry tier: 1642/1642 — every ministry now carries an address record** (8th iteration of the
+  axis). Building-level coords now on ~1,300+ of them; the rest carry a verified line-en (building +
+  street + city) where no reliable coordinate exists. This is the 6th tier fully address-recorded
+  after country, legislature, court, supranational, cabinet.
+- honest data note: Senegal tourism ministry merged into Culture/Crafts/Tourism and relocated to the
+  Sphère Ministérielle, Diamniadio (line-en updated).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 20 countries (1509 → 1569, 96%)
+
+Seventh ministry-address batch (Andorra, Armenia, Antigua, Bosnia, Belarus, Chile, Algeria, Georgia,
+Guinea-Bissau, Croatia, Jamaica, Kazakhstan, Libya, North Korea, Qatar, Singapore, Solomon Islands,
+Sierra Leone, Somalia, Tunisia). 6 web-research subagents. 60 added; **41 building-level lat/lon, 19
+honest line-en-only (G5)** — Libya ×3, North Korea ×3, Somalia ×3, Solomon Islands ×3 (no OSM
+building nodes), plus Andorra ×2, Armenia defence, Guinea-Bissau defence, Qatar education/trade
+(plus-code/relocation), Sierra Leone education.
+
+- ministries: 1509 → **1569/1642** with an address record (96%); 73 remaining.
+- co-location/data findings + prompt corrections: Bosnia's 3 state ministries share the Parliamentary
+  Assembly complex (Trg BiH 1); Antigua's 3 share the Government Complex (Queen Elizabeth Hwy); Armenia
+  Health+Environment share Government Building No.3; Sierra Leone Health+Agriculture share the Youyi
+  Building. Corrected: Armenia Defence is on Bagrevand St (not Bagramyan Ave); Andorra Interior is in
+  Escaldes-Engordany (not Andorra la Vella); Chile SERNATUR at Condell 679 (not the old Providencia
+  1550); Qatar Commerce relocated to Lusail City (Apr 2026); Kazakhstan Tourism in the House of
+  Ministries (not the Kazakh Tourism JSC building).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 15 countries (1449 → 1509, 92%)
+
+Sixth ministry-address batch (Zambia, Gambia, Bahrain, Kuwait, Bhutan, Maldives, Dominican
+Republic, Panama, Greece, Moldova, Lebanon, Liberia, Malawi, Paraguay, Tajikistan). 6 web-research
+subagents. 60 added; **54 building-level lat/lon, 6 honest line-en-only (G5)** — Dominican Republic
+×4 (OSM returns only street-segment midpoints for Av. México / 27 de Febrero, not buildings),
+Zambia defence (street-level only), Liberia finance (OSM node in wrong neighbourhood).
+
+- ministries: 1449 → **1509/1642** with an address record (92%).
+- co-location/data findings: Bahrain Justice+Transport share the BFH East Tower; Maldives Education/
+  Interior/Tourism share the Velaanaage complex; Malawi Education/Justice/Transport at Capital Hill;
+  Liberia Agriculture+Labour at the EJS Ministerial Complex; Honduras-style SGJD pattern noted prior.
+  Honest geo notes: Gambia Petroleum/Energy is in Brusubi (Greater Banjul, not Banjul city); Paraguay
+  Agriculture HQ is in San Lorenzo; Greece Transport in Papagou suburb; Tajikistan Health OSM building
+  conflicts with the official Shevchenko-69 address (flagged).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 12 countries (1389 → 1449, 88%)
+
+Fifth ministry-address batch (Slovenia, Portugal, UAE, Jordan, Bolivia, Honduras, Haiti,
+Kyrgyzstan, Israel, Malta, Sri Lanka, New Zealand). 6 web-research subagents. 60 added; **49
+building-level lat/lon, 11 honest line-en-only (G5)** — Haiti (post-quake source conflicts, 4
+nulled), Bolivia justice, Honduras transport, Jordan tourism (3rd Circle roundabout), Malta
+interior/labour (201 Strait St, no building node), Sri Lanka energy/tourism.
+
+- ministries: 1389 → **1449/1642** with an address record (88%).
+- honest co-location/data findings: Slovenia Finance+Justice share Župančičeva 3, Education+Science
+  share Masarykova 16; Portugal Agriculture/Environment/Housing share Campus XXI (Avenida João XXI);
+  Honduras Defence+Interior+Justice (SGJD — no separate justice ministry) share Centro Cívico
+  Gubernamental Torre 2; Israel Energy/Tourism/Transport share the Generi complex, Bank of Israel St;
+  Malta Home Affairs holds the labour (DIER) portfolio. Name fix: Portugal agriculture →
+  Ministry of Agriculture and the Sea (current XXV Govt name). Bolivia justice ministry reportedly
+  closed Nov 2025 (noted). UAE/Israel ministries split across Dubai/Abu Dhabi and Jerusalem campuses.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 10 countries (1329 → 1389, 85%)
+
+Fourth ministry-address batch (Bahamas, El Salvador, Syria, Costa Rica, Ecuador, Cambodia,
+Montenegro, Oman, Romania, Singapore). 7 web-research subagents. 60 added; **51 building-level
+lat/lon, 9 honest line-en-only (G5)** — Syria (war-disrupted, 6 city-level only), Bahamas tourism/
+culture (source conflict on the building), Costa Rica environment (no building pin).
+
+- ministries: 1329 → **1389/1642** with an address record (85%).
+- honest seat/data findings: **Montenegro Culture is in Cetinje (the historic capital), NOT
+  Podgorica**; El Salvador Agriculture is in Santa Tecla (not San Salvador); Costa Rica COMEX in
+  Escazú, MEP relocated to Torre Mercedes; Syria Economy & Foreign Trade merged into Economy &
+  Industry (Mar 2025); Oman ministries cluster in the Al-Wazarat/Al Khuwair district (MoD compound
+  Mu'askar al Murtafa'a coarse ~2dp). Montenegro Finance+Foreign share Bulevar Stanka Dragojevića 2.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: 60 ministry HQs across 7 whole-country clusters (1269 → 1329)
+
+Third ministry-address batch, organized as **whole-country clusters** for efficiency: Eswatini (11),
+Angola (10), Belize (10), Grenada (9), Guatemala (9), Mongolia (9) + UAE (2). 6 web-research
+subagents. 60 added; **30 building-level lat/lon; 30 honest line-en-only (NULL coords, G5)** — small
+states with sparse OSM coverage where only the building/street/city is confirmable, not a building
+pin (every record still carries a verified line-en + city, which is the core L3 'where is it' value).
+
+- ministries: 1269 → **1329/1642** with an address record.
+- co-located clusters captured honestly: Grenada — 8 ministries share the Ministerial Complex,
+  Botanical Gardens, Tanteen (one coord); Belize — Finance/Education/Health in the Independence
+  Plaza complex; Eswatini — most on Mhlambanyatsi Road, Mbabane (Inter-Ministerial / Income Tax
+  buildings). Honest relocation notes: Grenada Finance moved to Galleria Mall, Grand Anse (Apr
+  2025); Guatemala MARN moved to Zona 13 (OSM still has the stale Zona-10 node → coord nulled);
+  Angola Finance temporarily relocated from Largo da Mutamba. UAE MoD is in Dubai (not Abu Dhabi).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS: 60 more ministry HQs (1209 → 1269) + 21 subnational/stale name fixes
+
+Second ministry-tier address batch (next 19 priority countries: Malaysia, Kenya, Peru, Uzbekistan,
+Ukraine, Argentina, Canada, Iraq, Spain, Mozambique, Tanzania, Algeria, etc.). 6 web-research
+subagents (gemini still quota-blocked for bulk; subagents the reliable path). 60 added; 52
+building-level lat/lon; 8 honest NULL coords (G5): Iraq env/interior/transport, Uzbekistan justice,
+Malaysia housing, Mozambique culture, Tanzania education, Kenya defence (military compound).
+
+- ministries: 1209 → **1269/1642** with an address.
+- **21 data-quality name fixes** (Wikidata stale/subnational → current NATIONAL body): Spain
+  comms→Digital Transformation + env→MITECO; Ukraine housing→Communities & Territories, tourism→
+  Culture; Argentina comms→ENACOM, trade/transport→Secretariats (Min. Economy); **Canada energy→
+  Natural Resources Canada, health→Health Canada**; Malaysia energy→PETRA, env→NRES, interior→KDN,
+  labour→KESUMA, trade→MITI; Côte d'Ivoire health full name; Nepal env→Forests & Environment;
+  **Australia health→Dept of Health, Disability & Ageing, labour (was Victoria 'Jobs, Precincts &
+  Regions')→Dept of Employment & Workplace Relations**; Kenya culture→Youth Affairs, Arts & Sports;
+  Tanzania labour→PMO.
+- honest seat notes: Malaysia federal ministries in Putrajaya (defence/MITI in KL); Argentina
+  trade+transport share the Palacio de Hacienda; Kenya finance/foreign at Treasury / Old Treasury
+  on Harambee Ave; Peru MIDAGRI now Jr. Cahuide 805 (registry hint stale). Approx flagged (Colombia
+  science block-level, Uzbekistan agriculture official-vs-directory address conflict).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
+## 2026-06-04 — L3 ADDRESS axis: 60 priority ministry HQs (1149 → 1209) + 20 subnational-mislabel fixes
+
+Opened the ministry-tier address fill (493 missing) with 60 HQs across the 17 most-populous /
+significant countries (India, Pakistan, Bangladesh, Brazil, Ethiopia, Vietnam, DR Congo, South
+Africa, Indonesia-adjacent, etc.). **Tooling note:** attempted the user-requested `gemini` CLI
+(`-p` headless) for parallel geocoding — single calls worked, but free-tier quota throttles
+concurrency (Pro exhausted at -P 6/-P 3) and multi-item headless batches returned empty even at
+-P 1 / 6-item / 300s; so this batch was delivered via the proven web-research subagents (gemini
+remains viable only for low-rate single-item calls).
+
+- ministries: 1149 → **1209/1642** with an address. 58/60 building-level lat/lon; 2 honest NULL
+  coords (G5): Bangladesh Industries (Shilpa Bhaban, 91 Motijheel — no building pin), DR Congo
+  Interior (not in OSM).
+- **20 data-quality name fixes** (Wikidata subnational/stale → correct NATIONAL body): India
+  science/social/power/labour/home/road-transport/Jal-Shakti; **USA health = Alabama Dept of
+  Public Health → US Dept of Health and Human Services**; Pakistan education (Punjab dept)→Federal
+  Education, environment→Climate Change, tourism→PTDC; Brazil interior→Justice & Public Security;
+  Russia comms (Tatarstan)→federal Ministry of Digital Development; Ethiopia culture→Tourism,
+  science→Innovation & Technology; Iran trade→Industry/Mine/Trade; **Germany interior (Baden-
+  Württemberg)→Federal Ministry of the Interior**; DR Congo interior full name; Thailand
+  environment→Natural Resources & Environment; France trade→Economy/Finance; ZA culture/health.
+- honest seat notes: Bangladesh Defence at Sher-e-Bangla Nagar (not Cantonment); India Tourism +
+  Road Transport share Transport Bhawan; Mexico SECTUR address-level approx (registry "Insurgentes
+  Sur" was wrong → Masaryk 172).
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index authoritative-scope
+gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — L3 ADDRESS axis: cabinet tier COMPLETE (52 → 129/129)
 
 Finished the cabinet/executive tier — the remaining 77 executives (small/mid states). 7 web-research

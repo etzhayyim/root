@@ -17,6 +17,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارت عدلیه"
+   :gov.unit/name-romanized "Wezarat-e Adliya"
    :gov.unit/official-url "https://moj.gov.af/en"
    :gov.unit/wikidata "Q6867294"
    :gov.unit/cofog ["03.3"]
@@ -65,6 +67,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Justice (United Arab Emirates)"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://www.moj.gov.ae/"
    :gov.unit/wikidata "Q55648379"
    :gov.unit/cofog ["03.3"]
@@ -97,6 +101,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Justice (Armenia)"
+   :gov.unit/name-local "Արդարադատության նախարարություն"
+   :gov.unit/name-romanized "Ardaradatutyan nakhararutyun"
    :gov.unit/official-url "https://moj.am"
    :gov.unit/wikidata "Q13053539"
    :gov.unit/cofog ["03.3"]
@@ -193,6 +199,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Law, Justice and Parliamentary Affairs"
+   :gov.unit/name-local "আইন, বিচার ও সংসদ বিষয়ক মন্ত্রণালয়"
+   :gov.unit/name-romanized "Ain, Bichar O Sangsad Bishayak Mantranalaya"
    :gov.unit/official-url "http://www.minlaw.gov.bd/"
    :gov.unit/wikidata "Q20612468"
    :gov.unit/cofog ["03.3"]
@@ -209,6 +217,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "Министерство на правосъдието"
+   :gov.unit/name-romanized "Ministerstvo na pravosadieto"
    :gov.unit/official-url "https://www.justice.government.bg/"
    :gov.unit/wikidata "Q12286837"
    :gov.unit/cofog ["03.3"]
@@ -257,6 +267,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Justice of the Republic of Belarus"
+   :gov.unit/name-local "Министерство юстиции Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo yustitsii Respubliki Belarus"
    :gov.unit/official-url "http://minjust.gov.by"
    :gov.unit/wikidata "Q3918962"
    :gov.unit/cofog ["03.3"]
@@ -369,6 +381,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Justice of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国司法部"
+   :gov.unit/name-romanized "Sīfǎ Bù"
    :gov.unit/official-url "http://www.moj.gov.cn/"
    :gov.unit/wikidata "Q832422"
    :gov.unit/cofog ["03.3"]
@@ -497,6 +511,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Justice and Public Order"
+   :gov.unit/name-local "Υπουργείο Δικαιοσύνης και Δημοσίας Τάξεως"
+   :gov.unit/name-romanized "Ypourgeio Dikaiosynis kai Dimosias Taxeos"
    :gov.unit/official-url "https://www.gov.cy/mjpo/"
    :gov.unit/wikidata "Q6867322"
    :gov.unit/cofog ["03.3"]
@@ -561,6 +577,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "http://www.mjustice.dz/"
    :gov.unit/wikidata "Q3315293"
    :gov.unit/cofog ["03.3"]
@@ -593,6 +611,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://moj.gov.eg/ar/Pages/Home.aspx"
    :gov.unit/wikidata "Q4294857"
    :gov.unit/cofog ["03.3"]
@@ -705,6 +725,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "საქართველოს იუსტიციის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos iustitsiis saministro"
    :gov.unit/official-url "https://justice.gov.ge"
    :gov.unit/wikidata "Q3651856"
    :gov.unit/cofog ["03.3"]
@@ -752,6 +774,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Justice (Greece)"
+   :gov.unit/name-local "Υπουργείο Δικαιοσύνης"
+   :gov.unit/name-romanized "Ypourgeio Dikaiosynis"
    :gov.unit/official-url "https://ministryofjustice.gr"
    :gov.unit/wikidata "Q60154812"
    :gov.unit/cofog ["03.3"]
@@ -864,6 +888,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Justice (Iran)"
+   :gov.unit/name-local "وزارت دادگستری"
+   :gov.unit/name-romanized "Vezārat-e Dādgostari"
    :gov.unit/official-url "http://www.justice.ir/"
    :gov.unit/wikidata "Q2606340"
    :gov.unit/cofog ["03.3"]
@@ -880,6 +906,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Justice of Israel"
+   :gov.unit/name-local "משרד המשפטים"
+   :gov.unit/name-romanized "Misrad HaMishpatim"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_justice"
    :gov.unit/wikidata "Q19315413"
    :gov.unit/cofog ["03.3"]
@@ -928,6 +956,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "https://moj.gov.jo/"
    :gov.unit/wikidata "Q22686378"
    :gov.unit/cofog ["03.3"]
@@ -944,6 +974,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Justice of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Әділет министрлігі"
+   :gov.unit/name-romanized "Ädilet ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/adilet"
    :gov.unit/wikidata "Q973886"
    :gov.unit/cofog ["03.3"]
@@ -960,6 +992,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Justice (Kyrgyzstan)"
+   :gov.unit/name-local "Кыргыз Республикасынын Юстиция министрлиги"
+   :gov.unit/name-romanized "Yustitsiya ministrligi"
    :gov.unit/official-url "http://minjust.gov.kg/en/"
    :gov.unit/wikidata "Q55648355"
    :gov.unit/cofog ["03.3"]
@@ -976,6 +1010,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "ក្រសួងយុត្តិធម៌"
+   :gov.unit/name-romanized "Krasuong Yutethor"
    :gov.unit/official-url "https://www.moj.gov.kh/"
    :gov.unit/wikidata "Q56290001"
    :gov.unit/cofog ["03.3"]
@@ -992,6 +1028,7 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kir"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/official-url "https://www.moj.gov.ki/"
    :gov.unit/wikidata "Q56289996"
    :gov.unit/cofog ["03.3"]
    :gov.unit/status :active
@@ -1007,6 +1044,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "법무부"
+   :gov.unit/name-romanized "Beommubu"
    :gov.unit/official-url "https://www.moj.go.kr"
    :gov.unit/wikidata "Q482789"
    :gov.unit/cofog ["03.3"]
@@ -1023,6 +1062,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://www.moj.gov.kw"
    :gov.unit/wikidata "Q55648354"
    :gov.unit/cofog ["03.3"]
@@ -1087,6 +1128,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Justice and Law Reforms"
+   :gov.unit/name-local "අධිකරණ අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Adhikarana Amathyanshaya"
    :gov.unit/official-url "http://www.justiceministry.gov.lk"
    :gov.unit/wikidata "Q4294884"
    :gov.unit/cofog ["03.3"]
@@ -1151,6 +1194,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Justice (Morocco)"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "http://www.justice.gov.ma/"
    :gov.unit/wikidata "Q3315292"
    :gov.unit/cofog ["03.3"]
@@ -1199,6 +1244,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "Министерство за правда"
+   :gov.unit/name-romanized "Ministerstvo za pravda"
    :gov.unit/official-url "https://www.pravda.gov.mk/"
    :gov.unit/wikidata "Q12286836"
    :gov.unit/cofog ["03.3"]
@@ -1359,6 +1406,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Law, Justice, and Parliamentary Affairs"
+   :gov.unit/name-local "कानून, न्याय तथा संसदीय मामिला मन्त्रालय"
+   :gov.unit/name-romanized "Kanun, Nyaya tatha Sansadiya Mamila Mantralaya"
    :gov.unit/official-url "http://www.moljpa.gov.np/"
    :gov.unit/wikidata "Q19671248"
    :gov.unit/cofog ["03.3"]
@@ -1407,6 +1456,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Law and Justice"
+   :gov.unit/name-local "وزارتِ قانون و انصاف"
+   :gov.unit/name-romanized "Wizārat-e Qānūn o Insāf"
    :gov.unit/official-url "https://www.molaw.gov.pk"
    :gov.unit/wikidata "Q6867308"
    :gov.unit/cofog ["03.3"]
@@ -1566,6 +1617,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Justice of the Russian Federation"
+   :gov.unit/name-local "Министерство юстиции Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo yustitsii RF"
    :gov.unit/official-url "https://minjust.gov.ru"
    :gov.unit/wikidata "Q264356"
    :gov.unit/cofog ["03.3"]
@@ -1598,6 +1651,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizarat al-ʿAdl"
    :gov.unit/official-url "https://www.moj.gov.sa"
    :gov.unit/wikidata "Q12250979"
    :gov.unit/cofog ["03.3"]
@@ -1662,6 +1717,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Justice of the Republic of Serbia"
+   :gov.unit/name-local "Министарство правде"
+   :gov.unit/name-romanized "Ministarstvo pravde"
    :gov.unit/official-url "http://www.mpravde.gov.rs"
    :gov.unit/wikidata "Q16664627"
    :gov.unit/cofog ["03.3"]
@@ -1774,6 +1831,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "http://jus.moj.gov.sy/"
    :gov.unit/wikidata "Q4294874"
    :gov.unit/cofog ["03.3"]
@@ -1822,6 +1881,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Justice of Thailand"
+   :gov.unit/name-local "กระทรวงยุติธรรม"
+   :gov.unit/name-romanized "Krasuang Yutitham"
    :gov.unit/official-url "http://www.moj.go.th/"
    :gov.unit/wikidata "Q4919162"
    :gov.unit/cofog ["03.3"]
@@ -1838,6 +1899,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "Вазорати адлияи Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati adliyai Jumhurii Tojikiston"
    :gov.unit/official-url "https://www.adliya.tj/"
    :gov.unit/wikidata "Q25581691"
    :gov.unit/cofog ["03.3"]
@@ -1870,6 +1933,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl"
    :gov.unit/official-url "https://www.justice.gov.tn/"
    :gov.unit/wikidata "Q3315297"
    :gov.unit/cofog ["03.3"]
@@ -1918,6 +1983,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Justice of Ukraine"
+   :gov.unit/name-local "Міністерство юстиції України"
+   :gov.unit/name-romanized "Ministerstvo yustytsii Ukrainy"
    :gov.unit/official-url "http://www.minjust.gov.ua"
    :gov.unit/wikidata "Q4294878"
    :gov.unit/cofog ["03.3"]
@@ -1982,6 +2049,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Justice"
+   :gov.unit/name-local "وزارة العدل وحقوق الإنسان"
+   :gov.unit/name-romanized "Wizārat al-ʿAdl wa-Ḥuqūq al-Insān"
    :gov.unit/official-url "https://www.moj.gov.ye/"
    :gov.unit/wikidata "Q12250981"
    :gov.unit/cofog ["03.3"]

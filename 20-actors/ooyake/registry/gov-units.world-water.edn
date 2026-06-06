@@ -15,6 +15,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "পানি সম্পদ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Pani Sampad Mantranalaya"
    :gov.unit/official-url "https://mowr.gov.bd/"
    :gov.unit/wikidata "Q25209275"
    :gov.unit/cofog ["06.3"]
@@ -31,6 +33,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Water Resources of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国水利部"
+   :gov.unit/name-romanized "Shuǐlì Bù"
    :gov.unit/official-url "http://www.mwr.gov.cn/"
    :gov.unit/wikidata "Q907029"
    :gov.unit/cofog ["06.3"]
@@ -47,6 +51,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "وزارة الموارد المائية"
+   :gov.unit/name-romanized "Wizārat al-Mawārid al-Māʾiyya"
    :gov.unit/official-url "http://www.mree.gov.dz/"
    :gov.unit/wikidata "Q3315398"
    :gov.unit/cofog ["06.3"]
@@ -62,7 +68,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ind"
-   :gov.unit/name-en "Narmada and Water Resources, Water Supply and Kalpsar Department"
+   :gov.unit/name-en "Ministry of Jal Shakti"
    :gov.unit/official-url "https://guj-nwrws.gujarat.gov.in"
    :gov.unit/wikidata "Q116909046"
    :gov.unit/cofog ["06.3"]
@@ -79,6 +85,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "وزارة الموارد المائية"
+   :gov.unit/name-romanized "Wizārat al-Mawārid al-Māʾiyya"
    :gov.unit/official-url "http://www.mowr.gov.iq/"
    :gov.unit/wikidata "Q6867644"
    :gov.unit/cofog ["06.3"]
@@ -95,6 +103,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Water Resources"
+   :gov.unit/name-local "وزارتِ آبی وسائل"
+   :gov.unit/name-romanized "Wizārat-e Ābī Wasāʾil"
    :gov.unit/official-url "http://mowr.gov.pk"
    :gov.unit/wikidata "Q39073351"
    :gov.unit/cofog ["06.3"]

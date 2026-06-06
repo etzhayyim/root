@@ -174,7 +174,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ind"
-   :gov.unit/name-en "Social Justice and Empowerment Department"
+   :gov.unit/name-en "Ministry of Social Justice and Empowerment"
    :gov.unit/official-url "https://sje.gujarat.gov.in"
    :gov.unit/wikidata "Q116909097"
    :gov.unit/cofog ["10"]
@@ -207,6 +207,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Solidarity, Women, Family and Social Development"
+   :gov.unit/name-local "وزارة التضامن والإدماج الاجتماعي والأسرة"
+   :gov.unit/name-romanized "Wizārat at-Taḍāmun wa-l-Idmāj al-Ijtimāʿī wa-l-Usra"
    :gov.unit/official-url "https://social.gov.ma"
    :gov.unit/wikidata "Q26459781"
    :gov.unit/cofog ["10"]
@@ -303,6 +305,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Labour and Social Protection of the Russian Federation"
+   :gov.unit/name-local "Министерство труда и социальной защиты Российской Федерации"
+   :gov.unit/name-romanized "Mintrud"
    :gov.unit/official-url "https://mintrud.gov.ru"
    :gov.unit/wikidata "Q4294762"
    :gov.unit/cofog ["10"]
@@ -351,6 +355,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Social Affairs"
+   :gov.unit/name-local "وزارة الشؤون الاجتماعية"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Ijtimāʿiyya"
    :gov.unit/official-url "https://www.social.gov.tn/"
    :gov.unit/wikidata "Q3315343"
    :gov.unit/cofog ["10"]
@@ -367,6 +373,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Social Policy"
+   :gov.unit/name-local "Міністерство соціальної політики України"
+   :gov.unit/name-romanized "Ministerstvo sotsialnoi polityky Ukrainy"
    :gov.unit/official-url "http://msp.gov.ua/"
    :gov.unit/wikidata "Q4294702"
    :gov.unit/cofog ["10"]

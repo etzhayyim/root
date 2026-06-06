@@ -5,9 +5,10 @@ from __future__ import annotations
 import math
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 ACTOR = "did:web:credits.etzhayyim.com"
 
@@ -72,8 +73,7 @@ PUBLIC_FUND_DESTINATIONS = [
 ]
 
 
-def now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
 
 
 def _str(value: Any) -> str:
@@ -95,22 +95,7 @@ def _tx_id() -> str:
     return f"tx_{int(time.time() * 1000)}_{uuid.uuid4().hex[:8]}"
 
 
-def _execute(sql: str, params: tuple[Any, ...] = ()) -> int:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return int(cur.rowcount or 0)
 
-
-def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        return [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
-
-
-def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
-    rows = _fetch_all(sql, params)
-    return rows[0] if rows else None
 
 
 def _round_bps(amount: int, bps: int) -> int:
@@ -151,7 +136,7 @@ def _spend_breakdown(amount: int) -> dict[str, int]:
 
 
 def _wallet(user_id: str) -> dict[str, Any] | None:
-    return _fetch_one("SELECT * FROM vertex_credit_wallet WHERE user_id=%s LIMIT 1", (user_id,))
+    return get_kotoba_client().select_first_where("vertex_credit_wallet", "user_id", user_id)
 
 
 def _balance(user_id: str) -> int:
@@ -160,26 +145,38 @@ def _balance(user_id: str) -> int:
 
 
 def _ensure_wallet(user_id: str) -> None:
-    now = now_iso()
-    _execute(
-        """INSERT INTO vertex_credit_wallet
-        (vertex_id, user_id, balance, status, created_at, updated_at, actor_did, org_did)
-        VALUES (%s,%s,0,'active',%s,%s,%s,'anon')
-        ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"{ACTOR}/wallet/{_rkey(user_id)}", user_id, now, now, ACTOR),
+    from datetime import datetime, timezone
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
+    get_kotoba_client().insert_row(
+        "vertex_credit_wallet",
+        {
+            "vertex_id": f"{ACTOR}/wallet/{_rkey(user_id)}",
+            "user_id": user_id,
+            "balance": 0,
+            "status": "active",
+            "created_at": now,
+            "updated_at": now,
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
 
 
 def _set_balance(user_id: str, balance: int) -> None:
-    _execute(
-        "UPDATE vertex_credit_wallet SET balance=%s, updated_at=%s WHERE vertex_id=%s",
-        (balance, now_iso(), f"{ACTOR}/wallet/{_rkey(user_id)}"),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
+    get_kotoba_client().insert_row(
+        "vertex_credit_wallet",
+        {
+            "vertex_id": f"{ACTOR}/wallet/{_rkey(user_id)}",
+            "balance": balance,
+            "updated_at": now,
+        },
     )
 
 
 def _events_in_last_hour(user_id: str, event_type: str) -> int:
     cutoff = int(time.time() * 1000) - 3_600_000
-    # R0: Multi-predicate COUNT using select_where with in-Python filtering
+    # R0: Multi-predicate COUNT using select_where with in-Python filtering over the kotoba Datom log
     events = get_kotoba_client().select_where("vertex_credits_af_event", "user_id", user_id, limit=2000)
     filtered_events = [e for e in events if e.get("event_type") == event_type and _int(e.get("ts_ms")) >= cutoff]
     return len(filtered_events)
@@ -195,28 +192,47 @@ def _check_rate_limit(user_id: str, event_type: str) -> dict[str, Any]:
 
 def _record_af_event(user_id: str, event_type: str, amount: int) -> None:
     tx = _tx_id()
-    _execute(
-        """INSERT INTO vertex_credits_af_event
-        (vertex_id, user_id, event_type, amount, ts_ms, created_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,'anon')""",
-        (f"{ACTOR}/af/{_rkey(user_id)}/{tx}", user_id, event_type, amount, int(time.time() * 1000), now_iso(), ACTOR),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
+    get_kotoba_client().insert_row(
+        "vertex_credits_af_event",
+        {
+            "vertex_id": f"{ACTOR}/af/{_rkey(user_id)}/{tx}",
+            "user_id": user_id,
+            "event_type": event_type,
+            "amount": amount,
+            "ts_ms": int(time.time() * 1000),
+            "created_at": now,
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
 
 
 def _duplicate(source_ref: str) -> bool:
     if not source_ref:
         return False
-    row = _fetch_one("SELECT vertex_id FROM vertex_credit_transaction WHERE source_ref=%s LIMIT 1", (source_ref,))
+    row = get_kotoba_client().select_first_where("vertex_credit_transaction", "source_ref", source_ref, columns=["vertex_id"])
     return row is not None
 
 
 def _record_transaction(user_id: str, tx_type: str, amount: int, source: str, description: str, source_ref: str = "") -> str:
     tx = _tx_id()
-    _execute(
-        """INSERT INTO vertex_credit_transaction
-        (vertex_id, tx_id, user_id, tx_type, amount, source, source_ref, description, created_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon')""",
-        (f"{ACTOR}/tx/{tx}", tx, user_id, tx_type, amount, source, source_ref, description, now_iso(), ACTOR),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
+    get_kotoba_client().insert_row(
+        "vertex_credit_transaction",
+        {
+            "vertex_id": f"{ACTOR}/tx/{tx}",
+            "tx_id": tx,
+            "user_id": user_id,
+            "tx_type": tx_type,
+            "amount": amount,
+            "source": source,
+            "source_ref": source_ref,
+            "description": description,
+            "created_at": now,
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
     return tx
 
@@ -225,7 +241,7 @@ def _allocation_preference(user_id: str, destination_id: str = "") -> dict[str, 
     if destination_id:
         dest = _find_destination(destination_id)
     else:
-        pref = _fetch_one("SELECT * FROM vertex_credit_allocation_preference WHERE user_id=%s LIMIT 1", (user_id,))
+        pref = get_kotoba_client().select_first_where("vertex_credit_allocation_preference", "user_id", user_id)
         dest = _find_destination(_str((pref or {}).get("destination_id")))
     return {
         "destinationId": dest["destinationId"],
@@ -246,31 +262,29 @@ def _record_public_fund_allocation(
     source_ref: str,
 ) -> None:
     allocation_id = _tx_id()
-    _execute(
-        """INSERT INTO vertex_credits_public_fund_allocation
-        (vertex_id, allocation_id, spend_tx_id, user_id, source_action, source_ref, spend_amount,
-         service_amount, public_fund_amount, public_fund_bps, destination_project_id, destination_id,
-         destination_title, destination_kind, cofog_code, created_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon')""",
-        (
-            f"{ACTOR}/allocation/{allocation_id}",
-            allocation_id,
-            spend_tx_id,
-            user_id,
-            action,
-            source_ref,
-            allocation["spendAmount"],
-            allocation["serviceAmount"],
-            allocation["publicFundAmount"],
-            allocation["publicFundBps"],
-            preference["projectId"],
-            preference["destinationId"],
-            preference["title"],
-            preference["kind"],
-            preference["cofogCode"],
-            now_iso(),
-            ACTOR,
-        ),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
+    get_kotoba_client().insert_row(
+        "vertex_credits_public_fund_allocation",
+        {
+            "vertex_id": f"{ACTOR}/allocation/{allocation_id}",
+            "allocation_id": allocation_id,
+            "spend_tx_id": spend_tx_id,
+            "user_id": user_id,
+            "source_action": action,
+            "source_ref": source_ref,
+            "spend_amount": allocation["spendAmount"],
+            "service_amount": allocation["serviceAmount"],
+            "public_fund_amount": allocation["publicFundAmount"],
+            "public_fund_bps": allocation["publicFundBps"],
+            "destination_project_id": preference["projectId"],
+            "destination_id": preference["destinationId"],
+            "destination_title": preference["title"],
+            "destination_kind": preference["kind"],
+            "cofog_code": preference["cofogCode"],
+            "created_at": now,
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
 
 
@@ -340,11 +354,20 @@ def spend_credits(userId: str = "", action: str = "", toolNsid: str = "", actorD
 
 def _record_spend_failure(user_id: str, action: str, cost: int, balance: int, source_ref: str = "") -> None:
     fail_id = _tx_id()
-    _execute(
-        """INSERT INTO vertex_credits_spend_failure
-        (vertex_id, user_id, action, cost, balance, source_ref, created_at, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,'anon')""",
-        (f"{ACTOR}/spend-failure/{fail_id}", user_id, action, cost, balance, source_ref, now_iso(), ACTOR),
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z"
+    get_kotoba_client().insert_row(
+        "vertex_credits_spend_failure",
+        {
+            "vertex_id": f"{ACTOR}/spend-failure/{fail_id}",
+            "user_id": user_id,
+            "action": action,
+            "cost": cost,
+            "balance": balance,
+            "source_ref": source_ref,
+            "created_at": now,
+            "actor_did": ACTOR,
+            "org_did": "anon",
+        },
     )
 
 

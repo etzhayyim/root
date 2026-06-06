@@ -30,6 +30,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارت دفاع ملی"
+   :gov.unit/name-romanized "Wizarat-i Difa'-i Milli"
    :gov.unit/official-url "http://www.mod.gov.af"
    :gov.unit/wikidata "Q2982461"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -66,6 +68,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "https://mod.gov.ae/"
    :gov.unit/wikidata "Q134514894"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -90,6 +94,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Defence of Armenia"
+   :gov.unit/name-local "Պաշտպանության նախարարություն"
+   :gov.unit/name-romanized "Pashtpanutyan nakhararutyun"
    :gov.unit/official-url "https://mil.am"
    :gov.unit/wikidata "Q3319270"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -150,6 +156,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "প্রতিরক্ষা মন্ত্রণালয়"
+   :gov.unit/name-romanized "Pratiraksha Mantranalaya"
    :gov.unit/official-url "https://mod.gov.bd/"
    :gov.unit/wikidata "Q17015270"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -162,6 +170,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Defence of Bulgaria"
+   :gov.unit/name-local "Министерство на отбраната"
+   :gov.unit/name-romanized "Ministerstvo na otbranata"
    :gov.unit/official-url "https://www.mod.bg/"
    :gov.unit/wikidata "Q3623141"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -186,6 +196,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Defence of the Republic of Belarus"
+   :gov.unit/name-local "Министерство обороны Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo oborony Respubliki Belarus"
    :gov.unit/official-url "https://www.mil.by/by/"
    :gov.unit/wikidata "Q2576529"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -270,6 +282,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of National Defense of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国国防部"
+   :gov.unit/name-romanized "Guófáng Bù"
    :gov.unit/official-url "http://www.mod.gov.cn"
    :gov.unit/wikidata "Q1332463"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -306,6 +320,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "Υπουργείο Άμυνας"
+   :gov.unit/name-romanized "Ypourgeio Amynas"
    :gov.unit/official-url "https://www.gov.cy/mod/"
    :gov.unit/wikidata "Q12885629"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -365,6 +381,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Defence of Egypt"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "https://www.mod.gov.eg/ModWebSite/"
    :gov.unit/wikidata "Q15846495"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -401,6 +419,9 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/name-local "የመከላከያ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Mekelakeya Minister"
+   :gov.unit/official-url "http://www.mod.gov.et/"
    :gov.unit/wikidata "Q1627146"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q1627146" :gov.unit/last-verified "2026-06-03"
@@ -460,6 +481,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Defense of Georgia"
+   :gov.unit/name-local "საქართველოს თავდაცვის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos tavdatsvis saministro"
    :gov.unit/official-url "http://www.mod.gov.ge/?lang=eng"
    :gov.unit/wikidata "Q3648988"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -506,6 +529,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of National Defence (Greece)"
+   :gov.unit/name-local "Υπουργείο Εθνικής Άμυνας"
+   :gov.unit/name-romanized "Ypourgeio Ethnikis Amynas"
    :gov.unit/official-url "https://www.mod.mil.gr"
    :gov.unit/wikidata "Q2606039"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -602,6 +627,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Defense and Armed Forces Logistics"
+   :gov.unit/name-local "وزارت دفاع و پشتیبانی نیروهای مسلح"
+   :gov.unit/name-romanized "Vezārat-e Defāʿ va Poshtibāni-ye Niruhā-ye Mosallah"
    :gov.unit/official-url "http://www.mod.ir/"
    :gov.unit/wikidata "Q1089480"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -614,6 +641,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Defence of Iraq"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizārat al-Difāʿ"
    :gov.unit/official-url "http://www.mod.mil.iq/"
    :gov.unit/wikidata "Q4118986"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -626,6 +655,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "משרד הביטחון"
+   :gov.unit/name-romanized "Misrad HaBitachon"
    :gov.unit/official-url "https://mod.gov.il/"
    :gov.unit/wikidata "Q1862884"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -650,6 +681,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Defense of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Қорғаныс министрлігі"
+   :gov.unit/name-romanized "Qorğanys ministrlıgı"
    :gov.unit/official-url "http://www.mod.gov.kz/"
    :gov.unit/wikidata "Q2518594"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -674,6 +707,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Defense of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Коргоо министрлиги"
+   :gov.unit/name-romanized "Korgoo ministrligi"
    :gov.unit/official-url "https://mil.gov.kg"
    :gov.unit/wikidata "Q11297769"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -686,6 +721,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of National Defence of Cambodia"
+   :gov.unit/name-local "ក្រសួងការពារជាតិ"
+   :gov.unit/name-romanized "Krasuong Karpie Cheat"
    :gov.unit/official-url "http://mod.gov.kh/"
    :gov.unit/wikidata "Q6867382"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -698,6 +735,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of National Defense of South Korea"
+   :gov.unit/name-local "국방부"
+   :gov.unit/name-romanized "Gukbangbu"
    :gov.unit/official-url "http://www.mnd.go.kr/"
    :gov.unit/wikidata "Q488542"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -710,6 +749,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "https://www.mod.gov.kw"
    :gov.unit/wikidata "Q16257919"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -746,6 +787,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Defence and Urban Development"
+   :gov.unit/name-local "ආරක්‍ෂක අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Arakshaka Amathyanshaya"
    :gov.unit/official-url "https://www.defence.lk/"
    :gov.unit/wikidata "Q276724"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -806,6 +849,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Defense of North Macedonia"
+   :gov.unit/name-local "Министерство за одбрана"
+   :gov.unit/name-romanized "Ministerstvo za odbrana"
    :gov.unit/official-url "https://mod.gov.mk/"
    :gov.unit/wikidata "Q12286835"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -818,6 +863,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "ကာကွယ်ရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Kakwalyay Wankyihtana"
    :gov.unit/official-url "http://www.mod.gov.mm"
    :gov.unit/wikidata "Q13072868"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -842,6 +889,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "Батлан хамгаалах яам"
+   :gov.unit/name-romanized "Batlan khamgaalakh yaam"
    :gov.unit/official-url "http://www.mod.gov.mn"
    :gov.unit/wikidata "Q39053699"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -854,6 +903,7 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mrt"
    :gov.unit/name-en "Ministry of National Defense"
+   :gov.unit/official-url "https://armee.mr/fr/"
    :gov.unit/wikidata "Q124176950"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q124176950" :gov.unit/last-verified "2026-06-03"
@@ -913,6 +963,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "रक्षा मन्त्रालय"
+   :gov.unit/name-romanized "Raksha Mantralaya"
    :gov.unit/official-url "https://mod.gov.np/"
    :gov.unit/wikidata "Q13185205"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -949,6 +1001,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "وزارت دفاع"
+   :gov.unit/name-romanized "Wizārat-e-Difāʿ"
    :gov.unit/official-url "https://www.mod.gov.pk"
    :gov.unit/wikidata "Q169217"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1044,6 +1098,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Defense of the Russian Federation"
+   :gov.unit/name-local "Министерство обороны Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo oborony RF"
    :gov.unit/official-url "https://mil.ru/"
    :gov.unit/wikidata "Q1146492"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1068,6 +1124,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Defense Saudi Arabia"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizarat al-Difaʿ"
    :gov.unit/official-url "http://www.moda.gov.sa"
    :gov.unit/wikidata "Q6866094"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1128,6 +1186,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Defense of the Republic of Serbia"
+   :gov.unit/name-local "Министарство одбране"
+   :gov.unit/name-romanized "Ministarstvo odbrane"
    :gov.unit/official-url "https://www.mod.gov.rs/"
    :gov.unit/wikidata "Q2198758"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1199,6 +1259,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Defense"
+   :gov.unit/name-local "وزارة الدفاع"
+   :gov.unit/name-romanized "Wizārat al-Difāʿ"
    :gov.unit/official-url "http://www.mod.gov.sy"
    :gov.unit/wikidata "Q4116488"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1211,6 +1273,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Defence of Thailand"
+   :gov.unit/name-local "กระทรวงกลาโหม"
+   :gov.unit/name-romanized "Krasuang Kalahom"
    :gov.unit/official-url "http://www.mod.go.th/Home.aspx?lang=en-GB/"
    :gov.unit/wikidata "Q851907"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1223,6 +1287,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "Вазорати мудофиаи Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati mudofiai Jumhurii Tojikiston"
    :gov.unit/official-url "http://www.mort.tj"
    :gov.unit/wikidata "Q25593450"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1247,6 +1313,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Defence"
+   :gov.unit/name-local "وزارة الدفاع الوطني"
+   :gov.unit/name-romanized "Wizārat ad-Difāʿ al-Waṭanī"
    :gov.unit/official-url "https://defense.tn/"
    :gov.unit/wikidata "Q3315280"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1283,6 +1351,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Defence of Ukraine"
+   :gov.unit/name-local "Міністерство оборони України"
+   :gov.unit/name-romanized "Ministerstvo oborony Ukrainy"
    :gov.unit/official-url "https://mod.gov.ua/"
    :gov.unit/wikidata "Q2066149"
    :gov.unit/cofog ["02"] :gov.unit/status :active :gov.unit/sourcing :authoritative

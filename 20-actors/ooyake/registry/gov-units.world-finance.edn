@@ -29,6 +29,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارت مالیه"
+   :gov.unit/name-romanized "Wezarat-e Maliya"
    :gov.unit/official-url "https://mof.gov.af/en"
    :gov.unit/wikidata "Q5959217"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -77,6 +79,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyya"
    :gov.unit/official-url "https://www.mof.gov.ae/en"
    :gov.unit/wikidata "Q113576164"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -89,6 +93,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Ֆինանսների նախարարություն"
+   :gov.unit/name-romanized "Finansneri nakhararutyun"
    :gov.unit/official-url "https://minfin.am"
    :gov.unit/wikidata "Q13053381"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -161,6 +167,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "অর্থ মন্ত্রণালয়"
+   :gov.unit/name-romanized "Artha Mantranalaya"
    :gov.unit/official-url "http://www.mof.gov.bd/"
    :gov.unit/wikidata "Q17068712"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -173,6 +181,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Министерство на финансите"
+   :gov.unit/name-romanized "Ministerstvo na finansite"
    :gov.unit/official-url "https://www.minfin.bg/"
    :gov.unit/wikidata "Q104972247"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -221,6 +231,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Finance of the Republic of Belarus"
+   :gov.unit/name-local "Министерство финансов Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo finansov Respubliki Belarus"
    :gov.unit/official-url "http://www.minfin.gov.by/be/"
    :gov.unit/wikidata "Q13031630"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -281,6 +293,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "དངུལ་རྩིས་ལྷན་ཁག"
+   :gov.unit/name-romanized "dngul rtsis lhan khag"
    :gov.unit/official-url "https://mof.gov.bt/"
    :gov.unit/wikidata "Q18345339"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -353,6 +367,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Υπουργείο Οικονομικών"
+   :gov.unit/name-romanized "Ypourgeio Oikonomikon"
    :gov.unit/official-url "https://www.gov.cy/mof/"
    :gov.unit/wikidata "Q65554946"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -389,6 +405,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "http://www.mf.gov.dz/"
    :gov.unit/wikidata "Q3315378"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -413,6 +431,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyya"
    :gov.unit/official-url "https://mof.gov.eg/ar"
    :gov.unit/wikidata "Q4294784"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -460,6 +480,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Finance and Economic Development"
+   :gov.unit/name-local "የገንዘብ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Genzeb Minister"
    :gov.unit/official-url "http://www.mofed.gov.et"
    :gov.unit/wikidata "Q4294809"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -484,6 +506,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Finance of Georgia"
+   :gov.unit/name-local "საქართველოს ფინანსთა სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos pinanstha saministro"
    :gov.unit/official-url "https://mof.ge/"
    :gov.unit/wikidata "Q2783197"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -508,6 +532,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of National Economy and Finance (Greece)"
+   :gov.unit/name-local "Υπουργείο Εθνικής Οικονομίας και Οικονομικών"
+   :gov.unit/name-romanized "Ypourgeio Ethnikis Oikonomias kai Oikonomikon"
    :gov.unit/official-url "https://minfin.gov.gr"
    :gov.unit/wikidata "Q2605674"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -592,6 +618,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Economic Affairs and Finance (Iran)"
+   :gov.unit/name-local "وزارت امور اقتصادی و دارایی"
+   :gov.unit/name-romanized "Vezārat-e Omur-e Eqtesādi va Dārāyi"
    :gov.unit/official-url "https://www.mefa.ir/"
    :gov.unit/wikidata "Q6588993"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -604,6 +632,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Finance (Iraq)"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "http://www.mof.gov.iq"
    :gov.unit/wikidata "Q15626404"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -628,6 +658,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "משרד האוצר"
+   :gov.unit/name-romanized "Misrad HaOtzar"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_finance"
    :gov.unit/wikidata "Q1707870"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -652,6 +684,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Finance (Jordan)"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "https://mof.gov.jo/"
    :gov.unit/wikidata "Q22686379"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -664,6 +698,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Finance Ministry of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Қаржы министрлігі"
+   :gov.unit/name-romanized "Qarjy ministrlıgı"
    :gov.unit/official-url "http://www.minfin.gov.kz"
    :gov.unit/wikidata "Q4294785"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -688,6 +724,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Economy and Finance"
+   :gov.unit/name-local "Кыргыз Республикасынын Финансы министрлиги"
+   :gov.unit/name-romanized "Finansy ministrligi"
    :gov.unit/official-url "https://minfin.gov.kg/"
    :gov.unit/wikidata "Q97357670"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -700,6 +738,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyya"
    :gov.unit/official-url "http://en.mof.gov.kw/"
    :gov.unit/wikidata "Q15640179"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -724,6 +764,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Finance and Planning"
+   :gov.unit/name-local "මුදල් අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Mudal Amathyanshaya"
    :gov.unit/official-url "http://www.treasury.gov.lk/"
    :gov.unit/wikidata "Q4294807"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -772,6 +814,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Economy and Finance (Morocco)"
+   :gov.unit/name-local "وزارة الاقتصاد والمالية"
+   :gov.unit/name-romanized "Wizārat al-Iqtiṣād wa-l-Māliyya"
    :gov.unit/official-url "http://www.finances.gov.ma"
    :gov.unit/wikidata "Q3315238"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -820,6 +864,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "މާލީކަންކަމާއި ސަރުކާރު ކުންފުނިތަކާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Maaleekankamaai Sarukaaru Kunfunithakaa Behey Vuzaaraa"
    :gov.unit/official-url "http://www.finance.gov.mv/"
    :gov.unit/wikidata "Q85785726"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -856,6 +902,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Planning and Finance"
+   :gov.unit/name-local "စီမံကိန်းနှင့်ဘဏ္ဍာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Simankein-hnint Bandayay Wankyihtana"
    :gov.unit/official-url "https://myanmar.gov.mm/ministry-of-finance-and-revenue"
    :gov.unit/wikidata "Q13070423"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -880,6 +928,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Finance (Mongolia)"
+   :gov.unit/name-local "Сангийн яам"
+   :gov.unit/name-romanized "Sangiin yaam"
    :gov.unit/official-url "https://mof.gov.mn/en/"
    :gov.unit/wikidata "Q86753915"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1000,6 +1050,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "अर्थ मन्त्रालय"
+   :gov.unit/name-romanized "Artha Mantralaya"
    :gov.unit/official-url "http://www.mof.gov.np/"
    :gov.unit/wikidata "Q17010343"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1036,6 +1088,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Finance and Revenue"
+   :gov.unit/name-local "وزارت خزانہ و محصولات"
+   :gov.unit/name-romanized "Wizārat-e-Khazāna o Mahsūlāt"
    :gov.unit/official-url "https://www.finance.gov.pk"
    :gov.unit/wikidata "Q6866949"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1096,6 +1150,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Finance of Qatar"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizarat al-Maliyyah"
    :gov.unit/official-url "https://www.mof.gov.qa/"
    :gov.unit/wikidata "Q96997813"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1192,6 +1248,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "Министарство финансија"
+   :gov.unit/name-romanized "Ministarstvo finansija"
    :gov.unit/official-url "http://www.mfin.gov.rs/"
    :gov.unit/wikidata "Q2198895"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1264,6 +1322,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "กระทรวงการคลัง"
+   :gov.unit/name-romanized "Krasuang Kan Khlang"
    :gov.unit/official-url "http://www.mof.go.th/"
    :gov.unit/wikidata "Q1416522"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1312,6 +1372,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "https://www.finances.gov.tn/"
    :gov.unit/wikidata "Q3315377"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1348,6 +1410,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Finance of Ukraine"
+   :gov.unit/name-local "Міністерство фінансів України"
+   :gov.unit/name-romanized "Ministerstvo finansiv Ukrainy"
    :gov.unit/official-url "http://www.mof.gov.ua"
    :gov.unit/wikidata "Q4294799"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1408,6 +1472,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/name-local "وزارة المالية"
+   :gov.unit/name-romanized "Wizārat al-Māliyya"
    :gov.unit/official-url "https://mof-yemen.com/"
    :gov.unit/wikidata "Q12250990"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

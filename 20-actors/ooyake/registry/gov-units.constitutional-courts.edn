@@ -28,6 +28,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Constitutional Court of Russia"
+   :gov.unit/name-local "Конституционный Суд Российской Федерации"
+   :gov.unit/name-romanized "Konstitutsionnyy Sud RF"
    :gov.unit/official-url "https://ksrf.ru/"
    :gov.unit/wikidata "Q584759"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -51,7 +53,9 @@
    :gov.unit/parent "gov.dza"
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "dza"
-   :gov.unit/name-en "Constitutional Council of Algeria"
+   :gov.unit/name-en "Constitutional Court of Algeria"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama ad-Dustūriyya"
    :gov.unit/official-url "http://www.conseil-constitutionnel.dz"
    :gov.unit/wikidata "Q25462993"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -76,6 +80,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Constitutional Council (Cambodia)"
+   :gov.unit/name-local "ក្រុមប្រឹក្សាធម្មនុញ្ញ"
+   :gov.unit/name-romanized "Krom Preuksa Thommanunh"
    :gov.unit/official-url "http://www.ccc.gov.kh"
    :gov.unit/wikidata "Q47530677"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -268,6 +274,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Constitutional Court of Belarus"
+   :gov.unit/name-local "Конституционный Суд Республики Беларусь"
+   :gov.unit/name-romanized "Konstitutsionnyy Sud Respubliki Belarus"
    :gov.unit/official-url "http://kc.gov.by/en/main.aspx"
    :gov.unit/wikidata "Q252742"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -292,6 +300,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Constitutional Court of Ukraine"
+   :gov.unit/name-local "Конституційний Суд України"
+   :gov.unit/name-romanized "Konstytutsiinyi Sud Ukrainy"
    :gov.unit/official-url "http://ccu.gov.ua"
    :gov.unit/wikidata "Q2714836"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -364,6 +374,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Constitutional Court of Bulgaria"
+   :gov.unit/name-local "Конституционен съд на Република България"
+   :gov.unit/name-romanized "Konstitutsionen sad na Republika Balgariya"
    :gov.unit/official-url "http://www.constcourt.bg/"
    :gov.unit/wikidata "Q1861343"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -376,6 +388,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Constitutional Court of North Macedonia"
+   :gov.unit/name-local "Уставен суд на Република Северна Македонија"
+   :gov.unit/name-romanized "Ustaven sud na Republika Severna Makedonija"
    :gov.unit/official-url "http://www.ustavensud.mk"
    :gov.unit/wikidata "Q2348239"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -448,6 +462,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Constitutional Court of Georgia"
+   :gov.unit/name-local "საქართველოს საკონსტიტუციო სასამართლო"
+   :gov.unit/name-romanized "Sakartvelos sakonstitutsio sasamartlo"
    :gov.unit/official-url "https://www.constcourt.ge/en"
    :gov.unit/wikidata "Q5164290"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -460,6 +476,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Constitutional Court of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Конституциялық Соты"
+   :gov.unit/name-romanized "Konstitutsiyalyq Soty"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/ksrk"
    :gov.unit/wikidata "Q4231510"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -508,6 +526,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Constitutional Court of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության սահմանադրական դատարան"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan sahmanadrakan dataran"
    :gov.unit/official-url "http://concourt.am/english/index.htm"
    :gov.unit/wikidata "Q3129220"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -520,6 +540,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Constitutional Court of Serbia"
+   :gov.unit/name-local "Уставни суд"
+   :gov.unit/name-romanized "Ustavni sud"
    :gov.unit/official-url "http://www.ustavni.sud.rs"
    :gov.unit/wikidata "Q3560961"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -580,6 +602,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Jordanian Constitutional Court"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama al-Dustūriyya"
    :gov.unit/official-url "https://cco.gov.jot"
    :gov.unit/wikidata "Q3000935"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -592,6 +616,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Constitutional Court of Kyrgyzstan"
+   :gov.unit/name-local "Кыргыз Республикасынын Конституциялык соту"
+   :gov.unit/name-romanized "Konstitutsiyalyk sotu"
    :gov.unit/official-url "https://constsot.kg/"
    :gov.unit/wikidata "Q5164291"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -616,6 +642,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Constitutional Court of Tajikistan"
+   :gov.unit/name-local "Суди конститутсионии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Sudi konstitutsionii Jumhurii Tojikiston"
    :gov.unit/official-url "https://constcourt.tj/"
    :gov.unit/wikidata "Q31456451"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -628,6 +656,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Constitutional Court of Thailand"
+   :gov.unit/name-local "ศาลรัฐธรรมนูญ"
+   :gov.unit/name-romanized "San Ratthathammanun"
    :gov.unit/official-url "http://www.constitutionalcourt.or.th"
    :gov.unit/wikidata "Q593273"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -640,6 +670,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Constitutional Court of Korea"
+   :gov.unit/name-local "헌법재판소"
+   :gov.unit/name-romanized "Heonbeop Jaepanso"
    :gov.unit/official-url "https://www.ccourt.go.kr/site/kor/main.do"
    :gov.unit/wikidata "Q488491"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -652,6 +684,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Constitutional Court"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama ad-Dustūriyya"
    :gov.unit/wikidata "Q54314384"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q54314384" :gov.unit/last-verified "2026-06-04"
@@ -699,6 +733,7 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "Constitutional Council of Cameroon"
+   :gov.unit/official-url "https://constitutional-council.com/"
    :gov.unit/wikidata "Q30745641"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q30745641" :gov.unit/last-verified "2026-06-04"
@@ -710,6 +745,8 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Constitutional Court of Morocco"
+   :gov.unit/name-local "المحكمة الدستورية"
+   :gov.unit/name-romanized "al-Maḥkama ad-Dustūriyya"
    :gov.unit/official-url "https://www.cour-constitutionnelle.ma/"
    :gov.unit/wikidata "Q3000934"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

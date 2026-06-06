@@ -183,8 +183,6 @@ def _find_vertex(label: str, pred: Any) -> dict[str, Any] | None:
 def _insert_vertex(label: str, record: dict[str, Any]) -> dict[str, Any]:
     key = _str(record.get("id") or record.get("did") or record.get("externalId") or uuid.uuid4().hex)
     vertex_id = _vid(label, key)
-    with sync_cursor() as cur:
-        if label == "BunkenCollectionJob":
             job_row = {
                 "vertex_id": vertex_id,
                 "id": record.get("id"),

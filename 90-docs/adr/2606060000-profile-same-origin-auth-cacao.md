@@ -1,7 +1,7 @@
 ---
-id: adr-2606061200-profile-same-origin-auth-cacao
-title: "ADR-2606061200: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key"
-status: proposed
+id: adr-2606060000-profile-same-origin-auth-cacao
+title: "ADR-2606060000: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key"
+status: accepted
 doc_type: adr
 topic: profile-same-origin-auth
 authoritative: true
@@ -26,9 +26,9 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2606061200: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO
+# ADR-2606060000: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-06-06
 **Deciders**: Jun Kawasaki
 

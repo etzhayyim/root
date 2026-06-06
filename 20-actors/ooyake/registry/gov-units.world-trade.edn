@@ -15,7 +15,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arg"
-   :gov.unit/name-en "Ministry of Commerce of Argentina"
+   :gov.unit/name-en "Secretariat of Commerce (Ministry of Economy)"
    :gov.unit/official-url "https://www.argentina.gob.ar/economia/industria-y-comercio/secretaria-de-industria-y-comercio"
    :gov.unit/wikidata "Q62476800"
    :gov.unit/cofog ["04.1"]
@@ -64,6 +64,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Antimonopoly Regulation and Trade of the Republic of Belarus"
+   :gov.unit/name-local "Министерство антимонопольного регулирования и торговли Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo antimonopolnogo regulirovaniya i torgovli"
    :gov.unit/official-url "http://mart.gov.by/"
    :gov.unit/wikidata "Q6517849"
    :gov.unit/cofog ["04.1"]
@@ -96,6 +98,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Commerce of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国商务部"
+   :gov.unit/name-romanized "Shāngwù Bù"
    :gov.unit/official-url "http://www.mofcom.gov.cn/"
    :gov.unit/wikidata "Q1064994"
    :gov.unit/cofog ["04.1"]
@@ -207,7 +211,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "fra"
-   :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-en "Ministry of the Economy, Finance and Industrial and Digital Sovereignty"
    :gov.unit/official-url "https://www.economie.gouv.fr/"
    :gov.unit/wikidata "Q13638290"
    :gov.unit/cofog ["04.1"]
@@ -239,7 +243,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
-   :gov.unit/name-en "Ministry for Trade (Greece)"
+   :gov.unit/name-en "Ministry of Development (Greece)"
+   :gov.unit/name-local "Υπουργείο Ανάπτυξης"
+   :gov.unit/name-romanized "Ypourgeio Anaptyxis"
    :gov.unit/official-url "https://www.mindev.gov.gr/?lang=en"
    :gov.unit/wikidata "Q6866586"
    :gov.unit/cofog ["04.1"]
@@ -271,7 +277,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
-   :gov.unit/name-en "Ministry of Commerce of Iran"
+   :gov.unit/name-en "Ministry of Industry, Mine and Trade"
+   :gov.unit/name-local "وزارت صنعت، معدن و تجارت"
+   :gov.unit/name-romanized "Vezārat-e Sanʿat, Maʿdan va Tejārat"
    :gov.unit/official-url "https://en.mimt.gov.ir/"
    :gov.unit/wikidata "Q1574903"
    :gov.unit/cofog ["04.1"]
@@ -288,6 +296,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "ក្រសួងពាណិជ្ជកម្ម"
+   :gov.unit/name-romanized "Krasuong Peanichakam"
    :gov.unit/official-url "https://www.moc.gov.kh/"
    :gov.unit/wikidata "Q6866671"
    :gov.unit/cofog ["04.1"]
@@ -304,6 +314,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Commerce and Industry"
+   :gov.unit/name-local "وزارة التجارة والصناعة"
+   :gov.unit/name-romanized "Wizarat al-Tijara wa-al-Sinaʿa"
    :gov.unit/official-url "http://www.moci.gov.kw"
    :gov.unit/wikidata "Q17068462"
    :gov.unit/cofog ["04.1"]
@@ -320,6 +332,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/name-local "ກະຊວງອຸດສາຫະກຳ ແລະ ການຄ້າ"
+   :gov.unit/name-romanized "Kasuang Udsahakam lae Kankha"
    :gov.unit/official-url "https://www.moic.gov.la/"
    :gov.unit/wikidata "Q19695530"
    :gov.unit/cofog ["04.1"]
@@ -352,6 +366,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Industry and Commerce"
+   :gov.unit/name-local "වෙළෙඳ, වාණිජ හා ආහාර සුරක්ෂිතතා අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Velenda, Vanija ha Ahara Surakshitata Amathyanshaya"
    :gov.unit/official-url "https://www.trade.gov.lk/"
    :gov.unit/wikidata "Q20987435"
    :gov.unit/cofog ["04.1"]
@@ -383,7 +399,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of International Trade and Industry"
+   :gov.unit/name-en "Ministry of Investment, Trade and Industry (MITI)"
    :gov.unit/official-url "https://www.miti.gov.my/"
    :gov.unit/wikidata "Q14933204"
    :gov.unit/cofog ["04.1"]
@@ -416,6 +432,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Industry, Commerce and Supplies"
+   :gov.unit/name-local "उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय"
+   :gov.unit/name-romanized "Udyog, Vanijya tatha Apurti Mantralaya"
    :gov.unit/official-url "https://moics.gov.np/"
    :gov.unit/wikidata "Q19694901"
    :gov.unit/cofog ["04.1"]
@@ -432,6 +450,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "وزارتِ تجارت"
+   :gov.unit/name-romanized "Wizārat-e Tijārat"
    :gov.unit/official-url "https://www.commerce.gov.pk"
    :gov.unit/wikidata "Q6866669"
    :gov.unit/cofog ["04.1"]
@@ -512,6 +532,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Business and Trade of Qatar"
+   :gov.unit/name-local "وزارة التجارة والصناعة"
+   :gov.unit/name-romanized "Wizarat at-Tijarah wa-s-Sinaʿah"
    :gov.unit/official-url "https://www.moci.gov.qa/"
    :gov.unit/wikidata "Q96393333"
    :gov.unit/cofog ["04.1"]
@@ -528,6 +550,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Industry and Trade"
+   :gov.unit/name-local "Министерство промышленности и торговли Российской Федерации"
+   :gov.unit/name-romanized "Minpromtorg"
    :gov.unit/official-url "https://minpromtorg.gov.ru"
    :gov.unit/wikidata "Q2028312"
    :gov.unit/cofog ["04.1"]
@@ -544,6 +568,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "وزارة التجارة"
+   :gov.unit/name-romanized "Wizarat at-Tijara"
    :gov.unit/official-url "https://mc.gov.sa"
    :gov.unit/wikidata "Q12250941"
    :gov.unit/cofog ["04.1"]
@@ -592,6 +618,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Trade, Tourism and Telecommunications of the Republic of Serbia"
+   :gov.unit/name-local "Министарство унутрашње и спољне трговине"
+   :gov.unit/name-romanized "Ministarstvo unutrašnje i spoljne trgovine"
    :gov.unit/official-url "http://mtt.gov.rs"
    :gov.unit/wikidata "Q16664654"
    :gov.unit/cofog ["04.1"]
@@ -608,6 +636,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Economy and Trade (Syria)"
+   :gov.unit/name-local "وزارة الاقتصاد والتجارة الخارجية"
+   :gov.unit/name-romanized "Wizārat al-Iqtiṣād wa-l-Tijāra al-Khārijiyya"
    :gov.unit/official-url "http://syrecon.gov.sy/"
    :gov.unit/wikidata "Q4294831"
    :gov.unit/cofog ["04.1"]
@@ -624,6 +654,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "กระทรวงพาณิชย์"
+   :gov.unit/name-romanized "Krasuang Phanit"
    :gov.unit/official-url "http://www.moc.go.th/"
    :gov.unit/wikidata "Q4921977"
    :gov.unit/cofog ["04.1"]
@@ -640,6 +672,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Commerce"
+   :gov.unit/name-local "وزارة التجارة وتنمية الصادرات"
+   :gov.unit/name-romanized "Wizārat at-Tijāra wa-Tanmiyat aṣ-Ṣādirāt"
    :gov.unit/official-url "https://commerce.gov.tn/"
    :gov.unit/wikidata "Q3315426"
    :gov.unit/cofog ["04.1"]

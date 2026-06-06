@@ -1588,6 +1588,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Paul"
+   :gov.unit/official-url "https://www.cmpaul.cv/"
    :gov.unit/wikidata "Q1475374"
    :gov.unit/external-code ["iso3166-2:CV-PA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1600,6 +1601,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Porto Novo"
+   :gov.unit/official-url "https://cmportonovo.cv/"
    :gov.unit/wikidata "Q1552897"
    :gov.unit/external-code ["iso3166-2:CV-PN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1701,6 +1703,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "São Miguel"
+   :gov.unit/official-url "https://www.cmsm.cv/"
    :gov.unit/wikidata "Q494874"
    :gov.unit/external-code ["iso3166-2:CV-SM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1725,6 +1728,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Santa Catarina"
+   :gov.unit/official-url "https://www.cmscst.cv/"
    :gov.unit/wikidata "Q494882"
    :gov.unit/external-code ["iso3166-2:CV-CA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1750,6 +1754,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Santa Cruz"
+   :gov.unit/official-url "https://www.cmscz.cv/"
    :gov.unit/wikidata "Q497472"
    :gov.unit/external-code ["iso3166-2:CV-CR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1762,6 +1767,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "São Domingos"
+   :gov.unit/official-url "https://cmsd.cv/"
    :gov.unit/wikidata "Q499009"
    :gov.unit/external-code ["iso3166-2:CV-SD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1774,6 +1780,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Tarrafal"
+   :gov.unit/official-url "https://www.cmt.cv/"
    :gov.unit/wikidata "Q499598"
    :gov.unit/external-code ["iso3166-2:CV-TA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1786,6 +1793,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Ribeira Grande de Santiago"
+   :gov.unit/official-url "https://cmrgs.cv/"
    :gov.unit/wikidata "Q499620"
    :gov.unit/external-code ["iso3166-2:CV-RS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1837,6 +1845,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "cpv"
    :gov.unit/name-en "Ribeira Brava Municipality"
+   :gov.unit/official-url "https://www.cmrb.cv/"
    :gov.unit/wikidata "Q747221"
    :gov.unit/external-code ["iso3166-2:CV-RB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1920,6 +1929,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Algiers Province"
+   :gov.unit/name-local "ولاية الجزائر"
+   :gov.unit/name-romanized "Wilayat al-Jazair"
+   :gov.unit/official-url "https://www.wilaya-alger.dz/"
    :gov.unit/wikidata "Q141026"
    :gov.unit/external-code ["iso3166-2:DZ-16"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1932,6 +1944,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Aïn Defla Province"
+   :gov.unit/name-local "ولاية عين الدفلى"
+   :gov.unit/name-romanized "Wilayat Ayn al-Dafla"
+   :gov.unit/official-url "https://www.wilaya-aindefla.dz/"
    :gov.unit/wikidata "Q168953"
    :gov.unit/external-code ["iso3166-2:DZ-44"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1944,6 +1959,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ghardaïa Province"
+   :gov.unit/name-local "ولاية غرداية"
+   :gov.unit/name-romanized "Wilayat Ghardaya"
+   :gov.unit/official-url "http://wilayadeghardaia.dz/portal/"
    :gov.unit/wikidata "Q17601"
    :gov.unit/external-code ["iso3166-2:DZ-47"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1956,6 +1974,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Adrar Province"
+   :gov.unit/name-local "ولاية أدرار"
+   :gov.unit/name-romanized "Wilayat Adrar"
+   :gov.unit/official-url "https://www.wilaya-adrar.dz/"
    :gov.unit/wikidata "Q188166"
    :gov.unit/external-code ["iso3166-2:DZ-01"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1968,6 +1989,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Annaba Province"
+   :gov.unit/name-local "ولاية عنابة"
+   :gov.unit/name-romanized "Wilayat Annaba"
    :gov.unit/wikidata "Q213944"
    :gov.unit/external-code ["iso3166-2:DZ-23"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1980,6 +2003,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Khenchela Province"
+   :gov.unit/name-local "ولاية خنشلة"
+   :gov.unit/name-romanized "Wilayat Khanshala"
+   :gov.unit/official-url "https://wilaya-khenchela.dz/"
    :gov.unit/wikidata "Q213950"
    :gov.unit/external-code ["iso3166-2:DZ-40"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1992,6 +2018,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Batna Province"
+   :gov.unit/name-local "ولاية باتنة"
+   :gov.unit/name-romanized "Wilayat Batna"
    :gov.unit/official-url "http://www.wilaya-batna.gov.dz/"
    :gov.unit/wikidata "Q215452"
    :gov.unit/external-code ["iso3166-2:DZ-05"]
@@ -2005,6 +2033,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Béchar Province"
+   :gov.unit/name-local "ولاية بشار"
+   :gov.unit/name-romanized "Wilayat Bashshar"
+   :gov.unit/official-url "https://www.wilaya-bechar.gov.dz/"
    :gov.unit/wikidata "Q215467"
    :gov.unit/external-code ["iso3166-2:DZ-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2017,6 +2048,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Beni Abbes Province"
+   :gov.unit/name-local "ولاية بني عباس"
+   :gov.unit/name-romanized "Wilayat Bani Abbas"
+   :gov.unit/official-url "https://www.wilaya-beniabbes.dz/"
    :gov.unit/wikidata "Q21606902"
    :gov.unit/external-code ["iso3166-2:DZ-52"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2029,6 +2063,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Timimoun Province"
+   :gov.unit/name-local "ولاية تيميمون"
+   :gov.unit/name-romanized "Wilayat Timimun"
    :gov.unit/wikidata "Q21606903"
    :gov.unit/external-code ["iso3166-2:DZ-49"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2041,6 +2077,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mostaganem Province"
+   :gov.unit/name-local "ولاية مستغانم"
+   :gov.unit/name-romanized "Wilayat Mustaghanam"
+   :gov.unit/official-url "https://wilaya-mostaganem.dz/"
    :gov.unit/wikidata "Q221445"
    :gov.unit/external-code ["iso3166-2:DZ-27"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2053,6 +2092,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tamanrasset Province"
+   :gov.unit/name-local "ولاية تمنراست"
+   :gov.unit/name-romanized "Wilayat Tamanrasat"
+   :gov.unit/official-url "https://www.wilaya-tamanrasset.dz/"
    :gov.unit/wikidata "Q229467"
    :gov.unit/external-code ["iso3166-2:DZ-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2065,6 +2107,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tindouf Province"
+   :gov.unit/name-local "ولاية تندوف"
+   :gov.unit/name-romanized "Wilayat Tinduf"
+   :gov.unit/official-url "https://wilaya-tindouf.dz/"
    :gov.unit/wikidata "Q231151"
    :gov.unit/external-code ["iso3166-2:DZ-37"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2077,6 +2122,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Oran Province"
+   :gov.unit/name-local "ولاية وهران"
+   :gov.unit/name-romanized "Wilayat Wahran"
+   :gov.unit/official-url "http://wilayaoran.dz/"
    :gov.unit/wikidata "Q231331"
    :gov.unit/external-code ["iso3166-2:DZ-31"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2089,6 +2137,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Laghouat Province"
+   :gov.unit/name-local "ولاية الأغواط"
+   :gov.unit/name-romanized "Wilayat al-Aghwat"
+   :gov.unit/official-url "https://www.wilaya-laghouat.dz/"
    :gov.unit/wikidata "Q231748"
    :gov.unit/external-code ["iso3166-2:DZ-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2101,6 +2152,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Chlef Province"
+   :gov.unit/name-local "ولاية الشلف"
+   :gov.unit/name-romanized "Wilayat ash-Shalaf"
    :gov.unit/wikidata "Q231752"
    :gov.unit/external-code ["iso3166-2:DZ-02"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2113,6 +2166,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Constantine Province"
+   :gov.unit/name-local "ولاية قسنطينة"
+   :gov.unit/name-romanized "Wilayat Qusantina"
+   :gov.unit/official-url "https://wilayaconstantine.dz/"
    :gov.unit/wikidata "Q232043"
    :gov.unit/external-code ["iso3166-2:DZ-25"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2125,6 +2181,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Djelfa Province"
+   :gov.unit/name-local "ولاية الجلفة"
+   :gov.unit/name-romanized "Wilayat al-Jalfa"
+   :gov.unit/official-url "https://wilaya-djelfa.dz/"
    :gov.unit/wikidata "Q233233"
    :gov.unit/external-code ["iso3166-2:DZ-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2137,6 +2196,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tiaret Province"
+   :gov.unit/name-local "ولاية تيارت"
+   :gov.unit/name-romanized "Wilayat Tiyarat"
    :gov.unit/official-url "http://www.wilaya-tiaret.dz/"
    :gov.unit/wikidata "Q233258"
    :gov.unit/external-code ["iso3166-2:DZ-14"]
@@ -2150,6 +2211,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tlemcen Province"
+   :gov.unit/name-local "ولاية تلمسان"
+   :gov.unit/name-romanized "Wilayat Tilimsan"
+   :gov.unit/official-url "https://wilaya-tlemcen.dz/"
    :gov.unit/wikidata "Q233632"
    :gov.unit/external-code ["iso3166-2:DZ-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2162,6 +2226,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Blida Province"
+   :gov.unit/name-local "ولاية البليدة"
+   :gov.unit/name-romanized "Wilayat al-Balida"
    :gov.unit/official-url "http://www.wilayadeblida.dz/"
    :gov.unit/wikidata "Q233637"
    :gov.unit/external-code ["iso3166-2:DZ-09"]
@@ -2175,6 +2241,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Saïda Province"
+   :gov.unit/name-local "ولاية سعيدة"
+   :gov.unit/name-romanized "Wilayat Saida"
+   :gov.unit/official-url "https://wilaya-saida.dz/"
    :gov.unit/wikidata "Q233640"
    :gov.unit/external-code ["iso3166-2:DZ-20"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2187,6 +2256,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tizi Ouzou Province"
+   :gov.unit/name-local "ولاية تيزي وزو"
+   :gov.unit/name-romanized "Wilayat Tizi Wuzu"
+   :gov.unit/official-url "http://www.tizi-ouzou.wilaya.dz/"
    :gov.unit/wikidata "Q233645"
    :gov.unit/external-code ["iso3166-2:DZ-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2199,6 +2271,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Oued Province"
+   :gov.unit/name-local "ولاية الوادي"
+   :gov.unit/name-romanized "Wilayat al-Wadi"
    :gov.unit/official-url "https://www.wilaya-eloued.dz/"
    :gov.unit/wikidata "Q233651"
    :gov.unit/external-code ["iso3166-2:DZ-39"]
@@ -2212,6 +2286,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bouira Province"
+   :gov.unit/name-local "ولاية البويرة"
+   :gov.unit/name-romanized "Wilayat al-Buwayra"
+   :gov.unit/official-url "http://www.wilaya-bouira.dz/"
    :gov.unit/wikidata "Q233655"
    :gov.unit/external-code ["iso3166-2:DZ-10"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2224,6 +2301,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Illizi Province"
+   :gov.unit/name-local "ولاية إليزي"
+   :gov.unit/name-romanized "Wilayat Ilizi"
    :gov.unit/wikidata "Q233659"
    :gov.unit/external-code ["iso3166-2:DZ-33"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2236,6 +2315,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Béjaïa Province"
+   :gov.unit/name-local "ولاية بجاية"
+   :gov.unit/name-romanized "Wilayat Bijaya"
+   :gov.unit/official-url "https://wilaya-bejaia.dz/"
    :gov.unit/wikidata "Q233665"
    :gov.unit/external-code ["iso3166-2:DZ-06"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2248,6 +2330,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Aïn Témouchent Province"
+   :gov.unit/name-local "ولاية عين تموشنت"
+   :gov.unit/name-romanized "Wilayat Ayn Timushant"
    :gov.unit/official-url "http://www.wilaya-aintemouchent.dz/"
    :gov.unit/wikidata "Q233670"
    :gov.unit/external-code ["iso3166-2:DZ-46"]
@@ -2261,6 +2345,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Naama Province"
+   :gov.unit/name-local "ولاية النعامة"
+   :gov.unit/name-romanized "Wilayat al-Naama"
+   :gov.unit/official-url "https://www.wilaya-naama.dz/"
    :gov.unit/wikidata "Q233675"
    :gov.unit/external-code ["iso3166-2:DZ-45"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2273,6 +2360,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Skikda Province"
+   :gov.unit/name-local "ولاية سكيكدة"
+   :gov.unit/name-romanized "Wilayat Skikda"
+   :gov.unit/official-url "https://wilayadeskikda-dz.com/"
    :gov.unit/wikidata "Q234227"
    :gov.unit/external-code ["iso3166-2:DZ-21"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2285,6 +2375,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Bayadh Province"
+   :gov.unit/name-local "ولاية البيض"
+   :gov.unit/name-romanized "Wilayat al-Bayd"
+   :gov.unit/official-url "https://www.wilaya-elbayadh.gov.dz/"
    :gov.unit/wikidata "Q235703"
    :gov.unit/external-code ["iso3166-2:DZ-32"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2297,6 +2390,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Oum El Bouaghi Province"
+   :gov.unit/name-local "ولاية أم البواقي"
+   :gov.unit/name-romanized "Wilayat Umm al-Bawaqi"
+   :gov.unit/official-url "https://wilaya-oeb.dz/"
    :gov.unit/wikidata "Q235705"
    :gov.unit/external-code ["iso3166-2:DZ-04"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2309,6 +2405,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ouargla Province"
+   :gov.unit/name-local "ولاية ورقلة"
+   :gov.unit/name-romanized "Wilayat Warqala"
+   :gov.unit/official-url "http://wilaya-ouargla.dz/"
    :gov.unit/wikidata "Q235709"
    :gov.unit/external-code ["iso3166-2:DZ-30"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2321,6 +2420,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Sidi Bel Abbès Province"
+   :gov.unit/name-local "ولاية سيدي بلعباس"
+   :gov.unit/name-romanized "Wilayat Sidi Bal Abbas"
+   :gov.unit/official-url "https://wilaya-sidibelabbes.dz/"
    :gov.unit/wikidata "Q235714"
    :gov.unit/external-code ["iso3166-2:DZ-22"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2333,6 +2435,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Jijel Province"
+   :gov.unit/name-local "ولاية جيجل"
+   :gov.unit/name-romanized "Wilayat Jijil"
+   :gov.unit/official-url "http://wilaya-jijel.dz/"
    :gov.unit/wikidata "Q235718"
    :gov.unit/external-code ["iso3166-2:DZ-18"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2345,6 +2450,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mila Province"
+   :gov.unit/name-local "ولاية ميلة"
+   :gov.unit/name-romanized "Wilayat Mila"
+   :gov.unit/official-url "https://www.wilaya-mila.dz/"
    :gov.unit/wikidata "Q235723"
    :gov.unit/external-code ["iso3166-2:DZ-43"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2357,6 +2465,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Guelma Province"
+   :gov.unit/name-local "ولاية قالمة"
+   :gov.unit/name-romanized "Wilayat Qalma"
+   :gov.unit/official-url "https://wilaya-guelma.dz/"
    :gov.unit/wikidata "Q235727"
    :gov.unit/external-code ["iso3166-2:DZ-24"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2369,6 +2480,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tissemsilt Province"
+   :gov.unit/name-local "ولاية تيسمسيلت"
+   :gov.unit/name-romanized "Wilayat Tisimsilt"
+   :gov.unit/official-url "https://www.wilaya-tissemsilt.dz/"
    :gov.unit/wikidata "Q235805"
    :gov.unit/external-code ["iso3166-2:DZ-38"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2381,6 +2495,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Médéa Province"
+   :gov.unit/name-local "ولاية المدية"
+   :gov.unit/name-romanized "Wilayat al-Madiyya"
+   :gov.unit/official-url "http://www.wilayamedea.dz/"
    :gov.unit/wikidata "Q235810"
    :gov.unit/external-code ["iso3166-2:DZ-26"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2393,6 +2510,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tipasa Province"
+   :gov.unit/name-local "ولاية تيبازة"
+   :gov.unit/name-romanized "Wilayat Tibaza"
+   :gov.unit/official-url "https://www.wilaya-tipaza.dz/"
    :gov.unit/wikidata "Q235814"
    :gov.unit/external-code ["iso3166-2:DZ-42"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2405,6 +2525,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Boumerdès Province"
+   :gov.unit/name-local "ولاية بومرداس"
+   :gov.unit/name-romanized "Wilayat Bumardas"
+   :gov.unit/official-url "https://www.wilaya-boumerdes.dz/"
    :gov.unit/wikidata "Q236752"
    :gov.unit/external-code ["iso3166-2:DZ-35"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2417,6 +2540,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Relizane Province"
+   :gov.unit/name-local "ولاية غليزان"
+   :gov.unit/name-romanized "Wilayat Ghulizan"
    :gov.unit/official-url "http://www.wilaya-relizane.dz/"
    :gov.unit/wikidata "Q236758"
    :gov.unit/external-code ["iso3166-2:DZ-48"]
@@ -2430,6 +2555,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Souk Ahras Province"
+   :gov.unit/name-local "ولاية سوق أهراس"
+   :gov.unit/name-romanized "Wilayat Suq Ahras"
+   :gov.unit/official-url "https://www.wilaya-soukahras.dz/"
    :gov.unit/wikidata "Q236772"
    :gov.unit/external-code ["iso3166-2:DZ-41"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2442,6 +2570,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Mascara Province"
+   :gov.unit/name-local "ولاية معسكر"
+   :gov.unit/name-romanized "Wilayat Muaskar"
+   :gov.unit/official-url "https://www.wilayamascara.dz/"
    :gov.unit/wikidata "Q236776"
    :gov.unit/external-code ["iso3166-2:DZ-29"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2454,6 +2585,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Tarf Province"
+   :gov.unit/name-local "ولاية الطارف"
+   :gov.unit/name-romanized "Wilayat at-Tarif"
    :gov.unit/wikidata "Q236788"
    :gov.unit/external-code ["iso3166-2:DZ-36"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2466,6 +2599,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Sétif Province"
+   :gov.unit/name-local "ولاية سطيف"
+   :gov.unit/name-romanized "Wilayat Satif"
+   :gov.unit/official-url "https://www.wilayasetif.dz/"
    :gov.unit/wikidata "Q237164"
    :gov.unit/external-code ["iso3166-2:DZ-19"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2478,6 +2614,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "M'Sila Province"
+   :gov.unit/name-local "ولاية المسيلة"
+   :gov.unit/name-romanized "Wilayat al-Masila"
+   :gov.unit/official-url "https://www.msilawilaya.dz/"
    :gov.unit/wikidata "Q240870"
    :gov.unit/external-code ["iso3166-2:DZ-28"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2490,6 +2629,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bordj Bou Arréridj Province"
+   :gov.unit/name-local "ولاية برج بوعريريج"
+   :gov.unit/name-romanized "Wilayat Burj Bu Arririj"
    :gov.unit/wikidata "Q266411"
    :gov.unit/external-code ["iso3166-2:DZ-34"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2502,6 +2643,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Tébessa Province"
+   :gov.unit/name-local "ولاية تبسة"
+   :gov.unit/name-romanized "Wilayat Tibissa"
+   :gov.unit/official-url "http://wilaya-tebessa.dz/"
    :gov.unit/wikidata "Q267224"
    :gov.unit/external-code ["iso3166-2:DZ-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2514,6 +2658,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Biskra Province"
+   :gov.unit/name-local "ولاية بسكرة"
+   :gov.unit/name-romanized "Wilayat Biskra"
    :gov.unit/official-url "http://wilayabiskra.dz/"
    :gov.unit/wikidata "Q458402"
    :gov.unit/external-code ["iso3166-2:DZ-07"]
@@ -2527,6 +2673,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El Meniaa Province"
+   :gov.unit/name-local "ولاية المنيعة"
+   :gov.unit/name-romanized "Wilayat al-Mania"
+   :gov.unit/official-url "https://wilaya-meniaa.dz/"
    :gov.unit/wikidata "Q76520264"
    :gov.unit/external-code ["iso3166-2:DZ-58"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2539,6 +2688,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bordj Baji Mokhtar Province"
+   :gov.unit/name-local "ولاية برج باجي مختار"
+   :gov.unit/name-romanized "Wilayat Burj Baji Mukhtar"
    :gov.unit/wikidata "Q76592938"
    :gov.unit/external-code ["iso3166-2:DZ-50"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2551,6 +2702,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "In Salah Province"
+   :gov.unit/name-local "ولاية عين صالح"
+   :gov.unit/name-romanized "Wilayat Ayn Salih"
    :gov.unit/wikidata "Q76593022"
    :gov.unit/external-code ["iso3166-2:DZ-53"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2563,6 +2716,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Djanet Province"
+   :gov.unit/name-local "ولاية جانت"
+   :gov.unit/name-romanized "Wilayat Janit"
    :gov.unit/wikidata "Q77101547"
    :gov.unit/external-code ["iso3166-2:DZ-56"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2575,6 +2730,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "In Guezzam Province"
+   :gov.unit/name-local "ولاية عين قزّام"
+   :gov.unit/name-romanized "Wilayat Ayn Qazzam"
    :gov.unit/wikidata "Q77102475"
    :gov.unit/external-code ["iso3166-2:DZ-54"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2587,6 +2744,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "El M'Ghair Province"
+   :gov.unit/name-local "ولاية المغير"
+   :gov.unit/name-romanized "Wilayat al-Mghir"
    :gov.unit/wikidata "Q77103173"
    :gov.unit/external-code ["iso3166-2:DZ-57"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2599,6 +2758,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Touggourt Province"
+   :gov.unit/name-local "ولاية تقرت"
+   :gov.unit/name-romanized "Wilayat Tuqqurt"
+   :gov.unit/official-url "http://ca-touggourt.dz/ar/"
    :gov.unit/wikidata "Q77103880"
    :gov.unit/external-code ["iso3166-2:DZ-55"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2611,6 +2773,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ouled Djellal Province"
+   :gov.unit/name-local "ولاية أولاد جلال"
+   :gov.unit/name-romanized "Wilayat Awlad Jallal"
+   :gov.unit/official-url "https://wilaya-ouleddjellal.dz/"
    :gov.unit/wikidata "Q77105251"
    :gov.unit/external-code ["iso3166-2:DZ-51"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2623,6 +2788,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Aswan Governorate"
+   :gov.unit/name-local "أسوان"
+   :gov.unit/name-romanized "Aswān"
    :gov.unit/official-url "http://aswan.gov.eg/"
    :gov.unit/wikidata "Q29937"
    :gov.unit/external-code ["iso3166-2:EG-ASN"]
@@ -2636,6 +2803,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Alexandria Governorate"
+   :gov.unit/name-local "الإسكندرية"
+   :gov.unit/name-romanized "al-Iskandariyya"
    :gov.unit/official-url "http://www.alexandria.gov.eg"
    :gov.unit/wikidata "Q29943"
    :gov.unit/external-code ["iso3166-2:EG-ALX"]
@@ -2649,6 +2818,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Asyut Governorate"
+   :gov.unit/name-local "أسيوط"
+   :gov.unit/name-romanized "Asyūṭ"
    :gov.unit/official-url "http://www.assiut.gov.eg"
    :gov.unit/wikidata "Q29965"
    :gov.unit/external-code ["iso3166-2:EG-AST"]
@@ -2662,6 +2833,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Beheira Governorate"
+   :gov.unit/name-local "البحيرة"
+   :gov.unit/name-romanized "al-Buḥayra"
+   :gov.unit/official-url "https://behira.gov.eg"
    :gov.unit/wikidata "Q30630"
    :gov.unit/external-code ["iso3166-2:EG-BH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -2674,6 +2848,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Damietta Governorate"
+   :gov.unit/name-local "دمياط"
+   :gov.unit/name-romanized "Dumyāṭ"
    :gov.unit/official-url "http://www.domyat.gov.eg"
    :gov.unit/wikidata "Q30644"
    :gov.unit/external-code ["iso3166-2:EG-DT"]
@@ -2687,6 +2863,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "New Valley Governorate"
+   :gov.unit/name-local "الوادي الجديد"
+   :gov.unit/name-romanized "al-Wadi al-Jadid"
    :gov.unit/official-url "http://www.newvalley.gov.eg"
    :gov.unit/wikidata "Q30650"
    :gov.unit/external-code ["iso3166-2:EG-WAD"]
@@ -2700,6 +2878,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Faiyum Governorate"
+   :gov.unit/name-local "الفيوم"
+   :gov.unit/name-romanized "al-Fayyūm"
    :gov.unit/official-url "http://www.fayoum.gov.eg"
    :gov.unit/wikidata "Q30656"
    :gov.unit/external-code ["iso3166-2:EG-FYM"]
@@ -2713,6 +2893,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "North Sinai Governorate"
+   :gov.unit/name-local "شمال سيناء"
+   :gov.unit/name-romanized "Shamal Sinaʾ"
    :gov.unit/official-url "http://www.northsinai.gov.eg"
    :gov.unit/wikidata "Q30662"
    :gov.unit/external-code ["iso3166-2:EG-SIN"]
@@ -2726,6 +2908,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Sohag Governorate"
+   :gov.unit/name-local "سوهاج"
+   :gov.unit/name-romanized "Suhaj"
    :gov.unit/official-url "http://www.sohag.gov.eg"
    :gov.unit/wikidata "Q30669"
    :gov.unit/external-code ["iso3166-2:EG-SHG"]
@@ -2739,6 +2923,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Minya Governorate"
+   :gov.unit/name-local "المنيا"
+   :gov.unit/name-romanized "al-Minya"
    :gov.unit/official-url "http://www.minia.gov.eg"
    :gov.unit/wikidata "Q30675"
    :gov.unit/external-code ["iso3166-2:EG-MN"]
@@ -2752,6 +2938,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Matruh Governorate"
+   :gov.unit/name-local "مطروح"
+   :gov.unit/name-romanized "Matruh"
    :gov.unit/official-url "http://www.matrouh.gov.eg"
    :gov.unit/wikidata "Q30682"
    :gov.unit/external-code ["iso3166-2:EG-MT"]
@@ -2765,6 +2953,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Beni Suef Governorate"
+   :gov.unit/name-local "بني سويف"
+   :gov.unit/name-romanized "Banī Suwayf"
    :gov.unit/official-url "http://www.benisuef.gov.eg"
    :gov.unit/wikidata "Q30683"
    :gov.unit/external-code ["iso3166-2:EG-BNS"]
@@ -2778,6 +2968,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Monufia Governorate"
+   :gov.unit/name-local "المنوفية"
+   :gov.unit/name-romanized "al-Munufiyya"
    :gov.unit/official-url "http://www.monofeya.gov.eg"
    :gov.unit/wikidata "Q30786"
    :gov.unit/external-code ["iso3166-2:EG-MNF"]
@@ -2791,6 +2983,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Luxor Governorate"
+   :gov.unit/name-local "الأقصر"
+   :gov.unit/name-romanized "al-Uqsur"
    :gov.unit/official-url "http://www.luxor.gov.eg"
    :gov.unit/wikidata "Q30797"
    :gov.unit/external-code ["iso3166-2:EG-LX"]
@@ -2804,6 +2998,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Cairo Governorate"
+   :gov.unit/name-local "القاهرة"
+   :gov.unit/name-romanized "al-Qāhira"
    :gov.unit/official-url "http://www.cairo.gov.eg"
    :gov.unit/wikidata "Q30805"
    :gov.unit/external-code ["iso3166-2:EG-C"]
@@ -2817,6 +3013,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "South Sinai Governorate"
+   :gov.unit/name-local "جنوب سيناء"
+   :gov.unit/name-romanized "Janūb Sīnāʾ"
    :gov.unit/official-url "http://www.southsinai.gov.eg"
    :gov.unit/wikidata "Q30815"
    :gov.unit/external-code ["iso3166-2:EG-JS"]
@@ -2830,6 +3028,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Red Sea Governorate"
+   :gov.unit/name-local "البحر الأحمر"
+   :gov.unit/name-romanized "al-Baḥr al-Aḥmar"
    :gov.unit/official-url "http://www.redsea.gov.eg"
    :gov.unit/wikidata "Q30831"
    :gov.unit/external-code ["iso3166-2:EG-BA"]
@@ -2843,6 +3043,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Giza Governorate"
+   :gov.unit/name-local "الجيزة"
+   :gov.unit/name-romanized "al-Jīza"
    :gov.unit/official-url "http://www.giza.gov.eg"
    :gov.unit/wikidata "Q30832"
    :gov.unit/external-code ["iso3166-2:EG-GZ"]
@@ -2856,6 +3058,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Gharbia Governorate"
+   :gov.unit/name-local "الغربية"
+   :gov.unit/name-romanized "al-Gharbiyya"
    :gov.unit/official-url "http://gharbeia.gov.eg/Pages/default.aspx"
    :gov.unit/wikidata "Q30835"
    :gov.unit/external-code ["iso3166-2:EG-GH"]
@@ -2869,6 +3073,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Kafr el-Sheikh Governorate"
+   :gov.unit/name-local "كفر الشيخ"
+   :gov.unit/name-romanized "Kafr ash-Shaykh"
    :gov.unit/official-url "http://www.kafrelsheikh.gov.eg"
    :gov.unit/wikidata "Q30946"
    :gov.unit/external-code ["iso3166-2:EG-KFS"]
@@ -2882,6 +3088,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Qena Governorate"
+   :gov.unit/name-local "قنا"
+   :gov.unit/name-romanized "Qina"
    :gov.unit/official-url "http://www.qena.gov.eg"
    :gov.unit/wikidata "Q31065"
    :gov.unit/external-code ["iso3166-2:EG-KN"]
@@ -2895,6 +3103,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ismailia Governorate"
+   :gov.unit/name-local "الإسماعيلية"
+   :gov.unit/name-romanized "al-Ismāʿīliyya"
    :gov.unit/official-url "http://www.ismailia.gov.eg"
    :gov.unit/wikidata "Q31067"
    :gov.unit/external-code ["iso3166-2:EG-IS"]
@@ -2908,6 +3118,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Dakahlia Governorate"
+   :gov.unit/name-local "الدقهلية"
+   :gov.unit/name-romanized "al-Daqahliyya"
    :gov.unit/official-url "http://www.dakahliya.gov.eg"
    :gov.unit/wikidata "Q31068"
    :gov.unit/external-code ["iso3166-2:EG-DK"]
@@ -2921,6 +3133,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Suez Governorate"
+   :gov.unit/name-local "السويس"
+   :gov.unit/name-romanized "as-Suways"
    :gov.unit/official-url "http://www.suez.gov.eg/"
    :gov.unit/wikidata "Q31070"
    :gov.unit/external-code ["iso3166-2:EG-SUZ"]
@@ -2934,6 +3148,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Sharqia Governorate"
+   :gov.unit/name-local "الشرقية"
+   :gov.unit/name-romanized "ash-Sharqiyya"
    :gov.unit/official-url "http://www.sharkia.gov.eg"
    :gov.unit/wikidata "Q31074"
    :gov.unit/external-code ["iso3166-2:EG-SHR"]
@@ -2947,6 +3163,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Qalyubia Governorate"
+   :gov.unit/name-local "القليوبية"
+   :gov.unit/name-romanized "al-Qalyubiyya"
    :gov.unit/official-url "http://www.qaliobia.gov.eg"
    :gov.unit/wikidata "Q31075"
    :gov.unit/external-code ["iso3166-2:EG-KB"]
@@ -2960,6 +3178,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Port Said Governorate"
+   :gov.unit/name-local "بورسعيد"
+   :gov.unit/name-romanized "Bur Saʿid"
    :gov.unit/official-url "http://www.portsaid.gov.eg"
    :gov.unit/wikidata "Q31079"
    :gov.unit/external-code ["iso3166-2:EG-PTS"]
@@ -3045,6 +3265,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Harari Region"
+   :gov.unit/name-local "ሐረሪ"
+   :gov.unit/name-romanized "Harari"
    :gov.unit/wikidata "Q1033855"
    :gov.unit/external-code ["iso3166-2:ET-HA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3057,6 +3279,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Sidama Region"
+   :gov.unit/name-local "ሲዳማ"
+   :gov.unit/name-romanized "Sidama"
    :gov.unit/wikidata "Q1070673"
    :gov.unit/external-code ["iso3166-2:ET-SI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3069,6 +3293,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Southwest Ethiopia Regional State"
+   :gov.unit/name-local "የደቡብ ምዕራብ ኢትዮጵያ ክልሎች ክልል"
+   :gov.unit/name-romanized "Ye-Debub Mi'irab Ityop'iya Kililoch Kilil"
    :gov.unit/wikidata "Q109788993"
    :gov.unit/external-code ["iso3166-2:ET-SW"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3081,6 +3307,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "South Ethiopia Regional State"
+   :gov.unit/name-local "ደቡብ ኢትዮጵያ"
+   :gov.unit/name-romanized "Debub Ityop'iya"
    :gov.unit/official-url "https://www.southethiopiarspo.gov.et/"
    :gov.unit/wikidata "Q122148951"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3093,6 +3321,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Central Ethiopia Regional State"
+   :gov.unit/name-local "ማዕከላዊ ኢትዮጵያ"
+   :gov.unit/name-romanized "Ma'ekelawi Ityop'iya"
    :gov.unit/wikidata "Q122415622"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q122415622" :gov.unit/last-verified "2026-06-03"
@@ -3104,6 +3334,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Dire Dawa"
+   :gov.unit/name-local "ድሬዳዋ"
+   :gov.unit/name-romanized "Dire Dawa"
    :gov.unit/official-url "https://web.archive.org/web/20120325191237/http://www.dire-dawa.gov.et:80/site/index.php"
    :gov.unit/wikidata "Q193486"
    :gov.unit/external-code ["iso3166-2:ET-DD"]
@@ -3117,6 +3349,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Afar Region"
+   :gov.unit/name-local "አፋር"
+   :gov.unit/name-romanized "Afar"
    :gov.unit/wikidata "Q193494"
    :gov.unit/external-code ["iso3166-2:ET-AF"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3129,6 +3363,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Tigray Region"
+   :gov.unit/name-local "ትግራይ"
+   :gov.unit/name-romanized "Tigray"
    :gov.unit/official-url "https://www.tig-gpr.org"
    :gov.unit/wikidata "Q200127"
    :gov.unit/external-code ["iso3166-2:ET-TI"]
@@ -3142,6 +3378,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Oromia Region"
+   :gov.unit/name-local "ኦሮሚያ"
+   :gov.unit/name-romanized "Oromiya"
    :gov.unit/wikidata "Q202107"
    :gov.unit/external-code ["iso3166-2:ET-OR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3154,6 +3392,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Somali Region"
+   :gov.unit/name-local "ሶማሌ"
+   :gov.unit/name-romanized "Somale"
    :gov.unit/official-url "http://www.somalistate.com/"
    :gov.unit/wikidata "Q202800"
    :gov.unit/external-code ["iso3166-2:ET-SO"]
@@ -3167,6 +3407,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Amhara Region"
+   :gov.unit/name-local "አምሐራ"
+   :gov.unit/name-romanized "Amhara"
    :gov.unit/wikidata "Q203009"
    :gov.unit/external-code ["iso3166-2:ET-AM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3179,6 +3421,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Benishangul-Gumuz Region"
+   :gov.unit/name-local "ቤኒሻንጉል-ጉሙዝ"
+   :gov.unit/name-romanized "Benishangul-Gumuz"
    :gov.unit/official-url "http://www.somalistate.com"
    :gov.unit/wikidata "Q207635"
    :gov.unit/external-code ["iso3166-2:ET-BE"]
@@ -3192,6 +3436,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Gambela Region"
+   :gov.unit/name-local "ጋምቤላ"
+   :gov.unit/name-romanized "Gambela"
    :gov.unit/wikidata "Q207638"
    :gov.unit/external-code ["iso3166-2:ET-GA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -3204,6 +3450,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Addis Ababa"
+   :gov.unit/name-local "አዲስ አበባ"
+   :gov.unit/name-romanized "Addis Ababa"
    :gov.unit/official-url "https://cityaddisababa.gov.et/"
    :gov.unit/wikidata "Q3624"
    :gov.unit/external-code ["iso3166-2:ET-AA"]
@@ -4137,68 +4385,28 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q955095" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.lby.adm1.q131323"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q131323"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Misrata"
-   :gov.unit/wikidata "Q131323"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q131323" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.q132409"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q132409"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Nalut"
-   :gov.unit/wikidata "Q132409"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q132409" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.q209393"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q209393"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Ghat"
-   :gov.unit/wikidata "Q209393"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q209393" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.ly-mb"
+{:gov.unit/id "gov.lby.adm1.ly-mb"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:ly-mb"
    :gov.unit/parent "gov.lby"
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Murqub"
+   :gov.unit/name-local "المرقب"
+   :gov.unit/name-romanized "Al Marqab"
    :gov.unit/wikidata "Q209778"
    :gov.unit/external-code ["iso3166-2:LY-MB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q209778" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.lby.adm1.q221503"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q221503"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Zawiya"
-   :gov.unit/wikidata "Q221503"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q221503" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.ly-jg"
+{:gov.unit/id "gov.lby.adm1.ly-jg"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:ly-jg"
    :gov.unit/parent "gov.lby"
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jabal al Gharbi District"
+   :gov.unit/name-local "الجبل الغربي"
+   :gov.unit/name-romanized "Al Jabal al Gharbi"
    :gov.unit/wikidata "Q25632"
    :gov.unit/external-code ["iso3166-2:LY-JG"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4211,6 +4419,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Butnan District"
+   :gov.unit/name-local "البطنان"
+   :gov.unit/name-romanized "Al Butnan"
    :gov.unit/wikidata "Q25931"
    :gov.unit/external-code ["iso3166-2:LY-BU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4223,6 +4433,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Al Wahat District"
+   :gov.unit/name-local "الواحات"
+   :gov.unit/name-romanized "Al Wahat"
    :gov.unit/official-url "http://www.alwahatly.net"
    :gov.unit/wikidata "Q26000"
    :gov.unit/external-code ["iso3166-2:LY-WA"]
@@ -4236,6 +4448,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Marj District"
+   :gov.unit/name-local "المرج"
+   :gov.unit/name-romanized "Al Marj"
    :gov.unit/wikidata "Q26023"
    :gov.unit/external-code ["iso3166-2:LY-MJ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4248,6 +4462,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Derna District"
+   :gov.unit/name-local "درنة"
+   :gov.unit/name-romanized "Darnah"
    :gov.unit/wikidata "Q26124"
    :gov.unit/external-code ["iso3166-2:LY-DR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4260,6 +4476,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Sabha District"
+   :gov.unit/name-local "سبها"
+   :gov.unit/name-romanized "Sabha"
    :gov.unit/wikidata "Q26132"
    :gov.unit/external-code ["iso3166-2:LY-SB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4272,6 +4490,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Zawiya District"
+   :gov.unit/name-local "الزاوية"
+   :gov.unit/name-romanized "Az Zawiyah"
    :gov.unit/wikidata "Q26153"
    :gov.unit/external-code ["iso3166-2:LY-ZA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4284,6 +4504,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Nuqat al Khams District"
+   :gov.unit/name-local "النقاط الخمس"
+   :gov.unit/name-romanized "An Nuqat al Khams"
    :gov.unit/wikidata "Q26161"
    :gov.unit/external-code ["iso3166-2:LY-NQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4296,6 +4518,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Sirte District"
+   :gov.unit/name-local "سرت"
+   :gov.unit/name-romanized "Surt"
    :gov.unit/wikidata "Q26417"
    :gov.unit/external-code ["iso3166-2:LY-SR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4308,6 +4532,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Nalut District"
+   :gov.unit/name-local "نالوت"
+   :gov.unit/name-romanized "Nalut"
    :gov.unit/wikidata "Q27659"
    :gov.unit/external-code ["iso3166-2:LY-NL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4320,6 +4546,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Tripoli District"
+   :gov.unit/name-local "طرابلس"
+   :gov.unit/name-romanized "Tarabulus"
    :gov.unit/wikidata "Q32837"
    :gov.unit/external-code ["iso3166-2:LY-TB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4332,6 +4560,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jabal al Akhdar"
+   :gov.unit/name-local "الجبل الأخضر"
+   :gov.unit/name-romanized "Al Jabal al Akhdar"
    :gov.unit/wikidata "Q32841"
    :gov.unit/external-code ["iso3166-2:LY-JA"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4344,6 +4574,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Misrata District"
+   :gov.unit/name-local "مصراتة"
+   :gov.unit/name-romanized "Misratah"
    :gov.unit/wikidata "Q32845"
    :gov.unit/external-code ["iso3166-2:LY-MI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4356,30 +4588,22 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jafara"
+   :gov.unit/name-local "الجفارة"
+   :gov.unit/name-romanized "Al Jafarah"
    :gov.unit/wikidata "Q329060"
    :gov.unit/external-code ["iso3166-2:LY-JI"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q329060" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.lby.adm1.q3579"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:q3579"
-   :gov.unit/parent "gov.lby"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "lby"
-   :gov.unit/name-en "Tripoli"
-   :gov.unit/official-url "http://www.tripoli.info"
-   :gov.unit/wikidata "Q3579"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.tripoli.info" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.lby.adm1.ly-ba"
+{:gov.unit/id "gov.lby.adm1.ly-ba"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:lby:adm1:ly-ba"
    :gov.unit/parent "gov.lby"
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Benghazi"
+   :gov.unit/name-local "بنغازي"
+   :gov.unit/name-romanized "Banghazi"
    :gov.unit/official-url "http://benghazimun.ly/"
    :gov.unit/wikidata "Q40816"
    :gov.unit/external-code ["iso3166-2:LY-BA"]
@@ -4393,6 +4617,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Kufra District"
+   :gov.unit/name-local "الكفرة"
+   :gov.unit/name-romanized "Al Kufrah"
    :gov.unit/wikidata "Q48200"
    :gov.unit/external-code ["iso3166-2:LY-KF"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4405,6 +4631,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Wadi al Shatii District"
+   :gov.unit/name-local "وادي الشاطئ"
+   :gov.unit/name-romanized "Wadi ash Shati"
    :gov.unit/wikidata "Q48232"
    :gov.unit/external-code ["iso3166-2:LY-WS"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4417,6 +4645,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Wadi al Hayaa District"
+   :gov.unit/name-local "وادي الحياة"
+   :gov.unit/name-romanized "Wadi al Hayat"
    :gov.unit/wikidata "Q48233"
    :gov.unit/external-code ["iso3166-2:LY-WD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4429,6 +4659,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Ghat District"
+   :gov.unit/name-local "غات"
+   :gov.unit/name-romanized "Ghat"
    :gov.unit/wikidata "Q48236"
    :gov.unit/external-code ["iso3166-2:LY-GT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4441,6 +4673,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Murzuq District"
+   :gov.unit/name-local "مرزق"
+   :gov.unit/name-romanized "Murzuq"
    :gov.unit/wikidata "Q48239"
    :gov.unit/external-code ["iso3166-2:LY-MQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4453,6 +4687,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Jufra"
+   :gov.unit/name-local "الجفرة"
+   :gov.unit/name-romanized "Al Jufrah"
    :gov.unit/wikidata "Q48247"
    :gov.unit/external-code ["iso3166-2:LY-JU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -4585,6 +4821,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Casablanca-Settat"
+   :gov.unit/name-local "الدار البيضاء سطات"
+   :gov.unit/name-romanized "Ad-Dar al-Bayda-Settat"
    :gov.unit/official-url "http://www.casablanca.ma/"
    :gov.unit/wikidata "Q19843788"
    :gov.unit/external-code ["iso3166-2:MA-06"]
@@ -4598,6 +4836,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Drâa-Tafilalet"
+   :gov.unit/name-local "درعة تافيلالت"
+   :gov.unit/name-romanized "Dara-Tafilalet"
    :gov.unit/official-url "https://www.draatafilalet.ma/"
    :gov.unit/wikidata "Q19950954"
    :gov.unit/external-code ["iso3166-2:MA-08"]
@@ -4611,6 +4851,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Fès-Meknès"
+   :gov.unit/name-local "فاس مكناس"
+   :gov.unit/name-romanized "Fas-Meknas"
    :gov.unit/official-url "http://www.region-fes-meknes.ma/"
    :gov.unit/wikidata "Q19951027"
    :gov.unit/external-code ["iso3166-2:MA-03"]
@@ -4624,6 +4866,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Guelmim-Oued Noun"
+   :gov.unit/name-local "كلميم واد نون"
+   :gov.unit/name-romanized "Guelmim-Oued Noun"
    :gov.unit/official-url "http://www.guelmiminvest.ma/donnees-generales.php"
    :gov.unit/wikidata "Q19951051"
    :gov.unit/external-code ["iso3166-2:MA-10"]
@@ -4637,6 +4881,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Laâyoune-Sakia El Hamra"
+   :gov.unit/name-local "العيون الساقية الحمراء"
+   :gov.unit/name-romanized "Al Ayoun-Saqia al-Hamra"
    :gov.unit/official-url "http://www.laayouneinvest.ma/source/crilaayoune.asp?codelangue=23&po=2"
    :gov.unit/wikidata "Q19951088"
    :gov.unit/external-code ["iso3166-2:MA-11"]
@@ -4650,6 +4896,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Marrakesh-Safi"
+   :gov.unit/name-local "مراكش آسفي"
+   :gov.unit/name-romanized "Marrakech-Asfi"
    :gov.unit/official-url "https://www.regionmarrakechsafi.com/"
    :gov.unit/wikidata "Q19951125"
    :gov.unit/external-code ["iso3166-2:MA-07"]
@@ -4663,6 +4911,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Rabat-Salé-Kénitra"
+   :gov.unit/name-local "الرباط سلا القنيطرة"
+   :gov.unit/name-romanized "Ar-Ribat-Sala-Al Qunaytira"
    :gov.unit/official-url "http://www.regionrsk.org/fr/"
    :gov.unit/wikidata "Q19951239"
    :gov.unit/external-code ["iso3166-2:MA-04"]
@@ -4676,6 +4926,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Tangier-Tetouan-Al Hoceima"
+   :gov.unit/name-local "طنجة تطوان الحسيمة"
+   :gov.unit/name-romanized "Tanja-Tetouan-Al Hoceima"
    :gov.unit/official-url "http://www.crtta.ma/"
    :gov.unit/wikidata "Q19951300"
    :gov.unit/external-code ["iso3166-2:MA-01"]
@@ -4689,6 +4941,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Béni Mellal-Khénifra"
+   :gov.unit/name-local "بني ملال خنيفرة"
+   :gov.unit/name-romanized "Beni Mellal-Khenifra"
    :gov.unit/official-url "http://www.benimellalkhenifra.ma"
    :gov.unit/wikidata "Q19953016"
    :gov.unit/external-code ["iso3166-2:MA-05"]
@@ -4702,6 +4956,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Souss-Massa"
+   :gov.unit/name-local "سوس ماسة"
+   :gov.unit/name-romanized "Sous-Massa"
    :gov.unit/official-url "https://www.soussmassa.ma/fr"
    :gov.unit/wikidata "Q20652586"
    :gov.unit/external-code ["iso3166-2:MA-09"]
@@ -4715,6 +4971,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Dakhla-Oued Ed-Dahab"
+   :gov.unit/name-local "الداخلة وادي الذهب"
+   :gov.unit/name-romanized "Ad-Dakhla-Oued Ed-Dahab"
    :gov.unit/official-url "https://www.hcp.ma/region-eddakhla/"
    :gov.unit/wikidata "Q21235104"
    :gov.unit/external-code ["iso3166-2:MA-12"]
@@ -4728,6 +4986,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Oriental"
+   :gov.unit/name-local "الشرق"
+   :gov.unit/name-romanized "Ash-Sharq"
    :gov.unit/official-url "http://www.oriental.ma/"
    :gov.unit/wikidata "Q23048167"
    :gov.unit/external-code ["iso3166-2:MA-02"]
@@ -6014,6 +6274,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "Kano State"
+   :gov.unit/official-url "https://kanostate.gov.ng"
    :gov.unit/wikidata "Q682571"
    :gov.unit/external-code ["iso3166-2:NG-KN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7654,6 +7915,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ariana Governorate"
+   :gov.unit/name-local "ولاية أريانة"
+   :gov.unit/name-romanized "Wilayat Aryanah"
    :gov.unit/wikidata "Q233116"
    :gov.unit/external-code ["iso3166-2:TN-12"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7666,6 +7929,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ben Arous Governorate"
+   :gov.unit/name-local "ولاية بن عروس"
+   :gov.unit/name-romanized "Wilayat Bin Arus"
+   :gov.unit/official-url "https://www.gouvernorat-benarous.gov.tn/"
    :gov.unit/wikidata "Q238555"
    :gov.unit/external-code ["iso3166-2:TN-13"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7678,6 +7944,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Bizerte Governorate"
+   :gov.unit/name-local "ولاية بنزرت"
+   :gov.unit/name-romanized "Wilayat Banzart"
    :gov.unit/official-url "http://www.gouvernorat-bizerte.gov.tn/"
    :gov.unit/wikidata "Q241129"
    :gov.unit/external-code ["iso3166-2:TN-23"]
@@ -7691,6 +7959,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Sfax Governorate"
+   :gov.unit/name-local "ولاية صفاقس"
+   :gov.unit/name-romanized "Wilayat Safaqis"
    :gov.unit/official-url "http://www.gouvernorat-sfax.gov.tn/"
    :gov.unit/wikidata "Q241145"
    :gov.unit/external-code ["iso3166-2:TN-61"]
@@ -7704,6 +7974,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Gabès Governorate"
+   :gov.unit/name-local "ولاية قابس"
+   :gov.unit/name-romanized "Wilayat Qabis"
    :gov.unit/official-url "https://www.internationalcitiesofpeace.org/cities-listing/gabes-gabes-governorate-tunisia/"
    :gov.unit/wikidata "Q242263"
    :gov.unit/external-code ["iso3166-2:TN-81"]
@@ -7717,6 +7989,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Gafsa Governorate"
+   :gov.unit/name-local "ولاية قفصة"
+   :gov.unit/name-romanized "Wilayat Qafsa"
    :gov.unit/official-url "http://www.gouvernorat-gafsa.gov.tn/"
    :gov.unit/wikidata "Q269968"
    :gov.unit/external-code ["iso3166-2:TN-71"]
@@ -7730,6 +8004,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Sousse Governorate"
+   :gov.unit/name-local "ولاية سوسة"
+   :gov.unit/name-romanized "Wilayat Susa"
    :gov.unit/official-url "https://www.tripadvisor.co.uk/Tourism-g2629162-Sousse_Governorate-Vacations.html"
    :gov.unit/wikidata "Q276565"
    :gov.unit/external-code ["iso3166-2:TN-51"]
@@ -7743,6 +8019,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kairouan Governorate"
+   :gov.unit/name-local "ولاية القيروان"
+   :gov.unit/name-romanized "Wilayat al-Qayrawan"
    :gov.unit/official-url "https://www.getyourguide.co.uk/kairouan-governorate-l2212/?visitor-id=HKC0F19TSX2EJ272G21OEF6AYMZBDPNZ&locale_autoredirect_optout=true"
    :gov.unit/wikidata "Q276574"
    :gov.unit/external-code ["iso3166-2:TN-41"]
@@ -7756,6 +8034,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Béja Governorate"
+   :gov.unit/name-local "ولاية باجة"
+   :gov.unit/name-romanized "Wilayat Bajah"
+   :gov.unit/official-url "http://www.gouvernorat-beja.gov.tn/"
    :gov.unit/wikidata "Q276576"
    :gov.unit/external-code ["iso3166-2:TN-31"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7768,6 +8049,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Jendouba Governorate"
+   :gov.unit/name-local "ولاية جندوبة"
+   :gov.unit/name-romanized "Wilayat Jundubah"
+   :gov.unit/official-url "http://www.gouvernorat-jendouba.gov.tn/"
    :gov.unit/wikidata "Q276580"
    :gov.unit/external-code ["iso3166-2:TN-32"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7780,6 +8064,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Zaghouan Governorate"
+   :gov.unit/name-local "ولاية زغوان"
+   :gov.unit/name-romanized "Wilayat Zaghwan"
    :gov.unit/official-url "http://www.zaghouan.tn/"
    :gov.unit/wikidata "Q27916"
    :gov.unit/external-code ["iso3166-2:TN-22"]
@@ -7793,6 +8079,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kebili Governorate"
+   :gov.unit/name-local "ولاية قبلي"
+   :gov.unit/name-romanized "Wilayat Qibili"
    :gov.unit/wikidata "Q286063"
    :gov.unit/external-code ["iso3166-2:TN-73"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7805,6 +8093,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Monastir Governorate"
+   :gov.unit/name-local "ولاية المنستير"
+   :gov.unit/name-romanized "Wilayat al-Munastir"
    :gov.unit/official-url "https://g-monastir.tn"
    :gov.unit/wikidata "Q318102"
    :gov.unit/external-code ["iso3166-2:TN-52"]
@@ -7818,6 +8108,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tataouine Governorate"
+   :gov.unit/name-local "ولاية تطاوين"
+   :gov.unit/name-romanized "Wilayat Tatawin"
    :gov.unit/wikidata "Q327045"
    :gov.unit/external-code ["iso3166-2:TN-83"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7830,6 +8122,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Medenine Governorate"
+   :gov.unit/name-local "ولاية مدنين"
+   :gov.unit/name-romanized "Wilayat Madanin"
    :gov.unit/wikidata "Q327087"
    :gov.unit/external-code ["iso3166-2:TN-82"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7842,6 +8136,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Sidi Bouzid Governorate"
+   :gov.unit/name-local "ولاية سيدي بوزيد"
+   :gov.unit/name-romanized "Wilayat Sidi Bu Zayd"
    :gov.unit/wikidata "Q327097"
    :gov.unit/external-code ["iso3166-2:TN-43"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7854,6 +8150,9 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tunis Governorate"
+   :gov.unit/name-local "ولاية تونس"
+   :gov.unit/name-romanized "Wilayat Tunis"
+   :gov.unit/official-url "https://gouvernorat-tunis.gov.tn/"
    :gov.unit/wikidata "Q328109"
    :gov.unit/external-code ["iso3166-2:TN-11"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7866,6 +8165,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Siliana Governorate"
+   :gov.unit/name-local "ولاية سليانة"
+   :gov.unit/name-romanized "Wilayat Silyanah"
    :gov.unit/wikidata "Q328115"
    :gov.unit/external-code ["iso3166-2:TN-34"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7878,6 +8179,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Nabeul Governorate"
+   :gov.unit/name-local "ولاية نابل"
+   :gov.unit/name-romanized "Wilayat Nabul"
    :gov.unit/official-url "http://www.nabeul.gov.tn/"
    :gov.unit/wikidata "Q328145"
    :gov.unit/external-code ["iso3166-2:TN-21"]
@@ -7891,6 +8194,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Mahdia Governorate"
+   :gov.unit/name-local "ولاية المهدية"
+   :gov.unit/name-romanized "Wilayat al-Mahdiyya"
    :gov.unit/official-url "http://www.gouvernorat-mahdia.tn/"
    :gov.unit/wikidata "Q328164"
    :gov.unit/external-code ["iso3166-2:TN-53"]
@@ -7904,6 +8209,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kef Governorate"
+   :gov.unit/name-local "ولاية الكاف"
+   :gov.unit/name-romanized "Wilayat al-Kaf"
    :gov.unit/official-url "https://www.citypopulation.de/en/tunisia/mun/admin/23__kef/"
    :gov.unit/wikidata "Q328199"
    :gov.unit/external-code ["iso3166-2:TN-33"]
@@ -7917,6 +8224,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Kasserine Governorate"
+   :gov.unit/name-local "ولاية القصرين"
+   :gov.unit/name-romanized "Wilayat al-Qasrayn"
    :gov.unit/official-url "https://portail-region-kasserine.tn/"
    :gov.unit/wikidata "Q388047"
    :gov.unit/external-code ["iso3166-2:TN-42"]
@@ -7930,6 +8239,8 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tozeur Governorate"
+   :gov.unit/name-local "ولاية توزر"
+   :gov.unit/name-romanized "Wilayat Tawzar"
    :gov.unit/wikidata "Q388059"
    :gov.unit/external-code ["iso3166-2:TN-72"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -7942,24 +8253,15 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Manouba Governorate"
+   :gov.unit/name-local "ولاية منوبة"
+   :gov.unit/name-romanized "Wilayat Manubah"
    :gov.unit/wikidata "Q734328"
    :gov.unit/external-code ["iso3166-2:TN-14"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q734328" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q110218"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q110218"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mwanza"
-   :gov.unit/wikidata "Q110218"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q110218" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-21"
+{:gov.unit/id "gov.tza.adm1.tz-21"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-21"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -7978,6 +8280,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Unguja North Region"
+   :gov.unit/official-url "https://kaskaziniunguja.go.tz/"
    :gov.unit/wikidata "Q147116"
    :gov.unit/external-code ["iso3166-2:TZ-07"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8003,6 +8306,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Rukwa Region"
+   :gov.unit/official-url "https://rukwa.go.tz/"
    :gov.unit/wikidata "Q153329"
    :gov.unit/external-code ["iso3166-2:TZ-20"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8015,6 +8319,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Tabora Region"
+   :gov.unit/official-url "https://tabora.go.tz/"
    :gov.unit/wikidata "Q153335"
    :gov.unit/external-code ["iso3166-2:TZ-24"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8040,59 +8345,27 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Mjini Magharibi Region"
+   :gov.unit/official-url "https://mjinimagharibi.go.tz/"
    :gov.unit/wikidata "Q180822"
    :gov.unit/external-code ["iso3166-2:TZ-15"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q180822" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q1960"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q1960"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Dar es Salaam"
-   :gov.unit/official-url "http://www.dcc.go.tz/"
-   :gov.unit/wikidata "Q1960"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.dcc.go.tz/" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-03"
+{:gov.unit/id "gov.tza.adm1.tz-03"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-03"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Dodoma Region"
+   :gov.unit/official-url "https://dodoma.go.tz/"
    :gov.unit/wikidata "Q213268"
    :gov.unit/external-code ["iso3166-2:TZ-03"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q213268" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q243319"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q243319"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Morogoro"
-   :gov.unit/wikidata "Q243319"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q243319" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q244509"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q244509"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Kigoma"
-   :gov.unit/wikidata "Q244509"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q244509" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-05"
+{:gov.unit/id "gov.tza.adm1.tz-05"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-05"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8124,6 +8397,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Iringa Region"
+   :gov.unit/official-url "https://iringa.go.tz/"
    :gov.unit/wikidata "Q309352"
    :gov.unit/external-code ["iso3166-2:TZ-04"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8136,6 +8410,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Kilimanjaro Region"
+   :gov.unit/official-url "https://kilimanjaro.go.tz/"
    :gov.unit/wikidata "Q328922"
    :gov.unit/external-code ["iso3166-2:TZ-09"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8181,18 +8456,7 @@
    :gov.unit/provenance "http://www.mwanza.go.tz/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q335548"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q335548"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mbeya"
-   :gov.unit/wikidata "Q335548"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q335548" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-25"
+{:gov.unit/id "gov.tza.adm1.tz-25"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-25"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8289,6 +8553,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Mtwara Region"
+   :gov.unit/official-url "https://mtwara.go.tz/"
    :gov.unit/wikidata "Q499465"
    :gov.unit/external-code ["iso3166-2:TZ-17"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8308,18 +8573,7 @@
    :gov.unit/provenance "https://dsm.go.tz/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q643112"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q643112"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Tabora"
-   :gov.unit/wikidata "Q643112"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q643112" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-11"
+{:gov.unit/id "gov.tza.adm1.tz-11"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-11"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8331,75 +8585,20 @@
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q643120" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q646684"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q646684"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mtwara"
-   :gov.unit/official-url "https://www.mtwara.go.tz"
-   :gov.unit/wikidata "Q646684"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.mtwara.go.tz" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q7296"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q7296"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Mount Kilimanjaro"
-   :gov.unit/wikidata "Q7296"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7296" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q735609"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q735609"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Iringa"
-   :gov.unit/wikidata "Q735609"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q735609" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.tz-08"
+{:gov.unit/id "gov.tza.adm1.tz-08"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:tz-08"
    :gov.unit/parent "gov.tza"
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Kigoma Region"
+   :gov.unit/official-url "https://kigoma.go.tz/"
    :gov.unit/wikidata "Q747943"
    :gov.unit/external-code ["iso3166-2:TZ-08"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q747943" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.tza.adm1.q818765"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q818765"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Shinyanga"
-   :gov.unit/wikidata "Q818765"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q818765" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.tza.adm1.q829886"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:tza:adm1:q829886"
-   :gov.unit/parent "gov.tza"
-   :gov.unit/level :subdivision :gov.unit/branch :local
-   :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Lindi"
-   :gov.unit/wikidata "Q829886"
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q829886" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.uga.adm1.ug-304"
+{:gov.unit/id "gov.uga.adm1.ug-304"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:uga:adm1:ug-304"
    :gov.unit/parent "gov.uga"
    :gov.unit/level :subdivision :gov.unit/branch :local
@@ -8587,6 +8786,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Luuka District"
+   :gov.unit/official-url "https://luuka.go.ug/"
    :gov.unit/wikidata "Q1114977"
    :gov.unit/external-code ["iso3166-2:UG-229"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -8612,6 +8812,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Mukono District"
+   :gov.unit/official-url "https://mukono.go.ug/"
    :gov.unit/wikidata "Q1151066"
    :gov.unit/external-code ["iso3166-2:UG-108"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9508,6 +9709,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Kiryandongo District"
+   :gov.unit/official-url "https://www.kiryandongo.go.ug/"
    :gov.unit/wikidata "Q3539116"
    :gov.unit/external-code ["iso3166-2:UG-421"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9663,6 +9865,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Kakumiro District"
+   :gov.unit/official-url "https://www.kakumiro.go.ug/"
    :gov.unit/wikidata "Q38249480"
    :gov.unit/external-code ["iso3166-2:UG-428"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9779,6 +9982,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Butebo District"
+   :gov.unit/official-url "https://butebo.go.ug/"
    :gov.unit/wikidata "Q44377523"
    :gov.unit/external-code ["iso3166-2:UG-233"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9856,6 +10060,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Maracha District"
+   :gov.unit/official-url "https://maracha.go.ug/"
    :gov.unit/wikidata "Q588927"
    :gov.unit/external-code ["iso3166-2:UG-320"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -9881,6 +10086,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Nabilatuk District"
+   :gov.unit/official-url "https://nabilatuk.go.ug/"
    :gov.unit/wikidata "Q60766910"
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q60766910" :gov.unit/last-verified "2026-06-03"
@@ -9965,6 +10171,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Rwampara district"
+   :gov.unit/official-url "https://www.rwampara.go.ug/"
    :gov.unit/wikidata "Q85798241"
    :gov.unit/external-code ["iso3166-2:UG-435"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -10094,6 +10301,7 @@
    :gov.unit/level :subdivision :gov.unit/branch :local
    :gov.unit/jurisdiction "uga"
    :gov.unit/name-en "Nakasongola District"
+   :gov.unit/official-url "https://nakasongola.go.ug/"
    :gov.unit/wikidata "Q976859"
    :gov.unit/external-code ["iso3166-2:UG-109"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative

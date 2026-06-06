@@ -109,7 +109,7 @@
    :gov.unit/parent "gov.gbr"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "European Centre for Medium-Range Weather Forecasts"
+   :gov.unit/name-en "Met Office"
    :gov.unit/official-url "http://www.ecmwf.int"
    :gov.unit/wikidata "Q1274195"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -182,6 +182,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Hydrometeorological Centre of Russia"
+   :gov.unit/name-local "Гидрометеорологический научно-исследовательский центр Российской Федерации"
+   :gov.unit/name-romanized "Gidromettsentr Rossii"
    :gov.unit/official-url "http://wmc.meteoinfo.ru"
    :gov.unit/wikidata "Q4138141"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -194,6 +196,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israel Meteorological Service"
+   :gov.unit/name-local "השירות המטאורולוגי"
+   :gov.unit/name-romanized "HaSherut HaMeteorologi"
    :gov.unit/official-url "http://www.ims.gov.il/"
    :gov.unit/wikidata "Q4619485"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -217,7 +221,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "National Meteorological Centre"
+   :gov.unit/name-en "China Meteorological Administration"
+   :gov.unit/name-local "中国气象局"
+   :gov.unit/name-romanized "Zhōngguó Qìxiàng Jú"
    :gov.unit/official-url "http://www.nmc.cn/"
    :gov.unit/wikidata "Q6974317"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -230,6 +236,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Pakistan Meteorological Department"
+   :gov.unit/name-local "محکمہ موسمیات پاکستان"
+   :gov.unit/name-romanized "Mehkma-e Mausmiyāt Pākistān"
    :gov.unit/official-url "http://www.pmd.gov.pk/"
    :gov.unit/wikidata "Q7125632"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -242,6 +250,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Republic Hydrometeorological Institute of Serbia"
+   :gov.unit/name-local "Републички хидрометеоролошки завод Србије"
+   :gov.unit/name-romanized "Republički hidrometeorološki zavod Srbije"
    :gov.unit/official-url "https://www.hidmet.gov.rs/"
    :gov.unit/wikidata "Q7314402"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -290,6 +300,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ukrainian Hydrometeorological Center"
+   :gov.unit/name-local "Український гідрометеорологічний центр"
+   :gov.unit/name-romanized "Ukrainskyi hidrometeorolohichnyi tsentr"
    :gov.unit/official-url "https://meteo.gov.ua/en/"
    :gov.unit/wikidata "Q12164119"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -302,6 +314,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Egyptian Meteorological Authority"
+   :gov.unit/name-local "الهيئة العامة للأرصاد الجوية المصرية"
+   :gov.unit/name-romanized "al-Hayʾa al-ʿAmma li-l-Arsad al-Jawwiyya al-Misriyya"
    :gov.unit/official-url "http://ema.gov.eg/wp/"
    :gov.unit/wikidata "Q12194724"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -493,7 +507,7 @@
    :gov.unit/parent "gov.lux"
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "lux"
-   :gov.unit/name-en "Météo Boulaide"
+   :gov.unit/name-en "MeteoLux"
    :gov.unit/official-url "https://meteoboulaide.com/"
    :gov.unit/wikidata "Q105428140"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -506,6 +520,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Meteorological Agency"
+   :gov.unit/name-local "የኢትዮጵያ ሚቲዎሮሎጂ ኢንስቲትዩት"
+   :gov.unit/name-romanized "Ye-Ityopya Mitiworoloji Institiyut"
    :gov.unit/official-url "http://www.ethiomet.gov.et/"
    :gov.unit/wikidata "Q110157289"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -578,6 +594,8 @@
    :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Meteorology Department"
+   :gov.unit/name-local "إدارة الأرصاد الجوية"
+   :gov.unit/name-romanized "Idarat al-Arsad al-Jawwiyyah"
    :gov.unit/official-url "https://qweather.gov.qa/"
    :gov.unit/wikidata "Q119772809"
    :gov.unit/cofog ["04.8"] :gov.unit/status :active :gov.unit/sourcing :authoritative

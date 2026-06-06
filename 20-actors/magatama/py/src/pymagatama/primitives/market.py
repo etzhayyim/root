@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 PRIMARY_DID = "did:web:market.etzhayyim.com"
@@ -87,13 +87,7 @@ def _anchor(issuer_did: str, lxm: str, quantity: float, unit_price: float, verte
 def task_market_list_offer(lane: Any = "", status: Any = "active", limit: Any = 50, offset: Any = 0, **_: Any) -> dict[str, Any]:
     limit_i = max(1, min(int(_num(limit, 50)), 200))
     offset_i = max(0, int(_num(offset, 0)))
-    params: list[Any] = [_str(status) or "active"]
-    where = "WHERE status = %s"
-    lane_s = _lane(lane)
-    if lane_s:
-        where += " AND lane = %s"
-        params.append(lane_s)
-    params.extend([limit_i, offset_i])
+
     client = get_kotoba_client()
     # R0: Multi-predicate WHERE and ORDER BY are applied in Python.
     listings_raw = client.select_where("vertex_market_listing", "status", _str(status) or "active")

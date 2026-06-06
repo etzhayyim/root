@@ -15,6 +15,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Housing and Public Works"
+   :gov.unit/name-local "গৃহায়ন ও গণপূর্ত মন্ত্রণালয়"
+   :gov.unit/name-romanized "Grihayan O Gonopurto Mantranalaya"
    :gov.unit/official-url "https://mohpw.gov.bd/"
    :gov.unit/wikidata "Q24886707"
    :gov.unit/cofog ["06.1"]
@@ -111,6 +113,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Housing and Urban-Rural Development of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国住房和城乡建设部"
+   :gov.unit/name-romanized "Zhùfáng hé Chéngxiāng Jiànshè Bù"
    :gov.unit/official-url "http://www.mohurd.gov.cn/"
    :gov.unit/wikidata "Q11366945"
    :gov.unit/cofog ["06.1"]
@@ -175,6 +179,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Construction, Housing, Municipalities and Public Works of Iraq"
+   :gov.unit/name-local "وزارة الإعمار والإسكان والبلديات والأشغال العامة"
+   :gov.unit/name-romanized "Wizārat al-Iʿmār wa-al-Iskān wa-al-Baladiyyāt wa-al-Ashghāl al-ʿĀmma"
    :gov.unit/official-url "https://moch.gov.iq/"
    :gov.unit/wikidata "Q113285600"
    :gov.unit/cofog ["06.1"]
@@ -271,6 +277,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Public Works and Housing (Syria)"
+   :gov.unit/name-local "وزارة الأشغال العامة والإسكان"
+   :gov.unit/name-romanized "Wizārat al-Ashghāl al-ʿĀmma wa-l-Iskān"
    :gov.unit/official-url "http://mopwh.gov.sy/"
    :gov.unit/wikidata "Q65232496"
    :gov.unit/cofog ["06.1"]
@@ -286,7 +294,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
-   :gov.unit/name-en "Ministry of Housing and Communal Services of Ukraine"
+   :gov.unit/name-en "Ministry for Development of Communities and Territories of Ukraine"
+   :gov.unit/name-local "Міністерство розвитку громад та територій України"
+   :gov.unit/name-romanized "Ministerstvo rozvytku hromad ta terytorii Ukrainy"
    :gov.unit/official-url "http://www.minregionbud.gov.ua"
    :gov.unit/wikidata "Q6619162"
    :gov.unit/cofog ["06.1"]

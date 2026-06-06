@@ -13493,6 +13493,23 @@
       "lastVerified": "2026-06-06"
     },
     {
+      "id": "doc:adr-2606060000-profile-same-origin-auth-cacao",
+      "type": "TechArticle",
+      "title": "ADR-2606060000: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key",
+      "status": "accepted",
+      "topic": "profile-same-origin-auth",
+      "authoritative": true,
+      "authoritativeFor": [
+        "profile-same-origin-auth",
+        "cacao-verify-only-apex-surface"
+      ],
+      "related": [
+        "doc:adr-2605212030-etzhayyim-authz-erc725-root-issuance-design",
+        "doc:adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
+      ],
+      "lastVerified": "2026-06-06"
+    },
+    {
       "id": "doc:adr-2606060900-tasuke-free-cybercrime-victim-support-membrane-r0",
       "type": "TechArticle",
       "title": "ADR-2606060900: 助 (tasuke) — free cybercrime-victim-support membrane R0",
@@ -13529,23 +13546,6 @@
       "related": [
         "doc:2605302357",
         "doc:2606052300"
-      ],
-      "lastVerified": "2026-06-06"
-    },
-    {
-      "id": "doc:adr-2606061200-profile-same-origin-auth-cacao",
-      "type": "TechArticle",
-      "title": "ADR-2606061200: /profile Same-Origin Auth — WebAuthn / passkey / SIWE → CACAO, no auth subdomain, no server key",
-      "status": "proposed",
-      "topic": "profile-same-origin-auth",
-      "authoritative": true,
-      "authoritativeFor": [
-        "profile-same-origin-auth",
-        "cacao-verify-only-apex-surface"
-      ],
-      "related": [
-        "doc:adr-2605212030-etzhayyim-authz-erc725-root-issuance-design",
-        "doc:adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
       ],
       "lastVerified": "2026-06-06"
     },

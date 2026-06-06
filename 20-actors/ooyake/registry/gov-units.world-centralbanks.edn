@@ -27,6 +27,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Da Afghanistan Bank"
+   :gov.unit/name-local "د افغانستان بانک"
+   :gov.unit/name-romanized "Da Afghanistan Bank"
    :gov.unit/official-url "http://dab.gov.af/en"
    :gov.unit/wikidata "Q1156372"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -75,6 +77,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Central Bank of the United Arab Emirates"
+   :gov.unit/name-local "مصرف الإمارات العربية المتحدة المركزي"
+   :gov.unit/name-romanized "Masrif al-Imarat al-Markazi"
    :gov.unit/official-url "https://www.centralbank.ae/en"
    :gov.unit/wikidata "Q2982584"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -87,6 +91,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Central Bank of Armenia"
+   :gov.unit/name-local "Հայաստանի Հանրապետության կենտրոնական բանկ"
+   :gov.unit/name-romanized "Hayastani Hanrapetutyan kentronakan bank"
    :gov.unit/official-url "https://cba.am"
    :gov.unit/wikidata "Q190223"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -171,6 +177,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Bangladesh Bank"
+   :gov.unit/name-local "বাংলাদেশ ব্যাংক"
+   :gov.unit/name-romanized "Bangladesh Bank"
    :gov.unit/official-url "http://www.bangladesh-bank.org"
    :gov.unit/wikidata "Q806532"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -183,6 +191,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Bulgarian National Bank"
+   :gov.unit/name-local "Българска народна банка"
+   :gov.unit/name-romanized "Balgarska narodna banka"
    :gov.unit/official-url "http://www.bnb.bg/"
    :gov.unit/wikidata "Q74687"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -231,6 +241,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Bank of the Republic of Belarus"
+   :gov.unit/name-local "Национальный банк Республики Беларусь"
+   :gov.unit/name-romanized "Natsionalnyy bank Respubliki Belarus"
    :gov.unit/official-url "http://www.nbrb.by/"
    :gov.unit/wikidata "Q431491"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -291,6 +303,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Royal Monetary Authority of Bhutan"
+   :gov.unit/name-local "རྒྱལ་གཞུང་དངུལ་ལས་དབང་འཛིན"
+   :gov.unit/name-romanized "Gyalzhung Ngultreltsel Wangdzin"
    :gov.unit/official-url "http://www.rma.org.bt"
    :gov.unit/wikidata "Q1144649"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -424,6 +438,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Central Bank of Cyprus"
+   :gov.unit/name-local "Κεντρική Τράπεζα της Κύπρου"
+   :gov.unit/name-romanized "Kentriki Trapeza tis Kyprou"
    :gov.unit/official-url "http://www.centralbank.cy"
    :gov.unit/wikidata "Q74693"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -472,6 +488,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Bank of Algeria"
+   :gov.unit/name-local "بنك الجزائر"
+   :gov.unit/name-romanized "Bank al-Jazāʾir"
    :gov.unit/official-url "http://www.bank-of-algeria.dz/"
    :gov.unit/wikidata "Q1774622"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -496,6 +514,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Central Bank of Egypt"
+   :gov.unit/name-local "البنك المركزي المصري"
+   :gov.unit/name-romanized "al-Bank al-Markazi al-Misri"
    :gov.unit/official-url "https://www.cbe.org.eg/"
    :gov.unit/wikidata "Q920699"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -508,6 +528,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eri"
    :gov.unit/name-en "Bank of Eritrea"
+   :gov.unit/name-local "ባንክ ኤርትራ"
+   :gov.unit/name-romanized "Bank Ertra"
    :gov.unit/official-url "http://www.boe.gov.er/"
    :gov.unit/wikidata "Q806163"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -532,6 +554,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "National Bank of Ethiopia"
+   :gov.unit/name-local "የኢትዮጵያ ብሔራዊ ባንክ"
+   :gov.unit/name-romanized "Ye-Ityopiya Biherawi Bank"
    :gov.unit/official-url "https://nbe.gov.et/"
    :gov.unit/wikidata "Q1967889"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -604,6 +628,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Bank of Greece"
+   :gov.unit/name-local "Τράπεζα της Ελλάδος"
+   :gov.unit/name-romanized "Trapeza tis Ellados"
    :gov.unit/official-url "https://www.bankofgreece.gr"
    :gov.unit/wikidata "Q806700"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -700,6 +726,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Central Bank of Iran"
+   :gov.unit/name-local "بانک مرکزی جمهوری اسلامی ایران"
+   :gov.unit/name-romanized "Bānk-e Markazi-ye Irān"
    :gov.unit/official-url "https://cbi.ir"
    :gov.unit/wikidata "Q1261157"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -712,6 +740,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Central Bank of Iraq"
+   :gov.unit/name-local "البنك المركزي العراقي"
+   :gov.unit/name-romanized "al-Bank al-Markazī al-ʿIrāqī"
    :gov.unit/official-url "http://www.cbi.iq"
    :gov.unit/wikidata "Q1778674"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -736,6 +766,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Bank of Israel"
+   :gov.unit/name-local "בנק ישראל"
+   :gov.unit/name-romanized "Bank Yisrael"
    :gov.unit/official-url "https://www.boi.org.il/"
    :gov.unit/wikidata "Q244411"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -760,6 +792,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Central Bank of Jordan"
+   :gov.unit/name-local "البنك المركزي الأردني"
+   :gov.unit/name-romanized "al-Bank al-Markazī al-Urdunī"
    :gov.unit/official-url "http://www.cbj.gov.jo/"
    :gov.unit/wikidata "Q2607421"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -772,6 +806,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "National Bank of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ұлттық Банкі"
+   :gov.unit/name-romanized "Ūlttyq Bankı"
    :gov.unit/official-url "http://www.nationalbank.kz"
    :gov.unit/wikidata "Q2472280"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -796,6 +832,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "National Bank of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Улуттук банкы"
+   :gov.unit/name-romanized "Uluttuk banky"
    :gov.unit/official-url "http://www.nbkr.kg"
    :gov.unit/wikidata "Q3430475"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -808,6 +846,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "National Bank of Cambodia"
+   :gov.unit/name-local "ធនាគារជាតិនៃកម្ពុជា"
+   :gov.unit/name-romanized "Thoneakea Cheat ney Kampuchea"
    :gov.unit/official-url "http://nbc.org.kh"
    :gov.unit/wikidata "Q284843"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -831,6 +871,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Central Bank of Kuwait"
+   :gov.unit/name-local "بنك الكويت المركزي"
+   :gov.unit/name-romanized "Bank al-Kuwait al-Markazi"
    :gov.unit/official-url "http://www.cbk.gov.kw/"
    :gov.unit/wikidata "Q2944396"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -843,6 +885,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Bank of the Lao P.D.R."
+   :gov.unit/name-local "ທະນາຄານ ແຫ່ງ ສປປ ລາວ"
+   :gov.unit/name-romanized "Thanakhan Haeng So Po Po Lao"
    :gov.unit/official-url "http://www.bol.gov.la/"
    :gov.unit/wikidata "Q4077339"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -891,6 +935,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Central Bank of Sri Lanka"
+   :gov.unit/name-local "ශ්‍රී ලංකා මහ බැංකුව"
+   :gov.unit/name-romanized "Sri Lanka Maha Bænkuwa"
    :gov.unit/official-url "https://www.cbsl.gov.lk/"
    :gov.unit/wikidata "Q2640939"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -939,6 +985,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Bank Al-Maghrib"
+   :gov.unit/name-local "بنك المغرب"
+   :gov.unit/name-romanized "Bank al-Maghrib"
    :gov.unit/official-url "https://www.bkam.ma/"
    :gov.unit/wikidata "Q328198"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -987,6 +1035,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Central Bank of Myanmar"
+   :gov.unit/name-local "မြန်မာနိုင်ငံတော်ဗဟိုဘဏ်"
+   :gov.unit/name-romanized "Myanmar Nainngantaw Baho Ban"
    :gov.unit/official-url "https://www.cbm.gov.mm/"
    :gov.unit/wikidata "Q1944374"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1011,6 +1061,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Bank of Mongolia"
+   :gov.unit/name-local "Монголбанк (Монгол Улсын Төв банк)"
+   :gov.unit/name-romanized "Mongolbank (Mongol Ulsyn Töv bank)"
    :gov.unit/official-url "https://www.mongolbank.mn/"
    :gov.unit/wikidata "Q1320131"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1131,6 +1183,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Nepal Rastra Bank"
+   :gov.unit/name-local "नेपाल राष्ट्र बैंक"
+   :gov.unit/name-romanized "Nepal Rastra Bank"
    :gov.unit/official-url "http://www.nrb.org.np/"
    :gov.unit/wikidata "Q1318435"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1167,6 +1221,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "State Bank of Pakistan"
+   :gov.unit/name-local "اسٹیٹ بینک آف پاکستان"
+   :gov.unit/name-romanized "Isteṭ Baink āf Pākistān"
    :gov.unit/official-url "http://www.sbp.org.pk/"
    :gov.unit/wikidata "Q1323248"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1262,6 +1318,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Central Bank"
+   :gov.unit/name-local "مصرف قطر المركزي"
+   :gov.unit/name-romanized "Masraf Qatar al-Markazi"
    :gov.unit/official-url "http://www.qcb.gov.qa"
    :gov.unit/wikidata "Q3365778"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1454,6 +1512,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Central Bank of Syria"
+   :gov.unit/name-local "مصرف سورية المركزي"
+   :gov.unit/name-romanized "Maṣrif Sūriyā al-Markazī"
    :gov.unit/official-url "https://cb.gov.sy/"
    :gov.unit/wikidata "Q806932"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1466,6 +1526,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Bank of Thailand"
+   :gov.unit/name-local "ธนาคารแห่งประเทศไทย"
+   :gov.unit/name-romanized "Thanakhan haeng Prathet Thai"
    :gov.unit/official-url "http://www.bot.or.th"
    :gov.unit/wikidata "Q806706"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1478,6 +1540,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "National Bank of Tajikistan"
+   :gov.unit/name-local "Бонки миллии Тоҷикистон"
+   :gov.unit/name-romanized "Bonki millii Tojikiston"
    :gov.unit/official-url "http://www.nbt.tj"
    :gov.unit/wikidata "Q4314981"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1526,6 +1590,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Central Bank of Tunisia"
+   :gov.unit/name-local "البنك المركزي التونسي"
+   :gov.unit/name-romanized "al-Bank al-Markazī at-Tūnisī"
    :gov.unit/official-url "http://www.bct.gov.tn/"
    :gov.unit/wikidata "Q600137"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1562,6 +1628,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "National Bank of Ukraine"
+   :gov.unit/name-local "Національний банк України"
+   :gov.unit/name-romanized "Natsionalnyi bank Ukrainy"
    :gov.unit/official-url "https://bank.gov.ua/"
    :gov.unit/wikidata "Q1070388"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1646,6 +1714,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "yem"
    :gov.unit/name-en "Central Bank of Yemen"
+   :gov.unit/name-local "البنك المركزي اليمني"
+   :gov.unit/name-romanized "al-Bank al-Markazī al-Yamanī"
    :gov.unit/official-url "http://www.centralbank.gov.ye"
    :gov.unit/wikidata "Q1797039"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative

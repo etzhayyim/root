@@ -69,15 +69,27 @@ const put = (u) => { if (u && u.id && !byId.has(u.id)) byId.set(u.id, u); };
 // JP pref/city backbone is promoted :authoritative below (validate_atlas check #5).
 // (The committed EDN's :maintainer-verified/:authoritative tier is the registry record,
 // a distinct thing from what is published as authoritative.)
+// hq-location coordinates + romanizations enrich the published record so the /gov
+// map can plot real seats and render endonyms with a Latin reading. lat/lon come from
+// the committed :gov.address :headquarters rows (building-level where a real seat
+// exists; null elsewhere — never fabricated, G5). Additive fields; the validator
+// (validate_atlas.py) checks only id/level/sourcing/summary, so this stays in-scope.
+const hq = new Map(); // unit-id -> {lat, lon}
 for (const f of readdirSync(OOYAKE).filter((n) => /^gov-units.*\.edn$/.test(n)).sort()) {
   const doc = parseEdn(readFileSync(join(OOYAKE, f), "utf8"));
   for (const u of doc[":units"] || []) {
     put({
       id: u[":gov.unit/id"], name: u[":gov.unit/name-local"] || u[":gov.unit/name-en"], nameEn: u[":gov.unit/name-en"],
+      nameLocal: u[":gov.unit/name-local"] || "", nameRomanized: u[":gov.unit/name-romanized"] || "",
       level: kw(u[":gov.unit/level"]), jurisdiction: u[":gov.unit/jurisdiction"],
       parent: u[":gov.unit/parent"] || null, url: u[":gov.unit/official-url"] || "",
       sourcing: "representative",
     });
+  }
+  for (const a of doc[":addresses"] || []) {
+    const uid = a[":gov.address/unit"];
+    const lat = a[":gov.address/lat"], lon = a[":gov.address/lon"];
+    if (uid && typeof lat === "number" && typeof lon === "number" && !hq.has(uid)) hq.set(uid, { lat, lon });
   }
 }
 // 2) JP prefectures + municipalities (official codes)
@@ -109,6 +121,11 @@ for (const cc of [...seenCC].sort()) {
 }
 
 const units = [...byId.values()];
+// attach hq-location coordinates (building-level seat where one exists; G5: only real
+// committed coords, never fabricated). lat/lon omitted entirely when absent.
+let withCoords = 0;
+for (const u of units) { const c = hq.get(u.id); if (c) { u.lat = c.lat; u.lon = c.lon; withCoords++; } }
+const withNameLocal = units.filter((u) => u.nameLocal).length;
 // Authoritative tier (BOOTSTRAP-ATTESTATION-reconcile-live.md, Seat 1 Lv7, re-ratify
 // at Council 3-of-5): the JP official-code backbone (全国地方公共団体コード / ISO 3166-2:JP)
 // is promoted :representative → :authoritative. Mirrors the kotoba node promotion by
@@ -128,6 +145,8 @@ const index = {
   note: "All units :sourcing :representative / :unverified-seed (G5). Observational mirror + civic wayfinding — never the government, never a target-list (G3/G10).",
   count: units.length,
   countries,
+  withCoords,
+  withNameLocal,
   byLevel,
   bySourcing,
   units,
@@ -136,5 +155,6 @@ const outDir = join(__dirname, "../out");
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "gov-units.json"), JSON.stringify(index));
 console.log(`gov-atlas index: ${units.length} units across ${countries} jurisdictions`);
+console.log(`enriched: ${withCoords} with hq coords, ${withNameLocal} with name-local`);
 console.log(`byLevel:`, JSON.stringify(byLevel));
 console.log(`wrote ${join(outDir, "gov-units.json")} (${(JSON.stringify(index).length / 1024).toFixed(1)} KiB)`);

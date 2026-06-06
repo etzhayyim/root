@@ -76,6 +76,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Commission for Personal Data Protection"
+   :gov.unit/name-local "Комисия за защита на личните данни"
+   :gov.unit/name-romanized "Komisiya za zashtita na lichnite danni"
    :gov.unit/official-url "https://www.cpdp.bg"
    :gov.unit/wikidata "Q55505721"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -100,6 +102,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Commissioner for Personal Data Protection"
+   :gov.unit/name-local "Γραφείο Επιτρόπου Προστασίας Δεδομένων Προσωπικού Χαρακτήρα"
+   :gov.unit/name-romanized "Grafeio Epitropou Prostasias Dedomenon Prosopikou Charaktira"
    :gov.unit/official-url "https://www.dataprotection.gov.cy/"
    :gov.unit/wikidata "Q56056449"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -196,6 +200,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Hellenic Data Protection Authority"
+   :gov.unit/name-local "Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα"
+   :gov.unit/name-romanized "Archi Prostasias Dedomenon Prosopikou Charaktira"
    :gov.unit/official-url "https://www.dpa.gr/"
    :gov.unit/wikidata "Q12874056"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -290,6 +296,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Personal Information Protection Commission"
+   :gov.unit/name-local "個人情報保護委員会"
+   :gov.unit/name-romanized "Kojin Jōhō Hogo Iinkai"
    :gov.unit/official-url "https://www.ppc.go.jp/"
    :gov.unit/wikidata "Q17221586"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -302,6 +310,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Personal Information Protection Commission"
+   :gov.unit/name-local "개인정보보호위원회"
+   :gov.unit/name-romanized "Gaein Jeongbo Boho Wiwonhoe"
    :gov.unit/official-url "http://www.pipc.go.kr"
    :gov.unit/wikidata "Q12583260"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -361,7 +371,7 @@
    :gov.unit/parent "gov.mex"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "mex"
-   :gov.unit/name-en "Transparency for the People"
+   :gov.unit/name-en "Transparencia para el Pueblo (Secretaría Anticorrupción y Buen Gobierno)"
    :gov.unit/official-url "https://transparencia.gob.mx/"
    :gov.unit/wikidata "Q133828587"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -446,6 +456,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Roskomnadzor"
+   :gov.unit/name-local "Федеральная служба по надзору в сфере связи, информационных технологий и массовых коммуникаций"
+   :gov.unit/name-romanized "Roskomnadzor"
    :gov.unit/official-url "https://eng.rkn.gov.ru/"
    :gov.unit/wikidata "Q129597"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

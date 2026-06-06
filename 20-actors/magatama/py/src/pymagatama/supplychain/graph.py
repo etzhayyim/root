@@ -23,9 +23,10 @@ from __future__ import annotations
 import json
 import time
 import uuid
+from datetime import datetime, timezone
 from typing import Any, TypedDict
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 # ─── Constants ───────────────────────────────────────────────────────────────
 _MAX_ITER = 8
@@ -76,62 +77,47 @@ class SupplychainState(TypedDict, total=False):
 # ─── DB helpers ──────────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
-    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _rows(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
+    # R0: using q() escape hatch for arbitrary SQL select queries
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-            names = [desc[0] for desc in cur.description or []]
-            return [dict(zip(names, row, strict=False)) for row in (cur.fetchall() or [])]
+        return get_kotoba_client().q(query_edn=sql, args=params)
     except Exception:
         return []
 
 
 def _exec(sql: str, params: tuple[Any, ...] = ()) -> bool:
-    try:
-        with sync_cursor() as cur:
-            cur.execute(sql, params)
-        return True
-    except Exception:
-        return False
+    # This function is now a no-op as DML operations are handled by kotoba_datomic.insert_row
+    # and explicit DELETEs before INSERTs are no longer needed.
+    return True
 
 
 def _insert_run(state: SupplychainState, status: str, summary: dict[str, Any] | None = None) -> None:
     run_id = state.get("runId") or f"supplychain.{int(time.time())}"
     vertex_id = f"jukyu-run:{run_id}"
-    _exec("DELETE FROM vertex_jukyu_pregel_run WHERE vertex_id = %s", (vertex_id,))
-    _exec(
-        """
-        INSERT INTO vertex_jukyu_pregel_run
-          (vertex_id, created_date, owner_did, repo, run_id, graph_name,
-           domain, seed_country_code, scenario_type, shock_json,
-           max_iterations, started_at, completed_at, status, summary_json,
-           collection, actor_did, org_did)
-        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-        """,
-        (
-            vertex_id,
-            _now_iso()[:10],
-            _ACTOR_DID,
-            _ACTOR_DID,
-            run_id,
-            _GRAPH_NAME,
-            state.get("domain") or _DEFAULT_DOMAIN,
-            state.get("seedCountry"),
-            "resident_manufacturing",
-            "{}",
-            _MAX_ITER,
-            state.get("startedAt") or _now_iso(),
-            _now_iso() if status != "running" else None,
-            status,
-            json.dumps(summary or {}, ensure_ascii=False, sort_keys=True),
-            "com.etzhayyim.apps.supplychain.pregelRun",
-            _ACTOR_DID,
-            "did:web:etzhayyim.com",
-        ),
-    )
+    row_dict = {
+        "vertex_id": vertex_id,
+        "created_date": _now_iso()[:10],
+        "owner_did": _ACTOR_DID,
+        "repo": _ACTOR_DID,
+        "run_id": run_id,
+        "graph_name": _GRAPH_NAME,
+        "domain": state.get("domain") or _DEFAULT_DOMAIN,
+        "seed_country_code": state.get("seedCountry"),
+        "scenario_type": "resident_manufacturing",
+        "shock_json": "{}",
+        "max_iterations": _MAX_ITER,
+        "started_at": state.get("startedAt") or _now_iso(),
+        "completed_at": _now_iso() if status != "running" else None,
+        "status": status,
+        "summary_json": json.dumps(summary or {}, ensure_ascii=False, sort_keys=True),
+        "collection": "com.etzhayyim.apps.supplychain.pregelRun",
+        "actor_did": _ACTOR_DID,
+        "org_did": "did:web:etzhayyim.com",
+    }
+    get_kotoba_client().insert_row("vertex_jukyu_pregel_run", row_dict)
 
 
 # ─── Pregel pure helpers (same algorithm as jukyu) ───────────────────────────
@@ -315,7 +301,6 @@ def _compute_company_exposures(
 
 def _upsert_company_exposures(exposures: list[dict[str, Any]], run_id: str) -> int:
     pregel_run_id = f"pregel:{run_id}"
-    _exec("DELETE FROM vertex_jukyu_company_exposure WHERE run_id = %s", (pregel_run_id,))
 
     inserted = 0
     for row in exposures:
@@ -328,39 +313,35 @@ def _upsert_company_exposures(exposures: list[dict[str, Any]], run_id: str) -> i
         vertex_id = f"jukyu-exposure:pregel:{uid}"
         exposure_id = f"pregel:{run_id}:{domain}:{company_did}:{country}".replace(" ", "_")
 
-        ok = _exec(
-            """
-            INSERT INTO vertex_jukyu_company_exposure
-              (vertex_id, created_date, sensitivity_ord, owner_did, repo,
-               exposure_id, run_id, company_did, company_name, domain, country_code,
-               product_code, product_family, supply_pressure, demand_pressure, price_pressure,
-               downstream_pressure, structural_pressure, risk_score, confidence,
-               evidence_json, recommended_action, status, collection, actor_did, org_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, _now_iso()[:10], 1,
-                _ACTOR_DID, _ACTOR_DID,
-                exposure_id, pregel_run_id, company_did,
-                str(row.get("company_name") or company_did),
-                domain, country,
-                str(row.get("product_code") or ""),
-                str(row.get("product_family") or ""),
-                float(row.get("supply_pressure") or 0.0),
-                float(row.get("demand_pressure") or 0.0),
-                float(row.get("price_pressure") or 0.0),
-                float(row.get("downstream_pressure") or 0.0),
-                float(row.get("structural_pressure") or 0.0),
-                float(row.get("risk_score") or 0.0),
-                float(row.get("confidence") or 0.0),
-                json.dumps([{"source": "pregel_propagation", "runId": run_id}], ensure_ascii=False),
-                "Review alternate material suppliers and qualification pipeline.",
-                "active",
-                "com.etzhayyim.apps.supplychain.companyExposure",
-                _ACTOR_DID,
-                "did:web:etzhayyim.com",
-            ),
-        )
+        row_dict = {
+            "vertex_id": vertex_id,
+            "created_date": _now_iso()[:10],
+            "sensitivity_ord": 1,
+            "owner_did": _ACTOR_DID,
+            "repo": _ACTOR_DID,
+            "exposure_id": exposure_id,
+            "run_id": pregel_run_id,
+            "company_did": company_did,
+            "company_name": str(row.get("company_name") or company_did),
+            "domain": domain,
+            "country_code": country,
+            "product_code": str(row.get("product_code") or ""),
+            "product_family": str(row.get("product_family") or ""),
+            "supply_pressure": float(row.get("supply_pressure") or 0.0),
+            "demand_pressure": float(row.get("demand_pressure") or 0.0),
+            "price_pressure": float(row.get("price_pressure") or 0.0),
+            "downstream_pressure": float(row.get("downstream_pressure") or 0.0),
+            "structural_pressure": float(row.get("structural_pressure") or 0.0),
+            "risk_score": float(row.get("risk_score") or 0.0),
+            "confidence": float(row.get("confidence") or 0.0),
+            "evidence_json": json.dumps([{"source": "pregel_propagation", "runId": run_id}], ensure_ascii=False),
+            "recommended_action": "Review alternate material suppliers and qualification pipeline.",
+            "status": "active",
+            "collection": "com.etzhayyim.apps.supplychain.companyExposure",
+            "actor_did": _ACTOR_DID,
+            "org_did": "did:web:etzhayyim.com",
+        }
+        ok = get_kotoba_client().insert_row("vertex_jukyu_company_exposure", row_dict)
         if ok:
             inserted += 1
 
@@ -485,41 +466,40 @@ def write_signals(state: SupplychainState) -> dict[str, Any]:
             .replace(" ", "_")
         )
         vertex_id = f"jukyu-signal:{uuid.uuid5(uuid.NAMESPACE_URL, signal_id)}"
+
         title = f"Supplychain {severity} material shortage: {domain}"
         body = (
             f"Risk score {risk:.2f} for {row.get('company_name') or company_did}; "
             f"material={product_code}."
         )
-        _exec("DELETE FROM vertex_jukyu_notification_signal WHERE vertex_id = %s", (vertex_id,))
-        ok = _exec(
-            """
-            INSERT INTO vertex_jukyu_notification_signal
-              (vertex_id, created_date, sensitivity_ord, owner_did, repo,
-               signal_id, run_id, target_company_did, target_channel, domain, country_code,
-               product_code, product_family, severity, risk_score, confidence,
-               title, body, evidence_json, recommended_action, notification_status,
-               emitted_at, collection, actor_did, org_did)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                vertex_id, _now_iso()[:10], 1,
-                _ACTOR_DID, _ACTOR_DID,
-                signal_id, run_id,
-                company_did, "mcp",
-                domain, country_code,
-                row.get("product_code"), row.get("product_family"),
-                severity, risk,
-                float(row.get("confidence") or 0.0),
-                title, body,
-                json.dumps([{"source": "pregel_propagation", "runId": run_id}], ensure_ascii=False),
-                "Qualify additional material suppliers and increase safety stock.",
-                "pending",
-                _now_iso(),
-                "com.etzhayyim.apps.supplychain.notificationSignal",
-                _ACTOR_DID,
-                "did:web:etzhayyim.com",
-            ),
-        )
+        row_dict = {
+            "vertex_id": vertex_id,
+            "created_date": _now_iso()[:10],
+            "sensitivity_ord": 1,
+            "owner_did": _ACTOR_DID,
+            "repo": _ACTOR_DID,
+            "signal_id": signal_id,
+            "run_id": run_id,
+            "target_company_did": company_did,
+            "target_channel": "mcp",
+            "domain": domain,
+            "country_code": country_code,
+            "product_code": row.get("product_code"),
+            "product_family": row.get("product_family"),
+            "severity": severity,
+            "risk_score": risk,
+            "confidence": float(row.get("confidence") or 0.0),
+            "title": title,
+            "body": body,
+            "evidence_json": json.dumps([{"source": "pregel_propagation", "runId": run_id}], ensure_ascii=False),
+            "recommended_action": "Qualify additional material suppliers and increase safety stock.",
+            "notification_status": "pending",
+            "emitted_at": _now_iso(),
+            "collection": "com.etzhayyim.apps.supplychain.notificationSignal",
+            "actor_did": _ACTOR_DID,
+            "org_did": "did:web:etzhayyim.com",
+        }
+        ok = get_kotoba_client().insert_row("vertex_jukyu_notification_signal", row_dict)
         if ok:
             inserted += 1
             signal_rows.append({

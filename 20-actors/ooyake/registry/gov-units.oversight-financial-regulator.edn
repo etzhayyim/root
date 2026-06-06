@@ -75,7 +75,9 @@
    :gov.unit/parent "gov.chn"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "China Banking Regulatory Commission"
+   :gov.unit/name-en "National Financial Regulatory Administration"
+   :gov.unit/name-local "国家金融监督管理总局"
+   :gov.unit/name-romanized "Guójiā Jīnróng Jiāndū Guǎnlǐ Zǒngjú"
    :gov.unit/official-url "http://www.cbrc.gov.cn/english/home/jsp/index.jsp"
    :gov.unit/wikidata "Q1073219"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -88,6 +90,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Cyprus Securities and Exchange Commission"
+   :gov.unit/name-local "Επιτροπή Κεφαλαιαγοράς Κύπρου"
+   :gov.unit/name-romanized "Epitropi Kefalaiagoras Kyprou"
    :gov.unit/official-url "http://www.cysec.gov.cy/"
    :gov.unit/wikidata "Q570231"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -111,7 +115,9 @@
    :gov.unit/parent "gov.egy"
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "egy"
-   :gov.unit/name-en "Egyptian Financial Supervisory Authority"
+   :gov.unit/name-en "Financial Regulatory Authority (Egypt)"
+   :gov.unit/name-local "الهيئة العامة للرقابة المالية"
+   :gov.unit/name-romanized "al-Hayʾa al-ʿAmma li-l-Riqaba al-Maliyya"
    :gov.unit/official-url "https://fra.gov.eg/"
    :gov.unit/wikidata "Q5348408"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -184,6 +190,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Financial Services Agency"
+   :gov.unit/name-local "金融庁"
+   :gov.unit/name-romanized "Kin'yūchō"
    :gov.unit/official-url "http://www.fsa.go.jp"
    :gov.unit/wikidata "Q615316"
    :gov.unit/organism "org.state.jp.fsa"
@@ -212,6 +220,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Financial Services Commission"
+   :gov.unit/name-local "금융위원회"
+   :gov.unit/name-romanized "Geumyung Wiwonhoe"
    :gov.unit/official-url "http://www.fsc.go.kr/"
    :gov.unit/wikidata "Q624674"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -296,6 +306,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Securities and Exchange Commission of Pakistan"
+   :gov.unit/name-local "سیکیورٹیز اینڈ ایکسچینج کمیشن آف پاکستان"
+   :gov.unit/name-romanized "Sekyūriṭīz aiṇḍ Eksacheinj Kamīshan"
    :gov.unit/official-url "http://www.secp.gov.pk"
    :gov.unit/wikidata "Q17018130"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -332,6 +344,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Qatar Financial Centre Regulatory Authority"
+   :gov.unit/name-local "هيئة تنظيم مركز قطر للمال"
+   :gov.unit/name-romanized "Hayʾat Tanzim Markaz Qatar lil-Mal"
    :gov.unit/official-url "https://www.qfcra.com/"
    :gov.unit/wikidata "Q120186972"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -380,6 +394,8 @@
    :gov.unit/level :agency :gov.unit/branch :independent
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Syrian Commission on Financial Markets and Securities"
+   :gov.unit/name-local "هيئة الأوراق والأسواق المالية السورية"
+   :gov.unit/name-romanized "Hayʾat al-Awrāq wa-l-Aswāq al-Māliyya al-Sūriyya"
    :gov.unit/official-url "https://www.scfms.sy"
    :gov.unit/wikidata "Q119939123"
    :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative

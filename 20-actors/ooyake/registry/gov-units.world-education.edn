@@ -17,6 +17,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارت معارف"
+   :gov.unit/name-romanized "Wizarat-i Ma'arif"
    :gov.unit/official-url "http://moe.gov.af/en"
    :gov.unit/wikidata "Q6866838"
    :gov.unit/cofog ["09"]
@@ -81,6 +83,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التربية والتعليم"
+   :gov.unit/name-romanized "Wizarat al-Tarbiya wa al-Taʿlim"
    :gov.unit/official-url "https://www.moe.gov.ae/en/"
    :gov.unit/wikidata "Q22906959"
    :gov.unit/cofog ["09"]
@@ -113,6 +117,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Education and Science"
+   :gov.unit/name-local "Կրթության, գիտության, մշակույթի և սպորտի նախարարություն"
+   :gov.unit/name-romanized "Krtutyan, gitutyan, mshakuyti yev sporti nakhararutyun"
    :gov.unit/official-url "http://www.edu.am/"
    :gov.unit/wikidata "Q13053375"
    :gov.unit/cofog ["09"]
@@ -208,6 +214,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "শিক্ষা মন্ত্রণালয়"
+   :gov.unit/name-romanized "Shiksha Mantranalaya"
    :gov.unit/official-url "https://moedu.portal.gov.bd/"
    :gov.unit/wikidata "Q6866840"
    :gov.unit/cofog ["09"]
@@ -224,6 +232,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Education and Science of Bulgaria"
+   :gov.unit/name-local "Министерство на образованието и науката"
+   :gov.unit/name-romanized "Ministerstvo na obrazovanieto i naukata"
    :gov.unit/official-url "https://mon.bg/"
    :gov.unit/wikidata "Q3396672"
    :gov.unit/cofog ["09"]
@@ -288,6 +298,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Education of the Republic of Belarus"
+   :gov.unit/name-local "Министерство образования Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo obrazovaniya Respubliki Belarus"
    :gov.unit/official-url "http://edu.gov.by/"
    :gov.unit/wikidata "Q6517829"
    :gov.unit/cofog ["09"]
@@ -368,6 +380,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Education and Skills Development"
+   :gov.unit/name-local "ཤེས་རིག་དང་རིག་རྩལ་གོང་འཕེལ་ལྷན་ཁག"
+   :gov.unit/name-romanized "shes rig dang rig rtsal gong phel lhan khag"
    :gov.unit/official-url "https://education.gov.bt/"
    :gov.unit/wikidata "Q18345328"
    :gov.unit/cofog ["09"]
@@ -432,6 +446,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Education of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国教育部"
+   :gov.unit/name-romanized "Jiàoyù Bù"
    :gov.unit/official-url "http://de.moe.gov.cn/"
    :gov.unit/wikidata "Q1042167"
    :gov.unit/cofog ["09"]
@@ -512,6 +528,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Education, Sports and Youth"
+   :gov.unit/name-local "Υπουργείο Παιδείας, Αθλητισμού και Νεολαίας"
+   :gov.unit/name-romanized "Ypourgeio Paideias, Athlitismou kai Neolaias"
    :gov.unit/official-url "http://www.moec.gov.cy/"
    :gov.unit/wikidata "Q6590376"
    :gov.unit/cofog ["09"]
@@ -560,6 +578,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of National Education"
+   :gov.unit/name-local "وزارة التربية الوطنية"
+   :gov.unit/name-romanized "Wizārat at-Tarbiya al-Waṭaniyya"
    :gov.unit/official-url "http://www.education.gov.dz/index.php/ar"
    :gov.unit/wikidata "Q3315259"
    :gov.unit/cofog ["09"]
@@ -592,6 +612,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التربية والتعليم"
+   :gov.unit/name-romanized "Wizarat al-Tarbiya wa-l-Taʿlim"
    :gov.unit/official-url "https://moe.gov.eg/"
    :gov.unit/wikidata "Q4119091"
    :gov.unit/cofog ["09"]
@@ -640,6 +662,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "የትምህርት ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Timhirt Minister"
    :gov.unit/official-url "http://www.moe.gov.et/English/Pages/index.aspx"
    :gov.unit/wikidata "Q30296565"
    :gov.unit/cofog ["09"]
@@ -704,6 +728,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Education and Science"
+   :gov.unit/name-local "საქართველოს განათლების, მეცნიერებისა და ახალგაზრდობის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos ganatlebis, metsnierebisa da akhalgazrdobis saministro"
    :gov.unit/official-url "http://www.mes.gov.ge"
    :gov.unit/wikidata "Q6866865"
    :gov.unit/cofog ["09"]
@@ -736,6 +762,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Education, Religious Affairs and Sports"
+   :gov.unit/name-local "Υπουργείο Παιδείας, Θρησκευμάτων και Αθλητισμού"
+   :gov.unit/name-romanized "Ypourgeio Paideias, Thriskevmaton kai Athlitismou"
    :gov.unit/official-url "https://www.minedu.gov.gr"
    :gov.unit/wikidata "Q16331885"
    :gov.unit/cofog ["09"]
@@ -880,6 +908,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Israel Ministry of Education"
+   :gov.unit/name-local "משרד החינוך"
+   :gov.unit/name-romanized "Misrad HaChinuch"
    :gov.unit/official-url "https://www.edu.gov.il/"
    :gov.unit/wikidata "Q2590151"
    :gov.unit/cofog ["09"]
@@ -928,6 +958,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Education of The Hashemite Kingdom of Jordan"
+   :gov.unit/name-local "وزارة التربية والتعليم"
+   :gov.unit/name-romanized "Wizārat al-Tarbiya wa-al-Taʿlīm"
    :gov.unit/official-url "http://www.moe.gov.jo/"
    :gov.unit/wikidata "Q22690685"
    :gov.unit/cofog ["09"]
@@ -944,6 +976,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Science and Higher Education of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Ғылым және жоғары білім министрлігі"
+   :gov.unit/name-romanized "Ğylym jäne joğary bılım ministrlıgı"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/sci?lang=kk"
    :gov.unit/wikidata "Q124731304"
    :gov.unit/cofog ["09"]
@@ -976,6 +1010,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Education and Science of the Kyrgyz Republic"
+   :gov.unit/name-local "Кыргыз Республикасынын Билим берүү жана илим министрлиги"
+   :gov.unit/name-romanized "Bilim berüü jana ilim ministrligi"
    :gov.unit/official-url "http://edu.gov.kg/ru/"
    :gov.unit/wikidata "Q25598765"
    :gov.unit/cofog ["09"]
@@ -992,6 +1028,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Education, Youth and Sport"
+   :gov.unit/name-local "ក្រសួងអប់រំ យុវជន និងកីឡា"
+   :gov.unit/name-romanized "Krasuong Abrum Yuvachon ning Kila"
    :gov.unit/official-url "https://moeys.gov.kh/"
    :gov.unit/wikidata "Q11047097"
    :gov.unit/cofog ["09"]
@@ -1024,6 +1062,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Education of the Republic of Korea"
+   :gov.unit/name-local "교육부"
+   :gov.unit/name-romanized "Gyoyukbu"
    :gov.unit/official-url "http://www.moe.go.kr/"
    :gov.unit/wikidata "Q9404048"
    :gov.unit/cofog ["09"]
@@ -1040,6 +1080,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Higher Education"
+   :gov.unit/name-local "وزارة التعليم العالي"
+   :gov.unit/name-romanized "Wizarat al-Taʿlim al-ʿAli"
    :gov.unit/official-url "https://www.mohe.edu.kw/site/Default.aspx"
    :gov.unit/wikidata "Q104176091"
    :gov.unit/cofog ["09"]
@@ -1088,6 +1130,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "අධ්‍යාපන අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Adhyapana Amathyanshaya"
    :gov.unit/official-url "http://www.moe.gov.lk/"
    :gov.unit/wikidata "Q198668"
    :gov.unit/cofog ["09"]
@@ -1152,6 +1196,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of National Education"
+   :gov.unit/name-local "وزارة التربية الوطنية والتعليم الأولي والرياضة"
+   :gov.unit/name-romanized "Wizārat at-Tarbiya al-Waṭaniyya wa-t-Taʿlīm al-Awwalī wa-r-Riyāḍa"
    :gov.unit/official-url "https://www.madrastna.ma/fr-FR/"
    :gov.unit/wikidata "Q12250943"
    :gov.unit/cofog ["09"]
@@ -1184,6 +1230,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "ތަޢުލީމާއި މަތީ ތަޢުލީމާއި ހުނަރުތައް ތަރައްޤީކުރުމާ ބެހޭ ވުޒާރާ"
+   :gov.unit/name-romanized "Thauleemaai Mathee Thauleemaai Hunaruthah Tharaqqeekurumaa Behey Vuzaaraa"
    :gov.unit/official-url "https://presidency.gov.mv/Government/Officials/17/"
    :gov.unit/wikidata "Q30612846"
    :gov.unit/cofog ["09"]
@@ -1248,6 +1296,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Education of Myanmar"
+   :gov.unit/name-local "ပညာရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Pyinnyayay Wankyihtana"
    :gov.unit/official-url "http://www.myanmar-education.edu.mm/"
    :gov.unit/wikidata "Q4294521"
    :gov.unit/cofog ["09"]
@@ -1280,6 +1330,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Education and Science (Mongolia)"
+   :gov.unit/name-local "Боловсролын яам"
+   :gov.unit/name-romanized "Bolovsrolyn yaam"
    :gov.unit/official-url "https://en.moe.gov.mn/"
    :gov.unit/wikidata "Q6866819"
    :gov.unit/cofog ["09"]
@@ -1424,6 +1476,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Education, Science and Technology"
+   :gov.unit/name-local "शिक्षा, विज्ञान तथा प्रविधि मन्त्रालय"
+   :gov.unit/name-romanized "Shiksha, Vigyan tatha Pravidhi Mantralaya"
    :gov.unit/official-url "http://moe.gov.np/"
    :gov.unit/wikidata "Q17010299"
    :gov.unit/cofog ["09"]
@@ -1471,7 +1525,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "School Education Department, Government of the Punjab"
+   :gov.unit/name-en "Ministry of Federal Education and Professional Training"
+   :gov.unit/name-local "وزارت وفاقی تعلیم و پیشہ ورانہ تربیت"
+   :gov.unit/name-romanized "Wizārat-e-Wifāqī Taʿlīm o Pesha-warāna Tarbiyat"
    :gov.unit/official-url "https://schools.punjab.gov.pk/"
    :gov.unit/wikidata "Q18355943"
    :gov.unit/cofog ["09"]
@@ -1600,6 +1656,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Education and Higher Education of Qatar"
+   :gov.unit/name-local "وزارة التربية والتعليم والتعليم العالي"
+   :gov.unit/name-romanized "Wizarat at-Tarbiyah wa-t-Taʿlim wa-t-Taʿlim al-ʿAli"
    :gov.unit/official-url "https://www.edu.gov.qa/"
    :gov.unit/wikidata "Q96091670"
    :gov.unit/cofog ["09"]
@@ -1632,6 +1690,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "Министерство просвещения Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo prosveshcheniya RF"
    :gov.unit/official-url "http://www.morb.ru/"
    :gov.unit/wikidata "Q16676561"
    :gov.unit/cofog ["09"]
@@ -1664,6 +1724,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التعليم"
+   :gov.unit/name-romanized "Wizarat al-Taʿlim"
    :gov.unit/official-url "http://he.moe.gov.sa/en/default.aspx"
    :gov.unit/wikidata "Q21403136"
    :gov.unit/cofog ["09"]
@@ -1776,6 +1838,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Education, Science and Technological Development of the Republic of Serbia"
+   :gov.unit/name-local "Министарство просвете"
+   :gov.unit/name-romanized "Ministarstvo prosvete"
    :gov.unit/official-url "http://www.mpn.gov.rs"
    :gov.unit/wikidata "Q16664620"
    :gov.unit/cofog ["09"]
@@ -1872,6 +1936,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Education"
+   :gov.unit/name-local "وزارة التربية"
+   :gov.unit/name-romanized "Wizārat al-Tarbiya"
    :gov.unit/official-url "http://www.moed.gov.sy/"
    :gov.unit/wikidata "Q6866853"
    :gov.unit/cofog ["09"]
@@ -1888,6 +1954,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Education of Thailand"
+   :gov.unit/name-local "กระทรวงศึกษาธิการ"
+   :gov.unit/name-romanized "Krasuang Sueksathikan"
    :gov.unit/official-url "http://www.moe.go.th/"
    :gov.unit/wikidata "Q4919714"
    :gov.unit/cofog ["09"]
@@ -1904,6 +1972,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Education of Tunisia"
+   :gov.unit/name-local "وزارة التربية"
+   :gov.unit/name-romanized "Wizārat at-Tarbiya"
    :gov.unit/official-url "http://www.education.gov.tn/"
    :gov.unit/wikidata "Q3315241"
    :gov.unit/cofog ["09"]
@@ -1968,6 +2038,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Education and Science of Ukraine"
+   :gov.unit/name-local "Міністерство освіти і науки України"
+   :gov.unit/name-romanized "Ministerstvo osvity i nauky Ukrainy"
    :gov.unit/official-url "https://mon.gov.ua/"
    :gov.unit/wikidata "Q4294532"
    :gov.unit/cofog ["09"]

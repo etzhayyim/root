@@ -16,6 +16,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Information and Culture Afghanistan"
+   :gov.unit/name-local "وزارت اطلاعات و فرهنگ"
+   :gov.unit/name-romanized "Wizarat-i Ittila'at wa Farhang"
    :gov.unit/official-url "https://moic.gov.af/"
    :gov.unit/wikidata "Q6867213"
    :gov.unit/cofog ["08.2"]
@@ -112,6 +114,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Cultural Affairs"
+   :gov.unit/name-local "সংস্কৃতি বিষয়ক মন্ত্রণালয়"
+   :gov.unit/name-romanized "Sanskriti Bishayak Mantranalaya"
    :gov.unit/official-url "http://www.moca.gov.bd/"
    :gov.unit/wikidata "Q19745020"
    :gov.unit/cofog ["08.2"]
@@ -128,6 +132,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Culture of Bulgaria"
+   :gov.unit/name-local "Министерство на културата"
+   :gov.unit/name-romanized "Ministerstvo na kulturata"
    :gov.unit/official-url "http://mc.government.bg/"
    :gov.unit/wikidata "Q6866712"
    :gov.unit/cofog ["08.2"]
@@ -160,6 +166,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Culture of the Republic of Belarus"
+   :gov.unit/name-local "Министерство культуры Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo kultury Respubliki Belarus"
    :gov.unit/official-url "http://www.kultura.by"
    :gov.unit/wikidata "Q11775449"
    :gov.unit/cofog ["08.2"]
@@ -240,6 +248,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Culture and Tourism of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国文化和旅游部"
+   :gov.unit/name-romanized "Wénhuà hé Lǚyóu Bù"
    :gov.unit/official-url "https://www.mct.gov.cn/"
    :gov.unit/wikidata "Q50484620"
    :gov.unit/cofog ["08.2"]
@@ -352,6 +362,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة والفنون"
+   :gov.unit/name-romanized "Wizārat ath-Thaqāfa wa-l-Funūn"
    :gov.unit/official-url "http://www.m-culture.gov.dz/mc2/fr/"
    :gov.unit/wikidata "Q16127016"
    :gov.unit/cofog ["08.2"]
@@ -384,6 +396,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizarat al-Thaqafa"
    :gov.unit/official-url "http://www.moc.gov.eg"
    :gov.unit/wikidata "Q3064288"
    :gov.unit/cofog ["08.2"]
@@ -431,7 +445,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
-   :gov.unit/name-en "Ministry of Culture and Tourism"
+   :gov.unit/name-en "Ministry of Tourism (Ethiopia)"
+   :gov.unit/name-local "የቱሪዝም ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Turizm Minister"
    :gov.unit/official-url "http://www.tourismethiopia.org"
    :gov.unit/wikidata "Q279884"
    :gov.unit/cofog ["08.2"]
@@ -479,7 +495,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
-   :gov.unit/name-en "Ministry of Culture and Monument Protection"
+   :gov.unit/name-en "Ministry of Culture of Georgia"
+   :gov.unit/name-local "საქართველოს კულტურის სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos kulturis saministro"
    :gov.unit/official-url "http://culture.gov.ge/"
    :gov.unit/wikidata "Q4294445"
    :gov.unit/cofog ["08.2"]
@@ -512,6 +530,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Culture (Greece)"
+   :gov.unit/name-local "Υπουργείο Πολιτισμού"
+   :gov.unit/name-romanized "Ypourgeio Politismou"
    :gov.unit/official-url "https://culture.gov.gr/el/SitePages/default.aspx"
    :gov.unit/wikidata "Q16331895"
    :gov.unit/cofog ["08.2"]
@@ -608,6 +628,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Culture and Islamic Guidance"
+   :gov.unit/name-local "وزارت فرهنگ و ارشاد اسلامی"
+   :gov.unit/name-romanized "Vezārat-e Farhang va Ershād-e Eslāmi"
    :gov.unit/official-url "http://www.ershad.gov.ir/"
    :gov.unit/wikidata "Q1445474"
    :gov.unit/cofog ["08.2"]
@@ -624,6 +646,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Culture and Sports"
+   :gov.unit/name-local "משרד התרבות והספורט"
+   :gov.unit/name-romanized "Misrad HaTarbut veHaSport"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_culture_and_sport/"
    :gov.unit/wikidata "Q2081328"
    :gov.unit/cofog ["08.2"]
@@ -672,6 +696,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn"
    :gov.unit/name-en "Agency for Cultural Affairs"
+   :gov.unit/name-local "文化庁"
+   :gov.unit/name-romanized "Bunkachō"
    :gov.unit/official-url "https://www.bunka.go.jp"
    :gov.unit/wikidata "Q1009519"
    :gov.unit/cofog ["08.2"]
@@ -687,7 +713,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
-   :gov.unit/name-en "Ministry of Culture and Sports of Kazakhstan"
+   :gov.unit/name-en "Ministry of Culture and Information of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Мәдениет және ақпарат министрлігі"
+   :gov.unit/name-romanized "Mädeniet jäne aqparat ministrlıgı"
    :gov.unit/official-url "http://mk.gov.kz/"
    :gov.unit/wikidata "Q16432909"
    :gov.unit/cofog ["08.2"]
@@ -703,7 +731,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ken"
-   :gov.unit/name-en "Ministry of Sports, Culture and the Arts"
+   :gov.unit/name-en "Ministry of Youth Affairs, The Arts and Sports"
    :gov.unit/official-url "https://sportsheritage.go.ke"
    :gov.unit/wikidata "Q18204659"
    :gov.unit/cofog ["08.2"]
@@ -720,6 +748,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Culture and Fine Arts"
+   :gov.unit/name-local "ក្រសួងវប្បធម៌ និងវិចិត្រសិល្បៈ"
+   :gov.unit/name-romanized "Krasuong Voppthoamea ning Vichetselapak"
    :gov.unit/official-url "http://www.mcfa.gov.kh/"
    :gov.unit/wikidata "Q6866728"
    :gov.unit/cofog ["08.2"]
@@ -736,6 +766,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Culture, Sports and Tourism"
+   :gov.unit/name-local "문화체육관광부"
+   :gov.unit/name-romanized "Munhwa Cheyuk Gwangwangbu"
    :gov.unit/official-url "http://www.mcst.go.kr/"
    :gov.unit/wikidata "Q488744"
    :gov.unit/cofog ["08.2"]
@@ -768,6 +800,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Internal Affairs, Wayamba Development and Cultural Affairs"
+   :gov.unit/name-local "බුද්ධශාසන, ආගමික හා සංස්කෘතික කටයුතු අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Buddhasasana, Agamika ha Sanskruthika Katayuthu Amathyanshaya"
    :gov.unit/official-url "https://mbrc.gov.lk/index.php/en/"
    :gov.unit/wikidata "Q18204427"
    :gov.unit/cofog ["08.2"]
@@ -832,6 +866,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Youth, Culture and Communication"
+   :gov.unit/name-local "وزارة الشباب والثقافة والتواصل"
+   :gov.unit/name-romanized "Wizārat ash-Shabāb wa-th-Thaqāfa wa-t-Tawāṣul"
    :gov.unit/official-url "https://mjcc.gov.ma"
    :gov.unit/wikidata "Q26459282"
    :gov.unit/cofog ["08.2"]
@@ -880,6 +916,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "သာသနာရေးနှင့်ယဉ်ကျေးမှုဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Thathanayay-hnint Yinkyaymhu Wankyihtana"
    :gov.unit/official-url "https://www.moculture.gov.mm/"
    :gov.unit/wikidata "Q13073460"
    :gov.unit/cofog ["08.2"]
@@ -912,6 +950,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Culture, Sports, Tourism and Youth of Mongolia"
+   :gov.unit/name-local "Соёл, спорт, аялал жуулчлал, залуучуудын яам"
+   :gov.unit/name-romanized "Soyol, sport, ayalal juulchlal, zaluuchuudyn yaam"
    :gov.unit/official-url "https://mocsty.gov.mn/"
    :gov.unit/wikidata "Q135706498"
    :gov.unit/cofog ["08.2"]
@@ -992,6 +1032,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Culture, Tourism and Civil Aviation"
+   :gov.unit/name-local "संस्कृति, पर्यटन तथा नागरिक उड्डयन मन्त्रालय"
+   :gov.unit/name-romanized "Sanskriti, Paryatan tatha Nagarik Uddayan Mantralaya"
    :gov.unit/official-url "http://tourism.gov.np"
    :gov.unit/wikidata "Q13186531"
    :gov.unit/cofog ["08.2"]
@@ -1039,7 +1081,9 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-en "National Heritage and Culture Division"
+   :gov.unit/name-local "قومی ورثہ و ثقافت ڈویژن"
+   :gov.unit/name-romanized "Qaumī Wirsa o Saqāfat Ḍiwīzhan"
    :gov.unit/official-url "https://heritage.pakistan.gov.pk/"
    :gov.unit/wikidata "Q6866719"
    :gov.unit/cofog ["08.2"]
@@ -1120,6 +1164,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizarat ath-Thaqafah"
    :gov.unit/official-url "http://www.moc.gov.qa"
    :gov.unit/wikidata "Q23043299"
    :gov.unit/cofog ["08.2"]
@@ -1152,6 +1198,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Culture of Russia"
+   :gov.unit/name-local "Министерство культуры Российской Федерации"
+   :gov.unit/name-romanized "Ministerstvo kultury RF"
    :gov.unit/official-url "https://culture.gov.ru/"
    :gov.unit/wikidata "Q2465416"
    :gov.unit/cofog ["08.2"]
@@ -1168,6 +1216,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizarat al-Thaqafah"
    :gov.unit/official-url "https://www.moc.gov.sa/"
    :gov.unit/wikidata "Q62102917"
    :gov.unit/cofog ["08.2"]
@@ -1200,6 +1250,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Culture of the Republic of Serbia"
+   :gov.unit/name-local "Министарство културе"
+   :gov.unit/name-romanized "Ministarstvo kulture"
    :gov.unit/official-url "http://www.kultura.gov.rs"
    :gov.unit/wikidata "Q16664624"
    :gov.unit/cofog ["08.2"]
@@ -1295,6 +1347,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Culture (Syria)"
+   :gov.unit/name-local "وزارة الثقافة"
+   :gov.unit/name-romanized "Wizārat al-Thaqāfa"
    :gov.unit/official-url "http://www.moc.gov.sy"
    :gov.unit/wikidata "Q4118076"
    :gov.unit/cofog ["08.2"]
@@ -1311,6 +1365,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "กระทรวงวัฒนธรรม"
+   :gov.unit/name-romanized "Krasuang Watthanatham"
    :gov.unit/official-url "http://www.m-culture.go.th/"
    :gov.unit/wikidata "Q4922984"
    :gov.unit/cofog ["08.2"]
@@ -1327,6 +1383,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Culture of Tajikistan"
+   :gov.unit/name-local "Вазорати фарҳанги Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati farhangi Jumhurii Tojikiston"
    :gov.unit/official-url "https://www.vfarhang.tj"
    :gov.unit/wikidata "Q31456163"
    :gov.unit/cofog ["08.2"]
@@ -1359,6 +1417,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Culture"
+   :gov.unit/name-local "وزارة الشؤون الثقافية"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn ath-Thaqāfiyya"
    :gov.unit/official-url "https://www.culture.gov.tn/"
    :gov.unit/wikidata "Q3315270"
    :gov.unit/cofog ["08.2"]
@@ -1391,6 +1451,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Culture of Ukraine"
+   :gov.unit/name-local "Міністерство культури та стратегічних комунікацій України"
+   :gov.unit/name-romanized "Ministerstvo kultury ta stratehichnykh komunikatsii Ukrainy"
    :gov.unit/official-url "https://mcip.gov.ua/en/"
    :gov.unit/wikidata "Q67121433"
    :gov.unit/cofog ["08.2"]
@@ -1454,7 +1516,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zaf"
-   :gov.unit/name-en "Department of Sports, Arts and Culture"
+   :gov.unit/name-en "Department of Sport, Arts and Culture"
    :gov.unit/official-url "https://www.dsac.gov.za/index.php/"
    :gov.unit/wikidata "Q98140210"
    :gov.unit/cofog ["08.2"]
@@ -1471,6 +1533,7 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "zwe"
    :gov.unit/name-en "Ministry of Education, Sport and Culture"
+   :gov.unit/official-url "https://mopse.ac.zw/"
    :gov.unit/wikidata "Q6866829"
    :gov.unit/cofog ["08.2"]
    :gov.unit/status :active

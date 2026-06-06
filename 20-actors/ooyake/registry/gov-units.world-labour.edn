@@ -31,7 +31,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "Department of Jobs, Precincts and Regions"
+   :gov.unit/name-en "Department of Employment and Workplace Relations"
    :gov.unit/official-url "https://djpr.vic.gov.au/"
    :gov.unit/wikidata "Q60762519"
    :gov.unit/cofog ["04.1"]
@@ -64,6 +64,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Labour and Employment"
+   :gov.unit/name-local "শ্রম ও কর্মসংস্থান মন্ত্রণালয়"
+   :gov.unit/name-romanized "Shrom O Kormosongsthan Mantranalaya"
    :gov.unit/official-url "http://www.mole.gov.bd/"
    :gov.unit/wikidata "Q25209333"
    :gov.unit/cofog ["04.1"]
@@ -80,6 +82,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Labour and Social Policy"
+   :gov.unit/name-local "Министерство на труда и социалната политика"
+   :gov.unit/name-romanized "Ministerstvo na truda i sotsialnata politika"
    :gov.unit/official-url "https://www.mlsp.government.bg/"
    :gov.unit/wikidata "Q12286841"
    :gov.unit/cofog ["04.1"]
@@ -112,6 +116,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Labour and Social Protection of the Republic of Belarus"
+   :gov.unit/name-local "Министерство труда и социальной защиты Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo truda i sotsialnoy zashchity Respubliki Belarus"
    :gov.unit/official-url "https://mintrud.gov.by/by"
    :gov.unit/wikidata "Q6517877"
    :gov.unit/cofog ["04.1"]
@@ -192,6 +198,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Human Resources and Social Security of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国人力资源和社会保障部"
+   :gov.unit/name-romanized "Rénlì Zīyuán hé Shèhuì Bǎozhàng Bù"
    :gov.unit/official-url "https://www.12333.gov.cn/"
    :gov.unit/wikidata "Q1002017"
    :gov.unit/cofog ["04.1"]
@@ -224,6 +232,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Labour, Welfare and Social Insurance"
+   :gov.unit/name-local "Υπουργείο Εργασίας και Κοινωνικών Ασφαλίσεων"
+   :gov.unit/name-romanized "Ypourgeio Ergasias kai Koinonikon Asfaliseon"
    :gov.unit/official-url "https://www.mlsi.gov.cy/"
    :gov.unit/wikidata "Q16331878"
    :gov.unit/cofog ["04.1"]
@@ -288,6 +298,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Labour, Employment and Social Security"
+   :gov.unit/name-local "وزارة العمل والتشغيل والضمان الاجتماعي"
+   :gov.unit/name-romanized "Wizārat al-ʿAmal wa-t-Tashghīl wa-d-Ḍamān al-Ijtimāʿī"
    :gov.unit/official-url "https://www.mtess.gov.dz/"
    :gov.unit/wikidata "Q42343120"
    :gov.unit/cofog ["04.1"]
@@ -368,6 +380,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Labour and Social Security"
+   :gov.unit/name-local "Υπουργείο Εργασίας και Κοινωνικής Ασφάλισης"
+   :gov.unit/name-romanized "Ypourgeio Ergasias kai Koinonikis Asfalisis"
    :gov.unit/official-url "http://www.ypakp.gr/"
    :gov.unit/wikidata "Q3555626"
    :gov.unit/cofog ["04.1"]
@@ -512,6 +526,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Employment and Labor"
+   :gov.unit/name-local "고용노동부"
+   :gov.unit/name-romanized "Goyong Nodongbu"
    :gov.unit/official-url "http://www.moel.go.kr/"
    :gov.unit/wikidata "Q488949"
    :gov.unit/cofog ["04.1"]
@@ -624,6 +640,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Labour and Social Protection"
+   :gov.unit/name-local "Гэр бүл, хөдөлмөр, нийгмийн хамгааллын яам"
+   :gov.unit/name-romanized "Ger bül, khödölmör, niigmiin khamgaallyn yaam"
    :gov.unit/official-url "https://mlsp.gov.mn/"
    :gov.unit/wikidata "Q117474704"
    :gov.unit/cofog ["04.1"]
@@ -655,7 +673,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "mys"
-   :gov.unit/name-en "Ministry of Human Resources"
+   :gov.unit/name-en "Ministry of Human Resources (KESUMA)"
    :gov.unit/official-url "https://mohr.gov.my/index.php/ms/"
    :gov.unit/wikidata "Q6867162"
    :gov.unit/cofog ["04.1"]
@@ -720,6 +738,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Labour, Employment and Social Security"
+   :gov.unit/name-local "श्रम, रोजगार तथा सामाजिक सुरक्षा मन्त्रालय"
+   :gov.unit/name-romanized "Shram, Rojgar tatha Samajik Suraksha Mantralaya"
    :gov.unit/official-url "https://moless.gov.np"
    :gov.unit/wikidata "Q19711629"
    :gov.unit/cofog ["04.1"]
@@ -815,6 +835,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Human Resources and Social Development"
+   :gov.unit/name-local "وزارة الموارد البشرية والتنمية الاجتماعية"
+   :gov.unit/name-romanized "Wizarat al-Mawarid al-Bashariyya wa-t-Tanmiya al-Ijtimaʿiyya"
    :gov.unit/official-url "https://mlsd.gov.sa/"
    :gov.unit/wikidata "Q12250983"
    :gov.unit/cofog ["04.1"]
@@ -863,6 +885,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Labour, Employment, Veteran, and Social Policy of the Republic of Serbia"
+   :gov.unit/name-local "Министарство за рад, запошљавање, борачка и социјална питања"
+   :gov.unit/name-romanized "Ministarstvo za rad, zapošljavanje, boračka i socijalna pitanja"
    :gov.unit/official-url "http://www.minrzs.gov.rs"
    :gov.unit/wikidata "Q12755500"
    :gov.unit/cofog ["04.1"]
@@ -927,6 +951,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Social Affairs and Labour (Syria)"
+   :gov.unit/name-local "وزارة الشؤون الاجتماعية والعمل"
+   :gov.unit/name-romanized "Wizārat al-Shuʾūn al-Ijtimāʿiyya wa-l-ʿAmal"
    :gov.unit/official-url "https://mosal.gov.sy/"
    :gov.unit/wikidata "Q60576089"
    :gov.unit/cofog ["04.1"]
@@ -943,6 +969,8 @@
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Labour"
+   :gov.unit/name-local "กระทรวงแรงงาน"
+   :gov.unit/name-romanized "Krasuang Raeng-ngan"
    :gov.unit/official-url "http://www.mol.go.th/"
    :gov.unit/wikidata "Q4923085"
    :gov.unit/cofog ["04.1"]
@@ -958,7 +986,7 @@
    :gov.unit/level :ministry
    :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
-   :gov.unit/name-en "Ministry of Labour and Employment"
+   :gov.unit/name-en "Prime Minister's Office (Labour, Youth, Employment and Persons with Disability)"
    :gov.unit/official-url "https://www.kazi.go.tz/"
    :gov.unit/wikidata "Q14866849"
    :gov.unit/cofog ["04.1"]

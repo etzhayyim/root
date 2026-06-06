@@ -25,6 +25,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "afg"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Islamic Emirate of Afghanistan"
+   :gov.unit/name-local "وزارت امور خارجه"
+   :gov.unit/name-romanized "Wezarat-e Umur-e Kharija"
    :gov.unit/official-url "http://mfa.gov.af"
    :gov.unit/wikidata "Q4294381"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -73,6 +75,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "are"
    :gov.unit/name-en "Ministry of Foreign Affairs of the UAE"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyya"
    :gov.unit/official-url "https://www.mofaic.gov.ae/"
    :gov.unit/wikidata "Q30684101"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -97,6 +101,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "arm"
    :gov.unit/name-en "Ministry of Foreign Affairs of Armenia"
+   :gov.unit/name-local "Արտաքին գործերի նախարարություն"
+   :gov.unit/name-romanized "Artakin gortseri nakhararutyun"
    :gov.unit/official-url "https://mfa.am"
    :gov.unit/wikidata "Q191559"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -193,6 +199,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgd"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "পররাষ্ট্র মন্ত্রণালয়"
+   :gov.unit/name-romanized "Pararashtra Mantranalaya"
    :gov.unit/official-url "https://mofa.gov.bd/"
    :gov.unit/wikidata "Q3347142"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -205,6 +213,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "bgr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Bulgaria"
+   :gov.unit/name-local "Министерство на външните работи"
+   :gov.unit/name-romanized "Ministerstvo na vanshnite raboti"
    :gov.unit/official-url "https://www.mfa.bg/"
    :gov.unit/wikidata "Q1813345"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -253,6 +263,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Belarus"
+   :gov.unit/name-local "Министерство иностранных дел Республики Беларусь"
+   :gov.unit/name-romanized "Ministerstvo inostrannykh del Respubliki Belarus"
    :gov.unit/official-url "https://mfa.gov.by/"
    :gov.unit/wikidata "Q2047848"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -325,6 +337,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Ministry of Foreign Affairs and External Trade"
+   :gov.unit/name-local "ཕྱི་འབྲལ་དང་ཕྱིར་ཚོང་ལྷན་ཁག"
+   :gov.unit/name-romanized "phyi brel dang phyir tshong lhan khag"
    :gov.unit/official-url "http://www.mfa.gov.bt/"
    :gov.unit/wikidata "Q4294382"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -385,6 +399,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "chn"
    :gov.unit/name-en "Ministry of Foreign Affairs of the People's Republic of China"
+   :gov.unit/name-local "中华人民共和国外交部"
+   :gov.unit/name-romanized "Wàijiāo Bù"
    :gov.unit/official-url "https://www.mfa.gov.cn"
    :gov.unit/wikidata "Q1155502"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -457,6 +473,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "cyp"
    :gov.unit/name-en "Ministry of Foreign Affairs of Cyprus"
+   :gov.unit/name-local "Υπουργείο Εξωτερικών"
+   :gov.unit/name-romanized "Ypourgeio Exoterikon"
    :gov.unit/official-url "https://www.gov.cy/mfa/"
    :gov.unit/wikidata "Q3315347"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -517,6 +535,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "dza"
    :gov.unit/name-en "Ministry of Foreign Affairs of Algeria"
+   :gov.unit/name-local "وزارة الشؤون الخارجية والجالية الوطنية بالخارج"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Khārijiyya wa-l-Jāliya al-Waṭaniyya bi-l-Khārij"
    :gov.unit/official-url "http://www.mae.gov.dz/default_en.aspx"
    :gov.unit/wikidata "Q3315352"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -541,6 +561,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Ministry of Foreign Affairs of Egypt"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyya"
    :gov.unit/official-url "https://www.egyptconsulates.org"
    :gov.unit/wikidata "Q947229"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -588,6 +610,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Federal Democratic Republic of Ethiopia"
+   :gov.unit/name-local "የውጭ ጉዳይ ሚኒስቴር"
+   :gov.unit/name-romanized "Ye-Wuch Guday Minister"
    :gov.unit/official-url "http://www.mfa.gov.et/"
    :gov.unit/wikidata "Q3315366"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -648,6 +672,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Ministry of Foreign Affairs of Georgia"
+   :gov.unit/name-local "საქართველოს საგარეო საქმეთა სამინისტრო"
+   :gov.unit/name-romanized "Sakartvelos sagareo sakmetha saministro"
    :gov.unit/official-url "http://www.mfa.gov.ge/index.php?lang_id=ENG&sec_id=1"
    :gov.unit/wikidata "Q2568695"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -696,6 +722,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "grc"
    :gov.unit/name-en "Ministry of Foreign Affairs (Greece)"
+   :gov.unit/name-local "Υπουργείο Εξωτερικών"
+   :gov.unit/name-romanized "Ypourgeio Exoterikon"
    :gov.unit/official-url "https://www.mfa.gr"
    :gov.unit/wikidata "Q3125291"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -828,6 +856,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irn"
    :gov.unit/name-en "Ministry of Foreign Affairs of Iran"
+   :gov.unit/name-local "وزارت امور خارجه"
+   :gov.unit/name-romanized "Vezārat-e Omur-e Khārejeh"
    :gov.unit/official-url "https://en.mfa.ir/"
    :gov.unit/wikidata "Q2565708"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -840,6 +870,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Iraq"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizārat al-Khārijiyya"
    :gov.unit/official-url "http://www.mofa.gov.iq/en/"
    :gov.unit/wikidata "Q6867009"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -864,6 +896,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "isr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Israel"
+   :gov.unit/name-local "משרד החוץ"
+   :gov.unit/name-romanized "Misrad HaChutz"
    :gov.unit/official-url "https://www.gov.il/he/departments/ministry_of_foreign_affairs/"
    :gov.unit/wikidata "Q1431423"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -900,6 +934,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Kingdom of Jordan"
+   :gov.unit/name-local "وزارة الخارجية وشؤون المغتربين"
+   :gov.unit/name-romanized "Wizārat al-Khārijiyya wa-Shuʾūn al-Mughtaribīn"
    :gov.unit/official-url "http://www.mfa.gov.jo/"
    :gov.unit/wikidata "Q15989681"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -912,6 +948,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kaz"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Kazakhstan"
+   :gov.unit/name-local "Қазақстан Республикасының Сыртқы істер министрлігі"
+   :gov.unit/name-romanized "Syrtqy ister ministrligi"
    :gov.unit/official-url "https://www.gov.kz/memleket/entities/mfa"
    :gov.unit/wikidata "Q1166098"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -936,6 +974,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "Кыргыз Республикасынын Тышкы иштер министрлиги"
+   :gov.unit/name-romanized "Tyshky ishter ministrligi"
    :gov.unit/official-url "https://mfa.gov.kg/"
    :gov.unit/wikidata "Q6867013"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -948,6 +988,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Ministry of Foreign Affairs and International Cooperation"
+   :gov.unit/name-local "ក្រសួងការបរទេស និងសហប្រតិបត្តិការអន្តរជាតិ"
+   :gov.unit/name-romanized "Krasuong Karobante ning Sahapratibatkar Antoracheat"
    :gov.unit/official-url "http://www.mfaic.gov.kh"
    :gov.unit/wikidata "Q4294408"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -972,6 +1014,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kor"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Korea"
+   :gov.unit/name-local "외교부"
+   :gov.unit/name-romanized "Oegyobu"
    :gov.unit/official-url "http://www.mofa.go.kr/"
    :gov.unit/wikidata "Q9405654"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -984,6 +1028,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyya"
    :gov.unit/official-url "http://www.mofa.gov.kw/Ar/Pages/Default.aspx/"
    :gov.unit/wikidata "Q16257922"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -996,6 +1042,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lao"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "ກະຊວງການຕ່າງປະເທດ"
+   :gov.unit/name-romanized "Kasuang Kantangpathet"
    :gov.unit/official-url "http://www.mofa.gov.la/"
    :gov.unit/wikidata "Q6867008"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1044,6 +1092,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "lka"
    :gov.unit/name-en "Ministry of Foreign Affairs (Sri Lanka)"
+   :gov.unit/name-local "විදේශ කටයුතු අමාත්‍යාංශය"
+   :gov.unit/name-romanized "Videsha Katayuthu Amathyanshaya"
    :gov.unit/official-url "http://www.mfa.gov.lk/"
    :gov.unit/wikidata "Q4294404"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1092,6 +1142,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Ministry of Foreign Affairs, African Cooperation and Moroccan Expatriates"
+   :gov.unit/name-local "وزارة الشؤون الخارجية والتعاون الإفريقي والمغاربة المقيمين بالخارج"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Khārijiyya"
    :gov.unit/official-url "https://diplomatie.ma/"
    :gov.unit/wikidata "Q3315358"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1140,6 +1192,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdv"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "ޚާރިޖީ ވުޒާރާ"
+   :gov.unit/name-romanized "Khaarijee Vuzaaraa"
    :gov.unit/official-url "http://www.foreign.gov.mv/index.php/en/"
    :gov.unit/wikidata "Q48805959"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1164,6 +1218,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mkd"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "Министерство за надворешни работи"
+   :gov.unit/name-romanized "Ministerstvo za nadvoreshni raboti"
    :gov.unit/official-url "http://www.mfa.gov.mk"
    :gov.unit/wikidata "Q2502787"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1188,6 +1244,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mmr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Myanmar"
+   :gov.unit/name-local "နိုင်ငံခြားရေးဝန်ကြီးဌာန"
+   :gov.unit/name-romanized "Naing-ngan-cha-ye Wankyihtana"
    :gov.unit/official-url "http://www.mofa.gov.mm/"
    :gov.unit/wikidata "Q4294392"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1212,6 +1270,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "mng"
    :gov.unit/name-en "Ministry of Foreign Affairs of Mongolia"
+   :gov.unit/name-local "Гадаад харилцааны яам"
+   :gov.unit/name-romanized "Gadaad khariltsaany yaam"
    :gov.unit/official-url "https://mfa.gov.mn/"
    :gov.unit/wikidata "Q16071066"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1320,6 +1380,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "npl"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "परराष्ट्र मन्त्रालय"
+   :gov.unit/name-romanized "Pararashtra Mantralaya"
    :gov.unit/official-url "http://www.mofa.gov.np"
    :gov.unit/wikidata "Q6867016"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1356,6 +1418,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Ministry of Foreign Affairs"
+   :gov.unit/name-local "وزارت خارجہ"
+   :gov.unit/name-romanized "Wizārat-e-Khārija"
    :gov.unit/official-url "http://www.mofa.gov.pk"
    :gov.unit/wikidata "Q4294393"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1452,6 +1516,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "qat"
    :gov.unit/name-en "Ministry of Foreign Affairs of Qatar"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyyah"
    :gov.unit/official-url "https://www.mofa.gov.qa/en/home"
    :gov.unit/wikidata "Q6867021"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1476,6 +1542,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "rus"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Russian Federation"
+   :gov.unit/name-local "Министерство иностранных дел Российской Федерации"
+   :gov.unit/name-romanized "MID"
    :gov.unit/official-url "https://mid.ru"
    :gov.unit/wikidata "Q789889"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1500,6 +1568,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Ministry of Foreign Affairs of Saudi Arabia"
+   :gov.unit/name-local "وزارة الخارجية"
+   :gov.unit/name-romanized "Wizarat al-Kharijiyyah"
    :gov.unit/official-url "http://www.mofa.gov.sa"
    :gov.unit/wikidata "Q6867032"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1596,6 +1666,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "srb"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Serbia"
+   :gov.unit/name-local "Министарство спољних послова"
+   :gov.unit/name-romanized "Ministarstvo spoljnih poslova"
    :gov.unit/official-url "https://www.mfa.gov.rs/"
    :gov.unit/wikidata "Q2198916"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1704,6 +1776,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "syr"
    :gov.unit/name-en "Ministry of Foreign Affairs and Expatriates"
+   :gov.unit/name-local "وزارة الخارجية والمغتربين"
+   :gov.unit/name-romanized "Wizārat al-Khārijiyya wa-l-Mughtaribīn"
    :gov.unit/official-url "https://mofaex.gov.sy/"
    :gov.unit/wikidata "Q1829504"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1728,6 +1802,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tha"
    :gov.unit/name-en "Ministry of Foreign Affairs of Thailand"
+   :gov.unit/name-local "กระทรวงการต่างประเทศ"
+   :gov.unit/name-romanized "Krasuang Kan Tang Prathet"
    :gov.unit/official-url "https://www.mfa.go.th/main/"
    :gov.unit/wikidata "Q789856"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1740,6 +1816,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Ministry of Foreign Affairs of the Republic of Tajikistan"
+   :gov.unit/name-local "Вазорати корҳои хориҷии Ҷумҳурии Тоҷикистон"
+   :gov.unit/name-romanized "Vazorati korhoi khorijii Jumhurii Tojikiston"
    :gov.unit/official-url "https://mfa.tj/"
    :gov.unit/wikidata "Q25592941"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1776,6 +1854,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Ministry of Foreign Affairs of Tunisia"
+   :gov.unit/name-local "وزارة الشؤون الخارجية والهجرة والتونسيين بالخارج"
+   :gov.unit/name-romanized "Wizārat ash-Shuʾūn al-Khārijiyya wa-l-Hijra"
    :gov.unit/official-url "https://www.diplomatie.gov.tn/"
    :gov.unit/wikidata "Q3315361"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
@@ -1824,6 +1904,8 @@
    :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "ukr"
    :gov.unit/name-en "Ministry of Foreign Affairs of Ukraine"
+   :gov.unit/name-local "Міністерство закордонних справ України"
+   :gov.unit/name-romanized "Ministerstvo zakordonnykh sprav Ukrainy"
    :gov.unit/official-url "https://mfa.gov.ua/"
    :gov.unit/wikidata "Q4294403"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
