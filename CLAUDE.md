@@ -280,6 +280,23 @@ a sibling agent's `checkout` / `reset` / `clean` can wipe it without warning (ob
 Exit with `ExitWorktree` (`keep` to preserve the branch). The session's cron `/loop`
 iterations continue inside whatever worktree the session is in.
 
+**Rule — clean up once the branch is MERGED.** A worktree + branch is durable only while its
+work is in flight. **After the branch's PR is merged into `origin/main`, delete BOTH the
+worktree and the branch** — a merged branch left on disk is dead weight that clutters
+`git worktree list` / `git branch` and invites confusion (a sibling agent checking out a
+stale merged branch). Do NOT delete before merge (an open PR's branch is the only durable
+copy of the work). Sequence once merge is confirmed:
+
+1. `ExitWorktree` with `action: "remove"` (removes the `.claude/worktrees/<name>` checkout +
+   its branch). It refuses if there are uncommitted/unmerged changes — that refusal means the
+   merge is NOT actually complete, so stop and investigate, do not force.
+2. Outside the harness, the equivalent is `git worktree remove .claude/worktrees/<name>` then
+   `git branch -d <branch>` (lowercase `-d` = merged-only; it refuses an unmerged branch — use
+   `-D` ONLY after confirming the work is truly merged). Prune stale registrations with
+   `git worktree prune`. The `clean_gone` command also sweeps branches whose remote is `[gone]`.
+
+Only the worktree whose PR is still open (or whose work is unmerged) is kept.
+
 ## ADR Authority (per ADR-2605170900)
 
 **This repo is canonical for religious-corp open ADRs.**
