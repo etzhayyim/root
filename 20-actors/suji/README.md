@@ -91,7 +91,7 @@ kotoba/    schema.edn · seed.edn      wit/  kami-biomech.wit      out/  posture
 ## Run
 
 ```bash
-./run_tests.sh                 # 31 tests (25 methods + 6 cells) + analyze smoke
+./run_tests.sh                 # 39 tests (25 methods + 14 cells) + analyze smoke
 python3 methods/analyze.py     # the laptop-posture report (writes out/posture-report.md)
 ```
 

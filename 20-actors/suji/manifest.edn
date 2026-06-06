@@ -45,7 +45,7 @@
  [{:cell/id "segment_build"      :cell/node "naphtali" :cell/coded false}
   {:cell/id "posture_resolve"    :cell/node "gad"      :cell/coded false}
   {:cell/id "load_solve"         :cell/node "gad"      :cell/coded true}
-  {:cell/id "strain_accumulate"  :cell/node "asher"    :cell/coded false}
+  {:cell/id "strain_accumulate"  :cell/node "asher"    :cell/coded true}
   {:cell/id "ergonomic_compare"  :cell/node "naphtali" :cell/coded false}]
 
  :actor/lexicons

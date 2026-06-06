@@ -11,8 +11,8 @@
   adjudication.** `kizashi senses → suji simulates the loads → mitate diagnoses → iyashi treats`.
 - **Siblings**: kizashi 兆 (sensing), mitate (diagnosis), iyashi (clinical care), kokoro (mental
   health), kami-genesis (the articulation solver suji's chain maps onto).
-- **Status**: R0 — 5 cells (load_solve coded + 4 scaffold) + 6 lexicons + runnable, validated
-  physics methods + kami-genesis/Isaac WIT contract. 31 tests green.
+- **Status**: R0 — 5 cells (load_solve + strain_accumulate coded + 3 scaffold) + 6 lexicons + runnable, validated
+  physics methods + kami-genesis/Isaac WIT contract. 39 tests green.
 
 ## What this is
 
@@ -59,7 +59,7 @@ methods/  segment.py   anthropometric sagittal chain (de Leva/Winter)
           strain.py    Rohmert sustained-isometric dose → stiffness (強張り)
           analyze.py   end-to-end laptop posture comparison report
           kami_biomech_bridge.py   kami-genesis/Isaac articulation (wit/kami-biomech.wit)
-cells/    segment_build · posture_resolve · load_solve(CODED) · strain_accumulate · ergonomic_compare
+cells/    segment_build · posture_resolve · load_solve+strain_accumulate(CODED) · strain_accumulate · ergonomic_compare
 lex/      bodyModel · postureScenario · jointLoad · muscleTension · strainReport · ergonomicComparison
 kotoba/   schema.edn (no clinical ident) · seed.edn (:representative 3-posture set)
 ```
@@ -79,7 +79,7 @@ raises at R0 until Council activation.
 ## Run
 
 ```bash
-./run_tests.sh                 # 31 tests + analyze smoke
+./run_tests.sh                 # 39 tests + analyze smoke
 python3 methods/analyze.py     # writes out/posture-report.md
 ```
 
