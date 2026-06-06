@@ -1416,9 +1416,9 @@ dependencies = [
 
 [[package]]
 name = "log"
-version = "0.4.31"
+version = "0.4.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "113b30b4cd05f7c06868fdb2854f66a7b9fece9a48425351cd532e810d74024f"
+checksum = "953f07c43838f8e6f9758cab68bf5bed85465e7587ebe0b823f1bcd81978ad3a"
 
 [[package]]
 name = "lz4"
@@ -2829,7 +2829,7 @@ name = "yata-wasm"
 version = "0.1.0"
 dependencies = [
  "arrow-array",
- "arrow-schema 54.3.1",
+ "arrow-schema 58.3.0",
  "async-trait",
  "bytes",
  "futures",
@@ -2840,7 +2840,7 @@ dependencies = [
  "lance-io",
  "lance-table",
  "object_store",
- "prost 0.13.5",
+ "prost 0.14.3",
  "prost-build",
  "prost-types 0.13.5",
  "serde",
