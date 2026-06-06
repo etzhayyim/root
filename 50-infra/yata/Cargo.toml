@@ -43,7 +43,7 @@ yata-gie = { path = "yata-gie" }
 yata-server = { path = "yata-server" }
 yata-lance = { path = "yata-lance" }
 metrics = "0.24"
-metrics-exporter-prometheus = "0.16"
+metrics-exporter-prometheus = "0.18"
 # Arrow (aligned with lance 3.0.1)
 arrow = "58"
 arrow-array = "58"
