@@ -3,7 +3,7 @@ import re
 import os
 
 def safe_refactor():
-    files = glob.glob("20-actors/magatama/py/src/pymagatama/**/*.py", recursive=True)
+    files = glob.glob("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/*.py", recursive=True)
     count = 0
     for path in files:
         with open(path, "r") as f:
@@ -15,18 +15,18 @@ def safe_refactor():
         orig = code
 
         # 1. Imports (handling indentation)
-        code = re.sub(r'^[ \t]*from pymagatama\.db_sync import sync_cursor\b.*$\n?', '', code, flags=re.MULTILINE)
+        code = re.sub(r'^[ \t]*from kotodama\.db_sync import sync_cursor\b.*$\n?', '', code, flags=re.MULTILINE)
         
         # 2. Add client import if not present
-        if "from pymagatama.kotoba_datomic import get_kotoba_client" not in code:
+        if "from kotodama.kotoba_datomic import get_kotoba_client" not in code:
             # find first import
             m = re.search(r'^(import|from)\s+', code, flags=re.MULTILINE)
             if m:
                 # Add after __future__ if it exists
                 if "__future__" in code:
-                    code = re.sub(r'^(from __future__ import .*?)$', r'\1\nfrom pymagatama.kotoba_datomic import get_kotoba_client', code, flags=re.MULTILINE)
+                    code = re.sub(r'^(from __future__ import .*?)$', r'\1\nfrom kotodama.kotoba_datomic import get_kotoba_client', code, flags=re.MULTILINE)
                 else:
-                    code = re.sub(r'^(import|from)\s+', r'from pymagatama.kotoba_datomic import get_kotoba_client\n\1 ', code, count=1, flags=re.MULTILINE)
+                    code = re.sub(r'^(import|from)\s+', r'from kotodama.kotoba_datomic import get_kotoba_client\n\1 ', code, count=1, flags=re.MULTILINE)
 
         # 3. block
         code = re.sub(r'^(\s*)with (?:_)?sync_cursor\(\) as (\w+):', r'\1if True:\n\1    client = get_kotoba_client()', code, flags=re.MULTILINE)

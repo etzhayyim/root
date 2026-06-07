@@ -53,14 +53,14 @@ compliance before this app is considered etzhayyim-aligned.
 Additional violations detected in re-scan:
 
 ```
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/sqlmesh/config.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/src/pymagatama/pregel/graph.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/src/pymagatama/primitives/chat.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/src/pymagatama/registry.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/src/pymagatama/rw_sql.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/tests/test_agent_economy_primitives.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/tests/test_chat_domain_knowledge.py
-  - 60-apps/etzhayyim-project-recap/lg/pymagatama/tests/test_rw_sql.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/sqlmesh/config.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/src/kotodama/pregel/graph.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/src/kotodama/primitives/chat.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/src/kotodama/registry.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/src/kotodama/rw_sql.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/tests/test_agent_economy_primitives.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/tests/test_chat_domain_knowledge.py
+  - 60-apps/etzhayyim-project-recap/lg/kotodama/tests/test_rw_sql.py
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.

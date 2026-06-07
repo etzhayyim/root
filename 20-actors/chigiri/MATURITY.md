@@ -17,7 +17,7 @@
 | 1 | ADR-2605262700 (master) + 2605262800 (legal corpus) | ✅ | init |
 | 2 | manifest.jsonld + README + CLAUDE.md | ✅ | init |
 | 3 | 9 Lexicon skeletons (`com.etzhayyim.chigiri.*`) | ✅ | init |
-| 4 | 12 cell paths reserved (`magatama.cells.chigiri_*`, import時 RuntimeError) | ✅ | init |
+| 4 | 12 cell paths reserved (`kotodama.cells.chigiri_*`, import時 RuntimeError) | ✅ | init |
 | 5 | **legal-aid REFERRAL registry seed (worldwide, unverified-seed)** | ✅ | **iter-1** |
 | 6 | registry 更新 (root CLAUDE.md / adr README / deps.toml) | 未 | — |
 | 7 | cell ↔ manifest 整合 invariants test | 未 | — |
@@ -89,7 +89,7 @@ compensation/Public-Fund-routed 含有を assert(全 pass)。
 ### iter-4 (2026-06-02)
 **Long-tail worldwide deepening of #5/#15 — merged 26 new legal-aid REFERRAL entries** into `registry/legal-aid.seed.json` (all 26 net-new, 0 dedup drops), across 4 new buckets: **EU-REST (8** — swe/nld/irl/ita/esp/fin/nor/bel), **asia-rest (7** — phl/hkg/twn/idn/mys/tha/vnm), **AMERICAS-REST (5** — arg/chl/col/per/can-Quebec), **MEA-OCEANIA (8** — zaf/ken/nga/nzl/isr/are/egy). Normalized to the actor's exact schema (id→referralId, bucket→bloc, channel/authority/legalBasis/provenance/notes preserved, ISO language code added, channel_note folded into notes); all 26 ship verificationStatus=unverified-seed + lastVerified=2026-06-02T00:00:00Z + https provenance + mandatory UPL boundary caveat in notes. Registry now **55 entries / 36 distinct jurisdictions** (was 29 / 10). Invariants test threshold raised from `>= 5` to `>= 12` distinct jurisdictions (actual 36 ≫ 12) — `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest 70-tools/scripts/audit/test_chigiri_registry_seed.py -q` → **7 passed** (green). One source provenance (Colombia secretariasenado.gov.co) was http upstream → normalized to https same-host/path (noted in entry). G8 honest coverage: zero fabricated entries. (working-tree edits only, no git add/commit.)
 
-**2026-06-02 R1 referral resolver core**: `magatama.cells.chigiri_legal_aid_clinic/referral_match.py` — 管轄→法的扶助 referral の純 registry クエリ(confidence→title ソート、未知管轄は空配列)。**適格/means-test 判定はしない**(income 閾値は管轄固有データ=捏造回避)、routing のみ。UPL/無償性を担保。`test_referral_match.py` green。注: 本 cell は唯一の稼働中実 cell(import gate ではなく `_assert_no_advice`/zero-comp ガードで G14/G15 強制); resolver はその上の純関数。
+**2026-06-02 R1 referral resolver core**: `kotodama.cells.chigiri_legal_aid_clinic/referral_match.py` — 管轄→法的扶助 referral の純 registry クエリ(confidence→title ソート、未知管轄は空配列)。**適格/means-test 判定はしない**(income 閾値は管轄固有データ=捏造回避)、routing のみ。UPL/無償性を担保。`test_referral_match.py` green。注: 本 cell は唯一の稼働中実 cell(import gate ではなく `_assert_no_advice`/zero-comp ガードで G14/G15 強制); resolver はその上の純関数。
 
 **2026-06-02 #10(部分) — VERIFICATION ワークフロー doc authored**: `20-actors/chigiri/registry/VERIFICATION.md` を新設(toritsugi `registry/VERIFICATION.md` parity)。3-tier(unverified-seed→maintainer-verified→council-verified、**代行 tier なし**=top tier は council-verified referral)・13フィールド per-field checklist(実 referralId..notes)・per-jurisdiction WORLDWIDE PROVENANCE 公式ドメイン規則(.go.jp/.gov/.gouv.fr/.gov.uk/europa.eu/.gob.*/.go.kr…、blog/aggregator 不可、fail-closed)・freshnessWindowDays=180 staleness・UPL no-advice/referral-only/zero-consideration 境界 re-check・bona-fide legal-aid body(非 for-profit solicitation)+ no-legal-aid-consideration invariant 強調・machine-enforced floor(`test_chigiri_registry_seed.py` 7 invariants)を記載。honest(G8): 全件 unverified-seed のまま・maintainer DID 未登録・本 doc は process spec のみ。working-tree edits only(git add/commit なし)。
 

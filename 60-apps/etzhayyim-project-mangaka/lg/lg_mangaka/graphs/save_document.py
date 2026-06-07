@@ -75,7 +75,7 @@ def _node_save(state: _SaveState) -> dict[str, Any]:
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
 
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     try:
         client = get_kotoba_client()
         client.insert_row("vertex_mangaka", {

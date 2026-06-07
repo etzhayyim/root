@@ -82,7 +82,7 @@ def _resolve_checkpointer(mode):
     if not mode or mode == "none":
         return None
     if mode == "rw_vertex":
-        try: from pymagatama.langgraph_checkpoint_rw import Kotoba/DatomicCheckpointSaver
+        try: from kotodama.langgraph_checkpoint_rw import Kotoba/DatomicCheckpointSaver
         except Exception as e: LOG.warning(...); return None
         return Kotoba/DatomicCheckpointSaver()
     if mode == "postgres":
@@ -148,4 +148,4 @@ the checkpointer-enabled graph.
 - ADR-2605080600: LangGraph Server + Granian L3 Runtime (parent)
 - ADR-2605082200: Row-driven LangGraph runtime (sibling — assistant kind taxonomy)
 - Migration `r_20260509130000_alter_langgraph_assistant_checkpointer_mode`
-- Implementation: `pymagatama/langgraph_loader.py:_resolve_checkpointer`
+- Implementation: `kotodama/langgraph_loader.py:_resolve_checkpointer`

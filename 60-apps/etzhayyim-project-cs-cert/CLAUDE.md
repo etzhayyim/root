@@ -32,7 +32,7 @@ etzhayyim-project-cs-cert/
 └── wasm/
     └── etzhayyim-wasm-cs-cert-badge-k7m3p9x2/
         ├── src/app.ts             # TS Native
-        ├── magatama.jsonld           # magatama config
+        ├── kotodama.jsonld           # kotodama config
         ├── go.mod              # Go module
         ├── wit/world.wit       # WIT interfaces
         └── k8s/                # App manifests
@@ -48,7 +48,7 @@ etzhayyim-project-cs-cert/
 ## Key Rules
 
 - **XRPC**: component 間通信は XRPC (HTTP/2)
-- **App namespace**: `magatama-runtime`
+- **App namespace**: `kotodama-runtime`
 - **Performer framework**: `70-tools/performer` を使用
 - **Static assets**: App 内の static delivery (`certs.etzhayyim.com`) で配信
 - **API-Only component**: wasm component は API + バッジ SVG のみ処理

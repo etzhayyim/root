@@ -47,7 +47,7 @@ layer (RW / Lance / Iroh / index) の使用条件を規定した。
 しかし **projection layer の具体的な engine 実装** は両 ADR ともオープン。一方で
 religious-corp は:
 
-- **18,345 unispsc LangGraph agents** (`20-actors/magatama/py/.../unispsc_agents/`) を
+- **18,345 unispsc LangGraph agents** (`40-engine/kotoba/crates/kotoba-kotodama/py/.../unispsc_agents/`) を
   動かす Pregel 基盤を必要とする (ADR-2605171300)
 - **SQL + Graph + GraphQL** 三面のクエリ surface を必要とする (commercial-evidence / member roster / SBT graph / land registry)
 - **暗号化 + RLS** を DID 主体で強制する (ADR-2605181100)
@@ -68,7 +68,7 @@ kotoba-datomic projection layer に求められる機能を 9 つに分解:
 3. SQL surface (PgWire 互換が望ましい)
 4. Graph surface (openCypher subset + property graph)
 5. **GraphQL surface** (API クエリ言語、Hasura-iso、subscription 含む)
-6. UDF protocol (Arrow Flight、pymagatama 18,345 agents を直接呼べる)
+6. UDF protocol (Arrow Flight、kotodama 18,345 agents を直接呼べる)
 7. Encryption integration (`com.etzhayyim.encrypted.*` envelope を貫通)
 8. RLS (DID-bound UCAN capability、三層 defense in depth)
 9. **Pregel epoch semantics** (LangGraph super-step ↔ engine barrier の整合)
@@ -108,7 +108,7 @@ fork。Kotoba/Datomic の代わりに自前 stream/SQL layer を構築。
 
 - SlateDB は pure KV LSM、**Pregel epoch / barrier semantics を持たない** ため
   LangGraph super-step との内部 isomorphism が成立しない
-- UDF protocol を自前で実装する必要があり、pymagatama 18,345 agents の統合コストが
+- UDF protocol を自前で実装する必要があり、kotodama 18,345 agents の統合コストが
   Option B より高い
 - Apple Silicon unified memory の利点を活かす Arrow Flight UDF zero-copy が
   自前構築になる
@@ -164,7 +164,7 @@ Lance を vector / columnar projection に併用する旧設計。本 ADR では
 | P4 PgWire + RLS proxy | 6-9 | 1 | 1-2 |
 | P5 GraphQL | 4-6 | 4-6 | 4-6 |
 | P5b Cypher subset | 3-4 | 3-4 | 3-4 |
-| P6 UDF / pymagatama 統合 | 4-6 | 1-2 | 1-2 |
+| P6 UDF / kotodama 統合 | 4-6 | 1-2 | 1-2 |
 | P7 RLS / encryption end-to-end | 4-6 | 2-3 | 2-3 |
 | P8 Witness / L2 anchor | 2-3 | 2-3 | 2-3 |
 | P9 Mac Silicon GPU runtime | 2-3 | 2-3 | 2-3 |
@@ -309,7 +309,7 @@ constitutional principles に基づく最終判断は別途行う。
    GraphAr chunk CID をどう統合して L2 anchor に書くか? (ADR-2605231500 §
    "rebuild" との整合)
 
-3. **Arrow Flight UDF Server の religious-corp 化**: pymagatama 18,345 agents を
+3. **Arrow Flight UDF Server の religious-corp 化**: kotodama 18,345 agents を
    一つの UDF Server にまとめるか、agent 毎に分離するか? Resource isolation と
    coldstart の trade-off。
 
@@ -416,7 +416,7 @@ No implementation in this ADR. The following follow-up tasks are decision-pendin
 - ADR-2605192415 (religious-corp daemon architecture — Murakumo cells)
 - ADR-2605231400 (kotoba-datomic Holochain-iso substrate)
 - ADR-2605231500 (kotoba-datomic-projection — derived read paths)
-- ADR-2605171300 (magatama unispsc LangGraph agents — 18,345 cells)
+- ADR-2605171300 (kotodama unispsc LangGraph agents — 18,345 cells)
 - ADR-2604241342 (Kotoba/Datomic out-of-band migration pattern — historical RW usage record)
 
 External:

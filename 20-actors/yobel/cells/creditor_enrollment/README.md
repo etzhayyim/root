@@ -14,10 +14,10 @@ Also: MST listener on `com.etzhayyim.apps.etzhayyim.yobel.rite` (`status: declar
 
 1. `validateInput` — assert `riteId` exists ∧ `status=active`; `debts[].length ≥ 1` ∧ `≤ 1000`; all `principalMicroUsdc` ≥ 0; all `originationDate` parseable
 2. `verifyCreditorStanding` — `CouncilSBT.balanceOf(creditorDid) ≥ Lv1` ∨ partner religious-corp membership (Charter §1.13 SBT identity invariant). Non-aligned secular creditor: still allowed to opt-in (voluntary act), but receives an `info` warning that fallback to vendor:bankruptcy.etzhayyim.com is the canonical mandatory-binding path
-3. `verifySignedConsent` — `pymagatama.identity.erc725.verify_eip712_signed_consent`:
+3. `verifySignedConsent` — `kotodama.identity.erc725.verify_eip712_signed_consent`:
    - Recover signer address from `signedConsent` (EIP-712 typed data over canonical hash of `(riteId | creditorDid | debts[])`)
    - Assert signer address matches `creditorDid` ERC725 keystore (ADR-0074)
-   - Fallback: DPoP JWT verification path (`pymagatama.identity.dpop.verify`)
+   - Fallback: DPoP JWT verification path (`kotodama.identity.dpop.verify`)
 4. `historicalRecordGate` — **schema-level invariant (Charter Rider §2(b))**: all `debts[]` entries must have `originationDate < rite.effectiveDate`. New-loan origination via this cell is **prohibited** — assert this in `nodes.py` even though lexicon schema already enforces (defense in depth)
 5. `instrumentSafety` — reject any `debts[].instrument` in {`liquidation`, `margin_call`, `seizure`} (Charter Rider §2(b) gate). Schema enum 既に exclude しているが二重 gate
 6. `encryptSensitive` — XChaCha20-Poly1305-envelope `debts[].principalMicroUsdc` + `debts[].debtorDid` per ADR-2605181100. Per-recipient wrap: creditor DID + Council Lv6+ (×3) + assigned `release_settlement` cell leader DID (asher)

@@ -19,7 +19,7 @@ Readiness-focused skill training, scenario drills, qualification gates, and AAR 
 
 ## Runtime
 
-- Magatama app component: `wasm/etzhayyim-wasm-dojo-d0j0k4t4/`
+- Kotodama app component: `wasm/etzhayyim-wasm-dojo-d0j0k4t4/`
 - Command/Query split via `app.Command(...)` and `app.Query(...)`
 - W Protocol: `[space] dojo-feed` channel for drill completion events
 

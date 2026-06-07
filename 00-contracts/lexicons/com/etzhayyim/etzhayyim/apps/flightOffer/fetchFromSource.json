@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Fetch + persist offers from a specific source registered in vertex_flight_offer_source. Adapter is resolved at runtime via pymagatama.ingest.flight_offer._SOURCE_ADAPTERS keyed by source_id. Falls back to stub if credentials are missing or source is in 'planned' status.",
+      "description": "Fetch + persist offers from a specific source registered in vertex_flight_offer_source. Adapter is resolved at runtime via kotodama.ingest.flight_offer._SOURCE_ADAPTERS keyed by source_id. Falls back to stub if credentials are missing or source is in 'planned' status.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -23,11 +23,11 @@ from typing import Any
 from fastapi import FastAPI, Header, HTTPException, Response
 from fastapi.responses import StreamingResponse
 
-from pymagatama.agents.outlook_triage import outlook_triage_graph
-from pymagatama.pregel.graph import build_graph as _build_pregel
-from pymagatama.projector.graph import build_lifecycle_graph as _build_projector_lifecycle
-from pymagatama.projector.driver import build_driver_graph as _build_projector_driver
-from pymagatama.projector.ops import build_ops_graph as _build_projector_ops
+from kotodama.agents.outlook_triage import outlook_triage_graph
+from kotodama.pregel.graph import build_graph as _build_pregel
+from kotodama.projector.graph import build_lifecycle_graph as _build_projector_lifecycle
+from kotodama.projector.driver import build_driver_graph as _build_projector_driver
+from kotodama.projector.ops import build_ops_graph as _build_projector_ops
 
 _log = logging.getLogger(__name__)
 
@@ -107,7 +107,7 @@ async def _stats(
     x_api_key: str | None = Header(default=None, alias="x-api-key"),
 ) -> dict[str, Any]:
     _enforce_auth(x_api_key)
-    from pymagatama.agents.outlook_stats import get_all_stats
+    from kotodama.agents.outlook_stats import get_all_stats
     return get_all_stats(days=max(1, min(int(days), 365)))
 
 
@@ -121,8 +121,8 @@ async def _threads_search(
     if status != "interrupted":
         return []
     limit = max(1, min(int(body.get("limit") or 50), 1000))
-    from pymagatama.agents.outlook_gray_review import list_pending_gray
-    from pymagatama.agents.outlook_reply_draft import list_pending_drafts
+    from kotodama.agents.outlook_gray_review import list_pending_gray
+    from kotodama.agents.outlook_reply_draft import list_pending_drafts
     gray = list_pending_gray(limit=limit)
     drafts = list_pending_drafts(limit=limit)
     combined = sorted(gray + drafts, key=lambda x: x.get("updated_at", ""), reverse=True)
@@ -137,7 +137,7 @@ async def _thread_state(
     _enforce_auth(x_api_key)
 
     if thread_id.startswith("draft-"):
-        from pymagatama.agents.outlook_reply_draft import get_draft_item
+        from kotodama.agents.outlook_reply_draft import get_draft_item
         item = get_draft_item(thread_id)
         if item is None:
             raise HTTPException(status_code=404, detail="thread not found")
@@ -166,7 +166,7 @@ async def _thread_state(
         }
 
     # Default: gray item
-    from pymagatama.agents.outlook_gray_review import get_gray_item
+    from kotodama.agents.outlook_gray_review import get_gray_item
     item = get_gray_item(thread_id)
     if item is None:
         raise HTTPException(status_code=404, detail="thread not found")
@@ -213,7 +213,7 @@ async def _thread_resume(
     command = body.get("command") or {}
 
     if thread_id.startswith("draft-"):
-        from pymagatama.agents.outlook_reply_draft import apply_draft_verdict
+        from kotodama.agents.outlook_reply_draft import apply_draft_verdict
         action = str(command.get("resume") or "discard").lower()
         final_text = str((body.get("command") or {}).get("final_text") or "")
         apply_draft_verdict(thread_id, action, final_text)
@@ -222,7 +222,7 @@ async def _thread_resume(
         verdict = str(command.get("resume") or "gray").lower()
         if verdict not in {"clean", "spam", "gray"}:
             verdict = "gray"
-        from pymagatama.agents.outlook_gray_review import apply_verdict
+        from kotodama.agents.outlook_gray_review import apply_verdict
         apply_verdict(thread_id, verdict)
 
     async def _event_stream():

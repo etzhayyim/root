@@ -38,7 +38,7 @@ Amends: ADR-0056 (BPMN-as-actor), ADR-2604282300 (CF Worker = edge layer)
 調査 2026-05-01 の結論:
 
 - `zeebe-worker` Deployment と `bpmn-dispatcher` Deployment は常駐済み (`50-infra/vultr/mitama-udf-pool/templates/{zeebe-worker,dispatcher}.yaml`)。
-- `shinka-tick` CronJob は LangGraph + Murakumo LLM で `vertex_shinka_*` を成長させているが、対象は actor 自己情報のみ (`20-actors/magatama/py/src/pymagatama/shinka/__init__.py`)。
+- `shinka-tick` CronJob は LangGraph + Murakumo LLM で `vertex_shinka_*` を成長させているが、対象は actor 自己情報のみ (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/shinka/__init__.py`)。
 - 「ある vertex を見て依存先 vertex / edge を LLM 推論で生やす」**汎用ループは未実装**。各 actor が個別に handler 内で書いているだけ (`fabric.py`, `science_knowledge.py`, `intel.py` など 20+ 箇所)。
 
 graph を「育てる」第一歩として、新規の K8s Deployment や CronJob を立てずに、**既存の `generic.db.select` / `generic.llm.json` / `generic.db.insert` 3 primitive と既存 `zeebe-worker` daemon だけで動く 3-task BPMN PoC** を導入する。ADR-0056 の「新 actor = INSERT 2 rows」規約に従う。
@@ -148,7 +148,7 @@ PoC は **global tick 1 件 / 30 分**。per-actor cadence (shinka 流の mood �
 
 ## langgraph integration (deferred)
 
-Shinka が既に `langgraph.StateGraph` を使用している (`pymagatama/shinka/__init__.py:31`)。PoC では generic.llm.json 1 hop のみ。多 hop reasoning (propose → critique → refine) を入れる時は LangGraph state machine を `pymagatama` に新設し、generic primitive `generic.langgraph.run` として exposure する後続 ADR で扱う。
+Shinka が既に `langgraph.StateGraph` を使用している (`kotodama/shinka/__init__.py:31`)。PoC では generic.llm.json 1 hop のみ。多 hop reasoning (propose → critique → refine) を入れる時は LangGraph state machine を `kotodama` に新設し、generic primitive `generic.langgraph.run` として exposure する後続 ADR で扱う。
 
 ## Acceptance gate (out of scope)
 

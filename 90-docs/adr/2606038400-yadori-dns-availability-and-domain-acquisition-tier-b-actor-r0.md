@@ -41,7 +41,7 @@ CF Worker that issues each `did.json` (ADR-2606013800). But **acquiring the unde
 name** — checking whether a name is free, then reserving/registering it — was never an actor. It
 was a **manual** Cloudflare-Registrar action: `etzhayyim.com` was registered by hand on 2026-05-15
 (CLAUDE.md §Identity; ADR-2605222330), and the only registrar-touching code is
-`20-actors/magatama/py/.../ingest/dns.py`, which orchestrates an inbound **transfer** (Squarespace →
+`40-engine/kotoba/crates/kotoba-kotodama/py/.../ingest/dns.py`, which orchestrates an inbound **transfer** (Squarespace →
 Cloudflare), not availability lookup or new acquisition.
 
 The triggering question (a GoDaddy ad link): *「DNS の空きを確認、予約を行う actor は設計されているか」*
@@ -151,7 +151,7 @@ auth, and the okaimono settlement wiring are deferred to R1+.
 2. **Fold it into okaimono as a "domain" SKU.** Rejected as the home, kept as the *mechanism* —
    domains carry registrar/EPP/DNS/did:web concerns (availability, zone, trademark screen) that
    warrant a dedicated actor; yadori *reuses* okaimono's assisted-checkout for the payment leg.
-3. **Extend the magatama `dns.py` transfer module.** Rejected — that is transfer orchestration
+3. **Extend the kotodama `dns.py` transfer module.** Rejected — that is transfer orchestration
    (Squarespace→CF) with a different shape; availability + acquisition is new surface.
 4. **WHOIS port-43 scraping as the availability primitive.** Rejected in favor of RDAP (structured
    JSON, rate-limit-friendly, the IANA-mandated successor); WHOIS retained only as public fallback.

@@ -23,7 +23,7 @@
     {
       "name": "Phase 1 — etzhayyim scaffold mirror (this commit)",
       "status": "In Progress",
-      "description": "CLAUDE.md + OWNERS + PROJECT.jsonld + magatama.jsonld + 4 lexicons under ransomwatch/ landed in etzhayyim/root. Vendor unchanged."
+      "description": "CLAUDE.md + OWNERS + PROJECT.jsonld + kotodama.jsonld + 4 lexicons under ransomwatch/ landed in etzhayyim/root. Vendor unchanged."
     },
     {
       "name": "Phase 2 — rw-free + worker XRPC adapter",

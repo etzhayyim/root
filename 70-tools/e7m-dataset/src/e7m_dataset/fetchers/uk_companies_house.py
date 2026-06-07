@@ -18,7 +18,7 @@ sensor-relevant subset:
   - CompanyStatus       → companyStatus (passed through for downstream)
 
 Normalized NDJSON consumable by
-``pymagatama.organism.sensors.corp.uk_companies_house_sensor.UkCompaniesHouseSensor``:
+``kotodama.organism.sensors.corp.uk_companies_house_sensor.UkCompaniesHouseSensor``:
 
   {"entityLocalId": "03977902",
    "registeredName": "APPLE EUROPE LIMITED",

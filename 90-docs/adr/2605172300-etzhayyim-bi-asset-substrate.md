@@ -43,7 +43,7 @@ superseded_by: []
 |---|---|---|
 | S0 | `Constitution.sol` + `AdherentRegistry.sol` | ✅ deployed locally, 16/16 forge tests |
 | S1 | `KishaStream.sol` + `AnchorBridge.sol` + `base/KishaPayout.sol` + `@etzhayyim/sdk` `bi.join` / `bi.attest` / `bi.status` / `bi.claim` | ✅ deployed + 21/21 forge tests + 29/29 vitest |
-| S2 | `Phenotype.sol` + `KishaStream` multiplier composition + `pymagatama.eligibility` (`scoring`, `cell`, `web3_ports`) + per-adherent `PhenotypeAgent` code-gen | ✅ 10/10 forge tests + 22/22 pytest; Python `EligibilityCell.step` produces a multiplier that lands on-chain and KishaStream accrual scales by it |
+| S2 | `Phenotype.sol` + `KishaStream` multiplier composition + `kotodama.eligibility` (`scoring`, `cell`, `web3_ports`) + per-adherent `PhenotypeAgent` code-gen | ✅ 10/10 forge tests + 22/22 pytest; Python `EligibilityCell.step` produces a multiplier that lands on-chain and KishaStream accrual scales by it |
 | S3 | `Governance.sol` + `TreasuryMirror.sol` + `bi.propose` / `bi.vote` / `bi.proposalState` + ERC-4337 sponsored path (`paymaster.ts` + `EtzhayyimPaymaster.sol`) | ✅ 16/16 forge tests + 13/13 vitest; sponsored UserOp lands against real EntryPoint v0.7 + SimpleAccount |
 | S4 | `CorpusRegistry.sol` + `HoldingAttestation.sol` | ✅ 21/21 forge tests; deploy gated on Japan-jurisdiction lawfirm review of the attestation template (per the legal caveat in §4) |
 | S5 | `script/Deploy.s.sol` + `script/MockUsdc.sol` + `RUNBOOK-deploy.md` | ✅ deploy script runs cold-to-live on Anvil in <10s |
@@ -77,7 +77,7 @@ Two structural pressures shape this layer:
 
 The existing `50-infra/vultr/geth-private` deployment is exactly that: a PoA geth chain whose validators are association officers (役員). Promoting it to "constitutional substrate" closes the gap. Public verifiability is preserved by anchoring geth-private state roots into Base L2 via the existing `50-infra/l2-anchor-contract` (already structurally present, used by ADR-2605171800).
 
-The Pregel framework in `20-actors/magatama` and the 18,345-agent fleet pattern from ADR-2605171300 provide a third building block: **deterministic, replayable, MST-backed compute** suitable for computing per-adherent eligibility and phenotype scores without any RW dependency.
+The Pregel framework in `40-engine/kotoba/crates/kotoba-kotodama` and the 18,345-agent fleet pattern from ADR-2605171300 provide a third building block: **deterministic, replayable, MST-backed compute** suitable for computing per-adherent eligibility and phenotype scores without any RW dependency.
 
 This ADR composes those three building blocks into a single layer.
 
@@ -155,7 +155,7 @@ All under Apache 2.0, deployed by the founder validator at chain genesis or by g
 
 ## 3. Pregel + LangGraph integration
 
-Three cell classes run under the magatama Pregel framework (ADR-2605171800). Each is a LangGraph graph with checkpointing; durable state lives in MST + IPFS + L2-anchor, not in Postgres (ADR-2605172000 hard rule). Postgres usage, if any, is restricted to ephemeral in-flight run state reconstructible from MST.
+Three cell classes run under the kotodama Pregel framework (ADR-2605171800). Each is a LangGraph graph with checkpointing; durable state lives in MST + IPFS + L2-anchor, not in Postgres (ADR-2605172000 hard rule). Postgres usage, if any, is restricted to ephemeral in-flight run state reconstructible from MST.
 
 ### 3.1 EligibilityCell (per super-step, fleet of adherents)
 
@@ -372,7 +372,7 @@ A future zk upgrade (RISC Zero or SP1 zkVM) can move per-adherent rate proofs to
 - **Closes the corp-internal value loop**. After ADR-2605172000 (state) and ADR-2605172100 (payment), etzhayyim still lacked an economic body. This ADR provides one without breaking either hard rule.
 - **Auditable BI without a fiat processor**. Every payout is an AT Record anchored to Base; any third party can reconstruct the distribution log.
 - **Membership privacy preserved**. PII stays on geth-private (officer-readable) rather than leaking to a public L2.
-- **Reuses existing infrastructure**. geth-private already deployed; l2-anchor-contract already exists; Pregel framework already running in magatama; agent-fleet code-gen already proven at 18,345-agent scale.
+- **Reuses existing infrastructure**. geth-private already deployed; l2-anchor-contract already exists; Pregel framework already running in kotodama; agent-fleet code-gen already proven at 18,345-agent scale.
 - **No new centralized DB**. ADR-2605172000 hard rule preserved.
 - **No fiat processor**. ADR-2605172100 hard rule preserved.
 - **Adherent-declarable tax model**. Distributions framed as gifts between voluntary association and members → individual 一時所得 / 雑所得 reporting, no labor-law / corporate-employer entanglement.

@@ -73,14 +73,14 @@
   "cells": [
     {
       "name": "peer_support_circle",
-      "module": "magatama.cells.kokoro_peer_support_circle",
+      "module": "kotodama.cells.kokoro_peer_support_circle",
       "murakumoNode": "benjamin",
       "phase": "session",
       "io": "circle session + multi-gen attestation + opt-in → peerSupportCircleAttestation (encrypted)"
     },
     {
       "name": "grief_support",
-      "module": "magatama.cells.kokoro_grief_support",
+      "module": "kotodama.cells.kokoro_grief_support",
       "murakumoNode": "benjamin",
       "phase": "session",
       "io": "musubi funeral cross-link + bereavement session → griefSupportAttestation (encrypted)",
@@ -88,7 +88,7 @@
     },
     {
       "name": "chronic_mental_health_continuity",
-      "module": "magatama.cells.kokoro_chronic_mental_health_continuity",
+      "module": "kotodama.cells.kokoro_chronic_mental_health_continuity",
       "murakumoNode": "benjamin",
       "phase": "longitudinal",
       "io": "iyashi chronicCareContinuityRecord cross-link + community+spiritual+relational support → chronic continuity record (encrypted)",
@@ -96,7 +96,7 @@
     },
     {
       "name": "postnatal_mood_screening",
-      "module": "magatama.cells.kokoro_postnatal_mood_screening",
+      "module": "kotodama.cells.kokoro_postnatal_mood_screening",
       "murakumoNode": "benjamin",
       "phase": "event (opt-in)",
       "io": "maternity cross-link + opt-in screening + Murakumo support → screening attestation (encrypted; acute crisis escalation if applicable)",
@@ -104,7 +104,7 @@
     },
     {
       "name": "acute_crisis_escalation",
-      "module": "magatama.cells.kokoro_acute_crisis_escalation",
+      "module": "kotodama.cells.kokoro_acute_crisis_escalation",
       "murakumoNode": "benjamin",
       "phase": "event (urgent)",
       "io": "acute crisis detection → mitate G5 emergency keyword trigger + iyashi clinical surge + chigiri.disputeMediation if needed",
@@ -112,7 +112,7 @@
     },
     {
       "name": "counseling_referral",
-      "module": "magatama.cells.kokoro_counseling_referral",
+      "module": "kotodama.cells.kokoro_counseling_referral",
       "murakumoNode": "benjamin",
       "phase": "event",
       "io": "external counselor engagement need → Public Fund Council Lv6+ ≥4/7 + referral record",

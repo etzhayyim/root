@@ -15,9 +15,9 @@ from e7m_dataset import pii
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-PYMAGATAMA_SRC = REPO_ROOT / "20-actors" / "magatama" / "py" / "src"
+PYKOTODAMA_SRC = REPO_ROOT / "20-actors" / "kotodama" / "py" / "src"
 PII_FILTER_PRESENT = (
-    PYMAGATAMA_SRC / "pymagatama" / "organism" / "sensors" / "pii_filter.py"
+    PYKOTODAMA_SRC / "kotodama" / "organism" / "sensors" / "pii_filter.py"
 ).is_file()
 
 
@@ -25,13 +25,13 @@ def _drop_pii_module_cache():
     """Reset the cached load between tests so each test exercises the loader."""
     pii._LOADED_MODULES.clear()
     for k in list(sys.modules):
-        if k.startswith("_e7m_dataset_pii_direct_") or k == "pymagatama" or k.startswith("pymagatama."):
+        if k.startswith("_e7m_dataset_pii_direct_") or k == "kotodama" or k.startswith("kotodama."):
             del sys.modules[k]
 
 
-def _drop_pymagatama_from_path():
+def _drop_kotodama_from_path():
     for entry in list(sys.path):
-        if entry.endswith("20-actors/magatama/py/src"):
+        if entry.endswith("40-engine/kotoba/crates/kotoba-kotodama/py/src"):
             sys.path.remove(entry)
 
 
@@ -41,18 +41,18 @@ def with_pii(monkeypatch):
     if not PII_FILTER_PRESENT:
         pytest.skip("pii_filter.py not present in this checkout")
     _drop_pii_module_cache()
-    _drop_pymagatama_from_path()
+    _drop_kotodama_from_path()
     monkeypatch.chdir(REPO_ROOT)
     yield
     _drop_pii_module_cache()
-    _drop_pymagatama_from_path()
+    _drop_kotodama_from_path()
 
 
 @pytest.fixture
 def without_pii(monkeypatch, tmp_path):
     """Make the redactor unimportable by chdir-ing outside the monorepo."""
     _drop_pii_module_cache()
-    _drop_pymagatama_from_path()
+    _drop_kotodama_from_path()
     monkeypatch.delenv(pii.SRC_OVERRIDE_ENV, raising=False)
     monkeypatch.chdir(tmp_path)
     yield

@@ -25,7 +25,7 @@ function createSdk() {
 
 let setupCallback: ((sdk: ReturnType<typeof createSdk>) => void) | null = null;
 
-vi.mock("@etzhayyim/magatama-host-sdk", () => ({
+vi.mock("@etzhayyim/kotodama-host-sdk", () => ({
   createWorkerExport: (cb: (sdk: ReturnType<typeof createSdk>) => void) => {
     setupCallback = cb;
     return { fetch: vi.fn() };

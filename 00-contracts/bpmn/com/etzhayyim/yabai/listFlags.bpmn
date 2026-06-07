@@ -10,7 +10,7 @@
       → generic.db.select (vertex_yabai_flag + extraFilters)
       → End
 
-  Uses the dynamic WHERE primitive extension (pymagatama 0.2.27).
+  Uses the dynamic WHERE primitive extension (kotodama 0.2.27).
   Output shape matches TS handler: `{ flags, total, offset, limit }`.
 -->
 <bpmn:definitions

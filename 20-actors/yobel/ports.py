@@ -2,7 +2,7 @@
 Port Protocols for yobel cells.
 
 Per ADR-2605201800. These Protocols define the minimal interface surface that
-yobel cells call into. Concrete implementations live in pymagatama / etzhayyim-sdk;
+yobel cells call into. Concrete implementations live in kotodama / etzhayyim-sdk;
 this file is the single source of truth for "what does a yobel cell require from
 its environment". Tests, the BPMN orchestrator, and dry-run scripts mock these
 protocols.

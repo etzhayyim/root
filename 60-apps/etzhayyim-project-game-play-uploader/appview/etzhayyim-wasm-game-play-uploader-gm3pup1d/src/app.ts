@@ -26,7 +26,7 @@ export default {
         actor: "did:web:game-play-uploader.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "gm3pup1d",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/game_play_uploader.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/game_play_uploader.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/gamePlayUploader",
       });
     }

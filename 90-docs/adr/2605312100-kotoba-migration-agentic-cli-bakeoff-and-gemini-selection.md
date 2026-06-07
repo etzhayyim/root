@@ -38,7 +38,7 @@ ADR-2605310200 introduced an **automated single-shot** LangGraph→kotoba-WASM m
 pipeline (`migrate_to_kotoba_wasm.py`, gemma4:26b-a4b via LiteLLM). Census (2026-05-31):
 **8,180 `StateGraph` files** across 20-actors await porting; **0** migrated outside the
 10 `kotoba-langgraph-*` examples. Distribution: 8,074 codegen UNSPSC agents
-(`pymagatama/langgraph_graphs/`), 34 religious-corp cells, 5 framework-core, ~76 Tier-B
+(`kotodama/langgraph_graphs/`), 34 religious-corp cells, 5 framework-core, ~76 Tier-B
 actor cells. (Plan: `90-docs/kotoba-wasm-migration-plan.edn`.)
 
 Founder decision (2026-05-31): **reject codegen/bulk-regeneration; migrate each cell

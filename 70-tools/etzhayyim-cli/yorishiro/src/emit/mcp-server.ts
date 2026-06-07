@@ -1,5 +1,5 @@
 // emit/mcp-server.ts — L3 emitter. Produces a yorishiro-<name>-mcp package
-// mirroring 20-actors/magatama/mcp/unispsc-isic-mcp/ (stdio + Streamable
+// mirroring 40-engine/kotoba/crates/kotoba-kotodama/mcp/unispsc-isic-mcp/ (stdio + Streamable
 // HTTP transport, zod 4 input schemas, handler delegation to a typed
 // kami handle).
 
@@ -24,7 +24,7 @@ export interface EmittedMcp {
 }
 
 export function emitMcpServer(args: EmitMcpArgs): EmittedMcp {
-  const dir = join(args.repoRoot, "20-actors/magatama/mcp", `yorishiro-${args.name}-mcp`);
+  const dir = join(args.repoRoot, "40-engine/kotoba/crates/kotoba-kotodama/mcp", `yorishiro-${args.name}-mcp`);
   mkdirSync(join(dir, "src"), { recursive: true });
 
   const files: string[] = [];
@@ -80,7 +80,7 @@ function renderPackageJson(args: EmitMcpArgs): string {
       repository: {
         type: "git",
         url: "https://github.com/etzhayyim/root.git",
-        directory: `20-actors/magatama/mcp/yorishiro-${args.name}-mcp`,
+        directory: `40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp`,
       },
       homepage: "https://etzhayyim.com",
       keywords: ["mcp", "model-context-protocol", "etzhayyim", "yorishiro", args.name],
@@ -139,7 +139,7 @@ Each tool's input schema is the zod 4 mirror of the matching lexicon at
   "mcpServers": {
     "etzhayyim-yorishiro-${args.name}": {
       "command": "node",
-      "args": ["/path/to/repo/20-actors/magatama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"],
+      "args": ["/path/to/repo/40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"],
       "env": {
         "YORISHIRO_${args.name.toUpperCase()}_BASE_URL": "${args.baseUrl}"
       }

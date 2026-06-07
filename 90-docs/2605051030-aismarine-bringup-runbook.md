@@ -123,18 +123,18 @@ psql "$DATABASE_URL" -c \
 ### 2. Verify pyzeebe primitives (PR-B)
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 uv run pytest -q tests/test_aismarine_pure_helpers.py
 # Expected: 29 passed
 ```
 
-### 3. Build + push pymagatama image with new primitives
+### 3. Build + push kotodama image with new primitives
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 TAG="0.3.27-202605051030-amd64"
 docker buildx build --platform linux/amd64 \
-  -t ghcr.io/etzhayyim/pymagatama:$TAG --push .
+  -t ghcr.io/etzhayyim/kotodama:$TAG --push .
 
 # Roll out zeebe-worker
 helm -n mitama-udf upgrade zeebe-worker \
@@ -339,7 +339,7 @@ Full kill-switch: `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-aismarin
 - `30-graph/graph-schema/migrations/20260501180300_seed_aismarine_bpmn_actors.ts`
 - `00-contracts/lexicons/com/etzhayyim/apps/maps/aismarine/`
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/aismarine/`
-- `20-actors/magatama/py/src/pymagatama/primitives/aismarine.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/aismarine.py`
 - `60-apps/etzhayyim-project-maps/bulk-ingest/workers/aismarine_consumer.py`
 - `60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-aismarine.yaml`
 - `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts` (handlers)

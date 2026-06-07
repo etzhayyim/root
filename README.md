@@ -36,7 +36,7 @@ ADR-2605152100 6-phase org-split cutover is now **doc-runbook complete end-to-en
 | 6. Archive markers | ✅ runbook ready (execution gated on Phase 5) | `90-docs/adr/2605211925-...md` |
 
 Operator next-action: tick the 42 rows in the gate (a) checklist as
-per-worker SQLite ports land in `20-actors/magatama/py/src/pymagatama/`. When
+per-worker SQLite ports land in `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/`. When
 the checklist reads `42 / 42`, the rest of the runbooks (Wave A-D DNS
 cutover → Phase 5 git rm → Phase 6 archive markers) unblock in order.
 
@@ -95,7 +95,7 @@ may decide on a cut, through the local CLI with their git credentials
 etzhayyim/root/
 ├── 00-contracts/        # open lexicons / bpmn / dmn / Rego policies
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim
-├── 20-actors/           # magatama actor framework + Pregel-pattern SDK
+├── 20-actors/           # kotodama actor framework + Pregel-pattern SDK
 ├── 30-graph/            # open graph schemas + RisingWave migrations
 ├── 50-infra/            # geth, holochain, ipfs, blockscout, etzhayyim-pds
 ├── 60-apps/             # open-* (22), public-* (2), atproto, ameno, baien
@@ -114,7 +114,7 @@ etzhayyim/root/
 | **baien** | BitNet b1.58 1-bit multimodal CPU/edge/browser LLM | `60-apps/*-baien*`, `90-docs/baien/` |
 | **bpmn** | Open BPMN 2.0 process definitions + DMN decision tables | `00-contracts/bpmn/`, `00-contracts/dmn/`, `60-apps/*-open-bpmn` |
 | **lexicon** | AT Protocol Lexicon schemas + XRPC framework | `00-contracts/lexicons/`, `10-protocol/lexicons-bundle`, `10-protocol/xrpc` |
-| **pregel** | Magatama actor framework + Pregel-pattern host SDK | `20-actors/magatama/` |
+| **pregel** | Kotodama actor framework + Pregel-pattern host SDK | `40-engine/kotoba/crates/kotoba-kotodama/` |
 | **atproto** | PDS reference impl + AT clients | `10-protocol/atproto`, `60-apps/*-atproto`, `50-infra/k8s/atproto-pds` |
 | **ameno** | Browser inference platform | `60-apps/*-ameno` |
 | **open data** | 22 public-data wrappers (airplane, banking, isco, isic, jpn-gov, ...) | `60-apps/*-open-*` |

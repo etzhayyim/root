@@ -18,7 +18,7 @@
 50-infra/cloudflare/workers/appview/src/appview/feed.ts:578:kysely-direct-db:const secondHop = await db.selectFrom("edge_follows" as any)
 50-infra/cloudflare/workers/appview/src/appview/feed.ts:615:kysely-direct-db:.selectFrom("vertex_repo_record")
 50-infra/cloudflare/workers/appview/src/appview/feed.ts:713:kysely-direct-db:.selectFrom("vertex_repo_record")
-50-infra/cloudflare/workers/appview/src/appview/feed.ts:7:hyperdrive-usage:import { createKyselyDb, type Hyperdrive } from "@etzhayyim/magatama-host-sdk";
+50-infra/cloudflare/workers/appview/src/appview/feed.ts:7:hyperdrive-usage:import { createKyselyDb, type Hyperdrive } from "@etzhayyim/kotodama-host-sdk";
 50-infra/cloudflare/workers/appview/src/appview/profile.ts:175:kysely-direct-db:.selectFrom("vertex_profile")
 50-infra/cloudflare/workers/appview/src/appview/profile.ts:222:kysely-direct-db:.selectFrom(appTableName)
 50-infra/cloudflare/workers/appview/src/appview/profile.ts:235:kysely-direct-db:.selectFrom("edge_follows")
@@ -28,13 +28,13 @@
 50-infra/cloudflare/workers/appview/src/appview/profile.ts:276:kysely-direct-db:db.selectFrom("vertex_repo_record")
 50-infra/cloudflare/workers/appview/src/appview/profile.ts:282:kysely-direct-db:db.selectFrom("edge_follows")
 50-infra/cloudflare/workers/appview/src/appview/profile.ts:287:kysely-direct-db:db.selectFrom("edge_follows")
-50-infra/cloudflare/workers/appview/src/appview/profile.ts:9:hyperdrive-usage:import { createKyselyDb, type Hyperdrive } from "@etzhayyim/magatama-host-sdk";
+50-infra/cloudflare/workers/appview/src/appview/profile.ts:9:hyperdrive-usage:import { createKyselyDb, type Hyperdrive } from "@etzhayyim/kotodama-host-sdk";
 50-infra/cloudflare/workers/appview/src/appview/search.ts:17:hyperdrive-usage:const hd = env.HYPERDRIVE as Hyperdrive | undefined;
 50-infra/cloudflare/workers/appview/src/appview/search.ts:18:hyperdrive-usage:if (!hd) throw new Error("HYPERDRIVE binding required");
 50-infra/cloudflare/workers/appview/src/appview/search.ts:19:kysely-direct-db:_db = createKyselyDb(hd) as unknown as Kysely<Database>;
 50-infra/cloudflare/workers/appview/src/appview/search.ts:292:kysely-direct-db:.selectFrom(table as any)
 50-infra/cloudflare/workers/appview/src/appview/search.ts:384:kysely-direct-db:.selectFrom("vertex_profile")
-50-infra/cloudflare/workers/appview/src/appview/search.ts:8:hyperdrive-usage:import { createKyselyDb, type Hyperdrive } from "@etzhayyim/magatama-host-sdk";
+50-infra/cloudflare/workers/appview/src/appview/search.ts:8:hyperdrive-usage:import { createKyselyDb, type Hyperdrive } from "@etzhayyim/kotodama-host-sdk";
 50-infra/cloudflare/workers/appview/src/handlers/appview.ts:30:hyperdrive-usage:HYPERDRIVE?: Hyperdrive;
 50-infra/cloudflare/workers/appview/src/index.ts:13:hono-import:import { Hono } from "hono";
 50-infra/cloudflare/workers/appview/src/index.ts:18:hyperdrive-usage:HYPERDRIVE?: Hyperdrive;
@@ -1181,7 +1181,7 @@
 50-infra/cloudflare/workers/chat/src/handlers/chat.ts:100:kysely-direct-db:_db = createKyselyDb(hd as unknown as SdkHyperdrive) as unknown as Kysely<Database>;
 50-infra/cloudflare/workers/chat/src/handlers/chat.ts:141:kysely-direct-db:.selectFrom("vertex_convo")
 50-infra/cloudflare/workers/chat/src/handlers/chat.ts:183:kysely-direct-db:.selectFrom("vertex_convo")
-50-infra/cloudflare/workers/chat/src/handlers/chat.ts:21:hyperdrive-usage:import { createKyselyDb, type Hyperdrive as SdkHyperdrive } from "@etzhayyim/magatama-host-sdk";
+50-infra/cloudflare/workers/chat/src/handlers/chat.ts:21:hyperdrive-usage:import { createKyselyDb, type Hyperdrive as SdkHyperdrive } from "@etzhayyim/kotodama-host-sdk";
 50-infra/cloudflare/workers/chat/src/handlers/chat.ts:221:kysely-direct-db:.selectFrom("vertex_message")
 50-infra/cloudflare/workers/chat/src/handlers/chat.ts:26:hyperdrive-usage:HYPERDRIVE?: Hyperdrive;
 50-infra/cloudflare/workers/chat/src/handlers/chat.ts:98:hyperdrive-usage:const hd = env.HYPERDRIVE;
@@ -1256,26 +1256,26 @@
 50-infra/cloudflare/workers/ipfs-proxy/wrangler.jsonc:8:wrangler-non-sveltekit-main:"main": "src/index.ts"
 50-infra/cloudflare/workers/kaisya/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/worker.ts"
 50-infra/cloudflare/workers/lawfirm/wrangler.jsonc:4:wrangler-non-sveltekit-main:"main": "src/worker.ts"
-50-infra/cloudflare/workers/magatama/src/worker.ts:16:hono-import:import { Hono } from "hono";
-50-infra/cloudflare/workers/magatama/src/worker.ts:20:hyperdrive-usage:HYPERDRIVE?: unknown;
-50-infra/cloudflare/workers/magatama/src/worker.ts:348:kysely-direct-db:const rows = await db.selectFrom("vertex_actor_shinka_state" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:435:kysely-direct-db:await db.deleteFrom("vertex_actor_shinka_state" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:439:kysely-direct-db:await db.insertInto("vertex_actor_shinka_state" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:480:kysely-direct-db:const trials = await db.selectFrom("vertex_generation_trial" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:514:kysely-direct-db:const bindings = await db.selectFrom("vertex_actor_cognitive_binding" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:529:kysely-direct-db:await db.deleteFrom("vertex_actor_cognitive_binding" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:533:kysely-direct-db:await db.insertInto("vertex_actor_cognitive_binding" as any).values({
-50-infra/cloudflare/workers/magatama/src/worker.ts:53:hyperdrive-usage:if (!env.HYPERDRIVE) return null;
-50-infra/cloudflare/workers/magatama/src/worker.ts:55:hyperdrive-usage:return createKyselyDb(env.HYPERDRIVE as any);
-50-infra/cloudflare/workers/magatama/src/worker.ts:55:kysely-direct-db:return createKyselyDb(env.HYPERDRIVE as any);
-50-infra/cloudflare/workers/magatama/src/worker.ts:63:kysely-direct-db:.selectFrom("vertex_repo_commit" as any)
-50-infra/cloudflare/workers/magatama/src/worker.ts:682:kysely-direct-db:const rows = await db.selectFrom("vertex_prompt_template" as any).selectAll().execute();
-50-infra/cloudflare/workers/magatama/src/worker.ts:691:kysely-direct-db:const rows = await db.selectFrom("vertex_model_config" as any).selectAll().execute();
-50-infra/cloudflare/workers/magatama/src/worker.ts:699:kysely-direct-db:const rows = await db.selectFrom("vertex_actor_cognitive_binding" as any).selectAll().execute();
-50-infra/cloudflare/workers/magatama/src/worker.ts:789:kysely-direct-db:await db.insertInto("vertex_generation_trial" as any).values({
-50-infra/cloudflare/workers/magatama/src/worker.ts:847:kysely-direct-db:const rows = await db.selectFrom("vertex_generation_trial" as any)
-50-infra/cloudflare/workers/magatama/wrangler.jsonc:2:wrangler-hyperdrive-binding:"hyperdrive": [
-50-infra/cloudflare/workers/magatama/wrangler.jsonc:6:wrangler-non-sveltekit-main:"main": "src/worker.ts"
+50-infra/cloudflare/workers/kotodama/src/worker.ts:16:hono-import:import { Hono } from "hono";
+50-infra/cloudflare/workers/kotodama/src/worker.ts:20:hyperdrive-usage:HYPERDRIVE?: unknown;
+50-infra/cloudflare/workers/kotodama/src/worker.ts:348:kysely-direct-db:const rows = await db.selectFrom("vertex_actor_shinka_state" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:435:kysely-direct-db:await db.deleteFrom("vertex_actor_shinka_state" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:439:kysely-direct-db:await db.insertInto("vertex_actor_shinka_state" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:480:kysely-direct-db:const trials = await db.selectFrom("vertex_generation_trial" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:514:kysely-direct-db:const bindings = await db.selectFrom("vertex_actor_cognitive_binding" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:529:kysely-direct-db:await db.deleteFrom("vertex_actor_cognitive_binding" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:533:kysely-direct-db:await db.insertInto("vertex_actor_cognitive_binding" as any).values({
+50-infra/cloudflare/workers/kotodama/src/worker.ts:53:hyperdrive-usage:if (!env.HYPERDRIVE) return null;
+50-infra/cloudflare/workers/kotodama/src/worker.ts:55:hyperdrive-usage:return createKyselyDb(env.HYPERDRIVE as any);
+50-infra/cloudflare/workers/kotodama/src/worker.ts:55:kysely-direct-db:return createKyselyDb(env.HYPERDRIVE as any);
+50-infra/cloudflare/workers/kotodama/src/worker.ts:63:kysely-direct-db:.selectFrom("vertex_repo_commit" as any)
+50-infra/cloudflare/workers/kotodama/src/worker.ts:682:kysely-direct-db:const rows = await db.selectFrom("vertex_prompt_template" as any).selectAll().execute();
+50-infra/cloudflare/workers/kotodama/src/worker.ts:691:kysely-direct-db:const rows = await db.selectFrom("vertex_model_config" as any).selectAll().execute();
+50-infra/cloudflare/workers/kotodama/src/worker.ts:699:kysely-direct-db:const rows = await db.selectFrom("vertex_actor_cognitive_binding" as any).selectAll().execute();
+50-infra/cloudflare/workers/kotodama/src/worker.ts:789:kysely-direct-db:await db.insertInto("vertex_generation_trial" as any).values({
+50-infra/cloudflare/workers/kotodama/src/worker.ts:847:kysely-direct-db:const rows = await db.selectFrom("vertex_generation_trial" as any)
+50-infra/cloudflare/workers/kotodama/wrangler.jsonc:2:wrangler-hyperdrive-binding:"hyperdrive": [
+50-infra/cloudflare/workers/kotodama/wrangler.jsonc:6:wrangler-non-sveltekit-main:"main": "src/worker.ts"
 50-infra/cloudflare/workers/moderation/worker.ts:1:hono-import:import { Hono } from "hono";
 50-infra/cloudflare/workers/moderation/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "worker.ts"
 50-infra/cloudflare/workers/murakumo/src/index.ts:15:hono-import:import { Hono, type MiddlewareHandler } from "hono";
@@ -1315,7 +1315,7 @@
 50-infra/cloudflare/workers/routing-gateway/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/worker.ts"
 50-infra/cloudflare/workers/signal/src/handlers/signal.ts:109:kysely-direct-db:.selectFrom("vertex_prekeys")
 50-infra/cloudflare/workers/signal/src/handlers/signal.ts:144:kysely-direct-db:.selectFrom("vertex_prekeys")
-50-infra/cloudflare/workers/signal/src/handlers/signal.ts:18:hyperdrive-usage:import { createKyselyDb, type Hyperdrive as SdkHyperdrive } from "@etzhayyim/magatama-host-sdk";
+50-infra/cloudflare/workers/signal/src/handlers/signal.ts:18:hyperdrive-usage:import { createKyselyDb, type Hyperdrive as SdkHyperdrive } from "@etzhayyim/kotodama-host-sdk";
 50-infra/cloudflare/workers/signal/src/handlers/signal.ts:23:hyperdrive-usage:HYPERDRIVE?: Hyperdrive;
 50-infra/cloudflare/workers/signal/src/handlers/signal.ts:34:hyperdrive-usage:const hd = env.HYPERDRIVE;
 50-infra/cloudflare/workers/signal/src/handlers/signal.ts:35:hyperdrive-usage:if (!hd) throw new Error("HYPERDRIVE binding required");
@@ -2084,7 +2084,7 @@
 60-apps/etzhayyim-project-tenso/appview/etzhayyim-wasm-tenso-t3ns0f1l/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-threads/appview/threads-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
 60-apps/etzhayyim-project-tia/appview/tia-mcp-component/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"
-60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:418:kysely-direct-db:const db = (await import("@etzhayyim/magatama-host-sdk")).createKyselyDb(
+60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:418:kysely-direct-db:const db = (await import("@etzhayyim/kotodama-host-sdk")).createKyselyDb(
 60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:419:hyperdrive-usage:(globalThis as any).__env?.HYPERDRIVE,
 60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/src/app.ts:422:kysely-direct-db:.selectFrom(LEGACY_VERTEX_OTHER_COUNT_TABLE as any)
 60-apps/etzhayyim-project-toshi-kozan/appview/etzhayyim-wasm-toshi-kozan-tk7x9p2m/wrangler.jsonc:3:wrangler-non-sveltekit-main:"main": "src/app.ts"

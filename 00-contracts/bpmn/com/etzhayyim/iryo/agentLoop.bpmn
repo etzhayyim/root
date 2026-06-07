@@ -7,7 +7,7 @@
     1. fetches mv_iryo_bed_occupancy_now + mv_iryo_admission_count_by_dept (rolling 30d)
        + mv_iryo_drg_pnl_daily (last 7d) + recent vertex_iryo_health_kpi
     2. composes an iryo hospital-ops system prompt
-    3. calls pymagatama.llm.call_tier(tier, system, user)
+    3. calls kotodama.llm.call_tier(tier, system, user)
     4. returns content / model / latency / row counts
 -->
 <bpmn:definitions

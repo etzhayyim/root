@@ -1,6 +1,6 @@
 # lg-ameno — LangServer pod for the Path-B ameno agent loop.
 #
-# Hosts pymagatama.projects.ameno (Python LangGraph + FastAPI) — same
+# Hosts kotodama.projects.ameno (Python LangGraph + FastAPI) — same
 # StateGraph as the browser appview (reflection + active inference
 # lexical + ReAct tools) but server-side via Ollama.
 #
@@ -17,7 +17,7 @@
 #   │                                                                 │
 #   │  ┌─────────────────────┐    /run/etzhayyim/    ┌──────────────┐ │
 #   │  │  uvicorn (Python)   │◄──── checkpointer ─►│  checkpointer│ │
-#   │  │  pymagatama.…ameno  │        .sock         │  (TS, Node)  │ │
+#   │  │  kotodama.…ameno  │        .sock         │  (TS, Node)  │ │
 #   │  │  FastAPI + Pregel   │     (emptyDir)       │  @etzhayyim  │ │
 #   │  │  port 8080          │                      │  /sdk        │ │
 #   │  └──────────┬──────────┘                      └──────┬───────┘ │
@@ -35,7 +35,7 @@
 # Stage 1 (this PR): sidecar present, Python server still uses
 # FileCheckpointer. Python ↔ sidecar IPC wiring is the follow-up.
 # Stage 2-4 (MST projection / IPFS pin / L2 anchor): the sidecar
-# already implements them — flipping pymagatama to dial the socket
+# already implements them — flipping kotodama to dial the socket
 # graduates the deployment without further infra change.
 # ADR-2605171800 + ADR-2605191257.
 
@@ -176,7 +176,7 @@ spec:
             - name: LOCAL_LLM_TIMEOUT_SEC
               value: "180"
             # Stage 2 substrate persistence — when MST_CHECKPOINT_SOCKET
-            # is set, pymagatama.projects.ameno.pregel._compile_default()
+            # is set, kotodama.projects.ameno.pregel._compile_default()
             # attaches MstCheckpointSaver (ADR-2605171800) instead of the
             # FileCheckpointer fallback. Every put / putWrites op then
             # round-trips to the TS checkpointer sidecar over the shared
@@ -231,7 +231,7 @@ spec:
         - name: checkpointer
           # MstCheckpointSaver sidecar — Stage 2-4 of ADR-2605171800.
           # Implementation is ready (50-infra/etzhayyim-sdk-checkpointer/),
-          # awaits pymagatama-side dialing of the socket (Stage 1 wire-up
+          # awaits kotodama-side dialing of the socket (Stage 1 wire-up
           # is structural; Python integration follows in the next PR).
           image: ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer:main
           imagePullPolicy: Always

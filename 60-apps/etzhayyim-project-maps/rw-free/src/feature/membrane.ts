@@ -34,7 +34,7 @@ export const DEFAULT_FEATURE_MEMBRANE_RULE: MembraneRule = {
     version: "1.0.0",
   },
   cellRef: {
-    path: "20-actors/magatama/cells/maps_feature_attestor/",
+    path: "40-engine/kotoba/crates/kotoba-kotodama/cells/maps_feature_attestor/",
     contentHash: "0".repeat(64),
     version: "0000000",
   },

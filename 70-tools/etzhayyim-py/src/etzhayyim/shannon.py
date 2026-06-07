@@ -658,7 +658,7 @@ def _sh_scan(ws: Path) -> tuple[list[str], dict, dict, dict]:
     app_proj: dict[str, str] = {}
     for root_dir in (ws / "60-apps", ws / "projects"):
         if root_dir.exists():
-            for jsonld_path in root_dir.rglob("magatama.jsonld"):
+            for jsonld_path in root_dir.rglob("kotodama.jsonld"):
                 data = _read_jsonld(jsonld_path)
                 nanoid = data.get("nanoid", "")
                 if nanoid:

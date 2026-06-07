@@ -186,14 +186,14 @@ def go_module(dirname: str) -> str:
 go 1.23
 
 require (
-\tgithub.com/etzhayyim/magatama-go v0.0.0
+\tgithub.com/etzhayyim/kotodama-go v0.0.0
 \tgithub.com/etzhayyim/signal-client v0.0.0-00010101000000-000000000000
 )
 
 require go.bytecodealliance.org/cm v0.3.0 // indirect
 
 replace github.com/etzhayyim/signal-client => ../../../../packages/go/signal-client
-replace github.com/etzhayyim/magatama-go => ../../../../packages/rust/magatama/magatama-go
+replace github.com/etzhayyim/kotodama-go => ../../../../packages/rust/kotodama/kotodama-go
 """
 
 
@@ -207,9 +207,9 @@ go.bytecodealliance.org/cm v0.3.0/go.mod h1:JD5vtVNZv7sBoQQkvBvAAVKJPhR/bqBH7yYX
 """
 
 
-def magatama_toml(short: str) -> str:
+def kotodama_toml(short: str) -> str:
     name = component_name(short)
-    return f"""# {name} — magatama runtime config
+    return f"""# {name} — kotodama runtime config
 
 [component]
 path = "component.wasm"
@@ -268,7 +268,7 @@ import (
 \t"net/http"
 \t"time"
 
-\tmagatama "github.com/etzhayyim/magatama-go"
+\tkotodama "github.com/etzhayyim/kotodama-go"
 )
 
 const (
@@ -290,7 +290,7 @@ func ensureSeed() {{
 }}
 
 func seedDivision() error {{
-\trows, err := magatama.CypherQueryMap(
+\trows, err := kotodama.CypherQueryMap(
 \t\t"MATCH (n:GovDivision {{nanoid: $nanoid}}) RETURN n.name AS name",
 \t\tmap[string]any{{"nanoid": componentNanoID}},
 \t)
@@ -300,7 +300,7 @@ func seedDivision() error {{
 \tif len(rows) > 0 {{
 \t\treturn nil
 \t}}
-\treturn magatama.CypherExec(
+\treturn kotodama.CypherExec(
 \t\t"CREATE (n:GovDivision {{nanoid: $nanoid, name: $name, division_type: $type, population: 0, headquarters: '', country_code: $cc, entity_name: $en, org_id: 'anon', user_id: 'anon', actor_id: ''}})",
 \t\tmap[string]any{{"nanoid": componentNanoID, "name": entityName, "type": divisionType, "cc": countryCode, "en": entityName}},
 \t)
@@ -313,18 +313,18 @@ func logOrgEvent(eventType string, detail map[string]any) {{
 \t\tb, _ := json.Marshal(detail)
 \t\tdetailJSON = string(b)
 \t}}
-\t_ = magatama.CypherExec(
+\t_ = kotodama.CypherExec(
 \t\t"CREATE (e:OrgEvent {{event_id: $eid, org_nanoid: $nanoid, event_type: $et, timestamp: $ts, country_code: $cc, detail_json: $detail, org_id: 'anon', user_id: 'anon', actor_id: $actor}})",
 \t\tmap[string]any{{"eid": componentNanoID + ":" + now, "nanoid": componentNanoID, "et": eventType, "ts": now, "cc": countryCode, "detail": detailJSON, "actor": componentNanoID}},
 \t)
 }}
 
 func init() {{
-\tadapter := magatama.NewAdapter("{service_path}")
+\tadapter := kotodama.NewAdapter("{service_path}")
 \tregisterMethods(adapter)
-\tmagatama.Handle(func(w http.ResponseWriter, r *http.Request) {{
+\tkotodama.Handle(func(w http.ResponseWriter, r *http.Request) {{
 \t\tensureSeed()
-\t\tif magatama.HandleCORS(w, r) {{
+\t\tif kotodama.HandleCORS(w, r) {{
 \t\t\treturn
 \t\t}}
 \t\tadapter.ServeHTTP(w, r)
@@ -333,8 +333,8 @@ func init() {{
 
 func main() {{}}
 
-func registerMethods(a *magatama.Adapter) {{
-\ta.Register(magatama.Method{{
+func registerMethods(a *kotodama.Adapter) {{
+\ta.Register(kotodama.Method{{
 \t\tName:        "GetOrganizationInfo",
 \t\tDescription: "Get information about this government organization",
 \t\tInputSchema: map[string]any{{"type": "object", "properties": map[string]any{{}}}},
@@ -348,12 +348,12 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\t}}, nil
 \t\t}},
 \t}})
-\ta.Register(magatama.Method{{
+\ta.Register(kotodama.Method{{
 \t\tName:        "GetDivisionInfo",
 \t\tDescription: "Get default division info for this organization",
 \t\tInputSchema: map[string]any{{"type": "object", "properties": map[string]any{{}}}},
 \t\tHandler: func(args map[string]any) (any, error) {{
-\t\t\trows, err := magatama.CypherQueryMap(
+\t\t\trows, err := kotodama.CypherQueryMap(
 \t\t\t\t"MATCH (n:GovDivision {{nanoid: $nanoid}}) RETURN n.name AS name, n.division_type AS type, n.population AS population, n.headquarters AS headquarters",
 \t\t\t\tmap[string]any{{"nanoid": componentNanoID}},
 \t\t\t)
@@ -366,7 +366,7 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\treturn rows[0], nil
 \t\t}},
 \t}})
-\ta.Register(magatama.Method{{
+\ta.Register(kotodama.Method{{
 \t\tName:        "GetEvents",
 \t\tDescription: "Get recent events for this organization",
 \t\tInputSchema: map[string]any{{"type": "object", "properties": map[string]any{{"limit": map[string]any{{"type": "integer"}}}}}},
@@ -375,7 +375,7 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\tif l, ok := args["limit"].(float64); ok && l > 0 {{
 \t\t\t\tlimit = int(l)
 \t\t\t}}
-\t\t\trows, err := magatama.CypherQueryMap(
+\t\t\trows, err := kotodama.CypherQueryMap(
 \t\t\t\tfmt.Sprintf("MATCH (e:OrgEvent {{org_nanoid: $nanoid}}) RETURN e.event_id AS event_id, e.event_type AS event_type, e.timestamp AS timestamp ORDER BY e.timestamp DESC LIMIT %d", limit),
 \t\t\t\tmap[string]any{{"nanoid": componentNanoID}},
 \t\t\t)
@@ -385,7 +385,7 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\treturn map[string]any{{"events": rows, "total": len(rows)}}, nil
 \t\t}},
 \t}})
-\ta.Register(magatama.Method{{
+\ta.Register(kotodama.Method{{
 \t\tName:        "ReceiveMessage",
 \t\tDescription: "Receive a message from another government organization",
 \t\tInputSchema: map[string]any{{"type": "object", "properties": map[string]any{{"from": map[string]any{{"type": "string"}}, "subject": map[string]any{{"type": "string"}}, "body": map[string]any{{"type": "string"}}}}}},
@@ -396,7 +396,7 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\treturn map[string]any{{"status": "received"}}, nil
 \t\t}},
 \t}})
-\ta.Register(magatama.Method{{
+\ta.Register(kotodama.Method{{
 \t\tName:        "SendMessage",
 \t\tDescription: "Send a message to another government organization via cross-actor",
 \t\tInputSchema: map[string]any{{"type": "object", "properties": map[string]any{{"to_org_id": map[string]any{{"type": "string"}}, "subject": map[string]any{{"type": "string"}}, "body": map[string]any{{"type": "string"}}}}, "required": []any{{"to_org_id", "subject"}}}},
@@ -408,7 +408,7 @@ func registerMethods(a *magatama.Adapter) {{
 \t\t\t\treturn nil, fmt.Errorf("to_org_id and subject are required")
 \t\t\t}}
 \t\t\tmsgJSON, _ := json.Marshal(map[string]any{{"from": componentNanoID, "to": toOrg, "subject": subject, "body": body, "type": "org.message"}})
-\t\t\tresult, err := magatama.Say(toOrg, "ReceiveMessage", string(msgJSON))
+\t\t\tresult, err := kotodama.Say(toOrg, "ReceiveMessage", string(msgJSON))
 \t\t\tif err != nil {{
 \t\t\t\treturn nil, err
 \t\t\t}}
@@ -431,7 +431,7 @@ def write_component(path: Path, dirname: str, iso: str, spec: dict[str, str]) ->
     mkdir_component(path)
     (path / "go.mod").write_text(go_module(dirname), encoding="utf-8")
     (path / "go.sum").write_text(go_sum(), encoding="utf-8")
-    (path / "magatama.toml").write_text(magatama_toml(short), encoding="utf-8")
+    (path / "kotodama.toml").write_text(kotodama_toml(short), encoding="utf-8")
     (path / "main.go").write_text(main_go(short, iso, nanoid, spec["label"], spec["type"]), encoding="utf-8")
     (path / "wit" / "world.wit").write_text(world_wit(spec["world"], short), encoding="utf-8")
     (path / jsonld_name(iso, spec["slug"])).write_text(

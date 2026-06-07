@@ -1,0 +1,114 @@
+name: kotodama-manifest-validation
+
+# Validate every `60-apps/*/kotodama.jsonld` against the canonical
+# `90-docs/_registry/schemas/kotodama.schema.json` (5th axis of
+# registry enforcement per ADR-2605271200 closure cycle 53).
+#
+# Parallel pattern to:
+#   axis 1: deps-toml-paths.yml          (cycle 27-30 + 46)
+#   axis 2: docs-registry-freshness.yml  (cycle 48)
+#   axis 3: docs-graph-jsonld-freshness.yml (cycle 49)
+#   axis 4: registry-schema-validation.yml (cycle 50-51)
+#   axis 5: kotodama-manifest-validation.yml (this — cycle 53)
+#
+# Baseline as of cycle 53 (2026-05-27): 42/42 kotodama.jsonld manifests
+# validate-clean against the schema (was 4/42 broken; cycle 53 fixed
+# the schema's 5 narrow enums + 13 real data bugs across 13 apps).
+# PR-gate from day 1 (baseline = 0 violations).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '60-apps/*/kotodama.jsonld'
+      - '90-docs/_registry/schemas/kotodama.schema.json'
+      - '70-tools/scripts/docs/validate-kotodama-manifests.py'
+      - '.github/workflows/kotodama-manifest-validation.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '60-apps/*/kotodama.jsonld'
+      - '90-docs/_registry/schemas/kotodama.schema.json'
+      - '70-tools/scripts/docs/validate-kotodama-manifests.py'
+      - '.github/workflows/kotodama-manifest-validation.yml'
+  schedule:
+    # Nightly at 03:41 UTC = ~12:41 JST. Off-minute :41 (different from
+    # registry-schema :35 / docs-graph-jsonld :29 / docs-registry :23 /
+    # deps-toml :17) for runner load spread across the 5 axes.
+    - cron: '41 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: kotodama-manifest-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install jsonschema + pytest
+        run: pip install jsonschema pytest
+
+      - name: Run validator unit tests (cycle 56; 7/7 must pass — 1 conditional skip)
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/docs/test_validate_kotodama_manifests.py \
+            -v
+
+      - name: Validate every kotodama.jsonld
+        id: validate
+        run: |
+          python3 70-tools/scripts/docs/validate-kotodama-manifests.py \
+            --strict --json > /tmp/kotodama-validation.json
+          rc=$?
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          cat /tmp/kotodama-validation.json
+          exit $rc
+
+      - name: Step summary
+        if: always()
+        run: |
+          if [ -f /tmp/kotodama-validation.json ]; then
+            total=$(python3 -c "import json; print(json.load(open('/tmp/kotodama-validation.json'))['total'])")
+            clean=$(python3 -c "import json; print(json.load(open('/tmp/kotodama-validation.json'))['clean'])")
+            broken=$(python3 -c "import json; print(json.load(open('/tmp/kotodama-validation.json'))['broken'])")
+            {
+              echo "## kotodama manifest validation"
+              echo ""
+              echo "- **Total manifests**: ${total}"
+              echo "- **Valid**: ${clean}"
+              echo "- **Broken**: ${broken}"
+              echo ""
+              echo "Baseline as of ADR-2605271200 closure cycle 53 (2026-05-27):"
+              echo "  - 42/42 valid (was 4/42 pre-cycle-53)"
+              echo "  - Schema fixes: 5 narrow enums expanded (uiType / runtimeType / category / agentType / isBot)"
+              echo "  - Data fixes: 7 missing performerType + 6 non-canonical @context + 1 agentType + voxelforge structural"
+              echo "  - **PR-GATE mode** from day 1"
+              echo ""
+              if [ "$broken" -gt 0 ]; then
+                echo "⚠️ **${broken} broken manifest(s)** — PR is blocked."
+                echo ""
+                echo "Validation detail:"
+                echo '```json'
+                cat /tmp/kotodama-validation.json
+                echo '```'
+                echo ""
+                echo "Fix: edit the kotodama.jsonld OR kotodama.schema.json. Run locally:"
+                echo "  python3 70-tools/scripts/docs/validate-kotodama-manifests.py"
+              else
+                echo "✓ All kotodama manifests valid."
+              fi
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

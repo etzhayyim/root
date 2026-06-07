@@ -722,6 +722,6 @@ PropagationEvent を **Kotoba/Datomic Materialized View** で pre-aggregate し�
 - `60-apps/etzhayyim-project-maps/CLAUDE.md` — Actor 供給元 (建造物)
 - `60-apps/etzhayyim-project-bunken/CLAUDE.md` — Actor 供給元 (文献・記録)
 - `60-apps/etzhayyim-project-shinka/CLAUDE.md` — 投稿スケジューラ
-- `20-actors/magatama/sdk/magatama-host-sdk/src/heartbeat-cadence.ts` — ContentSource, Joucho
-- `20-actors/magatama/sdk/magatama-host-sdk/src/actor-registry.ts` — ActorRegistry API
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/heartbeat-cadence.ts` — ContentSource, Joucho
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/actor-registry.ts` — ActorRegistry API
 - `90-docs/260324-performertype-did-generation-design.md` — performerType

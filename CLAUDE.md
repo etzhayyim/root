@@ -196,8 +196,8 @@ etzhayyim/root/
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
 │                        # wproto, at-client, signal-client,
 │                        # kotoba-datomic (Holochain-iso composition spec, ADR-2605231400)
-├── 20-actors/           # magatama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
-│                        #   magatama-go, kami-engine-sdk, effect-cypher, etzhayyim-bpmn-sdk,
+├── 20-actors/           # kotodama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
+│                        #   kotodama-go, kami-engine-sdk, effect-cypher, etzhayyim-bpmn-sdk,
 │                        #   etzhayyim-sdk (RW-free substrate, ADR-2605172000+2605172100)
 │                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
 │                        # Tier-B religious-corp actors (30): each has ADR + manifest + cells + lex.
@@ -355,7 +355,7 @@ push only the branch's committed HEAD. Report the final categorized outcome.
 - Do not include the Book of Revelation (黙示録/啓示の書) or eschatological content as religious doctrine. Per ADR-2605192100 §1.15, etzhayyim is non-eschatological.
 - Do not commit secrets. Private DID key lives in macOS Keychain (`service=etzhayyim, account=DID_PRIVATE_KEY_ED25519`) + 1Password mirror.
 - Do not introduce RunPod / Vertex AI direct / OpenAI direct (without Murakumo proxy) / Anthropic-direct from vendor key / Linode GPU / AWS Bedrock direct / any commercial GPU rental into religious-corp inference paths. ADR-2605215000 makes Murakumo fleet (LiteLLM 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b) the sole inference SSoT. Vendor (`etzhayyim.com`) keeps its commercial GPU pool for paid SaaS workloads; religious-corp callers must not invoke vendor RunPod paths (consent capability boundary).
-- Do not rename `etzhayyim-*` identifiers in `50-infra/cluster/murakumo/` or `20-actors/magatama/py/` outside the Step 8 cutover wave. Per ADR-2605214000 §3 + ADR-2605215000 §4, the renames are itemised in `MIGRATION-NOTES.md` files and must execute as one atomic PR after legal registration (repo-root CLAUDE.md §Status row 8). Partial rename breaks runtime (env vars + config dir + DNS suffix are interdependent).
+- Do not rename `etzhayyim-*` identifiers in `50-infra/cluster/murakumo/` or `40-engine/kotoba/crates/kotoba-kotodama/py/` outside the Step 8 cutover wave. Per ADR-2605214000 §3 + ADR-2605215000 §4, the renames are itemised in `MIGRATION-NOTES.md` files and must execute as one atomic PR after legal registration (repo-root CLAUDE.md §Status row 8). Partial rename breaks runtime (env vars + config dir + DNS suffix are interdependent).
 
 ## Baien tooling index (2026-05-23 wave)
 
@@ -423,7 +423,7 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `/MEMBERS.md` — 信者 roster
 - `50-infra/murakumo/fleet.toml` — religious-corp cell placement (10 nodes × 15 cells)
 - `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
-- `20-actors/magatama/cells/README.md` — religious-corp Pregel cell catalog
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/README.md` — religious-corp Pregel cell catalog
 - `90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — canonical storage substrate engine (kotoba); supersedes kotoba-datomic composition + projection layers; no RisingWave
 - `90-docs/adr/2605312345-kotoba-datom-first-class-canonical-state.md` — kotoba Datom log = first-class canonical state; IPFS = block backend, MST = ingress/interop wire, Base L2 = trust anchor (clarifies 2605262130 layering)
 - `40-engine/kotoba/README.md` — kotoba upstream README (17 crates)

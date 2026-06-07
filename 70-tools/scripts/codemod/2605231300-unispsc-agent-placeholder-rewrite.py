@@ -2,7 +2,7 @@
 Rewrite broken UNSPSC agent modules into clean LangGraph placeholders.
 
 Per the 2026-05-23 corpus health sweep: 9,985 of 18,342 ``cXXXXXXXX.py``
-modules under ``pymagatama.langgraph_graphs.unispsc_agents`` fail to import
+modules under ``kotodama.langgraph_graphs.unispsc_agents`` fail to import
 — 9,882 of those are the Gemini-emitted one-liner where ``class Foo(Type-
 dDict): a: str; b: int`` is on the same line (invalid Python class-body
 form). The remaining ~110 are stray topology errors, line-continuation
@@ -25,7 +25,7 @@ healthy file, delete it first.
 
 Usage::
 
-    cd 20-actors/magatama/py
+    cd 40-engine/kotoba/crates/kotoba-kotodama/py
     uv run python ../../../70-tools/scripts/codemod/2605231300-unispsc-agent-placeholder-rewrite.py
     uv run python ../../../70-tools/scripts/codemod/2605231300-unispsc-agent-placeholder-rewrite.py --dry-run
     uv run python ../../../70-tools/scripts/codemod/2605231300-unispsc-agent-placeholder-rewrite.py --only 10101500,43211500
@@ -49,14 +49,14 @@ REGISTRY_PATH = REPO_ROOT / "00-contracts" / "actor-registry" / "unispsc.json"
 AGENTS_DIR = (
     REPO_ROOT
     / "20-actors"
-    / "magatama"
+    / "kotodama"
     / "py"
     / "src"
-    / "pymagatama"
+    / "kotodama"
     / "langgraph_graphs"
     / "unispsc_agents"
 )
-AGENTS_PKG = "pymagatama.langgraph_graphs.unispsc_agents"
+AGENTS_PKG = "kotodama.langgraph_graphs.unispsc_agents"
 
 PLACEHOLDER_MARKER = "# codemod:2605231300-unispsc-placeholder"
 
@@ -180,8 +180,8 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    if str(REPO_ROOT / "20-actors" / "magatama" / "py" / "src") not in sys.path:
-        sys.path.insert(0, str(REPO_ROOT / "20-actors" / "magatama" / "py" / "src"))
+    if str(REPO_ROOT / "20-actors" / "kotodama" / "py" / "src") not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT / "20-actors" / "kotodama" / "py" / "src"))
 
     registry = load_registry()
     print(f"registry: {len(registry)} agents loaded")

@@ -139,7 +139,7 @@ CPC Division Performer (e.g. d01cr1a2)
 
 ## Tsukuru Manufacturing Process Linkage
 
-**CPC division performers (div-43/45/47/49/54) が `etzhayyim:tsukuru-process-registry/process-registry@1.0.0` を import し、製品コードから製造プロセスを magatama linker で解決する。**
+**CPC division performers (div-43/45/47/49/54) が `etzhayyim:tsukuru-process-registry/process-registry@1.0.0` を import し、製品コードから製造プロセスを kotodama linker で解決する。**
 
 | CPC Division | CPC Code | Tsukuru Process | Linker Requires |
 |---|---|---|---|
@@ -158,8 +158,8 @@ Invoke path: `CPC div performer → tsukuru-api process-registry → tsukuru pro
 
 | Governance WIT | CPC 適用 |
 |---|---|
-| `magatama:governance/raci` | 製品安全検査の RACI 宣言 |
-| `magatama:governance/rbac` | 製品データアクセス制御 |
+| `kotodama:governance/raci` | 製品安全検査の RACI 宣言 |
+| `kotodama:governance/rbac` | 製品データアクセス制御 |
 | `governance.data-classification` | 製品データの sensitivity (公開/内部/機密) |
 | `governance.standards-profile` | 製品品質規格 (ISO, Codex, IEC) の採用状況 |
 | `governance.supply-chain` | サプライヤーリスク評価 |

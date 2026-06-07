@@ -41,7 +41,7 @@
   },
   "langchainActorSmoke": {
     "namespace": "agent-runtime-holochain",
-    "image": "ghcr.io/etzhayyim/pymagatama:biblio-asia-resident-c2bcf065dc95-20260509073828-amd64",
+    "image": "ghcr.io/etzhayyim/kotodama:biblio-asia-resident-c2bcf065dc95-20260509073828-amd64",
     "actorDid": "did:web:holochain-agent-runtime.etzhayyim.com",
     "assistantId": "langchain-tool-agent",
     "threadId": "holochain-langchain-thread-20260509",

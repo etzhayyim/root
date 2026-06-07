@@ -1,0 +1,63 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:hc.etzhayyim.com",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are kyc agent. Kyc — AI Agent. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "hc-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "etzhayyim-wasm-kyc-kyc49bb7",
+  "nanoid": "kyc49bb7",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Kyc — AI Agent",
+    "displayName": "Kyc",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "hc",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "kyc49bb7-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Kyc"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.hc.hcEntity",
+        "com.etzhayyim.apps.hc.hcEvent",
+        "com.etzhayyim.apps.hc.hcReport"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

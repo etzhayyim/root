@@ -13,7 +13,7 @@ export interface EmitArgs {
 }
 
 export function emitBinaryCell(args: EmitArgs): { path: string; readmePath: string } {
-  const cellDir = join(args.repoRoot, "20-actors/magatama/cells", `yorishiro_${args.name}`);
+  const cellDir = join(args.repoRoot, "40-engine/kotoba/crates/kotoba-kotodama/cells", `yorishiro_${args.name}`);
   mkdirSync(cellDir, { recursive: true });
   const cellPath = join(cellDir, "cell.py");
   writeFileSync(cellPath, renderCell(args), "utf-8");
@@ -22,7 +22,7 @@ export function emitBinaryCell(args: EmitArgs): { path: string; readmePath: stri
   const fragPath = join(cellDir, "cells.toml.fragment");
   writeFileSync(fragPath, renderFragment(args), "utf-8");
   // Empty __init__.py so importlib can resolve `yorishiro_<name>.cell`
-  // once cell_runner prepends 20-actors/magatama/cells/ to sys.path.
+  // once cell_runner prepends 40-engine/kotoba/crates/kotoba-kotodama/cells/ to sys.path.
   writeFileSync(join(cellDir, "__init__.py"), "", "utf-8");
   return { path: cellPath, readmePath };
 }
@@ -123,7 +123,7 @@ ${args.manifest.ops.map((op) => `    g.add_edge(${JSON.stringify(op.name)}, END)
     return g.compile(checkpointer=checkpointer)
 
 
-# ── magatama cell-runner contract (ADR-2605202200) ───────────────────────────
+# ── kotodama cell-runner contract (ADR-2605202200) ───────────────────────────
 
 
 def state_from_event(event: dict[str, Any]) -> ${className}:
@@ -247,7 +247,7 @@ and returns \`error: "binary not found on PATH"\` if missing.
 
 ## MCP exposure
 
-\`20-actors/magatama/mcp/yorishiro-${args.name}-mcp/\` (stdio + Streamable HTTP)
+\`40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/\` (stdio + Streamable HTTP)
 
 ## Regenerate
 
@@ -266,7 +266,7 @@ See \`cells.toml.fragment\` in this directory.
   "mcpServers": {
     "etzhayyim-yorishiro-${args.name}": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/repo/20-actors/magatama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"]
+      "args": ["/ABSOLUTE/PATH/TO/repo/40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"]
     }
   }
 }
@@ -290,7 +290,7 @@ function renderFragment(args: EmitArgs): string {
 #
 # Append to 50-infra/cluster/murakumo/cell-runner/cells.toml when the
 # cell-runner is wired to discover yorishiri cells under
-# 20-actors/magatama/cells/yorishiro_*/cell.py (ADR-2605202200 + 2605211900).
+# 40-engine/kotoba/crates/kotoba-kotodama/cells/yorishiro_*/cell.py (ADR-2605202200 + 2605211900).
 # binary-cli yorishiri additionally require ${args.manifest.kami.binary} on
 # the cell runtime's PATH.
 

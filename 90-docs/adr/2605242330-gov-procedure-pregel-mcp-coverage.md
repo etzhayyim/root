@@ -59,12 +59,12 @@ The "gov coverage" question maps to five distinct layers. Each has its own home 
 | **L2 — Agency registry** | `60-apps/etzhayyim-project-cofog/appview/` + `etzhayyim-project-gov/scaffold/actor-manifest.jsonld` | UN COFOG × country actor bundles + JP ministry roster | 203 cofog actor-bundles + 23 JP ministries | Manual + codegen per country |
 | **L3 — Public-services hub** | `60-apps/etzhayyim-project-gov/appview/gov-mcp-component/` | COFOG-aligned path-based DID sub-agents (healthcare / insurance / welfare / education / prevention / housing / employment / child_family) | 8 sub-agents (JP-focused) | Per-country fork |
 | **L4 — Procedure ingest** | `70-tools/scripts/gov/` | Form / procedure crawlers for individual country gov sites | 6 scripts (AGO + IN-local-language ×5) | Per-country bespoke |
-| **L5 — Routing-around Pregel cell** | `20-actors/magatama/cells/` | Religious-corp parallel substrate (SBT credential / Land Registry / Public Fund / Force Authorization) | 0 gov-specific (intentional) | Constitutional, not per-country |
+| **L5 — Routing-around Pregel cell** | `40-engine/kotoba/crates/kotoba-kotodama/cells/` | Religious-corp parallel substrate (SBT credential / Land Registry / Public Fund / Force Authorization) | 0 gov-specific (intentional) | Constitutional, not per-country |
 
 ## 2. What is *not* on the roadmap
 
 - "All gov procedures of all countries as Pregel cells" — categorically not a goal. Per ADR-2605192100, the religious-corp routes *around* state procedures rather than *re-implementing* them. Implementing 195 countries × N procedures as religious-corp Pregel cells would mistake the religious-corp's mission for a govtech consultancy's.
-- A `magatama/cells/gov_*` namespace — explicitly rejected. The Pregel cell catalog is for religious-corp internal substrate (commissioning, audit_witness, council_deliberation, tithe_routing, etc.), not for state-procedure shims. State interop lives at L2-L4.
+- A `kotodama/cells/gov_*` namespace — explicitly rejected. The Pregel cell catalog is for religious-corp internal substrate (commissioning, audit_witness, council_deliberation, tithe_routing, etc.), not for state-procedure shims. State interop lives at L2-L4.
 - New top-level `20-actors/gov-*` actors — rejected. Layering is L2 = registry, L3 = appview-hub, L4 = ingest. There is no "gov-actor" actor.
 
 ## 3. What *is* on the roadmap
@@ -75,7 +75,7 @@ Per ADR-2605212100, the L3 `gov-mcp-component` carries `SUBSTRATE-PORT-PENDING.m
 
 Concrete deliverable: a substrate-port wave ADR (working name: `2605260XXX-gov-app-substrate-port`) that ports the 3 deferred apps (gov / lawfirm-admin / legal-entity) to MST + `@etzhayyim/sdk`, gated on:
 
-- ADR-2605214000 §3 atomic identifier cutover (`@etzhayyim/magatama-*` → `@etzhayyim/magatama-*`).
+- ADR-2605214000 §3 atomic identifier cutover (`@etzhayyim/kotodama-*` → `@etzhayyim/kotodama-*`).
 - Lexicon namespace rename (`com.etzhayyim.apps.gov.*` → `com.etzhayyim.gov.*`).
 - `did:web:gov.etzhayyim.com` → `did:web:etzhayyim.com:gov`.
 
@@ -123,7 +123,7 @@ The canonical answer to "Pregel / MCP coverage of gov procedures" is **the 5-lay
 
 - "Coverage ≈ 0%" framings are replaced by the 5-layer matrix. Future questions about gov coverage have a definite answer.
 - The substrate-port wave (§3.1) becomes the next concrete actionable item. Until it ships, L3 is dormant.
-- The religious-corp's distance from a govtech-consultancy posture is explicit (§2). No future ADR may quietly add `magatama/cells/gov_*` cells without first revising this ADR.
+- The religious-corp's distance from a govtech-consultancy posture is explicit (§2). No future ADR may quietly add `kotodama/cells/gov_*` cells without first revising this ADR.
 - L4 scaling is acknowledged as bespoke-per-country. There is no codegen path for L4 — it is the work.
 - The "140 / 195 countries" L1 cardinality is a known gap, closeable by a single PR; deliberately deferred until L3 / L4 demonstrate value.
 

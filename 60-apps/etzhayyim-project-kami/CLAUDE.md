@@ -84,7 +84,7 @@ wasm-pack build kami-web --target web  # ~40-90s (incremental)
 
 | フィールド | 場所 | 用途 |
 |---|---|---|
-| `version` | `magatama.jsonld` | デプロイバージョン (`etzhayyim deploy` → `/_app/meta`) |
+| `version` | `kotodama.jsonld` | デプロイバージョン (`etzhayyim deploy` → `/_app/meta`) |
 | `engine_version` | `40-engine/kami-engine/Cargo.toml` workspace | KAMI Engine バージョン (全 crate 共通) |
 | `scene_version` | scene JSON-LD `@id` suffix | シーンデータバージョン (CID で管理) |
 | `game_version` | `kami-game/Cargo.toml` | ゲームロジックバージョン |
@@ -154,32 +154,32 @@ wasm-pack build kami-web --target web  # ~40-90s (incremental)
 **使い方 (TS Native):**
 ```go
 // Island 作成
-rkey, _ := magatama.WRecord("kami.islandDef", islandPayload)
+rkey, _ := kotodama.WRecord("kami.islandDef", islandPayload)
 
 // Character mint (immutable)
-rkey, _ := magatama.WRecord("kami.character", characterPayload)
+rkey, _ := kotodama.WRecord("kami.character", characterPayload)
 
 // Match 結果記録
-rkey, _ := magatama.WRecord("kami.matchSummary", matchPayload)
-rkey, _ := magatama.WRecord("kami.playerResult", playerPayload)
+rkey, _ := kotodama.WRecord("kami.matchSummary", matchPayload)
+rkey, _ := kotodama.WRecord("kami.playerResult", playerPayload)
 
 // Social post (Bluesky Lexicon)
-magatama.ATPost("New island published!", &magatama.ATPostOpts{...})
+kotodama.ATPost("New island published!", &kotodama.ATPostOpts{...})
 
 // Emote 定義 (catalog)
-rkey, _ := magatama.WRecord("kami.emoteDef", emoteDefPayload)
+rkey, _ := kotodama.WRecord("kami.emoteDef", emoteDefPayload)
 
 // Emote 付与 (player inventory)
-rkey, _ := magatama.WRecord("kami.emoteGrant", emoteGrantPayload)
+rkey, _ := kotodama.WRecord("kami.emoteGrant", emoteGrantPayload)
 
 // Emote 再生イベント (telemetry)
-rkey, _ := magatama.WRecord("kami.game.emotePlay", emotePlayPayload)
+rkey, _ := kotodama.WRecord("kami.game.emotePlay", emotePlayPayload)
 
 // Video call effect preset 作成
-rkey, _ := magatama.WRecord("kami.callEffect", callEffectPayload)
+rkey, _ := kotodama.WRecord("kami.callEffect", callEffectPayload)
 
 // Video call active effect 設定
-rkey, _ := magatama.WRecord("kami.callEffectActive", activePayload)
+rkey, _ := kotodama.WRecord("kami.callEffectActive", activePayload)
 ```
 
 **非永続 (KNP real-time):** `actor-state-update`, `storm-state`, `bus-state`, `emote-broadcast` は KNP Channel で配信。AT Record に書かない。
@@ -247,14 +247,14 @@ rkey, _ := magatama.WRecord("kami.callEffectActive", activePayload)
 
 | Component | nanoid | Domain | Worker |
 |---|---|---|---|
-| **kami-workbench** | `k4m1w0rk` | `kami.etzhayyim.com` | `magatama-kami` |
-| **kami-world** | `k4m1w0ld` | `worlds.etzhayyim.com` | `magatama-worlds` |
-| **kami-runtime** | `k4m1r0nt` | `kami-rt.etzhayyim.com` | `magatama-kami-rt` |
-| **kami-royale** | `k4m1r0yl` | `royale.kami.etzhayyim.com` | `magatama-kami-royale` |
-| **kami-coloring** | `cbn8gf7x` | `color-by-number.etzhayyim.com` | `magatama-kami-coloring` |
-| **kami-suika** | `su1k4gm3` | `suika.kami.etzhayyim.com` | `magatama-su1k4gm3` |
-| **kami-kaede** | `k43d3gm3` | `kaede.kami.etzhayyim.com` | `magatama-k43d3gm3` |
-| **kami-ketsu-gorilla** | `k3t5g0r1` | `ketsu-gorilla.kami.etzhayyim.com` | `magatama-k3t5g0r1` |
+| **kami-workbench** | `k4m1w0rk` | `kami.etzhayyim.com` | `kotodama-kami` |
+| **kami-world** | `k4m1w0ld` | `worlds.etzhayyim.com` | `kotodama-worlds` |
+| **kami-runtime** | `k4m1r0nt` | `kami-rt.etzhayyim.com` | `kotodama-kami-rt` |
+| **kami-royale** | `k4m1r0yl` | `royale.kami.etzhayyim.com` | `kotodama-kami-royale` |
+| **kami-coloring** | `cbn8gf7x` | `color-by-number.etzhayyim.com` | `kotodama-kami-coloring` |
+| **kami-suika** | `su1k4gm3` | `suika.kami.etzhayyim.com` | `kotodama-su1k4gm3` |
+| **kami-kaede** | `k43d3gm3` | `kaede.kami.etzhayyim.com` | `kotodama-k43d3gm3` |
+| **kami-ketsu-gorilla** | `k3t5g0r1` | `ketsu-gorilla.kami.etzhayyim.com` | `kotodama-k3t5g0r1` |
 
 ## Scene Format (CRITICAL): JSON-LD
 

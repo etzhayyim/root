@@ -56,8 +56,8 @@ The 105 BPMNs were generated from a 9-column TSV (`project|proc|nsidNs|bpmnId|jp
 ```typescript
 // 60-apps/etzhayyim-project-open-{project}/appview/.../src/app.ts
 import { createWorkerExport, nsid, parseLexiconInput, type LexiconOutput }
-  from "@etzhayyim/magatama-host-sdk";
-import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+  from "@etzhayyim/kotodama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/kotodama-host-sdk";
 import type { Database } from "@etzhayyim/graph-schema";
 
 export default createWorkerExport((sdk) => {
@@ -93,14 +93,14 @@ export default createWorkerExport((sdk) => {
 });
 ```
 
-This is mechanical. A single generator script in `70-tools/scripts/contract/gen-defence-cfworker.mjs` reads the TSV and emits 105 `app.ts` files plus `magatama.jsonld` per project.
+This is mechanical. A single generator script in `70-tools/scripts/contract/gen-defence-cfworker.mjs` reads the TSV and emits 105 `app.ts` files plus `kotodama.jsonld` per project.
 
 ## 5. Project shape
 
 105 NSIDs are spread across **50+ open-* projects**. Most projects already exist (we added their lexicons in waves 1–5). The migration only **adds** an `app.ts` command per existing project, not new projects.
 
 For projects that don't have a deployed CF Worker yet (e.g. open-cyber-soc, open-redsea-incident, open-itu-spectrum), we need:
-- `magatama.jsonld` (nanoid + name + description)
+- `kotodama.jsonld` (nanoid + name + description)
 - `wrangler.jsonc` (compat date + binding for `HYPERDRIVE`)
 - `src/app.ts`
 - `etzhayyim deploy`

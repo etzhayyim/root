@@ -46,5 +46,5 @@ last_verified: 2026-03-30
 
 ## Current Policy
 
-- live inference uses `magatama-inference` and native WebGPU-oriented runtimes
+- live inference uses `kotodama-inference` and native WebGPU-oriented runtimes
 - removed legacy fallbacks are not part of the design

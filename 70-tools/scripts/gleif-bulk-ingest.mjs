@@ -17,7 +17,7 @@
  * ║      concatenated files (NOT per-row PDS createRecord)                ║
  * ║    - com.etzhayyim.corp.leiReference Lexicon record canonical         ║
  * ║      (NOT legacy etzhayyim-side NSID; CC0 1.0 attribution preserved)       ║
- * ║    - LeiSensor Protocol (pymagatama.organism.sensors.corp.lei_sensor) ║
+ * ║    - LeiSensor Protocol (kotodama.organism.sensors.corp.lei_sensor) ║
  * ║      acts as the canonical cross-jurisdiction key resolver — other    ║
  * ║      corp sensors look up local registry ID against this pin          ║
  * ║    - Passive-only invariant per ADR-2605262400 §7 (no per-LEI live    ║

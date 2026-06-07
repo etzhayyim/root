@@ -52,49 +52,49 @@
   "cells": [
     {
       "name": "source_registry",
-      "module": "magatama.cells.akashi_source_registry",
+      "module": "kotodama.cells.akashi_source_registry",
       "murakumoNode": "reuben",
       "phase": "periodic",
       "io": "curated public source registry -> sourcePolicySnapshot"
     },
     {
       "name": "disclosure_fetch",
-      "module": "magatama.cells.akashi_disclosure_fetch",
+      "module": "kotodama.cells.akashi_disclosure_fetch",
       "murakumoNode": "reuben",
       "phase": "periodic",
       "io": "public source/API/bulk export -> raw payload CID + adDisclosureSnapshot"
     },
     {
       "name": "normalize_creative",
-      "module": "magatama.cells.akashi_normalize_creative",
+      "module": "kotodama.cells.akashi_normalize_creative",
       "murakumoNode": "reuben",
       "phase": "continuous",
       "io": "snapshot payload -> advertiser / creative / delivery datoms"
     },
     {
       "name": "landing_evidence",
-      "module": "magatama.cells.akashi_landing_evidence",
+      "module": "kotodama.cells.akashi_landing_evidence",
       "murakumoNode": "gad",
       "phase": "rate-limited",
       "io": "disclosed landing URL -> redirect/domain/hash evidence"
     },
     {
       "name": "cross_platform_link",
-      "module": "magatama.cells.akashi_cross_platform_link",
+      "module": "kotodama.cells.akashi_cross_platform_link",
       "murakumoNode": "gad",
       "phase": "continuous",
       "io": "advertiser/domain/creative hashes -> non-adjudicating adDisclosureLink"
     },
     {
       "name": "transparency_report",
-      "module": "magatama.cells.akashi_transparency_report",
+      "module": "kotodama.cells.akashi_transparency_report",
       "murakumoNode": "naphtali",
       "phase": "periodic",
       "io": "aggregate trends -> adTransparencyReport"
     },
     {
       "name": "malak_evidence_bridge",
-      "module": "magatama.cells.akashi_malak_evidence_bridge",
+      "module": "kotodama.cells.akashi_malak_evidence_bridge",
       "murakumoNode": "gad",
       "phase": "event-gated",
       "io": "explicit fraud/malware flags -> optional malakEvidenceCandidate"

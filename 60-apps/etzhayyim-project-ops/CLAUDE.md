@@ -89,11 +89,11 @@ did:web:ops.etzhayyim.com                          ← ops platform (controller)
 wasm/
 └── etzhayyim-wasm-ops-p5m8k2qx/
     ├── src/app.ts              # Single-file App
-    ├── magatama.jsonld      # performerType: service
+    ├── kotodama.jsonld      # performerType: service
     ├── go.mod
     └── wit/
         ├── world.wit
-        └── deps/            # magatama runtime WIT deps
+        └── deps/            # kotodama runtime WIT deps
 wit/
 └── ops/
     └── package.wit          # etzhayyim:ops@1.0.0 domain WIT

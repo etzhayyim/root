@@ -11,7 +11,7 @@ authoritative_for:
   - source graph extraction architecture
   - etzhayyim source-graph CLI
 related:
-  - 260319-magatama-wit-dodaf-nist-coverage
+  - 260319-kotodama-wit-dodaf-nist-coverage
   - 260324-source-graph-hybrid-design
   - 260323-yoro-human-credit-economy-design
 supersedes: []
@@ -36,7 +36,7 @@ Shannon 情報理論に基づき、冗長度最小で情報量最大のアプロ
 
 | Layer | Source | 抽出内容 | 冗長度 | 実装 |
 |---|---|---|---|---|
-| **L1: Metadata** | `magatama.jsonld` + `world.wit` (既存) | import/export, performerType, DID, collections, sensitivity | **0%** | `source_graph_meta.go` |
+| **L1: Metadata** | `kotodama.jsonld` + `world.wit` (既存) | import/export, performerType, DID, collections, sensitivity | **0%** | `source_graph_meta.go` |
 | **L2: AST** | `go/ast` (Go), regex (TS/Rust) | WRecord kinds, Cypher labels, Commands, Invoke calls, Serve | **0%** | `source_graph_ast.go` |
 | **L3: `@etzhayyim:`** | コメント宣言 (差分のみ) | authority, contract, sensitivity, cross-app intent | **~15%** | `source_graph.go` |
 
@@ -52,9 +52,9 @@ Shannon 情報理論に基づき、冗長度最小で情報量最大のアプロ
 
 Approach E は A 比で冗長度 12.5x 改善、保守コスト 12.5x 改善。
 
-## Layer 1: WIT + magatama.jsonld
+## Layer 1: WIT + kotodama.jsonld
 
-既存 artifact からゼロコスト抽出。`sgParseJSONLD()` が `magatamaJSONLD` struct (deploy.go 既存) を再利用。`sgParseWIT()` が `witImportRe`/`witExportRe` (hooks.go 既存) を再利用。
+既存 artifact からゼロコスト抽出。`sgParseJSONLD()` が `kotodamaJSONLD` struct (deploy.go 既存) を再利用。`sgParseWIT()` が `witImportRe`/`witExportRe` (hooks.go 既存) を再利用。
 
 抽出対象:
 - `@id` → DID
@@ -71,18 +71,18 @@ Approach E は A 比で冗長度 12.5x 改善、保守コスト 12.5x 改善。
 
 | SDK Call | 抽出 | ノード属性 |
 |---|---|---|
-| `magatama.WRecord("kind", ...)` | Write target | `writes: ["kind"]` |
-| `magatama.WRecordUpdate("kind", ...)` | Write target | `writes: ["kind"]` |
-| `magatama.ATPost(did, ...)` | cross-actor call | `calls: ["did#ATPost"]` |
-| `magatama.ATPostWithRecord(text, coll, rkey)` | Write target | `writes: ["coll"]` |
-| `magatama.G("Label")` | Cypher read | `reads: ["cypher:Label"]` |
-| `magatama.Invoke(did, method, ...)` | cross-actor call | `calls: ["did#method"]` |
+| `kotodama.WRecord("kind", ...)` | Write target | `writes: ["kind"]` |
+| `kotodama.WRecordUpdate("kind", ...)` | Write target | `writes: ["kind"]` |
+| `kotodama.ATPost(did, ...)` | cross-actor call | `calls: ["did#ATPost"]` |
+| `kotodama.ATPostWithRecord(text, coll, rkey)` | Write target | `writes: ["coll"]` |
+| `kotodama.G("Label")` | Cypher read | `reads: ["cypher:Label"]` |
+| `kotodama.Invoke(did, method, ...)` | cross-actor call | `calls: ["did#method"]` |
 | `app.Command("", "name", ...)` | Command registration | `commands: ["name"]` |
 | `app.Query("", "name", ...)` | Query registration | `queries: ["name"]` |
-| `magatama.HandleWCommit(handler)` | Event handler | `handlers: ["handler"]` |
+| `kotodama.HandleWCommit(handler)` | Event handler | `handlers: ["handler"]` |
 | `app.Serve()` | App registration | `has_serve: true` |
-| `magatama.DIDCreate(path, ...)` | DID creation | `dids: ["path"]` |
-| `magatama.Follow(did)` | Follow target | `follows: ["did"]` |
+| `kotodama.DIDCreate(path, ...)` | DID creation | `dids: ["path"]` |
+| `kotodama.Follow(did)` | Follow target | `follows: ["did"]` |
 
 Per-function breakdown: 各関数内の WRecord/G/Invoke を個別にトラッキングし、func-level ノードとして graph に投影。
 
@@ -151,7 +151,7 @@ Go / Rust / TS / WIT 共通。
 
 func (app *App) handleArticle(commit wCommit) {
     // @etzhayyim:calls did:web:i18n.etzhayyim.com#translate
-    magatama.ATPost(did, text, opts)
+    kotodama.ATPost(did, text, opts)
 }
 ```
 
@@ -226,7 +226,7 @@ etzhayyim source-graph dot           # Graphviz DOT output
 |---|---|---|
 | `source_graph.go` | ~500 | Framework, L3 parser, merge, violations, scoring, CLI |
 | `source_graph_ast.go` | ~380 | L2: `go/ast` + TS regex + Rust regex |
-| `source_graph_meta.go` | ~200 | L1: WIT + magatama.jsonld (既存型再利用) |
+| `source_graph_meta.go` | ~200 | L1: WIT + kotodama.jsonld (既存型再利用) |
 | `source_graph_test.go` | ~300 | L3 tests (14 tests) |
 | `source_graph_ast_test.go` | ~350 | L1+L2 tests (16 tests) |
 

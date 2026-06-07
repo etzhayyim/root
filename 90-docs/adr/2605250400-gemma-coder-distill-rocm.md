@@ -41,7 +41,7 @@ superseded_by: []
 
 Mac mini fleet (10 nodes, `naphtali..asher`) は各ノード loopback の `ollama gemma4:e4b` (8B-class, Gemma 4 Effective 4B) を Tier-1 LLM fallback として serve している (judah Ollama `192.168.1.17:11434` で 2026-05-25 実機確認: `gemma4:e4b 8.0B Q4_K_M`、 `qwen3.5:9b 9.7B Q4_K_M`、`gemma3:1b 999M Q4_K_M`)。
 
-**注**: `fleet.toml` および各種 ADR は `gemma3:4b` 表記が残っているが (ADR-2605215000 §1.1 表 etc.)、実 serve は **`gemma4:e4b`**。本 ADR は実態に合わせ Gemma 4 を student として固定する。`fleet.toml` の表記揺れは別 ADR で sweep する。religious-corp daemon (Pregel cell) が LangGraph で実装され (`20-actors/magatama/cells/`、ADR-2605192415)、その中で gemma4:e4b は **LangGraph code 生成** に使われる候補 (kaizen observer の自動修正提案、cell の dry-run 補助、bench prompt 生成等)。しかし現行 gemma4:e4b base は LangGraph 固有の API surface (StateGraph / reducer / interrupt / Send / `Annotated[T, ...]` 等) に専門特化されておらず、prompt-only では出力品質が頭打ち。
+**注**: `fleet.toml` および各種 ADR は `gemma3:4b` 表記が残っているが (ADR-2605215000 §1.1 表 etc.)、実 serve は **`gemma4:e4b`**。本 ADR は実態に合わせ Gemma 4 を student として固定する。`fleet.toml` の表記揺れは別 ADR で sweep する。religious-corp daemon (Pregel cell) が LangGraph で実装され (`40-engine/kotoba/crates/kotoba-kotodama/cells/`、ADR-2605192415)、その中で gemma4:e4b は **LangGraph code 生成** に使われる候補 (kaizen observer の自動修正提案、cell の dry-run 補助、bench prompt 生成等)。しかし現行 gemma4:e4b base は LangGraph 固有の API surface (StateGraph / reducer / interrupt / Send / `Annotated[T, ...]` 等) に専門特化されておらず、prompt-only では出力品質が頭打ち。
 
 ## なぜ baien-distill を流用しないか
 
@@ -89,7 +89,7 @@ ADR-2605215000 §1.2 は religious-corp inference path から「Anthropic-direct
    - LiteLLM master_key は Keychain 経由 (`50-infra/cluster/murakumo/litellm/install.sh`)
    - 生成 dataset は per-iter で Charter Rider §2 scanner 通す
    - 公開可否は ADR-2605231300 §"License and Charter Rider implications" のレビューゲート相当を本 tool にも適用
-3. **既存 LangGraph 実装からの harvest** — `20-actors/magatama/cells/`、`70-tools/baien-distill/`、`50-infra/mst-projector/projection/` の自前コードから (prompt → 該当 cell code) ペアを抽出
+3. **既存 LangGraph 実装からの harvest** — `40-engine/kotoba/crates/kotoba-kotodama/cells/`、`70-tools/baien-distill/`、`50-infra/mst-projector/projection/` の自前コードから (prompt → 該当 cell code) ペアを抽出
 
 ### §1.4 LoRA configuration
 ADR-2605231300 §5 表を継承:

@@ -13,7 +13,7 @@ priority_note: "manimani personal knowledge router を religious-corp 憲章 (ko
 authoritative_for:
   - manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; Kotoba/Datomic 廃止)
   - manimani inference 経路 (Murakumo LiteLLM gateway のみ; Anthropic-direct / RunPod 廃止)
-  - manimani runtime (kotoba StateGraph; pymagatama LangGraph Server + Granian pool 廃止)
+  - manimani runtime (kotoba StateGraph; kotodama LangGraph Server + Granian pool 廃止)
   - Gmail 全アーカイブ ingest 経路 (kotoba-ingest gmail.rs OAuth2 → RFC2822 → E2E encrypt → QuadStore)
   - 広範囲 PC ファイル ingest 経路 (kotoba-kse Vault chunking → BlobManifest CID → intake datom)
   - manimani datom schema (vertex_manimani_* Kotoba/Datomic テーブルの EAVT predicate 置換)
@@ -54,7 +54,7 @@ than from a pre-declared taxonomy.
 **Current state (2026-05-29): Phase 0 contract only.** The CF Worker edge facade exists and
 is non-trivial (`60-apps/etzhayyim-project-manimani/src/{app,dispatcher,embed}.ts` — Hono +
 auth middleware + 6 NSID XRPC routing + embed UI). But the execution backend
-(`20-actors/magatama/py/src/pymagatama/manimani/`) **was never implemented** — the directory
+(`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/manimani/`) **was never implemented** — the directory
 does not exist. manimani has a mouth and no stomach.
 
 ## Why the old design is now unshippable as-written

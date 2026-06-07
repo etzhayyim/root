@@ -7,7 +7,7 @@ import {
   parseYataRows, decodeJson,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // --- Scan Session ---
 

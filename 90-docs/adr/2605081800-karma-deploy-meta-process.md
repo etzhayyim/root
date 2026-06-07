@@ -120,7 +120,7 @@ runs once. It includes:
 2. Kotoba/Datomic Helm install (`50-infra/vultr/kotoba/`)
 3. PDS / appview Helm install
 4. Migrations (in order, from 0001 to current)
-5. pymagatama image build + push
+5. kotodama image build + push
 6. mitama-karma-pool Helm install
 7. Smoke test for each prior phase
 

@@ -10,14 +10,14 @@ def process_file(path):
     has_kotoba_import = False
     
     for line in lines:
-        if "from pymagatama.kotoba_datomic import get_kotoba_client" in line:
+        if "from kotodama.kotoba_datomic import get_kotoba_client" in line:
             has_kotoba_import = True
             break
             
     for line in lines:
-        if "from pymagatama.db_sync import sync_cursor\n" == line or "from pymagatama.db_sync import sync_cursor" in line:
+        if "from kotodama.db_sync import sync_cursor\n" == line or "from kotodama.db_sync import sync_cursor" in line:
             if not has_kotoba_import:
-                new_lines.append("from pymagatama.kotoba_datomic import get_kotoba_client\n")
+                new_lines.append("from kotodama.kotoba_datomic import get_kotoba_client\n")
                 has_kotoba_import = True
             changed = True
             continue
@@ -70,7 +70,7 @@ def process_file(path):
     return False
 
 def main():
-    files = glob.glob("20-actors/magatama/py/src/pymagatama/**/*.py", recursive=True)
+    files = glob.glob("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/**/*.py", recursive=True)
     count = 0
     for f in files:
         if process_file(f):

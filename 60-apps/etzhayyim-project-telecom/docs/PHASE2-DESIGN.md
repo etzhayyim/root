@@ -79,6 +79,6 @@ ADR-0056 規約により `generic.*` で済むものは新規 task 不要:
 
 1. graph schema migration (vertex + edge + MV) — 8 vertex / 5 edge / 3 MV
 2. 8 BPMN + 8 lexicon JSON
-3. `pymagatama.primitives.telecom_resource` モジュール追加 (Phase 1 と分離、import lazy)
+3. `kotodama.primitives.telecom_resource` モジュール追加 (Phase 1 と分離、import lazy)
 4. `zeebe_worker_main.py` に `telecom_resource.register(worker, ...)` 追記
 5. ERC-8004 registration JSON 更新 → `publish-agent` で IPFS 再 pin (onchain 再登録は agentURI 変更時のみ)

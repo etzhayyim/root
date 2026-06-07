@@ -79,7 +79,7 @@ etzhayyim/root rather than leaving it vendor-side.
    etzhayyim/root is `com.etzhayyim.*` (consent / council / encrypted / esign), with
    `com.etzhayyim.*` otherwise reserved for launchd/system labels. `com.etzhayyim.*` was chosen
    here by explicit operator direction; if the org standardises record NSIDs on `com.etzhayyim.*`,
-   hakken should follow in a later sweep (lexicons + write-path collections + magatama
+   hakken should follow in a later sweep (lexicons + write-path collections + kotodama
    `nsidPrefixes`).
 
 ## Override
@@ -92,7 +92,7 @@ nor settlement counterparty; etzhayyim remains both for any hakken-originated sa
 
 ## Consequences
 
-- **Phase 1 (this commit):** scaffold (`PROJECT.jsonld`, `magatama.jsonld`, `OWNERS`,
+- **Phase 1 (this commit):** scaffold (`PROJECT.jsonld`, `kotodama.jsonld`, `OWNERS`,
   `CLAUDE.md`) + 4 lexicons (`ingestProduct`, `ingestSupplierCandidate`, `listProducts`,
   `listSupplierCandidates`) + `rw-free/` ingest reference (`types.ts`, `ingest.ts`). Vendor
   `hakken.etzhayyim.com` unchanged.

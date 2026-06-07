@@ -9,13 +9,13 @@ Goal: prove on a single H100 NVL training pod that we can:
      `bitnet.cpp` / WebGPU / WASM consumption (skipped in --skip-requantize
      mode so the smoke can complete on a CPU-only laptop too).
   5. Emit a summary.json that the canonical
-     `pymagatama.primitives.training_run.runpod_handler` would normally
+     `kotodama.primitives.training_run.runpod_handler` would normally
      persist into `vertex_training_run` / `vertex_training_checkpoint`.
 
 This is the LOCAL smoke. The production path is XRPC ->
 `task_train_baien_lora_run` -> `_delegate_to_runpod("baien-lora", ...)`
 into the H100 pod, which calls the same training loop in
-`pymagatama.training_http_server`. Use this file as the development
+`kotodama.training_http_server`. Use this file as the development
 oracle: if it runs end-to-end here, the H100-side runner should too.
 
 Usage:

@@ -20,7 +20,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Yorishiro — NURO 光 (Sony Network Communications) MyPage cashback adapter

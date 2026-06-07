@@ -69,15 +69,15 @@
     "Quad — kuni-umi logistics (R2+ reuse); vehicle intake transport + ASR drum logistics"
   ],
   "cells": [
-    {"name": "elv_intake_audit", "module": "magatama.cells.elv_intake_audit", "murakumoNode": "naphtali", "phase": "L1a — VIN title + prior-owner consent + Charter §2(a-h) scan + initial data-wipe attestation request"},
-    {"name": "elv_depollution", "module": "magatama.cells.elv_depollution", "murakumoNode": "joseph", "phase": "L1b — fluid drain + MAC refrigerant capture (G6 ≥95%) + airbag pyrotechnic neutralization + battery disconnect"},
-    {"name": "elv_battery_handling", "module": "magatama.cells.elv_battery_handling", "murakumoNode": "levi", "phase": "L2 — Li-ion SoH classification (≥70% second-life → hikari; <70% cell-recycle → Wave 2); lead-acid → kanayama Wave 3"},
-    {"name": "elv_parts_harvest", "module": "magatama.cells.elv_parts_harvest", "murakumoNode": "simeon", "phase": "L3a — reusable parts identification + condition grading + IPFS-pinned catalog publication (G12 right-to-repair)"},
-    {"name": "elv_catalyst_recovery", "module": "magatama.cells.elv_catalyst_recovery", "murakumoNode": "levi", "phase": "L3b — catalytic converter brick removal + PGM smelter handoff + yield audit (G14 ≥95% Pt/Pd/Rh)"},
-    {"name": "elv_seat_textile_recovery", "module": "magatama.cells.elv_seat_textile_recovery", "murakumoNode": "dan", "phase": "L3c — seat foam + textile recovery; cross-actor feed to makura (G13 invariant closure)"},
-    {"name": "elv_body_shred", "module": "magatama.cells.elv_body_shred", "murakumoNode": "zebulun", "phase": "L4 — hulk shredder + magnetic + eddy-current + density sort; ferrous + Al + Cu + ASR streams"},
-    {"name": "elv_emissions_audit", "module": "magatama.cells.elv_emissions_audit", "murakumoNode": "levi", "phase": "cross-cutting — F-gas leakage continuous + ASR mass + composition + PGM yield audit"},
-    {"name": "elv_provenance_binder", "module": "magatama.cells.elv_provenance_binder", "murakumoNode": "judah", "phase": "terminal — full chain DID anchoring on kotoba-datomic (input VIN → parts catalog + material lots + emissions + ASR mass)"}
+    {"name": "elv_intake_audit", "module": "kotodama.cells.elv_intake_audit", "murakumoNode": "naphtali", "phase": "L1a — VIN title + prior-owner consent + Charter §2(a-h) scan + initial data-wipe attestation request"},
+    {"name": "elv_depollution", "module": "kotodama.cells.elv_depollution", "murakumoNode": "joseph", "phase": "L1b — fluid drain + MAC refrigerant capture (G6 ≥95%) + airbag pyrotechnic neutralization + battery disconnect"},
+    {"name": "elv_battery_handling", "module": "kotodama.cells.elv_battery_handling", "murakumoNode": "levi", "phase": "L2 — Li-ion SoH classification (≥70% second-life → hikari; <70% cell-recycle → Wave 2); lead-acid → kanayama Wave 3"},
+    {"name": "elv_parts_harvest", "module": "kotodama.cells.elv_parts_harvest", "murakumoNode": "simeon", "phase": "L3a — reusable parts identification + condition grading + IPFS-pinned catalog publication (G12 right-to-repair)"},
+    {"name": "elv_catalyst_recovery", "module": "kotodama.cells.elv_catalyst_recovery", "murakumoNode": "levi", "phase": "L3b — catalytic converter brick removal + PGM smelter handoff + yield audit (G14 ≥95% Pt/Pd/Rh)"},
+    {"name": "elv_seat_textile_recovery", "module": "kotodama.cells.elv_seat_textile_recovery", "murakumoNode": "dan", "phase": "L3c — seat foam + textile recovery; cross-actor feed to makura (G13 invariant closure)"},
+    {"name": "elv_body_shred", "module": "kotodama.cells.elv_body_shred", "murakumoNode": "zebulun", "phase": "L4 — hulk shredder + magnetic + eddy-current + density sort; ferrous + Al + Cu + ASR streams"},
+    {"name": "elv_emissions_audit", "module": "kotodama.cells.elv_emissions_audit", "murakumoNode": "levi", "phase": "cross-cutting — F-gas leakage continuous + ASR mass + composition + PGM yield audit"},
+    {"name": "elv_provenance_binder", "module": "kotodama.cells.elv_provenance_binder", "murakumoNode": "judah", "phase": "terminal — full chain DID anchoring on kotoba-datomic (input VIN → parts catalog + material lots + emissions + ASR mass)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.hodoki.elvIntakeRecord",

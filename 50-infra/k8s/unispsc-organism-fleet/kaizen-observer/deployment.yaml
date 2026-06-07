@@ -37,12 +37,12 @@ spec:
         - name: ghcr-pull
       containers:
         - name: observer
-          image: ghcr.io/etzhayyim/pymagatama:main
+          image: ghcr.io/etzhayyim/kotodama:main
           imagePullPolicy: Always
           command:
             - python
             - -m
-            - pymagatama.organism.kaizen_cell_main
+            - kotodama.organism.kaizen_cell_main
           env:
             - name: KAIZEN_TICK_INTERVAL_S
               value: "600"  # 10 min

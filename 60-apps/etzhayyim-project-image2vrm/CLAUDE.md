@@ -262,7 +262,7 @@ HeadTTS が返す Oculus viseme タイムスタンプで音素精度のリップ
   docs/character-maker-design.md
   wasm/etzhayyim-wasm-image2vrm-img2vrm1/
     src/app.ts                   ← deploy entry (CF best practice: wrangler bundles from src)
-    magatama.jsonld
+    kotodama.jsonld
     wrangler.jsonc               ← R2 + PDS_SERVICE bindings
 ```
 

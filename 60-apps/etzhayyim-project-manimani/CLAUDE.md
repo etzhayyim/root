@@ -9,7 +9,7 @@
 > `90-docs/adr/2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest.md`.
 > The **product contract** below (XRPC surface, 4 project kinds, LLM-led classification,
 > non-federable default, CF Worker edge-facade role) is **preserved unchanged**.
-> Execution backend (`pymagatama/manimani/`) was never implemented; Phase 0 contract only.
+> Execution backend (`kotodama/manimani/`) was never implemented; Phase 0 contract only.
 
 Authoritative: ADR-2605291100 (kotoba-native reconciliation + Gmail/PC ingest, current) ·
 ADR-2605080800 (product contract) + ADR-2605080600 (LangGraph Server, superseded by kotoba
@@ -19,7 +19,7 @@ StateGraph) + ADR-2604282300 (CF Worker = edge facade).
 
 L3 Dispatcher (CF Worker, edge). State-less. All compute lives in
 `mitama-manimani-pool` LangGraph Server (Granian) which calls Anthropic
-API (or vLLM Gemma4 on RunPod) via `pymagatama.llm.call_tier`, and writes
+API (or vLLM Gemma4 on RunPod) via `kotodama.llm.call_tier`, and writes
 intake / project / artifact rows to RisingWave directly via Hyperdrive.
 
 ## Surfaces
@@ -65,7 +65,7 @@ bpmn-dispatcher (K8s ClusterIP)
 manimani-langgraph (mitama-manimani-pool, Granian :8000)
    ↓ POST /runs — start StateGraph
    ↓ Pregel: parse → classify → route → {extract_facts | expand_todo | summarize | defer} → persist → audit
-   → Anthropic / vLLM (LLM tier resolves via pymagatama.llm)
+   → Anthropic / vLLM (LLM tier resolves via kotodama.llm)
    → RisingWave Hyperdrive INSERT (vertex_manimani_intake/project/artifact/run + edge_manimani_belongs_to)
 ```
 

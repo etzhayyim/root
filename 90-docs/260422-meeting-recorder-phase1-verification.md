@@ -160,7 +160,7 @@ echo "$TOKEN" | cut -d. -f2 | base64 -d 2>/dev/null | jq
 ```bash
 pnpm --filter etzhayyim-root esbuild --bundle \
   --platform=neutral \
-  --external:@etzhayyim/magatama-host-sdk --external:node:async_hooks \
+  --external:@etzhayyim/kotodama-host-sdk --external:node:async_hooks \
   60-apps/etzhayyim-project-meeting-recorder/appview/etzhayyim-wasm-meeting-recorder-m33tr3c0/src/app.ts
 # → 355 行の bundle、warning ゼロ
 ```

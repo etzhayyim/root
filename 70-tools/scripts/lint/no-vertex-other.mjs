@@ -25,7 +25,7 @@ const EXCLUDE_GLOBS = [
   "!**/test/**",
   "!**/tests/**",
   "!70-tools/scripts/lint/no-vertex-other.mjs",
-  "!20-actors/magatama/sdk/magatama-host-sdk/src/legacy-vertex-other.ts",
+  "!40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/legacy-vertex-other.ts",
 ];
 
 const INCLUDE_GLOB = "*.{ts,tsx,js,mjs,cjs,svelte,go,sh}";

@@ -10,8 +10,8 @@
   "status": "implemented",
   "projects": {
     "etzhayyim-project-apqc": {
-      "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/apqc.py",
-      "handlerTarget": "20-actors/magatama/py/src/pymagatama/handlers/apqc.py",
+      "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/apqc.py",
+      "handlerTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/apqc.py",
       "migrationLedger": "60-apps/etzhayyim-project-apqc/migration-plan.yaml",
       "coverage": {
         "apqcL1Actors": { "covered": 13, "total": 13 },
@@ -39,7 +39,7 @@
       "seedMigration": "30-graph/graph-schema/migrations/20260430224000_seed_apqc_bpmn_actors.ts",
       "deploymentEvidence": {
         "checkedAt": "2026-04-30T05:12:28Z",
-        "workerName": "magatama-kyb3proj",
+        "workerName": "kotodama-kyb3proj",
         "versionId": "bc9113f2-0322-43db-a9e8-0f67786b17e4",
         "routes": [
           "kyb3proj.etzhayyim.com/*",
@@ -96,8 +96,8 @@
       }
     },
     "etzhayyim-project-open-isic": {
-      "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isic.py",
-      "handlerTarget": "20-actors/magatama/py/src/pymagatama/handlers/open_isic.py",
+      "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isic.py",
+      "handlerTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isic.py",
       "coverage": {
         "taxonomyClasses": { "covered": 428, "total": 428 },
         "bpmnProcesses": { "covered": 4, "total": 4 },
@@ -124,7 +124,7 @@
       ],
       "runtimeEvidence": {
         "checkedAt": "2026-04-30T05:18:18Z",
-        "rwWritePath": "pymagatama.db_sync sync_cursor -> Kotoba/Datomic",
+        "rwWritePath": "kotodama.db_sync sync_cursor -> Kotoba/Datomic",
         "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for Kotoba/Datomic parser compatibility",
         "classifyEntity": {
           "ok": true,
@@ -159,8 +159,8 @@
       }
     },
     "etzhayyim-project-open-isco": {
-      "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
-      "handlerTarget": "20-actors/magatama/py/src/pymagatama/handlers/open_isco.py",
+      "runtimeTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isco.py",
+      "handlerTarget": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isco.py",
       "coverage": {
         "bpmnProcesses": { "covered": 2, "total": 2 },
         "pyzeebeTasks": { "covered": 2, "total": 2 },
@@ -183,7 +183,7 @@
       ],
       "runtimeEvidence": {
         "checkedAt": "2026-04-30T05:18:18Z",
-        "rwWritePath": "pymagatama.db_sync sync_cursor -> Kotoba/Datomic",
+        "rwWritePath": "kotodama.db_sync sync_cursor -> Kotoba/Datomic",
         "conflictHandling": "SELECT-before-INSERT idempotency; ON CONFLICT removed for Kotoba/Datomic parser compatibility",
         "classifyWorker": {
           "ok": true,
@@ -217,7 +217,7 @@
   },
   "verification": {
     "pythonCompile": "python3 -m py_compile primitives/handlers/worker migration files",
-    "pytest": "cd 20-actors/magatama/py && pytest -q tests/test_open_isic_apqc_primitives.py",
+    "pytest": "cd 40-engine/kotoba/crates/kotoba-kotodama/py && pytest -q tests/test_open_isic_apqc_primitives.py",
     "bpmn": "npm run lint:bpmn:manifest && npm run lint:bpmn:coverage && npm run lint:bpmn:worker-tasks",
     "json": "PROJECT.jsonld, bpmn-coverage-manifest.json, retired-cf-workers.json parse successfully",
     "legacySearch": "Scoped APQC/open-isic/open-isco search has no active wasm/WIT/wadm runtime references; open-isic CF Worker and open-isco legacy appview are archived under _archive/retired-cf-workers/adr-2604282300"

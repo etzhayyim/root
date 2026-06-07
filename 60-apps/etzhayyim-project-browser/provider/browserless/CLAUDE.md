@@ -4,10 +4,10 @@
 
 | Item | Value |
 |------|-------|
-| K8s Service | `etzhayyim-browserless.magatama-runtime.svc.cluster.local:8080` |
+| K8s Service | `etzhayyim-browserless.kotodama-runtime.svc.cluster.local:8080` |
 | Manifest | `60-apps/etzhayyim-project-browserless/k8s/browserless.yaml` |
 | Image | `mcr.microsoft.com/playwright:v1.50.0-noble` |
-| Namespace | `magatama-runtime` |
+| Namespace | `kotodama-runtime` |
 
 ## Architecture
 

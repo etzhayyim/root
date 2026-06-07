@@ -268,10 +268,10 @@ smoke_test_node() {
     local ok=true
 
     # cell-runner active? (LaunchAgent label per install.sh)
-    if _run_ssh "$node" "launchctl list | grep -q 'com.etzhayyim.magatama-cell-runner'" 2>/dev/null; then
+    if _run_ssh "$node" "launchctl list | grep -q 'com.etzhayyim.kotodama-cell-runner'" 2>/dev/null; then
         _log "$node" "PASS cell-runner: active"
     else
-        _log "$node" "FAIL cell-runner: NOT loaded (check ~/.etzhayyim/log/magatama-cell-runner.stderr.log)"
+        _log "$node" "FAIL cell-runner: NOT loaded (check ~/.etzhayyim/log/kotodama-cell-runner.stderr.log)"
         ok=false
     fi
 

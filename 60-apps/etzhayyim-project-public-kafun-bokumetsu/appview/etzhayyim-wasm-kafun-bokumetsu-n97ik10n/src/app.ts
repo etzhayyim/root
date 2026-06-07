@@ -30,7 +30,7 @@ import {
   nsid,
   withCapabilityTags,
   withOCELEvent,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const DISPATCHER_BASE = "http://dispatcher.etzhayyim.com:8080";
 

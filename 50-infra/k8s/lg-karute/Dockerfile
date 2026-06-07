@@ -1,6 +1,6 @@
 # lg-karute — LangServer image for the karute Pregel.
 #
-# Build context: repo root (so the COPY can reach 20-actors/magatama/py).
+# Build context: repo root (so the COPY can reach 40-engine/kotoba/crates/kotoba-kotodama/py).
 #
 #   docker build -f 50-infra/k8s/lg-karute/Dockerfile \
 #     -t ghcr.io/etzhayyim/lg-karute:$(git rev-parse --short HEAD) .
@@ -24,9 +24,9 @@ RUN apt-get update \
       "pydantic>=2.5,<3" \
       "pyyaml>=6.0,<7"
 
-# Copy pymagatama (editable install — picks up karute pregel module).
-COPY 20-actors/magatama/py /opt/pymagatama
-RUN pip install --no-cache-dir -e /opt/pymagatama
+# Copy kotodama (editable install — picks up karute pregel module).
+COPY 40-engine/kotoba/crates/kotoba-kotodama/py /opt/kotodama
+RUN pip install --no-cache-dir -e /opt/kotodama
 
 COPY 50-infra/k8s/lg-karute/langgraph.json /app/langgraph.json
 

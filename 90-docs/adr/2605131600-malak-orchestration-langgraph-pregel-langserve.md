@@ -69,9 +69,9 @@ to a Pregel runtime:
 
 | Chain | Module | NSID | Pregel super-steps |
 |---|---|---|---|
-| `exportSurveillanceEvidence` | `pymagatama/malak/langgraph/export_surveillance_evidence.py` | `com.etzhayyim.apps.malak.exportSurveillanceEvidence` | 4 (Send fan-out to render_doc × 4) |
-| `agencyOutreachFullFlow` | `pymagatama/malak/langgraph/agency_outreach_full_flow.py` | `com.etzhayyim.apps.malak.agencyOutreachFullFlow` (composite) | 6 (sequential + 5 conditional abort branches) |
-| `draftAgencyBriefing` | `pymagatama/malak/langgraph/briefing.py` | `com.etzhayyim.apps.malak.draftAgencyBriefing` | 8 (graph-native entity extraction + RW row staging) |
+| `exportSurveillanceEvidence` | `kotodama/malak/langgraph/export_surveillance_evidence.py` | `com.etzhayyim.apps.malak.exportSurveillanceEvidence` | 4 (Send fan-out to render_doc × 4) |
+| `agencyOutreachFullFlow` | `kotodama/malak/langgraph/agency_outreach_full_flow.py` | `com.etzhayyim.apps.malak.agencyOutreachFullFlow` (composite) | 6 (sequential + 5 conditional abort branches) |
+| `draftAgencyBriefing` | `kotodama/malak/langgraph/briefing.py` | `com.etzhayyim.apps.malak.draftAgencyBriefing` | 8 (graph-native entity extraction + RW row staging) |
 
 ## 2. Pregel parallel fan-out via Send
 
@@ -104,7 +104,7 @@ class ExportEvidenceState(TypedDict, total=False):
 
 ## 3. LangServe-style FastAPI server
 
-`pymagatama/malak/langgraph/server.py` exposes the three chains over HTTP:
+`kotodama/malak/langgraph/server.py` exposes the three chains over HTTP:
 
 ```
 GET  /health                            → {status, chains}
@@ -122,7 +122,7 @@ in the HTTP response.
 Production deployment per ADR-2605080600:
 
 ```
-granian --interface asgi pymagatama.malak.langgraph.server:app
+granian --interface asgi kotodama.malak.langgraph.server:app
         --host 0.0.0.0 --port 8765
 ```
 
@@ -133,7 +133,7 @@ Each surveillance/outreach gate is enforced at **three layers**:
 | Layer | File / location |
 |---|---|
 | Edge | CF Worker `60-apps/etzhayyim-project-malak/.../src/app.ts:preflightGate` |
-| pyzeebe (thin dispatch) | `pymagatama/primitives/malak.py:task_malak_*` |
+| pyzeebe (thin dispatch) | `kotodama/primitives/malak.py:task_malak_*` |
 | LangGraph | Conditional edges in the three chains above |
 
 Failing any layer returns 4xx / status="denied" / status="abort_*"
@@ -222,12 +222,12 @@ README pointer to this ADR.
 
 # Operational implications
 
-- Image rebuild: pyzeebe pod (`pymagatama` image) rebuilt with new
+- Image rebuild: pyzeebe pod (`kotodama` image) rebuilt with new
   `primitives/malak.py:task_malak_draft_agency_briefing` etc. handlers
   + `zeebe_worker_main.py:malak.register(...)` call.
   Handoff: `_working/malak/surveillance/PYZEEBE-REDEPLOY-HANDOFF.md`.
 - LangServer pod: NEW Mac-native or container deploy of
-  `pymagatama.malak.langgraph.server:app` via Granian.
+  `kotodama.malak.langgraph.server:app` via Granian.
   Reference manifest pattern: `50-infra/k8s/murakumo-kubelet/examples/malak-langserver-pod.yaml`.
 - atproto Worker (PDS validator): already deployed
   (`Version 22ad3cd6-de51-4ed9-962c-2c8dd037a43e`, CXO #33). Re-deploy

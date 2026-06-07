@@ -10,7 +10,7 @@ import {
   sql,
   nsid,
   genID,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 let appId = "";
 

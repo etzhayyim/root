@@ -68,7 +68,7 @@ action clarity).
 3. Fine-tune a Qwen2.5-VL-7B with LoRA on the rubric (~12 GPU hours on
    6000 Ada).
 4. Upload to `b2://etzhayyim-models/mangaka-critic-v0.<n>/`.
-5. Production runtime points `pymagatama.llm._VISION_TIER_OVERRIDES['vision']`
+5. Production runtime points `kotodama.llm._VISION_TIER_OVERRIDES['vision']`
    at the murakumo gateway hosting this checkpoint instead of OpenAI.
 
 **Cadence**: once the corpus reaches ~50k pairs.
@@ -82,7 +82,7 @@ critique path already has the deterministic fallback score
 
 **Teacher**: Hume Expression Measurement API (lg_mangaka.hume_emotion
 already wraps it).
-**Student**: Already shipped as `pymagatama.primitives.hume_image_head`
+**Student**: Already shipped as `kotodama.primitives.hume_image_head`
 — a distilled student trained from Hume signals (the comment in
 `hume_emotion.py` notes this explicitly). Runtime uses ONLY the
 student; the Hume API is not called from production at all.

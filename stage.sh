@@ -16,10 +16,10 @@ git add \
   50-infra/k8s/medical-coverage-ingester/facility-raw-cronjob.yaml \
   50-infra/k8s/medical-coverage-ingester/ingester.py \
   50-infra/k8s/medical-coverage-ingester/secrets-template.yaml \
-  50-infra/k8s/bpmn-dispatcher/configmap-pymagatama-sse-fix.yaml \
+  50-infra/k8s/bpmn-dispatcher/configmap-kotodama-sse-fix.yaml \
   50-infra/k8s/bpmn-dispatcher/README.md \
   50-infra/k8s/bpmn-dispatcher/deployment-dispatcher.yaml \
-  50-infra/k8s/bpmn-dispatcher/configmap-pymagatama-cache-fix.yaml \
+  50-infra/k8s/bpmn-dispatcher/configmap-kotodama-cache-fix.yaml \
   50-infra/k8s/maps-coverage-langgraph/cronjob-cycle.yaml \
   50-infra/k8s/maps-coverage-langgraph/README.md \
   50-infra/k8s/intel-dependency-worker/worker.py \

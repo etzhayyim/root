@@ -177,7 +177,7 @@ deferred to whoever authors the seed-block content.
 | 7 | `aa229d16b` | Backfill description content (top-level + per-source) on 4 in-tree corpus recipes | n/a (content) |
 | 8 | `89d489cf7` | `--summary` markdown verb consuming all the above operator-readability fields | 32/32 (+3) |
 | 9 | `532e2e331` | Fix 1-char-chopped-suffix typos from parallel-agent commit 023988900 (1 broken production import `pr_agent.py`, 4 broken test imports) | n/a (bugfix) |
-| 10 | `24788a73f` | Disable langsmith pytest plugin in 2 pyproject.toml (e7m-dataset + magatama-py) — defeats pydantic-core mismatch on system Python | n/a (infra) |
+| 10 | `24788a73f` | Disable langsmith pytest plugin in 2 pyproject.toml (e7m-dataset + kotodama-py) — defeats pydantic-core mismatch on system Python | n/a (infra) |
 | 11 | `0de43b5a6` | Extend langsmith pytest plugin disable to 3 more pyproject.toml (baien-moemoekyun-train + etzhayyim-py + graph-schema) | n/a (infra) |
 | 12 | `e333b097a` | Surface missing seed-block files honestly (`seedBlock.exists` / `seedBlock.sourcePathExisted` / markdown `⚠ MISSING` header) | 34/34 (+2) |
 | 13 | `265262e48` | `Recipe.warnings()` API + CLI stderr `WARN:` lines (seed-block missing + placeholder pins) | 37/37 (+3) |

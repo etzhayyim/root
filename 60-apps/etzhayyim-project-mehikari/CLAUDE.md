@@ -96,4 +96,4 @@ CF Worker (this dir) は edge L3 dispatcher。直接 face / frame を扱わな�
 - `_working/mehikari/langgraph_sales_outreach.py` — 営業 LangGraph mock prototype
 - `60-apps/etzhayyim-project-microsoft/` — 送信経路 (`com.etzhayyim.apps.microsoft.sendMail`)
 - `60-apps/etzhayyim-project-kaisya/` — consent helper (approval gate)
-- `20-actors/magatama/py/src/pymagatama/malak/langgraph/police_report.py` — evidence export base pattern
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/langgraph/police_report.py` — evidence export base pattern

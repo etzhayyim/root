@@ -1,0 +1,63 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:gyotaku.etzhayyim.com",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are gyotaku mcp agent. Gyotaku Mcp — AI Agent. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "gyotaku-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "gyotaku-mcp-component",
+  "nanoid": "c3852576",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Gyotaku Mcp — AI Agent",
+    "displayName": "Gyotaku Mcp",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "gyotaku",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "c3852576-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Gyotaku Mcp"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.gyotaku.gyotakuEntity",
+        "com.etzhayyim.apps.gyotaku.gyotakuEvent",
+        "com.etzhayyim.apps.gyotaku.gyotakuReport"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}

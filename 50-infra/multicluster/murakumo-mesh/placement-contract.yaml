@@ -11,7 +11,7 @@ metadata:
     - "2605201400"
 spec:
   fleetSource: 50-infra/murakumo/fleet.toml
-  cellCatalogSource: 20-actors/magatama/cells/
+  cellCatalogSource: 40-engine/kotoba/crates/kotoba-kotodama/cells/
   k8sResourcesAllowed: false        # no Deployment/CronJob/DaemonSet/StatefulSet authoritative here
 
   # ─── Cell placement (mirrors fleet.toml, kept as multicluster-readable contract) ───
@@ -149,13 +149,13 @@ spec:
       - karmada-pull-mode-runbook.md          # Karmada hub control plane
       - placement-contract.yaml (karmada)     # PropagationPolicy shape
       - murakumo-system/llama-vulkan-fleet.yaml  # K8s DaemonSet (replaced by per-node Ollama + EVO-X2)
-      - yoro-actors/                          # K8s CronJob actors (now magatama cells on each node)
-      - shinka-actors/                        # K8s LangServer workers (now in 20-actors/magatama)
+      - yoro-actors/                          # K8s CronJob actors (now kotodama cells on each node)
+      - shinka-actors/                        # K8s LangServer workers (now in 40-engine/kotoba/crates/kotoba-kotodama)
       - malak-actors/                         # K8s pursuit-loop (vendor surveillance — not migrated)
       - telecom-actors/                       # vendor telecom (not migrated)
     redesignedAs:
       - 50-infra/murakumo/fleet.toml          # cell placement SSoT (10 nodes × 15 cells)
       - 50-infra/cluster/murakumo/             # Rust runtime (node CLI, tailmesh, worker, daemon)
-      - 50-infra/cluster/murakumo/cell-runner/ # magatama-cell-runner launchd plist
+      - 50-infra/cluster/murakumo/cell-runner/ # kotodama-cell-runner launchd plist
       - 50-infra/k8s/murakumo-kubelet/         # custom kubelet (no K8s control plane)
       - 50-infra/multicluster/murakumo-mesh/   # this dir
