@@ -116,6 +116,16 @@ class TestAnalyzer(unittest.TestCase):
         self.assertGreaterEqual(top["members"], 3)
         self.assertEqual(top["asn"], "asn.64666")
 
+    def test_cluster_multi_signal_corroboration(self):
+        # The bulletproofhost cluster's 3 creatives carry 3 DISTINCT fraud kinds
+        # (scam-finance + counterfeit-goods + fake-endorsement) → corroboration >= 3,
+        # and the rank is weighted up by that corroboration.
+        top = self.a["clusters"][0]
+        self.assertGreaterEqual(top["corroboration"], 3)
+        self.assertEqual(top["corroboration"], len(top["kinds"]))
+        # corroboration weighting makes rank exceed the naive members×conf product.
+        self.assertGreater(top["rank_score"], top["members"] * top["conf_sum"])
+
     def test_delivery_infra_concentration_ranks_scam_asn_first(self):
         self.assertTrue(self.a["infra_rank"])
         self.assertEqual(self.a["infra_rank"][0][0], "asn.64666")

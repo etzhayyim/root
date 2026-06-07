@@ -80,12 +80,15 @@ def analyze(adtech, auth, creatives, delivery, fraud):
     # join each delivery edge to the creative's fraud weight (Σ confidence of its signals).
     creative_fraud = defaultdict(float)
     subj_fraud = defaultdict(float)          # any subject id -> Σ confidence
+    subj_kinds = defaultdict(set)            # any subject id -> {distinct fraud kinds}
     fraud_kind_count = defaultdict(int)
     for f in fraud:
         subj = f.get(':adfraud.signal/subject')
         conf = float(f.get(':adfraud.signal/confidence', 0.0) or 0.0)
+        kind = f.get(':adfraud.signal/kind', ':unknown')
         subj_fraud[subj] += conf
-        fraud_kind_count[f.get(':adfraud.signal/kind', ':unknown')] += 1
+        subj_kinds[subj].add(kind)
+        fraud_kind_count[kind] += 1
         if subj and subj.startswith('adc.'):
             creative_fraud[subj] += conf
 
@@ -137,11 +140,22 @@ def analyze(adtech, auth, creatives, delivery, fraud):
             continue
         advertisers = sorted({cre_by_id.get(c, {}).get(':adcreative/advertiser') for c in cres} - {None})
         conf_sum = round(sum(creative_fraud.get(c, 0.0) for c in cres), 2)
+        # MULTI-SIGNAL CORROBORATION: distinct fraud-signal kinds across the cluster's
+        # member creatives. More distinct kinds = independent evidence corroborating one
+        # operation (a crypto + a deepfake + a counterfeit ad on one bulletproof host is
+        # stronger than three of the same) → a higher-confidence protection priority.
+        kinds = set()
+        for c in cres:
+            kinds |= subj_kinds.get(c, set())
+        corroboration = len(kinds)
         m = infra_meta[key]
-        rank_score = round(len(cres) * conf_sum, 2)
+        # rank weighted by corroboration so multi-kind networks surface first.
+        rank_score = round(len(cres) * conf_sum * (1 + 0.5 * max(0, corroboration - 1)), 2)
         clusters.append(dict(asn=m['asn'], registrar=m['registrar'], whois_org=m['whois_org'],
                              creatives=sorted(cres), advertisers=advertisers,
-                             conf_sum=conf_sum, members=len(cres), rank_score=rank_score))
+                             conf_sum=conf_sum, members=len(cres),
+                             kinds=sorted(str(k).lstrip(':') for k in kinds),
+                             corroboration=corroboration, rank_score=rank_score))
     clusters.sort(key=lambda c: -c['rank_score'])
 
     # ── fraud-signal load by advertiser category (which verticals carry the scam surface) ──
@@ -270,13 +284,20 @@ def render_report(adtech, auth, creatives, delivery, fraud, a):
       "AGGREGATE-FIRST + NON-ADJUDICATING (G4): a candidate for protection actors to investigate, "
       "never a verdict. Routed to akashi's malak evidence bridge.")
     P("")
-    P("| shared ASN | registrar | WHOIS-org | creatives | Σ confidence | rank |")
-    P("|---|---|---|---:|---:|---:|")
+    P("| shared ASN | registrar | WHOIS-org | creatives | distinct fraud kinds (corroboration) | Σ confidence | rank |")
+    P("|---|---|---|---:|---|---:|---:|")
     for c in a['clusters']:
+        kinds = ", ".join(f"`{k}`" for k in c['kinds']) + f" ({c['corroboration']})"
         P(f"| `{str(c['asn']).lstrip(':')}` | {c['registrar']} | {c['whois_org']} | "
-          f"{c['members']} | {c['conf_sum']} | {c['rank_score']} |")
+          f"{c['members']} | {kinds} | {c['conf_sum']} | {c['rank_score']} |")
     if not a['clusters']:
-        P("| (none in seed) | | | | | |")
+        P("| (none in seed) | | | | | | |")
+    P("")
+    P("> **Multi-signal corroboration**: distinct fraud-signal kinds across a cluster's "
+      "creatives. Independent kinds (e.g. scam-finance + fake-endorsement + counterfeit-goods on "
+      "one bulletproof host) corroborate a single operation more strongly than repeats — the rank "
+      "weights corroboration so multi-kind networks surface first. Still NON-ADJUDICATING (G4): a "
+      "stronger candidate for protection actors, never a verdict.")
     P("")
 
     # ── fraud by category ──
@@ -354,6 +375,7 @@ def render_datoms(a):
         P(f' {{:adfraud/cluster {edn_str(str(c["asn"]) + "|" + str(c["registrar"]))} '
           f':adfraud/cluster-asn {edn_str(c["asn"])} :adfraud/cluster-registrar {edn_str(c["registrar"])} '
           f':adfraud/cluster-members {c["members"]} :adfraud/cluster-confidence {c["conf_sum"]} '
+          f':adfraud/cluster-corroboration {c["corroboration"]} '
           f':adfraud/network-rank {c["rank_score"]} :adfraud/derived true}}')
     for cat, load in a['category_rank']:
         P(f' {{:adfraud/category {edn_str(str(cat).lstrip(":"))} '

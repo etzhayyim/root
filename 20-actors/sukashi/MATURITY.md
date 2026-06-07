@@ -30,7 +30,7 @@ Coverage growth (each is a `/loop` increment):
 Analysis depth:
 - [ ] add `:adsupply/reseller-depth` (longest reseller chain) to analyze.py + report + test
 - [ ] add an authorization-graph "follow/depends" centrality (seller betweenness) metric
-- [ ] add a fraud-cluster confidence-aggregation (multi-signal corroboration) metric
+- [x] add a fraud-cluster confidence-aggregation (multi-signal corroboration) metric — distinct fraud-KINDS per cluster weights network-rank (`:adfraud/cluster-corroboration`); test_cluster_multi_signal_corroboration
 - [ ] add per-registrar / per-WHOIS-org fraud co-occurrence ranking to the derived datoms
 
 Integration / readiness:
