@@ -14049,6 +14049,43 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072000-kasa-world-computing-capacity-growth-statistics-observatory-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606072000: kasa 嵩 — Worldwide Computing-Capacity Growth Statistics Observatory (Tier-B Actor R0)",
+      "status": "proposed",
+      "topic": "kasa-computing-capacity-growth-observatory",
+      "authoritative": true,
+      "authoritativeFor": [
+        "computing-capacity-growth-observatory-actor",
+        "compute-capacity-eavt-vocabulary",
+        "public-compute-source-admissibility-map"
+      ],
+      "related": [
+        "doc:2606013800",
+        "doc:2606013600",
+        "doc:2605242500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606072000-kosatsu-crime-sanctions-competing-claim-observatory-r0",
+      "type": "TechArticle",
+      "title": "kosatsu 高札 — crime/sanctions competing-claim observatory (Tier-B actor R0; designation-as-attributed-event over the kotoba Datom log; the politically-neutral, asserter-relative inverse of a sanctions-screening product)",
+      "status": "proposed-pending-council-ratification",
+      "topic": "kosatsu-crime-sanctions-competing-claim",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kosatsu actor scope (crime/sanctions designations mirrored into the kotoba Datom log as append-only attributed events + a computed competing-claim/divergence view; design-only)",
+        "the mirror-not-adjudicator invariant (etzhayyim authors no designation; :authority/kind has no self token; :designation/asserted-notice const true)",
+        "the asserter-mandatory invariant (no asserter-less 'global truth' designation; :designation/asserter required)",
+        "the no-verdict invariant (:designation/measure is an authority instrument; criminal/guilty/terrorist/enemy unrepresentable)",
+        "the event-log/as-of invariant (:designation/status :listed|:delisted; a delisting is a new datom with :lifted-at, never an overwrite; 非終末論)",
+        "the edge-primary / no-score invariant (no :subject/risk-score/:guilt/:threat-level; divergence computed on read)",
+        "the political-stance-explicit divergence model (per-subject {contested|unanimous|single-asserter} + coverage-split; silence is reported, never inferred as dissent)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606072200-shionome-cross-asset-capital-flow-observatory-r0",
       "type": "TechArticle",
       "title": "ADR-2606072200: 潮目 (shionome) — cross-asset capital-flow observatory (ingest · intel · analyze · dry-run social, NO trading) R0 + autonomous kotoba loop",
@@ -14167,6 +14204,38 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072800-tsubasa-flight-discovery-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072800: tsubasa 翼 — flight-route/fare discovery commons (Skyscanner inversion), R0+R1",
+      "status": "proposed",
+      "topic": "tsubasa-flight-commons",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/tsubasa"
+      ],
+      "related": "doc:2606041827",
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-coverage-gaps-catalog-and-inochi-biosphere-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: World-coverage gap catalog + inochi 命 biosphere KG mirror",
+      "status": "accepted",
+      "topic": "coverage-gaps-and-inochi",
+      "authoritative": true,
+      "authoritativeFor": [
+        "world-coverage gap catalog (what etzhayyim does not yet observe/produce)",
+        "inochi 命 actor (living-world / 生命圏 KG mirror)",
+        "biosphere-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606042330",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-2606073000-robotics-remote-work-actor-roster-and-isco-coverage",
       "type": "TechArticle",
       "title": "ADR-2606073000: Robotics remote-work actor roster + ISCO coverage/GAP survey (tazuna as the on-site→remote substrate)",
@@ -14189,6 +14258,86 @@
         "doc:ADR-2605261215 (hodoki ELV disassembly)",
         "doc:ADR-2606051500 (kamado carbon refining / refinery decommission)",
         "doc:ADR-2605263100 (mizuho water + sanitation)"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073000-session-close-app-coverage-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606073000: Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet",
+      "status": "active",
+      "topic": "session-close-app-coverage-wave",
+      "authoritative": false,
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073200-asobi-freed-time-play-expression-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073200: asobi 遊び — freed-time play & cultural-expression KG mirror (gap C)",
+      "status": "accepted",
+      "topic": "asobi-freed-time-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "asobi 遊び actor (freed-time / play & cultural-expression KG mirror)",
+        "asobi-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500",
+        "doc:2605261045"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073400-hokorobi-systemic-finance-risk-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073400: hokorobi 綻び — systemic finance-risk observation mirror (gap D)",
+      "status": "accepted",
+      "topic": "hokorobi-finance-risk-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hokorobi 綻び actor (systemic finance-risk observation mirror)",
+        "finrisk-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606051800",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073600-hoshimori-orbital-stewardship-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073600: hoshimori 星守 — off-Earth orbital stewardship mirror (gap B)",
+      "status": "accepted",
+      "topic": "hoshimori-orbital-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "hoshimori 星守 actor (off-Earth orbital stewardship mirror)",
+        "orbit-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
+      "id": "doc:adr-2606073800-tsugite-peoples-continuity-mirror",
+      "type": "TechArticle",
+      "title": "ADR-2606073800: tsugite 継ぎ手 — world peoples-continuity mirror (gap E, catalog complete)",
+      "status": "accepted",
+      "topic": "tsugite-peoples-continuity-mirror",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsugite 継ぎ手 actor (world peoples-continuity mirror)",
+        "peoples-ontology"
+      ],
+      "related": [
+        "doc:2606011800",
+        "doc:2606014500",
+        "doc:2605261045"
       ],
       "lastVerified": "2026-06-07"
     },

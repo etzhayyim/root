@@ -10118,6 +10118,14 @@ status_note = "Answers the founder directive 「ISIC のすべての産業に対
 path = "90-docs/adr/2606037200-open-kyber-kotoba-datomic-erp-isic-industry-packs-productivity-suite.md"
 adr = ["2606037200", "0025", "2605262130", "2605312345", "2605181100", "2606014500", "2606015400", "2606032000", "2606012100", "2606032100", "2605215000", "2605231525", "2605192200"]
 
+[[adrs]]
+id = "2606073000"
+title = "Session close — app-coverage charter-clean inversion wave + substrate-remediation ratchet"
+status = "active"
+status_note = "Answers 「いまの actor で uber, flight scanner, airbnb, hotels, google, sales force, office 365, shopofy などと同等の app の設計、実装 coverage は?」 + the follow-up 「成熟度、coverage を高めて」 (self-paced /loop, 12 iterations). All eight named apps now have charter-clean inversions: uber→ainori, flight-scanner→tsubasa, airbnb/hotels→shukubo, shopify→omise, salesforce/SAP→business-manager, calendly→yotei, drive→organizer, indeed→talent. Prohibited terms are structurally unrepresentable, substrate-boundary ratchet is seeded, and Phase B tracks frozen legacy paths toward kotoba-kqe."
+path = "90-docs/adr/2606073000-session-close-app-coverage-charter-clean-inversion-wave.md"
+adr = ["2606073000", "2606071400", "2606071500", "2606071600", "2606071800", "2606072000", "2606072200", "2606072400", "2606072600", "2606072800", "2606012100", "2605262130", "2605312345", "2605231525", "2605215000", "2605181100"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
