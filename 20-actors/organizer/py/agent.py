@@ -183,3 +183,45 @@ def read_item(item: dict, requester_vault_did: str) -> dict:
     if item.get("vaultDid") != requester_vault_did:
         return {"state": "refused", "reason": "cross-vault read refused — own-data-only (G3)"}
     return {"state": "ok", "item": item}
+
+
+# --------------------------------------------------------------------------- #
+# collection membership (vault-isolated, G3; idempotent)
+# --------------------------------------------------------------------------- #
+def add_to_collection(collection: dict, item: dict) -> dict:
+    """Add an item to a collection. Refuses if the item and collection are in different vaults
+    (G3 — you cannot file your item into another vault's collection, nor file a foreign item into
+    yours). Idempotent: adding a member twice does not duplicate it."""
+    if collection.get("vaultDid") != item.get("vaultDid"):
+        return {"state": "refused", "reason": "item and collection are in different vaults (G3)"}
+    members = list(collection.get("members", []))
+    if item["itemId"] not in members:
+        members.append(item["itemId"])
+    return {"state": "ok", "collection": {**collection, "members": members}}
+
+
+def remove_from_collection(collection: dict, item_id: str) -> dict:
+    """Remove an item from a collection (idempotent — removing a non-member is a no-op)."""
+    members = [m for m in collection.get("members", []) if m != item_id]
+    return {"state": "ok", "collection": {**collection, "members": members}}
+
+
+def auto_organize(items: list, collections: list) -> list:
+    """Batch auto-organize: classify each item (G2 owner-only), match the vault's organize rules,
+    and assign it to the matching collection IN THE SAME VAULT (G3). Returns the list of
+    assignments {itemId, vaultDid, collection} (items with no matching rule are skipped — no
+    forced bucketing). A collection carries its own autoRules + vault."""
+    assignments = []
+    by_vault: dict[str, list] = {}
+    for c in collections:
+        by_vault.setdefault(c.get("vaultDid"), []).append(c)
+    for item in items:
+        cls = classify(item)
+        vault = item.get("vaultDid")
+        for c in by_vault.get(vault, []):
+            rules = [{**r, "collection": c["collectionId"]} for r in c.get("autoRules", [])]
+            hit = apply_rules(cls, rules)
+            if hit:
+                assignments.append(hit)
+                break
+    return assignments
