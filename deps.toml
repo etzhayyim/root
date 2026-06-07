@@ -8554,22 +8554,22 @@ status_note = "R0 scaffold: Modal-compat surface + 3-backend routing policy (jud
 path = "90-docs/adr/2605282000-kotoba-murakumo-modal-compat-python-fleet-inference.md"
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/"
+path = "40-engine/kotoba/py/kotoba_murakumo/"
 adr = "ADR-2605282000"
 kind = "python-package"
-status = "r1.3b-live + relocated-per-2605282300"
-placement_note = "Religious-corp downstream consumer of the kotoba substrate. Relocated 2026-05-28 evening from 40-engine/kotoba/py/kotoba_murakumo/ (inside kotoba subrepo) to 40-engine/kotoba_murakumo/ (sibling of subrepo) per ADR-2605282300 §'Decision'. The original placement triggered a structural failure when the first git subrepo push revealed that upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit recorded in .gitrepo (17e30d9db...), making subrepo sync impossible. The fix is structural — consumer lives outside the upstream mirror. Pattern: stay-in vs move-out criteria documented in ADR-2605282300 §'Pattern: when does a Python sibling stay in a subrepo vs move out?'. kotoba_langgraph stays inside (canonical kotoba); kotoba_murakumo moves out (downstream consumer). Test runner is now 70-tools/scripts/test-kotoba-murakumo.sh (replaces deleted 40-engine/kotoba/scripts/test-py.sh)."
+status = "r1.3b-live + reintegrated-per-2606074000"
+placement_note = "Religious-corp downstream consumer of the kotoba substrate, living INSIDE the kotoba submodule at 40-engine/kotoba/py/kotoba_murakumo/ as a sibling of py/kotoba_langgraph/. Re-integrated 2026-06-07 per ADR-2606074000, which supersedes the subrepo-era relocation ADR-2605282300. The 2026-05-28 relocation OUT (to 40-engine/kotoba_murakumo/) was forced by a git-subrepo failure: the upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit recorded in .gitrepo (17e30d9db...), making subrepo sync impossible. kotoba is now a git submodule (a pinned commit + an independent push/pull lifecycle), so that merge-base hazard no longer exists and the consumer rejoins the engine repo. It remains a monorepo-context package: its inputs (50-infra/murakumo/fleet.toml, the 70-tools lint gate) live in the monorepo, so conftest skips the suite in a standalone kotoba checkout. Test runner: 70-tools/scripts/test-kotoba-murakumo.sh."
 description = "Modal-compatible Python facade for Murakumo fleet inference. Apache 2.0 + Charter Rider v2.0. Public API: App / @app.function / @app.cls / @enter / @exit / @method / Image / Volume / Secret / gpu.{EvoX2,MacMini,WebGPU,Any} + Function.{remote, remote_async, spawn, map, starmap, stream, estimate} + FunctionCall handle + economy.{Tariff, UsageEstimate, UsageActual, BudgetExceeded, InsufficientCredit, default_tariff} + App.balance / App.get_tariff. Modal-compat shim at .modal_compat re-exports as if it were `modal` (Stub alias + gpu.{T4,L4,A10G,A100,H100,H200} → EvoX2 with N5 honest warning). 62 tests pass + 2 live_fleet skip in 0.21s. R1.1 live httpx-backed LiteLLM/Ollama dispatch + SSE stream + Charter Rider §2 scan (advisory→enforce via KOTOBA_MURAKUMO_CHARTER_ENFORCE=1) + invocation NDJSON. R1.3b mKOTO economy + Modal-billing-parity (max_cost_mkoto= decorator param; Function.estimate; pre-dispatch budget+balance check; NDJSON +cost_mkoto+tariff_version). Relocated per ADR-2605282300."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/fleet.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/fleet.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r0-active"
 description = "stdlib tomllib-backed loader for 50-infra/murakumo/fleet.toml. Typed view (FleetNode + InferenceEndpoint dataclasses, slots+frozen). Raises FleetUnreachable when fleet.toml missing — no silent fallback per ADR-2605282000 N4. Parses [[inference_backends]] array + per-backend [inference_backends.<name>.endpoints.<kind>] nested form (the actual fleet.toml shape, tomllib-faithful). Verified against canonical SSoT: judah=192.168.1.17, evo-x2 litellm=192.168.1.70:4000 master_key_env=EVO_X2_LITELLM_KEY, evo-x2 ollama=192.168.1.70:11434, litellm gateway URL = http://192.168.1.17:4000."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/_internal/routing.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/_internal/routing.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.3-active-with-LITELLM_MASTER_KEY-fix"
@@ -8577,7 +8577,7 @@ amends = ["ADR-2605282400"]
 description = "Pure-function selector→endpoint resolver. Inputs: (GpuSpec | str | None, model, FleetView). Output: ResolvedRoute(url, model, backend, kind, auth_bearer_env). Rules: gpu=None|Any → LiteLLM gateway judah:4000 (auth_bearer_env='LITELLM_MASTER_KEY' since ADR-2605282400 live-verification fix; gateway returns 401 without it per 60-apps/etzhayyim-project-murakumo/litellm/config.yaml master_key line 78); gpu=MacMini(node=) → that node's own-node Ollama :11434 (no auth); gpu=EvoX2(prefer=) → EVO-X2 LiteLLM/Ollama/ComfyUI (LiteLLM uses EVO_X2_LITELLM_KEY); gpu=WebGPU → R2 not-implemented; gpu='A100'/'H100'/'A10G'/'T4'/'L4' string → EvoX2 with N5 honest warning logged. No HTTP traffic in this module."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/modal_compat.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/modal_compat.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r0-active"
@@ -8588,38 +8588,38 @@ path = "70-tools/scripts/lint/verify_no_modal_labs_calls.py"
 adr = "ADR-2605282000"
 kind = "lint-gate"
 status = "r1.1-active"
-description = "ADR-2605282000 N1 enforcement: scans 40-engine/kotoba_murakumo/kotoba_murakumo/**/*.py for `modal.com` / `api.modal.com` / `from modal import` / `import modal as` references; exit 1 on any hit. Allow-list scope is enforced by path-restriction (the trademark notice in README.md + the ADR are outside the scanned package source tree so they pass automatically). R1.1 ships with 2 self-tests (passes on clean tree, flags an injected violation in a tmp-dir fake repo)."
+description = "ADR-2605282000 N1 enforcement: scans 40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/**/*.py for `modal.com` / `api.modal.com` / `from modal import` / `import modal as` references; exit 1 on any hit. Allow-list scope is enforced by path-restriction (the trademark notice in README.md + the ADR are outside the scanned package source tree so they pass automatically). R1.1 ships with 2 self-tests (passes on clean tree, flags an injected violation in a tmp-dir fake repo)."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/function.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/function.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-live-dispatch"
 status_note = "R1.1 replaces R0 MurakumoCompatNotImplemented stubs with live httpx-backed dispatch. Function.{remote, remote_async, spawn, map, starmap, stream} all wired. .spawn() returns a FunctionCall handle (call_id uuid + concurrent.futures.Future). .map() runs in a per-call ThreadPoolExecutor with order_outputs=True (Modal default) or as-completed. .stream() is an async generator over OpenAI SSE chunks (decodes 'data: {...}\\n' lines, terminates on 'data: [DONE]'). Charter Rider §2 scan runs on input prompt and output text; KOTOBA_MURAKUMO_CHARTER_ENFORCE=1 flips advisory→enforce and raises CharterViolation before the result is returned to the caller (constitutional invariant per ADR-2605192200). NDJSON invocation log written via call-time path resolve (test fixtures can monkeypatch _DEFAULT_PATH). httpx.HTTPError → FleetUnreachable conversion preserves the attempted endpoint chain (ADR-2605282000 N4)."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/client/litellm.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/client/litellm.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-live"
 status_note = "Real impl: chat_completions (sync via httpx.Client) + chat_completions_async (async via httpx.AsyncClient) + chat_completions_stream (async generator decoding OpenAI SSE 'data:' chunks). Wire format mirrors kotoba-llm::http_infer.rs (POST /v1/chat/completions + Authorization: Bearer when auth_bearer). Returns the assistant content string; raises ValueError on missing choices[0].message.content; raises httpx.HTTPStatusError on non-2xx (Function._dispatch_sync converts to FleetUnreachable upstream)."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/client/ollama.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/client/ollama.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-live"
 status_note = "Ollama-direct (own-node gemma3:4b) — Ollama exposes the OpenAI-compat endpoint at /v1/chat/completions so this module delegates to client.litellm with auth_bearer=None. R2 wires Ollama-specific knobs (num_ctx / num_gpu / keep_alive) without touching the LiteLLM signature."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/charter.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/charter.py"
 adr = "ADR-2605282000"
 kind = "python-module"
 status = "r1.1-bound"
 status_note = "R1.1 binds to canonical scanner at etzhayyim_organism.sensors.charter_rider.scan via try-import (graceful fallback to local 4-regex matcher when the etzhayyim_organism package is not on sys.path — keeps kotoba_murakumo importable in isolation). Severity ladder: clean → minor (§2(c) advisory patterns only) → major (any §2(a)/(b)/(d)/(f)/(h) hit OR multi-hit §2(c)) → critical (§2(a) Weapons OR §2(f) Multi-Gen Harm with >1 hit). KOTOBA_MURAKUMO_CHARTER_ENFORCE truthy env (1/true/yes; case-insensitive) flips the enforce() helper from no-op to raising CharterViolation on severity >= major. Default off at R1.1 to support gradual rollout; R2 default-on contingent on the Council Lv6+ ratify of CHARTER-RIDER §6 attribution amendment."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/tests/"
+path = "40-engine/kotoba/py/kotoba_murakumo/tests/"
 adr = "ADR-2605282000"
 kind = "test-suite"
 status = "r1.1-42-pass-2-skip"
@@ -8633,7 +8633,7 @@ status_note = "6-layer mKOTO economy charter (L1 meter / L2 tariff / L3 wallet /
 path = "90-docs/adr/2605282100-kotoba-mkoto-economy-and-modal-billing-parity.md"
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/kotoba_murakumo/economy.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/economy.py"
 adr = "ADR-2605282100"
 kind = "python-module"
 status = "r1.3b-live"
@@ -8668,7 +8668,7 @@ status = "r1.3d-scaffold-cfg-gated"
 description = "Rust XRPC handler signatures for com.etzhayyim.kotoba.economy.{tariff, balance, debit, creditFromDonation}. NOT YET WIRED into lib.rs — file is `#[cfg(any())]` gated so it does not affect the kotoba-server compilation surface. R1.3d-wiring (separate ADR) will: (1) add `pub mod economy_xrpc;` to lib.rs; (2) register routes in xrpc.rs; (3) implement handlers via existing QuadStore + CACAO auth (check_read_access / require_did_ownership patterns from kotobase_xrpc.rs). NSID constants NSID_ECONOMY_{TARIFF,BALANCE,DEBIT,CREDIT_FROM_DONATION} match the Lexicon IDs. credit_from_donation handler verifies tithed_to_fund_usdc == usdc_amount * 0.10 as a constitutional invariant per ADR-2605192130; rejects on mismatch."
 
 [[modules]]
-path = "40-engine/kotoba_murakumo/tests/test_economy.py"
+path = "40-engine/kotoba/py/kotoba_murakumo/tests/test_economy.py"
 adr = "ADR-2605282100"
 kind = "test-suite"
 status = "r1.3b-17-tests"
@@ -8887,16 +8887,25 @@ description = "26 tests for verify_no_commercial_remittance.py: R0 path-reserved
 [[adrs]]
 id = "2605282300"
 title = "kotoba_murakumo relocated out of the kotoba subrepo to 40-engine/kotoba_murakumo/ (downstream-consumer placement)"
-status = "proposed"
-status_note = "Closure ADR for the structural mistake surfaced by the first git subrepo push attempt on 2026-05-28 evening (id originally 2605282200 collided with kawase-yui ADR; renumbered to 2605282300). Root cause: kotoba_murakumo was placed inside the kotoba subrepo working tree but is a religious-corp downstream consumer, NOT part of kotoba's canonical external surface. When upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit (17e30d9db5...) recorded in .gitrepo, all three git-subrepo sync paths (pull, branch, pull --force) failed or were destructive. The honest fix is structural relocation, not a git-workflow patch. This ADR documents the relocation + the durable stay-in-vs-move-out rule: a Python sibling stays inside a subrepo iff (1) it IS canonical upstream-shipped content (e.g. kotoba_langgraph compiles to WASM Components for kotoba-runtime), (2) it imports only documented external interfaces, (3) the upstream release tag includes it. Moves OUT iff (1) it consumes the subrepo via HTTP/wire format but isn't part of its external surface, (2) it imports monorepo-only modules, (3) its constitutional invariants are religious-corp-specific. kotoba_murakumo matches all 3 move-out criteria. Relocation preserved git history via git mv. The Rust scaffold economy_xrpc.rs stays inside the subrepo (it IS intended for upstream eventually; R1.3d-wiring will turn the cfg-gate off). Depends on ADR-2605282000 (the subject) + ADR-2605282100 (lives alongside) + ADR-2605262130 (kotoba substrate)."
+status = "superseded"
+superseded_by = "2606074000"
+status_note = "SUPERSEDED by ADR-2606074000 (2026-06-07): kotoba is now a git submodule, not a git-subrepo, so the merge-base force-push hazard that forced this relocation no longer exists; kotoba_murakumo was re-integrated into the submodule at 40-engine/kotoba/py/kotoba_murakumo/. Original closure ADR for the structural mistake surfaced by the first git subrepo push attempt on 2026-05-28 evening (id originally 2605282200 collided with kawase-yui ADR; renumbered to 2605282300). Root cause: kotoba_murakumo was placed inside the kotoba subrepo working tree but is a religious-corp downstream consumer, NOT part of kotoba's canonical external surface. When upstream github.com/etzhayyim/kotoba had force-pushed away the merge-base commit (17e30d9db5...) recorded in .gitrepo, all three git-subrepo sync paths (pull, branch, pull --force) failed or were destructive. The honest fix is structural relocation, not a git-workflow patch. This ADR documents the relocation + the durable stay-in-vs-move-out rule: a Python sibling stays inside a subrepo iff (1) it IS canonical upstream-shipped content (e.g. kotoba_langgraph compiles to WASM Components for kotoba-runtime), (2) it imports only documented external interfaces, (3) the upstream release tag includes it. Moves OUT iff (1) it consumes the subrepo via HTTP/wire format but isn't part of its external surface, (2) it imports monorepo-only modules, (3) its constitutional invariants are religious-corp-specific. kotoba_murakumo matches all 3 move-out criteria. Relocation preserved git history via git mv. The Rust scaffold economy_xrpc.rs stays inside the subrepo (it IS intended for upstream eventually; R1.3d-wiring will turn the cfg-gate off). Depends on ADR-2605282000 (the subject) + ADR-2605282100 (lives alongside) + ADR-2605262130 (kotoba substrate)."
 path = "90-docs/adr/2605282300-kotoba-murakumo-relocated-out-of-kotoba-subrepo.md"
+
+[[adrs]]
+id = "2606074000"
+title = "kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation"
+status = "proposed"
+supersedes = "2605282300"
+status_note = "Reverses ADR-2605282300 now that the root cause has dissolved. The relocation OUT was forced by a git-subrepo failure (upstream force-pushed away the .gitrepo merge-base, making subrepo sync impossible). kotoba is now a git submodule — the parent records only a pinned commit SHA + the submodule has an independent push/pull lifecycle — so a force-push upstream can no longer corrupt a parent-side merge-base. The Modal-compat facade rejoins the engine repo at 40-engine/kotoba/py/kotoba_murakumo/ as a sibling of py/kotoba_langgraph/. Path-depth rebased parents[3]→parents[5]; conftest skips the suite in a standalone kotoba checkout (monorepo-context inputs absent). 62 tests pass / 2 live_fleet skipped in the monorepo. Murakumo-only invariant (ADR-2605215000), Charter Rider §2 scan (ADR-2605192200), no-Modal-Labs N1 gate (ADR-2605282000) all unchanged. The submodule's local main had diverged from upstream origin/main; the integration is stacked on the local line to keep the monorepo delta minimal — reconciling that divergence with upstream is tracked separately. Depends on ADR-2605282000 + ADR-2605282100 + ADR-2605282300 (superseded) + ADR-2605262130 + ADR-2605215000."
+path = "90-docs/adr/2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule.md"
 
 [[modules]]
 path = "70-tools/scripts/test-kotoba-murakumo.sh"
 adr = "ADR-2605282300"
 kind = "test-runner"
 status = "r1.3b-active"
-description = "Monorepo-side test runner for 40-engine/kotoba_murakumo/. Replaces the deleted 40-engine/kotoba/scripts/test-py.sh that was inside the kotoba subrepo. Resolves PKG_DIR to $REPO_ROOT/40-engine/kotoba_murakumo (post-relocation path per ADR-2605282300). Sets PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 default to avoid the global-site-packages langsmith / pydantic-core version-mismatch issue on the dev box. Passes through positional args to pytest. Exit 0 on green; non-zero on first failure."
+description = "Monorepo-side test runner for the kotoba_murakumo package. Resolves PKG_DIR to $REPO_ROOT/40-engine/kotoba/py/kotoba_murakumo (re-integrated into the kotoba submodule per ADR-2606074000, superseding the subrepo-era relocation ADR-2605282300). Sets PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 default to avoid the global-site-packages langsmith / pydantic-core version-mismatch issue on the dev box. Passes through positional args to pytest. Exit 0 on green; non-zero on first failure (suite skips entirely in a standalone kotoba checkout where 50-infra/murakumo/fleet.toml is absent)."
 
 [[adrs]]
 id = "2605282400"

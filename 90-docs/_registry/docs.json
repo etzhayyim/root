@@ -16407,7 +16407,9 @@
       ],
       "related": [],
       "supersedes": [],
-      "superseded_by": [],
+      "superseded_by": [
+        "2606074000"
+      ],
       "depends_on": [
         "2605282000",
         "2605282100",
@@ -22638,6 +22640,50 @@
         "2605215000"
       ],
       "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule.md",
+      "id": "adr-2606074000-kotoba-murakumo-reintegrated-into-kotoba-submodule",
+      "title": "ADR-2606074000: kotoba_murakumo re-integrated into the kotoba submodule (py/kotoba_murakumo/) — submodule era supersedes the subrepo-relocation",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kotoba-murakumo-submodule-reintegration",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba_murakumo canonical filesystem location (now inside the kotoba submodule)",
+        "the submodule-era placement rule for religious-corp Python siblings of the kotoba engine"
+      ],
+      "related": [],
+      "supersedes": [
+        "2605282300"
+      ],
+      "superseded_by": [],
+      "depends_on": [
+        "2605282000",
+        "2605282100",
+        "2605282300",
+        "2605262130",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606081500-kotoba-erp-crm-prototype-pywasm.md",
+      "id": "adr-2606081500-kotoba-erp-crm-prototype-pywasm",
+      "title": "ADR-2606081500: Kotoba ERP and Salesforce CRM Prototype in PyWasm",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "kotoba-erp-crm-pywasm-prototype",
+      "authoritative": false,
+      "last_verified": "2026-06-07",
+      "authoritative_for": [],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
       "amends": [],
       "amended_by": []
     },
