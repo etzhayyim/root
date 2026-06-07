@@ -121,7 +121,7 @@
       "handle": "adyen-compat",
       "did": "did:web:etzhayyim.com:actor:adyen-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiclgdcolrocypinbmhnckruhkckhaioj4eb35j5z55irlvm3rdvre",
+      "endpoint": "ipfs://bafkreiflz4pkbigafgh2gugoafxwaoz3dsdqmx6w25zyv3qxrz3hxypdd4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/adyen-compat/manifest.json#/capabilities/mcp"
@@ -148,7 +148,7 @@
       "handle": "agones-compat",
       "did": "did:web:etzhayyim.com:actor:agones-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiablxsmimji6iooc43e6nxte2eijyq3ozhgyj3ri7e4aqgdaqyvey",
+      "endpoint": "ipfs://bafkreihgcodvzmh5jwswtfin4xke4w6yxqabkmk2kdfdwnbeyvwsnra7le",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/agones-compat/manifest.json#/capabilities/mcp"
@@ -211,7 +211,7 @@
       "handle": "algolia-compat",
       "did": "did:web:etzhayyim.com:actor:algolia-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib6t4df2iv4qgrbcms423euocjvsyogmhsflfgojfqmd24pnh47e4",
+      "endpoint": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/algolia-compat/manifest.json#/capabilities/mcp"
@@ -229,7 +229,7 @@
       "handle": "alipay-compat",
       "did": "did:web:etzhayyim.com:actor:alipay-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiai2ofcvxor3mzjjjcoojjpwwsfnvp6prkhw2q6tjybcftb5gl434",
+      "endpoint": "ipfs://bafkreiedpe75nzibj3ls6bpzdylsfgpni6p4yjdwphnoolnda2vtihznl4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/alipay-compat/manifest.json#/capabilities/mcp"
@@ -256,7 +256,7 @@
       "handle": "altair-compat",
       "did": "did:web:etzhayyim.com:actor:altair-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifr4sui6dca5zv24stdgbhs5lnvaxn7d43isqnacljfqj5nlsmusy",
+      "endpoint": "ipfs://bafkreibblbqn4cbep7jtmwgxyz43gvsqbcwhtwsuibqezd2aolc3msps5q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/altair-compat/manifest.json#/capabilities/mcp"
@@ -265,7 +265,7 @@
       "handle": "amadeus_airlines-compat",
       "did": "did:web:etzhayyim.com:actor:amadeus_airlines-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifstfnaa2klsb7rmn6ukwf52oeev3lb434knqv4opqktpxf34wn3y",
+      "endpoint": "ipfs://bafkreihvb7mkj74ijc2elwakgdpwy5ywqk5v42qiyeiwufyf23u6czlkx4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/amadeus_airlines-compat/manifest.json#/capabilities/mcp"
@@ -319,7 +319,7 @@
       "handle": "amex_auth-compat",
       "did": "did:web:etzhayyim.com:actor:amex_auth-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihsm3hrgkdchwvgfavcuhld6zm2pvzxg25vchfxmos3usgwq24d7q",
+      "endpoint": "ipfs://bafkreiaez363lch2yupka5efkt6x2raw6i46yc6tf55wvqxfckfluytewa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/amex_auth-compat/manifest.json#/capabilities/mcp"
@@ -355,7 +355,7 @@
       "handle": "ansys-compat",
       "did": "did:web:etzhayyim.com:actor:ansys-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifcyoak4n32yc2enrwyvfsnatmmml4c3cu7dbnsrnd2ox7n252vka",
+      "endpoint": "ipfs://bafkreibdyn47pm43vssdzcemm2dcvgzyemr5o2wn23naiecw5xbxl5mmgm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ansys-compat/manifest.json#/capabilities/mcp"
@@ -373,7 +373,7 @@
       "handle": "aphis_usda-compat",
       "did": "did:web:etzhayyim.com:actor:aphis_usda-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibiswzz6yttrvkk5ssfy27zhjbt3c62u3qn73hw5zwebxzcvux6ay",
+      "endpoint": "ipfs://bafkreidwemadkj2aopycnfnkokfpvn7xchsz7gmtt6hc4cdtos32vmbqre",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/aphis_usda-compat/manifest.json#/capabilities/mcp"
@@ -400,7 +400,7 @@
       "handle": "apollo_gds-compat",
       "did": "did:web:etzhayyim.com:actor:apollo_gds-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreickv2kitnaxc5kpfnx4qqplftwldgf4klzbsvsz34bnj4aattnasm",
+      "endpoint": "ipfs://bafkreicbsl2wu6m7tkpognkqtld5ca66afdoo6g3t6lfepo27u6moziw7e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/apollo_gds-compat/manifest.json#/capabilities/mcp"
@@ -427,7 +427,7 @@
       "handle": "apple_visionos-compat",
       "did": "did:web:etzhayyim.com:actor:apple_visionos-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidefhvzswhbqkicewbx5f6spl5eakcrbabxklxhufgiqqdyteaj5a",
+      "endpoint": "ipfs://bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/apple_visionos-compat/manifest.json#/capabilities/mcp"
@@ -445,7 +445,7 @@
       "handle": "appsflyer-compat",
       "did": "did:web:etzhayyim.com:actor:appsflyer-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieihoildvfaj4vzg22zvj766ubxm5or44vkwkp3afwrtwgvv5hyjq",
+      "endpoint": "ipfs://bafkreie27u35cdqx34hfju5kcmgh45derc7mhpb24vb4m5erjyswhxfwmi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/appsflyer-compat/manifest.json#/capabilities/mcp"
@@ -463,7 +463,7 @@
       "handle": "argo_ocean_floats-compat",
       "did": "did:web:etzhayyim.com:actor:argo_ocean_floats-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicx4kf2ezenab7msfiufdoamcwkwln5xijjfrjqnpqgu6sy5ctljy",
+      "endpoint": "ipfs://bafkreicdsj67iaxxlp7eodbyosqaiacvdq4fubfbfwoy2obgkfuldiuq5m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/argo_ocean_floats-compat/manifest.json#/capabilities/mcp"
@@ -526,7 +526,7 @@
       "handle": "asana-compat",
       "did": "did:web:etzhayyim.com:actor:asana-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicrkpwpjqmot6qskrceslb3yodpk23isyuonap3amxa2twf6773rm",
+      "endpoint": "ipfs://bafkreifh3qbzbcy6a33d7gus5ffjtnwpj5hid64obcgwnkohumxse4zjmi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/asana-compat/manifest.json#/capabilities/mcp"
@@ -553,7 +553,7 @@
       "handle": "astm_codes-compat",
       "did": "did:web:etzhayyim.com:actor:astm_codes-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifpq5k5ravvlmnltcpwddj6hfhkpylrx5yzzqov56oemizlnkep3q",
+      "endpoint": "ipfs://bafkreicwra3t4z4udp5fzeuxfrqm2cleq3ppafs2tyev7qv66o52i7sfxe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/astm_codes-compat/manifest.json#/capabilities/mcp"
@@ -562,7 +562,7 @@
       "handle": "athenahealth-compat",
       "did": "did:web:etzhayyim.com:actor:athenahealth-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihypu4vfpew76ovixs7mnnekudt3hfezg3mkzryuttddhnahmuche",
+      "endpoint": "ipfs://bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/athenahealth-compat/manifest.json#/capabilities/mcp"
@@ -589,7 +589,7 @@
       "handle": "aurora_driver-compat",
       "did": "did:web:etzhayyim.com:actor:aurora_driver-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidud5phshjwoxcvgmiqlapu3orhtptj3r676i7tkf2wluvcalo4me",
+      "endpoint": "ipfs://bafkreigrcbrgkn2zg2deq23yvzwz7whhnchxzgvoiarcmb4355ni75dhvy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/aurora_driver-compat/manifest.json#/capabilities/mcp"
@@ -625,7 +625,7 @@
       "handle": "autodesk_bim360-compat",
       "did": "did:web:etzhayyim.com:actor:autodesk_bim360-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieoq7qw2t4chobcsp3zmsj7gf3nw2mqei2gwxcoqotf367ctnhbli",
+      "endpoint": "ipfs://bafkreiattotycgcd7wxkjxl3s3imav6uymwul4ovigagwnsrqqw3hhtca4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/autodesk_bim360-compat/manifest.json#/capabilities/mcp"
@@ -634,7 +634,7 @@
       "handle": "autogpt_forge-compat",
       "did": "did:web:etzhayyim.com:actor:autogpt_forge-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihylutrpwarcra3fm2qeiugs6tdbirw7qdbagy7roksyk7ti6mbum",
+      "endpoint": "ipfs://bafkreics5zmb67ooenfyeo7ak75yocyiqvmewfqkco4p52ngk3iflqy75y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/autogpt_forge-compat/manifest.json#/capabilities/mcp"
@@ -652,7 +652,7 @@
       "handle": "autosar-compat",
       "did": "did:web:etzhayyim.com:actor:autosar-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibtqsmqtknebxuupn4gf2tkn7ix2wgqxrmelxqrqsyukar7u4wv4a",
+      "endpoint": "ipfs://bafkreihgthnng6ctgnwfghi27ts7buhaqzcm7jhf5ra5ftlq7lv2payyta",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/autosar-compat/manifest.json#/capabilities/mcp"
@@ -661,7 +661,7 @@
       "handle": "autoware-compat",
       "did": "did:web:etzhayyim.com:actor:autoware-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibkt32jjxd4vbgdpiv3zhbr7vo2ut3wrq65nldzxqmp33ye6xa674",
+      "endpoint": "ipfs://bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/autoware-compat/manifest.json#/capabilities/mcp"
@@ -679,7 +679,7 @@
       "handle": "aws_braket-compat",
       "did": "did:web:etzhayyim.com:actor:aws_braket-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihicx7kfjjaqdrboedfsez5c5zrmr3e566eumttpf7uep7ukh5vuy",
+      "endpoint": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/aws_braket-compat/manifest.json#/capabilities/mcp"
@@ -688,7 +688,7 @@
       "handle": "aws_inferentia-compat",
       "did": "did:web:etzhayyim.com:actor:aws_inferentia-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihxtoq4kwoj7lyjuhq4qy2p267bns2venx2ulhe4iezju6bkfdizi",
+      "endpoint": "ipfs://bafkreidzml2vubsrfbknuxd7faxtwfjpedbb6svuzuusc6gcildjnpd5zu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/aws_inferentia-compat/manifest.json#/capabilities/mcp"
@@ -715,7 +715,7 @@
       "handle": "babyagi-compat",
       "did": "did:web:etzhayyim.com:actor:babyagi-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigauapgw72n6bnlhr3omim7w5kn3zfrswncffh6fvkuvpcx6s5yem",
+      "endpoint": "ipfs://bafkreid3z4avw3vp2dfvdxy4osogqjsc4lpofcbn22d6klm64tbrcv5z4a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/babyagi-compat/manifest.json#/capabilities/mcp"
@@ -724,7 +724,7 @@
       "handle": "bacs_uk-compat",
       "did": "did:web:etzhayyim.com:actor:bacs_uk-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigozv6nqtgjjyvjj3dwnv6qfj7ohouk4wdqvp7rkhvfajx5cclzai",
+      "endpoint": "ipfs://bafkreifmgqi5fop3ud2phvo3s3rb6crysssxbi5u7j5d4hkvv4q6sins74",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bacs_uk-compat/manifest.json#/capabilities/mcp"
@@ -733,7 +733,7 @@
       "handle": "baesystems_c4isr-compat",
       "did": "did:web:etzhayyim.com:actor:baesystems_c4isr-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigedm6gpptddzykj2bdlmrpddy3te6ds2awkep7xxm26uj2vmuyy4",
+      "endpoint": "ipfs://bafkreiev3bpjl2ikqt4dnonvlnwomw5zr7dqyad4tjf2ej6wj5ducsz6gu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/baesystems_c4isr-compat/manifest.json#/capabilities/mcp"
@@ -760,7 +760,7 @@
       "handle": "baker_hughes_jewel-compat",
       "did": "did:web:etzhayyim.com:actor:baker_hughes_jewel-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidppbgobgmoqvarpdvfiagyqlo4syujleetk4vb2en6d4olqd6jzq",
+      "endpoint": "ipfs://bafkreifdhfjdzbv77uz3d7hpb7m3zos3fotshn24ubn3yshk7u7czk7yam",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/baker_hughes_jewel-compat/manifest.json#/capabilities/mcp"
@@ -778,7 +778,7 @@
       "handle": "bandwidth-compat",
       "did": "did:web:etzhayyim.com:actor:bandwidth-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih6xceyqzqqrfr2sxktiuauwxjrjsgyi3q5d26qgqfy532bhpmuve",
+      "endpoint": "ipfs://bafkreigvtfeqjfqit2wi7ydcbsxssvnjttv3cfkuktmajbffjvzhrfwn3e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bandwidth-compat/manifest.json#/capabilities/mcp"
@@ -796,7 +796,7 @@
       "handle": "barclays_marl-compat",
       "did": "did:web:etzhayyim.com:actor:barclays_marl-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidee6vw36kx4v6cegx5wwox4qzjrkvhjpf5hyntzcvdou2ncqdwnq",
+      "endpoint": "ipfs://bafkreig6dol4msquvvitihhs4fi2xixxdwof3iqtlvvr6xb5e3pmvlinb4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/barclays_marl-compat/manifest.json#/capabilities/mcp"
@@ -805,7 +805,7 @@
       "handle": "bcel_pay-compat",
       "did": "did:web:etzhayyim.com:actor:bcel_pay-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiadp2mktb7v6krlzqw2t2ua4ifqogqhkgg5iu75tkn647p6z64r3u",
+      "endpoint": "ipfs://bafkreiftaekqagknu3xdlldmbcm453hjathkgbpffryepyzetkhu4nduem",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bcel_pay-compat/manifest.json#/capabilities/mcp"
@@ -823,7 +823,7 @@
       "handle": "bentley-compat",
       "did": "did:web:etzhayyim.com:actor:bentley-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiezjmuvfz6dublltkqpfmgxzjny4mayn7byxgkml3diwytzvxkjda",
+      "endpoint": "ipfs://bafkreihqeaxox62bkvbszi47ufasbi42cbjq2ybv25gzz33hrmiz26yasy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bentley-compat/manifest.json#/capabilities/mcp"
@@ -832,7 +832,7 @@
       "handle": "bentley_projectwise-compat",
       "did": "did:web:etzhayyim.com:actor:bentley_projectwise-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreid6xf5w5obwevhg4gf6gf472kosqxzndh5x6wgqy6sslesgfm3qcm",
+      "endpoint": "ipfs://bafkreifnejw4pyewd5mdfeurlbulfd7hmqlczxz3gqpkriv2tz57rtsfjq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bentley_projectwise-compat/manifest.json#/capabilities/mcp"
@@ -841,7 +841,7 @@
       "handle": "berkeley_lights-compat",
       "did": "did:web:etzhayyim.com:actor:berkeley_lights-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih7eenzkirugsdx5gfddz2edvduaqzv7z43haedvhtp2zr2emzxp4",
+      "endpoint": "ipfs://bafkreigygg4zy3doe3kwzpr4aqcbnr2qhwgoxmzoozthakoida2dscs6ty",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/berkeley_lights-compat/manifest.json#/capabilities/mcp"
@@ -868,7 +868,7 @@
       "handle": "bic_container_codes-compat",
       "did": "did:web:etzhayyim.com:actor:bic_container_codes-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidkoxtxscxcvlzz5igf7aes7gmkjzwurv47ygrfmoq7hl56c52nh4",
+      "endpoint": "ipfs://bafkreie77mhj2eeyik27fdyhqlda644ftqmysqqguqzkot6lhhelfqtvde",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bic_container_codes-compat/manifest.json#/capabilities/mcp"
@@ -877,7 +877,7 @@
       "handle": "biconomy-compat",
       "did": "did:web:etzhayyim.com:actor:biconomy-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic4bk5tgojupkpwo6vwxgwsxoen4l3odtsmig3ngvkwvnut4gsmua",
+      "endpoint": "ipfs://bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/biconomy-compat/manifest.json#/capabilities/mcp"
@@ -886,7 +886,7 @@
       "handle": "bigcommerce-compat",
       "did": "did:web:etzhayyim.com:actor:bigcommerce-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibioo7o3qxmtve2rdiljmfw5bgm2wrt323dmffctgxhtyhuxd2rum",
+      "endpoint": "ipfs://bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bigcommerce-compat/manifest.json#/capabilities/mcp"
@@ -913,7 +913,7 @@
       "handle": "billdesk-compat",
       "did": "did:web:etzhayyim.com:actor:billdesk-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieidthe6wuzjmhbkh3jzstirtvnvqvcxmlsqd3pciefa3dvmbnq4i",
+      "endpoint": "ipfs://bafkreicvikqbaiyr54pgvxq4rlpgwcerpjmgphuzjagyem3vbnzzb43eja",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/billdesk-compat/manifest.json#/capabilities/mcp"
@@ -922,7 +922,7 @@
       "handle": "binance-compat",
       "did": "did:web:etzhayyim.com:actor:binance-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiei6t7s4dg6piki7p6egvfv5auhh7qzrbjtzr6b6m2slo5ir3ugh4",
+      "endpoint": "ipfs://bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/binance-compat/manifest.json#/capabilities/mcp"
@@ -958,7 +958,7 @@
       "handle": "bitbucket-compat",
       "did": "did:web:etzhayyim.com:actor:bitbucket-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihymxql73cbqs3ofnsl6mi4yxranpntartn63uu5fzxvd57opmfhq",
+      "endpoint": "ipfs://bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bitbucket-compat/manifest.json#/capabilities/mcp"
@@ -976,7 +976,7 @@
       "handle": "blackboard-compat",
       "did": "did:web:etzhayyim.com:actor:blackboard-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreig4llavk3yiybf6ayqjjuyaifzpaqdn3hlhur32rjopbbe2mp4lwe",
+      "endpoint": "ipfs://bafkreieyudia74pvpr27r7tz2oc4qgiveja4cnj3icl566uozvm7b6wq4i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blackboard-compat/manifest.json#/capabilities/mcp"
@@ -985,7 +985,7 @@
       "handle": "blacksky-compat",
       "did": "did:web:etzhayyim.com:actor:blacksky-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibhh37f5x6sl5khnq4cr53fcc4d7nezewusn36wyvc2t3w2grkhqm",
+      "endpoint": "ipfs://bafkreihgetzuoz5achlyfauuxfw4ljrxrp2glpm45ojzc6wumuz57kwfma",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blacksky-compat/manifest.json#/capabilities/mcp"
@@ -994,7 +994,7 @@
       "handle": "blend-compat",
       "did": "did:web:etzhayyim.com:actor:blend-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifzrhwdki6z7yaip5suark6we3fyzv6eiuzgiumy4b3hhxnmokhnq",
+      "endpoint": "ipfs://bafkreiby2gn7l7m77x2kdxvld4rr65wlqed54eeaaaqvysgschowz765gq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blend-compat/manifest.json#/capabilities/mcp"
@@ -1003,7 +1003,7 @@
       "handle": "blender-compat",
       "did": "did:web:etzhayyim.com:actor:blender-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieeukuexfvalqpiqh4rrfyiwbwzgq5uu33tdkg4nzfiuqdeyc4qpe",
+      "endpoint": "ipfs://bafkreifn3inopl2a3bfve4iyapbbnb7g52kht6k5l6gurrj2dnm4mk2lzi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blender-compat/manifest.json#/capabilities/mcp"
@@ -1012,7 +1012,7 @@
       "handle": "bloomberg_commodities-compat",
       "did": "did:web:etzhayyim.com:actor:bloomberg_commodities-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicnixmnhs7wpwrtywuwmaih7ocnzjuk2ly5l5w7vycpe2jjq7ecna",
+      "endpoint": "ipfs://bafkreiaqnlioahv2ynofcwqnu6aq3qlnbv3hkpwghh3gli2ohssa2mvgau",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bloomberg_commodities-compat/manifest.json#/capabilities/mcp"
@@ -1030,7 +1030,7 @@
       "handle": "blue_origin_api-compat",
       "did": "did:web:etzhayyim.com:actor:blue_origin_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiapnj2p7p3qxxxcczgffgcqapzrlfxyetcwgua76oukhf6reyvaya",
+      "endpoint": "ipfs://bafkreihdl6nvb6prwmr56aquam6pt2i35qrmbsypta7efoka7qbbjfa22e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blue_origin_api-compat/manifest.json#/capabilities/mcp"
@@ -1039,7 +1039,7 @@
       "handle": "bluebeam-compat",
       "did": "did:web:etzhayyim.com:actor:bluebeam-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib3qkzscoajh5khhe4xcljnztlx7lnkna34uyrjr4g5ug6zsiz6oa",
+      "endpoint": "ipfs://bafkreiewos62j4557c27yvubkjhwrkotqpqsxqadwjyeebm5tj3iyauyzu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bluebeam-compat/manifest.json#/capabilities/mcp"
@@ -1048,7 +1048,7 @@
       "handle": "bluefin_robotics-compat",
       "did": "did:web:etzhayyim.com:actor:bluefin_robotics-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidvawyoprp6prl44z3gnghsaaji75l63xmmlukspkagp2asmezab4",
+      "endpoint": "ipfs://bafkreibg4niezqse7aejahtvgcm662c4k7nedr4rxohddgjyo3ohks3vnu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bluefin_robotics-compat/manifest.json#/capabilities/mcp"
@@ -1057,7 +1057,7 @@
       "handle": "blueprism-compat",
       "did": "did:web:etzhayyim.com:actor:blueprism-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigt77lczjdp5ggim55dnngpjd77czvie4goe66ixcmduz6jma3lwy",
+      "endpoint": "ipfs://bafkreia7gjmv6bvw7y55y4yqh6p26js7blsybsqbjvqca5ttm5zctsdv3u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blueprism-compat/manifest.json#/capabilities/mcp"
@@ -1066,7 +1066,7 @@
       "handle": "blueyonder-compat",
       "did": "did:web:etzhayyim.com:actor:blueyonder-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibpp7jt2prx34ejy7sgm42m4ha3kisl67bcqvhdvdeem3l4ef6sum",
+      "endpoint": "ipfs://bafkreiag3myzbogkkjenpxes6g2lix6awtxo7uzip3h7mgzrlw4uwd2wba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/blueyonder-compat/manifest.json#/capabilities/mcp"
@@ -1075,7 +1075,7 @@
       "handle": "bnymellon_api-compat",
       "did": "did:web:etzhayyim.com:actor:bnymellon_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib4ltnwzm2n3gbjkyzl2imfizpr44zpugbg3ahdevkwm7qegvk66q",
+      "endpoint": "ipfs://bafkreihjl446g5bwkjxormsretyzvnutzybyyp6gkcg3cmlh5ezzsrcdre",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bnymellon_api-compat/manifest.json#/capabilities/mcp"
@@ -1084,7 +1084,7 @@
       "handle": "boe-compat",
       "did": "did:web:etzhayyim.com:actor:boe-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicmp7mq3xykd57p6bmarwjhlntdekv2x3lnmlme5tnvbfhnrlzs54",
+      "endpoint": "ipfs://bafkreibb3e5syu5agydbc7rgppywcn7vqtqks4tngy3fvj7uoj5hy26qou",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/boe-compat/manifest.json#/capabilities/mcp"
@@ -1093,7 +1093,7 @@
       "handle": "boeing_health-compat",
       "did": "did:web:etzhayyim.com:actor:boeing_health-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicpgdlzqsvjaqaqts3ousevum5o3wccqfnvmsp2hyf2uepleakkum",
+      "endpoint": "ipfs://bafkreiboik3ne72icurrhqmuwtqecm3gv7rhjzhrwi6acag3w36jx3tipq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/boeing_health-compat/manifest.json#/capabilities/mcp"
@@ -1102,7 +1102,7 @@
       "handle": "boeing_tap-compat",
       "did": "did:web:etzhayyim.com:actor:boeing_tap-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicycndjnknc737345hnbj6g7tp67coxufahgxqc2hlyt3hu52eamq",
+      "endpoint": "ipfs://bafkreie6vfeepjjyuecgg6o73l6bwbphfcqfs5dd4rcpvexc2v76l63poq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/boeing_tap-compat/manifest.json#/capabilities/mcp"
@@ -1111,7 +1111,7 @@
       "handle": "boj-compat",
       "did": "did:web:etzhayyim.com:actor:boj-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicqkbs62uh5swd3gxftsmj7fu7ebfeciwqijy7zcj35oiw5gycc6q",
+      "endpoint": "ipfs://bafkreicyptyu4rdumhuvimtzxn56geym6qnnmvkrtkuskft6k7ipwsm5jm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/boj-compat/manifest.json#/capabilities/mcp"
@@ -1120,7 +1120,7 @@
       "handle": "boku-compat",
       "did": "did:web:etzhayyim.com:actor:boku-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib3hkjmzsp6j4ieypn5hvtzaogl6iul6u6ouidduueulvosewyi6y",
+      "endpoint": "ipfs://bafkreih5buncyslspxyso5sfexixjv7jdiu7cq76qyjsu22oc4vgemsqk4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/boku-compat/manifest.json#/capabilities/mcp"
@@ -1129,7 +1129,7 @@
       "handle": "bolt-compat",
       "did": "did:web:etzhayyim.com:actor:bolt-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihpcwhweewmgsw42wrwgwg7kn5pavlon5zbnljxz2bo7r6e6r3qkm",
+      "endpoint": "ipfs://bafkreifqabxujn3p65k6ewgislywtd4ka2vzkn7nmx6jpq4ciapauch6ce",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bolt-compat/manifest.json#/capabilities/mcp"
@@ -1156,7 +1156,7 @@
       "handle": "box-compat",
       "did": "did:web:etzhayyim.com:actor:box-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreig3hjyzbpmqhkb6zyfqbcnlbljg76mcaukuw3fzipecgrb7xlzvue",
+      "endpoint": "ipfs://bafkreiddmhozc2z45errrbbh3yh5vs4r4hlckluk46zzi4wzc2lotgxeyu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/box-compat/manifest.json#/capabilities/mcp"
@@ -1165,7 +1165,7 @@
       "handle": "braze-compat",
       "did": "did:web:etzhayyim.com:actor:braze-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia55rowuh6fgspobrzuzti5e5wuxzsmdwavomlqxajgioiyca533i",
+      "endpoint": "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/braze-compat/manifest.json#/capabilities/mcp"
@@ -1174,7 +1174,7 @@
       "handle": "brex-compat",
       "did": "did:web:etzhayyim.com:actor:brex-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigkhlevcuomnomzv4x66ky6gnvj5qwcqao6uqhlqqhh37gz7h5l54",
+      "endpoint": "ipfs://bafkreig44u6kbcfswletjhdujy2mdcrunndvux5aizoxufjvpqrw6ofzda",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/brex-compat/manifest.json#/capabilities/mcp"
@@ -1183,7 +1183,7 @@
       "handle": "brightcove-compat",
       "did": "did:web:etzhayyim.com:actor:brightcove-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicdhz46f6xj75zosp3skopofvfvmspcgvv35io2ng5qeb2kj7gvqu",
+      "endpoint": "ipfs://bafkreigiwst5rqtohdd4dwhezg4o2mxg6v2rxatzvnafvjf42q7wxd5xey",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/brightcove-compat/manifest.json#/capabilities/mcp"
@@ -1192,7 +1192,7 @@
       "handle": "bsi_standards-compat",
       "did": "did:web:etzhayyim.com:actor:bsi_standards-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiek5itqz6vybce6jrjkfor7glbxwt4sgclkobh4emqiu3daj4k3ce",
+      "endpoint": "ipfs://bafkreieftd6ghz5dhbwtgmme6dwtuneqsqv62ekzyk3pul7jwlbqdfo4te",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bsi_standards-compat/manifest.json#/capabilities/mcp"
@@ -1210,7 +1210,7 @@
       "handle": "bubble-compat",
       "did": "did:web:etzhayyim.com:actor:bubble-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih22fcj274mth2ewuuvaawf74r2s7g3tl3shzomorc6njuoebjggy",
+      "endpoint": "ipfs://bafkreihwya4bgjhmngc7w4djymdg77tbr4iwv2e6tpgfj742v2owqeo4gq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/bubble-compat/manifest.json#/capabilities/mcp"
@@ -1219,7 +1219,7 @@
       "handle": "builder_mt-compat",
       "did": "did:web:etzhayyim.com:actor:builder_mt-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiegyftvxnqlrg62ape7srugcgxwyv5mrvautgbodlq66gm5gzukue",
+      "endpoint": "ipfs://bafkreihj3lapmmrjdqc7mcgrfmptedi5z6dtelewv5jprx25rhb7asrpii",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/builder_mt-compat/manifest.json#/capabilities/mcp"
@@ -1237,7 +1237,7 @@
       "handle": "cabify-compat",
       "did": "did:web:etzhayyim.com:actor:cabify-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaazyxa4r7sfmug7ita3uriewrcv2nmvp2nyad3dswr47zp4pogme",
+      "endpoint": "ipfs://bafkreigjho2mspgjrvnnfv4lrkqexztehzn2cb7qaoy7kii3jt6mnjhjmy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cabify-compat/manifest.json#/capabilities/mcp"
@@ -1246,7 +1246,7 @@
       "handle": "cadence_eda-compat",
       "did": "did:web:etzhayyim.com:actor:cadence_eda-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibrlgmnskepecqhvw5diyjiwla6ho2liycn6zyw6efhkmuxh3zwzm",
+      "endpoint": "ipfs://bafkreidrhawojuvs2fmgvkcezg6aa2tor7dkknlxrxcm73hftreatbo56m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cadence_eda-compat/manifest.json#/capabilities/mcp"
@@ -1264,7 +1264,7 @@
       "handle": "calendly-compat",
       "did": "did:web:etzhayyim.com:actor:calendly-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihidkbpdd4tf7r754gkkb3hjva7g7fld2fiy3elv2hquaxee6qxay",
+      "endpoint": "ipfs://bafkreify2qwbl4saszf7tbmxnfnzzci6eds2i654xhhfgk6eyqmdg7d6di",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/calendly-compat/manifest.json#/capabilities/mcp"
@@ -1273,7 +1273,7 @@
       "handle": "camel_ai-compat",
       "did": "did:web:etzhayyim.com:actor:camel_ai-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic5tb263xbwirxz6hadroiggn5cw3l7nac7ip4ea72dbxodwhreru",
+      "endpoint": "ipfs://bafkreibf64vbwrexl4ymkmttdxbb6pwi5creh6idqlgncifu5cu3spjaba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/camel_ai-compat/manifest.json#/capabilities/mcp"
@@ -1282,7 +1282,7 @@
       "handle": "camilion-compat",
       "did": "did:web:etzhayyim.com:actor:camilion-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih2wznya5bpdyraahnfms4ocq53kzchu4urexqyjajg65w3znpxae",
+      "endpoint": "ipfs://bafkreiby66gibfxldtnptxkcdronpd3qwth4kef3nudt4h67fpcg5q34ie",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/camilion-compat/manifest.json#/capabilities/mcp"
@@ -1300,7 +1300,7 @@
       "handle": "canva-compat",
       "did": "did:web:etzhayyim.com:actor:canva-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidyjewyfhwuxek4x3twfraezlxz4z3aj2lnaauf6w6z33kezjqrzm",
+      "endpoint": "ipfs://bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/canva-compat/manifest.json#/capabilities/mcp"
@@ -1309,7 +1309,7 @@
       "handle": "canvaslms-compat",
       "did": "did:web:etzhayyim.com:actor:canvaslms-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreichgpwww35nx5bhmenpwkpxd6qfcovdmcskgp44t2yt3qajjh2evy",
+      "endpoint": "ipfs://bafkreien45rrxnzcbpfq3kmemtgieq4haa2mosrlpydlkjqjkovcw54xuu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/canvaslms-compat/manifest.json#/capabilities/mcp"
@@ -1318,7 +1318,7 @@
       "handle": "capella_space-compat",
       "did": "did:web:etzhayyim.com:actor:capella_space-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreid3a7tlfmbujclu3wopojrmhhaxwtl7vg5r7er6jqye2njypgv6tm",
+      "endpoint": "ipfs://bafkreiceafksbt7twhc54ejqmunhsab6pzb3v4dj2f3mys6e2ej2upgip4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/capella_space-compat/manifest.json#/capabilities/mcp"
@@ -1327,7 +1327,7 @@
       "handle": "cardinal_health-compat",
       "did": "did:web:etzhayyim.com:actor:cardinal_health-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifvttjjaupi6i4pixfjuhlskcnit5xgph6fsqt33t2u4mjp5dda2y",
+      "endpoint": "ipfs://bafkreidbcezpirat4bhgr35vud3vbnywos5okrswphrjkw4f6xguqt3bly",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cardinal_health-compat/manifest.json#/capabilities/mcp"
@@ -1345,7 +1345,7 @@
       "handle": "cartegraph-compat",
       "did": "did:web:etzhayyim.com:actor:cartegraph-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiepduqctu6nsxlqdgpa4zgodt3l2vekr6m4srikxlyovxcwih2z2a",
+      "endpoint": "ipfs://bafkreidz3qyvvdbnmtmtd6e3jxgpp6jeaxtwlurzpsghrrz2aac43rosdq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cartegraph-compat/manifest.json#/capabilities/mcp"
@@ -1363,7 +1363,7 @@
       "handle": "cbot_agri-compat",
       "did": "did:web:etzhayyim.com:actor:cbot_agri-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreian5r6dt2qlnusjzwozyxvadicvlw3ghs2wqccrkforucy7jxu6hm",
+      "endpoint": "ipfs://bafkreifl57cryerixr62fapbwnfoclvod6qew35cvxlnc2dvcakgqw3wf4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cbot_agri-compat/manifest.json#/capabilities/mcp"
@@ -1381,7 +1381,7 @@
       "handle": "cdiscount-compat",
       "did": "did:web:etzhayyim.com:actor:cdiscount-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifoir472lvp3z5lwqnbkmm4r2i2g77k7v55zfijngo2meopqtn5hm",
+      "endpoint": "ipfs://bafkreih5unsu45eqvx7wcpmxgprcws4fr2okml4gcpbfzhdviiwgny2aga",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cdiscount-compat/manifest.json#/capabilities/mcp"
@@ -1390,7 +1390,7 @@
       "handle": "cdr_australia-compat",
       "did": "did:web:etzhayyim.com:actor:cdr_australia-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreienwgexlwsagrg6sl3g7gffcwbg7ddygz3mz6lpbcgkjywd6d5nay",
+      "endpoint": "ipfs://bafkreihxyaikudy6bogyod3g24vz24y5jsbg7c4jq4t5uv4oj4f2uo5vba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cdr_australia-compat/manifest.json#/capabilities/mcp"
@@ -1399,7 +1399,7 @@
       "handle": "cegid_retail-compat",
       "did": "did:web:etzhayyim.com:actor:cegid_retail-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiedzodrr2rzgtnb77vdipeg5kuhx333kzcyrgsahr7jbyuq64zoay",
+      "endpoint": "ipfs://bafkreidstv5bvm7cqawpjyakjiji6imyq64vkfhxcrseaynekng4q2rume",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cegid_retail-compat/manifest.json#/capabilities/mcp"
@@ -1408,7 +1408,7 @@
       "handle": "celonis-compat",
       "did": "did:web:etzhayyim.com:actor:celonis-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifw3wl5msy6tlyobka64i4njxuvlub2wbptu4soosnlnfkyqi3g7q",
+      "endpoint": "ipfs://bafkreianwmjokxkzmmurnemfdro5plr3otgco2u35pbzx54wghqpuxbste",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/celonis-compat/manifest.json#/capabilities/mcp"
@@ -1426,7 +1426,7 @@
       "handle": "censys-compat",
       "did": "did:web:etzhayyim.com:actor:censys-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigltv7vy64xxdm7o5ocam7yb54rtqfinrjlrmi2mjmkoustaxhllm",
+      "endpoint": "ipfs://bafkreihjb46d3c5w5iithnpfhdaly2oyaft3wu54dsxw7ww3xegvo7ok4e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/censys-compat/manifest.json#/capabilities/mcp"
@@ -1435,7 +1435,7 @@
       "handle": "cerillion-compat",
       "did": "did:web:etzhayyim.com:actor:cerillion-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaipqcn42xn2hlcsm35wja3li5i2zehicrtvy3mjlr65x2cnoai54",
+      "endpoint": "ipfs://bafkreigdbvvdn56hpt62sjgntjr6llwmx5tntdj5oyztlwzc47imb5adwq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cerillion-compat/manifest.json#/capabilities/mcp"
@@ -1444,7 +1444,7 @@
       "handle": "cerner-compat",
       "did": "did:web:etzhayyim.com:actor:cerner-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiezrxmhxboscs5yuncltz3fmzuxpwmgaqpnychnltmn7ytkl6qjqq",
+      "endpoint": "ipfs://bafkreicq7cewxbcui72jl5qwvkc27uty23yzpfkc7joihffrtxh47p45tm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cerner-compat/manifest.json#/capabilities/mcp"
@@ -1462,7 +1462,7 @@
       "handle": "cesium_xr-compat",
       "did": "did:web:etzhayyim.com:actor:cesium_xr-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreid3rbpygm2odnpufg3k64oq53rssabfsvlbdhbqyqjhei35h534sm",
+      "endpoint": "ipfs://bafkreibri2suzjd5sahp4l5w5dfwk3qeiqi5iyfqry4by6pk2m64jhbgty",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cesium_xr-compat/manifest.json#/capabilities/mcp"
@@ -1480,7 +1480,7 @@
       "handle": "cgg_tech-compat",
       "did": "did:web:etzhayyim.com:actor:cgg_tech-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia2ku5nmbx57bkee3j7afjel67jpeumozm4vxewlgdvd5ixkgckj4",
+      "endpoint": "ipfs://bafkreiengpfldr6gijiuqolpktzdz3u57u7x4dskjehacosovvjim5ilzq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cgg_tech-compat/manifest.json#/capabilities/mcp"
@@ -1489,7 +1489,7 @@
       "handle": "chainlink-compat",
       "did": "did:web:etzhayyim.com:actor:chainlink-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicthenbs5osjw4feowjoy2kzm7al2dt36ibj6j2w6acqpn33gxgle",
+      "endpoint": "ipfs://bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/chainlink-compat/manifest.json#/capabilities/mcp"
@@ -1498,7 +1498,7 @@
       "handle": "chatdev-compat",
       "did": "did:web:etzhayyim.com:actor:chatdev-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicfb3m52ejzkqti5xanrvqw6szy6t3nfpeosw4rmhibtskzx34bzq",
+      "endpoint": "ipfs://bafkreifj4i2ddomagc4nudmemgb26gy2t4naamjsc2bb2zex2pt6pepy2y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/chatdev-compat/manifest.json#/capabilities/mcp"
@@ -1507,7 +1507,7 @@
       "handle": "checkout-compat",
       "did": "did:web:etzhayyim.com:actor:checkout-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaukfnu54tamol5etdrb5nzvl46foemmmkcb6wlaavu4uzgjpa254",
+      "endpoint": "ipfs://bafkreifppn2tweduyuhpatkulxphl52hpwwsjgiwvhhhviuudsw5nril2u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/checkout-compat/manifest.json#/capabilities/mcp"
@@ -1516,7 +1516,7 @@
       "handle": "chembl-compat",
       "did": "did:web:etzhayyim.com:actor:chembl-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidiyh3pyvkks7fbxlalbwlhuznydp5i7f55unng5hojtakdvx4mmq",
+      "endpoint": "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/chembl-compat/manifest.json#/capabilities/mcp"
@@ -1525,7 +1525,7 @@
       "handle": "chime-compat",
       "did": "did:web:etzhayyim.com:actor:chime-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieqfpomihqrumzpssslbvmelvvtzzu2gzzuwra4x26y5o53aigjea",
+      "endpoint": "ipfs://bafkreiezfwnolo3s755lxzad45b7lfjxoq5t5j63kit5kouwg5pwolplv4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/chime-compat/manifest.json#/capabilities/mcp"
@@ -1534,7 +1534,7 @@
       "handle": "chips_clearing-compat",
       "did": "did:web:etzhayyim.com:actor:chips_clearing-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreig6pnmzagn7r5xrbw7bhbfqs3yfy4aq4lhba4pghechzjpqwh5dvu",
+      "endpoint": "ipfs://bafkreiency6g6x2sjdviptv4p2hq7pg44ebkntt3g6v5ijded6ycqgk6na",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/chips_clearing-compat/manifest.json#/capabilities/mcp"
@@ -1543,7 +1543,7 @@
       "handle": "cips_china-compat",
       "did": "did:web:etzhayyim.com:actor:cips_china-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifct2j4igq4jn6liscmikjojlcho5nzpxjs2j5bw4l6ajsbfutgfa",
+      "endpoint": "ipfs://bafkreib2kngktk2vyu7m3g7hwohbufx6zplf375gwhl767nrkltoppcq3y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cips_china-compat/manifest.json#/capabilities/mcp"
@@ -1552,7 +1552,7 @@
       "handle": "circleci-compat",
       "did": "did:web:etzhayyim.com:actor:circleci-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigdtvdhhdrysx2xbme4ji4kwhv23rcouwm4eogo4l4rcrkxumlgmu",
+      "endpoint": "ipfs://bafkreifvvqd764oy5772a3gybdypk7sciv66nhot7semyuipeia7ghtc2m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/circleci-compat/manifest.json#/capabilities/mcp"
@@ -1561,7 +1561,7 @@
       "handle": "cirium-compat",
       "did": "did:web:etzhayyim.com:actor:cirium-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidxmsz7eopcpmoforez5vqaiqz6actulek3mne6afv5lxdpeithly",
+      "endpoint": "ipfs://bafkreibvbfgnfo2qojzp635rl43s4nxmbhoiqhu47tq44unqiz2fzwcdqq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cirium-compat/manifest.json#/capabilities/mcp"
@@ -1570,7 +1570,7 @@
       "handle": "cisa-compat",
       "did": "did:web:etzhayyim.com:actor:cisa-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic7x6xu6gqb4gm4kc7pfkvu2vmyklfxttpfkv6dtifjyl2554nk6a",
+      "endpoint": "ipfs://bafkreigahmzvn2mh3y7qbxp4wogqotyur5xowspnsfrmklfdizfnyl226q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cisa-compat/manifest.json#/capabilities/mcp"
@@ -1579,7 +1579,7 @@
       "handle": "cisco_webex-compat",
       "did": "did:web:etzhayyim.com:actor:cisco_webex-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidlqvpna3nlg3xtm4i4gqsfn6lx2odxb7m2uqfhukms2ofn74mqoy",
+      "endpoint": "ipfs://bafkreif4nsnt2ymvstu6ecimiudec7mzyiytqqhmv65pycba7vj4fkk7nm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cisco_webex-compat/manifest.json#/capabilities/mcp"
@@ -1588,7 +1588,7 @@
       "handle": "citi_velocity-compat",
       "did": "did:web:etzhayyim.com:actor:citi_velocity-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibejff3kyzwxynqzkyb3yzrs2x4tbilmwxgjv4nk6ld6qbl542luy",
+      "endpoint": "ipfs://bafkreib76vtfgysm6fonb76xlaidoqw74cz5vnrwghhidahcpvn67gmapi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/citi_velocity-compat/manifest.json#/capabilities/mcp"
@@ -1597,7 +1597,7 @@
       "handle": "classy-compat",
       "did": "did:web:etzhayyim.com:actor:classy-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicdqgunb2tsxmmtuhqkhl43brmjaecwauqu7dl3rymfo2ig6e4h5y",
+      "endpoint": "ipfs://bafkreid2g7i5tj24jsodorrpn4bi5njndwal6dnbpdxxvp275ob5j2xxjy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/classy-compat/manifest.json#/capabilities/mcp"
@@ -1606,7 +1606,7 @@
       "handle": "clearstream-compat",
       "did": "did:web:etzhayyim.com:actor:clearstream-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibsope3yl2eihz32e5d6zycqctahmly4nsubuvyi4nd5hcl4qmsmm",
+      "endpoint": "ipfs://bafkreifgiqxc42edubnl5mehmb7ywxtauvdomwqvsj5f3uahd5kftusr2y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/clearstream-compat/manifest.json#/capabilities/mcp"
@@ -1615,7 +1615,7 @@
       "handle": "clearwater-compat",
       "did": "did:web:etzhayyim.com:actor:clearwater-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibblpagk4jcxssq6czanlqwm3eaby3bgow5lhynhctpi7nejtcivq",
+      "endpoint": "ipfs://bafkreihilxzqz2xrd65dsyzhdfdffm63aezagpum46ziblhqb4t233ninq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/clearwater-compat/manifest.json#/capabilities/mcp"
@@ -1624,7 +1624,7 @@
       "handle": "climate_fieldview-compat",
       "did": "did:web:etzhayyim.com:actor:climate_fieldview-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreif74qcyjvv6n3e5fxnlz47ymmfvcw5myum7kwqekzdox5clzacwte",
+      "endpoint": "ipfs://bafkreifjc4gvfcekmixxbro3k6mozxt3rkrknpjbbiob5fegagouwup4dy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/climate_fieldview-compat/manifest.json#/capabilities/mcp"
@@ -1633,7 +1633,7 @@
       "handle": "clio-compat",
       "did": "did:web:etzhayyim.com:actor:clio-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigfvc427o4hdek6f52t4dknudij6fl2gjoxndtwcty66vujm2dbeu",
+      "endpoint": "ipfs://bafkreiejokkxsuo7tyglfb3q43wuoocuzwkmat2aofqg6k2trpn5ivif2a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/clio-compat/manifest.json#/capabilities/mcp"
@@ -1642,7 +1642,7 @@
       "handle": "cloudbeds-compat",
       "did": "did:web:etzhayyim.com:actor:cloudbeds-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiavtfund2yxiodxrgmmei4ejy2ipzay4dllls4sd5gc7gxcso7zui",
+      "endpoint": "ipfs://bafkreiciiozand4dfceunuqqlg6svwysexbkzs4gtj5gyao7ny72kbwvki",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cloudbeds-compat/manifest.json#/capabilities/mcp"
@@ -1651,7 +1651,7 @@
       "handle": "cloudflare-compat",
       "did": "did:web:etzhayyim.com:actor:cloudflare-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreickfgxib2bi4a3eiy3j3llw3jxprn27igfrfzaltjlqjuhvh4hmu4",
+      "endpoint": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cloudflare-compat/manifest.json#/capabilities/mcp"
@@ -1669,7 +1669,7 @@
       "handle": "cma-compat",
       "did": "did:web:etzhayyim.com:actor:cma-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreign5fb75t4emksenlpevdss3j72uqi4aa5itmdpjgx7bvnvkzunwu",
+      "endpoint": "ipfs://bafkreib7qdxa57j5a2cny4kt2htr2qvw2ciekhwd4jvka7i6rz5bz7xbqi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cma-compat/manifest.json#/capabilities/mcp"
@@ -1678,7 +1678,7 @@
       "handle": "cma_cgm_api-compat",
       "did": "did:web:etzhayyim.com:actor:cma_cgm_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidfce6j6xgwavmoxk7ngis4pmopwxx24st3mztdbpbvlbedashlom",
+      "endpoint": "ipfs://bafkreidc64w36ce433m77wm57ecbpify5jrnkgtkbuta374opmibqxlusu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cma_cgm_api-compat/manifest.json#/capabilities/mcp"
@@ -1687,7 +1687,7 @@
       "handle": "cme_globex-compat",
       "did": "did:web:etzhayyim.com:actor:cme_globex-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigxprydmixnzy547rbkjiactzynfc23uljwkgql4zi6vs3qfclw4y",
+      "endpoint": "ipfs://bafkreibxojhig7w3ggenxtx52f2qqouag7qt7vohvvnvgtealcaa3x7olm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cme_globex-compat/manifest.json#/capabilities/mcp"
@@ -1696,7 +1696,7 @@
       "handle": "cmic-compat",
       "did": "did:web:etzhayyim.com:actor:cmic-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreid2f3vdu2ygfys3tb6zmldywgclszeefhx2c4v4l2xt2zqncpla74",
+      "endpoint": "ipfs://bafkreihytjrxffcs2ugefaf77ihy6kous6jxge2xm4xpxkdrgjnspswyiy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cmic-compat/manifest.json#/capabilities/mcp"
@@ -1705,7 +1705,7 @@
       "handle": "cohere-compat",
       "did": "did:web:etzhayyim.com:actor:cohere-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibptp2bopkm6yxamjyrvk2kxdqjmsm54pfjrlzaokvbnhwdcgiq2y",
+      "endpoint": "ipfs://bafkreicnovmwib4aqmkgxpkpjijjho6ehv4wswwanogsho4t6dvnpwtzka",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cohere-compat/manifest.json#/capabilities/mcp"
@@ -1714,7 +1714,7 @@
       "handle": "coherence-compat",
       "did": "did:web:etzhayyim.com:actor:coherence-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifwl7wvnaluktm5raldlarklp43kjsh3vukt2k6jpiyprv64igywq",
+      "endpoint": "ipfs://bafkreial5xxmh4b7wyncqh5sahqlnswmdmhtjhjfpifs66tre26gfu6uaa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/coherence-compat/manifest.json#/capabilities/mcp"
@@ -1732,7 +1732,7 @@
       "handle": "coinbaseprime-compat",
       "did": "did:web:etzhayyim.com:actor:coinbaseprime-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigdkkz5hbwx5cwlzhvgcxe4uczevmor7l53i2dryt7pfp4ft362ry",
+      "endpoint": "ipfs://bafkreibwpk7rwntgzgj2wsegx76e7pqhyoa7scbwpxynhkjcmllqbrmtse",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/coinbaseprime-compat/manifest.json#/capabilities/mcp"
@@ -1741,7 +1741,7 @@
       "handle": "comarch-compat",
       "did": "did:web:etzhayyim.com:actor:comarch-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibagwbrm6mjzngfoolca5do6x6kbrclwbkhgfpstzt463jzegcate",
+      "endpoint": "ipfs://bafkreifmbo3f4nvxjncw7xzd5xewliyguj4gdbzak4ecq2wvgxtp2ix6pa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/comarch-compat/manifest.json#/capabilities/mcp"
@@ -1750,7 +1750,7 @@
       "handle": "comma_ai-compat",
       "did": "did:web:etzhayyim.com:actor:comma_ai-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifo7gmvo2s2y6mskla7y6fhtjntqohds6saqq7x5que6cbluqixy4",
+      "endpoint": "ipfs://bafkreih24qarb3b7ydidygj633wjt3z6y3z54acxrembwfeslcimfyrx6e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/comma_ai-compat/manifest.json#/capabilities/mcp"
@@ -1759,7 +1759,7 @@
       "handle": "comma_ai_openpilot-compat",
       "did": "did:web:etzhayyim.com:actor:comma_ai_openpilot-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiekcrklunmiaudjxowgzfqonfx2c3ss3x7wamxl34ucpn3fxhu46i",
+      "endpoint": "ipfs://bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/comma_ai_openpilot-compat/manifest.json#/capabilities/mcp"
@@ -1768,7 +1768,7 @@
       "handle": "commercetools-compat",
       "did": "did:web:etzhayyim.com:actor:commercetools-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiblpcas4t7q6tluoj56oihzasjw7vokc4wsbw5tsbhf54zsgpu7zm",
+      "endpoint": "ipfs://bafkreicveye6jfrynvxpl42cd647634dxbdcsxf27pqcgoobkjjkmx6pta",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/commercetools-compat/manifest.json#/capabilities/mcp"
@@ -1786,7 +1786,7 @@
       "handle": "compliancequest-compat",
       "did": "did:web:etzhayyim.com:actor:compliancequest-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiamjxthcff3lior4bq3kwt4qgqtl227xqlugsvr4ulrdh6d673i74",
+      "endpoint": "ipfs://bafkreidy3twdbufvqa47npbechoq26qgm5isbpghdzadmufyvxynaohjey",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/compliancequest-compat/manifest.json#/capabilities/mcp"
@@ -1795,7 +1795,7 @@
       "handle": "confluent-compat",
       "did": "did:web:etzhayyim.com:actor:confluent-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreie5ygz23ofixlld4nn4ockc7523x4wwosmakaztcgdabqqjzkkrha",
+      "endpoint": "ipfs://bafkreihlqxetq4clfv3orcs6ikctqqnpkwayqcaxgw5qukxqqixecq743u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/confluent-compat/manifest.json#/capabilities/mcp"
@@ -1813,7 +1813,7 @@
       "handle": "copernicus_sentinel-compat",
       "did": "did:web:etzhayyim.com:actor:copernicus_sentinel-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia5hj4w4noyowvoxnxctpsr3lgekr6c7hgdfmnfrhmjhevc3yp4bu",
+      "endpoint": "ipfs://bafkreiahcn6gcnkow4iejjfhepcyon6i5uc57anubft7sl3clx73i3nfgu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/copernicus_sentinel-compat/manifest.json#/capabilities/mcp"
@@ -1822,7 +1822,7 @@
       "handle": "corelogic-compat",
       "did": "did:web:etzhayyim.com:actor:corelogic-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreie7n5clvj246eufhwx4blcwsbvoifpauxbk2axvxx4fpkhnnwdqke",
+      "endpoint": "ipfs://bafkreicyo25nv56sk5uv67u3g33qio7ewkxcnl3gjqaq3vnghem5q3o24y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/corelogic-compat/manifest.json#/capabilities/mcp"
@@ -1831,7 +1831,7 @@
       "handle": "corelogic_hazard-compat",
       "did": "did:web:etzhayyim.com:actor:corelogic_hazard-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigtflhnoqbycrr5gsaflr5michnohqysavmi3jnhcln24yblc7pyq",
+      "endpoint": "ipfs://bafkreib5o2zdbnklpygukglvpcwentoucarxyjjx7bmvhx4hlelvanplna",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/corelogic_hazard-compat/manifest.json#/capabilities/mcp"
@@ -1840,7 +1840,7 @@
       "handle": "corteva_api-compat",
       "did": "did:web:etzhayyim.com:actor:corteva_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiffpzxofde73kvaiugtppwgr2alww2mx3xgajkuodt7anyf3aurwa",
+      "endpoint": "ipfs://bafkreieq5fqcu4wl4fssj3xhydfh5rnix5cbpehn4z67n3eggkdsi2ygdu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/corteva_api-compat/manifest.json#/capabilities/mcp"
@@ -1849,7 +1849,7 @@
       "handle": "cosco_api-compat",
       "did": "did:web:etzhayyim.com:actor:cosco_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia7hslpr2su4pqkxnogtelcozyjd3rqvjokqkdjsuoue6skkuiwpm",
+      "endpoint": "ipfs://bafkreiagta2kc3ey65c5js5sivpptrannqvn6lxzlaf4dmg64gdiczx64e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cosco_api-compat/manifest.json#/capabilities/mcp"
@@ -1858,7 +1858,7 @@
       "handle": "costar-compat",
       "did": "did:web:etzhayyim.com:actor:costar-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiehymfer7l74eugkbfcayk2ciyybioi3tmzh2oruraoerjlwdh3ve",
+      "endpoint": "ipfs://bafkreif676kfryr4umlaxlhiydlgn5afsb4l6paayvdoxrxd2ovl2yrdfu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/costar-compat/manifest.json#/capabilities/mcp"
@@ -1876,7 +1876,7 @@
       "handle": "coupang-compat",
       "did": "did:web:etzhayyim.com:actor:coupang-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia3ajn2prkmh7u7vpmql5rd5iww3lbkimpkrarhdt6s6fkmrgsr24",
+      "endpoint": "ipfs://bafkreiad7vkmrxhvybkl5elq5zz5ob55p2m73wtvwbimh2jalkgnfc7dq4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/coupang-compat/manifest.json#/capabilities/mcp"
@@ -1885,7 +1885,7 @@
       "handle": "covermymeds-compat",
       "did": "did:web:etzhayyim.com:actor:covermymeds-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreienhpxexzqg5qwcwo5vqh2qsqde3yl7zyyxj7g2znz3v53zjxa6mq",
+      "endpoint": "ipfs://bafkreiba3ospx5rhe377dbeeqnxjqgdu4ev5ie6uvj5fzy2awstevytq5q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/covermymeds-compat/manifest.json#/capabilities/mcp"
@@ -1894,7 +1894,7 @@
       "handle": "cowin-compat",
       "did": "did:web:etzhayyim.com:actor:cowin-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibpq7gk5k5gkmc6zxrv6ntdqimiyrvccqfxgrzhzmgygmsyifwk3e",
+      "endpoint": "ipfs://bafkreienuixbt2rwwxdrprpfmwma25ij3tajad5n737jwjy5ddrfcnam2e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cowin-compat/manifest.json#/capabilities/mcp"
@@ -1903,7 +1903,7 @@
       "handle": "crewai-compat",
       "did": "did:web:etzhayyim.com:actor:crewai-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigqklwa6otozvd76uo6iuzx76g64ydi7jg5x6t4snwqvah2eabcai",
+      "endpoint": "ipfs://bafkreihtzbvgpplchcp64xv27seqn47lumyopek4jpakkmdqspmreldd2e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/crewai-compat/manifest.json#/capabilities/mcp"
@@ -1912,7 +1912,7 @@
       "handle": "criteo-compat",
       "did": "did:web:etzhayyim.com:actor:criteo-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib5hkcpuus4ohpgjdh2ugc5w6vxgtg7buducntnw37flekjmvapl4",
+      "endpoint": "ipfs://bafkreih7evoygnyanz6j3ulpg6rn4iwvugnmd2qo2a5yehi4q7obd45xtq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/criteo-compat/manifest.json#/capabilities/mcp"
@@ -1921,7 +1921,7 @@
       "handle": "criteo_commerce-compat",
       "did": "did:web:etzhayyim.com:actor:criteo_commerce-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia4gkoamkdticpyospiwuvbe6bkgiiogmahssrdtcrzi6perbstgi",
+      "endpoint": "ipfs://bafkreiawn3wf56d2vmqoffdbsjbofx2dgvw2glyimbmd27y4uibsgdjwre",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/criteo_commerce-compat/manifest.json#/capabilities/mcp"
@@ -1948,7 +1948,7 @@
       "handle": "cruise_api-compat",
       "did": "did:web:etzhayyim.com:actor:cruise_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih2cjbidgh7qi6vpztcttv5yfn5ft4oeigv3mfg6l3tachua4hpjy",
+      "endpoint": "ipfs://bafkreicpfkby3b534csl3io7zwaav2sgfrr7es4muywxkpexal3i6xdeze",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cruise_api-compat/manifest.json#/capabilities/mcp"
@@ -1957,7 +1957,7 @@
       "handle": "crypta_labs-compat",
       "did": "did:web:etzhayyim.com:actor:crypta_labs-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreif37tk34mia4rgf77dzhyzzpcq2jvpiki3gy2xcbgcgnl4r2dlzt4",
+      "endpoint": "ipfs://bafkreiahisgxtcl26wxihgu6qovllulrxtlb33s6tptu77tuievm2an2w4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/crypta_labs-compat/manifest.json#/capabilities/mcp"
@@ -1966,7 +1966,7 @@
       "handle": "cs_disco-compat",
       "did": "did:web:etzhayyim.com:actor:cs_disco-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigy6fq4v74afwdt3vvpgimv3bvizltdyb2b5irxk2apchwodd2hn4",
+      "endpoint": "ipfs://bafkreiepompyd2jq3nzncgs2sdj4fyz7rycpjrtwscitvh2dnnjbdanwge",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cs_disco-compat/manifest.json#/capabilities/mcp"
@@ -1975,7 +1975,7 @@
       "handle": "csg_international-compat",
       "did": "did:web:etzhayyim.com:actor:csg_international-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiar4lzfykcympuxfdwbhh6nq7kiulwxvqnwvx2pkvoc2tvqfccery",
+      "endpoint": "ipfs://bafkreihjakk4zo6q7yvahudret6t36f65g6tbjdbbbebscpkrhfavff3cq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/csg_international-compat/manifest.json#/capabilities/mcp"
@@ -1993,7 +1993,7 @@
       "handle": "curemd-compat",
       "did": "did:web:etzhayyim.com:actor:curemd-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifhzixdo2vfsj2uwswbfmt6zychkykgj25qsh3vqqucnwslvgzfdu",
+      "endpoint": "ipfs://bafkreihuwbutpuvfs5vlystldszsdj2gz4kj4liafua4ijcljncbwhhtxq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/curemd-compat/manifest.json#/capabilities/mcp"
@@ -2002,7 +2002,7 @@
       "handle": "cve_nvd-compat",
       "did": "did:web:etzhayyim.com:actor:cve_nvd-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreig73tnpohrv6eqdvxzzsplk47l4xjt7h4hl2dubhvhkceeja4zafa",
+      "endpoint": "ipfs://bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cve_nvd-compat/manifest.json#/capabilities/mcp"
@@ -2011,7 +2011,7 @@
       "handle": "cvent-compat",
       "did": "did:web:etzhayyim.com:actor:cvent-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifajei2hdafr2i6tsginm4eplhoe7lpe2a5ifbsdn3w6kmn7dl7k4",
+      "endpoint": "ipfs://bafkreia2bzmwn6wckl2n2c7vphujkaik7lciyzjtm3s4542uxpdosohlnu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cvent-compat/manifest.json#/capabilities/mcp"
@@ -2020,7 +2020,7 @@
       "handle": "cvs_caremark-compat",
       "did": "did:web:etzhayyim.com:actor:cvs_caremark-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreienwo7klhikuqdjwssovsrkghm4t5q2oqhtvcir3smgiud565r3qq",
+      "endpoint": "ipfs://bafkreiaf5fcba2qgaugzeqdf55zhweulq4yjmneprmj5voa4fhddca76la",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cvs_caremark-compat/manifest.json#/capabilities/mcp"
@@ -2038,7 +2038,7 @@
       "handle": "cybozu-compat",
       "did": "did:web:etzhayyim.com:actor:cybozu-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibdalgqc5t26j7xyzfte6cnsfqcoexuxrkrw5cokoeibafy42ffxi",
+      "endpoint": "ipfs://bafkreif4e4w2kp6ckvptkb4x2lht4yhsjzoviooqpmpqj4zazagiu6qdd4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/cybozu-compat/manifest.json#/capabilities/mcp"
@@ -2047,7 +2047,7 @@
       "handle": "d_wave-compat",
       "did": "did:web:etzhayyim.com:actor:d_wave-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigvm3ptd3p6mhnwrsu2obnl3m6rpcbildbw2siunw6w2bpao3in2y",
+      "endpoint": "ipfs://bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/d_wave-compat/manifest.json#/capabilities/mcp"
@@ -2056,7 +2056,7 @@
       "handle": "dailyco-compat",
       "did": "did:web:etzhayyim.com:actor:dailyco-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibqob54ziomqr65tp6svaxvreqrh36evyokhgrkhm72fwev7vhecu",
+      "endpoint": "ipfs://bafkreihf3sygdb6ogsvbxrnu67hkhxuwnlaz4lmie7vmsczr6twak542ra",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dailyco-compat/manifest.json#/capabilities/mcp"
@@ -2065,7 +2065,7 @@
       "handle": "dana_indonesia-compat",
       "did": "did:web:etzhayyim.com:actor:dana_indonesia-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreie4g3l3x6revxxotawpu2tlqnmdzbcj2bu4kdvab2dd7hlrvd2s2m",
+      "endpoint": "ipfs://bafkreidtgtptu7q6vi2pj4ivklkzljnbt4o3wex352rbga647rjrlto7p4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dana_indonesia-compat/manifest.json#/capabilities/mcp"
@@ -2074,7 +2074,7 @@
       "handle": "dassault_enovia-compat",
       "did": "did:web:etzhayyim.com:actor:dassault_enovia-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibfjelmtci6dlidolyixnxd4wnidk7hapud4mahsps5nw77mvgvme",
+      "endpoint": "ipfs://bafkreiefllyxowtti64vqc6sbuxiwujdx6q5rqv6pi54ag5hvxsknnit4m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dassault_enovia-compat/manifest.json#/capabilities/mcp"
@@ -2101,7 +2101,7 @@
       "handle": "datarobot-compat",
       "did": "did:web:etzhayyim.com:actor:datarobot-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifnakn77tlx2euuuo2cawatpgrrhy5ogritpgk7zfvn5kr7dnlkta",
+      "endpoint": "ipfs://bafkreigcsqrkz4sec4besq3jcz2hz7khgksc6r7do6t4x4mu3p4yzlbuem",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/datarobot-compat/manifest.json#/capabilities/mcp"
@@ -2110,7 +2110,7 @@
       "handle": "db_autobahn-compat",
       "did": "did:web:etzhayyim.com:actor:db_autobahn-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihdohzyifkoixkaiprtbzywyoon53743qwsjaqbeytzh2tw4nupcm",
+      "endpoint": "ipfs://bafkreig7lmpilg6ufamcw6vldtgr7rb6t5r44umihhlcpk7m7ril3o4jb4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/db_autobahn-compat/manifest.json#/capabilities/mcp"
@@ -2119,7 +2119,7 @@
       "handle": "dbt-compat",
       "did": "did:web:etzhayyim.com:actor:dbt-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic6waknx6bc4vl4tcxnbhoa27zgjgiip2lh4opa6xiiyr2zosrjie",
+      "endpoint": "ipfs://bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dbt-compat/manifest.json#/capabilities/mcp"
@@ -2128,7 +2128,7 @@
       "handle": "dce_japan-compat",
       "did": "did:web:etzhayyim.com:actor:dce_japan-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieexrqpn5xjh56i236coj3yma5jkbianmdmucplxerz36ck4umqvm",
+      "endpoint": "ipfs://bafkreiaz7hkvnfhb4ikj27i6f3z5ec4wf7ck66zymtiskdas7umkogckvy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dce_japan-compat/manifest.json#/capabilities/mcp"
@@ -2137,7 +2137,7 @@
       "handle": "ddbj-compat",
       "did": "did:web:etzhayyim.com:actor:ddbj-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiamff7qz3o2tay5732d7wq7dxipj6i3ue4hmturszbvzguuuwqyju",
+      "endpoint": "ipfs://bafkreic4lloccrnzs46ymcbyuzo3ihi2bjyfvfki56qhq4hgj7ryrkvwii",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ddbj-compat/manifest.json#/capabilities/mcp"
@@ -2146,7 +2146,7 @@
       "handle": "deel-compat",
       "did": "did:web:etzhayyim.com:actor:deel-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicjaqkpkggluazfwmuyo7wytmxiikbkp7h22lt3e756lr6ogmpcra",
+      "endpoint": "ipfs://bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/deel-compat/manifest.json#/capabilities/mcp"
@@ -2155,7 +2155,7 @@
       "handle": "deliveroo-compat",
       "did": "did:web:etzhayyim.com:actor:deliveroo-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihrhgtnax7iblncvactvtqonpb2fa6vov3ef5hjoyxgnqffx2wv4q",
+      "endpoint": "ipfs://bafkreie6mglmfnv7k26g5jtdfolip575xj7fapoiulf5frc5u3mrw2ufba",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/deliveroo-compat/manifest.json#/capabilities/mcp"
@@ -2164,7 +2164,7 @@
       "handle": "deutschebahn-compat",
       "did": "did:web:etzhayyim.com:actor:deutschebahn-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifc53yhafuovqxdakf5lysz33gbzwwkvjeiov3rnbku5oxl3k54bu",
+      "endpoint": "ipfs://bafkreiceeqpqyysvam7fz3ao6yxzbqepfmbgx3yfrpgjjjiqyyawhsiq3q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/deutschebahn-compat/manifest.json#/capabilities/mcp"
@@ -2173,7 +2173,7 @@
       "handle": "dhs-compat",
       "did": "did:web:etzhayyim.com:actor:dhs-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibtqgoa37xe52j3fpwbvrcihu4u3wvk24trjri6n4tdwqho6623by",
+      "endpoint": "ipfs://bafkreibvqaguqrkv344ikmjpsmtelxjtecn4qj6bqlfgcqerrtwqxv2xjm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dhs-compat/manifest.json#/capabilities/mcp"
@@ -2182,7 +2182,7 @@
       "handle": "dicomweb-compat",
       "did": "did:web:etzhayyim.com:actor:dicomweb-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieqj2q4gjk7gzr3tgikbvzgu3jlxctghu2xwrlr2dqwa3m6uiilre",
+      "endpoint": "ipfs://bafkreifowxbaavyjrvjcpofnxsay2dvisct65bi32ozg2ypfbtdg2yu2xu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dicomweb-compat/manifest.json#/capabilities/mcp"
@@ -2200,7 +2200,7 @@
       "handle": "diebold_nixdorf-compat",
       "did": "did:web:etzhayyim.com:actor:diebold_nixdorf-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihcbc3tw6liuxjtocjs2uumsn74i7ooceernbwj3l4mlzhdzi4ufi",
+      "endpoint": "ipfs://bafkreicg6l7ve3wwp774q7bjyzvqlholsngczxujq3c7gvsi474eh7qkte",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/diebold_nixdorf-compat/manifest.json#/capabilities/mcp"
@@ -2209,7 +2209,7 @@
       "handle": "digilocker-compat",
       "did": "did:web:etzhayyim.com:actor:digilocker-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreice2ztm65o4vl5kug43jk32dog5rq5aas75ctnssauaroncgubxxe",
+      "endpoint": "ipfs://bafkreibsa72oqjwv5p4c457bbfpkbiysahikvgybg4imq7yn5tbg2xrbny",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/digilocker-compat/manifest.json#/capabilities/mcp"
@@ -2218,7 +2218,7 @@
       "handle": "digitalocean-compat",
       "did": "did:web:etzhayyim.com:actor:digitalocean-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidkhjx7qd5tgthmmwonrc277vloyjwvylknzwi2brexivxq2i6xuq",
+      "endpoint": "ipfs://bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/digitalocean-compat/manifest.json#/capabilities/mcp"
@@ -2227,7 +2227,7 @@
       "handle": "din_standards-compat",
       "did": "did:web:etzhayyim.com:actor:din_standards-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreias4gnaclkhpgibhdywsuajzajqnn56hddkwcvew3bjowc6gq2whe",
+      "endpoint": "ipfs://bafkreihodmlplmjmqm5tskh62qssuuygpnjvhqz2zb5p273lad7g4yyd3a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/din_standards-compat/manifest.json#/capabilities/mcp"
@@ -2236,7 +2236,7 @@
       "handle": "dingtalk-compat",
       "did": "did:web:etzhayyim.com:actor:dingtalk-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihogmijieqjqxux46gjsyi4ra6pebymk2rtu6n4psp5czbtngpude",
+      "endpoint": "ipfs://bafkreih4xxgaeqsrxbdxyghojgfuw3ajg7dein4j7oamzogqgyt2ehhli4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dingtalk-compat/manifest.json#/capabilities/mcp"
@@ -2245,7 +2245,7 @@
       "handle": "disco_legal-compat",
       "did": "did:web:etzhayyim.com:actor:disco_legal-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiadmaxudckfr65zoqjtcgfm565tiw6kvbi6j35c2vef5g2flz2deq",
+      "endpoint": "ipfs://bafkreic5hjki7xusy4vbv5rzev7gppeobgkc24rwxiwnba46o6axa5v7um",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/disco_legal-compat/manifest.json#/capabilities/mcp"
@@ -2254,7 +2254,7 @@
       "handle": "discord-compat",
       "did": "did:web:etzhayyim.com:actor:discord-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicsyesy6bc3bhqq6gdgx3d26qicrjjy5wxucj7wtg2yzrqqtt74hu",
+      "endpoint": "ipfs://bafkreicbc3knliwhrzn27r2uzcmaglgms4ppow3gzx5csprfgx4msls7dy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/discord-compat/manifest.json#/capabilities/mcp"
@@ -2263,7 +2263,7 @@
       "handle": "discover_global-compat",
       "did": "did:web:etzhayyim.com:actor:discover_global-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigofuveaudomtf6ic2zzkup6xm5nipskzfve2bik74ff3z4ui7a2i",
+      "endpoint": "ipfs://bafkreicgei4cvw57nsdzkkfrfrunkocbbed7nps75ufo5ar7ge2rk33ygi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/discover_global-compat/manifest.json#/capabilities/mcp"
@@ -2272,7 +2272,7 @@
       "handle": "dji_onboard_sdk-compat",
       "did": "did:web:etzhayyim.com:actor:dji_onboard_sdk-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiengcptmzywqhz2g7xag5duwrhibodjttxqrb4livtxdbbdlqof2i",
+      "endpoint": "ipfs://bafkreicozgyzbfgald5w3rkzicl3nfuvqn6xkw6janhmjofwmklxmi5b34",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dji_onboard_sdk-compat/manifest.json#/capabilities/mcp"
@@ -2281,7 +2281,7 @@
       "handle": "dlocal-compat",
       "did": "did:web:etzhayyim.com:actor:dlocal-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib76relq2vvjqdgskx5ue22awf56csc4t5zsttm4vgkuwq3r2gfvq",
+      "endpoint": "ipfs://bafkreiblcmagw4msiw3dbdcnek3oxvrics6grrk5cvbpbyl77bqew5np64",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dlocal-compat/manifest.json#/capabilities/mcp"
@@ -2290,7 +2290,7 @@
       "handle": "dna_script-compat",
       "did": "did:web:etzhayyim.com:actor:dna_script-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifm2jsd7b2lkw7annitd7qd2jtwa5guryfpsle4ckaxasn7zf6ydi",
+      "endpoint": "ipfs://bafkreihqsfomgqydgo6vjnch2tgpo74ivekfjgu7it6agux6aanfrc7ltu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dna_script-compat/manifest.json#/capabilities/mcp"
@@ -2299,7 +2299,7 @@
       "handle": "dns_root_zone-compat",
       "did": "did:web:etzhayyim.com:actor:dns_root_zone-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic3weqqp2tl67zeljroj77bs3vk52vkhidgnhywtjluf44zakbpea",
+      "endpoint": "ipfs://bafkreidsmkoi4awmhlpn5o32dtdnshuxhhijf437lki76y4otrdenze76i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dns_root_zone-compat/manifest.json#/capabilities/mcp"
@@ -2308,7 +2308,7 @@
       "handle": "docker-compat",
       "did": "did:web:etzhayyim.com:actor:docker-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiacntivxbmfqoxcg4glp3yckih2drx564bc3bsoj5hlwp3bb4tspi",
+      "endpoint": "ipfs://bafkreiaiele3kpygfcrjpg2w26elqc52kbhbrgclvmxypvxuipzc5mg7nu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/docker-compat/manifest.json#/capabilities/mcp"
@@ -2317,7 +2317,7 @@
       "handle": "docusign-compat",
       "did": "did:web:etzhayyim.com:actor:docusign-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifgafv5qfs4ucdq64xwectv7crtcnbnes7j3q6nltkskclwggutni",
+      "endpoint": "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/docusign-compat/manifest.json#/capabilities/mcp"
@@ -2326,7 +2326,7 @@
       "handle": "doi_system-compat",
       "did": "did:web:etzhayyim.com:actor:doi_system-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicqoc7duznt3nlsz2toeyll47akp5v3vee254hyz5vprj4xdrjloa",
+      "endpoint": "ipfs://bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/doi_system-compat/manifest.json#/capabilities/mcp"
@@ -2335,7 +2335,7 @@
       "handle": "donorperfect-compat",
       "did": "did:web:etzhayyim.com:actor:donorperfect-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieuh6pioy62dm2ipk5npnczcwleyk7bawume6d4ekcev7d7igjzl4",
+      "endpoint": "ipfs://bafkreid2gydknyck6neflbklltcq44af45lihk3ary72fc5vrl2nf55hri",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/donorperfect-compat/manifest.json#/capabilities/mcp"
@@ -2353,7 +2353,7 @@
       "handle": "dott-compat",
       "did": "did:web:etzhayyim.com:actor:dott-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihc7x6qmruqpdcvbjuy2pw3724iw7hm7eq6qx65csi35xjzvubxna",
+      "endpoint": "ipfs://bafkreihqlrepdxurbrbg4dpca2cmlqkr4576o6k4pjwly5hrocd2ztijuq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dott-compat/manifest.json#/capabilities/mcp"
@@ -2362,7 +2362,7 @@
       "handle": "drata-compat",
       "did": "did:web:etzhayyim.com:actor:drata-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihkc7roovo4pq6jnxjvhephpibczfevh732zynu7lxabw7ngfzvv4",
+      "endpoint": "ipfs://bafkreicazwznn63cauahoo3sxzhrbvzvnhl7vigqkxmqhym2o5pnj4zbjq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/drata-compat/manifest.json#/capabilities/mcp"
@@ -2371,7 +2371,7 @@
       "handle": "drchrono-compat",
       "did": "did:web:etzhayyim.com:actor:drchrono-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaryhhlyf62zcltsjoetirzivchqgq6o2i66yxxfkrahvwaw7pnwi",
+      "endpoint": "ipfs://bafkreib3td4tb6upspc2ygnr4sdjblecp5bilhjwm5azkhulaony7cnw2e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/drchrono-compat/manifest.json#/capabilities/mcp"
@@ -2389,7 +2389,7 @@
       "handle": "drone_deploy-compat",
       "did": "did:web:etzhayyim.com:actor:drone_deploy-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaiewgit2upbsm3uf5h56yfshtiv7zu4nx32e7peyjalzjin34nqq",
+      "endpoint": "ipfs://bafkreib2j2mareet7weu73eexxntmvkvmewctzcejfnidbekcoy5rqmtpa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/drone_deploy-compat/manifest.json#/capabilities/mcp"
@@ -2398,7 +2398,7 @@
       "handle": "dropbox-compat",
       "did": "did:web:etzhayyim.com:actor:dropbox-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiagzfn4fkxznff3c6sw5uwf2vxdoxe5pl56gijkwcqsxlotky5vm4",
+      "endpoint": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dropbox-compat/manifest.json#/capabilities/mcp"
@@ -2407,7 +2407,7 @@
       "handle": "dtcc-compat",
       "did": "did:web:etzhayyim.com:actor:dtcc-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreig4juhh2szyhnubbtsod3fvkxxkzpayeodkwirzcqf47d2endbcga",
+      "endpoint": "ipfs://bafkreiedbz2igrmbfbd3yljubjmop4kz7vjan7rdmjxmoxkxps5g6oi7bu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dtcc-compat/manifest.json#/capabilities/mcp"
@@ -2416,7 +2416,7 @@
       "handle": "duckcreek-compat",
       "did": "did:web:etzhayyim.com:actor:duckcreek-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigpvmpjjvkmyhdnaytxwi3jb7vm5erfwxqbbea7wnopsvgmebgo7y",
+      "endpoint": "ipfs://bafkreigquqx7bvrq5mjh7jcprfmfse3o7mbob27infrisjgrvcv3i7a3me",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/duckcreek-compat/manifest.json#/capabilities/mcp"
@@ -2425,7 +2425,7 @@
       "handle": "duckcreek_policy-compat",
       "did": "did:web:etzhayyim.com:actor:duckcreek_policy-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigiktee6ke4k2gfnwhm27mpiej3hwmextkj5xtoxtglxy753uqe4a",
+      "endpoint": "ipfs://bafkreiayuknngtr3ff2hu73q3lct7fg2oqjxyxxswzh7ndfhai7dklvpae",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/duckcreek_policy-compat/manifest.json#/capabilities/mcp"
@@ -2434,7 +2434,7 @@
       "handle": "duckcreek_rating-compat",
       "did": "did:web:etzhayyim.com:actor:duckcreek_rating-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihcfzmku7oslr5pec5gdnkyipowpzd5vn7ccaufdg7urk24athza4",
+      "endpoint": "ipfs://bafkreifwlk4ym3lkcsc42idc64odepyvyxcuv2ups4ze4j2365kii44kee",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/duckcreek_rating-compat/manifest.json#/capabilities/mcp"
@@ -2443,7 +2443,7 @@
       "handle": "dynamics365-compat",
       "did": "did:web:etzhayyim.com:actor:dynamics365-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib4ouutemtxnzr6qw5t3l5yju2m4mlj77gnzfhsleqhmsnjarwgvy",
+      "endpoint": "ipfs://bafkreig7uo5uzrdexlpnibqbsnxynpuasxjvhua62cdu3ji7rtm2fjrav4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dynamics365-compat/manifest.json#/capabilities/mcp"
@@ -2452,7 +2452,7 @@
       "handle": "dynatrace-compat",
       "did": "did:web:etzhayyim.com:actor:dynatrace-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifsnlwxjgoglogll7u5mowpjgga3kqbniyfw2k3abi2jw34femhni",
+      "endpoint": "ipfs://bafkreifuf3iwaxzathmrzzevzbzczgvlzl76wbealcc6libt7ikxvwb5ca",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/dynatrace-compat/manifest.json#/capabilities/mcp"
@@ -2461,7 +2461,7 @@
       "handle": "e2open-compat",
       "did": "did:web:etzhayyim.com:actor:e2open-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihni5vsq5ff4pjs3whqwgu5an42yizm5enwzomkov34dxgiokq72e",
+      "endpoint": "ipfs://bafkreibo7iimuotfdevaljfj6tjf6veuikkquxkqd5nlwiwoqscehickr4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/e2open-compat/manifest.json#/capabilities/mcp"
@@ -2470,7 +2470,7 @@
       "handle": "e_residency-compat",
       "did": "did:web:etzhayyim.com:actor:e_residency-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreig7b5ucqkmfnrl7ln7m5anboyh7prxxpixxeybsn5np45he7tduzq",
+      "endpoint": "ipfs://bafkreibwzydyeq6x3cdeuvyo6nx4o7cwsjwuxho4lugr27sits3smapa6u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/e_residency-compat/manifest.json#/capabilities/mcp"
@@ -2479,7 +2479,7 @@
       "handle": "ebi-compat",
       "did": "did:web:etzhayyim.com:actor:ebi-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreid6mr34wih5gval2cpnmkqlxmxmjpipqcoi56t5jdxvhzybz3o62q",
+      "endpoint": "ipfs://bafkreidrloqpxp32f6gjymbmekw3h7jdlojp3gyvk3rgdekwlr7lr6uxkm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ebi-compat/manifest.json#/capabilities/mcp"
@@ -2488,7 +2488,7 @@
       "handle": "ecb-compat",
       "did": "did:web:etzhayyim.com:actor:ecb-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiglvltq5sgg7wjyvhnp567ifqtvkaofl5urlidrwp5gth4fuxjdh4",
+      "endpoint": "ipfs://bafkreiabhu375jenfyjfljhkzgjnqxhebfhlgp6hrxdcrhftzmplkxydwe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ecb-compat/manifest.json#/capabilities/mcp"
@@ -2506,7 +2506,7 @@
       "handle": "eclinicalworks-compat",
       "did": "did:web:etzhayyim.com:actor:eclinicalworks-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicoz4vpfl32iikc66khdtljwchzcolc7rrsscywfwozgud734w32m",
+      "endpoint": "ipfs://bafkreidtqkozc2uu2pqn4itn35niea6g3hng5j54b4fejsyskdli3ihqze",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/eclinicalworks-compat/manifest.json#/capabilities/mcp"
@@ -2515,7 +2515,7 @@
       "handle": "ecwid-compat",
       "did": "did:web:etzhayyim.com:actor:ecwid-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigbldijwjlw47hzwvcspyzxtqocml5rqr5fxucpmhgzz5vduldrc4",
+      "endpoint": "ipfs://bafkreiaknqn4ap4afxfbewfilkaja2fzkjqmd5i2efch2kt7boyuhacdia",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ecwid-compat/manifest.json#/capabilities/mcp"
@@ -2524,7 +2524,7 @@
       "handle": "edi_x12-compat",
       "did": "did:web:etzhayyim.com:actor:edi_x12-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaphdnwly3blcrbil7kd4axfqihyqthp5onimfmkpwx24rdflqjam",
+      "endpoint": "ipfs://bafkreievbdzdmk5mkd3bbxu5m3546bswg7oysvkil5fgct54ckcxtj4ega",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/edi_x12-compat/manifest.json#/capabilities/mcp"
@@ -2533,7 +2533,7 @@
       "handle": "edifact-compat",
       "did": "did:web:etzhayyim.com:actor:edifact-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreif64zxx74qb3e3cnwrzxmtngwug4uluyok2zhv7d3y34l26mkpblu",
+      "endpoint": "ipfs://bafkreia2lkuadufpdc66fjkaikxjmj7fjtk3svr4z7i5wjoaqdtzgm5rku",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/edifact-compat/manifest.json#/capabilities/mcp"
@@ -2542,7 +2542,7 @@
       "handle": "edifact_tty-compat",
       "did": "did:web:etzhayyim.com:actor:edifact_tty-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicvtxxiirxodapayds7buiuap6vd55nmhpxw7bvutwtrurc4zljmu",
+      "endpoint": "ipfs://bafkreiakbhmjm7j463d344e54yhl2iubvolvo36rvw73rmbjds7y5m436e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/edifact_tty-compat/manifest.json#/capabilities/mcp"
@@ -2551,7 +2551,7 @@
       "handle": "edinet-compat",
       "did": "did:web:etzhayyim.com:actor:edinet-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicpihzgdtv3mhhjdn5gn6hitpl53g3gyp2ku5z5y2dcvqkfymwfju",
+      "endpoint": "ipfs://bafkreibkmsmcgkwtkadqilpmg72c6gfi34pl7vn2goxmby2upq2omoullu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/edinet-compat/manifest.json#/capabilities/mcp"
@@ -2560,7 +2560,7 @@
       "handle": "eea_europe-compat",
       "did": "did:web:etzhayyim.com:actor:eea_europe-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih3bidwlpkfpq2yig3usfqrxqhh5ejjccoi5gcjjwc2uci2r4cdza",
+      "endpoint": "ipfs://bafkreibmmj6zbnwjcicbnjl6kg72lujnkdtwqahaaxe6saatq3keqywiku",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/eea_europe-compat/manifest.json#/capabilities/mcp"
@@ -2569,7 +2569,7 @@
       "handle": "eia_gov-compat",
       "did": "did:web:etzhayyim.com:actor:eia_gov-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib7yz7hejkrtzwwsh5yv4n2enb2ul3s4ihdxglbnp6wmvtdmgs2k4",
+      "endpoint": "ipfs://bafkreibtuvi7wvub6dkcewoljtazip27uxe73zawdph6h4l6xm7d5rhybi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/eia_gov-compat/manifest.json#/capabilities/mcp"
@@ -2578,7 +2578,7 @@
       "handle": "eidas-compat",
       "did": "did:web:etzhayyim.com:actor:eidas-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibaqehkn5d2frgfrrccmmsd4wjkvtf6fuk2zmzdvooln7iiecfhee",
+      "endpoint": "ipfs://bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/eidas-compat/manifest.json#/capabilities/mcp"
@@ -2587,7 +2587,7 @@
       "handle": "ejustice_eu-compat",
       "did": "did:web:etzhayyim.com:actor:ejustice_eu-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibo6i4ux2u64obyqedbxytkqrm2mgrgwvratjxy3ffmo5wtyyf6he",
+      "endpoint": "ipfs://bafkreidwvyddhdkvfux6dgzpqbv2ps4vc4ji6uq7rwl3oikozitpzgaa5i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ejustice_eu-compat/manifest.json#/capabilities/mcp"
@@ -2596,7 +2596,7 @@
       "handle": "elastic-compat",
       "did": "did:web:etzhayyim.com:actor:elastic-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihjjmwl3gp7n42w7q53yvmffu5afnwvnqrwqtrkucv4w3jhcy4q5i",
+      "endpoint": "ipfs://bafkreieol5cq3fzweufduj2ucqn42niwutcntjjspq6e6dfgblrlnjspxi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/elastic-compat/manifest.json#/capabilities/mcp"
@@ -2605,7 +2605,7 @@
       "handle": "elasticpath-compat",
       "did": "did:web:etzhayyim.com:actor:elasticpath-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidech2rdbkmsyad7olhnvzuxmwaiw7i7xp44kpqpfdicyvbsf5e3i",
+      "endpoint": "ipfs://bafkreie4gxxhtmn6xgdixy2iv2qgow6zu35i45o6lfbgabp3s6pwo6kusu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/elasticpath-compat/manifest.json#/capabilities/mcp"
@@ -2614,7 +2614,7 @@
       "handle": "elavon_api-compat",
       "did": "did:web:etzhayyim.com:actor:elavon_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigmxcsas6yvvxhh32brytvpljdvszbynmn7irqu6u6kpn3zuawasq",
+      "endpoint": "ipfs://bafkreiddppeaoywnfvxztncp52ejq3eyxy3r4bfafatncqjjira6hhxlfq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/elavon_api-compat/manifest.json#/capabilities/mcp"
@@ -2623,7 +2623,7 @@
       "handle": "elevenlabs-compat",
       "did": "did:web:etzhayyim.com:actor:elevenlabs-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreianhaqnovffpmpwikxjdw3fjrogxkiiot3gpjk3265ibmlmlcbziy",
+      "endpoint": "ipfs://bafkreibg5ziqrvwg5676ahgu6wuktjva35akzwtyarlrifpjm4svwfq7ku",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/elevenlabs-compat/manifest.json#/capabilities/mcp"
@@ -2632,7 +2632,7 @@
       "handle": "ema_europe-compat",
       "did": "did:web:etzhayyim.com:actor:ema_europe-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreif2xdwzh77kimzmp7x5ywfovea7yd6tkutq4ffc5p5ylunwexi42y",
+      "endpoint": "ipfs://bafkreidnq24wp2tobrx74jvs6okyuetrfe3jz7dmr5fqcablkv5pokqf3q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ema_europe-compat/manifest.json#/capabilities/mcp"
@@ -2641,7 +2641,7 @@
       "handle": "emerson_experion-compat",
       "did": "did:web:etzhayyim.com:actor:emerson_experion-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiedrbv3fd6otofo7u7xazuxm5tjmpf43hu5rda64evrkswkmwd2nq",
+      "endpoint": "ipfs://bafkreib36projgqaltt6puu3q4ojo4dub3uf6s4zgiprazb5ixg5wqj5su",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/emerson_experion-compat/manifest.json#/capabilities/mcp"
@@ -2650,7 +2650,7 @@
       "handle": "emotiv-compat",
       "did": "did:web:etzhayyim.com:actor:emotiv-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiee7g7vsxlnigtgdp36324pb4qyrzkwrntj4bvhd22ldu6ktyix7u",
+      "endpoint": "ipfs://bafkreihwveyfdy4pqmo4oqabonukr74upuyphy6abuxjvi4jglllvzpuy4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/emotiv-compat/manifest.json#/capabilities/mcp"
@@ -2659,7 +2659,7 @@
       "handle": "encompass-compat",
       "did": "did:web:etzhayyim.com:actor:encompass-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia65n2b2sox5d5xyy6d6n4kmiw7atjszhuinz337ap3xjsp4n7gke",
+      "endpoint": "ipfs://bafkreifm2orokiboy2z3ywyzrqrso3v2siptuylidb76i2bg2x4civf4ca",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/encompass-compat/manifest.json#/capabilities/mcp"
@@ -2668,7 +2668,7 @@
       "handle": "entrata-compat",
       "did": "did:web:etzhayyim.com:actor:entrata-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib2at4dkzh3tqvnykq2rricfj6ighhgxcobiriycc5e72lq47pjcy",
+      "endpoint": "ipfs://bafkreiaerkstm2zoamawb7i5cergkvisw4pukvgifoifi2nyybjtsbzrbm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/entrata-compat/manifest.json#/capabilities/mcp"
@@ -2677,7 +2677,7 @@
       "handle": "entsoe-compat",
       "did": "did:web:etzhayyim.com:actor:entsoe-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihffrxdnsclocun6ztcissuhrcjphvcxd6hydut2tyyb7entgc5uy",
+      "endpoint": "ipfs://bafkreia7aphpckh75izl6v5edo76ndbbycpgaazweph6ekqy3gb5v4cknq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/entsoe-compat/manifest.json#/capabilities/mcp"
@@ -2686,7 +2686,7 @@
       "handle": "enverus-compat",
       "did": "did:web:etzhayyim.com:actor:enverus-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiglczmemg6nskldn3qrma4aylf6ogjflgve7jc4j55nnsa66hiiv4",
+      "endpoint": "ipfs://bafkreiakzqyk5u6tgvcdhpxierhhhpaziydce6w6ptavcbmyuacnqdncte",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/enverus-compat/manifest.json#/capabilities/mcp"
@@ -2713,7 +2713,7 @@
       "handle": "epic_fhir-compat",
       "did": "did:web:etzhayyim.com:actor:epic_fhir-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic3gjphu4ctwvhr7riroluiaqez5g32mruzgodxyjmlr4hvw4c5im",
+      "endpoint": "ipfs://bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/epic_fhir-compat/manifest.json#/capabilities/mcp"
@@ -2722,7 +2722,7 @@
       "handle": "epic_online_services-compat",
       "did": "did:web:etzhayyim.com:actor:epic_online_services-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidi62ipecsyy25c32boobndk7wkmis3eugxdz3jpaiayhat67rohy",
+      "endpoint": "ipfs://bafkreiaf5tq7hovnijfqsuygxd6gpjqj2ltqcs4726pkv6uwf46ch4brem",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/epic_online_services-compat/manifest.json#/capabilities/mcp"
@@ -2731,7 +2731,7 @@
       "handle": "epiconlineservices-compat",
       "did": "did:web:etzhayyim.com:actor:epiconlineservices-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifjqccuv3eeznzpbzlwnl4lyj3ufchr3gqahsvdmaciyj2zcwtdby",
+      "endpoint": "ipfs://bafkreiciav24k2kgniscijipgdh666bokjegciu463pde4gwkq4soudtde",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/epiconlineservices-compat/manifest.json#/capabilities/mcp"
@@ -2740,7 +2740,7 @@
       "handle": "epo_patents-compat",
       "did": "did:web:etzhayyim.com:actor:epo_patents-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigwuf23k2jknpntph4l3amvydubptka65ns43gpuc3rpraobwnpu4",
+      "endpoint": "ipfs://bafkreidayq6lztiyt7uilp3ctbcdl5774ztusiytgcz5mbizsbxejcvpfa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/epo_patents-compat/manifest.json#/capabilities/mcp"
@@ -2749,7 +2749,7 @@
       "handle": "epsg_registry-compat",
       "did": "did:web:etzhayyim.com:actor:epsg_registry-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreie3oke2bgtaaepdoonv5ilz4jj5jv2e5qsgmmsblkh3qsf7ktjkwa",
+      "endpoint": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/epsg_registry-compat/manifest.json#/capabilities/mcp"
@@ -2758,7 +2758,7 @@
       "handle": "ercot-compat",
       "did": "did:web:etzhayyim.com:actor:ercot-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibebgpo5nqqbjyimwgxujuiqoi7trk4tifnhnbae3zlftuvkddlau",
+      "endpoint": "ipfs://bafkreiak4pmlnnbo7lk5v7umll4eytfr6ozaxyzwx7jvco5rklljkhp5p4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ercot-compat/manifest.json#/capabilities/mcp"
@@ -2767,7 +2767,7 @@
       "handle": "ericsson_api-compat",
       "did": "did:web:etzhayyim.com:actor:ericsson_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibvx4bvadtorjdjd6hdwpp4s35kvglrnoiubm3xkrxp2qnvlx5ov4",
+      "endpoint": "ipfs://bafkreibk5o6o3xg6ozcecerorirqro5eagchsibxl3foktzfuxq3cc7dp4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ericsson_api-compat/manifest.json#/capabilities/mcp"
@@ -2776,7 +2776,7 @@
       "handle": "etax-compat",
       "did": "did:web:etzhayyim.com:actor:etax-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibneklioufpkx5e4lh6ui6nykuwzwq6xoetfeamhem63wlkgog6pq",
+      "endpoint": "ipfs://bafkreihzguybzczt2vccctvljmm2neukmanzmlkje6ifpacfgbtapi4hym",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/etax-compat/manifest.json#/capabilities/mcp"
@@ -2785,7 +2785,7 @@
       "handle": "eu_customs_emcs-compat",
       "did": "did:web:etzhayyim.com:actor:eu_customs_emcs-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicasaj7bqisg6ysxfjvec4gh4vmunnuk6mgqzmxqpkbm5j7jkcmle",
+      "endpoint": "ipfs://bafkreidj3sjwuhud4gxqu6nyeuug6oeyacvxwtcutehne4kepdhzq5r7om",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/eu_customs_emcs-compat/manifest.json#/capabilities/mcp"
@@ -2794,7 +2794,7 @@
       "handle": "euroclear-compat",
       "did": "did:web:etzhayyim.com:actor:euroclear-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibozoywzozpz4645h3kp7h5r7rb4rfxjnnx25nukaafxkndkjvay4",
+      "endpoint": "ipfs://bafkreig3vbyhjgvs6lpdlnjy3glgloiafgdhe2xatdwkhzyjjywvqnukdi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/euroclear-compat/manifest.json#/capabilities/mcp"
@@ -2803,7 +2803,7 @@
       "handle": "europol-compat",
       "did": "did:web:etzhayyim.com:actor:europol-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihb3dfy5j6wnry2sa5xbix6vhbdvihadfmea33dy44os7xbgx3j54",
+      "endpoint": "ipfs://bafkreiew6kdg6jz2yjy4mfg3wxpya3ufajnebgudbzsa237yvhqnbvqcg4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/europol-compat/manifest.json#/capabilities/mcp"
@@ -2812,7 +2812,7 @@
       "handle": "eurostat-compat",
       "did": "did:web:etzhayyim.com:actor:eurostat-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicw44rmzeghae5wso4npmclprhsk4vx2wttpd5xsuales7ctzihha",
+      "endpoint": "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/eurostat-compat/manifest.json#/capabilities/mcp"
@@ -2830,7 +2830,7 @@
       "handle": "evergreen_api-compat",
       "did": "did:web:etzhayyim.com:actor:evergreen_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic5ux7b346lhiaex4et2zpb4nccdspws33gykhoikzfdlvnqdhm2u",
+      "endpoint": "ipfs://bafkreicmpe7h7vuophw7wyz65n76hucogu3eq26vbyhqhrfodioqnp47va",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/evergreen_api-compat/manifest.json#/capabilities/mcp"
@@ -2839,7 +2839,7 @@
       "handle": "everlaw-compat",
       "did": "did:web:etzhayyim.com:actor:everlaw-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiggq5ofdxciylwfhsznoszqyx7fa72bzdd6sib2ebnzyhh4f3kztq",
+      "endpoint": "ipfs://bafkreifegzwwr2rolzfckf3zqf5mjeozi4vqiguhpnzkuqofbvzsypofoi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/everlaw-compat/manifest.json#/capabilities/mcp"
@@ -2848,7 +2848,7 @@
       "handle": "everlaw_core-compat",
       "did": "did:web:etzhayyim.com:actor:everlaw_core-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic4q6qh25fqdsjd4scmcg2jh2jfusnyixmbm5pdwiel4llnyeakey",
+      "endpoint": "ipfs://bafkreidluaewgoarf4b4edton3gnm6scshg2w2xznw6qkjqiqthz745zxu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/everlaw_core-compat/manifest.json#/capabilities/mcp"
@@ -2866,7 +2866,7 @@
       "handle": "faa-compat",
       "did": "did:web:etzhayyim.com:actor:faa-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidjcer3sxztk6u2ejjz2ecqiszfd3vivt7u643y6hdrfbw6gnja3e",
+      "endpoint": "ipfs://bafkreigtkleofrabkdv2lw6mfarlyyzvw6rwcwvjawxelxaupzrqhwud5u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/faa-compat/manifest.json#/capabilities/mcp"
@@ -2875,7 +2875,7 @@
       "handle": "fanuc-compat",
       "did": "did:web:etzhayyim.com:actor:fanuc-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaxtn6654xf75jkoyof6ajbmtvpcr4u5thqimgqdqsq5egj2l4jn4",
+      "endpoint": "ipfs://bafkreiexnhhdvkoywkolvrl7ucufdgrjrylm4popj33tbzg4fvqve3grvm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fanuc-compat/manifest.json#/capabilities/mcp"
@@ -2884,7 +2884,7 @@
       "handle": "fao_stat-compat",
       "did": "did:web:etzhayyim.com:actor:fao_stat-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiak3gffqfzllxhjycnz3kdx5t5hi4r35dqo6y4tr72ewi47adpcxa",
+      "endpoint": "ipfs://bafkreifvzeyv3ynfqzxymtnddwirwy44beerwctasrld272o3mczqj7ahy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fao_stat-compat/manifest.json#/capabilities/mcp"
@@ -2893,7 +2893,7 @@
       "handle": "fastly-compat",
       "did": "did:web:etzhayyim.com:actor:fastly-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihvmq7xook7vtq7gptq5b5ei7fdrypif2g2gxdrvnr5sc2lkzsw5e",
+      "endpoint": "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fastly-compat/manifest.json#/capabilities/mcp"
@@ -2902,7 +2902,7 @@
       "handle": "fatf-compat",
       "did": "did:web:etzhayyim.com:actor:fatf-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihlcgme7qdwdb3byijy24yv3szmqbwr4aiw33yv7wfws3kgd5aovu",
+      "endpoint": "ipfs://bafkreibpj3jrajceinadosgd5hvnnpiszyahnlu7ef2iwzabpnexqyt35a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fatf-compat/manifest.json#/capabilities/mcp"
@@ -2911,7 +2911,7 @@
       "handle": "fawry-compat",
       "did": "did:web:etzhayyim.com:actor:fawry-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiafvzo2eiielvj5ebciqxq63r2qb2my75ydrd6vvdhwmua67mudrq",
+      "endpoint": "ipfs://bafkreibhckigjckmx36et3q2vwvawh3hwntzs7xbdxxbikrz7i5ogh2qsi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fawry-compat/manifest.json#/capabilities/mcp"
@@ -2920,7 +2920,7 @@
       "handle": "fbi_ucr-compat",
       "did": "did:web:etzhayyim.com:actor:fbi_ucr-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibpbmkdsnh3biziqipwat4kgdwimhcuvgzuj2q6zkqy3esgkjjysm",
+      "endpoint": "ipfs://bafkreicla3kuqsrbxrgdo2nhsu7edlzhsazzaoo6s632hdd6n6l2lnc2ka",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fbi_ucr-compat/manifest.json#/capabilities/mcp"
@@ -2929,7 +2929,7 @@
       "handle": "fca_uk-compat",
       "did": "did:web:etzhayyim.com:actor:fca_uk-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreie4pbpcuzdkgpdegv4xndot3v7aqohw5lowlddvf3pnfrlcnyexyq",
+      "endpoint": "ipfs://bafkreibcexa7ssjnfvqbgvpjkpiy6djsvsqxwrga4wkakuqb2jp4bgwt3a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fca_uk-compat/manifest.json#/capabilities/mcp"
@@ -2938,7 +2938,7 @@
       "handle": "fda-compat",
       "did": "did:web:etzhayyim.com:actor:fda-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiao67nlf5zportzhvkjx7z3qtxynjbtul2jamafqdg3inhe7vnmpm",
+      "endpoint": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fda-compat/manifest.json#/capabilities/mcp"
@@ -2947,7 +2947,7 @@
       "handle": "fdic-compat",
       "did": "did:web:etzhayyim.com:actor:fdic-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihorfem6ptw5oobe7uwexd4ikvv7oidwiw4htx7tdt6iojmc5mxxu",
+      "endpoint": "ipfs://bafkreif7nu4b3yeaxfy2rn74e4qbx7xyeahjm2lhsl4bo57n37zea26b2q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fdic-compat/manifest.json#/capabilities/mcp"
@@ -2956,7 +2956,7 @@
       "handle": "fednow-compat",
       "did": "did:web:etzhayyim.com:actor:fednow-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia6mkxmsiwid65latcheajlptc5vyuinvyesvt4soe4k35pfgwoc4",
+      "endpoint": "ipfs://bafkreiccqjacfichbomvngtlvnj7w2q2qyzpg4ustctnehrhx6tlvcgham",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fednow-compat/manifest.json#/capabilities/mcp"
@@ -2965,7 +2965,7 @@
       "handle": "fedwire-compat",
       "did": "did:web:etzhayyim.com:actor:fedwire-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihgg54m5y2o5ub7cjbqjqu4vnfrog76hqzcykwisd3ipfkmauxw6e",
+      "endpoint": "ipfs://bafkreib2okt5l3fczioo74ed2wxphivwnwgvaciysiwrmlh6xfjfup2244",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fedwire-compat/manifest.json#/capabilities/mcp"
@@ -2974,7 +2974,7 @@
       "handle": "fema-compat",
       "did": "did:web:etzhayyim.com:actor:fema-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidbvl4fuwadvmecvvkx5gbsfrtut6a3vh62c4yydtg3ku74qf26hy",
+      "endpoint": "ipfs://bafkreia3he5kdh4iofdv6qblnddhqrjruapt6rx3z66fe7hbfova625r6u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fema-compat/manifest.json#/capabilities/mcp"
@@ -2992,7 +2992,7 @@
       "handle": "finra-compat",
       "did": "did:web:etzhayyim.com:actor:finra-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifacffnv2ljtjvohruh5belyx3noc6hsrpfk65sdpvf2ce2cgt76y",
+      "endpoint": "ipfs://bafkreigaaz4zes5gnip62dulq3vyd5dvsi5isorw6pgisje76mx7nlabmi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/finra-compat/manifest.json#/capabilities/mcp"
@@ -3001,7 +3001,7 @@
       "handle": "fipa_acl-compat",
       "did": "did:web:etzhayyim.com:actor:fipa_acl-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia4k2opm6adhx6ywhgcvaglrjnc4cxmoyytaohs5fsqbikwcknbwq",
+      "endpoint": "ipfs://bafkreicayqqrdfs34xycstssugdtws6f3kr5yfwuiugnluorbbhjrrj62u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fipa_acl-compat/manifest.json#/capabilities/mcp"
@@ -3010,7 +3010,7 @@
       "handle": "firebase-compat",
       "did": "did:web:etzhayyim.com:actor:firebase-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiefv7qvro5mqfxlhhfhagccdin4i2kuytxp7umvblxdvjbjm3mcha",
+      "endpoint": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/firebase-compat/manifest.json#/capabilities/mcp"
@@ -3019,7 +3019,7 @@
       "handle": "firebase_games-compat",
       "did": "did:web:etzhayyim.com:actor:firebase_games-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia3gpbuilnnonqxui2ybuayy2ubbdfmmpsmv3c3zd3xrebhx2ktdm",
+      "endpoint": "ipfs://bafkreibrge2da7zeyeqxocxaipfdoe5qa6przuhs53ixgoadwzwom4uuly",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/firebase_games-compat/manifest.json#/capabilities/mcp"
@@ -3028,7 +3028,7 @@
       "handle": "first_light_fusion-compat",
       "did": "did:web:etzhayyim.com:actor:first_light_fusion-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreictcz4lx4uyrr6xwazkqx6pccpyoqbr36z3l7wgfqz343hozbplx4",
+      "endpoint": "ipfs://bafkreib7jtfqhnzk5tpzglldwz2jiuce5jsd7rl7yafj5ar7l3lixto5eq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/first_light_fusion-compat/manifest.json#/capabilities/mcp"
@@ -3037,7 +3037,7 @@
       "handle": "firstdata_network-compat",
       "did": "did:web:etzhayyim.com:actor:firstdata_network-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiei7736zrwtl2wsttql5vg47e2ichdid7y4i37mrmya7nlvxpy4qe",
+      "endpoint": "ipfs://bafkreifmigd2hzth55nt4phgh33ptv7aalvxwxlsxpjwdty4tyqdf7nh3y",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/firstdata_network-compat/manifest.json#/capabilities/mcp"
@@ -3055,7 +3055,7 @@
       "handle": "fix_fast_protocol-compat",
       "did": "did:web:etzhayyim.com:actor:fix_fast_protocol-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibxvzyjfs3jz4vb6esgtu7dj2k4bpwkyznwn6tvpuyscizxmxmvsu",
+      "endpoint": "ipfs://bafkreiawtt4dulifheetrj55slg4vt2gg3lnftyfkhqwfcf7bgzf5orhgi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fix_fast_protocol-compat/manifest.json#/capabilities/mcp"
@@ -3073,7 +3073,7 @@
       "handle": "fja_sapiens-compat",
       "did": "did:web:etzhayyim.com:actor:fja_sapiens-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicxagrduvtte6qpjfbztdz24lnkobcy74ckzp5szzn7ccwqbfuija",
+      "endpoint": "ipfs://bafkreif2erolw2jlilxm5qav6fwszdp4tcs5bm5enkfwfgys3csmxjf6ry",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fja_sapiens-compat/manifest.json#/capabilities/mcp"
@@ -3082,7 +3082,7 @@
       "handle": "flashpoint-compat",
       "did": "did:web:etzhayyim.com:actor:flashpoint-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiaikgcglwdxkkv2ocwvn6usegqd6uxulniu7sdrjlq3pyugqopkte",
+      "endpoint": "ipfs://bafkreibaerjhftutoi2rm3sm6ztlvu33r5f3tkc5b3yau4zel57qyxjgbu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/flashpoint-compat/manifest.json#/capabilities/mcp"
@@ -3091,7 +3091,7 @@
       "handle": "flexport-compat",
       "did": "did:web:etzhayyim.com:actor:flexport-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiebwn5mzukxg6huv7faqtf5rjqvsev77xgpxj6gd3tlqz3k4n5ufy",
+      "endpoint": "ipfs://bafkreiejhpmqtgyx7sfajr4lyxx4jncoz27mi2peyz4mhteqzsf3iszl6e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/flexport-compat/manifest.json#/capabilities/mcp"
@@ -3100,7 +3100,7 @@
       "handle": "flightstats-compat",
       "did": "did:web:etzhayyim.com:actor:flightstats-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifpcwwsht7y34ijjwcm7qv4bdzqpk2ohhhd5bdtb7274kboo2w6qu",
+      "endpoint": "ipfs://bafkreif6efcfw2tpbyoyw6idv6tewbvnecjbzwspj6olyte5zhgdvlcq7e",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/flightstats-compat/manifest.json#/capabilities/mcp"
@@ -3118,7 +3118,7 @@
       "handle": "flooid-compat",
       "did": "did:web:etzhayyim.com:actor:flooid-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidff44niwdfrg2xh754r4gpnv4nu6syusqbmpn35j5bvctehqohxm",
+      "endpoint": "ipfs://bafkreietcehz4bolf5w73kivbv3hs4nn4w245hhge45neb3bbtt22avgii",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/flooid-compat/manifest.json#/capabilities/mcp"
@@ -3127,7 +3127,7 @@
       "handle": "flutterwave-compat",
       "did": "did:web:etzhayyim.com:actor:flutterwave-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibybcqn7p33bxja7r4tbthl6a5q3jrfnd3oevra44ngnhlijsnq6e",
+      "endpoint": "ipfs://bafkreidauswycjcj3pfvlazckk3lcccomeh5liatibvgcv3tph3pwhd4ei",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/flutterwave-compat/manifest.json#/capabilities/mcp"
@@ -3136,7 +3136,7 @@
       "handle": "flyio-compat",
       "did": "did:web:etzhayyim.com:actor:flyio-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiftukhrr5fol2lxx6zmsgugcfhb74eljrrcygijavyi5mrm3sezgu",
+      "endpoint": "ipfs://bafkreigarriqoa23hz7cm26l73zf6l4hm2yebiolqszm6vrprstqbdxoou",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/flyio-compat/manifest.json#/capabilities/mcp"
@@ -3145,7 +3145,7 @@
       "handle": "fmc-compat",
       "did": "did:web:etzhayyim.com:actor:fmc-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibndhbxsbjwmvw35nrm4a6y6guiqubs2sqgspqxlxau7vqswltd4a",
+      "endpoint": "ipfs://bafkreicwf5kfmwi33g4lgdmevl6acollvbcha3flw2beky7ywur7tienja",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fmc-compat/manifest.json#/capabilities/mcp"
@@ -3154,7 +3154,7 @@
       "handle": "fmcg_traceability-compat",
       "did": "did:web:etzhayyim.com:actor:fmcg_traceability-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifonw6beuou5kob2qirrcr22rgcjbllg75zfmkm6pxefuhxneqldm",
+      "endpoint": "ipfs://bafkreiaruacxwyehazkkgzoweh7tdnq5tgj3h3uz43qxoatnemp4nytv7q",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fmcg_traceability-compat/manifest.json#/capabilities/mcp"
@@ -3163,7 +3163,7 @@
       "handle": "foodpanda-compat",
       "did": "did:web:etzhayyim.com:actor:foodpanda-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibqnimn67cskftu367khfhnidnvwu62p6amueoy3vdsefquqeklfq",
+      "endpoint": "ipfs://bafkreic5yoaiju647xocnmsclbgwr5wppfte6pgrojehemj72alrsf6mva",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/foodpanda-compat/manifest.json#/capabilities/mcp"
@@ -3172,7 +3172,7 @@
       "handle": "forgerock-compat",
       "did": "did:web:etzhayyim.com:actor:forgerock-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibpk2ey4zqj3oq3xvijp7xza24fj4rgpfjffyfvhtb4oyuocxntjq",
+      "endpoint": "ipfs://bafkreieo3bagqapiaczbkeyeuyjco74uurvrbynuq4acuipffyklwin2xy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/forgerock-compat/manifest.json#/capabilities/mcp"
@@ -3181,7 +3181,7 @@
       "handle": "fortinet-compat",
       "did": "did:web:etzhayyim.com:actor:fortinet-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiau55gcvdhknkrb4udbggbt4gkxsycaacb2glntnzqjffp3xkpbhq",
+      "endpoint": "ipfs://bafkreignjlofhvasqayyaot4q7dvm6urc47fs3ybyjoegwnxp6lxqfoafu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fortinet-compat/manifest.json#/capabilities/mcp"
@@ -3190,7 +3190,7 @@
       "handle": "freebsd-compat",
       "did": "did:web:etzhayyim.com:actor:freebsd-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih27pxip7xejvmow5s65ibk3quzjqjl4bb4dhdvh6vdzi5qopg7zi",
+      "endpoint": "ipfs://bafkreiedsvvpe3f5z3cqqdvg7nqbbef3h7u35nbk425iizfcdwh7pbb2fm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/freebsd-compat/manifest.json#/capabilities/mcp"
@@ -3199,7 +3199,7 @@
       "handle": "freee-compat",
       "did": "did:web:etzhayyim.com:actor:freee-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidr24vm7tx4rrext7ejsh3ent6lskjhs5nmp3rf3kkcbrrl576fae",
+      "endpoint": "ipfs://bafkreibw45cqxginpwzg2vqrbe3f65s4dpnayrljkpn725xhx7tyve7phe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/freee-compat/manifest.json#/capabilities/mcp"
@@ -3208,7 +3208,7 @@
       "handle": "freefly-compat",
       "did": "did:web:etzhayyim.com:actor:freefly-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihccavy4niodjoqeeo6uhtb6hqjofnwsdwv3hz5s53zgh433sis2q",
+      "endpoint": "ipfs://bafkreidqdgprrelzmvql7wby2nhhdkc3odsgefea6bn7i64s6qr5eqmbca",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/freefly-compat/manifest.json#/capabilities/mcp"
@@ -3217,7 +3217,7 @@
       "handle": "freja_eid-compat",
       "did": "did:web:etzhayyim.com:actor:freja_eid-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib3mpjghf7f476lakdmjz2abl5vawvpx7ps6xen2zyo42jwugt5na",
+      "endpoint": "ipfs://bafkreiguy7trjyniaxkdslwgzxwvftp7yawydenbpbobnegg234o6hrkzm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/freja_eid-compat/manifest.json#/capabilities/mcp"
@@ -3226,7 +3226,7 @@
       "handle": "freshworks-compat",
       "did": "did:web:etzhayyim.com:actor:freshworks-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiclsxrmg2yz3b6eim74mlye76d2w5witndldf426sjwic7xrgorsu",
+      "endpoint": "ipfs://bafkreifpro6wpjbvrtfrlxykedjic222jwgjlxec3kquedww5wltanpkay",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/freshworks-compat/manifest.json#/capabilities/mcp"
@@ -3235,7 +3235,7 @@
       "handle": "fsa_japan-compat",
       "did": "did:web:etzhayyim.com:actor:fsa_japan-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic2ctcchuslgz4eqhouzgwpdh6nri5z7p46kal6xmcxvdmuueqmmy",
+      "endpoint": "ipfs://bafkreifcwuaqcogepk5txz4lkouxvzndnhwlogv3wgzpcdyyejgffu54vi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fsa_japan-compat/manifest.json#/capabilities/mcp"
@@ -3244,7 +3244,7 @@
       "handle": "fugro_api-compat",
       "did": "did:web:etzhayyim.com:actor:fugro_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreigxlewvvic5hcfc2ggu5holcwrjrzp3m5b3ma2ulk7e3bxrvm43xm",
+      "endpoint": "ipfs://bafkreiaevppqpohpgvxhtki6bfw2iex4fmq4nu2lwemvj2o4je2qeuhnqy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fugro_api-compat/manifest.json#/capabilities/mcp"
@@ -3253,7 +3253,7 @@
       "handle": "fujitsu_msp-compat",
       "did": "did:web:etzhayyim.com:actor:fujitsu_msp-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibewykgmwn3kblvsgy6d3aeinqisq7yse4ic4lxd5t4v66yfb73pm",
+      "endpoint": "ipfs://bafkreifsgn32qx4indn6ahvcbekpw2odrs2bkxa3gv44oas7f7opirdmmy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/fujitsu_msp-compat/manifest.json#/capabilities/mcp"
@@ -3262,7 +3262,7 @@
       "handle": "gainsight-compat",
       "did": "did:web:etzhayyim.com:actor:gainsight-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibu5vawbgnx22ipl7lv73jvmaetbt6didkyopegv4qluavmjppufa",
+      "endpoint": "ipfs://bafkreiasm44gsjji3nk4hczkqjzwczobyteiglxv6cbzhdxk77yoz7oxtq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gainsight-compat/manifest.json#/capabilities/mcp"
@@ -3271,7 +3271,7 @@
       "handle": "galileo-compat",
       "did": "did:web:etzhayyim.com:actor:galileo-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiacvsscj6mcph2an5py4oft6chqbfy3dguuhg2igncmc6i37qost4",
+      "endpoint": "ipfs://bafkreicfckpimjcxbetkumreqjwe2tjkpztikkwk2kqz5g5vmpow3gxhfy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/galileo-compat/manifest.json#/capabilities/mcp"
@@ -3280,7 +3280,7 @@
       "handle": "galileo_gds-compat",
       "did": "did:web:etzhayyim.com:actor:galileo_gds-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihe6h56o4blunay2i2nrxcimlv6hhl3kdwxvhb7db7ixi6tpuvxky",
+      "endpoint": "ipfs://bafkreifflyp2rrnffavvackdoschkxjfdazr7m3o5hk7l22iw7slhprbwq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/galileo_gds-compat/manifest.json#/capabilities/mcp"
@@ -3289,7 +3289,7 @@
       "handle": "gb_standards-compat",
       "did": "did:web:etzhayyim.com:actor:gb_standards-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia4q4nagxd4vwcjtdci3q5xct7magjtynrpfu24fbbphr76kanecm",
+      "endpoint": "ipfs://bafkreihh2nmqxq4or6v22v3khxmq7ewy7p4ozvoguw4m7h23mzs45tcfbe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gb_standards-compat/manifest.json#/capabilities/mcp"
@@ -3298,7 +3298,7 @@
       "handle": "gbfs-compat",
       "did": "did:web:etzhayyim.com:actor:gbfs-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic6243r3qhhughavxuivct35rdbdgisyle3nxlvfdmyc5ee25bsce",
+      "endpoint": "ipfs://bafkreidthlawcfjorq2a764yfh6igvm2k3uwj25uowlo7ylftzrmxg63ke",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gbfs-compat/manifest.json#/capabilities/mcp"
@@ -3307,7 +3307,7 @@
       "handle": "gcash-compat",
       "did": "did:web:etzhayyim.com:actor:gcash-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidwvlfdugoabobwasylmnecynrr3l5jarzuv6w6gadknfcramre4e",
+      "endpoint": "ipfs://bafkreia2f6acy7pfo42fsi5qsq6imz3y5k24v3lcl5aahxettozobvepcq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gcash-compat/manifest.json#/capabilities/mcp"
@@ -3316,7 +3316,7 @@
       "handle": "gcp-compat",
       "did": "did:web:etzhayyim.com:actor:gcp-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibqbodw23rq7h3gma5wirm5bbbzzcfcqebbawkjwdqaw2pmqc66m4",
+      "endpoint": "ipfs://bafkreifrwmgtbpdqhyqqjzojjyafosdb2jukz5ezhkubsc3pruoo5mlyxu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gcp-compat/manifest.json#/capabilities/mcp"
@@ -3325,7 +3325,7 @@
       "handle": "ge_aviation-compat",
       "did": "did:web:etzhayyim.com:actor:ge_aviation-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreict75nbjsfyexc6dzitgll2ylaoxkk7cxlmyjsempbocdmf5j4ldi",
+      "endpoint": "ipfs://bafkreihx5zhavqs7mwk2auds46sd3db626zm6qir3suzo6thcbbiaaefua",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ge_aviation-compat/manifest.json#/capabilities/mcp"
@@ -3334,7 +3334,7 @@
       "handle": "ge_proficy-compat",
       "did": "did:web:etzhayyim.com:actor:ge_proficy-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia5fumvm6blfqh6tly66qnkyvhxpsc3jntmok7z627c6yvgcmntoq",
+      "endpoint": "ipfs://bafkreifs7np7eftqxi7v63uip7axj5ibddvmffyuzrvsenta7z5cjwzqrq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ge_proficy-compat/manifest.json#/capabilities/mcp"
@@ -3343,7 +3343,7 @@
       "handle": "general_fusion-compat",
       "did": "did:web:etzhayyim.com:actor:general_fusion-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidxs5bjkyspz37h7oywqscq6ux6vdufth7wbhtfctfzmqwwuxhmgq",
+      "endpoint": "ipfs://bafkreihck6u6v6j6jclqsnxjvy2xwtp6tawou5lmo2watfdtrtcyc55fwa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/general_fusion-compat/manifest.json#/capabilities/mcp"
@@ -3352,7 +3352,7 @@
       "handle": "gepredix-compat",
       "did": "did:web:etzhayyim.com:actor:gepredix-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiagzr46kyjwuka6uleaw3av6uaquhalzpsxjo6ib4uuce6gjjvuwu",
+      "endpoint": "ipfs://bafkreievrtlzx7nkqme4ptn7ru7b5kqgddpsg4wj2l4a55dvxwpknjn5di",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gepredix-compat/manifest.json#/capabilities/mcp"
@@ -3361,7 +3361,7 @@
       "handle": "ginkgo_bioworks-compat",
       "did": "did:web:etzhayyim.com:actor:ginkgo_bioworks-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih3ws4gccsa57nmlszfluhzwcwlrzj3n2tx54fywvsvz5hhz7m6mu",
+      "endpoint": "ipfs://bafkreibbet66ebw32r6kco5p3wtbuuaqifdparoxrqs5tva7txqyznw2sy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/ginkgo_bioworks-compat/manifest.json#/capabilities/mcp"
@@ -3379,7 +3379,7 @@
       "handle": "gitlab-compat",
       "did": "did:web:etzhayyim.com:actor:gitlab-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiadaovat2spv5tzzoukm6gmcjaim3gvtttvjy27bixgfcleackmey",
+      "endpoint": "ipfs://bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gitlab-compat/manifest.json#/capabilities/mcp"
@@ -3388,7 +3388,7 @@
       "handle": "gk_software-compat",
       "did": "did:web:etzhayyim.com:actor:gk_software-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreie6snklvjfrl2p7zf5ru4jwulg7oxik2hu7q2lxicbcvqkmemou5m",
+      "endpoint": "ipfs://bafkreic3ii7a677zfs4sc5bg2ilukqv62tjiijtxunorhddfvh7defh35i",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gk_software-compat/manifest.json#/capabilities/mcp"
@@ -3397,7 +3397,7 @@
       "handle": "glide-compat",
       "did": "did:web:etzhayyim.com:actor:glide-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreieqg3wflgizr6p54jfgxp6j63vtlpjmjbkjsri4pp4bhbfxje55hm",
+      "endpoint": "ipfs://bafkreifnsm3s5dkenuj2vybwz3wfcewdclwwpphw3shicmpbjmfwqtozre",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/glide-compat/manifest.json#/capabilities/mcp"
@@ -3406,7 +3406,7 @@
       "handle": "globalpayments-compat",
       "did": "did:web:etzhayyim.com:actor:globalpayments-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia34exhllntbjqp22feuv3uzwvsejn6te2v6gfotedmxj6lwymdbu",
+      "endpoint": "ipfs://bafkreid67ka7us4ejolag24ebjpsdncjxqblui76rw4bxhye6ukmxlca2m",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/globalpayments-compat/manifest.json#/capabilities/mcp"
@@ -3415,7 +3415,7 @@
       "handle": "gloriafoods-compat",
       "did": "did:web:etzhayyim.com:actor:gloriafoods-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiel4du77ehsncjqz4gpqkgmalsan4cqejianebfwsucaeg4guizmu",
+      "endpoint": "ipfs://bafkreidl3baqwpovv2fojdxe7twnkhnfcjyzpksvshjr55c243xwbuwmu4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gloriafoods-compat/manifest.json#/capabilities/mcp"
@@ -3424,7 +3424,7 @@
       "handle": "gnss_rtk-compat",
       "did": "did:web:etzhayyim.com:actor:gnss_rtk-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia3d7hsgeu7c5he52jak6w2m45w5jefsrz3uyvrys5gr2bnlkgseu",
+      "endpoint": "ipfs://bafkreici4fy2ytzvj2upifvg7vh35ixs4ae5af4wa6ina4q6twvaql74he",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gnss_rtk-compat/manifest.json#/capabilities/mcp"
@@ -3433,7 +3433,7 @@
       "handle": "gojek-compat",
       "did": "did:web:etzhayyim.com:actor:gojek-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreignguq52akj7q4cddzm5l37n57l4otxg2xbff3czgo6behs3hjjm4",
+      "endpoint": "ipfs://bafkreig4k4graqmqxhipccbn7nmv7yq5dzgorfz5xqggldlgdr3ldpp3ue",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gojek-compat/manifest.json#/capabilities/mcp"
@@ -3442,7 +3442,7 @@
       "handle": "gong-compat",
       "did": "did:web:etzhayyim.com:actor:gong-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia57whyl5ccmhgvyeujd4repbwtvasvbmpvnyppvqzxszlxom3oce",
+      "endpoint": "ipfs://bafkreifqjohbp37rf2abrgg7znzue232qdpfbmdybyykn64zs4waidhq44",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gong-compat/manifest.json#/capabilities/mcp"
@@ -3451,7 +3451,7 @@
       "handle": "goodrx-compat",
       "did": "did:web:etzhayyim.com:actor:goodrx-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifufcdwdqs7avbz24okkgoaptmrvvrges7wis4cmbssoqy3s7glsy",
+      "endpoint": "ipfs://bafkreie3u737tw7rx5pte3wnq7ht77uans2dyvof2sroicv4afnsqi4cgy",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/goodrx-compat/manifest.json#/capabilities/mcp"
@@ -3460,7 +3460,7 @@
       "handle": "google-workspace-compat",
       "did": "did:web:etzhayyim.com:actor:google-workspace-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihgfp6fx6tvuv6gvsbrgvhaxqymtnfnshxvcj77flwdm3b62kimwy",
+      "endpoint": "ipfs://bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/google-workspace-compat/manifest.json#/capabilities/mcp"
@@ -3469,7 +3469,7 @@
       "handle": "google_cirq-compat",
       "did": "did:web:etzhayyim.com:actor:google_cirq-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih7gtdgpgd3wmssvxazfnvflcwsdvy2yq5ajk7adyvssidx2j75oi",
+      "endpoint": "ipfs://bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/google_cirq-compat/manifest.json#/capabilities/mcp"
@@ -3478,7 +3478,7 @@
       "handle": "google_tpu_api-compat",
       "did": "did:web:etzhayyim.com:actor:google_tpu_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib22obw2uxlqphdxyyznmgwjyxh7jkhxw556fr7jntse4i5umx3jq",
+      "endpoint": "ipfs://bafkreihvd4ryjvfevkxyj6msdfnmjfrdkjbb2iskcwcmgvfkt2nurkjln4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/google_tpu_api-compat/manifest.json#/capabilities/mcp"
@@ -3487,7 +3487,7 @@
       "handle": "googleads-compat",
       "did": "did:web:etzhayyim.com:actor:googleads-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreib5mmanlhywxz52cjqwnrn54h4mdnyzxoldrcfdcdh7a47lauzc7u",
+      "endpoint": "ipfs://bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/googleads-compat/manifest.json#/capabilities/mcp"
@@ -3496,7 +3496,7 @@
       "handle": "govuk_onelogin-compat",
       "did": "did:web:etzhayyim.com:actor:govuk_onelogin-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih2yqyixwxkfzxqnbjg7g4wtlmietkuvlkeh4yp45exlhdfx66r7m",
+      "endpoint": "ipfs://bafkreihnahbnfjichesz7m274gigtkcnpvxyfttq3ac72duqu2yaxufebi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/govuk_onelogin-compat/manifest.json#/capabilities/mcp"
@@ -3514,7 +3514,7 @@
       "handle": "grafana-compat",
       "did": "did:web:etzhayyim.com:actor:grafana-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreicgopamdespzugtzzhhq7s6l7l7ofd3vx2h5n747ugdr6yw4dvmhe",
+      "endpoint": "ipfs://bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/grafana-compat/manifest.json#/capabilities/mcp"
@@ -3523,7 +3523,7 @@
       "handle": "granicus-compat",
       "did": "did:web:etzhayyim.com:actor:granicus-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreia4rvskyqjmgrgy2lhqlf3yoe4bjbpq3x4eljxwsjvacfuqfoioqy",
+      "endpoint": "ipfs://bafkreib3esnfvroxaxbmm2i4xtmi52r4yv3t3x2v3nwgyra7wvevkvhwr4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/granicus-compat/manifest.json#/capabilities/mcp"
@@ -3532,7 +3532,7 @@
       "handle": "greenhouse-compat",
       "did": "did:web:etzhayyim.com:actor:greenhouse-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreihyyai63ofr7mgvyctoldumjlqivl5gwtmylrxgfqnhzo2twjrv2m",
+      "endpoint": "ipfs://bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/greenhouse-compat/manifest.json#/capabilities/mcp"
@@ -3541,7 +3541,7 @@
       "handle": "greenway-compat",
       "did": "did:web:etzhayyim.com:actor:greenway-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifrxq66dpsk3eteqsjcaitobq2qv46dfkhvmw54usj5miajyypjse",
+      "endpoint": "ipfs://bafkreihuh6wqczd23ijcg5hjxlasxorgjdh5z44zmwo37sdn7bmoga6mtq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/greenway-compat/manifest.json#/capabilities/mcp"
@@ -3559,7 +3559,7 @@
       "handle": "gs_markets-compat",
       "did": "did:web:etzhayyim.com:actor:gs_markets-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiclyqruuo6bs5ngtoezjtrsnmntzelgjm25hacbsre5crhoccjasu",
+      "endpoint": "ipfs://bafkreiatxzukdxjycqvhsqqkugjm3kotjq7db3v2ecnxkfiu7ro3dybvq4",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gs_markets-compat/manifest.json#/capabilities/mcp"
@@ -3568,7 +3568,7 @@
       "handle": "gsma_opengateway-compat",
       "did": "did:web:etzhayyim.com:actor:gsma_opengateway-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifkcwtsxpw2vgrehlpfvrpz3xfl4xajmhn7kq2pudmvauh2sgambe",
+      "endpoint": "ipfs://bafkreif5zbikfwqyvtpqik4cpg3lq32wqs5rckd45sgpnqimy6bcpenyvq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gsma_opengateway-compat/manifest.json#/capabilities/mcp"
@@ -3586,7 +3586,7 @@
       "handle": "guidewire_claimcenter-compat",
       "did": "did:web:etzhayyim.com:actor:guidewire_claimcenter-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidq2awerldvdmn7feobjo3o53woee7mvc4xb5s6f3ubvkeljm3jiy",
+      "endpoint": "ipfs://bafkreibywrhhdmru2u6nhx4muuc5gprixtjpbojlizcb5qdj2hdz7wklnq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/guidewire_claimcenter-compat/manifest.json#/capabilities/mcp"
@@ -3595,7 +3595,7 @@
       "handle": "guidewire_rating-compat",
       "did": "did:web:etzhayyim.com:actor:guidewire_rating-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreic5zxvz4yenlsjsjjhyj5lrkfsjqm73vznxdx3qiwhx4lx2mvprku",
+      "endpoint": "ipfs://bafkreifztpsog763irqb3nrndqdu4wz57c5qumpychpe2wmtgvlh4lu3ei",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/guidewire_rating-compat/manifest.json#/capabilities/mcp"
@@ -3604,7 +3604,7 @@
       "handle": "gusto-compat",
       "did": "did:web:etzhayyim.com:actor:gusto-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih6mgtpbxg5vxc4kz75a46m4po63xje5kw6qitvghgrx3pohdupaq",
+      "endpoint": "ipfs://bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/gusto-compat/manifest.json#/capabilities/mcp"
@@ -3613,7 +3613,7 @@
       "handle": "halliburton_delfi-compat",
       "did": "did:web:etzhayyim.com:actor:halliburton_delfi-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih5gcb6yz6bcdizgnfnqrk2mqvbsosdhcpwsrwajoo2k2p7vtwira",
+      "endpoint": "ipfs://bafkreiffvmksdfuzv4vitv7vazt7xkqh6ghsldobt5q3wietrkltooopwa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/halliburton_delfi-compat/manifest.json#/capabilities/mcp"
@@ -3622,7 +3622,7 @@
       "handle": "hannover_re-compat",
       "did": "did:web:etzhayyim.com:actor:hannover_re-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreibtwscslv2qkirhscbr6jpdyhrjkkjocnheyxgl5wdesyeti3lzey",
+      "endpoint": "ipfs://bafkreiavhveh52kn7r3uw6mfhtkerg2fyipo4vmrzbfpp2lvgh7i3ve3sq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/hannover_re-compat/manifest.json#/capabilities/mcp"
@@ -3631,7 +3631,7 @@
       "handle": "hapag_lloyd_api-compat",
       "did": "did:web:etzhayyim.com:actor:hapag_lloyd_api-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreifbsdou5y5savaog5pvnp2fpt6xb3njfronz5hlfjkhmechvlgukq",
+      "endpoint": "ipfs://bafkreiaqykzsbicwru76gbxjytqe65bplynh4nijsaizoiqorrdro52bam",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/hapag_lloyd_api-compat/manifest.json#/capabilities/mcp"
@@ -3640,7 +3640,7 @@
       "handle": "hashicorp-compat",
       "did": "did:web:etzhayyim.com:actor:hashicorp-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreih7y2mxbao26ghrrrsoswfsoxdrpionlgntt5n3rfxgr273miogqi",
+      "endpoint": "ipfs://bafkreieeu24cg5xzyb7htmbby3th6rt67tpqmmgknomifhuhce2xrpqy7u",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/hashicorp-compat/manifest.json#/capabilities/mcp"
@@ -3649,7 +3649,7 @@
       "handle": "hawkeye360-compat",
       "did": "did:web:etzhayyim.com:actor:hawkeye360-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiecsc4mr3hkabclx72qvwy72dsg6sos6wd46qco2nsa2c2w2jlxou",
+      "endpoint": "ipfs://bafkreiae46532e42c5xt3dm4gtjjzwwircqy2ilpgyakrgs6rghdf3u5ja",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/hawkeye360-compat/manifest.json#/capabilities/mcp"
@@ -3658,7 +3658,7 @@
       "handle": "hcss-compat",
       "did": "did:web:etzhayyim.com:actor:hcss-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreidql3l5eolqplw5ontlnue55gdub7gf3ageapafeo5nu77dq77o6i",
+      "endpoint": "ipfs://bafkreigpmufev46af7yuasq5bbxqya535w22vsqzxmdw2kk6yzaipnqgsq",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/hcss-compat/manifest.json#/capabilities/mcp"
@@ -3667,7 +3667,7 @@
       "handle": "helion_energy-compat",
       "did": "did:web:etzhayyim.com:actor:helion_energy-compat",
       "tier": "L3",
-      "endpoint": "ipfs://bafkreiesxuhsoa53uv7hpj6gnocpxfs6zjiwjkrbvjcfs4axbkpehar6um",
+      "endpoint": "ipfs://bafkreihzapf7pv5jvy7o4lj7qionjkymkztm3oqfwtj2dwjqkenpu2cvbi",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 30,
       "manifest": "20-actors/helion_energy-compat/manifest.json#/capabilities/mcp"

@@ -88,6 +88,11 @@ def main(argv):
                                            "cleanroom-actors.index.json")))
         cohort = sorted(a["handle"][:-len("-compat")] for a in idx["actors"]
                         if a.get("tier") == "L4")
+    elif argv and argv[0] == "--all":
+        # every actor with a dir (resume-aware via merge below)
+        cohort = sorted(d[:-len("-compat")].strip()
+                        for d in os.listdir(os.path.join(ROOT, "20-actors"))
+                        if d.endswith("-compat"))
     elif argv and argv[0] == "--per-category":
         depth = int(argv[1]) if len(argv) > 1 and argv[1].isdigit() else 1
         cats = deepen.parse_platform_categories()
@@ -101,32 +106,55 @@ def main(argv):
     else:
         cohort = argv or sorted(deepen.PLATFORM_OVERRIDES.keys())
 
-    built, errs = [], []
+    # --limit N caps NEW builds this run (for safe bounded batches)
+    limit = None
+    if "--limit" in argv:
+        i = argv.index("--limit")
+        if i + 1 < len(argv) and argv[i + 1].isdigit():
+            limit = int(argv[i + 1])
+
+    path = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-built-actors.json")
+    # resume: merge with already-built records
+    existing = {}
+    if os.path.exists(path):
+        for a in json.load(open(path)).get("actors", []):
+            existing[a["handle"]] = a
+
+    def _write(records, errs_n):
+        out = {
+            "schemaVersion": "1.0",
+            "kind": "built-wasm-actors",
+            "tier": "browser-local (raw single-block CIDv1)",
+            "tooling": {"rustc": "stable wasm32-unknown-unknown", "validator": "wasm-tools"},
+            "adr": ["260607", "2606014500", "2606014600"],
+            "count": len(records),
+            "actors": sorted(records.values(), key=lambda a: a["handle"]),
+        }
+        with open(path, "w") as f:
+            json.dump(out, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+
+    errs, new_n = [], 0
     for p in cohort:
         if not os.path.isdir(os.path.join(ROOT, "20-actors", f"{p}-compat")):
             continue
+        if f"{p}-compat" in existing:
+            continue                      # resume: already built
+        if limit is not None and new_n >= limit:
+            break
         res = build_one(p)
         if res.get("error"):
             errs.append(res)
             print(f"  ✘ {p}: {res['error']}")
         else:
-            built.append(res)
+            existing[res["handle"]] = res
+            new_n += 1
             print(f"  ✔ {res['handle']:<28} {res['bytes']:>6}B  {res['wasmCid']}")
+            if new_n % 25 == 0:
+                _write(existing, len(errs))    # incremental checkpoint
 
-    out = {
-        "schemaVersion": "1.0",
-        "kind": "built-wasm-actors",
-        "tier": "browser-local (raw single-block CIDv1)",
-        "tooling": {"rustc": "stable wasm32-unknown-unknown", "validator": "wasm-tools"},
-        "adr": ["260607", "2606014500", "2606014600"],
-        "count": len(built),
-        "actors": built,
-    }
-    path = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-built-actors.json")
-    with open(path, "w") as f:
-        json.dump(out, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-    print(f"\nBuilt {len(built)} actors → {os.path.relpath(path, ROOT)} ({len(errs)} errors)")
+    _write(existing, len(errs))
+    print(f"\nBuilt {new_n} new (total {len(existing)}) → {os.path.relpath(path, ROOT)} ({len(errs)} errors)")
     # restore default meta so the committed crate builds standalone
     with open(META, "w") as f:
         f.write("// Default actor identity (overwritten per-actor by gen_rust_actor.py at build).\n")
