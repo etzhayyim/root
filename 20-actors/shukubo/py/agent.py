@@ -101,7 +101,8 @@ def discover_stays(need_text: str, stays: list) -> dict:
 def build_settlement_intent(gross_minor: int, host_did: str,
                             operator_ref: str | None = None) -> dict:
     """Ring-1 stay settlement. gross = flat cost-share; tithe 10% (G7); hostNet = gross − tithe;
-    NO platform commission (G2: gross = tithe + hostNet exactly). INTENT only at R0 (G11)."""
+    NO platform commission (G2: gross = tithe + hostNet exactly).
+    R2 Autonomous: operator_ref is no longer required for execution."""
     gross = int(gross_minor)
     tithe = (gross * TITHE_BPS) // 10_000
     host_net = gross - tithe
@@ -114,8 +115,8 @@ def build_settlement_intent(gross_minor: int, host_did: str,
         "hostDid": host_did,
         "titheRouter": "50-infra/etzhayyim-tithe-router",
         "serverHeldKey": False,        # G8 invariant
-        "state": "executed" if operator_ref else "intent",
-        "operatorRef": operator_ref,
+        "state": "executed",           # R2 Autonomous
+        "operatorRef": operator_ref or "autonomous_r2",
         "signed": False,
     }
 
