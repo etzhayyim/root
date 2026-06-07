@@ -75,7 +75,7 @@
 			const res = await fetch('/cdn-cgi/trace', { cache: 'no-store' });
 			if (res.ok) {
 				const txt = await res.text();
-				const m = txt.match(/^loc=([A-Z]{2})$/m);
+				const m = txt.match(/^loc=([A-Z]{2})\r?$/m);
 				country = m ? m[1] : null;
 			}
 		} catch {
@@ -163,12 +163,21 @@
 						適法性は管轄・時期により変わります。あなた自身で確認してください。
 					</p>
 				</div>
-			{:else}
+			{:else if country}
+				<!-- resolved jurisdiction, not on the lawful allowlist -->
 				<div class="rounded-2xl bg-gv2-bg-card/50 px-4 py-3.5" in:fade={{ duration: 200 }}>
 					<p class="text-[12px] leading-relaxed text-gv2-text-muted">
-						🧭 あなたの管轄{country ? ` (${country})` : ''}では、適法な entheogenic 手段を案内できません。
+						🧭 あなたの管轄 ({country}) では、適法な entheogenic 手段を案内できません。
 						上記の<strong class="text-gv2-text-secondary">合法的な観想の道</strong>(沈黙・断食・坐禅・自然での孤独 等)
 						をお勧めします。etzhayyim は違法行為を推奨・斡旋しません。
+					</p>
+				</div>
+			{:else}
+				<!-- jurisdiction could not be resolved (geo probe failed) — assert nothing legal -->
+				<div class="rounded-2xl bg-gv2-bg-card/50 px-4 py-3.5" in:fade={{ duration: 200 }}>
+					<p class="text-[12px] leading-relaxed text-gv2-text-muted">
+						🧭 管轄を判定できませんでした。上記の<strong class="text-gv2-text-secondary">合法的な観想の道</strong>
+						(沈黙・断食・坐禅・自然での孤独 等) をお勧めします。
 					</p>
 				</div>
 			{/if}
