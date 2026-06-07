@@ -13994,6 +13994,19 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606072400-organizer-kotoba-native-file-commons",
+      "type": "TechArticle",
+      "title": "ADR-2606072400: organizer — kotoba-native auto-organize file commons (Google Drive inversion); remediation Phase A",
+      "status": "proposed",
+      "topic": "organizer-kotoba-native",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/organizer"
+      ],
+      "related": "doc:2606072200",
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

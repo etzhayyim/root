@@ -21893,6 +21893,31 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606072400-organizer-kotoba-native-file-commons-phase-a.md",
+      "id": "adr-2606072400-organizer-kotoba-native-file-commons",
+      "title": "ADR-2606072400: organizer — kotoba-native auto-organize file commons (Google Drive inversion); remediation Phase A",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "organizer-kotoba-native",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/organizer"
+      ],
+      "related": [
+        "2606072200"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606071800",
+        "2606072000",
+        "2605181100"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
