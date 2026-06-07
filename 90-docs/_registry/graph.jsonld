@@ -13952,6 +13952,22 @@
       "lastVerified": "2026-06-07"
     },
     {
+      "id": "doc:adr-2606071800-substrate-remediation-wave",
+      "type": "TechArticle",
+      "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
+      "status": "proposed",
+      "topic": "substrate-remediation-wave",
+      "authoritative": true,
+      "authoritativeFor": [
+        "90-docs/_registry/substrate-remediation-inventory.txt"
+      ],
+      "related": [
+        "doc:2606071400",
+        "doc:2606012100"
+      ],
+      "lastVerified": "2026-06-07"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

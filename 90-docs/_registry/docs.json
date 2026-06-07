@@ -21816,6 +21816,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071800-legacy-risingwave-kysely-to-kotoba-kqe-remediation-wave.md",
+      "id": "adr-2606071800-substrate-remediation-wave",
+      "title": "ADR-2606071800: legacy RisingWave/Hyperdrive/Kysely → kotoba-kqe read-path remediation wave",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "substrate-remediation-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "90-docs/_registry/substrate-remediation-inventory.txt"
+      ],
+      "related": [
+        "2606071400",
+        "2606012100"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605172000",
+        "2605262130",
+        "2605312345",
+        "2605191648"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
