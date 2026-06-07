@@ -35,7 +35,7 @@ lance-testing = { path = "../lance-testing" }
 proptest.workspace = true
 
 [build-dependencies]
-cc = "1.0.83"
+cc = "1.2.63"
 
 [features]
 # Enable compiling multiple C kernels for fp16 SIMD computations.
