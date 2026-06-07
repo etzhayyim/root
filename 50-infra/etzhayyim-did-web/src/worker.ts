@@ -1530,12 +1530,13 @@ a{color:inherit}
         };
 
         // ── verifyCacao short-circuit (ADR-2606060000) ────────────────────
-        // Same-origin auth gate for `/profile`: verify a member-signed CACAO
-        // (WebAuthn/passkey → Ed25519 did:key, verified LOCALLY via WebCrypto;
-        // SIWE/eip191 structurally validated + relayed to kotoba). No auth
-        // subdomain, no server key, no session minted — the Worker only
-        // confirms DID control + capability scope so the page can flip into
-        // edit-mode. Served locally; never proxied.
+        // Same-origin auth gate: verify a member-signed CACAO (WebAuthn/passkey
+        // → Ed25519 did:key, verified LOCALLY via WebCrypto; SIWE/eip191
+        // structurally validated + relayed to kotoba). No auth subdomain, no
+        // server key, no session minted — the Worker only confirms DID control +
+        // capability scope so the client can flip into a signed-in/edit state.
+        // This is now the primary login/signup control proof (ADR-2606061800),
+        // not just `/profile` edit-mode. Served locally; never proxied.
         if (
           nsid === "com.etzhayyim.authz.verifyCacao" &&
           request.method === "POST"
