@@ -54,6 +54,7 @@ import importlib.resources
 import io
 import json
 import logging
+from pymagatama.kotoba_datomic import get_kotoba_client
 import os
 import re
 import subprocess
@@ -68,7 +69,6 @@ import urllib.parse
 import urllib.request
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 
 # Reasoning models (Qwen3.5-397B etc.) wrap chain-of-thought in
 # `<think>...</think>` blocks that count against max_tokens. Strip post-call
@@ -228,15 +228,16 @@ def _vertex_id_artifact(conv_id: str, artifact_id: str) -> str:
     return f"at://{CHAT_ACTOR}/com.etzhayyim.apps.chat.artifact/{conv_id}-{artifact_id}"
 
 
-def _rw_execute(sql: str, params: tuple[Any, ...]) -> None:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
+def _rw_execute(sql: str, params: tuple[Any, ...] = ()) -> None:
+    get_kotoba_client().q(sql, params)
 
 
 def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        return list(cur.fetchall())
+    res = get_kotoba_client().q(sql, params)
+    if not res: return []
+    if isinstance(res[0], dict):
+        return [tuple(r.values()) for r in res]
+    return list(res)
 
 
 def _rw_table_exists(table_name: str) -> bool:

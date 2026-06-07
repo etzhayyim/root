@@ -26,6 +26,7 @@ Env:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import hashlib
@@ -356,8 +357,9 @@ async def node_quality_gate(state: NewsletterState) -> dict[str, Any]:
 async def node_store_campaign(state: NewsletterState) -> dict[str, Any]:
     """Persist campaign to RisingWave vertex_newsletter_campaign."""
     def _run() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 INSERT INTO vertex_newsletter_campaign (
                   vertex_id, record_id, owner_did, label, status,
@@ -545,8 +547,9 @@ async def task_send_via_resend(
                     sent_count += 1
 
                     def _record(eid: str, sid: str) -> None:
-                        with sync_cursor() as cur:
-                            cur.execute(
+                        if True:
+                            client = get_kotoba_client()
+                            _res = client.q(
                                 "INSERT INTO edge_newsletter_sent "
                                 "(edge_id,src_vid,dst_vid,relation_kind,campaign_id,subscriber_id,resend_email_id,created_at,updated_at,owner_did,sensitivity_ord) "
                                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
@@ -565,8 +568,9 @@ async def task_send_via_resend(
     sent_at = _now()
 
     def _mark_sent(count: int) -> None:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "UPDATE vertex_newsletter_campaign SET status='sent', recipient_count=%s, sent_at=%s, updated_at=%s "
                 "WHERE campaign_id=%s",
                 (count, sent_at, sent_at, campaignId),
@@ -601,8 +605,9 @@ async def task_create_sponsor_slot(
     ad_campaign_id = data.get("campaignId", "")
 
     def _link() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "UPDATE vertex_newsletter_campaign SET ad_campaign_id=%s, updated_at=%s WHERE campaign_id=%s",
                 (ad_campaign_id, _now(), campaignId),
             )

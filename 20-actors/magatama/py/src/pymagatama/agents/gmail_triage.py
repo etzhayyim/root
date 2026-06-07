@@ -33,6 +33,7 @@ in 20260508996000_alter_vertex_gmail_email_triage.ts).
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import json
 import re
@@ -43,7 +44,6 @@ from urllib.parse import urlparse
 from langgraph.graph import END, START, StateGraph
 
 from pymagatama import llm
-from pymagatama.db_sync import sync_cursor
 from pymagatama.primitives import langgraph_registry
 
 # ── Constants ──────────────────────────────────────────────────────────
@@ -232,10 +232,11 @@ async def _node_claim(state: GmailTriageState) -> GmailTriageState:
         sql += "AND account_email = %s "
         params = (account_filter,)
     sql += f"ORDER BY internal_date DESC LIMIT {int(batch)}"
-    with sync_cursor() as cur:
-        cur.execute(sql, params)
-        cols = [d[0] for d in cur.description]
-        claimed = [dict(zip(cols, row)) for row in (cur.fetchall() or [])]
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, params)
+        cols = [d[0] for d in ([("col",)] if _res else [])]
+        claimed = [dict(zip(cols, row)) for row in (_res or [])]
     return {**state, "claimed": claimed, "llmCalls": int(state.get("llmCalls") or 0)}
 
 
@@ -319,16 +320,17 @@ async def _node_t2_reputation(state: GmailTriageState) -> GmailTriageState:
     entity_ids = sorted({f"email-{_sanitize_addr(str(r.get('from_addr') or ''))}" for r in rows})
     rep: dict[str, dict[str, Any]] = {}
     if entity_ids:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             placeholders = ",".join(["%s"] * len(entity_ids))
-            cur.execute(
+            _res = client.q(
                 f"SELECT entity_id, evidence_count_24h, max_severity_24h, "
                 f"avg_confidence_24h, distinct_categories_24h "
                 f"FROM mv_yabai_sender_reputation_24h "
                 f"WHERE entity_id IN ({placeholders})",
                 tuple(entity_ids),
             )
-            for row in cur.fetchall() or []:
+            for row in _res or []:
                 rep[str(row[0])] = {
                     "evidence_count_24h": row[1],
                     "max_severity_24h": row[2],
@@ -416,7 +418,7 @@ async def _node_t3_llm(state: GmailTriageState) -> GmailTriageState:
 async def _node_threat_synth(state: GmailTriageState) -> GmailTriageState:
     """LLM #2 — threat intelligence synthesis for confirmed spam rows.
 
-    Generates structured IOC JSON used as `vertex_yabai_evidence.description`
+    Generates structured IOC JSON used as `([("col",)] if _res else [])`
     so the yabai dashboard sees natural-language threat summary instead of
     a canned string. Only fires for spam classification (not trash/gray);
     capped at 3 calls per batch (cost guard).
@@ -520,7 +522,8 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
     entity_count = 0
     evidence_count = 0
     seen_entities: set[str] = set()
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             from_addr = str(row.get("from_addr") or "")
             if not from_addr:
@@ -529,7 +532,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
             entity_id = f"email-{sender_key}"
             entity_vid = f"at://{ACTOR_YABAI}/com.etzhayyim.apps.yabai.entity/{entity_id}"
             if entity_vid not in seen_entities:
-                cur.execute(
+                _res = client.q(
                     "INSERT INTO vertex_yabai_entity ("
                     "vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo, "
                     "entity_id, entity_type, name, value, canonical_name, aliases, source, "
@@ -558,7 +561,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
             evidence_id = f"ev-{email_id}-{cls}"
             evidence_vid = f"at://{ACTOR_YABAI}/com.etzhayyim.apps.yabai.evidence/{evidence_id}"
             reasons_csv = ",".join(str(x) for x in (row.get("reasons") or []))[:480]
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_yabai_evidence ("
                 "vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo, "
                 "evidence_id, entity_id, category, confidence, severity, probability, "
@@ -568,7 +571,7 @@ async def _node_register_yabai(state: GmailTriageState) -> GmailTriageState:
                 "%s, %s, %s::date, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s"
                 ") ON CONFLICT (vertex_id) DO UPDATE SET "
                 "confidence = EXCLUDED.confidence, severity = EXCLUDED.severity, "
-                "summary = EXCLUDED.summary, description = EXCLUDED.description",
+                "summary = EXCLUDED.summary, description = ([("col",)] if _res else [])",
                 (
                     evidence_vid, None, today, 200, ACTOR_YABAI,
                     evidence_id, ACTOR_YABAI,
@@ -596,14 +599,15 @@ async def _node_mark_triaged(state: GmailTriageState) -> GmailTriageState:
         return {**state, "triagedTotal": 0, "spamTotal": 0, "trashTotal": 0, "grayTotal": 0, "cleanTotal": 0}
     now = _now_iso()
     counts = {"spam": 0, "trash": 0, "gray": 0, "clean": 0}
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             vid = row.get("vertex_id")
             cls = str(row.get("classification") or "clean")
             counts[cls] = counts.get(cls, 0) + 1
             score = int(row.get("score") or 0)
             reasons_csv = ",".join(str(x) for x in (row.get("reasons") or []))[:480]
-            cur.execute(
+            _res = client.q(
                 "UPDATE vertex_gmail_email SET triaged_at = %s, triage_classification = %s, "
                 "triage_score = %s, triage_reasons = %s WHERE vertex_id = %s",
                 (now, cls, score, reasons_csv, vid),

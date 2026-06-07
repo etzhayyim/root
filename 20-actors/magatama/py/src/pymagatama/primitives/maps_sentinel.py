@@ -8,6 +8,7 @@ Two LangServer task types:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import hashlib
@@ -19,7 +20,6 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
-from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock patching)
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -468,7 +468,8 @@ def task_maps_sentinel_stac_search(
             "WHERE NOT EXISTS "
             "(SELECT 1 FROM vertex_satellite_scene WHERE vertex_id = %s)"
         )
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             for row in rows:
                 record = json.loads(row["value_json"])
                 bbox_json = json.dumps(
@@ -492,7 +493,7 @@ def task_maps_sentinel_stac_search(
                     row["actor_id"],
                     row["vertex_id"],
                 )
-                cur.execute(_insert_sql, params)
+                _res = client.q(_insert_sql, params)
                 scenes_ingested += 1
 
     return {
@@ -605,8 +606,9 @@ def task_maps_sentinel_runpod_analyze(
         "sys.maps.sentinel",
         analysis_uri,
     )
-    with sync_cursor() as cur:
-        cur.execute(_insert_sql, params)
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(_insert_sql, params)
 
     return {
         "ok": ok,

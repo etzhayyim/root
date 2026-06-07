@@ -13,6 +13,7 @@ Env vars:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import json
 import os
@@ -538,20 +539,20 @@ async def task_maps3d_link_actor(
     if not detections:
         return {"ok": True, "links": []}
 
-    from pymagatama.db_sync import sync_cursor
 
     # Query actor_registry for nearby/relevant actors.
     registry_rows: list[dict] = []
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 "SELECT did, handle, display_name "
                 "FROM actor_registry "
                 "WHERE status = 'active' "
                 "LIMIT 200"
             )
-            cols = [d[0] for d in (cur.description or [])]
-            for row in (cur.fetchall() or []):
+            cols = [d[0] for d in (([("col",)] if _res else []) or [])]
+            for row in (_res or []):
                 registry_rows.append(dict(zip(cols, row)))
     except Exception:
         pass  # registry unavailable; proceed with detection-only linkage

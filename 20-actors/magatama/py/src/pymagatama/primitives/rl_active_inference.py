@@ -50,6 +50,7 @@ Pyzeebe task types registered via register():
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import json
@@ -57,7 +58,6 @@ import logging
 import math
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 LOG = logging.getLogger("rl_active_inference")
 
@@ -225,13 +225,13 @@ def _get_or_create_model(
     action_index: dict[str, int],
 ) -> dict:
     vid = _model_vid(actor_did, action_nsid)
-    cur.execute(
+    _res = client.q(
         'SELECT A_json, B_json, C_json, D_json, E_json, A_counts_json, B_counts_json, '
         'n_obs, n_states, n_actions, action_index_json, "version" '
         "FROM vertex_rl_aif_model WHERE vertex_id = %s LIMIT 1",
         (vid,),
     )
-    row = cur.fetchone()
+    row = (_res[0] if _res else None)
     if row:
         return {
             "vertex_id": vid,
@@ -258,7 +258,7 @@ def _get_or_create_model(
     A_counts = [[1.0] * _N_STATES for _ in range(_N_OBS)]
     B_counts = [[[1.0] * n_a for _ in range(_N_STATES)] for _ in range(_N_STATES)]
     now = _now_ts()
-    cur.execute(
+    _res = client.q(
         'INSERT INTO vertex_rl_aif_model '
         '(vertex_id, actor_did, action_nsid, A_json, B_json, C_json, D_json, E_json, '
         ' A_counts_json, B_counts_json, n_obs, n_states, n_actions, action_index_json, '
@@ -282,30 +282,30 @@ def _get_or_create_model(
 
 def _get_cursor_ts(cur: Any, actor_did: str, action_nsid: str) -> str:
     vid = _cursor_vid(actor_did, action_nsid)
-    cur.execute(
+    _res = client.q(
         "SELECT last_step_ts FROM vertex_rl_aif_obs_cursor WHERE vertex_id = %s LIMIT 1",
         (vid,),
     )
-    row = cur.fetchone()
+    row = (_res[0] if _res else None)
     return row[0] if row else "1970-01-01 00:00:00"
 
 
 def _save_cursor(cur: Any, actor_did: str, action_nsid: str, last_ts: str, count: int) -> None:
     vid = _cursor_vid(actor_did, action_nsid)
     now = _now_ts()
-    cur.execute(
+    _res = client.q(
         "SELECT 1 FROM vertex_rl_aif_obs_cursor WHERE vertex_id = %s LIMIT 1", (vid,)
     )
-    exists = cur.fetchone()
+    exists = (_res[0] if _res else None)
     if exists:
-        cur.execute(
+        _res = client.q(
             "UPDATE vertex_rl_aif_obs_cursor "
             "SET last_step_ts=%s, steps_processed=steps_processed+%s, updated_at=%s "
             "WHERE vertex_id=%s",
             (last_ts, count, now, vid),
         )
     else:
-        cur.execute(
+        _res = client.q(
             "INSERT INTO vertex_rl_aif_obs_cursor "
             "(vertex_id, actor_did, action_nsid, last_step_ts, steps_processed, updated_at) "
             "VALUES (%s,%s,%s,%s,%s,%s)",
@@ -330,12 +330,13 @@ def task_rl_aif_update_beliefs(
     total_efe = 0
 
     # 1. Discover active (actor_did, action_nsid) pairs
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT DISTINCT actor_did, action_nsid FROM vertex_rl_step "
             "WHERE actor_did IS NOT NULL ORDER BY actor_did LIMIT %d" % int(max_actors)
         )
-        pairs = cur.fetchall() or []
+        pairs = _res or []
 
     for actor_did, action_nsid in pairs:
         try:
@@ -349,16 +350,17 @@ def task_rl_aif_update_beliefs(
 
 def _process_actor_beliefs(actor_did: str, action_nsid: str, batch_size: int) -> int:
     """Process one (actor_did, action_nsid) pair; return number of steps written."""
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         cursor_ts = _get_cursor_ts(cur, actor_did, action_nsid)
 
         # Build action index for this actor (all seen action_nsids → index)
-        cur.execute(
+        _res = client.q(
             "SELECT DISTINCT action_nsid FROM vertex_rl_step "
             "WHERE actor_did = %s LIMIT 64",
             (actor_did,),
         )
-        all_nsids = sorted(r[0] for r in (cur.fetchall() or []))
+        all_nsids = sorted(r[0] for r in (_res or []))
         action_index = {n: i for i, n in enumerate(all_nsids)}
 
         model = _get_or_create_model(cur, actor_did, action_nsid, action_index)
@@ -369,7 +371,7 @@ def _process_actor_beliefs(actor_did: str, action_nsid: str, batch_size: int) ->
         n_a = model["n_actions"]
 
         # Fetch new steps for this (actor_did, action_nsid)
-        cur.execute(
+        _res = client.q(
             "SELECT vertex_id, episode_id, created_at, reward_floor, reward_spirit, "
             "reward_eta, reward_scalar "
             "FROM vertex_rl_step "
@@ -377,7 +379,7 @@ def _process_actor_beliefs(actor_did: str, action_nsid: str, batch_size: int) ->
             f"ORDER BY created_at ASC LIMIT {int(batch_size)}",
             (actor_did, action_nsid, cursor_ts),
         )
-        steps = cur.fetchall() or []
+        steps = _res or []
         if not steps:
             return 0
 
@@ -398,7 +400,7 @@ def _process_actor_beliefs(actor_did: str, action_nsid: str, batch_size: int) ->
             q, free_energy = _belief_update(A, D, obs_idx)
 
             belief_vid = f"aif:belief:{step_id}"
-            cur.execute(
+            _res = client.q(
                 "INSERT INTO vertex_rl_aif_belief "
                 "(vertex_id, episode_id, actor_did, step_id, belief_json, "
                 " free_energy, updated_at, sensitivity_ord, owner_did, org_id, user_id, actor_id) "
@@ -427,7 +429,7 @@ def _process_actor_beliefs(actor_did: str, action_nsid: str, batch_size: int) ->
 
             for (nsid, a_idx, efe_total, pragmatic, epistemic), prob in zip(efe_rows, policy_probs):
                 efe_vid = f"aif:efe:{step_id}:{_slugify(nsid)}"
-                cur.execute(
+                _res = client.q(
                     "INSERT INTO vertex_rl_aif_efe "
                     "(vertex_id, episode_id, actor_did, step_id, action_nsid, "
                     " efe_total, pragmatic_value, epistemic_value, policy_prob, "
@@ -463,12 +465,14 @@ def task_rl_aif_learn_model(
     """
     updated = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT DISTINCT actor_did, action_nsid FROM vertex_rl_step "
             "WHERE actor_did IS NOT NULL ORDER BY actor_did LIMIT %d" % int(max_actors)
         )
-        pairs = cur.fetchall() or []
+        pairs = _res or []
 
     for actor_did, action_nsid in pairs:
         try:
@@ -482,23 +486,24 @@ def task_rl_aif_learn_model(
 
 
 def _learn_model_for_pair(actor_did: str, action_nsid: str, min_steps: int) -> bool:
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT COUNT(*) FROM vertex_rl_step WHERE actor_did=%s AND action_nsid=%s",
             (actor_did, action_nsid),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
         count = int(row[0]) if row else 0
         if count < min_steps:
             return False
 
         vid = _model_vid(actor_did, action_nsid)
-        cur.execute(
+        _res = client.q(
             "SELECT A_counts_json, B_counts_json, n_states, n_actions, action_index_json "
             "FROM vertex_rl_aif_model WHERE vertex_id = %s LIMIT 1",
             (vid,),
         )
-        mrow = cur.fetchone()
+        mrow = (_res[0] if _res else None)
         if not mrow:
             return False
 
@@ -509,18 +514,18 @@ def _learn_model_for_pair(actor_did: str, action_nsid: str, min_steps: int) -> b
         action_index: dict[str, int] = json.loads(mrow[4])
 
         # Fetch all steps for this (actor, action) to rebuild A counts (idempotent).
-        cur.execute(
+        _res = client.q(
             "SELECT vertex_id, reward_floor, reward_spirit, reward_eta "
             "FROM vertex_rl_step WHERE actor_did=%s AND action_nsid=%s "
             "ORDER BY created_at ASC",
             (actor_did, action_nsid),
         )
-        steps = cur.fetchall() or []
+        steps = _res or []
 
         # Phase 3: fetch causal steps for this actor — steps attributed to a
         # specific dispatch — to learn B transitions from real action→outcome pairs.
         # Maps step_vid → dispatched_action_nsid.
-        cur.execute(
+        _res = client.q(
             "SELECT s.vertex_id, d.action_nsid "
             "FROM vertex_rl_step s "
             "JOIN vertex_rl_aif_dispatch_log d "
@@ -529,7 +534,7 @@ def _learn_model_for_pair(actor_did: str, action_nsid: str, min_steps: int) -> b
             (actor_did,),
         )
         causal_dispatch_nsid: dict[str, str] = {
-            r[0]: r[1] for r in (cur.fetchall() or [])
+            r[0]: r[1] for r in (_res or [])
         }
         has_causal = bool(causal_dispatch_nsid)
 
@@ -580,10 +585,10 @@ def _learn_model_for_pair(actor_did: str, action_nsid: str, min_steps: int) -> b
         B = _normalize_B_cols(B_counts)
 
         now = _now_ts()
-        cur.execute('SELECT "version" FROM vertex_rl_aif_model WHERE vertex_id=%s', (vid,))
-        _vrow = cur.fetchone()
+        _res = client.q('SELECT "version" FROM vertex_rl_aif_model WHERE vertex_id=%s', (vid,))
+        _vrow = (_res[0] if _res else None)
         new_version = (int(_vrow[0]) + 1) if _vrow else 2
-        cur.execute(
+        _res = client.q(
             'UPDATE vertex_rl_aif_model SET '
             'A_json=%s, B_json=%s, A_counts_json=%s, B_counts_json=%s, '
             '"version"=%s, updated_at=%s '
@@ -625,21 +630,24 @@ def task_rl_aif_attribute_outcomes(
     linked = 0
     skipped = 0
 
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+
+        client = get_kotoba_client()
+        _res = client.q(
             "SELECT vertex_id, actor_did, dispatched_at "
             "FROM vertex_rl_aif_dispatch_log "
             "WHERE dispatch_ok = TRUE AND outcome_step_id IS NULL "
             "ORDER BY dispatched_at ASC "
             "LIMIT %d" % int(batch_size)
         )
-        dispatches = cur.fetchall() or []
+        dispatches = _res or []
 
     for dispatch_vid, actor_did, dispatched_at in dispatches:
         try:
-            with sync_cursor() as cur:
+            if True:
+                client = get_kotoba_client()
                 window_end = _add_hours(str(dispatched_at), window_hours)
-                cur.execute(
+                _res = client.q(
                     "SELECT vertex_id FROM vertex_rl_step "
                     "WHERE actor_did = %s "
                     "  AND triggered_by_dispatch IS NULL "
@@ -648,19 +656,19 @@ def task_rl_aif_attribute_outcomes(
                     "ORDER BY created_at ASC LIMIT 1",
                     (actor_did, str(dispatched_at), window_end),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
                 if not row:
                     skipped += 1
                     continue
                 step_vid = row[0]
 
-                cur.execute(
+                _res = client.q(
                     "UPDATE vertex_rl_aif_dispatch_log "
                     "SET outcome_step_id = %s "
                     "WHERE vertex_id = %s AND outcome_step_id IS NULL",
                     (step_vid, dispatch_vid),
                 )
-                cur.execute(
+                _res = client.q(
                     "UPDATE vertex_rl_step "
                     "SET triggered_by_dispatch = %s "
                     "WHERE vertex_id = %s AND triggered_by_dispatch IS NULL",

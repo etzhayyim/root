@@ -17,7 +17,7 @@ import subprocess
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 
 ACTOR_DID = "did:web:bpmn.etzhayyim.com"
@@ -99,18 +99,12 @@ def _require_namespace(namespace: str) -> str:
 def _insert(table: str, row: dict[str, Any], *, dry_run: bool = False) -> None:
     if dry_run:
         return
-    columns = list(row)
-    placeholders = ", ".join(["%s"] * len(columns))
-    names = ", ".join(columns)
-    values = tuple(
-        _db_ts(_parse_ts(row[c])) if c in TIMESTAMP_COLUMNS and row[c] is not None else row[c]
-        for c in columns
-    )
-    with sync_cursor() as cur:
-        cur.execute(
-            f"INSERT INTO {table} ({names}) VALUES ({placeholders})",  # noqa: S608
-            values,
-        )
+    client = get_kotoba_client()
+    formatted_row = {
+        c: _db_ts(_parse_ts(row[c])) if c in TIMESTAMP_COLUMNS and row[c] is not None else row[c]
+        for c in row
+    }
+    client.insert_row(table, formatted_row)
 
 
 def _audit(actor_did: str, org_did: str, *, sensitivity_ord: int = 1) -> dict[str, Any]:
@@ -836,9 +830,8 @@ def task_agent_spawn_child_org(
 
 def _fetch_autopilot_lease_rows(limit: int, cutoff: datetime) -> list[Any]:
     safe_limit = max(1, min(500, int(limit)))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
+    client = get_kotoba_client()
+    return client.q(f"""
             SELECT
               lease_id, root_did, agent_did, runtime_kind, runtime_namespace,
               lease_period_sec, expires_at, actor_did, org_did
@@ -854,18 +847,13 @@ def _fetch_autopilot_lease_rows(limit: int, cutoff: datetime) -> list[Any]:
             WHERE rn = 1 AND status = 'active' AND expires_at <= %s
             ORDER BY expires_at ASC
             LIMIT {safe_limit}
-            """,
-            (_db_ts(cutoff),),
-        )
-        columns = [desc[0] for desc in cur.description or []]
-        return [dict(zip(columns, row, strict=False)) for row in cur.fetchall()]
+            """, (_db_ts(cutoff),))
 
 
 def _fetch_autopilot_profile_rows(limit: int) -> list[Any]:
     safe_limit = max(1, min(500, int(limit)))
-    with sync_cursor() as cur:
-        cur.execute(
-            f"""
+    client = get_kotoba_client()
+    return client.q(f"""
             SELECT root_did, agent_did, runtime_policy_cid, actor_did, org_did
             FROM vertex_agent_economy_profile p
             WHERE p.status = 'active'
@@ -885,10 +873,7 @@ def _fetch_autopilot_profile_rows(limit: int) -> list[Any]:
               )
             ORDER BY p.created_at ASC
             LIMIT {safe_limit}
-            """,
-        )
-        columns = [desc[0] for desc in cur.description or []]
-        return [dict(zip(columns, row, strict=False)) for row in cur.fetchall()]
+            """)
 
 
 def task_agent_runtime_autopilot_tick(

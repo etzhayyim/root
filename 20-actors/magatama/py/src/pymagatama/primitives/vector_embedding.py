@@ -11,6 +11,7 @@ hash vectors without importing torch/transformers.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import hashlib
@@ -23,7 +24,6 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 SPACE_ID = "etzhayyim-mm-768"
 DIM = 768
@@ -94,8 +94,8 @@ def _post_text(row: dict[str, Any]) -> str:
 
 
 def _row_dicts(cur: Any) -> list[dict[str, Any]]:
-    names = [d[0] for d in cur.description] if cur.description else []
-    return [dict(zip(names, row)) for row in (cur.fetchall() or [])]
+    names = [d[0] for d in ([("col",)] if _res else [])] if ([("col",)] if _res else []) else []
+    return [dict(zip(names, row)) for row in (_res or [])]
 
 
 def normalize_768(vector: list[float]) -> list[float]:
@@ -171,8 +171,9 @@ def plan_actor_candidates(limit: int = 100, shard_id: int | None = None) -> list
         LIMIT {batch}
     """
     params: list[Any] = [SPACE_ID, DEFAULT_TEXT_MODEL_ID]
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
         rows = _row_dicts(cur)
     out: list[EmbeddingCandidate] = []
     for row in rows:
@@ -216,8 +217,9 @@ def plan_post_candidates(limit: int = 100, shard_id: int | None = None) -> list[
         ORDER BY indexed_at DESC
         LIMIT {batch}
     """
-    with sync_cursor() as cur:
-        cur.execute(sql, (SPACE_ID, DEFAULT_TEXT_MODEL_ID))
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (SPACE_ID, DEFAULT_TEXT_MODEL_ID))
         rows = _row_dicts(cur)
     out: list[EmbeddingCandidate] = []
     for row in rows:
@@ -266,8 +268,9 @@ def plan_emotion_candidates(limit: int = 100, shard_id: int | None = None) -> li
         LIMIT {batch}
     """
     params: list[Any] = [shard_id, HUME_EMOTION_MODEL_ID] if shard_id is not None else [HUME_EMOTION_MODEL_ID]
-    with sync_cursor() as cur:
-        cur.execute(sql, tuple(params))
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, tuple(params))
         rows = _row_dicts(cur)
     out: list[EmbeddingCandidate] = []
     for row in rows:
@@ -369,10 +372,11 @@ def write_embedding_rows(candidates: list[EmbeddingCandidate], vectors: list[lis
         raise ValueError("candidate/vector count mismatch")
     now = _utc_now_iso()
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for candidate, vector in zip(candidates, vectors):
             source = _source_row(candidate, now=now)
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_vector_embedding_source (
                   vertex_id, source_uri, source_cid, source_kind, source_table,
@@ -402,7 +406,7 @@ def write_embedding_rows(candidates: list[EmbeddingCandidate], vectors: list[lis
                 source,
             )
             emb = _embedding_row(candidate, vector, now=now)
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_vector_embedding_768 (
                   embedding_id, source_uri, chunk_id, source_vertex_id, tenant_id,
@@ -422,7 +426,7 @@ def write_embedding_rows(candidates: list[EmbeddingCandidate], vectors: list[lis
                 """,
                 emb,
             )
-            written += max(0, cur.rowcount)
+            written += max(0, (len(_res) if isinstance(_res, list) else 1))
     return written
 
 
@@ -541,7 +545,8 @@ def write_hume_emotion_rows(candidates: list[EmbeddingCandidate], emotions: list
         raise ValueError("candidate/emotion count mismatch")
     now = _utc_now_iso()
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for candidate, emotion in zip(candidates, emotions):
             signal_id = ":".join(
                 ["emotion", HUME_EMOTION_MODEL_ID, candidate.source_uri, "root", "initial"]
@@ -567,7 +572,7 @@ def write_hume_emotion_rows(candidates: list[EmbeddingCandidate], emotions: list
                 "analyzed_at": now,
                 "created_at": now,
             }
-            cur.execute(
+            _res = client.q(
                 """
                 INSERT INTO vertex_vector_emotion_signal (
                   signal_id, source_uri, source_vertex_id, tenant_id, shard_id,
@@ -588,7 +593,7 @@ def write_hume_emotion_rows(candidates: list[EmbeddingCandidate], emotions: list
                 """,
                 row,
             )
-            written += max(0, cur.rowcount)
+            written += max(0, (len(_res) if isinstance(_res, list) else 1))
     return written
 
 

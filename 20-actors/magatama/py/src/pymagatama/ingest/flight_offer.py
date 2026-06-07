@@ -18,6 +18,7 @@ falls back to stub mode when env is not configured.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import hashlib
@@ -29,7 +30,6 @@ import urllib.request
 from datetime import datetime, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
 
 FLIGHT_OFFER_DID = "did:web:flight-offer.etzhayyim.com"
 OFFER_TABLE = "vertex_flight_offer"
@@ -344,7 +344,7 @@ def _stub_search(
 
 
 def _insert_offer(cur: Any, row: dict[str, Any]) -> int:
-    cur.execute(
+    _res = client.q(
         f"""
         INSERT INTO {OFFER_TABLE} (
             vertex_id, offer_id, provider, airline, flight_number,
@@ -367,7 +367,7 @@ def _insert_offer(cur: Any, row: dict[str, Any]) -> int:
             row["vertex_id"],
         ),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _persist_offers(
@@ -382,7 +382,8 @@ def _persist_offers(
     observed_at: str,
 ) -> int:
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for raw in raw_offers:
             row = {
                 "vertex_id": _vertex_id(provider, _clean(raw.get("offerId"))),
@@ -541,7 +542,7 @@ async def task_flight_offer_fetch(
 def _query_cheapest(
     cur: Any, origin: str, destination: str, outbound_date: str, currency: str
 ) -> dict[str, Any] | None:
-    cur.execute(
+    _res = client.q(
         """
         SELECT cheapest_total_price, cheapest_provider, cheapest_booking_url, cheapest_observed_at
         FROM mv_flight_offer_cheapest_by_route_date
@@ -551,7 +552,7 @@ def _query_cheapest(
         """,
         (origin, destination, outbound_date, currency),
     )
-    row = cur.fetchone()
+    row = (_res[0] if _res else None)
     if not row:
         return None
     return {
@@ -565,7 +566,7 @@ def _query_cheapest(
 def _last_alert_price(
     cur: Any, origin: str, destination: str, outbound_date: str, currency: str
 ) -> float | None:
-    cur.execute(
+    _res = client.q(
         f"""
         SELECT new_price FROM {ALERT_TABLE}
         WHERE origin_iata = %s AND destination_iata = %s
@@ -574,14 +575,14 @@ def _last_alert_price(
         """,
         (origin, destination, outbound_date, currency),
     )
-    row = cur.fetchone()
+    row = (_res[0] if _res else None)
     if not row or row[0] is None:
         return None
     return float(row[0])
 
 
 def _insert_alert(cur: Any, alert: dict[str, Any]) -> int:
-    cur.execute(
+    _res = client.q(
         f"""
         INSERT INTO {ALERT_TABLE} (
             vertex_id, origin_iata, destination_iata, outbound_date, currency,
@@ -604,7 +605,7 @@ def _insert_alert(cur: Any, alert: dict[str, Any]) -> int:
             alert["vertex_id"],
         ),
     )
-    return int(cur.rowcount or 0)
+    return int((len(_res) if isinstance(_res, list) else 1) or 0)
 
 
 def _do_check_drop(
@@ -618,7 +619,8 @@ def _do_check_drop(
     if not origin or not destination or not outbound_date:
         return {"status": "error", "error": "originIata, destinationIata, outboundDate required",
                 "alerted": False}
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         cheapest = _query_cheapest(cur, origin, destination, outbound_date, currency)
         if not cheapest or cheapest.get("cheapestTotalPrice") is None:
             return {"status": "ok", "alerted": False, "reason": "no offers"}
@@ -705,14 +707,15 @@ def _do_add_watch(
         return {"status": "error", "error": "originIata, destinationIata, outboundDate required"}
     vertex_id = _watch_vertex_id(origin, destination, outbound_date, currency)
     now = _now_iso()
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"SELECT vertex_id FROM {WATCH_TABLE} WHERE vertex_id = %s LIMIT 1",
             (vertex_id,),
         )
-        existed = cur.fetchone() is not None
+        existed = (_res[0] if _res else None) is not None
         if existed:
-            cur.execute(
+            _res = client.q(
                 f"""
                 UPDATE {WATCH_TABLE}
                    SET return_date = %s, threshold_pct = %s::double precision,
@@ -724,7 +727,7 @@ def _do_add_watch(
                  max_offers, notify_did, vertex_id),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 f"""
                 INSERT INTO {WATCH_TABLE} (
                     vertex_id, origin_iata, destination_iata, outbound_date, return_date,
@@ -781,7 +784,7 @@ async def task_flight_offer_add_watch(
 
 def _select_due_watches(cur: Any, limit: int, force: bool) -> list[tuple[Any, ...]]:
     if force:
-        cur.execute(
+        _res = client.q(
             f"""
             SELECT origin_iata, destination_iata, outbound_date, return_date, currency,
                    threshold_pct, provider_hint, max_offers, notify_did
@@ -792,7 +795,7 @@ def _select_due_watches(cur: Any, limit: int, force: bool) -> list[tuple[Any, ..
         )
     else:
         now = _now_iso()
-        cur.execute(
+        _res = client.q(
             f"""
             SELECT origin_iata, destination_iata, outbound_date, return_date, currency,
                    threshold_pct, provider_hint, max_offers, notify_did
@@ -803,7 +806,7 @@ def _select_due_watches(cur: Any, limit: int, force: bool) -> list[tuple[Any, ..
             """,
             (now,),
         )
-    return list(cur.fetchall() or [])
+    return list(_res or [])
 
 
 def _mark_watch_polled(
@@ -815,7 +818,7 @@ def _mark_watch_polled(
     next_due_at = datetime.fromtimestamp(next_due_epoch, tz=timezone.utc).strftime(
         "%Y-%m-%dT%H:%M:%SZ"
     )
-    cur.execute(
+    _res = client.q(
         f"""
         UPDATE {WATCH_TABLE}
            SET last_polled_at = %s, next_due_at = %s
@@ -835,7 +838,8 @@ def _do_poll_watchlist(*, limit: int, force: bool) -> dict[str, Any]:
     sources_invoked_total = 0
     per_source_stats: dict[str, dict[str, int]] = {}
     drop_alerts: list[dict[str, Any]] = []
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         rows = _select_due_watches(cur, limit, force)
         active_sources_all = _select_active_sources_for_route(cur, "", "")
     for row in rows:
@@ -899,7 +903,8 @@ def _do_poll_watchlist(*, limit: int, force: bool) -> dict[str, Any]:
         except Exception:  # noqa: BLE001
             errors_total += 1
         try:
-            with sync_cursor() as cur2:
+            if True:
+                client = get_kotoba_client()
                 _mark_watch_polled(cur2, org, dst, out_date, ccy)
         except Exception:  # noqa: BLE001
             pass
@@ -922,7 +927,8 @@ def _do_get_cheapest(
         return {"status": "error",
                 "error": "originIata, destinationIata, outboundDate, currency required",
                 "found": False}
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         row = _query_cheapest(cur, origin, destination, outbound_date, currency)
     if not row:
         return {"status": "ok", "found": False,
@@ -960,15 +966,16 @@ def _do_remove_watch(
         return {"status": "error", "error": "originIata, destinationIata, outboundDate required",
                 "removed": False}
     vertex_id = _watch_vertex_id(origin, destination, outbound_date, currency)
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         if hard:
-            cur.execute(f"DELETE FROM {WATCH_TABLE} WHERE vertex_id = %s", (vertex_id,))
+            _res = client.q(f"DELETE FROM {WATCH_TABLE} WHERE vertex_id = %s", (vertex_id,))
         else:
-            cur.execute(
+            _res = client.q(
                 f"UPDATE {WATCH_TABLE} SET status = 'archived' WHERE vertex_id = %s",
                 (vertex_id,),
             )
-        affected = int(cur.rowcount or 0)
+        affected = int((len(_res) if isinstance(_res, list) else 1) or 0)
     return {"status": "ok", "removed": affected > 0, "vertexId": vertex_id, "hard": hard}
 
 
@@ -995,9 +1002,10 @@ async def task_flight_offer_remove_watch(
 
 
 def _do_list_watch(*, status: str, limit: int) -> dict[str, Any]:
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         if status:
-            cur.execute(
+            _res = client.q(
                 f"""
                 SELECT vertex_id, origin_iata, destination_iata, outbound_date, return_date,
                        currency, threshold_pct, cadence_minutes, provider_hint, max_offers,
@@ -1009,7 +1017,7 @@ def _do_list_watch(*, status: str, limit: int) -> dict[str, Any]:
                 (status,),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 f"""
                 SELECT vertex_id, origin_iata, destination_iata, outbound_date, return_date,
                        currency, threshold_pct, cadence_minutes, provider_hint, max_offers,
@@ -1018,7 +1026,7 @@ def _do_list_watch(*, status: str, limit: int) -> dict[str, Any]:
                  LIMIT {int(limit)}
                 """,
             )
-        rows = cur.fetchall() or []
+        rows = _res or []
     items = [
         {
             "vertexId": r[0], "originIata": r[1], "destinationIata": r[2],
@@ -1094,7 +1102,7 @@ def _log_source_run(
     vertex_id = (
         f"at://{FLIGHT_OFFER_DID}/{SOURCE_RUN_COLLECTION}/{source_id}-{run_id}"
     )
-    cur.execute(
+    _res = client.q(
         f"""
         INSERT INTO {SOURCE_RUN_TABLE} (
             vertex_id, run_id, source_id, resolved_source,
@@ -1123,12 +1131,13 @@ def _log_source_run(
 def _resolve_source_for_fetch(source_id: str) -> str:
     """Validate the requested source against the registry + adapter dict + creds."""
     chosen = source_id
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"SELECT source_id, status, adapter_key FROM {SOURCE_TABLE} WHERE source_id = %s LIMIT 1",
             (source_id,),
         )
-        row = cur.fetchone()
+        row = (_res[0] if _res else None)
     if row is not None:
         registry_status = (row[1] or "").lower()
         adapter_key = (row[2] or "").lower()
@@ -1184,7 +1193,8 @@ def _do_fetch_from_source(
         err_msg = str(e)
     latency_ms = int((time.time() - started) * 1000)
     try:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             _log_source_run(
                 cur,
                 source_id=source_id, resolved_source=chosen,
@@ -1224,14 +1234,14 @@ def _select_active_sources_for_route(
     AND adapter registered. Source filter logic (per-airline coverage) is
     skipped here for simplicity — broad sources cover all 30+ airlines, and
     single-carrier sources (ana-ndc / jal-ndc) are gated by status='planned'."""
-    cur.execute(
+    _res = client.q(
         f"""
         SELECT source_id FROM {SOURCE_TABLE}
          WHERE status IN ('active', 'stub')
          LIMIT {int(max_sources)}
         """,
     )
-    rows = cur.fetchall() or []
+    rows = _res or []
     out: list[str] = []
     for r in rows:
         sid = r[0]
@@ -1276,9 +1286,10 @@ async def task_flight_offer_fetch_from_source(
 
 
 def _do_list_sources(*, status: str, limit: int) -> dict[str, Any]:
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         if status:
-            cur.execute(
+            _res = client.q(
                 f"""
                 SELECT source_id, source_type, adapter_key, base_url, auth_scheme,
                        cadence_minutes, rate_limit_rpm, airlines_count, coverage_note, status
@@ -1289,7 +1300,7 @@ def _do_list_sources(*, status: str, limit: int) -> dict[str, Any]:
                 (status,),
             )
         else:
-            cur.execute(
+            _res = client.q(
                 f"""
                 SELECT source_id, source_type, adapter_key, base_url, auth_scheme,
                        cadence_minutes, rate_limit_rpm, airlines_count, coverage_note, status
@@ -1297,7 +1308,7 @@ def _do_list_sources(*, status: str, limit: int) -> dict[str, Any]:
                  LIMIT {int(limit)}
                 """,
             )
-        rows = cur.fetchall() or []
+        rows = _res or []
     items = [
         {
             "sourceId": r[0], "sourceType": r[1], "adapterKey": r[2],
@@ -1344,9 +1355,10 @@ def _do_list_airlines(*, country_code: str, alliance: str, limit: int) -> dict[s
         f"SELECT iata_code, icao_code, name, country_code, alliance, ingest_status "
         f"FROM vertex_airline {where} LIMIT {int(limit)}"
     )
-    with sync_cursor() as cur:
-        cur.execute(sql_text, tuple(params) if params else ())
-        rows = cur.fetchall() or []
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql_text, tuple(params) if params else ())
+        rows = _res or []
     items = [
         {"iataCode": r[0], "icaoCode": r[1], "name": r[2], "countryCode": r[3],
          "alliance": r[4], "ingestStatus": r[5]}
@@ -1356,8 +1368,9 @@ def _do_list_airlines(*, country_code: str, alliance: str, limit: int) -> dict[s
 
 
 def _do_source_health(*, limit: int) -> dict[str, Any]:
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"""
             SELECT source_id, runs_total, runs_ok, runs_error, runs_fallback,
                    avg_latency_ms, offers_written_total, last_run_at, last_ok_at
@@ -1366,7 +1379,7 @@ def _do_source_health(*, limit: int) -> dict[str, Any]:
              LIMIT {int(limit)}
             """,
         )
-        rows = cur.fetchall() or []
+        rows = _res or []
     items = []
     for r in rows:
         runs_total = int(r[1] or 0)
@@ -1392,12 +1405,13 @@ def _do_cleanup_runs(*, retention_days: int) -> dict[str, Any]:
     cutoff_iso = datetime.fromtimestamp(cutoff_epoch, tz=timezone.utc).strftime(
         "%Y-%m-%dT%H:%M:%SZ"
     )
-    with sync_cursor() as cur:
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(
             f"DELETE FROM {SOURCE_RUN_TABLE} WHERE observed_at < %s",
             (cutoff_iso,),
         )
-        deleted = int(cur.rowcount or 0)
+        deleted = int((len(_res) if isinstance(_res, list) else 1) or 0)
     return {"status": "ok", "deleted": deleted, "cutoffAt": cutoff_iso,
             "retentionDays": int(retention_days)}
 

@@ -5,6 +5,7 @@ inside the loop; effectful work still goes through BPMN tasks and gate rows.
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import argparse
 import asyncio
@@ -316,13 +317,13 @@ def build_tick_prompt(*, agent_did: str, state: dict[str, Any]) -> list[dict[str
 def load_homeostasis_belief_direct(agent_did: str) -> dict[str, Any] | None:
     if not os.environ.get("RW_URL"):
         return None
-    from pymagatama.db_sync import sync_cursor
 
     row = None
     for attempt in range(2):
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     """
                     SELECT vertex_id, state_value_json, posterior_confidence, posterior_entropy,
                            updated_from_observation, updated_at
@@ -333,7 +334,7 @@ def load_homeostasis_belief_direct(agent_did: str) -> dict[str, Any] | None:
                     """,
                     (agent_did, "runtime.homeostasis", HOMEOSTASIS_BELIEF_STATE_KEY),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
             break
         except Exception as exc:
             if attempt == 0:
@@ -363,13 +364,13 @@ def load_homeostasis_belief_direct(agent_did: str) -> dict[str, Any] | None:
 def load_learning_belief_direct(agent_did: str) -> dict[str, Any] | None:
     if not os.environ.get("RW_URL"):
         return None
-    from pymagatama.db_sync import sync_cursor
 
     row = None
     for attempt in range(2):
         try:
-            with sync_cursor() as cur:
-                cur.execute(
+            if True:
+                client = get_kotoba_client()
+                _res = client.q(
                     """
                     SELECT vertex_id, state_value_json, posterior_confidence, posterior_entropy,
                            updated_from_observation, updated_at
@@ -380,7 +381,7 @@ def load_learning_belief_direct(agent_did: str) -> dict[str, Any] | None:
                     """,
                     (agent_did, "runtime.learning", LEARNING_BELIEF_STATE_KEY),
                 )
-                row = cur.fetchone()
+                row = (_res[0] if _res else None)
             break
         except Exception as exc:
             if attempt == 0:
@@ -733,7 +734,6 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
             "informationHeightGain": 0.0,
             "flowControlGain": 0.0,
         }
-    from pymagatama.db_sync import sync_cursor
 
     context = {
         "available": True,
@@ -745,8 +745,9 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
         "source": {},
     }
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT action_id, counterparty_ref, minimax_regret,
                        protected_asset_violation, selected_response, created_at
@@ -757,7 +758,7 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
                 """,
                 (agent_did,),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             if row:
                 context["adversarialRegret"] = _float_value(row[2], 0.0)
                 context["protectedAssetViolation"] = _float_value(row[3], 0.0)
@@ -767,7 +768,7 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
                     "selectedResponse": row[4],
                     "createdAt": row[5],
                 }
-            cur.execute(
+            _res = client.q(
                 """
                 SELECT MAX(uncertainty)
                 FROM vertex_agent_counterparty_model
@@ -775,13 +776,13 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
                 """,
                 (agent_did,),
             )
-            uncertainty_row = cur.fetchone()
+            uncertainty_row = (_res[0] if _res else None)
             context["counterpartyUncertainty"] = round(
                 max(0.0, min(1.0, _float_value(uncertainty_row[0] if uncertainty_row else 0.0, 0.0))),
                 6,
             )
             try:
-                cur.execute(
+                _res = client.q(
                     """
                     SELECT MAX(max_information_height)
                     FROM mv_agent_information_height
@@ -789,9 +790,9 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
                     """,
                     (agent_did,),
                 )
-                height_row = cur.fetchone()
+                height_row = (_res[0] if _res else None)
             except Exception:
-                cur.execute(
+                _res = client.q(
                     """
                     SELECT MAX(abstraction_level)
                     FROM vertex_agent_information_node
@@ -799,15 +800,15 @@ def load_minimax_information_context_direct(agent_did: str) -> dict[str, Any]:
                     """,
                     (agent_did,),
                 )
-                height_row = cur.fetchone()
+                height_row = (_res[0] if _res else None)
             max_height = _float_value(height_row[0] if height_row else 0.0, 0.0)
             context["informationHeightGain"] = round(max(0.0, min(1.0, max_height / 10.0)), 6)
             try:
-                cur.execute("SELECT MAX(avg_control_score) FROM mv_agent_information_flow_control")
-                flow_row = cur.fetchone()
+                _res = client.q("SELECT MAX(avg_control_score) FROM mv_agent_information_flow_control")
+                flow_row = (_res[0] if _res else None)
             except Exception:
-                cur.execute("SELECT MAX(control_score) FROM edge_agent_information_flows_to")
-                flow_row = cur.fetchone()
+                _res = client.q("SELECT MAX(control_score) FROM edge_agent_information_flows_to")
+                flow_row = (_res[0] if _res else None)
             context["flowControlGain"] = round(max(0.0, min(1.0, _float_value(flow_row[0] if flow_row else 0.0, 0.0))), 6)
     except Exception as exc:  # noqa: BLE001
         context["available"] = False
@@ -824,7 +825,6 @@ def load_knowledge_graph_fitness_context_direct(agent_did: str) -> dict[str, Any
             "missingEdgePenalty": 0.0,
             "evolutionFitness": 0.0,
         }
-    from pymagatama.db_sync import sync_cursor
 
     context = {
         "available": True,
@@ -836,8 +836,9 @@ def load_knowledge_graph_fitness_context_direct(agent_did: str) -> dict[str, Any
         "source": {},
     }
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT COUNT(*)
                 FROM vertex_agent_development_document
@@ -845,8 +846,8 @@ def load_knowledge_graph_fitness_context_direct(agent_did: str) -> dict[str, Any
                 """,
                 (agent_did,),
             )
-            doc_count = int((cur.fetchone() or [0])[0] or 0)
-            cur.execute(
+            doc_count = int(((_res[0] if _res else None) or [0])[0] or 0)
+            _res = client.q(
                 """
                 SELECT COUNT(*)
                 FROM edge_agent_development_document_ref edge
@@ -856,8 +857,8 @@ def load_knowledge_graph_fitness_context_direct(agent_did: str) -> dict[str, Any
                 """,
                 (agent_did,),
             )
-            dev_edge_count = int((cur.fetchone() or [0])[0] or 0)
-            cur.execute(
+            dev_edge_count = int(((_res[0] if _res else None) or [0])[0] or 0)
+            _res = client.q(
                 """
                 SELECT COUNT(*)
                 FROM vertex_agent_information_node
@@ -865,8 +866,8 @@ def load_knowledge_graph_fitness_context_direct(agent_did: str) -> dict[str, Any
                 """,
                 (agent_did,),
             )
-            info_node_count = int((cur.fetchone() or [0])[0] or 0)
-            cur.execute(
+            info_node_count = int(((_res[0] if _res else None) or [0])[0] or 0)
+            _res = client.q(
                 """
                 SELECT COUNT(*)
                 FROM edge_agent_information_flows_to edge
@@ -876,7 +877,7 @@ def load_knowledge_graph_fitness_context_direct(agent_did: str) -> dict[str, Any
                 """,
                 (agent_did,),
             )
-            flow_edge_count = int((cur.fetchone() or [0])[0] or 0)
+            flow_edge_count = int(((_res[0] if _res else None) or [0])[0] or 0)
     except Exception as exc:  # noqa: BLE001
         context["available"] = False
         context["error"] = str(exc)[:300]
@@ -923,7 +924,6 @@ def record_knowledge_graph_evolution_direct(
 ) -> dict[str, Any] | None:
     if not os.environ.get("RW_URL"):
         return None
-    from pymagatama.db_sync import sync_cursor
 
     now = _now_iso()
     props = {
@@ -949,9 +949,10 @@ def record_knowledge_graph_evolution_direct(
         "props": json.dumps(props, ensure_ascii=False, sort_keys=True),
     }
     try:
-        with sync_cursor() as cur:
-            cur.execute("DELETE FROM vertex_shinka_evolution WHERE vertex_id = %s", (vertex_id,))
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q("DELETE FROM vertex_shinka_evolution WHERE vertex_id = %s", (vertex_id,))
+            _res = client.q(
                 """
                 INSERT INTO vertex_shinka_evolution
                     (vertex_id, _seq, created_date, sensitivity_ord, owner_did, rkey, repo,
@@ -980,14 +981,14 @@ def record_knowledge_graph_evolution_direct(
 
 
 def insert_direct_row(table: str, row: dict[str, Any]) -> None:
-    from pymagatama.db_sync import sync_cursor
 
     columns = list(row)
     placeholders = ", ".join(["%s"] * len(columns))
     names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute(f"DELETE FROM {table} WHERE vertex_id = %s", (row["vertex_id"],))
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(f"DELETE FROM {table} WHERE vertex_id = %s", (row["vertex_id"],))
+        _res = client.q(
             f"INSERT INTO {table} ({names}) VALUES ({placeholders})",
             tuple(row[column] for column in columns),
         )
@@ -996,11 +997,11 @@ def insert_direct_row(table: str, row: dict[str, Any]) -> None:
 def load_prior_preference_direct(agent_did: str, preference_key: str) -> dict[str, Any]:
     if not os.environ.get("RW_URL"):
         return {}
-    from pymagatama.db_sync import sync_cursor
 
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT vertex_id, preference_key, target_range_json, hard_floor,
                        weight, depends_on_adr, active, updated_at
@@ -1011,7 +1012,7 @@ def load_prior_preference_direct(agent_did: str, preference_key: str) -> dict[st
                 """,
                 (agent_did, preference_key),
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
     except Exception as exc:  # noqa: BLE001
         LOG.debug("prior preference unavailable: %s", exc)
         return {}
@@ -1299,13 +1300,13 @@ def resend_domain_verified(domain: str = "etzhayyim.com") -> bool:
 def load_email_live_channel_blockers_direct() -> list[str]:
     if not os.environ.get("RW_URL"):
         return []
-    from pymagatama.db_sync import sync_cursor
 
     blockers: list[str] = []
     min_send_interval_sec = max(0, int(os.environ.get("AGENT_EMAIL_MIN_SEND_INTERVAL_SEC", "300") or "300"))
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 """
                 SELECT status, "error"
                 FROM vertex_mailer_outbound_email
@@ -1314,9 +1315,9 @@ def load_email_live_channel_blockers_direct() -> list[str]:
                 LIMIT 1
                 """
             )
-            row = cur.fetchone()
+            row = (_res[0] if _res else None)
             if min_send_interval_sec > 0:
-                cur.execute(
+                _res = client.q(
                     f"""
                     SELECT status, "error"
                     FROM vertex_mailer_outbound_email
@@ -1326,7 +1327,7 @@ def load_email_live_channel_blockers_direct() -> list[str]:
                     LIMIT 1
                     """
                 )
-                recent_row = cur.fetchone()
+                recent_row = (_res[0] if _res else None)
     except Exception as exc:
         LOG.debug("email live channel blocker check unavailable: %s", exc)
         return []
@@ -1355,12 +1356,12 @@ def autonomous_heartbeat_recently_sent_direct(
 ) -> bool:
     if not os.environ.get("RW_URL"):
         return False
-    from pymagatama.db_sync import sync_cursor
 
     safe_cooldown_sec = max(0, int(cooldown_sec))
     try:
-        with sync_cursor() as cur:
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(
                 f"""
                 SELECT vertex_id
                 FROM vertex_mailer_outbound_email
@@ -1374,7 +1375,7 @@ def autonomous_heartbeat_recently_sent_direct(
                 """,
                 (to_address, f"{subject_prefix}%"),
             )
-            return cur.fetchone() is not None
+            return (_res[0] if _res else None) is not None
     except Exception as exc:
         LOG.debug("autonomous heartbeat cooldown check unavailable: %s", exc)
         return False
@@ -1663,7 +1664,6 @@ def record_homeostasis_belief_direct(
     observation_vertex_id: str,
     observed_at: str,
 ) -> dict[str, Any]:
-    from pymagatama.db_sync import sync_cursor
 
     row = build_homeostasis_belief_row(
         agent_did=agent_did,
@@ -1676,9 +1676,10 @@ def record_homeostasis_belief_direct(
     columns = list(row)
     placeholders = ", ".join(["%s"] * len(columns))
     names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute("DELETE FROM vertex_agent_belief_state WHERE vertex_id = %s", (row["vertex_id"],))
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("DELETE FROM vertex_agent_belief_state WHERE vertex_id = %s", (row["vertex_id"],))
+        _res = client.q(
             f"INSERT INTO vertex_agent_belief_state ({names}) VALUES ({placeholders})",
             tuple(row[column] for column in columns),
         )
@@ -1699,7 +1700,6 @@ def record_homeostasis_observation_direct(
     observed_at: str,
     update_belief: bool = True,
 ) -> dict[str, Any]:
-    from pymagatama.db_sync import sync_cursor
 
     uncertainty = _clamp01(float(metrics.get("errorRate1h", 0.0) or 0.0))
     payload = {
@@ -1728,9 +1728,10 @@ def record_homeostasis_observation_direct(
     columns = list(row)
     placeholders = ", ".join(["%s"] * len(columns))
     names = ", ".join(columns)
-    with sync_cursor() as cur:
-        cur.execute("DELETE FROM vertex_agent_observation WHERE vertex_id = %s", (vertex_id,))
-        cur.execute(
+    if True:
+        client = get_kotoba_client()
+        _res = client.q("DELETE FROM vertex_agent_observation WHERE vertex_id = %s", (vertex_id,))
+        _res = client.q(
             f"INSERT INTO vertex_agent_observation ({names}) VALUES ({placeholders})",
             tuple(row[column] for column in columns),
         )

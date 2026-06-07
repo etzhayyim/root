@@ -20,6 +20,7 @@ RisingWave constraints:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import json
@@ -32,7 +33,6 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
-from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock patching)
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -225,7 +225,8 @@ def _insert_tle_rows(rows: list[dict[str, Any]], *, source: str, group: str) -> 
         return 0
     written = 0
     ingested_at_ms = _now_ms()
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for r in rows:
             vertex_id = f"{r['norad_id']}:{r['epoch_ms']}"
             params = (
@@ -237,7 +238,7 @@ def _insert_tle_rows(rows: list[dict[str, Any]], *, source: str, group: str) -> 
                 ACTOR_DID, "anon", 1, DEFAULT_REPO,
             )
             try:
-                cur.execute(_INSERT_TLE_SQL, params)
+                _res = client.q(_INSERT_TLE_SQL, params)
                 written += 1
             except Exception:  # noqa: BLE001
                 continue
@@ -259,7 +260,8 @@ def _insert_pass_rows(rows: list[dict[str, Any]]) -> int:
         return 0
     written = 0
     computed_at_ms = _now_ms()
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for r in rows:
             vertex_id = f"{r['norad_id']}:{r['observer_h3']}:{r['aos_ms']}"
             params = (
@@ -272,7 +274,7 @@ def _insert_pass_rows(rows: list[dict[str, Any]]) -> int:
                 ACTOR_DID, "anon", 1, DEFAULT_REPO,
             )
             try:
-                cur.execute(_INSERT_PASS_SQL, params)
+                _res = client.q(_INSERT_PASS_SQL, params)
                 written += 1
             except Exception:  # noqa: BLE001
                 continue
@@ -605,9 +607,10 @@ def task_satellite_pass_precompute(
 
     sql = _LATEST_TLE_SQL_TPL.format(limit=10_000)
     tles: list[tuple[int, str, str, str]] = []
-    with sync_cursor() as cur:
-        cur.execute(sql, (catalog_group, catalog_group))
-        for norad_id, name, line1, line2 in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (catalog_group, catalog_group))
+        for norad_id, name, line1, line2 in _res:
             tles.append((int(norad_id), str(name or ""), str(line1), str(line2)))
 
     if not tles:
@@ -673,9 +676,10 @@ def task_satellite_pass_compute(
         sql = _LATEST_TLE_SQL_TPL.format(limit=2_000)
 
     tles: list[tuple[int, str, str, str]] = []
-    with sync_cursor() as cur:
-        cur.execute(sql, (catalog_group, catalog_group))
-        for norad_id, name, line1, line2 in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (catalog_group, catalog_group))
+        for norad_id, name, line1, line2 in _res:
             tles.append((int(norad_id), str(name or ""), str(line1), str(line2)))
 
     start_dt = _dt.datetime.now(tz=_dt.UTC).replace(microsecond=0)

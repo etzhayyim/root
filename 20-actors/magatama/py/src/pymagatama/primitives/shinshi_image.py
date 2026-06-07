@@ -21,6 +21,7 @@ Tasks
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import asyncio
 import base64 as _b64
@@ -780,7 +781,6 @@ async def task_shinshi_coverage_find_incomplete(
 
     Output: {"slugs": [...], "totalIncomplete": int, "checked": int}
     """
-    from pymagatama.db_sync import sync_cursor
 
     bound_max = max(1, min(50, int(maxModels)))
     bound_min = max(1, min(5, int(minScenes)))
@@ -810,10 +810,11 @@ async def task_shinshi_coverage_find_incomplete(
     rows: list[tuple[str, int]] = []
     total_incomplete = 0
     try:
-        with sync_cursor() as cur:
-            cur.execute(sql, (like_pat, like_pat))
-            rows = list(cur.fetchall() or [])
-            cur.execute(
+        if True:
+            client = get_kotoba_client()
+            _res = client.q(sql, (like_pat, like_pat))
+            rows = list(_res or [])
+            _res = client.q(
                 "SELECT count(*) FROM ("
                 "  SELECT m.repo FROM ("
                 "    SELECT DISTINCT repo FROM vertex_repo_record "
@@ -830,7 +831,7 @@ async def task_shinshi_coverage_find_incomplete(
                 ") t",
                 (like_pat, like_pat),
             )
-            r = cur.fetchone()
+            r = (_res[0] if _res else None)
             total_incomplete = int(r[0]) if r else 0
     except Exception as e:  # noqa: BLE001
         return {"slugs": [], "totalIncomplete": 0, "checked": 0, "error": str(e)[:200]}

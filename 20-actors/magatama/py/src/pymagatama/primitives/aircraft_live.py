@@ -20,6 +20,7 @@ RisingWave constraints honored:
 """
 
 from __future__ import annotations
+from pymagatama.kotoba_datomic import get_kotoba_client
 
 import datetime as _dt
 import json
@@ -32,7 +33,6 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
 
-from pymagatama.db_sync import sync_cursor  # noqa: F401  (re-exported for mock patching)
 
 # ──────────────────────────────────────────────────────────────────────
 # Constants
@@ -248,7 +248,8 @@ def _insert_state_rows(rows: list[dict[str, Any]]) -> int:
     if not rows:
         return 0
     written = 0
-    with sync_cursor() as cur:
+    if True:
+        client = get_kotoba_client()
         for row in rows:
             vertex_id = f"{row['icao24']}:{row['ts_ms']}"
             params = (
@@ -262,7 +263,7 @@ def _insert_state_rows(rows: list[dict[str, Any]]) -> int:
                 ACTOR_DID, "anon", 1, DEFAULT_REPO,
             )
             try:
-                cur.execute(_INSERT_STATE_SQL, params)
+                _res = client.q(_INSERT_STATE_SQL, params)
                 written += 1
             except Exception:  # noqa: BLE001
                 # PK collision on identical (icao24, ts_ms) — RW silently overwrites
@@ -384,9 +385,9 @@ def _nearest_airport_iata(cur: Any, lat: float, lon: float, max_radius_deg: floa
     LIMIT 50
     """
     try:
-        cur.execute(sql, (lat - max_radius_deg, lat + max_radius_deg,
+        _res = client.q(sql, (lat - max_radius_deg, lat + max_radius_deg,
                           lon - max_radius_deg, lon + max_radius_deg))
-        candidates = cur.fetchall() or []
+        candidates = _res or []
     except Exception:  # noqa: BLE001 — vertex_spatial may not have these columns
         return None
     if not candidates:
@@ -413,9 +414,10 @@ def task_flight_track_compact(window_sec: int = 300) -> dict[str, Any]:
     sql = _SELECT_RECENT_SQL_TPL.format(limit=100_000)
 
     by_flight: dict[tuple[str, str], dict[str, Any]] = {}
-    with sync_cursor() as cur:
-        cur.execute(sql, (cutoff_ms,))
-        for row in cur.fetchall():
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql, (cutoff_ms,))
+        for row in _res:
             icao24, callsign, lat, lon, alt, vel, ts_ms = row
             key = (str(icao24), str(callsign or ""))
             entry = by_flight.setdefault(key, {
@@ -437,7 +439,8 @@ def task_flight_track_compact(window_sec: int = 300) -> dict[str, Any]:
 
     written = 0
     if by_flight:
-        with sync_cursor() as cur:
+        if True:
+            client = get_kotoba_client()
             for (icao24, callsign), entry in by_flight.items():
                 points = entry["points"]
                 if len(points) < 2:
@@ -464,7 +467,7 @@ def task_flight_track_compact(window_sec: int = 300) -> dict[str, Any]:
                     _now_iso(),
                 )
                 try:
-                    cur.execute(_INSERT_TRACK_SQL, params)
+                    _res = client.q(_INSERT_TRACK_SQL, params)
                     written += 1
                 except Exception:  # noqa: BLE001
                     continue
@@ -578,7 +581,9 @@ def task_flight_registry_refresh(csv_url: Any = None, max_rows: int = 200_000) -
     today_date = now_iso[:10]
     cap = max(1, min(int(max_rows), 1_000_000))
 
-    with sync_cursor() as cur:
+    if True:
+
+        client = get_kotoba_client()
         for row in reader:
             if written + skipped >= cap:
                 break
@@ -627,7 +632,7 @@ def task_flight_registry_refresh(csv_url: Any = None, max_rows: int = 200_000) -
                 today_date,
             )
             try:
-                cur.execute(_INSERT_AIRCRAFT_SQL, params)
+                _res = client.q(_INSERT_AIRCRAFT_SQL, params)
                 written += 1
             except Exception:  # noqa: BLE001
                 skipped += 1
@@ -677,13 +682,14 @@ def task_flight_registry_link_live(max_links: int = 50_000) -> dict[str, Any]:
 
     written = 0
     now_iso = _now_iso()
-    with sync_cursor() as cur:
-        cur.execute(sql_select)
-        rows = cur.fetchall() or []
+    if True:
+        client = get_kotoba_client()
+        _res = client.q(sql_select)
+        rows = _res or []
         for state_vid, _icao24, ts_ms, aircraft_vid, _did in rows:
             edge_id = f"{state_vid}->{aircraft_vid}"
             try:
-                cur.execute(
+                _res = client.q(
                     _INSERT_STATE_FOR_AIRCRAFT_EDGE_SQL,
                     (edge_id, state_vid, aircraft_vid, ts_ms, now_iso, 1, DEFAULT_REPO, ts_ms),
                 )
