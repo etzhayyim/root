@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreienuixbt2rwwxdrprpfmwma25ij3tajad5n737jwjy5ddrfcnam2e",
   "schema": "schema/cowin.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

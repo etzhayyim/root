@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigmkh3fhb3c7ygztcahg366ppvzyqrmj5eqgsrng5fysod3gpqtem",
   "schema": "schema/quic_http3.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",

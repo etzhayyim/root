@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreify2qwbl4saszf7tbmxnfnzzci6eds2i654xhhfgk6eyqmdg7d6di",
   "schema": "schema/calendly.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

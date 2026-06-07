@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifmpxxciszbozr7fzuwo66iey2jczqmdjyubtr5xbz3dxzybyglb4",
   "schema": "schema/thingworx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

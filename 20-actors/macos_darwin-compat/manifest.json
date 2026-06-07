@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidxgolhvxvk6ocsaasbdescdgfxeoz6ilf66c2wmupa5qaj3tyd5e",
   "schema": "schema/macos_darwin.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

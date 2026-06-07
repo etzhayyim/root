@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihuh6wqczd23ijcg5hjxlasxorgjdh5z44zmwo37sdn7bmoga6mtq",
   "schema": "schema/greenway.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

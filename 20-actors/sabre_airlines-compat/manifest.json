@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibpk5g2dthqn5ou3yfmpgaqqsamesi35qrlftivgzvzb3xdf33sya",
   "schema": "schema/sabre_airlines.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

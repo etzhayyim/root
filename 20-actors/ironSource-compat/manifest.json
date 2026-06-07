@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiffdexntnmowa477knavuj7akxquzxnbhkwzlibatowi26ivby72y",
   "schema": "schema/ironSource.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib7qdxa57j5a2cny4kt2htr2qvw2ciekhwd4jvka7i6rz5bz7xbqi",
   "schema": "schema/cma.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",

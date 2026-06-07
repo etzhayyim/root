@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicddgr6l56mjxrzzztzeztip6aofbwtptxox7xgjdy3zvba5hh6pq",
   "schema": "schema/infura.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

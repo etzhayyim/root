@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib7oq6ufrblvqzxuady2hsuqgtdz4dcsf2r62wsujd2r2cnka57de",
   "schema": "schema/tocom.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

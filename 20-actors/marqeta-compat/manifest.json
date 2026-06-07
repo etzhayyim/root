@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifrv7xzv2c7bylhboprqoo3niy3j65u44t5dcolqqwspsrbv232ku",
   "schema": "schema/marqeta.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

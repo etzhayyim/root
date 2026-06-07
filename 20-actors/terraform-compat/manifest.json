@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia6faidx5a6gcbkdpgqjohlvspc3ewdqnyj6pavflj7lmapn6ugfa",
   "schema": "schema/terraform.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

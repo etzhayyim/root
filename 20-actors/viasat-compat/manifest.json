@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiajk2lmt5zcnxwcgfbbvafxoupm77dl7hnjaaal7kvzm44jvswiyi",
   "schema": "schema/viasat.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

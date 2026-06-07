@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiebk5tyclkmmrijeyw3euqkxkstvq2pbcd4oi6shjbtyosaapvmly",
   "schema": "schema/sansan.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

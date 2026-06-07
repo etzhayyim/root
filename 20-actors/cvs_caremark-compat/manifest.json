@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaf5fcba2qgaugzeqdf55zhweulq4yjmneprmj5voa4fhddca76la",
   "schema": "schema/cvs_caremark.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifvqmpnhkc5g7kkgcujbil5ywnym2uyhbv66awsz5apyhmuagrie4",
   "schema": "schema/kafka.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Connector",
     "Sync",

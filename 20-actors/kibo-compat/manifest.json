@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreienmfp7dkfnxb7kxrpgyo2yoc7xkdbq2v4m6isnczek5xc335tqrq",
   "schema": "schema/kibo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Catalog",
     "Product",

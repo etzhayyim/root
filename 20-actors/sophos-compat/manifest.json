@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifafmiag5keqfrhzy3rk7tcquqp3hewczuuwlkbflwrcslmffgb5e",
   "schema": "schema/sophos.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

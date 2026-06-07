@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidkep2gy3bjpmuvafkdpukb5d3y7ocvy22xnpzrt4j26oreeo4fh4",
   "schema": "schema/bankid_nordics.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

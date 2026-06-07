@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreievrtlzx7nkqme4ptn7ru7b5kqgddpsg4wj2l4a55dvxwpknjn5di",
   "schema": "schema/gepredix.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

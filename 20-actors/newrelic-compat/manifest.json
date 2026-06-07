@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiekcyvi6azz23k7cskty3sowvsfnunoiunir6ccapk474sgntxaey",
   "schema": "schema/newrelic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

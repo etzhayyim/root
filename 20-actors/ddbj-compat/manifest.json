@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic4lloccrnzs46ymcbyuzo3ihi2bjyfvfki56qhq4hgj7ryrkvwii",
   "schema": "schema/ddbj.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",

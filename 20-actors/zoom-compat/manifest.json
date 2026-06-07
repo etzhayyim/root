@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibgz4t4pqnk2ltfcp353ug4mxcekgkgoss6p5hvcwdzjx7a3vdjbi",
   "schema": "schema/zoom.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

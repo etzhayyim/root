@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidvt57ynm3irwvryfvohf3kbr473gn5ook4if4cqu66uigrvfki2q",
   "schema": "schema/insurity.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

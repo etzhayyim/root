@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidmwyveu5lxjhnuspj4setnf6tcf7xcwalt4d6evbeu25fcd33uf4",
   "schema": "schema/retool.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

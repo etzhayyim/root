@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig2dcygmpftv7ys4wgsxq6tv2u25wcek4flgh7qbniscyas4tp3z4",
   "schema": "schema/mygovid.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

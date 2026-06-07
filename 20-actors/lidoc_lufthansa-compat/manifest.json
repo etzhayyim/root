@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihpvytkdxgo3z633ttgfl33z7ccoe34tucwlmjhzledh2drquek3i",
   "schema": "schema/lidoc_lufthansa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

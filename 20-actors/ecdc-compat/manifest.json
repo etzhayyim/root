@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibdtlc7j5zslb36vp4urqojeeuwxzqrnhy4wosmllfdygcgezhowq",
   "schema": "schema/ecdc.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Application",
     "Grant",

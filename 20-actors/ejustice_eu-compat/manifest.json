@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidwvyddhdkvfux6dgzpqbv2ps4vc4ji6uq7rwl3oikozitpzgaa5i",
   "schema": "schema/ejustice_eu.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

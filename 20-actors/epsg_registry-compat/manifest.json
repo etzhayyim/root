@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiadzmi4cbwpqn7gfvosin25j363v7utwd5xovfnpgk2eewc6dnyea",
   "schema": "schema/epsg_registry.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

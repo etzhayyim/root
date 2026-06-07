@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiagm4krxnsrz627kd6czpkv6k6z4y2u4vz3a36uxtcv2kja6i3k3u",
   "schema": "schema/modbus_tcp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

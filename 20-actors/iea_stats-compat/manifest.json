@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihoesbacmaunhjpjcgs2zkmnuhvmi522liv5fubfitqisdn254xca",
   "schema": "schema/iea_stats.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

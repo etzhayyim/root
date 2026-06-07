@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibjibspuvjqid4o3hab76tjy6v7w3ohzw6dkffmjwykmovdaztdky",
   "schema": "schema/kajabi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

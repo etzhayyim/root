@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifdfk56jm3mrgvdxu4axihsmab4iz3qwb5bppitcujentn7anj7mi",
   "schema": "schema/signal_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

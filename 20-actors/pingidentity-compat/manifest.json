@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid6okr6lgpoxqkhigwyhqtwozlkbumeybm72v2pdmbzlryhem4lfe",
   "schema": "schema/pingidentity.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

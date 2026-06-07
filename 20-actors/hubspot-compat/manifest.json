@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiak7kavtyeq5xkwjiiaeanuue2vs4qcwfycmbencftisuw5fqllci",
   "schema": "schema/hubspot.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

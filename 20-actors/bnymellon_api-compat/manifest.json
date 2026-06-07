@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihjl446g5bwkjxormsretyzvnutzybyyp6gkcg3cmlh5ezzsrcdre",
   "schema": "schema/bnymellon_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

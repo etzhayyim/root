@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihbkiqg25f6tm6hdd7w22loqp7h4jzlkmh7vlguwpgh72dec3d6g4",
   "schema": "schema/trendmicro.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

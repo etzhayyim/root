@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibpud3qc57wupzhbt7cjjknebibok7b7lbh5hwhbk44mmouu6xeli",
   "schema": "schema/smartdubai.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

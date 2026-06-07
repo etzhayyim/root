@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid4hkulvyv23rpqasal6tz2e6ohzenvh66glk6voalv3txmnnps54",
   "schema": "schema/schlumberger_osdu.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

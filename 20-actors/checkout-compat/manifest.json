@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifppn2tweduyuhpatkulxphl52hpwwsjgiwvhhhviuudsw5nril2u",
   "schema": "schema/checkout.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

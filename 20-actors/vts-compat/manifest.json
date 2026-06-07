@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicd5es6iafr5dxaer4ckswuq5lv5tipvxr3wl4sa2qka7mhpzkury",
   "schema": "schema/vts.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

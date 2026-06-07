@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiawac6dzkcetmmfxsh676w33xg2xozgkufdbncpa52vxuzvesimw4",
   "schema": "schema/mynumber.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibcexa7ssjnfvqbgvpjkpiy6djsvsqxwrga4wkakuqb2jp4bgwt3a",
   "schema": "schema/fca_uk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

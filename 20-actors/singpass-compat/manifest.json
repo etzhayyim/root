@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihykuehky6hjn5za7s7khfhewb4rzjhahcmfa7nu4bebkl6htme2e",
   "schema": "schema/singpass.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

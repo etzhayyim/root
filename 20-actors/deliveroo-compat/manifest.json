@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie6mglmfnv7k26g5jtdfolip575xj7fapoiulf5frc5u3mrw2ufba",
   "schema": "schema/deliveroo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

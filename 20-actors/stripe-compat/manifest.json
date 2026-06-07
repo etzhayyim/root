@@ -11,7 +11,28 @@
   "exec": "browser-local|donated-mesh",
   "ipfs": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
   "schema": "schema/stripe.kotoba",
-  "tier": "L4",
+  "tier": "L5",
+  "verified": {
+    "source": "https://docs.stripe.com/api",
+    "verifiedAt": "2026-06-08",
+    "resources": [
+      "Customer",
+      "PaymentIntent"
+    ],
+    "enums": {
+      "PaymentIntent": {
+        "status": [
+          "requires_payment_method",
+          "requires_confirmation",
+          "requires_action",
+          "processing",
+          "requires_capture",
+          "canceled",
+          "succeeded"
+        ]
+      }
+    }
+  },
   "entities": [
     "Customer",
     "PaymentIntent",

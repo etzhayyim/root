@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicwf5kfmwi33g4lgdmevl6acollvbcha3flw2beky7ywur7tienja",
   "schema": "schema/fmc.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidv6ji2ktbr7o7jdgzkmpvi4amsnopb4to5vqwvs4scoto2phypci",
   "schema": "schema/travelport.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

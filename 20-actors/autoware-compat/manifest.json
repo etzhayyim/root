@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidwm5qryvjogz7432ymh724zujqcqvsxdrwpfygeslrfecvbf4jeq",
   "schema": "schema/autoware.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

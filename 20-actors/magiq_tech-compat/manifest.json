@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibjpplctlaknl2mcfn2hd2sxvjk6kbfqxtez33oozgnujfe2kahey",
   "schema": "schema/magiq_tech.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "KeySession",
     "Node",

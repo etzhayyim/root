@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihhbz5cfbjc75ossmgh23mazqbdf2lwf2t555srvrdlwadykaw6yi",
   "schema": "schema/jr_timetables.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

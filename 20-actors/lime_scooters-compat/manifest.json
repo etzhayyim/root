@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigxrswa6ukdawq2xetnc5nfu35trspcpvgmo4su52ga6iab4i3tuy",
   "schema": "schema/lime_scooters.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Driver",
     "Rider",

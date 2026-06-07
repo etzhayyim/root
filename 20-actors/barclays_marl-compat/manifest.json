@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig6dol4msquvvitihhs4fi2xixxdwof3iqtlvvr6xb5e3pmvlinb4",
   "schema": "schema/barclays_marl.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

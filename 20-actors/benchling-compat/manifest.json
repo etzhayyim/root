@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaysggx6p3oadasboz2jplzqmdn46mtium7dwliofzbxlylrj62a4",
   "schema": "schema/benchling.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Strain",
     "Construct",

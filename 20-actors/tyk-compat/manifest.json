@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieic7ujsteo5kaw4laj653gll37odlmermsfgj474ius3qgmrskea",
   "schema": "schema/tyk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

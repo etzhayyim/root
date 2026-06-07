@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibbfqjivc4royojlnhxmbvp26tcuoo73edgp6fsbsjs746rb6htvi",
   "schema": "schema/iceye.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

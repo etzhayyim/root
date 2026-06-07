@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiao22lunymkmcu2xpbrg3dzwwkh2djkzfz6ccddvijqyyr4n5pw7q",
   "schema": "schema/pjm_interconnection.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

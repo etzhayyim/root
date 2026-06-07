@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig7niwwkabzrjampehvvee6q7enbtcoe26azowiepo56tzi2rvotq",
   "schema": "schema/naics_codes.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

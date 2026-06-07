@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie4zk224g7pknlp3mqxr7ovehq3ymovmilcwb6vazzxlwcl73zvyi",
   "schema": "schema/mpesa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

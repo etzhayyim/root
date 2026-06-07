@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicady7qwycwxqj3cvwuua2bqltlom6tbbrjkycsqkpvs7jixkjequ",
   "schema": "schema/bigid.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",

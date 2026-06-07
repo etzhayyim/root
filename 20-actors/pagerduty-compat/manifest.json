@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihbcsb7quanvdoc2rflxxkv42jcqtidnrxxhmistn25r7mcwwksuq",
   "schema": "schema/pagerduty.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

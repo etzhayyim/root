@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicbz5mvt5hpzumfurl7gzvt27j4qzejptocifzymtkqumjts4vpqm",
   "schema": "schema/mavlink_drones.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

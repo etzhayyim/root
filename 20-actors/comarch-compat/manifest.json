@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifmbo3f4nvxjncw7xzd5xewliyguj4gdbzak4ecq2wvgxtp2ix6pa",
   "schema": "schema/comarch.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

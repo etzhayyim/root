@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihjakk4zo6q7yvahudret6t36f65g6tbjdbbbebscpkrhfavff3cq",
   "schema": "schema/csg_international.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

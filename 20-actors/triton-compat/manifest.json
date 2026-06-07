@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic6l3te42lpkb72nmnvos2kjmdfpxzbp56k6sw5g2uqb5egrgozfq",
   "schema": "schema/triton.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",

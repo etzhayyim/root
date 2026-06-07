@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih2nztcnwhjdqpeqvvdslsfz7b4ae4rpndjkbra3vkm22mno3ud7q",
   "schema": "schema/manhattan_pos.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

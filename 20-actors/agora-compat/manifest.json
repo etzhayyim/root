@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibvbiukja5itbvidhuszi6izhgj34j4w5ese62oy7puthlktcpfge",
   "schema": "schema/agora.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

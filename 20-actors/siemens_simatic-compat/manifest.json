@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicvo26vkozjxdpkwk6r7r5r5cd7pcauzwzl257v7lxhnaycos2tka",
   "schema": "schema/siemens_simatic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

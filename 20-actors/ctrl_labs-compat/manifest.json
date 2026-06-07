@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreideek5pkzcxivkjx3cbymzh7m5ryhntd4fy5lpho5fwxbmlt2xmdu",
   "schema": "schema/ctrl_labs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",

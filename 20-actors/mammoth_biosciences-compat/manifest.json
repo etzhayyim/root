@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidpsx63zofkzwasi3pjbgtuil22gjrz4htplgcowrxgp5vwfuwxam",
   "schema": "schema/mammoth_biosciences.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Strain",
     "Construct",

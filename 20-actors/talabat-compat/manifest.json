@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiblnry6egkof6wvcyp2cmfpq2xgkl2v66thih5knpr2pdxkpq4rhu",
   "schema": "schema/talabat.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

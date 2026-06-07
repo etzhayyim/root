@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig7awziwor76tlxhc5icmcf36ja3cbe5utgw4wpg624p72nkgmmwa",
   "schema": "schema/acquia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

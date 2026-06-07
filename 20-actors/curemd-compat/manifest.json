@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihuwbutpuvfs5vlystldszsdj2gz4kj4liafua4ijcljncbwhhtxq",
   "schema": "schema/curemd.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihfpayrttap5s4jhc7xbq5j6m3clmxzdawyivlaypjea7uw3gngia",
   "schema": "schema/weatherford.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

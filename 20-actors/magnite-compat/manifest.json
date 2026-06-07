@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiarxg56bu7wu3rn3g4pvkp6kjzfl62khijkahzm7lvni5qbikpgie",
   "schema": "schema/magnite.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

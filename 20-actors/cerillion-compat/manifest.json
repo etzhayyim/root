@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigdbvvdn56hpt62sjgntjr6llwmx5tntdj5oyztlwzc47imb5adwq",
   "schema": "schema/cerillion.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

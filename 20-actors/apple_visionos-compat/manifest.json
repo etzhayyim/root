@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia7p47gqq5ciwpkopzk6taquoascdsaeiphoted4ochpgbff6z62q",
   "schema": "schema/apple_visionos.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",

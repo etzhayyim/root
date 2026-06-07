@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif2erolw2jlilxm5qav6fwszdp4tcs5bm5enkfwfgys3csmxjf6ry",
   "schema": "schema/fja_sapiens.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

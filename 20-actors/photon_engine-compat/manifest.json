@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif2rwniechgv6z6psc4ml5bhhx5po3ccet3n2ndrwlqyciefxyl6m",
   "schema": "schema/photon_engine.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",

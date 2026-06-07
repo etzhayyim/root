@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia5ttanhzxxmxi4usbofkkndw6b6ybkwkoyyt4xhp5kuyi34to3qy",
   "schema": "schema/siteminder.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

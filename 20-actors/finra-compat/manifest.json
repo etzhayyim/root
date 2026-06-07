@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigaaz4zes5gnip62dulq3vyd5dvsi5isorw6pgisje76mx7nlabmi",
   "schema": "schema/finra.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",

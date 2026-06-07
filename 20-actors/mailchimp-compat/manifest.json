@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihzfxkbuhwlyhgwy7hkkk73h24w6mqjd5sfkjzkxn6xwyzxztfioi",
   "schema": "schema/mailchimp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

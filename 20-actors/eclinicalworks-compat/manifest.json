@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidtqkozc2uu2pqn4itn35niea6g3hng5j54b4fejsyskdli3ihqze",
   "schema": "schema/eclinicalworks.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

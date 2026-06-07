@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiepfp2erihrx6sdvqvjv7crtjm45zzudg2ec73dddngabh4knlbky",
   "schema": "schema/applovin.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihzapf7pv5jvy7o4lj7qionjkymkztm3oqfwtj2dwjqkenpu2cvbi",
   "schema": "schema/helion_energy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

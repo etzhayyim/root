@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie6a5ezg6biz5jaivvhqd6ovwoqwcunln2zbjbhensho3a6rer55a",
   "schema": "schema/wechat_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

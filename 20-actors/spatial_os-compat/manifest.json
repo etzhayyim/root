@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid6u7f75mldxayambylkb7uyokmg4gjtjxg22z23dwfnsduujohpm",
   "schema": "schema/spatial_os.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",

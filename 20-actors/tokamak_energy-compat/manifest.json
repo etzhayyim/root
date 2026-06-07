@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicldifp5hpgo3qzsgjgatlwdy23cqom342wbxtjldjjqm7lmup4qu",
   "schema": "schema/tokamak_energy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

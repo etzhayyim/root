@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib7srp3vvhovplhc3rzviwtnuv6wkm7bb3ajgvrsvews5zllrakgq",
   "schema": "schema/mastercard_banknet.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

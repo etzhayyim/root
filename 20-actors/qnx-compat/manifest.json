@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig4buiuntv2haoul4qkkx66iqexhlalekilmmqq2fwedjrl5lihly",
   "schema": "schema/qnx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

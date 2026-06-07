@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieahgmwxwxajskjxcu7wocatlxaoj77wc5fbdeo3acagldghhwhmu",
   "schema": "schema/starlink.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

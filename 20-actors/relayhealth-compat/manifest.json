@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicfurkkachrnqj5zqto4tgc2s2kqujhplivqtafcs5lf5xzw6mloq",
   "schema": "schema/relayhealth.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

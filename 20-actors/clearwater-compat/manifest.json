@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihilxzqz2xrd65dsyzhdfdffm63aezagpum46ziblhqb4t233ninq",
   "schema": "schema/clearwater.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieohf3b36utb74jbqgyzft5iy7jpiune4my5slasnfj25gqqq2xja",
   "schema": "schema/mixpanel.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

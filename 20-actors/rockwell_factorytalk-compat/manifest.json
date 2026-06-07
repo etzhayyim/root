@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicwooyakaf2vkctnjopoxewwviposx2bu2ku66iilr4hcsgsx6dye",
   "schema": "schema/rockwell_factorytalk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

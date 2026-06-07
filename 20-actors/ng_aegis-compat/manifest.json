@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihv6la6qa7vg7yo3id4r5nasjb37f4afotqlml5bim43jjiaupj3e",
   "schema": "schema/ng_aegis.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

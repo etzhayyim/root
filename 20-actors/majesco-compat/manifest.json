@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihwjy6ncfvs3mh4scfqef2hoc3336wlemyc3zuqj4mbna2qm6inle",
   "schema": "schema/majesco.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

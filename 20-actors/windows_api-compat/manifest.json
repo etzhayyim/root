@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihiu2b7r3a7ldz5fdmzsbv4r26fur3bi4irrejcdycxeceniqcfqa",
   "schema": "schema/windows_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

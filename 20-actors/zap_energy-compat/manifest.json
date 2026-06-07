@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaxz2h2vfh6snejw5b5iqdnvojjbdebloi7mdmut6vfl47xz7r764",
   "schema": "schema/zap_energy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

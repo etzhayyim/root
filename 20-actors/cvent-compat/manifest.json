@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia2bzmwn6wckl2n2c7vphujkaik7lciyzjtm3s4542uxpdosohlnu",
   "schema": "schema/cvent.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

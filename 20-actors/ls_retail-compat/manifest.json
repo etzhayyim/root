@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicrgcrbhxwg57ns2q6wvc6iwwrksvccln5fordyszymgqjv2n5mdq",
   "schema": "schema/ls_retail.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

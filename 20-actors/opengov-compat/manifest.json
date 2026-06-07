@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifh4u5blcc7ktkjlh7jmzaelukd6vhemersgb7d6mkzjbkz3dacvy",
   "schema": "schema/opengov.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

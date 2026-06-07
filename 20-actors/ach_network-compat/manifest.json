@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreictt65xpa2dz466wwuo7ckfwyuour37ubgvclgjrcxyi4sesy4to4",
   "schema": "schema/ach_network.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

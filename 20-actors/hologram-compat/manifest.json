@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiecsvxlgzm535g7vfqypk5vrovlem63majc2mwrj6wqrdenpepuwa",
   "schema": "schema/hologram.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

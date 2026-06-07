@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibkn4x4ick7okwbsnkc4bmvmhu2yg6uioomrh6adeieir433omroi",
   "schema": "schema/itsme_norway.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

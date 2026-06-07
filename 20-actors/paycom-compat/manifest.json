@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihzidksoj63ydvnr7skgrrbg6c6hb2prygs5cpf6ym46tj4biv5am",
   "schema": "schema/paycom.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

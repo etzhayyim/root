@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiferdi5isevbfy47hjtt5ybr4llyc6mafgfnear3drb5zlvoh5jla",
   "schema": "schema/unity_ads.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

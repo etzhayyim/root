@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihp56ydcrze3cb6cslv2o2rgi5uoqr3mcrrk3kt4vzuclxrdwgjam",
   "schema": "schema/irena.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

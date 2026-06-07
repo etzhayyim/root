@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib3esnfvroxaxbmm2i4xtmi52r4yv3t3x2v3nwgyra7wvevkvhwr4",
   "schema": "schema/granicus.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

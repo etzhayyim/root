@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiht6jpncybghpiwwiyi5ypld6n6u2uajafdy3hnzzfhopv4ab25fi",
   "schema": "schema/jpmorgan_onyx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

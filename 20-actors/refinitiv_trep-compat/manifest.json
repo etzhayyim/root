@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia3xaul24rfg7nwh7b3zs44p7be72c4nwn4kiol4rwnyyjcnt5rgi",
   "schema": "schema/refinitiv_trep.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",

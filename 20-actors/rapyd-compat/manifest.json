@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidmtufvznuwitzvxjnyln2xaamwgcvqavexgbaqkvlkkt7xiuzpfe",
   "schema": "schema/rapyd.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

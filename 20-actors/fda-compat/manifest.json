@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihmwvyxjxmkycdtxfsacm5hn7bxeqicmxfjqlk3j3jm6cbp2gm47u",
   "schema": "schema/fda.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

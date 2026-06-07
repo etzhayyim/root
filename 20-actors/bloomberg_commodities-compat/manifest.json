@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaqnlioahv2ynofcwqnu6aq3qlnbv3hkpwghh3gli2ohssa2mvgau",
   "schema": "schema/bloomberg_commodities.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

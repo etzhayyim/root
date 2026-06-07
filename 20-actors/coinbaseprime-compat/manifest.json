@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibwpk7rwntgzgj2wsegx76e7pqhyoa7scbwpxynhkjcmllqbrmtse",
   "schema": "schema/coinbaseprime.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

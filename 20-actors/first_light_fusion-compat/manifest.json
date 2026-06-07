@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib7jtfqhnzk5tpzglldwz2jiuce5jsd7rl7yafj5ar7l3lixto5eq",
   "schema": "schema/first_light_fusion.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

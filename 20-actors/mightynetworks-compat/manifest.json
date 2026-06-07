@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiczbyk772ra7ooc7hjjxv6pz23tw7ynfxwvcqy6lx6wpwtk7vwjjq",
   "schema": "schema/mightynetworks.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

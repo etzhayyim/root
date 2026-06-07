@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreict6r3yicwe3kzbxzpcfdwyyzxj5ygqmb7mfeilkcnkz5ur3uatai",
   "schema": "schema/langchain.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

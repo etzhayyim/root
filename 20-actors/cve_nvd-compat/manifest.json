@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifadegkbjriotklhgnjxsata3txjamtctkrvlu3zifh5yn6cmpvsm",
   "schema": "schema/cve_nvd.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Vulnerability",

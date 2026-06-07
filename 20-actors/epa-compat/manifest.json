@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibatruxwaqtsxbuk76lppdx2mm55nqo6ep7ufhxnjqcweb3nl4z3u",
   "schema": "schema/epa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieol5cq3fzweufduj2ucqn42niwutcntjjspq6e6dfgblrlnjspxi",
   "schema": "schema/elastic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

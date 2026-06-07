@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib3mqcksgzfdcf7kf4cvov7r2euc4o6q72z4ekp74z3hzvdiz7zie",
   "schema": "schema/mhra.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

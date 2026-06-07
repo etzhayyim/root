@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicr5w5wdebst6j72fdpelwy7g2izvqucwef74sdmmu5ctkn4tz4ym",
   "schema": "schema/kakao_talk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

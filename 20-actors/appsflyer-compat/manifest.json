@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie27u35cdqx34hfju5kcmgh45derc7mhpb24vb4m5erjyswhxfwmi",
   "schema": "schema/appsflyer.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

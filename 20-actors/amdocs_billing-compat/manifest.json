@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigkw6lqmyf4s4d5rhurqgrhnt32r6viziiqqsb766oy3tnollybya",
   "schema": "schema/amdocs_billing.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

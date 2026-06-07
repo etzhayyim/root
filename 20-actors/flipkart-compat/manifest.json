@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigft54rq6puexu2gnqw3nc37s5ip7uickgq2pr7zg6tqtwdboewee",
   "schema": "schema/flipkart.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

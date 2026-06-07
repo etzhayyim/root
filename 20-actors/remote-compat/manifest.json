@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiadex5q2eyjgwd6u4umfc3a45j55botabfyyqlqe4ea5eatnzc4le",
   "schema": "schema/remote.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

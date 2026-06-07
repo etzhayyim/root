@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicopvtj3xp53f4a5dm3sl6z7r6nulbyda7o73lx7ykin4mgrassee",
   "schema": "schema/tesla_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

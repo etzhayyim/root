@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibtyzesgtha46o3cafsfqwfsqeopiqhka4acyr6ad7srg3j6q63cm",
   "schema": "schema/databricks.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",

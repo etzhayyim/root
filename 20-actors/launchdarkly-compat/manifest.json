@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigf4zm5jromrz2a3o747yxudc7xpc3i2wgo4khg4hs5gcctlnpu7e",
   "schema": "schema/launchdarkly.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

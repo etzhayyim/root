@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid7okniytmmhh2t2j3nt5grocmaz3hytxlkkgfpnaszhgcnbwev3u",
   "schema": "schema/bafin.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

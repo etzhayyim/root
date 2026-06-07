@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibsiqifkwew46um7owrffq7z4pkfhmtpcjvleckn2d65ttqg2vfwm",
   "schema": "schema/outsystems.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

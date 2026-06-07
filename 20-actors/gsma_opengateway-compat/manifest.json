@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif5zbikfwqyvtpqik4cpg3lq32wqs5rckd45sgpnqimy6bcpenyvq",
   "schema": "schema/gsma_opengateway.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

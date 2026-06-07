@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibt6vokliqipqfxtim5xr72bq56o767mwm5gfeleq36nsyskdwugq",
   "schema": "schema/wto.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Observation",

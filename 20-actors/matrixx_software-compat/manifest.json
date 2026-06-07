@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig4z3kfkpb6vszq76w2wnknlniqwe5echxr235wxy5yrvrpmewzb4",
   "schema": "schema/matrixx_software.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

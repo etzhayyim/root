@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidljzcjkllk5suekgtz7hmk6w6ga5i5q5xhufl6o2rmiee5viro3a",
   "schema": "schema/grafana.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

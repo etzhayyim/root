@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiegfhrhstbrqrw6i52kt3pr5ggn3gajpvrkdpnhifjzi7n2nl6oam",
   "schema": "schema/uk_customs_chief.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

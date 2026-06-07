@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigpgu6sbi6fblrrqxx3zl2a7opgtikqaagr6eejonrmjczgqidmhu",
   "schema": "schema/yoti.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

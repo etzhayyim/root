@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiasuiewaufcbgsgr7woc5nldiypn7wjldxcs7xvt232hzw55hv63e",
   "schema": "schema/interactivebrokers.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

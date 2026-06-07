@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid6mczatn7cm4s2hh5hfydnic6m6cbn7bhk3hl5kerlmwacadblcy",
   "schema": "schema/iso_claimsearch.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

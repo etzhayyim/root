@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig4ko2x6scffvbdxl3ofgllj4b3gt7xmhpfyig5bhx5vety6rd5om",
   "schema": "schema/mitsubishi_centum.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

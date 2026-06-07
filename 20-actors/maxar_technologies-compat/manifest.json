@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibyjy2m4342x3pmbl57xxiyv4x3fyzvxfbhwxyszrsig5qw5rfv2i",
   "schema": "schema/maxar_technologies.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

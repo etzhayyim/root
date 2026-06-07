@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiglsqa2mbjmeoikze56ptpawwa56var2ko2t7wgfhl3cscawdodti",
   "schema": "schema/google_cirq.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

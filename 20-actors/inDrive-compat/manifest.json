@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic3b7clycnvfk7rg4nonxygaftn4tnlt6t3bz25q656llf6rurvdm",
   "schema": "schema/inDrive.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Driver",
     "Rider",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiewos62j4557c27yvubkjhwrkotqpqsxqadwjyeebm5tj3iyauyzu",
   "schema": "schema/bluebeam.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

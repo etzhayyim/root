@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreievno4yq4xyn64ojpf5htuwjq5k3l2l63oxoqnhkxbjedg72uspoy",
   "schema": "schema/eidas.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

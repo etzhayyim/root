@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiejokkxsuo7tyglfb3q43wuoocuzwkmat2aofqg6k2trpn5ivif2a",
   "schema": "schema/clio.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

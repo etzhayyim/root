@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibvqaguqrkv344ikmjpsmtelxjtecn4qj6bqlfgcqerrtwqxv2xjm",
   "schema": "schema/dhs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

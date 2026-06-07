@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicipndzgzd6lord25hopx4i3w4chiwf6fysbmhlhqvi2towx7x2ji",
   "schema": "schema/vercel.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",

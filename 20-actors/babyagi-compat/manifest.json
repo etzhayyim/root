@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid3z4avw3vp2dfvdxy4osogqjsc4lpofcbn22d6klm64tbrcv5z4a",
   "schema": "schema/babyagi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

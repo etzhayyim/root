@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifyjnssgr2mdxm6edev4yuafhtfffw3ue5ju2jtko5o6f6lymc6pm",
   "schema": "schema/shopify.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

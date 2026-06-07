@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifyotll3xqsmh3jwwchi46ilae3gex4enbrjqqrvp7grtcxj6fz64",
   "schema": "schema/robinhood.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

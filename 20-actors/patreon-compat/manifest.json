@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidkj7ypazmys5w4vfyizvfyhx53l6pvmooriw4zdfhsjbkxfwz6qy",
   "schema": "schema/patreon.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

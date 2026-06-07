@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihtzbvgpplchcp64xv27seqn47lumyopek4jpakkmdqspmreldd2e",
   "schema": "schema/crewai.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifnreef4u5yaxz5v6namhuyqqjddos3xbpuyyhjmcuk55ns526aha",
   "schema": "schema/mux.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

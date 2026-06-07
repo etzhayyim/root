@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihlqxetq4clfv3orcs6ikctqqnpkwayqcaxgw5qukxqqixecq743u",
   "schema": "schema/confluent.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Connector",
     "Sync",

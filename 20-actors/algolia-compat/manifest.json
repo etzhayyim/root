@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigiitzaomidocd3udgm4st4cw3je6wy35fb66ab55itf3oej2lxue",
   "schema": "schema/algolia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

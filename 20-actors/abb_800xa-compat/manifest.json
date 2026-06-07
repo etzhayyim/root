@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiezhwly6iqlcnrldienyvu5zw5bad2c6vcqaezwnpykub3pyq6wey",
   "schema": "schema/abb_800xa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

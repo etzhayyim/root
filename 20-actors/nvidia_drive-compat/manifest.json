@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieteak64fls3w7gsnt6psrb5fcm3nqe2udtcaoebtdmfn5yhpcfja",
   "schema": "schema/nvidia_drive.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

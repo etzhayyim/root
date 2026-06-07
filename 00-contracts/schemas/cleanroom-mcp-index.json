@@ -7635,7 +7635,7 @@
     {
       "handle": "stripe-compat",
       "did": "did:web:etzhayyim.com:actor:stripe-compat",
-      "tier": "L4",
+      "tier": "L5",
       "endpoint": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
       "transport": "ipfs+kotoba-wasm",
       "toolCount": 40,

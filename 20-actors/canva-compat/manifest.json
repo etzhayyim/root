@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifiwxk3qruothrh7n7vi3h7k5nr66r5s76txl7rtzc3lbmdutg7be",
   "schema": "schema/canva.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "File",

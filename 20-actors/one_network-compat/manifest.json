@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieoudpwanjmpwqpzckft3ck6q667as5syegmh4di33leuek75hmhu",
   "schema": "schema/one_network.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

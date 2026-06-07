@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiel7ck7mblsmlu5u5ncn7jf6y6hwije5sjcsbrwjngtvwxwpit25q",
   "schema": "schema/pagseguro.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

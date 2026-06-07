@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiei2la2wdiq2nhxgbzgpmdzgs5ulubq3ezzjak5vf7dyfmggbmrie",
   "schema": "schema/datadog.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

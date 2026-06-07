@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiblha2gw4p72qwxkmv2tux4dsbv3dhtsafwmyzj24wlgdamdluwyy",
   "schema": "schema/servicenow.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

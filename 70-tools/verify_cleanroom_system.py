@@ -86,9 +86,9 @@ def main():
                 errors.append(f"{actor}: main.py does not compile: {e}")
         # tier
         tier = m.get("tier")
-        if tier not in ("L3", "L4"):
+        if tier not in ("L3", "L4", "L5"):
             errors.append(f"{actor}: bad tier {tier!r}")
-        if tier == "L4":
+        if tier in ("L4", "L5"):
             l4.add(m["handle"])
         # capabilities present
         caps = m.get("capabilities", {})
@@ -104,7 +104,7 @@ def main():
             if fresh != cid:
                 stale += 1
         # L4 extras
-        if tier == "L4":
+        if tier in ("L4", "L5"):
             if not (os.path.isdir(os.path.join(adir, "tests")) and
                     glob.glob(os.path.join(adir, "tests", "test_*.py"))):
                 errors.append(f"{actor}: L4 but no contract test")

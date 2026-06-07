@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibz3acisifix2ixf73jimpuj33xrke2nktqss5iavmjm5xa5dq54i",
   "schema": "schema/reso_web_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",

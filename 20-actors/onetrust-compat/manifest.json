@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibaoklucovsye6hsf43vldgy53y7jejzldyv4w3e5afoiedd6i2ne",
   "schema": "schema/onetrust.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",

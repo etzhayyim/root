@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidcryn6txluxgo5vqolvmjhcgah4arniizh5nkq7ofz6izt35wpt4",
   "schema": "schema/pacer_courts.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

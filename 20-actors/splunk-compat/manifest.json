@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibrobt73qgtnaykhfb3wo6p7mtfzbn66u7hwcb2purdi3qeu6i7py",
   "schema": "schema/splunk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

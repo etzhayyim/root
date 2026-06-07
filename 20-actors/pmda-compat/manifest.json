@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia5lhvxrm6yzk7y4uz62dlyp7cfgpzbxg4fq4lkk3vtr73nmxe534",
   "schema": "schema/pmda.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

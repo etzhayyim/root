@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicukxapwj6pwd6tduzt5kzd3s2baeduyoxwqqxnvnuyxlnxjw5vrm",
   "schema": "schema/mindsphere.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

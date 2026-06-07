@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicx4q2mg4gwxchjh2kitjgkkuzboegmujzwqilujtu4so3uoojl7u",
   "schema": "schema/anthropic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Model",
     "Message",

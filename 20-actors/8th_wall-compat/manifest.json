@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihh6y5tlixaqo3iu66bdp3widvk24ll4tryuz5x745k3fiolhdw2i",
   "schema": "schema/8th_wall.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",

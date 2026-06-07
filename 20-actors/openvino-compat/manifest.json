@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiadnhjgil3t7x2scwpe2i7gajodsoapj5jluo5tkhrtnfs2drdxyi",
   "schema": "schema/openvino.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifsdeeuqcrnhuw3sdeiiwczvyj6luoqxlg656nydx4ejk7pf56scq",
   "schema": "schema/oracle_xstore.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

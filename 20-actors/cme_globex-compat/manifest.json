@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibxojhig7w3ggenxtx52f2qqouag7qt7vohvvnvgtealcaa3x7olm",
   "schema": "schema/cme_globex.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",

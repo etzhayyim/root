@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibaz72cufuaoggrcoukuj7e5ndqr2kvnxjr7awbjlmzu3iue5aqwi",
   "schema": "schema/honeycomb.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

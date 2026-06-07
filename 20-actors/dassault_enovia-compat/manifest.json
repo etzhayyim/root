@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiefllyxowtti64vqc6sbuxiwujdx6q5rqv6pi54ag5hvxsknnit4m",
   "schema": "schema/dassault_enovia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

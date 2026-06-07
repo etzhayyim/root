@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiai24hmfxppzfv7yvblk5mzasgo7unorjdfw2tsentlbt4qq7mj6y",
   "schema": "schema/planetscale.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigjpxhqwfzuc6a454xzfhpoil2xzm5vs4asis3ysjcvga64dgzxiq",
   "schema": "schema/biconomy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

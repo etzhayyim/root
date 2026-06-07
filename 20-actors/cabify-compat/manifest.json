@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigjho2mspgjrvnnfv4lrkqexztehzn2cb7qaoy7kii3jt6mnjhjmy",
   "schema": "schema/cabify.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Driver",
     "Rider",

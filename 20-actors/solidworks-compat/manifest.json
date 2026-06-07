@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiap6twqhz6bi4qhmwckad46ruhescdej33c6h5us6dki2d4kjfoyu",
   "schema": "schema/solidworks.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

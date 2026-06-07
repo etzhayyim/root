@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidyhu3tq3twxzlznejvx6wgm6z772deyzzqt2lfwnrdhbk45sy2xa",
   "schema": "schema/athenahealth.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

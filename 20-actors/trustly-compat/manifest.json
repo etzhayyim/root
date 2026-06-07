@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig5bxrpi7srpjuiq566anh3makpqbtfkhq46pdgyo4zooiieebzhi",
   "schema": "schema/trustly.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

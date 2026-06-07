@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiakzqyk5u6tgvcdhpxierhhhpaziydce6w6ptavcbmyuacnqdncte",
   "schema": "schema/enverus.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

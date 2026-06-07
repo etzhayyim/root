@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie6pbfv6iiunukdaabqdwg2pg7acqarvbjvzm3esj37eljcqwckbu",
   "schema": "schema/optumrx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

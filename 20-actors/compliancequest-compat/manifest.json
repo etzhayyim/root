@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidy3twdbufvqa47npbechoq26qgm5isbpghdzadmufyvxynaohjey",
   "schema": "schema/compliancequest.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",

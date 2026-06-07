@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaskaradmac3kld4oioa7pdy4ojracclvgfafyejpr4cwk4havtmm",
   "schema": "schema/revolut.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

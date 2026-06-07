@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifzoe2irevprt4jtrtnyk2ch5wmnh6sd5tqlxe5ha3oz73phehfcy",
   "schema": "schema/sendbird.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

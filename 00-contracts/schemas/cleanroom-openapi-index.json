@@ -7,7 +7,7 @@
   ],
   "count": 1000,
   "totalEndpoints": 30040,
-  "l4SpecsAvailable": 1000,
+  "l4SpecsAvailable": 999,
   "apis": [
     {
       "handle": "8th_wall-compat",
@@ -14411,7 +14411,7 @@
     {
       "handle": "stripe-compat",
       "did": "did:web:etzhayyim.com:actor:stripe-compat",
-      "tier": "L4",
+      "tier": "L5",
       "basePath": "/v1",
       "endpointCount": 40,
       "ipfs": "ipfs://bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
@@ -14423,7 +14423,7 @@
         "strictValidation": true,
         "contractTest": true
       },
-      "openapi": "20-actors/stripe-compat/openapi.json"
+      "openapi": null
     },
     {
       "handle": "subcom_telemetry-compat",

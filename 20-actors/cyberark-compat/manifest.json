@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaf6ad6dqxthzjprqx43c3qdarebyu63nfolti5wtzbsa45wyrx2u",
   "schema": "schema/cyberark.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

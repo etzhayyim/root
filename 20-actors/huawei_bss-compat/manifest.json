@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidjezl3eedshs2myykzefnq4f2zx452y7c3tvtdp6ruvnsxksnv4y",
   "schema": "schema/huawei_bss.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

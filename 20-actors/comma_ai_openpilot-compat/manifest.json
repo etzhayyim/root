@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic43ujvpeg72g66h74e3acoftwpw6uqfi3lk5tvit2djdlhg3uwky",
   "schema": "schema/comma_ai_openpilot.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

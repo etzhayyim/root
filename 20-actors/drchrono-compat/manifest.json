@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib3td4tb6upspc2ygnr4sdjblecp5bilhjwm5azkhulaony7cnw2e",
   "schema": "schema/drchrono.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic4tuyqmrtnoognjngjeetpcz67yqlzuvowjbjuumigdijhiaohg4",
   "schema": "schema/powerbi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",

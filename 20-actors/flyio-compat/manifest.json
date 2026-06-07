@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigarriqoa23hz7cm26l73zf6l4hm2yebiolqszm6vrprstqbdxoou",
   "schema": "schema/flyio.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

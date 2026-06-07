@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiei7mzh2hsmuqakggecji64o73s6jbjd2au2iwubq5dndv62laz2i",
   "schema": "schema/hkma.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",

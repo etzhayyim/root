@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiddsqrw3mk4iifal7kph4t2uv7wx7pz4y6ybnk66c5ps6yqdrhzxu",
   "schema": "schema/hs_codes_customs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

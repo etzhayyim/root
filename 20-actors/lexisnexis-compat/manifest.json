@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigfehvmxryr3onrlo7bnyipkcdrrllowp437vmp5oovtrajjrzh34",
   "schema": "schema/lexisnexis.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

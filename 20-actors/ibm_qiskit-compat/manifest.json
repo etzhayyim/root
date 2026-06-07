@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaaqibsnuplu5cmx2f5j43muqyk3dxkaz6wofyzhtacbedso4sxjq",
   "schema": "schema/ibm_qiskit.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihlrnafsabfs6lmbait62ok3aqvbmigth52f72dnniu4bt55o7d5y",
   "schema": "schema/sitecore.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

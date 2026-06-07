@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihhvfvhxgih7aicd3kmeqhd43pxgsjcn7plkijy6na3t4x3vt6er4",
   "schema": "schema/doi_system.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Work",
     "Author",

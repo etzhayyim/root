@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihx5zhavqs7mwk2auds46sd3db626zm6qir3suzo6thcbbiaaefua",
   "schema": "schema/ge_aviation.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigafkztqebpzq726rnj2lttzqszs4dyqldbgu3kvp4p5wmyvwa6la",
   "schema": "schema/chembl.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Substance",
     "Compound",

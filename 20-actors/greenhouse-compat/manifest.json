@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihb7rndnigyemm75vpdsa7gtjj7sotso26czhyinogrinl47jg7vu",
   "schema": "schema/greenhouse.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

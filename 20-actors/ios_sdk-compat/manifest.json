@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreialdfqlsmy4gw4a4v6xzkumohz6sjlqayyho4pq5v5ebxkqhoxdhq",
   "schema": "schema/ios_sdk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

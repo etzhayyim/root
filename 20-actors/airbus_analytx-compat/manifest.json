@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihsng3mfxpfcxxf5l7epuv3yigni4jopxlfnk3eppbxwjef3fk4mm",
   "schema": "schema/airbus_analytx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

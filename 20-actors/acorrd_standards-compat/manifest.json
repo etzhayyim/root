@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie4ezygsq7fmht5jpjipilsgxhq25o5ezysfl7uqrf5xdwyb3l57e",
   "schema": "schema/acorrd_standards.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

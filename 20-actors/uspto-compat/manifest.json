@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieilh4czzzbxnpa3lkjfc22qa2k7wp5uxchmuu7aukxiqqf2znnpe",
   "schema": "schema/uspto.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Application",
     "Grant",

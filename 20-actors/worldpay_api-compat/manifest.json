@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifhj4gxl4t7b7ehxwoqbsbpqfyskxqkb4w52wlcjaatysmcqtjzkm",
   "schema": "schema/worldpay_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

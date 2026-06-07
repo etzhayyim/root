@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihwveyfdy4pqmo4oqabonukr74upuyphy6abuxjvi4jglllvzpuy4",
   "schema": "schema/emotiv.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",

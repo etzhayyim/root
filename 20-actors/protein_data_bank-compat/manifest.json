@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia7ozb2eihksg23juz7eim56au4etge7sk6cmtupeioc7vnb7xcg4",
   "schema": "schema/protein_data_bank.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Substance",
     "Compound",

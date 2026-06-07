@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifj4i2ddomagc4nudmemgb26gy2t4naamjsc2bb2zex2pt6pepy2y",
   "schema": "schema/chatdev.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

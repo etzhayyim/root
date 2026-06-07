@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicmjoazh6k4xravwqodjsqrxmcvklavizp6ev4a6mfjzxgbszaihu",
   "schema": "schema/platts_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihy6ahraczn2uejkddvaqjldaj754hwvl7cbp3jlcvoekjquxlsuu",
   "schema": "schema/yandex.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

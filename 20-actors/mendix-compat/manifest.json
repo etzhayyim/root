@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibmgih6ysfiz7k62me6glg3wes7az5kwiiukldyhk7y6aq2pnlxzu",
   "schema": "schema/mendix.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

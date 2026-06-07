@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiad5earrugsrwndy2wiyuvqssnymm77bid362cvcmqnovym3yerca",
   "schema": "schema/imo_dangerous_goods.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

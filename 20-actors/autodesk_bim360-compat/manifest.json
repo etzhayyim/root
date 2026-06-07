@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiattotycgcd7wxkjxl3s3imav6uymwul4ovigagwnsrqqw3hhtca4",
   "schema": "schema/autodesk_bim360.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

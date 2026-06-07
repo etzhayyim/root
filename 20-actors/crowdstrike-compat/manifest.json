@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiafbpy2hcxf7hihuldgsj3x4vn3uga6cl47ao2sxvuzibtsztluxu",
   "schema": "schema/crowdstrike.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

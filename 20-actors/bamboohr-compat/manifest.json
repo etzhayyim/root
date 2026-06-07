@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiejpjs5nhvq5je7qssf6zr62tjfpz5t57xvj2trpnetdsvdqo65iq",
   "schema": "schema/bamboohr.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

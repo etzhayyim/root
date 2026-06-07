@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiej3nnqbiiyqddigxteccydtdvgb7w6ac6tof32j3iviy2by55ajy",
   "schema": "schema/bizzabo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

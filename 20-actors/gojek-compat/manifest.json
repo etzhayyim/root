@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig4k4graqmqxhipccbn7nmv7yq5dzgorfz5xqggldlgdr3ldpp3ue",
   "schema": "schema/gojek.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

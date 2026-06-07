@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibf64vbwrexl4ymkmttdxbb6pwi5creh6idqlgncifu5cu3spjaba",
   "schema": "schema/camel_ai.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

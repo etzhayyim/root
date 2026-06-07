@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigwfguapqjvzdq44yczgvlc37oypvqqfhahrceqzfxwoaovsqjguu",
   "schema": "schema/qualcomm_snapdragon_spaces.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",

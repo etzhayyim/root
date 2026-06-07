@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigp6z5bg47rjd6gkrn7varia7mipfztw2qfqod5v4kjrl3tmddp7i",
   "schema": "schema/plaid.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Item",
     "Account",

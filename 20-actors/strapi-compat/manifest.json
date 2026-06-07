@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigncmuisi3dkc4mnmmilwpiiyn2g6qsptbc62sir7cp3z4jdkjnwy",
   "schema": "schema/strapi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

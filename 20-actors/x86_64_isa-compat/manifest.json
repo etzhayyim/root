@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiatdnuaaawqbknkguumxp5ku4i3ur32x37yx5qx6v6mauboc6tk4a",
   "schema": "schema/x86_64_isa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

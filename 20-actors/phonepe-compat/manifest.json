@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid54zr3vzcxw63wqbix5e6znag47uikt2vr3elzg46st6n5cahqdi",
   "schema": "schema/phonepe.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

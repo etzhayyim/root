@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif6yxqhag3zq2uayzwpozsqviokowvsdfzrt4vxnsrobgxrjdh2my",
   "schema": "schema/symbility.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigaulkcj4n67mwnm7idni4rptba23pzpglo6aj7okgzq5ls6j65yy",
   "schema": "schema/smart_meter_dms.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

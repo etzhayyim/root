@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidriqkbiihsmuwk5dbpsivmdbsugba6ngatxztw5x6wfhba2f3afu",
   "schema": "schema/superagi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

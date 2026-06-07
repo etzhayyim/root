@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihxyaikudy6bogyod3g24vz24y5jsbg7c4jq4t5uv4oj4f2uo5vba",
   "schema": "schema/cdr_australia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

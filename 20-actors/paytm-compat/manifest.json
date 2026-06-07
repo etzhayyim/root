@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicfjzpyc2n2njuwz6zf5iqpjhgbkwym2c2nnmrv2vv3qwl74p4bom",
   "schema": "schema/paytm.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

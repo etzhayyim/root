@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreichj5p66pbnx5amxeoyeaairvxke5uwzjgxkfahkccc7kpn5mj4je",
   "schema": "schema/cerner_ignite.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",

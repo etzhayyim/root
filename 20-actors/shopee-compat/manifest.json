@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifkkt3y345a5yt4b6dg5l5sg4qxddhekbkblsovwqi4b5dhd46xei",
   "schema": "schema/shopee.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

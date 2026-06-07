@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifztpsog763irqb3nrndqdu4wz57c5qumpychpe2wmtgvlh4lu3ei",
   "schema": "schema/guidewire_rating.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihoxqlhbb7vvoo6d7k4youk4yd2jne2uheptawmubga7lbjfgdzie",
   "schema": "schema/workday.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

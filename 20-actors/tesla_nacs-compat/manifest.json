@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidqoyzcunxgofpl3clcib3cvhlfzfag4a2uxottvgrk4wruaubghu",
   "schema": "schema/tesla_nacs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

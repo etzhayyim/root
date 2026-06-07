@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibhckigjckmx36et3q2vwvawh3hwntzs7xbdxxbikrz7i5ogh2qsi",
   "schema": "schema/fawry.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

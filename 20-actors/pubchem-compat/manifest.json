@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreies22cmajj3hkealczuxuxa6sc6s3knm5lco2xa3bjs2oq4rxk3qu",
   "schema": "schema/pubchem.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Work",
     "Author",

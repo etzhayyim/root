@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicyb6ewgfev42bex64y2znmqkl4cwejnesmbdfkndfsrbvv4vkko4",
   "schema": "schema/zymergen.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Strain",
     "Construct",

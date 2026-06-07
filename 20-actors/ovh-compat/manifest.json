@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic7l25njcqedk3yqzjtvkl4nhffc2ypntqx3tmmretg3lssfj2see",
   "schema": "schema/ovh.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",

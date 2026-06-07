@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidtombt72fxdyrumh2swj7btg3wczfjagtlgxqeahyvoy36l6to54",
   "schema": "schema/accelbyte.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",

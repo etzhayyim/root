@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifwdn7vepbajw7asro4ipyjj7eagqhya6zzwtiq3mw3sfirm3nnvi",
   "schema": "schema/iea.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

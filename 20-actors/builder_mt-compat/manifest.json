@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihj3lapmmrjdqc7mcgrfmptedi5z6dtelewv5jprx25rhb7asrpii",
   "schema": "schema/builder_mt.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

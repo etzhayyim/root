@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihfajoc2d23xdarepoqzeuo2fu3glzuwtlf2thgbboc6aok4qhv6u",
   "schema": "schema/reddit.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

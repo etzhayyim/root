@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigygg4zy3doe3kwzpr4aqcbnr2qhwgoxmzoozthakoida2dscs6ty",
   "schema": "schema/berkeley_lights.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Strain",
     "Construct",

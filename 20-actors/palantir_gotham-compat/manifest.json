@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigo5wh4iyizvlsdl6cjsbwrj2xx55lfbsbopkk24xzlwdr5m362ca",
   "schema": "schema/palantir_gotham.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

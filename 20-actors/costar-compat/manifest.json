@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif676kfryr4umlaxlhiydlgn5afsb4l6paayvdoxrxd2ovl2yrdfu",
   "schema": "schema/costar.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

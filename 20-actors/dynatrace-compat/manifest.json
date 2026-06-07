@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifuf3iwaxzathmrzzevzbzczgvlzl76wbealcc6libt7ikxvwb5ca",
   "schema": "schema/dynatrace.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

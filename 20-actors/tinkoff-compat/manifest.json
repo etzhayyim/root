@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifkbayhmv2b6rrigfgi75ywxwpor5pntdsjfh7rokcalt3my34q6u",
   "schema": "schema/tinkoff.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

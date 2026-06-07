@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidluaewgoarf4b4edton3gnm6scshg2w2xznw6qkjqiqthz745zxu",
   "schema": "schema/everlaw_core.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

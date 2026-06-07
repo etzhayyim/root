@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidqyhfb5pro4xs5stb2yrtupmfg6zjckqna4hsxqvzxpsec2reode",
   "schema": "schema/thales_combat.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

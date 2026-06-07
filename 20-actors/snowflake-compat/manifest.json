@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiagvcjly3vx5ud4umfifxxosiksvo4wqdataawijz2vtog2i7foua",
   "schema": "schema/snowflake.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",

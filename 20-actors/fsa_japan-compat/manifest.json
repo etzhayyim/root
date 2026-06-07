@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifcwuaqcogepk5txz4lkouxvzndnhwlogv3wgzpcdyyejgffu54vi",
   "schema": "schema/fsa_japan.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

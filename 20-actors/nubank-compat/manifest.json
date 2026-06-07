@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihohvu7dblymvhing3y3yj55qutl7kxo6jsubbr2vgzlkeqplhiie",
   "schema": "schema/nubank.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

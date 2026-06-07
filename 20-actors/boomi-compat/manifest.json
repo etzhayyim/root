@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaig2xgz3ahfylxosguwlb7r7g3gdy5p5beperw4ekxzcllt4hqzm",
   "schema": "schema/boomi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifp5qb6riayhize3xmcfbt54fkx74uagq6phcw4of7x4gyqtgwvka",
   "schema": "schema/vidm.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

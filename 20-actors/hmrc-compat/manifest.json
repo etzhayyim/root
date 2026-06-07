@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigmrqhkkkzpdjtqwarfvioe2z2c3mdoj3fxgndw6f65lgq43wbq64",
   "schema": "schema/hmrc.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

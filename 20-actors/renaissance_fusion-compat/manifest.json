@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid47f3d2fs4247mvykekmxhjcas5vv5e2oqgtussgcckaxdz5rkpy",
   "schema": "schema/renaissance_fusion.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

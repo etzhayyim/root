@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif5knni3g2oj76iufcmqde7wy6kxomfanepsozsdwxbjy6acpunyy",
   "schema": "schema/webrtc_core.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",

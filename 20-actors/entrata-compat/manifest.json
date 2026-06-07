@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaerkstm2zoamawb7i5cergkvisw4pukvgifoifi2nyybjtsbzrbm",
   "schema": "schema/entrata.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",

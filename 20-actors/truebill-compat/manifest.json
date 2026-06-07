@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicwgnp762pd2vewi63tg5s3abzhpjgexmqjj5wjgvte3wgjada5by",
   "schema": "schema/truebill.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifs7np7eftqxi7v63uip7axj5ibddvmffyuzrvsenta7z5cjwzqrq",
   "schema": "schema/ge_proficy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

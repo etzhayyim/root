@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiec3ridjo4qs6iuraatd336e3myh72qzpfsszxl2bal576cuounxm",
   "schema": "schema/infineon_qkd.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "KeySession",
     "Node",

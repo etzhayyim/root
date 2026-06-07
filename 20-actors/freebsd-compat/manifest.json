@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiedsvvpe3f5z3cqqdvg7nqbbef3h7u35nbk425iizfcdwh7pbb2fm",
   "schema": "schema/freebsd.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiezfwnolo3s755lxzad45b7lfjxoq5t5j63kit5kouwg5pwolplv4",
   "schema": "schema/chime.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

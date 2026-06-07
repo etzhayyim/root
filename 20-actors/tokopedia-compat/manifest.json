@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih4one2miwnbjcxz3c6pykvcrwqxptpd6oz3an757hhysi6wxxhfu",
   "schema": "schema/tokopedia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

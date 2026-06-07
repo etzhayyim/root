@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig42m6l52eel7tifzg6tvr7wnlqmssbwb5b6lxf6hgxvaoswbtnfq",
   "schema": "schema/redis.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreievaslq7xdvdsqowrn6utkn4743wlppkowggm6hlxjcjooc6edujy",
   "schema": "schema/vtex.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib5ohersybi3eahjtmkgb7ykzpgeg5gnu4dvkutp4vuuzuw646cvy",
   "schema": "schema/isic_codes.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

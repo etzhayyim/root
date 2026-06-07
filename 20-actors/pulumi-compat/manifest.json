@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreide7d6jn5tgovt557t254n3jfn577tnv5rvht3ntgbwbvvthanfl4",
   "schema": "schema/pulumi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

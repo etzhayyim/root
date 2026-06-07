@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib27ttp6tpvfse5pez57edde67havxbwnv6o52gbcdy5q7b2wqlfy",
   "schema": "schema/accela.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

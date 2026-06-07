@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiakluycvcquik27g5f4mkd3fx5pdma4rfw3d6aaaeznfiddctf5qe",
   "schema": "schema/google-workspace.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

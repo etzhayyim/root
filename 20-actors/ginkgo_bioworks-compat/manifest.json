@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibbet66ebw32r6kco5p3wtbuuaqifdparoxrqs5tva7txqyznw2sy",
   "schema": "schema/ginkgo_bioworks.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Strain",
     "Construct",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieqmfif76ntpml4ajytnjm5yqd2g4smffbgxkupvhvbsl7algkbpu",
   "schema": "schema/synchron.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",

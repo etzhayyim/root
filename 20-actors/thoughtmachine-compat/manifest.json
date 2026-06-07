@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreics6la3uipx64n44r2q6oyijagzq5xj4666dl7qphyz54ln2ugrlm",
   "schema": "schema/thoughtmachine.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

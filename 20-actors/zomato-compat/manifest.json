@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiagk7wjhon42xxpiwrbdqy6bdj4yt77pa2yszck6giawzg2k73ave",
   "schema": "schema/zomato.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

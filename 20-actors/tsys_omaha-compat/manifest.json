@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieea7b4ivgobx7d2luqudtvrm6cz5u33hs6gml5hntu22zre5jyve",
   "schema": "schema/tsys_omaha.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

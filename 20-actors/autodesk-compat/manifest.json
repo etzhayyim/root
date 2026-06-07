@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig3iall74xf3oebjwbroylas3h2ukdpikhysml7xuoxx57av7r6ie",
   "schema": "schema/autodesk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

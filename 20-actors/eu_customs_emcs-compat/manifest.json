@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidj3sjwuhud4gxqu6nyeuug6oeyacvxwtcutehne4kepdhzq5r7om",
   "schema": "schema/eu_customs_emcs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiahisgxtcl26wxihgu6qovllulrxtlb33s6tptu77tuievm2an2w4",
   "schema": "schema/crypta_labs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "KeySession",
     "Node",

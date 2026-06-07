@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaeanl2xi2tiugyta6a5prbqadyhxjmbzn22q4r7gcqocr4lbpvfi",
   "schema": "schema/noaa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigfs4h7e465gfwt434hf2f5ahywiau44ciotzfahbukq3m7iyymze",
   "schema": "schema/maersk_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

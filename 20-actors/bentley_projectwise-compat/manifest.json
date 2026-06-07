@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifnejw4pyewd5mdfeurlbulfd7hmqlczxz3gqpkriv2tz57rtsfjq",
   "schema": "schema/bentley_projectwise.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

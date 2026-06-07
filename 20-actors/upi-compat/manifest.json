@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibjym4ck2qghj5cjiicfwdkx5xollagbdwyclh3v6plevcgfct7fm",
   "schema": "schema/upi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreielnfhwr32nktagfrjrw4rk2ay46pnvesfegevur7bixxr75wpxoq",
   "schema": "schema/ros_robotics.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

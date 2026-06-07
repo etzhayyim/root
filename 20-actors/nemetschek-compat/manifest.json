@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiapplnz5gxf5kweu2wjc36fzkkfa3t6svzvc6a25bgyhqrcwwvh6u",
   "schema": "schema/nemetschek.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigu3r5x6vudgbpypd6r4jdv4qmffvr5ibjnptt37vm2w5v3hqftae",
   "schema": "schema/cloudflare.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicpwb7akd5nbm2qed5mcytxxi4opuquw45prfxpaf2b6uuykz423q",
   "schema": "schema/munich_re_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

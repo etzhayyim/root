@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaebfpjg44ebkw3zllrybccbwgn3fsfzktf4zg3l2fphz4z4mhysi",
   "schema": "schema/ratp_paris.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

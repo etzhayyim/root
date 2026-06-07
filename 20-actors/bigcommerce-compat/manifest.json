@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihtbxjxoqzzurvhc4c3wq6ki76lpgwlkhtnvk7usbzifd3rhfjs7i",
   "schema": "schema/bigcommerce.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

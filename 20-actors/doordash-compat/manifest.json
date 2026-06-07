@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibxaakltns2y5doyswcntovizhkfkhbdzeq52qx7vnwuqfni4als4",
   "schema": "schema/doordash.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

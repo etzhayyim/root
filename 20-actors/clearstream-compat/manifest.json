@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifgiqxc42edubnl5mehmb7ywxtauvdomwqvsj5f3uahd5kftusr2y",
   "schema": "schema/clearstream.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

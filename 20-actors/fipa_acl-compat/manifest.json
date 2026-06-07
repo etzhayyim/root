@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicayqqrdfs34xycstssugdtws6f3kr5yfwuiugnluorbbhjrrj62u",
   "schema": "schema/fipa_acl.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

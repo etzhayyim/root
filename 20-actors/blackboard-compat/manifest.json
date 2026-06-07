@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieyudia74pvpr27r7tz2oc4qgiveja4cnj3icl566uozvm7b6wq4i",
   "schema": "schema/blackboard.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

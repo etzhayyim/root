@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid6kvbdn5mqs33stfb7otsnv2yj4vrgdpsuoim76gv5zb6pavm2dy",
   "schema": "schema/sentry.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

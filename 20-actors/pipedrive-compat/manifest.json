@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifrhnx2bgxykll64vqayxxuv2sdonfi5r27xt5i2lwvqfk3ojqala",
   "schema": "schema/pipedrive.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

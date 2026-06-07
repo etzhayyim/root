@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie4gxxhtmn6xgdixy2iv2qgow6zu35i45o6lfbgabp3s6pwo6kusu",
   "schema": "schema/elasticpath.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Catalog",
     "Product",

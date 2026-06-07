@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiajxxy2ah5wcfg2upu3duy5yrlvxqjqdtrykfcxoy7z2ztvrl6d2i",
   "schema": "schema/zengin_system.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihf3sygdb6ogsvbxrnu67hkhxuwnlaz4lmie7vmsczr6twak542ra",
   "schema": "schema/dailyco.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

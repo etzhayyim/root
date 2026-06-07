@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicrintup4eeza5yxcnofsfkkxpufyyuthm2qs6reghp4t2lhkarzq",
   "schema": "schema/paystack.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

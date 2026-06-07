@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifpi3xc6sjvn6xonajozcueq3xynr2kliqygm3fjfhxtm43xf646y",
   "schema": "schema/mckesson.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

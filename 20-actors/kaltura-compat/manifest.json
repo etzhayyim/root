@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibzxk6hczwtybo5w27lzhijo73dh3s2ximuzrleg43i4epglvze2y",
   "schema": "schema/kaltura.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

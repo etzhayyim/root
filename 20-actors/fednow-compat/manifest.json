@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiccqjacfichbomvngtlvnj7w2q2qyzpg4ustctnehrhx6tlvcgham",
   "schema": "schema/fednow.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

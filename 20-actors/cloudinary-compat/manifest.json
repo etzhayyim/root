@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiblh7jbme42xhs25z6rnl3kvimdrb7bp64qw7sgnmvzglrqsdva2e",
   "schema": "schema/cloudinary.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

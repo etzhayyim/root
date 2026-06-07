@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifnsm3s5dkenuj2vybwz3wfcewdclwwpphw3shicmpbjmfwqtozre",
   "schema": "schema/glide.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif56olf2r3pqlrc3xksjhuqmsznvktxqn7bodk73ei2v7beu2up4q",
   "schema": "schema/losant.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

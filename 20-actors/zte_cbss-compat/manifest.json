@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig6beumnvjz62uycdx25nvmt5wlhjpjzq5twecxvyzhz35avrio6a",
   "schema": "schema/zte_cbss.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

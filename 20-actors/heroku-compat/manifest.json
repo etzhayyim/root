@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicsxf7kslscffsdfy6kdif5fioqnsryu3km7axvh7jhw6i72lryna",
   "schema": "schema/heroku.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",

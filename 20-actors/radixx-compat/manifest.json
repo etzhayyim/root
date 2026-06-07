@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidwaphe2i4rocpjuosn52xhegnmg7ubtzp4tkty5vr2lvqsxnzjzy",
   "schema": "schema/radixx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

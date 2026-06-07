@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibm7it3qg4cc2lh4nnd3xcgnnko42x6bnqf4oyfbunugh3botucui",
   "schema": "schema/logingov.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

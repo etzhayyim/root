@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreige4czyclrcczzhgho34uvlmvxr4ealkysm2zl3qu75muryu3hqxi",
   "schema": "schema/aadhaar.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

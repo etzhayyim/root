@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibo67fl76wmcoodvwptu3nm7vc7obxizpyvzjdf6czizyygg6dfx4",
   "schema": "schema/fixprotocol.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",

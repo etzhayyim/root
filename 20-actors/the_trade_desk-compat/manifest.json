@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid4ycrlfbw3hrndi5ue4bxxiy2e44tlajddpm44agv2zo2umajozq",
   "schema": "schema/the_trade_desk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

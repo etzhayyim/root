@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiccs45ppsbmrw3iemowwethszjqqzk4654etqgnefz4rl6lmxbhaa",
   "schema": "schema/docusign.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

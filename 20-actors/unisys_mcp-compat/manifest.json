@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiazjrjyjpmbxu4jo3wyguwoqpfyrn55r4xhxxyvducissj75tllyy",
   "schema": "schema/unisys_mcp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Job",
     "Dataset",

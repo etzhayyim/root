@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifhy5dstjglepxym3xg5ctvtn4ulrm2p4uiijhthwsyrrwhsh7iwy",
   "schema": "schema/landsat.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

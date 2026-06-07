@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif6dic34zczou5jkobrvzw4s53qkfuwiqqyn5jlgbwbppijkaxeby",
   "schema": "schema/planet_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

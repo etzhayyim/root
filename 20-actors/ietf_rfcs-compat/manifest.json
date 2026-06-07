@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicerupscmo2jopsqmzuazv2hralxnjbafct6naidh7flnvfiwe77e",
   "schema": "schema/ietf_rfcs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Work",
     "Author",

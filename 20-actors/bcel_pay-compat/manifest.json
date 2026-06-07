@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiftaekqagknu3xdlldmbcm453hjathkgbpffryepyzetkhu4nduem",
   "schema": "schema/bcel_pay.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

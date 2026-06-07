@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreietcehz4bolf5w73kivbv3hs4nn4w245hhge45neb3bbtt22avgii",
   "schema": "schema/flooid.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

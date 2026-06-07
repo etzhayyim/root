@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaewfaruvyh5yo7azxya4r66abcunbynh35yrwawx6hmjhflsyweq",
   "schema": "schema/particle.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

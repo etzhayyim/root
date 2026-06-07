@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif4e4w2kp6ckvptkb4x2lht4yhsjzoviooqpmpqj4zazagiu6qdd4",
   "schema": "schema/cybozu.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

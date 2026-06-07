@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicxj6j33gbqna5ttn3f2emnjigyw4rfb2ajqmrrqtosgjgq25xp2i",
   "schema": "schema/ninjavan.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

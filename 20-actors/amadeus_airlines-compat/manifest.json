@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihvb7mkj74ijc2elwakgdpwy5ywqk5v42qiyeiwufyf23u6czlkx4",
   "schema": "schema/amadeus_airlines.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

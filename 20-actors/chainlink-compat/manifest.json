@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid3t3xet5zlys7ubjabs3xzplbinbwgbydhoxh6blgdjdgh27mgpu",
   "schema": "schema/chainlink.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

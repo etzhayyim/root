@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieahvnz3226jx66a6qb7khvrefsuygnakmllmhklp2wgmevyj4xuq",
   "schema": "schema/miro.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiatys2xwtlovqyl6ebfcf2btp5wv3j7fqmx7v4nfnvl374xhn5fje",
   "schema": "schema/express_scripts.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

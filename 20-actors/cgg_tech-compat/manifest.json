@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiengpfldr6gijiuqolpktzdz3u57u7x4dskjehacosovvjim5ilzq",
   "schema": "schema/cgg_tech.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

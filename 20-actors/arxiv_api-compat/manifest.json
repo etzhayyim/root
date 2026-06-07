@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicmhtff5wvqvmourkghxxmrplja4udyw66lvvg2d46dzzb4j7cbme",
   "schema": "schema/arxiv_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Work",
     "Author",

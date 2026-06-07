@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicpxkvjzytqouwqlylqvshnj67gq6su6l5elcnsw7edfbadn3olnu",
   "schema": "schema/sonardyne.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

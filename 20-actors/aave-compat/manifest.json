@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaa6zwwqr7vybn75vnfknww33hapckiqnyhrv2nz45pnoxi72qksy",
   "schema": "schema/aave.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiajcof3bjw2kwooa64bm2zw6zuwqz3bzkplte6dccdosxnp3ru5cm",
   "schema": "schema/jis_standards.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Substance",
     "Compound",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreickkwfjveogek6bhoayalvunmvijx6mkwijdgirxaffx5jysny3gi",
   "schema": "schema/vimeo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

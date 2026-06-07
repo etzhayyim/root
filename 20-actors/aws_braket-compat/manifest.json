@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicsmuzhtt4vm4zukpe3oqzyxhf3gfp5dtkmmnwjt4lvvs5qqktoxq",
   "schema": "schema/aws_braket.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

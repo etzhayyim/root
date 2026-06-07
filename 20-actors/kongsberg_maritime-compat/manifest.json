@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaz6jnjmm7btfkccvuk5vi7b6ztbqoa5jx66ziteh7hd2vxtfmypm",
   "schema": "schema/kongsberg_maritime.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

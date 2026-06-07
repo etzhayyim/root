@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib23svsknutnnezlqzfudne55ttgluwadzc7p2d6ha7c5fef25qhy",
   "schema": "schema/twitch.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

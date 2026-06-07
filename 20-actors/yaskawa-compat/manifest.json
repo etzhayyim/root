@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiem4th3aqoxx5uot6d2bm5cx7quofpnfalp2xmh6c4rs6uqsybp7a",
   "schema": "schema/yaskawa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

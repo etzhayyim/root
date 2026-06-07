@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifqabxujn3p65k6ewgislywtd4ka2vzkn7nmx6jpq4ciapauch6ce",
   "schema": "schema/bolt.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Driver",
     "Rider",

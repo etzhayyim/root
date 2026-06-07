@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihndem246nankhhp2nh3qduwpaaq3iw2cmkepi4h4jbo5sutdgyyi",
   "schema": "schema/shodan.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Vulnerability",

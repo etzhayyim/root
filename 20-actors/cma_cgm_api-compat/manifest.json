@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidc64w36ce433m77wm57ecbpify5jrnkgtkbuta374opmibqxlusu",
   "schema": "schema/cma_cgm_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

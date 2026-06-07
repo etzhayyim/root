@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibhrztothxaohwckoimyulckihprxlsyg4cf62vdgmbtfebfm4vke",
   "schema": "schema/gusto.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

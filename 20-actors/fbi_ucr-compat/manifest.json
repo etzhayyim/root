@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicla3kuqsrbxrgdo2nhsu7edlzhsazzaoo6s632hdd6n6l2lnc2ka",
   "schema": "schema/fbi_ucr.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

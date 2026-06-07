@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih5buncyslspxyso5sfexixjv7jdiu7cq76qyjsu22oc4vgemsqk4",
   "schema": "schema/boku.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

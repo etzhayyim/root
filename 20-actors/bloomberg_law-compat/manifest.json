@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic2nsihpshzbn4q4dztb3cpy4x5o5jrmf4ktwm3v5p7wlhc5pfevq",
   "schema": "schema/bloomberg_law.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

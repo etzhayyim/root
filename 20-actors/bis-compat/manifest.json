@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigczgtb4b7htcjsuaypcnnqj7ktigv2jqtkhl6jtwxhc3ilys4q54",
   "schema": "schema/bis.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Observation",

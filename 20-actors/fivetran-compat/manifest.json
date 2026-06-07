@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicvv2mzupc2owx3o5gzjflybspxabcnemacnatxjrk52x6iopexci",
   "schema": "schema/fivetran.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Connector",
     "Sync",

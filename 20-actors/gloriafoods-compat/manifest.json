@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidl3baqwpovv2fojdxe7twnkhnfcjyzpksvshjr55c243xwbuwmu4",
   "schema": "schema/gloriafoods.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

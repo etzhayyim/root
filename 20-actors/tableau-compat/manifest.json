@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifpazokgprzorqiedtfm2qdwxo3j6ufocl4fxj53rfzofwqwwr5ba",
   "schema": "schema/tableau.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",

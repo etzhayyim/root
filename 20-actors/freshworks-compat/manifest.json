@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifpro6wpjbvrtfrlxykedjic222jwgjlxec3kquedww5wltanpkay",
   "schema": "schema/freshworks.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",

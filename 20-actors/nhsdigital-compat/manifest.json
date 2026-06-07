@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifrh776rikd5uaedbd6esr3h3mvu553bxe3lmzkyup2vvcath24zi",
   "schema": "schema/nhsdigital.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreialppiofqirnckgaow7kbws4nroyfjpx47f43v7wteyqglfjhfurq",
   "schema": "schema/rms_underwriting.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

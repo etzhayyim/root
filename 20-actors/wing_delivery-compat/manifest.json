@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig2rrlaponaa3m3447jqck3qyhrwdpg77yvb3hhf2jtmcttgjwxie",
   "schema": "schema/wing_delivery.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",

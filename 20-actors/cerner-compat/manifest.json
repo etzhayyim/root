@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicq7cewxbcui72jl5qwvkc27uty23yzpfkc7joihffrtxh47p45tm",
   "schema": "schema/cerner.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

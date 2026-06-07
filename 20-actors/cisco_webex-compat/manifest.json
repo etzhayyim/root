@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif4nsnt2ymvstu6ecimiudec7mzyiytqqhmv65pycba7vj4fkk7nm",
   "schema": "schema/cisco_webex.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigtobw7qpc4r43ewurn6qlmu4bw46w5c5l2lpohm32smuc4mjlcva",
   "schema": "schema/waymo_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

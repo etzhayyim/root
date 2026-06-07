@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiciiozand4dfceunuqqlg6svwysexbkzs4gtj5gyao7ny72kbwvki",
   "schema": "schema/cloudbeds.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

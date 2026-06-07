@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiakbhmjm7j463d344e54yhl2iubvolvo36rvw73rmbjds7y5m436e",
   "schema": "schema/edifact_tty.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

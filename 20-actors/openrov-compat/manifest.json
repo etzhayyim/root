@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigze4roukedp5s5rbk2byoo4wvpuja5o7pb7sg3aoa4a55msbcn54",
   "schema": "schema/openrov.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

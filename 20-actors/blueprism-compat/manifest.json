@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia7gjmv6bvw7y55y4yqh6p26js7blsybsqbjvqca5ttm5zctsdv3u",
   "schema": "schema/blueprism.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Bot",
     "Process",

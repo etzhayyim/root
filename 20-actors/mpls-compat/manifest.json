@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidq4yuq7vol6xfr7bkg3gq7dvu5psiee526ufxvlb2fh5bkdr4slq",
   "schema": "schema/mpls.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",

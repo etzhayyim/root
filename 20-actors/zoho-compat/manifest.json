@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibo2ajodykpmusp4az743zowdh63k2cyvnbgr2zcd3hved2khina4",
   "schema": "schema/zoho.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

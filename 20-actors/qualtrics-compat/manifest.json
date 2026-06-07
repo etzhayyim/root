@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia3n5ldg7w6q7ufkhrow4duu4nixw6iptpapukrzvyeholj7logfy",
   "schema": "schema/qualtrics.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",

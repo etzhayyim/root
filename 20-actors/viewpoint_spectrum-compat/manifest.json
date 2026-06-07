@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic6ke4kjmvuf2qv7zbh7ljnm2swpaqpewcsxjphld2rrwrgh5gfgq",
   "schema": "schema/viewpoint_spectrum.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

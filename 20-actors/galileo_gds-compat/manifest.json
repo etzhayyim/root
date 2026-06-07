@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifflyp2rrnffavvackdoschkxjfdazr7m3o5hk7l22iw7slhprbwq",
   "schema": "schema/galileo_gds.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigpmufev46af7yuasq5bbxqya535w22vsqzxmdw2kk6yzaipnqgsq",
   "schema": "schema/hcss.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

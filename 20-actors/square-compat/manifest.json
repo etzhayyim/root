@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib6d6mqtn7w2qrqp7jday4nw5xv6zthmosknkye4lrkii2xnsrkey",
   "schema": "schema/square.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

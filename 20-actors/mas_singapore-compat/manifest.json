@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibnkznzxgyx67m4vanbc4l5xlgk5mzkv2kjkf7derlmx7u3btsg64",
   "schema": "schema/mas_singapore.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",

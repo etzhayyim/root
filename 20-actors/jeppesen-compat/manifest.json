@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibcfecjchqhnbeduccs2uuwvwbrqpaityk7pfed2la75miakzsexy",
   "schema": "schema/jeppesen.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

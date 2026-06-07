@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaekn6255ph5d2jchsutccq2pssmc2xeu7dzomzi6e3f5trnaylsi",
   "schema": "schema/iata_ndc.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

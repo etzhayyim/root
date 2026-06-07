@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih4atkqihwjd5wystq4y77byoirljxzoqtihtqefuh63sgxcyx6ma",
   "schema": "schema/sap_plm.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

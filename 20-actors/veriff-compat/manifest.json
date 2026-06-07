@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigzrbw27k6b354udtlb34dgg6ljkt3nngpnbxvpm26rfvv3a4v6tq",
   "schema": "schema/veriff.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

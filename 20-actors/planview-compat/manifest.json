@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreics4lr5mbodqvndse2kww647nxp5pldvw4daotrjwsn5r2lgiygtm",
   "schema": "schema/planview.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

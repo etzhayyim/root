@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicyo25nv56sk5uv67u3g33qio7ewkxcnl3gjqaq3vnghem5q3o24y",
   "schema": "schema/corelogic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

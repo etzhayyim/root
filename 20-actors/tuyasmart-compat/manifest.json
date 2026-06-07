@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiakdetkmseg66fno7cnwuinqlnrf77dof5b6ab3y3gxqqvgrz55va",
   "schema": "schema/tuyasmart.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

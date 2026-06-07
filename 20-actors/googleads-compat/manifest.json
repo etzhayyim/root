@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreideiobjqy2oyfb5y5sz5uigfcr2lpnymncbh2cacgcqjnt6mnerlm",
   "schema": "schema/googleads.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

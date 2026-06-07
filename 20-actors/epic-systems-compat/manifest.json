@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihdnlxjilmfrwlxvc7nia43dva7jg44aynso4ujdampuc4macwitq",
   "schema": "schema/epic-systems.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Encounter",

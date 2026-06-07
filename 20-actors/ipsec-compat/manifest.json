@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiel7feh5e6hhkc43thcwkevlacpgdroy67dtjda5phzvdtp332qjy",
   "schema": "schema/ipsec.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",

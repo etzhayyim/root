@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiconvu5rcyy5dxslv2hvds3ojodrpd7zdzonvx2debcd2kixejwmm",
   "schema": "schema/monzo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

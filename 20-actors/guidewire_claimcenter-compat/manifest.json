@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibywrhhdmru2u6nhx4muuc5gprixtjpbojlizcb5qdj2hdz7wklnq",
   "schema": "schema/guidewire_claimcenter.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

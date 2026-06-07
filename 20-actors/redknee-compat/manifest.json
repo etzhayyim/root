@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiebbnahxkgtlogrd4s7r6wi3wcpcxgas5mg2m4sqh2ncio2yedsfi",
   "schema": "schema/redknee.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

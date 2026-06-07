@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicyte24pkmg6ddppxfcmlolh623fpmqdkudh4ztguekafv4p4dd3y",
   "schema": "schema/aws.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Ec2Instance",
     "S3Bucket",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibpfgs4veceacoghbqyszhk766wnzpp6yoxzjpim5eppdhzrqaf2u",
   "schema": "schema/medicare.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

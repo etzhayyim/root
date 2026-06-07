@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibyjdsf7jpk3mz6ewjedm4st67x6eetz4zyad5s3venud26ffzecy",
   "schema": "schema/mulesoft.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

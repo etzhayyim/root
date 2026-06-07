@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibw45cqxginpwzg2vqrbe3f65s4dpnayrljkpn725xhx7tyve7phe",
   "schema": "schema/freee.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

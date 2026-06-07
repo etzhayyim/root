@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia2f6acy7pfo42fsi5qsq6imz3y5k24v3lcl5aahxettozobvepcq",
   "schema": "schema/gcash.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

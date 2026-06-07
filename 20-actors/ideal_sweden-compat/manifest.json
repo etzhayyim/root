@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiadcgsd2zxzr4q6z7a4fiy246qhllyj4l4jfdvw47lmrnzstr6kpe",
   "schema": "schema/ideal_sweden.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

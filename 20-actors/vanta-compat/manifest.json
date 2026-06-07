@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiccorezlcm5mw64r4u4hovyrv6pso63ekd5ybypqbbmg3s4kjfxce",
   "schema": "schema/vanta.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",

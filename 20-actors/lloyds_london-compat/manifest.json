@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaytgf6lkmu23hep3hjgvzyx3fzhgaafd6i7uz3hfymqu3nxrytw4",
   "schema": "schema/lloyds_london.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreickbr4hni5o4ubgzgihx7zguipxwdc5fzakmy73xswtdomahm2y74",
   "schema": "schema/iter_data.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

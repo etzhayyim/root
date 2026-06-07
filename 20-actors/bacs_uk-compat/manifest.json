@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifmgqi5fop3ud2phvo3s3rb6crysssxbi5u7j5d4hkvv4q6sins74",
   "schema": "schema/bacs_uk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

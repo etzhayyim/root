@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreienbp2zzmndmhj3shchr6wvjhsxwpuhtsoh5i2ucajhctxz5a45dm",
   "schema": "schema/sita_onair.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

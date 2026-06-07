@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic5hjki7xusy4vbv5rzev7gppeobgkc24rwxiwnba46o6axa5v7um",
   "schema": "schema/disco_legal.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

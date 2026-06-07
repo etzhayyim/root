@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib44kwkqj2qimm4v7d3avoewpqdu2by5jltaofvuzhjfwi2xiupxm",
   "schema": "schema/toshiba_qkd.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "KeySession",
     "Node",

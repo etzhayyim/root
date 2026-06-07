@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiddxrtzl5o2wbplby6q6ztnbe3oymntcisipubqr4a2imqbxcdc7m",
   "schema": "schema/teledyne_marine.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

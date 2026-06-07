@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigo4rsugbt7pftkev4wketd26k7rq2le32al2fmljrp7tenebycsa",
   "schema": "schema/mitid_denmark.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

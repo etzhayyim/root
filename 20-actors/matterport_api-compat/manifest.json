@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibkmhcvbycdz75bm2hatan4tb72ccwi7d777xoy5ps7u4jh2iyddy",
   "schema": "schema/matterport_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",

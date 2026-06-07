@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiezs2kd4wumm6b2tc266mbrgiec6d5vv7r6gbxzx5dyi6exikxli4",
   "schema": "schema/quicknode.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

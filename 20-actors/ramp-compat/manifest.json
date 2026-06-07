@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihqh6ovaxw2y2qnvkmapzkiizcphfxzslo7gptr6y6673sjb2uwiy",
   "schema": "schema/ramp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiatxzukdxjycqvhsqqkugjm3kotjq7db3v2ecnxkfiu7ro3dybvq4",
   "schema": "schema/gs_markets.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

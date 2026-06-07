@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigquqx7bvrq5mjh7jcprfmfse3o7mbob27infrisjgrvcv3i7a3me",
   "schema": "schema/duckcreek.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

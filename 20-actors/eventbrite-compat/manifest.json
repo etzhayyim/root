@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifjtn2h6c3jn77aicou6vb3oruh7y46cuely5ea4nvhdocipt5gxm",
   "schema": "schema/eventbrite.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

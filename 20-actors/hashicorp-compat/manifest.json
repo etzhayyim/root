@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieeu24cg5xzyb7htmbby3th6rt67tpqmmgknomifhuhce2xrpqy7u",
   "schema": "schema/hashicorp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

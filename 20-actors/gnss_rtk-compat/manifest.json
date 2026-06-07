@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreici4fy2ytzvj2upifvg7vh35ixs4ae5af4wa6ina4q6twvaql74he",
   "schema": "schema/gnss_rtk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

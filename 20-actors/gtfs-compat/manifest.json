@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicbtb2hg3f6as7ivd2dejektvt4bwx7qpre3oi2bvzr6tt57jbyii",
   "schema": "schema/gtfs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

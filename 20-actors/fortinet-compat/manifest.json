@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreignjlofhvasqayyaot4q7dvm6urc47fs3ybyjoegwnxp6lxqfoafu",
   "schema": "schema/fortinet.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

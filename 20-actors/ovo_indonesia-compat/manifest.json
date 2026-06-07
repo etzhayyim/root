@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidx46qhwbgnc3dta5wkbky36ab7yfedfcnyjz2gf7msxiezga3364",
   "schema": "schema/ovo_indonesia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

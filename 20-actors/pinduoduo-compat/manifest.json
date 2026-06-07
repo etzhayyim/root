@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihf2xye2tkl64yjwk6r4253ggh643nc3u2c7vrx42wkehs3velk6m",
   "schema": "schema/pinduoduo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

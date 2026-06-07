@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic7tzqd7hdudv2uzey3om6vvn5yemz2kh3hafabpuzn7772mvob6e",
   "schema": "schema/metagpt.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Agent",
     "Task",

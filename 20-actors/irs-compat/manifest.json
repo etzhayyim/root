@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidqfpubciuekmbi7bahnlq7mjwzntpxqvvvadx4jpptcrahlspbci",
   "schema": "schema/irs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

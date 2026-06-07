@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih232kk4eal3cvlywe6nk56lowufafbio7zjcjdyb7p4uckig7hau",
   "schema": "schema/fastly.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

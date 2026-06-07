@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia3rwbew23ceytqrdevrfc3g2hig7swcjd47zrk2okinp5vflrrue",
   "schema": "schema/zscaler.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

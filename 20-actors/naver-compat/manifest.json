@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigtuvwgid3sszddmlizumwzxmc75mg757lztxo2biokuchs7w4iuq",
   "schema": "schema/naver.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

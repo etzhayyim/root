@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibsa72oqjwv5p4c457bbfpkbiysahikvgybg4imq7yn5tbg2xrbny",
   "schema": "schema/digilocker.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

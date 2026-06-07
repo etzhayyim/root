@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicyptyu4rdumhuvimtzxn56geym6qnnmvkrtkuskft6k7ipwsm5jm",
   "schema": "schema/boj.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Observation",

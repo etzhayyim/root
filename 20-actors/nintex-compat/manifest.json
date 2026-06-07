@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic74hjlqsrjmhhmkpb3zoteqs6y3sqhkgfjk4etapvtq4c2w3o2ei",
   "schema": "schema/nintex.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Bot",
     "Process",

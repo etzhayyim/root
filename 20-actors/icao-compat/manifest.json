@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiemwebjcnfxqa3im3flusa4yjuyr3q55i46d5ewuxkuyz7amainma",
   "schema": "schema/icao.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

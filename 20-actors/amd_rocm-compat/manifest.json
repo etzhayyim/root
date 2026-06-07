@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaxvamyo4dlsiqv56bdonsmnhw2dhvwdrl2s2jc46iroqgac3t4de",
   "schema": "schema/amd_rocm.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",

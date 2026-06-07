@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiahqtrg7k22yw2tgscl4tu5m4m42tbgidir7nuvrpvwarkytpwj2m",
   "schema": "schema/yang_ming_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

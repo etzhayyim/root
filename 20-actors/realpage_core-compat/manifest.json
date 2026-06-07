@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig3v7ln3xdxoq5bmarg55ijjeju5sbbdcw5k6q4ppnvjv44bqpsvy",
   "schema": "schema/realpage_core.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",

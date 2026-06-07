@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibvfn3ayyqq6v5f3lmbivcfumk46iaesgdsbuvuhhgzkp55oz5qj4",
   "schema": "schema/matillion.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Connector",
     "Sync",

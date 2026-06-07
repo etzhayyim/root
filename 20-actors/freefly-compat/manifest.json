@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidqdgprrelzmvql7wby2nhhdkc3odsgefea6bn7i64s6qr5eqmbca",
   "schema": "schema/freefly.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",

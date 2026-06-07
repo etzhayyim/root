@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie5uv2dvzwylgmnj6qortfoe75bfdch5ph6cp7hwkwtv76yw6k3qe",
   "schema": "schema/sapiens.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

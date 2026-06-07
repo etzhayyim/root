@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifvzeyv3ynfqzxymtnddwirwy44beerwctasrld272o3mczqj7ahy",
   "schema": "schema/fao_stat.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Field",
     "Operation",

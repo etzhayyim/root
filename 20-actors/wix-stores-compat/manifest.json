@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiatctwcimp4pzyyuebnh2qozinqcqj5kgbgof32tl3z4ieyzkbt3m",
   "schema": "schema/wix-stores.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

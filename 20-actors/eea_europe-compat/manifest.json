@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibmmj6zbnwjcicbnjl6kg72lujnkdtwqahaaxe6saatq3keqywiku",
   "schema": "schema/eea_europe.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Application",
     "Grant",

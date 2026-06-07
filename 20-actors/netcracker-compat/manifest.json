@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidzuz4gqbmel2qrbkvqd6naqqj2gu5p3ga4li2nkugyxitpoci2pm",
   "schema": "schema/netcracker.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

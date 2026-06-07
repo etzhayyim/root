@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicpxt356vvpbsga57ljoqlua6heyel4b4jcyjcrcplbyhakkwyvzy",
   "schema": "schema/kong.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

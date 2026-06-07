@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibqv2wdd7zlmw2mjhes6f6w2l7tup5mpcacvidjz42kyfw6guaf24",
   "schema": "schema/monday.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

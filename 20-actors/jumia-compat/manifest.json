@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicgwvwcg6mqejuco6p3kcwvjvf2saeapi3uxgc4vku2zfnecunkzy",
   "schema": "schema/jumia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

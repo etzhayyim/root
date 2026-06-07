@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic2qz6yvp6cydhjjth4nnkjdrn52h2mkcv5yrhvuzgzuxf3ne67d4",
   "schema": "schema/vipps_norway.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

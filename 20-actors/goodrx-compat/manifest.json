@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie3u737tw7rx5pte3wnq7ht77uans2dyvof2sroicv4afnsqi4cgy",
   "schema": "schema/goodrx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibscd7hplr25y34pjbncgwjmnobd3hwcbdb76knogzusrgs25wvjy",
   "schema": "schema/mta_ny.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

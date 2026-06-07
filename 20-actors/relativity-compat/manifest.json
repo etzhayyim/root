@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig4edt6xl6hnsi42madoz4ndct4ceq43gfygkosccehodo2pkz5ce",
   "schema": "schema/relativity.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

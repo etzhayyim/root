@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifg7lifowfmqqfex4kpv623cl5oqqguzktwaty5xb7tla3yy6a3hq",
   "schema": "schema/smart_on_fhir.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",

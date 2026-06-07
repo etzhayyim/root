@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif6efcfw2tpbyoyw6idv6tewbvnecjbzwspj6olyte5zhgdvlcq7e",
   "schema": "schema/flightstats.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibp2p36hysql7s7i3c33sinpmhsqf45onoxvj7glrfgqhrhu3ygbi",
   "schema": "schema/hopin.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

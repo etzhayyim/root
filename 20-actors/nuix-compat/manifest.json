@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigetb3ugjhpi4xnais3vyysythvkgnww4pbuuiqrxak4iu73fpxfu",
   "schema": "schema/nuix.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

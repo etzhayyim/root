@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicmpe7h7vuophw7wyz65n76hucogu3eq26vbyhqhrfodioqnp47va",
   "schema": "schema/evergreen_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

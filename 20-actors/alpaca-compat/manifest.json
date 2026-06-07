@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiatpwy7xvusilnghito4rv5ln6nuu7yuttvokoarzo6k2cb56pymq",
   "schema": "schema/alpaca.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiag3myzbogkkjenpxes6g2lix6awtxo7uzip3h7mgzrlw4uwd2wba",
   "schema": "schema/blueyonder.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Catalog",
     "Product",

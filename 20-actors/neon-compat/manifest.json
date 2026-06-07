@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicm77bsuqn3w5srxut2g64n5jpkqeq2lzmkmjynstx75we5zrljfy",
   "schema": "schema/neon.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

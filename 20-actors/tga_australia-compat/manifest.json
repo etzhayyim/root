@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidchkccoroatl4qfrem6powqtzaioz4iqk2lugqwn3cwaxqig2tf4",
   "schema": "schema/tga_australia.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

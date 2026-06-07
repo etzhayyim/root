@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidxrq7ihwf6lmte5x2gykekyktauuqbxlacwvlmmplhf76ifoybbi",
   "schema": "schema/android_aosp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif57bvtgrbrqy5m5ezg7owiazlef2oux3puoqpaol5hfohakgogzm",
   "schema": "schema/sbb_swiss.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihf73msim45tmmldw2cxptta6hgdkbnsqi4j77p74e3fqrbmhva6i",
   "schema": "schema/trello.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

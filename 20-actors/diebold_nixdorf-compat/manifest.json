@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicg6l7ve3wwp774q7bjyzvqlholsngczxujq3c7gvsi474eh7qkte",
   "schema": "schema/diebold_nixdorf.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

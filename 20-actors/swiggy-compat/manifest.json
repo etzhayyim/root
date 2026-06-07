@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiadu6qupasuorfjk4kmnuty4tzpl76f5ypvl2ecg4ad53u3aqryle",
   "schema": "schema/swiggy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Order",
     "Courier",

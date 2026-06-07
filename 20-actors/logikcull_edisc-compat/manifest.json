@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibi62hk66b3pmqtu3qibqdatszna26mxv2ulsl7ijrarmnmymo37m",
   "schema": "schema/logikcull_edisc.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

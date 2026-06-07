@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifcac522lqvb27cpyg74slway5x72hb3uh63dakk7gasuuq2pts3e",
   "schema": "schema/uscbp.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

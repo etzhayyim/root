@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic5ifcxqny4c5ms7t5ivys5hvoh2lqurr6whxefutx7ijc2jv7bcu",
   "schema": "schema/synthego.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Strain",
     "Construct",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiauogujjy4l3rgyofun367fjrj3pqkwlyg2p5cm3biv6za25wj4ee",
   "schema": "schema/meituan.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid3nhxnrucdg23hu35xneixkaacb72bqurkzrjirrgt3fwcgbtkyi",
   "schema": "schema/ptc_windchill.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

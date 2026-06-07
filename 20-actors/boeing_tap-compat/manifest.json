@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreie6vfeepjjyuecgg6o73l6bwbphfcqfs5dd4rcpvexc2v76l63poq",
   "schema": "schema/boeing_tap.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

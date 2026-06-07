@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidstv5bvm7cqawpjyakjiji6imyq64vkfhxcrseaynekng4q2rume",
   "schema": "schema/cegid_retail.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

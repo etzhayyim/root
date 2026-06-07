@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihe4x2xi3w4fyh6vhqhbs5vs2hlwlhdat74zys72yzcnhwbui4xay",
   "schema": "schema/lockheed_tap.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

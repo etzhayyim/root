@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifzbnwfb272arpcxcuwirks3aa7p5trs6oqlkjoa3idwk23z2pxxm",
   "schema": "schema/moralis.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

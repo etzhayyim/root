@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib2okt5l3fczioo74ed2wxphivwnwgvaciysiwrmlh6xfjfup2244",
   "schema": "schema/fedwire.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

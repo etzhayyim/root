@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiheecmbmi4mgonm7d2ykhue653wyo55lpzpjeaykhyv4c723i2yky",
   "schema": "schema/uipath.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Bot",
     "Process",

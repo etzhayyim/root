@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifedaap5yiomqpdwv76qazdp3j2wdfuxr2rfcetyjefuz7ecbip2i",
   "schema": "schema/rhino.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "File",

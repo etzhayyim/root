@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreielbzomeatswxe67bqlg6xpuf6wnujdaypcjrfhaz4vo7nv5gx6ua",
   "schema": "schema/digitalocean.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",

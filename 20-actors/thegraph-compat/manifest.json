@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic6vjz2sa5tjuyipki4zgx6fffsoq3xxvd5r23tdmx2d6a62pincm",
   "schema": "schema/thegraph.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

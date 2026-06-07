@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidypb3qcyt6emypcf4ftqzgfhr4fgz3fibd7yubzxo2wmwojc4vum",
   "schema": "schema/siemens_teamcenter.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

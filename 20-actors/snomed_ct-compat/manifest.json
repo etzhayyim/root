@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia3ybsractfckh5axr45plscxgte45kimfna6nqepibjgpk6u45iq",
   "schema": "schema/snomed_ct.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif3z6seupsakel3qdulfqpy4od37goyz6qbickihrwxqvoeubun2a",
   "schema": "schema/ocpp_charging.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

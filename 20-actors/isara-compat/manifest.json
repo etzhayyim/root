@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiawe3z5nws5gvcrht3mnat6zvmpvuiz5vh2f4dgrrtgwzgmf66qui",
   "schema": "schema/isara.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "KeySession",
     "Node",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih5kvncwdbqlowyncz2o6braseqsteugrm5qvuaq44ndgob3ppl4u",
   "schema": "schema/swiss_re_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

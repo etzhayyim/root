@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiclr2rqynxpw344fjjbw7d5f4rwxd6xhcwew4htqzsigjo7hewuxy",
   "schema": "schema/opec_data.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

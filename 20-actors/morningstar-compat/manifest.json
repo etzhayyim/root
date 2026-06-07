@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibhyf3lbht7hy7axnh2w2ub4vhvecv7ii3ckipift6qc66jiwheoa",
   "schema": "schema/morningstar.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",

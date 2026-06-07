@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiahrixnfj3ybwxqlocovaahjt3n3aj5xr56ngzb3n5khug2owiqui",
   "schema": "schema/quintessencelabs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "KeySession",
     "Node",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiggoikwaxcdzilcncfk2yu4egzswbihqciofxadq4jc5bzi6c52zy",
   "schema": "schema/zapier.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

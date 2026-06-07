@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihn4fzb6g4bwmeffhpqsjewm7gnn7stnaws26n7p6vlvmoi6djryq",
   "schema": "schema/playfab.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",

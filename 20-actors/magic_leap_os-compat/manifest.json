@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibmbvurujpb5lejexgmdvkvxi53ujacnaolr4fba2ndpgs2ezameq",
   "schema": "schema/magic_leap_os.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreighgvk7dlsbold2gc76snoxg7dzucr6oowakjc4ajtpigcauko6hi",
   "schema": "schema/rent_manager.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiffvmksdfuzv4vitv7vazt7xkqh6ghsldobt5q3wietrkltooopwa",
   "schema": "schema/halliburton_delfi.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

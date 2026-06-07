@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibo36lxbbytuouwzpj2yo5mtn4q5meukpvkaxaybjsbw74nhg6l4a",
   "schema": "schema/agleader.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Field",
     "Operation",

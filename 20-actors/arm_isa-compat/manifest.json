@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreignl7effdwwfcq6fhoxnurwwlikctabdqrqwnnk4gezyrhfbqf44u",
   "schema": "schema/arm_isa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

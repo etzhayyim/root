@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifyruma6zyzqi7xujlk7dcen4jcdxdrbbtpqyex3oc2c5za4zo6ni",
   "schema": "schema/muse_eeg.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",

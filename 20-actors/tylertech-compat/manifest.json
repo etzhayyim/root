@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicrpbp7vnzqouzknpkmmgfqlv3j5mjupzcg4h7jap7dqajcz6hch4",
   "schema": "schema/tylertech.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifroay6cc6vithpnlnr5kf47imhzv3ic63bpb3ebv3lfral7zchzy",
   "schema": "schema/pubmatic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

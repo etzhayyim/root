@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidlmutowplwabwh5tukuffqa3wfdef4pq3cwobpeg7xfct53jampa",
   "schema": "schema/automationanywhere.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Bot",
     "Process",

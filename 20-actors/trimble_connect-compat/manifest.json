@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibuxhcywitywwqmtqbync4vllf3rt55ez2x5752aroqtlxbw6koqu",
   "schema": "schema/trimble_connect.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

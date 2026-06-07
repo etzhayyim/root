@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "l5-verification-ledger",
+  "adr": ["260607"],
+  "definition": "L5 (Verified) = an actor whose Kotoba resources + fields (+ enums where applicable) have been reconciled against the platform's OFFICIAL public API documentation, with provenance recorded here. L5 is a stricter bar than L4 (production pattern); it asserts real-API fidelity, not just implementation completeness.",
+  "method": "Each resource verified by fetching the official object-reference page (WebFetch) and confirming the generated schema's fields exist on the real object; discovered enums recorded; un-modeled real fields recorded as gaps (the generated schema is a faithful SUBSET, never inventing fields absent from the real API).",
+  "count": 1,
+  "actors": [
+    {
+      "handle": "stripe-compat",
+      "verifiedAt": "2026-06-08",
+      "tier": "L5",
+      "source": "https://docs.stripe.com/api",
+      "resources": [
+        {
+          "entity": "Customer",
+          "source": "https://docs.stripe.com/api/customers/object",
+          "verifiedFields": ["id", "email", "name", "phone", "balance", "currency"],
+          "fieldStatus": "all generated fields confirmed present on the real Customer object",
+          "discoveredEnums": {},
+          "gaps": ["description", "metadata", "address", "shipping", "invoice_settings", "tax_exempt", "preferred_locales"]
+        },
+        {
+          "entity": "PaymentIntent",
+          "source": "https://docs.stripe.com/api/payment_intents/object",
+          "verifiedFields": ["id", "amount", "currency", "customer", "status", "description"],
+          "fieldStatus": "all generated fields confirmed present on the real PaymentIntent object",
+          "discoveredEnums": {
+            "status": ["requires_payment_method", "requires_confirmation", "requires_action", "processing", "requires_capture", "canceled", "succeeded"]
+          },
+          "gaps": ["amount_received", "client_secret", "payment_method", "metadata", "latest_charge"]
+        }
+      ],
+      "note": "Customer + PaymentIntent reconciled against official docs; remaining stripe resources (Charge/Refund/Invoice/Subscription/Product/Price) pending verification before the actor is fully L5-complete. Recorded as L5 (partial — core resources verified)."
+    }
+  ]
+}

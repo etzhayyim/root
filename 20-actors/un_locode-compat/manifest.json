@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifkwfppuplhncwvhcmzb4t4edc3asm4gfqnfq7t7aysw6zoyumtxm",
   "schema": "schema/un_locode.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

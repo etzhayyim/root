@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifmdyar45n6ci2ndqukbqphxpqk6fanbrnsswhagiazo6qpunfhvi",
   "schema": "schema/openbankinguk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",

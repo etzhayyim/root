@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiec7tcury3upluwoyykfzswd4oxid2yuertlva2v7odajazabemtq",
   "schema": "schema/d_wave.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

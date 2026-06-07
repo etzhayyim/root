@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigbgglmpw6wjuljdkebav37tqbmaozcandjfouvbze2z4qvwv77wa",
   "schema": "schema/razorpay.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

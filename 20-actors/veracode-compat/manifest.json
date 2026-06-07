@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreievxxfnshmmaq6jstzap7vgj2zinoa7gqpecsg243bwenw77kjvye",
   "schema": "schema/veracode.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

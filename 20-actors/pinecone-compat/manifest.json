@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicxfzzfnrufvsjwdsmdrfxm3akitpn3t63bznziwl26csh3twriy4",
   "schema": "schema/pinecone.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Model",
     "Completion",

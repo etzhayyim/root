@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidv2qf4dwlmkuz6tkw44z4izydinilxs4vbh7y2dz2rvkd4w7kctu",
   "schema": "schema/shippo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

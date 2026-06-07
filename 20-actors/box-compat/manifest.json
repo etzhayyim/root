@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiddmhozc2z45errrbbh3yh5vs4r4hlckluk46zzi4wzc2lotgxeyu",
   "schema": "schema/box.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

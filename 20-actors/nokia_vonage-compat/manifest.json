@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig6ktk2g4u7udb6ress7zeiqiwtolwtoguqglemdt6ynzhvi5fghm",
   "schema": "schema/nokia_vonage.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

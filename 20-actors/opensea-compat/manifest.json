@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicj5h3onwuv5leuq4ifxbwqiamleekwuvyd7qv7ev3gyfusxal2cm",
   "schema": "schema/opensea.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Block",
     "Transaction",

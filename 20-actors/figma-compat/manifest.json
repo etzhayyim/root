@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidqnoadnajzsspij3ylxtsp6dqlyei4lgwblt3dkpch2y72j37iq4",
   "schema": "schema/figma.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "File",

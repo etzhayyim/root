@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidz3qyvvdbnmtmtd6e3jxgpp6jeaxtwlurzpsghrrz2aac43rosdq",
   "schema": "schema/cartegraph.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

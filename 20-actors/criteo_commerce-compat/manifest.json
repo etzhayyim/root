@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiawn3wf56d2vmqoffdbsjbofx2dgvw2glyimbmd27y4uibsgdjwre",
   "schema": "schema/criteo_commerce.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

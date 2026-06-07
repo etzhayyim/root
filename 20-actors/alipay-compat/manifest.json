@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiedpe75nzibj3ls6bpzdylsfgpni6p4yjdwphnoolnda2vtihznl4",
   "schema": "schema/alipay.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

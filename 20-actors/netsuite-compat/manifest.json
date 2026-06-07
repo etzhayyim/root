@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihmvim7zujhunb52sembyradbfuuiem35qkgoo5lhondyj2agv2qq",
   "schema": "schema/netsuite.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "GLAccount",
     "JournalEntry",

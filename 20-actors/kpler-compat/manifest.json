@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibqnzhj3zqi2cuhetywqzh6ppnlwqmwtd5avjzg6qfckimnwpxh44",
   "schema": "schema/kpler.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigbcqhy452h2lwm4it5sox7shxnohpfwrgcnpkmsdzh7qilnmtfym",
   "schema": "schema/thomson_reuters_westlaw.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Matter",
     "Document",

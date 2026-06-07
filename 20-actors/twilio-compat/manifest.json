@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibaqzz7l3fflbzupta7h6ced4hvu2dbb33whck3nxbsihhskpexw4",
   "schema": "schema/twilio.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Message",
     "Call",

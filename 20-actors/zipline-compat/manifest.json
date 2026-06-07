@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicgoipbaydymrqmc4pdbqopnb7l4i7yuphnm4hvnv73flb7r4jati",
   "schema": "schema/zipline.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",

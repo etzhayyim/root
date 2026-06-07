@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidzarbzmg4pmxz5y3qqlsl2dgrsd4r6kxn73tncrtefeqs7uv5abq",
   "schema": "schema/lme_metals.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

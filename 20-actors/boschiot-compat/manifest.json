@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidm47qwpnjsc4cdxum2quhjjyycrlkjx4gs3wq24pfdsghvkqgcdu",
   "schema": "schema/boschiot.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Telemetry",

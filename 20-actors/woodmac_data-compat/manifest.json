@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicghjrrughuni24slfqj3n7opqzvdjnuendvandaoexcrcx7h75li",
   "schema": "schema/woodmac_data.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

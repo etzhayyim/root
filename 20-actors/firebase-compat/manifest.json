@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig2vsxllq4yr3juofv6rau54qu34lkhi3n6iyot62ddtdbl36qlgi",
   "schema": "schema/firebase.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Deployment",

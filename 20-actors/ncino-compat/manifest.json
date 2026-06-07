@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicoi5mfdx2z5ci2tlqrpovmwng4cfevwdca2zu2s25bqx7b2i6beq",
   "schema": "schema/ncino.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

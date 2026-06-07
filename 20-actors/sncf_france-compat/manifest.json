@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif5wuqu4dtyrskbpnnkng2zlft76eeu4zrnokk37gfmxdqlcnml7u",
   "schema": "schema/sncf_france.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiafariix5tb22mboyvtnxnqcfexnno664vbng4em2ukyoi3e6fjku",
   "schema": "schema/wipo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Declaration",
     "Shipment",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid3fejyarucykw3zz6psitd3s2uqscxwp4z54nbkkpxluderdwzhy",
   "schema": "schema/slack.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

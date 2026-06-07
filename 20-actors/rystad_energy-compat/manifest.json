@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaofzuifsq27nix4sy2c7kjwxwtluxw47re2t7ote5nid2tlqllmi",
   "schema": "schema/rystad_energy.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihl7vwbqkjvihq4rmclbzpcnolyyv3kzc5dbruwbxfzafhfmc7q5u",
   "schema": "schema/ros2_nav.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

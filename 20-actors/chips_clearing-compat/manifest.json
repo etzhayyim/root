@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiency6g6x2sjdviptv4p2hq7pg44ebkntt3g6v5ijded6ycqgk6na",
   "schema": "schema/chips_clearing.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

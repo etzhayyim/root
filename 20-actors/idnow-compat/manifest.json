@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiagcjxc4aqkdh46jsz4hwcsq3b4og2qpb4fbfp5qowad4eonwiicq",
   "schema": "schema/idnow.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

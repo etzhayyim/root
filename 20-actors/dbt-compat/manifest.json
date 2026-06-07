@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiepxv4wimu7gyuldtxz63nwl4q5jrohuvox6d4y65j5nfy5cs7iqm",
   "schema": "schema/dbt.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Connector",
     "Sync",

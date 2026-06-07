@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiasm44gsjji3nk4hczkqjzwczobyteiglxv6cbzhdxk77yoz7oxtq",
   "schema": "schema/gainsight.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",

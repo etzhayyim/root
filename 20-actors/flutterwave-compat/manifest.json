@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidauswycjcj3pfvlazckk3lcccomeh5liatibvgcv3tph3pwhd4ei",
   "schema": "schema/flutterwave.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

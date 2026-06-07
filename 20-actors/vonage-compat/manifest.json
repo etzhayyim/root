@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidljtkyiyvaalt7tti5ekjd3l6xldc6wefemmuvvlf5xs3pbrtxuu",
   "schema": "schema/vonage.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

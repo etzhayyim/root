@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihi6ftnw5jcegnaiwoc7f2thaxblv3l2xlw42qi3wp2okda4ctugi",
   "schema": "schema/iho_ships.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

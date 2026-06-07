@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigorwv3jvck756vzz3g33czmuprtl3zlzkohy3tt5oyl67d2rfy2q",
   "schema": "schema/interpol.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

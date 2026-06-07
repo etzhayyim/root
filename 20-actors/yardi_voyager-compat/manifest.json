@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibciilxnf2kbrgtv6gl4bps5kmys4zhsmx5cq2zwgjypeazxq5jeq",
   "schema": "schema/yardi_voyager.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",

@@ -219,6 +219,13 @@ def build():
     # CIDs of actually-built WASM components (gen_rust_actor.py), keyed by handle.
     global BUILT_CIDS
     BUILT_CIDS = {}
+    # L5 verification ledger (doc-reconciled actors), keyed by handle.
+    global L5_LEDGER
+    L5_LEDGER = {}
+    _l5 = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-l5-verification.json")
+    if os.path.exists(_l5):
+        for a in json.load(open(_l5)).get("actors", []):
+            L5_LEDGER[a["handle"]] = a
     _built = os.path.join(ROOT, "00-contracts", "schemas", "cleanroom-built-actors.json")
     if os.path.exists(_built):
         for a in json.load(open(_built)).get("actors", []):
@@ -276,6 +283,10 @@ def build():
             "contractTest": has_tests,
         }
         tier = "L4" if (all(api_features.values())) else "L3"
+        # L5 (Verified): doc-reconciled actors recorded in the L5 ledger.
+        verified = L5_LEDGER.get(handle)
+        if verified:
+            tier = "L5"
 
         # ---- per-actor manifest.json (4 capabilities on one WASM component) --
         manifest = {
@@ -293,6 +304,12 @@ def build():
             "ipfs": f"ipfs://{cid}",
             "schema": f"schema/{platform}.kotoba",
             "tier": tier,
+            "verified": ({"source": verified.get("source"),
+                          "verifiedAt": verified.get("verifiedAt"),
+                          "resources": [r["entity"] for r in verified.get("resources", [])],
+                          "enums": {r["entity"]: r["discoveredEnums"]
+                                    for r in verified.get("resources", []) if r.get("discoveredEnums")}}
+                         if verified else None),
             "entities": entities,
             "adr": ["260607", "2606014500", "2606013800", "2606036000"],
             "capabilities": {

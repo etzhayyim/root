@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihxerekymv6widiltxwsj6hqaccao47wcouoazzhjjbf6sry3kkeu",
   "schema": "schema/tensorrt.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",

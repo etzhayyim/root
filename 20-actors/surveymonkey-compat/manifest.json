@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiabjk4lb5knl2shjyzg2kminlrcqmjqyo3mipk3js4wynhwzi35nq",
   "schema": "schema/surveymonkey.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",

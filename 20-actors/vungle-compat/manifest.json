@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidf4h3ptt4yb2zszjeq5vpdygcthfb7lvhtzbryaobop7x66zdtfi",
   "schema": "schema/vungle.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

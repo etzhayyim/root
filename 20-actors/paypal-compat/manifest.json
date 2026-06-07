@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidp64ax25666dndvtpoipek5z3anpwh7aneap36doydkfk2zjpsny",
   "schema": "schema/paypal.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

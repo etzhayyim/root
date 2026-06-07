@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicglcgmrpnibv7viji54n5wiyxj5jbif4jd77okhxvvavqcmzlvyq",
   "schema": "schema/bitbucket.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Repository",
     "Pipeline",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif234wvyhsqlsq265u44ui6pavbmeth7znl7xg7ffe2d24pwp776i",
   "schema": "schema/looker.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Dataset",
     "Query",

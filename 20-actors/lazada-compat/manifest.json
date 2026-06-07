@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigg2i56rakvq7vdj6owkbqmzmbopdn6vu6d5qllemmlbsuasyol4y",
   "schema": "schema/lazada.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

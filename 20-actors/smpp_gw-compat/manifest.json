@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieyjfdv3ijfwmupoupug66ke54xhptfol5k5ulvbugxjysl44mo4e",
   "schema": "schema/smpp_gw.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Subscriber",
     "Session",

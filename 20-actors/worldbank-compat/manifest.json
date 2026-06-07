@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicckeklpqwhzbidbmknkgmhqmcq7dhg24qjsbwboddc7eprzlcsku",
   "schema": "schema/worldbank.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Observation",

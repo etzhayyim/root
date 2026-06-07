@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicveye6jfrynvxpl42cd647634dxbdcsxf27pqcgoobkjjkmx6pta",
   "schema": "schema/commercetools.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

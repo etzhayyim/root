@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihlpu5gxcona54pa4zymipus6jhaybrxh33criunrcindy5jtrsi4",
   "schema": "schema/kakao_cert.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Credential",

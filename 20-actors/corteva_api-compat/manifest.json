@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieq5fqcu4wl4fssj3xhydfh5rnix5cbpehn4z67n3eggkdsi2ygdu",
   "schema": "schema/corteva_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Field",
     "Operation",

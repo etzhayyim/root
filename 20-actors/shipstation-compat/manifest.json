@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihc4z2pb6oij4q7jbjecboso6wwiooxxew55ptwafwnlyeswtiir4",
   "schema": "schema/shipstation.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

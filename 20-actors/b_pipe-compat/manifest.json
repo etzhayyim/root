@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigv7dskfmulgwddo7qgrhfyypa2hzii6xvxelz7z7hkx6tpxtjfpa",
   "schema": "schema/b_pipe.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",

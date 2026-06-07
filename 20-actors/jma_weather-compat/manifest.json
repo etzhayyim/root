@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic6at5a5kj5c7b2hgcvseghbccil6kvt5n7ki2pmqijbiftbf53b4",
   "schema": "schema/jma_weather.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Corporation",

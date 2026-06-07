@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibbq22qf5e64cx7omvsv7wjzo7ubqnd7y5nfapsiqhhh3trzgxwwu",
   "schema": "schema/rippling.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

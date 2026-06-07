@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif3d2wmawayy5wscsdzstlvbx4zqlg7nuyqk4e6tfqlfwaftbra4y",
   "schema": "schema/undata.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Observation",

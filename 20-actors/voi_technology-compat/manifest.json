@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicoutaw66nrgslwot3cp3vp2pcihmyqelods26til5conllzyfljm",
   "schema": "schema/voi_technology.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Driver",
     "Rider",

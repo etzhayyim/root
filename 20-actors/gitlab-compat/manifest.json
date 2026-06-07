@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih4gxrsiz2pzuirbygdx3v6iecbgb4zbws4x654mb3ktn3jeu3zfe",
   "schema": "schema/gitlab.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Repository",
     "Pipeline",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidtybwhldrhtzgn2ug4howj7flxtzqpimh642budhp2rw42jhg2gi",
   "schema": "schema/ola_cabs.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "User",
     "Wallet",

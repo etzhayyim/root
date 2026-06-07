@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiduj6tqcqy3pm53hkbi3kgscydmg6ycacgdjkhatsyvvaevk5t4du",
   "schema": "schema/tae_technologies.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Shot",
     "Diagnostic",

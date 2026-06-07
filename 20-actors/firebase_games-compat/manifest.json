@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibrge2da7zeyeqxocxaipfdoe5qa6przuhs53ixgoadwzwom4uuly",
   "schema": "schema/firebase_games.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",

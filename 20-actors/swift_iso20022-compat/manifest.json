@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihidzrit4qtynpnnlmvtk3ywyfwncqsck3krr6dvtrfragpw2ktne",
   "schema": "schema/swift_iso20022.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Consent",

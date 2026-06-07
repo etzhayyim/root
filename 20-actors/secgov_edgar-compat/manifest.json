@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib42lpngtpi4sro6vwtb4dalt64fa3i6ogn3wdqxwcxmcd2zizzhu",
   "schema": "schema/secgov_edgar.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Entity",

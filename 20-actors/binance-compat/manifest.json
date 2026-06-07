@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiftr4klxcvyk5r3lqpybnvhwsnaxgtawvkpbylnep7mp6vrv22s7u",
   "schema": "schema/binance.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

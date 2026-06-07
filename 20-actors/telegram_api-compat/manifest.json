@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif2exaga5zhuv3uyw5wwsb5o5n6jocutlt3c24ctxjuq4cwmgb52y",
   "schema": "schema/telegram_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

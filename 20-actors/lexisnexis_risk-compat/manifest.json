@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibsobewcouwymic345uyueetifw722x42crrsxsuv5q5oatxr4jfm",
   "schema": "schema/lexisnexis_risk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieo3bagqapiaczbkeyeuyjco74uurvrbynuq4acuipffyklwin2xy",
   "schema": "schema/forgerock.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Identity",
     "Policy",

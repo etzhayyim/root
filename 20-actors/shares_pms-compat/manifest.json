@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihzy2kamc2u6i7bxmlf2qfgboj6uvzfxr7kdh3e6sf5oy2rej4tca",
   "schema": "schema/shares_pms.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

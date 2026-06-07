@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidzybaagz5iwy322dsoh25fbxotoqbu5hogllrnf74rqgdjocha7e",
   "schema": "schema/onnx_runtime.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",

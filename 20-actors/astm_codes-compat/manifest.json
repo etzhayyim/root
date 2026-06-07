@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicwra3t4z4udp5fzeuxfrqm2cleq3ppafs2tyev7qv66o52i7sfxe",
   "schema": "schema/astm_codes.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Substance",
     "Compound",

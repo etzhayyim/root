@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicw4t5f7gcmc2yo3y6udmywu4iuyr3ycndvx66n4mljmrxp74s3uu",
   "schema": "schema/ofac.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

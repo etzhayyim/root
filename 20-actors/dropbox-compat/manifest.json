@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidepd7brpc6lc5lrch5ekhu4wiarxaoqts2seof3yealknlbvvbv4",
   "schema": "schema/dropbox.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Workspace",
     "Document",

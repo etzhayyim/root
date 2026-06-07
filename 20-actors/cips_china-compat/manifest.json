@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib2kngktk2vyu7m3g7hwohbufx6zplf375gwhl767nrkltoppcq3y",
   "schema": "schema/cips_china.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

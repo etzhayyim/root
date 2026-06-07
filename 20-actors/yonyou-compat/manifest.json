@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidrskrgjkp3idx5adbejihi5onkugo26pv73u5tmnyf5anxby6wmm",
   "schema": "schema/yonyou.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

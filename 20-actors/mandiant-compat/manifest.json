@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih6skocqunf7ch4l7rzhxswfocp2yiqgod437qfmjj6ycobixbgda",
   "schema": "schema/mandiant.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Vulnerability",

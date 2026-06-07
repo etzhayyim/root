@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiciav24k2kgniscijipgdh666bokjegciu463pde4gwkq4soudtde",
   "schema": "schema/epiconlineservices.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Record",
     "Matter",

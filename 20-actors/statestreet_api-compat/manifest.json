@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiayblsv3kmphcqcsznkgpi7w4sqfwzc6svz6czdy6yry2gxld4oui",
   "schema": "schema/statestreet_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

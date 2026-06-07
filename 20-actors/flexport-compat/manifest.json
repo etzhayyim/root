@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiejhpmqtgyx7sfajr4lyxx4jncoz27mi2peyz4mhteqzsf3iszl6e",
   "schema": "schema/flexport.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

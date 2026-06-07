@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihsbcroa2s4o7hgbpw4zjtjasklruvj66n2cf6s6c6dpumhcn6ioy",
   "schema": "schema/parrot_sdk.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Drone",
     "Mission",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidwy5pd7nc64iisndrg7iqemwntcnpypefpe6jrwowx46mpxe4igy",
   "schema": "schema/ray.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Kernel",

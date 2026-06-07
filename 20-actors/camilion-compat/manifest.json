@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiby66gibfxldtnptxkcdronpd3qwth4kef3nudt4h67fpcg5q34ie",
   "schema": "schema/camilion.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreici6x6ixg46evwhaexkokudqxkxgijjyhbzekhrc6ue6dblskvkky",
   "schema": "schema/argus_media.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

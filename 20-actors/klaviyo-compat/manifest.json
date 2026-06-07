@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif4hrn7utw3nousb7ajuy56nhvxjzexufse3rrmyj2bfagzchsjpu",
   "schema": "schema/klaviyo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

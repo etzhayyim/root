@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibpx5j4n7f76x2gfhqv3gsl2wqcv2rur52sc5ubf46bto4gsyzgoq",
   "schema": "schema/nhtsa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

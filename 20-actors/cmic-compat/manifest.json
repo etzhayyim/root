@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihytjrxffcs2ugefaf77ihy6kous6jxge2xm4xpxkdrgjnspswyiy",
   "schema": "schema/cmic.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "Permit",

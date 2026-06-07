@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih4p3ipmeeo3jpdm4fb7omctr3mcpfhatsok3niv3fp5xx7fj2fja",
   "schema": "schema/epic_fhir.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Patient",
     "Observation",

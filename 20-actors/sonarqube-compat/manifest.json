@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigexy34jsdlw5t33b64q6tamte72whh5fzipkemgoncxg46vyzfhq",
   "schema": "schema/sonarqube.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Service",
     "Error",

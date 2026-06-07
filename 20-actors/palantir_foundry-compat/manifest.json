@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihntoyn5phuk7zjz4ln7lndhhzif5mlggywcdxnwscailslplfcum",
   "schema": "schema/palantir_foundry.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

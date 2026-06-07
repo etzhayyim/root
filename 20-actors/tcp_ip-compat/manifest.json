@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiade3hqtnbgqmez4u6cbqp6auzoylgkivzf32msdmlibnienwuwpa",
   "schema": "schema/tcp_ip.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",

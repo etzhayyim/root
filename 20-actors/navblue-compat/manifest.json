@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiewfdgm7enzcjaydrx22sk3okdmhfppelsfpl46zv2kpcmg4jhiwi",
   "schema": "schema/navblue.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flight",
     "Booking",

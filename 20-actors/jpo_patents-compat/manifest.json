@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiac6dvw3p2wj4yj5zamgms526lrokh725vzvc6ogh5r2mjw55ouzy",
   "schema": "schema/jpo_patents.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Application",
     "Grant",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigtkleofrabkdv2lw6mfarlyyzvw6rwcwvjawxelxaupzrqhwud5u",
   "schema": "schema/faa.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Stop",
     "Route",

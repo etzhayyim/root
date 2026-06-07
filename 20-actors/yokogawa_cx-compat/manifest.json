@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreify6btshv3ohpudvcs4h4cv3l65bjwb6kewu4tccfxa4egnijx4zq",
   "schema": "schema/yokogawa_cx.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

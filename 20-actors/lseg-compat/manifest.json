@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig72m7pr6yiohmbbc3ee7z7vxh4zqt3eezbgsa5i3araqv5cbdcne",
   "schema": "schema/lseg.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Instrument",
     "Quote",

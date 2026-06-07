@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiaknqn4ap4afxfbewfilkaja2fzkjqmd5i2efch2kt7boyuhacdia",
   "schema": "schema/ecwid.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Product",
     "Variant",

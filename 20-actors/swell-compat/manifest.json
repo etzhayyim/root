@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiffwvtq3ynwlh7f5vkavg7rgn3fv4osnoxuntbagjpe4ki4htugdy",
   "schema": "schema/swell.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Catalog",
     "Product",

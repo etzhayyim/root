@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreig7lmpilg6ufamcw6vldtgr7rb6t5r44umihhlcpk7m7ril3o4jb4",
   "schema": "schema/db_autobahn.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

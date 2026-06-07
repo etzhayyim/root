@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreih6j5fxyqyt2eb3ek3cfkl23ev6fkl22dtbn6pttov56tzcquzdte",
   "schema": "schema/nymex.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

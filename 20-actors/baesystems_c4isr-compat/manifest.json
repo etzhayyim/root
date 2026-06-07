@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiev3bpjl2ikqt4dnonvlnwomw5zr7dqyad4tjf2ej6wj5ducsz6gu",
   "schema": "schema/baesystems_c4isr.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

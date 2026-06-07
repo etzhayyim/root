@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiak4pmlnnbo7lk5v7umll4eytfr6ozaxyzwx7jvco5rklljkhp5p4",
   "schema": "schema/ercot.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

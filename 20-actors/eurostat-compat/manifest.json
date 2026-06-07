@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigu764g4nky5ld3xu2srxlr35jv3pldaybhr5epwg6rlml7cjjc2q",
   "schema": "schema/eurostat.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

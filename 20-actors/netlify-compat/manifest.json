@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiglqpl644udux3il6l7pmrjy5ocpsjkzsxtoml5i72vghvx4jvd5m",
   "schema": "schema/netlify.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "ComputeInstance",

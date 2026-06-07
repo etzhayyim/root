@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibri2suzjd5sahp4l5w5dfwk3qeiqi5iyfqry4by6pk2m64jhbgty",
   "schema": "schema/cesium_xr.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Anchor",
     "Scene",

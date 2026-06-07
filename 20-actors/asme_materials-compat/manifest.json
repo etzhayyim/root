@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicqlknog5fc2o4cwibdgfxy2ev5dox4tmhbcmr7u2knljtu4x5wcq",
   "schema": "schema/asme_materials.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Substance",
     "Compound",

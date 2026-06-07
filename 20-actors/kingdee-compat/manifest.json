@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreienhtq7ohklh6tgra5zdy4fum3ai5wkrkaaxehyqgdcbtocjxbmwe",
   "schema": "schema/kingdee.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

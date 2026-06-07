@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicazwznn63cauahoo3sxzhrbvzvnhl7vigqkxmqhym2o5pnj4zbjq",
   "schema": "schema/drata.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",

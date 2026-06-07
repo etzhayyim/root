@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidsu54iin4qijplz6botm4ddlj2c5soynsmxeltimxrvluzgtvlba",
   "schema": "schema/nakama.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Player",
     "Session",

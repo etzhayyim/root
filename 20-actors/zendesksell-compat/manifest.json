@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibakg5c35ca4ckyyin3eqg6gbrreo5pwcxashsxwjlh4kzis67ome",
   "schema": "schema/zendesksell.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Ticket",
     "Survey",

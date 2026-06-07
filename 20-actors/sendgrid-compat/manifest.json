@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiclpoa6rkzdzk2mtijk6ak7b7skkil6equmnep6y7gtjduzvu67du",
   "schema": "schema/sendgrid.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifdhfjdzbv77uz3d7hpb7m3zos3fotshn24ubn3yshk7u7czk7yam",
   "schema": "schema/baker_hughes_jewel.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Commodity",
     "Price",

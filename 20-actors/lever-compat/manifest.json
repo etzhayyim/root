@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia5v4fxujlr6eg24lqz2cl2dlr76eehbfefgdmepzv3pjrbhlxzsa",
   "schema": "schema/lever.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

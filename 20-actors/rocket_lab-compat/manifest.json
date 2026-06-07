@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia5h5h7bo64it4i64lcjsvbllsdiojitafh5gcz4jl33vogndfq5u",
   "schema": "schema/rocket_lab.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

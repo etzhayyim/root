@@ -10,7 +10,8 @@
   "exec": "browser-local|donated-mesh",
   "count": 1000,
   "tierCounts": {
-    "L4": 1000
+    "L4": 999,
+    "L5": 1
   },
   "actors": [
     {
@@ -15265,7 +15266,7 @@
       "wasmCid": "bafkreidjpmhiynl4mazx2x4wuhozj2l5ez4ndk7ifdwec42am6ir5hpuaa",
       "kind": "compat",
       "wasmProvenance": "built-rust-raw",
-      "tier": "L4",
+      "tier": "L5",
       "title": "stripe clean-room actor",
       "category": "payments",
       "capabilities": [

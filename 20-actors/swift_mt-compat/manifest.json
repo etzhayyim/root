@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibullmcuc4l2hiinhhaom3mpi2b75dxlh53ihqdse33vpzwop7dbm",
   "schema": "schema/swift_mt.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "TradeItem",
     "Event",

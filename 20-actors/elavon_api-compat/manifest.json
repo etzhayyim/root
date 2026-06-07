@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiddppeaoywnfvxztncp52ejq3eyxy3r4bfafatncqjjira6hhxlfq",
   "schema": "schema/elavon_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

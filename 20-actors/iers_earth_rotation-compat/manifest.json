@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigpomhclg57f45ixdbilk7ovk7v24gpzy3bz47ik75yrvzzqkf33a",
   "schema": "schema/iers_earth_rotation.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Code",
     "Unit",

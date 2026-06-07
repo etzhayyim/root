@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiae46532e42c5xt3dm4gtjjzwwircqy2ilpgyakrgs6rghdf3u5ja",
   "schema": "schema/hawkeye360.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

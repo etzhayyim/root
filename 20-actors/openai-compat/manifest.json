@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihbgc6ybuatnm44w6zzs2xmwb35hqe5dakdztcbq7be72l3gsqylu",
   "schema": "schema/openai.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Model",
     "ChatCompletion",

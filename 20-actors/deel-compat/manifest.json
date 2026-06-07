@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifz2gnnrseeqbwoqosapn5pqnlscrvvvzjkokmt6vw3f5bktvrlza",
   "schema": "schema/deel.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Employee",
     "Candidate",

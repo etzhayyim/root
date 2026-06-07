@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihsr7rh6dhnzoqjeg2otmufqrgh57c4tbzxafsrpzbmwlxm433fz4",
   "schema": "schema/jenkins.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Repository",
     "Pipeline",

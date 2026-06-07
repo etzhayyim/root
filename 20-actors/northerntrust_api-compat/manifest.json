@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibrsyfn5cuyeindi2b6ra6rz4hyax5bb4xcsgwzt2ko77epad33li",
   "schema": "schema/northerntrust_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

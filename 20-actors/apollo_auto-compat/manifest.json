@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigm4wjzuk2kwynrgmkzjtkfw6fbzsor2nrkdywms4swhrlo3f7rby",
   "schema": "schema/apollo_auto.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Vehicle",
     "Signal",

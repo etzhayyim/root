@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibsmsak6ajjeesqggh3y2ou2al6cnjlgygmyzxapffnadi7ylqujy",
   "schema": "schema/anduril_lattice.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Case",
     "Party",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreid2gydknyck6neflbklltcq44af45lihk3ary72fc5vrl2nf55hri",
   "schema": "schema/donorperfect.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

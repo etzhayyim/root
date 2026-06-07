@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibdx5qgaxqdbmvr6ldhkfin74yxndkjkyfhhb4zsmvdy3pfylfxbu",
   "schema": "schema/salesforce.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigpjw4pr66usr5anvteyifw7355mvi5x2immvumjyshyqt72kwfqm",
   "schema": "schema/universal_robots.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Part",
     "BOM",

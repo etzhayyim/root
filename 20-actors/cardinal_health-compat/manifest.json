@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidbcezpirat4bhgr35vud3vbnywos5okrswphrjkw4f6xguqt3bly",
   "schema": "schema/cardinal_health.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prescription",
     "Claim",

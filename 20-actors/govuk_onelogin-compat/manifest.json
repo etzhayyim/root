@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihnahbnfjichesz7m274gigtkcnpvxyfttq3ac72duqu2yaxufebi",
   "schema": "schema/govuk_onelogin.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Filing",
     "Citizen",

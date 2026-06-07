@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreif3nq5rlp7a2ebjsyyawtp7dbf2v2q4f3llwgqt5lgrblxp4h527u",
   "schema": "schema/line_api.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Channel",
     "Message",

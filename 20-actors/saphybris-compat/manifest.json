@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigsmhjj5pczpncjlngvnhqsuiipfcn36xf6j3s6rbsocyumxt4tx4",
   "schema": "schema/saphybris.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Catalog",
     "Product",

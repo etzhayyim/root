@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicfckpimjcxbetkumreqjwe2tjkpztikkwk2kqz5g5vmpow3gxhfy",
   "schema": "schema/galileo.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Card",

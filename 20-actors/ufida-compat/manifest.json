@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibemve7aqprl4ilni6mpwdf3wowcgkktksvkgs36ks2tny242rcte",
   "schema": "schema/ufida.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

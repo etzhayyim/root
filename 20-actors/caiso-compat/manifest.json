@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicnhg4ugo2vgamwr7ybius3v4mp4qylevbz2vosuoatigu64iylcu",
   "schema": "schema/caiso.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Meter",
     "Reading",

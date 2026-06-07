@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifa2v4rbmcp3wkluespubatrgs7qoefmvzo3yakhm6e3gtv7nj5gu",
   "schema": "schema/klarna.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Customer",
     "PaymentIntent",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibredqfwk6ffoem4nws3xdjuno6vias4ytszyye7ok6cqgl5ne6m4",
   "schema": "schema/rtos.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Process",
     "Thread",

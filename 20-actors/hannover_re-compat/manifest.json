@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiavhveh52kn7r3uw6mfhtkerg2fyipo4vmrzbfpp2lvgh7i3ve3sq",
   "schema": "schema/hannover_re.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

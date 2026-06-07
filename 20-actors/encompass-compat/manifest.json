@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifm2orokiboy2z3ywyzrqrso3v2siptuylidb76i2bg2x4civf4ca",
   "schema": "schema/encompass.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Loan",

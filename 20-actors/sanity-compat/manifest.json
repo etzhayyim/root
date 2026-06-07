@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib2fyxgmmijiua7pq5ymnstzwja5lrb7ajz5uwn2vjgqwfj6rf6mq",
   "schema": "schema/sanity.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "ContentEntry",
     "Product",

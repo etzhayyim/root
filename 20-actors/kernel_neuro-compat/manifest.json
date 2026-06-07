@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib3gtfatprbipgbomo5pmfkctnuhw5hf735wqs32fbbrw6w7ub56y",
   "schema": "schema/kernel_neuro.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",

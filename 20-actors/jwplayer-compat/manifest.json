@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihuvpiaa5zklbqz4mcqntsngy7kfrwrq7532tqdk7762rylps4whi",
   "schema": "schema/jwplayer.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Asset",
     "Rendition",

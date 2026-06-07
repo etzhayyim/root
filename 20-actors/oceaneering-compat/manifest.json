@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreieazg7xvhmun4xmjkc4qcmyvfw4i4snmm2ju7ktht6rjl7d46s2vi",
   "schema": "schema/oceaneering.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Object",
     "Position",

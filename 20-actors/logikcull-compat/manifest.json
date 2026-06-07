@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreic22y3b5e43femxwngiqpx3mvs6gepu2i64jhjtx6rzkiaepk7dym",
   "schema": "schema/logikcull.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "DataSubject",
     "ConsentRecord",

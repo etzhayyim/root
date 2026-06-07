@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidqd6oked2ocegpc35qsmriodikuozrrsaemutxf5m3tjvztvpnsy",
   "schema": "schema/neurosky.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Device",
     "Session",

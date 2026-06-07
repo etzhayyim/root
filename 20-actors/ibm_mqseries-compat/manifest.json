@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihh2mrjiqgowjzdkzaquedc6ndm62yncso6geycc5tqugqxzedze4",
   "schema": "schema/ibm_mqseries.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Job",
     "Dataset",

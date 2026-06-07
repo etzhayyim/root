@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreibaerjhftutoi2rm3sm6ztlvu33r5f3tkc5b3yau4zel57qyxjgbu",
   "schema": "schema/flashpoint.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Indicator",
     "Vulnerability",

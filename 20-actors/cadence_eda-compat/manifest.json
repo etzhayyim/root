@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidrhawojuvs2fmgvkcezg6aa2tor7dkknlxrxcm73hftreatbo56m",
   "schema": "schema/cadence_eda.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Register",
     "Instruction",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreicwdb64vqt37ksgu4vguo7dtfoblq7deuyihvle6xvpimdxhud2wm",
   "schema": "schema/bgp_rpki.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Prefix",
     "Route",

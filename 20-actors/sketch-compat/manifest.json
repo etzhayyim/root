@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia2j6lfpi5jofycwcpilzzsfckile55zuy7dopjk4v33jhsn3mn3e",
   "schema": "schema/sketch.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Project",
     "File",

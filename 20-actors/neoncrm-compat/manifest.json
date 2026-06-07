@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreifluqy75ojcjbqrby4jbv5m2g3x63dz6cq4np3k4g55423pfaenwu",
   "schema": "schema/neoncrm.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Event",
     "Ticket",

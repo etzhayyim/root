@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreidgz43bi7xmj4lc3l6xiywp5gbkbsy3rn2navduxsygurh2e4iqmu",
   "schema": "schema/braze.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",

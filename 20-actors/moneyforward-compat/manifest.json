@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreia4v42wi4kkuuul4awram5jy4xeor5elv3dbdhamquzjt53bbln6e",
   "schema": "schema/moneyforward.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Account",
     "Contact",

@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreib2gbbybexwtbgbxqgogjqsv5ajenml2rghfqqbcoihzyw2tqjgxy",
   "schema": "schema/rets_mls.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Listing",
     "Property",

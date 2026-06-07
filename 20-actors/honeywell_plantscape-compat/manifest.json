@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreigl3muml5camvr2xcb32l3yvqyeuanfy4otq2wyy2lg5jkjrxxkzm",
   "schema": "schema/honeywell_plantscape.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Tag",
     "Device",

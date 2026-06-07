@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreihv4lzfraki3eg6idem7bfpyavrgtue4nlijvfaihw4527i5frpcy",
   "schema": "schema/workato.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Flow",
     "Step",

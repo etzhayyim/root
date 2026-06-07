@@ -12,6 +12,7 @@
   "ipfs": "ipfs://bafkreiakw2cds2hz2vges3n4fivhsplhnfihcuhriapw3qgbsokzkxymbm",
   "schema": "schema/index_exchange.kotoba",
   "tier": "L4",
+  "verified": null,
   "entities": [
     "Campaign",
     "Audience",
