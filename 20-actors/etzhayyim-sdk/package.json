@@ -81,7 +81,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.0",
+    "@atproto/api": "^0.20.9",
     "@atproto/common": "^0.6.1",
     "@atproto/repo": "^0.10.0",
     "@ipld/car": "^5.4.6",
