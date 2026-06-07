@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@vocab": "https://etzhayyim.com/ns/actor#",
+    "id": "@id",
+    "type": "@type"
+  },
+  "id": "actor:tsugite",
+  "type": "Actor",
+  "name": "tsugite",
+  "glyph": "継ぎ手",
+  "purpose": "World peoples-continuity (民の存続) mirror — weaves human COLLECTIVES (migration/refugee/stateless populations, indigenous peoples, language communities) + the languages they carry + the displacement/erasure pressures they bear into the kotoba Datom log; surfaces pressure routed to CONTINUITY (継承: safe passage + protection + revitalization); aggregate-only, NEVER person-tracking.",
+  "status": "R0-design-only",
+  "tier": "B",
+  "adr": "2606073800",
+  "dependsOnAdr": ["2606073000", "2606073200", "2606073400", "2606073600", "2605181100", "2605302130", "2605301600", "2605312345", "2605215000"],
+  "schema": ["00-contracts/schemas/peoples-ontology.kotoba.edn"],
+  "substrate": {
+    "state": "kotoba Datom log (ADR-2605312345) — methods/datom_emit.py emits canonical EAVT",
+    "largeAssets": "DataLad → IPFS (80-data/peoples) — NO git-lfs",
+    "inference": "Murakumo-only (ADR-2605215000)",
+    "runtime": "kotoba pywasm actor (componentize-py) — pure-stdlib methods, no numpy"
+  },
+  "integrates": ["actor:inochi", "actor:asobi", "actor:kataribe", "actor:manabi", "actor:himotoki", "actor:hagukumi"],
+  "lineage": "human-collective sibling of the KG-mirror lineage (inochi living-world / asobi freed-time / hokorobi finance / hoshimori orbit); peoples-continuity scope; mirror-only, consent-bound for any member-linked datum",
+  "cells": [
+    {
+      "id": "cell:tsugite.analyze",
+      "method": "methods/analyze.py",
+      "input": "data/seed-peoples-graph.kotoba.edn",
+      "output": ["out/continuity-report.md"],
+      "pipeline": "load-edn → edge-primary integral (Σ incident inbound pressure-load × disclosed vitality weight) → continuity-need + protection-buffer + transmission-fragility + pressure-concentration, collective-aggregate",
+      "doc": "edge-primary displacement+erasure vs protection; continuity map, never person-tracking"
+    },
+    {
+      "id": "cell:tsugite.datom-emit",
+      "method": "methods/datom_emit.py",
+      "input": "data/seed-peoples-graph.kotoba.edn",
+      "output": ["out/peoples-datoms.kotoba.edn"],
+      "pipeline": "ground EAVT datoms [e a v tx :add] (durable, collective-aggregate only) + derived readouts flagged :bond/is-transient (computed on read, N1/G2)",
+      "doc": "kotoba Datom-log projection — first-class canonical state (ADR-2605312345); no individuals"
+    },
+    {
+      "id": "cell:tsugite.coverage",
+      "method": "methods/coverage_report.py",
+      "input": "data/seed-peoples-graph.kotoba.edn",
+      "output": ["out/coverage-report.md"],
+      "pipeline": "people-kind + language-vitality + pressure-kind + haven-kind → gap map (scale context, modelled as collectives)",
+      "doc": "honest coverage (all-peoples ~0 BY DESIGN — collectives not individuals, G1); names thin/missing buckets per wave (G5)"
+    }
+  ],
+  "gates": {
+    "G1": "PEOPLES-CONTINUITY map at AGGREGATE / collective scale, NEVER a person-tracking / individual-locator / border-enforcement / deportation / surveillance aid — no individual records, no real-time location, no biometric; the bearer is ALWAYS a collective; it routes to refuge + revitalization, never to interdiction",
+    "G2": "edge-primary (N1) — pressure lives only on :en/peril-load; continuity-need is the integral computed on read; no :tsugite/score-of-people",
+    "G3": "non-adjudicating (N3) — displacement figures + language-vitality categories are DISCLOSED facts (UNHCR/IOM/UNESCO/Ethnologue), never tsugite verdicts",
+    "G4": "public venue — open-source + on-chain + 1 SBT = 1 vote; never a private/covert registry of peoples",
+    "G5": "sourcing honesty — every record :authoritative | :representative; peril-load values are representative severities, not individual data; no fabricated coverage",
+    "G6": "Murakumo-only narration (ADR-2605215000)",
+    "G7": "outward-gated — live aggregate ingest (UNHCR/IOM/UNESCO feeds) requires Council + operator DID; R0 = analyzer + schema + seed only",
+    "G8": "consent-bound PII — any member-linked datum is consent-bound + XChaCha20-Poly1305-enveloped (ADR-2605181100); the public seed carries none"
+  }
+}
