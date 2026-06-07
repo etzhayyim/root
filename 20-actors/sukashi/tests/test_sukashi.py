@@ -53,6 +53,19 @@ class TestSeedIntegrity(unittest.TestCase):
         synth = [a for a in adtech.values() if a.get(":adtech/sourcing") == ":synthesized"]
         self.assertLess(len(synth), len(adtech) // 5, "fictional entities must stay a small minority")
 
+    def test_authorization_graph_density(self):
+        # Maturity: ≥25 ads.txt/sellers.json authorization edges, and the ONLY declared-but-
+        # unconfirmed edges are the fictional fraud surfaces — every real edge is confirmed.
+        _, auth, _, _, _ = _graph()
+        self.assertGreaterEqual(len(auth), 25)
+        # The only declared-but-unconfirmed edges are the bounded fraud surface; every other
+        # real authorization edge is confirmed (legit firms clean — no spurious fraud).
+        unconfirmed = [e for e in auth
+                       if e.get(":adauth.edge/declared") and not e.get(":adauth.edge/confirmed")]
+        self.assertLessEqual(len(unconfirmed), 3)
+        confirmed = [e for e in auth if e.get(":adauth.edge/confirmed")]
+        self.assertGreaterEqual(len(confirmed), 20)
+
     def test_every_node_and_edge_has_sourcing(self):
         adtech, auth, creatives, delivery, fraud = _graph()
         for bucket, key in [(adtech.values(), ":adtech/sourcing"),
