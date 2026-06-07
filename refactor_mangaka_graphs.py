@@ -20,7 +20,7 @@ def rewrite_file(filepath):
     
     # Also add import at the top
     if 'get_kotoba_client' not in code:
-        code = re.sub(r'from typing import Any', 'from typing import Any\nfrom pymagatama.kotoba_datomic import get_kotoba_client', code, count=1)
+        code = re.sub(r'from typing import Any', 'from typing import Any\nfrom kotodama.kotoba_datomic import get_kotoba_client', code, count=1)
         if 'import asyncio' not in code:
             code = re.sub(r'import logging', 'import asyncio\nimport logging', code, count=1)
 

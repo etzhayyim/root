@@ -66,7 +66,7 @@ def _run_readiness(ws: Path) -> list[dict]:
     checks.append({
         "name": "60-apps",
         "ok": apps_dir.exists(),
-        "detail": f"{len(list(apps_dir.rglob('magatama.jsonld')))} apps" if apps_dir.exists() else "missing",
+        "detail": f"{len(list(apps_dir.rglob('kotodama.jsonld')))} apps" if apps_dir.exists() else "missing",
     })
 
     # Check auth

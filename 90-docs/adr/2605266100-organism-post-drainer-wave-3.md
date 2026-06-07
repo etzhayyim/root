@@ -36,7 +36,7 @@ Wave 3 requires the implementation of the `drainer` sidecar. The drainer is a Ty
 
 # Decision
 
-1. **Daemon Implementation:** We will implement a minimal TS daemon in `20-actors/magatama/sdk/magatama-host-sdk/src/drainer/` (or a new dedicated package `organism-post-drainer` under `20-actors/etzhayyim-organism/`). The daemon will `tail -f` the NDJSON file and dispatch each line to the PDS.
+1. **Daemon Implementation:** We will implement a minimal TS daemon in `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/drainer/` (or a new dedicated package `organism-post-drainer` under `20-actors/etzhayyim-organism/`). The daemon will `tail -f` the NDJSON file and dispatch each line to the PDS.
 2. **K8s Manifest Update:** Uncomment the `drainer` container spec in `shard-0`, `shard-1`, and `shard-2` DaemonSets, activating the Wave 3 deployment footprint.
 3. **Dispatch Logic:**
    - Lines with `lexicon="app.bsky.feed.post"` will be dispatched as standard Shinka posts.

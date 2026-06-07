@@ -102,7 +102,7 @@ async def _step_write_row(state: _State) -> dict[str, Any]:
     if not row:
         return {"status": "error", "error": state.get("error") or "row missing"}
     import asyncio
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     try:
         def _write():
             client = get_kotoba_client()

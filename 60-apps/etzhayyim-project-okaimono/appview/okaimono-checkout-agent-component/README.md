@@ -5,9 +5,9 @@ Checkout SAGA orchestrator for okaimono.etzhayyim.com (nanoid: `chk8uty2`)。
 ## Data Access
 
 W Protocol Event Stream:
-- Write: `magatama.WRecord("okaimono.checkout-execution", payload)` → PDS → yata Cypher direct (SHA-256 content CID)
-- Read: `magatama.G("CheckoutExecutions").Match(Eq{...}).Return("*").Query()` (Cypher)
-- cross-actor: `magatama.Invoke("", tool, args)` → marketplace commands
+- Write: `kotodama.WRecord("okaimono.checkout-execution", payload)` → PDS → yata Cypher direct (SHA-256 content CID)
+- Read: `kotodama.G("CheckoutExecutions").Match(Eq{...}).Return("*").Query()` (Cypher)
+- cross-actor: `kotodama.Invoke("", tool, args)` → marketplace commands
 
 ## SAGA Flow
 

@@ -34,11 +34,11 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Iterator
 
-from pymagatama.organism.sensors.creative.base import (
+from kotodama.organism.sensors.creative.base import (
     CreativeAudioObservation,
     CreativeAudioSensor,
 )
-from pymagatama.organism.sensors.base import DatasetPin
+from kotodama.organism.sensors.base import DatasetPin
 
 
 PASSIVE_ARCHIVE_ROOT = Path("/var/lib/e7m-dataset/creative-pd/audio/speech/librivox")
@@ -147,7 +147,7 @@ def _is_pd_globally(work_metadata: dict) -> bool:
 def _wellbecoming_scan_cid(work_metadata: dict) -> str:
     """G7: Charter Rider §2(d) Wellbecoming framing scan CID.
 
-    TODO R1.2: integrate with pymagatama.organism.sensors.charter_rider.scan_sample
+    TODO R1.2: integrate with kotodama.organism.sensors.charter_rider.scan_sample
     on metadata + first chapter excerpt; emit wellbecomingFramingScan record;
     return CID.
     """

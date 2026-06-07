@@ -1,4 +1,4 @@
-# magatama-cell-runner cell registry — religious-corp Pregel cells
+# kotodama-cell-runner cell registry — religious-corp Pregel cells
 # Per ADR-2605215200 + ADR-2605202100. Loaded by cell_runner_main.py at startup.
 # Cells are spawned per-node based on $ETZHAYYIM_NODE_NAME env var.
 #
@@ -9,7 +9,7 @@
 #   - trigger.listens_to = [NSID, ...] (for kind = "mst-listener")
 #   - node = tribe name matching fleet.toml [[nodes]].name, or "*" for any node
 #   - healthz_port must be unique per physical node (13000-14000 range per fleet.toml defaults)
-#   - module / entry point to the async cell function in pymagatama.primitives.*
+#   - module / entry point to the async cell function in kotodama.primitives.*
 
 [runner]
 node_name_env = "ETZHAYYIM_NODE_NAME"
@@ -28,7 +28,7 @@ healthz_port_range = [13000, 14000]
 
 [[cell]]
 name = "ShinkaHeartbeatCell"
-module = "pymagatama.primitives.shinka_murakumo"
+module = "kotodama.primitives.shinka_murakumo"
 entry = "shinka_heartbeat_cell"
 node = "levi"
 trigger = { kind = "cron", expr = "*/15 * * * *" }
@@ -37,7 +37,7 @@ adr = ["2605215200"]
 
 [[cell]]
 name = "KarmaHegemonObservationCell"
-module = "pymagatama.primitives.shinka_murakumo"
+module = "kotodama.primitives.shinka_murakumo"
 entry = "karma_hegemon_observation_cell"
 node = "levi"
 trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.kyumeiSignal"] }
@@ -46,7 +46,7 @@ adr = ["2605215200"]
 
 [[cell]]
 name = "EvolutionValidationCell"
-module = "pymagatama.primitives.shinka_murakumo"
+module = "kotodama.primitives.shinka_murakumo"
 entry = "evolution_validation_cell"
 node = "levi"
 trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.observeAdherent"] }
@@ -55,7 +55,7 @@ adr = ["2605215200", "2605215400"]
 
 [[cell]]
 name = "EvolutionEmissionCell"
-module = "pymagatama.primitives.shinka_murakumo"
+module = "kotodama.primitives.shinka_murakumo"
 entry = "evolution_emission_cell"
 node = "simeon"
 trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.shinka.validateEvolution"] }
@@ -64,7 +64,7 @@ adr = ["2605215200", "2605171800"]
 
 [[cell]]
 name = "JouchoAggregationCell"
-module = "pymagatama.primitives.joucho_murakumo"
+module = "kotodama.primitives.joucho_murakumo"
 entry = "joucho_aggregation_cell"
 node = "levi"
 trigger = { kind = "cron", expr = "0 * * * *" }
@@ -75,8 +75,8 @@ adr = ["JOUCHO-MIGRATION-DESIGN.md"]
 #
 # Polls fleet LSPs (rust-analyzer / pyright / tsserver / gopls / lua-ls /
 # ruby-lsp on dedicated minis) via LSP initialize handshake.
-# See: 50-infra/etzhayyim-langserver/ + 20-actors/magatama/py/src/
-#      pymagatama/primitives/langserver_murakumo.py
+# See: 50-infra/etzhayyim-langserver/ + 40-engine/kotoba/crates/kotoba-kotodama/py/src/
+#      kotodama/primitives/langserver_murakumo.py
 #
 # MST listener wiring deferred (requires lexicon registration under
 # 00-contracts/lexicons/com/etzhayyim/langserver/). L9 minimum: in-memory
@@ -84,7 +84,7 @@ adr = ["JOUCHO-MIGRATION-DESIGN.md"]
 
 [[cell]]
 name = "LangserverHealthMonitoringCell"
-module = "pymagatama.primitives.langserver_murakumo"
+module = "kotodama.primitives.langserver_murakumo"
 entry = "langserver_health_monitoring_cell"
 node = "levi"
 trigger = { kind = "cron", expr = "*/5 * * * *" }
@@ -161,7 +161,7 @@ adr = ["2605171300", "2605192415"]
 
 [[cell]]
 name = "UnispscOrganismFleetCell-shard-0"
-module = "pymagatama.organism.fleet_cell_main"
+module = "kotodama.organism.fleet_cell_main"
 entry = "serve"
 node = "joseph"
 trigger = { kind = "lan-api", healthz_port = 13040, api_port = 13040 }
@@ -171,7 +171,7 @@ adr = ["2605240000", "2605232345", "2605240015", "2605240030", "2605240100"]
 
 [[cell]]
 name = "UnispscOrganismFleetCell-shard-1"
-module = "pymagatama.organism.fleet_cell_main"
+module = "kotodama.organism.fleet_cell_main"
 entry = "serve"
 node = "issachar"
 trigger = { kind = "lan-api", healthz_port = 13050, api_port = 13050 }
@@ -181,7 +181,7 @@ adr = ["2605240000", "2605232345", "2605240015", "2605240030", "2605240100"]
 
 [[cell]]
 name = "UnispscOrganismFleetCell-shard-2"
-module = "pymagatama.organism.fleet_cell_main"
+module = "kotodama.organism.fleet_cell_main"
 entry = "serve"
 node = "dan"
 trigger = { kind = "lan-api", healthz_port = 13060, api_port = 13060 }
@@ -202,7 +202,7 @@ adr = ["2605240000", "2605232345", "2605240015", "2605240030", "2605240100"]
 
 [[cell]]
 name = "KaizenObserverCell"
-module = "pymagatama.organism.kaizen_cell_main"
+module = "kotodama.organism.kaizen_cell_main"
 entry = "fire"
 node = "levi"
 trigger = { kind = "cron", expr = "*/10 * * * *" }
@@ -212,7 +212,7 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 # ── Optional: maps_sentinel + yoro cells when their wave is ready ─────────────
 # [[cell]]
 # name = "MapsSentinelT0Cell"
-# module = "pymagatama.primitives.maps_sentinel_murakumo"
+# module = "kotodama.primitives.maps_sentinel_murakumo"
 # entry = "task_t0_preprocess"
 # node = "*"  # runs on any node receiving the XRPC call
 # trigger = { kind = "xrpc", nsid = "com.etzhayyim.apps.maps.sentinel.analyze" }
@@ -220,7 +220,7 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 #
 # [[cell]]
 # name = "YoroSocialCell"
-# module = "pymagatama.primitives.yoro_social_murakumo"
+# module = "kotodama.primitives.yoro_social_murakumo"
 # entry = "yoro_social_cell"
 # node = "*"
 # trigger = { kind = "mst-listener", listens_to = ["com.etzhayyim.yoro.socialEvent"] }
@@ -228,7 +228,7 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 #
 # [[cell]]
 # name = "YoroProductIngestCell"
-# module = "pymagatama.primitives.yoro_product_ingest_murakumo"
+# module = "kotodama.primitives.yoro_product_ingest_murakumo"
 # entry = "yoro_product_ingest_cell"
 # node = "*"
 # trigger = { kind = "cron", expr = "0 */6 * * *" }

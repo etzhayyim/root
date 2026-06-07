@@ -82,8 +82,8 @@ The 45 actors with identical `60-apps/etzhayyim-project-<name>` directories in b
   - Actor's BPMN gains user-facing PII surface
 - **What "SPLIT" means concretely**:
   - `00-contracts/bpmn/com/etzhayyim/<actor>/*.bpmn` lives in etzhayyim/root (spec, open)
-  - Worker / appview / LangServer task handlers / pymagatama primitives stay in vendor (runtime)
-  - Per-actor `magatama.jsonld` typically declares `operator: etzhayyim.com` (or unspecified)
+  - Worker / appview / LangServer task handlers / kotodama primitives stay in vendor (runtime)
+  - Per-actor `kotodama.jsonld` typically declares `operator: etzhayyim.com` (or unspecified)
   - No 3-axis re-test required at quarterly cycle if no trigger fires
 
 The 33 Category A actors at 2026-05-21 audit:
@@ -103,7 +103,7 @@ For projects added after 2026-05-17 catalog freeze, the 3-axis test was applied 
 | Actor | First commit | Verdict |
 |---|---|---|
 | itonami | 2026-05-17T12:20 | VENDOR (aerospace certification liability) |
-| deai | 2026-05-17T20:24 | **DEFERRED — Council Lv6+ ruling required** (PII + research, magatama declares operator=etzhayyim) |
+| deai | 2026-05-17T20:24 | **DEFERRED — Council Lv6+ ruling required** (PII + research, kotodama declares operator=etzhayyim) |
 | mamoru-m4m0ru01 | 2026-05-18T12:27 | VENDOR (git secret guardian, customer repos) |
 | ransomwatch | 2026-05-18T20:24 | MOVE TARGET (TLP:WHITE clean, scaffold landed etz PR #233) |
 | dogaka | 2026-05-19T17:56 | VENDOR (3D video production; no lexicons exist to SPLIT) |
@@ -171,7 +171,7 @@ These cannot be moved by code-side work:
 
 ## 負の効果 / コスト
 
-- **deai stuck**: PII + research project cannot proceed without Council ruling. Magatama-declared operator (etzhayyim) and 3-axis verdict (HIT on L+C) are inconsistent.
+- **deai stuck**: PII + research project cannot proceed without Council ruling. Kotodama-declared operator (etzhayyim) and 3-axis verdict (HIT on L+C) are inconsistent.
 - **vendor `deps.toml` malformed region persists**: the audit + closure entries route around it, but the canonical historical record is still partially unparseable.
 - **rw-free quality regressions visible**: 19 isbn test failures + tsconfig drift were hidden by the workspace bug. They now show as CI red, which may pressure premature fixes if not gated under "post-migration quality" budget.
 - **Concurrent agent contention observed**: at least one other agent made commits on the same branches mid-session (e.g., user's surplus-router ADR on a CI-fix branch). Force-push reconciliation needed twice.

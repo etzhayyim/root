@@ -40,7 +40,7 @@ _ATTR = _TADORI_LEX / "attributionFinding.json"
 _TRACE = _TADORI_LEX / "traceReport.json"
 _SILEN = _TADORI_LEX / "silenTadoriReview.json"
 _MANIFEST = _REPO / "20-actors" / "tadori" / "manifest.jsonld"
-_CELLS = _REPO / "20-actors" / "magatama" / "cells"
+_CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 
 _CELL_NAMES = [
     "tadori_case_intake",
@@ -230,7 +230,7 @@ class TestManifestArtifactConsistency:
 
     def test_manifest_cell_modules_match_cell_dirs(self):
         modules = {c["module"] for c in _load(_MANIFEST)["cells"]}
-        expected = {f"magatama.cells.{name}" for name in _CELL_NAMES}
+        expected = {f"kotodama.cells.{name}" for name in _CELL_NAMES}
         assert modules == expected, f"manifest cell modules vs dirs drifted: {modules ^ expected}"
 
     def test_did_is_consistent_across_artifacts(self):

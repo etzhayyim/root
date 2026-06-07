@@ -174,7 +174,7 @@ Current verifier checks:
 ## llm.etzhayyim.com / RunPod Gemma4
 
 `llm.etzhayyim.com` is the independent RunPod OpenAI-compatible gateway. It is not a
-Murakumo or `magatama-llm8cf4ai` pass-through path.
+Murakumo or `kotodama-llm8cf4ai` pass-through path.
 
 Current public model aliases:
 
@@ -188,7 +188,7 @@ End-to-end schema RAG through `llm.etzhayyim.com`:
 pnpm --dir 30-graph/graph-schema rag:llm -- \
   --model gemma4-runpod \
   --query "legal corpus citation search by jurisdiction" \
-  --magatama-verified
+  --kotodama-verified
 ```
 
 The CLI performs:
@@ -210,7 +210,7 @@ Verification:
 
 ```bash
 curl https://llm.etzhayyim.com/_app/meta
-curl -H 'x-magatama-verified: true' https://llm.etzhayyim.com/v1/models
+curl -H 'x-kotodama-verified: true' https://llm.etzhayyim.com/v1/models
 pnpm --dir 30-graph/graph-schema rag:evaluate
 pnpm --dir 30-graph/graph-schema rag:train
 ```

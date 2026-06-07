@@ -107,7 +107,7 @@ Add a `lan-api`-trigger cell to `50-infra/murakumo/fleet.toml` that:
 4. Exposes `/healthz` returning shard, organism count, total ticks,
    posts emitted, and last error.
 
-Module: `pymagatama.organism.fleet_cell_main`. Same `async serve(stop_event,
+Module: `kotodama.organism.fleet_cell_main`. Same `async serve(stop_event,
 healthz_port, api_port)` contract as `UnispscAgentExecutorCell`.
 
 ## Replacement
@@ -128,7 +128,7 @@ api_port_base = 13140
 adr = ["2605240000", "2605232345", "2605171300"]
 sharding = "by-segment-prefix"
 shard_assignments = { shard-0 = "10-29", shard-1 = "30-44", shard-2 = "45-60" }
-module = "pymagatama.organism.fleet_cell_main"
+module = "kotodama.organism.fleet_cell_main"
 registry_path = "00-contracts/actor-registry/unispsc.json"
 organism_lru_max = 4096
 tick_interval_s = 300
@@ -208,6 +208,6 @@ became expensive (e.g., real MST writes per tick); revisit then.
 - ADR-2605232345 — UNSPSC actor as ecosystem organism (Wave 1)
 - ADR-2605171300 — Open-UNSPSC generative agent fleet (18,342 codes)
 - ADR-2605192415 — Religious-corp daemon architecture (Murakumo fleet)
-- `20-actors/magatama/py/src/pymagatama/organism/fleet_cell_main.py`
-- `20-actors/magatama/cells/unispsc_agent_executor/cell.py` — shard mirror
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/fleet_cell_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/unispsc_agent_executor/cell.py` — shard mirror
 - `00-contracts/actor-registry/unispsc.json` — registry SoT

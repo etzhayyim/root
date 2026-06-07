@@ -98,7 +98,7 @@ Constraints enforced by the build pipeline:
 - No RNG — randomness arrives as a data input (replay-deterministic).
 - Host imports limited to capabilities listed in the cell's `grantCapability` records.
 
-Manifest (per-cell, analogue of `magatama.jsonld`):
+Manifest (per-cell, analogue of `kotodama.jsonld`):
 
 ```jsonc
 {

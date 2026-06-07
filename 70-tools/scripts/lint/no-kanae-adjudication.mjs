@@ -52,7 +52,7 @@ const args = process.argv.slice(2);
 // Scope to kanae-pathed CODE only; docs that enumerate the deny-lists are
 // excluded by extension (same discipline as the danjo lint).
 const KANAE_CODE_RE =
-  /(^|\/)(20-actors\/kanae\/|20-actors\/magatama\/cells\/kanae_|.*kanae.*)\S*\.(py|ts|mjs|js)$/;
+  /(^|\/)(20-actors\/kanae\/|20-actors\/kotodama\/cells\/kanae_|.*kanae.*)\S*\.(py|ts|mjs|js)$/;
 
 // Check C: forbidden commercial gov-intel vendor hostnames (substring).
 const GOV_INTEL_HOSTS = [

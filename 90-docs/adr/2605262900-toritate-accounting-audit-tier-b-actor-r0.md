@@ -176,7 +176,7 @@ substrate actor at `20-actors/toritate/`, with DID
   Fund Safe per Council Lv6+ approval. Toritate prepares the data
   package; the opinion is rendered by external counsel.
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/toritate_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/toritate_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("toritate R0 scaffold: activate via Council ADR + R1 ratification")` at W1 creation.
 
@@ -207,7 +207,7 @@ All 5 records require schema-level field validation. R0 = scaffold + skeleton sc
 
 | Gate | Description |
 |---|---|
-| **G1** | Every report MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block. |
+| **G1** | Every report MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block. |
 | **G2** | Every record MUST emit `com.etzhayyim.toritate.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **100% on-chain transparency** — toritate MUST NOT maintain an off-chain primary ledger. All financial state derives from on-chain transactions. |
 | **G4** | **No fiat reconciliation as primary ledger** — USDC + Base L2 + TitheRouter + Public Fund Safe are canonical SoT. Fiat reporting (if any) is a derived projection only, never primary. |
@@ -269,7 +269,7 @@ All 5 records require schema-level field validation. R0 = scaffold + skeleton sc
 6. `CLAUDE.md` Status table row 69 + Repo Layout entry.
 
 No code activation in R0. 6 cells are path-reserved at
-`20-actors/magatama/cells/toritate_*/` (created at R1 ratification).
+`40-engine/kotoba/crates/kotoba-kotodama/cells/toritate_*/` (created at R1 ratification).
 
 # Consequences
 

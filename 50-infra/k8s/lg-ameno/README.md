@@ -1,7 +1,7 @@
 # lg-ameno
 
 K3s manifests for the Path-B ameno headless daemon
-(`pymagatama.projects.ameno`).
+(`kotodama.projects.ameno`).
 
 This is the **production / fleet** deploy target for the Python ameno
 daemon. Single-host dev still uses systemd (`ameno-daemon.service`) or
@@ -9,14 +9,14 @@ the TS Path A (`@etzhayyim/ameno-daemon`); this directory is for the
 K3s-on-Murakumo path.
 
 ADRs:
-- [`90-docs/adr/2605191257-ameno-daemon-path-b-pymagatama-python.md`](../../../90-docs/adr/2605191257-ameno-daemon-path-b-pymagatama-python.md) — the code
+- [`90-docs/adr/2605191257-ameno-daemon-path-b-kotodama-python.md`](../../../90-docs/adr/2605191257-ameno-daemon-path-b-kotodama-python.md) — the code
 - [`90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md`](../../../90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md) — why K3s on Mac-mini
 
 ## Files
 
 | file | role |
 |---|---|
-| `Dockerfile` | Build context = repo root. Bundles `pymagatama` + uvicorn + langgraph. Runs `uvicorn pymagatama.projects.ameno.server:app`. |
+| `Dockerfile` | Build context = repo root. Bundles `kotodama` + uvicorn + langgraph. Runs `uvicorn kotodama.projects.ameno.server:app`. |
 | `deployment.yaml` | Namespace (`etzhayyim-langserver`) + ServiceAccount + PVC + Deployment + Service. |
 | `kustomization.yaml` | Kustomize entry, pins the image tag. |
 
@@ -80,9 +80,9 @@ If `ollamaReachable=false` either:
 | concern | lg-uhl-right-neural | lg-ameno (this) |
 |---|---|---|
 | pod containers | 2 (server + checkpointer sidecar) | 1 (server only) |
-| checkpointer | MstCheckpointSaver (`@etzhayyim/sdk/checkpointer`) | FileCheckpointer (`pymagatama.projects.ameno.file_checkpointer`) |
+| checkpointer | MstCheckpointSaver (`@etzhayyim/sdk/checkpointer`) | FileCheckpointer (`kotodama.projects.ameno.file_checkpointer`) |
 | state volume | sidecar PVC `lg-uhl-right-neural-checkpointer-state` | server PVC `lg-ameno-state` |
-| LLM driver | Anthropic (`langgraph dev`-managed) | Ollama (local fleet, `pymagatama.local_llm`) |
+| LLM driver | Anthropic (`langgraph dev`-managed) | Ollama (local fleet, `kotodama.local_llm`) |
 | namespace | `mitama-udf` (etzhayyim legacy) | `etzhayyim-langserver` (etzhayyim Murakumo) |
 
 These differences are intentional. v0.1 of lg-ameno mirrors the

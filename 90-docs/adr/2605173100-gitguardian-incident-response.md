@@ -40,7 +40,7 @@ public `etzhayyim/root` repository:
 postgresql://root:REDACTED_EXAMPLE_PASSWORD@45.32.79.245:4566/dev # EXAMPLE
 ```
 
-The leak originated in seeded magatama Python framework content. ~50 worker
+The leak originated in seeded kotodama Python framework content. ~50 worker
 `*_worker_main.py` files contained the URI as the **fallback** in
 `os.getenv("DATABASE_URL", "<full-DSN>")` — meaning the URI was always
 the runtime value unless an env var overrode it.
@@ -257,7 +257,7 @@ Kept as a template for similar lockdowns of other infrastructure.
 - RW user audit (`kaisya_app`, `postgres`, `rw_admin`, `rwadmin` —
   these other roles need their own password review; the chart only
   manages `root`)
-- Migration of magatama Python framework off RW per ADR-2605172000
+- Migration of kotodama Python framework off RW per ADR-2605172000
   (etzhayyim is RW-free; the ~50 worker `*_main.py` files referencing
   RW need a substrate-rule audit)
 
@@ -359,7 +359,7 @@ deferring it has no upside.
   https://developer.1password.com/docs/cli/item-create/
 - Pre-incident state references:
   - `50-infra/vultr/kotoba/deploy.sh` — original deploy with `HYPERDRIVE_VULTR` mention
-  - `20-actors/magatama/py/src/pymagatama/llm.py` — one of ~50 worker files with the leaked default
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/llm.py` — one of ~50 worker files with the leaked default
 - Post-incident commit chain:
   - `23e499b5` HEAD scrub
   - `da059d91` secret-scan hook

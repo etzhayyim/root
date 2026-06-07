@@ -68,12 +68,12 @@ The following loops are intentionally suspended until their underlying blockers
 are resolved:
 
 - `akuma-probe/scope-egress-reconciler`: image/module missing
-  `pymagatama.akuma.scope_egress_reconciler`.
+  `kotodama.akuma.scope_egress_reconciler`.
 - `mitama-udf/domain-expansion-ticker`: Kotoba/Datomic gap query timeout.
 - `mitama-udf/maps-coverage-ticker`: Kotoba/Datomic batch connection resets in
   `advance_coverage`.
 - `mitama-udf/legal-entity-langserver-worker`: pinned legal-entity profile
-  image does not include `pymagatama.worker_api`; the legal-entity surface is
+  image does not include `kotodama.worker_api`; the legal-entity surface is
   served by the LangGraph pod proxy instead.
 
 The `mitama-udf-pool` chart also standardizes the resident worker values key on

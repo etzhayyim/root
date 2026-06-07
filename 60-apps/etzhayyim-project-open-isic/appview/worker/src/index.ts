@@ -2,9 +2,9 @@
 //
 // Mounts `/xrpc/com.etzhayyim.apps.isic.*` at isic.etzhayyim.com and proxies to
 // the in-cluster lg-open-isic langserver. The handler library lives in
-// @etzhayyim/magatama-host-sdk/langserver-xrpc-handler.
+// @etzhayyim/kotodama-host-sdk/langserver-xrpc-handler.
 
-import { createLangserverXrpcHandler } from "@etzhayyim/magatama-host-sdk";
+import { createLangserverXrpcHandler } from "@etzhayyim/kotodama-host-sdk";
 
 export interface Env {
   /** Public-or-private base URL of the ISIC langserver. */

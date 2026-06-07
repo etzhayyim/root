@@ -35,7 +35,7 @@ upstream in `etzhayyim/kotoba`.
    deployed via `invoke.run` / `kotoba_wasm_run` (operator-JWT gated), executed
    in-WASM (`gas_used=1030`, real EVM balance fetched).
 
-3. **Python LangGraph actor** — magatama's **aria** (6-signal parallel ingest +
+3. **Python LangGraph actor** — kotodama's **aria** (6-signal parallel ingest +
    Von Neumann minimax) ported to the WASM-native `kotoba_langgraph` API,
    compiled with `componentize-py 0.23` (18 MB component), executed in-WASM on
    the server. Output `area_integral=3.3, eta_global=0.55, minimax=emotion`,

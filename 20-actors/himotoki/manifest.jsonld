@@ -75,13 +75,13 @@
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live dispatch until maintainer-verified/council-verified within freshnessWindowDays."
   },
   "cells": [
-    {"name": "target_registry", "module": "magatama.cells.himotoki_target_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve disclosureTarget entries (coded 窓口/住所/email/手続き catalog); enforce G14 verification status"},
-    {"name": "request_intake", "module": "magatama.cells.himotoki_request_intake", "murakumoNode": "reuben", "phase": "event", "io": "member consent + DID/SBT binding + scope spec → disclosureRequest (DSAR own-data-only; FOIA citizen request)"},
-    {"name": "compose", "module": "magatama.cells.himotoki_compose", "murakumoNode": "gad", "phase": "event", "io": "pull chigiri procedure template + resolved target → filled request artifact (UPL boundary G5)"},
-    {"name": "dispatch", "module": "magatama.cells.himotoki_dispatch", "murakumoNode": "gad", "phase": "event", "io": "THE ONLY active-outbound cell — transparent, identified transmission via target's declared channel → requestDispatch (gated on G14 verified target)"},
-    {"name": "deadline_tracker", "module": "magatama.cells.himotoki_deadline_tracker", "murakumoNode": "gad", "phase": "continuous", "io": "statutory-deadline clock + follow-up + non-response escalation"},
-    {"name": "response_intake", "module": "magatama.cells.himotoki_response_intake", "murakumoNode": "naphtali", "phase": "event", "io": "disclosed records → disclosureResponse metadata + ENCRYPTED DID-bound PII envelope (ADR-2605181100); public FOIA → optional danjo/ossekai feed"},
-    {"name": "appeal_route", "module": "magatama.cells.himotoki_appeal_route", "murakumoNode": "naphtali", "phase": "event", "io": "non/partial disclosure → lawful appeal via chigiri (審査請求 / DPA complaint / FOIA appeal) → appealRecord"}
+    {"name": "target_registry", "module": "kotodama.cells.himotoki_target_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve disclosureTarget entries (coded 窓口/住所/email/手続き catalog); enforce G14 verification status"},
+    {"name": "request_intake", "module": "kotodama.cells.himotoki_request_intake", "murakumoNode": "reuben", "phase": "event", "io": "member consent + DID/SBT binding + scope spec → disclosureRequest (DSAR own-data-only; FOIA citizen request)"},
+    {"name": "compose", "module": "kotodama.cells.himotoki_compose", "murakumoNode": "gad", "phase": "event", "io": "pull chigiri procedure template + resolved target → filled request artifact (UPL boundary G5)"},
+    {"name": "dispatch", "module": "kotodama.cells.himotoki_dispatch", "murakumoNode": "gad", "phase": "event", "io": "THE ONLY active-outbound cell — transparent, identified transmission via target's declared channel → requestDispatch (gated on G14 verified target)"},
+    {"name": "deadline_tracker", "module": "kotodama.cells.himotoki_deadline_tracker", "murakumoNode": "gad", "phase": "continuous", "io": "statutory-deadline clock + follow-up + non-response escalation"},
+    {"name": "response_intake", "module": "kotodama.cells.himotoki_response_intake", "murakumoNode": "naphtali", "phase": "event", "io": "disclosed records → disclosureResponse metadata + ENCRYPTED DID-bound PII envelope (ADR-2605181100); public FOIA → optional danjo/ossekai feed"},
+    {"name": "appeal_route", "module": "kotodama.cells.himotoki_appeal_route", "murakumoNode": "naphtali", "phase": "event", "io": "non/partial disclosure → lawful appeal via chigiri (審査請求 / DPA complaint / FOIA appeal) → appealRecord"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.himotoki.disclosureTarget",

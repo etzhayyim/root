@@ -3,7 +3,7 @@
 
 This bootstrap loop intentionally uses only the Python standard library so it
 can run on fleet Mac minis that have Ollama but do not have this repository or
-the magatama Python package installed.
+the kotodama Python package installed.
 """
 
 from __future__ import annotations

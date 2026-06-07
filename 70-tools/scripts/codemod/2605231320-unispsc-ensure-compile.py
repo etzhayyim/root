@@ -18,7 +18,7 @@ Both cases trip ``AttributeError: 'StateGraph' object has no attribute
 
 Usage::
 
-    cd 20-actors/magatama/py
+    cd 40-engine/kotoba/crates/kotoba-kotodama/py
     uv run python ../../../70-tools/scripts/codemod/2605231320-unispsc-ensure-compile.py --dry-run
     uv run python ../../../70-tools/scripts/codemod/2605231320-unispsc-ensure-compile.py
 """
@@ -34,8 +34,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 AGENTS_DIR = (
-    REPO_ROOT / "20-actors" / "magatama" / "py" / "src"
-    / "pymagatama" / "langgraph_graphs" / "unispsc_agents"
+    REPO_ROOT / "20-actors" / "kotodama" / "py" / "src"
+    / "kotodama" / "langgraph_graphs" / "unispsc_agents"
 )
 
 RE_STATEGRAPH_VAR = re.compile(

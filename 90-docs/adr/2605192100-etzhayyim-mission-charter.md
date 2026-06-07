@@ -96,7 +96,7 @@ Mission 整合的でない事業体 (兵器産業 / 投機金融 / 監視資本�
 具体実装は future ADR `etzhayyim-specialist-disintermediation` に委ねる。当面の関連実装:
 
 - `60-apps/etzhayyim-project-uhl-*` 系 (医療: ADR-2605181000 / 2605181040 / 2605181050 / 2605181060)
-- `20-actors/magatama/unispsc_agents/` (専門業務の agent 化: ADR-2605171300)
+- `40-engine/kotoba/crates/kotoba-kotodama/unispsc_agents/` (専門業務の agent 化: ADR-2605171300)
 - `60-apps/open-isco`, `open-naics`, `open-hs` (公開分類体系による情報非対称の解消)
 
 ### (sub) 格差アービトラージを埋める情報発信
@@ -175,7 +175,7 @@ religious 整合性: 創世記 1:28 (stewardship)、Leviticus 25 (Jubilee, 土�
 | 公共財 (BI) | Kisha-Stream (ADR-2605172300) |
 | 公共財 (土地) | Religious-Corp Land Trust (本 §1.11 + ADR-2605192245) |
 | 行政手続き | LLM + 公開知識ベース + agent fleet (§1.7) |
-| 学校 (教育) | open-* app 群 + magatama agent fleet |
+| 学校 (教育) | open-* app 群 + kotodama agent fleet |
 | 武力 (秩序維持) | 加害者への三層 enforcement (license 失効 / 便益拒否 / 評価最低) — ADR-2605192200 §9 |
 | 武力 (実力行使) | **Transparent Religious Force** (本 §1.12.B) |
 

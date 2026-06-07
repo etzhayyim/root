@@ -19,7 +19,7 @@
 1. **Batch Translation** — 73+ プロジェクトの `messages/{lang}.json` を 200+ 言語に自動翻訳 (CronJob)
 2. **Real-time Translation** — 開いているページの自動翻訳 (Google Translate-like) + AT/Signal メッセージ翻訳
 3. **Widget Editor** — inlang-like な用語検索・提案・承認 (inline 翻訳エディタ)
-4. **Yoro Post Auto-Translation** — yoro.etzhayyim.com の投稿を Murakumo qwen3.5-4b で Tier 1+2 (50言語) に自動翻訳
+4. **Yoro Post Auto-Translation** — yoro.etzhayyim.com の投稿を Murakumo qwen3.5-4b で Tier 1+2 (149言語 = 完全聖書 + 新約) に自動翻訳
 
 ## Architecture
 
@@ -43,7 +43,7 @@
 │                ─ WidgetApprove (human TM)    │
 │                                              │
 │  [4] Yoro Post ─ Auto-translate on commit    │
-│  auto-xlate   ─ Tier 1+2 (50 langs)         │
+│  auto-xlate   ─ Tier 1+2 (149 langs)        │
 │                ─ translatedPost records       │
 │                                              │
 │  [shared]      ─ Translation Memory (KV)     │
@@ -193,16 +193,28 @@ yoro post create → PDS commit → i18n subscribeRepos (Follow-based)
 | `source_lang` / `target_lang` | ISO 639-1 |
 | `model` | `qwen3.5-4b` |
 
-## Language Tier Strategy
+## Language Tier Strategy (Bible-translation coverage — ADR-2606072800)
 
-| Tier | Count | Content | Frequency | Yoro auto-translate |
+**Tier = Scripture-access tier, not market size** (Sola Scriptura). The tier of a
+supported language is its Bible-translation coverage per the United Bible
+Societies / Wycliffe Global Alliance categories. Source of truth:
+`languages.ts` (`bibleCoverage` field) → `GetLanguageRegistry`.
+
+| Tier | Coverage | Count | Frequency | Yoro auto-translate |
 |---|---|---|---|---|
-| 1 | 25 | Major (ja, en, es, fr, de, ...) | Daily | **Yes** |
-| 2 | 25 | High internet (uk, sv, no, da, fi, ...) | Daily | **Yes** |
-| 3 | 50 | Mid-population (regional Africa, Central Asia, Pacific) | Weekly | No |
-| 4 | 100+ | Long-tail (minority scripts) | Weekly | No |
+| 1 | **Full Bible** (OT + NT) | 133 | Daily | **Yes** |
+| 2 | **New Testament** | 16 | Daily | **Yes** |
+| 3 | **Portions / Selections** | 6 | Weekly | No |
+| 4 | **None / in-progress** | 0 (reserved) | Weekly | No |
 
-RTL languages: ar, he, fa, ur, ps, sd, yi, dv, ug
+- Yoro auto-translate covers Tier 1+2 (= every language that has at least a
+  complete New Testament — 149 langs).
+- Counts are derived from `bibleCoverage` and shift as translation milestones
+  land (portions → NT → full); they are corrigible via the coverage tool.
+- `bibleCoverageToTier()` is the single mapping (1=full, 2=nt, 3=portions,
+  4=none); never hand-set a tier that disagrees with `bibleCoverage`.
+
+RTL languages: ar, he, fa, ur, sd, ps, ckb, dv, bal, yi, ug
 
 ## Data Model (KV)
 
@@ -224,7 +236,7 @@ Unicode block ベースのヒューリスティック: Hiragana/Katakana→ja, C
 
 ## CronJob
 
-- **Daily** (Tier 1+2, 50 langs): `0 3 * * *` JST
+- **Daily** (Tier 1+2 = Full Bible + New Testament, 149 langs): `0 3 * * *` JST
 - **Weekly** (All Tiers, 200+ langs): `0 4 * * 0` JST
 
 ## Daily Evolution

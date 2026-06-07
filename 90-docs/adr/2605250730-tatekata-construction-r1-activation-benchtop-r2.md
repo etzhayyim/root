@@ -49,7 +49,7 @@ tatekata R0→R1 maturity has reached 5 concrete Pregel cells (foundation_excava
 ### Equipment + Personnel
 - **Giemon unit**: Borrowed from kuni-umi Phase 1 benchtop (Murakumo node: naphtali, 192.168.1.15:8080)
 - **Safety supervisor**: SME civil engineer (required per gate G1)
-- **Firmware engineer**: pymagatama LangGraph runner (local Ollama gemma3:4b on Mac mini judah)
+- **Firmware engineer**: kotodama LangGraph runner (local Ollama gemma3:4b on Mac mini judah)
 - **MST operator**: Local geth-private instance (chain ID 31337, pre-seeded with etzhayyim genesis)
 - **IPFS operator**: Local Kubo node with pinner sidecar
 

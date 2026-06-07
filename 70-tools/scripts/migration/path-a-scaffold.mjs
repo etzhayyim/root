@@ -151,7 +151,7 @@ function resolveProjectDocsDir(componentDir) {
 }
 
 function buildTemplates({ appId, appName }) {
-  const appTemplate = `import { createHostSDK, type AppDef, type ComAtprotoSyncSubscribeReposCommit, type HostSDK } from "@etzhayyim/magatama-host-sdk";
+  const appTemplate = `import { createHostSDK, type AppDef, type ComAtprotoSyncSubscribeReposCommit, type HostSDK } from "@etzhayyim/kotodama-host-sdk";
 
 const APP_DEF: AppDef = {
   id: "${appId}",

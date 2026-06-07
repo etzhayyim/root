@@ -3,7 +3,7 @@
   yabai.listEntities — migration of cmdListEntities.
 
   Optional `entityType` filter via `extraFilters` (dynamic WHERE added
-  in pymagatama 0.2.27).
+  in kotodama 0.2.27).
 
   Flow:
     Start (entityType?, limit?)

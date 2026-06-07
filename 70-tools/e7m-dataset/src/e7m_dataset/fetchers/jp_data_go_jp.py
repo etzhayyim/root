@@ -29,7 +29,7 @@ data.go.jp + e-Stat can pre-stage a combined NDJSON with a
 local-source mode.
 
 Normalized NDJSON consumable by
-``pymagatama.organism.sensors.gov.jp_data_go_jp_sensor.JpDataGoJpSensor``:
+``kotodama.organism.sensors.gov.jp_data_go_jp_sensor.JpDataGoJpSensor``:
 
   {"datasetId": "data_go_jp_pkg_jinkou", "title": "人口統計データ",
    "license": "cc-by-4.0",

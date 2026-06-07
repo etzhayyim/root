@@ -2,7 +2,7 @@
 """Generate per-class ISIC LangGraph Pregel agents using Claude Haiku (Batch API).
 
 Output: one Python file per ISIC Rev. 4 class at
-    20-actors/magatama/py/src/pymagatama/langgraph_graphs/isic_agents/c{code}.py
+    40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/isic_agents/c{code}.py
 
 Pattern mirrors unispsc_agents/c{commodity}.py: each file exposes a compiled
 `graph = StateGraph(...).compile()` at module top-level, loadable via importlib
@@ -41,10 +41,10 @@ CLASS_DIR = REPO_ROOT / "60-apps" / "etzhayyim-project-open-isic" / "data" / "cl
 OUT_DIR = (
     REPO_ROOT
     / "20-actors"
-    / "magatama"
+    / "kotodama"
     / "py"
     / "src"
-    / "pymagatama"
+    / "kotodama"
     / "langgraph_graphs"
     / "isic_agents"
 )

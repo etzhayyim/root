@@ -14,7 +14,7 @@
   ],
   "phase": "P0-MVP",
   "components": {
-    "pregel": "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/",
+    "pregel": "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projects/uhl_right_neural/",
     "lexicons": "00-contracts/lexicons/jp/etzhayyim/med/uhl/institution/",
     "langserver": "50-infra/k8s/lg-uhl-right-neural/",
     "appview": "60-apps/open-otology-uhl-r/worker/"

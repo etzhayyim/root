@@ -60,8 +60,8 @@ packages:
 
   # yorishiro generator + emitted MCP servers (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
-  - "20-actors/magatama/mcp/yorishiro-*-mcp"
-  - "20-actors/magatama/mcp/open-seiyaku-mcp"
+  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-*-mcp"
+  - "40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp"
 
   # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
   - "60-apps/etzhayyim-organism-viz/web"
@@ -76,7 +76,7 @@ packages:
 
 # pnpm overrides — dedupe onnxruntime-web to the version pinned by
 # @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits
-# the Cloudflare Workers per-asset hard limit, blocking magatama-yoro deploy).
+# the Cloudflare Workers per-asset hard limit, blocking kotodama-yoro deploy).
 # Two consumers in the yoro SPA bundle: (a) transformers (pinned to 1.22.0-dev),
 # (b) src/lib/provider/diffusion-worker.ts (only uses stable InferenceSession
 # API + type imports, compatible with 1.22.0-dev).

@@ -164,7 +164,7 @@ sidecar needed):
 
 ```python
 from pathlib import Path
-from pymagatama.organism.sensors import (
+from kotodama.organism.sensors import (
     DatasetPin, RisRoutingSensor, StaticPinResolver,
     stream_bounded, hot_sample_bounded,
 )
@@ -282,7 +282,7 @@ NDJSON-shaped streaming interface.
   RIPE RIS fetcher
 - `70-tools/e7m-dataset/src/e7m_dataset/fetchers/routeviews.py` —
   Routeviews fetcher (sibling)
-- `20-actors/magatama/py/src/pymagatama/organism/sensors/ris_routing_sensor.py` —
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/ris_routing_sensor.py` —
   Sensor (heartbeat + cold-path)
 - `90-docs/runbooks/osm-region-to-osm-region-sensor.md` — sibling
   runbook for the OSM bucket

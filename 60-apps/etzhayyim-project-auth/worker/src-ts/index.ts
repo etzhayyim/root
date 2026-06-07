@@ -697,7 +697,7 @@ async function sha256Base64Url(value: string): Promise<string> {
 
 async function handleAuthenticate(request: Request, env: Env): Promise<Response> {
   const body = await parseJson<Record<string, unknown>>(request);
-  if (body.xMagatamaVerified === true) {
+  if (body.xKotodamaVerified === true) {
     return json({
       level: "internal",
       did: null,
@@ -1031,7 +1031,7 @@ async function handleOAuthToken(request: Request, env: Env): Promise<Response> {
   // ADR-0022 bootstrap: mint canonical sk_live_* API key server-side by delegating
   // to PDS createApiKey via service binding. HS256 session JWT is no longer accepted
   // by PDS authenticate() (step 7), so the API key is issued under internal-trust
-  // (x-magatama-verified) instead of via CLI round-trip.
+  // (x-kotodama-verified) instead of via CLI round-trip.
   const apiKey = await mintBootstrapApiKey(env, authCode.did).catch((err) => {
     console.warn("[oauth/token] mintBootstrapApiKey failed:", err);
     return "";
@@ -1121,7 +1121,7 @@ async function buildPdsApiKeyProxyHeaders(
     );
     headers.Authorization = `Bearer ${jwt}`;
   } else {
-    headers["x-magatama-verified"] = "true";
+    headers["x-kotodama-verified"] = "true";
   }
   return headers;
 }
@@ -1395,7 +1395,7 @@ async function queryIdentityGraphRow(env: Env, did: string): Promise<Record<stri
   try {
     const resp = await env.PDS_SERVICE.fetch(
       `https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.query?table=vertex_etzhayyim_identity&did=${encodeURIComponent(did)}`,
-      { headers: { "x-magatama-verified": "true" } },
+      { headers: { "x-kotodama-verified": "true" } },
     );
     if (!resp.ok) return null;
     const result = await resp.json() as { rows?: Record<string, unknown>[] };
@@ -1752,7 +1752,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
     };
     env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
+      headers: { "Content-Type": "application/json", "x-kotodama-verified": "true" },
       body: JSON.stringify(graphPayload),
     }).catch((e: unknown) => console.warn("[mintChildDid] graph write failed (non-fatal):", e));
   }
@@ -1823,7 +1823,7 @@ async function syncAuthMethodToetzhayyimIdentity(env: Env, accountDid: string, p
     };
     env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
+      headers: { "Content-Type": "application/json", "x-kotodama-verified": "true" },
       body: JSON.stringify(graphPayload),
     }).catch((e: unknown) => console.warn("[syncAuthMethod] graph write failed (non-fatal):", e));
   }
@@ -1858,7 +1858,7 @@ async function postJson(url: string, body: unknown, headers?: Record<string, str
 // Service-binding callers (PDS, email-relay, plc-directory, browser-host) are
 // network-isolated by Cloudflare — no HMAC required for them.
 const _SVC_AUTH_ISS_ALLOWLIST = new Set([
-  "did:web:magatama.etzhayyim.com",
+  "did:web:kotodama.etzhayyim.com",
   "did:web:authn.etzhayyim.com",
   "did:web:atproto.etzhayyim.com",
   "did:web:ml1nb0nd.etzhayyim.com",           // email-relay (etzhayyim-email-relay)
@@ -1866,10 +1866,10 @@ const _SVC_AUTH_ISS_ALLOWLIST = new Set([
   "did:web:authn.etzhayyim.com:svc:browser-host", // browser-host
 ]);
 
-// HMAC gate — only for magatama (public-facing caller, not a service binding).
+// HMAC gate — only for kotodama (public-facing caller, not a service binding).
 // All other allowlisted callers come in via CF service bindings.
 const _SVC_AUTH_HMAC_ISS = new Set([
-  "did:web:magatama.etzhayyim.com",
+  "did:web:kotodama.etzhayyim.com",
 ]);
 
 async function handleGetServiceAuth(request: Request, env: Env): Promise<Response> {
@@ -1886,7 +1886,7 @@ async function handleGetServiceAuth(request: Request, env: Env): Promise<Respons
       return jsonErr(403, "Forbidden", "iss not in service auth allowlist");
     }
 
-    // Phase 3B HMAC gate — only for magatama
+    // Phase 3B HMAC gate — only for kotodama
     if (_SVC_AUTH_HMAC_ISS.has(body.iss)) {
       const hmacKey = (env.CLAIM_SETTLER_HMAC || "").trim();
       if (hmacKey) {
@@ -2445,7 +2445,7 @@ async function createPasskeyAccount(env: Env): Promise<{
     // Fire-and-forget: graph write is async projection, not auth-critical
     env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
+      headers: { "Content-Type": "application/json", "x-kotodama-verified": "true" },
       body: JSON.stringify(graphPayload),
     }).catch((e: unknown) => console.warn("[createPasskeyAccount] graph write failed (non-fatal):", e));
   }

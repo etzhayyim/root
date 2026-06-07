@@ -28,7 +28,7 @@ Per [ADR-2605260100](../../90-docs/adr/2605260100-mitate-diagnostic-routing-char
 ## Cell pattern (per ADR-2605192415 §B, silicon + yakushi mirror)
 
 ```
-20-actors/magatama/cells/mitate_{cell_name}/
+40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_{cell_name}/
 ├── README.md                 # input/output Lexicon + state schema
 ├── __init__.py               # one-line module marker
 ├── cell.py                   # multi-gate import-time RuntimeError until Council ratification
@@ -104,4 +104,4 @@ Quarterly demographic parity measurement for R2+:
 - [ADR-2605250500](../../90-docs/adr/2605250500-yakushi-pharmaceutical-rd-charter.md) (yakushi sibling — drug-side)
 - [`20-actors/yakushi/CLAUDE.md`](../yakushi/CLAUDE.md) (yakushi sibling rules)
 - [`20-actors/kuni-umi/CLAUDE.md`](../kuni-umi/CLAUDE.md) (robotics class ontology source)
-- [`20-actors/magatama/cells/README.md`](../magatama/cells/README.md) (sibling cell catalog)
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/README.md`](../kotodama/cells/README.md) (sibling cell catalog)

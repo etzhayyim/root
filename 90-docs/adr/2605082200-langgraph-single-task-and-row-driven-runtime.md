@@ -42,7 +42,7 @@ ADR-2605080600 introduced LangGraph Server + Granian as the L3 virtual actor
 runtime. It established `vertex_langgraph_checkpoint` / `_store` / `_run` as
 state-only RW tables. Assistant *definitions* (compiled `StateGraph`s registered
 under an `assistant_id`) still lived as Python factories in the
-`pymagatama-server` image: ~64 hand-written `_register_*` calls in
+`kotodama-server` image: ~64 hand-written `_register_*` calls in
 `langgraph_server_app.py:_register_builtin_graphs()`.
 
 That left a structural mismatch with the platform’s "actor-as-data" rule
@@ -98,11 +98,11 @@ time (`ValueError: topology spec missing 'state_keys'`).
 ```sql
 INSERT INTO vertex_langgraph_assistant (..., kind, factory_path) VALUES
   ('kobo.budAgent.v1', ..., 'single_task',
-   'pymagatama.kobo_worker_main:task_bud_agent');
+   'kotodama.kobo_worker_main:task_bud_agent');
 ```
 
 Loader resolves `factory_path` to the task callable, wraps it with
-`pymagatama.langgraph_graphs._single_task_wrapper.build_single_task_graph`,
+`kotodama.langgraph_graphs._single_task_wrapper.build_single_task_graph`,
 and registers the resulting 1-node graph. No `assistant_node` rows needed.
 The internal SingleTaskState envelope (`{input, output, ok, error}`) is
 preserved for compatibility with the prior `_register_organism_single_task_chains()`

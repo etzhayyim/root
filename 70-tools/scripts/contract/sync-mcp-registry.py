@@ -13,7 +13,7 @@ for `tools/call` stays inside `app.handleXRPC` →
 runtime enforcement. Both come from the same lexicon JSON.
 
 See: 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
-     90-docs/adr/0087-magatama-mcp-tool-facade.md (amended D3)
+     90-docs/adr/0087-kotodama-mcp-tool-facade.md (amended D3)
      ADR-0056 — same `INSERT N rows` pattern as BPMN-as-actor
 
 Convention:

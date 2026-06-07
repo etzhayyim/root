@@ -13,7 +13,7 @@ const PROJECT_ID = 'business-person';
 // ── Helpers ──
 
 // ADR-0023 P4: use etzhayyim_TOKEN (sk_live_*) Bearer instead of spoofable
-// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(etzhayyim auth token)`.
+// x-kotodama-verified header. Required: `export etzhayyim_TOKEN=$(etzhayyim auth token)`.
 const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
 if (!etzhayyim_TOKEN) {
   throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(etzhayyim auth token)` first');

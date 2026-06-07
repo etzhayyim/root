@@ -52,6 +52,6 @@ def workspace_status(workspace_dir: str | None) -> None:
     """Show workspace root and basic stats."""
     ws = _resolve_root(workspace_dir)
     apps_dir = ws / "60-apps"
-    actor_count = len(list(apps_dir.rglob("magatama.jsonld"))) if apps_dir.exists() else 0
+    actor_count = len(list(apps_dir.rglob("kotodama.jsonld"))) if apps_dir.exists() else 0
     click.echo(f"workspace: {ws}")
     click.echo(f"  actors: {actor_count}")

@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — open-patent.etzhayyim.com. Graphs: ingest_multi (daily), synthesize_invention (weekly).",
-  "dependencies": ["./lg_open_patent", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_open_patent", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":               "./lg_open_patent/graphs/health.py:GRAPH",
     "ingest_multi":         "./lg_open_patent/graphs/ingest_multi.py:GRAPH",

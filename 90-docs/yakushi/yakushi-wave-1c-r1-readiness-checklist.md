@@ -34,7 +34,7 @@ depends_on:
   - IPFS resolution test: ✅ (curl ipfs.io/ipfs/bafy...)
 
 - [ ] **A4.** Import test passed (no RuntimeError on cell module load)
-  - Command: `python -c "from pymagatama.cells.pharma_chiral_resolution import cell"`
+  - Command: `python -c "from kotodama.cells.pharma_chiral_resolution import cell"`
   - Result: ✅ No error
   - Timestamp: _____
 

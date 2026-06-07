@@ -32,11 +32,11 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Iterator
 
-from pymagatama.organism.sensors.creative.base import (
+from kotodama.organism.sensors.creative.base import (
     CreativeFilmObservation,
     CreativeFilmSensor,
 )
-from pymagatama.organism.sensors.base import DatasetPin
+from kotodama.organism.sensors.base import DatasetPin
 
 
 PASSIVE_ARCHIVE_ROOT = Path("/var/lib/e7m-dataset/creative-pd/films/internet-archive")

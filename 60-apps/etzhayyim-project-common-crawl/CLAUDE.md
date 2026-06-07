@@ -290,7 +290,7 @@ No Iceberg sinks needed — tables are natively Internal Iceberg (data stored di
 
 **Scripts**:
 - `scripts/archive/phase3b_ingest_risingwave.py` — PG INSERT (psycopg2, parallel workers, resume checkpoint)
-- `scripts/phase5_inject_did.py` — PDS DID + Profile registration (`x-magatama-verified` internal auth)
+- `scripts/phase5_inject_did.py` — PDS DID + Profile registration (`x-kotodama-verified` internal auth)
 
 **Usage**:
 ```bash

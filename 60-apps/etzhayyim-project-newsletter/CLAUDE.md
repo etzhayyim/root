@@ -58,7 +58,7 @@ On-demand:
 
 ## Python Worker
 
-`20-actors/magatama/py/src/pymagatama/newsletter_worker_main.py`
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/newsletter_worker_main.py`
 
 Job types:
 - `newsletter.run_curation_agent` — LangGraph loop (180s, 2 retries)
@@ -83,7 +83,7 @@ NEWS_XRPC_URL        — news.etzhayyim.com base (default https://news.etzhayyim
 cd 60-apps/etzhayyim-project-newsletter/appview/newsletter-nwsl0001
 etzhayyim deploy
 
-python -m pymagatama.newsletter_worker_main
+python -m kotodama.newsletter_worker_main
 
 curl https://nwsl0001.etzhayyim.com/health
 curl -X POST https://nwsl0001.etzhayyim.com/xrpc/com.etzhayyim.apps.newsletter.addSubscriber \

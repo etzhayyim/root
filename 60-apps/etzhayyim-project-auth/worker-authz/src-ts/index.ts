@@ -643,7 +643,7 @@ async function syncAuthMethodToGraph(env: Env, accountDid: string, provider: str
     const now = nowIso();
     env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
+      headers: { "Content-Type": "application/json", "x-kotodama-verified": "true" },
       body: JSON.stringify({
         edges: [{
           table: "edge_etzhayyim_authenticates",

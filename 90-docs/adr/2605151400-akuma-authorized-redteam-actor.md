@@ -102,7 +102,7 @@ Akuma follows the platform's standard runtime topology:
   `akuma-probe` with NetworkPolicy that allows egress only to IPs
   resolved from currently-active scope contracts. The probe pod has no
   cluster-internal egress and no DNS to internal services.
-- **External MCP surface**: only `magatama` MCP facade exposes akuma to
+- **External MCP surface**: only `kotodama` MCP facade exposes akuma to
   external principals (per ADR-2605091400 cytoplasmic demotion). Direct
   XRPC exposure to external callers is prohibited.
 - **Persistence**: append-only `vertex_akuma_*` rows; no soft delete; raw
@@ -255,12 +255,12 @@ records the concrete artifact state. It supersedes any earlier
 | Authority key | Ed25519 keypair in macOS Keychain `etzhayyim.akuma`; fingerprint `46a0a86b9a8fd180`; public hex `726c7daa...0915` | sign+verify roundtrip OK |
 | Kotoba/Datomic tables | `vertex_akuma_{scope,probe,finding,audit}` + 5 indexes on RW Vultr `45.32.79.245` | applied via psycopg2 phased per CLAUDE.md multi-head workaround; revision file `r_20260515150000_vertex_akuma_redteam_scope.py` in `alembic/current_versions/` |
 | K8s namespace | `akuma-probe` with default-deny + DNS + langserver-callback NetworkPolicies + RBAC + ServiceAccount `probe-runner` | `kubectl apply -k 50-infra/k8s/akuma-langserver/` succeeded |
-| K8s reconciler | `scope-egress-reconciler` CronJob (`* * * * *`) targeting `akuma-probe-scope-allow` NetworkPolicy | applied; **Errors with ModuleNotFoundError** because `pymagatama:latest` predates `pymagatama.akuma` module |
+| K8s reconciler | `scope-egress-reconciler` CronJob (`* * * * *`) targeting `akuma-probe-scope-allow` NetworkPolicy | applied; **Errors with ModuleNotFoundError** because `kotodama:latest` predates `kotodama.akuma` module |
 | K8s langserver | `akuma-langserver` Deployment + Service in `mitama-udf` ns | Running 1/1 |
 | K8s secrets | `akuma-authority-key` (PUBLIC only) in `mitama-udf`; `akuma-rw-readonly` (KAISYA URL) in `akuma-probe` | created |
 | PDS lexicons | 8 NSIDs `com.etzhayyim.apps.akuma.*` live at `atproto.etzhayyim.com` (Worker version `fdfc4c61-ce87-40fd-adaf-7f9e85522359`) | wrangler deploy 2026-05-15; HTTP 401 (auth required), not 404 |
 | Rego policy | `etzhayyim.akuma.scope` package | 11/11 unit tests PASS |
-| Reconciler module | `pymagatama.akuma.scope_egress_reconciler` | source landed in repo, NOT yet baked into a published `pymagatama` image |
+| Reconciler module | `kotodama.akuma.scope_egress_reconciler` | source landed in repo, NOT yet baked into a published `kotodama` image |
 | Smoke test | data plane round-trip (INSERT scope → sign+verify → reconciler SELECT → 5 policy decisions → INSERT audit + finding → count → hard delete) | all 9 steps PASS |
 
 ## Remaining human steps
@@ -272,8 +272,8 @@ records the concrete artifact state. It supersedes any earlier
 2. Mirror Keychain `etzhayyim.akuma` entries to 1Password vault
    `etzhayyim Japan株式会社` per the `op item create` command printed by
    `provision-authority-key.sh`.
-3. Rebuild `ghcr.io/etzhayyim/pymagatama` image with the new
-   `pymagatama.akuma` module included and bump
+3. Rebuild `ghcr.io/etzhayyim/kotodama` image with the new
+   `kotodama.akuma` module included and bump
    `scope-egress-reconciler` CronJob image tag. Until then the
    reconciler stays in CrashLoopBackoff and `akuma-probe-scope-allow`
    stays empty (probe pods would have no egress allow rules anyway).
@@ -299,7 +299,7 @@ before any external scope contract is approved.
 - `00-contracts/policies/etzhayyim/akuma/scope/test.rego`
 - `20-actors/akuma/actor-manifest.jsonld`
 - `20-actors/akuma/CLAUDE.md`
-- `20-actors/magatama/py/src/pymagatama/akuma/scope_egress_reconciler.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/akuma/scope_egress_reconciler.py`
 - `30-graph/graph-schema/alembic/current_versions/r_20260515150000_vertex_akuma_redteam_scope.py`
 - `30-graph/graph-schema/sql_migrations/20260515150000_vertex_akuma_redteam_scope.up.sql`
 - `50-infra/k8s/akuma-langserver/`

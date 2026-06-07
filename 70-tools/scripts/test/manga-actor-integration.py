@@ -53,7 +53,7 @@ EXPECTED_PHASES = 6  # script / panels / balloons / pages / domain / post
 def http_post(url: str, payload: dict, timeout: int = 60) -> tuple[int, dict]:
     req = urllib.request.Request(
         url, data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json", "x-magatama-verified": "true"},
+        headers={"Content-Type": "application/json", "x-kotodama-verified": "true"},
         method="POST",
     )
     try:

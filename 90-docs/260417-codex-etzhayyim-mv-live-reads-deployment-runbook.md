@@ -40,7 +40,7 @@ for f in 00-contracts/lexicons/com/etzhayyim/apps/{legalEntity,hospitality,maps,
   jq . "$f" > /dev/null || echo "INVALID: $f"
 done
 
-# Check that all NSIDs in magatama.jsonld have corresponding lexicon files
+# Check that all NSIDs in kotodama.jsonld have corresponding lexicon files
 # (sample 3 app manifests)
 for app in legal-entity maps ongakuka; do
   manifest="20-actors/$app/actor-manifest.jsonld"

@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.dataset.procurementRecord",
-  "description": "Per-jurisdiction procurement tender / award / modification / cancellation attestation. R0 skeleton per ADR-2605263900 §3 (GovProcurementSensor). Authored by `pymagatama.organism.sensors.gov.gov_procurement_sensor` after passive-only fetch of EU TED / US SAM.gov / JP 政府調達情報 / UK Contracts Finder. Awardee fields pass-through (procurement transparency is the publication-regime reason for these data sources). Cross-links to `com.etzhayyim.corp.leiReference` used by toritate (ADR-2605262900) for recipient-vendor anti-related-party verification.",
+  "description": "Per-jurisdiction procurement tender / award / modification / cancellation attestation. R0 skeleton per ADR-2605263900 §3 (GovProcurementSensor). Authored by `kotodama.organism.sensors.gov.gov_procurement_sensor` after passive-only fetch of EU TED / US SAM.gov / JP 政府調達情報 / UK Contracts Finder. Awardee fields pass-through (procurement transparency is the publication-regime reason for these data sources). Cross-links to `com.etzhayyim.corp.leiReference` used by toritate (ADR-2605262900) for recipient-vendor anti-related-party verification.",
   "defs": {
     "main": {
       "type": "record",

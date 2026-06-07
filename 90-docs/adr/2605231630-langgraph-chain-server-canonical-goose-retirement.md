@@ -42,7 +42,7 @@ Two architectural decisions were taken in spring 2026 that, by autumn, no longer
 
 2. **2026-05-11 — Murakumo CLAUDE.md §Hard Constraints: K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 — 再導入禁止.** The Mac Mini fleet was demoted to "L8 Somatic Inference for resident organism actors only" (ADR-2605080600). RunPod (RTX 6000 Ada vLLM, endpoint `vyp99t9px7h4dl`) became the LLM SSoT. K8s, WireGuard, and the older Lima-k3s GPU cluster effort were declared architectural dead ends. The Murakumo project itself committed to a flat Ollama + LiteLLM topology with `@reboot` crontab for daemon supervision.
 
-The 2026-05-19 religious-corp constitutional wave (ADR-2605192100 mission charter through ADR-2605192415 daemon architecture) shipped 15 Pregel cells, a 18,342-agent UNSPSC corpus, and a kotoba-datomic substrate spec — all expressed as LangGraph StateGraph modules under `20-actors/magatama/cells/` and `…/langgraph_graphs/unispsc_agents/`. None of these are Goose recipes. None of them fit cleanly inside the launchd-or-Ollama-only model that the May 11 constraint implies.
+The 2026-05-19 religious-corp constitutional wave (ADR-2605192100 mission charter through ADR-2605192415 daemon architecture) shipped 15 Pregel cells, a 18,342-agent UNSPSC corpus, and a kotoba-datomic substrate spec — all expressed as LangGraph StateGraph modules under `40-engine/kotoba/crates/kotoba-kotodama/cells/` and `…/langgraph_graphs/unispsc_agents/`. None of these are Goose recipes. None of them fit cleanly inside the launchd-or-Ollama-only model that the May 11 constraint implies.
 
 ADR-2605232100 (this morning, 2026-05-23) tried to thread the needle by re-introducing k3s **only** for religious-corp cells. Stage 2 validation on orbstack succeeded, but Stage 3 (Mac mini fleet bring-up via Ansible) surfaced the direct contradiction with the Murakumo CLAUDE.md K8s 禁止 line.
 
@@ -58,16 +58,16 @@ This ADR records the architectural pivot those two directives mandate.
 
 **(1) Canonical agent runtime — etzhayyim/* scope.** The triple `(LangGraph, kotoba-datomic, langserver)` is the single canonical agent runtime for religious-corp activity in `etzhayyim/root`. Specifically:
 
-- **LangGraph** — every agent is a compiled `StateGraph`. Per-actor under `20-actors/magatama/py/src/pymagatama/langgraph_graphs/` (18,342 UNSPSC commodity actors today) or per-cell under `20-actors/magatama/cells/` (15 religious-corp cells per ADR-2605192415 + 16 yorishiro source connectors).
-- **kotoba-datomic** (`10-protocol/kotoba-datomic/`, ADR-2605231400) — the composition of `(DID + WebAuthn + Adherent SBT) + (atproto PDS MST source chain) + (IPFS + Base L2 anchor DHT) + (Lexicon + Rego + LangGraph membrane)` provides all state, identity, and validation. AT-IPFS-local SQLite hot-cache (`pymagatama.primitives.at_ipfs_belief_store`) is the agent-side knowledge accumulator (perceive/record loop wired in ADR-2605232100 Stage D, 2026-05-23).
+- **LangGraph** — every agent is a compiled `StateGraph`. Per-actor under `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/` (18,342 UNSPSC commodity actors today) or per-cell under `40-engine/kotoba/crates/kotoba-kotodama/cells/` (15 religious-corp cells per ADR-2605192415 + 16 yorishiro source connectors).
+- **kotoba-datomic** (`10-protocol/kotoba-datomic/`, ADR-2605231400) — the composition of `(DID + WebAuthn + Adherent SBT) + (atproto PDS MST source chain) + (IPFS + Base L2 anchor DHT) + (Lexicon + Rego + LangGraph membrane)` provides all state, identity, and validation. AT-IPFS-local SQLite hot-cache (`kotodama.primitives.at_ipfs_belief_store`) is the agent-side knowledge accumulator (perceive/record loop wired in ADR-2605232100 Stage D, 2026-05-23).
 - **langserver** — the XRPC façade that exposes LangGraph agents over `com.etzhayyim.apps.<domain>.invokeAgent` / `…listAgents` / `…health` / `…classify` Lexicons. `lg-open-unispsc` (live on orbstack, 2026-05-23) is the reference implementation; per-cell langservers (per ADR-2605202200 cell runtime contract) follow the same pattern.
 
 **(2) Goose retirement.** The Goose agent runtime decisions in `60-apps/etzhayyim-project-murakumo/CLAUDE.md` (ADR-0034 scope) are retired in `etzhayyim/*` scope:
 
 - `roles/goose/` Ansible role: marked retired; new `purge_goose.yml` idempotent task removes `~/.config/goose/`, the wrapper script, and `~/.etzhayyim/goose-cron-wrapper.sh` on next apply.
-- `crontab @ judah` entries `yoro-profile-heartbeat` / `yoro-persona-cron` / `yoro-mention-drain`: scheduled to be removed in the same Ansible apply; replacement is a LangGraph cell (one per yoro pipeline) deployed under `20-actors/magatama/cells/yoro_*/` and served by `langserver` per pattern (b).
+- `crontab @ judah` entries `yoro-profile-heartbeat` / `yoro-persona-cron` / `yoro-mention-drain`: scheduled to be removed in the same Ansible apply; replacement is a LangGraph cell (one per yoro pipeline) deployed under `40-engine/kotoba/crates/kotoba-kotodama/cells/yoro_*/` and served by `langserver` per pattern (b).
 - `roles/openclaw/` and `cli/openclaw.go`: already retired 2026-04-20, no further action.
-- The model registry on judah (qwen3.5:9b on native Ollama `:11434`) **stays** — it's a backing LLM that LangGraph cells call via `pymagatama.llm.litellm` or directly via Ollama HTTP. Only the *agent runtime* (Goose) is retired, not the LLM backend.
+- The model registry on judah (qwen3.5:9b on native Ollama `:11434`) **stays** — it's a backing LLM that LangGraph cells call via `kotodama.llm.litellm` or directly via Ollama HTTP. Only the *agent runtime* (Goose) is retired, not the LLM backend.
 - The RunPod RTX 6000 Ada vLLM endpoint `vyp99t9px7h4dl` likewise **stays** as the primary LLM SSoT per Murakumo CLAUDE.md §Hard Constraints item 1; that decision is unaffected by this ADR.
 
 **(3) K8s / k3s / GPU-pod reintroduction approved (etzhayyim/* scope only).** The 2026-05-11 Murakumo CLAUDE.md hard-constraint "K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 — 再導入禁止" was scoped to the Mac Mini Ollama LLM substrate. It is lifted for `etzhayyim/*` religious-corp cells:
@@ -131,5 +131,5 @@ Vultr / EKS / GKE / AKS / DigitalOcean Kubernetes remain prohibited (ADR-2605191
 - `60-apps/etzhayyim-project-murakumo/ansible/roles/lima_k3s_gpu/` — k3s role (tools / preflight / bootstrap / deploy_llama_vulkan)
 - `50-infra/murakumo/fleet.toml` — cell placement + IP SoT
 - `50-infra/k8s/lg-open-unispsc/deployment.yaml` — reference langserver implementation (18,342 UNSPSC actors live on orbstack 2026-05-23)
-- `20-actors/magatama/cells/` — religious-corp Pregel cell catalog
-- `20-actors/magatama/py/src/pymagatama/unispsc_capabilities/wrapper.py` — perceive/record loop (Stage D, 2026-05-23)
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/` — religious-corp Pregel cell catalog
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/unispsc_capabilities/wrapper.py` — perceive/record loop (Stage D, 2026-05-23)

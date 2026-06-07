@@ -183,7 +183,7 @@ apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
   name: crawler-frontier-fr0nt13r
-  namespace: magatama-runtime
+  namespace: kotodama-runtime
   annotations:
     description: Distributed URL frontier with sitemap/RSS discovery
     performer.etzhayyim.com/categories: go,crawler,frontier
@@ -225,7 +225,7 @@ spec:
                 properties:
                   bucket: crawler-frontier
                   enable_bucket_auto_create: "true"
-                  cluster_uri: "nats://nats.magatama-system.svc.cluster.local:4222"
+                  cluster_uri: "nats://nats.kotodama-system.svc.cluster.local:4222"
 
     # ── HTTP server (MCP admin API) ──
     - name: http-server
@@ -278,7 +278,7 @@ apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
   name: www-crawler-o0dqx491
-  namespace: magatama-runtime
+  namespace: kotodama-runtime
   annotations:
     description: Distributed crawler workers — pull URLs from frontier via wRPC
     performer.etzhayyim.com/categories: go,mcp,crawler
@@ -292,7 +292,7 @@ spec:
         config:
           - name: crawler-worker-config
             properties:
-              LANCEDB_BASE_URL: http://lancedb-api.magatama-runtime.svc.cluster.local:8080
+              LANCEDB_BASE_URL: http://lancedb-api.kotodama-runtime.svc.cluster.local:8080
               KV_ENABLE: "true"
               KV_BUCKET: crawler-mcp-state
               CRAWLER_BLOBSTORE_ENABLE: "true"
@@ -330,7 +330,7 @@ spec:
                 properties:
                   bucket: crawler-mcp-state
                   enable_bucket_auto_create: "true"
-                  cluster_uri: "nats://nats.magatama-system.svc.cluster.local:4222"
+                  cluster_uri: "nats://nats.kotodama-system.svc.cluster.local:4222"
         - type: link
           properties:
             target: blobstore-s3

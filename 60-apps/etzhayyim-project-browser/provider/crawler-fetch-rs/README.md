@@ -5,7 +5,7 @@ Rust-native fetch provider core for crawler v2 / split crawler architecture.
 Responsibilities:
 
 - perform outbound HTTP fetch with timeout and user-agent normalization
-- stay independent from magatama guest constraints
+- stay independent from kotodama guest constraints
 - serve as the implementation core for a later native provider wrapper
 
 This crate intentionally starts as a library-first core. The provider-facing

@@ -22,14 +22,14 @@ data:
     \      header (dispatch.ts); direct callers must\n                         supply\
     \ it too. Unmatched/absent \u2192 401.\n\n`/health` is always open. `/bindings`\
     \ uses the same gate as `/xrpc/*`\nbecause it reveals the active actor surface.\n\
-    \nRun:\n    python -m pymagatama.dispatcher_main\n\nEnv:\n    DISPATCHER_PORT\
+    \nRun:\n    python -m kotodama.dispatcher_main\n\nEnv:\n    DISPATCHER_PORT\
     \               default 8080\n    AGENTGATEWAY_MCP_URL          pod-side MCP gateway\
     \ URL\n    RW_URL                        required (binding lookup)\n    BINDING_TTL_SEC\
     \               default 30 (in-memory cache window)\n    DISPATCHER_AUTH_MODE\
     \          off | strict (default: strict)\n    DISPATCHER_INTERNAL_SECRET    shared\
     \ secret when mode=strict\n\"\"\"\n\nfrom __future__ import annotations\n\nimport\
     \ asyncio\nimport json\nimport logging\nimport os\nimport re\nimport time\nfrom\
-    \ typing import Any\n\nfrom aiohttp import web\n\nfrom pymagatama.db_sync import\
+    \ typing import Any\n\nfrom aiohttp import web\n\nfrom kotodama.db_sync import\
     \ sync_cursor\n\nLOG = logging.getLogger(\"dispatcher\")\nlogging.basicConfig(level=logging.INFO,\
     \ format=\"%(asctime)s %(levelname)s %(name)s %(message)s\")\n\nPORT = int(os.environ.get(\"\
     DISPATCHER_PORT\", \"8080\"))\nAGENTGATEWAY_MCP_URL = os.environ.get(\n    \"\
@@ -109,7 +109,7 @@ data:
     \ lookup is small but hot. Cache for a few\n# seconds so a burst of XRPC traffic\
     \ doesn't hammer kotoba.\n\n_binding_cache: dict[str, tuple[dict[str, Any] | None,\
     \ float]] = {}\n\n\ndef _lookup_binding_sync(nsid: str) -> dict[str, Any] | None:\n\
-    \    from pymagatama.kotoba_datomic import get_kotoba_client\n    client = get_kotoba_client()\n\
+    \    from kotodama.kotoba_datomic import get_kotoba_client\n    client = get_kotoba_client()\n\
     \    rows = client.select_where(\"vertex_bpmn_lexicon_binding\", \"nsid\", nsid,\
     \ limit=100)\n    active = [r for r in rows if r.get(\"status\") == \"active\"\
     ]\n    if not active:\n        return None\n    row = active[0]\n    timeout_raw\
@@ -133,7 +133,7 @@ data:
     \n\nasync def health(_request: web.Request) -> web.Response:\n    return web.json_response({\"\
     status\": \"ok\"})\n\n\nasync def list_bindings(_request: web.Request) -> web.Response:\n\
     \    \"\"\"Debug endpoint \u2014 list active bindings (no cache, fresh DB read).\"\
-    \"\"\n    def _all() -> list[dict[str, Any]]:\n        from pymagatama.kotoba_datomic\
+    \"\"\n    def _all() -> list[dict[str, Any]]:\n        from kotodama.kotoba_datomic\
     \ import get_kotoba_client\n        client = get_kotoba_client()\n        rows\
     \ = client.select_where(\"vertex_bpmn_lexicon_binding\", \"status\", \"active\"\
     , limit=2000)\n        return [\n            {\n                \"nsid\": r.get(\"\
@@ -169,7 +169,7 @@ data:
     search_terms\") or params.get(\"queryValue\") or params.get(\"query\")\n    values\
     \ = raw if isinstance(raw, list) else str(raw or \"\").split(\",\")\n    return\
     \ [str(value).strip() for value in values if str(value).strip()]\n\n\ndef _public_malak_crawl_ads_sync(params:\
-    \ dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \ dict[str, Any]) -> dict[str, Any]:\n    from kotodama.primitives import public_malak_ads\n\
     \n    platform = _str_param(params, \"platform\")\n    query_kind = _str_param(params,\
     \ \"queryKind\", \"search\") or _str_param(params, \"query_kind\", \"search\"\
     )\n    country = _str_param(params, \"country\").upper()\n    search_terms = _public_malak_search_terms(params)\n\
@@ -185,20 +185,20 @@ data:
     ,\n        \"adsSeen\": 0,\n        \"adsNew\": 0,\n        \"adsUpdated\": 0,\n\
     \        \"queued\": int(out.get(\"queued\") or 0),\n        \"skipped\": int(out.get(\"\
     skipped\") or 0),\n        \"runs\": runs,\n    }\n\n\ndef _public_malak_process_scraper_queue_sync(params:\
-    \ dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \ dict[str, Any]) -> dict[str, Any]:\n    from kotodama.primitives import public_malak_ads\n\
     \n    return public_malak_ads.process_queue(\n        max_runs=_int_param(params.get(\"\
     limit\") or params.get(\"max\") or params.get(\"maxRuns\"), 3, hi=50),\n     \
     \   timeout_sec=float(_int_param(params.get(\"timeoutSec\") or params.get(\"timeout_sec\"\
     ), 20, lo=1, hi=600)),\n        platform=_str_param(params, \"platform\"),\n \
     \       reclaim_after_sec=_int_param(params.get(\"reclaimAfterSec\"), 1800, lo=60,\
     \ hi=86400),\n    )\n\n\ndef _public_malak_analyze_recent_ads_sync(params: dict[str,\
-    \ Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \ Any]) -> dict[str, Any]:\n    from kotodama.primitives import public_malak_ads\n\
     \n    return public_malak_ads.analyze_recent(\n        limit=_int_param(params.get(\"\
     limit\"), 10, hi=100),\n        platform=_str_param(params, \"platform\"),\n \
     \       analysis_kind=_str_param(params, \"analysisKind\", \"competitive\") or\
     \ \"competitive\",\n        model_id=_str_param(params, \"modelId\"),\n    )\n\
     \n\ndef _public_malak_cluster_recent_ads_sync(params: dict[str, Any]) -> dict[str,\
-    \ Any]:\n    from pymagatama.primitives import public_malak_ads\n\n    return\
+    \ Any]:\n    from kotodama.primitives import public_malak_ads\n\n    return\
     \ public_malak_ads.cluster_recent(\n        limit=_int_param(params.get(\"limit\"\
     ), 25, hi=200),\n        platform=_str_param(params, \"platform\"),\n        platform_scope=_str_param(params,\
     \ \"platformScope\", \"platform\") or \"platform\",\n    )\n\n\ndef _public_malak_campaign_view(row:\
@@ -370,7 +370,7 @@ data:
     \ 1\n            \"\"\",\n            sql_params,\n        )\n        row = cur.fetchone()\n\
     \    if not row:\n        return {\"error\": \"AdvertiserNotFound\"}\n    return\
     \ {\"advertiser\": _public_malak_advertiser_view(row)}\n\n\ndef _public_malak_analyze_ad_sync(params:\
-    \ dict[str, Any]) -> dict[str, Any]:\n    from pymagatama.primitives import public_malak_ads\n\
+    \ dict[str, Any]) -> dict[str, Any]:\n    from kotodama.primitives import public_malak_ads\n\
     \n    creative_vertex_id = _str_param(params, \"creativeVertexId\")\n    if not\
     \ creative_vertex_id:\n        return {\"error\": \"creativeVertexId required\"\
     , \"status\": \"failed\"}\n    return public_malak_ads.analyze_creative(\n   \
@@ -591,7 +591,7 @@ data:
     : \"stats\",\n        \"sendEmail\": \"send_email\",\n        \"provisionMailbox\"\
     : \"provision_mailbox\",\n        \"handleCommit\": \"handle_commit\",\n     \
     \   \"heartbeat\": \"heartbeat\",\n    }.get(op)\n    if not fn_name:\n      \
-    \  return None\n\n    def _run() -> dict[str, Any]:\n        from pymagatama.ingest\
+    \  return None\n\n    def _run() -> dict[str, Any]:\n        from kotodama.ingest\
     \ import mailer\n\n        fn = getattr(mailer, fn_name)\n        return fn(**(body\
     \ or {}))\n\n    try:\n        result = await asyncio.to_thread(_run)\n      \
     \  return web.json_response(result)\n    except Exception as exc:  # noqa: BLE001\n\
@@ -956,7 +956,7 @@ data:
     /bindings\", list_bindings)\n    # MCP envelope route (ADR-2605082000 \xA72.6\
     \ + ADR-0087). Must be registered\n    # BEFORE the wildcard so /xrpc/com.etzhayyim.mcp.message\
     \ hits the dedicated\n    # handler instead of the BPMN-binding lookup.\n    from\
-    \ pymagatama.mcp_dispatch import aiohttp_route as _mcp_route, build_default_handlers\n\
+    \ kotodama.mcp_dispatch import aiohttp_route as _mcp_route, build_default_handlers\n\
     \    app[\"mcp_handlers\"] = build_default_handlers()\n    app.router.add_post(\"\
     /xrpc/com.etzhayyim.mcp.message\", _mcp_route)\n    app.router.add_post(\"/mcp\"\
     , mcp_route)\n    app.router.add_post(\"/xrpc/{nsid}\", dispatch)\n    app.router.add_get(\"\

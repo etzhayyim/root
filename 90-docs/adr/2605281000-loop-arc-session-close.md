@@ -63,7 +63,7 @@ The arc closes BEFORE marginal-value cycles overwhelm value.
 
 ```
 8-axis registry enforcement matrix:
-  PR-gate axes (5):   deps.toml / docs.json / graph.jsonld / schema / magatama
+  PR-gate axes (5):   deps.toml / docs.json / graph.jsonld / schema / kotodama
   Tracker axes (3):   relation (1011) / id-filename (53) / md-links (24)
 
 Audit:

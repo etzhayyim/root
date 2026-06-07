@@ -1,12 +1,12 @@
 """LangGraph OSS FastAPI server — lg-karma.
 
-Wraps 45 task handlers from 8 pymagatama.primitives.karma* modules.
+Wraps 45 task handlers from 8 kotodama.primitives.karma* modules.
 All handlers use **kwargs so no camelCase conversion is needed.
 No postgres checkpointer — stateless request-response graphs only.
 
 Build:
   docker buildx build --platform linux/amd64 \\
-    --build-context py=../../../20-actors/magatama/py \\
+    --build-context py=../../../40-engine/kotoba/crates/kotoba-kotodama/py \\
     -t ghcr.io/etzhayyim/lg-karma:0.1.0-amd64 --push .
 """
 
@@ -23,7 +23,7 @@ from fastapi.responses import JSONResponse
 from langgraph.graph import END, START, StateGraph
 from typing_extensions import TypedDict
 
-from pymagatama.primitives.karma import (
+from kotodama.primitives.karma import (
     task_karma_anchor_backlink_edges,
     task_karma_anchor_compute_root,
     task_karma_anchor_submit_tx,
@@ -44,20 +44,20 @@ from pymagatama.primitives.karma import (
     task_karma_rebirth_wipe_agents,
     task_karma_witness_persist,
 )
-from pymagatama.primitives.karma_agent import task_karma_agent_evaluate
-from pymagatama.primitives.karma_dao import (
+from kotodama.primitives.karma_agent import task_karma_agent_evaluate
+from kotodama.primitives.karma_dao import (
     task_karma_dao_cast_vote,
     task_karma_dao_finalize,
     task_karma_dao_find_voters,
     task_karma_dao_open_arbitration,
     task_karma_dao_sweep_expired,
 )
-from pymagatama.primitives.karma_filecoin import (
+from kotodama.primitives.karma_filecoin import (
     task_karma_filecoin_propose_batch,
     task_karma_filecoin_renew_expiring,
     task_karma_filecoin_status_get,
 )
-from pymagatama.primitives.karma_resident import (
+from kotodama.primitives.karma_resident import (
     task_karma_cohort_fission,
     task_karma_cohort_fission_scan,
     task_karma_organism_checkpoint,
@@ -68,17 +68,17 @@ from pymagatama.primitives.karma_resident import (
     task_karma_organism_tick,
     task_karma_organism_tick_batch,
 )
-from pymagatama.primitives.karma_wbt import (
+from kotodama.primitives.karma_wbt import (
     task_karma_wbt_balance_get,
     task_karma_wbt_forfeit_to_commons,
     task_karma_wbt_transfer,
 )
-from pymagatama.primitives.karma_witness import (
+from kotodama.primitives.karma_witness import (
     task_karma_witness_invite_fan_out,
     task_karma_witness_respond_to_invitation,
     task_karma_witness_sweep_expired,
 )
-from pymagatama.primitives.karma_zk import (
+from kotodama.primitives.karma_zk import (
     task_karma_zk_rebirth_proof_lookup,
     task_karma_zk_rebirth_verify,
 )

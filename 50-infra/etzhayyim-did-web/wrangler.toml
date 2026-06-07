@@ -30,11 +30,11 @@ zone_name = "etzhayyim.com"
 pattern = "www.etzhayyim.com/*"
 zone_name = "etzhayyim.com"
 
-# Service binding — direct Worker→Worker call to magatama-yoro avoids the
+# Service binding — direct Worker→Worker call to kotodama-yoro avoids the
 # CF Bot Management block that public-HTTP fetch hits inside the same zone.
 [[services]]
 binding = "YORO"
-service = "magatama-yoro"
+service = "kotodama-yoro"
 
 # Substrate-side XRPC adapter (rw-free reference impl). Per ADR-2605172000,
 # reads under SUBSTRATE_NSID_ALIASES (worker.ts) MUST resolve through this

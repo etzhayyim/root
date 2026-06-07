@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.corp.disclosureAttestation",
-  "description": "Per-jurisdiction periodic financial-filing attestation. R0 skeleton per ADR-2605263800 §3 (CorpDisclosureSensor). Authored by `pymagatama.organism.sensors.corp.corp_disclosure_sensor` after passive-only fetch of a published filing artifact (10-K / 10-Q / 8-K / Form 4 / 13F / 有報 / 半期 / 大量保有 / UK statutory accounts / EU half-year). `payloadCid` references the full XBRL/JSON normalized payload on IPFS; `piiRedacted` is true iff per-jurisdiction publication-redaction policy modified the payload view. GDPR right-to-be-forgotten DSARs route through chigiri.data_privacy to upstream publisher (NEVER unilateral religious-corp removal). Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c).",
+  "description": "Per-jurisdiction periodic financial-filing attestation. R0 skeleton per ADR-2605263800 §3 (CorpDisclosureSensor). Authored by `kotodama.organism.sensors.corp.corp_disclosure_sensor` after passive-only fetch of a published filing artifact (10-K / 10-Q / 8-K / Form 4 / 13F / 有報 / 半期 / 大量保有 / UK statutory accounts / EU half-year). `payloadCid` references the full XBRL/JSON normalized payload on IPFS; `piiRedacted` is true iff per-jurisdiction publication-redaction policy modified the payload view. GDPR right-to-be-forgotten DSARs route through chigiri.data_privacy to upstream publisher (NEVER unilateral religious-corp removal). Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c).",
   "defs": {
     "main": {
       "type": "record",

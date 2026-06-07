@@ -27,7 +27,7 @@ superseded_by: []
 **Status**: proposed
 **Date**: 2026-05-08
 **Supersedes**: none
-**Amends**: ADR-0056 (BPMN-as-actor), ADR-2604282300 (T2 = pymagatama+Zeebe)
+**Amends**: ADR-0056 (BPMN-as-actor), ADR-2604282300 (T2 = kotodama+Zeebe)
 
 ## Context
 
@@ -44,7 +44,7 @@ superseded_by: []
 
 `did:web:iryo.etzhayyim.com` を医療 umbrella actor として新設し、Phase 1 ではその下の `:hospital` sub-DID で acute-care 病院運営を実装する。Phase 2/3 で `:clinic` / `:zaitaku` (在宅医療) を追加可能な path-based topology を取る。
 
-実装方式は **pure T2 (ADR-2604282300)** — CF Worker を持たず、pymagatama + Zeebe BPMN-as-actor のみで構成する。`iryo.etzhayyim.com` は did:web 解決とドキュメント公開だけに使い、外部 entrypoint は bpmn-dispatcher 経由 XRPC + 内部 timer-start BPMN とする。
+実装方式は **pure T2 (ADR-2604282300)** — CF Worker を持たず、kotodama + Zeebe BPMN-as-actor のみで構成する。`iryo.etzhayyim.com` は did:web 解決とドキュメント公開だけに使い、外部 entrypoint は bpmn-dispatcher 経由 XRPC + 内部 timer-start BPMN とする。
 
 ### Identity topology
 
@@ -182,7 +182,7 @@ PII tier (ADR-0018):
 - ADR-0041 Content-addressed PK
 - ADR-0056 BPMN-as-actor
 - ADR-0018 PII Tier 3
-- ADR-2604282300 T2 = pymagatama + Zeebe
+- ADR-2604282300 T2 = kotodama + Zeebe
 - ADR-2604240946 4-tier hybrid loop
 - ADR-2605080200/0300/0400/0500 Pydantic v2 / SQLAlchemy Core / Alembic / SQLMesh
 - shosha Phase 1 (precedent)

@@ -4,7 +4,7 @@ Phase B regression guard. The YAML is the SSoT for the Phase C topology
 assistant row (ADR-2605082000 §2 / ADR-2605141200 §P6) — once Phase C flips
 `vertex_langgraph_deployment` to v2, the bpmn-dispatcher /runs router
 materialises this YAML into a LangGraph at request time via
-`pymagatama.langgraph_loader._compile_topology`. Any drift in the YAML
+`kotodama.langgraph_loader._compile_topology`. Any drift in the YAML
 that breaks the resolver contract will surface as a hung XRPC call.
 
 This test runs offline (no DB, no LangGraph import) and only asserts the

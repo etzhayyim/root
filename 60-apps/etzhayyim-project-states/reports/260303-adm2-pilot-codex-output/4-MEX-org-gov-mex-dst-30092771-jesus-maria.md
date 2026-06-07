@@ -4,7 +4,7 @@
 
 **Required Files List**
 - `states/adm2/mexico/jesus-maria/README.md` – pilot brief, gap context, runbook links.
-- `states/adm2/mexico/jesus-maria/org-gov-mex-dst-30092771-jesus-maria.app.yaml` – App CR (namespace `magatama-runtime`).
+- `states/adm2/mexico/jesus-maria/org-gov-mex-dst-30092771-jesus-maria.app.yaml` – App CR (namespace `kotodama-runtime`).
 - `states/adm2/mexico/jesus-maria/org-gov-mex-dst-30092771-jesus-maria.edge-route.yaml` – Edge HTTPRoute (namespace `edge-router-performers`).
 - `states/adm2/mexico/jesus-maria/org-gov-mex-dst-30092771-jesus-maria.values.json` – runtime config (endpoint, geo metadata, B2 buckets, etc.).
 - `states/adm2/mexico/jesus-maria/260303-gap-notes.md` – dated checklist/log for ADM2 coverage progress.
@@ -16,12 +16,12 @@
   - `spec.template.env`: include `CONNECT_ENDPOINT=https://30092771.etzhayyim.com/api/grpc`, `OBJSTORE_SITE_BUCKETS=jesus-maria`.
 - Edge HTTPRoute: `org-gov-mex-dst-30092771-jesus-maria-route`
   - Hostname `jesus-maria.etzhayyim.com` (or shared subdomain per DNS strategy).
-  - Backend ref → App service in `magatama-runtime`.
+  - Backend ref → App service in `kotodama-runtime`.
   - Annotations enforce Connect gRPC-Web, touch-action hints for iPad UI if needed.
 
 **Quality Gates Checklist**
 - Slug + metadata match, NanoID reused consistently.
-- Namespaces: App → `magatama-runtime`, HTTPRoute → `edge-router-performers`.
+- Namespaces: App → `kotodama-runtime`, HTTPRoute → `edge-router-performers`.
 - Container image from `ghcr.io/etzhayyim/*` with explicit tag; `imagePullSecrets: ghcr-pull-secret`.
 - Endpoint respects `https://{nanoid}.etzhayyim.com/api/grpc`.
 - UI plan references Apple HIG / iPad breakpoints; Svelte uses Tailwind + `@etzhayyim` components, no `<style>` blocks.

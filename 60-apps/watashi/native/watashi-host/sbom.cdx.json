@@ -106,17 +106,17 @@
     },
     {
       "type": "library",
-      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host#0.1.0",
-      "name": "magatama-kami-host",
+      "bom-ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/kotodama/kotodama-kami-host#0.1.0",
+      "name": "kotodama-kami-host",
       "version": "0.1.0",
-      "description": "KAMI-powered native desktop host scaffold for Magatama WASM apps",
+      "description": "KAMI-powered native desktop host scaffold for Kotodama WASM apps",
       "scope": "required",
       "licenses": [
         {
           "expression": "MIT"
         }
       ],
-      "purl": "pkg:cargo/magatama-kami-host@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host"
+      "purl": "pkg:cargo/kotodama-kami-host@0.1.0?download_url=file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/kotodama/kotodama-kami-host"
     },
     {
       "type": "library",
@@ -4928,7 +4928,7 @@
       ]
     },
     {
-      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host#0.1.0",
+      "ref": "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/kotodama/kotodama-kami-host#0.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#anyhow@1.0.102",
         "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.0",
@@ -4959,7 +4959,7 @@
         "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-text#0.1.0",
         "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/engine/kami-engine/kami-ui-gpu#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#log@0.4.29",
-        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/magatama/magatama-kami-host#0.1.0",
+        "path+file:///Users/junkawasaki/github/etzhayyim-root/packages/runtime/kotodama/kotodama-kami-host#0.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#mdns-sd@0.11.5",
         "registry+https://github.com/rust-lang/crates.io-index#pollster@0.4.0",
         "registry+https://github.com/rust-lang/crates.io-index#serde@1.0.228",

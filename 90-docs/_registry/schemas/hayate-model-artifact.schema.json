@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://etzhayyim.com/schemas/hayate-model-artifact.schema.json",
   "title": "Hayate Model Artifact Manifest",
-  "description": "Canonical deploy artifact for Hayate models. Sharded safetensors plus manifest metadata for Murakumo, Magatama, and YATA.",
+  "description": "Canonical deploy artifact for Hayate models. Sharded safetensors plus manifest metadata for Murakumo, Kotodama, and YATA.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -95,7 +95,7 @@
     "compatibility": {
       "type": "object",
       "properties": {
-        "magatamaInferenceMin": {
+        "kotodamaInferenceMin": {
           "type": "string"
         },
         "murakumoCliMin": {
@@ -236,7 +236,7 @@
         "host": {
           "type": "string",
           "enum": [
-            "magatama"
+            "kotodama"
           ]
         },
         "backend": {

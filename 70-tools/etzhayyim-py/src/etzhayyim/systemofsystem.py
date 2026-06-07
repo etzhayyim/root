@@ -49,7 +49,7 @@ def _cluster_by_project(report: HaisenReport, ws: Path) -> list[SoSCluster]:
         projects_dir = ws / "projects"
 
     for app in report.apps:
-        for jsonld in (projects_dir).rglob("magatama.jsonld") if projects_dir.exists() else []:
+        for jsonld in (projects_dir).rglob("kotodama.jsonld") if projects_dir.exists() else []:
             try:
                 import json as _json
                 data = _json.loads(jsonld.read_text(errors="replace"))

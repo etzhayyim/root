@@ -1,4 +1,4 @@
-# etzhayyim OS — OpenClaw-Inspired Redesign on magatama runtime
+# etzhayyim OS — OpenClaw-Inspired Redesign on kotodama runtime
 
 **Date**: 2026-03-03
 **Status**: Draft Proposal
@@ -7,12 +7,12 @@
 ## 1. Executive Summary
 
 OpenClaw の「AI がチャットで返事するだけでなく、実際にタスクを実行する」体験を
-etzhayyim OS で再現する。ただしローカル Node.js ではなく **K8s + magatama runtime** 上に構築し、
+etzhayyim OS で再現する。ただしローカル Node.js ではなく **K8s + kotodama runtime** 上に構築し、
 WASM サンドボックスの安全性とクラウドスケールを両立する。
 
 ### OpenClaw → etzhayyim OS 対応表
 
-| OpenClaw 機能 | etzhayyim OS 実装 | magatama runtime component |
+| OpenClaw 機能 | etzhayyim OS 実装 | kotodama runtime component |
 |---|---|---|
 | ローカル AI アシスタント | クラウド常駐 + Tauri ローカル UI | `os-agent-{nanoid}` |
 | チャット統合 (8 platform) | Messaging component 拡張 | `os-messaging-component` |
@@ -70,12 +70,12 @@ WASM サンドボックスの安全性とクラウドスケールを両立する
 │  │  └──────────┘  └──────────┘  └───────────┘  └────────────┘  │    │
 │  └──────────────────────────────────────────────────────────────┘    │
 │                                                                      │
-│  All Apps in `magatama-runtime` namespace                                │
+│  All Apps in `kotodama-runtime` namespace                                │
 │  All routing via `{nanoid}.etzhayyim.com` per-subdomain direct routing     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-## 3. Component Design (magatama runtime Apps)
+## 3. Component Design (kotodama runtime Apps)
 
 ### 3.1 os-messaging-component 拡張 — メッセージングゲートウェイ統合
 
@@ -93,7 +93,7 @@ WASM サンドボックスの安全性とクラウドスケールを両立する
 ├── platform_web.go        # WebSocket / os-ui direct chat
 ├── platform_imessage.go   # iMessage (macOS native bridge proxy)
 ├── message.go             # 統一メッセージ型 (UnifiedMessage)
-├── magatama.toml
+├── kotodama.toml
 ├── deploy config
 └── go.mod
 ```
@@ -145,7 +145,7 @@ Platform webhook POST → os-messaging-component (App)
 ├── conversation.go      # Conversation state machine
 ├── tool_dispatch.go     # Skill/Tool routing
 ├── context_builder.go   # Memory + conversation → LLM prompt 構築
-├── magatama.toml
+├── kotodama.toml
 ├── deploy config
 └── go.mod
 ```
@@ -219,7 +219,7 @@ rt.Register(&performer.PerformerConfig{
 ├── provider_ollama.go    # Ollama (self-hosted, K8s internal)
 ├── provider_openrouter.go # OpenRouter (300+ models)
 ├── tools_schema.go       # Tool definition → provider-specific format 変換
-├── magatama.toml
+├── kotodama.toml
 ├── deploy config
 └── go.mod
 ```
@@ -267,7 +267,7 @@ User preference (KV: pf.<id>.u.<uid>.s.llm_provider)
 ├── long_term.go     # 過去会話の要約・検索
 ├── semantic.go      # ユーザープロフィール・事実抽出
 ├── search.go        # KV-based keyword search (TF-IDF lite)
-├── magatama.toml
+├── kotodama.toml
 ├── deploy config
 └── go.mod
 ```
@@ -333,7 +333,7 @@ mem.{uid}.sem.facts       → [{ fact: "...", source_conv: "...", date: "..." },
 ├── builtin_web.go       # Built-in: Web fetch, scraping
 ├── builtin_calc.go      # Built-in: Calculator, date/time
 ├── builtin_notify.go    # Built-in: Notification dispatch
-├── magatama.toml
+├── kotodama.toml
 ├── App manifest
 └── go.mod
 ```
@@ -393,7 +393,7 @@ WASM 内で直接実行不可な操作を安全に委任する。
 ├── shell.go        # etzhayyim-browserless 経由のシェルコマンド実行
 ├── browser.go      # Playwright ブラウザ自動操作
 ├── scraper.go      # Web scraping (www-crawler 連携)
-├── magatama.toml
+├── kotodama.toml
 ├── App manifest
 └── go.mod
 ```
@@ -405,7 +405,7 @@ os-agent → tool_call: "run_shell" { command: "ls -la /project" }
   → os/consent.evaluate("run_shell", {command}, risk=dangerous)
     → User approval required (Consent UI に表示)
     → Approved
-  → os-runner → XRPC → etzhayyim-browserless (magatama-runtime:8080)
+  → os-runner → XRPC → etzhayyim-browserless (kotodama-runtime:8080)
     → Playwright: page.evaluate() で sandboxed 実行
     → stdout/stderr 返却
   → os/audit.log(tool="run_shell", command="ls -la", result=...)
@@ -576,7 +576,7 @@ Settings → Profile (Semantic Memory bootstrap)
 
 | 観点 | OpenClaw | etzhayyim OS |
 |---|---|---|
-| **実行環境** | ローカル Node.js | K8s magatama runtime (WASM sandbox) |
+| **実行環境** | ローカル Node.js | K8s kotodama runtime (WASM sandbox) |
 | **安全性** | OS レベルのファイルアクセス | WASM サンドボックス + Consent UI |
 | **スケール** | 単一マシン | K8s クラスタ (水平スケール) |
 | **Skill 隔離** | Node.js process (同一信頼境界) | 各 Skill が独立 WASM module |

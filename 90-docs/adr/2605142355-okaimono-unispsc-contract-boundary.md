@@ -37,7 +37,7 @@ Okaimono UNSPSC integration is governed by these active sources:
 
 - `60-apps/etzhayyim-project-okaimono/proto/v1/shopping.proto`
 - `60-apps/etzhayyim-project-shopping/proto/v1/shopping.proto`
-- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
+- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/kotodama.jsonld`
 - `60-apps/etzhayyim-project-okaimono/CLAUDE.md`
 - `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/README.md`
 - `60-apps/etzhayyim-project-okaimono/okaimono-etzhayyim-ai-ec-operating-spec.md`

@@ -4,7 +4,7 @@
 
   Daily R/PT24H sweep of mv_resource_flow_sankey_{currency,service,personnel}.
   Actual comparison + anomaly write + social emission runs in pyzeebe task
-  resource-flow.detect.anomaly (pymagatama/primitives/resource_flow.py).
+  resource-flow.detect.anomaly (kotodama/primitives/resource_flow.py).
   CF Worker XRPC endpoint is a thin dispatcher stub only.
 
   NSID: com.etzhayyim.apps.resourceFlow.detectAnomaly

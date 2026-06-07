@@ -83,7 +83,7 @@ Three-verdict classifier used by all etzhayyim → etzhayyim port work:
 This taxonomy is used by the two existing MIGRATION-NOTES.md sidecars:
 
 - `50-infra/cluster/murakumo/MIGRATION-NOTES.md` (35 line-items, mostly REDIRECT — env var / DNS suffix / launchd label / config dir renames)
-- `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (~30 line-items, mix of REDIRECT + VENDOR-ONLY + REIMPLEMENT)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/PYKOTODAMA-MIGRATION-NOTES.md` (~30 line-items, mix of REDIRECT + VENDOR-ONLY + REIMPLEMENT)
 
 New MIGRATION-NOTES.md sidecars MUST use the same 3-verdict taxonomy. Lefthook (future) checks the format.
 
@@ -94,13 +94,13 @@ New MIGRATION-NOTES.md sidecars MUST use the same 3-verdict taxonomy. Lefthook (
 The two MIGRATION-NOTES.md sidecars itemise ≈220 `etzhayyim-*` → `etzhayyim-*` identifier sites across two scopes:
 
 - **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`etzhayyim_*` → `ETZHAYYIM_*`), config dir (`~/.etzhayyim/` → `~/.etzhayyim/`), DNS suffix (`.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`com.etzhayyim.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`etzhayyim-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
-- **pymagatama runtime** (`20-actors/magatama/py/`): RunPod-coupled call sites (REDIRECT / VENDOR-ONLY / REIMPLEMENT classified).
+- **kotodama runtime** (`40-engine/kotoba/crates/kotoba-kotodama/py/`): RunPod-coupled call sites (REDIRECT / VENDOR-ONLY / REIMPLEMENT classified).
 
 Plus the package-rename half referenced by 3 SUBSTRATE-PORT-PENDING markers in this session:
 
-- `@etzhayyim/magatama-host-sdk` → `@etzhayyim/magatama-host-sdk`
-- `@etzhayyim/magatama-gv7ps2m1` → `@etzhayyim/magatama-gv7ps2m1`
-- `@etzhayyim/magatama-le9k4x2m` → `@etzhayyim/magatama-le9k4x2m`
+- `@etzhayyim/kotodama-host-sdk` → `@etzhayyim/kotodama-host-sdk`
+- `@etzhayyim/kotodama-gv7ps2m1` → `@etzhayyim/kotodama-gv7ps2m1`
+- `@etzhayyim/kotodama-le9k4x2m` → `@etzhayyim/kotodama-le9k4x2m`
 - `@etzhayyim/graph-schema` → `@etzhayyim/graph-schema`
 
 ### §3.2 The atomic-PR invariant
@@ -117,7 +117,7 @@ Interdependent target categories:
 | control plane URL (`murakumo.etzhayyim.com` / `murakumo.etzhayyim.com`) | If the binary defaults to one but the install script `curl`s the other, install instructions silently fail. |
 | launchd label (`com.etzhayyim.murakumo` / `com.etzhayyim.murakumo`) | If the plist filename and the Label key disagree, `launchctl load` refuses. |
 | cargo crate name (`etzhayyim-murakumo` / `etzhayyim-murakumo`) | If the crate name changes but downstream `Cargo.toml` references the old name, build breaks. |
-| package name (`@etzhayyim/*` / `@etzhayyim/*`) | If `src/app.ts` imports `@etzhayyim/sdk` but `package.json` declares `@etzhayyim/magatama-host-sdk` as a dep, npm resolution fails. |
+| package name (`@etzhayyim/*` / `@etzhayyim/*`) | If `src/app.ts` imports `@etzhayyim/sdk` but `package.json` declares `@etzhayyim/kotodama-host-sdk` as a dep, npm resolution fails. |
 
 The single-PR rule is the only safe execution path. Splitting it produces *guaranteed runtime breakage* during the migration window.
 
@@ -128,7 +128,7 @@ The single-PR rule is the only safe execution path. Splitting it produces *guara
 - The etzhayyim entity completes legal registration (CLAUDE.md §Status row 8: "amanomibashira → etzhayyim cutover (code identifiers)" is marked ✅, but the *atomic* cutover is row 21's `etzhayyim-*` → `etzhayyim-*` rename which is separately gated).
 - Council 5-of-7 Safe attests the cutover wave readiness (ADR-2605192300).
 
-Until both conditions hold, partial renames in `50-infra/cluster/murakumo/` and `20-actors/magatama/py/` are explicitly prohibited (CLAUDE.md §Do-Not item #15).
+Until both conditions hold, partial renames in `50-infra/cluster/murakumo/` and `40-engine/kotoba/crates/kotoba-kotodama/py/` are explicitly prohibited (CLAUDE.md §Do-Not item #15).
 
 ### §3.4 PR review checklist (for the executing PR)
 
@@ -148,7 +148,7 @@ When the atomic cutover PR opens, reviewers MUST verify all of:
 - Do not skip the `Cargo.lock` regeneration. Crate-name changes invalidate it.
 - Do not use sed across the entire repo without scope filtering. The two MIGRATION-NOTES.md sidecars define the exact scope.
 - Do not rename `@etzhayyim/sdk` imports without first verifying `@etzhayyim/sdk` exposes the equivalent surface. The SDK was rewritten, not aliased (per `20-actors/etzhayyim-sdk/README.md`).
-- Do not introduce backwards-compatibility aliases (`@etzhayyim/magatama-host-sdk` re-export from `@etzhayyim/magatama-host-sdk`). That defeats the atomic invariant and creates indefinite dual-name maintenance.
+- Do not introduce backwards-compatibility aliases (`@etzhayyim/kotodama-host-sdk` re-export from `@etzhayyim/kotodama-host-sdk`). That defeats the atomic invariant and creates indefinite dual-name maintenance.
 - Do not split the §3 PR into multiple PRs across days. The mesh is broken during any non-atomic intermediate state.
 
 # Consequences
@@ -170,7 +170,7 @@ When the atomic cutover PR opens, reviewers MUST verify all of:
 
 - `50-infra/multicluster/murakumo-mesh/placement-contract.yaml` (§1 canonical)
 - `50-infra/cluster/murakumo/MIGRATION-NOTES.md` (§3 itemised, 35 line-items)
-- `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (§3 itemised, ~30 line-items)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/PYKOTODAMA-MIGRATION-NOTES.md` (§3 itemised, ~30 line-items)
 - `50-infra/murakumo/fleet.toml` (§1 fleet baseline)
 - CLAUDE.md §Status row 21 (this ADR's completion-date anchor)
 - CLAUDE.md §Do-Not item #15 (partial-rename prohibition)

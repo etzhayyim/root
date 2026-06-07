@@ -2,7 +2,7 @@
 name = "disk-cleaner-dcscan"
 version = "0.1.0"
 edition = "2021"
-description = "Magatama desktop-wasm disk cleaner sample"
+description = "Kotodama desktop-wasm disk cleaner sample"
 
 [lib]
 crate-type = ["cdylib", "rlib"]

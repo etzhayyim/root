@@ -1,6 +1,6 @@
 {
   "$comment": "LangGraph Server config — animeka.etzhayyim.com actor. 27 graphs (publishEpisode added 2026-05-15).",
-  "dependencies": ["./lg_animeka", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_animeka", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":            "./lg_animeka/graphs/health.py:GRAPH",
     "list_works":        "./lg_animeka/graphs/list_works.py:GRAPH",

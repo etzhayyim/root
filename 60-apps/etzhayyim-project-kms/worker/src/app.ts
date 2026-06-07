@@ -30,7 +30,7 @@ export default {
         handle: env.APP_HANDLE ?? "kms.etzhayyim.com",
         did: env.PRIMARY_DID ?? "did:web:kms.etzhayyim.com",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/kms/handlers.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/kms/handlers.py",
         issuer: "did:web:etzhayyim.com",
         migrationTarget: "did:web:etzhayyim.com",
         adr: "ADR-2604282300",

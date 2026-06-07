@@ -18,8 +18,8 @@
 - `briefing-ui-thcks5wz` に `briefing-mcp-component` を内包 (`briefing-2aqx6noz` 対応)
   - `GET/POST /api/v1/briefings`, `GET /api/v1/briefings/{id}`
   - `POST /api/mcp`, `POST /{nanoid}/api/mcp`
-  - `magatama WIT` の Arrow table へ briefing データ永続化
+  - `kotodama WIT` の Arrow table へ briefing データ永続化
 - `sys-briefing-mcp-component` (`etzhayyim-performer-sys-etzhayyim-app-briefing-bis87j5v` 対応)
   - `GET /status/jobs`, `POST /jobs/briefing-run`, `POST /events/briefing.requested`
   - `POST /api/mcp`, `POST /{nanoid}/api/mcp`
-  - `magatama WIT` の Arrow table へ job データ永続化
+  - `kotodama WIT` の Arrow table へ job データ永続化

@@ -68,7 +68,7 @@ in a const-0 / const-1 structural invariant.
 - `/20-actors/kawase-yui/README.md` — full inventory + 14 gates + R0→R3 ladder
 - `/50-infra/etzhayyim-kawase-pool/src/KawaseYuiPool.sol` — L6 Solidity scaffold
 - `/40-engine/kotoba_kawase/` — Python facade
-- `/20-actors/magatama/cells/kawase_*/` — 5 R0 Pregel cell scaffolds
+- `/40-engine/kotoba/crates/kotoba-kotodama/cells/kawase_*/` — 5 R0 Pregel cell scaffolds
 - `/70-tools/scripts/lint/verify_no_commercial_remittance.py` — G7
 - `/90-docs/adr/2605282200-kawase-yui-multi-stable-adherent-remittance-mutual-aid.md` — Master ADR
 - `/90-docs/adr/2605282100-kotoba-mkoto-economy-and-modal-billing-parity.md` — operator-side compute-cost layer

@@ -40,7 +40,7 @@ superseded_by: []
 
 - **Dependencies** declared in `deps.toml` (modules, ADRs, L2 contracts, DNS records, substrate rules)
 - **ADR graph**: `depends_on`, `related`, `supersedes`, `superseded_by` between ~25 ADRs (and growing)
-- **Module graph**: `20-actors/magatama` cells, `60-apps/*` apps, `50-infra/*` substrate services, `00-contracts/*` lexicons — and edges between them (e.g. "app uses lexicon", "actor reads contract")
+- **Module graph**: `40-engine/kotoba/crates/kotoba-kotodama` cells, `60-apps/*` apps, `50-infra/*` substrate services, `00-contracts/*` lexicons — and edges between them (e.g. "app uses lexicon", "actor reads contract")
 - **Capability graph** (per ADR-2605180900): UNSPSC / ISIC actor lexicon → XRPC method → MCP tool surface
 - **Member / institution / referral graphs** (e.g. UHL-R medical institution registry, ADR-2605181040)
 

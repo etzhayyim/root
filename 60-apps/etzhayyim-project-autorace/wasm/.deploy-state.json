@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-autorace-zcv937fk": {
+    "etzhayyim-wasm-autorace-zcv937fk": {
       "nanoid": "zcv937fk",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-02T11:21:27Z",

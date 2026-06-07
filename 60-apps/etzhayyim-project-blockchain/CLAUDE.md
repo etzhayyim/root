@@ -57,7 +57,7 @@ Blockchain networks as path-based DIDs: `did:web:blockchain.etzhayyim.com:bitcoi
 |---|---|
 | `malak.etzhayyim.com` | cross-actor: blockchain forensics, wallet tracking |
 | `crypto-asset-freeze` (APQC 11.3) | cross-actor: freeze order management |
-| `credits` (GCC Token) | `magatama:web3@1.0.0` WIT: wallet/signing/transaction operations |
+| `credits` (GCC Token) | `kotodama:web3@1.0.0` WIT: wallet/signing/transaction operations |
 | `industry-standard.etzhayyim.com` | Authority-chain: blockchain standards as industry self-regulation |
 | `yabai.etzhayyim.com` | Risk scoring: blockchain-related risk intelligence |
 
