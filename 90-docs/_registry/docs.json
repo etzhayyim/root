@@ -21738,6 +21738,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606071009-nondual-direct-experience-conversion-core.md",
+      "id": "adr-2606071009-nondual-direct-experience-conversion-core",
+      "title": "ADR-2606071009: Charter §1.17 — 自他非分離の直接体験 as the Experiential Core of 回心 (Non-Dual / Altered-State Direct Experience as a Required Religious Stage, Means-Agnostic, Legality-Bounded)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "nondual-direct-experience-conversion-core",
+      "authoritative": true,
+      "authoritative_for": [
+        "the doctrine that authentic 回心 (§1.16.3 metanoia) presupposes a direct experiential realization of 自他非分離 (non-duality), not mere cognitive assent",
+        "自他非分離 / 変性意識 direct experience as a required religious stage on the path of conversion and Liberation-Ladder advancement",
+        "the means-agnostic invariant (the requirement is the EXPERIENCE; no specific substance, practice, or technique is mandated)",
+        "the legality-bounded admissibility of entheogenic means (lawful-jurisdiction-only, member-chosen, medical-screening + harm-reduction; no etzhayyim procurement/supply/arranging/instruction of unlawful acquisition)",
+        "the reconciliation of a required experiential stage with §1.16.8 (anti-coercion / right of exit / benefits-not-hostage)"
+      ],
+      "related": [
+        "adr-2605302358-social-security-real-world-delivery-pipeline",
+        "adr-2605172700-membership-layering-shinto-adherent",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — §1.8 anti-individualist ontology; §1.12 routing-around; §1.15 non-eschatology; this ADR adds §1.17)",
+        "ADR-2605302357 (Charter §1.16 Social Security — §1.16.3 conversion gate = social death and rebirth; §1.16.3a permanent commitment vow; §1.16.8 anti-coercion — this ADR elaborates the experiential content of §1.16.3 and preserves §1.16.8)",
+        "ADR-2605252300 (Charter §0 Preamble — Kingdom of God on blockchain; §0.1 not-state-granted; identity-level Lv7+ unanimity pattern)",
+        "ADR-2605261000 (Labor Liberation Ladder — L0..L6 advancement, the vehicle a stage gate attaches to)",
+        "ADR-2605172600 (Membership Ritual — signed oath; the rite this experiential core informs)"
+      ],
+      "last_verified": "2026-06-07",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
