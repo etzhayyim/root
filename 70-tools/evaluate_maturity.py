@@ -41,6 +41,7 @@ def evaluate_maturity():
         endpoints = 0
         loc = 0
         entities = 0
+        content = ""
 
         # Analyze main.py
         if os.path.exists(main_py_path):
@@ -55,12 +56,25 @@ def evaluate_maturity():
                 schema_content = f.read()
                 entities = len(re.findall(r"entity\s+\w+\s*\{", schema_content))
 
+        # L4 production signals: a runnable contract test + the production API
+        # surface (cursor pagination + filtering + strict validation).
+        tests_dir = os.path.join(actor_path, "tests")
+        has_tests = os.path.isdir(tests_dir) and any(
+            f.startswith("test_") and f.endswith(".py") for f in os.listdir(tests_dir)
+        )
+        l4_features = (
+            "_paginate(" in content and "_apply_filters(" in content
+            and "_reject_unknown(" in content and "has_more" in content
+        )
+
         # Determine Level
         level = "L1 (Scaffolded)"
         if endpoints > 5 or entities > 5 or loc > 150:
             level = "L3 (Advanced)"
         elif endpoints > 1 or entities > 1 or loc >= 50:
             level = "L2 (Basic Implementation)"
+        if level == "L3 (Advanced)" and has_tests and l4_features:
+            level = "L4 (Production)"
 
         levels[level] += 1
 

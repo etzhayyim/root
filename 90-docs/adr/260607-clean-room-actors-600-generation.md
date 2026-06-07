@@ -167,3 +167,38 @@ and ready to push the corpus into live CF KV + the `actors-v1` kotoba graph + IP
 build) and pin their CARs to IPFS; run the operator-gated `--put-kv` /
 `--ingest-kotoba`; light up the ameno browser actor-panel rows; push a curated
 subset L3 → L4 (pagination / filtering / relationship-expansion + contract tests).
+
+## 8. L4 Production cohort (L3 → L4)
+
+**Tool:** `70-tools/promote_l4.py`.
+
+The first cohort has crossed from L3 (Advanced) to **L4 (Production)** — the 10
+marquee platforms that carry a hand-curated resource model
+(`deepen_actors.PLATFORM_OVERRIDES`): **anthropic, aws, github, openai, plaid,
+salesforce, shopify, slack, stripe, twilio**. For each, `main.py` is regenerated
+with the production features §6 flagged as the L4 gap:
+
+*   **cursor pagination** on list endpoints (`limit` + `starting_after`, returns
+    `has_more` / `total`),
+*   **filtering** by any schema field via query params,
+*   **relationship expansion** (`?expand=<field>`) for `*Id` reference fields,
+*   **strict validation** — required fields + type coercion + unknown-field
+    rejection + a structured error envelope (`type`),
+*   a **runnable contract test** (`tests/test_<platform>_contract.py`, stdlib
+    `unittest`, no WASM runtime needed) asserting: all entities present in the
+    schema, full CRUD per entity, pagination + filtering + validation wired,
+    L4 health marker, and no proprietary imports.
+
+`evaluate_maturity.py` now recognizes **L4** = L3 thresholds + a contract test +
+the production surface (`_paginate` / `_apply_filters` / `_reject_unknown` /
+`has_more`).
+
+**Results:** distribution is now **L3 990 (99.0%) / L4 10 (1.0%)**; the L4
+cohort runs ≈ 31–41 endpoints, 7–10 entities, 510–650 LOC; **10 / 10 contract
+test suites pass** (8 assertions each). The corpus is still 100% ≥ L3.
+
+**Broadening L4.** Auto-generated pagination/validation/tests legitimately meet
+this rubric's L4 ("extensive validation, comprehensive schema"). Broadening
+beyond the curated-override cohort to the long tail remains gated on the
+Autonomous Reverse-Engineering Loop (per-API field/enum fidelity), since only the
+override cohort has resource shapes faithful to a real public API.
