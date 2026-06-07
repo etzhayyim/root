@@ -51,7 +51,7 @@ async def _step_load_vertices(state: _State) -> dict[str, Any]:
     kinds_needed = ('work', 'chapter', 'page', 'panel', 'character', 'environment',
                     'organization', 'incident', 'chatSession', 'chatMessage', 'generatedImage')
     vmap: dict[str, dict[str, Any]] = {}
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     # Datomic EDN query fallback to individual selects if kinds are many, but here we can just query all by kind and filter
@@ -156,7 +156,7 @@ async def _step_write_edges(state: _State) -> dict[str, Any]:
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
     written: dict[str, int] = {}
-    from pymagatama.kotoba_datomic import get_kotoba_client
+    from kotodama.kotoba_datomic import get_kotoba_client
     import asyncio
     client = get_kotoba_client()
     for rel, edges in edges_by_rel.items():

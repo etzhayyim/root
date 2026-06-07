@@ -28,7 +28,7 @@ import time
 import asyncio
 from typing import Any, Iterable
 
-from pymagatama.kotoba_datomic import get_kotoba_client
+from kotodama.kotoba_datomic import get_kotoba_client
 
 _log = logging.getLogger(__name__)
 

@@ -10,7 +10,7 @@ import {
   nowISO,
   nsid,
   createKyselyDb,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 type SectionInfo = {
   code: number;

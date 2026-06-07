@@ -2,8 +2,8 @@ import glob
 import os
 
 def rewrite_rw_wrappers():
-    files = glob.glob("20-actors/magatama/py/src/pymagatama/primitives/*.py") + \
-            glob.glob("20-actors/magatama/py/src/pymagatama/ingest/*.py")
+    files = glob.glob("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/*.py") + \
+            glob.glob("40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/*.py")
     
     for path in files:
         with open(path, "r") as f:
@@ -12,11 +12,11 @@ def rewrite_rw_wrappers():
         original_code = code
 
         if "def _rw_execute(sql" in code:
-            code = code.replace("from pymagatama.db_sync import sync_cursor\n", "")
+            code = code.replace("from kotodama.db_sync import sync_cursor\n", "")
             if "get_kotoba_client" not in code:
-                code = code.replace("import logging", "import logging\nfrom pymagatama.kotoba_datomic import get_kotoba_client")
+                code = code.replace("import logging", "import logging\nfrom kotodama.kotoba_datomic import get_kotoba_client")
                 if "import logging" not in code:
-                    code = "from pymagatama.kotoba_datomic import get_kotoba_client\n" + code
+                    code = "from kotodama.kotoba_datomic import get_kotoba_client\n" + code
 
             old_exec = """def _rw_execute(sql: str, params: tuple[Any, ...]) -> None:
     with sync_cursor() as cur:

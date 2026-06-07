@@ -1,7 +1,7 @@
 {
   "version": 1,
   "apps": {
-    "ai-gftd-wasm-nimotsu-nm4ts01": {
+    "etzhayyim-wasm-nimotsu-nm4ts01": {
       "nanoid": "nm4ts01",
       "app_version": "1.0.0",
       "last_deployed_at": "2026-04-04T03:07:38Z",

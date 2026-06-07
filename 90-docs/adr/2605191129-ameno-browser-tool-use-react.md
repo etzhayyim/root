@@ -89,7 +89,7 @@ assistant の最終応答からは `<tool>...</tool>` ブロックを strip し�
 
 - ameno が **observation → reasoning → action** を回せる "tool-using agent" になる。reflection × active inference × tool use の 3 軸が browser 内で揃う
 - 1 turn の最悪 LLM call 数: `(maxToolIterations) + 1(critic) + (maxReflections)(revise) + 1(predict_next)` = 3 + 1 + 2 + 1 = **7 call**(Gemma 4 E2B WebGPU で 70–105s/turn)。デフォルトは tool=3, reflect=1, predict=on で 5 call/40-60s
-- tool ABI を JSON 1 行に固定したことで、`@etzhayyim/ameno/tools` から共通 registry を export して **他 actor app(magatama / kami-engine 等)で再利用可能**
+- tool ABI を JSON 1 行に固定したことで、`@etzhayyim/ameno/tools` から共通 registry を export して **他 actor app(kotodama / kami-engine 等)で再利用可能**
 - 将来 Gemma が native tool-call トークンを学習したら、parser 側だけ拡張すれば共存(段階的差替え可能)
 
 ## Alternatives Considered

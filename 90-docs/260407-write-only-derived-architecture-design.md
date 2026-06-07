@@ -54,7 +54,7 @@ async function cmdLaunch(sdk, payload) {
 }
 ```
 
-### P2: Derive Rules (magatama.jsonld)
+### P2: Derive Rules (kotodama.jsonld)
 
 ```jsonc
 {
@@ -79,7 +79,7 @@ async function cmdLaunch(sdk, payload) {
 }
 ```
 
-PDS commit pipeline reads derive rules from magatama.jsonld and auto-executes on commit.
+PDS commit pipeline reads derive rules from kotodama.jsonld and auto-executes on commit.
 
 ### P3: Public vs Private (AT Protocol Faithful)
 

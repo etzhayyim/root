@@ -102,7 +102,7 @@ seedPropagation({title, eventAt, ...})
 | File | Role |
 |---|---|
 | `wasm/etzhayyim-wasm-shinka-sh1nk4ev/src/app.ts` | Scheduler Worker (cron + commands) |
-| `wasm/etzhayyim-wasm-shinka-sh1nk4ev/magatama.jsonld` | App config (nanoid: sh1nk4ev) |
+| `wasm/etzhayyim-wasm-shinka-sh1nk4ev/kotodama.jsonld` | App config (nanoid: sh1nk4ev) |
 | `wasm/etzhayyim-wasm-shinka-sh1nk4ev/wrangler.jsonc` | CF Worker config (cron */5 min) |
 
 ## Rules

@@ -31,8 +31,8 @@ The Cloudflare Worker implementation has been retired to
 Active writes and classification workflows are owned by:
 
 - `00-contracts/bpmn/com/etzhayyim/open-isic`
-- `20-actors/magatama/py/src/pymagatama/primitives/open_isic.py`
-- `20-actors/magatama/py/src/pymagatama/handlers/open_isic.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/open_isic.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/open_isic.py`
 
 Current coverage: **428 / 428 classes**, **4 / 4 BPMN processes**,
 **4 / 4 LangServer tasks**, **2 / 2 UDF helpers**.
@@ -72,7 +72,7 @@ Current coverage: **428 / 428 classes**, **4 / 4 BPMN processes**,
    with `code`, `nameEn`, `group`, `description`, `includes`, `excludes`,
    `implementedAt`.
 3. Run `pytest -q tests/test_open_isic_apqc_primitives.py` from
-   `20-actors/magatama/py`.
+   `40-engine/kotoba/crates/kotoba-kotodama/py`.
 
 No runtime code changes are required to publish a new group — the data files
 are the interface.

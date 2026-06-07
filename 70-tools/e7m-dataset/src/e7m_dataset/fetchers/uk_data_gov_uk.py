@@ -27,7 +27,7 @@ constructor-parameter name (``organisation_filter``) for British UX +
 consistency with ``UkDataGovUkSensor``.
 
 Normalized NDJSON consumable by
-``pymagatama.organism.sensors.gov.uk_data_gov_uk_sensor.UkDataGovUkSensor``:
+``kotodama.organism.sensors.gov.uk_data_gov_uk_sensor.UkDataGovUkSensor``:
 
   {"datasetId": "ons-gdp-quarterly", "title": "GDP Quarterly",
    "license": "uk-ogl",

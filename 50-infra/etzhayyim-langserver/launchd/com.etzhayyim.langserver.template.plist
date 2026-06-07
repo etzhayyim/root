@@ -2,7 +2,7 @@
 <!--
   launchd template for one language server (LSP) on a Murakumo Mac mini.
   Per ADR-2605192415 §7.1 (Tier 1 launchd 常駐) + this repo's
-  com.etzhayyim.magatama-cell-runner.plist convention.
+  com.etzhayyim.kotodama-cell-runner.plist convention.
 
   ONE plist per (host, language). Label is namespaced by language so multiple
   langservers coexist on a single node:
@@ -32,7 +32,7 @@
     ETZHAYYIM_LANGSERVER_WORKSPACE — indexed workspace path
     ETZHAYYIM_LOG_DIR      — log directory
     ETZHAYYIM_LISTEN_ADDR  — address the wrapper binds to (set by L4/L5)
-    PATH                   — homebrew + system paths (matches magatama plist)
+    PATH                   — homebrew + system paths (matches kotodama plist)
 
   Process lifecycle:
     - RunAtLoad=true        — start on launchctl load (and at user login if installed

@@ -54,7 +54,7 @@ CLAUDE.md / deps.toml / ADR ごとに場当たり的な呼称 (〜server, 〜ser
 
 この drift が起きる理由は単純で、**AT Protocol の公式 9 分類の外側**に必然的に
 現れる役割を記述する語彙が定まっていないからである。既に ADR-0056 (BPMN-as-actor),
-ADR-0081 (worker-direct Hyperdrive), ADR-0087 (magatama MCP facade), ADR-0092
+ADR-0081 (worker-direct Hyperdrive), ADR-0087 (kotodama MCP facade), ADR-0092
 (every vertex as actor) と続けて「actor 的 Worker」を定義し続けているが、
 それらが **同じ層なのか別の層なのか** が言語化されていない。
 
@@ -88,7 +88,7 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 
 | # | Layer (正名) | 簡名 | 責務 | 登録要件 |
 |---|---|---|---|---|
-| 10 | **Actor Worker** (Agent-as-Service) | `actor-worker` | ヒューマン UI を持たない server-side actor。path-DID 保持 + `sdk.pds.createRecord` or Worker-direct Hyperdrive (ADR-0081) で書き込み。MCP capability を公開してよい (ADR-0087) | `com.etzhayyim.apps.<actor>.*` NSID 保持、`magatama.jsonld` 必須、domain collection のみ |
+| 10 | **Actor Worker** (Agent-as-Service) | `actor-worker` | ヒューマン UI を持たない server-side actor。path-DID 保持 + `sdk.pds.createRecord` or Worker-direct Hyperdrive (ADR-0081) で書き込み。MCP capability を公開してよい (ADR-0087) | `com.etzhayyim.apps.<actor>.*` NSID 保持、`kotodama.jsonld` 必須、domain collection のみ |
 | 11 | **Key Directory** (E2E Keystore) | `key-directory` | Signal/X3DH/MLS 系の prekey bundle + identity key publish + fetch | `com.etzhayyim.signal.*` 系 NSID、plaintext 鍵を server に持たない (published pubkey + wrapped のみ) |
 | 12 | **Secret Vault** (Zero-Knowledge Secret Manager) | `secret-vault` | encrypted secret storage。server は ciphertext + wrapped key のみ、plaintext は client/device key 経由でのみ復号 | `com.etzhayyim.vault.*` 系 NSID、Zero-Knowledge Invariant (CLAUDE.md root) 遵守 |
 | 13 | **Inference Fleet** | `inference-fleet` | LLM / vision / embedding inference の gateway + backing compute pool | `com.etzhayyim.apps.murakumo.*` / `com.etzhayyim.apps.ameno.*` 等、model id は `llm-model-registry.ts` SSoT |
@@ -237,5 +237,5 @@ Q8: BPMN / workflow dispatch か?
 - ADR-0024 authn/authz T4 split
 - ADR-0056 BPMN-as-actor (Layer 15 Process Orchestrator の源流)
 - ADR-0081 worker-direct Hyperdrive persistence (Layer 10 の書込 path)
-- ADR-0087 magatama MCP tool facade (Layer 10 の MCP 面)
+- ADR-0087 kotodama MCP tool facade (Layer 10 の MCP 面)
 - ADR-0092 every vertex as actor (Layer 10 の data-model 側)

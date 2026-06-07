@@ -139,7 +139,7 @@ def test_scan_empty_workspace(tmp_path):
 def test_scan_single_actor(tmp_path):
     app_dir = tmp_path / "60-apps" / "etzhayyim-project-billing" / "appview" / "app-abc"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc123",
         "did": "did:web:billing.etzhayyim.com",
         "name": "billing",
@@ -157,14 +157,14 @@ def test_scan_wasm_import_edges(tmp_path):
 
     a_dir = apps_dir / "proj-a" / "appview" / "app-a"
     a_dir.mkdir(parents=True)
-    (a_dir / "magatama.jsonld").write_text(json.dumps({
+    (a_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "aaaa",
         "witExports": ["billing-api"],
     }))
 
     b_dir = apps_dir / "proj-b" / "appview" / "app-b"
     b_dir.mkdir(parents=True)
-    (b_dir / "magatama.jsonld").write_text(json.dumps({
+    (b_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "bbbb",
         "witImports": ["billing-api"],
     }))
@@ -175,16 +175,16 @@ def test_scan_wasm_import_edges(tmp_path):
 
 
 def test_scan_dependency_edges(tmp_path):
-    """Explicit dependencies[] in magatama.jsonld create invoke edges."""
+    """Explicit dependencies[] in kotodama.jsonld create invoke edges."""
     apps_dir = tmp_path / "60-apps"
 
     hub = apps_dir / "proj-hub" / "appview" / "hub"
     hub.mkdir(parents=True)
-    (hub / "magatama.jsonld").write_text(json.dumps({"nanoid": "hub1"}))
+    (hub / "kotodama.jsonld").write_text(json.dumps({"nanoid": "hub1"}))
 
     leaf = apps_dir / "proj-leaf" / "appview" / "leaf"
     leaf.mkdir(parents=True)
-    (leaf / "magatama.jsonld").write_text(json.dumps({
+    (leaf / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "leaf1",
         "dependencies": ["hub1"],
     }))
@@ -197,7 +197,7 @@ def test_scan_dependency_edges(tmp_path):
 def test_scan_no_self_edges(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "self1",
         "witExports": ["api"],
         "witImports": ["api"],
@@ -228,7 +228,7 @@ def test_cli_haisen_text_empty(tmp_path):
 def test_cli_haisen_scan(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc123",
         "name": "test",
     }))
@@ -265,10 +265,10 @@ def test_cli_haisen_edges_type_filter(tmp_path):
     apps_dir = tmp_path / "60-apps"
     a = apps_dir / "pa" / "appview" / "a"
     a.mkdir(parents=True)
-    (a / "magatama.jsonld").write_text(json.dumps({"nanoid": "aaaa", "witExports": ["x"]}))
+    (a / "kotodama.jsonld").write_text(json.dumps({"nanoid": "aaaa", "witExports": ["x"]}))
     b = apps_dir / "pb" / "appview" / "b"
     b.mkdir(parents=True)
-    (b / "magatama.jsonld").write_text(json.dumps({"nanoid": "bbbb", "witImports": ["x"]}))
+    (b / "kotodama.jsonld").write_text(json.dumps({"nanoid": "bbbb", "witImports": ["x"]}))
 
     runner = CliRunner()
     result = runner.invoke(main, ["haisen", "edges", "--json", "--type", "wasm-import",

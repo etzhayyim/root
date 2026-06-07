@@ -21,7 +21,7 @@ depends_on:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605092200-continuous-metabolic-training
 related:
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
 supersedes: []
 superseded_by: []
 ---

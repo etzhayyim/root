@@ -29,7 +29,7 @@ from fastapi.responses import JSONResponse
 from langgraph.graph import END, START, StateGraph
 from typing_extensions import TypedDict
 
-from pymagatama.zeebe_worker_main import (
+from kotodama.zeebe_worker_main import (
     task_pd_color_audio_extract_timed_text,
     task_pd_color_audio_generate_dubbed_audio,
     task_pd_color_localization_translate_subtitles,

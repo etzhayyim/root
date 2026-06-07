@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	defaultServerImage = "ghcr.io/etzhayyim/magatama-server"
+	defaultServerImage = "ghcr.io/etzhayyim/kotodama-server"
 	defaultTarget      = "x86_64-unknown-linux-gnu"
 )
 
@@ -38,10 +38,10 @@ func runBuildServer(args []string) error {
 		return fmt.Errorf("cannot find git root: %w", err)
 	}
 	rustDir := filepath.Join(gitRoot, "packages", "rust")
-	magatamaDir := filepath.Join(rustDir, "magatama")
+	kotodamaDir := filepath.Join(rustDir, "kotodama")
 
-	if _, err := os.Stat(magatamaDir); err != nil {
-		return fmt.Errorf("magatama workspace not found at %s", magatamaDir)
+	if _, err := os.Stat(kotodamaDir); err != nil {
+		return fmt.Errorf("kotodama workspace not found at %s", kotodamaDir)
 	}
 
 	// Resolve tag — always timestamped (never `latest`)
@@ -51,8 +51,8 @@ func runBuildServer(args []string) error {
 	}
 	fullImage := *image + ":" + resolvedTag
 
-	// WIT version override: temporarily patch magatama.wit, restore after build.
-	witFile := filepath.Join(magatamaDir, "wit", "magatama.wit")
+	// WIT version override: temporarily patch kotodama.wit, restore after build.
+	witFile := filepath.Join(kotodamaDir, "wit", "kotodama.wit")
 	if *witVersion != "" {
 		origBytes, err := os.ReadFile(witFile)
 		if err != nil {
@@ -69,24 +69,24 @@ func runBuildServer(args []string) error {
 		fmt.Fprintf(os.Stderr, "==> WIT version overridden to %s (will restore after build)\n", *witVersion)
 	}
 
-	return buildServerZigbuild(magatamaDir, rustDir, fullImage, *target, *push)
+	return buildServerZigbuild(kotodamaDir, rustDir, fullImage, *target, *push)
 }
 
 // buildServerZigbuild uses `cargo zigbuild` to natively cross-compile for amd64, then builds a minimal Docker image.
-func buildServerZigbuild(magatamaDir, rustDir, fullImage, target string, push bool) error {
+func buildServerZigbuild(kotodamaDir, rustDir, fullImage, target string, push bool) error {
 	// Step 1: cargo zigbuild (sccache enabled via env)
-	fmt.Fprintf(os.Stderr, "==> RUSTC_WRAPPER=sccache cargo zigbuild --release --target %s -p magatama-server\n", target)
+	fmt.Fprintf(os.Stderr, "==> RUSTC_WRAPPER=sccache cargo zigbuild --release --target %s -p kotodama-server\n", target)
 	os.Setenv("RUSTC_WRAPPER", "sccache")
-	if err := runCmd(magatamaDir, "cargo", "zigbuild",
+	if err := runCmd(kotodamaDir, "cargo", "zigbuild",
 		"--release",
 		"--target", target,
-		"-p", "magatama-server",
+		"-p", "kotodama-server",
 	); err != nil {
 		return fmt.Errorf("cargo zigbuild failed: %w", err)
 	}
 
 	// Step 2: Locate binary
-	binaryPath := filepath.Join(magatamaDir, "target", target, "release", "magatama-server")
+	binaryPath := filepath.Join(kotodamaDir, "target", target, "release", "kotodama-server")
 	if _, err := os.Stat(binaryPath); err != nil {
 		return fmt.Errorf("binary not found at %s", binaryPath)
 	}
@@ -94,7 +94,7 @@ func buildServerZigbuild(magatamaDir, rustDir, fullImage, target string, push bo
 	fmt.Fprintf(os.Stderr, "==> binary: %s (%.1f MB)\n", binaryPath, float64(info.Size())/(1024*1024))
 
 	// Step 3: Docker build with Dockerfile (expects binary at fixed path)
-	dockerfilePath := filepath.Join(magatamaDir, "magatama-server", "Dockerfile")
+	dockerfilePath := filepath.Join(kotodamaDir, "kotodama-server", "Dockerfile")
 	if _, err := os.Stat(dockerfilePath); err != nil {
 		return fmt.Errorf("Dockerfile not found: %s", dockerfilePath)
 	}
@@ -121,8 +121,8 @@ func buildServerZigbuild(magatamaDir, rustDir, fullImage, target string, push bo
 	return nil
 }
 
-var witVersionRe = regexp.MustCompile(`package magatama:runtime@\d+\.\d+\.\d+;`)
+var witVersionRe = regexp.MustCompile(`package kotodama:runtime@\d+\.\d+\.\d+;`)
 
 func replaceWITVersion(content, version string) string {
-	return witVersionRe.ReplaceAllString(content, "package magatama:runtime@"+version+";")
+	return witVersionRe.ReplaceAllString(content, "package kotodama:runtime@"+version+";")
 }

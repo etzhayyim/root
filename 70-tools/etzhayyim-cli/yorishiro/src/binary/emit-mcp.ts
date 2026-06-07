@@ -17,7 +17,7 @@ export interface EmitArgs {
 }
 
 export function emitBinaryMcp(args: EmitArgs): { packageDir: string; files: string[] } {
-  const dir = join(args.repoRoot, "20-actors/magatama/mcp", `yorishiro-${args.name}-mcp`);
+  const dir = join(args.repoRoot, "40-engine/kotoba/crates/kotoba-kotodama/mcp", `yorishiro-${args.name}-mcp`);
   mkdirSync(join(dir, "src"), { recursive: true });
   const files: string[] = [];
   const w = (rel: string, body: string) => {
@@ -62,7 +62,7 @@ function renderPackage(args: EmitArgs): string {
       repository: {
         type: "git",
         url: "https://github.com/etzhayyim/root.git",
-        directory: `20-actors/magatama/mcp/yorishiro-${args.name}-mcp`,
+        directory: `40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp`,
       },
       homepage: "https://etzhayyim.com",
       keywords: ["mcp", "model-context-protocol", "etzhayyim", "yorishiro", args.name, "binary-cli"],
@@ -124,7 +124,7 @@ attempts are made.
   "mcpServers": {
     "etzhayyim-yorishiro-${args.name}": {
       "command": "node",
-      "args": ["/path/to/repo/20-actors/magatama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"]
+      "args": ["/path/to/repo/40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-${args.name}-mcp/src/cli.ts"]
     }
   }
 }

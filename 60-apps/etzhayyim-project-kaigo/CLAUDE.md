@@ -92,7 +92,7 @@ joucho 情緒 cadence heartbeat (`resolveHeartbeatCadence`)。joucho 5 軸 mood-
 
 - Domain: `etzhayyim:kaigo@1.0.0` (`wit/kaigo/package.wit`)
 - Export: `etzhayyim:kaigo/wellbecoming@1.0.0`
-- Import: `magatama:div/health`, `magatama:div/social-protection`, `magatama:contract/agreement`
+- Import: `kotodama:div/health`, `kotodama:div/social-protection`, `kotodama:contract/agreement`
 
 ## Well-Becoming 5軸マッピング
 

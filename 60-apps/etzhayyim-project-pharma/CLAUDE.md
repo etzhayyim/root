@@ -60,7 +60,7 @@ OTC 医薬品通販プラットフォーム (pharma.etzhayyim.com). 薬機法コ
 - 購入数量制限: `max_per_order` / `max_per_month` で制御
 - 監査ログ: 全コンプライアンスイベントを `pharma_audit_log` に記録
 
-## Magatama KV Buckets + SQL (11)
+## Kotodama KV Buckets + SQL (11)
 
 | Bucket | 用途 |
 |--------|------|
@@ -76,6 +76,6 @@ OTC 医薬品通販プラットフォーム (pharma.etzhayyim.com). 薬機法コ
 | `pharma-agent-activity` | エージェントアクティビティログ |
 | `pharma-suppliers` | サプライヤーマスタ |
 
-Write path: `kvPutJSON(bucket, key, value)` → magatama KV.
-Read (by key): `kvGetJSON(bucket, key, &dst)` → magatama KV.
-Read (list/filter): `appSql(stmt, params)` → magatama SQL WIT.
+Write path: `kvPutJSON(bucket, key, value)` → kotodama KV.
+Read (by key): `kvGetJSON(bucket, key, &dst)` → kotodama KV.
+Read (list/filter): `appSql(stmt, params)` → kotodama SQL WIT.

@@ -101,7 +101,7 @@ def test_dodaf_scan_empty(tmp_path):
 def test_dodaf_scan_with_actors(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc", "name": "test", "performerType": "actor"
     }))
     runner = CliRunner()
@@ -246,7 +246,7 @@ def test_kagami_local_empty(tmp_path):
 def test_kagami_local_with_actors(tmp_path):
     app_dir = tmp_path / "60-apps" / "proj" / "appview" / "app"
     app_dir.mkdir(parents=True)
-    (app_dir / "magatama.jsonld").write_text(json.dumps({
+    (app_dir / "kotodama.jsonld").write_text(json.dumps({
         "nanoid": "abc123", "name": "billing", "performerType": "actor"
     }))
     runner = CliRunner()

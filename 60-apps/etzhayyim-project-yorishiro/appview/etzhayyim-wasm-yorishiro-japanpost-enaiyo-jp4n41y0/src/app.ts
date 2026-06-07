@@ -22,7 +22,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Yorishiro — 日本郵便 電子内容証明 (e-naiyo) adapter

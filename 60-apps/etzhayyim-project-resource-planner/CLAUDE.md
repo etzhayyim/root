@@ -2,7 +2,7 @@
 
 Inngest event-driven resource planner. user_id/org_id スコープでリソースを ingestion し、活動に最適な resource allocation plan を生成する。
 
-## Architecture: API-Only Component + Magatama Static Delivery
+## Architecture: API-Only Component + Kotodama Static Delivery
 
 - 静的アセット (`svelte/build/`) → App fileserver `rp.etzhayyim.com`
 - App → API only (XRPC-Web)

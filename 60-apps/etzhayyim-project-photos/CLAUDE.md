@@ -68,6 +68,6 @@
 ├── wit/photos/package.wit           # Domain WIT capability
 └── wasm/etzhayyim-wasm-photos-krtjlccu/
     ├── src/app.ts                    # TS Native — Design E reactive pipeline
-    ├── magatama.jsonld
+    ├── kotodama.jsonld
     └── wit/world.wit                # Component WIT (contract + capability export)
 ```

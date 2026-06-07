@@ -11,7 +11,7 @@ import {
   withCapabilityTags,
   withOCELEvent,
   resolveHeartbeatCadence, createCadenceState, createInboxBuffer, nowISO, str, llmAsk, type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();

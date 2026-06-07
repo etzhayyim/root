@@ -88,7 +88,7 @@ BPMN timer retries the whole job (idempotent on `proposalId`).
 ### Dependency
 
 ```toml
-# 20-actors/magatama/py/pyproject.toml additions
+# 40-engine/kotoba/crates/kotoba-kotodama/py/pyproject.toml additions
 langgraph = ">=0.2"
 langchain-anthropic = ">=0.3"
 resend = ">=2.0"

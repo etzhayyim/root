@@ -381,7 +381,7 @@ Signal Protocol E2E のためサーバー側でのコンテンツ復号は不可
 
 ### Phase 1: MVP — WebRTC + Telnyx (8 weeks)
 
-- App (main.go) + WIT + magatama.jsonld
+- App (main.go) + WIT + kotodama.jsonld
 - Telnyx SIP trunk integration
 - Telnyx Number API: 番号自動プロビジョニング
 - Telnyx Wireless API: eSIM プロビジョニング

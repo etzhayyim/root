@@ -41,7 +41,7 @@ form across ten `kami-*` crates, plus the first wasm32 demonstrator
 (`kami-cartpole-wasm`, 485KB) proving the Omniverse / Isaac Sim / PhysX / OpenUSD
 API facade compiles end-to-end on WebGPU. R1.1 for the e7m-sim sub-charter
 landed Cartpole closed-form dynamics in `kami-genesis` plus the URDF parser in
-`kami-articulated` and the Python facade in `pymagatama.nv_compat.*`.
+`kami-articulated` and the Python facade in `kotodama.nv_compat.*`.
 
 What remained missing was a **user-playable surface** that exercises the full
 facade — OpenUSD scene parsing + PhysX-shaped articulation execution + an SDK
@@ -147,7 +147,7 @@ round-trip) + Default button + HUD pulling from
 `v2.htm` / `v3-demos.htm` publishes `omniverse.htm`. WASM artifacts are
 re-published to `svelte/static/v2/`.
 
-The wrangler worker name + routes (`magatama-is3k41w0`,
+The wrangler worker name + routes (`kotodama-is3k41w0`,
 `is3k41w0.etzhayyim.com/*` / `isekcom.etzhayyim.ai/*`) are unchanged. No new
 Cloudflare resources, no DNS change.
 

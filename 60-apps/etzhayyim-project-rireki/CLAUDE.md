@@ -17,7 +17,7 @@
 
 - JIS 規格準拠の履歴書テンプレート
 - 職務経歴書 (Chronological / Functional)
-- セクション単位の自動保存 (magatama WIT)
+- セクション単位の自動保存 (kotodama WIT)
 - AI 文面アシスト (志望動機・自己PR)
 - 顔写真アップロード (Nata Blob API)
 - PDF エクスポート (サーバーサイド生成)

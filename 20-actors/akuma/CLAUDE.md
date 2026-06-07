@@ -10,7 +10,7 @@ ADR-2605151400 が SSoT。
 | **Runtime** | K8s LangServer pod (`ak0m4r3d`) |
 | **Edge** | SvelteKit CF Worker proxy (no business logic; ADR-2605111200) |
 | **Probe execution** | K8s namespace `akuma-probe` with egress NetworkPolicy reconciled from active scopes |
-| **External surface** | magatama MCP facade only (ADR-2605091400 cytoplasmic demotion) |
+| **External surface** | kotodama MCP facade only (ADR-2605091400 cytoplasmic demotion) |
 | **Persistence** | `vertex_akuma_scope`, `vertex_akuma_probe`, `vertex_akuma_finding`, `vertex_akuma_audit` (append-only; no soft delete) |
 | **Vault** | finding raw payloads ciphertext-stored in `vault.etzhayyim.com` (zero-knowledge invariant) |
 | **Operating entity** | etzhayyim (etzhayyim Japan = vendor only) |
@@ -88,7 +88,7 @@ until the human-driven steps below are executed:
    `etzhayyim Japan株式会社`); publish `AUTHORITY_SIGNING_KEY_PUBLIC` at
    `https://akuma.etzhayyim.com/.well-known/did.json` `verificationMethod`.
 2. **K8s apply**: `rw-health-gate.sh` then `kubectl apply -k 50-infra/k8s/akuma-langserver/`.
-   Implement `pymagatama.akuma.scope_egress_reconciler` per pseudo-code in
+   Implement `kotodama.akuma.scope_egress_reconciler` per pseudo-code in
    `50-infra/k8s/akuma-langserver/README.md` before reconciler image is built.
 3. **Migration**: `pnpm db:migrate` (or psycopg2 phased apply per CLAUDE.md
    "Multi-Head Alembic Workaround"). Migration file:

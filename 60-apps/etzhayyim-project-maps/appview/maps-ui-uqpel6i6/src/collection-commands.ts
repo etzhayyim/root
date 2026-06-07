@@ -5,7 +5,7 @@ import {
   str, nowISO, genID, nsid, parseLexiconInput,
   sql,
   type HostSDK,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 import { projectToVertexSpatial } from "./vertex-spatial-projection";
 
 // ── Local helpers (self-contained) ───────────────────────────────────────
@@ -884,7 +884,7 @@ async function runGleif(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, maxRe
 
 async function runMapillary(ctx: Ctx, job: MapsJobRow, _coverageLabel: string, maxRecords: number): Promise<number> {
   // Mapillary v4 Graph API — https://graph.mapillary.com/images
-  // Requires MAPILLARY_ACCESS_TOKEN from env (configured in magatama.jsonld).
+  // Requires MAPILLARY_ACCESS_TOKEN from env (configured in kotodama.jsonld).
   const token = (ctx.sdk.env as any)?.MAPILLARY_ACCESS_TOKEN;
   if (!token) throw new Error("MAPILLARY_ACCESS_TOKEN missing in env");
   // Mapillary bbox must be tiny (few km²) — 500 error otherwise. Shrink

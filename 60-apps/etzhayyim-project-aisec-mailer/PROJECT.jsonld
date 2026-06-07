@@ -3,7 +3,7 @@
   "@type": "Project",
   "name": "Autonomous Intelligence Mail Gateway (AI-SEC Mailer)",
   "status": "Active",
-  "identifier": "ai-gftd-project-aisec-mailer",
+  "identifier": "etzhayyim-project-aisec-mailer",
   "description": "A fully autonomous secure mail gateway that uses AI to intercept targeted attacks and BEC (Business Email Compromise) with zero human intervention. Target: 100B JPY Monthly Revenue.",
   "marketInsights": {
     "@type": "Observation",
@@ -16,14 +16,14 @@
     "name": "BEC Attack Prevented",
     "description": "Intercepted and quarantined a high-risk email from ceo@competitor.com",
     "riskScore": 0.85,
-    "recordedIn": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-entity-party-person-uayubgjy"
+    "recordedIn": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-entity-party-person-uayubgjy"
   },
   "automatedActivities": [
     {
       "name": "Initial Customer Onboarding",
-      "customer": "gftdcojp",
+      "customer": "etzhayyim",
       "status": "Active",
-      "auditReport": "projects/ai-gftd-project-aisec-mailer/AUDIT-GFTD-AI.jsonld"
+      "auditReport": "projects/etzhayyim-project-aisec-mailer/AUDIT-ETZHAYYIM-AI.jsonld"
     },
     {
       "name": "Market Scanning",
@@ -36,7 +36,7 @@
       "triggeredBy": "BEC Attack Prevented"
     }
   ],
-  "parentProject": "https://gftd.ai/projects/ai-gftd-apps-gftdcojp",
+  "parentProject": "https://etzhayyim.com/projects/etzhayyim-apps-etzhayyim",
   "targetRevenue": {
     "@type": "MonetaryAmount",
     "currency": "JPY",
@@ -59,24 +59,24 @@
     {
       "@type": "Service",
       "name": "Growth Engine Actor",
-      "identifier": "ai-gftd-project-aisec-mailer-growth-engine",
-      "url": "https://1.gftd.ai/growth.v1.GrowthService",
+      "identifier": "etzhayyim-project-aisec-mailer-growth-engine",
+      "url": "https://1.etzhayyim.com/growth.v1.GrowthService",
       "status": "Active"
     },
     {
       "@type": "Service",
       "name": "Email Intelligence Proc",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
     },
     {
       "@type": "Service",
       "name": "Outlook Integration Proc",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-8-3-outlook-integration-oi2f3g4h"
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-8-3-outlook-integration-oi2f3g4h"
     },
     {
       "@type": "Service",
       "name": "SMTP Mailer Service",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-sys-cpc-841-ietf-smtp-mailer-p33vfk2u"
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-sys-cpc-841-ietf-smtp-mailer-p33vfk2u"
     }
   ],
   "rdfUnifiedDocuments": {
@@ -85,11 +85,11 @@
     "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
     "documents": [
       {
-        "fileName": "AUDIT-GFTD-AI.jsonld",
+        "fileName": "AUDIT-ETZHAYYIM-AI.jsonld",
         "content": {
           "@context": "https://schema.org/",
           "@type": "AuditReport",
-          "name": "Autonomous Security Audit: gftd.ai",
+          "name": "Autonomous Security Audit: etzhayyim.com",
           "datePublished": "2026-01-20",
           "author": {
             "@type": "Organization",
@@ -97,8 +97,8 @@
           },
           "about": {
             "@type": "Organization",
-            "name": "gftdcojp",
-            "url": "https://gftd.ai"
+            "name": "etzhayyim",
+            "url": "https://etzhayyim.com"
           },
           "auditResult": [
             {
@@ -127,15 +127,15 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/",
+            "etzhayyim": "https://etzhayyim.com/schemas/",
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aisec-mailer/strategy/growth",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aisec-mailer/strategy/growth",
           "type": "dodaf:Strategy",
           "dct:title": "AI-SEC Mailer: Autonomous Growth Strategy (Design, Sales, Marketing)",
           "dct:description": "Strategic framework for zero-human growth through autonomous agents.",
-          "gftd:growth_loop": [
+          "etzhayyim:growth_loop": [
             {
               "step": "1. Market Intelligence",
               "activity": "Find companies with vulnerable email configurations (e.g., weak SPF/DKIM/DMARC) using Browser Automation.",
@@ -165,15 +165,15 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://gftd.ai/schemas/",
+            "etzhayyim": "https://etzhayyim.com/schemas/",
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aisec-mailer/strategy",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aisec-mailer/strategy",
           "type": "dodaf:Strategy",
           "dct:title": "AI-SEC Mailer: 100B JPY Autonomous Growth Strategy",
           "dct:description": "Strategy to achieve 100B JPY monthly revenue by automating email security for 20M users with zero human operations.",
-          "gftd:phases": [
+          "etzhayyim:phases": [
             {
               "name": "Phase 1: Zero-Touch Onboarding",
               "focus": "Enable instant subscription via Stripe Payment Links. No sales team, no manual invoicing.",
@@ -195,7 +195,7 @@
               ]
             }
           ],
-          "gftd:monetization": {
+          "etzhayyim:monetization": {
             "model": "SaaS Subscription",
             "pricePerUser": "500 JPY/month",
             "targetUsers": 200000000,
@@ -213,7 +213,7 @@
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aisec-mailer/activities/growth",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aisec-mailer/activities/growth",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Operational Activities (OV-5b) for Autonomous Growth",
           "dct:description": "Growth loop activities for AI-SEC Mailer.",
@@ -245,14 +245,14 @@
               "name": "Implement Lookalike Domain Detection",
               "description": "Enhanced security feature triggered by BEC Observation 0.85.",
               "status": "In Development",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
             },
             {
               "id": "activity:ops:autonomous_provisioning",
               "type": "dodaf:OperationalActivity",
               "name": "Autonomous Tenant Provisioning",
               "description": "Trigger GitOps deployment of customer-specific security actors upon Stripe payment confirmation.",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-1-1-growth-engine"
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-1-1-growth-engine"
             }
           ]
         }
@@ -267,7 +267,7 @@
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aisec-mailer/activities",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aisec-mailer/activities",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Operational Activities (OV-5b) for AI-SEC Mailer",
           "dct:description": "Operational flow for autonomous email security gateway.",
@@ -277,14 +277,14 @@
               "type": "dodaf:OperationalActivity",
               "name": "Real-time Mail Interception",
               "apqcId": "8.3",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-8-3-outlook-integration-oi2f3g4h"
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-8-3-outlook-integration-oi2f3g4h"
             },
             {
               "id": "activity:mail:analyze",
               "type": "dodaf:OperationalActivity",
               "name": "AI Content Intelligence Analysis",
               "apqcId": "3.1.2",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
             },
             {
               "id": "activity:mail:filter_action",
@@ -297,7 +297,7 @@
               "type": "dodaf:OperationalActivity",
               "name": "Secure Final Delivery",
               "apqcId": "12.3.1",
-              "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-sys-cpc-841-ietf-smtp-mailer-p33vfk2u"
+              "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-sys-cpc-841-ietf-smtp-mailer-p33vfk2u"
             }
           ]
         }
@@ -311,17 +311,17 @@
             "id": "@id",
             "type": "@type"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-aisec-mailer/capabilities",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aisec-mailer/capabilities",
           "type": "dodaf:Capability",
           "dct:title": "AI-SEC Mailer Capabilities",
           "dct:description": "Security capabilities for autonomous email protection and delivery.",
-          "gftd:capability_hierarchy": [
+          "etzhayyim:capability_hierarchy": [
             {
               "id": "cap:mail:autonomous_filtering",
               "name": "Autonomous Threat Filtering",
               "description": "Ability to analyze and block 100% of malicious emails using AI intelligence without human review.",
               "actors": [
-                "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
+                "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-3-1-2-intelligence-email-epb47ybv"
               ]
             },
             {
@@ -329,7 +329,7 @@
               "name": "Enterprise Mail Integration",
               "description": "Seamless integration with Microsoft 365/Outlook for real-time mail interception.",
               "actors": [
-                "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-8-3-outlook-integration-oi2f3g4h"
+                "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-8-3-outlook-integration-oi2f3g4h"
               ]
             },
             {
@@ -337,7 +337,7 @@
               "name": "Secure SMTP Delivery",
               "description": "High-reliability mail transmission with automatic cryptographic signing and verification.",
               "actors": [
-                "ai-gftd-performer-sys-gftd-actors-pba7d22f-sys-cpc-841-ietf-smtp-mailer-p33vfk2u"
+                "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-sys-cpc-841-ietf-smtp-mailer-p33vfk2u"
               ]
             }
           ]
@@ -349,24 +349,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
           "name": "Autonomous Intelligence Mail Gateway (AI-SEC Mailer) Scheduler",
-          "identifier": "ai-gftd-project-aisec-mailer/scheduler",
+          "identifier": "etzhayyim-project-aisec-mailer/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],

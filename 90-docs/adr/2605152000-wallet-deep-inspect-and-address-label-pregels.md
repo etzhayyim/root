@@ -226,8 +226,8 @@ Key change: **never classify as "bridge" without explicit bridge address DB hit 
 - `_working/malak/bitnest-exit-20260515-phase1-live/bsc_unknown_deep_label.py` retained as historical artifact. Deep-label workflow migrates to `address_label_pursuit` Pregel.
 - `bsc_operator_tx_detail.py` retained as historical artifact. Tx-detail workflow migrates to `wallet_deep_inspect_pursuit` Pregel.
 - New module paths:
-  - `20-actors/magatama/py/src/pymagatama/malak/langgraph/wallet_deep_inspect_pursuit.py`
-  - `20-actors/magatama/py/src/pymagatama/malak/langgraph/address_label_pursuit.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/langgraph/wallet_deep_inspect_pursuit.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/malak/langgraph/address_label_pursuit.py`
 - New XRPC lexicons:
   - `00-contracts/lexicons/com/etzhayyim/apps/malak/walletDeepInspect.json`
   - `00-contracts/lexicons/com/etzhayyim/apps/malak/addressLabelBatch.json`

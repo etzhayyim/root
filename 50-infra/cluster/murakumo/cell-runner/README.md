@@ -1,25 +1,25 @@
-# magatama-cell-runner — Murakumo Mac-mini Resident Daemon
+# kotodama-cell-runner — Murakumo Mac-mini Resident Daemon
 
 Per [ADR-2605192415](../../../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) §7.1 (Religious-Corp Daemon Architecture — Tier 1 launchd 常駐).
 
-Each Mac mini in the [etzhayyim Murakumo fleet](../../../murakumo/fleet.toml) runs `magatama-cell-runner` as a **launchd LaunchAgent**. The runner reads `fleet.toml` to decide which religious-corp + kuni-umi cells to host on its node and supervises them as managed subprocesses.
+Each Mac mini in the [etzhayyim Murakumo fleet](../../../murakumo/fleet.toml) runs `kotodama-cell-runner` as a **launchd LaunchAgent**. The runner reads `fleet.toml` to decide which religious-corp + kuni-umi cells to host on its node and supervises them as managed subprocesses.
 
 ## Status (2026-05-20)
 
 - ✅ launchd plist template + install / uninstall scripts (this directory)
-- ✅ `magatama-cell-runner` CLI shipped (`20-actors/magatama/py/src/pymagatama/cell_runner_main.py` + `[project.scripts]` entry in pyproject.toml)
+- ✅ `kotodama-cell-runner` CLI shipped (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py` + `[project.scripts]` entry in pyproject.toml)
 - ✅ 5 / 15 religious-corp cells have `cell.py` (CharterAttestationRequest / LandDonationProcessing / EthicsContentClassifier / TitheRouting / CouncilDeliberation)
 - ⚠️ 10 / 15 religious-corp cells still scaffold-only (no `cell.py`)
 - ⚠️ 0 / 6 kuni-umi cells have `cell.py` ([ADR-2605201400](../../../../90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md) and S1–S5 are spec-only)
 - ⚠️ `start_cell` in `cell_runner_main.py` is a logging-only scaffold — does not yet spawn subprocesses, register MST listener, or expose healthz
 
-So this directory ships **the OS-level boot path** (launchd → uv → magatama-cell-runner). What the runner *does* once running is a separate maturity track tracked in ADR-2605192415 §S0–S11 roadmap.
+So this directory ships **the OS-level boot path** (launchd → uv → kotodama-cell-runner). What the runner *does* once running is a separate maturity track tracked in ADR-2605192415 §S0–S11 roadmap.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| [`com.etzhayyim.magatama-cell-runner.plist`](com.etzhayyim.magatama-cell-runner.plist) | launchd plist template with `@@PLACEHOLDERS@@` |
+| [`com.etzhayyim.kotodama-cell-runner.plist`](com.etzhayyim.kotodama-cell-runner.plist) | launchd plist template with `@@PLACEHOLDERS@@` |
 | [`install.sh`](install.sh) | Per-host installer — substitutes placeholders, loads via launchctl |
 | [`uninstall.sh`](uninstall.sh) | Unload + remove plist |
 
@@ -41,10 +41,10 @@ The installer:
 1. Validates `--node` is one of the 12 tribes (`naphtali` / `simeon` / `judah` / `zebulun` / `levi` / `joseph` / `issachar` / `dan` / `benjamin` / `asher`)
 2. Resolves repo path (default = 4 levels up from the script)
 3. Resolves the `uv` binary
-4. Runs `uv sync` to ensure the pymagatama venv is ready
-5. Runs `magatama-cell-runner --node <NODE> --health` as a pre-flight check (config readback)
+4. Runs `uv sync` to ensure the kotodama venv is ready
+5. Runs `kotodama-cell-runner --node <NODE> --health` as a pre-flight check (config readback)
 6. Materialises the plist with placeholders substituted (no `@@…@@` survives)
-7. Writes `~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist`
+7. Writes `~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist`
 8. Issues `launchctl load`
 9. Verifies the service registered a PID
 
@@ -68,25 +68,25 @@ The runner reads [`50-infra/murakumo/fleet.toml`](../../../murakumo/fleet.toml) 
 To change assignments, edit `fleet.toml` and reload:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist
-launchctl load   ~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist
+launchctl unload ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist
+launchctl load   ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist
 ```
 
 ## Operational commands
 
 | What | Command |
 |---|---|
-| Status | `launchctl list \| grep magatama-cell-runner` |
-| stdout | `tail -f ~/.etzhayyim/log/magatama-cell-runner.stdout.log` |
-| stderr | `tail -f ~/.etzhayyim/log/magatama-cell-runner.stderr.log` |
-| Manual run | `cd 20-actors/magatama/py && uv run magatama-cell-runner --node <NODE>` |
-| Health probe (offline) | `cd 20-actors/magatama/py && uv run magatama-cell-runner --node <NODE> --health` |
-| Reload | `launchctl unload ~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist && launchctl load ~/Library/LaunchAgents/com.etzhayyim.magatama-cell-runner.plist` |
+| Status | `launchctl list \| grep kotodama-cell-runner` |
+| stdout | `tail -f ~/.etzhayyim/log/kotodama-cell-runner.stdout.log` |
+| stderr | `tail -f ~/.etzhayyim/log/kotodama-cell-runner.stderr.log` |
+| Manual run | `cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv run kotodama-cell-runner --node <NODE>` |
+| Health probe (offline) | `cd 40-engine/kotoba/crates/kotoba-kotodama/py && uv run kotodama-cell-runner --node <NODE> --health` |
+| Reload | `launchctl unload ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist && launchctl load ~/Library/LaunchAgents/com.etzhayyim.kotodama-cell-runner.plist` |
 | Uninstall | `./uninstall.sh` |
 
 ## Fleet roll-out (10 Mac minis)
 
-The deploy script in [`20-actors/first-breath/deploy.sh`](../../../../20-actors/first-breath/deploy.sh) (used for the cell-fleet heartbeat anchor per ADR-2605171800) is the closest existing pattern, but it deploys a different daemon. For magatama-cell-runner, the per-node sequence is:
+The deploy script in [`20-actors/first-breath/deploy.sh`](../../../../20-actors/first-breath/deploy.sh) (used for the cell-fleet heartbeat anchor per ADR-2605171800) is the closest existing pattern, but it deploys a different daemon. For kotodama-cell-runner, the per-node sequence is:
 
 ```bash
 # From a control machine with ssh access to the tribe Mac mini:
@@ -104,11 +104,11 @@ A fleet-wide deploy script (`./deploy-fleet.sh --tribes naphtali,simeon,judah,ze
 
 ## What the runner does NOT yet do
 
-The runner's `start_cell` function (in [`20-actors/magatama/py/src/pymagatama/cell_runner_main.py`](../../../../20-actors/magatama/py/src/pymagatama/cell_runner_main.py)) currently:
+The runner's `start_cell` function (in [`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py`](../../../../40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/cell_runner_main.py)) currently:
 
 - ✅ Reads `fleet.toml`
 - ✅ Maps node name → assigned cells
-- ✅ Maps cell name → directory under `20-actors/magatama/cells/`
+- ✅ Maps cell name → directory under `40-engine/kotoba/crates/kotoba-kotodama/cells/`
 - ✅ Checks `cell.py` existence + logs warning if missing
 - ❌ Does NOT spawn the cell as a subprocess
 - ❌ Does NOT connect MstCheckpointSaver sidecar

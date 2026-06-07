@@ -40,7 +40,7 @@ preview); W2 will optionally split into per-speech granular
 observations via ``granularity="speech"`` opt.
 
 Normalized NDJSON consumable by
-``pymagatama.organism.sensors.gov.jp_kokkai_kaigiroku_sensor.JpKokkaiKaigirokuSensor``:
+``kotodama.organism.sensors.gov.jp_kokkai_kaigiroku_sensor.JpKokkaiKaigirokuSensor``:
 
   {"recordId": "121705254X02320250121",
    "sessionDateUtc": "2025-01-21T00:00:00Z",

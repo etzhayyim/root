@@ -24,13 +24,13 @@ workers, Kotoba/Datomic, and B2 evidence instead.
 
 ## AFG
 
-- Worker `magatama-g0vafg01` was deleted after its k8s/BPMN/RW coverage gate
+- Worker `kotodama-g0vafg01` was deleted after its k8s/BPMN/RW coverage gate
   was green.
 - No rollback was required.
 
 ## ZAF
 
-- Worker `magatama-g0vzaf01` was deleted from Cloudflare.
+- Worker `kotodama-g0vzaf01` was deleted from Cloudflare.
 - Post-delete Cloudflare check returned `This Worker does not exist on your
   account [10007]`, confirming deletion.
 - Routes retired with the Worker:
@@ -39,7 +39,7 @@ workers, Kotoba/Datomic, and B2 evidence instead.
 
 ZAF replacement path:
 
-- Python Zeebe worker module: `pymagatama.primitives.gov_zaf`.
+- Python Zeebe worker module: `kotodama.primitives.gov_zaf`.
 - BPMN contracts: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govZaf/*.bpmn`.
 - Lexicons: `00-contracts/lexicons/com/etzhayyim/govZaf/*.json`.
 - Registry migration:
@@ -101,9 +101,9 @@ monitored through `SHOW JOBS`, `SHOW INDEXES`, and `EXPLAIN`.
 
 | country | worker | status | deletion evidence |
 |---|---|---|---|
-| AFG | `magatama-g0vafg01` | deleted | prior green gate + successful delete |
-| ZAF | `magatama-g0vzaf01` | deleted | Cloudflare API reports Worker missing |
-| AGO | `magatama-g0vago01` | deleted | Cloudflare API reports Worker missing |
+| AFG | `kotodama-g0vafg01` | deleted | prior green gate + successful delete |
+| ZAF | `kotodama-g0vzaf01` | deleted | Cloudflare API reports Worker missing |
+| AGO | `kotodama-g0vago01` | deleted | Cloudflare API reports Worker missing |
 
 # Next Candidate
 
@@ -111,7 +111,7 @@ Candidate selected for the next one-by-one migration: Angola.
 
 Worker:
 
-- `magatama-g0vago01`
+- `kotodama-g0vago01`
 - routes:
   - `g0vago01.etzhayyim.com/*`
   - `ago-state.etzhayyim.com/*`
@@ -126,7 +126,7 @@ Official-source anchors selected for AGO:
 
 Implementation started:
 
-- Python Zeebe worker module: `pymagatama.primitives.gov_ago`.
+- Python Zeebe worker module: `kotodama.primitives.gov_ago`.
 - BPMN contracts: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govAgo/*.bpmn`.
 - Lexicons: `00-contracts/lexicons/com/etzhayyim/govAgo/*.json`.
 - Registry migration:
@@ -148,7 +148,7 @@ AGO deletion sequence:
 3. ingested page/WET/WAT/gyotaku evidence for the three official pages;
 4. ran `pnpm --dir 30-graph/graph-schema verify:gov-ago`;
 5. confirmed Cloudflare deployment existed;
-6. deleted `magatama-g0vago01`;
+6. deleted `kotodama-g0vago01`;
 7. confirmed Cloudflare API reports the Worker missing;
 8. re-ran `verify:gov-ago` after deletion.
 
@@ -185,7 +185,7 @@ orgSeeds: ministry=24 state=21
 
 AGO deletion result:
 
-- `pnpm exec wrangler delete magatama-g0vago01 --force` completed
+- `pnpm exec wrangler delete kotodama-g0vago01 --force` completed
   successfully.
 - Post-delete Cloudflare check returned `This Worker does not exist on your
   account [10007]`.

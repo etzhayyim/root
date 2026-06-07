@@ -29,9 +29,9 @@ superseded_by: []
 
 # Context
 
-`deai.etzhayyim.com` is a vendor project (etzhayyim/etzhayyim-root) that landed 2026-05-17 (post-Tranche-F catalog freeze). Its `magatama.jsonld` declares `profile.operator = "etzhayyim"` but the project lives in vendor 60-apps, not etzhayyim/root.
+`deai.etzhayyim.com` is a vendor project (etzhayyim/etzhayyim-root) that landed 2026-05-17 (post-Tranche-F catalog freeze). Its `kotodama.jsonld` declares `profile.operator = "etzhayyim"` but the project lives in vendor 60-apps, not etzhayyim/root.
 
-The 2026-05-21 post-freeze 3-axis audit (vendor PR #1339 `tranche-f-post-freeze-7-actors-audit-2026-05-21`) flagged deai for **Council Lv6+ ruling** because the 3-axis OR-test verdict and the magatama-declared operator contradict.
+The 2026-05-21 post-freeze 3-axis audit (vendor PR #1339 `tranche-f-post-freeze-7-actors-audit-2026-05-21`) flagged deai for **Council Lv6+ ruling** because the 3-axis OR-test verdict and the kotodama-declared operator contradict.
 
 ## Project shape
 
@@ -50,7 +50,7 @@ The 2026-05-21 post-freeze 3-axis audit (vendor PR #1339 `tranche-f-post-freeze-
 | Custody | Heavy PII (emotion data, biometric scores, Spirit Type assessment, message content). Data flows to external research SSoT (spirit-in-physics.com). | **HIT** |
 | Settlement | Participation incentive (no fiat billing visible in current spec). | clean |
 
-**Default verdict per ADR-2605172400 rules**: 2 of 3 HIT → vendor confirmed. The `operator: etzhayyim` declaration in magatama.jsonld is **inconsistent with the default verdict** and triggers Council escalation.
+**Default verdict per ADR-2605172400 rules**: 2 of 3 HIT → vendor confirmed. The `operator: etzhayyim` declaration in kotodama.jsonld is **inconsistent with the default verdict** and triggers Council escalation.
 
 # Decision
 
@@ -72,15 +72,15 @@ etzhayyim takes over as operator-of-record. Project moves to etzhayyim/root per 
 
 ### Disposition B — SPLIT (lexicons → etz, runtime → vendor)
 
-Like dougaka SPLIT pattern (ADR-2605172400 C-group). Lexicons + spec land in etzhayyim as the open contract; PII handling stays vendor under Stripe/GDPR/IRB compliance regime. Magatama `operator` field corrected to `etzhayyim.com`. etzhayyim references deai lexicons in catalog but does not run the actor.
+Like dougaka SPLIT pattern (ADR-2605172400 C-group). Lexicons + spec land in etzhayyim as the open contract; PII handling stays vendor under Stripe/GDPR/IRB compliance regime. Kotodama `operator` field corrected to `etzhayyim.com`. etzhayyim references deai lexicons in catalog but does not run the actor.
 
-**Implies**: lexicon copy to etzhayyim + vendor magatama operator field correction. No runtime move.
+**Implies**: lexicon copy to etzhayyim + vendor kotodama operator field correction. No runtime move.
 
-### Disposition C — Vendor confirmed (correct the magatama declaration)
+### Disposition C — Vendor confirmed (correct the kotodama declaration)
 
-Treat the `operator: etzhayyim` declaration as a misconfiguration. Apply default 3-axis verdict (2 HIT → vendor). Correct vendor magatama to `operator: etzhayyim.com`. Add Tranche F per-actor classification entry locking deai to vendor.
+Treat the `operator: etzhayyim` declaration as a misconfiguration. Apply default 3-axis verdict (2 HIT → vendor). Correct vendor kotodama to `operator: etzhayyim.com`. Add Tranche F per-actor classification entry locking deai to vendor.
 
-**Implies**: vendor magatama amendment + Tranche F entry. No etzhayyim-side artifact.
+**Implies**: vendor kotodama amendment + Tranche F entry. No etzhayyim-side artifact.
 
 ## Council questions to rule on
 
@@ -115,18 +115,18 @@ Per ADR-2605172400 Re-judgment triggers:
 
 - Vendor retains all PII handling + research-data forwarding
 - etzhayyim catalog gains 7 lexicons (open spec)
-- Magatama `operator` field corrected to `etzhayyim.com`
+- Kotodama `operator` field corrected to `etzhayyim.com`
 - No runtime change
 
 ## If Disposition C (vendor confirmed)
 
-- Magatama `operator` field corrected to `etzhayyim.com`
+- Kotodama `operator` field corrected to `etzhayyim.com`
 - Add to vendor `tranche-f-vendor-confirmed-actors-closure-*` next bulk closure
 - No etzhayyim-side artifact
 
 ## Default (no ruling within 30 days)
 
-If Council does not rule by 2026-06-20, default to Disposition C (vendor confirmed, magatama correction). This preserves vendor liability shielding and matches the 3-axis default verdict. The ruling can later upgrade to A or B if charter clarification lands.
+If Council does not rule by 2026-06-20, default to Disposition C (vendor confirmed, kotodama correction). This preserves vendor liability shielding and matches the 3-axis default verdict. The ruling can later upgrade to A or B if charter clarification lands.
 
 # Alternatives Considered
 
@@ -139,7 +139,7 @@ Land etzhayyim scaffold for deai as if Disposition A were chosen, marked AWAITIN
 
 ## Alternative E — defer entirely (no ADR)
 
-Don't file this ADR; let deai sit in vendor with mismatched magatama declaration. Rejected because:
+Don't file this ADR; let deai sit in vendor with mismatched kotodama declaration. Rejected because:
 - the contradiction will surface again at next audit cycle
 - Council has no visibility into pending dispositions without a referral document
 - Tranche F closure (ADR-2605211335) needs a hanging-question pointer

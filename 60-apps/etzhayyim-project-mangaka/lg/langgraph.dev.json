@@ -1,6 +1,6 @@
 {
   "$comment": "Dev-only LangGraph Studio config — mirrors langgraph.json but drops the RW postgres checkpointer for in-memory (`langgraph dev` default). Use this with `scripts/dev.sh` so you can poke the cine_generate_scene / cine_generate_panel graphs from Studio without a RisingWave URL. For production-shaped runs (postgres checkpointer, real RW writes) keep using langgraph.json + the FastAPI server in lg_mangaka/server.py.",
-  "dependencies": ["./lg_mangaka", "../../../20-actors/magatama/py"],
+  "dependencies": ["./lg_mangaka", "../../../40-engine/kotoba/crates/kotoba-kotodama/py"],
   "graphs": {
     "health":                    "./lg_mangaka/graphs/health.py:GRAPH",
     "agent_chat":                "./lg_mangaka/graphs/agent_chat.py:GRAPH",

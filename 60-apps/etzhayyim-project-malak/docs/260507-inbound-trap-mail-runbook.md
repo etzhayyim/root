@@ -30,7 +30,7 @@ owned sender / external inbound mail
 
 `etzhayyim-email-relay` must send PDS write calls with both:
 
-- `x-magatama-verified: true`
+- `x-kotodama-verified: true`
 - `x-etzhayyim-internal-hmac`, signed with Secrets Store `claim_settler_hmac`
 
 Without the HMAC, PDS returns `401 AuthRequired`.

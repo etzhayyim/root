@@ -265,7 +265,7 @@ checkpointed reasoning, retry policy, or backlog prioritization.
 ## References
 
 - `20-actors/gtin/CLAUDE.md`
-- `20-actors/magatama/py/src/pymagatama/langgraph_graphs/yoro_product_ingest.py`
-- `20-actors/magatama/py/src/pymagatama/primitives/yoro_product.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/langgraph_graphs/yoro_product_ingest.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_product.py`
 - `30-graph/graph-schema/migrations/0001_initial_schema.ts`
 - `50-infra/vultr/mitama-langgraph-pool/values.yaml`

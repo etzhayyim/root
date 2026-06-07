@@ -123,7 +123,7 @@ async function handleCommitGuide(env: Env, body: Record<string, unknown>): Promi
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-magatama-verified": "true",
+        "x-kotodama-verified": "true",
         "x-etzhayyim-org-id": "anon",
       },
       body: JSON.stringify({ repo: REPO_DID, collection: "com.etzhayyim.apps.media_gamers.guide", rkey, record }),
@@ -159,7 +159,7 @@ async function handleCommitKnowledgeGuide(env: Env, body: Record<string, unknown
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-magatama-verified": "true",
+        "x-kotodama-verified": "true",
         "x-etzhayyim-org-id": "anon",
       },
       body: JSON.stringify({ repo: REPO_DID, collection: "com.etzhayyim.apps.media_gamers.guide", rkey, record }),

@@ -99,7 +99,7 @@ importers:
         specifier: workspace:*
         version: link:../etzhayyim-sdk
 
-  20-actors/magatama/mcp/open-seiyaku-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/open-seiyaku-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -118,7 +118,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.8(@types/node@20.19.41)(@vitest/coverage-v8@4.1.8)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
 
-  20-actors/magatama/mcp/yorishiro-argparse-demo-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-argparse-demo-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -134,7 +134,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-argparse-multi-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-argparse-multi-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -150,7 +150,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-argparse-sub-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-argparse-sub-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -166,7 +166,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-arxiv-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-arxiv-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -182,7 +182,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-bls-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-bls-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -198,7 +198,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-clap-demo-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-clap-demo-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -214,7 +214,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-clap-derive-demo-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-clap-derive-demo-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -230,7 +230,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-cobra-demo-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-cobra-demo-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -246,7 +246,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-crossref-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-crossref-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -262,7 +262,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-demo-fixture-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-demo-fixture-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -278,7 +278,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-example-portal-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-example-portal-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -297,7 +297,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-fueleconomy-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-fueleconomy-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -313,7 +313,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-huggingface-inference-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-huggingface-inference-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -329,7 +329,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-huggingface-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-huggingface-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -345,7 +345,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-openalex-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-openalex-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -361,7 +361,7 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
-  20-actors/magatama/mcp/yorishiro-pdftotext-mcp:
+  40-engine/kotoba/crates/kotoba-kotodama/mcp/yorishiro-pdftotext-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
@@ -384,7 +384,7 @@ importers:
         version: link:../etzhayyim-sdk
       '@etzhayyim/yorishiro-huggingface-inference-mcp':
         specifier: workspace:*
-        version: link:../magatama/mcp/yorishiro-huggingface-inference-mcp
+        version: link:../kotodama/mcp/yorishiro-huggingface-inference-mcp
     devDependencies:
       '@types/node':
         specifier: ^25.8.0

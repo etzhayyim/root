@@ -75,56 +75,56 @@
   "cells": [
     {
       "name": "arbitrage_observer",
-      "module": "magatama.cells.ossekai_arbitrage_observer",
+      "module": "kotodama.cells.ossekai_arbitrage_observer",
       "murakumoNode": "issachar",
       "phase": "continuous (heartbeat)",
       "io": "sensor stream consume → arbitrageGapReport"
     },
     {
       "name": "intel_analyzer",
-      "module": "magatama.cells.ossekai_intel_analyzer",
+      "module": "kotodama.cells.ossekai_intel_analyzer",
       "murakumoNode": "issachar",
       "phase": "joucho-cadence",
       "io": "arbitrageGapReport → wellbecomingAdvisory + cross-correlation + Wellbecoming framing audit"
     },
     {
       "name": "aggregate_publisher",
-      "module": "magatama.cells.ossekai_aggregate_publisher",
+      "module": "kotodama.cells.ossekai_aggregate_publisher",
       "murakumoNode": "issachar",
       "phase": "hourly",
       "io": "wellbecomingAdvisory (anonymized) → AT Proto `app.bsky.feed.post` via membrane + custom feed generator + feedPostAttestation"
     },
     {
       "name": "member_digest",
-      "module": "magatama.cells.ossekai_member_digest",
+      "module": "kotodama.cells.ossekai_member_digest",
       "murakumoNode": "issachar (paired-PDS-node)",
       "phase": "weekly (default cadence; member-override allowed)",
       "io": "wellbecomingAdvisory (member-filtered) → encrypted envelope (ADR-2605181100) → memberDigestRecord"
     },
     {
       "name": "mention_dispatcher",
-      "module": "magatama.cells.ossekai_mention_dispatcher",
+      "module": "kotodama.cells.ossekai_mention_dispatcher",
       "murakumoNode": "issachar",
       "phase": "event (Council attestation triggered)",
       "io": "mentionDispatchAttestation + (externalMentionConsent OR memberImpactAttestation) + mute/block check → AT Proto `@mention` + feedPostAttestation"
     },
     {
       "name": "consent_registry",
-      "module": "magatama.cells.ossekai_consent_registry",
+      "module": "kotodama.cells.ossekai_consent_registry",
       "murakumoNode": "issachar",
       "phase": "continuous",
       "io": "externalMentionConsent + unsubscribeRecord + AT Proto `app.bsky.graph.block`/`mute` ingestion → consent state"
     },
     {
       "name": "kaizen_observer",
-      "module": "magatama.cells.ossekai_kaizen_observer",
+      "module": "kotodama.cells.ossekai_kaizen_observer",
       "murakumoNode": "issachar",
       "phase": "quarterly",
       "io": "unsubscribe rate / spam-classifier flag / re-engagement-after-opt-out / member-impact-attestation false-positive / arbitrage-publication staleness / framing-audit drift → KaizenProposal per ADR-2605240200"
     },
     {
       "name": "emergency_advisory",
-      "module": "magatama.cells.ossekai_emergency_advisory",
+      "module": "kotodama.cells.ossekai_emergency_advisory",
       "murakumoNode": "issachar (kazaori-paired)",
       "phase": "event (kazaori emergencyDeclarationAttestation)",
       "io": "kazaori cross-actor → expedited Wellbecoming-positive emergency advisory (NO fear-amplification per G10) → AT Proto `app.bsky.feed.post` + custom feed",

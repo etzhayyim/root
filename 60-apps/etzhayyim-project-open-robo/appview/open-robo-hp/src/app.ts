@@ -1,4 +1,4 @@
-import { createWorkerExport } from '@etzhayyim/magatama-host-sdk';
+import { createWorkerExport } from '@etzhayyim/kotodama-host-sdk';
 
 const _inner = createWorkerExport((sdk) => {
   sdk.app.query('com.etzhayyim.apps.openRoboHp.getProduct', async (_input, _ctx) => {

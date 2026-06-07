@@ -45,7 +45,7 @@ the same handler.
 
 | Path | Purpose |
 |---|---|
-| `magatama.jsonld` | Worker manifest + profile + triggers |
+| `kotodama.jsonld` | Worker manifest + profile + triggers |
 | `wrangler.jsonc` | CF Worker config + DISPATCHER_INTERNAL_SECRET binding |
 | `src/app.ts` | Hono facade — validate + `proxyToDispatcher` only |
 | `00-contracts/lexicons/com/etzhayyim/apps/sbom/registerArtifact.json` | XRPC contract (already existed) |
@@ -53,8 +53,8 @@ the same handler.
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/sbom/registerArtifact.bpmn` | BPMN process definition |
 | `30-graph/graph-schema/migrations/20260506100000_vertex_sbom_artifact.ts` | RisingWave schema |
 | `30-graph/graph-schema/migrations/20260506100100_seed_sbom_bpmn_actor.ts` | BPMN process_def + binding seed |
-| `20-actors/magatama/py/src/pymagatama/primitives/sbom.py` | LangServer handler (psycopg2 INSERT) |
-| `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` | Worker registration |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/sbom.py` | LangServer handler (psycopg2 INSERT) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py` | Worker registration |
 
 ## Tables
 
@@ -77,10 +77,10 @@ cd 30-graph/graph-schema
 
 # 2. F5 watcher deploys the BPMN to LangServer within 30s
 
-# 3. rebuild + roll pymagatama image (registers task_sbom_register_artifact)
-cd 20-actors/magatama/py
+# 3. rebuild + roll kotodama image (registers task_sbom_register_artifact)
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 docker buildx build --platform linux/amd64 --no-cache --push \
-  -t ghcr.io/etzhayyim/pymagatama:0.4.0-amd64 .
+  -t ghcr.io/etzhayyim/kotodama:0.4.0-amd64 .
 helm upgrade mitama-udf/langserver-worker --reuse-values \
   --set "image.tag=0.4.0-amd64"
 

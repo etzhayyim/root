@@ -7,7 +7,7 @@ import {
   type HostSDK,
   nowISO,
   str,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 interface Env {
   DISPATCHER_URL?: string;

@@ -227,7 +227,7 @@ open-robo-hp (SvelteKit)
 │       ├── models/           # GLTF 3Dモデル
 │       ├── images/           # 製品写真
 │       └── downloads/        # PDF マニュアル
-├── magatama.jsonld           # Cloudflare Pages performer
+├── kotodama.jsonld           # Cloudflare Pages performer
 └── wrangler.jsonc
 ```
 

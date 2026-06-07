@@ -29,7 +29,7 @@ constitutional:
    live portal scraping, NO per-query API hits, NO non-public sources, NO
    whistleblower intake. This is the hard wall against §2(c) covert-ops /
    surveillance drift. danjo does NOT re-fetch from government portals;
-   `pymagatama.organism.sensors.gov.*` already fetched passively upstream.
+   `kotodama.organism.sensors.gov.*` already fetched passively upstream.
 3. **Source-provenance mandatory (G5)** — every observation cites ≥2
    upstream `gov.dataset.*` record CIDs. No inference-only allegation; no
    observation without a primary public-record citation.
@@ -58,7 +58,7 @@ constitutional:
 
 ## Architecture
 
-6 Pregel cells, each path-reserved at R0 under `20-actors/magatama/cells/danjo_*/`:
+6 Pregel cells, each path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/danjo_*/`:
 
 ```
 diet_statement_index ──┐
@@ -174,8 +174,8 @@ fixtures (a verdict token added to the `category` enum / a non-`const`
 R1 smoke test (when cells are created):
 
 ```bash
-cd 20-actors/magatama/py
-python -c "from magatama.cells.danjo_diet_statement_index import _r0_marker" 2>&1 | grep "R0 scaffold"
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
+python -c "from kotodama.cells.danjo_diet_statement_index import _r0_marker" 2>&1 | grep "R0 scaffold"
 # ... similar for all 6 danjo_* cells
 ```
 

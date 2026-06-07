@@ -262,6 +262,20 @@ export const TIER_B_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
   },
+  "kosatsu": {
+    description: "Mirrors crime/sanctions DESIGNATIONS (OFAC/EU/UN/UK-OFSI/JP-MOF/Interpol/…) into the kotoba Datom log as append-only, ATTRIBUTED events; computes a politically-neutral DIVERGENCE view where jurisdictions disagree. etzhayyim authors no designation and asserts no verdict; a designation is asserter-relative by construction.",
+    glyph: "高札",
+    displayName: "高札 — Crime/Sanctions Competing-Claim Board",
+    primaryLexicon: "com.etzhayyim.kosatsu.designationNotice",
+    adrs: ["2606072000", "2605301400"],
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kosatsu#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+    ],
+  },
   "kurashimori": {
     description: "暮らし守 — Citizen Consumer-Protection Concierge",
     glyph: "暮らし守",

@@ -95,7 +95,7 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 
 | Old (Kysely + Hyperdrive)                                       | New                                                                |
 |---|---|
-| `import { createKyselyDb } from '@etzhayyim/magatama-host-sdk'`      | `import { Etzhayyim } from '@etzhayyim/sdk'`                       |
+| `import { createKyselyDb } from '@etzhayyim/kotodama-host-sdk'`      | `import { Etzhayyim } from '@etzhayyim/sdk'`                       |
 | `createKyselyDb(env.HYPERDRIVE)` + raw SQL                      | `new Etzhayyim({ pdsUrl, did, … })`; no Hyperdrive binding         |
 | `INSERT INTO vertex_inference_job …`                            | `e.write({ collection: 'com.etzhayyim.murakumo.inferenceJob', record })` |
 | `SELECT … FROM vertex_inference_job WHERE error IS NULL …`      | `e.read({ collection, filter })` (key-prefix MST traverse)         |
@@ -122,7 +122,7 @@ If the actor genuinely needs SQL semantics (joins, aggregates), it runs **DuckDB
 
 No yoro / murakumo PR merges into `etzhayyim/root/main` unless it passes the substrate hard rule check (ADR-2605172100):
 
-1. No direct import of `@atproto/api`, `viem`, `kysely`, `@etzhayyim/magatama-host-sdk`, `pg`, `postgres`, `@signalapp/libsignal-client`, `@noble/ciphers` from app code.
+1. No direct import of `@atproto/api`, `viem`, `kysely`, `@etzhayyim/kotodama-host-sdk`, `pg`, `postgres`, `@signalapp/libsignal-client`, `@noble/ciphers` from app code.
 2. Only `@etzhayyim/sdk` and `@etzhayyim/sdk/encrypted` may appear as substrate-client imports.
 3. CI grep gate (future `lefthook` hook, see §Consequences): `grep -rE 'kotoba|hyperdrive|kysely|createKyselyDb' 60-apps/ etzhayyim-project-yoro 60-apps/ etzhayyim-project-murakumo 50-infra/cloudflare/workers/murakumo` returns empty.
 

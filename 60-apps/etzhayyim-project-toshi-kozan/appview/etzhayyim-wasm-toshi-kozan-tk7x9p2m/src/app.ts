@@ -3,7 +3,7 @@ import {
   nsid,
   parseLexiconInput,
   type LexiconOutput,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
@@ -415,7 +415,7 @@ export default createWorkerExport((sdk) => {
     // ── shouldAnalyze: 回収統計の定期分析 ──
     if (cadence.shouldAnalyze) {
       try {
-        const db = (await import("@etzhayyim/magatama-host-sdk")).createKyselyDb(
+        const db = (await import("@etzhayyim/kotodama-host-sdk")).createKyselyDb(
           (globalThis as any).__env?.HYPERDRIVE,
         );
         const stats = await db

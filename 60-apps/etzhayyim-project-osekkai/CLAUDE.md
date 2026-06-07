@@ -44,7 +44,7 @@ osekkai.etzhayyim.com — Follow 関係にある他 actor / agent の commit str
 | `LESSON_FROM` | OsRetraction → OsLesson |
 | `SUPPRESSES` | OsLesson → (actor DID, nudgeType) |
 
-## Triggers (magatama.jsonld)
+## Triggers (kotodama.jsonld)
 
 ```jsonc
 {

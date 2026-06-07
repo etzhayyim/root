@@ -104,7 +104,7 @@ B2 storage removed 2026-04-11 → `_archive/60-apps/r2-mangaka-canvas-storage.ts
 │   └── src/{graph-m2,graph-m3,run,phase3-4-semantic-panels,lib/…}
 └── wasm/etzhayyim-wasm-mangaka-mng4k4x1/
     ├── src/app.ts                   # TS Native — Design E reactive pipeline
-    ├── magatama.jsonld
+    ├── kotodama.jsonld
     ├── wrangler.jsonc
     ├── package.json
     └── wit/world.wit                # Component WIT (contract + capability export)
@@ -170,7 +170,7 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 
 | Tier | Where | What |
 |---|---|---|
-| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@etzhayyim.com` domain). Code: `appview-studio/etzhayyim-wasm-studio-stdk2024/` |
+| UI + auth edge | CF Worker `kotodama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@etzhayyim.com` domain). Code: `appview-studio/etzhayyim-wasm-studio-stdk2024/` |
 | LangGraph backend | k8s pod `lg-mangaka-studio` × 2 (mitama-udf ns) at `studio-api.etzhayyim.com` | Stock `langgraph dev` (in-memory, ClientIP affinity). Image: `lg/Dockerfile.studio`. Chart: `50-infra/vultr/lg-mangaka-pool/templates/studio.yaml`, toggle `studio.enabled=true`. Tunnel: `50-infra/vultr/cloudflared/lg-mangaka-studio-tunnel.yaml`. Behind CF Access **service-token** policy — only the Worker's `CF-Access-Client-Id/-Secret` pair passes through. Audit disabled (`LG_AUDIT_DISABLED=1`). |
 
 Operator runbook (8 steps including the two CF Access apps) lives in the tunnel YAML header. End-user opens `https://studio.etzhayyim.com/` → SSO → pick `cine_generate_scene` / `cine_generate_panel` (or any of the 20) → run with `"dry_run": true` for cost-free inspection.

@@ -36,7 +36,7 @@ async def _node_query(state: _State) -> dict[str, Any]:
     owner = state.get("owner_did")
     status_filter = state.get("status")
     try:
-        from pymagatama.kotoba_datomic import get_kotoba_client
+        from kotodama.kotoba_datomic import get_kotoba_client
         import asyncio
         client = get_kotoba_client()
 

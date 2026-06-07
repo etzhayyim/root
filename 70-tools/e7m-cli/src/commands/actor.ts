@@ -5,14 +5,14 @@ import fs from 'fs/promises';
 import { findRepoRoot } from '../lib/root.js';
 
 async function resolveWitDir(extension: boolean): Promise<string> {
-  if (process.env.MAGATAMA_WIT_DIR) return process.env.MAGATAMA_WIT_DIR;
+  if (process.env.KOTODAMA_WIT_DIR) return process.env.KOTODAMA_WIT_DIR;
   const root = await findRepoRoot();
   return extension
     ? path.join(root, '10-protocol', 'wproto', 'wit')
-    : path.join(root, '20-actors', 'magatama', 'wit');
+    : path.join(root, '20-actors', 'kotodama', 'wit');
 }
 
-export const actorCmd = new Command('actor').description('Manage Magatama/WASM Actors');
+export const actorCmd = new Command('actor').description('Manage Kotodama/WASM Actors');
 
 actorCmd
   .command('build <dir>')
@@ -34,7 +34,7 @@ actorCmd
     const coreWasm = path.join(buildDir, `${outputName}_core.wasm`);
     const embeddedWasm = path.join(buildDir, `${outputName}_embedded.wasm`);
     const witDir = await resolveWitDir(!!options.extension);
-    const witWorld = options.extension ? 'etzhayyim:w/w-extension' : 'magatama:runtime/magatama-component';
+    const witWorld = options.extension ? 'etzhayyim:w/w-extension' : 'kotodama:runtime/kotodama-component';
 
     console.log(`>> Building actor ${outputName} (wit=${witDir}, world=${witWorld})`);
 

@@ -1,17 +1,17 @@
-# ai-gftd-project-wproto — W Protocol Documentation Site (UI-Only)
+# etzhayyim-project-wproto — W Protocol Documentation Site (UI-Only)
 
-## CRITICAL: UI-Only — Data Access via atproto.gftd.ai
+## CRITICAL: UI-Only — Data Access via atproto.etzhayyim.com
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-wproto-ui-only-data-access-via-pds-gftd-ai` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-wproto-ui-only-data-access-via-pds-etzhayyim-ai` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `wpr0t0c1` |
-| **domain** | `wproto.gftd.ai` |
+| **domain** | `wproto.etzhayyim.com` |
 | **performer_id** | `wpr0t0c1` |
-| **AT bot DID** | `did:web:wproto-wpr0t0c1.gftd.ai` |
+| **AT bot DID** | `did:web:wproto-wpr0t0c1.etzhayyim.com` |
 | **Runtime** | Worker WASM (DEFAULT) |
 | **UI mode** | iframe (SSR) |
 

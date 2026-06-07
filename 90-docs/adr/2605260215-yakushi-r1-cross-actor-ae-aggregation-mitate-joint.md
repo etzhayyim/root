@@ -23,11 +23,11 @@ depends_on:
 related:
   - 20-actors/yakushi/                                         # yakushi sibling actor
   - 20-actors/mitate/                                          # mitate sibling actor
-  - 20-actors/magatama/cells/pharma_adverse_event/             # yakushi-side individual handoff receiver
-  - 20-actors/magatama/cells/pharma_post_market_surveillance/  # yakushi-side aggregated signal receiver
-  - 20-actors/magatama/cells/pharma_packaging/                 # yakushi-side label-warning update producer
-  - 20-actors/magatama/cells/mitate_outcome_qol_followup/      # mitate-side emitter
-  - 20-actors/magatama/cells/mitate_medication_history_audit/  # mitate-side condition 5 detection
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_adverse_event/             # yakushi-side individual handoff receiver
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_post_market_surveillance/  # yakushi-side aggregated signal receiver
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/pharma_packaging/                 # yakushi-side label-warning update producer
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/      # mitate-side emitter
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_medication_history_audit/  # mitate-side condition 5 detection
   - 00-contracts/lexicons/com/etzhayyim/pharma/adverseEventReport.json
 supersedes: []
 superseded_by: []

@@ -7,12 +7,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: /^@etzhayyim\/magatama-host-sdk$/,
-        replacement: path.resolve(root, "../../../../20-actors/magatama/sdk/magatama-host-sdk/src/index.ts"),
+        find: /^@etzhayyim\/kotodama-host-sdk$/,
+        replacement: path.resolve(root, "../../../../40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/index.ts"),
       },
       {
-        find: /^@etzhayyim\/magatama-host-sdk\/(.*)$/,
-        replacement: path.resolve(root, "../../../../20-actors/magatama/sdk/magatama-host-sdk/src/$1"),
+        find: /^@etzhayyim\/kotodama-host-sdk\/(.*)$/,
+        replacement: path.resolve(root, "../../../../40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/$1"),
       },
       {
         find: /^@etzhayyim\/xrpc$/,

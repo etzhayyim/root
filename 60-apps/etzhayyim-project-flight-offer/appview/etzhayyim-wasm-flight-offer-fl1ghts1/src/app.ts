@@ -1,4 +1,4 @@
-import { createWorkerExport } from "@etzhayyim/magatama-host-sdk";
+import { createWorkerExport } from "@etzhayyim/kotodama-host-sdk";
 
 const EMBED_HTML = String.raw`<!doctype html>
 <html lang="en">

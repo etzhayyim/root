@@ -3,7 +3,7 @@
  * sensor-no-active-probe lint — enforce ADR-2605262400 §7 + G8.
  *
  * Pre-commit gate. Scans staged changes under
- * `20-actors/magatama/py/src/pymagatama/organism/sensors/` for
+ * `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/` for
  * forbidden imports + calls that would let a DatasetSensor perform
  * active network probes against third-party hosts.
  *
@@ -33,7 +33,7 @@ const args = process.argv.slice(2);
 if (args.length === 0) process.exit(0);
 
 const SENSOR_PREFIX =
-  "20-actors/magatama/py/src/pymagatama/organism/sensors/";
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/";
 const EXEMPT_BASENAMES = new Set([
   "charter_rider.py",
 ]);

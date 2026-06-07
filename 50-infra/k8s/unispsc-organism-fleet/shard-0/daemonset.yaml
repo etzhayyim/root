@@ -38,12 +38,12 @@ spec:
         - name: ghcr-pull
       containers:
         - name: cell
-          image: ghcr.io/etzhayyim/pymagatama:main
+          image: ghcr.io/etzhayyim/kotodama:main
           imagePullPolicy: Always
           command:
             - python
             - -m
-            - pymagatama.organism.fleet_cell_main
+            - kotodama.organism.fleet_cell_main
           env:
             - name: ETZHAYYIM_NODE
               value: joseph

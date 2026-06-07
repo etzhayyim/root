@@ -780,7 +780,7 @@ def _build() -> StateGraph:
 def build_graph():
     """Factory entry for `vertex_langgraph_assistant.kind='py_factory'` resolution.
 
-    The RW-resident loader (`pymagatama.langgraph_loader`) imports this dotted
+    The RW-resident loader (`kotodama.langgraph_loader`) imports this dotted
     path (`lg_mangaka.graphs.compose_scene_3d:build_graph`) and invokes it
     to produce the compiled StateGraph at deployment activation time. The
     module-level `GRAPH` constant remains for direct in-process imports from

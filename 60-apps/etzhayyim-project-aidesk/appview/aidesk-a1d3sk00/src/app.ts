@@ -1,4 +1,4 @@
-// AI Design Desk thin edge. Business logic runs in AgentGateway MCP + pod-side LangServer (pymagatama).
+// AI Design Desk thin edge. Business logic runs in AgentGateway MCP + pod-side LangServer (kotodama).
 // Zero-To-CAD (Apache 2.0) inference → CadQuery → STEP → tsukuru supplierExchange.
 
 interface SecretBinding {
@@ -29,7 +29,7 @@ export default {
         execution: "edge-proxy+agentgateway-mcp+langserver",
         model: "ADSKAILab/Zero-To-CAD-Qwen3-VL-2B",
         licenseTier: "apache2",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/aidesk.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/aidesk.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/aidesk",
         tsukuruIntegration: "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
       });

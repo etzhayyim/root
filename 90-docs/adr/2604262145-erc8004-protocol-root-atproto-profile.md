@@ -219,8 +219,8 @@ k8s is an execution placement profile:
     "kind": "Deployment",
     "name": "yoro-actor-zeebe-worker"
   },
-  "image": "ghcr.io/etzhayyim/pymagatama@sha256:...",
-  "entrypoint": ["python", "-m", "pymagatama.zeebe_worker_main"],
+  "image": "ghcr.io/etzhayyim/kotodama@sha256:...",
+  "entrypoint": ["python", "-m", "kotodama.zeebe_worker_main"],
   "runtimeKind": "bpmn-zeebe-worker",
   "publicManifestCid": "ipfs://bafy..."
 }

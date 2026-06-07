@@ -5,7 +5,7 @@ pragma solidity ^0.8.23;
 /// @notice On-chain provenance ledger for `etzhayyim deploy` (ADR-0074 Phase 2-A).
 ///         Each `recordDeploy` call writes an immutable receipt for one app
 ///         deployment: who deployed, what version of which app nanoid, and
-///         the SHA-256 of the build artifacts + magatama.jsonld manifest.
+///         the SHA-256 of the build artifacts + kotodama.jsonld manifest.
 /// @dev    State is intentionally minimal. The authoritative payload lives in
 ///         the `Deployed` event (free in calldata, indexed by nanoid for cheap
 ///         filtering). The on-chain mapping just exposes the latest version
@@ -20,12 +20,12 @@ pragma solidity ^0.8.23;
 contract DeployRegistry {
     struct DeployRecord {
         bytes32 nanoid;        // app nanoid (8-char alpha-start, padded right with 0x00)
-        bytes32 contentHash;   // sha256(magatama.jsonld + build artifacts), 32 bytes
+        bytes32 contentHash;   // sha256(kotodama.jsonld + build artifacts), 32 bytes
         bytes32 commitSha;     // git commit (40-char ascii, right-padded)
         uint64  deployedAt;    // block.timestamp
         uint32  versionSeq;    // monotonic per nanoid (1, 2, 3, …)
         address deployer;      // tx.origin / wallet that signed recordDeploy
-        bytes16 magatamaCid;   // optional CID v1 truncated; bytes16(0) = none
+        bytes16 kotodamaCid;   // optional CID v1 truncated; bytes16(0) = none
         // 11 bytes free in this struct's last slot for future fields
     }
 
@@ -43,7 +43,7 @@ contract DeployRegistry {
         address indexed deployer,
         bytes32 contentHash,
         bytes32 commitSha,
-        bytes16 magatamaCid,
+        bytes16 kotodamaCid,
         uint64  deployedAt
     );
 
@@ -72,7 +72,7 @@ contract DeployRegistry {
         bytes32 nanoid,
         bytes32 contentHash,
         bytes32 commitSha,
-        bytes16 magatamaCid
+        bytes16 kotodamaCid
     ) external returns (uint32 versionSeq) {
         if (!openDeploy && msg.sender != owner) revert NotAuthorized();
         if (nanoid == bytes32(0)) revert EmptyNanoid();
@@ -86,11 +86,11 @@ contract DeployRegistry {
             deployedAt: uint64(block.timestamp),
             versionSeq: versionSeq,
             deployer: msg.sender,
-            magatamaCid: magatamaCid
+            kotodamaCid: kotodamaCid
         });
         latest[nanoid] = rec;
 
-        emit Deployed(nanoid, versionSeq, msg.sender, contentHash, commitSha, magatamaCid, rec.deployedAt);
+        emit Deployed(nanoid, versionSeq, msg.sender, contentHash, commitSha, kotodamaCid, rec.deployedAt);
     }
 
     /// @notice Read the most recent deploy receipt for an app. Reverts in

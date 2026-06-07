@@ -37,7 +37,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "is1n8k2x",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/isin.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/isin.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/isin",
       });
     }

@@ -1,10 +1,10 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "GFTD Kyber Gateway (ai-gftd-project-gateway)",
+  "name": "ETZHAYYIM Kyber Gateway (etzhayyim-project-gateway)",
   "status": "In Progress",
-  "identifier": "ai-gftd-project-gateway",
-  "description": "A centralized gateway for the GFTD Kyber ecosystem, providing unified authentication (Clerk), threat defense (IP blocking/WAF), caching, and observation feeds (logging to Analytics).",
+  "identifier": "etzhayyim-project-gateway",
+  "description": "A centralized gateway for the ETZHAYYIM Kyber ecosystem, providing unified authentication (Clerk), threat defense (IP blocking/WAF), caching, and observation feeds (logging to Analytics).",
   "hasPart": [
     {
       "@type": "CreativeWork",
@@ -53,13 +53,13 @@
     {
       "@type": "Service",
       "name": "Auth Proxy Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-auth-proxy",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-auth-proxy",
       "description": "Sidecar/Service for validating Clerk JWTs and injecting user context."
     },
     {
       "@type": "Service",
       "name": "Security Guard Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-security-guard",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-security-guard",
       "description": "Actor for managing IP blocklists and threat intelligence."
     }
   ],
@@ -75,7 +75,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-gateway/architecture",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-gateway/architecture",
           "type": "dodaf:Architecture",
           "dct:title": "Gateway Architecture (SV-4)",
           "components": [
@@ -109,7 +109,7 @@
             },
             {
               "from": "Envoy Proxy",
-              "to": "Internal App (ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4)",
+              "to": "Internal App (etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4)",
               "protocol": "HTTP"
             },
             {
@@ -127,7 +127,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-gateway/activities",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-gateway/activities",
           "type": "dodaf:OperationalActivity",
           "dct:title": "Gateway Activities (OV-5b)",
           "activities": [
@@ -161,7 +161,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://gftd.ai/projects/ai-gftd-project-gateway/capabilities",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-gateway/capabilities",
           "type": "dodaf:Capability",
           "dct:title": "Gateway Capability Catalog (CV-2)",
           "capabilities": [
@@ -194,24 +194,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://gftd.ai/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "GFTD Kyber Gateway (ai-gftd-project-gateway) Scheduler",
-          "identifier": "ai-gftd-project-gateway/scheduler",
+          "name": "ETZHAYYIM Kyber Gateway (etzhayyim-project-gateway) Scheduler",
+          "identifier": "etzhayyim-project-gateway/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [

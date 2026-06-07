@@ -27,7 +27,7 @@ AT Protocol の facet アーキテクチャを L1 拡張し、Notion 同等の r
 
 ## Decision
 
-`magatama:bsky/richtext@1.0.0` の `facet-feature` variant を `@field` 番号帯で L0/L1 分離し、inline formatting (7 types) + block structure (10 types) を追加。
+`kotodama:bsky/richtext@1.0.0` の `facet-feature` variant を `@field` 番号帯で L0/L1 分離し、inline formatting (7 types) + block structure (10 types) を追加。
 
 ## Architecture
 
@@ -59,7 +59,7 @@ AT client は未知の `@field` を無視 → テキストのみ表示。Layer S
 
 ### WIT Definition
 
-Evidence: `00-contracts/wit/deps/magatama-bsky/package.wit` (richtext interface)
+Evidence: `00-contracts/wit/deps/kotodama-bsky/package.wit` (richtext interface)
 
 ## Notion Feature Coverage
 
@@ -148,7 +148,7 @@ AT client は L1 facet を無視し、プレーンテキスト + L0 facet (menti
 
 ## References
 
-- `00-contracts/wit/deps/magatama-bsky/package.wit` — WIT definition (authoritative)
+- `00-contracts/wit/deps/kotodama-bsky/package.wit` — WIT definition (authoritative)
 - `90-docs/260325-atproto-layer-separation-design.md` — L0/L1 layer separation
 - `90-docs/260324-wit-lexicon-typed-alignment-design.md` — WIT ↔ Lexicon alignment
 - Notion Block Types: https://developers.notion.com/reference/block

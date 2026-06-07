@@ -472,7 +472,7 @@ Agent request (ES256 Service Auth JWT)
 
 **効果**:
 - 715+ Agent が個別 DID + ES256 keypair で認証
-- `SS_MAGATAMA_INTERNAL_TOKEN` (shared secret) 除去 — ES256 Service Auth JWT に完全移行
+- `SS_KOTODAMA_INTERNAL_TOKEN` (shared secret) 除去 — ES256 Service Auth JWT に完全移行
 - Agent DID が yata graph に永続化 (`:DIDDocument` + `:AgentKey` + edges)
 - `etzhayyim deploy` が自動で agent credential を発行・登録
 
@@ -617,7 +617,7 @@ AT Protocol 完全準拠 + federation 対応。
 - **Zero-knowledge key custody を Agent に適用禁止** — Agent は server-assisted (T1) or self-custody (T2)。Master Password 方式は不成立
 - **Signal Identity Key を DID Signing Key から独立生成禁止** — Signal Identity Key は DID Signing Key で署名される (key hierarchy 遵守)
 - **Clerk / 外部 auth SaaS の再導入禁止** — P3 で完全除去済み
-- **Shared secret token (`SS_MAGATAMA_INTERNAL_TOKEN`) の再導入禁止** — 除去済み。service-to-service auth は ES256 Service Auth JWT のみ
+- **Shared secret token (`SS_KOTODAMA_INTERNAL_TOKEN`) の再導入禁止** — 除去済み。service-to-service auth は ES256 Service Auth JWT のみ
 - **PDS に private key を保持禁止** — T1 custody: 全 signing key は auth Worker が保持 (KEK envelope)
 - **Legacy テーブル (did_keys / revoked_sessions / otp_codes) の再導入禁止** — pruned 済み。GraphAr vertex_etzhayyim_key_* テーブルに統合
 - **WebAuthn `user_verification: "preferred"`** — registration/authentication 両方 `"preferred"`。`"discouraged"` は禁止

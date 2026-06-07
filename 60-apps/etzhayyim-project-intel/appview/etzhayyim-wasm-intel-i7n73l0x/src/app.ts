@@ -6,7 +6,7 @@ import {
   nsid,
   parseLexiconInput,
   sql,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // Graph reads/writes (Kysely + Hyperdrive, ADR-0036).
 const cadenceState = createCadenceState();
