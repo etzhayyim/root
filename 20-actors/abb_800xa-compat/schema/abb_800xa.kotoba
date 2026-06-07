@@ -63,3 +63,18 @@ namespace abb_800xa {
     }
 
 }
+
+    // Auto-generated L3 properties by LangGraph
+    entity AdvancedProfile {
+        id: string @unique
+        metadata: json
+    }
+
+    // Auto-injected Cognitive Schema
+    entity CognitiveRecord {
+        id: string @unique
+        originalPayload: string
+        aiStatus: string
+        aiInsights: json
+        computedAt: datetime
+    }
