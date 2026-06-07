@@ -42,13 +42,13 @@ The current inventory confirms the scale problem:
 At this scale, interpreting "one app = one Cloudflare Worker" would recreate
 the old P1 static deployment problem. It would also approach the account-level
 Worker cap and split orchestration, retry, cursor, and observability state
-between Cloudflare, Zeebe, Kubernetes, and RisingWave.
+between Cloudflare, Zeebe, Kubernetes, and Kotoba/Datomic.
 
 The intended architecture is already partially decided by existing ADRs:
 
 - ADR-260408 actor executor P5+P3: T1/T2 actors should not require Workers;
   only T3 full custom actors may have a dedicated Worker/Container.
-- ADR-2604261000 MCP registry: tool definitions are Kysely/RisingWave rows,
+- ADR-2604261000 MCP registry: tool definitions are Kysely/Kotoba/Datomic rows,
   not generated per-app Worker bundles.
 - ADR-2604251801 cron consolidation: business schedules move to Zeebe BPMN
   timers and Python workers, not Cloudflare `triggers.crons`.
@@ -88,12 +88,12 @@ Zeebe BPMN process instance
         v
 Kubernetes pods
   - pyzeebe generic workers
-  - pymagatama Python domain workers
+  - kotodama Python domain workers
   - LangGraph / LLM workers where needed
   - source-specific ingest / browser / OCR / conversion pods
         |
         v
-RisingWave / B2 / PDS / external APIs
+Kotoba/Datomic / B2 / PDS / external APIs
 ```
 
 ## Cloudflare Worker Boundary
@@ -164,8 +164,8 @@ Use Zeebe when a call:
 - is a scheduled actor behavior.
 
 Python worker pods own source-specific logic. They must be importable modules
-under `pymagatama`, not one-off operator scripts. Worker pods report run state
-to RisingWave tables such as `vertex_ingest_run`, domain-specific run tables,
+under `kotodama`, not one-off operator scripts. Worker pods report run state
+to Kotoba/Datomic tables such as `vertex_ingest_run`, domain-specific run tables,
 and OCEL/audit tables.
 
 # Migration Plan
@@ -221,14 +221,14 @@ Exit criteria:
 - Register pyzeebe handlers for generic task types:
   `mcp.call`, `graph.query`, `graph.write`, `agent.run`, `pds.dispatch`,
   `ingest.*`, `audit.emit`.
-- Move long-running app logic out of Workers into `pymagatama` modules.
+- Move long-running app logic out of Workers into `kotodama` modules.
 - Keep k8s CronJobs only as start signal emitters or infra maintenance jobs.
 
 Exit criteria:
 
 - scheduled app behavior runs through BPMN timers, not CF cron;
 - long-running app calls survive Worker request lifetime and are visible in
-  Zeebe/Operate plus RisingWave run tables.
+  Zeebe/Operate plus Kotoba/Datomic run tables.
 
 ## Phase 4: T3 Reduction
 
@@ -252,7 +252,7 @@ Positive:
 
 - App count no longer consumes Cloudflare Worker count.
 - Durable work gains Zeebe retry, incident, and pause/resume semantics.
-- MCP registry, actor registry, BPMN, and RisingWave become the visible control
+- MCP registry, actor registry, BPMN, and Kotoba/Datomic become the visible control
   plane for agents.
 - Svelte stays available for app UI without forcing per-app edge deployment.
 
@@ -271,10 +271,10 @@ Trade-offs:
 The first country-state retirements have been executed under this ADR's
 topology:
 
-- `magatama-g0vafg01` retired after AFG coverage moved to k8s/BPMN/RW.
-- `magatama-g0vzaf01` retired after ZAF coverage moved to
-  `pymagatama.primitives.gov_zaf`, `govZaf` BPMN/MCP registry rows, and
-  RisingWave/B2 official-source evidence.
+- `kotodama-g0vafg01` retired after AFG coverage moved to k8s/BPMN/RW.
+- `kotodama-g0vzaf01` retired after ZAF coverage moved to
+  `kotodama.primitives.gov_zaf`, `govZaf` BPMN/MCP registry rows, and
+  Kotoba/Datomic/B2 official-source evidence.
 
 ZAF deletion was gated by `npm run verify:gov-zaf`:
 
@@ -292,7 +292,7 @@ state Worker retirement checks.
 
 AGO was executed as the next candidate:
 
-- `pymagatama.primitives.gov_ago` registers the `govAgo` Zeebe task surface.
+- `kotodama.primitives.gov_ago` registers the `govAgo` Zeebe task surface.
 - `govAgo` BPMN and lexicons now cover seed, DID registration, site follows,
   official-source ingest, WET sync, shinka, list, resolve, and heartbeat.
 - Seed data is based on the official Angola government portal pages
@@ -302,7 +302,7 @@ AGO was executed as the next candidate:
   direct fallback ingest of the three official pages, the gate was green
   (`deleteAllowed: true`, page/WET/WAT/screenshot/govSources 3/3,
   orgSeeds ministry=24 state=21).
-- `magatama-g0vago01` was deleted after the green gate. Post-delete Cloudflare
+- `kotodama-g0vago01` was deleted after the green gate. Post-delete Cloudflare
   check reports `This Worker does not exist on your account [10007]`, and the
   post-delete AGO verifier remains green.
 

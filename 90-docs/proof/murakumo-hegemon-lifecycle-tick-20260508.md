@@ -155,7 +155,7 @@ To move the resident loop from direct fleet processes into k8s Pods:
    (`murakumo-gpu` Lima or a Linux kernel with the required CNI features), or
    repair the OrbStack kernel/CNI limits.
 2. Create the `shinka-actors` runtime secrets with Murakumo-reachable
-   `ZEEBE_GATEWAY`, `RW_URL`, image pull credentials, and optional runtime
+   `ZEEBE_GATEWAY`, `KOTOBA_URL`, image pull credentials, and optional runtime
    signing key.
 3. Apply `actor-workers.yaml` directly on Murakumo k3s, or restore Karmada and
    apply the `shinka-actors` kustomization on the hub.

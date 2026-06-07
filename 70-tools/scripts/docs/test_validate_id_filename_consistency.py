@@ -52,7 +52,7 @@ def test_categorize_pre_cutover_amanomibashira(mod):
 
 def test_categorize_short_id(mod):
     assert mod.categorize_mismatch(
-        "90-docs/adr/0087-magatama-mcp-tool-facade.md", "adr-0042"
+        "90-docs/adr/0087-kotodama-mcp-tool-facade.md", "adr-0042"
     ) == "short-id-missing-slug"
 
 

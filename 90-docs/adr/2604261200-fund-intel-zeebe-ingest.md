@@ -12,8 +12,8 @@ authoritative_for:
 related:
   - 90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md
   - adr-2604271200
-  - 60-apps/etzhayyim-project-ma/magatama.toml
-  - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
+  - 60-apps/etzhayyim-project-ma/kotodama.toml
+  - 90-docs/adr/0094-kotoba-stable-three-node-topology.md
   - 30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts
 supersedes: []
 superseded_by: []
@@ -36,7 +36,7 @@ return metrics. The existing graph spine already has:
 
 The blocker is not table absence. The blocker is ingestion architecture:
 global fund data is mixed public/private, partially licensed, and often
-estimated. A CronJob that writes directly into RisingWave would repeat the
+estimated. A CronJob that writes directly into Kotoba/Datomic would repeat the
 same instability seen in bulk ingest incidents: retries can duplicate rows,
 cursor advancement can outrun visibility, and RW recovery windows can turn a
 source outage into graph corruption.
@@ -44,7 +44,7 @@ source outage into graph corruption.
 # Decision
 
 Fund intel ingestion is a Zeebe-orchestrated Python worker family. It is not a
-direct CronJob-to-RisingWave pipeline.
+direct CronJob-to-Kotoba/Datomic pipeline.
 
 The first pilot covers:
 
@@ -77,7 +77,7 @@ Required invariants:
   `confidence`, and a metric kind (`reported`, `estimated`, `derived`, or
   `unknown`).
 - Estimated returns are never presented as reported facts.
-- `rw.health.probe` must pass before `fund.writeGraph` writes to RisingWave.
+- `rw.health.probe` must pass before `fund.writeGraph` writes to Kotoba/Datomic.
 - Cursor advancement happens only after graph write visibility is verified.
 - During RW degraded windows, workers may fetch and persist artifacts, but must
   skip graph writes.
@@ -86,7 +86,7 @@ Required invariants:
 
 This lets Zeebe provide durable retries and compensation while Python owns
 source-specific parsing and entity resolution. It also lets fund intel scale by
-source and shard without increasing RisingWave write pressure during recovery.
+source and shard without increasing Kotoba/Datomic write pressure during recovery.
 
 The existing schema is enough for the first pilot, but it is incomplete for
 full fund intelligence. A follow-up migration should add typed metric/history
@@ -111,5 +111,5 @@ columns for identity, money, dates, confidence, and relationships.
 # References
 
 - `90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md`
-- `90-docs/adr/0094-risingwave-stable-three-node-topology.md`
+- `90-docs/adr/0094-kotoba-stable-three-node-topology.md`
 - `30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts`

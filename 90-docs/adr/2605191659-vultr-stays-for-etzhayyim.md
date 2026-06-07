@@ -75,7 +75,7 @@ This ADR records the correction.
 
 **Negative**:
 
-- The `50-infra/vultr/` tree contains substrate-violating manifests (RisingWave, Postgres, Hyperdrive references) by design (these are the etzhayyim.com legacy stack). The lefthook substrate-boundary gate (`70-tools/scripts/lint/substrate-boundary.mjs`) must continue to allowlist the `50-infra/vultr/*` path so the gate doesn't block routine etzhayyim.com-side commits. Verify on next commit that touches anything under `50-infra/vultr/`; tune the allowlist if needed.
+- The `50-infra/vultr/` tree contains substrate-violating manifests (Kotoba/Datomic, Postgres, Hyperdrive references) by design (these are the etzhayyim.com legacy stack). The lefthook substrate-boundary gate (`70-tools/scripts/lint/substrate-boundary.mjs`) must continue to allowlist the `50-infra/vultr/*` path so the gate doesn't block routine etzhayyim.com-side commits. Verify on next commit that touches anything under `50-infra/vultr/`; tune the allowlist if needed.
 
 **Required follow-ups**:
 

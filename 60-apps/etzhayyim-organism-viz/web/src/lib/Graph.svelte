@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import type { Snapshot, NodePos } from "./types";
   import { buildLayout, buildEdges } from "./layout";
-  import { magatamaPath, leafPath, fanPath, sealSquarePath, brushPath } from "./shapes";
+  import { kotodamaPath, leafPath, fanPath, sealSquarePath, brushPath } from "./shapes";
 
   export let snap: Snapshot;
   export let selected: string | null;
@@ -103,7 +103,7 @@
             <path d={`M ${p.x - p.r * 0.35} ${p.y - p.r * 0.65} Q ${p.x} ${p.y - p.r * 0.95}, ${p.x + p.r * 0.45} ${p.y - p.r * 0.5}`}
                   fill="none" stroke="var(--sumi)" stroke-width="1.0" opacity="0.7" />
           {:else if p.kind === "seed"}
-            <path d={magatamaPath(p.x, p.y, p.r)}
+            <path d={kotodamaPath(p.x, p.y, p.r)}
                   fill="var(--ai)" stroke="var(--sumi)" stroke-width="0.9" />
             <circle cx={p.x + p.r * 0.45} cy={p.y - p.r * 0.45} r="1.4" fill="var(--washi)" opacity="0.7" />
           {/if}

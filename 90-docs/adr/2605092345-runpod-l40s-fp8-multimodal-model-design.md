@@ -9,7 +9,7 @@ last_verified: 2026-05-09
 authoritative_for:
   - RunPod H100 NVL training pod assignment (training-only, separate from inference)
   - Default training base model = google/gemma-4-E4B
-  - RisingWave vertex/dataset input contract for multimodal training
+  - Kotoba/Datomic vertex/dataset input contract for multimodal training
   - modality encoder and embedding-model coverage
   - deployment split between vLLM inference (6000 Ada), H100 trainer, embedding workers, and RW lineage
 depends_on:
@@ -18,7 +18,7 @@ depends_on:
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605092200-continuous-metabolic-training
   - adr-2605092300-fp8-train-inference-colocation
-  - adr-2604262359-risingwave-multimodal-vector-search-topology
+  - adr-2604262359-kotoba-multimodal-vector-search-topology
 related:
   - 30-graph/graph-schema/migrations/20260508000000_vertex_training_lineage.ts
   - 30-graph/graph-schema/migrations/20260427001000_vector_embedding_project_tables.ts
@@ -57,7 +57,7 @@ L40S 関連の節は「将来 supply が安定した時の参考形状」とし�
 実装規範ではない旨を §Status に明記する。
 
 Model family name: **Oka**. The name is derived from mathematician
-**Kiyoshi Oka (岡潔)** and is used for the RisingWave-grounded multimodal
+**Kiyoshi Oka (岡潔)** and is used for the Kotoba/Datomic-grounded multimodal
 model family described in this ADR.
 
 前提（運用前提と歴史前提を分離）:
@@ -67,7 +67,7 @@ model family described in this ADR.
   training を素直に回せる。`bf16` baseline + `fp8` activation cast の両方が
   smoke 完走済み（後段 §Status）。
 - inference は別 pod (6000 Ada) を経由し、`https://llm.etzhayyim.com/v1/chat/completions`
-  に向ける。training pod の HTTP server (`pymagatama.training_http_server`)
+  に向ける。training pod の HTTP server (`kotodama.training_http_server`)
   は inference を受け持たない。
 - Default base = `google/gemma-4-E4B` (4B 活性 / MoE、128k context、bf16)。
 
@@ -77,7 +77,7 @@ model family described in this ADR.
   共用が現実的な上限。30B+ は tensor parallel か CPU/B2 offload 前提。
 
 不変前提:
-- RisingWave は live OLAP/streaming DB なので、巨大 tensor / raw media / checkpoint
+- Kotoba/Datomic は live OLAP/streaming DB なので、巨大 tensor / raw media / checkpoint
   body は入れない。RW は reference、metadata、lineage、embedding index を持つ。
 - 既存 corpus は `v_training_text`, `v_training_triple`,
   `vertex_hfhub_*`, `vertex_3d_blob`, `vertex_vector_embedding_*`,
@@ -114,7 +114,7 @@ raw/blob/table row
 ## 1.1 Comparative Positioning
 
 現時点の weight 組み合わせは、単一の frontier checkpoint ではなく、
-**Gemma 系 trunk + Qwen/Qwen-VL 系 modality/router adapters + RisingWave external
+**Gemma 系 trunk + Qwen/Qwen-VL 系 modality/router adapters + Kotoba/Datomic external
 memory substrate** と見るのが最も近い。
 
 | Reference family | Similarity | Reason |
@@ -123,7 +123,7 @@ memory substrate** と見るのが最も近い。
 | Qwen / Qwen-VL | high | Existing routing uses Qwen for use-case defaults, vision paths, and Qwen-VL-style embedding candidates. The multimodal adapter plan is closer to Qwen-VL than to a text-only Gemma stack. |
 | Kimi | medium | Agentic/tool and long-context goals overlap, but Kimi K2-class systems are giant sparse MoE models. This design is adapter-routed and L40S-bounded, not 1T-scale MoE. |
 | MiniMax | medium-low | Product-agent and long-context behavior goals overlap, but this design does not assume a single proprietary frontier checkpoint. RW lineage + adapters are the primary shape. |
-| UltraMem v2 | medium-low | The external-memory idea is similar: persistent retrieval/memory matters as much as weights. Here the memory substrate is RisingWave `vertex_*` + vector/search tables, not a standalone memory model. |
+| UltraMem v2 | medium-low | The external-memory idea is similar: persistent retrieval/memory matters as much as weights. Here the memory substrate is Kotoba/Datomic `vertex_*` + vector/search tables, not a standalone memory model. |
 | Zamba | low | Zamba-style hybrid SSM/Transformer architecture is not the current target. This design is Transformer trunk + modality adapters + FP8/LoRA. |
 
 Operationally, the nearest shorthand is:
@@ -131,7 +131,7 @@ Operationally, the nearest shorthand is:
 ```text
 Gemma trunk
   + Qwen-VL/Qwen3-like multimodal adapters and router behavior
-  + UltraMem-like persistent memory, implemented as RisingWave vertex/dataset/embedding substrate
+  + UltraMem-like persistent memory, implemented as Kotoba/Datomic vertex/dataset/embedding substrate
 ```
 
 This is deliberately lighter than Qwen3-30B-A3B / Kimi / MiniMax-class giant
@@ -144,7 +144,7 @@ speed and lineage smoke only. The quality path is:
 
 ```text
 frontier teachers: Opus 4.7 / GPT-5.5 class
-  -> distillation corpus and preference pairs in RisingWave lineage
+  -> distillation corpus and preference pairs in Kotoba/Datomic lineage
   -> Oka 27B dense trunk adapters
   -> router-selectable expert adapters by modality/domain/task
   -> optional 70B / MoE route for hard prompts and teacher refresh
@@ -216,7 +216,7 @@ The L40S node runs a single GPU queue with priority lanes:
 
 If VRAM pressure exceeds threshold, training yields first, embedding batch second, inference last.
 
-## 5. RisingWave Dataset Contract
+## 5. Kotoba/Datomic Dataset Contract
 
 The model never scans arbitrary `vertex_*` tables directly from GPU jobs. CPU workers create
 immutable dataset snapshots first:
@@ -297,7 +297,7 @@ Use Unsloth for:
   fit larger batch, sequence length, or rank on one GPU.
 
 Do not treat Unsloth as the whole Oka runtime. It does not replace the
-RisingWave dataset/lineage contract, multimodal adapter registry, vLLM serving
+Kotoba/Datomic dataset/lineage contract, multimodal adapter registry, vLLM serving
 lane, or production FP8 serving path. Oka training should record the actual
 runner in `hyperparams_json.runner`, for example `peft` or `unsloth`, so eval
 and promotion can compare speed, VRAM, and quality without mixing provenance.
@@ -389,9 +389,9 @@ Codex attempted to start training from the existing `etzhayyim training` surface
 - To move training forward while L40S capacity was unavailable, a RunPod A40
   Secure pod (`h0corqufikfmvf`, `runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04`)
   was started with `:8003/http` exposed. A minimal training HTTP server was
-  installed on the pod and connected to RisingWave through the public
-  `risingwave` LoadBalancer address because the in-cluster
-  `risingwave.risingwave.svc.cluster.local` name is not resolvable from
+  installed on the pod and connected to Kotoba/Datomic through the public
+  `kotoba` LoadBalancer address because the in-cluster
+  `kotoba.kotoba.svc.cluster.local` name is not resolvable from
   RunPod.
 - Manual `/train/run` probe `manual-probe-6` completed a 5-step GPU torch
   smoke on the A40 and inserted a `vertex_training_run` row:
@@ -409,7 +409,7 @@ Codex attempted to start training from the existing `etzhayyim training` surface
 - A RunPod H100 NVL Secure pod (`mcax1y64ihgw4u`,
   `runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04`) was started as a
   temporary acceleration path while L40S/Ada capacity was unavailable. The same
-  minimal training HTTP server was installed and connected to RisingWave through
+  minimal training HTTP server was installed and connected to Kotoba/Datomic through
   the public LoadBalancer address.
 - H100 BF16/FP8 activation smoke runs completed:
   `oka-h100nvl-bf16-2000step-20260509` completed 2,000 steps,
@@ -500,7 +500,7 @@ Codex attempted to start training from the existing `etzhayyim training` surface
   Python `urllib` calls from `training-zeebe-worker` receive HTTP `403` from
   the RunPod proxy before reaching the pod, while `curl` with the same bearer
   token succeeds. The durable evidence for this checkpoint is therefore the
-  direct `/train/run` call plus the RisingWave row, not a completed XRPC
+  direct `/train/run` call plus the Kotoba/Datomic row, not a completed XRPC
   `runLora` response.
 - Local fallback smoke completed with `./train-experts-native`:
 
@@ -524,7 +524,7 @@ production fix should add a non-`urllib` HTTP client or a small in-cluster proxy
 for `training-zeebe-worker`, then retry the same run through XRPC.
 - 2026-05-09 client-side fix landed (diagnostic, not yet retried end-to-end):
   `_pod_submit_and_wait` in
-  `20-actors/magatama/py/src/pymagatama/primitives/training_run.py` was
+  `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py` was
   switched from `urllib.request` to `httpx.Client` and now sends
   `User-Agent: curl/8.7.1` + `Accept: application/json` on both
   `POST /train/run` and `GET /train/status/{id}`. Hypothesis: the RunPod
@@ -544,20 +544,20 @@ for `training-zeebe-worker`, then retry the same run through XRPC.
   not collapsed.
 - 2026-05-09 default training base model updated to **`google/gemma-4-E4B`**
   (HF base, non-instruct). Code wiring:
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`
     adds a `gemma-4-e4b-base` entry with `huggingfaceModel:
     "google/gemma-4-E4B"` plus a `training-base` use-case default and
     exports a new `TRAINING_DEFAULT_BASE_MODEL` constant.
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-types.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-types.ts`
     grows a `huggingfaceModel?: string` field and a `"training-base"`
     `UseCaseName` so the SSoT carries HF IDs explicitly.
-  - `20-actors/magatama/py/src/pymagatama/primitives/training_run.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py`
     reads `TRAINING_DEFAULT_BASE_MODEL` env (default `google/gemma-4-E4B`)
     and uses it as fallback when `runpod_handler` receives a payload
     without `baseModel` / `studentBaseModel`. The pre-2026-05-09 6000-Ada
     port-8003 default for `TRAINING_POD_BASE_URL` is retired in favour of
     requiring callers to set the H100 pod URL via Secret.
-  - `20-actors/magatama/py/src/pymagatama/training_http_server.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/training_http_server.py`
     docstring rewritten to declare H100 pod as training-only and 6000 Ada
     as inference-only.
   Existing checkpoints on `gemma-3-4b-it` / `gemma-3-27b-it` remain
@@ -577,15 +577,15 @@ for `training-zeebe-worker`, then retry the same run through XRPC.
   `deps.toml [invariants.gpu_pricing.runpod_h100_nvl]`.
 - 2026-05-09 default training base model updated to **`google/gemma-4-E4B`**
   (HF base, non-instruct). Code wiring:
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-registry.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-registry.ts`
     adds a `gemma-4-e4b-base` entry with `huggingfaceModel:
     "google/gemma-4-E4B"`, a `training-base` use-case default, and the
     new `TRAINING_DEFAULT_BASE_MODEL` constant.
-  - `20-actors/magatama/sdk/magatama-host-sdk/src/llm-model-types.ts`
+  - `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/llm-model-types.ts`
     grows a `huggingfaceModel?: string` field and `"training-base"`
     (plus `"edge"` / `"browser"` / `"cpu"` for the Baien sibling, ADR
     2605092350) so the SSoT carries HF IDs explicitly.
-  - `20-actors/magatama/py/src/pymagatama/primitives/training_run.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py`
     reads `TRAINING_DEFAULT_BASE_MODEL` env (default `google/gemma-4-E4B`)
     and falls back to it when `runpod_handler` receives a payload
     without `baseModel` / `studentBaseModel`. The pre-2026-05-09 6000-Ada
@@ -594,7 +594,7 @@ for `training-zeebe-worker`, then retry the same run through XRPC.
     kinds (`baien-lora`, `baien-multimodal-graft`) reuse the same
     `runpod_handler` path with a sibling `_BAIEN_DEFAULT_TRUNK_MODEL`
     fallback.
-  - `20-actors/magatama/py/src/pymagatama/training_http_server.py`
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/training_http_server.py`
     docstring rewritten to declare H100 pod as training-only and 6000 Ada
     as inference-only.
   Existing checkpoints on `gemma-3-4b-it` / `gemma-3-27b-it` remain
@@ -620,5 +620,5 @@ Negative:
 - NVIDIA L40S product brief and architecture notes: FP8 Tensor Core capability, 48 GB GDDR6.
 - RunPod GPU pricing/spec pages: L40S 48 GB availability and current deployment cost must be checked at provisioning time.
 - `90-docs/adr/2605070700-rw-native-model-training-weight-lineage.md`
-- `90-docs/adr/2604262359-risingwave-multimodal-vector-search-topology.md`
+- `90-docs/adr/2604262359-kotoba-multimodal-vector-search-topology.md`
 - `90-docs/adr/2605092300-fp8-train-inference-colocation.md`

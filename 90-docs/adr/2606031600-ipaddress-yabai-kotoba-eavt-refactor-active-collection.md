@@ -9,7 +9,7 @@ last_verified: 2026-06-03
 priority: 7.5
 axis: actor-architecture
 weight: 0.75
-priority_note: "Executes the substrate halves of ADR-2605301400 (§T2 ipaddress, §T3 yabai): lifts the world IP/ASN number-resource graph and the passive-DNS/CTI graph off the RisingWave / yata Workers-RPC SQL store onto the kotoba Datom log (ADR-2605262130), with authorized ACTIVE collection (RIR delegated-stats / RDAP / reverse-DNS / crt.sh CT logs) — a charter-compliant answer to the SecurityTrails-shaped IP/DNS-intelligence question, framed as a resilience+accountability map, never a target-list."
+priority_note: "Executes the substrate halves of ADR-2605301400 (§T2 ipaddress, §T3 yabai): lifts the world IP/ASN number-resource graph and the passive-DNS/CTI graph off the Kotoba/Datomic / yata Workers-RPC SQL store onto the kotoba Datom log (ADR-2605262130), with authorized ACTIVE collection (RIR delegated-stats / RDAP / reverse-DNS / crt.sh CT logs) — a charter-compliant answer to the SecurityTrails-shaped IP/DNS-intelligence question, framed as a resilience+accountability map, never a target-list."
 authoritative_for:
   - kotoba EAVT vocabulary `ip-network-ontology` (RIR/ASN/IPrange/IP/geo/rdns/whois + announce/member edges)
   - kotoba EAVT vocabulary `passive-dns-cti-ontology` (domain/passive-DNS/IP-history/TLS-cert/IOC/access-audit)
@@ -44,14 +44,14 @@ Datomic への保存状況は?"* — exposed a substrate violation. Two actors a
 SecurityTrails-class data and run in production, but on the **prohibited** store:
 
 - **ipaddress.etzhayyim.com** (1次ソース): RIR feeds, WHOIS/RDAP, GeoIP, reverse-DNS, ASN/CIDR
-  — held in RisingWave / yata Workers-RPC SQL (`vertex_ip_address` / `vertex_ipaddress_asn` /
+  — held in Kotoba/Datomic / yata Workers-RPC SQL (`vertex_ip_address` / `vertex_ipaddress_asn` /
   `vertex_ipaddress_range`).
 - **yabai.etzhayyim.com** (CTI/risk): passive DNS, IP hosting/location history, TLS/CT-log
   certs, IOC store, access-audit — held in the same SQL graph (`WhoisRecord` / `DnsRecord` /
   `IpHostingHistory` / `TlsCertificate` / `IocIndicator` / `IntelAccessLog` …).
 
 ADR-2605262130 + ADR-2605312345 make the **kotoba Datom log the first-class canonical state**;
-RisingWave / centralized SQL is prohibited as system-of-record. ADR-2605301400 already named
+Kotoba/Datomic / centralized SQL is prohibited as system-of-record. ADR-2605301400 already named
 **tadori** as the consolidation point and specified the migration as phases **§T2 (ipaddress)**
 and **§T3 (yabai)** — but only **§T0** (scaffold + a passive operator-staged threat-intel
 bridge) had been built. No IP/DNS data lived in kotoba.
@@ -122,8 +122,8 @@ tadori holds case-anchored evidence — separation of duties preserved.
   `:representative`; **no live full-universe ingest has run** (G7-gated); the dual-write /
   dual-read **set-equality acceptance gates** of ADR-2605301400 §T2/§T3 (`lookup_ip`/`analyze_ip`
   identical from kotoba; `correlate-ip-activity` set-equal) are **still pending**, so the legacy
-  RisingWave graphs are **not yet retired** (that is §T4, post-verification, Council Lv6+).
-- The production Workers still read RisingWave until the dual-read shadow cycle passes; this ADR
+  Kotoba/Datomic graphs are **not yet retired** (that is §T4, post-verification, Council Lv6+).
+- The production Workers still read Kotoba/Datomic until the dual-read shadow cycle passes; this ADR
   lands the kotoba target model + active ingest beside them, it does not flip the read path.
 
 # Alternatives Considered
@@ -141,7 +141,7 @@ tadori holds case-anchored evidence — separation of duties preserved.
 # References
 
 - ADR-2605301400 — tadori actor + the §T0–§T4 migration plan this executes (§T2/§T3)
-- ADR-2605262130 — kotoba storage substrate unification (no RisingWave)
+- ADR-2605262130 — kotoba storage substrate unification (no Kotoba/Datomic)
 - ADR-2605312345 — kotoba Datom log = first-class canonical state
 - ADR-2605181100 — encrypted records (XChaCha20-Poly1305 + Signal key-wrap) for PII
 - ADR-2605215000 — Murakumo-only inference

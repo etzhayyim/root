@@ -33,7 +33,7 @@
         "id": "rule.disclaimer",
         "statement": "All profile/AV-1 content includes the disclaimer 'AI Agent — unofficial, not affiliated with the Japanese government.'",
         "kind": "invariant",
-        "enforcedBy": "magatama.jsonld profile.description"
+        "enforcedBy": "kotodama.jsonld profile.description"
       }
     ]
   },

@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-19
 authoritative_for:
   - lawfirm 4 NSID (requestConsult / createCase / translateToLang / translateFromLang) の dispatcher 実装
-  - pymagatama.primitives.lawfirm_intake / lawfirm_translate モジュール設計
+  - kotodama.primitives.lawfirm_intake / lawfirm_translate モジュール設計
   - NRI booking form (/services/nri/book) の XRPC 接続
   - lawyer portal 8 NSID (getDashboard / listAssignedMatters / listPendingGrants / acceptGrant / logWorkNote / submitDocumentDraft / approveDocumentDraft / rejectDocumentDraft) の dispatcher 実装
   - Stripe billing webhook HMAC verification + Mode A/B handler
@@ -71,7 +71,7 @@ if lawfirm_response is not None:
     return lawfirm_response
 ```
 
-### 2. pymagatama.primitives 実装
+### 2. kotodama.primitives 実装
 
 #### lawfirm_intake.py
 
@@ -96,7 +96,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
 
 | 関数 | 実装内容 |
 |---|---|
-| `task_lawfirm_translate_to_lang` | `pymagatama.llm.call_tier("fast", system, user, max_tokens=2048)` 経由で OpenRouter LLM に翻訳要求 |
+| `task_lawfirm_translate_to_lang` | `kotodama.llm.call_tier("fast", system, user, max_tokens=2048)` 経由で OpenRouter LLM に翻訳要求 |
 | `task_lawfirm_translate_from_lang` | source_lang 省略時は自動検出 prompt を付与して同 call_tier 経由 |
 
 `call_tier` シグネチャ: `call_tier(tier: str, system: str, user: str, *, max_tokens, ...)` → `dict{content: str}`。
@@ -106,10 +106,10 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
 
 ```python
 # lawfirm actor mapping
-"requestConsult":   "pymagatama.primitives.lawfirm_intake:task_lawfirm_request_consult",
-"createCase":       "pymagatama.primitives.lawfirm_intake:task_lawfirm_create_case",
-"translateToLang":  "pymagatama.primitives.lawfirm_translate:task_lawfirm_translate_to_lang",
-"translateFromLang":"pymagatama.primitives.lawfirm_translate:task_lawfirm_translate_from_lang",
+"requestConsult":   "kotodama.primitives.lawfirm_intake:task_lawfirm_request_consult",
+"createCase":       "kotodama.primitives.lawfirm_intake:task_lawfirm_create_case",
+"translateToLang":  "kotodama.primitives.lawfirm_translate:task_lawfirm_translate_to_lang",
+"translateFromLang":"kotodama.primitives.lawfirm_translate:task_lawfirm_translate_from_lang",
 ```
 
 ### 4. コンテナ更新
@@ -125,7 +125,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
       optional: true
 ```
 
-pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64` を
+kotodama image `ghcr.io/etzhayyim/kotodama:16a1aeab4e6-20260518095952-amd64` を
 `kubectl set image deployment/bpmn-dispatcher dispatcher=<image> -n mitama-udf` で更新。
 
 ### 5. NRI booking form frontend wiring
@@ -175,16 +175,16 @@ Fix: `com.etzhayyim.apps.*` → `dispatcher.etzhayyim.com` (with `x-internal-tru
 
 Fix: `%(name)s` style に統一、`actor_did`、`status='invited'` を明示。
 
-### Bug 3 — RisingWave LIMIT $N + _q() tuple→dict (dispatcher_main.py)
+### Bug 3 — Kotoba/Datomic LIMIT $N + _q() tuple→dict (dispatcher_main.py)
 
 `lawyer_direct_handler` の `_q()` が `:name` → `%(lim)s` 変換後に psycopg3 が
-`LIMIT $1 OFFSET $2` として prepared statement に昇格 → RisingWave "Failed to prepare the statement"。
+`LIMIT $1 OFFSET $2` として prepared statement に昇格 → Kotoba/Datomic "Failed to prepare the statement"。
 また `sa_query()` が生タプルを返すのに全呼び出し元が `.get()` (dict アクセス) → `AttributeError`。
 
 Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。
 Fix (2): `_q()` を `sync_cursor` 直接使用に書き換え、`cursor.description` からカラム名を取得して dict を構築。
 
-Deployed: `ghcr.io/etzhayyim/pymagatama:9fe3e9181b0-20260519003849-amd64` (Helm rev 489)
+Deployed: `ghcr.io/etzhayyim/kotodama:9fe3e9181b0-20260519003849-amd64` (Helm rev 489)
 
 ### Verified Live State (2026-05-19T00:44Z)
 
@@ -211,7 +211,7 @@ POST lawfirm.etzhayyim.com/xrpc/com.etzhayyim.apps.lawyer.listPendingGrants  ←
 | `acceptGrant` E2E — grant `20260518152613-5e3059ec` → `status=accepted` | ✅ done |
 | `listAssignedMatters` — matter seed + schema fix (firm_did→owner_did, matter_number 除去) | ✅ done |
 | India auto-route smoke (lang=hi → autoGrant → listPendingGrants count:2) | ✅ done |
-| Deployed: `ghcr.io/etzhayyim/pymagatama:e64e00aac20-20260519104345-amd64` (Helm rev 491) | ✅ done |
+| Deployed: `ghcr.io/etzhayyim/kotodama:e64e00aac20-20260519104345-amd64` (Helm rev 491) | ✅ done |
 
 ## Track B 完結 (2026-05-19)
 
@@ -221,7 +221,7 @@ POST lawfirm.etzhayyim.com/xrpc/com.etzhayyim.apps.lawyer.listPendingGrants  ←
 | `vertex_lawyer_document_draft` テーブル作成 | ✅ done |
 | `logWorkNote` dispatcher handler + smoke (`billable_minutes=45`) | ✅ done |
 | `submitDocumentDraft` — `persist_draft_node` (LangGraph) + ISCO-2611 gate smoke | ✅ done |
-| Deployed: `ghcr.io/etzhayyim/pymagatama:e64e00aac20-20260519021934-amd64` (Helm rev 494) | ✅ done |
+| Deployed: `ghcr.io/etzhayyim/kotodama:e64e00aac20-20260519021934-amd64` (Helm rev 494) | ✅ done |
 
 ### Verified Live State (2026-05-19T02:24Z)
 
@@ -287,7 +287,7 @@ Stripe billing infrastructure — webhook HMAC verification + Mode A (flat SaaS)
 | `billingModeAStart` / `billingModeBOnboard` xrpc.ts client bindings | ✅ done |
 | `/billing/subscribe/+page.svelte` — Mode A (flat SaaS: legalName/adminEmail/monthly/currency) + Mode B (rev-share Connect: country + onboarding_url redirect) | ✅ done |
 | SQL migrations live: `vertex_lawfirm_invoice`, `vertex_lawfirm_payment`, billing columns on `vertex_lawfirm_tenant` (`stripe_customer_id`, `stripe_connect_account_id`, `billing_mode`, `platform_fee_pct`) | ✅ done |
-| Deployed: image `ghcr.io/etzhayyim/pymagatama:billing-wh-41286572354-amd64`, Helm rev 500, CF `505efb0a` | ✅ done |
+| Deployed: image `ghcr.io/etzhayyim/kotodama:billing-wh-41286572354-amd64`, Helm rev 500, CF `505efb0a` | ✅ done |
 
 **Manual ops remaining** (require human):
 - `kubectl -n mitama-udf edit secret lawfirm-stripe` → add `STRIPE_WEBHOOK_SECRET`, `STRIPE_IN_API_KEY`, `STRIPE_JP_API_KEY` (base64)
@@ -310,9 +310,9 @@ Stripe billing infrastructure — webhook HMAC verification + Mode A (flat SaaS)
 
 ## References
 
-- `20-actors/magatama/py/src/pymagatama/dispatcher_main.py` — `lawfirm_direct_handler()`
-- `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_intake.py`
-- `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_translate.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py` — `lawfirm_direct_handler()`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/lawfirm_intake.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/lawfirm_translate.py`
 - `50-infra/vultr/mitama-udf-pool/templates/dispatcher.yaml`
 - `50-infra/cloudflare/workers/lawfirm/svelte/src/routes/services/nri/book/+page.svelte`
 - `90-docs/adr/0036-lawfirm-india-intake-auto-route.md`

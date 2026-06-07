@@ -14,7 +14,7 @@ for `kaisya`, `kyber`, and `apqc` assuming LangGraph Server and SpiffWorkflow.
 - `kaisya` exposes a finance cockpit that reads the replacement state.
 - APQC/Kyber continue to provide classification, BPMN catalog, and OCEL/process
   mining coverage instead of duplicating finance persistence.
-- Verification exists without requiring live RisingWave credentials.
+- Verification exists without requiring live Kotoba/Datomic credentials.
 
 ## Prompt-To-Artifact Checklist
 
@@ -53,7 +53,7 @@ for `kaisya`, `kyber`, and `apqc` assuming LangGraph Server and SpiffWorkflow.
 
 ## Live Gates Not Executed Here
 
-The local Keychain does not contain `etzhayyim.risingwave/RW_DSN` (security exit
+The local Keychain does not contain `etzhayyim.kotoba/KOTOBA_URL` (security exit
 code 44), so live DB migration, Spiff instance smoke, and MoneyForward export
 parity execution could not be run from this workspace. The required commands
 and pass/fail criteria are captured in

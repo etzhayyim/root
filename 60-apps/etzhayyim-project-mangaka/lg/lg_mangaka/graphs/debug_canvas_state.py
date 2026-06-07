@@ -52,7 +52,6 @@ _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _NSID = "com.etzhayyim.mangaka.document"
-_RW_URL = os.environ.get("RW_URL", "")
 
 
 class _State(TypedDict, total=False):
@@ -85,25 +84,25 @@ def _g(state: _State, *keys: str, default: Any = None) -> Any:
 
 # Super-step 1: load document body from RisingWave
 async def _step_load_doc(state: _State) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"status": "error", "error": "RW_URL not configured"}
+    
     doc_id = (_g(state, "doc_id", "docId", default="") or "").strip()
     if not doc_id:
         return {"status": "error", "error": "docId required"}
 
     vertex_id = f"at://{_APP_DID}/{_NSID}/{doc_id}"
     try:
-        import psycopg  # type: ignore
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                "SELECT props FROM vertex_mangaka WHERE vertex_id = %s AND kind = 'document' LIMIT 1",
-                (vertex_id,),
-            )
-            row = await cur.fetchone()
-        finally:
-            await conn.close()
+        from kotodama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
+        rows = await asyncio.to_thread(
+            client.select_where,
+            "vertex_mangaka",
+            "vertex_id",
+            vertex_id,
+            ["props", "kind"],
+            limit=1
+        )
+        row = (rows[0].get("props") if rows and rows[0].get("kind") == "document" else None,) if rows else None
     except Exception as exc:  # noqa: BLE001
         _log.exception("load_doc failed (docId=%s)", doc_id)
         return {"status": "error", "error": f"{type(exc).__name__}: {exc!s}"[:300]}

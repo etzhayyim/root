@@ -33,7 +33,7 @@
     },
     {
       "id": ":elv-body-shred",
-      "src": "20-actors/magatama/cells/elv_body_shred/cell.py",
+      "src": "40-engine/kotoba/crates/kotoba-kotodama/cells/elv_body_shred/cell.py",
       "loc": 78, "nodes": 7, "rel_imports": 1, "tier": "complex",
       "class": "ElvBodyShredCell", "entry": "solve", "ref_input": {},
       "ref_strategy": ":host-python"

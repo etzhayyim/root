@@ -1,5 +1,5 @@
 // outreach.etzhayyim.com — Sales Outreach Automation (thin edge facade).
-// Business logic: 20-actors/magatama/py/src/pymagatama/outreach_worker_main.py
+// Business logic: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py
 // LangGraph loop: research_prospect → draft_opening → quality_gate → store_step
 // Reply detection: subscribeRepos on gmail.message + m365Ingest.email
 // PII: prospect email/title/company = Tier 3 (sensitivity_ord=3, ADR-0018)
@@ -24,7 +24,7 @@ export default {
         actor: "did:web:outreach.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "otch0001",
         execution: "edge-bpmn+langgraph-langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/outreach_worker_main.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/outreach_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "resend", "gmail", "m365Ingest"],

@@ -20,7 +20,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - adr-2604241342-kotoba-out-of-band-migration-pattern
   - 2605171300
 supersedes: []
 superseded_by:
@@ -47,7 +47,7 @@ layer (RW / Lance / Iroh / index) の使用条件を規定した。
 しかし **projection layer の具体的な engine 実装** は両 ADR ともオープン。一方で
 religious-corp は:
 
-- **18,345 unispsc LangGraph agents** (`20-actors/magatama/py/.../unispsc_agents/`) を
+- **18,345 unispsc LangGraph agents** (`40-engine/kotoba/crates/kotoba-kotodama/py/.../unispsc_agents/`) を
   動かす Pregel 基盤を必要とする (ADR-2605171300)
 - **SQL + Graph + GraphQL** 三面のクエリ surface を必要とする (commercial-evidence / member roster / SBT graph / land registry)
 - **暗号化 + RLS** を DID 主体で強制する (ADR-2605181100)
@@ -68,7 +68,7 @@ kotoba-datomic projection layer に求められる機能を 9 つに分解:
 3. SQL surface (PgWire 互換が望ましい)
 4. Graph surface (openCypher subset + property graph)
 5. **GraphQL surface** (API クエリ言語、Hasura-iso、subscription 含む)
-6. UDF protocol (Arrow Flight、pymagatama 18,345 agents を直接呼べる)
+6. UDF protocol (Arrow Flight、kotodama 18,345 agents を直接呼べる)
 7. Encryption integration (`com.etzhayyim.encrypted.*` envelope を貫通)
 8. RLS (DID-bound UCAN capability、三層 defense in depth)
 9. **Pregel epoch semantics** (LangGraph super-step ↔ engine barrier の整合)
@@ -89,26 +89,26 @@ kotoba-datomic projection layer に求められる機能を 9 つに分解:
 
 ### Option A — Hummock fork (yata-slate 名で religious-corp 内製化)
 
-RisingWave の Hummock state store layer のみ fork し、religious-corp 専用 engine
+Kotoba/Datomic の Hummock state store layer のみ fork し、religious-corp 専用 engine
 (`yata-slate`) として最適化。SQL planner は DataFusion 流用、streaming engine は
 自前実装。Hummock の Pregel epoch semantics は保持。
 
-### Option B — RisingWave 全体 fork (yata-wave)
+### Option B — Kotoba/Datomic 全体 fork (yata-wave)
 
-RisingWave 全体を religious-corp 用に fork (`yata-wave`)、Charter Rider 適用、
+Kotoba/Datomic 全体を religious-corp 用に fork (`yata-wave`)、Charter Rider 適用、
 graph 対応を追加。Hummock + RW Compute + RW Meta + connector を継承し、religious-corp
 固有要件を上に追加する。
 
 ### Option C — SlateDB fork
 
 object-storage-native な独立 LSM である SlateDB (Apache 2.0、Slate Computing) を
-fork。RisingWave の代わりに自前 stream/SQL layer を構築。
+fork。Kotoba/Datomic の代わりに自前 stream/SQL layer を構築。
 
 **早期に却下**:
 
 - SlateDB は pure KV LSM、**Pregel epoch / barrier semantics を持たない** ため
   LangGraph super-step との内部 isomorphism が成立しない
-- UDF protocol を自前で実装する必要があり、pymagatama 18,345 agents の統合コストが
+- UDF protocol を自前で実装する必要があり、kotodama 18,345 agents の統合コストが
   Option B より高い
 - Apple Silicon unified memory の利点を活かす Arrow Flight UDF zero-copy が
   自前構築になる
@@ -164,7 +164,7 @@ Lance を vector / columnar projection に併用する旧設計。本 ADR では
 | P4 PgWire + RLS proxy | 6-9 | 1 | 1-2 |
 | P5 GraphQL | 4-6 | 4-6 | 4-6 |
 | P5b Cypher subset | 3-4 | 3-4 | 3-4 |
-| P6 UDF / pymagatama 統合 | 4-6 | 1-2 | 1-2 |
+| P6 UDF / kotodama 統合 | 4-6 | 1-2 | 1-2 |
 | P7 RLS / encryption end-to-end | 4-6 | 2-3 | 2-3 |
 | P8 Witness / L2 anchor | 2-3 | 2-3 | 2-3 |
 | P9 Mac Silicon GPU runtime | 2-3 | 2-3 | 2-3 |
@@ -211,7 +211,7 @@ Lance を vector / columnar projection に併用する旧設計。本 ADR では
 
 ### Finding 1: Hummock の epoch model は LangGraph Pregel と内部 isomorphic
 
-RisingWave streaming barrier の epoch = Pregel super-step boundary。LangGraph
+Kotoba/Datomic streaming barrier の epoch = Pregel super-step boundary。LangGraph
 `BaseCheckpointSaver` の super-step もこれと 1:1 対応する。Hummock の per-key
 epoch versioning は per-vertex super-step history と構造一致 → **LangGraph
 checkpointer 実装は Hummock 上で薄い PgWire client** で済む。
@@ -238,7 +238,7 @@ religious-corp parallel-substrate 原則 (ADR-2605192100 §1.12) が要求する
 
 - データ実体: MST (atproto repo) + IPFS (CIDv1) + GraphAr (Parquet on S3) →
   すべて religious-corp 所有 bucket
-- 計算 engine (RisingWave) は **transient な計算層** で、いつでも他 engine に
+- 計算 engine (Kotoba/Datomic) は **transient な計算層** で、いつでも他 engine に
   乗り換え可能 (GraphAr / Parquet 標準 format なので DuckDB / GraphScope / Flink
   などへ移送なしで切替可)
 - Charter Rider は extension layer (~30-50K LOC) のみに適用、upstream RW 本体
@@ -294,7 +294,7 @@ constitutional principles に基づく最終判断は別途行う。
    明文化されていない。GraphAr による format ownership で十分とするか、engine
    ownership まで求めるかが open question。
 
-5. **upstream RW labs governance**: RisingWave Labs の license 政策変化リスクは
+5. **upstream RW labs governance**: Kotoba/Datomic Labs の license 政策変化リスクは
    2025-2026 時点では低い (core は Apache 2.0 維持) が、Materialize の BSL 転換例
    もあり 5 年スパンでは zero とは言えない。リスクヘッジを fork で取るか pin で
    取るかの判断保留。
@@ -309,7 +309,7 @@ constitutional principles に基づく最終判断は別途行う。
    GraphAr chunk CID をどう統合して L2 anchor に書くか? (ADR-2605231500 §
    "rebuild" との整合)
 
-3. **Arrow Flight UDF Server の religious-corp 化**: pymagatama 18,345 agents を
+3. **Arrow Flight UDF Server の religious-corp 化**: kotodama 18,345 agents を
    一つの UDF Server にまとめるか、agent 毎に分離するか? Resource isolation と
    coldstart の trade-off。
 
@@ -416,12 +416,12 @@ No implementation in this ADR. The following follow-up tasks are decision-pendin
 - ADR-2605192415 (religious-corp daemon architecture — Murakumo cells)
 - ADR-2605231400 (kotoba-datomic Holochain-iso substrate)
 - ADR-2605231500 (kotoba-datomic-projection — derived read paths)
-- ADR-2605171300 (magatama unispsc LangGraph agents — 18,345 cells)
-- ADR-2604241342 (RisingWave out-of-band migration pattern — historical RW usage record)
+- ADR-2605171300 (kotodama unispsc LangGraph agents — 18,345 cells)
+- ADR-2604241342 (Kotoba/Datomic out-of-band migration pattern — historical RW usage record)
 
 External:
 
-- RisingWave (Apache 2.0): https://github.com/risingwavelabs/risingwave
+- Kotoba/Datomic (Apache 2.0): https://github.com/kotobalabs/kotoba
 - Apache GraphAr (Apache 2.0, Incubator): https://github.com/apache/incubator-graphar
 - SlateDB (Apache 2.0): https://github.com/slatedb/slatedb
 - GraphScope (Apache 2.0): https://github.com/alibaba/GraphScope

@@ -109,7 +109,7 @@ etzhayyim agent-token --lxm com.etzhayyim.apps.meetingRecorder.joinMeeting \
 ### Step 5. Regression (既存 topology 非破壊確認)
 
 - PDS `/_app/meta` が 200 応答
-- RisingWave `vertex_repo_commit` が通常 rate で append される (recorder writes が graph を専有していない)
+- Kotoba/Datomic `vertex_repo_commit` が通常 rate で append される (recorder writes が graph を専有していない)
 - Murakumo `/v1/audio/transcriptions` latency p95 < 2s (whisper-large-v3)
 
 ## T+1d: 監視
@@ -140,9 +140,9 @@ helm -n meeting-recorder rollback meeting-recorder 0
 
 ## References
 
-- ADR-0042 — magatama MCP Tool Facade (XRPC ↔ MCP co-exposure)
+- ADR-0042 — kotodama MCP Tool Facade (XRPC ↔ MCP co-exposure)
 - ADR-0036 — Worker-direct Hyperdrive Persistence
-- ADR-0048 — RisingWave Vultr + B2 primary (egress-free)
+- ADR-0048 — Kotoba/Datomic Vultr + B2 primary (egress-free)
 - ADR-0018 — PII Tier 3 (transcript encrypt)
 - ADR-0022 — Auth 2-token model (Service Auth `lxm` scoping)
 - ADR-0019 — atproto-native identifier topology (did:plc deadline)

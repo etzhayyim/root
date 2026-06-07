@@ -39,7 +39,7 @@ superseded_by: []
 | 軸 | 判定 | 理由 |
 |---|---|---|
 | Liability (法的責任) | **vendor** | 職業安定法 第 30 条 有料職業紹介事業許可が必要。etzhayyim Japan株式会社 名義で申請 |
-| Custody (データ保管) | **vendor** | 候補者個人情報 (PII Tier 3) を RisingWave に保管 |
+| Custody (データ保管) | **vendor** | 候補者個人情報 (PII Tier 3) を Kotoba/Datomic に保管 |
 | Settlement (決済) | **vendor** | 成果報酬 (金銭取引) = Stripe Invoice 経由 |
 
 → 3 軸 OR-test で vendor 判定。**etzhayyim Japan株式会社 (vendor)** が事業主体。
@@ -112,7 +112,7 @@ superseded_by: []
 │ Fixed:                                                                          │ 【成果報酬 (主・100%)】                    │
 │  • 有料職業紹介事業許可取得 + 更新費 (~¥150,000 初回)                           │                                          │
 │  • recruit / kaisya / lawfirm infra: 共有 (追加コストほぼゼロ)                  │   上場企業: 年収 × 35%                    │
-│  • LangGraph / RisingWave: 共有インフラ                                         │     監査役年収 ¥3M → fee ¥1,050,000      │
+│  • LangGraph / Kotoba/Datomic: 共有インフラ                                         │     監査役年収 ¥3M → fee ¥1,050,000      │
 │                                                                                 │     監査役年収 ¥6M → fee ¥2,100,000      │
 │ Variable:                                                                       │     監査役年収 ¥10M → fee ¥3,500,000     │
 │  • RM (リレーションシップマネージャー) 人件費: 主要コスト                        │                                          │

@@ -42,7 +42,7 @@ records the violation explicitly so the unwind is tracked.
 
 ### Five layers of failure observed
 
-1. **Stale build artifact.** `magatama-yoro` Worker was serving an `index.html` that
+1. **Stale build artifact.** `kotodama-yoro` Worker was serving an `index.html` that
    referenced asset hashes (`index-nYWuGNtL.js`, `index-9MNgVrHh.css`) that no
    longer existed in `static/assets/`. The Worker's
    `not_found_handling: "single-page-application"` fell back to serving
@@ -62,7 +62,7 @@ records the violation explicitly so the unwind is tracked.
    "HTTP 405"/"HTTP 501").
 
 4. **ADR-2605111200 fail-fast guard.** The `createKyselyDb()` helper in
-   `@etzhayyim/magatama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
+   `@etzhayyim/kotodama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
    whenever invoked from a CF Worker (caches + WorkerGlobalScope both defined).
    The intent is to force migration of all DB I/O through AgentGateway MCP →
    pod-side LangServer. But the production PDS (`etzhayyim-pds-2603241700`) and
@@ -85,10 +85,10 @@ records the violation explicitly so the unwind is tracked.
 
 | # | Component | Version |
 |---|---|---|
-| 1 | yoro bundle hashes patched + `static/assets/` rebuilt from `_svelte/` build | `magatama-yoro@057fa39a-12c3-4a60-9159-c985bf057e9d` |
+| 1 | yoro bundle hashes patched + `static/assets/` rebuilt from `_svelte/` build | `kotodama-yoro@057fa39a-12c3-4a60-9159-c985bf057e9d` |
 | 2 | bundle post-process: `googletagmanager.com` / `pagead2.googlesyndication.com` / `a.magsrv.com` → `127.0.0.1.invalid`; `G-FPSMTY14DJ` → `G-NOOP-DISA`; `ca-pub-8017914559680125` → `ca-pub-0000000000000000`; cookie banner text scrubbed | committed in `e67f86884` |
 | 3 | New Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/`) with custom-domain bindings for `atproto/bsky/authn/mcp.etzhayyim.com` and service bindings to the upstream `etzhayyim-pds-2603241700 / etzhayyim-appview / etzhayyim-auth / etzhayyim-agentgateway` Workers | `etzhayyim-xrpc-proxy@76483e4d-...` |
-| 4 | `@etzhayyim/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `etzhayyim-pds-2603241700@e85d67fe-...` + `etzhayyim-appview@e73d3e88-...` |
+| 4 | `@etzhayyim/kotodama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `etzhayyim-pds-2603241700@e85d67fe-...` + `etzhayyim-appview@e73d3e88-...` |
 | 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `com.etzhayyim.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
 
 End-to-end result: home page Discover feed renders real posts; `/search?q=yoro`
@@ -102,8 +102,8 @@ demands:
 | Concern | Allowed | Observed (2026-05-22) |
 |---|---|---|
 | Identity | `did:web:*.etzhayyim.com` + `did:plc:*` + WebAuthn passkey + Adherent SBT | 100% of corpus is `did:web:*.etzhayyim.com`. `query=etzhayyim` returns **0 actors**. `totalActors` claimed by the AppView: **1,311,666,602** — all etzhayyim.com. |
-| State | AT Protocol MST + IPFS + Base L2 anchor | Kysely + HyperdriveDialect → RisingWave (centralized). MST not used, IPFS not used, Base L2 anchor not used. |
-| ADR-2605111200 guard | CF Worker DB I/O must route through AgentGateway MCP → pod-side LangServer | Guard temporarily softened (`throw` → `console.warn`). CF Workers (PDS, AppView) now hold direct RisingWave connections via HyperdriveDialect, which the ADR explicitly prohibits. |
+| State | AT Protocol MST + IPFS + Base L2 anchor | Kysely + HyperdriveDialect → Kotoba/Datomic (centralized). MST not used, IPFS not used, Base L2 anchor not used. |
+| ADR-2605111200 guard | CF Worker DB I/O must route through AgentGateway MCP → pod-side LangServer | Guard temporarily softened (`throw` → `console.warn`). CF Workers (PDS, AppView) now hold direct Kotoba/Datomic connections via HyperdriveDialect, which the ADR explicitly prohibits. |
 | Bundle ad-tech | First-party religious-corp internal-promo only | yoro bundle (deployed) still contains GA4 / AdSense / ExoClick / Media.net code paths. URLs / IDs are now patched to noop hosts (`127.0.0.1.invalid` / `G-NOOP-DISA`) so no traffic leaves the user agent, but the code is still present and a future rebuild from clean source is required to fully comply. |
 
 ### Acceptance of the transient state
@@ -123,7 +123,7 @@ exit criteria. The violations exist because:
   ADR-2605111200.
 - Cutover-grade DID re-registration from `did:web:*.etzhayyim.com` to
   `did:web:*.etzhayyim.com` requires a per-actor signing-key-rotation +
-  `alsoKnownAs` bidirectional pointer + RisingWave migration. The 1.3 billion
+  `alsoKnownAs` bidirectional pointer + Kotoba/Datomic migration. The 1.3 billion
   row count makes this a deliberate operation, not a side effect.
 
 ## Consequences
@@ -162,10 +162,10 @@ exit criteria. The violations exist because:
 1. **Substrate boundary restored.** PDS + AppView feed / search / actor
    handlers route through AgentGateway MCP → LangServer pod (per
    ADR-2605111200). `createKyselyDb` guard restored to `throw`. Single grep of
-   `magatama-host-sdk` for `_cfWorkerGuardWarned` returns no matches.
+   `kotodama-host-sdk` for `_cfWorkerGuardWarned` returns no matches.
 2. **MST + IPFS + Base L2 substrate live.** `mst-projector` writes the canonical
    MST stream, `ipfs-pinner` pins the resulting blocks, `l2-anchor-contract`
-   anchors the root CID. RisingWave becomes a read-side projection only.
+   anchors the root CID. Kotoba/Datomic becomes a read-side projection only.
 3. **etzhayyim.com DID corpus exists.** At minimum the first-party religious-corp
    actors (council seats, public-fund signers, etc.) are
    `did:web:*.etzhayyim.com`. Migration plan for the broader etzhayyim.com corpus is
@@ -199,7 +199,7 @@ exit criteria. The violations exist because:
   `caaa05eb9` (did-web apex /xrpc/* routes),
   `b3e4ebf18` (GET → POST normalization).
 - ADR-2605091900 — Flowering / Fruiting Surface (yoro openness framing).
-- ADR-2605111200 — CF Worker → RisingWave prohibition; the guard this ADR
+- ADR-2605111200 — CF Worker → Kotoba/Datomic prohibition; the guard this ADR
   temporarily softens.
 - ADR-2605171900 — yoro AppView migration to etzhayyim (Stages 1+2 done; this
   session unblocked Stage 3 visibility).

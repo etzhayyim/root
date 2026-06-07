@@ -1,6 +1,6 @@
 # lg-mangaka overlay — adds save_document / load_document / list_documents
 # graphs (and updated server.py / langgraph.json) on top of the proven
-# 0.1.0-20260508033638-amd64 base. Avoids re-downloading pymagatama's ML
+# 0.1.0-20260508033638-amd64 base. Avoids re-downloading kotodama's ML
 # dependency stack (~6.5 GB of CUDA libs) which the host buildkitd cannot
 # fit during a full rebuild.
 #

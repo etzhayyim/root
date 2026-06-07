@@ -148,7 +148,7 @@ densification / opacity-cull at half-step / 50k splat cap で preview 品質。
 | **nanoid (collection)** | `v1m9k2q8` |
 | **domain** | `maps.etzhayyim.com` |
 | **AT bot DID** | `did:web:maps.etzhayyim.com` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild bundle) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/kotodama-host-sdk` → esbuild bundle) |
 | **Data store** | **RisingWave via Hyperdrive (ADR-0036, direct)** — Write: `createKyselyDb(env.HYPERDRIVE).insertInto("vertex_spatial").values(row).onConflict(...).execute()`、PDS + graph-worker bypass。Read: `createKyselyDb(env.HYPERDRIVE).selectFrom("vertex_spatial").where("label", "in", [...]).execute()` — Hyperdrive 1 RTT |
 | **UI mode** | `iframe` (SvelteKit-Primary, MapLibre + KAMI engine) |
 
@@ -201,7 +201,7 @@ Client Request
 
 路線図 + 運行予定 (時刻表 summary) は CF Worker heartbeat (1 prefecture / fire) では無く、
 3 本の K8s bulk-ingest dumper pod が BPMN timer から `/trigger` を受けて
-`vertex_spatial` に直接 INSERT する。`magatama.jsonld` `triggers` の対象外
+`vertex_spatial` に直接 INSERT する。`kotodama.jsonld` `triggers` の対象外
 (handler を経由しないため commit log には乗らない)。
 
 | 経路 | NSID (BPMN) | dumper pod (k8s deploy) | source | label / props 形 |
@@ -508,7 +508,7 @@ Design: `world_belief_update` applies a single Bayesian posterior update for a s
 
 ```
 maps.etzhayyim.com / uqpel6i6.etzhayyim.com
-  → Single Worker (magatama-uqpel6i6, src/app.ts)
+  → Single Worker (kotodama-uqpel6i6, src/app.ts)
     ├─ /_app/meta     → host-sdk auto route
     ├─ static assets  → Workers Assets (svelte/build/)
     ├─ / , /?embed=1  → Hono router (Svelte CSR, MapLibre + KAMI)

@@ -34,7 +34,7 @@ Documentation-only closure for the 2026-06-01 session answering the founder ask
 *next step* → *next step*. Authoritative design = **ADR-2606012600**; this record only
 narrates what shipped.
 
-Audit verdict: only legacy `etzhayyim` cable lexicons existed (RisingWave-era record schemas) —
+Audit verdict: only legacy `etzhayyim` cable lexicons existed (Kotoba/Datomic-era record schemas) —
 no actor, no kotoba dataset, no ADR. This session built the full stack to R2, design-only.
 
 # Decision (what shipped)

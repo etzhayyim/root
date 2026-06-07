@@ -25,7 +25,7 @@ Every autonomous agent that pursues a complex goal (kafun-bokumetsu, lawfirm,
 shinka, society6, …) needs to reason about the dependency DAG of "what must
 become true in the world before X is reachable". So far each app reinvented
 this with hardcoded constants in handler code. That made the DAG invisible to
-RisingWave (no MV), unobservable in yoro, and impossible to reuse across apps.
+Kotoba/Datomic (no MV), unobservable in yoro, and impossible to reuse across apps.
 
 The 16-node kafun eradication DAG (L0 evidence → L1 capacity → L2 funding →
 L3 execution → L4 measurement → L5 goal) made the lack acute: `Agent.tick`
@@ -64,7 +64,7 @@ vertices link via `edge_agent_topo_concerns`.
 
 ### App pattern
 
-1. `magatama.jsonld` declares no extra triggers — topo state changes via the
+1. `kotodama.jsonld` declares no extra triggers — topo state changes via the
    normal `vertex_agent_topo_node` re-INSERT (record-log semantics).
 2. CF Worker `Agent.tick` queries `mv_agent_topo_ready` directly (pure SQL,
    bypasses LangGraph for selection). Writes `vertex_<app>_action` with
@@ -93,7 +93,7 @@ vertices link via `edge_agent_topo_concerns`.
   query, no progress dashboard, no cross-app comparison). Loses the path-DID
   ownership trail (`owner_actor_did` per node).
 - … use generic `[[heuristic_weights]]` in deps.toml? Doc-only, can't be
-  joined against RisingWave for selection.
+  joined against Kotoba/Datomic for selection.
 
 ## Consequences
 

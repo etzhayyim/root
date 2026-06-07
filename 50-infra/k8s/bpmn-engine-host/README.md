@@ -2,7 +2,7 @@
 
 ADR 2605081200 — SpiffWorkflow BPMN engine host for the Zeebe replacement
 PoC (Phase 1). Cluster-internal HTTP control surface. Persistent state
-lives in RisingWave (`vertex_spiff_*` tables, migration
+lives in Kotoba/Datomic (`vertex_spiff_*` tables, migration
 `r_20260509110000_vertex_spiff_runtime`).
 
 Replaces: Camunda 8 / Zeebe broker pod (license-encumbered).
@@ -39,10 +39,10 @@ Replaces: Camunda 8 / Zeebe broker pod (license-encumbered).
 
 # Apply
 kubectl apply -f 50-infra/k8s/bpmn-engine-host/deployment.yaml
-# Provision RW_DSN from macOS Keychain (root CLAUDE.md, "Local Secret Storage")
-security find-generic-password -s "etzhayyim.risingwave" -a "RW_DSN" -w \
+# Provision KOTOBA_URL from macOS Keychain (root CLAUDE.md, "Local Secret Storage")
+security find-generic-password -s "etzhayyim.kotoba" -a "KOTOBA_URL" -w \
   | kubectl create secret generic bpmn-engine-host-secrets \
-      -n mitama-udf --from-file=RW_DSN=/dev/stdin
+      -n mitama-udf --from-file=KOTOBA_URL=/dev/stdin
 ```
 
 ## API
@@ -79,7 +79,7 @@ curl -sX POST http://localhost:8080/v1/instance \
   parallelism.
 - **RW DDL contention**: This service does no DDL; only INSERT/DELETE.
   Heavy DDL must still go through the queue
-  (`50-infra/CLAUDE.md` "RisingWave Smooth Scaling Gate").
+  (`50-infra/CLAUDE.md` "Kotoba/Datomic Smooth Scaling Gate").
 - **Spec cache invalidation**: Redeploying a BPMN does not auto-evict
   this pod's cache. Call `/v1/process/{id}/reload` after a
   `vertex_bpmn_process_def` insert until the firehose subscription is

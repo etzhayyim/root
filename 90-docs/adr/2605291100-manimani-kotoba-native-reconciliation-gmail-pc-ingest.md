@@ -1,6 +1,6 @@
 ---
 id: adr-2605291100-manimani-kotoba-native-reconciliation-gmail-pc-ingest
-title: "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling RisingWave/Anthropic-direct/RunPod"
+title: "ADR-2605291100: manimani — kotoba-native personal knowledge router (Gmail + PC ingest), reconciling Kotoba/Datomic/Anthropic-direct/RunPod"
 status: proposed
 doc_type: adr
 topic: manimani-kotoba-native-reconciliation
@@ -11,12 +11,12 @@ axis: architecture
 weight: 0.6
 priority_note: "manimani personal knowledge router を religious-corp 憲章 (kotoba substrate + Murakumo-only inference + Signal E2E PII) に整合させ、Gmail 全アーカイブ + 広範囲 PC ファイルの ingest 経路を確定する統合 ADR。旧 ADR-2605080800 の persistence/inference/runtime 層を supersede し、product contract (XRPC surface / 4 kind / LLM 主導分類 / non-federable) は保存する。"
 authoritative_for:
-  - manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; RisingWave 廃止)
+  - manimani.etzhayyim.com の substrate 配置 (kotoba EAVT datoms; Kotoba/Datomic 廃止)
   - manimani inference 経路 (Murakumo LiteLLM gateway のみ; Anthropic-direct / RunPod 廃止)
-  - manimani runtime (kotoba StateGraph; pymagatama LangGraph Server + Granian pool 廃止)
+  - manimani runtime (kotoba StateGraph; kotodama LangGraph Server + Granian pool 廃止)
   - Gmail 全アーカイブ ingest 経路 (kotoba-ingest gmail.rs OAuth2 → RFC2822 → E2E encrypt → QuadStore)
   - 広範囲 PC ファイル ingest 経路 (kotoba-kse Vault chunking → BlobManifest CID → intake datom)
-  - manimani datom schema (vertex_manimani_* RisingWave テーブルの EAVT predicate 置換)
+  - manimani datom schema (vertex_manimani_* Kotoba/Datomic テーブルの EAVT predicate 置換)
 depends_on:
   - adr-2605080800-manimani-langgraph-user-intake-routing
   - adr-2605262130-kotoba-storage-substrate-unification
@@ -54,7 +54,7 @@ than from a pre-declared taxonomy.
 **Current state (2026-05-29): Phase 0 contract only.** The CF Worker edge facade exists and
 is non-trivial (`60-apps/etzhayyim-project-manimani/src/{app,dispatcher,embed}.ts` — Hono +
 auth middleware + 6 NSID XRPC routing + embed UI). But the execution backend
-(`20-actors/magatama/py/src/pymagatama/manimani/`) **was never implemented** — the directory
+(`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/manimani/`) **was never implemented** — the directory
 does not exist. manimani has a mouth and no stomach.
 
 ## Why the old design is now unshippable as-written
@@ -65,9 +65,9 @@ boundary (root `CLAUDE.md` § "Substrate boundary") now **prohibits**:
 
 | ADR-2605080800 says | Now prohibited by | Constitutional reason |
 |---|---|---|
-| Persist to **RisingWave** via Hyperdrive (4 vertex + 1 edge + 2 MV) | ADR-2605262130 (kotoba) | RisingWave / Postgres / Kysely are banned; canonical substrate is **kotoba** |
+| Persist to **Kotoba/Datomic** via Hyperdrive (4 vertex + 1 edge + 2 MV) | ADR-2605262130 (kotoba) | Kotoba/Datomic / Postgres / Kysely are banned; canonical substrate is **kotoba** |
 | Inference via **Anthropic API direct** or **vLLM Gemma4 on RunPod** | ADR-2605215000 | religious-corp inference is **Murakumo-fleet-only**; no RunPod / commercial API direct |
-| LangGraph state → (deferred) RisingWave `BaseCheckpointSaver` | ADR-2605262130 | no RisingWave anywhere in the state path |
+| LangGraph state → (deferred) Kotoba/Datomic `BaseCheckpointSaver` | ADR-2605262130 | no Kotoba/Datomic anywhere in the state path |
 
 So "manimani をまとめる" does **not** mean resurrecting the 2026-05-08 design. It means
 **reconciling the manimani product onto the substrate the repo actually has today**, and on
@@ -88,7 +88,7 @@ pool, both of which would re-introduce constitutional conflicts:
   Rust API — `add_node` / `add_edge` / `add_conditional_edges` / `compile` / `run`, with
   `Reducer::Append` matching LangGraph's `add_messages`, and Thread checkpointing into a KQE
   Arrangement (time-travel via Delta). It runs inside `kotoba-server`, on the Murakumo fleet,
-  with **no** Python pool and **no** RisingWave.
+  with **no** Python pool and **no** Kotoba/Datomic.
 - **Gmail ingest → `kotoba-ingest`** (kotoba-internal ADR-2605252400): already implements
   `gmail.rs` (OAuth2 poll) + RFC 2822 parse + `EmailIngestor` (now `Arc<dyn AgentCrypto>` +
   `Arc<Vault>`, raw key removed 2026-05-26) → E2E-encrypted body blob + QuadStore datoms.
@@ -125,9 +125,9 @@ Everything **below** the contract — persistence, runtime, inference, checkpoin
 inference layers of ADR-2605080800**; ADR-2605080800 remains authoritative only for the
 product contract (and gets a banner pointing here).
 
-## D1 — Persistence: RisingWave `vertex_manimani_*` → kotoba EAVT datoms
+## D1 — Persistence: Kotoba/Datomic `vertex_manimani_*` → kotoba EAVT datoms
 
-The four RisingWave vertices + one edge + two MVs become **content-addressed EAVT datoms**
+The four Kotoba/Datomic vertices + one edge + two MVs become **content-addressed EAVT datoms**
 written via `QuadStore::assert` / `assert_batch`. Subject CIDs keep the old content-addressed
 PK formulas. PII-bearing text never lands as a plaintext quad object — it is stored as a
 `SecureVault` blob and referenced by CID.
@@ -161,13 +161,13 @@ plus **ref** datoms `manimani/artifact/intake → Cid(intake)`, `…/project →
 **run** — subject `= run_id = thread_id = sha256(actor_did + ts_ms + intake_hash)`:
 `manimani/run/{status,current_node,started_at,finished_at,cost_mkoto}`. The checkpoint is **not**
 a column — it is the kotoba `StateGraph` Thread state in the KQE Arrangement (D3), giving
-time-travel for free (replaces the deferred RisingWave `BaseCheckpointSaver`).
+time-travel for free (replaces the deferred Kotoba/Datomic `BaseCheckpointSaver`).
 
-**The two RisingWave MVs** (`mv_manimani_project_active`, `mv_manimani_intake_unrouted`)
+**The two Kotoba/Datomic MVs** (`mv_manimani_project_active`, `mv_manimani_intake_unrouted`)
 become **kotoba-kqe Datalog rules / MV** over AEVT (`manimani/project/status`) and AVET
 (`manimani/artifact/kind ∈ {raw_passthrough,error}`), evaluated on the hot Arrangement — no
 separate projection layer (per ADR-2605262130 the read path is `kotoba-kqe` arrangements
-directly; no RisingWave / Lance / DuckDB).
+directly; no Kotoba/Datomic / Lance / DuckDB).
 
 ## D2 — Inference: Murakumo LiteLLM gateway only
 
@@ -238,7 +238,7 @@ existing kotoba crates.
 ## D5 — Privacy & PII boundary
 
 manimani intake is **PII tier-3** (ADR-0018) and **confidential** (ADR-2605181100). The
-old RisingWave-RLS model is replaced by **content-addressing + E2E encryption + DID-scoped
+old Kotoba/Datomic-RLS model is replaced by **content-addressing + E2E encryption + DID-scoped
 datoms**:
 
 - Bodies are `SecureVault` blobs (XChaCha20/AEAD via `SovereignCrypto`); only references
@@ -255,7 +255,7 @@ datoms**:
 
 **Positive**
 - Constitutional compliance: one substrate (kotoba), one inference path (Murakumo), E2E PII.
-- No Python LangGraph pool, no RisingWave, no Hyperdrive — fewer moving parts, no cluster DB.
+- No Python LangGraph pool, no Kotoba/Datomic, no Hyperdrive — fewer moving parts, no cluster DB.
 - Content-addressed intake → free dedup + resumable backfill + full-history time-travel.
 - "datomic" and "langgraph" are satisfied by primitives the repo already ships and benches.
 
@@ -269,7 +269,7 @@ datoms**:
 
 # Alternatives Considered
 
-1. **Resurrect ADR-2605080800 as-written (RisingWave + Anthropic-direct + RunPod + Python
+1. **Resurrect ADR-2605080800 as-written (Kotoba/Datomic + Anthropic-direct + RunPod + Python
    LangGraph pool).** Rejected: three constitutional violations (D-table in Context).
 2. **Introduce real Datomic (Clojure/JVM).** Rejected: proprietary, JVM dependency, no
    content-addressing, no E2E, and it would be a parallel substrate engine — banned by
@@ -298,7 +298,7 @@ Phases 1–5 are separate sessions. This PR authors Phase 0 only.
 # References
 
 - ADR-2605080800 (manimani LangGraph User Intake & Project Routing — product contract preserved; substrate/runtime/inference layers superseded here)
-- ADR-2605262130 (kotoba storage substrate unification — no RisingWave; read path = kqe arrangements)
+- ADR-2605262130 (kotoba storage substrate unification — no Kotoba/Datomic; read path = kqe arrangements)
 - ADR-2605215000 (etzhayyim inference Murakumo-only — no RunPod / no commercial GPU)
 - ADR-2605192100 (mission charter — non-profit, Wellbecoming, PII posture)
 - ADR-2605192200 (Charter Rider v2.0 — §2(a)-(h) content scanner)

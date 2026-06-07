@@ -11,7 +11,6 @@ import {
 } from "./registry/infra-actors";
 import {
   actorHandleFromParam,
-  coerceActorRecord,
   compiledActorRecord,
   toDidDoc,
   toGetProfileView,
@@ -35,11 +34,13 @@ import {
   GOV_PROCEDURES_JURISDICTION_COUNT,
   GOV_PROCEDURES_GENERATED_AT,
 } from "./registry/gov-procedures.gen";
-import { fetchKotobaActorRecord, putKotobaAccount } from "./kotoba";
+import { fetchKotobaActorRecord, relayKotobaWrite } from "./kotoba";
+import { cacaoToCborBase64 } from "./cbor";
+import { handleBlockPut, handleBlockHas, handleRootGet, handleStatsGet, serveBlockFromKv } from "./kotoba-publish";
 import { isRawCidV1, isDagPbCidV1, verifyRawCid } from "./cid";
 import { verifyCarToBytes } from "./car";
 import { fetchOnChainVm } from "./erc725";
-import { handleVerifyCacao, handleRegisterAccount } from "./session";
+import { handleVerifyCacao, handleAccountWrite } from "./session";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -378,6 +379,7 @@ a{color:inherit}
 <p class="sub"><strong>${grandTotal}</strong> resolvable actors: ${named.length} named + ${infra.length} substrate services + <strong>${entityTotal}</strong> entity mirrors (below) + ${unispscTotal} UNSPSC agents. The named actors are the operators; the entity mirrors are the world they datafy, each given its own DID + profile + searchable presence.</p>
 
 <h2>Knowledge-graph &amp; Tier-B actors</h2>
+<p class="sub" id="kotoba-verify" data-enhance="actors-v1" hidden></p>
 ${namedCards}
 
 <h2>Society-scale entity mirrors · ${entityTotal} <span style="font-weight:400;font-size:.8em;opacity:.7">(ADR-2606042330)</span></h2>
@@ -391,6 +393,11 @@ ${infraCards}
 Registry source of truth: <code>50-infra/etzhayyim-did-web/src/registry/infra-actors.ts</code> + generated <code>entity-handles.&lt;ns&gt;.gen.ts</code> · Entity DID: <a href="/.well-known/did.json">did:web:etzhayyim.com</a> · <a href="/donate">Donate</a><br>
 Per ADR-2605241800 (single did-web Worker) + ADR-2605212030 + ADR-2606042330 (entity-as-actor) + ADR-2605171300 (UNSPSC). Free-form member/council handles also resolve but are not listed here.
 </footer>
+<!-- Progressive enhancement: first-party, same-origin, zero-egress ES module
+     (CSP connect-src 'self') resolves the named actors + self-verifies each DID
+     from the content-addressed /kotoba blocks in the visitor's own browser. The
+     page is fully functional without it. Not surveillance (ADR-2606064500). -->
+<script type="module" src="/kotoba/actors-enhance.js"></script>
 </body>
 </html>
 `;
@@ -415,12 +422,20 @@ interface Env {
   // fallback when KV misses. Both optional — absent → compiled INFRA_ACTORS
   // fallback keeps did:web resolution live.
   ACTOR_KV?: KVNamespace;
+  // Operator oversight key (base64 32 bytes) for encrypting published-edit IP
+  // attestations. Optional — absent → pseudonymous hash only (see kotoba-publish).
+  KOTOBA_ATTEST_KEY?: string;
   KOTOBA_ENDPOINT?: string;
   // Same-origin account publish (ADR-2606061800). When set, the verify-only
   // `registerAccount` relay writes the member's handle↔did:key alias + profile
   // to the kotoba node here. Absent → the relay reports `gated` (honest R0): the
   // member is still authenticated locally, the account just isn't published yet.
   KOTOBA_WRITE_ENDPOINT?: string;
+  // The kotoba node's `operator_did` — the REQUIRED CACAO `aud` for member
+  // account writes (ADR-2606061800). The frontend fetches it from the config GET
+  // below so the kotoba-write CACAO binds to the node; the node enforces an exact
+  // aud match. Keychain-stable, so it survives node restarts.
+  KOTOBA_OPERATOR_DID?: string;
   // Trustless IPFS gateway (ADR-2606014600). Comma-separated upstream gateway
   // templates; `{cid}` is substituted, else `<gw>/ipfs/<cid>` is used. Fetched
   // bytes are CID-verified before serving, so these are UNTRUSTED upstreams.
@@ -455,11 +470,16 @@ interface Env {
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "com.etzhayyim.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "com.etzhayyim.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "com.etzhayyim.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "com.etzhayyim.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "com.etzhayyim.yoro.actor.getProfile",
+  // NOTE: the feed/profile read NSIDs (getTimeline / getDiscoverFeed /
+  // getAuthorFeed / getPostThread / actor.getProfile) were previously aliased
+  // to com.etzhayyim.yoro.* and forwarded to yoro-xrpc-adapter, which does NOT
+  // implement them (404 MethodNotFound) — that is why etzhayyim.com showed no
+  // posts. They are now served browser-locally by kotoba-sw.js from the kotoba
+  // Datom log; when the Service Worker is inactive/misses, these requests fall
+  // through here to the standard app.bsky.* → AppView route (XRPC_ATPROTO_UPSTREAM,
+  // GET→POST normalized) which returns real data. So they are intentionally NOT
+  // aliased anymore — removing the dead 404 path AND giving a working
+  // server-side fallback. (ADR-2605312345 / 2606013800.)
   "app.bsky.actor.searchActors":   "com.etzhayyim.yoro.actor.searchActors",
   "app.bsky.graph.getFollowers":   "com.etzhayyim.yoro.graph.getFollowers",
   "app.bsky.graph.getFollows":     "com.etzhayyim.yoro.graph.getFollows",
@@ -725,35 +745,22 @@ async function resolveActorRecord(
 async function resolveActorRecordTiered(
   handle: string,
   env: Env,
-  ctx: ExecutionContext,
+  _ctx: ExecutionContext,
 ): Promise<ActorRecord | null> {
-  // 1) KV snapshot — fast, origin-independent.
-  if (env.ACTOR_KV) {
-    try {
-      const raw = (await env.ACTOR_KV.get(`actor:${handle}`, "json")) as
-        | Record<string, unknown>
-        | null;
-      const rec = raw ? coerceActorRecord(raw, "kv") : null;
-      if (rec) return rec;
-    } catch {
-      /* KV unavailable → fall through */
-    }
-  }
-
-  // 2) kotoba pull — first-class canonical state; cache the hit into KV.
+  // Actor resolution is content-addressed and worker-independent (step 3): the
+  // 28 named actors' did.json + profile.json are STATIC files under
+  // public/actor/<h>/, which Cloudflare serves from the edge BEFORE this Worker
+  // ever runs (their bytes are the canonical kotoba-datomic DID docs, CID in the
+  // actors-v1 Datom log; the browser ActorResolver re-verifies them). So this
+  // dynamic path is reached only for entity-actors, human members, and the
+  // XRPC getProfile query surface. No CF KV, no ACTORS_V1_RECORDS shim.
+  //   1) (empty-by-default) kotoba node pull,
+  //   2) compiled INFRA_ACTORS mirror, so registered handles never go dark.
+  // ACTOR_KV remains bound ONLY for the gov-atlas index, not for actor records.
   const fromKotoba = await fetchKotobaActorRecord(env, handle);
-  if (fromKotoba) {
-    if (env.ACTOR_KV) {
-      ctx.waitUntil(
-        env.ACTOR_KV.put(`actor:${handle}`, JSON.stringify(fromKotoba), {
-          expirationTtl: 300,
-        }).catch(() => {}),
-      );
-    }
-    return fromKotoba;
-  }
+  if (fromKotoba) return fromKotoba;
 
-  // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
+  // compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);
 }
 
@@ -1141,9 +1148,18 @@ a{color:inherit}
           "content-type": "text/html; charset=utf-8",
           "cache-control": "public, max-age=300, must-revalidate",
           "x-content-type-options": "nosniff",
-          // No external resource, no inline script, no cookie (Charter Rider §2(c)).
+          // Charter Rider §2(c) prohibits the SURVEILLANCE-CAPITALISM business
+          // model (third-party data collection / brokerage / trackers / cookies),
+          // not scripting — §2(c) is a Layer-B derived doctrine and the CSP is its
+          // Layer-C implementation (ADR-2606064500). This CSP enforces the value
+          // technically: `connect-src 'self'` makes any third-party beacon/tracker
+          // structurally impossible, while `script-src 'self' 'wasm-unsafe-eval'`
+          // permits ONLY first-party same-origin code (the ActorResolver lib
+          // resolving content-addressed /kotoba blocks in the visitor's own
+          // browser). No external resource, no inline, no cookie. First-party
+          // local resolution is not surveillance.
           "content-security-policy":
-            "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+            "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
           "permissions-policy": PERMISSIONS_POLICY,
           "x-etzhayyim-no-cookie": "1",
@@ -1408,6 +1424,87 @@ a{color:inherit}
       }
     }
 
+    // kotoba is content-addressed: genesis blocks live as static files under
+    // public/kotoba/blocks/<cid> (served by CF assets before the Worker) and the
+    // browser kotoba-wasm resolves them directly. Post-genesis, member-signed
+    // deltas are published through the content-addressed KV CAS below (kblk:/
+    // kroot:/kattest:). The former KotobaRoot Durable Object — the only operated
+    // server-state primitive — was REMOVED per ADR-2605262130 / 2605312345; the
+    // server now only verifies member signatures and stores content-addressed
+    // blocks, never holds authoritative mutable state.
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2d) kotoba member-signed publish (ADR-2605312345 / 2605231525).
+    //     - GET  /kotoba/blocks/<cid>  → dynamically published block from KV
+    //       (genesis blocks are static assets and never reach the Worker; a
+    //       request arriving here is a post-genesis block).
+    //     - POST /xrpc/com.etzhayyim.apps.kotoba.block.put → verify member sig,
+    //       store blocks + advance root + record suppressable encrypted IP.
+    //     - GET  /xrpc/com.etzhayyim.apps.kotoba.root → latest published root.
+    //     Handled LOCALLY (the generic XRPC proxy below would forward to the
+    //     internal kotoba node, which is not publicly reachable — and the whole
+    //     point is no node is needed).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const bm = url.pathname.match(/^\/kotoba\/blocks\/([A-Za-z0-9]+)$/);
+      if (bm && (request.method === "GET" || request.method === "HEAD")) {
+        const blk = await serveBlockFromKv(bm[1], env);
+        if (blk) return blk;
+        // not in KV → fall through (static asset already missed → 404 below)
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.put" && request.method === "POST") {
+        return handleBlockPut(request, env);
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.has" && request.method === "POST") {
+        return handleBlockHas(request, env);
+      }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.root" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleRootGet(url, env);
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 2d) kotoba member-signed publish (ADR-2605312345 / 2605231525).
+    //     - GET  /kotoba/blocks/<cid>  → dynamically published block from KV
+    //       (genesis blocks are static assets and never reach the Worker; a
+    //       request arriving here is a post-genesis block).
+    //     - POST /xrpc/com.etzhayyim.apps.kotoba.block.put → verify member sig,
+    //       store blocks + advance root + record suppressable encrypted IP.
+    //     - GET  /xrpc/com.etzhayyim.apps.kotoba.root → latest published root.
+    //     Handled LOCALLY (the generic XRPC proxy below would forward to the
+    //     internal kotoba node, which is not publicly reachable — and the whole
+    //     point is no node is needed).
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const bm = url.pathname.match(/^\/kotoba\/blocks\/([A-Za-z0-9]+)$/);
+      if (bm && (request.method === "GET" || request.method === "HEAD")) {
+        const blk = await serveBlockFromKv(bm[1], env);
+        if (blk) return blk;
+        // not in KV → fall through (static asset already missed → 404 below)
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.put" && request.method === "POST") {
+        return handleBlockPut(request, env);
+      }
+      if (url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.block.has" && request.method === "POST") {
+        return handleBlockHas(request, env);
+      }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.root" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleRootGet(url, env);
+      }
+      if (
+        url.pathname === "/xrpc/com.etzhayyim.apps.kotoba.stats" &&
+        (request.method === "GET" || request.method === "HEAD")
+      ) {
+        return handleStatsGet(url, env);
+      }
+    }
+
     // ──────────────────────────────────────────────────────────────────
     // 3) XRPC routing — `/xrpc/{NSID}` proxied by NSID prefix to the
     //    registered upstream (langserver pod, MCP gateway, etc.). One
@@ -1424,26 +1521,6 @@ a{color:inherit}
       if (m) {
         const nsid = m[1];
 
-        // ── same-origin auth: CORS preflight for verify/register ──────────
-        // The SPA may run on yoro.etzhayyim.com (cross-origin to the apex), and
-        // the native app posts from a custom scheme — both need CORS. These two
-        // surfaces are public, no-cookie, verify-only (no credentials), so a
-        // permissive ACAO is safe.
-        const isSameOriginAuthNsid =
-          nsid === "com.etzhayyim.authz.verifyCacao" ||
-          nsid === "com.etzhayyim.authz.registerAccount";
-        if (isSameOriginAuthNsid && request.method === "OPTIONS") {
-          return new Response(null, {
-            status: 204,
-            headers: {
-              "access-control-allow-origin": "*",
-              "access-control-allow-methods": "POST, OPTIONS",
-              "access-control-allow-headers": "content-type",
-              "access-control-max-age": "86400",
-              "x-etzhayyim-no-cookie": "1",
-            },
-          });
-        }
         const SAME_ORIGIN_AUTH_CORS: Record<string, string> = {
           "content-type": "application/json; charset=utf-8",
           "cache-control": "no-store",
@@ -1498,16 +1575,34 @@ a{color:inherit}
           } catch {
             payload = null;
           }
-          const { status, result } = await handleRegisterAccount(
+          const { status, result } = await handleAccountWrite(
             payload,
-            Date.now(),
-            (did, handle, profile) =>
-              putKotobaAccount(env, did, handle, profile),
+            cacaoToCborBase64,
+            (cacaoB64, id, claims, labelEn) =>
+              relayKotobaWrite(env, cacaoB64, id, claims, labelEn),
           );
           return new Response(JSON.stringify(result) + "\n", {
             status,
             headers: SAME_ORIGIN_AUTH_CORS,
           });
+        }
+
+        // ── kotoba-write config (ADR-2606061800) ──────────────────────────
+        // The frontend needs the node's operator_did (the required CACAO `aud`)
+        // to sign a kotoba-write CACAO for account publish / device-enroll /
+        // key-rotation. Returns it + whether writes are enabled. Public,
+        // no-cookie, no secret (the operator_did is a public identifier).
+        if (
+          nsid === "com.etzhayyim.authz.kotobaWriteConfig" &&
+          (request.method === "GET" || request.method === "HEAD")
+        ) {
+          return new Response(
+            JSON.stringify({
+              operatorDid: env.KOTOBA_OPERATOR_DID ?? null,
+              writeEnabled: !!env.KOTOBA_WRITE_ENDPOINT && !!env.KOTOBA_OPERATOR_DID,
+            }) + "\n",
+            { status: 200, headers: SAME_ORIGIN_AUTH_CORS },
+          );
         }
 
         // ── searchActors + getSuggestions short-circuit (ADR-2606042330) ──
@@ -1759,13 +1854,13 @@ a{color:inherit}
       return rewriteUpstreamResponse(upstream, url.pathname);
     } catch (err) {
       return new Response(
-        `Service binding fetch to magatama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,
+        `Service binding fetch to kotodama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,
         {
           status: 502,
           headers: {
             "content-type": "text/plain; charset=utf-8",
             "x-proxied-by": "etzhayyim-did-web",
-            "x-proxied-upstream": "service:magatama-yoro",
+            "x-proxied-upstream": "service:kotodama-yoro",
           },
         }
       );

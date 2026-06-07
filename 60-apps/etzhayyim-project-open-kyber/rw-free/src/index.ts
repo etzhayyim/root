@@ -203,6 +203,18 @@ export type { Freq, ParsedRRule, ExpandInput } from "./recurrence.js";
 export { parseMarkdown, buildTree, tableOfContents } from "./docs-md.js";
 export type { Heading, MdLink, OutlineNode, MarkdownDoc } from "./docs-md.js";
 
+// Drive file-tree core (path helpers / nested tree + size roll-up / content-addressed dedup
+// / usage roll-up / read-only invariant audit) + SDK-bound tree view — D5.
+export {
+  normalizePath, parentPath, breadcrumb,
+  buildDriveTree, resolvePath,
+  dedupByCid, driveUsage, auditDriveTree,
+  driveTreeFromStore,
+} from "./drive-tree.js";
+export type {
+  DriveTreeNode, DedupGroup, DriveUsage, DriveAuditCheck, DriveAuditOutput, DriveTreeView,
+} from "./drive-tree.js";
+
 // Fixed-asset register / book-value roll-forward — D2.
 export { assetRegister } from "./asset-register.js";
 export type { AssetRegisterRow, AssetRegisterOutput } from "./asset-register.js";

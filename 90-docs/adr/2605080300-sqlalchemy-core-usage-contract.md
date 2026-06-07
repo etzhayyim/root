@@ -36,7 +36,7 @@ superseded_by: []
 ## Context
 
 L6 PyZeebe handlers use `db_sync.py` (`sync_cursor()` + `GuardedCursor`) for
-all RisingWave access. Ad-hoc SQL string concatenation in handler code creates
+all Kotoba/Datomic access. Ad-hoc SQL string concatenation in handler code creates
 two problems:
 
 1. **No type safety** — column references are plain strings; schema drift is
@@ -55,7 +55,7 @@ overhead (Session / identity map / autoflush / relationship). The existing
 ```python
 # ALLOWED: expression language
 from sqlalchemy import select, insert, text, Table, Column, String
-from pymagatama.db_alchemy import sa_execute, sa_metadata
+from kotodama.db_alchemy import sa_execute, sa_metadata
 
 t = Table("vertex_actor", sa_metadata(), Column("actor_did", String))
 rows = sa_execute(select(t).where(t.c.actor_did == did))
@@ -83,7 +83,7 @@ This means:
 - No parallel connection pool is created
 
 ```python
-from pymagatama.db_alchemy import sa_execute, sa_rowcount
+from kotodama.db_alchemy import sa_execute, sa_rowcount
 from sqlalchemy import text
 
 # Query
@@ -102,7 +102,7 @@ n = sa_rowcount(
 ### Rule 3: `get_sa_engine()` is for Alembic / offline DDL only
 
 `get_sa_engine()` creates a `NullPool` SQLAlchemy engine backed directly by
-`RW_URL`. It attaches a `before_cursor_execute` event that calls
+`KOTOBA_URL`. It attaches a `before_cursor_execute` event that calls
 `_validate_sql_guard()` from `db_sync.py`, replicating the GuardedCursor
 behaviour.
 
@@ -111,7 +111,7 @@ behaviour.
 
 ```python
 # alembic/env.py (ONLY usage of get_sa_engine)
-from pymagatama.db_alchemy import get_sa_engine
+from kotodama.db_alchemy import get_sa_engine
 engine = get_sa_engine()
 ```
 
@@ -127,7 +127,7 @@ primitives.
 ## File Location
 
 ```
-20-actors/magatama/py/src/pymagatama/db_alchemy.py
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/db_alchemy.py
 ```
 
 Exports:
@@ -159,6 +159,6 @@ Exports:
 
 ## References
 
-- `20-actors/magatama/py/src/pymagatama/db_sync.py` (GuardedCursor, sync pool)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/db_sync.py` (GuardedCursor, sync pool)
 - ADR-2605080200: Pydantic v2 L6 Validation Contract
 - ADR-2605080400: Alembic Scope Contract

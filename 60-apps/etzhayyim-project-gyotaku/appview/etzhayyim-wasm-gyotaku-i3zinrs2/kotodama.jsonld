@@ -1,0 +1,69 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:gyotaku.etzhayyim.com",
+  "component": {
+    "env": {},
+    "path": "/wasm/component.wasm"
+  },
+  "convoSystemPrompt": "You are gyotaku agent. You provide Internet Archive (Wayback Machine) functionality, allowing users to browse historical snapshots of websites crawled by site.etzhayyim.com. You can search by URL or domain, show timelines, and display archived content (text, metadata, screenshots).",
+  "duties": [
+    "勤労の義務"
+  ],
+  "entities": [],
+  "governance": {
+    "classification": "public",
+    "raci": "responsible"
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "gyotaku",
+  "nanoid": "i3zinrs2",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "web-archive",
+      "snapshot-viewer",
+      "timeline-browser"
+    ],
+    "description": "Internet Archive viewer for site.etzhayyim.com crawled snapshots. Browse historical website captures with Wayback Machine-style timeline navigation.",
+    "displayName": "Gyotaku",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "gyotaku",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Archive activity feed",
+        "kind": "public",
+        "name": "gyotaku-feed"
+      }
+    ],
+    "name": "Gyotaku Archive",
+    "joinRule": "public"
+  },
+  "subDidCommand": "",
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist",
+      "routes": [
+        "/..."
+      ]
+    },
+    "subscribeRepos": {
+      "collections": [
+        "com.etzhayyim.apps.site.wet",
+        "com.etzhayyim.apps.site.wat",
+        "com.etzhayyim.apps.site.screenshot",
+        "com.etzhayyim.apps.site.domain"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

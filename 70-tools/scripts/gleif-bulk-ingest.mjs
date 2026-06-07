@@ -17,7 +17,7 @@
  * ║      concatenated files (NOT per-row PDS createRecord)                ║
  * ║    - com.etzhayyim.corp.leiReference Lexicon record canonical         ║
  * ║      (NOT legacy etzhayyim-side NSID; CC0 1.0 attribution preserved)       ║
- * ║    - LeiSensor Protocol (pymagatama.organism.sensors.corp.lei_sensor) ║
+ * ║    - LeiSensor Protocol (kotodama.organism.sensors.corp.lei_sensor) ║
  * ║      acts as the canonical cross-jurisdiction key resolver — other    ║
  * ║      corp sensors look up local registry ID against this pin          ║
  * ║    - Passive-only invariant per ADR-2605262400 §7 (no per-LEI live    ║
@@ -76,7 +76,7 @@ const PDS_URL = "https://atproto.etzhayyim.com";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
 const COLLECTION = "com.etzhayyim.apps.legalEntity.legalEntity";
 const PROGRESS_FILE = "/tmp/gleif-ingest-progress.json";
-const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
+const KOTOBA_URL = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 
 // ── CLI args ────────────────────────────────────────────────────────────────
 
@@ -333,7 +333,7 @@ let _pgPool = null;
 async function getRwPool() {
   if (_pgPool) return _pgPool;
   const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
-  _pgPool = new pg.Pool({ connectionString: RW_CONN, max: 2 });
+  _pgPool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2 });
   return _pgPool;
 }
 

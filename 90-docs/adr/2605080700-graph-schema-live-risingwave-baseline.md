@@ -1,6 +1,6 @@
 ---
-id: adr-2605080700-graph-schema-live-risingwave-baseline
-title: "ADR-2605080700: graph-schema Live RisingWave Baseline"
+id: adr-2605080700-graph-schema-live-kotoba-baseline
+title: "ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline"
 status: active
 doc_type: adr
 topic: graph-schema-live-baseline
@@ -9,7 +9,7 @@ last_verified: 2026-05-08
 priority: 7.2
 axis: architecture
 weight: 0.72
-priority_note: "graph-schema は live RisingWave schema を baseline とし、過去 Kysely/Alembic 履歴を replay しない"
+priority_note: "graph-schema は live Kotoba/Datomic schema を baseline とし、過去 Kysely/Alembic 履歴を replay しない"
 authoritative_for:
   - graph-schema live baseline policy
   - Active Alembic revision location for 30-graph/graph-schema
@@ -24,22 +24,22 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605080700: graph-schema Live RisingWave Baseline
+# ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline
 
-**Status**: accepted  
-**Date**: 2026-05-08  
+**Status**: accepted
+**Date**: 2026-05-08
 **Deciders**: Jun Kawasaki
 
 ## Context
 
 `30-graph/graph-schema/migrations/` contains the historical Kysely migration
 archive. That archive has been converted to Alembic lineage files, but replaying
-the full chain into the current production RisingWave cluster is the wrong
+the full chain into the current production Kotoba/Datomic cluster is the wrong
 operational model:
 
 - The live cluster already includes out-of-band schema changes that were applied
-  directly through RisingWave DDL channels.
-- RisingWave has PostgreSQL-wire compatibility gaps that make generic Alembic
+  directly through Kotoba/Datomic DDL channels.
+- Kotoba/Datomic has PostgreSQL-wire compatibility gaps that make generic Alembic
   replay brittle (`VARCHAR(n)`, version table PK/update behavior, and DDL
   visibility/flush semantics).
 - Nessie and Iceberg sinks are not in current use; the production data plane is
@@ -50,13 +50,13 @@ operational model:
 ## Decision
 
 Start `30-graph/graph-schema` schema management from the current live
-RisingWave schema rather than replaying historical Kysely migrations.
+Kotoba/Datomic schema rather than replaying historical Kysely migrations.
 
 The active Alembic graph is:
 
 ```text
 30-graph/graph-schema/alembic/current_versions/
-  20260508_live_risingwave_baseline.py  # revision live_risingwave_20260508
+  20260508_live_kotoba_baseline.py  # revision live_kotoba_20260508
 ```
 
 Historical converted revisions remain under:
@@ -78,9 +78,9 @@ DATABASE_URL=... pnpm db:drift
 ```
 
 2. New graph-schema DDL goes into `alembic/current_versions/` from the
-   `live_risingwave_20260508` baseline.
+   `live_kotoba_20260508` baseline.
 
-3. Rebuildable MV SQL goes into SQLMesh model files first. RisingWave streaming
+3. Rebuildable MV SQL goes into SQLMesh model files first. Kotoba/Datomic streaming
    MV DDL is applied through the existing gated DDL channel, not direct SQLMesh
    execution.
 
@@ -94,7 +94,7 @@ DATABASE_URL=... pnpm db:drift
 
 Verified on 2026-05-08:
 
-- `uv run alembic current` -> `live_risingwave_20260508 (head)`
+- `uv run alembic current` -> `live_kotoba_20260508 (head)`
 - `uv run alembic heads --verbose` -> single active head
 - `uv run python -m graph_schema.generate_database_ts` -> 3332 tables / 52947 columns
 - `uv run python -m graph_schema.drift` -> no drift
@@ -105,7 +105,7 @@ Verified on 2026-05-08:
 **Gained**:
 
 - No flag-day replay of 1265 legacy Kysely migrations.
-- The repo baseline matches the actual production RisingWave catalog.
+- The repo baseline matches the actual production Kotoba/Datomic catalog.
 - Future DDL has a clean Alembic start point.
 - `database.ts` remains an exact generated reflection of live schema.
 
@@ -119,7 +119,7 @@ Verified on 2026-05-08:
 
 ## References
 
-- `30-graph/graph-schema/alembic/current_versions/20260508_live_risingwave_baseline.py`
+- `30-graph/graph-schema/alembic/current_versions/20260508_live_kotoba_baseline.py`
 - `30-graph/graph-schema/alembic.ini`
 - `30-graph/graph-schema/alembic/env.py`
 - `30-graph/graph-schema/graph_schema/generate_database_ts.py`

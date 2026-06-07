@@ -189,7 +189,7 @@ R0 seed targets (all `unverified-seed`, JP-relevant channels noted):
 
 ## §3 — Architecture (7 Pregel cells, R0 path-reserved)
 
-All cells path-reserved at R0 under `20-actors/magatama/cells/himotoki_*/`;
+All cells path-reserved at R0 under `40-engine/kotoba/crates/kotoba-kotodama/cells/himotoki_*/`;
 each is import-time `RuntimeError("himotoki R0 scaffold: activate via
 Council ADR + R1 ratification")` at W1 creation.
 
@@ -204,7 +204,7 @@ Council ADR + R1 ratification")` at W1 creation.
 | `himotoki_appeal_route` | naphtali | event | non/partial disclosure → appeal procedure via chigiri (審査請求 / DPA complaint / FOIA appeal) → `appealRecord` |
 
 Cross-reference + request-lifecycle datoms live in kotoba QuadStore (EAVT)
-per ADR-2605262130. No RisingWave, no projection layer.
+per ADR-2605262130. No Kotoba/Datomic, no projection layer.
 
 ## §4 — Constitutional gates (G1–G14, IMMUTABLE R0–R3)
 
@@ -379,7 +379,7 @@ Council Lv6+ supermajority + new ADR to amend.
 
 - `/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md` — chigiri (procedure templates + UPL; `data_privacy` DSAR routing)
 - `/90-docs/adr/2605181100-etzhayyim-confidentiality-encrypted-records.md` — `com.etzhayyim.encrypted.*` envelope (PII custody, G6)
-- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no RisingWave)
+- `/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md` — kotoba substrate (EAVT, no Kotoba/Datomic)
 - `/90-docs/adr/2605192100-etzhayyim-mission-charter.md` — §1.12 Transparent Religious Force + §2(c) covert-ops avoidance
 - `/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md` — Charter Rider §2(c)/(e)
 - `/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md` — danjo (passive oversight sibling)

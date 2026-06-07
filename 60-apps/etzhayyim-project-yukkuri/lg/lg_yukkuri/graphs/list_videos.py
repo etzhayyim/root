@@ -17,7 +17,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 
 
@@ -32,55 +31,50 @@ class _State(TypedDict, total=False):
 
 
 async def _node_query(state: _State) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"error": "RW_URL not set", "videos": []}
     limit = max(1, min(200, int(state.get("limit") or 50)))
     offset = max(0, int(state.get("offset") or 0))
     owner = state.get("owner_did")
     status_filter = state.get("status")
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            params: list[Any] = []
-            where_parts = []
-            if owner:
-                where_parts.append("owner_did = %s")
-                params.append(owner)
-            if status_filter:
-                where_parts.append("status = %s")
-                params.append(status_filter)
-            where = ("WHERE " + " AND ".join(where_parts)) if where_parts else ""
-            await cur.execute(
-                f"""
-                SELECT video_id, owner_did, topic, status, render_url, created_at
-                FROM vertex_yukkuri_video
-                {where}
-                ORDER BY created_at DESC
-                LIMIT {int(limit)} OFFSET {int(offset)}
-                """,
-                params,
-            )
-            rows = await cur.fetchall()
-        finally:
-            await conn.close()
-    except Exception as exc:  # noqa: BLE001
-        _log.exception("list_videos query failed")
-        return {"error": f"query: {exc!s}"[:300], "videos": []}
+        from kotodama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
 
-    videos = [
-        {
-            "videoId": row[0],
-            "ownerDid": row[1],
-            "topic": row[2],
-            "status": row[3],
-            "renderUrl": row[4],
-            "createdAt": str(row[5] or ""),
-        }
-        for row in rows
-    ]
-    return {"videos": videos, "total": len(videos)}
+        # Build EDN datalog query dynamically if needed, or pull all and filter
+        # Since the filter depends on owner_did and status, we'll fetch all matching type 
+        # and sort/slice in python (similar to other kotoba shims unless we write EDN).
+        # Actually, let's use client.select_where which is easier.
+        # It doesn't natively support multi-where, so we fetch all for the primary filter.
+
+        if owner:
+            raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "owner_did", owner, limit=2000)
+            if status_filter:
+                raw_rows = [r for r in raw_rows if r.get("status") == status_filter]
+        elif status_filter:
+            raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "status", status_filter, limit=2000)
+        else:
+            # no filter, just fetch a bunch (kotoba query fallback)
+            raw_rows = await asyncio.to_thread(client.q, '[:find (pull ?e [*]) :where [?e :vertex-yukkuri-video/video-id ?v]]')
+            raw_rows = [r[0] for r in raw_rows if r]
+
+        raw_rows.sort(key=lambda r: str(r.get("created_at") or ""), reverse=True)
+        total = len(raw_rows)
+        paged = raw_rows[offset:offset+limit]
+
+        out = []
+        for r in paged:
+            out.append({
+                "video_id": r.get("video_id") or r.get("video-id"),
+                "owner_did": r.get("owner_did") or r.get("owner-did"),
+                "topic": r.get("topic"),
+                "status": r.get("status"),
+                "render_url": r.get("render_url") or r.get("render-url"),
+                "created_at": r.get("created_at") or r.get("created-at"),
+            })
+        return {"videos": out, "total": total}
+    except Exception as exc:  # noqa: BLE001
+        _log.exception("list_videos failed")
+        return {"error": f"query: {exc!s}"[:300]}
 
 
 async def _node_audit(state: _State) -> dict[str, Any]:

@@ -104,40 +104,40 @@ async def start_instances(
     return [r for r in results if r is not None]
 
 
-# ── Phase 2: poll RW until completion ───────────────────────────────────────
+# ── Phase 2: poll kotoba until completion ───────────────────────────────────────
 def poll_completion(
-    dsn: str,
     instance_ids: list[str],
     deadline_s: float,
 ) -> dict[str, dict[str, Any]]:
     """Poll `vertex_spiff_instance` until all `instance_ids` reach a terminal
     state (`completed` or `error`) or the deadline expires. Returns
     `{instance_id: {status, completed_at, _seq}}`."""
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
     completed: dict[str, dict[str, Any]] = {}
     while completed.keys() != set(instance_ids) and time.monotonic() < deadline_s:
         try:
-            with psycopg.connect(dsn, autocommit=True) as conn:
-                conn.row_factory = dict_row
-                rows = conn.execute(
-                    """
-                    SELECT instance_id, status, completed_at, _seq
-                    FROM vertex_spiff_instance
-                    WHERE instance_id = ANY(%s)
-                    ORDER BY instance_id ASC, _seq DESC
-                    """,
-                    (instance_ids,),
-                ).fetchall()
-                latest_by_instance: dict[str, dict[str, Any]] = {}
-                for row in rows:
-                    latest_by_instance.setdefault(row["instance_id"], dict(row))
-                for row in latest_by_instance.values():
-                    if row["status"] not in {"completed", "error", "cancelled"}:
-                        continue
-                    record = dict(row)
-                    record["_observed_at_monotonic_s"] = time.monotonic()
-                    completed[row["instance_id"]] = record
-        except psycopg.Error as exc:
-            log.warning("poll_completion: transient RW query failure: %s", exc)
+            # We fetch all instances sequentially for the smoke test; could be parallelized
+            # but usually concurrency is small enough (100)
+            rows = []
+            for iid in instance_ids:
+                if iid in completed:
+                    continue
+                r = client.select_where("vertex_spiff_instance", "instance_id", iid, limit=200)
+                rows.extend(r)
+                
+            latest_by_instance: dict[str, dict[str, Any]] = {}
+            for row in sorted(rows, key=lambda r: int(r.get("_seq") or 0)):
+                latest_by_instance[row["instance_id"]] = dict(row)
+                
+            for row in latest_by_instance.values():
+                if row["status"] not in {"completed", "error", "cancelled"}:
+                    continue
+                record = dict(row)
+                record["_observed_at_monotonic_s"] = time.monotonic()
+                completed[row["instance_id"]] = record
+        except Exception as exc:
+            log.warning("poll_completion: transient kotoba query failure: %s", exc)
         if completed.keys() == set(instance_ids):
             break
         time.sleep(0.5)
@@ -145,34 +145,31 @@ def poll_completion(
 
 
 # ── Phase 3: invariants ─────────────────────────────────────────────────────
-def assert_history_invariants(dsn: str, instance_ids: Iterable[str]) -> list[str]:
+def assert_history_invariants(instance_ids: Iterable[str]) -> list[str]:
     """Confirm append-only history per instance: seq starts at 0,
     monotonic, no gaps. Returns a list of violation strings (empty =
     pass)."""
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
     violations: list[str] = []
     ids = list(instance_ids)
     if not ids:
         return violations
-    with psycopg.connect(dsn, autocommit=True) as conn:
-        conn.row_factory = dict_row
-        rows = conn.execute(
-            """
-            SELECT instance_id, seq, event_type
-            FROM vertex_spiff_history
-            WHERE instance_id = ANY(%s)
-            ORDER BY instance_id ASC, seq ASC
-            """,
-            (ids,),
-        ).fetchall()
+    
     rows_by_instance: dict[str, list[dict[str, Any]]] = {}
-    for row in rows:
-        rows_by_instance.setdefault(str(row["instance_id"]), []).append(dict(row))
+    for iid in ids:
+        try:
+            rows = client.select_where("vertex_spiff_history", "instance_id", iid, limit=2000)
+            rows_by_instance[iid] = sorted(rows, key=lambda r: int(r.get("seq") or 0))
+        except Exception as exc:
+            violations.append(f"{iid}: fetch failed: {exc}")
+            
     for iid in ids:
         instance_rows = rows_by_instance.get(iid) or []
         if not instance_rows:
             violations.append(f"{iid}: no history rows")
             continue
-        seqs = [int(r["seq"]) for r in instance_rows]
+        seqs = [int(r.get("seq") or 0) for r in instance_rows]
         if seqs[0] != 0:
             violations.append(f"{iid}: history seq[0]={seqs[0]} (expected 0)")
         for i, s in enumerate(seqs):
@@ -184,81 +181,57 @@ def assert_history_invariants(dsn: str, instance_ids: Iterable[str]) -> list[str
     return violations
 
 
-def assert_no_orphan_jobs(dsn: str, instance_ids: Iterable[str]) -> list[str]:
+def assert_no_orphan_jobs(instance_ids: Iterable[str]) -> list[str]:
     """No `ready` / `claimed` jobs should remain after instance is
     completed."""
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
     violations: list[str] = []
-    with psycopg.connect(dsn, autocommit=True) as conn:
-        conn.row_factory = dict_row
-        rows = conn.execute(
-            """
-            SELECT j.instance_id, COUNT(*) AS n
-            FROM vertex_spiff_job AS j
-            JOIN (
-              SELECT job_id, max(_seq) AS latest_seq
-              FROM vertex_spiff_job
-              WHERE instance_id = ANY(%s)
-              GROUP BY job_id
-            ) AS latest
-              ON j.job_id = latest.job_id
-             AND j._seq = latest.latest_seq
-            WHERE j.status IN ('ready', 'claimed')
-            GROUP BY j.instance_id
-            """,
-            (list(instance_ids),),
-        ).fetchall()
-    for row in rows:
-        violations.append(
-            f"{row['instance_id']}: {row['n']} job rows still ready/claimed",
-        )
+    for iid in instance_ids:
+        try:
+            rows = client.select_where("vertex_spiff_job", "instance_id", iid, limit=2000)
+            latest_by_job = {}
+            for r in sorted(rows, key=lambda x: int(x.get("_seq") or 0)):
+                latest_by_job[r.get("job_id")] = r
+            
+            active = sum(1 for r in latest_by_job.values() if r.get("status") in ("ready", "claimed"))
+            if active > 0:
+                violations.append(f"{iid}: {active} job rows still ready/claimed")
+        except Exception as exc:
+            violations.append(f"{iid}: fetch orphans failed: {exc}")
     return violations
 
 
-def fetch_db_wall_durations(dsn: str, instance_ids: Iterable[str]) -> dict[str, float]:
-    """Return DB-clock instance_started -> completed_at durations.
-
-    The poll loop records when this process first observes completion, which
-    includes RisingWave query/poll latency. ADR latency should be measured
-    from persisted process start to persisted process completion on the same
-    DB clock.
-    """
+def fetch_db_wall_durations(instance_ids: Iterable[str]) -> dict[str, float]:
+    """Return DB-clock instance_started -> completed_at durations."""
+    from kotodama.kotoba_datomic import get_kotoba_client
+    from dateutil import parser
+    client = get_kotoba_client()
     ids = list(instance_ids)
     if not ids:
         return {}
-    with psycopg.connect(dsn, autocommit=True) as conn:
-        conn.row_factory = dict_row
-        rows = conn.execute(
-            """
-            WITH latest_completed AS (
-              SELECT i.instance_id, max(i.completed_at) AS completed_at
-              FROM vertex_spiff_instance AS i
-              WHERE i.instance_id = ANY(%s)
-                AND i.status = 'completed'
-                AND i.completed_at IS NOT NULL
-              GROUP BY i.instance_id
-            ),
-            started AS (
-              SELECT h.instance_id, min(h.ts) AS started_at
-              FROM vertex_spiff_history AS h
-              WHERE h.instance_id = ANY(%s)
-                AND h.event_type = 'instance_started'
-              GROUP BY h.instance_id
-            )
-            SELECT c.instance_id,
-                   EXTRACT(EPOCH FROM (
-                     c.completed_at::timestamptz - s.started_at::timestamptz
-                   )) AS duration_s
-            FROM latest_completed AS c
-            JOIN started AS s
-              ON s.instance_id = c.instance_id
-            """,
-            (ids, ids),
-        ).fetchall()
-    return {
-        str(row["instance_id"]): float(row["duration_s"])
-        for row in rows
-        if row.get("duration_s") is not None
-    }
+    res = {}
+    for iid in ids:
+        try:
+            instances = client.select_where("vertex_spiff_instance", "instance_id", iid, limit=2000)
+            completed_at = None
+            for r in sorted(instances, key=lambda x: int(x.get("_seq") or 0)):
+                if r.get("status") == "completed" and r.get("completed_at"):
+                    completed_at = r.get("completed_at")
+
+            history = client.select_where("vertex_spiff_history", "instance_id", iid, limit=2000)
+            started_at = None
+            for r in sorted(history, key=lambda x: int(x.get("seq") or 0)):
+                if r.get("event_type") == "instance_started" and r.get("ts"):
+                    started_at = r.get("ts")
+
+            if completed_at and started_at:
+                t1 = parser.parse(completed_at)
+                t0 = parser.parse(started_at)
+                res[iid] = (t1 - t0).total_seconds()
+        except Exception:
+            pass
+    return res
 
 
 # ── Driver ──────────────────────────────────────────────────────────────────
@@ -301,10 +274,10 @@ async def run(args: argparse.Namespace) -> int:
 
     log.info("smoke: %d instances started, polling for completion …",
              len(instance_ids))
-    completed = poll_completion(dsn, instance_ids, deadline)
+    completed = poll_completion(instance_ids, deadline)
 
     # ── Stats ──────────────────────────────────────────────────────────────
-    db_wall_durations = fetch_db_wall_durations(dsn, instance_ids)
+    db_wall_durations = fetch_db_wall_durations(instance_ids)
     durations: list[float] = []
     observed_durations: list[float] = []
     not_done: list[str] = []
@@ -328,9 +301,8 @@ async def run(args: argparse.Namespace) -> int:
     p99 = (statistics.quantiles(durations, n=100)[-1]
            if len(durations) >= 100 else max(durations or [float("nan")]))
 
-    history_violations = assert_history_invariants(dsn, instance_ids)
+    history_violations = assert_history_invariants(instance_ids)
     orphan_violations = assert_no_orphan_jobs(
-        dsn,
         [iid for iid in instance_ids if completed.get(iid, {}).get("status")
          == "completed"],
     )

@@ -8,6 +8,6 @@ Nodes (7):
   → [materialize | publish_lineage] → refresh_policy → END
 """
 
-from pymagatama.langgraph_graphs.pokopia_research_agent_loop import build_graph
+from kotodama.langgraph_graphs.pokopia_research_agent_loop import build_graph
 
 GRAPH = build_graph()

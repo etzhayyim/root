@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.dataset.openDatasetAttestation",
-  "description": "Per-jurisdiction open-data portal catalog entry attestation. R0 skeleton per ADR-2605263900 §3 (GovOpenDataSensor). Authored by `pymagatama.organism.sensors.gov.gov_open_data_sensor` after passive-only fetch of an open-data CKAN/portal bulk archive (data.gov / data.gov.uk / data.gouv.fr / data.go.jp / e-Stat / data.europa.eu / govdata.de / etc.). The `stateAlignedFlag` field is set true for CN-class sources per §2(g) parallel to ADR-2605262800; downstream consumers (ossekai + manabi) MUST display the flag in derived publication. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c).",
+  "description": "Per-jurisdiction open-data portal catalog entry attestation. R0 skeleton per ADR-2605263900 §3 (GovOpenDataSensor). Authored by `kotodama.organism.sensors.gov.gov_open_data_sensor` after passive-only fetch of an open-data CKAN/portal bulk archive (data.gov / data.gov.uk / data.gouv.fr / data.go.jp / e-Stat / data.europa.eu / govdata.de / etc.). The `stateAlignedFlag` field is set true for CN-class sources per §2(g) parallel to ADR-2605262800; downstream consumers (ossekai + manabi) MUST display the flag in derived publication. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c).",
   "defs": {
     "main": {
       "type": "record",

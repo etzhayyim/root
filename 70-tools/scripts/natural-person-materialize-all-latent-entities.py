@@ -3,12 +3,12 @@ import os
 import sys
 import time
 
-import psycopg
+import psycopg # kotoba-datomic-projection: historical offline script
 
 
 BATCH_SIZE = int(os.environ.get("NP_LATENT_BATCH_SIZE", "100000"))
 BATCHES_PER_RUN = int(os.environ.get("NP_LATENT_BATCHES_PER_RUN", "1"))
-DATABASE_URL = os.environ["RW_URL"]
+DATABASE_URL = os.environ["KOTOBA_URL"]
 
 
 def _check_rw_ready(cur: psycopg.Cursor) -> bool:  # type: ignore[type-arg]

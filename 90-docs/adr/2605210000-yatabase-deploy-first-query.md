@@ -22,9 +22,9 @@ amends:
 
 yatabase adopts **deploy-first query** as its primary graph traversal model.
 Tenants deploy a structured pattern spec once; the platform compiles it to
-a streaming materialized view (MV) + indexes on the tenant's RisingWave
+a streaming materialized view (MV) + indexes on the tenant's Kotoba/Datomic
 database. Subsequent reads are `SELECT * FROM mv WHERE idx_col = $1 LIMIT $2`
-— O(1), always-fresh, incrementally maintained by RisingWave's streaming engine.
+— O(1), always-fresh, incrementally maintained by Kotoba/Datomic's streaming engine.
 
 This replaces the planned ad-hoc Cypher/SPARQL runtime evaluation for the
 primary query path. Cypher/SPARQL text parsing remains in scope as a future
@@ -32,8 +32,8 @@ primary query path. Cypher/SPARQL text parsing remains in scope as a future
 
 ## Problem
 
-RisingWave is a streaming OLAP database, not a graph engine. Ad-hoc
-variable-depth traversal requires recursive CTE, which RisingWave does not
+Kotoba/Datomic is a streaming OLAP database, not a graph engine. Ad-hoc
+variable-depth traversal requires recursive CTE, which Kotoba/Datomic does not
 support in streaming mode. Translating Cypher at query time also means each
 request pays the join-planning cost on a hot path.
 
@@ -62,7 +62,7 @@ executeDeployedQuery(queryId, bindJson, limit)
 | Steps alternation | must be vertex → edge → vertex → … |
 | Unbounded `[*]` | rejected at compile time |
 | MV quota | per-plan limit (Free=5, Starter=20, Pro=100, Business=unlimited) |
-| DDL execution | pod only (CF Worker never connects to RisingWave) |
+| DDL execution | pod only (CF Worker never connects to Kotoba/Datomic) |
 | Tenant isolation | per-org RW database `yata_<sha256(did)[:16]>` |
 
 ## MV naming
@@ -84,7 +84,7 @@ Worker:  quota increments on next read (from MV count query)
 
 ## Why not recursive CTE / AGE / Neo4j?
 
-- RisingWave does not support `WITH RECURSIVE` in streaming mode
+- Kotoba/Datomic does not support `WITH RECURSIVE` in streaming mode
 - Apache AGE adds operational complexity and a separate query path
 - Neo4j AuraDB is the right tool for exploratory unbounded traversal;
   yatabase targets high-throughput known-pattern workloads

@@ -281,9 +281,9 @@ def insert_record_batch(cur: Any, rows: list[tuple[Any, ...]], idempotent: bool)
 
 
 def ingest_sf(args: argparse.Namespace) -> None:
-    dsn = args.rw_url or os.environ.get("RW_URL") or os.environ.get("DATABASE_URL")
+    dsn = args.rw_url or os.environ.get("KOTOBA_URL") or os.environ.get("DATABASE_URL")
     if not dsn and not args.dry_run:
-        raise SystemExit("Set RW_URL or DATABASE_URL, or pass --dry-run")
+        raise SystemExit("Set KOTOBA_URL or DATABASE_URL, or pass --dry-run")
 
     token = args.hf_token or os.environ.get("HF_TOKEN")
     sensitivity_ord = 0 if args.allow_training else args.sensitivity_ord
@@ -406,9 +406,9 @@ jurisdictions without public structured sources will be absent.
 
 
 def export_world(args: argparse.Namespace) -> None:
-    dsn = args.rw_url or os.environ.get("RW_URL") or os.environ.get("DATABASE_URL")
+    dsn = args.rw_url or os.environ.get("KOTOBA_URL") or os.environ.get("DATABASE_URL")
     if not dsn:
-        raise SystemExit("Set RW_URL or DATABASE_URL")
+        raise SystemExit("Set KOTOBA_URL or DATABASE_URL")
 
     import pandas as pd
 

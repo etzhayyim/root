@@ -52,9 +52,9 @@ name (`yoro`) or the legacy `etzhayyim-project-*` form.
 
 ### `e7m actor build <dir> [--extension]`
 
-Build a Magatama / W Protocol WASM component (tinygo + wasm-tools). The WIT
-directory auto-resolves to `20-actors/magatama/wit` (or `10-protocol/wproto/wit`
-with `--extension`), or the value of `$MAGATAMA_WIT_DIR` if set.
+Build a Kotodama / W Protocol WASM component (tinygo + wasm-tools). The WIT
+directory auto-resolves to `40-engine/kotoba/crates/kotoba-kotodama/wit` (or `10-protocol/wproto/wit`
+with `--extension`), or the value of `$KOTODAMA_WIT_DIR` if set.
 
 ### `e7m actor deploy <dir>`
 

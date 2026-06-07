@@ -5,7 +5,7 @@ logs, BGP routing changes, and CVE disclosures.
 
 ## Status
 
-Migrated from gftd vendor 2026-06-03 (candidate for etzhayyim front per 3-axis
+Migrated from etzhayyim vendor 2026-06-03 (candidate for etzhayyim front per 3-axis
 OR-test — pending review). Identity-only port — the vendor side held no
 implementation beyond a deploy stub. Build proceeds here.
 

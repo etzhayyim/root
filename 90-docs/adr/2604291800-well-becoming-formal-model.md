@@ -25,9 +25,9 @@ superseded_by: []
 
 # Well-Becoming Spirit 目的関数 — 公理・数理モデル
 
-**ADR**: 2604291800 補遺  
-**日付**: 2026-04-29  
-**ステータス**: active  
+**ADR**: 2604291800 補遺
+**日付**: 2026-04-29
+**ステータス**: active
 **参照**: `90-docs/adr/2604291800-well-becoming-spirit-objective-function.md`
 
 ---
@@ -403,5 +403,5 @@ ADR-0056 BPMN-as-actor として 5 プロセスが Zeebe に live:
 | `wellbecoming_floor_violation_alert` | `2251799816311153` | Timer R/PT30M |
 | `wellbecoming_agent_loop` | `2251799816311145` | XRPC none-start |
 
-XRPC エンドポイント: `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.wellbecoming.agentLoop`  
-pymagatama: `0.2.84-amd64` (mitama-udf namespace、全 6 wellbecoming タスクタイプ登録済み)
+XRPC エンドポイント: `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.wellbecoming.agentLoop`
+kotodama: `0.2.84-amd64` (mitama-udf namespace、全 6 wellbecoming タスクタイプ登録済み)

@@ -1,10 +1,10 @@
 ---
-# Planet PBF first-run bootstrap (~80 GB input, ~4-5 TB RisingWave projection,
+# Planet PBF first-run bootstrap (~80 GB input, ~4-5 TB Kotoba/Datomic projection,
 # ~18-36h wallclock on vc2-8c-32gb). Weekly refreshes go via cronjob.yaml.
 #
 # Prerequisites:
 #   - ghcr.io/etzhayyim/maps-osm-ingest:latest pushed
-#   - maps-osm-ingest-secrets { RISINGWAVE_URL } in `maps` namespace
+#   - maps-osm-ingest-secrets { KOTOBA_URL } in `maps` namespace
 #   - osm-ingest node pool running (label workload=osm-ingest,
 #     taint workload=osm-ingest:NoSchedule) — Vultr vc2-8c-32gb persistent pool
 #
@@ -55,7 +55,7 @@ spec:
             - "--pbf-url"
             - "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
             - "--db"
-            - "$(RISINGWAVE_URL)"
+            - "$(KOTOBA_URL)"
             - "--source-did"
             - "did:web:maps.etzhayyim.com:planet"
             - "--batch-size"
@@ -69,11 +69,11 @@ spec:
           env:
             - name: RUST_LOG
               value: "info,maps_osm_ingest=info,tokio_postgres=warn"
-            - name: RISINGWAVE_URL
+            - name: KOTOBA_URL
               valueFrom:
                 secretKeyRef:
                   name: maps-osm-ingest-secrets
-                  key: RISINGWAVE_URL
+                  key: KOTOBA_URL
           resources:
             requests:
               cpu: "4"

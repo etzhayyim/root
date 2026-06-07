@@ -27,8 +27,8 @@ bpmn-dispatcher -> Zeebe process instance
 zeebe-worker / ingest-worker Python pods
         |
         +-- source APIs / object storage / local staging
-        +-- LLM analysis through existing pymagatama.llm
-        +-- graph writes through RisingWave/Hyperdrive
+        +-- LLM analysis through existing kotodama.llm
+        +-- graph writes through Kotoba/Datomic/Hyperdrive
         v
 coverage reconciliation MVs + audit rows
 ```
@@ -153,7 +153,7 @@ Every ingest worker must implement these rules:
   written.
 - LLM outputs are derived artifacts, never the only copy of source truth.
 
-For RisingWave degraded windows, a worker must run `rw.health.probe` or the
+For Kotoba/Datomic degraded windows, a worker must run `rw.health.probe` or the
 equivalent health gate before bulk writes. A successful client-side `INSERT`
 result is not enough; post-write visibility checks drive cursor advancement.
 
@@ -189,7 +189,7 @@ Retry behavior:
 
 ## Python Worker Layout
 
-Keep source-specific logic in `pymagatama.ingest.*` modules, not in operator
+Keep source-specific logic in `kotodama.ingest.*` modules, not in operator
 scripts. Operator scripts such as `70-tools/scripts/houbun_live_ingest.py` are
 allowed as pilots, but production should call importable functions from Zeebe
 task handlers.
@@ -197,7 +197,7 @@ task handlers.
 Recommended package shape:
 
 ```text
-20-actors/magatama/py/src/pymagatama/ingest/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/
   core.py             # run rows, cursor lock, artifact helpers, write verify
   houbun.py           # e-Gov, GovInfo, EUR-Lex, UN Treaty, Constitute Project
   contracts.py        # social contract projections
@@ -231,10 +231,10 @@ Add one production Deployment class for ingest workers:
 
 ```text
 Deployment/ingest-worker
-  command: python -m pymagatama.ingest_worker_main
+  command: python -m kotodama.ingest_worker_main
   env:
     ZEEBE_GATEWAY
-    RW_URL
+    KOTOBA_URL
     B2_* / source API credentials
     VULTR_SERVERLESS_KEY for LLM paths
   resources:
@@ -246,10 +246,10 @@ Schedules become thin CronJobs:
 
 ```text
 CronJob/ingest-houbun-delta
-  -> python -m pymagatama.ingest_start --family houbun --source egov-jpn --mode delta
+  -> python -m kotodama.ingest_start --family houbun --source egov-jpn --mode delta
 
 CronJob/ingest-domain-common-crawl
-  -> python -m pymagatama.ingest_start --family domain --source common-crawl --mode delta
+  -> python -m kotodama.ingest_start --family domain --source common-crawl --mode delta
 ```
 
 Heavy conversions such as patent PDF to webp/OCR remain separate specialized
@@ -275,7 +275,7 @@ Initial tools:
 
 MCP is an agent/operator facade. It does not become a second source of truth.
 Lexicons define input/output contracts, BPMN defines orchestration, and
-RisingWave graph rows define durable state.
+Kotoba/Datomic graph rows define durable state.
 
 ## Ingest Family Mapping
 
@@ -295,7 +295,7 @@ RisingWave graph rows define durable state.
 ## Pilot Order
 
 1. **houbun/contracts**: move the current live ingest pilot into
-   `pymagatama.ingest.houbun`, add Zeebe task wrappers, and register one BPMN
+   `kotodama.ingest.houbun`, add Zeebe task wrappers, and register one BPMN
    for `egov-jpn-delta` plus one for `world-law-backfill`.
 2. **domain/common-crawl**: wrap the existing runbook commands behind
    `ingest.start` and `vertex_ingest_run`.
@@ -310,11 +310,11 @@ RisingWave graph rows define durable state.
    `vertex_ingest_artifact`.
 2. Add lexicons for `com.etzhayyim.apps.ingest.{plan,start,status,pause,resume,backfill,validate}`.
 3. Sync those lexicons into `vertex_mcp_tool_def`.
-4. Add `pymagatama.ingest.core` with run/cursor/artifact helpers and
+4. Add `kotodama.ingest.core` with run/cursor/artifact helpers and
    read-after-write verification.
 5. Move houbun pilot code from `70-tools/scripts/houbun_live_ingest.py` into
    importable worker functions.
-6. Add `pymagatama.ingest_worker_main` or extend `zeebe_worker_main` with the
+6. Add `kotodama.ingest_worker_main` or extend `zeebe_worker_main` with the
    initial ingest task registrations.
 7. Add Kubernetes Deployment values for `ingest-worker`; keep the existing
    `zeebe-worker` for generic primitives.

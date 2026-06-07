@@ -49,8 +49,8 @@ superseded_by: []
 
 | 既存資産 | 場所 | 帰属 | 評価 |
 |---|---|---|---|
-| Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` | etzhayyim vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (RisingWave) に書込 |
-| KPI MV | `20-actors/magatama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | etzhayyim vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + RisingWave projection |
+| Zeebe task `lawfirm.esign.request` / `lawfirm.esign.webhook` | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/lawfirm_esign_kpi.py` | etzhayyim vendor (`did:web:lawfirm.etzhayyim.com`) | DocuSign REST 実装 + Adobe/Razorpay stub。`vertex_lawfirm_esign_request` (Kotoba/Datomic) に書込 |
+| KPI MV | `40-engine/kotoba/crates/kotoba-kotodama/py/sqlmesh/models/mv_lawfirm_esign_active.sql` | etzhayyim vendor (RLS-gated CEO/COO/CLO) | Hyperdrive + Kotoba/Datomic projection |
 | ADR-2605180600 §"Future Work" の `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon | (記載のみ) | etzhayyim vendor lexicon namespace | 未作成。ADR 本文に "deferred" と記載 |
 
 religious-corp 側 (`com.etzhayyim.esign.*`) には actor / lexicon / cell / smart
@@ -156,7 +156,7 @@ centralized OAuth / email magic-link / SMS OTP は不採用。**DID + passkey �
 
 ### 6. Pregel cell
 
-`20-actors/magatama/cells/esign_envelope/` を religious-corp Pregel cell catalog
+`40-engine/kotoba/crates/kotoba-kotodama/cells/esign_envelope/` を religious-corp Pregel cell catalog
 (ADR-2605192415) に追加し、`50-infra/murakumo/fleet.toml` に placement 行を
 1 行追加する。cell 責務:
 
@@ -282,7 +282,7 @@ declined / expired) で 1 record に詰めると mutation が増え、MST の im
 ### E. 既存 `com.etzhayyim.apps.lawfirm.eSignRequest` lexicon を流用 (vendor namespace)
 
 却下。lexicon namespace は **substrate boundary の SSoT** であり、etzhayyim vendor
-namespace に religious-corp 文書を流すと、後段の RisingWave projection / RLS /
+namespace に religious-corp 文書を流すと、後段の Kotoba/Datomic projection / RLS /
 KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要不変条件。
 
 ## References
@@ -305,7 +305,7 @@ KPI MV まで vendor 側に流れる。namespace 分離が本 ADR の最重要�
   追加位置
 - ADR-2605222330 (etzhayyim.com substrate violation transition window) —
   本 ADR は新規 violation の発生を未然に止めるための native 設計
-- `20-actors/magatama/py/src/pymagatama/primitives/lawfirm_esign_kpi.py` — etzhayyim
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/lawfirm_esign_kpi.py` — etzhayyim
   vendor passthrough の現状実装
 - `00-contracts/lexicons/com/etzhayyim/esign/` (新規) — 本 ADR で定義する
   lexicon の配置先

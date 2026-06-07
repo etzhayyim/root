@@ -15,13 +15,13 @@ tags: ["jukyu", "mcp", "xrpc", "langgraph", "bpmn-dispatcher"]
 
 ## Context
 
-`jukyu.etzhayyim.com` runs global supply-demand equilibrium analysis via a resident K8s LangGraph/Pregel pod (`lg-jukyu`, `mitama-udf` namespace). The Pregel loop runs every 15 minutes, writing results to four RisingWave MVs. Before this ADR, the pod exposed `/cron/equilibrium`, `/extract/shocks`, and `/export/brief` but had no queryable MCP surface — callers had no way to read balance data, supply-chain topology, or company exposure rankings without direct pod access.
+`jukyu.etzhayyim.com` runs global supply-demand equilibrium analysis via a resident K8s LangGraph/Pregel pod (`lg-jukyu`, `mitama-udf` namespace). The Pregel loop runs every 15 minutes, writing results to four Kotoba/Datomic MVs. Before this ADR, the pod exposed `/cron/equilibrium`, `/extract/shocks`, and `/export/brief` but had no queryable MCP surface — callers had no way to read balance data, supply-chain topology, or company exposure rankings without direct pod access.
 
 This ADR documents the implementation of four new XRPC MCP query endpoints and the bpmn-dispatcher routing changes that wire them to the public `jukyu.etzhayyim.com` CF edge worker.
 
 ## Decision
 
-### 1. Four new XRPC endpoints in `pymagatama.jukyu.server`
+### 1. Four new XRPC endpoints in `kotodama.jukyu.server`
 
 | NSID | Source MV | Key filters | Max rows |
 |---|---|---|---|
@@ -49,7 +49,7 @@ LG_JUKYU_PROXY_PREFIXES = ("com.etzhayyim.apps.jukyu.",)
 LG_JUKYU_UTIL_PATHS = frozenset({"/extract/shocks", "/export/brief"})
 ```
 
-The `dispatch()` function checks `LG_JUKYU_PROXY_PREFIXES` before the `vertex_bpmn_lexicon_binding` RisingWave lookup, so no DB registration is needed. Util paths (`/extract/shocks`, `/export/brief`) are registered as dedicated `aiohttp` routes at `make_app()` startup — the same pattern used by `lg-animeka` and `lg-malak`.
+The `dispatch()` function checks `LG_JUKYU_PROXY_PREFIXES` before the `vertex_bpmn_lexicon_binding` Kotoba/Datomic lookup, so no DB registration is needed. Util paths (`/extract/shocks`, `/export/brief`) are registered as dedicated `aiohttp` routes at `make_app()` startup — the same pattern used by `lg-animeka` and `lg-malak`.
 
 ### 3. CF worker UTIL_PATHS routing gap fix
 
@@ -63,10 +63,10 @@ POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
     → dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
       → bpmn-dispatcher: LG_JUKYU_PROXY_PREFIXES match → _proxy_to_lg_pod
         → lg-jukyu.mitama-udf.svc.cluster.local:8000/xrpc/com.etzhayyim.apps.jukyu.queryBalance
-          → FastAPI + psycopg2 → RisingWave mv_jukyu_global_balance
+          → FastAPI + psycopg2 → Kotoba/Datomic mv_jukyu_global_balance
 ```
 
-## RisingWave MV column contracts (verified 2026-05-15)
+## Kotoba/Datomic MV column contracts (verified 2026-05-15)
 
 **`mv_jukyu_global_balance`**: domain, country_code, region_code, product_code, product_family, supply_quantity, demand_quantity, inventory_quantity, balance_quantity, latest_observed_at, avg_confidence, observation_count
 
@@ -78,7 +78,7 @@ POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
 
 ## Deployed image tags
 
-- `lg-jukyu`: `ghcr.io/etzhayyim/pymagatama:jukyu-mcp-query-1127e93592e-20260515170344-amd64`
+- `lg-jukyu`: `ghcr.io/etzhayyim/kotodama:jukyu-mcp-query-1127e93592e-20260515170344-amd64`
 - `bpmn-dispatcher`: rebuilt same session with lg-jukyu routing additions
 
 ## Consequences
@@ -86,11 +86,11 @@ POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
 - All four query endpoints respond through `jukyu.etzhayyim.com` (HTTP 200, verified 2026-05-15)
 - `explainNode` requires real node codes (format: `JURONG-NAPH`, `ARA-NAPH`, `CHIBA-C2`) from `vertex_jukyu_supply_node`
 - The bpmn-dispatcher proxy pattern is now consistent across: lg-animeka, lg-malak, lg-jukyu (and others)
-- No RisingWave `vertex_bpmn_lexicon_binding` row needed for jukyu — static prefix table is the SSoT
+- No Kotoba/Datomic `vertex_bpmn_lexicon_binding` row needed for jukyu — static prefix table is the SSoT
 
 ## Files changed
 
-- `20-actors/magatama/py/src/pymagatama/jukyu/server.py` — 4 new XRPC endpoints
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/jukyu/server.py` — 4 new XRPC endpoints
 - `60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/src/app.ts` — UTIL_PATHS routing
-- `20-actors/magatama/py/src/pymagatama/dispatcher_main.py` — lg-jukyu proxy constants + routing
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py` — lg-jukyu proxy constants + routing
 - `50-infra/k8s/lg-jukyu/deployment.yaml` — updated image tag

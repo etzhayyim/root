@@ -13,7 +13,7 @@ import {
   createInboxBuffer,
   MURAKUMO_DEFAULT_MODEL,
   nsid,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -28,12 +28,12 @@ function decBody(body: Uint8Array): string {
   return _dec.decode(body) || "{}";
 }
 
-// ── Workers AI Model Registry (SSoT: @etzhayyim/magatama-host-sdk llm-model-registry) ──
+// ── Workers AI Model Registry (SSoT: @etzhayyim/kotodama-host-sdk llm-model-registry) ──
 
 import {
   MODEL_REGISTRY, USE_CASE_DEFAULTS, MODEL_ALIASES,
   resolveModel, resolveModelId, isKnownModel,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 /** Backward compat alias. */
 const isKnownModelId = isKnownModel;
@@ -57,7 +57,7 @@ async function deductCredits(callerDid: string, modelId: string): Promise<string
   try {
     const resp = await fetch("https://credits.etzhayyim.com/xrpc/com.etzhayyim.apps.credits.checkSpendAllowed", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
+      headers: { "Content-Type": "application/json", "x-kotodama-verified": "true" },
       body: JSON.stringify({ userId: callerDid, action: "llm_inference", amount: cost }),
     });
     // Only block on explicit 402 insufficient balance; pass through on any other error
@@ -666,7 +666,7 @@ async function handleOpenAIPath(request: Request): Promise<globalThis.Response |
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, x-credits-did, x-magatama-verified",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, x-credits-did, x-kotodama-verified",
         "Access-Control-Max-Age": "86400",
       },
     });
@@ -676,7 +676,7 @@ async function handleOpenAIPath(request: Request): Promise<globalThis.Response |
     const body = await request.json() as Record<string, unknown>;
 
     // Credit gate: internal calls (PDS service binding) skip; external require credits
-    const isInternal = request.headers.get("x-magatama-verified") === "true";
+    const isInternal = request.headers.get("x-kotodama-verified") === "true";
     if (!isInternal) {
       const callerDid = request.headers.get("x-credits-did") || "";
       if (!callerDid) {
@@ -732,7 +732,7 @@ const _inner = createWorkerExportFromEnvFactory((env) => {
       withCapabilityTags("llm", "inference", "openaiCompatible"),
     )
     .command(nsid(ANSWER_WITH_KNOWLEDGE_NSID), (_ctx, body) => cmdAnswerWithKnowledge(sdk, body, env),
-      asAgentTool("Answer with RisingWave domain knowledge through the BPMN LangGraph workflow"),
+      asAgentTool("Answer with kotoba domain knowledge through the BPMN LangGraph workflow"),
       withCapabilityTags("llm", "knowledge", "rag", "bpmn", "langgraph"),
     )
     .command(nsid("com.etzhayyim.apps.llm.listModels"), (ctx, body) => cmdListModels(sdk, body),
@@ -782,7 +782,7 @@ export default {
     // Credit gate for XRPC inference commands (converse, chatCompletions)
     const nsid = url.pathname.replace("/xrpc/", "");
     const isInferenceNsid = nsid === "com.etzhayyim.apps.llm.converse" || nsid === "com.etzhayyim.apps.llm.chatCompletions";
-    if (isInferenceNsid && request.headers.get("x-magatama-verified") !== "true") {
+    if (isInferenceNsid && request.headers.get("x-kotodama-verified") !== "true") {
       const callerDid = request.headers.get("x-credits-did") || "";
       if (!callerDid) {
         return new Response(JSON.stringify({ error: "x-credits-did header required — LLM inference requires credits" }), {

@@ -1,6 +1,6 @@
 # maps-osm-ingest — K8s Jobs + Weekly CronJob
 
-OSM PBF → RisingWave `vertex_osm_element` / `edge_osm_way_node` /
+OSM PBF → Kotoba/Datomic `vertex_osm_element` / `edge_osm_way_node` /
 `edge_osm_relation_member` streaming ingest. Option B (direct-to-graph)
 topology — no B2 blob intermediate for query, B2 only holds resume
 checkpoints. Rationale in `deps.toml [[migrations]] maps-forward-topology-raw-to-webgpu`.
@@ -15,8 +15,8 @@ checkpoints. Rationale in `deps.toml [[migrations]] maps-forward-topology-raw-to
 
 ## Bootstrap sequence (first-run)
 
-The existing LKE cluster (`etzhayyim-risingwave`, id=589404, sg-sin-2) runs
-a single GPU node (`g2-gpu-rtx4000a1-l`) hosting RisingWave + TEI + Ollama.
+The existing LKE cluster (`etzhayyim-kotoba`, id=589404, sg-sin-2) runs
+a single GPU node (`g2-gpu-rtx4000a1-l`) hosting Kotoba/Datomic + TEI + Ollama.
 The planet ingest Job needs 40-56 GiB RAM and would starve those workloads,
 so we **add a temporary node pool, run the Job there, then delete the pool**.
 
@@ -39,10 +39,10 @@ curl -sH "Authorization: Bearer $LINODE_API_KEY" \
    docker push ghcr.io/etzhayyim/maps-osm-ingest:latest
    ```
 
-2. **Create secrets** (RISINGWAVE_URL only — B2 no longer required):
+2. **Create secrets** (KOTOBA_URL only — B2 no longer required):
    ```bash
    kubectl -n maps create secret generic maps-osm-ingest-secrets \
-     --from-literal=RISINGWAVE_URL="postgres://root@risingwave-frontend.risingwave:4566/dev"
+     --from-literal=KOTOBA_URL="postgres://root@kotoba-frontend.kotoba:4566/dev"
    ```
 
 ### Step-by-step: add ephemeral pool, run ingest, tear down
@@ -91,7 +91,7 @@ GitHub Actions workflow (future `.github/workflows/maps-osm-ingest.yml`).
 
 ## Legacy (CronJob-only) notes
 
-Weekly full-replace ingest of the OSM planet PBF into RisingWave.
+Weekly full-replace ingest of the OSM planet PBF into Kotoba/Datomic.
 
 - Namespace: `maps`
 - Schedule: `0 3 * * 0` (Sun 03:00 UTC)
@@ -107,7 +107,7 @@ Create `maps-osm-ingest-secrets` in `maps` namespace:
 ```bash
 kubectl -n maps create secret generic maps-osm-ingest-secrets \
   --from-literal=PBF_URL="https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf" \
-  --from-literal=RISINGWAVE_URL="postgres://root@risingwave-frontend.risingwave:4566/dev" \
+  --from-literal=KOTOBA_URL="postgres://root@kotoba-frontend.kotoba:4566/dev" \
   --from-literal=R2_ENDPOINT="https://<acct>.r2.cloudflarestorage.com/<bucket>" \
   --from-literal=R2_CHECKPOINT_BUCKET="<bucket>" \
   --from-literal=R2_ACCESS_KEY_ID="<redacted>" \
@@ -137,7 +137,7 @@ Structured JSON logs are picked up by the cluster fluent-bit → Grafana Loki.
 ## Verify ingestion
 
 ```bash
-psql "postgres://root@risingwave-frontend.risingwave:4566/dev" <<'SQL'
+psql "postgres://root@kotoba-frontend.kotoba:4566/dev" <<'SQL'
 SELECT COUNT(*) AS n
 FROM vertex_osm_element
 WHERE source_did = 'did:web:maps.etzhayyim.com:planet';
@@ -159,8 +159,8 @@ Expected planet scale (as of 2025):
 ## Tuning
 
 - `--parallelism` — decoder rayon threads; raise for >16 vCPU nodes.
-- `--batch-size` — rows per COPY batch; 100k is a good default for RisingWave.
-- If the writer stalls, check `risingwave_meta_actor_barrier_latency` and the
+- `--batch-size` — rows per COPY batch; 100k is a good default for Kotoba/Datomic.
+- If the writer stalls, check `kotoba_meta_actor_barrier_latency` and the
   `compute` node memory — the COPY ingress generates many incremental rows
   to streaming MVs.
 

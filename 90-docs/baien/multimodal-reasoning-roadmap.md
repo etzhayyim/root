@@ -71,7 +71,7 @@ The ADR already specifies the design: frozen SigLIP-So400m encoder +
    Snapshot it under `vertex_training_dataset_snapshot` with
    `task: "image-grounded-text"`.
 2. Implement `_train_baien_graft_image()` inside
-   `pymagatama/primitives/training_run.py` (sibling to
+   `kotodama/primitives/training_run.py` (sibling to
    `_run_finetune`). Loop:
    - Load `microsoft/bitnet-b1.58-2B-4T-bf16` master, freeze.
    - Load `google/siglip-so400m-patch14-384`, freeze.
@@ -115,7 +115,7 @@ runs on the user's device.
 
 This is the highest-leverage **reasoning** move available at 2B
 scale. Not because we make Baien smarter, but because we **outsource
-recall to RisingWave** and let the trunk focus on synthesis.
+recall to Kotoba/Datomic** and let the trunk focus on synthesis.
 
 **Concrete steps**
 
@@ -160,7 +160,7 @@ solves correctly.
 **Don't generalize the claim.** The output of this move is "Baien
 imitates teacher CoT for question types it has seen", not "Baien
 reasons". Outside the training distribution, fall back to delegating
-to Oka via the magatama MCP facade.
+to Oka via the kotodama MCP facade.
 
 **H100 budget**: ~6–10 hours, dataset generation cost depends on
 which teacher.
@@ -178,7 +178,7 @@ the right tool for a query, the *tool* does the reasoning.
    `task: "tool-routing"` in hyperparams). Inputs = user prompt +
    list of available capability descriptions; output = which
    capability to invoke. Teacher = Oka or rule-based ground truth.
-2. Wire Baien serving's response into the magatama MCP facade so
+2. Wire Baien serving's response into the kotodama MCP facade so
    tool calls dispatch to either local edge tools or remote Oka.
 
 **Why this**: combines with Moves 3+4. Baien acts as the routing
@@ -231,6 +231,6 @@ Concrete first sprint (one H100 session, ≤ 12 hours wall clock):
 - ADR 2605091300 (cultivar layer)
 - ADR 2605091400 (cell-membrane / Lexicon demotion)
 - ADR 2605091600 (plasmid / horizontal tool acquisition)
-- ADR 2604262359 (RisingWave vector substrate)
+- ADR 2604262359 (Kotoba/Datomic vector substrate)
 - `00-contracts/lexicons/com/etzhayyim/apps/training/runBaienMultimodalGraft.json`
-- `20-actors/magatama/py/src/pymagatama/primitives/training_run.py:task_train_baien_graft_run`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/training_run.py:task_train_baien_graft_run`

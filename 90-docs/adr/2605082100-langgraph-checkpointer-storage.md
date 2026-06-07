@@ -98,14 +98,14 @@ graph = builder.compile(checkpointer=saver)
 ### Mode B: `rw_vertex` (stream-derived graph)
 
 > **2026-05-09 訂正 (iter3)**: 初稿は `RwVertexCheckpointSaver` を新規実装する
-> 提案だったが、`pymagatama/langgraph_checkpoint_rw.py` に既に実装済み。
+> 提案だったが、`kotodama/langgraph_checkpoint_rw.py` に既に実装済み。
 > 既存 schema (`vertex_langgraph_checkpoint` + `vertex_langgraph_checkpoint_write`)
 > も migration `20260422030000_vertex_langgraph_checkpoint.ts` +
 > `20260507600000_vertex_langgraph_store_and_writes.ts` で apply 済み。
 > 本 ADR は既存実装を SSoT 認定する形に書き直した。
 
-**backend**: 既存 `pymagatama/langgraph_checkpoint_rw.py` の
-`RisingWaveCheckpointSaver` (LangGraph `BaseCheckpointSaver` 実装)。
+**backend**: 既存 `kotodama/langgraph_checkpoint_rw.py` の
+`Kotoba/DatomicCheckpointSaver` (LangGraph `BaseCheckpointSaver` 実装)。
 
 **Schema (既存 live)**:
 
@@ -167,8 +167,8 @@ match mode:
         from langgraph.checkpoint.postgres import PostgresSaver
         cp = PostgresSaver.from_conn_string(env.HYPERDRIVE_LANGGRAPH_URL)
     case "rw_vertex":
-        from pymagatama.langgraph_checkpoint_rw import RisingWaveCheckpointSaver
-        cp = RisingWaveCheckpointSaver()  # uses ensure_rw_async_pool()
+        from kotodama.langgraph_checkpoint_rw import Kotoba/DatomicCheckpointSaver
+        cp = Kotoba/DatomicCheckpointSaver()  # uses ensure_rw_async_pool()
 graph = builder.compile(checkpointer=cp)
 ```
 

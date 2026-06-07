@@ -47,7 +47,7 @@ repo projection:
 - visual or aesthetic judgment should be possible, but optional and non-blocking.
 
 The existing LangGraph server for Shinshi is the correct runtime boundary:
-it already exposes MCP and XRPC compatibility, reads RisingWave projections,
+it already exposes MCP and XRPC compatibility, reads Kotoba/Datomic projections,
 and owns the generation graphs.
 
 ## Decision
@@ -176,7 +176,7 @@ SHINSHI_AESTHETIC_REVIEW_CACHE_ENABLED=true
 SHINSHI_AESTHETIC_REVIEW_MODEL=gemma-4-E4B-it
 ```
 
-### D7. Aesthetic review results are cached in RisingWave
+### D7. Aesthetic review results are cached in Kotoba/Datomic
 
 Live aesthetic calls are expensive enough to cache, but not authoritative
 enough to replace deterministic scoring. `lg-shinshi` stores successful

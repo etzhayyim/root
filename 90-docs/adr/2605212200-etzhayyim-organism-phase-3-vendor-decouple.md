@@ -151,16 +151,16 @@ then delete from vendor monorepo with `[MOVED]` README stub):
 
 | Source (vendor) | Destination (etzhayyim/root) |
 |---|---|
-| `20-actors/magatama/py/src/pymagatama/primitives/active_inference.py` | `20-actors/magatama/py/src/pymagatama/primitives/active_inference.py` |
-| `20-actors/magatama/py/src/pymagatama/primitives/rl_active_inference.py` | (same) |
-| `20-actors/magatama/py/src/pymagatama/primitives/rl_policy.py` | (same) |
-| `20-actors/magatama/py/src/pymagatama/primitives/rl_preferences.py` | (same) |
-| `20-actors/magatama/py/src/pymagatama/primitives/rl_signal.py` | (same) |
-| `20-actors/magatama/py/src/pymagatama/primitives/active_inference_substrate.py` | (same) |
-| `20-actors/magatama/py/src/pymagatama/primitives/at_ipfs_belief_store.py` | (same) |
-| `20-actors/magatama/py/src/pymagatama/primitives/rw_belief_store.py` | NOT moved (vendor-only — keeps RW shim for legacy paths) |
-| `20-actors/magatama/py/src/pymagatama/primitives/telemetry_counters.py` | (same) |
-| 7 worker modules (`kabi_worker_main.py` etc.) | `20-actors/magatama/py/src/pymagatama/{kabi,kobo,kinoko,koke,saikin,ki,hakkou}_worker_main.py` |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/active_inference.py` | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/active_inference.py` |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/rl_active_inference.py` | (same) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/rl_policy.py` | (same) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/rl_preferences.py` | (same) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/rl_signal.py` | (same) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/active_inference_substrate.py` | (same) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/at_ipfs_belief_store.py` | (same) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/rw_belief_store.py` | NOT moved (vendor-only — keeps RW shim for legacy paths) |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/telemetry_counters.py` | (same) |
+| 7 worker modules (`kabi_worker_main.py` etc.) | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/{kabi,kobo,kinoko,koke,saikin,ki,hakkou}_worker_main.py` |
 | `agent_daemon_main.py` write path | refactored copy to etzhayyim/root with no `insert_direct_row` (writes via `BeliefStore.put_row` only) |
 | `agent_status_main.py` read path | (same) |
 | 16 Lexicon JSON files (12 agent + 4 capability) | `00-contracts/lexicons/ai/etzhayyim/{agent,consent/capability}/` (already dual-published per Stage C) |
@@ -170,7 +170,7 @@ then delete from vendor monorepo with `[MOVED]` README stub):
 | `50-infra/cloudflare/workers/atproto/src/llm-dispatch.ts` | NOT moved — CF Worker edge proxy stays vendor (consumes etzhayyim capability) |
 
 Pass criteria:
-  - `grep -r "from pymagatama.primitives.active_inference" vendor-monorepo` returns 0
+  - `grep -r "from kotodama.primitives.active_inference" vendor-monorepo` returns 0
   - `grep -r "com.etzhayyim.agent\." vendor-monorepo` returns 0 (Stage C condition reused)
   - etzhayyim/root organism k8s deployment runs ≥7 days clean
   - vendor monorepo build still passes (delete pass should not have broken any imports)

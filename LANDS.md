@@ -152,4 +152,4 @@ All substrate-records must resolve to the same `geojsonCid` + `imageryBundleCid`
 - [`50-infra/etzhayyim-chain-contracts/src/PublicLandRegistry.sol`](50-infra/etzhayyim-chain-contracts/src/PublicLandRegistry.sol) — Base L2 ERC-721 + ERC-5192 mirror (R0 scaffold)
 - [`50-infra/etzhayyim-chain-contracts/src/StewardTenureRegistry.sol`](50-infra/etzhayyim-chain-contracts/src/StewardTenureRegistry.sol) — ERC-7401 nestable tenure (R0 scaffold)
 - [`50-infra/etzhayyim-chain-contracts/src/LandClassRegistry.sol`](50-infra/etzhayyim-chain-contracts/src/LandClassRegistry.sol) — ERC-1155 aggregate (R0 scaffold)
-- [`20-actors/magatama/cells/`](20-actors/magatama/cells/) — Land-related Pregel cells
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/`](40-engine/kotoba/crates/kotoba-kotodama/cells/) — Land-related Pregel cells

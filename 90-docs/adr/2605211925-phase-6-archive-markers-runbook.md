@@ -15,7 +15,7 @@ authoritative_for:
   - description-prefix convention + archive-flag policy
   - rollback (un-archive) procedure
 depends_on:
-  - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
+  - adr-2605212100-kotodama-worker-3-axis-tranche-f-closure
   - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
 related:
@@ -122,7 +122,7 @@ Concretely:
 | `60-apps/etzhayyim-project-ki/lg/` | `etzhayyim/root/60-apps/etzhayyim-project-ki/lg/lg_organism/` | Top-level `60-apps/etzhayyim-project-ki/README.md` MOVED stub if the entire project relocates; otherwise just keep the wasm/ side and add a `lg/MOVED.md` pointer |
 | `60-apps/etzhayyim-project-legal-entity/lg/` | `etzhayyim/root/60-apps/etzhayyim-project-legal-entity/lg/` | Same pattern |
 | `60-apps/etzhayyim-project-curpus2skill/lg/` | `etzhayyim/root/60-apps/etzhayyim-project-curpus2skill/lg/` | Same pattern (curpus2skill currently has only lg/, so the entire project moves) |
-| `20-actors/magatama/py/src/pymagatama/{27 worker_main + 4 ingest + 4 primitive}` | `etzhayyim/root/20-actors/magatama/py/src/pymagatama/` | Per-file `MOVED → etzhayyim/...` pointer is excessive (~37 files); instead add ONE top-level `20-actors/magatama/py/MOVED-FILES.md` listing the relocated files |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/{27 worker_main + 4 ingest + 4 primitive}` | `etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/` | Per-file `MOVED → etzhayyim/...` pointer is excessive (~37 files); instead add ONE top-level `40-engine/kotoba/crates/kotoba-kotodama/py/MOVED-FILES.md` listing the relocated files |
 
 ## 2. Execute
 
@@ -176,10 +176,10 @@ either sits at the project root or in a re-created `lg/` shell directory with
 ONLY the stub. Operator picks based on what's cleaner for vendor `gh repo`
 browsing.)
 
-### Step 2.C — pymagatama MOVED-FILES.md catalog
+### Step 2.C — kotodama MOVED-FILES.md catalog
 
 ```bash
-cat > /Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/py/MOVED-FILES.md <<EOF
+cat > /Users/junkawasaki/github/etzhayyim-root/40-engine/kotoba/crates/kotoba-kotodama/py/MOVED-FILES.md <<EOF
 # Files moved to etzhayyim/root
 
 The following Python modules were relocated to etzhayyim/root as part of
@@ -188,7 +188,7 @@ Tranche F Phase 5 (ADR-2605211913) on 2026-MM-DD (operator fills date).
 ## Workers (29 total)
 
 \`\`\`
-hakkou_worker_main.py            → etzhayyim/root/20-actors/magatama/py/src/pymagatama/hakkou_worker_main.py
+hakkou_worker_main.py            → etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/hakkou_worker_main.py
 kabi_worker_main.py              → etzhayyim/root/...
 ki_worker_main.py                → etzhayyim/root/...
 ... (full list, generate via deps.toml [[mitama_actors]] etzhayyim-classified subset)
@@ -197,7 +197,7 @@ ki_worker_main.py                → etzhayyim/root/...
 ## Ingest modules (4 total)
 
 \`\`\`
-ingest/blockchain.py    → etzhayyim/root/20-actors/magatama/py/src/pymagatama/ingest/blockchain.py
+ingest/blockchain.py    → etzhayyim/root/40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/blockchain.py
 ingest/houbun.py        → etzhayyim/root/...
 ingest/curpus2skill.py  → etzhayyim/root/...
 ingest/site_common_crawl.py → etzhayyim/root/...
@@ -244,8 +244,8 @@ section noting the Tranche F archive markers:
 # "26 旧 etzhayyim open repos archived with [MOVED] prefix" clause:
 
 、Tranche F の 3 lg subtree (lg_organism / lg_legal_entity / lg_curpus2skill)
-+ 37 pymagatama files (workers 29 + ingest 4 + primitive 4) は
-ADR-2605211913 Phase 5 で git rm 済 + `20-actors/magatama/py/MOVED-FILES.md`
++ 37 kotodama files (workers 29 + ingest 4 + primitive 4) は
+ADR-2605211913 Phase 5 で git rm 済 + `40-engine/kotoba/crates/kotoba-kotodama/py/MOVED-FILES.md`
 + 3 subtree MOVED.md stub で archive marker 完了 (ADR-2605211925, 2026-MM-DD)
 ```
 
@@ -257,7 +257,7 @@ for stub in \
   60-apps/etzhayyim-project-ki/lg/MOVED.md \
   60-apps/etzhayyim-project-legal-entity/lg/MOVED.md \
   60-apps/etzhayyim-project-curpus2skill/lg/MOVED.md \
-  20-actors/magatama/py/MOVED-FILES.md; do
+  40-engine/kotoba/crates/kotoba-kotodama/py/MOVED-FILES.md; do
   test -f "/Users/junkawasaki/github/etzhayyim-root/$stub" \
     && echo "  ✓ $stub" \
     || echo "  ✗ MISSING: $stub"
@@ -303,7 +303,7 @@ Phase 6 is the **least destructive** phase — rollback is straightforward:
 - Future operators / agents reading the etzhayyim repo see explicit MOVED markers
   rather than mysterious deletions. Discoverability of the relocated content
   is preserved.
-- The pymagatama MOVED-FILES.md catalog gives operators a single grep target
+- The kotodama MOVED-FILES.md catalog gives operators a single grep target
   to find "where did file X go" without needing to know about the org-split.
 
 **Negative / risks**

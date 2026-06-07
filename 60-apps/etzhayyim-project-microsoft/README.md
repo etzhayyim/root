@@ -516,10 +516,10 @@ Microsoft domain を Matrix に取り込むときは、Matrix の room/event/use
       main.go
       wit/world.wit
       App manifest
-      magatama.toml
+      kotodama.toml
       svelte/
     etzhayyim-wasm-microsoft-static-<nanoid>/
-      magatama.toml
+      kotodama.toml
       svelte/
   native/
     microsoft-bridge-appservice/

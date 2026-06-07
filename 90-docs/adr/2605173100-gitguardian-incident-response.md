@@ -1,6 +1,6 @@
 ---
 id: adr-2605173100-gitguardian-incident-response
-title: "ADR-2605173100: GitGuardian RisingWave credential-leak incident response — full remediation 2026-05-17"
+title: "ADR-2605173100: GitGuardian Kotoba/Datomic credential-leak incident response — full remediation 2026-05-17"
 status: active
 doc_type: adr
 topic: gitguardian-incident-response
@@ -12,8 +12,8 @@ weight: 0.85
 priority_note: "Security incident response — high priority. Documents the discovered RW network/auth posture, the multi-layer remediation, and the defense-in-depth pattern adopted afterwards. Required reading before touching RW infra or 1Password vault entries."
 authoritative_for:
   - GitGuardian 2026-05-17 incident response narrative
-  - RisingWave network exposure decision (ClusterIP, no public LB)
-  - RisingWave root user authentication enforcement
+  - Kotoba/Datomic network exposure decision (ClusterIP, no public LB)
+  - Kotoba/Datomic root user authentication enforcement
   - CF Tunnel + Hyperdrive private-origin pattern for upstream DBs
   - 1Password custody for the rotated RW root password
   - lefthook secret-scan hook regex
@@ -25,7 +25,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605173100: GitGuardian RisingWave credential-leak incident response
+# ADR-2605173100: GitGuardian Kotoba/Datomic credential-leak incident response
 
 **Status**: active
 **Date**: 2026-05-17
@@ -37,10 +37,10 @@ On 2026-05-17 GitGuardian flagged a PostgreSQL URI exposed in the
 public `etzhayyim/root` repository:
 
 ```
-postgresql://root:rw_66a4db7736799bf888c50a817b4c6a65@45.32.79.245:4566/dev
+postgresql://root:REDACTED_EXAMPLE_PASSWORD@45.32.79.245:4566/dev # EXAMPLE
 ```
 
-The leak originated in seeded magatama Python framework content. ~50 worker
+The leak originated in seeded kotodama Python framework content. ~50 worker
 `*_worker_main.py` files contained the URI as the **fallback** in
 `os.getenv("DATABASE_URL", "<full-DSN>")` — meaning the URI was always
 the runtime value unless an env var overrode it.
@@ -54,14 +54,14 @@ expected:
 
 ## What we discovered while remediating
 
-1. **RisingWave root user had no password enforcement.** Testing in-cluster
+1. **Kotoba/Datomic root user had no password enforcement.** Testing in-cluster
    with empty / leaked / bogus passwords all returned the same
-   `SELECT 1 → 1` result. The chart's `risingwave` Secret had
+   `SELECT 1 → 1` result. The chart's `kotoba` Secret had
    `root-password = ""` (helm chart default for v0.2.49). The 32-char
    string `rw_66a4…` in source was a **placeholder, not a real password**.
 
-2. **The RisingWave LoadBalancer was wide-open to the public internet.**
-   `kubectl get svc risingwave -o jsonpath='{.spec.loadBalancerSourceRanges}'`
+2. **The Kotoba/Datomic LoadBalancer was wide-open to the public internet.**
+   `kubectl get svc kotoba -o jsonpath='{.spec.loadBalancerSourceRanges}'`
    returned empty. The external IP `45.32.79.245:4566` was reachable from
    anywhere with no authentication required.
 
@@ -98,7 +98,7 @@ Layered defense, executed during the incident:
 Replacements applied:
 
 ```
-rw_66a4db7736799bf888c50a817b4c6a65 → REDACTED
+REDACTED_EXAMPLE_PASSWORD → REDACTED
 45.32.79.245                         → <rw-host>
 regex:postgres(ql)?://USER:PW@HOST/(dev|prod) → REDACTED_USE_DATABASE_URL_ENV
 ```
@@ -110,7 +110,7 @@ Added `lefthook.yml` `secret-scan` hook with regex covering:
 ```
 postgres(ql)?://[^@]*:[^@]+@                — DSN with embedded password
 sk_(live|test)_[A-Za-z0-9]{16,}             — Stripe-style secret keys
-rw_[a-f0-9]{32}                              — RisingWave password format
+rw_[a-f0-9]{32}                              — Kotoba/Datomic password format
 AWS_SECRET_ACCESS_KEY=[A-Za-z0-9/+]{16,}    — AWS env keys
 github_pat_[A-Za-z0-9_]{20,}                — GitHub PATs (new format)
 ghp_/ghs_/gho_/ghr_                          — GitHub PAT short prefixes
@@ -126,7 +126,7 @@ Commit: `da059d91`.
 
 ## Layer 4 — Network exposure removal
 
-K8s Service `risingwave` patched LoadBalancer → ClusterIP at 21:55 JST.
+K8s Service `kotoba` patched LoadBalancer → ClusterIP at 21:55 JST.
 
 Effects:
 - Vultr LB id `63490c84-0b1b-4cd1-a9f8-991cf54a8c68` released by VKE CCM
@@ -135,18 +135,18 @@ Effects:
 - External reachability confirmed broken (`/dev/tcp/45.32.79.245/4566` BLOCKED ✅)
 - Intra-cluster confirmed working (`SELECT NOW()` from in-cluster Job → OK ✅)
 
-Pre-patch Service spec backed up to `/tmp/risingwave-svc-backup-20260517-215515.yaml`.
+Pre-patch Service spec backed up to `/tmp/kotoba-svc-backup-20260517-215515.yaml`.
 
 ## Layer 5 — Authentication enforcement
 
-Discovery: empty `risingwave` Secret `root-password` meant no auth was
-required. The chart doesn't wire the Secret into the RisingWave
+Discovery: empty `kotoba` Secret `root-password` meant no auth was
+required. The chart doesn't wire the Secret into the Kotoba/Datomic
 frontend's auth check; it's just a default placeholder.
 
 Action: ran `ALTER USER root WITH PASSWORD '<32-char-from-op>'`
 in-cluster via a one-shot Job, with the password sourced from a
 staging Secret that was deleted at the end of the Job. The 32-char
-password lives in 1Password (item `RisingWave root (rotated 2026-05-17)`,
+password lives in 1Password (item `Kotoba/Datomic root (rotated 2026-05-17)`,
 id `kudkk66526jk3ft4iasbezf6uy`).
 
 Post-ALTER verification:
@@ -168,20 +168,20 @@ explicitly runs an ALTER, this needs re-checking.
 To keep CF Hyperdrive functional after ClusterIP-ifying RW:
 
 ```
-CF Worker → Hyperdrive → CF Tunnel `risingwave-private` (id a17cdf9d-…)
+CF Worker → Hyperdrive → CF Tunnel `kotoba-private` (id a17cdf9d-…)
         → cloudflared (in cluster, 2 replicas)
-        → tcp://risingwave.risingwave.svc.cluster.local:4566 (ClusterIP)
-        → RisingWave frontend (auth-enforced)
+        → tcp://kotoba.kotoba.svc.cluster.local:4566 (ClusterIP)
+        → Kotoba/Datomic frontend (auth-enforced)
 ```
 
 Artifacts:
 
-- CF Tunnel `risingwave-private` (id `a17cdf9d-7b9d-4cf4-a482-66129bc2a43d`)
-- CF DNS CNAME `risingwave-private` (private origin)
-- K8s Secret `risingwave/cloudflared-risingwave-private-credentials`
-- K8s ConfigMap `risingwave/cloudflared-risingwave-private-config`
-- K8s Deployment `risingwave/cloudflared-risingwave-private` (2 replicas, image `cloudflare/cloudflared:2025.4.0`)
-- IaC committed at `50-infra/vultr/risingwave/private-tunnel/` (commit `684edcc9`)
+- CF Tunnel `kotoba-private` (id `a17cdf9d-7b9d-4cf4-a482-66129bc2a43d`)
+- CF DNS CNAME `kotoba-private` (private origin)
+- K8s Secret `kotoba/cloudflared-kotoba-private-credentials`
+- K8s ConfigMap `kotoba/cloudflared-kotoba-private-config`
+- K8s Deployment `kotoba/cloudflared-kotoba-private` (2 replicas, image `cloudflare/cloudflared:2025.4.0`)
+- IaC committed at `50-infra/vultr/kotoba/private-tunnel/` (commit `684edcc9`)
 
 Hyperdrive binding update (final step) is **pending user action in CF
 Dashboard** — the CF API token in Keychain (`cloudflare:API_TOKEN`)
@@ -190,7 +190,7 @@ the dashboard path and the API-token-with-Hyperdrive-scope alternative.
 
 ## Layer 7 — Runbook for future rotations
 
-`50-infra/vultr/risingwave/rotate-password.sh` (commit `a523b012`,
+`50-infra/vultr/kotoba/rotate-password.sh` (commit `a523b012`,
 amended at `684edcc9` to reference the 1Password "compromised" item):
 
 - Pre-flight: `op` auth check, `VULTR_API_KEY` from Keychain, kubeconfig from Vultr API
@@ -202,7 +202,7 @@ amended at `684edcc9` to reference the 1Password "compromised" item):
 
 ## Layer 8 — Vultr Cloud Firewall script (defense in depth — not applied)
 
-`50-infra/vultr/risingwave-firewall-restrict.sh` (commit `143421d5`) creates
+`50-infra/vultr/kotoba-firewall-restrict.sh` (commit `143421d5`) creates
 a Vultr firewall group attachable to VKE node instances. **Not applied
 in the final design** because ClusterIP (Layer 4) eliminated the public
 IP entirely — Vultr firewall on nodes would be redundant for RW.
@@ -214,7 +214,7 @@ Kept as a template for similar lockdowns of other infrastructure.
 ## 正の効果
 
 - **Public RW exposure eliminated.** No external IP points at the
-  RisingWave cluster.
+  Kotoba/Datomic cluster.
 - **Root user authentication enforced.** Empty / bogus / leaked
   passwords all rejected. The 32-char 1Password-managed credential is
   the only path.
@@ -238,7 +238,7 @@ Kept as a template for similar lockdowns of other infrastructure.
 - **Existing clones of the repo retain the credential** (even after
   filter-repo on `origin`). The rotation-then-IP-restriction
   combination is what makes the leak useless, not the history rewrite.
-- **Helm chart upgrades** could trigger reconcile of the `risingwave`
+- **Helm chart upgrades** could trigger reconcile of the `kotoba`
   Secret to empty `root-password` again. The actual auth state lives
   in RW metastore (Postgres), but a chart upgrade with explicit
   password-reset might overwrite. Need helm values override for
@@ -257,7 +257,7 @@ Kept as a template for similar lockdowns of other infrastructure.
 - RW user audit (`kaisya_app`, `postgres`, `rw_admin`, `rwadmin` —
   these other roles need their own password review; the chart only
   manages `root`)
-- Migration of magatama Python framework off RW per ADR-2605172000
+- Migration of kotodama Python framework off RW per ADR-2605172000
   (etzhayyim is RW-free; the ~50 worker `*_main.py` files referencing
   RW need a substrate-rule audit)
 
@@ -275,8 +275,8 @@ Kept as a template for similar lockdowns of other infrastructure.
 | 21:51 | Discovery: RW root has no auth enforcement |
 | 21:55 | K8s Service patched LoadBalancer → ClusterIP |
 | 21:57 | `ALTER USER root WITH PASSWORD` run; empty PW now rejected |
-| 22:00 | CF Tunnel `risingwave-private` created; cloudflared deployed (2/2) |
-| 22:01 | Private CNAME for `risingwave-private` published |
+| 22:00 | CF Tunnel `kotoba-private` created; cloudflared deployed (2/2) |
+| 22:01 | Private CNAME for `kotoba-private` published |
 | 22:05 | IaC manifests + ADR committed |
 
 ## Lessons learned
@@ -353,13 +353,13 @@ deferring it has no upside.
   containing the leak should arguably not live in etzhayyim/root)
 - Cloudflare Hyperdrive over Tunnel:
   https://developers.cloudflare.com/hyperdrive/configuration/connect-to-private-database/
-- RisingWave user management:
-  https://docs.risingwave.com/sql/commands/sql-alter-user
+- Kotoba/Datomic user management:
+  https://docs.kotoba.com/sql/commands/sql-alter-user
 - 1Password CLI item-create:
   https://developer.1password.com/docs/cli/item-create/
 - Pre-incident state references:
-  - `50-infra/vultr/risingwave/deploy.sh` — original deploy with `HYPERDRIVE_VULTR` mention
-  - `20-actors/magatama/py/src/pymagatama/llm.py` — one of ~50 worker files with the leaked default
+  - `50-infra/vultr/kotoba/deploy.sh` — original deploy with `HYPERDRIVE_VULTR` mention
+  - `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/llm.py` — one of ~50 worker files with the leaked default
 - Post-incident commit chain:
   - `23e499b5` HEAD scrub
   - `da059d91` secret-scan hook

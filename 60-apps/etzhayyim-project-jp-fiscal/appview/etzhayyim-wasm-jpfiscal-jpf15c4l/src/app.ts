@@ -21,7 +21,7 @@ import {
   type HostSDK,
   nsid,
   str,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 type InternalSecret = string | { get(): Promise<string> };
 type EnvLike = { DISPATCHER_URL?: string; HYPERDRIVE?: unknown; DISPATCHER_INTERNAL_SECRET?: InternalSecret };
@@ -431,9 +431,9 @@ const worker = createWorkerExport((sdk: HostSDK) => {
         // parallel + short timeouts to fit in host-sdk 25s budget
         await Promise.all([
           probe("health-public",  () => globalThis.fetch("https://murakumo.etzhayyim.com/health",     { signal: AbortSignal.timeout(8_000) })),
-          probe("models-authd",   () => globalThis.fetch("https://murakumo.etzhayyim.com/v1/models",  { headers: { "x-magatama-verified": "true" }, signal: AbortSignal.timeout(8_000) })),
+          probe("models-authd",   () => globalThis.fetch("https://murakumo.etzhayyim.com/v1/models",  { headers: { "x-kotodama-verified": "true" }, signal: AbortSignal.timeout(8_000) })),
           probe("chat-tiny",      () => globalThis.fetch("https://murakumo.etzhayyim.com/v1/chat/completions", {
-            method: "POST", headers: { "content-type": "application/json", "x-magatama-verified": "true" },
+            method: "POST", headers: { "content-type": "application/json", "x-kotodama-verified": "true" },
             body: JSON.stringify({ model: "gemma3-1b", messages: [{ role: "user", content: "ok" }], max_tokens: 4 }),
             signal: AbortSignal.timeout(20_000),
           })),

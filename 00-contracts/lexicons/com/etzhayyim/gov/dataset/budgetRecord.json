@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.dataset.budgetRecord",
-  "description": "Per-jurisdiction budget appropriation / obligation / outlay / subaward attestation. R0 skeleton per ADR-2605263900 §3 (GovBudgetSensor). Authored by `pymagatama.organism.sensors.gov.gov_budget_sensor` after passive-only fetch of USAspending / EU Financial Transparency System / national budget publications. Cross-links to `com.etzhayyim.corp.leiReference` when recipient is a legal entity with a GLEIF LEI; used by toritate (ADR-2605262900) for recipient-vendor anti-related-party checks. Recipient names pass-through (transparency-regime reason for publication).",
+  "description": "Per-jurisdiction budget appropriation / obligation / outlay / subaward attestation. R0 skeleton per ADR-2605263900 §3 (GovBudgetSensor). Authored by `kotodama.organism.sensors.gov.gov_budget_sensor` after passive-only fetch of USAspending / EU Financial Transparency System / national budget publications. Cross-links to `com.etzhayyim.corp.leiReference` when recipient is a legal entity with a GLEIF LEI; used by toritate (ADR-2605262900) for recipient-vendor anti-related-party checks. Recipient names pass-through (transparency-regime reason for publication).",
   "defs": {
     "main": {
       "type": "record",

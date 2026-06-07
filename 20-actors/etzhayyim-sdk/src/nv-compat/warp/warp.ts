@@ -1,4 +1,4 @@
-// TypeScript port of pymagatama.nv_compat.isaaclab.utils.warp
+// TypeScript port of kotodama.nv_compat.isaaclab.utils.warp
 //
 // NVIDIA Warp® kernel-API parity stubs — single-threaded JS execution.
 //

@@ -31,8 +31,8 @@ superseded_by: []
 
 ## Context
 
-ADR-2605080600 §"RisingWave custom storage 実装" defined two
-custom checkpointers: `RisingWaveCheckpointSaver` (writes to
+ADR-2605080600 §"Kotoba/Datomic custom storage 実装" defined two
+custom checkpointers: `Kotoba/DatomicCheckpointSaver` (writes to
 `vertex_langgraph_checkpoint`) and Postgres-backed
 `langgraph.checkpoint.postgres.PostgresSaver` (used when an assistant has
 short-lived HITL state and Hyperdrive is preferable).
@@ -65,7 +65,7 @@ migration is backwards-compatible without a UPDATE pass.
 | Mode | Behavior | Use |
 |---|---|---|
 | `none` (default) | `checkpointer=None`. No state persisted. | One-shot Cron actors, ingest pipelines, anything that completes in <1 minute and never resumes. Vast majority of the 64 builtins. |
-| `rw_vertex` | `RisingWaveCheckpointSaver()`. Writes to `vertex_langgraph_checkpoint` / `_checkpoint_write` / `_checkpoint_blob`. | Long-running actors with multi-step state worth replaying after pod restart. Currently zero in production; reserved for `projector` / `shosha_agent_loop` pattern when HITL pause/resume lands. |
+| `rw_vertex` | `Kotoba/DatomicCheckpointSaver()`. Writes to `vertex_langgraph_checkpoint` / `_checkpoint_write` / `_checkpoint_blob`. | Long-running actors with multi-step state worth replaying after pod restart. Currently zero in production; reserved for `projector` / `shosha_agent_loop` pattern when HITL pause/resume lands. |
 | `postgres` | `langgraph.checkpoint.postgres.PostgresSaver.from_conn_string($HYPERDRIVE_LANGGRAPH_URL or $DATABASE_URL)` + `.setup()`. | Direct Postgres-backed for graphs that need `langgraph` upstream's `interrupt()` HITL semantics, where RW's lack of LISTEN/NOTIFY makes `rw_vertex` awkward. |
 
 ### D3. Resolution rule
@@ -82,9 +82,9 @@ def _resolve_checkpointer(mode):
     if not mode or mode == "none":
         return None
     if mode == "rw_vertex":
-        try: from pymagatama.langgraph_checkpoint_rw import RisingWaveCheckpointSaver
+        try: from kotodama.langgraph_checkpoint_rw import Kotoba/DatomicCheckpointSaver
         except Exception as e: LOG.warning(...); return None
-        return RisingWaveCheckpointSaver()
+        return Kotoba/DatomicCheckpointSaver()
     if mode == "postgres":
         dsn = os.environ.get("HYPERDRIVE_LANGGRAPH_URL") or os.environ.get("DATABASE_URL")
         if not dsn: LOG.warning(...); return None
@@ -148,4 +148,4 @@ the checkpointer-enabled graph.
 - ADR-2605080600: LangGraph Server + Granian L3 Runtime (parent)
 - ADR-2605082200: Row-driven LangGraph runtime (sibling — assistant kind taxonomy)
 - Migration `r_20260509130000_alter_langgraph_assistant_checkpointer_mode`
-- Implementation: `pymagatama/langgraph_loader.py:_resolve_checkpointer`
+- Implementation: `kotodama/langgraph_loader.py:_resolve_checkpointer`

@@ -20,8 +20,8 @@ authoritative_for:
 related:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0056-bpmn-as-actor
-  - adr-2604241342-risingwave-out-of-band-migration-pattern
-  - adr-0048-risingwave-vultr-b2-primary
+  - adr-2604241342-kotoba-out-of-band-migration-pattern
+  - adr-0048-kotoba-vultr-b2-primary
 ---
 
 # ADR-2604280900 — Maps Transit Data Pipeline (GTFS-JP / OpenFlights / Ferry / GTFS-RT)
@@ -52,7 +52,7 @@ The CF Worker heartbeat model (30s/128MB budget) cannot handle bulk GTFS ingest 
 | `bulk-ingest-ferry-routes` | `com.etzhayyim.apps.maps.bulkRefreshFerryRoutes` R/P7D | OSM Overpass relation[route=ferry] × 7 bboxes | Weekly |
 | `bulk-ingest-gtfs-rt` | internal 30s/60s/300s scheduler | ODPT + no-auth RT binary feeds | **Gated, replicas=0** |
 
-### Layer 4: Two new RisingWave tables (Phase 2)
+### Layer 4: Two new Kotoba/Datomic tables (Phase 2)
 
 ```sql
 vertex_maps_trip       PK (feed_id, trip_id)
@@ -95,7 +95,7 @@ Tokyo Metro/JR East/Keio Shibuya = 3 independent `stop_id`s (`gtfsjp-{feed_id}-{
 
 ### D3 — Idempotency via delete-then-insert (RW append-only, no ON CONFLICT)
 
-Per RisingWave semantics (root CLAUDE.md "Record-log semantics") and ADR-2604241342. For `vertex_maps_trip` + `vertex_maps_stop_time`: `DELETE WHERE feed_id = ?` before re-INSERT. For `vertex_spatial` route/stop rows: deterministic `vertex_id` → RW PK implicit upsert on re-INSERT.
+Per Kotoba/Datomic semantics (root CLAUDE.md "Record-log semantics") and ADR-2604241342. For `vertex_maps_trip` + `vertex_maps_stop_time`: `DELETE WHERE feed_id = ?` before re-INSERT. For `vertex_spatial` route/stop rows: deterministic `vertex_id` → RW PK implicit upsert on re-INSERT.
 
 ### D4 — Phase 3 GTFS-RT gated at replicas=0
 
@@ -125,15 +125,15 @@ Feed: Yamanashi (bus operator, single prefecture)
 
 Extrapolated: Tokyo Metro-class operators (~5-30M stop_times each) will need ODPT registration (no public download). Full 47-prefecture index is O(1B stop_times) — within table design capacity, will require `GTFS_JP_LIMIT_FEEDS` batching or per-prefecture run scheduling.
 
-## Production Verification (2026-04-28, RisingWave Vultr VKE)
+## Production Verification (2026-04-28, Kotoba/Datomic Vultr VKE)
 
 All operator actions from Migration Checklist completed 2026-04-28T13:00–13:25 JST.
 
 ### Blocking fix: BPMN re-deploy loop
 
-Root cause: RisingWave DML checkpoint buffering (~150s window). After `_mark_deployed_sync()` succeeds, the UPDATE is buffered and the row remains visible as `deployed_at IS NULL` on the next `_list_pending_defs_sync()` call. Without a guard, `WATCHER_INTERVAL_SEC=1` × ~150s window = ~150 duplicate Zeebe deploys per BPMN.
+Root cause: Kotoba/Datomic DML checkpoint buffering (~150s window). After `_mark_deployed_sync()` succeeds, the UPDATE is buffered and the row remains visible as `deployed_at IS NULL` on the next `_list_pending_defs_sync()` call. Without a guard, `WATCHER_INTERVAL_SEC=1` × ~150s window = ~150 duplicate Zeebe deploys per BPMN.
 
-Fix: `_deployed_in_flight: set[str]` local to `watcher_loop()`. After successful deploy, add `vertex_id` to set and skip on subsequent ticks. Deployed in pymagatama:0.2.54 (commit `f9222ab46e5`). Convention: `[[conventions]] bpmn-dispatcher-rw-redeploy-loop`.
+Fix: `_deployed_in_flight: set[str]` local to `watcher_loop()`. After successful deploy, add `vertex_id` to set and skip on subsequent ticks. Deployed in kotodama:0.2.54 (commit `f9222ab46e5`). Convention: `[[conventions]] bpmn-dispatcher-rw-redeploy-loop`.
 
 ### Blocking fix: B2 credentials
 
@@ -143,7 +143,7 @@ Fix: `_deployed_in_flight: set[str]` local to `watcher_loop()`. After successful
 
 `GTFS_JP_FEED_INDEX_URL` was hardcoded to a GitHub raw URL that required branch access. Changed to `file:///config/gtfs-jp.json` (ConfigMap `gtfs-jp-feed-index` mounted at `/config`). Codified in `deployment-gtfs-jp.yaml` (was live kubectl patch, now committed).
 
-### First-dump results (production RisingWave)
+### First-dump results (production Kotoba/Datomic)
 
 | Job | Triggered | Completed | Rows |
 |---|---|---|---|

@@ -639,7 +639,7 @@
     },
     "/xrpc/com.etzhayyim.kiyo.searchPapers": {
       "get": {
-        "summary": "Semantic search over papers using embedding cosine similarity (RisingWave SQL UDF kiyo_embed_query + list_cosine_similarity). Falls back to title ILIKE for unembedded papers.",
+        "summary": "Semantic search over papers using embedding cosine similarity (Kotoba/Datomic SQL UDF kiyo_embed_query + list_cosine_similarity). Falls back to title ILIKE for unembedded papers.",
         "operationId": "com.etzhayyim.kiyo.searchPapers",
         "parameters": [
           {

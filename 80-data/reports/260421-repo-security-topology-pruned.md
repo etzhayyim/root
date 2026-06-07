@@ -38,7 +38,7 @@ Evidence:
 - `70-tools/etzhayyim/etzhayyim/murakumo_fleet.go`
   - hardcodes fleet SSH password `fleetSSHPass`
 - `70-tools/scripts/bulk-stream-ingest.mjs`
-  - hardcodes a RisingWave password-bearing DSN
+  - hardcodes a Kotoba/Datomic password-bearing DSN
 - `70-tools/scripts/yabai-baseline-ingest.mjs`
   - keeps the same DSN as default fallback
 
@@ -115,7 +115,7 @@ Highest-signal branches after pruning:
 1. Clerk middleware auth bypass in `hrse` and `docs`
 2. `protobufjs < 7.5.5` via `40-engine/llm/inference/ameno -> @huggingface/transformers -> onnxruntime-web`
 3. `undici < 7.24.0` in `60-apps/etzhayyim-project-scap` workflow chain
-4. `hono < 4.12.14` in `20-actors/magatama/sdk/magatama-host-sdk`
+4. `hono < 4.12.14` in `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk`
 
 Pruning note:
 

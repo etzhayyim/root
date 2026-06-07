@@ -12,8 +12,8 @@ client or app
   -> /xrpc/{nsid}
   -> bpmn-dispatcher
   -> Zeebe process instance
-  -> pymagatama.zeebe_worker_main
-  -> RisingWave graph rows / PDS / external tools
+  -> kotodama.zeebe_worker_main
+  -> Kotoba/Datomic graph rows / PDS / external tools
 ```
 
 The fund and M&A contracts now have:
@@ -44,7 +44,7 @@ The fund and M&A contracts now have:
   - `ma.integration.closeAndHandoff`
   - `ma.writeGraph`
 - integration manifest:
-  - `60-apps/etzhayyim-project-ma/magatama.toml`
+  - `60-apps/etzhayyim-project-ma/kotodama.toml`
 
 Important limitation: the current M&A handlers are deterministic workflow
 primitives. They create IDs, scores, ranges, buyer ranking, and graph rows.
@@ -54,7 +54,7 @@ counterparties, run due diligence over documents, or solicit LPs.
 ## Ingest Integration Design
 
 The M&A app is the operator, but it does not own every collector. The standard
-integration point is `60-apps/etzhayyim-project-ma/magatama.toml`, with ADR
+integration point is `60-apps/etzhayyim-project-ma/kotodama.toml`, with ADR
 coverage in `90-docs/adr/2604271200-ma-fund-person-lei-ingest-integration.md`.
 
 ```text
@@ -100,7 +100,7 @@ Business-person ingest now has a BPMN wrapper:
 `com.etzhayyim.apps.businessPerson.collectPublicRoles`. The wrapper dispatches
 public collection jobs to the business-person PDS app, prepares
 source-specific public registry requests, fetches the public `sourceUrl`,
-checks RisingWave health, normalizes public role rows, writes
+checks Kotoba/Datomic health, normalizes public role rows, writes
 `vertex_business_person`, and verifies graph visibility before MA matching
 uses the rows. The first extractor is
 `businessPerson.extractCorporateHpRoles`,
@@ -176,15 +176,15 @@ the deployment environment. The required migration is:
 30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts
 ```
 
-2. Build and deploy a `pymagatama` image that includes the new `ma.py` task
+2. Build and deploy a `kotodama` image that includes the new `ma.py` task
    registrations. The current checked-in Helm values still point at an older
    image tag, so rebuilding is required before production pods know about the
    new MA task types.
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 SHA=$(git rev-parse --short HEAD)
-IMG=ghcr.io/etzhayyim/pymagatama:${SHA}
+IMG=ghcr.io/etzhayyim/kotodama:${SHA}
 
 docker buildx build \
   --platform linux/amd64 \
@@ -205,7 +205,7 @@ helm upgrade --install mitama-udf-pool \
 
 - Zeebe gateway reachable from the worker:
   `ZEEBE_GATEWAY=zeebe-gateway.mitama-udf.svc:26500`
-- RisingWave URL in `mitama-udf-pool-rw/RW_URL`
+- Kotoba/Datomic URL in `mitama-udf-pool-rw/KOTOBA_URL`
 - dispatcher strict auth secret when exposed through `dispatcher.etzhayyim.com`
 - `VULTR_SERVERLESS_KEY` or a working `RUNPOD_LLM_URL` for LLM-backed tasks
 - PDS service auth settings if BPMN tasks call `generic.pds.dispatch`

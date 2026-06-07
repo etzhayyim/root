@@ -131,7 +131,7 @@ path_id: <slug, defined in ADR-2605181050>
 ## 配置
 
 ```
-20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projects/uhl_right_neural/
 ├── schemas/
 │   └── institution.py                  # Pydantic v2 models (above schema)
 ├── seed/

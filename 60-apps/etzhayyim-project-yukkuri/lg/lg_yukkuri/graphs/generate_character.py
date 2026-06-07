@@ -37,7 +37,6 @@ from lg_yukkuri.comfy_workflows import (
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _COMFY_TIMEOUT = int(os.environ.get("COMFY_TIMEOUT_SEC", "300"))
 _PDS_BLOB_URL = os.environ.get(
     "PDS_BLOB_URL", "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.uploadBlob",
@@ -141,34 +140,32 @@ async def _node_generate(state: _State) -> dict[str, Any]:
 async def _node_insert(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("sheets"):
         return {}
-    if not _RW_URL:
-        return {}
     video_id = state.get("video_id") or ""
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            for s in state["sheets"]:
-                asset_id = (
-                    f"asset-char-{video_id}-{s['side']}-{s['emotion']}-"
-                    f"{secrets.token_hex(3)}"
-                )
-                meta = (
-                    f'{{"side":"{s["side"]}","emotion":"{s["emotion"]}",'
-                    f'"name":"{s.get("name", "")}",'
-                    f'"comfyFilename":"{s.get("comfy_filename", "")}",'
-                    f'"elapsedMs":{s.get("elapsed_ms", 0)}}}'
-                )
-                await conn.execute(
-                    """INSERT INTO vertex_yukkuri_asset
-                       (asset_id, video_id, kind, actor_did, blob_key, meta_json, created_at)
-                       VALUES (%s, %s, 'character_sheet', %s, %s, %s, %s)""",
-                    [asset_id, video_id, _CHARACTER_DID, s["blob_key"],
-                     meta, created_at],
-                )
-        finally:
-            await conn.close()
+        import asyncio
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        for s in state["sheets"]:
+            asset_id = (
+                f"asset-char-{video_id}-{s['side']}-{s['emotion']}-"
+                f"{secrets.token_hex(3)}"
+            )
+            meta = (
+                f'{{"side":"{s["side"]}","emotion":"{s["emotion"]}",'
+                f'"name":"{s.get("name", "")}",'
+                f'"comfyFilename":"{s.get("comfy_filename", "")}",'
+                f'"elapsedMs":{s.get("elapsed_ms", 0)}}}'
+            )
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
+                "vertex_id": asset_id,
+                "video_id": video_id,
+                "kind": "character_sheet",
+                "actor_did": _CHARACTER_DID,
+                "blob_key": s["blob_key"],
+                "meta_json": meta,
+                "created_at": created_at
+            })
     except Exception as exc:  # noqa: BLE001
         _log.exception("insert character sheets failed")
         return {"error": f"insert: {exc!s}"[:300]}

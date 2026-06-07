@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# uninstall.sh — remove magatama-cell-runner LaunchAgent from this Mac mini.
+# uninstall.sh — remove kotodama-cell-runner LaunchAgent from this Mac mini.
 # Per ADR-2605192415.
 #
 # Usage:
@@ -11,7 +11,7 @@ set -euo pipefail
 QUIET=false
 [[ "${1:-}" == "--quiet" ]] && QUIET=true
 
-SERVICE_LABEL="com.etzhayyim.magatama-cell-runner"
+SERVICE_LABEL="com.etzhayyim.kotodama-cell-runner"
 INSTALLED_PLIST="$HOME/Library/LaunchAgents/$SERVICE_LABEL.plist"
 LOG_DIR="$HOME/.etzhayyim/log"
 
@@ -34,8 +34,8 @@ ok "removed"
 $QUIET || {
   echo ""
   echo "Logs retained at:"
-  echo "  $LOG_DIR/magatama-cell-runner.stdout.log"
-  echo "  $LOG_DIR/magatama-cell-runner.stderr.log"
+  echo "  $LOG_DIR/kotodama-cell-runner.stdout.log"
+  echo "  $LOG_DIR/kotodama-cell-runner.stderr.log"
   echo ""
   echo "To wipe logs:"
   echo "  rm -rf $LOG_DIR"

@@ -1,5 +1,5 @@
 // compintel.etzhayyim.com — Competitive Intelligence Dashboard (thin edge facade).
-// Business logic: 20-actors/magatama/py/src/pymagatama/compintel_worker_main.py
+// Business logic: 40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py
 // LangGraph loop: fetch_signals → analyze_pricing → analyze_product → analyze_hiring → score_threat → store_snapshot
 // Weekly refresh: LangServer BPMN-contract timer Monday 08:00 JST
 // No PII — all data is public competitive intelligence.
@@ -24,7 +24,7 @@ export default {
         actor: "did:web:compintel.etzhayyim.com",
         nanoid: env.APP_NANOID ?? "cpti0001",
         execution: "edge-bpmn+langgraph-langserver",
-        businessLogic: "20-actors/magatama/py/src/pymagatama/compintel_worker_main.py",
+        businessLogic: "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/compintel_worker_main.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "resend", "news.etzhayyim.com"],

@@ -30,9 +30,9 @@ superseded_by:
 > |---|---|
 > | SSoT | `00-contracts/lexicons/com/etzhayyim/host/**/*.json` |
 > | Codegen (lex-cli analog) | `70-tools/scripts/contract/gen-host-client-from-lexicon.mjs` |
-> | Generated client | `20-actors/magatama/sdk/magatama-host-sdk/src/generated/host-client.ts` |
-> | Dispatch (BindingTransport NSID router) | `20-actors/magatama/sdk/magatama-host-sdk/src/host-dispatcher.ts` |
-> | Authoritative current ref | `20-actors/magatama/CLAUDE.md` §Host Capability Contract |
+> | Generated client | `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/host-client.ts` |
+> | Dispatch (BindingTransport NSID router) | `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/host-dispatcher.ts` |
+> | Authoritative current ref | `40-engine/kotoba/crates/kotoba-kotodama/CLAUDE.md` §Host Capability Contract |
 >
 > Shannon η for host capability surface = **1.0** (single SSoT, all other layers are derived).
 >
@@ -49,10 +49,10 @@ AT Protocol Lexicon の **noun 層 (record schema)** を WIT record 型として
 
 ## Scope
 
-- `magatama:wproto` package 内に AT Protocol Lexicon の core 型を WIT record として追加
-- `magatama:bsky` package を新設し、`app.bsky.*` Lexicon 型を WIT で定義
+- `kotodama:wproto` package 内に AT Protocol Lexicon の core 型を WIT record として追加
+- `kotodama:bsky` package を新設し、`app.bsky.*` Lexicon 型を WIT で定義
 - `etzhayyim wit-gen` の Lexicon JSON 生成を WIT record 定義から自動導出に切り替え
-- Guest SDK (magatama-go, magatama-guest-rust, magatama-ts, magatama-py) の型安全 API 提供
+- Guest SDK (kotodama-go, kotodama-guest-rust, kotodama-ts, kotodama-py) の型安全 API 提供
 
 ## Executive Summary
 
@@ -68,15 +68,15 @@ WIT に Lexicon 型を直接写像することで:
 
 ## Decision
 
-### Phase 1: AT Protocol Core Types (`magatama:atproto`) ✅
+### Phase 1: AT Protocol Core Types (`kotodama:atproto`) ✅
 
-`00-contracts/wit/deps/magatama-atproto/package.wit`。Authoritative source は WIT ファイル本体。以下は概要。
+`00-contracts/wit/deps/kotodama-atproto/package.wit`。Authoritative source は WIT ファイル本体。以下は概要。
 
 **定義済み型:** `at-uri` (`@format at-uri`)、`cid` (`@format cid`)、`at-did` (`@format did`)、`datetime` (`@format datetime`)、`strong-ref`、`blob-ref`、`create-record-input` (`@format at-identifier`/`@format nsid`)、`self-label` (`@max-length 128`)、`label` (9 fields, `@max-length 128` on val, `@default false` on neg)
 
-### Phase 2: Bluesky Social Types (`magatama:bsky`) ✅
+### Phase 2: Bluesky Social Types (`kotodama:bsky`) ✅
 
-`00-contracts/wit/deps/magatama-bsky/package.wit`。Authoritative source は WIT ファイル本体。以下は constraint annotation カバレッジ概要。
+`00-contracts/wit/deps/kotodama-bsky/package.wit`。Authoritative source は WIT ファイル本体。以下は constraint annotation カバレッジ概要。
 
 **Constraint annotation カバレッジ (upstream Lexicon JSON 100%):**
 
@@ -133,9 +133,9 @@ WIT に Lexicon 型を直接写像することで:
 ```wit
 /// com-atproto:repo/repo@1.0.0 — AT Protocol record CRUD + typed writes
 interface com-atproto-repo {
-    use magatama:bsky/app-bsky-feed.{post, like, repost};
-    use magatama:bsky/app-bsky-actor.{profile};
-    use magatama:bsky/app-bsky-graph.{follow};
+    use kotodama:bsky/app-bsky-feed.{post, like, repost};
+    use kotodama:bsky/app-bsky-actor.{profile};
+    use kotodama:bsky/app-bsky-graph.{follow};
 
     /// @nsid com.atproto.repo.createRecord
     create-record: func(collection: string, record-json: string) -> result<string, string>;
@@ -165,19 +165,19 @@ interface com-atproto-repo {
 
 ```go
 // Before (opaque JSON)
-magatama.ATPost(did, text, `{"embed":{"$type":"app.bsky.embed.images","images":[...]}}`)
+kotodama.ATPost(did, text, `{"embed":{"$type":"app.bsky.embed.images","images":[...]}}`)
 
 // After (typed)
-magatama.ATPost(did, magatama.Post{
+kotodama.ATPost(did, kotodama.Post{
     Text:  text,
-    Embed: &magatama.ImagesEmbed{
-        Images: []magatama.Image{
+    Embed: &kotodama.ImagesEmbed{
+        Images: []kotodama.Image{
             {Image: blobRef, Alt: "description"},
         },
     },
-    Facets: []magatama.Facet{
-        {Index: magatama.ByteSlice{Start: 0, End: 5}, Features: []magatama.FacetFeature{
-            magatama.MentionFeature{DID: targetDID},
+    Facets: []kotodama.Facet{
+        {Index: kotodama.ByteSlice{Start: 0, End: 5}, Features: []kotodama.FacetFeature{
+            kotodama.MentionFeature{DID: targetDID},
         }},
     },
     Langs: []string{"ja", "en"},
@@ -224,9 +224,9 @@ WIT doc comment から自動導出される検証ルール例:
 | **Hydrated Views** | `buildPostView` で record + metadata 一括 | ✅ |
 | **Union は open (third-party 拡張可)** | WIT `variant` — closed だが W Protocol Extension で拡張可能 | ⚠️ |
 | **Reusable definitions (`.defs`)** | WIT `use` import で cross-package 再利用 | ✅ |
-| **Rich Text は facet** | `magatama:bsky/richtext` に完全定義 (`byte-slice`, `facet-feature` variant, `facet`) | ✅ |
+| **Rich Text は facet** | `kotodama:bsky/richtext` に完全定義 (`byte-slice`, `facet-feature` variant, `facet`) | ✅ |
 | **Sidecar Records** | path-based DID + separate collection で同一パターン | ✅ |
-| **Modality Signals (declaration record)** | `magatama.jsonld` `profile` + `performerType` + `contentMode` | ✅ |
+| **Modality Signals (declaration record)** | `kotodama.jsonld` `profile` + `performerType` + `contentMode` | ✅ |
 
 ### 意図的逸脱
 
@@ -366,23 +366,23 @@ record post {
 
 ```
 00-contracts/wit/deps/
-├── magatama-atproto/          # AT Protocol core types + constraint annotations
+├── kotodama-atproto/          # AT Protocol core types + constraint annotations
 │   └── package.wit            # types (@format), repo, labels (@max-length)
-├── magatama-bsky/             # Bluesky social types + constraint annotations (100% coverage)
+├── kotodama-bsky/             # Bluesky social types + constraint annotations (100% coverage)
 │   └── package.wit            # richtext, embed, feed, actor, graph, notification
-├── magatama-wproto/           # W Protocol operations (verb layer)
+├── kotodama-wproto/           # W Protocol operations (verb layer)
 │   └── package.wit            # invoke, serve, repo (typed extension), query, did, follow
 └── ...
 ```
 
 ## Migration Path
 
-1. **Phase 1** ✅ done: `magatama:atproto` package — core types + constraint annotations
-2. **Phase 2** ✅ done: `magatama:bsky` package — social types + constraint annotations (upstream Lexicon 100% カバレッジ)
+1. **Phase 1** ✅ done: `kotodama:atproto` package — core types + constraint annotations
+2. **Phase 2** ✅ done: `kotodama:bsky` package — social types + constraint annotations (upstream Lexicon 100% カバレッジ)
 3. **Phase 3** (in progress): com-atproto-repo typed extension — `post()`, `like()`, `repost()`, `follow()`, `profile()`
 4. **Phase 4** ✅ done (annotation 追記): Doc comment annotation (`@max-length`, `@format`, `@accept`, `@max-size` 等) を全 record field に追記完了。`etzhayyim wit-gen --constraints` の実装は next
 5. **Phase 5** (ongoing): `etzhayyim wit-gen` reverse — Lexicon JSON → WIT record + annotation 自動生成
-6. **Phase 6** ✅ done (annotation + evolution interface): `@field` number を全 record field に付与 + `@reserved` + `magatama:atproto/evolution` interface。`etzhayyim wit-gen --evolution` の codec 生成は next
+6. **Phase 6** ✅ done (annotation + evolution interface): `@field` number を全 record field に付与 + `@reserved` + `kotodama:atproto/evolution` interface。`etzhayyim wit-gen --evolution` の codec 生成は next
 
 ### Phase 6: Schema Evolution — Field Numbers + Version Envelope
 
@@ -461,7 +461,7 @@ record updated-post {
 
 `etzhayyim wit-gen` が `@reserved` 番号および `@reserved-name` 名前への再割り当てを reject。
 
-#### 6c. Version Envelope (`magatama:atproto/evolution`)
+#### 6c. Version Envelope (`kotodama:atproto/evolution`)
 
 Unknown field preservation + version negotiation のための runtime envelope。
 
@@ -479,7 +479,7 @@ interface evolution {
     /// Version envelope — wraps any typed record with schema evolution metadata.
     /// Similar to google.protobuf.Any (type_url + value) but with versioning + unknown field list.
     record versioned-envelope {
-        /// @field 1 — fully qualified record type (e.g. "magatama:bsky/feed.post")
+        /// @field 1 — fully qualified record type (e.g. "kotodama:bsky/feed.post")
         /// Analogous to google.protobuf.Any.type_url.
         record-type: string,
         /// @field 2 — schema version (monotonic, record-type-scoped)
@@ -599,9 +599,9 @@ Proto は独自 wire format (varint + field tag) を持ち、**decoder が型定
 - [AT Protocol Lexicon Style Guide](https://atproto.com/ja/guides/lexicon-style-guide) — 命名規約・設計パターン準拠状況は上記セクション参照
 - [AT Protocol Lexicon Specification](https://atproto.com/specs/lexicon)
 - [Bluesky Lexicon Definitions](https://github.com/bluesky-social/atproto/tree/main/lexicons)
-- `00-contracts/wit/deps/magatama-atproto/package.wit` — AT Protocol core types + constraints
-- `00-contracts/wit/deps/magatama-bsky/package.wit` — Bluesky social types + constraints (100% coverage)
-- `00-contracts/wit/deps/magatama-wproto/package.wit` — W Protocol operations (verb layer)
+- `00-contracts/wit/deps/kotodama-atproto/package.wit` — AT Protocol core types + constraints
+- `00-contracts/wit/deps/kotodama-bsky/package.wit` — Bluesky social types + constraints (100% coverage)
+- `00-contracts/wit/deps/kotodama-wproto/package.wit` — W Protocol operations (verb layer)
 - `10-protocol/wproto/core/src/record.rs` — RecordMapper (kind ↔ NSID)
 - `90-docs/260324-w-protocol-at-superset-architecture.md` — W Protocol = AT superset
 - `90-docs/260324-did-path-lexicon-correspondence.md` — DID ↔ Lexicon NSID

@@ -21,7 +21,7 @@
 // testing (see CLAUDE.md §Local Dev).
 //
 // This file is the sole entrypoint (single-file principle). For monorepo
-// TS Native migration, swap the router with @etzhayyim/magatama-host-sdk
+// TS Native migration, swap the router with @etzhayyim/kotodama-host-sdk
 // createWorkerExport() and register commands via sdk.app.command().
 //
 // DoDAF v2.02 integration: GET /dodaf → index of deployed views,

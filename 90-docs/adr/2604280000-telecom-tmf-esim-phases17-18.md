@@ -16,9 +16,9 @@ related:
 
 # ADR-2604280000: Telecom Phase 17 (TM Forum Open APIs) + Phase 18 (eSIM/eUICC Lifecycle)
 
-**Date**: 2026-04-28  
-**Status**: Active  
-**Supersedes**: —  
+**Date**: 2026-04-28
+**Status**: Active
+**Supersedes**: —
 **Relates to**: ADR-0056 (BPMN-as-actor), ADR-0018 (PII Tier 3)
 
 ---
@@ -28,12 +28,12 @@ related:
 Telecom carrier actor (`did:web:telecom.etzhayyim.com`) reached phases 1–16 across prior sessions.
 This ADR documents the final two phases of the initial 18-phase MNO/MVNO actor build.
 
-**Phase 17 — TM Forum Open APIs (TMF 620/622/637/641/640/638/666/678)**  
+**Phase 17 — TM Forum Open APIs (TMF 620/622/637/641/640/638/666/678)**
 The BSS/OSS layer is incomplete without a product/service catalog and customer billing surface.
 Eight TMF NGOSS Open API process flows are needed to close the end-to-end quote-to-cash loop:
 catalog → order → inventory on both product and service axes, plus account management and bill issuance.
 
-**Phase 18 — eSIM / eUICC Lifecycle (GSMA SGP.22 Consumer + SGP.02 M2M)**  
+**Phase 18 — eSIM / eUICC Lifecycle (GSMA SGP.22 Consumer + SGP.02 M2M)**
 eSIM provisioning is now the dominant SIM issuance path. The full GSMA SGP.22 lifecycle
 (EID provisioning, SM-DP+ profile download/enable/disable/delete, SM-DS event registration,
 state auditing, and MNO-to-MNO ownership transfer) requires dedicated BPMN actors and
@@ -62,7 +62,7 @@ Graph schema (`20260427220000_vertex_telecom_tmf.ts`): 8 vertex tables + 3 edge 
 PII discipline: `partyName`/`partyContact`/`partyTaxId`/`billingAddress` described as sha256: hashed
 in lexicon; timer-start `R/P1M` for `issueCustomerBill`.
 
-pyzeebe primitive: `pymagatama.primitives.telecom_tmf` (8 task handlers).
+pyzeebe primitive: `kotodama.primitives.telecom_tmf` (8 task handlers).
 
 ### Phase 18 — eSIM/eUICC Lifecycle (GSMA SGP.22)
 
@@ -83,7 +83,7 @@ Graph schema (`20260427230000_vertex_telecom_esim.ts`): 6 vertex tables + 2 edge
 PII discipline: EID stored as `sha256:` hashed (device-bound quasi-PII); ICCID stored as
 `sha256:` hashed. `sensitivity_ord=2`. No full PII in the graph layer.
 
-pyzeebe primitive: `pymagatama.primitives.telecom_esim` — `_hash()` helper enforces
+pyzeebe primitive: `kotodama.primitives.telecom_esim` — `_hash()` helper enforces
 `sha256:` prefix before any persistence; accepts pre-hashed values transparently.
 
 ---
@@ -93,8 +93,8 @@ pyzeebe primitive: `pymagatama.primitives.telecom_esim` — `_hash()` helper enf
 ```
 bpmn-coverage:     OK (216 bindings; telecom=142)
 bpmn-structural:   OK (216 BPMN files parsed)
-RisingWave P17:    8/8 vertex_bpmn_lexicon_binding rows active (actor_id=sys.bpmn.seed.telecom-tmf)
-RisingWave P18:    8/8 vertex_bpmn_lexicon_binding rows active (actor_id=sys.bpmn.seed.telecom-esim)
+Kotoba/Datomic P17:    8/8 vertex_bpmn_lexicon_binding rows active (actor_id=sys.bpmn.seed.telecom-tmf)
+Kotoba/Datomic P18:    8/8 vertex_bpmn_lexicon_binding rows active (actor_id=sys.bpmn.seed.telecom-esim)
 ```
 
 ---

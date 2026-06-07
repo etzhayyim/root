@@ -8,7 +8,7 @@ authoritative: false
 last_verified: 2026-04-25
 related:
   - 90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md
-  - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
+  - 90-docs/adr/0048-kotoba-vultr-b2-primary.md
   - 90-docs/adr/0056-bpmn-as-actor.md
   - 50-infra/vultr/geth-private/
 ---
@@ -37,7 +37,7 @@ public chain P2P
        cold B2: snapshots, raw block export, ingest artifacts, backfill datasets
   -> RPC / ZMQ / Engine API / logs
   -> blockchain-ingest Python worker
-  -> Zeebe process state + RisingWave graph rows + B2 raw artifacts
+  -> Zeebe process state + Kotoba/Datomic graph rows + B2 raw artifacts
 ```
 
 node 自体は Kubernetes `StatefulSet` + `ReadWriteOnce` PVC に固定する。B2 は
@@ -53,7 +53,7 @@ sidecar / CronJob / Zeebe task から `rclone copy/sync` または S3 API で
 | immutable old raw block files | optional `blk*.dat` export | optional ancient/snapshot export | B2 object prefix |
 | archive state | not required for first phase | do not run Geth archive on B2 | external provider or separate archive node |
 | ingest raw evidence | RPC responses, block json, receipts | logs, receipts, traces if enabled | B2 |
-| canonical facts | block/tx/log rows | block/tx/log rows | RisingWave |
+| canonical facts | block/tx/log rows | block/tx/log rows | Kotoba/Datomic |
 
 ## Why not B2 FUSE for live datadir
 
@@ -185,7 +185,7 @@ Namespace/blockchain
     PVC/data: vultr-block-storage-hdd
     Service/eth-beacon ClusterIP only
   Deployment/blockchain-ingest-worker
-    connects to Zeebe + RPC services + B2 + RisingWave
+    connects to Zeebe + RPC services + B2 + Kotoba/Datomic
   CronJob/blockchain-ingest-start-bitcoin-head
     thin starter: creates Zeebe instance and exits
   CronJob/blockchain-b2-snapshot
@@ -195,7 +195,7 @@ Namespace/blockchain
 # Zeebe + Python Ingest
 
 Kubernetes CronJobs only create Zeebe instances. Cursors, retries, reorg
-handling, rate limits, and writes live in Zeebe variables plus RisingWave
+handling, rate limits, and writes live in Zeebe variables plus Kotoba/Datomic
 `vertex_ingest_*` rows from the generic ingest design.
 
 ## BPMN process suite
@@ -212,7 +212,7 @@ Logical task chain:
 
 ```text
 start
-  -> health gate (node RPC sync status + RisingWave visibility)
+  -> health gate (node RPC sync status + Kotoba/Datomic visibility)
   -> read cursor
   -> get chain tip
   -> plan block range with max batch size
@@ -249,7 +249,7 @@ blockchain.reorg.reconcile
 Worker modules:
 
 ```text
-20-actors/magatama/py/src/pymagatama/ingest/blockchain/
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/blockchain/
   core.py       # Zeebe envelope, cursor, reorg utilities
   bitcoin.py    # Bitcoin Core RPC/ZMQ client
   ethereum.py   # execution/beacon RPC client
@@ -257,7 +257,7 @@ Worker modules:
   schema.py     # normalized row dataclasses / validation
 ```
 
-# RisingWave Model
+# Kotoba/Datomic Model
 
 First phase tables should be append-friendly and deterministic:
 
@@ -390,7 +390,7 @@ Forbidden:
 
 # Rollout
 
-1. Create namespace `blockchain` and secrets for node RPC, B2, RisingWave, and
+1. Create namespace `blockchain` and secrets for node RPC, B2, Kotoba/Datomic, and
    Zeebe. Do not use `default`.
 2. Deploy Bitcoin Core pruned StatefulSet with `vultr-block-storage-hdd`.
 3. Deploy Ethereum non-archive node. Start with Erigon full/minimal if the goal

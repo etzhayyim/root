@@ -45,8 +45,8 @@ must_exist=(
   "50-infra/k8s/bpmn-engine-host/tests/smoke.py"
   "50-infra/k8s/open-lei-mcp/spiff_worker.py"
   "50-infra/k8s/open-lei-mcp/deployment-spiff-worker.yaml"
-  "20-actors/magatama/py/src/pymagatama/spiff_worker/client.py"
-  "20-actors/magatama/py/src/pymagatama/spiff_worker/types.py"
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/spiff_worker/client.py"
+  "40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/spiff_worker/types.py"
 )
 for f in "${must_exist[@]}"; do
   if [[ -f "$f" ]]; then ok "file: $f"; else bad "missing: $f"; fi
@@ -97,21 +97,21 @@ if python3 -m py_compile \
     50-infra/k8s/bpmn-engine-host/main.py \
     50-infra/k8s/bpmn-engine-host/tests/smoke.py \
     50-infra/k8s/open-lei-mcp/spiff_worker.py \
-    20-actors/magatama/py/src/pymagatama/spiff_worker/client.py \
-    20-actors/magatama/py/src/pymagatama/spiff_worker/types.py \
-    20-actors/magatama/py/src/pymagatama/spiff_worker/__init__.py \
-    20-actors/magatama/py/src/pymagatama/spiff_worker/decorator.py 2>/dev/null; then
+    40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/spiff_worker/client.py \
+    40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/spiff_worker/types.py \
+    40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/spiff_worker/__init__.py \
+    40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/spiff_worker/decorator.py 2>/dev/null; then
   ok "Python syntax: all engine/worker/shim files compile"
 else
   bad "Python syntax error in one of the engine/worker files"
 fi
 echo
 
-# 7. RW_DSN reachable (operator should have it in keychain)
-if security find-generic-password -s "etzhayyim.risingwave" -a "RW_DSN" -w >/dev/null 2>&1; then
-  ok "RW_DSN found in macOS Keychain (etzhayyim.risingwave / RW_DSN)"
+# 7. KOTOBA_URL reachable (operator should have it in keychain)
+if security find-generic-password -s "etzhayyim.kotoba" -a "KOTOBA_URL" -w >/dev/null 2>&1; then
+  ok "KOTOBA_URL found in macOS Keychain (etzhayyim.kotoba / KOTOBA_URL)"
 else
-  warn "RW_DSN NOT in macOS Keychain — Step 3 secret provisioning will need a manual value"
+  warn "KOTOBA_URL NOT in macOS Keychain — Step 3 secret provisioning will need a manual value"
 fi
 echo
 

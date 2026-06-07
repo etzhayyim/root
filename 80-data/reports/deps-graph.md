@@ -25,7 +25,7 @@ flowchart TD
     cf_observability["cf-observability [e]"]
     cf_security["cf-security [r]"]
     linode_storage["linode-storage [l]"]
-    risingwave_cluster["risingwave-cluster [l]"]
+    kotoba_cluster["kotoba-cluster [l]"]
   end
   subgraph L2["Layer 2"]
     kagami_provider["kagami-provider [s]"]
@@ -42,9 +42,9 @@ flowchart TD
     worker_pds["worker-pds [r,q]"]
   end
   subgraph L4["Layer 4"]
-    magatama_host_sdk["magatama-host-sdk [t,r]"]
-    magatama_kami_host["magatama-kami-host [u,t]"]
-    magatama_rust["magatama-rust [t]"]
+    kotodama_host_sdk["kotodama-host-sdk [t,r]"]
+    kotodama_kami_host["kotodama-kami-host [u,t]"]
+    kotodama_rust["kotodama-rust [t]"]
     server_wproto["server-wproto [t]"]
     worker_briefing_signal["worker-briefing-signal [e]"]
     worker_browser_host["worker-browser-host [e]"]
@@ -76,7 +76,7 @@ flowchart TD
 
   design_system --> appshellv2
   wproto --> appshellv2
-  magatama_host_sdk --> appshellv2
+  kotodama_host_sdk --> appshellv2
   wproto --> cluster
   graph_schema --> graph_planner
   kagami_dialect_duckdb --> graph_planner
@@ -103,11 +103,11 @@ flowchart TD
   kami_core --> kami_game
   kami_core --> kami_network
   kami_core --> kami_render
-  host_contract --> magatama_host_sdk
-  xrpc --> magatama_host_sdk
-  wproto --> magatama_host_sdk
-  wit --> magatama_kami_host
-  wit --> magatama_rust
+  host_contract --> kotodama_host_sdk
+  xrpc --> kotodama_host_sdk
+  wproto --> kotodama_host_sdk
+  wit --> kotodama_kami_host
+  wit --> kotodama_rust
   graph_schema --> query_codegen
   kagami_dialect_duckdb --> query_codegen
   query_executor --> query_coordinator
@@ -130,14 +130,14 @@ flowchart TD
   pulumi_core --> cf_observability
   pulumi_core --> cf_security
   pulumi_core --> linode_storage
-  pulumi_core --> risingwave_cluster
+  pulumi_core --> kotoba_cluster
   worker_pds --> worker_briefing_signal
   worker_pds --> worker_browser_host
   worker_pds --> worker_dispatcher
   worker_pds --> worker_email_relay
   cf_email --> worker_email_relay
   worker_pds --> worker_git_server
-  risingwave_cluster --> worker_kagami
+  kotoba_cluster --> worker_kagami
   cf_dns --> worker_kagami
   worker_pds --> worker_moderation
   cf_dns --> worker_murakumo
@@ -168,9 +168,9 @@ flowchart TD
   style kami_game fill:#fce4ec,stroke:#c62828
   style kami_network fill:#fce4ec,stroke:#c62828
   style kami_render fill:#fce4ec,stroke:#c62828
-  style magatama_host_sdk fill:#fff3e0,stroke:#ef6c00
-  style magatama_kami_host fill:#fff3e0,stroke:#ef6c00
-  style magatama_rust fill:#fff3e0,stroke:#ef6c00
+  style kotodama_host_sdk fill:#fff3e0,stroke:#ef6c00
+  style kotodama_kami_host fill:#fff3e0,stroke:#ef6c00
+  style kotodama_rust fill:#fff3e0,stroke:#ef6c00
   style query_codegen fill:#e3f2fd,stroke:#1565c0
   style query_coordinator fill:#fff8e1,stroke:#f9a825
   style query_executor fill:#e8f5e9,stroke:#2e7d32
@@ -190,7 +190,7 @@ flowchart TD
   style cf_security fill:#e3f2fd,stroke:#1565c0
   style linode_storage fill:#e3f2fd,stroke:#1565c0
   style pulumi_core fill:#e0f7fa,stroke:#00838f
-  style risingwave_cluster fill:#e3f2fd,stroke:#1565c0
+  style kotoba_cluster fill:#e3f2fd,stroke:#1565c0
   style worker_briefing_signal fill:#fff3e0,stroke:#ef6c00
   style worker_browser_host fill:#fff3e0,stroke:#ef6c00
   style worker_dispatcher fill:#fff3e0,stroke:#ef6c00

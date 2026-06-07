@@ -72,18 +72,18 @@ omeprazole (chiral resolution Wave 1c 候補) ― 詳細は ADR-2605250600 §1.3
 
 | Cell | Murakumo node (proposed) | Trigger | Sub-ADR |
 |---|---|---|---|
-| [`pharma_raw_material`](../magatama/cells/pharma_raw_material/) | naphtali (procurement) | `pharma.recordApiSelection` MST listener | 2605250515 + 545 |
-| [`pharma_api_synthesis`](../magatama/cells/pharma_api_synthesis/) | zebulun (chemistry) | upstream `rawMaterialAttestation` complete | 2605250515 |
-| [`pharma_purification`](../magatama/cells/pharma_purification/) | zebulun | upstream `apiSynthesisAttestation` complete | 2605250515 |
-| [`pharma_qc`](../magatama/cells/pharma_qc/) | levi (audit/witness) | upstream `purificationAttestation` complete | 2605250515 |
-| [`pharma_sterile_fill_finish`](../magatama/cells/pharma_sterile_fill_finish/) | joseph (commissioning) | `qcAttestation` complete | 2605250530 |
-| [`pharma_container`](../magatama/cells/pharma_container/) | simeon (commissioning) | parallel with fill-finish | 2605250530 |
-| [`pharma_packaging`](../magatama/cells/pharma_packaging/) | dan (decommission/end-of-lot) | `fillFinishAttestation` complete | 2605250545 |
-| [`pharma_cold_chain`](../magatama/cells/pharma_cold_chain/) | naphtali (logistics) | `lotAttestation` complete | 2605250545 |
-| [`pharma_post_market_surveillance`](../magatama/cells/pharma_post_market_surveillance/) | levi | daily cron + `adverseEventReport` accumulator | 2605250545 |
-| [`pharma_adverse_event`](../magatama/cells/pharma_adverse_event/) | levi | patient submission via ameno PWA | 2605250545 |
-| [`pharma_tablet_manufacture`](../magatama/cells/pharma_tablet_manufacture/) | joseph (non-sterile class C) | `qcAttestation` complete (Wave 1b oral tablet) | 2605250600 |
-| [`pharma_topical_formulation`](../magatama/cells/pharma_topical_formulation/) | simeon | `qcAttestation` complete (Wave 1b topical cream/gel) | 2605250600 |
+| [`pharma_raw_material`](../kotodama/cells/pharma_raw_material/) | naphtali (procurement) | `pharma.recordApiSelection` MST listener | 2605250515 + 545 |
+| [`pharma_api_synthesis`](../kotodama/cells/pharma_api_synthesis/) | zebulun (chemistry) | upstream `rawMaterialAttestation` complete | 2605250515 |
+| [`pharma_purification`](../kotodama/cells/pharma_purification/) | zebulun | upstream `apiSynthesisAttestation` complete | 2605250515 |
+| [`pharma_qc`](../kotodama/cells/pharma_qc/) | levi (audit/witness) | upstream `purificationAttestation` complete | 2605250515 |
+| [`pharma_sterile_fill_finish`](../kotodama/cells/pharma_sterile_fill_finish/) | joseph (commissioning) | `qcAttestation` complete | 2605250530 |
+| [`pharma_container`](../kotodama/cells/pharma_container/) | simeon (commissioning) | parallel with fill-finish | 2605250530 |
+| [`pharma_packaging`](../kotodama/cells/pharma_packaging/) | dan (decommission/end-of-lot) | `fillFinishAttestation` complete | 2605250545 |
+| [`pharma_cold_chain`](../kotodama/cells/pharma_cold_chain/) | naphtali (logistics) | `lotAttestation` complete | 2605250545 |
+| [`pharma_post_market_surveillance`](../kotodama/cells/pharma_post_market_surveillance/) | levi | daily cron + `adverseEventReport` accumulator | 2605250545 |
+| [`pharma_adverse_event`](../kotodama/cells/pharma_adverse_event/) | levi | patient submission via ameno PWA | 2605250545 |
+| [`pharma_tablet_manufacture`](../kotodama/cells/pharma_tablet_manufacture/) | joseph (non-sterile class C) | `qcAttestation` complete (Wave 1b oral tablet) | 2605250600 |
+| [`pharma_topical_formulation`](../kotodama/cells/pharma_topical_formulation/) | simeon | `qcAttestation` complete (Wave 1b topical cream/gel) | 2605250600 |
 
 All cells are **import-time RuntimeError gated** (silicon Wave 1 pattern, ADR-2605242500 §Decision 4).
 Removal of the gate requires:
@@ -178,4 +178,4 @@ Each R-phase is its own ADR.
 - [ADR-2605201400](../../90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md) — kuni-umi parent producer (robotics class ontology)
 - [ADR-2605192415](../../90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) — 3-tier actor + Murakumo placement pattern
 - [`50-infra/murakumo/fleet.toml`](../../50-infra/murakumo/fleet.toml) — node ↔ cell placement
-- [`20-actors/magatama/cells/README.md`](../magatama/cells/README.md) — sibling cell catalog
+- [`40-engine/kotoba/crates/kotoba-kotodama/cells/README.md`](../kotodama/cells/README.md) — sibling cell catalog

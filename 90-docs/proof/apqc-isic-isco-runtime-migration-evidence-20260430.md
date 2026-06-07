@@ -14,7 +14,7 @@ APQC deployment evidence:
 
 | Check | Result |
 |---|---:|
-| Worker | `magatama-kyb3proj` |
+| Worker | `kotodama-kyb3proj` |
 | Version | `bc9113f2-0322-43db-a9e8-0f67786b17e4` |
 | Route | `kyber-projector.etzhayyim.com/*` |
 | DID document | `did:web:kyber-projector.etzhayyim.com` |
@@ -37,14 +37,14 @@ ISIC / ISCO runtime evidence:
 | ISCO classification edge | 1 row read back |
 | ISCO concordance | `SOC:15-1252` exactMatch |
 
-The ISIC / ISCO pyzeebe handlers write through `pymagatama.db_sync` to RisingWave. Idempotency is implemented with SELECT-before-INSERT because RisingWave rejects `ON CONFLICT` in this path.
+The ISIC / ISCO pyzeebe handlers write through `kotodama.db_sync` to Kotoba/Datomic. Idempotency is implemented with SELECT-before-INSERT because Kotoba/Datomic rejects `ON CONFLICT` in this path.
 
 Runtime evidence is tracked in `90-docs/proof/apqc-isic-isco-runtime-migration-evidence-20260430.json`.
 
 Verification commands:
 
 ```bash
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 pytest -q tests/test_open_isic_apqc_primitives.py
 
 cd ../../..

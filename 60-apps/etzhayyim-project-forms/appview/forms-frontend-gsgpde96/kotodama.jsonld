@@ -1,0 +1,63 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:forms.etzhayyim.com",
+  "accent": "#6366f1",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are forms frontend agent. Forms Frontend — AI Agent. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "forms-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "forms-frontend-gsgpde96",
+  "nanoid": "gsgpde96",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Forms Frontend — AI Agent",
+    "displayName": "Forms Frontend",
+    "isBot": true,
+    "operator": "etzhayyim.com"
+  },
+  "project": "forms",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "gsgpde96-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Forms Frontend"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.forms.formsEntity",
+        "com.etzhayyim.apps.forms.formsEvent",
+        "com.etzhayyim.apps.forms.formsReport"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

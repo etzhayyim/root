@@ -76,7 +76,7 @@ religious-corp Tier-B actor **tsutae (伝え)** を以下で立ち上げる:
 ├── CLAUDE.md                     # Actor-local instructions
 └── manifest.jsonld               # DID + cell catalog + gate/non-goal arrays
 
-20-actors/magatama/cells/         # 8 Pregel cells (import-time RuntimeError R0)
+40-engine/kotoba/crates/kotoba-kotodama/cells/         # 8 Pregel cells (import-time RuntimeError R0)
 ├── tsutae_pcb_smt/
 ├── tsutae_chassis_assembly/
 ├── tsutae_display_attachment/

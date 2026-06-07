@@ -23,7 +23,7 @@ export interface EmitArgs {
 }
 
 export function emitBrowserCell(args: EmitArgs): { path: string; readmePath: string } {
-  const cellDir = join(args.repoRoot, "20-actors/magatama/cells", `yorishiro_${args.name}`);
+  const cellDir = join(args.repoRoot, "40-engine/kotoba/crates/kotoba-kotodama/cells", `yorishiro_${args.name}`);
   mkdirSync(cellDir, { recursive: true });
   const cellPath = join(cellDir, "cell.py");
   writeFileSync(cellPath, renderCell(args), "utf-8");
@@ -112,7 +112,7 @@ ${args.manifest.ops.map((op) => `    g.add_edge(${JSON.stringify(op.name)}, END)
     return g.compile(checkpointer=checkpointer)
 
 
-# ── magatama cell-runner contract (ADR-2605202200) ───────────────────────────
+# ── kotodama cell-runner contract (ADR-2605202200) ───────────────────────────
 
 
 def state_from_event(event: dict[str, Any]) -> ${className}:

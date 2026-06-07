@@ -26,4 +26,4 @@ BoM cost and supplier identities are XChaCha20-Poly1305-enveloped per ADR-260518
 
 ## See also
 - Lexicon `00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi/proposeDeploymentPlan.json`
-- UNSPSC agent fleet (`pymagatama.unispsc.dispatch`)
+- UNSPSC agent fleet (`kotodama.unispsc.dispatch`)

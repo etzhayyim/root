@@ -114,7 +114,7 @@ rename is itemized for the gated Step-8 `etzhayyim-*` cutover, NOT executed here
   `:gov.unit/*` (recursive administrative tree), `:gov.address/*` (住所), `:gov.window/*` (窓口),
   `:gov.form/*` (書式), `:gov.procedure/*` (手続き), `:gov.bpmn/*` (process model).
 - **First-class state**: the kotoba Datom log (ADR-2605312345). Hierarchy is `:gov.unit/parent` refs; queries
-  run over EAVT/AVET/VAET arrangements (`getUnit`, `resolvePath`, `findService`, `searchUnits`). No RisingWave,
+  run over EAVT/AVET/VAET arrangements (`getUnit`, `resolvePath`, `findService`, `searchUnits`). No Kotoba/Datomic,
   no projection layer (ADR-2605262130).
 - **Reconciliation**: `:gov.unit/organism` links each unit to its engi-organism node (ADR-2606011000) so
   tsumugi's 縁/取 power-graph and ooyake's structural atlas share entities (atlas = structure; engi = karma).

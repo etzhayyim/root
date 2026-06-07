@@ -1,6 +1,6 @@
 ---
-id: adr-2604241342-risingwave-out-of-band-migration-pattern
-title: "RisingWave out-of-band migration pattern (apply-pending.sh as the happy path)"
+id: adr-2604241342-kotoba-out-of-band-migration-pattern
+title: "Kotoba/Datomic out-of-band migration pattern (apply-pending.sh as the happy path)"
 status: active
 doc_type: adr
 topic: graph-schema-ops
@@ -17,7 +17,7 @@ related:
 # Context
 
 `pnpm db:migrate latest` — the canonical kysely migration runner — does
-not work reliably against RisingWave in this repo. `graph-schema/CLAUDE.md`
+not work reliably against Kotoba/Datomic in this repo. `graph-schema/CLAUDE.md`
 and multiple migration file comments note "applied out-of-band via psql"
 as a recurring pattern; the 2026-04-24 session hit the same issues in
 three distinct shapes, enough to codify as standard.
@@ -37,10 +37,10 @@ sweep.
 Observed row: `20260424030000_vertex_human_task_bpmn_columns` — applied
 2026-04-24T03:04:13Z, file absent from the tree. No fix migration.
 
-## Failure B — RisingWave sql_parser rejects `ON CONFLICT`
+## Failure B — Kotoba/Datomic sql_parser rejects `ON CONFLICT`
 
 Migration SQL that uses PostgreSQL's `INSERT ... ON CONFLICT (...) DO
-NOTHING` is a parse error in RisingWave — the clause is not implemented
+NOTHING` is a parse error in Kotoba/Datomic — the clause is not implemented
 at the parser level, not just the executor. The pattern is load-bearing
 in idempotent-seed migrations (yabai / animeka / shinshi BPMN bindings)
 so this failure surfaces on every re-run.
@@ -72,7 +72,7 @@ filter out `*.test.ts` before the provider sees them (commit
 
 ## Failure D — other unsupported DDL
 
-Migrations occasionally use PG DDL that RisingWave hasn't implemented
+Migrations occasionally use PG DDL that Kotoba/Datomic hasn't implemented
 yet:
 
 - `CREATE UNIQUE INDEX` — not implemented (observed on
@@ -128,7 +128,7 @@ DRY_RUN=1 bash scripts/apply-pending.sh <migration-name>
 
 - `apply-pending.sh` + `run-one-migration.mjs` each duplicate a
   small piece of the kysely migrator. If the kysely migrator is
-  ever fixed upstream to support RisingWave cleanly, we'll need
+  ever fixed upstream to support Kotoba/Datomic cleanly, we'll need
   to revisit both.
 - The helper reaches into macOS Keychain for `etzhayyim.rw / ROOT_URL`
   by default; a non-macOS contributor has to export `DATABASE_URL`

@@ -9,9 +9,9 @@ last_verified: 2026-05-09
 priority: 8.8
 axis: architecture
 weight: 0.88
-priority_note: "CRITICAL — actor/agent self-evolution の data-only 進化を達成するための残り 3 ピースのうち最重要。LangGraph topology を repo code から RisingWave vertex table に剥がす"
+priority_note: "CRITICAL — actor/agent self-evolution の data-only 進化を達成するための残り 3 ピースのうち最重要。LangGraph topology を repo code から Kotoba/Datomic vertex table に剥がす"
 authoritative_for:
-  - LangGraph graph topology storage location (RisingWave `vertex_langgraph_graph_def`)
+  - LangGraph graph topology storage location (Kotoba/Datomic `vertex_langgraph_graph_def`)
   - LangGraph node contract (MCP tool invocation only, no inline Python logic)
   - graph compiler responsibility (def → StateGraph build at runtime)
   - conditional edge SSoT (Rego/DMN ref, not Python lambda)
@@ -20,7 +20,7 @@ related:
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605072000-langgraph-agent-loop-pattern
   - adr-2605080600-langgraph-server-granian-l3-runtime
-  - adr-0087-magatama-mcp-tool-facade
+  - adr-0087-kotodama-mcp-tool-facade
   - adr-0056-bpmn-as-actor
   - adr-2605082100-langgraph-checkpointer-storage
   - adr-2605082200-pyzeebe-handler-thin-dispatcher-contract
@@ -41,7 +41,7 @@ ADR-2605080000 は LangGraph を L2 Cognitive Coordination Layer に固定した
 しかし graph topology そのものは現状 **Python authored code** であり、
 node function も Python module として repo に commit されている。
 
-これは `actor/agent が data 層 (RisingWave) への書き込みのみで自己進化する`
+これは `actor/agent が data 層 (Kotoba/Datomic) への書き込みのみで自己進化する`
 という platform 目標 (BPMN process / MCP tool registry が既に達成済み) と矛盾する。
 
 具体的に、以下が code island として残っていた:
@@ -52,7 +52,7 @@ node function も Python module として repo に commit されている。
 - BPMN は data-driven、MCP tool は registry-driven なのに、両者を結ぶ
   LangGraph だけが code-driven という非対称が残っていた
 
-ADR-0056 (BPMN-as-actor) と ADR-0087 (Magatama MCP Tool Facade) と
+ADR-0056 (BPMN-as-actor) と ADR-0087 (Kotodama MCP Tool Facade) と
 同じ design pattern を LangGraph にも適用する。
 
 ## Decision
@@ -110,8 +110,8 @@ assistant の immutable lineage を表現する。**新 `lifecycle` 列は追加
 | kind | ref が指すもの | data SSoT |
 |---|---|---|
 | `mcp_tool` | MCP endpoint URI または `mcp://<tool_id>` (registry resolve) | `vertex_mcp_tool_def` |
-| `sql_udf` | SQL function 名 | RisingWave catalog |
-| `py_ext_udf` | External Python UDF 名 (Arrow Flight) | RisingWave catalog |
+| `sql_udf` | SQL function 名 | Kotoba/Datomic catalog |
+| `py_ext_udf` | External Python UDF 名 (Arrow Flight) | Kotoba/Datomic catalog |
 | `llm` | tier 名 (`structured` / `general` / model id) | `llm-model-registry.ts` SSoT |
 
 **禁止**:
@@ -164,7 +164,7 @@ LangGraph def には参照だけが残る。
 ### 4. Graph compiler: runtime build (existing)
 
 L3 actor runtime (LangGraph Server, ADR-2605080600) は既に
-`pymagatama/langgraph_loader.py` で compiler を持つ:
+`kotodama/langgraph_loader.py` で compiler を持つ:
 
 1. `vertex_langgraph_deployment WHERE status='active'` から (assistant_id, version, kind, factory_path, spec) を取得
 2. kind='topology' の場合 `vertex_langgraph_assistant_node` rows を取得
@@ -449,7 +449,7 @@ total ~10-12 migrations + 1 primitive 追加 + state schema docs。
 - ADR-2605080000: Distributed Cognitive Actor System (L2 LangGraph 制約)
 - ADR-2605072000: LangGraph Agent Loop Pattern (intra-job graph 使用条件)
 - ADR-2605080600: LangGraph Server + Granian L3 Runtime (compiler 実行環境)
-- ADR-0087: Magatama MCP Tool Facade (`vertex_mcp_tool_def` registry)
+- ADR-0087: Kotodama MCP Tool Facade (`vertex_mcp_tool_def` registry)
 - ADR-0056: BPMN-as-actor (data-as-code precedent)
 - ADR-2605082100: LangGraph Checkpointer Storage (補完)
 - ADR-2605082200: PyZeebe Handler Thin Dispatcher Contract (補完)

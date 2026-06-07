@@ -1,6 +1,6 @@
 # medical-coverage-ingester
 
-Kubernetes CronJob for draining healthcare coverage gaps through RisingWave.
+Kubernetes CronJob for draining healthcare coverage gaps through Kotoba/Datomic.
 
 The ingester writes canonical records into `vertex_repo_record`; coverage is
 read from `mv_world_collection_coverage_live`. It keeps cursors as normal
@@ -13,13 +13,13 @@ gate is red, the job exits 0 without writing and waits for the next schedule.
 Writes keep `RW_IMPLICIT_FLUSH=false` by default. Hot-path flushes can block
 when compute pods are recovering or object storage is throttled, so cursor and
 coverage reads are allowed to converge on the next scheduled run. PubMed drains
-at a conservative `PUBMED_RETMAX=20`, `BATCH_SIZE=20` until RisingWave DML
+at a conservative `PUBMED_RETMAX=20`, `BATCH_SIZE=20` until Kotoba/Datomic DML
 latency is consistently healthy; MCP-triggered runs can use `maxRecords` for
 smaller probes.
 
 This is a plain Kubernetes Python batch worker. It is not a Zeebe worker and it
-does not run inside RisingWave as a Python external UDF. Zeebe can be added
-later as the durable orchestrator, and RisingWave UDFs should stay focused on
+does not run inside Kotoba/Datomic as a Python external UDF. Zeebe can be added
+later as the durable orchestrator, and Kotoba/Datomic UDFs should stay focused on
 deterministic scoring/enrichment near the data.
 
 Default targets:
@@ -39,15 +39,15 @@ kubectl apply -k .
 Run once:
 
 ```sh
-kubectl -n risingwave create job medical-coverage-ingest-now \
+kubectl -n kotoba create job medical-coverage-ingest-now \
   --from=cronjob/medical-coverage-ingester
 ```
 
 Required secret:
 
 ```sh
-kubectl -n risingwave create secret generic medical-coverage-ingester-secrets \
-  --from-literal=RW_DSN='host=risingwave.risingwave.svc.cluster.local port=4566 dbname=dev user=root'
+kubectl -n kotoba create secret generic medical-coverage-ingester-secrets \
+  --from-literal=KOTOBA_URL='http://127.0.0.1:8077'
 ```
 
 Optional keys:
@@ -70,21 +70,21 @@ Default B2 location:
 - raw-only cursor: `medical-sources/iryo-shisetsu/_cursors/facilities_csv.json`
 
 `medical-facility-raw-archiver` is the B2-first CronJob. It runs with
-`FACILITY_RAW_ONLY=true`, does not connect to RisingWave, and can continue while
-RisingWave DDL/DML is paused. `medical-coverage-ingester` remains the canonical
-RisingWave writer and should only be resumed after RW health gates and the
+`FACILITY_RAW_ONLY=true`, does not connect to Kotoba/Datomic, and can continue while
+Kotoba/Datomic DDL/DML is paused. `medical-coverage-ingester` remains the canonical
+Kotoba/Datomic writer and should only be resumed after RW health gates and the
 Kysely datasource schema are green.
 The raw archiver uses 5,000-row pages so the 676k-row CMS Clinical Laboratories
 source drains to B2 in roughly 11-12 hours at the default 5-minute cadence.
 
-`medical-facility-b2-replayer` is the B2 -> RisingWave canonical writer. It
+`medical-facility-b2-replayer` is the B2 -> Kotoba/Datomic canonical writer. It
 runs with `FACILITY_REPLAY_FROM_B2=true`, reads the raw JSONL.gz archive, writes
 `com.etzhayyim.apps.iryo.shisetsu` records, and tracks replay progress in:
 
 - `medical-sources/iryo-shisetsu/_cursors/facilities_replay.json`
 
 It is intentionally slower than the raw archiver: 100-row replay batches keep
-RisingWave DML pressure bounded while the B2 backlog continues to grow.
+Kotoba/Datomic DML pressure bounded while the B2 backlog continues to grow.
 
 Lineage/progress schema is defined in
 `30-graph/graph-schema/migrations/20260425190000_medical_data_source_ingest_spine.ts`:

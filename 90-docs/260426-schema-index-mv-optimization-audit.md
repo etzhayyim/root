@@ -1,10 +1,10 @@
-# RisingWave Schema Index and MV Naming Audit
+# Kotoba/Datomic Schema Index and MV Naming Audit
 
 Date: 2026-04-26 JST
 
 ## Live Findings
 
-The live RisingWave catalog has:
+The live Kotoba/Datomic catalog has:
 
 - `vertex_*`: 1213 tables, all `table`
 - `edge_*`: 332 tables, all `table`
@@ -57,10 +57,10 @@ CREATE INDEX IF NOT EXISTS idx_vertex_legal_entity_lei
   ON vertex_legal_entity (lei);
 ```
 
-`vertex_legal_entity` is 100M+ rows in live RisingWave. The 2026-04-26
+`vertex_legal_entity` is 100M+ rows in live Kotoba/Datomic. The 2026-04-26
 `intel.entity.resolve` timeout was caused by an unindexed LEI lookup against
 this table. The index is valid, but it must be submitted through the serialized
-RisingWave DDL queue:
+Kotoba/Datomic DDL queue:
 
 ```sql
 SET BACKGROUND_DDL = true;
@@ -91,7 +91,7 @@ Attempted `idx_vertex_legal_entity_lei` through the manual DDL queue path:
 - reached: `98.42%`
 - outcome: cancelled / not present
 
-The job failed over near completion after `risingwave-compute-1` restarted. The
+The job failed over near completion after `kotoba-compute-1` restarted. The
 meta log reported `database 1 reset`; because the current license caps cluster
 CPU below the live footprint, `DatabaseFailureIsolation` was unavailable and the
 background job progress reset to `0.00%`. The index briefly appeared in catalog

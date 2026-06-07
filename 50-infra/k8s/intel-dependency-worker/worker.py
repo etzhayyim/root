@@ -34,9 +34,7 @@ def json_text(value: Any) -> str:
 
 
 def dict_row_factory() -> Any:
-    import psycopg
-
-    return psycopg.rows.dict_row
+    pass
 
 
 def is_missing_relation_error(exc: Exception) -> bool:
@@ -289,8 +287,8 @@ def llm_extra_headers() -> dict[str, str]:
     credits_did = (os.environ.get("INTEL_LLM_CREDITS_DID") or os.environ.get("CREDITS_DID") or "").strip()
     if credits_did:
         headers["x-credits-did"] = credits_did
-    if bool_env("INTEL_LLM_MAGATAMA_VERIFIED", False):
-        headers["x-magatama-verified"] = "true"
+    if bool_env("INTEL_LLM_KOTODAMA_VERIFIED", False):
+        headers["x-kotodama-verified"] = "true"
     return headers
 
 
@@ -408,22 +406,15 @@ def call_llm_json(system: str, user: str, *, max_tokens: int = 400) -> dict[str,
 class IntelStore:
     def __init__(self, dsn: str) -> None:
         self.dsn = dsn
-
-    def connect(self) -> psycopg.Connection[Any]:
-        import psycopg
-
-        # RisingWave's PostgreSQL wire path is sensitive to psycopg3 server-side
-        # prepared statements (for example LIMIT parameters and some SELECTs).
-        # Keep statements simple-protocol unless a future RW version proves safe.
-        return psycopg.connect(self.dsn, autocommit=True, prepare_threshold=None)
+        from kotodama.kotoba_datomic import get_kotoba_client
+        self.client = get_kotoba_client()
 
     def create_run(self, scope: dict[str, Any], trigger_kind: str, dry_run: bool) -> dict[str, Any]:
         run_id = stable_id("intel-run", {"scope": scope, "trigger": trigger_kind, "ts": now_ms()})
         vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferenceRun/{run_id}"
-        with self.connect() as conn, conn.cursor() as cur:
+        if True:
             try:
-                cur.execute(
-                    """
+                return list(self.client.q("""
                     INSERT INTO vertex_intel_inference_run
                       (vertex_id, owner_did, run_id, trigger_kind, scope_json, status,
                        started_at, created_at, sensitivity_ord, org_id, user_id, actor_id)
@@ -445,12 +436,12 @@ class IntelStore:
                         ACTOR_ID,
                         vertex_id,
                     ),
-                )
+                ))
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
                 legacy_vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferenceChain/{run_id}"
-                cur.execute(
+                rows = self.client.q(
                     """
                     INSERT INTO vertex_intel_inference_chain
                       (vertex_id, owner_did, status, chain_id, subject_name, subject_did,
@@ -479,8 +470,8 @@ class IntelStore:
         return {"runId": run_id}
 
     def discover_vertex_tables(self) -> list[dict[str, Any]]:
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-            cur.execute(
+        if True:
+            rows = self.client.q(
                 """
                 SELECT c.table_name
                 FROM information_schema.columns c
@@ -491,14 +482,12 @@ class IntelStore:
                   AND (c.table_name LIKE 'vertex_%' OR c.table_name = 'actor_registry')
                   AND t.table_type IN ('BASE TABLE', 'MATERIALIZED VIEW', 'VIEW')
                 ORDER BY c.table_name
-                """
-            )
-            return list(cur.fetchall())
+                """)
+            return list(rows)
 
     def discover_edge_tables(self) -> list[dict[str, Any]]:
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-            cur.execute(
-                """
+        if True:
+            return list(self.client.q("""
                 SELECT table_name,
                        MAX(CASE WHEN column_name = 'edge_id' THEN 1 ELSE 0 END) AS has_edge_id
                 FROM information_schema.columns
@@ -508,9 +497,7 @@ class IntelStore:
                 GROUP BY table_name
                 HAVING SUM(CASE WHEN column_name IN ('src_vid', 'dst_vid') THEN 1 ELSE 0 END) = 2
                 ORDER BY table_name
-                """
-            )
-            return list(cur.fetchall())
+                """))
 
     def scan_topology_nodes(self, graph_scope: str, max_nodes_per_table: int) -> list[TopologyNode]:
         _ = graph_scope
@@ -535,14 +522,13 @@ class IntelStore:
                 WHERE vertex_id IS NOT NULL AND vertex_id <> ''
                 LIMIT {limit}
             """
-            with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+            if True:
                 try:
-                    cur.execute(query)
-                    rows = cur.fetchall()
+                    self.client.q(query)
                 except Exception:
                     # Some vertex tables do not expose all common label columns;
                     # fall back to vertex_id-only projection.
-                    cur.execute(
+                    rows = self.client.q(
                         f"""
                         SELECT vertex_id,
                                '{table}' AS source_table,
@@ -553,7 +539,6 @@ class IntelStore:
                         LIMIT {limit}
                         """
                     )
-                    rows = cur.fetchall()
             for item in rows:
                 nodes.append(TopologyNode(
                     vertex_id=str(item["vertex_id"]),
@@ -562,9 +547,9 @@ class IntelStore:
                     source_table=table,
                 ))
         if table_filter.search("actor_registry"):
-            with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+            if True:
                 try:
-                    cur.execute(
+                    rows = self.client.q(
                         f"""
                         SELECT did AS vertex_id,
                                'actor_registry' AS source_table,
@@ -575,7 +560,6 @@ class IntelStore:
                         LIMIT {limit}
                         """
                     )
-                    rows = cur.fetchall()
                 except Exception as exc:
                     if not is_missing_relation_error(exc):
                         raise
@@ -603,8 +587,8 @@ class IntelStore:
             hint = dependency_hint(table)
             table_ident = sql_ident(table)
             edge_id_expr = "edge_id" if int(row.get("has_edge_id") or 0) == 1 else f"CONCAT('{table}:', src_vid, ':', dst_vid)"
-            with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-                cur.execute(
+            if True:
+                rows = self.client.q(
                     f"""
                     SELECT {edge_id_expr} AS edge_id,
                            src_vid,
@@ -615,7 +599,6 @@ class IntelStore:
                     LIMIT {limit}
                     """
                 )
-                rows = cur.fetchall()
             for item in rows:
                 dependency = bool(hint["isDependency"]) and float(hint["confidence"]) >= min_confidence
                 direction = str(hint["direction"])
@@ -691,7 +674,7 @@ class IntelStore:
     ) -> dict[str, Any]:
         if dry_run:
             return {"dependencyEdgeCount": len(edges), "dryRun": True}
-        with self.connect() as conn, conn.cursor() as cur:
+        if True:
             for edge in edges:
                 edge_id = stable_id("topology-dep", {
                     "scope": graph_scope,
@@ -699,7 +682,7 @@ class IntelStore:
                     "dst": edge.dst_vid,
                     "source": edge.edge_table,
                 })
-                cur.execute(
+                rows = self.client.q(
                     """
                     INSERT INTO edge_intel_dependency
                       (edge_id, owner_did, src_vid, dst_vid, predicate, dependency_kind,
@@ -743,13 +726,10 @@ class IntelStore:
     ) -> dict[str, Any]:
         if dry_run:
             return {"topologyOrderCount": len(rows), "dryRun": True}
-        with self.connect() as conn, conn.cursor() as cur:
+        if True:
             for row in rows:
-                cur.execute(
-                    """
-                    DELETE FROM vertex_dependency_topology_order
-                    WHERE graph_scope = %s AND vertex_id = %s
-                    """,
+                self.client.q(
+                    "DELETE FROM vertex_dependency_topology_order WHERE graph_scope = %s AND vertex_id = %s",
                     (graph_scope, row.vertex_id),
                 )
                 cur.execute(
@@ -816,10 +796,9 @@ class IntelStore:
         """
 
         candidates: list[Candidate] = []
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+        if True:
             try:
-                cur.execute(sql, params)
-                rows = cur.fetchall()
+                self.client.q(sql, params)
             except Exception:
                 rows = []
 
@@ -855,7 +834,7 @@ class IntelStore:
                 "dryRun": True,
             }
 
-        with self.connect() as conn, conn.cursor() as cur:
+        if True:
             try:
                 for c in candidates:
                     status = "active" if c.confidence >= 0.85 else "candidate"
@@ -867,7 +846,7 @@ class IntelStore:
                         "predicate": c.predicate,
                         "kind": c.dependency_kind,
                     })
-                    cur.execute(
+                    rows = self.client.q(
                         """
                         INSERT INTO edge_intel_dependency
                           (edge_id, owner_did, src_vid, dst_vid, predicate, dependency_kind,
@@ -913,7 +892,7 @@ class IntelStore:
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
-                active, review = self.materialize_legacy(cur, run_id, candidates)
+                active, review = self.materialize_legacy(run_id, candidates)
         return {
             "candidateCount": len(candidates),
             "activeCount": active,
@@ -921,7 +900,7 @@ class IntelStore:
             "dryRun": False,
         }
 
-    def materialize_legacy(self, cur: Any, run_id: str, candidates: list[Candidate]) -> tuple[int, int]:
+    def materialize_legacy(self, run_id: str, candidates: list[Candidate]) -> tuple[int, int]:
         active = 0
         review = 0
         for c in candidates:
@@ -1013,9 +992,9 @@ class IntelStore:
             WHERE {" AND ".join(where)}
             LIMIT 1
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-            cur.execute(query, params)
-            row = cur.fetchone()
+        if True:
+            self.client.q(query, params)
+            row = rows[0] if rows else None
         if not row:
             return {"error": "not found"}
         item = dependency_row_to_dict(row)
@@ -1043,7 +1022,7 @@ class IntelStore:
             where.append("predicate = %s")
             params.append(predicate)
         where_sql = f"WHERE {' AND '.join(where)}" if where else ""
-        # RisingWave rejects parameterized LIMIT/OFFSET ($N placeholders) —
+        # Kotoba/Datomic rejects parameterized LIMIT/OFFSET ($N placeholders) —
         # inline as integer literals (safe: values are clamped to ints above).
         query = f"""
             SELECT edge_id, src_vid, dst_vid, predicate, dependency_kind,
@@ -1055,9 +1034,8 @@ class IntelStore:
             ORDER BY created_at DESC
             LIMIT {safe_limit} OFFSET {safe_offset}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-            cur.execute(query, params)
-            rows = cur.fetchall()
+        if True:
+            self.client.q(query, params)
         return {
             "items": [dependency_row_to_dict(r) for r in rows],
             "limit": safe_limit,
@@ -1090,9 +1068,8 @@ class IntelStore:
             ORDER BY d.confidence DESC
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-            cur.execute(query, params)
-            rows = cur.fetchall()
+        if True:
+            rows = self.client.q(query, params)
         return rows_to_graph(rows)
 
     def get_counterparty_graph(
@@ -1129,9 +1106,8 @@ class IntelStore:
             ORDER BY d.confidence DESC
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
-            cur.execute(query, params)
-            rows = cur.fetchall()
+        if True:
+            rows = self.client.q(query, params)
         return rows_to_graph(rows)
 
     def resolve_entity(
@@ -1208,10 +1184,9 @@ class IntelStore:
             ORDER BY created_at DESC
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+        if True:
             try:
-                cur.execute(sql, params)
-                rows = cur.fetchall()
+                rows = self.client.q(sql, params)
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
@@ -1257,10 +1232,9 @@ class IntelStore:
             ORDER BY created_at DESC
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+        if True:
             try:
-                cur.execute(sql, params)
-                rows = cur.fetchall()
+                rows = self.client.q(sql, params)
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
@@ -1312,10 +1286,9 @@ class IntelStore:
             WHERE {" AND ".join(where)}
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+        if True:
             try:
-                cur.execute(sql, params)
-                rows = cur.fetchall()
+                rows = self.client.q(sql, params)
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
@@ -1365,10 +1338,9 @@ class IntelStore:
             WHERE {" AND ".join(where)}
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+        if True:
             try:
-                cur.execute(sql, params)
-                rows = cur.fetchall()
+                rows = self.client.q(sql, params)
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
@@ -1423,9 +1395,9 @@ class IntelStore:
         ]
 
     def insert_open_lei_entity(self, row: dict[str, Any]) -> None:
-        with self.connect() as conn, conn.cursor() as cur:
+        if True:
             try:
-                cur.execute(
+                rows = self.client.q(
                     """
                     INSERT INTO vertex_open_lei_entity
                       (vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -1490,10 +1462,9 @@ class IntelStore:
             WHERE {" AND ".join(where)}
             LIMIT {safe_limit}
         """
-        with self.connect() as conn, conn.cursor(row_factory=dict_row_factory()) as cur:
+        if True:
             try:
-                cur.execute(sql, params)
-                rows = cur.fetchall()
+                self.client.q(sql, params)
             except Exception:
                 rows = []
         return [
@@ -1887,7 +1858,7 @@ def run_pipeline(
 
 
 async def run_once_from_env() -> None:
-    store = IntelStore(os.environ["RW_DSN"])
+    store = IntelStore(os.environ["KOTOBA_URL"])
     scope = json.loads(os.environ.get("INTEL_SCOPE_JSON", "{}"))
     if bool_env("INTEL_TOPOLOGY_ANALYZE", False):
         result = run_topology_analysis_with_langgraph(
@@ -1968,7 +1939,7 @@ class LangServerWorker:
 
 async def run_langserver_worker() -> None:
     worker = LangServerWorker()
-    store = IntelStore(os.environ["RW_DSN"])
+    store = IntelStore(os.environ["KOTOBA_URL"])
 
     async def topology_daemon_loop() -> None:
         interval_sec = int_env("INTEL_TOPOLOGY_INTERVAL_SEC", 900, minimum=60)

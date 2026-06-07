@@ -55,7 +55,7 @@ atproto.etzhayyim.com  ← PDS + Entryway (OAuth AS)
   **binding が comment-out 中**:
 
 ```jsonc
-// { "binding": "APPVIEW_SERVICE", "service": "magatama-yoro" }
+// { "binding": "APPVIEW_SERVICE", "service": "kotodama-yoro" }
 // disabled — circular dep with yoro PDS_SERVICE binding causes
 // Subrequest depth limit. PDS handles app.bsky.* locally.
 ```
@@ -172,7 +172,7 @@ atproto.etzhayyim.com (PDS + Entryway + AppView local handler)
 Browser
    ├─ app.bsky.* read → bsky.etzhayyim.com ← Layer 2 AppView (new, standalone)
    │                        │
-   │                        └─ HYPERDRIVE → RisingWave (同じ graph DB)
+   │                        └─ HYPERDRIVE → Kotoba/Datomic (同じ graph DB)
    │
    ├─ com.atproto.* write → atproto.etzhayyim.com (PDS)
    ├─ OAuth flow         → atproto.etzhayyim.com (Entryway)
@@ -251,7 +251,7 @@ Phase 3 (yoro AppView 剥離) の順。Phase 間は互換性を保つ。
 ```
 
 Bindings:
-- `HYPERDRIVE` — RisingWave (同じ graph DB、read-only)
+- `HYPERDRIVE` — Kotoba/Datomic (同じ graph DB、read-only)
 - **No `PDS_SERVICE` binding** — これが circular dep 回避の肝
 - `ENVIRONMENT` / `APPVIEW_VERSION`
 - `AT_PROTOCOL_REGION` (optional, future federation shard)
@@ -280,7 +280,7 @@ Route:
 
 yoro Worker に残るもの:
 - Svelte SPA 配信 (Workers Assets)
-- `/sitemap.xml` (動的 sitemap, RisingWave graph query)
+- `/sitemap.xml` (動的 sitemap, Kotoba/Datomic graph query)
 - `/api/internal/cache/purge`
 - Bot/LLM crawler SEO snapshot (`renderRichBotSnapshot` / `renderYoroLlmText`)
 - `PDS_SERVICE` binding は維持 (SSR の `getProfile` 等で使用、ただし AppView 経由に切替の選択肢も検討)
@@ -343,7 +343,7 @@ async function pipethroughAppView(nsid: string, ctx: PdsDispatchCtx): Promise<Re
 }
 ```
 
-`magatama-yoro` binding は削除。
+`kotodama-yoro` binding は削除。
 
 ## A5. DID Document に `#bsky_appview` 追加 (MEDIUM)
 
@@ -432,7 +432,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
   する Worker として存在、taxonomy が紙から実装に落ちる
 - **Client App の純粋化**: yoro が Svelte SPA + SEO + cache purge のみに
   閉じる。Layer 9 Client App の定義に厳密に一致
-- **Failure isolation**: AppView RisingWave read path が死んでも PDS commit
+- **Failure isolation**: AppView Kotoba/Datomic read path が死んでも PDS commit
   と OAuth flow は生きる (login と投稿が止まらない)
 
 ## Negative
@@ -449,7 +449,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 
 ## Neutral
 
-- RisingWave graph DB は共有したまま (PDS write → MV → AppView read)。
+- Kotoba/Datomic graph DB は共有したまま (PDS write → MV → AppView read)。
   schema / migration 責務は graph 側で一元管理
 - com.etzhayyim.*/chat.bsky.convo.* / com.etzhayyim.vault.* / com.etzhayyim.signal.* 等の
   non-bsky namespace は **atproto.etzhayyim.com に残す** (Layer 1 PDS + Layer 7 Chat

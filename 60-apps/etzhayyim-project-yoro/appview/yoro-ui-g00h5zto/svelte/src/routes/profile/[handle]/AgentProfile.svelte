@@ -15,7 +15,13 @@
 	import type { Convo, FeedItem } from '$lib/atproto-agent';
 	import LiveStage from './LiveStage.svelte';
 	import ProjectorGuestChat from './ProjectorGuestChat.svelte';
-	import BpmnDiagram from './BpmnDiagram.svelte';
+	// BpmnDiagram is LAZY-loaded (see the {#await} where it is used). It statically
+	// imports bpmn-js CSS via BARE specifiers, and bpmn-js is externalized in the
+	// build (vite.config rollupOptions.external) — so a STATIC import here placed an
+	// unresolvable bare module specifier on the profile route's critical module
+	// graph, throwing at module-eval and 500-ing EVERY profile page in the browser
+	// (SSR was clean). Lazy import + {:catch} keeps any failure contained to the
+	// rare BPMN "Process" tab instead of breaking the whole profile.
 	import { BeliefKarmaTab } from '$lib/gamification';
 	import { ResourceFlowTab } from '$lib/fiscal';
 
@@ -39,7 +45,7 @@
 			heroKind?: string;
 			heroType?: string;
 			heroDisabled?: boolean;
-			// Gov / civic-actor extensions (magatama.jsonld profile.*)
+			// Gov / civic-actor extensions (kotodama.jsonld profile.*)
 			category?: string;
 			country?: string;
 			addresses?: Array<{kind?: string; label?: string; streetAddress?: string; addressLocality?: string; addressRegion?: string; postalCode?: string; country?: string; latlng?: string}>;
@@ -1765,7 +1771,13 @@
 			</div>
 			{#if selectedBpmnProcess}
 				{#key selectedBpmnProcess.id}
-					<BpmnDiagram xml={selectedBpmnProcess.xml} />
+					{#await import('./BpmnDiagram.svelte')}
+						<p class="text-sm text-gray-500">読み込み中…</p>
+					{:then { default: BpmnDiagram }}
+						<BpmnDiagram xml={selectedBpmnProcess.xml} />
+					{:catch}
+						<p class="text-sm text-gray-500">BPMN ビューアを読み込めませんでした。</p>
+					{/await}
 				{/key}
 			{:else if bpmnLoading}
 				<p class="text-sm text-gray-500">読み込み中…</p>

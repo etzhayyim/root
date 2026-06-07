@@ -10,7 +10,7 @@ authoritative_for:
   - stream-a-iter163-state
   - backblaze-b2-billing-critical
 related:
-  - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
+  - 90-docs/adr/0048-kotoba-vultr-b2-primary.md
   - adr-2605181400-bpmn-extract-to-etzhayyim-root
   - _working/etzhayyim-revenue/DECISION-LOG.md
   - _working/etzhayyim-revenue/stream-a-activation-runbook.md
@@ -63,7 +63,7 @@ counsel session は再 schedule 必要。
 4. sk_live getServiceAuth 401 投資調査は iter164+
 
 優先度根拠:
-- B2 は RisingWave 唯一の storage provider (ADR-0048)。suspend で
+- B2 は Kotoba/Datomic 唯一の storage provider (ADR-0048)。suspend で
   vertex_repo_* + PDS commit log + firehose 全断。
 - Bakshi engagement window は 1 週間以内に return しないと cold に
   なるため、24h 以内に reschedule 提示が望ましい。
@@ -133,7 +133,7 @@ Stream A 進行に必須でないため iter164+ に deferred。
 
 - iter161 (Stream A activation, outbox/13 CEO status)
 - iter144 (BPMN extract to etzhayyim-root, ADR-2605181400)
-- ADR-0048 (RisingWave Vultr+B2 primary)
+- ADR-0048 (Kotoba/Datomic Vultr+B2 primary)
 - `_working/etzhayyim-revenue/DECISION-LOG.md` iter163
 - `_working/etzhayyim-revenue/stream-a-activation-runbook.md`
 - `_working/etzhayyim-revenue/outbox/11-13` (Stream A artifacts)

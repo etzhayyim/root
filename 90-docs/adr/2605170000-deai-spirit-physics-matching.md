@@ -114,7 +114,7 @@ cohort_did = "did:web:deai.etzhayyim.com:" + cohort_hash
 ### B3. ストレージ層（ADR-2605111200 準拠）
 
 - **Worker 層（CF Edge）**: KV のみ（Session, Profile cache, Message conv）
-- **Domain 書き込み**: XRPC → bpmn-dispatcher → LangServer pod → RisingWave
+- **Domain 書き込み**: XRPC → bpmn-dispatcher → LangServer pod → Kotoba/Datomic
 - **Worker 内 Hyperdrive / SELECT 禁止**
 
 ## C. モバイル（Capacitor）

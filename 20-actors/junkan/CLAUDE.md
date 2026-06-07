@@ -77,7 +77,7 @@ ingest → estimate_stocks → infer_flows → build_cld → classify_loops
 periodic: silen_review
 ```
 
-8 Pregel cells under `20-actors/magatama/cells/junkan_*/` (R0 path-reserved,
+8 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/junkan_*/` (R0 path-reserved,
 import-time `RuntimeError` until R1). State is a `TypedDict`
 (`tick, observations, stock_estimates, cld, loops, leverage, findings`).
 `emit_findings` never routes to any dispatch/post/mention node — that node does

@@ -6,7 +6,7 @@
 # Each phase has a corresponding --skip flag for partial re-runs.
 #
 # Required env (or macOS Keychain via `security find-generic-password`):
-#   RW_DSN              postgres URL for RisingWave (etzhayyim.rw / ROOT_URL)
+#   KOTOBA_URL              postgres URL for Kotoba/Datomic (etzhayyim.rw / ROOT_URL)
 #   MAPILLARY_TOKEN     Mapillary v4 client access token
 #   MURAKUMO_API_KEY    LLM gateway key
 #   B2_KEY_ID           Backblaze B2 application key id
@@ -93,14 +93,14 @@ keychain() {
 }
 
 resolve_creds() {
-  : "${RW_DSN:=$(keychain etzhayyim.rw ROOT_URL)}"
+  : "${KOTOBA_URL:=$(keychain etzhayyim.rw ROOT_URL)}"
   : "${MAPILLARY_TOKEN:=$(keychain etzhayyim.mapillary ACCESS_TOKEN)}"
   : "${MURAKUMO_API_KEY:=$(keychain etzhayyim.murakumo API_KEY)}"
   : "${B2_KEY_ID:=$(keychain etzhayyim.b2 KEY_ID)}"
   : "${B2_APPLICATION_KEY:=$(keychain etzhayyim.b2 APPLICATION_KEY)}"
   : "${GHCR_USER:=$(gh api user -q .login 2>/dev/null || echo "")}"
   : "${GHCR_TOKEN:=$(gh auth token 2>/dev/null || echo "")}"
-  export RW_DSN MAPILLARY_TOKEN MURAKUMO_API_KEY B2_KEY_ID B2_APPLICATION_KEY GHCR_USER GHCR_TOKEN
+  export KOTOBA_URL MAPILLARY_TOKEN MURAKUMO_API_KEY B2_KEY_ID B2_APPLICATION_KEY GHCR_USER GHCR_TOKEN
 }
 
 require_var() {
@@ -110,15 +110,15 @@ require_var() {
   fi
 }
 
-# ─── 1. Migrate RisingWave schema ───────────────────────────────────
+# ─── 1. Migrate Kotoba/Datomic schema ───────────────────────────────────
 
 phase_migrate() {
-  log "1. apply RisingWave migration"
-  require_var RW_DSN
+  log "1. apply Kotoba/Datomic migration"
+  require_var KOTOBA_URL
   # rw-health-gate guards against DDL during recovery / SlowDown.
   if [[ -x "$REPO/70-tools/scripts/ingest/rw-health-gate.sh" ]]; then
     log "   pre-flight: rw-health-gate"
-    run "RW_URL='$RW_DSN' '$REPO/70-tools/scripts/ingest/rw-health-gate.sh'"
+    run "RW_URL='$KOTOBA_URL' '$REPO/70-tools/scripts/ingest/rw-health-gate.sh'"
   else
     warn "   rw-health-gate.sh not found; skipping pre-flight"
   fi
@@ -155,7 +155,7 @@ phase_build_push() {
 
 phase_secrets() {
   log "4. provision maps3d-secrets"
-  require_var RW_DSN
+  require_var KOTOBA_URL
   require_var MAPILLARY_TOKEN
   require_var MURAKUMO_API_KEY
   require_var B2_KEY_ID
@@ -165,7 +165,7 @@ phase_secrets() {
   # Apply secret idempotently — `create --dry-run=client | apply` is the
   # canonical k8s pattern for upsert.
   run "kubectl -n maps3d create secret generic maps3d-secrets \
-    --from-literal=RW_DSN='$RW_DSN' \
+    --from-literal=KOTOBA_URL='$KOTOBA_URL' \
     --from-literal=MAPILLARY_TOKEN='$MAPILLARY_TOKEN' \
     --from-literal=MURAKUMO_API_KEY='$MURAKUMO_API_KEY' \
     --from-literal=B2_KEY_ID='$B2_KEY_ID' \
@@ -202,7 +202,7 @@ phase_smoke() {
   if [[ ! -x "$script" ]]; then
     fatal "Layer 2 script not found: $script"
   fi
-  run "RW_URL='$RW_DSN' TILE_H3='$TEST_TILE_H3' '$script'"
+  run "RW_URL='$KOTOBA_URL' TILE_H3='$TEST_TILE_H3' '$script'"
 }
 
 # ─── Main ───────────────────────────────────────────────────────────
@@ -212,7 +212,7 @@ main() {
   resolve_creds
 
   if [[ "$SMOKE_ONLY" == "1" ]]; then
-    require_var RW_DSN
+    require_var KOTOBA_URL
     phase_smoke
     log "── smoke complete ──"
     return

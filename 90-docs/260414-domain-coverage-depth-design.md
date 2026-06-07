@@ -267,13 +267,13 @@ media_gamers       10,000      900,000        1.11%      1/14 sub-vertex populat
 
 ### Why vertex + edge separation (not denormalized)
 
-- **RisingWave streaming MV** は edge 型式の方が `COUNT(DISTINCT src_vid)` 集計が安価 (index-scan 1 方向)
+- **Kotoba/Datomic streaming MV** は edge 型式の方が `COUNT(DISTINCT src_vid)` 集計が安価 (index-scan 1 方向)
 - **P10v2 promoted columns** 原則: 1 row = 1 entity。edge は relation artifact なので `src_vid/dst_vid` PK で圧縮
 - AT Protocol commit pipeline: vertex と edge を別 NSID collection にすることで PDS の record-size limit (1 MB) 回避
 
 ## Exceptions
 
-- **parts (10M)** と **units (1.5B)** は超巨大。単一 RisingWave node でホストしきれない → 将来 **Iceberg S3 Parquet cold tier** へ分離 (ADR 0002 `Iceberg archive` 参照)
+- **parts (10M)** と **units (1.5B)** は超巨大。単一 Kotoba/Datomic node でホストしきれない → 将来 **Iceberg S3 Parquet cold tier** へ分離 (ADR 0002 `Iceberg archive` 参照)
 - **character (10M for games)** と **item (50M)** は IGDB/VNDB 等の有料 API が source → Phase 3 で段階導入
 
 ## References
@@ -282,5 +282,5 @@ media_gamers       10,000      900,000        1.11%      1/14 sub-vertex populat
 - `30-graph/graph-schema/migrations/0046_vertex_anime_depth.ts` — 実装
 - `30-graph/graph-schema/migrations/0047_vertex_game_depth.ts` — 実装
 - `30-graph/graph-schema/migrations/0025_world_coverage_live_mv.ts` — 親 MV
-- ADR 0002 persistence-risingwave-only
+- ADR 0002 persistence-kotoba-only
 - ADR 0019 atproto-native-identifier-topology

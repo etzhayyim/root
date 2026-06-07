@@ -36,7 +36,7 @@ import {
   nsid,
   parseLexiconInput,
   sql,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // BPMN dispatcher helpers (ADR-0056, proxyToBpmn pattern)
@@ -549,7 +549,7 @@ function buildPostPrompt(domain: string, mood: Mood): string {
 
 /**
  * Call LLM via MURAKUMO_SERVICE binding (CF Worker → Worker, internal, no 403).
- * Auth: x-magatama-verified (ADR 0023 internal path).
+ * Auth: x-kotodama-verified (ADR 0023 internal path).
  *
  * Flow:
  *  1. Quick health check via /_app/meta (R2 cache read, <50ms) — fail fast if fleet offline
@@ -580,7 +580,7 @@ async function llmCall(prompt: string, maxTokens = 256): Promise<string> {
     max_tokens: maxTokens,
     temperature: 0.5,
   });
-  const headers = { "Content-Type": "application/json", "x-magatama-verified": "true" };
+  const headers = { "Content-Type": "application/json", "x-kotodama-verified": "true" };
 
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
   const timeoutProm = new Promise<never>((_, reject) => {
@@ -2026,4 +2026,4 @@ export default createWorkerExport((sdk) => {
 });
 
 /** Legacy alias for etzhayyim deploy entry generation. */
-export { createDefaultHostSDK as createComponentHostSDK } from "@etzhayyim/magatama-host-sdk";
+export { createDefaultHostSDK as createComponentHostSDK } from "@etzhayyim/kotodama-host-sdk";

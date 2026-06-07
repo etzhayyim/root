@@ -22,7 +22,7 @@ superseded_by: []
 - API/Worker/CLI/SDK 実装で、上流障害を隠す `fallback` / `fail-open` / `silent degrade` / `retry-until-empty` を全面禁止する。
 - エラー時は `4xx/5xx` を返し、`error` (machine-readable code) と `message` (human-readable detail, 原因・対象 id・upstream error 含む) を必ず含める。
 - 空配列・ダミーデータ・`{}`・成功レスポンスへの置換で障害を隠蔽してはならない。
-- **Uncaught exception を握り潰して Cloudflare Worker / runtime 側の opaque error (CF 1101, 1042 等) にしてはならない。** すべての Worker entry handler / XRPC method は自前の try/catch で上流例外 (Hyperdrive, RisingWave, D1, service binding, fetch) を受け、ADR-0007 形式の JSON に正規化する。
+- **Uncaught exception を握り潰して Cloudflare Worker / runtime 側の opaque error (CF 1101, 1042 等) にしてはならない。** すべての Worker entry handler / XRPC method は自前の try/catch で上流例外 (Hyperdrive, Kotoba/Datomic, D1, service binding, fetch) を受け、ADR-0007 形式の JSON に正規化する。
 - Browser/CLI は受け取ったエラーを UI/stderr に原文で表示する。"データの読み込みに失敗しました" のような無内容メッセージへの塗り潰しも禁止。
 - LLM/RAG/agent workflow で、LLM backend failure / empty content を retrieval
   chunks から作った extractive answer に置換してはならない。これは品質劣化を
@@ -36,7 +36,7 @@ superseded_by: []
 
 - `50-infra/cloudflare/workers/**` (PDS, auth, vault, routing-gateway 等すべて)
 - `60-apps/**/appview/**` + `60-apps/**/worker/**`
-- `10-protocol/wproto/**` / `10-protocol/xrpc/**` / `20-actors/magatama/sdk/**`
+- `10-protocol/wproto/**` / `10-protocol/xrpc/**` / `40-engine/kotoba/crates/kotoba-kotodama/sdk/**`
 - `70-tools/etzhayyim/**` (CLI: エラーは stderr に JSON で原文表示し exit code 非 0)
 - 公開 XRPC エンドポイント全般
 - Browser frontend (`*/svelte/src/**`): fetch 応答の error/message を UI に表示する

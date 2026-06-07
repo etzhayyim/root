@@ -89,7 +89,7 @@ async function handleCohortEvidenceCommit(
 # Open issues
 
 - `forwardOcelToApqc` の `kProxy` 引数を `numericPayload` 等に rename して意味を分離するべき (現状は k_proxy と posterior を同じ slot で運んでいる)
-- `deriveCohortEventType` は `@etzhayyim/magatama-host-sdk/cohort` からの import。PDS worker bundle に含まれる
+- `deriveCohortEventType` は `@etzhayyim/kotodama-host-sdk/cohort` からの import。PDS worker bundle に含まれる
 - Phase C の `cohort.fission` は別経路 (別 handler、ADR-0026 Phase C fission procedure)
 
 # Integration points
@@ -100,6 +100,6 @@ async function handleCohortEvidenceCommit(
 # References
 
 - `00-contracts/lexicons/com/etzhayyim/cohort/evidence.json`
-- `20-actors/magatama/sdk/magatama-host-sdk/src/cohort.ts` (`deriveCohortEventType`)
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/cohort.ts` (`deriveCohortEventType`)
 - `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` (`forwardOcelToApqc`)
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`

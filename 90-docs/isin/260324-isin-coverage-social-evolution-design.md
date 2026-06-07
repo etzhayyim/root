@@ -107,11 +107,11 @@ yoro.etzhayyim.com/profile/did:web:isin.etzhayyim.com:us
 
 ```wit
 world component {
-    include magatama:runtime/magatama-component@1.0.0;
-    import magatama:contract/agreement@1.0.0;
-    import magatama:div/information@1.0.0;
-    import magatama:div/documents@1.0.0;
-    import magatama:coverage/metrics@1.0.0;       // coverage query
+    include kotodama:runtime/kotodama-component@1.0.0;
+    import kotodama:contract/agreement@1.0.0;
+    import kotodama:div/information@1.0.0;
+    import kotodama:div/documents@1.0.0;
+    import kotodama:coverage/metrics@1.0.0;       // coverage query
     export etzhayyim:isin/security-registry@1.0.0;
     export etzhayyim:isin/financial-data@1.0.0;
     export etzhayyim:isin/corporate-structure@1.0.0;
@@ -141,7 +141,7 @@ curl https://is1n8k2x.etzhayyim.com/_app/meta
 
 ```bash
 curl -X POST https://is1n8k2x.etzhayyim.com/_heartbeat \
-  -H "x-magatama-internal-token: $(etzhayyim authn token --internal)"
+  -H "x-kotodama-internal-token: $(etzhayyim authn token --internal)"
 ```
 
 ### 4. Verify DID Creation
@@ -194,10 +194,10 @@ var entities = []entityDef{
 }
 
 // 2. Heartbeat handler
-magatama.HandleHeartbeat(func(feed, engagement string) string {
+kotodama.HandleHeartbeat(func(feed, engagement string) string {
     // a. Ensure entity DIDs (lazy create)
     for _, e := range entities {
-        magatama.DIDCreate(e.Path, profileDoc)
+        kotodama.DIDCreate(e.Path, profileDoc)
     }
     // b. Query coverage per entity
     // c. Find weakest entity

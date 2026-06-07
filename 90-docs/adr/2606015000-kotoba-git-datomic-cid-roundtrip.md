@@ -119,7 +119,7 @@ recomputes SHA-1, and errors (`OidMismatch`) unless it equals the requested oid.
 - **Idempotent import.** `:git/oid` unique-identity means re-importing the same object
   upserts to one entity — safe to re-run `import_loose_repo`.
 - **Substrate-faithful.** Blocks are IPFS-compatible `KotobaCid`s; no external DB, no
-  RisingWave, no new substrate-engine name — only `kotoba-core`/`-store`/`-datomic`/`-edn`
+  Kotoba/Datomic, no new substrate-engine name — only `kotoba-core`/`-store`/`-datomic`/`-edn`
   (substrate invariants ADR-2605262130 preserved). No server-held keys; pure read/transform.
 - **Honest R0 limits.** (1) **Thin packs not supported** — on-disk packs are self-contained
   so every REF_DELTA base resolves within the loaded pack set; a thin pack (delta base

@@ -55,9 +55,9 @@ ADR-0056; animeka's compute backend remains ADR-0050 Pattern 1.
 | Compute — image / video / audio | `comfyui.etzhayyim.com` CF Worker → **RunPod Serverless Endpoint** (`v9si0sflsm0gh0`, `runpod/worker-comfyui:latest`, RTX 4090 EUR-IS-1, scale-to-zero) attached to Network Volume `43k3uq9ldn` with Animagine XL cached; Pod Pattern 1 retained as hot-replay fallback | ADR-0050 Pattern 1 + 2026-04-23/24 addenda below |
 | Compute — LLM | 3-tier: fast=Murakumo / mid=L40S Qwen 2.5 7B / deep=Claude Sonnet 4.5 | ADR-0050 §3 |
 | Orchestration | Zeebe 8.6 LTS on mitama-udf K8s + bpmn-dispatcher | ADR-0056 |
-| Storage | Hyperdrive + Kysely → RisingWave `vertex_animeka_*` | ADR-0081 |
-| Social derive | `magatama.jsonld` `derive` rule (handler = single domain write, social fires via derive) | ADR-0004 |
-| Stage handoff | `magatama.jsonld` `derive` rule emits XRPC invoke of the next stage's NSID at commit time | this ADR |
+| Storage | Hyperdrive + Kysely → Kotoba/Datomic `vertex_animeka_*` | ADR-0081 |
+| Social derive | `kotodama.jsonld` `derive` rule (handler = single domain write, social fires via derive) | ADR-0004 |
+| Stage handoff | `kotodama.jsonld` `derive` rule emits XRPC invoke of the next stage's NSID at commit time | this ADR |
 | Auth | Zeebe worker Secret holds `COMFYUI_API_KEY` (sk_live_*, scope `comfyui:generate`) + `ANTHROPIC_API_KEY` + `MURAKUMO_URL` | ADR-0022 / ADR-0023 |
 
 ## 2. One new primitive
@@ -81,7 +81,7 @@ The comfyui.etzhayyim.com upstream on the L40S exposes the following video model
 
 Callers override the default via the `videoBackend` input on `generateInbetween` / `renderComposite`. The worker passes `model` unchanged to ComfyUI; the upstream workflow on L40S dispatches to the correct ComfyUI node graph per model id.
 
-No other new primitive. `generic.llm.chat` already accepts `tier`; routing is internal to `pymagatama.llm.call_tier`. Timeouts: ComfyUI video calls can run 3-5 min; the worker uses `timeout_ms = 600_000` for `generic.comfyui.call` specifically.
+No other new primitive. `generic.llm.chat` already accepts `tier`; routing is internal to `kotodama.llm.call_tier`. Timeouts: ComfyUI video calls can run 3-5 min; the worker uses `timeout_ms = 600_000` for `generic.comfyui.call` specifically.
 
 ## 3. 12 stages → 12 BPMN processes
 
@@ -104,7 +104,7 @@ One BPMN file per stage. Filenames: `etzhayyim-root/00-contracts/bpmn/com/etzhay
 
 HITL is expressed as a human update to the upstream record's status (e.g. `storyboard.status=approved`). The next stage's derive rule (§4) watches for that commit.
 
-## 4. Stage handoff via `magatama.jsonld` derive rules
+## 4. Stage handoff via `kotodama.jsonld` derive rules
 
 Animeka's `derive.rules[]` is rewritten to 11 entries. Each rule invokes the next stage's XRPC NSID on commit, so the `/cuts` UI never needs to chain stages in JavaScript.
 
@@ -190,7 +190,7 @@ The pod-based Pattern 1 Lite proved workable ($34/mo for 40 h/mo RunPod Communit
 
 **Adapter fan-out**:
 - `comfyui.etzhayyim.com` CF Worker (`50-infra/cloudflare/workers/comfyui/src/index.ts`): `/v1/images/generations` translates OpenAI → ComfyUI workflow → Serverless `/runsync`. Returns `{data:[{b64_json}]}`. Retains OpenAI-compat for LiteLLM / openai-python.
-- pyzeebe `generic.comfyui.call` (`20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`): detects Serverless mode when `COMFYUI_URL` contains `api.runpod.ai`, runs the same workflow builder + `/runsync` + `/status` poll + base64 decode + PDS uploadBlob, returns `{blobCid, meta, latencyMs, executionTimeMs, delayTimeMs}`.
+- pyzeebe `generic.comfyui.call` (`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py`): detects Serverless mode when `COMFYUI_URL` contains `api.runpod.ai`, runs the same workflow builder + `/runsync` + `/status` poll + base64 decode + PDS uploadBlob, returns `{blobCid, meta, latencyMs, executionTimeMs, delayTimeMs}`.
 
 **Cost projection (anime-production burst)**:
 - 1 episode ≈ 60 cuts × (~30 s image + ~3 min video + ~10 s audio) = 4 L40S-hours compute
@@ -210,7 +210,7 @@ The pod-based Pattern 1 Lite proved workable ($34/mo for 40 h/mo RunPod Communit
 
 Post-Serverless-migration field testing revealed a second blocker at the
 text-gen layer. BPMN `generic.llm.chat` + `generic.llm.json` both called
-`llm.call_tier(...)` from `pymagatama.llm`, which pointed at Vultr
+`llm.call_tier(...)` from `kotodama.llm`, which pointed at Vultr
 Serverless Inference (`api.vultrinference.com/v1/chat/completions`).
 Three issues, in order of severity:
 
@@ -229,7 +229,7 @@ Three issues, in order of severity:
    the 3k-token budget before emitting script text.
 3. `api.vultrinference.com` has a measured 30s+ hang-then-recover
    pattern under sustained load (logged empirically 2026-04-22 in
-   `pymagatama.llm` header comment).
+   `kotodama.llm` header comment).
 
 **Adopted**: co-locate text-gen on the existing RunPod L40S pod via
 Ollama. Qwen2.5-7B-Instruct-Q5_K_M (~5.4 GiB VRAM) loads alongside
@@ -237,7 +237,7 @@ ComfyUI's ~7 GiB, leaving ~11 GiB headroom on the RTX 4090. Ollama
 binds to port 8001 (tmux-detached, survives SSH disconnect), reachable
 externally at `https://n911oglid03v5n-8001.proxy.runpod.net/v1/chat/completions`.
 
-`pymagatama.llm` gains a `TIER_ENDPOINT_OVERRIDES` table keyed by tier
+`kotodama.llm` gains a `TIER_ENDPOINT_OVERRIDES` table keyed by tier
 (default: `deep` / `mid` / `classifier` / `structured` / `fast`) that
 rewires `call_tier` per-tier without touching callers. The override
 also bumps per-attempt timeout to 120s (vs default 20s) to cover
@@ -257,7 +257,7 @@ Two subtle landmines were addressed in the same commit:
   and emitted its audit row. Stripped the three keys from all 13
   animeka BPMNs and re-seeded via the dispatcher F5 watcher
   (`UPDATE vertex_bpmn_process_def SET "xml"=…, deployed_at=NULL`).
-  Note: `xml` is a RisingWave reserved keyword — quoted identifier
+  Note: `xml` is a Kotoba/Datomic reserved keyword — quoted identifier
   required in the UPDATE statement.
 
 **End-to-end verified 2026-04-24T06:39Z**:
@@ -301,7 +301,7 @@ the pre-paid 24 GiB VRAM and ~1 vCPU — $0 incremental.
 
 **`generic.pds.dispatch` from BPMN** initially appeared to require a
 Service Auth JWT mint layer — PDS returned 403 on `app.bsky.feed.post`
-from the Vultr k8s worker pod despite the `x-magatama-verified`
+from the Vultr k8s worker pod despite the `x-kotodama-verified`
 internal-trust header. Empirically isolated to the CF edge: the WAF
 rejects python/urllib's default User-Agent with an HTML error page
 *before* the handler runs (same root cause as the RunPod proxy 1010
@@ -375,7 +375,7 @@ into the DB's stage-appropriate column:
 | generateInbetween       | master_cid  |
 | generateSoundCue        | master_cid  |
 
-Worker image: `ghcr.io/etzhayyim/pymagatama:c3d9fc3d830-pds-ua`. Env
+Worker image: `ghcr.io/etzhayyim/kotodama:c3d9fc3d830-pds-ua`. Env
 on `zeebe-worker` Deployment (namespace `mitama-udf`):
 
 ```
@@ -459,7 +459,7 @@ It sheds:
 - ADR-0056 BPMN-as-actor: `90-docs/adr/0056-bpmn-as-actor.md`
 - ADR-0004 Write-only derived: `90-docs/adr/0004-write-only-derived-architecture.md`
 - ADR-0081 Worker-direct Hyperdrive: `90-docs/adr/0081-worker-direct-hyperdrive-persistence.md`
-- Dispatcher: `20-actors/magatama/py/src/pymagatama/dispatcher_main.py`
-- Worker primitive host: `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
+- Dispatcher: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/dispatcher_main.py`
+- Worker primitive host: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py`
 - Reference BPMN patterns: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/{llm/chat,yabai/triagePoc,bot/reviewAndPost}.bpmn`
 - animeka app module: `60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/`

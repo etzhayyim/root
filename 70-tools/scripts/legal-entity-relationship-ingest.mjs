@@ -13,7 +13,7 @@
  * ║                 GLEIF L2 + CC-BY-SA 4.0 OpenCorporates open-data)     ║
  * ║                                                                       ║
  * ║  Why superseded (religious-corp substrate-fit):                       ║
- * ║    - CorpOwnershipSensor Protocol (pymagatama.organism.sensors.corp.* ║
+ * ║    - CorpOwnershipSensor Protocol (kotodama.organism.sensors.corp.* ║
  * ║      corp_ownership_sensor) consumes GLEIF L2 / EU UBO registers /    ║
  * ║      OpenCorporates open-data via IPFS-pinned subdataset              ║
  * ║    - com.etzhayyim.corp.ownershipEdge Lexicon record canonical        ║
@@ -76,7 +76,7 @@ import { readFile } from "node:fs/promises";
 
 const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
 
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
 
 const args = process.argv.slice(2);
@@ -98,7 +98,7 @@ if (!["owns", "trades"].includes(MODE) || !INPUT) {
 let _pool = null;
 async function pool() {
   if (_pool) return _pool;
-  _pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 60000 });
+  _pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 60000 });
   return _pool;
 }
 

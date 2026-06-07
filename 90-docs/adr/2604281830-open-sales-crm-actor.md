@@ -9,7 +9,7 @@ last_verified: 2026-04-28
 authoritative_for:
   - open-sales actor (Lead管理・Opportunity・Pipeline・Forecast)
   - BPMN flows: 8 flows (createLead / qualifyLead / updateOpportunity / logActivity / generateQuote / closeDeal / fetchPipelineDelta / computeForecast)
-  - RisingWave schema: 7 tables + 3 MVs
+  - Kotoba/Datomic schema: 7 tables + 3 MVs
   - Lexicon contracts: 8 JSON files
 related:
   - adr-0056-bpmn-as-actor
@@ -18,13 +18,13 @@ related:
 
 # ADR-2604281830 — open-sales Open CRM Actor
 
-**Status**: active  
-**Date**: 2026-04-28  
-**Authors**: Jun Kawasaki + Claude Code  
+**Status**: active
+**Date**: 2026-04-28
+**Authors**: Jun Kawasaki + Claude Code
 
 ## Context
 
-Salesforce や HubSpot のような営業管理 (CRM) システムは SaaS 契約に縛られており、データのオーナーシップが曖昧である。オープンな CRM actor を etzhayyim プラットフォーム上に構築することで、誰でも自前で Lead → Opportunity → Pipeline → Forecast のフルサイクルを運用でき、データは RisingWave + AT Protocol repo に完全に自己管理できる。
+Salesforce や HubSpot のような営業管理 (CRM) システムは SaaS 契約に縛られており、データのオーナーシップが曖昧である。オープンな CRM actor を etzhayyim プラットフォーム上に構築することで、誰でも自前で Lead → Opportunity → Pipeline → Forecast のフルサイクルを運用でき、データは Kotoba/Datomic + AT Protocol repo に完全に自己管理できる。
 
 ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加せずに BPMN 8 flows として実装する。timer-start BPMNs (fetchPipelineDelta / computeForecast) が定期的なデータ取得と AI 予測を自律的に実行する。
 
@@ -54,7 +54,7 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 | fetchPipelineDelta | R/P1D timer | audit only (benchmark fetch) |
 | computeForecast | R/P7D timer | vertex_open_sales_forecast + LLM forecast |
 
-### RisingWave Schema — 7 tables + 3 MVs
+### Kotoba/Datomic Schema — 7 tables + 3 MVs
 
 #### Vertex Tables
 

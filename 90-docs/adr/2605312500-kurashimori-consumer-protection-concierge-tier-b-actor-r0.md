@@ -68,7 +68,7 @@ claims-collection business.
 # Decision
 
 Create **暮らし守 kurashimori** at `did:web:kurashimori.etzhayyim.com`
-(`20-actors/kurashimori/`), kotoba-EAVT-native (ADR-2605262130; no RisingWave),
+(`20-actors/kurashimori/`), kotoba-EAVT-native (ADR-2605262130; no Kotoba/Datomic),
 Murakumo-only (ADR-2605215000), atproto/MST-native, mirroring the toritsugi
 pattern (coded registry + member-self-action default + gated 代行).
 
@@ -198,7 +198,7 @@ chigiri+counsel).
 - **`com.etzhayyim.encrypted.*` (ADR-2605181100)**: only home for member PII +
   contract/complaint content.
 - **kotoba EAVT (ADR-2605262130)**: registry + session/draft/dispatch lifecycle
-  datoms; no RisingWave.
+  datoms; no Kotoba/Datomic.
 
 ## §8 Roadmap
 

@@ -9,7 +9,7 @@ last_verified: 2026-04-28
 authoritative_for:
   - open-adnetwork actor (Publisher収益化・Advertiser Campaign・Impression/Click/Conversion)
   - BPMN flows: 8 flows (registerPublisher / registerAdvertiser / createCampaign / recordAdUnit / recordImpression / recordConversion / computePublisherRpm / fetchAuctionMarketDelta)
-  - RisingWave schema: 8 tables + 3 MVs
+  - Kotoba/Datomic schema: 8 tables + 3 MVs
   - Lexicon contracts: 8 JSON files
 related:
   - adr-0056-bpmn-as-actor
@@ -24,7 +24,7 @@ related:
 
 Publisher（媒体社）は自分のサイトやアプリに広告枠（Ad Unit）を設置し、Advertiser（広告主）は Campaign を通じて入札する。Impression / Click / Conversion を記録し、RPM（1,000 インプレッション当たり収益）/ CTR（クリック率）/ CVR（コンバージョン率）をリアルタイムで計算する。収益は Publisher に revenue_share_pct（デフォルト 70%）に従って分配する。
 
-BPMN-as-actor（ADR-0056）パターンに従い、CF Worker + Zeebe BPMN + RisingWave で構成する。専用 CF Worker は不要（bpmn.etzhayyim.com dispatcher が XRPC 受付）。
+BPMN-as-actor（ADR-0056）パターンに従い、CF Worker + Zeebe BPMN + Kotoba/Datomic で構成する。専用 CF Worker は不要（bpmn.etzhayyim.com dispatcher が XRPC 受付）。
 
 ## Decision
 
@@ -47,7 +47,7 @@ BPMN-as-actor（ADR-0056）パターンに従い、CF Worker + Zeebe BPMN + Risi
 | `computePublisherRpm` | Timer R/P1D | db.select, db.insert, audit.emit | 日次 Publisher RPM スナップショットを計算・保存 |
 | `fetchAuctionMarketDelta` | Timer R/P7D | http.fetch, audit.emit | IAB 公開ベンチマーク取得（市場 CPM 参照データ）|
 
-## RisingWave Schema
+## Kotoba/Datomic Schema
 
 ### Vertex Tables (8)
 

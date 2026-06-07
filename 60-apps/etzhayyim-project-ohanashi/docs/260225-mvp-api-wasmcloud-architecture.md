@@ -77,8 +77,8 @@
 
 ## 4. App Deploy Layout
 
-- system providers: `magatama-system`
-- app resources: `magatama-runtime`
+- system providers: `kotodama-system`
+- app resources: `kotodama-runtime`
 - `default` namespace は使用禁止
 
 Deploy command:
@@ -91,7 +91,7 @@ mage Deploy
 
 Post deploy checks:
 ```bash
-kubectl get mga ohanashi-voice-orchestrator -n magatama-runtime
+kubectl get mga ohanashi-voice-orchestrator -n kotodama-runtime
 curl -fsS https://ohanashi.etzhayyim.com/_app/version.json
 ```
 

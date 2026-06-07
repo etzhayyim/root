@@ -72,13 +72,13 @@
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live submission until maintainer-verified / council-verified (代行) within freshnessWindowDays."
   },
   "cells": [
-    {"name": "target_registry", "module": "magatama.cells.moushibumi_target_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve the coded participationTarget catalog; enforce G14"},
-    {"name": "voter_info", "module": "magatama.cells.moushibumi_voter_info", "murakumoNode": "reuben", "phase": "continuous", "io": "NEUTRAL election-mechanics info (dates / 期日前 / official 選挙公報 pointers); G3 no partisanship"},
-    {"name": "opportunity_match", "module": "magatama.cells.moushibumi_opportunity_match", "murakumoNode": "reuben", "phase": "event", "io": "consenting member's interest/locale (OWN) → participationMatch (neutral, aggregate)"},
-    {"name": "intake", "module": "magatama.cells.moushibumi_intake", "murakumoNode": "gad", "phase": "event", "io": "member consent + DID/SBT → participationSession"},
-    {"name": "compose", "module": "magatama.cells.moushibumi_compose", "murakumoNode": "gad", "phase": "event", "io": "pull chigiri template + resolved target → voiceDraft (drafting-assist, G5)"},
-    {"name": "submit", "module": "magatama.cells.moushibumi_submit", "murakumoNode": "naphtali", "phase": "event", "io": "THE ONLY active-outbound cell — default hands the draft back for member self-submission; 代行 ONLY under G14+G15+R3 → submissionRecord"},
-    {"name": "status_track", "module": "magatama.cells.moushibumi_status_track", "murakumoNode": "naphtali", "phase": "continuous", "io": "petition/comment receipt + 議会 採択/不採択 + agency 考え方 公示 (行手法 §43) tracking"}
+    {"name": "target_registry", "module": "kotodama.cells.moushibumi_target_registry", "murakumoNode": "reuben", "phase": "continuous", "io": "maintain + resolve the coded participationTarget catalog; enforce G14"},
+    {"name": "voter_info", "module": "kotodama.cells.moushibumi_voter_info", "murakumoNode": "reuben", "phase": "continuous", "io": "NEUTRAL election-mechanics info (dates / 期日前 / official 選挙公報 pointers); G3 no partisanship"},
+    {"name": "opportunity_match", "module": "kotodama.cells.moushibumi_opportunity_match", "murakumoNode": "reuben", "phase": "event", "io": "consenting member's interest/locale (OWN) → participationMatch (neutral, aggregate)"},
+    {"name": "intake", "module": "kotodama.cells.moushibumi_intake", "murakumoNode": "gad", "phase": "event", "io": "member consent + DID/SBT → participationSession"},
+    {"name": "compose", "module": "kotodama.cells.moushibumi_compose", "murakumoNode": "gad", "phase": "event", "io": "pull chigiri template + resolved target → voiceDraft (drafting-assist, G5)"},
+    {"name": "submit", "module": "kotodama.cells.moushibumi_submit", "murakumoNode": "naphtali", "phase": "event", "io": "THE ONLY active-outbound cell — default hands the draft back for member self-submission; 代行 ONLY under G14+G15+R3 → submissionRecord"},
+    {"name": "status_track", "module": "kotodama.cells.moushibumi_status_track", "murakumoNode": "naphtali", "phase": "continuous", "io": "petition/comment receipt + 議会 採択/不採択 + agency 考え方 公示 (行手法 §43) tracking"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.moushibumi.participationTarget",

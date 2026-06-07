@@ -6155,7 +6155,7 @@
     },
     "/xrpc/com.etzhayyim.apps.yata.provisionDatabase": {
       "post": {
-        "summary": "Provision a per-tenant RisingWave database for the caller's org_did. Creates `yata_<sha256(did)[:16]>` database + dedicated PG ROLE + applies storage schema migration inside the new DB. Idempotent. Caller MUST be `did:web:billing.etzhayyim.com` admin or an authorized provisioning agent.",
+        "summary": "Provision a per-tenant Kotoba/Datomic database for the caller's org_did. Creates `yata_<sha256(did)[:16]>` database + dedicated PG ROLE + applies storage schema migration inside the new DB. Idempotent. Caller MUST be `did:web:billing.etzhayyim.com` admin or an authorized provisioning agent.",
         "operationId": "com.etzhayyim.apps.yata.provisionDatabase",
         "requestBody": {
           "required": true,
@@ -6362,7 +6362,7 @@
     },
     "/xrpc/com.etzhayyim.apps.yata.runCypher": {
       "post": {
-        "summary": "Execute a read-only openCypher query against the caller's tenant graph. Translated to SQL/PGQ by kagami-cypher-compiler in the bpmn-dispatcher LangServer pool, then executed on RisingWave. WRITE clauses (CREATE / MERGE / SET / DELETE) are rejected at the edge in Phase P4a; lifted in Phase 7. ADR-2605080000 D13.",
+        "summary": "Execute a read-only openCypher query against the caller's tenant graph. Translated to SQL/PGQ by kagami-cypher-compiler in the bpmn-dispatcher LangServer pool, then executed on Kotoba/Datomic. WRITE clauses (CREATE / MERGE / SET / DELETE) are rejected at the edge in Phase P4a; lifted in Phase 7. ADR-2605080000 D13.",
         "operationId": "com.etzhayyim.apps.yata.runCypher",
         "requestBody": {
           "required": true,
@@ -36662,7 +36662,7 @@
     },
     "/xrpc/com.etzhayyim.apps.training.runBaienMx": {
       "post": {
-        "summary": "Baien-MX (ADR 2605101000) — train per-modality 1.58-bit projectors + the shared cross-modal fusion block on RisingWave-native multimodal samples (v_training_multimodal_sample snapshot). All NEW blocks are BitNet QAT (1.58-bit). Trunk frozen for v0. Modalities are explicit: caller declares which non-text branches to activate; text is always present.",
+        "summary": "Baien-MX (ADR 2605101000) — train per-modality 1.58-bit projectors + the shared cross-modal fusion block on Kotoba/Datomic-native multimodal samples (v_training_multimodal_sample snapshot). All NEW blocks are BitNet QAT (1.58-bit). Trunk frozen for v0. Modalities are explicit: caller declares which non-text branches to activate; text is always present.",
         "operationId": "com.etzhayyim.apps.training.runBaienMx",
         "requestBody": {
           "required": true,
@@ -93407,7 +93407,7 @@
     },
     "/xrpc/com.etzhayyim.apps.opensaas.salesforce.listPipeline": {
       "get": {
-        "summary": "List pipeline opportunities for a tenant, grouped by stage with forecast amounts. Backed by a RisingWave streaming MV (mv_opensaas_salesforce_pipeline_by_stage) so read latency is <100ms even at tenant scale.",
+        "summary": "List pipeline opportunities for a tenant, grouped by stage with forecast amounts. Backed by a Kotoba/Datomic streaming MV (mv_opensaas_salesforce_pipeline_by_stage) so read latency is <100ms even at tenant scale.",
         "operationId": "com.etzhayyim.apps.opensaas.salesforce.listPipeline",
         "parameters": [
           {
@@ -146671,7 +146671,7 @@
     },
     "/xrpc/com.etzhayyim.apps.maps.tileGeoJson": {
       "get": {
-        "summary": "RisingWave-native vector layer source. Returns per-label GeoJSON FeatureCollections for a viewport bbox, directly from vertex_spatial. Replaces external MVT tile dependency.",
+        "summary": "Kotoba/Datomic-native vector layer source. Returns per-label GeoJSON FeatureCollections for a viewport bbox, directly from vertex_spatial. Replaces external MVT tile dependency.",
         "operationId": "com.etzhayyim.apps.maps.tileGeoJson",
         "parameters": [
           {
@@ -147794,7 +147794,7 @@
     },
     "/xrpc/com.etzhayyim.apps.maps.aismarine.getVesselDensityTile": {
       "get": {
-        "summary": "Return aggregated vessel density inside a bbox, suitable for low-zoom heatmap rendering. ADR-2605011500. Phase 1: backed by mv_vessel_density_grid (0.1° lat/lon grid ~11km equator) — RisingWave 2.8.1 has no h3_lat_lng_to_cell builtin, so true H3 res-6 is deferred to Phase 2 (Python/Rust UDF wrapping h3o). The h3Resolution param is accepted for forward-compat but currently ignored; cellSchema in the response indicates which rendering path to use.",
+        "summary": "Return aggregated vessel density inside a bbox, suitable for low-zoom heatmap rendering. ADR-2605011500. Phase 1: backed by mv_vessel_density_grid (0.1° lat/lon grid ~11km equator) — Kotoba/Datomic 2.8.1 has no h3_lat_lng_to_cell builtin, so true H3 res-6 is deferred to Phase 2 (Python/Rust UDF wrapping h3o). The h3Resolution param is accepted for forward-compat but currently ignored; cellSchema in the response indicates which rendering path to use.",
         "operationId": "com.etzhayyim.apps.maps.aismarine.getVesselDensityTile",
         "parameters": [
           {
@@ -150005,7 +150005,7 @@
     },
     "/xrpc/com.etzhayyim.apps.mangaka.dedupeEdges": {
       "post": {
-        "summary": "Remove duplicate edge_contains rows per (src_vid, dst_vid, label). RisingWave does not enforce PK uniqueness on non-streaming INSERTs; this retro-cleans accumulated dups. Idempotent.",
+        "summary": "Remove duplicate edge_contains rows per (src_vid, dst_vid, label). Kotoba/Datomic does not enforce PK uniqueness on non-streaming INSERTs; this retro-cleans accumulated dups. Idempotent.",
         "operationId": "com.etzhayyim.apps.mangaka.dedupeEdges",
         "requestBody": {
           "required": true,
@@ -150479,7 +150479,7 @@
     },
     "/xrpc/com.etzhayyim.apps.mangaka.getEpisode": {
       "get": {
-        "summary": "Fetch a manga episode (work record + all 20 page records) by episode AT URI. Reads vertex_mangaka_work + vertex_mangaka_page from RisingWave via Hyperdrive (ADR-0036).",
+        "summary": "Fetch a manga episode (work record + all 20 page records) by episode AT URI. Reads vertex_mangaka_work + vertex_mangaka_page from Kotoba/Datomic via Hyperdrive (ADR-0036).",
         "operationId": "com.etzhayyim.apps.mangaka.getEpisode",
         "parameters": [
           {
@@ -150622,7 +150622,7 @@
     },
     "/xrpc/com.etzhayyim.apps.mangaka.getProcessTrace": {
       "get": {
-        "summary": "Fetch the OCEL 2.0 process-mining trace for a manga episode. Returns the activity timeline (case_id = episode_uri, event_type = task name, timestamp, duration, status, object_refs). Use this for process mining (PM4PY/Celonis), bottleneck analysis, or debugging stuck pipelines. Reads from mv_mangaka_process_trace (RisingWave streaming MV over vertex_audit_event).",
+        "summary": "Fetch the OCEL 2.0 process-mining trace for a manga episode. Returns the activity timeline (case_id = episode_uri, event_type = task name, timestamp, duration, status, object_refs). Use this for process mining (PM4PY/Celonis), bottleneck analysis, or debugging stuck pipelines. Reads from mv_mangaka_process_trace (Kotoba/Datomic streaming MV over vertex_audit_event).",
         "operationId": "com.etzhayyim.apps.mangaka.getProcessTrace",
         "parameters": [
           {
@@ -152453,7 +152453,7 @@
                   },
                   "rwUrl": {
                     "type": "string",
-                    "description": "Override for RW_URL env (test path only)."
+                    "description": "Override for KOTOBA_URL env (test path only)."
                   }
                 },
                 "required": [
@@ -152747,7 +152747,7 @@
                   },
                   "rwUrl": {
                     "type": "string",
-                    "description": "Override for RW_URL env (test path only)."
+                    "description": "Override for KOTOBA_URL env (test path only)."
                   }
                 },
                 "required": [
@@ -152801,7 +152801,7 @@
                   },
                   "rwUrl": {
                     "type": "string",
-                    "description": "Override for RW_URL env (test path only)."
+                    "description": "Override for KOTOBA_URL env (test path only)."
                   }
                 },
                 "required": [
@@ -155071,10 +155071,10 @@
         }
       }
     },
-    "/xrpc/com.etzhayyim.apps.magatama.cronTick": {
+    "/xrpc/com.etzhayyim.apps.kotodama.cronTick": {
       "post": {
         "summary": "LangServer-driven cron tick — runs Shinka Organizer: classifies actor activity (hot/normal/stale/silent), writes R2 plan, upserts vertex_actor_shinka_state (ADR-0056).",
-        "operationId": "com.etzhayyim.apps.magatama.cronTick",
+        "operationId": "com.etzhayyim.apps.kotodama.cronTick",
         "responses": {
           "200": {
             "description": "OK",
@@ -155462,7 +155462,7 @@
     },
     "/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge": {
       "post": {
-        "summary": "Answer a user question through the LangGraph/Pregel/LangChain knowledge workflow. The workflow retrieves evidence from RisingWave domain knowledge vertices and then calls the configured LLM tier.",
+        "summary": "Answer a user question through the LangGraph/Pregel/LangChain knowledge workflow. The workflow retrieves evidence from Kotoba/Datomic domain knowledge vertices and then calls the configured LLM tier.",
         "operationId": "com.etzhayyim.apps.llm.answerWithKnowledge",
         "requestBody": {
           "required": true,
@@ -156294,7 +156294,7 @@
     },
     "/xrpc/com.etzhayyim.apps.live.tweakTrack": {
       "post": {
-        "summary": "Edit one track of a live room's setlist by (roomSlug, position). Performer-only (Rego-gated). Re-inserts the vertex_live_track row at the same PK so RisingWave overwrites; partial-edit support requires the caller to supply all required fields (title / bpm / lengthBeats). Optional fields default to null and clear the column when omitted.",
+        "summary": "Edit one track of a live room's setlist by (roomSlug, position). Performer-only (Rego-gated). Re-inserts the vertex_live_track row at the same PK so Kotoba/Datomic overwrites; partial-edit support requires the caller to supply all required fields (title / bpm / lengthBeats). Optional fields default to null and clear the column when omitted.",
         "operationId": "com.etzhayyim.apps.live.tweakTrack",
         "requestBody": {
           "required": true,
@@ -156586,7 +156586,7 @@
     },
     "/xrpc/com.etzhayyim.apps.lifehack.agentLoop": {
       "post": {
-        "summary": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls pymagatama.llm.call_tier, and returns a Japanese-friendly response.",
+        "summary": "Path F unified agent chat for lifehack. Composes a system prompt from active topics + top tips + recent posts, calls kotodama.llm.call_tier, and returns a Japanese-friendly response.",
         "operationId": "com.etzhayyim.apps.lifehack.agentLoop",
         "requestBody": {
           "required": true,
@@ -161590,7 +161590,7 @@
     },
     "/xrpc/com.etzhayyim.apps.kiyo.searchPapers": {
       "get": {
-        "summary": "Semantic search over papers using embedding cosine similarity (RisingWave SQL UDF kiyo_embed_query + list_cosine_similarity). Falls back to title ILIKE for unembedded papers.",
+        "summary": "Semantic search over papers using embedding cosine similarity (Kotoba/Datomic SQL UDF kiyo_embed_query + list_cosine_similarity). Falls back to title ILIKE for unembedded papers.",
         "operationId": "com.etzhayyim.apps.kiyo.searchPapers",
         "parameters": [
           {
@@ -165868,7 +165868,7 @@
     },
     "/xrpc/com.etzhayyim.apps.kafun.agent.tick": {
       "post": {
-        "summary": "Run kafun-bokumetsu executor LangGraph (kafun.tick.v1). Cron-driven autonomous loop: selects the highest-priority affordable proposal and emits a vertex_kafun_action row authored under did:web:n97ik10n.etzhayyim.com:actor:executor. No input fields — Worker reads pending proposals + fund balance from RisingWave.",
+        "summary": "Run kafun-bokumetsu executor LangGraph (kafun.tick.v1). Cron-driven autonomous loop: selects the highest-priority affordable proposal and emits a vertex_kafun_action row authored under did:web:n97ik10n.etzhayyim.com:actor:executor. No input fields — Worker reads pending proposals + fund balance from Kotoba/Datomic.",
         "operationId": "com.etzhayyim.apps.kafun.agent.tick",
         "requestBody": {
           "required": true,
@@ -204749,7 +204749,7 @@
     },
     "/xrpc/com.etzhayyim.apps.graph.cronTick": {
       "post": {
-        "summary": "LangServer-driven cron tick — consumes pending repo commits from vertex_repo_commit into the RisingWave social graph (ADR-0056).",
+        "summary": "LangServer-driven cron tick — consumes pending repo commits from vertex_repo_commit into the Kotoba/Datomic social graph (ADR-0056).",
         "operationId": "com.etzhayyim.apps.graph.cronTick",
         "responses": {
           "200": {
@@ -211232,7 +211232,7 @@
     },
     "/xrpc/com.etzhayyim.apps.flightOffer.fetchFromSource": {
       "post": {
-        "summary": "Fetch + persist offers from a specific source registered in vertex_flight_offer_source. Adapter is resolved at runtime via pymagatama.ingest.flight_offer._SOURCE_ADAPTERS keyed by source_id. Falls back to stub if credentials are missing or source is in 'planned' status.",
+        "summary": "Fetch + persist offers from a specific source registered in vertex_flight_offer_source. Adapter is resolved at runtime via kotodama.ingest.flight_offer._SOURCE_ADAPTERS keyed by source_id. Falls back to stub if credentials are missing or source is in 'planned' status.",
         "operationId": "com.etzhayyim.apps.flightOffer.fetchFromSource",
         "requestBody": {
           "required": true,
@@ -235397,7 +235397,7 @@
     },
     "/xrpc/com.etzhayyim.apps.coworkGraph.graphActorGet": {
       "get": {
-        "summary": "DID で Actor の RisingWave graph データを取得する (read-only)。vertex_app テーブルを参照。",
+        "summary": "DID で Actor の Kotoba/Datomic graph データを取得する (read-only)。vertex_app テーブルを参照。",
         "operationId": "com.etzhayyim.apps.coworkGraph.graphActorGet",
         "parameters": [
           {
@@ -235433,7 +235433,7 @@
     },
     "/xrpc/com.etzhayyim.apps.coworkGraph.graphMvQuery": {
       "get": {
-        "summary": "RisingWave マテリアライズドビューをクエリする (read-only)。mv 名は英数字/アンダースコアのみ許可。",
+        "summary": "Kotoba/Datomic マテリアライズドビューをクエリする (read-only)。mv 名は英数字/アンダースコアのみ許可。",
         "operationId": "com.etzhayyim.apps.coworkGraph.graphMvQuery",
         "parameters": [
           {
@@ -235514,7 +235514,7 @@
     },
     "/xrpc/com.etzhayyim.apps.coworkGraph.graphQuery": {
       "get": {
-        "summary": "RisingWave graph に対して read-only SQL を実行する。vertex_*/edge_*/mv_*/dim_*/view_* テーブルのみ許可。INSERT/UPDATE/DELETE/DROP 等の書き込み SQL は拒否する。",
+        "summary": "Kotoba/Datomic graph に対して read-only SQL を実行する。vertex_*/edge_*/mv_*/dim_*/view_* テーブルのみ許可。INSERT/UPDATE/DELETE/DROP 等の書き込み SQL は拒否する。",
         "operationId": "com.etzhayyim.apps.coworkGraph.graphQuery",
         "parameters": [
           {
@@ -235581,7 +235581,7 @@
     },
     "/xrpc/com.etzhayyim.apps.coworkGraph.listMyFormTasks": {
       "get": {
-        "summary": "assignee_did に割り当てられた BPMN フォームタスクを RisingWave vertex_human_task から取得する (read-only)。Claude Cowork がメンバーの pending タスクを確認するために使用する。",
+        "summary": "assignee_did に割り当てられた BPMN フォームタスクを Kotoba/Datomic vertex_human_task から取得する (read-only)。Claude Cowork がメンバーの pending タスクを確認するために使用する。",
         "operationId": "com.etzhayyim.apps.coworkGraph.listMyFormTasks",
         "parameters": [
           {
@@ -239314,7 +239314,7 @@
     },
     "/xrpc/com.etzhayyim.apps.commonCrawl.ingestSegment": {
       "post": {
-        "summary": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, RisingWave Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
+        "summary": "Ingest a Common Crawl WAT/WARC segment → DID property graph (Rust rayon, Kotoba/Datomic Iceberg). Tracks crawl-NN-YYYY/segment-MMMM ingest progress.",
         "operationId": "com.etzhayyim.apps.commonCrawl.ingestSegment",
         "requestBody": {
           "required": true,
@@ -267454,7 +267454,7 @@
     },
     "/xrpc/com.etzhayyim.apps.ameno.listActorAdapters": {
       "get": {
-        "summary": "List active LoRA adapters owned by an actor DID. Backed by vertex_lora_adapter on RisingWave (ADR-2605070700 lineage rows). Used by the ameno browser UI to surface per-actor adapter choices; weights are fetched separately from the PDS proxy (lora/{actorDid}/{adapterId}/adapter.safetensors). Server-side, the langserver pod runs SELECT through the same dispatcher path as listHistory.",
+        "summary": "List active LoRA adapters owned by an actor DID. Backed by vertex_lora_adapter on Kotoba/Datomic (ADR-2605070700 lineage rows). Used by the ameno browser UI to surface per-actor adapter choices; weights are fetched separately from the PDS proxy (lora/{actorDid}/{adapterId}/adapter.safetensors). Server-side, the langserver pod runs SELECT through the same dispatcher path as listHistory.",
         "operationId": "com.etzhayyim.apps.ameno.listActorAdapters",
         "parameters": [
           {
@@ -281964,7 +281964,7 @@
           },
           "modelId": {
             "type": "string",
-            "description": "magatama:inference/audio model id (e.g. diffrhythm-1.2-ja)"
+            "description": "kotodama:inference/audio model id (e.g. diffrhythm-1.2-ja)"
           },
           "seed": {
             "type": "integer"
@@ -290905,3 +290905,4 @@
     }
   }
 }
+

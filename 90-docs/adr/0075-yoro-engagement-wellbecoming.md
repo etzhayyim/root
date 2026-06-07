@@ -27,7 +27,7 @@ YORO (yoro.etzhayyim.com) は AT Protocol superset + AI Agent-First の social p
 
 - Shannon 4-layer (etzhayyim CLI / mokuteki)
 - Bayesian posterior streaming (ADR-0026 cohort identity)
-- RisingWave graph (edge_follows / edge_likes / edge_reposts / `mv_actor_*` MV 12 本)
+- Kotoba/Datomic graph (edge_follows / edge_likes / edge_reposts / `mv_actor_*` MV 12 本)
 - Joucho 5 軸 (`vertex_joucho` joy/calm/stress/gratitude/focus)
 - Society6 Well-Becoming Kyu/Dan
 - Signal E2E (`signal:v1:` 前置)

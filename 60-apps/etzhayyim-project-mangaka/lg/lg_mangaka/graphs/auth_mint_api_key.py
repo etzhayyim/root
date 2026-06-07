@@ -36,13 +36,11 @@ import secrets
 import time
 from typing import Any, TypedDict
 
-import psycopg
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_SCOPES = "comfyui,comfyui:generate,read"
 _DEFAULT_PRODUCT = "comfyui"
@@ -98,33 +96,32 @@ async def _persist(state: _State) -> dict[str, Any]:
             "api_key": state["raw_key"],
             "vertex_id": f"dry-run/{state['key_hash'][:16]}",
         }
-    if not _RW_URL:
-        return {"status": "error", "error": "RW_URL not configured on this pod"}
-
     name = state.get("name") or f"studio-{(state.get('user_email') or 'anon').split('@')[0]}"
     scopes = state.get("scopes") or _DEFAULT_SCOPES
     owner = state["owner_did"]
     vid = f"at://{owner}/com.etzhayyim.auth.apiKey/{state['key_hash'][:13]}"
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
+    import asyncio
+    from kotodama.kotoba_datomic import get_kotoba_client
     try:
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            # delete-then-insert (RW lacks ON CONFLICT)
-            await cur.execute(
-                "DELETE FROM public.vertex_api_key WHERE vertex_id = %s", (vid,)
-            )
-            await cur.execute(
-                "INSERT INTO public.vertex_api_key "
-                "(vertex_id, _seq, created_date, sensitivity_ord, owner_did, "
-                " key_hash, key_prefix, name, scopes, status, last_used_at, created_at) "
-                "VALUES (%s, 0, %s, 0, %s, %s, %s, %s, %s, %s, NULL, %s)",
-                (vid, now[:10], owner, state["key_hash"], state["key_prefix"],
-                 name, scopes, "active", now),
-            )
-        finally:
-            await conn.close()
+        def _write():
+            client = get_kotoba_client()
+            client.insert_row("vertex_api_key", {
+                "vertex_id": vid,
+                "_seq": 0,
+                "created_date": now[:10],
+                "sensitivity_ord": 0,
+                "owner_did": owner,
+                "key_hash": state["key_hash"],
+                "key_prefix": state["key_prefix"],
+                "name": name,
+                "scopes": scopes,
+                "status": "active",
+                "last_used_at": None,
+                "created_at": now
+            })
+        await asyncio.to_thread(_write)
     except Exception as exc:  # noqa: BLE001
         return {"status": "error", "error": f"INSERT failed: {exc!s}"[:300]}
 

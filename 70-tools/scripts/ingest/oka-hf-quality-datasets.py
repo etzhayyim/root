@@ -291,7 +291,7 @@ def ingest_spec(cur: Any, spec: DatasetSpec, *, token: str | None, batch_size: i
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--rw-url", default=os.environ.get("RW_URL") or os.environ.get("DATABASE_URL"))
+    parser.add_argument("--rw-url", default=os.environ.get("KOTOBA_URL") or os.environ.get("DATABASE_URL"))
     parser.add_argument("--hf-token", default=os.environ.get("HF_TOKEN"))
     parser.add_argument("--batch-size", type=int, default=100)
     parser.add_argument("--dry-run", action="store_true")
@@ -302,7 +302,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> None:
     args = build_parser().parse_args()
     if not args.rw_url and not args.dry_run:
-        raise SystemExit("Set RW_URL or DATABASE_URL")
+        raise SystemExit("Set KOTOBA_URL or DATABASE_URL")
 
     specs = [
         DatasetSpec(

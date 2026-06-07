@@ -16,7 +16,7 @@ Graphs:
   fetch_worldlii_graph    — WorldLii OAI-PMH → parallel ingest fan-out
   fetch_canlii_graph      — CanLII API → parallel ingest fan-out
 
-CRITICAL (RisingWave vector quirk):
+CRITICAL (Kotoba/Datomic vector quirk):
   psycopg3 rejects ::vector(1024) as a prepared-statement parameter.
   All cosine-search and embedding-update queries inline the vector literal
   as a string: `'[x0,x1,...]'::vector(1024)`.
@@ -37,8 +37,6 @@ import urllib.request
 from typing import Annotated, Any, TypedDict
 
 import httpx
-import psycopg
-import psycopg.rows
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send
 
@@ -46,7 +44,6 @@ from langgraph.types import Send
 # Config
 # ─────────────────────────────────────────────────────────────
 
-RW_DSN    = os.environ.get("RW_URL", "postgresql://root@risingwave.risingwave.svc.cluster.local:4566/dev")
 OWNER_DID = "did:web:legal-corpus.etzhayyim.com"
 
 
@@ -59,31 +56,6 @@ def _vertex_id(source_id: str, canonical_uri: str) -> str:
         f"at://{OWNER_DID}/com.etzhayyim.apps.legal-corpus.document/"
         f"{source_id}:{canonical_uri}"
     )
-
-
-# ─────────────────────────────────────────────────────────────
-# DB helpers (psycopg3 async — one connection per call)
-# ─────────────────────────────────────────────────────────────
-
-async def _fetchone(sql: str, params: tuple = ()) -> dict | None:
-    async with await psycopg.AsyncConnection.connect(RW_DSN) as conn:
-        async with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
-            await cur.execute(sql, params)
-            return await cur.fetchone()
-
-
-async def _fetchall(sql: str, params: tuple = ()) -> list[dict]:
-    async with await psycopg.AsyncConnection.connect(RW_DSN) as conn:
-        async with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
-            await cur.execute(sql, params)
-            rows = await cur.fetchall()
-            return rows or []
-
-
-async def _execute(sql: str, params: tuple = ()) -> None:
-    async with await psycopg.AsyncConnection.connect(RW_DSN) as conn:
-        async with conn.cursor() as cur:
-            await cur.execute(sql, params)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -114,9 +86,9 @@ async def _embed_text(text: str) -> list[float]:
 
 
 def _vec_literal(embedding: list[float]) -> str:
-    """Format float list as an inline RisingWave vector literal.
+    """Format float list as an inline Kotoba/Datomic vector literal.
 
-    RisingWave psycopg3 rejects ::vector(1024) in parameterized statements;
+    Kotoba/Datomic psycopg3 rejects ::vector(1024) in parameterized statements;
     the literal must be inlined directly in the SQL string.
     """
     return "[" + ",".join(f"{x:.8f}" for x in embedding) + "]"
@@ -150,11 +122,14 @@ class IngestState(TypedDict):
 
 
 async def _ingest_dedupe(state: IngestState) -> IngestState:
-    row = await _fetchone(
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    rows = client.q(
         "SELECT vertex_id FROM vertex_legal_corpus_document"
         " WHERE source_id = %s AND canonical_uri = %s LIMIT 1",
         (state["source_id"], state["canonical_uri"]),
     )
+    row = rows[0] if rows else None
     if row:
         return {**state, "vertex_id": row["vertex_id"], "already_known": True}
     return {**state, "vertex_id": _vertex_id(state["source_id"], state["canonical_uri"]), "already_known": False}
@@ -164,27 +139,29 @@ async def _ingest_insert(state: IngestState) -> IngestState:
     if state["already_known"]:
         return state
     try:
-        await _execute(
-            """
-            INSERT INTO vertex_legal_corpus_document
-              (vertex_id, source_id, canonical_uri, document_type, jurisdiction,
-               court, court_did, language_code, title, citation,
-               decided_at, published_at, fetched_at, body_text, body_uri,
-               topic_tags_csv, sensitivity_ord, owner_did, created_at)
-            VALUES
-              (%s,%s,%s,%s,%s, %s,%s,%s,%s,%s, %s,%s,%s,%s,%s, %s,%s,%s,%s)
-            """,
-            (
-                state["vertex_id"], state["source_id"], state["canonical_uri"],
-                state["document_type"], state.get("jurisdiction"),
-                state.get("court"), state.get("court_did"), state["language_code"],
-                state["title"], state.get("citation"),
-                state.get("decided_at"), state.get("published_at"), state["fetched_at"],
-                state.get("body_text"), state.get("body_uri"),
-                state.get("topic_tags_csv"), state.get("sensitivity_ord", 1),
-                OWNER_DID, state["fetched_at"],
-            ),
-        )
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        client.insert_row("vertex_legal_corpus_document", {
+            "vertex_id": state["vertex_id"],
+            "source_id": state["source_id"],
+            "canonical_uri": state["canonical_uri"],
+            "document_type": state["document_type"],
+            "jurisdiction": state.get("jurisdiction"),
+            "court": state.get("court"),
+            "court_did": state.get("court_did"),
+            "language_code": state["language_code"],
+            "title": state["title"],
+            "citation": state.get("citation"),
+            "decided_at": state.get("decided_at"),
+            "published_at": state.get("published_at"),
+            "fetched_at": state["fetched_at"],
+            "body_text": state.get("body_text"),
+            "body_uri": state.get("body_uri"),
+            "topic_tags_csv": state.get("topic_tags_csv"),
+            "sensitivity_ord": state.get("sensitivity_ord", 1),
+            "owner_did": OWNER_DID,
+            "created_at": state["fetched_at"]
+        })
     except Exception as exc:
         return {**state, "error": str(exc)}
     return state
@@ -231,11 +208,14 @@ class EmbedState(TypedDict):
 
 
 async def _embed_load(state: EmbedState) -> EmbedState:
-    row = await _fetchone(
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    rows = client.q(
         "SELECT vertex_id, body_text FROM vertex_legal_corpus_document"
         " WHERE vertex_id = %s LIMIT 1",
         (state["vertex_id"],),
     )
+    row = rows[0] if rows else None
     if not row or not row.get("body_text"):
         return {**state, "error": "no body_text found"}
     return {**state, "body_text": row["body_text"]}
@@ -251,18 +231,19 @@ async def _embed_encode(state: EmbedState) -> EmbedState:
 async def _embed_write(state: EmbedState) -> EmbedState:
     if not state.get("embedding"):
         return {**state, "updated": False}
-    vec = _vec_literal(state["embedding"])
     try:
-        await _execute(
-            f"""
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        client.q(
+            """
             UPDATE vertex_legal_corpus_document
-               SET embedding_vec = '{vec}'::vector(1024),
+               SET embedding_vec = %s,
                    embedding_dim = %s,
                    embedding_model = 'BAAI/bge-m3',
                    embedding_at = now()
              WHERE vertex_id = %s
             """,
-            (state["dim"], state["vertex_id"]),
+            (state["embedding"], state["dim"], state["vertex_id"]),
         )
     except Exception as exc:
         return {**state, "updated": False, "error": str(exc)}
@@ -284,7 +265,7 @@ def build_embed_document_graph() -> Any:
 # ─────────────────────────────────────────────────────────────
 # 3. SearchDocument graph
 #    Replaces: searchDocument.bpmn + legal.corpus.searchDocument handler
-#    CRITICAL: vec literal inlined to avoid RisingWave psycopg3 rejection
+#    CRITICAL: vec literal inlined to avoid Kotoba/Datomic psycopg3 rejection
 # ─────────────────────────────────────────────────────────────
 
 class SearchState(TypedDict):
@@ -309,7 +290,7 @@ async def _search_run(state: SearchState) -> SearchState:
     except Exception as exc:
         return {**state, "hits": [], "hit_count": 0, "error": f"embed failed: {exc}"}
 
-    vec = _vec_literal(embedding)
+    vec = embedding
     limit_i = max(1, min(int(state.get("limit") or 10), 100))
 
     where_parts = ["embedding_vec IS NOT NULL"]
@@ -328,14 +309,16 @@ async def _search_run(state: SearchState) -> SearchState:
     sql = f"""
         SELECT vertex_id, canonical_uri, title, court, jurisdiction,
                document_type, language_code, source_id,
-               1 - (embedding_vec <=> '{vec}'::vector(1024)) AS score
+               1 - (embedding_vec <=> %s) AS score
           FROM vertex_legal_corpus_document
          WHERE {where_sql}
-         ORDER BY embedding_vec <=> '{vec}'::vector(1024)
+         ORDER BY embedding_vec <=> %s
          LIMIT {limit_i}
     """
     try:
-        rows = await _fetchall(sql)
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        rows = client.q(sql, (vec, vec))
     except Exception as exc:
         return {**state, "hits": [], "hit_count": 0, "error": f"search failed: {exc}"}
 
@@ -399,7 +382,9 @@ async def _fae_write_body(state: FetchAndEmbedState) -> FetchAndEmbedState:
     if not state.get("body_text"):
         return {**state, "body_updated": False}
     try:
-        await _execute(
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        client.q(
             "UPDATE vertex_legal_corpus_document SET body_text = %s WHERE vertex_id = %s",
             (state["body_text"], state["vertex_id"]),
         )
@@ -412,10 +397,13 @@ async def _fae_encode(state: FetchAndEmbedState) -> FetchAndEmbedState:
     text = state.get("body_text") or ""
     if not text:
         # Fall back to title for docs without CELLAR XHTML (still searchable by title)
-        row = await _fetchone(
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        rows = client.q(
             "SELECT title FROM vertex_legal_corpus_document WHERE vertex_id = %s LIMIT 1",
             (state["vertex_id"],),
         )
+        row = rows[0] if rows else None
         text = (row["title"] if row else "") or ""
     if not text:
         return {**state, "embedding": [], "dim": 0}
@@ -426,18 +414,19 @@ async def _fae_encode(state: FetchAndEmbedState) -> FetchAndEmbedState:
 async def _fae_write_embed(state: FetchAndEmbedState) -> FetchAndEmbedState:
     if not state.get("embedding"):
         return {**state, "embed_updated": False}
-    vec = _vec_literal(state["embedding"])
     try:
-        await _execute(
-            f"""
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        client.q(
+            """
             UPDATE vertex_legal_corpus_document
-               SET embedding_vec = '{vec}'::vector(1024),
+               SET embedding_vec = %s,
                    embedding_dim = %s,
                    embedding_model = 'BAAI/bge-m3',
                    embedding_at = now()
              WHERE vertex_id = %s
             """,
-            (state["dim"], state["vertex_id"]),
+            (state["embedding"], state["dim"], state["vertex_id"]),
         )
     except Exception as exc:
         return {**state, "embed_updated": False, "error": str(exc)}
@@ -678,10 +667,13 @@ class FetchCourtListenerState(TypedDict):
 
 
 async def _cl_load_cursor(state: FetchCourtListenerState) -> FetchCourtListenerState:
-    row = await _fetchone(
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    rows = client.q(
         "SELECT last_cursor, secret_ref FROM vertex_legal_corpus_source"
         " WHERE source_id = 'courtlistener' LIMIT 1"
     )
+    row = rows[0] if rows else None
     cursor = row["last_cursor"] if row else None
     secret = row["secret_ref"] if row else ""
     return {**state, "cursor": cursor, "secret_ref": secret}
@@ -737,7 +729,9 @@ async def _cl_advance_cursor(state: FetchCourtListenerState) -> FetchCourtListen
     next_cur = state.get("next_cursor")
     if next_cur:
         try:
-            await _execute(
+            from kotodama.kotoba_datomic import get_kotoba_client
+            client = get_kotoba_client()
+            client.q(
                 "UPDATE vertex_legal_corpus_source"
                 " SET last_cursor = %s, last_fetched_at = %s"
                 " WHERE source_id = 'courtlistener'",
@@ -949,10 +943,13 @@ class FetchCanLiiState(TypedDict):
 
 
 async def _canlii_load_key(state: FetchCanLiiState) -> FetchCanLiiState:
-    row = await _fetchone(
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    rows = client.q(
         "SELECT secret_ref FROM vertex_legal_corpus_source"
         " WHERE source_id = 'canlii' LIMIT 1"
     )
+    row = rows[0] if rows else None
     key = row["secret_ref"] if row else ""
     return {**state, "canlii_key": key}
 

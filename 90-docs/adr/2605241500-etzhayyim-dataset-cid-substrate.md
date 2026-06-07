@@ -196,7 +196,7 @@ for chunker-independent verification.
 ## D4. Thin wrapper — `70-tools/e7m-dataset/`
 
 Python (DataLad is Python-native; reusing the same toolchain as
-`pymagatama.organism.sensors.charter_rider`):
+`kotodama.organism.sensors.charter_rider`):
 
 ```
 e7m-dataset add <source-uri> [--kind <kind>] [--license <spdx>]
@@ -293,7 +293,7 @@ For the immediate term on this Mac:
 
 ## D7. Charter Rider pre-pin gate
 
-`pymagatama.organism.sensors.charter_rider.scan()` (CLAUDE.md baien
+`kotodama.organism.sensors.charter_rider.scan()` (CLAUDE.md baien
 tooling index) is invoked over a sampled subset of each staged
 subdataset before `git annex copy --to ipfs`:
 

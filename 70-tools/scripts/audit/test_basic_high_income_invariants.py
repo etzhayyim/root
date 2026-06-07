@@ -35,7 +35,7 @@ _METRIC = _LEX / "liberation" / "metricReport.json"
 _VENDOR = _LEX / "give" / "vendorMissionDonationAttestation.json"
 _VENDOR_POLICY = _LEX / "give" / "vendorSurplusPolicy.json"
 _VALUATION = _REPO / "20-actors" / "toritate" / "valuation" / "v1-retail-equiv.json"
-_CELLS = _REPO / "20-actors" / "magatama" / "cells"
+_CELLS = _REPO / "20-actors" / "kotodama" / "cells"
 _TORITATE_MANIFEST = _REPO / "20-actors" / "toritate" / "manifest.jsonld"
 
 
@@ -326,8 +326,8 @@ def _manifest_cell_modules() -> set[str]:
 def test_manifest_declares_bhi_compute_cells():
     modules = _manifest_cell_modules()
     for mod in (
-        "magatama.cells.toritate_imputed_income_compute",
-        "magatama.cells.toritate_commons_asset_value",
+        "kotodama.cells.toritate_imputed_income_compute",
+        "kotodama.cells.toritate_commons_asset_value",
     ):
         assert mod in modules, f"toritate manifest must declare {mod}"
 

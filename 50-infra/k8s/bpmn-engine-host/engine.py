@@ -41,9 +41,7 @@ from typing import Any
 from uuid import uuid4
 
 from lxml import etree
-from psycopg import Connection
-from psycopg.rows import dict_row
-from psycopg_pool import ConnectionPool
+from kotodama.kotoba_datomic import KotobaDatomicClient
 from SpiffWorkflow.bpmn.parser.BpmnParser import BpmnParser
 from SpiffWorkflow.bpmn.serializer.default import BpmnTaskSpecConverter
 from SpiffWorkflow.bpmn.serializer.workflow import (
@@ -185,13 +183,13 @@ class CachedSpec:
 class ProcessRegistry:
     """In-memory cache of parsed BPMN specs keyed by bpmn_process_id.
 
-    Source of truth = `vertex_bpmn_process_def` (RisingWave). Cache is
+    Source of truth = `vertex_bpmn_process_def` (kotoba). Cache is
     invalidated explicitly via `reload(bpmn_process_id)`; a future
     follow-up can subscribe to RW change-data and auto-reload on commit.
     """
 
-    def __init__(self, pool: ConnectionPool) -> None:
-        self._pool = pool
+    def __init__(self, client: KotobaDatomicClient) -> None:
+        self._client = client
         self._cache: dict[str, CachedSpec] = {}
         self._lock = threading.RLock()
         self._parser_factory = BpmnParser
@@ -211,21 +209,26 @@ class ProcessRegistry:
             return self.get(bpmn_process_id)
 
     def _load(self, bpmn_process_id: str) -> CachedSpec:
-        with self._pool.connection() as conn:
-            conn.row_factory = dict_row
-            row = conn.execute(
-                """
-                SELECT bpmn_process_id, version, xml, xml_byte_size
-                FROM vertex_bpmn_process_def
-                WHERE bpmn_process_id = %s AND status = 'active'
-                ORDER BY version DESC
-                LIMIT 1
-                """,
-                (bpmn_process_id,),
-            ).fetchone()
+        import asyncio
+        import nest_asyncio
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            nest_asyncio.apply()
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+        async def fetch():
+            # kotoba: limit to active matching the ID, sort descending by version
+            rows = await asyncio.to_thread(self._client.select_where, "vertex_bpmn_process_def", "bpmn_process_id", bpmn_process_id, limit=100)
+            active_rows = [r for r in rows if r.get("status") == "active"]
+            active_rows.sort(key=lambda r: int(r.get("version") or 0), reverse=True)
+            return active_rows[0] if active_rows else None
+
+        row = loop.run_until_complete(fetch())
         if row is None:
             raise KeyError(f"no active BPMN spec for {bpmn_process_id}")
-        xml_root = etree.fromstring(row["xml"].encode("utf-8"))
+        xml_root = etree.fromstring(row.get("xml", "").encode("utf-8"))
         parser = self._parser_factory()
         parser.add_bpmn_xml(xml_root)
         # Spiff 3.x: `get_spec` returns the main spec, `get_subprocess_specs`
@@ -235,25 +238,25 @@ class ProcessRegistry:
         subprocesses = parser.get_subprocess_specs(bpmn_process_id) or {}
         injected = _inject_zeebe_task_types(spec, xml_root, bpmn_process_id)
         log.debug("registry: loaded %s v%s (zeebe taskDefinition injected on %d)",
-                  bpmn_process_id, row["version"], injected)
+                  bpmn_process_id, row.get("version"), injected)
         return CachedSpec(
             bpmn_process_id=bpmn_process_id,
-            version=int(row["version"] or 1),
+            version=int(row.get("version") or 1),
             spec=spec,
             subprocesses=subprocesses,
-            xml_byte_size=int(row["xml_byte_size"] or 0),
+            xml_byte_size=int(row.get("xml_byte_size") or 0),
             loaded_at=_now_iso(),
         )
 
 
 # ── Engine ──────────────────────────────────────────────────────────────────
 class SpiffEngine:
-    """Thread-safe wrapper around SpiffWorkflow with RW persistence."""
+    """Thread-safe wrapper around SpiffWorkflow with kotoba persistence."""
 
-    def __init__(self, pool: ConnectionPool, *, registry: ProcessRegistry | None = None,
+    def __init__(self, client: KotobaDatomicClient, *, registry: ProcessRegistry | None = None,
                  owner_did: str = ENGINE_OWNER_DID) -> None:
-        self._pool = pool
-        self._registry = registry or ProcessRegistry(pool)
+        self._client = client
+        self._registry = registry or ProcessRegistry(client)
         self._owner_did = owner_did
         self._serializer = _build_serializer()
         # Per-instance lock guards SpiffWorkflow mutation. Spiff is not
@@ -289,9 +292,10 @@ class SpiffEngine:
         # until the workflow is parked on a service task or completed.
         wf.do_engine_steps()
         ready_jobs = self._collect_ready_jobs(wf, instance_id, bpmn_process_id, variables)
-        with self._pool.connection() as conn:
-            self._persist_instance(
-                conn, wf,
+        import asyncio
+        async def _save():
+            await self._persist_instance(
+                wf,
                 instance_id=instance_id,
                 bpmn_process_id=bpmn_process_id,
                 process_version=cached.version,
@@ -303,11 +307,15 @@ class SpiffEngine:
                 seq=0,
                 event_type="instance_started",
             )
-            conn.commit()
-        for job in ready_jobs:
-            with self._pool.connection() as conn:
-                self._enqueue_job(conn, job)
-                conn.commit()
+            for job in ready_jobs:
+                await self._enqueue_job(job)
+        
+        try:
+            loop = asyncio.get_running_loop()
+            loop.create_task(_save())
+        except RuntimeError:
+            asyncio.run(_save())
+
         self._remember_instance(
             instance_id,
             wf,
@@ -362,9 +370,10 @@ class SpiffEngine:
             ready_jobs = self._collect_ready_jobs(
                 wf, instance_id, meta["bpmn_process_id"], None,
             )
-            with self._pool.connection() as conn:
-                self._persist_instance(
-                    conn, wf,
+            import asyncio
+            async def _save():
+                await self._persist_instance(
+                    wf,
                     instance_id=instance_id,
                     bpmn_process_id=meta["bpmn_process_id"],
                     process_version=meta["process_version"],
@@ -377,9 +386,14 @@ class SpiffEngine:
                     event_type="step_advanced",
                 )
                 for job in ready_jobs:
-                    self._enqueue_job(conn, job)
+                    await self._enqueue_job(job)
                 self._remember_ready_jobs(ready_jobs)
-                conn.commit()
+            try:
+                loop = asyncio.get_running_loop()
+                loop.create_task(_save())
+            except RuntimeError:
+                asyncio.run(_save())
+
             self._check_ready_jobs_visible(ready_jobs)
             return {
                 "instance_id": instance_id,
@@ -418,9 +432,10 @@ class SpiffEngine:
                         "non-terminal; reconciling completed instance",
                         job_id,
                     )
-                    with self._pool.connection() as conn:
-                        self._persist_instance(
-                            conn, wf,
+                    import asyncio
+                    async def _save_reconcile():
+                        await self._persist_instance(
+                            wf,
                             instance_id=instance_id,
                             bpmn_process_id=meta["bpmn_process_id"],
                             process_version=meta["process_version"],
@@ -433,7 +448,11 @@ class SpiffEngine:
                             event_type="job_completed_reconciled",
                             force_completed=True,
                         )
-                        conn.commit()
+                    try:
+                        loop = asyncio.get_running_loop()
+                        loop.create_task(_save_reconcile())
+                    except RuntimeError:
+                        asyncio.run(_save_reconcile())
                     return {
                         "jobStatus": "completed",
                         "instanceId": instance_id,
@@ -465,10 +484,10 @@ class SpiffEngine:
                 )
                 instance_seq = int(meta["next_seq"])
                 completed_job_seq = int(job.get("_seq") or 0) + 2
-                with self._pool.connection() as conn:
-                    instance_seq = int(meta["next_seq"])
-                    self._persist_instance(
-                        conn, wf,
+                import asyncio
+                async def _save_missing_target():
+                    await self._persist_instance(
+                        wf,
                         instance_id=instance_id,
                         bpmn_process_id=meta["bpmn_process_id"],
                         process_version=meta["process_version"],
@@ -481,10 +500,13 @@ class SpiffEngine:
                         event_type="job_completed_reconciled",
                         force_completed=True,
                     )
-                    conn.commit()
-                with self._pool.connection() as conn:
-                    self._mark_job_completed(conn, job, result, worker_id)
-                    conn.commit()
+                    await self._mark_job_completed(job, result, worker_id)
+                try:
+                    loop = asyncio.get_running_loop()
+                    loop.create_task(_save_missing_target())
+                except RuntimeError:
+                    asyncio.run(_save_missing_target())
+                
                 self._check_complete_visible(
                     job_id=job_id,
                     instance_id=instance_id,
@@ -518,9 +540,10 @@ class SpiffEngine:
             instance_seq = int(meta["next_seq"])
             visible_instance_seq = instance_seq
             completed_job_seq = int(job.get("_seq") or 0) + 2
-            with self._pool.connection() as conn:
-                self._persist_instance(
-                    conn, wf,
+            
+            async def _save_complete():
+                await self._persist_instance(
+                    wf,
                     instance_id=instance_id,
                     bpmn_process_id=meta["bpmn_process_id"],
                     process_version=meta["process_version"],
@@ -532,20 +555,21 @@ class SpiffEngine:
                     seq=instance_seq,
                     event_type="job_completed",
                 )
-                conn.commit()
-            with self._pool.connection() as conn:
-                self._mark_job_completed(conn, job, result, worker_id)
-                conn.commit()
-            for new_job in ready_jobs:
-                with self._pool.connection() as conn:
-                    self._enqueue_job(conn, new_job)
-                    conn.commit()
+                await self._mark_job_completed(job, result, worker_id)
+                for new_job in ready_jobs:
+                    await self._enqueue_job(new_job)
+
+            try:
+                loop = asyncio.get_running_loop()
+                loop.create_task(_save_complete())
+            except RuntimeError:
+                asyncio.run(_save_complete())
             self._remember_ready_jobs(ready_jobs)
             if terminal_by_no_active_work:
                 visible_instance_seq = instance_seq + 1
-                with self._pool.connection() as conn:
-                    self._persist_instance(
-                        conn, wf,
+                async def _save_terminal():
+                    await self._persist_instance(
+                        wf,
                         instance_id=instance_id,
                         bpmn_process_id=meta["bpmn_process_id"],
                         process_version=meta["process_version"],
@@ -558,7 +582,11 @@ class SpiffEngine:
                         event_type="job_completed_no_active_work",
                         force_completed=True,
                     )
-                    conn.commit()
+                try:
+                    loop = asyncio.get_running_loop()
+                    loop.create_task(_save_terminal())
+                except RuntimeError:
+                    asyncio.run(_save_terminal())
             meta["next_seq"] = visible_instance_seq + 1
             self._remember_instance(instance_id, wf, meta)
             self._check_complete_visible(
@@ -633,9 +661,10 @@ class SpiffEngine:
                     "actor_id": meta.get("actor_id"),
                 }
                 instance_seq = int(meta["next_seq"])
-                with self._pool.connection() as conn:
-                    self._persist_instance(
-                        conn, wf,
+                import asyncio
+                async def _save_reconcile():
+                    await self._persist_instance(
+                        wf,
                         instance_id=instance_id,
                         bpmn_process_id=meta["bpmn_process_id"],
                         process_version=meta["process_version"],
@@ -648,10 +677,13 @@ class SpiffEngine:
                         event_type="job_completed_inline_stale_reconciled",
                         force_completed=True,
                     )
-                    conn.commit()
-                with self._pool.connection() as conn:
-                    self._mark_job_completed(conn, job, result, worker_id)
-                    conn.commit()
+                    await self._mark_job_completed(job, result, worker_id)
+                try:
+                    loop = asyncio.get_running_loop()
+                    loop.create_task(_save_reconcile())
+                except RuntimeError:
+                    asyncio.run(_save_reconcile())
+
                 meta["next_seq"] = instance_seq + 1
                 self._remember_instance(instance_id, wf, meta)
                 self._check_complete_visible(
@@ -711,9 +743,9 @@ class SpiffEngine:
                 "actor_id": meta.get("actor_id"),
             }
             visible_instance_seq = instance_seq
-            with self._pool.connection() as conn:
-                self._persist_instance(
-                    conn, wf,
+            async def _save_inline():
+                await self._persist_instance(
+                    wf,
                     instance_id=instance_id,
                     bpmn_process_id=meta["bpmn_process_id"],
                     process_version=meta["process_version"],
@@ -725,20 +757,22 @@ class SpiffEngine:
                     seq=instance_seq,
                     event_type="job_completed_inline",
                 )
-                conn.commit()
-            with self._pool.connection() as conn:
-                self._mark_job_completed(conn, job, result, worker_id)
-                conn.commit()
-            for new_job in ready_jobs:
-                with self._pool.connection() as conn:
-                    self._enqueue_job(conn, new_job)
-                    conn.commit()
+                await self._mark_job_completed(job, result, worker_id)
+                for new_job in ready_jobs:
+                    await self._enqueue_job(new_job)
+
+            try:
+                loop = asyncio.get_running_loop()
+                loop.create_task(_save_inline())
+            except RuntimeError:
+                asyncio.run(_save_inline())
+
             self._remember_ready_jobs(ready_jobs)
             if terminal_by_no_active_work:
                 visible_instance_seq = instance_seq + 1
-                with self._pool.connection() as conn:
-                    self._persist_instance(
-                        conn, wf,
+                async def _save_inline_terminal():
+                    await self._persist_instance(
+                        wf,
                         instance_id=instance_id,
                         bpmn_process_id=meta["bpmn_process_id"],
                         process_version=meta["process_version"],
@@ -751,7 +785,11 @@ class SpiffEngine:
                         event_type="job_completed_inline_no_active_work",
                         force_completed=True,
                     )
-                    conn.commit()
+                try:
+                    loop = asyncio.get_running_loop()
+                    loop.create_task(_save_inline_terminal())
+                except RuntimeError:
+                    asyncio.run(_save_inline_terminal())
             meta["next_seq"] = visible_instance_seq + 1
             self._remember_instance(instance_id, wf, meta)
             self._check_complete_visible(
@@ -814,9 +852,10 @@ class SpiffEngine:
             ready_jobs = self._collect_ready_jobs(
                 wf, instance_id, meta["bpmn_process_id"], None,
             )
-            with self._pool.connection() as conn:
-                self._persist_instance(
-                    conn, wf,
+            import asyncio
+            async def _save_throw():
+                await self._persist_instance(
+                    wf,
                     instance_id=instance_id,
                     bpmn_process_id=meta["bpmn_process_id"],
                     process_version=meta["process_version"],
@@ -828,26 +867,28 @@ class SpiffEngine:
                     seq=int(meta["next_seq"]),
                     event_type="bpmn_error_thrown",
                 )
-                # Mark the originating job. Routed = completed (caught
-                # by boundary handler). Unrouted = failed (operator must
-                # decide whether to retry; we don't auto-retry on
-                # business errors).
                 if caught:
-                    self._mark_job_completed(
-                        conn, job,
+                    await self._mark_job_completed(
+                        job,
                         {"errorCode": error_code, "caught": True},
                         worker_id,
                     )
                 else:
-                    self._mark_job_failed(
-                        conn, job,
+                    await self._mark_job_failed(
+                        job,
                         f"bpmn_error:{error_code}:uncaught:{message or ''}",
                         worker_id, retryable=False,
                     )
                 for new_job in ready_jobs:
-                    self._enqueue_job(conn, new_job)
-                self._remember_ready_jobs(ready_jobs)
-                conn.commit()
+                    await self._enqueue_job(new_job)
+
+            try:
+                loop = asyncio.get_running_loop()
+                loop.create_task(_save_throw())
+            except RuntimeError:
+                asyncio.run(_save_throw())
+
+            self._remember_ready_jobs(ready_jobs)
             log.info("throw_bpmn_error: job=%s code=%s caught=%s",
                      job_id, error_code, caught)
             return {
@@ -945,24 +986,30 @@ class SpiffEngine:
         the engine; oversize fleets need sharded reconcilers (Phase 3).
         """
         safe_limit = max(1, int(max_instances))
-        with self._pool.connection() as conn:
-            conn.row_factory = dict_row
-            rows = conn.execute(
-                f"""
-                SELECT i.instance_id
-                FROM vertex_spiff_instance AS i
-                JOIN (
-                  SELECT instance_id, max(_seq) AS latest_seq
-                  FROM vertex_spiff_instance
-                  GROUP BY instance_id
-                ) AS latest
-                  ON i.instance_id = latest.instance_id
-                 AND i._seq = latest.latest_seq
-                WHERE i.status = 'running'
-                ORDER BY i.updated_at ASC
-                LIMIT {safe_limit}
-                """,
-            ).fetchall()
+        import asyncio
+        async def fetch():
+            # Very basic stand-in for kotoba query: we pull a bunch of rows and find the ones that are 'running'.
+            # A full replacement would need a kotoba EDN query to do the group-by/latest logic from Postgres.
+            raw_rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_instance", "status", "running", limit=safe_limit * 5)
+            # Find unique instances
+            seen = set()
+            out = []
+            for r in sorted(raw_rows, key=lambda x: str(x.get("updated_at") or "")):
+                inst = str(r.get("instance_id") or "")
+                if inst and inst not in seen:
+                    seen.add(inst)
+                    out.append(r)
+                if len(out) >= safe_limit:
+                    break
+            return out
+            
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+        rows = loop.run_until_complete(fetch())
         ticked = 0
         completed = 0
         errors = 0
@@ -992,17 +1039,21 @@ class SpiffEngine:
         job = self._load_job(job_id)
         if job["status"] == "completed":
             raise ValueError(f"fail_job: job {job_id} already completed")
-        with self._pool.connection() as conn:
-            self._mark_job_failed(conn, job, error_msg, worker_id, retryable)
-            conn.commit()
+        import asyncio
+        async def _save():
+            await self._mark_job_failed(job, error_msg, worker_id, retryable)
+        try:
+            loop = asyncio.get_running_loop()
+            loop.create_task(_save())
+        except RuntimeError:
+            asyncio.run(_save())
         log.warning("fail_job: %s error=%s retryable=%s", job_id, error_msg, retryable)
         return {"jobStatus": "failed", "retryable": retryable,
                 "instanceId": job["instance_id"]}
 
     # ── Persistence ────────────────────────────────────────────────────────
-    def _persist_instance(
+    async def _persist_instance(
         self,
-        conn: Connection,
         wf: BpmnWorkflow,
         *,
         instance_id: str,
@@ -1017,28 +1068,20 @@ class SpiffEngine:
         event_type: str,
         force_completed: bool = False,
     ) -> None:
+        import asyncio
         state_json = self._serializer.serialize_json(wf)
         state_size = len(state_json.encode("utf-8"))
         completed = force_completed or self._workflow_completed(wf)
         status = "completed" if completed else "running"
         now = _now_iso()
-        latest = conn.execute(
-            """
-            SELECT _seq, status
-            FROM vertex_spiff_instance
-            WHERE instance_id = %s
-            ORDER BY _seq DESC
-            LIMIT 1
-            """,
-            (instance_id,),
-        ).fetchone()
+        
+        raw_rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_instance", "instance_id", instance_id, limit=2000)
+        raw_rows.sort(key=lambda r: int(r.get("_seq") or 0), reverse=True)
+        latest = raw_rows[0] if raw_rows else None
+        
         if latest is not None:
-            try:
-                latest_seq = int(latest["_seq"] or 0)
-                latest_status = str(latest["status"] or "")
-            except (TypeError, KeyError):
-                latest_seq = int(latest[0] or 0)
-                latest_status = str(latest[1] or "")
+            latest_seq = int(latest.get("_seq") or 0)
+            latest_status = str(latest.get("status") or "")
             if latest_status in {"completed", "cancelled", "failed"} and status == "running":
                 log.warning(
                     "persist_instance: skip non-terminal write after terminal "
@@ -1051,75 +1094,72 @@ class SpiffEngine:
             if seq <= latest_seq:
                 seq = latest_seq + 1
         # Append-only state snapshots. Do not delete-then-insert here:
-        # RisingWave has no transactional upsert, and losing the latest
+        # kotoba has no transactional upsert, and losing the latest
         # instance row strands in-flight workflows.
-        conn.execute(
-            """
-            INSERT INTO vertex_spiff_instance (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              instance_id, bpmn_process_id, process_version, state_json,
-              state_byte_size, status, correlation_key, variables_json,
-              started_at, updated_at, completed_at, error_msg,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                _vertex_instance(instance_id, seq), seq, _today(), 100, self._owner_did,
-                instance_id, bpmn_process_id, process_version, state_json,
-                state_size, status, correlation_key,
-                json.dumps(variables) if variables else None,
-                now if seq == 0 else None, now,
-                now if completed else None, None,
-                org_id, user_id, actor_id,
-            ),
-        )
-        conn.execute(
-            """
-            INSERT INTO vertex_spiff_history (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              instance_id, seq, event_type, task_id, task_type, payload_json, ts
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """,
-            (
-                _vertex_history(instance_id, seq), seq, _today(), 100, self._owner_did,
-                instance_id, seq, event_type, None, None,
-                json.dumps({"completed": completed, "size": state_size}), now,
-            ),
-        )
+        await asyncio.to_thread(self._client.insert_row, "vertex_spiff_instance", {
+            "vertex_id": _vertex_instance(instance_id, seq),
+            "_seq": seq,
+            "created_date": _today(),
+            "sensitivity_ord": 100,
+            "owner_did": self._owner_did,
+            "instance_id": instance_id,
+            "bpmn_process_id": bpmn_process_id,
+            "process_version": process_version,
+            "state_json": state_json,
+            "state_byte_size": state_size,
+            "status": status,
+            "correlation_key": correlation_key,
+            "variables_json": json.dumps(variables) if variables else None,
+            "started_at": now if seq == 0 else None,
+            "updated_at": now,
+            "completed_at": now if completed else None,
+            "error_msg": None,
+            "org_id": org_id,
+            "user_id": user_id,
+            "actor_id": actor_id
+        })
+        await asyncio.to_thread(self._client.insert_row, "vertex_spiff_history", {
+            "vertex_id": _vertex_history(instance_id, seq),
+            "_seq": seq,
+            "created_date": _today(),
+            "sensitivity_ord": 100,
+            "owner_did": self._owner_did,
+            "instance_id": instance_id,
+            "seq": seq,
+            "event_type": event_type,
+            "task_id": None,
+            "task_type": None,
+            "payload_json": json.dumps({"completed": completed, "size": state_size}),
+            "ts": now
+        })
 
-    def _enqueue_job(self, conn: Connection, job: dict[str, Any]) -> None:
-        conn.execute(
-            """
-            INSERT INTO vertex_spiff_job (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              job_id, instance_id, bpmn_process_id, task_id, task_type,
-              variables_json, status, claimed_by, claimed_at, claim_until,
-              result_json, error_msg, retry_count, enqueued_at, completed_at,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                _vertex_job(job["job_id"], 0), 0, _today(), 100, self._owner_did,
-                job["job_id"], job["instance_id"], job["bpmn_process_id"],
-                job["task_id"], job["task_type"],
-                json.dumps(job["variables"]) if job["variables"] else None,
-                "ready", None, None, None,
-                None, None, 0, _now_iso(), None,
-                None, None, None,
-            ),
-        )
+    async def _enqueue_job(self, job: dict[str, Any]) -> None:
+        import asyncio
+        await asyncio.to_thread(self._client.insert_row, "vertex_spiff_job", {
+            "vertex_id": _vertex_job(job["job_id"], 0),
+            "_seq": 0,
+            "created_date": _today(),
+            "sensitivity_ord": 100,
+            "owner_did": self._owner_did,
+            "job_id": job["job_id"],
+            "instance_id": job["instance_id"],
+            "bpmn_process_id": job["bpmn_process_id"],
+            "task_id": job["task_id"],
+            "task_type": job["task_type"],
+            "variables_json": json.dumps(job["variables"]) if job.get("variables") else None,
+            "status": "ready",
+            "claimed_by": None,
+            "claimed_at": None,
+            "claim_until": None,
+            "result_json": None,
+            "error_msg": None,
+            "retry_count": 0,
+            "enqueued_at": _now_iso(),
+            "completed_at": None,
+            "org_id": None,
+            "user_id": None,
+            "actor_id": None
+        })
 
     def _remember_ready_jobs(self, ready_jobs: list[dict[str, Any]]) -> None:
         if not ready_jobs:
@@ -1167,32 +1207,26 @@ class SpiffEngine:
         return wf, dict(meta)
 
     def _instance_seq_visible(self, instance_id: str, seq: int) -> bool:
-        with self._pool.connection() as conn:
-            row = conn.execute(
-                """
-                SELECT 1
-                FROM vertex_spiff_instance
-                WHERE instance_id = %s
-                  AND _seq = %s
-                LIMIT 1
-                """,
-                (instance_id, seq),
-            ).fetchone()
-        return row is not None
+        import asyncio
+        async def fetch():
+            rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_instance", "instance_id", instance_id, limit=2000)
+            return any(int(r.get("_seq") or 0) == seq for r in rows)
+        try:
+            loop = asyncio.get_running_loop()
+            return loop.run_until_complete(fetch())
+        except RuntimeError:
+            return asyncio.run(fetch())
 
     def _job_seq_visible(self, job_id: str, seq: int) -> bool:
-        with self._pool.connection() as conn:
-            row = conn.execute(
-                """
-                SELECT 1
-                FROM vertex_spiff_job
-                WHERE job_id = %s
-                  AND _seq = %s
-                LIMIT 1
-                """,
-                (job_id, seq),
-            ).fetchone()
-        return row is not None
+        import asyncio
+        async def fetch():
+            rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_job", "job_id", job_id, limit=2000)
+            return any(int(r.get("_seq") or 0) == seq for r in rows)
+        try:
+            loop = asyncio.get_running_loop()
+            return loop.run_until_complete(fetch())
+        except RuntimeError:
+            return asyncio.run(fetch())
 
     def _check_create_visible(
         self,
@@ -1202,7 +1236,7 @@ class SpiffEngine:
         required = _write_visibility_required()
         if not required:
             log.debug(
-                "create_instance: skipping blocking RW visibility check instance=%s",
+                "create_instance: skipping blocking kotoba visibility check instance=%s",
                 instance_id,
             )
             return
@@ -1212,12 +1246,12 @@ class SpiffEngine:
             ):
                 return
             log.warning(
-                "create_instance: RW write not visible yet instance=%s attempt=%d",
+                "create_instance: kotoba write not visible yet instance=%s attempt=%d",
                 instance_id, attempt,
             )
             time.sleep(_write_visibility_interval_s())
         raise RuntimeError(
-            f"create_instance: RW write not visible after retries: {instance_id}",
+            f"create_instance: kotoba write not visible after retries: {instance_id}",
         )
 
     def _check_ready_jobs_visible(self, ready_jobs: list[dict[str, Any]]) -> None:
@@ -1228,11 +1262,11 @@ class SpiffEngine:
             if all(self._job_seq_visible(job["job_id"], 0) for job in ready_jobs):
                 return
             log.warning(
-                "ready_jobs: RW write not visible yet count=%d attempt=%d",
+                "ready_jobs: kotoba write not visible yet count=%d attempt=%d",
                 len(ready_jobs), attempt,
             )
             time.sleep(_write_visibility_interval_s())
-        raise RuntimeError("ready_jobs: RW write not visible after retries")
+        raise RuntimeError("ready_jobs: kotoba write not visible after retries")
 
     def _check_complete_visible(
         self,
@@ -1246,7 +1280,7 @@ class SpiffEngine:
         required = _write_visibility_required()
         if not required:
             log.debug(
-                "complete_job: skipping blocking RW visibility check job=%s",
+                "complete_job: skipping blocking kotoba visibility check job=%s",
                 job_id,
             )
             return
@@ -1258,56 +1292,45 @@ class SpiffEngine:
             ):
                 return
             log.warning(
-                "complete_job: RW write not visible yet job=%s attempt=%d",
+                "complete_job: kotoba write not visible yet job=%s attempt=%d",
                 job_id, attempt,
             )
             time.sleep(_write_visibility_interval_s())
         raise RuntimeError(
-            f"complete_job: RW write not visible after retries: {job_id}",
+            f"complete_job: kotoba write not visible after retries: {job_id}",
         )
 
     def _load_job(self, job_id: str) -> dict[str, Any]:
-        with self._pool.connection() as conn:
-            conn.row_factory = dict_row
-            row = conn.execute(
-                """
-                SELECT job_id, instance_id, bpmn_process_id, task_id, task_type,
-                       status, retry_count, variables_json, enqueued_at, _seq
-                FROM vertex_spiff_job
-                WHERE job_id = %s
-                ORDER BY _seq DESC
-                LIMIT 1
-                """,
-                (job_id,),
-            ).fetchone()
+        import asyncio
+        async def fetch():
+            rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_job", "job_id", job_id, limit=200)
+            rows.sort(key=lambda r: int(r.get("_seq") or 0), reverse=True)
+            return rows[0] if rows else None
+        try:
+            loop = asyncio.get_running_loop()
+            row = loop.run_until_complete(fetch())
+        except RuntimeError:
+            row = asyncio.run(fetch())
+
         if row is None:
             raise KeyError(f"job not found: {job_id}")
         return dict(row)
-
     def _active_job_count(self, instance_id: str) -> int:
-        with self._pool.connection() as conn:
-            row = conn.execute(
-                """
-                SELECT count(*) AS n
-                FROM vertex_spiff_job AS j
-                JOIN (
-                  SELECT job_id, max(_seq) AS latest_seq
-                  FROM vertex_spiff_job
-                  WHERE instance_id = %s
-                  GROUP BY job_id
-                ) AS latest
-                  ON j.job_id = latest.job_id
-                 AND j._seq = latest.latest_seq
-                WHERE j.status IN ('ready', 'claimed')
-                """,
-                (instance_id,),
-            ).fetchone()
-        if row is None:
-            return 0
+        import asyncio
+        async def fetch():
+            rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_job", "instance_id", instance_id, limit=2000)
+            seen = {}
+            for r in rows:
+                jid = r.get("job_id")
+                seq = int(r.get("_seq") or 0)
+                if jid not in seen or seq > seen[jid].get("_seq", -1):
+                    seen[jid] = {"_seq": seq, "status": r.get("status")}
+            return sum(1 for v in seen.values() if v.get("status") in {"ready", "claimed"})
         try:
-            return int(row["n"] or 0)
-        except (TypeError, KeyError):
-            return int(row[0] or 0)
+            loop = asyncio.get_running_loop()
+            return loop.run_until_complete(fetch())
+        except RuntimeError:
+            return asyncio.run(fetch())
 
     def _ready_jobs_already_completed(self, ready_jobs: list[dict[str, Any]]) -> bool:
         try:
@@ -1318,80 +1341,72 @@ class SpiffEngine:
         except KeyError:
             return False
 
-    def _mark_job_completed(self, conn: Connection, job: dict[str, Any],
+    async def _mark_job_completed(self, job: dict[str, Any],
                             result: dict[str, Any], worker_id: str | None) -> None:
+        import asyncio
         # Claims are written at `_seq + 1` by workers. Terminal states
         # must advance beyond that so a delayed stale claim cannot reuse
         # the same vertex_id/seq and replace a completed/failed row.
         next_seq = int(job.get("_seq") or 0) + 2
-        conn.execute(
-            """
-            INSERT INTO vertex_spiff_job (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              job_id, instance_id, bpmn_process_id, task_id, task_type,
-              variables_json, status, claimed_by, claimed_at, claim_until,
-              result_json, error_msg, retry_count, enqueued_at, completed_at,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                _vertex_job(job["job_id"], next_seq),
-                next_seq,
-                _today(), 100, self._owner_did,
-                job["job_id"], job["instance_id"], job["bpmn_process_id"],
-                job["task_id"], job["task_type"],
-                job.get("variables_json"),
-                "completed", worker_id, None, None,
-                json.dumps(result), None, int(job.get("retry_count") or 0),
-                job.get("enqueued_at"), _now_iso(),
-                None, None, None,
-            ),
-        )
+        await asyncio.to_thread(self._client.insert_row, "vertex_spiff_job", {
+            "vertex_id": _vertex_job(job["job_id"], next_seq),
+            "_seq": next_seq,
+            "created_date": _today(),
+            "sensitivity_ord": 100,
+            "owner_did": self._owner_did,
+            "job_id": job["job_id"],
+            "instance_id": job["instance_id"],
+            "bpmn_process_id": job["bpmn_process_id"],
+            "task_id": job["task_id"],
+            "task_type": job["task_type"],
+            "variables_json": job.get("variables_json"),
+            "status": "completed",
+            "claimed_by": worker_id,
+            "claimed_at": None,
+            "claim_until": None,
+            "result_json": json.dumps(result),
+            "error_msg": None,
+            "retry_count": int(job.get("retry_count") or 0),
+            "enqueued_at": job.get("enqueued_at"),
+            "completed_at": _now_iso(),
+            "org_id": None,
+            "user_id": None,
+            "actor_id": None
+        })
 
-    def _mark_job_failed(self, conn: Connection, job: dict[str, Any],
+    async def _mark_job_failed(self, job: dict[str, Any],
                          error_msg: str, worker_id: str | None,
                          retryable: bool) -> None:
+        import asyncio
         next_status = "ready" if retryable else "failed"
         # Keep terminal/retry writes above any stale claim from the same
         # observed job row.
         next_seq = int(job.get("_seq") or 0) + 2
-        conn.execute(
-            """
-            INSERT INTO vertex_spiff_job (
-              vertex_id, _seq, created_date, sensitivity_ord, owner_did,
-              job_id, instance_id, bpmn_process_id, task_id, task_type,
-              variables_json, status, claimed_by, claimed_at, claim_until,
-              result_json, error_msg, retry_count, enqueued_at, completed_at,
-              org_id, user_id, actor_id
-            ) VALUES (
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s, %s, %s,
-              %s, %s, %s
-            )
-            """,
-            (
-                _vertex_job(job["job_id"], next_seq),
-                next_seq,
-                _today(), 100, self._owner_did,
-                job["job_id"], job["instance_id"], job["bpmn_process_id"],
-                job["task_id"], job["task_type"],
-                job.get("variables_json"),
-                next_status, worker_id, None, None,
-                None, error_msg,
-                int(job.get("retry_count") or 0) + 1,
-                job.get("enqueued_at"),
-                None if retryable else _now_iso(),
-                None, None, None,
-            ),
-        )
+        await asyncio.to_thread(self._client.insert_row, "vertex_spiff_job", {
+            "vertex_id": _vertex_job(job["job_id"], next_seq),
+            "_seq": next_seq,
+            "created_date": _today(),
+            "sensitivity_ord": 100,
+            "owner_did": self._owner_did,
+            "job_id": job["job_id"],
+            "instance_id": job["instance_id"],
+            "bpmn_process_id": job["bpmn_process_id"],
+            "task_id": job["task_id"],
+            "task_type": job["task_type"],
+            "variables_json": job.get("variables_json"),
+            "status": next_status,
+            "claimed_by": worker_id,
+            "claimed_at": None,
+            "claim_until": None,
+            "result_json": None,
+            "error_msg": error_msg,
+            "retry_count": int(job.get("retry_count") or 0) + 1,
+            "enqueued_at": job.get("enqueued_at"),
+            "completed_at": None if retryable else _now_iso(),
+            "org_id": None,
+            "user_id": None,
+            "actor_id": None
+        })
 
     @staticmethod
     def _find_task(wf: BpmnWorkflow, task_spec_name: str):
@@ -1446,28 +1461,26 @@ class SpiffEngine:
             return self._instance_locks[instance_id]
 
     def _load_instance(self, instance_id: str) -> tuple[BpmnWorkflow, dict[str, Any]]:
-        with self._pool.connection() as conn:
-            conn.row_factory = dict_row
-            row = conn.execute(
-                """
-                SELECT instance_id, bpmn_process_id, process_version, state_json,
-                       _seq, status, correlation_key, org_id, user_id, actor_id
-                FROM vertex_spiff_instance
-                WHERE instance_id = %s
-                ORDER BY _seq DESC
-                LIMIT 1
-                """,
-                (instance_id,),
-            ).fetchone()
+        import asyncio
+        async def fetch():
+            rows = await asyncio.to_thread(self._client.select_where, "vertex_spiff_instance", "instance_id", instance_id, limit=2000)
+            rows.sort(key=lambda r: int(r.get("_seq") or 0), reverse=True)
+            return rows[0] if rows else None
+        try:
+            loop = asyncio.get_running_loop()
+            row = loop.run_until_complete(fetch())
+        except RuntimeError:
+            row = asyncio.run(fetch())
+
         if row is None:
             raise KeyError(f"instance not found: {instance_id}")
-        if not row["state_json"]:
+        if not row.get("state_json"):
             raise RuntimeError(f"instance {instance_id} has no serialized state")
         # Ensure spec/subprocesses are cached so deserializer can resolve refs.
-        self._registry.get(row["bpmn_process_id"])
-        wf = self._serializer.deserialize_json(row["state_json"])
+        self._registry.get(row.get("bpmn_process_id") or "")
+        wf = self._serializer.deserialize_json(row.get("state_json") or "")
         meta = dict(row)
-        meta["next_seq"] = int(row["_seq"] or 0) + 1
+        meta["next_seq"] = int(row.get("_seq") or 0) + 1
         return wf, meta
 
     # ── Helpers ────────────────────────────────────────────────────────────

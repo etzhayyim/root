@@ -4,7 +4,7 @@ Date:     2026-05-23T19:13Z
 Protocol: `/x/etzhayyim/xrpc/1.0`
 Kubo:     0.41.0
 Backend:  `KuniUmiApiCell` (aiohttp, naphtali profile, port 13030) — see
-          `20-actors/magatama/cells/kuni_umi_api/cell.py`
+          `40-engine/kotoba/crates/kotoba-kotodama/cells/kuni_umi_api/cell.py`
 
 ## Topology
 
@@ -82,7 +82,7 @@ $ curl -X POST http://127.0.0.1:29030/xrpc/com.etzhayyim.apps.etzhayyim.kuniUmi.
 - The fleet (`naphtali / zebulun / joseph / issachar / dan / simeon / levi`)
   is not yet deployed (task #6, blocked on 1Password ssh-copy-id).
 - SiteSurveyCell's `fan_out_specialists` now has `_ensure_libp2p_tunnel(shard)`
-  that uses `pymagatama.transport.libp2p.dial_peer()` when
+  that uses `kotodama.transport.libp2p.dial_peer()` when
   `UNISPSC_SHARD_<n>_PEER_ID` env is set; falls back to plain LAN HTTP otherwise.
 - Cell-runner `KUBO_LIBP2P=1` auto-expose hook is wired (iter-10) so every
   `lan-api` cell automatically publishes its TCP port on libp2p when the env
@@ -108,11 +108,11 @@ PRIMARY_ADDR=$(curl -fsS -X POST http://127.0.0.1:5001/api/v0/id | jq -r '.Addre
 IPFS_PATH=$IPFS_PATH_2 ipfs swarm connect "$PRIMARY_ADDR"
 
 # 4) Boot KuniUmiApiCell as the actor backend
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 UNISPSC_EXECUTOR_SHARD_0=http://127.0.0.1:1 \
 UNISPSC_EXECUTOR_SHARD_1=http://127.0.0.1:1 \
 UNISPSC_EXECUTOR_SHARD_2=http://127.0.0.1:1 \
-uv run python -m pymagatama.cell_runner_main --node naphtali &
+uv run python -m kotodama.cell_runner_main --node naphtali &
 
 # 5) Mount + forward
 PRIMARY_ID=$(ipfs id -f '<id>')

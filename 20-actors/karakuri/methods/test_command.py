@@ -8,6 +8,7 @@ from command import (
     SAFETY_DELETE,
     SAFETY_READ,
     SAFETY_UPDATE,
+    T2_ENGINE,
     TIER_T1,
     TIER_T2,
     TIER_T3,
@@ -21,6 +22,8 @@ from command import (
     plan,
     resolve_service,
     select_tier,
+    t2_engine,
+    t2_stance,
 )
 
 
@@ -126,3 +129,66 @@ def test_g8_unknown_service_degrades_honestly():
     assert op.service_known is False
     assert op.note == UNKNOWN_SERVICE
     assert op.adapter_tier == ""               # no guess
+
+
+# ── Google + Facebook: api-ok yet browser-automation-prohibited ──────────────────────
+
+def test_google_resolves_and_defaults_to_official_api():
+    rec = resolve_service("google")
+    assert rec is not None
+    assert select_tier(rec) == TIER_T1          # drive the API, not the browser
+    assert t2_stance(rec) == "prohibited"
+
+
+def test_facebook_resolves_and_defaults_to_official_api():
+    rec = resolve_service("facebook")
+    assert rec is not None
+    assert select_tier(rec) == TIER_T1
+    assert t2_stance(rec) == "prohibited"
+
+
+def test_google_gmail_read_plans_via_t1_not_browser():
+    op = plan("karakuri google messages.list")
+    assert op.adapter_tier == TIER_T1
+    assert op.t2_engine == ""                    # browser-use NOT engaged for Google
+    assert op.mutate_gate == MUTATE_READ_ALLOWED
+
+
+def test_g2_browser_automation_refused_on_google():
+    # Forcing T2 browser-use on Google is refused by construction (api-ok but browser-prohibited).
+    op = plan("karakuri google search.query --q hello", prefer_tier=TIER_T2)
+    assert op.tos_gate == TOS_REFUSED
+    assert op.t2_engine == ""
+    assert "G2" in op.note
+
+
+def test_g2_browser_automation_refused_on_facebook():
+    op = plan("karakuri facebook posts.list", prefer_tier=TIER_T2)
+    assert op.tos_gate == TOS_REFUSED
+    assert op.t2_engine == ""
+
+
+# ── browser-use engine selection (the T2 path on a ToS-permitting service) ───────────
+
+def test_browser_use_engine_selected_on_permitted_t2_service():
+    op = plan("karakuri legacy-portal records.list")     # no API, automation permitted → T2
+    assert op.adapter_tier == TIER_T2
+    assert op.t2_engine == T2_ENGINE                       # "browser-use"
+    assert op.tos_gate == TOS_OK
+
+
+def test_no_engine_on_t1_service():
+    op = plan("karakuri squarespace pages.list")
+    assert op.adapter_tier == TIER_T1
+    assert op.t2_engine == ""
+
+
+def test_t2_engine_helper_empty_when_gate_refused():
+    rec = resolve_service("noauto-saas")
+    assert t2_engine(rec, TIER_T2, TOS_REFUSED) == ""
+    assert t2_engine(rec, TIER_T2, TOS_OK) == ""          # stance still prohibited
+
+
+def test_missing_t2_stance_defaults_prohibited():
+    # default-deny browser automation when the stance is absent (G2).
+    assert t2_stance({"official_api": False}) == "prohibited"

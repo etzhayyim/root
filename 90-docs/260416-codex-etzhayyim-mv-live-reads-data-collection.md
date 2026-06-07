@@ -60,7 +60,7 @@
 - **Direct DB insert**: batch11+ use psycopg2 to stream rows directly (faster, no file I/O)
 
 #### Cluster Recovery
-- RisingWave MV backfill (`mv_site_page_total`) caused 06:22–08:28 UTC recovery loop
+- Kotoba/Datomic MV backfill (`mv_site_page_total`) caused 06:22–08:28 UTC recovery loop
 - `CANCEL JOBS 4335` freed cluster (08:28)
 - DML (INSERT/SELECT) resumed; FLUSH still slow (timeout fallback)
 - SIGALRM 10–20s timeouts prevent indefinite hangs
@@ -84,7 +84,7 @@ April 17, 2026 の後続作業として、`maps-collection-control-plane` と `v
 
 - Lexicon drift を解消し、`createCollectionJob` / `advanceJob` / `getJobStatus` / `listJobs` は string `jobId` / street-chunk fields を受ける generated schema に再生成済み
 - PDS Worker `etzhayyim-pds-2603241700` は再 deploy 済み
-- `vertex_maps_job` table は migration file を追加し、RisingWave 側には manual apply で反映済み
+- `vertex_maps_job` table は migration file を追加し、Kotoba/Datomic 側には manual apply で反映済み
 - `maps-collection-control-plane` の read path は `vertex_maps_job` 直読みに変更済み
 
 未解決点:
@@ -103,7 +103,7 @@ tail -f /tmp/batch13.log
 Check final DB state (once COUNT(*) responsive):
 ```bash
 psql -h 172.236.132.11 -p 4566 -U root -d dev \
-  -c "SELECT collection, COUNT(*) FROM vertex_repo_record 
+  -c "SELECT collection, COUNT(*) FROM vertex_repo_record
       WHERE repo='did:plc:etzhayyim-collector' GROUP BY collection ORDER BY COUNT(*) DESC"
 ```
 

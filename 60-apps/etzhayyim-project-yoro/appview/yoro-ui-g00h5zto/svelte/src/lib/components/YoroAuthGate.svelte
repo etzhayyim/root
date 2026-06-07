@@ -5,10 +5,17 @@
 	import { signIn, signUp } from '$lib/auth';
 
 	interface Props {
-		signInUrl: string;
-		signUpUrl: string;
+		/** Legacy authn redirect targets (used only when `onAuth` is absent). */
+		signInUrl?: string;
+		signUpUrl?: string;
+		/**
+		 * ADR-2606061500: same-origin CACAO sign-in handler. When provided it takes
+		 * precedence over the authn URL navigation — every auth button runs the
+		 * passkey → CACAO ceremony on this origin instead of hopping to authn.
+		 */
+		onAuth?: () => void | Promise<void>;
 	}
-	const { signInUrl, signUpUrl }: Props = $props();
+	const { signInUrl = '', signUpUrl = '', onAuth }: Props = $props();
 
 	let step = $state<'welcome' | 'auth'>('welcome');
 	let bouncing = $state(false);
@@ -81,32 +88,33 @@
 		return `${base}?redirect_url=${encodeURIComponent(redirectUrl)}`;
 	}
 
-	async function runAuth(fn: () => Promise<void>, fallback: string) {
-		if (authBusy) return;
-		authBusy = true;
-		try {
-			playSuccess();
-			await fn();
-		} catch (e) {
-			const msg = e instanceof Error ? e.message : String(e);
-			// Only hard "no WebAuthn at all" falls back to the legacy hosted page.
-			if (/not supported/i.test(msg) && typeof window !== 'undefined') {
-				window.location.href = fallbackUrl(fallback);
-				return;
-			}
-			console.error('[auth] same-origin passkey flow failed:', e);
-		} finally {
-			authBusy = false;
-		}
+	function goAgentLogin() {
+		playSuccess();
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signInUrl);
 	}
 
-	const goAgentLogin = () => runAuth(signIn, signInUrl);
-	const goCreateAgent = () => runAuth(signUp, signUpUrl);
-	const goHumanLogin = () => runAuth(signIn, signInUrl);
-	// 信者になる (constitutional Adherent path) — ADR-2605172600 joining ritual.
-	// In the same-origin model this is the passkey sign-up; the on-chain
-	// EtzhayyimMembership.join + MEMBERS.md PR remain a post-signup step.
-	const goAdherentJoin = () => runAuth(signUp, signUpUrl);
+	function goCreateAgent() {
+		playSuccess();
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signUpUrl);
+	}
+
+	function goHumanLogin() {
+		playSuccess();
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signInUrl) + '&mode=human';
+	}
+
+	// 信者になる (constitutional Adherent path) — ADR-2605172600 joining ritual:
+	// (1) sign canonical oath, (2) EtzhayyimMembership.join(oathHash, gh) on Base L2,
+	// (3) open PR to MEMBERS.md. `mode=adherent` lets the auth backend branch into
+	// the WebAuthn passkey + Smart Account flow instead of the credit-gated path.
+	function goAdherentJoin() {
+		playSuccess();
+		if (onAuth) { void onAuth(); return; }
+		window.location.href = fallbackUrl(signUpUrl) + '&mode=adherent';
+	}
 </script>
 
 <div class="fixed inset-0 bg-gv2-bg-primary safe-area-top safe-area-bottom overflow-y-auto">

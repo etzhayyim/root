@@ -50,7 +50,7 @@ Autonomous hotel search and reservation platform delivered as App components.
 - APQC/ISIC/ISCO process taxonomy mapping
 - Auto-collection scheduler (interval-based probing)
 - Static HTML frontend (vanilla JS, responsive grid)
-- WADM manifest (magatama-runtime namespace)
+- WADM manifest (kotodama-runtime namespace)
 
 ### Phase 2 — Persistence & Scale [IN PROGRESS]
 

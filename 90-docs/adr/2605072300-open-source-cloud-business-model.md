@@ -1,6 +1,6 @@
 ---
 id: adr-2605072300-open-source-cloud-business-model
-title: "ADR-2605072300: Open-Source Core + Cloud SaaS Business Model (RisingWave Pattern)"
+title: "ADR-2605072300: Open-Source Core + Cloud SaaS Business Model (Kotoba/Datomic Pattern)"
 status: active
 doc_type: adr
 topic: open-source-cloud-business-model
@@ -32,8 +32,8 @@ superseded_by: []
 `etzhayyim-project-open-*` (20+ actors) と `etzhayyim-project-open-kyber` (ERP) は Apache-2.0
 ライセンスで公開済みだが、正式な課金モデル・営業戦略・メーターアーキテクチャが未定義。
 
-RisingWave / Grafana / HashiCorp が実証した **OSS Core + Managed Cloud** パターンを
-etzhayyim のアーキテクチャ (Cloudflare Workers + RisingWave + Zeebe + AT Protocol) に適用し、
+Kotoba/Datomic / Grafana / HashiCorp が実証した **OSS Core + Managed Cloud** パターンを
+etzhayyim のアーキテクチャ (Cloudflare Workers + Kotoba/Datomic + Zeebe + AT Protocol) に適用し、
 Developer Adoption → Cloud Conversion → Enterprise の3段階で収益化する。
 
 既存 README (`open-kyber`) には「Fork this repo to run your own instance; the deployed SaaS
@@ -68,7 +68,7 @@ BSL (Business Source License) は採用しない。AT Protocol エコシステ�
 ├─────────────────────────────────────────────────────────┤
 │  OSS Self-Host (T1) — Apache-2.0                        │
 │  open-kyber / open-banking / open-* 全 actor            │
-│  要件: Cloudflare Workers + RisingWave + Zeebe          │
+│  要件: Cloudflare Workers + Kotoba/Datomic + Zeebe          │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -79,7 +79,7 @@ BSL (Business Source License) は採用しない。AT Protocol エコシステ�
 | メーター | 単価 | 計測箇所 |
 |---|---|---|
 | XRPC リクエスト | ¥50 / 100万 req | CF Worker `request` event |
-| RisingWave ストリーム行 | ¥100 / 100万 rows inserted | `vertex_*` INSERT count |
+| Kotoba/Datomic ストリーム行 | ¥100 / 100万 rows inserted | `vertex_*` INSERT count |
 | Murakumo LLM トークン | ¥200 / 100万 tokens | `resolveModelId()` 呼び出しラッパー |
 | Zeebe プロセス実行 | ¥500 / 1000 instances | Zeebe process instance create |
 | PDS レコード保管 | ¥100 / GB / 月 | `vertex_repo_record` byte sum |
@@ -210,7 +210,7 @@ OSS ──────────────────┼──────�
 
 - `60-apps/etzhayyim-project-open-kyber/README.md` — 既存 OSS宣言
 - `deps.toml [[projects]] name="open-banking"` — Apache-2.0 公開済み参考実装
-- RisingWave Cloud pricing model (参考: risingwave.com/pricing)
+- Kotoba/Datomic Cloud pricing model (参考: kotoba.com/pricing)
 - Grafana OSS → Grafana Cloud 移行パターン (参考)
 - ADR-0018: PII Tier 3 Cohort-First (Enterprise PII 分離)
 - ADR-0036: Worker-direct Hyperdrive Persistence (メーター実装基盤)

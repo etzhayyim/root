@@ -1,6 +1,6 @@
 """haisen — Actor wiring diagram (Python port of haisen.go).
 
-Scans 60-apps/ workspace, reads magatama.jsonld per app to build a graph of
+Scans 60-apps/ workspace, reads kotodama.jsonld per app to build a graph of
 invoke/write/read/subscribe/wasm-import edges between actors.
 """
 
@@ -115,7 +115,7 @@ def _scan_workspace(ws: Path) -> HaisenReport:
         return HaisenReport(apps=[], edges=[])
 
     apps: list[HaisenApp] = []
-    for jsonld_path in projects_dir.rglob("magatama.jsonld"):
+    for jsonld_path in projects_dir.rglob("kotodama.jsonld"):
         data = _read_jsonld(jsonld_path)
         app = _app_from_jsonld(data)
         if app:
@@ -143,7 +143,7 @@ def _scan_workspace(ws: Path) -> HaisenReport:
             seen.add(key)
             edges.append(HaisenEdge(from_nanoid=frm, to_nanoid=to, edge_type=etype))
 
-    for jsonld_path in projects_dir.rglob("magatama.jsonld"):
+    for jsonld_path in projects_dir.rglob("kotodama.jsonld"):
         data = _read_jsonld(jsonld_path)
         nanoid = data.get("nanoid", "")
         if not nanoid:

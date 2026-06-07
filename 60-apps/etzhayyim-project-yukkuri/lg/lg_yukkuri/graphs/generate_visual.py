@@ -30,7 +30,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _IMAGE_URL = os.environ.get(
     "MURAKUMO_IMAGE_URL",
     "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1/images/generations",
@@ -55,20 +54,12 @@ class _State(TypedDict, total=False):
 
 
 async def _fetch_scenes(video_id: str) -> list[dict]:
-    import psycopg
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            """SELECT scene_index, location, action
-               FROM vertex_yukkuri_scene WHERE video_id = %s
-               ORDER BY scene_index LIMIT 20""",
-            [video_id],
-        )
-        rows = await cur.fetchall()
-    finally:
-        await conn.close()
-    return [{"scene_index": r[0], "location": r[1], "action": r[2]} for r in rows]
+    import asyncio
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_scene", "video_id", video_id, limit=20)
+    raw_rows.sort(key=lambda r: int(r.get("scene_index") or 0))
+    return [{"scene_index": int(r.get("scene_index") or 0), "location": r.get("location") or "", "action": r.get("action") or ""} for r in raw_rows]
 
 
 async def _generate_one(scene: dict) -> dict[str, Any]:
@@ -113,8 +104,6 @@ async def _node_fetch_scenes(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     try:
         scenes = await _fetch_scenes(video_id)
         return {"scenes": scenes}
@@ -133,28 +122,26 @@ async def _node_generate(state: _State) -> dict[str, Any]:
     return {"visual_assets": ok, "generated_count": len(ok)}
 
 
-async def _node_insert_assets(state: _State) -> dict[str, Any]:
+async def _node_insert(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("visual_assets"):
-        return {}
-    if not _RW_URL:
         return {}
     video_id = state.get("video_id") or ""
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            for asset in state["visual_assets"]:
-                asset_id = f"asset-img-{video_id}-{asset['scene_index']}-{secrets.token_hex(3)}"
-                await conn.execute(
-                    """INSERT INTO vertex_yukkuri_asset
-                       (asset_id, video_id, kind, actor_did, blob_key, meta_json, created_at)
-                       VALUES (%s, %s, 'image', %s, %s, %s, %s)""",
-                    [asset_id, video_id, _ILLUSTRATOR_DID, asset["blob_key"],
-                     f'{{"sceneIndex":{asset["scene_index"]}}}', created_at],
-                )
-        finally:
-            await conn.close()
+        import asyncio
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        for asset in state["visual_assets"]:
+            asset_id = f"asset-img-{video_id}-{asset['scene_index']}-{secrets.token_hex(3)}"
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_asset", {
+                "vertex_id": asset_id,
+                "video_id": video_id,
+                "kind": "image",
+                "actor_did": _ILLUSTRATOR_DID,
+                "blob_key": asset["blob_key"],
+                "meta_json": f'{{"sceneIndex":{asset["scene_index"]}}}',
+                "created_at": created_at
+            })
     except Exception as exc:  # noqa: BLE001
         _log.exception("insert visual assets failed")
         return {"error": f"insert: {exc!s}"[:300]}

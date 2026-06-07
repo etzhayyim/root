@@ -28,7 +28,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _VLLM_URL = os.environ.get("VLLM_URL", "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1").rstrip("/")
 _VLLM_MODEL = os.environ.get("VLLM_MODEL", "tier0-general")
 _VLLM_TIMEOUT = float(os.environ.get("VLLM_TIMEOUT_SEC", "30"))
@@ -68,28 +67,17 @@ async def _node_fetch_content(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                "SELECT topic FROM vertex_yukkuri_video WHERE video_id = %s LIMIT 1",
-                [video_id],
-            )
-            row = await cur.fetchone()
-            topic = row[0] if row else ""
-            await cur.execute(
-                "SELECT speaker, text FROM vertex_yukkuri_line "
-                "WHERE video_id = %s ORDER BY scene_index, line_index LIMIT 100",
-                [video_id],
-            )
-            lines = await cur.fetchall()
-        finally:
-            await conn.close()
-        script_excerpt = "\n".join(f"{r[0].upper()}: {r[1]}" for r in lines[:40])
+        import asyncio
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_video = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id, limit=1)
+        topic = raw_video[0].get("topic") if raw_video else ""
+
+        raw_lines = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=100)
+        raw_lines.sort(key=lambda r: (int(r.get("scene_index") or 0), int(r.get("line_index") or 0)))
+        
+        script_excerpt = "\n".join(f"{(r.get('speaker') or '').upper()}: {r.get('text')}" for r in raw_lines[:40])
         return {"topic": topic, "script_excerpt": script_excerpt}
     except Exception as exc:  # noqa: BLE001
         return {"error": f"fetch: {exc!s}"[:200]}
@@ -138,24 +126,20 @@ async def _node_llm_review(state: _State) -> dict[str, Any]:
 
 
 async def _node_update_status(state: _State) -> dict[str, Any]:
-    if state.get("error"):
-        return {}
-    if not _RW_URL:
+    if state.get("error") or state.get("review_passed") is None:
         return {}
     video_id = state.get("video_id") or ""
     passed = state.get("review_passed", True)
     new_status = "published" if passed else "rejected"
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            await conn.execute(
-                "UPDATE vertex_yukkuri_video SET status = %s WHERE video_id = %s",
-                [new_status, video_id],
-            )
-            await conn.execute("FLUSH")
-        finally:
-            await conn.close()
+        import asyncio
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        raw_video = await asyncio.to_thread(client.select_where, "vertex_yukkuri_video", "video_id", video_id)
+        if raw_video:
+            row = raw_video[0]
+            row["status"] = new_status
+            await asyncio.to_thread(client.insert_row, "vertex_yukkuri_video", row)
     except Exception as exc:  # noqa: BLE001
         _log.exception("update status failed")
         return {"error": f"update: {exc!s}"[:300]}

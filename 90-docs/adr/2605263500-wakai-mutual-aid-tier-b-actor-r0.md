@@ -168,7 +168,7 @@ cells import-time `RuntimeError`.
   large backstop events;
 - Backstop grant recorded as `publicFundBackstopRequest` Lexicon.
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/wakai_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/wakai_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("wakai R0 scaffold: activate via Council ADR + R1 ratification + initial pool seed + ≥3 community discernment witness candidates")` at W1 creation.
 
@@ -199,7 +199,7 @@ witness candidates on file.
 
 | Gate | Description |
 |---|---|
-| **G1** | Every wakai document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every wakai document MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | Every record MUST emit `com.etzhayyim.wakai.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NOT insurance** — no premium-as-contract; no actuarial pricing; no claim adjudication; no policy denial; no underwriting. |
 | **G4** | **NO commercial insurance software** — Guidewire / Duck Creek / Insurity / Sapiens / Majesco / SAP Insurance / Oracle Insurance / Lemonade-as-vendor / Hippo-as-vendor PROHIBITED per Charter Rider §2(e) + §2(c). |

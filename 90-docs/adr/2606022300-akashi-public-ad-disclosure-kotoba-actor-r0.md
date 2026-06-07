@@ -126,7 +126,7 @@ R0 reserves these predicate groups:
 | `:ad.landing/evidence` | `:landing/url`, `:landing/domain`, `:landing/redirect-summary-cid`, `:landing/content-hash`, `:landing/safety-flags` |
 | `:ad.observation/method` | `:method/name`, `:method/version`, `:method/source-code-cid`, `:method/limits`, `:method/false-positive-notes` |
 
-The graph is stored in kotoba only. No RisingWave/Postgres/Lance projection is
+The graph is stored in kotoba only. No Kotoba/Datomic/Postgres/Lance projection is
 authoritative.
 
 ## Cells
@@ -250,7 +250,7 @@ Delivered artifacts:
 - source catalog and source-policy review registry
 - source-policy approval transaction schema with a fixture-only example and
   rollback-to-disabled requirement
-- seven `20-actors/magatama/cells/akashi_*` cell scaffolds that raise at import
+- seven `40-engine/kotoba/crates/kotoba-kotodama/cells/akashi_*` cell scaffolds that raise at import
   until ADR-2606022300 R1 activation gates are attested
 - fixture-only regulator bulk parser, lexicon-shape validator, dry-run CLI,
   dry-run golden summary, optional-field fixture, and negative fixtures

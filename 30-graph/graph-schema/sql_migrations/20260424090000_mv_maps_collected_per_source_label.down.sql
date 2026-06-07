@@ -1,1 +1,0 @@
-DROP MATERIALIZED VIEW IF EXISTS mv_maps_collected_per_source_label;

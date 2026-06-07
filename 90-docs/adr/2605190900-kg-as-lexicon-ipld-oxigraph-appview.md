@@ -40,7 +40,7 @@ superseded_by: []
 
 - **Dependencies** declared in `deps.toml` (modules, ADRs, L2 contracts, DNS records, substrate rules)
 - **ADR graph**: `depends_on`, `related`, `supersedes`, `superseded_by` between ~25 ADRs (and growing)
-- **Module graph**: `20-actors/magatama` cells, `60-apps/*` apps, `50-infra/*` substrate services, `00-contracts/*` lexicons — and edges between them (e.g. "app uses lexicon", "actor reads contract")
+- **Module graph**: `40-engine/kotoba/crates/kotoba-kotodama` cells, `60-apps/*` apps, `50-infra/*` substrate services, `00-contracts/*` lexicons — and edges between them (e.g. "app uses lexicon", "actor reads contract")
 - **Capability graph** (per ADR-2605180900): UNSPSC / ISIC actor lexicon → XRPC method → MCP tool surface
 - **Member / institution / referral graphs** (e.g. UHL-R medical institution registry, ADR-2605181040)
 
@@ -58,7 +58,7 @@ A naive answer would be "put them in a graph DB" — but ADR-2605172000 (RW-free
 | **OrbitDB (graph mode)** | ◎ | ✅ | △ — libp2p pubsub layer parallel to ours; maintenance volatility | Rejected |
 | **Fluree** | △ (IPFS as optional backend) | ✅ | △ — independent ledger / consensus, even on IPFS backend | Rejected |
 | **TerminusDB** | ✗ | ✅ (git-like) | ✗ — local files only, distribution via clone/push | Rejected |
-| **RisingWave + graph extensions** | ✗ | ✗ | ✗ — explicitly prohibited by ADR-2605172000 | Prohibited |
+| **Kotoba/Datomic + graph extensions** | ✗ | ✗ | ✗ — explicitly prohibited by ADR-2605172000 | Prohibited |
 | **Neo4j / Postgres + AGE** | ✗ | ✗ | ✗ — prohibited centralized DB | Prohibited |
 
 Two observations drove the decision:
@@ -229,7 +229,7 @@ New module: `30-graph/kg-appview/` (Rust).
 ## Positive
 
 - **Zero new substrate.** Reuses MST + IPFS + L2 pipeline already in production scaffold (Stages 1–5 per ADR-2605171800).
-- **Substrate boundary preserved.** No RisingWave, no Postgres, no Ceramic, no Fluree, no parallel network.
+- **Substrate boundary preserved.** No Kotoba/Datomic, no Postgres, no Ceramic, no Fluree, no parallel network.
 - **Replayability for free.** Any historical KG state is reconstructible from L2-anchored MST root + IPFS.
 - **Verifiability for free.** Every edge / node is a content-addressed record whose existence can be proven against the on-chain anchor.
 - **SPARQL on day one.** OxiGraph gives W3C-compliant SPARQL 1.1 without custom query language design.

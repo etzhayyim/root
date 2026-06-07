@@ -35,16 +35,16 @@
 	"author": "effect-cypher",
 	"license": "MIT",
 	"peerDependencies": {
-		"effect": "^3.21.2"
+		"effect": "^3.21.3"
 	},
 	"dependencies": {
 		"@neo4j/cypher-builder": "^3.3.0",
-		"neo4j-driver": "^6.0.1"
+		"neo4j-driver": "^6.1.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.16",
 		"@types/node": "^25.9.1",
-		"effect": "^3.21.2",
+		"effect": "^3.21.3",
 		"fast-check": "^4.8.0",
 		"ts-node": "^10.0.0",
 		"typescript": "^6.0.3",

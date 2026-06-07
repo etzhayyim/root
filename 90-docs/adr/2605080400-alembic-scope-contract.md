@@ -12,16 +12,16 @@ weight: 0.65
 priority_note: "Alembic は Python 所有テーブルのみ。vertex_*/edge_*/mv_* は Kysely TypeScript スコープ。RW トランザクション禁止"
 authoritative_for:
   - Alembic usage scope (Python-owned tables only)
-  - Alembic env.py for RisingWave (no transaction wrapping)
+  - Alembic env.py for Kotoba/Datomic (no transaction wrapping)
   - Table name guard blocking vertex_* / edge_* / mv_* in Alembic migrations
 depends_on:
   - adr-2605080300-sqlalchemy-core-usage-contract
 related:
   - adr-2605080500-sqlmesh-mv-management
-  - adr-2605080700-graph-schema-live-risingwave-baseline
+  - adr-2605080700-graph-schema-live-kotoba-baseline
 amends: []
 amended_by:
-  - adr-2605080700-graph-schema-live-risingwave-baseline
+  - adr-2605080700-graph-schema-live-kotoba-baseline
 supersedes: []
 superseded_by: []
 ---
@@ -40,7 +40,7 @@ Kysely TypeScript migration pipeline in `30-graph/graph-schema/migrations/`
 risks dual ownership: the same table definition living in both a `.ts` file
 and an Alembic revision, causing divergence and deployment conflicts.
 
-Additionally, RisingWave does not support DDL inside transactions (unlike
+Additionally, Kotoba/Datomic does not support DDL inside transactions (unlike
 PostgreSQL). Standard Alembic wraps each migration in a transaction; this
 must be disabled.
 
@@ -55,7 +55,7 @@ Alembic manages ONLY tables created to serve Python infrastructure:
 | `pyzeebe_checkpoint` | LangGraph checkpointer state (if SqliteSaver → PostgresSaver) |
 | `pyzeebe_migration` | Internal Alembic state (alembic_version) |
 | `_sqlmesh.*` | SQLMesh state tables (if SQLMesh uses Alembic for its own state) |
-| `py_audit_*` | Python-local audit tables that are NOT RisingWave graph schema |
+| `py_audit_*` | Python-local audit tables that are NOT Kotoba/Datomic graph schema |
 
 ### Rule 2: Table name guard blocks forbidden prefixes
 
@@ -69,17 +69,17 @@ which starts with 'vertex_'. Graph-schema tables are owned by Kysely TypeScript
 migrations in 30-graph/graph-schema/migrations/. Create the migration there.
 ```
 
-### Rule 3: No transaction wrapping for RisingWave DDL
+### Rule 3: No transaction wrapping for Kotoba/Datomic DDL
 
 `env.py` sets `transaction_per_migration=False` in both offline and online mode.
-RisingWave does not support `BEGIN` / `COMMIT` around CREATE TABLE / ALTER TABLE.
+Kotoba/Datomic does not support `BEGIN` / `COMMIT` around CREATE TABLE / ALTER TABLE.
 
 ```python
 # alembic/env.py
 context.configure(
     connection=connection,
     target_metadata=target_metadata,
-    transaction_per_migration=False,  # required for RisingWave
+    transaction_per_migration=False,  # required for Kotoba/Datomic
     compare_type=True,
 )
 ```
@@ -100,10 +100,10 @@ alembic/versions/
 ## File Location
 
 ```
-20-actors/magatama/py/
+40-engine/kotoba/crates/kotoba-kotodama/py/
   alembic.ini
   alembic/
-    env.py         # RisingWave-compatible: no txn, table guard
+    env.py         # Kotoba/Datomic-compatible: no txn, table guard
     script.py.mako # Template with scope reminder
     versions/      # Timestamped migration files
 ```
@@ -127,11 +127,11 @@ alembic/versions/
 
 ## References
 
-- `20-actors/magatama/py/alembic/env.py`
-- `20-actors/magatama/py/alembic.ini`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/alembic/env.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/alembic.ini`
 - ADR-2605080300: SQLAlchemy Core Usage Contract
 - ADR-2605080500: SQLMesh MV Management
-- ADR-2605080700: graph-schema Live RisingWave Baseline
+- ADR-2605080700: graph-schema Live Kotoba/Datomic Baseline
 - `30-graph/graph-schema/migrations/` (Kysely TypeScript scope)
 
 ---
@@ -143,7 +143,7 @@ alembic/versions/
 ### Context
 
 The LoRA adapter lifecycle (train → register → serve → retire) is entirely
-Python-driven: `runLora` BPMN task → pymagatama primitive → B2 upload →
+Python-driven: `runLora` BPMN task → kotodama primitive → B2 upload →
 `vertex_lora_adapter` row INSERT. The schema evolution of this table is
 therefore most naturally co-located with the Python ML pipeline, not the
 TypeScript graph-schema migrations.
@@ -160,7 +160,7 @@ required before any Python worker can write these columns.
 and `_sqlmesh.*` scopes.
 
 **Rationale for narrow exception** (not a blanket `vertex_*` allowance):
-- `vertex_lora_*` tables are exclusively written by pymagatama Python workers
+- `vertex_lora_*` tables are exclusively written by kotodama Python workers
 - No TypeScript CF Worker writes to `vertex_lora_adapter` directly
 - The ML serving lifecycle (ONNX export / safetensors packaging / B2 upload)
   is a Python concern end-to-end
@@ -192,9 +192,9 @@ and `_sqlmesh.*` scopes.
 
 `30-graph/graph-schema` no longer uses the old Kysely TypeScript migration
 chain as the active production migration graph. ADR-2605080700 establishes
-`live_risingwave_20260508` as the baseline revision and moves active
+`live_kotoba_20260508` as the baseline revision and moves active
 graph-schema Alembic revisions to `30-graph/graph-schema/alembic/current_versions/`.
 
 This does not relax the Python-worker Alembic scope in
-`20-actors/magatama/py`. It only defines the graph-schema package's own
+`40-engine/kotoba/crates/kotoba-kotodama/py`. It only defines the graph-schema package's own
 baseline and future DDL path.

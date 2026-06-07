@@ -40,7 +40,7 @@ anchored in Ethereum identity:
   reputation records.
 - `agentURI` documents are pinned to IPFS and served through `ipfs.etzhayyim.com`.
 - Runtime execution remains offchain in Zeebe, Python/k8s workers, MCP
-  adapters, Cloudflare Workers, RisingWave, B2, and AT Protocol PDS surfaces.
+  adapters, Cloudflare Workers, Kotoba/Datomic, B2, and AT Protocol PDS surfaces.
 
 Therefore "atproto" can no longer be the umbrella protocol name. It is one
 profile inside the public agent protocol stack.
@@ -219,8 +219,8 @@ k8s is an execution placement profile:
     "kind": "Deployment",
     "name": "yoro-actor-zeebe-worker"
   },
-  "image": "ghcr.io/etzhayyim/pymagatama@sha256:...",
-  "entrypoint": ["python", "-m", "pymagatama.zeebe_worker_main"],
+  "image": "ghcr.io/etzhayyim/kotodama@sha256:...",
+  "entrypoint": ["python", "-m", "kotodama.zeebe_worker_main"],
   "runtimeKind": "bpmn-zeebe-worker",
   "publicManifestCid": "ipfs://bafy..."
 }
@@ -248,7 +248,7 @@ EVM profiles linked to the agent:
 ```
 
 The EVM profile stores hashes and CIDs, not payloads. Sensitive traces remain
-in RisingWave/B2/IPFS according to policy, with only commitments onchain.
+in Kotoba/Datomic/B2/IPFS according to policy, with only commitments onchain.
 
 ## Naming And Migration Rule
 
@@ -286,7 +286,7 @@ the ERC725/ERC-8004 protocol root vocabulary.
 
 - Docs and code comments that use "atproto" as the umbrella term need gradual
   cleanup.
-- Public registration consistency now spans ERC725, ERC-8004, IPFS, RisingWave,
+- Public registration consistency now spans ERC725, ERC-8004, IPFS, Kotoba/Datomic,
   and live runtime deployments.
 - Verification tools must resolve multiple profiles instead of only querying
   the PDS.

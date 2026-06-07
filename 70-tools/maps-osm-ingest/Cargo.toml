@@ -3,7 +3,7 @@ name = "maps-osm-ingest"
 version = "0.5.0"
 edition = "2021"
 license = "MIT"
-description = "OSM planet PBF → RisingWave ingest pipeline for maps.etzhayyim.com"
+description = "OSM planet PBF → Kotoba/Datomic ingest pipeline for maps.etzhayyim.com"
 
 [[bin]]
 name = "maps-osm-ingest"

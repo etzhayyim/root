@@ -8,7 +8,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 let writtenRecords: Array<{ collection: string; record: Record<string, unknown> }> = [];
 let postedTexts: string[] = [];
 
-vi.mock("@etzhayyim/magatama-host-sdk", () => ({
+vi.mock("@etzhayyim/kotodama-host-sdk", () => ({
   createWorkerExport: (setup: (sdk: any) => void) => {
     const commands = new Map<string, (sdk: any, params: string) => Promise<string>>();
     const queries = new Map<string, (sdk: any, params: string) => Promise<string>>();

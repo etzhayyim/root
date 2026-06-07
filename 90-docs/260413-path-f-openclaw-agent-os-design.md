@@ -69,7 +69,7 @@ os-consent (App)        ──────→  agent/consent.ts (PDS 新規 modu
   │                         │                                        │
   │                    HYPERDRIVE                                     │
   │                         ▼                                        │
-  │              RisingWave (P10v2 GraphAr)                          │
+  │              Kotoba/Datomic (P10v2 GraphAr)                          │
   └─────────────────────────────────────────────────────────────────┘
                          │
                     XRPC tool dispatch
@@ -85,7 +85,7 @@ os-consent (App)        ──────→  agent/consent.ts (PDS 新規 modu
 
 ### 3.1 agent/memory.ts — 3-Tier Memory Engine
 
-**RisingWave tables (GraphAr-native, P10v2):**
+**Kotoba/Datomic tables (GraphAr-native, P10v2):**
 
 ```sql
 -- Short-term: convo-scoped ring buffer (last 50 turns per session)
@@ -269,13 +269,13 @@ Write to `graphar.vertex_AgentAudit` + OCEL Analytics Engine.
 ```typescript
 // agent/scheduler.ts
 
-/** Cron-like proactive triggers stored in RisingWave. */
+/** Cron-like proactive triggers stored in Kotoba/Datomic. */
 export async function evaluateProactiveTriggers(
   env: Env, callerDid: string
 ): Promise<Array<{ trigger: string; message: string }>>;
 ```
 
-**RisingWave table:**
+**Kotoba/Datomic table:**
 
 ```sql
 graphar.vertex_AgentSchedule (
@@ -433,7 +433,7 @@ export async function agentInferV2(
 | Task | File | Lines |
 |---|---|---|
 | Create `agent/memory.ts` | `50-infra/cloudflare/workers/atproto/src/agent/memory.ts` | ~150 |
-| RisingWave DDL (3 tables) | `50-infra/linode/risingwave-iceberg/migrations/` | ~30 |
+| Kotoba/Datomic DDL (3 tables) | `50-infra/linode/kotoba-iceberg/migrations/` | ~30 |
 | Inject memory into `agentInfer()` | `50-infra/cloudflare/workers/atproto/src/agent/infer.ts` | ~20 diff |
 | Test: memory persistence | `50-infra/cloudflare/workers/atproto/src/agent/memory.test.ts` | ~80 |
 
@@ -444,17 +444,17 @@ export async function agentInferV2(
 | Create `agent/consent.ts` | `50-infra/.../agent/consent.ts` | ~80 |
 | Create `agent/audit.ts` | `50-infra/.../agent/audit.ts` | ~40 |
 | Inject consent gate into agentInfer | `agent/infer.ts` | ~30 diff |
-| Risk tier config in magatama.jsonld | per-actor `riskTiers` field | schema only |
+| Risk tier config in kotodama.jsonld | per-actor `riskTiers` field | schema only |
 
 ### Phase 3: os-messaging Worker (η: 97% → 89.7% initially, 95% at scale)
 
 | Task | File | Lines |
 |---|---|---|
-| Scaffold `60-apps/etzhayyim-project-os-messaging/` | 3 files (magatama.jsonld, wrangler.jsonc, src/app.ts) | ~300 |
+| Scaffold `60-apps/etzhayyim-project-os-messaging/` | 3 files (kotodama.jsonld, wrangler.jsonc, src/app.ts) | ~300 |
 | Discord adapter | `src/app.ts` | ~60 |
 | Telegram adapter | `src/app.ts` | ~60 |
 | LINE adapter | `src/app.ts` | ~60 |
-| Platform user mapping | RisingWave DDL | ~10 |
+| Platform user mapping | Kotoba/Datomic DDL | ~10 |
 | deps.toml actor entry | `deps.toml` | ~10 |
 
 ### Phase 4: Scheduler + Proactive (η → 95%)
@@ -462,7 +462,7 @@ export async function agentInferV2(
 | Task | File | Lines |
 |---|---|---|
 | Create `agent/scheduler.ts` | `50-infra/.../agent/scheduler.ts` | ~100 |
-| RisingWave DDL (schedule table) | migrations/ | ~10 |
+| Kotoba/Datomic DDL (schedule table) | migrations/ | ~10 |
 | Calendar event trigger | shinkansen onCommit handler | ~15 diff |
 | Morning briefing cron | scheduler trigger seed | ~5 |
 
@@ -494,7 +494,7 @@ export async function agentInferV2(
 | 新規 Worker 数 | 9 | **1** (os-messaging) |
 | PDS 内 module 数 | 0 | **4** (memory, consent, audit, scheduler) |
 | Transport types | 4 | **2** (PDS→Murakumo, PDS→Worker) |
-| RisingWave tables | 0 | **5** (3 memory + mapping + schedule) |
+| Kotoba/Datomic tables | 0 | **5** (3 memory + mapping + schedule) |
 | agentInfer 変更行 | 全書き直し | **~50 行 diff** |
 | ReAct depth | 10 | **10** |
 | Memory tiers | 3 | **3** |

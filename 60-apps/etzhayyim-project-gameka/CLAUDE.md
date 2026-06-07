@@ -103,7 +103,7 @@ ends with `outcome = exhausted`; no derive, no publish. The full lineage
 stays in graph (`vertex_gameka_spec.lineage_parent` + `vertex_gameka_qa.iteration`)
 for post-mortem.
 
-**Degraded mode**: when `pymagatama.llm` `tier="vision"` is unavailable
+**Degraded mode**: when `kotodama.llm` `tier="vision"` is unavailable
 (no multimodal LLM wired up), `analyze_match` returns `matchScore=0.5`
 and tags the spec with a minor `art_quality` issue noting the degraded
 state. Builds with strong render + perf still publish; ambiguous builds
@@ -152,7 +152,7 @@ image attachments — no contract change.
 
 ## LangGraph deliberation graph
 
-`20-actors/magatama/py/src/pymagatama/agents/gameka_studio.py` — 5 nodes:
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/agents/gameka_studio.py` — 5 nodes:
 
 ```
 START → planner → researcher → critic → should_loop?
@@ -252,7 +252,7 @@ state surfaces audibly via SFX + socially via share posts.
 
 
 
-`pymagatama/handlers/gameka_avatar.py` renders a deterministic 256×256
+`kotodama/handlers/gameka_avatar.py` renders a deterministic 256×256
 identicon from `slug` + biome:
 
 - pure-stdlib (`hashlib` / `zlib` / `struct` / `base64`) — no Pillow / canvas
@@ -332,7 +332,7 @@ plus in-game social + audio bridges:
 
 `scene.audioPalette` is the SSoT. Codegen reads it (helpers
 `_audio_from_scene` + `_normalise_sfx_name` in
-`pymagatama/handlers/gameka_codegen.py`) and emits:
+`kotodama/handlers/gameka_codegen.py`) and emits:
 
 ```rust
 pub const BGM_HINT: &str = "<spec.scene.audioPalette.bgm>";
@@ -537,7 +537,7 @@ without re-running the LLM.
 
 ## Codegen contract (`gameka.codegen.renderKamiApp`)
 
-`20-actors/magatama/py/src/pymagatama/handlers/gameka_codegen.py` — pure-function
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/handlers/gameka_codegen.py` — pure-function
 Python that renders a `kami-app-{slug}` Rust source tree from a `gameSpec`:
 
 | Input | Output |
@@ -570,7 +570,7 @@ Scene-text → biome keyword scan (plains / quarry / desert / tundra), default `
 ```bash
 # Pure-function codegen + LangGraph deliberation against stubbed LLM.
 # Skips silently if langgraph isn't installed in the venv.
-cd 20-actors/magatama/py
+cd 40-engine/kotoba/crates/kotoba-kotodama/py
 python3 -m pytest tests/test_gameka_codegen.py -q
 ```
 

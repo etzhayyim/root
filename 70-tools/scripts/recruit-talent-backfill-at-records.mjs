@@ -18,7 +18,7 @@
  */
 import { writeFile } from "node:fs/promises";
 
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const BATCH   = parseInt(process.env.BATCH ?? "500");
 const args    = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
@@ -60,7 +60,7 @@ async function pool() {
   const { default: pg } = await import(
     "/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js"
   );
-  _pool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 120_000 });
+  _pool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 120_000 });
   return _pool;
 }
 

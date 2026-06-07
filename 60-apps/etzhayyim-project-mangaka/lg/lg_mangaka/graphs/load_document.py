@@ -49,31 +49,28 @@ async def _node_load(state: _LoadState) -> dict[str, Any]:
 
     vertex_id = f"at://{_APP_DID}/{_NSID}/{doc_id}"
     try:
-        import psycopg  # type: ignore
-
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            await cur.execute(
-                """
-                SELECT name, props, vertex_id
-                FROM vertex_mangaka
-                WHERE vertex_id = %s AND kind = 'document'
-                LIMIT 1
-                """,
-                (vertex_id,),
-            )
-            row = await cur.fetchone()
-        finally:
-            await conn.close()
+        from kotodama.kotoba_datomic import get_kotoba_client
+        import asyncio
+        client = get_kotoba_client()
+        rows = await asyncio.to_thread(
+            client.select_where,
+            "vertex_mangaka",
+            "vertex_id",
+            vertex_id,
+            ["name", "props", "vertex_id"],
+            limit=1
+        )
+        row_dict = rows[0] if rows else None
     except Exception as exc:  # noqa: BLE001
         _log.exception("load_document SELECT failed (docId=%s)", doc_id)
         return {"error": f"{type(exc).__name__}: {exc!s}"[:300]}
 
-    if not row:
+    if not row_dict:
         return {"error": f"document not found: {doc_id}"}
 
-    name, props, vid = row
+    name = row_dict.get("name")
+    props = row_dict.get("props")
+    vid = row_dict.get("vertex_id")
     return {
         "doc_id": doc_id, "docId": doc_id,
         "name": name or doc_id,

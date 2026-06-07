@@ -482,9 +482,9 @@ chunk 境界の seams を避けるため、build は表示 chunk より広い ba
 
 2026-04-17 時点の実装状態は次のとおり。
 
-- `createCollectionJob` / `advanceJob` / `getJobStatus` / `listJobs` の Lexicon は更新済みで、`magatama-host-sdk` と PDS の generated registry に再反映済み
+- `createCollectionJob` / `advanceJob` / `getJobStatus` / `listJobs` の Lexicon は更新済みで、`kotodama-host-sdk` と PDS の generated registry に再反映済み
 - `MapsJob -> vertex_maps_job` の graph resolver は追加済みで、`30-graph/graph-schema/migrations/20260417020000_vertex_maps_job.ts` も定義済み
-- RisingWave 側の migration 履歴が `20260415140000_strategy_graph` 欠落で壊れているため、`db:migrate` ではなく `vertex_maps_job` は手動 apply で導入済み
+- Kotoba/Datomic 側の migration 履歴が `20260415140000_strategy_graph` 欠落で壊れているため、`db:migrate` ではなく `vertex_maps_job` は手動 apply で導入済み
 - `maps-collection-control-plane` の read path は `vertex_maps_job` を直読みに切り替え済み
 
 一方で、write path はまだ安定化が必要である。

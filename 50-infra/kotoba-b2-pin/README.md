@@ -10,7 +10,7 @@ applied to the kotoba substrate's cold tier.
 
 kotoba's canonical state is the **Datom log**; IPFS is its cold *block* backend
 (ADR-2605312345). Today that backend is a **single local copy** on one external
-volume — no replication to B2 / ipfs.gftd.ai / kotobase.gftd.ai (all currently
+volume — no replication to B2 / ipfs.etzhayyim.com / kotobase.etzhayyim.com (all currently
 disabled). One disk loss = data loss.
 
 Backing up the *graph heads* alone is not enough: `ipfs dag export` of all IPNS

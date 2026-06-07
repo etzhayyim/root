@@ -97,4 +97,4 @@ collection_job (status:pending) → PDS batch-flush
 
 - Package: `etzhayyim:jinushi@1.0.0`
 - Export: `etzhayyim:jinushi/registry@1.0.0`
-- Imports: `magatama:contract/agreement`, `magatama:div/{materiel,documents,information}`
+- Imports: `kotodama:contract/agreement`, `kotodama:div/{materiel,documents,information}`

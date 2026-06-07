@@ -7,7 +7,7 @@
 - **Only 1 row** appears in `vertex_repo_commit`
 - 90% of writes never persist
 
-Confirmed on: `postgres://root@172.236.132.11:4566/dev`, RisingWave PG :4566.
+Confirmed on: `postgres://root@172.236.132.11:4566/dev`, Kotoba/Datomic PG :4566.
 Repro: any `com.atproto.repo.createRecord` XRPC call in rapid succession.
 
 ## Root cause hypothesis
@@ -48,7 +48,7 @@ $ for n in 1..10; do curl createWork "{\"title\":\"Drop Diag2 $n\"}"; done
 10 [200] rkey=3mjwb4prhrk2t
 
 $ SELECT seq, rkey FROM vertex_repo_commit WHERE rkey IN (...10 rkeys...)
- seq  |     rkey       
+ seq  |     rkey
 ------+---------------
  20471 | 3mjwb4khwxs2b
 (1 row)
@@ -81,7 +81,7 @@ Single-writer apps (one write every several seconds) unaffected. Bulk/batch writ
 Until the PDS is fixed, apps should:
 - Space out writes ≥ 2s apart (empirically inconsistent — still drops some)
 - Verify every write with a read-back + retry
-- Use RisingWave direct INSERT (bypass PDS) for bulk seed/demo data — this is what was done for animeka's 10 seed cuts
+- Use Kotoba/Datomic direct INSERT (bypass PDS) for bulk seed/demo data — this is what was done for animeka's 10 seed cuts
 
 ## Discovered
 

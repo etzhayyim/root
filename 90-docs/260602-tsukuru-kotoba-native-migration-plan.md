@@ -15,7 +15,7 @@ related:
 
 # tsukuru → Gen-3 (kotoba-native) Migration Plan (2026-06-02)
 
-目的: `tsukuru`（B2B factory-direct ordering actor）を旧 etzhayyim / RisingWave / JSON-LD
+目的: `tsukuru`（B2B factory-direct ordering actor）を旧 etzhayyim / Kotoba/Datomic / JSON-LD
 世代から、okaimono と同じ **Gen-3 canonical 設計**（`manifest.edn` + kotoba-EAVT +
 Murakumo-only + Charter Rider + no-server-key）へ移行する。
 
@@ -27,7 +27,7 @@ Murakumo-only + Charter Rider + no-server-key）へ移行する。
 | # | ゲート | 状態 | 担当 ADR |
 |---|---|---|---|
 | P0a | **命名衝突解消** — silicon-fab orchestration を tsukuru から分離 | 未 | 2606021139（本プラン前提） |
-| P0b | **magatama etzhayyim→etzhayyim atomic rename** — 法人登記後の単一 PR | 未（登記待ち） | 2605214000 §3 / 2605215000 §4 |
+| P0b | **kotodama etzhayyim→etzhayyim atomic rename** — 法人登記後の単一 PR | 未（登記待ち） | 2605214000 §3 / 2605215000 §4 |
 | P0c | okaimono ↔ tsukuru の発注フロー契約（`create-production-order`）凍結 | 既存 | okaimono CLAUDE.md |
 
 > P0b は tsukuru の `etzhayyim:` WIT 5 パッケージ改名を含むため厳密には依存するが、**構造移行
@@ -39,7 +39,7 @@ Murakumo-only + Charter Rider + no-server-key）へ移行する。
 | レイヤ | 現状 | Gen-3 目標 |
 |---|---|---|
 | Manifest | `actor-manifest.jsonld`（@context, capabilities `graph.query/write`） | `manifest.edn`（:actor/* + :gates + :cells + :lex） |
-| State | RisingWave / Cypher `MATCH (o:ProductionOrder)…`、`G()` builder | **kotoba Datom EAVT**（`:production-order/*` schema） |
+| State | Kotoba/Datomic / Cypher `MATCH (o:ProductionOrder)…`、`G()` builder | **kotoba Datom EAVT**（`:production-order/*` schema） |
 | Inference | `agent.chat`（k8s-langserver T1） | **Murakumo-only** KotobaLLM 127.0.0.1:4000 |
 | Runtime/edge | `runtime: k8s-langserver` + `sveltekit-proxy` + `legacyExecutionTier: T1` | WASM cells（langgraph）+ kotoba :8077 |
 | Payment | etzhayyim 期の Stripe Issuing 言及が legacy doc に残存（**etzhayyim では非存在**） | **USDC Base L2 + ERC-4337 + TitheRouter 10% + warifu**（最初から fiat 非前提） |
@@ -83,7 +83,7 @@ progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残
 3. **Cypher `MATCH (o:ProductionOrder)…` → kotoba-kqe Datalog query へ全面置換**。`G()` builder 撤去。
 4. `kotoba/deploy.sh`（okaimono のコピー）。`etzhayyim build/deploy` を廃止。
 
-**完了基準**: production-order の CRUD・進捗・QC が kotoba Datom 上で round-trip。RisingWave 参照ゼロ。
+**完了基準**: production-order の CRUD・進捗・QC が kotoba Datom 上で round-trip。Kotoba/Datomic 参照ゼロ。
 → **達成 (2026-06-02)**: `kotoba/schema.edn`（`:factory/* :production-order/* :progress/* :quality/*
 :settlement/* :sbt/*`、40 attr）+ `seed.edn`（3 factory + BTO worked example、EDN balanced）+
 `ingest_mcp.py` / `ingest_factories.py`（460-DID live projection は G11/G15-gated stub）+ `deploy.sh`
@@ -108,7 +108,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 ### Phase 5 — 命名 cutover（P0b wave に同期） — 📋 RUNBOOK 準備済 / 実行は登記ゲート
 
 > runbook: `20-actors/tsukuru/MIGRATION-NOTES.md`（etzhayyim→etzhayyim WIT 5 本・app/contract paths・
-> build/deploy・AT collections・decommission・acceptance を列挙）。**実行は magatama atomic wave
+> build/deploy・AT collections・decommission・acceptance を列挙）。**実行は kotodama atomic wave
 > の単一 PR**（法人登記後）。部分実行禁止（CLAUDE.md §Do Not）。下記は項目登録のみ。
 
 1. `etzhayyim:tsukuru*@*` WIT 5 pkg → `etzhayyim:tsukuru*@*`。
@@ -120,7 +120,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 
 - **非ゴール**: 460 factory との実 B2B 商流の即時稼働。外部 inflow は constitutional に禁止
   （G2）— tsukuru は **member/internal 発注 + 外部は self-checkout handoff** が R0 境界。
-- **リスク**: P0b（magatama atomic rename）が法人登記待ちのため、Phase 5 の WIT 改名は
+- **リスク**: P0b（kotodama atomic rename）が法人登記待ちのため、Phase 5 の WIT 改名は
   ブロック。Phase 2-4（構造・kotoba・Murakumo・支払い）は **先行実施可**。
 - **リスク**: silicon-fab 意味論の混入。ADR-2606021139 で分離されるまで Phase 2 の
   manifest に fab lane を入れない。
@@ -130,7 +130,7 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
 ```
 P0a (ADR-2606021139 accept) ──► Phase 2 ──► Phase 3 ──► Phase 4 ──┐
                                                                   ├─► Phase 5（P0b 法人登記後）
-P0b (magatama atomic rename, 登記ゲート) ─────────────────────────┘
+P0b (kotodama atomic rename, 登記ゲート) ─────────────────────────┘
 ```
 
 Phase 2-4 は登記を待たず着手可能。Phase 5 のみ P0b ゲート。

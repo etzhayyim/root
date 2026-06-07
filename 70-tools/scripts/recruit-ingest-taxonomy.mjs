@@ -32,7 +32,7 @@ const PDS_URL = "https://atproto.etzhayyim.com";
 const COLLECTOR_DID = "did:web:recruit.etzhayyim.com";
 const COLLECTION = "com.etzhayyim.apps.recruit.occupation";
 const PROGRESS_FILE = "/tmp/recruit-taxonomy-progress.json";
-const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
+const KOTOBA_URL = process.env.KOTOBA_URL ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 
 const LICENSES = {
   isco: "CC-BY-3.0-IGO",
@@ -210,7 +210,7 @@ let _pgPool = null;
 async function getRwPool() {
   if (_pgPool) return _pgPool;
   const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/node_modules/pg/lib/index.js");
-  _pgPool = new pg.Pool({ connectionString: RW_CONN, max: 2, statement_timeout: 30000 });
+  _pgPool = new pg.Pool({ connectionString: KOTOBA_URL, max: 2, statement_timeout: 30000 });
   return _pgPool;
 }
 

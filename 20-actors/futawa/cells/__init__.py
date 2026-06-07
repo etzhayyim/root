@@ -1,1 +1,1 @@
-"""futawa cell shim — real cell modules live under 20-actors/magatama/cells/moto_*."""
+"""futawa cell shim — real cell modules live under 40-engine/kotoba/crates/kotoba-kotodama/cells/moto_*."""

@@ -26,7 +26,7 @@ depends_on:
 related:
   - 70-tools/seed-post/
   - 00-contracts/policies/app/bsky/feed/
-  - 20-actors/magatama/cells/feed_post/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/
   - 50-infra/mst-projector/projection/
   - 00-contracts/lexicons/com/etzhayyim/membrane/
   - 00-contracts/lexicons/com/etzhayyim/projection/
@@ -95,7 +95,7 @@ The first concrete `(L1, L2, L3)` triple:
 |---|---|---|
 | **L1 schema** | `00-contracts/lexicons/app/bsky/feed/post.json` | Pre-existing vendored Bluesky lexicon |
 | **L2 policy** | `00-contracts/policies/app/bsky/feed/{policy.rego, test.rego}` | OPA-evaluable. Charter Rider §2(a)/(b)/(c)/(d)/(f)/(h), advertising, eschatology assertions (per ADR-2605192100 §1.15), gore self-label (per ADR-2605192400). Allow-context exemption set per category. 8/8 `opa test` PASS |
-| **L3 deterministic cell** | `20-actors/magatama/cells/feed_post/cell.py` | LangGraph Pregel cell. Strict-determinism contract: no clocks (`createdAt` from input only, verdict-record `createdAt` from `ctx.now` supplied by dispatcher), no RNG, no LLM in verdict path. Content-addressed `verdictCid = sha256-<hex>` of canonical JSON of `(record_cid, kind, reason, sorted_evidence)`. 18/18 pytest PASS |
+| **L3 deterministic cell** | `40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/cell.py` | LangGraph Pregel cell. Strict-determinism contract: no clocks (`createdAt` from input only, verdict-record `createdAt` from `ctx.now` supplied by dispatcher), no RNG, no LLM in verdict path. Content-addressed `verdictCid = sha256-<hex>` of canonical JSON of `(record_cid, kind, reason, sorted_evidence)`. 18/18 pytest PASS |
 | **Sidecar lexicon** | `00-contracts/lexicons/com/etzhayyim/membrane/verdict.json` | `com.etzhayyim.membrane.verdict` records emitted by L3, attesting the verdict for one record CID |
 | **Fleet registration** | `50-infra/murakumo/fleet.toml [cells.FeedPostCell]` | Placed on `levi` (membrane-adjacent role: AuditWitnessCell + KaizenObserverCell), healthz_port 13017, `determinism = "strict"` |
 
@@ -235,7 +235,7 @@ scope here.
   [ADR-2605231500](/90-docs/adr/2605231500-kotoba-datomic-projection.md), not a state store.
 - **Council vote not required** — additive lexicons, additive policy,
   additive projection. The Charter Rider categories enforced are the
-  same ones already in `pymagatama.organism.sensors.charter_rider`;
+  same ones already in `kotodama.organism.sensors.charter_rider`;
   this ADR ships a Rego encoding alongside.
 
 ## Alternatives Considered
@@ -275,7 +275,7 @@ shape keeps the projection's canonical state in the projector DID's MST
 (which is itself kotoba-datomic-chain), so the projection sits one layer of
 indirection from the firehose and is replayable.
 
-### E. Use RisingWave for the projection (Bluesky-AppView pattern)
+### E. Use Kotoba/Datomic for the projection (Bluesky-AppView pattern)
 
 Status: deferred. The ADR-2605231500 §"Allowed substrates for
 projections" table explicitly lists RW as suitable for the
@@ -302,7 +302,7 @@ both become reasonable.
 - [ADR-2605231525](/90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md) — no platform-held keys
 - `70-tools/seed-post/` — operator CLI
 - `00-contracts/policies/app/bsky/feed/{policy.rego, test.rego}` — L2
-- `20-actors/magatama/cells/feed_post/{cell.py, test_cell.py}` — L3
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/feed_post/{cell.py, test_cell.py}` — L3
 - `00-contracts/lexicons/com/etzhayyim/membrane/verdict.json` — sidecar lexicon
 - `00-contracts/lexicons/com/etzhayyim/projection/feedDiscover.json` — projection lexicon
 - `50-infra/mst-projector/src/feed-discover.ts` — projection emitter

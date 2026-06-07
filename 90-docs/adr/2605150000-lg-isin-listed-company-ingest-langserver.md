@@ -48,7 +48,7 @@ Deploy a single **resident LangServer pod** (`lg-isin`) in Kubernetes namespace
 - **`/cron/*`** — async cron trigger endpoints (return 200 immediately, fire
   `asyncio.create_task`)
 
-All database writes use `asyncpg` directly against `DATABASE_URL` (RisingWave PostgreSQL
+All database writes use `asyncpg` directly against `DATABASE_URL` (Kotoba/Datomic PostgreSQL
 wire). No CF Worker hyperdrive binding. No Alembic migration runner at pod startup — schema
 is pre-applied via separate migration jobs (ADR-2605111200 edge-only constraint).
 
@@ -134,7 +134,7 @@ kubectl exec -n mitama-udf deploy/lg-isin -- \
 
 | Secret | Key | Use |
 |---|---|---|
-| `mitama-udf-pool-rw` | `RW_URL` | asyncpg connection string |
+| `mitama-udf-pool-rw` | `KOTOBA_URL` | asyncpg connection string |
 | `lg-isin-secrets` | `EDINET_SUBSCRIPTION_KEY` | EDINET PDF download (optional) |
 
 EDINET key absence is handled gracefully: filing metadata is always ingested;

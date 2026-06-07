@@ -18,7 +18,7 @@ authoritative_for:
   - Murakumo Mac mini fleet as L8 Somatic Inference Layer
   - Granian as ASGI server for LangGraph Server
   - Redis role: transient dispatch queue only (not a database)
-  - RisingWave custom BaseCheckpointSaver + BaseStore (sole DB principle)
+  - Kotoba/Datomic custom BaseCheckpointSaver + BaseStore (sole DB principle)
   - bpmn-dispatcher routing target: /runs API
   - timer-start BPMN replacement: K8s CronJob → POST /runs
   - pyzeebe migration path to LangGraph nodes
@@ -63,9 +63,9 @@ ADR-2605080000 は L3 = Zeebe StatefulSet + pyzeebe と定めた。実運用で�
 - **`/runs` API** が Zeebe job dispatch の代替として機能する (background execution)
 - **`/threads` API** が BPMN process instance の代替 (stateful actor thread)
 - **`interrupt()`** が BPMN message-event correlation の代替 (HITL pause/resume)
-- **`BaseCheckpointSaver`** / **`BaseStore`** がカスタム実装可能 → RisingWave 直接
+- **`BaseCheckpointSaver`** / **`BaseStore`** がカスタム実装可能 → Kotoba/Datomic 直接
 
-提案された新アーキテクチャ (`CF Worker → bpmn-dispatcher → FastAPI+Granian+LangGraph → RisingWave`)
+提案された新アーキテクチャ (`CF Worker → bpmn-dispatcher → FastAPI+Granian+LangGraph → Kotoba/Datomic`)
 は既存 ADR と約 75% 適合する。bpmn-dispatcher は既に K8s-internal routing hub として存在する
 (ADR-2604282300)。FastAPI+Granian の採用でこれを Zeebe ではなく LangGraph Server への
 routing hub として再利用できる。
@@ -106,14 +106,14 @@ http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080
 │  /assistants      → graph registry (actor catalog)  │
 │                                                     │
 │  StateGraph (Pregel)           ← L2 coordination    │
-│    ├── node: rw_read    ────────────→ RisingWave L5  │
+│    ├── node: rw_read    ────────────→ Kotoba/Datomic L5  │
 │    ├── node: tool_call  ────────────→ MCP L4         │
-│    ├── node: rw_write   ────────────→ RisingWave L5  │
+│    ├── node: rw_write   ────────────→ Kotoba/Datomic L5  │
 │    └── node: interrupt  → 人間承認待ち              │
 └─────────────────────────────────────────────────────┘
          │ BLPOP dispatch              │ durable state
          ▼                             ▼
-       Redis                       RisingWave
+       Redis                       Kotoba/Datomic
   transient queue only         vertex_langgraph_checkpoint
   (~50MB, ephemeral)           vertex_langgraph_store
   障害時は /runs ステータスで    vertex_langgraph_run
@@ -139,7 +139,7 @@ BPMN workers when the process definition itself is an operational artifact:
 | BPMN timers / boundary events / audit-friendly process diagram are required | SpiffWorkflow BPMN worker |
 | Human/business operators need BPMN diagram review more than graph-node review | SpiffWorkflow BPMN worker |
 
-Both runtimes use RisingWave as the durable state layer and must preserve
+Both runtimes use Kotoba/Datomic as the durable state layer and must preserve
 at-least-once, idempotent execution. The dispatcher chooses the target from
 `vertex_bpmn_lexicon_binding` / actor registry metadata; callers keep the same
 XRPC/MCP surface.
@@ -150,14 +150,14 @@ Redis は **transient dispatch queue のみ**。DB ではない。
 
 ```
 役割: LangGraph Server 内部の job dispatch (BLPOP atomic handoff)
-永続化: 不要 — checkpoint は全て RisingWave に書く
+永続化: 不要 — checkpoint は全て Kotoba/Datomic に書く
 障害: Redis 再起動 → 未処理 job は /runs status=pending のまま
       bpmn-dispatcher が再 POST → at-least-once で replay
 サイズ: ~50MB (K8s ConfigMap ベースの ephemeral Redis でよい)
 禁止: Redis を "第2の DB" として使わない。KV store / pub-sub / cache としての使用禁止
 ```
 
-**RisingWave sole DB 原則は維持される** — Redis は transport layer であり storage ではない。
+**Kotoba/Datomic sole DB 原則は維持される** — Redis は transport layer であり storage ではない。
 
 ### Artificial organism layer binding
 
@@ -170,7 +170,7 @@ replaceable local inference organ used by resident actors.
 | Component | Organism role | Repo layer | Contract |
 |---|---|---|---|
 | LangGraph resident actor | Autonomic active-inference loop | L3 Virtual Actor Runtime | `/runs`, `/threads`, checkpoints, action selection |
-| RisingWave | Belief and memory substrate | L4 state store | `q_i(s,t)`, checkpoint, store, run records |
+| Kotoba/Datomic | Belief and memory substrate | L4 state store | `q_i(s,t)`, checkpoint, store, run records |
 | Murakumo Mac mini fleet | Somatic inference organ | L8 physical inference substrate | OpenAI-compatible local inference endpoint |
 | Zeebe / CronJob | Rhythmic nervous system | L7 process/timer | start/resume/sweep events only |
 | AT Protocol / XRPC | Social signaling | L2 protocol | external observation and emission |
@@ -179,7 +179,7 @@ replaceable local inference organ used by resident actors.
 The ownership rule is strict:
 
 ```text
-subject identity = DID + LangGraph thread + RisingWave checkpoint
+subject identity = DID + LangGraph thread + Kotoba/Datomic checkpoint
 inference organ  = Murakumo endpoint selected by deployment configuration
 ```
 
@@ -196,7 +196,7 @@ For resident artificial-organism actors, the preferred inference route is:
 LangGraph node
   -> etzhayyim_LLM_URL / LLAMA_BASE_URL
   -> Murakumo OpenAI-compatible endpoint
-  -> RisingWave checkpoint/store write
+  -> Kotoba/Datomic checkpoint/store write
 ```
 
 When LangGraph Server is placed on `murakumo-k3s`, the local endpoint is:
@@ -211,18 +211,18 @@ declared gateway URL per ADR-2604251821. Do not silently fall back to public
 `llm.etzhayyim.com` for resident organism loops; a missing Murakumo route is a
 degraded organism capability and should be observable.
 
-### RisingWave custom storage 実装
+### Kotoba/Datomic custom storage 実装
 
-#### BaseCheckpointSaver (RisingWave 向け)
+#### BaseCheckpointSaver (Kotoba/Datomic 向け)
 
 ```python
 # langgraph_checkpoint_rw.py — ~500 LOC
-class RisingWaveCheckpointSaver(BaseCheckpointSaver):
+class Kotoba/DatomicCheckpointSaver(BaseCheckpointSaver):
     """
-    RisingWave-native LangGraph checkpoint.
+    Kotoba/Datomic-native LangGraph checkpoint.
     vertex_langgraph_checkpoint (既存テーブル, agents/__init__.py 参照) に書く。
 
-    RisingWave 制約への対応:
+    Kotoba/Datomic 制約への対応:
       - FOR UPDATE SKIP LOCKED なし → 楽観ロック (UPDATE WHERE status='pending')
       - LISTEN/NOTIFY なし          → polling (SELECT WHERE thread_id=X ORDER BY checkpoint_ns DESC)
       - ON CONFLICT なし            → PK overwrite (RW implicit upsert)
@@ -234,11 +234,11 @@ class RisingWaveCheckpointSaver(BaseCheckpointSaver):
     async def alist(self, config, *, filter=None, before=None, limit=None): ...
 ```
 
-#### BaseStore (RisingWave 向け)
+#### BaseStore (Kotoba/Datomic 向け)
 
 ```python
 # langgraph_store_rw.py
-class RisingWaveStore(BaseStore):
+class Kotoba/DatomicStore(BaseStore):
     """
     cross-thread long-term memory.
     vertex_langgraph_store テーブルに namespace + key → value で保存。
@@ -280,7 +280,7 @@ Phase 3 implementation contract:
 - The dispatcher forwards `x-internal-trust` to LangGraph Server when
   `DISPATCHER_INTERNAL_SECRET` is configured.
 - `/bindings` exposes `routingTarget` so rollout status is visible without
-  querying RisingWave manually.
+  querying Kotoba/Datomic manually.
 
 ### timer-start BPMN の代替
 
@@ -300,7 +300,7 @@ Zeebe timer のコードベース上の BPMN XML は削除せず `status = "cron
 ### pyzeebe からの migration path
 
 ```text
-Phase 1: RisingWaveCheckpointSaver + RisingWaveStore 実装 (pymagatama 内)
+Phase 1: Kotoba/DatomicCheckpointSaver + Kotoba/DatomicStore 実装 (kotodama 内)
 Phase 2: LangGraph Server + Granian の Helm chart 作成
          (mitama-udf-pool パターンを踏襲)
 Phase 3: bpmn-dispatcher routing: Zeebe gRPC → /runs HTTP
@@ -326,7 +326,7 @@ com.etzhayyim.apps.shosha.agentLoop
 Rationale:
 
 - `shosha_agent_loop` is already registered in LangGraph Server.
-- It is interactive and read-heavy: RisingWave context read + LLM response +
+- It is interactive and read-heavy: Kotoba/Datomic context read + LLM response +
   audit, without domain write side effects.
 - Other shosha write/check bindings stay on Zeebe until each has a dedicated
   LangGraph graph and rollback evidence.
@@ -336,7 +336,7 @@ Migration: `30-graph/graph-schema/migrations/20260508996000_route_shosha_agent_l
 Smoke verification:
 
 ```bash
-python -m pymagatama.shosha_langgraph_smoke
+python -m kotodama.shosha_langgraph_smoke
 ```
 
 The smoke checks `/bindings` for `routingTarget='langgraph'`, then dispatches
@@ -369,7 +369,7 @@ Server へ機械的に移植せず、ADR-2605081200 の SpiffWorkflow BPMN worke
 
 **制約・注意点**:
 - Redis は transient のみ。永続化を Redis に書くことは禁止
-- `RisingWaveCheckpointSaver` は `langgraph-checkpoint-postgres` を参考に
+- `Kotoba/DatomicCheckpointSaver` は `langgraph-checkpoint-postgres` を参考に
   RW 非互換箇所 (SKIP LOCKED / LISTEN/NOTIFY / ON CONFLICT) を全て回避すること
 - LangGraph Server の `/runs` は at-least-once。冪等性は node 実装側で保証
 - BPMN-native flow は SpiffWorkflow BPMN worker に送る。Zeebe を残す判断はしない
@@ -384,4 +384,4 @@ Server へ機械的に移植せず、ADR-2605081200 の SpiffWorkflow BPMN worke
 - ADR-2604282300: CF Worker Edge Layer (bpmn-dispatcher K8s-internal routing)
 - ADR-0056: BPMN-as-actor (Zeebe deploy pattern; migration source)
 - ADR-2605080200: Pydantic v2 L6 Validation Contract (node 実装に適用)
-- ADR-2605080300: SQLAlchemy Core Usage Contract (RisingWave storage 実装に適用)
+- ADR-2605080300: SQLAlchemy Core Usage Contract (Kotoba/Datomic storage 実装に適用)

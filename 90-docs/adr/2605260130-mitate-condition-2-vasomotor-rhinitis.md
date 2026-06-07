@@ -16,9 +16,9 @@ depends_on:
   - adr-2605260100-mitate-diagnostic-routing-charter
   - adr-2605260115-mitate-condition-1-allergic-rhinitis-perennial
 related:
-  - 20-actors/magatama/cells/mitate_rhinitis_triage/
-  - 20-actors/magatama/cells/mitate_treatment_router/
-  - 20-actors/magatama/cells/mitate_outcome_qol_followup/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_rhinitis_triage/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_treatment_router/
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/mitate_outcome_qol_followup/
 supersedes: []
 superseded_by: []
 ---

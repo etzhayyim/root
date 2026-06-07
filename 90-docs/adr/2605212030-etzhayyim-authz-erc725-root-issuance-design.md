@@ -77,7 +77,7 @@ The `did:web` document **must** embed the `did:erc725:base:` value as `alsoKnown
 
 Public-facing systems (AT Protocol federation, social handles, signed lexicons, MCP tool registry) MUST use `did:web:`. Internal governance and on-chain enforcement MUST use `did:erc725:`. Either format SHOULD resolve to the same actor through the bidirectional pointers.
 
-Vendor's `did:erc725:etzhayyim:260425:<contract>` literals continue to exist in vendor RisingWave columns as historical references; new etzhayyim roots use `did:erc725:base:<contract>` (chain id `8453` is implied by the `base` method-specific identifier per ADR-0095 amended naming).
+Vendor's `did:erc725:etzhayyim:260425:<contract>` literals continue to exist in vendor Kotoba/Datomic columns as historical references; new etzhayyim roots use `did:erc725:base:<contract>` (chain id `8453` is implied by the `base` method-specific identifier per ADR-0095 amended naming).
 
 ### D3. Cutover protocol — **5-phase forward-only migration**
 
@@ -88,7 +88,7 @@ The ~96 mitama actor roots and N org roots in vendor are not deleted; they are *
 | **P0** | Deploy etzhayyim authz on Base L2 (Foundry contracts under `50-infra/etzhayyim-authz/contracts/`, deploy script alongside `DeployReligiousCorp.s.sol`) | Yes — contracts can be redeployed |
 | **P1** | Vendor `authz.etzhayyim.com` stops issuing **new** ERC725 roots. `linkEthereumBegin/Verify` return `Gone: 410` for new caller DIDs; existing DIDs still verify | Yes — vendor can resume issuing if rollback needed |
 | **P2** | Existing vendor roots opt-in to etzhayyim mirror: actor signs a continuity proof `sig_vendor(did:erc725:base:<new>)` with their old vendor-issued key; etzhayyim authz mints the Base L2 root referencing the vendor root as `predecessor` | Yes — opt-in, no forced migration |
-| **P3** | All new etzhayyim-scope writes (Council attestations, land donations, SBT mints) use the Base L2 root only. Vendor RisingWave reads continue to resolve old vendor roots for historical queries | Partial — new writes can't easily be undone |
+| **P3** | All new etzhayyim-scope writes (Council attestations, land donations, SBT mints) use the Base L2 root only. Vendor Kotoba/Datomic reads continue to resolve old vendor roots for historical queries | Partial — new writes can't easily be undone |
 | **P4** | After 6 months of P3 (target: 2026-11), vendor `linkEthereum*` lexicons get `status: deprecated` at the lexicon level (not just description prefix). Vendor `sign-up.ts` Ethereum branch removed. Vendor contracts become read-only | No — vendor-side removal |
 
 The "vendor sign-up.ts Ethereum branch removed" step is gated on observable migration progress; do not schedule it by date alone.
@@ -116,7 +116,7 @@ The `org.etzhayyim.*` namespace mirrors the existing `org/etzhayyim/yobel/` patt
 - `50-infra/etzhayyim-did-web/` CF Worker is extended to serve per-handle `did:web:<handle>.etzhayyim.com` documents, each embedding the matching `did:erc725:base:<contract>` and `verificationMethod`.
 - Council operations (attestations, SBT mints) gain a new precondition: the actor must hold a Base L2 ERC725 root. Vendor-only roots are not accepted as identity for new Council operations after P3.
 - The existing 96 mitama actors face an opt-in migration window between P1 and P3 (~ 6 months). Migration is voluntary but is required to participate in new etzhayyim governance.
-- Vendor `actor_did` / `org_did` columns in RisingWave continue to operate; values from Phase P2 onward are `did:erc725:base:<new>` instead of `did:erc725:etzhayyim:260425:<old>`. Both formats coexist in the column (string-typed).
+- Vendor `actor_did` / `org_did` columns in Kotoba/Datomic continue to operate; values from Phase P2 onward are `did:erc725:base:<new>` instead of `did:erc725:etzhayyim:260425:<old>`. Both formats coexist in the column (string-typed).
 
 ## Alternatives Considered
 

@@ -1,5 +1,11 @@
 # etzhayyim-project-yotei
 
+> **kotoba-native (ADR-2606072200).** Canonical manifest is now `manifest.edn`; data model in
+> `kotoba/schema.edn`; logic + tests in `py/` (11 green). Free scheduling commons with append-only
+> bookings, a structural **no-double-book** invariant, member-signed confirmation, and **no
+> booker-data harvesting**. Legacy `actor-manifest.jsonld` (RisingWave/Cypher) is DEPRECATED
+> (`DEPRECATED-jsonld.md`). The T1 description below is historical.
+
 Calendar scheduling & availability coordination — Calendly-like AI Agent。
 
 **URL**: `https://yotei.etzhayyim.com`
@@ -50,7 +56,7 @@ yoro.etzhayyim.com FAB tap
 
 | Layer | Tech | Path |
 |---|---|---|
-| **Host** | Hono (`@etzhayyim/magatama-host-sdk`) | `src/app.ts` — XRPC + `/embed` route |
+| **Host** | Hono (`@etzhayyim/kotodama-host-sdk`) | `src/app.ts` — XRPC + `/embed` route |
 | **Client** | Svelte 5 + Vite 6 + Tailwind | `svelte/` — CSR SPA |
 | **Layout** | `SuperAppLayout` (mobile-first 600px) | 5-tab SuperApp shell |
 | **Design** | `@etzhayyim/design-system` | UIKit components |

@@ -30,6 +30,7 @@ import {
 } from './prf.js';
 import { deriveSessionKeyPair, base58btcEncode, type SessionKey } from './session-key.js';
 import { buildProfileCacao, signCacaoEd25519, CAP_ACCOUNT_LOGIN } from './cacao.js';
+import { publishAccount } from './account-ops.js';
 
 // ─── apex / RP constants ────────────────────────────────────────────────────
 
@@ -40,7 +41,6 @@ export const RP_NAME = 'etzhayyim';
 export const APEX_ORIGIN = 'https://etzhayyim.com';
 
 const VERIFY_PATH = '/xrpc/com.etzhayyim.authz.verifyCacao';
-const REGISTER_PATH = '/xrpc/com.etzhayyim.authz.registerAccount';
 
 /** localStorage map: WebAuthn credentialId(b64url) → derived account did. Lets the
  *  no-PRF (P-256) path resolve its DID on sign-in (the assertion alone can't). */
@@ -242,36 +242,24 @@ async function confirmControl(sessionKey: SessionKey, nowMs: number): Promise<bo
 	}
 }
 
-/** Publish the account record (handle alias + controller did:key + optional
- *  profile) to kotoba via the apex relay. Best-effort, non-blocking, gated. */
+/**
+ * Publish the account record (controller did:key + a self-certifying handle
+ * attestation + profile) as a member-signed, content-addressed block via the
+ * apex `block.put` (see `account-ops.ts` / `block-publish.ts`). Domain-
+ * independent: the record is a CID signed by the `did:key`, dependent on neither
+ * the domain nor a central node (IPFS-pinned via kotobase.net). Best-effort,
+ * non-blocking — login already stands regardless of the publish result.
+ */
 export async function registerAccount(
 	sessionKey: SessionKey,
 	handle: string,
 	nowMs: number,
 	profile: Record<string, unknown> = {},
-): Promise<{ ok: boolean; gated?: boolean }> {
-	try {
-		const unsigned = buildProfileCacao({
-			iss: sessionKey.didKey,
-			iat: isoZ(nowMs),
-			exp: isoZ(nowMs + 5 * 60 * 1000),
-			nonce: bytesToHex(randomBytes(16)),
-			capabilities: ['kotoba://op/account:register'],
-			graphs: [],
-			statement: 'Register your etzhayyim account',
-		});
-		const signed = await signCacaoEd25519(unsigned, sessionKey);
-		const resp = await fetch(`${APEX_ORIGIN}${REGISTER_PATH}`, {
-			method: 'POST',
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ cacao: signed, handle, did: sessionKey.didKey, profile }),
-		});
-		if (!resp.ok) return { ok: false };
-		const body = (await resp.json()) as { ok?: boolean; gated?: boolean };
-		return { ok: body.ok === true, gated: body.gated };
-	} catch {
-		return { ok: false };
-	}
+): Promise<{ ok: boolean }> {
+	const strProfile: Record<string, string> = {};
+	for (const [k, v] of Object.entries(profile)) if (typeof v === 'string') strProfile[k] = v;
+	const r = await publishAccount(sessionKey, handle, strProfile, { now: () => nowMs });
+	return { ok: r.ok };
 }
 
 // ─── WebAuthn ceremonies ────────────────────────────────────────────────────

@@ -5,10 +5,12 @@ NSID: com.etzhayyim.apps.yukkuri.health
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 import time
-from typing import Any, TypedDict
+from typing import Any
+from kotodama.kotoba_datomic import get_kotoba_client, TypedDict
 
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
@@ -17,7 +19,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")
 
 
@@ -30,18 +31,11 @@ class _State(TypedDict, total=False):
 
 
 async def _node_check_rw(state: _State) -> dict[str, Any]:
-    if not _RW_URL:
-        return {"rw_ok": False, "error": "RW_URL not set"}
     try:
-        import psycopg
         started = time.monotonic()
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True, connect_timeout=5)
-        try:
-            cur = conn.cursor()
-            await cur.execute("SELECT 1")
-            await cur.fetchone()
-        finally:
-            await conn.close()
+        client = get_kotoba_client()
+        # Ping the datomic client
+        await asyncio.to_thread(client.q, '[:find ?e :where [?e :db/ident :db/ident]]')
         return {"rw_ok": True, "rw_latency_ms": int((time.monotonic() - started) * 1000)}
     except Exception as exc:  # noqa: BLE001
         return {"rw_ok": False, "error": f"rw: {exc!s}"[:200]}

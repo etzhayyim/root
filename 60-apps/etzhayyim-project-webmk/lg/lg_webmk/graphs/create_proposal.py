@@ -89,7 +89,7 @@ async def _generate_strategy(state: ProposalState) -> dict[str, Any]:
     """Generate marketing strategy JSON via Claude."""
     try:
         from langchain_anthropic import ChatAnthropic
-        from pymagatama.llm import resolve_model_id
+        from kotodama.llm import resolve_model_id
         model_id = resolve_model_id("MURAKUMO_DEFAULT_MODEL")
         llm = ChatAnthropic(model=model_id, max_tokens=1024)
         prompt = (
@@ -114,7 +114,7 @@ async def _generate_copy(state: ProposalState) -> dict[str, Any]:
     """Generate marketing copy markdown."""
     try:
         from langchain_anthropic import ChatAnthropic
-        from pymagatama.llm import resolve_model_id
+        from kotodama.llm import resolve_model_id
         model_id = resolve_model_id("MURAKUMO_DEFAULT_MODEL")
         llm = ChatAnthropic(model=model_id, max_tokens=2048)
         prompt = (

@@ -97,7 +97,7 @@ default_steps = 20
 default_denoise = 0.7
 request_format = "application/json {image: base64, prompt, negative_prompt, strength, steps, model}"
 response_format = "application/json {created, data: [{b64_json}]}"  # OpenAI Images shape
-auth = "x-magatama-verified: true (internal) or sk_live_* (platform)"
+auth = "x-kotodama-verified: true (internal) or sk_live_* (platform)"
 
 [features.phase_A_implementation]
 # All A-series tasks merged to main 2026-04-22.

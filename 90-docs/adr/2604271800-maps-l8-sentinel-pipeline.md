@@ -14,7 +14,7 @@ related:
   - adr-2604271600-projector-l7-langgraph-integration
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-2604240946-yoro-autonomous-actor-hybrid-loop
 ---
 
@@ -27,7 +27,7 @@ related:
 - **Supersedes**: maps `satellite_*` command stubs (declared 2026-04-17, never wired)
 - **Relates to**: ADR-0056 (BPMN-as-actor), ADR-2604271600 (projector L7 LangChain),
   ADR-2604251830 (Shannon-Optimal 8-Layer), ADR-0036 (Worker-direct Hyperdrive),
-  ADR-0044 (RisingWave UDF language strategy), ADR-2604240946 (yoro RunPod fallback)
+  ADR-0044 (Kotoba/Datomic UDF language strategy), ADR-2604240946 (yoro RunPod fallback)
 
 ## Context
 
@@ -100,12 +100,12 @@ Start (XRPC POST com.etzhayyim.apps.maps.sentinelAnalyze)
   in a follow-up.
 - LangChain orchestration: prompt → COG URL retrieval → RunPod invoke
   → structured JSON parse → confidence calibration. Pure Python, no
-  RisingWave UDF needed (per ADR-0044: external IO + LLM + heavy lib =
-  Python External / pymagatama, not SQL UDF).
+  Kotoba/Datomic UDF needed (per ADR-0044: external IO + LLM + heavy lib =
+  Python External / kotodama, not SQL UDF).
 
 ### 3. pyzeebe primitives
 
-`20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py`:
+`40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py`:
 
 | task type | purpose |
 |---|---|
@@ -129,7 +129,7 @@ hardcoded):
   Copernicus auth; Sentinel-2 via Element84 needs no auth)
 
 LangChain + Sentinel SDK Python deps land in the existing
-`pymagatama` image — incremental ~30 MB (`langchain-core` + `pystac` +
+`kotodama` image — incremental ~30 MB (`langchain-core` + `pystac` +
 `shapely`). No new image, no new Deployment, no new HPA.
 
 ### 5. Lexicon contract
@@ -145,8 +145,8 @@ LangChain + Sentinel SDK Python deps land in the existing
 
 Phase 1: writes use `vertex_repo_record` with collection
 `com.etzhayyim.apps.maps.satelliteScene` and `…satelliteAnalysis`. Avoids a
-RisingWave DDL during the recovery-sensitive Vultr+B2 cluster window
-(see CLAUDE.md "RisingWave Smooth Scaling Gate").
+Kotoba/Datomic DDL during the recovery-sensitive Vultr+B2 cluster window
+(see CLAUDE.md "Kotoba/Datomic Smooth Scaling Gate").
 
 Phase 2 (separate ADR + migration): typed `vertex_satellite_scene`
 (stac_id, platform, sensor, datetime, cloud_cover, bbox_geom, cog_url,
@@ -176,7 +176,7 @@ cluster footprint is back inside RW license caps.
   External (pyzeebe), not SQL UDF.
 - ADR-2604261000 MCP tool registry: ✓ lexicons drop into
   `vertex_mcp_tool_def` via `sync-mcp-registry.py` automatically.
-- RisingWave Smooth Scaling Gate: ✓ Phase 1 introduces zero DDL.
+- Kotoba/Datomic Smooth Scaling Gate: ✓ Phase 1 introduces zero DDL.
 - LLM Coding Guardrail (NSID placeholder): ✓ canonical NSIDs throughout.
 
 ## Implementation Status — 2026-04-28 (shipped)
@@ -187,10 +187,10 @@ cluster footprint is back inside RW license caps.
 |---|---|
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelIngest.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/sentinelAnalyze.bpmn` | ✅ committed, seeded to `vertex_bpmn_process_def` |
-| `20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py` | ✅ `maps.sentinel.stac.search` + `maps.sentinel.runpod.analyze` |
-| `20-actors/magatama/py/tests/test_maps_sentinel_primitives.py` | ✅ 36/36 passing |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/maps_sentinel.py` | ✅ `maps.sentinel.stac.search` + `maps.sentinel.runpod.analyze` |
+| `40-engine/kotoba/crates/kotoba-kotodama/py/tests/test_maps_sentinel_primitives.py` | ✅ 36/36 passing |
 | `70-tools/scripts/contract/lint-sentinel-drift.py` | ✅ 5-check CI guard |
-| `ghcr.io/etzhayyim/pymagatama:0.2.37` | ✅ built + pushed linux/amd64 |
+| `ghcr.io/etzhayyim/kotodama:0.2.37` | ✅ built + pushed linux/amd64 |
 | `zeebe-worker` (mitama-udf) | ✅ rolled to 0.2.37, polling `maps.sentinel.*` |
 | PR #1151 | ✅ `safe-deploy-and-fix-settler-ws` → `main` |
 
@@ -201,7 +201,7 @@ change required; the `generic.db.insert` task type is already wired.
 ### ✅ Phase 2 DDL pre-staged
 
 `30-graph/graph-schema/migrations/20260427220000_vertex_satellite_typed_tables.ts`
-applied to live Vultr RisingWave after `rw-health-gate.sh` cleared:
+applied to live Vultr Kotoba/Datomic after `rw-health-gate.sh` cleared:
 - `vertex_satellite_scene` — 17 cols + 3 indexes (repo / platform / date_time)
 - `vertex_satellite_analysis` — 17 cols + 3 indexes (repo / scene_uri / analysis_type)
 

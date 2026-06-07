@@ -850,7 +850,7 @@
     },
     "/xrpc/com.etzhayyim.mangaka.dedupeEdges": {
       "post": {
-        "summary": "Remove duplicate edge_contains rows per (src_vid, dst_vid, label). RisingWave does not enforce PK uniqueness on non-streaming INSERTs; this retro-cleans accumulated dups. Idempotent.",
+        "summary": "Remove duplicate edge_contains rows per (src_vid, dst_vid, label). Kotoba/Datomic does not enforce PK uniqueness on non-streaming INSERTs; this retro-cleans accumulated dups. Idempotent.",
         "operationId": "com.etzhayyim.mangaka.dedupeEdges",
         "requestBody": {
           "required": true,
@@ -1254,7 +1254,7 @@
     },
     "/xrpc/com.etzhayyim.mangaka.getEpisode": {
       "get": {
-        "summary": "Fetch a manga episode (work record + all 20 page records) by episode AT URI. Reads vertex_mangaka_work + vertex_mangaka_page from RisingWave via Hyperdrive (ADR-0036).",
+        "summary": "Fetch a manga episode (work record + all 20 page records) by episode AT URI. Reads vertex_mangaka_work + vertex_mangaka_page from Kotoba/Datomic via Hyperdrive (ADR-0036).",
         "operationId": "com.etzhayyim.mangaka.getEpisode",
         "parameters": [
           {
@@ -1397,7 +1397,7 @@
     },
     "/xrpc/com.etzhayyim.mangaka.getProcessTrace": {
       "get": {
-        "summary": "Fetch the OCEL 2.0 process-mining trace for a manga episode. Returns the activity timeline (case_id = episode_uri, event_type = task name, timestamp, duration, status, object_refs). Use this for process mining (PM4PY/Celonis), bottleneck analysis, or debugging stuck pipelines. Reads from mv_mangaka_process_trace (RisingWave streaming MV over vertex_audit_event).",
+        "summary": "Fetch the OCEL 2.0 process-mining trace for a manga episode. Returns the activity timeline (case_id = episode_uri, event_type = task name, timestamp, duration, status, object_refs). Use this for process mining (PM4PY/Celonis), bottleneck analysis, or debugging stuck pipelines. Reads from mv_mangaka_process_trace (Kotoba/Datomic streaming MV over vertex_audit_event).",
         "operationId": "com.etzhayyim.mangaka.getProcessTrace",
         "parameters": [
           {

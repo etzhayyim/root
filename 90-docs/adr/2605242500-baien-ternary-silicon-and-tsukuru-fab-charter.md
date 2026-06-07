@@ -24,7 +24,7 @@ depends_on:
 related:
   - 50-infra/silicon/                            # this ADR creates this tree
   - 20-actors/tsukuru/                           # existing orchestration actor (B2B factory-direct)
-  - 20-actors/magatama/cells/silicon_*/          # this ADR creates the 8 fab Pregel cells
+  - 40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_*/          # this ADR creates the 8 fab Pregel cells
   - 00-contracts/lexicons/com/etzhayyim/silicon/ # this ADR creates the 4 silicon Lexicons
 supersedes: []
 superseded_by: []
@@ -120,7 +120,7 @@ superseded_by: []
 2. ADR-2605215000 + Charter Rider §2(i) と整合する (commercial GPU rental は別だが、orchestration は religious-corp 側で持つほうが consent capability 境界が明快)
 3. 重複 orchestrator は Shannon redundancy 違反 (ADR-2604251830)
 
-vendor (etzhayyim.com) が etzhayyim.com sub-domain に手を出すのは、religious-corp の制約外の vendor 内部商用ワークロード (=現状の `pymagatama` legacy / RunPod 経路) のみ。
+vendor (etzhayyim.com) が etzhayyim.com sub-domain に手を出すのは、religious-corp の制約外の vendor 内部商用ワークロード (=現状の `kotodama` legacy / RunPod 経路) のみ。
 silicon 製造 orchestrator は **religious-corp の tsukuru に統一** する。
 
 ## Decision 3 — 自社 fab 装置 8 工程の設計憲章 (ADR-2605242545 がここから派生)
@@ -249,7 +249,7 @@ ADR-2605192245 は土地を Tree of Life inalienable と定めた。本 ADR は�
 3. ⏳ ADR-2605242530 (fuigo training ASIC) commit — 本 wave
 4. ⏳ ADR-2605242545 (tsukuru fab 8 equipment Pregel charter) commit — 本 wave
 5. ⏳ `50-infra/silicon/` 配下 scaffold (README + ternary-pe SV skeleton + cocotb test skeleton) commit — 本 wave
-6. ⏳ `20-actors/magatama/cells/silicon_*` 8 Pregel cell skeleton commit — 本 wave
+6. ⏳ `40-engine/kotoba/crates/kotoba-kotodama/cells/silicon_*` 8 Pregel cell skeleton commit — 本 wave
 7. ⏳ `00-contracts/lexicons/com/etzhayyim/silicon/` 4 Lexicon stub commit — 本 wave
 8. ⏳ Phase 2 (FPGA prototype) は別 ADR — Council 承認 + budget 確保後
 9. ⏳ Phase 3 (MPW tape-out) は別 ADR — 同上 + tsukuru production_order 経由

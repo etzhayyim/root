@@ -9,15 +9,15 @@ last_verified: 2026-05-07
 priority: 9.0
 axis: architecture
 weight: 0.90
-priority_note: "CRITICAL — LangGraph / MCP / RisingWave / Virtual Actor / WASM / Mojo / PyZeebe / RW External UDF の統合アーキテクチャを決定する"
+priority_note: "CRITICAL — LangGraph / MCP / Kotoba/Datomic / Virtual Actor / WASM / Mojo / PyZeebe / RW External UDF の統合アーキテクチャを決定する"
 authoritative_for:
   - distributed cognitive actor system overall architecture
-  - layer assignment: CF Edge (L1) / LangGraph (L2) / K8s+Zeebe Virtual Actor Runtime (L3) / MCP Capability (L4) / RisingWave Memory (L5) / PyZeebe+RW-Ext-UDF+WASM+Mojo Compute (L6)
+  - layer assignment: CF Edge (L1) / LangGraph (L2) / K8s+Zeebe Virtual Actor Runtime (L3) / MCP Capability (L4) / Kotoba/Datomic Memory (L5) / PyZeebe+RW-Ext-UDF+WASM+Mojo Compute (L6)
   - actor taxonomy: Runtime Actor / Virtual Actor / Stream Actor
-  - state model: Hot (pod) / Warm (RisingWave MV) / Cold (S3/R2/Postgres)
+  - state model: Hot (pod) / Warm (Kotoba/Datomic MV) / Cold (S3/R2/Postgres)
   - PyZeebe layer assignment: L6 Compute (not L3)
-  - RisingWave External Python UDF layer assignment: L6 Compute (Arrow Flight RPC, not L5)
-  - RisingWave SQL UDF / Embedded Rust UDF layer assignment: L5 (internal execution)
+  - Kotoba/Datomic External Python UDF layer assignment: L6 Compute (Arrow Flight RPC, not L5)
+  - Kotoba/Datomic SQL UDF / Embedded Rust UDF layer assignment: L5 (internal execution)
   - WASM and Mojo role as enzymatic compute layer (L6)
   - LangGraph scope constraint (coordination only, L2)
   - MCP scope constraint (tool protocol, not actor protocol, L4)
@@ -27,7 +27,7 @@ depends_on:
   - adr-2604282300
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0056-bpmn-as-actor
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
 related:
   - adr-2605061200-agi-active-inference-artificial-organism-architecture
   - adr-2605071900
@@ -51,7 +51,7 @@ amended_by:
 
 ## Context
 
-AI workflow の実装が進む中で、LangGraph・MCP・RisingWave・PyZeebe・WASM・Mojo の
+AI workflow の実装が進む中で、LangGraph・MCP・Kotoba/Datomic・PyZeebe・WASM・Mojo の
 各コンポーネントが個別 ADR に散在し、相互の役割境界が曖昧になっていた。
 
 具体的な混乱パターン:
@@ -93,7 +93,7 @@ AI workflow の実装が進む中で、LangGraph・MCP・RisingWave・PyZeebe・
         └─────────────┴──────────────┴──────────┴─────────────┘
                       │                               ▲
                       ▼                               │ Arrow Flight RPC
-                 RisingWave             ← L5: Streaming Memory Layer
+                 Kotoba/Datomic             ← L5: Streaming Memory Layer
           (Streaming Cognition Substrate)
 ```
 
@@ -132,13 +132,13 @@ event
  ↓
 activate actor (Zeebe job dispatch)   ← L3: K8s pod 起動 / 再利用
  ↓
-hydrate state (RisingWave MV read)    ← L5 から読む
+hydrate state (Kotoba/Datomic MV read)    ← L5 から読む
  ↓
 LangGraph execute (intra-job, if ≥3 steps)  ← L2
  ↓
 PyZeebe job handler execute           ← L6: 実際の compute
  ↓
-persist state (RisingWave insert)     ← L5 に書く
+persist state (Kotoba/Datomic insert)     ← L5 に書く
  ↓
 passivate (pod sleep / job complete)  ← L3: pod を戻す
 ```
@@ -161,7 +161,7 @@ passivate (pod sleep / job complete)  ← L3: pod を戻す
 |---|---|---|
 | Runtime Actor | realtime session / active planning / UI interaction | TS/Bun Worker (L6) |
 | Virtual Actor | user memory / ingest pipeline / retrieval / document cognition | PyZeebe Python Worker (L6) |
-| Stream Actor | aggregation / summarization / feature derivation / analytics | RisingWave SQL/Rust UDF (L5) + External Python UDF (L6) |
+| Stream Actor | aggregation / summarization / feature derivation / analytics | Kotoba/Datomic SQL/Rust UDF (L5) + External Python UDF (L6) |
 
 ---
 
@@ -179,7 +179,7 @@ passivate (pod sleep / job complete)  ← L3: pod を戻す
 
 ---
 
-### Layer 5 — Streaming Memory Layer (RisingWave)
+### Layer 5 — Streaming Memory Layer (Kotoba/Datomic)
 
 **役割**: event accumulation / derived memory / materialized cognition / incremental context / stream joins / temporal memory
 
@@ -190,23 +190,23 @@ passivate (pod sleep / job complete)  ← L3: pod を戻す
 | 種別 | 場所 | 特性 |
 |---|---|---|
 | Hot State | Pod memory (LangGraph state dict) | ephemeral runtime cognition |
-| Warm State | RisingWave Materialized View | event-derived, always consistent |
+| Warm State | Kotoba/Datomic Materialized View | event-derived, always consistent |
 | Cold State | S3 / R2 / Postgres | object/document storage |
 
 **Actor state は event-derived**:
 - actor state を Pod に persist しない
 - 全 state = `immutable events + materialized views`
-- actor restart 時は RisingWave MV から hydrate
+- actor restart 時は Kotoba/Datomic MV から hydrate
 
 **UDF 分担 (ADR-0044)**:
 
 | UDF 種別 | 実行場所 | Layer |
 |---|---|---|
-| SQL UDF | RisingWave 内部 | L5 |
-| Embedded Rust UDF | RisingWave 内部 | L5 |
+| SQL UDF | Kotoba/Datomic 内部 | L5 |
+| Embedded Rust UDF | Kotoba/Datomic 内部 | L5 |
 | External Python UDF (`@udf(io_threads=100)`) | 外部 Arrow Flight サーバー | **L6** |
 
-External UDF は RisingWave が Arrow Flight RPC で呼び出す外部プロセス。LLM・IO bound な処理を担う。
+External UDF は Kotoba/Datomic が Arrow Flight RPC で呼び出す外部プロセス。LLM・IO bound な処理を担う。
 
 **DDL 制約**: `rw-health-gate.sh` を先に満たす。`SlowDown` / recovery log がある時は DDL・bulk write・scale-down 禁止
 
@@ -274,7 +274,7 @@ from mojo_lib import vectorized_embed  # MAX Engine Python bindings
 embeddings = vectorized_embed(texts, model="bge-m3")
 ```
 
-**制約**: Mojo module は純粋 compute 関数のみ export。Zeebe / RisingWave への direct access 禁止
+**制約**: Mojo module は純粋 compute 関数のみ export。Zeebe / Kotoba/Datomic への direct access 禁止
 
 #### Python ML Worker
 
@@ -284,9 +284,9 @@ embeddings = vectorized_embed(texts, model="bge-m3")
 - LLM API call (Anthropic SDK with `resolveModelId()`)
 - data processing (pandas / polars)
 
-#### RisingWave External Python UDF
+#### Kotoba/Datomic External Python UDF
 
-**位置づけ**: RisingWave (L5) が Arrow Flight RPC で呼び出す外部プロセス。RisingWave 本体とは別プロセスで動く compute 実行体。
+**位置づけ**: Kotoba/Datomic (L5) が Arrow Flight RPC で呼び出す外部プロセス。Kotoba/Datomic 本体とは別プロセスで動く compute 実行体。
 
 **用途**:
 - LLM API call (Anthropic SDK / OpenAI) をストリーム処理の一部として実行
@@ -295,7 +295,7 @@ embeddings = vectorized_embed(texts, model="bge-m3")
 
 **実装パターン**:
 ```python
-from risingwave.udf import udf, UdfServer
+from kotoba.udf import udf, UdfServer
 
 @udf(input_types=["VARCHAR"], result_type="VARCHAR", io_threads=100)
 async def llm_classify(text: str) -> str:
@@ -309,7 +309,7 @@ server.serve()
 ```
 
 **制約**:
-- SQL UDF / Embedded Rust UDF は L5 (RisingWave 内部実行)
+- SQL UDF / Embedded Rust UDF は L5 (Kotoba/Datomic 内部実行)
 - External Python UDF のみ L6 (外部プロセス)
 - External UDF server は stateless。actor state を持たない
 
@@ -336,7 +336,7 @@ server.serve()
 | LangGraph | 維管束・成長制御 |
 | Virtual Actor (PyZeebe) | 酵母・細胞 |
 | MCP | 菌糸・根 |
-| RisingWave | 腐葉土・発酵層 |
+| Kotoba/Datomic | 腐葉土・発酵層 |
 | WASM | 酵素 |
 | Mojo | 高速代謝酵素 (SIMD) |
 | Cloudflare Edge | 分散神経系 |
@@ -376,5 +376,5 @@ server.serve()
 - ADR-2604282300: CF Worker Edge Layer — Zeebe/RW UDF Business Logic
 - ADR-2605071200: Myco-Yeast Artificial Organism (biological metaphor source)
 - ADR-0056: BPMN-as-actor (Zeebe deploy pattern)
-- ADR-0044: RisingWave UDF Language Strategy (SQL/Rust/Python UDF 分担)
+- ADR-0044: Kotoba/Datomic UDF Language Strategy (SQL/Rust/Python UDF 分担)
 - ADR-2604251830: Shannon-Optimal 8-Layer Architecture

@@ -33,7 +33,6 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
-_RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:etzhayyim:260425:etzhayyim-japan")
 
@@ -84,16 +83,16 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
             "incidents": len(parsed),
             "chapters_linked": len(chap_refs),
         }, "error": None}
-    if not _RW_URL: return {"status": "error", "error": "RW_URL not configured"}
 
-    import psycopg
+    import asyncio
+    from kotodama.kotoba_datomic import get_kotoba_client
     work_rkey = state.get("work_rkey") or "gh-work-ghost-hacker"
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
-    inc_count, chap_count = 0, 0
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
+    
+    def _write():
+        inc_count, chap_count = 0, 0
+        client = get_kotoba_client()
         # 1. Upsert incident rows
         for inc in parsed:
             rkey = inc["rkey"]
@@ -111,53 +110,55 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
                 "episodeIds": data.get("gh:episodeIds") or [],
                 "episodeRkeys": inc["episodeRkeys"],
             }
-            await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-            await cur.execute(
-                """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-                    rkey, repo, did, collection, label, title, name, display_name,
-                    kind, status, created_at, props, parent_rkey, actor_did, org_did
-                ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, 'incident', %s, %s, %s, 'incident', 'saved', %s, %s, %s, %s, %s)""",
-                (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID,
-                 "com.etzhayyim.mangaka.incident", title.strip(" —"), name, name,
-                 now_iso, json.dumps(props, ensure_ascii=False), work_rkey,
-                 _APP_DID, _DEFAULT_ORG_DID))
+            client.insert_row("vertex_mangaka", {
+                "vertex_id": vid,
+                "created_date": now_date,
+                "sensitivity_ord": 0,
+                "owner_did": _APP_DID,
+                "rkey": rkey,
+                "repo": _APP_DID,
+                "did": _APP_DID,
+                "collection": "com.etzhayyim.mangaka.incident",
+                "label": "incident",
+                "title": title.strip(" —"),
+                "name": name,
+                "display_name": name,
+                "kind": "incident",
+                "status": "saved",
+                "created_at": now_iso,
+                "props": json.dumps(props, ensure_ascii=False),
+                "parent_rkey": work_rkey,
+                "actor_did": _APP_DID,
+                "org_did": _DEFAULT_ORG_DID
+            })
             inc_count += 1
 
         # 2. Merge chap_refs into existing chapter rows' props.incidents
         for chap_rkey, inc_rkeys in chap_refs.items():
-            await cur.execute(
-                "SELECT vertex_id, props FROM vertex_mangaka WHERE rkey = %s AND kind='chapter' LIMIT 1",
-                (chap_rkey,))
-            row = await cur.fetchone()
+            res = client.select_where("vertex_mangaka", "rkey", chap_rkey, columns=["vertex_id", "props", "kind"])
+            row = None
+            for r in res:
+                if r.get("kind") == "chapter":
+                    row = r
+                    break
             if not row: continue
-            vid, props_str = row
+            vid = row.get("vertex_id")
+            props_str = row.get("props")
             try: p = json.loads(props_str or "{}")
             except Exception: p = {}
             p["incidents"] = inc_rkeys
-            await _reinsert(cur, vid, p)
-            chap_count += 1
-    finally:
-        await conn.close()
+            
+            # Reinsert to update props
+            full_row = client.select_where("vertex_mangaka", "vertex_id", vid)
+            if full_row:
+                updated_row = dict(full_row[0])
+                updated_row["props"] = json.dumps(p, ensure_ascii=False)
+                client.insert_row("vertex_mangaka", updated_row)
+                chap_count += 1
+        return inc_count, chap_count
+        
+    inc_count, chap_count = await asyncio.to_thread(_write)
     return {"status": "derived", "counts": {"incidents": inc_count, "chapters_linked": chap_count}, "error": None}
-
-
-async def _reinsert(cur, vid: str, new_props: dict) -> None:
-    await cur.execute(
-        "SELECT created_date, sensitivity_ord, owner_did, rkey, repo, did, collection, "
-        "label, title, name, display_name, description, parent_rkey, page_number, "
-        "panel_number, asset_type, mime_type, cid, status, created_at, kind, actor_did, org_did "
-        "FROM vertex_mangaka WHERE vertex_id = %s LIMIT 1", (vid,))
-    r = await cur.fetchone()
-    if not r: return
-    (cd, s, o, rk, rp, dd, c, lb, ti, nm, dn, ds, pr, pgn, pln, at, mt, ci, st, ca, kd, ad, od) = r
-    await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
-    await cur.execute(
-        """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-            rkey, repo, did, collection, label, title, name, display_name, description, parent_rkey,
-            page_number, panel_number, asset_type, mime_type, cid, status, created_at, props, kind, actor_did, org_did
-        ) VALUES (%s,%s,%s,%s, %s,%s,%s,%s, %s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s)""",
-        (vid, cd, s, o, rk, rp, dd, c, lb, ti, nm, dn, ds, pr, pgn, pln, at, mt, ci, st, ca,
-         json.dumps(new_props, ensure_ascii=False), kd, ad, od))
 
 
 def _build():

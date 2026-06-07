@@ -15,7 +15,7 @@
 repo 内の DID manifest と actor governance metadata の compliance 準拠状態を自律的に評価する actor。**評価専門 — ingest は行わない。**
 
 - **分散 Ingest Architecture (Follow-Based)**: Authority/Rule/Scope ノードの生成は各 authority app (states/treaty/religious/customary/tradition/ethics/industry-standard) が自律的に行う。completer は全 authority app を Follow し、graph query で Rule を横断取得して評価する。中央 ingest agent は存在しない
-- `magatama:compliance@1.0.0` WIT contract を用いて jurisdiction-aware な評価を実行
+- `kotodama:compliance@1.0.0` WIT contract を用いて jurisdiction-aware な評価を実行
 - murakumo LLM で compliance gap の自然言語分析・remediation 推奨を生成
 - 評価結果を AT record として publish し、app owner channel に通知
 - `90-docs/260323-authority-chain-compliance-design.md` が authoritative design doc

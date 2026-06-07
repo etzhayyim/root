@@ -9,13 +9,13 @@ last_verified: 2026-05-26
 priority: 6.0
 axis: architecture
 weight: 0.55
-priority_note: "Single SoT for how `pymagatama.organism` actors consume large public-domain corpora (OSM Planet, RIR delegated stats, MaxMind GeoLite2, RIPE-RIS / Routeviews BGP MRT dumps, IANA root zone, Rapid7 Sonar FDNS, OpenINTEL, CAIDA AS-rank, Common Crawl host index) without violating the religious-corp substrate boundary. Two-path split: (A) PERCEPTION = hot-path organism heartbeat sensors that resolve the latest datasetPin CID, stream a bounded sample into InboxBuffer, and feed joucho 情緒; (B) TRAINING = cold-path corpus assembly that emits an IPFS-pinned shard manifest into baien-moemoekyun-train / baien-distill, eval-gated under R1.5 commit_node pattern. Tier-A sources (OSM ODbL / GeoNames CC-BY / Wikidata CC0 / RIR public / IANA public / GeoLite2 CC-BY-SA / RIPE-RIS / Routeviews) produce publishable artifacts. Tier-C sources (Rapid7 Sonar / CAIDA / OpenINTEL / Common Crawl URL index / CZDS per-TLD opt-in = CC-BY-NC or research-use) are admitted under G13 fleet-internal carve-out (artifact name MUST carry `-nc-` infix, MUST NOT publish, served via judah LiteLLM + SBT-gate only — same gate pattern as ADR-2605262100 R1.4). All ingestion is PASSIVE — organisms MUST NOT perform active DNS resolution / port probing / traceroute / WHOIS lookups (CHARTER-RIDER §2(c) covert-ops avoidance). PII filter precedes Charter Rider §2 scan. Inference path UNCHANGED per ADR-2605215000 (Murakumo fleet only, no commercial GPU rental for perception or for any artifact derived from this ADR's data unless the ADR-2605262200 train-rental amendment ratifies). 14 gates G1..G14, 12 non-goals N1..N12, 4-wave delivery W0..W4."
+priority_note: "Single SoT for how `kotodama.organism` actors consume large public-domain corpora (OSM Planet, RIR delegated stats, MaxMind GeoLite2, RIPE-RIS / Routeviews BGP MRT dumps, IANA root zone, Rapid7 Sonar FDNS, OpenINTEL, CAIDA AS-rank, Common Crawl host index) without violating the religious-corp substrate boundary. Two-path split: (A) PERCEPTION = hot-path organism heartbeat sensors that resolve the latest datasetPin CID, stream a bounded sample into InboxBuffer, and feed joucho 情緒; (B) TRAINING = cold-path corpus assembly that emits an IPFS-pinned shard manifest into baien-moemoekyun-train / baien-distill, eval-gated under R1.5 commit_node pattern. Tier-A sources (OSM ODbL / GeoNames CC-BY / Wikidata CC0 / RIR public / IANA public / GeoLite2 CC-BY-SA / RIPE-RIS / Routeviews) produce publishable artifacts. Tier-C sources (Rapid7 Sonar / CAIDA / OpenINTEL / Common Crawl URL index / CZDS per-TLD opt-in = CC-BY-NC or research-use) are admitted under G13 fleet-internal carve-out (artifact name MUST carry `-nc-` infix, MUST NOT publish, served via judah LiteLLM + SBT-gate only — same gate pattern as ADR-2605262100 R1.4). All ingestion is PASSIVE — organisms MUST NOT perform active DNS resolution / port probing / traceroute / WHOIS lookups (CHARTER-RIDER §2(c) covert-ops avoidance). PII filter precedes Charter Rider §2 scan. Inference path UNCHANGED per ADR-2605215000 (Murakumo fleet only, no commercial GPU rental for perception or for any artifact derived from this ADR's data unless the ADR-2605262200 train-rental amendment ratifies). 14 gates G1..G14, 12 non-goals N1..N12, 4-wave delivery W0..W4."
 authoritative_for:
   - public-data ingestion policy for the artificial-organism ecosystem
   - separation of perception (hot path) vs training (cold path) data flows
   - Tier-A vs Tier-C license ladder for organism-consumed datasets
   - G13 fleet-internal carve-out applied to NC-licensed source data
-  - DatasetSensor protocol for pymagatama.organism.sensors.*
+  - DatasetSensor protocol for kotodama.organism.sensors.*
   - passive-only constraint on organism network behavior (no active DNS/IP probing)
   - new fetcher set in 70-tools/e7m-dataset/src/e7m_dataset/fetchers/ (RIR, GeoLite2, RIPE-RIS, Routeviews, IANA root, Rapid7 Sonar, OpenINTEL, CAIDA, CZDS, Common Crawl CDX)
   - new subdataset taxonomy under 90-docs/baien/datasets/{geo,netreg,routing,dns,web}/
@@ -60,9 +60,9 @@ ADR-2605232345, ADR-2605240200) currently has:
   sidecar IPFS pinner with four fetchers (HF / GeoNames / OSM Geofabrik
   / Wikidata SPARQL) and the `com.etzhayyim.substrate.datasetPin`
   Lexicon as the receipt.
-- `pymagatama.organism` — joucho 情緒 cadence, `InboxBuffer`,
+- `kotodama.organism` — joucho 情緒 cadence, `InboxBuffer`,
   `KaizenObserver` (6 rules), and a single sensor module
-  (`pymagatama.organism.sensors.charter_rider`).
+  (`kotodama.organism.sensors.charter_rider`).
 - A `maps_sentinel_murakumo` M1 T0 preprocessing pipeline
   (ADR-2605215100) that already proved OSM PBF + raster fusion at fleet
   scale.
@@ -94,7 +94,7 @@ The decisions to make are:
 3. Are organisms allowed to perform any **active** network probing
    themselves (DNS resolve, port probe, traceroute, WHOIS query), or
    are they strictly readers of pre-captured public archives?
-4. What is the sensor abstraction in `pymagatama.organism.sensors.*`
+4. What is the sensor abstraction in `kotodama.organism.sensors.*`
    that does NOT leak Tier-C bytes to public-facing PostSink paths?
 5. What does the cold-path training corpus assembly look like, and how
    does it reuse ADR-2605262100 R1.5 eval-gated commit_node?
@@ -121,7 +121,7 @@ The constraint surface is dense:
   classification mid-tick). The train-rental amendment ADR-2605262200
   is gated on Council ratification and is independent of this ADR.
 - **ADR-2605262130 (Kotoba)** — read-path queries should not reintroduce
-  RisingWave / Postgres / Lance projection layers; sensor output is
+  Kotoba/Datomic / Postgres / Lance projection layers; sensor output is
   in-memory streamed and may be staged into `kotoba-kqe`
   arrangements if the sensor needs an attribute index, never into a
   separate projection backend.
@@ -219,9 +219,9 @@ Tier D (e.g. proprietary commercial DNS feeds, paid threat-intel feeds)
 is **out of scope for this ADR** and remains prohibited by
 CHARTER-RIDER §2.
 
-## §3. Sensor abstraction (`pymagatama.organism.sensors.*`)
+## §3. Sensor abstraction (`kotodama.organism.sensors.*`)
 
-New module: `20-actors/magatama/py/src/pymagatama/organism/sensors/base.py`.
+New module: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/base.py`.
 
 ```python
 # Protocol definition (excerpt; full type-checked impl lands in W1)
@@ -318,7 +318,7 @@ Behavior:
 
 ## §5. Kaizen rules (self-reflection)
 
-Three new rules in `pymagatama.organism.kaizen` (registry-extension,
+Three new rules in `kotodama.organism.kaizen` (registry-extension,
 ADR-2605240200 contract preserved):
 
 | Rule ID | Trigger | Proposal |
@@ -334,7 +334,7 @@ post-hoc, that is itself a Council-grade incident.
 
 ## §6. PII filter (precedes Charter Rider scan)
 
-New module: `20-actors/magatama/py/src/pymagatama/organism/sensors/pii_filter.py`.
+New module: `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/pii_filter.py`.
 
 Scope (Wave 1):
 
@@ -579,4 +579,4 @@ own commit and individual eval rows.
 - ADR-2605262300 — baien-moemoekyun R2+ rental train architecture (gated)
 - CHARTER-RIDER.md §2 — 8 prohibited categories (a)..(h) and three-tier enforcement
 - `70-tools/e7m-dataset/README.md` — fetcher + publish-ipfs + datasetPin contract
-- `20-actors/magatama/py/src/pymagatama/organism/` — organism cadence + Kaizen + sensors
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/` — organism cadence + Kaizen + sensors

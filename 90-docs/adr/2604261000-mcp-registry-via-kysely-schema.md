@@ -61,7 +61,7 @@ ADR-0087 §D3 の codegen を **Kysely schema** に置換する。
 manifest を毎リクエスト構築する。
 
 ADR-0087 §D1 (per-actor `/mcp` endpoint)・§D2 (`/.well-known/openapi.json`)
-は維持。§D4 (`magatama.jsonld.mcpFacade`) は段階的に
+は維持。§D4 (`kotodama.jsonld.mcpFacade`) は段階的に
 `mcpRegistry: { enabled }` flag に置換 (env var
 `APP_MCP_REGISTRY=1` も同等)。
 
@@ -131,7 +131,7 @@ vertex_mcp_tool_def                            (runtime registry)
 
 ### Runtime read (host-sdk)
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/mcp-registry-loader.ts`:
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-registry-loader.ts`:
 
 ```typescript
 const rows = await db
@@ -246,7 +246,7 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 ADR-2604261000 当初の想定は **N=200 actor** scale だった。1M+ actor 前提で
 再評価すると、CF Worker 500/account 制限、K8s pod-per-actor の cost
 ($20M/月)、DO per-actor の long-tail cold latency 等の制約から、**actor =
-RisingWave row、compute = shared FaaS via Zeebe ServiceTask** が Shannon η
+Kotoba/Datomic row、compute = shared FaaS via Zeebe ServiceTask** が Shannon η
 0.864 で頭一つ抜ける (G4 評価)。これは ADR-0056 BPMN-as-actor + ADR-2604250836
 LangGraph as Zeebe ServiceTask と完全に同じ思想。
 
@@ -262,7 +262,7 @@ MCP `tools/call` の dispatch logic を 2 段にする:
    └─ NO → app.handleXRPC (in-isolate, 既存)
 ```
 
-Implementation: `20-actors/magatama/sdk/magatama-host-sdk/src/mcp-bpmn-router.ts`
+Implementation: `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-bpmn-router.ts`
 + `mcp-server.ts` `dispatchMcp` の `tools/call` case + `host-web-router.ts`
 auto-wiring (mcpRegistry 有効時に bpmnRouter も有効、`mcpRegistry.bpmnRouting:
 false` で opt-out)。
@@ -345,7 +345,7 @@ mcpRegistry.actorDid → APP_DID → PERFORMER_DID → did:web:{APP_NANOID}.etzh
 
 **Step 5 で恒久化予定**: `etzhayyim deploy` が `APP_ACTOR_HANDLE` env を inject
 し、loader の default を `did:web:{APP_ACTOR_HANDLE}.etzhayyim.com` に切替。
-APP_ACTOR_HANDLE は `magatama.jsonld` の `profile.handle` か、なければ
+APP_ACTOR_HANDLE は `kotodama.jsonld` の `profile.handle` か、なければ
 component dir 名 (`etzhayyim-wasm-{slug}-*`) から派生。
 
 ### F2. `mcpFacade` と `mcpRegistry` 並存パターンが正解
@@ -367,7 +367,7 @@ DB、OpenAPI は codegen で並走する。Step 7 で OpenAPI も DB-derived に
 
 ### F3. 150 generated tool-manifest files were orphaned
 
-`20-actors/magatama/sdk/magatama-host-sdk/src/generated/tool-manifest/`
+`40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/generated/tool-manifest/`
 に codegen 済 152 ファイルがあったが、実際に import されていたのは
 `lawfirm.ts` のみ (152 中 1)。残り 150 + `_types.ts` は dead source-tree。
 
@@ -386,7 +386,7 @@ apply-pending.sh 経由で 1 migration ずつ apply する経路は ADR-26042413
 
 初版 `sync-mcp-registry.py` は per-row `psycopg2.connect()` を 1,738 回
 開いた → barrier storm で cluster recovery 入り。修正: 単一接続 + 100-row
-chunk 多値 INSERT (`apply_batch`)。RisingWave の write pattern は
+chunk 多値 INSERT (`apply_batch`)。Kotoba/Datomic の write pattern は
 fewer-larger-batches を好む。
 
 # Alternatives Considered
@@ -416,7 +416,7 @@ fewer-larger-batches を好む。
 
 # References
 
-- ADR-0087 — magatama per-actor MCP tool facade (`90-docs/adr/0087-magatama-mcp-tool-facade.md`)
+- ADR-0087 — kotodama per-actor MCP tool facade (`90-docs/adr/0087-kotodama-mcp-tool-facade.md`)
 - ADR-0056 — BPMN-as-actor (`90-docs/adr/0056-bpmn-as-actor.md`)
 - ADR-0036 — Worker-direct Hyperdrive persistence
 - ADR-0005 — Shannon redundancy prohibition
@@ -424,5 +424,5 @@ fewer-larger-batches を好む。
 - migration `20260423050934_vertex_kind_mcp_capability.ts` — 既存 kind→MCP binding 前例
 - migration `20260425100000_vertex_mcp_tool_def.ts` — 本 ADR の DDL
 - `70-tools/scripts/contract/sync-mcp-registry.py` — sync pipeline
-- `20-actors/magatama/sdk/magatama-host-sdk/src/mcp-registry-loader.ts` — runtime loader
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/mcp-registry-loader.ts` — runtime loader
 - MCP Streamable HTTP — https://modelcontextprotocol.io/specification/2025-06-18/basic/transports

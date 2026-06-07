@@ -4,7 +4,7 @@ Last updated: 2026-04-13
 
 ## Principle
 
-`shinka`、`koji`、`kyumei`、domain knowledge の実行主体は app ではなく DID。  
+`shinka`、`koji`、`kyumei`、domain knowledge の実行主体は app ではなく DID。
 親DIDとsub-DIDを同じ app に属させても、運用状態と知識更新は DID ごとに独立させる。
 
 ## Mandatory Rules
@@ -47,5 +47,5 @@ Last updated: 2026-04-13
 ```bash
 go run ./70-tools/etzhayyim/etzhayyim apps kyumei-koji -nanoid <nanoid> -dir ./60-apps -json
 go run ./70-tools/etzhayyim/etzhayyim monitor shinka -nanoid <nanoid> -dir ./60-apps --freshness-hours 24 --json
-go run ./70-tools/etzhayyim/etzhayyim code-quality -check magatama_lint
+go run ./70-tools/etzhayyim/etzhayyim code-quality -check kotodama_lint
 ```

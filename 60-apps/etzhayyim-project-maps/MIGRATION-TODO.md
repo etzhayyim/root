@@ -75,7 +75,7 @@ Every maps write/read maps to one of four tiers per [kotoba-datomic SPEC §Confo
 | Web crawl WET/WAT records | via `site.etzhayyim.com` cross-actor | external | ✅ delegated, no maps-side action |
 | OSM raster tile fallback (zoom ≥ 7) | external (`tile.openstreetmap.org`) | n/a | ✅ no maps-owned blob; tracked as `[[migrations]] maps-shader-view-precision` for elimination |
 
-**Tier D is mechanically the simplest. Replace 1 file: `bulk-ingest/workers/gsplat_train_dumper.py` `_b2_head` / `_b2_put` → `ipfs_pin` via `@etzhayyim/sdk` Python equivalent (TBD pymagatama primitive).**
+**Tier D is mechanically the simplest. Replace 1 file: `bulk-ingest/workers/gsplat_train_dumper.py` `_b2_head` / `_b2_put` → `ipfs_pin` via `@etzhayyim/sdk` Python equivalent (TBD kotodama primitive).**
 
 ## Bulk-ingest pod tier mapping
 
@@ -114,14 +114,14 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 - [x] **Display layer** (`display_layer_define` / `list_display_layers`) — ported 2026-05-23. Package: [`rw-free/src/display-layer/`](rw-free/src/display-layer/). Lexicon: [`displayLayer.json`](../../00-contracts/lexicons/com/etzhayyim/maps/displayLayer.json) (8 render kinds: fill/line/circle/symbol/extrude/heatmap/raster/gsplat). 24 vitest. No constant seed — operator-defined
 - [x] **Registry & Legal Entity register/list** (22 commands) — ported 2026-05-23. Package: [`rw-free/src/registry/`](rw-free/src/registry/). 3 discriminated lexicons: [`legalEntity.json`](../../00-contracts/lexicons/com/etzhayyim/maps/legalEntity.json) (6 entity types), [`registry.json`](../../00-contracts/lexicons/com/etzhayyim/maps/registry.json) (8 registry types), [`ownership.json`](../../00-contracts/lexicons/com/etzhayyim/maps/ownership.json) (5 relations + sharePctBps as bps integer to avoid float drift). 34 vitest. `ownershipChain` + `entityHistory` are TID-keyed event log scans (sort by `effectiveDate`). No constant seed — pipeline-driven (GLEIF / NTA / OpenCorporates etc.)
 - [x] **Collection plumbing** (`createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`) — ported 2026-05-23. Package: [`rw-free/src/collection/`](rw-free/src/collection/). 2 lexicons: [`collectionJob.json`](../../00-contracts/lexicons/com/etzhayyim/maps/collectionJob.json) (immutable descriptor, `literal:{jobId}` rkey) + [`jobEvent.json`](../../00-contracts/lexicons/com/etzhayyim/maps/jobEvent.json) (append-only TID-keyed event log; 6 states, 4 terminal). `summariseEvents()` reducer derives latest state by sorting events ascending and cascading optional fields. 45 vitest. Fan-out: `advanceJob` writes a new event, never mutates the descriptor (matches kotoba-datomic append-only invariant)
-- [x] **`pymagatama.substrate` Python SDK primitive** — shipped 2026-05-23. Module at `20-actors/magatama/py/src/pymagatama/substrate/` with `Etzhayyim` class (`write` / `read` / `verify`) mirroring the TS `@etzhayyim/sdk` shape. httpx + mock-transport; 18/18 tests pass. Auth: `session_jwt` (user) or `internal_token` (service-to-service via `x-magatama-verified`). `verify()` is scaffold (parity with TS 0.1.0-alpha)
-- [x] **`geonames_dumper.py` pod** — ported 2026-05-23. `USE_PYMAGATAMA_SUBSTRATE=1` env flag enables `pymagatama.substrate` write path to `com.etzhayyim.maps.feature`; legacy psycopg2 path retained as fallback. `_geonames_row_to_feature()` pure converter (h3-py via lazy import; bbox in microdegrees per lexicon). 8 converter tests in `bulk-ingest/tests/test_geonames_port.py`
+- [x] **`kotodama.substrate` Python SDK primitive** — shipped 2026-05-23. Module at `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/substrate/` with `Etzhayyim` class (`write` / `read` / `verify`) mirroring the TS `@etzhayyim/sdk` shape. httpx + mock-transport; 18/18 tests pass. Auth: `session_jwt` (user) or `internal_token` (service-to-service via `x-kotodama-verified`). `verify()` is scaffold (parity with TS 0.1.0-alpha)
+- [x] **`geonames_dumper.py` pod** — ported 2026-05-23. `USE_PYKOTODAMA_SUBSTRATE=1` env flag enables `kotodama.substrate` write path to `com.etzhayyim.maps.feature`; legacy psycopg2 path retained as fallback. `_geonames_row_to_feature()` pure converter (h3-py via lazy import; bbox in microdegrees per lexicon). 8 converter tests in `bulk-ingest/tests/test_geonames_port.py`
 - [ ] `aismarine_wikidata_lei.py` pod — recipe documented in [`bulk-ingest/PORT-NOTES.md`](bulk-ingest/PORT-NOTES.md) (2 INSERT sites → 2 `com.etzhayyim.maps.ownership` records each). Pod file annotated with migration target. Apply the same 5-step pattern as geonames port
 - [ ] Validation: all 46 Tier A commands return identical results before/after via golden-file integration test
 
 ### Phase 2 — Tier D blob migration (parallel with Phase 1)
 
-- [ ] IPFS pin primitive for pymagatama (analog of `@etzhayyim/sdk` TS `pds.uploadBlob`)
+- [ ] IPFS pin primitive for kotodama (analog of `@etzhayyim/sdk` TS `pds.uploadBlob`)
 - [ ] `gsplat_train_dumper.py`: B2 `_b2_head` / `_b2_put` → `ipfs_pin` (preserve SHA-256 path scheme; CID embedded in `vertex_maps_gsplat_asset.blob_cid`)
 - [ ] `gsplat_train_dumper.py`: same for baked GLB
 - [ ] Backfill: existing B2 blobs (`bulk-ingest/tools/rewrite_gsplat_cache_control.py` analog) → IPFS pin + CID emit in MST

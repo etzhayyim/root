@@ -103,7 +103,7 @@ reference pattern was `70-tools/etzhayyim/etzhayyim/eth_deploy_receipt.go`, remo
 2026-05-20). The sealer pre-funded balance (~$10^41 NETH-equiv, see
 `50-infra/vultr/geth-private/CLAUDE.md`) covers the gas trivially.
 
-## Step 4 — verify on chain + RisingWave projection
+## Step 4 — verify on chain + Kotoba/Datomic projection
 
 ```bash
 # 4a. eth_call AgentRegistry
@@ -113,7 +113,7 @@ cast call 0xbfe74a0D3BBB3D77bCd16fDe2C64741eF4472F8E \
   --rpc-url https://geth.etzhayyim.com
 # → 1   (token id)
 
-# 4b. RisingWave projection (chain event sync runs every minute)
+# 4b. Kotoba/Datomic projection (chain event sync runs every minute)
 pnpm --filter @etzhayyim/graph-schema sync:agent-runtime-events -- --apply --flush
 
 # 4c. count
@@ -145,7 +145,7 @@ Commit with `refs ADR-2604262100`.
 
 `agent_runtime_publication` is the `did:erc725` ↔ `did:web` ↔ ERC-8004
 bridge described in ADR-2604262100. Until step 5 runs, every
-`vertex_agent_publication` row from RisingWave is a **dry-run** record —
+`vertex_agent_publication` row from Kotoba/Datomic is a **dry-run** record —
 useful for schema validation but not federable. Closing this loop
 unlocks: (a) external agents querying `etzhayyimAgentRegistry.agentByRootDidHash`
 for trust-anchored `agentURI`, (b) `ActorRuntimeRegistry` execution

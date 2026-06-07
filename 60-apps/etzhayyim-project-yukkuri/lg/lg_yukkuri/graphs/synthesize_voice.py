@@ -29,7 +29,6 @@ from lg_yukkuri.audit import emit_audit_bg
 
 _log = logging.getLogger(__name__)
 
-_RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _MURAKUMO_TTS_URL = os.environ.get(
     "MURAKUMO_TTS_URL",
     "https://vyp99t9px7h4dl-4000.proxy.runpod.net/v1/audio/speech",
@@ -54,23 +53,14 @@ class _State(TypedDict, total=False):
 
 
 async def _fetch_lines(video_id: str) -> list[dict]:
-    import psycopg
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        await cur.execute(
-            """SELECT line_id, scene_index, line_index, speaker, text
-               FROM vertex_yukkuri_line
-               WHERE video_id = %s AND voice_blob_key IS NULL
-               ORDER BY scene_index, line_index
-               LIMIT 500""",
-            [video_id],
-        )
-        rows = await cur.fetchall()
-    finally:
-        await conn.close()
-    return [{"line_id": r[0], "scene_index": r[1], "line_index": r[2],
-             "speaker": r[3], "text": r[4]} for r in rows]
+    import asyncio
+    from kotodama.kotoba_datomic import get_kotoba_client
+    client = get_kotoba_client()
+    raw_rows = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "video_id", video_id, limit=500)
+    filtered = [r for r in raw_rows if not r.get("voice_blob_key")]
+    filtered.sort(key=lambda r: (int(r.get("scene_index") or 0), int(r.get("line_index") or 0)))
+    return [{"line_id": r.get("line_id"), "scene_index": int(r.get("scene_index") or 0), "line_index": int(r.get("line_index") or 0),
+             "speaker": r.get("speaker"), "text": r.get("text")} for r in filtered]
 
 
 async def _tts_one(line: dict) -> dict[str, Any]:
@@ -106,8 +96,6 @@ async def _node_fetch_lines(state: _State) -> dict[str, Any]:
     video_id = state.get("video_id") or ""
     if not video_id:
         return {"error": "video_id required"}
-    if not _RW_URL:
-        return {"error": "RW_URL not set"}
     try:
         fetched = await _fetch_lines(video_id)
         return {"lines": fetched}
@@ -133,22 +121,18 @@ async def _node_synthesize(state: _State) -> dict[str, Any]:
 async def _node_update_lines(state: _State) -> dict[str, Any]:
     if state.get("error") or not state.get("voice_assets"):
         return {}
-    if not _RW_URL:
-        return {}
     assets = state["voice_assets"]
     video_id = state.get("video_id") or ""
     try:
-        import psycopg
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            for asset in assets:
-                await conn.execute(
-                    "UPDATE vertex_yukkuri_line SET voice_blob_key = %s WHERE line_id = %s",
-                    [asset["blob_key"], asset["line_id"]],
-                )
-            await conn.execute("FLUSH")
-        finally:
-            await conn.close()
+        import asyncio
+        from kotodama.kotoba_datomic import get_kotoba_client
+        client = get_kotoba_client()
+        for asset in assets:
+            raw_lines = await asyncio.to_thread(client.select_where, "vertex_yukkuri_line", "line_id", asset["line_id"])
+            if raw_lines:
+                row = raw_lines[0]
+                row["voice_blob_key"] = asset["blob_key"]
+                await asyncio.to_thread(client.insert_row, "vertex_yukkuri_line", row)
     except Exception as exc:  # noqa: BLE001
         _log.exception("update lines voice_blob_key failed")
         return {"error": f"update: {exc!s}"[:300]}

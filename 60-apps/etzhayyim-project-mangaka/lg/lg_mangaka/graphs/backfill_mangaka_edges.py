@@ -29,7 +29,6 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
-_RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 
 
@@ -49,26 +48,25 @@ def _vid(coll: str, rkey: str) -> str:
 
 # Step 1: load all mangaka vertices we need
 async def _step_load_vertices(state: _State) -> dict[str, Any]:
-    if not _RW_URL: return {"status": "error", "error": "RW_URL not configured"}
     kinds_needed = ('work', 'chapter', 'page', 'panel', 'character', 'environment',
                     'organization', 'incident', 'chatSession', 'chatMessage', 'generatedImage')
-    import psycopg
     vmap: dict[str, dict[str, Any]] = {}
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        placeholders = ",".join(["%s"] * len(kinds_needed))
-        await cur.execute(
-            f"SELECT rkey, kind, vertex_id, parent_rkey, props FROM vertex_mangaka "
-            f"WHERE kind IN ({placeholders}) AND rkey LIKE 'gh-%%'",
-            kinds_needed)
-        async for r in cur:
-            rkey, kind, vid, parent_rkey, props_str = r
-            try: p = json.loads(props_str or "{}")
+    from kotodama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    # Datomic EDN query fallback to individual selects if kinds are many, but here we can just query all by kind and filter
+    for k in kinds_needed:
+        rows = await asyncio.to_thread(client.select_where, "vertex_mangaka", "kind", k, limit=100000)
+        for r in rows:
+            rkey = r.get("rkey", "")
+            if not rkey.startswith("gh-"):
+                continue
+            vid = r.get("vertex_id")
+            parent_rkey = r.get("parent_rkey")
+            props_str = r.get("props")
+            try: p = json.loads(props_str or "{}") if isinstance(props_str, str) else (props_str or {})
             except Exception: p = {}
-            vmap[rkey] = {"kind": kind, "vid": vid, "parent_rkey": parent_rkey, "props": p}
-    finally:
-        await conn.close()
+            vmap[rkey] = {"kind": k, "vid": vid, "parent_rkey": parent_rkey, "props": p}
     _log.info("backfill_mangaka_edges: loaded %d vertices", len(vmap))
     return {"vertices_by_rkey": vmap}
 
@@ -155,28 +153,28 @@ async def _step_write_edges(state: _State) -> dict[str, Any]:
         return {"status": "backfilled",
                 "counts": {r: len(v) for r, v in edges_by_rel.items()},
                 "error": None}
-    import psycopg
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     now_date = now_iso[:10]
     written: dict[str, int] = {}
-    conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-    try:
-        cur = conn.cursor()
-        for rel, edges in edges_by_rel.items():
-            table = f"edge_mangaka_{rel}"
-            n = 0
-            for eid, src_vid, dst_vid in edges:
-                # delete-then-insert (no ON CONFLICT in RW per repo convention)
-                await cur.execute(f"DELETE FROM {table} WHERE edge_id = %s", (eid,))
-                await cur.execute(
-                    f"INSERT INTO {table} (edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord, owner_did) "
-                    f"VALUES (%s, %s, %s, 0, %s, 0, %s)",
-                    (eid, src_vid, dst_vid, now_date, _APP_DID))
-                n += 1
-            written[rel] = n
-            _log.info("wrote %d edges into %s", n, table)
-    finally:
-        await conn.close()
+    from kotodama.kotoba_datomic import get_kotoba_client
+    import asyncio
+    client = get_kotoba_client()
+    for rel, edges in edges_by_rel.items():
+        table = f"edge_mangaka_{rel}"
+        n = 0
+        for eid, src_vid, dst_vid in edges:
+            await asyncio.to_thread(client.insert_row, table, {
+                "edge_id": eid,
+                "src_vid": src_vid,
+                "dst_vid": dst_vid,
+                "_seq": 0,
+                "created_date": now_date,
+                "sensitivity_ord": 0,
+                "owner_did": _APP_DID
+            })
+            n += 1
+        written[rel] = n
+        _log.info("wrote %d edges into %s", n, table)
     return {"status": "backfilled", "counts": written, "error": None}
 
 

@@ -42,9 +42,9 @@ storage pivot and violate the current substrate boundary:
 
 - **`maps`** (`20-actors/maps/`, ADR-2605011500, 2026-05-01) runs two real-time pipelines:
   - `aismarine` — an AISStream.io WebSocket consumer writing vessel positions into
-    **RisingWave** tables `vertex_vessel` / `vertex_vessel_position` / `vertex_vessel_voyage`.
+    **Kotoba/Datomic** tables `vertex_vessel` / `vertex_vessel_position` / `vertex_vessel_voyage`.
   - `aircraft_live` — an OpenSky Network + adsb.fi poller writing aircraft state vectors into
-    RisingWave `vertex_aircraft_state` / `vertex_aircraft_track` (source DID
+    Kotoba/Datomic `vertex_aircraft_state` / `vertex_aircraft_track` (source DID
     `did:web:maps.etzhayyim.com:adsb`, 5 m TTL).
 - **`vessel`** (`20-actors/vessel/`) tracks IMO/MMSI ships with a `tracking:ais` component,
   storing positions in a graph DB via **`graph.write` SQL** (`VesselPosition` / `Voyage` /
@@ -53,7 +53,7 @@ storage pivot and violate the current substrate boundary:
 Both are **non-compliant with the canonical substrate**:
 
 1. **State store** — ADR-2605262130 + ADR-2605312345 make the **kotoba Datom log** the
-   first-class canonical state. RisingWave / Postgres / graph.write SQL as a canonical store
+   first-class canonical state. Kotoba/Datomic / Postgres / graph.write SQL as a canonical store
    is prohibited.
 2. **Inference** — ADR-2605215000 makes the Murakumo fleet the sole inference SSoT; the
    legacy `agent.chat` narration is off-Murakumo.
@@ -154,7 +154,7 @@ N1 not a weapons/targeting/fire-control feed (§2(a) force-separation) · N2 not
 person-surveillance / pattern-of-life tool (G4) · N3 **not real-time control** — observes
 craft, never flies/sails one (that is kami-autodrive / funadaiku / watatsumi; observe ≠
 control) · N4 **not a safety-of-life service** — NOT GMDSS / ATC / VTS certified;
-situational-awareness only · N5 no RisingWave / SQL store · N6 no military /
+situational-awareness only · N5 no Kotoba/Datomic / SQL store · N6 no military /
 blocked-from-display de-anonymization.
 
 # Consequences
@@ -197,7 +197,7 @@ blocked-from-display de-anonymization.
 
 # Alternatives Considered
 
-1. **Extend `maps` / `vessel` in place.** Rejected — both are RisingWave / graph.write SQL
+1. **Extend `maps` / `vessel` in place.** Rejected — both are Kotoba/Datomic / graph.write SQL
    actors; "extending" them deepens a prohibited store. The migration value is precisely in
    moving state to the Datom log, which is a rewrite, not an extension.
 2. **Fold live craft into watatsuna.** Rejected — watatsuna is a *static infrastructure*
@@ -216,7 +216,7 @@ blocked-from-display de-anonymization.
 
 - ADR-2606012600 (watatsuna 綿津綱 submarine-cable KG + watatsumi cable-laying robotics) — the
   observation-face pattern + shared chokepoint keywords
-- ADR-2605262130 (kotoba storage substrate unification — no RisingWave)
+- ADR-2605262130 (kotoba storage substrate unification — no Kotoba/Datomic)
 - ADR-2605312345 (kotoba Datom log = first-class canonical state)
 - ADR-2605215000 (Murakumo-only inference)
 - ADR-2605241500 (Dataset CID substrate — DataLad → IPFS, no git-lfs)

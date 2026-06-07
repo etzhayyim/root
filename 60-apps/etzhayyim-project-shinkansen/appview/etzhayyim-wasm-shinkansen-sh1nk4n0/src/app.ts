@@ -35,7 +35,7 @@ import {
   type AppDef,
   type HostSDK,
   type ComAtprotoSyncSubscribeReposCommit,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 const APP_DEF: AppDef = {
   id: "sh1nk4n0",

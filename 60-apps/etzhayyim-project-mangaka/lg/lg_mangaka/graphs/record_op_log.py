@@ -39,7 +39,6 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
 _log = logging.getLogger(__name__)
-_RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:etzhayyim:260425:etzhayyim-japan")
 
@@ -102,34 +101,43 @@ async def _step_write_row(state: _State) -> dict[str, Any]:
     row = state.get("row") or {}
     if not row:
         return {"status": "error", "error": state.get("error") or "row missing"}
-    if not _RW_URL: return {"status": "error", "error": "RW_URL not configured"}
-    import psycopg
+    import asyncio
+    from kotodama.kotoba_datomic import get_kotoba_client
     try:
-        conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
-        try:
-            cur = conn.cursor()
-            # 1. vertex_mangaka opLog row
-            await cur.execute(
-                "DELETE FROM vertex_mangaka WHERE vertex_id = %s", (row["vid"],))
-            await cur.execute(
-                """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
-                    rkey, repo, did, collection, label, title, name, display_name,
-                    kind, status, created_at, props, parent_rkey, actor_did, org_did
-                ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, 'opLog', %s, %s, %s, 'opLog', 'recorded', %s, %s, %s, %s, %s)""",
-                (row["vid"], row["now_iso"][:10], _APP_DID, row["rkey"], _APP_DID, _APP_DID,
-                 "com.etzhayyim.mangaka.opLog", row["name"], row["name"], row["name"],
-                 row["now_iso"], json.dumps(row["props"], ensure_ascii=False), row["parent_rkey"],
-                 row["actor_did"], row["org_did"]))
-            # 2. edge_mangaka_emits_op (document → opLog)
+        def _write():
+            client = get_kotoba_client()
+            client.insert_row("vertex_mangaka", {
+                "vertex_id": row["vid"],
+                "created_date": row["now_iso"][:10],
+                "sensitivity_ord": 0,
+                "owner_did": _APP_DID,
+                "rkey": row["rkey"],
+                "repo": _APP_DID,
+                "did": _APP_DID,
+                "collection": "com.etzhayyim.mangaka.opLog",
+                "label": "opLog",
+                "title": row["name"],
+                "name": row["name"],
+                "display_name": row["name"],
+                "kind": "opLog",
+                "status": "recorded",
+                "created_at": row["now_iso"],
+                "props": json.dumps(row["props"], ensure_ascii=False),
+                "parent_rkey": row["parent_rkey"],
+                "actor_did": row["actor_did"],
+                "org_did": row["org_did"]
+            })
             eid = f"emits_op:{row['parent_rkey']}:{row['rkey']}"
-            await cur.execute(
-                "DELETE FROM edge_mangaka_emits_op WHERE edge_id = %s", (eid,))
-            await cur.execute(
-                """INSERT INTO edge_mangaka_emits_op (edge_id, src_vid, dst_vid, _seq, created_date, sensitivity_ord, owner_did)
-                   VALUES (%s, %s, %s, 0, %s, 0, %s)""",
-                (eid, row["doc_vid"], row["vid"], row["now_iso"][:10], _APP_DID))
-        finally:
-            await conn.close()
+            client.insert_row("edge_mangaka_emits_op", {
+                "edge_id": eid,
+                "src_vid": row["doc_vid"],
+                "dst_vid": row["vid"],
+                "_seq": 0,
+                "created_date": row["now_iso"][:10],
+                "sensitivity_ord": 0,
+                "owner_did": _APP_DID
+            })
+        await asyncio.to_thread(_write)
     except Exception as exc:  # noqa: BLE001
         _log.exception("record_op_log failed (docId=%s op=%s)", state.get("doc_id"), state.get("op"))
         return {"status": "error", "error": f"{type(exc).__name__}: {exc!s}"[:300]}

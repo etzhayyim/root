@@ -12,8 +12,8 @@
     "isolatedModules": true,
     "types": ["@cloudflare/workers-types"],
     "paths": {
-      "@etzhayyim/magatama-host-sdk": [
-        "../../../../20-actors/magatama/sdk/magatama-host-sdk/src/langserver-xrpc-handler.ts"
+      "@etzhayyim/kotodama-host-sdk": [
+        "../../../../40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/langserver-xrpc-handler.ts"
       ]
     }
   },

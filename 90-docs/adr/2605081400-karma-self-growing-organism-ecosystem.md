@@ -239,7 +239,7 @@ The dynamic layer is **partially reversible**. Specifically:
 - A cohort can be marked `dissolved` without fission. New genesis
   picks up the slack on next R/PT24H.
 - The `mitama-karma-pool` Helm release can be torn down; existing
-  edges + organism rows persist in RisingWave + 5 layers.
+  edges + organism rows persist in Kotoba/Datomic + 5 layers.
 
 What CANNOT be reversed (constitutional layer):
 - Already-recorded edges
@@ -298,7 +298,7 @@ AI agents alive across rebirth. Rejected:
   `20260508220000_vertex_karma_*.ts` — schema migrations
 - `00-contracts/lexicons/com/etzhayyim/apps/karma/*.json` — XRPC contract
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/karma/*.bpmn` — actor flow definitions
-- `20-actors/magatama/py/src/pymagatama/primitives/karma_*.py` —
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/karma_*.py` —
   pyzeebe primitive implementations
 - `50-infra/vultr/mitama-karma-pool/` — Helm release
 - `60-apps/etzhayyim-project-karma/contracts/karma-anchor/src/` —

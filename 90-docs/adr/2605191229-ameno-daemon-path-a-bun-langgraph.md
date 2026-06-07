@@ -28,10 +28,10 @@ ADR-2605191135 で ameno を tab-residency Tier 2 worker として確立した�
 |---|---|---|---|
 | **Bun + Hono + LangGraph TS** | ~50 MB | ~30 ms | ★★★★★(本家 TS) |
 | Hono + Node 22 (`@hono/node-server`) | ~120 MB | ~150 ms | ★★★★★ |
-| pymagatama.langserver Python port | ~150 MB + venv | ~500 ms | ★★★★(Path B) |
+| kotodama.langserver Python port | ~150 MB + venv | ~500 ms | ★★★★(Path B) |
 | Tauri / Wails / Neutralinojs | 2-15 MB binary + webview | tab launch | 関係なし(UI shell) |
 
-Path B(Python pymagatama port)は別 ADR(後続)で扱う。本 ADR は **Path A のみ**。
+Path B(Python kotodama port)は別 ADR(後続)で扱う。本 ADR は **Path A のみ**。
 
 ## Decision
 
@@ -86,7 +86,7 @@ GET  /threads/:thread_id/state      → current checkpointed state
 - 起動は `launchctl load ~/Library/LaunchAgents/com.etzhayyim.ameno-daemon.plist` のみ。fixed port 12480(`a-m-n-o` の数字読み)
 - 後続 ADR で:
   - browser appview を daemon の viewer モード化(SSR っぽくない、HTTP API ベース)
-  - Path B(Python pymagatama port)で Tier 1 と統合
+  - Path B(Python kotodama port)で Tier 1 と統合
   - MstCheckpointSaver で state を MST に昇格
 
 ## Alternatives Considered

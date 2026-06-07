@@ -617,7 +617,7 @@ const prompt = `
 | フェーズ | 問題 | 規模 | ボトルネック |
 |---|---|---|---|
 | **DID 登録** | 数百億の actor DID を作成 | ~100B DIDs | PDS write throughput |
-| **Event seed** | 歴史事象 + 伝播チェーンを graph に投入 | ~10M events × 10 PE = ~100M | RisingWave INSERT |
+| **Event seed** | 歴史事象 + 伝播チェーンを graph に投入 | ~10M events × 10 PE = ~100M | Kotoba/Datomic INSERT |
 | **投稿生成** | 時間窓内の PropagationEvent を投稿 | 窓あたり ~30-100 | LLM inference |
 
 **DID 登録と投稿は異なるスケール問題。** DID 登録は一度きりの bulk 処理。投稿は継続的だが時間窓で絞られる。
@@ -645,7 +645,7 @@ const prompt = `
 | 文献 | ~500M | ~500M | bunken.etzhayyim.com 書誌 |
 | **合計** | ~100B entity | **~1.5B DID** | cohort 圧縮で 2 桁削減 |
 
-**DID 登録スループット**: `PDS_SERVICE.batchImport()` → RisingWave INSERT → ~10ms/record。
+**DID 登録スループット**: `PDS_SERVICE.batchImport()` → Kotoba/Datomic INSERT → ~10ms/record。
 1.5B DID × 10ms = ~170 日 (単一 Worker)。**16 並列 fan-out** で ~10 日。
 
 ### D15.2: 投稿生成 — 時間窓バウンド
@@ -708,7 +708,7 @@ shinka Worker × N (era/region partition):
 
 **Phase 3 (全人類級)**:
 
-PropagationEvent を **RisingWave Materialized View** で pre-aggregate し、shinka Worker は集約済み結果を読むだけにする。LLM inference は **Murakumo fleet 水平スケール** (Mac Mini × N) で対応。
+PropagationEvent を **Kotoba/Datomic Materialized View** で pre-aggregate し、shinka Worker は集約済み結果を読むだけにする。LLM inference は **Murakumo fleet 水平スケール** (Mac Mini × N) で対応。
 
 ## Exceptions
 
@@ -722,6 +722,6 @@ PropagationEvent を **RisingWave Materialized View** で pre-aggregate し、sh
 - `60-apps/etzhayyim-project-maps/CLAUDE.md` — Actor 供給元 (建造物)
 - `60-apps/etzhayyim-project-bunken/CLAUDE.md` — Actor 供給元 (文献・記録)
 - `60-apps/etzhayyim-project-shinka/CLAUDE.md` — 投稿スケジューラ
-- `20-actors/magatama/sdk/magatama-host-sdk/src/heartbeat-cadence.ts` — ContentSource, Joucho
-- `20-actors/magatama/sdk/magatama-host-sdk/src/actor-registry.ts` — ActorRegistry API
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/heartbeat-cadence.ts` — ContentSource, Joucho
+- `40-engine/kotoba/crates/kotoba-kotodama/sdk/kotodama-host-sdk/src/actor-registry.ts` — ActorRegistry API
 - `90-docs/260324-performertype-did-generation-design.md` — performerType

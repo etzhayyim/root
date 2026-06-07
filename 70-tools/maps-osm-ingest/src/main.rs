@@ -44,7 +44,7 @@ pub struct Args {
     pub pbf_path: Option<PathBuf>,
 
     /// Postgres URL for RisingWave (e.g. postgres://root@host:4566/dev).
-    #[arg(long, env = "RISINGWAVE_URL")]
+    #[arg(long, env = "KOTOBA_URL")]
     pub db: String,
 
     /// Source DID recorded on every row.

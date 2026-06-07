@@ -1,5 +1,5 @@
 """Unit tests for lg_mangaka.hume_emotion — mood family resolution + image
-emotion alignment via the pymagatama hume_image_head primitive.
+emotion alignment via the kotodama hume_image_head primitive.
 
 Pure-CPU, no network. We construct tiny valid PNGs in-memory so the
 primitive exercises its full pixel-decode path (not the byte-histogram

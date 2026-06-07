@@ -5,7 +5,7 @@
 Sources of the tool catalog (deterministic, from code):
   1. kotoba WIT `world.wit` — typed host functions kqe/kse/auth/llm/evm/chain
      (exact signatures + `///` doc comments → grounded tool schemas).
-  2. magatama `Invoke("", "method.name", params)` inter-cell RPC method names.
+  2. kotodama `Invoke("", "method.name", params)` inter-cell RPC method names.
 
 Output: JSONL rows in the SAME schema as seed/agentic-tooluse-r0-seed.jsonl
 ({tools:[...], messages:[...]}), grounded in tools this system actually
@@ -170,12 +170,12 @@ def main():
 
     wit_tools = list(parse_wit(WIT))
     invoke_methods = parse_invoke_methods([
-        os.path.join(REPO, "20-actors/magatama")])
+        os.path.join(REPO, "40-engine/kotoba/crates/kotoba-kotodama")])
     # Invoke methods → generic param-less tools (the method dispatch surface)
     for m in invoke_methods:
         wit_tools.append({"iface": "invoke", "name": m, "tool": m,
                           "params": [{"name": "params", "type": "string", "example": "{}"}],
-                          "desc": f"inter-cell RPC method {m} (magatama Invoke dispatch)"})
+                          "desc": f"inter-cell RPC method {m} (kotodama Invoke dispatch)"})
 
     rows = []
     for i, t in enumerate(wit_tools):

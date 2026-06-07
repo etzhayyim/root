@@ -25,7 +25,7 @@ import {
   sql,
   type HostSDK,
   withCapabilityTags,
-} from "@etzhayyim/magatama-host-sdk";
+} from "@etzhayyim/kotodama-host-sdk";
 
 type InternalSecret = string | { get(): Promise<string> };
 type EnvLike = { DISPATCHER_URL?: string; HYPERDRIVE?: unknown; DISPATCHER_INTERNAL_SECRET?: InternalSecret };

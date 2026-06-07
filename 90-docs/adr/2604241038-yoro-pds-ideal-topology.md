@@ -81,7 +81,7 @@ install / wrangler deploy / DNS route まだ未実行**。現状:
 |---|---|---|
 | yoro (旧 AppView) | hostname が `yoro.etzhayyim.com` なら **drop** | `app.ts:172-183` (削除済) |
 | bsky (新 AppView) | `x-etzhayyim-internal-trust` shared secret 一致時のみ受理 | `handlers/appview.ts:35-52` |
-| PDS 内部 (service binding) | `x-magatama-verified=true` かつ binding 存在 | `auth/verify.ts:472-493` |
+| PDS 内部 (service binding) | `x-kotodama-verified=true` かつ binding 存在 | `auth/verify.ts:472-493` |
 | BPMN dispatcher | `x-internal-trust` (別 header!) | `dispatch.ts:408-411` |
 
 4 通りの trust 判定 pattern。1 つに統一できていない。
@@ -163,7 +163,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
       │  table)    │            │            │            │            │            │
       ▼            ▼            ▼            ▼            ▼            ▼            ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────┐
-│               RisingWave (graph DB) + HYPERDRIVE binding                             │
+│               Kotoba/Datomic (graph DB) + HYPERDRIVE binding                             │
 │  vertex_* / edge_* / mv_*_stats                                                      │
 │  Write side: PDS (com.atproto.*) + actor Workers (com.etzhayyim.apps.*) direct INSERT      │
 │  Read side:  AppView / Chat / Actor-Query / Coverage read-only SELECT                │
@@ -289,7 +289,7 @@ downstream Worker:
 
 | 旧方式 | 理由 |
 |---|---|
-| `x-magatama-verified: true` header | spoofable、ADR-0023 P4 で deprecated と明記済み |
+| `x-kotodama-verified: true` header | spoofable、ADR-0023 P4 で deprecated と明記済み |
 | `x-internal-trust` (plain-text secret) | HMAC でない、replay 可能 |
 | hostname-based drop (yoro の `PUBLIC_YORO_HOSTS`) | coincidental defense、trust layer になっていない |
 | `APPVIEW_SERVICE` service binding の "binding 存在" を trust の根拠にする | 環境依存、テストで偽装可能 |
@@ -443,7 +443,7 @@ reminder.
 ### β2 lesson (2026-04-24, appview initial rollout)
 
 Budget two deploys for any new Worker whose XRPC handlers query
-RisingWave directly — the first deploy will almost always expose a
+Kotoba/Datomic directly — the first deploy will almost always expose a
 PG-vs-RW parse-incompatibility that has to be fixed before the
 topology is actually live.
 
@@ -531,7 +531,7 @@ grep for this pattern before declaring the Phase green.
 # Non-Goals
 
 - Worker 数の最小化 (Shannon 最小 η を追求しない — responsibility 分離優先)
-- RisingWave graph schema 変更 (別 ADR、別 topology)
+- Kotoba/Datomic graph schema 変更 (別 ADR、別 topology)
 - etzhayyim CLI の `atproto.etzhayyim.com` 以外への直結化 (client simplification 優先)
 - DPoP nonce の RS 側以外への拡大 (ADR-2604240914 が locus)
 - Actor Worker の public route 化 (internal のまま、PDS pipethrough 維持)

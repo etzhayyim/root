@@ -12,17 +12,17 @@ bash 50-infra/k8s/bpmn-engine-host/preflight.sh
 
 すべて green でないと先に進まない。red 時の対処は preflight.sh 出力に記載。
 
-## Step 1: Schema migration (RisingWave)
+## Step 1: Schema migration (Kotoba/Datomic)
 
 `r_20260509110000_vertex_spiff_runtime` は Spiff runtime 層の 4 vertex table +
 1 streaming MV を作る。Heavy DDL queue 不要のサイズ (各 table cardinality 数千、
 MV は status filter のみ、GROUP BY なし) — 直接 alembic 経由で OK。
-ただし `50-infra/CLAUDE.md` "RisingWave Smooth Scaling Gate" の `rw-health-gate.sh`
+ただし `50-infra/CLAUDE.md` "Kotoba/Datomic Smooth Scaling Gate" の `rw-health-gate.sh`
 は走らせる:
 
 ```bash
 70-tools/scripts/ingest/rw-health-gate.sh   # 既知の incident hint がない事を確認
-DATABASE_URL="postgresql://USER:PASS@<vendor-rw-host>:4566/dev" \
+KOTOBA_URL="http://127.0.0.1:8077" \ # EXAMPLE
   cd 30-graph/graph-schema && pnpm db:migrate
 ```
 
@@ -44,7 +44,7 @@ TS=$(date -u +%Y%m%d-%H%M%S)
   -d 50-infra/k8s/bpmn-engine-host \
   -t "ghcr.io/etzhayyim/bpmn-engine-host:${TS}"
 
-# open-lei-mcp (build context = REPO ROOT — vendors pymagatama spiff_worker)
+# open-lei-mcp (build context = REPO ROOT — vendors kotodama spiff_worker)
 70-tools/scripts/buildkit/remote-build.sh \
   -f 50-infra/k8s/open-lei-mcp/Dockerfile \
   -d . \
@@ -64,10 +64,10 @@ sed -i.bak "s|open-lei-mcp:latest|open-lei-mcp:${TS}|" \
 ## Step 3: Secrets
 
 ```bash
-# RW_DSN を macOS Keychain から取得して mitama-udf namespace に注入
-RW_DSN_VALUE="$(security find-generic-password -s etzhayyim.risingwave -a RW_DSN -w)"
-printf '%s' "$RW_DSN_VALUE" | kubectl create secret generic bpmn-engine-host-secrets \
-  -n mitama-udf --from-file=RW_DSN=/dev/stdin --dry-run=client -o yaml | kubectl apply -f -
+# KOTOBA_URL を macOS Keychain から取得して mitama-udf namespace に注入
+KOTOBA_URL_VALUE="$(security find-generic-password -s etzhayyim.kotoba -a KOTOBA_URL -w)"
+printf '%s' "$KOTOBA_URL_VALUE" | kubectl create secret generic bpmn-engine-host-secrets \
+  -n mitama-udf --from-file=KOTOBA_URL=/dev/stdin --dry-run=client -o yaml | kubectl apply -f -
 ```
 
 ## Step 4: Engine host + timer reconciler
@@ -99,13 +99,13 @@ kubectl -n open-lei logs deploy/open-lei-spiff-worker --tail=20
 ```bash
 kubectl -n mitama-udf port-forward svc/bpmn-engine-host 8080:80 &
 PF_PID=$!
-RW_DSN="$RW_DSN_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
+KOTOBA_URL="$KOTOBA_URL_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
   python3 50-infra/k8s/bpmn-engine-host/tests/smoke.py \
   --process-id lawfirm_intake_funnel --concurrency 3 --timeout-s 60
 # JSON exit code 0 なら次へ。失敗時は kubectl logs を確認
 
 # 100 並行 (acceptance test)
-RW_DSN="$RW_DSN_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
+KOTOBA_URL="$KOTOBA_URL_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
   python3 50-infra/k8s/bpmn-engine-host/tests/smoke.py \
   --process-id lawfirm_intake_funnel --concurrency 100 --timeout-s 60 \
   --p95-budget-s 30
@@ -126,7 +126,7 @@ Verified on 2026-05-09:
 ## Step 7: Restart drill (replay 検証)
 
 ```bash
-RW_DSN="$RW_DSN_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
+KOTOBA_URL="$KOTOBA_URL_VALUE" BPMN_ENGINE_URL=http://localhost:8080 \
   python3 50-infra/k8s/bpmn-engine-host/tests/smoke.py --concurrency 100 --timeout-s 180 &
 SMOKE_PID=$!
 sleep 10

@@ -22,7 +22,7 @@ from typing import Any, Literal, TypedDict
 
 from langgraph.graph import START, END, StateGraph
 
-from pymagatama.cell_runtime import (
+from kotodama.cell_runtime import (
     CellDeps,
     default_state_from_event,
     default_thread_id_from_event,
@@ -61,7 +61,7 @@ class ConstructionOrchestrationState(TypedDict, total=False):
 def dispatch_fleet(state: ConstructionOrchestrationState, deps: CellDeps) -> ConstructionOrchestrationState:
     """open_robo.fleet.dispatch(fleetDid, taskCid) — IPFS-pinned construction plan."""
     raise NotImplementedError(
-        "Requires pymagatama.open_robo.fleet.dispatch — not yet implemented."
+        "Requires kotodama.open_robo.fleet.dispatch — not yet implemented."
     )
 
 

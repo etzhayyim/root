@@ -13,7 +13,7 @@ priority_note: "Hard constitutional invariant — no commercial GPU rental for r
 authoritative_for:
   - "Inference substrate boundary for etzhayyim religious-corp"
   - "RunPod prohibition for all religious-corp workloads"
-  - "pymagatama RunPod coupling audit and Step 8 cutover scope"
+  - "kotodama RunPod coupling audit and Step 8 cutover scope"
 depends_on:
   - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
   - adr-2605172000-etzhayyim-rw-free-substrate
@@ -21,7 +21,7 @@ depends_on:
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
-  - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
+  - adr-2605202100-etzhayyim-kotodama-cell-runner-launchd
   - 2605182312-local-bring-up-murakumo-gemma4
 supersedes: []
 superseded_by: []
@@ -43,7 +43,7 @@ The etzhayyim substrate boundary has been progressively articulated across four 
 
 | ADR | Rule established |
 |---|---|
-| ADR-2605172000 | No RisingWave / no centralized DB — AT MST + IPFS + Base L2 |
+| ADR-2605172000 | No Kotoba/Datomic / no centralized DB — AT MST + IPFS + Base L2 |
 | ADR-2605191346 | No Vultr VKE / no commercial K8s — Mac mini Murakumo fleet is Tier 1 |
 | ADR-2605202345 | EVO-X2 (Radeon 8060S, 192.168.1.70) is the GPU inference backend for the fleet |
 | ADR-2605214000 | No VKE, Murakumo mesh replaces VKE CNI, Lexicon port rules formalized |
@@ -52,7 +52,7 @@ None of these ADRs explicitly addressed **commercial GPU rental services** (RunP
 
 ## The Problem
 
-The vendor codebase `20-actors/magatama/py` (pymagatama) was authored for `etzhayyim.com`'s commercial SaaS product where RunPod is legitimately used for paid SaaS workloads. Approximately 20 files contain RunPod coupling across multiple layers:
+The vendor codebase `40-engine/kotoba/crates/kotoba-kotodama/py` (kotodama) was authored for `etzhayyim.com`'s commercial SaaS product where RunPod is legitimately used for paid SaaS workloads. Approximately 20 files contain RunPod coupling across multiple layers:
 
 - **LLM inference routing** (`llm.py`, `chat.py`, `projector.py`, `karma_resident.py`) — RunPod Pod / Serverless endpoints hardcoded as defaults or primary routes
 - **ComfyUI / image generation** (`zeebe_worker_main.py`, `mangaka.py`, `voxelforge/runpod_client.py`) — RunPod Serverless /runsync as the image generation backend
@@ -60,9 +60,9 @@ The vendor codebase `20-actors/magatama/py` (pymagatama) was authored for `etzha
 - **Satellite analysis** (`primitives/maps_sentinel.py`) — RunPod Serverless as the GPU analysis backend for Sentinel-1/2 imagery
 - **Cost model** (`primitives/billing.py`) — RunPod 6000 Ada / H100 NVL pricing constants
 - **Business logic comments** (`kaisya_ai_org.py`, `kaisya_master.py`, `etzhayyimcojp_company_ops.py`) — "RunPod 6000 Ada is LLM SSoT" embedded in docstrings
-- **SDK model registry** (`sdk/magatama-host-sdk/src/llm-model-registry.ts`) — "gemma4-runpod" / "tier0-runpod" model entries
+- **SDK model registry** (`sdk/kotodama-host-sdk/src/llm-model-registry.ts`) — "gemma4-runpod" / "tier0-runpod" model entries
 
-These references are **vendor business logic** appropriate for `etzhayyim.com`'s paid SaaS operation. However, when etzhayyim religious-corp invokes pymagatama modules, it must not route traffic to commercial GPU rental infrastructure.
+These references are **vendor business logic** appropriate for `etzhayyim.com`'s paid SaaS operation. However, when etzhayyim religious-corp invokes kotodama modules, it must not route traffic to commercial GPU rental infrastructure.
 
 ## The Constitutional Directive
 
@@ -108,7 +108,7 @@ The following are **constitutionally prohibited** for all code paths invoked und
 
 ### §1.3 Env var mapping for RunPod → Murakumo redirect
 
-When a pymagatama module reads a RunPod URL from env and etzhayyim invokes it, the operator MUST set:
+When a kotodama module reads a RunPod URL from env and etzhayyim invokes it, the operator MUST set:
 
 ```bash
 # LLM inference
@@ -131,15 +131,15 @@ The env var swap is the **REDIRECT** verdict mechanism (see §2).
 
 ---
 
-## §2 pymagatama split classification
+## §2 kotodama split classification
 
-Each pymagatama RunPod-coupled file is assigned one of three verdicts, using the same framework as ADR-2605214000 §2.
+Each kotodama RunPod-coupled file is assigned one of three verdicts, using the same framework as ADR-2605214000 §2.
 
 ### §2.1 Substrate-fit conditions (updated)
 
 A module is fit for religious-corp use without rewrite if ALL five conditions hold:
 
-1. No direct commercial DB (RisingWave / Postgres / Kysely) write — AT MST + IPFS + Base L2 only
+1. No direct commercial DB (Kotoba/Datomic / Postgres / Kysely) write — AT MST + IPFS + Base L2 only
 2. No Stripe / PayPal / fiat payment processor
 3. No Vultr VKE / commercial K8s scheduling dependency
 4. **No RunPod / no commercial GPU rental** ← NEW (this ADR)
@@ -149,13 +149,13 @@ A module is fit for religious-corp use without rewrite if ALL five conditions ho
 
 | Verdict | Meaning | Required action |
 |---|---|---|
-| **REDIRECT** | An env URL swap is sufficient. LiteLLM gateway already abstracts the backend; no code change needed in pymagatama. | Set env vars per §1.3 before invoking. |
+| **REDIRECT** | An env URL swap is sufficient. LiteLLM gateway already abstracts the backend; no code change needed in kotodama. | Set env vars per §1.3 before invoking. |
 | **VENDOR-ONLY** | The module implements vendor (`etzhayyim.com`) business logic that etzhayyim does not invoke. Mark with module-level `# ETZHAYYIM: vendor-only — do not invoke from religious-corp` docstring / import guard. No rewrite needed; religious-corp callers must avoid these paths. | Add import guard; ensure no etzhayyim cell calls this. |
-| **REIMPLEMENT** | The capability is needed by religious-corp but the implementation has RunPod as a hard structural assumption (not just an env URL). A religious-corp variant must be designed for Murakumo fleet. | Itemise redesign target in companion PYMAGATAMA-MIGRATION-NOTES.md. |
+| **REIMPLEMENT** | The capability is needed by religious-corp but the implementation has RunPod as a hard structural assumption (not just an env URL). A religious-corp variant must be designed for Murakumo fleet. | Itemise redesign target in companion PYKOTODAMA-MIGRATION-NOTES.md. |
 
-### §2.3 Itemised pymagatama audit
+### §2.3 Itemised kotodama audit
 
-The full table is in the companion `PYMAGATAMA-MIGRATION-NOTES.md`. Summary by verdict:
+The full table is in the companion `PYKOTODAMA-MIGRATION-NOTES.md`. Summary by verdict:
 
 **REDIRECT (env URL swap sufficient):**
 - `llm.py` — `_RUNPOD_LLM_URL` / `_etzhayyim_LLM_URL` / `RUNPOD_LLM_MODEL` are already env-overridable; point at `192.168.1.70:4000`
@@ -181,11 +181,11 @@ The full table is in the companion `PYMAGATAMA-MIGRATION-NOTES.md`. Summary by v
 - `zeebe_worker_main.py` — routes ComfyUI jobs via RunPod Serverless /runsync structurally; religious-corp Zeebe worker variant must route to `192.168.1.70:8188` via LAN ComfyUI directly (no Serverless wrapper needed)
 - `primitives/mangaka.py:22` — `COMFYUI_POD_URL` env is RunPod-defaulted; REDIRECT if env set, but the docstring and default must be replaced
 - `primitives/maps_sentinel.py` — `task_maps_sentinel_runpod_analyze` is structurally RunPod Serverless; religious-corp variant runs Sentinel-1/2 analysis via MLX or ONNX on Mac mini (or EVO-X2 ROCm). Full REIMPLEMENT: new `task_maps_sentinel_murakumo_analyze` function
-- `sdk/magatama-host-sdk/src/llm-model-registry.ts` — `gemma4-runpod` / `tier0-runpod` entries; religious-corp SDK variant must remove these entries and add `gemma4-evo-x2` / `tier0-evo-x2` pointing at LiteLLM gateway
+- `sdk/kotodama-host-sdk/src/llm-model-registry.ts` — `gemma4-runpod` / `tier0-runpod` entries; religious-corp SDK variant must remove these entries and add `gemma4-evo-x2` / `tier0-evo-x2` pointing at LiteLLM gateway
 
 **REDIRECT (env + minor comment update):**
 - `primitives/otakiage.py:950` — "RunPod cold-start" comment only; no routing change needed; comment updated to "EVO-X2 warm fleet" in etzhayyim variant
-- `sdk/magatama-host-sdk/src/llm-model-types.ts:21` — "CF Workers AI / RunPod" comment in JSDoc; no routing change; doc update only
+- `sdk/kotodama-host-sdk/src/llm-model-types.ts:21` — "CF Workers AI / RunPod" comment in JSDoc; no routing change; doc update only
 
 ---
 
@@ -194,22 +194,22 @@ The full table is in the companion `PYMAGATAMA-MIGRATION-NOTES.md`. Summary by v
 The line-by-line audit table (File | Line(s) | Current | Target | Verdict | Reason) is maintained in:
 
 ```
-20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md
+40-engine/kotoba/crates/kotoba-kotodama/py/PYKOTODAMA-MIGRATION-NOTES.md
 ```
 
-This companion document is the **single source of truth for the Step 8 cutover sub-list** for pymagatama RunPod decoupling.
+This companion document is the **single source of truth for the Step 8 cutover sub-list** for kotodama RunPod decoupling.
 
 ---
 
 ## §4 Step 8 cutover deferral
 
-**Do not rename or rewrite any pymagatama file today.**
+**Do not rename or rewrite any kotodama file today.**
 
-Per repo-root `CLAUDE.md` §Status row 8, the 220-file `amanomibashira` → `etzhayyim` cutover is gated on legal registration. The pymagatama RunPod decoupling is a **sub-task of Step 8**, not a separate standalone operation.
+Per repo-root `CLAUDE.md` §Status row 8, the 220-file `amanomibashira` → `etzhayyim` cutover is gated on legal registration. The kotodama RunPod decoupling is a **sub-task of Step 8**, not a separate standalone operation.
 
 Today's deliverables are:
 1. This ADR (paper-only decision record)
-2. `PYMAGATAMA-MIGRATION-NOTES.md` (itemised audit companion)
+2. `PYKOTODAMA-MIGRATION-NOTES.md` (itemised audit companion)
 
 The per-file changes (env var guard additions, REIMPLEMENT targets) happen during the Step 8 cutover wave, in one atomic PR, along with the `amanomibashira` → `etzhayyim` renames.
 
@@ -231,11 +231,11 @@ This ADR **extends** (does not supersede) the following:
 
 1. **Architectural sovereignty closure for inference**: etzhayyim now has a complete substrate sovereignty claim across K8s (ADR-2605191346), database (ADR-2605172000), and inference (this ADR). No tier of the stack routes through commercial cloud infrastructure. The sovereignty perimeter is closed for Tier 1 compute.
 
-2. **Vendor pymagatama remains operative for etzhayyim.com**: etzhayyim.com's pymagatama with RunPod stays fully operational for paid SaaS workloads. The two codebases run in parallel forever. This ADR does not require etzhayyim.com to change anything. The split is a consent capability boundary — religious-corp callers must route through etzhayyim-specific env config and avoid VENDOR-ONLY paths.
+2. **Vendor kotodama remains operative for etzhayyim.com**: etzhayyim.com's kotodama with RunPod stays fully operational for paid SaaS workloads. The two codebases run in parallel forever. This ADR does not require etzhayyim.com to change anything. The split is a consent capability boundary — religious-corp callers must route through etzhayyim-specific env config and avoid VENDOR-ONLY paths.
 
 3. **Some religious-corp features need successor implementations**: `maps_sentinel.py` L7/L8 satellite analysis (Sentinel-1/2 GPU analysis) requires a Murakumo-native rewrite. The target is MLX-based inference on Mac mini (Apple Silicon) or EVO-X2 ROCm (gfx1151) for ONNX/PyTorch models. This is a new engineering effort; the capability is not available on the Murakumo fleet today and must be tracked as a follow-up ADR.
 
-4. **Audit itemisation gives Step 8 a concrete sub-list**: The companion `PYMAGATAMA-MIGRATION-NOTES.md` provides a file-by-file, line-by-line cutover plan. Step 8 can execute the pymagatama RunPod decoupling from that document alone without re-auditing the codebase.
+4. **Audit itemisation gives Step 8 a concrete sub-list**: The companion `PYKOTODAMA-MIGRATION-NOTES.md` provides a file-by-file, line-by-line cutover plan. Step 8 can execute the kotodama RunPod decoupling from that document alone without re-auditing the codebase.
 
 5. **Risk — EVO-X2 single point of failure**: All GPU inference is currently concentrated on one EVO-X2 machine at `192.168.1.70`. If EVO-X2 is unavailable, all image/video generation is unavailable and LLM inference degrades to per-node gemma3:4b (Ollama on each Mac mini). Mitigation: the per-node Ollama fallback keeps text LLM functional. Medium-term mitigation: a second EVO-X2 class machine (or Mac mini M4 Max 128 GB) as replica. Long-term: NPU (AMD XDNA, 50 TOPS) as a third inference path once Ryzen AI SDK integration completes (tracked in ADR-2605202345 open questions).
 
@@ -270,6 +270,6 @@ Proposal: Rent dedicated bare-metal GPU servers (Hetzner GPU, OVH Advance server
 - ADR-2605202345: EVO-X2 GMKtec integration — GPU inference pod (EVO-X2 as sole GPU inference backend)
 - ADR-2605214000: etzhayyim Murakumo mesh, no VKE, Lexicon port rules (most recent substrate ADR; this ADR is its successor for the inference layer)
 - ADR-2605192415: Religious-Corp Daemon Architecture (Murakumo cell placement)
-- ADR-2605202100: magatama-cell-runner launchd (Murakumo fleet operational pattern)
-- Sister document: `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (itemised audit companion, Step 8 cutover sub-list)
+- ADR-2605202100: kotodama-cell-runner launchd (Murakumo fleet operational pattern)
+- Sister document: `40-engine/kotoba/crates/kotoba-kotodama/py/PYKOTODAMA-MIGRATION-NOTES.md` (itemised audit companion, Step 8 cutover sub-list)
 - Vendor parallel repo: `etzhayyim-apps-etzhayyimcojp/` — RunPod legitimately used for etzhayyim.com paid SaaS; do not modify

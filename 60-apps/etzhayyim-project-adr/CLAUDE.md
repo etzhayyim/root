@@ -1,19 +1,19 @@
-# ai-gftd-project-adr — Mediation & Arbitration Intelligence
+# etzhayyim-project-adr — Mediation & Arbitration Intelligence
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/adr/actor-manifest.jsonld`). Worker 不要.
 
-`adr.gftd.ai` — Alternative Dispute Resolution intelligence (mediation/arbitration/conciliation/expert determination/adjudication)。1M cases/yr globally via ICC + JCAA + AAA + UNCITRAL + national ADR centers。saiban (litigation) の代替経路。
+`adr.etzhayyim.com` — Alternative Dispute Resolution intelligence (mediation/arbitration/conciliation/expert determination/adjudication)。1M cases/yr globally via ICC + JCAA + AAA + UNCITRAL + national ADR centers。saiban (litigation) の代替経路。
 
 ## App Identity
 
 | Key | Value |
 |---|---|
 | **nanoid** | `adr1m4d0` |
-| **domain** | `adr.gftd.ai` |
-| **DID** | `did:web:adr.gftd.ai` |
+| **domain** | `adr.etzhayyim.com` |
+| **DID** | `did:web:adr.etzhayyim.com` |
 | **Tier** | T1 (logical actor, no Worker) |
 | **Manifest** | `20-actors/adr/actor-manifest.jsonld` |
-| **Lexicons** | `00-contracts/lexicons/ai/gftd/apps/adr/` |
+| **Lexicons** | `00-contracts/lexicons/ai/etzhayyim/apps/adr/` |
 
 ## Coverage
 
@@ -24,17 +24,17 @@
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.adr.createCase` | procedure | ADR case 作成 (5 caseType + 8 subjectMatter) |
-| `ai.gftd.apps.adr.registerArbitrator` | procedure | 仲裁人/調停人登録 (5 role enum) |
-| `ai.gftd.apps.adr.listCases` | query | caseType + jurisdiction + institution + status フィルタ |
+| `ai.etzhayyim.apps.adr.createCase` | procedure | ADR case 作成 (5 caseType + 8 subjectMatter) |
+| `ai.etzhayyim.apps.adr.registerArbitrator` | procedure | 仲裁人/調停人登録 (5 role enum) |
+| `ai.etzhayyim.apps.adr.listCases` | query | caseType + jurisdiction + institution + status フィルタ |
 
 ## cross-actor
 
 | Connected actor | Direction | 用途 |
 |---|---|---|
-| `saiban.gftd.ai` | bidirectional | 訴訟 ↔ ADR の case routing + enforcement |
-| `lawfirm.gftd.ai` | bidirectional | matter ↔ ADR case 代理 |
-| `bengoshi.gftd.ai` | bengoshi → adr | arbitrator / mediator pool |
+| `saiban.etzhayyim.com` | bidirectional | 訴訟 ↔ ADR の case routing + enforcement |
+| `lawfirm.etzhayyim.com` | bidirectional | matter ↔ ADR case 代理 |
+| `bengoshi.etzhayyim.com` | bengoshi → adr | arbitrator / mediator pool |
 
 ## Governance (per actor-manifest)
 

@@ -95,9 +95,9 @@ All 12 fetchers share: (a) network mode + local-source mode (operator-staged or 
 
 ## 3. Pytest harness (15/15 PASS)
 
-**Location**: `20-actors/magatama/py/tests/sensors/`
+**Location**: `40-engine/kotoba/crates/kotoba-kotodama/py/tests/sensors/`
 
-- `conftest.py` — isolated-module loader (importlib bypass of `pymagatama.__init__` langchain/pydantic chain)
+- `conftest.py` — isolated-module loader (importlib bypass of `kotodama.__init__` langchain/pydantic chain)
 - `test_w1_corp_gov_sensors.py` — 14 per-sensor round-trip tests + 1 cross-cutting vendor-terminal deny lint test
 
 **Verified via importlib bypass runner** (operator pytest infra fails on `pydantic-core 2.46.4 vs pydantic 2.41.5` env mismatch, but the test file is structured to run under `pytest tests/sensors/` the moment the env mismatch is fixed):
@@ -126,7 +126,7 @@ All 12 fetchers share: (a) network mode + local-source mode (operator-staged or 
 | Layer | Artifact | Count | Path |
 |---|---|---|---|
 | **ADR** | corp + gov ingestion 2 ADRs | 2 | `90-docs/adr/2605263{800,900}-*.md` |
-| **Sensor Protocol namespace** | corp + gov base.py | 2 | `20-actors/magatama/py/src/pymagatama/organism/sensors/{corp,gov}/base.py` |
+| **Sensor Protocol namespace** | corp + gov base.py | 2 | `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/organism/sensors/{corp,gov}/base.py` |
 | **Sensor concrete impl** | 4 corp + 10 gov | 14 | (see §1) |
 | **Fetcher path-reserved** | 4 corp + 8 gov | 12 | `70-tools/e7m-dataset/src/e7m_dataset/fetchers/*.py` |
 | **Corpus recipes (TOML)** | 2 corp + 2 gov + 2 READMEs | 4 + 2 | `70-tools/baien-moemoekyun-train/recipes/{corp,gov}/` |
@@ -137,7 +137,7 @@ All 12 fetchers share: (a) network mode + local-source mode (operator-staged or 
 | **Cross-actor wiring** | ossekai (`crossActor` object), chigiri (`lexiconReadAccess`), toritate (`lexiconReadAccess`) | 3 manifest updates | `20-actors/{ossekai,chigiri,toritate}/manifest.jsonld` |
 | **Legacy script supersession marker** | sec-edgar / gleif-bulk / legal-entity-relationship / multi-country-scheduled-ingest + MIGRATION-NOTES.md | 4 + 1 | `70-tools/scripts/` |
 | **README index entries** | 2 ADR rows | 2 | `90-docs/adr/README.md` |
-| **Pytest harness** | conftest + 1 test module (15 tests) | 2 | `20-actors/magatama/py/tests/sensors/` |
+| **Pytest harness** | conftest + 1 test module (15 tests) | 2 | `40-engine/kotoba/crates/kotoba-kotodama/py/tests/sensors/` |
 | **This snapshot** | release notes / Council brief | 1 | `90-docs/baien/corp-gov-w1-snapshot-260527.md` |
 
 ## 5. Downstream actor unblocks (immediate / W1 activation gated)
@@ -180,7 +180,7 @@ When fetcher concrete impls begin, the recommended landing order optimizes for d
 | 6 | `us_data_gov.py` + `uk_data_gov_uk.py` + `jp_data_go_jp.py` | CKAN portal triad | public-domain / OGL / CC-BY |
 | 7+ | Hansard / Congress / Kokkai / Companies House / EDINET / USAspending / TED | depend on per-source rate-limit + bulk-archive integration | mixed Tier-A |
 
-Each fetcher impl follows the pattern: `httpx[http2]` (already in `pymagatama` pyproject deps), respects upstream User-Agent identification + rate limits, downloads pre-published bulk archive (NOT live per-record API at organism-tick time — passive-only per ADR-2605262400 §7), emits NDJSON sidecar conforming to the sensor's expected row shape, returns a `FetchResult` for the DataLad save chain.
+Each fetcher impl follows the pattern: `httpx[http2]` (already in `kotodama` pyproject deps), respects upstream User-Agent identification + rate limits, downloads pre-published bulk archive (NOT live per-record API at organism-tick time — passive-only per ADR-2605262400 §7), emits NDJSON sidecar conforming to the sensor's expected row shape, returns a `FetchResult` for the DataLad save chain.
 
 ## 8. Founder explicit position
 

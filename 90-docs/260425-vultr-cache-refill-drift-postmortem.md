@@ -1,11 +1,11 @@
-# 260425 — Vultr RisingWave cache_refill drift postmortem
+# 260425 — Vultr Kotoba/Datomic cache_refill drift postmortem
 
 Severity: **P1** (data-plane read outage, ~20 min)
 Incident window: 2026-04-25 **11:05 → 11:30 JST** (compute-0 OOM → manual workload halt → self-recovery)
 Primary author: Claude / ops follow-up pending.
 Status: **root cause fixed in values.yaml + docs; helm rollout still required to materialize.**
 References:
-- `50-infra/vultr/risingwave/deps.toml [risingwave_vultr.incident_2026_04_25]`
+- `50-infra/vultr/kotoba/deps.toml [kotoba_vultr.incident_2026_04_25]`
 - `deps.toml [[migrations]] rw-foyer-insert-rate-limit-port-to-vultr-2026-04-25`
 - `90-docs/adr/2604251024-patent-bulk-ingest-and-blob-cid.md §Ingest Safety`
 - `deps.toml [[conventions]] rw-bulk-insert-throttle` / `rw-health-gate-before-ingest`
@@ -13,7 +13,7 @@ References:
 ## 1 — Summary
 
 During smoke-test bulk ingest (patent metadata from Wikidata SPARQL),
-`risingwave-compute-0` was OOMKilled at 11:05 JST. The restart triggered
+`kotoba-compute-0` was OOMKilled at 11:05 JST. The restart triggered
 a cold-Foyer refill that issued unbounded parallel SST reads to Backblaze
 B2. B2 returned HTTP 503 `SlowDown` at approximately **12 events/sec**
 (1,791 events in 120 s window), after which Hummock reads failed with
@@ -25,13 +25,13 @@ observed at ~11:32. No data was lost; no row was corrupted.
 
 | Time | Event |
 |---|---|
-| ~10:00 | Background — `risingwave-meta-0` pod had restarted 61 min earlier (unrelated). |
+| ~10:00 | Background — `kotoba-meta-0` pod had restarted 61 min earlier (unrelated). |
 | 10:47 | ADR 2604251024 patent-bulk-ingest PR work begins; smoke-test downloads 1 USPTO PDF; CIDs computed locally. |
 | 10:55 | `CREATE TABLE vertex_patent_blob` issued against RW — times out after 30 s NOTICE "high barrier latency". Canceled 2x in succession (ddl_id 8773, 8774 both canceled). |
 | 10:58 | First Wikidata SPARQL batch (986 `vertex_patent` rows) INSERTed via `psql -f`. |
-| 11:05 | **`risingwave-compute-0` OOMKilled** (exit 137). Pod restarts with empty Foyer disk cache. |
+| 11:05 | **`kotoba-compute-0` OOMKilled** (exit 137). Pod restarts with empty Foyer disk cache. |
 | 11:05+ | Foyer `recover_mode = Quiet` preserved the on-disk cache slots, but in-flight queries had already triggered `cache_refill` to repopulate hot LSM levels from B2. Unbounded parallel reads begin. |
-| ~11:06 | Backblaze B2 begins returning `<Code>SlowDown</Code>` nginx 503 responses: observed rate ~12 events/sec in `risingwave-compute-0` log. |
+| ~11:06 | Backblaze B2 begins returning `<Code>SlowDown</Code>` nginx 503 responses: observed rate ~12 events/sec in `kotoba-compute-0` log. |
 | 11:08 | `ingest.py` (loop-3 fire) starts second-generation INSERT batch into `vertex_work` / `edge_patent_cites` / `edge_owned_by`. `works.sql` `psql -f` hangs on `SELECT` fanout needed by streaming MV recompute. |
 | 11:11 | Another operator issues a concurrent `CREATE TABLE vertex_open_defence_event` which also queues at 0% behind the stuck backfill. |
 | 11:13 | ops kills `ingest.py` (PID 87762) and the stuck `psql` (PID 87869). No more writes from this workstation. |
@@ -44,7 +44,7 @@ observed at ~11:32. No data was lost; no row was corrupted.
 **Config drift between ADR-0048 Vultr cutover (2026-04-22) and the Linode
 configuration it was meant to replicate.**
 
-Linode `50-infra/linode/risingwave-iceberg/helm/values-dedicated-32.yaml`
+Linode `50-infra/linode/kotoba-iceberg/helm/values-dedicated-32.yaml`
 had three defense-in-depth blocks under the compute `configuration:` key:
 
 ```toml
@@ -65,7 +65,7 @@ statement_timeout_secs = 120
 ```
 
 These three blocks were **not present** in
-`50-infra/vultr/risingwave/helm/values.yaml` when the Vultr cluster was
+`50-infra/vultr/kotoba/helm/values.yaml` when the Vultr cluster was
 stood up on 2026-04-22. Without them:
 
 - `cache_refill` uses the compiled-in default (unbounded parallelism,
@@ -100,8 +100,8 @@ proximate trigger. Either alone would likely have been survivable.
 
 | Layer | Fix |
 |---|---|
-| `50-infra/vultr/risingwave/helm/values.yaml` | Ported the three missing blocks from Linode `values-dedicated-32.yaml` verbatim (comments preserved). Needs `helm upgrade --take-ownership` + rolling restart to take effect. |
-| `50-infra/vultr/risingwave/deps.toml` | New `[risingwave_vultr.incident_2026_04_25]` section records timeline, drift, fix, and guardrails. |
+| `50-infra/vultr/kotoba/helm/values.yaml` | Ported the three missing blocks from Linode `values-dedicated-32.yaml` verbatim (comments preserved). Needs `helm upgrade --take-ownership` + rolling restart to take effect. |
+| `50-infra/vultr/kotoba/deps.toml` | New `[kotoba_vultr.incident_2026_04_25]` section records timeline, drift, fix, and guardrails. |
 | Root `deps.toml` | New `[[migrations]] rw-foyer-insert-rate-limit-port-to-vultr-2026-04-25` (status=in-progress until helm rollout lands). Two new `[[conventions]]`: `rw-bulk-insert-throttle` (mandatory `SET dml_rate_limit` for bulk ingest) and `rw-health-gate-before-ingest` (3-point probe before fire). |
 | Root `CLAUDE.md` | Retracted the stale Linode-numbers claim inline; linked to the new incident section for authoritative current state. |
 | `90-docs/adr/2604251024-patent-bulk-ingest-and-blob-cid.md` | New "Ingest Safety" section with Invariant A (`SET dml_rate_limit`) + Invariant B (3-point health gate) made mandatory for all patent/trademark/copyright BPMN processes. |
@@ -165,7 +165,7 @@ Implications for the gate:
 
 ## 6 — Prevention (beyond the fix)
 
-1. **CI guard**: add a lint that fails CI if `50-infra/vultr/risingwave/helm/values.yaml`
+1. **CI guard**: add a lint that fails CI if `50-infra/vultr/kotoba/helm/values.yaml`
    is missing any of `[storage.cache_refill]`, `insert_rate_limit_mb`,
    or `statement_timeout_secs`. Script template: `70-tools/scripts/ci/check-rw-values-tuning.sh`.
 2. **Source-of-truth discipline**: when `CLAUDE.md` documents infra
@@ -192,9 +192,9 @@ Implications for the gate:
 
 ## 7 — Remaining work (tracked)
 
-- Run `helm upgrade --take-ownership -f 50-infra/vultr/risingwave/helm/values.yaml`
+- Run `helm upgrade --take-ownership -f 50-infra/vultr/kotoba/helm/values.yaml`
   against the Vultr cluster (ops approval required — causes rolling
-  restart of `risingwave-compute-0`, ~30 s unavailability on the
+  restart of `kotoba-compute-0`, ~30 s unavailability on the
   read-plane).
 - Re-apply `30-graph/graph-schema/migrations/20260425102400_vertex_patent_blob.ts`
   once compute-0 is stable and health gate returns 0.
@@ -207,7 +207,7 @@ Implications for the gate:
 
 ## 8 — No data loss, no customer impact
 
-The incident affected the RisingWave read plane only. Writes that had
+The incident affected the Kotoba/Datomic read plane only. Writes that had
 already committed (986 `vertex_patent` rows from the first ingest batch,
 2,940 `vertex_trademark` rows) were durable. No AT Protocol PDS /
 federation traffic was affected (PDS talks to RW via Hyperdrive and

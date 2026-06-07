@@ -143,6 +143,6 @@ political-neutrality / informational-only / zero-compensation boundary.
 - Per-actor master ADRs: 2605312030 / 2605312500 / 2605312400 / 2605302130 /
   2605262700 / 2605263400
 - `20-actors/<actor>/registry/{*.seed.json,VERIFICATION.md}` + `MATURITY.md`
-- `20-actors/magatama/cells/{kurashimori_cooloff_check,himotoki_deadline_check,moushibumi_status_track,toritsugi_status_track,chigiri_legal_aid_clinic,musubi_recognition_resolver,kurashimori_escalation,moushibumi_opportunity_match}/`
+- `40-engine/kotoba/crates/kotoba-kotodama/cells/{kurashimori_cooloff_check,himotoki_deadline_check,moushibumi_status_track,toritsugi_status_track,chigiri_legal_aid_clinic,musubi_recognition_resolver,kurashimori_escalation,moushibumi_opportunity_match}/`
 - `70-tools/scripts/audit/test_<actor>_registry_seed.py` (6 fail-closed suites)
 - Commits: `2ad240504` (iter-1/2, via concurrent omnibus) · `f7c520bac` (iter-3 long-tail) · this session-close (iter-4/5/6 + ADR + deps.toml)

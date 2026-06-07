@@ -91,7 +91,7 @@ Run 'etzhayyim kuni-umi <subcommand> --help' for per-command flags.
 SEE ALSO:
   ADR-2605201400                                       (6-phase flow)
   00-contracts/lexicons/com/etzhayyim/apps/etzhayyim/kuniUmi (input schemas)
-  20-actors/magatama/cells/{site_survey,deployment_planning,
+  40-engine/kotoba/crates/kotoba-kotodama/cells/{site_survey,deployment_planning,
     construction_orchestration,commissioning,audit_witness,decommission}
 `)
 }

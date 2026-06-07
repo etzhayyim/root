@@ -3,7 +3,7 @@
 
 Exposes four MCP tools for AI agents:
   legalCorpus.document.search  — semantic vector search via LangServer worker
-  legalCorpus.document.list    — metadata list/filter from RisingWave
+  legalCorpus.document.list    — metadata list/filter from Kotoba/Datomic
   legalCorpus.corpus.status    — aggregate stats + embedding coverage
   legalCorpus.source.list      — ingest source registry + watermarks
 

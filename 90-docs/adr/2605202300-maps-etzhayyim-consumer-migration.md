@@ -31,7 +31,7 @@ superseded_by: []
 
 # Context
 
-`maps.etzhayyim.com` is the largest RisingWave-dependent vendor app (`vertex_spatial` + 12 `vertex_maps_*` tables + 6 streaming MV + Hyperdrive direct write + GraphAr traversal). Applying the 3-axis split rule (ADR-2605172400):
+`maps.etzhayyim.com` is the largest Kotoba/Datomic-dependent vendor app (`vertex_spatial` + 12 `vertex_maps_*` tables + 6 streaming MV + Hyperdrive direct write + GraphAr traversal). Applying the 3-axis split rule (ADR-2605172400):
 
 | Axis | Verdict | Reason |
 |------|---------|--------|

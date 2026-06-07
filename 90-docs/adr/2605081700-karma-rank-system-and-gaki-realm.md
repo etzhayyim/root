@@ -152,7 +152,7 @@ Rank computation must be **non-gameable**. Counter-measures:
 ## Negative
 
 - Rank computation cost: streaming MV over potentially millions
-  of edges. Phase K8 must validate this scales (RisingWave +
+  of edges. Phase K8 must validate this scales (Kotoba/Datomic +
   bounded GROUP BY).
 - Subjective tier judgments: "what counts as a floor violation"
   has cultural variance (e.g. duress, mistake-of-fact). Protocol

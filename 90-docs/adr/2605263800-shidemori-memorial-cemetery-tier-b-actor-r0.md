@@ -216,7 +216,7 @@ cemetery substrate actor at `20-actors/shidemori/`, with DID
 - Directive stored encrypted per ADR-2605181100; revealed only at
   member-death event by chigiri.inheritance cell.
 
-## §3. Cells (6 Pregel cells under `20-actors/magatama/cells/shidemori_*/`)
+## §3. Cells (6 Pregel cells under `40-engine/kotoba/crates/kotoba-kotodama/cells/shidemori_*/`)
 
 All R0 path-reserved; import-time `RuntimeError("shidemori R0 scaffold: activate via Council ADR + R1 ratification + ≥3 guardian baseline attestations + ≥1 cemetery Land Registry waqf-attested entry")` at W1 creation.
 
@@ -246,7 +246,7 @@ attestations + ≥1 cemetery Land Registry waqf-attested entry.
 
 | Gate | Description |
 |---|---|
-| **G1** | Every memorial document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
+| **G1** | Every memorial document MUST pass `kotodama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
 | **G2** | Every record MUST emit `com.etzhayyim.shidemori.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **Charter §1.15 non-eschatological** — NO apocalyptic / millennial / specific-heaven-hell-mapping afterlife claims; honors deceased without imposing afterlife doctrine; `memorialNftAttestation.afterlifeDoctrineImposed` const false structural (extends kataribe G4 pattern to memorial domain). |
 | **G4** | **Cross-doctrinal Wellbecoming priority** — Christian + Buddhist (49日 / 中陰) + Shinto (鎮魂) + nondenominational + secular memorial preferences all accommodated (musubi G9+N12 + kataribe G6 + kokoro G12 pattern shared, now 4-actor maturity in memorial domain). |

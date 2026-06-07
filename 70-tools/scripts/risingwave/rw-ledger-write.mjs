@@ -37,9 +37,9 @@ function required(args, key) {
 }
 
 const args = parseArgs(process.argv.slice(2));
-const databaseUrl = process.env.DATABASE_URL || process.env.RW_DSN;
+const databaseUrl = process.env.DATABASE_URL || process.env.KOTOBA_URL;
 if (!databaseUrl) {
-  console.error("[rw-ledger] DATABASE_URL or RW_DSN is required");
+  console.error("[rw-ledger] DATABASE_URL or KOTOBA_URL is required");
   process.exit(2);
 }
 

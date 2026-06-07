@@ -34,7 +34,7 @@ remains. Useful for posterity / onboarding / honest retro.
 | 2605191135 | Ameno as Tier-2 daemon residency (tab-resident) | proposed |
 | 2605191206 | Long-term encrypted memory vault — IndexedDB + AES-GCM + MiniLM index | proposed |
 | 2605191229 | Ameno headless daemon Path A — Bun + Hono + LangGraph + Ollama | proposed |
-| 2605191257 | Ameno headless daemon Path B — pymagatama Python port | proposed |
+| 2605191257 | Ameno headless daemon Path B — kotodama Python port | proposed |
 | 2605191346 | etzhayyim is Vultr-free — Murakumo Mac-mini control plane | proposed |
 | 2605191407 | Ameno browser viewer mode — svelte appview as thin client over daemon SSE | proposed |
 | 2605191524 | Ameno multi-tab swarm via BroadcastChannel | proposed |
@@ -90,7 +90,7 @@ included here for narrative completeness.)
     │   └── ...
     └── com.etzhayyim.ameno-daemon.plist
 
-20-actors/magatama/py/src/pymagatama/projects/ameno/  ← Path B (Python, port 12481)
+40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/projects/ameno/  ← Path B (Python, port 12481)
 ├── pregel.py                     ← StateGraph + MstCheckpointSaver auto-attach
 ├── server.py                     ← FastAPI + SSE + auth middleware
 ├── did_auth.py

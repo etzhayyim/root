@@ -549,28 +549,28 @@ def _deps_mv_name(stmt: str) -> str:
 
 @deps.command("mv")
 @click.option("--apply", "apply_", is_flag=True, default=False,
-              help="apply DDL to RisingWave (requires etzhayyim Go CLI)")
+              help="apply DDL to Kotoba/Datomic (requires etzhayyim Go CLI)")
 @click.option("--format", "fmt", default="sql", type=click.Choice(["sql", "text"]),
               show_default=True)
 def deps_mv(apply_: bool, fmt: str) -> None:
-    """Generate RisingWave MVs for deps live read models from vertex_/edge_ tables.
+    """Generate Kotoba/Datomic MVs for deps live read models from vertex_/edge_ tables.
 
     Use --apply with the Go CLI: etzhayyim deps mv --apply
     """
     if apply_:
         raise click.ClickException(
-            "--apply requires a live RisingWave connection. Use: etzhayyim deps mv --apply"
+            "--apply requires a live Kotoba/Datomic connection. Use: etzhayyim deps mv --apply"
         )
     if fmt == "sql":
         click.echo("-- etzhayyim deps mv")
-        click.echo("-- Generated from RisingWave vertex_/edge_ tables. No JSON snapshot dependency.")
+        click.echo("-- Generated from Kotoba/Datomic vertex_/edge_ tables. No JSON snapshot dependency.")
         for stmt in _DEPS_MV_STATEMENTS:
             click.echo()
             click.echo(f"{stmt};")
     else:
         click.echo("deps_mv:")
         click.echo(f"  views: {len(_DEPS_MV_STATEMENTS)}")
-        click.echo("  generated_from: risingwave vertex_* / edge_* tables only")
+        click.echo("  generated_from: kotoba vertex_* / edge_* tables only")
         for stmt in _DEPS_MV_STATEMENTS:
             click.echo(f"  - {_deps_mv_name(stmt)}")
 
@@ -657,7 +657,7 @@ def deps_governance_wit(component_dir: str, fmt: str) -> None:
     comp = Path(component_dir).resolve()
     wit_file = comp / "wit" / "world.wit"
     app_ts = comp / "src" / "app.ts"
-    manifest = comp / "magatama.jsonld"
+    manifest = comp / "kotodama.jsonld"
 
     findings: list[str] = []
     world: dict = {"imports": [], "exports": [], "includes": []}
@@ -693,15 +693,15 @@ def deps_governance_wit(component_dir: str, fmt: str) -> None:
         try:
             mf = json.loads(manifest.read_text())
         except json.JSONDecodeError:
-            findings.append("magatama.jsonld is not valid JSON")
+            findings.append("kotodama.jsonld is not valid JSON")
 
     gov = mf.get("governance", {})
     raci = gov.get("raci", "")
     classification = gov.get("classification", "")
     if not raci:
-        findings.append("governance.raci missing in magatama.jsonld")
+        findings.append("governance.raci missing in kotodama.jsonld")
     if not classification:
-        findings.append("governance.classification missing in magatama.jsonld")
+        findings.append("governance.classification missing in kotodama.jsonld")
 
     wit_ok = wit_file.exists()
     app_ok = app_ts.exists()
@@ -980,7 +980,7 @@ def deps_export(base_url: str, out_dir: str, score_name: str, audit_name: str,
               show_default=True)
 @click.option("--timeout-sec", "timeout_sec", default=15, type=int, show_default=True)
 def deps_sql(filter_did: str, fmt: str, timeout_sec: int) -> None:
-    """DID-based SQL deps scoring from mv_deps_component_live (requires Go binary + RisingWave)."""
+    """DID-based SQL deps scoring from mv_deps_component_live (requires Go binary + Kotoba/Datomic)."""
     raise click.ClickException(
-        "deps sql requires direct RisingWave access (pgxpool). Use the Go binary: etzhayyim deps sql"
+        "deps sql requires direct Kotoba/Datomic access (pgxpool). Use the Go binary: etzhayyim deps sql"
     )

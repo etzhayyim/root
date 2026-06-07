@@ -9,7 +9,7 @@ last_verified: 2026-04-25
 authoritative_for:
   - etzhayyim PDS commit storage shape
   - prohibited use of @atproto/repo MST path
-  - ON CONFLICT / transaction restrictions on RisingWave writes
+  - ON CONFLICT / transaction restrictions on Kotoba/Datomic writes
 related:
   - adr-0014-self-hosted-did-plc
   - adr-0041-pds-commit-content-addressed-pk
@@ -23,7 +23,7 @@ superseded_by: []
 
 AT Protocol PDS reference implementation は MST (Merkle Search Tree) を用い、
 commit 単位で CAR file を生成し firehose で federation する。etzhayyim PDS は
-RisingWave を primary storage に採用しており (ADR-0048)、RisingWave は OLTP
+Kotoba/Datomic を primary storage に採用しており (ADR-0048)、Kotoba/Datomic は OLTP
 契約を提供しない (`ON CONFLICT` / write transaction / read-your-writes /
 UNIQUE 列制約 / `START TRANSACTION` write すべて非対応または degraded)。
 加えて plc.etzhayyim.com は self-hosted (ADR-0014) で Bluesky Relay は etzhayyim の
@@ -59,9 +59,9 @@ etzhayyim PDS は以下 2 表のみで commit を表現する:
 - `getCheckout` → `chainValid: false`
 - `listRepos` / `getLatestCommit` → record log 由来の latest seq
 
-## D4. RisingWave write contract for LLM-generated code
+## D4. Kotoba/Datomic write contract for LLM-generated code
 
-LLM が RisingWave 向け Kysely / 生 SQL を書く際の規約:
+LLM が Kotoba/Datomic 向け Kysely / 生 SQL を書く際の規約:
 
 - **`.onConflict()` / `ON CONFLICT` 禁止** — RW 仕様で同 PK 再 insert は
   implicit overwrite (PK upsert) になる
@@ -90,17 +90,17 @@ PDS Worker / app handler では引き続き禁止。
 
 # Alternatives Considered
 
-- **MST CAR 維持 + RisingWave OLTP shim**: shim 層 (Postgres frontnet) を
+- **MST CAR 維持 + Kotoba/Datomic OLTP shim**: shim 層 (Postgres frontnet) を
   挟む案だが、2 系統 storage の同期で eventual consistency 問題が顕在化。
   federation 需要 0 の現状ではコスト過多。
-- **RisingWave を捨てて Postgres に戻す**: graph MV / streaming pipeline
+- **Kotoba/Datomic を捨てて Postgres に戻す**: graph MV / streaming pipeline
   (ADR-0036 / 0044) の前提が崩壊。RW を primary に維持する方が η 高い。
 
 # References
 
-- `90-docs/260424-bsky-compat-risingwave-split.md`
+- `90-docs/260424-bsky-compat-kotoba-split.md`
 - ADR-0014 (self-hosted did:plc — federation 0 の根拠)
 - ADR-0041 (commit content-addressed PK)
 - ADR-2604241121 (repo commit stays on PDS)
-- ADR-0048 (RisingWave Vultr+B2 primary)
+- ADR-0048 (Kotoba/Datomic Vultr+B2 primary)
 - ADR-0085 (non-federable NSID firehose gate)

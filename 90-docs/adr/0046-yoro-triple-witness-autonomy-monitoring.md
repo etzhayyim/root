@@ -15,7 +15,7 @@ authoritative_for:
   - Fault class taxonomy (staleness / drift / loop / byzantine-disagree)
   - Action tier (alert / pause / rotate-key / rollback / escalate)
 related:
-  - 90-docs/adr/0034-agent-cron-goose-risingwave-direct.md
+  - 90-docs/adr/0034-agent-cron-goose-kotoba-direct.md
   - 90-docs/adr/0026-agent-only-reverse-identity-topology.md
   - 90-docs/adr/0036-worker-direct-hyperdrive-persistence.md
   - 90-docs/adr/0022-auth-topology-consolidation.md
@@ -43,7 +43,7 @@ superseded_by: []
 | 2-of-3 quorum vote schema + `vertex_yoro_monitor_vote` | 一般 PDS moderation (moderator.etzhayyim.com の責務) |
 | corrective action tier (alert/pause/rollback/rotate/escalate) | Byzantine consensus (n=3f+1 ではなく crash-fault tolerance + disagreement 検出) |
 | 監視 actor 自身の自律性 (per-did-kyumei-shinka-autonomy 準拠) | 他 T1 actor (mangaka/news/briefing…) の同種監視 (本 ADR のパターンを後から派生) |
-| RisingWave graph schema (1 vote + 1 attestation table) | OCEL 2.0 との event naming 合わせ (ADR-0025 と整合する方針のみ記載) |
+| Kotoba/Datomic graph schema (1 vote + 1 attestation table) | OCEL 2.0 との event naming 合わせ (ADR-0025 と整合する方針のみ記載) |
 
 # Executive Summary
 
@@ -92,7 +92,7 @@ superseded_by: []
                         (each attests other 2's heartbeat)
                                │
                                ▼
-              RisingWave (Hyperdrive direct, ADR-0036)
+              Kotoba/Datomic (Hyperdrive direct, ADR-0036)
               ┌─────────────────────────────────────────┐
               │ vertex_yoro_monitor_attestation         │
               │   per-monitor per-tick 観測記録         │
@@ -168,7 +168,7 @@ Monitor-L tick @ T:
 
 ## Vote Schema (2-of-3 Quorum)
 
-RisingWave P10v2 GraphAr convention (1 row per record, promoted columns, VARCHAR/BIGINT/DATE only — no JSONB、no TIMESTAMPTZ)。timestamp 列は ISO 8601 VARCHAR。JSON 列は VARCHAR (`*_json`) に stringify して格納。RLS 3 列 (`org_id` / `user_id` / `actor_id`) + `owner_did` / `created_date` / `sensitivity_ord` / `_seq` は promoted column convention で強制。
+Kotoba/Datomic P10v2 GraphAr convention (1 row per record, promoted columns, VARCHAR/BIGINT/DATE only — no JSONB、no TIMESTAMPTZ)。timestamp 列は ISO 8601 VARCHAR。JSON 列は VARCHAR (`*_json`) に stringify して格納。RLS 3 列 (`org_id` / `user_id` / `actor_id`) + `owner_did` / `created_date` / `sensitivity_ord` / `_seq` は promoted column convention で強制。
 
 ```sql
 -- Migration: 30-graph/graph-schema/migrations/20260422000000_vertex_yoro_monitor_tables.ts
@@ -415,7 +415,7 @@ Proposed 状態の段階で、前提条件と ADR 内の主張を実測で verif
 プローブで判明した訂正点:
 
 1. **`com.etzhayyim.kagami.graph.query` は archived** (`Gone` 410 レスポンス、"Use Kysely directly via createKyselyDb(env.HYPERDRIVE)")。ADR 内で CF Worker 外部からの cross-attestation 検証コマンドとして引用していたが、**CF Worker 内 Hyperdrive 直接 + CLI は Keychain `etzhayyim.rw ROOT_URL` 経由 psql** に差し替えた (§Verification 実行例を修正済)。Monitor-B 自体は元から Hyperdrive 直接 (ADR-0036) で書込・読込するため、**設計本体には影響なし**。
-2. **RisingWave :4566 への直接 psql は ad-hoc 時 connection closed あり**。Hyperdrive binding 経由 (CF Worker / Cloudflared LAN 内) は安定。Monitor 実装では直接 psql 経路に依存しない (CLI 検証のみ使用)。
+2. **Kotoba/Datomic :4566 への直接 psql は ad-hoc 時 connection closed あり**。Hyperdrive binding 経由 (CF Worker / Cloudflared LAN 内) は安定。Monitor 実装では直接 psql 経路に依存しない (CLI 検証のみ使用)。
 
 ### 未検証 (実装後に必要)
 

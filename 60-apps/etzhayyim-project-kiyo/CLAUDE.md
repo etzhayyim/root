@@ -17,7 +17,7 @@
 60-apps/etzhayyim-project-kiyo/
 └── wasm/etzhayyim-wasm-kiyo-k1y04rc4/
     ├── src/app.ts           ← thin CF Worker (L3): XRPC facade only
-    ├── magatama.jsonld
+    ├── kotodama.jsonld
     └── wrangler.jsonc
 
 50-infra/k8s/kiyo-worker/

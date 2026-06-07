@@ -14,14 +14,14 @@ authoritative_for:
   - pod-side-langserver-runtime
   - k8s-runtime-scope
   - python-worker-pod-fastapi-granian-surface
-  - risingwave-udf-business-logic-scope
+  - kotoba-udf-business-logic-scope
   - cf-worker-sse-pass-through
   - generic-pds-dispatch-k8s-internal-routing
   - maps-worker-thin-edge-boundary
 related:
   - adr-2604262000-edge-thin-app-runtime-k8s-zeebe-registry
   - adr-0056-bpmn-as-actor
-  - adr-0044-risingwave-udf-language-strategy
+  - adr-0044-kotoba-udf-language-strategy
   - adr-2604261000-mcp-registry-via-kysely-schema
   - adr-2604251801-cron-three-layer-consolidation
   - adr-2604251830-shannon-optimal-layered-architecture
@@ -47,7 +47,7 @@ amended_by:
 1. Cloudflare に残すものを **SvelteKit edge proxy** に限定できるか?
 2. business logic / execution / DB I/O / LLM call を **K8s pod 側のみ**に閉じられるか?
 3. Pod 側の公開面を **AgentGateway MCP** と **LangServer (JSON-RPC/LSP style)** に統一できるか?
-4. RisingWave UDF はどの種の stateless logic に限るか?
+4. Kotoba/Datomic UDF はどの種の stateless logic に限るか?
 
 これらを一本の active ADR として確定する。
 
@@ -71,7 +71,7 @@ runtime placement の判断軸にしない。
 - Pod 側の actor 実装は **LangServer** (JSON-RPC 2.0 / LSP-style resident
   server) を標準形とする。LangGraph / Pregel / LangChain / domain Python
   handler は LangServer の method handler または internal runtime として扱う。
-- CF Worker から RisingWave / Hyperdrive / D1 domain table へ直接接続しない。
+- CF Worker から Kotoba/Datomic / Hyperdrive / D1 domain table へ直接接続しない。
   ADR-2605111200 の edge-only/no-RW-connection rule をこの ADR に取り込む。
 
 古い Zeebe/pyzeebe/SpiffWorkflow/T1/T2/T3 記述は migration source topology
@@ -84,7 +84,7 @@ audit documentation として残してよいが、実行 runtime は LangGraph /
 LangChain に移す。
 
 - New runtime target: LangServer method → LangGraph StateGraph / Pregel graph /
-  LangChain runnable / plain `pymagatama` async handler.
+  LangChain runnable / plain `kotodama` async handler.
 - Zeebe, pyzeebe, SpiffWorkflow workers are deprecated execution paths.
 - Existing worker files may remain only as migration source until their task
   handlers are wrapped by LangGraph/Pregel/LangChain.
@@ -100,7 +100,7 @@ business logic stays off the edge. The Zeebe-specific runtime below is amended:
 - Main business runtime: ADR-2605080600 LangGraph Server + Granian.
 - BPMN-native flows are compiled or wrapped into LangGraph/Pregel/LangChain;
   SpiffWorkflow is not a target runtime.
-- RisingWave UDF remains for row-wise/stateless SQL-adjacent logic.
+- Kotoba/Datomic UDF remains for row-wise/stateless SQL-adjacent logic.
 - Zeebe/pyzeebe/SpiffWorkflow are not targets for new work; references below
   describe migration source topology.
 
@@ -139,14 +139,14 @@ Browser / MCP client / AT Protocol client
 │                                              │
 │  cxo/*, actor/*, tool/* methods              │
 │  LangGraph / Pregel / LangChain runtime      │
-│  pymagatama domain modules                   │
+│  kotodama domain modules                   │
 │  generic.db.* / generic.llm.* / generic.http │
 │  audit emit / checkpoint / status stream     │
 └──────────────┬───────────────────────────────┘
                |
                v
 ┌──────────────────────────────────────────────┐
-│  RisingWave (L4 Graph DB + UDF engine)       │
+│  Kotoba/Datomic (L4 Graph DB + UDF engine)       │
 │  • SQL UDF: rule / regex / aggregate         │
 │  • Python External UDF: LLM / IO (io_threads)│
 │  • Rust Embedded UDF: hash / protobuf        │
@@ -163,7 +163,7 @@ Runtime placement は tier ではなく **edge proxy / pod execution** の二択
 | Placement | 許可される責務 | 禁止 |
 |---|---|---|
 | **Cloudflare SvelteKit edge proxy** | UI asset/SSR shell、auth/CORS、request shaping、MCP/XRPC facade、SSE pass-through、static/cacheable read-through | business rule、LLM/tool call、domain DB I/O、workflow state、actor-specific command implementation |
-| **K8s pod LangServer** | business logic、LLM/tool execution、RisingWave read/write、checkpoint、workflow/HITL、audit、stream generation | public unauthenticated exposure、Cloudflare binding 依存、edge-only cache mutation |
+| **K8s pod LangServer** | business logic、LLM/tool execution、Kotoba/Datomic read/write、checkpoint、workflow/HITL、audit、stream generation | public unauthenticated exposure、Cloudflare binding 依存、edge-only cache mutation |
 
 例外的に Cloudflare binding (Turnstile, Durable Object, KV/R2 object edge
 cache, OAuth callback glue など) が必要な場合でも、そこに business logic を置かない。
@@ -186,8 +186,8 @@ MCP tools/call or XRPC nsid
   → AgentGateway MCP
   → vertex_mcp_tool_def / vertex_actor_registry / policy gate
   → pod-local LangServer method
-  → LangGraph / Pregel / LangChain / pymagatama handler
-  → RisingWave write + audit + status stream
+  → LangGraph / Pregel / LangChain / kotodama handler
+  → Kotoba/Datomic write + audit + status stream
 ```
 
 新規 actor の追加手順:
@@ -196,7 +196,7 @@ MCP tools/call or XRPC nsid
 2. `vertex_actor_registry` に行 INSERT
 3. `vertex_mcp_tool_def` に行 INSERT (`sync-mcp-registry.py` で sync 可)
 4. LangServer method (`actor.<name>.<method>` or `tool.<name>`) を
-   `pymagatama` / LangGraph / Pregel / LangChain 側に実装
+   `kotodama` / LangGraph / Pregel / LangChain 側に実装
 5. 必要なら `vertex_bpmn_process_def` / `vertex_bpmn_lexicon_binding` を
    process contract / audit documentation として追加するが、実行は
    LangServer method に bind する
@@ -217,15 +217,15 @@ Zeebe/pyzeebe/SpiffWorkflow worker は historical migration source であり、
 - JSON-RPC 2.0 / LSP-style initialize, capability, request, notification,
   cancellation, streaming partial result
 - AgentGateway MCP からの pod-local method dispatch
-- `pymagatama` / LangGraph / Pregel / LangChain module を import して domain logic 実行
-- RisingWave への domain read/write (`asyncpg` / psycopg3 / SQLAlchemy Core)
+- `kotodama` / LangGraph / Pregel / LangChain module を import して domain logic 実行
+- Kotoba/Datomic への domain read/write (`asyncpg` / psycopg3 / SQLAlchemy Core)
 - LLM/tool call と external API fetch
 - OCEL audit emit (`generic.audit.emit`)
 - Shinka heartbeat (`com.etzhayyim.shinka.tick`)
 
 ### FastAPI + Granian / LangServer pod surface
 
-Python worker pod は `pymagatama` image 内で **FastAPI + Granian** を標準
+Python worker pod は `kotodama` image 内で **FastAPI + Granian** を標準
 ASGI surface として持ち、その中に LangServer endpoint を置く。
 
 用途:
@@ -235,19 +235,19 @@ ASGI surface として持ち、その中に LangServer endpoint を置く。
 - AgentGateway MCP からの in-cluster control / async job adapter endpoint
 - RunPod / browser / batch worker からの pod-local callback receiver
 - long-running task の progress/read model bridge。ただし durable state は
-  RisingWave / LangGraph checkpoint / B2 に書く
+  Kotoba/Datomic / LangGraph checkpoint / B2 に書く
 
 起動形:
 
 ```text
 python worker pod:
-  - process A: granian --interface asgi pymagatama.<service>.lsp_server:app
+  - process A: granian --interface asgi kotodama.<service>.lsp_server:app
   - optional process B: background scheduler / LangGraph worker
 ```
 
 ルール:
 
-- FastAPI app は `pymagatama` importable module として実装する。
+- FastAPI app は `kotodama` importable module として実装する。
 - Granian は production server。`uvicorn --reload` は local dev のみ。
 - HTTP endpoint は namespace / ClusterIP / private tunnel 内に閉じる。
 - public XRPC / MCP / browser facade は Cloudflare SvelteKit edge proxy が持つ。
@@ -263,11 +263,11 @@ python worker pod:
 
 ---
 
-## RisingWave UDF の business logic 配置
+## Kotoba/Datomic UDF の business logic 配置
 
 ADR-0044 の language strategy を business logic 分類と対応させる:
 
-| Logic 種別 | RisingWave UDF 種別 | 例 |
+| Logic 種別 | Kotoba/Datomic UDF 種別 | 例 |
 |---|---|---|
 | 分類ルール / regex / keyword match | **SQL UDF** (plan-time inline) | yabai phishing classifier |
 | COUNT / SUM / GROUP BY aggregation | **SQL UDF** or streaming MV | mv_actor_social_stats |
@@ -277,9 +277,9 @@ ADR-0044 の language strategy を business logic 分類と対応させる:
 
 **CRITICAL**: Python External UDF の `io_threads` 省略時は serial (`io_threads=1`) になり 10× 遅い。IO-bound UDF は必ず `io_threads=50..200` を明示する (ADR-0044 §D3)。
 
-Pod-side LangServer と RisingWave UDF の使い分け:
+Pod-side LangServer と Kotoba/Datomic UDF の使い分け:
 
-- **UDF**: RisingWave MV の SELECT 時に同期実行。行単位 transform / classify。状態なし。
+- **UDF**: Kotoba/Datomic MV の SELECT 時に同期実行。行単位 transform / classify。状態なし。
 - **LangServer**: 複数ステップ / retry / pause / LLM multi-turn / 外部 API cursor が必要な処理。状態あり。
 
 ---
@@ -304,10 +304,10 @@ Pod-side LangServer と RisingWave UDF の使い分け:
 | 禁止 | 理由 |
 |---|---|
 | LLM call (direct `fetch` to murakumo / RunPod) | pod-side LangServer の責務 |
-| Kysely domain DB read/write (`vertex_...`) | pod-side LangServer / RisingWave UDF の責務 |
+| Kysely domain DB read/write (`vertex_...`) | pod-side LangServer / Kotoba/Datomic UDF の責務 |
 | BPMN / workflow engine direct call | AgentGateway / LangServer internal routing の責務 |
 | per-actor cron (`triggers.crons`) | K8s CronJob → AgentGateway/LangServer run に移行 |
-| Actor-specific business rule コード | `pymagatama` / LangGraph / Pregel / LangChain module の責務 |
+| Actor-specific business rule コード | `kotodama` / LangGraph / Pregel / LangChain module の責務 |
 | 長時間処理の同期 JSON 待ち | SSE / async workflow の責務 |
 | SSE response の `resp.text()` / `resp.json()` buffering | heartbeat が潰れ Cloudflare/client timeout を再発させる |
 
@@ -326,7 +326,7 @@ CF Worker 全体の前提を次の通り更新する。
    その byte stream を維持するだけ。
 4. **Business logic は stream の中で実行しない。** CF Worker は token 生成、
    RAG retrieval、LangGraph node、workflow job polling を持たない。すべて
-   AgentGateway MCP + pod-side LangServer + RisingWave に置く。
+   AgentGateway MCP + pod-side LangServer + Kotoba/Datomic に置く。
 5. **SSE は per-actor Worker 作成理由ではない。** 単方向 server-push は
    AgentGateway / LangServer 経由で実現する。固定互換 URL や CF binding が必要な
    場合でも、Worker は adapter/proxy に限定する。
@@ -349,7 +349,7 @@ Dream Island questions, or explicit `/knowledge ...`, to
 `llm.etzhayyim.com/xrpc/com.etzhayyim.apps.llm.answerWithKnowledge?stream=1` using browser
 `fetch()` stream parsing. The public `llm.etzhayyim.com` hostname is served by the
 RunPod gateway Worker, so that Worker exposes only this knowledge XRPC as a
-thin CORS/SSE proxy and calls the `magatama-llm8cf4ai` Worker by service binding.
+thin CORS/SSE proxy and calls the `kotodama-llm8cf4ai` Worker by service binding.
 The actor Worker then reaches the PDS/BPMN dispatcher path by service binding.
 This avoided intra-zone HTTPS subrequest 522/recursion issues and kept all
 knowledge retrieval and LangGraph execution off Cloudflare. The 2026-05-13
@@ -369,7 +369,7 @@ Worker は tier ではなく、残す理由で分類する。
 | PDS / AT Protocol federation boundary | Keep as protocol edge adapter | Federation/public protocol boundary。ただし domain business logic は pod へ出す |
 | OAuth / auth callback / WebAuthn adapter | Keep as auth edge adapter | Browser/security ceremony と CF binding が必要。権限判定後の業務処理は pod |
 | Static/cacheable read-through adapter | Keep only if edge cache materially helps | tile/static/object cache。canonical state mutation は pod |
-| `magatama-g0v*` / app-specific business Worker | Retire | AgentGateway MCP + LangServer method へ移す |
+| `kotodama-g0v*` / app-specific business Worker | Retire | AgentGateway MCP + LangServer method へ移す |
 | `bpmn-dispatcher` / legacy dispatcher | Fold or demote | AgentGateway MCP の routing function に吸収し、Zeebe-specific gRPC front を廃止 |
 
 ---
@@ -379,7 +379,7 @@ Worker は tier ではなく、残す理由で分類する。
 ### 既存 business Worker の退役手順
 
 1. `pnpm --dir 30-graph/graph-schema verify:<actor>` が green になるまで
-   LangServer method + `pymagatama` / LangGraph / Pregel / LangChain 実装を追加
+   LangServer method + `kotodama` / LangGraph / Pregel / LangChain 実装を追加
 2. `vertex_actor_registry` + `vertex_mcp_tool_def` 行を確認
 3. 退役前チェック: `vertex_page`, `vertex_screenshot`, `vertex_gov_source` 等のドメイン必須行が存在
 4. Cloudflare route を SvelteKit edge proxy → AgentGateway MCP に向ける
@@ -397,7 +397,7 @@ AgentGateway MCP tool/method を登録
     ↓
 pod-side LangServer method を実装
     ↓
-必要なら LangGraph graph / Pregel graph / LangChain runnable / pymagatama module を追加
+必要なら LangGraph graph / Pregel graph / LangChain runnable / kotodama module を追加
     ↓
 K8s image rebuild + helm rollout
     ↓
@@ -412,8 +412,8 @@ Cloudflare は既存 SvelteKit edge proxy の route 設定だけで公開
 
 - CF Worker 数が app 数に比例しない (300→500+ app でも Worker は bounded)
 - Business logic は pod-side LangServer / LangGraph / Pregel / LangChain で可視化 + retry + incident 管理
-- RisingWave UDF により edge/Python を経由しない行単位 classify が可能
-- Python worker は `pymagatama` として pip install 可能なモジュール群に収束
+- Kotoba/Datomic UDF により edge/Python を経由しない行単位 classify が可能
+- Python worker は `kotodama` として pip install 可能なモジュール群に収束
 - SvelteKit UI は main edge proxy だけで全 app に serve 可能
 - AgentGateway MCP が external protocol と pod execution の唯一の membrane になる
 
@@ -430,7 +430,7 @@ Cloudflare は既存 SvelteKit edge proxy の route 設定だけで公開
 
 - `90-docs/adr/2604262000-edge-thin-app-runtime-k8s-zeebe-registry.md` (superseded)
 - `90-docs/adr/0056-bpmn-as-actor.md` — historical BPMN actor source; new execution path uses LangGraph/Pregel/LangChain
-- `90-docs/adr/0044-risingwave-udf-language-strategy.md` — UDF language selection
+- `90-docs/adr/0044-kotoba-udf-language-strategy.md` — UDF language selection
 - `90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md` — vertex_mcp_tool_def SSoT
 - `90-docs/adr/2604251801-cron-three-layer-consolidation.md` — cron consolidation, now K8s CronJob → LangServer run
 - `90-docs/adr/2604251830-shannon-optimal-layered-architecture.md` — L1–L8 layer taxonomy
@@ -451,11 +451,11 @@ obsolete for runtime placement after the 2026-05-13 amendment.
 |---|---|---|---|
 | Historical T3 — infra | 27 | Platform Workers (PDS, routing-gateway, actor-resolver, auth, plc, murakumo, appview, signal, relay, …) | Re-review as protocol edge adapters; move any business logic to pod |
 | Historical T3 — app complex | 51 | `src/app.ts` > 800 lines OR has D1/KV binding (maps, webpage, media-gamers, public-malak, states, …) | Prune to SvelteKit edge proxy + AgentGateway |
-| Historical T2 candidates | 190 | 200–800 lines + HYPERDRIVE; business logic relocatable to pymagatama + BPMN | Migrate to pod-side LangServer |
+| Historical T2 candidates | 190 | 200–800 lines + HYPERDRIVE; business logic relocatable to kotodama + BPMN | Migrate to pod-side LangServer |
 | Historical T1 candidates | 53 | < 200 lines or no `src/app.ts`; thin stubs or simple data adapters | Collapse to registry + AgentGateway MCP |
 | **Total** | **321** | | |
 
-Migration path: extract domain logic to `pymagatama` / LangGraph / Pregel / LangChain
+Migration path: extract domain logic to `kotodama` / LangGraph / Pregel / LangChain
 module → expose LangServer method → register `vertex_mcp_tool_def` →
 route through AgentGateway MCP → delete per-actor CF Worker.
 
@@ -511,8 +511,8 @@ Helm template は `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` �
 
 ### 実装ファイル
 
-- `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py` — `_pds_dispatch_c_path`, `_pds_dispatch_internal_xrpc`, `_pds_dispatch_legacy`, `task_generic_pds_dispatch`
-- `20-actors/magatama/py/src/pymagatama/primitives/yoro_social.py` — `build_repo_record`, `insert_social_post_record` (C-path pattern source)
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py` — `_pds_dispatch_c_path`, `_pds_dispatch_internal_xrpc`, `_pds_dispatch_legacy`, `task_generic_pds_dispatch`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/primitives/yoro_social.py` — `build_repo_record`, `insert_social_post_record` (C-path pattern source)
 - `50-infra/vultr/mitama-udf-pool/values.yaml` — `zeebeWorker.bpmnDispatcher.*` section 追加
 - `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` — env block 追加
 
@@ -577,11 +577,11 @@ business logic:
 These exceptions do not restore Worker-owned business state. List/register/
 upsert/query/record/history/dashboard logic for maps must now run through
 AgentGateway MCP and pod-side LangServer methods. Existing BPMN processes and
-`pymagatama.ingest.maps_collection` pyzeebe tasks are migration inputs.
+`kotodama.ingest.maps_collection` pyzeebe tasks are migration inputs.
 
 ### Verification
 
-- `PYTHONPATH=20-actors/magatama/py/src python3 -m py_compile ...`
+- `PYTHONPATH=40-engine/kotoba/crates/kotoba-kotodama/py/src python3 -m py_compile ...`
 - `xmllint --noout` on all new maps BPMNs.
 - `pnpm lint:bpmn:structural` -> 430 covered BPMN files validated.
 - `pnpm lint:bpmn:worker-tasks` -> 430/430 covered BPMN files have worker task coverage.
@@ -593,8 +593,8 @@ AgentGateway MCP and pod-side LangServer methods. Existing BPMN processes and
 ### Implementation references
 
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/{transport-extra,twin-sensor-sim,spatiotemporal,registry-media}/`
-- `20-actors/magatama/py/src/pymagatama/ingest/maps_collection.py`
-- `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/ingest/maps_collection.py`
+- `40-engine/kotoba/crates/kotoba-kotodama/py/src/kotodama/zeebe_worker_main.py`
 - `30-graph/graph-schema/migrations/20260430216400_seed_maps_collection_bpmn_actors.ts`
 - `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
 - `70-tools/config/bpmn-coverage-manifest.json`

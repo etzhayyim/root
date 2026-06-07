@@ -345,7 +345,7 @@ async def _ss3_encode_upload(state: CompositorState) -> dict[str, Any]:
                 content=mp4_bytes,
                 headers={
                     "content-type": "video/mp4",
-                    "x-magatama-verified": "true",
+                    "x-kotodama-verified": "true",
                     "x-etzhayyim-org-id": "anon",
                 },
             )
