@@ -27,10 +27,13 @@ __all__ = (
     "InvalidBic",
     "InvalidCurrency",
     "InvalidAmount",
+    "InvalidUetr",
     "validate_iban",
     "validate_bic",
     "validate_currency",
     "validate_amount",
+    "validate_uetr",
+    "is_uetr",
     "iban_check_digits",
     "ISO4217_ACTIVE",
 )
@@ -54,6 +57,10 @@ class InvalidCurrency(Iso20022ValidationError):
 
 class InvalidAmount(Iso20022ValidationError):
     """Amount violates ISO 20022 ActiveCurrencyAndAmount constraints."""
+
+
+class InvalidUetr(Iso20022ValidationError):
+    """UETR is not a lowercase UUIDv4 (CBPR+ requirement)."""
 
 
 # --------------------------------------------------------------------------
@@ -225,3 +232,27 @@ def validate_amount(value: Decimal | str, ccy: str) -> Decimal:
             f"total digits {len(digits)} > {_MAX_TOTAL_DIGITS} (ISO 20022)"
         )
     return dec
+
+
+# --------------------------------------------------------------------------
+# UETR — Unique End-to-End Transaction Reference (CBPR+ requires UUIDv4)
+# --------------------------------------------------------------------------
+
+# UUID version 4, lowercase: 8-4-4-4-12 hex with version nibble '4' and
+# variant nibble in {8,9,a,b}. CBPR+ mandates the UETR be a UUIDv4 and it
+# must remain unchanged across the entire payment chain.
+_UETR_RE = re.compile(
+    r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+)
+
+
+def is_uetr(uetr: str) -> bool:
+    """Return whether ``uetr`` is a lowercase UUIDv4 (CBPR+ UETR)."""
+    return bool(_UETR_RE.match(uetr))
+
+
+def validate_uetr(uetr: str) -> str:
+    """Validate a CBPR+ UETR (lowercase UUIDv4), returning it unchanged."""
+    if not is_uetr(uetr):
+        raise InvalidUetr(f"UETR must be a lowercase UUIDv4 (CBPR+): {uetr!r}")
+    return uetr

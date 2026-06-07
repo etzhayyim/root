@@ -93,6 +93,33 @@ envelope = build_business_message(bah, pacs008_xml)   # <Envelope><AppHdr/><Docu
 header, document_xml = parse_business_message(envelope)  # raises on MsgDefIdr mismatch
 ```
 
+### CBPR+ Usage-Guideline conformance (the rulebook over the grammar)
+
+The codec implements the *base ISO 20022* grammar; SWIFT **CBPR+** layers a
+Usage Guideline of extra constraints on top. `conformance.py` is the
+cleanroom implementation of those rules — a base-valid `pacs.008` can still
+be a non-conformant CBPR+ message, and this catches it before the wire:
+
+```python
+from kotoba_iso20022 import check_cbpr_pacs008, assert_cbpr_pacs008
+issues = check_cbpr_pacs008(msg)   # list[ConformanceIssue(rule_id, severity, location, message)]
+assert_cbpr_pacs008(msg)           # raises CbprConformanceError on any error-level issue
+```
+
+| Rule | Constraint |
+|---|---|
+| `CBPR-001` | `GrpHdr/NbOfTxs` equals the actual `CdtTrfTxInf` count |
+| `CBPR-002/003` | UETR mandatory and a lowercase **UUIDv4** |
+| `CBPR-004` | `IntrBkSttlmAmt` present with a valid ISO 4217 amount |
+| `CBPR-005` | `ChrgBr` ∈ {DEBT, CRED, SHAR} (SLEV is SEPA, not CBPR+) |
+| `CBPR-006/007` | `DbtrAgt`/`CdtrAgt` need a valid BICFI; Name not allowed alongside BICFI |
+| `CBPR-008` | `CtrlSum`, if present, equals the sum of settlement amounts |
+| `CBPR-009` | Debtor and Creditor names mandatory |
+| `CBPR-010/011` | BAH `MsgDefIdr` matches; `BizSvc` is a `swift.cbprplus.*` service |
+
+Non-adjudicating and deterministic — it reports findings, it does not move
+money, sign, or transact (kawase G2/G13 stay with the gated ingress cell).
+
 ### Reconciliation (camt → ingress loop-close)
 
 A `camt.053`/`camt.054` entry that carries an `EndToEndId` maps to the
@@ -148,11 +175,12 @@ same message is idempotent and a later `pacs.002` status lands on the
 kotoba_iso20022/
 ├── validate.py   # ISO 13616 IBAN / ISO 9362 BIC / ISO 4217 ccy / amount
 ├── model.py      # frozen-dataclass domain model (GrpHdr / CdtTrfTxInf / …)
-├── codec.py      # build + parse XML for pain.001/002 / pacs.008/002 / camt.053/054
-├── bah.py        # head.001 BAH + CBPR+ business-message envelope (MsgDefIdr match)
-├── datoms.py     # message → kotoba EAVT Datom ingress + reconciliation mapping
-└── __init__.py   # public surface
-tests/            # 56 tests (validators + round-trip + datom mapping + camt + BAH/CBPR+)
+├── codec.py        # build + parse XML for pain.001/002 / pacs.008/002 / camt.053/054
+├── bah.py          # head.001 BAH + CBPR+ business-message envelope (MsgDefIdr match)
+├── conformance.py  # CBPR+ Usage-Guideline rule checks over the parsed model
+├── datoms.py       # message → kotoba EAVT Datom ingress + reconciliation mapping
+└── __init__.py     # public surface
+tests/              # 74 tests (validators + round-trip + datoms + camt + BAH + CBPR+ rules)
 ```
 
 ## Tests

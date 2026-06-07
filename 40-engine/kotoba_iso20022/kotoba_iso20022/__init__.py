@@ -60,16 +60,25 @@ from .codec import (
     parse_pain002,
     urn_for,
 )
+from .conformance import (
+    CbprConformanceError,
+    ConformanceIssue,
+    assert_cbpr_pacs008,
+    check_cbpr_bah,
+    check_cbpr_pacs008,
+)
 from .datoms import NS, Datom, to_datoms
 from .validate import (
     InvalidAmount,
     InvalidBic,
     InvalidCurrency,
     InvalidIban,
+    InvalidUetr,
     validate_amount,
     validate_bic,
     validate_currency,
     validate_iban,
+    validate_uetr,
 )
 
 __all__ = (
@@ -103,10 +112,18 @@ __all__ = (
     "validate_bic",
     "validate_currency",
     "validate_amount",
+    "validate_uetr",
     "InvalidIban",
     "InvalidBic",
     "InvalidCurrency",
     "InvalidAmount",
+    "InvalidUetr",
+    # CBPR+ conformance
+    "check_cbpr_pacs008",
+    "check_cbpr_bah",
+    "assert_cbpr_pacs008",
+    "ConformanceIssue",
+    "CbprConformanceError",
 )
 
 __version__ = "0.1.0"
